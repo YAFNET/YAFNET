@@ -4,7 +4,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Attachment') 
 create table [yaf_Attachment](
 	[AttachmentID]	[int] identity not null,
 	[MessageID]	[int] not null,
-	[FileName]	[varchar](50) not null,
+	[FileName]	[varchar](250) not null,
 	[Bytes]		[int] not null,
 	[FileID]	[int] null
 )

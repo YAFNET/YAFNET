@@ -429,13 +429,14 @@ namespace yaf
 		#endregion
 
 		#region yaf_Attachment
-		static public DataTable attachment_list(object messageID,object attachmentID) 
+		static public DataTable attachment_list(object messageID,object attachmentID,object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@MessageID",messageID);
 				cmd.Parameters.Add("@AttachmentID",attachmentID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				return GetData(cmd);
 			}
 		}

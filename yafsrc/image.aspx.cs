@@ -118,7 +118,7 @@ namespace yaf
 			else if(Request.QueryString["a"]!=null) 
 			{
 				/// AttachmentID
-				using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"])) 
+				using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{

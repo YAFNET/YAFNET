@@ -510,39 +510,6 @@ create procedure yaf_attachment_save(@MessageID int,@FileName varchar(50),@Bytes
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_attachment_list
-GO
-
-create procedure yaf_attachment_list(@MessageID int=null,@AttachmentID int=null) as begin
-	if @MessageID is not null
-		select * from yaf_Attachment where MessageID=@MessageID
-	else if @AttachmentID is not null
-		select * from yaf_Attachment where AttachmentID=@AttachmentID
-	else
-		select 
-			a.*,
-			Posted		= b.Posted,
-			ForumID		= d.ForumID,
-			ForumName	= d.Name,
-			TopicID		= c.TopicID,
-			TopicName	= c.Topic
-		from 
-			yaf_Attachment a,
-			yaf_Message b,
-			yaf_Topic c,
-			yaf_Forum d
-		where
-			b.MessageID = a.MessageID and
-			c.TopicID = b.TopicID and
-			d.ForumID = c.ForumID
-		order by
-			d.Name,
-			c.Topic,
-			b.Posted
-end
-go
-
 if exists (select * from sysobjects where id = object_id(N'yaf_attachment_download') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_attachment_download
 GO

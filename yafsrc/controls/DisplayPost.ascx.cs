@@ -227,7 +227,7 @@ namespace yaf.controls
 			{
 				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
 				string stats = ForumPage.GetText("ATTACHMENTINFO");
-				using(DataTable dt = DB.attachment_list(row["MessageID"],null)) 
+				using(DataTable dt = DB.attachment_list(row["MessageID"],null,null)) 
 				{
 					foreach(DataRow dr in dt.Rows) 
 					{

@@ -33,7 +33,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(null,null);
+			List.DataSource = DB.attachment_list(null,null,PageBoardID);
 			DataBind();
 		}
 

@@ -67,7 +67,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(Request.QueryString["m"],null);
+			List.DataSource = DB.attachment_list(Request.QueryString["m"],null,null);
 			DataBind();
 		}
 
