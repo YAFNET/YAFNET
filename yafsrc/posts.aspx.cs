@@ -214,7 +214,7 @@ namespace yaf
 				PagedDataSource pds = new PagedDataSource();
 				pds.AllowPaging = true;
 				pds.PageSize = 20;
-				using(DataTable dt = DB.post_list(PageTopicID,PageUserID,1)) 
+				using(DataTable dt = DB.post_list(PageTopicID,1)) 
 				{
 					pds.DataSource = dt.DefaultView;
 					if(Request.QueryString["m"] != null) 

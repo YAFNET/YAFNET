@@ -62,7 +62,7 @@ namespace yaf
 
 		private void BindData() 
 		{
-			topiclist.DataSource = DB.topic_list(PageForumID,PageUserID,-1,null);
+			topiclist.DataSource = DB.topic_list(PageForumID,-1,null);
 			DataBind();
 		}
 

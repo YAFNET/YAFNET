@@ -614,13 +614,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_Message
-		static public DataTable post_list(object topicID,object userID,object updateViewCount) 
+		static public DataTable post_list(object topicID,object updateViewCount) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_post_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@TopicID",topicID);
-				cmd.Parameters.Add("@UserID",userID);
 				cmd.Parameters.Add("@UpdateViewCount",updateViewCount);
 				return GetData(cmd);
 			}
@@ -1035,13 +1034,12 @@ namespace yaf
 				return (int)ExecuteScalar(cmd);
 			}
 		}
-		static public DataTable topic_list(object ForumID,object UserID,object Announcement,object Date) 
+		static public DataTable topic_list(object ForumID,object Announcement,object Date) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
-				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Announcement",Announcement);
 				cmd.Parameters.Add("@Date",Date);
 				return GetData(cmd);

@@ -241,56 +241,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_approve
-GO
-
-create procedure yaf_message_approve(@MessageID int) as begin
-	declare	@UserID		int
-	declare	@ForumID	int
-	declare	@TopicID	int
-	declare @Posted		datetime
-	declare	@UserName	varchar(50)
-
-	select 
-		@UserID = a.UserID,
-		@TopicID = a.TopicID,
-		@ForumID = b.ForumID,
-		@Posted = a.Posted,
-		@UserName = a.UserName
-	from
-		yaf_Message a,
-		yaf_Topic b
-	where
-		a.MessageID = @MessageID and
-		b.TopicID = a.TopicID
-
-	-- update yaf_Message
-	update yaf_Message set Approved = 1 where MessageID = @MessageID
-
-	-- update yaf_User
-	update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
-	exec yaf_user_upgrade @UserID
-
-	-- update yaf_Forum
-	update yaf_Forum set
-		LastPosted = getdate(),
-		LastTopicID = @TopicID,
-		LastMessageID = @MessageID,
-		LastUserID = @UserID,
-		LastUserName = @UserName
-	where ForumID = @ForumID
-
-	-- update yaf_Topic
-	update yaf_Topic set
-		LastPosted = getdate(),
-		LastMessageID = @MessageID,
-		LastUserID = @UserID,
-		LastUserName = @UserName
-	where TopicID = @TopicID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_list
 GO

@@ -57,7 +57,7 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
-				Posts.DataSource = DB.post_list(PageTopicID,PageUserID,1);
+				Posts.DataSource = DB.post_list(PageTopicID,1);
 				DataBind();
 			}
 		}

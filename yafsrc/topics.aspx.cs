@@ -231,11 +231,11 @@ namespace yaf
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 
-			Announcements.DataSource = DB.topic_list(PageForumID,PageUserID,true,null);
+			Announcements.DataSource = DB.topic_list(PageForumID,1,null);
 
 			if(ShowList.SelectedIndex==0) 
 			{
-				pds.DataSource = DB.topic_list(Request.QueryString["f"],PageUserID,false,null).DefaultView;
+				pds.DataSource = DB.topic_list(PageForumID,0,null).DefaultView;
 			} 
 			else 
 			{
@@ -261,7 +261,7 @@ namespace yaf
 						date -= TimeSpan.FromDays(365);
 						break;
 				}
-				pds.DataSource = DB.topic_list(Request.QueryString["f"],PageUserID,false,date).DefaultView;
+				pds.DataSource = DB.topic_list(PageForumID,0,date).DefaultView;
 			}
 
 			pds.PageSize = 15;
@@ -275,13 +275,26 @@ namespace yaf
 			DataBind();
 
 			if(pds.PageCount>1) {
-				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) {
+				PageLinks1.InnerHtml = String.Format("{0} pages:",pds.PageCount);
+				int iStart = pds.CurrentPageIndex - 10;
+				int iEnd = pds.CurrentPageIndex + 10;
+				if(iStart<0) iStart = 0;
+				if(iEnd>pds.PageCount) iEnd = pds.PageCount;
+				if(iStart>0) 
+				{
+					PageLinks1.InnerHtml += String.Format(" <a href=\"topics.aspx?f={0}\">First</a> ...",PageForumID);
+				}
+				for(int i=iStart;i<iEnd;i++) 
+				{
 					if(i==pds.CurrentPageIndex) {
 						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
 					} else {
 						PageLinks1.InnerHtml += String.Format(" <a href=\"topics.aspx?f={2}&p={1}\">{0}</a>",i+1,i,PageForumID);
 					}
+				}
+				if(iEnd<pds.PageCount) 
+				{
+					PageLinks1.InnerHtml += String.Format(" ... <a href=\"topics.aspx?f={0}&p={1}\">Last</a>",PageForumID,pds.PageCount-1);
 				}
 				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
 			} else {

@@ -23,7 +23,7 @@
 <asp:repeater id=UserList runat=server>
 <ItemTemplate>
 <tr>
-	<td class=post><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
+	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# "profile.aspx?u=" + DataBinder.Eval(Container.DataItem,"UserID") %>' Text='<%# DataBinder.Eval(Container.DataItem,"Name") %>' runat="server" /></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
 	<td class=post><%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>

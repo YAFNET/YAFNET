@@ -58,6 +58,9 @@ namespace yaf.classes
 
 					if (buff[0] == '\n')
 						break;
+
+					if(count>1000 && buff[0]!='\r')
+						break;
 				}
 				else
 					break;
@@ -288,7 +291,7 @@ namespace yaf.classes
 					if(pos1>0 && pos2>pos1) 
 					{
 						name = name.Substring(0,pos1-1).Trim();
-						if(name[0]=='"' && name[name.Length-1]=='"')
+						if(name.Length>2 && name[0]=='"' && name[name.Length-1]=='"')
 							name = name.Substring(1,name.Length-2);
 						return name;
 					}
@@ -381,7 +384,7 @@ namespace yaf.classes
 						int nLastMessageNo = (int)drForum["LastMessageNo"];
 						int nCurrentMessage = nLastMessageNo;
 						if(nCurrentMessage==0)
-							nCurrentMessage = group.Last - 500;
+							nCurrentMessage = group.Last - 300;
 
 						nCurrentMessage++;
 

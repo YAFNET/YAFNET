@@ -67,44 +67,6 @@ ALTER TABLE [yaf_Extension] WITH NOCHECK ADD
 	)
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listread
-GO
-
-create procedure yaf_forum_listread(@UserID int,@CategoryID int=null) as
-begin
-	select 
-		a.CategoryID, 
-		Category		= a.Name, 
-		ForumID			= b.ForumID,
-		Forum			= b.Name, 
-		Description,
-		Topics			= (select count(distinct x.TopicID) from yaf_Topic x,yaf_Message y where x.ForumID=b.ForumID and y.TopicID=x.TopicID and y.Approved<>0),
-		Posts			= (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = b.ForumID and x.Approved<>0),
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
-		PostAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.PostAccess<>0),
-		ReplyAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.ReplyAccess<>0),
-		ReadAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.ReadAccess<>0)		
-	from 
-		yaf_Category a, 
-		yaf_Forum b
-	where 
-		a.CategoryID = b.CategoryID and
-		(b.Hidden=0 or exists(select 1 from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.ReadAccess<>0)) and
-		(@CategoryID is null or a.CategoryID = @CategoryID)
-	order by
-		a.SortOrder,
-		b.SortOrder
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_save
 GO
@@ -150,58 +112,6 @@ create procedure yaf_user_deleteavatar(@UserID int) as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_post_list
-GO
-
-create procedure yaf_post_list(@TopicID int,@UserID int,@UpdateViewCount smallint=1) as
-begin
-	set nocount on
-
-	if @UpdateViewCount>0
-		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
-
-	select
-		d.TopicID,
-		a.MessageID,
-		a.Posted,
-		Subject = d.Topic,
-		a.Message,
-		a.UserID,
-		UserName	= IsNull(a.UserName,b.Name),
-		b.Joined,
-		Posts		= b.NumPosts,
-		d.Views,
-		d.ForumID,
-		Avatar = b.Avatar,
-		b.Location,
-		b.HomePage,
-		b.Signature,
-		RankName = c.Name,
-		c.RankImage,
-		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
-		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null),
-		e.AvatarUpload,
-		e.AvatarRemote,
-		e.AvatarWidth,
-		e.AvatarHeight
-	from
-		yaf_Message a, 
-		yaf_User b,
-		yaf_Rank c,
-		yaf_Topic d,
-		yaf_System e
-	where
-		a.Approved <> 0 and
-		a.TopicID = @TopicID and
-		b.UserID = a.UserID and
-		c.RankID = b.RankID and
-		d.TopicID = a.TopicID
-	order by
-		a.Posted asc
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_post_last10user') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_last10user
 GO
@@ -232,52 +142,6 @@ begin
 		exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=d.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID=@PageUserID and x.ReadAccess<>0)
 	order by
 		a.Posted desc
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_save
-GO
-
-create procedure yaf_forum_save(
-	@ForumID 		int,
-	@CategoryID		int,
-	@Name			varchar(50),
-	@Description	varchar(255),
-	@SortOrder		smallint,
-	@Locked			bit,
-	@Hidden			bit,
-	@IsTest			bit,
-	@Moderated		bit,
-	@TemplateID		int = null
-) as
-begin
-	if @ForumID>0 begin
-		update yaf_Forum set 
-			Name=@Name,
-			Description=@Description,
-			SortOrder=@SortOrder,
-			Hidden=@Hidden,
-			Locked=@Locked,
-			CategoryID=@CategoryID,
-			IsTest = @IsTest,
-			Moderated = @Moderated
-		where ForumID=@ForumID
-	end
-	else begin
-		insert into yaf_Forum(Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated)
-		values(@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated)
-		select @ForumID = @@IDENTITY
-
-		if @TemplateID is not null
-			insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
-			select GroupID,@ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess
-			from yaf_ForumAccess where ForumID=@TemplateID
-		else
-			insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
-			select GroupID,@ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Group
-	end
-	select ForumID = @ForumID
 end
 GO
 

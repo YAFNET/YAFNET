@@ -76,7 +76,9 @@ CREATE TABLE [yaf_Forum] (
 	[LastMessageID] [int] NULL ,
 	[LastUserID] [int] NULL ,
 	[LastUserName] [varchar] (50) NULL ,
-	[Moderated] [bit] NOT NULL
+	[Moderated] [bit] NOT NULL,
+	[NumTopics] [int] NOT NULL,
+	[NumPosts] [int] NOT NULL
 ) ON [PRIMARY]
 GO
 
@@ -995,41 +997,6 @@ GO
 create procedure yaf_mail_list as
 begin
 	select top 10 * from yaf_Mail order by Created
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_delete
-GO
-
-CREATE  procedure yaf_message_delete(@MessageID int) as
-begin
-	declare @TopicID	int
-	declare @MessageCount	int
-	declare @LastMessageID	int
-	-- Find TopicID
-	select @TopicID = TopicID from yaf_Message where MessageID = @MessageID
-	-- Update LastMessageID in Topic and Forum
-	update yaf_Topic set 
-		LastPosted = null,
-		LastMessageID = null,
-		LastUserID = null,
-		LastUserName = null
-	where LastMessageID = @MessageID
-	update yaf_Forum set 
-		LastPosted = null,
-		LastTopicID = null,
-		LastMessageID = null,
-		LastUserID = null,
-		LastUserName = null
-	where LastMessageID = @MessageID
-	-- Delete message
-	delete from yaf_Message where MessageID = @MessageID
-	-- Delete topic if there are no more messages
-	select @MessageCount = count(1) from yaf_Message where TopicID = @TopicID
-	if @MessageCount=0 exec yaf_topic_delete @TopicID
-	-- update lastpost
-	exec yaf_topic_updatelastpost
 end
 GO
 
