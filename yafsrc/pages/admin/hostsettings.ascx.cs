@@ -38,9 +38,9 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
-		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight;
+		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
-		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
+		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX, ShowRSSLinkX;
 		protected TextBox AvatarSize, MaxFileSize;
 		protected yaf.controls.AdminMenu Adminmenu1;
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
@@ -59,6 +59,14 @@ namespace yaf.pages.admin {
 
 				BindData();
 			}
+
+			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
+			SmiliesPerRow.Attributes.Add("style","width:25px");
+			SmiliesColumns.Attributes.Add("style","width:25px");
+			ForumEmailEdit.Attributes.Add("style","width:200px");
+			ForumSmtpServer.Attributes.Add("style","width:200px");
+			ForumSmtpUserName.Attributes.Add("style","width:200px");
+			ForumSmtpUserPass.Attributes.Add("style","width:200px");
 		}
 
 		private void BindData()
@@ -86,7 +94,10 @@ namespace yaf.pages.admin {
 			AllowUserThemeX.Checked = BoardSettings.AllowUserTheme;
 			AllowUserLanguageX.Checked = BoardSettings.AllowUserLanguage;
 			UseFileTableX.Checked = BoardSettings.UseFileTable;
+			ShowRSSLinkX.Checked = BoardSettings.ShowRSSLink;
 			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
+			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
+			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -138,7 +149,10 @@ namespace yaf.pages.admin {
 			BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
 			BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
 			BoardSettings.UseFileTable = UseFileTableX.Checked;
+			BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
 			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
+			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
+			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

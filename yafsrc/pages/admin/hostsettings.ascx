@@ -7,7 +7,7 @@
 			<TD class="header1" colSpan="2">Forum Settings</TD>
 		</TR>
 		<TR>
-			<TD class="header2" colSpan="2">Forum Setup</TD>
+			<TD class="header2" colSpan="2" align="center">Forum Setup</TD>
 		</TR>
 		<TR>
 			<TD class="postheader" width="50%"><B>MS SQL Server Version:</B><BR>
@@ -25,7 +25,7 @@
 			<TD class="postheader"><B>Forum Email:</B><BR>
 				The from address when sending emails to users.</TD>
 			<TD class="post">
-				<asp:TextBox id="ForumEmailEdit" runat="server" Width="300"></asp:TextBox></TD>
+				<asp:TextBox id="ForumEmailEdit" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Require Email Verification:</B><BR>
@@ -78,34 +78,49 @@
 				<asp:checkbox id="UseFileTableX" runat="server"></asp:checkbox></TD>
 		</TR>
 		<TR>
+			<TD class="postheader"><B>Show RSS Links:</B><BR>
+				Enable or disable display of RSS links throught the forum.</TD>
+			<TD class="post">
+				<asp:checkbox id="ShowRSSLinkX" runat="server"></asp:checkbox></TD>
+		</TR>		
+		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>
 			<TD class="post">
 				<asp:TextBox id="MaxFileSize" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
-			<TD class="header2" colSpan="2">SMTP Server Settings</TD>
+			<TD class="postheader"><B>Smilies Display Grid Size:</B><BR>
+				Number of smilies to show by number of rows and columns.</TD>
+			<TD class="post">
+				<asp:TextBox id="SmiliesPerRow" runat="server"></asp:TextBox>
+				<b>x</b>
+				<asp:TextBox id="SmiliesColumns" runat="server"></asp:TextBox>
+				</TD>
+		</TR>		
+		<TR>
+			<TD class="header2" colSpan="2" align="center">SMTP Server Settings</TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>SMTP Server:</B><BR>
 				To be able to send posts you need to enter the name of a valid smtp server.</TD>
 			<TD class="post">
-				<asp:TextBox id="ForumSmtpServer" runat="server" Width="300"></asp:TextBox></TD>
+				<asp:TextBox id="ForumSmtpServer" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>SMTP User Name:</B><BR>
 				If you need to be authorized to send email.</TD>
 			<TD class="post">
-				<asp:TextBox id="ForumSmtpUserName" runat="server" Width="300"></asp:TextBox></TD>
+				<asp:TextBox id="ForumSmtpUserName" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>SMTP Password:</B><BR>
 				If you need to be authorized to send email.</TD>
 			<TD class="post">
-				<asp:TextBox id="ForumSmtpUserPass" runat="server" Width="300"></asp:TextBox></TD>
+				<asp:TextBox id="ForumSmtpUserPass" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
-			<TD class="header2" colSpan="2">Avatar Settings</TD>
+			<TD class="header2" colSpan="2" align="center">Avatar Settings</TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Allow remote avatars:</B><BR>
