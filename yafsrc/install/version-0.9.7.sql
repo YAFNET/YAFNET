@@ -222,31 +222,6 @@ begin
 		d.UserPMessageID = @UserPMessageID
 end
 GO
---ABOT NEW 16.04.04
--- yaf_forum_listSubForums
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listSubForums') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listSubForums
-GO
-
-CREATE procedure yaf_forum_listSubForums(@ForumID int) as
-begin
-	select Sum(1) from yaf_Forum where ParentID = @ForumID
-end
-GO
---END ABOT NEW 16.04.04
---ABOT NEW 16.04.04
--- yaf_forum_listtopics
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listtopics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listtopics
-GO
-
-create procedure yaf_forum_listtopics(@ForumID int) as
-begin
-select * from yaf_Topic
-Where ForumID = @ForumID
-end
-GO
---END ABOT NEW 16.04.04
 
 -- yaf_forum_delete
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)

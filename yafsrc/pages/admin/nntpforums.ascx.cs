@@ -92,7 +92,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editnntpforum,"s={0}",e.CommandArgument);
 					break;
 				case "delete":
-					//DB.nntpserver_delete(e.CommandArgument);
+					DB.nntpforum_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

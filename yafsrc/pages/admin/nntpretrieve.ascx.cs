@@ -86,5 +86,11 @@ namespace yaf.pages.admin
 			AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}
+
+		protected string LastMessageNo(object _o) 
+		{
+			DataRowView row = (DataRowView)_o;
+			return string.Format("{0:N0}",row["LastMessageNo"]);
+		}
 	}
 }

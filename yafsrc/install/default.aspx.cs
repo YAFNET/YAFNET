@@ -412,10 +412,18 @@ namespace yaf.install
 				SqlConnection conn = DB.GetConnection();
 			using(SqlTransaction trans = conn.BeginTransaction()) 
 			{
+				string dbo = Config.ConfigSection["dbo"];
+				if(dbo==string.Empty)
+					dbo = "dbo";
+
 				foreach(string sql0 in statements) 
 				{
 					string sql = sql0.Trim();
-					sql = sql.Replace("[dbo].","");
+					sql = sql.Replace("[dbo]",dbo);
+					sql = sql.Replace("{dbo}",dbo);
+
+					
+
 					try 
 					{
 						if(sql.ToLower().IndexOf("setuser")>=0)

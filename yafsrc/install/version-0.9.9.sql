@@ -9,7 +9,8 @@ if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_W
 	)
 GO
 
-alter table yaf_User alter column Signature ntext null
+if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_User') and name=N'Signature' and xtype<>99)
+	alter table yaf_User alter column Signature ntext null
 go
 
 if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='RemoteURL')
@@ -723,47 +724,6 @@ begin
 end
 GO
 
--- yaf_forum_listread
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listread
-GO
-
-create procedure yaf_forum_listread(@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
-begin
-	select 
-		a.CategoryID, 
-		Category		= a.Name, 
-		ForumID			= b.ForumID,
-		Forum			= b.Name, 
-		Description,
-		Topics			= b.NumTopics,
-		Posts			= b.NumPosts,
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
-		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
-		b.RemoteURL
-	from 
-		yaf_Category a
-		join yaf_Forum b on b.CategoryID=a.CategoryID
-		join yaf_vaccess x on x.ForumID=b.ForumID
-	where 
-		a.BoardID = @BoardID and
-		(b.Hidden=0 or x.ReadAccess<>0) and
-		(@CategoryID is null or a.CategoryID=@CategoryID) and
-		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
-		x.UserID = @UserID
-	order by
-		a.SortOrder,
-		b.SortOrder
-end
-GO
-
 -- yaf_message_delete
 if exists (select * from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_delete
@@ -950,4 +910,150 @@ begin
 end
 GO
 --END ABOT NEW 16.04.04
+
+-- yaf_nntpforum_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_delete
+GO
+
+create procedure yaf_nntpforum_delete(@NntpForumID int) as
+begin
+	delete from yaf_NntpTopic where NntpForumID = @NntpForumID
+	delete from yaf_NntpForum where NntpForumID = @NntpForumID
+end
+GO
+
+--ABOT NEW 16.04.04
+-- yaf_forum_listSubForums
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listSubForums') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listSubForums
+GO
+
+CREATE procedure yaf_forum_listSubForums(@ForumID int) as
+begin
+	select Sum(1) from yaf_Forum where ParentID = @ForumID
+end
+GO
+--END ABOT NEW 16.04.04
+--ABOT NEW 16.04.04
+
+-- yaf_forum_listtopics
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listtopics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listtopics
+GO
+
+create procedure yaf_forum_listtopics(@ForumID int) as
+begin
+select * from yaf_Topic
+Where ForumID = @ForumID
+end
+GO
+--END ABOT NEW 16.04.04
+
+if exists(select 1 from sysobjects where id = object_id(N'yaf_forum_posts') and OBJECTPROPERTY(id, N'IsScalarFunction')=1)
+	drop function {dbo}.yaf_forum_posts
+go
+
+create function {dbo}.yaf_forum_posts(@ForumID int) returns int as
+begin
+	declare @NumPosts int
+	declare @tmp int
+
+	select @NumPosts=NumPosts from yaf_Forum where ForumID=@ForumID
+
+	if exists(select 1 from yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+		select ForumID from yaf_Forum
+		where ParentID = @ForumID
+		
+		open c
+		
+		fetch next from c into @tmp
+		while @@FETCH_STATUS = 0
+		begin
+			set @NumPosts=@NumPosts+{dbo}.yaf_forum_posts(@tmp)
+			fetch next from c into @tmp
+		end
+		close c
+		deallocate c
+	end
+
+	return @NumPosts
+end
+go
+
+if exists(select 1 from sysobjects where id = object_id(N'yaf_forum_topics') and OBJECTPROPERTY(id, N'IsScalarFunction')=1)
+	drop function {dbo}.yaf_forum_topics
+go
+
+create function {dbo}.yaf_forum_topics(@ForumID int) returns int as
+begin
+	declare @NumTopics int
+	declare @tmp int
+
+	select @NumTopics=NumTopics from yaf_Forum where ForumID=@ForumID
+
+	if exists(select 1 from yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+		select ForumID from yaf_Forum
+		where ParentID = @ForumID
+		
+		open c
+		
+		fetch next from c into @tmp
+		while @@FETCH_STATUS = 0
+		begin
+			set @NumTopics=@NumTopics+{dbo}.yaf_forum_topics(@tmp)
+			fetch next from c into @tmp
+		end
+		close c
+		deallocate c
+	end
+
+	return @NumTopics
+end
+go
+
+-- yaf_forum_listread
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listread
+GO
+
+create procedure yaf_forum_listread(@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
+begin
+	select 
+		a.CategoryID, 
+		Category		= a.Name, 
+		ForumID			= b.ForumID,
+		Forum			= b.Name, 
+		Description,
+		Topics			= {dbo}.yaf_forum_topics(b.ForumID),
+		Posts			= {dbo}.yaf_forum_posts(b.ForumID),
+		LastPosted		= b.LastPosted,
+		LastMessageID	= b.LastMessageID,
+		LastUserID		= b.LastUserID,
+		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
+		LastTopicID		= b.LastTopicID,
+		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
+		b.Locked,
+		b.Moderated,
+		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
+		b.RemoteURL
+	from 
+		yaf_Category a
+		join yaf_Forum b on b.CategoryID=a.CategoryID
+		join yaf_vaccess x on x.ForumID=b.ForumID
+	where 
+		a.BoardID = @BoardID and
+		(b.Hidden=0 or x.ReadAccess<>0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
+		x.UserID = @UserID
+	order by
+		a.SortOrder,
+		b.SortOrder
+end
+GO
 

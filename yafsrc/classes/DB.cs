@@ -1390,6 +1390,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void nntpforum_delete(object nntpForumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_NntpServer
