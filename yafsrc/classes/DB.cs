@@ -103,13 +103,21 @@ namespace yaf
 		{
 		}
 		#region DB Access Functions
+		/// <summary>
+		/// Gets Connection out of Web.config
+		/// </summary>
+		/// <returns>Returns SqlConnection</returns>
 		public static SqlConnection GetConnection() 
 		{
 			SqlConnection conn = new SqlConnection(Config.ConfigSection["connstr"]);
 			conn.Open();
 			return conn;
 		}
-		
+		/// <summary>
+		/// Gets data out of the database
+		/// </summary>
+		/// <param name="cmd">The SQL Command</param>
+		/// <returns>DataTable with the results</returns>
 		static private DataTable GetData(SqlCommand cmd) 
 		{
 			QueryCounter qc = new QueryCounter(cmd.CommandText);
@@ -149,6 +157,11 @@ namespace yaf
 				qc.Dispose();
 			}
 		}
+		/// <summary>
+		/// Gets data out of database using a plain text string command
+		/// </summary>
+		/// <param name="sql">string command to be executed</param>
+		/// <returns>DataTable with results</returns>
 		static public DataTable GetData(string sql) 
 		{
 			QueryCounter qc = new QueryCounter(sql);
@@ -178,6 +191,10 @@ namespace yaf
 				qc.Dispose();
 			}
 		}
+		/// <summary>
+		/// Executes a NonQuery
+		/// </summary>
+		/// <param name="cmd">NonQuery to execute</param>
 		static public void ExecuteNonQuery(SqlCommand cmd) 
 		{
 			QueryCounter qc = new QueryCounter(cmd.CommandText);
@@ -194,6 +211,8 @@ namespace yaf
 				qc.Dispose();
 			}
 		}
+
+
 		static public object ExecuteScalar(SqlCommand cmd) 
 		{
 			QueryCounter qc = new QueryCounter(cmd.CommandText);
@@ -210,6 +229,10 @@ namespace yaf
 				qc.Dispose();
 			}
 		}
+		/// <summary>
+		/// Gets the database size
+		/// </summary>
+		/// <returns>intager value for database size</returns>
 		static public int DBSize() 
 		{
 			using(SqlCommand cmd = new SqlCommand("select sum(size) * 8 * 1024 from sysfiles")) 
@@ -248,6 +271,15 @@ namespace yaf
 				}
 			}
 		}
+		/// <summary>
+		/// Returns Search results
+		/// </summary>
+		/// <param name="ToSearch"></param>
+		/// <param name="sf">Field to search</param>
+		/// <param name="sw">Search what</param>
+		/// <param name="fid"></param>
+		/// <param name="UserID">ID of user</param>
+		/// <returns>Results</returns>
 		static public DataTable GetSearchResult( string ToSearch, SEARCH_FIELD sf, SEARCH_WHAT sw, int fid, int UserID ) 
 		{
 			if( ToSearch.Length == 0 )
@@ -316,6 +348,14 @@ namespace yaf
 		#endregion
 
 		#region DataSets
+		/// <summary>
+		/// Returns the layout of the board
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="UserID">UserID</param>
+		/// <param name="CategoryID">CategoryID</param>
+		/// <param name="parentID">ParentID</param>
+		/// <returns>Returns board layout</returns>
 		static public DataSet board_layout(object boardID,object UserID,object CategoryID,object parentID) 
 		{
 			if(CategoryID!=null && long.Parse(CategoryID.ToString())==0) 
@@ -353,6 +393,12 @@ namespace yaf
 				}
 			}
 		}
+		
+		/// <summary>
+		/// Gets a list of categories????
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <returns>DataSet with categories</returns>
 		static public DataSet ds_forumadmin(object boardID) 
 		{
 			using(DataSet ds = new DataSet()) 
@@ -443,6 +489,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_Active
+		/// <summary>
+		/// Gets list of active users
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="Guests"></param>
+		/// <returns>Returns a DataTable of active users</returns>
 		static public DataTable active_list(object boardID,object Guests) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_list")) 
@@ -453,6 +505,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		
+		/// <summary>
+		/// Gets the list of active users within a certain forum
+		/// </summary>
+		/// <param name="forumID">forumID</param>
+		/// <returns>DataTable of all ative users in a forum</returns>
 		static public DataTable active_listforum(object forumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_listforum")) 
