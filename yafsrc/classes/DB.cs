@@ -706,6 +706,11 @@ namespace yaf
 		#endregion
 
 		#region yaf_Board
+		/// <summary>
+		/// Gets a list of information about a board
+		/// </summary>
+		/// <param name="boardID">board id</param>
+		/// <returns>DataTable</returns>
 		static public DataTable board_list(object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_list")) 
@@ -715,6 +720,11 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Gets posting statistics
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <returns>DataRow of Poststats</returns>
 		static public DataRow board_poststats(object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_poststats")) 
@@ -727,6 +737,10 @@ namespace yaf
 				}
 			}
 		}
+		/// <summary>
+		/// Gets statistica about number of posts etc.
+		/// </summary>
+		/// <returns>DataRow</returns>
 		static public DataRow board_stats() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_stats")) 
@@ -738,6 +752,12 @@ namespace yaf
 				}
 			}
 		}
+		/// <summary>
+		/// Saves board information
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="name">Name of Board</param>
+		/// <param name="allowThreaded">Boolen value, allowThreaded</param>
 		static public void board_save(object boardID,object name,object allowThreaded)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_save")) 
@@ -749,6 +769,14 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Creates a new board
+		/// </summary>
+		/// <param name="name">Name of new board</param>
+		/// <param name="allowThreaded">Bool, allow threaded?</param>
+		/// <param name="userName">User name of admin</param>
+		/// <param name="userEmail">Email of admin</param>
+		/// <param name="userPass">Admins password</param>
 		static public void board_create(object name,object allowThreaded,object userName,object userEmail,object userPass)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_create")) 
@@ -763,6 +791,10 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Deletes a board
+		/// </summary>
+		/// <param name="boardID">ID of board to delete</param>
 		static public void board_delete(object boardID)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_delete")) 
@@ -775,6 +807,11 @@ namespace yaf
 		#endregion
 
 		#region yaf_Category
+		/// <summary>
+		/// Deletes a category
+		/// </summary>
+		/// <param name="CategoryID">ID of category to delete</param>
+		/// <returns>Bool value indicationg if category was deleted</returns>
 		static public bool category_delete(object CategoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_delete")) 
@@ -784,6 +821,12 @@ namespace yaf
 				return (int)ExecuteScalar(cmd)!=0;
 			}
 		}
+		/// <summary>
+		/// Gets a list of forums in a category
+		/// </summary>
+		/// <param name="boardID">boardID</param>
+		/// <param name="categoryID">categotyID</param>
+		/// <returns>DataTable with a list of forums in a category</returns>
 		static public DataTable category_list(object boardID,object categoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_list")) 
@@ -794,6 +837,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		
+		/// <summary>
+		/// Saves changes to a category
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="CategoryID">CategoryID so save changes to</param>
+		/// <param name="Name">Name of the category</param>
+		/// <param name="SortOrder">Sort Order</param>
 		static public void category_save(object boardID,object CategoryID,object Name,object SortOrder) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_save")) 
@@ -809,6 +860,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_CheckEmail
+		/// <summary>
+		/// Saves a new email into the table for verification
+		/// </summary>
+		/// <param name="UserID">ID of user to verify</param>
+		/// <param name="Hash">Hash of user</param>
+		/// <param name="Email">email of user</param>
 		static public void checkemail_save(object UserID,object Hash,object Email) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_checkemail_save")) 
@@ -820,6 +877,11 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Updates a hash
+		/// </summary>
+		/// <param name="hash">New hash</param>
+		/// <returns>bool value to indicate a update</returns>
 		static public bool checkemail_update(object hash) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_checkemail_update")) 
@@ -832,6 +894,10 @@ namespace yaf
 		#endregion
 
 		#region yaf_Choice
+		/// <summary>
+		/// Saves a vote in the database
+		/// </summary>
+		/// <param name="choiceID">Choice of the vote</param>
 		static public void choice_vote(object choiceID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_choice_vote")) 
@@ -845,6 +911,10 @@ namespace yaf
 
 		#region yaf_Forum
 		//ABOT NEW 16.04.04
+		/// <summary>
+		/// Deletes attachments out of a entire forum
+		/// </summary>
+		/// <param name="ForumID">ID of forum to delete all attachemnts out of</param>
 		static private void forum_deleteAttachments(object ForumID)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listtopics")) 
@@ -862,6 +932,11 @@ namespace yaf
 		}
 		//END ABOT NEW 16.04.04
 		//ABOT CHANGE 16.04.04
+		/// <summary>
+		/// Deletes a forum
+		/// </summary>
+		/// <param name="ForumID">forum to delete</param>
+		/// <returns>bool to indicate that forum has been deleted</returns>
 		static public bool forum_delete(object ForumID) 
 		{	
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listSubForums")) 
@@ -885,6 +960,12 @@ namespace yaf
 		}
 		//END ABOT CHANGE 16.04.04
 		//ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
+		/// <summary>
+		/// Lists all moderated forums for a user
+		/// </summary>
+		/// <param name="boardID">board if of moderators</param>
+		/// <param name="userID">user id</param>
+		/// <returns>DataTable of moderated forums</returns>
 		static public DataTable forum_listallMyModerated(object boardID,object userID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listallmymoderated")) 
@@ -896,6 +977,12 @@ namespace yaf
 			}
 		}
 		//END ABOT NEW 16.04.04
+		/// <summary>
+		/// Gets a list of topics in a forum
+		/// </summary>
+		/// <param name="boardID">boardID</param>
+		/// <param name="ForumID">forumID</param>
+		/// <returns>DataTable with list of topics from a forum</returns>
 		static public DataTable forum_list(object boardID,object ForumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) 
@@ -906,6 +993,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Listes all forums accessible to a user
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="userID">ID of user</param>
+		/// <returns>DataTable of all accessible forums</returns>
 		static public DataTable forum_listall(object boardID,object userID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listall")) 
