@@ -91,6 +91,7 @@
 		<Resource tag="VIEWING">({0} Viewing)</Resource>
 		<Resource tag="ERROR_NOFORUMACCESS">You don't have access to the chosen forum.</Resource>
 		<Resource tag="MARKALL">Mark all forums as read</Resource>
+		<Resource tag="GO_LAST_POST">Go to last post</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->

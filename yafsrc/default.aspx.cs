@@ -156,16 +156,17 @@ namespace yaf
 				else
 					minipost = GetThemeContents("ICONS","ICON_LATEST");
 				
-				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>",
+				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{5}\" href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>",
 					FormatDateTime((DateTime)row["LastPosted"]),
 					String.Format(GetText("in"),String.Format("<a href=\"posts.aspx?t={0}\">{1}</a>",row["LastTopicID"],row["LastTopicName"])),
 					String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUser"])),
 					minipost,
-					row["LastMessageID"]
+					row["LastMessageID"],
+					GetText("GO_LAST_POST")
 				);
 			}
 			else
-				return GetText("no_posts");
+				return GetText("NO_POSTS");
 		}
 
 		protected string GetViewing(object o) 
@@ -184,21 +185,34 @@ namespace yaf
 			bool		locked		= (bool)row["Locked"];
 			DateTime	lastPosted	= (DateTime)row["LastPosted"];
 			DateTime	lastRead	= GetForumRead((int)row["ForumID"]);
+
+			string		img, imgTitle;
 			
 			try 
 			{
-				if(locked)
-					return GetThemeContents("ICONS","FORUM_LOCKED");
-
-				if(lastPosted > lastRead)
-					return GetThemeContents("ICONS","FORUM_NEW");
+				if(locked) 
+				{
+					img = GetThemeContents("ICONS","FORUM_LOCKED");
+					imgTitle = GetText("ICONLEGEND","Forum_Locked");
+					} 
+				else if(lastPosted > lastRead)
+				{
+					img = GetThemeContents("ICONS","FORUM_NEW");
+					imgTitle = GetText("ICONLEGEND","New_Posts");
+				}
 				else
-					return GetThemeContents("ICONS","FORUM");
+				{
+					img = GetThemeContents("ICONS","FORUM");
+					imgTitle = GetText("ICONLEGEND","No_New_Posts");
+				}
 			}
 			catch(Exception) 
 			{
-				return GetThemeContents("ICONS","FORUM");
+				img = GetThemeContents("ICONS","FORUM");
+				imgTitle = GetText("ICONLEGEND","No_New_Posts");
 			}
+
+			return String.Format("<img src=\"{0}\" title=\"{1}\"/>",img,imgTitle);
 		}
 		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {

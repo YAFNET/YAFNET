@@ -35,7 +35,7 @@
 		<asp:Repeater id=ForumList runat="server" onitemcommand='ForumList_ItemCommand' datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
 			<ItemTemplate>
 				<tr class=post>
-					<td><img src='<%# GetForumIcon(Container.DataItem) %>'></td>
+					<td><%# GetForumIcon(Container.DataItem) %></td>
 					<td>
 						<asp:linkbutton runat="server" commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><%# GetViewing(Container.DataItem) %><br>
 						<span class="smallfont"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>

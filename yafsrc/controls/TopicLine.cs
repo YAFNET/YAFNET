@@ -165,11 +165,12 @@ namespace yaf.controls
 				else
 					minipost = Page.GetThemeContents("ICONS","ICON_LATEST");
 				
-				string by = String.Format(Page.GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
+				string by = String.Format(Page.GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
 					row["LastUserName"], 
 					minipost, 
-					row["LastMessageID"]
+					row["LastMessageID"],
+					Page.GetText("GO_LAST_POST")
 					));
 				return String.Format("{0}<br />{1}", 
 					Page.FormatDateTime((DateTime)row["LastPosted"]),
