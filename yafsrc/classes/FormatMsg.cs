@@ -278,6 +278,7 @@ namespace yaf
 				case "h4":
 				case "h5":
 				case "h6":
+				case "address":
 					return true;
 			}
 			return false;
