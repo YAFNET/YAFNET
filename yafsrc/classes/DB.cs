@@ -509,7 +509,7 @@ namespace yaf
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add("@AttachmentID",attachmentID);
 					DataTable tbAttachments = GetData(cmd);
-					string sUpDir = Config.ConfigSection["uploadphysicalpath"];
+					string sUpDir = HttpContext.Current.Server.MapPath(Config.ConfigSection["uploaddir"]);
 					foreach (DataRow row in tbAttachments.Rows)
 						System.IO.File.Delete(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
 				}
@@ -1012,7 +1012,7 @@ namespace yaf
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add("@MessageID",messageID);
 					DataTable tbAttachments = GetData(cmd);
-					string sUpDir = Config.ConfigSection["uploadphysicalpath"];
+					string sUpDir = HttpContext.Current.Server.MapPath(Config.ConfigSection["uploaddir"]);
 					foreach (DataRow row in tbAttachments.Rows)
 						System.IO.File.Delete(String.Format("{0}{1}.{2}",sUpDir,messageID,row["FileName"]));
 				}
