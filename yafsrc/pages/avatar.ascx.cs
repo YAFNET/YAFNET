@@ -192,7 +192,7 @@ namespace yaf.pages
 					);
 				if (ct >= 5 && nodir != (ttldir - 1))
 				{
-					DirResults.Text += "</tr><tr>";
+					DirResults.Text += "</tr><tr class='postheader'>";
 					ct = 1;
 				} 
 				else 
