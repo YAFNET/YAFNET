@@ -172,16 +172,6 @@ namespace yaf.install
 					AddLoadMessage("Web.config is missing configuration/yafnet/connstr");
 					return;
 				}
-				if(config["language"]==null)
-				{
-					AddLoadMessage("Web.config is missing configuration/yafnet/language");
-					return;
-				}
-				if(config["theme"]==null)
-				{
-					AddLoadMessage("Web.config is missing configuration/yafnet/theme");
-					return;
-				}
 
 				ConfigSample.Visible = false;
 				//if(config["connstr"]==null

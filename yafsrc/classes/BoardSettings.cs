@@ -8,9 +8,11 @@ namespace yaf
 	{
 		private DataRow m_board;
 		private RegistryHash m_reg, m_regBoard;
+		private object m_boardID;
 
 		public BoardSettings(object boardID)
 		{
+			m_boardID = boardID;
 			DataTable dt;
 			// get the board table
 			dt = DB.board_list(boardID);
@@ -62,6 +64,10 @@ namespace yaf
 			{
 				DB.registry_save(objItem.Key,objItem.Value);
 			}
+			foreach(DictionaryEntry objItem in m_regBoard)
+			{
+				DB.registry_save(objItem.Key,objItem.Value,m_boardID);
+			}
 		}
 
 		// individual board settings
@@ -80,6 +86,16 @@ namespace yaf
 		public DateTime MaxUsersWhen
 		{
 			get { return DateTime.Parse(m_regBoard.GetValueString("MaxUsersWhen",DateTime.Now.ToString()));	}
+		}
+		public string Theme
+		{
+			get { return m_regBoard.GetValueString("Theme","standard.xml"); }
+			set	{ m_regBoard.SetValueString("Theme",value); }
+		}
+		public string Language
+		{
+			get { return m_regBoard.GetValueString("Language","english.xml"); }
+			set	{ m_regBoard.SetValueString("Language",value); }
 		}
 
 		// didn't know where else to put this :)

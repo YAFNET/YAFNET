@@ -149,14 +149,14 @@ namespace yaf.pages
 
 			if (UserThemeRow.Visible)
 			{
-				string themeFile = Config.ConfigSection["theme"];
+				string themeFile = BoardSettings.Theme;
 				if (!row.IsNull("ThemeFile")) themeFile = Convert.ToString(row["ThemeFile"]);
 				Theme.Items.FindByValue(themeFile).Selected = true;
 			}
 
 			if (UserLanguageRow.Visible)
 			{
-				string languageFile = Config.ConfigSection["language"];
+				string languageFile = BoardSettings.Language;
 				if (!row.IsNull("LanguageFile")) languageFile = Convert.ToString(row["LanguageFile"]);
 				Language.Items.FindByValue(languageFile).Selected = true;				
 			}

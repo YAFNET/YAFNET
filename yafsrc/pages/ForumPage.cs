@@ -1200,7 +1200,7 @@ namespace yaf.pages
 			if(themefile==null) 
 			{
 				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !BoardSettings.AllowUserTheme)
-					themefile = Config.ConfigSection["theme"];
+					themefile = BoardSettings.Theme;
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
 
@@ -1289,7 +1289,7 @@ namespace yaf.pages
 			string filename = null;
 
 			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !BoardSettings.AllowUserLanguage)
-				filename = Config.ConfigSection["language"];
+				filename = BoardSettings.Language;
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
 
@@ -1343,7 +1343,7 @@ namespace yaf.pages
 				string filename = null;
 
 				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !BoardSettings.AllowUserLanguage)
-					filename = Config.ConfigSection["language"];
+					filename = BoardSettings.Language;
 				else
 					filename = (string)m_pageinfo["LanguageFile"];
 

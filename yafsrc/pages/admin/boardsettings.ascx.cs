@@ -37,6 +37,7 @@ namespace yaf.pages.admin {
 		protected TextBox Name;
 		protected CheckBox AllowThreaded;
 		protected controls.PageLinks PageLinks;
+		protected DropDownList Theme, Language;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
@@ -46,7 +47,18 @@ namespace yaf.pages.admin {
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Board Settings",Forum.GetLink(Pages.admin_boardsettings));
 
+				Theme.DataSource = Data.Themes();
+				Theme.DataTextField = "Theme";
+				Theme.DataValueField = "FileName";
+
+				Language.DataSource = Data.Languages();
+				Language.DataTextField = "Language";
+				Language.DataValueField = "FileName";
+
 				BindData();
+				
+				Theme.Items.FindByValue(BoardSettings.Theme).Selected = true;
+				Language.Items.FindByValue(BoardSettings.Language).Selected = true;
 			}
 		}
 
@@ -85,7 +97,15 @@ namespace yaf.pages.admin {
 		private void Save_Click(object sender, System.EventArgs e) {
 			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
-			BoardSettings = null;	// Reload forum settings
+			BoardSettings.Theme = Theme.SelectedValue;
+			BoardSettings.Language = Language.SelectedValue;
+
+			/// save the settings to the database
+			BoardSettings.SaveRegistry();
+
+			/// Reload forum settings
+			BoardSettings = null;
+
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

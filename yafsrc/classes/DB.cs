@@ -1833,7 +1833,7 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@Value",Value);
-				cmd.Parameters.Add("@BoardI",boardID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				ExecuteNonQuery(cmd);
 			}
 		}

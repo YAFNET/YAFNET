@@ -21,6 +21,14 @@
 		<td class="post"><asp:checkbox runat="server" id="AllowThreaded"/></td>
 	</tr>
 	<tr>
+		<td class="postheader"><b>Theme:</b><br/>The theme to use on this board.</td>
+		<td class="post"><asp:dropdownlist runat="server" id="Theme"/></td>
+	</tr>
+	<tr>
+		<td class="postheader"><b>Language:</b><br/>The default board language.</td>
+		<td class="post"><asp:dropdownlist runat="server" id="Language"/></td>
+	</tr>
+	<tr>
 		<td class=postfooter colspan=2 align=middle>
 			<asp:Button id=Save runat="server" Text="Save"/></td>
 	</tr>
