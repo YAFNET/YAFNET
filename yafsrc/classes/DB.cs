@@ -152,6 +152,10 @@ namespace yaf
 					}
 				}
 			}
+			catch(SqlException x) 
+			{
+				throw new ApplicationException(string.Format("Sql Exception with error number {0}",x.Number),x);
+			}
 			finally 
 			{
 				qc.Dispose();
@@ -2055,11 +2059,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public bool user_recoverpassword(object userName,object email,object password) 
+		static public bool user_recoverpassword(object boardID,object userName,object email,object password) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_recoverpassword")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@Email",email);
 				cmd.Parameters.Add("@Password",password);

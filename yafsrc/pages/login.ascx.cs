@@ -84,7 +84,7 @@ namespace yaf.pages
 
 			string newpw = pages.register.CreatePassword(8);
 
-			if(!DB.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
+			if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
 				AddLoadMessage(GetText("wrong_username_email"));
 				return;
 			}

@@ -176,7 +176,7 @@ namespace yaf
 				if(x!=null) 
 				{
 					msg.Append("<tr><th colspan=2>Exception</th></tr>");
-					msg.AppendFormat("<tr><td>Exception</td><td><td><pre>{0}</pre></td></tr>",x);
+					msg.AppendFormat("<tr><td>Exception</td><td><pre>{0}</pre></td></tr>",x);
 					msg.AppendFormat("<tr><td>Message</td><td>{0}</td></tr>",Text2Html(x.Message));
 					msg.AppendFormat("<tr><td>Source</td><td>{0}</td></tr>",Text2Html(x.Source));
 					msg.AppendFormat("<tr><td>StackTrace</td><td>{0}</td></tr>",Text2Html(x.StackTrace));
