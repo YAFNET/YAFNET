@@ -168,7 +168,20 @@ namespace yaf
 						AddLoadMessage(String.Format(GetText("WARN_SIZE"),img.Width,img.Height));
 						AddLoadMessage(GetText("WARN_RESIZED"));
 
-						using(System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(img, new System.Drawing.Size((int)x, (int)y)))
+						double newWidth		= img.Width;
+						double newHeight	= img.Height;
+						if(newWidth>x)
+						{
+							newHeight = newHeight * x / newWidth;
+							newWidth = x;
+						}
+						if(newHeight>y) 
+						{
+							newWidth = newWidth * y / newHeight;
+							newHeight = y;
+						}
+
+						using(System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(img, new System.Drawing.Size((int)newWidth, (int)newHeight)))
 						{
 							resized = new System.IO.MemoryStream();
 							bitmap.Save(resized,System.Drawing.Imaging.ImageFormat.Jpeg);

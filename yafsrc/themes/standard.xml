@@ -12,20 +12,10 @@
 		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.png'/&gt;</Resource>
 		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/b_quote_post.png'/&gt;</Resource>
 		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
-
-		<!--Resource tag="MODERATE">[MODERATE]</Resource>
-		<Resource tag="NEWTOPIC">[NEW TOPIC]</Resource>
-		<Resource tag="POSTREPLY">[POST REPLY]</Resource>
-		<Resource tag="DELETETOPIC">[DELETE TOPIC]</Resource>
-		<Resource tag="LOCKTOPIC">[LOCK TOPIC]</Resource>
-		<Resource tag="UNLOCKTOPIC">[UNLOCK TOPIC]</Resource>
-		<Resource tag="MOVETOPIC">[MOVE TOPIC]</Resource>
-		<Resource tag="EDITPOST">[EDIT]</Resource>
-		<Resource tag="DELETEPOST">[DELETE]</Resource>
-		<Resource tag="QUOTEPOST">[QUOTE]</Resource-->
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
+		<Resource tag="TOPIC">~/topic_poll.png</Resource>
 		<Resource tag="TOPIC">~/topic.png</Resource>
 		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
 		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>

@@ -296,8 +296,14 @@ namespace yaf
 			XmlDocument doc = LoadTheme(null);
 
 			string themeDir = doc.DocumentElement.Attributes["dir"].Value;
-
-			XmlNode node = doc.SelectSingleNode( string.Format( "//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(),tag.ToUpper()));
+			string langCode = LoadTranslation().ToUpper();
+			string select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']", page.ToUpper(),tag.ToUpper(),langCode);
+			XmlNode node = doc.SelectSingleNode(select);
+			if(node==null)
+			{
+				select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(),tag.ToUpper());
+				node = doc.SelectSingleNode(select);
+			}
 			if(node==null)
 				throw new Exception(String.Format("Missing theme item: {0}.{1}",page.ToUpper(),tag.ToUpper()));
 
@@ -1202,8 +1208,11 @@ namespace yaf
 			return GetText(page,text);
 		}
 
-		public string GetText(string page,string text) 
+		private string LoadTranslation() 
 		{
+			if(m_localizer!=null) 
+				return m_localizer.LanguageCode;
+			
 			string filename = null;
 
 			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
@@ -1226,22 +1235,32 @@ namespace yaf
 				Cache["Localizer." + filename] = m_localizer;
 #endif
 			}
-			string str = m_localizer.GetText(page,text);
-			/// If not default language, try to use that instead
-			if(str==null && filename.ToLower()!="english.xml") 
+			/// If not using default language load that too
+			if(filename.ToLower()!="english.xml") 
 			{
 #if !DEBUG
 				if(m_defaultLocale==null && Cache["DefaultLocale"]!=null)
 					m_defaultLocale = (Localizer)Cache["DefaultLocale"];
 #endif
 
-				if(m_defaultLocale==null && filename.ToLower()!="english.xml") 
+				if(m_defaultLocale==null) 
 				{
 					m_defaultLocale = new Localizer(Server.MapPath(String.Format("{0}languages/english.xml",BaseDir)));
 #if !DEBUG
 					Cache["DefaultLocale"] = m_defaultLocale;
 #endif
 				}
+			}
+			return m_localizer.LanguageCode;
+		}
+
+		public string GetText(string page,string text) 
+		{
+			LoadTranslation();
+			string str = m_localizer.GetText(page,text);
+			/// If not default language, try to use that instead
+			if(str==null && m_defaultLocale!=null) 
+			{
 				str = m_defaultLocale.GetText(page,text);
 				if(str!=null) str = '[' + str + ']';
 			}
@@ -1291,7 +1310,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,11,18);
+				return new DateTime(2003,11,19);
 			}
 		}
 		#endregion

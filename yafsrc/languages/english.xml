@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Resources language="English">
+<Resources language="English" code="en">
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>

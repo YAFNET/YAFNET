@@ -9,9 +9,10 @@ namespace yaf
 	public class Localizer
 	{
 		private XmlDocument _doc = null;
-		private XmlNode _pagePointer = null;
-		private string _fileName = "";
-		private string _currentPage = "";
+		private XmlNode _pagePointer	= null;
+		private string	_fileName		= "";
+		private string	_currentPage	= "";
+		private	string	_code			= "";
 		
 		public Localizer()
 		{
@@ -38,6 +39,10 @@ namespace yaf
 			try
 			{
 				_doc.Load( _fileName );
+				if(_doc.DocumentElement.Attributes["code"]!=null)
+					_code = _doc.DocumentElement.Attributes["code"].Value;
+				else
+					_code = "en";
 			}
 			catch
 			{
@@ -101,6 +106,14 @@ namespace yaf
 		{
 			SetPage( page );
 			return GetText( text );
+		}
+
+		public string LanguageCode 
+		{
+			get 
+			{
+				return _code;
+			}
 		}
 	}
 }
