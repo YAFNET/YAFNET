@@ -22,6 +22,12 @@
 		<Resource tag="REGMAIL_SENT">A mail has been sent. Check your inbox and click the link in the mail.</Resource>
 		<Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox</Resource>
 		<Resource tag="REGMAIL_WILL_BE_SEND">A mail will be send when you register. In order to login you should check your inbox and click the link in the mail.</Resource>
+		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+		<Resource tag="FORMAT_DATE_TIME_SHORT">f</Resource>
+		<Resource tag="FORMAT_DATE_LONG">D</Resource>
+		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
+		<Resource tag="FORMAT_TIME">T</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
