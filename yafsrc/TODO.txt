@@ -1,6 +1,4 @@
 - upload/attach files
-- smtp server login
 - Remove unvalidated people after 24 hours
-- Don't send email to self when posting
 - Uploadable avatars
 - Check on avatar size

@@ -278,6 +278,7 @@ namespace yaf
 					cmd.Parameters.Add("@From",ForumEmail);
 					cmd.Parameters.Add("@Subject",subject);
 					cmd.Parameters.Add("@Body",body);
+					cmd.Parameters.Add("@UserID",PageUserID);
 					DataManager.ExecuteNonQuery(cmd);
 				}
 

@@ -140,3 +140,43 @@ begin
 		b.GroupID = a.GroupID
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_mail_createwatch
+GO
+
+create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject varchar(100),@Body text,@UserID int) as
+begin
+	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
+	select
+		@From,
+		b.Email,
+		getdate(),
+		@Subject,
+		@Body
+	from
+		yaf_WatchTopic a,
+		yaf_User b
+	where
+		b.UserID <> @UserID and
+		b.UserID = a.UserID and
+		a.TopicID = @TopicID
+	
+	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
+	select
+		@From,
+		b.Email,
+		getdate(),
+		@Subject,
+		@Body
+	from
+		yaf_WatchForum a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		b.UserID <> @UserID and
+		b.UserID = a.UserID and
+		c.TopicID = @TopicID and
+		c.ForumID = a.ForumID
+end
+GO
