@@ -19,6 +19,7 @@
 
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace yaf
@@ -28,10 +29,35 @@ namespace yaf
 	/// </summary>
 	public class FormatMsg
 	{
+		/// <summary>
+		/// Formats a message to HTML by:
+		/// 1. Converting "Forum Code" to HTML
+		/// 2. Converting carriage returns to &lt;br/&gt;
+		/// 3. Converting smiles code to img tags 
+		/// </summary>
+		/// <param name="basePage">Forum Page</param>
+		/// <param name="Message">Message to Format</param>
+		/// <returns>Formatted Message</returns>
 		static public string ForumCodeToHtml(yaf.pages.ForumPage basePage,string Message) 
 		{
-			DataTable dtSmileys = GetSmilies(basePage);
+			string strReturn = iConvertForumCode(basePage,Message);
 
+			strReturn = strReturn.Replace("\n","<br />");
+			strReturn = strReturn.Replace("\r","");
+
+			strReturn = iAddSmiles(basePage,strReturn);
+
+			return strReturn;
+		}
+
+		/// <summary>
+		/// Formats message by converting "Forum Code" to HTML.
+		/// </summary>
+		/// <param name="basePage">Forum Page</param>
+		/// <param name="Message">Message to Convert</param>
+		/// <returns>Converted Message Text</returns>
+		static protected string iConvertForumCode(yaf.pages.ForumPage basePage,string Message)
+		{
 			string tmp = "";
 			bool bInCode = false;
 			for(int i=0;i<Message.Length;i++) 
@@ -139,17 +165,29 @@ namespace yaf
 				tmp += Message[i];
 			}
 
-			tmp = tmp.Replace("\n","<br />");
-			tmp = tmp.Replace("\r","");
+			return tmp;
+		}
 
+		/// <summary>
+		/// Adds smiles into the code.
+		/// </summary>
+		/// <param name="basePagee">Forum base page</param>
+		/// <param name="Message">Text to add smiles to.</param>
+		/// <returns>Processed text with smiles added.</returns>
+		static protected string iAddSmiles(yaf.pages.ForumPage basePage,string Message)
+		{
+			DataTable dtSmileys = GetSmilies(basePage);
+			string strTemp = Message;
+	
 			foreach(DataRow row in dtSmileys.Rows) 
 			{
 				string code = row["Code"].ToString();
-				tmp = tmp.Replace(code.ToLower(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
-				tmp = tmp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+
+				strTemp = strTemp.Replace(code.ToLower(),String.Format("<img src=\"{0}\">",basePage.Smiley(Convert.ToString(row["Icon"]))));
+				strTemp = strTemp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\">",basePage.Smiley(Convert.ToString(row["Icon"]))));
 			}
 
-			return tmp;
+			return strTemp;
 		}
 	
 		static public string HtmlToForumCode(string html) 
@@ -203,13 +241,7 @@ namespace yaf
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 			
-			DataTable dtSmileys = GetSmilies(basePage);
-			foreach(DataRow row in dtSmileys.Rows) 
-			{
-				string code = row["Code"].ToString();
-				html = html.Replace(code.ToLower(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
-				html = html.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
-			}
+			html = iAddSmiles(basePage,html);
 
 			//Email -- RegEx VS.NET
 			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "<a href=mailto:${email}>${email}</a>", options);
@@ -226,12 +258,8 @@ namespace yaf
 			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
 
-			// rico : run word replacement from databse table names yaf_replacewords
-			using(DataTable dt = DB.replace_words_list())
-				foreach(DataRow rwords in dt.Rows)  
-				{
-					html = Regex.Replace(html,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
-				}
+			// jaben : moved word replace to reusable function in class utils
+			html = Utils.BadWordReplace(html);
 
 			return RepairHtml(basePage,html);
 		}

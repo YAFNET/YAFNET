@@ -29,7 +29,8 @@ namespace yaf
 	/// <summary>
 	/// Summary description for Utils.
 	/// </summary>
-	public class Utils {
+	public class Utils
+	{
 		static public ulong Str2IP(String[] ip) {
 			if(ip.Length!=4)
 				throw new Exception("Invalid ip address.");
@@ -265,6 +266,35 @@ namespace yaf
 		static public bool IsValidInt(string val)
 		{
 			return Regex.IsMatch(val,@"^[1-9]\d*\.?[0]*$");
+		}
+		/// <summary>
+		/// Searches through SearchText and replaces "bad words" with "good words"
+		/// as defined in the database.
+		/// </summary>
+		/// <param name="SearchText">The string to search through.</param>
+		static public string BadWordReplace(string SearchText)
+		{
+			string strReturn = SearchText;
+			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+
+			// rico : run word replacement from database table names yaf_replacewords
+			using(DataTable dt = DB.replace_words_list())
+				foreach(DataRow rwords in dt.Rows)  
+				{
+					// jaben : added "try...catch" due to problems if the regex expressions was not correctly formatted
+					try
+					{
+						strReturn = Regex.Replace(strReturn,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
+					}
+					catch (Exception e)
+					{
+#if DEBUG
+						throw new Exception("Regular Expression Failed: " + e.Message);
+#endif						
+					}
+				}
+			
+			return strReturn;
 		}
 	}
 }
