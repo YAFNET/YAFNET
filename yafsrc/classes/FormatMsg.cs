@@ -226,6 +226,13 @@ namespace yaf
 			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
 
+			// rico : run word replacement from databse table names yaf_replacewords
+			using(DataTable dt = DB.replace_words_list())
+				foreach(DataRow rwords in dt.Rows)  
+				{
+					html = Regex.Replace(html,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
+				}
+
 			return RepairHtml(basePage,html);
 		}
 

@@ -1444,6 +1444,38 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "pages\admin\replacewords.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\replacewords.ascx.cs"
+                    DependentUpon = "replacewords.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\replacewords.ascx.resx"
+                    DependentUpon = "replacewords.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\replacewords_edit.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\replacewords_edit.ascx.cs"
+                    DependentUpon = "replacewords_edit.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\replacewords_edit.ascx.resx"
+                    DependentUpon = "replacewords_edit.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "pages\admin\smilies.ascx"
                     BuildAction = "Content"
                 />

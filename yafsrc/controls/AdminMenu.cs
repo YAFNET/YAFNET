@@ -34,6 +34,7 @@ namespace yaf.controls
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Forums</a></td></tr>",Forum.GetLink(Pages.admin_forums));
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Banned IP</a></td></tr>",Forum.GetLink(Pages.admin_bannedip));
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Smilies</a></td></tr>",Forum.GetLink(Pages.admin_smilies));
+			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Replace Words</a></td></tr>",Forum.GetLink(Pages.admin_replacewords));
 
 			writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Groups and Users</b></td></tr>");
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Access Masks</a></td></tr>",Forum.GetLink(Pages.admin_accessmasks));

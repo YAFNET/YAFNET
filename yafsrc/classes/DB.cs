@@ -1825,6 +1825,48 @@ namespace yaf
 		}
 		#endregion
 
+		#region yaf_ReplaceWords
+		// rico : replace words / begin
+		static public DataTable replace_words_list() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				return GetData(cmd);
+			}
+		}
+		static public void replace_words_save(object ID,object badword,object goodword) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ID",ID);
+				cmd.Parameters.Add("@badword",badword);
+				cmd.Parameters.Add("@goodword",goodword);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void replace_words_delete(object ID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ID",ID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public DataTable replace_words_edit(object ID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_edit")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ID",ID);
+				return GetData(cmd);
+			}
+		}
+		// rico : replace words / end
+		#endregion
+
 		#region yaf_User
 		static public DataTable user_list(object boardID,object UserID,object Approved) 
 		{

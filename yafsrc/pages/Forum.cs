@@ -72,6 +72,9 @@ namespace yaf
 		// Added BAI 07.01.2004
 		admin_smilies_edit,
 		admin_smilies_import,
+		// Added Rico83
+		admin_replacewords,
+		admin_replacewords_edit,
 		im_yim,
 		im_aim,
 		im_icq,
@@ -296,6 +299,12 @@ namespace yaf
 					break;
 				case "admin_smilies_import":
 					page = Pages.admin_smilies_import;
+					break;
+				case "admin_replacewords": // rico : replace words
+					page = Pages.admin_replacewords;
+					break;
+				case "admin_replacewords_edit":
+					page = Pages.admin_replacewords_edit;
 					break;
 				case "im_yim":
 					page = Pages.im_yim;
