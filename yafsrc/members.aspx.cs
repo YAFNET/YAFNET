@@ -39,19 +39,56 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
+		protected LinkButton UserName,Group,Joined,Posts, GoPage;
+		protected Label SortOrder, PageNo;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.Identity.IsAuthenticated)
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 
-			int CurrentPage = 0;
-			if(Request.QueryString["p"] != null)
-				CurrentPage = int.Parse(Request.QueryString["p"]);
-
-
 			HomeLink.Text = ForumName;
 			HomeLink.NavigateUrl = BaseDir;
+
+			if(!IsPostBack)
+				BindData();
+		}
+
+		private void UserName_Click(object sender, System.EventArgs e) 
+		{
+			SortOrder.Text = "Name asc";
+			BindData();
+		}
+
+		private void Group_Click(object sender, System.EventArgs e) 
+		{
+			SortOrder.Text = "GroupName asc";
+			BindData();
+		}
+
+		private void Joined_Click(object sender, System.EventArgs e) 
+		{
+			SortOrder.Text = "Joined asc";
+			BindData();
+		}
+
+		private void Posts_Click(object sender, System.EventArgs e) 
+		{
+			SortOrder.Text = "NumPosts desc";
+			BindData();
+		}
+
+		private void GoPage_Click(object sender, System.EventArgs e) 
+		{
+			PageNo.Text = Request.Form["__EVENTARGUMENT"];
+			BindData();
+		}
+
+		private void BindData() 
+		{
+			int CurrentPage = 0;
+			if(PageNo.Text.Length>0)
+				CurrentPage = int.Parse(PageNo.Text);
 
 			PagedDataSource pds = new PagedDataSource();
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
@@ -59,34 +96,51 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",null);
 				cmd.Parameters.Add("@Approved",true);
-				pds.DataSource = DataManager.GetData(cmd).DefaultView;
+				DataView dv = DataManager.GetData(cmd).DefaultView;
+				if(SortOrder.Text.Length>0)
+					dv.Sort = SortOrder.Text;
+				pds.DataSource = dv;
 			}
 			pds.AllowPaging = true;
 			pds.CurrentPageIndex = CurrentPage;
-			pds.PageSize = 10;
+			pds.PageSize = 20;
 			
 			MemberList.DataSource = pds;
 			DataBind();
 
-			if(pds.PageCount>1) {
+			if(pds.PageCount>1) 
+			{
 				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) {
-					if(i==pds.CurrentPageIndex) {
+				for(int i=0;i<pds.PageCount;i++) 
+				{
+					if(i==pds.CurrentPageIndex) 
+					{
 						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} else {
-						PageLinks1.InnerHtml += String.Format(" <a href=\"members.aspx?p={1}\">{0}</a>",i+1,i);
+					} 
+					else 
+					{
+						//PageLinks1.InnerHtml += String.Format(" <a href=\"members.aspx?p={1}\">{0}</a>",i+1,i);
+						PageLinks1.InnerHtml += String.Format(" <a href=\"javascript:__doPostBack('GoPage','{1}')\">{0}</a>",i+1,i);
 					}
 				}
 				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-			} else {
+			} 
+			else 
+			{
 				PageLinks1.Visible = false;
 				PageLinks2.Visible = false;
 			}
+			DataBind();
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			this.UserName.Click += new EventHandler(this.UserName_Click);
+			this.Group.Click += new EventHandler(this.Group_Click);
+			this.Joined.Click += new EventHandler(this.Joined_Click);
+			this.Posts.Click += new EventHandler(this.Posts_Click);
+			this.GoPage.Click += new EventHandler(this.GoPage_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

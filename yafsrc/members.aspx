@@ -14,10 +14,10 @@
 		<td class=header1 colspan=4>Members</td>
 	</tr>
 	<tr>
-		<td class=header2>User Name</td>
-		<td class=header2>Group</td>
-		<td class=header2>Joined</td>
-		<td class=header2 align=center>Posts</td>
+		<td class=header2><asp:linkbutton runat=server id="UserName" text="User Name"/></td>
+		<td class=header2><asp:linkbutton runat=server id="Group" text="Group"/></td>
+		<td class=header2><asp:linkbutton runat=server id="Joined" text="Joined"/></td>
+		<td class=header2 align=center><asp:linkbutton runat=server id="Posts" text="Posts"/></td>
 	</tr>
 	
 	<asp:repeater id=MemberList runat=server>
@@ -31,6 +31,10 @@
 		</ItemTemplate>
 	</asp:repeater>
 </table>
+
+<asp:label id=SortOrder runat=server visible=false/>
+<asp:label id=PageNo runat=server visible=false/>
+<asp:linkbutton id=GoPage runat=server visible=false/>
 
 <table class=command><tr><td class=navlinks id=PageLinks2 runat=server></td></tr></table>
 
