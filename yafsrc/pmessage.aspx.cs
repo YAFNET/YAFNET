@@ -41,6 +41,8 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.Button Save;
+		protected DropDownList ToList;
+		protected Button FindUsers;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -56,6 +58,7 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				Save.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
+				FindUsers.Text = GetText("FINDUSERS");
 
 				int ToUserID = 0;
 
@@ -106,6 +109,9 @@ namespace yaf
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+			this.FindUsers.Click += new System.EventHandler(this.FindUsers_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -119,8 +125,6 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
@@ -131,27 +135,66 @@ namespace yaf
 				AddLoadMessage(GetText("need_to"));
 				return;
 			}
-			if(Subject.Text.Length<=0) {
-				AddLoadMessage(GetText("need_subject"));
-				return;
-			}
-			if(Editor.Text.Length<=0) {
-				AddLoadMessage(GetText("need_message"));
-				return;
-			}
+			if(ToList.Visible)
+				To.Text = ToList.SelectedItem.Text;
 
-			string body = Editor.Text;
-			if(!Editor.IsRTEBrowser) 
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.RepairHtml(this,body);
+			using(DataTable dt = DB.user_find(false,To.Text,null)) 
+			{
+				if(dt.Rows.Count!=1) 
+				{
+					AddLoadMessage(GetText("NO_SUCH_USER"));
+					return;
+				} 
+				else if((int)dt.Rows[0]["IsGuest"]>0) 
+				{
+					AddLoadMessage(GetText("NOT_GUEST"));
+					return;	
+				}
 
-			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,body);
-			Response.Redirect("cp_profile.aspx");
+				if(Subject.Text.Length<=0) 
+				{
+					AddLoadMessage(GetText("need_subject"));
+					return;
+				}
+				if(Editor.Text.Length<=0) 
+				{
+					AddLoadMessage(GetText("need_message"));
+					return;
+				}
+
+				string body = Editor.Text;
+				if(!Editor.IsRTEBrowser) 
+					body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+				else
+					body = FormatMsg.RepairHtml(this,body);
+
+				DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
+				Response.Redirect("cp_profile.aspx");
+			}
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e) {
 			Response.Redirect("cp_profile.aspx");
+		}
+
+		private void FindUsers_Click(object sender, System.EventArgs e) 
+		{
+			if(To.Text.Length<2) return;
+
+			using(DataTable dt = DB.user_find(true,To.Text,null)) 
+			{
+				if(dt.Rows.Count>0) 
+				{
+					ToList.DataSource = dt;
+					ToList.DataValueField = "UserID";
+					ToList.DataTextField = "Name";
+					ToList.SelectedIndex = 0;
+					ToList.Visible = true;
+					To.Visible = false;
+					FindUsers.Visible = false;
+				} 
+				DataBind();
+			}
 		}
 	}
 }

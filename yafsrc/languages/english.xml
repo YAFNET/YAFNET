@@ -296,6 +296,9 @@
 		<Resource tag="NEED_SUBJECT">You must enter a subject.</Resource>
 		<Resource tag="NEED_MESSAGE">You haven't written anything in the message.</Resource>
 		<Resource tag="SAVE">Post</Resource>
+		<Resource tag="NO_SUCH_USER">No such user exists.</Resource>
+		<Resource tag="NOT_GUEST">You can't send private messages to guest.</Resource>
+		<Resource tag="FINDUSERS">Find Users</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->

@@ -12,7 +12,11 @@
 	</tr>
 	<tr id=ToRow runat=server>
 		<td width="30%" class=postheader><%= GetText("to") %></td>
-		<td width="70%" class=post><asp:TextBox id=To runat="server"/></td>
+		<td width="70%" class=post>
+			<asp:TextBox id=To runat="server"/>
+			<asp:DropDownList runat="server" id="ToList" visible="false"/>
+			<asp:button runat="server" id="FindUsers"/>
+		</td>
 	</tr>
 	<tr>
 		<td class=postheader><%= GetText("subject") %></td>

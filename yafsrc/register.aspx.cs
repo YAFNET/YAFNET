@@ -104,7 +104,7 @@ namespace yaf
 		{
 			if(IsValid) 
 			{
-				if(DB.user_find(UserName.Text,Email.Text)) 
+				if(DB.user_find(false,UserName.Text,Email.Text).Rows.Count>0) 
 				{
 					AddLoadMessage(GetText("already_registered"));
 					return;

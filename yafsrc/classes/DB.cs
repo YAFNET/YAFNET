@@ -719,13 +719,13 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void pmessage_save(object from,object to,object subject,object body) 
+		static public void pmessage_save(object fromUserID,object toUserID,object subject,object body) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@From",from);
-				cmd.Parameters.Add("@To",to);
+				cmd.Parameters.Add("@FromUserID",fromUserID);
+				cmd.Parameters.Add("@ToUserID",toUserID);
 				cmd.Parameters.Add("@Subject",subject);
 				cmd.Parameters.Add("@Body",body);
 				ExecuteNonQuery(cmd);
@@ -1125,15 +1125,15 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public bool user_find(object userName,object email) 
+		static public DataTable user_find(bool filter,object userName,object email) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_find")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Filter",filter);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@Email",email);
-				using(DataTable dt = GetData(cmd)) 
-					return dt.Rows.Count>0;
+				return GetData(cmd);
 			}
 		}
 		static public string user_getsignature(object userID) 

@@ -26,16 +26,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_find
-GO
-
-create procedure yaf_user_find(@UserName varchar(50),@Email varchar(50)) as
-begin
-	select UserID from yaf_User where Name=@UserName or Email=@Email
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_delete
 GO

@@ -159,3 +159,52 @@ begin
 		a.UserID = @UserID
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_find
+GO
+
+create procedure yaf_user_find(@Filter bit,@UserName varchar(50)=null,@Email varchar(50)=null) as
+begin
+	if @Filter<>0
+	begin
+		if @UserName is not null
+			set @UserName = '%' + @UserName + '%'
+
+		select 
+			a.*,
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+		from 
+			yaf_User a
+		where 
+			(@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email)
+		order by
+			a.Name
+	end else
+	begin
+		select 
+			a.UserID,
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+		from 
+			yaf_User a
+		where 
+			(@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email)
+	end
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_save
+GO
+
+create procedure yaf_pmessage_save(
+	@FromUserID	int,
+	@ToUserID	int,
+	@Subject	varchar(100),
+	@Body		text
+) as
+begin
+	insert into yaf_PMessage(FromUserID,ToUserID,Created,Subject,Body,IsRead)
+	values(@FromUserID,@ToUserID,getdate(),@Subject,@Body,0)
+end
+GO

@@ -1119,26 +1119,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_save
-GO
-
-create procedure yaf_pmessage_save(
-	@From		varchar(50),
-	@To		varchar(50),
-	@Subject	varchar(100),
-	@Body		text
-) as
-begin
-	declare @ToUserID int
-	declare @FromUserID int
-	select @ToUserID = UserID from yaf_User where Name = @To
-	select @FromUserID = UserID from yaf_User where Name = @From
-	insert into yaf_PMessage(FromUserID,ToUserID,Created,Subject,Body,IsRead)
-	values(@FromUserID,@ToUserID,getdate(),@Subject,@Body,0)
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_listunique
 GO
