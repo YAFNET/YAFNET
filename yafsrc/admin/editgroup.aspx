@@ -9,7 +9,7 @@
 	</tr>
   <tr>
     <td class=post colspan=3><b>Name:</b><br>Name of this group.</td>
-    <td class=post colspan=7><asp:textbox id=Name runat="server"></asp:textbox></td></tr>
+    <td class=post colspan=7><asp:textbox style="width:300px" id=Name runat="server"/></td></tr>
   <tr>
     <td class=post colspan=3><b>Is Admin:</b><br>Means that users in this group are admins.</td>
     <td class=post colspan=7><asp:checkbox id=IsAdminX runat="server"></asp:checkbox></td></tr>

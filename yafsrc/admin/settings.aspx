@@ -8,7 +8,7 @@
 	</tr>
 	<tr>
 		<td class=postheader width="50%"><b>Forum Name:</b><br>The name of the forum.</td>
-		<td class=post width="50%"><asp:textbox id=Name runat=server></asp:textbox></td>
+		<td class=post width="50%"><asp:textbox style="width:300px" id=Name runat=server></asp:textbox></td>
 	</tr>
 	<tr>
 		<td class=postheader><b>MS SQL Server Version:</b><br>What version of MS SQL Server is running.</td>
@@ -20,13 +20,11 @@
 	</tr>
 	<tr>
 		<td class=postheader><b>SMTP Server:</b><br>To be able to send posts you need to enter the name of a valid smtp server.</td>
-		<td class=post>
-<asp:TextBox id=ForumSmtpServer runat="server"></asp:TextBox></td>
+		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpServer runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader><b>Forum Email:</b><br/>The from address when sending emails to users.</td>
-		<td class=post>
-<asp:TextBox id=ForumEmailEdit runat="server"></asp:TextBox></td>
+		<td class=post><asp:TextBox style="width:300px" id=ForumEmailEdit runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader><b>Require Email Verification:</b><br/>If unchecked users will not need to verify their email address.</td>
