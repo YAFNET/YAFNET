@@ -235,535 +235,9 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "admin\accessmasks.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\accessmasks.aspx.cs"
-                    DependentUpon = "accessmasks.aspx"
+                    RelPath = "classes\AdminPage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\accessmasks.aspx.resx"
-                    DependentUpon = "accessmasks.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\admin.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\attachments.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\attachments.aspx.cs"
-                    DependentUpon = "attachments.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\attachments.aspx.resx"
-                    DependentUpon = "attachments.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\bannedip.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\bannedip.aspx.cs"
-                    DependentUpon = "bannedip.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\bannedip.aspx.resx"
-                    DependentUpon = "bannedip.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\bannedip_edit.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\bannedip_edit.aspx.cs"
-                    DependentUpon = "bannedip_edit.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\bannedip_edit.aspx.resx"
-                    DependentUpon = "bannedip_edit.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\boards.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\boards.aspx.cs"
-                    DependentUpon = "boards.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\boards.aspx.resx"
-                    DependentUpon = "boards.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\boardsettings.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\boardsettings.aspx.cs"
-                    DependentUpon = "boardsettings.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\boardsettings.aspx.resx"
-                    DependentUpon = "boardsettings.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\contents.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\contents.aspx.cs"
-                    DependentUpon = "contents.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\contents.aspx.resx"
-                    DependentUpon = "contents.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\default.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\default.aspx.cs"
-                    DependentUpon = "default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\default.aspx.resx"
-                    DependentUpon = "default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editaccessmask.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editaccessmask.aspx.cs"
-                    DependentUpon = "editaccessmask.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editaccessmask.aspx.resx"
-                    DependentUpon = "editaccessmask.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editboard.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editboard.aspx.cs"
-                    DependentUpon = "editboard.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editboard.aspx.resx"
-                    DependentUpon = "editboard.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editcategory.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editcategory.aspx.cs"
-                    DependentUpon = "editcategory.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editcategory.aspx.resx"
-                    DependentUpon = "editcategory.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editforum.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editforum.aspx.cs"
-                    DependentUpon = "editforum.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editforum.aspx.resx"
-                    DependentUpon = "editforum.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editgroup.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editgroup.aspx.cs"
-                    DependentUpon = "editgroup.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editgroup.aspx.resx"
-                    DependentUpon = "editgroup.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editnntpforum.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editnntpforum.aspx.cs"
-                    DependentUpon = "editnntpforum.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editnntpforum.aspx.resx"
-                    DependentUpon = "editnntpforum.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editnntpserver.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editnntpserver.aspx.cs"
-                    DependentUpon = "editnntpserver.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editnntpserver.aspx.resx"
-                    DependentUpon = "editnntpserver.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\editrank.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\editrank.aspx.cs"
-                    DependentUpon = "editrank.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\editrank.aspx.resx"
-                    DependentUpon = "editrank.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\edituser.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\edituser.aspx.cs"
-                    DependentUpon = "edituser.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\edituser.aspx.resx"
-                    DependentUpon = "edituser.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\forums.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\forums.aspx.cs"
-                    DependentUpon = "forums.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\forums.aspx.resx"
-                    DependentUpon = "forums.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\groups.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\groups.aspx.cs"
-                    DependentUpon = "groups.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\groups.aspx.resx"
-                    DependentUpon = "groups.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\hostsettings.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\hostsettings.aspx.cs"
-                    DependentUpon = "hostsettings.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\hostsettings.aspx.resx"
-                    DependentUpon = "hostsettings.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\mail.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\mail.aspx.cs"
-                    DependentUpon = "mail.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\mail.aspx.resx"
-                    DependentUpon = "mail.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\main.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\main.aspx.cs"
-                    DependentUpon = "main.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\main.aspx.resx"
-                    DependentUpon = "main.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\nntpforums.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\nntpforums.aspx.cs"
-                    DependentUpon = "nntpforums.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\nntpforums.aspx.resx"
-                    DependentUpon = "nntpforums.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\nntpretrieve.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\nntpretrieve.aspx.cs"
-                    DependentUpon = "nntpretrieve.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\nntpretrieve.aspx.resx"
-                    DependentUpon = "nntpretrieve.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\nntpservers.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\nntpservers.aspx.cs"
-                    DependentUpon = "nntpservers.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\nntpservers.aspx.resx"
-                    DependentUpon = "nntpservers.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\pm.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\pm.aspx.cs"
-                    DependentUpon = "pm.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\pm.aspx.resx"
-                    DependentUpon = "pm.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\prune.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\prune.aspx.cs"
-                    DependentUpon = "prune.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\prune.aspx.resx"
-                    DependentUpon = "prune.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\ranks.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\ranks.aspx.cs"
-                    DependentUpon = "ranks.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\ranks.aspx.resx"
-                    DependentUpon = "ranks.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\smilies.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\smilies.aspx.cs"
-                    DependentUpon = "smilies.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\smilies.aspx.resx"
-                    DependentUpon = "smilies.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\smilies_edit.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\smilies_edit.aspx.cs"
-                    DependentUpon = "smilies_edit.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\smilies_edit.aspx.resx"
-                    DependentUpon = "smilies_edit.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\smilies_import.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\smilies_import.aspx.cs"
-                    DependentUpon = "smilies_import.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\smilies_import.aspx.resx"
-                    DependentUpon = "smilies_import.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\users.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\users.aspx.cs"
-                    DependentUpon = "users.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\users.aspx.resx"
-                    DependentUpon = "users.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "admin\version.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\version.aspx.cs"
-                    DependentUpon = "version.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\version.aspx.resx"
-                    DependentUpon = "version.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "classes\BaseAdminPage.cs"
@@ -847,6 +321,11 @@
                 />
                 <File
                     RelPath = "classes\Utils.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\AdminMenu.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -1505,6 +984,471 @@
                 <File
                     RelPath = "pages\topics.ascx.resx"
                     DependentUpon = "topics.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\accessmasks.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\accessmasks.ascx.cs"
+                    DependentUpon = "accessmasks.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\accessmasks.ascx.resx"
+                    DependentUpon = "accessmasks.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\admin.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\admin.ascx.cs"
+                    DependentUpon = "admin.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\admin.ascx.resx"
+                    DependentUpon = "admin.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\attachments.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\attachments.ascx.cs"
+                    DependentUpon = "attachments.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\attachments.ascx.resx"
+                    DependentUpon = "attachments.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip.ascx.cs"
+                    DependentUpon = "bannedip.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip.ascx.resx"
+                    DependentUpon = "bannedip.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip_edit.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip_edit.ascx.cs"
+                    DependentUpon = "bannedip_edit.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\bannedip_edit.ascx.resx"
+                    DependentUpon = "bannedip_edit.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\boards.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\boards.ascx.cs"
+                    DependentUpon = "boards.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\boards.ascx.resx"
+                    DependentUpon = "boards.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\boardsettings.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\boardsettings.ascx.cs"
+                    DependentUpon = "boardsettings.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\boardsettings.ascx.resx"
+                    DependentUpon = "boardsettings.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editaccessmask.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editaccessmask.ascx.cs"
+                    DependentUpon = "editaccessmask.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editaccessmask.ascx.resx"
+                    DependentUpon = "editaccessmask.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editboard.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editboard.ascx.cs"
+                    DependentUpon = "editboard.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editboard.ascx.resx"
+                    DependentUpon = "editboard.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editcategory.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editcategory.ascx.cs"
+                    DependentUpon = "editcategory.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editcategory.ascx.resx"
+                    DependentUpon = "editcategory.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editforum.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editforum.ascx.cs"
+                    DependentUpon = "editforum.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editforum.ascx.resx"
+                    DependentUpon = "editforum.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editgroup.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editgroup.ascx.cs"
+                    DependentUpon = "editgroup.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editgroup.ascx.resx"
+                    DependentUpon = "editgroup.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpforum.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpforum.ascx.cs"
+                    DependentUpon = "editnntpforum.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpforum.ascx.resx"
+                    DependentUpon = "editnntpforum.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpserver.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpserver.ascx.cs"
+                    DependentUpon = "editnntpserver.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editnntpserver.ascx.resx"
+                    DependentUpon = "editnntpserver.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\editrank.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\editrank.ascx.cs"
+                    DependentUpon = "editrank.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\editrank.ascx.resx"
+                    DependentUpon = "editrank.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\edituser.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\edituser.ascx.cs"
+                    DependentUpon = "edituser.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\edituser.ascx.resx"
+                    DependentUpon = "edituser.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\forums.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\forums.ascx.cs"
+                    DependentUpon = "forums.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\forums.ascx.resx"
+                    DependentUpon = "forums.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\groups.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\groups.ascx.cs"
+                    DependentUpon = "groups.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\groups.ascx.resx"
+                    DependentUpon = "groups.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\hostsettings.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\hostsettings.ascx.cs"
+                    DependentUpon = "hostsettings.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\hostsettings.ascx.resx"
+                    DependentUpon = "hostsettings.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\mail.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\mail.ascx.cs"
+                    DependentUpon = "mail.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\mail.ascx.resx"
+                    DependentUpon = "mail.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\nntpforums.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\nntpforums.ascx.cs"
+                    DependentUpon = "nntpforums.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\nntpforums.ascx.resx"
+                    DependentUpon = "nntpforums.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\nntpretrieve.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\nntpretrieve.ascx.cs"
+                    DependentUpon = "nntpretrieve.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\nntpretrieve.ascx.resx"
+                    DependentUpon = "nntpretrieve.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\nntpservers.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\nntpservers.ascx.cs"
+                    DependentUpon = "nntpservers.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\nntpservers.ascx.resx"
+                    DependentUpon = "nntpservers.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\pm.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\pm.ascx.cs"
+                    DependentUpon = "pm.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\pm.ascx.resx"
+                    DependentUpon = "pm.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\prune.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\prune.ascx.cs"
+                    DependentUpon = "prune.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\prune.ascx.resx"
+                    DependentUpon = "prune.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\ranks.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\ranks.ascx.cs"
+                    DependentUpon = "ranks.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\ranks.ascx.resx"
+                    DependentUpon = "ranks.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\smilies.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\smilies.ascx.cs"
+                    DependentUpon = "smilies.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\smilies.ascx.resx"
+                    DependentUpon = "smilies.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_edit.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_edit.ascx.cs"
+                    DependentUpon = "smilies_edit.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_edit.ascx.resx"
+                    DependentUpon = "smilies_edit.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_import.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_import.ascx.cs"
+                    DependentUpon = "smilies_import.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\smilies_import.ascx.resx"
+                    DependentUpon = "smilies_import.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\users.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\users.ascx.cs"
+                    DependentUpon = "users.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\users.ascx.resx"
+                    DependentUpon = "users.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\version.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\version.ascx.cs"
+                    DependentUpon = "version.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\version.ascx.resx"
+                    DependentUpon = "version.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

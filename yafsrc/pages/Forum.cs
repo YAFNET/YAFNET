@@ -37,7 +37,38 @@ namespace yaf
 		moderate_index,
 		moderate_forum,
 		error,
-		avatar
+		avatar,
+		admin_admin,
+		admin_hostsettings,
+		admin_boards,
+		admin_boardsettings,
+		admin_forums,
+		admin_bannedip,
+		admin_smilies,
+		admin_accessmasks,
+		admin_groups,
+		admin_users,
+		admin_ranks,
+		admin_mail,
+		admin_prune,
+		admin_pm,
+		admin_attachments,
+		admin_nntpservers,
+		admin_nntpforums,
+		admin_nntpretrieve,
+		admin_version,
+		admin_bannedip_edit,
+		admin_editaccessmask,
+		admin_editboard,
+		admin_editcategory,
+		admin_editforum,
+		admin_editgroup,
+		admin_editnntpforum,
+		admin_editnntpserver,
+		admin_editrank,
+		admin_edituser,
+		admin_smilies_edit,
+		admin_smilies_import
 	}
 
 	/// <summary>
@@ -156,11 +187,106 @@ namespace yaf
 				case "avatar":
 					page = Pages.avatar;
 					break;
+				case "admin_admin":
+					page = Pages.admin_admin;
+					break;
+				case "admin_hostsettings":
+					page = Pages.admin_hostsettings;
+					break;
+				case "admin_boards":
+					page = Pages.admin_boards;
+					break;
+				case "admin_boardsettings":
+					page = Pages.admin_boardsettings;
+					break;
+				case "admin_forums":
+					page = Pages.admin_forums;
+					break;
+				case "admin_bannedip":
+					page = Pages.admin_bannedip;
+					break;
+				case "admin_smilies":
+					page = Pages.admin_smilies;
+					break;
+				case "admin_accessmasks":
+					page = Pages.admin_accessmasks;
+					break;
+				case "admin_groups":
+					page = Pages.admin_groups;
+					break;
+				case "admin_users":
+					page = Pages.admin_users;
+					break;
+				case "admin_ranks":
+					page = Pages.admin_ranks;
+					break;
+				case "admin_mail":
+					page = Pages.admin_mail;
+					break;
+				case "admin_prune":
+					page = Pages.admin_prune;
+					break;
+				case "admin_pm":
+					page = Pages.admin_pm;
+					break;
+				case "admin_attachments":
+					page = Pages.admin_attachments;
+					break;
+				case "admin_nntpservers":
+					page = Pages.admin_nntpservers;
+					break;
+				case "admin_nntpforums":
+					page = Pages.admin_nntpforums;
+					break;
+				case "admin_nntpretrieve":
+					page = Pages.admin_nntpretrieve;
+					break;
+				case "admin_version":
+					page = Pages.admin_version;
+					break;
+				case "admin_bannedip_edit":
+					page = Pages.admin_bannedip_edit;
+					break;
+				case "admin_editaccessmask":
+					page = Pages.admin_editaccessmask;
+					break;
+				case "admin_editboard":
+					page = Pages.admin_editboard;
+					break;
+				case "admin_editcategory":
+					page = Pages.admin_editcategory;
+					break;
+				case "admin_editforum":
+					page = Pages.admin_editforum;
+					break;
+				case "admin_editgroup":
+					page = Pages.admin_editgroup;
+					break;
+				case "admin_editnntpforum":
+					page = Pages.admin_editnntpforum;
+					break;
+				case "admin_editnntpserver":
+					page = Pages.admin_editnntpserver;
+					break;
+				case "admin_editrank":
+					page = Pages.admin_editrank;
+					break;
+				case "admin_edituser":
+					page = Pages.admin_edituser;
+					break;
+				case "admin_smilies_edit":
+					page = Pages.admin_smilies_edit;
+					break;
+				case "admin_smilies_import":
+					page = Pages.admin_smilies_import;
+					break;
 			}
 
 			string src = string.Format("{0}pages/{1}.ascx",m_baseDir,page);
 			if(src.IndexOf("/moderate_")>=0)
 				src = src.Replace("/moderate_","/moderate/");
+			if(src.IndexOf("/admin_")>=0)
+				src = src.Replace("/admin_","/admin/");
 
 			try
 			{

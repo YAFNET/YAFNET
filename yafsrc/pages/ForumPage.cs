@@ -162,7 +162,7 @@ namespace yaf.pages
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
 				if(IsAdmin)
-					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}admin/\">{1}</a> | ",Data.ForumRoot,GetText("TOOLBAR","ADMIN")));
+					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.admin_admin),GetText("TOOLBAR","ADMIN")));
 				if(IsModerator || IsForumModerator)
 					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.moderate_index),GetText("TOOLBAR","MODERATE")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
@@ -552,6 +552,10 @@ namespace yaf.pages
 		public string FormatDateTime(object o)
 		{
 			return PageInfo.FormatDateTime(o);
+		}
+		public string FormatDateTimeShort(object o)
+		{
+			return PageInfo.FormatDateTimeShort(o);
 		}
 		public string FormatTime(DateTime dt)
 		{
