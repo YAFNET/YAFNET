@@ -67,6 +67,8 @@ namespace yaf.pages
 		{
 			approved.Visible = DB.checkemail_update(key.Text);
 			error.Visible = !approved.Visible;
+			AddLoadMessage(GetText("EMAIL_VERIFIED"));
+			Response.Redirect("default.aspx?g=login");
 		}
 
 		#region Web Form Designer generated code
