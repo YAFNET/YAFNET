@@ -28,3 +28,4 @@
 - Disable user registration.
 - "New posts" icons should also check sub-forums.
 - Forum dropdowns: http://forum.yetanotherforum.net/default.aspx?g=posts&t=474&find=unread
+- Error deleting posts with attachments.
