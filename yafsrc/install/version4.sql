@@ -137,50 +137,6 @@ ALTER TABLE [yaf_Smiley] ADD
 	)  ON [PRIMARY] 
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_post_list
-GO
-
-create procedure yaf_post_list(@TopicID int,@UserID int,@UpdateViewCount smallint=1) as
-begin
-	set nocount on
-
-	if @UpdateViewCount>0
-		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
-
-	select
-		d.TopicID,
-		a.MessageID,
-		a.Posted,
-		Subject = d.Topic,
-		a.Message,
-		a.UserID,
-		UserName	= IsNull(a.UserName,b.Name),
-		b.Joined,
-		Posts		= b.NumPosts,
-		GroupName	= c.Name,
-		d.Views,
-		d.ForumID,
-		Avatar = b.Avatar,
-		b.Location,
-		b.HomePage,
-		b.Signature,
-		c.RankImage
-	from
-		yaf_Message a, 
-		yaf_User b,
-		yaf_Group c,
-		yaf_Topic d
-	where
-		a.TopicID = @TopicID and
-		b.UserID = a.UserID and
-		c.GroupID = b.GroupID and
-		d.TopicID = a.TopicID
-	order by
-		a.Posted asc
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_list_reverse10
 GO
@@ -297,5 +253,49 @@ begin
 		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0 from yaf_Forum
 	end
 	select GroupID = @GroupID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_list
+GO
+
+create procedure yaf_post_list(@TopicID int,@UserID int,@UpdateViewCount smallint=1) as
+begin
+	set nocount on
+
+	if @UpdateViewCount>0
+		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
+
+	select
+		d.TopicID,
+		a.MessageID,
+		a.Posted,
+		Subject = d.Topic,
+		a.Message,
+		a.UserID,
+		UserName	= IsNull(a.UserName,b.Name),
+		b.Joined,
+		Posts		= b.NumPosts,
+		GroupName	= c.Name,
+		d.Views,
+		d.ForumID,
+		Avatar = b.Avatar,
+		b.Location,
+		b.HomePage,
+		b.Signature,
+		c.RankImage
+	from
+		yaf_Message a, 
+		yaf_User b,
+		yaf_Group c,
+		yaf_Topic d
+	where
+		a.TopicID = @TopicID and
+		b.UserID = a.UserID and
+		c.GroupID = b.GroupID and
+		d.TopicID = a.TopicID
+	order by
+		a.Posted asc
 end
 GO
