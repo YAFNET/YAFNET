@@ -104,7 +104,7 @@ namespace yaf.controls
 				
 				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
 					ForumPage.FormatDateTime((DateTime)row["LastPosted"]),
-					String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),row["LastTopicName"])),
+					String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),Truncate(row["LastTopicName"].ToString(), 50))),
 					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"])),
 					minipost,
 					ForumPage.GetText("GO_LAST_POST"),
@@ -131,6 +131,37 @@ namespace yaf.controls
 			{
 				forumList.DataSource = value;
 			}
+		}
+
+		private string Truncate(string input, int limit) // Only use it here? (Jwendl)
+		{
+			string output = input;
+
+			// Check if the string is longer than the allowed amount
+			// otherwise do nothing
+			if (output.Length > limit && limit > 0) 
+			{
+
+				// cut the string down to the maximum number of characters
+				output = output.Substring(0, limit);
+
+				// Check if the space right after the truncate point 
+				// was a space. if not, we are in the middle of a word and 
+				// need to cut out the rest of it
+				if (input.Substring(output.Length,1) != " ") 
+				{
+					int LastSpace = output.LastIndexOf(" ");
+
+					// if we found a space then, cut back to that space
+					if (LastSpace != -1) 
+					{
+						output = output.Substring(0,LastSpace);  
+					}
+				}
+				// Finally, add the "..."
+				output += "...";    
+			}
+			return output;
 		}
 	}
 }
