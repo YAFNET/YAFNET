@@ -339,7 +339,11 @@ namespace yaf
 		/// </summary>
 		public string ForumURL {
 			get {
-				return String.Format("http://{0}{1}",Request.ServerVariables["SERVER_NAME"],BaseDir);
+				long port = long.Parse(Request.ServerVariables["SERVER_PORT"]);
+				if(port!=80)
+					return String.Format("http://{0}:{1}{2}",Request.ServerVariables["SERVER_NAME"],port,BaseDir);
+				else
+					return String.Format("http://{0}{1}",Request.ServerVariables["SERVER_NAME"],BaseDir);
 			}
 		}
 		/// <summary>

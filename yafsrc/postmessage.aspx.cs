@@ -258,7 +258,7 @@ namespace yaf
 				string body = ReadTemplate("topicpost.txt");
 				body = body.Replace("{forumname}",ForumName);
 				body = body.Replace("{topic}",(string)topic["Topic"]);
-				body = body.Replace("{link}",String.Format("http://{0}{1}posts.aspx?m={2}#{2}",Request.ServerVariables["SERVER_NAME"],BaseDir,nMessageID));
+				body = body.Replace("{link}",String.Format("{0}posts.aspx?m={1}#{1}",ForumURL,nMessageID));
 
 				DB.mail_createwatch(TopicID,ForumEmail,subject,body,PageUserID);
 

@@ -85,7 +85,7 @@ namespace yaf
 									if(page.UseBlankLinks)
 										tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
 									else
-										tmp += String.Format("<a href=\"{0}\">",arg);
+										tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
 								}
 								else
 									tmp += "<a>";

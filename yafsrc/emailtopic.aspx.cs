@@ -59,7 +59,7 @@ namespace yaf
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
 				Subject.Text = PageTopicName;
-				Message.Text = String.Format("You might be interested in reading this:\r\nhttp://{0}{1}posts.aspx?t={2}\r\n\r\nFrom,\r\n\r\n{3}",Request.ServerVariables["SERVER_NAME"],BaseDir,PageTopicID,User.Identity.Name);
+				Message.Text = String.Format("You might be interested in reading this:\r\n{0}posts.aspx?t={1}\r\n\r\nFrom,\r\n\r\n{2}",ForumURL,PageTopicID,User.Identity.Name);
 			}
 		}
 

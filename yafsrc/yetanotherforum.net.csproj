@@ -953,6 +953,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\DB.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\FormatMsg.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

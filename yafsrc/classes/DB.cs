@@ -1053,10 +1053,10 @@ namespace yaf
 						{
 							//  Build a MailMessage
 							string body = page.ReadTemplate("verifyemail.txt");
-							body = body.Replace("{link}",String.Format("http://{2}{1}approve.aspx?k={0}",hash,page.BaseDir,page.Request.ServerVariables["SERVER_NAME"]));
+							body = body.Replace("{link}",String.Format("{1}approve.aspx?k={0}",hash,page.ForumURL));
 							body = body.Replace("{key}",hash);
 							body = body.Replace("{forumname}",page.ForumName);
-							body = body.Replace("{forumlink}",String.Format("http://{0}{1}",page.Request.ServerVariables["SERVER_NAME"],page.BaseDir));
+							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
 							page.SendMail(page.ForumEmail,email.ToString(),String.Format("{0} email verification",page.ForumName),body);
 							page.AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");

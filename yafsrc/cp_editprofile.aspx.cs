@@ -91,9 +91,9 @@ namespace yaf
 				msg.AppendFormat("Hello {0}.\r\n\r\n",User.Identity.Name);
 				msg.AppendFormat("You have requested to change your email address to {0}\r\n\r\n",Email.Text);
 				msg.AppendFormat("To change your address you will have to click on the following link:\r\n");
-				msg.AppendFormat("http://{2}{1}approve.aspx?k={0}\r\n\r\n",hash,BaseDir,Request.ServerVariables["SERVER_NAME"]);
+				msg.AppendFormat("{1}approve.aspx?k={0}\r\n\r\n",hash,ForumURL);
 				msg.AppendFormat("Your approval key is: {0}\r\n\r\n",hash);
-				msg.AppendFormat("Visit {0} at http://{1}{2}",ForumName,Request.ServerVariables["SERVER_NAME"],BaseDir);
+				msg.AppendFormat("Visit {0} at {1}",ForumName,ForumURL);
 
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
