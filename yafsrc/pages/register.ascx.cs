@@ -120,7 +120,10 @@ namespace yaf.pages
 				}
 
 				DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification);
-				Forum.Redirect(Pages.login);
+				if(BoardSettings.EmailVerification)
+					Forum.Redirect(Pages.info,"i=3");
+				else
+					Forum.Redirect(Pages.login);
 			}
 		}
 	}

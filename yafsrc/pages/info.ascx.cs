@@ -16,7 +16,7 @@ namespace yaf.pages
 	/// </summary>
 	public class info : ForumPage
 	{
-		protected Label Info;
+		protected Label Info, Title;
 		protected HyperLink Continue;
 
 		public info() : base("INFO")
@@ -36,15 +36,35 @@ namespace yaf.pages
 				else
 					Continue.Visible = false;
 
-				switch(int.Parse(Request.QueryString["i"])) 
+				try
 				{
-					case 1:
-						Info.Text = GetText("moderated");
-						break;
-					case 2:
-						Info.Text = String.Format(GetText("suspended"),FormatDateTime(SuspendedTo));
-						break;
+					switch(int.Parse(Request.QueryString["i"])) 
+					{
+						case 1:
+							Title.Text = "Information";
+							Info.Text = GetText("moderated");
+							break;
+						case 2:
+							Title.Text = "Suspended";
+							Info.Text = String.Format(GetText("suspended"),FormatDateTime(SuspendedTo));
+							break;
+						case 3:
+							Title.Text = "Thanks";
+							Info.Text = "An email has been sent to the email address you supplied. Please read the instructions in the email to log in.";
+							RefreshTime = 10;
+							RefreshURL = Forum.GetLink(Pages.login);
+							break;
+					}
 				}
+				catch(Exception)
+				{
+					Title.Text = "Information";
+					Info.Text = string.Format("You are logged in as <b>{0}</b>.",PageUserName);
+					RefreshTime = 2;
+					RefreshURL = Forum.GetLink(Pages.forum);
+				}
+				Continue.NavigateUrl = RefreshURL;
+				Continue.Visible = RefreshURL!=null;
 			}
 		}
 

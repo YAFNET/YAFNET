@@ -41,6 +41,7 @@ namespace yaf.pages
 		#region Variables
 		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
 		private string		m_strRefreshURL		= null;
+		private int			m_nRefreshTime		= 2;
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_checkSuspended	= true;
@@ -485,7 +486,10 @@ namespace yaf.pages
 
 #if TODO
 				if(m_strRefreshURL!=null) 
-					script = script.Insert(0,String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">\n",m_strRefreshURL));
+					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"10;{0}\">\n",m_strRefreshURL));
+#else
+				if(m_strRefreshURL!=null && m_nRefreshTime>=0) 
+					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"{1};{0}\">\n",m_strRefreshURL,m_nRefreshTime));
 #endif
 
 				// BEGIN HEADER
@@ -618,6 +622,14 @@ namespace yaf.pages
 			{
 				m_strRefreshURL = value;
 			}
+			get
+			{
+				return m_strRefreshURL;
+			}
+		}
+		public int RefreshTime
+		{
+			set { m_nRefreshTime = value; }
 		}
 
 		#endregion
