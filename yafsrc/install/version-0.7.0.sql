@@ -219,7 +219,7 @@ CREATE TABLE [yaf_User] (
 	[Location]		[nvarchar] (50) NULL ,
 	[HomePage]		[nvarchar] (50) NULL ,
 	[TimeZone]		[int] NOT NULL ,
-	[Avatar]		[nvarchar] (100) NULL ,
+	[Avatar]		[nvarchar] (255) NULL ,
 	[Signature]		[nvarchar] (255) NULL ,
 	[AvatarImage]	[image] NULL,
 	[RankID]		[int] NOT NULL,

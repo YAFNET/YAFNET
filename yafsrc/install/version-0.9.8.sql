@@ -233,7 +233,7 @@ GO
 alter table yaf_User alter column HomePage nvarchar(50) null
 GO
 
-alter table yaf_User alter column Avatar nvarchar(100) null
+alter table yaf_User alter column Avatar nvarchar(255) null
 GO
 
 alter table yaf_User alter column Signature nvarchar(255) null
@@ -1236,7 +1236,7 @@ create procedure yaf_user_save(
 	@Location		nvarchar(50) = null,
 	@HomePage		nvarchar(50) = null,
 	@TimeZone		int,
-	@Avatar			nvarchar(100) = null,
+	@Avatar			nvarchar(255) = null,
 	@LanguageFile	nvarchar(50) = null,
 	@ThemeFile		nvarchar(50) = null,
 	@Approved		bit = null,
