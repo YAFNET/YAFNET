@@ -152,6 +152,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "cp_avatar.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "cp_avatar.aspx.cs"
+                    DependentUpon = "cp_avatar.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "cp_avatar.aspx.resx"
+                    DependentUpon = "cp_avatar.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "cp_editprofile.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -313,6 +329,22 @@
                 <File
                     RelPath = "forumjump.ascx.resx"
                     DependentUpon = "forumjump.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "image.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "image.aspx.cs"
+                    DependentUpon = "image.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "image.aspx.resx"
+                    DependentUpon = "image.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

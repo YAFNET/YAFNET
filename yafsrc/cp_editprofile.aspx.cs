@@ -49,6 +49,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox NewPassword2;
 		protected System.Web.UI.WebControls.Button UpdateProfile;
 		protected System.Web.UI.WebControls.TextBox Email;
+		protected LinkButton UploadAvatar;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -158,9 +159,15 @@ namespace yaf
 			bUpdateEmail = true;
 		}
 
+		private void UploadAvatar_Click(object sender, System.EventArgs e) 
+		{
+			Response.Redirect("cp_avatar.aspx");
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			UploadAvatar.Click += new System.EventHandler(this.UploadAvatar_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

@@ -1,5 +1,17 @@
 /* Version x.x.x */
 
+if not exists(select * from syscolumns where id=object_id('yaf_User') and name='AvatarImage')
+	alter table yaf_User add AvatarImage image null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AvatarWidth')
+	alter table yaf_System add AvatarWidth int not null default(50)
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AvatarHeight')
+	alter table yaf_System add AvatarHeight int not null default(80)
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pageload
 GO
@@ -179,4 +191,104 @@ begin
 		c.TopicID = @TopicID and
 		c.ForumID = a.ForumID
 end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_list
+GO
+
+create procedure yaf_post_list(@TopicID int,@UserID int,@UpdateViewCount smallint=1) as
+begin
+	set nocount on
+
+	if @UpdateViewCount>0
+		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
+
+	select
+		d.TopicID,
+		a.MessageID,
+		a.Posted,
+		Subject = d.Topic,
+		a.Message,
+		a.UserID,
+		UserName	= IsNull(a.UserName,b.Name),
+		b.Joined,
+		Posts		= b.NumPosts,
+		GroupName	= c.Name,
+		d.Views,
+		d.ForumID,
+		Avatar = b.Avatar,
+		b.Location,
+		b.HomePage,
+		b.Signature,
+		c.RankImage,
+		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
+		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null)
+	from
+		yaf_Message a, 
+		yaf_User b,
+		yaf_Group c,
+		yaf_Topic d
+	where
+		a.TopicID = @TopicID and
+		b.UserID = a.UserID and
+		c.GroupID = b.GroupID and
+		d.TopicID = a.TopicID
+	order by
+		a.Posted asc
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_save
+GO
+
+create procedure yaf_system_save(
+	@Name				varchar(50),
+	@TimeZone			int,
+	@SmtpServer			varchar(50),
+	@SmtpUserName		varchar(50)=null,
+	@SmtpUserPass		varchar(50)=null,
+	@ForumEmail			varchar(50),
+	@EmailVerification	bit,
+	@ShowMoved			bit,
+	@BlankLinks			bit,
+	@AvatarWidth		int,
+	@AvatarHeight		int
+) as
+begin
+	update yaf_System set
+		Name = @Name,
+		TimeZone = @TimeZone,
+		SmtpServer = @SmtpServer,
+		SmtpUserName = @SmtpUserName,
+		SmtpUserPass = @SmtpUserPass,
+		ForumEmail = @ForumEmail,
+		EmailVerification = @EmailVerification,
+		ShowMoved = @ShowMoved,
+		BlankLinks = @BlankLinks,
+		AvatarWidth = @AvatarWidth,
+		AvatarHeight = @AvatarHeight
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_avatarimage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_avatarimage
+GO
+
+create procedure yaf_user_avatarimage(@UserID int) as begin
+	select UserID,AvatarImage from yaf_User where UserID=@UserID
+end
+GO
+
+if exists(select * from sysobjects where name='FK_User_Avatar' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table yaf_User drop constraint FK_User_Avatar
+GO
+
+if exists(select * from syscolumns where id=object_id('yaf_User') and name='AvatarID')
+	alter table yaf_User drop column AvatarID
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_Avatar') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	drop table yaf_Avatar
 GO

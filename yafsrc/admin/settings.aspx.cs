@@ -40,7 +40,7 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
-		protected System.Web.UI.WebControls.TextBox Name;
+		protected System.Web.UI.WebControls.TextBox Name, AvatarWidth, AvatarHeight;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
@@ -69,6 +69,8 @@ namespace yaf.admin {
 			EmailVerification.Checked = (bool)row["EmailVerification"];
 			ShowMoved.Checked = (bool)row["ShowMoved"];
 			BlankLinks.Checked = (bool)row["BlankLinks"];
+			AvatarWidth.Text = row["AvatarWidth"].ToString();
+			AvatarHeight.Text = row["AvatarHeight"].ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -115,6 +117,8 @@ namespace yaf.admin {
 				cmd.Parameters.Add("@EmailVerification",EmailVerification.Checked);
 				cmd.Parameters.Add("@ShowMoved",ShowMoved.Checked);
 				cmd.Parameters.Add("@BlankLinks",BlankLinks.Checked);
+				cmd.Parameters.Add("@AvatarWidth",AvatarWidth.Text);
+				cmd.Parameters.Add("@AvatarHeight",AvatarHeight.Text);
 				DataManager.ExecuteNonQuery(cmd);
 			}
 			Response.Redirect("main.aspx");

@@ -440,19 +440,16 @@ namespace yaf
 			Response.Redirect("postmessage.aspx?f=" + PageForumID);
 		}
 
-		protected string GetAvatar(object Avatar) {
-			if(Avatar == null || Avatar.ToString()=="")
-				return "";
-
-			return String.Format("<img src='{0}{1}'><br>",BaseDir,Avatar);
-			//return String.Format("{0}{1}<br>",BaseDir,Avatar);
-		}
-
 		protected string FormatUserBox(System.Data.DataRowView row) {
 			string html = "";
 
 			// Avatar
-			if(row["Avatar"].ToString().Length>0) {
+			if(row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			{
+				html += String.Format("<img src='image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"]);
+			} 
+			else if(row["Avatar"].ToString().Length>0) 
+			{
 				html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 			}
 

@@ -47,8 +47,16 @@
 		<td class=post><asp:checkbox id="BlankLinks" runat="server"/></td>
 	</tr>
 	<tr>
+		<td class=postheader><b>Avatar Width:</b><br/>Maximum width for uploaded avatars.</td>
+		<td class=post><asp:textbox id="AvatarWidth" runat="server"/></td>
+	</tr>
+	<tr>
+		<td class=postheader><b>Avatar Height:</b><br/>Maximum height for uploaded avatars.</td>
+		<td class=post><asp:textbox id="AvatarHeight" runat="server"/></td>
+	</tr>
+	<tr>
 		<td class=postfooter colspan=2 align=middle>
-<asp:Button id=Save runat="server" Text="Save"></asp:Button></td>
+			<asp:Button id=Save runat="server" Text="Save"/></td>
 	</tr>
 </table>
 
