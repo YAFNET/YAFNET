@@ -1688,9 +1688,9 @@ create procedure dbo.yaf_group_save(
 	@AccessMaskID	int=null
 ) as
 begin
-	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0
-	if @IsGuest = 1 update yaf_Group set IsGuest = 0
-	if @IsStart = 1 update yaf_Group set IsStart = 0
+	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0 where BoardID=@BoardID
+	if @IsGuest = 1 update yaf_Group set IsGuest = 0 where BoardID=@BoardID
+	if @IsStart = 1 update yaf_Group set IsStart = 0 where BoardID=@BoardID
 	if @GroupID>0 begin
 		update yaf_Group set
 			Name = @Name,
