@@ -1024,8 +1024,8 @@ namespace yaf.pages
 		/// <returns>Formatted string of the formatted DateTime Object.</returns>
 		public string FormatDateTime(object o) 
 		{
-			DateTime dt = (DateTime)o;
-			return String.Format("{0:F}",dt + TimeOffset);
+			DateTime dt = (DateTime)o + TimeOffset;
+			return dt.ToString(GetText("FORMAT_DATE_TIME_LONG"));
 		}
 
 		/// <summary>
@@ -1052,7 +1052,7 @@ namespace yaf.pages
 			}
 			else
 			{
-				strDateFormat = String.Format("{0:F}",dt);
+				strDateFormat = dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
 			}
 
 			return strDateFormat;
@@ -1064,17 +1064,18 @@ namespace yaf.pages
 		/// <returns>The formatted string created from the DateTime object.</returns>
 		public string FormatDateTimeShort(object o) 
 		{
-			DateTime dt = (DateTime)o;
-			return String.Format("{0:f}",dt + TimeOffset);
+			DateTime dt = (DateTime)o + TimeOffset;
+			return dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
 		}
 		/// <summary>
-		/// Formats a datetime value into 7. februar 2003
+		/// Formats a datetime value into 7. february 2003
 		/// </summary>
 		/// <param name="dt">The date to be formatted</param>
 		/// <returns></returns>
 		public string FormatDateLong(DateTime dt) 
 		{
-			return String.Format("{0:D}",dt + TimeOffset);
+			dt += TimeOffset;
+			return dt.ToString(GetText("FORMAT_DATE_LONG"));
 		}
 		/// <summary>
 		/// Formats a datetime value into 07.03.2003
@@ -1083,8 +1084,8 @@ namespace yaf.pages
 		/// <returns>Short formatted date.</returns>
 		public string FormatDateShort(object o) 
 		{
-			DateTime dt = (DateTime)o;
-			return String.Format("{0:d}",dt + TimeOffset);
+			DateTime dt = (DateTime)o + TimeOffset;
+			return dt.ToString(GetText("FORMAT_DATE_SHORT"));
 		}
 		/// <summary>
 		/// Formats a datetime value into 22:32:34
@@ -1093,7 +1094,8 @@ namespace yaf.pages
 		/// <returns></returns>
 		public string FormatTime(DateTime dt) 
 		{
-			return String.Format("{0:T}",dt + TimeOffset);
+			dt += TimeOffset;
+			return dt.ToString(GetText("FORMAT_TIME"));
 		}
 		#endregion
 		#region Theme Functions
