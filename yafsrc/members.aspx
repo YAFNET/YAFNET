@@ -34,4 +34,5 @@
 
 <table class=command><tr><td class=navlinks id=PageLinks2 runat=server></td></tr></table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

@@ -316,22 +316,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "forumjump.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "forumjump.ascx.cs"
-                    DependentUpon = "forumjump.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "forumjump.ascx.resx"
-                    DependentUpon = "forumjump.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "image.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -1146,6 +1130,11 @@
                 />
                 <File
                     RelPath = "controls\PageLinks.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\SaveScrollPos.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

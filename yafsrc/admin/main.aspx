@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="main.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.main" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
@@ -99,4 +100,5 @@ does not match. You should go to <a target=_"top" href="../install.aspx">install
 and update your database.
 </p>
 
+<yaf:savescrollpos runat="server"/>
 </form>

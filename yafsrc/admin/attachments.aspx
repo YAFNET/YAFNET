@@ -1,4 +1,6 @@
 <%@ Page language="c#" Codebehind="attachments.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.attachments" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+
 <form runat="server" enctype="multipart/form-data">
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
@@ -33,5 +35,5 @@
 
 </table>
 
-
+<yaf:savescrollpos runat="server"/>
 </form>

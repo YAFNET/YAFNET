@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="nntpretrieve.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.nntpretrieve" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
@@ -46,4 +47,5 @@ forum is moderated, the posts will be automatically approved.
 To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
 </p>
 
+<yaf:savescrollpos runat="server"/>
 </form>

@@ -1,6 +1,5 @@
 <%@ Page language="c#" Codebehind="editgroup.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.editgroup" %>
-
-
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
@@ -89,4 +88,7 @@
 </asp:repeater>
   <tr>
     <td class=postfooter align=middle colspan=11><asp:button id=Save runat="server" Text="Save"></asp:button>&nbsp; 
-<asp:button id=Cancel runat="server" Text="Cancel"></asp:button></td></tr></table></form>
+<asp:button id=Cancel runat="server" Text="Cancel"></asp:button></td></tr></table>
+
+<yaf:savescrollpos runat="server"/>
+</form>

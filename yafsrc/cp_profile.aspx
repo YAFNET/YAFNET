@@ -68,4 +68,5 @@
 <% // end %>
 </TR></TBODY></TABLE>
 
+<yaf:savescrollpos runat="server"/>
 </form>

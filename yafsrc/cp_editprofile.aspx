@@ -9,6 +9,13 @@
 	<tr>
 		<td class=header1 colspan=2><%= GetText("title") %></td>
 	</tr>
+		<tr>
+			<td colspan="2" class="header2"><b><%= GetText("aboutyou") %></b></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("realname2") %></td>
+			<td class="post"><asp:TextBox id="Realname" runat="server" cssclass="edit" /></td>
+		</tr>
 	<tr>
 		<td colspan=2 class=header2><b><%= GetText("location") %></b></td>
 	</tr>
@@ -16,6 +23,19 @@
 		<td class=postheader><%= GetText("where") %></td>
 		<td class=post><asp:TextBox id=Location runat="server" cssclass="edit"/></td>
 	</tr>
+		<tr>
+			<td class="postheader"><%= GetText("occupation") %></td>
+			<td class="post"><asp:TextBox id="Occupation" runat="server" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("interests") %></td>
+			<td class="post"><asp:TextBox id="Interests" runat="server" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("gender") %></td>
+			<td class="post">
+				<asp:DropDownList id="Gender" runat="server" cssclass="edit" /></td>
+		</tr>
 	<tr>
 		<td colspan=2 class=header2><b><%= GetText("homepage") %></b></td>
 	</tr>
@@ -23,6 +43,32 @@
 		<td class=postheader><%= GetText("homepage2") %></td>
 		<td class=post><asp:TextBox runat="server" id="HomePage" cssclass="edit"/></td>
 	</tr>
+	
+		<tr>
+			<td class="postheader"><%= GetText("weblog2") %></td>
+			<td class="post"><asp:TextBox runat="server" id="Weblog" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="header2"><b><%= GetText("messenger") %></b></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("msn") %></td>
+			<td class="post"><asp:TextBox runat="server" id="MSN" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("yim") %></td>
+			<td class="post"><asp:TextBox runat="server" id="YIM" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("aim") %></td>
+			<td class="post"><asp:TextBox runat="server" id="AIM" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= GetText("icq") %></td>
+			<td class="post"><asp:TextBox runat="server" id="ICQ" cssclass="edit" /></td>
+		</tr>
+	
+	
 	<tr>
 		<td colspan=2 class=header2><b><%= GetText("timezone") %></b></td>
 	</tr>
@@ -92,4 +138,5 @@
 	</tr>
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

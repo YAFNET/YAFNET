@@ -230,7 +230,16 @@ CREATE TABLE [yaf_User] (
 	[RankID] [int] NOT NULL,
 	[Suspended] [datetime] NULL,
 	[LanguageFile] [varchar](50) NULL,
-	[ThemeFile] [varchar](50) NULL
+	[ThemeFile] [varchar](50) NULL,
+	[MSN] [varchar] (50) NULL ,
+	[YIM] [varchar] (30) NULL ,
+	[AIM] [varchar] (30) NULL ,
+	[ICQ] [int] NULL ,
+	[RealName] [varchar] (50) NULL ,
+	[Occupation] [varchar] (50) NULL ,
+	[Interests] [varchar] (100) NULL ,
+	[Gender] [tinyint] NULL ,
+	[Weblog] [varchar] (100) NULL
 ) ON [PRIMARY]
 GO
 

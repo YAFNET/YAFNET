@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="edituser.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.edituser" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
@@ -56,4 +57,5 @@
 
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

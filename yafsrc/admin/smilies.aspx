@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="smilies.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.smilies" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <form runat="server">
 
 <asp:repeater runat=server id=List>
@@ -38,4 +39,5 @@
 </FooterTemplate>
 </asp:repeater>
 
+<yaf:savescrollpos runat="server"/>
 </form>

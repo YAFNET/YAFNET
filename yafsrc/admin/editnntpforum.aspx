@@ -1,6 +1,5 @@
 <%@ Page language="c#" Codebehind="editnntpforum.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.editnntpforum" %>
-
-
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
@@ -27,4 +26,5 @@
 	</tr>
 
 </table>
+<yaf:savescrollpos runat="server"/>
 </form>

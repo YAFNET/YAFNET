@@ -52,6 +52,9 @@ namespace yaf
 		protected PlaceHolder ForumSettingsRows;
 		protected HtmlTableRow UserThemeRow, UserLanguageRow;
 		protected controls.PageLinks PageLinks;
+		protected TextBox Realname, Occupation, Interests, Weblog, MSN, YIM, AIM, ICQ;
+		protected DropDownList Gender;
+		
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -60,6 +63,12 @@ namespace yaf
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 			
 			if(!IsPostBack) {
+				// Begin Modifications for enhanced profile
+				Gender.Items.Add(GetText("gender0"));
+				Gender.Items.Add(GetText("gender1"));
+				Gender.Items.Add(GetText("gender2"));
+				// End Modifications for enhanced profile
+
 				BindData();
 
 				PageLinks.AddLink(ForumName,BaseDir);
@@ -96,6 +105,15 @@ namespace yaf
 			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
 			Avatar.Text = row["Avatar"].ToString();
 			Email.Text = row["Email"].ToString();
+			Realname.Text = row["RealName"].ToString();
+			Occupation.Text = row["Occupation"].ToString();
+			Interests.Text = row["Interests"].ToString();
+			Weblog.Text = row["Weblog"].ToString();
+			MSN.Text = row["MSN"].ToString();
+			YIM.Text = row["YIM"].ToString();
+			AIM.Text = row["AIM"].ToString();
+			ICQ.Text = row["ICQ"].ToString();
+			Gender.SelectedIndex = Convert.ToInt32(row["Gender"]);
 
 			string themeFile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
 			string languageFile = System.Configuration.ConfigurationSettings.AppSettings["language"];
@@ -209,7 +227,8 @@ namespace yaf
 			if(!UseEmailVerification)
 				email = Email.Text;
 
-			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null);
+			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
+				MSN.Text,YIM.Text,AIM.Text,ICQ.Text,Realname.Text,Occupation.Text,Interests.Text,Gender.SelectedIndex,Weblog.Text);
 			Response.Redirect("cp_profile.aspx");
 		}
 

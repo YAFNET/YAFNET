@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="smilies_edit.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.smilies_edit" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <form runat="server">
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
@@ -28,4 +29,5 @@
 </tr>
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

@@ -78,6 +78,25 @@ ALTER TABLE [yaf_Attachment] ADD
 	)
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_User') and name='MSN')
+	alter table yaf_User add 
+		[MSN] [varchar] (50) NULL ,
+		[YIM] [varchar] (30) NULL ,
+		[AIM] [varchar] (30) NULL ,
+		[ICQ] [int] NULL ,
+		[RealName] [varchar] (50) NULL ,
+		[Occupation] [varchar] (50) NULL ,
+		[Interests] [varchar] (100) NULL ,
+		[Gender] [tinyint] NULL ,
+		[Weblog] [varchar] (100) NULL
+GO
+
+update yaf_User set Gender=0 where Gender is null
+GO
+
+alter table yaf_User alter column Gender tinyint not null
+GO
+
 -- NNTP START
 if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 create table yaf_NntpServer(
@@ -613,8 +632,8 @@ begin
 	values('Administration',1,0,0,0)
 	set @GroupID = @@IDENTITY
 
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
-	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail)
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
+	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0)
 	set @UserID = @@IDENTITY
 
 	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
@@ -627,8 +646,8 @@ begin
 	values('Guest',0,1,0,0)
 	set @GroupID = @@IDENTITY
 
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
-	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail)
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
+	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0)
 	set @UserID = @@IDENTITY
 
 	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
@@ -694,7 +713,7 @@ begin
 		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID
 	where
 		c.ForumID = @ForumID and
-		(@Date is null or c.Posted>=@Date or Priority>0) and
+		(@Date is null or c.Posted>=@Date or c.LastPosted>=@Date or Priority>0) and
 		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
 		(c.TopicMovedID is not null or c.NumPosts>0)
 	order by
@@ -814,7 +833,16 @@ create procedure yaf_user_save(
 	@Avatar			varchar(100) = null,
 	@LanguageFile	varchar(50) = null,
 	@ThemeFile		varchar(50) = null,
-	@Approved		bit = null
+	@Approved		bit = null,
+	@MSN			varchar(50) = null,
+	@YIM			varchar(30) = null,
+	@AIM			varchar(30) = null,
+	@ICQ			int = null,
+	@RealName		varchar(50) = null,
+	@Occupation		varchar(50) = null,
+	@Interests		varchar(100) = null,
+	@Gender			tinyint = 0,
+	@Weblog			varchar(100) = null
 ) as
 begin
 	declare @RankID int
@@ -822,14 +850,21 @@ begin
 	if @Location is not null and @Location = '' set @Location = null
 	if @HomePage is not null and @HomePage = '' set @HomePage = null
 	if @Avatar is not null and @Avatar = '' set @Avatar = null
+	if @MSN is not null and @MSN = '' set @MSN = null
+	if @YIM is not null and @YIM = '' set @YIM = null
+	if @AIM is not null and @AIM = '' set @AIM = null
+	if @ICQ is not null and @ICQ = 0 set @ICQ = null
+	if @RealName is not null and @RealName = '' set @RealName = null
+	if @Occupation is not null and @Occupation = '' set @Occupation = null
+	if @Interests is not null and @Interests = '' set @Interests = null
 
 	if @UserID is null or @UserID<1 begin
 		if @Email = '' set @Email = null
 		
 		select @RankID = RankID from yaf_Rank where IsStart<>0
 		
-		insert into yaf_User(RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar) 
-		values(@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar)
+		insert into yaf_User(RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar,Gender) 
+		values(@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar,@Gender)
 	
 		set @UserID = @@IDENTITY
 
@@ -847,7 +882,16 @@ begin
 			TimeZone = @TimeZone,
 			Avatar = @Avatar,
 			LanguageFile = @LanguageFile,
-			ThemeFile = @ThemeFile
+			ThemeFile = @ThemeFile,
+			MSN = @MSN,
+			YIM = @YIM,
+			AIM = @AIM,
+			ICQ = @ICQ,
+			RealName = @RealName,
+			Occupation = @Occupation,
+			Interests = @Interests,
+			Gender = @Gender,
+			Weblog = @Weblog
 		where UserID = @UserID
 		
 		if @Email is not null
@@ -1467,5 +1511,51 @@ begin
 		b.Name
 	order by
 		b.Name
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_list
+GO
+
+create procedure yaf_user_list(@UserID int=null,@Approved bit=null) as
+begin
+	if @UserID is null
+		select 
+			a.*,
+			a.NumPosts,
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			RankName = b.Name
+		from 
+			yaf_User a,
+			yaf_Rank b
+		where 
+			(@Approved is null or a.Approved = @Approved) and
+			b.RankID = a.RankID
+		order by 
+			a.Name
+	else
+		select 
+			a.*,
+			a.NumPosts,
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			RankName = b.Name,
+			NumDays = datediff(d,a.Joined,getdate())+1,
+			NumPostsForum = (select count(1) from yaf_Message x where x.Approved<>0),
+			HasAvatarImage = (select count(1) from yaf_User x where x.UserID=a.UserID and AvatarImage is not null),
+			c.AvatarUpload,
+			c.AvatarRemote,
+			c.AvatarWidth,
+			c.AvatarHeight
+		from 
+			yaf_User a,
+			yaf_Rank b,
+			yaf_System c
+		where 
+			a.UserID = @UserID and
+			(@Approved is null or a.Approved = @Approved) and
+			b.RankID = a.RankID
+		order by 
+			a.Name
 end
 GO

@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="bannedip_edit.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.bannedip_edit" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
@@ -18,4 +19,5 @@
 </tr>
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

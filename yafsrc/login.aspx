@@ -46,4 +46,5 @@
 </tr>
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

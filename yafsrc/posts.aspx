@@ -124,4 +124,5 @@
 </tr>
 </TABLE>
 
+<yaf:savescrollpos runat="server"/>
 </FORM>

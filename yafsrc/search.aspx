@@ -52,4 +52,6 @@
 			<td align="left" class="navlinks" id="PageLinks2" runat="server"></td>
 		</tr>
 	</table>
+
+<yaf:savescrollpos runat="server"/>
 </form>

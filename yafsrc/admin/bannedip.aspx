@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="bannedip.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.bannedip" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
@@ -33,4 +34,5 @@
 </FooterTemplate>
 </asp:repeater>
 
+<yaf:savescrollpos runat="server"/>
 </form>

@@ -1,6 +1,5 @@
 <%@ Page language="c#" Codebehind="mail.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.mail" %>
-
-
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 <table class=content cellSpacing=1 cellPadding=0 width=100%>
@@ -16,4 +15,7 @@
     <td class=postheader vAlign=top>Message:</TD>
     <td class=post><asp:textbox id=Body runat="server" TextMode="MultiLine" CssClass="edit" Rows="16"></asp:textbox></TD></TR>
   <tr>
-    <td class=postfooter align=middle colSpan=2><asp:button id=Send runat="server" Text="Send"></asp:button></TD></TR></TABLE></FORM>
+    <td class=postfooter align=middle colSpan=2><asp:button id=Send runat="server" Text="Send"></asp:button></TD></TR></TABLE>
+
+<yaf:savescrollpos runat="server"/>
+</FORM>

@@ -6,16 +6,59 @@ namespace yaf.controls
 	/// <summary>
 	/// Summary description for ForumJump.
 	/// </summary>
-	public class ForumJump : BaseControl, System.Web.UI.IPostBackEventHandler
+	public class ForumJump : BaseControl, System.Web.UI.IPostBackDataHandler
 	{
-		public void RaisePostBackEvent(String eventArgument)
+		private void Page_Load(object sender, System.EventArgs e) 
 		{
-			int nForumID = int.Parse(Page.Request.Form[this.UniqueID]);
-			if(nForumID>0)
-				Page.Response.Redirect(String.Format("topics.aspx?f={0}",nForumID));
-			else
-				Page.Response.Redirect(String.Format("{0}?c={1}",Page.BaseDir,-nForumID));
+			if(!Page.IsPostBack)
+				ForumID = Page.PageForumID;
 		}
+
+		override protected void OnInit(EventArgs e)
+		{
+			this.Load += new System.EventHandler(this.Page_Load);
+			base.OnInit(e);
+		}
+
+		private int ForumID 
+		{
+			get 
+			{
+				return (int)ViewState["ForumID"];
+			}
+			set 
+			{
+				ViewState["ForumID"] = value;
+			}
+		}
+
+		#region IPostBackDataHandler
+		public virtual bool LoadPostData(string postDataKey,System.Collections.Specialized.NameValueCollection postCollection) 
+		{
+			int nForumID;
+			try 
+			{
+				nForumID = int.Parse(postCollection[postDataKey]);
+				if(nForumID==ForumID)
+					return false;
+			}
+			catch(Exception) 
+			{
+				return false;
+			}
+
+			ForumID = nForumID;
+			return true;
+		}
+
+		public virtual void RaisePostDataChangedEvent() 
+		{
+			if(ForumID>0)
+				Page.Response.Redirect(String.Format("topics.aspx?f={0}",ForumID));
+			else
+				Page.Response.Redirect(String.Format("{0}?c={1}",Page.BaseDir,-ForumID));
+		}
+		#endregion
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{

@@ -39,15 +39,17 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label Email;
 		protected System.Web.UI.HtmlControls.HtmlTableRow EmailRow;
 		protected System.Web.UI.WebControls.Label LastVisit;
-		protected System.Web.UI.WebControls.Label NumPosts;
 		protected System.Web.UI.WebControls.Label UserName;
 		protected Repeater Groups, LastPosts;
-		protected Label Rank;
+		protected Label Rank, Location;
 		protected PlaceHolder ModeratorInfo;
 		protected HtmlTableRow SuspendedRow;
 		protected DropDownList SuspendUnit;
 		protected TextBox SuspendCount;
 		protected Button RemoveSuspension, Suspend;
+		protected HyperLink HomePage, Weblog;
+		protected HtmlTableCell Stats, MSN, YIM, AIM, ICQ, RealName, Occupation, Interests, Gender;
+		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -81,8 +83,47 @@ namespace yaf
 				Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
 				Email.Text = user["Email"].ToString();
 				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
-				NumPosts.Text = user["NumPosts"].ToString();
 				Rank.Text = user["RankName"].ToString();
+				Location.Text = user["Location"].ToString();
+				HomePage.Text = user["HomePage"].ToString();
+				HomePage.NavigateUrl = user["HomePage"].ToString();
+				
+				double dAllPosts = 0.0;
+				if((int)user["NumPostsForum"]>0) 
+					dAllPosts = 100.0 * (int)user["NumPosts"] / (int)user["NumPostsForum"];
+
+				Stats.InnerHtml = String.Format("{0:N0}<br/>[{1} / {2}]",
+					user["NumPosts"],
+					String.Format(GetText("NUMALL"),dAllPosts),
+					String.Format(GetText("NUMDAY"),(double)(int)user["NumPosts"] / (int)user["NumDays"])
+					);
+
+				MSN.InnerText = user["MSN"].ToString();
+				YIM.InnerText = user["YIM"].ToString();
+				AIM.InnerText = user["AIM"].ToString();
+				ICQ.InnerText = user["ICQ"].ToString();
+				RealName.InnerText = user["RealName"].ToString();
+				Weblog.Text = user["Weblog"].ToString();
+				Weblog.NavigateUrl = user["Weblog"].ToString();
+				Interests.InnerText = user["Interests"].ToString();
+				Occupation.InnerText = user["Occupation"].ToString();
+				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
+
+				if((bool)user["AvatarUpload"] && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
+				{
+					Avatar.ImageUrl = "image.aspx?u=" + (Request.QueryString["u"]);
+				} 
+				else if((bool)user["AvatarRemote"] && user["Avatar"].ToString().Length>0) 
+				{
+					Avatar.ImageUrl = String.Format("image.aspx?url={0}&width={1}&height={2}",
+						Server.UrlEncode(user["Avatar"].ToString()),
+						user["AvatarWidth"],
+						user["AvatarHeight"]);
+				} 
+				else 
+				{
+					Avatar.Visible = false;
+				}
 
 				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 

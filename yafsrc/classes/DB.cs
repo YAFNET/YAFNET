@@ -1205,7 +1205,9 @@ namespace yaf
 		}
 		static public void user_save(object UserID,object UserName,object Password,object Email,object Hash,
 			object Location,object HomePage,object TimeZone,object Avatar,
-			object languageFile,object themeFile,object Approved) 
+			object languageFile,object themeFile,object Approved,
+			object msn,object yim,object aim,object icq,
+			object realName,object occupation,object interests,object gender,object weblog) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_save")) 
 			{
@@ -1222,6 +1224,15 @@ namespace yaf
 				cmd.Parameters.Add("@LanguageFile",languageFile);
 				cmd.Parameters.Add("@ThemeFile",themeFile);
 				cmd.Parameters.Add("@Approved",Approved);
+				cmd.Parameters.Add("@MSN",msn);
+				cmd.Parameters.Add("@YIM",yim);
+				cmd.Parameters.Add("@AIM",aim);
+				cmd.Parameters.Add("@ICQ",icq);
+				cmd.Parameters.Add("@RealName",realName);
+				cmd.Parameters.Add("@Occupation",occupation);
+				cmd.Parameters.Add("@Interests",interests);
+				cmd.Parameters.Add("@Gender",gender);
+				cmd.Parameters.Add("@Weblog",weblog);
 				ExecuteNonQuery(cmd);
 			}
 		}

@@ -131,4 +131,5 @@
 </ItemTemplate>
 </asp:repeater>
 
+<yaf:savescrollpos runat="server"/>
 </form>

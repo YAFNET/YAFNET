@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="groups.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.groups" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
@@ -49,4 +50,5 @@
 </tr>
 </table>
 
+<yaf:savescrollpos runat="server"/>
 </form>

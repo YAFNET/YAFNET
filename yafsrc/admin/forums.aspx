@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="forums.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.forums" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
@@ -38,4 +39,7 @@
   <tr>
     <td class=footer1 colSpan=3><asp:linkbutton id=NewCategory runat="server">New Category</asp:linkbutton>
 		|
-		<asp:LinkButton id=NewForum runat="server">New Forum</asp:LinkButton></TD></TR></TABLE></FORM>
+		<asp:LinkButton id=NewForum runat="server">New Forum</asp:LinkButton></TD></TR></TABLE>
+		
+<yaf:savescrollpos runat="server"/>
+</FORM>
