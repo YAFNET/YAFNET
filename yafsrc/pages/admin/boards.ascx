@@ -32,6 +32,7 @@
 <tr class="footer1">
     <td colSpan="3"><asp:LinkButton id=New runat="server" text="New Board"/></td>
 </tr>
+</table>
 
 </yaf:adminmenu>
 
