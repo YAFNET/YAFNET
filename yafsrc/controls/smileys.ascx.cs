@@ -30,32 +30,64 @@ namespace yaf.controls
 	/// </summary>
 	public abstract class smileys : BaseUserControl
 	{
+		protected System.Web.UI.WebControls.Literal SmileyResults;
+		protected controls.Pager pager;
 		protected DataTable dtSmileys;
 		private string _onclick;
+			
+		public int pagenum = 0;
+		public int pagesize = 18;
+		public int perrow = 6;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			dtSmileys = DB.smiley_listunique(pages.ForumPage.PageBoardID);
+			
+			pager.PageSize = pagesize;
+			CreateSmileys();
 		}
 
-		protected override void Render(System.Web.UI.HtmlTextWriter writer) {
+		private void pager_PageChange(object sender,EventArgs e)
+		{
+			CreateSmileys();
+		}
+
+		private void CreateSmileys()
+		{
+			int pgnum = pager.CurrentPageIndex;
+			pager.Count = dtSmileys.Rows.Count;
+			int intpg = pgnum * pagesize;
+			
 			System.Text.StringBuilder html = new System.Text.StringBuilder();
-			html.AppendFormat("<table align=center cellpadding=9>");
-			html.AppendFormat("<tr>");
-			for(int i=0;i<dtSmileys.Rows.Count;i++) {
-				DataRow row = dtSmileys.Rows[i];
-				if(i%8==0 && i>0 && i+1<dtSmileys.Rows.Count) html.Append("</tr><tr>\n");
-				string evt = "";
-				if(_onclick.Length>0) {
-					evt = String.Format("javascript:{0}('{1}')",_onclick,row["Code"]);
-				} else {
-					evt = "javascript:void()";
+			html.AppendFormat("<tr class='post'>");
+			int rowcells = 0;
+			for(int i=intpg;i<intpg + pagesize;i++) 
+			{
+				if (i < dtSmileys.Rows.Count)
+				{
+					DataRow row = dtSmileys.Rows[i];
+					if(i%perrow==0 && i>0 && i<dtSmileys.Rows.Count) 
+					{
+						html.Append("</tr><tr class='post'>\n");
+						rowcells = 0;
+					}
+					string evt = "";
+					if(_onclick.Length>0) 
+					{
+						evt = String.Format("javascript:{0}('{1}','{3}images/emoticons/{2}')",_onclick,row["Code"],row["Icon"],Data.ForumRoot);
+					} 
+					else 
+					{
+						evt = "javascript:void()";
+					}
+					html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",ForumPage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
+					rowcells++;
 				}
-				html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",ForumPage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
 			}
+			while(rowcells++<perrow) html.AppendFormat("<td>&nbsp;</td>");
 			html.AppendFormat("</tr>");
-			html.AppendFormat("</table>");
-			writer.Write(html);
+
+			SmileyResults.Text = html.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -74,6 +106,7 @@ namespace yaf.controls
 		private void InitializeComponent()
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
+			pager.PageChange += new EventHandler(pager_PageChange);
 		}
 		#endregion
 

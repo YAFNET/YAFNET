@@ -23,4 +23,4 @@
 - A fast response text box (only simple text with post button) at the bottom of 
   an open topic if the user can reply. So if I read a topic and want to reply 
   "on the fly" I can do it immediatly.
-- Fix theme and translation for richedit.
+- Fix translation again for richedit.

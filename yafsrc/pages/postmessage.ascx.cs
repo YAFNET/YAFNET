@@ -99,6 +99,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			Message.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			Message.StyleSheet = this.ThemeFile("theme.css");
 			Message.BaseDir = Data.ForumRoot + "rte";
 
 			if(!IsPostBack) 

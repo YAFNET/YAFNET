@@ -46,6 +46,7 @@ namespace yaf.pages
 		{
 			sig.EnableRTE = Config.BoardSettings.AllowRichEdit;
 			sig.BaseDir = Data.ForumRoot + "rte";
+			sig.StyleSheet = this.ThemeFile("theme.css");
 
 			if(!User.IsAuthenticated)
 			{
