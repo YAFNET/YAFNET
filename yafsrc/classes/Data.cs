@@ -224,21 +224,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 14;
+				return 15;
 			}
 		}
 		static public long AppVersionCode 
 		{
 			get 
 			{
-				return 0x00090800;
+				return 0x00090900;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2004,5,30);
+				return new DateTime(2004,5,31);
 			}
 		}
 		#endregion

@@ -12,7 +12,7 @@
                 AssemblyName = "yaf"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
+                DefaultHTMLPageLayout = "Flow"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"
@@ -484,6 +484,10 @@
                 />
                 <File
                     RelPath = "install\version-0.9.8.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version-0.9.9.sql"
                     BuildAction = "Content"
                 />
                 <File
