@@ -6,6 +6,10 @@ void Page_Load(object sender,System.EventArgs e)
 	yafForum.Header = yafHeader;
 	yafForum.Footer = yafFooter;
 }
+public void Page_Error(object sender,System.EventArgs e)
+{
+	yaf.Utils.LogToMail(Server.GetLastError());
+}
 </script>
 
 <html>

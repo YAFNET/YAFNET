@@ -416,31 +416,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_extvalidate') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_extvalidate
-GO
-
-create procedure yaf_user_extvalidate(@Name varchar(50),@Email varchar(50)) as
-begin
-	declare @UserID int
-	declare @RankID int
-	declare @TimeZone int
-	select @UserID = UserID from yaf_User where Name = @Name
-	if @UserID is null or @UserID<1 begin
-		select @RankID = max(RankID) from yaf_Rank where IsStart<>0
-		select @TimeZone = TimeZone from yaf_System
-		if @Email = '' set @Email = null
-		insert into yaf_User(RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar) 
-		values(@RankID,@Name,'<external>',@Email,getdate(),getdate(),0,0,null,null,@TimeZone,null)
-		set @UserID = @@IDENTITY
-		
-		insert into yaf_UserGroup(UserID,GroupID)
-		select @UserID,GroupID from yaf_Group where IsStart<>0
-	end
-	select UserID = @UserID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_usergroup_list
 GO

@@ -63,7 +63,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!Page.User.Identity.IsAuthenticated)
+			if(!User.IsAuthenticated)
 				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 			
 			if(!IsPostBack) {
@@ -75,16 +75,16 @@ namespace yaf.pages
 
 				BindData();
 
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");
 
-				ForumSettingsRows.Visible = AllowUserTheme || AllowUserLanguage;
-				UserThemeRow.Visible = AllowUserTheme;
-				UserLanguageRow.Visible = AllowUserLanguage;
+				ForumSettingsRows.Visible = Config.ForumSettings.AllowUserTheme || Config.ForumSettings.AllowUserLanguage;
+				UserThemeRow.Visible = Config.ForumSettings.AllowUserTheme;
+				UserLanguageRow.Visible = Config.ForumSettings.AllowUserLanguage;
 			}
 		}
 
@@ -221,23 +221,23 @@ namespace yaf.pages
 #endif
 			}
 
-			if(bUpdateEmail && UseEmailVerification) 
+			if(bUpdateEmail && Config.ForumSettings.EmailVerification) 
 			{
 				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
 				// Email Body
-				string msg = ReadTemplate("changeemail.txt");
+				string msg = Utils.ReadTemplate("changeemail.txt");
 				msg = msg.Replace("{user}",PageUserName);
 				msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),ServerURL));
 				msg = msg.Replace("{newemail}",Email.Text);
 				msg = msg.Replace("{key}",hash);
-				msg = msg.Replace("{forumname}",ForumName);
+				msg = msg.Replace("{forumname}",Config.ForumSettings.Name);
 				msg = msg.Replace("{forumlink}",ForumURL);
 
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
-				SendMail(ForumEmail,Email.Text,"Changed email",msg);
+				Utils.SendMail(Config.ForumSettings.ForumEmail,Email.Text,"Changed email",msg);
 				AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
 			}
 
@@ -260,7 +260,7 @@ namespace yaf.pages
 			}
 
 			object email = null;
-			if(!UseEmailVerification)
+			if(!Config.ForumSettings.EmailVerification)
 				email = Email.Text;
 
 			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,

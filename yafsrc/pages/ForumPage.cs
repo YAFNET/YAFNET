@@ -33,6 +33,456 @@ using yaf.classes;
 
 namespace yaf.pages
 {
+	#region User Classes
+	public interface IForumUser
+	{
+		string Name
+		{
+			get;
+		}
+		string Email
+		{
+			get;
+		}
+		bool IsAuthenticated
+		{
+			get;
+		}
+		object Location
+		{
+			get;
+		}
+		object HomePage
+		{
+			get;
+		}
+		bool CanLogin
+		{
+			get;
+		}
+	}
+
+	public class RainbowUser : IForumUser
+	{
+		private	string	m_userName;
+		private string	m_email;
+		private	string	m_location;
+		private int		m_userID;
+		private bool	m_isAuthenticated;
+
+		public RainbowUser(string userName,bool isAuthenticated)
+		{
+			/*
+			 * UserID (int)=1
+			 * Email (nvarchar)=bh@bhenden.org
+			 * Password (nvarchar)=altchs
+			 * Name (nvarchar)=bhenden
+			 * Company (nvarchar)=
+			 * Address (nvarchar)=Engsoleia 13
+			 * City (nvarchar)=Kristiansund
+			 * Zip (nvarchar)=6518
+			 * CountryId (nchar)=NO
+			 * StateId (int)=9889982
+			 * PIva (nvarchar)=
+			 * CFiscale (nvarchar)=
+			 * Phone (nvarchar)=71583338
+			 * Fax (nvarchar)=
+			 * SendNewsletter (bit)=False
+			 * MailChecked (tinyint)=
+			 * PortalId (int)=0
+			 * Country (nvarchar)=Norvegia
+			 */
+			try 
+			{
+				if(isAuthenticated)
+				{
+					m_userName = Rainbow.Configuration.PortalSettings.CurrentUser.Identity.Name;
+					m_email = Rainbow.Configuration.PortalSettings.CurrentUser.Identity.Email;
+					m_userID = Convert.ToInt32(Rainbow.Configuration.PortalSettings.CurrentUser.Identity.ID);
+
+					Rainbow.Configuration.PortalSettings portalSettings = (Rainbow.Configuration.PortalSettings)HttpContext.Current.Items["PortalSettings"];
+					Rainbow.Security.UsersDB usersDB = new Rainbow.Security.UsersDB();
+					System.Data.SqlClient.SqlDataReader dr = usersDB.GetSingleUser(m_email,portalSettings.PortalID);
+					if(dr.Read())
+					{
+						m_userName	= dr["Name"].ToString();
+						m_email		= dr["Email"].ToString();
+						m_userID	= (int)dr["UserID"];
+						m_location	= dr["Country"].ToString();
+					}
+					dr.Close();
+
+					m_isAuthenticated = true;
+					return;
+				} 
+			}
+			catch(Exception x) 
+			{
+				throw new Exception("Failed to read user data from Rainbow.",x);
+			}
+			m_userName = "";
+			m_email = "";
+			m_isAuthenticated = false;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return m_userName;
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				return m_email;
+			}
+		}
+
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return m_isAuthenticated;
+			}
+		}
+		public object Location
+		{
+			get
+			{
+				return m_location;
+			}
+		}
+		public object HomePage
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public bool CanLogin
+		{
+			get
+			{
+				return false;
+			}
+		}
+	}
+
+	public class DotNetNukeUser : IForumUser
+	{
+		private	int		m_userID;
+		private	string	m_userName;
+		private string	m_email;
+		private	string	m_firstName;
+		private string	m_lastName;
+		private string	m_location;
+		private bool	m_isAuthenticated;
+
+		/*
+		 * UserID (int)=2
+		 * Username (nvarchar)=host
+		 * Password (nvarchar)=host
+		 * Email (nvarchar)=host
+		 * FullName (nvarchar)=Host Account
+		 * FirstName (nvarchar)=Host
+		 * LastName (nvarchar)=Account
+		 * Unit (nvarchar)=
+		 * Street (nvarchar)=
+		 * City (nvarchar)=
+		 * Region (nvarchar)=
+		 * PostalCode (nvarchar)=
+		 * Country (nvarchar)=
+		 * Telephone (nvarchar)=
+		 * IsSuperUser (bit)=True
+		 * Authorized (bit)=
+		 * CreatedDate (datetime)=
+		 * LastLoginDate (datetime)=
+		 */
+
+		public DotNetNukeUser(string userName,bool isAuthenticated)
+		{
+			try
+			{
+				if(isAuthenticated)
+				{
+					DotNetNuke.UsersDB objUser = new DotNetNuke.UsersDB();
+					DotNetNuke.PortalSettings _portalSettings = (DotNetNuke.PortalSettings)HttpContext.Current.Items["PortalSettings"];
+
+					System.Data.SqlClient.SqlDataReader dr;
+					if(HttpContext.Current.User.Identity.GetType()==typeof(System.Security.Principal.WindowsIdentity))
+						dr = objUser.GetSingleUserByUsername(_portalSettings.PortalId,HttpContext.Current.User.Identity.Name);
+					else
+						dr = objUser.GetSingleUser(_portalSettings.PortalId,int.Parse(HttpContext.Current.User.Identity.Name));
+					
+					if(dr.Read())
+					{
+						m_userID			= (int)dr["UserId"];
+						m_userName			= dr["Username"].ToString();
+						m_email				= dr["Email"].ToString();
+						m_firstName			= dr["FirstName"].ToString();
+						m_lastName			= dr["LastName"].ToString();
+						m_location			= dr["Country"].ToString();
+					}
+					dr.Close();
+
+					m_isAuthenticated = true;
+					return;
+				}
+			}
+			catch(Exception x)
+			{
+				throw new Exception("Failed to find user info from DotNetNuke.",x);
+			}
+			m_userName = "";
+			m_isAuthenticated = false;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return m_userName;
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				return m_email;
+			}
+		}
+
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return m_isAuthenticated;
+			}
+		}
+	
+		public object Location
+		{
+			get
+			{
+				return m_location;
+			}
+		}
+		public object HomePage
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public bool CanLogin
+		{
+			get
+			{
+				return false;
+			}
+		}
+	}
+
+	public class WindowsUser : IForumUser
+	{
+		private	string	m_userName;
+		private	string	m_email;
+		private	bool	m_isAuthenticated;
+
+		public WindowsUser(string userName,bool isAuthenticated)
+		{
+			try
+			{
+				if(isAuthenticated)
+				{
+					string[] parts = userName.Split('\\');
+					m_userName  = parts[parts.Length-1];
+					if(parts.Length>1)
+						m_email = String.Format("{0}@{1}",parts[1],parts[0]);
+					else
+						m_email = m_userName;
+					
+					m_isAuthenticated = true;
+				}
+			}
+			catch(Exception)
+			{
+			}
+			m_userName = "";
+			m_email = "";
+			m_isAuthenticated = false;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return m_userName;
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				return m_email;
+			}
+		}
+
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return m_isAuthenticated;
+			}
+		}
+	
+		public object Location
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public object HomePage
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public bool CanLogin
+		{
+			get
+			{
+				return false;
+			}
+		}
+	}
+	
+	public class FormsUser : IForumUser
+	{
+		private	string	m_userName;
+		private	bool	m_isAuthenticated;
+
+		public FormsUser(string userName,bool isAuthenticated)
+		{
+			try
+			{
+				if(isAuthenticated)
+				{
+					m_userName = userName;
+					m_isAuthenticated = true;
+					return;
+				}
+			}
+			catch(Exception)
+			{
+			}
+			m_userName = "";
+			m_isAuthenticated = false;
+		}
+
+		public string Name
+		{
+			get
+			{
+				return m_userName;
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return m_isAuthenticated;
+			}
+		}
+	
+		public object Location
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public object HomePage
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public bool CanLogin
+		{
+			get
+			{
+				return true;
+			}
+		}
+	}
+	public class GuestUser : IForumUser
+	{
+		public string Name
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				return "";
+			}
+		}
+
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return false;
+			}
+		}
+	
+		public object Location
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public object HomePage
+		{
+			get
+			{
+				return null;
+			}
+		}
+		public bool CanLogin
+		{
+			get
+			{
+				return true;
+			}
+		}
+	}
+	#endregion
+
 	/// <summary>
 	/// Summary description for BasePage.
 	/// </summary>
@@ -41,14 +491,21 @@ namespace yaf.pages
 		#region Variables
 		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
 		private DataRow		m_pageinfo;
-		private string		m_strForumName		= "Yet Another Forum.net";
 		private string		m_strLoadMessage	= "";
 		private string		m_strRefreshURL		= null;
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_bCheckSuspended	= true;
-		private string		m_strSmtpServer		= Config.ConfigSection["smtpserver"];
-		private string		m_strForumEmail		= Config.ConfigSection["forumemail"];
+		private IForumUser	m_forumUser			= null;
+
+		public IForumUser User
+		{
+			get
+			{
+				return m_forumUser;
+			}
+		}
+		
 		#endregion
 		#region Constructor and events
 		/// <summary>
@@ -66,8 +523,9 @@ namespace yaf.pages
 		private void ForumPage_Error(object sender, System.EventArgs e) 
 		{
 			// This doesn't seem to work...
+			Exception x = Server.GetLastError();
 			if(!IsLocal) 
-				Utils.ReportError(Server.GetLastError());
+				Utils.LogToMail(Server.GetLastError());
 		}
 
 		/// <summary>
@@ -114,28 +572,23 @@ namespace yaf.pages
 
 			// Find user name
 			AuthType authType = Data.GetAuthType;
-			string	sUserIdentityName = Page.User.Identity.Name;
-			string	sUserEmail = null;
-			if(authType==AuthType.RainBow) 
+			switch(authType)
 			{
-				try 
-				{
-					string[] split = sUserIdentityName.Split('|');
-					sUserIdentityName = split[0];
-					sUserEmail = split[1];
-				}
-				catch(Exception) 
-				{
-					sUserIdentityName = Page.User.Identity.Name;
-					sUserEmail = Page.User.Identity.Name;
-				}
-			} 
-			else if(authType==AuthType.Windows) 
-			{
-				string[] parts = sUserIdentityName.Split('\\');
-				sUserIdentityName = parts[parts.Length-1];
-				if(parts.Length>1)
-					sUserEmail = String.Format("{0}@{1}",parts[1],parts[0]);
+				case AuthType.Guest:
+					m_forumUser = new GuestUser();
+					break;
+				case AuthType.Rainbow:
+					m_forumUser = new RainbowUser(Page.User.Identity.Name,Page.User.Identity.IsAuthenticated);
+					break;
+				case AuthType.DotNetNuke:
+					m_forumUser = new DotNetNukeUser(Page.User.Identity.Name,Page.User.Identity.IsAuthenticated);
+					break;
+				case AuthType.Windows:
+					m_forumUser = new WindowsUser(Page.User.Identity.Name,Page.User.Identity.IsAuthenticated);
+					break;
+				default:
+					m_forumUser = new FormsUser(Page.User.Identity.Name,Page.User.Identity.IsAuthenticated);
+					break;
 			}
 
 			string browser = String.Format("{0} {1}",Request.Browser.Browser,Request.Browser.Version);
@@ -146,7 +599,7 @@ namespace yaf.pages
 
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
-				sUserIdentityName,
+				User.Name,
 				Request.UserHostAddress,
 				Request.FilePath,
 				browser,
@@ -158,14 +611,14 @@ namespace yaf.pages
 
 			// If user wasn't found and we have foreign 
 			// authorization, try to register the user.
-			if(m_pageinfo==null && authType!=AuthType.YetAnotherForum) 
+			if(m_pageinfo==null && authType!=AuthType.Forms && User.IsAuthenticated) 
 			{
-				if(!DB.user_register(this,sUserIdentityName,"ext",sUserEmail,null,null,0,false))
+				if(!DB.user_register(this,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
 					throw new ApplicationException("User registration failed.");
 
 				m_pageinfo = DB.pageload(
 					Session.SessionID,
-					sUserIdentityName,
+					User.Name,
 					Request.UserHostAddress,
 					Request.FilePath,
 					Request.Browser.Browser,
@@ -178,8 +631,8 @@ namespace yaf.pages
 
 			if(m_pageinfo==null) 
 			{
-				if(Page.User.Identity.IsAuthenticated) 
-					throw new ApplicationException(string.Format("User '{0}' not in database.",Page.User.Identity.Name));
+				if(User.IsAuthenticated) 
+					throw new ApplicationException(string.Format("User '{0}' not in database.",User.Name));
 				else
 					throw new ApplicationException("Failed to find guest user.");
 			}
@@ -193,10 +646,6 @@ namespace yaf.pages
 				}
 				Forum.Redirect(Pages.info,"i=2");
 			}
-
-			m_strForumName = (string)m_pageinfo["BBName"];
-			m_strSmtpServer = (string)m_pageinfo["SmtpServer"];
-			m_strForumEmail = (string)m_pageinfo["ForumEmail"];
 
 			if(Request.Cookies["yaf"]!=null) 
 			{
@@ -259,7 +708,7 @@ namespace yaf.pages
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
-							SendMail(ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							Utils.SendMail(Config.ForumSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
@@ -318,7 +767,7 @@ namespace yaf.pages
 		{
 			if(themefile==null) 
 			{
-				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !AllowUserTheme)
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.ForumSettings.AllowUserTheme)
 					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
@@ -392,41 +841,41 @@ namespace yaf.pages
 			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
 			ctl = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.FindControl("ForumTitle");
 			if(ctl!=null)
-				ctl.InnerText = ForumName;
+				ctl.InnerText = Config.ForumSettings.Name;
 
 			/// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
 			header.AppendFormat("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
 
-			if(Page.User.Identity.IsAuthenticated) 
+			if(User.IsAuthenticated) 
 			{
 				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
 
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
-				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
+				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
 				if(IsAdmin)
-					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}admin/\">{1}</a> |",ForumRoot,GetText("TOOLBAR","ADMIN")));
+					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}admin/\">{1}</a> | ",ForumRoot,GetText("TOOLBAR","ADMIN")));
 				if(IsModerator || IsForumModerator)
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.moderate_index),GetText("TOOLBAR","MODERATE")));
-				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
+					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.moderate_index),GetText("TOOLBAR","MODERATE")));
+				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
 				if(!IsGuest)
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.cp_profile),GetText("TOOLBAR","MYPROFILE")));
+					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.cp_profile),GetText("TOOLBAR","MYPROFILE")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-				if(Data.GetAuthType==AuthType.YetAnotherForum)
-					header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
+				if(User.CanLogin)
+					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
 			} 
 			else 
 			{
 				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("TOOLBAR","WELCOME_GUEST")));
 
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
-				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
-				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
+				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
+				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-				if(Data.GetAuthType==AuthType.YetAnotherForum) 
+				if(User.CanLogin) 
 				{
-					header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login),GetText("TOOLBAR","LOGIN")));
-					header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));
+					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login),GetText("TOOLBAR","LOGIN")));
+					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));
 				}
 			}
 			header.AppendFormat("</td></tr></table>");
@@ -467,14 +916,28 @@ namespace yaf.pages
 				StringBuilder footer = new StringBuilder();
 				footer.AppendFormat("<p style=\"text-align:center;font-size:7pt\">");
 
-				footer.AppendFormat(GetText("COMMON","POWERED_BY"),
-					String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
-					String.Format("{0} - {1}",AppVersionName,FormatDateShort(AppVersionDate))
-					);
-				footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
-				footer.AppendFormat("<br/>");
-				hiTimer.Stop();
-				footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);
+				if(Config.IsDotNetNuke) 
+				{
+					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.",AppVersionName);
+					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+				} 
+				else if(Config.IsRainbow)
+				{
+					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.",AppVersionName);
+					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+				}
+				else 
+				{
+					footer.AppendFormat(GetText("COMMON","POWERED_BY"),
+						String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
+						String.Format("{0} - {1}",AppVersionName,FormatDateShort(AppVersionDate))
+						);
+					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>");
+					hiTimer.Stop();
+					footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);
+				}
+
 #if DEBUG
 				footer.AppendFormat("<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}",QueryCounter.Count,QueryCounter.Duration,100 * QueryCounter.Duration/hiTimer.Duration,QueryCounter.Commands);
 #endif
@@ -494,7 +957,7 @@ namespace yaf.pages
 				writer.WriteLine("<head>");
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",ForumRoot));
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-				writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
+				writer.WriteLine(String.Format("<title>{0}</title>",Config.ForumSettings.Name));
 				if(m_strRefreshURL!=null) 
 					writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
 				writer.WriteLine("</head>");
@@ -542,16 +1005,6 @@ namespace yaf.pages
 			set 
 			{
 				m_bNoDataBase = value;
-			}
-		}
-		/// <summary>
-		/// The name of the froum
-		/// </summary>
-		public string ForumName 
-		{
-			get 
-			{
-				return m_strForumName;
 			}
 		}
 		/// <summary>
@@ -858,107 +1311,8 @@ namespace yaf.pages
 					return long.Parse(m_pageinfo["UploadAccess"].ToString())>0;
 			}
 		}
-		public string SmtpServer 
-		{
-			get 
-			{
-				return m_strSmtpServer.Length>0 ? m_strSmtpServer : null;
-			}
-		}
-		public string SmtpUserName 
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserName"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		public string SmtpUserPass
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserPass"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		/// <summary>
-		/// The official forum email address. 
-		/// </summary>
-		public string ForumEmail 
-		{
-			get 
-			{
-				return m_strForumEmail;
-			}
-		}
-
-		public bool UseBlankLinks 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["BlankLinks"];
-			}
-		}
-
-		public bool UseEmailVerification 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["EmailVerification"];
-			}
-		}
-
-		public bool ShowMovedTopics
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowMoved"];
-			}
-		}
-		public bool ShowGroups 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowGroups"];
-			}
-		}
-		public bool AllowRichEdit 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["AllowRichEdit"];
-			}
-		}
-		public bool AllowUserTheme 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserTheme"];
-			}
-		}
-		public bool AllowUserLanguage 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserLanguage"];
-			}
-		}
-
 		#endregion
 		#region Other
-		public void SendMail(string from,string to,string subject,string body) 
-		{
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
-			if(SmtpUserName!=null && SmtpUserPass!=null) 
-			{
-				smtp.Username = SmtpUserName;
-				smtp.Password = SmtpUserPass;
-			}
-			smtp.SendMail(from,to,subject,body);
-		}
 		/// <summary>
 		/// Find the path of a smiley icon
 		/// </summary>
@@ -1015,29 +1369,6 @@ namespace yaf.pages
 			m_strLoadMessage += msg + "\\n\\n";
 		}
 
-		/// <summary>
-		/// Reads a template from the templates directory
-		/// </summary>
-		/// <param name="name">Name of template (not including path)</param>
-		/// <returns>The template</returns>
-		public string ReadTemplate(string name) 
-		{
-			string file;
-			if(Cache[name] != null && false) 
-			{
-				file = Cache[name].ToString();
-			} 
-			else 
-			{
-				string templatefile = Server.MapPath(String.Format("{0}templates/{1}",ForumRoot,name));
-				StreamReader sr = new StreamReader(templatefile,Encoding.ASCII);
-				file = sr.ReadToEnd();
-				sr.Close();
-				Cache[name] = file;
-			}
-			return file;
-		}
-
 		public string RefreshURL
 		{
 			set 
@@ -1082,22 +1413,6 @@ namespace yaf.pages
 		#endregion
 		#region Date and time functions
 		/// <summary>
-		/// Returns the forum timezone offset from GMT
-		/// </summary>
-		public TimeSpan TimeZoneOffsetForum 
-		{
-			get 
-			{
-				if(m_pageinfo!=null) 
-				{
-					int min = (int)m_pageinfo["TimeZoneForum"];
-					return new TimeSpan(min/60,min%60,0);
-				} 
-				else
-					return new TimeSpan(0);
-			}
-		}
-		/// <summary>
 		/// Returns the user timezone offset from GMT
 		/// </summary>
 		public TimeSpan TimeZoneOffsetUser 
@@ -1120,8 +1435,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				//return TimeZoneOffsetForum - TimeZoneOffsetUser;
-				return TimeZoneOffsetUser - TimeZoneOffsetForum;
+				return TimeZoneOffsetUser - Config.ForumSettings.TimeZone;
 			}
 		}
 		/// <summary>
@@ -1234,7 +1548,7 @@ namespace yaf.pages
 			
 			string filename = null;
 
-			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
+			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.ForumSettings.AllowUserLanguage)
 				filename = Config.ConfigSection["language"];
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
@@ -1288,7 +1602,7 @@ namespace yaf.pages
 #if !DEBUG
 				string filename = null;
 
-				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
+				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.ForumSettings.AllowUserLanguage)
 					filename = Config.ConfigSection["language"];
 				else
 					filename = (string)m_pageinfo["LanguageFile"];

@@ -43,12 +43,11 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!Page.User.Identity.IsAuthenticated)
+			if(!User.IsAuthenticated)
 				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 			
-			if(!IsPostBack) {
+			if(!IsPostBack)
 				BindData();
-			}
 		}
 
 		private void BindData() {
@@ -59,7 +58,7 @@ namespace yaf.pages
 					if((int)row["ToUserID"]!=PageUserID && (int)row["FromUserID"]!=PageUserID)
 						Data.AccessDenied();
 
-					PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+					PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 					PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 					if((int)row["ToUserID"]==PageUserID) 
 						PageLinks.AddLink(GetText("INBOX"),Forum.GetLink(Pages.cp_inbox));

@@ -50,7 +50,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
@@ -58,7 +58,7 @@ namespace yaf.pages
 				SendEmail.Text = GetText("send");
 
 				Subject.Text = PageTopicName;
-				string msg = ReadTemplate("emailtopic.txt");
+				string msg = Utils.ReadTemplate("emailtopic.txt");
 				msg = msg.Replace("{link}",String.Format("{0}{1}",ServerURL,Forum.GetLink(Pages.posts,"t={0}",PageTopicID)));
 				msg = msg.Replace("{user}",PageUserName);
 				Message.Text = msg;
@@ -98,7 +98,7 @@ namespace yaf.pages
 					senderemail = (string)dt.Rows[0]["Email"];
 
 				//  Build a MailMessage
-				SendMail(senderemail,EmailAddress.Text,Subject.Text,Message.Text);
+				Utils.SendMail(senderemail,EmailAddress.Text,Subject.Text,Message.Text);
 				Forum.Redirect(Pages.posts,"t={0}",PageTopicID);
 			}
 			catch(Exception x) {

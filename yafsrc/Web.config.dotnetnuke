@@ -8,11 +8,10 @@
 	<!-- Yet Another Forum.net configuration -->
 	<yafnet>
 		<connstr>data source=(local);initial catalog=;user id=;password=;</connstr>
-		<root>/rainbowportal/desktopmodules/yetanotherforum.net/</root>
+		<root>/dotnetnuke/desktopmodules/yetanotherforum.net/</root>
 		<language>english.xml</language>
 		<theme>standard.xml</theme>
-		<uploaddir>/rainbowportal/desktopmodules/yetanotherforum.net/upload/</uploaddir>
+		<uploaddir>/dotnetnuke/desktopmodules/yetanotherforum.net/upload/</uploaddir>
 		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
 	</yafnet>
 </configuration>
-<!-- SessionState must be enabled from Rainbow's Web.config file -->

@@ -65,7 +65,7 @@ namespace yaf.pages
 			Session["unreadtopics"] = 0;
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 

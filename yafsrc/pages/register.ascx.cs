@@ -53,11 +53,11 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Data.GetAuthType!=AuthType.YetAnotherForum)
+			if(!User.CanLogin)
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				ForumRegister.Text = GetText("register");
 				cancel.Text = GetText("Cancel");
 
@@ -113,7 +113,7 @@ namespace yaf.pages
 					return;
 				}
 
-				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,UseEmailVerification);
+				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.ForumSettings.EmailVerification);
 			}
 		}
 	}

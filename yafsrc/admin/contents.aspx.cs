@@ -42,7 +42,7 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			HomeLink.Text = ForumName;
+			HomeLink.Text = Config.ForumSettings.Name;
 			HomeLink.NavigateUrl = ForumRoot;
 		}
 

@@ -99,6 +99,18 @@
                     AssemblyName = "System.Web.Services"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.Services.dll"
                 />
+                <Reference
+                    Name = "DotNetNuke"
+                    AssemblyName = "DotNetNuke"
+                    HintPath = "\\mondeo\WWWROOT\dotnetnuke\bin\DotNetNuke.dll"
+                    Private = "False"
+                />
+                <Reference
+                    Name = "Rainbow"
+                    AssemblyName = "Rainbow"
+                    HintPath = "\\mondeo\WWWROOT\rainbowportal\bin\Rainbow.dll"
+                    Private = "False"
+                />
             </References>
         </Build>
         <Files>
@@ -116,6 +128,21 @@
                     RelPath = "default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "DotNetNukeModule.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "DotNetNukeModule.ascx.cs"
+                    DependentUpon = "DotNetNukeModule.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DotNetNukeModule.ascx.resx"
+                    DependentUpon = "DotNetNukeModule.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "error.aspx"
@@ -177,6 +204,17 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "RainbowModule.ascx.cs"
+                    DependentUpon = "RainbowModule.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "RainbowModule.ascx.resx"
+                    DependentUpon = "RainbowModule.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "TODO.txt"
                     BuildAction = "Content"
                 />
@@ -185,8 +223,12 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "Web.config.dotnetnuke"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "Web.config.rainbow"
-                    BuildAction = "None"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "WhatsNew.html"
@@ -696,6 +738,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\Config.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\Data.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -707,6 +754,11 @@
                 />
                 <File
                     RelPath = "classes\FormatMsg.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "classes\ForumSettings.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -727,6 +779,11 @@
                 />
                 <File
                     RelPath = "classes\SectionHandler.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "classes\UrlBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

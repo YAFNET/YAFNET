@@ -83,7 +83,7 @@ namespace yaf.admin
 			{
 				foreach(DataRow row in dt.Rows)
 					//  Build a MailMessage
-					SendMail(ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
+					Utils.SendMail(Config.ForumSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
 			}
 			Subject.Text = "";
 			Body.Text = "";

@@ -47,12 +47,12 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!Page.User.Identity.IsAuthenticated)
+			if(!User.IsAuthenticated)
 				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				SetSort("Name",true);
@@ -137,7 +137,9 @@ namespace yaf.pages
 					} 
 					else 
 					{
-						PageLinks1.InnerHtml += String.Format(" <a href=\"javascript:__doPostBack('GoPage','{1}')\">{0}</a>",i+1,i);
+						PageLinks1.InnerHtml += string.Format(" <a href=\"{1}\">{0}</a>",
+							i+1,
+							Page.GetPostBackClientHyperlink(GoPage,i.ToString()));
 					}
 				}
 				PageLinks2.InnerHtml = PageLinks1.InnerHtml;

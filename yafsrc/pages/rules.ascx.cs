@@ -48,7 +48,7 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 			
 				ForumRules.Text = "TODO:";
 			}

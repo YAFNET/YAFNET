@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using System.Web.UI;
 
 namespace yaf
@@ -196,43 +197,14 @@ namespace yaf
 			}
 		}
 
-		public string Rainbow
-		{
-			get
-			{
-				return (string)Session["yaf_rainbow"];
-			}
-			set
-			{
-				Session["yaf_rainbow"] = value;
-			}
-		}
-
-		static private string BuildUrl(string url)
-		{
-			string rainbow = (string)System.Web.HttpContext.Current.Session["yaf_rainbow"];
-			if(rainbow!=null)
-			{
-				// TODO: This only works with default settings
-				url = url.Replace("&","/");
-				url = url.Replace("=","__");
-				int pos = rainbow.LastIndexOf('/');
-				return rainbow.Insert(pos,"/"+url);
-			}
-			else
-			{
-				return string.Format("{0}?{1}",System.Web.HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"],url);
-			}
-		}
-
 		static public string GetLink(Pages page)
 		{
-			return BuildUrl(string.Format("g={0}",page));
+			return Config.UrlBuilder.BuildUrl(string.Format("g={0}",page));
 		}
 
 		static public string GetLink(Pages page,string format,params object[] args)
 		{
-			return BuildUrl(string.Format("g={0}&{1}",page,string.Format(format,args)));
+			return Config.UrlBuilder.BuildUrl(string.Format("g={0}&{1}",page,string.Format(format,args)));
 		}
 
 		static public void Redirect(Pages page)

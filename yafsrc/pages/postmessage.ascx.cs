@@ -101,7 +101,7 @@ namespace yaf.pages
 			if(Request["t"]!=null && !ForumReplyAccess)
 				Data.AccessDenied();
 
-			Message.EnableRTE = AllowRichEdit;
+			Message.EnableRTE = Config.ForumSettings.AllowRichEdit;
 
 			if(!IsPostBack) 
 			{
@@ -118,7 +118,7 @@ namespace yaf.pages
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 
@@ -184,7 +184,7 @@ namespace yaf.pages
 				}
 
 				From.Text = PageUserName;
-				if(Page.User.Identity.IsAuthenticated)
+				if(User.IsAuthenticated)
 					FromRow.Visible = false;
 			}
 		}
@@ -264,7 +264,7 @@ namespace yaf.pages
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,Page.User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
@@ -294,7 +294,7 @@ namespace yaf.pages
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,Page.User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
 			}
 
 			// Check if message is approved

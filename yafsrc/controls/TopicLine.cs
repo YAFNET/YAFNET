@@ -48,7 +48,7 @@ namespace yaf.controls
 		protected string GetTopicImage(object o,ref string imgTitle) 
 		{
 			DataRowView	row			= (DataRowView)o;
-			DateTime	lastPosted	= (DateTime)row["LastPosted"];
+			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000,1,1);
 			bool		isLocked	= (bool)row["IsLocked"];
 			
 			imgTitle = "???";

@@ -48,7 +48,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
@@ -84,7 +84,7 @@ namespace yaf.pages
 		#endregion
 
 		private void Move_Click(object sender, System.EventArgs e) {
-			DB.topic_move(PageTopicID,ForumList.SelectedValue,ShowMovedTopics);
+			DB.topic_move(PageTopicID,ForumList.SelectedValue,Config.ForumSettings.ShowMoved);
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 	}

@@ -68,7 +68,7 @@ namespace yaf.pages
 						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
 				}
 
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				if(PageCategoryID!=0) 
 				{
 					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));

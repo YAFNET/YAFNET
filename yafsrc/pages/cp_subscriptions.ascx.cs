@@ -46,13 +46,13 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!Page.User.Identity.IsAuthenticated)
+			if(!User.IsAuthenticated)
 				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 			
 			if(!IsPostBack) {
 				BindData();
 
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

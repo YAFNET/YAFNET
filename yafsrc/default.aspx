@@ -1,5 +1,13 @@
 <%@ Page Language="C#" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
+
+<script runat="server">
+public void Page_Error(object sender,System.EventArgs e)
+{
+	yaf.Utils.LogToMail(Server.GetLastError());
+}
+</script>
+
 <html>
 <head>
 <meta name="Description" content="A bulletin board system written in ASP.NET">

@@ -79,7 +79,7 @@ namespace yaf.pages
 			{
 				DataRow user = dt.Rows[0];
 
-				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
 				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
 				UserName.Text = (string)user["Name"];
