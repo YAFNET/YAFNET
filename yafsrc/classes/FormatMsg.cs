@@ -329,7 +329,7 @@ namespace yaf
 	{
 		int FBitValue;
 
-		public MessageFlags() : this(0x7FFFFFFF)
+		public MessageFlags() : this(23)
 		{
 
 		}
@@ -394,6 +394,18 @@ namespace yaf
 		{
 			get { return GetBitAsBool(FBitValue,2); }
 			set { FBitValue = SetBitFromBool(FBitValue,2,value); }
+		}
+
+		public bool IsDeleted
+		{
+			get { return GetBitAsBool(FBitValue,3); }
+			set { FBitValue = SetBitFromBool(FBitValue,3,value); }
+		}
+
+		public bool IsApproved
+		{
+			get { return GetBitAsBool(FBitValue,4); }
+			set { FBitValue = SetBitFromBool(FBitValue,4,value); }
 		}
 	}
 }

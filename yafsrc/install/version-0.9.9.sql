@@ -124,7 +124,6 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and
 		Message			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
 		Edited			datetime NULL ,
-		Approved		bit NOT NULL ,
 		Flags			int NOT NULL
 	)
 GO
@@ -174,7 +173,8 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Topic') and O
 		LastMessageID	int NULL ,
 		LastUserID		int NULL ,
 		LastUserName	nvarchar (50) NULL,
-		NumPosts		int NOT NULL
+		NumPosts		int NOT NULL,
+		Flags			int not null
 	)
 GO
 
@@ -388,27 +388,27 @@ begin
 end
 GO
 
-if not exists(select * from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
+if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
 	alter table yaf_Registry add BoardID int
 GO
 
-if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
 begin
-	alter table yaf_Message add Flags int
-	grant select,update on dbo.yaf_Message to public
-	exec('UPDATE yaf_Message SET Flags = 0x7FFFFFFF')
-	alter table yaf_Message alter column Flags int not null
-	revoke select,update on dbo.yaf_Message from public
+	alter table dbo.yaf_Message add Flags int not null constraint DF_yaf_Message_Flags default (23)
 end
 GO
 
-if not exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='Flags')
 begin
-	alter table yaf_PMessage add Flags int
-	grant select,update on dbo.yaf_PMessage to public
-	exec('UPDATE yaf_PMessage SET Flags = 0x7FFFFFFF')
-	alter table dbo.yaf_PMessage alter column Flags int not null
-	revoke select,update on dbo.yaf_PMessage from public
+	alter table dbo.yaf_Topic add Flags int not null constraint DF_yaf_Topic_Flags default (0)
+	update yaf_Message set Flags = Flags & 7
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='Approved')
+begin
+	exec('update yaf_Message set Flags = Flags | 16 where Approved<>0')
+	alter table dbo.yaf_Message drop column Approved
 end
 GO
 
@@ -416,8 +416,16 @@ GO
 ** Defaults
 */
 
+if exists(select 1 from sysobjects where name=N'DF_yaf_Message_Flags' and parent_obj=object_id(N'yaf_Message'))
+	alter table dbo.yaf_Message drop constraint DF_yaf_Message_Flags
+GO
+
 if not exists(select 1 from sysobjects where name=N'DF_yaf_Message_Flags' and parent_obj=object_id(N'yaf_Message'))
-	alter table dbo.yaf_Message add constraint DF_yaf_Message_Flags default (0x7FFFFFFF) for Flags
+	alter table dbo.yaf_Message add constraint DF_yaf_Message_Flags default (23) for Flags
+GO
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_Topic_Flags' and parent_obj=object_id(N'yaf_Topic'))
+	alter table dbo.yaf_Topic add constraint DF_yaf_Topic_Flags default (0) for Flags
 GO
 
 /*
@@ -1194,7 +1202,7 @@ begin
 			b.RankID,
 			RankName = b.Name,
 			NumDays = datediff(d,a.Joined,getdate())+1,
-			NumPostsForum = (select count(1) from yaf_Message x where x.Approved<>0),
+			NumPostsForum = (select count(1) from yaf_Message x where (x.Flags & 24)=16),
 			HasAvatarImage = (select count(1) from yaf_User x where x.UserID=a.UserID and AvatarImage is not null),
 			IsAdmin	= IsNull(c.IsAdmin,0),
 			IsGuest	= IsNull(c.IsGuest,0),
@@ -1591,7 +1599,7 @@ create procedure dbo.yaf_message_approve(@MessageID int) as begin
 		b.TopicID = a.TopicID
 
 	-- update yaf_Message
-	update yaf_Message set Approved = 1 where MessageID = @MessageID
+	update yaf_Message set Flags = Flags | 16 where MessageID = @MessageID
 
 	-- update yaf_User
 	if exists(select 1 from yaf_Forum where ForumID=@ForumID and IsTest=0)
@@ -1615,7 +1623,7 @@ create procedure dbo.yaf_message_approve(@MessageID int) as begin
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
 		LastUserName = @UserName,
-		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
 	where TopicID = @TopicID
 	
 	-- update forum stats
@@ -1947,8 +1955,8 @@ begin
 		update yaf_Message set Position=Position+1 where TopicID=@TopicID and Position>=@Position
 	end
 
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved,ReplyTo,Position,Indent,Flags)
-	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,0,@ReplyTo,@Position,@Indent,@Flags)
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,ReplyTo,Position,Indent,Flags)
+	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,@ReplyTo,@Position,@Indent,@Flags & ~16)
 	set @MessageID = @@IDENTITY
 	
 	if @Moderated=0
@@ -2156,9 +2164,8 @@ CREATE procedure dbo.yaf_message_update(@MessageID int,@Priority int,@Subject nv
 begin
 	declare @TopicID	int
 	declare	@Moderated	bit
-	declare	@Approved	bit
-	
-	set @Approved = 0
+
+	set @Flags = @Flags & ~16	
 	
 	select 
 		@TopicID	= a.TopicID,
@@ -2172,13 +2179,12 @@ begin
 		b.TopicID = a.TopicID and
 		c.ForumID = b.ForumID
 
-	if @Moderated=0 set @Approved = 1
+	if @Moderated=0 set @Flags = @Flags | 16
 
 	update yaf_Message set
 		Message = @Message,
 		Edited = getdate(),
-		Flags = @Flags,
-		Approved = @Approved
+		Flags = @Flags
 	where
 		MessageID = @MessageID
 
@@ -2219,7 +2225,6 @@ begin
 		c.ForumID,
 		c.Topic,
 		c.Priority,
-		a.Approved,
 		a.Flags,
 		c.UserID as TopicOwnerID
 	from
@@ -2611,7 +2616,6 @@ if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and O
 	drop procedure yaf_post_list
 GO
 
-
 create procedure dbo.yaf_post_list(@TopicID int,@UpdateViewCount smallint=1) as
 begin
 	set nocount on
@@ -2659,8 +2663,8 @@ begin
 		join yaf_Category h on h.CategoryID=g.CategoryID
 		join yaf_Rank c on c.RankID=b.RankID
 	where
-		a.Approved <> 0 and
-		a.TopicID = @TopicID
+		a.TopicID = @TopicID and
+		(a.Flags & 24)=16
 	order by
 		a.Posted asc
 end
@@ -2694,7 +2698,7 @@ begin
 	where NntpForumID = @NntpForumID
 
 	update yaf_Topic set 
-		NumPosts = (select count(1) from yaf_message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+		NumPosts = (select count(1) from yaf_message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
 	where ForumID=@ForumID
 
 	--exec yaf_user_upgrade @UserID
@@ -2741,8 +2745,8 @@ begin
 	end
 
 	-- save message
-	insert into yaf_Message(TopicID,UserID,UserName,Posted,Message,IP,Approved,Position,Indent)
-	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,1,0,0)
+	insert into yaf_Message(TopicID,UserID,UserName,Posted,Message,IP,Position,Indent)
+	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,0,0)
 	set @MessageID=@@IDENTITY
 
 	-- update user
@@ -2832,8 +2836,10 @@ begin
 	declare @ForumID		int
 	declare @MessageCount	int
 	declare @LastMessageID	int
+
 	-- Find TopicID and ForumID
 	select @TopicID=b.TopicID,@ForumID=b.ForumID from yaf_Message a,yaf_Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
+
 	-- Update LastMessageID in Topic and Forum
 	update yaf_Topic set 
 		LastPosted = null,
@@ -2841,6 +2847,7 @@ begin
 		LastUserID = null,
 		LastUserName = null
 	where LastMessageID = @MessageID
+
 	update yaf_Forum set 
 		LastPosted = null,
 		LastTopicID = null,
@@ -2849,20 +2856,18 @@ begin
 		LastUserName = null
 	where LastMessageID = @MessageID
 
-	-- Delete attachments
-	delete from yaf_attachment where MessageID = @MessageID
-
-	-- Delete message
-	delete from yaf_Message where MessageID = @MessageID
+	-- "Delete" message
+	update yaf_Message set Flags = Flags | 8 where MessageID = @MessageID
+	
 	-- Delete topic if there are no more messages
-	select @MessageCount = count(1) from yaf_Message where TopicID = @TopicID
+	select @MessageCount = count(1) from yaf_Message where TopicID = @TopicID and (Flags & 8)=0
 	if @MessageCount=0 exec yaf_topic_delete @TopicID
 	-- update lastpost
 	exec yaf_topic_updatelastpost @ForumID,@TopicID
 	exec yaf_forum_updatestats @ForumID
 	-- update topic numposts
 	update yaf_Topic set
-		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
 	where TopicID = @TopicID
 end
 GO
@@ -2876,35 +2881,35 @@ begin
 	-- this really needs some work...
 	if @TopicID is not null
 		update yaf_Topic set
-			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
+			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicID = @TopicID
 	else
 		update yaf_Topic set
-			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
-			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
+			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16 order by Posted desc)
 		where TopicMovedID is null
 		and (@ForumID is null or ForumID=@ForumID)
 
 	if @ForumID is not null
 		update yaf_Forum set
-			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc)
 		where ForumID = @ForumID
 	else 
 		update yaf_Forum set
-			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc)
 end
 GO
 
@@ -2915,11 +2920,11 @@ GO
 create procedure dbo.yaf_forum_updatelastpost(@ForumID int) as
 begin
 	update yaf_Forum set
-		LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-		LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-		LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-		LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
-		LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+		LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+		LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+		LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+		LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
+		LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc)
 	where ForumID = @ForumID
 end
 GO
@@ -2936,7 +2941,6 @@ begin
 
 	select @ForumID=ForumID from yaf_Topic where TopicID=@TopicID
 
-	--begin transaction
 	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
 	update yaf_Forum set 
 		LastTopicID = null,
@@ -2946,45 +2950,10 @@ begin
 		LastPosted = null
 	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
 	update yaf_Active set TopicID = null where TopicID = @TopicID
-	--commit
-	--begin transaction
-	delete from yaf_NntpTopic where TopicID = @TopicID
-	delete from yaf_WatchTopic where TopicID = @TopicID
 
-	-- BAI CHANGED 01.02.2004
-	-- Delete messages and attachments
-	--delete from yaf_Message where TopicID = @TopicID
-
-	declare @tmpMessageID int;
-	declare msg_cursor cursor for
-		select MessageID from yaf_message
-		where TopicID = @TopicID
-		order by MessageID desc
+	update yaf_Topic set Flags = Flags | 8 where TopicID = @TopicID
+	update yaf_Topic set Flags = Flags | 8 where TopicMovedID = @TopicID
 	
-	open msg_cursor
-	
-	fetch next from msg_cursor
-	into @tmpMessageID
-	
-	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
-	while @@FETCH_STATUS = 0
-	begin
-		delete from yaf_attachment where MessageID = @tmpMessageID;
-		delete from yaf_message where MessageID = @tmpMessageID;
-	
-	   -- This is executed as long as the previous fetch succeeds.
-		fetch next from msg_cursor
-		into @tmpMessageID
-	end
-	
-	close msg_cursor
-	deallocate msg_cursor
-
-	-- Messagedelete finished
-	-- ENDED BAI CHANGED 01.02.2004
-
-	delete from yaf_Topic where TopicMovedID = @TopicID
-	delete from yaf_Topic where TopicID = @TopicID
 	--commit
 	if @UpdateLastPost<>0
 		exec yaf_forum_updatelastpost @ForumID
@@ -3568,7 +3537,7 @@ create procedure dbo.yaf_forum_moderatelist as begin
 		b.CategoryID = a.CategoryID and
 		c.ForumID = b.ForumID and
 		d.TopicID = c.TopicID and
-		d.Approved=0
+		(d.Flags & 16)=0
 	group by
 		a.CategoryID,
 		a.Name,
@@ -3588,7 +3557,7 @@ GO
 
 create procedure dbo.yaf_board_stats as begin
 	select
-		NumPosts	= (select count(1) from yaf_Message where Approved<>0),
+		NumPosts	= (select count(1) from yaf_Message where (Flags & 24)=16),
 		NumTopics	= (select count(1) from yaf_Topic),
 		NumUsers	= (select count(1) from yaf_User where Approved<>0),
 		BoardStart	= (select min(Joined) from yaf_User)
@@ -3641,7 +3610,7 @@ begin
 		yaf_User b,
 		yaf_Topic d
 	where
-		a.Approved <> 0 and
+		(a.Flags & 24)=16 and
 		a.TopicID = @TopicID and
 		b.UserID = a.UserID and
 		d.TopicID = a.TopicID
@@ -3668,7 +3637,7 @@ create procedure dbo.yaf_message_unapproved(@ForumID int) as begin
 	where
 		a.ForumID = @ForumID and
 		b.TopicID = a.TopicID and
-		b.Approved=0 and
+		(b.Flags & 16)=0 and
 		c.UserID = b.UserID
 	order by
 		a.Posted
@@ -3839,8 +3808,8 @@ GO
 create procedure dbo.yaf_forum_updatestats(@ForumID int) as
 begin
 	update yaf_Forum set 
-		NumPosts = (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = yaf_Forum.ForumID and x.Approved<>0),
-		NumTopics = (select count(distinct x.TopicID) from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0)
+		NumPosts = (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = yaf_Forum.ForumID and (x.Flags & 24)=16),
+		NumTopics = (select count(distinct x.TopicID) from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16)
 	where ForumID=@ForumID
 end
 go
@@ -4031,7 +4000,8 @@ begin
 		c.ForumID = @ForumID and
 		(@Date is null or c.Posted>=@Date or c.LastPosted>=@Date or Priority>0) and
 		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
-		(c.TopicMovedID is not null or c.NumPosts>0)
+		(c.TopicMovedID is not null or c.NumPosts>0) and
+		(c.Flags & 8)=0
 	order by
 		Priority desc,
 		c.LastPosted desc
@@ -4061,7 +4031,10 @@ begin
 		c.PollID,
 		ForumLocked = d.Locked
 	from
-		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID join #data e on e.TopicID=c.TopicID
+		yaf_Topic c 
+		join yaf_User b on b.UserID=c.UserID 
+		join yaf_Forum d on d.ForumID=c.ForumID 
+		join #data e on e.TopicID=c.TopicID
 	where
 		e.RowNo between @Offset+1 and @Offset + @Count
 	order by
@@ -4458,11 +4431,12 @@ begin
 		join yaf_Category e on e.CategoryID=d.CategoryID
 		join yaf_vaccess x on x.ForumID=d.ForumID
 	where
-		a.Approved <> 0 and
 		a.UserID = @UserID and
 		x.UserID = @PageUserID and
 		x.ReadAccess <> 0 and
-		e.BoardID = @BoardID
+		e.BoardID = @BoardID and
+		(a.Flags & 24)=16 and
+		(c.Flags & 8)=0
 	order by
 		a.Posted desc
 end
@@ -4483,7 +4457,7 @@ begin
 		Subject = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
-		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID) - 1,
+		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
 		Views = c.Views,
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -4507,7 +4481,8 @@ begin
 		x.UserID = @UserID and
 		x.ReadAccess <> 0 and
 		e.BoardID = @BoardID and
-		(@CategoryID is null or e.CategoryID=@CategoryID)
+		(@CategoryID is null or e.CategoryID=@CategoryID) and
+		(c.Flags & 8)=0
 	order by
 		d.Name asc,
 		Priority desc,

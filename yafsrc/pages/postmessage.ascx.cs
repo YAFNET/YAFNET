@@ -342,7 +342,7 @@ namespace yaf.pages
 			bool bApproved = false;
 			using(DataTable dt = DB.message_list(nMessageID)) 
 				foreach(DataRow row in dt.Rows) 
-					bApproved = (bool)row["Approved"];
+					bApproved = ((int)row["Flags"] & 16)==16;
 
 			// Create notification emails
 			if(bApproved) 
