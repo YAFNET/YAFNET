@@ -154,7 +154,7 @@ namespace yaf
 			if( ToSearch == "*" )
 				ToSearch = "";
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message, c.Format ";
+			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message ";
 			//sql += "from yaf_topic a left join yaf_user b on a.UserID = b.UserID left join yaf_message c on a.TopicID = c.TopicID ";
 			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID ";
 			//sql += string.Format( "where a.ForumID in ( select y.ForumID from yaf_user x, yaf_forumAccess y where x.GroupID = y.GroupID and y.ReadAccess = 1 and x.UserID = {0} ) ", UserID );

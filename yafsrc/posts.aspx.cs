@@ -577,11 +577,10 @@ namespace yaf
 			if(row["Signature"].ToString().Length>0)
 				html += "<br/><hr noshade/>" + fmt.FormatMessage(row["Signature"].ToString());
 
+			if(!isHtml)
+				html = fmt.FormatMessage(html);
 
-			if(isHtml)
-				return html;
-
-			return fmt.FormatMessage(html);
+			return FormatMsg.FetchURL(html);
 		}
 
 		protected bool CanEditPost(DataRowView row) 

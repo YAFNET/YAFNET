@@ -88,7 +88,8 @@ namespace yaf.cp
 				FormatMsg fmt = new FormatMsg(this);
 				body = fmt.FormatMessage(body);
 			}
-			return body;
+
+			return FormatMsg.FetchURL(body);
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

@@ -68,7 +68,8 @@ namespace yaf
 
 						ToUserID = (int)row["FromUserID"];
 
-						Editor.Text = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],row["Body"]);
+						//Editor.Text = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],row["Body"]);
+						Editor.Text = String.Format("<div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br>",row["FromUser"],row["Body"]);
 					}
 				} 
 				if(Request.QueryString["u"] != null)

@@ -190,7 +190,7 @@ namespace yaf
 				FormatMsg fmt = new FormatMsg(this);
 				body = fmt.FormatMessage(body);
 			}
-			return body;
+			return FormatMsg.FetchURL(body);
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)

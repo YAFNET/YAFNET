@@ -95,13 +95,19 @@ namespace yaf
 			if(fmt==null)
 				fmt = new FormatMsg(this);
 
-			if(row["Signature"].ToString().Length>0)
-				html += "\r\n\r\n-- \r\n" + fmt.FormatMessage(row["Signature"].ToString());
+			if(row["Signature"].ToString().Length>0) 
+			{
+				string sig = row["Signature"].ToString();
+				if(sig.IndexOf('<')<0)
+					sig = fmt.FormatMessage(sig);
+				
+				html += "<br/><hr noshade/>" + sig;
+			}
 
 			if(!isHtml)
 				html = fmt.FormatMessage(html);
 
-			return html;
+			return FormatMsg.FetchURL(html);
 		}
 
 		#region Web Form Designer generated code

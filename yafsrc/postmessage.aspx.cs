@@ -436,6 +436,7 @@ namespace yaf
 
 			html += "<br/><hr noshade/>" + sig;
 
+			html = FormatMsg.FetchURL(html);
 			return html;
 		}
 	}
