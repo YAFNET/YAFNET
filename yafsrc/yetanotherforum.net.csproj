@@ -497,6 +497,18 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "languages\china.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\danish.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\dutch.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "languages\english.xml"
                     BuildAction = "Content"
                 />
@@ -506,11 +518,35 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "languages\french.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "languages\german-du.xml"
                     BuildAction = "Content"
                 />
                 <File
                     RelPath = "languages\norwegian.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\polish.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\romanian.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\russian.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\spanish.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\turkish.xml"
                     BuildAction = "Content"
                 />
                 <File
