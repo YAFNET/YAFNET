@@ -380,25 +380,6 @@ create procedure yaf_mail_createwatch(@TopicID int,@From nvarchar(50),@Subject n
 end
 GO
 
--- yaf_nntpforum_save
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_save
-GO
-
-create procedure yaf_nntpforum_save(@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int) as
-begin
-	if @NntpForumID is null
-		insert into yaf_NntpForum(NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate)
-		values(@NntpServerID,@GroupName,@ForumID,0,getdate())
-	else
-		update yaf_NntpForum set
-			NntpServerID = @NntpServerID,
-			GroupName = @GroupName,
-			ForumID = @ForumID
-		where NntpForumID = @NntpForumID
-end
-GO
-
 -- yaf_checkemail_save
 if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_checkemail_save
@@ -1354,40 +1335,6 @@ begin
 		select * from yaf_NntpServer where BoardID=@BoardID order by Name
 	else
 		select * from yaf_NntpServer where NntpServerID=@NntpServerID
-end
-GO
-
--- yaf_nntpforum_list
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_list
-GO
-
-create procedure yaf_nntpforum_list(@BoardID int,@Minutes int=null,@NntpForumID int=null) as
-begin
-	select
-		a.Name,
-		a.Address,
-		Port = IsNull(a.Port,119),
-		a.NntpServerID,
-		b.NntpForumID,
-		b.GroupName,
-		b.ForumID,
-		b.LastMessageNo,
-		b.LastUpdate,
-		ForumName = c.Name
-	from
-		yaf_NntpServer a,
-		yaf_NntpForum b,
-		yaf_Forum c
-	where
-		b.NntpServerID = a.NntpServerID and
-		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
-		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
-		c.ForumID = b.ForumID and
-		a.BoardID=@BoardID
-	order by
-		a.Name,
-		b.GroupName
 end
 GO
 

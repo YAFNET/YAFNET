@@ -1356,7 +1356,7 @@ namespace yaf
 		#endregion
 
 		#region yaf_NntpForum
-		static public DataTable nntpforum_list(object boardID,object minutes,object nntpForumID) 
+		static public DataTable nntpforum_list(object boardID,object minutes,object nntpForumID,object active) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_list")) 
 			{
@@ -1364,6 +1364,7 @@ namespace yaf
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Minutes",minutes);
 				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				cmd.Parameters.Add("@Active",active);
 				return GetData(cmd);
 			}
 		}
@@ -1378,7 +1379,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void nntpforum_save(object nntpForumID,object nntpServerID,object groupName,object forumID) 
+		static public void nntpforum_save(object nntpForumID,object nntpServerID,object groupName,object forumID,object active) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_save")) 
 			{
@@ -1387,6 +1388,7 @@ namespace yaf
 				cmd.Parameters.Add("@NntpServerID",nntpServerID);
 				cmd.Parameters.Add("@GroupName",groupName);
 				cmd.Parameters.Add("@ForumID",forumID);
+				cmd.Parameters.Add("@Active",active);
 				ExecuteNonQuery(cmd);
 			}
 		}

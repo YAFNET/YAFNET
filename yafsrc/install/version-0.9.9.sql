@@ -17,6 +17,14 @@ if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name=
 	alter table yaf_Forum add RemoteURL nvarchar(100) null
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('yaf_NntpForum') and name='Active')
+begin
+	alter table yaf_NntpForum add Active bit null
+	exec('update yaf_NntpForum set Active=1 where Active is null')
+	alter table yaf_NntpForum alter column Active bit not null
+end
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
 GO
@@ -1061,4 +1069,58 @@ GO
 -- yaf_user_access
 if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_access
+GO
+
+-- yaf_nntpforum_list
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_list
+GO
+
+create procedure yaf_nntpforum_list(@BoardID int,@Minutes int=null,@NntpForumID int=null,@Active bit=null) as
+begin
+	select
+		a.Name,
+		a.Address,
+		Port = IsNull(a.Port,119),
+		a.NntpServerID,
+		b.NntpForumID,
+		b.GroupName,
+		b.ForumID,
+		b.LastMessageNo,
+		b.LastUpdate,
+		b.Active,
+		ForumName = c.Name
+	from
+		yaf_NntpServer a
+		join yaf_NntpForum b on b.NntpServerID = a.NntpServerID
+		join yaf_Forum c on c.ForumID = b.ForumID
+	where
+		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
+		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
+		a.BoardID=@BoardID and
+		(@Active is null or b.Active=@Active)
+	order by
+		a.Name,
+		b.GroupName
+end
+GO
+
+-- yaf_nntpforum_save
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_save
+GO
+
+create procedure yaf_nntpforum_save(@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit) as
+begin
+	if @NntpForumID is null
+		insert into yaf_NntpForum(NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
+		values(@NntpServerID,@GroupName,@ForumID,0,getdate(),@Active)
+	else
+		update yaf_NntpForum set
+			NntpServerID = @NntpServerID,
+			GroupName = @GroupName,
+			ForumID = @ForumID,
+			Active = @Active
+		where NntpForumID = @NntpForumID
+end
 GO

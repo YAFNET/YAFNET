@@ -16,6 +16,7 @@
 			<td class=header2>Server</td>
 			<td class=header2>Group</td>
 			<td class=header2>Forum</td>
+			<td class=header2>Active</td>
 			<td class=header2>&nbsp;</td>
 		</tr>
 	</HeaderTemplate>
@@ -29,6 +30,9 @@
 			</td>
 			<td class=post>
 				<%# DataBinder.Eval(Container.DataItem, "ForumName") %>
+			</td>
+			<td class=post>
+				<%# DataBinder.Eval(Container.DataItem, "Active") %>
 			</td>
 			<td class=post>
 				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "NntpForumID") %>'>Edit</asp:linkbutton>

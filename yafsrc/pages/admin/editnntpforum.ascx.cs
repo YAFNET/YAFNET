@@ -37,6 +37,7 @@ namespace yaf.pages.admin
 		protected DropDownList NntpServerID, ForumID;
 		protected TextBox GroupName;
 		protected Button Save, Cancel;
+		protected CheckBox Active;
 		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -50,12 +51,13 @@ namespace yaf.pages.admin
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = DB.nntpforum_list(PageBoardID,null,Request.QueryString["s"]))
+					using(DataTable dt = DB.nntpforum_list(PageBoardID,null,Request.QueryString["s"],DBNull.Value))
 					{
 						DataRow row = dt.Rows[0];
 						NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
 						GroupName.Text = row["GroupName"].ToString();
 						ForumID.Items.FindByValue(row["ForumID"].ToString()).Selected = true;
+						Active.Checked = (bool)row["Active"];
 					}
 				}
 			}
@@ -103,7 +105,7 @@ namespace yaf.pages.admin
 		{
 			object nntpForumID = null;
 			if(Request.QueryString["s"]!=null) nntpForumID = Request.QueryString["s"];
-			DB.nntpforum_save(nntpForumID,NntpServerID.SelectedValue,GroupName.Text,ForumID.SelectedValue);
+			DB.nntpforum_save(nntpForumID,NntpServerID.SelectedValue,GroupName.Text,ForumID.SelectedValue,Active.Checked);
 			Forum.Redirect(Pages.admin_nntpforums);
 		}
 	}

@@ -21,6 +21,11 @@
     <td class=postheader><b>Forum:</b><br/>The forum messages will be inserted into.</td>
     <td class=post><asp:dropdownlist id="ForumID" runat="server"/></td></tr>
 
+<tr>
+	<td class="postheader"><b>Active:</b><br/>Check this to make the forum active.</td>
+	<td class="post"><asp:checkbox id="Active" runat="server" checked="true"/></td>
+</tr>
+
 	<tr>
 		<td class=postfooter align=middle colspan=2>
 			<asp:button id=Save runat="server" Text="Save"/>&nbsp; 

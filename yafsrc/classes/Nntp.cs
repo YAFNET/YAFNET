@@ -493,7 +493,7 @@ namespace yaf.classes
 			try 
 			{
 				// Only those not updated in the last 30 minutes
-				using(DataTable dtForums = DB.nntpforum_list(boardID,nLastUpdate,null)) 
+				using(DataTable dtForums = DB.nntpforum_list(boardID,nLastUpdate,null,true)) 
 				{
 					foreach(DataRow drForum in dtForums.Rows) 
 					{
