@@ -1827,6 +1827,10 @@ namespace yaf
 
 		#region yaf_ReplaceWords
 		// rico : replace words / begin
+		/// <summary>
+		/// Gets a list of replace words
+		/// </summary>
+		/// <returns>DataTable with replace words</returns>
 		static public DataTable replace_words_list() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_list")) 
@@ -1835,6 +1839,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Saves changs to a words
+		/// </summary>
+		/// <param name="ID">ID of bad/good word</param>
+		/// <param name="badword">bad word</param>
+		/// <param name="goodword">good word</param>
 		static public void replace_words_save(object ID,object badword,object goodword) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_save")) 
@@ -1846,6 +1856,10 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Deletes a bad/good word
+		/// </summary>
+		/// <param name="ID">ID of bad/good word to delete</param>
 		static public void replace_words_delete(object ID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_delete")) 
@@ -1855,6 +1869,11 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Edits bad words?
+		/// </summary>
+		/// <param name="ID">ID of badword</param>
+		/// <returns>DataTable</returns>
 		static public DataTable replace_words_edit(object ID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_replace_words_edit")) 
