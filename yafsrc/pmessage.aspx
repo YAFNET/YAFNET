@@ -1,4 +1,6 @@
 <%@ Page language="c#" Codebehind="pmessage.aspx.cs" AutoEventWireup="false" Inherits="yaf.pmessage" %>
+<%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
+
 <form runat=server>
 
 <p class=navlinks><asp:hyperlink id=HomeLink runat="server"/></p>
@@ -18,7 +20,7 @@
 	<tr>
 		<td class=postheader valign=top><%= GetText("message") %></td>
 		<td class=post>
-			<asp:TextBox id=Editor runat="server" TextMode="MultiLine" CssClass="posteditor"/>
+			<RichEdit:rte runat="server" id="Editor" cssclass="posteditor"/>
 		</td>
 	</tr>
 	<tr>

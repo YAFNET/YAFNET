@@ -36,15 +36,23 @@ namespace yaf
 	{
 		protected HyperLink HomeLink, UserLink, ThisLink;
 		protected Button save, cancel;
-		protected TextBox sig;
+		protected rte.rte sig;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			sig.EnableRTE = true;
+
 			if(!User.Identity.IsAuthenticated)
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 
 			if(!IsPostBack) {
-				sig.Text = DB.user_getsignature(PageUserID);
+				string msg = DB.user_getsignature(PageUserID);
+				bool isHtml = msg.IndexOf('<')>=0;
+				if(sig.IsRTEBrowser && !isHtml)
+					msg = FormatMsg.ForumCodeToHtml(this,msg);
+				else if(!sig.IsRTEBrowser && isHtml)
+					msg = FormatMsg.HtmlToForumCode(msg);
+				sig.Text = msg;
 
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
@@ -59,7 +67,11 @@ namespace yaf
 		}
 
 		private void save_Click(object sender,EventArgs e) {
-			DB.user_savesignature(PageUserID,Server.HtmlEncode(sig.Text));
+			string body = sig.Text;
+			if(!sig.IsRTEBrowser)
+				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+
+			DB.user_savesignature(PageUserID,body);
 			Response.Redirect("cp_profile.aspx");
 		}
 

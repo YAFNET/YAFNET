@@ -49,7 +49,7 @@ namespace yaf.controls
 				if(i%8==0 && i>0 && i+1<dtSmileys.Rows.Count) html.Append("</tr><tr>\n");
 				string evt = "";
 				if(_onclick.Length>0) {
-					evt = String.Format("javascript:{0}('{1}','images/emoticons/{2}')",_onclick,row["Code"],row["Icon"]);
+					evt = String.Format("javascript:{0}('{1}','{3}images/emoticons/{2}')",_onclick,row["Code"],row["Icon"],basePage.BaseDir);
 				} else {
 					evt = "javascript:void()";
 				}

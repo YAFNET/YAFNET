@@ -35,7 +35,7 @@ namespace yaf
 	public class pmessage : BasePage
 	{
 		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.TextBox Editor;
+		protected rte.rte Editor;
 		protected System.Web.UI.WebControls.TextBox To;
 		protected System.Web.UI.HtmlControls.HtmlTableRow ToRow;
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
@@ -44,10 +44,13 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			Editor.EnableRTE = true;
+
 			if(!User.Identity.IsAuthenticated)
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 
 			if(!IsPostBack) {
+
 				BindData();
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
@@ -121,7 +124,11 @@ namespace yaf
 				return;
 			}
 
-			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,Server.HtmlEncode(Editor.Text));
+			string body = Editor.Text;
+			if(!Editor.IsRTEBrowser) 
+				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+
+			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,body);
 			Response.Redirect("cp_profile.aspx");
 		}
 

@@ -53,16 +53,6 @@ if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') 
 	drop procedure yaf_forum_listread
 GO
 
-if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Format')
-	alter table yaf_Message add Format smallint null
-GO
-
-update yaf_Message set Format = 0 where Format is null
-GO
-
-alter table yaf_Message alter column Format smallint not null
-GO
-
 create procedure yaf_forum_listread(@UserID int,@CategoryID int=null) as
 begin
 	select 
@@ -412,7 +402,6 @@ begin
 		Subject = d.Topic,
 		a.Message,
 		a.UserID,
-		a.Format,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		Posts		= b.NumPosts,
@@ -460,7 +449,6 @@ begin
 		Subject = c.Topic,
 		a.Message,
 		a.UserID,
-		a.Format,
 		UserName = IsNull(a.UserName,b.Name),
 		b.Signature,
 		c.TopicID
@@ -661,7 +649,6 @@ CREATE  procedure yaf_message_save(
 	@Message	text,
 	@UserName	varchar(50)=null,
 	@IP			varchar(15),
-	@Format		smallint,
 	@MessageID	int output
 ) as
 begin
@@ -670,8 +657,8 @@ begin
 
 	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
 
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Format,Approved)
-	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,@Format,0)
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved)
+	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,0)
 	set @MessageID = @@IDENTITY
 	
 	if @Moderated=0
@@ -691,7 +678,6 @@ create procedure yaf_topic_save(
 	@Priority	smallint,
 	@UserName	varchar(50)=null,
 	@IP			varchar(15),
-	@Format		smallint,
 	@PollID		int=null
 ) as
 begin
@@ -701,7 +687,7 @@ begin
 	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName)
 	values(@ForumID,@Subject,@UserID,getdate(),0,@Priority,0,@PollID,@UserName)
 	set @TopicID = @@IDENTITY
-	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Format,@MessageID output
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@MessageID output
 
 	select TopicID = @TopicID, MessageID = @MessageID
 end
@@ -720,7 +706,6 @@ begin
 		Subject = d.Topic,
 		a.Message,
 		a.UserID,
-		a.Format,
 		UserName = IsNull(a.UserName,b.Name),
 		b.Signature
 	from
@@ -747,8 +732,7 @@ create procedure yaf_message_unapproved(@ForumID int) as begin
 		UserName	= IsNull(b.UserName,c.Name),
 		Posted		= b.Posted,
 		Topic		= a.Topic,
-		Message		= b.Message,
-		Format		= b.Format
+		Message		= b.Message
 	from
 		yaf_Topic a,
 		yaf_Message b,
@@ -778,8 +762,7 @@ begin
 		c.ForumID,
 		c.Topic,
 		c.Priority,
-		a.Approved,
-		a.Format
+		a.Approved
 	from
 		yaf_Message a,
 		yaf_User b,
@@ -788,5 +771,50 @@ begin
 		a.MessageID = @MessageID and
 		b.UserID = a.UserID and
 		c.TopicID = a.TopicID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_update
+GO
+
+create procedure yaf_message_update(@MessageID int,@Priority int,@Message text) as
+begin
+	declare @TopicID	int
+	declare	@Moderated	bit
+	declare	@Approved	bit
+	
+	set @Approved = 0
+	
+	select 
+		@TopicID	= a.TopicID,
+		@Moderated	= c.Moderated
+	from 
+		yaf_Message a,
+		yaf_Topic b,
+		yaf_Forum c
+	where 
+		a.MessageID = @MessageID and
+		b.TopicID = a.TopicID and
+		c.ForumID = b.ForumID
+
+	if @Moderated=0 set @Approved = 1
+
+	update yaf_Message set
+		Message = @Message,
+		Edited = getdate(),
+		Approved = @Approved
+	where
+		MessageID = @MessageID
+
+	if @Priority is not null begin
+		update yaf_Topic set
+			Priority = @Priority
+		where
+			TopicID = @TopicID
+	end
+	
+	-- If forum is moderated, make sure last post pointers are correct
+	if @Moderated<>0 exec yaf_topic_updatelastpost
 end
 GO

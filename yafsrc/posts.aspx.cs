@@ -554,6 +554,7 @@ namespace yaf
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
+			bool isHtml = html.IndexOf('<')>=0;
 		
 			if(long.Parse(row["HasAttachments"].ToString())>0) 
 			{
@@ -576,7 +577,8 @@ namespace yaf
 			if(row["Signature"].ToString().Length>0)
 				html += "<br/><hr noshade/>" + fmt.FormatMessage(row["Signature"].ToString());
 
-			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.HTML)
+
+			if(isHtml)
 				return html;
 
 			return fmt.FormatMessage(html);

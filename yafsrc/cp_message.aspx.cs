@@ -82,8 +82,13 @@ namespace yaf.cp
 
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
-			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage((string)row["Body"]);
+			string body = row["Body"].ToString();
+			if(body.IndexOf('<')<0) 
+			{
+				FormatMsg fmt = new FormatMsg(this);
+				body = fmt.FormatMessage(body);
+			}
+			return body;
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

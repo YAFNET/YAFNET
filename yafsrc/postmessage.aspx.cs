@@ -106,7 +106,7 @@ namespace yaf
 			UploadRow2.Visible = ForumUploadAccess;
 			UploadRow3.Visible = ForumUploadAccess;
 
-			Message.EnableRTE = IsAdmin;
+			Message.EnableRTE = true;
 
 			if(!IsPostBack) 
 			{
@@ -143,11 +143,12 @@ namespace yaf
 				}
 
 				if(Request.QueryString["q"] != null) {
-					MSGFORMAT msgformat = Data.GetMsgFormat(msg["Format"]);
+					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
+
 					if(Message.IsRTEBrowser) 
 					{
 						string body = msg["Message"].ToString();
-						if(msgformat==MSGFORMAT.FORUM) 
+						if(!isHtml) 
 						{
 							FormatMsg fmt = new FormatMsg(this);
 							body = fmt.FormatMessage(body);
@@ -156,18 +157,17 @@ namespace yaf
 					}
 					else 
 					{
-						if(msgformat!=MSGFORMAT.FORUM)
-							// TODO: Convert this html to forumcodes
-							Message.Text = String.Format("[quote={0}]...[/quote]",msg["username"]);
+						if(isHtml)
+							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(msg["Message"].ToString()));
 						else
 							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],Server.HtmlDecode((string)msg["message"]));
 					}
 				} else if(Request.QueryString["m"] != null) {
-					MSGFORMAT msgformat = Data.GetMsgFormat(msg["Format"]);
 					string body = Server.HtmlDecode((string)msg["message"]);
+					bool isHtml = body.IndexOf('<')>=0;
 					if(Message.IsRTEBrowser) 
 					{
-						if(msgformat==MSGFORMAT.FORUM) 
+						if(!isHtml) 
 						{
 							FormatMsg fmt = new FormatMsg(this);
 							body = fmt.FormatMessage(body);
@@ -175,9 +175,10 @@ namespace yaf
 					} 
 					else 
 					{
-						if(msgformat!=MSGFORMAT.FORUM) 
+						if(isHtml) 
 						{
-							throw new Exception("TODO: Convert this html message to forumcodes");
+							//throw new Exception("TODO: Convert this html message to forumcodes");
+							body = FormatMsg.HtmlToForumCode(body);
 						}
 					}
 					Message.Text = body;
@@ -260,22 +261,19 @@ namespace yaf
 				}
 			}
 
-			MSGFORMAT fmt = MSGFORMAT.FORUM;
-			if(Message.IsRTEBrowser)
-				fmt = MSGFORMAT.HTML;
-
 			long TopicID;
 			long nMessageID = 0;
 			string msg = Message.Text;
-			if(fmt!=MSGFORMAT.HTML)
-				msg = Server.HtmlEncode(msg);
+			if(!Message.IsRTEBrowser) 
+				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
+
 			Session["lastpost"] = DateTime.Now;
 			if(Request.QueryString["t"] != null) {
 				if(!ForumReplyAccess)
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,From.Text,Request.UserHostAddress,fmt,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,From.Text,Request.UserHostAddress,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
@@ -305,7 +303,7 @@ namespace yaf
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,fmt,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,ref nMessageID);
 			}
 
 			SaveAttachment(nMessageID,File1);
@@ -400,10 +398,15 @@ namespace yaf
 		private void Preview_Click(object sender, System.EventArgs e) {
 			PreviewRow.Visible = true;
 
-			//string body = Server.HtmlEncode(Message.Text);
-			string body = Message.Text;
-
 			FormatMsg fmt = new FormatMsg(this);
+
+			string body = Message.Text;
+#if DEBUG
+			string fcode = FormatMsg.HtmlToForumCode(body);
+			AddLoadMessage(fcode);
+#endif
+			if(!Message.IsRTEBrowser) 
+				body = fmt.FormatMessage(Server.HtmlEncode(body));
 
 			using(DataTable dt = DB.user_list(PageUserID,true)) 
 			{
@@ -411,24 +414,27 @@ namespace yaf
 					body += "<br/><hr noshade/>" + fmt.FormatMessage(dt.Rows[0]["Signature"].ToString());
 			}
 			
-			if(Message.IsRTEBrowser)
-				PreviewCell.InnerHtml = body;
-			else 
-				PreviewCell.InnerHtml = fmt.FormatMessage(body);
+			PreviewCell.InnerHtml = body;
 		}
 
 		protected string FormatBody(object o) 
 		{
-			if(fmt==null)
-				fmt = new FormatMsg(this);
-
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			if(int.Parse(row["Format"].ToString())==(int)MSGFORMAT.FORUM)
+			bool isHtml = html.IndexOf('<')>=0;
+			if(!isHtml) 
+			{
+				if(fmt==null) fmt = new FormatMsg(this);
 				html = fmt.FormatMessage(html);
+			}
 
-			if(row["Signature"].ToString().Length>0)
-				html += "<br/><hr noshade/>" + fmt.FormatMessage(row["Signature"].ToString());
+			string sig = row["Signature"].ToString();
+			if(sig.IndexOf('<')<0) {
+				if(fmt==null) fmt = new FormatMsg(this);
+				sig = fmt.FormatMessage(sig);
+			}
+
+			html += "<br/><hr noshade/>" + sig;
 
 			return html;
 		}

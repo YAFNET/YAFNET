@@ -89,7 +89,8 @@ namespace yaf
 		protected string GetPrintBody(object o) {
 			DataRowView row = (DataRowView)o;
 			string msg = row["Message"].ToString();
-			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM) 
+			bool isHtml = msg.IndexOf('<')>=0;
+			if(!isHtml) 
 			{
 				FormatMsg fmt = new FormatMsg(this);
 				msg = fmt.FormatMessage(msg);

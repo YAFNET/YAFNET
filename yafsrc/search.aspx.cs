@@ -184,7 +184,8 @@ namespace yaf
 			DataRowView row = (DataRowView)o;
 
 			string body = row["Message"].ToString();
-			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM) 
+			bool isHtml = body.IndexOf('<')>=0;
+			if(!isHtml) 
 			{
 				FormatMsg fmt = new FormatMsg(this);
 				body = fmt.FormatMessage(body);

@@ -163,5 +163,47 @@ namespace yaf
 
 			return tmp;
 		}
+	
+		static public string ForumCodeToHtml(BasePage basePage,string message) 
+		{
+			FormatMsg fmt = new FormatMsg(basePage);
+			return fmt.FormatMessage(message);
+		}
+
+		static public string HtmlToForumCode(string html) 
+		{
+			html = html.Replace("<ul>","[list]");	// TODO
+			html = html.Replace("</ul>","[/list]");	// TODO
+			html = html.Replace("<ol>","[list]");	// TODO
+			html = html.Replace("</ol>","[/list]");	// TODO
+			html = html.Replace("<li>","[*]");		// TODO
+			html = html.Replace("</li>","");		// TODO
+			
+			RegexOptions options = RegexOptions.IgnoreCase;
+			html = Regex.Replace(html,"<a href=\"(.*)\">(.*)</a>","[url=\"$1\"]$2[/url]",options);
+			html = Regex.Replace(html,"<img src=\"(.*)\">","[img]$1[/img]",options);
+			html = Regex.Replace(html,"<p(.*?)>","",options);
+			html = Regex.Replace(html,"</p>","<br><br>",options);
+			html = Regex.Replace(html,"<br>","\n",options);
+			html = Regex.Replace(html,"<b>","[b]",options);
+			html = Regex.Replace(html,"</b>","[/b]",options);
+			html = Regex.Replace(html,"<strong>","[b]",options);
+			html = Regex.Replace(html,"</strong>","[/b]",options);
+			html = Regex.Replace(html,"<i>","[i]",options);
+			html = Regex.Replace(html,"</i>","[/i]",options);
+			html = Regex.Replace(html,"<em>","[i]",options);
+			html = Regex.Replace(html,"</em>","[/i]",options);
+			html = Regex.Replace(html,"<u>","[u]",options);
+			html = Regex.Replace(html,"</u>","[/u]",options);
+			html = Regex.Replace(html,"<blockquote(.*)>","[block]",options);			
+			html = Regex.Replace(html,"</blockquote>","[/block]",options);			
+
+			html = Regex.Replace(html,"<","&lt;",options);
+			html = Regex.Replace(html,">","&gt;",options);
+//			if(html.IndexOf('<')>=0 || html.IndexOf('>')>=0)
+//				html += "\n\nINVALID";
+
+			return html;
+		}
 	}
 }

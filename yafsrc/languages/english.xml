@@ -63,7 +63,7 @@
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="NO_POSTS">No Posts</Resource>
 		<Resource tag="UNREAD1">You have {0} unread message in your inbox.</Resource>
-		<Resource tag="UNREAD">You have {0} unread messages in your inbox.</Resource>
+		<Resource tag="UNREAD0">You have {0} unread messages in your inbox.</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->

@@ -41,12 +41,6 @@ namespace yaf
 		sfEXACT = 2
 	}
 
-	public enum MSGFORMAT 
-	{
-		FORUM = 0,
-		HTML = 1
-	}
-
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>
@@ -58,11 +52,6 @@ namespace yaf
 			{
 				return System.Configuration.ConfigurationSettings.AppSettings["basedir"];
 			}
-		}
-
-		static public MSGFORMAT GetMsgFormat(object o) 
-		{
-			return (MSGFORMAT)int.Parse(o.ToString());
 		}
 
 		public static AuthType GetAuthType 

@@ -90,6 +90,7 @@ namespace yaf
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
+			bool isHtml = html.IndexOf('<')>=0;
 
 			if(fmt==null)
 				fmt = new FormatMsg(this);
@@ -97,7 +98,7 @@ namespace yaf
 			if(row["Signature"].ToString().Length>0)
 				html += "\r\n\r\n-- \r\n" + fmt.FormatMessage(row["Signature"].ToString());
 
-			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM)
+			if(!isHtml)
 				html = fmt.FormatMessage(html);
 
 			return html;

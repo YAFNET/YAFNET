@@ -1,4 +1,5 @@
 <%@ Page language="c#" Codebehind="cp_signature.aspx.cs" AutoEventWireup="false" Inherits="yaf.cp_signature" %>
+<%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
 
 <form runat=server>
 
@@ -15,7 +16,7 @@
 <tr>
 	<td class=postheader valign=top><%= GetText("signature") %></td>
 	<td class=post>
-		<asp:textbox id=sig runat="server" cssclass="posteditor" TextMode="MultiLine" Rows="12"/>
+		<RichEdit:rte runat="server" id="sig" cssclass="posteditor"/>
 	</td>
 </tr>
 <tr>

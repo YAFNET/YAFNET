@@ -655,7 +655,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object format,ref long nMessageID) {
+		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,ref long nMessageID) {
 			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 				UserName = null;
 
@@ -670,7 +670,6 @@ namespace yaf
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
-				cmd.Parameters.Add("@Format",format);
 				cmd.Parameters.Add(pMessageID);
 				DB.ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;
@@ -965,7 +964,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object format,ref long nMessageID) 
+		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
 		{
 			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 				UserName = null;
@@ -980,7 +979,6 @@ namespace yaf
 				cmd.Parameters.Add("@Priority",Priority);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
-				cmd.Parameters.Add("@Format",format);
 				cmd.Parameters.Add("@PollID",PollID);
 
 				DataTable dt = DB.GetData(cmd);
