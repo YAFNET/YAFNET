@@ -35,13 +35,16 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
+			
 			using(DataTable dt = new DataTable("Files")) 
 			{
 				dt.Columns.Add("FileID",typeof(long));
 				dt.Columns.Add("FileName",typeof(string));
+				dt.Columns.Add("Description",typeof(string));
 				DataRow dr = dt.NewRow();
 				dr["FileID"] = 0;
-				dr["FileName"] = "Select Icon";
+				dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
 				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",Data.ForumRoot)));
@@ -56,12 +59,13 @@ namespace yaf.pages.admin
 					dr = dt.NewRow();
 					dr["FileID"] = nFileID++;
 					dr["FileName"] = file.Name;
+					dr["Description"] = file.Name;
 					dt.Rows.Add(dr);
 				}
 				
 				Icon.DataSource = dt;
 				Icon.DataValueField = "FileName";
-				Icon.DataTextField = "FileName";
+				Icon.DataTextField = "Description";
 			}
 			DataBind();
 
@@ -74,11 +78,15 @@ namespace yaf.pages.admin
 						Code.Text = dt.Rows[0]["Code"].ToString();
 						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
 						Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
-						Preview.Src = String.Format("../images/emoticons/{0}",dt.Rows[0]["Icon"]);
+						Preview.Src = String.Format("{0}images/emoticons/{1}",Data.ForumRoot,dt.Rows[0]["Icon"]);
 					}
 				}
 			}
-			Icon.Attributes["onchange"] = "getElementById('Preview').src='../images/emoticons/' + this.value";
+			else
+			{
+				Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+			}
+			Icon.Attributes["onchange"] = "getElementById('_ctl1__ctl0_Preview').src='../images/emoticons/' + this.value";
 		}
 
 		private void save_Click(object sender, System.EventArgs e) 
