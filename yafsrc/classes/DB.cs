@@ -221,6 +221,7 @@ namespace yaf
 		#endregion
 		
 		#region Forum
+
 		static public DataRow pageload(object SessionID,object boardID,object User,object IP,object Location,object Browser,
 			object Platform,object CategoryID,object ForumID,object TopicID,object MessageID) 
 		{
@@ -372,6 +373,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_AccessMask
+		/// <summary>
+		/// Gets a list of access mask properities
+		/// </summary>
+		/// <param name="boardID">ID of Board</param>
+		/// <param name="accessMaskID">ID of access mask</param>
+		/// <returns></returns>
 		static public DataTable accessmask_list(object boardID,object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_list")) 
@@ -382,6 +389,11 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Deletes an access mask
+		/// </summary>
+		/// <param name="accessMaskID">ID of access mask</param>
+		/// <returns></returns>
 		static public bool accessmask_delete(object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_delete")) 
@@ -391,6 +403,22 @@ namespace yaf
 				return (int)ExecuteScalar(cmd)!=0;
 			}
 		}
+		/// <summary>
+		/// Saves changes to a access mask 
+		/// </summary>
+		/// <param name="accessMaskID">ID of access mask</param>
+		/// <param name="boardID">ID of board</param>
+		/// <param name="name">Name of access mask</param>
+		/// <param name="readAccess">Read Access?</param>
+		/// <param name="postAccess">Post Access?</param>
+		/// <param name="replyAccess">Reply Access?</param>
+		/// <param name="priorityAccess">Priority Access?</param>
+		/// <param name="pollAccess">Poll Access?</param>
+		/// <param name="voteAccess">Vote Access?</param>
+		/// <param name="moderatorAccess">Moderator Access?</param>
+		/// <param name="editAccess">Edit Access?</param>
+		/// <param name="deleteAccess">Delete Access?</param>
+		/// <param name="uploadAccess">Upload Access?</param>
 		static public void accessmask_save(object accessMaskID,object boardID,object name,object readAccess,object postAccess,object replyAccess,object priorityAccess,object pollAccess,object voteAccess,object moderatorAccess,object editAccess,object deleteAccess,object uploadAccess) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_save")) 
