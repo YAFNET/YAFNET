@@ -86,16 +86,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_ForumAccess')
 CREATE TABLE [yaf_ForumAccess] (
 	[GroupID] [int] NOT NULL ,
 	[ForumID] [int] NOT NULL ,
-	[ReadAccess] [bit] NOT NULL ,
-	[PostAccess] [bit] NOT NULL ,
-	[ReplyAccess] [bit] NOT NULL ,
-	[PriorityAccess] [bit] NOT NULL ,
-	[PollAccess] [bit] NOT NULL ,
-	[VoteAccess] [bit] NOT NULL ,
-	[ModeratorAccess] [bit] NOT NULL ,
-	[EditAccess] [bit] NOT NULL ,
-	[DeleteAccess] [bit] NOT NULL ,
-	[UploadAccess] [bit] NOT NULL
+	[AccessMaskID] [int] NOT NULL
 ) ON [PRIMARY]
 GO
 
@@ -902,25 +893,6 @@ begin
 		select * from yaf_Forum order by SortOrder
 	else
 		select * from yaf_Forum where ForumID = @ForumID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderators') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_moderators
-GO
-
-create procedure yaf_forum_moderators as
-begin
-	select
-		a.ForumID, 
-		a.GroupID, 
-		GroupName = b.Name
-	from
-		yaf_ForumAccess a,
-		yaf_Group b
-	where
-		a.ModeratorAccess = 1 and
-		b.GroupID = a.GroupID
 end
 GO
 

@@ -44,8 +44,8 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.CheckBox IsTest;
 		protected System.Web.UI.WebControls.Label ForumNameTitle;
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
-		protected DropDownList TemplateID;
-		protected HtmlTableRow TemplateRow;
+		protected DropDownList AccessMaskID;
+		protected HtmlTableRow NewGroupRow;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
 			if(!IsPostBack) {
@@ -65,7 +65,7 @@ namespace yaf.admin
 
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 					}
-					TemplateRow.Visible = false;
+					NewGroupRow.Visible = false;
 				}
 			}
 		}
@@ -75,12 +75,7 @@ namespace yaf.admin
 			if(Request.QueryString["f"] != null)
 				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
 
-			TemplateID.DataSource = DB.forum_list(null);
-			TemplateID.DataValueField = "ForumID";
-			TemplateID.DataTextField = "Name";
 			DataBind();
-
-			TemplateID.Items.Insert(0,new ListItem());
 		}
 
 		#region Web Form Designer generated code
@@ -114,11 +109,7 @@ namespace yaf.admin
 				long ForumID = 0;
 				if(Request.QueryString["f"] != null) ForumID = long.Parse(Request.QueryString["f"]);
 
-				object templateID = null;
-				if(TemplateID.SelectedIndex>0)
-					templateID = TemplateID.SelectedValue;
-
-				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,templateID);
+				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
 
 				// Access
 				if(Request.QueryString["f"] != null) 
@@ -127,18 +118,7 @@ namespace yaf.admin
 					{
 						RepeaterItem item = AccessList.Items[i];
 						int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-						DB.forumaccess_save(ForumID,GroupID,
-							((CheckBox)item.FindControl("ReadAccess")).Checked,
-							((CheckBox)item.FindControl("PostAccess")).Checked,
-							((CheckBox)item.FindControl("ReplyAccess")).Checked,
-							((CheckBox)item.FindControl("PriorityAccess")).Checked,
-							((CheckBox)item.FindControl("PollAccess")).Checked,
-							((CheckBox)item.FindControl("VoteAccess")).Checked,
-							((CheckBox)item.FindControl("ModeratorAccess")).Checked,
-							((CheckBox)item.FindControl("EditAccess")).Checked,
-							((CheckBox)item.FindControl("DeleteAccess")).Checked,
-							((CheckBox)item.FindControl("UploadAccess")).Checked
-						);
+						DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 					}
 					Response.Redirect("forums.aspx");
 				}
@@ -153,5 +133,17 @@ namespace yaf.admin
 			Response.Redirect("forums.aspx");
 		}
 
+		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
+		{
+			((DropDownList)sender).DataSource = DB.accessmask_list(null);
+			((DropDownList)sender).DataValueField = "AccessMaskID";
+			((DropDownList)sender).DataTextField = "Name";
+		}
+
+		protected void SetDropDownIndex(object sender, System.EventArgs e) 
+		{
+			DropDownList list = (DropDownList)sender;
+			list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+		}
 	}
 }

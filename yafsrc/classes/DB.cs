@@ -163,11 +163,9 @@ namespace yaf
 				ToSearch = "";
 
 			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message ";
-			//sql += "from yaf_topic a left join yaf_user b on a.UserID = b.UserID left join yaf_message c on a.TopicID = c.TopicID ";
-			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID ";
-			//sql += string.Format( "where a.ForumID in ( select y.ForumID from yaf_user x, yaf_forumAccess y where x.GroupID = y.GroupID and y.ReadAccess = 1 and x.UserID = {0} ) ", UserID );
+			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID join yaf_vaccess x on x.ForumID=a.ForumID ";
 			
-			sql += String.Format("where exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=a.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID={0} and x.ReadAccess<>0)",UserID);
+			sql += String.Format("where x.ReadAccess<>0 and x.UserID={0} ",UserID);
 
 			if( sf == SEARCH_FIELD.sfUSER_NAME )
 			{
@@ -234,14 +232,12 @@ namespace yaf
 					da.SelectCommand.Parameters.Add("@UserID",UserID);
 					if(CategoryID!=null && long.Parse(CategoryID.ToString())!=0)
 						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
-					da.SelectCommand.CommandText = "yaf_category_listread";
+					da.SelectCommand.CommandText = "yaf_forumlayout";
 					da.Fill(ds,"yaf_Category");
-
-					da.SelectCommand.CommandText = "yaf_forum_listread";
-					da.Fill(ds,"yaf_Forum");
-			
-					ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
-					ds.Relations.Add("rel2",ds.Tables["yaf_Forum"].Columns["ForumID"],ds.Tables["Moderators"].Columns["ForumID"],false);
+	
+		
+					ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Category1"].Columns["CategoryID"]);
+					ds.Relations.Add("rel2",ds.Tables["yaf_Category1"].Columns["ForumID"],ds.Tables["Moderators"].Columns["ForumID"],false);
 			
 					return ds;
 				}
@@ -261,6 +257,47 @@ namespace yaf
 
 					return ds;
 				}
+			}
+		}
+		#endregion
+
+		#region yaf_AccessMask
+		static public DataTable accessmask_list(object accessMaskID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
+				return GetData(cmd);
+			}
+		}
+		static public bool accessmask_delete(object accessMaskID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
+				return (int)ExecuteScalar(cmd)!=0;
+			}
+		}
+		static public void accessmask_save(object accessMaskID,object name,object readAccess,object postAccess,object replyAccess,object priorityAccess,object pollAccess,object voteAccess,object moderatorAccess,object editAccess,object deleteAccess,object uploadAccess) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
+				cmd.Parameters.Add("@Name",name);
+				cmd.Parameters.Add("@ReadAccess",readAccess);
+				cmd.Parameters.Add("@PostAccess",postAccess);
+				cmd.Parameters.Add("@ReplyAccess",replyAccess);
+				cmd.Parameters.Add("@PriorityAccess",priorityAccess);
+				cmd.Parameters.Add("@PollAccess",pollAccess);
+				cmd.Parameters.Add("@VoteAccess",voteAccess);
+				cmd.Parameters.Add("@ModeratorAccess",moderatorAccess);
+				cmd.Parameters.Add("@EditAccess",editAccess);
+				cmd.Parameters.Add("@DeleteAccess",deleteAccess);
+				cmd.Parameters.Add("@UploadAccess",uploadAccess);
+				ExecuteNonQuery(cmd);
 			}
 		}
 		#endregion
@@ -448,11 +485,12 @@ namespace yaf
 		}
 		static public DataTable forum_listread(object UserID,object CategoryID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_forumlayout")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@CategoryID",CategoryID);
+				cmd.Parameters.Add("@OnlyForum",1);
 				return GetData(cmd);
 			}
 		}
@@ -473,7 +511,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object templateID) 
+		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object accessMaskID,bool dummy) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_save")) 
 			{
@@ -487,7 +525,7 @@ namespace yaf
 				cmd.Parameters.Add("@Hidden",Hidden);
 				cmd.Parameters.Add("@IsTest",IsTest);
 				cmd.Parameters.Add("@Moderated",moderated);
-				cmd.Parameters.Add("@TemplateID",templateID);
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}
@@ -503,27 +541,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public void forumaccess_save(
-			object ForumID,object GroupID,object ReadAccess,object PostAccess,object ReplyAccess,
-			object PriorityAccess,object PollAccess,object VoteAccess,object ModeratorAccess,
-			object EditAccess,object DeleteAccess,object UploadAccess
-			) 
+		static public void forumaccess_save(object ForumID,object GroupID,object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
 				cmd.Parameters.Add("@GroupID",GroupID);
-				cmd.Parameters.Add("@ReadAccess",ReadAccess);
-				cmd.Parameters.Add("@PostAccess",PostAccess);
-				cmd.Parameters.Add("@ReplyAccess",ReplyAccess);
-				cmd.Parameters.Add("@PriorityAccess",PriorityAccess);
-				cmd.Parameters.Add("@PollAccess",PollAccess);
-				cmd.Parameters.Add("@VoteAccess",VoteAccess);
-				cmd.Parameters.Add("@ModeratorAccess",ModeratorAccess);
-				cmd.Parameters.Add("@EditAccess",EditAccess);
-				cmd.Parameters.Add("@DeleteAccess",DeleteAccess);
-				cmd.Parameters.Add("@UploadAccess",UploadAccess);
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
 				ExecuteNonQuery(cmd);
 			}
 		}
@@ -574,7 +599,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long group_save(object GroupID,object Name,object IsAdmin,object IsGuest,object IsStart,object isModerator) 
+		static public long group_save(object GroupID,object Name,object IsAdmin,object IsGuest,object IsStart,object isModerator,object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_group_save")) 
 			{
@@ -585,6 +610,7 @@ namespace yaf
 				cmd.Parameters.Add("@IsGuest",IsGuest);
 				cmd.Parameters.Add("@IsStart",IsStart);
 				cmd.Parameters.Add("@IsModerator",isModerator);
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}
@@ -1453,6 +1479,40 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@StartDate",StartDate);
 				return GetData(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_UserForum
+		static public DataTable userforum_list(object userID,object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_userforum_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
+			}
+		}
+		static public void userforum_delete(object userID,object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_userforum_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@ForumID",forumID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void userforum_save(object userID,object forumID,object accessMaskID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_userforum_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@ForumID",forumID);
+				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
+				ExecuteNonQuery(cmd);
 			}
 		}
 		#endregion

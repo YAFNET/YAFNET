@@ -42,6 +42,8 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.CheckBox IsAdminX;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected CheckBox IsModeratorX;
+		protected HtmlTableRow NewGroupRow;
+		protected DropDownList AccessMaskID;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -50,6 +52,7 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["g"] != null) 
 				{
+					NewGroupRow.Visible = false;
 					using(DataTable dt = DB.group_list(Request.QueryString["g"])) 
 					{
 						DataRow row = dt.Rows[0];
@@ -59,7 +62,7 @@ namespace yaf.admin
 						IsStart.Checked = (bool)row["IsStart"];
 						IsModeratorX.Checked = (bool)row["IsModerator"];
 					}
-				}
+				} 
 			}
 		}
 
@@ -129,7 +132,7 @@ namespace yaf.admin
 			long GroupID = 0;
 			if(Request.QueryString["g"] != null) GroupID = long.Parse(Request.QueryString["g"]);
 				
-			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked);
+			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
 			if(Request.QueryString["g"] != null) 
@@ -138,24 +141,26 @@ namespace yaf.admin
 				{
 					RepeaterItem item = AccessList.Items[i];
 					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-					DB.forumaccess_save(ForumID,GroupID,
-						((CheckBox)item.FindControl("ReadAccess")).Checked,
-						((CheckBox)item.FindControl("PostAccess")).Checked,
-						((CheckBox)item.FindControl("ReplyAccess")).Checked,
-						((CheckBox)item.FindControl("PriorityAccess")).Checked,
-						((CheckBox)item.FindControl("PollAccess")).Checked,
-						((CheckBox)item.FindControl("VoteAccess")).Checked,
-						((CheckBox)item.FindControl("ModeratorAccess")).Checked,
-						((CheckBox)item.FindControl("EditAccess")).Checked,
-						((CheckBox)item.FindControl("DeleteAccess")).Checked,
-						((CheckBox)item.FindControl("UploadAccess")).Checked
-					);
+					DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 				}
 				Response.Redirect("groups.aspx");
 			}
 
 			// Done
 			Response.Redirect(String.Format("editgroup.aspx?g={0}",GroupID));
+		}
+
+		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
+		{
+			((DropDownList)sender).DataSource = DB.accessmask_list(null);
+			((DropDownList)sender).DataValueField = "AccessMaskID";
+			((DropDownList)sender).DataTextField = "Name";
+		}
+
+		protected void SetDropDownIndex(object sender, System.EventArgs e) 
+		{
+			DropDownList list = (DropDownList)sender;
+			list.Items.FindByValue(list.Attributes["value"]).Selected = true;
 		}
 	}
 }

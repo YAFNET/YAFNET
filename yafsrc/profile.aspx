@@ -19,8 +19,8 @@
 					<td class="header2" colspan="2"><%= GetText("about") %></td>
 				</tr>
 				<tr>
-					<td class="postheader"><%= GetText("username") %></td>
-					<td class="post"><asp:Label id="Name" runat="server" /></td>
+					<td width="50%" class="postheader"><%= GetText("username") %></td>
+					<td width="50%" class="post"><asp:Label id="Name" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader"><%= GetText("groups") %></td>
@@ -72,12 +72,12 @@
 					<td class="header2" colspan="2"><%= GetText("contact") %></td>
 				</tr>
 				<tr id="EmailRow" runat="server" visible="false">
-					<td class="postheader"><%= GetText("email") %></td>
-					<td class="post"><asp:label id="Email" runat="server" /></td>
+					<td width="50%" class="postheader"><%= GetText("email") %></td>
+					<td width="50%" class="post"><asp:label id="Email" runat="server" /></td>
 				</tr>
 				<tr>
-					<td class="postheader"><%= GetText("pm") %></td>
-					<td class="post"><a href='pmessage.aspx?u=<%= Request.QueryString["u"].ToString() %>'>PM</a></td>
+					<td width="50%" class="postheader"><%= GetText("pm") %></td>
+					<td width="50%" class="post"><a href='pmessage.aspx?u=<%= Request.QueryString["u"].ToString() %>'>PM</a></td>
 				</tr>
 				<tr>
 					<td class="postheader"><%= GetText("msn") %></td>
@@ -105,8 +105,8 @@
 					<td class="header2" colspan="2"><%= GetText("statistics") %></td>
 				</tr>
 				<tr>
-					<td class="postheader"><%= GetText("joined") %></td>
-					<td class="post"><asp:Label id="Joined" runat="server" /></td>
+					<td width="50%" class="postheader"><%= GetText("joined") %></td>
+					<td width="50%" class="post"><asp:Label id="Joined" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader"><%= GetText("lastvisit") %></td>
@@ -125,9 +125,10 @@
 				</tr>
 				<tr>
 					<td class="post" colspan="2" align="center">
-						<asp:Image id="Avatar" runat="server"></asp:Image></td>
+						<asp:Image id="Avatar" runat="server"/>
+					</td>
 				</tr>
-			</table><br/>
+			</table>
 	</td>
 </tr>
 

@@ -7,6 +7,38 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
+	<td class=header1 colspan=4>Members</td>
+</tr>
+
+<tr class="header2">
+	<td>User</td>
+	<td align="center">Accepted</td>
+	<td>Access Mask</td>
+	<td>&nbsp;</td>
+</tr>
+<asp:repeater runat="server" id="UserList">
+<ItemTemplate>
+<tr class="post">
+	<td><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
+	<td align="center"><%# DataBinder.Eval(Container.DataItem,"Accepted") %></td>
+	<td><%# DataBinder.Eval(Container.DataItem,"Access") %></td>
+	<td>
+		<asp:linkbutton runat="server" text="Edit" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+		|
+		<asp:linkbutton runat="server" text="Remove" onload="DeleteUser_Load" commandname="remove" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+	</td>
+</tr>
+</ItemTemplate>
+</asp:repeater>
+<tr class="footer1">
+	<td colspan="4"><asp:linkbutton runat="server" id="AddUser" text="Invite User"/></td>
+</tr>
+</table>
+
+<br/>
+
+<table class=content cellspacing=1 cellpadding=0 width=100%>
+<tr>
 	<td class=header1 colspan=7><%= GetText("title") %></td>
 </tr>
 <tr>

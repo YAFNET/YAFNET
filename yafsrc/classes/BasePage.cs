@@ -1232,21 +1232,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 9;
+				return 10;
 			}
 		}
 		static public string AppVersionName 
 		{
 			get 
 			{
-				return "0.9.3";
+				return "0.9.4";
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2003,11,11);
+				return new DateTime(2003,11,12);
 			}
 		}
 		#endregion

@@ -463,4 +463,7 @@
 		<Resource tag="APPROVED">Post approved.</Resource>
 		<Resource tag="DELETED">Post deleted.</Resource>
 	</page>
+	<page name="MOD_FORUMUSER">
+		<Resource tag="TITLE">Forum User</Resource>
+	</page>
 </Resources>

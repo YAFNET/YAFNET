@@ -12,6 +12,7 @@
 	<tr><td class=post><a target="main" href="smilies.aspx">Smilies</a></td></tr>
 
 	<tr><td class="header2"><b>Groups and Users</b></td></tr>
+	<tr><td class=post><a target="main" href="accessmasks.aspx">Access Masks</a></td></tr>
 	<tr><td class=post><a target="main" href="groups.aspx">Groups (Roles)</a></td></tr>
 	<tr><td class=post><a target="main" href="users.aspx">Users</a></td></tr>
 	<tr><td class=post><a target="main" href="ranks.aspx">Ranks</a></td></tr>

@@ -67,81 +67,12 @@ ALTER TABLE [yaf_Extension] WITH NOCHECK ADD
 	)
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_group_save
-GO
-
-create procedure yaf_group_save(
-	@GroupID		int,
-	@Name			varchar(50),
-	@IsAdmin		bit,
-	@IsGuest		bit,
-	@IsStart		bit,
-	@IsModerator	bit
-) as
-begin
-	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0
-	if @IsGuest = 1 update yaf_Group set IsGuest = 0
-	if @IsStart = 1 update yaf_Group set IsStart = 0
-	if @GroupID>0 begin
-		update yaf_Group set
-			Name = @Name,
-			IsAdmin = @IsAdmin,
-			IsGuest = @IsGuest,
-			IsStart = @IsStart,
-			IsModerator = @IsModerator
-		where GroupID = @GroupID
-	end
-	else begin
-		insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
-		values(@Name,@IsAdmin,@IsGuest,@IsStart,@IsModerator);
-		set @GroupID = @@IDENTITY
-		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Forum
-	end
-	select GroupID = @GroupID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_deleteavatar
 GO
 
 create procedure yaf_user_deleteavatar(@UserID int) as begin
 	update yaf_User set AvatarImage = null where UserID = @UserID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_post_last10user') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_post_last10user
-GO
-
-create procedure yaf_post_last10user(@UserID int,@PageUserID int) as
-begin
-	set nocount on
-
-	select top 10
-		a.Posted,
-		Subject = c.Topic,
-		a.Message,
-		a.UserID,
-		UserName = IsNull(a.UserName,b.Name),
-		b.Signature,
-		c.TopicID
-	from
-		yaf_Message a, 
-		yaf_User b,
-		yaf_Topic c,
-		yaf_Forum d
-	where
-		a.Approved <> 0 and
-		a.UserID = @UserID and
-		b.UserID = a.UserID and
-		c.TopicID = a.TopicID and
-		d.ForumID = c.ForumID and
-		exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=d.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID=@PageUserID and x.ReadAccess<>0)
-	order by
-		a.Posted desc
 end
 GO
 
@@ -159,51 +90,6 @@ begin
 	) as counter
 	on u.UserID = counter.ID
 	order by NumOfPosts desc
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_active') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_active
-GO
-
-create procedure yaf_topic_active(@UserID int,@Since datetime) as
-begin
-	select
-		c.ForumID,
-		c.TopicID,
-		Subject = c.Topic,
-		c.UserID,
-		Starter = IsNull(c.UserName,b.Name),
-		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID) - 1,
-		Views = c.Views,
-		LastPosted = c.LastPosted,
-		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
-		LastMessageID = c.LastMessageID,
-		LastTopicID = c.TopicID,
-		c.IsLocked,
-		c.Priority,
-		c.PollID,
-		PostAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.PostAccess<>0),
-		ReplyAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReplyAccess<>0),
-		ReadAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReadAccess<>0),
-		ForumName = d.Name,
-		c.TopicMovedID
-	from
-		yaf_Topic c,
-		yaf_User b,
-		yaf_Forum d,
-		yaf_User g
-	where
-		b.UserID = c.UserID and
-		@Since < c.LastPosted and
-		d.ForumID = c.ForumID and
-		g.UserID = @UserID and
-		exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=d.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID=@UserID and x.ReadAccess<>0)
-	order by
-		d.Name asc,
-		Priority desc,
-		LastPosted desc
 end
 GO
 

@@ -416,6 +416,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "mod_forumuser.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "mod_forumuser.aspx.cs"
+                    DependentUpon = "mod_forumuser.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "mod_forumuser.aspx.resx"
+                    DependentUpon = "mod_forumuser.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "moderate.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -608,6 +624,22 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "admin\accessmasks.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\accessmasks.aspx.cs"
+                    DependentUpon = "accessmasks.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\accessmasks.aspx.resx"
+                    DependentUpon = "accessmasks.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\admin.css"
                     BuildAction = "Content"
                 />
@@ -688,6 +720,22 @@
                 <File
                     RelPath = "admin\default.aspx.resx"
                     DependentUpon = "default.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\editaccessmask.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\editaccessmask.aspx.cs"
+                    DependentUpon = "editaccessmask.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\editaccessmask.aspx.resx"
+                    DependentUpon = "editaccessmask.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -1175,6 +1223,10 @@
                 <Folder RelPath = "images\ranks\" />
                 <File
                     RelPath = "install\version1.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version10.sql"
                     BuildAction = "Content"
                 />
                 <File

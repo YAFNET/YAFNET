@@ -34,8 +34,9 @@ namespace yaf
 	/// </summary>
 	public class moderate0 : BasePage
 	{
-		protected Repeater topiclist;
+		protected Repeater topiclist, UserList;
 		protected controls.PageLinks PageLinks;
+		protected LinkButton AddUser;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -53,14 +54,25 @@ namespace yaf
 			}
 		}
 
+		private void AddUser_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect(String.Format("mod_forumuser.aspx?f={0}",PageForumID));
+		}
+
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
 			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_delete"));
 		}
 
+		protected void DeleteUser_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')","Remove this user from this forum?");
+		}
+
 		private void BindData() 
 		{
 			topiclist.DataSource = DB.topic_list(PageForumID,-1,null,0,999999);
+			UserList.DataSource = DB.userforum_list(null,PageForumID);
 			DataBind();
 		}
 
@@ -72,9 +84,24 @@ namespace yaf
 			}
 		}
 
+		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			switch(e.CommandName) 
+			{
+				case "edit":
+					Response.Redirect(String.Format("mod_forumuser.aspx?f={0}&u={1}",PageForumID,e.CommandArgument));
+					break;
+				case "remove":
+					DB.userforum_delete(e.CommandArgument,PageForumID);
+					BindData();
+					break;
+			}
+		}
+
 		#region Code copied from topics.aspx
 		// Copied from topics.aspx
-		protected string GetTopicImage(object o) {
+		protected string GetTopicImage(object o) 
+		{
 			DataRowView row = (DataRowView)o;
 			object lastPosted = row["LastPosted"];
 			object isLocked = row["IsLocked"];
@@ -153,6 +180,8 @@ namespace yaf
 		override protected void OnInit(EventArgs e)
 		{
 			topiclist.ItemCommand += new RepeaterCommandEventHandler(topiclist_ItemCommand);
+			UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
+			AddUser.Click += new EventHandler(AddUser_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

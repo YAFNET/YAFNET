@@ -105,36 +105,6 @@ if exists(select * from syscolumns where id=object_id('yaf_User') and name='Grou
 	alter table yaf_User drop column GroupID
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_category_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_category_listread
-GO
-
-create procedure yaf_category_listread(@UserID int,@CategoryID int=null) as
-begin
-	select 
-		a.CategoryID,
-		a.Name
-	from 
-		yaf_Category a,
-		yaf_Forum b,
-		yaf_ForumAccess x,
-		yaf_UserGroup y
-	where
-		b.CategoryID = a.CategoryID and
-		x.ForumID = b.ForumID and
-		x.GroupID = y.GroupID and
-		y.UserID = @UserID and
-		(x.ReadAccess = 1 or b.Hidden = 0) and
-		(@CategoryID is null or a.CategoryID = @CategoryID)
-	group by
-		a.CategoryID,
-		a.Name,
-		a.SortOrder
-	order by 
-		a.SortOrder
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_active_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_active_list
 GO
@@ -215,30 +185,6 @@ select
 	ActiveUsers = (select count(1) from yaf_Active),
 	ActiveMembers = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest=0)),
 	ActiveGuests = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest<>0))
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_access
-GO
-
-create procedure yaf_user_access(@UserID int,@ForumID int) as
-begin
-	select
-		ReadAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.ReadAccess<>0),
-		PostAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.PostAccess<>0),
-		ReplyAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.ReplyAccess<>0),
-		PriorityAccess		= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.PriorityAccess<>0),
-		PollAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.PollAccess<>0),
-		VoteAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.VoteAccess<>0),
-		ModeratorAccess		= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.ModeratorAccess<>0),
-		EditAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.EditAccess<>0),
-		DeleteAccess		= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.DeleteAccess<>0),
-		UploadAccess		= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.UploadAccess<>0)
-	from
-		yaf_User a
-	where
-		a.UserID = @UserID
-end
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
