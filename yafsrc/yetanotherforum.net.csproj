@@ -97,7 +97,7 @@
                 <Reference
                     Name = "FreeTextBox"
                     AssemblyName = "FreeTextBox"
-                    HintPath = "C:\Program Files\FreeTextBox 2.0\web\bin\FreeTextBox.dll"
+                    HintPath = "FreeTextBox\FreeTextBox.dll"
                 />
             </References>
         </Build>
@@ -161,7 +161,7 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Web.config"
+                    RelPath = "web.config"
                     BuildAction = "Content"
                 />
                 <File
