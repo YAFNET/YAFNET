@@ -71,7 +71,7 @@ namespace yaf
 				writer.WriteEndDocument();
 			*/
 
-			writer.WriteRaw("\t</channel>");
+			writer.WriteRaw("\t</channel>" + en);
 			writer.WriteRaw("</rss>");
 
 			return writer;
