@@ -1643,6 +1643,186 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\ASPNET\b_button_attach.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_delete_post.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_editpost.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_moderate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_movetopic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_new_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\b_post_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\forum_private.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\forum_status.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\forum_status_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\forum_status_poll.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\forum_status_poll_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\icon_latest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\icon_newest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\icon_stats.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_aim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_icq.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_msn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_pm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_weblog.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_www.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\p_yim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\post_button_email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\post_button_locked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\post_button_pm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\post_button_stats.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\post_button_unlocked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\quote.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\sort_down.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\sort_up.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\theme.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic_moved.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic_notread.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-announce.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-announce_notread.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-locked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-locked_notread.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-pinned.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\topic-pinned_notread.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\users_icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\vote_lcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\vote_rcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNET\voting_bar.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\standard\b_attachments.png"
                     BuildAction = "Content"
                 />
