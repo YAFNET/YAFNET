@@ -99,7 +99,7 @@ namespace yaf.pages
 			if(stats==null) 
 			{
 				stats = DB.stats();
-				Cache["ForumStats"] = stats;
+				Cache.Insert("ForumStats",stats,null,DateTime.Now.AddMinutes(15),TimeSpan.Zero);
 			}
 				
 			Stats.Text = String.Format(GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);

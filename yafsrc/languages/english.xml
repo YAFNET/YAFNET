@@ -232,6 +232,8 @@
 		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
 		<Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
 		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
+		<Resource tag="OURAVATAR">Our avatar collection.</Resource>
+		<Resource tag="OURAVATAR_SELECT">Select from our collection of avatars.</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -529,5 +531,9 @@
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="CLEAR">Clear Formatting</Resource>
 		<Resource tag="FORMATTED">Formatted</Resource>
+	</page>
+	<page name="AVATAR">
+		<Resource tag="TITLE">Avatars</Resource>
+		<Resource tag="EDITPROFILE">Edit Profile</Resource>
 	</page>
 </Resources>

@@ -54,6 +54,8 @@ namespace yaf.pages
 		protected controls.PageLinks PageLinks;
 		protected TextBox Realname, Occupation, Interests, Weblog, MSN, YIM, AIM, ICQ;
 		protected DropDownList Gender;
+		protected HyperLink OurAvatar;
+		protected Image AvatarImg;
 		
 		private bool bUpdateEmail = false;
 
@@ -77,14 +79,24 @@ namespace yaf.pages
 
 				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.cp_editprofile));
 
 				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");
+				OurAvatar.NavigateUrl = Forum.GetLink(Pages.avatar);
+				OurAvatar.Text = GetText("OURAVATAR_SELECT");
 
 				ForumSettingsRows.Visible = Config.ForumSettings.AllowUserTheme || Config.ForumSettings.AllowUserLanguage;
 				UserThemeRow.Visible = Config.ForumSettings.AllowUserTheme;
 				UserLanguageRow.Visible = Config.ForumSettings.AllowUserLanguage;
+
+				if(Request.QueryString["av"]!=null)
+				{
+					AvatarImg.ImageUrl = string.Format("{2}{0}images/avatars/{1}",ForumRoot,Request.QueryString["av"],ServerURL);
+					AvatarImg.Visible = true;
+					Avatar.Text = AvatarImg.ImageUrl;
+					OurAvatar.Visible = false;
+				}
 			}
 		}
 

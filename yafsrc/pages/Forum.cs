@@ -36,7 +36,8 @@ namespace yaf
 		logout,
 		moderate_index,
 		moderate_forum,
-		error
+		error,
+		avatar
 	}
 
 	/// <summary>
@@ -151,6 +152,9 @@ namespace yaf
 					break;
 				case "error":
 					page = Pages.error;
+					break;
+				case "avatar":
+					page = Pages.avatar;
 					break;
 			}
 

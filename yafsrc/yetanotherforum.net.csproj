@@ -833,6 +833,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\Pager.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\ProfileMenu.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -865,6 +870,10 @@
                 />
                 <File
                     RelPath = "images\delete_icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\folder.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -1017,6 +1026,22 @@
                 <File
                     RelPath = "pages\attachments.ascx.resx"
                     DependentUpon = "attachments.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\avatar.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\avatar.ascx.cs"
+                    DependentUpon = "avatar.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\avatar.ascx.resx"
+                    DependentUpon = "avatar.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
