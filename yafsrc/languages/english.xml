@@ -105,6 +105,7 @@
 		<Resource tag="LASTPOST">Last Post</Resource>
 		<Resource tag="NO_POSTS">No Posts</Resource>
 		<Resource tag="WATCHFORUM">Watch Forum</Resource>
+		<Resource tag="UNWATCHFORUM">Unwatch Forum</Resource>
 		<Resource tag="SHOWTOPICS">Show Topics</Resource>
 		<Resource tag="ALL">All</Resource>
 		<Resource tag="LAST_DAY">from the last day</Resource>
@@ -120,7 +121,8 @@
 		<Resource tag="CREATED">Created</Resource>
 		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
 		<Resource tag="WARN_LOGIN_FORUMWATCH">You must be registered to watch forums.</Resource>
-		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts arrive in this forum.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts are made in this forum.</Resource>
+		<Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
 		<Resource tag="MARKREAD">Mark this forum as read</Resource>
 		<Resource tag="SUBFORUMS">Subforums</Resource>
  		<Resource tag="RSSFEED">Rss Feed</Resource>
@@ -136,6 +138,7 @@
 		<Resource tag="PREVTOPIC">Previous Topic</Resource>
 		<Resource tag="NEXTTOPIC">Next Topic</Resource>
 		<Resource tag="WATCHTOPIC">Watch this topic</Resource>
+		<Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
 		<Resource tag="EMAILTOPIC">Email this topic</Resource>
 		<Resource tag="PRINTTOPIC">Print this topic</Resource>
  		<Resource tag="RSSTOPIC">RSS Feed</Resource>
@@ -158,7 +161,8 @@
 		<Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
 		<Resource tag="INFO_VOTED">Thank you for your vote!</Resource>
 		<Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
-		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts arrive in this topic.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts are made in this topic.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">You will no longer be notified when new posts are made in this topic.</Resource>
 		<Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
 		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
 		<Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
