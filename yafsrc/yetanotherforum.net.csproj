@@ -723,6 +723,38 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\editnntpforum.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\editnntpforum.aspx.cs"
+                    DependentUpon = "editnntpforum.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\editnntpforum.aspx.resx"
+                    DependentUpon = "editnntpforum.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\editnntpserver.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\editnntpserver.aspx.cs"
+                    DependentUpon = "editnntpserver.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\editnntpserver.aspx.resx"
+                    DependentUpon = "editnntpserver.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\editrank.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -816,6 +848,38 @@
                 <File
                     RelPath = "admin\main.aspx.resx"
                     DependentUpon = "main.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\nntpforums.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\nntpforums.aspx.cs"
+                    DependentUpon = "nntpforums.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\nntpforums.aspx.resx"
+                    DependentUpon = "nntpforums.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\nntpservers.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\nntpservers.aspx.cs"
+                    DependentUpon = "nntpservers.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\nntpservers.aspx.resx"
+                    DependentUpon = "nntpservers.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -999,6 +1063,11 @@
                 />
                 <File
                     RelPath = "classes\Localizer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "classes\Nntp.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

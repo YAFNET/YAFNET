@@ -1,5 +1,246 @@
 /* Version 0.9.2 */
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AllowRichEdit')
+	alter table yaf_System add AllowRichEdit bit null
+GO
+
+update yaf_System set AllowRichEdit=1 where AllowRichEdit is null
+GO
+
+alter table yaf_System alter column AllowRichEdit bit not null
+GO
+
+-- NNTP START
+if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+create table yaf_NntpServer(
+	[NntpServerID]	[int] identity not null,
+	[Name]			[varchar](50) not null,
+	[Address]		[varchar](100) not null,
+	[UserName]		[varchar](50) null,
+	[UserPass]		[varchar](50) null
+)
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_NntpServer') and name='PK_NntpServer')
+ALTER TABLE [yaf_NntpServer] WITH NOCHECK ADD 
+	CONSTRAINT [PK_NntpServer] PRIMARY KEY  CLUSTERED 
+	(
+		[NntpServerID]
+	) 
+GO
+
+if not exists (select * from sysobjects where id = object_id(N'yaf_NntpForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+create table yaf_NntpForum(
+	[NntpForumID]	[int] identity not null,
+	[NntpServerID]	[int] not null,
+	[GroupName]		[varchar](100) not null,
+	[ForumID]		[int] not null,
+	[LastMessageNo]	[int] not null,
+	[LastUpdate]	[datetime] not null
+)
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_NntpForum') and name='PK_NntpForum')
+ALTER TABLE [yaf_NntpForum] WITH NOCHECK ADD 
+	CONSTRAINT [PK_NntpForum] PRIMARY KEY  CLUSTERED 
+	(
+		[NntpForumID]
+	) 
+GO
+
+if not exists(select * from sysobjects where name='FK_NntpForum_NntpServer' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_NntpForum] ADD 
+	CONSTRAINT [FK_NntpForum_NntpServer] FOREIGN KEY 
+	(
+		[NntpServerID]
+	) REFERENCES [yaf_NntpServer] (
+		[NntpServerID]
+	)
+GO
+
+if not exists(select * from sysobjects where name='FK_NntpForum_Forum' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_NntpForum] ADD 
+	CONSTRAINT [FK_NntpForum_Forum] FOREIGN KEY 
+	(
+		[ForumID]
+	) REFERENCES [yaf_Forum] (
+		[ForumID]
+	)
+GO
+
+if not exists (select * from sysobjects where id = object_id(N'yaf_NntpTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+create table yaf_NntpTopic(
+	[NntpTopicID]		[int] identity not null,
+	[NntpForumID]		[int] not null,
+	[Thread]			[char](32) not null,
+	[TopicID]			[int] not null
+)
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_NntpTopic') and name='PK_NntpTopic')
+ALTER TABLE [yaf_NntpTopic] WITH NOCHECK ADD 
+	CONSTRAINT [PK_NntpTopic] PRIMARY KEY  CLUSTERED 
+	(
+		[NntpTopicID]
+	) 
+GO
+
+if not exists(select * from sysobjects where name='FK_NntpTopic_NntpForum' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_NntpTopic] ADD 
+	CONSTRAINT [FK_NntpTopic_NntpForum] FOREIGN KEY 
+	(
+		[NntpForumID]
+	) REFERENCES [yaf_NntpForum] (
+		[NntpForumID]
+	)
+GO
+
+if not exists(select * from sysobjects where name='FK_NntpTopic_Topic' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_NntpTopic] ADD 
+	CONSTRAINT [FK_NntpTopic_Topic] FOREIGN KEY 
+	(
+		[TopicID]
+	) REFERENCES [yaf_Topic] (
+		[TopicID]
+	)
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_list
+GO
+
+create procedure yaf_nntpforum_list(@Minutes int=null,@NntpForumID int=null) as
+begin
+	select
+		a.Name,
+		a.Address,
+		a.NntpServerID,
+		b.NntpForumID,
+		b.GroupName,
+		b.ForumID,
+		b.LastMessageNo,
+		ForumName = c.Name
+	from
+		yaf_NntpServer a,
+		yaf_NntpForum b,
+		yaf_Forum c
+	where
+		b.NntpServerID = a.NntpServerID and
+		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
+		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
+		c.ForumID = b.ForumID
+	order by
+		a.Name,
+		b.GroupName
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntptopic_list
+GO
+
+create procedure yaf_nntptopic_list(@Thread char(32)) as
+begin
+	select
+		a.*
+	from
+		yaf_NntpTopic a
+	where
+		a.Thread = @Thread
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_update
+GO
+
+create procedure yaf_nntpforum_update(@NntpForumID int,@LastMessageNo int) as
+begin
+	update yaf_NntpForum set
+		LastMessageNo = @LastMessageNo,
+		LastUpdate = getdate()
+	where NntpForumID = @NntpForumID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntptopic_save
+GO
+
+create procedure yaf_nntptopic_save(@NntpForumID int,@Thread char(32),@TopicID int) as
+begin
+	insert into yaf_NntpTopic(NntpForumID,Thread,TopicID)
+	values(@NntpForumID,@Thread,@TopicID)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpserver_list
+GO
+
+create procedure yaf_nntpserver_list(@NntpServerID int=null) as
+begin
+	if @NntpServerID is null
+		select * from yaf_NntpServer order by Name
+	else
+		select * from yaf_NntpServer where NntpServerID=@NntpServerID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpserver_save
+GO
+
+create procedure yaf_nntpserver_save(
+	@NntpServerID 	int=null,
+	@Name		varchar(50),
+	@Address	varchar(100),
+	@UserName	varchar(50)=null,
+	@UserPass	varchar(50)=null
+) as begin
+	if @NntpServerID is null
+		insert into yaf_NntpServer(Name,Address,UserName,UserPass)
+		values(@Name,@Address,@UserName,@UserPass)
+	else
+		update yaf_NntpServer set
+			Name = @Name,
+			Address = @Address,
+			UserName = @UserName,
+			UserPass = @UserPass
+		where NntpServerID = @NntpServerID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpserver_delete
+GO
+
+create procedure yaf_nntpserver_delete(@NntpServerID int) as
+begin
+	delete from yaf_NntpServer where NntpServerID = @NntpServerID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_save
+GO
+
+create procedure yaf_nntpforum_save(@NntpForumID int=null,@NntpServerID int,@GroupName varchar(100),@ForumID int) as
+begin
+	if @NntpForumID is null
+		insert into yaf_NntpForum(NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate)
+		values(@NntpServerID,@GroupName,@ForumID,0,getdate())
+	else
+		update yaf_NntpForum set
+			NntpServerID = @NntpServerID,
+			GroupName = @GroupName,
+			ForumID = @ForumID
+		where NntpForumID = @NntpForumID
+end
+GO
+
+-- NNTP END
+
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='Suspended')
 	alter table yaf_User add Suspended datetime null
 GO
@@ -150,6 +391,7 @@ begin
 		BlankLinks			= s.BlankLinks,
 		ShowMoved			= s.ShowMoved,
 		ShowGroups			= s.ShowGroups,
+		AllowRichEdit		= s.AllowRichEdit,
 		MailsPending		= (select count(1) from yaf_Mail),
 		Incoming			= (select count(1) from yaf_PMessage where ToUserID=a.UserID and IsRead=0)
 	from
@@ -237,3 +479,113 @@ begin
 	and datediff(dd,Created,getdate())>@DaysUnread
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_save
+GO
+
+create procedure yaf_system_save(
+	@Name				varchar(50),
+	@TimeZone			int,
+	@SmtpServer			varchar(50),
+	@SmtpUserName		varchar(50)=null,
+	@SmtpUserPass		varchar(50)=null,
+	@ForumEmail			varchar(50),
+	@EmailVerification	bit,
+	@ShowMoved			bit,
+	@BlankLinks			bit,
+	@ShowGroups			bit,
+	@AvatarWidth		int,
+	@AvatarHeight		int,
+	@AvatarUpload		bit,
+	@AvatarRemote		bit,
+	@AvatarSize			int=null,
+	@AllowRichEdit		bit
+) as
+begin
+	update yaf_System set
+		Name = @Name,
+		TimeZone = @TimeZone,
+		SmtpServer = @SmtpServer,
+		SmtpUserName = @SmtpUserName,
+		SmtpUserPass = @SmtpUserPass,
+		ForumEmail = @ForumEmail,
+		EmailVerification = @EmailVerification,
+		ShowMoved = @ShowMoved,
+		BlankLinks = @BlankLinks,
+		ShowGroups = @ShowGroups,
+		AvatarWidth = @AvatarWidth,
+		AvatarHeight = @AvatarHeight,
+		AvatarUpload = @AvatarUpload,
+		AvatarRemote = @AvatarRemote,
+		AvatarSize = @AvatarSize,
+		AllowRichEdit = @AllowRichEdit
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_initialize
+GO
+
+create procedure yaf_system_initialize(
+	@Name		varchar(50),
+	@TimeZone	int,
+	@ForumEmail	varchar(50),
+	@SmtpServer	varchar(50),
+	@User		varchar(50),
+	@UserEmail	varchar(50),
+	@Password	varchar(32)
+) as 
+begin
+	declare @GroupID int
+	declare @RankID int
+	declare @UserID int
+
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Administration',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Administration',1,0,0,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
+	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Guest',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Guest',0,1,0,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
+	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	-- users starts as Newbie
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Newbie',1,1,0)
+
+	-- advances to Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Member',0,1,10)
+
+	-- and ends up as Advanced Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Advanced Member',0,1,30)
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Member',0,0,1,0)
+end
+GO
+

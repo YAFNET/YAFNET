@@ -105,7 +105,7 @@ namespace yaf
 			UploadRow2.Visible = ForumUploadAccess;
 			UploadRow3.Visible = ForumUploadAccess;
 
-			Message.EnableRTE = true;
+			Message.EnableRTE = AllowRichEdit;
 
 			if(!IsPostBack) 
 			{

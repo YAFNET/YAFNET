@@ -27,65 +27,27 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf
+namespace yaf.admin
 {
 	/// <summary>
-	/// Summary description for cp_signature.
+	/// Summary description for ranks.
 	/// </summary>
-	public class cp_signature : BasePage
+	public class nntpforums : AdminPage
 	{
-		protected HyperLink HomeLink, UserLink, ThisLink;
-		protected Button save, cancel;
-		protected rte.rte sig;
-
+		protected System.Web.UI.WebControls.LinkButton NewForum;
+		protected System.Web.UI.WebControls.Repeater RankList;
+	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.EnableRTE = AllowRichEdit;
-
-			if(!User.Identity.IsAuthenticated)
-				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
-
-			if(!IsPostBack) {
-				string msg = DB.user_getsignature(PageUserID);
-				bool isHtml = msg.IndexOf('<')>=0;
-				if(sig.IsRTEBrowser && !isHtml)
-					msg = FormatMsg.ForumCodeToHtml(this,msg);
-				else if(!sig.IsRTEBrowser && isHtml)
-					msg = FormatMsg.HtmlToForumCode(msg);
-				sig.Text = msg;
-
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
-
-				save.Text = GetText("Save");
-				cancel.Text = GetText("Cancel");
+			if(!IsPostBack) 
+			{
+				BindData();
 			}
-		}
-
-		private void save_Click(object sender,EventArgs e) {
-			string body = sig.Text;
-			if(!sig.IsRTEBrowser)
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.RepairHtml(this,body);
-
-			DB.user_savesignature(PageUserID,body);
-			Response.Redirect("cp_profile.aspx");
-		}
-
-		private void cancel_Click(object sender,EventArgs e) {
-			Response.Redirect("cp_profile.aspx");
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			save.Click += new EventHandler(save_Click);
-			cancel.Click += new EventHandler(cancel_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -99,8 +61,41 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.RankList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.RankList_ItemCommand);
+			this.NewForum.Click += new System.EventHandler(this.NewForum_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
+
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
+		}
+
+		private void BindData() 
+		{
+			RankList.DataSource = DB.nntpforum_list(null,null);
+			DataBind();
+		}
+
+		private void RankList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			switch(e.CommandName) 
+			{
+				case "edit":
+					Response.Redirect(String.Format("editnntpforum.aspx?s={0}",e.CommandArgument));
+					break;
+				case "delete":
+					//DB.nntpserver_delete(e.CommandArgument);
+					BindData();
+					break;
+			}
+		}
+
+		private void NewForum_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect("editnntpforum.aspx");
+		}
 	}
 }

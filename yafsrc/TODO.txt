@@ -13,3 +13,4 @@
 - visual clues on rich edit buttons.
 - somehow show that there are messages to be moderated.
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
+- Use real UserID for guest for NNTP.

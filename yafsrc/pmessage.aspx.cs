@@ -46,7 +46,7 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Editor.EnableRTE = true;
+			Editor.EnableRTE = AllowRichEdit;
 
 			if(!User.Identity.IsAuthenticated)
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));

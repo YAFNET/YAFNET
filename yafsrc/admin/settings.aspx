@@ -42,6 +42,10 @@
 		<td class=post><asp:checkbox id="ShowGroupsX" runat="server"/></td>
 	</tr>
 	<tr>
+		<td class="postheader"><b>Allow Rich Edit:</b><br/>If this is checked your users will be able to use a rich edit control when posting messages.</td>
+		<td class="post"><asp:checkbox runat="server" id="AllowRichEditX"/></td>
+	</tr>
+	<tr>
 		<td class="header2" colspan="2">SMTP Server Settings</td>
 	</tr>
 	<tr>

@@ -645,6 +645,14 @@ namespace yaf
 				return (bool)m_pageinfo["ShowGroups"];
 			}
 		}
+		public bool AllowRichEdit 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["AllowRichEdit"];
+			}
+		}
+
 		public int UnreadPrivate 
 		{
 			get 

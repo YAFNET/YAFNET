@@ -27,65 +27,38 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf
+namespace yaf.admin
 {
 	/// <summary>
-	/// Summary description for cp_signature.
+	/// Summary description for editgroup.
 	/// </summary>
-	public class cp_signature : BasePage
+	public class editnntpforum : AdminPage
 	{
-		protected HyperLink HomeLink, UserLink, ThisLink;
-		protected Button save, cancel;
-		protected rte.rte sig;
+		protected DropDownList NntpServerID, ForumID;
+		protected TextBox GroupName;
+		protected Button Save, Cancel;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.EnableRTE = AllowRichEdit;
-
-			if(!User.Identity.IsAuthenticated)
-				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
-
-			if(!IsPostBack) {
-				string msg = DB.user_getsignature(PageUserID);
-				bool isHtml = msg.IndexOf('<')>=0;
-				if(sig.IsRTEBrowser && !isHtml)
-					msg = FormatMsg.ForumCodeToHtml(this,msg);
-				else if(!sig.IsRTEBrowser && isHtml)
-					msg = FormatMsg.HtmlToForumCode(msg);
-				sig.Text = msg;
-
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
-
-				save.Text = GetText("Save");
-				cancel.Text = GetText("Cancel");
+			if(!IsPostBack) 
+			{
+				BindData();
+				if(Request.QueryString["s"] != null) 
+				{
+					using(DataTable dt = DB.nntpforum_list(null,Request.QueryString["s"]))
+					{
+						DataRow row = dt.Rows[0];
+						NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
+						GroupName.Text = row["GroupName"].ToString();
+						ForumID.Items.FindByValue(row["ForumID"].ToString()).Selected = true;
+					}
+				}
 			}
-		}
-
-		private void save_Click(object sender,EventArgs e) {
-			string body = sig.Text;
-			if(!sig.IsRTEBrowser)
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.RepairHtml(this,body);
-
-			DB.user_savesignature(PageUserID,body);
-			Response.Redirect("cp_profile.aspx");
-		}
-
-		private void cancel_Click(object sender,EventArgs e) {
-			Response.Redirect("cp_profile.aspx");
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			save.Click += new EventHandler(save_Click);
-			cancel.Click += new EventHandler(cancel_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -99,8 +72,34 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
+
+		private void BindData() {
+			NntpServerID.DataSource = DB.nntpserver_list(null);
+			NntpServerID.DataValueField = "NntpServerID";
+			NntpServerID.DataTextField = "Name";
+			ForumID.DataSource = DB.forum_list(null);
+			ForumID.DataValueField = "ForumID";
+			ForumID.DataTextField = "Name";
+			DataBind();
+		}
+
+		private void Cancel_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect("nntpservers.aspx");
+		}
+
+		private void Save_Click(object sender, System.EventArgs e)
+		{
+			object nntpForumID = null;
+			if(Request.QueryString["s"]!=null) nntpForumID = Request.QueryString["s"];
+			DB.nntpforum_save(nntpForumID,NntpServerID.SelectedValue,GroupName.Text,ForumID.SelectedValue);
+			Response.Redirect("nntpforums.aspx");
+		}
 	}
 }

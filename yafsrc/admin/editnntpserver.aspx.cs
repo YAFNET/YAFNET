@@ -27,65 +27,38 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf
+namespace yaf.admin
 {
 	/// <summary>
-	/// Summary description for cp_signature.
+	/// Summary description for editgroup.
 	/// </summary>
-	public class cp_signature : BasePage
+	public class editnntpserver : AdminPage
 	{
-		protected HyperLink HomeLink, UserLink, ThisLink;
-		protected Button save, cancel;
-		protected rte.rte sig;
+		protected TextBox Name, Address, UserName, UserPass;
+		protected Button Save, Cancel;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.EnableRTE = AllowRichEdit;
-
-			if(!User.Identity.IsAuthenticated)
-				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
-
-			if(!IsPostBack) {
-				string msg = DB.user_getsignature(PageUserID);
-				bool isHtml = msg.IndexOf('<')>=0;
-				if(sig.IsRTEBrowser && !isHtml)
-					msg = FormatMsg.ForumCodeToHtml(this,msg);
-				else if(!sig.IsRTEBrowser && isHtml)
-					msg = FormatMsg.HtmlToForumCode(msg);
-				sig.Text = msg;
-
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
-
-				save.Text = GetText("Save");
-				cancel.Text = GetText("Cancel");
+			if(!IsPostBack) 
+			{
+				BindData();
+				if(Request.QueryString["s"] != null) 
+				{
+					using(DataTable dt = DB.nntpserver_list(Request.QueryString["s"]))
+					{
+						DataRow row = dt.Rows[0];
+						Name.Text		= row["Name"].ToString();
+						Address.Text	= row["Address"].ToString();
+						UserName.Text	= row["UserName"].ToString();
+						UserPass.Text	= row["UserPass"].ToString();
+					}
+				}
 			}
-		}
-
-		private void save_Click(object sender,EventArgs e) {
-			string body = sig.Text;
-			if(!sig.IsRTEBrowser)
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.RepairHtml(this,body);
-
-			DB.user_savesignature(PageUserID,body);
-			Response.Redirect("cp_profile.aspx");
-		}
-
-		private void cancel_Click(object sender,EventArgs e) {
-			Response.Redirect("cp_profile.aspx");
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			save.Click += new EventHandler(save_Click);
-			cancel.Click += new EventHandler(cancel_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -99,8 +72,39 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
+
 		}
 		#endregion
+
+		private void BindData() {
+			DataBind();
+		}
+
+		private void Cancel_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect("nntpservers.aspx");
+		}
+
+		private void Save_Click(object sender, System.EventArgs e)
+		{
+			if(Name.Text.Trim().Length==0) 
+			{
+				AddLoadMessage("Missing server name.");
+				return;
+			}
+			if(Address.Text.Trim().Length==0) 
+			{
+				AddLoadMessage("Missing server address.");
+				return;
+			}
+
+			object nntpServerID = null;
+			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
+			DB.nntpserver_save(nntpServerID,Name.Text,Address.Text,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
+			Response.Redirect("nntpservers.aspx");
+		}
 	}
 }

@@ -45,6 +45,8 @@ namespace yaf.admin
 				BindData();
 				UpgradeNotice.Visible = install.GetCurrentVersion() < AppVersion;
 			}
+
+			classes.Nntp.ReadArticles();
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 

@@ -698,6 +698,98 @@ namespace yaf
 		}
 		#endregion
 
+		#region yaf_NntpForum
+		static public DataTable nntpforum_list(object minutes,object nntpForumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Minutes",minutes);
+				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				return GetData(cmd);
+			}
+		}
+		static public void nntpforum_update(object nntpForumID,object lastMessageNo) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_update")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				cmd.Parameters.Add("@LastMessageNo",lastMessageNo);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void nntpforum_save(object nntpForumID,object nntpServerID,object groupName,object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				cmd.Parameters.Add("@NntpServerID",nntpServerID);
+				cmd.Parameters.Add("@GroupName",groupName);
+				cmd.Parameters.Add("@ForumID",forumID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_NntpServer
+		static public DataTable nntpserver_list(object nntpServerID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpServerID",nntpServerID);
+				return GetData(cmd);
+			}
+		}
+		static public void nntpserver_save(object nntpServerID,object name,object address,object userName,object userPass) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpServerID",nntpServerID);
+				cmd.Parameters.Add("@Name",name);
+				cmd.Parameters.Add("@Address",address);
+				cmd.Parameters.Add("@UserName",userName);
+				cmd.Parameters.Add("@UserPass",userPass);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void nntpserver_delete(object nntpServerID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpServerID",nntpServerID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_NntpTopic
+		static public DataTable nntptopic_list(object thread) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntptopic_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Thread",thread);
+				return GetData(cmd);
+			}
+		}
+		static public void nntptopic_save(object nntpForumID,object thread,object topicID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_nntptopic_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				cmd.Parameters.Add("@Thread",thread);
+				cmd.Parameters.Add("@TopicID",topicID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
 		#region yaf_PMessage
 		static public DataTable pmessage_list(object userID,object sent,object pMessageID) 
 		{
@@ -872,7 +964,8 @@ namespace yaf
 		static public void system_save(object Name,object TimeZone,object SmtpServer,object SmtpUserName,
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
 			object BlankLinks,object showGroups,
-			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize) 
+			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize,
+			object allowRichEdit) 
 		{
 			if(avatarSize!=null && avatarSize.ToString().Length==0)
 				avatarSize = null;
@@ -899,6 +992,7 @@ namespace yaf
 				cmd.Parameters.Add("@AvatarUpload",avatarUpload);
 				cmd.Parameters.Add("@AvatarRemote",avatarRemote);
 				cmd.Parameters.Add("@AvatarSize",avatarSize);
+				cmd.Parameters.Add("@AllowRichEdit",allowRichEdit);
 				ExecuteNonQuery(cmd);
 			}
 		}
