@@ -65,6 +65,9 @@ namespace yaf.pages
 				ForumLogin.Text = GetText("forum_login");
 				LostPassword.Text = GetText("lostpassword");
 				Recover.Text = GetText("sendpassword");
+
+				// set the focus using Damien McGivern client-side focus class
+				McGiv.Web.UI.ClientSideFocus.setFocus(UserName);
 			}
 		}
 

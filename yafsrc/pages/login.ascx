@@ -3,13 +3,13 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table align=center cellspacing="1" cellpadding="0" class=content width=100% id=LoginView runat=server>
+<table align="center" cellspacing="1" cellpadding="0" class="content" width="100%" id="LoginView" runat="server">
 <tr>
-	<td class=header1 colspan=2><%= GetText("title") %></td>
+	<td class="header1" colspan="2"><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=postheader width=50%><%= GetText("username") %></td>
-	<td class=post width=50%><asp:TextBox id=UserName runat="server"/></td>
+	<td class="postheader" width="50%"><%= GetText("username") %></td>
+	<td class="post" width="50%"><asp:TextBox id="UserName" runat="server"/></td>
 </tr>
 <tr>
 	<td class=postheader><%= GetText("password") %></td>
