@@ -19,6 +19,8 @@
 		<Resource tag="CANNOT_EDIT">You [b]cannot[/b] edit your posts in this forum.</Resource>
 		<Resource tag="CANNOT_POLL">You [b]cannot[/b] create polls in this forum.</Resource>
 		<Resource tag="CANNOT_VOTE">You [b]cannot[/b] vote in polls in this forum.</Resource>
+		<Resource tag="REGMAIL_SENT">A mail has been sent. Check your inbox and click the link in the mail.</Resource>
+		<Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
@@ -158,6 +160,7 @@
 		<Resource tag="ATTACHMENTINFO">{0:N0} KB, downloaded {1:N0} time(s).</Resource>
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="THREADED">Threaded</Resource>
+		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

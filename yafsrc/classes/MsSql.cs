@@ -1590,7 +1590,7 @@ namespace yaf
 						body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
 						Utils.SendMail(Config.BoardSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.BoardSettings.Name),body);
-						page.AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");
+						page.AddLoadMessage(page.GetText("REGMAIL_SENT"));
 						trans.Commit();
 					} 
 					else 

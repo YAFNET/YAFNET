@@ -214,7 +214,7 @@ namespace yaf.pages
 					User.UpdateUserInfo(PageUserID);
 
 				if((int)m_pageinfo["Incoming"]>0) 
-					AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
+					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
 			}
 
 			if(Mession.LastVisit == DateTime.MinValue && HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null) 

@@ -110,7 +110,7 @@
 <br>
 <table cellSpacing=0 cellPadding=0 width="100%">
 <tr>
-	<td align=right>Forum Jump <yaf:forumjump runat="server"/></td>
+	<td align=right><%= GetText("FORUM_JUMP") %> <yaf:forumjump runat="server"/></td>
 </tr>
 <tr>
 	<td align="right" valign="top" class="smallfont"><yaf:PageAccess runat="server"/></td>
