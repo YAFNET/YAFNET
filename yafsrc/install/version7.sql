@@ -407,7 +407,9 @@ begin
 		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
 		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null),
 		e.AvatarUpload,
-		e.AvatarRemote
+		e.AvatarRemote,
+		e.AvatarWidth,
+		e.AvatarHeight
 	from
 		yaf_Message a, 
 		yaf_User b,

@@ -1,0 +1,10 @@
+Hello {user}.
+
+You have requested to change your email address to {newemail}
+
+To change your address you will have to click on the following link:
+{link}
+
+Your approval key is: {key}
+
+Visit {forumname} at {forumlink}

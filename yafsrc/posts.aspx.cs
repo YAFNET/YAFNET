@@ -448,7 +448,12 @@ namespace yaf
 			} 
 			else if((bool)row["AvatarRemote"] && row["Avatar"].ToString().Length>0) 
 			{
-				html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
+				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
+				html += String.Format("<img src='image.aspx?url={0}&width={1}&height={2}'><br clear=\"all\"/>",
+					Server.UrlEncode(row["Avatar"].ToString()),
+					row["AvatarWidth"],
+					row["AvatarHeight"]
+				);
 			}
 
 			// Rank Image

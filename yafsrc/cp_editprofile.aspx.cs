@@ -144,6 +144,15 @@ namespace yaf
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
 				// Email Body
+#if true
+				string msg = ReadTemplate("changeemail.txt");
+				msg = msg.Replace("{user}",PageUserName);
+				msg = msg.Replace("{link}",String.Format("{1}approve.aspx?k={0}\r\n\r\n",hash,ForumURL));
+				msg = msg.Replace("{newemail}",Email.Text);
+				msg = msg.Replace("{key}",hash);
+				msg = msg.Replace("{forumname}",ForumName);
+				msg = msg.Replace("{forumlink}",ForumURL);
+#else
 				System.Text.StringBuilder msg = new System.Text.StringBuilder();
 				msg.AppendFormat("Hello {0}.\r\n\r\n",PageUserName);
 				msg.AppendFormat("You have requested to change your email address to {0}\r\n\r\n",Email.Text);
@@ -151,10 +160,11 @@ namespace yaf
 				msg.AppendFormat("{1}approve.aspx?k={0}\r\n\r\n",hash,ForumURL);
 				msg.AppendFormat("Your approval key is: {0}\r\n\r\n",hash);
 				msg.AppendFormat("Visit {0} at {1}",ForumName,ForumURL);
+#endif
 
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
-				SendMail(ForumEmail,Email.Text,"Changed email",msg.ToString());
+				SendMail(ForumEmail,Email.Text,"Changed email",msg);
 				AddLoadMessage(String.Format(GetText("cp_editprofile_mail_sent"),Email.Text));
 			}
 

@@ -1106,6 +1106,14 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "templates\changeemail.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "templates\emailtopic.txt"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "templates\page.html"
                     BuildAction = "Content"
                 />

@@ -61,7 +61,10 @@ namespace yaf
 				SendEmail.Text = GetText("emailtopic_send");
 
 				Subject.Text = PageTopicName;
-				Message.Text = String.Format("You might be interested in reading this:\r\n{0}posts.aspx?t={1}\r\n\r\nFrom,\r\n\r\n{2}",ForumURL,PageTopicID,PageUserName);
+				string msg = ReadTemplate("emailtopic.txt");
+				msg = msg.Replace("{link}",String.Format("{0}posts.aspx?t={1}",ForumURL,PageTopicID));
+				msg = msg.Replace("{user}",PageUserName);
+				Message.Text = msg;
 			}
 		}
 

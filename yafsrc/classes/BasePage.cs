@@ -998,25 +998,27 @@ namespace yaf
 				}
 			
 				DataRow[] rows = m_dtText.Select(String.Format("Index='{0}'",text)); 
-				if(rows.Length==1) 
+				if(rows.Length>1) 
+				{
+					throw new Exception(String.Format("Duplicate language item {0}",text));
+				} 
+				else if(rows.Length==1) 
 				{
 					string str = rows[0]["Text"].ToString();
 					str = str.Replace("[b]","<b>");
 					str = str.Replace("[/b]","</b>");
 					return str;
 					//return "&gt;" + str + "&lt;";
+				} 
+				else 
+				{
+					throw new Exception(String.Format("Missing language item {0}",text));
 				}
 			}
 			catch(Exception x) 
 			{
 				throw new Exception(text,x);
 			}
-
-#if DEBUG
-			throw new Exception(String.Format("Missing text '{0}'.",text));
-#else
-			return String.Format("[{0}]",text);
-#endif
 		}
 
 		static public int AppVersion 

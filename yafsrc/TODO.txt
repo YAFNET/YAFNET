@@ -19,5 +19,4 @@
 
 - Translation:
 	* Mail template in cp_editprofile.aspx
-	* Mail template in emailtopic.aspx
 	
