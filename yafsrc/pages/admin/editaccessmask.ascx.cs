@@ -51,16 +51,16 @@ namespace yaf.pages.admin
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text				= (string)row["Name"];
-						ReadAccess.Checked		= (bool)row["ReadAccess"];
-						PostAccess.Checked		= (bool)row["PostAccess"];
-						ReplyAccess.Checked		= (bool)row["ReplyAccess"];
-						PriorityAccess.Checked	= (bool)row["PriorityAccess"];
-						PollAccess.Checked		= (bool)row["PollAccess"];
-						VoteAccess.Checked		= (bool)row["VoteAccess"];
-						ModeratorAccess.Checked	= (bool)row["ModeratorAccess"];
-						EditAccess.Checked		= (bool)row["EditAccess"];
-						DeleteAccess.Checked	= (bool)row["DeleteAccess"];
-						UploadAccess.Checked	= (bool)row["UploadAccess"];
+						ReadAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.ReadAccess);
+						PostAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.PostAccess);
+						ReplyAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.ReplyAccess);
+						PriorityAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.PriorityAccess);
+						PollAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.PollAccess);
+						VoteAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.VoteAccess);
+						ModeratorAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.ModeratorAccess);
+						EditAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.EditAccess);
+						DeleteAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.DeleteAccess);
+						UploadAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.UploadAccess);
 					}
 				}
 			}
@@ -119,6 +119,12 @@ namespace yaf.pages.admin
 		private void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_accessmasks);
+		}
+
+		protected bool BitSet(object _o,int bitmask) 
+		{
+			int i = (int)_o;
+			return (i & bitmask)!=0;
 		}
 	}
 }

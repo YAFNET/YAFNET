@@ -41,7 +41,7 @@ namespace yaf.controls
 		protected string GetForumIcon(object o) 
 		{
 			DataRow		row			= (DataRow)o;
-			bool		locked		= (bool)row["Locked"];
+			bool		locked		= ((int)row["Flags"] & (int)ForumFlags.Locked) == (int)ForumFlags.Locked;
 			DateTime	lastRead	= ForumPage.GetForumRead((int)row["ForumID"]);
 			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
@@ -217,6 +217,12 @@ namespace yaf.controls
 				output += "...";    
 			}
 			return output;
+		}
+
+		protected bool GetModerated(object _o) 
+		{
+			DataRow row = (DataRow)_o;
+			return ((int)row["Flags"] & (int)ForumFlags.Moderated) == (int)ForumFlags.Moderated;
 		}
 	}
 }

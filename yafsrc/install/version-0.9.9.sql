@@ -64,18 +64,15 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Forum') and O
 		Name			nvarchar (50) NOT NULL ,
 		Description		nvarchar (255) NOT NULL ,
 		SortOrder		smallint NOT NULL ,
-		Locked			bit NOT NULL ,
-		Hidden			bit NOT NULL ,
-		IsTest			bit NOT NULL ,
 		LastPosted		datetime NULL ,
 		LastTopicID		int NULL ,
 		LastMessageID	int NULL ,
 		LastUserID		int NULL ,
 		LastUserName	nvarchar (50) NULL ,
-		Moderated		bit NOT NULL,
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
-		RemoteURL		nvarchar(100) null
+		RemoteURL		nvarchar(100) null,
+		Flags			int not null
 	)
 GO
 
@@ -92,11 +89,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and O
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL ,
-		IsAdmin			bit NOT NULL ,
-		IsGuest			bit NOT NULL ,
-		IsStart			bit NOT NULL ,
-		IsModerator		bit NOT NULL ,
-		RankImage		nvarchar (50) NULL
+		Flags			int not null
 	)
 GO
 
@@ -270,16 +263,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') 
 		AccessMaskID	int IDENTITY NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) NOT NULL ,
-		ReadAccess 		bit NOT NULL ,
-		PostAccess 		bit NOT NULL ,
-		ReplyAccess 	bit NOT NULL ,
-		PriorityAccess 	bit NOT NULL ,
-		PollAccess 		bit NOT NULL ,
-		VoteAccess 		bit NOT NULL ,
-		ModeratorAccess bit NOT NULL ,		-- can moderate posts, user management
-		EditAccess 		bit NOT NULL ,
-		DeleteAccess 	bit NOT NULL ,
-		UploadAccess 	bit NOT NULL
+		Flags			int not null
 	)
 GO
 
@@ -412,6 +396,150 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Flags')
+begin
+	alter table dbo.yaf_Forum add Flags int not null constraint DF_yaf_Forum_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Locked')
+begin
+	exec('update yaf_Forum set Flags = Flags | 1 where Locked<>0')
+	alter table dbo.yaf_Forum drop column Locked
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Hidden')
+begin
+	exec('update yaf_Forum set Flags = Flags | 2 where Hidden<>0')
+	alter table dbo.yaf_Forum drop column Hidden
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='IsTest')
+begin
+	exec('update yaf_Forum set Flags = Flags | 4 where IsTest<>0')
+	alter table dbo.yaf_Forum drop column IsTest
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Moderated')
+begin
+	exec('update yaf_Forum set Flags = Flags | 8 where Moderated<>0')
+	alter table dbo.yaf_Forum drop column Moderated
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='Flags')
+begin
+	alter table dbo.yaf_Group add Flags int not null constraint DF_yaf_Group_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsAdmin')
+begin
+	exec('update yaf_Group set Flags = Flags | 1 where IsAdmin<>0')
+	alter table dbo.yaf_Group drop column IsAdmin
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsGuest')
+begin
+	exec('update yaf_Group set Flags = Flags | 2 where IsGuest<>0')
+	alter table dbo.yaf_Group drop column IsGuest
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsStart')
+begin
+	exec('update yaf_Group set Flags = Flags | 4 where IsStart<>0')
+	alter table dbo.yaf_Group drop column IsStart
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsModerator')
+begin
+	exec('update yaf_Group set Flags = Flags | 8 where IsModerator<>0')
+	alter table dbo.yaf_Group drop column IsModerator
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='Flags')
+begin
+	alter table dbo.yaf_AccessMask add Flags int not null constraint DF_yaf_AccessMask_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ReadAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 1 where ReadAccess<>0')
+	alter table dbo.yaf_AccessMask drop column ReadAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PostAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 2 where PostAccess<>0')
+	alter table dbo.yaf_AccessMask drop column PostAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ReplyAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 4 where ReplyAccess<>0')
+	alter table dbo.yaf_AccessMask drop column ReplyAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PriorityAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 8 where PriorityAccess<>0')
+	alter table dbo.yaf_AccessMask drop column PriorityAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PollAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 16 where PollAccess<>0')
+	alter table dbo.yaf_AccessMask drop column PollAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='VoteAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 32 where VoteAccess<>0')
+	alter table dbo.yaf_AccessMask drop column VoteAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ModeratorAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 64 where ModeratorAccess<>0')
+	alter table dbo.yaf_AccessMask drop column ModeratorAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='EditAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 128 where EditAccess<>0')
+	alter table dbo.yaf_AccessMask drop column EditAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='DeleteAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 256 where DeleteAccess<>0')
+	alter table dbo.yaf_AccessMask drop column DeleteAccess
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='UploadAccess')
+begin
+	exec('update yaf_AccessMask set Flags = Flags | 512 where UploadAccess<>0')
+	alter table dbo.yaf_AccessMask drop column UploadAccess
+end
+GO
+
 /*
 ** Defaults
 */
@@ -426,6 +554,18 @@ GO
 
 if not exists(select 1 from sysobjects where name=N'DF_yaf_Topic_Flags' and parent_obj=object_id(N'yaf_Topic'))
 	alter table dbo.yaf_Topic add constraint DF_yaf_Topic_Flags default (0) for Flags
+GO
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_Forum_Flags' and parent_obj=object_id(N'yaf_Forum'))
+	alter table dbo.yaf_Forum add constraint DF_yaf_Forum_Flags default (0) for Flags
+GO
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_Group_Flags' and parent_obj=object_id(N'yaf_Group'))
+	alter table dbo.yaf_Group add constraint DF_yaf_Group_Flags default (0) for Flags
+GO
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_AccessMask_Flags' and parent_obj=object_id(N'yaf_AccessMask'))
+	alter table dbo.yaf_AccessMask add constraint DF_yaf_AccessMask_Flags default (0) for Flags
 GO
 
 /*
@@ -491,10 +631,10 @@ create view dbo.yaf_vaccess as
 	select
 		UserID				= a.UserID,
 		ForumID				= x.ForumID,
-		IsAdmin				= max(convert(tinyint,b.IsAdmin)),
-		IsGuest				= max(convert(tinyint,b.IsGuest)),
-		IsForumModerator	= max(convert(tinyint,b.IsModerator)),
-		IsModerator			= (select count(1) from dbo.yaf_UserGroup v,dbo.yaf_Group w,dbo.yaf_ForumAccess x,dbo.yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and y.ModeratorAccess<>0),
+		IsAdmin				= max(convert(int,b.Flags & 1)),
+		IsGuest				= max(convert(int,b.Flags & 2)),
+		IsForumModerator	= max(convert(int,b.Flags & 4)),
+		IsModerator			= (select count(1) from dbo.yaf_UserGroup v,dbo.yaf_Group w,dbo.yaf_ForumAccess x,dbo.yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
 		ReplyAccess			= max(x.ReplyAccess),
@@ -509,16 +649,16 @@ create view dbo.yaf_vaccess as
 		(select
 			b.UserID,
 			b.ForumID,
-			ReadAccess		= convert(tinyint,c.ReadAccess),
-			PostAccess		= convert(tinyint,c.PostAccess),
-			ReplyAccess		= convert(tinyint,c.ReplyAccess),
-			PriorityAccess	= convert(tinyint,c.PriorityAccess),
-			PollAccess		= convert(tinyint,c.PollAccess),
-			VoteAccess		= convert(tinyint,c.VoteAccess),
-			ModeratorAccess	= convert(tinyint,c.ModeratorAccess),
-			EditAccess		= convert(tinyint,c.EditAccess),
-			DeleteAccess	= convert(tinyint,c.DeleteAccess),
-			UploadAccess	= convert(tinyint,c.UploadAccess)
+			ReadAccess		= convert(int,c.Flags & 1),
+			PostAccess		= convert(int,c.Flags & 2),
+			ReplyAccess		= convert(int,c.Flags & 4),
+			PriorityAccess	= convert(int,c.Flags & 8),
+			PollAccess		= convert(int,c.Flags & 16),
+			VoteAccess		= convert(int,c.Flags & 32),
+			ModeratorAccess	= convert(int,c.Flags & 64),
+			EditAccess		= convert(int,c.Flags & 128),
+			DeleteAccess	= convert(int,c.Flags & 256),
+			UploadAccess	= convert(int,c.Flags & 512)
 		from
 			dbo.yaf_UserForum b
 			join dbo.yaf_AccessMask c on c.AccessMaskID=b.AccessMaskID
@@ -528,16 +668,16 @@ create view dbo.yaf_vaccess as
 		select
 			b.UserID,
 			c.ForumID,
-			ReadAccess		= convert(tinyint,d.ReadAccess),
-			PostAccess		= convert(tinyint,d.PostAccess),
-			ReplyAccess		= convert(tinyint,d.ReplyAccess),
-			PriorityAccess	= convert(tinyint,d.PriorityAccess),
-			PollAccess		= convert(tinyint,d.PollAccess),
-			VoteAccess		= convert(tinyint,d.VoteAccess),
-			ModeratorAccess	= convert(tinyint,d.ModeratorAccess),
-			EditAccess		= convert(tinyint,d.EditAccess),
-			DeleteAccess	= convert(tinyint,d.DeleteAccess),
-			UploadAccess	= convert(tinyint,d.UploadAccess)
+			ReadAccess		= convert(int,d.Flags & 1),
+			PostAccess		= convert(int,d.Flags & 2),
+			ReplyAccess		= convert(int,d.Flags & 4),
+			PriorityAccess	= convert(int,d.Flags & 8),
+			PollAccess		= convert(int,d.Flags & 16),
+			VoteAccess		= convert(int,d.Flags & 32),
+			ModeratorAccess	= convert(int,d.Flags & 64),
+			EditAccess		= convert(int,d.Flags & 128),
+			DeleteAccess	= convert(int,d.Flags & 256),
+			UploadAccess	= convert(int,d.Flags & 512)
 		from
 			dbo.yaf_UserGroup b
 			join dbo.yaf_ForumAccess c on c.GroupID=b.GroupID
@@ -548,16 +688,16 @@ create view dbo.yaf_vaccess as
 		select
 			a.UserID,
 			ForumID			= convert(int,0),
-			ReadAccess		= convert(tinyint,0),
-			PostAccess		= convert(tinyint,0),
-			ReplyAccess		= convert(tinyint,0),
-			PriorityAccess	= convert(tinyint,0),
-			PollAccess		= convert(tinyint,0),
-			VoteAccess		= convert(tinyint,0),
-			ModeratorAccess	= convert(tinyint,0),
-			EditAccess		= convert(tinyint,0),
-			DeleteAccess	= convert(tinyint,0),
-			UploadAccess	= convert(tinyint,0)
+			ReadAccess		= convert(int,0),
+			PostAccess		= convert(int,0),
+			ReplyAccess		= convert(int,0),
+			PriorityAccess	= convert(int,0),
+			PollAccess		= convert(int,0),
+			VoteAccess		= convert(int,0),
+			ModeratorAccess	= convert(int,0),
+			EditAccess		= convert(int,0),
+			DeleteAccess	= convert(int,0),
+			UploadAccess	= convert(int,0)
 		from
 			dbo.yaf_User a
 		) as x
@@ -1223,7 +1363,7 @@ begin
 		select 
 			a.*,
 			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and (y.Flags & 1)<>0),
 			b.RankID,
 			RankName = b.Name
 		from 
@@ -1238,7 +1378,7 @@ begin
 		select 
 			a.*,
 			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and (y.Flags & 1)<>0),
 			b.RankID,
 			RankName = b.Name
 		from 
@@ -1602,7 +1742,7 @@ create procedure dbo.yaf_message_approve(@MessageID int) as begin
 	update yaf_Message set Flags = Flags | 16 where MessageID = @MessageID
 
 	-- update yaf_User
-	if exists(select 1 from yaf_Forum where ForumID=@ForumID and IsTest=0)
+	if exists(select 1 from yaf_Forum where ForumID=@ForumID and (Flags & 4)=0)
 	begin
 		update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
 		exec yaf_user_upgrade @UserID
@@ -1705,22 +1845,27 @@ create procedure dbo.yaf_accessmask_save(
 	@UploadAccess		bit
 ) as
 begin
+	declare @Flags	int
+	
+	set @Flags = 0
+	if @ReadAccess<>0 set @Flags = @Flags | 1
+	if @PostAccess<>0 set @Flags = @Flags | 2
+	if @ReplyAccess<>0 set @Flags = @Flags | 4
+	if @PriorityAccess<>0 set @Flags = @Flags | 8
+	if @PollAccess<>0 set @Flags = @Flags | 16
+	if @VoteAccess<>0 set @Flags = @Flags | 32
+	if @ModeratorAccess<>0 set @Flags = @Flags | 64
+	if @EditAccess<>0 set @Flags = @Flags | 128
+	if @DeleteAccess<>0 set @Flags = @Flags | 256
+	if @UploadAccess<>0 set @Flags = @Flags | 512
+
 	if @AccessMaskID is null
-		insert into yaf_AccessMask(Name,BoardID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-		values(@Name,@BoardID,@ReadAccess,@PostAccess,@ReplyAccess,@PriorityAccess,@PollAccess,@VoteAccess,@ModeratorAccess,@EditAccess,@DeleteAccess,@UploadAccess)
+		insert into yaf_AccessMask(Name,BoardID,Flags)
+		values(@Name,@BoardID,@Flags)
 	else
 		update yaf_AccessMask set
 			Name			= @Name,
-			ReadAccess		= @ReadAccess,
-			PostAccess		= @PostAccess,
-			ReplyAccess		= @ReplyAccess,
-			PriorityAccess	= @PriorityAccess,
-			PollAccess		= @PollAccess,
-			VoteAccess		= @VoteAccess,
-			ModeratorAccess	= @ModeratorAccess,
-			EditAccess		= @EditAccess,
-			DeleteAccess	= @DeleteAccess,
-			UploadAccess	= @UploadAccess
+			Flags			= @Flags
 		where AccessMaskID=@AccessMaskID
 end
 GO
@@ -1741,21 +1886,26 @@ create procedure dbo.yaf_group_save(
 	@AccessMaskID	int=null
 ) as
 begin
-	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0 where BoardID=@BoardID
-	if @IsGuest = 1 update yaf_Group set IsGuest = 0 where BoardID=@BoardID
-	if @IsStart = 1 update yaf_Group set IsStart = 0 where BoardID=@BoardID
+	declare @Flags	int
+	
+	set @Flags = 0
+	if @IsAdmin<>0 set @Flags = @Flags | 1
+	if @IsGuest<>0 set @Flags = @Flags | 2
+	if @IsStart<>0 set @Flags = @Flags | 4
+	if @IsModerator<>0 set @Flags = @Flags | 8
+
+	if @IsAdmin = 1 update yaf_Group set Flags = Flags | 1 where BoardID=@BoardID
+	if @IsGuest = 1 update yaf_Group set Flags = Flags | 2 where BoardID=@BoardID
+	if @IsStart = 1 update yaf_Group set Flags = Flags | 4 where BoardID=@BoardID
 	if @GroupID>0 begin
 		update yaf_Group set
 			Name = @Name,
-			IsAdmin = @IsAdmin,
-			IsGuest = @IsGuest,
-			IsStart = @IsStart,
-			IsModerator = @IsModerator
+			Flags = @Flags
 		where GroupID = @GroupID
 	end
 	else begin
-		insert into yaf_Group(Name,BoardID,IsAdmin,IsGuest,IsStart,IsModerator)
-		values(@Name,@BoardID,@IsAdmin,@IsGuest,@IsStart,@IsModerator);
+		insert into yaf_Group(Name,BoardID,Flags)
+		values(@Name,@BoardID,@Flags);
 		set @GroupID = @@IDENTITY
 		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID)
 		select @GroupID,a.ForumID,@AccessMaskID from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID
@@ -1909,13 +2059,13 @@ CREATE procedure dbo.yaf_message_save(
 ) as
 begin
 	declare @ForumID	int
-	declare	@Moderated	bit
+	declare	@ForumFlags	int
 	declare @Position	int
 	declare	@Indent	int
 
 	if @Posted is null set @Posted = getdate()
 
-	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
+	select @ForumID = x.ForumID, @ForumFlags = y.Flags from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
 
 	if @ReplyTo is null
 	begin
@@ -1959,7 +2109,7 @@ begin
 	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,@ReplyTo,@Position,@Indent,@Flags & ~16)
 	set @MessageID = @@IDENTITY
 	
-	if @Moderated=0
+	if (@ForumFlags & 8)=0
 		exec yaf_message_approve @MessageID
 end
 GO
@@ -2076,7 +2226,7 @@ begin
 	
 		set @UserID = @@IDENTITY
 
-		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where BoardID=@BoardID and IsStart<>0
+		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
 		
 		if @Hash is not null and @Hash <> '' and @Approved=0 begin
 			insert into yaf_CheckEmail(UserID,Email,Created,Hash)
@@ -2163,13 +2313,13 @@ GO
 CREATE procedure dbo.yaf_message_update(@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext) as
 begin
 	declare @TopicID	int
-	declare	@Moderated	bit
+	declare	@ForumFlags	int
 
 	set @Flags = @Flags & ~16	
 	
 	select 
 		@TopicID	= a.TopicID,
-		@Moderated	= c.Moderated
+		@ForumFlags	= c.Flags
 	from 
 		yaf_Message a,
 		yaf_Topic b,
@@ -2179,7 +2329,7 @@ begin
 		b.TopicID = a.TopicID and
 		c.ForumID = b.ForumID
 
-	if @Moderated=0 set @Flags = @Flags | 16
+	if (@ForumFlags & 8)=0 set @Flags = @Flags | 16
 
 	update yaf_Message set
 		Message = @Message,
@@ -2203,7 +2353,7 @@ begin
 	end 
 	
 	-- If forum is moderated, make sure last post pointers are correct
-	if @Moderated<>0 exec yaf_topic_updatelastpost
+	if (@ForumFlags & 8)<>0 exec yaf_topic_updatelastpost
 end
 GO
 
@@ -2424,25 +2574,25 @@ begin
 	set @RankIDAdvanced = @@IDENTITY
 
 	-- yaf_AccessMask
-	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(@BoardID,'Admin Access Mask',1,1,1,1,1,1,1,1,1,1)
+	insert into yaf_AccessMask(BoardID,Name,Flags)
+	values(@BoardID,'Admin Access Mask',1023)
 	set @AccessMaskIDAdmin = @@IDENTITY
-	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(@BoardID,'Moderator Access Mask',1,1,1,0,0,1,1,1,1,0)
+	insert into yaf_AccessMask(BoardID,Name,Flags)
+	values(@BoardID,'Moderator Access Mask',487)
 	set @AccessMaskIDModerator = @@IDENTITY
-	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(@BoardID,'Member Access Mask',1,1,1,0,0,1,0,1,1,0)
+	insert into yaf_AccessMask(BoardID,Name,Flags)
+	values(@BoardID,'Member Access Mask',423)
 	set @AccessMaskIDMember = @@IDENTITY
-	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(@BoardID,'Read Only Access Mask',1,0,0,0,0,0,0,0,0,0)
+	insert into yaf_AccessMask(BoardID,Name,Flags)
+	values(@BoardID,'Read Only Access Mask',1)
 	set @AccessMaskIDReadOnly = @@IDENTITY
 
 	-- yaf_Group
-	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Administration',1,0,0,0)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Administration',1)
 	set @GroupIDAdmin = @@IDENTITY
-	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Guest',0,1,0,0)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Guest',2)
 	set @GroupIDGuest = @@IDENTITY
-	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Member',0,0,1,0)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Member',4)
 	set @GroupIDMember = @@IDENTITY
 
 	-- yaf_User
@@ -2463,8 +2613,8 @@ begin
 	set @CategoryID = @@IDENTITY
 	
 	-- yaf_Forum
-	insert into yaf_Forum(CategoryID,Name,Description,SortOrder,Locked,Hidden,IsTest,Moderated,NumTopics,NumPosts)
-	values(@CategoryID,'Test Forum','A test forum',1,0,0,1,0,0,0)
+	insert into yaf_Forum(CategoryID,Name,Description,SortOrder,NumTopics,NumPosts,Flags)
+	values(@CategoryID,'Test Forum','A test forum',1,0,0,4)
 	set @ForumID = @@IDENTITY
 
 	-- yaf_ForumAccess
@@ -2626,7 +2776,7 @@ begin
 	select
 		d.TopicID,
 		TopicLocked	= d.IsLocked,
-		ForumLocked	= g.Locked,
+		ForumFlags	= g.Flags,
 		a.MessageID,
 		a.Posted,
 		Subject = d.Topic,
@@ -2750,7 +2900,7 @@ begin
 	set @MessageID=@@IDENTITY
 
 	-- update user
-	if exists(select 1 from yaf_Forum where ForumID=@ForumID and IsTest=0)
+	if exists(select 1 from yaf_Forum where ForumID=@ForumID and (Flags & 4)=0)
 	begin
 		update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
 	end
@@ -2794,6 +2944,13 @@ create procedure dbo.yaf_forum_save(
 ) as
 begin
 	declare @BoardID	int
+	declare @Flags		int
+	
+	set @Flags = 0
+	if @Locked<>0 set @Flags = @Flags | 1
+	if @Hidden<>0 set @Flags = @Flags | 2
+	if @IsTest<>0 set @Flags = @Flags | 4
+	if @Moderated<>0 set @Flags = @Flags | 8
 
 	if @ForumID>0 begin
 		update yaf_Forum set 
@@ -2801,19 +2958,16 @@ begin
 			Name=@Name,
 			Description=@Description,
 			SortOrder=@SortOrder,
-			Hidden=@Hidden,
-			Locked=@Locked,
 			CategoryID=@CategoryID,
-			IsTest = @IsTest,
-			Moderated = @Moderated,
-			RemoteURL = @RemoteURL
+			RemoteURL = @RemoteURL,
+			Flags = @Flags
 		where ForumID=@ForumID
 	end
 	else begin
 		select @BoardID=BoardID from yaf_Category where CategoryID=@CategoryID
 	
-		insert into yaf_Forum(ParentID,Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated,NumTopics,NumPosts,RemoteURL)
-		values(@ParentID,@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated,0,0,@RemoteURL)
+		insert into yaf_Forum(ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,Flags)
+		values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@Flags)
 		select @ForumID = @@IDENTITY
 
 		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) 
@@ -3103,8 +3257,7 @@ begin
 		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
 		LastTopicID		= b.LastTopicID,
 		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
+		b.Flags,
 		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
 		b.RemoteURL,
 		x.ReadAccess
@@ -3114,7 +3267,7 @@ begin
 		join yaf_vaccess x on x.ForumID=b.ForumID
 	where 
 		a.BoardID = @BoardID and
-		(b.Hidden=0 or x.ReadAccess<>0) and
+		((b.Flags & 2)=0 or x.ReadAccess<>0) and
 		(@CategoryID is null or a.CategoryID=@CategoryID) and
 		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
 		x.UserID = @UserID
@@ -3748,7 +3901,7 @@ begin
 	where
 		b.UserID = a.UserID and
 		b.GroupID = c.GroupID and
-		c.IsGuest<>0
+		(c.Flags & 2)<>0
 end
 go
 
@@ -3871,7 +4024,7 @@ begin
 		yaf_Group b,
 		yaf_AccessMask c
 	where
-		c.ModeratorAccess <> 0 and
+		(c.Flags & 64)<>0 and
 		b.GroupID = a.GroupID and
 		c.AccessMaskID = a.AccessMaskID
 end
@@ -4029,7 +4182,7 @@ begin
 		c.IsLocked,
 		c.Priority,
 		c.PollID,
-		ForumLocked = d.Locked
+		ForumFlags = d.Flags
 	from
 		yaf_Topic c 
 		join yaf_User b on b.UserID=c.UserID 
@@ -4232,7 +4385,7 @@ begin
 			c.TopicID,
 			ForumName = (select Name from yaf_Forum x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from yaf_Topic x where x.TopicID=c.TopicID),
-			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0),
+			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and (y.Flags & 2)<>0),
 			c.Login,
 			c.LastActive,
 			c.Location,
@@ -4257,7 +4410,7 @@ begin
 			c.TopicID,
 			ForumName = (select Name from yaf_Forum x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from yaf_Topic x where x.TopicID=c.TopicID),
-			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0),
+			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and (y.Flags & 2)<>0),
 			c.Login,
 			c.LastActive,
 			c.Location,
@@ -4270,7 +4423,7 @@ begin
 		where
 			c.UserID = a.UserID and
 			c.BoardID = @BoardID and
-			not exists(select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0)
+			not exists(select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and (y.Flags & 2)<>0)
 		order by
 			c.LastActive desc
 end
@@ -4285,8 +4438,8 @@ create procedure dbo.yaf_active_stats(@BoardID int) as
 begin
 	select
 		ActiveUsers = (select count(1) from yaf_Active where BoardID=@BoardID),
-		ActiveMembers = (select count(1) from yaf_Active x where BoardID=@BoardID and exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest=0)),
-		ActiveGuests = (select count(1) from yaf_Active x where BoardID=@BoardID and exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest<>0))
+		ActiveMembers = (select count(1) from yaf_Active x where BoardID=@BoardID and exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and (z.Flags & 2)=0)),
+		ActiveGuests = (select count(1) from yaf_Active x where BoardID=@BoardID and exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and (z.Flags & 2)<>0))
 end
 GO
 
@@ -4469,7 +4622,7 @@ begin
 		c.PollID,
 		ForumName = d.Name,
 		c.TopicMovedID,
-		ForumLocked = d.Locked
+		ForumFlags = d.Flags
 	from
 		yaf_Topic c
 		join yaf_User b on b.UserID=c.UserID
@@ -4629,7 +4782,7 @@ begin
 	where
 		a.BoardID=@BoardID and
 		v.UserID=@UserID and
-		(v.ReadAccess<>0 or b.Hidden=0) and
+		(v.ReadAccess<>0 or (b.Flags & 2)=0) and
 		(@CategoryID is null or a.CategoryID=@CategoryID) and
 		b.ParentID is null
 	group by
@@ -4725,7 +4878,7 @@ begin
 				yaf_User a
 				join yaf_UserGroup b on b.UserID=a.UserID
 				join yaf_Group c on c.GroupID=b.GroupID where
-				c.IsGuest=0 and
+				(c.Flags & 2)=0 and
 				c.BoardID=(select BoardID from yaf_User x where x.UserID=@FromUserID) and a.UserID<>@FromUserID
 		group by
 				a.UserID
@@ -4766,7 +4919,7 @@ begin
 
 	if @User is null or @User='' 
 	begin
-		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and c.IsGuest=1
+		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and (c.Flags & 2)<>0
 		set @rowcount=@@rowcount
 		if @rowcount<>1
 		begin
@@ -4918,7 +5071,7 @@ begin
 	where
 		b.UserID = a.UserID and
 		b.GroupID = c.GroupID and
-		c.IsGuest<>0
+		(c.Flags & 2)<>0
 
 	select 
 		@GuestCount = count(1) 
@@ -4926,7 +5079,7 @@ begin
 		yaf_UserGroup a
 		join yaf_Group b on b.GroupID=a.GroupID
 	where
-		b.IsGuest<>0
+		(b.Flags & 2)<>0
 
 	if @GuestUserID=@UserID and @GuestCount=1 begin
 		return
@@ -4965,7 +5118,7 @@ begin
 
 		select 
 			a.*,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and (y.Flags & 2)<>0)
 		from 
 			yaf_User a
 		where 
@@ -4977,7 +5130,7 @@ begin
 	begin
 		select 
 			a.UserID,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and (y.Flags & 2)<>0)
 		from 
 			yaf_User a
 		where 

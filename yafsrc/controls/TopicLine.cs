@@ -68,7 +68,7 @@ namespace yaf.controls
 
 			try 
 			{
-				bool bIsLocked = isLocked || (bool)m_row["ForumLocked"];
+				bool bIsLocked = isLocked || ((int)row["ForumFlags"] & (int)ForumFlags.Locked)==(int)ForumFlags.Locked;
 
 				if(row["TopicMovedID"].ToString().Length>0)
 				{

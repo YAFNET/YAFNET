@@ -62,10 +62,10 @@ namespace yaf.pages.admin
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
-						IsAdminX.Checked = (bool)row["IsAdmin"];
-						IsGuestGroup.Checked = (bool)row["IsGuest"];
-						IsStart.Checked = (bool)row["IsStart"];
-						IsModeratorX.Checked = (bool)row["IsModerator"];
+						IsAdminX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsAdmin)==(int)GroupFlags.IsAdmin;
+						IsGuestGroup.Checked = ((int)row["Flags"] & (int)GroupFlags.IsGuest)==(int)GroupFlags.IsGuest;
+						IsStart.Checked = ((int)row["Flags"] & (int)GroupFlags.IsStart)==(int)GroupFlags.IsStart;
+						IsModeratorX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsModerator)==(int)GroupFlags.IsModerator;
 					}
 				} 
 			}

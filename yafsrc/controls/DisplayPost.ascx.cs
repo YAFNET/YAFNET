@@ -119,7 +119,7 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
+				return !PostLocked && ((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked)!=(int)ForumFlags.Locked && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
 			}
 		}
 
@@ -141,7 +141,7 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
+				return !PostLocked && ((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked)!=(int)ForumFlags.Locked && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
 			}
 		}
 
@@ -149,14 +149,14 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
+				return !PostLocked && ((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked)!=(int)ForumFlags.Locked && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
 			}
 		}
 		protected bool CanReply
 		{
 			get
 			{
-				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ForumPage.ForumReplyAccess;
+				return ((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked)!=(int)ForumFlags.Locked && !(bool)DataRow["TopicLocked"] && ForumPage.ForumReplyAccess;
 			}
 		}
 

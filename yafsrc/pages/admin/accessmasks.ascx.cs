@@ -103,5 +103,11 @@ namespace yaf.pages.admin
 		{
 			Forum.Redirect(Pages.admin_editaccessmask);
 		}
+
+		protected bool BitSet(object _o,int bitmask) 
+		{
+			int i = (int)_o;
+			return (i & bitmask)!=0;
+		}
 	}
 }

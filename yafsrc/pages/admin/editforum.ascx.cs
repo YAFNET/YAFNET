@@ -65,11 +65,11 @@ namespace yaf.pages.admin
 						Name.Text = (string)row["Name"];
 						Description.Text = (string)row["Description"];
 						SortOrder.Text = row["SortOrder"].ToString();
-						HideNoAccess.Checked = (bool)row["Hidden"];
-						Locked.Checked = (bool)row["Locked"];
-						IsTest.Checked = (bool)row["IsTest"];
+						HideNoAccess.Checked = ((int)row["Flags"] & (int)ForumFlags.Hidden) == (int)ForumFlags.Hidden;
+						Locked.Checked = ((int)row["Flags"] & (int)ForumFlags.Locked) == (int)ForumFlags.Locked;
+						IsTest.Checked = ((int)row["Flags"] & (int)ForumFlags.IsTest) == (int)ForumFlags.IsTest;
 						ForumNameTitle.Text = Name.Text;
-						Moderated.Checked = (bool)row["Moderated"];
+						Moderated.Checked = ((int)row["Flags"] & (int)ForumFlags.Moderated) == (int)ForumFlags.Moderated;
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 						if(!row.IsNull("ParentID"))
 							ParentList.Items.FindByValue(row["ParentID"].ToString()).Selected = true;

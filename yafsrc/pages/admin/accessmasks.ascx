@@ -30,16 +30,16 @@
 			<td>
 				<%# DataBinder.Eval(Container.DataItem, "Name") %>
 			</td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "ReadAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "PostAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "ReplyAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "PriorityAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "PollAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "VoteAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "ModeratorAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "EditAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "DeleteAccess") %></td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem, "UploadAccess") %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),1) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),2) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),4) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),8) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),16) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),32) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),64) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),128) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),256) %></td>
+			<td align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),512) %></td>
 			<td width=15% style="font-weight:normal">
 				<asp:linkbutton runat='server' commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem, "AccessMaskID") %>'>Edit</asp:linkbutton>
 				|

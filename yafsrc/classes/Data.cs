@@ -45,6 +45,36 @@ namespace yaf
 		sfEXACT = 2
 	}
 
+	public enum ForumFlags : int
+	{
+		Locked = 1,
+		Hidden = 2,
+		IsTest = 4,
+		Moderated = 8
+	}
+
+	public enum GroupFlags : int
+	{
+		IsAdmin = 1,
+		IsGuest = 2,
+		IsStart = 4,
+		IsModerator = 8
+	}
+
+	public enum AccessFlags : int
+	{
+		ReadAccess		= 1,
+		PostAccess		= 2,	
+		ReplyAccess		= 4,
+		PriorityAccess 	= 8,
+		PollAccess		= 16,
+		VoteAccess		= 32,
+		ModeratorAccess = 64,
+		EditAccess		= 128,
+		DeleteAccess	= 256,
+		UploadAccess 	= 512
+	}
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>

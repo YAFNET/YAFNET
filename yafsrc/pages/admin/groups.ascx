@@ -27,16 +27,16 @@
 				<%# DataBinder.Eval(Container.DataItem, "Name") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "IsAdmin") %>
+				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),1) %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "IsGuest") %>
+				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),2) %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "IsStart") %>
+				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),4) %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "IsModerator") %>
+				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),8) %>
 			</td>
 			<td class=post>
 				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>Edit</asp:linkbutton>
