@@ -191,8 +191,21 @@ namespace yaf
 				return;
 			}
 
+			try 
+			{
+				CheckValidFile(File1);
+				CheckValidFile(File2);
+				CheckValidFile(File3);
+			}
+			catch(Exception x) 
+			{
+				AddLoadMessage(x.Message);
+				return;
+			}
+
 			// Must wait 30 seconds before posting again
-			if(Session["lastpost"] != null) {
+			if(Session["lastpost"] != null) 
+			{
 				DateTime lastpost = DateTime.Parse(Session["lastpost"].ToString());
 				lastpost += TimeSpan.FromSeconds(30);
 				if(lastpost > DateTime.Now) {
@@ -268,6 +281,36 @@ namespace yaf
 			}
 		}
 
+		private void CheckValidFile(HtmlInputFile file) 
+		{
+			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
+				return;
+
+			string filename = file.PostedFile.FileName;
+			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});
+			if(pos>=0)
+				filename = filename.Substring(pos+1);
+			pos = filename.LastIndexOf('.');
+			if(pos>=0) 
+			{
+				switch(filename.Substring(pos+1).ToLower()) 
+				{
+					default:
+						break;
+					case "asp":
+					case "aspx":
+					case "ascx":
+					case "config":
+					case "php":
+					case "php3":
+					case "js":
+					case "vb":
+					case "vbs":
+						throw new Exception(String.Format("'{0}' is not a valid file for upload.",filename));
+				}
+			}
+		}
+
 		private void SaveAttachment(long nMessageID,HtmlInputFile file) 
 		{
 			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
@@ -275,8 +318,13 @@ namespace yaf
 
 			string sUpDir = Request.MapPath(System.Configuration.ConfigurationSettings.AppSettings["uploaddir"]);
 
-			file.PostedFile.SaveAs(sUpDir + file.PostedFile.FileName);
-			DB.attachment_save(nMessageID,file.PostedFile.FileName,file.PostedFile.ContentLength);
+			string filename = file.PostedFile.FileName;
+			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});
+			if(pos>=0)
+				filename = filename.Substring(pos+1);
+
+			file.PostedFile.SaveAs(sUpDir + filename);
+			DB.attachment_save(nMessageID,filename,file.PostedFile.ContentLength);
 		}
 
 		private void CreatePoll_Click(object sender, System.EventArgs e) {

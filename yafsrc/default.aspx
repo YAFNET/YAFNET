@@ -38,16 +38,11 @@
 						<asp:linkbutton runat="server" cssclass=largefont commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><br>
 						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 						<br>
-						<asp:repeater id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
-							<HeaderTemplate>
-								<span class=smallfont>Moderators:
-							</HeaderTemplate>
-							<ItemTemplate>
-								<%# DataBinder.Eval(Container.DataItem, "[\"GroupName\"]") %>
-							</ItemTemplate>
-							<FooterTemplate>
-								</span>
-							</FooterTemplate>
+						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
+							<HeaderTemplate><span class=smallfont>Moderators: </HeaderTemplate>
+							<ItemTemplate><%# DataBinder.Eval(Container.DataItem, "[\"GroupName\"]") %></ItemTemplate>
+							<SeparatorTemplate>, </SeparatorTemplate>
+							<FooterTemplate></span></FooterTemplate>
 						</asp:repeater>
 					</td>
 					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"Topics\"]") %></td>

@@ -903,14 +903,14 @@ namespace yaf
 		{
 			get 
 			{
-				return 6;
+				return 7;
 			}
 		}
 		static public string AppVersionName 
 		{
 			get 
 			{
-				return "0.9.0";
+				return "0.9.1";
 			}
 		}
 		static public DateTime AppVersionDate 

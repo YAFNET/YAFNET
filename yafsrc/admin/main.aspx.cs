@@ -57,10 +57,12 @@ namespace yaf.admin
 			NumPosts.Text	= row["NumPosts"].ToString();
 			NumTopics.Text	= row["NumTopics"].ToString();
 			NumUsers.Text	= row["NumUsers"].ToString();
-			BoardStart.Text	= row["BoardStart"].ToString();
 
 			TimeSpan span = DateTime.Now - (DateTime)row["BoardStart"];
 			double days = span.Days;
+
+			BoardStart.Text	= String.Format("{0:d} ({1:N0} days ago)",row["BoardStart"],days);
+
 			if(days<1) days = 1;
 			DayPosts.Text = String.Format("{0:N2}",(int)row["NumPosts"] / days);
 			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);

@@ -110,18 +110,8 @@ namespace yaf
 				}
 			} else if(CurStep == Step.Database) {
 				try {
-					if(InstalledVersion<1)
-						ExecuteScript("install/version1.sql");
-					if(InstalledVersion<2)
-						ExecuteScript("install/version2.sql");
-					if(InstalledVersion<3)
-						ExecuteScript("install/version3.sql");
-					if(InstalledVersion<4)
-						ExecuteScript("install/version4.sql");
-					if(InstalledVersion<5)
-						ExecuteScript("install/version5.sql");
-					if(InstalledVersion<6)
-						ExecuteScript("install/version6.sql");
+					for(long i=InstalledVersion;i<AppVersion;i++) 
+						ExecuteScript(String.Format("install/version{0}.sql",i+1));
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{

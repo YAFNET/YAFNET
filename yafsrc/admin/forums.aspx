@@ -13,7 +13,7 @@
 				<%# DataBinder.Eval(Container.DataItem, "Name") %>
 			</td>
 			<td class=header2 width=10% align=center><%# DataBinder.Eval(Container.DataItem, "SortOrder") %></td>
-			<td class=header2 style="font-weight:normal">
+			<td class=header2 width=15% style="font-weight:normal">
 				<asp:linkbutton runat='server' commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Edit</asp:linkbutton>
 				|
 				<asp:linkbutton runat='server' onload="DeleteCategory_Load" commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Delete</asp:linkbutton>

@@ -1057,6 +1057,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "install\version7.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "moderate\default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

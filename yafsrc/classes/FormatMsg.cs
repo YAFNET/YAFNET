@@ -19,6 +19,7 @@
 
 using System;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace yaf
 {
@@ -38,104 +39,45 @@ namespace yaf
 			if(dtSmileys == null)
 				dtSmileys = DB.smiley_list(null);
 
-			string tmp = "";
-			for(int i=0;i<Message.Length;i++) {
-				if(Message[i]=='[') {
-					int e1 = Message.IndexOf(']',i);
-					int e2 = Message.IndexOf('=',i);
-					if(e1>0) {
-						bool bNone = false;
-						string cmd, arg = null;
-						if(e2<0 || e2>e1) {
-							cmd = Message.Substring(i+1,e1-i-1);
-							arg = null;
-						} else {
-							cmd = Message.Substring(i+1,e2-i-1);
-							arg = Message.Substring(e2+1,e1-e2-1);
+			string tmp = Message;
 
-							arg = arg.Trim();
-							arg = basePage.Server.HtmlDecode(arg);
-							if(arg.Length>2 && arg[0]=='"' && arg[arg.Length-1]=='"')
-								arg = arg.Substring(1,arg.Length-2);
-						}
+			RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
 
-						cmd = cmd.ToLower();
-						switch(cmd) {
-							case "b":
-								tmp += "<b>";
-								break;
-							case "/b":
-								tmp += "</b>";
-								break;
-							case "i":
-								tmp += "<em>";
-								break;
-							case "/i":
-								tmp += "</em>";
-								break;
-							case "u":
-								tmp += "<u>";
-								break;
-							case "/u":
-								tmp += "</u>";
-								break;
-							case "url":
-								if(arg!=null) 
-								{
-									if(basePage.UseBlankLinks)
-										tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
-									else
-										tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
-								}
-								else
-									tmp += "<a>";
-								break;
-							case "/url":
-								tmp += "</a>";
-								break;
-							case "img":
-								tmp += "<img src=\"";
-								break;
-							case "/img":
-								tmp += "\"/>";
-								break;
-							case "quote":
-								if(arg!=null)
-									tmp += String.Format("<div class=quote>{0} wrote:<div class=\"quoteinner\">",arg);
-								else
-									tmp += "<div class=quote><div class=\"quoteinner\">";
-								break;
-							case "/quote":
-								tmp += "</div></div>";
-								break;
-							case "color":
-								if(arg!=null)
-									tmp += String.Format("<span style=\"color:{0}\">",arg);
-								else
-									tmp += "<span>";
-								break;
-							case "/color":
-								tmp += "</span>";
-								break;
-							default:
-								bNone = true;
-								break;
-						}
-						if(!bNone) {
-							i = e1;
-							continue;
-						}
-					}
-				}
-				tmp += Message[i];
-			}
+			// [b]...[/b]
+			tmp = Regex.Replace(tmp,@"\[b\](.*?)\[/b\]","<b>$1</b>",options);
 
-			tmp = tmp.Replace("\r\n","<br />");
+			// [i]...[/i]
+			tmp = Regex.Replace(tmp,@"\[i\](.*?)\[/i\]","<em>$1</em>",options);
 
-			for(int i=0;i<dtSmileys.Rows.Count;i++) {
-				DataRow row = dtSmileys.Rows[i];
+			// [u]...[/u]
+			tmp = Regex.Replace(tmp,@"\[u\](.*?)\[/u\]","<u>$1</u>",options);
+
+			// [img]...[/img]
+			tmp = Regex.Replace(tmp,@"\[img\](.*?)\[/img\]","<image src=\"$1\"/>",options);
+
+			// [url=...]...[/url]
+			tmp = Regex.Replace(tmp,@"\[url=(.*?)\](.*?)\[/url\]","<a href=\"$1\">$2</a>",options);
+
+			// [url]...[/url]
+			tmp = Regex.Replace(tmp,@"\[url\](.*?)\[/url\]","<a href=\"$1\">$1</a>",options);
+
+			// [color=...]...[/color]
+			tmp = Regex.Replace(tmp,@"\[color=(.*?)\](.*?)\[/color\]","<span style=\"color:$1\">$2</span>",options);
+
+			// [quote=...]...[/quote]
+			// [quote]...[/quote]
+			tmp = Regex.Replace(tmp,@"\[quote=(.*?)\]","<div class=quote>$1 wrote:<div class=\"quoteinner\">",options);
+			tmp = Regex.Replace(tmp,@"\[quote\]","<div class=quote><div class=\"quoteinner\">",options);
+			tmp = Regex.Replace(tmp,@"\[/quote\]","</div></div>",options);
+		
+			// [code]...[/code]
+			tmp = Regex.Replace(tmp,@"\[code\]","<pre class=\"code\">",options);
+			tmp = Regex.Replace(tmp,@"\[/code\]","</pre>",options);
+
+			tmp = tmp.Replace("\r\n","<br/>");
+
+			foreach(DataRow row in dtSmileys.Rows)
 				tmp = tmp.Replace((string)row["Code"],String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
-			}
 
 			return tmp;
 		}

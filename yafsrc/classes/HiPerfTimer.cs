@@ -1,5 +1,6 @@
 /*
- * http://www.codeproject.com/useritems/highperformancetimercshar.asp
+ * The HiPerfTimer class was made by Daniel Strigl
+ * http://www.codeproject.com/csharp/highperformancetimercshar.asp
  */
 
 using System;
