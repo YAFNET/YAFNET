@@ -281,11 +281,13 @@ namespace yaf
 				}
 				catch(SqlException x) 
 				{
+#if false
 					if(x.Number==1205 && nTries<3)
 					{
 						/// Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
 					}
 					else
+#endif
 						throw new ApplicationException(string.Format("Sql Exception with error number {0} (Retries={1})",x.Number,nTries),x);
 				}
 			}

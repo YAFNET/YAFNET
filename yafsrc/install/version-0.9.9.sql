@@ -4760,11 +4760,6 @@ begin
 		set @TopicID = null
 	end
 
-	-- update last visit
-	update yaf_User set 
-		LastVisit = getdate(),
-		IP = @IP
-	where UserID = @UserID
 	-- find missing ForumID/TopicID
 	if @MessageID is not null begin
 		select
@@ -4831,6 +4826,11 @@ begin
 		if @IsGuest=0
 			delete from yaf_Active where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID
 	end
+	-- update last visit
+	update yaf_User set 
+		LastVisit = getdate(),
+		IP = @IP
+	where UserID = @UserID
 	-- return information
 	select
 		a.UserID,
