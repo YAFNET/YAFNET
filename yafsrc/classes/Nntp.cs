@@ -530,7 +530,7 @@ namespace yaf.classes
 								string		sDate		= article.DateString;
 								DateTime	dtDate		= article.Date - tsLocal;
 
-								if(dtDate.Year<1950)
+								if(dtDate.Year<1950 || dtDate>DateTime.Now)
 									dtDate = DateTime.Now;
 							
 								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;

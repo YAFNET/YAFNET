@@ -125,4 +125,6 @@
 </TABLE>
 
 <yaf:savescrollpos runat="server"/>
-</FORM>
+
+<%=GetCookie("topicsread")%>
+</form>

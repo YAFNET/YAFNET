@@ -63,7 +63,7 @@ namespace yaf
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(Request.QueryString["m"]);
+			List.DataSource = DB.attachment_list(Request.QueryString["m"],null);
 			DataBind();
 		}
 
@@ -145,8 +145,30 @@ namespace yaf
 			if(pos>=0)
 				filename = filename.Substring(pos+1);
 
-			file.PostedFile.SaveAs(sUpDir + filename);
-			DB.attachment_save(messageID,filename,file.PostedFile.ContentLength);
+			bool useFileTable = false;
+			int maxFileSize = -1;
+			using(DataTable dt=DB.system_list()) 
+			{
+				foreach(DataRow row in dt.Rows) 
+				{
+					useFileTable = (bool)row["UseFileTable"];
+					if(!row.IsNull("MaxFileSize"))
+						maxFileSize = (int)row["MaxFileSize"];
+				}
+			}
+
+			if(maxFileSize>=0 && file.PostedFile.ContentLength>maxFileSize) 
+				throw new Exception(GetText("ERROR_TOOBIG"));
+
+			if(useFileTable) 
+			{
+				DB.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,file.PostedFile.InputStream);
+			} 
+			else 
+			{
+				file.PostedFile.SaveAs(String.Format("{0}{1}.{2}",sUpDir,messageID,filename));
+				DB.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,null);
+			}
 		}
 
 		#region Web Form Designer generated code

@@ -46,11 +46,19 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
-		protected LinkButton moderate1, moderate2;
+		protected LinkButton moderate1, moderate2, MarkRead;
 		protected controls.PageLinks PageLinks;
-	
+
+		private void topics_Unload(object sender, System.EventArgs e)
+		{
+			if((int)Session["unreadtopics"]==0) 
+				SetForumRead(PageForumID,DateTime.Now);
+			//throw new Exception(Session["unreadtopics"].ToString());
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			Session["unreadtopics"] = 0;
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(ForumName,BaseDir);
@@ -62,6 +70,7 @@ namespace yaf
 				moderate1.ToolTip = "Moderate this forum";
 				moderate2.Text = moderate1.Text;
 				moderate2.ToolTip = moderate1.ToolTip;
+				MarkRead.Text = GetText("MARKREAD");
 
 				NewTopic1.Text = GetThemeContents("BUTTONS","NEWTOPIC");
 				NewTopic1.ToolTip = "Post new topic";
@@ -112,12 +121,20 @@ namespace yaf
 			}
 		}
 
+		private void MarkRead_Click(object sender, System.EventArgs e) 
+		{
+			SetForumRead(PageForumID,DateTime.Now);
+			BindData();
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			this.Unload += new EventHandler(topics_Unload);
 			moderate1.Click += new EventHandler(moderate_Click);
 			moderate2.Click += new EventHandler(moderate_Click);
 			ShowList.SelectedIndexChanged += new EventHandler(ShowList_SelectedIndexChanged);
+			MarkRead.Click += new EventHandler(MarkRead_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

@@ -447,29 +447,48 @@ namespace yaf
 		#endregion
 
 		#region yaf_Attachment
-		static public DataTable attachment_list(object messageID) 
+		static public DataTable attachment_list(object messageID,object attachmentID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@MessageID",messageID);
+				cmd.Parameters.Add("@AttachmentID",attachmentID);
 				return GetData(cmd);
 			}
 		}
-		static public void attachment_save(object messageID,object fileName,object bytes) 
+		static public void attachment_save(object messageID,object fileName,object bytes,object contentType,System.IO.Stream stream) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_save")) 
 			{
+				byte[] fileData = null;
+				if(stream!=null) 
+				{
+					fileData = new byte[stream.Length];
+					stream.Seek(0,System.IO.SeekOrigin.Begin);
+					stream.Read(fileData,0,(int)stream.Length);
+				}
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@MessageID",messageID);
 				cmd.Parameters.Add("@FileName",fileName);
 				cmd.Parameters.Add("@Bytes",bytes);
+				cmd.Parameters.Add("@ContentType",contentType);
+				cmd.Parameters.Add("@FileData",fileData);
 				ExecuteNonQuery(cmd);
 			}
 		}
 		static public void attachment_delete(object attachmentID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@AttachmentID",attachmentID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void attachment_download(object attachmentID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_attachment_download")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@AttachmentID",attachmentID);
@@ -1138,7 +1157,8 @@ namespace yaf
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
 			object BlankLinks,object showGroups,
 			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize,
-			object allowRichEdit,object allowUserTheme,object allowUserLanguage) 
+			object allowRichEdit,object allowUserTheme,object allowUserLanguage,
+			object useFileTable,object maxFileSize) 
 		{
 			if(avatarSize!=null && avatarSize.ToString().Length==0)
 				avatarSize = null;
@@ -1168,6 +1188,8 @@ namespace yaf
 				cmd.Parameters.Add("@AllowRichEdit",allowRichEdit);
 				cmd.Parameters.Add("@AllowUserTheme",allowUserTheme);
 				cmd.Parameters.Add("@AllowUserLanguage",allowUserLanguage);
+				cmd.Parameters.Add("@UseFileTable",useFileTable);
+				cmd.Parameters.Add("@MaxFileSize",maxFileSize);
 				ExecuteNonQuery(cmd);
 			}
 		}
@@ -1480,27 +1502,16 @@ namespace yaf
 		}
 		static public void user_saveavatar(object userID,System.IO.Stream stream) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_avatarimage",GetConnection())) 
+			using(SqlCommand cmd = new SqlCommand("yaf_user_saveavatar")) 
 			{
+				byte[] data = new byte[stream.Length];
+				stream.Seek(0,System.IO.SeekOrigin.Begin);
+				stream.Read(data,0,(int)stream.Length);
+
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",userID);
-
-				using(SqlDataAdapter da = new SqlDataAdapter(cmd)) 
-				{
-					using(SqlCommandBuilder cb = new SqlCommandBuilder(da)) 
-					{
-						using(DataSet ds = new DataSet()) 
-						{
-							byte[] data = new byte[stream.Length];
-							stream.Seek(0,System.IO.SeekOrigin.Begin);
-							stream.Read(data,0,(int)stream.Length);
-
-							da.Fill(ds);
-							ds.Tables[0].Rows[0]["AvatarImage"] = data;
-							da.Update(ds);
-						}
-					}
-				}
+				cmd.Parameters.Add("@AvatarImage",data);
+				ExecuteNonQuery(cmd);
 			}
 		}
 		static public void user_deleteavatar(object userID) 

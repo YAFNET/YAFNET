@@ -5,7 +5,7 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan="6">Attachments</td>
+	<td class=header1 colspan="8">Attachments</td>
 </tr>
 
 <asp:repeater runat="server" id="List">
@@ -15,18 +15,22 @@
 			<td>Topic</td>
 			<td>Posted</td>
 			<td>File Name</td>
+			<td align="right">Downloads</td>
+			<td>Content Type</td>
 			<td align="right">Size</td>
 			<td>&nbsp;</td>
 		</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
-		<tr>
-			<td class="post"><a target="_top" href='../topics.aspx?f=<%# DataBinder.Eval(Container.DataItem,"ForumID") %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
-			<td class="post"><a target="_top" href='../posts.aspx?t=<%# DataBinder.Eval(Container.DataItem,"TopicID") %>'><%# DataBinder.Eval(Container.DataItem,"TopicName") %></a></td>
-			<td class=post><%# FormatDateTime(DataBinder.Eval(Container.DataItem, "Posted")) %></td>
-			<td class=post><%# DataBinder.Eval(Container.DataItem, "FileName") %></td>
-			<td class=post align="right"><%# DataBinder.Eval(Container.DataItem, "Bytes") %></td>
-			<td class=post>
+		<tr class=post>
+			<td><a target="_top" href='../topics.aspx?f=<%# DataBinder.Eval(Container.DataItem,"ForumID") %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
+			<td><a target="_top" href='../posts.aspx?t=<%# DataBinder.Eval(Container.DataItem,"TopicID") %>'><%# DataBinder.Eval(Container.DataItem,"TopicName") %></a></td>
+			<td><%# FormatDateTimeShort(DataBinder.Eval(Container.DataItem, "Posted")) %></td>
+			<td><%# DataBinder.Eval(Container.DataItem, "FileName") %></td>
+			<td align="right"><%# DataBinder.Eval(Container.DataItem, "Downloads") %></td>
+			<td><%# DataBinder.Eval(Container.DataItem, "ContentType") %></td>
+			<td align="right"><%# DataBinder.Eval(Container.DataItem, "Bytes") %></td>
+			<td>
 				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "AttachmentID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>

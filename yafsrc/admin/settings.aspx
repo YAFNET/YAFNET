@@ -55,6 +55,14 @@
 		<td class="post"><asp:checkbox runat="server" id="AllowUserLanguageX"/></td>
 	</tr>
 	<tr>
+		<td class="postheader"><b>Use File Table:</b><br/>Uploaded files will be saved in the database instead of the file system.</td>
+		<td class="post"><asp:checkbox runat="server" id="UseFileTableX"/></td>
+	</tr>
+	<tr>
+		<td class=postheader><b>Max File Size:</b><br/>Maximum size of uploaded files. Leave empty for no limit.</td>
+		<td class=post><asp:TextBox id=MaxFileSize runat="server"/></td>
+	</tr>
+	<tr>
 		<td class="header2" colspan="2">SMTP Server Settings</td>
 	</tr>
 	<tr>

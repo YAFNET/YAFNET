@@ -120,8 +120,41 @@ namespace yaf
 					if(img!=null) img.Dispose();
 					if(bmp!=null) bmp.Dispose();
 				}
+			} 
+			else if(Request.QueryString["a"]!=null) 
+			{
+				/// AttachmentID
+				using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"])) 
+				{
+					foreach(DataRow row in dt.Rows) 
+					{
+						byte[] data = null;
+						Response.Clear();
+						Response.ContentType = row["ContentType"].ToString();
+						Response.AppendHeader("Content-Disposition",String.Format("filename={0}",row["FileName"]));
+
+						if(row.IsNull("FileData")) 
+						{
+							string sUpDir = System.Configuration.ConfigurationSettings.AppSettings["uploaddir"];
+							string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
+							using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
+							{
+								data = new byte[input.Length];
+								input.Read(data,0,data.Length);
+								input.Close();
+							}
+						} 
+						else 
+						{
+							data = (byte[])row["FileData"];
+						}
+						Response.OutputStream.Write(data,0,data.Length);
+						DB.attachment_download(Request.QueryString["a"]);
+						Response.End();
+						break;
+					}
+				}
 			}
-			
 		}
 
 		#region Web Form Designer generated code

@@ -52,6 +52,8 @@
 				</td>
 				<td align="right">
 				<asp:linkbutton id="WatchForum" runat="server"/>
+				|
+				<asp:linkbutton runat="server" id="MarkRead"/>
 				</td></tr></table>
 
 </td></tr></table>

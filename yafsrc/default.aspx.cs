@@ -43,6 +43,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
 		protected System.Web.UI.WebControls.Label activeinfo;
+		protected LinkButton MarkAll;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -50,6 +51,7 @@ namespace yaf
 			if(!IsPostBack) {
 				TimeNow.Text = String.Format(GetText("current_time"),FormatTime(DateTime.Now));
 				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
+				MarkAll.Text = GetText("MARKALL");
 
 				if(UnreadPrivate>0) 
 				{
@@ -68,55 +70,67 @@ namespace yaf
 					Welcome.Visible = false;
 				}
 
-				DataSet ds = DB.ds_forumlayout(PageUserID,PageCategoryID);
-				CategoryList.DataSource = ds.Tables["yaf_Category"];
-
-				// Active users
-				// Call this before forum_stats to clean up active users
-				ActiveList.DataSource = DB.active_list(null);
-
-				// Forum statistics
-				DataRow stats = (DataRow)Cache["ForumStats"];
-				if(stats==null) 
-				{
-					stats = DB.stats();
-					Cache["ForumStats"] = stats;
-				}
-				
-				Stats.Text = String.Format(GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
-				Stats.Text += "<br/>";
-				
-				if(!stats.IsNull("LastPost")) 
-				{
-					Stats.Text += String.Format(GetText("stats_lastpost"),
-						FormatDateTime((DateTime)stats["LastPost"]),
-						String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastUserID"],stats["LastUser"])
-					);
-					Stats.Text += "<br/>";
-				}
-				
-				Stats.Text += String.Format(GetText("stats_members"),stats["members"]);
-				Stats.Text += "<br/>";
-
-				Stats.Text += String.Format(GetText("stats_lastmember"),
-					String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastMemberID"],stats["LastMember"])
-				);
-				Stats.Text += "<br/>";
-
-				DataRow activeStats = DB.active_stats();
-				activeinfo.Text = String.Format("<a href=\"activeusers.aspx\">{0}</a> - {1}, {2}.",
-					String.Format(GetText((int)activeStats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),activeStats["ActiveUsers"]),
-					String.Format(GetText((int)activeStats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),activeStats["ActiveMembers"]),
-					String.Format(GetText((int)activeStats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),activeStats["ActiveGuests"])
-				);
-
-				DataBind();
+				BindData();
 			}
+		}
+
+		private void MarkAll_Click(object sender, System.EventArgs e)
+		{
+			Session["lastvisit"] = DateTime.Now;
+			BindData();
+		}
+
+		private void BindData() 
+		{
+			DataSet ds = DB.ds_forumlayout(PageUserID,PageCategoryID);
+			CategoryList.DataSource = ds.Tables["yaf_Category"];
+
+			// Active users
+			// Call this before forum_stats to clean up active users
+			ActiveList.DataSource = DB.active_list(null);
+
+			// Forum statistics
+			DataRow stats = (DataRow)Cache["ForumStats"];
+			if(stats==null) 
+			{
+				stats = DB.stats();
+				Cache["ForumStats"] = stats;
+			}
+				
+			Stats.Text = String.Format(GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
+			Stats.Text += "<br/>";
+				
+			if(!stats.IsNull("LastPost")) 
+			{
+				Stats.Text += String.Format(GetText("stats_lastpost"),
+					FormatDateTime((DateTime)stats["LastPost"]),
+					String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastUserID"],stats["LastUser"])
+					);
+				Stats.Text += "<br/>";
+			}
+				
+			Stats.Text += String.Format(GetText("stats_members"),stats["members"]);
+			Stats.Text += "<br/>";
+
+			Stats.Text += String.Format(GetText("stats_lastmember"),
+				String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastMemberID"],stats["LastMember"])
+				);
+			Stats.Text += "<br/>";
+
+			DataRow activeStats = DB.active_stats();
+			activeinfo.Text = String.Format("<a href=\"activeusers.aspx\">{0}</a> - {1}, {2}.",
+				String.Format(GetText((int)activeStats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),activeStats["ActiveUsers"]),
+				String.Format(GetText((int)activeStats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),activeStats["ActiveMembers"]),
+				String.Format(GetText((int)activeStats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),activeStats["ActiveGuests"])
+				);
+
+			DataBind();
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			MarkAll.Click += new EventHandler(MarkAll_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -131,7 +145,6 @@ namespace yaf
 		private void InitializeComponent()
 		{    
 			this.Load += new System.EventHandler(this.Page_Load);
-
 		}
 		#endregion
 
@@ -165,14 +178,19 @@ namespace yaf
 				return "";
 		}
 
-		protected string GetForumIcon(object lastPosted,object Locked) 
+		protected string GetForumIcon(object o) 
 		{
+			DataRow		row			= (DataRow)o;
+			bool		locked		= (bool)row["Locked"];
+			DateTime	lastPosted	= (DateTime)row["LastPosted"];
+			DateTime	lastRead	= GetForumRead((int)row["ForumID"]);
+			
 			try 
 			{
-				if((bool)Locked)
+				if(locked)
 					return GetThemeContents("ICONS","FORUM_LOCKED");
 
-				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Session["lastvisit"])
+				if(lastPosted > lastRead)
 					return GetThemeContents("ICONS","FORUM_NEW");
 				else
 					return GetThemeContents("ICONS","FORUM");

@@ -5,7 +5,8 @@ create table [yaf_Attachment](
 	[AttachmentID]	[int] identity not null,
 	[MessageID]	[int] not null,
 	[FileName]	[varchar](50) not null,
-	[Bytes]		[int] not null
+	[Bytes]		[int] not null,
+	[FileID]	[int] null
 )
 GO
 
@@ -17,15 +18,6 @@ ALTER TABLE [yaf_Attachment] ADD
 	) REFERENCES [yaf_Message] (
 		[MessageID]
 	)
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_attachment_save
-GO
-
-create procedure yaf_attachment_save(@MessageID int,@FileName varchar(50),@Bytes int) as begin
-	insert into yaf_Attachment(MessageID,FileName,Bytes) values(@MessageID,@FileName,@Bytes)
-end
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='BlankLinks')

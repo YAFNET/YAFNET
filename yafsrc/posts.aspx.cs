@@ -129,6 +129,8 @@ namespace yaf
 
 				BindData();
 			}
+			/// Mark topic read
+			SetTopicRead(PageTopicID,DateTime.Now);
 		}
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
@@ -565,20 +567,20 @@ namespace yaf
 		
 			if(long.Parse(row["HasAttachments"].ToString())>0) 
 			{
-				string sUpDir = System.Configuration.ConfigurationSettings.AppSettings["uploaddir"];
-
-				html += String.Format("<p><b>{0}</b><br/>",GetText("ATTACHMENTS"));
-				using(DataTable dt = DB.attachment_list(row["MessageID"])) 
+				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",GetText("ATTACHMENTS"));
+				string stats = GetText("ATTACHMENTINFO");
+				using(DataTable dt = DB.attachment_list(row["MessageID"],null)) 
 				{
 					foreach(DataRow dr in dt.Rows) 
 					{
-						html += String.Format("<a href=\"{0}{1}\">{1}</a><br/>",sUpDir,dr["FileName"]);
+						int kb = (1023 + (int)dr["Bytes"]) / 1024;
+						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",BaseDir,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
 					}
 				}
 				html += "</p>";
 			}
 			
-			if(row["Signature"].ToString().Length>0)
+			if(row["Signature"] != DBNull.Value)
 				html += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,row["Signature"].ToString());
 
 			if(!isHtml)

@@ -20,6 +20,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Collections;
 using System.Data;
 using System.Globalization;
 using System.Threading;
@@ -193,6 +194,12 @@ namespace yaf
 			m_strSmtpServer = (string)m_pageinfo["SmtpServer"];
 			m_strForumEmail = (string)m_pageinfo["ForumEmail"];
 
+			if(Request.Cookies["yaf"]!=null) 
+			{
+				Response.Cookies.Add(Request.Cookies["yaf"]);
+				Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+			}
+
 			if(Session["lastvisit"] == null && (int)m_pageinfo["Incoming"]>0) 
 			{
 				AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
@@ -210,10 +217,12 @@ namespace yaf
 				}
 				Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
 				Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+				SetCookie("topicsread","");
 			}
 			else if(Session["lastvisit"] == null) 
 			{
 				Session["lastvisit"] = DateTime.Now;
+				SetCookie("topicsread","");
 			}
 
 			if(Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
@@ -260,6 +269,42 @@ namespace yaf
 			}
 		}
 
+		public DateTime GetForumRead(int forumID)
+		{
+			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["forumread"];
+			if(t==null || !t.ContainsKey(forumID)) 
+				return (DateTime)Session["lastvisit"];
+			else
+				return (DateTime)t[forumID];
+		}
+		public void SetForumRead(int forumID,DateTime date) 
+		{
+			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["forumread"];
+			if(t==null) 
+			{
+				t = new System.Collections.Hashtable();
+			}
+			t[forumID] = date;
+			Session["forumread"] = t;
+		}
+		public DateTime GetTopicRead(int topicID)
+		{
+			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["topicread"];
+			if(t==null || !t.ContainsKey(topicID)) 
+				return (DateTime)Session["lastvisit"];
+			else
+				return (DateTime)t[topicID];
+		}
+		public void SetTopicRead(int topicID,DateTime date) 
+		{
+			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["topicread"];
+			if(t==null) 
+			{
+				t = new System.Collections.Hashtable();
+			}
+			t[topicID] = date;
+			Session["topicread"] = t;
+		}
 		#endregion
 		#region Theme Functions
 		// XML THEME FILE (TEST)
@@ -481,7 +526,27 @@ namespace yaf
 #endif
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
-			} else {
+
+#if DEBUG && false
+				foreach(string key in HttpContext.Current.Session)
+				{
+					if(HttpContext.Current.Session[key].GetType()==typeof(System.Collections.Hashtable)) 
+					{
+						System.Collections.Hashtable h = (System.Collections.Hashtable)HttpContext.Current.Session[key];
+						writer.WriteLine("<b>{0}:</b><ul>",key);
+						foreach(object hk in h.Keys)
+							writer.WriteLine("<li>{0} = {1}</li>",hk,h[hk]);
+						writer.WriteLine("</ul><br>");
+					}
+					else 
+					{
+						writer.WriteLine("{0} = {1}<br/>",key,HttpContext.Current.Session[key]);
+					}
+				}
+#endif
+			} 
+			else 
+			{
 				writer.WriteLine("<html>");
 				writer.WriteLine("<!-- Copyright 2003 Bjørnar Henden -->");
 				writer.WriteLine("<head>");
@@ -1070,6 +1135,29 @@ namespace yaf
 				return m_bCheckSuspended;
 			}
 		}
+		public string GetCookie(string key) 
+		{
+			return Request.Cookies["yaf"][key];
+		}
+		public void SetCookie(string key,string cookie) 
+		{
+			Response.Cookies["yaf"][key] = cookie;
+			Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+		}
+		public HttpCookie RequestCookie
+		{
+			get
+			{
+				HttpCookie cookie = Request.Cookies["yaf"];
+				if(cookie==null) 
+				{
+					cookie = new HttpCookie("yaf");
+					cookie.Expires = DateTime.Now + TimeSpan.FromDays(365);
+					//Request.AppendCookie(cookie);
+				}
+				return cookie;
+			}
+		}
 		public HttpCookie ResponseCookie 
 		{
 			get 
@@ -1267,6 +1355,16 @@ namespace yaf
 			if(str==null) 
 			{
 #if !DEBUG
+				string filename = null;
+
+				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
+					filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+				else
+					filename = (string)m_pageinfo["LanguageFile"];
+
+				if(filename==null)
+					filename = "english.xml";
+
 				Cache.Remove("Localizer." + filename);
 #endif
 				throw new Exception(String.Format("Missing translation for {1}.{0}",text.ToUpper(),page.ToUpper()));
@@ -1310,7 +1408,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,11,19);
+				return new DateTime(2003,11,20);
 			}
 		}
 		#endregion

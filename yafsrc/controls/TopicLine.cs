@@ -25,9 +25,9 @@ namespace yaf.controls
 			// Icon
 			html.AppendFormat("<td><img src='{0}'></td>",GetTopicImage(m_row));
 			// Topic
-			html.AppendFormat("<td><span class='largefont'>{0}",GetPriorityMessage(m_row));
-			html.AppendFormat("<a href='posts.aspx?t={0}'>{1}</a></span>",m_row["LinkTopicID"],m_row["Subject"]);
-			html.AppendFormat("<br/>{0}: {1}",Page.GetText("TOPICS","CREATED"),Page.FormatDateShort(m_row["Posted"]));
+			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
+			html.AppendFormat("<a href='posts.aspx?t={0}'>{1}</a>",m_row["LinkTopicID"],m_row["Subject"]);
+			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",Page.GetText("TOPICS","CREATED"),Page.FormatDateShort(m_row["Posted"]));
 			html.Append("</td>");
 			// Topic Starter
 			html.AppendFormat("<td><a href='profile.aspx?u={0}'>{1}</a></td>",m_row["UserID"],m_row["Starter"]);
@@ -46,12 +46,13 @@ namespace yaf.controls
 
 		protected string GetTopicImage(object o) 
 		{
-			DataRowView row = (DataRowView)o;
-			object lastPosted = row["LastPosted"];
-			object isLocked = row["IsLocked"];
+			DataRowView	row			= (DataRowView)o;
+			DateTime	lastPosted	= (DateTime)row["LastPosted"];
+			bool		isLocked	= (bool)row["IsLocked"];
+			
 			try 
 			{
-				bool bIsLocked = (bool)isLocked || (bool)m_row["ForumLocked"];
+				bool bIsLocked = isLocked || (bool)m_row["ForumLocked"];
 
 				if(row["PollID"].ToString().Length>0)
 					return Page.GetThemeContents("ICONS","TOPIC_POLL");
@@ -65,8 +66,13 @@ namespace yaf.controls
 				if(row["Priority"].ToString() == "2")
 					return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
 
-				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Page.Session["lastvisit"]) 
+				DateTime lastRead = Page.GetTopicRead((int)row["TopicID"]);
+				DateTime lastReadForum = Page.GetForumRead((int)row["ForumID"]);
+				if(lastReadForum>lastRead) lastRead = lastReadForum;
+
+				if(lastPosted > lastRead) 
 				{
+					Page.Session["unreadtopics"] = 1 + (int)Page.Session["unreadtopics"];
 					if(bIsLocked)
 						return Page.GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
 					else

@@ -26,7 +26,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(null);
+			List.DataSource = DB.attachment_list(null,null);
 			DataBind();
 		}
 

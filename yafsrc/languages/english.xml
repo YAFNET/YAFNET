@@ -57,6 +57,7 @@
 		<Resource tag="DELETE">Delete</Resource>
 		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
 		<Resource tag="ASK_DELETE">Delete this attachment?</Resource>
+		<Resource tag="ERROR_TOOBIG">You cannot attach files that big.</Resource>
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
@@ -87,6 +88,7 @@
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
 		<Resource tag="VIEWING">({0} Viewing)</Resource>
 		<Resource tag="ERROR_NOFORUMACCESS">You don't have access to the chosen forum.</Resource>
+		<Resource tag="MARKALL">Mark all forums as read</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -113,6 +115,7 @@
 		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
 		<Resource tag="WARN_LOGIN_FORUMWATCH">You must be registered to watch forums.</Resource>
 		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts arrive in this forum.</Resource>
+		<Resource tag="MARKREAD">Mark this forum as read</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -149,6 +152,7 @@
 		<Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
 		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
 		<Resource tag="ATTACHMENTS">Attachments:</Resource>
+		<Resource tag="ATTACHMENTINFO">{0:N0} KB, downloaded {1:N0} time(s).</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

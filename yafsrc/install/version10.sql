@@ -21,6 +21,38 @@ begin
 end
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='UseFileTable')
+	alter table yaf_System add UseFileTable bit null
+GO
+
+update yaf_System set UseFileTable=0 where UseFileTable is null
+GO
+
+alter table yaf_System alter column UseFileTable bit not null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='MaxFileSize')
+	alter table yaf_System add MaxFileSize int null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Attachment') and name='ContentType')
+	alter table yaf_Attachment add ContentType varchar(50) null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Attachment') and name='Downloads')
+	alter table yaf_Attachment add Downloads int null
+GO
+
+update yaf_Attachment set Downloads=0 where Downloads is null
+GO
+
+alter table yaf_Attachment alter column Downloads int not null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Attachment') and name='FileData')
+	alter table yaf_Attachment add FileData image null
+GO
+
 if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_AccessMask](
 	[AccessMaskID]		[int] IDENTITY NOT NULL ,
@@ -1019,5 +1051,184 @@ begin
 		RankID = @RankID
 	where UserID = @UserID
 	select UserID = @UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_save
+GO
+
+create procedure yaf_system_save(
+	@Name				varchar(50),
+	@TimeZone			int,
+	@SmtpServer			varchar(50),
+	@SmtpUserName		varchar(50)=null,
+	@SmtpUserPass		varchar(50)=null,
+	@ForumEmail			varchar(50),
+	@EmailVerification	bit,
+	@ShowMoved			bit,
+	@BlankLinks			bit,
+	@ShowGroups			bit,
+	@AvatarWidth		int,
+	@AvatarHeight		int,
+	@AvatarUpload		bit,
+	@AvatarRemote		bit,
+	@AvatarSize			int=null,
+	@AllowRichEdit		bit,
+	@AllowUserTheme		bit,
+	@AllowUserLanguage	bit,
+	@UseFileTable		bit,
+	@MaxFileSize		int=null
+) as
+begin
+	update yaf_System set
+		Name = @Name,
+		TimeZone = @TimeZone,
+		SmtpServer = @SmtpServer,
+		SmtpUserName = @SmtpUserName,
+		SmtpUserPass = @SmtpUserPass,
+		ForumEmail = @ForumEmail,
+		EmailVerification = @EmailVerification,
+		ShowMoved = @ShowMoved,
+		BlankLinks = @BlankLinks,
+		ShowGroups = @ShowGroups,
+		AvatarWidth = @AvatarWidth,
+		AvatarHeight = @AvatarHeight,
+		AvatarUpload = @AvatarUpload,
+		AvatarRemote = @AvatarRemote,
+		AvatarSize = @AvatarSize,
+		AllowRichEdit = @AllowRichEdit,
+		AllowUserTheme = @AllowUserTheme,
+		AllowUserLanguage = @AllowUserLanguage,
+		UseFileTable = @UseFileTable,
+		MaxFileSize = @MaxFileSize
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_initialize
+GO
+
+create procedure yaf_system_initialize(
+	@Name		varchar(50),
+	@TimeZone	int,
+	@ForumEmail	varchar(50),
+	@SmtpServer	varchar(50),
+	@User		varchar(50),
+	@UserEmail	varchar(50),
+	@Password	varchar(32)
+) as 
+begin
+	declare @GroupID int
+	declare @RankID int
+	declare @UserID int
+
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit,AllowUserTheme,AllowUserLanguage,UseFileTable)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Administration',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Administration',1,0,0,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
+	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Guest',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Guest',0,1,0,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
+	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	-- users starts as Newbie
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Newbie',1,1,0)
+
+	-- advances to Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Member',0,1,10)
+
+	-- and ends up as Advanced Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Advanced Member',0,1,30)
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Member',0,0,1,0)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_save
+GO
+
+create procedure yaf_attachment_save(@MessageID int,@FileName varchar(50),@Bytes int,@ContentType varchar(50)=null,@FileData image=null) as begin
+	insert into yaf_Attachment(MessageID,FileName,Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_list
+GO
+
+create procedure yaf_attachment_list(@MessageID int=null,@AttachmentID int=null) as begin
+	if @MessageID is not null
+		select * from yaf_Attachment where MessageID=@MessageID
+	else if @AttachmentID is not null
+		select * from yaf_Attachment where AttachmentID=@AttachmentID
+	else
+		select 
+			a.*,
+			Posted		= b.Posted,
+			ForumID		= d.ForumID,
+			ForumName	= d.Name,
+			TopicID		= c.TopicID,
+			TopicName	= c.Topic
+		from 
+			yaf_Attachment a,
+			yaf_Message b,
+			yaf_Topic c,
+			yaf_Forum d
+		where
+			b.MessageID = a.MessageID and
+			c.TopicID = b.TopicID and
+			d.ForumID = c.ForumID
+		order by
+			d.Name,
+			c.Topic,
+			b.Posted
+end
+go
+
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_download') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_download
+GO
+
+create procedure yaf_attachment_download(@AttachmentID int) as
+begin
+	update yaf_Attachment set Downloads=Downloads+1 where AttachmentID=@AttachmentID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_saveavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_saveavatar
+GO
+
+create procedure yaf_user_saveavatar(@UserID int,@AvatarImage image) as
+begin
+	update yaf_User set AvatarImage=@AvatarImage where UserID = @UserID
 end
 GO

@@ -176,7 +176,9 @@ CREATE TABLE [yaf_System] (
 	[AvatarSize] [int] NULL,
 	[AllowRichEdit] [bit] NOT NULL,
 	[AllowUserTheme] [bit] NOT NULL,
-	[AllowUserLanguage] [bit] NOT NULL
+	[AllowUserLanguage] [bit] NOT NULL,
+	[UseFileTable] [bit] NOT NULL,
+	[MaxFileSize] [int] NULL
 ) ON [PRIMARY]
 GO
 

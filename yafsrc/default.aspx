@@ -35,10 +35,10 @@
 		<asp:Repeater id=ForumList runat="server" onitemcommand='ForumList_ItemCommand' datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
 			<ItemTemplate>
 				<tr class=post>
-					<td><img src='<%# GetForumIcon(DataBinder.Eval(Container.DataItem, "[\"LastPosted\"]"),DataBinder.Eval(Container.DataItem, "[\"Locked\"]")) %>'></td>
+					<td><img src='<%# GetForumIcon(Container.DataItem) %>'></td>
 					<td>
-						<asp:linkbutton runat="server" cssclass=largefont commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><%# GetViewing(Container.DataItem) %><br>
-						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
+						<asp:linkbutton runat="server" commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><%# GetViewing(Container.DataItem) %><br>
+						<span class="smallfont"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 						<br>
 						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
 							<HeaderTemplate><span class=smallfont><%# GetText("moderators") %>: </HeaderTemplate>
@@ -49,7 +49,7 @@
 					</td>
 					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"Topics\"]") %></td>
 					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"Posts\"]") %></td>
-					<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRow)Container.DataItem) %></td>
+					<td align=center class=smallfont nowrap="nowrap"><%# FormatLastPost((System.Data.DataRow)Container.DataItem) %></td>
 				</tr>
 			</ItemTemplate>
 		</asp:Repeater>
@@ -88,11 +88,14 @@
 </tr>
 </table>
 
-<table cellspacing=1 cellpadding=1>
+<table cellspacing=1 cellpadding=1 width="100%">
 	<tr>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_NEW") %>'> <%# GetText("ICONLEGEND","New_Posts") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM") %>'> <%# GetText("ICONLEGEND","No_New_Posts") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_LOCKED") %>'> <%# GetText("ICONLEGEND","Forum_Locked") %></td>
+		<td>
+			<img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_NEW") %>'> <%# GetText("ICONLEGEND","New_Posts") %>
+			<img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM") %>'> <%# GetText("ICONLEGEND","No_New_Posts") %>
+			<img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_LOCKED") %>'> <%# GetText("ICONLEGEND","Forum_Locked") %>
+		</td>
+		<td align="right"><asp:linkbutton runat="server" id="MarkAll"/></td>
 	</tr>
 </table>
 
