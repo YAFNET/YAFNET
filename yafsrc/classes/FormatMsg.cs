@@ -251,7 +251,7 @@ namespace yaf
 			Message = RepairHtml(basePage,Message,mFlags.IsHTML);
 
 			// do BBCode and Smilies...
-			Message = BBCode.MakeHtml(basePage,Message);
+			Message = BBCode.MakeHtml(basePage,Message,mFlags.IsBBCode);
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 

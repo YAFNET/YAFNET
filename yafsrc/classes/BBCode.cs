@@ -80,7 +80,7 @@ namespace yaf
 		static private Regex		r_post = new Regex(@"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]",m_options);
 		static private Regex		r_topic = new Regex(@"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]",m_options);
 
-		static public string MakeHtml(yaf.pages.ForumPage basePage,string bbcode)
+		static public string MakeHtml(yaf.pages.ForumPage basePage,string bbcode,bool DoFormatting)
 		{
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
@@ -126,29 +126,35 @@ namespace yaf
 
 			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
 
-			NestedReplace(ref bbcode,r_bold,"<b>${inner}</b>");
-			NestedReplace(ref bbcode,r_strike,"<s>${inner}</s>");
-			NestedReplace(ref bbcode,r_italic,"<i>${inner}</i>");
-			NestedReplace(ref bbcode,r_underline,"<u>${inner}</u>");
-			// e-mails
-			NestedReplace(ref bbcode,r_email2,"<a href=\"mailto:${email}\">${inner}</a>",new string[]{"email"});
-			NestedReplace(ref bbcode,r_email1,"<a href=\"mailto:${inner}\">${inner}</a>");
-			// urls
-			NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
-			NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
-			// font
-			NestedReplace(ref bbcode,r_font,"<span style=\"font-family:${font}\">${inner}</span>",new string[]{"font"});
-			NestedReplace(ref bbcode,r_color,"<span style=\"color:${color}\">${inner}</span>",new string[]{"color"});
-			// bullets
-			bbcode = r_bullet.Replace(bbcode,"<li>");
-			NestedReplace(ref bbcode,r_list4,"<ol type=\"i\">${inner}</ol>");
-			NestedReplace(ref bbcode,r_list3,"<ol type=\"a\">${inner}</ol>");
-			NestedReplace(ref bbcode,r_list2,"<ol>${inner}</ol>");
-			NestedReplace(ref bbcode,r_list2,"<ul>${inner}</ul>");
-			// alignment
-			NestedReplace(ref bbcode,r_center,"<div align=\"center\">${inner}</div>");
-			NestedReplace(ref bbcode,r_left,"<div align=\"left\">${inner}</div>");
-			NestedReplace(ref bbcode,r_right,"<div align=\"right\">${inner}</div>");
+			if (DoFormatting)
+			{
+				NestedReplace(ref bbcode,r_bold,"<b>${inner}</b>");
+				NestedReplace(ref bbcode,r_strike,"<s>${inner}</s>");
+				NestedReplace(ref bbcode,r_italic,"<i>${inner}</i>");
+				NestedReplace(ref bbcode,r_underline,"<u>${inner}</u>");
+				// e-mails
+				NestedReplace(ref bbcode,r_email2,"<a href=\"mailto:${email}\">${inner}</a>",new string[]{"email"});
+				NestedReplace(ref bbcode,r_email1,"<a href=\"mailto:${inner}\">${inner}</a>");
+				// urls
+				NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
+				NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
+				// font
+				NestedReplace(ref bbcode,r_font,"<span style=\"font-family:${font}\">${inner}</span>",new string[]{"font"});
+				NestedReplace(ref bbcode,r_color,"<span style=\"color:${color}\">${inner}</span>",new string[]{"color"});
+				// bullets
+				bbcode = r_bullet.Replace(bbcode,"<li>");
+				NestedReplace(ref bbcode,r_list4,"<ol type=\"i\">${inner}</ol>");
+				NestedReplace(ref bbcode,r_list3,"<ol type=\"a\">${inner}</ol>");
+				NestedReplace(ref bbcode,r_list2,"<ol>${inner}</ol>");
+				NestedReplace(ref bbcode,r_list2,"<ul>${inner}</ul>");
+				// alignment
+				NestedReplace(ref bbcode,r_center,"<div align=\"center\">${inner}</div>");
+				NestedReplace(ref bbcode,r_left,"<div align=\"left\">${inner}</div>");
+				NestedReplace(ref bbcode,r_right,"<div align=\"right\">${inner}</div>");
+
+				bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
+				bbcode = r_br.Replace(bbcode,"<br/>");
+			}
 
 			while(r_quote2.IsMatch(bbcode))
 				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>${quote} wrote:</b><div class='innerquote'>${inner}</div></div>");
@@ -175,9 +181,6 @@ namespace yaf
 			{
 				bbcode = bbcode.Replace(string.Format(codeFormat,--nCodes),codes[nCodes].ToString());
 			}
-
-			bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
-			bbcode = r_br.Replace(bbcode,"<br/>");
 
 			return bbcode;
 		}
