@@ -9,15 +9,15 @@
 					<td class="header1" colspan="3">Replace Words</td>
 				</tr>
 				<tr>
-					<td class="header2">Badword</td>
-					<td class="header2">Goodword</td>
+					<td class="header2">Bad Word</td>
+					<td class="header2">Good Word</td>
 					<td class="header2">&nbsp;</td>
 				</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"badword") %></td>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"goodword") %></td>
+				<td class="post"><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"badword"))) %></td>
+				<td class="post"><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"goodword"))) %></td>
 				<td class="post">
 					<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem,"ID") %>' ID="Linkbutton1">
 					</asp:linkbutton>
