@@ -2230,6 +2230,17 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public int user_nntp(object boardID,object userName,object email)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_nntp")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@UserName",userName);
+				cmd.Parameters.Add("@Email",email);
+				return (int)ExecuteScalar(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_UserForum

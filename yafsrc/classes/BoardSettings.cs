@@ -240,6 +240,11 @@ namespace yaf
 			get { return m_reg.GetValueBool("DisableRegistrations",false); }
 			set { m_reg.SetValueBool("DisableRegistrations",value); }
 		}
+		public bool CreateNntpUsers
+		{
+			get { return m_reg.GetValueBool("CreateNntpUsers",false); }
+			set { m_reg.SetValueBool("CreateNntpUsers",value); }
+		}
 
 		// string settings
 		public string ForumEmail 

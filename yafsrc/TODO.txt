@@ -19,8 +19,4 @@
 - A fast response text box (only simple text with post button) at the bottom of 
   an open topic if the user can reply. So if I read a topic and want to reply 
   "on the fly" I can do it immediatly.
-- Fix translation again for richedit.
-- Add colors to rich editor.
-- Ok this is what i get after i try to add a sub forum.... "User 'pro-logic' isn't registered."
-- Possible to modify subject of messages?!?
 - Error deleting posts with attachments.

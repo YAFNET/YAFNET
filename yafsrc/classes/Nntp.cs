@@ -307,6 +307,35 @@ namespace yaf.classes
 					return name;
 				}
 			}
+			public string FromEmail
+			{
+				get 
+				{
+					string name = m_sFrom.Trim();
+					int pos1, pos2;
+					// Name <email>
+					pos1 = name.IndexOf('<');
+					pos2 = name.IndexOf('>');
+					if(pos1>=0 && pos2>pos1) 
+					{
+						name = name.Substring(pos1+1,pos2-pos1-1).Trim();
+						return name;
+					}
+					// email (Name)
+					pos1 = name.IndexOf('(');
+					pos2 = name.IndexOf(')');
+					if(pos1>0 && pos2>pos1) 
+					{
+						name = name.Substring(0,pos1-1).Trim();
+						return name;
+					}
+					if(Utils.IsValidEmail(name))
+						return name;
+
+					//throw new ApplicationException(string.Format("Wrong name format '{0}'",name));
+					return name;
+				}
+			}
 			public string Subject 
 			{
 				get 
@@ -498,7 +527,7 @@ namespace yaf.classes
 			return new ArticleInfo(ReadArticle());
 		}
 
-		static public int ReadArticles(object boardID,int nLastUpdate,int nTimeToRun) 
+		static public int ReadArticles(object boardID,int nLastUpdate,int nTimeToRun,bool bCreateUsers) 
 		{
 			int			nUserID			= DB.user_guest();	// Use guests user-id
 			string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
@@ -559,6 +588,9 @@ namespace yaf.classes
 							
 								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
 								sBody = String.Format("Date parsed: {0}\r\n",dtDate) + sBody;
+
+								if(bCreateUsers)
+									nUserID = DB.user_nntp(boardID,sFrom,article.FromEmail);
 
 								sBody = System.Web.HttpContext.Current.Server.HtmlEncode(sBody);
 								DB.nntptopic_savemessage(drForum["NntpForumID"],sSubject,sBody,nUserID,sFrom,sHostAddress,dtDate,sThread);

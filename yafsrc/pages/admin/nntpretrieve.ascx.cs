@@ -82,7 +82,7 @@ namespace yaf.pages.admin
 		{
 			int nSeconds = int.Parse(Seconds.Text);
 			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = classes.Nntp.ReadArticles(PageBoardID,10,nSeconds);
+			int nArticleCount = classes.Nntp.ReadArticles(PageBoardID,10,nSeconds,BoardSettings.CreateNntpUsers);
 			AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}

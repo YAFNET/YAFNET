@@ -5047,3 +5047,33 @@ begin
 	delete from yaf_Board where BoardID=@BoardID
 end
 GO
+
+-- yaf_user_nntp
+if exists (select * from sysobjects where id = object_id(N'yaf_user_nntp') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_nntp
+go
+
+create procedure dbo.yaf_user_nntp(@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
+begin
+	declare @UserID int
+
+	set @UserName = 'NNTP-' + @UserName
+
+	select
+		@UserID=UserID
+	from
+		yaf_User
+	where
+		BoardID=@BoardID and
+		Name=@UserName
+
+	if @@ROWCOUNT<1
+	begin
+		exec yaf_user_save 0,@BoardID,@UserName,'-',@Email,null,'Usenet',null,0,null,null,null,1,null,null,null,null,null,null,null,0,null
+		-- The next one is not safe, but this procedure is only used for testing
+		select @UserID=max(UserID) from yaf_User
+	end
+
+	select UserID=@UserID
+end
+go

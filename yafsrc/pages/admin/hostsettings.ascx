@@ -115,6 +115,13 @@
 			<TD class="post">
 				<asp:checkbox id="DateFormatFromLanguage" runat="server"></asp:checkbox></TD>
 		</TR>
+		<tr>
+			<td class="postheader"><b>Create NNTP user names:</b><br/>
+				Check to allow users to automatically be created when downloading usenet messages. 
+				Only enable this in a test environment, and <em>NEVER</em> in a production environment.
+				The main purpose of this option is for performance testing.</td>
+			<td class="post"><asp:checkbox runat="server" id="CreateNntpUsers"/></td>
+		</tr>
 		<TR>
 			<TD class="header2" align="center" colSpan="2">Editing/Formatting Settings</TD>
 		</TR>
