@@ -55,35 +55,6 @@ namespace yaf
 			}
 		}
 
-		public static bool AddUser(string UserName,string Password,string Email,string Hash,object Location,object HomePage,int TimeZone,bool Approved) 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_find")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserName",UserName);
-				cmd.Parameters.Add("@Email",Email);
-				DataTable dtUser = DataManager.GetData(cmd);
-				if(dtUser.Rows.Count>0)
-					return false;
-			}
-			using(SqlCommand cmd = new SqlCommand("yaf_user_save")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				int UserID = 0;
-				cmd.Parameters.Add("@UserID",UserID);
-				cmd.Parameters.Add("@UserName",UserName);
-				cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(Password,"md5"));
-				cmd.Parameters.Add("@Email",Email);
-				cmd.Parameters.Add("@Hash",Hash);
-				cmd.Parameters.Add("@Location",Location);
-				cmd.Parameters.Add("@HomePage",HomePage);
-				cmd.Parameters.Add("@TimeZone",TimeZone);
-				cmd.Parameters.Add("@Approved",Approved);
-				yaf.DataManager.ExecuteNonQuery(cmd);
-				return true;
-			}
-		}
-
 		public static DataRow TopicInfo(long TopicID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_info")) 

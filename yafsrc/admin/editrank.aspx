@@ -12,7 +12,7 @@
     <td class=post colspan=7><asp:textbox style="width:300px" id=Name runat="server"/></td></tr>
  
   <tr>
-    <td class=postheader colspan=4><b>Is Start:</b><br/>Means that this is the rank that new users belong to.</td>
+    <td class=postheader colspan=4><b>Is Start:</b><br/>Means that this is the rank that new users belong to. Only one rank should have this checked.</td>
     <td class=post colspan=7><asp:checkbox id=IsStart runat="server"></asp:checkbox></td></tr>
     
   <tr>

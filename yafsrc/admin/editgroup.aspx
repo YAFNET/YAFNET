@@ -14,11 +14,11 @@
     <td class=postheader colspan=4><b>Is Admin:</b><br/>Means that users in this group are admins.</td>
     <td class=post colspan=7><asp:checkbox id=IsAdminX runat="server"></asp:checkbox></td></tr>
   <tr>
-    <td class=postheader colspan=4><b>Is Guest:</b><br/>Means that users in this group are guests (anonymous).</td>
+    <td class=postheader colspan=4><b>Is Guest:</b><br/>Means that users in this group are guests (anonymous). Only one group should have this checked.</td>
     <td class=post colspan=7><asp:checkbox id=IsGuestGroup runat="server"></asp:checkbox></td></tr>
   
   <tr>
-    <td class=postheader colspan=4><b>Is Start:</b><br/>Means that this is the group that new users start in.</td>
+    <td class=postheader colspan=4><b>Is Start:</b><br/>If this is checked, all new users will be a member of this group.</td>
     <td class=post colspan=7><asp:checkbox id=IsStart runat="server"></asp:checkbox></td></tr>
     
     <asp:repeater id=AccessList runat="server">

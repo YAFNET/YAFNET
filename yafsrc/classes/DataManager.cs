@@ -57,16 +57,31 @@ namespace yaf
 
 		public static DataTable GetData(SqlCommand cmd) 
 		{
-			using(SqlConnection conn = GetConnection()) 
+			if(cmd.Connection!=null) 
 			{
 				using(DataSet ds = new DataSet()) 
 				{
 					using(SqlDataAdapter da = new SqlDataAdapter()) 
 					{
 						da.SelectCommand = cmd;
-						da.SelectCommand.Connection = conn;
 						da.Fill(ds);
 						return ds.Tables[0];
+					}
+				}
+			} 
+			else 
+			{
+				using(SqlConnection conn = GetConnection()) 
+				{
+					using(DataSet ds = new DataSet()) 
+					{
+						using(SqlDataAdapter da = new SqlDataAdapter()) 
+						{
+							da.SelectCommand = cmd;
+							da.SelectCommand.Connection = conn;
+							da.Fill(ds);
+							return ds.Tables[0];
+						}
 					}
 				}
 			}
