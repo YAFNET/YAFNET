@@ -90,6 +90,9 @@ begin
 	delete from yaf_Rank where BoardID=@BoardID
 	delete from yaf_Group where BoardID=@BoardID
 	delete from yaf_AccessMask where BoardID=@BoardID
+	 --ABOT NEW 09.04.2004
+	delete from yaf_Active where BoardID=@BoardID
+	 --END ABOT NEW 09.04.2004
 	delete from yaf_Board where BoardID=@BoardID
 end
 GO
