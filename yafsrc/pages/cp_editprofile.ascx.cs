@@ -146,15 +146,19 @@ namespace yaf.pages
 			ICQ.Text = row["ICQ"].ToString();
 			Gender.SelectedIndex = Convert.ToInt32(row["Gender"]);
 
-			string themeFile = Config.ConfigSection["theme"];
-			string languageFile = Config.ConfigSection["language"];
-			if(!row.IsNull("ThemeFile"))
-				themeFile = (string)row["ThemeFile"];
-			if(!row.IsNull("LanguageFile"))
-				languageFile = (string)row["LanguageFile"];
+			if (UserThemeRow.Visible)
+			{
+				string themeFile = Config.ConfigSection["theme"];
+				if (!row.IsNull("ThemeFile")) themeFile = Convert.ToString(row["ThemeFile"]);
+				Theme.Items.FindByValue(themeFile).Selected = true;
+			}
 
-			Theme.Items.FindByValue(themeFile).Selected = true;
-			Language.Items.FindByValue(languageFile).Selected = true;
+			if (UserLanguageRow.Visible)
+			{
+				string languageFile = Config.ConfigSection["language"];
+				if (!row.IsNull("LanguageFile")) languageFile = Convert.ToString(row["LanguageFile"]);
+				Language.Items.FindByValue(languageFile).Selected = true;				
+			}
 
 			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
 			AvatarImg.Visible = row["Avatar"].ToString().Length>0;
