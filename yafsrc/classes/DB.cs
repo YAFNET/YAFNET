@@ -105,6 +105,14 @@ namespace yaf
 		{
 		}
 		#region DB Access Functions
+		static public IsolationLevel IsolationLevel
+		{
+			get
+			{
+				return m_isoLevel;
+			}
+		}
+
 		/// <summary>
 		/// Gets Connection out of Web.config
 		/// </summary>

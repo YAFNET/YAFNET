@@ -194,7 +194,10 @@ namespace yaf.install
 			{
 				try 
 				{
-					SqlConnection conn = DB.GetConnection();
+					using(SqlConnection conn=DB.GetConnection()) 
+					{
+						conn.Close();
+					}
 				}
 				catch(Exception x) 
 				{
@@ -422,37 +425,39 @@ namespace yaf.install
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-			SqlConnection conn = DB.GetConnection();
-			using(SqlTransaction trans = conn.BeginTransaction()) 
+			using(SqlConnection conn = DB.GetConnection()) 
 			{
-				foreach(string sql0 in statements) 
+				using(SqlTransaction trans = conn.BeginTransaction(DB.IsolationLevel)) 
 				{
-					string sql = sql0.Trim();
-
-					try 
+					foreach(string sql0 in statements) 
 					{
-						if(sql.ToLower().IndexOf("setuser")>=0)
-							continue;
+						string sql = sql0.Trim();
 
-						if(sql.Length>0) 
+						try 
 						{
-							using(SqlCommand cmd = new SqlCommand()) 
+							if(sql.ToLower().IndexOf("setuser")>=0)
+								continue;
+
+							if(sql.Length>0) 
 							{
-								cmd.Transaction = trans;
-								cmd.Connection = conn;
-								cmd.CommandType = CommandType.Text;
-								cmd.CommandText = sql.Trim();
-								cmd.ExecuteNonQuery();
+								using(SqlCommand cmd = new SqlCommand()) 
+								{
+									cmd.Transaction = trans;
+									cmd.Connection = conn;
+									cmd.CommandType = CommandType.Text;
+									cmd.CommandText = sql.Trim();
+									cmd.ExecuteNonQuery();
+								}
 							}
 						}
+						catch(Exception x) 
+						{
+							trans.Rollback();
+							throw new Exception(String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",sScriptFile,sql,x.Message));
+						}
 					}
-					catch(Exception x) 
-					{
-						trans.Rollback();
-						throw new Exception(String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",sScriptFile,sql,x.Message));
-					}
+					trans.Commit();
 				}
-				trans.Commit();
 			}
 		}
 
@@ -460,7 +465,7 @@ namespace yaf.install
 		{
 			using(SqlConnection conn = DB.GetConnection()) 
 			{
-				using(DataSet ds=new DataSet()) 
+				using(SqlTransaction trans=conn.BeginTransaction(DB.IsolationLevel)) 
 				{
 					using(SqlDataAdapter da=new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'",conn)) 
 					{
@@ -479,6 +484,11 @@ namespace yaf.install
 									foreach(DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1")) 
 									{
 										cmd.CommandText = string.Format("grant execute on {0} to {1}",row["Name"],userName);
+										cmd.ExecuteNonQuery();
+									}
+									foreach(DataRow row in dt.Select("IsUserTable=1 or IsView=1")) 
+									{
+										cmd.CommandText = string.Format("grant select on {0} to {1}",row["Name"],userName);
 										cmd.ExecuteNonQuery();
 									}
 								} 
@@ -516,6 +526,7 @@ namespace yaf.install
 							}
 						}
 					}
+					trans.Commit();
 				}
 			}
 		}
