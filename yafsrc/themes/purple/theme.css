@@ -1,0 +1,165 @@
+body, td, input, select
+{
+	font-family: Verdana;
+	font-size: 8pt;
+}
+
+/*  */
+img 
+{
+	border: 0;
+}
+
+/* Header 1 - Main header */
+.header1 {
+	background-image: url('bg_header1.png');
+	background-color: #4B0082;
+	color: #FFFFFF;
+	font-weight: bold;
+	height: 32px;
+}
+
+/* Header 2 - Sub header */
+.header2 {
+	background-image: url('bg_header2.png');
+	background-color: #D8BFD8;
+	color: #000000;
+	font-weight: bold;
+	height: 28px;
+}
+
+/* Footer1 - Bottom of tables */
+.footer1 {
+	background-image: url('bg_footer1.png');
+	font-size: 7pt;
+	height: 28px;
+}
+
+.footer1 select, .footer1 td
+{
+	font-size: 7pt;
+}
+
+/* Header of posts */
+.postheader 
+{
+	background-color: #D8BFD8;
+}
+
+/* User info and post/article */
+.post 
+{
+	background-color: #DCDCDC;
+}
+
+/* Footer of posts */
+.postfooter 
+{
+	background-color: #D8BFD8;
+}
+
+/* Area between posts */
+.postsep 
+{
+	background-color: #9932CC;
+	height: 1px
+}
+
+/* most tables are class 'content' */
+table.content {
+	font-family: verdana;
+	font-size: 8pt;
+	border: 1px solid Purple;
+	color: #000000;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
+table.content td {
+	padding: 3px;
+}
+
+/* links inside content table*/
+.content a			{
+	color: Purple;
+	text-decoration: underline;
+}
+.content a:hover	{
+	color: Fuchsia;
+	text-decoration: underline;
+}
+
+/* used for quoting messages */
+.quote 
+{
+	padding-left: 16px;
+}
+
+.quoteinner 
+{
+	padding: 4px;
+	background-color: #DDA0DD;
+	border: 1px solid #D8BFD8;
+}
+
+/* font sizes */
+.smallfont	{ font-size: 7pt; }
+.largefont	{ font-size: 9pt; }
+
+/* Image Links */
+a.imagelink 
+{
+	font-family: Trebuchet MS;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #000000;
+}
+a:hover.imagelink
+{
+	text-decoration: none;
+	/*background-color: #D0D0D0;*/
+}
+
+/* Used for editor textarea */
+.posteditor 
+{
+	width: 100%;
+	height: 200px;
+	font-family: Verdana;
+	font-size: 8pt;
+}
+
+/* Table just above and below tables */
+table.command 
+{
+	/*border: solid 1px blue;*/
+	padding: 3px;
+}
+
+/* p-tag at the top of pages with navigation links */
+.navlinks { font-weight: bold; color: #000000; }
+.navlinks a {
+	color: Purple;
+	text-decoration: none
+}
+.navlinks a:hover {
+	color: Fuchsia;
+}
+
+/* for printing */
+table.print 
+{
+	border: solid 1px #C0C0C0;
+}
+.printheader 
+{
+	background-color: #DDDDDD;
+	color: #000000;
+	padding: 4px;
+}
+.printbody 
+{
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 4px;
+}

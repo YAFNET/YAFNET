@@ -1,0 +1,568 @@
+<?xml version="1.0"?>
+<Resources language="Русский">
+	<page name="COMMON">
+		<!-- common... -->
+		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
+		<Resource tag="SAVE">Сохранить</Resource>
+		<Resource tag="CANCEL">Отмена</Resource>
+		<Resource tag="FORUM_JUMP">Перейти</Resource>
+		<Resource tag="CAN_POST">Вы [b]можете[/b] создавать новые темы в этом форуме.</Resource>
+		<Resource tag="CAN_REPLY">Вы [b]можете[/b] отвечать в этом форуме.</Resource>
+		<Resource tag="CAN_DELETE">Вы [b]можете[/b] удалять Ваши сообщения в этом форуме.</Resource>
+		<Resource tag="CAN_EDIT">Вы [b]можете[/b] редактировать Ваши сообщения в этом форуме.</Resource>
+		<Resource tag="CAN_POLL">Вы [b]можете[/b] создавать опросы в этом форуме.</Resource>
+		<Resource tag="CAN_VOTE">Вы [b]можете[/b] голосовать в этом форуме.</Resource>
+		<Resource tag="CANNOT_POST">Вы [b]не можете[/b] создавать новые темы в этом форуме.</Resource>
+		<Resource tag="CANNOT_REPLY">Вы [b]не можете[/b] отвечать в этом форуме.</Resource>
+		<Resource tag="CANNOT_DELETE">Вы [b]не можете[/b] удалять Ваши сообщения в этом форуме.</Resource>
+		<Resource tag="CANNOT_EDIT">Вы [b]не можете[/b] редактировать Ваши сообщения в этом форуме.</Resource>
+		<Resource tag="CANNOT_POLL">Вы [b]не можете[/b] создавать опросы в этом форуме.</Resource>
+		<Resource tag="CANNOT_VOTE">Вы [b]не можете[/b] голосовать в этом форуме.</Resource>
+	</page>
+	<page name="TOOLBAR">
+		<!-- "Toolbar" at top of most pages -->
+		<Resource tag="SEARCH">Поиск</Resource>
+		<Resource tag="ADMIN">Админ</Resource>
+		<Resource tag="MODERATE">Модерирование</Resource>
+		<Resource tag="ACTIVETOPICS">Активные темы</Resource>
+		<Resource tag="MYPROFILE">Мой профиль</Resource>
+		<Resource tag="MEMBERS">Участники</Resource>
+		<Resource tag="LOGOUT">Выход</Resource>
+		<Resource tag="LOGIN">Вход</Resource>
+		<Resource tag="REGISTER">Регистрация</Resource>
+		<Resource tag="LOGGED_IN_AS">Добро пожаловать, {0}!</Resource>
+		<Resource tag="WELCOME_GUEST">Добро пожаловать!</Resource>
+	</page>
+	<page name="ICONLEGEND">
+		<!-- Common icon texts -->
+		<Resource tag="NEW_POSTS">Новые сообщения</Resource>
+		<Resource tag="NO_NEW_POSTS">Нет новых сообщений</Resource>
+		<Resource tag="ANNOUNCEMENT">Анонс</Resource>
+		<Resource tag="ANNOUNCEMENT_NEW">Анонс (Новые сообщения)</Resource>
+		<Resource tag="NEW_POSTS_LOCKED">Новые сообщения (в закрытом форуме)</Resource>
+		<Resource tag="NO_NEW_POSTS_LOCKED">Нет новых сообщений (в закрытом форуме)</Resource>
+		<Resource tag="FORUM_LOCKED">Форум закрыт</Resource>
+		<Resource tag="MOVED">Перемещена</Resource>
+		<Resource tag="POLL">Опрос</Resource>
+		<Resource tag="POLL_NEW">Опрос (Новое сообщение)</Resource>
+		<Resource tag="STICKY">Заметка</Resource>
+	</page>
+	<page name="ATTACHMENTS">
+		<Resource tag="TITLE">Вложения</Resource>
+		<Resource tag="BACK">Назад</Resource>
+		<Resource tag="UPLOAD">Отослать</Resource>
+		<Resource tag="SELECT_FILE">Выберите файл для отсылки.</Resource>
+		<Resource tag="UPLOAD_TITLE">Отсылка файла</Resource>
+		<Resource tag="FILENAME">Название файла</Resource>
+		<Resource tag="SIZE">Размер</Resource>
+		<Resource tag="DELETE">Удалить</Resource>
+		<Resource tag="FILEERROR">'{0}' неправильное имя файла.</Resource>
+		<Resource tag="ASK_DELETE">Удалить вложение?</Resource>
+		<Resource tag="ERROR_TOOBIG">Размер вложения превышает макимально допустимый.</Resource>
+	</page>
+	<page name="DEFAULT">
+		<!-- default.aspx -->
+		<Resource tag="FORUM">Форум</Resource>
+		<Resource tag="TOPICS">Тем</Resource>
+		<Resource tag="POSTS">Сообщений</Resource>
+		<Resource tag="LASTPOST">Последнее сообщение</Resource>
+		<Resource tag="MODERATORS">Модераторы</Resource>
+		<Resource tag="CURRENT_TIME">Текущее время: {0}.</Resource>
+		<Resource tag="LAST_VISIT">Время Вашего предыдущего визита: {0}.</Resource>
+		<Resource tag="STATS_POSTS">Всего // Сообщений: {0:N0}, Тем: {1:N0}, Форумов: {2:N0}.</Resource>
+		<Resource tag="STATS_LASTPOST">Последнее сообщение от {0} разместил {1}.</Resource>
+		<Resource tag="STATS_MEMBERS">Количество зарегистрированных пользователей: {0:N0}.</Resource>
+		<Resource tag="STATS_LASTMEMBER">Представляем нового пользователя: {0}.</Resource>
+		<Resource tag="IN">в {0}</Resource>
+		<Resource tag="BY">от {0}</Resource>
+		<Resource tag="NO_POSTS">Нет сообщений</Resource>
+		<Resource tag="UNREAD1">Новых сообщений в Вашем почтовом ящике: {0}.</Resource>
+		<Resource tag="UNREAD0">Новых сообщений в Вашем почтовом ящике: {0}.</Resource>
+		<Resource tag="INFORMATION">Информация</Resource>
+		<Resource tag="STATS">Статистика</Resource>
+		<Resource tag="ACTIVE_USERS">Активные пользователи</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">Активных пользователей: {0:N0}</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">Активных пользователей: {0:N0}</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">Участников: {0:N0}</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">Участников: {0:N0}</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS1">Гостей: {0:N0}</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS2">Гостей: {0:N0}</Resource>
+		<Resource tag="VIEWING">(Пользователей: {0})</Resource>
+		<Resource tag="ERROR_NOFORUMACCESS">У Вас нет доступа к выбранному форуму.</Resource>
+		<Resource tag="MARKALL">Пометить все форумы как прочтенные</Resource>
+		<Resource tag="GO_LAST_POST">Перейти к последнему размещенному сообщению</Resource>
+	</page>
+	<page name="TOPICS">
+		<!-- topics.aspx -->
+		<Resource tag="TOPICS">Тема</Resource>
+		<Resource tag="TOPIC_STARTER">Автор</Resource>
+		<Resource tag="REPLIES">Ответов</Resource>
+		<Resource tag="VIEWS">Просмотров</Resource>
+		<Resource tag="LASTPOST">Последнее сообщение</Resource>
+		<Resource tag="NO_POSTS">Нет сообщений</Resource>
+		<Resource tag="WATCHFORUM">Подписаться на форум</Resource>
+		<Resource tag="SHOWTOPICS">Показать темы</Resource>
+		<Resource tag="ALL">Все</Resource>
+		<Resource tag="LAST_DAY">за день</Resource>
+		<Resource tag="LAST_TWO_DAYS">за два дня</Resource>
+		<Resource tag="LAST_WEEK">за неделю</Resource>
+		<Resource tag="LAST_TWO_WEEKS">за две недели</Resource>
+		<Resource tag="LAST_MONTH">за месяц</Resource>
+		<Resource tag="LAST_TWO_MONTHS">за два месяца</Resource>
+		<Resource tag="LAST_SIX_MONTHS">за шесть месяцев</Resource>
+		<Resource tag="LAST_YEAR">за год</Resource>
+		<Resource tag="BY">от {0}</Resource>
+		<Resource tag="FORUMUSERS">Пользователи, просматривающие форум</Resource>
+		<Resource tag="CREATED">Создана</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Форум закрыт.</Resource>
+		<Resource tag="WARN_LOGIN_FORUMWATCH">Вы должны зарегистрироваться для подписки на данный форум.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">На Ваш электронный адрес будут высылаться уведомления о новых сообщениях в данном форуме.</Resource>
+		<Resource tag="MARKREAD">Пометить форум как прочтенный</Resource>
+		<Resource tag="SUBFORUMS">Подразделы</Resource>
+	</page>
+	<page name="POSTS">
+		<!-- posts.aspx -->
+		<Resource tag="QUESTION">Варианты ответов</Resource>
+		<Resource tag="CHOICE">Вариант</Resource>
+		<Resource tag="VOTES">Голосов</Resource>
+		<Resource tag="STATISTICS">Статистика</Resource>
+		<Resource tag="PREVTOPIC">Предыдущая тема</Resource>
+		<Resource tag="NEXTTOPIC">Следующая тема</Resource>
+		<Resource tag="WATCHTOPIC">Подписаться</Resource>
+		<Resource tag="EMAILTOPIC">Отправить по электронной почте</Resource>
+		<Resource tag="PRINTTOPIC">Распечатать</Resource>
+		<Resource tag="POSTED">От</Resource>
+		<Resource tag="TOP">В начало</Resource>
+		<Resource tag="PM">Приватное сообщение</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">Удалить сообщение?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Удалить тему?</Resource>
+		<Resource tag="RANK">Ранг</Resource>
+		<Resource tag="GROUPS">Группа</Resource>
+		<Resource tag="JOINED">Зарегистрирован</Resource>
+		<Resource tag="POSTS">Сообщений</Resource>
+		<Resource tag="LOCATION">Местонахождение</Resource>
+		<Resource tag="TOPICBROWSERS">Пользователей, просматривающих тему</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">Тема успешно закрыта.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">Тема успешно открыта.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">Тема закрыта.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Форум закрыт.</Resource>
+		<Resource tag="INFO_MESSAGE_DELETED">Сообщение успешно удалено.</Resource>
+		<Resource tag="WARN_PMLOGIN">Для отправки приватного сообщения Вам следует зарегистрироваться.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">Вы уже проголосовали.</Resource>
+		<Resource tag="INFO_VOTED">Спасибо за Ваше мнение!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">Для подписки Вы должны зарегистрироваться.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">На Ваш электронный адрес будут высылаться уведомления о новых сообщениях в этой теме.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">В форуме больше нет тем.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">Для отправки электронных писем Вам следует зарегистрироваться.</Resource>
+		<Resource tag="ATTACHMENTS">Вложений:</Resource>
+		<Resource tag="ATTACHMENTINFO">{0:N0} KB, загружено: {1:N0} раз.</Resource>
+		<Resource tag="NORMAL">Обычное</Resource>
+		<Resource tag="THREADED">В виде списка</Resource>
+	</page>
+	<page name="ACTIVE">
+		<!-- active.aspx -->
+		<Resource tag="TITLE">Активные темы</Resource>
+		<Resource tag="SINCE">с </Resource>
+		<Resource tag="LAST_VISIT">предыдущего визита от {0}</Resource>
+		<Resource tag="LAST_HOUR">за час</Resource>
+		<Resource tag="LAST_TWO_HOURS">за два часа</Resource>
+		<Resource tag="LAST_DAY">за день</Resource>
+		<Resource tag="LAST_TWO_DAYS">за два дня</Resource>
+		<Resource tag="LAST_WEEK">за неделю</Resource>
+		<Resource tag="LAST_TWO_WEEKS">за две недели</Resource>
+		<Resource tag="LAST_MONTH">за месяц</Resource>
+		<Resource tag="TOPICS">Тема</Resource>
+		<Resource tag="TOPIC_STARTER">Автор</Resource>
+		<Resource tag="REPLIES">Ответов</Resource>
+		<Resource tag="VIEWS">Просмотров</Resource>
+		<Resource tag="LASTPOST">Последнее сообщение</Resource>
+		<Resource tag="BY">от {0}</Resource>
+		<Resource tag="NO_POSTS">Нет сообщений</Resource>
+	</page>
+	<page name="ACTIVEUSERS">
+		<!-- activeusers.aspx -->
+		<Resource tag="TITLE">Активных пользователей</Resource>
+		<Resource tag="USERNAME">Имя</Resource>
+		<Resource tag="LOGGED_IN">Зарегистрирован как</Resource>
+		<Resource tag="LAST_ACTIVE">Предыдущий визит</Resource>
+		<Resource tag="ACTIVE">Активный</Resource>
+		<Resource tag="BROWSER">Просматривают</Resource>
+		<Resource tag="PLATFORM">Платформа</Resource>
+		<Resource tag="MINUTES">{0:N0} минут(ы)</Resource>
+	</page>
+	<page name="APPROVE">
+		<!-- approve.aspx -->
+		<Resource tag="TITLE">Проверка электронного адреса</Resource>
+		<Resource tag="EMAIL_VERIFIED">Зарегистрированный электронный адрес успешно проверен.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Невозможно проверить указанный электронный адрес.</Resource>
+		<Resource tag="ENTER_KEY">Введите ключ активации</Resource>
+		<Resource tag="VALIDATE">Проверка</Resource>
+	</page>
+	<page name="CP_EDITPROFILE">
+		<!-- cp_editprofile.aspx -->
+		<Resource tag="TITLE">Изменение профиля</Resource>
+		<Resource tag="LOCATION">Местонахождение</Resource>
+		<Resource tag="WHERE">Где Вы находитесь?</Resource>
+		<Resource tag="HOMEPAGE">Веб</Resource>
+		<Resource tag="HOMEPAGE2">Веб-сайт:</Resource>
+		<Resource tag="TIMEZONE">Временная зона</Resource>
+		<Resource tag="TIMEZONE2">Для отображения на форумах вашего локального времени, пожалуйста укажите Вашу временную зону</Resource>
+		<Resource tag="AVATAR">Аватара</Resource>
+		<Resource tag="AVATARUPLOAD">Загрузить аватару с Вашего компьютера.</Resource>
+		<Resource tag="AVATARDELETE">Удалить загруженную аватару.</Resource>
+		<Resource tag="DELETE_AVATAR">Удалить аватару</Resource>
+		<Resource tag="AVATARREMOTE">Укажите адрес аватары, которая будет отображаться в Ваших сообщениях.</Resource>
+		<Resource tag="CHANGE_PASSWORD">Изменение пароля</Resource>
+		<Resource tag="OLDPASSWORD">Старый пароль:</Resource>
+		<Resource tag="NEWPASSWORD">Новый пароль:</Resource>
+		<Resource tag="CONFIRMPASSWORD">Подтверждение нового пароля:</Resource>
+		<Resource tag="CHANGE_EMAIL">Изменение электронного адреса</Resource>
+		<Resource tag="EMAIL">Вы должны указывать существующий электронный адрес.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">Не указан пароль.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">Новый пароль не совпадает с подтверждающим.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">Старый пароль неверен.</Resource>
+		<Resource tag="MAIL_SENT">{0} выслано письмо.\n\nПеред изменением электронного адреса Вам следует прочитать высланное сообщение\nи перейти по указанной в нем ссылке.</Resource>
+		<Resource tag="FORUM_SETTINGS">Настройки форума</Resource>
+		<Resource tag="SELECT_THEME">Оформление форума:</Resource>
+		<Resource tag="SELECT_LANGUAGE">Язык форума:</Resource>
+		<Resource tag="WEBLOG2">Адрес Вашего онлайнового дневника:</Resource>
+		<Resource tag="MESSENGER">Интернет-пейджеры</Resource>
+		<Resource tag="ABOUTYOU">О Вас</Resource>
+		<Resource tag="REALNAME2">Ваше настоящее имя/фамилия?</Resource>
+		<Resource tag="WARN_TOOBIG">Размеры картинки не могу превышать {0}x{1} пикселей.</Resource>
+		<Resource tag="WARN_SIZE">Размеры Вашей картинки: {0}x{1} пикселей.</Resource>
+		<Resource tag="WARN_RESIZED">Картинка была увеличена.</Resource>
+		<Resource tag="WARN_BIGFILE">Размер картинки не может превышать {0} байт.</Resource>
+		<Resource tag="WARN_FILESIZE">Размер Вашей картинки: {0} байт.</Resource>
+		<Resource tag="OURAVATAR">Наша коллекция аватар:</Resource>
+		<Resource tag="OURAVATAR_SELECT">Выбрать аватару из нашей коллекции.</Resource>
+		<Resource tag="BAD_EMAIL">Вы указали неверный электронный адрес.</Resource>
+		<Resource tag="BAD_MSN">Вы указали неверный электронный адрес Вашего MSN пейджера.</Resource>
+		<Resource tag="BAD_HOME">Вы указали неверный адрес Вашей домашней веб-страницы.</Resource>
+		<Resource tag="BAD_WEBLOG">Вы указали неверный адрес Вашего онлайнового дневника.</Resource>
+		<Resource tag="BAD_ICQ">Вы указали неверный ICQ аккаунт.</Resource>
+	</page>
+	<page name="CP_INBOX">
+		<!-- cp_inbox.aspx -->
+		<Resource tag="TITLE">Входящие</Resource>
+		<Resource tag="SENTITEMS">Отправленные</Resource>
+		<Resource tag="DELETESELECTED">Удалить отмеченное</Resource>
+		<Resource tag="SUBJECT">Тема</Resource>
+		<Resource tag="FROM">От</Resource>
+		<Resource tag="TO">Кому</Resource>
+		<Resource tag="DATE">Дата</Resource>
+		<Resource tag="MSGDELETED1">1 письмо было удалено.</Resource>
+		<Resource tag="MSGDELETED2">{0} писем было удалено.</Resource>
+		<Resource tag="CONFIRM_DELETE">Удалить все отмеченные письма?</Resource>
+	</page>
+	<page name="CP_MESSAGE">
+		<!-- cp_message.aspx -->
+		<Resource tag="INBOX">Входящие</Resource>
+		<Resource tag="SENTITEMS">Отправленные</Resource>
+		<Resource tag="MSG_DELETED">Письмо удалено.</Resource>
+		<Resource tag="POSTED">Написано:</Resource>
+	</page>
+	<page name="CP_PROFILE">
+		<!-- cp_profile.aspx -->
+		<Resource tag="NEW_MESSAGE">Создать сообщение</Resource>
+		<Resource tag="CONTROL_PANEL">Мой профиль</Resource>
+		<Resource tag="MESSENGER">Почта:</Resource>
+		<Resource tag="PERSONAL_PROFILE">Профиль:</Resource>
+		<Resource tag="INBOX">Входящие</Resource>
+		<Resource tag="SENTITEMS">Отправленные</Resource>
+		<Resource tag="EDIT_PROFILE">Изменить профиль</Resource>
+		<Resource tag="SIGNATURE">Подпись</Resource>
+		<Resource tag="SUBSCRIPTIONS">Подписка</Resource>
+		<Resource tag="YOUR_ACCOUNT">Ваша учетная запись:</Resource>
+		<Resource tag="YOUR_USERNAME">Имя:</Resource>
+		<Resource tag="YOUR_EMAIL">Электронный адрес:</Resource>
+		<Resource tag="NUMPOSTS">Количество сообщений:</Resource>
+		<Resource tag="GROUPS">Группы:</Resource>
+		<Resource tag="JOINED">Зарегистрирован с:</Resource>
+	</page>
+	<page name="CP_SIGNATURE">
+		<!-- cp_signature.aspx -->
+		<Resource tag="TITLE">Изменить подпись</Resource>
+		<Resource tag="SIGNATURE">Подпись:</Resource>
+	</page>
+	<page name="CP_SUBSCRIPTIONS">
+		<!-- cp_subscriptions.aspx -->
+		<Resource tag="TITLE">Подписка</Resource>
+		<Resource tag="FORUMS">Подписаны на форумы</Resource>
+		<Resource tag="FORUM">Форум</Resource>
+		<Resource tag="TOPICS">Подписаны на темы</Resource>
+		<Resource tag="REPLIES">Ответов</Resource>
+		<Resource tag="LASTPOST">Последнее сообщение</Resource>
+		<Resource tag="TOPIC">Тема</Resource>
+		<Resource tag="VIEWS">Просмотров</Resource>
+		<Resource tag="UNSUBSCRIBE">Отписаться</Resource>
+		<Resource tag="LASTPOSTLINK">{0} от {1}</Resource>
+		<Resource tag="WARN_SELECTTOPICS">Сначала укажите темы для прекращения подписки.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">Сначала укажите форумы для прекращения подписки.</Resource>
+	</page>
+	<page name="EMAILTOPIC">
+		<!-- emailtopic.aspx -->
+		<Resource tag="TITLE">Отправить страницу друзьям</Resource>
+		<Resource tag="TO">Отправить кому (эл.адрес):</Resource>
+		<Resource tag="SUBJECT">Тема:</Resource>
+		<Resource tag="MESSAGE">Сообщение:</Resource>
+		<Resource tag="SEND">Отправить</Resource>
+		<Resource tag="NEED_EMAIL">Вы должны указать электронный адрес.</Resource>
+		<Resource tag="FAILED">Не удалось отправить сообщение.\n\n{0}</Resource>
+	</page>
+	<page name="INFO">
+		<!-- info.aspx -->
+		<Resource tag="CONTINUE">Продолжить...</Resource>
+		<Resource tag="MODERATED">В связи с тем, что форум является модерируемым (цензируемым), Ваше сообщение перед размещением должно быть проверено модератором.</Resource>
+		<Resource tag="SUSPENDED">Ваша учетная запись деактивирована до {0}.</Resource>
+	</page>
+	<page name="LOGIN">
+		<!-- login.aspx -->
+		<Resource tag="TITLE">Вход</Resource>
+		<Resource tag="USERNAME">Имя:</Resource>
+		<Resource tag="PASSWORD">Пароль:</Resource>
+		<Resource tag="AUTO">Запомнить:</Resource>
+		<Resource tag="LOSTPASSWORD">Забыли пароль?</Resource>
+		<Resource tag="FORUM_LOGIN">Вход на форум</Resource>
+		<Resource tag="EMAIL">Эл.адрес</Resource>
+		<Resource tag="PASSWORD_ERROR">Имя или пароль указаны неверно. Попробуйте еще раз.</Resource>
+		<Resource tag="RECOVER">Восстановить пароль</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">Неверное имя или электронный адрес.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">На Ваш электронный адрес было выслано письмо с новым паролем.</Resource>
+		<Resource tag="SENDPASSWORD">Отправить</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">Имя и электронный адрес должны быть указаны.</Resource>
+	</page>
+	<page name="MEMBERS">
+		<!-- members.aspx -->
+		<Resource tag="TITLE">Перечень зарегистрированных пользователей</Resource>
+		<Resource tag="USERNAME">Имя</Resource>
+		<Resource tag="RANK">Ранг</Resource>
+		<Resource tag="JOINED">Зарегистрирован</Resource>
+		<Resource tag="POSTS">Сообщений</Resource>
+		<Resource tag="PAGES">{0} страниц:</Resource>
+	</page>
+	<page name="MODERATE">
+		<!-- moderate.aspx -->
+		<Resource tag="TITLE">Модерирование</Resource>
+		<Resource tag="TOPICS">Тем</Resource>
+		<Resource tag="TOPIC_STARTER">Автор темы</Resource>
+		<Resource tag="REPLIES">Ответов</Resource>
+		<Resource tag="VIEWS">Просмотров</Resource>
+		<Resource tag="LASTPOST">Последнее сообщение</Resource>
+		<Resource tag="CONFIRM_DELETE">Удалить тему?</Resource>
+		<Resource tag="BY">от {0}</Resource>
+		<Resource tag="DELETED">Тема удалена.</Resource>
+		<Resource tag="NO_POSTS">Нет сообщений</Resource>
+		<Resource tag="MEMBERS">Участники</Resource>
+		<Resource tag="USER">Пользователь</Resource>
+		<Resource tag="ACCEPTED">Подтверждено</Resource>
+		<Resource tag="ACCESSMASK">Маска доступа</Resource>
+		<Resource tag="EDIT">Изменить</Resource>
+		<Resource tag="REMOVE">Удалить</Resource>
+		<Resource tag="INVITE">Пригласить пользователя</Resource>
+	</page>
+	<page name="MOVETOPIC">
+		<!-- movetopic.aspx -->
+		<Resource tag="TITLE">Переместить тему</Resource>
+		<Resource tag="SELECT_FORUM">Выберите форум, в котороый нужно переместить сообщение:</Resource>
+		<Resource tag="MOVE">Переместить тему</Resource>
+	</page>
+	<page name="PMESSAGE">
+		<!-- pmessage.aspx -->
+		<Resource tag="TITLE">Отправить приватное сообщение</Resource>
+		<Resource tag="TO">Кому:</Resource>
+		<Resource tag="SUBJECT">Тема:</Resource>
+		<Resource tag="MESSAGE">Сообщение:</Resource>
+		<Resource tag="NEED_TO">Вы не указали кому адресовано сообщение.</Resource>
+		<Resource tag="NEED_SUBJECT">Вы не указали тему сообщения.</Resource>
+		<Resource tag="NEED_MESSAGE">Не набран текст сообщения.</Resource>
+		<Resource tag="SAVE">Отправить</Resource>
+		<Resource tag="NO_SUCH_USER">Указанного пользователя не существует.</Resource>
+		<Resource tag="NOT_GUEST">Вы не можете отправить приватное сообщение незарегистрированному пользователю (гостю).</Resource>
+		<Resource tag="FINDUSERS">Найти пользователя</Resource>
+	</page>
+	<page name="POSTMESSAGE">
+		<!-- postmessage.aspx -->
+		<Resource tag="NEWTOPIC">Новая тема</Resource>
+		<Resource tag="REPLY">Ответить</Resource>
+		<Resource tag="PREVIEW">Предв.просмотр</Resource>
+		<Resource tag="PREVIEWTITLE">Просмотр:</Resource>
+		<Resource tag="SUBJECT">Тема:</Resource>
+		<Resource tag="FROM">От кого:</Resource>
+		<Resource tag="PRIORITY">Приоритет:</Resource>
+		<Resource tag="MESSAGE">Сообщение:</Resource>
+		<Resource tag="LAST10">Предыдущие 10 сообщений (в обратном порядке)</Resource>
+		<Resource tag="NORMAL">Обычное</Resource>
+		<Resource tag="STICKY">Заметка</Resource>
+		<Resource tag="ANNOUNCEMENT">Анонс</Resource>
+		<Resource tag="CREATEPOLL">Создать опрос</Resource>
+		<Resource tag="POLLQUESTION">Тема опроса:</Resource>
+		<Resource tag="CHOICE1">Вариант ответа 1:</Resource>
+		<Resource tag="CHOICE2">Вариант ответа  2:</Resource>
+		<Resource tag="CHOICE3">Вариант ответа  3:</Resource>
+		<Resource tag="CHOICE4">Вариант ответа  4:</Resource>
+		<Resource tag="CHOICE5">Вариант ответа  5:</Resource>
+		<Resource tag="CHOICE6">Вариант ответа  6:</Resource>
+		<Resource tag="CHOICE7">Вариант ответа  7:</Resource>
+		<Resource tag="CHOICE8">Вариант ответа  8:</Resource>
+		<Resource tag="CHOICE9">Вариант ответа  9:</Resource>
+		<Resource tag="NEED_SUBJECT">Не указана тема сообщения.</Resource>
+		<Resource tag="WAIT">Вы не можете отправить сообщение в течение {0:N0} секунд.</Resource>
+		<Resource tag="POSTED">Отправлено:</Resource>
+		<Resource tag="SAVE">Отправить</Resource>
+		<Resource tag="NEED_QUESTION">Не указана тема опроса.</Resource>
+		<Resource tag="NEED_CHOICES">Опрос должен иметь не менее двух вариантов ответов.</Resource>
+	</page>
+	<page name="PRINTTOPIC">
+		<!-- printtopic.aspx -->
+		<Resource tag="POSTEDBY">От</Resource>
+	</page>
+	<page name="PROFILE">
+		<!-- profile.aspx -->
+		<Resource tag="MEMBERS">Участники</Resource>
+		<Resource tag="PROFILE">Информация о пользователе:</Resource>
+		<Resource tag="ABOUT">Информация</Resource>
+		<Resource tag="USERNAME">Имя:</Resource>
+		<Resource tag="GROUPS">Группа:</Resource>
+		<Resource tag="RANK">Ранг:</Resource>
+		<Resource tag="JOINED">Зарегистрирован:</Resource>
+		<Resource tag="EMAIL">Электронный адрес:</Resource>
+		<Resource tag="LASTVISIT">Предыдущий визит:</Resource>
+		<Resource tag="STATISTICS">Статистика</Resource>
+		<Resource tag="NUMPOSTS">Количество сообщений:</Resource>
+		<Resource tag="LAST10">Последние 10 сообщений</Resource>
+		<Resource tag="TOPIC">Тема:</Resource>
+		<Resource tag="POSTED">От:</Resource>
+		<Resource tag="ENDS">Окончание деактивации:</Resource>
+		<Resource tag="REMOVESUSPENSION">Убрать деактивацию</Resource>
+		<Resource tag="SUSPEND">Деактивировать</Resource>
+		<Resource tag="DAYS">дней</Resource>
+		<Resource tag="HOURS">часов</Resource>
+		<Resource tag="MINUTES">минут</Resource>
+		<Resource tag="AVATAR">Аватара</Resource>
+		<Resource tag="CONTACT">Контакт</Resource>
+		<Resource tag="PM">Приватное сообщение:</Resource>
+		<Resource tag="MSN">MSN Messenger:</Resource>
+		<Resource tag="YIM">Yahoo Messenger:</Resource>
+		<Resource tag="AIM">Номер AIM:</Resource>
+		<Resource tag="ICQ">Номер ICQ:</Resource>
+		<Resource tag="REALNAME">Настоящее имя:</Resource>
+		<Resource tag="WEBSITE">Веб-сайт:</Resource>
+		<Resource tag="WEBLOG">Онлайновый дневник:</Resource>
+		<Resource tag="OCCUPATION">Род занятий:</Resource>
+		<Resource tag="INTERESTS">Интересы:</Resource>
+		<Resource tag="GENDER">Пол:</Resource>
+		<Resource tag="GENDER0">Не указан</Resource>
+		<Resource tag="GENDER1">Мужчина</Resource>
+		<Resource tag="GENDER2">Женщина</Resource>
+		<Resource tag="NUMALL">{0:N2}% от всех сообщений</Resource>
+		<Resource tag="NUMDAY">{0:N2} сообщений в день</Resource>
+		<Resource tag="ERROR_ADMINISTRATORS">Нельзя деактивировать администратора.</Resource>
+		<Resource tag="ERROR_FORUMMODERATORS">Нельзя деактивировать модератора.</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">Регистрация нового пользователя</Resource>
+		<Resource tag="DETAILS">Регистрационные данные</Resource>
+		<Resource tag="USERNAME">Имя</Resource>
+		<Resource tag="NEED_USERNAME">Необходимо указать имя.</Resource>
+		<Resource tag="PASSWORD">Пароль</Resource>
+		<Resource tag="NEED_PASSWORD">Необходимо указать пароль.</Resource>
+		<Resource tag="RETYPE_PASSWORD">Повторите пароль</Resource>
+		<Resource tag="NEED_MATCH">Пароли не совпадают.</Resource>
+		<Resource tag="EMAIL">Электронный адрес</Resource>
+		<Resource tag="PROFILE">Профиль</Resource>
+		<Resource tag="LOCATION">Местонахождение</Resource>
+		<Resource tag="HOMEPAGE">Веб-сайт</Resource>
+		<Resource tag="PREFERENCES">Настройки форума</Resource>
+		<Resource tag="TIMEZONE">Временная зона</Resource>
+		<Resource tag="ALREADY_REGISTERED">Указанные имя или электронный адрес уже существуют на форуме. Попробуйте еще раз.</Resource>
+		<Resource tag="REGISTER">Регистрация</Resource>
+		<Resource tag="BAD_EMAIL">Вы указали неверный электронный адрес.</Resource>
+	</page>
+	<page name="SEARCH">
+		<!-- search.aspx -->
+		<Resource tag="TITLE">Поиск</Resource>
+		<Resource tag="BTNSEARCH">Искать</Resource>
+		<Resource tag="RESULTS">Результаты поиска</Resource>
+		<Resource tag="TOPIC">Тема:</Resource>
+		<Resource tag="POSTED">Сообщение:</Resource>
+		<Resource tag="ALLFORUMS">Во всех форумах</Resource>
+		<Resource tag="RESULT5">5 результатов на страницу</Resource>
+		<Resource tag="RESULT10">10 результатов на страницу</Resource>
+		<Resource tag="RESULT25">25 результатов на страницу</Resource>
+		<Resource tag="RESULT50">50 результатов на страницу</Resource>
+		<Resource tag="POSTS">В тексте сообщений</Resource>
+		<Resource tag="POSTEDBY">В поле "От кого"</Resource>
+		<Resource tag="MATCH_ALL">Совпадение всех слов</Resource>
+		<Resource tag="MATCH_ANY">Совпадение любого слова</Resource>
+		<Resource tag="MATCH_EXACT">Точное соответствие</Resource>
+		<Resource tag="BY">от</Resource>
+	</page>
+	<page name="MODERATE_DEFAULT">
+		<Resource tag="TITLE">Модерирование</Resource>
+		<Resource tag="FORUM">Форум</Resource>
+		<Resource tag="UNAPPROVED">Непроверенных сообщений</Resource>
+		<Resource tag="CATEGORY">Категория</Resource>
+	</page>
+	<page name="MODERATE_FORUM">
+		<Resource tag="UNAPPROVED">Непроверенные сообщения</Resource>
+		<Resource tag="TOP">В начало</Resource>
+		<Resource tag="APPROVE">Подтвердить</Resource>
+		<Resource tag="DELETE">Удалить</Resource>
+		<Resource tag="ASK_DELETE">Удалить?</Resource>
+		<Resource tag="APPROVED">Сообщение подтверждено.</Resource>
+		<Resource tag="DELETED">Сообщение удалено.</Resource>
+	</page>
+	<page name="MOD_FORUMUSER">
+		<Resource tag="TITLE">Пользователь форума</Resource>
+		<Resource tag="USER">Имя:</Resource>
+		<Resource tag="FIND">Найти пользователей</Resource>
+		<Resource tag="ACCESSMASK">Маска доступа:</Resource>
+		<Resource tag="UPDATE">Обновить</Resource>
+		<Resource tag="CANCEL">Отмена</Resource>
+	</page>
+	<page name="RTE">
+		<Resource tag="BOLD">Жирный</Resource>
+		<Resource tag="ITALIC">Курсив</Resource>
+		<Resource tag="UNDERLINE">Подчеркивание</Resource>
+		<Resource tag="LEFT">Выравнивание по левому краю</Resource>
+		<Resource tag="CENTER">Центрирование</Resource>
+		<Resource tag="RIGHT">Выравнивание по правому краю</Resource>
+		<Resource tag="ORDERED">Нумерованный список</Resource>
+		<Resource tag="UNORDERED">Обычный список</Resource>
+		<Resource tag="OUTDENT">Увеличить отступ</Resource>
+		<Resource tag="INDENT">Уменьшить отступ</Resource>
+		<Resource tag="LINK">Вставить ссылку</Resource>
+		<Resource tag="IMAGE">Добавить картинку</Resource>
+		<Resource tag="SPELL">Проверить орфографию</Resource>
+		<Resource tag="NORMAL">Обычный</Resource>
+		<Resource tag="CLEAR">Очистить форматирование</Resource>
+		<Resource tag="FORMATTED">Форматированное</Resource>
+	</page>
+	<page name="AVATAR">
+		<Resource tag="TITLE">Аватары</Resource>
+		<Resource tag="EDITPROFILE">Редактирование профиля</Resource>
+	</page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+		<Resource tag="TITLE">ICQ</Resource>
+		<Resource tag="NAME">Ваше имя:</Resource>
+		<Resource tag="EMAIL">Ваш электронный адрес:</Resource>
+		<Resource tag="SEND">Отослать</Resource>
+		<Resource tag="BODY">Сообщение:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+		<Resource tag="TITLE">Электронное письмо</Resource>
+		<Resource tag="SEND">Отослать</Resource>
+		<Resource tag="SUBJECT">Тема:</Resource>
+		<Resource tag="BODY">Сообщение:</Resource>
+		<Resource tag="ERROR">Ошибка при отправлении электронного письма.</Resource>
+	</page>
+</Resources>
