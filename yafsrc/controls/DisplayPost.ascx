@@ -37,14 +37,21 @@
 		<a href="javascript:scroll(0,0)"><%# ForumPage.GetText("TOP") %></a>
 	</td>
 	<td class="postfooter">
-		<asp:hyperlink runat='server' id='Pm'/>
-		<asp:hyperlink runat='server' id='Email'/>
-		<asp:hyperlink runat='server' id='Home'/>
-		<asp:hyperlink runat='server' id='Blog'/>
-		<asp:hyperlink runat='server' id='Msn'/>
-		<asp:hyperlink runat='server' id='Yim'/>
-		<asp:hyperlink runat='server' id='Aim'/>
-		<asp:hyperlink runat='server' id='Icq'/>
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td>
+			<asp:hyperlink runat='server' id='Pm'/>
+			<asp:hyperlink runat='server' id='Email'/>
+			<asp:hyperlink runat='server' id='Home'/>
+			<asp:hyperlink runat='server' id='Blog'/>
+			<asp:hyperlink runat='server' id='Msn'/>
+			<asp:hyperlink runat='server' id='Yim'/>
+			<asp:hyperlink runat='server' id='Aim'/>
+			<asp:hyperlink runat='server' id='Icq'/>
+			</td>
+			<td align="right" id="AdminInfo" runat="server">&nbsp;</td>
+		</tr>
+		</table>
 	</td>
 </tr>
 <tr class="postsep"><td colspan="3" style="height:5px"></td></tr>

@@ -15,7 +15,7 @@ namespace yaf.controls
 		protected HyperLink		Attach, Edit, Quote;
 		protected LinkButton	Delete;
 		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
-		protected HtmlTableCell	NameCell;
+		protected HtmlTableCell	NameCell, AdminInfo;
 		protected controls.PopMenu	PopMenu1;
 		protected HyperLink UserName;
 
@@ -55,10 +55,12 @@ namespace yaf.controls
 			Quote.ToolTip		= "Reply with quote";
 			Quote.NavigateUrl	= Forum.GetLink(Pages.postmessage,"t={0}&f={1}&q={2}",ForumPage.PageTopicID,ForumPage.PageForumID,DataRow["MessageID"]);
 
-			Pm.Visible			= ForumPage.User.IsAuthenticated && ForumPage.User.IsAuthenticated;
+			// private messages
+			Pm.Visible			= ForumPage.User.IsAuthenticated && ForumPage.BoardSettings.AllowPrivateMessages;
 			Pm.Text				= ForumPage.GetThemeContents("BUTTONS","PM");
 			Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",DataRow["UserID"]);
-			Email.Visible		= ForumPage.User.IsAuthenticated;
+			// emailing
+			Email.Visible		= ForumPage.User.IsAuthenticated && ForumPage.BoardSettings.AllowEmailSending;
 			Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
 			Email.Text			= ForumPage.GetThemeContents("BUTTONS","EMAIL");
 			Home.Visible		= DataRow["HomePage"]!=DBNull.Value;
@@ -79,15 +81,29 @@ namespace yaf.controls
 			Icq.Visible			= ForumPage.User.IsAuthenticated && DataRow["ICQ"]!=DBNull.Value;
 			Icq.Text			= ForumPage.GetThemeContents("BUTTONS","ICQ");
 			Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",DataRow["UserID"]);
+
+			// display admin only info
+			if (ForumPage.IsAdmin)
+			{
+				AdminInfo.InnerHtml = "<span class='smallfont'>"; 
+				if (Convert.ToDateTime(DataRow["Edited"]) != Convert.ToDateTime(DataRow["Posted"]))
+				{
+					// message has been edited
+					AdminInfo.InnerHtml += String.Format("<b>Edited:</b> {0}",ForumPage.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
+				}
+				AdminInfo.InnerHtml += String.Format(" <b>IP:</b> {0}",DataRow["IP"].ToString());
+				AdminInfo.InnerHtml += "</span>";
+			}				
 		}
 
-override protected void OnInit(EventArgs e)
-{
-	this.Load += new System.EventHandler(this.Page_Load);
-	this.PreRender += new EventHandler(DisplayPost_PreRender);
-	Delete.Click += new EventHandler(Delete_Click);
-	base.OnInit(e);
-}
+
+		override protected void OnInit(EventArgs e)
+		{
+			this.Load += new System.EventHandler(this.Page_Load);
+			this.PreRender += new EventHandler(DisplayPost_PreRender);
+			Delete.Click += new EventHandler(Delete_Click);
+			base.OnInit(e);
+		}
 
 		private DataRowView	m_row = null;
 		public DataRowView DataRow
@@ -321,7 +337,7 @@ override protected void OnInit(EventArgs e)
 				}
 			}
 			
-			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>")
+			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures)
 				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString());
 
 			return html2; //FormatMsg.FetchURL(ForumPage,html2);

@@ -9,15 +9,15 @@
 	<td class=header1 colspan=2><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=postheader valign=top><%= GetText("signature") %></td>
+	<td class=postformheader valign=top><%= GetText("signature") %></td>
 	<td class=post>
 		<rte:RichEdit runat="server" id="sig"/>
 	</td>
 </tr>
 <tr>
 	<td class=footer1 colspan=2 align=center>
-		<asp:button id=save runat="server"/>
-		<asp:button id=cancel runat="server"/>
+		<asp:button id=save cssclass="pbutton" runat="server"/>
+		<asp:button id=cancel cssclass="pbutton" runat="server"/>
 	</td>
 </tr>
 </table>

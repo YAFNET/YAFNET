@@ -137,7 +137,7 @@
 
 	<tr>
 		<td class=footer1 colspan=2 align=middle>
-			<asp:Button id=UpdateProfile runat="server"/>
+			<asp:Button id=UpdateProfile cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>
 </table>

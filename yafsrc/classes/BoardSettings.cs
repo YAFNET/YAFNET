@@ -209,6 +209,21 @@ namespace yaf
 			get { return m_reg.GetValueBool("ShowForumJump",true); }
 			set { m_reg.SetValueBool("ShowForumJump",value); }
 		}
+		public bool AllowPrivateMessages
+		{
+			get { return m_reg.GetValueBool("AllowPrivateMessages",true); }
+			set { m_reg.SetValueBool("AllowPrivateMessages",value); }
+		}
+		public bool AllowEmailSending
+		{
+			get { return m_reg.GetValueBool("AllowEmailSending",true); }
+			set { m_reg.SetValueBool("AllowEmailSending",value); }
+		}
+		public bool AllowSignatures
+		{
+			get { return m_reg.GetValueBool("AllowSignatures",true); }
+			set { m_reg.SetValueBool("AllowSignatures",value); }
+		}
 
 		// string settings
 		public string ForumEmail 

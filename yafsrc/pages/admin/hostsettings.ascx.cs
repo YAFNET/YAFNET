@@ -39,9 +39,10 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
+		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
-		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX, ShowRSSLinkX, ShowForumJumpX;
-		protected TextBox AvatarSize, MaxFileSize;
+		protected System.Web.UI.WebControls.CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
+		protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX, ShowForumJumpX, AllowPrivateMessagesX, AllowEmailSendingX, AllowSignaturesX;
 		protected yaf.controls.AdminMenu Adminmenu1;
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
@@ -97,6 +98,9 @@ namespace yaf.pages.admin {
 			UseFileTableX.Checked = BoardSettings.UseFileTable;
 			ShowRSSLinkX.Checked = BoardSettings.ShowRSSLink;
 			ShowForumJumpX.Checked = BoardSettings.ShowForumJump;
+			AllowPrivateMessagesX.Checked = BoardSettings.AllowPrivateMessages;
+			AllowEmailSendingX.Checked = BoardSettings.AllowEmailSending;
+			AllowSignaturesX.Checked = BoardSettings.AllowSignatures;
 			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
 			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
@@ -156,6 +160,9 @@ namespace yaf.pages.admin {
 			BoardSettings.UseFileTable = UseFileTableX.Checked;
 			BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
 			BoardSettings.ShowForumJump = ShowForumJumpX.Checked;
+			BoardSettings.AllowPrivateMessages = AllowPrivateMessagesX.Checked;
+			BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
+			BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
 			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
 			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
 			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());

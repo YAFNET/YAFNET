@@ -52,25 +52,6 @@
 			<TD class="post">
 				<asp:checkbox id="ShowGroupsX" runat="server"></asp:checkbox></TD>
 		</tr>
-		<tr runat="server" visible="false">
-			<TD class="postheader"><B>Allow Rich Edit:</B><BR>
-				If this is checked your users will be able to use a rich edit control when 
-				posting messages.</TD>
-			<TD class="post">
-				<asp:checkbox id="AllowRichEditX" runat="server"></asp:checkbox></TD>
-		</tr>
-		<TR>
-			<TD class="postheader"><B>Allow User Theme:</B><BR>
-				Should users be able to choose what theme they want to use?</TD>
-			<TD class="post">
-				<asp:checkbox id="AllowUserThemeX" runat="server"></asp:checkbox></TD>
-		</TR>
-		<TR>
-			<TD class="postheader"><B>Allow User Language:</B><BR>
-				Should users be able to choose what language they want to use?</TD>
-			<TD class="post">
-				<asp:checkbox id="AllowUserLanguageX" runat="server"></asp:checkbox></TD>
-		</TR>
 		<TR>
 			<TD class="postheader"><B>Use File Table:</B><BR>
 				Uploaded files will be saved in the database instead of the file system.</TD>
@@ -88,7 +69,7 @@
 				Enable or disable display of the Forum Jump Box throughout the forum.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></TD>
-		</TR>			
+		</TR>	
 		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>
@@ -123,6 +104,46 @@
 				<asp:textbox id="LockPosts" runat="server"/>
 			</td>
 		</tr>
+		<TR>
+			<TD class="header2" colSpan="2" align="center">User Options</TD>
+		</TR>
+		<tr runat="server" visible="false" ID="Tr1">
+			<TD class="postheader"><B>Allow Rich Text Editing:</B><BR>
+				If this is checked your users will be able to use a rich edit control when 
+				posting messages.</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowRichEditX" runat="server"></asp:checkbox></TD>
+		</tr>
+		<TR>
+			<TD class="postheader"><B>Allow User Change Theme:</B><BR>
+				Should users be able to choose what theme they want to use?</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowUserThemeX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow User Change Language:</B><BR>
+				Should users be able to choose what language they want to use?</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowUserLanguageX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow Private Messages:</B><BR>
+				Allow users to access and send private messages.</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowPrivateMessagesX" runat="server"></asp:checkbox></TD>
+		</TR>		
+		<TR>
+			<TD class="postheader"><B>Allow Email Sending:</B><BR>
+				Allow users to send emails to each other.</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowEmailSendingX" runat="server"></asp:checkbox></TD>
+		</TR>	
+		<TR>
+			<TD class="postheader"><B>Allow Signatures:</B><BR>
+				Allow users to create signatures.</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowSignaturesX" runat="server"></asp:checkbox></TD>
+		</TR>							
 		<TR>
 			<TD class="header2" colSpan="2" align="center">SMTP Server Settings</TD>
 		</TR>

@@ -103,10 +103,12 @@ namespace yaf.pages
 					String.Format(GetText("NUMDAY"),(double)(int)user["NumPosts"] / (int)user["NumDays"])
 					);
 
-				Pm.Visible			= User.IsAuthenticated;
-				Pm.Text				= GetThemeContents("BUTTONS","PM");
-				Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
-				Email.Visible		= User.IsAuthenticated;
+				// private messages
+				Pm.Visible			= User.IsAuthenticated && BoardSettings.AllowPrivateMessages;
+				Pm.Text					= GetThemeContents("BUTTONS","PM");
+				Pm.NavigateUrl	= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
+				// email link
+				Email.Visible		= User.IsAuthenticated && BoardSettings.AllowEmailSending;
 				Email.Text			= GetThemeContents("BUTTONS","EMAIL");
 				Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
 				if(IsAdmin) Email.ToolTip = user["Email"].ToString();

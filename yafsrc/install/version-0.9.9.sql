@@ -2528,6 +2528,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and O
 	drop procedure yaf_post_list
 GO
 
+
 create procedure dbo.yaf_post_list(@TopicID int,@UpdateViewCount smallint=1) as
 begin
 	set nocount on
@@ -2546,6 +2547,7 @@ begin
 		a.UserID,
 		a.Position,
 		a.Indent,
+		a.IP,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
