@@ -72,7 +72,7 @@ namespace yaf.pages
 		{
 			DataRow row;
 
-			Groups.DataSource = DB.usergroup_list(PageBoardID,PageUserID);
+			Groups.DataSource = DB.usergroup_list(PageUserID);
 
 			// Bind			
 			DataBind();

@@ -2267,12 +2267,11 @@ namespace yaf
 		#endregion
 
 		#region yaf_UserGroup
-		static public DataTable usergroup_list(object boardID,object UserID) 
+		static public DataTable usergroup_list(object UserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				return GetData(cmd);
 			}

@@ -153,7 +153,7 @@ namespace yaf.pages
 					Avatar.Visible = false;
 				}
 
-				Groups.DataSource = DB.usergroup_list(PageBoardID,Request.QueryString["u"]);
+				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 
 				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;

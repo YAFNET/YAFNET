@@ -53,7 +53,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.CanLogin)
+			if(!User.CanLogin || BoardSettings.DisableRegistrations)
 				Data.AccessDenied();
 
 			if(!IsPostBack) {

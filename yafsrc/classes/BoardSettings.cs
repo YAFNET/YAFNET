@@ -235,6 +235,11 @@ namespace yaf
 			get { return m_reg.GetValueBool("DateFormatFromLanguage",false); }
 			set { m_reg.SetValueBool("DateFormatFromLanguage",value); }
 		}
+		public bool DisableRegistrations
+		{
+			get { return m_reg.GetValueBool("DisableRegistrations",false); }
+			set { m_reg.SetValueBool("DisableRegistrations",value); }
+		}
 
 		// string settings
 		public string ForumEmail 

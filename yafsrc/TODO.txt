@@ -23,6 +23,4 @@
 - Add colors to rich editor.
 - Ok this is what i get after i try to add a sub forum.... "User 'pro-logic' isn't registered."
 - Possible to modify subject of messages?!?
-- Disable user registration.
-- Forum dropdowns: http://forum.yetanotherforum.net/default.aspx?g=posts&t=474&find=unread
 - Error deleting posts with attachments.

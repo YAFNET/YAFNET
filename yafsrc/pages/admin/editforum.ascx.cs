@@ -120,29 +120,14 @@ namespace yaf.pages.admin
 			DataBind();
 		}
 
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
 			this.Save.Click += new System.EventHandler(this.Save_Click);
 			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			base.OnInit(e);
 		}
-		#endregion
-
+		
 		private void Save_Click(object sender, System.EventArgs e)
 		{
 			if(CategoryList.SelectedValue.Trim().Length==0) 

@@ -48,7 +48,7 @@ namespace yaf.pages.admin {
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
-		protected System.Web.UI.WebControls.CheckBox AllowHTMLX;
+		protected CheckBox AllowHTMLX, DisableRegistrations;
 		protected TextBox LockPosts;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -116,6 +116,7 @@ namespace yaf.pages.admin {
 			TopicsPerPage.Text = BoardSettings.TopicsPerPage.ToString();
 			DateFormatFromLanguage.Checked = BoardSettings.DateFormatFromLanguage;
 			AcceptedHTML.Text = BoardSettings.AcceptedHTML;
+			DisableRegistrations.Checked = BoardSettings.DisableRegistrations;
 		}
 
 		#region Web Form Designer generated code
@@ -181,6 +182,7 @@ namespace yaf.pages.admin {
 			BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
 			BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
 			BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
+			BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

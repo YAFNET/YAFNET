@@ -223,7 +223,7 @@ namespace yaf.controls
 			// Groups
 			if(ForumPage.BoardSettings.ShowGroups) 
 			{
-				using(DataTable dt = DB.usergroup_list(ForumPage.PageBoardID,row["UserID"])) 
+				using(DataTable dt = DB.usergroup_list(row["UserID"])) 
 				{
 					html += String.Format("{0}: ",ForumPage.GetText("groups"));
 					bool bFirst = true;

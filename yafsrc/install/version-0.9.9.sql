@@ -4522,7 +4522,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_list') 
 	drop procedure yaf_usergroup_list
 GO
 
-create procedure dbo.yaf_usergroup_list(@BoardID int,@UserID int) as begin
+create procedure dbo.yaf_usergroup_list(@UserID int) as begin
 	select 
 		b.GroupID,
 		b.Name
@@ -4530,8 +4530,7 @@ create procedure dbo.yaf_usergroup_list(@BoardID int,@UserID int) as begin
 		yaf_UserGroup a
 		join yaf_Group b on b.GroupID=a.GroupID
 	where
-		a.UserID = @UserID and
-		b.BoardID = @BoardID
+		a.UserID = @UserID
 	order by
 		b.Name
 end

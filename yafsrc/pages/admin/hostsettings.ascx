@@ -167,6 +167,11 @@
 			<TD class="post">
 				<asp:checkbox id="AllowSignaturesX" runat="server"></asp:checkbox></TD>
 		</TR>
+		<tr>
+			<td class="postheader"><b>Disable New Registrations:</b><br/>
+				New users won't be able to register.</td>
+			<td class="post"><asp:checkbox id="DisableRegistrations" runat="server"/></td>
+		</tr>
 		<TR>
 			<TD class="header2" align="center" colSpan="2">SMTP Server Settings</TD>
 		</TR>
