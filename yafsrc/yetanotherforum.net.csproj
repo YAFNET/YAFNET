@@ -152,6 +152,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "attachments.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "attachments.aspx.cs"
+                    DependentUpon = "attachments.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "attachments.aspx.resx"
+                    DependentUpon = "attachments.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "cp_editprofile.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -1298,6 +1314,10 @@
                 />
                 <File
                     RelPath = "themes\standard.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\b_attachments.png"
                     BuildAction = "Content"
                 />
                 <File

@@ -11,6 +11,7 @@
 		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/b_edit_post.png'/&gt;</Resource>
 		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.png'/&gt;</Resource>
 		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/b_quote_post.png'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
 
 		<!--Resource tag="MODERATE">[MODERATE]</Resource>
 		<Resource tag="NEWTOPIC">[NEW TOPIC]</Resource>

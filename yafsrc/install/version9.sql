@@ -10,6 +10,37 @@ GO
 alter table yaf_System alter column AllowRichEdit bit not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AllowUserTheme')
+	alter table yaf_System add AllowUserTheme bit null
+GO
+
+update yaf_System set AllowUserTheme=0 where AllowUserTheme is null
+GO
+
+alter table yaf_System alter column AllowUserTheme bit not null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AllowUserLanguage')
+	alter table yaf_System add AllowUserLanguage bit null
+GO
+
+update yaf_System set AllowUserLanguage=0 where AllowUserLanguage is null
+GO
+
+alter table yaf_System alter column AllowUserLanguage bit not null
+GO
+
+
+
+
+if not exists(select * from syscolumns where id=object_id('yaf_User') and name='LanguageFile')
+	alter table yaf_User add LanguageFile varchar(50) null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_User') and name='ThemeFile')
+	alter table yaf_User add ThemeFile varchar(50) null
+GO
+
 -- NNTP START
 if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 create table yaf_NntpServer(
@@ -360,6 +391,8 @@ begin
 		a.UserID,
 		UserName			= a.Name,
 		Suspended			= a.Suspended,
+		ThemeFile			= a.ThemeFile,
+		LanguageFile		= a.LanguageFile,
 		IsAdmin				= (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsAdmin<>0),
 		IsGuest				= (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0),
 		IsForumModerator	= (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsModerator<>0),
@@ -392,6 +425,8 @@ begin
 		ShowMoved			= s.ShowMoved,
 		ShowGroups			= s.ShowGroups,
 		AllowRichEdit		= s.AllowRichEdit,
+		AllowUserTheme		= s.AllowUserTheme,
+		AllowUserLanguage	= s.AllowUserLanguage,
 		MailsPending		= (select count(1) from yaf_Mail),
 		Incoming			= (select count(1) from yaf_PMessage where ToUserID=a.UserID and IsRead=0)
 	from
@@ -500,7 +535,9 @@ create procedure yaf_system_save(
 	@AvatarUpload		bit,
 	@AvatarRemote		bit,
 	@AvatarSize			int=null,
-	@AllowRichEdit		bit
+	@AllowRichEdit		bit,
+	@AllowUserTheme		bit,
+	@AllowUserLanguage	bit
 ) as
 begin
 	update yaf_System set
@@ -519,7 +556,9 @@ begin
 		AvatarUpload = @AvatarUpload,
 		AvatarRemote = @AvatarRemote,
 		AvatarSize = @AvatarSize,
-		AllowRichEdit = @AllowRichEdit
+		AllowRichEdit = @AllowRichEdit,
+		AllowUserTheme = @AllowUserTheme,
+		AllowUserLanguage = @AllowUserLanguage
 end
 GO
 
@@ -541,8 +580,8 @@ begin
 	declare @RankID int
 	declare @UserID int
 
-	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit)
-	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1)
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit,AllowUserTheme,AllowUserLanguage)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0)
 
 	insert into yaf_Rank(Name,IsStart,IsLadder)
 	values('Administration',0,0)
@@ -724,3 +763,79 @@ begin
 		b.ForumID = a.ForumID
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_save
+GO
+
+create procedure yaf_user_save(
+	@UserID			int,
+	@UserName		varchar(50) = null,
+	@Password		varchar(32) = null,
+	@Email			varchar(50) = null,
+	@Hash			varchar(32) = null,
+	@Location		varchar(50),
+	@HomePage		varchar(50),
+	@TimeZone		int,
+	@Avatar			varchar(100) = null,
+	@LanguageFile	varchar(50) = null,
+	@ThemeFile		varchar(50) = null,
+	@Approved		bit = null
+) as
+begin
+	declare @RankID int
+
+	if @Location is not null and @Location = '' set @Location = null
+	if @HomePage is not null and @HomePage = '' set @HomePage = null
+	if @Avatar is not null and @Avatar = '' set @Avatar = null
+
+	if @UserID is null or @UserID<1 begin
+		if @Email = '' set @Email = null
+		
+		select @RankID = RankID from yaf_Rank where IsStart<>0
+		
+		insert into yaf_User(RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar) 
+		values(@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar)
+	
+		set @UserID = @@IDENTITY
+
+		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where IsStart<>0
+		
+		if @Hash is not null and @Hash <> '' and @Approved=0 begin
+			insert into yaf_CheckEmail(UserID,Email,Created,Hash)
+			values(@UserID,@Email,getdate(),@Hash)	
+		end
+	end
+	else begin
+		update yaf_User set
+			Location = @Location,
+			HomePage = @HomePage,
+			TimeZone = @TimeZone,
+			Avatar = @Avatar,
+			LanguageFile = @LanguageFile,
+			ThemeFile = @ThemeFile
+		where UserID = @UserID
+		
+		if @Email is not null
+			update yaf_User set Email = @Email where UserID = @UserID
+	end
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_list
+GO
+
+create procedure yaf_attachment_list(@MessageID int) as begin
+	select * from yaf_Attachment where MessageID=@MessageID
+end
+go
+
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_delete
+GO
+
+create procedure yaf_attachment_delete(@AttachmentID int) as begin
+	delete from yaf_Attachment where AttachmentID=@AttachmentID
+end
+go

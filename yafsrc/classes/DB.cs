@@ -297,6 +297,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void attachment_delete(object attachmentID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_attachment_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@AttachmentID",attachmentID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_BannedIP
@@ -972,7 +981,7 @@ namespace yaf
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
 			object BlankLinks,object showGroups,
 			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize,
-			object allowRichEdit) 
+			object allowRichEdit,object allowUserTheme,object allowUserLanguage) 
 		{
 			if(avatarSize!=null && avatarSize.ToString().Length==0)
 				avatarSize = null;
@@ -1000,6 +1009,8 @@ namespace yaf
 				cmd.Parameters.Add("@AvatarRemote",avatarRemote);
 				cmd.Parameters.Add("@AvatarSize",avatarSize);
 				cmd.Parameters.Add("@AllowRichEdit",allowRichEdit);
+				cmd.Parameters.Add("@AllowUserTheme",allowUserTheme);
+				cmd.Parameters.Add("@AllowUserLanguage",allowUserLanguage);
 				ExecuteNonQuery(cmd);
 			}
 		}
@@ -1175,7 +1186,8 @@ namespace yaf
 			}
 		}
 		static public void user_save(object UserID,object UserName,object Password,object Email,object Hash,
-			object Location,object HomePage,object TimeZone,object Avatar,object Approved) 
+			object Location,object HomePage,object TimeZone,object Avatar,
+			object languageFile,object themeFile,object Approved) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_save")) 
 			{
@@ -1189,6 +1201,8 @@ namespace yaf
 				cmd.Parameters.Add("@HomePage",HomePage);
 				cmd.Parameters.Add("@TimeZone",TimeZone);
 				cmd.Parameters.Add("@Avatar",Avatar);
+				cmd.Parameters.Add("@LanguageFile",languageFile);
+				cmd.Parameters.Add("@ThemeFile",themeFile);
 				cmd.Parameters.Add("@Approved",Approved);
 				ExecuteNonQuery(cmd);
 			}

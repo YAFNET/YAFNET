@@ -365,6 +365,39 @@ namespace yaf
 					BindData();
 					AddLoadMessage("Message was deleted.");
 					break;
+				case "Attach":
+					if((bool)topic["IsLocked"]) 
+					{
+						AddLoadMessage("The topic is closed.");
+						return;
+					}
+
+					if((bool)forum["Locked"]) 
+					{
+						AddLoadMessage("The forum is closed.");
+						return;
+					}
+
+					if(!ForumUploadAccess) 
+					{
+						AddLoadMessage("You don't have access to attach files in this forum.");
+						return;
+					}
+					// Check that non-moderators only edit messages they have written
+					if(!ForumModeratorAccess) 
+					{
+						using(DataTable dt = DB.message_list(e.CommandArgument)) 
+						{
+							if((int)dt.Rows[0]["UserID"] != PageUserID) 
+							{
+								AddLoadMessage("You didn't post this message.");
+								return;
+							}
+						}
+					}
+
+					Response.Redirect(String.Format("attachments.aspx?m={0}",e.CommandArgument));
+					break;
 				case "Edit":
 					if((bool)topic["IsLocked"]) {
 						AddLoadMessage("The topic is closed.");
@@ -392,17 +425,6 @@ namespace yaf
 					}
 
 					Response.Redirect(String.Format("postmessage.aspx?m={0}",e.CommandArgument));
-/*
-					using(SqlCommand cmd = new SqlCommand("yaf_message_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@MessageID",e.CommandArgument);
-						DataTable dt = DataManager.GetData(cmd);
-						if(dt.Rows.Count==1) {
-							if((int)dt.Rows[0]["UserID"]==PageUserID)
-								Response.Redirect(String.Format("postmessage.aspx?m={0}",e.CommandArgument));
-						}
-					}
-					*/
 					break;
 				case "PM":
 					if(!User.Identity.IsAuthenticated) {
@@ -612,9 +634,20 @@ namespace yaf
 			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumEditAccess;
 		}
 
+		protected bool CanAttach(DataRowView row) 
+		{
+			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumUploadAccess;
+		}
+
 		protected bool CanDeletePost(DataRowView row) 
 		{
 			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumDeleteAccess;
+		}
+
+		protected int VoteWidth(object o) 
+		{
+			DataRowView row = (DataRowView)o;
+			return (int)row["Stats"] * 80 / 100;
 		}
 	}
 }

@@ -269,10 +269,18 @@ namespace yaf
 		}
 
 		// XML THEME FILE (TEST)
-		static private XmlDocument LoadTheme(string themefile) 
+		private XmlDocument LoadTheme(string themefile) 
 		{
-			if(themefile==null)
-				themefile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+			if(themefile==null) 
+			{
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !AllowUserTheme)
+					themefile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+				else
+					themefile = (string)m_pageinfo["ThemeFile"];
+
+				if(themefile==null)
+					themefile = "standard.xml";
+			}
 
 			XmlDocument doc = null;
 #if !DEBUG
@@ -281,7 +289,7 @@ namespace yaf
 			if(doc==null) 
 			{
 				doc = new XmlDocument();
-				doc.Load(System.Web.HttpContext.Current.Server.MapPath(themefile));
+				doc.Load(System.Web.HttpContext.Current.Server.MapPath(String.Format("{0}themes/{1}",BaseDir,themefile)));
 #if !DEBUG
 				System.Web.HttpContext.Current.Cache[themefile] = doc;
 #endif
@@ -687,6 +695,20 @@ namespace yaf
 			get 
 			{
 				return (bool)m_pageinfo["AllowRichEdit"];
+			}
+		}
+		public bool AllowUserTheme 
+		{
+			get 
+			{
+				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserTheme"];
+			}
+		}
+		public bool AllowUserLanguage 
+		{
+			get 
+			{
+				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserLanguage"];
 			}
 		}
 
@@ -1127,26 +1149,33 @@ namespace yaf
 
 		public string GetText(string page,string text) 
 		{
+			string filename = null;
+
+			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
+				filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+			else
+				filename = (string)m_pageinfo["LanguageFile"];
+
+			if(filename==null)
+				filename = "english.xml";
+
 #if !DEBUG
-			if(m_localizer==null && Cache["Localizer"]!=null)
-				m_localizer = (Localizer)Cache["Localizer"];
+			if(m_localizer==null && Cache["Localizer." + filename]!=null)
+				m_localizer = (Localizer)Cache["Localizer." + filename];
 #endif
 			if(m_localizer==null) 
 			{
-				string filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
-				if(filename==null)
-					filename = "languages/english.xml";
 
-				m_localizer = new Localizer(Server.MapPath(BaseDir + filename));
+				m_localizer = new Localizer(Server.MapPath(String.Format("{0}languages/{1}",BaseDir,filename)));
 #if !DEBUG
-				Cache["Localizer"] = m_localizer;
+				Cache["Localizer." + filename] = m_localizer;
 #endif
 			}
 			string str = m_localizer.GetText(page,text);
 			if(str==null) 
 			{
 #if !DEBUG
-				Cache["Localizer"] = null;
+				Cache["Localizer." + filename] = null;
 #endif
 				throw new Exception(String.Format("Missing language item {0} ({1})",text,page));
 			}
@@ -1173,7 +1202,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,11,3);
+				return new DateTime(2003,11,4);
 			}
 		}
 	}

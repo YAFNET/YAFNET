@@ -51,6 +51,8 @@ namespace yaf
 		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarDeleteRow, AvatarRemoteRow;
 		protected Button DeleteAvatar;
 		protected DropDownList Theme, Language;
+		protected PlaceHolder ForumSettingsRows;
+		protected HtmlTableRow UserThemeRow, UserLanguageRow;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -70,6 +72,10 @@ namespace yaf
 
 				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");
+
+				ForumSettingsRows.Visible = AllowUserTheme || AllowUserLanguage;
+				UserThemeRow.Visible = AllowUserTheme;
+				UserLanguageRow.Visible = AllowUserLanguage;
 			}
 		}
 
@@ -78,10 +84,10 @@ namespace yaf
 			TimeZones.DataSource = Data.TimeZones();
 			Theme.DataSource = Data.Themes();
 			Theme.DataTextField = "Theme";
-			Theme.DataValueField = "Theme";
+			Theme.DataValueField = "FileName";
 			Language.DataSource = Data.Languages();
 			Language.DataTextField = "Language";
-			Language.DataValueField = "Language";
+			Language.DataValueField = "FileName";
 			DataBind();
 
 			using(DataTable dt = DB.user_list(PageUserID,true)) 
@@ -94,6 +100,16 @@ namespace yaf
 			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
 			Avatar.Text = row["Avatar"].ToString();
 			Email.Text = row["Email"].ToString();
+
+			string themeFile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+			string languageFile = System.Configuration.ConfigurationSettings.AppSettings["language"];
+			if(!row.IsNull("ThemeFile"))
+				themeFile = (string)row["ThemeFile"];
+			if(!row.IsNull("LanguageFile"))
+				languageFile = (string)row["LanguageFile"];
+
+			Theme.Items.FindByValue(themeFile).Selected = true;
+			Language.Items.FindByValue(languageFile).Selected = true;
 
 			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
 			using(DataTable dt = DB.system_list()) 
@@ -197,7 +213,7 @@ namespace yaf
 			if(!UseEmailVerification)
 				email = Email.Text;
 
-			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,null);
+			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null);
 			Response.Redirect("cp_profile.aspx");
 		}
 

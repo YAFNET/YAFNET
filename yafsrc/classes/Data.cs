@@ -124,16 +124,24 @@ namespace yaf
 			using(DataTable dt = new DataTable("Themes")) 
 			{
 				dt.Columns.Add("Theme",typeof(string));
+				dt.Columns.Add("FileName",typeof(string));
 				
 				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}themes",BaseDir)));
-				System.IO.DirectoryInfo[] dirs = dir.GetDirectories();
-				foreach(System.IO.DirectoryInfo file in dirs) 
+				System.IO.FileInfo[] files = dir.GetFiles("*.xml");
+				foreach(System.IO.FileInfo file in files) 
 				{
-					if(file.Name.ToLower()!="cvs") 
+					try 
 					{
+						System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+						doc.Load(file.FullName);
+
 						DataRow dr = dt.NewRow();
-						dr["Theme"] = file.Name;
+						dr["Theme"] = doc.DocumentElement.Attributes["theme"].Value;
+						dr["FileName"] = file.Name;
 						dt.Rows.Add(dr);
+					}
+					catch(Exception) 
+					{
 					}
 				}
 				return dt;

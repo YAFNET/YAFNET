@@ -46,6 +46,14 @@
 		<td class="post"><asp:checkbox runat="server" id="AllowRichEditX"/></td>
 	</tr>
 	<tr>
+		<td class="postheader"><b>Allow User Theme:</b><br/>Should users be able to choose what theme they want to use?</td>
+		<td class="post"><asp:checkbox runat="server" id="AllowUserThemeX"/></td>
+	</tr>
+	<tr>
+		<td class="postheader"><b>Allow User Language:</b><br/>Should users be able to choose what language they want to use?</td>
+		<td class="post"><asp:checkbox runat="server" id="AllowUserLanguageX"/></td>
+	</tr>
+	<tr>
 		<td class="header2" colspan="2">SMTP Server Settings</td>
 	</tr>
 	<tr>

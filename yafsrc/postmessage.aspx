@@ -98,16 +98,6 @@
 			<input type=button value=" CODE " onclick="makecode()">
 		</td>
 	</tr-->
-	<tr id=UploadRow1 runat="server">
-		<td class=postheader rowspan="3" valign="top"><%= GetText("attach") %></td>
-		<td class=post><input type="file" id="File1" runat="server"/></td>
-	</tr>
-	<tr id=UploadRow2 runat="server">
-		<td class=post><input type="file" id="File2" runat="server"/></td>
-	</tr>
-	<tr id=UploadRow3 runat="server">
-		<td class=post><input type="file" id="File3" runat="server"/></td>
-	</tr>
 	<tr>
 		<td align=middle colSpan=2 class=footer1>
 			<asp:Button id=Preview runat="server"/>

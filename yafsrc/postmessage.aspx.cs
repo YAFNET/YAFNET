@@ -74,8 +74,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink ForumLink;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		private int ForumID;
-		protected System.Web.UI.HtmlControls.HtmlTableRow UploadRow1, UploadRow2, UploadRow3;
-		protected System.Web.UI.HtmlControls.HtmlInputFile File1, File2, File3;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -100,10 +98,6 @@ namespace yaf
 				Data.AccessDenied();
 			if(Request["t"]!=null && !ForumReplyAccess)
 				Data.AccessDenied();
-
-			UploadRow1.Visible = ForumUploadAccess;
-			UploadRow2.Visible = ForumUploadAccess;
-			UploadRow3.Visible = ForumUploadAccess;
 
 			Message.EnableRTE = AllowRichEdit;
 
@@ -236,17 +230,23 @@ namespace yaf
 				return;
 			}
 
-			try 
+			if(PollRow1.Visible) 
 			{
-				CheckValidFile(File1);
-				CheckValidFile(File2);
-				CheckValidFile(File3);
+				if(Question.Text.Trim().Length==0) 
+				{
+					AddLoadMessage(GetText("NEED_QUESTION"));
+					return;
+				}
+
+				string p1 = PollChoice1.Text.Trim();
+				string p2 = PollChoice2.Text.Trim();
+				if(p1.Length==0 || p2.Length==0) 
+				{
+					AddLoadMessage(GetText("NEED_CHOICES"));
+					return;
+				}
 			}
-			catch(Exception x) 
-			{
-				AddLoadMessage(x.Message);
-				return;
-			}
+
 
 			// Must wait 30 seconds before posting again
 			if(Session["lastpost"] != null && Request.QueryString["m"]==null) 
@@ -306,10 +306,6 @@ namespace yaf
 				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,ref nMessageID);
 			}
 
-			SaveAttachment(nMessageID,File1);
-			SaveAttachment(nMessageID,File2);
-			SaveAttachment(nMessageID,File3);
-
 			// Check if message is approved
 			bool bApproved = false;
 			using(DataTable dt = DB.message_list(nMessageID)) 
@@ -329,52 +325,6 @@ namespace yaf
 				string url = String.Format("topics.aspx?f={0}",PageForumID);
 				Response.Redirect(String.Format("info.aspx?i=1&url={0}",Server.HtmlEncode(url)));
 			}
-		}
-
-		private void CheckValidFile(HtmlInputFile file) 
-		{
-			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
-				return;
-
-			string filename = file.PostedFile.FileName;
-			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});
-			if(pos>=0)
-				filename = filename.Substring(pos+1);
-			pos = filename.LastIndexOf('.');
-			if(pos>=0) 
-			{
-				switch(filename.Substring(pos+1).ToLower()) 
-				{
-					default:
-						break;
-					case "asp":
-					case "aspx":
-					case "ascx":
-					case "config":
-					case "php":
-					case "php3":
-					case "js":
-					case "vb":
-					case "vbs":
-						throw new Exception(String.Format(GetText("fileerror"),filename));
-				}
-			}
-		}
-
-		private void SaveAttachment(long nMessageID,HtmlInputFile file) 
-		{
-			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
-				return;
-
-			string sUpDir = Request.MapPath(System.Configuration.ConfigurationSettings.AppSettings["uploaddir"]);
-
-			string filename = file.PostedFile.FileName;
-			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});
-			if(pos>=0)
-				filename = filename.Substring(pos+1);
-
-			file.PostedFile.SaveAs(sUpDir + filename);
-			DB.attachment_save(nMessageID,filename,file.PostedFile.ContentLength);
 		}
 
 		private void CreatePoll_Click(object sender, System.EventArgs e) {

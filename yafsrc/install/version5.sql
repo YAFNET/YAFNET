@@ -103,15 +103,6 @@ create procedure yaf_attachment_save(@MessageID int,@FileName varchar(50),@Bytes
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_attachment_list
-GO
-
-create procedure yaf_attachment_list(@MessageID int) as begin
-	select FileName,Bytes from yaf_Attachment where MessageID=@MessageID
-end
-go
-
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='BlankLinks')
 	alter table yaf_System add BlankLinks bit not null default(0)
 GO

@@ -46,6 +46,18 @@
 		<Resource tag="MOVED">Moved</Resource>
 		<Resource tag="STICKY">Sticky</Resource>
 	</page>
+	<page name="ATTACHMENTS">
+		<Resource tag="TITLE">Attachments</Resource>
+		<Resource tag="BACK">Back</Resource>
+		<Resource tag="UPLOAD">Upload</Resource>
+		<Resource tag="SELECT_FILE">Select the file you want to upload.</Resource>
+		<Resource tag="UPLOAD_TITLE">Upload File</Resource>
+		<Resource tag="FILENAME">File Name</Resource>
+		<Resource tag="SIZE">Size</Resource>
+		<Resource tag="DELETE">Delete</Resource>
+		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
+		<Resource tag="ASK_DELETE">Delete this attachment?</Resource>
+	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
 		<Resource tag="FORUM">Forum</Resource>
@@ -322,7 +334,6 @@
 		<Resource tag="FROM">From:</Resource>
 		<Resource tag="PRIORITY">Priority:</Resource>
 		<Resource tag="MESSAGE">Message:</Resource>
-		<Resource tag="ATTACH">Attach Files:</Resource>
 		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="STICKY">Sticky</Resource>
@@ -340,9 +351,10 @@
 		<Resource tag="CHOICE9">Choice 9:</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject of the message.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
-		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="SAVE">Post</Resource>
+		<Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
+		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->

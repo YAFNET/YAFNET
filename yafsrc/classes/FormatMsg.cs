@@ -268,6 +268,7 @@ namespace yaf
 				case "em":
 				case "strong":
 				case "font":
+				case "pre":
 					return true;
 			}
 			return false;

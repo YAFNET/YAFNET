@@ -29,7 +29,7 @@
 		<td class=post>
 <asp:linkbutton runat=server commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'><%# DataBinder.Eval(Container.DataItem, "Choice") %></asp:linkbutton></td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "Votes") %></td>
-		<td class=post><nobr><img src='<%# GetThemeContents("VOTE","LCAP") %>'><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# DataBinder.Eval(Container.DataItem,"Stats") %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
+		<td class=post><nobr><img src='<%# GetThemeContents("VOTE","LCAP") %>'><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# VoteWidth(Container.DataItem) %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
 	</tr>
 </ItemTemplate>
 <FooterTemplate>
@@ -71,6 +71,7 @@
 					<tr>
 						<td class=small align=left><b><%# GetText("posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 						<td align=right>
+							<asp:linkbutton tooltip="Attachments" visible='<%# CanAttach((System.Data.DataRowView)Container.DataItem) %>' CommandName=Attach CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","ATTACHMENTS") %></asp:linkbutton>
 							<asp:linkbutton tooltip="Edit this post" visible='<%# CanEditPost((System.Data.DataRowView)Container.DataItem) %>' CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","EDITPOST") %></asp:linkbutton>
 							<asp:linkbutton tooltip="Delete this post" visible="<%# CanDeletePost((System.Data.DataRowView)Container.DataItem) %>" CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
 							<asp:linkbutton tooltip="Reply with quote" visible="<%# ForumReplyAccess %>" CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:linkbutton>

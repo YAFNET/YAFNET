@@ -649,60 +649,6 @@ create procedure yaf_usergroup_list(@UserID int) as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_save
-GO
-
-create procedure yaf_user_save(
-	@UserID		int,
-	@UserName	varchar(50) = null,
-	@Password	varchar(32) = null,
-	@Email		varchar(50) = null,
-	@Hash		varchar(32) = null,
-	@Location	varchar(50),
-	@HomePage	varchar(50),
-	@TimeZone	int,
-	@Avatar		varchar(100) = null,
-	@Approved	bit = null
-) as
-begin
-	declare @RankID int
-
-	if @Location is not null and @Location = '' set @Location = null
-	if @HomePage is not null and @HomePage = '' set @HomePage = null
-	if @Avatar is not null and @Avatar = '' set @Avatar = null
-
-	if @UserID is null or @UserID<1 begin
-		if @Email = '' set @Email = null
-		
-		select @RankID = RankID from yaf_Rank where IsStart<>0
-		
-		insert into yaf_User(RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar) 
-		values(@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar)
-	
-		set @UserID = @@IDENTITY
-
-		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where IsStart<>0
-		
-		if @Hash is not null and @Hash <> '' and @Approved=0 begin
-			insert into yaf_CheckEmail(UserID,Email,Created,Hash)
-			values(@UserID,@Email,getdate(),@Hash)	
-		end
-	end
-	else begin
-		update yaf_User set
-			Location = @Location,
-			HomePage = @HomePage,
-			TimeZone = @TimeZone,
-			Avatar = @Avatar
-		where UserID = @UserID
-		
-		if @Email is not null
-			update yaf_User set Email = @Email where UserID = @UserID
-	end
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderatelist') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_moderatelist
 GO
