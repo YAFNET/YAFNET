@@ -522,6 +522,26 @@ namespace yaf
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
+		
+			if(long.Parse(row["HasAttachments"].ToString())>0) 
+			{
+				string sUpDir = System.Configuration.ConfigurationSettings.AppSettings["uploaddir"];
+
+				html += "<p><b>Attachments:</b><br/>";
+				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add("@MessageID",row["MessageID"]);
+					using(DataTable dt = DataManager.GetData(cmd)) 
+					{
+						foreach(DataRow dr in dt.Rows) {
+							html += String.Format("<a href=\"{0}{1}\">{1}</a><br/>",sUpDir,dr["FileName"]);
+						}
+					}
+				}
+				html += "</p>";
+			}
+			
 			if(row["Signature"].ToString().Length>0)
 				html += "\r\n\r\n-- \r\n" + row["Signature"].ToString();
 

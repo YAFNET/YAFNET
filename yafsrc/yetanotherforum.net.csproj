@@ -1114,6 +1114,7 @@
                     RelPath = "themes\standard\voting_bar.gif"
                     BuildAction = "Content"
                 />
+                <Folder RelPath = "upload\" />
             </Include>
         </Files>
     </CSHARP>

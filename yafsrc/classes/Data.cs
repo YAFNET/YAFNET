@@ -22,6 +22,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Security;
 
+
 namespace yaf
 {
 	/// <summary>
@@ -83,9 +84,10 @@ namespace yaf
 			}
 		}
 
-		public static DataRow TopicInfo(int TopicID) 
+		public static DataRow TopicInfo(long TopicID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_info")) {
+			using(SqlCommand cmd = new SqlCommand("yaf_topic_info")) 
+			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@TopicID",TopicID);
 				return DataManager.GetData(cmd).Rows[0];
@@ -94,29 +96,48 @@ namespace yaf
 
 		public static DataRow ForumInfo(int ForumID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) {
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) 
+			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
 				return DataManager.GetData(cmd).Rows[0];
 			}
 		}
 
-		public static bool PostReply(int TopicID,string User,string Message,string UserName,string IP) 
+		public static string BaseDir 
+		{
+			get 
+			{
+				return System.Configuration.ConfigurationSettings.AppSettings["basedir"];
+			}
+		}
+
+		public static void AccessDenied() 
+		{
+			System.Web.HttpContext.Current.Response.Redirect(BaseDir);
+		}
+
+		public static bool PostReply(long TopicID,string User,string Message,string UserName,string IP,ref long nMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
+				SqlParameter pMessageID = new SqlParameter("@MessageID",nMessageID);
+				pMessageID.Direction = ParameterDirection.Output;
+
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@TopicID",TopicID);
 				cmd.Parameters.Add("@User",User);
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
+				cmd.Parameters.Add(pMessageID);
 				yaf.DataManager.ExecuteNonQuery(cmd);
+				nMessageID = (long)pMessageID.Value;
 				return true;
 			}
 		}
 
-		public static int PostMessage(int ForumID,string Subject,string Message,string User,int Priority,int PollID,string UserName,string IP) 
+		public static long PostMessage(int ForumID,string Subject,string Message,string User,int Priority,int PollID,string UserName,string IP,ref long nMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_save")) 
 			{
@@ -128,9 +149,11 @@ namespace yaf
 				cmd.Parameters.Add("@Priority",Priority);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
-				if(PollID>0)
-					cmd.Parameters.Add("@PollID",PollID);
-				return (int)yaf.DataManager.ExecuteScalar(cmd);
+				cmd.Parameters.Add("@PollID",PollID>0 ? (object)PollID : null);
+
+				DataTable dt = DataManager.GetData(cmd);
+				nMessageID = long.Parse(dt.Rows[0]["MessageID"].ToString());
+				return long.Parse(dt.Rows[0]["TopicID"].ToString());
 			}
 		}
 
@@ -144,7 +167,7 @@ namespace yaf
 			}
 		}
 
-		public static void LockTopic(int TopicID,bool Locked) 
+		public static void LockTopic(long TopicID,bool Locked) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_lock")) {
 				cmd.CommandType = CommandType.StoredProcedure;

@@ -79,6 +79,8 @@ namespace yaf
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		private int ForumID;
 		private FormatMsg fmt;
+		protected System.Web.UI.HtmlControls.HtmlTableRow UploadRow1, UploadRow2, UploadRow3;
+		protected System.Web.UI.HtmlControls.HtmlInputFile File1, File2, File3;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -95,12 +97,16 @@ namespace yaf
 			}
 	
 			if(ForumID == 0)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(Request["t"]==null && !ForumPostAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 			if(Request["t"]!=null && !ForumReplyAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
+
+			UploadRow1.Visible = ForumUploadAccess;
+			UploadRow2.Visible = ForumUploadAccess;
+			UploadRow3.Visible = ForumUploadAccess;
 
 			if(!IsPostBack) 
 			{
@@ -196,19 +202,24 @@ namespace yaf
 				}
 			}
 
-			int TopicID;
+			long TopicID;
+			long nMessageID = 0;
 			string msg = Server.HtmlEncode(Message.Text);
 			Session["lastpost"] = DateTime.Now;
 			if(Request.QueryString["t"] != null) {
 				if(!ForumReplyAccess)
-					return;
+					Data.AccessDenied();
 
-				TopicID = int.Parse(Request.QueryString["t"]);
-				if(!Data.PostReply(TopicID,User.Identity.Name,msg,From.Text,Request.UserHostAddress))
+				TopicID = long.Parse(Request.QueryString["t"]);
+				if(!Data.PostReply(TopicID,User.Identity.Name,msg,From.Text,Request.UserHostAddress,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
-				using(SqlCommand cmd = new SqlCommand("yaf_message_update")) {
+				if(!ForumEditAccess)
+					Data.AccessDenied();
+
+				using(SqlCommand cmd = new SqlCommand("yaf_message_update")) 
+				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add("@MessageID",Request.QueryString["m"]);
 					cmd.Parameters.Add("@Priority",Priority.SelectedItem.Value);
@@ -216,10 +227,11 @@ namespace yaf
 					DataManager.ExecuteNonQuery(cmd);
 				}
 				TopicID = PageTopicID;
+				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
 			else {
 				if(!ForumPostAccess)
-					return;
+					Data.AccessDenied();
 
 				int PollID = 0;
 				if(PollRow1.Visible) {
@@ -240,9 +252,15 @@ namespace yaf
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = Data.PostMessage(ForumID,subject,msg,User.Identity.Name,int.Parse(Priority.SelectedItem.Value),PollID,From.Text,Request.UserHostAddress);
+				TopicID = Data.PostMessage(ForumID,subject,msg,User.Identity.Name,int.Parse(Priority.SelectedItem.Value),PollID,From.Text,Request.UserHostAddress,ref nMessageID);
 			}
-			if(TopicID>0) {
+
+			SaveAttachment(nMessageID,File1);
+			SaveAttachment(nMessageID,File2);
+			SaveAttachment(nMessageID,File3);
+
+			if(TopicID>0) 
+			{
 				// Get Topic Info
 				DataRow topic = Data.TopicInfo(TopicID);
 
@@ -264,6 +282,24 @@ namespace yaf
 				}
 
 				Response.Redirect("posts.aspx?t=" + TopicID);
+			}
+		}
+
+		private void SaveAttachment(long nMessageID,HtmlInputFile file) 
+		{
+			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
+				return;
+
+			string sUpDir = Request.MapPath(System.Configuration.ConfigurationSettings.AppSettings["uploaddir"]);
+
+			file.PostedFile.SaveAs(sUpDir + file.PostedFile.FileName);
+			using(SqlCommand cmd = new SqlCommand("yaf_attachment_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@MessageID",nMessageID);
+				cmd.Parameters.Add("@FileName",file.PostedFile.FileName);
+				cmd.Parameters.Add("@Bytes",file.PostedFile.ContentLength);
+				DataManager.ExecuteNonQuery(cmd);
 			}
 		}
 

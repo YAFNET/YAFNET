@@ -684,12 +684,26 @@ namespace yaf
 					return (bool)pageinfo["EditAccess"];
 			}
 		}
+		/// <summary>
+		/// True if the current user can upload attachments
+		/// </summary>
+		protected bool ForumUploadAccess 
+		{
+			get 
+			{
+				if(pageinfo.IsNull("UploadAccess"))
+					return false;
+				else
+					return (bool)pageinfo["UploadAccess"];
+			}
+		}
 		#endregion
 		#region Date and time functions
 		/// <summary>
 		/// Returns the forum timezone offset from GMT
 		/// </summary>
-		public TimeSpan TimeZoneOffsetForum {
+		public TimeSpan TimeZoneOffsetForum 
+		{
 			get {
 				return new TimeSpan(1,0,0);
 			}
