@@ -97,7 +97,8 @@
                 <Reference
                     Name = "FreeTextBox"
                     AssemblyName = "FreeTextBox"
-                    HintPath = "FreeTextBox\FreeTextBox.dll"
+                    HintPath = "C:\Program Files\FreeTextBox 2.0\web\bin\FreeTextBox.dll"
+                    Private = "False"
                 />
             </References>
         </Build>
