@@ -45,7 +45,6 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
 		protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX, ShowForumJumpX, AllowPrivateMessagesX, AllowEmailSendingX, AllowSignaturesX, RemoveNestedQuotesX, DateFormatFromLanguage;
 		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
 		protected CheckBox AllowHTMLX, DisableRegistrations, CreateNntpUsers, ShowGroupsProfile;

@@ -36,7 +36,6 @@ namespace yaf.pages.admin
 	{
 		protected Button save, cancel;
 		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected System.Web.UI.WebControls.TextBox badword,goodword;
 		protected controls.PageLinks PageLinks;
 

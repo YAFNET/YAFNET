@@ -7,4 +7,4 @@
 <asp:hyperlink runat="server" id="Msg"><img runat="server" id="Img" border="0"/></asp:hyperlink>
 </center>
 
-<yaf:savescrollpos runat="server"/>
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

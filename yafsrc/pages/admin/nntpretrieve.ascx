@@ -54,4 +54,4 @@ To protect usenet servers, a newsgroup can only be updated once every 10 minutes
 
 </yaf:adminmenu>
 
-<yaf:savescrollpos runat="server"/>
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

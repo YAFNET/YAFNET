@@ -121,28 +121,30 @@
 			<TD class="post">
 				<asp:checkbox id="DateFormatFromLanguage" runat="server"></asp:checkbox></TD>
 		</TR>
-		<tr>
-			<td class="postheader"><b>Create NNTP user names:</b><br/>
-				Check to allow users to automatically be created when downloading usenet messages. 
-				Only enable this in a test environment, and <em>NEVER</em> in a production environment.
-				The main purpose of this option is for performance testing.</td>
-			<td class="post"><asp:checkbox runat="server" id="CreateNntpUsers"/></td>
-		</tr>
+		<TR>
+			<TD class="postheader"><B>Create NNTP user names:</B><BR>
+				Check to allow users to automatically be created when downloading usenet 
+				messages. Only enable this in a test environment, and <EM>NEVER</EM> in a 
+				production environment. The main purpose of this option is for performance 
+				testing.</TD>
+			<TD class="post">
+				<asp:checkbox id="CreateNntpUsers" runat="server"></asp:checkbox></TD>
+		</TR>
 		<TR>
 			<TD class="header2" align="center" colSpan="2">Editing/Formatting Settings</TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Forum Editor:</B><BR>
-				Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox)
-				the .bin file must be in the \bin directory and the proper support files must be put in
-				\editors.	
+				Select global editor type for your forum. To use the HTML editors (FCK and 
+				FreeTextBox) the .bin file must be in the \bin directory and the proper support 
+				files must be put in \editors.
 			</TD>
 			<TD class="post">
 				<asp:dropdownlist id="ForumEditorList" runat="server" DataValueField="Value" DataTextField="Name"></asp:dropdownlist></TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Accepted HTML Tags:</B><BR>
-				Comma seperated list (no spaces) of HTML tags that are allowed in posts using
+				Comma seperated list (no spaces) of HTML tags that are allowed in posts using 
 				HTML editors.</TD>
 			<TD class="post">
 				<asp:TextBox id="AcceptedHTML" runat="server"></asp:TextBox></TD>
@@ -180,11 +182,12 @@
 			<TD class="post">
 				<asp:checkbox id="AllowSignaturesX" runat="server"></asp:checkbox></TD>
 		</TR>
-		<tr>
-			<td class="postheader"><b>Disable New Registrations:</b><br/>
-				New users won't be able to register.</td>
-			<td class="post"><asp:checkbox id="DisableRegistrations" runat="server"/></td>
-		</tr>
+		<TR>
+			<TD class="postheader"><B>Disable New Registrations:</B><BR>
+				New users won't be able to register.</TD>
+			<TD class="post">
+				<asp:checkbox id="DisableRegistrations" runat="server"></asp:checkbox></TD>
+		</TR>
 		<TR>
 			<TD class="header2" align="center" colSpan="2">SMTP Server Settings</TD>
 		</TR>
@@ -259,4 +262,4 @@
 		</TR>
 	</TABLE>
 </yaf:adminmenu>
-<yaf:savescrollpos runat="server" id="Savescrollpos1" />
+<yaf:SmartScroller id="SmartScroller1" runat="server" />

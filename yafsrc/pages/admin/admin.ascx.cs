@@ -38,7 +38,7 @@ namespace yaf.pages.admin
 		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;
 		protected HtmlGenericControl UpgradeNotice;
 		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SaveScrollPos Savescrollpos1;
+		protected yaf.controls.SmartScroller SmartScroller1;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)

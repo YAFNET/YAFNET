@@ -31,11 +31,13 @@
 			<TD class="post">
 				<asp:textbox id="Description" runat="server" cssclass="edit"></asp:textbox></TD>
 		</TR>
-		<tr>
-			<td class="postheader"><b>Remote URL:</b><br/>
-				Enter a url here, and instead of going to the forum you will be taken to this url instead.</td>
-			<td class="post"><asp:textbox id="remoteurl" runat="server" cssclass="edit"/></td>
-		</tr>
+		<TR>
+			<TD class="postheader"><B>Remote URL:</B><BR>
+				Enter a url here, and instead of going to the forum you will be taken to this 
+				url instead.</TD>
+			<TD class="post">
+				<asp:textbox id="remoteurl" runat="server" cssclass="edit"></asp:textbox></TD>
+		</TR>
 		<TR>
 			<TD class="postheader"><B>SortOrder:</B><BR>
 				Sort order under this category.</TD>
@@ -103,4 +105,4 @@
 		</TR>
 	</TABLE>
 </yaf:adminmenu>
-<yaf:savescrollpos runat="server" id="Savescrollpos1" />
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.replacewords" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="list" runat="server">
@@ -36,4 +36,4 @@
 		</FooterTemplate>
 	</asp:repeater>
 </yaf:adminmenu>
-<yaf:savescrollpos runat="server" id="Savescrollpos1" />
+<yaf:SmartScroller id="SmartScroller1" runat="server" />

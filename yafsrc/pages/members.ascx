@@ -34,4 +34,4 @@
 
 <table class=command><tr><td class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td></tr></table>
 
-<yaf:savescrollpos runat="server"/>
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

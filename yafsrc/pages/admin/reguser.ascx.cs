@@ -31,7 +31,6 @@ namespace yaf.pages.admin
 	public class reguser : AdminPage
 	{
     protected yaf.controls.AdminMenu Adminmenu1;
-    protected yaf.controls.SaveScrollPos Savescrollpos1;
     protected yaf.controls.PageLinks PageLinks;
     
     protected System.Web.UI.WebControls.TextBox UserName;
@@ -77,11 +76,11 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{
-      this.ForumRegister.Click += new System.EventHandler(this.ForumRegister_Click);
-      this.cancel.Click += new System.EventHandler(this.cancel_Click);
-      this.Load += new System.EventHandler(this.Page_Load);
+			this.ForumRegister.Click += new System.EventHandler(this.ForumRegister_Click);
+			this.cancel.Click += new System.EventHandler(this.cancel_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
-    }
+		}
 		#endregion
 		
     private void cancel_Click(object sender,EventArgs e) 

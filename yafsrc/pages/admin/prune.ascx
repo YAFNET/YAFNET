@@ -26,4 +26,4 @@
 
 </yaf:adminmenu>
 
-<yaf:savescrollpos runat="server"/>
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

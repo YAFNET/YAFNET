@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.admin" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="ActiveList" runat="server">
@@ -58,9 +58,11 @@
 			</tr>
 		</ItemTemplate>
 		<FooterTemplate>
-				<tr>
-					<td class="footer1" colspan="5"><asp:button commandname="deleteall" title="Deletes all unverified users more than 2 days old" runat="server" text="Delete All"/></td>
-				</tr>
+			<tr>
+				<td class="footer1" colspan="5">
+					<asp:button commandname="deleteall" title="Deletes all unverified users more than 2 days old"
+						runat="server" text="Delete All" /></td>
+			</tr>
 			</table>
 		</FooterTemplate>
 	</asp:repeater>
@@ -111,4 +113,4 @@
 		go to <A href="install/" target='_"top"'>install</A> and update your database.
 	</P>
 </yaf:adminmenu>
-<yaf:savescrollpos runat="server" id="Savescrollpos1" />
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

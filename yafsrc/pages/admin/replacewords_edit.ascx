@@ -23,4 +23,4 @@
 		</TR>
 	</TABLE>
 </yaf:adminmenu>
-<yaf:savescrollpos runat="server" id="Savescrollpos1" />
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />

@@ -113,7 +113,7 @@
 </tr>
 </table>
 
-<yaf:savescrollpos runat="server"/>
+<yaf:SmartScroller id="SmartScroller1" runat = "server" />
 
 <yaf:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
 <yaf:PopMenu runat="server" id="ViewMenu" control="View"/>
