@@ -14,24 +14,24 @@ namespace yaf_rainbow
 		public void Initialize(string userName,bool isAuthenticated)
 		{
 			/*
-			 * UserID (int)=1
-			 * Email (nvarchar)=bh@bhenden.org
-			 * Password (nvarchar)=altchs
-			 * Name (nvarchar)=bhenden
-			 * Company (nvarchar)=
-			 * Address (nvarchar)=Engsoleia 13
-			 * City (nvarchar)=Kristiansund
-			 * Zip (nvarchar)=6518
-			 * CountryId (nchar)=NO
-			 * StateId (int)=9889982
-			 * PIva (nvarchar)=
-			 * CFiscale (nvarchar)=
-			 * Phone (nvarchar)=71583338
-			 * Fax (nvarchar)=
-			 * SendNewsletter (bit)=False
-			 * MailChecked (tinyint)=
-			 * PortalId (int)=0
-			 * Country (nvarchar)=Norvegia
+			 * UserID (int)
+			 * Email (nvarchar)
+			 * Password (nvarchar)
+			 * Name (nvarchar)
+			 * Company (nvarchar)
+			 * Address (nvarchar)
+			 * City (nvarchar)
+			 * Zip (nvarchar)
+			 * CountryId (nchar)
+			 * StateId (int)
+			 * PIva (nvarchar)
+			 * CFiscale (nvarchar)
+			 * Phone (nvarchar)
+			 * Fax (nvarchar)
+			 * SendNewsletter (bit)
+			 * MailChecked (tinyint)
+			 * PortalId (int)
+			 * Country (nvarchar)
 			 */
 			try 
 			{

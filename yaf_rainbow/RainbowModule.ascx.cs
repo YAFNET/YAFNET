@@ -4,9 +4,14 @@ namespace yaf_rainbow
 	using System.Data;
 	using System.Drawing;
 	using System.Web;
+	using System.Web.UI;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using Rainbow.UI;
 	using Rainbow.UI.WebControls;
+	using Rainbow.UI.DataTypes;
+	using Rainbow.Configuration;
+	using yaf;
 
 	/// <summary>
 	///		Summary description for RainbowModule.
@@ -22,9 +27,45 @@ namespace yaf_rainbow
 		}
 		protected override void OnInit(System.EventArgs e)
 		{
-			ModuleTitle = new DesktopModuleTitle();
-			Controls.AddAt(0,ModuleTitle);
+			Load += new EventHandler(RainbowModule_Load);
 			base.OnInit(e);
+		}
+		public RainbowModule()
+		{
+			Rainbow.Configuration.SettingItem boardID = new Rainbow.Configuration.SettingItem(new Rainbow.UI.DataTypes.IntegerDataType());
+			boardID.Required = true;
+			boardID.Order = 1;
+			boardID.Value = "1";
+			this._baseSettings.Add("BoardID",boardID);
+		}
+		private void RainbowModule_Load(object sender, EventArgs e)
+		{
+			base.Cacheable = false;
+			this.ModuleConfiguration.Cacheable = false;
+
+			foreach(Control _c in this.Controls)
+			{
+				if(_c.GetType()==typeof(yaf.Forum)) 
+				{
+					Forum f = (Forum)_c;
+					try 
+					{
+						f.BoardID = int.Parse(Settings["BoardID"].ToString());
+					}
+					catch(Exception)
+					{
+						f.BoardID = 1;
+					}
+					break;
+				}
+			}
+		}
+		public override bool Cacheable
+		{
+			get
+			{
+				return false;
+			}
 		}
 	}
 }
