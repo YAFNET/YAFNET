@@ -428,6 +428,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "defs\htm.def"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "defs\java.def"
                     BuildAction = "Content"
                 />

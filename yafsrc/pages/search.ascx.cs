@@ -196,10 +196,19 @@ namespace yaf.pages
 			}
 			catch(System.Data.SqlClient.SqlException x)
 			{
+				Utils.LogToMail(x);
 				if(IsAdmin)
-					AddLoadMessage(x.Message);
+					AddLoadMessage(string.Format("{0}",x));
 				else
 					AddLoadMessage("An error occurred in the database.");
+			}
+			catch(Exception x) 
+			{
+				Utils.LogToMail(x);
+				if(IsAdmin)
+					AddLoadMessage(string.Format("{0}",x));
+				else
+					AddLoadMessage("An error occured while searching.");
 			}
 		}
 
