@@ -85,8 +85,8 @@
 	<tr>
 		<td class="postheader">Board started:</td>
 		<td class="post"><asp:label runat="server" id="BoardStart"/></td>
-		<td class="postheader">&nbsp;</td>
-		<td class="post">&nbsp;</td>
+		<td class="postheader">Size of database:</td>
+		<td class="post"><asp:label runat="server" id="DBSize"/></td>
 	</tr>
 	<tr>
 		<td class="postfooter" colspan="4">These statistics don't count deleted topics and posts.</td>

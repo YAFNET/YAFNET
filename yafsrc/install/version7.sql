@@ -27,6 +27,10 @@ GO
 alter table yaf_System alter column AvatarRemote bit not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AvatarSize')
+	alter table yaf_System add AvatarSize int null
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listread
 GO
@@ -326,7 +330,8 @@ create procedure yaf_system_save(
 	@AvatarWidth		int,
 	@AvatarHeight		int,
 	@AvatarUpload		bit,
-	@AvatarRemote		bit
+	@AvatarRemote		bit,
+	@AvatarSize			int=null
 ) as
 begin
 	update yaf_System set
@@ -342,6 +347,7 @@ begin
 		AvatarWidth = @AvatarWidth,
 		AvatarHeight = @AvatarHeight,
 		AvatarUpload = @AvatarUpload,
-		AvatarRemote = @AvatarRemote
+		AvatarRemote = @AvatarRemote,
+		AvatarSize = @AvatarSize
 end
 GO

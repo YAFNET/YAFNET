@@ -72,6 +72,10 @@
 		<td class=post><asp:textbox id="AvatarHeight" runat="server"/></td>
 	</tr>
 	<tr>
+		<td class=postheader><b>Avatar Size:</b><br/>Maximum size for avatars in bytes.</td>
+		<td class=post><asp:textbox id="AvatarSize" runat="server"/></td>
+	</tr>
+	<tr>
 		<td class="header2" colspan="2">Forum Moderator Access</td>
 	</tr>
 	<tr>

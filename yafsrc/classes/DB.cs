@@ -88,6 +88,14 @@ namespace yaf
 				return cmd.ExecuteScalar();
 			}
 		}
+		public static int DBSize() 
+		{
+			using(SqlCommand cmd = new SqlCommand("select sum(size) * 8 * 1024 from sysfiles")) 
+			{
+				cmd.CommandType = CommandType.Text;
+				return (int)ExecuteScalar(cmd);
+			}
+		}
 		#endregion
 		
 		#region Forum
@@ -758,8 +766,16 @@ namespace yaf
 		#region yaf_System
 		static public void system_save(object Name,object TimeZone,object SmtpServer,object SmtpUserName,
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
-			object BlankLinks,object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote) 
+			object BlankLinks,
+			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize) 
 		{
+			if(avatarSize!=null && avatarSize.ToString().Length==0)
+				avatarSize = null;
+			if(SmtpUserName!=null && SmtpUserName.ToString().Length==0)
+				SmtpUserName = null;
+			if(SmtpUserPass!=null && SmtpUserPass.ToString().Length==0)
+				SmtpUserPass = null;
+
 			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -776,6 +792,7 @@ namespace yaf
 				cmd.Parameters.Add("@AvatarHeight",AvatarHeight);
 				cmd.Parameters.Add("@AvatarUpload",avatarUpload);
 				cmd.Parameters.Add("@AvatarRemote",avatarRemote);
+				cmd.Parameters.Add("@AvatarSize",avatarSize);
 				ExecuteNonQuery(cmd);
 			}
 		}

@@ -95,10 +95,13 @@ namespace yaf
 			if(File.PostedFile!=null && File.PostedFile.FileName.Trim().Length>0 && File.PostedFile.ContentLength>0) 
 			{
 				long x,y;
+				int nAvatarSize = 50000;
 				using(DataTable dt = DB.system_list())
 				{
 					x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
 					y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
+					if(dt.Rows[0]["AvatarSize"]!=null)
+						nAvatarSize = (int)dt.Rows[0]["AvatarSize"];
 				}
 
 
@@ -107,6 +110,12 @@ namespace yaf
 				{
 					AddLoadMessage(String.Format("Image size can't be larger than {0}x{1} pixels.",x,y));
 					AddLoadMessage(String.Format("The size of your image was {0}x{1} pixels.",img.Width,img.Height));
+					return;
+				}
+				if(File.PostedFile.ContentLength>=nAvatarSize) 
+				{
+					AddLoadMessage(String.Format("The size of your image can't be more than {0} bytes.",nAvatarSize));
+					AddLoadMessage(String.Format("The size of your image was {0} bytes.",File.PostedFile.ContentLength));
 					return;
 				}
 

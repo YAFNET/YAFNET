@@ -35,7 +35,7 @@ namespace yaf.admin
 	public class main : AdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
-		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers;
+		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;
 		protected HtmlGenericControl UpgradeNotice;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -72,6 +72,8 @@ namespace yaf.admin
 			DayPosts.Text = String.Format("{0:N2}",(int)row["NumPosts"] / days);
 			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);
 			DayUsers.Text = String.Format("{0:N2}",(int)row["NumUsers"] / days);
+
+			DBSize.Text = String.Format("{0:N2} MB",DB.DBSize()/1024.0/1024.0);
 		}
 
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
