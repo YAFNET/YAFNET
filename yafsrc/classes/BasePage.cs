@@ -1062,21 +1062,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 7;
+				return 8;
 			}
 		}
 		static public string AppVersionName 
 		{
 			get 
 			{
-				return "0.9.1";
+				return "0.9.2";
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2003,10,28);
+				return new DateTime(2003,10,29);
 			}
 		}
 	}

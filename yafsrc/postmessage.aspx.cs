@@ -150,18 +150,18 @@ namespace yaf
 						if(!isHtml) 
 						{
 							body = FormatMsg.ForumCodeToHtml(this,body);
-						}
-						Message.Text = String.Format("<br/><div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br/>",msg["username"],Server.HtmlDecode(body));
+						} 
+						Message.Text = String.Format("<br/><div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br/>",msg["username"],body);
 					}
 					else 
 					{
 						if(isHtml)
 							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(msg["Message"].ToString()));
 						else
-							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],Server.HtmlDecode((string)msg["message"]));
+							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],msg["message"]);
 					}
 				} else if(Request.QueryString["m"] != null) {
-					string body = Server.HtmlDecode((string)msg["message"]);
+					string body = msg["message"].ToString();
 					bool isHtml = body.IndexOf('<')>=0;
 					if(Message.IsRTEBrowser) 
 					{
@@ -179,6 +179,7 @@ namespace yaf
 						}
 					}
 					Message.Text = body;
+					//Message.Text = "<b>test</b><br/>&lt;b&gt;test&lt;/b&gt;";
 					
 					Subject.Text = (string)msg["Topic"];
 					Subject.Enabled = false;
@@ -272,14 +273,14 @@ namespace yaf
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,From.Text,Request.UserHostAddress,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
 				if(!ForumEditAccess)
 					Data.AccessDenied();
 
-				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,Message.Text);
+				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
@@ -302,7 +303,7 @@ namespace yaf
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,ref nMessageID);
 			}
 
 			SaveAttachment(nMessageID,File1);

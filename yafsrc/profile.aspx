@@ -1,5 +1,4 @@
 <%@ Page language="c#" Codebehind="profile.aspx.cs" AutoEventWireup="false" Inherits="yaf.profile" %>
-<meta name=vs_targetSchema content="http://schemas.microsoft.com/intellisense/ie3-2nav3-0">
 
 <form runat="server">
 
@@ -13,7 +12,6 @@
 	<tr>
 		<td class="header1" colspan=2>
 			<%= GetText("profile") %> <asp:Label id=UserName runat="server"/> 
-			
 		</td>
 	</tr>
 	<tr>

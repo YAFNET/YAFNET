@@ -667,8 +667,8 @@ namespace yaf
 			}
 		}
 		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,ref long nMessageID) {
-			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-				UserName = null;
+			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+			//	UserName = null;
 
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
@@ -977,8 +977,8 @@ namespace yaf
 		}
 		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
 		{
-			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-				UserName = null;
+			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+			//	UserName = null;
 
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_save")) 
 			{
