@@ -45,42 +45,36 @@
 </table>
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%" border="0">
-<tr class="header1">
-	<td colspan="3">
-		<table border="0" class="header1" width="100%" cellspacing="0" cellpadding="0">
-		<tr>
-			<td><asp:label id=TopicTitle runat="server"/></td>
-			<td align="right">
-				<asp:hyperlink id="MyTest" runat="server">Options</asp:hyperlink>
-				<asp:placeholder runat="server" id="ViewOptions">
-				&middot;
-				<asp:hyperlink id="View" runat="server">View</asp:hyperlink>
-				</asp:placeholder>
-			</td>
-		</tr>
+<tr>
+	<td colspan="3" style="padding:0px">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="header1">
+			<tr class="header1">
+				<td><asp:label id=TopicTitle runat="server"/></td>
+				<td align="right">
+					<asp:hyperlink id="MyTest" runat="server">Options</asp:hyperlink>
+					<asp:placeholder runat="server" id="ViewOptions">
+					&middot;
+					<asp:hyperlink id="View" runat="server">View</asp:hyperlink>
+					</asp:placeholder>
+				</td>
+			</tr>
 		</table>
 	</td>
 </tr>
 <tr class='header2'>
-	<td colspan='3'>
-		<table cellspacing='0' cellpadding='0' width='100%'>
-		<tr>
-			<td class='header2' align=left>
-				<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton>
-				&middot;
-				<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
-			</td>
-			<td class='header2' align=right runat="server" visible="false">
-				<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
-				&middot;
-				<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
-				&middot;
-				<asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton>
- 				&middot;
- 				<asp:hyperlink id=RssTopic runat=server><%# GetText("rsstopic") %></asp:hyperlink>
-			</td>
-		</tr>
-		</table>
+	<td colspan="3" align="right">
+		<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton>
+		&middot;
+		<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
+		<div runat="server" visible="false">
+			<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
+			&middot;
+			<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
+			&middot;
+			<asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton>
+ 			&middot;
+ 			<asp:hyperlink id=RssTopic runat=server><%# GetText("rsstopic") %></asp:hyperlink>
+		</div>
 	</td>
 </tr>
 
