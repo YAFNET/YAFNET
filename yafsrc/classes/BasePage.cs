@@ -223,6 +223,28 @@ namespace yaf
 			}
 		}
 
+		protected bool IsNetscape 
+		{
+			get 
+			{
+				return Request.Browser.Browser.ToLower() == "netscape";
+			}
+		}
+		protected bool IsIE 
+		{
+			get 
+			{
+				return Request.Browser.Browser.ToLower() == "ie";
+			}
+		}
+		protected bool IsOpera 
+		{
+			get 
+			{
+				return Request.Browser.Browser.ToLower() == "opera";
+			}
+		}
+
 		/// <summary>
 		/// Writes the document
 		/// </summary>

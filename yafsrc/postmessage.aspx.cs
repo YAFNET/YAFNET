@@ -263,7 +263,10 @@ namespace yaf
 				DB.mail_createwatch(TopicID,ForumEmail,subject,body,PageUserID);
 
 				//Response.Redirect("posts.aspx?t=" + TopicID);
-				Response.Redirect(String.Format("posts.aspx?m={0}#{0}",nMessageID));
+				if(this.IsIE)
+					Response.Redirect(String.Format("posts.aspx?m={0}",nMessageID));
+				else
+					Response.Redirect(String.Format("posts.aspx?m={0}#{0}",nMessageID));
 			}
 		}
 
