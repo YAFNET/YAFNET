@@ -30,9 +30,6 @@ namespace yaf.controls
 				PopMenu1.Attach(UserName);
 			}
 
-			if(!IsPostBack || true) 
-			{
-			}
 			Page.RegisterClientScriptBlock("yafjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("../yaf.js")));
 			NameCell.ColSpan = int.Parse(GetIndentSpan());
 		}
