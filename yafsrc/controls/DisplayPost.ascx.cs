@@ -252,8 +252,26 @@ namespace yaf.controls
 			if(!CanDeletePost)
 				return;
 
-			ForumPage.DataProvider.message_delete(DataRow["MessageID"]);
-			Response.Redirect(Request.RawUrl);
+			// CHANGED BAI 30.01.2004
+      
+			//Create objects for easy access
+			object tmpMessageID = DataRow["MessageID"];
+			object tmpForumID   = DataRow["ForumID"];
+			object tmpTopicID   = DataRow["TopicID"];
+			
+			// Delete message. If it is the last message of the topic, the topic is also deleted
+			ForumPage.DataProvider.message_delete(tmpMessageID);
+			
+			// retrieve topic information.
+			DataRow topic = ForumPage.DataProvider.topic_info(tmpTopicID);
+			
+			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
+			if (topic == null)
+				Forum.Redirect(Pages.topics,"f={0}",tmpForumID);
+			else
+				Forum.Redirect(Pages.posts,"t={0}",tmpTopicID);
+      
+			// END CHANGED BAI 30.01.2004
 		}
 	}
 }

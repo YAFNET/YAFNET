@@ -796,6 +796,27 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		//BAI ADDED 30.01.2004
+		private void message_deleteRecursively(object messageID)
+		{
+			//Delete replies
+			using(SqlCommand cmd = new SqlCommand("yaf_message_getReplies")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@MessageID",messageID);
+				DataTable tbReplies = GetData(cmd);
+				foreach (DataRow row in tbReplies.Rows)
+					message_deleteRecursively(row["MessageID"]);
+			}
+		  
+			//Delete Message
+			using(SqlCommand cmd = new SqlCommand("yaf_message_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@MessageID",messageID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		public DataTable message_list(object messageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_list")) 
@@ -807,12 +828,15 @@ namespace yaf
 		}
 		public void message_delete(object messageID) 
 		{
+			message_deleteRecursively(messageID);
+			/*
 			using(SqlCommand cmd = new SqlCommand("yaf_message_delete")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@MessageID",messageID);
 				ExecuteNonQuery(cmd);
 			}
+			*/
 		}
 		public void message_approve(object messageID) 
 		{
