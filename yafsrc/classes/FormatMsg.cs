@@ -247,10 +247,10 @@ namespace yaf
 
 		static public string FetchURL(yaf.pages.ForumPage basePage,string html) 
 		{
-			html = iAddSmiles(basePage,html);
-
 			// make "html safe" here
 			html = BBCode.SafeHtml(html);
+
+			html = iAddSmiles(basePage,html);			
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
