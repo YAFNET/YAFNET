@@ -76,7 +76,7 @@ namespace yaf.controls
 					{
 						string strCode = Convert.ToString(row["Code"]).ToLower();
 						strCode = strCode.Replace("\"","&quot;");
-						evt = String.Format("javascript:{0}('{1}','{3}images/emoticons/{2}')",_onclick,strCode,row["Icon"],Data.ForumRoot);
+						evt = String.Format("javascript:{0}('{1} ','{3}images/emoticons/{2}')",_onclick,strCode,row["Icon"],Data.ForumRoot);
 					} 
 					else 
 					{

@@ -4,7 +4,7 @@
 
 <table class="content" align="center" cellspacing="0" cellpadding="9">
 	<tr class="postheader">
-		<td class="header" colspan="6"><b>Smilies</b></td>
+		<td class="header" colspan="6"><b>Add Smiley</b></td>
 	</tr>
 	<asp:Literal id="SmileyResults" Runat="server" />
 </table>
