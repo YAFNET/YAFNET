@@ -449,6 +449,28 @@ begin
 end
 go
 
+if exists(select 1 from sysobjects where id=object_id(N'yaf_Forum_update') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_Forum_update
+go
+
+create trigger yaf_Forum_update on dbo.yaf_Forum for update as
+begin
+	if update(LastTopicID) or update(LastMessageID)
+	begin
+		update a set
+			a.LastPosted=b.LastPosted,
+			a.LastTopicID=b.LastTopicID,
+			a.LastMessageID=b.LastMessageID,
+			a.LastUserID=b.LastUserID,
+			a.LastUserName=b.LastUserName
+		from
+			yaf_Forum a join inserted b on a.ForumID=b.ParentID
+		where
+			a.LastPosted < b.LastPosted
+	end
+end
+go
+
 /*
 ** Views
 */
