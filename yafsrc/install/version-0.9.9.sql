@@ -505,7 +505,13 @@ GO
 
 create procedure yaf_user_deleteold(@BoardID int) as
 begin
-	delete from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,getdate())>2
+	declare @Since datetime
+	
+	set @Since = getdate()
+
+	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2
 end
 GO
 
@@ -930,4 +936,18 @@ begin
 		exec yaf_forum_updatestats @ForumID
 end
 GO
+
+-- yaf_topic_listmessages
+--ABOT NEW 16.04.04
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_listmessages
+GO
+
+create procedure yaf_topic_listmessages(@TopicID int) as
+begin
+	select * from yaf_Message
+	where TopicID = @TopicID
+end
+GO
+--END ABOT NEW 16.04.04
 

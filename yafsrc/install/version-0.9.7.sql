@@ -110,20 +110,6 @@ begin
 end
 GO
 
--- yaf_topic_listmessages
---ABOT NEW 16.04.04
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_listmessages
-GO
-
-create procedure yaf_topic_listmessages(@TopicID int) as
-begin
-select * from yaf_Message
-Where TopicID = @TopicID
-end
-GO
---END ABOT NEW 16.04.04
-
 -- yaf_message_getReplies
 if exists (select * from sysobjects where id = object_id(N'yaf_message_getReplies') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_getReplies
