@@ -792,7 +792,7 @@ namespace yaf
 			if(SmtpServer!=null)
 				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
 			System.Web.Mail.SmtpMail.Send(mailMessage);
-#else
+//
 			string sUserName = SmtpUserName;
 			string sUserPass = SmtpUserPass;
 			
@@ -804,6 +804,15 @@ namespace yaf
 			mail.SendMail(from,to,subject,body);
 			mail.Quit();
 #endif
+			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
+			if(SmtpUserName!=null && SmtpUserPass!=null) 
+			{
+				smtp.Username = SmtpUserName;
+				smtp.Password = SmtpUserPass;
+			}
+			smtp.SendMail(from,to,subject,body);
 		}
 	}
 }
