@@ -4,19 +4,24 @@
 if not exists (select * from sysobjects where id = object_id(N'yaf_UserPMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table yaf_UserPMessage(
-		UserID		int not null,
-		PMessageID	int not null,
-		IsRead		bit not null
+		UserPMessageID	int identity not null,
+		UserID			int not null,
+		PMessageID		int not null,
+		IsRead			bit not null
 	)
 	EXEC('insert into yaf_UserPMessage(UserID,PMessageID,IsRead) select ToUserID,PMessageID,IsRead from yaf_PMessage')
 end
+GO
+
+if exists(select * from sysindexes where id=object_id('yaf_UserPMessage') and name='PK_UserPMessage')
+	alter table yaf_UserPMessage drop constraint PK_UserPMessage
 GO
 
 if not exists(select * from sysindexes where id=object_id('yaf_UserPMessage') and name='PK_UserPMessage')
 ALTER TABLE [yaf_UserPMessage] WITH NOCHECK ADD 
 	CONSTRAINT [PK_UserPMessage] PRIMARY KEY  CLUSTERED 
 	(
-		[UserID],[PMessageID]
+		[UserPMessageID]
 	) 
 GO
 
@@ -201,57 +206,6 @@ begin
 end
 GO
 
--- yaf_pmessage_list
-
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_list
-GO
-
-create procedure yaf_pmessage_list(@UserID int=null,@Sent bit=null,@PMessageID int=null) as
-begin
-	if @PMessageID is null begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUserID = c.UserID,
-			ToUser = c.Name,
-			d.IsRead
-		from
-			yaf_PMessage a,
-			yaf_User b,
-			yaf_User c,
-			yaf_UserPMessage d
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = d.UserID and
-			d.PMessageID = a.PMessageID and
-			((@Sent=0 and d.UserID = @UserID) or (@Sent=1 and a.FromUserID = @UserID))
-		order by
-			Created desc
-	end
-	else begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUserID = c.UserID,
-			ToUser = c.Name,
-			d.IsRead
-		from
-			yaf_PMessage a,
-			yaf_User b,
-			yaf_User c,
-			yaf_UserPMessage d
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = d.UserID and
-			d.PMessageID = a.PMessageID and
-			a.PMessageID = @PMessageID
-		order by
-			Created desc
-	end
-end
-GO
-
 -- yaf_pmessage_markread
 
 if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -279,33 +233,31 @@ create procedure yaf_pmessage_save(
 	@Body		text
 ) as
 begin
-      declare @PMessageID int
-      declare @UserID int
- 
-      insert into yaf_PMessage(FromUserID,Created,Subject,Body)
-      values(@FromUserID,getdate(),@Subject,@Body)
- 
-      set @PMessageID = @@IDENTITY
-      IF (@ToUserID = 0)
-            begin
-                  Declare c1 cursor for select UserID from yaf_User where Name <> 'Guest' and Approved = 1 and UserID <> @FromUserID
-            
-                  open c1
-            
-                  fetch next from c1 into @UserID
-            
-                  while @@fetch_status = 0
-                  begin
-                        insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@UserID,@PMessageID,0)
-                  
-                        fetch next from c1 into @UserID
-                  end
-                  close c1
-            end
-      ELSE
-            begin
-                  insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
-            end
+	declare @PMessageID int
+	declare @UserID int
+
+	insert into yaf_PMessage(FromUserID,Created,Subject,Body)
+	values(@FromUserID,getdate(),@Subject,@Body)
+
+	set @PMessageID = @@IDENTITY
+	if (@ToUserID = 0)
+	begin
+		insert into yaf_UserPMessage(UserID,PMessageID,IsRead)
+		select
+				a.UserID,@PMessageID,0
+		from
+				yaf_User a
+				join yaf_UserGroup b on b.UserID=a.UserID
+				join yaf_Group c on c.GroupID=b.GroupID where
+				c.IsGuest=0 and
+				c.BoardID=(select BoardID from yaf_User x where x.UserID=@FromUserID) and a.UserID<>@FromUserID
+		group by
+				a.UserID
+	end
+	else
+	begin
+		insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
+	end
 end
 GO
 
@@ -658,5 +610,161 @@ GO
 CREATE procedure yaf_message_getReplies(@MessageID int) as
 begin
 	select MessageID from yaf_Message where ReplyTo = @MessageID
+end
+GO
+
+-- yaf_pmessage_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_delete
+GO
+
+create procedure yaf_pmessage_delete(@PMessageID int) as
+begin
+	delete from yaf_PMessage where PMessageID=@PMessageID
+end
+GO
+
+-- yaf_userpmessage_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_userpmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_userpmessage_delete
+GO
+
+create procedure yaf_userpmessage_delete(@UserPMessageID int) as
+begin
+	delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
+end
+GO
+
+-- yaf_pmessage_list
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_list
+GO
+
+create procedure yaf_pmessage_list(@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) as
+begin
+	if @PMessageID is null begin
+		select
+			a.*,
+			FromUser = b.Name,
+			ToUserID = c.UserID,
+			ToUser = c.Name,
+			d.IsRead,
+			d.UserPMessageID
+		from
+			yaf_PMessage a,
+			yaf_User b,
+			yaf_User c,
+			yaf_UserPMessage d
+		where
+			b.UserID = a.FromUserID and
+			c.UserID = d.UserID and
+			d.PMessageID = a.PMessageID and
+			((@ToUserID is not null and d.UserID = @ToUserID) or (@FromUserID is not null and a.FromUserID = @FromUserID))
+		order by
+			Created desc
+	end
+	else begin
+		select
+			a.*,
+			FromUser = b.Name,
+			ToUserID = c.UserID,
+			ToUser = c.Name,
+			d.IsRead,
+			d.UserPMessageID
+		from
+			yaf_PMessage a,
+			yaf_User b,
+			yaf_User c,
+			yaf_UserPMessage d
+		where
+			b.UserID = a.FromUserID and
+			c.UserID = d.UserID and
+			d.PMessageID = a.PMessageID and
+			a.PMessageID = @PMessageID and
+			c.UserID = @FromUserID
+		order by
+			Created desc
+	end
+end
+GO
+
+-- yaf_userpmessage_list
+if exists (select * from sysobjects where id = object_id(N'yaf_userpmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_userpmessage_list
+GO
+
+create procedure yaf_userpmessage_list(@UserPMessageID int) as
+begin
+	select
+		a.*,
+		FromUser = b.Name,
+		ToUserID = c.UserID,
+		ToUser = c.Name,
+		d.IsRead,
+		d.UserPMessageID
+	from
+		yaf_PMessage a,
+		yaf_User b,
+		yaf_User c,
+		yaf_UserPMessage d
+	where
+		b.UserID = a.FromUserID and
+		c.UserID = d.UserID and
+		d.PMessageID = a.PMessageID and
+		d.UserPMessageID = @UserPMessageID
+end
+GO
+
+-- yaf_forum_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_delete
+GO
+
+create procedure yaf_forum_delete(@ForumID int) as
+begin
+	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
+	update yaf_Forum set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
+	update yaf_Topic set LastMessageID=null where ForumID=@ForumID
+	delete from yaf_WatchTopic from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_WatchTopic.TopicID = yaf_Topic.TopicID
+
+	delete from yaf_NntpTopic from yaf_NntpForum where yaf_NntpForum.ForumID = @ForumID and yaf_NntpTopic.NntpForumID = yaf_NntpForum.NntpForumID
+	delete from yaf_NntpForum where ForumID=@ForumID	
+	delete from yaf_WatchForum where ForumID = @ForumID
+
+	-- BAI CHANGED 02.02.2004
+	-- Delete topics, messages and attachments
+
+	declare @tmpTopicID int;
+	declare topic_cursor cursor for
+		select TopicID from yaf_topic
+		where ForumId = @ForumID
+		order by TopicID desc
+	
+	open topic_cursor
+	
+	fetch next from topic_cursor
+	into @tmpTopicID
+	
+	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+	while @@FETCH_STATUS = 0
+	begin
+		exec yaf_topic_delete @tmpTopicID;
+	
+	   -- This is executed as long as the previous fetch succeeds.
+		fetch next from topic_cursor
+		into @tmpTopicID
+	end
+	
+	close topic_cursor
+	deallocate topic_cursor
+
+	--delete from yaf_Message from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_Message.TopicID = yaf_Topic.TopicID
+	--delete from yaf_Topic where ForumID = @ForumID
+
+	-- TopicDelete finished
+	-- END BAI CHANGED 02.02.2004
+
+	delete from yaf_ForumAccess where ForumID = @ForumID
+	delete from yaf_Forum where ForumID = @ForumID
 end
 GO

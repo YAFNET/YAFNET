@@ -346,27 +346,6 @@ begin
 end
 go
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_delete
-GO
-
-create procedure yaf_forum_delete(@ForumID int) as
-begin
-	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
-	update yaf_Forum set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
-	update yaf_Topic set LastMessageID=null where ForumID=@ForumID
-	delete from yaf_WatchTopic from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_WatchTopic.TopicID = yaf_Topic.TopicID
-
-	delete from yaf_NntpTopic from yaf_NntpForum where yaf_NntpForum.ForumID = @ForumID and yaf_NntpTopic.NntpForumID = yaf_NntpForum.NntpForumID
-	delete from yaf_NntpForum where ForumID=@ForumID	
-	delete from yaf_WatchForum where ForumID = @ForumID
-	delete from yaf_Message from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_Message.TopicID = yaf_Topic.TopicID
-	delete from yaf_Topic where ForumID = @ForumID
-	delete from yaf_ForumAccess where ForumID = @ForumID
-	delete from yaf_Forum where ForumID = @ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_prune
 GO

@@ -227,7 +227,7 @@ namespace yaf
 		#endregion
 
 		#region yaf_PMessage
-		DataTable pmessage_list(object userID,object sent,object pMessageID);
+		DataTable pmessage_list(object toUserID,object fromUserID,object pMessageID);
 		void pmessage_delete(object pMessageID);
 		void pmessage_save(object fromUserID,object toUserID,object subject,object body);
 		void pmessage_markread(object userID,object pMessageID);
@@ -308,6 +308,11 @@ namespace yaf
 		DataTable userforum_list(object userID,object forumID);
 		void userforum_delete(object userID,object forumID);
 		void userforum_save(object userID,object forumID,object accessMaskID);
+		#endregion
+
+		#region yaf_UserPMessage
+		void userpmessage_delete(object userPMessageID);
+		DataTable userpmessage_list(object userPMessageID);
 		#endregion
 
 		#region yaf_UserGroup

@@ -853,16 +853,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_delete
-GO
-
-create procedure yaf_pmessage_delete(@PMessageID int) as
-begin
-	delete from yaf_PMessage where PMessageID = @PMessageID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findnext
 GO

@@ -1002,13 +1002,13 @@ namespace yaf
 		#endregion
 
 		#region yaf_PMessage
-		public DataTable pmessage_list(object userID,object sent,object pMessageID) 
+		public DataTable pmessage_list(object toUserID,object fromUserID,object pMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",userID);
-				cmd.Parameters.Add("@Sent",sent);
+				cmd.Parameters.Add("@ToUserID",toUserID);
+				cmd.Parameters.Add("@FromUserID",fromUserID);
 				cmd.Parameters.Add("@PMessageID",pMessageID);
 				return GetData(cmd);
 			}
@@ -1701,6 +1701,27 @@ namespace yaf
 				cmd.Parameters.Add("@GroupID",GroupID);
 				cmd.Parameters.Add("@Member",Member);
 				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_UserPMessage
+		public void userpmessage_delete(object userPMessageID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_userpmessage_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserPMessageID",userPMessageID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		public DataTable userpmessage_list(object userPMessageID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_userpmessage_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserPMessageID",userPMessageID);
+				return GetData(cmd);
 			}
 		}
 		#endregion
