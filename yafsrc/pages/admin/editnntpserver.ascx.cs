@@ -34,7 +34,7 @@ namespace yaf.pages.admin
 	/// </summary>
 	public class editnntpserver : AdminPage
 	{
-		protected TextBox Name, Address, UserName, UserPass;
+		protected TextBox Name, Address, Port, UserName, UserPass;
 		protected Button Save, Cancel;
 		protected controls.PageLinks PageLinks;
 
@@ -54,9 +54,14 @@ namespace yaf.pages.admin
 						DataRow row = dt.Rows[0];
 						Name.Text		= row["Name"].ToString();
 						Address.Text	= row["Address"].ToString();
+						Port.Text		= row["Port"].ToString();
 						UserName.Text	= row["UserName"].ToString();
 						UserPass.Text	= row["UserPass"].ToString();
 					}
+				}
+				else
+				{
+					Port.Text = "119";
 				}
 			}
 		}
@@ -108,7 +113,7 @@ namespace yaf.pages.admin
 
 			object nntpServerID = null;
 			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
-			DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
+			DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
 			Forum.Redirect(Pages.admin_nntpservers);
 		}
 	}

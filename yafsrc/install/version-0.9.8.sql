@@ -276,6 +276,9 @@ GO
 --alter table yaf_PMessage alter column Body ntext not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_NntpServer') and name='Port')
+	alter table yaf_NntpServer add Port int null
+GO
 
 -- yaf_poll_save
 if exists (select * from sysobjects where id = object_id(N'yaf_poll_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -712,16 +715,18 @@ create procedure yaf_nntpserver_save(
 	@BoardID	int,
 	@Name		nvarchar(50),
 	@Address	nvarchar(100),
+	@Port		int,
 	@UserName	nvarchar(50)=null,
 	@UserPass	nvarchar(50)=null
 ) as begin
 	if @NntpServerID is null
-		insert into yaf_NntpServer(Name,BoardID,Address,UserName,UserPass)
-		values(@Name,@BoardID,@Address,@UserName,@UserPass)
+		insert into yaf_NntpServer(Name,BoardID,Address,Port,UserName,UserPass)
+		values(@Name,@BoardID,@Address,@Port,@UserName,@UserPass)
 	else
 		update yaf_NntpServer set
 			Name = @Name,
 			Address = @Address,
+			Port = @Port,
 			UserName = @UserName,
 			UserPass = @UserPass
 		where NntpServerID = @NntpServerID
@@ -1697,3 +1702,52 @@ create procedure yaf_attachment_list(@MessageID int=null,@AttachmentID int=null,
 			b.Posted
 end
 GO
+
+-- yaf_nntpserver_list
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpserver_list
+GO
+
+create procedure yaf_nntpserver_list(@BoardID int=null,@NntpServerID int=null) as
+begin
+	if @NntpServerID is null
+		select * from yaf_NntpServer where BoardID=@BoardID order by Name
+	else
+		select * from yaf_NntpServer where NntpServerID=@NntpServerID
+end
+GO
+
+-- yaf_nntpforum_list
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_list
+GO
+
+create procedure yaf_nntpforum_list(@BoardID int,@Minutes int=null,@NntpForumID int=null) as
+begin
+	select
+		a.Name,
+		a.Address,
+		Port = IsNull(a.Port,119),
+		a.NntpServerID,
+		b.NntpForumID,
+		b.GroupName,
+		b.ForumID,
+		b.LastMessageNo,
+		b.LastUpdate,
+		ForumName = c.Name
+	from
+		yaf_NntpServer a,
+		yaf_NntpForum b,
+		yaf_Forum c
+	where
+		b.NntpServerID = a.NntpServerID and
+		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
+		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
+		c.ForumID = b.ForumID and
+		a.BoardID=@BoardID
+	order by
+		a.Name,
+		b.GroupName
+end
+GO
+

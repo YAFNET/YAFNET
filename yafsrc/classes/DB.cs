@@ -1159,7 +1159,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public void nntpserver_save(object nntpServerID,object boardID,object name,object address,object userName,object userPass) 
+		static public void nntpserver_save(object nntpServerID,object boardID,object name,object address,object port,object userName,object userPass) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_save")) 
 			{
@@ -1168,6 +1168,7 @@ namespace yaf
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",name);
 				cmd.Parameters.Add("@Address",address);
+				cmd.Parameters.Add("@Port",port);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@UserPass",userPass);
 				ExecuteNonQuery(cmd);

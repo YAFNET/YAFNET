@@ -629,53 +629,6 @@ begin
 end
 GO
 
--- yaf_nntpserver_list
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpserver_list
-GO
-
-create procedure yaf_nntpserver_list(@BoardID int=null,@NntpServerID int=null) as
-begin
-	if @NntpServerID is null
-		select * from yaf_NntpServer where BoardID=@BoardID order by Name
-	else
-		select * from yaf_NntpServer where NntpServerID=@NntpServerID
-end
-GO
-
--- yaf_nntpforum_list
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_list
-GO
-
-create procedure yaf_nntpforum_list(@BoardID int,@Minutes int=null,@NntpForumID int=null) as
-begin
-	select
-		a.Name,
-		a.Address,
-		a.NntpServerID,
-		b.NntpForumID,
-		b.GroupName,
-		b.ForumID,
-		b.LastMessageNo,
-		b.LastUpdate,
-		ForumName = c.Name
-	from
-		yaf_NntpServer a,
-		yaf_NntpForum b,
-		yaf_Forum c
-	where
-		b.NntpServerID = a.NntpServerID and
-		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
-		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
-		c.ForumID = b.ForumID and
-		a.BoardID=@BoardID
-	order by
-		a.Name,
-		b.GroupName
-end
-GO
-
 -- yaf_smiley_listunique
 if exists (select * from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_listunique

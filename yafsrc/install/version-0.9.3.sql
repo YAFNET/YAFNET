@@ -104,6 +104,7 @@ create table yaf_NntpServer(
 	[BoardID]		[int] NOT NULL ,
 	[Name]			[nvarchar](50) not null,
 	[Address]		[nvarchar](100) not null,
+	[Port]			[int] null,
 	[UserName]		[nvarchar](50) null,
 	[UserPass]		[nvarchar](50) null
 )

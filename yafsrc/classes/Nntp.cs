@@ -14,17 +14,18 @@ namespace yaf.classes
 
 	public class Nntp : System.Net.Sockets.TcpClient
 	{
-		public void Connect(string hostname) 
+		public void ConnectNntp(string hostname,int port) 
 		{
-			Connect(hostname,119);
+			Connect(hostname,port);
 			string response = ReadLine();
-			if(response.Substring(0,3)!="200")
+			if(response.Substring(0,3)!="200" && response.Substring(0,3)!="201")
 				throw new NntpException(response);
 		}
 
 		public void Disconnect() 
 		{
-			Write("QUIT");
+			if(Active)
+				Write("QUIT");
 			Close();
 		}
 
@@ -488,6 +489,7 @@ namespace yaf.classes
 
 			Nntp nntp = null;
 			string hostname = null;
+			int port = 119;
 			try 
 			{
 				// Only those not updated in the last 30 minutes
@@ -495,7 +497,7 @@ namespace yaf.classes
 				{
 					foreach(DataRow drForum in dtForums.Rows) 
 					{
-						if(hostname!=drForum["Address"].ToString().ToLower()) 
+						if(hostname!=drForum["Address"].ToString().ToLower() || port!=(int)drForum["Port"]) 
 						{
 							if(nntp!=null) 
 							{
@@ -504,7 +506,8 @@ namespace yaf.classes
 							}
 							nntp = new Nntp();
 							hostname = drForum["Address"].ToString().ToLower();
-							nntp.Connect(hostname);
+							port = (int)drForum["Port"];
+							nntp.ConnectNntp(hostname,port);
 						}
 
 						GroupInfo group = nntp.Group(drForum["GroupName"].ToString());
@@ -556,6 +559,10 @@ namespace yaf.classes
 							break;
 					}
 				}
+			}
+			catch(Exception x)
+			{
+				throw x;
 			}
 			finally 
 			{

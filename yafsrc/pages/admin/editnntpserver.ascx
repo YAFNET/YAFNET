@@ -16,6 +16,11 @@
   <tr>
     <td class=postheader colspan=4><b>Address:</b><br/>The host name of the server.</td>
     <td class=post colspan=7><asp:textbox id="Address" runat="server"/></td></tr>
+
+	<tr>
+		<td class=postheader colspan=4><b>Port:</b><br/>The port number to connect to.</td>
+		<td class=post colspan=7><asp:textbox id="Port" runat="server"/></td>
+	</tr>
     
   <tr>
     <td class=postheader colspan=4><b>User Name:</b><br/>The user name used to log on to the nntp server.</td>
