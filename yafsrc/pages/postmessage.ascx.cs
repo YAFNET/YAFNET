@@ -35,7 +35,7 @@ namespace yaf.pages
 	/// </summary>
 	public class postmessage : ForumPage
 	{
-		protected RichEdit Message;
+		protected yaf.editor.ForumEditor Message;
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.Button PostReply;
 		protected System.Web.UI.WebControls.Label Title;
@@ -72,10 +72,12 @@ namespace yaf.pages
 		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
+		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
 		protected controls.PageLinks PageLinks;
 
 		public postmessage() : base("POSTMESSAGE")
 		{
+
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -100,9 +102,9 @@ namespace yaf.pages
 			if(Request["t"]!=null && !ForumReplyAccess)
 				Data.AccessDenied();
 
-			Message.EnableRTE = BoardSettings.AllowRichEdit;
+			//Message.EnableRTE = BoardSettings.AllowRichEdit;
 			Message.StyleSheet = this.ThemeFile("theme.css");
-			Message.BaseDir = Data.ForumRoot + "rte";
+			Message.BaseDir = Data.ForumRoot + "editors";
 
 			Title.Text = GetText("NEWTOPIC");
 						
@@ -200,6 +202,10 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			// determine the editor desired here and add to the form
+			Message = new yaf.editor.BBCodeEditor();
+			EditorLine.Controls.Add(Message);
+
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

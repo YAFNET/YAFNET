@@ -1,5 +1,5 @@
 <%@ Control language="c#" Codebehind="pmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.pmessage" %>
-<%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
@@ -27,8 +27,8 @@
 			<%= GetText("message") %>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
-		<td id="RichEdit" class="post">
-			<rte:RichEdit runat="server" id="Editor"/>
+		<td id="EditorLine" class="post" runat="server">
+			<!-- editor goes here -->	
 		</td>
 	</tr>
 	<tr>

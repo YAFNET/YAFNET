@@ -35,8 +35,9 @@ namespace yaf.pages
 	public class cp_signature : ForumPage
 	{
 		protected Button save, cancel;
-		protected RichEdit sig;
+		protected yaf.editor.ForumEditor sig;
 		protected controls.PageLinks PageLinks;
+		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
 
 		public cp_signature() : base("CP_SIGNATURE")
 		{
@@ -44,8 +45,8 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.EnableRTE = BoardSettings.AllowRichEdit;
-			sig.BaseDir = Data.ForumRoot + "rte";
+			//sig.EnableRTE = BoardSettings.AllowRichEdit;
+			sig.BaseDir = Data.ForumRoot + "editors";
 			sig.StyleSheet = this.ThemeFile("theme.css");
 
 			if(!User.IsAuthenticated)
@@ -92,6 +93,9 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			sig = new yaf.editor.BBCodeEditor();
+			EditorLine.Controls.Add(sig);
+
 			save.Click += new EventHandler(save_Click);
 			cancel.Click += new EventHandler(cancel_Click);
 			//

@@ -1,7 +1,7 @@
 <%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -78,8 +78,8 @@
 			<br/>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
-		<td class="post" id="RichEdit" width="80%">
-			<rte:RichEdit runat="server" id="Message" />
+		<td class="post" id="EditorLine" width="80%" runat="server">
+			<!-- editor goes here -->
 		</td>
 	</tr>
 	<!--tr>

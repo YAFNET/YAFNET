@@ -1,5 +1,5 @@
 <%@ Control language="c#" Codebehind="cp_signature.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_signature" %>
-<%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -10,8 +10,8 @@
 </tr>
 <tr>
 	<td class=postformheader valign=top><%= GetText("signature") %></td>
-	<td class=post>
-		<rte:RichEdit runat="server" id="sig"/>
+	<td class=post id="EditorLine" runat="server">
+		<!-- editor goes here -->
 	</td>
 </tr>
 <tr>
