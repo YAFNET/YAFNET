@@ -251,7 +251,7 @@
 		<Resource tag="WEBLOG2">Your Weblog:</Resource>
 		<Resource tag="MESSENGER">Instant messaging services</Resource>
 		<Resource tag="ABOUTYOU">About You</Resource>
-		<Resource tag="REALNAME2">What's you real name?</Resource>
+		<Resource tag="REALNAME2">What's your real name?</Resource>
 		<Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
 		<Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
 		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
