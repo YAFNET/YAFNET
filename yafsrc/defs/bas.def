@@ -1,0 +1,61 @@
+- File for QBasic
+- Author: Justin Wendlandt
+
+- Comments
+'.*
+
+- Keywords
+ABS 
+AND 
+ASC 
+BYE 
+CHR 
+CLS 
+DATA 
+DEL 
+DIM 
+END 
+FOR 
+GOSUB 
+GOTO 
+IF 
+INPUT 
+LEN 
+LET 
+LIST 
+LOAD 
+LOCATE 
+LOG 
+MERGE 
+MID 
+MOD 
+NEW 
+NEXT 
+NOT 
+ON 
+OR 
+POKE 
+PRINT 
+RAND 
+READ 
+RENUM 
+RESTORE 
+RETURN 
+RND 
+RUN 
+SAVE 
+SGN 
+SIN 
+SQR 
+SQRT 
+STOP 
+STR 
+TO 
+VAL 
+WEND 
+WHILE 
+XOR
+
+
+- KeyTypes
+NothingGoesHere

@@ -1,0 +1,58 @@
+- File for Java
+- Author: Justin Wendlandt
+
+- Comments
+/\*(.|[\r\n])*?\*/|(//.*)
+
+- Keywords
+abstract
+break
+case
+catch
+class
+const
+continue
+default
+do
+else
+extends
+final
+false
+for
+if
+implements
+import
+instanceof
+interface
+native
+new
+null
+package
+private
+protected
+public
+register
+return
+super
+switch
+synchronized
+this
+true
+throws
+throw
+transient
+try
+while
+
+- KeyTypes
+boolean
+byte
+char
+double
+float
+int
+long
+short
+static
+void
+volatile

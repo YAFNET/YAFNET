@@ -11,7 +11,6 @@
 - Admin can change user password
 - Language strings: tooltips for buttons (reply, quote, ...)
 - Censoring: <http://forum.yetanotherforum.net/posts.aspx?t=339>
-- Unicode support: <http://forum.yetanotherforum.net/default.aspx?g=posts&m=1036#1036>
 - Limit sigs to 5 lines or something...
 - Link correctly back to forum from install.
 - Anonymous login
@@ -25,6 +24,5 @@
 - Ok this is what i get after i try to add a sub forum.... "User 'pro-logic' isn't registered."
 - Possible to modify subject of messages?!?
 - Disable user registration.
-- "New posts" icons should also check sub-forums.
 - Forum dropdowns: http://forum.yetanotherforum.net/default.aspx?g=posts&t=474&find=unread
 - Error deleting posts with attachments.

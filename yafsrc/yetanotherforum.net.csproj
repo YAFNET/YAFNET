@@ -223,6 +223,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\HighLighter.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\HiPerfTimer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -389,6 +394,50 @@
                     RelPath = "controls\TopicLine.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "defs\asm.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\asp.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\bas.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\c.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\cpp.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\cs.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\DefFiles.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\frm.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\java.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\sql.def"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "defs\vb.def"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "editors\ForumEditor.cs"

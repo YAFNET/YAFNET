@@ -393,13 +393,23 @@ if not exists(select * from syscolumns where id=object_id('yaf_Registry') and na
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Flags')
-	alter table yaf_Message add Flags int not null
-	UPDATE yaf_Message SET Flags = 0x7FFFFFFF
+begin
+	alter table yaf_Message add Flags int
+	grant select,update on dbo.yaf_Message to public
+	exec('UPDATE yaf_Message SET Flags = 0x7FFFFFFF')
+	alter table yaf_Message alter column Flags int not null
+	revoke select,update on dbo.yaf_Message from public
+end
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
-	alter table yaf_PMessage add Flags int not null
-	UPDATE yaf_PMessage SET Flags = 0x7FFFFFFF
+begin
+	alter table yaf_PMessage add Flags int
+	grant select,update on dbo.yaf_PMessage to public
+	exec('UPDATE yaf_PMessage SET Flags = 0x7FFFFFFF')
+	alter table dbo.yaf_PMessage alter column Flags int not null
+	revoke select,update on dbo.yaf_PMessage from public
+end
 GO
 
 /*
@@ -444,7 +454,7 @@ create view dbo.yaf_vaccess as
 		IsAdmin				= max(convert(tinyint,b.IsAdmin)),
 		IsGuest				= max(convert(tinyint,b.IsGuest)),
 		IsForumModerator	= max(convert(tinyint,b.IsModerator)),
-		IsModerator			= (select count(1) from yaf_UserGroup v,yaf_Group w,yaf_ForumAccess x,yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and y.ModeratorAccess<>0),
+		IsModerator			= (select count(1) from dbo.yaf_UserGroup v,dbo.yaf_Group w,dbo.yaf_ForumAccess x,dbo.yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and y.ModeratorAccess<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
 		ReplyAccess			= max(x.ReplyAccess),
@@ -470,8 +480,8 @@ create view dbo.yaf_vaccess as
 			DeleteAccess	= convert(tinyint,c.DeleteAccess),
 			UploadAccess	= convert(tinyint,c.UploadAccess)
 		from
-			yaf_UserForum b
-			join yaf_AccessMask c on c.AccessMaskID=b.AccessMaskID
+			dbo.yaf_UserForum b
+			join dbo.yaf_AccessMask c on c.AccessMaskID=b.AccessMaskID
 		
 		union
 		
@@ -489,9 +499,9 @@ create view dbo.yaf_vaccess as
 			DeleteAccess	= convert(tinyint,d.DeleteAccess),
 			UploadAccess	= convert(tinyint,d.UploadAccess)
 		from
-			yaf_UserGroup b
-			join yaf_ForumAccess c on c.GroupID=b.GroupID
-			join yaf_AccessMask d on d.AccessMaskID=c.AccessMaskID
+			dbo.yaf_UserGroup b
+			join dbo.yaf_ForumAccess c on c.GroupID=b.GroupID
+			join dbo.yaf_AccessMask d on d.AccessMaskID=c.AccessMaskID
 
 		union
 
@@ -509,12 +519,11 @@ create view dbo.yaf_vaccess as
 			DeleteAccess	= convert(tinyint,0),
 			UploadAccess	= convert(tinyint,0)
 		from
-			yaf_User a
+			dbo.yaf_User a
 		) as x
-		join yaf_UserGroup a on a.UserID=x.UserID
-		join yaf_Group b on b.GroupID=a.GroupID
+		join dbo.yaf_UserGroup a on a.UserID=x.UserID
+		join dbo.yaf_Group b on b.GroupID=a.GroupID
 	group by a.UserID,x.ForumID
-
 GO
 
 /*
@@ -928,7 +937,6 @@ go
 if not exists(select 1 from dbo.sysindexes where name=N'IX_Name' and id=object_id(N'yaf_Registry'))
 	create unique index IX_Name on dbo.yaf_Registry(BoardID,Name)
 go
-
 
 /*
 ** Stored procedures

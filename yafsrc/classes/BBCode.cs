@@ -90,8 +90,21 @@ namespace yaf
 			while(m.Success) 
 			{
 				string before_replace = m.Groups[0].Value;
-				//throw new ApplicationException(m.Groups["language"].ToString());
-				string after_replace = FixCode(m.Groups["inner"].Value);
+				string after_replace = m.Groups["inner"].Value;
+
+				try
+				{
+					HighLighter hl = new HighLighter();
+					hl.ReplaceEnter = true;
+					after_replace = hl.colorText(after_replace,System.Web.HttpContext.Current.Server.MapPath(Data.ForumRoot + "defs/"),m.Groups["language"].Value);
+				}
+				catch(Exception x) 
+				{
+					if(basePage.IsAdmin)
+						basePage.AddLoadMessage(x.Message);
+					after_replace = FixCode(after_replace);
+				}
+
 				bbcode = bbcode.Replace(before_replace,string.Format(codeFormat,nCodes++));
 				codes.Add(string.Format("<div class='code'><b>Code:</b><div class='innercode'>{0}</div></div>",after_replace));
 				m = r_code2.Match(bbcode);
@@ -229,9 +242,9 @@ namespace yaf
 			html = html.Replace("\t","&nbsp; &nbsp;&nbsp;");
 			html = html.Replace("[","&#91;");
 			html = html.Replace("]","&#93;");
-			html = html.Replace("<br/>","\n");
 			html = html.Replace("<","&lt;");
 			html = html.Replace(">","&gt;");
+			html = html.Replace("\r\n","<br/>");
 			return html;
 		}
 	}

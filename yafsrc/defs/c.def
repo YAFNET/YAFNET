@@ -1,0 +1,41 @@
+- File for C
+- Author: Justin Wendlandt
+
+- Comments
+/\*(.|[\r\n])*?\*/|(//.*)
+
+- Keywords
+break
+case
+const
+continue
+default
+do
+else
+enum
+extern
+for
+if
+return
+sizeof
+struct
+switch
+typedef
+union
+while
+
+
+- KeyTypes
+auto
+char
+double
+float
+int
+long
+register
+short
+signed
+static
+unsigned
+void
+volatile
