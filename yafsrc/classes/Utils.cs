@@ -92,72 +92,74 @@ namespace yaf
 		/// <param name="x">The Exception object to report.</param>
 		static public void ReportError(Exception x) 
 		{
-			// Send email about the error
-			string sErrorSmtp = System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
-			string sErrorEmail = System.Configuration.ConfigurationSettings.AppSettings["erroremail"];
-			if(sErrorEmail==null || sErrorEmail.Length==0 || sErrorSmtp==null || sErrorSmtp.Length==0)
-				return;
+			try 
+			{
+				// Send email about the error
+				string sErrorSmtp = System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
+				string sErrorEmail = System.Configuration.ConfigurationSettings.AppSettings["erroremail"];
+				if(sErrorEmail==null || sErrorEmail.Length==0 || sErrorSmtp==null || sErrorSmtp.Length==0)
+					return;
 
-			// Build body
-			System.Text.StringBuilder msg = new System.Text.StringBuilder();
-			msg.Append("<style>\n");
-			msg.Append("body,td,th{font:8pt tahoma}\n");
-			msg.Append("table{background-color:#C0C0C0}\n");
-			msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\n");
-			msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\n");
-			msg.Append("</style>\n");
-			msg.Append("<table cellpadding=1 cellspacing=1>\n");
+				// Build body
+				System.Text.StringBuilder msg = new System.Text.StringBuilder();
+				msg.Append("<style>\n");
+				msg.Append("body,td,th{font:8pt tahoma}\n");
+				msg.Append("table{background-color:#C0C0C0}\n");
+				msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\n");
+				msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\n");
+				msg.Append("</style>\n");
+				msg.Append("<table cellpadding=1 cellspacing=1>\n");
 
-			if(x!=null) 
-			{
-				msg.Append("<tr><th colspan=2>Exception</th></tr>");
-				msg.AppendFormat("<tr><td>Message</td><td>{0}</td></tr>",Text2Html(x.Message));
-				msg.AppendFormat("<tr><td>Source</td><td>{0}</td></tr>",Text2Html(x.Source));
-				msg.AppendFormat("<tr><td>StackTrace</td><td>{0}</td></tr>",Text2Html(x.StackTrace));
-				msg.AppendFormat("<tr><td>TargetSize</td><td>{0}</td></tr>",Text2Html(x.TargetSite.ToString()));
-			}
+				if(x!=null) 
+				{
+					msg.Append("<tr><th colspan=2>Exception</th></tr>");
+					msg.AppendFormat("<tr><td>Message</td><td>{0}</td></tr>",Text2Html(x.Message));
+					msg.AppendFormat("<tr><td>Source</td><td>{0}</td></tr>",Text2Html(x.Source));
+					msg.AppendFormat("<tr><td>StackTrace</td><td>{0}</td></tr>",Text2Html(x.StackTrace));
+					msg.AppendFormat("<tr><td>TargetSize</td><td>{0}</td></tr>",Text2Html(x.TargetSite.ToString()));
+				}
 
-			msg.Append("<tr><th colspan=2>QueryString</th></tr>");
-			foreach(string key in HttpContext.Current.Request.QueryString.AllKeys) 
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.QueryString[key]);
-			}
-			msg.Append("<tr><th colspan=2>Form</th></tr>");
-			foreach(string key in HttpContext.Current.Request.Form.AllKeys) 
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Form[key]);
-			}
-			msg.Append("<tr><th colspan=2>ServerVariables</th></tr>");
-			foreach(string key in HttpContext.Current.Request.ServerVariables.AllKeys)
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.ServerVariables[key]);
-			}
-			msg.Append("<tr><th colspan=2>Session</th></tr>");
-			foreach(string key in HttpContext.Current.Session)
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Session[key]);
-			}
-			msg.Append("<tr><th colspan=2>Application</th></tr>");
-			foreach(string key in HttpContext.Current.Application)
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Application[key]);
-			}
-			msg.Append("<tr><th colspan=2>Cookies</th></tr>");
-			foreach(string key in HttpContext.Current.Request.Cookies.AllKeys)
-			{
-				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
-			}
-			msg.Append("</table>");
+				msg.Append("<tr><th colspan=2>QueryString</th></tr>");
+				foreach(string key in HttpContext.Current.Request.QueryString.AllKeys) 
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.QueryString[key]);
+				}
+				msg.Append("<tr><th colspan=2>Form</th></tr>");
+				foreach(string key in HttpContext.Current.Request.Form.AllKeys) 
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Form[key]);
+				}
+				msg.Append("<tr><th colspan=2>ServerVariables</th></tr>");
+				foreach(string key in HttpContext.Current.Request.ServerVariables.AllKeys)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.ServerVariables[key]);
+				}
+				msg.Append("<tr><th colspan=2>Session</th></tr>");
+				foreach(string key in HttpContext.Current.Session)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Session[key]);
+				}
+				msg.Append("<tr><th colspan=2>Application</th></tr>");
+				foreach(string key in HttpContext.Current.Application)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Application[key]);
+				}
+				msg.Append("<tr><th colspan=2>Cookies</th></tr>");
+				foreach(string key in HttpContext.Current.Request.Cookies.AllKeys)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
+				}
+				msg.Append("</table>");
 #if  true
-			// .NET
-			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-			mailMessage.From = sErrorEmail;
-			mailMessage.To = sErrorEmail;
-			mailMessage.Subject = "Yet Another Forum.net Error Report";
-			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Html;
-			mailMessage.Body = msg.ToString();
-			System.Web.Mail.SmtpMail.SmtpServer = sErrorSmtp;
-			System.Web.Mail.SmtpMail.Send(mailMessage);
+				// .NET
+				System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
+				mailMessage.From = sErrorEmail;
+				mailMessage.To = sErrorEmail;
+				mailMessage.Subject = "Yet Another Forum.net Error Report";
+				mailMessage.BodyFormat = System.Web.Mail.MailFormat.Html;
+				mailMessage.Body = msg.ToString();
+				System.Web.Mail.SmtpMail.SmtpServer = sErrorSmtp;
+				System.Web.Mail.SmtpMail.Send(mailMessage);
 #else
 			// http://sourceforge.net/projects/opensmtp-net/
 			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
@@ -167,6 +169,10 @@ namespace yaf
 			mailMessage.HtmlBody = msg.ToString();
 			smtp.SendMail(mailMessage);
 #endif	
+			}
+			catch(Exception) 
+			{
+			}
 		}
 		static public void CreateWatchEmail(BasePage basePage,object messageID) 
 		{

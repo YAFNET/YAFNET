@@ -108,6 +108,7 @@
 		<Resource tag="LAST_YEAR">from the last year</Resource>
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="FORUMUSERS">Users browsing this forum</Resource>
+		<Resource tag="CREATED">Created</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -416,8 +417,8 @@
 		<Resource tag="GENDER2">Female</Resource>
 		<Resource tag="NUMALL">{0:N2}% of all post</Resource>
 		<Resource tag="NUMDAY">{0:N2} posts per day</Resource>
-		<Resource tag=""></Resource>
-		<Resource tag=""></Resource>
+		<Resource tag="ERROR_ADMINISTRATORS">You can not suspend administrators.</Resource>
+		<Resource tag="ERROR_FORUMMODERATORS">You can not suspend forum moderators.</Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->

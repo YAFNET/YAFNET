@@ -144,6 +144,25 @@ namespace yaf
 
 		private void Suspend_Click(object sender, System.EventArgs e) 
 		{
+			/// Admins can suspend anyone not admins
+			/// Forum Moderators can suspend anyone not admin or forum moderator
+			using(DataTable dt=DB.user_list(Request.QueryString["u"],null)) 
+			{
+				foreach(DataRow row in dt.Rows) 
+				{
+					if(int.Parse(row["IsAdmin"].ToString())>0) 
+					{
+						AddLoadMessage(GetText("ERROR_ADMINISTRATORS"));
+						return;
+					} 
+					if(!IsAdmin && int.Parse(row["IsForumModerator"].ToString())>0) 
+					{
+						AddLoadMessage(GetText("ERROR_FORUMMODERATORS"));
+						return;
+					}
+				}
+			}
+
 			DateTime suspend = DateTime.Now;
 			int count = int.Parse(SuspendCount.Text);
 			switch(SuspendUnit.SelectedValue) 

@@ -25,6 +25,7 @@ namespace yaf
 	public enum AuthType 
 	{
 		YetAnotherForum,
+		Windows,
 		RainBow
 	};
 
@@ -68,6 +69,8 @@ namespace yaf
 						return AuthType.RainBow;
 					case "yetanotherforum":
 						return AuthType.YetAnotherForum;
+					case "windows":
+						return AuthType.Windows;
 					default:
 						throw new Exception(String.Format("Invalid authorization \"{0}\" in Web.config.",auth));
 				}

@@ -27,7 +27,7 @@ namespace yaf.controls
 			// Topic
 			html.AppendFormat("<td><span class='largefont'>{0}",GetPriorityMessage(m_row));
 			html.AppendFormat("<a href='posts.aspx?t={0}'>{1}</a></span>",m_row["LinkTopicID"],m_row["Subject"]);
-			html.AppendFormat("<br/>Created: {0}",Page.FormatDateShort(m_row["Posted"]));
+			html.AppendFormat("<br/>{0}: {1}",Page.GetText("TOPICS","CREATED"),Page.FormatDateShort(m_row["Posted"]));
 			html.Append("</td>");
 			// Topic Starter
 			html.AppendFormat("<td><a href='profile.aspx?u={0}'>{1}</a></td>",m_row["UserID"],m_row["Starter"]);

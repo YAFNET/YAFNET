@@ -12,20 +12,7 @@
 	</tr>
 	<tr>
 		<td valign=top class=post width=150>
-			<p style="FONT-WEIGHT:bold;BORDER-BOTTOM:black 1px solid"><%= GetText("messenger") %></p>
-			<li><a href="cp_inbox.aspx"><%= GetText("inbox") %></a></li>
-			<li><a href="cp_inbox.aspx?sent=1"><%= GetText("sentitems") %></a></li>
-			<li><a href="pmessage.aspx"><%= GetText("new_message") %></a></li>
-      
-			<p></p>
-			
-			<p style="FONT-WEIGHT:bold;BORDER-BOTTOM:black 1px solid"><%= GetText("personal_profile") %></p>
-			<li><a href="cp_editprofile.aspx"><%= GetText("edit_profile") %></a></li>
-			<li><a href="cp_signature.aspx"><%= GetText("signature") %></a></li>
-			<li><a href="cp_subscriptions.aspx"><%= GetText("subscriptions") %></a></li>
-      
-			<p></p>
-			<p></p>
+			<yaf:ProfileMenu runat="server"/>
 		</td>
 		
 <% // DefaultView %>

@@ -122,6 +122,13 @@ namespace yaf
 				{
 					sUserIdentityName = User.Identity.Name;
 				}
+			} 
+			else if(authType==AuthType.Windows) 
+			{
+				string[] parts = sUserIdentityName.Split('\\');
+				sUserIdentityName = parts[parts.Length-1];
+				if(parts.Length>1)
+					sUserEmail = String.Format("{0}@{1}",parts[1],parts[0]);
 			}
 
 			string browser = String.Format("{0} {1}",Request.Browser.Browser,Request.Browser.Version);
@@ -146,7 +153,7 @@ namespace yaf
 			// authorization, try to register the user.
 			if(m_pageinfo==null && authType!=AuthType.YetAnotherForum) 
 			{
-				DB.user_register(this,sUserIdentityName,"ext",sUserEmail,"-","-",0,false);
+				DB.user_register(this,sUserIdentityName,"ext",sUserEmail,null,null,0,false);
 
 				m_pageinfo = DB.pageload(
 					Session.SessionID,
@@ -1182,6 +1189,7 @@ namespace yaf
 		#endregion
 		#region Localizing
 		private Localizer	m_localizer = null;
+		private	Localizer	m_defaultLocale	= null;
 
 		public string GetText(string text) 
 		{
@@ -1219,6 +1227,24 @@ namespace yaf
 #endif
 			}
 			string str = m_localizer.GetText(page,text);
+			/// If not default language, try to use that instead
+			if(str==null && filename.ToLower()!="english.xml") 
+			{
+#if !DEBUG
+				if(m_defaultLocale==null && Cache["DefaultLocale"]!=null)
+					m_defaultLocale = (Localizer)Cache["DefaultLocale"];
+#endif
+
+				if(m_defaultLocale==null && filename.ToLower()!="english.xml") 
+				{
+					m_defaultLocale = new Localizer(Server.MapPath(String.Format("{0}languages/english.xml",BaseDir)));
+#if !DEBUG
+					Cache["DefaultLocale"] = m_defaultLocale;
+#endif
+				}
+				str = m_defaultLocale.GetText(page,text);
+				if(str!=null) str = '[' + str + ']';
+			}
 			if(str==null) 
 			{
 #if !DEBUG
@@ -1250,7 +1276,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,11,12);
+				return new DateTime(2003,11,17);
 			}
 		}
 		#endregion

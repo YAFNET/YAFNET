@@ -153,11 +153,40 @@ namespace yaf
 				{
 					x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
 					y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
-					if(dt.Rows[0]["AvatarSize"]!=null)
+					if(dt.Rows[0]["AvatarSize"]!=DBNull.Value)
 						nAvatarSize = (int)dt.Rows[0]["AvatarSize"];
 				}
 
+#if true
+				System.IO.Stream resized = null;
 
+				using(System.Drawing.Image img = System.Drawing.Image.FromStream(File.PostedFile.InputStream))
+				{
+					if(img.Width>x || img.Height>y)
+					{
+						AddLoadMessage(String.Format("Image size can't be larger than {0}x{1} pixels.",x,y));
+						AddLoadMessage(String.Format("The size of your image was {0}x{1} pixels.",img.Width,img.Height));
+						AddLoadMessage(String.Format("The image was resized to fit."));
+
+						using(System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(img, new System.Drawing.Size((int)x, (int)y)))
+						{
+							resized = new System.IO.MemoryStream();
+							bitmap.Save(resized,System.Drawing.Imaging.ImageFormat.Jpeg);
+						}
+					}
+					if (File.PostedFile.ContentLength>=nAvatarSize && resized == null)
+					{
+						AddLoadMessage(String.Format("The size of your image can't be more than {0} bytes.",nAvatarSize));
+						AddLoadMessage(String.Format("The size of your image was {0} bytes.",File.PostedFile.ContentLength));
+						return;
+					}
+
+					if(resized == null)
+						DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
+					else
+						DB.user_saveavatar(PageUserID, resized);
+				}			
+#else
 				System.Drawing.Image img = System.Drawing.Image.FromStream(File.PostedFile.InputStream);
 				if(img.Width>x || img.Height>y) 
 				{
@@ -171,8 +200,8 @@ namespace yaf
 					AddLoadMessage(String.Format("The size of your image was {0} bytes.",File.PostedFile.ContentLength));
 					return;
 				}
-
 				DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
+#endif
 			}
 
 			if(bUpdateEmail && UseEmailVerification) 

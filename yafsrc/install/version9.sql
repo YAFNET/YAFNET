@@ -510,32 +510,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_move
-GO
-
-create procedure yaf_topic_move(@TopicID int,@ForumID int,@ShowMoved bit) as
-begin
-	declare @OldForumID int
-
-	select @OldForumID = ForumID from yaf_Topic where TopicID = @TopicID
-
-	if @ShowMoved<>0 begin
-		-- create a moved message
-		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,IsLocked,Priority,PollID,TopicMovedID,LastPosted)
-		select ForumID,UserID,UserName,Posted,Topic,0,IsLocked,Priority,PollID,@TopicID,LastPosted
-		from yaf_Topic where TopicID = @TopicID
-	end
-
-	-- move the topic
-	update yaf_Topic set ForumID = @ForumID where TopicID = @TopicID
-
-	-- update last posts
-	exec yaf_topic_updatelastpost @OldForumID
-	exec yaf_topic_updatelastpost @ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_updatelastpost
 GO
@@ -1214,51 +1188,5 @@ begin
 		b.Name
 	order by
 		b.Name
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_list
-GO
-
-create procedure yaf_user_list(@UserID int=null,@Approved bit=null) as
-begin
-	if @UserID is null
-		select 
-			a.*,
-			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
-			RankName = b.Name
-		from 
-			yaf_User a,
-			yaf_Rank b
-		where 
-			(@Approved is null or a.Approved = @Approved) and
-			b.RankID = a.RankID
-		order by 
-			a.Name
-	else
-		select 
-			a.*,
-			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
-			RankName = b.Name,
-			NumDays = datediff(d,a.Joined,getdate())+1,
-			NumPostsForum = (select count(1) from yaf_Message x where x.Approved<>0),
-			HasAvatarImage = (select count(1) from yaf_User x where x.UserID=a.UserID and AvatarImage is not null),
-			c.AvatarUpload,
-			c.AvatarRemote,
-			c.AvatarWidth,
-			c.AvatarHeight
-		from 
-			yaf_User a,
-			yaf_Rank b,
-			yaf_System c
-		where 
-			a.UserID = @UserID and
-			(@Approved is null or a.Approved = @Approved) and
-			b.RankID = a.RankID
-		order by 
-			a.Name
 end
 GO
