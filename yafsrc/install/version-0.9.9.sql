@@ -3659,6 +3659,8 @@ GO
 
 create procedure dbo.yaf_nntpserver_delete(@NntpServerID int) as
 begin
+	delete from yaf_NntpTopic where NntpForumID in (select NntpForumID from yaf_NntpForum where NntpServerID = @NntpServerID)
+	delete from yaf_NntpForum where NntpServerID = @NntpServerID
 	delete from yaf_NntpServer where NntpServerID = @NntpServerID
 end
 GO
