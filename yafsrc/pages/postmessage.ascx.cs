@@ -175,7 +175,7 @@ namespace yaf.pages
 					Message.Text = body;
 					Title.Text = GetText("EDIT");
 
-					Subject.Text = Convert.ToString(msg["Topic"]);
+					Subject.Text = Server.HtmlDecode(Convert.ToString(msg["Topic"]));
 
 					if ((Convert.ToInt32(msg["TopicOwnerID"]) == Convert.ToInt32(msg["UserID"])) || ForumModeratorAccess)
 					{
