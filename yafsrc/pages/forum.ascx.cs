@@ -108,7 +108,7 @@ namespace yaf.pages
 			if(!stats.IsNull("LastPost")) 
 			{
 				Stats.Text += String.Format(GetText("stats_lastpost"),
-					FormatDateTime((DateTime)stats["LastPost"]),
+					FormatDateTimeTopic((DateTime)stats["LastPost"]),
 					String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",stats["LastUserID"]),stats["LastUser"])
 				);
 				Stats.Text += "<br/>";
@@ -163,13 +163,13 @@ namespace yaf.pages
 					minipost = GetThemeContents("ICONS","ICON_LATEST");
 				
 				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
-					FormatDateTime((DateTime)row["LastPosted"]),
+					FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
 					String.Format(GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),row["LastTopicName"])),
 					String.Format(GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"])),
 					minipost,
 					GetText("GO_LAST_POST"),
-					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"])
-				);
+					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"])					
+					);
 			}
 			else
 				return GetText("NO_POSTS");
