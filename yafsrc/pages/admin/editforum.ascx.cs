@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public class editforum : AdminPage {
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.TextBox Description;
-		protected System.Web.UI.WebControls.TextBox SortOrder;
+		protected System.Web.UI.WebControls.TextBox SortOrder, remoteurl;
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.CheckBox Locked;
@@ -73,6 +73,7 @@ namespace yaf.pages.admin
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 						if(!row.IsNull("ParentID"))
 							ParentList.Items.FindByValue(row["ParentID"].ToString()).Selected = true;
+						remoteurl.Text = row["RemoteURL"].ToString();
 					}
 					NewGroupRow.Visible = false;
 				}
@@ -180,7 +181,7 @@ namespace yaf.pages.admin
 			object parentID = null;
 			if(ParentList.SelectedValue.Length>0)
 				parentID = ParentList.SelectedValue;
-			ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
+			ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,IsNull(remoteurl.Text),false);
 
 			// Access
 			if(Request.QueryString["f"] != null) 

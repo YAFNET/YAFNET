@@ -16,8 +16,8 @@
 				<FooterTemplate></span></FooterTemplate>
 			</asp:repeater>
 		</td>
-		<td align="center"><%# DataBinder.Eval(Container.DataItem, "[\"Topics\"]") %></td>
-		<td align="center"><%# DataBinder.Eval(Container.DataItem, "[\"Posts\"]") %></td>
+		<td align="center"><%# Topics(Container.DataItem) %></td>
+		<td align="center"><%# Posts(Container.DataItem) %></td>
 		<td align="center" class="smallfont" nowrap="nowrap"><%# yaf.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
 	</tr>
 </ItemTemplate>

@@ -12,6 +12,9 @@ GO
 alter table yaf_User alter column Signature ntext null
 go
 
+if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='RemoteURL')
+	alter table yaf_Forum add RemoteURL nvarchar(100) null
+GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
@@ -661,3 +664,97 @@ begin
 	where ForumID=@ForumID and (LastPosted is null or LastPosted<@Posted)
 end
 GO
+
+-- yaf_forum_save
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_save
+GO
+
+create procedure yaf_forum_save(
+	@ForumID 		int,
+	@CategoryID		int,
+	@ParentID		int=null,
+	@Name			nvarchar(50),
+	@Description	nvarchar(255),
+	@SortOrder		smallint,
+	@Locked			bit,
+	@Hidden			bit,
+	@IsTest			bit,
+	@Moderated		bit,
+	@RemoteURL		nvarchar(100)=null,
+	@AccessMaskID	int = null
+) as
+begin
+	declare @BoardID	int
+
+	if @ForumID>0 begin
+		update yaf_Forum set 
+			ParentID=@ParentID,
+			Name=@Name,
+			Description=@Description,
+			SortOrder=@SortOrder,
+			Hidden=@Hidden,
+			Locked=@Locked,
+			CategoryID=@CategoryID,
+			IsTest = @IsTest,
+			Moderated = @Moderated,
+			RemoteURL = @RemoteURL
+		where ForumID=@ForumID
+	end
+	else begin
+		select @BoardID=BoardID from yaf_Category where CategoryID=@CategoryID
+	
+		insert into yaf_Forum(ParentID,Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated,NumTopics,NumPosts,RemoteURL)
+		values(@ParentID,@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated,0,0,@RemoteURL)
+		select @ForumID = @@IDENTITY
+
+		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) 
+		select GroupID,@ForumID,@AccessMaskID
+		from yaf_Group 
+		where BoardID=@BoardID
+	end
+	select ForumID = @ForumID
+end
+GO
+
+-- yaf_forum_listread
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listread
+GO
+
+create procedure yaf_forum_listread(@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
+begin
+	select 
+		a.CategoryID, 
+		Category		= a.Name, 
+		ForumID			= b.ForumID,
+		Forum			= b.Name, 
+		Description,
+		Topics			= b.NumTopics,
+		Posts			= b.NumPosts,
+		LastPosted		= b.LastPosted,
+		LastMessageID	= b.LastMessageID,
+		LastUserID		= b.LastUserID,
+		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
+		LastTopicID		= b.LastTopicID,
+		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
+		b.Locked,
+		b.Moderated,
+		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
+		b.RemoteURL
+	from 
+		yaf_Category a
+		join yaf_Forum b on b.CategoryID=a.CategoryID
+		join yaf_vaccess x on x.ForumID=b.ForumID
+	where 
+		a.BoardID = @BoardID and
+		(b.Hidden=0 or x.ReadAccess<>0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
+		x.UserID = @UserID
+	order by
+		a.SortOrder,
+		b.SortOrder
+end
+GO
+

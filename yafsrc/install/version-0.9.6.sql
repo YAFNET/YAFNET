@@ -866,46 +866,6 @@ begin
 end
 GO
 
--- yaf_forum_listread
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listread
-GO
-
-create procedure yaf_forum_listread(@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
-begin
-	select 
-		a.CategoryID, 
-		Category		= a.Name, 
-		ForumID			= b.ForumID,
-		Forum			= b.Name, 
-		Description,
-		Topics			= b.NumTopics,
-		Posts			= b.NumPosts,
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
-		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID)
-	from 
-		yaf_Category a
-		join yaf_Forum b on b.CategoryID=a.CategoryID
-		join yaf_vaccess x on x.ForumID=b.ForumID
-	where 
-		a.BoardID = @BoardID and
-		(b.Hidden=0 or x.ReadAccess<>0) and
-		(@CategoryID is null or a.CategoryID=@CategoryID) and
-		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
-		x.UserID = @UserID
-	order by
-		a.SortOrder,
-		b.SortOrder
-end
-GO
-
 -- yaf_rank_list
 if exists (select * from sysobjects where id = object_id(N'yaf_rank_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_list

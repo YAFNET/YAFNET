@@ -1061,7 +1061,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long forum_save(object ForumID,object CategoryID,object parentID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object accessMaskID,bool dummy) 
+		static public long forum_save(object ForumID,object CategoryID,object parentID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object accessMaskID,object remoteURL,bool dummy) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_save")) 
 			{
@@ -1076,6 +1076,7 @@ namespace yaf
 				cmd.Parameters.Add("@Hidden",Hidden);
 				cmd.Parameters.Add("@IsTest",IsTest);
 				cmd.Parameters.Add("@Moderated",moderated);
+				cmd.Parameters.Add("@RemoteURL",remoteURL);
 				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}

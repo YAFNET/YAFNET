@@ -185,6 +185,12 @@ namespace yaf.pages
 			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
+			if(forum["RemoteURL"]!=DBNull.Value) 
+			{
+				Response.Clear();
+				Response.Redirect((string)forum["RemoteURL"]);
+			}
+
 			PageTitle.Text = (string)forum["Name"];
 
 			BindData();	// Always because of yaf:TopicLine

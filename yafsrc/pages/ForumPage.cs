@@ -613,6 +613,14 @@ namespace yaf.pages
 			}
 		}
 
+		static public object IsNull(string value)
+		{
+			if(value==null || value.ToLower()==string.Empty)
+				return DBNull.Value;
+			else
+				return value;
+		}
+
 		#region PageInfo class
 		private DataRow		m_pageinfo			= null;
 		private IForumUser	m_forumUser			= null;

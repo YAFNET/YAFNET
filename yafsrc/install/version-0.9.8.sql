@@ -764,56 +764,6 @@ begin
 end
 GO
 
--- yaf_forum_save
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_save
-GO
-
-create procedure yaf_forum_save(
-	@ForumID 		int,
-	@CategoryID		int,
-	@ParentID		int=null,
-	@Name			nvarchar(50),
-	@Description	nvarchar(255),
-	@SortOrder		smallint,
-	@Locked			bit,
-	@Hidden			bit,
-	@IsTest			bit,
-	@Moderated		bit,
-	@AccessMaskID	int = null
-) as
-begin
-	declare @BoardID	int
-
-	if @ForumID>0 begin
-		update yaf_Forum set 
-			ParentID=@ParentID,
-			Name=@Name,
-			Description=@Description,
-			SortOrder=@SortOrder,
-			Hidden=@Hidden,
-			Locked=@Locked,
-			CategoryID=@CategoryID,
-			IsTest = @IsTest,
-			Moderated = @Moderated
-		where ForumID=@ForumID
-	end
-	else begin
-		select @BoardID=BoardID from yaf_Category where CategoryID=@CategoryID
-	
-		insert into yaf_Forum(ParentID,Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated,NumTopics,NumPosts)
-		values(@ParentID,@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated,0,0)
-		select @ForumID = @@IDENTITY
-
-		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) 
-		select GroupID,@ForumID,@AccessMaskID
-		from yaf_Group 
-		where BoardID=@BoardID
-	end
-	select ForumID = @ForumID
-end
-GO
-
 -- yaf_rank_save
 if exists (select * from sysobjects where id = object_id(N'yaf_rank_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_save

@@ -90,7 +90,7 @@ namespace yaf.controls
 		public string GetForumLink(System.Data.DataRow row)
 		{
 			string strReturn = "";
-			int ForumID = Convert.ToInt16(row["ForumID"]);
+			int ForumID = Convert.ToInt32(row["ForumID"]);
 
 			// get the Forum Description
 			strReturn = Convert.ToString(row["Forum"]);
@@ -119,7 +119,10 @@ namespace yaf.controls
 		/// <returns>Formatted "Last Post" text</returns>
 		protected string FormatLastPost(System.Data.DataRow row) 
 		{
-			int ForumID = Convert.ToInt16(row["ForumID"]);
+			if(row["RemoteURL"]!=DBNull.Value)
+				return "-";
+
+			int ForumID = Convert.ToInt32(row["ForumID"]);
 			// defaults to "no posts" text
 			string strTemp = ForumPage.GetText("NO_POSTS");
 
@@ -151,7 +154,22 @@ namespace yaf.controls
 
 			return strTemp;
 		}
-
+		protected string Topics(object _o)
+		{
+			DataRow row = (DataRow)_o;
+			if(row["RemoteURL"]==DBNull.Value)
+				return string.Format("{0:N0}",row["Topics"]);
+			else
+				return "-";
+		}
+		protected string Posts(object _o)
+		{
+			DataRow row = (DataRow)_o;
+			if(row["RemoteURL"]==DBNull.Value)
+				return string.Format("{0:N0}",row["Posts"]);
+			else
+				return "-";
+		}
 		protected string GetViewing(object o) 
 		{
 			DataRow row = (DataRow)o;

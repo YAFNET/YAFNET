@@ -168,7 +168,7 @@ namespace yaf.controls
 		/// <returns>"&nbsp;" if no replies or the number of replies.</returns>
 		protected string FormatReplies() 
 		{
-			int nReplies = Convert.ToInt16(m_row["Replies"]);
+			int nReplies = Convert.ToInt32(m_row["Replies"]);
 			return (nReplies < 0) ? "&nbsp;" : String.Format("{0:N0}",nReplies);
 		}
 
