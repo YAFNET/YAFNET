@@ -402,6 +402,9 @@ namespace yaf.pages
 					body += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,dt.Rows[0]["Signature"].ToString());
 			}
 			
+#if DEBUG
+			body = BBCode.MakeHtml(body);
+#endif
 			PreviewCell.InnerHtml = body;
 		}
 

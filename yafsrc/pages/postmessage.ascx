@@ -2,7 +2,6 @@
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
-<%@ Register TagPrefix="FTB" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
