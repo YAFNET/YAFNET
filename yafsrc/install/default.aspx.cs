@@ -367,29 +367,15 @@ namespace yaf.install
 			}
 		}
 
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			this.Load += new System.EventHandler(this.Page_Load);
 			back.Click += new System.EventHandler(back_Click);
 			next.Click += new System.EventHandler(next_Click);
 			finish.Click += new System.EventHandler(finish_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
 			base.OnInit(e);
 		}
 		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
-		}
-		#endregion
-
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			base.Render(writer);
@@ -469,11 +455,13 @@ namespace yaf.install
 				{
 					using(SqlDataAdapter da=new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'",conn)) 
 					{
+						da.SelectCommand.Transaction = trans;
 						using(DataTable dt=new DataTable("sysobjects")) 
 						{
 							da.Fill(dt);
 							using(SqlCommand cmd=conn.CreateCommand()) 
 							{
+								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
 								cmd.CommandText = "select current_user";
 								string userName = (string)cmd.ExecuteScalar();
