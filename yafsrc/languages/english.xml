@@ -43,6 +43,7 @@
 		<Resource tag="REGISTER">Register</Resource>
 		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
 		<Resource tag="WELCOME_GUEST">Welcome Guest</Resource>
+		<Resource tag="HELP">Help</Resource>
 	</page>
 	<page name="ICONLEGEND">
 		<!-- Common icon texts -->

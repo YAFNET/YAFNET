@@ -409,6 +409,8 @@ namespace yaf.pages
 				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
 
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
+				if(IsAdmin)
+					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.help_index),GetText("TOOLBAR","HELP")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
 				if(IsAdmin)
 					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.admin_admin),GetText("TOOLBAR","ADMIN")));

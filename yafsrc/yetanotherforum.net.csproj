@@ -325,6 +325,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\HelpMenu.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\IconLegend.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -1620,6 +1625,21 @@
                 <File
                     RelPath = "pages\admin\version.ascx.resx"
                     DependentUpon = "version.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\help\index.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\help\index.ascx.cs"
+                    DependentUpon = "index.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\help\index.ascx.resx"
+                    DependentUpon = "index.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

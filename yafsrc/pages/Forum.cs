@@ -79,7 +79,8 @@ namespace yaf
 		im_aim,
 		im_icq,
 		im_email,
-		rsstopic
+		rsstopic,
+		help_index
 	}
 
 	/// <summary>
@@ -326,6 +327,9 @@ namespace yaf
 					page = Pages.admin_reguser;
 					break;
 					// ADDED BAI 07.01.2004	
+				case "help_index":
+					page = Pages.help_index;
+					break;
 			}
 
 			string src = string.Format("{0}pages/{1}.ascx",m_baseDir,page);
@@ -333,6 +337,8 @@ namespace yaf
 				src = src.Replace("/moderate_","/moderate/");
 			if(src.IndexOf("/admin_")>=0)
 				src = src.Replace("/admin_","/admin/");
+			if(src.IndexOf("/help_")>=0)
+				src = src.Replace("/help_","/help/");
 
 			try
 			{
