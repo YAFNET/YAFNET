@@ -1185,24 +1185,9 @@ if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and O
 	drop procedure yaf_user_list
 GO
 
-create procedure dbo.yaf_user_list(@BoardID int,@UserID int=null,@Approved bit=null) as
+create procedure dbo.yaf_user_list(@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null) as
 begin
-	if @UserID is null
-		select 
-			a.*,
-			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
-			b.RankID,
-			RankName = b.Name
-		from 
-			yaf_User a
-			join yaf_Rank b on b.RankID=a.RankID
-		where 
-			a.BoardID = @BoardID and
-			(@Approved is null or a.Approved = @Approved)
-		order by 
-			a.Name
-	else
+	if @UserID is not null
 		select 
 			a.*,
 			a.NumPosts,
@@ -1226,8 +1211,41 @@ begin
 			(@Approved is null or a.Approved = @Approved)
 		order by 
 			a.Name
+	else if @GroupID is null and @RankID is null
+		select 
+			a.*,
+			a.NumPosts,
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			b.RankID,
+			RankName = b.Name
+		from 
+			yaf_User a
+			join yaf_Rank b on b.RankID=a.RankID
+		where 
+			a.BoardID = @BoardID and
+			(@Approved is null or a.Approved = @Approved)
+		order by 
+			a.Name
+	else
+		select 
+			a.*,
+			a.NumPosts,
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			b.RankID,
+			RankName = b.Name
+		from 
+			yaf_User a
+			join yaf_Rank b on b.RankID=a.RankID
+		where 
+			a.BoardID = @BoardID and
+			(@Approved is null or a.Approved = @Approved) and
+			(@GroupID is null or exists(select 1 from yaf_UserGroup x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
+			(@RankID is null or a.RankID=@RankID)
+		order by 
+			a.Name
 end
 GO
+
 -- yaf_forum_listallmymoderated ABOT NEW 16.04.04
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listallmymoderated') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listallmymoderated

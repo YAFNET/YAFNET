@@ -134,9 +134,11 @@ namespace yaf.pages
 #endif
 
 			//Response.Expires = -1000;
+			/*
 			HttpContext.Current.Response.AddHeader("Cache-control", "private, no-cache, must-revalidate");
 			HttpContext.Current.Response.AddHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT"); // Past date
 			HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
+			*/
 
 			try 
 			{

@@ -37,6 +37,9 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.Repeater UserList;
 		protected controls.PageLinks PageLinks;
 		protected LinkButton NewUser;
+		protected DropDownList group, rank;
+		protected Button search;
+		protected TextBox name;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -45,33 +48,44 @@ namespace yaf.pages.admin
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Users",Forum.GetLink(Pages.admin_users));
 
-				BindData();
+				using(DataTable dt=DB.group_list(PageBoardID,null)) 
+				{
+					DataRow newRow = dt.NewRow();
+					newRow["Name"] = string.Empty;
+					newRow["GroupID"] = DBNull.Value;
+					dt.Rows.InsertAt(newRow,0);
+
+					group.DataSource = dt;
+					group.DataTextField = "Name";
+					group.DataValueField = "GroupID";
+					group.DataBind();
+				}
+
+				using(DataTable dt=DB.rank_list(PageBoardID,null)) 
+				{
+					DataRow newRow = dt.NewRow();
+					newRow["Name"] = string.Empty;
+					newRow["RankID"] = DBNull.Value;
+					dt.Rows.InsertAt(newRow,0);
+
+					rank.DataSource = dt;
+					rank.DataTextField = "Name";
+					rank.DataValueField = "RankID";
+					rank.DataBind();
+				}
 			}
 		}
 
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
 			this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
 			this.Load += new System.EventHandler(this.Page_Load);
 			// Added BAI 07.01.2003
 			this.NewUser.Click += new System.EventHandler(this.NewUser_Click);
 			// END Added BAI 07.01.2003    
+			search.Click += new EventHandler(search_Click);
+			base.OnInit(e);
 		}
-		#endregion
 	
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
@@ -80,8 +94,20 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			UserList.DataSource = DB.user_list(PageBoardID,null,null);
-			DataBind();
+			using(DataTable dt=
+					  DB.user_list(PageBoardID,null,null,
+					  group.SelectedIndex<=0 ? null : group.SelectedValue,
+					  rank.SelectedIndex<=0 ? null : rank.SelectedValue
+					  )) 
+			{
+				using(DataView dv=dt.DefaultView) 
+				{
+					if(name.Text.Trim().Length>0)
+						dv.RowFilter = string.Format("Name like '%{0}%'",name.Text.Trim());
+					UserList.DataSource = dv;
+					UserList.DataBind();
+				}
+			}
 		}
 
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
@@ -110,6 +136,11 @@ namespace yaf.pages.admin
 		{
 			Forum.Redirect(Pages.admin_reguser);
 		}
-		// END Added BAI 07.01.2003		
+		// END Added BAI 07.01.2003
+
+		private void search_Click(object sender, EventArgs e)
+		{
+			BindData();
+		}
 	}
 }

@@ -5,7 +5,7 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class="rte" cellSpacing="1" cellPadding="4" width="100%" align="center">
+<table class="content" cellSpacing="1" cellPadding="4" width="100%" align="center">
 	<tr>
 		<td class="header1" align="middle" colSpan="2"><asp:label id="Title" runat="server"/></td>
 	</tr>

@@ -5,6 +5,26 @@
 
 <yaf:adminmenu runat="server">
 
+<table class="content" width="100%" cellspacing="0" cellpadding="0"><tr><td class="post" valign="top">
+	<table width="100%" cellspacing="0" cellpadding="0">
+		<tr><td nowrap colspan="4" class="header2"><b>Filter</b></td></tr>
+		<tr class="post">
+			<td>Group:</td>
+			<td>Rank:</td>
+			<td>Name Contains:</td>
+			<td width="99%">&nbsp;</td>
+		</tr>
+		<tr class="post">
+			<td><asp:dropdownlist runat="server" id="group"/></td>
+			<td><asp:dropdownlist runat="server" id="rank"/></td>
+			<td><asp:textbox runat="server" id="name"/></td>
+			<td align="right"><asp:button runat="server" id="search" text="Search"/></td>
+		</tr>
+	</table>
+</td></tr></table>
+
+<br/>
+
 <table cellspacing=1 cellpadding=0 width="100%" class=content>
 <tr>
 	<td class=header1 colspan=6>Users</td>

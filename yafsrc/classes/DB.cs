@@ -2060,12 +2060,18 @@ namespace yaf
 		#region yaf_User
 		static public DataTable user_list(object boardID,object UserID,object Approved) 
 		{
+			return user_list(boardID,UserID,Approved,null,null);
+		}
+		static public DataTable user_list(object boardID,object UserID,object Approved,object groupID,object rankID) 
+		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Approved",Approved);
+				cmd.Parameters.Add("@GroupID",groupID);
+				cmd.Parameters.Add("@RankID",rankID);
 				return GetData(cmd);
 			}
 		}

@@ -1797,6 +1797,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\yafvision.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\ASPNET\b_button_attach.gif"
                     BuildAction = "Content"
                 />
@@ -2954,6 +2958,190 @@
                 />
                 <File
                     RelPath = "themes\standard\voting_bar.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_attachments.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_delete_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_delete_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_edit_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_lock_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_move_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_post_reply.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_post_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_quote_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\b_unlock_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\bg_footer1.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\bg_header1.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\bg_header2.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\folder_stats.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\folder_who.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\icon_file.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\icon_latest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\icon_newest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_aim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_blog.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_icq.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_msn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_pm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_www.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\p_yim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\sort_down.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\sort_up.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\theme.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_announce.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_announce_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_lock.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_lock_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_moderate.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_moved.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_poll.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_poll_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\topic_sticky.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\user_rank1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\user_rank2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\user_rank3.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\vote_lcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\vote_rcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\yafvision\voting_bar.gif"
                     BuildAction = "Content"
                 />
                 <Folder RelPath = "upload\" />
