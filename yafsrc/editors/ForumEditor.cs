@@ -260,7 +260,8 @@ namespace yaf.editor
 			FStyleSheet = string.Empty;
 			objEditor = null;
 			typEditor = null;
-			BinFile = System.Web.HttpContext.Current.Server.MapPath(BinFile);
+			string tPath = System.Web.HttpContext.Current.Request.PhysicalPath.Substring(0,System.Web.HttpContext.Current.Request.PhysicalPath.LastIndexOf("/")+1);
+			BinFile = System.Web.HttpContext.Current.Server.MapPath(tPath + "bin\\" + BinFile);
 	
 			try
 			{
@@ -333,9 +334,9 @@ namespace yaf.editor
 	}
 
 
-	public class FCKEditor : RichClassEditor
+	public class FCKEditorV2 : RichClassEditor
 	{
-		public FCKEditor() : base("bin\\FredCK.FCKeditorV2.dll","FredCK.FCKeditorV2.FCKeditor")
+		public FCKEditorV2() : base("FredCK.FCKeditorV2.dll","FredCK.FCKeditorV2.FCKeditor")
 		{
 			
 		}
@@ -358,7 +359,7 @@ namespace yaf.editor
 			{
 				PropertyInfo pInfo;
 				pInfo = typEditor.GetProperty("BasePath");
-				pInfo.SetValue(objEditor,ResolveUrl("FCKEditor/"),null);
+				pInfo.SetValue(objEditor,ResolveUrl("FCKEditorV2/"),null);
 
 				Page.RegisterClientScriptBlock("fckeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("FCKEditor/FCKEditor.js")));
 			}
@@ -389,9 +390,65 @@ namespace yaf.editor
 	}
 
 
+	public class FCKEditorV1 : RichClassEditor
+	{
+		public FCKEditorV1() : base("FredCK.FCKeditor.dll","FredCK.FCKeditor")
+		{
+			
+		}
+
+		protected override void OnInit(EventArgs e)
+		{			
+			if (bInit)
+			{
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = typEditor.GetProperty("ID");
+				pInfo.SetValue(objEditor,"edit",null);
+				Controls.Add(objEditor);
+			}
+			base.OnInit(e);
+		}
+
+		protected virtual void Editor_Load(object sender,EventArgs e)
+		{
+			if (bInit && objEditor.Visible)
+			{
+				PropertyInfo pInfo;
+				pInfo = typEditor.GetProperty("BasePath");
+				pInfo.SetValue(objEditor,ResolveUrl("FCKEditorV1/"),null);
+
+				Page.RegisterClientScriptBlock("fckeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("FCKEditorV1/FCKEditor.js")));
+			}
+		}
+
+		#region Properties
+		public override string Text
+		{
+			get
+			{
+				if (bInit)
+				{
+					PropertyInfo pInfo = typEditor.GetProperty("Value");
+					return Convert.ToString(pInfo.GetValue(objEditor,null));
+				}
+				else return string.Empty;
+			}
+			set
+			{
+				if (bInit)
+				{
+					PropertyInfo pInfo = typEditor.GetProperty("Value");
+					pInfo.SetValue(objEditor,value,null);
+				}
+			}
+		}
+		#endregion
+	}
+
+
 	public class FreeTextBoxEditor : RichClassEditor
 	{
-		public FreeTextBoxEditor() : base("bin\\FreeTextBox.dll","FreeTextBoxControls.FreeTextBox")
+		public FreeTextBoxEditor() : base("FreeTextBox.dll","FreeTextBoxControls.FreeTextBox")
 		{
 			
 		}
@@ -471,18 +528,20 @@ namespace yaf.editor
 		{
 			etText = 0,
 			etBBCode = 1,
-			etFCK = 2,
-			etFreeTextBox = 3
+			etFCKv2 = 2,
+			etFreeTextBox = 3,
+			etFCKv1 = 4
 		}
 
-		public static int EditorCount = 4;
+		public static int EditorCount = 5;
 
 		public static string [] EditorTypeText =
 		{
 			"Text Editor",
 			"BBCode Editor",
 			"FCK Editor v2 (HTML)",
-			"FreeTextBox v2 (HTML)"
+			"FreeTextBox v2 (HTML)",
+			"FCK Editor v1.6 (HTML)"
 		};
 
 		public static ForumEditor CreateEditorFromType(int Value)
@@ -500,8 +559,9 @@ namespace yaf.editor
 			{
 				case EditorType.etText: return new TextEditor();
 				case EditorType.etBBCode: return new BBCodeEditor();
-				case EditorType.etFCK: return new FCKEditor();
+				case EditorType.etFCKv2: return new FCKEditorV2();
 				case EditorType.etFreeTextBox: return new FreeTextBoxEditor();
+				case EditorType.etFCKv1: return new FCKEditorV1();
 			}
 
 			return null;
