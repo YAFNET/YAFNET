@@ -329,6 +329,7 @@ namespace yaf
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",PageUserID);
+				cmd.Parameters.Add("@Approved",true);
 				DataTable dt = DataManager.GetData(cmd);
 				if(!dt.Rows[0].IsNull("Signature"))
 					body += "\r\n\r\n-- \r\n" + dt.Rows[0]["Signature"].ToString();

@@ -164,6 +164,8 @@ namespace yaf
 		{
 			forum = Data.ForumInfo(PageForumID);
 			topic = Data.TopicInfo(PageTopicID);
+			if(topic==null)
+				Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 
 			using(SqlCommand cmd = new SqlCommand("yaf_post_list")) 
 			{

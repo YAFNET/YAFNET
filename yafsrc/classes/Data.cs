@@ -90,7 +90,13 @@ namespace yaf
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@TopicID",TopicID);
-				return DataManager.GetData(cmd).Rows[0];
+				using(DataTable dt = DataManager.GetData(cmd)) 
+				{
+					if(dt.Rows.Count>0)
+						return dt.Rows[0];
+					else
+						return null;
+				}
 			}
 		}
 

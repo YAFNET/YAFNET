@@ -21,7 +21,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -54,7 +54,13 @@ namespace yaf
 			HomeLink.NavigateUrl = BaseDir;
 
 			PagedDataSource pds = new PagedDataSource();
-			pds.DataSource = DataManager.GetData("yaf_user_list",CommandType.Text).DefaultView;
+			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",null);
+				cmd.Parameters.Add("@Approved",true);
+				pds.DataSource = DataManager.GetData(cmd).DefaultView;
+			}
 			pds.AllowPaging = true;
 			pds.CurrentPageIndex = CurrentPage;
 			pds.PageSize = 10;

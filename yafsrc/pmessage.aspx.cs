@@ -78,6 +78,7 @@ namespace yaf
 					using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.Add("@UserID",ToUserID);
+						cmd.Parameters.Add("@Approved",true);
 						DataTable dt = DataManager.GetData(cmd);
 						To.Text = (string)dt.Rows[0]["Name"];
 						To.Enabled = false;

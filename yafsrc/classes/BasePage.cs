@@ -421,7 +421,7 @@ namespace yaf
 		/// </summary>
 		public string SmtpServer {
 			get {
-				return m_strSmtpServer;
+				return m_strSmtpServer.Length>0 ? m_strSmtpServer : null;
 			}
 		}
 		public string SmtpUserName 
@@ -497,7 +497,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,9,25);
+				return new DateTime(2003,10,4);
 			}
 		}
 
@@ -782,14 +782,15 @@ namespace yaf
 	
 		public void SendMail(string from,string to,string subject,string body) 
 		{
-#if true
+#if false
 			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
 			mailMessage.From = from;
 			mailMessage.To = to;
 			mailMessage.Subject = subject;
 			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
 			mailMessage.Body = body;
-			System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
+			if(SmtpServer!=null)
+				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
 			System.Web.Mail.SmtpMail.Send(mailMessage);
 #else
 			string sUserName = SmtpUserName;

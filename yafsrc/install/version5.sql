@@ -402,3 +402,52 @@ begin
 		b.GroupID = a.GroupID
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_list
+GO
+
+create procedure yaf_user_list(@UserID int=null,@Approved bit=null) as
+begin
+	if @UserID is null
+		select 
+			a.*,
+			GroupName = b.Name,
+			a.NumPosts,
+			b.IsAdmin
+		from 
+			yaf_User a,
+			yaf_Group b 
+		where 
+			b.GroupID=a.GroupID and
+			(@Approved is null or a.Approved = @Approved)
+		order by 
+			a.Name
+	else
+		select 
+			a.*,
+			GroupName = b.Name,
+			a.NumPosts,
+			b.IsAdmin
+		from 
+			yaf_User a,
+			yaf_Group b 
+		where 
+			b.GroupID=a.GroupID and
+			a.UserID = @UserID and
+			(@Approved is null or a.Approved = @Approved)
+		order by 
+			a.Name
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_delete
+GO
+
+create procedure yaf_user_delete(@UserID int) as
+begin
+	delete from yaf_CheckEmail where UserID = @UserID
+	delete from yaf_User where UserID = @UserID
+end
+GO

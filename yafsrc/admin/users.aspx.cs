@@ -70,7 +70,14 @@ namespace yaf.admin
 		#endregion
 	
 		private void BindData() {
-			UserList.DataSource = DataManager.GetData("yaf_user_list",CommandType.StoredProcedure);
+			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",null);
+				cmd.Parameters.Add("@Approved",null);
+				//UserList.DataSource = DataManager.GetData("yaf_user_list",CommandType.StoredProcedure);
+				UserList.DataSource = DataManager.GetData(cmd);
+			}
 			DataBind();
 		}
 

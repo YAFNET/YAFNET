@@ -70,6 +70,7 @@ namespace yaf
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",pageinfo["UserID"]);
+				cmd.Parameters.Add("@Approved",true);
 				using(DataTable dt = DataManager.GetData(cmd)) {
 					row = dt.Rows[0];
 				}
