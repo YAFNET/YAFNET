@@ -46,19 +46,19 @@
 			<TD class="post">
 				<asp:checkbox id="BlankLinks" runat="server"></asp:checkbox></TD>
 		</TR>
-		<TR>
+		<tr>
 			<TD class="postheader"><B>Show Groups:</B><BR>
 				Should the groups a user is part of be visible on the posts page.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowGroupsX" runat="server"></asp:checkbox></TD>
-		</TR>
-		<TR>
+		</tr>
+		<tr runat="server" visible="false">
 			<TD class="postheader"><B>Allow Rich Edit:</B><BR>
 				If this is checked your users will be able to use a rich edit control when 
 				posting messages.</TD>
 			<TD class="post">
 				<asp:checkbox id="AllowRichEditX" runat="server"></asp:checkbox></TD>
-		</TR>
+		</tr>
 		<TR>
 			<TD class="postheader"><B>Allow User Theme:</B><BR>
 				Should users be able to choose what theme they want to use?</TD>
