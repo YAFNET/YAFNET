@@ -73,6 +73,7 @@ namespace yaf
 
 		public string GetText( string text )
 		{
+			text = text.ToUpper(new System.Globalization.CultureInfo("en"));
 			if( _doc == null )
 				return "";
 
@@ -85,14 +86,14 @@ namespace yaf
 
 			if( _pagePointer != null )
 			{
-				el = _pagePointer.SelectSingleNode( string.Format( "Resource[@tag='{0}']", text.ToUpper() ) );
+				el = _pagePointer.SelectSingleNode( string.Format("Resource[@tag='{0}']", text ) );
 				// if in page subnode the text doesn't exist, try in whole file
 				if( el == null )
-					el = _doc.SelectSingleNode( string.Format( "//Resource[@tag='{0}']", text.ToUpper() ) );
+					el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", text ) );
 			}
 			else
 			{
-				el = _doc.SelectSingleNode( string.Format( "//Resource[@tag='{0}']", text.ToUpper() ) );
+				el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", text ) );
 			}
 
 			if( el != null )
