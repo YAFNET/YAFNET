@@ -38,7 +38,6 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Label Stats;
 		protected System.Web.UI.WebControls.Repeater CategoryList;
 		protected System.Web.UI.WebControls.Label TimeLastVisit;
-		protected System.Web.UI.WebControls.Repeater ForumList;
 		protected System.Web.UI.WebControls.Repeater ActiveList;
 		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
@@ -58,14 +57,14 @@ namespace yaf.pages
 				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit));
 				MarkAll.Text = GetText("MARKALL");
 
-				if(UnreadPrivate>0) 
+				if(PageInfo.UnreadPrivate>0) 
 				{
 					UnreadMsgs.Visible = true;
 					UnreadMsgs.NavigateUrl = Forum.GetLink(Pages.cp_inbox);
-					if(UnreadPrivate==1)
-						UnreadMsgs.Text = String.Format(GetText("unread1"),UnreadPrivate);
+					if(PageInfo.UnreadPrivate==1)
+						UnreadMsgs.Text = String.Format(GetText("unread1"),PageInfo.UnreadPrivate);
 					else
-						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
+						UnreadMsgs.Text = String.Format(GetText("unread0"),PageInfo.UnreadPrivate);
 				}
 
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -87,7 +86,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID);
+			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID,null);
 			CategoryList.DataSource = ds.Tables["yaf_Category"];
 
 			// Active users

@@ -56,7 +56,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 			
 				BindData();

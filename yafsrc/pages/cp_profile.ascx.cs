@@ -80,7 +80,7 @@ namespace yaf.pages
 			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
 			AvatarImage.Visible = row["AvatarImage"].ToString().Length>0;
 			if(AvatarImage.Visible)
-				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",ForumRoot,PageUserID);
+				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",Data.ForumRoot,PageUserID);
 		}
 
 		#region Web Form Designer generated code

@@ -74,7 +74,7 @@ namespace yaf.pages
 
 				// Load forum's combo
 				listForum.Items.Add(new ListItem(GetText("allforums"),"-1"));
-				DataTable dt = DB.forum_listread(PageBoardID,PageUserID,null);
+				DataTable dt = DB.forum_listread(PageBoardID,PageUserID,null,null);
 
 				int nOldCat = 0;
 				for(int i=0;i<dt.Rows.Count;i++) 

@@ -16,7 +16,6 @@ begin
 end
 go
 
----------------------------------------------------------------
 -- yaf_Board
 if not exists (select * from sysobjects where id = object_id(N'yaf_Board') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
@@ -284,6 +283,18 @@ if not exists(select * from sysindexes where id=object_id('yaf_Smiley') and name
 		CONSTRAINT [IX_Smiley] UNIQUE NONCLUSTERED([BoardID],[Code])
 GO
 
+-- yaf_Forum
+if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='ParentID')
+	alter table yaf_Forum add ParentID int null
+GO
+
+if not exists(select * from sysobjects where name='FK_Forum_Forum' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	ALTER TABLE [yaf_Forum] ADD 
+		CONSTRAINT FK_Forum_Forum FOREIGN KEY(ParentID)
+		REFERENCES yaf_Forum(ForumID)
+GO
+
+
 -- yaf_pageload
 if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pageload
@@ -458,64 +469,6 @@ if exists (select * from sysobjects where id = object_id(N'yaf_board_layout') an
 	drop procedure yaf_board_layout
 GO
 
-create procedure yaf_board_layout(@BoardID int,@UserID int,@CategoryID int=null,@OnlyForum tinyint=0) as
-begin
-	-- categories	
-	if @OnlyForum=0
-	select 
-		a.CategoryID,
-		a.Name
-	from 
-		yaf_Category a
-		join yaf_Forum b on b.CategoryID=a.CategoryID
-		join yaf_vaccess v on v.ForumID=b.ForumID
-	where
-		a.BoardID = @BoardID and
-		v.UserID = @UserID and
-		(v.ReadAccess <> 0 or b.Hidden = 0) and
-		(@CategoryID is null or a.CategoryID = @CategoryID)
-	group by
-		a.CategoryID,
-		a.Name,
-		a.SortOrder
-	order by 
-		a.SortOrder
-
-	-- forums
-	select 
-		a.CategoryID, 
-		Category		= a.Name, 
-		ForumID			= b.ForumID,
-		Forum			= b.Name, 
-		Description,
-		Topics			= b.NumTopics,
-		Posts			= b.NumPosts,
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
-		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID)
-	from 
-		yaf_Category a, 
-		yaf_Forum b,
-		yaf_vaccess x
-	where 
-		a.BoardID = @BoardID and
-		a.CategoryID = b.CategoryID and
-		(b.Hidden=0 or x.ReadAccess<>0) and
-		(@CategoryID is null or a.CategoryID = @CategoryID) and
-		x.UserID = @UserID and
-		x.ForumID = b.ForumID
-	order by
-		a.SortOrder,
-		b.SortOrder
-end
-GO
-
 -- yaf_category_list
 if exists (select * from sysobjects where id = object_id(N'yaf_category_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_list
@@ -553,7 +506,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_forum_list') and 
 	drop procedure yaf_forum_list
 GO
 
-CREATE  procedure yaf_forum_list(@BoardID int,@ForumID int=null) as
+create procedure yaf_forum_list(@BoardID int,@ForumID int=null) as
 begin
 	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
@@ -1665,5 +1618,236 @@ begin
 	delete from yaf_Group where BoardID=@BoardID
 	delete from yaf_AccessMask where BoardID=@BoardID
 	delete from yaf_Board where BoardID=@BoardID
+end
+GO
+
+-- yaf_forum_save
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_save
+GO
+
+create procedure yaf_forum_save(
+	@ForumID 		int,
+	@CategoryID		int,
+	@ParentID		int=null,
+	@Name			varchar(50),
+	@Description	varchar(255),
+	@SortOrder		smallint,
+	@Locked			bit,
+	@Hidden			bit,
+	@IsTest			bit,
+	@Moderated		bit,
+	@AccessMaskID	int = null
+) as
+begin
+	declare @BoardID	int
+
+	if @ForumID>0 begin
+		update yaf_Forum set 
+			ParentID=@ParentID,
+			Name=@Name,
+			Description=@Description,
+			SortOrder=@SortOrder,
+			Hidden=@Hidden,
+			Locked=@Locked,
+			CategoryID=@CategoryID,
+			IsTest = @IsTest,
+			Moderated = @Moderated
+		where ForumID=@ForumID
+	end
+	else begin
+		select @BoardID=BoardID from yaf_Category where CategoryID=@CategoryID
+	
+		insert into yaf_Forum(ParentID,Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated,NumTopics,NumPosts)
+		values(@ParentID,@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated,0,0)
+		select @ForumID = @@IDENTITY
+
+		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) 
+		select GroupID,@ForumID,@AccessMaskID
+		from yaf_Group 
+		where BoardID=@BoardID
+	end
+	select ForumID = @ForumID
+end
+GO
+
+-- yaf_forum_listall
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listall') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listall
+GO
+
+create procedure yaf_forum_listall(@BoardID int,@UserID int) as
+begin
+	select
+		b.CategoryID,
+		Category = b.Name,
+		a.ForumID,
+		Forum = a.Name,
+		x.Indent
+	from
+		(select
+			b.ForumID,
+			Indent = 0
+		from
+			yaf_Category a
+			join yaf_Forum b on b.CategoryID=a.CategoryID
+		where
+			a.BoardID=@BoardID and
+			b.ParentID is null
+	
+		union
+	
+		select
+			c.ForumID,
+			Indent = 1
+		from
+			yaf_Category a
+			join yaf_Forum b on b.CategoryID=a.CategoryID
+			join yaf_Forum c on c.ParentID=b.ForumID
+		where
+			a.BoardID=@BoardID and
+			b.ParentID is null
+	
+		union
+	
+		select
+			d.ForumID,
+			Indent = 2
+		from
+			yaf_Category a
+			join yaf_Forum b on b.CategoryID=a.CategoryID
+			join yaf_Forum c on c.ParentID=b.ForumID
+			join yaf_Forum d on d.ParentID=c.ForumID
+		where
+			a.BoardID=@BoardID and
+			b.ParentID is null
+		) as x
+		join yaf_Forum a on a.ForumID=x.ForumID
+		join yaf_Category b on b.CategoryID=a.CategoryID
+		join yaf_vaccess c on c.ForumID=a.ForumID
+	where
+		c.UserID=@UserID and
+		b.BoardID=@BoardID and
+		(a.Hidden=0 or c.ReadAccess<>0)
+	order by
+		b.SortOrder,
+		a.SortOrder
+end
+GO
+
+-- yaf_forum_listpath
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listpath') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listpath
+GO
+
+create procedure yaf_forum_listpath(@ForumID int) as
+begin
+	select
+		a.ForumID,
+		a.Name
+	from
+		(select
+			a.ForumID,
+			Indent = 0
+		from
+			yaf_Forum a
+		where
+			a.ForumID=@ForumID
+
+		union
+
+		select
+			b.ForumID,
+			Indent = 1
+		from
+			yaf_Forum a
+			join yaf_Forum b on b.ForumID=a.ParentID
+		where
+			a.ForumID=@ForumID
+
+		union
+
+		select
+			c.ForumID,
+			Indent = 2
+		from
+			yaf_Forum a
+			join yaf_Forum b on b.ForumID=a.ParentID
+			join yaf_Forum c on c.ForumID=b.ParentID
+		where
+			a.ForumID=@ForumID
+		) as x	
+		join yaf_Forum a on a.ForumID=x.ForumID
+	order by
+		x.Indent desc
+end
+GO
+
+-- yaf_category_listread
+if exists (select * from sysobjects where id = object_id(N'yaf_category_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_category_listread
+GO
+
+create procedure yaf_category_listread(@BoardID int,@UserID int,@CategoryID int=null) as
+begin
+	select 
+		a.CategoryID,
+		a.Name
+	from 
+		yaf_Category a
+		join yaf_Forum b on b.CategoryID=a.CategoryID
+		join yaf_vaccess v on v.ForumID=b.ForumID
+	where
+		a.BoardID=@BoardID and
+		v.UserID=@UserID and
+		(v.ReadAccess<>0 or b.Hidden=0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		b.ParentID is null
+	group by
+		a.CategoryID,
+		a.Name,
+		a.SortOrder
+	order by 
+		a.SortOrder
+end
+GO
+
+-- yaf_forum_listread
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listread
+GO
+
+create procedure yaf_forum_listread(@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
+begin
+	select 
+		a.CategoryID, 
+		Category		= a.Name, 
+		ForumID			= b.ForumID,
+		Forum			= b.Name, 
+		Description,
+		Topics			= b.NumTopics,
+		Posts			= b.NumPosts,
+		LastPosted		= b.LastPosted,
+		LastMessageID	= b.LastMessageID,
+		LastUserID		= b.LastUserID,
+		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
+		LastTopicID		= b.LastTopicID,
+		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
+		b.Locked,
+		b.Moderated,
+		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID)
+	from 
+		yaf_Category a
+		join yaf_Forum b on b.CategoryID=a.CategoryID
+		join yaf_vaccess x on x.ForumID=b.ForumID
+	where 
+		a.BoardID = @BoardID and
+		(b.Hidden=0 or x.ReadAccess<>0) and
+		(@CategoryID is null or a.CategoryID=@CategoryID) and
+		((@ParentID is null and b.ParentID is null) or b.ParentID=@ParentID) and
+		x.UserID = @UserID
+	order by
+		a.SortOrder,
+		b.SortOrder
 end
 GO

@@ -56,8 +56,10 @@ namespace yaf.controls
 		{
 			if(ForumID>0)
 				Forum.Redirect(Pages.topics,"f={0}",ForumID);
+#if TODO
 			else
 				Forum.Redirect(Pages.forum,"c={0}",-ForumID);
+#endif
 		}
 		#endregion
 
@@ -71,7 +73,8 @@ namespace yaf.controls
 			} 
 			else 
 			{
-				dt = DB.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null);
+				//dt = DB.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null,null);
+				dt = DB.forum_listall(ForumPage.PageBoardID,ForumPage.PageUserID);
 				Page.Cache[cachename] = dt;
 			}
 
@@ -89,7 +92,10 @@ namespace yaf.controls
 					nOldCat = (int)row["CategoryID"];
 					writer.WriteLine(String.Format("<option style='font-weight:bold' value='{0}'>{1}</option>",-(int)row["CategoryID"],row["Category"]));
 				}
-				writer.WriteLine(String.Format("<option {2}value='{0}'> - {1}</option>",row["ForumID"],row["Forum"],(int)row["ForumID"]==nForumID ? "selected=\"selected\" " : ""));
+				string sIndent = "";
+				for(int j=0;j<(int)row["Indent"];j++)
+					sIndent += "--";
+				writer.WriteLine(String.Format("<option {2}value='{0}'> -{3} {1}</option>",row["ForumID"],row["Forum"],(int)row["ForumID"]==nForumID ? "selected=\"selected\" " : "",sIndent));
 			}
 			writer.WriteLine("</select>");
 		}

@@ -111,7 +111,7 @@ namespace yaf.pages
 
 		private void Get_Avatar()
 		{
-			string avatarpath = ForumRoot + "images/avatars/";
+			string avatarpath = Data.ForumRoot + "images/avatars/";
 
 			//string curdir = CurrentDir;
 			string pdir = "";
@@ -163,7 +163,7 @@ namespace yaf.pages
 
 			if(filepath.Length>0 && !filepath.EndsWith("/")) filepath += "/";
 
-			DirResults.Text = string.Format("<tr class='postheader'><td align='center'><a href=\"{0}\"><img src=\""+ForumRoot+"images/folder.gif\" alt=\"Up\" class=\"borderless\" /><br />Up</a></td><td colspan=\"4\"><b>" + CurrentDir + "</b></td></tr>",Page.GetPostBackClientHyperlink(GoDir,pdir));
+			DirResults.Text = string.Format("<tr class='postheader'><td align='center'><a href=\"{0}\"><img src=\""+Data.ForumRoot+"images/folder.gif\" alt=\"Up\" class=\"borderless\" /><br />Up</a></td><td colspan=\"4\"><b>" + CurrentDir + "</b></td></tr>",Page.GetPostBackClientHyperlink(GoDir,pdir));
 
 			ArrayList diral = new ArrayList();
 	
@@ -188,7 +188,7 @@ namespace yaf.pages
 				DirResults.Text += string.Format("<td width='20%' align=\"center\"><a href=\"{0}\"><img src=\"{2}\" alt=\"{1}\" class=\"borderless\" /><br />{1}</a></td>",
 					Page.GetPostBackClientHyperlink(GoDir,filepath + diral[nodir]),
 					diral[nodir],
-					ForumRoot + "images/folder.gif"
+					Data.ForumRoot + "images/folder.gif"
 					);
 				if (ct >= 5 && nodir != (ttldir - 1))
 				{

@@ -47,7 +47,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			forumlist.DataSource = DB.forum_listread(PageBoardID,PageUserID,null);
+			forumlist.DataSource = DB.forum_listread(PageBoardID,PageInfo.PageUserID,null,null);
 			forumlist.DataValueField = "ForumID";
 			forumlist.DataTextField = "Forum";
 			DataBind();

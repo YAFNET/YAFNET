@@ -24,6 +24,13 @@ namespace yaf.controls
 			dt.Rows.Add(dr);
 		}
 
+		public void AddForumLinks(int forumID)
+		{
+			using(DataTable dtLinks=DB.forum_listpath(forumID))
+				foreach(DataRow row in dtLinks.Rows)
+					AddLink((string)row["Name"],Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
+		}
+
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
 		}

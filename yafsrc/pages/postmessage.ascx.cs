@@ -71,7 +71,6 @@ namespace yaf.pages
 		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		protected controls.PageLinks PageLinks;
-		private int ForumID;
 
 		public postmessage() : base("POSTMESSAGE")
 		{
@@ -79,7 +78,6 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			ForumID = PageForumID;
 			DataRow msg = null;
 			
 			if(Request.QueryString["q"] != null)
@@ -93,9 +91,8 @@ namespace yaf.pages
 					Data.AccessDenied();
 			}
 	
-			if(ForumID == 0)
+			if(PageForumID == 0)
 				Data.AccessDenied();
-
 			if(Request["t"]==null && !ForumPostAccess)
 				Data.AccessDenied();
 			if(Request["t"]!=null && !ForumReplyAccess)
@@ -120,7 +117,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 
 				if(Request.QueryString["t"] != null) 
 				{
@@ -290,7 +287,7 @@ namespace yaf.pages
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
+				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
 			}
 
 			// Check if message is approved
@@ -302,7 +299,7 @@ namespace yaf.pages
 			// Create notification emails
 			if(bApproved) 
 			{
-				Utils.CreateWatchEmail(this,nMessageID);
+				Utils.CreateWatchEmail(PageInfo,nMessageID);
 				Forum.Redirect(Pages.posts,"m={0}&#{0}",nMessageID);
 			} 
 			else 
@@ -329,7 +326,7 @@ namespace yaf.pages
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e) {
-			Forum.Redirect(Pages.topics,"f={0}",ForumID);
+			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 
 		private void Preview_Click(object sender, System.EventArgs e) {

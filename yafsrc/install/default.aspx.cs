@@ -81,7 +81,7 @@ namespace yaf.install
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				if(InstalledVersion >= pages.ForumPage.AppVersion) {
+				if(InstalledVersion >= Data.AppVersion) {
 					LeaveStep(CurStep);
 					CurStep = Step.Finished;
 					EnterStep(CurStep);
@@ -173,14 +173,14 @@ namespace yaf.install
 			{
 				try 
 				{
-					for(long i=InstalledVersion;i<pages.ForumPage.AppVersion;i++) 
+					for(long i=InstalledVersion;i<Data.AppVersion;i++) 
 						ExecuteScript(String.Format("version{0}.sql",i+1));
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Version",pages.ForumPage.AppVersion);
-						cmd.Parameters.Add("@VersionName",pages.ForumPage.AppVersionName);
+						cmd.Parameters.Add("@Version",Data.AppVersion);
+						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
 						DB.ExecuteNonQuery(cmd);
 					}
 				}
@@ -245,8 +245,8 @@ namespace yaf.install
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Version",pages.ForumPage.AppVersion);
-						cmd.Parameters.Add("@VersionName",pages.ForumPage.AppVersionName);
+						cmd.Parameters.Add("@Version",Data.AppVersion);
+						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
 						DB.ExecuteNonQuery(cmd);
 					}
 				}

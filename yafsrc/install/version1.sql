@@ -58,6 +58,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Forum') and O
 CREATE TABLE [yaf_Forum] (
 	[ForumID] [int] IDENTITY (1, 1) NOT NULL ,
 	[CategoryID] [int] NOT NULL ,
+	[ParentID] [int] NULL ,
 	[Name] [varchar] (50) NOT NULL ,
 	[Description] [varchar] (255) NOT NULL ,
 	[SortOrder] [smallint] NOT NULL ,
@@ -391,14 +392,6 @@ GO
 if not exists(select * from sysobjects where name='DF_yaf_BannedIP_Since' and parent_obj=object_id('yaf_BannedIP') and OBJECTPROPERTY(id,N'IsDefaultCnst')=1)
 ALTER TABLE [yaf_BannedIP] ADD 
 	CONSTRAINT [DF_yaf_BannedIP_Since] DEFAULT (getdate()) FOR [Since]
-GO
-
-if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
-ALTER TABLE [yaf_Category] ADD 
-	CONSTRAINT [IX_Category] UNIQUE  NONCLUSTERED 
-	(
-		[Name]
-	)  ON [PRIMARY] 
 GO
 
 if not exists(select * from sysindexes where id=object_id('yaf_CheckEmail') and name='IX_CheckEmail')

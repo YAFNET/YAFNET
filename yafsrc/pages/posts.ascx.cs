@@ -78,7 +78,7 @@ namespace yaf.pages
 			{
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = (string)topic["Topic"];
 
@@ -479,7 +479,7 @@ namespace yaf.pages
 			// Avatar
 			if(Config.BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
-				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],ForumRoot);
+				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],Data.ForumRoot);
 			} 
 			else if(Config.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
 			{
@@ -488,13 +488,13 @@ namespace yaf.pages
 					Server.UrlEncode(row["Avatar"].ToString()),
 					Config.BoardSettings.AvatarWidth,
 					Config.BoardSettings.AvatarHeight,
-					ForumRoot
+					Data.ForumRoot
 				);
 			}
 
 			// Rank Image
 			if(row["RankImage"].ToString().Length>0)
-				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",ForumRoot,row["RankImage"]);
+				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",Data.ForumRoot,row["RankImage"]);
 
 			// Rank
 			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("rank"),row["RankName"]);
@@ -599,7 +599,7 @@ namespace yaf.pages
 					foreach(DataRow dr in dt.Rows) 
 					{
 						int kb = (1023 + (int)dr["Bytes"]) / 1024;
-						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
+						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
 					}
 				}
 				html += "</p>";

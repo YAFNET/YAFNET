@@ -47,6 +47,8 @@ namespace yaf.pages
 		protected LinkButton moderate1, moderate2, MarkRead;
 		protected controls.PageLinks PageLinks;
 		protected controls.Pager Pager;
+		protected controls.ForumList ForumList;
+		protected PlaceHolder SubForums;
 
 		public topics() : base("TOPICS")
 		{
@@ -65,7 +67,7 @@ namespace yaf.pages
 			{
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 
 				WatchForum.Text = GetText("watchforum");
 				moderate1.Text = GetThemeContents("BUTTONS","MODERATE");
@@ -143,24 +145,14 @@ namespace yaf.pages
 			ShowList.SelectedIndexChanged += new EventHandler(ShowList_SelectedIndexChanged);
 			MarkRead.Click += new EventHandler(MarkRead_Click);
 			Pager.PageChange += new EventHandler(Pager_PageChange);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
 			this.NewTopic1.Click += new System.EventHandler(this.NewTopic_Click);
 			this.NewTopic2.Click += new System.EventHandler(this.NewTopic_Click);
 			this.WatchForum.Click += new System.EventHandler(this.WatchForum_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			base.OnInit(e);
 		}
 		#endregion
 
@@ -177,6 +169,13 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
+			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID,PageForumID);
+			if(ds.Tables["yaf_Forum"].Rows.Count>0) 
+			{
+				ForumList.DataSource = ds.Tables["yaf_Forum"].Rows;
+				SubForums.Visible = true;
+			}
+
 			Pager.PageSize = 15;
 
 			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
@@ -239,11 +238,10 @@ namespace yaf.pages
 				return;
 			}
 
-			int ForumID = int.Parse(Request.QueryString["f"]);
 			if(!ForumPostAccess)
 				Data.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
 			
-			Forum.Redirect(Pages.postmessage,"f={0}",ForumID);
+			Forum.Redirect(Pages.postmessage,"f={0}",PageForumID);
 		}
 
 		private void WatchForum_Click(object sender, System.EventArgs e) {

@@ -1,5 +1,6 @@
 <%@ Control language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.forum" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -18,39 +19,19 @@
 <asp:repeater id=CategoryList runat="server">
 <HeaderTemplate>
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
-		<tr>
-			<td class=header1 width=1%>&nbsp;</td>
-			<td class=header1 align=left><%# GetText("FORUM") %></td>
-			<td class=header1 align=center width=7%><%# GetText("topics") %></td>
-			<td class=header1 align=center width=7%><%# GetText("posts") %></td>
-			<td class=header1 align=center width=25%><%# GetText("lastpost") %></td>
-		</tr>
+	<tr>
+		<td class=header1 width=1%>&nbsp;</td>
+		<td class=header1 align=left><%# GetText("FORUM") %></td>
+		<td class=header1 align=center width=7%><%# GetText("topics") %></td>
+		<td class=header1 align=center width=7%><%# GetText("posts") %></td>
+		<td class=header1 align=center width=25%><%# GetText("lastpost") %></td>
+	</tr>
 </HeaderTemplate>
 <ItemTemplate>
-		<tr>
-			<td class=header2 colspan=5><a href='<%# yaf.Forum.GetLink(yaf.Pages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></td>
-		</tr>
-		<asp:Repeater id=ForumList runat="server" onitemcommand='ForumList_ItemCommand' datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
-			<ItemTemplate>
-				<tr class=post>
-					<td><%# GetForumIcon(Container.DataItem) %></td>
-					<td>
-						<asp:linkbutton runat="server" commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><%# GetViewing(Container.DataItem) %><br>
-						<span class="smallfont"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
-						<br>
-						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
-							<HeaderTemplate><span class=smallfont><%# GetText("moderators") %>: </HeaderTemplate>
-							<ItemTemplate><%# DataBinder.Eval(Container.DataItem, "[\"GroupName\"]") %></ItemTemplate>
-							<SeparatorTemplate>, </SeparatorTemplate>
-							<FooterTemplate></span></FooterTemplate>
-						</asp:repeater>
-					</td>
-					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"Topics\"]") %></td>
-					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"Posts\"]") %></td>
-					<td align=center class=smallfont nowrap="nowrap"><%# FormatLastPost((System.Data.DataRow)Container.DataItem) %></td>
-				</tr>
-			</ItemTemplate>
-		</asp:Repeater>
+	<tr>
+		<td class=header2 colspan=5><a href='<%# yaf.Forum.GetLink(yaf.Pages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></td>
+	</tr>
+	<yaf:forumlist runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'/>
 </ItemTemplate>
 <FooterTemplate>
 	</table>

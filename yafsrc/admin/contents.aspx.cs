@@ -43,7 +43,7 @@ namespace yaf.admin
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			HomeLink.Text = Config.BoardSettings.Name;
-			HomeLink.NavigateUrl = ForumRoot;
+			HomeLink.NavigateUrl = Data.ForumRoot;
 		}
 
 		#region Web Form Designer generated code

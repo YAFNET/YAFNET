@@ -44,7 +44,7 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.CheckBox IsTest;
 		protected System.Web.UI.WebControls.Label ForumNameTitle;
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
-		protected DropDownList AccessMaskID;
+		protected DropDownList AccessMaskID, ParentList;
 		protected HtmlTableRow NewGroupRow;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
@@ -62,8 +62,9 @@ namespace yaf.admin
 						IsTest.Checked = (bool)row["IsTest"];
 						ForumNameTitle.Text = Name.Text;
 						Moderated.Checked = (bool)row["Moderated"];
-
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
+						if(!row.IsNull("ParentID"))
+							ParentList.Items.FindByValue(row["ParentID"].ToString()).Selected = true;
 					}
 					NewGroupRow.Visible = false;
 				}
@@ -74,6 +75,28 @@ namespace yaf.admin
 			CategoryList.DataSource = DB.category_list(PageBoardID,null);
 			if(Request.QueryString["f"] != null)
 				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
+
+			//ParentList.DataSource = DB.forum_list(PageBoardID,null);
+			//ParentList.DataValueField = "ForumID";
+			//ParentList.DataTextField = "Name";
+			// Load forum's combo
+			ParentList.Items.Add(new ListItem("",""));
+			DataTable dt = DB.forum_listall(PageBoardID,PageInfo.PageUserID);
+
+			int nOldCat = 0;
+			for(int i=0;i<dt.Rows.Count;i++) 
+			{
+				DataRow row = dt.Rows[i];
+				if((int)row["CategoryID"] != nOldCat) 
+				{
+					nOldCat = (int)row["CategoryID"];
+					ParentList.Items.Add(new ListItem((string)row["Category"],""));
+				}
+				string sIndent = "";
+				for(int j=0;j<(int)row["Indent"];j++)
+					sIndent += "--";
+				ParentList.Items.Add(new ListItem(string.Format(" -{0} {1}",sIndent,row["Forum"]),row["ForumID"].ToString()));
+			}
 
 			DataBind();
 		}
@@ -138,7 +161,10 @@ namespace yaf.admin
 					return;
 				}
 
-				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
+				object parentID = null;
+				if(ParentList.SelectedValue.Length>0)
+					parentID = ParentList.SelectedValue;
+				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
 
 				// Access
 				if(Request.QueryString["f"] != null) 

@@ -1,7 +1,22 @@
 <%@ Control language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.topics" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
+
+<asp:placeholder runat="server" id="SubForums" visible="false">
+<table class="content" cellspacing="1" cellpadding="0" width="100%">
+	<tr class="header1"><td colspan="5"><%=GetText("SUBFORUMS")%></td></tr>
+	<tr class="header2">
+		<td width=1%>&nbsp;</td>
+		<td align=left><%# GetText("FORUM") %></td>
+		<td align=center width=7%><%# GetText("topics") %></td>
+		<td align=center width=7%><%# GetText("posts") %></td>
+		<td align=center width=25%><%# GetText("lastpost") %></td>
+	</tr>
+	<yaf:forumlist runat="server" id="ForumList"/>
+</table>
+</asp:placeholder>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>

@@ -9,6 +9,10 @@
   <tr>
     <td class=postheader><b>Category:</b><br>What category to put the forum under.</td>
     <td class=post><asp:dropdownlist id=CategoryList runat="server" DataTextField="Name" DataValueField="CategoryID"></asp:dropdownlist></td></tr>
+<tr>
+	<td class="postheader"><b>Parent Forum:</b><br/>Will make this forum a sub forum of another forum.</td>
+	<td class="post"><asp:dropdownlist runat="server" id="ParentList"/></td>
+</tr>  
   <tr>
     <td class=postheader><b>Name:</b><br>The name of the forum.</td>
     <td class=post><asp:textbox id=Name runat="server" cssclass=edit></asp:textbox></td></tr>

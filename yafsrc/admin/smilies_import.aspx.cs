@@ -36,7 +36,7 @@ namespace yaf.admin
 				dr["FileName"] = "Select File (*.pak)";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",Data.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.pak");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -62,7 +62,7 @@ namespace yaf.admin
 				return;
 			}
 
-			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",ForumRoot,File.SelectedItem.Text));
+			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",Data.ForumRoot,File.SelectedItem.Text));
 			string sSplit = System.Text.RegularExpressions.Regex.Escape("=+:");
 
 			using(System.IO.StreamReader file = new System.IO.StreamReader(sFileName)) 

@@ -20,7 +20,7 @@
 				<asp:linkbutton runat='server' onload="DeleteCategory_Load" commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
-		<asp:Repeater id=ForumList OnItemCommand="ForumList_ItemCommand" runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
+		<asp:Repeater id=ForumList OnItemCommand="ForumList_ItemCommand" runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
 			<ItemTemplate>
 				<tr class=post>
 					<td align=left><b><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></b><br><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></td>

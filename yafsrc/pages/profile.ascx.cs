@@ -117,7 +117,7 @@ namespace yaf.pages
 
 				if(Config.BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
 				{
-					Avatar.ImageUrl = ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
+					Avatar.ImageUrl = Data.ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
 				} 
 				else if(Config.BoardSettings.AvatarRemote && user["Avatar"].ToString().Length>0) 
 				{
@@ -125,7 +125,7 @@ namespace yaf.pages
 						Server.UrlEncode(user["Avatar"].ToString()),
 						Config.BoardSettings.AvatarWidth,
 						Config.BoardSettings.AvatarHeight,
-						ForumRoot);
+						Data.ForumRoot);
 				} 
 				else 
 				{

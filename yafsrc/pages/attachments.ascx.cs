@@ -34,10 +34,10 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				if(!ForumModeratorAccess && !ForumUploadAccess)
+				if(!PageInfo.ForumModeratorAccess && !PageInfo.ForumUploadAccess)
 					Data.AccessDenied();
 
-				if(!ForumReadAccess)
+				if(!PageInfo.ForumReadAccess)
 					Data.AccessDenied();
 
 				if((bool)topic["IsLocked"]) 
@@ -47,14 +47,14 @@ namespace yaf.pages
 					Data.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written
-				if(!ForumModeratorAccess) 
+				if(!PageInfo.ForumModeratorAccess) 
 					using(DataTable dt = DB.message_list(Request.QueryString["m"])) 
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);
 		
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

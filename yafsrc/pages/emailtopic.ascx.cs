@@ -46,20 +46,20 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["t"] == null || !ForumReadAccess)
+			if(Request.QueryString["t"] == null || !PageInfo.ForumReadAccess)
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 
 				SendEmail.Text = GetText("send");
 
 				Subject.Text = PageTopicName;
 				string msg = Utils.ReadTemplate("emailtopic.txt");
-				msg = msg.Replace("{link}",String.Format("{0}{1}",ServerURL,Forum.GetLink(Pages.posts,"t={0}",PageTopicID)));
+				msg = msg.Replace("{link}",String.Format("{0}{1}",PageInfo.ServerURL,Forum.GetLink(Pages.posts,"t={0}",PageTopicID)));
 				msg = msg.Replace("{user}",PageUserName);
 				Message.Text = msg;
 			}

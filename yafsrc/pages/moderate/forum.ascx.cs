@@ -31,7 +31,7 @@ namespace yaf.pages.moderate
 			{
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),Forum.GetLink(Pages.moderate_index));
-				PageLinks.AddLink(PageForumName,Request.RawUrl);
+				PageLinks.AddForumLinks(PageForumID);
 				BindData();
 			}
 		}
@@ -65,7 +65,7 @@ namespace yaf.pages.moderate
 					DB.message_approve(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","APPROVED"));
-					Utils.CreateWatchEmail(this,e.CommandArgument);
+					Utils.CreateWatchEmail(PageInfo,e.CommandArgument);
 					break;
 				case "delete":
 					DB.message_delete(e.CommandArgument);

@@ -281,14 +281,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_category_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_category_listread
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_listread
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_access
 GO
@@ -332,48 +324,6 @@ begin
 	where 
 		ForumID = @ForumID and 
 		GroupID = @GroupID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_save
-GO
-
-create procedure yaf_forum_save(
-	@ForumID 		int,
-	@CategoryID		int,
-	@Name			varchar(50),
-	@Description	varchar(255),
-	@SortOrder		smallint,
-	@Locked			bit,
-	@Hidden			bit,
-	@IsTest			bit,
-	@Moderated		bit,
-	@AccessMaskID	int = null
-) as
-begin
-	if @ForumID>0 begin
-		update yaf_Forum set 
-			Name=@Name,
-			Description=@Description,
-			SortOrder=@SortOrder,
-			Hidden=@Hidden,
-			Locked=@Locked,
-			CategoryID=@CategoryID,
-			IsTest = @IsTest,
-			Moderated = @Moderated
-		where ForumID=@ForumID
-	end
-	else begin
-		insert into yaf_Forum(Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated,NumTopics,NumPosts)
-		values(@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated,0,0)
-		select @ForumID = @@IDENTITY
-
-		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) 
-		select GroupID,@ForumID,@AccessMaskID
-		from yaf_Group
-	end
-	select ForumID = @ForumID
 end
 GO
 
