@@ -328,8 +328,14 @@ namespace yaf.pages
 						PollChoice9.Text);
 				}
 
+				// make message flags
+				MessageFlags tFlags = new MessageFlags();
+
+				tFlags.IsHTML = Message.UsesHTML;
+				tFlags.IsBBCode = Message.UsesBBCode;
+
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
+				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,tFlags.BitValue,ref nMessageID);
 			}
 
 			// Check if message is approved

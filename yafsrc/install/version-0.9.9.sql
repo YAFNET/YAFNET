@@ -413,6 +413,14 @@ end
 GO
 
 /*
+** Defaults
+*/
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_Message_Flags' and parent_obj=object_id(N'yaf_Message'))
+	alter table dbo.yaf_Message add constraint DF_yaf_Message_Flags default (0x7FFFFFFF) for Flags
+GO
+
+/*
 ** Triggers
 */
 
@@ -1917,7 +1925,8 @@ create procedure dbo.yaf_topic_save(
 	@UserName	nvarchar(50)=null,
 	@IP			nvarchar(15),
 	@PollID		int=null,
-	@Posted		datetime=null
+	@Posted		datetime=null,
+	@Flags		int
 ) as
 begin
 	declare @TopicID int
@@ -1928,7 +1937,7 @@ begin
 	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName,NumPosts)
 	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,0,@PollID,@UserName,0)
 	set @TopicID = @@IDENTITY
-	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@MessageID output
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@Flags,@MessageID output
 
 	select TopicID = @TopicID, MessageID = @MessageID
 end

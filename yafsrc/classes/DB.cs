@@ -1834,7 +1834,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object posted,ref long nMessageID) 
+		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object posted,object flags,ref long nMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_save")) 
 			{
@@ -1848,6 +1848,7 @@ namespace yaf
 				cmd.Parameters.Add("@IP",IP);
 				cmd.Parameters.Add("@PollID",PollID);
 				cmd.Parameters.Add("@Posted",posted);
+				cmd.Parameters.Add("@Flags",flags);
 
 				DataTable dt = GetData(cmd);
 				nMessageID = long.Parse(dt.Rows[0]["MessageID"].ToString());

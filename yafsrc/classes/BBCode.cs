@@ -149,8 +149,16 @@ namespace yaf
 				NestedReplace(ref bbcode,r_email2,"<a href=\"mailto:${email}\">${inner}</a>",new string[]{"email"});
 				NestedReplace(ref bbcode,r_email1,"<a href=\"mailto:${inner}\">${inner}</a>");
 				// urls
-				NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
-				NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
+				if(basePage.BoardSettings.BlankLinks) 
+				{
+					NestedReplace(ref bbcode,r_url2,"<a target=\"_blank\" href=\"${url}\">${inner}</a>",new string[]{"url"});
+					NestedReplace(ref bbcode,r_url1,"<a target=\"_blank\" href=\"${inner}\">${inner}</a>");
+				} 
+				else 
+				{
+					NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
+					NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
+				}
 				// font
 				NestedReplace(ref bbcode,r_font,"<span style=\"font-family:${font}\">${inner}</span>",new string[]{"font"});
 				NestedReplace(ref bbcode,r_color,"<span style=\"color:${color}\">${inner}</span>",new string[]{"color"});
@@ -178,7 +186,10 @@ namespace yaf
 			while(m.Success) 
 			{
 				string link = Forum.GetLink(Pages.posts,"m={0}#{0}",m.Groups["post"]);
-				bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				if(basePage.BoardSettings.BlankLinks)
+					bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a target=\"_blank\" href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				else
+					bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
 				m = r_post.Match(bbcode);
 			}
 
@@ -186,7 +197,10 @@ namespace yaf
 			while(m.Success) 
 			{
 				string link = Forum.GetLink(Pages.posts,"t={0}",m.Groups["topic"]);
-				bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				if(basePage.BoardSettings.BlankLinks)
+					bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a target=\"_blank\" href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				else
+					bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
 				m = r_topic.Match(bbcode);
 			}
 

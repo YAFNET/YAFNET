@@ -339,46 +339,53 @@ namespace yaf.classes
 			{
 				get 
 				{
-					string sDate = DateString;
-					if(sDate==null)
-						return DateTime.Now;
-
-					sDate = sDate.Trim();
-					if(sDate.Length==32 || sDate.Length==29 || true) 
+					try
 					{
-						// Tue, 23 Sep 2003 13:21:00 -07:00 (32 bytes)
-						// Tue, 23 Sep 2003 13:21:00 GMT (29 bytes)
-						// Tue, 23 Sep 2003 3:21:00 GMT
-						// Tue, 3 Sep 2003 13:21 GMT
-						// Tue, 23 Sep 2003 13:21:00
+						string sDate = DateString;
+						if(sDate==null)
+							return DateTime.Now;
 
-						int offset = sDate.IndexOf(',') + 1;
-						string[] s = sDate.Substring(offset).Trim().Split(' ');
-						if(s.Length>=4) 
+						sDate = sDate.Trim();
+						if(sDate.Length==32 || sDate.Length==29 || true) 
 						{
-							try 
-							{
-								int	day		= int.Parse(s[0]);
-								int	month	= GetMonth(s[1]);
-								int	year	= int.Parse(s[2]);
-								string[] t = s[3].Split(':');
-								if(t.Length<2) t = s[3].Split('.');
-								int	hour	= int.Parse(t[0]);
-								int	min		= int.Parse(t[1]);
-								int	sec		= t.Length>2 ? int.Parse(t[2]) : 0;
+							// Tue, 23 Sep 2003 13:21:00 -07:00 (32 bytes)
+							// Tue, 23 Sep 2003 13:21:00 GMT (29 bytes)
+							// Tue, 23 Sep 2003 3:21:00 GMT
+							// Tue, 3 Sep 2003 13:21 GMT
+							// Tue, 23 Sep 2003 13:21:00
 
-								DateTime date = new DateTime(year,month,day,hour,min,sec);
-								if(s.Length>4)
-									date += GetTimeOffset(s[4]);
-								return date;
-							}
-							catch(Exception x) 
+							int offset = sDate.IndexOf(',') + 1;
+							string[] s = sDate.Substring(offset).Trim().Split(' ');
+							if(s.Length>=4) 
 							{
-								throw new Exception(sDate,x);
+								try 
+								{
+									int	day		= int.Parse(s[0]);
+									int	month	= GetMonth(s[1]);
+									int	year	= int.Parse(s[2]);
+									string[] t = s[3].Split(':');
+									if(t.Length<2) t = s[3].Split('.');
+									int	hour	= int.Parse(t[0]);
+									int	min		= int.Parse(t[1]);
+									int	sec		= t.Length>2 ? int.Parse(t[2]) : 0;
+
+									DateTime date = new DateTime(year,month,day,hour,min,sec);
+									if(s.Length>4)
+										date += GetTimeOffset(s[4]);
+									return date;
+								}
+								catch(Exception x) 
+								{
+									throw new Exception(sDate,x);
+								}
 							}
 						}
+						throw new Exception(sDate);
 					}
-					throw new Exception(sDate);
+					catch(Exception) 
+					{
+						return DateTime.Now;
+					}
 				}
 			}
 			static public int GetMonth(string mon) 
