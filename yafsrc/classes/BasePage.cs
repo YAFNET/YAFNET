@@ -467,21 +467,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 4;
+				return 5;
 			}
 		}
 		static public string AppVersionName 
 		{
 			get 
 			{
-				return "0.8.1";
+				return "0.8.2";
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2003,9,22);
+				return new DateTime(2003,9,25);
 			}
 		}
 

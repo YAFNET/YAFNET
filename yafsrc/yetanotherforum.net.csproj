@@ -939,10 +939,6 @@
                 <Folder RelPath = "images\emoticons\" />
                 <Folder RelPath = "images\ranks\" />
                 <File
-                    RelPath = "install\smileys.sql"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "install\version1.sql"
                     BuildAction = "Content"
                 />
@@ -956,6 +952,10 @@
                 />
                 <File
                     RelPath = "install\version4.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version5.sql"
                     BuildAction = "Content"
                 />
                 <File

@@ -96,6 +96,7 @@
 			<input type=button value=" U " style="font-weight:bold;text-decoration:underline" onclick="makeunderline()">
 			<input type=button value=" URL " onclick="makeurl()">
 			<input type=button value=" QUOTE " onclick="makequote()">
+			<input type=button value=" IMG " onclick="makeimg()">
 		</td>
 	</tr>
   <tr>

@@ -151,6 +151,7 @@ namespace yaf.admin
 							cmd2.Parameters.Add("@ModeratorAccess",((CheckBox)item.FindControl("ModeratorAccess")).Checked);
 							cmd2.Parameters.Add("@EditAccess",((CheckBox)item.FindControl("EditAccess")).Checked);
 							cmd2.Parameters.Add("@DeleteAccess",((CheckBox)item.FindControl("DeleteAccess")).Checked);
+							cmd2.Parameters.Add("@UploadAccess",((CheckBox)item.FindControl("UploadAccess")).Checked);
 							DataManager.ExecuteNonQuery(cmd2);
 						}
 					}

@@ -61,3 +61,8 @@ function makeurl() {
 	if(url!='' && url!=null)
 		myWrap('[url="'+url+'"]','[/url]');
 }
+function makeimg() {
+	var img = prompt('Enter image URL:','http://');
+	if(img!='' && img!=null)
+		myReplace('[img]'+img+'[/img]');
+}

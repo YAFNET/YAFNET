@@ -89,6 +89,12 @@ namespace yaf
 							case "/url":
 								tmp += "</a>";
 								break;
+							case "img":
+								tmp += "<img src=\"";
+								break;
+							case "/img":
+								tmp += "\"/>";
+								break;
 							case "quote":
 								if(arg!=null)
 									tmp += String.Format("<div class=quote>{0} wrote:<div class=\"quoteinner\">",arg);

@@ -1,1 +1,2 @@
-More than 5 votes in database
+- upload/attach files
+- smtp server login
