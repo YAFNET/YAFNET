@@ -26,7 +26,29 @@ namespace yaf
 
 		static private string GetFontSize(int input) 
 		{
-			return string.Format("{0}pt",input*2);
+			switch(input) 
+			{
+				case 1:
+					return "50%";
+				case 2:
+					return "70%";
+				case 3:
+					return "80%";
+				case 4:
+					return "90%";
+				case 5:
+				default:
+					return "100%";
+				case 6:
+					return "120%";
+				case 7:
+					return "140%";
+				case 8:
+					return "160%";
+				case 9:
+					return "180%";
+			}
+			///return string.Format("{0}pt",input*2);
 		}
 
 		static private RegexOptions	m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
@@ -68,6 +90,8 @@ namespace yaf
 				after_replace = after_replace.Replace("\t","&nbsp; &nbsp;&nbsp;");
 				after_replace = after_replace.Replace("[","&#91;");
 				after_replace = after_replace.Replace("]","&#93;");
+				after_replace = after_replace.Replace("<br/>","\n");
+				after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
 				bbcode = bbcode.Replace(before_replace,string.Format("<pre>{0}</pre>",after_replace));
 				break;
 			}

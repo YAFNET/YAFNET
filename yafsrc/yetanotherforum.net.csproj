@@ -1603,6 +1603,70 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "rte\images\backcolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\forecolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\image.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\link.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\orderedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\smiley.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\unorderedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "templates\changeemail.txt"
                     BuildAction = "Content"
                 />
