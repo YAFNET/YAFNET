@@ -67,12 +67,26 @@ namespace yaf.editor
 
 		protected override void OnInit(EventArgs e)
 		{			
+			Load += new EventHandler(Editor_Load);
 			m_textCtl = new TextBox();
 			m_textCtl.ID = "edit";
 			m_textCtl.Attributes.Add("style","height:100%;width:100%;");
 			m_textCtl.TextMode = TextBoxMode.MultiLine;
 			Controls.Add(m_textCtl);
 			base.OnInit(e);
+		}
+
+		protected virtual void Editor_Load(object sender,EventArgs e)
+		{
+			if (this.Visible)
+			{
+				Page.RegisterClientScriptBlock("insertsmiley",
+					"<script language='javascript'>\n"+
+					"function insertsmiley(code) {\n"+
+					"	" + SafeID + ".InsertSmiley(code);\n"+
+					"}\n"+
+					"</script>\n");
+			}
 		}
 
 		public override string Text
@@ -181,12 +195,11 @@ namespace yaf.editor
 
 		protected override void OnInit(EventArgs e)
 		{
-			Load += new EventHandler(Editor_Load);
-
+			
 			base.OnInit(e);
 		}
 
-		private void Editor_Load(object sender,EventArgs e)
+		protected override void Editor_Load(object sender,EventArgs e)
 		{
 			if(this.Visible)
 			{
