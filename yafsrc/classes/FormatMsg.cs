@@ -40,6 +40,9 @@ namespace yaf
 		/// <returns>Formatted Message</returns>
 		static public string ForumCodeToHtml(yaf.pages.ForumPage basePage,string Message) 
 		{
+#if true
+			return Message;
+#else
 			string strReturn = iConvertForumCode(basePage,Message);
 
 			strReturn = strReturn.Replace("\n","<br />");
@@ -48,6 +51,7 @@ namespace yaf
 			strReturn = iAddSmiles(basePage,strReturn);
 
 			return strReturn;
+#endif
 		}
 
 		/// <summary>
@@ -192,6 +196,9 @@ namespace yaf
 	
 		static public string HtmlToForumCode(string html) 
 		{
+#if true
+			return html;
+#else
 			html = html.Replace("<ul>","[list]");	// TODO
 			html = html.Replace("</ul>","[/list]");	// TODO
 			html = html.Replace("<ol>","[list]");	// TODO
@@ -224,6 +231,7 @@ namespace yaf
 //				html += "\n\nINVALID";
 
 			return html;
+#endif
 		}
 
 		static public DataTable GetSmilies(yaf.pages.ForumPage basePage) 
