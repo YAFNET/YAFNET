@@ -61,6 +61,8 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
 		protected System.Web.UI.WebControls.HyperLink RssTopic;
+		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
 		private bool m_bDataBound = false;
 		private bool m_bIgnoreQueryString = false;
 		protected controls.PopMenu	MyTestMenu, ViewMenu;
@@ -73,7 +75,9 @@ namespace yaf.pages
 
 		private void posts_PreRender(object sender,EventArgs e)
 		{
-			MyTestMenu.AddItem("watch",GetText("watchtopic"));
+			bool bWatched = HandleWatchTopic();
+
+			MyTestMenu.AddItem("watch",bWatched ? GetText("unwatchtopic") : GetText("watchtopic"));
 			MyTestMenu.AddItem("email",GetText("emailtopic"));
 			MyTestMenu.AddItem("print",GetText("printtopic"));
 			if (BoardSettings.ShowRSSLink) MyTestMenu.AddItem("rssfeed",GetText("rsstopic"));
@@ -103,6 +107,7 @@ namespace yaf.pages
 				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = Utils.BadWordReplace((string)topic["Topic"]);
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
+				ForumJumpLine.Visible = BoardSettings.ShowForumJump;
 
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 				RssTopic.Visible = BoardSettings.ShowRSSLink;
@@ -335,6 +340,32 @@ namespace yaf.pages
 			}
 		}
 
+		private bool HandleWatchTopic()
+		{
+			if (IsGuest) return false;
+			// check if this forum is being watched by this user
+			using(DataTable dt = DB.watchtopic_check(PageUserID,PageTopicID))
+			{
+				if (dt.Rows.Count > 0)
+				{
+					// subscribed to this forum
+					TrackTopic.Text = GetText("UNWATCHTOPIC");
+					foreach (DataRow row in dt.Rows)
+					{
+						WatchTopicID.InnerText = row["WatchTopicID"].ToString();
+						return true;
+					}
+				}
+				else
+				{
+					// not subscribed
+					WatchTopicID.InnerText = "";
+					TrackTopic.Text = GetText("WATCHTOPIC");
+				}
+			}
+			return false;
+		}
+
 		private void DeleteTopic_Click(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
@@ -421,13 +452,26 @@ namespace yaf.pages
 		}
 
 		private void TrackTopic_Click(object sender, System.EventArgs e) {
-			if(IsGuest) {
+			if(IsGuest)
+			{
 				AddLoadMessage(GetText("WARN_WATCHLOGIN"));
 				return;
 			}
 
-			DB.watchtopic_add(PageUserID,PageTopicID);
-			AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
+			if (WatchTopicID.InnerText == "")
+			{
+				DB.watchtopic_add(PageUserID,PageTopicID);
+				AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
+			}
+			else 
+			{
+				int tmpID = Convert.ToInt32(WatchTopicID.InnerText);
+				DB.watchtopic_delete(tmpID);
+				AddLoadMessage(GetText("INFO_UNWATCH_TOPIC"));
+			}
+
+			HandleWatchTopic();
+
 			BindData();
 		}
 		

@@ -64,7 +64,7 @@
 					</nobr>
 				</td>
 				<td align="right">
-				<asp:linkbutton id="WatchForum" runat="server"/>
+				<asp:linkbutton id="WatchForum" runat="server"/><span id="WatchForumID" runat="server" visible="false"/></span>
 				|
 				<asp:linkbutton runat="server" id="MarkRead"/>
 				<span id="RSSLinkSpacer" runat="server">|</span>
@@ -84,7 +84,7 @@
 </table>
 
 <table width=100% cellspacing=0 cellpadding=0>
-<tr>
+<tr id="ForumJumpLine" runat="Server">
 	<td align=right colspan=2>
 		<%# GetText("Forum_Jump") %> <yaf:forumjump runat="server" />
 	</td>

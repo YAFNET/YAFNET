@@ -111,7 +111,7 @@
     
 <br>
 <table cellSpacing=0 cellPadding=0 width="100%">
-<tr>
+<tr id="ForumJumpLine" runat="Server">
 	<td align=right><%= GetText("FORUM_JUMP") %> <yaf:forumjump runat="server"/></td>
 </tr>
 <tr>
@@ -123,3 +123,5 @@
 
 <yaf:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
 <yaf:PopMenu runat="server" id="ViewMenu" control="View"/>
+
+<span id="WatchTopicID" runat="server" visible="false"></span>

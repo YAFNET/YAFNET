@@ -112,6 +112,8 @@ namespace yaf.pages
 		protected PlaceHolder SubForums;
 
 		protected System.Web.UI.HtmlControls.HtmlGenericControl RSSLinkSpacer;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchForumID;
+		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
 
 		/// <summary>
 		/// Overloads the topics page.
@@ -133,6 +135,7 @@ namespace yaf.pages
  			RssFeed.Text = GetText("RSSFEED");
 			RssFeed.Visible = BoardSettings.ShowRSSLink;
 			RSSLinkSpacer.Visible = BoardSettings.ShowRSSLink;
+			ForumJumpLine.Visible = BoardSettings.ShowForumJump;
 
 			if(!IsPostBack) 
 			{
@@ -140,7 +143,6 @@ namespace yaf.pages
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 
-				WatchForum.Text = GetText("watchforum");
 				moderate1.Text = GetThemeContents("BUTTONS","MODERATE");
 				moderate1.ToolTip = "Moderate this forum";
 				moderate2.Text = moderate1.Text;
@@ -161,6 +163,8 @@ namespace yaf.pages
 				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"6"));
 				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"7"));
 				ShowList.Items.Add(new ListItem(GetText("last_year"),"8"));
+
+				HandleWatchForum();
 
 				try 
 				{
@@ -193,6 +197,31 @@ namespace yaf.pages
 			if(!ForumModeratorAccess) {
 				moderate1.Visible = false;
 				moderate2.Visible = false;
+			}
+		}
+
+		private void HandleWatchForum()
+		{
+			if (IsGuest || !ForumReadAccess) return;
+			// check if this forum is being watched by this user
+			using(DataTable dt = DB.watchforum_check(PageUserID,PageForumID))
+			{
+				if (dt.Rows.Count > 0)
+				{
+					// subscribed to this forum
+					WatchForum.Text = GetText("unwatchforum");
+					foreach (DataRow row in dt.Rows)
+					{
+						WatchForumID.InnerText = row["WatchForumID"].ToString();
+						break;
+					}
+				}
+				else
+				{
+					// not subscribed
+					WatchForumID.InnerText = "";
+					WatchForum.Text = GetText("watchforum");
+				}
 			}
 		}
 
@@ -319,7 +348,8 @@ namespace yaf.pages
 			Forum.Redirect(Pages.postmessage,"f={0}",PageForumID);
 		}
 
-		private void WatchForum_Click(object sender, System.EventArgs e) {
+		private void WatchForum_Click(object sender, System.EventArgs e)
+		{
 			if(!ForumReadAccess)
 				return;
 
@@ -328,8 +358,19 @@ namespace yaf.pages
 				return;
 			}
 
-			DB.watchforum_add(PageUserID,PageForumID);
-			AddLoadMessage(GetText("INFO_WATCH_FORUM"));
+			if (WatchForumID.InnerText == "")
+			{
+				DB.watchforum_add(PageUserID,PageForumID);
+				AddLoadMessage(GetText("INFO_WATCH_FORUM"));
+			}
+			else 
+			{
+				int tmpID = Convert.ToInt32(WatchForumID.InnerText);
+				DB.watchforum_delete(tmpID);
+				AddLoadMessage(GetText("INFO_UNWATCH_FORUM"));
+			}
+
+			HandleWatchForum();
 		}
 	}
 }
