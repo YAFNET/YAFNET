@@ -71,8 +71,8 @@ namespace yaf
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["t"] == null)
-				Response.Redirect(BaseDir);
+			//if(Request.QueryString["t"] == null)
+			//	Response.Redirect(BaseDir);
 
 			forum = Data.ForumInfo(PageForumID);
 			topic = Data.TopicInfo(PageTopicID);
@@ -170,17 +170,34 @@ namespace yaf
 			using(SqlCommand cmd = new SqlCommand("yaf_post_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",Request.QueryString["t"]);
+				cmd.Parameters.Add("@TopicID",PageTopicID);
 				cmd.Parameters.Add("@UserID",PageUserID);
 				PagedDataSource pds = new PagedDataSource();
 				pds.AllowPaging = true;
-				pds.DataSource = yaf.DataManager.GetData(cmd).DefaultView;
-
 				pds.PageSize = 20;
+				using(DataTable dt = yaf.DataManager.GetData(cmd)) 
+				{
+					pds.DataSource = dt.DefaultView;
+					if(Request.QueryString["m"] != null) 
+					{
+						// Find correct page for message
+						long nMessageID = long.Parse(Request.QueryString["m"]);
+						for(int nRow=0;nRow<dt.Rows.Count;nRow++) 
+						{
+							if((int)dt.Rows[nRow]["MessageID"] == nMessageID) 
+							{
+								pds.CurrentPageIndex = nRow / pds.PageSize;
+								break;
+							}
+						}
+					}
+				}
+
 				if(Request.QueryString["p"] != null)
 					pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
 				else if(Request.QueryString["last"] != null)
 					pds.CurrentPageIndex = pds.PageCount - 1;
+
 				if(pds.CurrentPageIndex>=pds.PageCount) pds.CurrentPageIndex = pds.PageCount - 1;
 				
 				MessageList.DataSource = pds;
@@ -279,7 +296,7 @@ namespace yaf
 						AddLoadMessage("You don't have access to reply to posts in this forum.");
 						return;
 					}
-					Response.Redirect(String.Format("postmessage.aspx?t={0}&f={1}&q={2}",Request.QueryString["t"],forum["ForumID"],e.CommandArgument));
+					Response.Redirect(String.Format("postmessage.aspx?t={0}&f={1}&q={2}",PageTopicID,PageForumID,e.CommandArgument));
 					break;
 				case "Delete":
 					if((bool)topic["IsLocked"]) {
@@ -414,7 +431,7 @@ namespace yaf
 				return;
 			}
 					
-			Response.Redirect(String.Format("postmessage.aspx?t={0}&f={1}",Request.QueryString["t"],forum["ForumID"]));
+			Response.Redirect(String.Format("postmessage.aspx?t={0}&f={1}",PageTopicID,PageForumID));
 		}
 
 		private void NewTopic_Click(object sender, System.EventArgs e) {
@@ -422,7 +439,7 @@ namespace yaf
 				AddLoadMessage("The forum is closed.");
 				return;
 			}
-			Response.Redirect("postmessage.aspx?f=" + forum["ForumID"]);
+			Response.Redirect("postmessage.aspx?f=" + PageForumID);
 		}
 
 		protected string GetAvatar(object Avatar) {

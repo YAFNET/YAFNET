@@ -271,7 +271,7 @@ namespace yaf
 					string body = ReadTemplate("topicpost.txt");
 					body = body.Replace("{forumname}",ForumName);
 					body = body.Replace("{topic}",(string)topic["Topic"]);
-					body = body.Replace("{link}",String.Format("http://{0}{1}posts.aspx?t={2}",Request.ServerVariables["SERVER_NAME"],BaseDir,TopicID));
+					body = body.Replace("{link}",String.Format("http://{0}{1}posts.aspx?m={2}#{2}",Request.ServerVariables["SERVER_NAME"],BaseDir,nMessageID));
 
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add("@TopicID",TopicID);
@@ -281,7 +281,8 @@ namespace yaf
 					DataManager.ExecuteNonQuery(cmd);
 				}
 
-				Response.Redirect("posts.aspx?t=" + TopicID);
+				//Response.Redirect("posts.aspx?t=" + TopicID);
+				Response.Redirect(String.Format("posts.aspx?m={0}#{0}",nMessageID));
 			}
 		}
 
