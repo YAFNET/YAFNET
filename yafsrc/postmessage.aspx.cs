@@ -54,11 +54,19 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow4;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow5;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow6;
+		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow7;
+		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow8;
+		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow9;
+		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow10;
 		protected System.Web.UI.WebControls.TextBox PollChoice1;
 		protected System.Web.UI.WebControls.TextBox PollChoice2;
 		protected System.Web.UI.WebControls.TextBox PollChoice3;
 		protected System.Web.UI.WebControls.TextBox PollChoice4;
 		protected System.Web.UI.WebControls.TextBox PollChoice5;
+		protected System.Web.UI.WebControls.TextBox PollChoice6;
+		protected System.Web.UI.WebControls.TextBox PollChoice7;
+		protected System.Web.UI.WebControls.TextBox PollChoice8;
+		protected System.Web.UI.WebControls.TextBox PollChoice9;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.TextBox Question;
 		protected System.Web.UI.WebControls.TextBox From;
@@ -206,6 +214,10 @@ namespace yaf
 						cmd.Parameters.Add("@Choice3",PollChoice3.Text);
 						cmd.Parameters.Add("@Choice4",PollChoice4.Text);
 						cmd.Parameters.Add("@Choice5",PollChoice5.Text);
+						cmd.Parameters.Add("@Choice6",PollChoice6.Text);
+						cmd.Parameters.Add("@Choice7",PollChoice7.Text);
+						cmd.Parameters.Add("@Choice8",PollChoice8.Text);
+						cmd.Parameters.Add("@Choice9",PollChoice9.Text);
 						PollID = (int)DataManager.ExecuteScalar(cmd);
 					}
 				}
@@ -246,6 +258,10 @@ namespace yaf
 			PollRow4.Visible = true;
 			PollRow5.Visible = true;
 			PollRow6.Visible = true;
+			PollRow7.Visible = true;
+			PollRow8.Visible = true;
+			PollRow9.Visible = true;
+			PollRow10.Visible = true;
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e) {
