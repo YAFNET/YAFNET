@@ -111,6 +111,9 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and
 CREATE TABLE [yaf_Message] (
 	[MessageID] [int] IDENTITY (1, 1) NOT NULL ,
 	[TopicID] [int] NOT NULL ,
+	[ReplyTo] [int] NULL ,
+	[Position] [int] NOT NULL ,
+	[Indent] [int] NOT NULL ,
 	[UserID] [int] NOT NULL ,
 	[UserName] [varchar] (50) NULL ,
 	[Posted] [datetime] NOT NULL ,

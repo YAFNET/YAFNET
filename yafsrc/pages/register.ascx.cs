@@ -107,9 +107,15 @@ namespace yaf.pages
 		{
 			if(Page.IsValid) 
 			{
+				if(!Utils.IsValidEmail(Email.Text))
+				{
+					AddLoadMessage(GetText("BAD_EMAIL"));
+					return;
+				}
+
 				if(DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
 				{
-					AddLoadMessage(GetText("already_registered"));
+					AddLoadMessage(GetText("ALREADY_REGISTERED"));
 					return;
 				}
 

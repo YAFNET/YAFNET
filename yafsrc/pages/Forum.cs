@@ -68,7 +68,10 @@ namespace yaf
 		admin_editrank,
 		admin_edituser,
 		admin_smilies_edit,
-		admin_smilies_import
+		admin_smilies_import,
+		im_yim,
+		im_aim,
+		im_icq
 	}
 
 	/// <summary>
@@ -279,6 +282,15 @@ namespace yaf
 					break;
 				case "admin_smilies_import":
 					page = Pages.admin_smilies_import;
+					break;
+				case "im_yim":
+					page = Pages.im_yim;
+					break;
+				case "im_aim":
+					page = Pages.im_aim;
+					break;
+				case "im_icq":
+					page = Pages.im_icq;
 					break;
 			}
 

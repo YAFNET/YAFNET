@@ -21,6 +21,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace yaf
@@ -236,6 +237,18 @@ namespace yaf
 					DB.mail_createwatch(row["TopicID"],Config.BoardSettings.ForumEmail,subject,body,row["UserID"]);
 				}
 			}
+		}
+		static public bool IsValidEmail(string email)
+		{
+			return Regex.IsMatch(email,@"^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$");
+		}
+		static public bool IsValidURL(string url)
+		{
+			return Regex.IsMatch(url,@"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
+		}
+		static public bool IsValidInt(string val)
+		{
+			return Regex.IsMatch(val,@"^[1-9]\d*\.?[0]*$");
 		}
 	}
 }

@@ -78,13 +78,7 @@ namespace yaf
 					int	height		= img.Height;
 
 					if(width <= maxwidth && height <= maxheight) 
-					{
 						Response.Redirect(wb);
-						// Output the data
-						Response.ContentType = "image/jpeg";                            
-						img.Save(Response.OutputStream,ImageFormat.Jpeg);
-						return;
-					}
 
 					if(width > maxwidth) 
 					{

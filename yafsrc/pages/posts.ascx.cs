@@ -60,6 +60,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton TrackTopic;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
+		protected LinkButton NormalView,ThreadView;
 
 		public posts() : base("POSTS")
 		{
@@ -81,6 +82,8 @@ namespace yaf.pages
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = (string)topic["Topic"];
+				NormalView.Text = GetText("NORMAL");
+				ThreadView.Text = GetText("THREADED");
 
 				if(!ForumPostAccess) 
 				{
@@ -151,10 +154,23 @@ namespace yaf.pages
 			BindData();
 		}
 
+		private void NormalView_Click(object sender,EventArgs e)
+		{
+			IsThreaded = false;
+			BindData();
+		}
+		private void ThreadView_Click(object sender,EventArgs e)
+		{
+			IsThreaded = true;
+			BindData();
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
 			Pager.PageChange += new EventHandler(Pager_PageChange);
+			NormalView.Click += new EventHandler(NormalView_Click);
+			ThreadView.Click += new EventHandler(ThreadView_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -202,10 +218,16 @@ namespace yaf.pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-			using(DataTable dt = DB.post_list(PageTopicID,1)) 
+			using(DataTable dt0 = DB.post_list(PageTopicID,IsPostBack?0:1)) 
 			{
-				Pager.Count = dt.Rows.Count;
-				pds.DataSource = dt.DefaultView;
+				DataView dt = dt0.DefaultView;
+				if(IsThreaded)
+					dt.Sort = "Position";
+				else
+					dt.Sort = "Posted";
+
+				Pager.Count = dt.Count;
+				pds.DataSource = dt;
 				int nFindMessage = 0;
 				try
 				{
@@ -233,14 +255,23 @@ namespace yaf.pages
 
 				if(nFindMessage>0) 
 				{
+					CurrentMessage = nFindMessage;
 					// Find correct page for message
-					for(int nRow=0;nRow<dt.Rows.Count;nRow++) 
+					for(int foundRow=0;foundRow<dt.Count;foundRow++)
 					{
-						if((int)dt.Rows[nRow]["MessageID"] == nFindMessage) 
+						if((int)dt[foundRow]["MessageID"] == nFindMessage)
 						{
-							pds.CurrentPageIndex = nRow / pds.PageSize;
+							pds.CurrentPageIndex = foundRow / pds.PageSize;
 							break;
 						}
+					}
+				}
+				else
+				{
+					foreach(DataRow row in dt0.Rows)
+					{
+						CurrentMessage = (int)row["MessageID"];
+						break;
 					}
 				}
 			}
@@ -310,28 +341,10 @@ namespace yaf.pages
 			AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
 		}
 
-
 		private void MessageList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
 		{
 			switch(e.CommandName) 
 			{
-				case "Quote":
-					if((bool)topic["IsLocked"]) {
-						AddLoadMessage("The topic is closed.");
-						return;
-					}
-
-					if((bool)forum["Locked"]) {
-						AddLoadMessage("The forum is closed.");
-						return;
-					}
-					
-					if(!ForumReplyAccess) {
-						AddLoadMessage("You don't have access to reply to posts in this forum.");
-						return;
-					}
-					Forum.Redirect(Pages.postmessage,"t={0}&f={1}&q={2}",PageTopicID,PageForumID,e.CommandArgument);
-					break;
 				case "Delete":
 					if((bool)topic["IsLocked"]) {
 						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
@@ -357,66 +370,6 @@ namespace yaf.pages
 					DB.message_delete(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("INFO_MESSAGE_DELETED"));
-					break;
-				case "Attach":
-					if((bool)topic["IsLocked"]) 
-					{
-						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
-						return;
-					}
-
-					if((bool)forum["Locked"]) 
-					{
-						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
-						return;
-					}
-
-					if(!ForumUploadAccess) 
-						Data.AccessDenied(/*"You don't have access to attach files in this forum."*/);
-
-					// Check that non-moderators only edit messages they have written
-					if(!ForumModeratorAccess) 
-					{
-						using(DataTable dt = DB.message_list(e.CommandArgument)) 
-						{
-							if((int)dt.Rows[0]["UserID"] != PageUserID) 
-								Data.AccessDenied(/*"You didn't post this message."*/);
-						}
-					}
-
-					Forum.Redirect(Pages.attachments,"m={0}",e.CommandArgument);
-					break;
-				case "Edit":
-					if((bool)topic["IsLocked"]) {
-						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
-						return;
-					}
-
-					if((bool)forum["Locked"]) {
-						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
-						return;
-					}
-
-					if(!ForumEditAccess)
-						Data.AccessDenied(/*"You don't have access to edit posts in this forum."*/);
-
-					// Check that non-moderators only edit messages they have written
-					if(!ForumModeratorAccess) {
-						using(DataTable dt = DB.message_list(e.CommandArgument)) {
-							if((int)dt.Rows[0]["UserID"] != PageUserID)
-								Data.AccessDenied(/*"You didn't post this message."*/);
-						}
-					}
-
-					Forum.Redirect(Pages.postmessage,"m={0}",e.CommandArgument);
-					break;
-				case "PM":
-					if(!User.IsAuthenticated) {
-						AddLoadMessage(GetText("WARN_PMLOGIN"));
-						return;
-					}
-
-					Forum.Redirect(Pages.pmessage,"u={0}",e.CommandArgument);
 					break;
 			}
 		
@@ -472,71 +425,6 @@ namespace yaf.pages
 			Forum.Redirect(Pages.postmessage,"f={0}",PageForumID);
 		}
 
-		protected string FormatUserBox(System.Data.DataRowView row) {
-			string html = "";
-
-			// Avatar
-			if(Config.BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
-			{
-				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],Data.ForumRoot);
-			} 
-			else if(Config.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
-			{
-				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
-				html += String.Format("<img src='{3}image.aspx?url={0}&width={1}&height={2}'><br clear=\"all\"/>",
-					Server.UrlEncode(row["Avatar"].ToString()),
-					Config.BoardSettings.AvatarWidth,
-					Config.BoardSettings.AvatarHeight,
-					Data.ForumRoot
-				);
-			}
-
-			// Rank Image
-			if(row["RankImage"].ToString().Length>0)
-				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",Data.ForumRoot,row["RankImage"]);
-
-			// Rank
-			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("rank"),row["RankName"]);
-
-			// Groups
-			if(Config.BoardSettings.ShowGroups) 
-			{
-				using(DataTable dt = DB.usergroup_list(PageBoardID,row["UserID"])) 
-				{
-					html += String.Format("{0}: ",GetText("groups"));
-					bool bFirst = true;
-					foreach(DataRow grp in dt.Rows) 
-					{
-						if(bFirst) 
-						{
-							html += grp["Name"].ToString();
-							bFirst = false;
-						} 
-						else 
-						{
-							html += String.Format(", {0}",grp["Name"]);
-						}
-					}
-					html += "<br/>";
-				}
-			}
-
-			// Extra row
-			html += "<br/>";
-
-			// Joined
-			html += String.Format("{0}: {1}<br/>",GetText("joined"),FormatDateShort((DateTime)row["Joined"]));
-
-			// Posts
-			html += String.Format("{0}: {1:N0}<br/>",GetText("posts"),row["Posts"]);
-
-			// Location
-			if(row["Location"].ToString().Length>0)
-				html += String.Format("{0}: {1}<br/>",GetText("location"),row["Location"]);
-
-			return html;
-		}
-
 		private void TrackTopic_Click(object sender, System.EventArgs e) {
 			if(IsGuest) {
 				AddLoadMessage(GetText("WARN_WATCHLOGIN"));
@@ -584,54 +472,92 @@ namespace yaf.pages
 			Forum.Redirect(Pages.printtopic,"t={0}",PageTopicID);
 		}
 
-		protected string FormatBody(object o) {
-			DataRowView row = (DataRowView)o;
-			string html = row["Message"].ToString();
-			bool isHtml = html.IndexOf('<')>=0;
-		
-			if(long.Parse(row["HasAttachments"].ToString())>0) 
-			{
-				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",GetText("ATTACHMENTS"));
-				string stats = GetText("ATTACHMENTINFO");
-				using(DataTable dt = DB.attachment_list(row["MessageID"],null)) 
-				{
-					foreach(DataRow dr in dt.Rows) 
-					{
-						int kb = (1023 + (int)dr["Bytes"]) / 1024;
-						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
-					}
-				}
-				html += "</p>";
-			}
-			
-			if(row["Signature"] != DBNull.Value)
-				html += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,row["Signature"].ToString());
-
-			if(!isHtml)
-				html = FormatMsg.ForumCodeToHtml(this,html);
-
-			return FormatMsg.FetchURL(this,html);
-		}
-
-		protected bool CanEditPost(DataRowView row) 
-		{
-			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumEditAccess;
-		}
-
-		protected bool CanAttach(DataRowView row) 
-		{
-			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumUploadAccess;
-		}
-
-		protected bool CanDeletePost(DataRowView row) 
-		{
-			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumDeleteAccess;
-		}
-
 		protected int VoteWidth(object o) 
 		{
 			DataRowView row = (DataRowView)o;
 			return (int)row["Stats"] * 80 / 100;
+		}
+
+		private bool IsThreaded
+		{
+			get
+			{
+				if(Request.QueryString["threaded"]!=null)
+					Session["IsThreaded"] = bool.Parse(Request.QueryString["threaded"]);
+				else if(Session["IsThreaded"]==null)
+					Session["IsThreaded"] = false;
+
+				return (bool)Session["IsThreaded"];
+			}
+			set
+			{
+				Session["IsThreaded"] = value;
+			}
+		}
+
+		protected int CurrentMessage
+		{
+			get
+			{
+				if(ViewState["CurrentMessage"]!=null)
+					return (int)ViewState["CurrentMessage"];
+				else
+					return 0;
+			}
+			set
+			{
+				ViewState["CurrentMessage"] = value;
+			}
+		}
+
+		protected bool IsCurrentMessage(object o)
+		{
+			DataRowView row = (DataRowView)o;
+
+			return !IsThreaded || CurrentMessage==(int)row["MessageID"];
+		}
+
+		protected string GetThreadedRow(object o)
+		{
+			DataRowView row = (DataRowView)o;
+			if(!IsThreaded || CurrentMessage==(int)row["MessageID"])
+				return "";
+
+			System.Text.StringBuilder html = new System.Text.StringBuilder(1000);
+
+			// Threaded
+			string brief = row["Message"].ToString();
+			
+			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+			options |= RegexOptions.Singleline;
+			while(Regex.IsMatch(brief,@"\[quote=(.*?)\](.*)\[/quote\]",options)) 
+				brief = Regex.Replace(brief,@"\[quote=(.*?)\](.*)\[/quote\]","",options);
+			while(Regex.IsMatch(brief,@"\[quote\](.*)\[/quote\]",options)) 
+				brief = Regex.Replace(brief,@"\[quote\](.*)\[/quote\]","",options);
+			
+			while(Regex.IsMatch(brief,@"<.*?>",options))
+				brief = Regex.Replace(brief,@"<.*?>","",options);
+
+			if(brief.Length>42)
+				brief = brief.Substring(0,40) + "...";
+
+			html.AppendFormat("<tr class='post'><td colspan='3' nowrap>");
+			html.AppendFormat(GetIndentImage(row["Indent"]));
+			html.AppendFormat("\n<a href='{0}'>{2} ({1}",Forum.GetLink(Pages.posts,"m={0}#{0}",row["MessageID"]),row["UserName"],brief);
+			html.AppendFormat(" - {0})</a>",FormatDateTimeShort(row["Posted"]));
+
+			return html.ToString();
+		}
+		protected string GetIndentImage(object o) 
+		{
+			if(!IsThreaded)
+				return "";
+
+			int iIndent = (int)o;
+			if(iIndent>0)
+				return string.Format("<img src='{1}images/spacer.gif' width='{0}' height='2'/>",iIndent*32,Data.ForumRoot);
+			else
+				return "";
 		}
 	}
 }

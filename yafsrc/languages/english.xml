@@ -157,6 +157,8 @@
 		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
 		<Resource tag="ATTACHMENTS">Attachments:</Resource>
 		<Resource tag="ATTACHMENTINFO">{0:N0} KB, downloaded {1:N0} time(s).</Resource>
+		<Resource tag="NORMAL">Normal</Resource>
+		<Resource tag="THREADED">Threaded</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -235,6 +237,11 @@
 		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
 		<Resource tag="OURAVATAR">Our avatar collection.</Resource>
 		<Resource tag="OURAVATAR_SELECT">Select from our collection of avatars.</Resource>
+		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
+		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
+		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
+		<Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
+		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -472,6 +479,7 @@
 		<Resource tag="TIMEZONE">Time Zone</Resource>
 		<Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
 		<Resource tag="REGISTER">Register</Resource>
+		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
 	</page>
 	<page name="SEARCH">
 		<!-- search.aspx -->
@@ -536,5 +544,14 @@
 	<page name="AVATAR">
 		<Resource tag="TITLE">Avatars</Resource>
 		<Resource tag="EDITPROFILE">Edit Profile</Resource>
+	</page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+		<Resource tag="TITLE">ICQ</Resource>
 	</page>
 </Resources>

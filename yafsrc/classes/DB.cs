@@ -931,7 +931,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,ref long nMessageID) {
+		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,object replyTo,ref long nMessageID) {
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
 				SqlParameter pMessageID = new SqlParameter("@MessageID",nMessageID);
@@ -944,6 +944,7 @@ namespace yaf
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
 				cmd.Parameters.Add("@Posted",posted);
+				cmd.Parameters.Add("@ReplyTo",replyTo);
 				cmd.Parameters.Add(pMessageID);
 				DB.ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;

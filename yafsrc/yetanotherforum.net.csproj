@@ -320,6 +320,22 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\DisplayPost.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "controls\DisplayPost.ascx.cs"
+                    DependentUpon = "DisplayPost.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\DisplayPost.ascx.resx"
+                    DependentUpon = "DisplayPost.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "controls\Footer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -425,6 +441,10 @@
                 />
                 <File
                     RelPath = "images\forum_unlock_icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\spacer.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -735,6 +755,51 @@
                     RelPath = "pages\ForumPage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\im_aim.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\im_aim.ascx.cs"
+                    DependentUpon = "im_aim.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\im_aim.ascx.resx"
+                    DependentUpon = "im_aim.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\im_icq.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\im_icq.ascx.cs"
+                    DependentUpon = "im_icq.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\im_icq.ascx.resx"
+                    DependentUpon = "im_icq.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\im_yim.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\im_yim.ascx.cs"
+                    DependentUpon = "im_yim.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\im_yim.ascx.resx"
+                    DependentUpon = "im_yim.ascx.cs"
+                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "pages\info.ascx"
@@ -1641,6 +1706,38 @@
                 />
                 <File
                     RelPath = "themes\standard\icon_newest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_aim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_blog.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_icq.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_msn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_pm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_www.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\p_yim.gif"
                     BuildAction = "Content"
                 />
                 <File

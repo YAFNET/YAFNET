@@ -12,6 +12,14 @@
 		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.png'/&gt;</Resource>
 		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/b_quote_post.png'/&gt;</Resource>
 		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="PM">&lt;img align='absmiddle' src='~/p_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img align='absmiddle' src='~/p_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img align='absmiddle' src='~/p_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img align='absmiddle' src='~/p_msn.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img align='absmiddle' src='~/p_yim.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img align='absmiddle' src='~/p_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img align='absmiddle' src='~/p_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>

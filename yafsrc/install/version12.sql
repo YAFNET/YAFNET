@@ -294,6 +294,28 @@ if not exists(select * from sysobjects where name='FK_Forum_Forum' and parent_ob
 		REFERENCES yaf_Forum(ForumID)
 GO
 
+-- yaf_Message
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='ReplyTo')
+	alter table yaf_Message add ReplyTo int null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Position')
+	alter table yaf_Message add [Position] int null
+	EXEC('update yaf_Message set [Position]=0 where [Position] is null')
+	alter table yaf_Message alter column [Position] int not null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Indent')
+	alter table yaf_Message add Indent int null
+	EXEC('update yaf_Message set Indent=0 where Indent is null')
+	alter table yaf_Message alter column Indent int not null
+GO
+
+if not exists(select * from sysobjects where name='FK_Message_Message' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	ALTER TABLE [yaf_Message] ADD 
+		CONSTRAINT FK_Message_Message FOREIGN KEY(ReplyTo)
+		REFERENCES yaf_Message(MessageID)
+GO
 
 -- yaf_pageload
 if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -1182,20 +1204,29 @@ begin
 
 	select
 		d.TopicID,
+		TopicLocked	= d.IsLocked,
+		ForumLocked	= g.Locked,
 		a.MessageID,
 		a.Posted,
 		Subject = d.Topic,
 		a.Message,
 		a.UserID,
+		a.Position,
+		a.Indent,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
+		b.Avatar,
+		b.Location,
+		b.Signature,
+		b.HomePage,
+		b.Weblog,
+		b.MSN,
+		b.YIM,
+		b.AIM,
+		b.ICQ,
 		Posts		= b.NumPosts,
 		d.Views,
 		d.ForumID,
-		Avatar = b.Avatar,
-		b.Location,
-		b.HomePage,
-		b.Signature,
 		RankName = c.Name,
 		c.RankImage,
 		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
@@ -1907,5 +1938,196 @@ begin
 		insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts,RankImage)
 		values(@BoardID,@Name,@IsStart,@IsLadder,@MinPosts,@RankImage);
 	end
+end
+GO
+
+-- yaf_message_save
+if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_save
+GO
+
+create procedure yaf_message_save(
+	@TopicID	int,
+	@UserID		int,
+	@Message	text,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@Posted		datetime=null,
+	@ReplyTo	int,
+	@MessageID	int output
+) as
+begin
+	declare @ForumID	int
+	declare	@Moderated	bit
+	declare @Position	int
+	declare	@Indent		int
+
+	if @Posted is null set @Posted = getdate()
+
+	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
+
+	if @ReplyTo is null
+	begin
+		-- New thread
+		set @Position = 0
+		set @Indent = 0
+	end else if @ReplyTo<0
+	begin
+		-- Find post to reply to and indent of this post
+		select top 1 @ReplyTo=MessageID,@Indent=Indent+1
+		from yaf_Message 
+		where TopicID=@TopicID and ReplyTo is null
+		order by Posted
+	end else
+	begin
+		-- Got reply, find indent of this post
+		select @Indent=Indent+1
+		from yaf_Message 
+		where MessageID=@ReplyTo
+	end
+
+	-- Find position
+	if @ReplyTo is not null
+	begin
+		declare @temp int
+		
+		select @temp=ReplyTo,@Position=Position from yaf_Message where MessageID=@ReplyTo
+		if @temp is null
+			-- We are replying to first post
+			select @Position=max(Position)+1 from yaf_Message where TopicID=@TopicID
+		else
+			-- Last position of replies to parent post
+			select @Position=min(Position) from yaf_Message where ReplyTo=@temp and Position>@Position
+		-- No replies, then use parent post's position+1
+		if @Position is null select @Position=Position+1 from yaf_Message where MessageID=@ReplyTo
+		-- Increase position of posts after this
+		update yaf_Message set Position=Position+1 where TopicID=@TopicID and Position>=@Position
+	end
+
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved,ReplyTo,Position,Indent)
+	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,0,@ReplyTo,@Position,@Indent)
+	set @MessageID = @@IDENTITY
+	
+	if @Moderated=0
+		exec yaf_message_approve @MessageID
+end
+GO
+
+-- yaf_topic_save
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_save
+GO
+
+create procedure yaf_topic_save(
+	@ForumID	int,
+	@Subject	varchar(100),
+	@UserID		int,
+	@Message	text,
+	@Priority	smallint,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@PollID		int=null,
+	@Posted		datetime=null
+) as
+begin
+	declare @TopicID int
+	declare @MessageID int
+
+	if @Posted is null set @Posted = getdate()
+
+	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName,NumPosts)
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,0,@PollID,@UserName,0)
+	set @TopicID = @@IDENTITY
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@MessageID output
+
+	select TopicID = @TopicID, MessageID = @MessageID
+end
+GO
+
+-- yaf_nntptopic_savemessage
+if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_savemessage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntptopic_savemessage
+GO
+
+create procedure yaf_nntptopic_savemessage(
+	@NntpForumID	int,
+	@Topic 		varchar(100),
+	@Body 		text,
+	@UserID 	int,
+	@UserName	varchar(50),
+	@IP		varchar(15),
+	@Posted		datetime,
+	@Thread		char(32)
+) as 
+begin
+	declare	@ForumID	int
+	declare @TopicID	int
+
+	select @ForumID=ForumID from yaf_NntpForum where NntpForumID=@NntpForumID
+
+	if exists(select 1 from yaf_NntpTopic where Thread=@Thread)
+	begin
+		-- thread exists
+		select @TopicID=TopicID from yaf_NntpTopic where Thread=@Thread
+	end else
+	begin
+		-- thread doesn't exists
+		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,[Views],IsLocked,Priority,NumPosts)
+		values(@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0,0)
+		set @TopicID=@@IDENTITY
+
+		insert into yaf_NntpTopic(NntpForumID,Thread,TopicID)
+		values(@NntpForumID,@Thread,@TopicID)
+	end
+
+	-- save message
+	insert into yaf_Message(TopicID,UserID,UserName,Posted,Message,IP,Approved,[Position],Indent)
+	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,1,0,0)
+
+	-- update user
+	update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
+end
+GO
+
+-- yaf_message_list
+if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_list
+GO
+
+create procedure yaf_message_list(@MessageID int) as
+begin
+	select
+		a.MessageID,
+		a.UserID,
+		UserName = b.Name,
+		a.Message,
+		c.TopicID,
+		c.ForumID,
+		c.Topic,
+		c.Priority,
+		a.Approved
+	from
+		yaf_Message a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		a.MessageID = @MessageID and
+		b.UserID = a.UserID and
+		c.TopicID = a.TopicID
+end
+GO
+
+-- yaf_topic_info
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_info
+GO
+
+create procedure yaf_topic_info(@TopicID int=null) as
+begin
+	if @TopicID = 0 set @TopicID = null
+	if @TopicID is null
+		select * from yaf_Topic
+	else
+		select * from yaf_Topic where TopicID = @TopicID
 end
 GO

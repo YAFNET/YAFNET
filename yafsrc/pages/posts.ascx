@@ -1,5 +1,6 @@
 <%@ Control language="c#" Codebehind="posts.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.posts" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -29,74 +30,69 @@
 </table>
 </FooterTemplate>
 </asp:repeater>
-<table class=command cellSpacing=0 cellPadding=0 width="100%">
-  <tr>
-    <td align=left class=navlinks><yaf:pager runat="server" id="Pager"/></td>
-    <td align=right>
+<table class='command' cellspacing='0' cellpadding='0' width='100%'>
+<tr>
+	<td align=left class=navlinks><yaf:pager runat="server" id="Pager"/></td>
+	<td align='right'>
 		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply"/>
 		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=DeleteTopic1 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>
 		<asp:linkbutton id=LockTopic1 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=UnlockTopic1 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=MoveTopic1 runat="server" cssclass="imagelink"/>
-		</TD></TR></TABLE>
+	</td>
+</tr>
+</table>
+
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
-  <tr>
-    <td class=header1 colSpan=2><asp:label id=TopicTitle runat="server"></asp:label></TD></TR>
-  <tr>
-    <td class=header2 colSpan=2>
-      <table cellSpacing=0 cellPadding=0 width="100%">
-        <tr>
+<tr class="header1">
+	<td colspan="3">
+		<table class="header1" width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td><asp:label id=TopicTitle runat="server"/></td>
+			<td align="right">
+				<asp:linkbutton runat="server" id="NormalView"/>
+				&middot;
+				<asp:linkbutton runat="server" id="ThreadView"/>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr class='header2'>
+	<td colspan='3'>
+		<table cellspacing='0' cellpadding='0' width='100%'>
+		<tr>
 			<td align=left>
-				<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton> | 
+				<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton>
+				&middot;
 				<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
 			</td>
-          <td align=right><asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton> | 
-          <asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton> | 
-          <asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton></TD></TR></TABLE></TD></TR>
-          <asp:repeater id=MessageList runat="server">
+			<td align=right>
+				<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
+				&middot;
+				<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
+				&middot;
+				<asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+
+<asp:repeater id=MessageList runat="server">
 <ItemTemplate>
-		<tr class=postheader>
-			<td width=140><a name='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>'/><b><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
-			</td>
-			<td width=80%>
-				<table cellspacing=0 cellpadding=0 width=100%>
-					<tr>
-						<td class=small align=left><b><%# GetText("posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
-						<td align=right>
-							<asp:linkbutton tooltip="Attachments" visible='<%# CanAttach((System.Data.DataRowView)Container.DataItem) %>' CommandName=Attach CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","ATTACHMENTS") %></asp:linkbutton>
-							<asp:linkbutton tooltip="Edit this post" visible='<%# CanEditPost((System.Data.DataRowView)Container.DataItem) %>' CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","EDITPOST") %></asp:linkbutton>
-							<asp:linkbutton tooltip="Delete this post" visible="<%# CanDeletePost((System.Data.DataRowView)Container.DataItem) %>" CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
-							<asp:linkbutton tooltip="Reply with quote" visible="<%# ForumReplyAccess %>" CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:linkbutton>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr class=post>
-			<td valign=top height=100>
-				<%# FormatUserBox((System.Data.DataRowView)Container.DataItem) %>
-			</td>
-			<td valign=top class="message">
-				<%# FormatBody(Container.DataItem) %>
-			</td>
-		</tr>
-		<tr class=postfooter>
-			<td class=small>
-				<a href="javascript:scroll(0,0)"><%# GetText("top") %></a>
-			</td>
-			<td class="postfooter">
-				<asp:linkbutton commandname=PM commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' runat=server><%# GetText("pm") %></asp:linkbutton>
-			</td>
-		</tr>
-		<tr class="postsep"><td colspan="2" style="height:7px"></td></tr>
+	<%# GetThreadedRow(Container.DataItem) %>
+
+	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> visible=<%#IsCurrentMessage(Container.DataItem)%>/>
+
+	<tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
 </ItemTemplate>
 </asp:repeater>
 
 <yaf:ForumUsers runat="server"/>
 
-  <tr>
-    <td class=footer1 colSpan=2>&nbsp;</TD></TR></TABLE>
+</table>
     
 <table class=command cellSpacing=0 cellPadding=0 width="100%">
   <tr>
@@ -108,18 +104,17 @@
 		<asp:linkbutton id=LockTopic2 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=UnlockTopic2 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=MoveTopic2 runat="server" cssclass="imagelink"/>
-</TD></TR>
-</TABLE>
+</td></tr>
+</table>
     
 <br>
 <table cellSpacing=0 cellPadding=0 width="100%">
-  <tr>
-    <td align=right>Forum Jump <yaf:forumjump runat="server"/></TD>
-</TR>
+<tr>
+	<td align=right>Forum Jump <yaf:forumjump runat="server"/></td>
+</tr>
 <tr>
 	<td align="right" valign="top" class="smallfont"><yaf:PageAccess runat="server"/></td>
-	
 </tr>
-</TABLE>
+</table>
 
 <yaf:savescrollpos runat="server"/>

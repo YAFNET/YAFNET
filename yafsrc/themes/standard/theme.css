@@ -23,6 +23,10 @@ a:hover		{ text-decoration: underline; }
 	height: 32px;
 }
 
+/* Links in header1 */
+tr.header1 a		{color:#FFFFFF;text-decoration:none}
+tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
+
 /* Header 2 - Sub header */
 .header2 {
 	background-image: url('bg_header2.png');

@@ -19,3 +19,6 @@
 - Limit sigs to 5 lines or something...
 - Link correctly back to forum from admin and install.
 - Threaded view
+- Disable threaded view from admin
+- Send e-mail to other members
+- Icon for weblog

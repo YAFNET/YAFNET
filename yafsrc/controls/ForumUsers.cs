@@ -26,10 +26,10 @@ namespace yaf.controls
 				if(bTopic) 
 				{
 					writer.WriteLine("<tr class=\"header2\">");
-					writer.WriteLine(String.Format("<td colspan=\"2\">{0}</td>",ForumPage.GetText("TOPICBROWSERS")));
+					writer.WriteLine(String.Format("<td colspan=\"3\">{0}</td>",ForumPage.GetText("TOPICBROWSERS")));
 					writer.WriteLine("</tr>");
 					writer.WriteLine("<tr class=\"post\">");
-					writer.WriteLine("<td colspan=\"2\">");
+					writer.WriteLine("<td colspan=\"3\">");
 				} 
 				else 
 				{

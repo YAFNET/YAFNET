@@ -245,6 +245,13 @@ namespace yaf.pages
 
 			long TopicID;
 			long nMessageID = 0;
+			object replyTo = null;
+			if(Request.QueryString["q"]!=null)
+				replyTo = int.Parse(Request.QueryString["q"]);
+			else
+				// Let save procedure find first post
+				replyTo = -1;
+
 			string msg = Message.Text;
 			if(!Message.IsRTEBrowser) 
 				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
@@ -257,7 +264,7 @@ namespace yaf.pages
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {

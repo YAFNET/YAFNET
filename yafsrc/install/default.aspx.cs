@@ -56,12 +56,6 @@ namespace yaf.install
 		protected System.Web.UI.WebControls.TextBox TheForumName, UserName, Password1, Password2, AdminEmail, ForumEmailAddress, SmptServerAddress;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 
-		// BEGIN TODO
-		//int		AppVersion		= 11;
-		//string	AppVersionName	= "DEV-DEBUG";
-		/// END TODO
-
-		private	string	BaseDir			= "..";
 		private	string	m_loadMessage	= "";
 
 		void AddLoadMessage(string msg)
@@ -117,7 +111,7 @@ namespace yaf.install
 		}
 
 		private void finish_Click(object sender,System.EventArgs e) {
-			Response.Redirect(BaseDir);
+			Response.Redirect(Data.ForumRoot);
 		}
 
 		private void next_Click(object sender,System.EventArgs e) 

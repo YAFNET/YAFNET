@@ -182,7 +182,6 @@ namespace yaf.pages
 						nAvatarSize = (int)dt.Rows[0]["AvatarSize"];
 				}
 
-#if true
 				System.IO.Stream resized = null;
 
 				using(System.Drawing.Image img = System.Drawing.Image.FromStream(File.PostedFile.InputStream))
@@ -224,42 +223,35 @@ namespace yaf.pages
 					else
 						DB.user_saveavatar(PageUserID, resized);
 				}			
-#else
-				System.Drawing.Image img = System.Drawing.Image.FromStream(File.PostedFile.InputStream);
-				if(img.Width>x || img.Height>y) 
-				{
-					AddLoadMessage(String.Format("Image size can't be larger than {0}x{1} pixels.",x,y));
-					AddLoadMessage(String.Format("The size of your image was {0}x{1} pixels.",img.Width,img.Height));
-					return;
-				}
-				if(File.PostedFile.ContentLength>=nAvatarSize) 
-				{
-					AddLoadMessage(String.Format("The size of your image can't be more than {0} bytes.",nAvatarSize));
-					AddLoadMessage(String.Format("The size of your image was {0} bytes.",File.PostedFile.ContentLength));
-					return;
-				}
-				DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
-#endif
 			}
 
-			if(bUpdateEmail && Config.BoardSettings.EmailVerification) 
+			if(bUpdateEmail)
 			{
-				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
-				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
+				if(!Utils.IsValidEmail(Email.Text))
+				{
+					AddLoadMessage(GetText("BAD_EMAIL"));
+					return;
+				}
 
-				// Email Body
-				string msg = Utils.ReadTemplate("changeemail.txt");
-				msg = msg.Replace("{user}",PageUserName);
-				msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),ServerURL));
-				msg = msg.Replace("{newemail}",Email.Text);
-				msg = msg.Replace("{key}",hash);
-				msg = msg.Replace("{forumname}",Config.BoardSettings.Name);
-				msg = msg.Replace("{forumlink}",ForumURL);
+				if(Config.BoardSettings.EmailVerification) 
+				{
+					string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
+					string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
-				DB.checkemail_save(PageUserID,hash,Email.Text);
-				//  Build a MailMessage
-				Utils.SendMail(Config.BoardSettings.ForumEmail,Email.Text,"Changed email",msg);
-				AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
+					// Email Body
+					string msg = Utils.ReadTemplate("changeemail.txt");
+					msg = msg.Replace("{user}",PageUserName);
+					msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),ServerURL));
+					msg = msg.Replace("{newemail}",Email.Text);
+					msg = msg.Replace("{key}",hash);
+					msg = msg.Replace("{forumname}",Config.BoardSettings.Name);
+					msg = msg.Replace("{forumlink}",ForumURL);
+
+					DB.checkemail_save(PageUserID,hash,Email.Text);
+					//  Build a MailMessage
+					Utils.SendMail(Config.BoardSettings.ForumEmail,Email.Text,"Changed email",msg);
+					AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
+				}
 			}
 
 			if(OldPassword.Text.Length > 0) {
@@ -283,6 +275,27 @@ namespace yaf.pages
 			object email = null;
 			if(!Config.BoardSettings.EmailVerification)
 				email = Email.Text;
+
+			if(MSN.Text.Length>0 && !Utils.IsValidEmail(MSN.Text))
+			{
+				AddLoadMessage(GetText("BAD_MSN"));
+				return;
+			}
+			if(HomePage.Text.Length>0 && !Utils.IsValidURL(HomePage.Text))
+			{
+				AddLoadMessage(GetText("BAD_HOME"));
+				return;
+			}
+			if(Weblog.Text.Length>0 && !Utils.IsValidURL(Weblog.Text))
+			{
+				AddLoadMessage(GetText("BAD_WEBLOG"));
+				return;
+			}
+			if(ICQ.Text.Length>0 && !Utils.IsValidInt(ICQ.Text))
+			{
+				AddLoadMessage(GetText("BAD_ICQ"));
+				return;
+			}
 
 			DB.user_save(PageUserID,PageBoardID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
 				MSN.Text,YIM.Text,AIM.Text,ICQ.Text,Realname.Text,Occupation.Text,Interests.Text,Gender.SelectedIndex,Weblog.Text);
