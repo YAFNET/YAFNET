@@ -57,6 +57,21 @@ namespace yaf.install
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 
 		private	string	m_loadMessage	= "";
+		private string[]	m_scripts	= new string[]
+		{
+			"version-0.7.0.sql",	///  1
+			"version-0.7.1.sql",	///  2
+			"version-0.8.0.sql",	///  3
+			"version-0.8.1.sql",	///  4
+			"version-0.8.2.sql",	///  5
+			"version-0.9.0.sql",	///  6
+			"version-0.9.1.sql",	///  7
+			"version-0.9.2.sql",	///  8
+			"version-0.9.3.sql",	///  9
+			"version-0.9.4.sql",	/// 10
+			"version-0.9.5.sql",	/// 11
+			"version-0.9.6.sql"		/// 12
+		};
 
 		void AddLoadMessage(string msg)
 		{
@@ -167,8 +182,8 @@ namespace yaf.install
 			{
 				try 
 				{
-					for(long i=InstalledVersion;i<Data.AppVersion;i++) 
-						ExecuteScript(String.Format("version{0}.sql",i+1));
+					for(int i=InstalledVersion;i<m_scripts.Length;i++)
+						ExecuteScript(m_scripts[i]);
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{

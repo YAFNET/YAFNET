@@ -20,10 +20,11 @@ go
 if not exists (select * from sysobjects where id = object_id(N'yaf_Board') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	CREATE TABLE [yaf_Board] (
-		[BoardID]	[int] NOT NULL IDENTITY(1,1),
-		[Name]		[varchar](50) NOT NULL
+		[BoardID]		[int]			NOT NULL IDENTITY(1,1),
+		[Name]			[varchar](50)	NOT NULL,
+		[AllowThreaded]	[bit]			NOT NULL
 	)
-	EXEC('insert into yaf_Board(Name) select Name from yaf_System')
+	EXEC('insert into yaf_Board(Name,AllowThreaded) select Name,0 from yaf_System')
 end
 GO
 
@@ -1318,10 +1319,11 @@ if exists (select * from sysobjects where id = object_id(N'yaf_board_save') and 
 	drop procedure yaf_board_save
 GO
 
-create procedure yaf_board_save(@BoardID int,@Name varchar(50)) as
+create procedure yaf_board_save(@BoardID int,@Name varchar(50),@AllowThreaded bit) as
 begin
 	update yaf_Board set
-		[Name] = @Name
+		[Name] = @Name,
+		AllowThreaded = @AllowThreaded
 	where BoardID=@BoardID
 end
 GO
@@ -1527,7 +1529,7 @@ begin
 	values(1,1,'0.9.5',@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
 	SET IDENTITY_INSERT yaf_System OFF
 
-	exec yaf_board_create @Name,@User,@UserEmail,@Password,1
+	exec yaf_board_create @Name,0,@User,@UserEmail,@Password,1
 end
 GO
 
@@ -1538,6 +1540,7 @@ GO
 
 create procedure yaf_board_create(
 	@BoardName 		varchar(50),
+	@AllowThreaded	bit,
 	@UserName		varchar(50),
 	@UserEmail		varchar(50),
 	@UserPass		varchar(32),
@@ -1567,7 +1570,7 @@ begin
 	select @TimeZone=TimeZone,@ForumEmail=ForumEmail from yaf_System
 
 	-- yaf_Board
-	insert into yaf_Board([Name]) values(@BoardName)
+	insert into yaf_Board([Name],AllowThreaded) values(@BoardName,@AllowThreaded)
 	set @BoardID = @@IDENTITY
 
 	-- yaf_Rank
@@ -2062,6 +2065,7 @@ create procedure yaf_nntptopic_savemessage(
 begin
 	declare	@ForumID	int
 	declare @TopicID	int
+	declare	@MessageID	int
 
 	select @ForumID=ForumID from yaf_NntpForum where NntpForumID=@NntpForumID
 
@@ -2083,9 +2087,17 @@ begin
 	-- save message
 	insert into yaf_Message(TopicID,UserID,UserName,Posted,Message,IP,Approved,[Position],Indent)
 	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,1,0,0)
+	set @MessageID=@@IDENTITY
 
 	-- update user
 	update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
+	-- update topic
+	update yaf_Topic set 
+		LastPosted		= @Posted,
+		LastMessageID	= @MessageID,
+		LastUserID		= @UserID,
+		LastUserName	= @UserName
+	where TopicID=@TopicID
 end
 GO
 

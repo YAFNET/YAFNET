@@ -660,9 +660,9 @@ begin
 		NumPosts = (select count(1) from yaf_message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
 	where ForumID=@ForumID
 
-	exec yaf_user_upgrade @UserID
+	--exec yaf_user_upgrade @UserID
 	exec yaf_forum_updatestats @ForumID
-	exec yaf_topic_updatelastpost @ForumID,null
+	--exec yaf_topic_updatelastpost @ForumID,null
 end
 GO
 
