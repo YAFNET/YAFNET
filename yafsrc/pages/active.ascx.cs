@@ -37,6 +37,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList Since;
+		protected System.Web.UI.WebControls.HyperLink RssFeed;
 		protected controls.PageLinks PageLinks;
 		protected controls.Pager Pager;
 		protected string LastForumName = "";
@@ -47,6 +48,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+ 			//RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", Config.ConfigSection["siteurl"]);
+			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg=active");
+ 			RssFeed.Text = GetText("RSSFEED");
 			if(!IsPostBack) {
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);

@@ -122,6 +122,7 @@
 		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts arrive in this forum.</Resource>
 		<Resource tag="MARKREAD">Mark this forum as read</Resource>
 		<Resource tag="SUBFORUMS">Subforums</Resource>
+ 		<Resource tag="RSSFEED">Rss Feed</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -134,6 +135,7 @@
 		<Resource tag="WATCHTOPIC">Watch this topic</Resource>
 		<Resource tag="EMAILTOPIC">Email this topic</Resource>
 		<Resource tag="PRINTTOPIC">Print this topic</Resource>
+ 		<Resource tag="RSSTOPIC">RSS Feed</Resource>
 		<Resource tag="POSTED">Posted</Resource>
 		<Resource tag="TOP">Back to top</Resource>
 		<Resource tag="PM">PM</Resource>
@@ -177,6 +179,7 @@
 		<Resource tag="TOPICS">Topics</Resource>
 		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
+ 		<Resource tag="RSSFEED">Rss Feed</Resource>
 		<Resource tag="VIEWS">Views</Resource>
 		<Resource tag="LASTPOST">Last Post</Resource>
 		<Resource tag="BY">by {0}</Resource>

@@ -75,7 +75,8 @@ namespace yaf
 		im_yim,
 		im_aim,
 		im_icq,
-		im_email
+		im_email,
+		rsstopic
 	}
 
 	/// <summary>
@@ -299,6 +300,9 @@ namespace yaf
 					break;
 				case "im_email":
 					page = Pages.im_email;
+					break;
+				case "rsstopic":
+					page = Pages.rsstopic;
 					break;
 					// ADDED BAI 07.01.2004
 				case "admin_reguser":

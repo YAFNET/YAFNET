@@ -149,6 +149,35 @@ namespace yaf
 				qc.Dispose();
 			}
 		}
+		static public DataTable GetData(string sql) 
+		{
+			QueryCounter qc = new QueryCounter(sql);
+			try 
+			{
+				using(SqlConnection conn=GetConnection()) 
+				{
+					using(SqlCommand cmd=conn.CreateCommand())
+					{
+						cmd.CommandType = CommandType.Text;
+						cmd.CommandText = sql;
+						using(DataSet ds = new DataSet()) 
+						{
+							using(SqlDataAdapter da = new SqlDataAdapter()) 
+							{
+								da.SelectCommand = cmd;
+								da.SelectCommand.Connection = conn;
+								da.Fill(ds);
+								return ds.Tables[0];
+							}
+						}
+					}
+				}
+			}
+			finally 
+			{
+				qc.Dispose();
+			}
+		}
 		static public void ExecuteNonQuery(SqlCommand cmd) 
 		{
 			QueryCounter qc = new QueryCounter(cmd.CommandText);

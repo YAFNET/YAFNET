@@ -42,6 +42,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Label PageTitle;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
+		protected System.Web.UI.WebControls.HyperLink RssFeed;
 		private DataRow forum;
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
 		protected LinkButton moderate1, moderate2, MarkRead;
@@ -63,6 +64,8 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			Mession.UnreadTopics = 0;
+ 			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg=topics&f={0}", Request.QueryString["f"]);
+ 			RssFeed.Text = GetText("RSSFEED");
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));

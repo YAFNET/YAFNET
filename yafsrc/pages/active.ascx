@@ -19,6 +19,9 @@
 	<td class=header1 align=middle width="7%"><%= GetText("views") %></td>
 	<td class=header1 align=middle width="20%"><%= GetText("lastpost") %></td>
 </tr>
+<tr>
+	<td class=header1 align=right width="100%" colspan="6"><asp:hyperlink id="RssFeed" runat="server" /> ( Last 24 Hours )</td>
+</tr>
 <asp:repeater id=TopicList runat="server">
 <ItemTemplate>
 	<%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>

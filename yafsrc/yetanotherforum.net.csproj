@@ -181,14 +181,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Web.config.dotnetnuke"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Web.config.rainbow"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "WhatsNew.html"
                     BuildAction = "Content"
                 />
@@ -255,6 +247,11 @@
                 />
                 <File
                     RelPath = "classes\Nntp.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "classes\RssFeed.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -400,6 +397,10 @@
                 />
                 <File
                     RelPath = "images\forum_unlock_icon.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "images\rss.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -976,6 +977,21 @@
                 <File
                     RelPath = "pages\register.ascx.resx"
                     DependentUpon = "register.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\rsstopic.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\rsstopic.ascx.cs"
+                    DependentUpon = "rsstopic.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\rsstopic.ascx.resx"
+                    DependentUpon = "rsstopic.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

@@ -60,6 +60,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton TrackTopic;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
+		protected System.Web.UI.WebControls.LinkButton RssTopic;
 		protected LinkButton NormalView,ThreadView;
 		protected HtmlTableCell ThreadViewCell;
 		private bool m_bDataBound = false;
@@ -230,6 +231,7 @@ namespace yaf.pages
 			this.NextTopic.Click += new System.EventHandler(this.NextTopic_Click);
 			this.PrintTopic.Click += new System.EventHandler(this.PrintTopic_Click);
 			this.EmailTopic.Click += new System.EventHandler(this.EmailTopic_Click);
+ 			this.RssTopic.Click += new System.EventHandler(this.RssTopic_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 			this.PreRender += new EventHandler(posts_PreRender);
 
@@ -466,6 +468,11 @@ namespace yaf.pages
 		}
 		private void PrintTopic_Click(object sender, System.EventArgs e) {
 			Forum.Redirect(Pages.printtopic,"t={0}",PageTopicID);
+		}
+		
+		private void RssTopic_Click(object sender, System.EventArgs e) 
+		{
+			Forum.Redirect(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 		}
 
 		protected int VoteWidth(object o) 
