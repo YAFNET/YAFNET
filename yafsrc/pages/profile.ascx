@@ -31,7 +31,7 @@
 					<td width="50%" class="postheader"><%= GetText("username") %></td>
 					<td width="50%" class="post"><asp:Label id="Name" runat="server" /></td>
 				</tr>
-				<tr>
+				<tr runat="server" id="userGroupsRow">
 					<td class="postheader"><%= GetText("groups") %></td>
 					<td class="post">
 						<asp:repeater id="Groups" runat="server">

@@ -48,7 +48,7 @@ namespace yaf.pages.admin {
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
-		protected CheckBox AllowHTMLX, DisableRegistrations, CreateNntpUsers;
+		protected CheckBox AllowHTMLX, DisableRegistrations, CreateNntpUsers, ShowGroupsProfile;
 		protected TextBox LockPosts;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -118,6 +118,8 @@ namespace yaf.pages.admin {
 			AcceptedHTML.Text = BoardSettings.AcceptedHTML;
 			DisableRegistrations.Checked = BoardSettings.DisableRegistrations;
 			CreateNntpUsers.Checked = BoardSettings.CreateNntpUsers;
+			ShowGroupsProfile.Checked = BoardSettings.ShowGroupsProfile;
+
 		}
 
 		#region Web Form Designer generated code
@@ -185,6 +187,7 @@ namespace yaf.pages.admin {
 			BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
 			BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
 			BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
+			BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

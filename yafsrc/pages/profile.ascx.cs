@@ -41,7 +41,7 @@ namespace yaf.pages
 		protected Repeater Groups, LastPosts;
 		protected Label Rank, Location;
 		protected PlaceHolder ModeratorInfo;
-		protected HtmlTableRow SuspendedRow;
+		protected HtmlTableRow SuspendedRow, userGroupsRow;
 		protected DropDownList SuspendUnit;
 		protected TextBox SuspendCount;
 		protected Button RemoveSuspension, Suspend;
@@ -63,6 +63,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
+				userGroupsRow.Visible = BoardSettings.ShowGroupsProfile || IsAdmin;
 				SuspendUnit.Items.Add(new ListItem(GetText("DAYS"),"1"));
 				SuspendUnit.Items.Add(new ListItem(GetText("HOURS"),"2"));
 				SuspendUnit.Items.Add(new ListItem(GetText("MINUTES"),"3"));

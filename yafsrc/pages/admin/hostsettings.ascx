@@ -53,6 +53,12 @@
 				<asp:checkbox id="ShowGroupsX" runat="server"></asp:checkbox></TD>
 		</TR>
 		<TR>
+			<TD class="postheader"><B>Show Groups in profile:</B><BR>
+				Should the groups a user is part of be visible on the users profile page.</TD>
+			<TD class="post">
+				<asp:checkbox id="ShowGroupsProfile" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
 			<TD class="postheader"><B>Use File Table:</B><BR>
 				Uploaded files will be saved in the database instead of the file system.</TD>
 			<TD class="post">
