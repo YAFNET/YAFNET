@@ -4,7 +4,16 @@
 alter table yaf_AccessMask alter column "Name" nvarchar(50) not null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Active') and name='PK_Active')
+	ALTER TABLE yaf_Active DROP CONSTRAINT PK_Active
+GO
+
 alter table yaf_Active alter column SessionID nvarchar(24) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Active') and name='PK_Active')
+ALTER TABLE [yaf_Active] WITH NOCHECK ADD 
+	CONSTRAINT [PK_Active] PRIMARY KEY CLUSTERED([SessionID],[BoardID])
 GO
 
 alter table yaf_Active alter column IP nvarchar(15) not null
@@ -25,25 +34,67 @@ GO
 alter table yaf_Attachment alter column ContentType nvarchar(50) null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_BannedIP') and name='IX_BannedIP')
+	ALTER TABLE [yaf_BannedIP] DROP CONSTRAINT IX_BannedIP
+GO
+
 alter table yaf_BannedIP alter column Mask nvarchar(15) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_BannedIP') and name='IX_BannedIP')
+ALTER TABLE [yaf_BannedIP] ADD 
+	CONSTRAINT [IX_BannedIP] UNIQUE NONCLUSTERED([BoardID],[Mask])
 GO
 
 alter table yaf_Board alter column "Name" nvarchar(50) not null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
+	ALTER TABLE [yaf_Category] DROP CONSTRAINT [IX_Category]
+GO
+
 alter table yaf_Category alter column "Name" nvarchar(50) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
+	ALTER TABLE [yaf_Category] ADD CONSTRAINT [IX_Category] UNIQUE NONCLUSTERED([BoardID],[Name])
 GO
 
 alter table yaf_CheckEmail alter column Email nvarchar(50) not null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_CheckEmail') and name='IX_CheckEmail')
+	ALTER TABLE yaf_CheckEmail DROP CONSTRAINT IX_CheckEmail
+GO
+
 alter table yaf_CheckEmail alter column Hash nvarchar(32) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_CheckEmail') and name='IX_CheckEmail')
+ALTER TABLE [yaf_CheckEmail] ADD 
+	CONSTRAINT [IX_CheckEmail] UNIQUE  NONCLUSTERED 
+	(
+		[Hash]
+	)  ON [PRIMARY] 
 GO
 
 alter table yaf_Choice alter column Choice nvarchar(50) not null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Forum') and name='IX_Forum')
+	ALTER TABLE yaf_Forum DROP CONSTRAINT IX_Forum
+GO
+
 alter table yaf_Forum alter column "Name" nvarchar(50) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Forum') and name='IX_Forum')
+ALTER TABLE [yaf_Forum] ADD 
+	CONSTRAINT [IX_Forum] UNIQUE  NONCLUSTERED 
+	(
+		[CategoryID],
+		[Name]
+	)  ON [PRIMARY] 
 GO
 
 alter table yaf_Forum alter column Description nvarchar(255) not null
@@ -52,7 +103,16 @@ GO
 alter table yaf_Forum alter column LastUserName nvarchar(50) null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Group') and name='IX_Group')
+	ALTER TABLE [yaf_Group] DROP CONSTRAINT IX_Group
+GO
+
 alter table yaf_Group alter column "Name" nvarchar(50) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Group') and name='IX_Group')
+ALTER TABLE [yaf_Group] ADD 
+	CONSTRAINT [IX_Group] UNIQUE NONCLUSTERED([BoardID],[Name])
 GO
 
 alter table yaf_Mail alter column FromUser nvarchar(50) not null
@@ -91,13 +151,30 @@ GO
 alter table yaf_Poll alter column Question nvarchar(50) not null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Rank') and name='IX_Rank')
+	ALTER TABLE [yaf_Rank] DROP CONSTRAINT [IX_Rank]
+GO
+
 alter table yaf_Rank alter column "Name" nvarchar(50) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Rank') and name='IX_Rank')
+	ALTER TABLE [yaf_Rank] ADD CONSTRAINT [IX_Rank] UNIQUE([BoardID],[Name])
 GO
 
 alter table yaf_Rank alter column RankImage nvarchar(50) null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Smiley') and name='IX_Smiley')
+	ALTER TABLE [yaf_Smiley] DROP CONSTRAINT [IX_Smiley]
+GO
+
 alter table yaf_Smiley alter column Code nvarchar(10) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Smiley') and name='IX_Smiley')
+	ALTER TABLE [yaf_Smiley] ADD 
+		CONSTRAINT [IX_Smiley] UNIQUE NONCLUSTERED([BoardID],[Code])
 GO
 
 alter table yaf_Smiley alter column Icon nvarchar(50) not null
@@ -130,7 +207,15 @@ GO
 alter table yaf_Topic alter column LastUserName nvarchar(50) null
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_User') and name='IX_User')
+	ALTER TABLE [yaf_User] DROP CONSTRAINT [IX_User]
+GO
+
 alter table yaf_User alter column "Name" nvarchar(50) not null
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_User') and name='IX_User')
+	ALTER TABLE [yaf_User] ADD CONSTRAINT [IX_User] UNIQUE NONCLUSTERED([BoardID],[Name])
 GO
 
 alter table yaf_User alter column Password nvarchar(32) not null
