@@ -99,12 +99,6 @@ namespace yaf
 			if(sErrorEmail==null || sErrorEmail.Length==0 || sErrorSmtp==null || sErrorSmtp.Length==0)
 				return;
 
-			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-			mailMessage.From = sErrorEmail;
-			mailMessage.To = sErrorEmail;
-			mailMessage.Subject = "Yet Another Forum.net Error Report";
-			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Html;
-
 			// Build body
 			System.Text.StringBuilder msg = new System.Text.StringBuilder();
 			msg.Append("<style>\n");
@@ -155,10 +149,25 @@ namespace yaf
 				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
 			}
 			msg.Append("</table>");
-
+#if  false
+			// .NET
+			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
+			mailMessage.From = sErrorEmail;
+			mailMessage.To = sErrorEmail;
+			mailMessage.Subject = "Yet Another Forum.net Error Report";
+			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Html;
 			mailMessage.Body = msg.ToString();
 			System.Web.Mail.SmtpMail.SmtpServer = sErrorSmtp;
 			System.Web.Mail.SmtpMail.Send(mailMessage);
+#else
+			// http://sourceforge.net/projects/opensmtp-net/
+			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+			OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(sErrorEmail, sErrorEmail);
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(sErrorSmtp,25);
+			mailMessage.Subject = "Yet Another Forum.net Error Report";
+			mailMessage.HtmlBody = msg.ToString();
+			smtp.SendMail(mailMessage);
+#endif	
 		}
 	}
 }

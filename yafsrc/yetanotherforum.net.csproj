@@ -89,6 +89,11 @@
                     AssemblyName = "System.Drawing"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
                 />
+                <Reference
+                    Name = "OpenSmtp"
+                    AssemblyName = "OpenSmtp"
+                    HintPath = "..\..\..\Utvk\dotnet\OpenSmtp.net\release\bin\OpenSmtp.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -895,11 +900,6 @@
                 />
                 <File
                     RelPath = "classes\HiPerfTimer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Smtp.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -783,6 +783,7 @@ namespace yaf
 		public void SendMail(string from,string to,string subject,string body) 
 		{
 #if false
+			// .NET
 			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
 			mailMessage.From = from;
 			mailMessage.To = to;
@@ -792,18 +793,8 @@ namespace yaf
 			if(SmtpServer!=null)
 				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
 			System.Web.Mail.SmtpMail.Send(mailMessage);
-//
-			string sUserName = SmtpUserName;
-			string sUserPass = SmtpUserPass;
-			
-			Smtp mail;
-			if(sUserName!=null && sUserPass!=null)
-				mail = new Smtp(SmtpServer,sUserName,sUserPass);
-			else
-				mail = new Smtp(SmtpServer);
-			mail.SendMail(from,to,subject,body);
-			mail.Quit();
-#endif
+#else
+			// http://sourceforge.net/projects/opensmtp-net/
 			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
 
 			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
@@ -813,6 +804,7 @@ namespace yaf
 				smtp.Password = SmtpUserPass;
 			}
 			smtp.SendMail(from,to,subject,body);
+#endif
 		}
 	}
 }
