@@ -115,7 +115,8 @@ namespace yaf.pages
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
 			DataRow row;
 			TimeZones.DataSource = Data.TimeZones();
 			Theme.DataSource = Data.Themes();
@@ -163,15 +164,11 @@ namespace yaf.pages
 			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
 			AvatarImg.Visible = row["Avatar"].ToString().Length>0;
 			AvatarImg.ImageUrl = row["Avatar"].ToString();
-			using(DataTable dt = DB.system_list()) 
-			{
-				foreach(DataRow row2 in dt.Rows) 
-				{
-					AvatarUploadRow.Visible = (bool)row2["AvatarUpload"];
-					AvatarRemoteRow.Visible = (bool)row2["AvatarRemote"];
-				}
-				AvatarRow.Visible = AvatarUploadRow.Visible || AvatarRemoteRow.Visible || AvatarDeleteRow.Visible;
-			}
+
+			AvatarUploadRow.Visible = BoardSettings.AvatarUpload;
+			AvatarRemoteRow.Visible = BoardSettings.AvatarRemote;
+
+			AvatarRow.Visible = AvatarUploadRow.Visible || AvatarRemoteRow.Visible || AvatarDeleteRow.Visible;
 		}
 
 		private void DeleteAvatar_Click(object sender, System.EventArgs e)
@@ -208,15 +205,9 @@ namespace yaf.pages
 
 			if(File.PostedFile!=null && File.PostedFile.FileName.Trim().Length>0 && File.PostedFile.ContentLength>0) 
 			{
-				long x,y;
-				int nAvatarSize = 50000;
-				using(DataTable dt = DB.system_list())
-				{
-					x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
-					y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
-					if(dt.Rows[0]["AvatarSize"]!=DBNull.Value)
-						nAvatarSize = (int)dt.Rows[0]["AvatarSize"];
-				}
+				long x = BoardSettings.AvatarWidth;
+				long y = BoardSettings.AvatarHeight;
+				int nAvatarSize = BoardSettings.AvatarSize;
 
 				System.IO.Stream resized = null;
 
@@ -247,7 +238,7 @@ namespace yaf.pages
 							bitmap.Save(resized,System.Drawing.Imaging.ImageFormat.Jpeg);
 						}
 					}
-					if (File.PostedFile.ContentLength>=nAvatarSize && resized == null)
+					if (nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null)
 					{
 						AddLoadMessage(String.Format(GetText("WARN_BIGFILE"),nAvatarSize));
 						AddLoadMessage(String.Format(GetText("WARN_FILESIZE"),File.PostedFile.ContentLength));

@@ -19,20 +19,20 @@
 		</td>
 	</tr>
 	<tr>
-		<td class=postheader><%= GetText("subject") %></td>
-		<td class=post><asp:TextBox id=Subject runat="server"/></td>
+		<td class="postheader"><%= GetText("subject") %></td>
+		<td class="post"><asp:TextBox id=Subject runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader valign=top>
+		<td class="postheader" valign="top">
 			<%= GetText("message") %>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
-		<td id="RichEdit" class=post>
+		<td id="RichEdit" class="post">
 			<rte:RichEdit runat="server" id="Editor"/>
 		</td>
 	</tr>
 	<tr>
-		<td class=postfooter colspan=2 align=middle>
+		<td class="postfooter" colspan=2 align=middle>
 			<asp:Button id=Save runat="server"/>
 			<asp:Button id=Cancel runat="server"/>
 		</td>

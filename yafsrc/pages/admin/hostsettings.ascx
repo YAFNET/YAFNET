@@ -1,104 +1,142 @@
-<%@ Control language="c#" Codebehind="hostsettings.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.hostsettings" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-
-<yaf:PageLinks runat="server" id="PageLinks"/>
-
-<yaf:adminmenu runat="server">
-
-<table class=content cellspacing=1 cellpadding=0 align=center>
-	<tr>
-		<td colspan=2 class=header1>Forum Settings</td>
-	</tr>
-	<tr>
-		<td class="header2" colspan="2">Forum Setup</td>
-	</tr>
-	<tr>
-		<td width="50%" class=postheader><b>MS SQL Server Version:</b><br>What version of MS SQL Server is running.</td>
-		<td width="50%" class=post><asp:label id=SQLVersion cssclass=smallfont runat=server></asp:label></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Time Zone:</b><br>The time zone of the web server.</td>
-		<td class=post><asp:dropdownlist id=TimeZones runat=server DataTextField="Name" DataValueField="Value"></asp:dropdownlist></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Forum Email:</b><br/>The from address when sending emails to users.</td>
-		<td class=post><asp:TextBox style="width:300px" id=ForumEmailEdit runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Require Email Verification:</b><br/>If unchecked users will not need to verify their email address.</td>
-		<td class=post><asp:checkbox id="EmailVerification" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Show Moved Topics:</b><br/>If this is checked, topics that are moved will leave behind a pointer to the new topic.</td>
-		<td class=post><asp:checkbox id="ShowMoved" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Links in New Window:</b><br/>If this is checked, links in messages will open in a new window.</td>
-		<td class=post><asp:checkbox id="BlankLinks" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Show Groups:</b><br/>Should the groups a user is part of be visible on the posts page.</td>
-		<td class=post><asp:checkbox id="ShowGroupsX" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Allow Rich Edit:</b><br/>If this is checked your users will be able to use a rich edit control when posting messages.</td>
-		<td class="post"><asp:checkbox runat="server" id="AllowRichEditX"/></td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Allow User Theme:</b><br/>Should users be able to choose what theme they want to use?</td>
-		<td class="post"><asp:checkbox runat="server" id="AllowUserThemeX"/></td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Allow User Language:</b><br/>Should users be able to choose what language they want to use?</td>
-		<td class="post"><asp:checkbox runat="server" id="AllowUserLanguageX"/></td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Use File Table:</b><br/>Uploaded files will be saved in the database instead of the file system.</td>
-		<td class="post"><asp:checkbox runat="server" id="UseFileTableX"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Max File Size:</b><br/>Maximum size of uploaded files. Leave empty for no limit.</td>
-		<td class=post><asp:TextBox id=MaxFileSize runat="server"/></td>
-	</tr>
-	<tr>
-		<td class="header2" colspan="2">SMTP Server Settings</td>
-	</tr>
-	<tr>
-		<td class=postheader><b>SMTP Server:</b><br>To be able to send posts you need to enter the name of a valid smtp server.</td>
-		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpServer runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>SMTP User Name:</b><br>If you need to be authorized to send email.</td>
-		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpUserName runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>SMTP Password:</b><br>If you need to be authorized to send email.</td>
-		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpUserPass runat="server"/></td>
-	</tr>
-	<tr>
-		<td class="header2" colspan="2">Avatar Settings</td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Allow remote avatars:</b><br/>Can users use avatars from other websites.</td>
-		<td class="post"><asp:checkbox runat="server" id="AvatarRemote"/></td>
-	</tr>
-	<tr>
-		<td class="postheader"><b>Allow avatar uploading:</b><br/>Can users upload avatars to their profile.</td>
-		<td class="post"><asp:checkbox runat="server" id="AvatarUpload"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Avatar Width:</b><br/>Maximum width for avatars.</td>
-		<td class=post><asp:textbox id="AvatarWidth" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Avatar Height:</b><br/>Maximum height for avatars.</td>
-		<td class=post><asp:textbox id="AvatarHeight" runat="server"/></td>
-	</tr>
-	<tr>
-		<td class=postheader><b>Avatar Size:</b><br/>Maximum size for avatars in bytes.</td>
-		<td class=post><asp:textbox id="AvatarSize" runat="server"/></td>
-	</tr>
-	<!--tr>
+<%@ Control language="c#" Codebehind="hostsettings.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.hostsettings" %>
+<yaf:PageLinks runat="server" id="PageLinks" />
+<yaf:adminmenu runat="server" id="Adminmenu1">
+	<TABLE class="content" cellSpacing="1" cellPadding="0" align="center">
+		<TR>
+			<TD class="header1" colSpan="2">Forum Settings</TD>
+		</TR>
+		<TR>
+			<TD class="header2" colSpan="2">Forum Setup</TD>
+		</TR>
+		<TR>
+			<TD class="postheader" width="50%"><B>MS SQL Server Version:</B><BR>
+				What version of MS SQL Server is running.</TD>
+			<TD class="post" width="50%">
+				<asp:label id="SQLVersion" runat="server" cssclass="smallfont"></asp:label></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Time Zone:</B><BR>
+				The time zone of the web server.</TD>
+			<TD class="post">
+				<asp:dropdownlist id="TimeZones" runat="server" DataValueField="Value" DataTextField="Name"></asp:dropdownlist></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Forum Email:</B><BR>
+				The from address when sending emails to users.</TD>
+			<TD class="post">
+				<asp:TextBox id="ForumEmailEdit" runat="server" Width="300"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Require Email Verification:</B><BR>
+				If unchecked users will not need to verify their email address.</TD>
+			<TD class="post">
+				<asp:checkbox id="EmailVerification" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Show Moved Topics:</B><BR>
+				If this is checked, topics that are moved will leave behind a pointer to the 
+				new topic.</TD>
+			<TD class="post">
+				<asp:checkbox id="ShowMoved" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Links in New Window:</B><BR>
+				If this is checked, links in messages will open in a new window.</TD>
+			<TD class="post">
+				<asp:checkbox id="BlankLinks" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Show Groups:</B><BR>
+				Should the groups a user is part of be visible on the posts page.</TD>
+			<TD class="post">
+				<asp:checkbox id="ShowGroupsX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow Rich Edit:</B><BR>
+				If this is checked your users will be able to use a rich edit control when 
+				posting messages.</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowRichEditX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow User Theme:</B><BR>
+				Should users be able to choose what theme they want to use?</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowUserThemeX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow User Language:</B><BR>
+				Should users be able to choose what language they want to use?</TD>
+			<TD class="post">
+				<asp:checkbox id="AllowUserLanguageX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Use File Table:</B><BR>
+				Uploaded files will be saved in the database instead of the file system.</TD>
+			<TD class="post">
+				<asp:checkbox id="UseFileTableX" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Max File Size:</B><BR>
+				Maximum size of uploaded files. Leave empty for no limit.</TD>
+			<TD class="post">
+				<asp:TextBox id="MaxFileSize" runat="server"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="header2" colSpan="2">SMTP Server Settings</TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>SMTP Server:</B><BR>
+				To be able to send posts you need to enter the name of a valid smtp server.</TD>
+			<TD class="post">
+				<asp:TextBox id="ForumSmtpServer" runat="server" Width="300"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>SMTP User Name:</B><BR>
+				If you need to be authorized to send email.</TD>
+			<TD class="post">
+				<asp:TextBox id="ForumSmtpUserName" runat="server" Width="300"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>SMTP Password:</B><BR>
+				If you need to be authorized to send email.</TD>
+			<TD class="post">
+				<asp:TextBox id="ForumSmtpUserPass" runat="server" Width="300"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="header2" colSpan="2">Avatar Settings</TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow remote avatars:</B><BR>
+				Can users use avatars from other websites.</TD>
+			<TD class="post">
+				<asp:checkbox id="AvatarRemote" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Allow avatar uploading:</B><BR>
+				Can users upload avatars to their profile.</TD>
+			<TD class="post">
+				<asp:checkbox id="AvatarUpload" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Avatar Width:</B><BR>
+				Maximum width for avatars.</TD>
+			<TD class="post">
+				<asp:textbox id="AvatarWidth" runat="server"></asp:textbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Avatar Height:</B><BR>
+				Maximum height for avatars.</TD>
+			<TD class="post">
+				<asp:textbox id="AvatarHeight" runat="server"></asp:textbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Avatar Size:</B><BR>
+				Maximum size for avatars in bytes.</TD>
+			<TD class="post">
+				<asp:textbox id="AvatarSize" runat="server"></asp:textbox></TD>
+		</TR> <!--tr>
 		<td class="header2" colspan="2">Forum Moderator Access</td>
 	</tr>
 	<tr>
@@ -113,13 +151,10 @@
 		<td class="postheader"><b>...</b><br/>...</td>
 		<td class="post">...</td>
 	</tr-->
-
-	<tr>
-		<td class=postfooter colspan=2 align=middle>
-			<asp:Button id=Save runat="server" Text="Save"/></td>
-	</tr>
-</table>
-
+		<TR>
+			<TD class="postfooter" align="center" colSpan="2">
+				<asp:Button id="Save" runat="server" Text="Save"></asp:Button></TD>
+		</TR>
+	</TABLE>
 </yaf:adminmenu>
-
-<yaf:savescrollpos runat="server"/>
+<yaf:savescrollpos runat="server" id="Savescrollpos1" />

@@ -108,7 +108,7 @@ namespace yaf
 		/// </summary>
 		/// <returns>Returns SqlConnection</returns>
 		public static SqlConnection GetConnection() 
-		{
+		{			
 			SqlConnection conn = new SqlConnection(Config.ConfigSection["connstr"]);
 			conn.Open();
 			return conn;
@@ -608,17 +608,14 @@ namespace yaf
 		/// <param name="attachmentID">ID of attachment to delete</param>
 		static public void attachment_delete(object attachmentID) 
 		{
-			//Delete Attachments from Hard Drive
-			bool useFileTable = false;
-			using(DataTable dt=DB.system_list()) 
-			{
-				foreach(DataRow row in dt.Rows) 
-				{
-					useFileTable = (bool)row["UseFileTable"];
-				}
-			}
+			bool UseFileTable = false;
+
+			using(DataTable dt = DB.registry_list("UseFileTable"))
+				foreach(DataRow dr in dt.Rows)
+					UseFileTable = Convert.ToBoolean(Convert.ToInt32(dr["Value"]));
+
 			//If the files are actually saved in the Hard Drive
-			if(!useFileTable) 
+			if(!UseFileTable) 
 			{
 				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
 				{
@@ -1232,6 +1229,12 @@ namespace yaf
 		//BAI ADDED 30.01.2004
 		static private void message_deleteRecursively(object messageID)
 		{
+			bool UseFileTable = false;
+
+			using(DataTable dt = DB.registry_list("UseFileTable"))
+				foreach(DataRow dr in dt.Rows)
+					UseFileTable = Convert.ToBoolean(Convert.ToInt32(dr["Value"]));
+
 			//Delete replies
 			using(SqlCommand cmd = new SqlCommand("yaf_message_getReplies")) 
 			{
@@ -1243,17 +1246,8 @@ namespace yaf
 			}
 
 			//ABOT CHANGED 16.01.04: Delete files from hard disk
-			//Delete Attachments from Hard Drive
-			bool useFileTable = false;
-			using(DataTable dt=DB.system_list()) 
-			{
-				foreach(DataRow row in dt.Rows) 
-				{
-					useFileTable = (bool)row["UseFileTable"];
-				}
-			}
 			//If the files are actually saved in the Hard Drive
-			if(!useFileTable) 
+			if(!UseFileTable) 
 			{
 				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
 				{
@@ -1636,46 +1630,51 @@ namespace yaf
 		}
 		#endregion
 
-		#region yaf_System
-		static public void system_save(object TimeZone,object SmtpServer,object SmtpUserName,
-			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
-			object BlankLinks,object showGroups,
-			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize,
-			object allowRichEdit,object allowUserTheme,object allowUserLanguage,
-			object useFileTable,object maxFileSize) 
+		#region yaf_Registry
+		/// <summary>
+		/// Retrieves entries in the board settings registry
+		/// </summary>
+		/// <param name="Name">Use to specify return of specific entry only. Setting this to null returns all entries.</param>
+		/// <returns>DataTable filled will registry entries</returns>
+		static public DataTable registry_list(object Name)
 		{
-			if(avatarSize!=null && avatarSize.ToString().Length==0)
-				avatarSize = null;
-			if(SmtpUserName!=null && SmtpUserName.ToString().Length==0)
-				SmtpUserName = null;
-			if(SmtpUserPass!=null && SmtpUserPass.ToString().Length==0)
-				SmtpUserPass = null;
-
-			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_registry_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TimeZone",TimeZone);
-				cmd.Parameters.Add("@SmtpServer",SmtpServer);
-				cmd.Parameters.Add("@SmtpUserName",SmtpUserName);
-				cmd.Parameters.Add("@SmtpUserPass",SmtpUserPass);
-				cmd.Parameters.Add("@ForumEmail",ForumEmail);
-				cmd.Parameters.Add("@EmailVerification",EmailVerification);
-				cmd.Parameters.Add("@ShowMoved",ShowMoved);
-				cmd.Parameters.Add("@BlankLinks",BlankLinks);
-				cmd.Parameters.Add("@ShowGroups",showGroups);
-				cmd.Parameters.Add("@AvatarWidth",AvatarWidth);
-				cmd.Parameters.Add("@AvatarHeight",AvatarHeight);
-				cmd.Parameters.Add("@AvatarUpload",avatarUpload);
-				cmd.Parameters.Add("@AvatarRemote",avatarRemote);
-				cmd.Parameters.Add("@AvatarSize",avatarSize);
-				cmd.Parameters.Add("@AllowRichEdit",allowRichEdit);
-				cmd.Parameters.Add("@AllowUserTheme",allowUserTheme);
-				cmd.Parameters.Add("@AllowUserLanguage",allowUserLanguage);
-				cmd.Parameters.Add("@UseFileTable",useFileTable);
-				cmd.Parameters.Add("@MaxFileSize",maxFileSize);
+				cmd.Parameters.Add("@Name",Name);
+				return GetData(cmd);
+			}
+		}
+		/// <summary>
+		/// Retrieves all the entries in the board settings registry
+		/// </summary>
+		/// <returns>DataTable filled will all registry entries</returns>
+		static public DataTable registry_list()
+		{
+			return registry_list(null);
+		}
+		/// <summary>
+		/// Saves a single registry entry pair to the database.
+		/// </summary>
+		/// <param name="Name">Unique name associated with this entry</param>
+		/// <param name="Value">Value associated with this entry which can be null</param>
+		static public void registry_save(object Name,object Value)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_registry_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Name",Name);
+				cmd.Parameters.Add("@Value",Value);
 				ExecuteNonQuery(cmd);
 			}
 		}
+		#endregion
+
+		#region yaf_System
+		/// <summary>
+		/// Not in use anymore. Only required for old database versions.
+		/// </summary>
+		/// <returns></returns>
 		static public DataTable system_list() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_system_list")) 

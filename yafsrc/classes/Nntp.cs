@@ -482,8 +482,8 @@ namespace yaf.classes
 		{
 			int			nUserID			= DB.user_guest();	// Use guests user-id
 			string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
-			DataTable	dtSystem		= DB.system_list();
-			TimeSpan	tsLocal			= new TimeSpan(0,(int)dtSystem.Rows[0]["TimeZone"],0);
+			DataTable	dtSystem		= DB.registry_list("TimeZone");
+			TimeSpan	tsLocal			= new TimeSpan(0,Convert.ToInt32(dtSystem.Rows[0]["Value"]),0);
 			DateTime	dtStart			= DateTime.Now;
 			int			nArticleCount	= 0;
 

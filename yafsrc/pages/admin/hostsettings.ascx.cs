@@ -42,6 +42,8 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
 		protected TextBox AvatarSize, MaxFileSize;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -59,33 +61,32 @@ namespace yaf.pages.admin {
 			}
 		}
 
-		private void BindData() {
-			DataRow row;
+		private void BindData()
+		{
 			TimeZones.DataSource = Data.TimeZones();
-			using(DataTable dt = DB.system_list())
-				row = dt.Rows[0];
-
 			DataBind();
-			SQLVersion.Text = (string)row["SQLVersion"];
-			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
-			ForumSmtpServer.Text = (string)row["SmtpServer"];
-			ForumSmtpUserName.Text = row["SmtpUserName"].ToString();
-			ForumSmtpUserPass.Text = row["SmtpUserPass"].ToString();
-			ForumEmailEdit.Text = (string)row["ForumEmail"];
-			EmailVerification.Checked = (bool)row["EmailVerification"];
-			ShowMoved.Checked = (bool)row["ShowMoved"];
-			BlankLinks.Checked = (bool)row["BlankLinks"];
-			ShowGroupsX.Checked = (bool)row["ShowGroups"];
-			AvatarWidth.Text = row["AvatarWidth"].ToString();
-			AvatarHeight.Text = row["AvatarHeight"].ToString();
-			AvatarUpload.Checked = (bool)row["AvatarUpload"];
-			AvatarRemote.Checked = (bool)row["AvatarRemote"];
-			AvatarSize.Text = row["AvatarSize"].ToString();
-			AllowRichEditX.Checked = (bool)row["AllowRichEdit"];
-			AllowUserThemeX.Checked = (bool)row["AllowUserTheme"];
-			AllowUserLanguageX.Checked = (bool)row["AllowUserLanguage"];
-			UseFileTableX.Checked = (bool)row["UseFileTable"];
-			MaxFileSize.Text = row["MaxFileSize"].ToString();
+
+			// grab all the settings form the current board settings class
+			SQLVersion.Text = BoardSettings.SQLVersion;
+			TimeZones.Items.FindByValue(BoardSettings.TimeZoneRaw.ToString()).Selected = true;
+			ForumSmtpServer.Text = BoardSettings.SmtpServer;
+			ForumSmtpUserName.Text = BoardSettings.SmtpUserName;
+			ForumSmtpUserPass.Text = BoardSettings.SmtpUserPass;
+			ForumEmailEdit.Text = BoardSettings.ForumEmail;
+			EmailVerification.Checked = BoardSettings.EmailVerification;
+			ShowMoved.Checked = BoardSettings.ShowMoved;
+			BlankLinks.Checked = BoardSettings.BlankLinks;
+			ShowGroupsX.Checked = BoardSettings.ShowGroups;
+			AvatarWidth.Text = BoardSettings.AvatarWidth.ToString();
+			AvatarHeight.Text = BoardSettings.AvatarHeight.ToString();
+			AvatarUpload.Checked = BoardSettings.AvatarUpload;
+			AvatarRemote.Checked = BoardSettings.AvatarRemote;
+			AvatarSize.Text = (BoardSettings.AvatarSize != 0) ? BoardSettings.AvatarSize.ToString() : "";
+			AllowRichEditX.Checked = BoardSettings.AllowRichEdit;
+			AllowUserThemeX.Checked = BoardSettings.AllowUserTheme;
+			AllowUserLanguageX.Checked = BoardSettings.AllowUserLanguage;
+			UseFileTableX.Checked = BoardSettings.UseFileTable;
+			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
 		}
 
 		#region Web Form Designer generated code
@@ -110,36 +111,41 @@ namespace yaf.pages.admin {
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e) {
+		private void Save_Click(object sender, System.EventArgs e)
+		{
 			string sUserName = ForumSmtpUserName.Text.Trim();
-			if(sUserName.Length==0)
-				sUserName = null;
 			string sUserPass = ForumSmtpUserPass.Text.Trim();
-			if(sUserPass.Length==0)
-				sUserPass = null;
 
-			DB.system_save(
-				TimeZones.SelectedItem.Value,
-				ForumSmtpServer.Text,
-				sUserName,
-				sUserPass,
-				ForumEmailEdit.Text,
-				EmailVerification.Checked,
-				ShowMoved.Checked,
-				BlankLinks.Checked,
-				ShowGroupsX.Checked,
-				AvatarWidth.Text,
-				AvatarHeight.Text,
-				AvatarUpload.Checked,
-				AvatarRemote.Checked,
-				AvatarSize.Text,
-				AllowRichEditX.Checked,
-				AllowUserThemeX.Checked,
-				AllowUserLanguageX.Checked,
-				UseFileTableX.Checked,
-				MaxFileSize.Text.Trim().Length>0 ? MaxFileSize.Text : null);
+			if (sUserName.Length == 0) sUserName = null;			
+			if (sUserPass.Length == 0) sUserPass = null;
 
-			BoardSettings = null;	// Reload forum settings
+			// write all the settings back to the settings class
+			BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
+			BoardSettings.SmtpServer = ForumSmtpServer.Text;
+			BoardSettings.SmtpUserName = sUserName;
+			BoardSettings.SmtpUserPass = sUserPass;
+			BoardSettings.ForumEmail = ForumEmailEdit.Text;
+			BoardSettings.EmailVerification = EmailVerification.Checked;
+			BoardSettings.ShowMoved = ShowMoved.Checked;
+			BoardSettings.BlankLinks = BlankLinks.Checked;
+			BoardSettings.ShowGroups = ShowGroupsX.Checked;
+			BoardSettings.AvatarWidth = Convert.ToInt32(AvatarWidth.Text);
+			BoardSettings.AvatarHeight = Convert.ToInt32(AvatarHeight.Text);
+			BoardSettings.AvatarUpload = AvatarUpload.Checked;
+			BoardSettings.AvatarRemote = AvatarRemote.Checked;
+			BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32(AvatarSize.Text) : 0;
+			BoardSettings.AllowRichEdit = AllowRichEditX.Checked;
+			BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
+			BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
+			BoardSettings.UseFileTable = UseFileTableX.Checked;
+			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
+
+			// save the settings to the database
+			BoardSettings.SaveRegistry();
+
+			// reload all settings from the DB
+			BoardSettings = null;
+
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

@@ -143,28 +143,16 @@ namespace yaf.pages
 				return;
 
 			string sUpDir = Request.MapPath(Config.ConfigSection["uploaddir"]);
-
 			string filename = file.PostedFile.FileName;
+
 			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});
-			if(pos>=0)
-				filename = filename.Substring(pos+1);
+			if (pos >= 0) filename = filename.Substring(pos+1);
 
-			bool useFileTable = false;
-			int maxFileSize = -1;
-			using(DataTable dt=DB.system_list()) 
-			{
-				foreach(DataRow row in dt.Rows) 
-				{
-					useFileTable = (bool)row["UseFileTable"];
-					if(!row.IsNull("MaxFileSize"))
-						maxFileSize = (int)row["MaxFileSize"];
-				}
-			}
-
-			if(maxFileSize>=0 && file.PostedFile.ContentLength>maxFileSize) 
+			// verify the size of the attachment
+			if (BoardSettings.MaxFileSize > 0 && file.PostedFile.ContentLength > BoardSettings.MaxFileSize) 
 				throw new Exception(GetText("ERROR_TOOBIG"));
 
-			if(useFileTable) 
+			if (BoardSettings.UseFileTable) 
 			{
 				DB.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,file.PostedFile.InputStream);
 			} 
