@@ -56,7 +56,14 @@ namespace yaf
 			{
 				try
 				{
-					return Config.ConfigSection["root"];
+					///return Config.ConfigSection["root"];
+					string path = HttpContext.Current.Request.ApplicationPath;
+					if(!path.EndsWith("/")) path += "/";
+
+					if(Config.IsDotNetNuke || Config.IsRainbow)
+						path += "DesktopModules/YetAnotherForumDotNet/";
+
+					return path;
 				}
 				catch(Exception)
 				{

@@ -106,7 +106,7 @@ namespace yaf
 		private void Forum_Load(object sender,EventArgs e) 
 		{
 			Pages page;
-			string m_baseDir = Config.ConfigSection["root"];
+			string m_baseDir = Data.ForumRoot;
 
 			try
 			{

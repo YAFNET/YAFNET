@@ -10,7 +10,6 @@
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
 - Admin can change user password
 - Language strings: tooltips for buttons (reply, quote, ...)
-- Censoring: <http://forum.yetanotherforum.net/posts.aspx?t=339>
 - Limit sigs to 5 lines or something...
 - Link correctly back to forum from install.
 - Anonymous login

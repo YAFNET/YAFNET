@@ -156,7 +156,7 @@ namespace yaf.pages
 			catch(Exception) 
 			{
 				// If the above fails chances are that this is a new install
-				Response.Redirect(Config.ConfigSection["root"] + "install/");
+				Response.Redirect(Data.ForumRoot + "install/");
 			}
 
 			// Find user name
