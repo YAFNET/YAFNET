@@ -79,7 +79,7 @@
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Show RSS Links:</B><BR>
-				Enable or disable display of RSS links throught the forum.</TD>
+				Enable or disable display of RSS links throughout the forum.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowRSSLinkX" runat="server"></asp:checkbox></TD>
 		</TR>		
