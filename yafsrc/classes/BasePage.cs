@@ -42,6 +42,7 @@ namespace yaf
 		private string		m_strRefreshURL		= null;
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
+		private bool		m_bCheckSuspended	= true;
 		private string		m_strThemeDir		= System.Configuration.ConfigurationSettings.AppSettings["themedir"];
 		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
 		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
@@ -162,6 +163,16 @@ namespace yaf
 				} 
 				else
 					throw new Exception("Couldn't find user.");
+			}
+
+			if(CheckSuspended && IsSuspended) 
+			{
+				if(SuspendedTo < DateTime.Now) 
+				{
+					DB.user_suspend(PageUserID,null);
+					Response.Redirect(Request.RawUrl);
+				}
+				Response.Redirect(String.Format("{0}info.aspx?i=2",BaseDir));
 			}
 
 			m_strForumName = (string)m_pageinfo["BBName"];
@@ -672,6 +683,40 @@ namespace yaf
 			}
 		}
 
+		public bool IsSuspended 
+		{
+			get 
+			{
+				if(m_pageinfo==null)
+					return false;
+				else
+					return !m_pageinfo.IsNull("Suspended");
+			}
+		}
+
+		public DateTime SuspendedTo 
+		{
+			get 
+			{
+				if(m_pageinfo==null || m_pageinfo.IsNull("Suspended"))
+					return DateTime.Now;
+				else
+					return DateTime.Parse(m_pageinfo["Suspended"].ToString());
+			}
+		}
+
+		public bool CheckSuspended 
+		{
+			set 
+			{
+				m_bCheckSuspended = value;
+			}
+			get 
+			{
+				return m_bCheckSuspended;
+			}
+		}
+
 		#region User access functions
 		/// <summary>
 		/// The UserID of the current user.
@@ -1069,14 +1114,14 @@ namespace yaf
 		{
 			get 
 			{
-				return 8;
+				return 9;
 			}
 		}
 		static public string AppVersionName 
 		{
 			get 
 			{
-				return "0.9.2";
+				return "0.9.3";
 			}
 		}
 		static public DateTime AppVersionDate 

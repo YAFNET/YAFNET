@@ -44,15 +44,42 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label UserName;
 		protected Repeater Groups, LastPosts;
 		protected Label Rank;
+		protected PlaceHolder ModeratorInfo;
+		protected HtmlTableRow SuspendedRow;
+		protected DropDownList SuspendUnit;
+		protected TextBox SuspendCount;
+		protected Button RemoveSuspension, Suspend;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["u"] == null)
 				Response.Redirect(BaseDir);
 
-			using(DataTable dt = DB.user_list(Request.QueryString["u"],true)) {
+			if(!IsPostBack) 
+			{
+				HomeLink.Text = ForumName;
+				HomeLink.NavigateUrl = BaseDir;
+				MembersLink.NavigateUrl = "members.aspx";
+				MembersLink.Text = GetText("members");
+				ThisLink.NavigateUrl = Request.RawUrl;
+			
+				SuspendUnit.Items.Add(new ListItem(GetText("DAYS"),"1"));
+				SuspendUnit.Items.Add(new ListItem(GetText("HOURS"),"2"));
+				SuspendUnit.Items.Add(new ListItem(GetText("MINUTES"),"3"));
+				SuspendUnit.Items.FindByValue("2").Selected = true;
+				SuspendCount.Text = "2";
+
+				BindData();
+			}
+		}
+
+		private void BindData() 
+		{
+			using(DataTable dt = DB.user_list(Request.QueryString["u"],true)) 
+			{
 				DataRow user = dt.Rows[0];
 
+				ThisLink.Text = (string)user["Name"];
 				UserName.Text = (string)user["Name"];
 				Name.Text = (string)user["Name"];
 				Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
@@ -60,28 +87,57 @@ namespace yaf
 				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
 				NumPosts.Text = user["NumPosts"].ToString();
 				Rank.Text = user["RankName"].ToString();
-			}
-
-			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				MembersLink.NavigateUrl = "members.aspx";
-				MembersLink.Text = GetText("members");
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = PageUserName;
-
 
 				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 
-				if(IsAdmin) 
-				{
-					EmailRow.Visible = true;
-				}
+				EmailRow.Visible = IsAdmin;
+				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
+				SuspendedRow.Visible = !user.IsNull("Suspended");
+				if(!user.IsNull("Suspended"))
+					ViewState["SuspendedTo"] = FormatDateTime(user["Suspended"]);
 
-				LastPosts.DataSource = DB.post_last10user(Request.QueryString["u"],PageUserID);
-				
-				DataBind();
+				RemoveSuspension.Text = GetText("REMOVESUSPENSION");
+				Suspend.Text = GetText("SUSPEND");
 			}
+
+			LastPosts.DataSource = DB.post_last10user(Request.QueryString["u"],PageUserID);
+			
+			DataBind();
+		}
+
+		private void Suspend_Click(object sender, System.EventArgs e) 
+		{
+			DateTime suspend = DateTime.Now;
+			int count = int.Parse(SuspendCount.Text);
+			switch(SuspendUnit.SelectedValue) 
+			{
+				case "1":
+					suspend += new TimeSpan(count,0,0,0);
+					break;
+				case "2":
+					suspend += new TimeSpan(0,count,0,0);
+					break;
+				case "3":
+					suspend += new TimeSpan(0,0,count,0);
+					break;
+			}
+
+			DB.user_suspend(Request.QueryString["u"],suspend);
+			BindData();
+		}
+
+		private void RemoveSuspension_Click(object sender, System.EventArgs e) 
+		{
+			DB.user_suspend(Request.QueryString["u"],null);
+			BindData();
+		}
+
+		protected string GetSuspendedTo() 
+		{
+			if(ViewState["SuspendedTo"]!=null)
+				return (string)ViewState["SuspendedTo"];
+			else
+				return "";
 		}
 
 		protected string FormatBody(object o) 
@@ -111,6 +167,8 @@ namespace yaf
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			RemoveSuspension.Click += new EventHandler(RemoveSuspension_Click);
+			Suspend.Click += new EventHandler(Suspend_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

@@ -19,6 +19,11 @@ namespace yaf
 		protected Label Info;
 		protected HyperLink Continue;
 
+		public info() 
+		{
+			CheckSuspended = false;
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
@@ -26,12 +31,18 @@ namespace yaf
 			{
 				Continue.NavigateUrl = Request.QueryString["url"];
 				Continue.Text = GetText("continue");
-				RefreshURL = Request.QueryString["url"];
+				if(Request.QueryString["url"]!=null)
+					RefreshURL = Request.QueryString["url"];
+				else
+					Continue.Visible = false;
 
 				switch(int.Parse(Request.QueryString["i"])) 
 				{
 					case 1:
 						Info.Text = GetText("moderated");
+						break;
+					case 2:
+						Info.Text = String.Format(GetText("suspended"),FormatDateTime(SuspendedTo));
 						break;
 				}
 			}

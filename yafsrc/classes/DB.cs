@@ -1034,6 +1034,16 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void user_suspend(object userID,object suspend) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_suspend")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@Suspend",suspend);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		static public bool user_changepassword(object UserID,object oldpw,object newpw) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_changepassword")) 

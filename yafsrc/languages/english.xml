@@ -240,6 +240,7 @@
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">Continue...</Resource>
 		<Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
+		<Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
 	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
@@ -348,6 +349,13 @@
 		<Resource tag="LAST10">Last 10 Posts</Resource>
 		<Resource tag="TOPIC">Topic:</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
+		<Resource tag="ENDS">User suspension ends:</Resource>
+		<Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
+		<Resource tag="SUSPEND">Suspend</Resource>
+		<Resource tag="DAYS">days</Resource>
+		<Resource tag="HOURS">hours</Resource>
+		<Resource tag="MINUTES">minutes</Resource>
+		<Resource tag=""></Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->

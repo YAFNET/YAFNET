@@ -1,4 +1,4 @@
--- Stored Procedures
+/* Version 0.9.1 */
 
 if exists (select * from sysobjects where id = object_id(N'yaf_group_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_delete

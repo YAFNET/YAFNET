@@ -9,7 +9,6 @@
   Messages + an option in the Profile to disable it.
 - option to mark topic or forum as read.
 - tooltips for "last post" icon, and user profile links (Goto last post, View profile).
-- inserting smilies: http://forum.yetanotherforum.net/posts.aspx?t=155
 - allow admin to pm all members. admin function to delete old pm's
 - visual clues on rich edit buttons.
 - somehow show that there are messages to be moderated.

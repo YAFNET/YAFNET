@@ -54,6 +54,25 @@
 		<td class=post><asp:label id=NumPosts runat="server"/></td>
 	</tr>
 
+	<asp:placeholder runat="server" id="ModeratorInfo" visible="false">
+	<tr>
+		<td class="header2" colspan=2><%= GetText("admin") %></td>
+	</tr>
+	<tr runat="server" id="SuspendedRow">
+		<td class=postheader><%= GetText("ENDS") %></td>
+		<td class=post>
+			<%= GetSuspendedTo() %>&nbsp;<asp:button runat="server" id="RemoveSuspension"/>
+		</td>	
+	</tr>
+	<tr>
+		<td class=postheader>Suspend User:</td>
+		<td class=post>
+			<asp:textbox runat="server" id="SuspendCount" style="width:60px"/>&nbsp;<asp:dropdownlist runat="server" id="SuspendUnit"/>&nbsp;<asp:button runat="server" id="Suspend"/>
+		</td>	
+	</tr>
+	</asp:placeholder>
+
+
 	<asp:repeater id="LastPosts" runat="server">
 	<HeaderTemplate>
 		<tr>
