@@ -56,6 +56,9 @@ function makeunderline() {
 function makequote() {
 	myWrap('[quote]','[/quote]');
 }
+function makecode() {
+	myWrap('[code]','[/code]');
+}
 function makeurl() {
 	var url = prompt('Enter URL:','http://');
 	if(url!='' && url!=null)

@@ -41,6 +41,7 @@ namespace yaf
 				dtSmileys = DB.smiley_list(null);
 
 			string tmp = "";
+			bool bInCode = false;
 			for(int i=0;i<Message.Length;i++) 
 			{
 				if(Message[i]=='[') 
@@ -68,67 +69,82 @@ namespace yaf
 						}
 
 						cmd = cmd.ToLower();
-						switch(cmd) 
+						if(!bInCode || cmd=="/code") 
 						{
-							case "b":
-								tmp += "<b>";
-								break;
-							case "/b":
-								tmp += "</b>";
-								break;
-							case "i":
-								tmp += "<em>";
-								break;
-							case "/i":
-								tmp += "</em>";
-								break;
-							case "u":
-								tmp += "<u>";
-								break;
-							case "/u":
-								tmp += "</u>";
-								break;
-							case "url":
-								if(arg!=null) 
-								{
-									if(basePage.UseBlankLinks)
-										tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
+							switch(cmd) 
+							{
+								case "b":
+									tmp += "<b>";
+									break;
+								case "/b":
+									tmp += "</b>";
+									break;
+								case "i":
+									tmp += "<em>";
+									break;
+								case "/i":
+									tmp += "</em>";
+									break;
+								case "u":
+									tmp += "<u>";
+									break;
+								case "/u":
+									tmp += "</u>";
+									break;
+								case "url":
+									if(arg!=null) 
+									{
+										if(basePage.UseBlankLinks)
+											tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
+										else
+											tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
+									}
 									else
-										tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
-								}
-								else
-									tmp += "<a>";
-								break;
-							case "/url":
-								tmp += "</a>";
-								break;
-							case "img":
-								tmp += "<img src=\"";
-								break;
-							case "/img":
-								tmp += "\"/>";
-								break;
-							case "quote":
-								if(arg!=null)
-									tmp += String.Format("<div class=quote>{0} wrote:<div class=\"quoteinner\">",arg);
-								else
-									tmp += "<div class=quote><div class=\"quoteinner\">";
-								break;
-							case "/quote":
-								tmp += "</div></div>";
-								break;
-							case "color":
-								if(arg!=null)
-									tmp += String.Format("<span style=\"color:{0}\">",arg);
-								else
-									tmp += "<span>";
-								break;
-							case "/color":
-								tmp += "</span>";
-								break;
-							default:
-								bNone = true;
-								break;
+										tmp += "<a>";
+									break;
+								case "/url":
+									tmp += "</a>";
+									break;
+								case "img":
+									tmp += "<img src=\"";
+									break;
+								case "/img":
+									tmp += "\"/>";
+									break;
+								case "quote":
+									if(arg!=null)
+										tmp += String.Format("<div class=quote>{0} wrote:<div class=\"quoteinner\">",arg);
+									else
+										tmp += "<div class=quote><div class=\"quoteinner\">";
+									break;
+								case "/quote":
+									tmp += "</div></div>";
+									break;
+								case "color":
+									if(arg!=null)
+										tmp += String.Format("<span style=\"color:{0}\">",arg);
+									else
+										tmp += "<span>";
+									break;
+								case "/color":
+									tmp += "</span>";
+									break;
+								case "code":
+									tmp += "<pre>";
+									bInCode = true;
+									break;
+								case "/code":
+									tmp += "</pre>";
+									bInCode = false;
+									break;
+								default:
+									bNone = true;
+									break;
+							}
+						}
+						else 
+						{
+							bNone = true;
 						}
 						if(!bNone) 
 						{

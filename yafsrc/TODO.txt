@@ -10,7 +10,6 @@
 - exact os name and browser version, Win2003 shows as WinNT. maybe show 
   service pack and runtime version.
 - option to mark topic or forum as read.
-- show unread pm link (with number of unread).
 - tooltips for "last post" icon, and user profile links (Goto last post, View profile).
 - rich text component (http://www.revjon.com/ftb/).
 - [code] tag where contents are displayed as-is.

@@ -93,6 +93,7 @@
 			<input type=button value=" URL " onclick="makeurl()">
 			<input type=button value=" QUOTE " onclick="makequote()">
 			<input type=button value=" IMG " onclick="makeimg()">
+			<input type=button value=" CODE " onclick="makecode()">
 		</td>
 	</tr>
 	<tr id=UploadRow1 runat="server">
