@@ -49,7 +49,7 @@
 	<td colspan="3">
 		<table class="header1" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td><asp:label id=TopicTitle runat="server"/></td>
+			<td class="header1"><asp:label id=TopicTitle runat="server"/></td>
 			<td align="right" runat="server" id="ThreadViewCell">
 				<asp:linkbutton runat="server" id="NormalView"/>
 				&middot;
@@ -63,12 +63,12 @@
 	<td colspan='3'>
 		<table cellspacing='0' cellpadding='0' width='100%'>
 		<tr>
-			<td align=left>
+			<td class='header2' align=left>
 				<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton>
 				&middot;
 				<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
 			</td>
-			<td align=right>
+			<td class='header2' align=right>
 				<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
 				&middot;
 				<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
