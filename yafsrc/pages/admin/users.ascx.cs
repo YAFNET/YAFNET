@@ -90,6 +90,11 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
+					if(PageUserID==int.Parse(e.CommandArgument.ToString()))
+					{
+						AddLoadMessage("You can't delete yourself.");
+						return;
+					}
 					DB.user_delete(e.CommandArgument);
 					BindData();
 					break;
