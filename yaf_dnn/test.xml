@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE easyhelp[
+	<!ELEMENT easyhelp (windows?,contents?,chmfile?,projectname?,header?,footer?,extras?,external?)>
+	<!ELEMENT windows (window*)>
+	<!ELEMENT contents (item*)>
+	<!ELEMENT chmfile (#PCDATA)>
+	<!ELEMENT projectname (#PCDATA)>
+	<!ELEMENT header (#PCDATA)>
+	<!ELEMENT footer (#PCDATA)>
+	<!ELEMENT extras (item*)>
+	<!ELEMENT external (file*)>
+	<!ELEMENT item (title,filename,html,childs?)>
+	<!ELEMENT file (source)>
+	<!ELEMENT title (#PCDATA)>
+	<!ELEMENT filename (#PCDATA)>
+	<!ELEMENT html (#PCDATA)>
+	<!ELEMENT source (#PCDATA)>
+	<!ELEMENT childs (item*)>
+	<!ELEMENT window (windowname,buttons?,navpane?)>
+	<!ELEMENT windowname (#PCDATA)>
+	<!ELEMENT buttons (#PCDATA)>
+	<!ELEMENT navpane (#PCDATA)>
+]>
+<easyhelp>
+	<windows>
+		<window>
+			<windowname>default</windowname>
+			<buttons>12294</buttons>
+			<navpane>9504</navpane>
+		</window>
+	</windows>
+	<contents>
+		<item>
+			<title>index</title>
+			<filename>index.html</filename>
+			<html>
+			<![CDATA[Heisan!
+]]>
+			</html>
+			<childs>
+				<item>
+					<title>test1</title>
+					<filename>test1.html</filename>
+					<html>
+					<![CDATA[Test1]]>
+					</html>
+				</item>
+			</childs>
+		</item>
+	</contents>
+	<chmfile>c:\temp\test.chm</chmfile>
+	<projectname>Test</projectname>
+	<header><![CDATA[<html>
+<head>
+<title>{title}</title>
+<style>
+body,td{
+	font-family: verdana;
+	font-size: 7.5pt;
+}
+</style>
+</head>
+<body>
+]]></header>
+	<footer><![CDATA[</body>
+</html>
+]]></footer>
+	<extras>
+	</extras>
+	<external>
+	</external>
+</easyhelp>
