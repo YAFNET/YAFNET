@@ -78,7 +78,7 @@ namespace yaf.controls
 			switch(e.CommandName) 
 			{
 				case "forum":
-					if(DB.user_access(ForumPage.PageUserID,e.CommandArgument))
+					if(ForumPage.DataProvider.user_access(ForumPage.PageUserID,e.CommandArgument))
 						Forum.Redirect(Pages.topics,"f={0}",e.CommandArgument);
 
 					ForumPage.AddLoadMessage(ForumPage.GetText("ERROR_NOFORUMACCESS"));

@@ -52,7 +52,7 @@ namespace yaf.pages.admin {
 
 		private void BindData() {
 			DataRow row;
-			using(DataTable dt = DB.board_list(PageBoardID))
+			using(DataTable dt = DataProvider.board_list(PageBoardID))
 				row = dt.Rows[0];
 
 			DataBind();
@@ -83,7 +83,7 @@ namespace yaf.pages.admin {
 		#endregion
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
+			DataProvider.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
 			Config.BoardSettings = null;	/// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);

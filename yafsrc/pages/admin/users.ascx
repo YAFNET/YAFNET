@@ -35,6 +35,11 @@
 </ItemTemplate>
 </asp:repeater>
 
+    <!--- Added BAI 07.01.2003 -->
+    <TR>
+      <TD class="footer1" colSpan="6"><asp:linkbutton id="NewUser" runat="server">New User</asp:linkbutton></TD>
+    </TR>
+    <!--- Added BAI 07.01.2003 -->
 </table>
 
 </yaf:adminmenu>

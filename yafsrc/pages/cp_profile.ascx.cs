@@ -71,11 +71,11 @@ namespace yaf.pages
 		private void BindData() {
 			DataRow row;
 
-			Groups.DataSource = DB.usergroup_list(PageBoardID,PageUserID);
+			Groups.DataSource = DataProvider.usergroup_list(PageBoardID,PageUserID);
 
 			// Bind			
 			DataBind();
-			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) {
+			using(DataTable dt = DataProvider.user_list(PageBoardID,PageUserID,true)) {
 				row = dt.Rows[0];
 			}
 

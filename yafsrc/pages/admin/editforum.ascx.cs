@@ -57,7 +57,7 @@ namespace yaf.pages.admin
 
 				BindData();
 				if(Request.QueryString["f"] != null) {
-					using(DataTable dt = DB.forum_list(PageBoardID,Request.QueryString["f"])) 
+					using(DataTable dt = DataProvider.forum_list(PageBoardID,Request.QueryString["f"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -78,16 +78,16 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			CategoryList.DataSource = DB.category_list(PageBoardID,null);
+			CategoryList.DataSource = DataProvider.category_list(PageBoardID,null);
 			if(Request.QueryString["f"] != null)
-				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
+				AccessList.DataSource = DataProvider.forumaccess_list(Request.QueryString["f"]);
 
-			//ParentList.DataSource = DB.forum_list(PageBoardID,null);
+			//ParentList.DataSource = DataProvider.forum_list(PageBoardID,null);
 			//ParentList.DataValueField = "ForumID";
 			//ParentList.DataTextField = "Name";
 			// Load forum's combo
 			ParentList.Items.Add(new ListItem("",""));
-			DataTable dt = DB.forum_listall(PageBoardID,PageUserID);
+			DataTable dt = DataProvider.forum_listall(PageBoardID,PageUserID);
 
 			int nOldCat = 0;
 			for(int i=0;i<dt.Rows.Count;i++) 
@@ -168,7 +168,7 @@ namespace yaf.pages.admin
 			object parentID = null;
 			if(ParentList.SelectedValue.Length>0)
 				parentID = ParentList.SelectedValue;
-			ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
+			ForumID = DataProvider.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
 
 			// Access
 			if(Request.QueryString["f"] != null) 
@@ -177,7 +177,7 @@ namespace yaf.pages.admin
 				{
 					RepeaterItem item = AccessList.Items[i];
 					int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-					DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+					DataProvider.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 				}
 				Forum.Redirect(Pages.admin_forums);
 			}
@@ -193,7 +193,7 @@ namespace yaf.pages.admin
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = DataProvider.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

@@ -63,7 +63,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			using(DataSet ds = DB.ds_forumadmin(PageBoardID))
+			using(DataSet ds = DataProvider.ds_forumadmin(PageBoardID))
 				CategoryList.DataSource = ds.Tables["yaf_Category"];
 			DataBind();
 		}
@@ -100,7 +100,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editforum,"f={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.forum_delete(e.CommandArgument);
+					DataProvider.forum_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
@@ -119,7 +119,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editcategory,"c={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(DB.category_delete(e.CommandArgument))
+					if(DataProvider.category_delete(e.CommandArgument))
 						BindData();
 					else
 						AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");

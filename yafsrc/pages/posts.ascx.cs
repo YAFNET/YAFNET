@@ -62,15 +62,22 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
 		protected LinkButton NormalView,ThreadView;
 		protected HtmlTableCell ThreadViewCell;
+		private bool m_bDataBound = false;
 
 		public posts() : base("POSTS")
 		{
 		}
 
+		private void posts_PreRender(object sender,EventArgs e)
+		{
+			if(!m_bDataBound)
+				BindData();
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			topic = DB.topic_info(PageTopicID);
-			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
+			topic = DataProvider.topic_info(PageTopicID);
+			using(DataTable dt = DataProvider.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
 			if(!ForumReadAccess)
@@ -152,10 +159,10 @@ namespace yaf.pages
 					UnlockTopic2.Visible = !LockTopic2.Visible;
 				}
 
-				BindData();
 			}
 			/// Mark topic read
 			SetTopicRead(PageTopicID,DateTime.Now);
+			BindData();
 		}
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
@@ -210,7 +217,6 @@ namespace yaf.pages
 			this.LockTopic1.Click += new System.EventHandler(this.LockTopic_Click);
 			this.UnlockTopic1.Click += new System.EventHandler(this.UnlockTopic_Click);
 			this.TrackTopic.Click += new System.EventHandler(this.TrackTopic_Click);
-			this.MessageList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.MessageList_ItemCommand);
 			this.PostReplyLink2.Click += new System.EventHandler(this.PostReplyLink_Click);
 			this.NewTopic2.Click += new System.EventHandler(this.NewTopic_Click);
 			this.DeleteTopic2.Click += new System.EventHandler(this.DeleteTopic_Click);
@@ -223,12 +229,15 @@ namespace yaf.pages
 			this.PrintTopic.Click += new System.EventHandler(this.PrintTopic_Click);
 			this.EmailTopic.Click += new System.EventHandler(this.EmailTopic_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
+			this.PreRender += new EventHandler(posts_PreRender);
 
 		}
 		#endregion
 
 		private void BindData() 
 		{
+			m_bDataBound = true;
+
 			Pager.PageSize = 20;
 			if(topic==null)
 				Forum.Redirect(Pages.topics,"f={0}",PageForumID);
@@ -237,7 +246,7 @@ namespace yaf.pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-			using(DataTable dt0 = DB.post_list(PageTopicID,IsPostBack?0:1)) 
+			using(DataTable dt0 = DataProvider.post_list(PageTopicID,IsPostBack?0:1)) 
 			{
 				DataView dt = dt0.DefaultView;
 				if(IsThreaded)
@@ -258,7 +267,7 @@ namespace yaf.pages
 					else if(Request.QueryString["find"]!=null && Request.QueryString["find"].ToLower()=="unread")
 					{
 						// Find next unread
-						using(DataTable dtUnread = DB.message_findunread(PageTopicID,Mession.LastVisit))
+						using(DataTable dtUnread = DataProvider.message_findunread(PageTopicID,Mession.LastVisit))
 						{
 							foreach(DataRow row in dtUnread.Rows)
 							{
@@ -304,7 +313,7 @@ namespace yaf.pages
 			if(topic["PollID"]!=DBNull.Value) 
 			{
 				Poll.Visible = true;
-				dtPoll = DB.poll_stats(topic["PollID"]);
+				dtPoll = DataProvider.poll_stats(topic["PollID"]);
 				Poll.DataSource = dtPoll;
 			}
 			
@@ -325,13 +334,13 @@ namespace yaf.pages
 			if(!ForumModeratorAccess)
 				Data.AccessDenied(/*"You don't have access to delete topics."*/);
 
-			DB.topic_delete(PageTopicID);
+			DataProvider.topic_delete(PageTopicID);
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 
 		private void LockTopic_Click(object sender, System.EventArgs e)
 		{
-			DB.topic_lock(PageTopicID,true);
+			DataProvider.topic_lock(PageTopicID,true);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_LOCKED"));
 			LockTopic1.Visible = !LockTopic1.Visible;
@@ -342,47 +351,13 @@ namespace yaf.pages
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
 		{
-			DB.topic_lock(PageTopicID,false);
+			DataProvider.topic_lock(PageTopicID,false);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
 			LockTopic1.Visible = !LockTopic1.Visible;
 			UnlockTopic1.Visible = !UnlockTopic1.Visible;
 			LockTopic2.Visible = LockTopic1.Visible;
 			UnlockTopic2.Visible = UnlockTopic1.Visible;
-		}
-
-		private void MessageList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "Delete":
-					if((bool)topic["IsLocked"]) {
-						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
-						return;
-					}
-
-					if((bool)forum["Locked"]) {
-						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
-						return;
-					}
-
-					if(!ForumDeleteAccess)
-						Data.AccessDenied(/*"You don't have access to delete posts in this forum."*/);
-
-					// Check that non-moderators only delete messages they have written
-					if(!ForumModeratorAccess) {
-						using(DataTable dt = DB.message_list(e.CommandArgument)) {
-							if((int)dt.Rows[0]["UserID"] != PageUserID)
-								Data.AccessDenied(/*"You didn't post this message."*/);
-						}
-					}
-
-					DB.message_delete(e.CommandArgument);
-					BindData();
-					AddLoadMessage(GetText("INFO_MESSAGE_DELETED"));
-					break;
-			}
-		
 		}
 
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
@@ -400,7 +375,7 @@ namespace yaf.pages
 					return;
 				}
 
-				DB.choice_vote(e.CommandArgument);
+				DataProvider.choice_vote(e.CommandArgument);
 				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
 				c.Expires = DateTime.Now.AddYears(1);
 				Response.Cookies.Add(c);
@@ -441,7 +416,7 @@ namespace yaf.pages
 				return;
 			}
 
-			DB.watchtopic_add(PageUserID,PageTopicID);
+			DataProvider.watchtopic_add(PageUserID,PageTopicID);
 			AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
 			BindData();
 		}
@@ -454,7 +429,7 @@ namespace yaf.pages
 		}
 
 		private void PrevTopic_Click(object sender, System.EventArgs e) {
-			using(DataTable dt = DB.topic_findprev(PageTopicID)) {
+			using(DataTable dt = DataProvider.topic_findprev(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;
@@ -464,7 +439,7 @@ namespace yaf.pages
 		}
 
 		private void NextTopic_Click(object sender, System.EventArgs e) {
-			using(DataTable dt = DB.topic_findnext(PageTopicID)) {
+			using(DataTable dt = DataProvider.topic_findnext(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;

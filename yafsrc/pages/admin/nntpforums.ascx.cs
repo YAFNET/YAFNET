@@ -80,7 +80,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DB.nntpforum_list(PageBoardID,null,null);
+			RankList.DataSource = DataProvider.nntpforum_list(PageBoardID,null,null);
 			DataBind();
 		}
 

@@ -3,7 +3,7 @@ using System.Web;
 
 namespace yaf_rainbow
 {
-	public class UrlBuilderRainbow : yaf.IUrlBuilder
+	public class RainbowUrlBuilder : yaf.IUrlBuilder
 	{
 		public string BuildUrl(string url)
 		{

@@ -47,7 +47,7 @@ namespace yaf.pages
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
-				UserList.DataSource = DB.active_list(PageBoardID,true);
+				UserList.DataSource = DataProvider.active_list(PageBoardID,true);
 				DataBind();
 			}
 		}

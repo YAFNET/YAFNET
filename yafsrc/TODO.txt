@@ -15,7 +15,6 @@
 - Unicode support: <http://forum.yetanotherforum.net/default.aspx?g=posts&m=1036#1036>
 - Limit sigs to 5 lines or something...
 - Link correctly back to forum from install.
-- Icon for weblog
 - Anonymous login
 - In the list of topics of a forum, can be showed a different image for topics 
   with most activity then other (more than 10 or configurable numbers of posts).
@@ -23,4 +22,8 @@
   an open topic if the user can reply. So if I read a topic and want to reply 
   "on the fly" I can do it immediatly.
 - Fix translation again for richedit.
-- Add user manually
+- Add colors to rich editor.
+- Since I'm using 0.96 I can't no longer jump to the last post when a topic contains multiple pages, everytime I try that I get the first page.
+- Ok this is what i get after i try to add a sub forum.... "User 'pro-logic' isn't registered."
+- Possible to modify subject of messages?!?
+- Disable user registration.

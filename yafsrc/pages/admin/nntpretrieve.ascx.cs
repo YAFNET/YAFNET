@@ -53,7 +53,7 @@ namespace yaf.pages.admin
 
 		private void BindData()
 		{
-			List.DataSource = DB.nntpforum_list(PageBoardID,10,null);
+			List.DataSource = DataProvider.nntpforum_list(PageBoardID,10,null);
 			DataBind();
 		}
 

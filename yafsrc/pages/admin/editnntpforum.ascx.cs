@@ -50,7 +50,7 @@ namespace yaf.pages.admin
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = DB.nntpforum_list(PageBoardID,null,Request.QueryString["s"]))
+					using(DataTable dt = DataProvider.nntpforum_list(PageBoardID,null,Request.QueryString["s"]))
 					{
 						DataRow row = dt.Rows[0];
 						NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
@@ -85,10 +85,10 @@ namespace yaf.pages.admin
 		#endregion
 
 		private void BindData() {
-			NntpServerID.DataSource = DB.nntpserver_list(PageBoardID,null);
+			NntpServerID.DataSource = DataProvider.nntpserver_list(PageBoardID,null);
 			NntpServerID.DataValueField = "NntpServerID";
 			NntpServerID.DataTextField = "Name";
-			ForumID.DataSource = DB.forum_list(PageBoardID,null);
+			ForumID.DataSource = DataProvider.forum_list(PageBoardID,null);
 			ForumID.DataValueField = "ForumID";
 			ForumID.DataTextField = "Name";
 			DataBind();
@@ -103,7 +103,7 @@ namespace yaf.pages.admin
 		{
 			object nntpForumID = null;
 			if(Request.QueryString["s"]!=null) nntpForumID = Request.QueryString["s"];
-			DB.nntpforum_save(nntpForumID,NntpServerID.SelectedValue,GroupName.Text,ForumID.SelectedValue);
+			DataProvider.nntpforum_save(nntpForumID,NntpServerID.SelectedValue,GroupName.Text,ForumID.SelectedValue);
 			Forum.Redirect(Pages.admin_nntpforums);
 		}
 	}

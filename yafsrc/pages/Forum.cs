@@ -67,6 +67,9 @@ namespace yaf
 		admin_editnntpserver,
 		admin_editrank,
 		admin_edituser,
+		// Added BAI 07.01.2004		 
+		admin_reguser,
+		// Added BAI 07.01.2004
 		admin_smilies_edit,
 		admin_smilies_import,
 		im_yim,
@@ -297,6 +300,11 @@ namespace yaf
 				case "im_email":
 					page = Pages.im_email;
 					break;
+					// ADDED BAI 07.01.2004
+				case "admin_reguser":
+					page = Pages.admin_reguser;
+					break;
+					// ADDED BAI 07.01.2004	
 			}
 
 			string src = string.Format("{0}pages/{1}.ascx",m_baseDir,page);

@@ -1484,31 +1484,6 @@ create procedure yaf_usergroup_list(@BoardID int,@UserID int) as begin
 end
 GO
 
--- yaf_user_login
-if exists (select * from sysobjects where id = object_id(N'yaf_user_login') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_login
-GO
-
-create procedure yaf_user_login(@BoardID int,@Name varchar(50),@Password varchar(32)) as
-begin
-	declare @UserID int
-
-	if not exists(select UserID from yaf_User where [Name]=@Name and [Password]=@Password and (BoardID=@BoardID or IsHostAdmin<>0))
-		set @UserID=null
-	else
-		select 
-			@UserID=UserID 
-		from 
-			yaf_User 
-		where 
-			[Name]=@Name and 
-			[Password]=@Password and 
-			(BoardID=@BoardID or IsHostAdmin<>0)
-
-	select @UserID
-end
-GO
-
 -- yaf_system_initialize
 if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_initialize

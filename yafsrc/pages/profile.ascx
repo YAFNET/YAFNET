@@ -14,7 +14,6 @@
 					<asp:hyperlink runat='server' id='Email'/>
 					<asp:hyperlink runat='server' id='Home'/>
 					<asp:hyperlink runat='server' id='Blog'/>
-					<asp:hyperlink runat="server" id='Weblog'/>
 					<asp:hyperlink runat='server' id='Msn'/>
 					<asp:hyperlink runat='server' id='Yim'/>
 					<asp:hyperlink runat='server' id='Aim'/>

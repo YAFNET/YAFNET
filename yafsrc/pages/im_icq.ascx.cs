@@ -52,7 +52,7 @@ namespace yaf.pages
 			{
 				Send.Text = GetText("SEND");
 				From.Text = PageUserName;
-				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
@@ -64,7 +64,7 @@ namespace yaf.pages
 						break;
 					}
 				}
-				using(DataTable dt=DB.user_list(PageBoardID,PageUserID,null))
+				using(DataTable dt=DataProvider.user_list(PageBoardID,PageUserID,null))
 				{
 					foreach(DataRow row in dt.Rows)
 					{

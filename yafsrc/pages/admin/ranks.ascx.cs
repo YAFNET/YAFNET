@@ -80,7 +80,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DB.rank_list(PageBoardID,null);
+			RankList.DataSource = DataProvider.rank_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -92,7 +92,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editrank,"r={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.rank_delete(e.CommandArgument);
+					DataProvider.rank_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

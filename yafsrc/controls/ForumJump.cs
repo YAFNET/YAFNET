@@ -73,8 +73,8 @@ namespace yaf.controls
 			} 
 			else 
 			{
-				//dt = DB.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null,null);
-				dt = DB.forum_listall(ForumPage.PageBoardID,ForumPage.PageUserID);
+				//dt = DataProvider.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null,null);
+				dt = ForumPage.DataProvider.forum_listall(ForumPage.PageBoardID,ForumPage.PageUserID);
 				Page.Cache[cachename] = dt;
 			}
 

@@ -123,7 +123,7 @@ namespace yaf_dnn
 			using(System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
 			{
 				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID);
-				DB.ExecuteNonQuery(cmd);
+				DB.DataProvider.ExecuteNonQuery(cmd);
 			}
 		}
 	}

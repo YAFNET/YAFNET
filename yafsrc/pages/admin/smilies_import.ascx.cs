@@ -76,7 +76,7 @@ namespace yaf.pages.admin
 			{
 				// Delete existing smilies?
 				if(DeleteExisting.Checked) 
-					DB.smiley_delete(null);
+					DataProvider.smiley_delete(null);
 
 				do 
 				{
@@ -86,7 +86,7 @@ namespace yaf.pages.admin
 
 					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
 					if(split.Length==3) 
-						DB.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
+						DataProvider.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
 				} while(true);
 				file.Close();
 			}

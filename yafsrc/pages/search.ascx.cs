@@ -74,7 +74,7 @@ namespace yaf.pages
 
 				// Load forum's combo
 				listForum.Items.Add(new ListItem(GetText("allforums"),"-1"));
-				DataTable dt = DB.forum_listread(PageBoardID,PageUserID,null,null);
+				DataTable dt = DataProvider.forum_listread(PageBoardID,PageUserID,null,null);
 
 				int nOldCat = 0;
 				for(int i=0;i<dt.Rows.Count;i++) 
@@ -129,7 +129,7 @@ namespace yaf.pages
 					SEARCH_WHAT sw = (SEARCH_WHAT)System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 				
-					DataView dv = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
+					DataView dv = DataProvider.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse(listResInPage.SelectedValue);
 					Pager.Count = dv.Count;

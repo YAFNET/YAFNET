@@ -120,7 +120,7 @@ namespace yaf.pages
 			Language.DataValueField = "FileName";
 			DataBind();
 
-			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
+			using(DataTable dt = DataProvider.user_list(PageBoardID,PageUserID,true)) 
 			{
 				row = dt.Rows[0];
 			}
@@ -151,7 +151,7 @@ namespace yaf.pages
 			Language.Items.FindByValue(languageFile).Selected = true;
 
 			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
-			using(DataTable dt = DB.system_list()) 
+			using(DataTable dt = DataProvider.system_list()) 
 			{
 				foreach(DataRow row2 in dt.Rows) 
 				{
@@ -164,7 +164,7 @@ namespace yaf.pages
 
 		private void DeleteAvatar_Click(object sender, System.EventArgs e) 
 		{
-			DB.user_deleteavatar(PageUserID);
+			DataProvider.user_deleteavatar(PageUserID);
 			BindData();
 		}
 
@@ -198,7 +198,7 @@ namespace yaf.pages
 			{
 				long x,y;
 				int nAvatarSize = 50000;
-				using(DataTable dt = DB.system_list())
+				using(DataTable dt = DataProvider.system_list())
 				{
 					x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
 					y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
@@ -243,9 +243,9 @@ namespace yaf.pages
 					}
 
 					if(resized == null)
-						DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
+						DataProvider.user_saveavatar(PageUserID,File.PostedFile.InputStream);
 					else
-						DB.user_saveavatar(PageUserID, resized);
+						DataProvider.user_saveavatar(PageUserID, resized);
 				}			
 			}
 
@@ -271,7 +271,7 @@ namespace yaf.pages
 					msg = msg.Replace("{forumname}",Config.BoardSettings.Name);
 					msg = msg.Replace("{forumlink}",ForumURL);
 
-					DB.checkemail_save(PageUserID,hash,Email.Text);
+					DataProvider.checkemail_save(PageUserID,hash,Email.Text);
 					//  Build a MailMessage
 					Utils.SendMail(Config.BoardSettings.ForumEmail,Email.Text,"Changed email",msg);
 					AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
@@ -291,7 +291,7 @@ namespace yaf.pages
 				string oldpw = FormsAuthentication.HashPasswordForStoringInConfigFile(OldPassword.Text,"md5");
 				string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword1.Text,"md5");
 
-				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) {
+				if(!DataProvider.user_changepassword(PageUserID,oldpw,newpw)) {
 					AddLoadMessage(GetText("old_password_wrong"));
 				}
 			}
@@ -300,7 +300,7 @@ namespace yaf.pages
 			if(!Config.BoardSettings.EmailVerification)
 				email = Email.Text;
 
-			DB.user_save(PageUserID,PageBoardID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
+			DataProvider.user_save(PageUserID,PageBoardID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
 				MSN.Text,YIM.Text,AIM.Text,ICQ.Text,Realname.Text,Occupation.Text,Interests.Text,Gender.SelectedIndex,Weblog.Text);
 			Forum.Redirect(Pages.cp_profile);
 		}

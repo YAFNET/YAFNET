@@ -14,7 +14,7 @@ namespace yaf.controls
 	{
 		protected HyperLink		Attach, Edit, Quote;
 		protected LinkButton	Delete;
-		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn;
+		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -50,6 +50,9 @@ namespace yaf.controls
 			Home.Visible		= DataRow["HomePage"]!=DBNull.Value;
 			Home.NavigateUrl	= DataRow["HomePage"].ToString();
 			Home.Text			= ForumPage.GetThemeContents("BUTTONS","WWW");
+			Blog.Visible		= DataRow["Weblog"]!=DBNull.Value;
+			Blog.NavigateUrl	= DataRow["Weblog"].ToString();
+			Blog.Text			= ForumPage.GetThemeContents("BUTTONS","WEBLOG");
 			Msn.Visible			= ForumPage.User.IsAuthenticated && DataRow["MSN"]!=DBNull.Value;
 			Msn.Text			= ForumPage.GetThemeContents("BUTTONS","MSN");
 			Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
@@ -68,6 +71,7 @@ namespace yaf.controls
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
 			this.PreRender += new EventHandler(DisplayPost_PreRender);
+			Delete.Click += new EventHandler(Delete_Click);
 			base.OnInit(e);
 		}
 
@@ -178,7 +182,7 @@ namespace yaf.controls
 			// Groups
 			if(Config.BoardSettings.ShowGroups) 
 			{
-				using(DataTable dt = DB.usergroup_list(yaf.pages.ForumPage.PageBoardID,row["UserID"])) 
+				using(DataTable dt = ForumPage.DataProvider.usergroup_list(yaf.pages.ForumPage.PageBoardID,row["UserID"])) 
 				{
 					html += String.Format("{0}: ",ForumPage.GetText("groups"));
 					bool bFirst = true;
@@ -223,7 +227,7 @@ namespace yaf.controls
 			{
 				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
 				string stats = ForumPage.GetText("ATTACHMENTINFO");
-				using(DataTable dt = DB.attachment_list(row["MessageID"],null)) 
+				using(DataTable dt = ForumPage.DataProvider.attachment_list(row["MessageID"],null)) 
 				{
 					foreach(DataRow dr in dt.Rows) 
 					{
@@ -241,6 +245,15 @@ namespace yaf.controls
 				html = FormatMsg.ForumCodeToHtml(ForumPage,html);
 
 			return FormatMsg.FetchURL(ForumPage,html);
+		}
+
+		private void Delete_Click(object sender,EventArgs e)
+		{
+			if(!CanDeletePost)
+				return;
+
+			ForumPage.DataProvider.message_delete(DataRow["MessageID"]);
+			Response.Redirect(Request.RawUrl);
 		}
 	}
 }

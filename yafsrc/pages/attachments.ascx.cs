@@ -28,9 +28,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
+			using(DataTable dt = DataProvider.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
-			topic = DB.topic_info(PageTopicID);
+			topic = DataProvider.topic_info(PageTopicID);
 
 			if(!IsPostBack) 
 			{
@@ -48,7 +48,7 @@ namespace yaf.pages
 
 				// Check that non-moderators only edit messages they have written
 				if(!ForumModeratorAccess) 
-					using(DataTable dt = DB.message_list(Request.QueryString["m"])) 
+					using(DataTable dt = DataProvider.message_list(Request.QueryString["m"])) 
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);
 		
@@ -67,7 +67,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(Request.QueryString["m"],null);
+			List.DataSource = DataProvider.attachment_list(Request.QueryString["m"],null);
 			DataBind();
 		}
 
@@ -86,7 +86,7 @@ namespace yaf.pages
 			switch(e.CommandName) 
 			{
 				case "delete":
-					DB.attachment_delete(e.CommandArgument);
+					DataProvider.attachment_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
@@ -151,7 +151,7 @@ namespace yaf.pages
 
 			bool useFileTable = false;
 			int maxFileSize = -1;
-			using(DataTable dt=DB.system_list()) 
+			using(DataTable dt=DataProvider.system_list()) 
 			{
 				foreach(DataRow row in dt.Rows) 
 				{
@@ -166,12 +166,12 @@ namespace yaf.pages
 
 			if(useFileTable) 
 			{
-				DB.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,file.PostedFile.InputStream);
+				DataProvider.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,file.PostedFile.InputStream);
 			} 
 			else 
 			{
 				file.PostedFile.SaveAs(String.Format("{0}{1}.{2}",sUpDir,messageID,filename));
-				DB.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,null);
+				DataProvider.attachment_save(messageID,filename,file.PostedFile.ContentLength,file.PostedFile.ContentType,null);
 			}
 		}
 

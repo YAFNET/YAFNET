@@ -55,7 +55,7 @@ namespace yaf.pages.admin
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{
-					using(DataTable dt = DB.rank_list(PageBoardID,Request.QueryString["r"]))
+					using(DataTable dt = DataProvider.rank_list(PageBoardID,Request.QueryString["r"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -140,7 +140,7 @@ namespace yaf.pages.admin
 			object rankImage = null;
 			if(RankImage.SelectedIndex>0)
 				rankImage = RankImage.SelectedValue;
-			DB.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
+			DataProvider.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
 			Forum.Redirect(Pages.admin_ranks);
 		}

@@ -113,13 +113,13 @@ namespace yaf.pages
 					return;
 				}
 
-				if(DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
+				if(DataProvider.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
 				{
 					AddLoadMessage(GetText("ALREADY_REGISTERED"));
 					return;
 				}
 
-				DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
+				DataProvider.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
 			}
 		}
 	}

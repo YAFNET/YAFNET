@@ -40,113 +40,116 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["u"]!=null) 
+			using(IDataProvider dp=DB.DataProvider)
 			{
-				using(DataTable dt = DB.user_avatarimage(Request.QueryString["u"])) 
+				if(Request.QueryString["u"]!=null) 
 				{
-					foreach(DataRow row in dt.Rows) 
+					using(DataTable dt = dp.user_avatarimage(Request.QueryString["u"])) 
 					{
-						byte[] data = (byte[])row["AvatarImage"];
-
-						Response.Clear();
-						//Response.ContentType = "image/jpg";
-						Response.OutputStream.Write(data,0,data.Length);
-						Response.End();
-						break;
-					}
-				}
-			}
-			else if(Request.QueryString["url"] != null && Request.QueryString["width"] != null && Request.QueryString["height"]!=null) 
-			{
-				System.Net.WebClient wc = new System.Net.WebClient();
-				Image img = null;
-				Bitmap bmp = null;
-				Graphics gfx = null;
-				
-				string wb = Request.QueryString["url"];
-				wb.Substring(0, wb.LastIndexOf("/"));
-
-				try
-				{
-					Stream input = wc.OpenRead(wb);
-					img = new Bitmap(input);
-					input.Close();
-					
-					int	maxwidth	= int.Parse(Request.QueryString["width"]);
-					int	maxheight	= int.Parse(Request.QueryString["height"]);
-					int	width		= img.Width;
-					int	height		= img.Height;
-
-					if(width <= maxwidth && height <= maxheight) 
-						Response.Redirect(wb);
-
-					if(width > maxwidth) 
-					{
-						height = Convert.ToInt32((double)height / (double)width * (double)maxwidth);
-						width = maxwidth;
-					}
-					if(height > maxheight) 
-					{
-						width = Convert.ToInt32((double)width / (double)height * (double)maxheight);
-						height = maxheight;
-					}
-
-					// Create the target bitmap
-					bmp = new Bitmap(width, height);
-							
-					// Create the graphics object to do the high quality resizing
-					gfx = Graphics.FromImage(bmp);
-					gfx.CompositingQuality = CompositingQuality.HighQuality;
-					gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-					gfx.SmoothingMode = SmoothingMode.HighQuality;
-
-					// Draw the source image
-					gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
-                        
-					// Output the data
-					Response.ContentType = "image/jpeg";                            
-					bmp.Save(Response.OutputStream, ImageFormat.Jpeg);
-            
-				}
-				finally
-				{
-					if(gfx!=null) gfx.Dispose();
-					if(img!=null) img.Dispose();
-					if(bmp!=null) bmp.Dispose();
-				}
-			} 
-			else if(Request.QueryString["a"]!=null) 
-			{
-				/// AttachmentID
-				using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"])) 
-				{
-					foreach(DataRow row in dt.Rows) 
-					{
-						byte[] data = null;
-						//Response.Clear();
-						Response.ContentType = row["ContentType"].ToString();
-						//Response.ContentType = "application/octet-stream";
-						Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",row["FileName"]));
-
-						if(row.IsNull("FileData")) 
+						foreach(DataRow row in dt.Rows) 
 						{
-							string sUpDir = Config.ConfigSection["uploaddir"];
-							string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
-							using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
-							{
-								data = new byte[input.Length];
-								input.Read(data,0,data.Length);
-								input.Close();
-							}
-						} 
-						else 
-						{
-							data = (byte[])row["FileData"];
+							byte[] data = (byte[])row["AvatarImage"];
+
+							Response.Clear();
+							//Response.ContentType = "image/jpg";
+							Response.OutputStream.Write(data,0,data.Length);
+							Response.End();
+							break;
 						}
-						Response.OutputStream.Write(data,0,data.Length);
-						DB.attachment_download(Request.QueryString["a"]);
-						Response.End();
-						break;
+					}
+				}
+				else if(Request.QueryString["url"] != null && Request.QueryString["width"] != null && Request.QueryString["height"]!=null) 
+				{
+					System.Net.WebClient wc = new System.Net.WebClient();
+					Image img = null;
+					Bitmap bmp = null;
+					Graphics gfx = null;
+				
+					string wb = Request.QueryString["url"];
+					wb.Substring(0, wb.LastIndexOf("/"));
+
+					try
+					{
+						Stream input = wc.OpenRead(wb);
+						img = new Bitmap(input);
+						input.Close();
+					
+						int	maxwidth	= int.Parse(Request.QueryString["width"]);
+						int	maxheight	= int.Parse(Request.QueryString["height"]);
+						int	width		= img.Width;
+						int	height		= img.Height;
+
+						if(width <= maxwidth && height <= maxheight) 
+							Response.Redirect(wb);
+
+						if(width > maxwidth) 
+						{
+							height = Convert.ToInt32((double)height / (double)width * (double)maxwidth);
+							width = maxwidth;
+						}
+						if(height > maxheight) 
+						{
+							width = Convert.ToInt32((double)width / (double)height * (double)maxheight);
+							height = maxheight;
+						}
+
+						// Create the target bitmap
+						bmp = new Bitmap(width, height);
+							
+						// Create the graphics object to do the high quality resizing
+						gfx = Graphics.FromImage(bmp);
+						gfx.CompositingQuality = CompositingQuality.HighQuality;
+						gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+						gfx.SmoothingMode = SmoothingMode.HighQuality;
+
+						// Draw the source image
+						gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
+                        
+						// Output the data
+						Response.ContentType = "image/jpeg";                            
+						bmp.Save(Response.OutputStream, ImageFormat.Jpeg);
+            
+					}
+					finally
+					{
+						if(gfx!=null) gfx.Dispose();
+						if(img!=null) img.Dispose();
+						if(bmp!=null) bmp.Dispose();
+					}
+				} 
+				else if(Request.QueryString["a"]!=null) 
+				{
+					/// AttachmentID
+					using(DataTable dt = dp.attachment_list(null,Request.QueryString["a"])) 
+					{
+						foreach(DataRow row in dt.Rows) 
+						{
+							byte[] data = null;
+							//Response.Clear();
+							Response.ContentType = row["ContentType"].ToString();
+							//Response.ContentType = "application/octet-stream";
+							Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",row["FileName"]));
+
+							if(row.IsNull("FileData")) 
+							{
+								string sUpDir = Config.ConfigSection["uploaddir"];
+								string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
+								using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
+								{
+									data = new byte[input.Length];
+									input.Read(data,0,data.Length);
+									input.Close();
+								}
+							} 
+							else 
+							{
+								data = (byte[])row["FileData"];
+							}
+							Response.OutputStream.Write(data,0,data.Length);
+							dp.attachment_download(Request.QueryString["a"]);
+							Response.End();
+							break;
+						}
 					}
 				}
 			}

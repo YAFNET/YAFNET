@@ -70,7 +70,8 @@ namespace yaf.install
 			"version-0.9.3.sql",	///  9
 			"version-0.9.4.sql",	/// 10
 			"version-0.9.5.sql",	/// 11
-			"version-0.9.6.sql"		/// 12
+			"version-0.9.6.sql",	/// 12
+			"version-0.9.7.sql"		/// 13
 		};
 
 		void AddLoadMessage(string msg)
@@ -115,9 +116,12 @@ namespace yaf.install
 		{
 			try 
 			{
-				using(DataTable dt = DB.system_list())
-					foreach(DataRow row in dt.Rows) 
-						return (int)row["Version"];
+				using(IDataProvider dp=DB.DataProvider)
+				{
+					using(DataTable dt = dp.system_list())
+						foreach(DataRow row in dt.Rows) 
+							return (int)row["Version"];
+				}
 			}
 			catch(Exception) 
 			{
@@ -168,8 +172,9 @@ namespace yaf.install
 			{
 				try 
 				{
-					using(SqlConnection conn = DB.GetInstallConnection()) 
+					using(IDataProvider dp=DB.DataProvider)
 					{
+						SqlConnection conn = dp.GetConnection2();
 					}
 				}
 				catch(Exception x) 
@@ -187,10 +192,13 @@ namespace yaf.install
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Version",Data.AppVersion);
-						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
-						DB.ExecuteNonQuery(cmd);
+						using(IDataProvider dp=DB.DataProvider)
+						{
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.Parameters.Add("@Version",Data.AppVersion);
+							cmd.Parameters.Add("@VersionName",Data.AppVersionName);
+							dp.ExecuteNonQuery(cmd);
+						}
 					}
 				}
 				catch(Exception x) 
@@ -238,25 +246,28 @@ namespace yaf.install
 				}
 				try 
 				{
-					using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) 
+					using(IDataProvider dp=DB.DataProvider)
 					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Name",TheForumName.Text);
-						cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
-						cmd.Parameters.Add("@ForumEmail",ForumEmailAddress.Text);
-						cmd.Parameters.Add("@SmtpServer",SmptServerAddress.Text);
-						cmd.Parameters.Add("@User",UserName.Text);
-						cmd.Parameters.Add("@UserEmail",AdminEmail.Text);
-						cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
-						DB.ExecuteNonQuery(cmd);
-					}
+						using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) 
+						{
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.Parameters.Add("@Name",TheForumName.Text);
+							cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
+							cmd.Parameters.Add("@ForumEmail",ForumEmailAddress.Text);
+							cmd.Parameters.Add("@SmtpServer",SmptServerAddress.Text);
+							cmd.Parameters.Add("@User",UserName.Text);
+							cmd.Parameters.Add("@UserEmail",AdminEmail.Text);
+							cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
+							dp.ExecuteNonQuery(cmd);
+						}
 
-					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Version",Data.AppVersion);
-						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
-						DB.ExecuteNonQuery(cmd);
+						using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
+						{
+							cmd.CommandType = CommandType.StoredProcedure;
+							cmd.Parameters.Add("@Version",Data.AppVersion);
+							cmd.Parameters.Add("@VersionName",Data.AppVersionName);
+							dp.ExecuteNonQuery(cmd);
+						}
 					}
 				}
 				catch(Exception x) 
@@ -385,8 +396,9 @@ namespace yaf.install
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-			using(SqlConnection conn = DB.GetConnection()) 
+			using(IDataProvider dp=DB.DataProvider)
 			{
+				SqlConnection conn = dp.GetConnection2();
 				using(SqlTransaction trans = conn.BeginTransaction()) 
 				{
 					foreach(string sql0 in statements) 

@@ -121,7 +121,7 @@ namespace yaf.pages
 		}
 
 		private void BindData() {
-			using(DataView dv = DB.pmessage_list(PageUserID,IsSentItems,null).DefaultView) 
+			using(DataView dv = DataProvider.pmessage_list(PageUserID,IsSentItems,null).DefaultView) 
 			{
 				dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAsc"] ? "asc" : "desc");
 				Inbox.DataSource = dv;
@@ -150,12 +150,12 @@ namespace yaf.pages
 				{
 					if(((CheckBox)item.FindControl("ItemCheck")).Checked) 
 					{
-						DB.pmessage_delete(((Label)item.FindControl("PMessageID")).Text);
+						DataProvider.pmessage_delete(((Label)item.FindControl("PMessageID")).Text);
 						nItemCount++;
 					}
 				}
 
-				//TODO DB.pmessage_delete(e.CommandArgument);
+				//TODO DataProvider.pmessage_delete(e.CommandArgument);
 				BindData();
 				if(nItemCount==1)
 					AddLoadMessage(GetText("msgdeleted1"));

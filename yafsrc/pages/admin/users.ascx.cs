@@ -36,6 +36,7 @@ namespace yaf.pages.admin
 	{
 		protected System.Web.UI.WebControls.Repeater UserList;
 		protected controls.PageLinks PageLinks;
+		protected LinkButton NewUser;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -66,7 +67,9 @@ namespace yaf.pages.admin
 		{    
 			this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
 			this.Load += new System.EventHandler(this.Page_Load);
-
+			// Added BAI 07.01.2003
+			this.NewUser.Click += new System.EventHandler(this.NewUser_Click);
+			// END Added BAI 07.01.2003    
 		}
 		#endregion
 	
@@ -77,7 +80,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			UserList.DataSource = DB.user_list(PageBoardID,null,null);
+			UserList.DataSource = DataProvider.user_list(PageBoardID,null,null);
 			DataBind();
 		}
 
@@ -87,10 +90,16 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.user_delete(e.CommandArgument);
+					DataProvider.user_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
 		}
+		// Added BAI 07.01.2003
+		private void NewUser_Click(object sender, System.EventArgs e)
+		{
+			Forum.Redirect(Pages.admin_reguser);
+		}
+		// END Added BAI 07.01.2003		
 	}
 }

@@ -55,8 +55,8 @@ namespace yaf.pages
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = DB.forum_listall(PageBoardID,PageUserID);
-				//ForumList.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
+				ForumList.DataSource = DataProvider.forum_listall(PageBoardID,PageUserID);
+				//ForumList.DataSource = DataProvider.forum_listread(PageBoardID,PageUserID,null,null);
 				DataBind();
 				ForumList.Items.FindByValue(PageForumID.ToString()).Selected = true;
 			}
@@ -85,7 +85,7 @@ namespace yaf.pages
 		#endregion
 
 		private void Move_Click(object sender, System.EventArgs e) {
-			DB.topic_move(PageTopicID,ForumList.SelectedValue,Config.BoardSettings.ShowMoved);
+			DataProvider.topic_move(PageTopicID,ForumList.SelectedValue,Config.BoardSettings.ShowMoved);
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 	}

@@ -115,7 +115,8 @@ namespace yaf_rainbow
 			using(System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
 			{
 				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID);
-				yaf.DB.ExecuteNonQuery(cmd);
+				//yaf.DB.ExecuteNonQuery(cmd);
+				yaf.DB.DataProvider.ExecuteNonQuery(cmd);
 			}
 		}
 	}

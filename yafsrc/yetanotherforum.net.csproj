@@ -249,6 +249,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\MsSql.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\MySession.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -475,6 +480,10 @@
                 />
                 <File
                     RelPath = "install\version-0.9.6.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version-0.9.7.sql"
                     BuildAction = "Content"
                 />
                 <File
@@ -1403,6 +1412,21 @@
                 <File
                     RelPath = "pages\admin\ranks.ascx.resx"
                     DependentUpon = "ranks.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\admin\reguser.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\reguser.ascx.cs"
+                    DependentUpon = "reguser.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\reguser.ascx.resx"
+                    DependentUpon = "reguser.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

@@ -107,7 +107,7 @@ namespace yaf.pages
 			if(!ForumReadAccess)
 				Data.AccessDenied();
 
-			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
+			using(DataTable dt = DataProvider.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
 			PageTitle.Text = (string)forum["Name"];
@@ -169,7 +169,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID,PageForumID);
+			DataSet ds = DataProvider.board_layout(PageBoardID,PageUserID,PageCategoryID,PageForumID);
 			if(ds.Tables["yaf_Forum"].Rows.Count>0) 
 			{
 				ForumList.DataSource = ds.Tables["yaf_Forum"].Rows;
@@ -178,7 +178,7 @@ namespace yaf.pages
 
 			Pager.PageSize = 15;
 
-			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
+			DataTable dt = DataProvider.topic_list(PageForumID,1,null,0,10);
 			int nPageSize = System.Math.Max(5,Pager.PageSize - dt.Rows.Count);
 			Announcements.DataSource = dt;
 
@@ -187,7 +187,7 @@ namespace yaf.pages
 			DataTable dtTopics;
 			if(ShowList.SelectedIndex==0) 
 			{
-				dtTopics = DB.topic_list(PageForumID,0,null,nCurrentPageIndex*nPageSize,nPageSize);
+				dtTopics = DataProvider.topic_list(PageForumID,0,null,nCurrentPageIndex*nPageSize,nPageSize);
 			} 
 			else 
 			{
@@ -219,7 +219,7 @@ namespace yaf.pages
 						date -= TimeSpan.FromDays(365);
 						break;
 				}
-				dtTopics = DB.topic_list(PageForumID,0,date,nCurrentPageIndex*nPageSize,nPageSize);
+				dtTopics = DataProvider.topic_list(PageForumID,0,date,nCurrentPageIndex*nPageSize,nPageSize);
 			}
 			int nRowCount = 0;
 			if(dtTopics.Rows.Count>0) nRowCount = (int)dtTopics.Rows[0]["RowCount"];
@@ -253,7 +253,7 @@ namespace yaf.pages
 				return;
 			}
 
-			DB.watchforum_add(PageUserID,PageForumID);
+			DataProvider.watchforum_add(PageUserID,PageForumID);
 			AddLoadMessage(GetText("INFO_WATCH_FORUM"));
 		}
 	}

@@ -147,7 +147,6 @@
 		<Resource tag="INFO_TOPIC_UNLOCKED">Topic was unlocked.</Resource>
 		<Resource tag="WARN_TOPIC_LOCKED">The topic is closed.</Resource>
 		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
-		<Resource tag="INFO_MESSAGE_DELETED">Message was deleted.</Resource>
 		<Resource tag="WARN_PMLOGIN">You must be logged in to send private messages.</Resource>
 		<Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
 		<Resource tag="INFO_VOTED">Thank you for your vote!</Resource>

@@ -193,8 +193,11 @@ namespace yaf
 			DataTable dt = (DataTable)System.Web.HttpContext.Current.Cache["Smilies"];
 			if(dt==null) 
 			{
-				dt = DB.smiley_list(pages.ForumPage.PageBoardID,null);
-				System.Web.HttpContext.Current.Cache["Smilies"] = dt;
+				using(IDataProvider dp=DB.DataProvider)
+				{
+					dt = dp.smiley_list(pages.ForumPage.PageBoardID,null);
+					System.Web.HttpContext.Current.Cache["Smilies"] = dt;
+				}
 			}
 			return dt;
 		}

@@ -53,7 +53,7 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) 
 			{
-				TimeNow.Text = String.Format(GetText("current_time"),FormatTime(DateTime.Now));
+				TimeNow.Text = String.Format(GetText("CURRENT_TIME"),FormatTime(DateTime.Now));
 				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit));
 				MarkAll.Text = GetText("MARKALL");
 
@@ -86,19 +86,19 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID,null);
+			DataSet ds = DataProvider.board_layout(PageBoardID,PageUserID,PageCategoryID,null);
 			CategoryList.DataSource = ds.Tables["yaf_Category"];
 
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = DB.active_list(PageBoardID,null);
+			ActiveList.DataSource = DataProvider.active_list(PageBoardID,null);
 
 			// Forum statistics
 			string key = string.Format("BoardStats.{0}",PageBoardID);
 			DataRow stats = (DataRow)Cache[key];
 			if(stats==null) 
 			{
-				stats = DB.board_poststats(PageBoardID);
+				stats = DataProvider.board_poststats(PageBoardID);
 				Cache.Insert(key,stats,null,DateTime.Now.AddMinutes(15),TimeSpan.Zero);
 			}
 				
@@ -122,7 +122,7 @@ namespace yaf.pages
 				);
 			Stats.Text += "<br/>";
 
-			DataRow activeStats = DB.active_stats(PageBoardID);
+			DataRow activeStats = DataProvider.active_stats(PageBoardID);
 			activeinfo.Text = String.Format("<a href=\"{3}\">{0}</a> - {1}, {2}.",
 				String.Format(GetText((int)activeStats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),activeStats["ActiveUsers"]),
 				String.Format(GetText((int)activeStats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),activeStats["ActiveMembers"]),
@@ -223,7 +223,7 @@ namespace yaf.pages
 		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "forum":
-					if(DB.user_access(PageUserID,e.CommandArgument))
+					if(DataProvider.user_access(PageUserID,e.CommandArgument))
 						Forum.Redirect(Pages.topics,"f={0}",e.CommandArgument);
 
 					AddLoadMessage(GetText("ERROR_NOFORUMACCESS"));

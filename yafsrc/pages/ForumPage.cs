@@ -54,8 +54,15 @@ namespace yaf.pages
 			TransPage = transPage;
 
 			this.Load += new System.EventHandler(this.ForumPage_Load);
+			this.Unload += new EventHandler(ForumPage_Unload);
 			this.Error += new System.EventHandler(this.ForumPage_Error);
 			this.PreRender += new EventHandler(ForumPage_PreRender);
+		}
+
+		private void ForumPage_Unload(object sender,EventArgs e)
+		{
+			if(m_dataProvider!=null)
+				m_dataProvider.Dispose();
 		}
 
 		private void ForumPage_Error(object sender, System.EventArgs e) 
@@ -76,6 +83,7 @@ namespace yaf.pages
 			if(m_bNoDataBase)
 				return;
 
+			m_dataProvider = DB.DataProvider;
 #if DEBUG
 			QueryCounter.Reset();
 #endif
@@ -103,7 +111,7 @@ namespace yaf.pages
 			DataTable banip = (DataTable)HttpContext.Current.Cache[key];
 			if(banip == null) 
 			{
-				banip = DB.bannedip_list(PageBoardID,null);
+				banip = DataProvider.bannedip_list(PageBoardID,null);
 				HttpContext.Current.Cache[key] = banip;
 			}
 			foreach(DataRow row in banip.Rows)
@@ -140,7 +148,7 @@ namespace yaf.pages
 			if(HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2")>=0)
 				platform = "Win2003";
 
-			m_pageinfo = DB.pageload(
+			m_pageinfo = DataProvider.pageload(
 				HttpContext.Current.Session.SessionID,
 				PageBoardID,
 				User.Name,
@@ -157,10 +165,10 @@ namespace yaf.pages
 			// authorization, try to register the user.
 			if(m_pageinfo==null && authType!=AuthType.Forms && User.IsAuthenticated) 
 			{
-				if(!DB.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
+				if(!DataProvider.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
 					throw new ApplicationException("User registration failed.");
 
-				m_pageinfo = DB.pageload(
+				m_pageinfo = DataProvider.pageload(
 					HttpContext.Current.Session.SessionID,
 					PageBoardID,
 					User.Name,
@@ -186,7 +194,7 @@ namespace yaf.pages
 			{
 				if(SuspendedTo < DateTime.Now) 
 				{
-					DB.user_suspend(PageUserID,null);
+					DataProvider.user_suspend(PageUserID,null);
 					HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 				}
 				Forum.Redirect(Pages.info,"i=2");
@@ -254,13 +262,13 @@ namespace yaf.pages
 			{
 				try 
 				{
-					using(DataTable dt = DB.mail_list()) 
+					using(DataTable dt = DataProvider.mail_list()) 
 					{
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
 							Utils.SendMail(Config.BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
-							DB.mail_delete(dt.Rows[i]["MailID"]);
+							DataProvider.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
@@ -553,6 +561,15 @@ namespace yaf.pages
 			}
 		}
 
+		private IDataProvider m_dataProvider = null;
+		public IDataProvider DataProvider
+		{
+			get
+			{
+				return m_dataProvider;
+			}
+		}
+
 		#region PageInfo class
 		private DataRow		m_pageinfo			= null;
 		private IForumUser	m_forumUser			= null;
@@ -719,7 +736,14 @@ namespace yaf.pages
 		{
 			get
 			{
-				return int.Parse(Config.ConfigSection["boardid"]);
+				try
+				{
+					return int.Parse(Config.ConfigSection["boardid"]);
+				}
+				catch(Exception)
+				{
+					return 1;
+				}
 			}
 		}
 		/// <summary>

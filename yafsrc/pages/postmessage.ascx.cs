@@ -81,10 +81,10 @@ namespace yaf.pages
 			DataRow msg = null;
 			
 			if(Request.QueryString["q"] != null)
-				using(DataTable dt = DB.message_list(Request.QueryString["q"]))
+				using(DataTable dt = DataProvider.message_list(Request.QueryString["q"]))
 					msg = dt.Rows[0];
 			else if(Request.QueryString["m"] != null) {
-				using(DataTable dt = DB.message_list(Request.QueryString["m"]))
+				using(DataTable dt = DataProvider.message_list(Request.QueryString["m"]))
 					msg = dt.Rows[0];
 			
 				if(!ForumModeratorAccess && PageUserID != (int)msg["UserID"])
@@ -123,7 +123,7 @@ namespace yaf.pages
 
 				if(Request.QueryString["t"] != null) 
 				{
-					DataRow topic = DB.topic_info(Request.QueryString["t"]);
+					DataRow topic = DataProvider.topic_info(Request.QueryString["t"]);
 					if((bool)topic["IsLocked"])
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
@@ -131,7 +131,7 @@ namespace yaf.pages
 
 					// History (Last 10 posts)
 					LastPosts.Visible = true;
-					LastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
+					LastPosts.DataSource = DataProvider.post_list_reverse10(Request.QueryString["t"]);
 					LastPosts.DataBind();
 				}
 
@@ -266,14 +266,14 @@ namespace yaf.pages
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,ref nMessageID))
+				if(!DataProvider.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
 				if(!ForumEditAccess)
 					Data.AccessDenied();
 
-				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg);
+				DataProvider.message_update(Request.QueryString["m"],Priority.SelectedValue,msg);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
@@ -283,7 +283,7 @@ namespace yaf.pages
 
 				object PollID = null;
 				if(PollRow1.Visible) {
-					PollID = DB.poll_save(Question.Text,
+					PollID = DataProvider.poll_save(Question.Text,
 						PollChoice1.Text,
 						PollChoice2.Text,
 						PollChoice3.Text,
@@ -296,12 +296,12 @@ namespace yaf.pages
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
+				TopicID = DataProvider.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
 			}
 
 			// Check if message is approved
 			bool bApproved = false;
-			using(DataTable dt = DB.message_list(nMessageID)) 
+			using(DataTable dt = DataProvider.message_list(nMessageID)) 
 				foreach(DataRow row in dt.Rows) 
 					bApproved = (bool)row["Approved"];
 
@@ -354,7 +354,7 @@ namespace yaf.pages
 			else
 				body = FormatMsg.FetchURL(this,body);
 
-			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
+			using(DataTable dt = DataProvider.user_list(PageBoardID,PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
 					body += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,dt.Rows[0]["Signature"].ToString());

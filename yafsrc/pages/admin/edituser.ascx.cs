@@ -56,7 +56,7 @@ namespace yaf.pages.admin
 				PageLinks.AddLink("Users",Forum.GetLink(Pages.admin_users));
 
 				BindData();
-				using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt = DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
@@ -93,8 +93,8 @@ namespace yaf.pages.admin
 		#endregion
 
 		private void BindData() {
-			UserGroups.DataSource = DB.group_member(PageBoardID,Request.QueryString["u"]);
-			RankID.DataSource = DB.rank_list(PageBoardID,null);
+			UserGroups.DataSource = DataProvider.group_member(PageBoardID,Request.QueryString["u"]);
+			RankID.DataSource = DataProvider.rank_list(PageBoardID,null);
 			RankID.DataValueField = "RankID";
 			RankID.DataTextField = "Name";
 			DataBind();
@@ -110,12 +110,12 @@ namespace yaf.pages.admin
 		}
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,RankID.SelectedValue);
+			DataProvider.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{
 				RepeaterItem item = UserGroups.Items[i];
 				int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-				DB.usergroup_save(Request.QueryString["u"],GroupID,((CheckBox)item.FindControl("GroupMember")).Checked);
+				DataProvider.usergroup_save(Request.QueryString["u"],GroupID,((CheckBox)item.FindControl("GroupMember")).Checked);
 			}
 
 			Forum.Redirect(Pages.admin_users);

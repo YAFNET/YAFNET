@@ -85,7 +85,7 @@ namespace yaf.pages.admin
 		{
 			if(Request.QueryString["c"] != null) 
 			{
-				using(DataTable dt = DB.category_list(PageBoardID,Request.QueryString["c"]))
+				using(DataTable dt = DataProvider.category_list(PageBoardID,Request.QueryString["c"]))
 				{
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
@@ -100,7 +100,7 @@ namespace yaf.pages.admin
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
-			DB.category_save(PageBoardID,CategoryID,Name.Text,SortOrder.Text);
+			DataProvider.category_save(PageBoardID,CategoryID,Name.Text,SortOrder.Text);
 			Forum.Redirect(Pages.admin_forums);
 		}
 	}

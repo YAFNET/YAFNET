@@ -53,12 +53,12 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			using(DataTable dt = DB.pmessage_info()) 
+			using(DataTable dt = DataProvider.pmessage_info()) 
 				Count.Text = dt.Rows[0]["NumTotal"].ToString();
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			DB.pmessage_prune(Days1.Text,Days2.Text);
+			DataProvider.pmessage_prune(Days1.Text,Days2.Text);
 			BindData();
 		}
 
