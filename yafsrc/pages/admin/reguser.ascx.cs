@@ -101,12 +101,15 @@ namespace yaf.pages.admin
 
         if(DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
         {
-          AddLoadMessage("Your username or email is already registered.");
+          AddLoadMessage("Username or email are already registered.");
           return;
         }
 
-        DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification);
-        Forum.Redirect(Pages.admin_reguser);
+				if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification))
+				{
+					// success
+					Forum.Redirect(Pages.admin_reguser);
+				}
       }
     }
 		
