@@ -111,6 +111,8 @@ namespace yaf.pages
 		/// </summary>
 		protected PlaceHolder SubForums;
 
+		protected System.Web.UI.HtmlControls.HtmlGenericControl RSSLinkSpacer;
+
 		/// <summary>
 		/// Overloads the topics page.
 		/// </summary>
@@ -129,6 +131,9 @@ namespace yaf.pages
 			Mession.UnreadTopics = 0;
  			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg=topics&f={0}", Request.QueryString["f"]);
  			RssFeed.Text = GetText("RSSFEED");
+			RssFeed.Visible = BoardSettings.ShowRSSLink;
+			RSSLinkSpacer.Visible = BoardSettings.ShowRSSLink;
+
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));

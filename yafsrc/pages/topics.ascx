@@ -67,7 +67,7 @@
 				<asp:linkbutton id="WatchForum" runat="server"/>
 				|
 				<asp:linkbutton runat="server" id="MarkRead"/>
-				|
+				<span id="RSSLinkSpacer" runat="server">|</span>
 				<asp:hyperlink id="RssFeed" runat="server" />
 				</td></tr></table>
 
