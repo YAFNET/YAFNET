@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<configSections>
+		<!-- Yet Another Forum.net handler -->
+		<section name="yafnet" type="yaf.SectionHandler,yaf" />
+	</configSections>
+	
+	<!-- Yet Another Forum.net configuration -->
+	<yafnet>
+		<connstr>data source=(local);initial catalog=;user id=;password=;</connstr>
+		<root>/dotnetnuke/desktopmodules/yetanotherforum.net/</root>
+		<language>english.xml</language>
+		<theme>standard.xml</theme>
+		<uploaddir>/dotnetnuke/desktopmodules/yetanotherforum.net/upload/</uploaddir>
+		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
+	</yafnet>
+</configuration>
