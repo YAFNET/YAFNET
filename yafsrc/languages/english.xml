@@ -425,6 +425,7 @@
 		<Resource tag="SAVE">Post</Resource>
 		<Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
 		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
+		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
