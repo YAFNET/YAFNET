@@ -265,6 +265,12 @@ namespace yaf
 				case "strong":
 				case "font":
 				case "pre":
+				case "h1":
+				case "h2":
+				case "h3":
+				case "h4":
+				case "h5":
+				case "h6":
 					return true;
 			}
 			return false;

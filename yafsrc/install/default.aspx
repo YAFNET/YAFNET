@@ -48,7 +48,7 @@
 		<td colspan=2>
 		<p>
 			This step will try to verify your Web.config file. You might need
-			to modify "<%= Server.MapPath("Web.config") %>".
+			to modify "<%= Server.MapPath("../Web.config") %>".
 		</p>
 		
 		<asp:placeholder runat="server" id="ConfigSample" visible="False">
@@ -89,7 +89,7 @@
 		<td colspan=2>
 		<p>
 			You will have to manually modify the connection string found in
-			"<%= Server.MapPath("Web.config") %>" to point to your database.
+			"<%= Server.MapPath("../Web.config") %>" to point to your database.
 		</p>
 		<p>
 			When you have entered the correct connection string, click next

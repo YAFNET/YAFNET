@@ -88,6 +88,14 @@ namespace yaf
 		public Forum()
 		{
 			this.Load += new EventHandler(Forum_Load);
+			try 
+			{
+				m_boardID = int.Parse(Config.ConfigSection["boardid"]);
+			}
+			catch(Exception)
+			{
+				m_boardID = 1;
+			}
 		}
 
 		private void Forum_Load(object sender,EventArgs e) 
@@ -376,7 +384,8 @@ namespace yaf
 			System.Web.HttpContext.Current.Response.Redirect(GetLink(page,format,args));
 		}
 
-		private int m_boardID = 1;
+		private int m_boardID;
+		
 		public int BoardID
 		{
 			get
