@@ -94,11 +94,12 @@ namespace yaf
 				after_replace = after_replace.Replace("]","&#93;");
 				after_replace = after_replace.Replace("<br/>","\n");
 				//after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
-				bbcode = bbcode.Replace(before_replace,string.Format("<pre>{0}</pre>",after_replace));
+				bbcode = bbcode.Replace(before_replace,string.Format("<blockquote><pre style=\"font-size:10px\">{0}</pre></blockquote>",after_replace));
 				break;
 			}
 
 			m = r_size.Match(bbcode);
+
 			while(m.Success) 
 			{
 				Console.WriteLine("{0}",m.Groups["size"]);
@@ -114,24 +115,29 @@ namespace yaf
 				m = r_size.Match(bbcode);
 			}
 
-			bbcode = r_bold.Replace(bbcode,"<b>${inner}</b>");
-			bbcode = r_strike.Replace(bbcode,"<s>${inner}</s>");
-			bbcode = r_italic.Replace(bbcode,"<em>${inner}</em>");
-			bbcode = r_underline.Replace(bbcode,"<u>${inner}</u>");
-			bbcode = r_email2.Replace(bbcode,"<a href=\"mailto:${email}\">${inner}</a>");
-			bbcode = r_email1.Replace(bbcode,"<a href=\"mailto:${inner}\">${inner}</a>");
-			bbcode = r_url2.Replace(bbcode,"<a href=\"${url}\">${inner}</a>");
-			bbcode = r_url1.Replace(bbcode,"<a href=\"${inner}\">${inner}</a>");
-			bbcode = r_font.Replace(bbcode,"<span style=\"font-family:${font}\">${inner}</span>");
-			bbcode = r_color.Replace(bbcode,"<span style=\"color:${color}\">${inner}</span>");
+			NestedReplace(ref bbcode,r_bold,"<b>${inner}</b>");
+			NestedReplace(ref bbcode,r_strike,"<s>${inner}</s>");
+			NestedReplace(ref bbcode,r_italic,"<i>${inner}</i>");
+			NestedReplace(ref bbcode,r_underline,"<u>${inner}</u>");
+			// e-mails
+			NestedReplace(ref bbcode,r_email2,"<a href=\"mailto:${email}\">${inner}</a>",new string[]{"email"});
+			NestedReplace(ref bbcode,r_email1,"<a href=\"mailto:${inner}\">${inner}</a>");
+			// urls
+			NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
+			NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
+			// font
+			NestedReplace(ref bbcode,r_font,"<span style=\"font-family:${font}\">${inner}</span>",new string[]{"font"});
+			NestedReplace(ref bbcode,r_color,"<span style=\"color:${color}\">${inner}</span>",new string[]{"color"});
+			// bullets
 			bbcode = r_bullet.Replace(bbcode,"<li>");
-			bbcode = r_list4.Replace(bbcode,"<ol type=\"i\">${inner}</ol>");
-			bbcode = r_list3.Replace(bbcode,"<ol type=\"a\">${inner}</ol>");
-			bbcode = r_list2.Replace(bbcode,"<ol>${inner}</ol>");
-			bbcode = r_list1.Replace(bbcode,"<ul>${inner}</ul>");
-			bbcode = r_center.Replace(bbcode,"<div align=\"center\">${inner}</div>");
-			bbcode = r_left.Replace(bbcode,"<div align=\"left\">${inner}</div>");
-			bbcode = r_right.Replace(bbcode,"<div align=\"right\">${inner}</div>");
+			NestedReplace(ref bbcode,r_list4,"<ol type=\"i\">${inner}</ol>");
+			NestedReplace(ref bbcode,r_list3,"<ol type=\"a\">${inner}</ol>");
+			NestedReplace(ref bbcode,r_list2,"<ol>${inner}</ol>");
+			NestedReplace(ref bbcode,r_list2,"<ul>${inner}</ul>");
+			// alignment
+			NestedReplace(ref bbcode,r_center,"<div align=\"center\">${inner}</div>");
+			NestedReplace(ref bbcode,r_left,"<div align=\"left\">${inner}</div>");
+			NestedReplace(ref bbcode,r_right,"<div align=\"right\">${inner}</div>");
 
 			while(r_quote2.IsMatch(bbcode))
 				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>QUOTE (${quote})</b><div class='innerquote'>${inner}</div></div>");
@@ -158,6 +164,36 @@ namespace yaf
 			bbcode = r_br.Replace(bbcode,"<br/>");
 
 			return bbcode;
+		}
+
+		static protected void NestedReplace(ref string refText,Regex regexMatch,string strReplace,string[] Variables)
+		{
+			Match m = regexMatch.Match(refText);
+			while (m.Success)
+			{
+				string tStr = strReplace;
+
+				foreach (string tVar in Variables)
+				{
+					tStr = tStr.Replace("${"+tVar+"}",m.Groups[tVar].Value);
+				}
+
+				tStr = tStr.Replace("${inner}",m.Groups["inner"].Value);
+
+				refText = refText.Substring(0,m.Groups[0].Index) + tStr + refText.Substring(m.Groups[0].Index + m.Groups[0].Length);
+				m = regexMatch.Match(refText);
+			}
+		}
+
+		static protected void NestedReplace(ref string refText,Regex regexMatch,string strReplace)
+		{
+			Match m = regexMatch.Match(refText);
+			while (m.Success)
+			{
+				string tStr = strReplace.Replace("${inner}",m.Groups["inner"].Value);				
+				refText = refText.Substring(0,m.Groups[0].Index) + tStr + refText.Substring(m.Groups[0].Index + m.Groups[0].Length);
+				m = regexMatch.Match(refText);
+			}
 		}
 
 		static public string SafeHtml(string html) 

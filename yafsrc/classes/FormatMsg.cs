@@ -252,13 +252,13 @@ namespace yaf
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]>", options);
+			html = Regex.Replace(html, @"(^|[\n ])(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]", options);
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
+			html = Regex.Replace(html, "(^|[\n ])(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
+			html = Regex.Replace(html, @"(^|[\n ])(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
 
 			// jaben : moved word replace to reusable function in class utils
 			html = Utils.BadWordReplace(html);
