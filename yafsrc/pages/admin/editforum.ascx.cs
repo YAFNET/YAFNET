@@ -95,27 +95,9 @@ namespace yaf.pages.admin
 			//ParentList.DataValueField = "ForumID";
 			//ParentList.DataTextField = "Name";
 			// Load forum's combo
-			ParentList.Items.Add(new ListItem("",""));
-			DataTable dt = DB.forum_listall(PageBoardID,PageUserID);
-
-			int nOldCat = 0;
-			for(int i=0;i<dt.Rows.Count;i++) 
-			{
-				DataRow row = dt.Rows[i];
-				if((int)row["CategoryID"] != nOldCat) 
-				{
-					nOldCat = (int)row["CategoryID"];
-					ParentList.Items.Add(new ListItem((string)row["Category"],""));
-				}
-
-				if (ForumID != Convert.ToInt32(row["ForumID"]))
-				{
-					string sIndent = "";
-					int iIndent = Convert.ToInt32(row["Indent"]);
-					for (int j=0;j<iIndent;j++) sIndent += "--";
-					ParentList.Items.Add(new ListItem(string.Format(" -{0} {1}",sIndent,row["Forum"]),row["ForumID"].ToString()));
-				}
-			}
+			ParentList.DataSource = DB.forum_listall_nice(PageBoardID,PageUserID,new string[]{ForumID.ToString()});
+			ParentList.DataValueField = "ForumID";
+			ParentList.DataTextField = "Title";
 
 			DataBind();
 		}

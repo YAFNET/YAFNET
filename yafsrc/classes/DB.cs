@@ -1102,6 +1102,62 @@ namespace yaf
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}
+		static public DataTable forum_listall_nice(object boardID,object userID) 
+		{
+			return forum_listall_nice(boardID,userID,null);
+		}
+		static public DataTable forum_listall_nice(object boardID,object userID,string[] exclusions) 
+		{
+			DataTable list = new DataTable();
+			list.Columns.Add("ForumID",typeof(string));
+			list.Columns.Add("Title",typeof(string));
+
+			using(DataTable dt=forum_listall(boardID,userID)) 
+			{
+				DataRow newRow = list.NewRow();
+				newRow["ForumID"] = string.Empty;
+				newRow["Title"] = string.Empty;
+				list.Rows.Add(newRow);
+
+				int nOldCat = 0;
+				for(int i=0;i<dt.Rows.Count;i++) 
+				{
+					DataRow row = dt.Rows[i];
+					if((int)row["CategoryID"] != nOldCat) 
+					{
+						nOldCat = (int)row["CategoryID"];
+						newRow = list.NewRow();
+						newRow["ForumID"] = string.Empty;
+						newRow["Title"] = row["Category"].ToString();
+						list.Rows.Add(newRow);
+					}
+
+					bool bAddIt = true;
+					if(exclusions!=null) 
+					{
+						foreach(string forumID in exclusions) 
+						{
+							if(forumID==row["ForumID"].ToString()) 
+							{
+								bAddIt = false;
+								break;
+							}
+						}
+					}
+					if (bAddIt)
+					{
+						string sIndent = "";
+						int iIndent = Convert.ToInt32(row["Indent"]);
+						for (int j=0;j<iIndent;j++) sIndent += "--";
+						newRow = list.NewRow();
+						newRow["ForumID"] = row["ForumID"].ToString();
+						newRow["Title"] = string.Format(" -{0} {1}",sIndent,row["Forum"]);
+						list.Rows.Add(newRow);
+					}
+				}
+			}
+			return list;
+		}
 		#endregion
 
 		#region yaf_ForumAccess

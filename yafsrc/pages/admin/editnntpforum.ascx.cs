@@ -90,9 +90,9 @@ namespace yaf.pages.admin
 			NntpServerID.DataSource = DB.nntpserver_list(PageBoardID,null);
 			NntpServerID.DataValueField = "NntpServerID";
 			NntpServerID.DataTextField = "Name";
-			ForumID.DataSource = DB.forum_list(PageBoardID,null);
+			ForumID.DataSource = DB.forum_listall_nice(PageBoardID,PageUserID);
 			ForumID.DataValueField = "ForumID";
-			ForumID.DataTextField = "Name";
+			ForumID.DataTextField = "Title";
 			DataBind();
 		}
 
