@@ -7,7 +7,6 @@
   Messages + an option in the Profile to disable it.
 - tooltips for user profile links (View profile).
 - allow admin to pm all members.
-- visual clues on rich edit buttons.
 - somehow show that there are messages to be moderated.
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
 - Admin can change user password
@@ -24,3 +23,4 @@
 - A fast response text box (only simple text with post button) at the bottom of 
   an open topic if the user can reply. So if I read a topic and want to reply 
   "on the fly" I can do it immediatly.
+- Fix theme and translation for richedit.

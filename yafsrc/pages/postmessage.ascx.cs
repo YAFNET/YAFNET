@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// </summary>
 	public class postmessage : ForumPage
 	{
-		protected rte.rte Message;
+		protected RichEdit Message;
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.Button PostReply;
 		protected System.Web.UI.WebControls.Label Title;
@@ -99,6 +99,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			Message.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			Message.BaseDir = Data.ForumRoot + "rte";
 
 			if(!IsPostBack) 
 			{
@@ -136,7 +137,7 @@ namespace yaf.pages
 				if(Request.QueryString["q"] != null) {
 					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
 
-					if(Message.IsRTEBrowser) 
+					if(Message.IsRichBrowser) 
 					{
 						string body = msg["Message"].ToString();
 						if(!isHtml) 
@@ -155,7 +156,7 @@ namespace yaf.pages
 				} else if(Request.QueryString["m"] != null) {
 					string body = msg["message"].ToString();
 					bool isHtml = body.IndexOf('<')>=0;
-					if(Message.IsRTEBrowser) 
+					if(Message.IsRichBrowser) 
 					{
 						if(!isHtml) 
 						{
@@ -253,7 +254,7 @@ namespace yaf.pages
 				replyTo = -1;
 
 			string msg = Message.Text;
-			if(!Message.IsRTEBrowser) 
+			if(!Message.IsRichBrowser) 
 				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
 			else
 				msg = FormatMsg.RepairHtml(this,msg);
@@ -347,7 +348,7 @@ namespace yaf.pages
 			string fcode = FormatMsg.HtmlToForumCode(body);
 			AddLoadMessage(fcode);
 #endif
-			if(!Message.IsRTEBrowser) 
+			if(!Message.IsRichBrowser) 
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 			else
 				body = FormatMsg.FetchURL(this,body);

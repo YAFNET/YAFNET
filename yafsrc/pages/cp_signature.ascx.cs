@@ -35,7 +35,7 @@ namespace yaf.pages
 	public class cp_signature : ForumPage
 	{
 		protected Button save, cancel;
-		protected rte.rte sig;
+		protected RichEdit sig;
 		protected controls.PageLinks PageLinks;
 
 		public cp_signature() : base("CP_SIGNATURE")
@@ -45,6 +45,7 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			sig.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			sig.BaseDir = Data.ForumRoot + "rte";
 
 			if(!User.IsAuthenticated)
 			{
@@ -58,9 +59,9 @@ namespace yaf.pages
 			{
 				string msg = DB.user_getsignature(PageUserID);
 				bool isHtml = msg.IndexOf('<')>=0;
-				if(sig.IsRTEBrowser && !isHtml)
+				if(sig.IsRichBrowser && !isHtml)
 					msg = FormatMsg.ForumCodeToHtml(this,msg);
-				else if(!sig.IsRTEBrowser && isHtml)
+				else if(!sig.IsRichBrowser && isHtml)
 					msg = FormatMsg.HtmlToForumCode(msg);
 				sig.Text = msg;
 
@@ -75,7 +76,7 @@ namespace yaf.pages
 
 		private void save_Click(object sender,EventArgs e) {
 			string body = sig.Text;
-			if(!sig.IsRTEBrowser)
+			if(!sig.IsRichBrowser)
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 			else
 				body = FormatMsg.RepairHtml(this,body);

@@ -1537,20 +1537,13 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "rte\rte.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\rte.ascx.cs"
-                    DependentUpon = "rte.ascx"
-                    SubType = "ASPXCodeBehind"
+                    RelPath = "rte\RichEdit.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "rte\rte.ascx.resx"
-                    DependentUpon = "rte.ascx.cs"
-                    BuildAction = "EmbeddedResource"
+                    RelPath = "rte\RichEdit.js"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "rte\images\backcolor.gif"

@@ -35,7 +35,7 @@ namespace yaf.pages
 	public class pmessage : ForumPage
 	{
 		protected System.Web.UI.WebControls.TextBox Subject;
-		protected rte.rte Editor;
+		protected RichEdit Editor;
 		protected System.Web.UI.WebControls.TextBox To;
 		protected System.Web.UI.HtmlControls.HtmlTableRow ToRow;
 		protected System.Web.UI.WebControls.Button Cancel;
@@ -51,6 +51,7 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			Editor.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			Editor.BaseDir = Data.ForumRoot + "rte";
 
 			if(!User.IsAuthenticated)
 			{
@@ -83,13 +84,13 @@ namespace yaf.pages
 						string body = row["Body"].ToString();
 						bool isHtml = body.IndexOf('<')>=0;
 
-						if(Editor.IsRTEBrowser)
+						if(Editor.IsRichBrowser)
 						{
 							if(!isHtml)
 								body = FormatMsg.ForumCodeToHtml(this,body);
 							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
 						} 
-						else if(!Editor.IsRTEBrowser)
+						else if(!Editor.IsRichBrowser)
 						{
 							if(isHtml)
 								body = FormatMsg.HtmlToForumCode(body);
@@ -172,7 +173,7 @@ namespace yaf.pages
 				}
 
 				string body = Editor.Text;
-				if(!Editor.IsRTEBrowser) 
+				if(!Editor.IsRichBrowser) 
 					body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 				else
 					body = FormatMsg.RepairHtml(this,body);

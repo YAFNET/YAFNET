@@ -1,5 +1,5 @@
 <%@ Control language="c#" Codebehind="cp_signature.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_signature" %>
-<%@ Register TagPrefix="RichEdit" TagName="rte" Src="../rte/rte.ascx" %>
+<%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -11,7 +11,7 @@
 <tr>
 	<td class=postheader valign=top><%= GetText("signature") %></td>
 	<td class=post>
-		<RichEdit:rte runat="server" id="sig" cssclass="posteditor"/>
+		<rte:RichEdit runat="server" id="sig"/>
 	</td>
 </tr>
 <tr>
