@@ -23,7 +23,6 @@
   "on the fly" I can do it immediatly.
 - Fix translation again for richedit.
 - Add colors to rich editor.
-- Since I'm using 0.96 I can't no longer jump to the last post when a topic contains multiple pages, everytime I try that I get the first page.
 - Ok this is what i get after i try to add a sub forum.... "User 'pro-logic' isn't registered."
 - Possible to modify subject of messages?!?
 - Disable user registration.
