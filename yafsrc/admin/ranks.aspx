@@ -30,7 +30,7 @@
 			<td class=post>
 				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

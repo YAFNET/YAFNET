@@ -52,6 +52,16 @@ namespace yaf.admin
 			}
 		}
 
+		protected void DeleteCategory_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this category?')";
+		}
+
+		protected void DeleteForum_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this forum?')";
+		}
+
 		private void BindData() 
 		{
 			DataSet ds = new DataSet();

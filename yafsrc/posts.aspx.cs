@@ -120,6 +120,16 @@ namespace yaf
 			AccessCell.InnerHtml = tmp.ToString();
 		}
 
+		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this message?')";
+		}
+
+		protected void DeleteTopic_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this topic?')";
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{

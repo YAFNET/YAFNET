@@ -36,7 +36,7 @@ namespace yaf.admin
 	/// </summary>
 	public class main : BasePage
 	{
-		protected System.Web.UI.WebControls.Repeater ActiveList;
+		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -45,16 +45,50 @@ namespace yaf.admin
 			if(!IsPostBack) BindData();
 		}
 
-		private void BindData() {
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this user?')";
+		}
+
+		private void BindData() 
+		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_list")) {
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@Guests",true);
 				ActiveList.DataSource = DataManager.GetData(cmd);
 			}
+			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",null);
+				cmd.Parameters.Add("@Approved",false);
+				UserList.DataSource = DataManager.GetData(cmd);
+			}
 			DataBind();
 		}
 
-		protected string FormatForumLink(object ForumID,object ForumName) {
+		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
+		{
+			switch(e.CommandName) 
+			{
+				case "edit":
+					Response.Redirect(String.Format("edituser.aspx?u={0}",e.CommandArgument));
+					break;
+				case "delete":
+					using(SqlCommand cmd = new SqlCommand("yaf_user_delete")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@UserID",e.CommandArgument);
+						DataManager.ExecuteNonQuery(cmd);
+						AddLoadMessage("User deleted.");
+					}
+					BindData();
+					break;
+			}
+		}
+
+		protected string FormatForumLink(object ForumID,object ForumName) 
+		{
 			if(ForumID.ToString()=="" || ForumName.ToString()=="")
 				return "";
 
@@ -71,6 +105,7 @@ namespace yaf.admin
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

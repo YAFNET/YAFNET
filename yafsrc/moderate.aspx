@@ -34,7 +34,7 @@
 		<td align=center><%# DataBinder.Eval(Container.DataItem, "Views") %></td>
 		<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRowView)Container.DataItem) %></td>
 		<td>
-			<asp:linkbutton runat=server commandargument='<%# DataBinder.Eval(Container.DataItem, "TopicID") %>' commandname='delete'><img src='<%# ThemeFile("b_delete_topic.png") %>'></asp:linkbutton>
+			<asp:linkbutton runat=server onload="Delete_Load" commandargument='<%# DataBinder.Eval(Container.DataItem, "TopicID") %>' commandname='delete'><img src='<%# ThemeFile("b_delete_topic.png") %>'></asp:linkbutton>
 		</td>
 	</tr>
 </itemtemplate>

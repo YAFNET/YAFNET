@@ -1,4 +1,4 @@
-/* Version x.x.x */
+/* Version 0.9.x */
 
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='AvatarImage')
 	alter table yaf_User add AvatarImage image null

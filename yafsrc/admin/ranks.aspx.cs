@@ -72,6 +72,11 @@ namespace yaf.admin
 		}
 		#endregion
 
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this rank?')";
+		}
+
 		private void BindData() 
 		{
 			RankList.DataSource = DataManager.GetData("yaf_rank_list",CommandType.StoredProcedure);

@@ -16,7 +16,7 @@
 			<td class=header2 style="font-weight:normal">
 				<asp:linkbutton runat='server' commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat='server' commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat='server' onload="DeleteCategory_Load" commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 		<asp:Repeater id=ForumList OnItemCommand="ForumList_ItemCommand" runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
@@ -27,7 +27,7 @@
 					<td>
 						<asp:linkbutton runat='server' commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'>Edit</asp:linkbutton>
 						|
-						<asp:linkbutton runat='server' commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'>Delete</asp:linkbutton>
+						<asp:linkbutton runat='server' onload="DeleteForum_Load" commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'>Delete</asp:linkbutton>
 					</td>
 				</tr>
 			</ItemTemplate>

@@ -72,6 +72,11 @@ namespace yaf.admin
 		}
 		#endregion
 
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this group?')";
+		}
+
 		private void BindData() 
 		{
 			GroupList.DataSource = DataManager.GetData("yaf_group_list",CommandType.StoredProcedure);

@@ -56,7 +56,13 @@ namespace yaf
 				BindData();
 		}
 
-		private void BindData() {
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this topic?')";
+		}
+
+		private void BindData() 
+		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_list")) {
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",PageForumID);

@@ -22,7 +22,7 @@
 		<td class=post>
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Edit"/>
 			|
-			<asp:linkbutton runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Delete"/>
+			<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Delete"/>
 		</td>
 	</tr>
 </ItemTemplate>

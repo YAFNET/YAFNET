@@ -27,6 +27,11 @@ namespace yaf.admin
 				BindData();
 		}
 
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this smiley?')";
+		}
+
 		private void BindData() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_smiley_list")) 

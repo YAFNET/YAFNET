@@ -69,7 +69,13 @@ namespace yaf.admin
 		}
 		#endregion
 	
-		private void BindData() {
+		protected void Delete_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this user?')";
+		}
+
+		private void BindData() 
+		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
