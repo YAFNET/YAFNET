@@ -213,7 +213,7 @@ namespace yaf.controls
 
 			// Location
 			if(row["Location"].ToString().Length>0)
-				html += String.Format("{0}: {1}<br/>",ForumPage.GetText("location"),row["Location"]);
+				html += String.Format("{0}: {1}<br/>",ForumPage.GetText("location"),FormatMsg.RepairHtml(ForumPage,row["Location"].ToString()));
 
 			return html;
 		}

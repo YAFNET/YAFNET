@@ -9,11 +9,11 @@
 	<td width=80%>
 		<table cellspacing=0 cellpadding=0 width=100%>
 		<tr>
-			<td>
+			<td class=postheader>
 				<b><%# ForumPage.GetText("POSTED") %>:</b> 
 				<%# ForumPage.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 			</td>
-			<td align=right>
+			<td class=postheader align=right>
 				<asp:hyperlink runat='server' id='Attach'/>
 				<asp:hyperlink runat='server' id='Edit'/>
 				<asp:linkbutton runat='server' id='Delete'/>
