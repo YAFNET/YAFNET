@@ -127,7 +127,7 @@ namespace yaf.pages
 				fromUserID = PageUserID;
 			else
 				toUserID = PageUserID;
-			using(DataView dv = DataProvider.pmessage_list(toUserID,fromUserID,null).DefaultView) 
+			using(DataView dv = DB.pmessage_list(toUserID,fromUserID,null).DefaultView) 
 			{
 				dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAsc"] ? "asc" : "desc");
 				Inbox.DataSource = dv;
@@ -156,12 +156,12 @@ namespace yaf.pages
 				{
 					if(((CheckBox)item.FindControl("ItemCheck")).Checked) 
 					{
-						DataProvider.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
+						DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
 						nItemCount++;
 					}
 				}
 
-				//TODO DataProvider.pmessage_delete(e.CommandArgument);
+				//TODO DB.pmessage_delete(e.CommandArgument);
 				BindData();
 				if(nItemCount==1)
 					AddLoadMessage(GetText("msgdeleted1"));

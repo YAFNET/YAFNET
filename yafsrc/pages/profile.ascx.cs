@@ -75,7 +75,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			using(DataTable dt = DataProvider.user_list(PageBoardID,Request.QueryString["u"],true)) 
+			using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],true)) 
 			{
 				if(dt.Rows.Count<1)
 					Data.AccessDenied(/*No such user exists*/);
@@ -149,7 +149,7 @@ namespace yaf.pages
 					Avatar.Visible = false;
 				}
 
-				Groups.DataSource = DataProvider.usergroup_list(PageBoardID,Request.QueryString["u"]);
+				Groups.DataSource = DB.usergroup_list(PageBoardID,Request.QueryString["u"]);
 
 				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
@@ -162,7 +162,7 @@ namespace yaf.pages
 
 				if(IsAdmin || IsForumModerator)
 				{
-					using(DataTable dt2 = DataProvider.user_accessmasks(PageBoardID,Request.QueryString["u"]))
+					using(DataTable dt2 = DB.user_accessmasks(PageBoardID,Request.QueryString["u"]))
 					{
 						System.Text.StringBuilder html = new System.Text.StringBuilder();
 						int nLastForumID = 0;
@@ -188,7 +188,7 @@ namespace yaf.pages
 				}
 			}
 
-			LastPosts.DataSource = DataProvider.post_last10user(PageBoardID,Request.QueryString["u"],PageUserID);
+			LastPosts.DataSource = DB.post_last10user(PageBoardID,Request.QueryString["u"],PageUserID);
 			
 			DataBind();
 		}
@@ -197,7 +197,7 @@ namespace yaf.pages
 		{
 			/// Admins can suspend anyone not admins
 			/// Forum Moderators can suspend anyone not admin or forum moderator
-			using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
+			using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 			{
 				foreach(DataRow row in dt.Rows) 
 				{
@@ -229,13 +229,13 @@ namespace yaf.pages
 					break;
 			}
 
-			DataProvider.user_suspend(Request.QueryString["u"],suspend);
+			DB.user_suspend(Request.QueryString["u"],suspend);
 			BindData();
 		}
 
 		private void RemoveSuspension_Click(object sender, System.EventArgs e) 
 		{
-			DataProvider.user_suspend(Request.QueryString["u"],null);
+			DB.user_suspend(Request.QueryString["u"],null);
 			BindData();
 		}
 

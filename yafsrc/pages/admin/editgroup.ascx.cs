@@ -58,7 +58,7 @@ namespace yaf.pages.admin
 				if(Request.QueryString["i"] != null) 
 				{
 					NewGroupRow.Visible = false;
-					using(DataTable dt = DataProvider.group_list(PageBoardID,Request.QueryString["i"])) 
+					using(DataTable dt = DB.group_list(PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -121,7 +121,7 @@ namespace yaf.pages.admin
 			}
 
 			if(Request.QueryString["i"] != null) 
-				AccessList.DataSource = DataProvider.forumaccess_group(Request.QueryString["i"]);
+				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
 
 			DataBind();
 		}
@@ -137,7 +137,7 @@ namespace yaf.pages.admin
 			long GroupID = 0;
 			if(Request.QueryString["i"] != null) GroupID = long.Parse(Request.QueryString["i"]);
 				
-			GroupID = DataProvider.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
+			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
 			if(Request.QueryString["i"] != null) 
@@ -146,7 +146,7 @@ namespace yaf.pages.admin
 				{
 					RepeaterItem item = AccessList.Items[i];
 					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-					DataProvider.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+					DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 				}
 				Forum.Redirect(Pages.admin_groups);
 			}
@@ -157,7 +157,7 @@ namespace yaf.pages.admin
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DataProvider.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

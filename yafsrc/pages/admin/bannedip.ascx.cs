@@ -49,7 +49,7 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			list.DataSource = DataProvider.bannedip_list(PageBoardID,null);
+			list.DataSource = DB.bannedip_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -59,7 +59,7 @@ namespace yaf.pages.admin
 			else if(e.CommandName == "edit")
 				Forum.Redirect(Pages.admin_bannedip_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") {
-				DataProvider.bannedip_delete(e.CommandArgument);
+				DB.bannedip_delete(e.CommandArgument);
 				Cache.Remove("bannedip");
 				BindData();
 				AddLoadMessage("Removed IP address ban.");

@@ -249,11 +249,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "classes\MsSql.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "classes\MySession.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

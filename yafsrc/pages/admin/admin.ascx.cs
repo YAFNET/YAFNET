@@ -62,11 +62,11 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			ActiveList.DataSource = DataProvider.active_list(PageBoardID,true);
-			UserList.DataSource = DataProvider.user_list(PageBoardID,null,false);
+			ActiveList.DataSource = DB.active_list(PageBoardID,true);
+			UserList.DataSource = DB.user_list(PageBoardID,null,false);
 			DataBind();
 
-			DataRow row = DataProvider.board_stats();
+			DataRow row = DB.board_stats();
 			NumPosts.Text	= String.Format("{0:N0}",row["NumPosts"]);
 			NumTopics.Text	= String.Format("{0:N0}",row["NumTopics"]);
 			NumUsers.Text	= String.Format("{0:N0}",row["NumUsers"]);
@@ -81,7 +81,7 @@ namespace yaf.pages.admin
 			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);
 			DayUsers.Text = String.Format("{0:N2}",(int)row["NumUsers"] / days);
 
-			DBSize.Text = String.Format("{0:N2} MB",DataProvider.DBSize()/1024.0/1024.0);
+			DBSize.Text = String.Format("{0:N2} MB",DB.DBSize()/1024.0/1024.0);
 		}
 
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
@@ -92,11 +92,11 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.user_delete(e.CommandArgument);
+					DB.user_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "approve":
-					DataProvider.user_approve(e.CommandArgument);
+					DB.user_approve(e.CommandArgument);
 					BindData();
 					break;
 			}

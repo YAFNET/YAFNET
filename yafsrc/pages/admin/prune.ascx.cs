@@ -52,7 +52,7 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			forumlist.DataSource = DataProvider.forum_listread(PageBoardID,PageUserID,null,null);
+			forumlist.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
 			forumlist.DataValueField = "ForumID";
 			forumlist.DataTextField = "Forum";
 			DataBind();
@@ -60,7 +60,7 @@ namespace yaf.pages.admin
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			int Count = DataProvider.topic_prune(forumlist.SelectedValue,days.Text);
+			int Count = DB.topic_prune(forumlist.SelectedValue,days.Text);
 			AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 

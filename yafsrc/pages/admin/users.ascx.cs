@@ -80,7 +80,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			UserList.DataSource = DataProvider.user_list(PageBoardID,null,null);
+			UserList.DataSource = DB.user_list(PageBoardID,null,null);
 			DataBind();
 		}
 
@@ -90,7 +90,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.user_delete(e.CommandArgument);
+					DB.user_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

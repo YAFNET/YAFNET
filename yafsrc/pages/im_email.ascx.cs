@@ -49,7 +49,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
@@ -69,7 +69,7 @@ namespace yaf.pages
 			{
  				string from = string.Empty, to = string.Empty;
  				string fromName = string.Empty, toName = string.Empty;
-				using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
@@ -78,7 +78,7 @@ namespace yaf.pages
 						break;
 					}
 				}
-				using(DataTable dt=DataProvider.user_list(PageBoardID,PageUserID,null)) 
+				using(DataTable dt=DB.user_list(PageBoardID,PageUserID,null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{

@@ -37,7 +37,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.smiley_list(PageBoardID,null);
+			List.DataSource = DB.smiley_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -52,7 +52,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_smilies_edit,"s={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.smiley_delete(e.CommandArgument);
+					DB.smiley_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "import":

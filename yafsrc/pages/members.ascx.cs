@@ -116,7 +116,7 @@ namespace yaf.pages
 		{
 			Pager.PageSize = 20;
 
-			DataView dv = DataProvider.user_list(PageBoardID,null,true).DefaultView;
+			DataView dv = DB.user_list(PageBoardID,null,true).DefaultView;
 			Pager.Count = dv.Count;
 
 			dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAscending"] ? "asc" : "desc");

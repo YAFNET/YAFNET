@@ -73,7 +73,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.board_list(null);
+			List.DataSource = DB.board_list(null);
 			DataBind();
 		}
 
@@ -88,7 +88,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editboard,"b={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.board_delete(e.CommandArgument);
+					DB.board_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

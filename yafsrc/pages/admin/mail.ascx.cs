@@ -53,7 +53,7 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			ToList.DataSource = DataProvider.group_list(PageBoardID,null);
+			ToList.DataSource = DB.group_list(PageBoardID,null);
 			DataBind();
 
 			ListItem item = new ListItem("All Users","0");
@@ -87,7 +87,7 @@ namespace yaf.pages.admin
 			if(ToList.SelectedItem.Value!="0")
 				GroupID = ToList.SelectedValue;
 
-			using(DataTable dt = DataProvider.user_emails(PageBoardID,GroupID)) 
+			using(DataTable dt = DB.user_emails(PageBoardID,GroupID)) 
 			{
 				foreach(DataRow row in dt.Rows)
 					//  Build a MailMessage

@@ -76,8 +76,8 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			topic = DataProvider.topic_info(PageTopicID);
-			using(DataTable dt = DataProvider.forum_list(PageBoardID,PageForumID))
+			topic = DB.topic_info(PageTopicID);
+			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
 			if(!ForumReadAccess)
@@ -246,7 +246,7 @@ namespace yaf.pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-			using(DataTable dt0 = DataProvider.post_list(PageTopicID,IsPostBack?0:1)) 
+			using(DataTable dt0 = DB.post_list(PageTopicID,IsPostBack?0:1)) 
 			{
 				DataView dt = dt0.DefaultView;
 				if(IsThreaded)
@@ -267,7 +267,7 @@ namespace yaf.pages
 					else if(Request.QueryString["find"]!=null && Request.QueryString["find"].ToLower()=="unread")
 					{
 						// Find next unread
-						using(DataTable dtUnread = DataProvider.message_findunread(PageTopicID,Mession.LastVisit))
+						using(DataTable dtUnread = DB.message_findunread(PageTopicID,Mession.LastVisit))
 						{
 							foreach(DataRow row in dtUnread.Rows)
 							{
@@ -314,7 +314,7 @@ namespace yaf.pages
 			if(topic["PollID"]!=DBNull.Value) 
 			{
 				Poll.Visible = true;
-				dtPoll = DataProvider.poll_stats(topic["PollID"]);
+				dtPoll = DB.poll_stats(topic["PollID"]);
 				Poll.DataSource = dtPoll;
 			}
 			
@@ -335,13 +335,13 @@ namespace yaf.pages
 			if(!ForumModeratorAccess)
 				Data.AccessDenied(/*"You don't have access to delete topics."*/);
 
-			DataProvider.topic_delete(PageTopicID);
+			DB.topic_delete(PageTopicID);
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 
 		private void LockTopic_Click(object sender, System.EventArgs e)
 		{
-			DataProvider.topic_lock(PageTopicID,true);
+			DB.topic_lock(PageTopicID,true);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_LOCKED"));
 			LockTopic1.Visible = !LockTopic1.Visible;
@@ -354,7 +354,7 @@ namespace yaf.pages
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
 		{
-			DataProvider.topic_lock(PageTopicID,false);
+			DB.topic_lock(PageTopicID,false);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
 			LockTopic1.Visible = !LockTopic1.Visible;
@@ -380,7 +380,7 @@ namespace yaf.pages
 					return;
 				}
 
-				DataProvider.choice_vote(e.CommandArgument);
+				DB.choice_vote(e.CommandArgument);
 				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
 				c.Expires = DateTime.Now.AddYears(1);
 				Response.Cookies.Add(c);
@@ -421,7 +421,7 @@ namespace yaf.pages
 				return;
 			}
 
-			DataProvider.watchtopic_add(PageUserID,PageTopicID);
+			DB.watchtopic_add(PageUserID,PageTopicID);
 			AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
 			BindData();
 		}
@@ -434,7 +434,7 @@ namespace yaf.pages
 		}
 
 		private void PrevTopic_Click(object sender, System.EventArgs e) {
-			using(DataTable dt = DataProvider.topic_findprev(PageTopicID)) {
+			using(DataTable dt = DB.topic_findprev(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;
@@ -444,7 +444,7 @@ namespace yaf.pages
 		}
 
 		private void NextTopic_Click(object sender, System.EventArgs e) {
-			using(DataTable dt = DataProvider.topic_findnext(PageTopicID)) {
+			using(DataTable dt = DB.topic_findnext(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;

@@ -94,7 +94,7 @@ namespace yaf.pages
 
 			try {
 				string senderemail;
-				using(DataTable dt = DataProvider.user_list(PageBoardID,PageUserID,true))
+				using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true))
 					senderemail = (string)dt.Rows[0]["Email"];
 
 				//  Build a MailMessage

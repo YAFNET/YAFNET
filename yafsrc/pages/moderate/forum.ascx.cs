@@ -43,7 +43,7 @@ namespace yaf.pages.moderate
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.message_unapproved(PageForumID);
+			List.DataSource = DB.message_unapproved(PageForumID);
 			DataBind();
 		}
 
@@ -62,13 +62,13 @@ namespace yaf.pages.moderate
 			switch(e.CommandName.ToLower()) 
 			{
 				case "approve":
-					DataProvider.message_approve(e.CommandArgument);
+					DB.message_approve(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","APPROVED"));
 					Utils.CreateWatchEmail(this,e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.message_delete(e.CommandArgument);
+					DB.message_delete(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","DELETED"));
 					break;

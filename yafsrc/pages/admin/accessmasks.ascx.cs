@@ -56,7 +56,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.accessmask_list(PageBoardID,null);
+			List.DataSource = DB.accessmask_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -91,7 +91,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editaccessmask,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(DataProvider.accessmask_delete(e.CommandArgument))
+					if(DB.accessmask_delete(e.CommandArgument))
 						BindData();
 					else
 						AddLoadMessage("You cannot delete this access mask because it is in use.");

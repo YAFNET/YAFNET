@@ -33,7 +33,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.attachment_list(null,null);
+			List.DataSource = DB.attachment_list(null,null);
 			DataBind();
 		}
 
@@ -47,7 +47,7 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "delete":
-					DataProvider.attachment_delete(e.CommandArgument);
+					DB.attachment_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

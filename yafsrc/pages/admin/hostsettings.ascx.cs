@@ -62,7 +62,7 @@ namespace yaf.pages.admin {
 		private void BindData() {
 			DataRow row;
 			TimeZones.DataSource = Data.TimeZones();
-			using(DataTable dt = DataProvider.system_list())
+			using(DataTable dt = DB.system_list())
 				row = dt.Rows[0];
 
 			DataBind();
@@ -118,7 +118,7 @@ namespace yaf.pages.admin {
 			if(sUserPass.Length==0)
 				sUserPass = null;
 
-			DataProvider.system_save(
+			DB.system_save(
 				TimeZones.SelectedItem.Value,
 				ForumSmtpServer.Text,
 				sUserName,

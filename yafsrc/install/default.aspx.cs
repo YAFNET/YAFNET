@@ -116,12 +116,9 @@ namespace yaf.install
 		{
 			try 
 			{
-				using(IDataProvider dp=DB.DataProvider)
-				{
-					using(DataTable dt = dp.system_list())
-						foreach(DataRow row in dt.Rows) 
-							return (int)row["Version"];
-				}
+				using(DataTable dt = DB.system_list())
+					foreach(DataRow row in dt.Rows) 
+						return (int)row["Version"];
 			}
 			catch(Exception) 
 			{
@@ -172,10 +169,7 @@ namespace yaf.install
 			{
 				try 
 				{
-					using(IDataProvider dp=DB.DataProvider)
-					{
-						SqlConnection conn = dp.GetConnection2();
-					}
+					SqlConnection conn = DB.GetConnection();
 				}
 				catch(Exception x) 
 				{
@@ -192,13 +186,10 @@ namespace yaf.install
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
-						using(IDataProvider dp=DB.DataProvider)
-						{
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@Version",Data.AppVersion);
-							cmd.Parameters.Add("@VersionName",Data.AppVersionName);
-							dp.ExecuteNonQuery(cmd);
-						}
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Version",Data.AppVersion);
+						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
+						DB.ExecuteNonQuery(cmd);
 					}
 				}
 				catch(Exception x) 
@@ -246,28 +237,25 @@ namespace yaf.install
 				}
 				try 
 				{
-					using(IDataProvider dp=DB.DataProvider)
+					using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) 
 					{
-						using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) 
-						{
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@Name",TheForumName.Text);
-							cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
-							cmd.Parameters.Add("@ForumEmail",ForumEmailAddress.Text);
-							cmd.Parameters.Add("@SmtpServer",SmptServerAddress.Text);
-							cmd.Parameters.Add("@User",UserName.Text);
-							cmd.Parameters.Add("@UserEmail",AdminEmail.Text);
-							cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
-							dp.ExecuteNonQuery(cmd);
-						}
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Name",TheForumName.Text);
+						cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
+						cmd.Parameters.Add("@ForumEmail",ForumEmailAddress.Text);
+						cmd.Parameters.Add("@SmtpServer",SmptServerAddress.Text);
+						cmd.Parameters.Add("@User",UserName.Text);
+						cmd.Parameters.Add("@UserEmail",AdminEmail.Text);
+						cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
+						DB.ExecuteNonQuery(cmd);
+					}
 
-						using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
-						{
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@Version",Data.AppVersion);
-							cmd.Parameters.Add("@VersionName",Data.AppVersionName);
-							dp.ExecuteNonQuery(cmd);
-						}
+					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Version",Data.AppVersion);
+						cmd.Parameters.Add("@VersionName",Data.AppVersionName);
+						DB.ExecuteNonQuery(cmd);
 					}
 				}
 				catch(Exception x) 
@@ -396,40 +384,37 @@ namespace yaf.install
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-			using(IDataProvider dp=DB.DataProvider)
+				SqlConnection conn = DB.GetConnection();
+			using(SqlTransaction trans = conn.BeginTransaction()) 
 			{
-				SqlConnection conn = dp.GetConnection2();
-				using(SqlTransaction trans = conn.BeginTransaction()) 
+				foreach(string sql0 in statements) 
 				{
-					foreach(string sql0 in statements) 
+					string sql = sql0.Trim();
+					sql = sql.Replace("[dbo].","");
+					try 
 					{
-						string sql = sql0.Trim();
-						sql = sql.Replace("[dbo].","");
-						try 
-						{
-							if(sql.ToLower().IndexOf("setuser")>=0)
-								continue;
+						if(sql.ToLower().IndexOf("setuser")>=0)
+							continue;
 
-							if(sql.Length>0) 
+						if(sql.Length>0) 
+						{
+							using(SqlCommand cmd = new SqlCommand()) 
 							{
-								using(SqlCommand cmd = new SqlCommand()) 
-								{
-									cmd.Transaction = trans;
-									cmd.Connection = conn;
-									cmd.CommandType = CommandType.Text;
-									cmd.CommandText = sql.Trim();
-									cmd.ExecuteNonQuery();
-								}
+								cmd.Transaction = trans;
+								cmd.Connection = conn;
+								cmd.CommandType = CommandType.Text;
+								cmd.CommandText = sql.Trim();
+								cmd.ExecuteNonQuery();
 							}
 						}
-						catch(Exception x) 
-						{
-							trans.Rollback();
-							throw new Exception(String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",sScriptFile,sql,x.Message));
-						}
 					}
-					trans.Commit();
+					catch(Exception x) 
+					{
+						trans.Rollback();
+						throw new Exception(String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",sScriptFile,sql,x.Message));
+					}
 				}
+				trans.Commit();
 			}
 		}
 	}

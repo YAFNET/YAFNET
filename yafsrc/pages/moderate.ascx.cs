@@ -76,14 +76,14 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			topiclist.DataSource = DataProvider.topic_list(PageForumID,-1,null,0,999999);
-			UserList.DataSource = DataProvider.userforum_list(null,PageForumID);
+			topiclist.DataSource = DB.topic_list(PageForumID,-1,null,0,999999);
+			UserList.DataSource = DB.userforum_list(null,PageForumID);
 			DataBind();
 		}
 
 		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
 			if(e.CommandName=="delete") {
-				DataProvider.topic_delete(e.CommandArgument);
+				DB.topic_delete(e.CommandArgument);
 				AddLoadMessage(GetText("deleted"));
 				BindData();
 			}
@@ -97,7 +97,7 @@ namespace yaf.pages
 					Forum.Redirect(Pages.mod_forumuser,"f={0}&u={1}",PageForumID,e.CommandArgument);
 					break;
 				case "remove":
-					DataProvider.userforum_delete(e.CommandArgument,PageForumID);
+					DB.userforum_delete(e.CommandArgument,PageForumID);
 					BindData();
 					break;
 			}

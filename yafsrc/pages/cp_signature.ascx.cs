@@ -58,7 +58,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				string msg = DataProvider.user_getsignature(PageUserID);
+				string msg = DB.user_getsignature(PageUserID);
 				bool isHtml = msg.IndexOf('<')>=0;
 				if(sig.IsRichBrowser && !isHtml)
 					msg = FormatMsg.ForumCodeToHtml(this,msg);
@@ -82,7 +82,7 @@ namespace yaf.pages
 			else
 				body = FormatMsg.RepairHtml(this,body);
 
-			DataProvider.user_savesignature(PageUserID,body);
+			DB.user_savesignature(PageUserID,body);
 			Forum.Redirect(Pages.cp_profile);
 		}
 

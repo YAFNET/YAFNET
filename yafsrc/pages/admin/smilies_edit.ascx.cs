@@ -67,7 +67,7 @@ namespace yaf.pages.admin
 
 			if(Request["s"]!=null) 
 			{
-				using(DataTable dt = DataProvider.smiley_list(PageBoardID,Request.QueryString["s"])) 
+				using(DataTable dt = DB.smiley_list(PageBoardID,Request.QueryString["s"])) 
 				{
 					if(dt.Rows.Count>0) 
 					{
@@ -102,7 +102,7 @@ namespace yaf.pages.admin
 				AddLoadMessage("Please select an icon to use for this emotion.");
 				return;
 			}
-			DataProvider.smiley_save(Request.QueryString["s"],PageBoardID,sCode,sIcon,sEmotion,0);
+			DB.smiley_save(Request.QueryString["s"],PageBoardID,sCode,sIcon,sEmotion,0);
 			Forum.Redirect(Pages.admin_smilies);
 		}
 

@@ -26,7 +26,7 @@ namespace yaf.controls
 
 		public void AddForumLinks(int forumID)
 		{
-			using(DataTable dtLinks=ForumPage.DataProvider.forum_listpath(forumID))
+			using(DataTable dtLinks=DB.forum_listpath(forumID))
 				foreach(DataRow row in dtLinks.Rows)
 					AddLink((string)row["Name"],Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
 		}

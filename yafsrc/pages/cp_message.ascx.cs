@@ -56,7 +56,7 @@ namespace yaf.pages
 		}
 
 		private void BindData() {
-			using(DataTable dt = DataProvider.userpmessage_list(Request.QueryString["m"])) 
+			using(DataTable dt = DB.userpmessage_list(Request.QueryString["m"])) 
 			{
 				foreach(DataRow row in dt.Rows) 
 				{
@@ -74,7 +74,7 @@ namespace yaf.pages
 				Inbox.DataSource = dt;
 			}
 			DataBind();
-			DataProvider.pmessage_markread(PageUserID,Request.QueryString["m"]);
+			DB.pmessage_markread(PageUserID,Request.QueryString["m"]);
 		}
 
 		protected string FormatBody(object o) {
@@ -90,7 +90,7 @@ namespace yaf.pages
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName == "delete") {
-				DataProvider.userpmessage_delete(e.CommandArgument);
+				DB.userpmessage_delete(e.CommandArgument);
 				BindData();
 				AddLoadMessage(GetText("msg_deleted"));
 			} else if(e.CommandName == "reply") {

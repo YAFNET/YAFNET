@@ -85,7 +85,7 @@ namespace yaf.pages
 				int ToUserID = 0;
 
 				if(Request.QueryString["p"] != null) {
-					using(DataTable dt = DataProvider.userpmessage_list(Request.QueryString["p"])) {
+					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"])) {
 						DataRow row = dt.Rows[0];
 						Subject.Text = (string)row["Subject"];
 						if(Subject.Text.Substring(0,4) != "Re: ")
@@ -116,7 +116,7 @@ namespace yaf.pages
 					ToUserID = int.Parse(Request.QueryString["u"].ToString());
 
 				if(ToUserID!=0) {
-					using(DataTable dt = DataProvider.user_list(PageBoardID,ToUserID,true)) 
+					using(DataTable dt = DB.user_list(PageBoardID,ToUserID,true)) 
 					{
 						To.Text = (string)dt.Rows[0]["Name"];
 						To.Enabled = false;
@@ -170,12 +170,12 @@ namespace yaf.pages
 				else
 					body = FormatMsg.RepairHtml(this,body);
 
-				DataProvider.pmessage_save(PageUserID,0,Subject.Text,body);
+				DB.pmessage_save(PageUserID,0,Subject.Text,body);
 				Forum.Redirect(Pages.cp_profile);
 			}
 			else
 			{
-				using(DataTable dt = DataProvider.user_find(PageBoardID,false,To.Text,null)) 
+				using(DataTable dt = DB.user_find(PageBoardID,false,To.Text,null)) 
 				{
 					if(dt.Rows.Count!=1) 
 					{
@@ -205,7 +205,7 @@ namespace yaf.pages
 					else
 						body = FormatMsg.RepairHtml(this,body);
 
-					DataProvider.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
+					DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
 					Forum.Redirect(Pages.cp_profile);
 				}
 			}
@@ -220,7 +220,7 @@ namespace yaf.pages
 		{
 			if(To.Text.Length<2) return;
 
-			using(DataTable dt = DataProvider.user_find(PageBoardID,true,To.Text,null)) 
+			using(DataTable dt = DB.user_find(PageBoardID,true,To.Text,null)) 
 			{
 				if(dt.Rows.Count>0) 
 				{

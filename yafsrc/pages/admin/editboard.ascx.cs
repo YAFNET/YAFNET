@@ -50,7 +50,7 @@ namespace yaf.pages.admin
 				if(Request.QueryString["b"] != null) 
 				{
 					AdminInfo.Visible = false;
-					using(DataTable dt = DataProvider.board_list(Request.QueryString["b"])) 
+					using(DataTable dt = DB.board_list(Request.QueryString["b"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -125,11 +125,11 @@ namespace yaf.pages.admin
 
 			if(Request.QueryString["b"] != null) 
 			{
-				DataProvider.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
+				DB.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
 			} 
 			else
 			{
-				DataProvider.board_create(Name.Text,AllowThreaded.Checked,UserName.Text,UserEmail.Text,System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UserPass1.Text,"md5"));
+				DB.board_create(Name.Text,AllowThreaded.Checked,UserName.Text,UserEmail.Text,System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UserPass1.Text,"md5"));
 			}
 
 			// Done
@@ -144,7 +144,7 @@ namespace yaf.pages.admin
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DataProvider.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

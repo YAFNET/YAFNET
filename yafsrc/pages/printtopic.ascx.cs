@@ -54,7 +54,7 @@ namespace yaf.pages
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 
-				Posts.DataSource = DataProvider.post_list(PageTopicID,1);
+				Posts.DataSource = DB.post_list(PageTopicID,1);
 				DataBind();
 			}
 		}

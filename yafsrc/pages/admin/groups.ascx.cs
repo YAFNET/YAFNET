@@ -80,7 +80,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			GroupList.DataSource = DataProvider.group_list(PageBoardID,null);
+			GroupList.DataSource = DB.group_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -92,7 +92,7 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editgroup,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DataProvider.group_delete(e.CommandArgument);
+					DB.group_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

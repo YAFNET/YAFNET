@@ -41,7 +41,7 @@ namespace yaf.controls
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			dtSmileys = ForumPage.DataProvider.smiley_listunique(pages.ForumPage.PageBoardID);
+			dtSmileys = DB.smiley_listunique(pages.ForumPage.PageBoardID);
 	
 			pager.PageSize = pagesize;
 			CreateSmileys();

@@ -38,7 +38,7 @@ namespace yaf.pages.moderate
 
 		private void BindData() 
 		{
-			List.DataSource = DataProvider.forum_moderatelist();
+			List.DataSource = DB.forum_moderatelist();
 			DataBind();
 		}
 

@@ -182,7 +182,7 @@ namespace yaf.controls
 			// Groups
 			if(Config.BoardSettings.ShowGroups) 
 			{
-				using(DataTable dt = ForumPage.DataProvider.usergroup_list(yaf.pages.ForumPage.PageBoardID,row["UserID"])) 
+				using(DataTable dt = DB.usergroup_list(yaf.pages.ForumPage.PageBoardID,row["UserID"])) 
 				{
 					html += String.Format("{0}: ",ForumPage.GetText("groups"));
 					bool bFirst = true;
@@ -227,7 +227,7 @@ namespace yaf.controls
 			{
 				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
 				string stats = ForumPage.GetText("ATTACHMENTINFO");
-				using(DataTable dt = ForumPage.DataProvider.attachment_list(row["MessageID"],null)) 
+				using(DataTable dt = DB.attachment_list(row["MessageID"],null)) 
 				{
 					foreach(DataRow dr in dt.Rows) 
 					{
@@ -260,10 +260,10 @@ namespace yaf.controls
 			object tmpTopicID   = DataRow["TopicID"];
 			
 			// Delete message. If it is the last message of the topic, the topic is also deleted
-			ForumPage.DataProvider.message_delete(tmpMessageID);
+			DB.message_delete(tmpMessageID);
 			
 			// retrieve topic information.
-			DataRow topic = ForumPage.DataProvider.topic_info(tmpTopicID);
+			DataRow topic = DB.topic_info(tmpTopicID);
 			
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
 			if (topic == null)

@@ -9,7 +9,7 @@ namespace yaf
 
 		public BoardSettings(object boardID)
 		{
-			using(DataTable dt = DB.DataProvider.board_list(boardID))
+			using(DataTable dt = DB.board_list(boardID))
 			{
 				foreach(DataRow dr in dt.Rows)
 				{

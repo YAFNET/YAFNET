@@ -238,7 +238,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2004,1,20);
+				return new DateTime(2004,3,4);
 			}
 		}
 		#endregion

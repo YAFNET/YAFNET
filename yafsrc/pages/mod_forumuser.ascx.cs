@@ -62,7 +62,7 @@ namespace yaf.pages
 				BindData();
 				if(Request.QueryString["u"]!=null) 
 				{
-					using(DataTable dt = DataProvider.userforum_list(Request.QueryString["u"],PageForumID)) 
+					using(DataTable dt = DB.userforum_list(Request.QueryString["u"],PageForumID)) 
 					{
 						foreach(DataRow row in dt.Rows) 
 						{
@@ -78,7 +78,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			AccessMaskID.DataSource = DataProvider.accessmask_list(PageBoardID,null);
+			AccessMaskID.DataSource = DB.accessmask_list(PageBoardID,null);
 			AccessMaskID.DataValueField = "AccessMaskID";
 			AccessMaskID.DataTextField = "Name";
 			DataBind();
@@ -88,7 +88,7 @@ namespace yaf.pages
 		{
 			if(UserName.Text.Length<2) return;
 
-			using(DataTable dt = DataProvider.user_find(PageBoardID,true,UserName.Text,null)) 
+			using(DataTable dt = DB.user_find(PageBoardID,true,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count>0) 
 				{
@@ -114,7 +114,7 @@ namespace yaf.pages
 			if(ToList.Visible)
 				UserName.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = DataProvider.user_find(PageBoardID,false,UserName.Text,null)) 
+			using(DataTable dt = DB.user_find(PageBoardID,false,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count!=1) 
 				{
@@ -127,7 +127,7 @@ namespace yaf.pages
 					return;	
 				}
 
-				DataProvider.userforum_save(dt.Rows[0]["UserID"],PageForumID,AccessMaskID.SelectedValue);
+				DB.userforum_save(dt.Rows[0]["UserID"],PageForumID,AccessMaskID.SelectedValue);
 				Forum.Redirect(Pages.moderate,"f={0}",PageForumID);
 			}
 		}

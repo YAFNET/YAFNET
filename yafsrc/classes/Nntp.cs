@@ -479,96 +479,93 @@ namespace yaf.classes
 
 		static public int ReadArticles(object boardID,int nLastUpdate,int nTimeToRun) 
 		{
-			using(IDataProvider dp=DB.DataProvider)
+			int			nUserID			= DB.user_guest();	// Use guests user-id
+			string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
+			DataTable	dtSystem		= DB.system_list();
+			TimeSpan	tsLocal			= new TimeSpan(0,(int)dtSystem.Rows[0]["TimeZone"],0);
+			DateTime	dtStart			= DateTime.Now;
+			int			nArticleCount	= 0;
+
+			Nntp nntp = null;
+			string hostname = null;
+			try 
 			{
-				int			nUserID			= dp.user_guest();	// Use guests user-id
-				string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
-				DataTable	dtSystem		= dp.system_list();
-				TimeSpan	tsLocal			= new TimeSpan(0,(int)dtSystem.Rows[0]["TimeZone"],0);
-				DateTime	dtStart			= DateTime.Now;
-				int			nArticleCount	= 0;
-
-				Nntp nntp = null;
-				string hostname = null;
-				try 
+				// Only those not updated in the last 30 minutes
+				using(DataTable dtForums = DB.nntpforum_list(boardID,nLastUpdate,null)) 
 				{
-					// Only those not updated in the last 30 minutes
-					using(DataTable dtForums = dp.nntpforum_list(boardID,nLastUpdate,null)) 
+					foreach(DataRow drForum in dtForums.Rows) 
 					{
-						foreach(DataRow drForum in dtForums.Rows) 
+						if(hostname!=drForum["Address"].ToString().ToLower()) 
 						{
-							if(hostname!=drForum["Address"].ToString().ToLower()) 
+							if(nntp!=null) 
 							{
-								if(nntp!=null) 
-								{
-									nntp.Disconnect();
-									nntp.Dispose(true);
-								}
-								nntp = new Nntp();
-								hostname = drForum["Address"].ToString().ToLower();
-								nntp.Connect(hostname);
+								nntp.Disconnect();
+								nntp.Dispose(true);
 							}
-
-							GroupInfo group = nntp.Group(drForum["GroupName"].ToString());
-							int nLastMessageNo = (int)drForum["LastMessageNo"];
-							int nCurrentMessage = nLastMessageNo;
-							// If this is first retrieve for this group, only fetch last 50
-							if(nCurrentMessage==0)
-								nCurrentMessage = group.Last - 50;
-
-							nCurrentMessage++;
-
-							int			nForumID	= (int)drForum["ForumID"];
-
-							for(;nCurrentMessage<=group.Last;nCurrentMessage++) 
-							{
-								try 
-								{
-									ArticleInfo article = nntp.Article(nCurrentMessage);
-
-									string		sBody		= article.Body;
-									string		sThread		= article.Thread;
-									string		sSubject	= article.Subject;
-									string		sFrom		= article.FromName;
-									string		sDate		= article.DateString;
-									DateTime	dtDate		= article.Date - tsLocal;
-
-									if(dtDate.Year<1950 || dtDate>DateTime.Now)
-										dtDate = DateTime.Now;
-							
-									sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
-									sBody = String.Format("Date parsed: {0}\r\n",dtDate) + sBody;
-
-									sBody = System.Web.HttpContext.Current.Server.HtmlEncode(sBody);
-									dp.nntptopic_savemessage(drForum["NntpForumID"],sSubject,sBody,nUserID,sFrom,sHostAddress,dtDate,sThread);
-									nLastMessageNo = nCurrentMessage;
-									nArticleCount++;
-									// We don't wanna retrieve articles forever...
-									// Total time x seconds for all groups
-									if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
-										break;
-								}
-								catch(NntpException) 
-								{
-								}
-							}
-							dp.nntpforum_update(drForum["NntpForumID"],nLastMessageNo,nUserID);
-							// Total time x seconds for all groups
-							if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
-								break;
+							nntp = new Nntp();
+							hostname = drForum["Address"].ToString().ToLower();
+							nntp.Connect(hostname);
 						}
+
+						GroupInfo group = nntp.Group(drForum["GroupName"].ToString());
+						int nLastMessageNo = (int)drForum["LastMessageNo"];
+						int nCurrentMessage = nLastMessageNo;
+						// If this is first retrieve for this group, only fetch last 50
+						if(nCurrentMessage==0)
+							nCurrentMessage = group.Last - 50;
+
+						nCurrentMessage++;
+
+						int			nForumID	= (int)drForum["ForumID"];
+
+						for(;nCurrentMessage<=group.Last;nCurrentMessage++) 
+						{
+							try 
+							{
+								ArticleInfo article = nntp.Article(nCurrentMessage);
+
+								string		sBody		= article.Body;
+								string		sThread		= article.Thread;
+								string		sSubject	= article.Subject;
+								string		sFrom		= article.FromName;
+								string		sDate		= article.DateString;
+								DateTime	dtDate		= article.Date - tsLocal;
+
+								if(dtDate.Year<1950 || dtDate>DateTime.Now)
+									dtDate = DateTime.Now;
+							
+								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
+								sBody = String.Format("Date parsed: {0}\r\n",dtDate) + sBody;
+
+								sBody = System.Web.HttpContext.Current.Server.HtmlEncode(sBody);
+								DB.nntptopic_savemessage(drForum["NntpForumID"],sSubject,sBody,nUserID,sFrom,sHostAddress,dtDate,sThread);
+								nLastMessageNo = nCurrentMessage;
+								nArticleCount++;
+								// We don't wanna retrieve articles forever...
+								// Total time x seconds for all groups
+								if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
+									break;
+							}
+							catch(NntpException) 
+							{
+							}
+						}
+						DB.nntpforum_update(drForum["NntpForumID"],nLastMessageNo,nUserID);
+						// Total time x seconds for all groups
+						if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
+							break;
 					}
 				}
-				finally 
-				{
-					if(nntp!=null) 
-					{
-						nntp.Disconnect();
-						nntp.Dispose(true);
-					}
-				}
-				return nArticleCount;
 			}
+			finally 
+			{
+				if(nntp!=null) 
+				{
+					nntp.Disconnect();
+					nntp.Dispose(true);
+				}
+			}
+			return nArticleCount;
 		}
 	}
 }

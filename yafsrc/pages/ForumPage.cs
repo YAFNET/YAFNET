@@ -61,8 +61,6 @@ namespace yaf.pages
 
 		private void ForumPage_Unload(object sender,EventArgs e)
 		{
-			if(m_dataProvider!=null)
-				m_dataProvider.Dispose();
 		}
 
 		private void ForumPage_Error(object sender, System.EventArgs e) 
@@ -83,7 +81,6 @@ namespace yaf.pages
 			if(m_bNoDataBase)
 				return;
 
-			m_dataProvider = DB.DataProvider;
 #if DEBUG
 			QueryCounter.Reset();
 #endif
@@ -111,7 +108,7 @@ namespace yaf.pages
 			DataTable banip = (DataTable)HttpContext.Current.Cache[key];
 			if(banip == null) 
 			{
-				banip = DataProvider.bannedip_list(PageBoardID,null);
+				banip = DB.bannedip_list(PageBoardID,null);
 				HttpContext.Current.Cache[key] = banip;
 			}
 			foreach(DataRow row in banip.Rows)
@@ -148,7 +145,7 @@ namespace yaf.pages
 			if(HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2")>=0)
 				platform = "Win2003";
 
-			m_pageinfo = DataProvider.pageload(
+			m_pageinfo = DB.pageload(
 				HttpContext.Current.Session.SessionID,
 				PageBoardID,
 				User.Name,
@@ -165,10 +162,10 @@ namespace yaf.pages
 			// authorization, try to register the user.
 			if(m_pageinfo==null && authType!=AuthType.Forms && User.IsAuthenticated) 
 			{
-				if(!DataProvider.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
+				if(!DB.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
 					throw new ApplicationException("User registration failed.");
 
-				m_pageinfo = DataProvider.pageload(
+				m_pageinfo = DB.pageload(
 					HttpContext.Current.Session.SessionID,
 					PageBoardID,
 					User.Name,
@@ -194,7 +191,7 @@ namespace yaf.pages
 			{
 				if(SuspendedTo < DateTime.Now) 
 				{
-					DataProvider.user_suspend(PageUserID,null);
+					DB.user_suspend(PageUserID,null);
 					HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
 				}
 				Forum.Redirect(Pages.info,"i=2");
@@ -262,13 +259,13 @@ namespace yaf.pages
 			{
 				try 
 				{
-					using(DataTable dt = DataProvider.mail_list()) 
+					using(DataTable dt = DB.mail_list()) 
 					{
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
 							Utils.SendMail(Config.BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
-							DataProvider.mail_delete(dt.Rows[i]["MailID"]);
+							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
@@ -558,15 +555,6 @@ namespace yaf.pages
 			set
 			{
 				m_checkSuspended = value;
-			}
-		}
-
-		private IDataProvider m_dataProvider = null;
-		public IDataProvider DataProvider
-		{
-			get
-			{
-				return m_dataProvider;
 			}
 		}
 

@@ -47,7 +47,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{

@@ -17,9 +17,9 @@ namespace yaf.controls
 				if(dt==null) 
 				{
 					if(bTopic)
-						dt = ForumPage.DataProvider.active_listtopic(ForumPage.PageTopicID);
+						dt = DB.active_listtopic(ForumPage.PageTopicID);
 					else
-						dt = ForumPage.DataProvider.active_listforum(ForumPage.PageForumID);
+						dt = DB.active_listforum(ForumPage.PageForumID);
 					ViewState["data"] = dt;
 				}
 	

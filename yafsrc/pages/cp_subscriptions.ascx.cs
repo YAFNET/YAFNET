@@ -68,8 +68,8 @@ namespace yaf.pages
 		}
 
 		private void BindData() {
-			ForumList.DataSource = DataProvider.watchforum_list(PageUserID);
-			TopicList.DataSource = DataProvider.watchtopic_list(PageUserID);
+			ForumList.DataSource = DB.watchforum_list(PageUserID);
+			TopicList.DataSource = DB.watchtopic_list(PageUserID);
 			DataBind();
 		}
 
@@ -107,7 +107,7 @@ namespace yaf.pages
 				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
 				Label lbl = (Label)TopicList.Items[i].FindControl("ttid");
 				if(ctrl.Checked) {
-					DataProvider.watchtopic_delete(lbl.Text);
+					DB.watchtopic_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}
@@ -123,7 +123,7 @@ namespace yaf.pages
 				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
 				Label lbl = (Label)ForumList.Items[i].FindControl("tfid");
 				if(ctrl.Checked) {
-					DataProvider.watchforum_delete(lbl.Text);
+					DB.watchforum_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}

@@ -81,7 +81,7 @@ namespace yaf.pages
 
 			string newpw = pages.register.CreatePassword(8);
 
-			if(!DataProvider.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
+			if(!DB.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
 				AddLoadMessage(GetText("wrong_username_email"));
 				return;
 			}
@@ -124,7 +124,7 @@ namespace yaf.pages
 		private void ForumLogin_Click(object sender, System.EventArgs e)
 		{
 			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
-			object userID = DataProvider.user_login(PageBoardID,UserName.Text,sPassword);
+			object userID = DB.user_login(PageBoardID,UserName.Text,sPassword);
 			if(userID!=DBNull.Value) {
 				string idName = string.Format("{0};{1};{2}",userID,PageBoardID,UserName.Text);
 				if(Request.QueryString["ReturnUrl"]!=null)

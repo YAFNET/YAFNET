@@ -65,7 +65,7 @@ namespace yaf.pages
 
 		private void ValidateKey_Click(object sender, System.EventArgs e)
 		{
-			approved.Visible = DataProvider.checkemail_update(key.Text);
+			approved.Visible = DB.checkemail_update(key.Text);
 			error.Visible = !approved.Visible;
 		}
 
