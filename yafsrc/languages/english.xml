@@ -21,6 +21,7 @@
 		<Resource tag="CANNOT_VOTE">You [b]cannot[/b] vote in polls in this forum.</Resource>
 		<Resource tag="REGMAIL_SENT">A mail has been sent. Check your inbox and click the link in the mail.</Resource>
 		<Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox</Resource>
+		<Resource tag="REGMAIL_WILL_BE_SEND">A mail will be send when you register. In order to login you should check your inbox and click the link in the mail.</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->

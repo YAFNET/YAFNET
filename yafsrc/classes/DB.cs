@@ -1720,7 +1720,9 @@ namespace yaf
 							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
 							Utils.SendMail(Config.BoardSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.BoardSettings.Name),body);
-							page.AddLoadMessage(page.GetText("REGMAIL_SENT"));
+							//ABOT DELETED 16.04.04
+							//page.AddLoadMessage(page.GetText("REGMAIL_SENT"));
+							//END ABOT DELETED 16.04.04
 							trans.Commit();
 						} 
 						else 
