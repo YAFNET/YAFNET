@@ -5,6 +5,6 @@
 	<td><asp:label runat="server" id="Info"/></td>
 </tr>
 <tr>
-	<td align="center" class="navlinks"><asp:hyperlink runat="server" id="Continue" text="Continue..."/></td>
+	<td align="center" class="navlinks"><asp:hyperlink runat="server" id="Continue"/></td>
 </tr>
 </table>

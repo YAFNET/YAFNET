@@ -34,7 +34,7 @@ namespace yaf
 	/// </summary>
 	public class cp_signature : BasePage
 	{
-		protected HyperLink HomeLink, UserLink;
+		protected HyperLink HomeLink, UserLink, ThisLink;
 		protected Button save, cancel;
 		protected TextBox sig;
 
@@ -50,6 +50,11 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("cp_signature_title");
+
+				save.Text = GetText("Save");
+				cancel.Text = GetText("Cancel");
 			}
 		}
 

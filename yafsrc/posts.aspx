@@ -16,12 +16,12 @@
 <HeaderTemplate>
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 	<tr>
-		<td class=header1 colspan=3><%= GetText("Poll_Question") %>: <%# GetPollQuestion() %></td>
+		<td class=header1 colspan=3><%= GetText("posts_question") %>: <%# GetPollQuestion() %></td>
 	</tr>
 	<tr>
-		<td class=header2><%= GetText("Choice") %></td>
-		<td class=header2 align=center width=10%><%= GetText("Votes") %></td>
-		<td class=header2 width=40%><%= GetText("Statistics") %></td>
+		<td class=header2><%= GetText("posts_choice") %></td>
+		<td class=header2 align=center width=10%><%= GetText("posts_votes") %></td>
+		<td class=header2 width=40%><%= GetText("posts_statistics") %></td>
 	</tr>
 </HeaderTemplate>
 <ItemTemplate>
@@ -55,12 +55,12 @@
       <table cellSpacing=0 cellPadding=0 width="100%">
         <tr>
 			<td align=left>
-				<asp:linkbutton id=PrevTopic runat=server><%# GetText("Previous_Topic") %></asp:linkbutton> | 
-				<asp:linkbutton id=NextTopic runat=server><%# GetText("Next_Topic") %></asp:linkbutton>
+				<asp:linkbutton id=PrevTopic runat=server><%# GetText("posts_prevtopic") %></asp:linkbutton> | 
+				<asp:linkbutton id=NextTopic runat=server><%# GetText("posts_nexttopic") %></asp:linkbutton>
 			</td>
-          <td align=right><asp:linkbutton id=TrackTopic runat=server><%# GetText("Watch_topic") %></asp:linkbutton> | 
-          <asp:linkbutton id=EmailTopic runat=server><%# GetText("Email_topic") %></asp:linkbutton> | 
-          <asp:linkbutton id=PrintTopic runat=server><%# GetText("Print_topic") %></asp:linkbutton></TD></TR></TABLE></TD></TR>
+          <td align=right><asp:linkbutton id=TrackTopic runat=server><%# GetText("posts_watchtopic") %></asp:linkbutton> | 
+          <asp:linkbutton id=EmailTopic runat=server><%# GetText("posts_emailtopic") %></asp:linkbutton> | 
+          <asp:linkbutton id=PrintTopic runat=server><%# GetText("posts_printtopic") %></asp:linkbutton></TD></TR></TABLE></TD></TR>
           <asp:repeater id=MessageList runat="server">
 <ItemTemplate>
 		<tr class=postheader>
@@ -69,11 +69,11 @@
 			<td width=80%>
 				<table cellspacing=0 cellpadding=0 width=100%>
 					<tr>
-						<td class=small align=left><b><%# GetText("Posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+						<td class=small align=left><b><%# GetText("posts_posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 						<td align=right>
-							<asp:linkbutton CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Edit this post" src='<%# ThemeFile("b_edit_post.png") %>'></asp:linkbutton>
-							<asp:linkbutton CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Delete this post" src='<%# ThemeFile("b_delete_post.png") %>'></asp:linkbutton>
-							<asp:linkbutton CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Reply with quote" src='<%# ThemeFile("b_quote_post.png") %>'></asp:linkbutton>
+							<asp:linkbutton visible='<%# CanEditPost((System.Data.DataRowView)Container.DataItem) %>' CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Edit this post" src='<%# ThemeFile("b_edit_post.png") %>'></asp:linkbutton>
+							<asp:linkbutton visible="<%# CanDeletePost((System.Data.DataRowView)Container.DataItem) %>" CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Delete this post" src='<%# ThemeFile("b_delete_post.png") %>'></asp:linkbutton>
+							<asp:linkbutton visible="<%# ForumReplyAccess %>" CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Reply with quote" src='<%# ThemeFile("b_quote_post.png") %>'></asp:linkbutton>
 						</td>
 					</tr>
 				</table>
@@ -89,10 +89,10 @@
 		</tr>
 		<tr class=postfooter>
 			<td class=small>
-				<a href="javascript:scroll(0,0)"><%# GetText("Back_to_top") %></a>
+				<a href="javascript:scroll(0,0)"><%# GetText("posts_top") %></a>
 			</td>
 			<td class="postfooter">
-				<asp:linkbutton commandname=PM commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' runat=server><%# GetText("PM") %></asp:linkbutton>
+				<asp:linkbutton commandname=PM commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' runat=server><%# GetText("posts_pm") %></asp:linkbutton>
 			</td>
 		</tr>
 </ItemTemplate>

@@ -35,7 +35,7 @@ namespace yaf
 	public class cp_subscriptions : BasePage
 	{
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink;
+		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Button UnsubscribeForums;
 		protected System.Web.UI.WebControls.Repeater ForumList;
 		protected System.Web.UI.WebControls.Button UnsubscribeTopics;
@@ -53,6 +53,11 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("cp_subscriptions_title");
+
+				UnsubscribeForums.Text = GetText("cp_subscriptions_unsubscribe");
+				UnsubscribeTopics.Text = GetText("cp_subscriptions_unsubscribe");
 			}
 		}
 
@@ -68,26 +73,16 @@ namespace yaf
 			if(row["LastPosted"].ToString().Length==0)
 				return "&nbsp;";
 
-			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?m={3}#{3}\"><img src=\"{4}\"'></a>",
-				FormatDateTime((DateTime)row["LastPosted"]),
+			string link = String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",
 				row["LastUserID"],
-				row["LastUserName"],
-				row["LastMessageID"],
-				ThemeFile("icon_latest_reply.gif")
-				);
-			return html;
-		}
-
-		protected string FormatLastPostedForum(object o) {
-			DataRowView row = (DataRowView)o;
-
-			if(row["LastPosted"].ToString().Length==0)
-				return "&nbsp;";
-
-			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?m={3}#{3}\"><img src=\"{4}\"'></a>",
+				row["LastUserName"]
+			);
+			string by = String.Format(GetText("cp_subscriptions_lastpostlink"),
 				FormatDateTime((DateTime)row["LastPosted"]),
-				row["LastUserID"],
-				row["LastUserName"],
+				link);
+
+			string html = String.Format("{0} <a href=\"posts.aspx?m={1}#{1}\"><img src=\"{2}\"'></a>",
+				by,
 				row["LastMessageID"],
 				ThemeFile("icon_latest_reply.gif")
 				);

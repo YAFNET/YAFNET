@@ -40,15 +40,16 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			HomeLink.NavigateUrl = BaseDir;
 			HomeLink.Text = ForumName;
 			CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
 			CategoryLink.Text = PageCategoryName;
 			ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-			ForumLink.Text = PageForumName;//(string)forum["Name"];
+			ForumLink.Text = PageForumName;
 			ModLink.NavigateUrl = Request.RawUrl;
+			ModLink.Text = GetText("moderate_title");
 
 			if(!IsPostBack)
 				BindData();
@@ -56,7 +57,7 @@ namespace yaf
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this topic?')";
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("moderate_confirm_delete"));
 		}
 
 		private void BindData() 
@@ -67,13 +68,8 @@ namespace yaf
 
 		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
 			if(e.CommandName=="delete") {
-				if(!ForumModeratorAccess) {
-					AddLoadMessage("You don't have access to delete topics.");
-					return;
-				}
-
 				DB.topic_delete(e.CommandArgument);
-				AddLoadMessage("Topic deleted.");
+				AddLoadMessage(GetText("moderate_deleted"));
 				BindData();
 			}
 		}
@@ -129,22 +125,29 @@ namespace yaf
 					return "";
 			}
 		}
-		protected string FormatLastPost(System.Data.DataRowView row) {
-			if(row["LastPosted"].ToString().Length>0) {
+		protected string FormatLastPost(System.Data.DataRowView row) 
+		{
+			if(row["LastPosted"].ToString().Length>0) 
+			{
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br />by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img border=0 src='{3}'></a>", 
-					FormatDateTime((DateTime)row["LastPosted"]), 
+				
+				string by = String.Format(GetText("moderate_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
 					row["LastUserName"], 
 					minipost, 
 					row["LastMessageID"]
-				);
-			} else
-				return "No Posts";
+					));
+				return String.Format(CustomCulture,"{0}<br />{1}", 
+					FormatDateTime((DateTime)row["LastPosted"]),
+					by
+					);
+			} 
+			else
+				return GetText("moderate_no_posts");
 		}
 		#endregion
 

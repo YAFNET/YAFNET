@@ -35,7 +35,7 @@ namespace yaf.cp
 	public class cp_inbox : BasePage
 	{
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink;
+		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater Inbox;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -50,6 +50,8 @@ namespace yaf.cp
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("cp_inbox_title");
 			}
 		}
 
@@ -65,18 +67,11 @@ namespace yaf.cp
 			return fmt.FormatMessage((string)row["Body"]);
 		}
 
-		private void DeletePost_Click(object sender,EventArgs e) {
-			AddLoadMessage("Delete");
-		}
-		private void ReplyPost_Click(object sender,EventArgs e) {
-			AddLoadMessage("Reply");
-		}
-
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName == "delete") {
 				DB.pmessage_delete(e.CommandArgument);
 				BindData();
-				AddLoadMessage("Message was deleted.");
+				AddLoadMessage(GetText("cp_inbox_msg_deleted"));
 			} else if(e.CommandName == "reply") {
 				Response.Redirect(String.Format("pmessage.aspx?p={0}",e.CommandArgument));
 			}

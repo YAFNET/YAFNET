@@ -51,6 +51,8 @@ namespace yaf
 				BindData();
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
+				Save.Text = GetText("Save");
+				Cancel.Text = GetText("Cancel");
 
 				int ToUserID = 0;
 
@@ -107,15 +109,15 @@ namespace yaf
 
 		private void Save_Click(object sender, System.EventArgs e) {
 			if(To.Text.Length<=0) {
-				AddLoadMessage("You haven't said who the message is to.");
+				AddLoadMessage(GetText("pmessage_need_to"));
 				return;
 			}
 			if(Subject.Text.Length<=0) {
-				AddLoadMessage("You must enter a subject.");
+				AddLoadMessage(GetText("pmessage_need_subject"));
 				return;
 			}
 			if(Editor.Text.Length<=0) {
-				AddLoadMessage("You haven't written anything in the message.");
+				AddLoadMessage(GetText("pmessage_need_message"));
 				return;
 			}
 

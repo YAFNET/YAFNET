@@ -3,21 +3,21 @@
 <form runat=server>
 
 <p class=navlinks>
-	<asp:hyperlink id=HomeLink runat=server>HomeLink</asp:hyperlink>
-	&#187; <a href="members.aspx">Members</a>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
 </p>
 
 <table class=command><tr><td class=navlinks id=PageLinks1 runat=server></td></tr></table>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>
-		<td class=header1 colspan=4>Members</td>
+		<td class=header1 colspan=4><%= GetText("members_title") %></td>
 	</tr>
 	<tr>
-		<td class=header2><asp:linkbutton runat=server id="UserName" text="User Name"/></td>
-		<td class=header2><asp:linkbutton runat=server id="Rank" text="Rank"/></td>
-		<td class=header2><asp:linkbutton runat=server id="Joined" text="Joined"/></td>
-		<td class=header2 align=center><asp:linkbutton runat=server id="Posts" text="Posts"/></td>
+		<td class=header2><asp:linkbutton runat=server id="UserName"/></td>
+		<td class=header2><asp:linkbutton runat=server id="Rank"/></td>
+		<td class=header2><asp:linkbutton runat=server id="Joined"/></td>
+		<td class=header2 align=center><asp:linkbutton runat=server id="Posts"/></td>
 	</tr>
 	
 	<asp:repeater id=MemberList runat=server>

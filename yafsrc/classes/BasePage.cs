@@ -340,33 +340,33 @@ namespace yaf
 
 				if(User.Identity.IsAuthenticated) 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("Logged_in_as"),PageUserName)));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("toolbar_logged_in_as"),PageUserName)));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("Search")));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("toolbar_search")));
 					if(IsAdmin)
-						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("Admin")));
+						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("toolbar_admin")));
 					if(IsModerator || IsForumModerator)
-						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("Moderate")));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("Active_Topics")));
+						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("toolbar_moderate")));
+					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("toolbar_activetopics")));
 					if(!IsGuest)
-						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("My_Profile")));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("Members")));
+						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("toolbar_myprofile")));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("toolbar_members")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("Logout")));
+						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("toolbar_logout")));
 				} 
 				else 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("Welcome_Guest")));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("toolbar_welcome_guest")));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("Search")));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("toolbar_search")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
 					{
-						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">{1}</a> |",BaseDir,GetText("Login")));
-						writer.WriteLine(String.Format("	<a href=\"{0}rules.aspx\">{1}</a> |",BaseDir,GetText("Register")));
+						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">{1}</a> |",BaseDir,GetText("toolbar_login")));
+						writer.WriteLine(String.Format("	<a href=\"{0}rules.aspx\">{1}</a> |",BaseDir,GetText("toolbar_register")));
 					}
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("Members")));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("toolbar_members")));
 				}
 				writer.WriteLine("</td></tr></table>");
 				writer.WriteLine("<br />");
@@ -1004,6 +1004,7 @@ namespace yaf
 					str = str.Replace("[b]","<b>");
 					str = str.Replace("[/b]","</b>");
 					return str;
+					//return "&gt;" + str + "&lt;";
 				}
 			}
 			catch(Exception x) 
@@ -1036,7 +1037,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,16);
+				return new DateTime(2003,10,18);
 			}
 		}
 	}

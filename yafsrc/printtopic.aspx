@@ -1,10 +1,10 @@
 <%@ Page language="c#" Codebehind="printtopic.aspx.cs" AutoEventWireup="false" Inherits="yaf.printtopic" %>
 
 <p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	&#187; <asp:hyperlink id=CategoryLink runat="server">Category</asp:hyperlink>
-	&#187; <asp:hyperlink id=ForumLink runat="server">Forum</asp:hyperlink>
-	&#187; <asp:hyperlink id=TopicLink runat="server">Topic</asp:hyperlink>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
+	&#187; <asp:hyperlink id=ForumLink runat="server"/>
+	&#187; <asp:hyperlink id=TopicLink runat="server"/>
 </p>
 
 <asp:repeater id=Posts runat=server>

@@ -25,12 +25,13 @@ namespace yaf
 			if(!IsPostBack) 
 			{
 				Continue.NavigateUrl = Request.QueryString["url"];
+				Continue.Text = GetText("info_continue");
 				RefreshURL = Request.QueryString["url"];
 
 				switch(int.Parse(Request.QueryString["i"])) 
 				{
 					case 1:
-						Info.Text = "Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.";
+						Info.Text = GetText("info_moderated");
 						break;
 				}
 			}

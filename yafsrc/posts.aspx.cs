@@ -127,12 +127,12 @@ namespace yaf
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("Delete_message"));
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("posts_confirm_deletemessage"));
 		}
 
 		protected void DeleteTopic_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("Delete_topic"));
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("posts_confirm_deletetopic"));
 		}
 
 		#region Web Form Designer generated code
@@ -456,14 +456,14 @@ namespace yaf
 				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
 
 			// Rank
-			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("Rank"),row["RankName"]);
+			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("posts_rank"),row["RankName"]);
 
 			// Groups
 			if(ShowGroups) 
 			{
 				using(DataTable dt = DB.usergroup_list(row["UserID"])) 
 				{
-					html += String.Format("{0}: ",GetText("Groups"));
+					html += String.Format("{0}: ",GetText("posts_groups"));
 					bool bFirst = true;
 					foreach(DataRow grp in dt.Rows) 
 					{
@@ -485,14 +485,14 @@ namespace yaf
 			html += "<br/>";
 
 			// Joined
-			html += String.Format(CustomCulture,"{0}: {1}<br/>",GetText("Joined"),FormatDateShort((DateTime)row["Joined"]));
+			html += String.Format(CustomCulture,"{0}: {1}<br/>",GetText("posts_joined"),FormatDateShort((DateTime)row["Joined"]));
 
 			// Posts
-			html += String.Format(CustomCulture,"{0}: {1:N0}<br/>",GetText("Posts"),row["Posts"]);
+			html += String.Format(CustomCulture,"{0}: {1:N0}<br/>",GetText("posts_posts"),row["Posts"]);
 
 			// Location
 			if(row["Location"].ToString().Length>0)
-				html += String.Format("{0}: {1}<br/>",GetText("Location"),row["Location"]);
+				html += String.Format("{0}: {1}<br/>",GetText("posts_location"),row["Location"]);
 
 			return html;
 		}
@@ -572,6 +572,16 @@ namespace yaf
 				fmt = new FormatMsg(this);
 
 			return fmt.FormatMessage(html);
+		}
+
+		protected bool CanEditPost(DataRowView row) 
+		{
+			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumEditAccess;
+		}
+
+		protected bool CanDeletePost(DataRowView row) 
+		{
+			return ((int)row["UserID"]==PageUserID || ForumModeratorAccess) && ForumDeleteAccess;
 		}
 	}
 }

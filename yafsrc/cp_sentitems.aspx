@@ -3,16 +3,16 @@
 <form runat=server>
 
 <p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	&#187; <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
-	&#187; <a href="cp_sentitems.aspx">Sent Items</a>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink id=UserLink runat="server"/>
+	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
 </p>
 
 <asp:repeater id=Inbox runat=server>
 <HeaderTemplate>
 	<table class=content cellspacing=1 cellpadding=0 width=100%>
 	<tr>
-		<td class=header1 colspan=2>Sent Items</td>
+		<td class=header1 colspan=2><%= GetText("cp_sentitems_title") %></td>
 	</tr>
 </HeaderTemplate>
 <FooterTemplate>
@@ -30,7 +30,7 @@
 		<td class=postheader>
 			<table cellspacing=0 cellpadding=0 width=100%><tr>
 			<td>
-				<b>Posted:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+				<b><%= GetText("cp_sentitems_posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 			</td>
 			<td align=right>
 				<asp:linkbutton runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><img src='<%# ThemeFile("b_delete_post.png") %>' title='Delete this message'></asp:linkbutton>

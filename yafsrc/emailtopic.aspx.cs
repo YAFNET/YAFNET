@@ -58,6 +58,8 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
+				SendEmail.Text = GetText("emailtopic_send");
+
 				Subject.Text = PageTopicName;
 				Message.Text = String.Format("You might be interested in reading this:\r\n{0}posts.aspx?t={1}\r\n\r\nFrom,\r\n\r\n{2}",ForumURL,PageTopicID,PageUserName);
 			}
@@ -86,7 +88,7 @@ namespace yaf
 
 		private void SendEmail_Click(object sender, System.EventArgs e) {
 			if(EmailAddress.Text.Length==0) {
-				AddLoadMessage("You must enter a email address.");
+				AddLoadMessage(GetText("emailtopic_need_email"));
 				return;
 			}
 
@@ -100,7 +102,7 @@ namespace yaf
 				Response.Redirect(String.Format("posts.aspx?t={0}",PageTopicID));
 			}
 			catch(Exception x) {
-				AddLoadMessage(String.Format("Failed to send email.\n\n{0}",x.Message));
+				AddLoadMessage(String.Format(GetText("emailtopic_failed"),x.Message));
 			}
 		}
 	}

@@ -60,9 +60,9 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
-				ForumLogin.Text = GetText("Forum_Login");
-				LostPassword.Text = GetText("Lost_Password");
-				Recover.Text = GetText("Send_Password");
+				ForumLogin.Text = GetText("login_forum_login");
+				LostPassword.Text = GetText("login_lostpassword");
+				Recover.Text = GetText("login_sendpassword");
 			}
 		}
 
@@ -73,14 +73,14 @@ namespace yaf
 
 		private void Recover_Click(object sender,EventArgs e) {
 			if(LostEmail.Text.Length==0 || LostUserName.Text.Length==0) {
-				AddLoadMessage(GetText("Both_username_email"));
+				AddLoadMessage(GetText("login_both_username_email"));
 				return;
 			}
 
 			string newpw = register.CreatePassword(8);
 
 			if(!DB.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
-				AddLoadMessage(GetText("Wrong_username_email"));
+				AddLoadMessage(GetText("login_wrong_username_email"));
 				return;
 			}
 
@@ -92,7 +92,7 @@ namespace yaf
 			
 			SendMail(ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
-			AddLoadMessage(GetText("Email_sent_password"));
+			AddLoadMessage(GetText("login_email_sent_password"));
 			LoginView.Visible = true;
 			RecoverView.Visible = false;
 		}
@@ -127,7 +127,7 @@ namespace yaf
 				FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
 				Response.Redirect(BaseDir);
 			} else {
-				AddLoadMessage(GetText("Login_password_error"));
+				AddLoadMessage(GetText("login_password_error"));
 			}
 		}
 	}

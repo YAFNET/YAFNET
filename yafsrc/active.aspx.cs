@@ -35,7 +35,7 @@ namespace yaf
 	public class active : BasePage
 	{
 		protected System.Web.UI.WebControls.Repeater TopicList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
+		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
@@ -44,19 +44,20 @@ namespace yaf
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			//PageTitle.Text = (string)forum["Name"];
-			HomeLink.NavigateUrl = BaseDir;
-			HomeLink.Text = ForumName;
-
 			if(!IsPostBack) {
-				Since.Items.Add(new ListItem("last visit at " + FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())),"0"));
-				Since.Items.Add(new ListItem("last hour","-1"));
-				Since.Items.Add(new ListItem("last two hours","-2"));
-				Since.Items.Add(new ListItem("last day","1"));
-				Since.Items.Add(new ListItem("last two days","2"));
-				Since.Items.Add(new ListItem("last week","7"));
-				Since.Items.Add(new ListItem("last two weeks","14"));
-				Since.Items.Add(new ListItem("last month","31"));
+				HomeLink.NavigateUrl = BaseDir;
+				HomeLink.Text = ForumName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("active_title");
+
+				Since.Items.Add(new ListItem(String.Format(GetText("active_last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString()))),"0"));
+				Since.Items.Add(new ListItem(GetText("active_last_hour"),"-1"));
+				Since.Items.Add(new ListItem(GetText("active_last_two_hours"),"-2"));
+				Since.Items.Add(new ListItem(GetText("active_last_day"),"1"));
+				Since.Items.Add(new ListItem(GetText("active_last_two_days"),"2"));
+				Since.Items.Add(new ListItem(GetText("active_last_week"),"7"));
+				Since.Items.Add(new ListItem(GetText("active_last_two_weeks"),"14"));
+				Since.Items.Add(new ListItem(GetText("active_last_month"),"31"));
 
 				if(Request.QueryString["k"] != null)
 					Since.Items.FindByValue(Request.QueryString["k"]).Selected = true;
@@ -188,22 +189,25 @@ namespace yaf
 			}
 		}
 
-		protected string FormatLastPost(System.Data.DataRowView row) {
-			if(row["LastPosted"].ToString().Length>0) {
+		protected string FormatLastPost(System.Data.DataRowView row) 
+		{
+			if(row["LastPosted"].ToString().Length>0)
+			{
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br />by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img border=0 src='{3}'></a>", 
-					FormatDateTime((DateTime)row["LastPosted"]), 
-					row["LastUserID"], 
-					row["LastUserName"], 
-					minipost, 
+				
+				return String.Format("{0}<br/>{1}&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img src='{2}'></a>",
+					FormatDateTime((DateTime)row["LastPosted"]),
+					String.Format(GetText("active_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUserName"])),
+					minipost,
 					row["LastMessageID"]
-				);
-			} else
-				return "No Posts";
+					);
+			}
+			else
+				return GetText("active_no_posts");
 		}
 
 		protected string PrintForumName(DataRowView row) {

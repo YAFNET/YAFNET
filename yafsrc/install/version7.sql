@@ -520,3 +520,48 @@ begin
 	order by NumOfPosts desc
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_active') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_active
+GO
+
+create procedure yaf_topic_active(@UserID int,@Since datetime) as
+begin
+	select
+		c.ForumID,
+		c.TopicID,
+		Subject = c.Topic,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID) - 1,
+		Views = c.Views,
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastTopicID = c.TopicID,
+		c.IsLocked,
+		c.Priority,
+		c.PollID,
+		PostAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.PostAccess<>0),
+		ReplyAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReplyAccess<>0),
+		ReadAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReadAccess<>0),
+		ForumName = d.Name,
+		c.TopicMovedID
+	from
+		yaf_Topic c,
+		yaf_User b,
+		yaf_Forum d,
+		yaf_User g
+	where
+		b.UserID = c.UserID and
+		@Since < c.LastPosted and
+		d.ForumID = c.ForumID and
+		g.UserID = @UserID and
+		exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=d.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID=@UserID and x.ReadAccess<>0)
+	order by
+		d.Name asc,
+		Priority desc,
+		LastPosted desc
+end
+GO

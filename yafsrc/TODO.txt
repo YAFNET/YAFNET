@@ -1,3 +1,23 @@
 - upload/attach files
 - Remove unvalidated people after 24 hours
 - Approved users don't have to be moderated
+- Is there currently a way to display a welcome message / header 
+  specific to certain groups? For instance, I would like to display 
+  a message to all Guests encouraging them to register on the site, 
+  however, I do not want this message visible to Members or Administrators.
+- It would be nice to have a Popup + Web + EMail notification for Personal 
+  Messages + an option in the Profile to disable it.
+- exact os name and browser version, Win2003 shows as WinNT. maybe show 
+  service pack and runtime version.
+- better sorting in members view, buttons to indicate direction.
+- option to mark topic or forum as read.
+- show unread pm link (with number of unread).
+- tooltips for "last post" icon, and user profile links (Goto last post, View profile).
+- rich text component (http://www.revjon.com/ftb/).
+- [code] tag where contents are displayed as-is.
+- inserting smilies: http://forum.yetanotherforum.net/posts.aspx?t=155
+
+- Translation:
+	* Mail template in cp_editprofile.aspx
+	* Mail template in emailtopic.aspx
+	

@@ -3,24 +3,26 @@
 <form runat=server>
 
 <p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	&#187; <asp:hyperlink id=CategoryLink runat="server">Category</asp:hyperlink>
-	&#187; <asp:hyperlink id=ForumLink runat="server">Forum</asp:hyperlink>
-	&#187; <asp:hyperlink id=TopicLink runat="server">Topic</asp:hyperlink>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
+	&#187; <asp:hyperlink id=ForumLink runat="server"/>
+	&#187; <asp:hyperlink id=TopicLink runat="server"/>
 </p>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=2>Move Topic</td>
+	<td class=header1 colspan=2><%= GetText("movetopic_title") %></td>
 </tr>
 <tr>
-	<td class=postheader width="50%">Select the forum you want to move the post to:</td>
+	<td class=postheader width="50%"><%= GetText("movetopic_select_forum") %></td>
 	<td class=post width="50%">
-<asp:DropDownList id=ForumList runat="server" DataValueField="ForumID" DataTextField="Forum"></asp:DropDownList></td>
+		<asp:DropDownList id=ForumList runat="server" DataValueField="ForumID" DataTextField="Forum"/>
+	</td>
 </tr>
 <tr>
 	<td class=footer1 colspan=2 align=middle>
-<asp:Button id=Move runat="server" Text="Move Topic"></asp:Button></td>
+		<asp:Button id=Move runat="server"/>
+	</td>
 </tr>
 </table>
 

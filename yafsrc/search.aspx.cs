@@ -37,8 +37,7 @@ namespace yaf
 	/// </summary>
 	public class search : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.Label PageTitle;
+		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
 		protected LinkButton moderate1, moderate2;
@@ -57,16 +56,31 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			//			if(Request.QueryString["f"] == null)
-			//				Response.Redirect(BaseDir);
-
-			PageTitle.Text = "Search";
-			HomeLink.NavigateUrl = BaseDir;
-			HomeLink.Text = ForumName;
-
 			if(!IsPostBack)
 			{
+				HomeLink.NavigateUrl = BaseDir;
+				HomeLink.Text = ForumName;
+				ThisLink.NavigateUrl = "search.aspx";
+				ThisLink.Text = GetText("search_title");
+				btnSearch.Text = GetText("search_btnsearch");
+
+				// Load result dropdown
+				listResInPage.Items.Add(new ListItem(GetText("search_result5"),"5"));
+				listResInPage.Items.Add(new ListItem(GetText("search_result10"),"10"));
+				listResInPage.Items.Add(new ListItem(GetText("search_result25"),"25"));
+				listResInPage.Items.Add(new ListItem(GetText("search_result50"),"50"));
+
+				// Load searchwhere dropdown
+				listSearchWhere.Items.Add(new ListItem(GetText("search_posts"),"0"));
+				listSearchWhere.Items.Add(new ListItem(GetText("search_postedby"),"1"));
+
+				// Load listSearchWath dropdown
+				listSearchWath.Items.Add(new ListItem(GetText("search_match_all"),"0"));
+				listSearchWath.Items.Add(new ListItem(GetText("search_match_any"),"1"));
+				listSearchWath.Items.Add(new ListItem(GetText("search_match_exact"),"2"));
+
 				// Load forum's combo
+				listForum.Items.Add(new ListItem(GetText("search_allforums"),"-1"));
 				DataTable dt = DB.forum_listread(PageUserID,null);
 
 				int nOldCat = 0;
@@ -168,7 +182,7 @@ namespace yaf
 		public string FormatMessage( object msg )
 		{
 			//string body = Server.HtmlEncode(msg.ToString());
-			string body = (string)msg;
+			string body = msg.ToString();
 			
 			FormatMsg fmt = new FormatMsg(this);
 			return fmt.FormatMessage(body);

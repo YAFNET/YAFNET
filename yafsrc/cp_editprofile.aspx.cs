@@ -37,7 +37,7 @@ namespace yaf
 	public class cp_editprofile : BasePage
 	{
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink;
+		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.TextBox Location;
 		protected System.Web.UI.WebControls.TextBox HomePage;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
@@ -64,6 +64,11 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("cp_editprofile_title");
+
+				DeleteAvatar.Text = GetText("cp_editprofile_delete_avatar");
+				UpdateProfile.Text = GetText("Save");
 			}
 		}
 
@@ -150,16 +155,16 @@ namespace yaf
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
 				SendMail(ForumEmail,Email.Text,"Changed email",msg.ToString());
-				AddLoadMessage(String.Format("A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.",Email.Text));
+				AddLoadMessage(String.Format(GetText("cp_editprofile_mail_sent"),Email.Text));
 			}
 
 			if(OldPassword.Text.Length > 0) {
 				if(NewPassword1.Text.Length==0 || NewPassword2.Text.Length==0) {
-					AddLoadMessage("Password can't be empty.");
+					AddLoadMessage(GetText("cp_editprofile_no_empty_password"));
 					return;
 				}
 				if(NewPassword1.Text != NewPassword2.Text) {
-					AddLoadMessage("New passwords doesn't match.");
+					AddLoadMessage(GetText("cp_editprofile_no_password_match"));
 					return;
 				}
 
@@ -167,7 +172,7 @@ namespace yaf
 				string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword1.Text,"md5");
 
 				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) {
-					AddLoadMessage("Old password was wrong.");
+					AddLoadMessage(GetText("cp_editprofile_old_password_wrong"));
 				}
 			}
 

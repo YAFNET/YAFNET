@@ -13,78 +13,74 @@
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
 	<tr>
-		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server"><%= GetText("Post_New_Topic") %></asp:label></td>
+		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server"><%= GetText("postmessage_newtopic") %></asp:label></td>
 	</tr>
 
 	<tr id=PreviewRow runat=server visible=false>
-		<td class=postheader valign=top><%= GetText("Preview") %>:</td>
+		<td class=postheader valign=top><%= GetText("postmessage_previewtitle") %></td>
 		<td class=post valign=top id=PreviewCell runat=server></td>
 	</tr>
 
 	<tr id=SubjectRow runat="server">
-		<td class=postheader width="30%"><%= GetText("Subject") %>:</td>
+		<td class=postheader width="30%"><%= GetText("postmessage_subject") %></td>
 		<td class=post width="60%"><asp:textbox id=Subject runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=FromRow runat="server">
-		<td class=postheader width="30%"><%= GetText("From") %>:</td>
+		<td class=postheader width="30%"><%= GetText("postmessage_from") %></td>
 		<td class=post width="60%"><asp:textbox id="From" runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=PriorityRow runat="server">
-		<td class=postheader width="30%"><%= GetText("Priority") %>:</td>
+		<td class=postheader width="30%"><%= GetText("postmessage_priority") %></td>
 		<td class=post width="60%">
-			<asp:dropdownlist id=Priority runat="server">
-				<asp:ListItem Value="0" Selected="True">Normal</asp:ListItem>
-				<asp:ListItem Value="1">Sticky</asp:ListItem>
-				<asp:ListItem Value="2">Announcement</asp:ListItem>
-			</asp:dropdownlist>
+			<asp:dropdownlist id=Priority runat="server"/>
 		</td>
 	</tr>
 	<tr id=CreatePollRow runat="server">
-		<td class=postheader width="30%"><asp:linkbutton id=CreatePoll runat="server">Create Poll</asp:linkbutton></td>
+		<td class=postheader width="30%"><asp:linkbutton id=CreatePoll runat="server"/></td>
 		<td class=post width="60%">&nbsp;</td>
 	</tr>
 	<tr id=PollRow1 runat="server" visible="false">
-		<td class=postfooter width="30%"><em>Poll Question:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_pollquestion") %></em></td>
 		<td class=postfooter width="60%"><asp:textbox id=Question runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=PollRow2 runat="server" visible="false">
-		<td class=postfooter width="30%"><em>Choice 1:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice1") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice1 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow3" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 2:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice2") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice2 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow4" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 3:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice3") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice3 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow5" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 4:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice4") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice4 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow6" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 5:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice5") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice5 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow7" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 6:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice6") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice6 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow8" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 7:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice7") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice7 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow9" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 8:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice8") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice8 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow10" runat="server" visible=false>
-		<td class=postfooter width="30%"><em>Choice 9:</em></td>
+		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice9") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice9 runat="server" cssclass="edit"/></td>
 	</tr>
   <tr>
-    <td class=postheader vAlign=top><%= GetText("Message") %>:
+    <td class=postheader vAlign=top><%= GetText("postmessage_message") %>
     <uc1:smileys runat="server" onclick="insertsmiley"/>
     </td>
     <td class=post><asp:textbox id=Message runat="server" cssclass="posteditor" TextMode="MultiLine" Rows="12"></asp:textbox></td></tr>
@@ -100,7 +96,7 @@
 		</td>
 	</tr>
 	<tr id=UploadRow1 runat="server">
-		<td class=postheader rowspan="3" valign="top"><%= GetText("Attach_Files") %>:</td>
+		<td class=postheader rowspan="3" valign="top"><%= GetText("postmessage_attach") %></td>
 		<td class=post><input type="file" id="File1" runat="server"/></td>
 	</tr>
 	<tr id=UploadRow2 runat="server">
@@ -124,7 +120,7 @@
 <HeaderTemplate>
 	<table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
 		<tr>
-			<td class=header2 align=middle colSpan=2><%# GetText("Last10_reverse") %></td>
+			<td class=header2 align=middle colSpan=2><%# GetText("postmessage_last10") %></td>
 		</tr>
 </HeaderTemplate>
 <FooterTemplate>

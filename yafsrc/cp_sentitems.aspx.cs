@@ -35,7 +35,7 @@ namespace yaf
 	public class cp_sentitems : BasePage
 	{
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink;
+		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater Inbox;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -50,6 +50,8 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("cp_sentitems_title");
 			}
 		}
 
@@ -68,9 +70,7 @@ namespace yaf
 			if(e.CommandName == "delete") {
 				DB.pmessage_delete(e.CommandArgument);
 				BindData();
-				AddLoadMessage("Message was deleted.");
-			} else {
-				AddLoadMessage(String.Format("TODO!!!\n\nCommand: {0}\nArgument: {1}",e.CommandName,e.CommandArgument));
+				AddLoadMessage(GetText("cp_sentitems_msg_deleted"));
 			}
 		}
 

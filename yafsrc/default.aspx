@@ -3,11 +3,11 @@
 <form runat="server">
 
 <p class="navlinks" id=NavLinks runat=server>
-	<asp:hyperlink id=HomeLink runat=server>HomeLink</asp:hyperlink>
-	&#187; <asp:hyperlink id=CategoryLink runat=server>CategoryLink</asp:hyperlink>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
 </p>
 <p class="navlinks" id="NavLinks2" runat=server>
-	<asp:hyperlink id="HomeLink2" runat=server>HomeLink</asp:hyperlink>
+	<asp:hyperlink id="HomeLink2" runat="server"/>
 </p> 
 
 <p id=Welcome runat=server>
@@ -26,10 +26,10 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class=header1 width=1%>&nbsp;</td>
-			<td class=header1 align=left><%# GetText("Forum") %></td>
-			<td class=header1 align=center width=7%><%# GetText("Topics") %></td>
-			<td class=header1 align=center width=7%><%# GetText("Posts") %></td>
-			<td class=header1 align=center width=25%><%# GetText("Last_Post") %></td>
+			<td class=header1 align=left><%# GetText("default_forum") %></td>
+			<td class=header1 align=center width=7%><%# GetText("default_topics") %></td>
+			<td class=header1 align=center width=7%><%# GetText("default_posts") %></td>
+			<td class=header1 align=center width=25%><%# GetText("default_lastpost") %></td>
 		</tr>
 </HeaderTemplate>
 <ItemTemplate>
@@ -45,7 +45,7 @@
 						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 						<br>
 						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
-							<HeaderTemplate><span class=smallfont><%# GetText("Moderators") %>: </HeaderTemplate>
+							<HeaderTemplate><span class=smallfont><%# GetText("default_moderators") %>: </HeaderTemplate>
 							<ItemTemplate><%# DataBinder.Eval(Container.DataItem, "[\"GroupName\"]") %></ItemTemplate>
 							<SeparatorTemplate>, </SeparatorTemplate>
 							<FooterTemplate></span></FooterTemplate>

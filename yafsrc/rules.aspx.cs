@@ -46,7 +46,7 @@ namespace yaf
 			HomeLink.NavigateUrl = BaseDir;
 
 			ForumRules.Text = "TODO:";
-			//TODO: Write license info or some other shit
+			//TODO: Write license info and stuff...
 			Response.Redirect("register.aspx");
 		}
 

@@ -34,7 +34,7 @@ namespace yaf
 	/// </summary>
 	public class activeusers : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
+		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater UserList;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -42,6 +42,8 @@ namespace yaf
 			if(!IsPostBack) {
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("activeusers_title");
 
 				UserList.DataSource = DB.active_list(true);
 				DataBind();

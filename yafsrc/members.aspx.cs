@@ -35,7 +35,7 @@ namespace yaf
 	public class members : BasePage
 	{
 		protected System.Web.UI.WebControls.Repeater MemberList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
+		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
@@ -45,11 +45,20 @@ namespace yaf
 			if(!User.Identity.IsAuthenticated)
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
+			if(!IsPostBack) 
+			{
+				HomeLink.Text = ForumName;
+				HomeLink.NavigateUrl = BaseDir;
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = GetText("members_title");
 
-			if(!IsPostBack)
+				UserName.Text = GetText("members_username");
+				Rank.Text = GetText("members_rank");
+				Joined.Text = GetText("members_joined");
+				Posts.Text = GetText("members_posts");
+
 				BindData();
+			}
 		}
 
 		private void UserName_Click(object sender, System.EventArgs e) 
@@ -102,7 +111,7 @@ namespace yaf
 
 			if(pds.PageCount>1) 
 			{
-				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
+				PageLinks1.InnerHtml = String.Format(GetText("members_pages"),pds.PageCount);
 				for(int i=0;i<pds.PageCount;i++) 
 				{
 					if(i==pds.CurrentPageIndex) 

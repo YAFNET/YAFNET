@@ -44,7 +44,7 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumModeratorAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(!IsPostBack) {
 				HomeLink.Text = ForumName;
@@ -55,6 +55,8 @@ namespace yaf
 				ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
+
+				Move.Text = GetText("movetopic_move");
 
 				ForumList.DataSource = DB.forum_listread(PageUserID,null);
 				DataBind();

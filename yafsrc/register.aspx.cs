@@ -52,9 +52,12 @@ namespace yaf
 			if(Data.GetAuthType!=AuthType.YetAnotherForum)
 				Response.Redirect(BaseDir);
 
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
 			if(!IsPostBack) {
+				HomeLink.Text = ForumName;
+				HomeLink.NavigateUrl = BaseDir;
+				ForumRegister.Text = GetText("register_register");
+				cancel.Text = GetText("Cancel");
+
 				TimeZones.DataSource = Data.TimeZones();
 				DataBind();
 				TimeZones.Items.FindByValue("0").Selected = true;
@@ -103,7 +106,7 @@ namespace yaf
 			{
 				if(DB.user_find(UserName.Text,Email.Text)) 
 				{
-					AddLoadMessage(GetText("Already_registered"));
+					AddLoadMessage(GetText("register_already_registered"));
 					return;
 				}
 

@@ -36,7 +36,7 @@ namespace yaf
 	{
 		protected System.Web.UI.WebControls.Label Name;
 		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
+		protected System.Web.UI.WebControls.HyperLink HomeLink, MembersLink, ThisLink;
 		protected System.Web.UI.WebControls.Label Email;
 		protected System.Web.UI.HtmlControls.HtmlTableRow EmailRow;
 		protected System.Web.UI.WebControls.Label LastVisit;
@@ -49,9 +49,6 @@ namespace yaf
 		{
 			if(Request.QueryString["u"] == null)
 				Response.Redirect(BaseDir);
-
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
 
 			using(DataTable dt = DB.user_list(Request.QueryString["u"],true)) {
 				DataRow user = dt.Rows[0];
@@ -66,6 +63,14 @@ namespace yaf
 			}
 
 			if(!IsPostBack) {
+				HomeLink.Text = ForumName;
+				HomeLink.NavigateUrl = BaseDir;
+				MembersLink.NavigateUrl = "members.aspx";
+				MembersLink.Text = GetText("profile_members");
+				ThisLink.NavigateUrl = Request.RawUrl;
+				ThisLink.Text = PageUserName;
+
+
 				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 
 				if(IsAdmin) 

@@ -51,8 +51,8 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				TimeNow.Text = String.Format(GetText("Current_time"),FormatTime(DateTime.Now));
-				TimeLastVisit.Text = String.Format(GetText("Last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
+				TimeNow.Text = String.Format(GetText("default_current_time"),FormatTime(DateTime.Now));
+				TimeLastVisit.Text = String.Format(GetText("default_last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
 
 				if(PageCategoryID!=0) {
 					HomeLink.NavigateUrl = BaseDir;
@@ -77,22 +77,22 @@ namespace yaf
 				// Forum statistics
 				DataRow stats = DB.stats();
 				
-				Stats.Text = String.Format(CustomCulture,GetText("Stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
+				Stats.Text = String.Format(CustomCulture,GetText("default_stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
 				Stats.Text += "<br/>";
 				
 				if(!stats.IsNull("LastPost")) 
 				{
-					Stats.Text += String.Format(GetText("Stats_lastpost"),
+					Stats.Text += String.Format(GetText("default_stats_lastpost"),
 						FormatDateTime((DateTime)stats["LastPost"]),
 						String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastUserID"],stats["LastUser"])
 					);
 					Stats.Text += "<br/>";
 				}
 				
-				Stats.Text += String.Format(GetText("Stats_members"),stats["members"]);
+				Stats.Text += String.Format(GetText("default_stats_members"),stats["members"]);
 				Stats.Text += "<br/>";
 
-				Stats.Text += String.Format(GetText("Stats_lastmember"),
+				Stats.Text += String.Format(GetText("default_stats_lastmember"),
 					String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastMemberID"],stats["LastMember"])
 				);
 				Stats.Text += "<br/>";
@@ -134,14 +134,14 @@ namespace yaf
 				
 				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>",
 					FormatDateTime((DateTime)row["LastPosted"]),
-					String.Format(GetText("in"),String.Format("<a href=\"posts.aspx?t={0}\">{1}</a>",row["LastTopicID"],row["LastTopicName"])),
-					String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUser"])),
+					String.Format(GetText("default_in"),String.Format("<a href=\"posts.aspx?t={0}\">{1}</a>",row["LastTopicID"],row["LastTopicName"])),
+					String.Format(GetText("default_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUser"])),
 					minipost,
 					row["LastMessageID"]
 				);
 			}
 			else
-				return GetText("No_Posts");
+				return GetText("default_no_posts");
 		}
 
 		protected string GetForumIcon(object lastPosted,object Locked,object oPostAccess,object oReplyAccess,object oReadAccess) 

@@ -4,9 +4,9 @@
 <form runat="server">
 
 <p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	&#187; <asp:hyperlink id=CategoryLink runat="server">Category</asp:hyperlink>
-	&#187; <asp:hyperlink id=ForumLink runat="server">Forum</asp:hyperlink>
+	<asp:hyperlink id=HomeLink runat="server"/>
+	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
+	&#187; <asp:hyperlink id=ForumLink runat="server"/>
 </p>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
@@ -25,11 +25,11 @@
 	</tr>
   <tr>
     <td class=header2 width="1%">&nbsp;</td>
-    <td class=header2 align=left><%# GetText("Topics") %></td>
-    <td class=header2 align=left width="20%"><%# GetText("Topic_Starter") %></td>
-    <td class=header2 align=middle width="7%"><%# GetText("Replies") %></td>
-    <td class=header2 align=middle width="7%"><%# GetText("Views") %></td>
-    <td class=header2 align=middle width="25%"><%# GetText("Last_Post") %></td>
+    <td class=header2 align=left><%# GetText("topics_topics") %></td>
+    <td class=header2 align=left width="20%"><%# GetText("topics_topic_starter") %></td>
+    <td class=header2 align=middle width="7%"><%# GetText("topics_replies") %></td>
+    <td class=header2 align=middle width="7%"><%# GetText("topics_views") %></td>
+    <td class=header2 align=middle width="25%"><%# GetText("topics_lastpost") %></td>
    </tr>
 <asp:repeater id=Announcements runat="server">
 	<ItemTemplate>
@@ -63,7 +63,7 @@
         <tr>
 				<td width="1%">
 					<nobr>
-					<%# GetText("Show_Topics") %>
+					<%# GetText("topics_showtopics") %>
 					<asp:DropDownList id=ShowList runat="server" AutoPostBack="True"/>
 					</nobr>
 				</td>
