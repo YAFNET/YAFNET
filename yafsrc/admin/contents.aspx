@@ -26,6 +26,7 @@
 	<tr><td class="header2"><b>NNTP</b></td></tr>
 	<tr><td class=post><a target="main" href="nntpservers.aspx">NNTP Servers</a></td></tr>
 	<tr><td class=post><a target="main" href="nntpforums.aspx">NNTP Forums</a></td></tr>
+	<tr><td class=post><a target="main" href="nntpretrieve.aspx">Retrieve Articles</a></td></tr>
 	</asp:placeholder>
 
 	<tr><td class="header2"><b>Upgrade</b></td></tr>
