@@ -421,7 +421,7 @@ namespace yaf.pages
 				StringBuilder footer = new StringBuilder();
 				footer.AppendFormat("<p style=\"text-align:center;font-size:7pt\">");
 
- 				footer.AppendFormat("Main Forum Rss Feed : " + String.Format("<a href=\"{0}default.aspx?g=rsstopic&pg=forum\"><img src=\"{0}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Config.ConfigSection["siteurl"]));
+ 				footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"images/rss.gif\" alt=\"RSS\" /></a><br /><br />",Forum.GetLink(Pages.rsstopic,"pg=forum"));
  
 				if(Config.IsDotNetNuke) 
 				{

@@ -75,7 +75,7 @@
 				&middot;
 				<asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton>
  				&middot;
- 				<asp:linkbutton id=RssTopic runat=server><%# GetText("rsstopic") %></asp:linkbutton>
+ 				<asp:hyperlink id=RssTopic runat=server><%# GetText("rsstopic") %></asp:hyperlink>
 			</td>
 		</tr>
 		</table>
