@@ -125,3 +125,22 @@ if exists(select 1 from yaf_User where Weblog is not null and Weblog='')
 	update yaf_User set Weblog=null where Weblog is not null and Weblog=''
 GO
 
+-- yaf_board_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_board_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_delete
+GO
+
+create procedure yaf_board_delete(@BoardID int) as
+begin
+	delete from yaf_ForumAccess where exists(select 1 from yaf_Group x where x.GroupID=yaf_ForumAccess.GroupID and x.BoardID=@BoardID)
+	delete from yaf_Forum where exists(select 1 from yaf_Category x where x.CategoryID=yaf_Forum.CategoryID and x.BoardID=@BoardID)
+	delete from yaf_UserGroup where exists(select 1 from yaf_User x where x.UserID=yaf_UserGroup.UserID and x.BoardID=@BoardID)
+	delete from yaf_Category where BoardID=@BoardID
+	delete from yaf_User where BoardID=@BoardID
+	delete from yaf_Rank where BoardID=@BoardID
+	delete from yaf_Group where BoardID=@BoardID
+	delete from yaf_AccessMask where BoardID=@BoardID
+	delete from yaf_Board where BoardID=@BoardID
+end
+GO
+
