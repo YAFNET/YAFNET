@@ -7,7 +7,7 @@ namespace yaf
 	public class BoardSettings
 	{
 		private DataRow m_board;
-		private Hashtable m_reg, m_regBoard;
+		private RegistryHash m_reg, m_regBoard;
 
 		public BoardSettings(object boardID)
 		{
@@ -16,8 +16,8 @@ namespace yaf
 			dt = DB.board_list(boardID);
 			m_board = dt.Rows[0];
 
-			m_reg = new Hashtable();
-			m_regBoard = new Hashtable();
+			m_reg = new RegistryHash();
+			m_regBoard = new RegistryHash();
 
 			// get all the registry values for the forum
 			using(dt = DB.registry_list())
@@ -64,15 +64,24 @@ namespace yaf
 			}
 		}
 
-		// individual board settings 
+		// individual board settings
 		public string Name
 		{
-			get	{ return Convert.ToString(m_board["Name"]);	}
+			get	{ return m_board["Name"].ToString();	}
 		}
 		public bool AllowThreaded
 		{
-			get	{	return Convert.ToBoolean(m_board["AllowThreaded"]); }
+			get	{	return Convert.ToBoolean(m_board["AllowThreaded"].ToString()); }
 		}
+		public int MaxUsers
+		{
+			get { return m_regBoard.GetValueInt("MaxUsers",1); }
+		}
+		public DateTime MaxUsersWhen
+		{
+			get { return DateTime.Parse(m_regBoard.GetValueString("MaxUsersWhen",DateTime.Now.ToString()));	}
+		}
+
 		// didn't know where else to put this :)
 		public string SQLVersion
 		{
@@ -84,178 +93,176 @@ namespace yaf
 		{
 			get
 			{
-				int min = GetValueInt("TimeZone",0);
+				int min = TimeZoneRaw;
 				return new TimeSpan(min/60,min%60,0);
 			}
 		}
 		// int settings
 		public int TimeZoneRaw
 		{
-			get { return GetValueInt("TimeZone",0);	}
-			set	{	SetValueInt("TimeZone",value); }
+			get { return m_reg.GetValueInt("TimeZone",0);	}
+			set	{	m_reg.SetValueInt("TimeZone",value); }
 		}
 		public int AvatarWidth
 		{
-			get { return GetValueInt("AvatarWidth",50);	}
-			set	{	SetValueInt("AvatarWidth",value); }
+			get { return m_reg.GetValueInt("AvatarWidth",50);	}
+			set	{	m_reg.SetValueInt("AvatarWidth",value); }
 		}
 		public int AvatarHeight
 		{
-			get { return GetValueInt("AvatarHeight",80);	}
-			set	{	SetValueInt("AvatarHeight",value); }
+			get { return m_reg.GetValueInt("AvatarHeight",80);	}
+			set	{	m_reg.SetValueInt("AvatarHeight",value); }
 		}
 		public int AvatarSize
 		{
-			get { return GetValueInt("AvatarSize",50000);	}
-			set	{	SetValueInt("AvatarSize",value); }
+			get { return m_reg.GetValueInt("AvatarSize",50000);	}
+			set	{	m_reg.SetValueInt("AvatarSize",value); }
 		}
 		public int MaxFileSize
 		{
-			get { return GetValueInt("MaxFileSize",0);	}
-			set	{	SetValueInt("MaxFileSize",value); }
+			get { return m_reg.GetValueInt("MaxFileSize",0);	}
+			set	{	m_reg.SetValueInt("MaxFileSize",value); }
 		}
 		public int SmiliesColumns
 		{
-			get { return GetValueInt("SmiliesColumns",3); }
-			set { SetValueInt("SmiliesColumns",value); }
+			get { return m_reg.GetValueInt("SmiliesColumns",3); }
+			set { m_reg.SetValueInt("SmiliesColumns",value); }
 		}
 		public int SmiliesPerRow
 		{
-			get { return GetValueInt("SmiliesPerRow",6); }
-			set { SetValueInt("SmiliesPerRow",value); }
+			get { return m_reg.GetValueInt("SmiliesPerRow",6); }
+			set { m_reg.SetValueInt("SmiliesPerRow",value); }
 		}
 		public int LockPosts
 		{
-			get { return GetValueInt("LockPosts",0); }
-			set { SetValueInt("LockPosts",value); }
+			get { return m_reg.GetValueInt("LockPosts",0); }
+			set { m_reg.SetValueInt("LockPosts",value); }
+		}
+		public int PostsPerPage
+		{
+			get { return m_reg.GetValueInt("PostsPerPage",20); }
+			set { m_reg.SetValueInt("PostsPerPage",value); }
+		}
+		public int TopicsPerPage
+		{
+			get { return m_reg.GetValueInt("TopicsPerPage",15); }
+			set { m_reg.SetValueInt("TopicsPerPage",value); }
 		}
 		// boolean settings
 		public bool EmailVerification
 		{
-			get	{	return GetValueBool("EmailVerification",false);	}
-			set	{	SetValueBool("EmailVerification",value); }
+			get	{	return m_reg.GetValueBool("EmailVerification",false);	}
+			set	{	m_reg.SetValueBool("EmailVerification",value); }
 		}
 		public bool ShowMoved
 		{
-			get {	return GetValueBool("ShowMoved",true); }
-			set	{ SetValueBool("ShowMoved",value); }
+			get {	return m_reg.GetValueBool("ShowMoved",true); }
+			set	{ m_reg.SetValueBool("ShowMoved",value); }
 		}
 		public bool ShowGroups 
 		{
-			get {	return GetValueBool("ShowGroups",true);	}
-			set { SetValueBool("ShowGroups",value); }
+			get {	return m_reg.GetValueBool("ShowGroups",true);	}
+			set { m_reg.SetValueBool("ShowGroups",value); }
 		}
 		public bool BlankLinks 
 		{
-			get {	return GetValueBool("BlankLinks",false); }
-			set { SetValueBool("BlankLinks",value); }
+			get {	return m_reg.GetValueBool("BlankLinks",false); }
+			set { m_reg.SetValueBool("BlankLinks",value); }
 		}
 		public bool AllowRichEdit 
 		{
-			get {	return GetValueBool("AllowRichEdit",true); }
-			set { SetValueBool("AllowRichEdit",value); }
+			get {	return m_reg.GetValueBool("AllowRichEdit",true); }
+			set { m_reg.SetValueBool("AllowRichEdit",value); }
 		}
 		public bool AllowUserTheme 
 		{
-			get { return GetValueBool("AllowUserTheme",false); }
-			set { SetValueBool("AllowUserTheme",value); }
+			get { return m_reg.GetValueBool("AllowUserTheme",false); }
+			set { m_reg.SetValueBool("AllowUserTheme",value); }
 		}
 		public bool AllowUserLanguage 
 		{
-			get { return GetValueBool("AllowUserLanguage",false); }
-			set { SetValueBool("AllowUserLanguage",value); }
+			get { return m_reg.GetValueBool("AllowUserLanguage",false); }
+			set { m_reg.SetValueBool("AllowUserLanguage",value); }
 		}
 		public bool AvatarUpload
 		{
-			get { return GetValueBool("AvatarUpload", false); }
-			set { SetValueBool("AvatarUpload",value); }
+			get { return m_reg.GetValueBool("AvatarUpload", false); }
+			set { m_reg.SetValueBool("AvatarUpload",value); }
 		}
 		public bool AvatarRemote
 		{
-			get { return GetValueBool("AvatarRemote", false); }
-			set { SetValueBool("AvatarRemote",value); }
+			get { return m_reg.GetValueBool("AvatarRemote", false); }
+			set { m_reg.SetValueBool("AvatarRemote",value); }
 		}
 		public bool UseFileTable
 		{
-			get { return GetValueBool("UseFileTable", false); }
-			set { SetValueBool("UseFileTable",value); }
+			get { return m_reg.GetValueBool("UseFileTable", false); }
+			set { m_reg.SetValueBool("UseFileTable",value); }
 		}
 		public bool ShowRSSLink
 		{
-			get { return GetValueBool("ShowRSSLink",true); }
-			set { SetValueBool("ShowRSSLink",value); }
+			get { return m_reg.GetValueBool("ShowRSSLink",true); }
+			set { m_reg.SetValueBool("ShowRSSLink",value); }
 		}
 		public bool ShowForumJump
 		{
-			get { return GetValueBool("ShowForumJump",true); }
-			set { SetValueBool("ShowForumJump",value); }
-		}
-		public int MaxUsers
-		{
-			get 
-			{ 
-				if (m_regBoard["maxusers"] == null) return 1;
-				return Convert.ToInt32(m_regBoard["maxusers"]);
-			}
-		}
-		public DateTime MaxUsersWhen
-		{
-			get 
-			{ 
-				if(m_regBoard["maxuserswhen"] == null) return DateTime.Now;
-				return DateTime.Parse(m_regBoard["maxuserswhen"].ToString());
-			}
+			get { return m_reg.GetValueBool("ShowForumJump",true); }
+			set { m_reg.SetValueBool("ShowForumJump",value); }
 		}
 
 		// string settings
 		public string ForumEmail 
 		{
-			get {	return GetValueString("ForumEmail",""); }
-			set { SetValueString("ForumEmail",value); }
+			get {	return m_reg.GetValueString("ForumEmail",""); }
+			set { m_reg.SetValueString("ForumEmail",value); }
 		}
 		public string SmtpServer 
 		{
-			get { return GetValueString("SmtpServer",null); }
-			set { SetValueString("SmtpServer",value); }
+			get { return m_reg.GetValueString("SmtpServer",null); }
+			set { m_reg.SetValueString("SmtpServer",value); }
 		}
 		public string SmtpUserName 
 		{
-			get { return GetValueString("SmtpUserName",null); }
-			set { SetValueString("SmtpUserName",value); }
+			get { return m_reg.GetValueString("SmtpUserName",null); }
+			set { m_reg.SetValueString("SmtpUserName",value); }
 		}
 		public string SmtpUserPass
 		{
-			get { return GetValueString("SmtpUserPass",null); }
-			set { SetValueString("SmtpUserPass",value); }
-		}
-			
-		// helper class functions
-		protected int GetValueInt(string Name,int Default)
-		{
-			if (m_reg[Name.ToLower()] == null) return Default;
-			return Convert.ToInt32(m_reg[Name.ToLower()]);
-		}
-		protected void SetValueInt(string Name,int Value)
-		{
-			m_reg[Name.ToLower()] = Convert.ToString(Value);
-		}
-		protected bool GetValueBool(string Name,bool Default)
-		{
-			if (m_reg[Name.ToLower()] == null) return Default;
-			return Convert.ToBoolean(Convert.ToInt32(m_reg[Name.ToLower()]));
-		}
-		protected void SetValueBool(string Name,bool Value)
-		{
-			m_reg[Name.ToLower()] = Convert.ToString(Convert.ToInt32(Value));
-		}
-		protected string GetValueString(string Name,string Default)
-		{	
-			if (m_reg[Name.ToLower()] == null) return Default;
-			return Convert.ToString(m_reg[Name.ToLower()]);		
-		}
-		protected void SetValueString(string Name,string Value)
-		{
-			m_reg[Name.ToLower()] = Value;		
+			get { return m_reg.GetValueString("SmtpUserPass",null); }
+			set { m_reg.SetValueString("SmtpUserPass",value); }
 		}
 	}
+
+	public class RegistryHash : System.Collections.Hashtable
+	{		
+		// helper class functions
+		public int GetValueInt(string Name,int Default)
+		{
+			if (this[Name.ToLower()] == null) return Default;
+			return Convert.ToInt32(this[Name.ToLower()]);
+		}
+		public void SetValueInt(string Name,int Value)
+		{
+			this[Name.ToLower()] = Convert.ToString(Value);
+		}
+		public bool GetValueBool(string Name,bool Default)
+		{
+			if (this[Name.ToLower()] == null) return Default;
+			return Convert.ToBoolean(Convert.ToInt32(this[Name.ToLower()]));
+		}
+		public void SetValueBool(string Name,bool Value)
+		{
+			this[Name.ToLower()] = Convert.ToString(Convert.ToInt32(Value));
+		}
+		public string GetValueString(string Name,string Default)
+		{	
+			if (this[Name.ToLower()] == null) return Default;
+			return Convert.ToString(this[Name.ToLower()]);		
+		}
+		public void SetValueString(string Name,string Value)
+		{
+			this[Name.ToLower()] = Value;		
+		}
+	}
+													
 }

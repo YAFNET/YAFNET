@@ -94,8 +94,7 @@ namespace yaf
 				after_replace = after_replace.Replace("]","&#93;");
 				after_replace = after_replace.Replace("<br/>","\n");
 				//after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
-				bbcode = bbcode.Replace(before_replace,string.Format("<blockquote><pre style=\"font-size:10px\">{0}</pre></blockquote>",after_replace));
-
+				bbcode = bbcode.Replace(before_replace,string.Format("<div class='code'><b>Code:</b><div class='innercode'>{0}</div></div>",after_replace));
 				m = r_code.Match(bbcode);
 			}
 
@@ -141,9 +140,9 @@ namespace yaf
 			NestedReplace(ref bbcode,r_right,"<div align=\"right\">${inner}</div>");
 
 			while(r_quote2.IsMatch(bbcode))
-				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>QUOTE (${quote})</b><div class='innerquote'>${inner}</div></div>");
+				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>${quote} wrote:</b><div class='innerquote'>${inner}</div></div>");
 			while(r_quote1.IsMatch(bbcode))
-				bbcode = r_quote1.Replace(bbcode,"<div class='quote'><b>QUOTE</b><div class='innerquote'>${inner}</div></div>");
+				bbcode = r_quote1.Replace(bbcode,"<div class='quote'><b>Quote:</b><div class='innerquote'>${inner}</div></div>");
 
 			m = r_post.Match(bbcode);
 			while(m.Success) 
