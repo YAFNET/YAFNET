@@ -123,10 +123,8 @@ namespace yaf
 					foreach(DataRow row in dt.Rows) 
 					{
 						byte[] data = null;
-						//Response.Clear();
-						Response.ContentType = row["ContentType"].ToString();
-						//Response.ContentType = "application/octet-stream";
-						Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",row["FileName"]));
+						Response.ContentType = HttpUtility.UrlEncode(row["ContentType"].ToString());
+						Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+","%20")));
 
 						if(row.IsNull("FileData")) 
 						{
