@@ -150,11 +150,9 @@ namespace yaf.pages
 					if (BoardSettings.RemoveNestedQuotes)
 					{
 						RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-						Regex	quotebegin = new Regex(@"\[quote(\=.*)?\]",m_options);
-						Regex quoteend = new Regex(@"\[/quote\]",m_options);
-						// remove the quotes
-						tmpMessage = quotebegin.Replace(tmpMessage,"");
-						tmpMessage = quoteend.Replace(tmpMessage,"");
+						Regex	quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]",m_options);
+						// remove quotes from old messages
+						tmpMessage = quote.Replace(tmpMessage,"");
 					}
 
 					if(isHtml)

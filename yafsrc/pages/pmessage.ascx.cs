@@ -26,6 +26,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
 
 namespace yaf.pages
 {
@@ -84,10 +85,13 @@ namespace yaf.pages
 
 				int ToUserID = 0;
 
-				if(Request.QueryString["p"] != null) {
-					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"])) {
+				if(Request.QueryString["p"] != null)
+				{
+					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"]))
+					{
 						DataRow row = dt.Rows[0];
 						Subject.Text = (string)row["Subject"];
+
 						if(Subject.Text.Length<4 || Subject.Text.Substring(0,4) != "Re: ")
 							Subject.Text = "Re: " + Subject.Text;
 
@@ -96,8 +100,15 @@ namespace yaf.pages
 						string body = row["Body"].ToString();
 						bool isHtml = body.IndexOf('<')>=0;
 
-						if(isHtml)
-							body = FormatMsg.HtmlToForumCode(body);
+						if (BoardSettings.RemoveNestedQuotes)
+						{
+							RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+							Regex	quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]",m_options);
+							// remove quotes from old messages
+							body = quote.Replace(body,"");
+						}
+
+						if (isHtml) body = FormatMsg.HtmlToForumCode(body);
 						body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
 
 						Editor.Text = body;
