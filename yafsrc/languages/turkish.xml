@@ -122,6 +122,8 @@
 		<Resource tag="INFO_WATCH_FORUM">Bu foruma yeni ileti geldiğinde bilgilendirileceksiniz.</Resource>
 		<Resource tag="MARKREAD">Bu forumu okunmuş olarak işaretle</Resource>
 		<Resource tag="SUBFORUMS">Altforum</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->

@@ -120,6 +120,8 @@
 		<Resource tag="INFO_WATCH_FORUM">На Ваш электронный адрес будут высылаться уведомления о новых сообщениях в данном форуме.</Resource>
 		<Resource tag="MARKREAD">Пометить форум как прочтенный</Resource>
 		<Resource tag="SUBFORUMS">Подразделы</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->

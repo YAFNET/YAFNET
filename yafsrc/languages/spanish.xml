@@ -124,6 +124,8 @@
 		<Resource tag="MARKREAD">Marcar foro como leído</Resource>
 		<Resource tag="SUBFORUMS">Subforos</Resource>
  		<Resource tag="RSSFEED">Rss</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->

@@ -107,6 +107,8 @@
         <Resource tag="LAST_SIX_MONTHS">der letzten sechs Monate</Resource>
         <Resource tag="LAST_YEAR">des letzten Jahres</Resource>
         <Resource tag="BY">von {0}</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	<Resource tag="FORUMUSERS">Benutzer aktuell in diesem Forum</Resource>
     </page>
     <page name="POSTS">

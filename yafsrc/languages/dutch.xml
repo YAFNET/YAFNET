@@ -118,6 +118,8 @@
     <Resource tag="WARN_FORUM_LOCKED">Het forum is gesloten.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Je moet geregistreerd zijn om fora te kunnen opvolgen.</Resource>
     <Resource tag="RSSFEED">RSS Feed</Resource>
+	<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+	<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
   </page>
   <page name="POSTS">
     <!-- posts.aspx -->

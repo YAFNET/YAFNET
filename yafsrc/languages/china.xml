@@ -105,6 +105,8 @@
 		<Resource tag="LAST_YEAR">一年来</Resource>
 		<Resource tag="BY">由 {0}</Resource>
 		<Resource tag="FORUMUSERS">用户浏览此论坛</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->

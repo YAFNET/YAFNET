@@ -104,6 +104,8 @@
 		<Resource tag="LAST_SIX_MONTHS">fra siste seks måneder</Resource>
 		<Resource tag="LAST_YEAR">fra siste år</Resource>
 		<Resource tag="BY">av {0}</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
