@@ -96,20 +96,7 @@ begin
 	delete from yaf_Board where BoardID=@BoardID
 end
 GO
--- yaf_pmessage_markread
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_markread
-GO
--- ABOT CHANGE 16.04.04
-CREATE procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begin
-	if @PMessageID is null
-		update yaf_UserPMessage set IsRead=1 where UserID=@UserID
-	else
-		update yaf_UserPMessage set IsRead=1 where UserID=@UserID and UserPMessageID=@PMessageID
-end
-GO
--- END ABOT CHANGE 16.04.04
 -- yaf_pmessage_info
 if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_info
