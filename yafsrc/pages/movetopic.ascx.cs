@@ -84,8 +84,13 @@ namespace yaf.pages
 		}
 		#endregion
 
-		private void Move_Click(object sender, System.EventArgs e) {
-			DB.topic_move(PageTopicID,ForumList.SelectedValue,BoardSettings.ShowMoved);
+		private void Move_Click(object sender, System.EventArgs e)
+		{
+			// only move if it's a destination is a different forum.
+			if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)
+			{
+				DB.topic_move(PageTopicID,ForumList.SelectedValue,BoardSettings.ShowMoved);
+			}
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 	}
