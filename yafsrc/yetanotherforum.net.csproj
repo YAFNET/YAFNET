@@ -2749,6 +2749,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\standard\icon_file.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\standard\icon_latest_reply.gif"
                     BuildAction = "Content"
                 />
