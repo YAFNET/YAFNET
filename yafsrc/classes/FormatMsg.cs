@@ -156,7 +156,8 @@ namespace yaf
 				tmp += Message[i];
 			}
 
-			tmp = tmp.Replace("\r\n","<br />");
+			tmp = tmp.Replace("\n","<br />");
+			tmp = tmp.Replace("\r","");
 
 			foreach(DataRow row in dtSmileys.Rows)
 				tmp = tmp.Replace((string)row["Code"],String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
@@ -214,12 +215,101 @@ namespace yaf
 			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "<a href=mailto:${email}>${email}</a>", options);
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, @"(?<url>http://(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
+//			html = Regex.Replace(html, @"(?<url>http://(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
+			html = Regex.Replace(html, "(?<!href=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
 
+			return RepairHtml(html);
+		}
+
+		static public string RepairHtml(string html) 
+		{
+			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+
+			html = Regex.Replace(html,"<table(.*?)>","&lt;table$1&gt;",options);
+			html = Regex.Replace(html,"</table>","&lt;/table&gt;",options);
+			html = Regex.Replace(html,"<tr(.*?)>","&lt;tr$1&gt;",options);
+			html = Regex.Replace(html,"</tr>","&lt;/tr&gt;",options);
+			html = Regex.Replace(html,"<td(.*?)>","&lt;td$1&gt;",options);
+			html = Regex.Replace(html,"</td>","&lt;/td&gt;",options);
+			html = Regex.Replace(html,"<script(.*?)>","&lt;td$1&gt;",options);
+			html = Regex.Replace(html,"</script>","&lt;/td&gt;",options);
+			html = Regex.Replace(html,"<%","&lt;%",options);
+			html = Regex.Replace(html,"%>","%&gt;",options);
+
+			MatchCollection m = Regex.Matches(html,"<.*?>",options);
+			for(int i=0;i<m.Count;i++) 
+			{
+				if(!IsValidTag(m[i].Value))
+					throw new Exception(String.Format("You have entered some illegal html: {0}",m[i].ToString()));
+			}
+
 			return html;
+		}
+
+		static public bool IsValidHtml(string html) 
+		{
+			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
+
+			MatchCollection m = Regex.Matches(html,"<.*?>",options);
+			for(int i=0;i<m.Count;i++) 
+			{
+				if(!IsValidTag(m[i].Value))
+					throw new Exception(String.Format("You have entered some illegal html: {0}",m[i].ToString()));
+			}
+			return true;
+		}
+
+		static private bool IsValidTag(string tag) 
+		{
+			tag = tag.ToLower();
+			switch(tag) 
+			{
+				case "<br>":
+				case "<br/>":
+				case "</a>":
+				case "<em>":
+				case "</em>":
+				case "<b>":
+				case "</b>":
+				case "<strong>":
+				case "</strong>":
+				case "<u>":
+				case "</u>":
+				case "<i>":
+				case "</i>":
+				case "<blockquote>":
+				case "</blockquote>":
+				case "</div>":
+				case "<p>":
+				case "</p>":
+				case "</font>":
+				case "<ul>":
+				case "</ul>":
+				case "<ol>":
+				case "</ol>":
+				case "<li>":
+				case "</li>":
+				case "<tbody>":
+				case "</tbody>":
+					return true;
+			}
+			if(tag.StartsWith("<a "))
+				return true;
+			if(tag.StartsWith("<br "))
+				return true;
+			if(tag.StartsWith("<hr "))
+				return true;
+			if(tag.StartsWith("<img "))
+				return true;
+			if(tag.StartsWith("<div "))
+				return true;
+			if(tag.StartsWith("<font "))
+				return true;
+
+			return false;
 		}
 	}
 }

@@ -68,8 +68,21 @@ namespace yaf
 
 						ToUserID = (int)row["FromUserID"];
 
-						//Editor.Text = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],row["Body"]);
-						Editor.Text = String.Format("<div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br>",row["FromUser"],row["Body"]);
+						string body = row["Body"].ToString();
+						bool isHtml = body.IndexOf('<')>=0;
+
+						if(Editor.IsRTEBrowser && !isHtml) 
+						{
+							body = FormatMsg.ForumCodeToHtml(this,body);
+							body = String.Format("<div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br>",row["FromUser"],body);
+						} 
+						else if(!Editor.IsRTEBrowser && isHtml)
+						{
+							body = FormatMsg.HtmlToForumCode(body);
+							body = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],body);
+						}
+
+						Editor.Text = body;
 					}
 				} 
 				if(Request.QueryString["u"] != null)
@@ -128,6 +141,8 @@ namespace yaf
 			string body = Editor.Text;
 			if(!Editor.IsRTEBrowser) 
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+			else
+				body = FormatMsg.RepairHtml(body);
 
 			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,body);
 			Response.Redirect("cp_profile.aspx");

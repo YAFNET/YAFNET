@@ -90,22 +90,24 @@ namespace yaf
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			bool isHtml = html.IndexOf('<')>=0;
 
-			if(fmt==null)
-				fmt = new FormatMsg(this);
+			if(html.IndexOf('<')<0) 
+			{
+				if(fmt==null) fmt = new FormatMsg(this);
+				html = fmt.FormatMessage(html);
+			}
 
 			if(row["Signature"].ToString().Length>0) 
 			{
 				string sig = row["Signature"].ToString();
-				if(sig.IndexOf('<')<0)
+				if(sig.IndexOf('<')<0) 
+				{
+					if(fmt==null) fmt = new FormatMsg(this);
 					sig = fmt.FormatMessage(sig);
+				}
 				
 				html += "<br/><hr noshade/>" + sig;
 			}
-
-			if(!isHtml)
-				html = fmt.FormatMessage(html);
 
 			return FormatMsg.FetchURL(html);
 		}

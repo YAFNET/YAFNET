@@ -266,6 +266,8 @@ namespace yaf
 			string msg = Message.Text;
 			if(!Message.IsRTEBrowser) 
 				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
+			else
+				msg = FormatMsg.RepairHtml(msg);
 
 			Session["lastpost"] = DateTime.Now;
 			if(Request.QueryString["t"] != null) {
