@@ -810,6 +810,54 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\smilies.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\smilies.aspx.cs"
+                    DependentUpon = "smilies.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\smilies.aspx.resx"
+                    DependentUpon = "smilies.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\smilies_edit.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\smilies_edit.aspx.cs"
+                    DependentUpon = "smilies_edit.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\smilies_edit.aspx.resx"
+                    DependentUpon = "smilies_edit.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\smilies_import.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\smilies_import.aspx.cs"
+                    DependentUpon = "smilies_import.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\smilies_import.aspx.resx"
+                    DependentUpon = "smilies_import.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\users.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

@@ -406,6 +406,7 @@ namespace yaf
 			msg = msg.Replace("'","\\'");
 			msg = msg.Replace("\r\n","\\r\\n");
 			msg = msg.Replace("\n","\\n");
+			msg = msg.Replace("\\","\\\\");
 			m_strLoadMessage += msg + "\\n\\n";
 		}
 

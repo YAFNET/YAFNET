@@ -13,4 +13,5 @@
 	<tr><td class=post><a target="main" href="bannedip.aspx">Banned IP</a></td></tr>
 	<tr><td class=post><a target="main" href="prune.aspx">Prune Topics</a></td></tr>
 	<tr><td class=post><a target="main" href="repair.aspx">Repair</a></td></tr>
+	<tr><td class=post><a target="main" href="smilies.aspx">Smilies</a></td></tr>
 </table>
