@@ -758,3 +758,176 @@ begin
 end
 GO
 
+-- yaf_message_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_delete
+GO
+
+CREATE   procedure yaf_message_delete(@MessageID int) as
+begin
+	declare @TopicID		int
+	declare @ForumID		int
+	declare @MessageCount	int
+	declare @LastMessageID	int
+	-- Find TopicID and ForumID
+	select @TopicID=b.TopicID,@ForumID=b.ForumID from yaf_Message a,yaf_Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
+	-- Update LastMessageID in Topic and Forum
+	update yaf_Topic set 
+		LastPosted = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+	update yaf_Forum set 
+		LastPosted = null,
+		LastTopicID = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+
+	-- Delete attachments
+	delete from yaf_attachment where MessageID = @MessageID
+
+	-- Delete message
+	delete from yaf_Message where MessageID = @MessageID
+	-- Delete topic if there are no more messages
+	select @MessageCount = count(1) from yaf_Message where TopicID = @TopicID
+	if @MessageCount=0 exec yaf_topic_delete @TopicID
+	-- update lastpost
+	exec yaf_topic_updatelastpost @ForumID,@TopicID
+	exec yaf_forum_updatestats @ForumID
+	-- update topic numposts
+	update yaf_Topic set
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+	where TopicID = @TopicID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_updatelastpost
+GO
+
+create procedure yaf_topic_updatelastpost(@ForumID int=null,@TopicID int=null) as
+begin
+	-- this really needs some work...
+	if @TopicID is not null
+		update yaf_Topic set
+			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
+		where TopicID = @TopicID
+	else
+		update yaf_Topic set
+			LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
+		where TopicMovedID is null
+		and (@ForumID is null or ForumID=@ForumID)
+
+	if @ForumID is not null
+		update yaf_Forum set
+			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+		where ForumID = @ForumID
+	else 
+		update yaf_Forum set
+			LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+			LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_updatelastpost
+GO
+
+create procedure yaf_forum_updatelastpost(@ForumID int) as
+begin
+	update yaf_Forum set
+		LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
+	where ForumID = @ForumID
+end
+GO
+
+-- yaf_topic_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_delete
+GO
+
+CREATE procedure yaf_topic_delete (@TopicID int,@UpdateLastPost bit=1) 
+as
+begin
+	declare @ForumID int
+
+	select @ForumID=ForumID from yaf_Topic where TopicID=@TopicID
+
+	--begin transaction
+	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
+	update yaf_Forum set 
+		LastTopicID = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null,
+		LastPosted = null
+	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
+	update yaf_Active set TopicID = null where TopicID = @TopicID
+	--commit
+	--begin transaction
+	delete from yaf_NntpTopic where TopicID = @TopicID
+	delete from yaf_WatchTopic where TopicID = @TopicID
+
+	-- BAI CHANGED 01.02.2004
+	-- Delete messages and attachments
+	--delete from yaf_Message where TopicID = @TopicID
+
+	declare @tmpMessageID int;
+	declare msg_cursor cursor for
+		select MessageID from yaf_message
+		where TopicID = @TopicID
+		order by MessageID desc
+	
+	open msg_cursor
+	
+	fetch next from msg_cursor
+	into @tmpMessageID
+	
+	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+	while @@FETCH_STATUS = 0
+	begin
+		delete from yaf_attachment where MessageID = @tmpMessageID;
+		delete from yaf_message where MessageID = @tmpMessageID;
+	
+	   -- This is executed as long as the previous fetch succeeds.
+		fetch next from msg_cursor
+		into @tmpMessageID
+	end
+	
+	close msg_cursor
+	deallocate msg_cursor
+
+	-- Messagedelete finished
+	-- ENDED BAI CHANGED 01.02.2004
+
+	delete from yaf_Topic where TopicMovedID = @TopicID
+	delete from yaf_Topic where TopicID = @TopicID
+	--commit
+	if @UpdateLastPost<>0
+		exec yaf_forum_updatelastpost @ForumID
+	
+	if @ForumID is not null
+		exec yaf_forum_updatestats @ForumID
+end
+GO
+
