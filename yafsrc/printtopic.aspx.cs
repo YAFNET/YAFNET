@@ -45,7 +45,7 @@ namespace yaf
 			if(Request.QueryString["t"] == null || !ForumReadAccess)
 				Response.Redirect(BaseDir);
 
-			TopMenu = false;
+			ShowToolBar = false;
 
 			if(!IsPostBack) {
 				HomeLink.Text = ForumName;
@@ -89,7 +89,7 @@ namespace yaf
 		protected string GetPrintBody(object o) {
 			DataRowView row = (DataRowView)o;
 			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage(this,(string)row["Message"]);
+			return fmt.FormatMessage((string)row["Message"]);
 		}
 	}
 }

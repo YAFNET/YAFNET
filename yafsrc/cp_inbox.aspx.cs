@@ -61,7 +61,7 @@ namespace yaf.cp
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
 			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage(this,(string)row["Body"]);
+			return fmt.FormatMessage((string)row["Body"]);
 		}
 
 		private void DeletePost_Click(object sender,EventArgs e) {

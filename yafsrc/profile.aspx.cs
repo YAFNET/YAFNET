@@ -68,7 +68,7 @@ namespace yaf
 			if(!IsPostBack) {
 				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 
-				if(long.Parse(pageinfo["IsAdmin"].ToString())>0) 
+				if(IsAdmin) 
 				{
 					EmailRow.Visible = true;
 				}

@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editforum : BasePage {
+	public class editforum : AdminPage {
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.TextBox Description;
 		protected System.Web.UI.WebControls.TextBox SortOrder;
@@ -46,10 +46,6 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
-			if(!IsAdmin) Response.Redirect(BaseDir);
-
-			TopMenu = false;
-
 			if(!IsPostBack) {
 				BindData();
 				if(Request.QueryString["f"] != null) {

@@ -55,7 +55,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 
 		public install() {
-			StartPage = true;
+			NoDataBase = true;
 			InstalledVersion = GetCurrentVersion();
 		}
 

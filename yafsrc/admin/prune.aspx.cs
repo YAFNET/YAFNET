@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public class prune : BasePage
+	public class prune : AdminPage
 	{
 		protected DropDownList forumlist;
 		protected TextBox days;
@@ -40,9 +40,6 @@ namespace yaf.admin
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
-
 			if(!IsPostBack) {
 				days.Text = "60";
 				BindData();

@@ -143,7 +143,7 @@ namespace yaf
 					Priority.Items.FindByValue(msg["Priority"].ToString()).Selected = true;
 				}
 
-				From.Text = (string)pageinfo["username"];
+				From.Text = PageUserName;
 				if(User.Identity.IsAuthenticated)
 					FromRow.Visible = false;
 			}
@@ -307,7 +307,7 @@ namespace yaf
 			}
 			
 			FormatMsg fmt = new FormatMsg(this);
-			PreviewCell.InnerHtml = fmt.FormatMessage(this,body);
+			PreviewCell.InnerHtml = fmt.FormatMessage(body);
 		}
 
 		protected string FormatBody(object o) 
@@ -320,7 +320,7 @@ namespace yaf
 			if(fmt==null)
 				fmt = new FormatMsg(this);
 
-			return fmt.FormatMessage(this,html);
+			return fmt.FormatMessage(html);
 		}
 	}
 }

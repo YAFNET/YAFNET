@@ -13,7 +13,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies_import.
 	/// </summary>
-	public class smilies_import : BasePage
+	public class smilies_import : AdminPage
 	{
 		protected DropDownList File;
 		protected CheckBox DeleteExisting;
@@ -21,9 +21,6 @@ namespace yaf.admin
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
-
 			if(!IsPostBack)
 				BindData();
 		}

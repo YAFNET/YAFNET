@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public class forums : BasePage
+	public class forums : AdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewForum;
 		protected System.Web.UI.WebControls.LinkButton NewCategory;
@@ -40,10 +40,6 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-
-			TopMenu = false;
-
 			if(!IsPostBack) 
 			{
 				BindData();

@@ -32,17 +32,13 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for bannedip_edit.
 	/// </summary>
-	public class bannedip_edit : BasePage
+	public class bannedip_edit : AdminPage
 	{
 		protected TextBox mask;
 		protected Button save, cancel;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-
-			TopMenu = false;
-
 			if(!IsPostBack) {
 				BindData();
 			}

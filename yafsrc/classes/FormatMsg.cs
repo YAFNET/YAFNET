@@ -34,7 +34,7 @@ namespace yaf
 			basePage = bp;
 		}
 
-		public string FormatMessage(BasePage page,string Message) {
+		public string FormatMessage(string Message) {
 			if(dtSmileys == null)
 				dtSmileys = DB.smiley_list(null);
 
@@ -54,7 +54,7 @@ namespace yaf
 							arg = Message.Substring(e2+1,e1-e2-1);
 
 							arg = arg.Trim();
-							arg = page.Server.HtmlDecode(arg);
+							arg = basePage.Server.HtmlDecode(arg);
 							if(arg.Length>2 && arg[0]=='"' && arg[arg.Length-1]=='"')
 								arg = arg.Substring(1,arg.Length-2);
 						}
@@ -82,7 +82,7 @@ namespace yaf
 							case "url":
 								if(arg!=null) 
 								{
-									if(page.UseBlankLinks)
+									if(basePage.UseBlankLinks)
 										tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
 									else
 										tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);

@@ -32,16 +32,12 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for bannedip.
 	/// </summary>
-	public class bannedip : BasePage
+	public class bannedip : AdminPage
 	{
 		protected Repeater list;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-
-			TopMenu = false;
-
 			if(!IsPostBack) {
 				BindData();
 			}

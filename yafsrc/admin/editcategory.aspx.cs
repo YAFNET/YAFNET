@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editcategory.
 	/// </summary>
-	public class editcategory : BasePage
+	public class editcategory : AdminPage
 	{
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.TextBox Name;
@@ -42,9 +42,6 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin)
-				Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) BindData();
 		}
 

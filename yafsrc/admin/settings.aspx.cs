@@ -32,7 +32,7 @@ namespace yaf.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class settings : BasePage {
+	public class settings : AdminPage {
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Label SQLVersion;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
@@ -42,10 +42,6 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
-			if(!IsAdmin) Response.Redirect(BaseDir);
-
-			TopMenu = false;
-
 			if(!IsPostBack)
 				BindData();
 		}

@@ -32,15 +32,13 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class ranks : BasePage
+	public class ranks : AdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewRank;
 		protected System.Web.UI.WebControls.Repeater RankList;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) 
 			{
 				BindData();

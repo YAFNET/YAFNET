@@ -32,15 +32,13 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for groups.
 	/// </summary>
-	public class groups : BasePage
+	public class groups : AdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewGroup;
 		protected System.Web.UI.WebControls.Repeater GroupList;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) 
 			{
 				BindData();

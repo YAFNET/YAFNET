@@ -32,14 +32,12 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for repair.
 	/// </summary>
-	public class repair : BasePage
+	public class repair : AdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton RepairAccess;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 		}
 
 		#region Web Form Designer generated code

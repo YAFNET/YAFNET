@@ -33,12 +33,10 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public class _default : BasePage
+	public class _default : AdminPage
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 		}
 
 		/// <summary>

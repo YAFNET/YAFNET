@@ -70,7 +70,7 @@ namespace yaf
 			TimeZones.DataSource = Data.TimeZones();
 			DataBind();
 
-			using(DataTable dt = DB.user_list(pageinfo["UserID"],true)) {
+			using(DataTable dt = DB.user_list(PageUserID,true)) {
 				row = dt.Rows[0];
 			}
 
@@ -82,7 +82,7 @@ namespace yaf
 		}
 
 		private void UpdateProfile_Click(object sender, System.EventArgs e) {
-			if(bUpdateEmail && (bool)pageinfo["EmailVerification"]) {
+			if(bUpdateEmail && UseEmailVerification) {
 				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
@@ -120,10 +120,10 @@ namespace yaf
 			}
 
 			object email = null;
-			if(!(bool)pageinfo["EmailVerification"])
+			if(!UseEmailVerification)
 				email = Email.Text;
 
-			DB.user_save(pageinfo["UserID"],null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,null);
+			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,null);
 			Response.Redirect("cp_profile.aspx");
 		}
 

@@ -38,7 +38,7 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableCell errormsg;
 
 		public error() {
-			StartPage = true;
+			NoDataBase = true;
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)

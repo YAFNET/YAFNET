@@ -13,15 +13,12 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies.
 	/// </summary>
-	public class smilies : BasePage
+	public class smilies : AdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater List;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
-
 			if(!IsPostBack) 
 				BindData();
 		}

@@ -100,7 +100,6 @@ namespace yaf
 
 		private void ForumRegister_Click(object sender, System.EventArgs e)
 		{
-			bool EmailVerification = (bool)pageinfo["EmailVerification"];
 			if(IsValid) 
 			{
 				if(DB.user_find(UserName.Text,Email.Text)) 
@@ -109,7 +108,7 @@ namespace yaf
 					return;
 				}
 
-				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,EmailVerification);
+				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,UseEmailVerification);
 			}
 		}
 	}

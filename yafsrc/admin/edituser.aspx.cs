@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public class edituser : BasePage
+	public class edituser : AdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.TextBox Email;
@@ -45,8 +45,6 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) {
 				BindData();
 				using(DataTable dt = DB.user_list(Request.QueryString["u"],null)) 

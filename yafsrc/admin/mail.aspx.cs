@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public class mail : BasePage
+	public class mail : AdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.DropDownList ToList;
@@ -41,8 +41,6 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) BindData();
 		}
 

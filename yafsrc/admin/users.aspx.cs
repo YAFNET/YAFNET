@@ -32,14 +32,12 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class users : BasePage
+	public class users : AdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater UserList;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
 			if(!IsPostBack) {
 				BindData();
 			}

@@ -13,7 +13,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies_edit.
 	/// </summary>
-	public class smilies_edit : BasePage
+	public class smilies_edit : AdminPage
 	{
 		protected DropDownList Icon;
 		protected TextBox Code, Emotion;
@@ -22,9 +22,6 @@ namespace yaf.admin
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
-
 			if(!IsPostBack)
 				BindData();
 		}

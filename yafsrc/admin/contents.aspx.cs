@@ -33,7 +33,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for contents.
 	/// </summary>
-	public class contents : BasePage
+	public class contents : AdminPage
 	{
 		/// <summary>
 		/// Link to home page of forum
@@ -42,9 +42,6 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
-			TopMenu = false;
-
 			HomeLink.Text = String.Format("Back to {0}",ForumName);
 			HomeLink.NavigateUrl = BaseDir;
 		}

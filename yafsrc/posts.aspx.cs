@@ -383,7 +383,7 @@ namespace yaf
 
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName=="vote" && ForumVoteAccess) {
-				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],pageinfo["UserID"]);
+				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
 			
 				if(Request.Cookies[cookie] != null) {
 					AddLoadMessage("You have already voted.");
@@ -537,7 +537,7 @@ namespace yaf
 			if(fmt==null)
 				fmt = new FormatMsg(this);
 
-			return fmt.FormatMessage(this,html);
+			return fmt.FormatMessage(html);
 		}
 	}
 }

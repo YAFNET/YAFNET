@@ -67,7 +67,7 @@ namespace yaf
 
 			// Bind			
 			DataBind();
-			using(DataTable dt = DB.user_list(pageinfo["UserID"],true)) {
+			using(DataTable dt = DB.user_list(PageUserID,true)) {
 				row = dt.Rows[0];
 			}
 

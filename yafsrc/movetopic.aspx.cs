@@ -85,7 +85,7 @@ namespace yaf
 		#endregion
 
 		private void Move_Click(object sender, System.EventArgs e) {
-			DB.topic_move(PageTopicID,ForumList.SelectedValue,pageinfo["ShowMoved"]);
+			DB.topic_move(PageTopicID,ForumList.SelectedValue,ShowMovedTopics);
 			Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 		}
 	}
