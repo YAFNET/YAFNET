@@ -27,9 +27,9 @@ namespace yaf.controls
 			// Topic
 			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
 			if(FindUnread)
-				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),m_row["Subject"]);
+				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
 			else
-				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),m_row["Subject"]);
+				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
 			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
 			html.Append("</td>");
 			// Topic Starter
@@ -133,58 +133,76 @@ namespace yaf.controls
 				return ForumPage.GetThemeContents("ICONS","TOPIC");
 			}
 		}
+		/// <summary>
+		/// Creates the status message text for a topic. (i.e. Moved, Poll, Sticky, etc.)
+		/// </summary>
+		/// <param name="row">Current Topic Data Row</param>
+		/// <returns>Topic status text</returns>
 		protected string GetPriorityMessage(DataRowView row) 
 		{
-			if(row["TopicMovedID"].ToString().Length>0)
-				return "[ Moved ] ";
+			string strReturn = "";
 
-			if(row["PollID"].ToString()!="")
-				return "[ Poll ] ";
+			// TODO: Topic status needs to be localized
 
-			switch(int.Parse(row["Priority"].ToString())) 
+			if (row["TopicMovedID"].ToString().Length > 0)
 			{
-				case 1:
-					return "[ Sticky ] ";
-				case 2:
-					return "[ Announcement ] ";
-				default:
-					return "";
+				strReturn = "Moved";
 			}
+			else if (row["PollID"].ToString() != "")
+			{
+				strReturn = "Poll";
+			}
+			else switch(int.Parse(row["Priority"].ToString())) 
+			{
+				case 1: strReturn = "Sticky"; break;
+				case 2: strReturn = "Announcement"; break;
+			}
+
+			if (strReturn.Length > 0) strReturn = String.Format("[ {0} ] ",strReturn);
+
+			return strReturn;
 		}
+		/// <summary>
+		/// Formats replies number for Topic Line
+		/// </summary>
+		/// <returns>"&nbsp;" if no replies or the number of replies.</returns>
 		protected string FormatReplies() 
 		{
-			int nReplies = (int)m_row["Replies"];
-			if(nReplies<0)
-				return "&nbsp;";
-			else
-				return String.Format("{0:N0}",nReplies);
+			int nReplies = Convert.ToInt16(m_row["Replies"]);
+			return (nReplies < 0) ? "&nbsp;" : String.Format("{0:N0}",nReplies);
 		}
+
+		/// <summary>
+		/// Formats the Last Post for the Topic Line
+		/// </summary>
+		/// <returns>Formatted Last Post Text</returns>
 		protected string FormatLastPost() 
 		{
+			string strReturn = ForumPage.GetText("no_posts");
 			DataRowView row = m_row;
-			if(row["LastMessageID"].ToString().Length>0) 
+			
+			if (row["LastMessageID"].ToString().Length>0) 
 			{
-				string minipost;
-				if(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit)
-					minipost = ForumPage.GetThemeContents("ICONS","ICON_NEWEST");
-				else
-					minipost = ForumPage.GetThemeContents("ICONS","ICON_LATEST");
-				
-				string by = String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
+				string strMiniPost = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit) ? "ICON_NEWEST" : "ICON_LATEST");
+
+				string strBy =
+					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
 					Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]), 
 					row["LastUserName"], 
-					minipost, 
+					strMiniPost, 
 					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"]),
 					ForumPage.GetText("GO_LAST_POST")
 					));
-				return String.Format("{0}<br />{1}", 
-					ForumPage.FormatDateTime((DateTime)row["LastPosted"]),
-					by
-					);
+
+				strReturn =
+					String.Format("{0}<br />{1}", 
+					ForumPage.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
+					strBy);
 			} 
-			else
-				return ForumPage.GetText("no_posts");
+
+			return strReturn;			
 		}
+
 		public bool FindUnread
 		{
 			set
@@ -193,10 +211,7 @@ namespace yaf.controls
 			}
 			get
 			{
-				if(ViewState["FindUnread"]!=null)
-					return (bool)ViewState["FindUnread"];
-				else
-					return false;
+				return (ViewState["FindUnread"] != null) ? Convert.ToBoolean(ViewState["FindUnread"]) : false;
 			}
 		}
 	}
