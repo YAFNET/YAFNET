@@ -600,23 +600,29 @@ begin
 		select 
 			a.*,
 			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0)
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			RankName = b.Name
 		from 
-			yaf_User a
+			yaf_User a,
+			yaf_Rank b
 		where 
-			(@Approved is null or a.Approved = @Approved)
+			(@Approved is null or a.Approved = @Approved) and
+			b.RankID = a.RankID
 		order by 
 			a.Name
 	else
 		select 
 			a.*,
 			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0)
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			RankName = b.Name
 		from 
-			yaf_User a
+			yaf_User a,
+			yaf_Rank b
 		where 
 			a.UserID = @UserID and
-			(@Approved is null or a.Approved = @Approved)
+			(@Approved is null or a.Approved = @Approved) and
+			b.RankID = a.RankID
 		order by 
 			a.Name
 end
@@ -1196,5 +1202,24 @@ begin
 		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0 from yaf_Forum
 	end
 	select GroupID = @GroupID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_usergroup_list
+GO
+
+create procedure yaf_usergroup_list(@UserID int) as begin
+	select 
+		b.GroupID,
+		b.Name
+	from
+		yaf_UserGroup a,
+		yaf_Group b
+	where
+		a.UserID = @UserID and
+		a.GroupID = b.GroupID
+	order by
+		b.Name
 end
 GO

@@ -15,7 +15,7 @@
 	</tr>
 	<tr>
 		<td class=header2><asp:linkbutton runat=server id="UserName" text="User Name"/></td>
-		<td class=header2>Group</td>
+		<td class=header2><asp:linkbutton runat=server id="Rank" text="Rank"/></td>
 		<td class=header2><asp:linkbutton runat=server id="Joined" text="Joined"/></td>
 		<td class=header2 align=center><asp:linkbutton runat=server id="Posts" text="Posts"/></td>
 	</tr>
@@ -24,7 +24,7 @@
 		<ItemTemplate>
 			<tr>
 				<td class=post><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem,"UserID") %>'><%# DataBinder.Eval(Container.DataItem,"Name") %></a></td>
-				<td class=post>na</td>
+				<td class=post><%# DataBinder.Eval(Container.DataItem,"RankName") %></td>
 				<td class=post><%# FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %></td>
 				<td class=post align=center><%# String.Format(CustomCulture,"{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %></td>
 			</tr>

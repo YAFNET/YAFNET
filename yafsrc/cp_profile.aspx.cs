@@ -41,11 +41,11 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label TitleUserName;
 		protected System.Web.UI.WebControls.Label NumPosts;
 		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label GroupName;
 		protected System.Web.UI.WebControls.Label Joined;
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.HyperLink UserLink;
 		protected System.Web.UI.WebControls.Label AccountEmail;
+		protected Repeater Groups;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -65,6 +65,13 @@ namespace yaf
 		private void BindData() {
 			DataRow row;
 
+			using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",PageUserID);
+				Groups.DataSource = DataManager.GetData(cmd);
+			}
+
 			// Bind			
 			DataBind();
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
@@ -79,7 +86,6 @@ namespace yaf
 			TitleUserName.Text = (string)row["Name"];
 			AccountEmail.Text = row["Email"].ToString();
 			Name.Text = (string)row["Name"];
-			GroupName.Text = "na"; //(string)row["GroupName"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format(CustomCulture,"{0:N0}",row["NumPosts"]);
 		}

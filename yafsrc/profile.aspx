@@ -12,29 +12,36 @@
 	<tr><td class="header1" colspan=2>Profile: <asp:Label id=UserName runat="server">Label</asp:Label> </td></tr>
 	<tr>
 		<td class=postheader>User Name:</td>
-		<td class=post>
-<asp:Label id=Name runat="server">Label</asp:Label></td>
+		<td class=post><asp:Label id=Name runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader>Group:</td>
+		<td class=postheader>Groups:</td>
 		<td class=post>
-<asp:Label id=Group runat="server">Label</asp:Label></td>
+			<asp:repeater id="Groups" runat="server">
+				<ItemTemplate><%# DataBinder.Eval(Container.DataItem,"Name") %></ItemTemplate>
+				<SeparatorTemplate>, </SeparatorTemplate>
+			</asp:repeater>
+		</td>
+	</tr>
+	<tr>
+		<td class=postheader>Rank:</td>
+		<td class=post><asp:Label id=Rank runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader>Joined:</td>
-		<td class=post><asp:Label id=Joined runat="server">Label</asp:Label></td>
+		<td class=post><asp:Label id=Joined runat="server"/></td>
 	</tr>
 	<tr id=EmailRow runat=server visible=false>
 		<td class=postheader>E-mail:</td>
-		<td class=post><asp:label id=Email runat="server"></asp:label></td>
+		<td class=post><asp:label id=Email runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader>Last Visit:</td>
-		<td class=post><asp:label id=LastVisit runat="server"></asp:label></td>
+		<td class=post><asp:label id=LastVisit runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader>Number of Posts:</td>
-		<td class=post><asp:label id=NumPosts runat="server"></asp:label></td>
+		<td class=post><asp:label id=NumPosts runat="server"/></td>
 	</tr>
 </table>
 

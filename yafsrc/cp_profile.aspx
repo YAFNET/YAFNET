@@ -39,27 +39,28 @@
 	</tr>
 	<tr>
 		<td width="33%">Your user name:</td>
-		<td>
-<asp:Label id=Name runat="server">Label</asp:Label></td>
+		<td><asp:Label id=Name runat="server"/></td>
 	</tr>
 	<tr>
 		<td>Your email address:</td>
-		<td><asp:label id=AccountEmail runat="server"></asp:label></td>
+		<td><asp:label id=AccountEmail runat="server"/></td>
 	</tr>
 	<tr>
 		<td>Number of posts:</td>
-		<td>
-<asp:Label id=NumPosts runat="server">Label</asp:Label></td>
+		<td><asp:Label id=NumPosts runat="server"/></td>
 	</tr>
 	<tr>
-		<td>Your user group:</td>
+		<td>You are a member of these groups:</td>
 		<td>
-<asp:Label id=GroupName runat="server">Label</asp:Label></td>
+			<asp:repeater id="Groups" runat="server">
+				<ItemTemplate><%# DataBinder.Eval(Container.DataItem,"Name") %></ItemTemplate>
+				<SeparatorTemplate>, </SeparatorTemplate>
+			</asp:repeater>
+		</td>
 	</tr>
 	<tr>
 		<td>When you joined:</td>
-		<td>
-<asp:Label id=Joined runat="server">Label</asp:Label></td>
+		<td><asp:Label id=Joined runat="server"/></td>
 	</tr>
 </table>
 

@@ -37,7 +37,6 @@ namespace yaf
 	public class profile : BasePage
 	{
 		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label Group;
 		protected System.Web.UI.WebControls.Label Joined;
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.Label Email;
@@ -45,6 +44,8 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label LastVisit;
 		protected System.Web.UI.WebControls.Label NumPosts;
 		protected System.Web.UI.WebControls.Label UserName;
+		protected Repeater Groups;
+		protected Label Rank;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -54,7 +55,8 @@ namespace yaf
 			HomeLink.Text = ForumName;
 			HomeLink.NavigateUrl = BaseDir;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
+			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
+			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
 				cmd.Parameters.Add("@Approved",true);
@@ -63,18 +65,27 @@ namespace yaf
 
 					UserName.Text = (string)user["Name"];
 					Name.Text = (string)user["Name"];
-					Group.Text = "na";	//(string)user["GroupName"];
 					Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
 					Email.Text = user["Email"].ToString();
 					LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
 					NumPosts.Text = user["NumPosts"].ToString();
+					Rank.Text = user["RankName"].ToString();
 				}
 			}
 
 			if(!IsPostBack) {
-				if(long.Parse(pageinfo["IsAdmin"].ToString())>0) {
+				using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
+					Groups.DataSource = DataManager.GetData(cmd);
+				}
+
+				if(long.Parse(pageinfo["IsAdmin"].ToString())>0) 
+				{
 					EmailRow.Visible = true;
 				}
+				DataBind();
 			}
 		}
 

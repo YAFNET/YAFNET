@@ -479,28 +479,6 @@ namespace yaf
 			}
 		}
 
-		static public int AppVersion 
-		{
-			get 
-			{
-				return 6;
-			}
-		}
-		static public string AppVersionName 
-		{
-			get 
-			{
-				return "0.8.2";
-			}
-		}
-		static public DateTime AppVersionDate 
-		{
-			get 
-			{
-				return new DateTime(2003,10,4);
-			}
-		}
-
 		#region User access functions
 		/// <summary>
 		/// The UserID of the current user.
@@ -805,6 +783,28 @@ namespace yaf
 			}
 			smtp.SendMail(from,to,subject,body);
 #endif
+		}
+
+		static public int AppVersion 
+		{
+			get 
+			{
+				return 6;
+			}
+		}
+		static public string AppVersionName 
+		{
+			get 
+			{
+				return "0.9.0";
+			}
+		}
+		static public DateTime AppVersionDate 
+		{
+			get 
+			{
+				return new DateTime(2003,10,6);
+			}
 		}
 	}
 }

@@ -4,29 +4,6 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 	alter table yaf_System add ShowMoved bit not null default(1)
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_save
-GO
-
-create procedure yaf_system_save(
-	@Name				varchar(50),
-	@TimeZone			int,
-	@SmtpServer			varchar(50),
-	@ForumEmail			varchar(50),
-	@EmailVerification	bit,
-	@ShowMoved			bit
-) as
-begin
-	update yaf_System set
-		Name = @Name,
-		TimeZone = @TimeZone,
-		SmtpServer = @SmtpServer,
-		ForumEmail = @ForumEmail,
-		EmailVerification = @EmailVerification,
-		ShowMoved = @ShowMoved
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_poll_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_poll_stats
 GO

@@ -39,7 +39,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
-		protected LinkButton UserName,Joined,Posts, GoPage;
+		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
 		protected Label SortOrder, PageNo;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -69,6 +69,12 @@ namespace yaf
 		private void Posts_Click(object sender, System.EventArgs e) 
 		{
 			SortOrder.Text = "NumPosts desc";
+			BindData();
+		}
+
+		private void Rank_Click(object sender, System.EventArgs e) 
+		{
+			SortOrder.Text = "RankName asc";
 			BindData();
 		}
 
@@ -133,6 +139,7 @@ namespace yaf
 			this.UserName.Click += new EventHandler(this.UserName_Click);
 			this.Joined.Click += new EventHandler(this.Joined_Click);
 			this.Posts.Click += new EventHandler(this.Posts_Click);
+			this.Rank.Click += new EventHandler(this.Rank_Click);
 			this.GoPage.Click += new EventHandler(this.GoPage_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.

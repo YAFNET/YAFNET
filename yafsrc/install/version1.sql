@@ -869,20 +869,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_delete
-GO
-
-create procedure yaf_forum_delete(@ForumID int) as
-begin
-	delete from yaf_WatchForum where ForumID = @ForumID
-	delete from yaf_Message from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_Message.TopicID = yaf_Topic.TopicID
-	delete from yaf_Topic where ForumID = @ForumID
-	delete from yaf_ForumAccess where ForumID = @ForumID
-	delete from yaf_Forum where ForumID = @ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_list
 GO
@@ -995,74 +981,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_repair') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forumaccess_repair
-GO
-
-create procedure yaf_forumaccess_repair as
-begin
-	insert into yaf_ForumAccess(
-		GroupID,
-		ForumID,
-		ReadAccess,
-		PostAccess,
-		ReplyAccess,
-		PriorityAccess,
-		PollAccess,
-		VoteAccess,
-		ModeratorAccess,
-		EditAccess,
-		DeleteAccess
-	)
-	select
-		b.GroupID,
-		a.ForumID,
-		0,0,0,0,0,0,0,0,0
-	from
-		yaf_Forum a,
-		yaf_Group b
-	where
-		not exists(select 1 from yaf_ForumAccess x where x.ForumID=a.ForumID and x.GroupID=b.GroupID)
-	order by
-		a.ForumID,
-		b.GroupID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forumaccess_save
-GO
-
-create procedure yaf_forumaccess_save(
-	@ForumID		int,
-	@GroupID		int,
-	@ReadAccess		bit,
-	@PostAccess		bit,
-	@ReplyAccess		bit,
-	@PriorityAccess		bit,
-	@PollAccess		bit,
-	@VoteAccess		bit,
-	@ModeratorAccess	bit,
-	@EditAccess		bit,
-	@DeleteAccess		bit
-) as
-begin
-	update yaf_ForumAccess set 
-		ReadAccess	= @ReadAccess,
-		PostAccess	= @PostAccess,
-		ReplyAccess	= @ReplyAccess,
-		PriorityAccess	= @PriorityAccess,
-		PollAccess	= @PollAccess,
-		VoteAccess	= @VoteAccess,
-		ModeratorAccess	= @ModeratorAccess,
-		EditAccess	= @EditAccess,
-		DeleteAccess	= @DeleteAccess
-	where 
-		ForumID = @ForumID and 
-		GroupID = @GroupID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_group_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_delete
 GO
@@ -1084,43 +1002,6 @@ begin
 		select * from yaf_Group
 	else
 		select * from yaf_Group where GroupID = @GroupID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_mail_createwatch
-GO
-
-create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject varchar(100),@Body text) as
-begin
-	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
-	select
-		@From,
-		b.Email,
-		getdate(),
-		@Subject,
-		@Body
-	from
-		yaf_WatchTopic a,
-		yaf_User b
-	where
-		b.UserID = a.UserID and
-		a.TopicID = @TopicID
-	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
-	select
-		@From,
-		b.Email,
-		getdate(),
-		@Subject,
-		@Body
-	from
-		yaf_WatchForum a,
-		yaf_User b,
-		yaf_Topic c
-	where
-		b.UserID = a.UserID and
-		c.TopicID = @TopicID and
-		c.ForumID = a.ForumID
 end
 GO
 
@@ -1339,73 +1220,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_poll_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_poll_save
-GO
-
-create procedure yaf_poll_save(
-	@Question	varchar(50),
-	@Choice1	varchar(50),
-	@Choice2	varchar(50),
-	@Choice3	varchar(50) = null,
-	@Choice4	varchar(50) = null,
-	@Choice5	varchar(50) = null
-) as
-begin
-	declare @PollID	int
-	insert into yaf_Poll(Question) values(@Question)
-	set @PollID = @@IDENTITY
-	if @Choice1<>'' and @Choice1 is not null
-		insert into yaf_Choice(PollID,Choice,Votes)
-		values(@PollID,@Choice1,0)
-	if @Choice2<>'' and @Choice2 is not null
-		insert into yaf_Choice(PollID,Choice,Votes)
-		values(@PollID,@Choice2,0)
-	if @Choice3<>'' and @Choice3 is not null
-		insert into yaf_Choice(PollID,Choice,Votes)
-		values(@PollID,@Choice3,0)
-	if @Choice4<>'' and @Choice4 is not null
-		insert into yaf_Choice(PollID,Choice,Votes)
-		values(@PollID,@Choice4,0)
-	if @Choice5<>'' and @Choice5 is not null
-		insert into yaf_Choice(PollID,Choice,Votes)
-		values(@PollID,@Choice5,0)
-	select PollID = @PollID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_poll_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_poll_stats
-GO
-
-create procedure yaf_poll_stats(@PollID int) as
-begin
-	select
-		a.PollID,
-		b.Question,
-		a.ChoiceID,
-		a.Choice,
-		a.Votes,
-		Stats = (select 100 * a.Votes / convert(int,(sum(x.Votes)+0.001)) from yaf_Choice x where x.PollID=a.PollID)
-	from
-		yaf_Choice a,
-		yaf_Poll b
-	where
-		b.PollID = a.PollID and
-		b.PollID = @PollID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_smiley_list
-GO
-
-create procedure yaf_smiley_list as
-begin
-	select * from yaf_Smiley order by LEN(Code) desc
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_listunique
 GO
@@ -1435,25 +1249,6 @@ begin
 		SQLVersion = @@VERSION
 	from 
 		yaf_System a
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_save
-GO
-
-create procedure yaf_system_save(
-	@Name		varchar(50),
-	@TimeZone	int,
-	@SmtpServer	varchar(50),
-	@ForumEmail	varchar(50)
-) as
-begin
-	update yaf_System set
-		Name = @Name,
-		TimeZone = @TimeZone,
-		SmtpServer = @SmtpServer,
-		ForumEmail = @ForumEmail
 end
 GO
 
@@ -1534,66 +1329,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_move
-GO
-
-create procedure yaf_topic_move(@TopicID int,@ForumID int) as
-begin
-	-- create a moved message
-	insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,IsLocked,Priority,PollID,TopicMovedID)
-	select ForumID,UserID,UserName,Posted,Topic,0,IsLocked,Priority,PollID,@TopicID
-	from yaf_Topic where TopicID = @TopicID
-	-- move the topic
-	update yaf_Topic set ForumID = @ForumID where TopicID = @TopicID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_prune
-GO
-
-create procedure yaf_topic_prune(@ForumID int=null,@Days int) as
-begin
-	declare @c cursor
-	declare @TopicID int
-	declare @Count int
-	set @Count = 0
-	if @ForumID = 0 set @ForumID = null
-	if @ForumID is not null begin
-		set @c = cursor for
-		select 
-			TopicID
-		from 
-			yaf_Topic
-		where 
-			ForumID = @ForumID and
-			Priority = 0 and
-			datediff(dd,lastposted,getdate())>@Days
-	end
-	else begin
-		set @c = cursor for
-		select 
-			TopicID
-		from 
-			yaf_Topic
-		where 
-			Priority = 0 and
-			datediff(dd,lastposted,getdate())>@Days
-	end
-	open @c
-	fetch @c into @TopicID
-	while @@FETCH_STATUS=0 begin
-		exec yaf_deletetopic @TopicID
-		set @Count = @Count + 1
-		fetch @c into @TopicID
-	end
-	close @c
-	deallocate @c
-	select Count = @Count
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_updatelastpost
 GO
@@ -1628,16 +1363,6 @@ begin
 	end
 	update yaf_User set Password = @NewPassword where UserID = @UserID
 	select Success = convert(bit,1)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_delete
-GO
-
-create procedure yaf_user_delete(@UserID int) as
-begin
-	delete from yaf_User where UserID = @UserID
 end
 GO
 

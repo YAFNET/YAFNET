@@ -1,6 +1,2 @@
 - upload/attach files
 - Remove unvalidated people after 24 hours
-- Fix profile.aspx (Groups)
-- Fix cp_profile.aspx (Groups)
-- Fix admin/users.aspx (Groups)
-- Fix members.aspx (Groups)
