@@ -290,6 +290,7 @@ namespace yaf.pages
 						if((int)dt[foundRow]["MessageID"] == nFindMessage)
 						{
 							pds.CurrentPageIndex = foundRow / pds.PageSize;
+							Pager.CurrentPageIndex = pds.CurrentPageIndex;
 							break;
 						}
 					}
