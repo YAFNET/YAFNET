@@ -2,6 +2,10 @@
 <NewDataSet>
   <!-- "Toolbar" at top of most pages -->
   <Table>
+	<Index>Search</Index>
+	<Text>Søk</Text>
+  </Table>
+  <Table>
 	<Index>Admin</Index>
 	<Text>Admin</Text>
   </Table>
@@ -401,5 +405,58 @@
   <Table>
 	<Index>Delete_topic</Index>
 	<Text>Slett dette emnet?</Text>
+  </Table>
+  <Table>
+	<Index>Rank</Index>
+	<Text>Rank</Text>
+  </Table>
+  <Table>
+	<Index>Groups</Index>
+	<Text>Grupper</Text>
+  </Table>
+  <Table>
+	<Index>Joined</Index>
+	<Text>Ble medlem</Text>
+  </Table>
+  <!-- postmessage.aspx -->
+  <Table>
+	<Index>Post_New_Topic</Index>
+	<Text>Nytt emne</Text>
+  </Table>
+  <Table>
+	<Index>Post_reply</Index>
+	<Text>Skriv et svar</Text>
+  </Table>
+  <Table>
+	<Index>Preview</Index>
+	<Text>Forhåndsvisning</Text>
+  </Table>
+  <Table>
+	<Index>Subject</Index>
+	<Text>Emne</Text>
+  </Table>
+  <Table>
+	<Index>From</Index>
+	<Text>Fra</Text>
+  </Table>
+  <Table>
+	<Index>Priority</Index>
+	<Text>Prioritet</Text>
+  </Table>
+  <Table>
+	<Index>Message</Index>
+	<Text>Melding</Text>
+  </Table>
+  <Table>
+	<Index>Attach_Files</Index>
+	<Text>Vedlegg</Text>
+  </Table>
+  <Table>
+	<Index>Last10_reverse</Index>
+	<Text>10 siste svar (i omvendt rekkefølge)</Text>
+  </Table>
+  <Table>
+	<Index>Save</Index>
+	<Text>Lagre</Text>
   </Table>
 </NewDataSet>

@@ -456,14 +456,14 @@ namespace yaf
 				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
 
 			// Rank
-			html += String.Format("Rank: {0}<br clear=\"all\"/>",row["RankName"]);
+			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("Rank"),row["RankName"]);
 
 			// Groups
 			if(ShowGroups) 
 			{
 				using(DataTable dt = DB.usergroup_list(row["UserID"])) 
 				{
-					html += "Groups: ";
+					html += String.Format("{0}: ",GetText("Groups"));
 					bool bFirst = true;
 					foreach(DataRow grp in dt.Rows) 
 					{
@@ -485,14 +485,14 @@ namespace yaf
 			html += "<br/>";
 
 			// Joined
-			html += String.Format(CustomCulture,"Joined: {0}<br/>",FormatDateShort((DateTime)row["Joined"]));
+			html += String.Format(CustomCulture,"{0}: {1}<br/>",GetText("Joined"),FormatDateShort((DateTime)row["Joined"]));
 
 			// Posts
-			html += String.Format(CustomCulture,"Posts: {0:N0}<br/>",row["Posts"]);
+			html += String.Format(CustomCulture,"{0}: {1:N0}<br/>",GetText("Posts"),row["Posts"]);
 
 			// Location
 			if(row["Location"].ToString().Length>0)
-				html += String.Format("Location: {0}<br/>",row["Location"]);
+				html += String.Format("{0}: {1}<br/>",GetText("Location"),row["Location"]);
 
 			return html;
 		}

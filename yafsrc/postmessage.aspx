@@ -13,24 +13,24 @@
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
 	<tr>
-		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server">Post New Topic</asp:label></td>
+		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server"><%= GetText("Post_New_Topic") %></asp:label></td>
 	</tr>
 
 	<tr id=PreviewRow runat=server visible=false>
-		<td class=postheader valign=top>Preview:</td>
+		<td class=postheader valign=top><%= GetText("Preview") %>:</td>
 		<td class=post valign=top id=PreviewCell runat=server></td>
 	</tr>
 
 	<tr id=SubjectRow runat="server">
-		<td class=postheader width="30%"><asp:label id=Label1 runat="server">Subject:</asp:label></td>
+		<td class=postheader width="30%"><%= GetText("Subject") %>:</td>
 		<td class=post width="60%"><asp:textbox id=Subject runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=FromRow runat="server">
-		<td class=postheader width="30%">From:</td>
+		<td class=postheader width="30%"><%= GetText("From") %>:</td>
 		<td class=post width="60%"><asp:textbox id="From" runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=PriorityRow runat="server">
-		<td class=postheader width="30%">Priority:</td>
+		<td class=postheader width="30%"><%= GetText("Priority") %>:</td>
 		<td class=post width="60%">
 			<asp:dropdownlist id=Priority runat="server">
 				<asp:ListItem Value="0" Selected="True">Normal</asp:ListItem>
@@ -84,8 +84,8 @@
 		<td class=postfooter width="60%"><asp:TextBox id=PollChoice9 runat="server" cssclass="edit"/></td>
 	</tr>
   <tr>
-    <td class=postheader vAlign=top><asp:label id=Label2 runat="server">Message:</asp:label>
-    <uc1:smileys runat="server" onclick="insertsmiley"></uc1:smileys>
+    <td class=postheader vAlign=top><%= GetText("Message") %>:
+    <uc1:smileys runat="server" onclick="insertsmiley"/>
     </td>
     <td class=post><asp:textbox id=Message runat="server" cssclass="posteditor" TextMode="MultiLine" Rows="12"></asp:textbox></td></tr>
 	<tr>
@@ -100,7 +100,7 @@
 		</td>
 	</tr>
 	<tr id=UploadRow1 runat="server">
-		<td class=postheader rowspan="3" valign="top">Attach Files:</td>
+		<td class=postheader rowspan="3" valign="top"><%= GetText("Attach_Files") %>:</td>
 		<td class=post><input type="file" id="File1" runat="server"/></td>
 	</tr>
 	<tr id=UploadRow2 runat="server">
@@ -111,9 +111,9 @@
 	</tr>
 	<tr>
 		<td align=middle colSpan=2 class=footer1>
-			<asp:Button id=Preview runat="server" Text="Preview"/>
-			<asp:button id=PostReply runat="server" Text="Save"/>
-			<asp:Button id=Cancel runat="server" Text="Cancel"/>
+			<asp:Button id=Preview runat="server"/>
+			<asp:button id=PostReply runat="server"/>
+			<asp:Button id=Cancel runat="server"/>
 		</td>
 	</tr>
 </table>
@@ -124,7 +124,7 @@
 <HeaderTemplate>
 	<table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
 		<tr>
-			<td class=header2 align=middle colSpan=2>Last 10 Posts (In reverse order)</td>
+			<td class=header2 align=middle colSpan=2><%# GetText("Last10_reverse") %></td>
 		</tr>
 </HeaderTemplate>
 <FooterTemplate>
@@ -134,7 +134,7 @@
 		<tr class=postheader>
 			<td width=140><b><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width=80% class=small align=left><b>Posted:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width=80% class=small align=left><b><%# GetText("Posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
 		<tr class=post>
 			<td>&nbsp;</td>

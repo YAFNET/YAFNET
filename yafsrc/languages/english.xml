@@ -1,6 +1,10 @@
 <NewDataSet>
   <!-- "Toolbar" at top of most pages -->
   <Table>
+	<Index>Search</Index>
+	<Text>Search</Text>
+  </Table>
+  <Table>
 	<Index>Admin</Index>
 	<Text>Admin</Text>
   </Table>
@@ -400,6 +404,63 @@
   <Table>
 	<Index>Delete_topic</Index>
 	<Text>Delete this topic?</Text>
+  </Table>
+  <Table>
+	<Index>Rank</Index>
+	<Text>Rank</Text>
+  </Table>
+  <Table>
+	<Index>Groups</Index>
+	<Text>Groups</Text>
+  </Table>
+  <Table>
+	<Index>Joined</Index>
+	<Text>Joined</Text>
+  </Table>
+  <!-- postmessage.aspx -->
+  <Table>
+	<Index>Post_New_Topic</Index>
+	<Text>Post New Topic</Text>
+  </Table>
+  <Table>
+	<Index>Post_reply</Index>
+	<Text>Post a reply</Text>
+  </Table>
+  <Table>
+	<Index>Preview</Index>
+	<Text>Preview</Text>
+  </Table>
+  <Table>
+	<Index>Subject</Index>
+	<Text>Subject</Text>
+  </Table>
+  <Table>
+	<Index>From</Index>
+	<Text>From</Text>
+  </Table>
+  <Table>
+	<Index>Priority</Index>
+	<Text>Priority</Text>
+  </Table>
+  <Table>
+	<Index>Message</Index>
+	<Text>Message</Text>
+  </Table>
+  <Table>
+	<Index>Attach_Files</Index>
+	<Text>Attach Files</Text>
+  </Table>
+  <Table>
+	<Index>Last10_reverse</Index>
+	<Text>Last 10 Posts (In reverse order)</Text>
+  </Table>
+  <Table>
+	<Index>Save</Index>
+	<Text>Save</Text>
+  </Table>
+  <Table>
+	<Index></Index>
+	<Text></Text>
   </Table>
   <Table>
 	<Index></Index>

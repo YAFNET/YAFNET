@@ -270,6 +270,11 @@ namespace yaf
 					Cache["htmltemplate"] = html;
 				}
 #endif
+				//Extension ext = (Extension)System.Reflection.Assembly.GetExecutingAssembly().CreateInstance("yaf.ExtTest");
+				//ext.Initialize(this);
+				//System.Text.StringBuilder tst = new System.Text.StringBuilder();
+				//ext.Render(ref tst);
+				//writer.Write(tst.ToString());
 
 				#region User Activity Rank by Fabrizio Bernabei
 				if(html.IndexOf("{user_rank}")>=0) 
@@ -331,7 +336,6 @@ namespace yaf
 
 				writer.Write(html.Substring(0,pos));	// Write html before forum
 
-
 				writer.WriteLine("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
 
 				if(User.Identity.IsAuthenticated) 
@@ -339,7 +343,7 @@ namespace yaf
 					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("Logged_in_as"),PageUserName)));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">Search</a> |"));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("Search")));
 					if(IsAdmin)
 						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("Admin")));
 					if(IsModerator || IsForumModerator)
@@ -356,7 +360,7 @@ namespace yaf
 					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("Welcome_Guest")));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">Search</a> |"));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("Search")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
 					{
 						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">{1}</a> |",BaseDir,GetText("Login")));

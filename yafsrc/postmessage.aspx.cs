@@ -34,9 +34,7 @@ namespace yaf
 	/// </summary>
 	public class postmessage : BasePage
 	{
-		protected System.Web.UI.WebControls.Label Label2;
 		protected System.Web.UI.WebControls.TextBox Message;
-		protected System.Web.UI.WebControls.Label Label1;
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.Button PostReply;
 		protected System.Web.UI.WebControls.Label Title;
@@ -110,6 +108,10 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
+				Preview.Text = GetText("Preview");
+				PostReply.Text = GetText("Save");
+				Cancel.Text = GetText("Cancel");
+
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
@@ -124,7 +126,7 @@ namespace yaf
 					if((bool)topic["IsLocked"])
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
-					Title.Text = "Post a reply";
+					Title.Text = GetText("Post_reply");
 
 					// History (Last 10 posts)
 					LastPosts.Visible = true;
