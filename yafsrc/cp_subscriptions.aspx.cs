@@ -78,11 +78,10 @@ namespace yaf
 			if(row["LastPosted"].ToString().Length==0)
 				return "&nbsp;";
 
-			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?t={3}&last=true#{4}\"><img src=\"{5}\"'></a>",
+			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?m={3}#{3}\"><img src=\"{4}\"'></a>",
 				FormatDateTime((DateTime)row["LastPosted"]),
 				row["LastUserID"],
 				row["LastUserName"],
-				row["TopicID"],
 				row["LastMessageID"],
 				ThemeFile("icon_latest_reply.gif")
 				);
@@ -95,11 +94,10 @@ namespace yaf
 			if(row["LastPosted"].ToString().Length==0)
 				return "&nbsp;";
 
-			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?t={3}&last=true#{4}\"><img src=\"{5}\"'></a>",
+			string html = String.Format("{0} by <a href=\"profile.aspx?u={1}\">{2}</a> <a href=\"posts.aspx?m={3}#{3}\"><img src=\"{4}\"'></a>",
 				FormatDateTime((DateTime)row["LastPosted"]),
 				row["LastUserID"],
 				row["LastUserName"],
-				row["LastTopicID"],
 				row["LastMessageID"],
 				ThemeFile("icon_latest_reply.gif")
 				);

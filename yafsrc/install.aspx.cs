@@ -124,6 +124,8 @@ namespace yaf
 						ExecuteScript("install/version4.sql");
 					if(InstalledVersion<5)
 						ExecuteScript("install/version5.sql");
+					if(InstalledVersion<6)
+						ExecuteScript("install/version6.sql");
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{

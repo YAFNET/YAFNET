@@ -141,7 +141,13 @@ namespace yaf
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br />by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?t={4}&last=true#{5}\"><img border=0 src='{3}'></a>", FormatDateTime((DateTime)row["LastPosted"]), row["LastUserID"], row["LastUserName"], minipost, row["LastTopicID"], row["LastMessageID"]);
+				return String.Format(CustomCulture,"{0}<br />by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img border=0 src='{3}'></a>", 
+					FormatDateTime((DateTime)row["LastPosted"]), 
+					row["LastUserID"], 
+					row["LastUserName"], 
+					minipost, 
+					row["LastMessageID"]
+				);
 			} else
 				return "No Posts";
 		}

@@ -483,7 +483,7 @@ namespace yaf
 		{
 			get 
 			{
-				return 5;
+				return 6;
 			}
 		}
 		static public string AppVersionName 

@@ -52,20 +52,6 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			/*
-			if(Request.QueryString["md5"] != null && IsAdmin) {
-				DataTable dt = DataManager.GetData("select UserID,Password from yaf_User where UserID>2",CommandType.Text);
-				for(int i=0;i<dt.Rows.Count;i++) {
-					String sql = String.Format("update yaf_User set Password='{0}' where UserID={1}",
-						System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile((string)dt.Rows[i]["Password"],"md5"),
-						dt.Rows[i]["UserID"]
-						);
-					DataManager.ExecuteNonQuery(sql,CommandType.Text);
-				}
-				AddLoadMessage("Fixed passwords");
-			}
-			*/
-
 			if(!IsPostBack) {
 				DataSet ds = new DataSet();
 
@@ -152,7 +138,15 @@ namespace yaf
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br/>in <a href=\"posts.aspx?t={6}\">{7}</a><br/>by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?t={4}&last=true#{5}\"><img src='{3}'></a>", FormatDateTime((DateTime)row["LastPosted"]), row["LastUserID"], row["LastUser"], minipost, row["LastTopicID"], row["LastMessageID"],row["LastTopicID"],row["LastTopicName"]);
+				return String.Format(CustomCulture,"{0}<br/>in <a href=\"posts.aspx?t={5}\">{6}</a><br/>by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>", 
+					FormatDateTime((DateTime)row["LastPosted"]), 
+					row["LastUserID"], 
+					row["LastUser"], 
+					minipost, 
+					row["LastMessageID"],
+					row["LastTopicID"],
+					row["LastTopicName"]
+				);
 			}
 			else
 				return "No Posts";

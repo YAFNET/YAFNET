@@ -195,8 +195,6 @@ namespace yaf
 
 				if(Request.QueryString["p"] != null)
 					pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
-				else if(Request.QueryString["last"] != null)
-					pds.CurrentPageIndex = pds.PageCount - 1;
 
 				if(pds.CurrentPageIndex>=pds.PageCount) pds.CurrentPageIndex = pds.PageCount - 1;
 				

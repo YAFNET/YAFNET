@@ -964,6 +964,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "install\version6.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "templates\page.html"
                     BuildAction = "Content"
                 />
