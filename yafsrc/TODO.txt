@@ -1,4 +1,3 @@
 - upload/attach files
 - Remove unvalidated people after 24 hours
-- Uploadable avatars
-- Check on avatar size
+- User can be member of several groups
