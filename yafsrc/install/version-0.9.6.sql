@@ -1020,34 +1020,6 @@ create procedure yaf_rank_list(@BoardID int,@RankID int=null) as begin
 end
 GO
 
--- yaf_message_list
-if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_list
-GO
-
-create procedure yaf_message_list(@MessageID int) as
-begin
-	select
-		a.MessageID,
-		a.UserID,
-		UserName = b.Name,
-		a.Message,
-		c.TopicID,
-		c.ForumID,
-		c.Topic,
-		c.Priority,
-		a.Approved
-	from
-		yaf_Message a,
-		yaf_User b,
-		yaf_Topic c
-	where
-		a.MessageID = @MessageID and
-		b.UserID = a.UserID and
-		c.TopicID = a.TopicID
-end
-GO
-
 -- yaf_topic_info
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_info

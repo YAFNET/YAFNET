@@ -1607,52 +1607,6 @@ begin
 end
 GO
 
--- yaf_message_update
-if exists (select * from sysobjects where id = object_id(N'yaf_message_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_update
-GO
-
-create procedure yaf_message_update(@MessageID int,@Priority int,@Message ntext) as
-begin
-	declare @TopicID	int
-	declare	@Moderated	bit
-	declare	@Approved	bit
-	
-	set @Approved = 0
-	
-	select 
-		@TopicID	= a.TopicID,
-		@Moderated	= c.Moderated
-	from 
-		yaf_Message a,
-		yaf_Topic b,
-		yaf_Forum c
-	where 
-		a.MessageID = @MessageID and
-		b.TopicID = a.TopicID and
-		c.ForumID = b.ForumID
-
-	if @Moderated=0 set @Approved = 1
-
-	update yaf_Message set
-		Message = @Message,
-		Edited = getdate(),
-		Approved = @Approved
-	where
-		MessageID = @MessageID
-
-	if @Priority is not null begin
-		update yaf_Topic set
-			Priority = @Priority
-		where
-			TopicID = @TopicID
-	end
-	
-	-- If forum is moderated, make sure last post pointers are correct
-	if @Moderated<>0 exec yaf_topic_updatelastpost
-end
-GO
-
 -- yaf_pmessage_markread
 if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_markread

@@ -55,6 +55,7 @@ GO
 
 /* subject editing added by Jaben Cargman */
 
+-- yaf_message_update
 if exists (select * from dbo.sysobjects where id = object_id(N'yaf_message_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_update
 GO
@@ -107,6 +108,7 @@ begin
 end
 GO
 
+-- yaf_message_list
 if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_list
 GO
