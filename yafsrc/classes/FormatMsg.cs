@@ -151,8 +151,12 @@ namespace yaf
 			tmp = tmp.Replace("\n","<br />");
 			tmp = tmp.Replace("\r","");
 
-			foreach(DataRow row in dtSmileys.Rows)
-				tmp = tmp.Replace((string)row["Code"],String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+			foreach(DataRow row in dtSmileys.Rows) 
+			{
+				string code = row["Code"].ToString();
+				tmp = tmp.Replace(code.ToLower(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+				tmp = tmp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+			}
 
 			return tmp;
 		}
@@ -219,8 +223,12 @@ namespace yaf
 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
 
 			DataTable dtSmileys = GetSmilies();
-			foreach(DataRow row in dtSmileys.Rows)
-				html = html.Replace((string)row["Code"],String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+			foreach(DataRow row in dtSmileys.Rows) 
+			{
+				string code = row["Code"].ToString();
+				html = html.Replace(code.ToLower(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+				html = html.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+			}
 
 			return RepairHtml(basePage,html);
 		}

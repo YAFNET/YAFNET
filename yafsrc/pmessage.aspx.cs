@@ -71,14 +71,16 @@ namespace yaf
 						string body = row["Body"].ToString();
 						bool isHtml = body.IndexOf('<')>=0;
 
-						if(Editor.IsRTEBrowser && !isHtml) 
+						if(Editor.IsRTEBrowser)
 						{
-							body = FormatMsg.ForumCodeToHtml(this,body);
+							if(!isHtml)
+								body = FormatMsg.ForumCodeToHtml(this,body);
 							body = String.Format("<div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br>",row["FromUser"],body);
 						} 
-						else if(!Editor.IsRTEBrowser && isHtml)
+						else if(!Editor.IsRTEBrowser)
 						{
-							body = FormatMsg.HtmlToForumCode(body);
+							if(isHtml)
+								body = FormatMsg.HtmlToForumCode(body);
 							body = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],body);
 						}
 
