@@ -2469,11 +2469,14 @@ begin
 end
 GO
 
+grant execute on dbo.yaf_system_upgrade_to_registry to public
+go
+
 -- no longer require system table
 if exists (select * from dbo.sysobjects where id = object_id(N'yaf_System') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	-- upgrade then delete
-	EXEC yaf_system_upgrade_to_registry
+	exec('EXEC yaf_system_upgrade_to_registry')
 	drop table yaf_System
 end
 GO

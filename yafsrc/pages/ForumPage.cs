@@ -1040,22 +1040,28 @@ namespace yaf.pages
 			DateTime dt = Convert.ToDateTime(o) + TimeOffset;
 			DateTime nt = DateTime.Now + TimeOffset;
 
-			if (dt.Date == nt.Date)
+			try
 			{
-				// today
-				strDateFormat = String.Format(GetText("TodayAt"),dt);
+				if (dt.Date == nt.Date)
+				{
+					// today
+					strDateFormat = String.Format(GetText("TodayAt"),dt);
+				}
+				else if (dt.Date == nt.AddDays(-1).Date)
+				{
+					// yesterday
+					strDateFormat = String.Format(GetText("YesterdayAt"),dt);
+				}
+				else
+				{
+					strDateFormat = dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+				}
+				return strDateFormat;
 			}
-			else if (dt.Date == nt.AddDays(-1).Date)
+			catch(Exception) 
 			{
-				// yesterday
-				strDateFormat = String.Format(GetText("YesterdayAt"),dt);
+				return dt.ToString("f");
 			}
-			else
-			{
-				strDateFormat = dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
-			}
-
-			return strDateFormat;
 		}
 		/// <summary>
 		/// This formats a DateTime into a short string
@@ -1065,7 +1071,14 @@ namespace yaf.pages
 		public string FormatDateTimeShort(object o) 
 		{
 			DateTime dt = (DateTime)o + TimeOffset;
-			return dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+			try
+			{
+				return dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+			}
+			catch(Exception)
+			{
+				return dt.ToString("f");
+			}
 		}
 		/// <summary>
 		/// Formats a datetime value into 7. february 2003
@@ -1075,7 +1088,14 @@ namespace yaf.pages
 		public string FormatDateLong(DateTime dt) 
 		{
 			dt += TimeOffset;
-			return dt.ToString(GetText("FORMAT_DATE_LONG"));
+			try
+			{
+				return dt.ToString(GetText("FORMAT_DATE_LONG"));
+			}
+			catch(Exception) 
+			{
+				return dt.ToString("D");
+			}
 		}
 		/// <summary>
 		/// Formats a datetime value into 07.03.2003
@@ -1085,7 +1105,14 @@ namespace yaf.pages
 		public string FormatDateShort(object o) 
 		{
 			DateTime dt = (DateTime)o + TimeOffset;
-			return dt.ToString(GetText("FORMAT_DATE_SHORT"));
+			try
+			{
+				return dt.ToString(GetText("FORMAT_DATE_SHORT"));
+			}
+			catch(Exception)
+			{
+				return dt.ToString("d");
+			}
 		}
 		/// <summary>
 		/// Formats a datetime value into 22:32:34
@@ -1095,7 +1122,14 @@ namespace yaf.pages
 		public string FormatTime(DateTime dt) 
 		{
 			dt += TimeOffset;
-			return dt.ToString(GetText("FORMAT_TIME"));
+			try
+			{
+				return dt.ToString(GetText("FORMAT_TIME"));
+			}
+			catch(Exception)
+			{
+				return dt.ToString("T");
+			}
 		}
 		#endregion
 		#region Theme Functions
