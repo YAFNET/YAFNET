@@ -98,6 +98,16 @@ namespace yaf
 			get { return GetValueInt("MaxFileSize",0);	}
 			set	{	SetValueInt("MaxFileSize",value); }
 		}
+		public int SmiliesColumns
+		{
+			get { return GetValueInt("SmiliesColumns",3); }
+			set { SetValueInt("SmiliesColumns",value); }
+		}
+		public int SmiliesPerRow
+		{
+			get { return GetValueInt("SmiliesPerRow",6); }
+			set { SetValueInt("SmiliesPerRow",value); }
+		}
 		// boolean settings
 		public bool EmailVerification
 		{
@@ -148,6 +158,11 @@ namespace yaf
 		{
 			get { return GetValueBool("UseFileTable", false); }
 			set { SetValueBool("UseFileTable",value); }
+		}
+		public bool ShowRSSLink
+		{
+			get { return GetValueBool("ShowRSSLink",true); }
+			set { SetValueBool("ShowRSSLink",value); }
 		}
 		// string settings
 		public string ForumEmail 
