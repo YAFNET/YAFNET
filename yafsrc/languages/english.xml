@@ -74,7 +74,7 @@
 		<Resource tag="CURRENT_TIME">Current time: {0}.</Resource>
 		<Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
 		<Resource tag="STATS_POSTS">There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Resource>
-		<Resource tag="STATS_LASTPOST">Last post on {0} by {1}.</Resource>
+		<Resource tag="STATS_LASTPOST">Last post {0} by {1}.</Resource>
 		<Resource tag="STATS_MEMBERS">We have {0:N0} registered members.</Resource>
 		<Resource tag="STATS_LASTMEMBER">The newest member is {0}.</Resource>
 		<Resource tag="IN">in {0}</Resource>
@@ -92,7 +92,7 @@
 		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} guest</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
 		<Resource tag="VIEWING">({0} Viewing)</Resource>
-		<Resource tag="ERROR_NOFORUMACCESS">You don't have access to the chosen forum.</Resource>
+		<Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
 		<Resource tag="MARKALL">Mark all forums as read</Resource>
 		<Resource tag="GO_LAST_POST">Go to last post</Resource>
 	</page>
@@ -124,6 +124,8 @@
 		<Resource tag="MARKREAD">Mark this forum as read</Resource>
 		<Resource tag="SUBFORUMS">Subforums</Resource>
  		<Resource tag="RSSFEED">Rss Feed</Resource>
+ 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -394,6 +396,7 @@
 		<!-- postmessage.aspx -->
 		<Resource tag="NEWTOPIC">Post New Topic</Resource>
 		<Resource tag="REPLY">Post a reply</Resource>
+		<Resource tag="EDIT">Edit post</Resource>
 		<Resource tag="PREVIEW">Preview</Resource>
 		<Resource tag="PREVIEWTITLE">Preview:</Resource>
 		<Resource tag="SUBJECT">Subject:</Resource>
@@ -415,7 +418,7 @@
 		<Resource tag="CHOICE7">Choice 7:</Resource>
 		<Resource tag="CHOICE8">Choice 8:</Resource>
 		<Resource tag="CHOICE9">Choice 9:</Resource>
-		<Resource tag="NEED_SUBJECT">Please enter a subject of the message.</Resource>
+		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="SAVE">Post</Resource>
@@ -461,7 +464,7 @@
 		<Resource tag="OCCUPATION">Occupation:</Resource>
 		<Resource tag="INTERESTS">Interests:</Resource>
 		<Resource tag="GENDER">Gender:</Resource>
-		<Resource tag="GENDER0">Unsure</Resource>
+		<Resource tag="GENDER0">None Specified</Resource>
 		<Resource tag="GENDER1">Male</Resource>
 		<Resource tag="GENDER2">Female</Resource>
 		<Resource tag="NUMALL">{0:N2}% of all post</Resource>
