@@ -18,16 +18,22 @@ namespace yaf.controls
 		
 		private HtmlForm GetServerForm(ControlCollection parent)
 		{
+			HtmlForm tmpHtmlForm;
+            
 			foreach (Control child in parent)
-			{								
+			{                                
 				Type t = child.GetType();
 				if (t == typeof(System.Web.UI.HtmlControls.HtmlForm))
 					return (HtmlForm)child;
-				
-				if (child.HasControls())	
-					return GetServerForm(child.Controls);
+                
+				if (child.HasControls())    
+				{
+					tmpHtmlForm=GetServerForm(child.Controls);
+					if(tmpHtmlForm.ClientID !=null)
+						return tmpHtmlForm;
+				}
 			}
-			
+        
 			return new HtmlForm();
 		}
 
