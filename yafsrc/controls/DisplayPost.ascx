@@ -5,7 +5,7 @@
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
 		<a name='<%# DataRow["MessageID"] %>'/>
-		<b><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# DataRow["UserName"] %></a></b>
+		<b><a id="UserName" runat="server" href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# DataRow["UserName"] %></a></b>
 	</td>
 	<td width=80%>
 		<table cellspacing=0 cellpadding=0 width=100%>
@@ -49,4 +49,4 @@
 </tr>
 <tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
 
-<yaf:PopMenu runat="server" id="PopMenu1" control="NameCell"/>
+<yaf:PopMenu runat="server" id="PopMenu1" control="UserName"/>

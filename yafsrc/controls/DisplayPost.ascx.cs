@@ -23,7 +23,7 @@ namespace yaf.controls
 			PopMenu1.Visible = ForumPage.IsAdmin;
 			if(PopMenu1.Visible) 
 			{
-				PopMenu1.AddItem("User Profile","window.location.href='" + Forum.GetLink(Pages.cp_profile,"u={0}",DataRow["UserID"])+"';");
+				PopMenu1.AddItem("User Profile","window.location.href='" + Forum.GetLink(Pages.profile,"u={0}",DataRow["UserID"])+"';");
 				PopMenu1.AddItem("Edit User (Admin)","window.location.href='" + Forum.GetLink(Pages.admin_edituser,"u={0}",DataRow["UserID"])+"';");
 			}
 
