@@ -7,6 +7,9 @@ namespace yaf
 	/// </summary>
 	public class AdminPage : pages.ForumPage
 	{
+		/// <summary>
+		/// Creates the Administration page.
+		/// </summary>
 		public AdminPage() : base(null)
 		{
 			this.Load += new EventHandler(AdminPage_Load);

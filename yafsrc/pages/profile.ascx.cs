@@ -193,10 +193,15 @@ namespace yaf.pages
 			DataBind();
 		}
 
+		/// <summary>
+		/// Suspends a user when clicked.
+		/// </summary>
+		/// <param name="sender">The object sender inherit from Page.</param>
+		/// <param name="e">The System.EventArgs inherit from Page.</param>
 		private void Suspend_Click(object sender, System.EventArgs e) 
 		{
-			/// Admins can suspend anyone not admins
-			/// Forum Moderators can suspend anyone not admin or forum moderator
+			// Admins can suspend anyone not admins
+			// Forum Moderators can suspend anyone not admin or forum moderator
 			using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 			{
 				foreach(DataRow row in dt.Rows) 

@@ -139,7 +139,7 @@ namespace yaf.pages.admin {
 				UseFileTableX.Checked,
 				MaxFileSize.Text.Trim().Length>0 ? MaxFileSize.Text : null);
 
-			BoardSettings = null;	/// Reload forum settings
+			BoardSettings = null;	// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

@@ -45,6 +45,9 @@ namespace yaf.pages
 		protected controls.PageLinks PageLinks;
 		protected controls.Pager Pager;
 	
+		/// <summary>
+		/// The search page constructor.
+		/// </summary>
 		public search() : base("SEARCH")
 		{
 		}
@@ -96,6 +99,10 @@ namespace yaf.pages
 		}
 
 		#region Web Form Designer generated code
+		/// <summary>
+		/// The initialization script for the search page.
+		/// </summary>
+		/// <param name="e">The EventArg object for the search page.</param>
 		override protected void OnInit(EventArgs e)
 		{
 			Pager.PageChange += new EventHandler(Pager_PageChange);
@@ -154,6 +161,11 @@ namespace yaf.pages
 			}
 		}
 
+		/// <summary>
+		/// Formats the message and replaces Forum Code to HTML.
+		/// </summary>
+		/// <param name="o">The object DataRowView that is going to be converted.</param>
+		/// <returns>Returns the convertted string.</returns>
 		public string FormatMessage( object o )
 		{
 			DataRowView row = (DataRowView)o;

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Resources theme="Standard" dir="standard">
+<Resources theme="ASPNet" dir="ASPNET">
 	<page name="BUTTONS">
-		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/topic_moderate.png'/&gt;</Resource>
-		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.png'/&gt;</Resource>
-		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.png'/&gt;</Resource>
-		<Resource tag="DELETETOPIC">&lt;img align='absmiddle' src='~/b_delete_topic.png'/&gt;</Resource>
-		<Resource tag="LOCKTOPIC">&lt;img align='absmiddle' src='~/b_lock_topic.png'/&gt;</Resource>
-		<Resource tag="UNLOCKTOPIC">&lt;img align='absmiddle' src='~/b_unlock_topic.png'/&gt;</Resource>
-		<Resource tag="MOVETOPIC">&lt;img align='absmiddle' src='~/b_move_topic.png'/&gt;</Resource>
-		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/b_edit_post.png'/&gt;</Resource>
-		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.png'/&gt;</Resource>
-		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/b_quote_post.png'/&gt;</Resource>
-		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/b_moderate.gif'/&gt;</Resource>
+		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_new_topic.gif'/&gt;</Resource>
+		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.gif'/&gt;</Resource>
+		<Resource tag="DELETETOPIC">&lt;img align='absmiddle' src='~/b_delete_post.gif'/&gt;</Resource>
+		<Resource tag="LOCKTOPIC">&lt;img align='absmiddle' src='~/post_button_locked.gif'/&gt;</Resource>
+		<Resource tag="UNLOCKTOPIC">&lt;img align='absmiddle' src='~/post_button_unlocked.gif'/&gt;</Resource>
+		<Resource tag="MOVETOPIC">&lt;img align='absmiddle' src='~/b_movetopic.gif'/&gt;</Resource>
+		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/b_editpost.gif'/&gt;</Resource>
+		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.gif'/&gt;</Resource>
+		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/quote.gif'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_button_attach.gif'/&gt;</Resource>
 		<Resource tag="PM">&lt;img align='absmiddle' src='~/p_pm.gif'/&gt;</Resource>
 		<Resource tag="WWW">&lt;img align='absmiddle' src='~/p_www.gif'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/p_weblog.gif'/&gt;</Resource>
 		<Resource tag="EMAIL">&lt;img align='absmiddle' src='~/p_email.gif'/&gt;</Resource>
 		<Resource tag="MSN">&lt;img align='absmiddle' src='~/p_msn.gif'/&gt;</Resource>
 		<Resource tag="YAHOO">&lt;img align='absmiddle' src='~/p_yim.gif'/&gt;</Resource>
@@ -22,19 +22,19 @@
 		<Resource tag="ICQ">&lt;img align='absmiddle' src='~/p_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
-		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
-		<Resource tag="TOPIC">~/topic.png</Resource>
-		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
-		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.png</Resource>
-		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>
-		<Resource tag="TOPIC_LOCKED">~/topic_lock.png</Resource>
-		<Resource tag="TOPIC_STICKY">~/topic_sticky.png</Resource>
-		<Resource tag="TOPIC_MOVED">~/topic_moved.png</Resource>
-		<Resource tag="TOPIC_POLL">~/topic_poll.png</Resource>
-		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.png</Resource>
-		<Resource tag="FORUM">~/topic.png</Resource>
-		<Resource tag="FORUM_NEW">~/topic_new.png</Resource>
-		<Resource tag="FORUM_LOCKED">~/topic_lock.png</Resource>
+		<Resource tag="TOPIC_NEW">~/topic_notread.gif</Resource>
+		<Resource tag="TOPIC">~/topic.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic-announce.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic-announce_notread.gif</Resource>
+		<Resource tag="TOPIC_NEW_LOCKED">~/topic-locked_notread.gif</Resource>
+		<Resource tag="TOPIC_LOCKED">~/topic-locked.gif</Resource>
+		<Resource tag="TOPIC_STICKY">~/topic-pinned.gif</Resource>
+		<Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
+		<Resource tag="TOPIC_POLL">~/forum_status_poll.gif</Resource>
+		<Resource tag="TOPIC_POLL_NEW">~/forum_status_poll_new.gif</Resource>
+		<Resource tag="FORUM">~/forum_status.gif</Resource>
+		<Resource tag="FORUM_NEW">~/forum_status_new.gif</Resource>
+		<Resource tag="FORUM_LOCKED">~/forum_private.gif</Resource>
 		<Resource tag="FORUM_STATS">~/folder_stats.png</Resource>
 		<Resource tag="FORUM_USERS">~/folder_who.png</Resource>
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>

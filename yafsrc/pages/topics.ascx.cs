@@ -34,23 +34,86 @@ namespace yaf.pages
 	/// </summary>
 	public class topics : ForumPage
 	{
+
+		/// <summary>
+		/// ShowList DropDownList.
+		/// </summary>
 		protected System.Web.UI.WebControls.DropDownList ShowList;
+
+		/// <summary>
+		/// TopicList Repeater Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.Repeater TopicList;
+
+		/// <summary>
+		/// Announcements Repeater Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.Repeater Announcements;
+
+		/// <summary>
+		/// NewTopic Button 2.
+		/// </summary>
 		protected System.Web.UI.WebControls.LinkButton NewTopic2;
+
+		/// <summary>
+		/// NewTopic Button 1.
+		/// </summary>
 		protected System.Web.UI.WebControls.LinkButton NewTopic1;
+		
+		/// <summary>
+		/// The PageTitle Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.Label PageTitle;
+
+		/// <summary>
+		/// ForumJump Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
+
+		/// <summary>
+		/// DropDownList Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
+
+		/// <summary>
+		/// RssFeed Control.
+		/// </summary>
 		protected System.Web.UI.WebControls.HyperLink RssFeed;
 		private DataRow forum;
+
+		/// <summary>
+		/// FIXME: I have no clue what this is.
+		/// </summary>
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
+
+		/// <summary>
+		/// Linkbuttons for Moderation.
+		/// </summary>
 		protected LinkButton moderate1, moderate2, MarkRead;
+
+		/// <summary>
+		/// The PageLinks Object.
+		/// </summary>
 		protected controls.PageLinks PageLinks;
+
+		/// <summary>
+		/// The Pager Control.
+		/// </summary>
 		protected controls.Pager Pager;
+
+		/// <summary>
+		/// The ForumList control.
+		/// </summary>
 		protected controls.ForumList ForumList;
+
+		/// <summary>
+		/// FIXME: I have no clue what this is.
+		/// </summary>
 		protected PlaceHolder SubForums;
 
+		/// <summary>
+		/// Overloads the topics page.
+		/// </summary>
 		public topics() : base("TOPICS")
 		{
 		}
@@ -140,6 +203,10 @@ namespace yaf.pages
 		}
 
 		#region Web Form Designer generated code
+		/// <summary>
+		/// The initialization script for the topics page.
+		/// </summary>
+		/// <param name="e">The EventArgs object for the topics page.</param>
 		override protected void OnInit(EventArgs e)
 		{
 			this.Unload += new EventHandler(topics_Unload);

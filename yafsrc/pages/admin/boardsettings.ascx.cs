@@ -85,7 +85,7 @@ namespace yaf.pages.admin {
 		private void Save_Click(object sender, System.EventArgs e) {
 			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
-			BoardSettings = null;	/// Reload forum settings
+			BoardSettings = null;	// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

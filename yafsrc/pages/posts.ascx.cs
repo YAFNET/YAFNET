@@ -171,7 +171,7 @@ namespace yaf.pages
 				}
 
 			}
-			/// Mark topic read
+			// Mark topic read
 			SetTopicRead(PageTopicID,DateTime.Now);
 			BindData();
 		}

@@ -41,6 +41,10 @@ namespace yaf
 		}
 
 		#region Web Form Designer generated code
+		/// <summary>
+		/// The initialization script of the error page.
+		/// </summary>
+		/// <param name="e">The EventArgs object from the error page.</param>
 		override protected void OnInit(EventArgs e)
 		{
 			//

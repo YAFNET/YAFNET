@@ -131,7 +131,7 @@ namespace yaf.pages
 			}
 			catch(Exception) 
 			{
-				/// If the above fails chances are that this is a new install
+				// If the above fails chances are that this is a new install
 				Response.Redirect(Config.ConfigSection["root"] + "install/");
 			}
 
@@ -304,6 +304,11 @@ namespace yaf.pages
 			}
 		}
 
+		/// <summary>
+		/// Gets the last time the forum was read.
+		/// </summary>
+		/// <param name="forumID">This is the ID of the forum you wish to get the last read date from.</param>
+		/// <returns>A DateTime object of when the forum was last read.</returns>
 		public DateTime GetForumRead(int forumID)
 		{
 			System.Collections.Hashtable t = Mession.ForumRead;
@@ -312,6 +317,12 @@ namespace yaf.pages
 			else
 				return (DateTime)t[forumID];
 		}
+
+		/// <summary>
+		/// Sets the time that the forum was read.
+		/// </summary>
+		/// <param name="forumID">The forum ID that was read.</param>
+		/// <param name="date">The DateTime you wish to set the read to.</param>
 		public void SetForumRead(int forumID,DateTime date) 
 		{
 			System.Collections.Hashtable t = Mession.ForumRead;
@@ -322,6 +333,12 @@ namespace yaf.pages
 			t[forumID] = date;
 			Mession.ForumRead = t;
 		}
+
+		/// <summary>
+		/// Returns the last time that the topicID was read.
+		/// </summary>
+		/// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+		/// <returns>The DateTime object from the topicID.</returns>
 		public DateTime GetTopicRead(int topicID)
 		{
 			System.Collections.Hashtable t = Mession.TopicRead;
@@ -330,6 +347,12 @@ namespace yaf.pages
 			else
 				return (DateTime)t[topicID];
 		}
+
+		/// <summary>
+		/// Sets the time that the topicID was read.
+		/// </summary>
+		/// <param name="topicID">The topic ID that was read.</param>
+		/// <param name="date">The DateTime you wish to set the read to.</param>
 		public void SetTopicRead(int topicID,DateTime date) 
 		{
 			System.Collections.Hashtable t = Mession.TopicRead;
@@ -372,7 +395,7 @@ namespace yaf.pages
 			if(ctl!=null)
 				ctl.InnerText = BoardSettings.Name;
 
-			/// BEGIN HEADER
+			// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
 			header.AppendFormat("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
 
@@ -413,7 +436,7 @@ namespace yaf.pages
 				ForumControl.Header.Info = header.ToString();
 			else
 				m_headerInfo = header.ToString();
-			/// END HEADER
+			// END HEADER
 		}
 		/// <summary>
 		/// Writes the document
@@ -434,14 +457,14 @@ namespace yaf.pages
 					script = script.Insert(0,String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">\n",m_strRefreshURL));
 #endif
 
-				/// BEGIN HEADER
+				// BEGIN HEADER
 				if(m_headerInfo!=null)
 					writer.Write(m_headerInfo);
-				/// END HEADER
+				// END HEADER
 
 				RenderBody(writer);
 
-				/// BEGIN FOOTER
+				// BEGIN FOOTER
 				StringBuilder footer = new StringBuilder();
 				footer.AppendFormat("<p style=\"text-align:center;font-size:7pt\">");
 
@@ -477,7 +500,7 @@ namespace yaf.pages
 					ForumControl.Footer.Info = footer.ToString();
 				else
 					writer.Write(footer.ToString());
-				/// END FOOTER
+				// END FOOTER
 
 				writer.WriteLine(script);
 			} 
@@ -605,6 +628,10 @@ namespace yaf.pages
 			}
 		}
 
+		/// <summary>
+		/// AddLoadMessage creates a message that will be returned on the next page load.
+		/// </summary>
+		/// <param name="msg">The message you wish to display.</param>
 		public void AddLoadMessage(string msg) 
 		{
 			msg = msg.Replace("\\","\\\\");
@@ -976,13 +1003,19 @@ namespace yaf.pages
 		/// <summary>
 		/// Formats a datetime value into 07.03.2003 22:32:34
 		/// </summary>
-		/// <param name="dt">The date to be formatted</param>
-		/// <returns></returns>
+		/// <param name="o">The date to be formatted</param>
+		/// <returns>Formatted string of the formatted DateTime Object.</returns>
 		public string FormatDateTime(object o) 
 		{
 			DateTime dt = (DateTime)o;
 			return String.Format("{0:F}",dt + TimeOffset);
 		}
+
+		/// <summary>
+		/// This formats a DateTime into a short string
+		/// </summary>
+		/// <param name="o">The DateTime like object you wish to make a formatted string.</param>
+		/// <returns>The formatted string created from the DateTime object.</returns>
 		public string FormatDateTimeShort(object o) 
 		{
 			DateTime dt = (DateTime)o;
@@ -1132,7 +1165,7 @@ namespace yaf.pages
 				HttpContext.Current.Cache["Localizer." + filename] = m_localizer;
 #endif
 			}
-			/// If not using default language load that too
+			// If not using default language load that too
 			if(filename.ToLower()!="english.xml") 
 			{
 #if !DEBUG
@@ -1155,7 +1188,7 @@ namespace yaf.pages
 		{
 			LoadTranslation();
 			string str = m_localizer.GetText(page,text);
-			/// If not default language, try to use that instead
+			// If not default language, try to use that instead
 			if(str==null && m_defaultLocale!=null) 
 			{
 				str = m_defaultLocale.GetText(page,text);

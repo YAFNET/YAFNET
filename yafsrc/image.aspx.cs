@@ -117,7 +117,7 @@ namespace yaf
 			} 
 			else if(Request.QueryString["a"]!=null) 
 			{
-				/// AttachmentID
+				// AttachmentID
 				using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
@@ -151,6 +151,10 @@ namespace yaf
 		}
 
 		#region Web Form Designer generated code
+		/// <summary>
+		/// The main initialization of the page.
+		/// </summary>
+		/// <param name="e">The EventArgs object inherit from Page.</param>
 		override protected void OnInit(EventArgs e)
 		{
 			//
