@@ -173,7 +173,7 @@ color: #00CC66
 }
 
 /* most tables are class 'content' */
-.content {
+.content, .rte {
 	font-family: verdana;
 	font-size: 8pt;
 	border: 0px solid #2163E8;
@@ -187,8 +187,8 @@ color: #00CC66
 }
 
 /* links inside content table*/
-.content a			{ color: #666666; text-decoration: underline; }
-.content a:hover	{ color: #CCCCCC; text-decoration: underline; }
+.content a, .rte a			{ color: #666666; text-decoration: underline; }
+.content a:hover, .rte a:hover	{ color: #CCCCCC; text-decoration: underline; }
 
 /* used for quoting messages */
 .quote 
