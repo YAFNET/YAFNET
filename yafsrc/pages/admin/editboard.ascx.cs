@@ -37,9 +37,15 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected PlaceHolder AdminInfo;
+		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e) {
+		private void Page_Load(object sender, System.EventArgs e) 
+		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Boards",Forum.GetLink(Pages.admin_boards));
+
 				BindData();
 				if(Request.QueryString["b"] != null) 
 				{

@@ -36,9 +36,15 @@ namespace yaf.pages.admin
 		protected TextBox Name;
 		protected Button Save, Cancel;
 		protected CheckBox ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess;
+		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e) {
+		private void Page_Load(object sender, System.EventArgs e) 
+		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Access Masks",Forum.GetLink(Pages.admin_accessmasks));
+
 				BindData();
 				if(Request.QueryString["i"] != null) {
 					using(DataTable dt = DB.accessmask_list(PageBoardID,Request.QueryString["i"])) 

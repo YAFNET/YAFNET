@@ -36,11 +36,16 @@ namespace yaf.pages.admin
 	{
 		protected System.Web.UI.WebControls.LinkButton NewGroup;
 		protected System.Web.UI.WebControls.Repeater GroupList;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Groups",Forum.GetLink(Pages.admin_groups));
+
 				BindData();
 			}
 		}
@@ -84,7 +89,7 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editgroup,"g={0}",e.CommandArgument);
+					Forum.Redirect(Pages.admin_editgroup,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
 					DB.group_delete(e.CommandArgument);

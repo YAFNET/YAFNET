@@ -37,11 +37,14 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
 		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;
 		protected HtmlGenericControl UpgradeNotice;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				BindData();
 				UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
 			}

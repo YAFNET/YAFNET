@@ -19,9 +19,17 @@ namespace yaf.pages.admin
 		protected	HtmlGenericControl	Upgrade;
 		private		long				m_lastVersion;
 		private		DateTime			m_lastVersionDate;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if(!IsPostBack)
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Version Check",Forum.GetLink(Pages.admin_version));
+			}
+
 			try 
 			{
 				using(RegisterForum.Register reg = new RegisterForum.Register()) 

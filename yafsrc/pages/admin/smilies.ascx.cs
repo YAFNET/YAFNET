@@ -16,11 +16,18 @@ namespace yaf.pages.admin
 	public class smilies : AdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater List;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Smilies",Forum.GetLink(Pages.admin_smilies));
+
 				BindData();
+			}
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 

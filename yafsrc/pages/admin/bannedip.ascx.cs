@@ -35,10 +35,15 @@ namespace yaf.pages.admin
 	public class bannedip : AdminPage
 	{
 		protected Repeater list;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Banned IP Addresses",Forum.GetLink(Pages.admin_bannedip));
+
 				BindData();
 			}
 		}

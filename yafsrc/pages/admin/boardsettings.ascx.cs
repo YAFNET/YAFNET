@@ -35,10 +35,18 @@ namespace yaf.pages.admin {
 	public class boardsettings : AdminPage {
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.TextBox Name;
+		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e) {
+		private void Page_Load(object sender, System.EventArgs e) 
+		{
 			if(!IsPostBack)
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Board Settings",Forum.GetLink(Pages.admin_boardsettings));
+
 				BindData();
+			}
 		}
 
 		private void BindData() {

@@ -19,11 +19,18 @@ namespace yaf.pages.admin
 		protected TextBox Code, Emotion;
 		protected Button save, cancel;
 		protected HtmlImage Preview;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Smilies",Forum.GetLink(Pages.admin_smilies));
+
 				BindData();
+			}
 		}
 
 		private void BindData() 

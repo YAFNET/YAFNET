@@ -59,7 +59,7 @@ namespace yaf.controls
 			writer.WriteLine("</table>");
 			writer.WriteLine("</td></tr></table>");
 
-			writer.WriteLine("</td><td valign='top'>&nbsp;");
+			writer.WriteLine("</td><td valign='top'>&nbsp;&nbsp;");
 			writer.WriteLine("</td><td width='90%' valign='top'>");
 			
 			base.RenderChildren(writer);

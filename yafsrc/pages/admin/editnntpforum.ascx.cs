@@ -37,11 +37,16 @@ namespace yaf.pages.admin
 		protected DropDownList NntpServerID, ForumID;
 		protected TextBox GroupName;
 		protected Button Save, Cancel;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("NNTP Forums",Forum.GetLink(Pages.admin_nntpforums));
+				
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{

@@ -1,6 +1,8 @@
 <%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.admin" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
+<yaf:PageLinks runat="server" id="PageLinks"/>
+
 <yaf:adminmenu runat="server">
 
 <asp:repeater runat=server id=ActiveList>

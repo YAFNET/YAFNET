@@ -1,8 +1,9 @@
 <%@ Control language="c#" Codebehind="smilies.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.smilies" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
-<yaf:adminmenu runat="server">
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
+<yaf:adminmenu runat="server">
 
 <asp:repeater runat=server id=List>
 <HeaderTemplate>

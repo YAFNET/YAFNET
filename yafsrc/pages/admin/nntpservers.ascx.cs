@@ -36,11 +36,18 @@ namespace yaf.pages.admin
 	{
 		protected System.Web.UI.WebControls.LinkButton NewServer;
 		protected System.Web.UI.WebControls.Repeater RankList;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("NNTP Servers",Forum.GetLink(Pages.admin_nntpservers));
+				
 				BindData();
+			}
 		}
 
 		#region Web Form Designer generated code

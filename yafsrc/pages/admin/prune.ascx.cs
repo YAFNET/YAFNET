@@ -37,10 +37,15 @@ namespace yaf.pages.admin
 		protected DropDownList forumlist;
 		protected TextBox days;
 		protected Button commit;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Prune",Forum.GetLink(Pages.admin_prune));
+
 				days.Text = "60";
 				BindData();
 			}

@@ -38,10 +38,18 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.DropDownList ToList;
 		protected System.Web.UI.WebControls.Button Send;
 		protected System.Web.UI.WebControls.TextBox Body;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsPostBack) BindData();
+			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Mail",Forum.GetLink(Pages.admin_mail));
+
+				BindData();
+			}
 		}
 
 		private void BindData() {

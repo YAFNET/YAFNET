@@ -46,9 +46,15 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
 		protected DropDownList AccessMaskID, ParentList;
 		protected HtmlTableRow NewGroupRow;
+		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e) {
+		private void Page_Load(object sender, System.EventArgs e) 
+		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Forums",Forum.GetLink(Pages.admin_forums));
+
 				BindData();
 				if(Request.QueryString["f"] != null) {
 					using(DataTable dt = DB.forum_list(PageBoardID,Request.QueryString["f"])) 

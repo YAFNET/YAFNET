@@ -44,12 +44,17 @@ namespace yaf.pages.admin
 		protected CheckBox IsHostAdminX;
 		protected DropDownList RankID;
 		protected HtmlTableRow IsHostAdminRow;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			IsHostAdminRow.Visible = IsHostAdmin;
 
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Users",Forum.GetLink(Pages.admin_users));
+
 				BindData();
 				using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{

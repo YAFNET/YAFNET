@@ -1,6 +1,8 @@
 <%@ Control language="c#" Codebehind="nntpforums.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.nntpforums" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
+<yaf:PageLinks runat="server" id="PageLinks"/>
+
 <yaf:adminmenu runat="server">
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>

@@ -37,10 +37,15 @@ namespace yaf.pages.admin
 		protected Label Count;
 		protected TextBox Days1, Days2;
 		protected Button commit;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("PM Maintenance",Forum.GetLink(Pages.admin_pm));
+
 				Days1.Text = "60";
 				Days2.Text = "180";
 				BindData();

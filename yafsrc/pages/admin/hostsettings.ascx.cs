@@ -42,13 +42,21 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
 		protected TextBox AvatarSize, MaxFileSize;
+		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e) {
+		private void Page_Load(object sender, System.EventArgs e) 
+		{
 			if(!IsHostAdmin)
 				Data.AccessDenied();
 
-			if(!IsPostBack)
+			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Host Settings",Forum.GetLink(Pages.admin_hostsettings));
+
 				BindData();
+			}
 		}
 
 		private void BindData() {

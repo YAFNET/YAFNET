@@ -36,11 +36,16 @@ namespace yaf.pages.admin
 	{
 		protected TextBox Name, Address, UserName, UserPass;
 		protected Button Save, Cancel;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("NNTP Servers",Forum.GetLink(Pages.admin_nntpservers));
+
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{

@@ -1,6 +1,8 @@
 <%@ Control language="c#" Codebehind="editcategory.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editcategory" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
+<yaf:PageLinks runat="server" id="PageLinks"/>
+
 <yaf:adminmenu runat="server">
 
 <table class=content cellspacing=1 cellpadding=0 width="100%">

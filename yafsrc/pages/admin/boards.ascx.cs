@@ -36,6 +36,7 @@ namespace yaf.pages.admin
 	{
 		protected Repeater List;
 		protected LinkButton New;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -43,7 +44,13 @@ namespace yaf.pages.admin
 				Data.AccessDenied();
 
 			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Boards",Forum.GetLink(Pages.admin_boards));
+
 				BindData();
+			}
 		}
 
 		#region Web Form Designer generated code

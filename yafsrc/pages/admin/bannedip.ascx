@@ -1,8 +1,9 @@
 <%@ Control language="c#" Codebehind="bannedip.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.bannedip" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
-<yaf:adminmenu runat="server">
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
+<yaf:adminmenu runat="server">
 
 <asp:repeater id=list runat=server>
 <HeaderTemplate>

@@ -42,11 +42,16 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected DropDownList RankImage;
 		protected HtmlImage Preview;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Ranks",Forum.GetLink(Pages.admin_ranks));
+
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{

@@ -44,16 +44,21 @@ namespace yaf.pages.admin
 		protected CheckBox IsModeratorX;
 		protected HtmlTableRow NewGroupRow;
 		protected DropDownList AccessMaskID;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink("Groups",Forum.GetLink(Pages.admin_groups));
+				
 				BindData();
-				if(Request.QueryString["g"] != null) 
+				if(Request.QueryString["i"] != null) 
 				{
 					NewGroupRow.Visible = false;
-					using(DataTable dt = DB.group_list(PageBoardID,Request.QueryString["g"])) 
+					using(DataTable dt = DB.group_list(PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -115,8 +120,8 @@ namespace yaf.pages.admin
 				}
 			}
 
-			if(Request.QueryString["g"] != null) 
-				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["g"]);
+			if(Request.QueryString["i"] != null) 
+				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
 
 			DataBind();
 		}
@@ -130,12 +135,12 @@ namespace yaf.pages.admin
 		{
 			// Group
 			long GroupID = 0;
-			if(Request.QueryString["g"] != null) GroupID = long.Parse(Request.QueryString["g"]);
+			if(Request.QueryString["i"] != null) GroupID = long.Parse(Request.QueryString["i"]);
 				
 			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
-			if(Request.QueryString["g"] != null) 
+			if(Request.QueryString["i"] != null) 
 			{
 				for(int i=0;i<AccessList.Items.Count;i++) 
 				{
@@ -147,7 +152,7 @@ namespace yaf.pages.admin
 			}
 
 			// Done
-			Forum.Redirect(Pages.admin_editgroup,"g={0}",GroupID);
+			Forum.Redirect(Pages.admin_editgroup,"i={0}",GroupID);
 		}
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
