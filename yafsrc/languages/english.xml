@@ -553,5 +553,16 @@
 	</page>
 	<page name="IM_ICQ">
 		<Resource tag="TITLE">ICQ</Resource>
+		<Resource tag="NAME">Your Name:</Resource>
+		<Resource tag="EMAIL">Your E-mail:</Resource>
+		<Resource tag="SEND">Send Message</Resource>
+		<Resource tag="BODY">Type your message here:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+		<Resource tag="TITLE">E-mail</Resource>
+		<Resource tag="SEND">Send E-mail</Resource>
+		<Resource tag="SUBJECT">Subject:</Resource>
+		<Resource tag="BODY">Type your message here:</Resource>
+		<Resource tag="ERROR">There was an error sending your e-mail.</Resource>
 	</page>
 </Resources>

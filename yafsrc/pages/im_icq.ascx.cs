@@ -50,6 +50,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
+				Send.Text = GetText("SEND");
 				From.Text = PageUserName;
 				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{

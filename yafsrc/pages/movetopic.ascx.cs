@@ -55,7 +55,8 @@ namespace yaf.pages
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
+				ForumList.DataSource = DB.forum_listall(PageBoardID,PageUserID);
+				//ForumList.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
 				DataBind();
 				ForumList.Items.FindByValue(PageForumID.ToString()).Selected = true;
 			}

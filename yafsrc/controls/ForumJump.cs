@@ -66,7 +66,7 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			DataTable dt;
-			string cachename = String.Format("forumjump_{0}",ForumPage.User.Name);
+			string cachename = String.Format("forumjump_{0}_{1}",ForumPage.User.Name,ForumPage.User.IsAuthenticated);
 			if(Page.Cache[cachename] != null) 
 			{
 				dt = (DataTable)Page.Cache[cachename];

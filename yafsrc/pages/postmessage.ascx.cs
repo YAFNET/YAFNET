@@ -346,8 +346,8 @@ namespace yaf.pages
 
 			string body = Message.Text;
 #if DEBUG
-			string fcode = FormatMsg.HtmlToForumCode(body);
-			AddLoadMessage(fcode);
+			//string fcode = FormatMsg.HtmlToForumCode(body);
+			//AddLoadMessage(fcode);
 #endif
 			if(!Message.IsRichBrowser) 
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));

@@ -135,6 +135,23 @@ namespace yaf.pages
 				MoveTopic2.Text = MoveTopic1.Text;
 				MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 
+				if(!ForumModeratorAccess) 
+				{
+					LockTopic1.Visible = false;
+					UnlockTopic1.Visible = false;
+					DeleteTopic1.Visible = false;
+					LockTopic2.Visible = false;
+					UnlockTopic2.Visible = false;
+					DeleteTopic2.Visible = false;
+				} 
+				else 
+				{
+					LockTopic1.Visible = !(bool)topic["IsLocked"];
+					UnlockTopic1.Visible = !LockTopic1.Visible;
+					LockTopic2.Visible = !(bool)topic["IsLocked"];
+					UnlockTopic2.Visible = !LockTopic2.Visible;
+				}
+
 				BindData();
 			}
 			/// Mark topic read
@@ -291,23 +308,6 @@ namespace yaf.pages
 				Poll.DataSource = dtPoll;
 			}
 			
-			if(!ForumModeratorAccess) 
-			{
-				LockTopic1.Visible = false;
-				UnlockTopic1.Visible = false;
-				DeleteTopic1.Visible = false;
-				LockTopic2.Visible = false;
-				UnlockTopic2.Visible = false;
-				DeleteTopic2.Visible = false;
-			} 
-			else 
-			{
-				LockTopic1.Visible = !(bool)topic["IsLocked"];
-				UnlockTopic1.Visible = !LockTopic1.Visible;
-				LockTopic2.Visible = !(bool)topic["IsLocked"];
-				UnlockTopic2.Visible = !LockTopic2.Visible;
-			}
-
 			DataBind();
 		}
 
@@ -334,6 +334,10 @@ namespace yaf.pages
 			DB.topic_lock(PageTopicID,true);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_LOCKED"));
+			LockTopic1.Visible = !LockTopic1.Visible;
+			UnlockTopic1.Visible = !UnlockTopic1.Visible;
+			LockTopic2.Visible = LockTopic1.Visible;
+			UnlockTopic2.Visible = UnlockTopic1.Visible;
 		}
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
@@ -341,6 +345,10 @@ namespace yaf.pages
 			DB.topic_lock(PageTopicID,false);
 			BindData();
 			AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
+			LockTopic1.Visible = !LockTopic1.Visible;
+			UnlockTopic1.Visible = !UnlockTopic1.Visible;
+			LockTopic2.Visible = LockTopic1.Visible;
+			UnlockTopic2.Visible = UnlockTopic1.Visible;
 		}
 
 		private void MessageList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
@@ -435,6 +443,7 @@ namespace yaf.pages
 
 			DB.watchtopic_add(PageUserID,PageTopicID);
 			AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
+			BindData();
 		}
 		
 		private void MoveTopic_Click(object sender, System.EventArgs e) {
@@ -480,7 +489,7 @@ namespace yaf.pages
 			return (int)row["Stats"] * 80 / 100;
 		}
 
-		private bool IsThreaded
+		public bool IsThreaded
 		{
 			get
 			{

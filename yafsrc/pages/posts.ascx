@@ -84,7 +84,7 @@
 <ItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
 
-	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> visible=<%#IsCurrentMessage(Container.DataItem)%>/>
+	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> visible=<%#IsCurrentMessage(Container.DataItem)%> isthreaded=<%#IsThreaded%>/>
 
 	<tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
 </ItemTemplate>

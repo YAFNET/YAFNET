@@ -71,12 +71,14 @@ namespace yaf
 		admin_smilies_import,
 		im_yim,
 		im_aim,
-		im_icq
+		im_icq,
+		im_email
 	}
 
 	/// <summary>
 	/// Summary description for Forum.
 	/// </summary>
+	[ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
 	public class Forum : System.Web.UI.UserControl
 	{
 		public Forum()
@@ -291,6 +293,9 @@ namespace yaf
 					break;
 				case "im_icq":
 					page = Pages.im_icq;
+					break;
+				case "im_email":
+					page = Pages.im_email;
 					break;
 			}
 

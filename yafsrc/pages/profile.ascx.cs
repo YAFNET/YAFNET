@@ -46,8 +46,7 @@ namespace yaf.pages
 		protected TextBox SuspendCount;
 		protected Button RemoveSuspension, Suspend;
 		protected HtmlTableCell Stats, RealName, Occupation, Interests, Gender;
-		protected LinkButton Msn, Email;
-		protected HyperLink Yim, Aim, Icq, Pm, Home, Weblog;
+		protected HyperLink Yim, Aim, Icq, Pm, Home, Weblog, Msn, Email;
 		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
 		protected Repeater ForumAccess;
@@ -78,6 +77,8 @@ namespace yaf.pages
 		{
 			using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],true)) 
 			{
+				if(dt.Rows.Count<1)
+					Data.AccessDenied(/*No such user exists*/);
 				DataRow user = dt.Rows[0];
 
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -103,8 +104,9 @@ namespace yaf.pages
 				Pm.Visible			= User.IsAuthenticated;
 				Pm.Text				= GetThemeContents("BUTTONS","PM");
 				Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
-				Email.Visible		= false;
+				Email.Visible		= User.IsAuthenticated;
 				Email.Text			= GetThemeContents("BUTTONS","EMAIL");
+				Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
 				if(IsAdmin) Email.ToolTip = user["Email"].ToString();
 				Home.Visible		= user["HomePage"]!=DBNull.Value;
 				Home.NavigateUrl	= user["HomePage"].ToString();
@@ -114,6 +116,7 @@ namespace yaf.pages
 				Weblog.Text			= GetThemeContents("BUTTONS","WEBLOG");
 				Msn.Visible			= User.IsAuthenticated && user["MSN"]!=DBNull.Value;
 				Msn.Text			= GetThemeContents("BUTTONS","MSN");
+				Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
 				Yim.Visible			= User.IsAuthenticated && user["YIM"]!=DBNull.Value;
 				Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",user["UserID"]);
 				Yim.Text			= GetThemeContents("BUTTONS","YAHOO");

@@ -772,6 +772,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "pages\im_email.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\im_email.ascx.cs"
+                    DependentUpon = "im_email.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\im_email.ascx.resx"
+                    DependentUpon = "im_email.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "pages\im_icq.ascx"
                     BuildAction = "Content"
                 />

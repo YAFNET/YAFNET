@@ -15,7 +15,6 @@
 - Unicode support: <http://forum.yetanotherforum.net/default.aspx?g=posts&m=1036#1036>
 - Limit sigs to 5 lines or something...
 - Link correctly back to forum from install.
-- Send e-mail to other members
 - Icon for weblog
 - Anonymous login
 - In the list of topics of a forum, can be showed a different image for topics 
@@ -24,3 +23,4 @@
   an open topic if the user can reply. So if I read a topic and want to reply 
   "on the fly" I can do it immediatly.
 - Fix translation again for richedit.
+- Add user manually

@@ -37,9 +37,9 @@
 	</td>
 	<td class="postfooter">
 		<asp:hyperlink runat='server' id='Pm'/>
-		<asp:linkbutton runat='server' id='Email' disabled='true'/>
+		<asp:hyperlink runat='server' id='Email' disabled='true'/>
 		<asp:hyperlink runat='server' id='Home'/>
-		<asp:linkbutton runat='server' id='Msn' disabled='true'/>
+		<asp:hyperlink runat='server' id='Msn' disabled='true'/>
 		<asp:hyperlink runat='server' id='Yim'/>
 		<asp:hyperlink runat='server' id='Aim'/>
 		<asp:hyperlink runat='server' id='Icq'/>

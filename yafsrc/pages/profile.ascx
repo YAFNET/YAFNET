@@ -11,11 +11,11 @@
 </tr>
 				<tr class="post"><td colspan="2">
 					<asp:hyperlink runat='server' id='Pm'/>
-					<asp:linkbutton runat='server' id='Email' disabled='true'/>
+					<asp:hyperlink runat='server' id='Email'/>
 					<asp:hyperlink runat='server' id='Home'/>
 					<asp:hyperlink runat='server' id='Blog'/>
-					<asp:hyperlink runat="server" id="Weblog" target="_blank" />
-					<asp:linkbutton runat='server' id='Msn' disabled='true'/>
+					<asp:hyperlink runat="server" id='Weblog'/>
+					<asp:hyperlink runat='server' id='Msn'/>
 					<asp:hyperlink runat='server' id='Yim'/>
 					<asp:hyperlink runat='server' id='Aim'/>
 					<asp:hyperlink runat='server' id='Icq'/>

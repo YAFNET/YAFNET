@@ -14,59 +14,64 @@ namespace yaf.controls
 	{
 		protected HyperLink		Attach, Edit, Quote;
 		protected LinkButton	Delete;
-		protected HyperLink		Pm, Home, Yim, Aim, Icq;
-		protected LinkButton	Email, Msn;
+		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsPostBack) 
+			if(!IsPostBack || true) 
 			{
-				Attach.Visible		= CanAttach;
-				Attach.Text			= ForumPage.GetThemeContents("BUTTONS","ATTACHMENTS");
-				Attach.ToolTip		= "Attachments";
-				Attach.NavigateUrl	= Forum.GetLink(Pages.attachments,"m={0}",DataRow["MessageID"]);
-				Edit.Visible		= CanEditPost;
-				Edit.Text			= ForumPage.GetThemeContents("BUTTONS","EDITPOST");
-				Edit.ToolTip		= "Edit this post";
-				Edit.NavigateUrl	= Forum.GetLink(Pages.postmessage,"m={0}",DataRow["MessageID"]);
-				Delete.Visible		= CanDeletePost;
-				Delete.Text			= ForumPage.GetThemeContents("BUTTONS","DELETEPOST");
-				Delete.ToolTip		= "Delete this post";
-				Delete.Attributes["onclick"] = string.Format("return confirm('{0}')",ForumPage.GetText("confirm_deletemessage"));
-				Quote.Visible		= CanReply;
-				Quote.Text			= ForumPage.GetThemeContents("BUTTONS","QUOTEPOST");
-				Quote.ToolTip		= "Reply with quote";
-				Quote.NavigateUrl	= Forum.GetLink(Pages.postmessage,"t={0}&f={1}&q={2}",ForumPage.PageTopicID,ForumPage.PageForumID,DataRow["MessageID"]);
-
-				Pm.Visible			= ForumPage.User.IsAuthenticated && ForumPage.User.IsAuthenticated;
-				Pm.Text				= ForumPage.GetThemeContents("BUTTONS","PM");
-				Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",DataRow["UserID"]);
-				Email.Visible		= false;
-				Email.Text			= ForumPage.GetThemeContents("BUTTONS","EMAIL");
-				Home.Visible		= DataRow["HomePage"]!=DBNull.Value;
-				Home.NavigateUrl	= DataRow["HomePage"].ToString();
-				Home.Text			= ForumPage.GetThemeContents("BUTTONS","WWW");
-				Msn.Visible			= false && ForumPage.User.IsAuthenticated && DataRow["MSN"]!=DBNull.Value;
-				Msn.Text			= ForumPage.GetThemeContents("BUTTONS","MSN");
-				Yim.Visible			= ForumPage.User.IsAuthenticated && DataRow["YIM"]!=DBNull.Value;
-				Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",DataRow["UserID"]);
-				Yim.Text			= ForumPage.GetThemeContents("BUTTONS","YAHOO");
-				Aim.Visible			= ForumPage.User.IsAuthenticated && DataRow["AIM"]!=DBNull.Value;
-				Aim.Text			= ForumPage.GetThemeContents("BUTTONS","AIM");
-				Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",DataRow["UserID"]);
-				Icq.Visible			= ForumPage.User.IsAuthenticated && DataRow["ICQ"]!=DBNull.Value;
-				Icq.Text			= ForumPage.GetThemeContents("BUTTONS","ICQ");
-				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",DataRow["UserID"]);
 			}
+		}
+		private void DisplayPost_PreRender(object sender,EventArgs e)
+		{
+			Attach.Visible		= CanAttach;
+			Attach.Text			= ForumPage.GetThemeContents("BUTTONS","ATTACHMENTS");
+			Attach.ToolTip		= "Attachments";
+			Attach.NavigateUrl	= Forum.GetLink(Pages.attachments,"m={0}",DataRow["MessageID"]);
+			Edit.Visible		= CanEditPost;
+			Edit.Text			= ForumPage.GetThemeContents("BUTTONS","EDITPOST");
+			Edit.ToolTip		= "Edit this post";
+			Edit.NavigateUrl	= Forum.GetLink(Pages.postmessage,"m={0}",DataRow["MessageID"]);
+			Delete.Visible		= CanDeletePost;
+			Delete.Text			= ForumPage.GetThemeContents("BUTTONS","DELETEPOST");
+			Delete.ToolTip		= "Delete this post";
+			Delete.Attributes["onclick"] = string.Format("return confirm('{0}')",ForumPage.GetText("confirm_deletemessage"));
+			Quote.Visible		= CanReply;
+			Quote.Text			= ForumPage.GetThemeContents("BUTTONS","QUOTEPOST");
+			Quote.ToolTip		= "Reply with quote";
+			Quote.NavigateUrl	= Forum.GetLink(Pages.postmessage,"t={0}&f={1}&q={2}",ForumPage.PageTopicID,ForumPage.PageForumID,DataRow["MessageID"]);
+
+			Pm.Visible			= ForumPage.User.IsAuthenticated && ForumPage.User.IsAuthenticated;
+			Pm.Text				= ForumPage.GetThemeContents("BUTTONS","PM");
+			Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",DataRow["UserID"]);
+			Email.Visible		= ForumPage.User.IsAuthenticated;
+			Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
+			Email.Text			= ForumPage.GetThemeContents("BUTTONS","EMAIL");
+			Home.Visible		= DataRow["HomePage"]!=DBNull.Value;
+			Home.NavigateUrl	= DataRow["HomePage"].ToString();
+			Home.Text			= ForumPage.GetThemeContents("BUTTONS","WWW");
+			Msn.Visible			= ForumPage.User.IsAuthenticated && DataRow["MSN"]!=DBNull.Value;
+			Msn.Text			= ForumPage.GetThemeContents("BUTTONS","MSN");
+			Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
+			Yim.Visible			= ForumPage.User.IsAuthenticated && DataRow["YIM"]!=DBNull.Value;
+			Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",DataRow["UserID"]);
+			Yim.Text			= ForumPage.GetThemeContents("BUTTONS","YAHOO");
+			Aim.Visible			= ForumPage.User.IsAuthenticated && DataRow["AIM"]!=DBNull.Value;
+			Aim.Text			= ForumPage.GetThemeContents("BUTTONS","AIM");
+			Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",DataRow["UserID"]);
+			Icq.Visible			= ForumPage.User.IsAuthenticated && DataRow["ICQ"]!=DBNull.Value;
+			Icq.Text			= ForumPage.GetThemeContents("BUTTONS","ICQ");
+			Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",DataRow["UserID"]);
 		}
 
 		override protected void OnInit(EventArgs e)
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
+			this.PreRender += new EventHandler(DisplayPost_PreRender);
 			base.OnInit(e);
 		}
 
-		private DataRowView	m_row;
+		private DataRowView	m_row = null;
 		public DataRowView DataRow
 		{
 			get
