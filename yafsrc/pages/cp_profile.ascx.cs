@@ -84,9 +84,22 @@ namespace yaf.pages
 			Name.Text = (string)row["Name"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
-			AvatarImage.Visible = row["AvatarImage"].ToString().Length>0;
-			if(AvatarImage.Visible)
+			if(BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			{
 				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",Data.ForumRoot,PageUserID);
+			} 
+			else if(BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
+			{
+				AvatarImage.Src = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
+					Server.UrlEncode(row["Avatar"].ToString()),
+					BoardSettings.AvatarWidth,
+					BoardSettings.AvatarHeight,
+					Data.ForumRoot);
+			} 
+			else 
+			{
+				AvatarImage.Visible = false;
+			}
 		}
 
 		#region Web Form Designer generated code
