@@ -368,22 +368,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "jscode.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "jscode.aspx.cs"
-                    DependentUpon = "jscode.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "jscode.aspx.resx"
-                    DependentUpon = "jscode.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "login.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

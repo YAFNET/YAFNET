@@ -2,8 +2,6 @@
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="controls/smileys.ascx" %>
 <%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
 
-<script src=jscode.aspx></script>
-
 <form runat="server" enctype="multipart/form-data">
 
 <p class="navlinks">
