@@ -4736,6 +4736,8 @@ begin
 	declare @UserBoardID	int
 	declare @IsGuest		tinyint
 	
+	set implicit_transactions off
+
 	if @User is null or @User='' 
 	begin
 		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and c.IsGuest=1
@@ -4762,6 +4764,12 @@ begin
 	if @TopicID is not null and not exists(select 1 from yaf_Topic where TopicID=@TopicID) begin
 		set @TopicID = null
 	end
+	
+	-- update last visit
+	update yaf_User set 
+		LastVisit = getdate(),
+		IP = @IP
+	where UserID = @UserID
 
 	-- find missing ForumID/TopicID
 	if @MessageID is not null begin
@@ -4829,11 +4837,6 @@ begin
 		if @IsGuest=0
 			delete from yaf_Active where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID
 	end
-	-- update last visit
-	update yaf_User set 
-		LastVisit = getdate(),
-		IP = @IP
-	where UserID = @UserID
 	-- return information
 	select
 		a.UserID,

@@ -120,41 +120,55 @@ namespace yaf
 		/// <returns>DataTable with the results</returns>
 		static private DataTable GetData(SqlCommand cmd) 
 		{
-			QueryCounter qc = new QueryCounter(cmd.CommandText);
-			try 
+			int nTries = 0;
+			while(true) 
 			{
-				if(cmd.Connection!=null) 
+				QueryCounter qc = new QueryCounter(cmd.CommandText);
+				try 
 				{
-					using(DataSet ds = new DataSet()) 
-					{
-						using(SqlDataAdapter da = new SqlDataAdapter()) 
-						{
-							da.SelectCommand = cmd;
-							da.Fill(ds);
-							return ds.Tables[0];
-						}
-					}
-				} 
-				else 
-				{
-					using(SqlConnection conn=GetConnection()) 
+					if(cmd.Connection!=null) 
 					{
 						using(DataSet ds = new DataSet()) 
 						{
 							using(SqlDataAdapter da = new SqlDataAdapter()) 
 							{
 								da.SelectCommand = cmd;
-								da.SelectCommand.Connection = conn;
 								da.Fill(ds);
 								return ds.Tables[0];
 							}
 						}
+					} 
+					else 
+					{
+						using(SqlConnection conn=GetConnection()) 
+						{
+							using(DataSet ds = new DataSet()) 
+							{
+								using(SqlDataAdapter da = new SqlDataAdapter()) 
+								{
+									da.SelectCommand = cmd;
+									da.SelectCommand.Connection = conn;
+									da.Fill(ds);
+									return ds.Tables[0];
+								}
+							}
+						}
 					}
 				}
-			}
-			finally 
-			{
-				qc.Dispose();
+				catch(SqlException x) 
+				{
+					if(x.Number==1205 && nTries<3)
+					{
+						/// Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+					}
+					else
+						throw new ApplicationException(string.Format("Sql Exception with error number {0} (Tries={1})",x.Number,nTries),x);
+				}
+				finally 
+				{
+					qc.Dispose();
+				}
+				++nTries;
 			}
 		}
 		/// <summary>
@@ -248,47 +262,26 @@ namespace yaf
 		static public DataRow pageload(object SessionID,object boardID,object User,object IP,object Location,object Browser,
 			object Platform,object CategoryID,object ForumID,object TopicID,object MessageID) 
 		{
-			int nTries = 0;
-			while(true) 
+			using(SqlCommand cmd = new SqlCommand("yaf_pageload")) 
 			{
-				++nTries;
-
-				try
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@SessionID",SessionID);
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@User",User);
+				cmd.Parameters.Add("@IP",IP);
+				cmd.Parameters.Add("@Location",Location);
+				cmd.Parameters.Add("@Browser",Browser);
+				cmd.Parameters.Add("@Platform",Platform);
+				cmd.Parameters.Add("@CategoryID",CategoryID);
+				cmd.Parameters.Add("@ForumID",ForumID);
+				cmd.Parameters.Add("@TopicID",TopicID);
+				cmd.Parameters.Add("@MessageID",MessageID);
+				using(DataTable dt = GetData(cmd)) 
 				{
-
-					using(SqlCommand cmd = new SqlCommand("yaf_pageload")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@SessionID",SessionID);
-						cmd.Parameters.Add("@BoardID",boardID);
-						cmd.Parameters.Add("@User",User);
-						cmd.Parameters.Add("@IP",IP);
-						cmd.Parameters.Add("@Location",Location);
-						cmd.Parameters.Add("@Browser",Browser);
-						cmd.Parameters.Add("@Platform",Platform);
-						cmd.Parameters.Add("@CategoryID",CategoryID);
-						cmd.Parameters.Add("@ForumID",ForumID);
-						cmd.Parameters.Add("@TopicID",TopicID);
-						cmd.Parameters.Add("@MessageID",MessageID);
-						using(DataTable dt = GetData(cmd)) 
-						{
-							if(dt.Rows.Count>0) 
-								return dt.Rows[0];
-							else
-								return null;
-						}
-					}
-				}
-				catch(SqlException x) 
-				{
-#if false
-					if(x.Number==1205 && nTries<3)
-					{
-						/// Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
-					}
+					if(dt.Rows.Count>0) 
+						return dt.Rows[0];
 					else
-#endif
-						throw new ApplicationException(string.Format("Sql Exception with error number {0} (Retries={1})",x.Number,nTries),x);
+						return null;
 				}
 			}
 		}
