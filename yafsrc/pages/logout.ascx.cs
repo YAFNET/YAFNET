@@ -38,6 +38,7 @@ namespace yaf.pages
 	{
 		public logout() : base("LOGOUT")
 		{
+			CheckSuspended = false;
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
