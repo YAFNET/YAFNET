@@ -100,8 +100,8 @@ namespace yaf.pages
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
-				TopicTitle.Text = (string)topic["Topic"];
+				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
+				TopicTitle.Text = Utils.BadWordReplace((string)topic["Topic"]);
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 

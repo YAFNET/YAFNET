@@ -27,7 +27,7 @@
 	</tr>
 </ItemTemplate>
 <FooterTemplate>
-</table>
+</table><br/>
 </FooterTemplate>
 </asp:repeater>
 <table class='command' cellspacing='0' cellpadding='0' width='100%'>
