@@ -58,6 +58,9 @@
 			</tr>
 		</ItemTemplate>
 		<FooterTemplate>
+				<tr>
+					<td class="footer1" colspan="5"><asp:button commandname="deleteall" title="Deletes all unverified users more than 2 days old" runat="server" text="Delete All"/></td>
+				</tr>
 			</table>
 		</FooterTemplate>
 	</asp:repeater>

@@ -101,6 +101,10 @@ namespace yaf.pages.admin
 					DB.user_approve(e.CommandArgument);
 					BindData();
 					break;
+				case "deleteall":
+					DB.user_deleteold(PageBoardID);
+					BindData();
+					break;
 			}
 		}
 

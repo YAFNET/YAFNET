@@ -1907,6 +1907,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void user_deleteold(object boardID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_deleteold")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		static public void user_approve(object UserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_approve")) 

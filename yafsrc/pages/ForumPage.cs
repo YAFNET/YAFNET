@@ -108,7 +108,9 @@ namespace yaf.pages
 			}
 			catch(Exception ex)
 			{
+#if DEBUG
 				throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
+#endif
 			}
 
 			//Response.Expires = -1000;

@@ -491,3 +491,13 @@ begin
 end
 GO
 
+-- yaf_user_deleteold
+if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteold') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_deleteold
+GO
+
+create procedure yaf_user_deleteold(@BoardID int) as
+begin
+	delete from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,getdate())>2
+end
+GO
