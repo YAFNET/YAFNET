@@ -56,6 +56,7 @@ GO
 if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_AccessMask](
 	[AccessMaskID]		[int] IDENTITY NOT NULL ,
+	[BoardID]			[int] NOT NULL ,
 	[Name]				[varchar](50) NOT NULL ,
 	[ReadAccess] 		[bit] NOT NULL ,
 	[PostAccess] 		[bit] NOT NULL ,
@@ -298,31 +299,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_accessmask_list
-GO
-
-create procedure yaf_accessmask_list(@AccessMaskID int=null) as
-begin
-	if @AccessMaskID is null
-		select 
-			a.* 
-		from 
-			yaf_AccessMask a 
-		order by 
-			a.Name
-	else
-		select 
-			a.* 
-		from 
-			yaf_AccessMask a 
-		where
-			a.AccessMaskID = @AccessMaskID
-		order by 
-			a.Name
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_delete
 GO
@@ -341,45 +317,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_accessmask_save
-GO
-
-create procedure yaf_accessmask_save(
-	@AccessMaskID		int=null,
-	@Name				varchar(50),
-	@ReadAccess			bit,
-	@PostAccess			bit,
-	@ReplyAccess		bit,
-	@PriorityAccess		bit,
-	@PollAccess			bit,
-	@VoteAccess			bit,
-	@ModeratorAccess	bit,
-	@EditAccess			bit,
-	@DeleteAccess		bit,
-	@UploadAccess		bit
-) as
-begin
-	if @AccessMaskID is null
-		insert into yaf_AccessMask([Name],ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-		values(@Name,@ReadAccess,@PostAccess,@ReplyAccess,@PriorityAccess,@PollAccess,@VoteAccess,@ModeratorAccess,@EditAccess,@DeleteAccess,@UploadAccess)
-	else
-		update yaf_AccessMask set
-			[Name]			= @Name,
-			ReadAccess		= @ReadAccess,
-			PostAccess		= @PostAccess,
-			ReplyAccess		= @ReplyAccess,
-			PriorityAccess	= @PriorityAccess,
-			PollAccess		= @PollAccess,
-			VoteAccess		= @VoteAccess,
-			ModeratorAccess	= @ModeratorAccess,
-			EditAccess		= @EditAccess,
-			DeleteAccess	= @DeleteAccess,
-			UploadAccess	= @UploadAccess
-		where AccessMaskID=@AccessMaskID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_save
 GO
@@ -395,43 +332,6 @@ begin
 	where 
 		ForumID = @ForumID and 
 		GroupID = @GroupID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_group_save
-GO
-
-create procedure yaf_group_save(
-	@GroupID		int,
-	@Name			varchar(50),
-	@IsAdmin		bit,
-	@IsGuest		bit,
-	@IsStart		bit,
-	@IsModerator	bit,
-	@AccessMaskID	int=null
-) as
-begin
-	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0
-	if @IsGuest = 1 update yaf_Group set IsGuest = 0
-	if @IsStart = 1 update yaf_Group set IsStart = 0
-	if @GroupID>0 begin
-		update yaf_Group set
-			Name = @Name,
-			IsAdmin = @IsAdmin,
-			IsGuest = @IsGuest,
-			IsStart = @IsStart,
-			IsModerator = @IsModerator
-		where GroupID = @GroupID
-	end
-	else begin
-		insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
-		values(@Name,@IsAdmin,@IsGuest,@IsStart,@IsModerator);
-		set @GroupID = @@IDENTITY
-		insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID)
-		select @GroupID,ForumID,@AccessMaskID from yaf_Forum
-	end
-	select GroupID = @GroupID
 end
 GO
 
@@ -519,66 +419,6 @@ begin
 		update yaf_UserForum set AccessMaskID=@AccessMaskID where UserID=@UserID and ForumID=@ForumID
 	else
 		insert into yaf_UserForum(UserID,ForumID,AccessMaskID,Invited,Accepted) values(@UserID,@ForumID,@AccessMaskID,getdate(),1)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forumlayout') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forumlayout
-GO
-
-create procedure yaf_forumlayout(@UserID int,@CategoryID int=null,@OnlyForum tinyint=0) as
-begin
-	-- categories	
-	if @OnlyForum=0
-	select 
-		a.CategoryID,
-		a.Name
-	from 
-		yaf_Category a
-		join yaf_Forum b on b.CategoryID=a.CategoryID
-		join yaf_vaccess v on v.ForumID=b.ForumID
-	where
-		v.UserID = @UserID and
-		(v.ReadAccess <> 0 or b.Hidden = 0) and
-		(@CategoryID is null or a.CategoryID = @CategoryID)
-	group by
-		a.CategoryID,
-		a.Name,
-		a.SortOrder
-	order by 
-		a.SortOrder
-
-	-- forums
-	select 
-		a.CategoryID, 
-		Category		= a.Name, 
-		ForumID			= b.ForumID,
-		Forum			= b.Name, 
-		Description,
-		Topics			= b.NumTopics,
-		Posts			= b.NumPosts,
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
-		b.Locked,
-		b.Moderated,
-		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID)
-	from 
-		yaf_Category a, 
-		yaf_Forum b,
-		yaf_vaccess x
-	where 
-		a.CategoryID = b.CategoryID and
-		(b.Hidden=0 or x.ReadAccess<>0) and
-		(@CategoryID is null or a.CategoryID = @CategoryID) and
-		x.UserID = @UserID and
-		x.ForumID = b.ForumID
-	order by
-		a.SortOrder,
-		b.SortOrder
 end
 GO
 
@@ -687,88 +527,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_list
-GO
-
-create procedure yaf_user_list(@UserID int=null,@Approved bit=null) as
-begin
-	if @UserID is null
-		select 
-			a.*,
-			a.NumPosts,
-			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
-			RankName = b.Name
-		from 
-			yaf_User a,
-			yaf_Rank b
-		where 
-			(@Approved is null or a.Approved = @Approved) and
-			b.RankID = a.RankID
-		order by 
-			a.Name
-	else
-		select 
-			a.*,
-			a.NumPosts,
-			RankName = b.Name,
-			NumDays = datediff(d,a.Joined,getdate())+1,
-			NumPostsForum = (select count(1) from yaf_Message x where x.Approved<>0),
-			HasAvatarImage = (select count(1) from yaf_User x where x.UserID=a.UserID and AvatarImage is not null),
-			c.AvatarUpload,
-			c.AvatarRemote,
-			c.AvatarWidth,
-			c.AvatarHeight,
-			d.IsAdmin,
-			d.IsGuest,
-			d.IsForumModerator,
-			d.IsModerator
-		from 
-			yaf_User a,
-			yaf_Rank b,
-			yaf_System c,
-			yaf_vaccess d
-		where 
-			a.UserID = @UserID and
-			(@Approved is null or a.Approved = @Approved) and
-			b.RankID = a.RankID and
-			d.UserID = a.UserID and
-			d.ForumID = 0
-		order by 
-			a.Name
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_active_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_active_stats
-GO
-
-create procedure yaf_active_stats
-as
-select
-	ActiveUsers = (select count(1) from yaf_Active),
-	ActiveMembers = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest=0)),
-	ActiveGuests = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest<>0))
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_stats
-GO
-
-create procedure yaf_forum_stats
-as
-select
-	Posts = (select count(1) from yaf_Message),
-	Topics = (select count(1) from yaf_Topic),
-	Forums = (select count(1) from yaf_Forum),
-	Members = (select count(1) from yaf_User),
-	LastPost = (select max(Posted) from yaf_Message),
-	LastUserID = (select top 1 UserID from yaf_Message order by Posted desc),
-	LastUser = (select top 1 b.Name from yaf_Message a, yaf_User b where b.UserID=a.UserID order by Posted desc),
-	LastMemberID = (select top 1 UserID from yaf_User where Approved=1 order by Joined desc),
-	LastMember = (select top 1 Name from yaf_User where Approved=1 order by Joined desc)
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_approve
 GO
@@ -790,150 +548,6 @@ begin
 	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
 	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
 	select convert(bit,1)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_adminsave') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_adminsave
-GO
-
-create procedure yaf_user_adminsave(@UserID int,@Name varchar(50),@Email varchar(50),@RankID int) as
-begin
-	update yaf_User set
-		Name = @Name,
-		Email = @Email,
-		RankID = @RankID
-	where UserID = @UserID
-	select UserID = @UserID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_save
-GO
-
-create procedure yaf_system_save(
-	@Name				varchar(50),
-	@TimeZone			int,
-	@SmtpServer			varchar(50),
-	@SmtpUserName		varchar(50)=null,
-	@SmtpUserPass		varchar(50)=null,
-	@ForumEmail			varchar(50),
-	@EmailVerification	bit,
-	@ShowMoved			bit,
-	@BlankLinks			bit,
-	@ShowGroups			bit,
-	@AvatarWidth		int,
-	@AvatarHeight		int,
-	@AvatarUpload		bit,
-	@AvatarRemote		bit,
-	@AvatarSize			int=null,
-	@AllowRichEdit		bit,
-	@AllowUserTheme		bit,
-	@AllowUserLanguage	bit,
-	@UseFileTable		bit,
-	@MaxFileSize		int=null
-) as
-begin
-	update yaf_System set
-		Name = @Name,
-		TimeZone = @TimeZone,
-		SmtpServer = @SmtpServer,
-		SmtpUserName = @SmtpUserName,
-		SmtpUserPass = @SmtpUserPass,
-		ForumEmail = @ForumEmail,
-		EmailVerification = @EmailVerification,
-		ShowMoved = @ShowMoved,
-		BlankLinks = @BlankLinks,
-		ShowGroups = @ShowGroups,
-		AvatarWidth = @AvatarWidth,
-		AvatarHeight = @AvatarHeight,
-		AvatarUpload = @AvatarUpload,
-		AvatarRemote = @AvatarRemote,
-		AvatarSize = @AvatarSize,
-		AllowRichEdit = @AllowRichEdit,
-		AllowUserTheme = @AllowUserTheme,
-		AllowUserLanguage = @AllowUserLanguage,
-		UseFileTable = @UseFileTable,
-		MaxFileSize = @MaxFileSize
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_initialize
-GO
-
-create procedure yaf_system_initialize(
-	@Name		varchar(50),
-	@TimeZone	int,
-	@ForumEmail	varchar(50),
-	@SmtpServer	varchar(50),
-	@User		varchar(50),
-	@UserEmail	varchar(50),
-	@Password	varchar(32)
-) as 
-begin
-	declare @GroupID int
-	declare @RankID int
-	declare @UserID int
-
-	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit,AllowUserTheme,AllowUserLanguage,UseFileTable)
-	values(1,1,'0.9.5',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
-
-	insert into yaf_Rank(Name,IsStart,IsLadder)
-	values('Administration',0,0)
-	set @RankID = @@IDENTITY
-
-	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values('Admin Access Mask',1,1,1,1,1,1,1,1,1,1)
-
-	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values('Moderator Access Mask',1,1,1,0,0,1,1,1,1,0)
-
-	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values('Member Access Mask',1,1,1,0,0,1,0,1,1,0)
-
-	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values('Read Only Access Mask',1,0,0,0,0,0,0,0,0,0)
-	
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
-	values('Administration',1,0,0,0)
-	set @GroupID = @@IDENTITY
-
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
-	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0)
-	set @UserID = @@IDENTITY
-
-	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
-
-	insert into yaf_Rank(Name,IsStart,IsLadder)
-	values('Guest',0,0)
-	set @RankID = @@IDENTITY
-
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
-	values('Guest',0,1,0,0)
-	set @GroupID = @@IDENTITY
-
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender)
-	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0)
-	set @UserID = @@IDENTITY
-
-	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
-
-	-- users starts as Newbie
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Newbie',1,1,0)
-
-	-- advances to Member
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Member',0,1,10)
-
-	-- and ends up as Advanced Member
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Advanced Member',0,1,30)
-
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
-	values('Member',0,0,1,0)
 end
 GO
 

@@ -367,6 +367,8 @@ namespace yaf.pages
 	public class FormsUser : IForumUser
 	{
 		private	string	m_userName;
+		private	int		m_userID;
+		private	int		m_boardID;
 		private	bool	m_isAuthenticated;
 
 		public FormsUser(string userName,bool isAuthenticated)
@@ -375,15 +377,23 @@ namespace yaf.pages
 			{
 				if(isAuthenticated)
 				{
-					m_userName = userName;
-					m_isAuthenticated = true;
-					return;
+					string[] parts = userName.Split(';');
+					if(parts.Length==3)
+					{
+						m_userID	= int.Parse(parts[0]);
+						m_boardID	= int.Parse(parts[1]);
+						m_userName	= parts[2];
+						m_isAuthenticated = true;
+						return;
+					}
 				}
 			}
 			catch(Exception)
 			{
 			}
-			m_userName = "";
+			m_userName	= "";
+			m_userID	= 0;
+			m_boardID	= 0;
 			m_isAuthenticated = false;
 		}
 
@@ -560,11 +570,12 @@ namespace yaf.pages
 
 			if(m_bNoDataBase) return;
 
-			DataTable banip = (DataTable)Cache["bannedip"];
+			string key = string.Format("BannedIP.{0}",PageBoardID);
+			DataTable banip = (DataTable)Cache[key];
 			if(banip == null) 
 			{
-				banip = DB.bannedip_list(null);
-				Cache["bannedip"] = banip;
+				banip = DB.bannedip_list(PageBoardID,null);
+				Cache[key] = banip;
 			}
 			foreach(DataRow row in banip.Rows)
 				if(Utils.IsBanned((string)row["Mask"],Request.ServerVariables["REMOTE_ADDR"]))
@@ -599,6 +610,7 @@ namespace yaf.pages
 
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
+				PageBoardID,
 				User.Name,
 				Request.UserHostAddress,
 				Request.FilePath,
@@ -613,11 +625,12 @@ namespace yaf.pages
 			// authorization, try to register the user.
 			if(m_pageinfo==null && authType!=AuthType.Forms && User.IsAuthenticated) 
 			{
-				if(!DB.user_register(this,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
+				if(!DB.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
 					throw new ApplicationException("User registration failed.");
 
 				m_pageinfo = DB.pageload(
 					Session.SessionID,
+					PageBoardID,
 					User.Name,
 					Request.UserHostAddress,
 					Request.FilePath,
@@ -708,7 +721,7 @@ namespace yaf.pages
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
-							Utils.SendMail(Config.ForumSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							Utils.SendMail(Config.BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
@@ -767,7 +780,7 @@ namespace yaf.pages
 		{
 			if(themefile==null) 
 			{
-				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.ForumSettings.AllowUserTheme)
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.BoardSettings.AllowUserTheme)
 					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
@@ -841,7 +854,7 @@ namespace yaf.pages
 			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
 			ctl = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.FindControl("ForumTitle");
 			if(ctl!=null)
-				ctl.InnerText = Config.ForumSettings.Name;
+				ctl.InnerText = Config.BoardSettings.Name;
 
 			/// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
@@ -957,7 +970,7 @@ namespace yaf.pages
 				writer.WriteLine("<head>");
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",ForumRoot));
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-				writer.WriteLine(String.Format("<title>{0}</title>",Config.ForumSettings.Name));
+				writer.WriteLine(String.Format("<title>{0}</title>",Config.BoardSettings.Name));
 				if(m_strRefreshURL!=null) 
 					writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
 				writer.WriteLine("</head>");
@@ -1026,6 +1039,13 @@ namespace yaf.pages
 					return String.Format("http://{0}:{1}",Request.ServerVariables["SERVER_NAME"],port);
 				else
 					return String.Format("http://{0}",Request.ServerVariables["SERVER_NAME"]);
+			}
+		}
+		static public int PageBoardID
+		{
+			get
+			{
+				return int.Parse(Config.ConfigSection["boardid"]);
 			}
 		}
 		/// <summary>
@@ -1129,6 +1149,16 @@ namespace yaf.pages
 					return "";
 			}
 		}
+		protected bool IsHostAdmin
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return (bool)m_pageinfo["IsHostAdmin"];
+				else
+					return false;
+			}
+		}
 		/// <summary>
 		/// True if current user is an administrator
 		/// </summary>
@@ -1136,6 +1166,9 @@ namespace yaf.pages
 		{
 			get 
 			{
+				if(IsHostAdmin)
+					return true;
+
 				if(m_pageinfo!=null)
 					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
 				else
@@ -1435,7 +1468,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				return TimeZoneOffsetUser - Config.ForumSettings.TimeZone;
+				return TimeZoneOffsetUser - Config.BoardSettings.TimeZone;
 			}
 		}
 		/// <summary>
@@ -1548,7 +1581,7 @@ namespace yaf.pages
 			
 			string filename = null;
 
-			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.ForumSettings.AllowUserLanguage)
+			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.BoardSettings.AllowUserLanguage)
 				filename = Config.ConfigSection["language"];
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
@@ -1602,7 +1635,7 @@ namespace yaf.pages
 #if !DEBUG
 				string filename = null;
 
-				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.ForumSettings.AllowUserLanguage)
+				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.BoardSettings.AllowUserLanguage)
 					filename = Config.ConfigSection["language"];
 				else
 					filename = (string)m_pageinfo["LanguageFile"];
@@ -1652,7 +1685,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				return new DateTime(2003,11,25);
+				return new DateTime(2003,12,2);
 			}
 		}
 		#endregion

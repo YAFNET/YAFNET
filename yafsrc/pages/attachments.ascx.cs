@@ -28,7 +28,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			using(DataTable dt = DB.forum_list(PageForumID))
+			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 			topic = DB.topic_info(PageTopicID);
 
@@ -52,7 +52,7 @@ namespace yaf.pages
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);
 		
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));

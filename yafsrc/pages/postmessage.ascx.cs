@@ -101,7 +101,7 @@ namespace yaf.pages
 			if(Request["t"]!=null && !ForumReplyAccess)
 				Data.AccessDenied();
 
-			Message.EnableRTE = Config.ForumSettings.AllowRichEdit;
+			Message.EnableRTE = Config.BoardSettings.AllowRichEdit;
 
 			if(!IsPostBack) 
 			{
@@ -118,7 +118,7 @@ namespace yaf.pages
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 
@@ -345,7 +345,7 @@ namespace yaf.pages
 			else
 				body = FormatMsg.FetchURL(this,body);
 
-			using(DataTable dt = DB.user_list(PageUserID,true)) 
+			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
 					body += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,dt.Rows[0]["Signature"].ToString());

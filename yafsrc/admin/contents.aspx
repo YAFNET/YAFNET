@@ -4,10 +4,15 @@
 
 <table class="content" width="100%" cellspacing=0 cellpadding=0><tr><td class="post">
 <table class="_content" width="100%" cellspacing=0 cellpadding=0>
+	<% if(IsHostAdmin) { %>
+	<tr><td class="header2"><b>Host Admin</b></td></tr>
+	<tr><td class=post><a target="main" href="hostsettings.aspx">Host Settings</a></td></tr>
+	<% } %>
+	
 	<tr><td class="header2"><b>Admin</b></td></tr>
 	<tr><td class="post"><asp:hyperlink runat=server id=HomeLink Target="_top"/></td></tr>
 	<tr><td class=post><a target="main" href="main.aspx">Admin Index</a></td></tr>
-	<tr><td class=post><a target="main" href="settings.aspx">Settings</a></td></tr>
+	<tr><td class=post><a target="main" href="boardsettings.aspx">Board Settings</a></td></tr>
 	<tr><td class=post><a target="main" href="forums.aspx">Forums</a></td></tr>
 	<tr><td class=post><a target="main" href="bannedip.aspx">Banned IP</a></td></tr>
 	<tr><td class=post><a target="main" href="smilies.aspx">Smilies</a></td></tr>

@@ -11,7 +11,7 @@
 		</tr>
 		<tr class="post">
 			<td>
-				<p>You are running Yet Another Forum.net version <%=AppVersionName%>.</p>
+				<p>You are running Yet Another Forum.net version <%=yaf.pages.ForumPage.AppVersionName%>.</p>
 				
 				<p>The latest available version is <%=LastVersion%> released <%=LastVersionDate%>.</p>
 				

@@ -68,7 +68,7 @@ namespace yaf.pages
 						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
 				}
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				if(PageCategoryID!=0) 
 				{
 					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
@@ -87,19 +87,20 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			DataSet ds = DB.ds_forumlayout(PageUserID,PageCategoryID);
+			DataSet ds = DB.board_layout(PageBoardID,PageUserID,PageCategoryID);
 			CategoryList.DataSource = ds.Tables["yaf_Category"];
 
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = DB.active_list(null);
+			ActiveList.DataSource = DB.active_list(PageBoardID,null);
 
 			// Forum statistics
-			DataRow stats = (DataRow)Cache["ForumStats"];
+			string key = string.Format("BoardStats.{0}",PageBoardID);
+			DataRow stats = (DataRow)Cache[key];
 			if(stats==null) 
 			{
-				stats = DB.stats();
-				Cache.Insert("ForumStats",stats,null,DateTime.Now.AddMinutes(15),TimeSpan.Zero);
+				stats = DB.board_poststats(PageBoardID);
+				Cache.Insert(key,stats,null,DateTime.Now.AddMinutes(15),TimeSpan.Zero);
 			}
 				
 			Stats.Text = String.Format(GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
@@ -122,7 +123,7 @@ namespace yaf.pages
 				);
 			Stats.Text += "<br/>";
 
-			DataRow activeStats = DB.active_stats();
+			DataRow activeStats = DB.active_stats(PageBoardID);
 			activeinfo.Text = String.Format("<a href=\"{3}\">{0}</a> - {1}, {2}.",
 				String.Format(GetText((int)activeStats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),activeStats["ActiveUsers"]),
 				String.Format(GetText((int)activeStats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),activeStats["ActiveMembers"]),

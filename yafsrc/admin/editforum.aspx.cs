@@ -51,7 +51,7 @@ namespace yaf.admin
 			if(!IsPostBack) {
 				BindData();
 				if(Request.QueryString["f"] != null) {
-					using(DataTable dt = DB.forum_list(Request.QueryString["f"])) 
+					using(DataTable dt = DB.forum_list(PageBoardID,Request.QueryString["f"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -71,7 +71,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			CategoryList.DataSource = DB.category_list(null);
+			CategoryList.DataSource = DB.category_list(PageBoardID,null);
 			if(Request.QueryString["f"] != null)
 				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
 
@@ -164,15 +164,21 @@ namespace yaf.admin
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DB.accessmask_list(null);
+			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}
 
 		protected void SetDropDownIndex(object sender, System.EventArgs e) 
 		{
-			DropDownList list = (DropDownList)sender;
-			list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+			try
+			{
+				DropDownList list = (DropDownList)sender;
+				list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+			}
+			catch(Exception)
+			{
+			}
 		}
 	}
 }

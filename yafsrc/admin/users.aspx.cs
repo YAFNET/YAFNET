@@ -72,7 +72,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			UserList.DataSource = DB.user_list(null,null);
+			UserList.DataSource = DB.user_list(PageBoardID,null,null);
 			DataBind();
 		}
 

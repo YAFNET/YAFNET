@@ -52,7 +52,7 @@ namespace yaf.pages
 			if(!IsPostBack) {
 				BindData();
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

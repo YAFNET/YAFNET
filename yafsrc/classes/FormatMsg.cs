@@ -86,7 +86,7 @@ namespace yaf
 								case "url":
 									if(arg!=null) 
 									{
-										if(Config.ForumSettings.BlankLinks)
+										if(Config.BoardSettings.BlankLinks)
 											tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
 										else
 											tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
@@ -193,7 +193,7 @@ namespace yaf
 			DataTable dt = (DataTable)System.Web.HttpContext.Current.Cache["Smilies"];
 			if(dt==null) 
 			{
-				dt = DB.smiley_list(null);
+				dt = DB.smiley_list(pages.ForumPage.PageBoardID,null);
 				System.Web.HttpContext.Current.Cache["Smilies"] = dt;
 			}
 			return dt;

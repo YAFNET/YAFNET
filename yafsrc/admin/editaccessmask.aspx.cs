@@ -41,7 +41,7 @@ namespace yaf.admin
 			if(!IsPostBack) {
 				BindData();
 				if(Request.QueryString["i"] != null) {
-					using(DataTable dt = DB.accessmask_list(Request.QueryString["i"])) 
+					using(DataTable dt = DB.accessmask_list(PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text				= (string)row["Name"];
@@ -95,6 +95,7 @@ namespace yaf.admin
 				accessMaskID = Request.QueryString["i"];
 
 			DB.accessmask_save(accessMaskID,
+				PageBoardID,
 				Name.Text,
 				ReadAccess.Checked,
 				PostAccess.Checked,

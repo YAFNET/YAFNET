@@ -68,7 +68,7 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			topic = DB.topic_info(PageTopicID);
-			using(DataTable dt = DB.forum_list(PageForumID))
+			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
 			if(!ForumReadAccess)
@@ -76,7 +76,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
@@ -477,17 +477,17 @@ namespace yaf.pages
 			string html = "";
 
 			// Avatar
-			if((bool)row["AvatarUpload"] && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			if(Config.BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
 				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],ForumRoot);
 			} 
-			else if((bool)row["AvatarRemote"] && row["Avatar"].ToString().Length>0) 
+			else if(Config.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
 			{
 				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 				html += String.Format("<img src='{3}image.aspx?url={0}&width={1}&height={2}'><br clear=\"all\"/>",
 					Server.UrlEncode(row["Avatar"].ToString()),
-					row["AvatarWidth"],
-					row["AvatarHeight"],
+					Config.BoardSettings.AvatarWidth,
+					Config.BoardSettings.AvatarHeight,
 					ForumRoot
 				);
 			}
@@ -500,9 +500,9 @@ namespace yaf.pages
 			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("rank"),row["RankName"]);
 
 			// Groups
-			if(Config.ForumSettings.ShowGroups) 
+			if(Config.BoardSettings.ShowGroups) 
 			{
-				using(DataTable dt = DB.usergroup_list(row["UserID"])) 
+				using(DataTable dt = DB.usergroup_list(PageBoardID,row["UserID"])) 
 				{
 					html += String.Format("{0}: ",GetText("groups"));
 					bool bFirst = true;

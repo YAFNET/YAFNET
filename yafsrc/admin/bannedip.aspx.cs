@@ -44,7 +44,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			list.DataSource = DB.bannedip_list(null);
+			list.DataSource = DB.bannedip_list(PageBoardID,null);
 			DataBind();
 		}
 

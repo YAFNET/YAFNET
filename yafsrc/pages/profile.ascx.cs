@@ -77,11 +77,11 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			using(DataTable dt = DB.user_list(Request.QueryString["u"],true)) 
+			using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],true)) 
 			{
 				DataRow user = dt.Rows[0];
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
 				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
 				UserName.Text = (string)user["Name"];
@@ -115,16 +115,16 @@ namespace yaf.pages
 				Occupation.InnerText = user["Occupation"].ToString();
 				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
 
-				if((bool)user["AvatarUpload"] && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
+				if(Config.BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
 				{
 					Avatar.ImageUrl = ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
 				} 
-				else if((bool)user["AvatarRemote"] && user["Avatar"].ToString().Length>0) 
+				else if(Config.BoardSettings.AvatarRemote && user["Avatar"].ToString().Length>0) 
 				{
 					Avatar.ImageUrl = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
 						Server.UrlEncode(user["Avatar"].ToString()),
-						user["AvatarWidth"],
-						user["AvatarHeight"],
+						Config.BoardSettings.AvatarWidth,
+						Config.BoardSettings.AvatarHeight,
 						ForumRoot);
 				} 
 				else 
@@ -132,7 +132,7 @@ namespace yaf.pages
 					Avatar.Visible = false;
 				}
 
-				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
+				Groups.DataSource = DB.usergroup_list(PageBoardID,Request.QueryString["u"]);
 
 				EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
@@ -145,7 +145,7 @@ namespace yaf.pages
 
 				if(IsAdmin || IsForumModerator)
 				{
-					using(DataTable dt2 = DB.user_accessmasks(Request.QueryString["u"]))
+					using(DataTable dt2 = DB.user_accessmasks(PageBoardID,Request.QueryString["u"]))
 					{
 						System.Text.StringBuilder html = new System.Text.StringBuilder();
 						int nLastForumID = 0;
@@ -171,7 +171,7 @@ namespace yaf.pages
 				}
 			}
 
-			LastPosts.DataSource = DB.post_last10user(Request.QueryString["u"],PageUserID);
+			LastPosts.DataSource = DB.post_last10user(PageBoardID,Request.QueryString["u"],PageUserID);
 			
 			DataBind();
 		}
@@ -180,7 +180,7 @@ namespace yaf.pages
 		{
 			/// Admins can suspend anyone not admins
 			/// Forum Moderators can suspend anyone not admin or forum moderator
-			using(DataTable dt=DB.user_list(Request.QueryString["u"],null)) 
+			using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 			{
 				foreach(DataRow row in dt.Rows) 
 				{

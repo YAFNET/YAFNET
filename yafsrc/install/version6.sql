@@ -105,84 +105,6 @@ if exists(select * from syscolumns where id=object_id('yaf_User') and name='Grou
 	alter table yaf_User drop column GroupID
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_active_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_active_list
-GO
-
-create procedure yaf_active_list(@Guests bit=0) as
-begin
-	-- delete non-active
-	delete from yaf_Active where DATEDIFF(minute,LastActive,getdate())>5
-	-- select active
-	if @Guests<>0
-		select
-			a.UserID,
-			a.Name,
-			a.IP,
-			c.SessionID,
-			c.ForumID,
-			c.TopicID,
-			ForumName = (select Name from yaf_Forum x where x.ForumID=c.ForumID),
-			TopicName = (select Topic from yaf_Topic x where x.TopicID=c.TopicID),
-			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0),
-			c.Login,
-			c.LastActive,
-			c.Location,
-			Active = DATEDIFF(minute,c.Login,c.LastActive),
-			c.Browser,
-			c.Platform
-		from
-			yaf_User a,
-			yaf_Active c
-		where
-			c.UserID = a.UserID
-		order by
-			c.LastActive desc
-	else
-		select
-			a.UserID,
-			a.Name,
-			a.IP,
-			c.SessionID,
-			c.ForumID,
-			c.TopicID,
-			ForumName = (select Name from yaf_Forum x where x.ForumID=c.ForumID),
-			TopicName = (select Topic from yaf_Topic x where x.TopicID=c.TopicID),
-			IsGuest = (select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0),
-			c.Login,
-			c.LastActive,
-			c.Location,
-			Active = DATEDIFF(minute,c.Login,c.LastActive),
-			c.Browser,
-			c.Platform
-		from
-			yaf_User a,
-			yaf_Active c
-		where
-			c.UserID = a.UserID and
-			not exists(select 1 from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsGuest<>0)
-		order by
-			c.LastActive desc
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_group_member
-GO
-
-create procedure yaf_group_member(@UserID int) as
-begin
-	select 
-		a.GroupID,
-		a.Name,
-		Member = (select count(1) from yaf_UserGroup x where x.UserID=@UserID and x.GroupID=a.GroupID)
-	from
-		yaf_Group a
-	order by
-		a.Name
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_usergroup_save
 GO
@@ -200,12 +122,13 @@ GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Rank') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Rank] (
-	[RankID] [int] IDENTITY (1, 1) NOT NULL,
-	[Name] [varchar] (50) NOT NULL,
-	[IsStart] [bit] NOT NULL,
-	[IsLadder] [bit] NOT NULL,
-	[MinPosts] [int] NULL,
-	[RankImage] [varchar] (50) NULL
+	[RankID]		[int] IDENTITY (1, 1) NOT NULL,
+	[BoardID]		[int] NOT NULL ,
+	[Name]			[varchar] (50) NOT NULL,
+	[IsStart]		[bit] NOT NULL,
+	[IsLadder]		[bit] NOT NULL,
+	[MinPosts]		[int] NULL,
+	[RankImage]		[varchar] (50) NULL
 ) ON [PRIMARY]
 GO
 
@@ -313,16 +236,6 @@ if not exists(select * from sysobjects where name='FK_User_Rank' and parent_obj=
 	update yaf_User set RankID = (select RankID from yaf_Rank where IsStart<>0)
 GO
 
-if not exists(select * from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-ALTER TABLE [yaf_User] ADD 
-	CONSTRAINT [FK_User_Rank] FOREIGN KEY 
-	(
-		[RankID]
-	) REFERENCES [yaf_Rank] (
-		[RankID]
-	)
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_upgrade') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_upgrade
 GO
@@ -375,35 +288,6 @@ if exists(select * from syscolumns where id=object_id('yaf_Group') and name='Ran
 	alter table yaf_Group drop column RankImage
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_emails') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_emails
-GO
-
-create procedure yaf_user_emails(@GroupID int=null) as
-begin
-	if @GroupID = 0 set @GroupID = null
-	if @GroupID is null
-		select 
-			a.Email 
-		from 
-			yaf_User a
-		where 
-			a.Email is not null and 
-			a.Email<>''
-	else
-		select 
-			a.Email 
-		from 
-			yaf_User a,
-			yaf_UserGroup b
-		where 
-			b.UserID = a.UserID and
-			b.GroupID = @GroupID and 
-			a.Email is not null and 
-			a.Email<>''
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_add') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_add
 GO
@@ -413,25 +297,6 @@ begin
 	insert into yaf_WatchTopic(TopicID,UserID,Created)
 	select @TopicID, @UserID, getdate()
 	where not exists(select 1 from yaf_WatchTopic where TopicID=@TopicID and UserID=@UserID)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_usergroup_list
-GO
-
-create procedure yaf_usergroup_list(@UserID int) as begin
-	select 
-		b.GroupID,
-		b.Name
-	from
-		yaf_UserGroup a,
-		yaf_Group b
-	where
-		a.UserID = @UserID and
-		a.GroupID = b.GroupID
-	order by
-		b.Name
 end
 GO
 

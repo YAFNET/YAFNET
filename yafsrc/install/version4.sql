@@ -77,32 +77,6 @@ begin
 end
 GO
 
-if not exists(select * from sysindexes where id=object_id('yaf_Smiley') and name='IX_Smiley')
-ALTER TABLE [yaf_Smiley] ADD 
-	CONSTRAINT [IX_Smiley] UNIQUE  NONCLUSTERED 
-	(
-		[Code]
-	)  ON [PRIMARY] 
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_smiley_save
-GO
-
-create procedure yaf_smiley_save(@SmileyID int=null,@Code varchar(10),@Icon varchar(50),@Emoticon varchar(50),@Replace smallint=0) as begin
-	if @SmileyID is not null begin
-		update yaf_Smiley set Code = @Code, Icon = @Icon, Emoticon = @Emoticon where SmileyID = @SmileyID
-	end
-	else begin
-		if @Replace>0
-			delete from yaf_Smiley where Code=@Code
-
-		if not exists(select 1 from yaf_Smiley where Code=@Code)
-			insert into yaf_Smiley(Code,Icon,Emoticon) values(@Code,@Icon,@Emoticon)
-	end
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_smiley_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_delete
 GO
@@ -112,19 +86,6 @@ create procedure yaf_smiley_delete(@SmileyID int=null) as begin
 		delete from yaf_Smiley where SmileyID=@SmileyID
 	else
 		delete from yaf_Smiley
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_smiley_list
-GO
-
-create procedure yaf_smiley_list(@SmileyID int=null) as
-begin
-	if @SmileyID is null
-		select * from yaf_Smiley order by LEN(Code) desc
-	else
-		select * from yaf_Smiley where SmileyID=@SmileyID
 end
 GO
 

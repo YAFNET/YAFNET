@@ -303,6 +303,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\boardsettings.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\boardsettings.aspx.cs"
+                    DependentUpon = "boardsettings.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\boardsettings.aspx.resx"
+                    DependentUpon = "boardsettings.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\contents.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -494,6 +510,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\hostsettings.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\hostsettings.aspx.cs"
+                    DependentUpon = "hostsettings.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\hostsettings.aspx.resx"
+                    DependentUpon = "hostsettings.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\mail.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -622,22 +654,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "admin\settings.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\settings.aspx.cs"
-                    DependentUpon = "settings.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\settings.aspx.resx"
-                    DependentUpon = "settings.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "admin\smilies.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -738,6 +754,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\BoardSettings.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\Config.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -754,11 +775,6 @@
                 />
                 <File
                     RelPath = "classes\FormatMsg.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\ForumSettings.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

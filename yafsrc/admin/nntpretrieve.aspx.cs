@@ -46,7 +46,7 @@ namespace yaf.admin
 
 		private void BindData()
 		{
-			List.DataSource = DB.nntpforum_list(10,null);
+			List.DataSource = DB.nntpforum_list(PageBoardID,10,null);
 			DataBind();
 		}
 
@@ -75,7 +75,7 @@ namespace yaf.admin
 		{
 			int nSeconds = int.Parse(Seconds.Text);
 			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = classes.Nntp.ReadArticles(10,nSeconds);
+			int nArticleCount = classes.Nntp.ReadArticles(PageBoardID,10,nSeconds);
 			AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}

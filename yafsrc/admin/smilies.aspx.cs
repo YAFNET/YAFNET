@@ -30,7 +30,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.smiley_list(null);
+			List.DataSource = DB.smiley_list(PageBoardID,null);
 			DataBind();
 		}
 

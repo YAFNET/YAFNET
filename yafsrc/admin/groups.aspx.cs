@@ -75,7 +75,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			GroupList.DataSource = DB.group_list(null);
+			GroupList.DataSource = DB.group_list(PageBoardID,null);
 			DataBind();
 		}
 

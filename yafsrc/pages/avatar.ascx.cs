@@ -66,7 +66,7 @@ namespace yaf.pages
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("EDITPROFILE"),Forum.GetLink(Pages.cp_editprofile));
 				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.avatar));

@@ -3,30 +3,33 @@
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Active') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Active] (
-	[SessionID] [varchar] (24) NOT NULL ,
-	[UserID] [int] NOT NULL ,
-	[IP] [varchar] (15) NOT NULL ,
-	[Login] [datetime] NOT NULL ,
-	[LastActive] [datetime] NOT NULL ,
-	[Location] [varchar] (50) NOT NULL ,
-	[ForumID] [int] NULL ,
-	[TopicID] [int] NULL ,
-	[Browser] [varchar] (50) NULL ,
-	[Platform] [varchar] (50) NULL 
+	[SessionID]		[varchar] (24) NOT NULL ,
+	[BoardID]		[int] NOT NULL ,
+	[UserID]		[int] NOT NULL ,
+	[IP]			[varchar] (15) NOT NULL ,
+	[Login]			[datetime] NOT NULL ,
+	[LastActive]	[datetime] NOT NULL ,
+	[Location]		[varchar] (50) NOT NULL ,
+	[ForumID]		[int] NULL ,
+	[TopicID]		[int] NULL ,
+	[Browser]		[varchar] (50) NULL ,
+	[Platform]		[varchar] (50) NULL 
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_BannedIP') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_BannedIP] (
-	[ID] [int] IDENTITY (1, 1) NOT NULL ,
-	[Mask] [varchar] (15) NOT NULL ,
-	[Since] [datetime] NOT NULL 
+	[ID]			[int] IDENTITY (1, 1) NOT NULL ,
+	[BoardID]		[int] NOT NULL ,
+	[Mask]			[varchar] (15) NOT NULL ,
+	[Since]			[datetime] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Category') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Category] (
 	[CategoryID] [int] IDENTITY (1, 1) NOT NULL ,
+	[BoardID] [int] NOT NULL ,
 	[Name] [varchar] (50) NOT NULL ,
 	[SortOrder] [smallint] NOT NULL 
 ) ON [PRIMARY]
@@ -74,31 +77,32 @@ GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_ForumAccess') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_ForumAccess] (
-	[GroupID] [int] NOT NULL ,
-	[ForumID] [int] NOT NULL ,
-	[AccessMaskID] [int] NOT NULL
+	[GroupID]		[int] NOT NULL ,
+	[ForumID]		[int] NOT NULL ,
+	[AccessMaskID]	[int] NOT NULL
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Group] (
-	[GroupID] [int] IDENTITY (1, 1) NOT NULL ,
-	[Name] [varchar] (50) NOT NULL ,
-	[IsAdmin] [bit] NOT NULL ,
-	[IsGuest] [bit] NOT NULL ,
-	[IsStart] [bit] NOT NULL ,
-	[IsModerator] [bit] NOT NULL 
+	[GroupID]		[int] IDENTITY (1, 1) NOT NULL ,
+	[BoardID]		[int] NOT NULL ,
+	[Name]			[varchar] (50) NOT NULL ,
+	[IsAdmin]		[bit] NOT NULL ,
+	[IsGuest]		[bit] NOT NULL ,
+	[IsStart]		[bit] NOT NULL ,
+	[IsModerator]	[bit] NOT NULL 
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Mail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Mail] (
-	[MailID] [int] IDENTITY (1, 1) NOT NULL ,
-	[FromUser] [varchar] (50) NOT NULL ,
-	[ToUser] [varchar] (50) NOT NULL ,
-	[Created] [datetime] NOT NULL ,
-	[Subject] [varchar] (100) NOT NULL ,
-	[Body] [text] NOT NULL 
+	[MailID]		[int] IDENTITY (1, 1) NOT NULL ,
+	[FromUser]		[varchar] (50) NOT NULL ,
+	[ToUser]		[varchar] (50) NOT NULL ,
+	[Created]		[datetime] NOT NULL ,
+	[Subject]		[varchar] (100) NOT NULL ,
+	[Body]			[text] NOT NULL 
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
@@ -130,23 +134,24 @@ GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Poll] (
-	[PollID] [int] IDENTITY (1, 1) NOT NULL ,
-	[Question] [varchar] (50) NOT NULL 
+	[PollID]		[int] IDENTITY (1, 1) NOT NULL ,
+	[Question]		[varchar] (50) NOT NULL 
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Smiley') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Smiley] (
-	[SmileyID] [int] IDENTITY (1, 1) NOT NULL ,
-	[Code] [varchar] (10) NOT NULL ,
-	[Icon] [varchar] (50) NOT NULL ,
-	[Emoticon] [varchar] (50) NULL 
+	[SmileyID]		[int] IDENTITY (1, 1) NOT NULL ,
+	[BoardID]		[int] NOT NULL ,
+	[Code]			[varchar] (10) NOT NULL ,
+	[Icon]			[varchar] (50) NOT NULL ,
+	[Emoticon]		[varchar] (50) NULL 
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_System') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_System] (
-	[SystemID] [int] NOT NULL ,
+	[SystemID] [int] IDENTITY(1,1) NOT NULL ,
 	[Version] [int] NOT NULL ,
 	[VersionName] [varchar] (50) NOT NULL ,
 	[Name] [varchar] (50) NOT NULL ,
@@ -195,34 +200,36 @@ GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_User] (
-	[UserID] [int] IDENTITY (1, 1) NOT NULL ,
-	[Name] [varchar] (50) NOT NULL ,
-	[Password] [varchar] (32) NOT NULL ,
-	[Email] [varchar] (50) NULL ,
-	[Joined] [datetime] NOT NULL ,
-	[LastVisit] [datetime] NOT NULL ,
-	[IP] [varchar] (15) NULL ,
-	[NumPosts] [int] NOT NULL ,
-	[Approved] [bit] NOT NULL ,
-	[Location] [varchar] (50) NULL ,
-	[HomePage] [varchar] (50) NULL ,
-	[TimeZone] [int] NOT NULL ,
-	[Avatar] [varchar] (100) NULL ,
-	[Signature] [varchar] (255) NULL ,
-	[AvatarImage] [image] NULL,
-	[RankID] [int] NOT NULL,
-	[Suspended] [datetime] NULL,
-	[LanguageFile] [varchar](50) NULL,
-	[ThemeFile] [varchar](50) NULL,
-	[MSN] [varchar] (50) NULL ,
-	[YIM] [varchar] (30) NULL ,
-	[AIM] [varchar] (30) NULL ,
-	[ICQ] [int] NULL ,
-	[RealName] [varchar] (50) NULL ,
-	[Occupation] [varchar] (50) NULL ,
-	[Interests] [varchar] (100) NULL ,
-	[Gender] [tinyint] NULL ,
-	[Weblog] [varchar] (100) NULL
+	[UserID]		[int] IDENTITY (1, 1) NOT NULL ,
+	[BoardID]		[int] NOT NULL,
+	[IsHostAdmin]	[bit] NOT NULL ,
+	[Name]			[varchar] (50) NOT NULL ,
+	[Password]		[varchar] (32) NOT NULL ,
+	[Email]			[varchar] (50) NULL ,
+	[Joined]		[datetime] NOT NULL ,
+	[LastVisit]		[datetime] NOT NULL ,
+	[IP]			[varchar] (15) NULL ,
+	[NumPosts]		[int] NOT NULL ,
+	[Approved]		[bit] NOT NULL ,
+	[Location]		[varchar] (50) NULL ,
+	[HomePage]		[varchar] (50) NULL ,
+	[TimeZone]		[int] NOT NULL ,
+	[Avatar]		[varchar] (100) NULL ,
+	[Signature]		[varchar] (255) NULL ,
+	[AvatarImage]	[image] NULL,
+	[RankID]		[int] NOT NULL,
+	[Suspended]		[datetime] NULL,
+	[LanguageFile]	[varchar](50) NULL,
+	[ThemeFile]		[varchar](50) NULL,
+	[MSN]			[varchar] (50) NULL ,
+	[YIM]			[varchar] (30) NULL ,
+	[AIM]			[varchar] (30) NULL ,
+	[ICQ]			[int] NULL ,
+	[RealName]		[varchar] (50) NULL ,
+	[Occupation]	[varchar] (50) NULL ,
+	[Interests]		[varchar] (100) NULL ,
+	[Gender]		[tinyint] NULL ,
+	[Weblog]		[varchar] (100) NULL
 ) ON [PRIMARY]
 GO
 
@@ -242,14 +249,6 @@ CREATE TABLE [yaf_WatchTopic] (
 	[UserID] [int] NOT NULL ,
 	[Created] [datetime] NOT NULL 
 ) ON [PRIMARY]
-GO
-
-if not exists(select * from sysindexes where id=object_id('yaf_Active') and name='PK_Active')
-ALTER TABLE [yaf_Active] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Active] PRIMARY KEY  CLUSTERED 
-	(
-		[SessionID]
-	)  ON [PRIMARY] 
 GO
 
 if not exists(select * from sysindexes where id=object_id('yaf_BannedIP') and name='PK_BannedIP')
@@ -394,14 +393,6 @@ ALTER TABLE [yaf_BannedIP] ADD
 	CONSTRAINT [DF_yaf_BannedIP_Since] DEFAULT (getdate()) FOR [Since]
 GO
 
-if not exists(select * from sysindexes where id=object_id('yaf_BannedIP') and name='IX_BannedIP')
-ALTER TABLE [yaf_BannedIP] ADD 
-	CONSTRAINT [IX_BannedIP] UNIQUE  NONCLUSTERED 
-	(
-		[Mask]
-	)  ON [PRIMARY] 
-GO
-
 if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
 ALTER TABLE [yaf_Category] ADD 
 	CONSTRAINT [IX_Category] UNIQUE  NONCLUSTERED 
@@ -423,22 +414,6 @@ ALTER TABLE [yaf_Forum] ADD
 	CONSTRAINT [IX_Forum] UNIQUE  NONCLUSTERED 
 	(
 		[CategoryID],
-		[Name]
-	)  ON [PRIMARY] 
-GO
-
-if not exists(select * from sysindexes where id=object_id('yaf_Group') and name='IX_Group')
-ALTER TABLE [yaf_Group] ADD 
-	CONSTRAINT [IX_Group] UNIQUE  NONCLUSTERED 
-	(
-		[Name]
-	)  ON [PRIMARY] 
-GO
-
-if not exists(select * from sysindexes where id=object_id('yaf_User') and name='IX_User')
-ALTER TABLE [yaf_User] ADD 
-	CONSTRAINT [IX_User] UNIQUE  NONCLUSTERED 
-	(
 		[Name]
 	)  ON [PRIMARY] 
 GO
@@ -729,64 +704,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_bannedip_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_bannedip_list
-GO
-
-create procedure yaf_bannedip_list(@ID int=null) as
-begin
-	if @ID is null
-		select * from yaf_BannedIP
-	else
-		select * from yaf_BannedIP where ID = @ID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_bannedip_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_bannedip_save
-GO
-
-create procedure yaf_bannedip_save(@ID int=null,@Mask varchar(15)) as
-begin
-	if @ID is null or @ID = 0 begin
-		insert into yaf_BannedIP(Mask) values(@Mask)
-	end
-	else begin
-		update yaf_BannedIP set Mask = @Mask where ID = @ID
-	end
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_category_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_category_list
-GO
-
-create procedure yaf_category_list(@CategoryID int=null) as
-begin
-	if @CategoryID is null
-		select * from yaf_Category order by SortOrder
-	else
-		select * from yaf_Category where CategoryID = @CategoryID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_category_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_category_save
-GO
-
-create procedure yaf_category_save(@CategoryID int,@Name varchar(50),@SortOrder smallint) as
-begin
-	if @CategoryID>0 begin
-		update yaf_Category set Name=@Name,SortOrder=@SortOrder where CategoryID=@CategoryID
-		select CategoryID = @CategoryID
-	end
-	else begin
-		insert into yaf_Category(Name,SortOrder) values(@Name,@SortOrder)
-		select CategoryID = @@IDENTITY
-	end
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_checkemail_save
 GO
@@ -837,20 +754,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_list
-GO
-
-CREATE  procedure yaf_forum_list(@ForumID int=null) as
-begin
-	if @ForumID = 0 set @ForumID = null
-	if @ForumID is null
-		select * from yaf_Forum order by SortOrder
-	else
-		select * from yaf_Forum where ForumID = @ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_group') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_group
 GO
@@ -890,19 +793,6 @@ begin
 	where 
 		a.ForumID = @ForumID and 
 		b.GroupID = a.GroupID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_group_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_group_list
-GO
-
-create procedure yaf_group_list(@GroupID int=null) as
-begin
-	if @GroupID is null
-		select * from yaf_Group
-	else
-		select * from yaf_Group where GroupID = @GroupID
 end
 GO
 
@@ -1018,20 +908,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_system_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_list
-GO
-
-create procedure yaf_system_list as
-begin
-	select top 1 
-		a.*,
-		SQLVersion = @@VERSION
-	from 
-		yaf_System a
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findnext
 GO
@@ -1106,28 +982,6 @@ GO
 create procedure yaf_user_getsignature(@UserID int) as
 begin
 	select Signature from yaf_User where UserID = @UserID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_login') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_login
-GO
-
-create procedure yaf_user_login(@Name varchar(50),@Password varchar(32)) as
-begin
-	declare @IsValid int
-	select 
-		@IsValid = count(1) 
-	from 
-		yaf_User 
-	where 
-		Approved=1 and 
-		Name = @Name and 
-		Password = @Password
-	if @IsValid=1
-		select Success = convert(bit,1)
-	else
-		select Success = convert(bit,0)
 end
 GO
 

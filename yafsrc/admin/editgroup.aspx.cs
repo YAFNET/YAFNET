@@ -53,7 +53,7 @@ namespace yaf.admin
 				if(Request.QueryString["g"] != null) 
 				{
 					NewGroupRow.Visible = false;
-					using(DataTable dt = DB.group_list(Request.QueryString["g"])) 
+					using(DataTable dt = DB.group_list(PageBoardID,Request.QueryString["g"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -132,7 +132,7 @@ namespace yaf.admin
 			long GroupID = 0;
 			if(Request.QueryString["g"] != null) GroupID = long.Parse(Request.QueryString["g"]);
 				
-			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
+			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
 			if(Request.QueryString["g"] != null) 
@@ -152,7 +152,7 @@ namespace yaf.admin
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DB.accessmask_list(null);
+			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

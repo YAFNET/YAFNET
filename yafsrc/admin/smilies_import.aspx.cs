@@ -79,7 +79,7 @@ namespace yaf.admin
 
 					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
 					if(split.Length==3) 
-						DB.smiley_save(null,split[2],split[0],split[1],0);
+						DB.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
 				} while(true);
 				file.Close();
 			}

@@ -53,7 +53,7 @@ namespace yaf.pages
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.search));
 				btnSearch.Text = GetText("btnsearch");
 
@@ -74,7 +74,7 @@ namespace yaf.pages
 
 				// Load forum's combo
 				listForum.Items.Add(new ListItem(GetText("allforums"),"-1"));
-				DataTable dt = DB.forum_listread(PageUserID,null);
+				DataTable dt = DB.forum_listread(PageBoardID,PageUserID,null);
 
 				int nOldCat = 0;
 				for(int i=0;i<dt.Rows.Count;i++) 

@@ -16,3 +16,5 @@
 - Language strings: tooltips for buttons (reply, quote, ...)
 - Censoring: <http://forum.yetanotherforum.net/posts.aspx?t=339>
 - Create example category/forum/message on first install
+- Rainbow bugs: <http://forum.yetanotherforum.net/default.aspx?g=posts&t=361>
+- Rainbow bugs: <http://forum.yetanotherforum.net/default.aspx?g=posts&m=1029&#1029>

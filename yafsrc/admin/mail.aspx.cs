@@ -45,7 +45,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			ToList.DataSource = DB.group_list(null);
+			ToList.DataSource = DB.group_list(PageBoardID,null);
 			DataBind();
 
 			ListItem item = new ListItem("All Users","0");
@@ -79,11 +79,11 @@ namespace yaf.admin
 			if(ToList.SelectedItem.Value!="0")
 				GroupID = ToList.SelectedValue;
 
-			using(DataTable dt = DB.user_emails(GroupID)) 
+			using(DataTable dt = DB.user_emails(PageBoardID,GroupID)) 
 			{
 				foreach(DataRow row in dt.Rows)
 					//  Build a MailMessage
-					Utils.SendMail(Config.ForumSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
+					Utils.SendMail(Config.BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
 			}
 			Subject.Text = "";
 			Body.Text = "";

@@ -45,7 +45,7 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = DB.nntpforum_list(null,Request.QueryString["s"]))
+					using(DataTable dt = DB.nntpforum_list(PageBoardID,null,Request.QueryString["s"]))
 					{
 						DataRow row = dt.Rows[0];
 						NntpServerID.Items.FindByValue(row["NntpServerID"].ToString()).Selected = true;
@@ -80,10 +80,10 @@ namespace yaf.admin
 		#endregion
 
 		private void BindData() {
-			NntpServerID.DataSource = DB.nntpserver_list(null);
+			NntpServerID.DataSource = DB.nntpserver_list(PageBoardID,null);
 			NntpServerID.DataValueField = "NntpServerID";
 			NntpServerID.DataTextField = "Name";
-			ForumID.DataSource = DB.forum_list(null);
+			ForumID.DataSource = DB.forum_list(PageBoardID,null);
 			ForumID.DataValueField = "ForumID";
 			ForumID.DataTextField = "Name";
 			DataBind();

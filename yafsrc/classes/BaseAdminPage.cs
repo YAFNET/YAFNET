@@ -103,10 +103,11 @@ namespace yaf
 
 			if(m_bNoDataBase) return;
 
-			DataTable banip = (DataTable)Cache["bannedip"];
+			string key = string.Format("BannedIP.{0}",PageBoardID);
+			DataTable banip = (DataTable)Cache[key];
 			if(banip == null) {
-				banip = DB.bannedip_list(null);
-				Cache["bannedip"] = banip;
+				banip = DB.bannedip_list(PageBoardID,null);
+				Cache[key] = banip;
 			}
 			foreach(DataRow row in banip.Rows)
 				if(Utils.IsBanned((string)row["Mask"],Request.ServerVariables["REMOTE_ADDR"]))
@@ -141,6 +142,7 @@ namespace yaf
 
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
+				PageBoardID,
 				User.Name,
 				Request.UserHostAddress,
 				Request.FilePath,
@@ -248,7 +250,7 @@ namespace yaf
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
-							Utils.SendMail(Config.ForumSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							Utils.SendMail(Config.BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
@@ -268,7 +270,7 @@ namespace yaf
 		{
 			if(themefile==null) 
 			{
-				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.ForumSettings.AllowUserTheme)
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.BoardSettings.AllowUserTheme)
 					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
@@ -325,7 +327,7 @@ namespace yaf
 			writer.WriteLine("<head>");
 			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",ForumRoot));
 			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-			writer.WriteLine(String.Format("<title>{0}</title>",Config.ForumSettings.Name));
+			writer.WriteLine(String.Format("<title>{0}</title>",Config.BoardSettings.Name));
 			writer.WriteLine("<script>");
 			writer.WriteLine("function yaf_onload() {");
 			if(m_strLoadMessage.Length>0)
@@ -373,9 +375,13 @@ namespace yaf
 				m_bNoDataBase = value;
 			}
 		}
-		/// <summary>
-		/// The UserID of the current user.
-		/// </summary>
+		public int PageBoardID
+		{
+			get
+			{
+				return ForumPage.PageBoardID;
+			}
+		}
 		public int PageUserID 
 		{
 			get 
@@ -396,6 +402,16 @@ namespace yaf
 					return "";
 			}
 		}
+		protected bool IsHostAdmin
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return (bool)m_pageinfo["IsHostAdmin"];
+				else
+					return false;
+			}
+		}
 		/// <summary>
 		/// True if current user is an administrator
 		/// </summary>
@@ -403,6 +419,9 @@ namespace yaf
 		{
 			get 
 			{
+				if(IsHostAdmin)
+					return true;
+
 				if(m_pageinfo!=null)
 					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
 				else
@@ -575,7 +594,7 @@ namespace yaf
 		/// </summary>
 		public TimeSpan TimeOffset {
 			get {
-				return TimeZoneOffsetUser - Config.ForumSettings.TimeZone;
+				return TimeZoneOffsetUser - Config.BoardSettings.TimeZone;
 			}
 		}
 		/// <summary>

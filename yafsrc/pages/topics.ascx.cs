@@ -63,7 +63,7 @@ namespace yaf.pages
 			Mession.UnreadTopics = 0;
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 
@@ -105,7 +105,7 @@ namespace yaf.pages
 			if(!ForumReadAccess)
 				Data.AccessDenied();
 
-			using(DataTable dt = DB.forum_list(PageForumID))
+			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
 
 			PageTitle.Text = (string)forum["Name"];

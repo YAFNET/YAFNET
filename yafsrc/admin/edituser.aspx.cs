@@ -41,17 +41,22 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected Repeater UserGroups;
+		protected CheckBox IsHostAdminX;
 		protected DropDownList RankID;
+		protected HtmlTableRow IsHostAdminRow;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			IsHostAdminRow.Visible = IsHostAdmin;
+
 			if(!IsPostBack) {
 				BindData();
-				using(DataTable dt = DB.user_list(Request.QueryString["u"],null)) 
+				using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
 					Email.Text = row["Email"].ToString();
+					IsHostAdminX.Checked = (bool)row["IsHostAdmin"];
 					Joined.Text = row["Joined"].ToString();
 					LastVisit.Text = row["LastVisit"].ToString();
 					RankID.Items.FindByValue(row["RankID"].ToString()).Selected = true;
@@ -83,7 +88,7 @@ namespace yaf.admin
 		#endregion
 
 		private void BindData() {
-			UserGroups.DataSource = DB.group_member(Request.QueryString["u"]);
+			UserGroups.DataSource = DB.group_member(PageBoardID,Request.QueryString["u"]);
 			RankID.DataSource = DB.rank_list(null);
 			RankID.DataValueField = "RankID";
 			RankID.DataTextField = "Name";
@@ -100,7 +105,7 @@ namespace yaf.admin
 		}
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.user_adminsave(Request.QueryString["u"],Name.Text,Email.Text,RankID.SelectedValue);
+			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{
 				RepeaterItem item = UserGroups.Items[i];

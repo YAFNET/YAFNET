@@ -50,7 +50,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Editor.EnableRTE = Config.ForumSettings.AllowRichEdit;
+			Editor.EnableRTE = Config.BoardSettings.AllowRichEdit;
 
 			if(!User.IsAuthenticated)
 				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
@@ -58,7 +58,7 @@ namespace yaf.pages
 			if(!IsPostBack) {
 
 				BindData();
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				Save.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
 				FindUsers.Text = GetText("FINDUSERS");
@@ -97,7 +97,7 @@ namespace yaf.pages
 					ToUserID = int.Parse(Request.QueryString["u"].ToString());
 
 				if(ToUserID!=0) {
-					using(DataTable dt = DB.user_list(ToUserID,true)) 
+					using(DataTable dt = DB.user_list(PageBoardID,ToUserID,true)) 
 					{
 						To.Text = (string)dt.Rows[0]["Name"];
 						To.Enabled = false;
@@ -141,7 +141,7 @@ namespace yaf.pages
 			if(ToList.Visible)
 				To.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = DB.user_find(false,To.Text,null)) 
+			using(DataTable dt = DB.user_find(PageBoardID,false,To.Text,null)) 
 			{
 				if(dt.Rows.Count!=1) 
 				{
@@ -184,7 +184,7 @@ namespace yaf.pages
 		{
 			if(To.Text.Length<2) return;
 
-			using(DataTable dt = DB.user_find(true,To.Text,null)) 
+			using(DataTable dt = DB.user_find(PageBoardID,true,To.Text,null)) 
 			{
 				if(dt.Rows.Count>0) 
 				{

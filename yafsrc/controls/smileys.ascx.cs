@@ -35,7 +35,7 @@ namespace yaf.controls
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			dtSmileys = DB.smiley_listunique();
+			dtSmileys = DB.smiley_listunique(pages.ForumPage.PageBoardID);
 		}
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) {

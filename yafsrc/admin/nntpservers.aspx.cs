@@ -75,7 +75,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DB.nntpserver_list(null);
+			RankList.DataSource = DB.nntpserver_list(PageBoardID,null);
 			DataBind();
 		}
 

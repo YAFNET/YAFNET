@@ -59,8 +59,8 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			ActiveList.DataSource = DB.active_list(true);
-			UserList.DataSource = DB.user_list(null,false);
+			ActiveList.DataSource = DB.active_list(PageBoardID,true);
+			UserList.DataSource = DB.user_list(PageBoardID,null,false);
 			DataBind();
 
 			DataRow row = DB.board_stats();

@@ -13,7 +13,7 @@
 	<td class=header2 align=center>Posts</td>
 	<td class=header2 align=center>Approved</td>
 	<td class=header2>Last Visit</td>
-	<td class=header2>Commands</td>
+	<td class=header2>&nbsp;</td>
 </tr>
 
 <asp:repeater id=UserList runat=server>
@@ -24,7 +24,7 @@
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "NumPosts") %></td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "Approved") %></td>
 		<td class=post><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %></td>
-		<td class=post>
+		<td class=post align="center">
 			<asp:linkbutton runat=server commandname=edit commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'>Edit</asp:linkbutton>
 			|
 			<asp:linkbutton onload="Delete_Load" runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'>Delete</asp:linkbutton>

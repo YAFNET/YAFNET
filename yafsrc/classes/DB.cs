@@ -204,13 +204,14 @@ namespace yaf
 		#endregion
 		
 		#region Forum
-		static public DataRow pageload(object SessionID,object User,object IP,object Location,object Browser,
+		static public DataRow pageload(object SessionID,object boardID,object User,object IP,object Location,object Browser,
 			object Platform,object CategoryID,object ForumID,object TopicID,object MessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_pageload")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@SessionID",SessionID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@User",User);
 				cmd.Parameters.Add("@IP",IP);
 				cmd.Parameters.Add("@Location",Location);
@@ -226,28 +227,6 @@ namespace yaf
 						return dt.Rows[0];
 					else
 						return null;
-				}
-			}
-		}
-		static public DataRow stats() 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forum_stats")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				using(DataTable dt = GetData(cmd)) 
-				{
-					return dt.Rows[0];
-				}
-			}
-		}
-		static public DataRow board_stats() 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_board_stats")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				using(DataTable dt = GetData(cmd)) 
-				{
-					return dt.Rows[0];
 				}
 			}
 		}
@@ -319,7 +298,7 @@ namespace yaf
 		#endregion
 
 		#region DataSets
-		static public DataSet ds_forumlayout(object UserID,object CategoryID) 
+		static public DataSet board_layout(object boardID,object UserID,object CategoryID) 
 		{
 			using(DataSet ds = new DataSet()) 
 			{
@@ -328,10 +307,11 @@ namespace yaf
 					da.SelectCommand.CommandType = CommandType.StoredProcedure;
 					da.Fill(ds,"Moderators");
 					
+					da.SelectCommand.Parameters.Add("@BoardID",boardID);
 					da.SelectCommand.Parameters.Add("@UserID",UserID);
 					if(CategoryID!=null && long.Parse(CategoryID.ToString())!=0)
 						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
-					da.SelectCommand.CommandText = "yaf_forumlayout";
+					da.SelectCommand.CommandText = "yaf_board_layout";
 					da.Fill(ds,"yaf_Category");
 	
 		
@@ -342,12 +322,13 @@ namespace yaf
 				}
 			}
 		}
-		static public DataSet ds_forumadmin() 
+		static public DataSet ds_forumadmin(object boardID) 
 		{
 			using(DataSet ds = new DataSet()) 
 			{
 				using(SqlDataAdapter da = new SqlDataAdapter("yaf_category_list",GetConnection())) 
 				{
+					da.SelectCommand.Parameters.Add("@BoardID",boardID);
 					da.SelectCommand.CommandType = CommandType.StoredProcedure;
 					da.Fill(ds,"yaf_Category");
 					da.SelectCommand.CommandText = "yaf_forum_list";
@@ -361,11 +342,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_AccessMask
-		static public DataTable accessmask_list(object accessMaskID) 
+		static public DataTable accessmask_list(object boardID,object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
 				return GetData(cmd);
 			}
@@ -379,12 +361,13 @@ namespace yaf
 				return (int)ExecuteScalar(cmd)!=0;
 			}
 		}
-		static public void accessmask_save(object accessMaskID,object name,object readAccess,object postAccess,object replyAccess,object priorityAccess,object pollAccess,object voteAccess,object moderatorAccess,object editAccess,object deleteAccess,object uploadAccess) 
+		static public void accessmask_save(object accessMaskID,object boardID,object name,object readAccess,object postAccess,object replyAccess,object priorityAccess,object pollAccess,object voteAccess,object moderatorAccess,object editAccess,object deleteAccess,object uploadAccess) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_accessmask_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@AccessMaskID",accessMaskID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",name);
 				cmd.Parameters.Add("@ReadAccess",readAccess);
 				cmd.Parameters.Add("@PostAccess",postAccess);
@@ -402,11 +385,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_Active
-		static public DataTable active_list(object Guests) 
+		static public DataTable active_list(object boardID,object Guests) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Guests",Guests);
 				return GetData(cmd);
 			}
@@ -429,11 +413,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public DataRow active_stats() 
+		static public DataRow active_stats(object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_stats")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				using(DataTable dt = GetData(cmd)) 
 				{
 					return dt.Rows[0];
@@ -494,21 +479,23 @@ namespace yaf
 		#endregion
 
 		#region yaf_BannedIP
-		static public DataTable bannedip_list(object ID) 
+		static public DataTable bannedip_list(object boardID,object ID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@ID",ID);
 				return GetData(cmd);
 			}
 		}
-		static public void bannedip_save(object ID,object Mask) 
+		static public void bannedip_save(object ID,object boardID,object Mask) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ID",ID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Mask",Mask);
 				ExecuteNonQuery(cmd);
 			}
@@ -524,6 +511,51 @@ namespace yaf
 		}
 		#endregion
 
+		#region yaf_Board
+		static public DataTable board_list(object boardID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				return GetData(cmd);
+			}
+		}
+		static public DataRow board_poststats(object boardID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_poststats")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				using(DataTable dt = GetData(cmd)) 
+				{
+					return dt.Rows[0];
+				}
+			}
+		}
+		static public DataRow board_stats() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_stats")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				using(DataTable dt = GetData(cmd)) 
+				{
+					return dt.Rows[0];
+				}
+			}
+		}
+		static public void board_save(object boardID,object name)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@Name",name);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
 		#region yaf_Category
 		static public bool category_delete(object CategoryID) 
 		{
@@ -534,20 +566,22 @@ namespace yaf
 				return (int)ExecuteScalar(cmd)!=0;
 			}
 		}
-		static public DataTable category_list(object CategoryID) 
+		static public DataTable category_list(object boardID,object categoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@CategoryID",CategoryID);
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@CategoryID",categoryID);
 				return GetData(cmd);
 			}
 		}
-		static public void category_save(object CategoryID,object Name,object SortOrder) 
+		static public void category_save(object boardID,object CategoryID,object Name,object SortOrder) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@CategoryID",CategoryID);
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@SortOrder",SortOrder);
@@ -601,20 +635,22 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable forum_list(object ForumID) 
+		static public DataTable forum_list(object boardID,object ForumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@ForumID",ForumID);
 				return GetData(cmd);
 			}
 		}
-		static public DataTable forum_listread(object UserID,object CategoryID) 
+		static public DataTable forum_listread(object boardID,object UserID,object CategoryID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forumlayout")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_board_layout")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@CategoryID",CategoryID);
 				cmd.Parameters.Add("@OnlyForum",1);
@@ -691,11 +727,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_Group
-		static public DataTable group_list(object GroupID) 
+		static public DataTable group_list(object boardID,object GroupID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_group_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@GroupID",GroupID);
 				return GetData(cmd);
 			}
@@ -709,21 +746,23 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable group_member(object UserID) 
+		static public DataTable group_member(object boardID,object UserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_group_member"))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				return GetData(cmd);
 			}
 		}
-		static public long group_save(object GroupID,object Name,object IsAdmin,object IsGuest,object IsStart,object isModerator,object accessMaskID) 
+		static public long group_save(object GroupID,object boardID,object Name,object IsAdmin,object IsGuest,object IsStart,object isModerator,object accessMaskID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_group_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@GroupID",GroupID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@IsAdmin",IsAdmin);
 				cmd.Parameters.Add("@IsGuest",IsGuest);
@@ -788,11 +827,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public DataTable post_last10user(object userID,object pageUserID) 
+		static public DataTable post_last10user(object boardID,object userID,object pageUserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_post_last10user")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",userID);
 				cmd.Parameters.Add("@PageUserID",pageUserID);
 				return GetData(cmd);
@@ -877,11 +917,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_NntpForum
-		static public DataTable nntpforum_list(object minutes,object nntpForumID) 
+		static public DataTable nntpforum_list(object boardID,object minutes,object nntpForumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Minutes",minutes);
 				cmd.Parameters.Add("@NntpForumID",nntpForumID);
 				return GetData(cmd);
@@ -913,21 +954,23 @@ namespace yaf
 		#endregion
 
 		#region yaf_NntpServer
-		static public DataTable nntpserver_list(object nntpServerID) 
+		static public DataTable nntpserver_list(object boardID,object nntpServerID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@NntpServerID",nntpServerID);
 				return GetData(cmd);
 			}
 		}
-		static public void nntpserver_save(object nntpServerID,object name,object address,object userName,object userPass) 
+		static public void nntpserver_save(object nntpServerID,object boardID,object name,object address,object userName,object userPass) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpserver_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@NntpServerID",nntpServerID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",name);
 				cmd.Parameters.Add("@Address",address);
 				cmd.Parameters.Add("@UserName",userName);
@@ -1103,20 +1146,22 @@ namespace yaf
 		#endregion
 
 		#region yaf_Smiley
-		static public DataTable smiley_list(object SmileyID) 
+		static public DataTable smiley_list(object boardID,object SmileyID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_smiley_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@SmileyID",SmileyID);
 				return GetData(cmd);
 			}
 		}
-		static public DataTable smiley_listunique() 
+		static public DataTable smiley_listunique(object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_smiley_listunique")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				return GetData(cmd);
 			}
 		}
@@ -1129,12 +1174,13 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void smiley_save(object SmileyID,object Code,object Icon,object Emoticon,object Replace) 
+		static public void smiley_save(object SmileyID,object boardID,object Code,object Icon,object Emoticon,object Replace) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_smiley_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@SmileyID",SmileyID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Code",Code);
 				cmd.Parameters.Add("@Icon",Icon);
 				cmd.Parameters.Add("@Emoticon",Emoticon);
@@ -1145,7 +1191,7 @@ namespace yaf
 		#endregion
 
 		#region yaf_System
-		static public void system_save(object Name,object TimeZone,object SmtpServer,object SmtpUserName,
+		static public void system_save(object TimeZone,object SmtpServer,object SmtpUserName,
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
 			object BlankLinks,object showGroups,
 			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize,
@@ -1162,7 +1208,6 @@ namespace yaf
 			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@TimeZone",TimeZone);
 				cmd.Parameters.Add("@SmtpServer",SmtpServer);
 				cmd.Parameters.Add("@SmtpUserName",SmtpUserName);
@@ -1230,11 +1275,12 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable topic_active(object UserID,object Since) 
+		static public DataTable topic_active(object boardID,object UserID,object Since) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_active")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Since",Since);
 				return GetData(cmd);
@@ -1315,11 +1361,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_User
-		static public DataTable user_list(object UserID,object Approved) 
+		static public DataTable user_list(object boardID,object UserID,object Approved) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Approved",Approved);
 				return GetData(cmd);
@@ -1364,7 +1411,7 @@ namespace yaf
 				return (bool)ExecuteScalar(cmd);
 			}
 		}
-		static public void user_save(object UserID,object UserName,object Password,object Email,object Hash,
+		static public void user_save(object UserID,object boardID,object UserName,object Password,object Email,object Hash,
 			object Location,object HomePage,object TimeZone,object Avatar,
 			object languageFile,object themeFile,object Approved,
 			object msn,object yim,object aim,object icq,
@@ -1374,6 +1421,7 @@ namespace yaf
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",UserID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@Password",Password);
 				cmd.Parameters.Add("@Email",Email);
@@ -1397,33 +1445,37 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void user_adminsave(object UserID,object Name,object email,object RankID) 
+		static public void user_adminsave(object boardID,object UserID,object Name,object email,object isHostAdmin,object RankID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_adminsave")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@Email",email);
+				cmd.Parameters.Add("@IsHostAdmin",isHostAdmin);
 				cmd.Parameters.Add("@RankID",RankID);
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable user_emails(object GroupID) 
+		static public DataTable user_emails(object boardID,object GroupID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_emails")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@GroupID",GroupID);
 
 				return GetData(cmd);
 			}
 		}
-		static public DataTable user_accessmasks(object userID) 
+		static public DataTable user_accessmasks(object boardID,object userID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_accessmasks")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",userID);
 
 				return GetData(cmd);
@@ -1440,14 +1492,15 @@ namespace yaf
 				return (bool)ExecuteScalar(cmd);
 			}
 		}
-		static public bool user_login(object name,object password) 
+		static public object user_login(object boardID,object name,object password) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_login")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",name);
 				cmd.Parameters.Add("@Password",password);
-				return (bool)ExecuteScalar(cmd);
+				return ExecuteScalar(cmd);
 			}
 		}
 		static public DataTable user_avatarimage(object userID) 
@@ -1459,11 +1512,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public DataTable user_find(bool filter,object userName,object email) 
+		static public DataTable user_find(object boardID,bool filter,object userName,object email) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_find")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Filter",filter);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@Email",email);
@@ -1512,7 +1566,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public bool user_register(yaf.pages.ForumPage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
+		static public bool user_register(yaf.pages.ForumPage page,object boardID,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
 			string hashinput = DateTime.Now.ToString() + email.ToString() + pages.register.CreatePassword(20);
 			string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
@@ -1530,6 +1584,7 @@ namespace yaf
 							cmd.CommandType = CommandType.StoredProcedure;
 							int UserID = 0;
 							cmd.Parameters.Add("@UserID",UserID);
+							cmd.Parameters.Add("@BoardID",boardID);
 							cmd.Parameters.Add("@UserName",userName);
 							cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(),"md5"));
 							cmd.Parameters.Add("@Email",email);
@@ -1547,10 +1602,10 @@ namespace yaf
 							string body = Utils.ReadTemplate("verifyemail.txt");
 							body = body.Replace("{link}",String.Format("{1}{0}",Forum.GetLink(Pages.approve,"k={0}",hash),page.ServerURL));
 							body = body.Replace("{key}",hash);
-							body = body.Replace("{forumname}",Config.ForumSettings.Name);
+							body = body.Replace("{forumname}",Config.BoardSettings.Name);
 							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
-							Utils.SendMail(Config.ForumSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.ForumSettings.Name),body);
+							Utils.SendMail(Config.BoardSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.BoardSettings.Name),body);
 							page.AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");
 							trans.Commit();
 						} 
@@ -1645,11 +1700,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_UserGroup
-		static public DataTable usergroup_list(object UserID) 
+		static public DataTable usergroup_list(object boardID,object UserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				return GetData(cmd);
 			}

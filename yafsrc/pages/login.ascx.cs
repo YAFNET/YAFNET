@@ -61,7 +61,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				ForumLogin.Text = GetText("forum_login");
 				LostPassword.Text = GetText("lostpassword");
 				Recover.Text = GetText("sendpassword");
@@ -90,9 +90,9 @@ namespace yaf.pages
 			System.Text.StringBuilder msg = new System.Text.StringBuilder();
 			msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
 			msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
-			msg.AppendFormat("Visit {0} at {1}",Config.ForumSettings.Name,ForumURL);
+			msg.AppendFormat("Visit {0} at {1}",Config.BoardSettings.Name,ForumURL);
 			
-			Utils.SendMail(Config.ForumSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
+			Utils.SendMail(Config.BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
 			AddLoadMessage(GetText("email_sent_password"));
 			LoginView.Visible = true;
@@ -124,12 +124,14 @@ namespace yaf.pages
 		private void ForumLogin_Click(object sender, System.EventArgs e)
 		{
 			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
-			if(DB.user_login(UserName.Text,sPassword)) {
+			object userID = DB.user_login(PageBoardID,UserName.Text,sPassword);
+			if(userID!=DBNull.Value) {
+				string idName = string.Format("{0};{1};{2}",userID,PageBoardID,UserName.Text);
 				if(Request.QueryString["ReturnUrl"]!=null)
-					FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
+					FormsAuthentication.RedirectFromLoginPage(idName, AutoLogin.Checked);
 				else 
 				{
-					FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
+					FormsAuthentication.SetAuthCookie(idName, AutoLogin.Checked);
 					Forum.Redirect(Pages.forum);
 				}
 			} else {

@@ -58,7 +58,7 @@ namespace yaf.pages
 					if((int)row["ToUserID"]!=PageUserID && (int)row["FromUserID"]!=PageUserID)
 						Data.AccessDenied();
 
-					PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+					PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 					PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 					if((int)row["ToUserID"]==PageUserID) 
 						PageLinks.AddLink(GetText("INBOX"),Forum.GetLink(Pages.cp_inbox));

@@ -26,34 +26,28 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Globalization;
 
-namespace yaf.admin
-{
+namespace yaf.admin {
 	/// <summary>
-	/// Summary description for forums.
+	/// Summary description for settings.
 	/// </summary>
-	public class accessmasks : AdminPage
-	{
-		protected LinkButton New;
-		protected Repeater List;
+	public class boardsettings : AdminPage {
+		protected System.Web.UI.WebControls.Button Save;
+		protected System.Web.UI.WebControls.TextBox Name;
 	
-		private void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
+		private void Page_Load(object sender, System.EventArgs e) {
+			if(!IsPostBack)
 				BindData();
-			}
 		}
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this access mask?')";
-		}
+		private void BindData() {
+			DataRow row;
+			using(DataTable dt = DB.board_list(PageBoardID))
+				row = dt.Rows[0];
 
-		private void BindData() 
-		{
-			List.DataSource = DB.accessmask_list(PageBoardID,null);
 			DataBind();
+			Name.Text = (string)row["Name"];
 		}
 
 		#region Web Form Designer generated code
@@ -72,32 +66,19 @@ namespace yaf.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
-			this.New.Click += new System.EventHandler(this.New_Click);
+			this.Save.Click += new System.EventHandler(this.Save_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "edit":
-					Response.Redirect(String.Format("editaccessmask.aspx?i={0}",e.CommandArgument));
-					break;
-				case "delete":
-					if(DB.accessmask_delete(e.CommandArgument))
-						BindData();
-					else
-						AddLoadMessage("You cannot delete this access mask because it is in use.");
-					break;
-			}
-		}
+		private void Save_Click(object sender, System.EventArgs e) {
+			if(!IsValid) return;
 
-		private void New_Click(object sender, System.EventArgs e)
-		{
-			Response.Redirect("editaccessmask.aspx");
+			DB.board_save(PageBoardID,Name.Text);
+
+			Config.BoardSettings = null;	/// Reload forum settings
+			Response.Redirect("main.aspx");
 		}
 	}
 }

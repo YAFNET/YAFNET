@@ -46,7 +46,7 @@ namespace yaf.admin
 
 		private void BindData() {
 			if(Request.QueryString["i"] != null) {
-				DataRow row = DB.bannedip_list(Request.QueryString["i"]).Rows[0];
+				DataRow row = DB.bannedip_list(PageBoardID,Request.QueryString["i"]).Rows[0];
 				mask.Text = (string)row["Mask"];
 			}
 		}
@@ -57,7 +57,7 @@ namespace yaf.admin
 				AddLoadMessage("Invalid ip address.");
 				return;
 			}
-			DB.bannedip_save(Request.QueryString["i"],mask.Text);
+			DB.bannedip_save(Request.QueryString["i"],PageBoardID,mask.Text);
 			Cache.Remove("bannedip");
 			Response.Redirect("bannedip.aspx");
 		}

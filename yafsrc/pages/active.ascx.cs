@@ -48,7 +48,7 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));
@@ -110,7 +110,7 @@ namespace yaf.pages
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 			
-			DataView dv = DB.topic_active(PageUserID,SinceDate).DefaultView;
+			DataView dv = DB.topic_active(PageBoardID,PageUserID,SinceDate).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;

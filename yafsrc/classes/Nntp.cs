@@ -476,7 +476,7 @@ namespace yaf.classes
 			return new ArticleInfo(ReadArticle());
 		}
 
-		static public int ReadArticles(int nLastUpdate,int nTimeToRun) 
+		static public int ReadArticles(object boardID,int nLastUpdate,int nTimeToRun) 
 		{
 			int			nUserID			= DB.user_guest();	// Use guests user-id
 			string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
@@ -490,7 +490,7 @@ namespace yaf.classes
 			try 
 			{
 				// Only those not updated in the last 30 minutes
-				using(DataTable dtForums = DB.nntpforum_list(nLastUpdate,null)) 
+				using(DataTable dtForums = DB.nntpforum_list(boardID,nLastUpdate,null)) 
 				{
 					foreach(DataRow drForum in dtForums.Rows) 
 					{

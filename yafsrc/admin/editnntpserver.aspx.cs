@@ -44,7 +44,7 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = DB.nntpserver_list(Request.QueryString["s"]))
+					using(DataTable dt = DB.nntpserver_list(PageBoardID,Request.QueryString["s"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text		= row["Name"].ToString();
@@ -103,7 +103,7 @@ namespace yaf.admin
 
 			object nntpServerID = null;
 			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
-			DB.nntpserver_save(nntpServerID,Name.Text,Address.Text,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
+			DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
 			Response.Redirect("nntpservers.aspx");
 		}
 	}

@@ -51,7 +51,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				SetSort("Name",true);
@@ -111,7 +111,7 @@ namespace yaf.pages
 		{
 			Pager.PageSize = 20;
 
-			DataView dv = DB.user_list(null,true).DefaultView;
+			DataView dv = DB.user_list(PageBoardID,null,true).DefaultView;
 			Pager.Count = dv.Count;
 
 			dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAscending"] ? "asc" : "desc");

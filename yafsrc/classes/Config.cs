@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using yaf.pages;
 
 namespace yaf
 {
@@ -53,18 +54,20 @@ namespace yaf
 			}
 		}
 
-		static public ForumSettings ForumSettings
+		static public BoardSettings BoardSettings
 		{
 			get
 			{
-				if(HttpContext.Current.Application["yaf_ForumSettings"]==null)
-					HttpContext.Current.Application["yaf_ForumSettings"] = new ForumSettings();
+				string key = string.Format("yaf_BoardSettings.{0}",ForumPage.PageBoardID);
+				if(HttpContext.Current.Application[key]==null)
+					HttpContext.Current.Application[key] = new BoardSettings(ForumPage.PageBoardID);
 
-				return (ForumSettings)HttpContext.Current.Application["yaf_ForumSettings"];
+				return (BoardSettings)HttpContext.Current.Application[key];
 			}
 			set
 			{
-				HttpContext.Current.Application.Remove("yaf_ForumSettings");
+				string key = string.Format("yaf_BoardSettings.{0}",ForumPage.PageBoardID);
+				HttpContext.Current.Application.Remove(key);
 			}
 		}
 

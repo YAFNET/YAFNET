@@ -101,6 +101,7 @@ GO
 if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 create table yaf_NntpServer(
 	[NntpServerID]	[int] identity not null,
+	[BoardID]		[int] NOT NULL ,
 	[Name]			[varchar](50) not null,
 	[Address]		[varchar](100) not null,
 	[UserName]		[varchar](50) null,
@@ -192,37 +193,6 @@ ALTER TABLE [yaf_NntpTopic] ADD
 	)
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_list
-GO
-
-create procedure yaf_nntpforum_list(@Minutes int=null,@NntpForumID int=null) as
-begin
-	select
-		a.Name,
-		a.Address,
-		a.NntpServerID,
-		b.NntpForumID,
-		b.GroupName,
-		b.ForumID,
-		b.LastMessageNo,
-		b.LastUpdate,
-		ForumName = c.Name
-	from
-		yaf_NntpServer a,
-		yaf_NntpForum b,
-		yaf_Forum c
-	where
-		b.NntpServerID = a.NntpServerID and
-		(@Minutes is null or datediff(n,b.LastUpdate,getdate())>@Minutes) and
-		(@NntpForumID is null or b.NntpForumID=@NntpForumID) and
-		c.ForumID = b.ForumID
-	order by
-		a.Name,
-		b.GroupName
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntptopic_list
 GO
@@ -235,43 +205,6 @@ begin
 		yaf_NntpTopic a
 	where
 		a.Thread = @Thread
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpserver_list
-GO
-
-create procedure yaf_nntpserver_list(@NntpServerID int=null) as
-begin
-	if @NntpServerID is null
-		select * from yaf_NntpServer order by Name
-	else
-		select * from yaf_NntpServer where NntpServerID=@NntpServerID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpserver_save
-GO
-
-create procedure yaf_nntpserver_save(
-	@NntpServerID 	int=null,
-	@Name		varchar(50),
-	@Address	varchar(100),
-	@UserName	varchar(50)=null,
-	@UserPass	varchar(50)=null
-) as begin
-	if @NntpServerID is null
-		insert into yaf_NntpServer(Name,Address,UserName,UserPass)
-		values(@Name,@Address,@UserName,@UserPass)
-	else
-		update yaf_NntpServer set
-			Name = @Name,
-			Address = @Address,
-			UserName = @UserName,
-			UserPass = @UserPass
-		where NntpServerID = @NntpServerID
 end
 GO
 
@@ -316,39 +249,6 @@ GO
 create procedure yaf_user_suspend(@UserID int,@Suspend datetime=null) as
 begin
 	update yaf_User set Suspended = @Suspend where UserID=@UserID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_find
-GO
-
-create procedure yaf_user_find(@Filter bit,@UserName varchar(50)=null,@Email varchar(50)=null) as
-begin
-	if @Filter<>0
-	begin
-		if @UserName is not null
-			set @UserName = '%' + @UserName + '%'
-
-		select 
-			a.*,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
-		from 
-			yaf_User a
-		where 
-			(@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email)
-		order by
-			a.Name
-	end else
-	begin
-		select 
-			a.UserID,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
-		from 
-			yaf_User a
-		where 
-			(@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email)
-	end
 end
 GO
 
@@ -738,58 +638,6 @@ begin
 	update yaf_Topic set
 		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
 	where TopicID = @TopicID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_post_list
-GO
-
-create procedure yaf_post_list(@TopicID int,@UpdateViewCount smallint=1) as
-begin
-	set nocount on
-
-	if @UpdateViewCount>0
-		update yaf_Topic set [Views] = [Views] + 1 where TopicID = @TopicID
-
-	select
-		d.TopicID,
-		a.MessageID,
-		a.Posted,
-		Subject = d.Topic,
-		a.Message,
-		a.UserID,
-		UserName	= IsNull(a.UserName,b.Name),
-		b.Joined,
-		Posts		= b.NumPosts,
-		d.Views,
-		d.ForumID,
-		Avatar = b.Avatar,
-		b.Location,
-		b.HomePage,
-		b.Signature,
-		RankName = c.Name,
-		c.RankImage,
-		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
-		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null),
-		e.AvatarUpload,
-		e.AvatarRemote,
-		e.AvatarWidth,
-		e.AvatarHeight
-	from
-		yaf_Message a, 
-		yaf_User b,
-		yaf_Rank c,
-		yaf_Topic d,
-		yaf_System e
-	where
-		a.Approved <> 0 and
-		a.TopicID = @TopicID and
-		b.UserID = a.UserID and
-		c.RankID = b.RankID and
-		d.TopicID = a.TopicID
-	order by
-		a.Posted asc
 end
 GO
 

@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using yaf.pages;
 
 namespace yaf.controls
 {
@@ -70,7 +71,7 @@ namespace yaf.controls
 			} 
 			else 
 			{
-				dt = DB.forum_listread(ForumPage.PageUserID,null);
+				dt = DB.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null);
 				Page.Cache[cachename] = dt;
 			}
 

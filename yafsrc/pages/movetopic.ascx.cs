@@ -48,14 +48,14 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = DB.forum_listread(PageUserID,null);
+				ForumList.DataSource = DB.forum_listread(PageBoardID,PageUserID,null);
 				DataBind();
 				ForumList.Items.FindByValue(PageForumID.ToString()).Selected = true;
 			}
@@ -84,7 +84,7 @@ namespace yaf.pages
 		#endregion
 
 		private void Move_Click(object sender, System.EventArgs e) {
-			DB.topic_move(PageTopicID,ForumList.SelectedValue,Config.ForumSettings.ShowMoved);
+			DB.topic_move(PageTopicID,ForumList.SelectedValue,Config.BoardSettings.ShowMoved);
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 	}

@@ -88,11 +88,11 @@ namespace yaf
 			// http://sourceforge.net/projects/opensmtp-net/
 			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
 
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.ForumSettings.SmtpServer,25);
-			if(Config.ForumSettings.SmtpUserName!=null && Config.ForumSettings.SmtpUserPass!=null) 
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.BoardSettings.SmtpServer,25);
+			if(Config.BoardSettings.SmtpUserName!=null && Config.BoardSettings.SmtpUserPass!=null) 
 			{
-				smtp.Username = Config.ForumSettings.SmtpUserName;
-				smtp.Password = Config.ForumSettings.SmtpUserPass;
+				smtp.Username = Config.BoardSettings.SmtpUserName;
+				smtp.Password = Config.BoardSettings.SmtpUserPass;
 			}
 			smtp.SendMail(from,to,subject,body);
 		}
@@ -226,14 +226,14 @@ namespace yaf
 				foreach(DataRow row in dt.Rows) 
 				{
 					// Send track mails
-					string subject = String.Format("Topic Subscription New Post Notification (From {0})",Config.ForumSettings.Name);
+					string subject = String.Format("Topic Subscription New Post Notification (From {0})",Config.BoardSettings.Name);
 
 					string body = Utils.ReadTemplate("topicpost.txt");
-					body = body.Replace("{forumname}",Config.ForumSettings.Name);
+					body = body.Replace("{forumname}",Config.BoardSettings.Name);
 					body = body.Replace("{topic}",row["Topic"].ToString());
 					body = body.Replace("{link}",String.Format("{0}{1}",basePage.ServerURL,Forum.GetLink(Pages.posts,"m={0}#{0}",messageID)));
 
-					DB.mail_createwatch(row["TopicID"],Config.ForumSettings.ForumEmail,subject,body,row["UserID"]);
+					DB.mail_createwatch(row["TopicID"],Config.BoardSettings.ForumEmail,subject,body,row["UserID"]);
 				}
 			}
 		}

@@ -57,7 +57,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				ForumRegister.Text = GetText("register");
 				cancel.Text = GetText("Cancel");
 
@@ -107,13 +107,13 @@ namespace yaf.pages
 		{
 			if(Page.IsValid) 
 			{
-				if(DB.user_find(false,UserName.Text,Email.Text).Rows.Count>0) 
+				if(DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
 				{
 					AddLoadMessage(GetText("already_registered"));
 					return;
 				}
 
-				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.ForumSettings.EmailVerification);
+				DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
 			}
 		}
 	}

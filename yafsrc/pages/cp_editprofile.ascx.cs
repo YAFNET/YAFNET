@@ -77,7 +77,7 @@ namespace yaf.pages
 
 				BindData();
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.cp_editprofile));
 
@@ -86,9 +86,9 @@ namespace yaf.pages
 				OurAvatar.NavigateUrl = Forum.GetLink(Pages.avatar);
 				OurAvatar.Text = GetText("OURAVATAR_SELECT");
 
-				ForumSettingsRows.Visible = Config.ForumSettings.AllowUserTheme || Config.ForumSettings.AllowUserLanguage;
-				UserThemeRow.Visible = Config.ForumSettings.AllowUserTheme;
-				UserLanguageRow.Visible = Config.ForumSettings.AllowUserLanguage;
+				ForumSettingsRows.Visible = Config.BoardSettings.AllowUserTheme || Config.BoardSettings.AllowUserLanguage;
+				UserThemeRow.Visible = Config.BoardSettings.AllowUserTheme;
+				UserLanguageRow.Visible = Config.BoardSettings.AllowUserLanguage;
 
 				if(Request.QueryString["av"]!=null)
 				{
@@ -111,7 +111,7 @@ namespace yaf.pages
 			Language.DataValueField = "FileName";
 			DataBind();
 
-			using(DataTable dt = DB.user_list(PageUserID,true)) 
+			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
 			{
 				row = dt.Rows[0];
 			}
@@ -233,7 +233,7 @@ namespace yaf.pages
 #endif
 			}
 
-			if(bUpdateEmail && Config.ForumSettings.EmailVerification) 
+			if(bUpdateEmail && Config.BoardSettings.EmailVerification) 
 			{
 				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
@@ -244,12 +244,12 @@ namespace yaf.pages
 				msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),ServerURL));
 				msg = msg.Replace("{newemail}",Email.Text);
 				msg = msg.Replace("{key}",hash);
-				msg = msg.Replace("{forumname}",Config.ForumSettings.Name);
+				msg = msg.Replace("{forumname}",Config.BoardSettings.Name);
 				msg = msg.Replace("{forumlink}",ForumURL);
 
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
-				Utils.SendMail(Config.ForumSettings.ForumEmail,Email.Text,"Changed email",msg);
+				Utils.SendMail(Config.BoardSettings.ForumEmail,Email.Text,"Changed email",msg);
 				AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
 			}
 
@@ -272,10 +272,10 @@ namespace yaf.pages
 			}
 
 			object email = null;
-			if(!Config.ForumSettings.EmailVerification)
+			if(!Config.BoardSettings.EmailVerification)
 				email = Email.Text;
 
-			DB.user_save(PageUserID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
+			DB.user_save(PageUserID,PageBoardID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
 				MSN.Text,YIM.Text,AIM.Text,ICQ.Text,Realname.Text,Occupation.Text,Interests.Text,Gender.SelectedIndex,Weblog.Text);
 			Forum.Redirect(Pages.cp_profile);
 		}

@@ -57,7 +57,7 @@ namespace yaf.pages
 			if(!IsPostBack) {
 				BindData();
 
-				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Request.RawUrl);
 			}
 		}
@@ -65,11 +65,11 @@ namespace yaf.pages
 		private void BindData() {
 			DataRow row;
 
-			Groups.DataSource = DB.usergroup_list(PageUserID);
+			Groups.DataSource = DB.usergroup_list(PageBoardID,PageUserID);
 
 			// Bind			
 			DataBind();
-			using(DataTable dt = DB.user_list(PageUserID,true)) {
+			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) {
 				row = dt.Rows[0];
 			}
 
