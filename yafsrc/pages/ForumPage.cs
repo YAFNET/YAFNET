@@ -112,24 +112,27 @@ namespace yaf.pages
 
 			// Find user name
 			AuthType authType = Data.GetAuthType;
+			string typeUser;
 			switch(authType)
 			{
 				case AuthType.Guest:
-					m_forumUser = new GuestUser();
+					typeUser = "yaf.GuestUser,yaf";
 					break;
 				case AuthType.Rainbow:
-					m_forumUser = new RainbowUser(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
+					typeUser = "yaf_rainbow.RainbowUser,yaf_rainbow";
 					break;
 				case AuthType.DotNetNuke:
-					m_forumUser = new DotNetNukeUser(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
+					typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
 					break;
 				case AuthType.Windows:
-					m_forumUser = new WindowsUser(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
+					typeUser = "yaf.WindowsUser,yaf";
 					break;
 				default:
-					m_forumUser = new FormsUser(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
+					typeUser = "yaf.FormsUser,yaf";
 					break;
 			}
+			m_forumUser = (IForumUser)Activator.CreateInstance(Type.GetType(typeUser));
+			m_forumUser.Initialize(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
 
 			string browser = String.Format("{0} {1}",HttpContext.Current.Request.Browser.Browser,HttpContext.Current.Request.Browser.Version);
 			string platform = HttpContext.Current.Request.Browser.Platform;

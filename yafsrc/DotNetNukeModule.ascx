@@ -1,4 +1,4 @@
-<%@ Control language="c#" Inherits="yaf.DotNetNukeModule" CodeBehind="DotNetNukeModule.ascx.cs" AutoEventWireup="false" %>
+<%@ Control language="c#" Inherits="yaf_dnn.DotNetNukeModule" CodeBehind="DotNetNukeModule.ascx.cs" AutoEventWireup="false" %>
 <%@ Register TagPrefix="Portal" TagName="Title" Src="~/controls/DesktopModuleTitle.ascx"%>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
 

@@ -1,4 +1,4 @@
-namespace yaf
+namespace yaf_dnn
 {
 	using System;
 	using System.Data;

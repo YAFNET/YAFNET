@@ -1,4 +1,4 @@
-namespace yaf
+namespace yaf_rainbow
 {
 	using System;
 	using System.Data;

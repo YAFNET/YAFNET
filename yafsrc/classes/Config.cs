@@ -77,12 +77,15 @@ namespace yaf
 			{
 				if(HttpContext.Current.Application["yaf_UrlBuilder"]==null)
 				{
+					string type;
 					if(IsRainbow)
-						HttpContext.Current.Application["yaf_UrlBuilder"] = new UrlBuilderRainbow();
+						type = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
 					else if(IsDotNetNuke)
-						HttpContext.Current.Application["yaf_UrlBuilder"] = new UrlBuilderDotNetNuke();
+						type = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
 					else
-						HttpContext.Current.Application["yaf_UrlBuilder"] = new UrlBuilder();
+						type = "yaf.UrlBuilder,yaf";
+					
+					HttpContext.Current.Application["yaf_UrlBuilder"] = Activator.CreateInstance(Type.GetType(type));
 				}
 
 				return (IUrlBuilder)HttpContext.Current.Application["yaf_UrlBuilder"];
