@@ -64,12 +64,12 @@ namespace yaf.cp
 
 					if((int)row["ToUserID"]==PageUserID) 
 					{
-						InboxLink.NavigateUrl = ".aspx";
+						InboxLink.NavigateUrl = "cp_inbox.aspx";
 						InboxLink.Text = GetText("inbox");
 					} 
 					else 
 					{
-						InboxLink.NavigateUrl = ".aspx?sent=1";
+						InboxLink.NavigateUrl = "cp_inbox.aspx?sent=1";
 						InboxLink.Text = GetText("sentitems");
 					}
 					ThisLink.Text = row["Subject"].ToString();

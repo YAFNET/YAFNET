@@ -349,7 +349,7 @@ namespace yaf
 					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("TOOLBAR","SEARCH")));
+					writer.WriteLine(String.Format("	<a href=\"{0}search.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","SEARCH")));
 					if(IsAdmin)
 						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("TOOLBAR","ADMIN")));
 					if(IsModerator || IsForumModerator)
@@ -366,7 +366,7 @@ namespace yaf
 					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("TOOLBAR","WELCOME_GUEST")));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("TOOLBAR","SEARCH")));
+					writer.WriteLine(String.Format("	<a href=\"{0}search.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","SEARCH")));
 					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","ACTIVETOPICS")));
 					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","MEMBERS")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
@@ -992,8 +992,7 @@ namespace yaf
 #endif
 		}
 
-#if true
-		private Localizer	m_localizer;
+		private Localizer	m_localizer = null;
 
 		public string GetText(string text) 
 		{
@@ -1008,6 +1007,10 @@ namespace yaf
 
 		public string GetText(string page,string text) 
 		{
+#if !DEBUG
+			if(m_localizer==null && Cache["Localizer"]!=null)
+				m_localizer = (Localizer)Cache["Localizer"];
+#endif
 			if(m_localizer==null) 
 			{
 				string filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
@@ -1015,56 +1018,15 @@ namespace yaf
 					filename = "languages/english.xml";
 
 				m_localizer = new Localizer(Server.MapPath(BaseDir + filename));
+#if !DEBUG
+				Cache["Localizer"] = m_localizer;
+#endif
 			}
 			string str = m_localizer.GetText(page,text);
 			str = str.Replace("[b]","<b>");
 			str = str.Replace("[/b]","</b>");
 			return str;
 		}
-#else
-		private DataTable	m_dtText;
-
-		public string GetText(string text) 
-		{
-			try 
-			{
-				if(m_dtText==null) 
-				{
-					using(DataSet ds = new DataSet()) 
-					{
-						string filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
-						if(filename==null)
-							filename = "languages/english.xml";
-
-						ds.ReadXml(Server.MapPath(String.Format("{0}{1}",BaseDir,filename)));
-						m_dtText = ds.Tables[0];
-					}
-				}
-			
-				DataRow[] rows = m_dtText.Select(String.Format("Index='{0}'",text)); 
-				if(rows.Length>1) 
-				{
-					throw new Exception(String.Format("Duplicate language item {0}",text));
-				} 
-				else if(rows.Length==1) 
-				{
-					string str = rows[0]["Text"].ToString();
-					str = str.Replace("[b]","<b>");
-					str = str.Replace("[/b]","</b>");
-					return str;
-					//return "&gt;" + str + "&lt;";
-				} 
-				else 
-				{
-					throw new Exception(String.Format("Missing language item {0}",text));
-				}
-			}
-			catch(Exception x) 
-			{
-				throw new Exception(text,x);
-			}
-		}
-#endif
 
 		static public int AppVersion 
 		{
@@ -1084,7 +1046,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,20);
+				return new DateTime(2003,10,23);
 			}
 		}
 	}

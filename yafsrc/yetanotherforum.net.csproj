@@ -173,12 +173,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = ".aspx.cs"
-                    DependentUpon = "cp_inbox.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "cp_inbox.aspx.cs"
                     DependentUpon = "cp_inbox.aspx"
                     SubType = "ASPXCodeBehind"

@@ -57,7 +57,7 @@ namespace yaf
 				if(UnreadPrivate>0) 
 				{
 					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = ".aspx";
+					UnreadMsgs.NavigateUrl = "cp_inbox.aspx";
 					if(UnreadPrivate==1)
 						UnreadMsgs.Text = String.Format(GetText("unread1"),UnreadPrivate);
 					else
