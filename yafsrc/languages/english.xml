@@ -161,8 +161,9 @@
 		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts arrive in this topic.</Resource>
 		<Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
 		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
-		<Resource tag="ATTACHMENTS">Attachments:</Resource>
-		<Resource tag="ATTACHMENTINFO">{0:N0} KB, downloaded {1:N0} time(s).</Resource>
+		<Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+		<Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="THREADED">Threaded</Resource>
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
