@@ -31,6 +31,7 @@ namespace yaf.controls
 	public abstract class smileys : BaseUserControl
 	{
 		protected System.Web.UI.WebControls.Literal SmileyResults;
+		protected System.Web.UI.HtmlControls.HtmlTableCell AddSmiley;
 		protected controls.Pager pager;
 		protected DataTable dtSmileys;
 		private string _onclick;
@@ -41,10 +42,19 @@ namespace yaf.controls
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			BoardSettings bs = ForumPage.BoardSettings;
+			pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
+			perrow = bs.SmiliesPerRow;
+
+			// setup the header
+			AddSmiley.Attributes.Add("colspan",perrow.ToString());
+			AddSmiley.InnerHtml = ForumPage.GetText("SMILIES_HEADER");
+
 			dtSmileys = DB.smiley_listunique(base.ForumPage.PageBoardID);
 	
 			pager.PageSize = pagesize;
 			CreateSmileys();
+
 		}
 
 		private void pager_PageChange(object sender,EventArgs e)
@@ -57,10 +67,11 @@ namespace yaf.controls
 			int pgnum = pager.CurrentPageIndex;
 			pager.Count = dtSmileys.Rows.Count;
 			int intpg = pgnum * pagesize;
-			
+
 			System.Text.StringBuilder html = new System.Text.StringBuilder();
 			html.AppendFormat("<tr class='post'>");
 			int rowcells = 0;
+
 			for(int i=intpg;i<intpg + pagesize;i++) 
 			{
 				if (i < dtSmileys.Rows.Count)
@@ -86,7 +97,7 @@ namespace yaf.controls
 					rowcells++;
 				}
 			}
-			while(rowcells++<perrow) html.AppendFormat("<td>&nbsp;</td>");
+			while (rowcells++ < perrow) html.AppendFormat("<td>&nbsp;</td>");
 			html.AppendFormat("</tr>");
 
 			SmileyResults.Text = html.ToString();
