@@ -46,7 +46,7 @@ namespace yaf_dnn
 
 				DotNetNuke.PortalSettings _portalSettings = (DotNetNuke.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
 
-				userInfo = userController.GetUser(_portalSettings.PortalId, int.Parse(HttpContext.Current.User.Identity.Name)); 
+				userInfo = userController.GetUser(_portalSettings.PortalId, this.UserId); 
 
 				m_userID = userInfo.UserID; 
 				m_userName = userInfo.Username; 

@@ -11,7 +11,7 @@ namespace yaf_rainbow
 		private int		m_userID;
 		private bool	m_isAuthenticated;
 
-		public void Initialize(string userName,bool isAuthenticated)
+		public RainbowUser() 
 		{
 			/*
 			 * UserID (int)
@@ -35,7 +35,7 @@ namespace yaf_rainbow
 			 */
 			try 
 			{
-				if(isAuthenticated)
+				if(HttpContext.Current.User.Identity.IsAuthenticated)
 				{
 					m_userName = Rainbow.Configuration.PortalSettings.CurrentUser.Identity.Name;
 					m_email = Rainbow.Configuration.PortalSettings.CurrentUser.Identity.Email;
@@ -59,7 +59,7 @@ namespace yaf_rainbow
 			}
 			catch(Exception x) 
 			{
-				throw new Exception("Failed to read user data from Rainbow.",x);
+				throw new ApplicationException("Failed to read user data from Rainbow.",x);
 			}
 			m_userName = "";
 			m_email = "";

@@ -14,11 +14,11 @@ namespace yaf_dnn
 		private string m_location; 
 		private bool m_isAuthenticated;
 
-		public void Initialize(string userName,bool isAuthenticated) 
-		{ 
+		public DotNetNukeUser() 
+		{
 			try 
 			{ 
-				if(isAuthenticated) 
+				if(HttpContext.Current.User.Identity.IsAuthenticated) 
 				{ 
 					DotNetNuke.UserController userController = new DotNetNuke.UserController(); 
 					DotNetNuke.UserInfo userInfo; 
@@ -94,15 +94,11 @@ namespace yaf_dnn
 		} 
 		public void UpdateUserInfo(int userID) 
 		{ 
-
-
 			using(System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand()) 
 			{ 
 				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID); 
 				DB.ExecuteNonQuery(cmd); 
 			} 
-
-
 		} 
 	} 
 }

@@ -90,15 +90,15 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "yaf"
-                    AssemblyName = "yaf"
-                    HintPath = "..\yafsrc\bin\yaf.dll"
-                    Private = "False"
-                />
-                <Reference
                     Name = "Rainbow"
                     AssemblyName = "Rainbow"
                     HintPath = "..\..\..\www\Rainbow\bin\Rainbow.dll"
+                    Private = "False"
+                />
+                <Reference
+                    Name = "yaf"
+                    AssemblyName = "yaf"
+                    HintPath = "..\yafsrc\bin\yaf.dll"
                     Private = "False"
                 />
             </References>
