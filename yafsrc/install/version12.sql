@@ -1522,75 +1522,113 @@ create procedure yaf_system_initialize(
 	@Password	varchar(32)
 ) as 
 begin
-	declare @BoardID	int
-
-	set @BoardID = 1
-
-	-- yaf_System
 	SET IDENTITY_INSERT yaf_System ON
 	insert into yaf_System(SystemID,Version,VersionName,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit,AllowUserTheme,AllowUserLanguage,UseFileTable)
 	values(1,1,'0.9.5',@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
 	SET IDENTITY_INSERT yaf_System OFF
 
+	exec yaf_board_create @Name,@User,@UserEmail,@Password,1
+end
+GO
+
+-- yaf_board_create
+if exists (select * from sysobjects where id = object_id(N'yaf_board_create') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_create
+GO
+
+create procedure yaf_board_create(
+	@BoardName 		varchar(50),
+	@UserName		varchar(50),
+	@UserEmail		varchar(50),
+	@UserPass		varchar(32),
+	@IsHostAdmin	bit
+) as 
+begin
+	declare @BoardID		int
+	declare @TimeZone		int
+	declare @ForumEmail		varchar(50)
+	declare	@GroupIDAdmin		int
+	declare	@GroupIDGuest		int
+	declare @GroupIDMember		int
+	declare	@AccessMaskIDAdmin	int
+	declare @AccessMaskIDModerator	int
+	declare @AccessMaskIDMember	int
+	declare	@AccessMaskIDReadOnly	int
+	declare @UserIDAdmin		int
+	declare @UserIDGuest		int
+	declare @RankIDAdmin		int
+	declare @RankIDGuest		int
+	declare @RankIDNewbie		int
+	declare @RankIDMember		int
+	declare @RankIDAdvanced		int
+	declare	@CategoryID		int
+	declare	@ForumID		int
+
+	select @TimeZone=TimeZone,@ForumEmail=ForumEmail from yaf_System
+
 	-- yaf_Board
-	SET IDENTITY_INSERT yaf_Board ON
-	insert into yaf_Board(BoardID,[Name]) values(@BoardID,@Name)
-	SET IDENTITY_INSERT yaf_Board OFF
+	insert into yaf_Board([Name]) values(@BoardName)
+	set @BoardID = @@IDENTITY
 
 	-- yaf_Rank
-	SET IDENTITY_INSERT yaf_Rank ON
-	insert into yaf_Rank(RankID,BoardID,Name,IsStart,IsLadder,MinPosts) values(1,@BoardID,'Administration',0,0,null)
-	insert into yaf_Rank(RankID,BoardID,Name,IsStart,IsLadder,MinPosts) values(2,@BoardID,'Guest',0,0,null)
-	insert into yaf_Rank(RankID,BoardID,Name,IsStart,IsLadder,MinPosts) values(3,@BoardID,'Newbie',1,1,0)
-	insert into yaf_Rank(RankID,BoardID,Name,IsStart,IsLadder,MinPosts) values(4,@BoardID,'Member',0,1,10)
-	insert into yaf_Rank(RankID,BoardID,Name,IsStart,IsLadder,MinPosts) values(5,@BoardID,'Advanced Member',0,1,30)
-	SET IDENTITY_INSERT yaf_Rank OFF
+	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Administration',0,0,null)
+	set @RankIDAdmin = @@IDENTITY
+	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Guest',0,0,null)
+	set @RankIDGuest = @@IDENTITY
+	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Newbie',1,1,0)
+	set @RankIDNewbie = @@IDENTITY
+	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Member',0,1,10)
+	set @RankIDMember = @@IDENTITY
+	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Advanced Member',0,1,30)
+	set @RankIDAdvanced = @@IDENTITY
 
 	-- yaf_AccessMask
-	SET IDENTITY_INSERT yaf_AccessMask ON
-	insert into yaf_AccessMask(AccessMaskID,BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(1,@BoardID,'Admin Access Mask',1,1,1,1,1,1,1,1,1,1)
-	insert into yaf_AccessMask(AccessMaskID,BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(2,@BoardID,'Moderator Access Mask',1,1,1,0,0,1,1,1,1,0)
-	insert into yaf_AccessMask(AccessMaskID,BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(3,@BoardID,'Member Access Mask',1,1,1,0,0,1,0,1,1,0)
-	insert into yaf_AccessMask(AccessMaskID,BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	values(4,@BoardID,'Read Only Access Mask',1,0,0,0,0,0,0,0,0,0)
-	SET IDENTITY_INSERT yaf_AccessMask OFF
+	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values(@BoardID,'Admin Access Mask',1,1,1,1,1,1,1,1,1,1)
+	set @AccessMaskIDAdmin = @@IDENTITY
+	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values(@BoardID,'Moderator Access Mask',1,1,1,0,0,1,1,1,1,0)
+	set @AccessMaskIDModerator = @@IDENTITY
+	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values(@BoardID,'Member Access Mask',1,1,1,0,0,1,0,1,1,0)
+	set @AccessMaskIDMember = @@IDENTITY
+	insert into yaf_AccessMask(BoardID,Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values(@BoardID,'Read Only Access Mask',1,0,0,0,0,0,0,0,0,0)
+	set @AccessMaskIDReadOnly = @@IDENTITY
 
 	-- yaf_Group
-	SET IDENTITY_INSERT yaf_Group ON
-	insert into yaf_Group(GroupID,BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(1,@BoardID,'Administration',1,0,0,0)
-	insert into yaf_Group(GroupID,BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(2,@BoardID,'Guest',0,1,0,0)
-	insert into yaf_Group(GroupID,BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(3,@BoardID,'Member',0,0,1,0)
-	SET IDENTITY_INSERT yaf_Group OFF
+	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Administration',1,0,0,0)
+	set @GroupIDAdmin = @@IDENTITY
+	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Guest',0,1,0,0)
+	set @GroupIDGuest = @@IDENTITY
+	insert into yaf_Group(BoardID,Name,IsAdmin,IsGuest,IsStart,IsModerator) values(@BoardID,'Member',0,0,1,0)
+	set @GroupIDMember = @@IDENTITY
 
 	-- yaf_User
-	SET IDENTITY_INSERT yaf_User ON
-	insert into yaf_User(UserID,BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
-	values(1,@BoardID,1,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0,1)
-	insert into yaf_User(UserID,BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
-	values(2,@BoardID,2,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0,0)
-	SET IDENTITY_INSERT yaf_User OFF
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
+	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0,@IsHostAdmin)
+	set @UserIDAdmin = @@IDENTITY
+
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
+	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0,0)
+	set @UserIDGuest = @@IDENTITY
 
 	-- yaf_UserGroup
-	insert into yaf_UserGroup(UserID,GroupID) values(1,1)
-	insert into yaf_UserGroup(UserID,GroupID) values(2,2)
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserIDAdmin,@GroupIDAdmin)
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserIDGuest,@GroupIDGuest)
 
 	-- yaf_Category
-	SET IDENTITY_INSERT yaf_Category ON
 	insert into yaf_Category(CategoryID,BoardID,Name,SortOrder) values(1,@BoardID,'Test Category',1)
-	SET IDENTITY_INSERT yaf_Category OFF
+	set @CategoryID = @@IDENTITY
 	
 	-- yaf_Forum
-	SET IDENTITY_INSERT yaf_Forum ON
-	insert into yaf_Forum(ForumID,CategoryID,Name,Description,SortOrder,Locked,Hidden,IsTest,Moderated,NumTopics,NumPosts)
-	values(1,1,'Test Forum','A test forum',1,0,0,1,0,0,0)
-	SET IDENTITY_INSERT yaf_Forum OFF
+	insert into yaf_Forum(CategoryID,Name,Description,SortOrder,Locked,Hidden,IsTest,Moderated,NumTopics,NumPosts)
+	values(@CategoryID,'Test Forum','A test forum',1,0,0,1,0,0,0)
+	set @ForumID = @@IDENTITY
 
 	-- yaf_ForumAccess
-	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(1,1,1)
-	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(2,1,4)
-	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(3,1,2)
+	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
+	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
+	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDMember,@ForumID,@AccessMaskIDMember)
 end
 GO

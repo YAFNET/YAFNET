@@ -554,6 +554,19 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void board_create(object name,object userName,object userEmail,object userPass)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_create")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardName",name);
+				cmd.Parameters.Add("@UserName",userName);
+				cmd.Parameters.Add("@UserEmail",userEmail);
+				cmd.Parameters.Add("@UserPass",userPass);
+				cmd.Parameters.Add("@IsHostAdmin",false);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_Category
