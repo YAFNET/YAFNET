@@ -1576,8 +1576,11 @@ create procedure dbo.yaf_message_approve(@MessageID int) as begin
 	update yaf_Message set Approved = 1 where MessageID = @MessageID
 
 	-- update yaf_User
-	update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
-	exec yaf_user_upgrade @UserID
+	if exists(select 1 from yaf_Forum where ForumID=@ForumID and IsTest=0)
+	begin
+		update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
+		exec yaf_user_upgrade @UserID
+	end
 
 	-- update yaf_Forum
 	update yaf_Forum set
@@ -2725,7 +2728,11 @@ begin
 	set @MessageID=@@IDENTITY
 
 	-- update user
-	update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
+	if exists(select 1 from yaf_Forum where ForumID=@ForumID and IsTest=0)
+	begin
+		update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
+	end
+	
 	-- update topic
 	update yaf_Topic set 
 		LastPosted		= @Posted,
