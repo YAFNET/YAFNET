@@ -37,7 +37,7 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.error,Request.QueryString.ToString());
+			//Forum.Redirect(Pages.error,Request.QueryString.ToString());
 		}
 
 		#region Web Form Designer generated code

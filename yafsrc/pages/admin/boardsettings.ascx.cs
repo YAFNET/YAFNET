@@ -33,8 +33,9 @@ namespace yaf.pages.admin {
 	/// Summary description for settings.
 	/// </summary>
 	public class boardsettings : AdminPage {
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.TextBox Name;
+		protected Button Save;
+		protected TextBox Name;
+		protected CheckBox AllowThreaded;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -56,6 +57,7 @@ namespace yaf.pages.admin {
 
 			DataBind();
 			Name.Text = (string)row["Name"];
+			AllowThreaded.Checked = (bool)row["AllowThreaded"];
 		}
 
 		#region Web Form Designer generated code
@@ -81,7 +83,7 @@ namespace yaf.pages.admin {
 		#endregion
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.board_save(PageBoardID,Name.Text);
+			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
 			Config.BoardSettings = null;	/// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);

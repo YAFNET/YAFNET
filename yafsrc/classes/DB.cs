@@ -557,13 +557,14 @@ namespace yaf
 				}
 			}
 		}
-		static public void board_save(object boardID,object name)
+		static public void board_save(object boardID,object name,object allowThreaded)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_board_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",name);
+				cmd.Parameters.Add("@AllowThreaded",allowThreaded);
 				ExecuteNonQuery(cmd);
 			}
 		}

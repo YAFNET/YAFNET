@@ -82,6 +82,13 @@ namespace yaf
 				return (bool)m_row["AllowUserLanguage"];
 			}
 		}
+		public bool AllowThreaded
+		{
+			get
+			{
+				return (bool)m_row["AllowThreaded"];
+			}
+		}
 		public string ForumEmail 
 		{
 			get 

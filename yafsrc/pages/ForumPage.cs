@@ -344,7 +344,7 @@ namespace yaf.pages
 			StringBuilder header = new StringBuilder();
 			header.AppendFormat("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
 
-			if(User.IsAuthenticated) 
+			if(User!=null && User.IsAuthenticated) 
 			{
 				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
 
@@ -369,7 +369,7 @@ namespace yaf.pages
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-				if(User.CanLogin) 
+				if(User!=null && User.CanLogin) 
 				{
 					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login),GetText("TOOLBAR","LOGIN")));
 					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));

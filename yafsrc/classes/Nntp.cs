@@ -435,6 +435,7 @@ namespace yaf.classes
 					case "est":
 						return new TimeSpan(-5,0,0);
 					case "cdt":
+					case "utc-5:00":
 						return new TimeSpan(-5,0,0);
 					case "cst":
 					case "mdt":

@@ -100,6 +100,7 @@ namespace yaf
 
 		static public string Text2Html(string html) 
 		{
+			html = html.Replace("\r\n","<br/>");
 			html = html.Replace("\n","<br/>");
 			return html;
 		}
@@ -145,22 +146,15 @@ namespace yaf
 					}
 				}
 
-
-				// Send email about the error
-				string sErrorSmtp = Config.ConfigSection["smtpserver"];
-				string sErrorEmail = Config.ConfigSection["erroremail"];
-				if(sErrorEmail==null || sErrorEmail.Length==0 || sErrorSmtp==null || sErrorSmtp.Length==0)
-					return;
-
 				// Build body
 				System.Text.StringBuilder msg = new System.Text.StringBuilder();
-				msg.Append("<style>\n");
-				msg.Append("body,td,th{font:8pt tahoma}\n");
-				msg.Append("table{background-color:#C0C0C0}\n");
-				msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\n");
-				msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\n");
-				msg.Append("</style>\n");
-				msg.Append("<table cellpadding=1 cellspacing=1>\n");
+				msg.Append("<style>\r\n");
+				msg.Append("body,td,th{font:8pt tahoma}\r\n");
+				msg.Append("table{background-color:#C0C0C0}\r\n");
+				msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\r\n");
+				msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\r\n");
+				msg.Append("</style>\r\n");
+				msg.Append("<table cellpadding=1 cellspacing=1>\r\n");
 
 				if(x!=null) 
 				{
@@ -205,7 +199,7 @@ namespace yaf
 				// Send mail
 				// http://sourceforge.net/projects/opensmtp-net/
 				OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-				OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(email, email);
+				OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(email,email);
 				OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(server,25);
 				if(user.Length>0 && pass.Length>0) 
 				{

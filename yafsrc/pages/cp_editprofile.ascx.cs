@@ -170,6 +170,30 @@ namespace yaf.pages
 
 		private void UpdateProfile_Click(object sender, System.EventArgs e) 
 		{
+			if(HomePage.Text.Length>0 && !HomePage.Text.StartsWith("http://"))
+				HomePage.Text = "http://" + HomePage.Text;
+
+			if(MSN.Text.Length>0 && !Utils.IsValidEmail(MSN.Text))
+			{
+				AddLoadMessage(GetText("BAD_MSN"));
+				return;
+			}
+			if(HomePage.Text.Length>0 && !Utils.IsValidURL(HomePage.Text))
+			{
+				AddLoadMessage(GetText("BAD_HOME"));
+				return;
+			}
+			if(Weblog.Text.Length>0 && !Utils.IsValidURL(Weblog.Text))
+			{
+				AddLoadMessage(GetText("BAD_WEBLOG"));
+				return;
+			}
+			if(ICQ.Text.Length>0 && !Utils.IsValidInt(ICQ.Text))
+			{
+				AddLoadMessage(GetText("BAD_ICQ"));
+				return;
+			}
+
 			if(File.PostedFile!=null && File.PostedFile.FileName.Trim().Length>0 && File.PostedFile.ContentLength>0) 
 			{
 				long x,y;
@@ -275,27 +299,6 @@ namespace yaf.pages
 			object email = null;
 			if(!Config.BoardSettings.EmailVerification)
 				email = Email.Text;
-
-			if(MSN.Text.Length>0 && !Utils.IsValidEmail(MSN.Text))
-			{
-				AddLoadMessage(GetText("BAD_MSN"));
-				return;
-			}
-			if(HomePage.Text.Length>0 && !Utils.IsValidURL(HomePage.Text))
-			{
-				AddLoadMessage(GetText("BAD_HOME"));
-				return;
-			}
-			if(Weblog.Text.Length>0 && !Utils.IsValidURL(Weblog.Text))
-			{
-				AddLoadMessage(GetText("BAD_WEBLOG"));
-				return;
-			}
-			if(ICQ.Text.Length>0 && !Utils.IsValidInt(ICQ.Text))
-			{
-				AddLoadMessage(GetText("BAD_ICQ"));
-				return;
-			}
 
 			DB.user_save(PageUserID,PageBoardID,null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,Language.SelectedValue,Theme.SelectedValue,null,
 				MSN.Text,YIM.Text,AIM.Text,ICQ.Text,Realname.Text,Occupation.Text,Interests.Text,Gender.SelectedIndex,Weblog.Text);

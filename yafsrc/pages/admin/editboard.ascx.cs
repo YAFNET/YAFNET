@@ -33,9 +33,9 @@ namespace yaf.pages.admin
 	/// Summary description for WebForm1.
 	/// </summary>
 	public class editboard : AdminPage {
-		protected System.Web.UI.WebControls.TextBox Name, UserName, UserEmail, UserPass1, UserPass2;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Button Cancel;
+		protected TextBox Name, UserName, UserEmail, UserPass1, UserPass2;
+		protected Button Save, Cancel;
+		protected CheckBox AllowThreaded;
 		protected PlaceHolder AdminInfo;
 		protected controls.PageLinks PageLinks;
 	
@@ -54,6 +54,7 @@ namespace yaf.pages.admin
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
+						AllowThreaded.Checked = (bool)row["AllowThreaded"];
 					}
 				}
 				else
@@ -124,7 +125,7 @@ namespace yaf.pages.admin
 
 			if(Request.QueryString["b"] != null) 
 			{
-				DB.board_save(Request.QueryString["b"],Name.Text);
+				DB.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
 			} 
 			else
 			{
@@ -132,6 +133,7 @@ namespace yaf.pages.admin
 			}
 
 			// Done
+			Config.BoardSettings = null;
 			Forum.Redirect(Pages.admin_boards);
 		}
 

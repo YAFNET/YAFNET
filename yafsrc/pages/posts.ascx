@@ -50,7 +50,7 @@
 		<table class="header1" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td><asp:label id=TopicTitle runat="server"/></td>
-			<td align="right">
+			<td align="right" runat="server" id="ThreadViewCell">
 				<asp:linkbutton runat="server" id="NormalView"/>
 				&middot;
 				<asp:linkbutton runat="server" id="ThreadView"/>

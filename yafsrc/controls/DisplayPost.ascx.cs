@@ -10,7 +10,6 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for DisplayPost.
 	/// </summary>
-	[Owner("bhenden", "$Revision$")]
 	public class DisplayPost : BaseUserControl
 	{
 		protected HyperLink		Attach, Edit, Quote;
@@ -22,15 +21,15 @@ namespace yaf.controls
 		{
 			if(!IsPostBack) 
 			{
-				Attach.Visible		= CanAttach();
+				Attach.Visible		= CanAttach;
 				Attach.Text			= ForumPage.GetThemeContents("BUTTONS","ATTACHMENTS");
 				Attach.ToolTip		= "Attachments";
 				Attach.NavigateUrl	= Forum.GetLink(Pages.attachments,"m={0}",DataRow["MessageID"]);
-				Edit.Visible		= CanEditPost();
+				Edit.Visible		= CanEditPost;
 				Edit.Text			= ForumPage.GetThemeContents("BUTTONS","EDITPOST");
 				Edit.ToolTip		= "Edit this post";
 				Edit.NavigateUrl	= Forum.GetLink(Pages.postmessage,"m={0}",DataRow["MessageID"]);
-				Delete.Visible		= CanDeletePost();
+				Delete.Visible		= CanDeletePost;
 				Delete.Text			= ForumPage.GetThemeContents("BUTTONS","DELETEPOST");
 				Delete.ToolTip		= "Delete this post";
 				Delete.Attributes["onclick"] = string.Format("return confirm('{0}')",ForumPage.GetText("confirm_deletemessage"));
@@ -80,19 +79,28 @@ namespace yaf.controls
 			}
 		}
 
-		protected bool CanEditPost() 
+		protected bool CanEditPost
 		{
-			return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
+			get
+			{
+				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
+			}
 		}
 
-		protected bool CanAttach() 
+		protected bool CanAttach
 		{
-			return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
+			get
+			{
+				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
+			}
 		}
 
-		protected bool CanDeletePost() 
+		protected bool CanDeletePost
 		{
-			return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
+			get
+			{
+				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
+			}
 		}
 		protected bool CanReply
 		{

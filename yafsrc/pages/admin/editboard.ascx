@@ -13,6 +13,10 @@
     <td width="50%" class="postheader"><b>Name:</b><br>The name of the board.</td>
     <td width="50%" class="post"><asp:textbox id=Name runat="server" style="width:100%"></asp:textbox></td>
 </tr>
+	<tr>
+		<td class="postheader"><b>Allow Threaded:</b><br/>Allow threaded view for posts.</td>
+		<td class="post"><asp:checkbox runat="server" id="AllowThreaded"/></td>
+	</tr>
 <asp:placeholder runat="server" id="AdminInfo">
 <tr>
 	<td class="postheader"><b>User Name:</b><br/>This will be the administrator for the board.</td>

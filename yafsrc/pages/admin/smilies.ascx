@@ -21,7 +21,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Code") %></td>
-		<td class=post align="center"><img src='../images/emoticons/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></td>		
+		<td class=post align="center"><img src='<%# yaf.Data.ForumRoot %>images/emoticons/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></td>		
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Emoticon") %></td>
 		<td class=post>
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Edit"/>

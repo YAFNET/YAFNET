@@ -471,51 +471,51 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "install\version1.sql"
+                    RelPath = "install\version-0.7.0.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version10.sql"
+                    RelPath = "install\version-0.7.1.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version11.sql"
+                    RelPath = "install\version-0.8.0.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version12.sql"
+                    RelPath = "install\version-0.8.1.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version2.sql"
+                    RelPath = "install\version-0.8.2.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version3.sql"
+                    RelPath = "install\version-0.9.0.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version4.sql"
+                    RelPath = "install\version-0.9.1.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version5.sql"
+                    RelPath = "install\version-0.9.2.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version6.sql"
+                    RelPath = "install\version-0.9.3.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version7.sql"
+                    RelPath = "install\version-0.9.4.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version8.sql"
+                    RelPath = "install\version-0.9.5.sql"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "install\version9.sql"
+                    RelPath = "install\version-0.9.6.sql"
                     BuildAction = "Content"
                 />
                 <File

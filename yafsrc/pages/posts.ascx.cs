@@ -61,6 +61,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
 		protected LinkButton NormalView,ThreadView;
+		protected HtmlTableCell ThreadViewCell;
 
 		public posts() : base("POSTS")
 		{
@@ -84,6 +85,7 @@ namespace yaf.pages
 				TopicTitle.Text = (string)topic["Topic"];
 				NormalView.Text = GetText("NORMAL");
 				ThreadView.Text = GetText("THREADED");
+				ThreadViewCell.Visible = Config.BoardSettings.AllowThreaded;
 
 				if(!ForumPostAccess) 
 				{

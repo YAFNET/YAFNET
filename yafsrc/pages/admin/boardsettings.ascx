@@ -17,6 +17,10 @@
 		<td class=post width="50%"><asp:textbox style="width:300px" id=Name runat=server></asp:textbox></td>
 	</tr>
 	<tr>
+		<td class="postheader"><b>Allow Threaded:</b><br/>Allow threaded view for posts.</td>
+		<td class="post"><asp:checkbox runat="server" id="AllowThreaded"/></td>
+	</tr>
+	<tr>
 		<td class=postfooter colspan=2 align=middle>
 			<asp:Button id=Save runat="server" Text="Save"/></td>
 	</tr>
