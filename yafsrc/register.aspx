@@ -8,52 +8,52 @@
 
 <table class="content" cellspacing=1 cellpadding=0 width="100%">
 	<tr>
-		<td class=header1 colspan=2><%# GetText("register_title") %></td>
+		<td class=header1 colspan=2><%# GetText("title") %></td>
 	</tr>
 	<tr>
-		<td class=header2 colspan=2 align="middle"><%# GetText("register_details") %></td>
+		<td class=header2 colspan=2 align="middle"><%# GetText("details") %></td>
 	</tr>
 	<tr>
-		<td width="50%" class=postheader><%# GetText("register_username") %>:</td>
+		<td width="50%" class=postheader><%# GetText("username") %>:</td>
 		<td class=post>
 			<asp:TextBox id=UserName runat="server"/>
-			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("register_need_username") %>' ControlToValidate="UserName" EnableClientScript="False"/>
+			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("need_username") %>' ControlToValidate="UserName" EnableClientScript="False"/>
 		</td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_password") %>:</td>
+		<td class=postheader><%# GetText("password") %>:</td>
 		<td class=post>
 			<asp:TextBox id=Password runat="server" TextMode="Password"/>
-			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("register_need_password") %>' ControlToValidate="Password" EnableClientScript="False"/>
+			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("need_password") %>' ControlToValidate="Password" EnableClientScript="False"/>
 		</td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_retype_password") %>:</td>
+		<td class=postheader><%# GetText("retype_password") %>:</td>
 		<td class=post>
 			<asp:TextBox id=Password2 runat="server" TextMode="Password"/>
-			<asp:CompareValidator runat="server" ErrorMessage='<%# GetText("register_need_match") %>' ControlToValidate="Password2" ControlToCompare="Password" EnableClientScript="False"/>
+			<asp:CompareValidator runat="server" ErrorMessage='<%# GetText("need_match") %>' ControlToValidate="Password2" ControlToCompare="Password" EnableClientScript="False"/>
 		</td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_email") %>:</td>
+		<td class=postheader><%# GetText("email") %>:</td>
 		<td class=post><asp:TextBox id=Email runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=header2 colspan=2 align="middle"><%# GetText("register_profile") %></td>
+		<td class=header2 colspan=2 align="middle"><%# GetText("profile") %></td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_location") %>:</td>
+		<td class=postheader><%# GetText("location") %>:</td>
 		<td class=post><asp:TextBox id=Location runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_homepage") %>:</td>
+		<td class=postheader><%# GetText("homepage") %>:</td>
 		<td class=post><asp:TextBox id=HomePage runat="server"/></td>
 	</tr>
 	<tr>
-		<td class="header2" colspan=2 align="middle"><%# GetText("register_preferences") %></td>
+		<td class="header2" colspan=2 align="middle"><%# GetText("preferences") %></td>
 	</tr>
 	<tr>
-		<td class=postheader><%# GetText("register_timezone") %>:</td>
+		<td class=postheader><%# GetText("timezone") %>:</td>
 		<td class=post><asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"/></td>
 	</tr>
 	

@@ -56,7 +56,7 @@ namespace yaf
 		{
 			if(!IsPostBack) 
 			{
-				WatchForum.Text = GetText("topics_watchforum");
+				WatchForum.Text = GetText("watchforum");
 				moderate1.Text = String.Format("<img align=absmiddle title=\"Moderate this forum\" src=\"{0}\"/>",ThemeFile("topic_moderate.png"));
 				moderate1.ToolTip = "Moderate this forum";
 				moderate2.Text = moderate1.Text;
@@ -67,13 +67,13 @@ namespace yaf
 				NewTopic2.Text = NewTopic1.Text;
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
-				ShowList.Items.Add(new ListItem(GetText("topics_all"),"0"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_week"),"1"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_two_weeks"),"2"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_month"),"3"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_two_months"),"4"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_six_months"),"5"));
-				ShowList.Items.Add(new ListItem(GetText("topics_last_year"),"6"));
+				ShowList.Items.Add(new ListItem(GetText("all"),"0"));
+				ShowList.Items.Add(new ListItem(GetText("last_week"),"1"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_weeks"),"2"));
+				ShowList.Items.Add(new ListItem(GetText("last_month"),"3"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"4"));
+				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"5"));
+				ShowList.Items.Add(new ListItem(GetText("last_year"),"6"));
 			}
 
 			if(Request.QueryString["f"] == null)
@@ -168,7 +168,7 @@ namespace yaf
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
 				
-				string by = String.Format(GetText("topics_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
+				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
 					row["LastUserName"], 
 					minipost, 
@@ -179,7 +179,7 @@ namespace yaf
 					by
 				);
 			} else
-				return GetText("topics_no_posts");
+				return GetText("no_posts");
 		}
 
 		protected string GetTopicImage(object o) {

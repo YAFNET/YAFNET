@@ -66,7 +66,7 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				HomeLink.NavigateUrl = BaseDir;
 				MembersLink.NavigateUrl = "members.aspx";
-				MembersLink.Text = GetText("profile_members");
+				MembersLink.Text = GetText("members");
 				ThisLink.NavigateUrl = Request.RawUrl;
 				ThisLink.Text = PageUserName;
 

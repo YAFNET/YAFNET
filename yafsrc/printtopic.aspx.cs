@@ -84,7 +84,7 @@ namespace yaf
 
 		protected string GetPrintHeader(object o) {
 			DataRowView row = (DataRowView)o;
-			return String.Format("<b>{2}: {0}</b> - {1}",row["UserName"],FormatDateTime((DateTime)row["Posted"]),GetText("printtopic_postedby"));
+			return String.Format("<b>{2}: {0}</b> - {1}",row["UserName"],FormatDateTime((DateTime)row["Posted"]),GetText("postedby"));
 		}
 		protected string GetPrintBody(object o) {
 			DataRowView row = (DataRowView)o;

@@ -10,10 +10,10 @@
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=2><%= GetText("cp_signature_title") %></td>
+	<td class=header1 colspan=2><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=postheader valign=top><%= GetText("cp_signature_signature") %></td>
+	<td class=postheader valign=top><%= GetText("signature") %></td>
 	<td class=post>
 		<asp:textbox id=sig runat="server" cssclass="posteditor" TextMode="MultiLine" Rows="12"/>
 	</td>

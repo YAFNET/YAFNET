@@ -56,7 +56,7 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
-				Move.Text = GetText("movetopic_move");
+				Move.Text = GetText("move");
 
 				ForumList.DataSource = DB.forum_listread(PageUserID,null);
 				DataBind();

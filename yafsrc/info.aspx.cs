@@ -25,13 +25,13 @@ namespace yaf
 			if(!IsPostBack) 
 			{
 				Continue.NavigateUrl = Request.QueryString["url"];
-				Continue.Text = GetText("info_continue");
+				Continue.Text = GetText("continue");
 				RefreshURL = Request.QueryString["url"];
 
 				switch(int.Parse(Request.QueryString["i"])) 
 				{
 					case 1:
-						Info.Text = GetText("info_moderated");
+						Info.Text = GetText("moderated");
 						break;
 				}
 			}

@@ -11,18 +11,18 @@
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=2><%= GetText("emailtopic_title") %></td>
+	<td class=header1 colspan=2><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=postheader><%= GetText("emailtopic_to") %></td>
+	<td class=postheader><%= GetText("to") %></td>
 	<td class=post><asp:textbox id=EmailAddress runat=server cssclass=edit></asp:textbox></td>
 </tr>
 <tr>
-	<td class=postheader><%= GetText("emailtopic_subject") %></td>
+	<td class=postheader><%= GetText("subject") %></td>
 	<td class=post><asp:textbox id=Subject runat=server cssclass=edit></asp:textbox></td>
 </tr>
 <tr>
-	<td class=postheader valign=top><%= GetText("emailtopic_message") %></td>
+	<td class=postheader valign=top><%= GetText("message") %></td>
 	<td class=post valign=top><asp:textbox id=Message runat=server cssclass=edit TextMode="MultiLine" Rows="12"></asp:textbox></td>
 </tr>
 <tr>

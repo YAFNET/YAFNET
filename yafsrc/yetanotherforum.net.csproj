@@ -173,6 +173,12 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = ".aspx.cs"
+                    DependentUpon = "cp_inbox.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "cp_inbox.aspx.cs"
                     DependentUpon = "cp_inbox.aspx"
                     SubType = "ASPXCodeBehind"
@@ -998,6 +1004,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\Localizer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\Utils.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -1070,6 +1081,11 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "languages\english.xsx"
+                    DependentUpon = "english.xml"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "languages\norwegian.xml"
                     BuildAction = "Content"
                 />
@@ -1104,6 +1120,86 @@
                     RelPath = "moderate\forum.aspx.resx"
                     DependentUpon = "forum.aspx.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "rte\rte.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\rte.ascx.cs"
+                    DependentUpon = "rte.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "rte\rte.ascx.resx"
+                    DependentUpon = "rte.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "rte\images\backcolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\forecolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\image.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\link.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\orderedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\smiley.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\unorderedlist.gif"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "templates\changeemail.txt"

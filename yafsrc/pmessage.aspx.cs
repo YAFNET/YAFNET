@@ -109,19 +109,19 @@ namespace yaf
 
 		private void Save_Click(object sender, System.EventArgs e) {
 			if(To.Text.Length<=0) {
-				AddLoadMessage(GetText("pmessage_need_to"));
+				AddLoadMessage(GetText("need_to"));
 				return;
 			}
 			if(Subject.Text.Length<=0) {
-				AddLoadMessage(GetText("pmessage_need_subject"));
+				AddLoadMessage(GetText("need_subject"));
 				return;
 			}
 			if(Editor.Text.Length<=0) {
-				AddLoadMessage(GetText("pmessage_need_message"));
+				AddLoadMessage(GetText("need_message"));
 				return;
 			}
 
-			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,Editor.Text);
+			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,Server.HtmlEncode(Editor.Text));
 			Response.Redirect("cp_profile.aspx");
 		}
 

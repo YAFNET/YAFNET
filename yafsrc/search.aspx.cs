@@ -61,26 +61,26 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				ThisLink.NavigateUrl = "search.aspx";
-				ThisLink.Text = GetText("search_title");
-				btnSearch.Text = GetText("search_btnsearch");
+				ThisLink.Text = GetText("title");
+				btnSearch.Text = GetText("btnsearch");
 
 				// Load result dropdown
-				listResInPage.Items.Add(new ListItem(GetText("search_result5"),"5"));
-				listResInPage.Items.Add(new ListItem(GetText("search_result10"),"10"));
-				listResInPage.Items.Add(new ListItem(GetText("search_result25"),"25"));
-				listResInPage.Items.Add(new ListItem(GetText("search_result50"),"50"));
+				listResInPage.Items.Add(new ListItem(GetText("result5"),"5"));
+				listResInPage.Items.Add(new ListItem(GetText("result10"),"10"));
+				listResInPage.Items.Add(new ListItem(GetText("result25"),"25"));
+				listResInPage.Items.Add(new ListItem(GetText("result50"),"50"));
 
 				// Load searchwhere dropdown
-				listSearchWhere.Items.Add(new ListItem(GetText("search_posts"),"0"));
-				listSearchWhere.Items.Add(new ListItem(GetText("search_postedby"),"1"));
+				listSearchWhere.Items.Add(new ListItem(GetText("posts"),"0"));
+				listSearchWhere.Items.Add(new ListItem(GetText("postedby"),"1"));
 
 				// Load listSearchWath dropdown
-				listSearchWath.Items.Add(new ListItem(GetText("search_match_all"),"0"));
-				listSearchWath.Items.Add(new ListItem(GetText("search_match_any"),"1"));
-				listSearchWath.Items.Add(new ListItem(GetText("search_match_exact"),"2"));
+				listSearchWath.Items.Add(new ListItem(GetText("match_all"),"0"));
+				listSearchWath.Items.Add(new ListItem(GetText("match_any"),"1"));
+				listSearchWath.Items.Add(new ListItem(GetText("match_exact"),"2"));
 
 				// Load forum's combo
-				listForum.Items.Add(new ListItem(GetText("search_allforums"),"-1"));
+				listForum.Items.Add(new ListItem(GetText("allforums"),"-1"));
 				DataTable dt = DB.forum_listread(PageUserID,null);
 
 				int nOldCat = 0;

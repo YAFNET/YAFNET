@@ -58,7 +58,7 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
-				SendEmail.Text = GetText("emailtopic_send");
+				SendEmail.Text = GetText("send");
 
 				Subject.Text = PageTopicName;
 				string msg = ReadTemplate("emailtopic.txt");
@@ -91,7 +91,7 @@ namespace yaf
 
 		private void SendEmail_Click(object sender, System.EventArgs e) {
 			if(EmailAddress.Text.Length==0) {
-				AddLoadMessage(GetText("emailtopic_need_email"));
+				AddLoadMessage(GetText("need_email"));
 				return;
 			}
 
@@ -105,7 +105,7 @@ namespace yaf
 				Response.Redirect(String.Format("posts.aspx?t={0}",PageTopicID));
 			}
 			catch(Exception x) {
-				AddLoadMessage(String.Format(GetText("emailtopic_failed"),x.Message));
+				AddLoadMessage(String.Format(GetText("failed"),x.Message));
 			}
 		}
 	}

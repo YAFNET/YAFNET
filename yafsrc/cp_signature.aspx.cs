@@ -51,7 +51,7 @@ namespace yaf
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("cp_signature_title");
+				ThisLink.Text = GetText("title");
 
 				save.Text = GetText("Save");
 				cancel.Text = GetText("Cancel");
@@ -59,7 +59,7 @@ namespace yaf
 		}
 
 		private void save_Click(object sender,EventArgs e) {
-			DB.user_savesignature(PageUserID,sig.Text);
+			DB.user_savesignature(PageUserID,Server.HtmlEncode(sig.Text));
 			Response.Redirect("cp_profile.aspx");
 		}
 

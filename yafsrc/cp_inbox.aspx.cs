@@ -76,7 +76,7 @@ namespace yaf.cp
 
 		protected void DeleteSelected_Load(object sender, System.EventArgs e) 
 		{
-			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("cp_inbox_confirm_delete"));
+			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_delete"));
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -94,11 +94,11 @@ namespace yaf.cp
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText(IsSentItems ? "cp_inbox_sentitems" : "cp_inbox_title");
+				ThisLink.Text = GetText(IsSentItems ? "sentitems" : "title");
 
-				SubjectLink.Text = GetText("cp_inbox_subject");
-				FromLink.Text = GetText(IsSentItems ? "cp_inbox_to" : "cp_inbox_from");
-				DateLink.Text = GetText("cp_inbox_date");
+				SubjectLink.Text = GetText("subject");
+				FromLink.Text = GetText(IsSentItems ? "to" : "from");
+				DateLink.Text = GetText("date");
 			}
 		}
 
@@ -153,9 +153,9 @@ namespace yaf.cp
 				//TODO DB.pmessage_delete(e.CommandArgument);
 				BindData();
 				if(nItemCount==1)
-					AddLoadMessage(GetText("cp_inbox_msgdeleted1"));
+					AddLoadMessage(GetText("msgdeleted1"));
 				else
-					AddLoadMessage(String.Format(GetText("cp_inbox_msgdeleted2"),nItemCount));
+					AddLoadMessage(String.Format(GetText("msgdeleted2"),nItemCount));
 			}
 		}
 

@@ -11,18 +11,18 @@
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
 		<td class=navlinks align=left id=PageLinks1 runat=server></td>
-		<td align=right><%= GetText("active_since") %> <asp:DropDownList id=Since runat="server" AutoPostBack="True"/></td>
+		<td align=right><%= GetText("since") %> <asp:DropDownList id=Since runat="server" AutoPostBack="True"/></td>
 	</tr>
 </table>
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
 <tr>
 	<td class=header1 width="1%">&nbsp;</td>
-	<td class=header1 align=left><%= GetText("active_topics") %></td>
-	<td class=header1 align=left width="20%"><%= GetText("active_topic_starter") %></td>
-	<td class=header1 align=middle width="7%"><%= GetText("active_replies") %></td>
-	<td class=header1 align=middle width="7%"><%= GetText("active_views") %></td>
-	<td class=header1 align=middle width="20%"><%= GetText("active_lastpost") %></td>
+	<td class=header1 align=left><%= GetText("topics") %></td>
+	<td class=header1 align=left width="20%"><%= GetText("topic_starter") %></td>
+	<td class=header1 align=middle width="7%"><%= GetText("replies") %></td>
+	<td class=header1 align=middle width="7%"><%= GetText("views") %></td>
+	<td class=header1 align=middle width="20%"><%= GetText("lastpost") %></td>
 </tr>
 <asp:repeater id=TopicList runat="server">
 <ItemTemplate>

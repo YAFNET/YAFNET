@@ -11,15 +11,15 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=7><%= GetText("moderate_title") %></td>
+	<td class=header1 colspan=7><%= GetText("title") %></td>
 </tr>
 <tr>
 	<td class=header2 width="1%">&nbsp;</td>
-	<td class=header2 align=left><%= GetText("moderate_topics") %></td>
-	<td class=header2 align=left width="20%"><%= GetText("moderate_topic_starter") %></td>
-	<td class=header2 align=middle width="7%"><%= GetText("moderate_replies") %></td>
-	<td class=header2 align=middle width="7%"><%= GetText("moderate_views") %></td>
-	<td class=header2 align=middle width="25%"><%= GetText("moderate_lastpost") %></td>
+	<td class=header2 align=left><%= GetText("topics") %></td>
+	<td class=header2 align=left width="20%"><%= GetText("topic_starter") %></td>
+	<td class=header2 align=middle width="7%"><%= GetText("replies") %></td>
+	<td class=header2 align=middle width="7%"><%= GetText("views") %></td>
+	<td class=header2 align=middle width="25%"><%= GetText("lastpost") %></td>
 	<td class=header2>&nbsp;</td>
 </tr>
 

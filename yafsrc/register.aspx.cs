@@ -55,7 +55,7 @@ namespace yaf
 			if(!IsPostBack) {
 				HomeLink.Text = ForumName;
 				HomeLink.NavigateUrl = BaseDir;
-				ForumRegister.Text = GetText("register_register");
+				ForumRegister.Text = GetText("register");
 				cancel.Text = GetText("Cancel");
 
 				TimeZones.DataSource = Data.TimeZones();
@@ -106,7 +106,7 @@ namespace yaf
 			{
 				if(DB.user_find(UserName.Text,Email.Text)) 
 				{
-					AddLoadMessage(GetText("register_already_registered"));
+					AddLoadMessage(GetText("already_registered"));
 					return;
 				}
 

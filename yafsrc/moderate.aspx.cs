@@ -49,7 +49,7 @@ namespace yaf
 			ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
 			ForumLink.Text = PageForumName;
 			ModLink.NavigateUrl = Request.RawUrl;
-			ModLink.Text = GetText("moderate_title");
+			ModLink.Text = GetText("title");
 
 			if(!IsPostBack)
 				BindData();
@@ -57,7 +57,7 @@ namespace yaf
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("moderate_confirm_delete"));
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_delete"));
 		}
 
 		private void BindData() 
@@ -69,7 +69,7 @@ namespace yaf
 		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
 			if(e.CommandName=="delete") {
 				DB.topic_delete(e.CommandArgument);
-				AddLoadMessage(GetText("moderate_deleted"));
+				AddLoadMessage(GetText("deleted"));
 				BindData();
 			}
 		}
@@ -135,7 +135,7 @@ namespace yaf
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
 				
-				string by = String.Format(GetText("moderate_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
+				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
 					row["LastUserName"], 
 					minipost, 
@@ -147,7 +147,7 @@ namespace yaf
 					);
 			} 
 			else
-				return GetText("moderate_no_posts");
+				return GetText("no_posts");
 		}
 		#endregion
 

@@ -54,10 +54,10 @@ namespace yaf
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("cp_subscriptions_title");
+				ThisLink.Text = GetText("title");
 
-				UnsubscribeForums.Text = GetText("cp_subscriptions_unsubscribe");
-				UnsubscribeTopics.Text = GetText("cp_subscriptions_unsubscribe");
+				UnsubscribeForums.Text = GetText("unsubscribe");
+				UnsubscribeTopics.Text = GetText("unsubscribe");
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace yaf
 				row["LastUserID"],
 				row["LastUserName"]
 			);
-			string by = String.Format(GetText("cp_subscriptions_lastpostlink"),
+			string by = String.Format(GetText("lastpostlink"),
 				FormatDateTime((DateTime)row["LastPosted"]),
 				link);
 

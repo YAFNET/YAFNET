@@ -12,7 +12,7 @@
 	</table>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<tr>
-			<td class="header1" colspan="2"><%= GetText("search_title") %></td>
+			<td class="header1" colspan="2"><%= GetText("title") %></td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2" align="center">
@@ -28,15 +28,15 @@
 		<asp:repeater id="SearchRes" runat="server">
 			<HeaderTemplate>
 				<tr>
-					<td class="header2" colspan="2"><%= GetText("search_results") %></td>
+					<td class="header2" colspan="2"><%= GetText("results") %></td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr class="post">
 					<td class="largefont" id="CounterCol" rowspan="2" runat="server"></td>
 					<td class="postheader">
-						<b><%= GetText("search_topic") %></b> <a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "TopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Topic") %></a><br/>
-						<b><%= GetText("search_posted") %></b> <%# DataBinder.Eval(Container.DataItem, "Posted") %>
+						<b><%= GetText("topic") %></b> <a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "TopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Topic") %></a><br/>
+						<b><%= GetText("posted") %></b> <%# DataBinder.Eval(Container.DataItem, "Posted") %>
 						by <a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a>
 					</td>
 				</tr>

@@ -5,18 +5,18 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>
-		<td class=header1 colspan=2><%= GetText("pmessage_title") %></td>
+		<td class=header1 colspan=2><%= GetText("title") %></td>
 	</tr>
 	<tr id=ToRow runat=server>
-		<td class=postheader><%= GetText("pmessage_to") %></td>
+		<td class=postheader><%= GetText("to") %></td>
 		<td class=post><asp:TextBox id=To runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader><%= GetText("pmessage_subject") %></td>
+		<td class=postheader><%= GetText("subject") %></td>
 		<td class=post><asp:TextBox id=Subject runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader valign=top><%= GetText("pmessage_message") %></td>
+		<td class=postheader valign=top><%= GetText("message") %></td>
 		<td class=post>
 			<asp:TextBox id=Editor runat="server" TextMode="MultiLine" CssClass="posteditor"/>
 		</td>

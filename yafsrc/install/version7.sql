@@ -203,9 +203,8 @@ begin
 	end
 	-- update active
 	if @UserID is not null begin
-		declare @count int
-		select @count = count(1) from yaf_Active where SessionID = @SessionID
-		if @count>0 begin
+		if exists(select 1 from yaf_Active where SessionID = @SessionID)
+		begin
 			update yaf_Active set
 				UserID = @UserID,
 				IP = @IP,
@@ -221,6 +220,8 @@ begin
 			insert into yaf_Active(SessionID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
 			values(@SessionID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
 		end
+		-- remove duplicate users
+		delete from yaf_Active where UserID=@UserID and SessionID<>@SessionID
 	end
 	-- return information
 	select
@@ -592,12 +593,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch'
 	drop procedure yaf_mail_createwatch
 GO
 
-create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject varchar(100),@Body text,@UserID int) as
-begin
-	declare @LastVisit	datetime
-	
-	select @LastVisit = LastVisit from yaf_User where UserID = @UserID
-
+create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject varchar(100),@Body text,@UserID int) as begin
 	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
 	select
 		@From,
@@ -612,7 +608,7 @@ begin
 		b.UserID <> @UserID and
 		b.UserID = a.UserID and
 		a.TopicID = @TopicID and
-		a.LastMail < @LastVisit
+		(a.LastMail is null or a.LastMail < b.LastVisit)
 	
 	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
 	select
@@ -630,9 +626,15 @@ begin
 		b.UserID = a.UserID and
 		c.TopicID = @TopicID and
 		c.ForumID = a.ForumID and
-		a.LastMail < @LastVisit
+		(a.LastMail is null or a.LastMail < b.LastVisit) and
+		not exists(select 1 from yaf_WatchTopic x where x.UserID=b.UserID and x.TopicID=c.TopicID)
 
-	update yaf_WatchTopic set LastMail = getdate() where UserID = @UserID and TopicID = @TopicID
-	update yaf_WatchForum set LastMail = getdate() where UserID = @UserID and ForumID = (select ForumID from yaf_Topic where TopicID = @TopicID)
+	update yaf_WatchTopic set LastMail = getdate() 
+	where TopicID = @TopicID
+	and UserID <> @UserID
+	
+	update yaf_WatchForum set LastMail = getdate() 
+	where ForumID = (select ForumID from yaf_Topic where TopicID = @TopicID)
+	and UserID <> @UserID
 end
 GO

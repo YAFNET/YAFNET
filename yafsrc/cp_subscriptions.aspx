@@ -10,13 +10,13 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=5><%= GetText("cp_subscriptions_forums") %></td>
+	<td class=header1 colspan=5><%= GetText("forums") %></td>
 </td>
 <tr>
-	<td class=header2><%= GetText("cp_subscriptions_forum") %></td>
-	<td class=header2 align=center><%= GetText("cp_subscriptions_topics") %></td>
-	<td class=header2 align=center><%= GetText("cp_subscriptions_replies") %></td>
-	<td class=header2><%= GetText("cp_subscriptions_lastpost") %></td>
+	<td class=header2><%= GetText("forum") %></td>
+	<td class=header2 align=center><%= GetText("topics") %></td>
+	<td class=header2 align=center><%= GetText("replies") %></td>
+	<td class=header2><%= GetText("lastpost") %></td>
 	<td class=header2>&nbsp;</td>
 </tr>
 <asp:repeater id=ForumList runat=server>
@@ -42,13 +42,13 @@
 
 <table class=content cellspacing=1 cellpadding=0 width="100%">
 <tr>
-	<td class=header1 colspan=5><%= GetText("cp_subscriptions_topics") %></td>
+	<td class=header1 colspan=5><%= GetText("topics") %></td>
 </td>
 <tr>
-	<td class=header2><%= GetText("cp_subscriptions_topic") %></td>
-	<td class=header2 align=middle><%= GetText("cp_subscriptions_replies") %></td>
-	<td class=header2 align=middle><%= GetText("cp_subscriptions_views") %></td>
-	<td class=header2><%= GetText("cp_subscriptions_lastpost") %></td>
+	<td class=header2><%= GetText("topic") %></td>
+	<td class=header2 align=middle><%= GetText("replies") %></td>
+	<td class=header2 align=middle><%= GetText("views") %></td>
+	<td class=header2><%= GetText("lastpost") %></td>
 	<td class=header2>&nbsp;</td>
 </tr>
 <asp:repeater id=TopicList runat=server>

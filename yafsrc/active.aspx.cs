@@ -48,16 +48,16 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("active_title");
+				ThisLink.Text = GetText("title");
 
-				Since.Items.Add(new ListItem(String.Format(GetText("active_last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString()))),"0"));
-				Since.Items.Add(new ListItem(GetText("active_last_hour"),"-1"));
-				Since.Items.Add(new ListItem(GetText("active_last_two_hours"),"-2"));
-				Since.Items.Add(new ListItem(GetText("active_last_day"),"1"));
-				Since.Items.Add(new ListItem(GetText("active_last_two_days"),"2"));
-				Since.Items.Add(new ListItem(GetText("active_last_week"),"7"));
-				Since.Items.Add(new ListItem(GetText("active_last_two_weeks"),"14"));
-				Since.Items.Add(new ListItem(GetText("active_last_month"),"31"));
+				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString()))),"0"));
+				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));
+				Since.Items.Add(new ListItem(GetText("last_two_hours"),"-2"));
+				Since.Items.Add(new ListItem(GetText("last_day"),"1"));
+				Since.Items.Add(new ListItem(GetText("last_two_days"),"2"));
+				Since.Items.Add(new ListItem(GetText("last_week"),"7"));
+				Since.Items.Add(new ListItem(GetText("last_two_weeks"),"14"));
+				Since.Items.Add(new ListItem(GetText("last_month"),"31"));
 
 				if(Request.QueryString["k"] != null)
 					Since.Items.FindByValue(Request.QueryString["k"]).Selected = true;
@@ -201,13 +201,13 @@ namespace yaf
 				
 				return String.Format("{0}<br/>{1}&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img src='{2}'></a>",
 					FormatDateTime((DateTime)row["LastPosted"]),
-					String.Format(GetText("active_by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUserName"])),
+					String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUserName"])),
 					minipost,
 					row["LastMessageID"]
 					);
 			}
 			else
-				return GetText("active_no_posts");
+				return GetText("no_posts");
 		}
 
 		protected string PrintForumName(DataRowView row) {

@@ -1,1242 +1,387 @@
-<NewDataSet>
-  <!-- "Toolbar" at top of most pages -->
-  <Table>
-	<Index>toolbar_search</Index>
-	<Text>Search</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_admin</Index>
-	<Text>Admin</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_moderate</Index>
-	<Text>Moderate</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_activetopics</Index>
-	<Text>Active Topics</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_myprofile</Index>
-	<Text>My Profile</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_members</Index>
-	<Text>Members</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_logout</Index>
-	<Text>Logout</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_login</Index>
-	<Text>Log In</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_register</Index>
-	<Text>Register</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_logged_in_as</Index>
-	<Text>Logged in as: {0}</Text>
-  </Table>
-  <Table>
-	<Index>toolbar_welcome_guest</Index>
-	<Text>Welcome Guest</Text>
-  </Table>
-  <!-- common... -->
-  <Table>
-	<Index>Forum_Jump</Index>
-	<Text>Forum Jump</Text>
-  </Table>
-  <Table>
-	<Index>select_forum</Index>
-	<Text>select forum</Text>
-  </Table>
-  <Table>
-	<Index>can_post</Index>
-	<Text>You [b]can[/b] post new topics in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>can_reply</Index>
-	<Text>You [b]can[/b] reply to topics in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>can_delete</Index>
-	<Text>You [b]can[/b] delete your posts in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>can_edit</Index>
-	<Text>You [b]can[/b] edit your posts in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>can_poll</Index>
-	<Text>You [b]can[/b] create polls in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>can_vote</Index>
-	<Text>You [b]can[/b] vote in polls in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_post</Index>
-	<Text>You [b]cannot[/b] post new topics in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_reply</Index>
-	<Text>You [b]cannot[/b] reply to topics in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_delete</Index>
-	<Text>You [b]cannot[/b] delete your posts in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_edit</Index>
-	<Text>You [b]cannot[/b] edit your posts in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_poll</Index>
-	<Text>You [b]cannot[/b] create polls in this forum.</Text>
-  </Table>
-  <Table>
-	<Index>cannot_vote</Index>
-	<Text>You [b]cannot[/b] vote in polls in this forum.</Text>
-  </Table>
-  <!-- common used many places -->
-  <Table>
-	<Index>Powered_by</Index>
-	<Text>Powered by {0} version {1}</Text>
-  </Table>
-  <Table>
-	<Index>Generated</Index>
-	<Text>This page was generated in {0:N3} seconds.</Text>
-  </Table>
-  <Table>
-	<Index>Save</Index>
-	<Text>Save</Text>
-  </Table>
-  <Table>
-	<Index>Cancel</Index>
-	<Text>Cancel</Text>
-  </Table>
-  <!-- Common icon texts -->
-  <Table>
-	<Index>New_Posts</Index>
-	<Text>New Posts</Text>
-  </Table>
-  <Table>
-	<Index>No_New_Posts</Index>
-	<Text>No New Posts</Text>
-  </Table>
-  <Table>
-	<Index>Announcement</Index>
-	<Text>Announcement</Text>
-  </Table>
-  <Table>
-	<Index>New_Posts_Locked</Index>
-	<Text>New Posts (Locked)</Text>
-  </Table>
-  <Table>
-	<Index>No_New_Posts_Locked</Index>
-	<Text>No New Posts (Locked)</Text>
-  </Table>
-  <Table>
-	<Index>Forum_Locked</Index>
-	<Text>Forum Locked</Text>
-  </Table>
-  <Table>
-	<Index>Moved</Index>
-	<Text>Moved</Text>
-  </Table>
-  <Table>
-	<Index>Sticky</Index>
-	<Text>Sticky</Text>
-  </Table>
-  <!-- active.aspx -->
-  <Table>
-	<Index>active_title</Index>
-	<Text>Active Topics</Text>
-  </Table>
-  <Table>
-	<Index>active_since</Index>
-	<Text>Since</Text>
-  </Table>
-  <Table>
-	<Index>active_last_visit</Index>
-	<Text>last visit at {0}</Text>
-  </Table>
-  <Table>
-	<Index>active_last_hour</Index>
-	<Text>last hour</Text>
-  </Table>
-  <Table>
-	<Index>active_last_two_hours</Index>
-	<Text>last two hours</Text>
-  </Table>
-  <Table>
-	<Index>active_last_day</Index>
-	<Text>last day</Text>
-  </Table>
-  <Table>
-	<Index>active_last_two_days</Index>
-	<Text>last two days</Text>
-  </Table>
-  <Table>
-	<Index>active_last_week</Index>
-	<Text>last week</Text>
-  </Table>
-  <Table>
-	<Index>active_last_two_weeks</Index>
-	<Text>last two weeks</Text>
-  </Table>
-  <Table>
-	<Index>active_last_month</Index>
-	<Text>last month</Text>
-  </Table>
-  <Table>
-	<Index>active_topics</Index>
-	<Text>Topics</Text>
-  </Table>
-  <Table>
-	<Index>active_topic_starter</Index>
-	<Text>Topic_Starter</Text>
-  </Table>
-  <Table>
-	<Index>active_replies</Index>
-	<Text>Replies</Text>
-  </Table>
-  <Table>
-	<Index>active_views</Index>
-	<Text>Views</Text>
-  </Table>
-  <Table>
-	<Index>active_lastpost</Index>
-	<Text>Last Post</Text>
-  </Table>
-  <Table>
-	<Index>active_by</Index>
-	<Text>by {0}</Text>
-  </Table>
-  <Table>
-	<Index>active_no_posts</Index>
-	<Text>No Posts</Text>
-  </Table>
-  <!-- activeusers.aspx -->
-  <Table>
-	<Index>activeusers_title</Index>
-	<Text>Active Users</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_username</Index>
-	<Text>User Name</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_logged_in</Index>
-	<Text>Logged In</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_last_active</Index>
-	<Text>Last Active</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_active</Index>
-	<Text>Active</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_browser</Index>
-	<Text>Browser</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_platform</Index>
-	<Text>Platform</Text>
-  </Table>
-  <Table>
-	<Index>activeusers_minutes</Index>
-	<Text>{0:N0} minutes</Text>
-  </Table>
-  <!-- approve.aspx -->
-  <Table>
-	<Index>approve_title</Index>
-	<Text>Validate Email Address</Text>
-  </Table>
-  <Table>
-	<Index>approve_email_verified</Index>
-	<Text>Your email address has been verified.</Text>
-  </Table>
-  <Table>
-	<Index>approve_email_verify_failed</Index>
-	<Text>Failed to verify email address.</Text>
-  </Table>
-  <Table>
-	<Index>approve_enter_key</Index>
-	<Text>Enter validation key</Text>
-  </Table>
-  <Table>
-	<Index>approve_validate</Index>
-	<Text>Validate</Text>
-  </Table>
-  <!-- cp_editprofile.aspx -->
-  <Table>
-	<Index>cp_editprofile_title</Index>
-	<Text>Edit Profile</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_location</Index>
-	<Text>Location</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_where</Index>
-	<Text>Where do you live?</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_homepage</Index>
-	<Text>Home Page</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_homepage2</Index>
-	<Text>Your home page:</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_timezone</Index>
-	<Text>Time Zone</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_timezone2</Index>
-	<Text>To give you times and dates in your local time, we need to know your time zone.</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_avatar</Index>
-	<Text>Avatar</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_avatarupload</Index>
-	<Text>Upload avatar from your computer.</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_avatardelete</Index>
-	<Text>Delete uploaded avatar.</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_delete_avatar</Index>
-	<Text>Delete Avatar</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_avatarremote</Index>
-	<Text>Enter the url of an avatar that will be displayed next to your posts.</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_change_password</Index>
-	<Text>Change Password</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_oldpassword</Index>
-	<Text>Old Password:</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_newpassword</Index>
-	<Text>New Password:</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_confirmpassword</Index>
-	<Text>Re-Type New Password:</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_change_email</Index>
-	<Text>Change Email Address</Text>
-  </Table>
-  <Table>
-	<Index>cp_editprofile_email</Index>
-	<Text>You must always have a valid email address.</Text>
-  </Table>
-  <Table>
-    <Index>cp_editprofile_no_empty_password</Index>
-    <Text>Password can't be empty.</Text>
-  </Table>
-  <Table>
-    <Index>cp_editprofile_no_password_match</Index>
-    <Text>New passwords doesn't match.</Text>
-  </Table>
-  <Table>
-    <Index>cp_editprofile_old_password_wrong</Index>
-    <Text>Old password was wrong.</Text>
-  </Table>
-  <Table>
-    <Index>cp_editprofile_mail_sent</Index>
-    <Text>A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Text>
-  </Table>
-  <!-- cp_inbox.aspx -->
-  <Table>
-    <Index>cp_inbox_title</Index>
-    <Text>Inbox</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_sentitems</Index>
-	<Text>Sent Items</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_deleteselected</Index>
-	<Text>Delete Selected</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_subject</Index>
-	<Text>Subject</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_from</Index>
-	<Text>From</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_to</Index>
-	<Text>To</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_date</Index>
-	<Text>Date</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_msgdeleted1</Index>
-	<Text>1 message was deleted.</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_msgdeleted2</Index>
-	<Text>{0} messages was deleted.</Text>
-  </Table>
-  <Table>
-	<Index>cp_inbox_confirm_delete</Index>
-	<Text>Delete all selected messages?</Text>
-  </Table>
-  <!-- cp_message.aspx -->
-  <Table>
-	<Index>cp_message_inbox</Index>
-	<Text>Inbox</Text>
-  </Table>
-  <Table>
-	<Index>cp_message_sentitems</Index>
-	<Text>Sent Items</Text>
-  </Table>
-  <Table>
-    <Index>cp_message_msg_deleted</Index>
-    <Text>Message was deleted.</Text>
-  </Table>
-  <Table>
-	<Index>cp_message_posted</Index>
-	<Text>Posted:</Text>
-  </Table>
-  <!-- cp_profile.aspx -->
-  <Table>
-    <Index>cp_profile_new_message</Index>
-    <Text>New Message</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_control_panel</Index>
-    <Text>Control Panel</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_messenger</Index>
-    <Text>Messenger:</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_personal_profile</Index>
-    <Text>Personal Profile:</Text>
-  </Table>
-  <Table>
-	<Index>cp_profile_inbox</Index>
-	<Text>Inbox</Text>
-  </Table>
-  <Table>
-	<Index>cp_profile_sentitems</Index>
-	<Text>Sent Items</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_edit_profile</Index>
-    <Text>Edit Profile</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_signature</Index>
-    <Text>Signature</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_subscriptions</Index>
-    <Text>Subscriptions</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_your_account</Index>
-    <Text>Your Account</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_your_username</Index>
-    <Text>Your user name:</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_your_email</Index>
-    <Text>Your email address:</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_numposts</Index>
-    <Text>Number of posts:</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_groups</Index>
-    <Text>You are a member of these groups:</Text>
-  </Table>
-  <Table>
-    <Index>cp_profile_joined</Index>
-    <Text>You have been a member since:</Text>
-  </Table>
-  <!-- cp_signature.aspx -->
-  <Table>
-    <Index>cp_signature_title</Index>
-    <Text>Edit Signature</Text>
-  </Table>
-  <Table>
-    <Index>cp_signature_signature</Index>
-    <Text>Signature:</Text>
-  </Table>
-  <!-- cp_subscriptions.aspx -->
-  <Table>
-    <Index>cp_subscriptions_title</Index>
-    <Text>Subscriptions</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_forums</Index>
-    <Text>Forums</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_forum</Index>
-    <Text>Forum</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_topics</Index>
-    <Text>Topics</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_replies</Index>
-    <Text>Replies</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_lastpost</Index>
-    <Text>Last Post</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_topic</Index>
-    <Text>Topic</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_views</Index>
-    <Text>Views</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_unsubscribe</Index>
-    <Text>Unsubscribe</Text>
-  </Table>
-  <Table>
-    <Index>cp_subscriptions_lastpostlink</Index>
-    <Text>{0} by {1}</Text>
-  </Table>
-  <!-- default.aspx -->
-  <Table>
-    <Index>default_forum</Index>
-    <Text>Forum</Text>
-  </Table>
-  <Table>
-    <Index>default_topics</Index>
-    <Text>Topics</Text>
-  </Table>
-  <Table>
-    <Index>default_posts</Index>
-    <Text>Posts</Text>
-  </Table>
-  <Table>
-    <Index>default_lastpost</Index>
-    <Text>Last Post</Text>
-  </Table>
-  <Table>
-	<Index>default_moderators</Index>
-	<Text>Moderators</Text>
-  </Table>
-  <Table>
-	<Index>default_current_time</Index>
-	<Text>Current time: {0}.</Text>
-  </Table>
-  <Table>
-	<Index>default_last_visit</Index>
-	<Text>Your last visit: {0}.</Text>
-  </Table>
-  <Table>
-	<Index>default_stats_posts</Index>
-	<Text>There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Text>
-  </Table>
-  <Table>
-	<Index>default_stats_lastpost</Index>
-	<Text>Last post on {0} by {1}.</Text>
-  </Table>
-  <Table>
-	<Index>default_stats_members</Index>
-	<Text>We have {0:N0} registered members.</Text>
-  </Table>
-  <Table>
-	<Index>default_stats_lastmember</Index>
-	<Text>The newest member is {0}.</Text>
-  </Table>
-  <Table>
-	<Index>default_in</Index>
-	<Text>in {0}</Text>
-  </Table>
-  <Table>
-	<Index>default_by</Index>
-	<Text>by {0}</Text>
-  </Table>
-  <Table>
-	<Index>default_no_posts</Index>
-	<Text>No Posts</Text>
-  </Table>
-  <Table>
-	<Index>default_unread1</Index>
-	<Text>You have {0} unread message in your inbox.</Text>
-  </Table>
-  <Table>
-	<Index>default_unread</Index>
-	<Text>You have {0} unread messages in your inbox.</Text>
-  </Table>
-  <!-- emailtopic.aspx -->
-  <Table>
-	<Index>emailtopic_title</Index>
-	<Text>Send a page to a friend</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_to</Index>
-	<Text>Send To (Email Address):</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_subject</Index>
-	<Text>Subject:</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_message</Index>
-	<Text>Message:</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_send</Index>
-	<Text>Send Email</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_need_email</Index>
-	<Text>You must enter a email address.</Text>
-  </Table>
-  <Table>
-	<Index>emailtopic_failed</Index>
-	<Text>Failed to send email.\n\n{0}</Text>
-  </Table>
-  <!-- info.aspx -->
-  <Table>
-	<Index>info_continue</Index>
-	<Text>Continue...</Text>
-  </Table>
-  <Table>
-	<Index>info_moderated</Index>
-	<Text>Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Text>
-  </Table>
-  <!-- login.aspx -->
-  <Table>
-	<Index>login_title</Index>
-	<Text>Login</Text>
-  </Table>
-  <Table>
-	<Index>login_username</Index>
-	<Text>User Name:</Text>
-  </Table>
-  <Table>
-	<Index>login_password</Index>
-	<Text>Password:</Text>
-  </Table>
-  <Table>
-	<Index>login_auto</Index>
-	<Text>Auto Login:</Text>
-  </Table>
-  <Table>
-	<Index>login_lostpassword</Index>
-	<Text>Lost Password</Text>
-  </Table>
-  <Table>
-	<Index>login_forum_login</Index>
-	<Text>Forum Login</Text>
-  </Table>
-  <Table>
-	<Index>login_email</Index>
-	<Text>Email Address</Text>
-  </Table>
-  <Table>
-	<Index>login_password_error</Index>
-	<Text>The user name or password entered is incorrect. Please try again.</Text>
-  </Table>
-  <Table>
-	<Index>login_recover</Index>
-	<Text>Recover Password</Text>
-  </Table>
-  <Table>
-	<Index>login_wrong_username_email</Index>
-	<Text>Wrong user name or email address.</Text>
-  </Table>
-  <Table>
-	<Index>login_email_sent_password</Index>
-	<Text>A mail has been sent with your new password.</Text>
-  </Table>
-  <Table>
-	<Index>login_sendpassword</Index>
-	<Text>Send Password</Text>
-  </Table>
-  <Table>
-	<Index>login_both_username_email</Index>
-	<Text>Both user name and email address must be entered.</Text>
-  </Table>
-  <!-- members.aspx -->
-  <Table>
-	<Index>members_title</Index>
-	<Text>Members</Text>
-  </Table>
-  <Table>
-	<Index>members_username</Index>
-	<Text>User Name</Text>
-  </Table>
-  <Table>
-	<Index>members_rank</Index>
-	<Text>Rank</Text>
-  </Table>
-  <Table>
-	<Index>members_joined</Index>
-	<Text>Joined</Text>
-  </Table>
-  <Table>
-	<Index>members_posts</Index>
-	<Text>Posts</Text>
-  </Table>
-  <Table>
-	<Index>members_pages</Index>
-	<Text>{0} Pages:</Text>
-  </Table>
-  <!-- moderate.aspx -->
-  <Table>
-	<Index>moderate_title</Index>
-	<Text>Moderate</Text>
-  </Table>
-  <Table>
-	<Index>moderate_topics</Index>
-	<Text>Topics</Text>
-  </Table>
-  <Table>
-	<Index>moderate_topic_starter</Index>
-	<Text>Topic Starter</Text>
-  </Table>
-  <Table>
-	<Index>moderate_replies</Index>
-	<Text>Replies</Text>
-  </Table>
-  <Table>
-	<Index>moderate_views</Index>
-	<Text>Views</Text>
-  </Table>
-  <Table>
-	<Index>moderate_lastpost</Index>
-	<Text>Last Post</Text>
-  </Table>
-  <Table>
-	<Index>moderate_confirm_delete</Index>
-	<Text>Delete this topic?</Text>
-  </Table>
-  <Table>
-	<Index>moderate_by</Index>
-	<Text>by {0}</Text>
-  </Table>
-  <Table>
-	<Index>moderate_deleted</Index>
-	<Text>Topic deleted.</Text>
-  </Table>
-  <Table>
-	<Index>moderate_no_posts</Index>
-	<Text>No Posts</Text>
-  </Table>
-  <!-- movetopic.aspx -->
-  <Table>
-	<Index>movetopic_title</Index>
-	<Text>Move Topic</Text>
-  </Table>
-  <Table>
-	<Index>movetopic_select_forum</Index>
-	<Text>Select the forum you want to move the post to:</Text>
-  </Table>
-  <Table>
-	<Index>movetopic_move</Index>
-	<Text>Move Topic</Text>
-  </Table>
-  <!-- pmessage.aspx -->
-  <Table>
-	<Index>pmessage_title</Index>
-	<Text>Post a Private Message</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_to</Index>
-	<Text>To:</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_subject</Index>
-	<Text>Subject:</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_message</Index>
-	<Text>Message:</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_need_to</Index>
-	<Text>You haven't said who the message is to.</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_need_subject</Index>
-	<Text>You must enter a subject.</Text>
-  </Table>
-  <Table>
-	<Index>pmessage_need_message</Index>
-	<Text>You haven't written anything in the message.</Text>
-  </Table>
-  <!-- postmessage.aspx -->
-  <Table>
-	<Index>postmessage_newtopic</Index>
-	<Text>Post New Topic</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_reply</Index>
-	<Text>Post a reply</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_preview</Index>
-	<Text>Preview</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_previewtitle</Index>
-	<Text>Preview:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_subject</Index>
-	<Text>Subject:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_from</Index>
-	<Text>From:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_priority</Index>
-	<Text>Priority:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_message</Index>
-	<Text>Message:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_attach</Index>
-	<Text>Attach Files:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_last10</Index>
-	<Text>Last 10 Posts (In reverse order)</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_normal</Index>
-	<Text>Normal</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_sticky</Index>
-	<Text>Sticky</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_announcement</Index>
-	<Text>Announcement</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_createpoll</Index>
-	<Text>Create Poll</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_pollquestion</Index>
-	<Text>Poll Question:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice1</Index>
-	<Text>Choice 1:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice2</Index>
-	<Text>Choice 2:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice3</Index>
-	<Text>Choice 3:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice4</Index>
-	<Text>Choice 4:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice5</Index>
-	<Text>Choice 5:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice6</Index>
-	<Text>Choice 6:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice7</Index>
-	<Text>Choice 7:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice8</Index>
-	<Text>Choice 8:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_choice9</Index>
-	<Text>Choice 9:</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_need_subject</Index>
-	<Text>Please enter a subject of the message.</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_wait</Index>
-	<Text>You can't post in the next {0:N0} seconds.</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_fileerror</Index>
-	<Text>'{0}' is not a valid file for upload.</Text>
-  </Table>
-  <Table>
-	<Index>postmessage_posted</Index>
-	<Text>Posted:</Text>
-  </Table>
-  <!-- posts.aspx -->
-  <Table>
-	<Index>posts_question</Index>
-	<Text>Poll Question</Text>
-  </Table>
-  <Table>
-	<Index>posts_choice</Index>
-	<Text>Choice</Text>
-  </Table>
-  <Table>
-	<Index>posts_votes</Index>
-	<Text>Votes</Text>
-  </Table>
-  <Table>
-	<Index>posts_statistics</Index>
-	<Text>Statistics</Text>
-  </Table>
-  <Table>
-	<Index>posts_prevtopic</Index>
-	<Text>Previous Topic</Text>
-  </Table>
-  <Table>
-	<Index>posts_nexttopic</Index>
-	<Text>Next Topic</Text>
-  </Table>
-  <Table>
-	<Index>posts_watchtopic</Index>
-	<Text>Watch this topic</Text>
-  </Table>
-  <Table>
-	<Index>posts_emailtopic</Index>
-	<Text>Email this topic</Text>
-  </Table>
-  <Table>
-	<Index>posts_printtopic</Index>
-	<Text>Print this topic</Text>
-  </Table>
-  <Table>
-	<Index>posts_posted</Index>
-	<Text>Posted</Text>
-  </Table>
-  <Table>
-	<Index>posts_top</Index>
-	<Text>Back to top</Text>
-  </Table>
-  <Table>
-	<Index>posts_pm</Index>
-	<Text>PM</Text>
-  </Table>
-  <Table>
-	<Index>posts_confirm_deletemessage</Index>
-	<Text>Delete this message?</Text>
-  </Table>
-  <Table>
-	<Index>posts_confirm_deletetopic</Index>
-	<Text>Delete this topic?</Text>
-  </Table>
-  <Table>
-	<Index>posts_rank</Index>
-	<Text>Rank</Text>
-  </Table>
-  <Table>
-	<Index>posts_groups</Index>
-	<Text>Groups</Text>
-  </Table>
-  <Table>
-	<Index>posts_joined</Index>
-	<Text>Joined</Text>
-  </Table>
-  <Table>
-	<Index>posts_posts</Index>
-	<Text>Posts</Text>
-  </Table>
-  <Table>
-	<Index>posts_location</Index>
-	<Text>Location</Text>
-  </Table>
-  <!-- printtopic.aspx -->
-  <Table>
-	<Index>printtopic_postedby</Index>
-	<Text>Posted by</Text>
-  </Table>
-  <!-- profile.aspx -->
-  <Table>
-	<Index>profile_members</Index>
-	<Text>Members</Text>
-  </Table>
-  <Table>
-	<Index>profile_profile</Index>
-	<Text>Profile:</Text>
-  </Table>
-  <Table>
-	<Index>profile_about</Index>
-	<Text>About</Text>
-  </Table>
-  <Table>
-	<Index>profile_username</Index>
-	<Text>User Name:</Text>
-  </Table>
-  <Table>
-	<Index>profile_groups</Index>
-	<Text>Groups:</Text>
-  </Table>
-  <Table>
-	<Index>profile_rank</Index>
-	<Text>Rank:</Text>
-  </Table>
-  <Table>
-	<Index>profile_joined</Index>
-	<Text>Joined:</Text>
-  </Table>
-  <Table>
-	<Index>profile_email</Index>
-	<Text>E-mail:</Text>
-  </Table>
-  <Table>
-	<Index>profile_lastvisit</Index>
-	<Text>Last Visit:</Text>
-  </Table>
-  <Table>
-	<Index>profile_statistics</Index>
-	<Text>Statistics</Text>
-  </Table>
-  <Table>
-	<Index>profile_numposts</Index>
-	<Text>Number of Posts:</Text>
-  </Table>
-  <Table>
-	<Index>profile_last10</Index>
-	<Text>Last 10 Posts</Text>
-  </Table>
-  <Table>
-	<Index>profile_topic</Index>
-	<Text>Topic:</Text>
-  </Table>
-  <Table>
-	<Index>profile_posted</Index>
-	<Text>Posted:</Text>
-  </Table>
-  <!-- register.aspx -->
-  <Table>
-	<Index>register_title</Index>
-	<Text>Register New User</Text>
-  </Table>
-  <Table>
-	<Index>register_details</Index>
-	<Text>Registration Details</Text>
-  </Table>
-  <Table>
-	<Index>register_username</Index>
-	<Text>User Name</Text>
-  </Table>
-  <Table>
-	<Index>register_need_username</Index>
-	<Text>User Name is required.</Text>
-  </Table>
-  <Table>
-	<Index>register_password</Index>
-	<Text>Password</Text>
-  </Table>
-  <Table>
-	<Index>register_need_password</Index>
-	<Text>Password is required.</Text>
-  </Table>
-  <Table>
-	<Index>register_retype_password</Index>
-	<Text>Retype Password</Text>
-  </Table>
-  <Table>
-	<Index>register_need_match</Index>
-	<Text>Passwords didn't match.</Text>
-  </Table>
-  <Table>
-	<Index>register_email</Index>
-	<Text>Email Address</Text>
-  </Table>
-  <Table>
-	<Index>register_profile</Index>
-	<Text>Profile Information</Text>
-  </Table>
-  <Table>
-	<Index>register_location</Index>
-	<Text>Location</Text>
-  </Table>
-  <Table>
-	<Index>register_homepage</Index>
-	<Text>Home Page</Text>
-  </Table>
-  <Table>
-	<Index>register_preferences</Index>
-	<Text>Forum Preferences</Text>
-  </Table>
-  <Table>
-	<Index>register_timezone</Index>
-	<Text>Time Zone</Text>
-  </Table>
-  <Table>
-	<Index>register_already_registered</Index>
-	<Text>Your username or email is already registered.</Text>
-  </Table>
-  <Table>
-	<Index>register_register</Index>
-	<Text>Register</Text>
-  </Table>
-  <!-- search.aspx -->
-  <Table>
-	<Index>search_title</Index>
-	<Text>Search</Text>
-  </Table>
-  <Table>
-	<Index>search_btnsearch</Index>
-	<Text>Search</Text>
-  </Table>
-  <Table>
-	<Index>search_results</Index>
-	<Text>Results</Text>
-  </Table>
-  <Table>
-	<Index>search_topic</Index>
-	<Text>Topic:</Text>
-  </Table>
-  <Table>
-	<Index>search_posted</Index>
-	<Text>Posted:</Text>
-  </Table>
-  <Table>
-	<Index>search_allforums</Index>
-	<Text>All Forums</Text>
-  </Table>
-  <Table>
-	<Index>search_result5</Index>
-	<Text>5 results per page</Text>
-  </Table>
-  <Table>
-	<Index>search_result10</Index>
-	<Text>10 results per page</Text>
-  </Table>
-  <Table>
-	<Index>search_result25</Index>
-	<Text>25 results per page</Text>
-  </Table>
-  <Table>
-	<Index>search_result50</Index>
-	<Text>50 results per page</Text>
-  </Table>
-  <Table>
-	<Index>search_posts</Index>
-	<Text>Posts</Text>
-  </Table>
-  <Table>
-	<Index>search_postedby</Index>
-	<Text>Posted by</Text>
-  </Table>
-  <Table>
-	<Index>search_match_all</Index>
-	<Text>Match All Words</Text>
-  </Table>
-  <Table>
-	<Index>search_match_any</Index>
-	<Text>Match Any Word</Text>
-  </Table>
-  <Table>
-	<Index>search_match_exact</Index>
-	<Text>Match Exact Phrase</Text>
-  </Table>
-  <!-- topics.aspx -->
-  <Table>
-	<Index>topics_topics</Index>
-	<Text>Topics</Text>
-  </Table>
-  <Table>
-	<Index>topics_topic_starter</Index>
-	<Text>Topic Starter</Text>
-  </Table> 
-  <Table>
-	<Index>topics_replies</Index>
-	<Text>Replies</Text>
-  </Table>
-  <Table>
-	<Index>topics_views</Index>
-	<Text>Views</Text>
-  </Table>
-  <Table>
-	<Index>topics_lastpost</Index>
-	<Text>Last Post</Text>
-  </Table>
-  <Table>
-	<Index>topics_no_posts</Index>
-	<Text>No Posts</Text>
-  </Table>
-  <Table>
-	<Index>topics_watchforum</Index>
-	<Text>Watch Forum</Text>
-  </Table>
-  <Table>
-	<Index>topics_showtopics</Index>
-	<Text>Show Topics</Text>
-  </Table>
-  <Table>
-	<Index>topics_all</Index>
-	<Text>All</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_week</Index>
-	<Text>from the last week</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_two_weeks</Index>
-	<Text>from the last two weeks</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_month</Index>
-	<Text>from the last month</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_two_months</Index>
-	<Text>from the last two months</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_six_months</Index>
-	<Text>from the last six months</Text>
-  </Table>
-  <Table>
-	<Index>topics_last_year</Index>
-	<Text>from the last year</Text>
-  </Table>
-  <Table>
-	<Index>topics_by</Index>
-	<Text>by {0}</Text>
-  </Table>
-</NewDataSet>
+<?xml version="1.0"?>
+<Resources language="English">
+	<page name="COMMON">
+		<!-- common... -->
+		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
+		<Resource tag="SAVE">Save</Resource>
+		<Resource tag="CANCEL">Cancel</Resource>
+		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
+		<Resource tag="SELECT_FORUM">select forum</Resource>
+		<Resource tag="CAN_POST">You [b]can[/b] post new topics in this forum.</Resource>
+		<Resource tag="CAN_REPLY">You [b]can[/b] reply to topics in this forum.</Resource>
+		<Resource tag="CAN_DELETE">You [b]can[/b] delete your posts in this forum.</Resource>
+		<Resource tag="CAN_EDIT">You [b]can[/b] edit your posts in this forum.</Resource>
+		<Resource tag="CAN_POLL">You [b]can[/b] create polls in this forum.</Resource>
+		<Resource tag="CAN_VOTE">You [b]can[/b] vote in polls in this forum.</Resource>
+		<Resource tag="CANNOT_POST">You [b]cannot[/b] post new topics in this forum.</Resource>
+		<Resource tag="CANNOT_REPLY">You [b]cannot[/b] reply to topics in this forum.</Resource>
+		<Resource tag="CANNOT_DELETE">You [b]cannot[/b] delete your posts in this forum.</Resource>
+		<Resource tag="CANNOT_EDIT">You [b]cannot[/b] edit your posts in this forum.</Resource>
+		<Resource tag="CANNOT_POLL">You [b]cannot[/b] create polls in this forum.</Resource>
+		<Resource tag="CANNOT_VOTE">You [b]cannot[/b] vote in polls in this forum.</Resource>
+	</page>
+	<page name="TOOLBAR">
+		<!-- "Toolbar" at top of most pages -->
+		<Resource tag="SEARCH">Search</Resource>
+		<Resource tag="ADMIN">Admin</Resource>
+		<Resource tag="MODERATE">Moderate</Resource>
+		<Resource tag="ACTIVETOPICS">Active Topics</Resource>
+		<Resource tag="MYPROFILE">My Profile</Resource>
+		<Resource tag="MEMBERS">Members</Resource>
+		<Resource tag="LOGOUT">Logout</Resource>
+		<Resource tag="LOGIN">Log In</Resource>
+		<Resource tag="REGISTER">Register</Resource>
+		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
+		<Resource tag="WELCOME_GUEST">Welcome Guest</Resource>
+	</page>
+	<page name="ICONLEGEND">
+		<!-- Common icon texts -->
+		<Resource tag="NEW_POSTS">New Posts</Resource>
+		<Resource tag="NO_NEW_POSTS">No New Posts</Resource>
+		<Resource tag="ANNOUNCEMENT">Announcement</Resource>
+		<Resource tag="NEW_POSTS_LOCKED">New Posts (Locked)</Resource>
+		<Resource tag="NO_NEW_POSTS_LOCKED">No New Posts (Locked)</Resource>
+		<Resource tag="FORUM_LOCKED">Forum Locked</Resource>
+		<Resource tag="MOVED">Moved</Resource>
+		<Resource tag="STICKY">Sticky</Resource>
+	</page>
+	<page name="DEFAULT">
+		<!-- default.aspx -->
+		<Resource tag="FORUM">Forum</Resource>
+		<Resource tag="TOPICS">Topics</Resource>
+		<Resource tag="POSTS">Posts</Resource>
+		<Resource tag="LASTPOST">Last Post</Resource>
+		<Resource tag="MODERATORS">Moderators</Resource>
+		<Resource tag="CURRENT_TIME">Current time: {0}.</Resource>
+		<Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
+		<Resource tag="STATS_POSTS">There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Resource>
+		<Resource tag="STATS_LASTPOST">Last post on {0} by {1}.</Resource>
+		<Resource tag="STATS_MEMBERS">We have {0:N0} registered members.</Resource>
+		<Resource tag="STATS_LASTMEMBER">The newest member is {0}.</Resource>
+		<Resource tag="IN">in {0}</Resource>
+		<Resource tag="BY">by {0}</Resource>
+		<Resource tag="NO_POSTS">No Posts</Resource>
+		<Resource tag="UNREAD1">You have {0} unread message in your inbox.</Resource>
+		<Resource tag="UNREAD">You have {0} unread messages in your inbox.</Resource>
+	</page>
+	<page name="TOPICS">
+		<!-- topics.aspx -->
+		<Resource tag="TOPICS">Topics</Resource>
+		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+		<Resource tag="REPLIES">Replies</Resource>
+		<Resource tag="VIEWS">Views</Resource>
+		<Resource tag="LASTPOST">Last Post</Resource>
+		<Resource tag="NO_POSTS">No Posts</Resource>
+		<Resource tag="WATCHFORUM">Watch Forum</Resource>
+		<Resource tag="SHOWTOPICS">Show Topics</Resource>
+		<Resource tag="ALL">All</Resource>
+		<Resource tag="LAST_WEEK">from the last week</Resource>
+		<Resource tag="LAST_TWO_WEEKS">from the last two weeks</Resource>
+		<Resource tag="LAST_MONTH">from the last month</Resource>
+		<Resource tag="LAST_TWO_MONTHS">from the last two months</Resource>
+		<Resource tag="LAST_SIX_MONTHS">from the last six months</Resource>
+		<Resource tag="LAST_YEAR">from the last year</Resource>
+		<Resource tag="BY">by {0}</Resource>
+	</page>
+	<page name="POSTS">
+		<!-- posts.aspx -->
+		<Resource tag="QUESTION">Poll Question</Resource>
+		<Resource tag="CHOICE">Choice</Resource>
+		<Resource tag="VOTES">Votes</Resource>
+		<Resource tag="STATISTICS">Statistics</Resource>
+		<Resource tag="PREVTOPIC">Previous Topic</Resource>
+		<Resource tag="NEXTTOPIC">Next Topic</Resource>
+		<Resource tag="WATCHTOPIC">Watch this topic</Resource>
+		<Resource tag="EMAILTOPIC">Email this topic</Resource>
+		<Resource tag="PRINTTOPIC">Print this topic</Resource>
+		<Resource tag="POSTED">Posted</Resource>
+		<Resource tag="TOP">Back to top</Resource>
+		<Resource tag="PM">PM</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
+		<Resource tag="RANK">Rank</Resource>
+		<Resource tag="GROUPS">Groups</Resource>
+		<Resource tag="JOINED">Joined</Resource>
+		<Resource tag="POSTS">Posts</Resource>
+		<Resource tag="LOCATION">Location</Resource>
+	</page>
+	<page name="ACTIVE">
+		<!-- active.aspx -->
+		<Resource tag="TITLE">Active Topics</Resource>
+		<Resource tag="SINCE">Since</Resource>
+		<Resource tag="LAST_VISIT">last visit at {0}</Resource>
+		<Resource tag="LAST_HOUR">last hour</Resource>
+		<Resource tag="LAST_TWO_HOURS">last two hours</Resource>
+		<Resource tag="LAST_DAY">last day</Resource>
+		<Resource tag="LAST_TWO_DAYS">last two days</Resource>
+		<Resource tag="LAST_WEEK">last week</Resource>
+		<Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
+		<Resource tag="LAST_MONTH">last month</Resource>
+		<Resource tag="TOPICS">Topics</Resource>
+		<Resource tag="TOPIC_STARTER">Topic_Starter</Resource>
+		<Resource tag="REPLIES">Replies</Resource>
+		<Resource tag="VIEWS">Views</Resource>
+		<Resource tag="LASTPOST">Last Post</Resource>
+		<Resource tag="BY">by {0}</Resource>
+		<Resource tag="NO_POSTS">No Posts</Resource>
+	</page>
+	<page name="ACTIVEUSERS">
+		<!-- activeusers.aspx -->
+		<Resource tag="TITLE">Active Users</Resource>
+		<Resource tag="USERNAME">User Name</Resource>
+		<Resource tag="LOGGED_IN">Logged In</Resource>
+		<Resource tag="LAST_ACTIVE">Last Active</Resource>
+		<Resource tag="ACTIVE">Active</Resource>
+		<Resource tag="BROWSER">Browser</Resource>
+		<Resource tag="PLATFORM">Platform</Resource>
+		<Resource tag="MINUTES">{0:N0} minutes</Resource>
+	</page>
+	<page name="APPROVE">
+		<!-- approve.aspx -->
+		<Resource tag="TITLE">Validate Email Address</Resource>
+		<Resource tag="EMAIL_VERIFIED">Your email address has been verified.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Failed to verify email address.</Resource>
+		<Resource tag="ENTER_KEY">Enter validation key</Resource>
+		<Resource tag="VALIDATE">Validate</Resource>
+	</page>
+	<page name="CP_EDITPROFILE">
+		<!-- cp_editprofile.aspx -->
+		<Resource tag="TITLE">Edit Profile</Resource>
+		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="WHERE">Where do you live?</Resource>
+		<Resource tag="HOMEPAGE">Home Page</Resource>
+		<Resource tag="HOMEPAGE2">Your home page:</Resource>
+		<Resource tag="TIMEZONE">Time Zone</Resource>
+		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
+		<Resource tag="AVATAR">Avatar</Resource>
+		<Resource tag="AVATARUPLOAD">Upload avatar from your computer.</Resource>
+		<Resource tag="AVATARDELETE">Delete uploaded avatar.</Resource>
+		<Resource tag="DELETE_AVATAR">Delete Avatar</Resource>
+		<Resource tag="AVATARREMOTE">Enter the url of an avatar that will be displayed next to your posts.</Resource>
+		<Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+		<Resource tag="OLDPASSWORD">Old Password:</Resource>
+		<Resource tag="NEWPASSWORD">New Password:</Resource>
+		<Resource tag="CONFIRMPASSWORD">Re-Type New Password:</Resource>
+		<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
+		<Resource tag="EMAIL">You must always have a valid email address.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">Password can't be empty.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">New passwords doesn't match.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">Old password was wrong.</Resource>
+		<Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
+	</page>
+	<page name="CP_INBOX">
+		<!-- cp_inbox.aspx -->
+		<Resource tag="TITLE">Inbox</Resource>
+		<Resource tag="SENTITEMS">Sent Items</Resource>
+		<Resource tag="DELETESELECTED">Delete Selected</Resource>
+		<Resource tag="SUBJECT">Subject</Resource>
+		<Resource tag="FROM">From</Resource>
+		<Resource tag="TO">To</Resource>
+		<Resource tag="DATE">Date</Resource>
+		<Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+		<Resource tag="MSGDELETED2">{0} messages was deleted.</Resource>
+		<Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+	</page>
+	<page name="CP_MESSAGE">
+		<!-- cp_message.aspx -->
+		<Resource tag="INBOX">Inbox</Resource>
+		<Resource tag="SENTITEMS">Sent Items</Resource>
+		<Resource tag="MSG_DELETED">Message was deleted.</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+	</page>
+	<page name="CP_PROFILE">
+		<!-- cp_profile.aspx -->
+		<Resource tag="NEW_MESSAGE">New Message</Resource>
+		<Resource tag="CONTROL_PANEL">Control Panel</Resource>
+		<Resource tag="MESSENGER">Messenger:</Resource>
+		<Resource tag="PERSONAL_PROFILE">Personal Profile:</Resource>
+		<Resource tag="INBOX">Inbox</Resource>
+		<Resource tag="SENTITEMS">Sent Items</Resource>
+		<Resource tag="EDIT_PROFILE">Edit Profile</Resource>
+		<Resource tag="SIGNATURE">Signature</Resource>
+		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
+		<Resource tag="YOUR_ACCOUNT">Your Account</Resource>
+		<Resource tag="YOUR_USERNAME">Your user name:</Resource>
+		<Resource tag="YOUR_EMAIL">Your email address:</Resource>
+		<Resource tag="NUMPOSTS">Number of posts:</Resource>
+		<Resource tag="GROUPS">You are a member of these groups:</Resource>
+		<Resource tag="JOINED">You have been a member since:</Resource>
+	</page>
+	<page name="CP_SIGNATURE">
+		<!-- cp_signature.aspx -->
+		<Resource tag="TITLE">Edit Signature</Resource>
+		<Resource tag="SIGNATURE">Signature:</Resource>
+	</page>
+	<page name="CP_SUBSCRIPTIONS">
+		<!-- cp_subscriptions.aspx -->
+		<Resource tag="TITLE">Subscriptions</Resource>
+		<Resource tag="FORUMS">Forums</Resource>
+		<Resource tag="FORUM">Forum</Resource>
+		<Resource tag="TOPICS">Topics</Resource>
+		<Resource tag="REPLIES">Replies</Resource>
+		<Resource tag="LASTPOST">Last Post</Resource>
+		<Resource tag="TOPIC">Topic</Resource>
+		<Resource tag="VIEWS">Views</Resource>
+		<Resource tag="UNSUBSCRIBE">Unsubscribe</Resource>
+		<Resource tag="LASTPOSTLINK">{0} by {1}</Resource>
+	</page>
+	<page name="EMAILTOPIC">
+		<!-- emailtopic.aspx -->
+		<Resource tag="TITLE">Send a page to a friend</Resource>
+		<Resource tag="TO">Send To (Email Address):</Resource>
+		<Resource tag="SUBJECT">Subject:</Resource>
+		<Resource tag="MESSAGE">Message:</Resource>
+		<Resource tag="SEND">Send Email</Resource>
+		<Resource tag="NEED_EMAIL">You must enter a email address.</Resource>
+		<Resource tag="FAILED">Failed to send email.\n\n{0}</Resource>
+	</page>
+	<page name="INFO">
+		<!-- info.aspx -->
+		<Resource tag="CONTINUE">Continue...</Resource>
+		<Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
+	</page>
+	<page name="LOGIN">
+		<!-- login.aspx -->
+		<Resource tag="TITLE">Login</Resource>
+		<Resource tag="USERNAME">User Name:</Resource>
+		<Resource tag="PASSWORD">Password:</Resource>
+		<Resource tag="AUTO">Auto Login:</Resource>
+		<Resource tag="LOSTPASSWORD">Lost Password</Resource>
+		<Resource tag="FORUM_LOGIN">Forum Login</Resource>
+		<Resource tag="EMAIL">Email Address</Resource>
+		<Resource tag="PASSWORD_ERROR">The user name or password entered is incorrect. Please try again.</Resource>
+		<Resource tag="RECOVER">Recover Password</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">Wrong user name or email address.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">A mail has been sent with your new password.</Resource>
+		<Resource tag="SENDPASSWORD">Send Password</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
+	</page>
+	<page name="MEMBERS">
+		<!-- members.aspx -->
+		<Resource tag="TITLE">Members</Resource>
+		<Resource tag="USERNAME">User Name</Resource>
+		<Resource tag="RANK">Rank</Resource>
+		<Resource tag="JOINED">Joined</Resource>
+		<Resource tag="POSTS">Posts</Resource>
+		<Resource tag="PAGES">{0} Pages:</Resource>
+	</page>
+	<page name="MODERATE">
+		<!-- moderate.aspx -->
+		<Resource tag="TITLE">Moderate</Resource>
+		<Resource tag="TOPICS">Topics</Resource>
+		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+		<Resource tag="REPLIES">Replies</Resource>
+		<Resource tag="VIEWS">Views</Resource>
+		<Resource tag="LASTPOST">Last Post</Resource>
+		<Resource tag="CONFIRM_DELETE">Delete this topic?</Resource>
+		<Resource tag="BY">by {0}</Resource>
+		<Resource tag="DELETED">Topic deleted.</Resource>
+		<Resource tag="NO_POSTS">No Posts</Resource>
+	</page>
+	<page name="MOVETOPIC">
+		<!-- movetopic.aspx -->
+		<Resource tag="TITLE">Move Topic</Resource>
+		<Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>
+		<Resource tag="MOVE">Move Topic</Resource>
+	</page>
+	<page name="PMESSAGE">
+		<!-- pmessage.aspx -->
+		<Resource tag="TITLE">Post a Private Message</Resource>
+		<Resource tag="TO">To:</Resource>
+		<Resource tag="SUBJECT">Subject:</Resource>
+		<Resource tag="MESSAGE">Message:</Resource>
+		<Resource tag="NEED_TO">You haven't said who the message is to.</Resource>
+		<Resource tag="NEED_SUBJECT">You must enter a subject.</Resource>
+		<Resource tag="NEED_MESSAGE">You haven't written anything in the message.</Resource>
+	</page>
+	<page name="POSTMESSAGE">
+		<!-- postmessage.aspx -->
+		<Resource tag="NEWTOPIC">Post New Topic</Resource>
+		<Resource tag="REPLY">Post a reply</Resource>
+		<Resource tag="PREVIEW">Preview</Resource>
+		<Resource tag="PREVIEWTITLE">Preview:</Resource>
+		<Resource tag="SUBJECT">Subject:</Resource>
+		<Resource tag="FROM">From:</Resource>
+		<Resource tag="PRIORITY">Priority:</Resource>
+		<Resource tag="MESSAGE">Message:</Resource>
+		<Resource tag="ATTACH">Attach Files:</Resource>
+		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+		<Resource tag="NORMAL">Normal</Resource>
+		<Resource tag="STICKY">Sticky</Resource>
+		<Resource tag="ANNOUNCEMENT">Announcement</Resource>
+		<Resource tag="CREATEPOLL">Create Poll</Resource>
+		<Resource tag="POLLQUESTION">Poll Question:</Resource>
+		<Resource tag="CHOICE1">Choice 1:</Resource>
+		<Resource tag="CHOICE2">Choice 2:</Resource>
+		<Resource tag="CHOICE3">Choice 3:</Resource>
+		<Resource tag="CHOICE4">Choice 4:</Resource>
+		<Resource tag="CHOICE5">Choice 5:</Resource>
+		<Resource tag="CHOICE6">Choice 6:</Resource>
+		<Resource tag="CHOICE7">Choice 7:</Resource>
+		<Resource tag="CHOICE8">Choice 8:</Resource>
+		<Resource tag="CHOICE9">Choice 9:</Resource>
+		<Resource tag="NEED_SUBJECT">Please enter a subject of the message.</Resource>
+		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+	</page>
+	<page name="PRINTTOPIC">
+		<!-- printtopic.aspx -->
+		<Resource tag="POSTEDBY">Posted by</Resource>
+	</page>
+	<page name="PROFILE">
+		<!-- profile.aspx -->
+		<Resource tag="MEMBERS">Members</Resource>
+		<Resource tag="PROFILE">Profile:</Resource>
+		<Resource tag="ABOUT">About</Resource>
+		<Resource tag="USERNAME">User Name:</Resource>
+		<Resource tag="GROUPS">Groups:</Resource>
+		<Resource tag="RANK">Rank:</Resource>
+		<Resource tag="JOINED">Joined:</Resource>
+		<Resource tag="EMAIL">E-mail:</Resource>
+		<Resource tag="LASTVISIT">Last Visit:</Resource>
+		<Resource tag="STATISTICS">Statistics</Resource>
+		<Resource tag="NUMPOSTS">Number of Posts:</Resource>
+		<Resource tag="LAST10">Last 10 Posts</Resource>
+		<Resource tag="TOPIC">Topic:</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">Register New User</Resource>
+		<Resource tag="DETAILS">Registration Details</Resource>
+		<Resource tag="USERNAME">User Name</Resource>
+		<Resource tag="NEED_USERNAME">User Name is required.</Resource>
+		<Resource tag="PASSWORD">Password</Resource>
+		<Resource tag="NEED_PASSWORD">Password is required.</Resource>
+		<Resource tag="RETYPE_PASSWORD">Retype Password</Resource>
+		<Resource tag="NEED_MATCH">Passwords didn't match.</Resource>
+		<Resource tag="EMAIL">Email Address</Resource>
+		<Resource tag="PROFILE">Profile Information</Resource>
+		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="HOMEPAGE">Home Page</Resource>
+		<Resource tag="PREFERENCES">Forum Preferences</Resource>
+		<Resource tag="TIMEZONE">Time Zone</Resource>
+		<Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
+		<Resource tag="REGISTER">Register</Resource>
+	</page>
+	<page name="SEARCH">
+		<!-- search.aspx -->
+		<Resource tag="TITLE">Search</Resource>
+		<Resource tag="BTNSEARCH">Search</Resource>
+		<Resource tag="RESULTS">Results</Resource>
+		<Resource tag="TOPIC">Topic:</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+		<Resource tag="ALLFORUMS">All Forums</Resource>
+		<Resource tag="RESULT5">5 results per page</Resource>
+		<Resource tag="RESULT10">10 results per page</Resource>
+		<Resource tag="RESULT25">25 results per page</Resource>
+		<Resource tag="RESULT50">50 results per page</Resource>
+		<Resource tag="POSTS">Posts</Resource>
+		<Resource tag="POSTEDBY">Posted by</Resource>
+		<Resource tag="MATCH_ALL">Match All Words</Resource>
+		<Resource tag="MATCH_ANY">Match Any Word</Resource>
+		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
+	</page>
+</Resources>

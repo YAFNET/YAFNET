@@ -10,7 +10,7 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=6><%# GetText(IsSentItems ? "cp_inbox_sentitems" : "cp_inbox_title") %></td>
+	<td class=header1 colspan=6><%# GetText(IsSentItems ? "sentitems" : "title") %></td>
 </tr>
 <tr class=header2>
 	<td>&nbsp;</td>
@@ -23,7 +23,7 @@
 <asp:repeater id=Inbox runat=server>
 <FooterTemplate>
 	<tr class=footer1>
-		<td colspan="6" align="right"><asp:button runat="server" onload="DeleteSelected_Load" commandname="delete" text='<%# GetText("cp_inbox_deleteselected") %>'/></td>
+		<td colspan="6" align="right"><asp:button runat="server" onload="DeleteSelected_Load" commandname="delete" text='<%# GetText("deleteselected") %>'/></td>
 	</tr>
 	</table>
 </FooterTemplate>

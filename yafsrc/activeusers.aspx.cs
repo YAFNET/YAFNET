@@ -43,7 +43,7 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("activeusers_title");
+				ThisLink.Text = GetText("title");
 
 				UserList.DataSource = DB.active_list(true);
 				DataBind();

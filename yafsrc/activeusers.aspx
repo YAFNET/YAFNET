@@ -9,15 +9,15 @@
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=6><%= GetText("activeusers_title") %></td>
+	<td class=header1 colspan=6><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=header2><%= GetText("activeusers_username") %></td>
-	<td class=header2><%= GetText("activeusers_logged_in") %></td>
-	<td class=header2><%= GetText("activeusers_last_active") %></td>
-	<td class=header2><%= GetText("activeusers_active") %></td>
-	<td class=header2><%= GetText("activeusers_browser") %></td>
-	<td class=header2><%= GetText("activeusers_platform") %></td>
+	<td class=header2><%= GetText("username") %></td>
+	<td class=header2><%= GetText("logged_in") %></td>
+	<td class=header2><%= GetText("last_active") %></td>
+	<td class=header2><%= GetText("active") %></td>
+	<td class=header2><%= GetText("browser") %></td>
+	<td class=header2><%= GetText("platform") %></td>
 </tr>
 
 <asp:repeater id=UserList runat=server>
@@ -26,7 +26,7 @@
 	<td class=post><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
-	<td class=post><%# String.Format(GetText("activeusers_minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>
+	<td class=post><%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>
 	<td class=post><%# DataBinder.Eval(Container.DataItem,"Browser") %></td>
 	<td class=post><%# DataBinder.Eval(Container.DataItem,"Platform") %></td>
 </tr>

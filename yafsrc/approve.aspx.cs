@@ -45,7 +45,7 @@ namespace yaf
 			if(!IsPostBack) {
 				HomeLink.Text = ForumName;
 				HomeLink.NavigateUrl = BaseDir;
-				ValidateKey.Text = GetText("approve_validate");
+				ValidateKey.Text = GetText("validate");
 			}
 
 			if(Request.QueryString["k"] != null)

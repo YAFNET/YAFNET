@@ -51,14 +51,14 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				HomeLink.NavigateUrl = BaseDir;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("members_title");
+				ThisLink.Text = GetText("title");
 
 				SetSort("Name",true);
 
-				UserName.Text = GetText("members_username");
-				Rank.Text = GetText("members_rank");
-				Joined.Text = GetText("members_joined");
-				Posts.Text = GetText("members_posts");
+				UserName.Text = GetText("username");
+				Rank.Text = GetText("rank");
+				Joined.Text = GetText("joined");
+				Posts.Text = GetText("posts");
 
 				BindData();
 			}
@@ -126,7 +126,7 @@ namespace yaf
 
 			if(pds.PageCount>1) 
 			{
-				PageLinks1.InnerHtml = String.Format(GetText("members_pages"),pds.PageCount);
+				PageLinks1.InnerHtml = String.Format(GetText("pages"),pds.PageCount);
 				for(int i=0;i<pds.PageCount;i++) 
 				{
 					if(i==pds.CurrentPageIndex) 

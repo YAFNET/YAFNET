@@ -11,10 +11,10 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=2><%= GetText("movetopic_title") %></td>
+	<td class=header1 colspan=2><%= GetText("title") %></td>
 </tr>
 <tr>
-	<td class=postheader width="50%"><%= GetText("movetopic_select_forum") %></td>
+	<td class=postheader width="50%"><%= GetText("select_forum") %></td>
 	<td class=post width="50%">
 		<asp:DropDownList id=ForumList runat="server" DataValueField="ForumID" DataTextField="Forum"/>
 	</td>

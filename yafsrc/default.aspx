@@ -27,10 +27,10 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class=header1 width=1%>&nbsp;</td>
-			<td class=header1 align=left><%# GetText("default_forum") %></td>
-			<td class=header1 align=center width=7%><%# GetText("default_topics") %></td>
-			<td class=header1 align=center width=7%><%# GetText("default_posts") %></td>
-			<td class=header1 align=center width=25%><%# GetText("default_lastpost") %></td>
+			<td class=header1 align=left><%# GetText("FORUM") %></td>
+			<td class=header1 align=center width=7%><%# GetText("topics") %></td>
+			<td class=header1 align=center width=7%><%# GetText("posts") %></td>
+			<td class=header1 align=center width=25%><%# GetText("lastpost") %></td>
 		</tr>
 </HeaderTemplate>
 <ItemTemplate>
@@ -46,7 +46,7 @@
 						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 						<br>
 						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>
-							<HeaderTemplate><span class=smallfont><%# GetText("default_moderators") %>: </HeaderTemplate>
+							<HeaderTemplate><span class=smallfont><%# GetText("moderators") %>: </HeaderTemplate>
 							<ItemTemplate><%# DataBinder.Eval(Container.DataItem, "[\"GroupName\"]") %></ItemTemplate>
 							<SeparatorTemplate>, </SeparatorTemplate>
 							<FooterTemplate></span></FooterTemplate>
@@ -101,9 +101,9 @@
 
 <table cellspacing=1 cellpadding=1>
 	<tr>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> <%# GetText("New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> <%# GetText("No_New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> <%# GetText("Forum_Locked") %></td>
+		<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> <%# GetText("ICONLEGEND","New_Posts") %></td>
+		<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> <%# GetText("ICONLEGEND","No_New_Posts") %></td>
+		<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> <%# GetText("ICONLEGEND","Forum_Locked") %></td>
 	</tr>
 </table>
 

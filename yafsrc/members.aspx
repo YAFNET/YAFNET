@@ -11,7 +11,7 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>
-		<td class=header1 colspan=4><%= GetText("members_title") %></td>
+		<td class=header1 colspan=4><%= GetText("title") %></td>
 	</tr>
 	<tr>
 		<td class=header2><img runat="server" id="SortUserName" align="absmiddle"/> <asp:linkbutton runat=server id="UserName"/></td>

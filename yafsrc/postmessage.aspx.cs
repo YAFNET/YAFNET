@@ -108,15 +108,15 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
-				Priority.Items.Add(new ListItem(GetText("postmessage_normal"),"0"));
-				Priority.Items.Add(new ListItem(GetText("postmessage_sticky"),"1"));
-				Priority.Items.Add(new ListItem(GetText("postmessage_announcement"),"2"));
+				Priority.Items.Add(new ListItem(GetText("normal"),"0"));
+				Priority.Items.Add(new ListItem(GetText("sticky"),"1"));
+				Priority.Items.Add(new ListItem(GetText("announcement"),"2"));
 				Priority.SelectedIndex = 0;
 
-				Preview.Text = GetText("postmessage_preview");
+				Preview.Text = GetText("preview");
 				PostReply.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
-				CreatePoll.Text = GetText("postmessage_createpoll");
+				CreatePoll.Text = GetText("createpoll");
 
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
@@ -132,7 +132,7 @@ namespace yaf
 					if((bool)topic["IsLocked"])
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
-					Title.Text = GetText("postmessage_reply");
+					Title.Text = GetText("reply");
 
 					// History (Last 10 posts)
 					LastPosts.Visible = true;
@@ -195,7 +195,7 @@ namespace yaf
 		private void PostReply_Click(object sender, System.EventArgs e)
 		{
 			if(SubjectRow.Visible && Subject.Text.Length<=0) {
-				AddLoadMessage(GetText("postmessage_need_subject"));
+				AddLoadMessage(GetText("need_subject"));
 				return;
 			}
 
@@ -217,7 +217,7 @@ namespace yaf
 				DateTime lastpost = DateTime.Parse(Session["lastpost"].ToString());
 				lastpost += TimeSpan.FromSeconds(30);
 				if(lastpost > DateTime.Now) {
-					AddLoadMessage(String.Format(GetText("postmessage_wait"),(lastpost - DateTime.Now).Seconds));
+					AddLoadMessage(String.Format(GetText("wait"),(lastpost - DateTime.Now).Seconds));
 					return;
 				}
 			}
@@ -314,7 +314,7 @@ namespace yaf
 					case "js":
 					case "vb":
 					case "vbs":
-						throw new Exception(String.Format(GetText("postmessage_fileerror"),filename));
+						throw new Exception(String.Format(GetText("fileerror"),filename));
 				}
 			}
 		}

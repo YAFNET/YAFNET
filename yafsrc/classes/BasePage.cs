@@ -346,33 +346,33 @@ namespace yaf
 
 				if(User.Identity.IsAuthenticated) 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("toolbar_logged_in_as"),PageUserName)));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("toolbar_search")));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("TOOLBAR","SEARCH")));
 					if(IsAdmin)
-						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("toolbar_admin")));
+						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("TOOLBAR","ADMIN")));
 					if(IsModerator || IsForumModerator)
-						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("toolbar_moderate")));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("toolbar_activetopics")));
+						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("TOOLBAR","MODERATE")));
+					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","ACTIVETOPICS")));
 					if(!IsGuest)
-						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("toolbar_myprofile")));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("toolbar_members")));
+						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","MYPROFILE")));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","MEMBERS")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("toolbar_logout")));
+						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","LOGOUT")));
 				} 
 				else 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("toolbar_welcome_guest")));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("TOOLBAR","WELCOME_GUEST")));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("toolbar_search")));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("toolbar_activetopics")));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("toolbar_members")));
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">{0}</a> |",GetText("TOOLBAR","SEARCH")));
+					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","ACTIVETOPICS")));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","MEMBERS")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
 					{
-						writer.WriteLine(String.Format("| <a href=\"{0}login.aspx\">{1}</a>",BaseDir,GetText("toolbar_login")));
-						writer.WriteLine(String.Format("| <a href=\"{0}rules.aspx\">{1}</a>",BaseDir,GetText("toolbar_register")));
+						writer.WriteLine(String.Format("| <a href=\"{0}login.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","LOGIN")));
+						writer.WriteLine(String.Format("| <a href=\"{0}rules.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","REGISTER")));
 					}
 				}
 				writer.WriteLine("</td></tr></table>");
@@ -382,14 +382,14 @@ namespace yaf
 				RenderBody(writer);
 				writer.WriteLine("<p style=\"text-align:center;font-size:7pt\">");
 
-				writer.WriteLine(String.Format(GetText("Powered_by"),
+				writer.WriteLine(String.Format(GetText("COMMON","POWERED_BY"),
 					String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
 					String.Format("{0} - {1}",AppVersionName,FormatDateShort(AppVersionDate))
 				));
 				writer.WriteLine("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
 				hiTimer.Stop();
 				writer.WriteLine("<br/>");
-				writer.WriteLine(String.Format(GetText("Generated"),hiTimer.Duration));
+				writer.WriteLine(String.Format(GetText("COMMON","GENERATED"),hiTimer.Duration));
 
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
@@ -992,6 +992,36 @@ namespace yaf
 #endif
 		}
 
+#if true
+		private Localizer	m_localizer;
+
+		public string GetText(string text) 
+		{
+			string page = Request.ServerVariables["SCRIPT_NAME"].ToUpper();
+			int pos = page.LastIndexOf('/');
+			if(pos>=0) page = page.Substring(pos+1);
+			pos = page.LastIndexOf('.');
+			if(pos>=0) page = page.Substring(0,pos);
+			
+			return GetText(page,text);
+		}
+
+		public string GetText(string page,string text) 
+		{
+			if(m_localizer==null) 
+			{
+				string filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+				if(filename==null)
+					filename = "languages/english.xml";
+
+				m_localizer = new Localizer(Server.MapPath(BaseDir + filename));
+			}
+			string str = m_localizer.GetText(page,text);
+			str = str.Replace("[b]","<b>");
+			str = str.Replace("[/b]","</b>");
+			return str;
+		}
+#else
 		private DataTable	m_dtText;
 
 		public string GetText(string text) 
@@ -1034,6 +1064,7 @@ namespace yaf
 				throw new Exception(text,x);
 			}
 		}
+#endif
 
 		static public int AppVersion 
 		{

@@ -65,9 +65,9 @@ namespace yaf
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("cp_editprofile_title");
+				ThisLink.Text = GetText("title");
 
-				DeleteAvatar.Text = GetText("cp_editprofile_delete_avatar");
+				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");
 			}
 		}
@@ -165,16 +165,16 @@ namespace yaf
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
 				SendMail(ForumEmail,Email.Text,"Changed email",msg);
-				AddLoadMessage(String.Format(GetText("cp_editprofile_mail_sent"),Email.Text));
+				AddLoadMessage(String.Format(GetText("mail_sent"),Email.Text));
 			}
 
 			if(OldPassword.Text.Length > 0) {
 				if(NewPassword1.Text.Length==0 || NewPassword2.Text.Length==0) {
-					AddLoadMessage(GetText("cp_editprofile_no_empty_password"));
+					AddLoadMessage(GetText("no_empty_password"));
 					return;
 				}
 				if(NewPassword1.Text != NewPassword2.Text) {
-					AddLoadMessage(GetText("cp_editprofile_no_password_match"));
+					AddLoadMessage(GetText("no_password_match"));
 					return;
 				}
 
@@ -182,7 +182,7 @@ namespace yaf
 				string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword1.Text,"md5");
 
 				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) {
-					AddLoadMessage(GetText("cp_editprofile_old_password_wrong"));
+					AddLoadMessage(GetText("old_password_wrong"));
 				}
 			}
 
