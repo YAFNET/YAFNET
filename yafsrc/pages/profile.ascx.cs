@@ -84,12 +84,14 @@ namespace yaf.pages
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
 				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
+	
+				// populate user information controls...
 				UserName.Text = (string)user["Name"];
 				Name.Text = (string)user["Name"];
 				Joined.Text = String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
 				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
 				Rank.Text = user["RankName"].ToString();
-				Location.Text = user["Location"].ToString();
+				Location.Text = Utils.BadWordReplace(user["Location"].ToString());
 				
 				double dAllPosts = 0.0;
 				if((int)user["NumPostsForum"]>0) 
@@ -128,8 +130,8 @@ namespace yaf.pages
 				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",user["UserID"]);
 				
 				RealName.InnerText = user["RealName"].ToString();
-				Interests.InnerText = user["Interests"].ToString();
-				Occupation.InnerText = user["Occupation"].ToString();
+				Interests.InnerText = Utils.BadWordReplace(user["Interests"].ToString());
+				Occupation.InnerText = Utils.BadWordReplace(user["Occupation"].ToString());
 				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
 
 				if(BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
