@@ -95,6 +95,11 @@ namespace yaf.pages.admin
 						AddLoadMessage("You can't delete yourself.");
 						return;
 					}
+					if(e.CommandArgument.ToString()=="1")
+					{
+						AddLoadMessage("You can't delete the Admin.");
+						return;
+					}
 					DB.user_delete(e.CommandArgument);
 					BindData();
 					break;
