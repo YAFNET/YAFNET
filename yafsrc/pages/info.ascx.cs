@@ -40,19 +40,25 @@ namespace yaf.pages
 				{
 					switch(int.Parse(Request.QueryString["i"])) 
 					{
-						case 1:
+						case 1: /// Moderated
 							Title.Text = "Information";
 							Info.Text = GetText("moderated");
 							break;
-						case 2:
+						case 2: /// Suspended
 							Title.Text = "Suspended";
 							Info.Text = String.Format(GetText("suspended"),FormatDateTime(SuspendedTo));
 							break;
-						case 3:
+						case 3: /// Registration email
 							Title.Text = "Thanks";
 							Info.Text = "An email has been sent to the email address you supplied. Please read the instructions in the email to log in.";
 							RefreshTime = 10;
 							RefreshURL = Forum.GetLink(Pages.login);
+							break;
+						case 4: /// Access Denied
+							Title.Text = "Access Denied";
+							Info.Text = "You tried to enter a area where you didn't have access.";
+							RefreshTime = 10;
+							RefreshURL = Forum.GetLink(Pages.forum);
 							break;
 					}
 				}

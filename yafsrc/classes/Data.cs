@@ -93,11 +93,7 @@ namespace yaf
 
 		public static void AccessDenied() 
 		{
-#if DEBUG
-			throw new Exception("ACCESS DENIED!");
-#else
-			System.Web.HttpContext.Current.Response.Redirect(Data.ForumRoot);
-#endif
+			Forum.Redirect(Pages.info,"i=4");
 		}
 
 		public static DataTable TimeZones() {
