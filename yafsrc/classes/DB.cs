@@ -38,6 +38,9 @@ namespace yaf
 #if DEBUG
 			m_cmd = sql;
 
+			if(Session==null)
+				return;
+
 			if(Session["NumQueries"]==null)
 				Session["NumQueries"] = (int)1;
 			else
@@ -49,12 +52,16 @@ namespace yaf
 		{
 #if DEBUG
 			hiTimer.Stop();
+
+			m_cmd = String.Format("{0}: {1:N3}",m_cmd,hiTimer.Duration);
+
+			if(Session==null)
+				return;
+
 			if(Session["TimeQueries"]==null)
 				Session["TimeQueries"] = hiTimer.Duration;
 			else
 				Session["TimeQueries"] = hiTimer.Duration + (double)Session["TimeQueries"];
-
-			m_cmd = String.Format("{0}: {1:N3}",m_cmd,hiTimer.Duration);
 
 			if(Session["CmdQueries"]==null)
 				Session["CmdQueries"] = m_cmd;
@@ -426,6 +433,17 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataRow active_stats() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_active_stats")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				using(DataTable dt = GetData(cmd)) 
+				{
+					return dt.Rows[0];
+				}
+			}
+		}
 		#endregion
 
 		#region yaf_Attachment
@@ -664,14 +682,6 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@GroupID",GroupID);
 				return GetData(cmd);
-			}
-		}
-		static public void forumaccess_repair() 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_repair")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				ExecuteNonQuery(cmd);
 			}
 		}
 		#endregion

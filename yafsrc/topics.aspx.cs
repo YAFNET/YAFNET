@@ -99,8 +99,7 @@ namespace yaf
 
 			PageTitle.Text = (string)forum["Name"];
 
-			if(!IsPostBack) 
-				BindData();
+			BindData();	// Always because of yaf:TopicLine
 
 			if(!ForumPostAccess) {
 				NewTopic1.Visible = false;

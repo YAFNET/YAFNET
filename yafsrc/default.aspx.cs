@@ -103,10 +103,11 @@ namespace yaf
 				);
 				Stats.Text += "<br/>";
 
+				DataRow activeStats = DB.active_stats();
 				activeinfo.Text = String.Format("<a href=\"activeusers.aspx\">{0}</a> - {1}, {2}.",
-					String.Format(GetText((int)stats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),stats["ActiveUsers"]),
-					String.Format(GetText((int)stats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),stats["ActiveMembers"]),
-					String.Format(GetText((int)stats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),stats["ActiveGuests"])
+					String.Format(GetText((int)activeStats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),activeStats["ActiveUsers"]),
+					String.Format(GetText((int)activeStats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),activeStats["ActiveMembers"]),
+					String.Format(GetText((int)activeStats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),activeStats["ActiveGuests"])
 				);
 
 				DataBind();

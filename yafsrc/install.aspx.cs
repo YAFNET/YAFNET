@@ -83,17 +83,18 @@ namespace yaf
 			cursteplabel.Text = ((int)CurStep).ToString();
 		}
 
-		public static int GetCurrentVersion() {
-			try {
-				using(DataTable dt = DB.system_list()) {
-					if(dt.Rows.Count == 0)
-						return 0;
-					return (int)dt.Rows[0]["Version"];
-				}
+		public static int GetCurrentVersion() 
+		{
+			try 
+			{
+				using(DataTable dt = DB.system_list())
+					foreach(DataRow row in dt.Rows) 
+						return (int)row["Version"];
 			}
-			catch(Exception) {
-				return 0;
+			catch(Exception) 
+			{
 			}
+			return 0;
 		}
 
 		private void finish_Click(object sender,System.EventArgs e) {

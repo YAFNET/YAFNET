@@ -10,7 +10,6 @@
 	<tr><td class=post><a target="main" href="settings.aspx">Settings</a></td></tr>
 	<tr><td class=post><a target="main" href="forums.aspx">Forums</a></td></tr>
 	<tr><td class=post><a target="main" href="bannedip.aspx">Banned IP</a></td></tr>
-	<tr><td class=post><a target="main" href="repair.aspx">Repair</a></td></tr>
 	<tr><td class=post><a target="main" href="smilies.aspx">Smilies</a></td></tr>
 
 	<tr><td class="header2"><b>Groups and Users</b></td></tr>
@@ -33,6 +32,7 @@
 	</asp:placeholder>
 
 	<tr><td class="header2"><b>Upgrade</b></td></tr>
+	<tr><td class="post"><a target="main" href="version.aspx">Version Check</a></td></tr>
 	<tr><td class=post><a target="_top" href="../install.aspx">Install</a></td></tr>
 </table>
 </td></tr></table>

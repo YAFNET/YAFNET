@@ -94,6 +94,11 @@
                     AssemblyName = "OpenSmtp"
                     HintPath = "bin\OpenSmtp.dll"
                 />
+                <Reference
+                    Name = "System.Web.Services"
+                    AssemblyName = "System.Web.Services"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.Services.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -1011,22 +1016,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "admin\repair.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "admin\repair.aspx.cs"
-                    DependentUpon = "repair.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "admin\repair.aspx.resx"
-                    DependentUpon = "repair.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "admin\settings.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -1104,6 +1093,22 @@
                 <File
                     RelPath = "admin\users.aspx.resx"
                     DependentUpon = "users.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\version.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\version.aspx.cs"
+                    DependentUpon = "version.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\version.aspx.resx"
+                    DependentUpon = "version.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -1570,6 +1575,37 @@
                     BuildAction = "Content"
                 />
                 <Folder RelPath = "upload\" />
+                <File
+                    RelPath = "Web References\RegisterForum\Reference.map"
+                    BuildAction = "None"
+                    Generator = "MSDiscoCodeGenerator"
+                    LastGenOutput = "Reference.cs"
+                />
+                <File
+                    RelPath = "Web References\RegisterForum\Reference.cs"
+                    DependentUpon = "Reference.map"
+                    SubType = "code"
+                    BuildAction = "Compile"
+                    DesignTime = "True"
+                    AutoGen = "True"
+                />
+                <File
+                    RelPath = "Web References\RegisterForum\Register.disco"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web References\RegisterForum\Register.wsdl"
+                    BuildAction = "None"
+                />
+                <Folder
+                    RelPath = "Web References\RegisterForum\"
+                    WebReferenceUrl = "http://www.yetanotherforum.net/Register.asmx?op=RegisterForum"
+                    UrlBehavior = "Static"
+                />
+                <Folder
+                    RelPath = "Web References\"
+                    WebReferences = "TRUE"
+                />
             </Include>
         </Files>
     </CSHARP>

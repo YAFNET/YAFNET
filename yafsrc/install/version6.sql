@@ -166,27 +166,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_stats
-GO
-
-CREATE  procedure yaf_forum_stats
-as
-select
-	Posts = (select count(1) from yaf_Message),
-	Topics = (select count(1) from yaf_Topic),
-	Forums = (select count(1) from yaf_Forum),
-	Members = (select count(1) from yaf_User),
-	LastPost = (select max(Posted) from yaf_Message),
-	LastUserID = (select top 1 UserID from yaf_Message order by Posted desc),
-	LastUser = (select top 1 b.Name from yaf_Message a, yaf_User b where b.UserID=a.UserID order by Posted desc),
-	LastMemberID = (select top 1 UserID from yaf_User where Approved=1 order by Joined desc),
-	LastMember = (select top 1 Name from yaf_User where Approved=1 order by Joined desc),
-	ActiveUsers = (select count(1) from yaf_Active),
-	ActiveMembers = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest=0)),
-	ActiveGuests = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest<>0))
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_member
 GO

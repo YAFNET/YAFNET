@@ -59,9 +59,8 @@ namespace yaf
 
 				if(Request.QueryString["k"] != null)
 					Since.Items.FindByValue(Request.QueryString["k"]).Selected = true;
-
-				BindData();
 			}
+			BindData();
 		}
 
 		#region Web Form Designer generated code

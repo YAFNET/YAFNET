@@ -51,9 +51,8 @@ namespace yaf
 				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
 				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
-			
-				BindData();
 			}
+			BindData();
 		}
 
 		private void AddUser_Click(object sender, System.EventArgs e)

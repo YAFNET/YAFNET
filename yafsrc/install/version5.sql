@@ -1,44 +1,5 @@
 /* Version 0.8.2 */
 
-if not exists(select * from syscolumns where id=object_id('yaf_ForumAccess') and name='UploadAccess')
-	alter table yaf_ForumAccess add UploadAccess bit not null default(0)
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_repair') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forumaccess_repair
-GO
-
-create procedure yaf_forumaccess_repair as
-begin
-	insert into yaf_ForumAccess(
-		GroupID,
-		ForumID,
-		ReadAccess,
-		PostAccess,
-		ReplyAccess,
-		PriorityAccess,
-		PollAccess,
-		VoteAccess,
-		ModeratorAccess,
-		EditAccess,
-		DeleteAccess,
-		UploadAccess
-	)
-	select
-		b.GroupID,
-		a.ForumID,
-		0,0,0,0,0,0,0,0,0,0
-	from
-		yaf_Forum a,
-		yaf_Group b
-	where
-		not exists(select 1 from yaf_ForumAccess x where x.ForumID=a.ForumID and x.GroupID=b.GroupID)
-	order by
-		a.ForumID,
-		b.GroupID
-end
-GO
-
 if not exists (select * from sysobjects where id = object_id(N'yaf_Attachment') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 create table [yaf_Attachment](
 	[AttachmentID]	[int] identity not null,

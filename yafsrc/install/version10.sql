@@ -1,5 +1,26 @@
 /* Version 0.9.4 */
 
+-- Deletes all defaults for columns (fucks up when dropping columns)
+begin
+	declare @tname	varchar(100)
+	declare @name	varchar(100)
+
+	declare c cursor for 
+	select tname=object_name(parent_obj),name from sysobjects 
+	where OBJECTPROPERTY(id,N'IsDefaultCnst')<>0
+	and name like '%yaf%'
+
+	open c
+	fetch next from c into @tname,@name
+	while @@fetch_status=0 begin
+		execute('alter table ' + @tname + ' drop constraint ' + @name)
+		fetch next from c into @tname,@name
+	end
+	close c
+	deallocate c
+end
+GO
+
 if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_AccessMask](
 	[AccessMaskID]		[int] IDENTITY NOT NULL ,
@@ -930,4 +951,34 @@ begin
 		order by 
 			a.Name
 end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_active_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_active_stats
+GO
+
+create procedure yaf_active_stats
+as
+select
+	ActiveUsers = (select count(1) from yaf_Active),
+	ActiveMembers = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest=0)),
+	ActiveGuests = (select count(1) from yaf_Active x where exists(select 1 from yaf_UserGroup y,yaf_Group z where y.UserID=x.UserID and y.GroupID=z.GroupID and z.IsGuest<>0))
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_stats
+GO
+
+create procedure yaf_forum_stats
+as
+select
+	Posts = (select count(1) from yaf_Message),
+	Topics = (select count(1) from yaf_Topic),
+	Forums = (select count(1) from yaf_Forum),
+	Members = (select count(1) from yaf_User),
+	LastPost = (select max(Posted) from yaf_Message),
+	LastUserID = (select top 1 UserID from yaf_Message order by Posted desc),
+	LastUser = (select top 1 b.Name from yaf_Message a, yaf_User b where b.UserID=a.UserID order by Posted desc),
+	LastMemberID = (select top 1 UserID from yaf_User where Approved=1 order by Joined desc),
+	LastMember = (select top 1 Name from yaf_User where Approved=1 order by Joined desc)
 GO

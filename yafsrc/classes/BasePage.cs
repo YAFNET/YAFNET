@@ -1258,6 +1258,21 @@ namespace yaf
 		}
 		#endregion
 		#region Version Information
+		static public string AppVersionNameFromCode(long code) 
+		{
+			if((code & 0xFF)>0)
+				return String.Format("{0}.{1}.{2}.{3}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF,code & 0xFF);
+			else
+				return String.Format("{0}.{1}.{2}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF);
+		}
+		static public string AppVersionName 
+		{
+			get 
+			{
+				//return "0.9.4";
+				return AppVersionNameFromCode(AppVersionCode);
+			}
+		}
 		static public int AppVersion 
 		{
 			get 
@@ -1265,18 +1280,18 @@ namespace yaf
 				return 10;
 			}
 		}
-		static public string AppVersionName 
+		static public long AppVersionCode 
 		{
 			get 
 			{
-				return "0.9.4";
+				return 0x00090400;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2003,11,17);
+				return new DateTime(2003,11,18);
 			}
 		}
 		#endregion
