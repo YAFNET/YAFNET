@@ -80,6 +80,16 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	background-color: #CFDDF8;
 }
 
+.post_priority
+{
+	font-weight:bold;
+}
+
+.post_link
+{
+	font-weight: bold;
+}
+
 /* Footer of posts */
 .postfooter 
 {
@@ -114,7 +124,7 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 
 /* links inside content table*/
 .content a			{ color: navy; text-decoration: underline; }
-.content a:hover	{ color: #000000; text-decoration: underline; }
+.content a:hover	{ color: #000000; text-decoration: none; }
 
 /* used for quoting messages */
 .quote 
