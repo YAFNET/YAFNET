@@ -1,2 +1,3 @@
 - upload/attach files
 - smtp server login
+- option to open links (in messages) in new windows

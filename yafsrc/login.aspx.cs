@@ -138,7 +138,9 @@ namespace yaf
 			}
 
 			if(Success) {
-				FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
+				//FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
+				FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
+				Response.Redirect(BaseDir);
 			} else {
 				ErrorMsg.Visible = true;
 				ErrorMsg.Text = "The user name or password entered is incorrect. Please try again.";
