@@ -39,27 +39,25 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox Password;
 		protected System.Web.UI.WebControls.CheckBox AutoLogin;
 		protected System.Web.UI.WebControls.Button ForumLogin;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.HtmlControls.HtmlTable LoginView;
 		protected System.Web.UI.HtmlControls.HtmlTable RecoverView;
 		protected System.Web.UI.WebControls.Button LostPassword;
 		protected System.Web.UI.WebControls.TextBox LostUserName;
 		protected System.Web.UI.WebControls.TextBox LostEmail;
 		protected System.Web.UI.WebControls.Button Recover;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Data.GetAuthType!=AuthType.YetAnotherForum)
 				Response.Redirect(BaseDir);
 
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
-			
 			LostPassword.Click += new System.EventHandler(LostPassword_Click);
 			Recover.Click += new System.EventHandler(Recover_Click);
 
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(ForumName,BaseDir);
 				ForumLogin.Text = GetText("forum_login");
 				LostPassword.Text = GetText("lostpassword");
 				Recover.Text = GetText("sendpassword");

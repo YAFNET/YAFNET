@@ -36,10 +36,7 @@ namespace yaf
 	{
 		protected System.Web.UI.WebControls.Button Move;
 		protected System.Web.UI.WebControls.DropDownList ForumList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
-		protected System.Web.UI.WebControls.HyperLink TopicLink;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -47,14 +44,10 @@ namespace yaf
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				CategoryLink.Text = PageCategoryName;
-				CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-				ForumLink.Text = PageForumName;
-				ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-				TopicLink.Text = PageTopicName;
-				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
 
 				Move.Text = GetText("move");
 

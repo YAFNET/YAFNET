@@ -1,8 +1,9 @@
 <%@ Page language="c#" Codebehind="approve.aspx.cs" AutoEventWireup="false" Inherits="yaf.approve" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server method=get>
 
-<p class=navlinks><asp:hyperlink runat="server" id="HomeLink"/></p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0 id=approved runat=server visible=false>
 	<tr>

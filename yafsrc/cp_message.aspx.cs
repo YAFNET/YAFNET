@@ -34,9 +34,8 @@ namespace yaf.cp
 	/// </summary>
 	public class cp_message : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink, InboxLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater Inbox;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -45,12 +44,6 @@ namespace yaf.cp
 			
 			if(!IsPostBack) {
 				BindData();
-
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
 			}
 		}
 
@@ -62,17 +55,13 @@ namespace yaf.cp
 					if((int)row["ToUserID"]!=PageUserID && (int)row["FromUserID"]!=PageUserID)
 						Data.AccessDenied();
 
+					PageLinks.AddLink(ForumName,BaseDir);
+					PageLinks.AddLink(PageUserName,"cp_profile.aspx");
 					if((int)row["ToUserID"]==PageUserID) 
-					{
-						InboxLink.NavigateUrl = "cp_inbox.aspx";
-						InboxLink.Text = GetText("inbox");
-					} 
+						PageLinks.AddLink(GetText("INBOX"),"cp_inbox.aspx");
 					else 
-					{
-						InboxLink.NavigateUrl = "cp_inbox.aspx?sent=1";
-						InboxLink.Text = GetText("sentitems");
-					}
-					ThisLink.Text = row["Subject"].ToString();
+						PageLinks.AddLink(GetText("SENTITEMS"),"cp_inbox.aspx?sent=1");
+					PageLinks.AddLink(row["Subject"].ToString(),Request.RawUrl);
 				}
 				Inbox.DataSource = dt;
 			}

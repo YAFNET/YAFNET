@@ -1,10 +1,11 @@
 <%@ Page language="c#" Codebehind="pmessage.aspx.cs" AutoEventWireup="false" Inherits="yaf.pmessage" %>
 <%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="controls/smileys.ascx" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
-<p class=navlinks><asp:hyperlink id=HomeLink runat="server"/></p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>

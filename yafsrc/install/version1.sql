@@ -802,17 +802,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_category_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_category_delete
-GO
-
-create procedure yaf_category_delete(@CategoryID int) as
-begin
-	--delete from yaf_Forum where CategoryID = @CategoryID
-	delete from yaf_Category where CategoryID = @CategoryID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_category_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_list
 GO

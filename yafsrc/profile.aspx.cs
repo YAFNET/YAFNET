@@ -36,7 +36,6 @@ namespace yaf
 	{
 		protected System.Web.UI.WebControls.Label Name;
 		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.HyperLink HomeLink, MembersLink, ThisLink;
 		protected System.Web.UI.WebControls.Label Email;
 		protected System.Web.UI.HtmlControls.HtmlTableRow EmailRow;
 		protected System.Web.UI.WebControls.Label LastVisit;
@@ -49,6 +48,7 @@ namespace yaf
 		protected DropDownList SuspendUnit;
 		protected TextBox SuspendCount;
 		protected Button RemoveSuspension, Suspend;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -57,12 +57,6 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				MembersLink.NavigateUrl = "members.aspx";
-				MembersLink.Text = GetText("members");
-				ThisLink.NavigateUrl = Request.RawUrl;
-			
 				SuspendUnit.Items.Add(new ListItem(GetText("DAYS"),"1"));
 				SuspendUnit.Items.Add(new ListItem(GetText("HOURS"),"2"));
 				SuspendUnit.Items.Add(new ListItem(GetText("MINUTES"),"3"));
@@ -79,7 +73,9 @@ namespace yaf
 			{
 				DataRow user = dt.Rows[0];
 
-				ThisLink.Text = (string)user["Name"];
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(GetText("MEMBERS"),"members.aspx");
+				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
 				UserName.Text = (string)user["Name"];
 				Name.Text = (string)user["Name"];
 				Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));

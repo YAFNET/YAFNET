@@ -103,15 +103,6 @@ namespace yaf
 								case "/img":
 									tmp += "\"/>";
 									break;
-								case "quote":
-									if(arg!=null)
-										tmp += String.Format("<div class=quote>{0} wrote:<div class=\"quoteinner\">",arg);
-									else
-										tmp += "<div class=quote><div class=\"quoteinner\">";
-									break;
-								case "/quote":
-									tmp += "</div></div>";
-									break;
 								case "color":
 									if(arg!=null)
 										tmp += String.Format("<span style=\"color:{0}\">",arg);
@@ -229,6 +220,14 @@ namespace yaf
 				html = html.Replace(code.ToLower(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
 				html = html.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
 			}
+
+#if true
+			options |= RegexOptions.Singleline;
+			while(Regex.IsMatch(html,@"\[quote\](.*?)\[/quote\]",options)) 
+				html = Regex.Replace(html,@"\[quote\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b><div class='quoteinner'>$1</div></div>",options);
+			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
+				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
+#endif
 
 			return RepairHtml(basePage,html);
 		}

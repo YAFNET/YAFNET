@@ -35,13 +35,11 @@ namespace yaf
 	/// </summary>
 	public class posts : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
 		protected System.Web.UI.WebControls.LinkButton NewTopic1;
 		protected System.Web.UI.WebControls.Repeater MessageList;
 		protected System.Web.UI.WebControls.LinkButton PostReplyLink1;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
 		protected System.Web.UI.WebControls.Repeater Poll;
+		protected controls.PageLinks PageLinks;
 
 		private DataRow forum, topic;
 		protected System.Web.UI.WebControls.LinkButton PrevTopic;
@@ -52,7 +50,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.LinkButton LockTopic1;
 		protected System.Web.UI.WebControls.LinkButton UnlockTopic1;
 		protected System.Web.UI.WebControls.Label TopicTitle;
-		protected System.Web.UI.WebControls.HyperLink TopicLink;
 		private DataTable dtPoll;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.WebControls.LinkButton PostReplyLink2;
@@ -64,7 +61,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.LinkButton TrackTopic;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
-		protected System.Web.UI.HtmlControls.HtmlTableCell AccessCell;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -78,15 +74,14 @@ namespace yaf
 			if(!ForumReadAccess)
 				Response.Redirect(BaseDir);
 
-			HomeLink.NavigateUrl = BaseDir;
-			HomeLink.Text = ForumName;
-			CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-			CategoryLink.Text = PageCategoryName;
-			ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",forum["ForumID"]);
-			ForumLink.Text = (string)forum["Name"];
-			TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",topic["TopicID"]);
-			TopicLink.Text = (string)topic["Topic"];
-			TopicTitle.Text = (string)topic["Topic"];
+			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
+				TopicTitle.Text = (string)topic["Topic"];
+			}
 
 			if(!ForumPostAccess) {
 				NewTopic1.Visible = false;
@@ -135,21 +130,6 @@ namespace yaf
 			}
 
 			BindData();
-
-			System.Text.StringBuilder tmp = new System.Text.StringBuilder();
-			tmp.Append(GetText(ForumPostAccess ? "can_post" : "cannot_post"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumReplyAccess ? "can_reply" : "cannot_reply"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumDeleteAccess ? "can_delete" : "cannot_delete"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumEditAccess ? "can_edit" : "cannot_edit"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumPollAccess ? "can_poll" : "cannot_poll"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumVoteAccess ? "can_vote" : "cannot_vote"));
-			tmp.Append("<br/>");
-			AccessCell.InnerHtml = tmp.ToString();
 		}
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 

@@ -1,8 +1,9 @@
 <%@ Page language="c#" Codebehind="login.aspx.cs" AutoEventWireup="false" Inherits="yaf.login" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class="navlinks"><asp:hyperlink runat=server id="HomeLink"/></p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table align=center cellspacing="1" cellpadding="0" class=content width=100% id=LoginView runat=server>
 <tr>

@@ -40,8 +40,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label Title;
 		protected System.Web.UI.HtmlControls.HtmlTableRow SubjectRow;
 		protected System.Web.UI.WebControls.Button Preview;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PriorityRow;
 		protected System.Web.UI.WebControls.DropDownList Priority;
 		protected System.Web.UI.HtmlControls.HtmlTableRow CreatePollRow;
@@ -71,8 +69,8 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableRow FromRow;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
+		protected controls.PageLinks PageLinks;
 		private int ForumID;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -116,10 +114,9 @@ namespace yaf
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				CategoryLink.Text = PageCategoryName;
-				CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
 
 				if(Request.QueryString["t"] != null) 
 				{
@@ -145,7 +142,7 @@ namespace yaf
 						{
 							body = FormatMsg.ForumCodeToHtml(this,body);
 						} 
-						Message.Text = String.Format("<br/><div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br/>",msg["username"],body);
+						Message.Text = String.Format("[QUOTE={0}]{1}[/QUOTE]",msg["username"],body);
 					}
 					else 
 					{
@@ -186,16 +183,6 @@ namespace yaf
 				if(User.Identity.IsAuthenticated)
 					FromRow.Visible = false;
 			}
-
-			using(DataTable dt = DB.forum_list(ForumID)) 
-			{
-				foreach(DataRow forum in dt.Rows) 
-				{
-					ForumLink.Text = (string)forum["Name"];
-					ForumLink.NavigateUrl = "topics.aspx?f=" + ForumID.ToString();
-				}
-			}
-
 		}
 
 		#region Web Form Designer generated code

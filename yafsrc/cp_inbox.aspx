@@ -1,12 +1,9 @@
 <%@ Page language="c#" Codebehind="cp_inbox.aspx.cs" AutoEventWireup="false" Inherits="yaf.cp.cp_inbox" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
-<p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=UserLink runat="server"/>
-	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>

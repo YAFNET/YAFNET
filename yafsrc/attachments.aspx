@@ -1,13 +1,9 @@
 <%@ Page language="c#" Codebehind="attachments.aspx.cs" AutoEventWireup="false" Inherits="yaf.attachments" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+
 <form runat="server" enctype="multipart/form-data">
 
-<p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-	&#187; <asp:hyperlink id=ForumLink runat="server"/>
-	&#187; <asp:hyperlink id=TopicLink runat="server"/>
-	&#187; <asp:hyperlink id=ThisLink runat="server"/>
-</P>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>

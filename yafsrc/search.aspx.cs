@@ -37,7 +37,6 @@ namespace yaf
 	/// </summary>
 	public class search : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
 		protected LinkButton moderate1, moderate2;
@@ -53,15 +52,14 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.Repeater SearchRes;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				ThisLink.NavigateUrl = "search.aspx";
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(GetText("TITLE"),"search.aspx");
 				btnSearch.Text = GetText("btnsearch");
 
 				// Load result dropdown

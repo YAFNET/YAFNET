@@ -1,11 +1,9 @@
 <%@ Page language="c#" Codebehind="members.aspx.cs" AutoEventWireup="false" Inherits="yaf.members" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
-<p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=command><tr><td class=navlinks id=PageLinks1 runat=server></td></tr></table>
 

@@ -35,11 +35,11 @@ namespace yaf
 	public class members : BasePage
 	{
 		protected System.Web.UI.WebControls.Repeater MemberList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
 		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -48,10 +48,8 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				SetSort("Name",true);
 

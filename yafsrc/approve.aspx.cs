@@ -38,13 +38,13 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTable error;
 		protected System.Web.UI.WebControls.TextBox k;
 		protected System.Web.UI.WebControls.Button ValidateKey;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
+		protected controls.PageLinks PageLinks;
 		
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 				ValidateKey.Text = GetText("validate");
 			}
 

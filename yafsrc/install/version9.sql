@@ -24,7 +24,7 @@ if not exists(select * from syscolumns where id=object_id('yaf_Topic') and name=
 	alter table yaf_Topic add NumPosts int null
 GO
 
-update yaf_Topic set NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID) - 1 where NumPosts is null
+update yaf_Topic set NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID) where NumPosts is null
 GO
 
 alter table yaf_Topic alter column NumPosts int not null
@@ -217,10 +217,6 @@ begin
 	where
 		a.Thread = @Thread
 end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntptopic_save
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -684,9 +680,32 @@ if exists (select * from sysobjects where id = object_id(N'yaf_topic_list') and 
 	drop procedure yaf_topic_list
 GO
 
-CREATE  procedure yaf_topic_list(@ForumID int,@Announcement smallint,@Date datetime=null) as
+CREATE  procedure yaf_topic_list(@ForumID int,@Announcement smallint,@Date datetime=null,@Offset int,@Count int) as
 begin
+	create table #data(
+		RowNo	int identity primary key not null,
+		TopicID	int not null
+	)
+
+	insert into #data(TopicID)
 	select
+		c.TopicID
+	from
+		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID
+	where
+		c.ForumID = @ForumID and
+		(@Date is null or c.Posted>=@Date or Priority>0) and
+		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
+		(c.TopicMovedID is not null or c.NumPosts>0)
+	order by
+		Priority desc,
+		c.LastPosted desc
+
+	declare	@RowCount int
+	set @RowCount = (select count(1) from #data)
+
+	select
+		[RowCount] = @RowCount,
 		c.ForumID,
 		c.TopicID,
 		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
@@ -705,19 +724,11 @@ begin
 		c.Priority,
 		c.PollID
 	from
-		yaf_Topic c,
-		yaf_User b,
-		yaf_Forum d
+		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID join #data e on e.TopicID=c.TopicID
 	where
-		c.ForumID = @ForumID and
-		b.UserID = c.UserID and
-		(@Date is null or c.Posted>=@Date or Priority>0) and
-		d.ForumID = c.ForumID and
-		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
-		(c.TopicMovedID is not null or c.NumPosts>0)
+		e.RowNo between @Offset+1 and @Offset + @Count
 	order by
-		Priority desc,
-		LastPosted desc
+		e.RowNo
 end
 GO
 
@@ -1068,9 +1079,7 @@ begin
 		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
 		b.Locked,
 		b.Moderated,
-		PostAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.PostAccess<>0),
-		ReplyAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.ReplyAccess<>0),
-		ReadAccess		= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=@UserID and x.GroupID=y.GroupID and y.ForumID=b.ForumID and y.ReadAccess<>0)		
+		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID)
 	from 
 		yaf_Category a, 
 		yaf_Forum b
@@ -1409,8 +1418,54 @@ begin
 		LastUpdate = getdate()
 	where NntpForumID = @NntpForumID
 
+	update yaf_Topic set 
+		NumPosts = (select count(1) from yaf_message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+	where ForumID=@ForumID
+
 	exec yaf_user_upgrade @UserID
 	exec yaf_forum_updatestats @ForumID
 	exec yaf_topic_updatelastpost @ForumID,null
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_category_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_category_delete
+GO
+
+create procedure yaf_category_delete(@CategoryID int) as
+begin
+	declare @flag int
+ 
+	if exists(select 1 from yaf_Forum where CategoryID =  @CategoryID)
+	begin
+		set @flag = 0
+	end else
+	begin
+		delete from yaf_Category where CategoryID = @CategoryID
+		set @flag = 1
+	end
+
+	select @flag
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_active_listforum') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_active_listforum
+GO
+
+create procedure yaf_active_listforum(@ForumID int) as
+begin
+	select
+		UserID		= a.UserID,
+		UserName	= b.Name
+	from
+		yaf_Active a join yaf_User b on b.UserID=a.UserID
+	where
+		a.ForumID = @ForumID
+	group by
+		a.UserID,
+		b.Name
+	order by
+		b.Name
 end
 GO

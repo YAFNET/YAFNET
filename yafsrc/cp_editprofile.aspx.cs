@@ -36,8 +36,6 @@ namespace yaf
 	/// </summary>
 	public class cp_editprofile : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.TextBox Location;
 		protected System.Web.UI.WebControls.TextBox HomePage;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
@@ -53,6 +51,7 @@ namespace yaf
 		protected DropDownList Theme, Language;
 		protected PlaceHolder ForumSettingsRows;
 		protected HtmlTableRow UserThemeRow, UserLanguageRow;
+		protected controls.PageLinks PageLinks;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -63,12 +62,9 @@ namespace yaf
 			if(!IsPostBack) {
 				BindData();
 
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageUserName,"cp_profile.aspx");
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");

@@ -34,14 +34,11 @@ namespace yaf
 	/// </summary>
 	public class emailtopic : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
-		protected System.Web.UI.WebControls.HyperLink TopicLink;
 		protected System.Web.UI.WebControls.TextBox EmailAddress;
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.TextBox Message;
 		protected System.Web.UI.WebControls.Button SendEmail;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -49,14 +46,10 @@ namespace yaf
 				Response.Redirect(BaseDir);
 
 			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				CategoryLink.Text = PageCategoryName;
-				CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-				ForumLink.Text = PageForumName;
-				ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-				TopicLink.Text = PageTopicName;
-				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
 
 				SendEmail.Text = GetText("send");
 

@@ -40,12 +40,12 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox Password;
 		protected System.Web.UI.WebControls.TextBox Email;
 		protected System.Web.UI.WebControls.Button ForumRegister;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.TextBox Location;
 		protected System.Web.UI.WebControls.TextBox HomePage;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 		protected System.Web.UI.WebControls.TextBox Password2;
 		protected Button cancel;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -53,8 +53,7 @@ namespace yaf
 				Response.Redirect(BaseDir);
 
 			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
+				PageLinks.AddLink(ForumName,BaseDir);
 				ForumRegister.Text = GetText("register");
 				cancel.Text = GetText("Cancel");
 

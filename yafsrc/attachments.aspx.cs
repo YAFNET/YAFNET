@@ -17,10 +17,10 @@ namespace yaf
 	public class attachments : BasePage
 	{
 		private DataRow forum, topic;
-		protected HyperLink HomeLink, CategoryLink, ForumLink, TopicLink, ThisLink;
 		protected Repeater List;
 		protected Button Back, Upload;
 		protected HtmlInputFile File;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -48,16 +48,11 @@ namespace yaf
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);
 		
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-				CategoryLink.Text = PageCategoryName;
-				ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",forum["ForumID"]);
-				ForumLink.Text = (string)forum["Name"];
-				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",topic["TopicID"]);
-				TopicLink.Text = (string)topic["Topic"];
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("TITLE");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				Back.Text = GetText("BACK");
 				Upload.Text = GetText("UPLOAD");

@@ -37,15 +37,17 @@ namespace yaf
 	{
 		protected System.Web.UI.WebControls.Label ForumRules;
 		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.Button Accept;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
-
-			ForumRules.Text = "TODO:";
+			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(ForumName,BaseDir);
+			
+				ForumRules.Text = "TODO:";
+			}
 			//TODO: Write license info and stuff...
 			Response.Redirect("register.aspx");
 		}

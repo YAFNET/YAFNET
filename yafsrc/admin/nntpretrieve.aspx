@@ -29,4 +29,21 @@
 </tr>
 </table>
 
+<p style="color:red">
+The NNTP feature of Yet Another Forum.net is still beta, and <b>will</b> have bugs. Bugs you should
+look for is character set conversion, and incorrect time on posts. Usenet articles will be posted to
+the forum with the date from the article header, meaning that you well could get future dates. Please let
+me know of any unknown time zones that are encountered.
+</p>
+
+<p style="color:red">
+The forums usenet artiles are posted to should be read-only, as messages will <b>not</b> be posted
+back to the usenet. For speed purposes usenet articles are automatically approved, meaning that if the
+forum is moderated, the posts will be automatically approved.
+</p>
+
+<p style="color:red">
+To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
+</p>
+
 </form>

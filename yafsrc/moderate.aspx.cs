@@ -34,25 +34,23 @@ namespace yaf
 	/// </summary>
 	public class moderate0 : BasePage
 	{
-		protected HyperLink HomeLink, CategoryLink, ForumLink, ModLink;
 		protected Repeater topiclist;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
 				Data.AccessDenied();
 
-			HomeLink.NavigateUrl = BaseDir;
-			HomeLink.Text = ForumName;
-			CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-			CategoryLink.Text = PageCategoryName;
-			ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-			ForumLink.Text = PageForumName;
-			ModLink.NavigateUrl = Request.RawUrl;
-			ModLink.Text = GetText("title");
-
-			if(!IsPostBack)
+			if(!IsPostBack) 
+			{
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+			
 				BindData();
+			}
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
@@ -62,7 +60,7 @@ namespace yaf
 
 		private void BindData() 
 		{
-			topiclist.DataSource = DB.topic_list(PageForumID,-1,null);
+			topiclist.DataSource = DB.topic_list(PageForumID,-1,null,0,999999);
 			DataBind();
 		}
 

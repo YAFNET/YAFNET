@@ -1,13 +1,9 @@
 <%@ Page language="c#" Codebehind="cp_message.aspx.cs" AutoEventWireup="false" Inherits="yaf.cp.cp_message" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
-<p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=UserLink runat="server"/>
-	&#187; <asp:hyperlink runat="server" id="InboxLink"/>
-	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <asp:repeater id=Inbox runat=server>
 <HeaderTemplate>

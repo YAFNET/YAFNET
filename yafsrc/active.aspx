@@ -1,12 +1,10 @@
 <%@ Register TagPrefix="uc1" TagName="forumjump" Src="forumjump.ascx" %>
 <%@ Page language="c#" Codebehind="active.aspx.cs" AutoEventWireup="false" Inherits="yaf.active" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class="navlinks">
-	<asp:hyperlink id="HomeLink" runat="server"/>
-	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>

@@ -24,6 +24,7 @@ using System.Data;
 using System.Globalization;
 using System.Threading;
 using System.Xml;
+using System.Web;
 using yaf.classes;
 
 // Grønn: #25C110
@@ -36,6 +37,7 @@ namespace yaf
 	/// </summary>
 	public class BasePage : System.Web.UI.Page
 	{
+		#region Variables
 		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
 		private DataRow		m_pageinfo;
 		private string		m_strForumName		= "Yet Another Forum.net";
@@ -46,7 +48,8 @@ namespace yaf
 		private bool		m_bCheckSuspended	= true;
 		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
 		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
-
+		#endregion
+		#region Constructor and events
 		/// <summary>
 		/// Constructor
 		/// </summary>
@@ -246,28 +249,8 @@ namespace yaf
 			}
 		}
 
-		protected bool IsNetscape 
-		{
-			get 
-			{
-				return Request.Browser.Browser.ToLower() == "netscape";
-			}
-		}
-		protected bool IsIE 
-		{
-			get 
-			{
-				return Request.Browser.Browser.ToLower() == "ie";
-			}
-		}
-		protected bool IsOpera 
-		{
-			get 
-			{
-				return Request.Browser.Browser.ToLower() == "opera";
-			}
-		}
-
+		#endregion
+		#region Theme Functions
 		// XML THEME FILE (TEST)
 		private XmlDocument LoadTheme(string themefile) 
 		{
@@ -311,7 +294,8 @@ namespace yaf
 			contents = contents.Replace("~",String.Format("{0}themes/{1}",BaseDir,themeDir));
 			return contents;
 		}
-
+		#endregion
+		#region Render Functions
 		/// <summary>
 		/// Writes the document
 		/// </summary>
@@ -521,17 +505,18 @@ namespace yaf
 			base.Render(writer);
 		}
 
+		#endregion
+		#region Page/User properties
 		/// <summary>
-		/// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
+		/// Set to true if this is the start page. Should only be set by the page that initialized the database.
 		/// </summary>
-		protected bool ShowToolBar 
+		protected bool NoDataBase 
 		{
 			set 
 			{
-				m_bShowToolBar = value;
+				m_bNoDataBase = value;
 			}
 		}
-
 		/// <summary>
 		/// The name of the froum
 		/// </summary>
@@ -555,11 +540,409 @@ namespace yaf
 			}
 		}
 		/// <summary>
+		/// The UserID of the current user.
+		/// </summary>
+		public int PageUserID 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return (int)m_pageinfo["UserID"];
+				else
+					return 0;
+			}
+		}
+		public string PageUserName 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return (string)m_pageinfo["UserName"];
+				else
+					return "";
+			}
+		}
+		/// <summary>
+		/// ForumID for the current page, or 0 if not in any forum
+		/// </summary>
+		public int PageForumID 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumID"))
+					return (int)m_pageinfo["ForumID"];
+				else
+					return 0;
+			}
+		}
+		/// <summary>
+		/// Name of forum for the current page, or an empty string if not in any forum
+		/// </summary>
+		protected string PageForumName 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumName"))
+					return (string)m_pageinfo["ForumName"];
+				else
+					return "";
+			}
+		}
+		/// <summary>
+		/// CategoryID for the current page, or 0 if not in any category
+		/// </summary>
+		protected int PageCategoryID 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryID"))
+					return (int)m_pageinfo["CategoryID"];
+				else
+					return 0;
+			}
+		}
+		/// <summary>
+		/// Name of category for the current page, or an empty string if not in any category
+		/// </summary>
+		protected string PageCategoryName 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryName"))
+					return (string)m_pageinfo["CategoryName"];
+				else
+					return "";
+			}
+		}
+		/// <summary>
+		/// The TopicID of the current page, or 0 if not in any topic
+		/// </summary>
+		protected int PageTopicID 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicID"))
+					return (int)m_pageinfo["TopicID"];
+				else
+					return 0;
+			}
+		}
+		/// <summary>
+		/// Name of topic for the current page, or an empty string if not in any topic
+		/// </summary>
+		protected string PageTopicName 
+		{
+			get 
+			{
+				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicName"))
+					return (string)m_pageinfo["TopicName"];
+				else
+					return "";
+			}
+		}
+		/// <summary>
+		/// True if current user is an administrator
+		/// </summary>
+		protected bool IsAdmin 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a guest
+		/// </summary>
+		protected bool IsGuest 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsGuest"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a forum moderator (mini-admin)
+		/// </summary>
+		protected bool IsForumModerator 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsForumModerator"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
+		/// True if current user is a modeator for at least one forum
+		/// </summary>
+		protected bool IsModerator
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsModerator"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
+		/// True if current user has post access in the current forum
+		/// </summary>
+		public bool ForumPostAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("PostAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["PostAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user has reply access in the current forum
+		/// </summary>
+		public bool ForumReplyAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("ReplyAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["ReplyAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user has read access in the current forum
+		/// </summary>
+		public bool ForumReadAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("ReadAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["ReadAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to create priority topics in the current forum
+		/// </summary>
+		public bool ForumPriorityAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("PriorityAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["PriorityAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to create polls in the current forum.
+		/// </summary>
+		public bool ForumPollAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("PollAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["PollAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to vote on polls in the current forum
+		/// </summary>
+		public bool ForumVoteAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("VoteAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["VoteAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a moderator of the current forum
+		/// </summary>
+		public bool ForumModeratorAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("ModeratorAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["ModeratorAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user can delete own messages in the current forum
+		/// </summary>
+		public bool ForumDeleteAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("DeleteAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["DeleteAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user can edit own messages in the current forum
+		/// </summary>
+		public bool ForumEditAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("EditAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["EditAccess"].ToString())>0;
+			}
+		}
+		/// <summary>
+		/// True if the current user can upload attachments
+		/// </summary>
+		public bool ForumUploadAccess 
+		{
+			get 
+			{
+				if(m_pageinfo.IsNull("UploadAccess"))
+					return false;
+				else
+					return long.Parse(m_pageinfo["UploadAccess"].ToString())>0;
+			}
+		}
+		public string SmtpServer 
+		{
+			get 
+			{
+				return m_strSmtpServer.Length>0 ? m_strSmtpServer : null;
+			}
+		}
+		public string SmtpUserName 
+		{
+			get 
+			{
+				string tmp = m_pageinfo["SmtpUserName"].ToString();
+				return tmp.Length>0 ? tmp : null;
+			}
+		}
+		public string SmtpUserPass
+		{
+			get 
+			{
+				string tmp = m_pageinfo["SmtpUserPass"].ToString();
+				return tmp.Length>0 ? tmp : null;
+			}
+		}
+		/// <summary>
+		/// The official forum email address. 
+		/// </summary>
+		public string ForumEmail 
+		{
+			get 
+			{
+				return m_strForumEmail;
+			}
+		}
+
+		public bool UseBlankLinks 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["BlankLinks"];
+			}
+		}
+
+		public bool UseEmailVerification 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["EmailVerification"];
+			}
+		}
+
+		public bool ShowMovedTopics
+		{
+			get 
+			{
+				return (bool)m_pageinfo["ShowMoved"];
+			}
+		}
+		public bool ShowGroups 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["ShowGroups"];
+			}
+		}
+		public bool AllowRichEdit 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["AllowRichEdit"];
+			}
+		}
+		public bool AllowUserTheme 
+		{
+			get 
+			{
+				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserTheme"];
+			}
+		}
+		public bool AllowUserLanguage 
+		{
+			get 
+			{
+				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserLanguage"];
+			}
+		}
+
+		#endregion
+		#region Other
+		public void SendMail(string from,string to,string subject,string body) 
+		{
+#if false
+			// .NET
+			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
+			mailMessage.From = from;
+			mailMessage.To = to;
+			mailMessage.Subject = subject;
+			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
+			mailMessage.Body = body;
+			if(SmtpServer!=null)
+				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
+			System.Web.Mail.SmtpMail.Send(mailMessage);
+#else
+			// http://sourceforge.net/projects/opensmtp-net/
+			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
+			if(SmtpUserName!=null && SmtpUserPass!=null) 
+			{
+				smtp.Username = SmtpUserName;
+				smtp.Password = SmtpUserPass;
+			}
+			smtp.SendMail(from,to,subject,body);
+#endif
+		}
+		/// <summary>
 		/// Find the path of a smiley icon
 		/// </summary>
 		/// <param name="icon">The file name of the icon you want</param>
 		/// <returns>The path to the image file</returns>
-		public string Smiley(string icon) {
+		public string Smiley(string icon) 
+		{
 			return String.Format("{0}images/emoticons/{1}",BaseDir,icon);
 		}
 		/// <summary>
@@ -619,107 +1002,8 @@ namespace yaf
 		}
 
 		/// <summary>
-		/// Set to true if this is the start page. Should only be set by the page that initialized the database.
-		/// </summary>
-		protected bool NoDataBase {
-			set {
-				m_bNoDataBase = value;
-			}
-		}
-		/// <summary>
 		/// The smtp server to send mails from
 		/// </summary>
-		public string SmtpServer {
-			get {
-				return m_strSmtpServer.Length>0 ? m_strSmtpServer : null;
-			}
-		}
-		public string SmtpUserName 
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserName"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		public string SmtpUserPass
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserPass"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		/// <summary>
-		/// The official forum email address. 
-		/// </summary>
-		public string ForumEmail 
-		{
-			get {
-				return m_strForumEmail;
-			}
-		}
-
-		public bool UseBlankLinks 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["BlankLinks"];
-			}
-		}
-
-		public bool UseEmailVerification 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["EmailVerification"];
-			}
-		}
-
-		public bool ShowMovedTopics
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowMoved"];
-			}
-		}
-		public bool ShowGroups 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowGroups"];
-			}
-		}
-		public bool AllowRichEdit 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["AllowRichEdit"];
-			}
-		}
-		public bool AllowUserTheme 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserTheme"];
-			}
-		}
-		public bool AllowUserLanguage 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserLanguage"];
-			}
-		}
-
-		public int UnreadPrivate 
-		{
-			get 
-			{
-				return (int)m_pageinfo["Incoming"];
-			}
-		}
-
 		public string ReadTemplate(string name) 
 		{
 			string file;
@@ -733,13 +1017,6 @@ namespace yaf
 				Cache[name] = file;
 			}
 			return file;
-		}
-
-		public bool IsLocal {
-			get {
-				string s = Request.ServerVariables["SERVER_NAME"];
-				return s!=null && s.ToLower()=="localhost";
-			}
 		}
 
 		public string RefreshURL
@@ -783,254 +1060,18 @@ namespace yaf
 				return m_bCheckSuspended;
 			}
 		}
-
-		#region User access functions
-		/// <summary>
-		/// The UserID of the current user.
-		/// </summary>
-		public int PageUserID {
-			get {
-				if(m_pageinfo!=null)
-					return (int)m_pageinfo["UserID"];
-				else
-					return 0;
-			}
-		}
-		public string PageUserName 
+		public HttpCookie ResponseCookie 
 		{
 			get 
 			{
-				if(m_pageinfo!=null)
-					return (string)m_pageinfo["UserName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// ForumID for the current page, or 0 if not in any forum
-		/// </summary>
-		protected int PageForumID {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumID"))
-					return (int)m_pageinfo["ForumID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of forum for the current page, or an empty string if not in any forum
-		/// </summary>
-		protected string PageForumName {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumName"))
-					return (string)m_pageinfo["ForumName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// CategoryID for the current page, or 0 if not in any category
-		/// </summary>
-		protected int PageCategoryID {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryID"))
-					return (int)m_pageinfo["CategoryID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of category for the current page, or an empty string if not in any category
-		/// </summary>
-		protected string PageCategoryName {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryName"))
-					return (string)m_pageinfo["CategoryName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// The TopicID of the current page, or 0 if not in any topic
-		/// </summary>
-		protected int PageTopicID {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicID"))
-					return (int)m_pageinfo["TopicID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of topic for the current page, or an empty string if not in any topic
-		/// </summary>
-		protected string PageTopicName {
-			get {
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicName"))
-					return (string)m_pageinfo["TopicName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// True if current user is an administrator
-		/// </summary>
-		protected bool IsAdmin {
-			get {
-				if(m_pageinfo!=null)
-					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
-				else
-					return false;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a guest
-		/// </summary>
-		protected bool IsGuest {
-			get {
-				if(m_pageinfo!=null)
-					return long.Parse(m_pageinfo["IsGuest"].ToString())!=0;
-				else
-					return false;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a forum moderator (mini-admin)
-		/// </summary>
-		protected bool IsForumModerator 
-		{
-			get 
-			{
-				if(m_pageinfo!=null)
-					return long.Parse(m_pageinfo["IsForumModerator"].ToString())!=0;
-				else
-					return false;
-			}
-		}
-		/// <summary>
-		/// True if current user is a modeator for at least one forum
-		/// </summary>
-		protected bool IsModerator
-		{
-			get 
-			{
-				if(m_pageinfo!=null)
-					return long.Parse(m_pageinfo["IsModerator"].ToString())!=0;
-				else
-					return false;
-			}
-		}
-		/// <summary>
-		/// True if current user has post access in the current forum
-		/// </summary>
-		protected bool ForumPostAccess 
-		{
-			get {
-				if(m_pageinfo.IsNull("PostAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PostAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has reply access in the current forum
-		/// </summary>
- 		protected bool ForumReplyAccess {
-			get {
-				if(m_pageinfo.IsNull("ReplyAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ReplyAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has read access in the current forum
-		/// </summary>
-		protected bool ForumReadAccess {
-			get {
-				if(m_pageinfo.IsNull("ReadAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ReadAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create priority topics in the current forum
-		/// </summary>
-		protected bool ForumPriorityAccess {
-			get {
-				if(m_pageinfo.IsNull("PriorityAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PriorityAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create polls in the current forum.
-		/// </summary>
-		protected bool ForumPollAccess {
-			get {
-				if(m_pageinfo.IsNull("PollAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PollAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to vote on polls in the current forum
-		/// </summary>
-		protected bool ForumVoteAccess {
-			get {
-				if(m_pageinfo.IsNull("VoteAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["VoteAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a moderator of the current forum
-		/// </summary>
-		protected bool ForumModeratorAccess {
-			get {
-				if(m_pageinfo.IsNull("ModeratorAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ModeratorAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can delete own messages in the current forum
-		/// </summary>
-		protected bool ForumDeleteAccess {
-			get {
-				if(m_pageinfo.IsNull("DeleteAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["DeleteAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can edit own messages in the current forum
-		/// </summary>
-		protected bool ForumEditAccess {
-			get {
-				if(m_pageinfo.IsNull("EditAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["EditAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can upload attachments
-		/// </summary>
-		protected bool ForumUploadAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("UploadAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["UploadAccess"].ToString())>0;
+				HttpCookie cookie = Response.Cookies["yaf"];
+				if(cookie==null) 
+				{
+					cookie = new HttpCookie("yaf");
+					cookie.Expires = DateTime.Now + TimeSpan.FromDays(365);
+					Response.AppendCookie(cookie);
+				}
+				return cookie;
 			}
 		}
 		#endregion
@@ -1105,35 +1146,37 @@ namespace yaf
 			return String.Format("{0:T}",dt + TimeOffset);
 		}
 		#endregion
-
-	
-		public void SendMail(string from,string to,string subject,string body) 
+		#region Layout functions
+		/// <summary>
+		/// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
+		/// </summary>
+		protected bool ShowToolBar 
 		{
-#if false
-			// .NET
-			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-			mailMessage.From = from;
-			mailMessage.To = to;
-			mailMessage.Subject = subject;
-			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-			mailMessage.Body = body;
-			if(SmtpServer!=null)
-				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-			System.Web.Mail.SmtpMail.Send(mailMessage);
-#else
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
-			if(SmtpUserName!=null && SmtpUserPass!=null) 
+			set 
 			{
-				smtp.Username = SmtpUserName;
-				smtp.Password = SmtpUserPass;
+				m_bShowToolBar = value;
 			}
-			smtp.SendMail(from,to,subject,body);
-#endif
 		}
 
+		public int UnreadPrivate 
+		{
+			get 
+			{
+				return (int)m_pageinfo["Incoming"];
+			}
+		}
+
+		public bool IsLocal 
+		{
+			get 
+			{
+				string s = Request.ServerVariables["SERVER_NAME"];
+				return s!=null && s.ToLower()=="localhost";
+			}
+		}
+
+		#endregion
+		#region Localizing
 		private Localizer	m_localizer = null;
 
 		public string GetText(string text) 
@@ -1183,7 +1226,8 @@ namespace yaf
 			str = str.Replace("[/b]","</b>");
 			return str;
 		}
-
+		#endregion
+		#region Version Information
 		static public int AppVersion 
 		{
 			get 
@@ -1202,8 +1246,9 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,11,4);
+				return new DateTime(2003,11,6);
 			}
 		}
+		#endregion
 	}
 }

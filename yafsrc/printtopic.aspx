@@ -1,11 +1,7 @@
 <%@ Page language="c#" Codebehind="printtopic.aspx.cs" AutoEventWireup="false" Inherits="yaf.printtopic" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
-<p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-	&#187; <asp:hyperlink id=ForumLink runat="server"/>
-	&#187; <asp:hyperlink id=TopicLink runat="server"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <asp:repeater id=Posts runat=server>
 <ItemTemplate>

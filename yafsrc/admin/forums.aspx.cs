@@ -114,8 +114,10 @@ namespace yaf.admin
 					Response.Redirect(String.Format("editcategory.aspx?c={0}",e.CommandArgument));
 					break;
 				case "delete":
-					DB.category_delete(e.CommandArgument);
-					BindData();
+					if(DB.category_delete(e.CommandArgument))
+						BindData();
+					else
+						AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
 					break;
 			}
 		}

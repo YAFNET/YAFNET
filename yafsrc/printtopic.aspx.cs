@@ -34,11 +34,8 @@ namespace yaf
 	/// </summary>
 	public class printtopic : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
-		protected System.Web.UI.WebControls.HyperLink TopicLink;
 		protected System.Web.UI.WebControls.Repeater Posts;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -48,14 +45,10 @@ namespace yaf
 			ShowToolBar = false;
 
 			if(!IsPostBack) {
-				HomeLink.Text = ForumName;
-				HomeLink.NavigateUrl = BaseDir;
-				CategoryLink.Text = PageCategoryName;
-				CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-				ForumLink.Text = PageForumName;
-				ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-				TopicLink.Text = PageTopicName;
-				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
 
 				Posts.DataSource = DB.post_list(PageTopicID,1);
 				DataBind();

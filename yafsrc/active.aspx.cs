@@ -35,20 +35,18 @@ namespace yaf
 	public class active : BasePage
 	{
 		protected System.Web.UI.WebControls.Repeater TopicList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink, ThisLink;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.DropDownList Since;
+		protected controls.PageLinks PageLinks;
 		protected string LastForumName = "";
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString()))),"0"));
 				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));

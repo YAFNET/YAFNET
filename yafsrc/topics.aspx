@@ -1,13 +1,10 @@
 <%@ Page language="c#" Codebehind="topics.aspx.cs" AutoEventWireup="false" Inherits="yaf.topics" %>
 <%@ Register TagPrefix="uc1" TagName="forumjump" Src="forumjump.ascx" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-	&#187; <asp:hyperlink id=ForumLink runat="server"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
@@ -57,6 +54,9 @@
 		</tr>
 	</ItemTemplate>
 </asp:repeater>
+
+<yaf:ForumUsers runat="server"/>
+
   <tr>
     <td align=middle colSpan=6 class=footer1>
       <table cellSpacing=0 cellPadding=0 width="100%">
@@ -108,7 +108,9 @@
 </td><td align=right>
 	<table cellspacing=1 cellpadding=1>
 		<tr>
-			<td align=right valign=top id=AccessCell class=smallfont runat=server></td>
+			<td align="right" valign="top" class="smallfont">
+				<yaf:PageAccess runat="server"/>
+			</td>
 		</tr>
 	</table>
 </td></tr>

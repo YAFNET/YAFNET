@@ -34,9 +34,9 @@ namespace yaf
 	/// </summary>
 	public class cp_signature : BasePage
 	{
-		protected HyperLink HomeLink, UserLink, ThisLink;
 		protected Button save, cancel;
 		protected rte.rte sig;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -54,12 +54,9 @@ namespace yaf
 					msg = FormatMsg.HtmlToForumCode(msg);
 				sig.Text = msg;
 
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageUserName,"cp_profile.aspx");
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				save.Text = GetText("Save");
 				cancel.Text = GetText("Cancel");

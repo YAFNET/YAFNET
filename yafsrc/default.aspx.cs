@@ -40,13 +40,10 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label TimeLastVisit;
 		protected System.Web.UI.WebControls.Repeater ForumList;
 		protected System.Web.UI.WebControls.Repeater ActiveList;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink HomeLink2;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl NavLinks;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl NavLinks2;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink, UnreadMsgs;
+		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
 		protected System.Web.UI.WebControls.Label activeinfo;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -64,19 +61,11 @@ namespace yaf
 						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
 				}
 
-
+				PageLinks.AddLink(ForumName,BaseDir);
 				if(PageCategoryID!=0) 
 				{
-					HomeLink.NavigateUrl = BaseDir;
-					HomeLink.Text = ForumName;
-					CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-					CategoryLink.Text = PageCategoryName;
-					NavLinks2.Visible = false;
+					PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
 					Welcome.Visible = false;
-				} else {
-					HomeLink2.NavigateUrl = BaseDir;
-					HomeLink2.Text = ForumName;
-					NavLinks.Visible = false;
 				}
 
 				DataSet ds = DB.ds_forumlayout(PageUserID,PageCategoryID);
@@ -162,7 +151,17 @@ namespace yaf
 				return GetText("no_posts");
 		}
 
-		protected string GetForumIcon(object lastPosted,object Locked,object oPostAccess,object oReplyAccess,object oReadAccess) 
+		protected string GetViewing(object o) 
+		{
+			DataRow row = (DataRow)o;
+			int nViewing = (int)row["Viewing"];
+			if(nViewing>0)
+				return "&nbsp;" + String.Format(GetText("VIEWING"),nViewing);
+			else
+				return "";
+		}
+
+		protected string GetForumIcon(object lastPosted,object Locked) 
 		{
 			try 
 			{

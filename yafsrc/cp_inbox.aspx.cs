@@ -34,11 +34,10 @@ namespace yaf.cp
 	/// </summary>
 	public class cp_inbox : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater Inbox;
 		protected LinkButton FromLink, DateLink, SubjectLink;
 		protected HtmlImage SortSubject, SortFrom, SortDate;
+		protected controls.PageLinks PageLinks;
 
 		private void SetSort(string field,bool asc) 
 		{
@@ -89,12 +88,9 @@ namespace yaf.cp
 				IsSentItems = Request.QueryString["sent"]!=null;
 				BindData();
 
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText(IsSentItems ? "sentitems" : "title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageUserName,"cp_profile.aspx");
+				PageLinks.AddLink(GetText(IsSentItems ? "sentitems" : "title"),Request.RawUrl);
 
 				SubjectLink.Text = GetText("subject");
 				FromLink.Text = GetText(IsSentItems ? "to" : "from");

@@ -1,13 +1,9 @@
 <%@ Page language="c#" Codebehind="emailtopic.aspx.cs" AutoEventWireup="false" Inherits="yaf.emailtopic" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat=server>
 
-<p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-	&#187; <asp:hyperlink id=ForumLink runat="server"/>
-	&#187; <asp:hyperlink id=TopicLink runat="server"/>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>

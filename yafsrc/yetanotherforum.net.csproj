@@ -1080,6 +1080,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\BaseControl.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\BasePage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
@@ -1121,6 +1126,21 @@
                 />
                 <File
                     RelPath = "classes\Utils.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\ForumUsers.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\PageAccess.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "controls\PageLinks.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

@@ -1,8 +1,9 @@
 <%@ Page language="c#" Codebehind="rules.aspx.cs" AutoEventWireup="false" Inherits="yaf.rules" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class="navlinks"><asp:hyperlink runat="server" id="HomeLink"/></p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class="content" cellspacing=0 cellpadding=0 width="100%">
 	<tr>

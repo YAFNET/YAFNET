@@ -38,11 +38,11 @@ namespace yaf
 		protected rte.rte Editor;
 		protected System.Web.UI.WebControls.TextBox To;
 		protected System.Web.UI.HtmlControls.HtmlTableRow ToRow;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.Button Save;
 		protected DropDownList ToList;
 		protected Button FindUsers;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -54,8 +54,7 @@ namespace yaf
 			if(!IsPostBack) {
 
 				BindData();
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
+				PageLinks.AddLink(ForumName,BaseDir);
 				Save.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
 				FindUsers.Text = GetText("FINDUSERS");
@@ -78,13 +77,13 @@ namespace yaf
 						{
 							if(!isHtml)
 								body = FormatMsg.ForumCodeToHtml(this,body);
-							body = String.Format("<div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br>",row["FromUser"],body);
+							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
 						} 
 						else if(!Editor.IsRTEBrowser)
 						{
 							if(isHtml)
 								body = FormatMsg.HtmlToForumCode(body);
-							body = String.Format("[quote={0}]{1}[/quote]",row["FromUser"],body);
+							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
 						}
 
 						Editor.Text = body;

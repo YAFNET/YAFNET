@@ -40,11 +40,10 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label NumPosts;
 		protected System.Web.UI.WebControls.Label Name;
 		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink;
 		protected System.Web.UI.WebControls.Label AccountEmail;
 		protected Repeater Groups;
 		protected HtmlImage AvatarImage;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -54,10 +53,8 @@ namespace yaf
 			if(!IsPostBack) {
 				BindData();
 
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = Request.RawUrl;
-				UserLink.Text = PageUserName;
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageUserName,Request.RawUrl);
 			}
 		}
 

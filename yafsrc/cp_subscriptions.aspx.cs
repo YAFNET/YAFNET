@@ -34,12 +34,11 @@ namespace yaf
 	/// </summary>
 	public class cp_subscriptions : BasePage
 	{
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Button UnsubscribeForums;
 		protected System.Web.UI.WebControls.Repeater ForumList;
 		protected System.Web.UI.WebControls.Button UnsubscribeTopics;
 		protected System.Web.UI.WebControls.Repeater TopicList;
+		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -49,12 +48,9 @@ namespace yaf
 			if(!IsPostBack) {
 				BindData();
 
-				HomeLink.NavigateUrl = BaseDir;
-				HomeLink.Text = ForumName;
-				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = PageUserName;
-				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("title");
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageUserName,"cp_profile.aspx");
+				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
 				UnsubscribeTopics.Text = GetText("unsubscribe");

@@ -347,10 +347,13 @@ namespace yaf.classes
 					{
 						// Tue, 23 Sep 2003 13:21:00 -07:00 (32 bytes)
 						// Tue, 23 Sep 2003 13:21:00 GMT (29 bytes)
+						// Tue, 23 Sep 2003 3:21:00 GMT
+						// Tue, 3 Sep 2003 13:21 GMT
+						// Tue, 23 Sep 2003 13:21:00
 
 						int offset = sDate.IndexOf(',') + 1;
 						string[] s = sDate.Substring(offset).Trim().Split(' ');
-						if(s.Length>=5) 
+						if(s.Length>=4) 
 						{
 							try 
 							{
@@ -358,12 +361,14 @@ namespace yaf.classes
 								int	month	= GetMonth(s[1]);
 								int	year	= int.Parse(s[2]);
 								string[] t = s[3].Split(':');
+								if(t.Length<2) t = s[3].Split('.');
 								int	hour	= int.Parse(t[0]);
 								int	min		= int.Parse(t[1]);
 								int	sec		= t.Length>2 ? int.Parse(t[2]) : 0;
 
 								DateTime date = new DateTime(year,month,day,hour,min,sec);
-								date += GetTimeOffset(s[4]);
+								if(s.Length>4)
+									date += GetTimeOffset(s[4]);
 								return date;
 							}
 							catch(Exception x) 
@@ -411,11 +416,34 @@ namespace yaf.classes
 				switch(timezone) 
 				{
 					case "gmt":
+					case "ut":
 						return new TimeSpan(0,0,0);
+					case "adt":
+						return new TimeSpan(-3,0,0);
+					case "ast":
+						return new TimeSpan(-4,0,0);
 					case "edt":
 						return new TimeSpan(-4,0,0);
+					case "est":
+						return new TimeSpan(-5,0,0);
+					case "cdt":
+						return new TimeSpan(-5,0,0);
+					case "cst":
+					case "mdt":
+					case "gmt-6":
+						return new TimeSpan(-6,0,0);
+					case "mst":
+						return new TimeSpan(-7,0,0);
 					case "pdt":
 						return new TimeSpan(-7,0,0);
+					case "pst":
+						return new TimeSpan(-8,0,0);
+					case "akdt":
+						return new TimeSpan(-8,0,0);
+					case "akst":
+						return new TimeSpan(-9,0,0);
+					case "hst":
+						return new TimeSpan(-10,0,0);
 				}
 				throw new Exception(timezone);
 			}
@@ -493,6 +521,9 @@ namespace yaf.classes
 								string		sFrom		= article.FromName;
 								string		sDate		= article.DateString;
 								DateTime	dtDate		= article.Date - tsLocal;
+
+								if(dtDate.Year<1950)
+									dtDate = DateTime.Now;
 							
 								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
 								sBody = String.Format("Date parsed: {0}\r\n",dtDate) + sBody;

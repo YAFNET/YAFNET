@@ -1,14 +1,9 @@
 <%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="yaf._default" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class="navlinks" id=NavLinks runat=server>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-</p>
-<p class="navlinks" id="NavLinks2" runat=server>
-	<asp:hyperlink id="HomeLink2" runat="server"/>
-</p> 
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <p id=Welcome runat=server>
 	<table cellSpacing=0 cellPadding=0>
@@ -40,9 +35,9 @@
 		<asp:Repeater id=ForumList runat="server" onitemcommand='ForumList_ItemCommand' datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
 			<ItemTemplate>
 				<tr class=post>
-					<td><img src='<%# GetForumIcon(DataBinder.Eval(Container.DataItem, "[\"LastPosted\"]"),DataBinder.Eval(Container.DataItem, "[\"Locked\"]"),((System.Data.DataRow)Container.DataItem)["PostAccess"],((System.Data.DataRow)Container.DataItem)["ReplyAccess"],((System.Data.DataRow)Container.DataItem)["ReadAccess"]) %>'></td>
+					<td><img src='<%# GetForumIcon(DataBinder.Eval(Container.DataItem, "[\"LastPosted\"]"),DataBinder.Eval(Container.DataItem, "[\"Locked\"]")) %>'></td>
 					<td>
-						<asp:linkbutton runat="server" cssclass=largefont commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><br>
+						<asp:linkbutton runat="server" cssclass=largefont commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><%# GetViewing(Container.DataItem) %><br>
 						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 						<br>
 						<asp:repeater visible='<%# DataBinder.Eval(Container.DataItem, "[\"Moderated\"]") %>' id=ModeratorList runat=server onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("rel2") %>'>

@@ -1,14 +1,11 @@
 <%@ Page language="c#" Codebehind="postmessage.aspx.cs" AutoEventWireup="false" Inherits="yaf.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="controls/smileys.ascx" %>
 <%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server" enctype="multipart/form-data">
 
-<p class="navlinks">
-	<asp:hyperlink id=HomeLink runat="server">HomeLink</asp:hyperlink>
-	&#187; <asp:hyperlink id=CategoryLink runat="server">CategoryLink</asp:hyperlink>
-	&#187; <asp:hyperlink id=ForumLink runat="server">HyperLink</asp:hyperlink>
-</p>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
 	<tr>

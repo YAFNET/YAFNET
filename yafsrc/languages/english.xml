@@ -85,6 +85,7 @@
 		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} members</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} guest</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
+		<Resource tag="VIEWING">({0} Viewing)</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -97,6 +98,8 @@
 		<Resource tag="WATCHFORUM">Watch Forum</Resource>
 		<Resource tag="SHOWTOPICS">Show Topics</Resource>
 		<Resource tag="ALL">All</Resource>
+		<Resource tag="LAST_DAY">from the last day</Resource>
+		<Resource tag="LAST_TWO_DAYS">from the last two days</Resource>
 		<Resource tag="LAST_WEEK">from the last week</Resource>
 		<Resource tag="LAST_TWO_WEEKS">from the last two weeks</Resource>
 		<Resource tag="LAST_MONTH">from the last month</Resource>
@@ -104,6 +107,7 @@
 		<Resource tag="LAST_SIX_MONTHS">from the last six months</Resource>
 		<Resource tag="LAST_YEAR">from the last year</Resource>
 		<Resource tag="BY">by {0}</Resource>
+		<Resource tag="FORUMUSERS">Users browsing this forum</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -420,5 +424,20 @@
 		<Resource tag="MATCH_ANY">Match Any Word</Resource>
 		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
 		<Resource tag="BY">by</Resource>
+	</page>
+	<page name="MODERATE_DEFAULT">
+		<Resource tag="TITLE">Moderate</Resource>
+		<Resource tag="FORUM">Forum</Resource>
+		<Resource tag="UNAPPROVED">Unapproved Posts</Resource>
+		<Resource tag="CATEGORY">Category</Resource>
+	</page>
+	<page name="MODERATE_FORUM">
+		<Resource tag="UNAPPROVED">Unapproved Posts</Resource>
+		<Resource tag="TOP">Back to top</Resource>
+		<Resource tag="APPROVE">Approve Post</Resource>
+		<Resource tag="DELETE">Delete Post</Resource>
+		<Resource tag="ASK_DELETE">Delete this post?</Resource>
+		<Resource tag="APPROVED">Post approved.</Resource>
+		<Resource tag="DELETED">Post deleted.</Resource>
 	</page>
 </Resources>

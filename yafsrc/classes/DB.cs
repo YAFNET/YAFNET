@@ -73,6 +73,7 @@ namespace yaf
 							da.SelectCommand = cmd;
 							da.SelectCommand.Connection = conn;
 							da.Fill(ds);
+							//da.Fill(ds,0,20,"dummy");
 							return ds.Tables[0];
 						}
 					}
@@ -274,6 +275,15 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataTable active_listforum(object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_active_listforum")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_Attachment
@@ -340,13 +350,13 @@ namespace yaf
 		#endregion
 
 		#region yaf_Category
-		static public void category_delete(object CategoryID) 
+		static public bool category_delete(object CategoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_category_delete")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@CategoryID",CategoryID);
-				ExecuteNonQuery(cmd);
+				return (int)ExecuteScalar(cmd)!=0;
 			}
 		}
 		static public DataTable category_list(object CategoryID) 
@@ -1041,7 +1051,7 @@ namespace yaf
 				return (int)ExecuteScalar(cmd);
 			}
 		}
-		static public DataTable topic_list(object ForumID,object Announcement,object Date) 
+		static public DataTable topic_list(object ForumID,object Announcement,object Date,object offset,object count) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_list")) 
 			{
@@ -1049,6 +1059,8 @@ namespace yaf
 				cmd.Parameters.Add("@ForumID",ForumID);
 				cmd.Parameters.Add("@Announcement",Announcement);
 				cmd.Parameters.Add("@Date",Date);
+				cmd.Parameters.Add("@Offset",offset);
+				cmd.Parameters.Add("@Count",count);
 				return GetData(cmd);
 			}
 		}

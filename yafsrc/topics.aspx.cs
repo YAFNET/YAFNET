@@ -39,23 +39,24 @@ namespace yaf
 		protected System.Web.UI.WebControls.Repeater Announcements;
 		protected System.Web.UI.WebControls.LinkButton NewTopic2;
 		protected System.Web.UI.WebControls.LinkButton NewTopic1;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
 		protected System.Web.UI.WebControls.Label PageTitle;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
-		protected System.Web.UI.WebControls.HyperLink ForumLink;
 		private DataRow forum;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
-		protected System.Web.UI.HtmlControls.HtmlTableCell AccessCell;
 		protected LinkButton moderate1, moderate2;
+		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
+				PageLinks.AddLink(ForumName,BaseDir);
+				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
+				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
+
 				WatchForum.Text = GetText("watchforum");
 				moderate1.Text = GetThemeContents("BUTTONS","MODERATE");
 				moderate1.ToolTip = "Moderate this forum";
@@ -68,12 +69,23 @@ namespace yaf
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
 				ShowList.Items.Add(new ListItem(GetText("all"),"0"));
-				ShowList.Items.Add(new ListItem(GetText("last_week"),"1"));
-				ShowList.Items.Add(new ListItem(GetText("last_two_weeks"),"2"));
-				ShowList.Items.Add(new ListItem(GetText("last_month"),"3"));
-				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"4"));
-				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"5"));
-				ShowList.Items.Add(new ListItem(GetText("last_year"),"6"));
+				ShowList.Items.Add(new ListItem(GetText("last_day"),"1"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_days"),"2"));
+				ShowList.Items.Add(new ListItem(GetText("last_week"),"3"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_weeks"),"4"));
+				ShowList.Items.Add(new ListItem(GetText("last_month"),"5"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"6"));
+				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"7"));
+				ShowList.Items.Add(new ListItem(GetText("last_year"),"8"));
+
+				try 
+				{
+					ShowList.SelectedIndex = (int)Session["ShowList"];
+				}
+				catch(Exception) 
+				{
+					ShowList.SelectedIndex = 8;
+				}
 			}
 
 			if(Request.QueryString["f"] == null)
@@ -86,12 +98,6 @@ namespace yaf
 				forum = dt.Rows[0];
 
 			PageTitle.Text = (string)forum["Name"];
-			HomeLink.NavigateUrl = BaseDir;
-			HomeLink.Text = ForumName;
-			CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);
-			CategoryLink.Text = PageCategoryName;
-			ForumLink.NavigateUrl = String.Format("topics.aspx?f={0}",PageForumID);
-			ForumLink.Text = PageForumName;
 
 			if(!IsPostBack) 
 				BindData();
@@ -105,21 +111,6 @@ namespace yaf
 				moderate1.Visible = false;
 				moderate2.Visible = false;
 			}
-
-			System.Text.StringBuilder tmp = new System.Text.StringBuilder();
-			tmp.Append(GetText(ForumPostAccess ? "can_post" : "cannot_post"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumReplyAccess ? "can_reply" : "cannot_reply"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumDeleteAccess ? "can_delete" : "cannot_delete"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumEditAccess ? "can_edit" : "cannot_edit"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumPollAccess ? "can_poll" : "cannot_poll"));
-			tmp.Append("<br/>");
-			tmp.Append(GetText(ForumVoteAccess ? "can_vote" : "cannot_vote"));
-			tmp.Append("<br/>");
-			AccessCell.InnerHtml = tmp.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -156,6 +147,7 @@ namespace yaf
 
 		private void ShowList_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
+			Session["ShowList"] = ShowList.SelectedIndex;
 			BindData();
 		}
 
@@ -228,14 +220,18 @@ namespace yaf
 
 		private void BindData() 
 		{
-			PagedDataSource pds = new PagedDataSource();
-			pds.AllowPaging = true;
+			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
+			int nPageSize = System.Math.Max(5,15 - dt.Rows.Count);
+			Announcements.DataSource = dt;
 
-			Announcements.DataSource = DB.topic_list(PageForumID,1,null);
+			int nCurrentPageIndex = 0;
+			if(Request.QueryString["p"] != null)
+				nCurrentPageIndex = int.Parse(Request.QueryString["p"]);
 
+			DataTable dtTopics;
 			if(ShowList.SelectedIndex==0) 
 			{
-				pds.DataSource = DB.topic_list(PageForumID,0,null).DefaultView;
+				dtTopics = DB.topic_list(PageForumID,0,null,nCurrentPageIndex*nPageSize,nPageSize);
 			} 
 			else 
 			{
@@ -243,58 +239,62 @@ namespace yaf
 				switch(ShowList.SelectedIndex) 
 				{
 					case 1:
-						date -= TimeSpan.FromDays(7);
+						date -= TimeSpan.FromDays(1);
 						break;
 					case 2:
-						date -= TimeSpan.FromDays(14);
+						date -= TimeSpan.FromDays(2);
 						break;
 					case 3:
-						date -= TimeSpan.FromDays(31);
+						date -= TimeSpan.FromDays(7);
 						break;
 					case 4:
-						date -= TimeSpan.FromDays(2*31);
+						date -= TimeSpan.FromDays(14);
 						break;
 					case 5:
-						date -= TimeSpan.FromDays(6*31);
+						date -= TimeSpan.FromDays(31);
 						break;
 					case 6:
+						date -= TimeSpan.FromDays(2*31);
+						break;
+					case 7:
+						date -= TimeSpan.FromDays(6*31);
+						break;
+					case 8:
 						date -= TimeSpan.FromDays(365);
 						break;
 				}
-				pds.DataSource = DB.topic_list(PageForumID,0,date).DefaultView;
+				dtTopics = DB.topic_list(PageForumID,0,date,nCurrentPageIndex*nPageSize,nPageSize);
 			}
+			int nRowCount = 0;
+			if(dtTopics.Rows.Count>0) nRowCount = (int)dtTopics.Rows[0]["RowCount"];
+			int nPageCount = (nRowCount + nPageSize - 1) / nPageSize;
 
-			pds.PageSize = 15;
-			if(Request.QueryString["p"] != null)
-				pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
-			else
-				pds.CurrentPageIndex = 0;
-
-			TopicList.DataSource = pds;
+			//TopicList.DataSource = pds;
+			TopicList.DataSource = dtTopics;
 
 			DataBind();
 
-			if(pds.PageCount>1) {
-				PageLinks1.InnerHtml = String.Format("{0} pages:",pds.PageCount);
-				int iStart = pds.CurrentPageIndex - 10;
-				int iEnd = pds.CurrentPageIndex + 10;
+			if(nPageCount>1) {
+				PageLinks1.InnerHtml = String.Format("{0} pages:",nPageCount);
+				int iStart = nCurrentPageIndex - 10;
+				int iEnd = nCurrentPageIndex + 10;
 				if(iStart<0) iStart = 0;
-				if(iEnd>pds.PageCount) iEnd = pds.PageCount;
+				if(iEnd>nPageCount) iEnd = nPageCount;
 				if(iStart>0) 
 				{
 					PageLinks1.InnerHtml += String.Format(" <a href=\"topics.aspx?f={0}\">First</a> ...",PageForumID);
 				}
 				for(int i=iStart;i<iEnd;i++) 
 				{
-					if(i==pds.CurrentPageIndex) {
+					if(i==nCurrentPageIndex) {
 						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
 					} else {
 						PageLinks1.InnerHtml += String.Format(" <a href=\"topics.aspx?f={2}&p={1}\">{0}</a>",i+1,i,PageForumID);
 					}
 				}
-				if(iEnd<pds.PageCount) 
+				if(iEnd<nPageCount) 
 				{
-					PageLinks1.InnerHtml += String.Format(" ... <a href=\"topics.aspx?f={0}&p={1}\">Last</a>",PageForumID,pds.PageCount-1);
+					PageLinks1.InnerHtml += String.Format(" ... <a href=\"topics.aspx?f={0}&p={1}\">Last</a>",PageForumID,nPageCount-1);
 				}
 				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
 			} else {

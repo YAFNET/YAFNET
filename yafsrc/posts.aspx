@@ -1,14 +1,10 @@
 <%@ Register TagPrefix="uc1" TagName="forumjump" Src="forumjump.ascx" %>
 <%@ Page language="c#" Codebehind="posts.aspx.cs" AutoEventWireup="false" Inherits="yaf.posts" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">
 
-<p class=navlinks>
-	<asp:hyperlink id=HomeLink runat="server"/>
-	&#187; <asp:hyperlink id=CategoryLink runat="server"/>
-	&#187; <asp:hyperlink id=ForumLink runat="server"/>
-	&#187; <asp:hyperlink id=TopicLink runat="server"/>
-</P>
+<yaf:PageLinks runat="server" id="PageLinks"/>
 
 <a name=top></a>
 
@@ -124,7 +120,8 @@
     <td align=right>Forum Jump <uc1:forumjump id=Forumjump1 runat="server"></uc1:forumjump></TD>
 </TR>
 <tr>
-	<td align=right valign=top id=AccessCell class=smallfont runat=server></td>
+	<td align="right" valign="top" class="smallfont"><yaf:PageAccess runat="server"/></td>
+	
 </tr>
 </TABLE>
 
