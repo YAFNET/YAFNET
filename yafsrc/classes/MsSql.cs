@@ -1572,7 +1572,6 @@ namespace yaf
 					else 
 					{
 						trans.Commit();
-						FormsAuthentication.RedirectFromLoginPage(userName.ToString(), false);
 					}
 				}
 				catch(Exception x) 

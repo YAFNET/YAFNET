@@ -120,6 +120,7 @@ namespace yaf.pages
 				}
 
 				DataProvider.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
+				Forum.Redirect(Pages.login);
 			}
 		}
 	}
