@@ -205,7 +205,8 @@ CREATE TABLE [yaf_Topic] (
 	[LastPosted] [datetime] NULL ,
 	[LastMessageID] [int] NULL ,
 	[LastUserID] [int] NULL ,
-	[LastUserName] [varchar] (50) NULL 
+	[LastUserName] [varchar] (50) NULL,
+	[NumPosts] [int] NOT NULL
 ) ON [PRIMARY]
 GO
 

@@ -269,60 +269,6 @@ create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject va
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_save
-GO
-
-CREATE  procedure yaf_message_save(
-	@TopicID	int,
-	@UserID		int,
-	@Message	text,
-	@UserName	varchar(50)=null,
-	@IP			varchar(15),
-	@MessageID	int output
-) as
-begin
-	declare @ForumID	int
-	declare	@Moderated	bit
-
-	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
-
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved)
-	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,0)
-	set @MessageID = @@IDENTITY
-	
-	if @Moderated=0
-		exec yaf_message_approve @MessageID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_save
-GO
-
-create procedure yaf_topic_save(
-	@ForumID	int,
-	@Subject	varchar(100),
-	@UserID		int,
-	@Message	text,
-	@Priority	smallint,
-	@UserName	varchar(50)=null,
-	@IP			varchar(15),
-	@PollID		int=null
-) as
-begin
-	declare @TopicID int
-	declare @MessageID int
-
-	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName)
-	values(@ForumID,@Subject,@UserID,getdate(),0,@Priority,0,@PollID,@UserName)
-	set @TopicID = @@IDENTITY
-	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@MessageID output
-
-	select TopicID = @TopicID, MessageID = @MessageID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_list_reverse10
 GO

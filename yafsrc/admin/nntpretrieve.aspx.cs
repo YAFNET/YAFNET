@@ -34,11 +34,20 @@ namespace yaf.admin
 	/// </summary>
 	public class nntpretrieve : AdminPage
 	{
+		protected Repeater List;
 		protected TextBox Seconds;
 		protected Button Retrieve;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if(!IsPostBack) 
+				BindData();
+		}
+
+		private void BindData()
+		{
+			List.DataSource = DB.nntpforum_list(10,null);
+			DataBind();
 		}
 
 		#region Web Form Designer generated code
@@ -64,8 +73,11 @@ namespace yaf.admin
 
 		private void Retrieve_Click(object sender, System.EventArgs e)
 		{
-			int nArticleCount = classes.Nntp.ReadArticles(int.Parse(Seconds.Text));
-			AddLoadMessage(String.Format("Retrieved {0} articles.",nArticleCount));
+			int nSeconds = int.Parse(Seconds.Text);
+			if(nSeconds<1) nSeconds = 1;
+			int nArticleCount = classes.Nntp.ReadArticles(10,nSeconds);
+			AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
+			BindData();
 		}
 	}
 }

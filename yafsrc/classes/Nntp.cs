@@ -78,7 +78,7 @@ namespace yaf.classes
 				int pos = m.Index + 14;
 				for(;pos<headers.Length;pos++) 
 				{
-					if(headers[pos]=='\n' && headers[pos+1]!=' ' && headers[pos+1]!='\t')
+					if(headers[pos]=='\n' && pos<headers.Length-1 && headers[pos+1]!=' ' && headers[pos+1]!='\t')
 						break;
 
 				}
@@ -327,12 +327,97 @@ namespace yaf.classes
 					return m_sThread;
 				}
 			}
-			public string Date 
+			public string DateString
 			{
 				get 
 				{
 					return m_sDate;
 				}
+			}
+			public DateTime Date 
+			{
+				get 
+				{
+					string sDate = DateString;
+					if(sDate==null)
+						return DateTime.Now;
+
+					sDate = sDate.Trim();
+					if(sDate.Length==32 || sDate.Length==29 || true) 
+					{
+						// Tue, 23 Sep 2003 13:21:00 -07:00 (32 bytes)
+						// Tue, 23 Sep 2003 13:21:00 GMT (29 bytes)
+
+						int offset = sDate.IndexOf(',') + 1;
+						string[] s = sDate.Substring(offset).Trim().Split(' ');
+						if(s.Length>=5) 
+						{
+							try 
+							{
+								int	day		= int.Parse(s[0]);
+								int	month	= GetMonth(s[1]);
+								int	year	= int.Parse(s[2]);
+								string[] t = s[3].Split(':');
+								int	hour	= int.Parse(t[0]);
+								int	min		= int.Parse(t[1]);
+								int	sec		= t.Length>2 ? int.Parse(t[2]) : 0;
+
+								DateTime date = new DateTime(year,month,day,hour,min,sec);
+								date += GetTimeOffset(s[4]);
+								return date;
+							}
+							catch(Exception x) 
+							{
+								throw new Exception(sDate,x);
+							}
+						}
+					}
+					throw new Exception(sDate);
+				}
+			}
+			static public int GetMonth(string mon) 
+			{
+				string[] months = {"jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"};
+				mon = mon.Trim().ToLower();
+				for(int i=0;i<12;i++)
+					if(months[i]==mon)
+						return i+1;
+
+				throw new Exception(mon);
+			}
+			static public TimeSpan GetTimeOffset(string timezone) 
+			{
+				timezone = timezone.Trim().ToLower();
+				if(timezone.Length>=4 && (timezone[0]=='+' || timezone[0]=='-'))
+				{
+					int hour = 0;
+					int min = 0;
+					if(timezone.Length==5)
+					{
+						hour = int.Parse(timezone.Substring(0,3));
+						min = int.Parse(timezone.Substring(3,2));
+					} 
+					else if(timezone.Length==4) 
+					{
+						hour = int.Parse(timezone.Substring(0,2));
+						min = int.Parse(timezone.Substring(2,2));
+					}
+					else 
+					{
+						throw new Exception(timezone);
+					}
+					return new TimeSpan(hour,min,0);
+				}
+				switch(timezone) 
+				{
+					case "gmt":
+						return new TimeSpan(0,0,0);
+					case "edt":
+						return new TimeSpan(-4,0,0);
+					case "pdt":
+						return new TimeSpan(-7,0,0);
+				}
+				throw new Exception(timezone);
 			}
 			#endregion
 		}
@@ -355,16 +440,21 @@ namespace yaf.classes
 			return new ArticleInfo(ReadArticle());
 		}
 
-		static public void ReadArticles() 
+		static public int ReadArticles(int nLastUpdate,int nTimeToRun) 
 		{
-			int nUserID = DB.user_guest();	// Use guests user-id
+			int			nUserID			= DB.user_guest();	// Use guests user-id
+			string		sHostAddress	= System.Web.HttpContext.Current.Request.UserHostAddress;
+			DataTable	dtSystem		= DB.system_list();
+			TimeSpan	tsLocal			= new TimeSpan(0,(int)dtSystem.Rows[0]["TimeZone"],0);
+			DateTime	dtStart			= DateTime.Now;
+			int			nArticleCount	= 0;
 
 			Nntp nntp = null;
 			string hostname = null;
 			try 
 			{
 				// Only those not updated in the last 30 minutes
-				using(DataTable dtForums = DB.nntpforum_list(30,null)) 
+				using(DataTable dtForums = DB.nntpforum_list(nLastUpdate,null)) 
 				{
 					foreach(DataRow drForum in dtForums.Rows) 
 					{
@@ -383,52 +473,47 @@ namespace yaf.classes
 						GroupInfo group = nntp.Group(drForum["GroupName"].ToString());
 						int nLastMessageNo = (int)drForum["LastMessageNo"];
 						int nCurrentMessage = nLastMessageNo;
+						// If this is first retrieve for this group, only fetch last 50
 						if(nCurrentMessage==0)
-							nCurrentMessage = group.Last - 300;
+							nCurrentMessage = group.Last - 50;
 
 						nCurrentMessage++;
 
-						int nForumID	= (int)drForum["ForumID"];
-						int nCount		= 0;
+						int			nForumID	= (int)drForum["ForumID"];
 
-						for(;nCurrentMessage<group.Last;nCurrentMessage++) 
+						for(;nCurrentMessage<=group.Last;nCurrentMessage++) 
 						{
 							try 
 							{
 								ArticleInfo article = nntp.Article(nCurrentMessage);
 
-								string	sBody		= article.Body;
-								string	sThread		= article.Thread;
-								string	sSubject	= article.Subject;
-								string	sFrom		= article.FromName;
-								string	sDate		= article.Date;
+								string		sBody		= article.Body;
+								string		sThread		= article.Thread;
+								string		sSubject	= article.Subject;
+								string		sFrom		= article.FromName;
+								string		sDate		= article.DateString;
+								DateTime	dtDate		= article.Date - tsLocal;
 							
 								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
+								sBody = String.Format("Date parsed: {0}\r\n",dtDate) + sBody;
 
 								sBody = System.Web.HttpContext.Current.Server.HtmlEncode(sBody);
-								DataTable dt = DB.nntptopic_list(sThread);
-								if(dt.Rows.Count>0) 
-								{
-									// insert new message
-									long nMessageID = 0;
-									DB.message_save(dt.Rows[0]["TopicID"],nUserID,sBody,sFrom,System.Web.HttpContext.Current.Request.UserHostAddress,ref nMessageID);
-								} 
-								else 
-								{
-									// insert new topic
-									long nMessageID = 0;
-									long nTopicID = DB.topic_save(nForumID,sSubject,sBody,nUserID,0,null,sFrom,System.Web.HttpContext.Current.Request.UserHostAddress,ref nMessageID);
-									DB.nntptopic_save(drForum["NntpForumID"],sThread,nTopicID);
-								}
+								DB.nntptopic_savemessage(drForum["NntpForumID"],sSubject,sBody,nUserID,sFrom,sHostAddress,dtDate,sThread);
 								nLastMessageNo = nCurrentMessage;
+								nArticleCount++;
 								// We don't wanna retrieve articles forever...
-								if(++nCount>25) break;
+								// Total time x seconds for all groups
+								if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
+									break;
 							}
 							catch(NntpException) 
 							{
 							}
 						}
-						DB.nntpforum_update(drForum["NntpForumID"],nLastMessageNo);
+						DB.nntpforum_update(drForum["NntpForumID"],nLastMessageNo,nUserID);
+						// Total time x seconds for all groups
+						if((DateTime.Now - dtStart).TotalSeconds>nTimeToRun)
+							break;
 					}
 				}
 			}
@@ -440,6 +525,7 @@ namespace yaf.classes
 					nntp.Dispose(true);
 				}
 			}
+			return nArticleCount;
 		}
 	}
 }

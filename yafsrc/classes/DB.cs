@@ -681,7 +681,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,ref long nMessageID) {
+		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,ref long nMessageID) {
 			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 			//	UserName = null;
 
@@ -696,6 +696,7 @@ namespace yaf
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
+				cmd.Parameters.Add("@Posted",posted);
 				cmd.Parameters.Add(pMessageID);
 				DB.ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;
@@ -724,13 +725,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public void nntpforum_update(object nntpForumID,object lastMessageNo) 
+		static public void nntpforum_update(object nntpForumID,object lastMessageNo,object userID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_nntpforum_update")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@NntpForumID",nntpForumID);
 				cmd.Parameters.Add("@LastMessageNo",lastMessageNo);
+				cmd.Parameters.Add("@UserID",userID);
 				ExecuteNonQuery(cmd);
 			}
 		}
@@ -792,14 +794,19 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public void nntptopic_save(object nntpForumID,object thread,object topicID) 
+		static public void nntptopic_savemessage(object nntpForumID,object topic,object body,object userID,object userName,object ip,object posted,object thread) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_nntptopic_save")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_nntptopic_savemessage")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@NntpForumID",nntpForumID);
+				cmd.Parameters.Add("@Topic",topic);
+				cmd.Parameters.Add("@Body",body);
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@UserName",userName);
+				cmd.Parameters.Add("@IP",ip);
+				cmd.Parameters.Add("@Posted",posted);
 				cmd.Parameters.Add("@Thread",thread);
-				cmd.Parameters.Add("@TopicID",topicID);
 				ExecuteNonQuery(cmd);
 			}
 		}
@@ -1103,7 +1110,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
+		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object posted,ref long nMessageID) 
 		{
 			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 			//	UserName = null;
@@ -1119,6 +1126,7 @@ namespace yaf
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
 				cmd.Parameters.Add("@PollID",PollID);
+				cmd.Parameters.Add("@Posted",posted);
 
 				DataTable dt = DB.GetData(cmd);
 				nMessageID = long.Parse(dt.Rows[0]["MessageID"].ToString());

@@ -20,6 +20,16 @@ GO
 alter table yaf_Forum alter column NumPosts int not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_Topic') and name='NumPosts')
+	alter table yaf_Topic add NumPosts int null
+GO
+
+update yaf_Topic set NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID) - 1 where NumPosts is null
+GO
+
+alter table yaf_Topic alter column NumPosts int not null
+GO
+
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AllowRichEdit')
 	alter table yaf_System add AllowRichEdit bit null
 GO
@@ -177,6 +187,7 @@ begin
 		b.GroupName,
 		b.ForumID,
 		b.LastMessageNo,
+		b.LastUpdate,
 		ForumName = c.Name
 	from
 		yaf_NntpServer a,
@@ -208,28 +219,8 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_update
-GO
-
-create procedure yaf_nntpforum_update(@NntpForumID int,@LastMessageNo int) as
-begin
-	update yaf_NntpForum set
-		LastMessageNo = @LastMessageNo,
-		LastUpdate = getdate()
-	where NntpForumID = @NntpForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntptopic_save
-GO
-
-create procedure yaf_nntptopic_save(@NntpForumID int,@Thread char(32),@TopicID int) as
-begin
-	insert into yaf_NntpTopic(NntpForumID,Thread,TopicID)
-	values(@NntpForumID,@Thread,@TopicID)
-end
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -330,11 +321,18 @@ create procedure yaf_pageload(
 	@MessageID	int = null
 ) as
 begin
-	declare @UserID int
+	declare @UserID		int
+	declare @IsGuest	smallint
+	
 	if @User is null or @User='' 
+	begin
 		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and b.GroupID=c.GroupID and c.IsGuest=1
-	else
+		set @IsGuest = 1
+	end else
+	begin
 		select @UserID = UserID from yaf_User where Name = @User
+		set @IsGuest = 0
+	end
 	-- Check valid ForumID
 	if @ForumID is not null and not exists(select 1 from yaf_Forum where ForumID=@ForumID) begin
 		set @ForumID = null
@@ -411,7 +409,8 @@ begin
 			values(@SessionID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
 		end
 		-- remove duplicate users
-		delete from yaf_Active where UserID=@UserID and SessionID<>@SessionID
+		if @IsGuest=0
+			delete from yaf_Active where UserID=@UserID and SessionID<>@SessionID
 	end
 	-- return information
 	select
@@ -695,7 +694,7 @@ begin
 		Subject = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
-		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID) - 1,
+		Replies = c.NumPosts - 1,
 		Views = c.Views,
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,
@@ -715,7 +714,7 @@ begin
 		(@Date is null or c.Posted>=@Date or Priority>0) and
 		d.ForumID = c.ForumID and
 		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
-		((c.TopicMovedID is not null) or exists(select 1 from yaf_Message x where x.TopicID=c.TopicID and x.Approved<>0))
+		(c.TopicMovedID is not null or c.NumPosts>0)
 	order by
 		Priority desc,
 		LastPosted desc
@@ -743,6 +742,7 @@ begin
 			LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
 			LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
 		where TopicMovedID is null
+		and (@ForumID is null or ForumID=@ForumID)
 
 	if @ForumID is not null
 		update yaf_Forum set
@@ -1176,7 +1176,7 @@ create procedure yaf_message_approve(@MessageID int) as begin
 
 	-- update yaf_Forum
 	update yaf_Forum set
-		LastPosted = getdate(),
+		LastPosted = @Posted,
 		LastTopicID = @TopicID,
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
@@ -1185,10 +1185,11 @@ create procedure yaf_message_approve(@MessageID int) as begin
 
 	-- update yaf_Topic
 	update yaf_Topic set
-		LastPosted = getdate(),
+		LastPosted = @Posted,
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
-		LastUserName = @UserName
+		LastUserName = @UserName,
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
 	where TopicID = @TopicID
 	
 	-- update forum stats
@@ -1230,6 +1231,10 @@ begin
 	-- update lastpost
 	exec yaf_topic_updatelastpost @ForumID,@TopicID
 	exec yaf_forum_updatestats @ForumID
+	-- update topic numposts
+	update yaf_Topic set
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
+	where TopicID = @TopicID
 end
 GO
 
@@ -1282,5 +1287,130 @@ begin
 		d.TopicID = a.TopicID
 	order by
 		a.Posted asc
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_save
+GO
+
+CREATE  procedure yaf_message_save(
+	@TopicID	int,
+	@UserID		int,
+	@Message	text,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@Posted		datetime=null,
+	@MessageID	int output
+) as
+begin
+	declare @ForumID	int
+	declare	@Moderated	bit
+
+	if @Posted is null set @Posted = getdate()
+
+	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
+
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved)
+	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,0)
+	set @MessageID = @@IDENTITY
+	
+	if @Moderated=0
+		exec yaf_message_approve @MessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_save
+GO
+
+create procedure yaf_topic_save(
+	@ForumID	int,
+	@Subject	varchar(100),
+	@UserID		int,
+	@Message	text,
+	@Priority	smallint,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@PollID		int=null,
+	@Posted		datetime=null
+) as
+begin
+	declare @TopicID int
+	declare @MessageID int
+
+	if @Posted is null set @Posted = getdate()
+
+	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName,NumPosts)
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,0,@PollID,@UserName,0)
+	set @TopicID = @@IDENTITY
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,@MessageID output
+
+	select TopicID = @TopicID, MessageID = @MessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_savemessage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntptopic_savemessage
+GO
+
+create procedure yaf_nntptopic_savemessage(
+	@NntpForumID	int,
+	@Topic 		varchar(100),
+	@Body 		text,
+	@UserID 	int,
+	@UserName	varchar(50),
+	@IP		varchar(15),
+	@Posted		datetime,
+	@Thread		char(32)
+) as 
+begin
+	declare	@ForumID	int
+	declare @TopicID	int
+
+	select @ForumID=ForumID from yaf_NntpForum where NntpForumID=@NntpForumID
+
+	if exists(select 1 from yaf_NntpTopic where Thread=@Thread)
+	begin
+		-- thread exists
+		select @TopicID=TopicID from yaf_NntpTopic where Thread=@Thread
+	end else
+	begin
+		-- thread doesn't exists
+		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,[Views],IsLocked,Priority,NumPosts)
+		values(@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0,0)
+		set @TopicID=@@IDENTITY
+
+		insert into yaf_NntpTopic(NntpForumID,Thread,TopicID)
+		values(@NntpForumID,@Thread,@TopicID)
+	end
+
+	-- save message
+	insert into yaf_Message(TopicID,UserID,UserName,Posted,Message,IP,Approved)
+	values(@TopicID,@UserID,@UserName,@Posted,@Body,@IP,1)
+
+	-- update user
+	update yaf_User set NumPosts=NumPosts+1 where UserID=@UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_nntpforum_update
+GO
+
+create procedure yaf_nntpforum_update(@NntpForumID int,@LastMessageNo int,@UserID int) as
+begin
+	declare	@ForumID	int
+	
+	select @ForumID=ForumID from yaf_NntpForum where NntpForumID=@NntpForumID
+
+	update yaf_NntpForum set
+		LastMessageNo = @LastMessageNo,
+		LastUpdate = getdate()
+	where NntpForumID = @NntpForumID
+
+	exec yaf_user_upgrade @UserID
+	exec yaf_forum_updatestats @ForumID
+	exec yaf_topic_updatelastpost @ForumID,null
 end
 GO

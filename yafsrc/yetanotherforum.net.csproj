@@ -899,6 +899,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\nntpretrieve.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\nntpretrieve.aspx.cs"
+                    DependentUpon = "nntpretrieve.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\nntpretrieve.aspx.resx"
+                    DependentUpon = "nntpretrieve.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\nntpservers.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

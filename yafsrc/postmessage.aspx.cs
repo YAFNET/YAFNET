@@ -273,7 +273,7 @@ namespace yaf
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
@@ -303,7 +303,7 @@ namespace yaf
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.Identity.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,ref nMessageID);
 			}
 
 			// Check if message is approved
