@@ -361,7 +361,10 @@ namespace yaf.editor
 				pInfo = typEditor.GetProperty("BasePath");
 				pInfo.SetValue(objEditor,ResolveUrl("FCKEditorV2/"),null);
 
-				Page.RegisterClientScriptBlock("fckeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("FCKEditor/FCKEditor.js")));
+				pInfo = typEditor.GetProperty("Height");
+				pInfo.SetValue( objEditor, Unit.Pixel(300), null );
+
+				Page.RegisterClientScriptBlock("fckeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("FCKEditorV2/FCKEditor.js")));
 			}
 		}
 
