@@ -772,3 +772,52 @@ begin
 	delete from yaf_Forum where ForumID = @ForumID
 end
 GO
+
+-- yaf_user_list
+if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_list
+GO
+
+create procedure yaf_user_list(@BoardID int,@UserID int=null,@Approved bit=null) as
+begin
+	if @UserID is null
+		select 
+			a.*,
+			a.NumPosts,
+			IsAdmin = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and y.GroupID=x.GroupID and y.IsAdmin<>0),
+			b.RankID,
+			RankName = b.Name
+		from 
+			yaf_User a
+			join yaf_Rank b on b.RankID=a.RankID
+		where 
+			a.BoardID = @BoardID and
+			(@Approved is null or a.Approved = @Approved)
+		order by 
+			a.Name
+	else
+		select 
+			a.*,
+			a.NumPosts,
+			b.RankID,
+			RankName = b.Name,
+			NumDays = datediff(d,a.Joined,getdate())+1,
+			NumPostsForum = (select count(1) from yaf_Message x where x.Approved<>0),
+			HasAvatarImage = (select count(1) from yaf_User x where x.UserID=a.UserID and AvatarImage is not null),
+			IsAdmin	= IsNull(c.IsAdmin,0),
+			IsGuest	= IsNull(c.IsGuest,0),
+			IsForumModerator	= IsNull(c.IsForumModerator,0),
+			IsModerator		= IsNull(c.IsModerator,0)
+		from 
+			yaf_User a
+			join yaf_Rank b on b.RankID=a.RankID
+			left join yaf_vaccess c on c.UserID=a.UserID
+		where 
+			a.UserID = @UserID and
+			a.BoardID = @BoardID and
+			IsNull(c.ForumID,0) = 0 and
+			(@Approved is null or a.Approved = @Approved)
+		order by 
+			a.Name
+end
+GO
