@@ -294,6 +294,8 @@ namespace yaf
 				case "</li>":
 				case "<tbody>":
 				case "</tbody>":
+				case "<pre>":
+				case "</pre>":
 					return true;
 			}
 			if(tag.StartsWith("<a "))

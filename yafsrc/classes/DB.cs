@@ -390,6 +390,17 @@ namespace yaf
 		}
 		#endregion
 
+		#region yaf_Extension
+		static public DataTable extension_list() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_extension_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				return GetData(cmd);
+			}
+		}
+		#endregion
+
 		#region yaf_Forum
 		static public void forum_delete(object ForumID) 
 		{

@@ -276,14 +276,41 @@ namespace yaf
 					Cache["htmltemplate"] = html;
 				}
 #endif
-				//Extension ext = (Extension)System.Reflection.Assembly.GetExecutingAssembly().CreateInstance("yaf.ExtTest");
-				//ext.Initialize(this);
-				//System.Text.StringBuilder tst = new System.Text.StringBuilder();
-				//ext.Render(ref tst);
-				//writer.Write(tst.ToString());
+
+				#region Extension code
+				DataTable dtExt = (DataTable)Cache["Extensions"];
+				if(dtExt==null) 
+				{
+					dtExt = DB.extension_list();
+					Cache["Extensions"] = dtExt;
+				}
+				foreach(DataRow row in dtExt.Rows) 
+				{
+					string sCode = row["Code"].ToString();
+					if(html.IndexOf(sCode)>=0) 
+					{
+						System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+
+						string sClass = row["Class"].ToString();
+						int dotpos = sClass.IndexOf('.');
+						if(dotpos>0) 
+						{
+							string asmname = sClass.Substring(0,dotpos);
+							if(asmname!="yaf")
+								asm = System.Reflection.Assembly.Load(asmname);
+						}
+
+						Extension ext = (Extension)asm.CreateInstance(row["Class"].ToString());
+						ext.Initialize(this);
+						System.Text.StringBuilder txt = new System.Text.StringBuilder();
+						ext.Render(ref txt);
+						html = html.Replace(sCode,txt.ToString());
+					}
+				}
+				#endregion
 
 				#region User Activity Rank by Fabrizio Bernabei
-				if(html.IndexOf("{user_rank}")>=0) 
+				if(html.IndexOf("{user_rank}")>=0 && false) 
 				{
 					string act_rank = "";
 
