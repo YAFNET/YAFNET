@@ -183,8 +183,8 @@ namespace yaf
 			{
 				string code = row["Code"].ToString();
 
-				strTemp = strTemp.Replace(code.ToLower(),String.Format("<img src=\"{0}\">",basePage.Smiley(Convert.ToString(row["Icon"]))));
-				strTemp = strTemp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\">",basePage.Smiley(Convert.ToString(row["Icon"]))));
+				strTemp = strTemp.Replace(code.ToLower(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
+				strTemp = strTemp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
 			}
 
 			return strTemp;
