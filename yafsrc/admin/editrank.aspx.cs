@@ -34,15 +34,16 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editgroup : BasePage
+	public class editrank : BasePage
 	{
 		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.CheckBox IsGuestGroup;
 		protected System.Web.UI.WebControls.CheckBox IsStart;
 		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Repeater AccessList;
-		protected System.Web.UI.WebControls.CheckBox IsAdminX;
+		protected System.Web.UI.WebControls.CheckBox IsLadder;
+		protected System.Web.UI.WebControls.TextBox MinPosts;
 		protected System.Web.UI.WebControls.Button Cancel;
+		protected DropDownList RankImage;
+		protected HtmlImage Preview;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -51,21 +52,25 @@ namespace yaf.admin
 			if(!IsPostBack) 
 			{
 				BindData();
-				if(Request.QueryString["g"] != null) 
+				if(Request.QueryString["r"] != null) 
 				{
-					using(SqlCommand cmd = new SqlCommand("yaf_group_list")) {
+					using(SqlCommand cmd = new SqlCommand("yaf_rank_list")) {
 						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@GroupID",Request.QueryString["g"]);
+						cmd.Parameters.Add("@RankID",Request.QueryString["r"]);
 						using(DataTable dt = DataManager.GetData(cmd)) {
 							DataRow row = dt.Rows[0];
 							Name.Text = (string)row["Name"];
-							IsAdminX.Checked = (bool)row["IsAdmin"];
-							IsGuestGroup.Checked = (bool)row["IsGuest"];
 							IsStart.Checked = (bool)row["IsStart"];
+							IsLadder.Checked = (bool)row["IsLadder"];
+							MinPosts.Text = row["MinPosts"].ToString();
+							ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
+							if(item!=null) item.Selected = true;
+							Preview.Src = String.Format("../images/ranks/{0}",row["RankImage"]);
 						}
 					}
 				}
 			}
+			RankImage.Attributes["onchange"] = "getElementById('Preview').src='../images/ranks/' + this.value";
 		}
 
 		#region Web Form Designer generated code
@@ -115,69 +120,37 @@ namespace yaf.admin
 					dr["FileName"] = file.Name;
 					dt.Rows.Add(dr);
 				}
-			}
-
-			if(Request.QueryString["g"] != null) 
-			{
-				using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_group")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@GroupID",Request.QueryString["g"]);
-					AccessList.DataSource = DataManager.GetData(cmd);
-				}
+				
+				RankImage.DataSource = dt;
+				RankImage.DataValueField = "FileName";
+				RankImage.DataTextField = "FileName";
 			}
 			DataBind();
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Response.Redirect("groups.aspx");
+			Response.Redirect("ranks.aspx");
 		}
 
 		private void Save_Click(object sender, System.EventArgs e)
 		{
 			// Group
-			int GroupID = 0;
-			if(Request.QueryString["g"] != null) GroupID = int.Parse(Request.QueryString["g"]);
+			int RankID = 0;
+			if(Request.QueryString["r"] != null) RankID = int.Parse(Request.QueryString["r"]);
 				
-			SqlCommand cmd = new SqlCommand("yaf_group_save");
+			SqlCommand cmd = new SqlCommand("yaf_rank_save");
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@GroupID",GroupID);
+			cmd.Parameters.Add("@RankID",RankID);
 			cmd.Parameters.Add("@Name",Name.Text);
-			cmd.Parameters.Add("@IsAdmin",IsAdminX.Checked);
-			cmd.Parameters.Add("@IsGuest",IsGuestGroup.Checked);
 			cmd.Parameters.Add("@IsStart",IsStart.Checked);
+			cmd.Parameters.Add("@IsLadder",IsLadder.Checked);
+			cmd.Parameters.Add("@MinPosts",MinPosts.Text);
+			if(RankImage.SelectedIndex>0)
+				cmd.Parameters.Add("@RankImage",RankImage.SelectedValue);
+			DataManager.ExecuteNonQuery(cmd);
 				
-			GroupID = int.Parse(DataManager.ExecuteScalar(cmd).ToString());
-
-			// Access
-			if(Request.QueryString["g"] != null) 
-			{
-				for(int i=0;i<AccessList.Items.Count;i++) 
-				{
-					RepeaterItem item = AccessList.Items[i];
-					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-					using(SqlCommand cmd2 = new SqlCommand("yaf_forumaccess_save")) {
-						cmd2.CommandType = CommandType.StoredProcedure;
-						cmd2.Parameters.Add("@ForumID",ForumID);
-						cmd2.Parameters.Add("@GroupID",GroupID);
-						cmd2.Parameters.Add("@ReadAccess",((CheckBox)item.FindControl("ReadAccess")).Checked);
-						cmd2.Parameters.Add("@PostAccess",((CheckBox)item.FindControl("PostAccess")).Checked);
-						cmd2.Parameters.Add("@ReplyAccess",((CheckBox)item.FindControl("ReplyAccess")).Checked);
-						cmd2.Parameters.Add("@PriorityAccess",((CheckBox)item.FindControl("PriorityAccess")).Checked);
-						cmd2.Parameters.Add("@PollAccess",((CheckBox)item.FindControl("PollAccess")).Checked);
-						cmd2.Parameters.Add("@VoteAccess",((CheckBox)item.FindControl("VoteAccess")).Checked);
-						cmd2.Parameters.Add("@ModeratorAccess",((CheckBox)item.FindControl("ModeratorAccess")).Checked);
-						cmd2.Parameters.Add("@EditAccess",((CheckBox)item.FindControl("EditAccess")).Checked);
-						cmd2.Parameters.Add("@DeleteAccess",((CheckBox)item.FindControl("DeleteAccess")).Checked);
-						cmd2.Parameters.Add("@UploadAccess",((CheckBox)item.FindControl("UploadAccess")).Checked);
-						DataManager.ExecuteNonQuery(cmd2);
-					}
-				}
-				Response.Redirect("groups.aspx");
-			}
-
-			// Done
-			Response.Redirect(String.Format("editgroup.aspx?g={0}",GroupID));
+			Response.Redirect("ranks.aspx");
 		}
 	}
 }

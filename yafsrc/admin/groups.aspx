@@ -4,7 +4,7 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=6>Groups</td>
+	<td class=header1 colspan=5>Groups</td>
 </tr>
 
 <asp:repeater id=GroupList runat="server">
@@ -14,7 +14,6 @@
 			<td class=header2>Is Admin</td>
 			<td class=header2>Is Guest</td>
 			<td class=header2>Is Start</td>
-			<td class=header2>Is Ladder</td>
 			<td class=header2>Command</td>
 		</tr>
 	</HeaderTemplate>
@@ -33,9 +32,6 @@
 				<%# DataBinder.Eval(Container.DataItem, "IsStart") %>
 			</td>
 			<td class=post>
-				<%# LadderInfo(DataBinder.Eval(Container.DataItem, "IsLadder"),DataBinder.Eval(Container.DataItem, "MinPosts")) %>
-			</td>
-			<td class=post>
 				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>Edit</asp:linkbutton>
 				|
 				<asp:linkbutton runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>Delete</asp:linkbutton>
@@ -45,7 +41,7 @@
 </asp:repeater>
 
 <tr>
-	<td class=footer1 colspan=6><asp:linkbutton id=NewGroup runat="server">New Group</asp:linkbutton></td>
+	<td class=footer1 colspan=5><asp:linkbutton id=NewGroup runat="server">New Group</asp:linkbutton></td>
 </tr>
 </table>
 

@@ -585,7 +585,7 @@ namespace yaf
 		protected bool IsAdmin {
 			get {
 				if(pageinfo!=null)
-					return (bool)pageinfo["IsAdmin"];
+					return long.Parse(pageinfo["IsAdmin"].ToString())!=0;
 				else
 					return false;
 			}
@@ -596,7 +596,7 @@ namespace yaf
 		protected bool IsGuest {
 			get {
 				if(pageinfo!=null)
-					return (bool)pageinfo["IsGuest"];
+					return long.Parse(pageinfo["IsGuest"].ToString())!=0;
 				else
 					return false;
 			}
@@ -609,7 +609,7 @@ namespace yaf
 				if(pageinfo.IsNull("PostAccess"))
 					return false;
 				else
-					return (bool)pageinfo["PostAccess"];
+					return long.Parse(pageinfo["PostAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -620,7 +620,7 @@ namespace yaf
 				if(pageinfo.IsNull("ReplyAccess"))
 					return false;
 				else
-					return (bool)pageinfo["ReplyAccess"];
+					return long.Parse(pageinfo["ReplyAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -631,7 +631,7 @@ namespace yaf
 				if(pageinfo.IsNull("ReadAccess"))
 					return false;
 				else
-					return (bool)pageinfo["ReadAccess"];
+					return long.Parse(pageinfo["ReadAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -642,7 +642,7 @@ namespace yaf
 				if(pageinfo.IsNull("PriorityAccess"))
 					return false;
 				else
-					return (bool)pageinfo["PriorityAccess"];
+					return long.Parse(pageinfo["PriorityAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -653,7 +653,7 @@ namespace yaf
 				if(pageinfo.IsNull("PollAccess"))
 					return false;
 				else
-					return (bool)pageinfo["PollAccess"];
+					return long.Parse(pageinfo["PollAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -664,7 +664,7 @@ namespace yaf
 				if(pageinfo.IsNull("VoteAccess"))
 					return false;
 				else
-					return (bool)pageinfo["VoteAccess"];
+					return long.Parse(pageinfo["VoteAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -675,7 +675,7 @@ namespace yaf
 				if(pageinfo.IsNull("ModeratorAccess"))
 					return false;
 				else
-					return (bool)pageinfo["ModeratorAccess"];
+					return long.Parse(pageinfo["ModeratorAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -686,7 +686,7 @@ namespace yaf
 				if(pageinfo.IsNull("DeleteAccess"))
 					return false;
 				else
-					return (bool)pageinfo["DeleteAccess"];
+					return long.Parse(pageinfo["DeleteAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -697,7 +697,7 @@ namespace yaf
 				if(pageinfo.IsNull("EditAccess"))
 					return false;
 				else
-					return (bool)pageinfo["EditAccess"];
+					return long.Parse(pageinfo["EditAccess"].ToString())>0;
 			}
 		}
 		/// <summary>
@@ -710,7 +710,7 @@ namespace yaf
 				if(pageinfo.IsNull("UploadAccess"))
 					return false;
 				else
-					return (bool)pageinfo["UploadAccess"];
+					return long.Parse(pageinfo["UploadAccess"].ToString())>0;
 			}
 		}
 		#endregion

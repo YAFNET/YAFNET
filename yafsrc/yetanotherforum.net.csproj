@@ -719,6 +719,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\editrank.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\editrank.aspx.cs"
+                    DependentUpon = "editrank.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\editrank.aspx.resx"
+                    DependentUpon = "editrank.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\edituser.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -812,6 +828,22 @@
                 <File
                     RelPath = "admin\prune.aspx.resx"
                     DependentUpon = "prune.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\ranks.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\ranks.aspx.cs"
+                    DependentUpon = "ranks.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\ranks.aspx.resx"
+                    DependentUpon = "ranks.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

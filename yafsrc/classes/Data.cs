@@ -185,14 +185,13 @@ namespace yaf
 
 		#region Forum Access Functions
 		public static bool ForumReadAccess(int UserID,object ForumID) {
-			//return ForumAccess("ReadAccess",UserID,ForumID);
 			using(SqlCommand cmd = new SqlCommand("yaf_user_access")) {
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@ForumID",ForumID);
 				using(DataTable dt = DataManager.GetData(cmd)) {
 					if(dt.Rows.Count>0)
-						return (bool)dt.Rows[0]["ReadAccess"];
+						return long.Parse(dt.Rows[0]["ReadAccess"].ToString())>0;
 				}
 			}
 			return false;

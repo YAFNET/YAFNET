@@ -33,7 +33,7 @@
 		<asp:Repeater id=ForumList runat="server" onitemcommand='ForumList_ItemCommand' datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("myrelation") %>'>
 			<ItemTemplate>
 				<tr class=post>
-					<td><img src='<%# GetForumIcon(DataBinder.Eval(Container.DataItem, "[\"LastPosted\"]"),DataBinder.Eval(Container.DataItem, "[\"Locked\"]"),(bool)((System.Data.DataRow)Container.DataItem)["PostAccess"],(bool)((System.Data.DataRow)Container.DataItem)["ReplyAccess"],(bool)((System.Data.DataRow)Container.DataItem)["ReadAccess"]) %>'></td>
+					<td><img src='<%# GetForumIcon(DataBinder.Eval(Container.DataItem, "[\"LastPosted\"]"),DataBinder.Eval(Container.DataItem, "[\"Locked\"]"),((System.Data.DataRow)Container.DataItem)["PostAccess"],((System.Data.DataRow)Container.DataItem)["ReplyAccess"],((System.Data.DataRow)Container.DataItem)["ReadAccess"]) %>'></td>
 					<td>
 						<asp:linkbutton runat="server" cssclass=largefont commandname="forum" commandargument='<%# DataBinder.Eval(Container.DataItem, "[\"ForumID\"]") %>'><%# DataBinder.Eval(Container.DataItem, "[\"Forum\"]") %></asp:linkbutton><br>
 						<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>

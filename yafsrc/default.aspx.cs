@@ -152,7 +152,7 @@ namespace yaf
 				return "No Posts";
 		}
 
-		protected string GetForumIcon(object lastPosted,object Locked,bool PostAccess,bool ReplyAccess,bool ReadAccess) 
+		protected string GetForumIcon(object lastPosted,object Locked,object oPostAccess,object oReplyAccess,object oReadAccess) 
 		{
 			try 
 			{

@@ -101,14 +101,5 @@ namespace yaf.admin
 		{
 			Response.Redirect("editgroup.aspx");
 		}
-
-		protected string LadderInfo(object IsLadder,object MinPosts) {
-			string tmp;
-			tmp = String.Format("{0}",IsLadder);
-			if((bool)IsLadder) {
-				tmp += String.Format(" ({0} posts)",MinPosts);
-			}
-			return tmp;
-		}
 	}
 }

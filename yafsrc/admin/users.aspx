@@ -19,7 +19,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-		<td class=post><%# DataBinder.Eval(Container.DataItem, "GroupName") %></td>
+		<td class=post>na</td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "NumPosts") %></td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "Approved") %></td>
 		<td class=post><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %></td>

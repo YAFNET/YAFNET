@@ -79,7 +79,7 @@ namespace yaf
 			TitleUserName.Text = (string)row["Name"];
 			AccountEmail.Text = row["Email"].ToString();
 			Name.Text = (string)row["Name"];
-			GroupName.Text = (string)row["GroupName"];
+			GroupName.Text = "na"; //(string)row["GroupName"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format(CustomCulture,"{0:N0}",row["NumPosts"]);
 		}

@@ -457,8 +457,8 @@ namespace yaf
 			if(row["RankImage"].ToString().Length>0)
 				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
 
-			// Group
-			html += String.Format("Group: {0}<br clear=\"all\"/><br/>",row["GroupName"]);
+			// Rank
+			html += String.Format("Rank: {0}<br clear=\"all\"/><br/>",row["RankName"]);
 
 			// Joined
 			html += String.Format(CustomCulture,"Joined: {0}<br/>",FormatDateShort((DateTime)row["Joined"]));

@@ -29,52 +29,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf
+namespace yaf.admin
 {
 	/// <summary>
-	/// Summary description for profile.
+	/// Summary description for ranks.
 	/// </summary>
-	public class profile : BasePage
+	public class ranks : BasePage
 	{
-		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label Group;
-		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.Label Email;
-		protected System.Web.UI.HtmlControls.HtmlTableRow EmailRow;
-		protected System.Web.UI.WebControls.Label LastVisit;
-		protected System.Web.UI.WebControls.Label NumPosts;
-		protected System.Web.UI.WebControls.Label UserName;
+		protected System.Web.UI.WebControls.LinkButton NewRank;
+		protected System.Web.UI.WebControls.Repeater RankList;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["u"] == null)
-				Response.Redirect(BaseDir);
-
-			HomeLink.Text = ForumName;
-			HomeLink.NavigateUrl = BaseDir;
-
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-				cmd.Parameters.Add("@Approved",true);
-				using(DataTable dt = DataManager.GetData(cmd)) {
-					DataRow user = dt.Rows[0];
-
-					UserName.Text = (string)user["Name"];
-					Name.Text = (string)user["Name"];
-					Group.Text = "na";	//(string)user["GroupName"];
-					Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
-					Email.Text = user["Email"].ToString();
-					LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
-					NumPosts.Text = user["NumPosts"].ToString();
-				}
-			}
-
-			if(!IsPostBack) {
-				if(long.Parse(pageinfo["IsAdmin"].ToString())>0) {
-					EmailRow.Visible = true;
-				}
+			if(!IsAdmin) Response.Redirect(BaseDir);
+			TopMenu = false;
+			if(!IsPostBack) 
+			{
+				BindData();
 			}
 		}
 
@@ -94,10 +65,50 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.RankList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.RankList_ItemCommand);
+			this.NewRank.Click += new System.EventHandler(this.NewRank_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
+		private void BindData() 
+		{
+			RankList.DataSource = DataManager.GetData("yaf_rank_list",CommandType.StoredProcedure);
+			DataBind();
+		}
+
+		private void RankList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			switch(e.CommandName) 
+			{
+				case "edit":
+					Response.Redirect(String.Format("editrank.aspx?r={0}",e.CommandArgument));
+					break;
+				case "delete":
+					using(SqlCommand cmd = new SqlCommand("yaf_rank_delete")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@RankID",e.CommandArgument);
+						DataManager.ExecuteNonQuery(cmd);
+					}
+					BindData();
+					break;
+			}
+		}
+
+		private void NewRank_Click(object sender, System.EventArgs e)
+		{
+			Response.Redirect("editrank.aspx");
+		}
+
+		protected string LadderInfo(object IsLadder,object MinPosts) {
+			string tmp;
+			tmp = String.Format("{0}",IsLadder);
+			if((bool)IsLadder) {
+				tmp += String.Format(" ({0} posts)",MinPosts);
+			}
+			return tmp;
+		}
 	}
 }
