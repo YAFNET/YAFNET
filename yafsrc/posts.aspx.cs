@@ -234,7 +234,8 @@ namespace yaf
 				Poll.DataSource = dtPoll;
 			}
 			
-			if(!IsAdmin) {
+			if(!ForumModeratorAccess) 
+			{
 				LockTopic1.Visible = false;
 				UnlockTopic1.Visible = false;
 				DeleteTopic1.Visible = false;
@@ -242,7 +243,8 @@ namespace yaf
 				UnlockTopic2.Visible = false;
 				DeleteTopic2.Visible = false;
 			} 
-			else {
+			else 
+			{
 				LockTopic1.Visible = !(bool)topic["IsLocked"];
 				UnlockTopic1.Visible = !LockTopic1.Visible;
 				LockTopic2.Visible = !(bool)topic["IsLocked"];

@@ -35,6 +35,7 @@ namespace yaf.admin
 	public class main : AdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
+		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -51,6 +52,19 @@ namespace yaf.admin
 			ActiveList.DataSource = DB.active_list(true);
 			UserList.DataSource = DB.user_list(null,false);
 			DataBind();
+
+			DataRow row = DB.board_stats();
+			NumPosts.Text	= row["NumPosts"].ToString();
+			NumTopics.Text	= row["NumTopics"].ToString();
+			NumUsers.Text	= row["NumUsers"].ToString();
+			BoardStart.Text	= row["BoardStart"].ToString();
+
+			TimeSpan span = DateTime.Now - (DateTime)row["BoardStart"];
+			double days = span.Days;
+			if(days<1) days = 1;
+			DayPosts.Text = String.Format("{0:N2}",(int)row["NumPosts"] / days);
+			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);
+			DayUsers.Text = String.Format("{0:N2}",(int)row["NumUsers"] / days);
 		}
 
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 

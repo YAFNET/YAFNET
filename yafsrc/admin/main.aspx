@@ -59,4 +59,38 @@
 </FooterTemplate>
 </asp:repeater>
 
+<br/>
+<table width="100%" cellspacing="1" cellpadding="0" class="content">
+	<tr>
+		<td class="header1" colspan="4">Statistics</td>
+	</tr>
+	<tr>
+		<td width="25%" class="postheader">Number of posts:</td>
+		<td width="25%" class="post"><asp:label runat="server" id="NumPosts"/></td>
+		<td width="25%" class="postheader">Posts per day:</td>
+		<td width="25%" class="post"><asp:label runat="server" id="DayPosts"/></td>
+	</tr>
+	<tr>
+		<td class="postheader">Number of topics:</td>
+		<td class="post"><asp:label runat="server" id="NumTopics"/></td>
+		<td class="postheader">Topics per day:</td>
+		<td class="post"><asp:label runat="server" id="DayTopics"/></td>
+	</tr>
+	<tr>
+		<td class="postheader">Number of users:</td>
+		<td class="post"><asp:label runat="server" id="NumUsers"/></td>
+		<td class="postheader">Users per day:</td>
+		<td class="post"><asp:label runat="server" id="DayUsers"/></td>
+	</tr>
+	<tr>
+		<td class="postheader">Board started:</td>
+		<td class="post"><asp:label runat="server" id="BoardStart"/></td>
+		<td class="postheader">&nbsp;</td>
+		<td class="post">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="postfooter" colspan="4">These statistics don't count deleted topics and posts.</td>
+	</tr>
+</table>
+
 </form>

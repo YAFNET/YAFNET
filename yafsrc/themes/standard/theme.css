@@ -126,7 +126,7 @@ table.command
 
 /* p-tag at the top of pages with navigation links */
 .navlinks { font-weight: bold; color: #000000; }
-.navlinks a { color: #000080; }
+.navlinks a { color: #000080; text-decoration: none }
 .navlinks a:hover { color: #0000FF; }
 
 /* for printing */

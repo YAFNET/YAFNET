@@ -1473,3 +1473,16 @@ begin
 		LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_board_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_stats
+GO
+
+create procedure yaf_board_stats as begin
+	select
+		NumPosts	= (select count(1) from yaf_Message where Approved<>0),
+		NumTopics	= (select count(1) from yaf_Topic),
+		NumUsers	= (select count(1) from yaf_User where Approved<>0),
+		BoardStart	= (select min(Joined) from yaf_User)
+end
+GO

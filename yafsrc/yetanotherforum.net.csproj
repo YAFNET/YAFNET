@@ -348,6 +348,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "info.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "info.aspx.cs"
+                    DependentUpon = "info.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "info.aspx.resx"
+                    DependentUpon = "info.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "install.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

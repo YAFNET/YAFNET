@@ -127,6 +127,17 @@ namespace yaf
 				}
 			}
 		}
+		static public DataRow board_stats() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_stats")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				using(DataTable dt = GetData(cmd)) 
+				{
+					return dt.Rows[0];
+				}
+			}
+		}
 		#endregion
 
 		#region DataSets

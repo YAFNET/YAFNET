@@ -262,7 +262,9 @@ namespace yaf
 			else 
 			{
 				// Tell user that his message will have to be approved by a moderator
-				AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
+				//AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
+				string url = String.Format("topics.aspx?f={0}",PageForumID);
+				Response.Redirect(String.Format("info.aspx?i=1&url={0}",Server.HtmlEncode(url)));
 			}
 		}
 
