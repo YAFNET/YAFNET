@@ -1024,10 +1024,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "templates\page_istool.html"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "templates\topicpost.txt"
                     BuildAction = "Content"
                 />
