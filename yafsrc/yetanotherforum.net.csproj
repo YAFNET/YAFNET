@@ -628,6 +628,22 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "admin\attachments.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\attachments.aspx.cs"
+                    DependentUpon = "attachments.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\attachments.aspx.resx"
+                    DependentUpon = "attachments.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\bannedip.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

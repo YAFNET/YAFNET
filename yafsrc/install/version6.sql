@@ -329,18 +329,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_delete
-GO
-
-create procedure yaf_user_delete(@UserID int) as
-begin
-	delete from yaf_CheckEmail where UserID = @UserID
-	delete from yaf_UserGroup where UserID = @UserID
-	delete from yaf_User where UserID = @UserID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_member
 GO

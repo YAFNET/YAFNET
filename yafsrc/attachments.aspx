@@ -11,7 +11,7 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=3>Attachments</td>
+	<td class=header1 colspan=3><%= GetText("TITLE") %></td>
 </tr>
 
 <asp:repeater runat="server" id="List">

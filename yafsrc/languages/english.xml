@@ -140,7 +140,7 @@
 		<Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
 		<Resource tag="LAST_MONTH">last month</Resource>
 		<Resource tag="TOPICS">Topics</Resource>
-		<Resource tag="TOPIC_STARTER">Topic_Starter</Resource>
+		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
 		<Resource tag="VIEWS">Views</Resource>
 		<Resource tag="LASTPOST">Last Post</Resource>

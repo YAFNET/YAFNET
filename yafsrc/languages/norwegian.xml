@@ -46,6 +46,18 @@
 		<Resource tag="MOVED">Flyttet</Resource>
 		<Resource tag="STICKY">Sticky</Resource>
 	</page>
+	<page name="ATTACHMENTS">
+		<Resource tag="TITLE">Vedlegg</Resource>
+		<Resource tag="BACK">Tilbake</Resource>
+		<Resource tag="UPLOAD">Last opp</Resource>
+		<Resource tag="SELECT_FILE">Velg filen du vil laste opp.</Resource>
+		<Resource tag="UPLOAD_TITLE">Last opp fil</Resource>
+		<Resource tag="FILENAME">Filnavn</Resource>
+		<Resource tag="SIZE">Størrelse</Resource>
+		<Resource tag="DELETE">Slett</Resource>
+		<Resource tag="FILEERROR">'{0}' er ikke ei gyldig fil.</Resource>
+		<Resource tag="ASK_DELETE">Slett dette vedlegget?</Resource>
+	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
 		<Resource tag="FORUM">Forum</Resource>
@@ -64,25 +76,34 @@
 		<Resource tag="NO_POSTS">Ingen meldinger</Resource>
 		<Resource tag="UNREAD1">Du har {0} ulest melding i innboksen din.</Resource>
 		<Resource tag="UNREAD0">Du har {0} uleste meldinger i innboksen din.</Resource>
+		<Resource tag="INFORMATION">Informasjon</Resource>
+		<Resource tag="STATS">Statistikk</Resource>
+		<Resource tag="ACTIVE_USERS">Aktive brukere</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktiv bruker</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktive brukere</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} medlem</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} medlemmer</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} gjest</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} gjester</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
-		<Resource tag="TOPICS">Topics</Resource>
-		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-		<Resource tag="REPLIES">Replies</Resource>
-		<Resource tag="VIEWS">Views</Resource>
-		<Resource tag="LASTPOST">Last Post</Resource>
-		<Resource tag="NO_POSTS">No Posts</Resource>
+		<Resource tag="TOPICS">Emner</Resource>
+		<Resource tag="TOPIC_STARTER">Startet av</Resource>
+		<Resource tag="REPLIES">Svar</Resource>
+		<Resource tag="VIEWS">Visninger</Resource>
+		<Resource tag="LASTPOST">Siste melding</Resource>
+		<Resource tag="NO_POSTS">Ingen meldinger</Resource>
 		<Resource tag="WATCHFORUM">Watch Forum</Resource>
 		<Resource tag="SHOWTOPICS">Show Topics</Resource>
-		<Resource tag="ALL">All</Resource>
-		<Resource tag="LAST_WEEK">from the last week</Resource>
-		<Resource tag="LAST_TWO_WEEKS">from the last two weeks</Resource>
-		<Resource tag="LAST_MONTH">from the last month</Resource>
-		<Resource tag="LAST_TWO_MONTHS">from the last two months</Resource>
-		<Resource tag="LAST_SIX_MONTHS">from the last six months</Resource>
-		<Resource tag="LAST_YEAR">from the last year</Resource>
-		<Resource tag="BY">by {0}</Resource>
+		<Resource tag="ALL">Alle</Resource>
+		<Resource tag="LAST_WEEK">fra siste uke</Resource>
+		<Resource tag="LAST_TWO_WEEKS">fra siste to uker</Resource>
+		<Resource tag="LAST_MONTH">fra siste måned</Resource>
+		<Resource tag="LAST_TWO_MONTHS">fra siste to måneder</Resource>
+		<Resource tag="LAST_SIX_MONTHS">fra siste seks måneder</Resource>
+		<Resource tag="LAST_YEAR">fra siste år</Resource>
+		<Resource tag="BY">av {0}</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -108,113 +129,113 @@
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
-		<Resource tag="TITLE">Active Topics</Resource>
-		<Resource tag="SINCE">Since</Resource>
-		<Resource tag="LAST_VISIT">last visit at {0}</Resource>
-		<Resource tag="LAST_HOUR">last hour</Resource>
-		<Resource tag="LAST_TWO_HOURS">last two hours</Resource>
-		<Resource tag="LAST_DAY">last day</Resource>
-		<Resource tag="LAST_TWO_DAYS">last two days</Resource>
-		<Resource tag="LAST_WEEK">last week</Resource>
-		<Resource tag="LAST_TWO_WEEKS">last two weeks</Resource>
-		<Resource tag="LAST_MONTH">last month</Resource>
-		<Resource tag="TOPICS">Topics</Resource>
-		<Resource tag="TOPIC_STARTER">Topic_Starter</Resource>
-		<Resource tag="REPLIES">Replies</Resource>
-		<Resource tag="VIEWS">Views</Resource>
-		<Resource tag="LASTPOST">Last Post</Resource>
-		<Resource tag="BY">by {0}</Resource>
-		<Resource tag="NO_POSTS">No Posts</Resource>
+		<Resource tag="TITLE">Aktive emner</Resource>
+		<Resource tag="SINCE">Siden</Resource>
+		<Resource tag="LAST_VISIT">siste besøk {0}</Resource>
+		<Resource tag="LAST_HOUR">siste time</Resource>
+		<Resource tag="LAST_TWO_HOURS">siste to timer</Resource>
+		<Resource tag="LAST_DAY">siste dag</Resource>
+		<Resource tag="LAST_TWO_DAYS">siste to dager</Resource>
+		<Resource tag="LAST_WEEK">siste uke</Resource>
+		<Resource tag="LAST_TWO_WEEKS">siste to uker</Resource>
+		<Resource tag="LAST_MONTH">siste måned</Resource>
+		<Resource tag="TOPICS">Emner</Resource>
+		<Resource tag="TOPIC_STARTER">Startet av</Resource>
+		<Resource tag="REPLIES">Svar</Resource>
+		<Resource tag="VIEWS">Visninger</Resource>
+		<Resource tag="LASTPOST">Siste melding</Resource>
+		<Resource tag="BY">av {0}</Resource>
+		<Resource tag="NO_POSTS">Ingen meldinger</Resource>
 	</page>
 	<page name="ACTIVEUSERS">
 		<!-- activeusers.aspx -->
-		<Resource tag="TITLE">Active Users</Resource>
-		<Resource tag="USERNAME">User Name</Resource>
-		<Resource tag="LOGGED_IN">Logged In</Resource>
-		<Resource tag="LAST_ACTIVE">Last Active</Resource>
-		<Resource tag="ACTIVE">Active</Resource>
+		<Resource tag="TITLE">Aktive brukere</Resource>
+		<Resource tag="USERNAME">Brukernavn</Resource>
+		<Resource tag="LOGGED_IN">Logget inn</Resource>
+		<Resource tag="LAST_ACTIVE">Sist aktiv</Resource>
+		<Resource tag="ACTIVE">Aktiv</Resource>
 		<Resource tag="BROWSER">Browser</Resource>
 		<Resource tag="PLATFORM">Platform</Resource>
-		<Resource tag="MINUTES">{0:N0} minutes</Resource>
+		<Resource tag="MINUTES">{0:N0} minutter</Resource>
 	</page>
 	<page name="APPROVE">
 		<!-- approve.aspx -->
-		<Resource tag="TITLE">Validate Email Address</Resource>
-		<Resource tag="EMAIL_VERIFIED">Your email address has been verified.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Failed to verify email address.</Resource>
-		<Resource tag="ENTER_KEY">Enter validation key</Resource>
-		<Resource tag="VALIDATE">Validate</Resource>
+		<Resource tag="TITLE">Valider epost adresse</Resource>
+		<Resource tag="EMAIL_VERIFIED">Din epost adresse har blitt validert.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Epost adressen din kunne ikke verifiseres.</Resource>
+		<Resource tag="ENTER_KEY">Tast inn valideringskode</Resource>
+		<Resource tag="VALIDATE">Valider</Resource>
 	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Edit Profile</Resource>
-		<Resource tag="LOCATION">Location</Resource>
-		<Resource tag="WHERE">Where do you live?</Resource>
-		<Resource tag="HOMEPAGE">Home Page</Resource>
-		<Resource tag="HOMEPAGE2">Your home page:</Resource>
-		<Resource tag="TIMEZONE">Time Zone</Resource>
-		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
+		<Resource tag="TITLE">Endre profil</Resource>
+		<Resource tag="LOCATION">Sted</Resource>
+		<Resource tag="WHERE">Hvor bor du?</Resource>
+		<Resource tag="HOMEPAGE">Hjemmeside</Resource>
+		<Resource tag="HOMEPAGE2">Din hjemmeside:</Resource>
+		<Resource tag="TIMEZONE">Tidssone</Resource>
+		<Resource tag="TIMEZONE2">Vi må vite hvilken tidssone du befinner deg for å gi deg riktige klokkeslett.</Resource>
 		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="AVATARUPLOAD">Upload avatar from your computer.</Resource>
-		<Resource tag="AVATARDELETE">Delete uploaded avatar.</Resource>
-		<Resource tag="DELETE_AVATAR">Delete Avatar</Resource>
-		<Resource tag="AVATARREMOTE">Enter the url of an avatar that will be displayed next to your posts.</Resource>
-		<Resource tag="CHANGE_PASSWORD">Change Password</Resource>
-		<Resource tag="OLDPASSWORD">Old Password:</Resource>
-		<Resource tag="NEWPASSWORD">New Password:</Resource>
-		<Resource tag="CONFIRMPASSWORD">Re-Type New Password:</Resource>
-		<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
-		<Resource tag="EMAIL">You must always have a valid email address.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">Password can't be empty.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">New passwords doesn't match.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">Old password was wrong.</Resource>
-		<Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
-		<Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
-		<Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
-		<Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
+		<Resource tag="AVATARUPLOAD">Last opp avatar fra din datamaskin.</Resource>
+		<Resource tag="AVATARDELETE">Slett opplastet avatar.</Resource>
+		<Resource tag="DELETE_AVATAR">Slett avatar</Resource>
+		<Resource tag="AVATARREMOTE">Skriv inn adresse til en avatar som vil vises ved siden av dine meldinger.</Resource>
+		<Resource tag="CHANGE_PASSWORD">Endre passord</Resource>
+		<Resource tag="OLDPASSWORD">Gammelt passord:</Resource>
+		<Resource tag="NEWPASSWORD">Nytt passord:</Resource>
+		<Resource tag="CONFIRMPASSWORD">Skriv nytt passord igjen:</Resource>
+		<Resource tag="CHANGE_EMAIL">Endre epost adresse</Resource>
+		<Resource tag="EMAIL">Du må alltid ha en gyldig epost adresse.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">Passord kan ikke være blankt.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">Passordene stemmer ikke med hverandre.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">Gammelt passord var feil.</Resource>
+		<Resource tag="MAIL_SENT">En epost har blitt sent til {0}.\n\nDu er nødt å åpne linken oppgitt i den eposten før den nye epost adressen din blir godkjent.</Resource>
+		<Resource tag="FORUM_SETTINGS">Forum innstillinger</Resource>
+		<Resource tag="SELECT_THEME">Velg ditt favoritt tema:</Resource>
+		<Resource tag="SELECT_LANGUAGE">Hvilket språk ønsker du å bruke:</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">Inbox</Resource>
-		<Resource tag="SENTITEMS">Sent Items</Resource>
-		<Resource tag="DELETESELECTED">Delete Selected</Resource>
-		<Resource tag="SUBJECT">Subject</Resource>
-		<Resource tag="FROM">From</Resource>
-		<Resource tag="TO">To</Resource>
-		<Resource tag="DATE">Date</Resource>
-		<Resource tag="MSGDELETED1">1 message was deleted.</Resource>
-		<Resource tag="MSGDELETED2">{0} messages was deleted.</Resource>
-		<Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+		<Resource tag="TITLE">Innboks</Resource>
+		<Resource tag="SENTITEMS">Sendte meldinger</Resource>
+		<Resource tag="DELETESELECTED">Slett valgte</Resource>
+		<Resource tag="SUBJECT">Emne</Resource>
+		<Resource tag="FROM">Fra</Resource>
+		<Resource tag="TO">Til</Resource>
+		<Resource tag="DATE">Dato</Resource>
+		<Resource tag="MSGDELETED1">1 melding ble slettet.</Resource>
+		<Resource tag="MSGDELETED2">{0} meldinger ble slettet.</Resource>
+		<Resource tag="CONFIRM_DELETE">Slett alle valgte meldinger?</Resource>
 	</page>
 	<page name="CP_MESSAGE">
 		<!-- cp_message.aspx -->
-		<Resource tag="INBOX">Inbox</Resource>
-		<Resource tag="SENTITEMS">Sent Items</Resource>
-		<Resource tag="MSG_DELETED">Message was deleted.</Resource>
-		<Resource tag="POSTED">Posted:</Resource>
+		<Resource tag="INBOX">Innboks</Resource>
+		<Resource tag="SENTITEMS">Sendte meldinger</Resource>
+		<Resource tag="MSG_DELETED">Meldingen ble slettet.</Resource>
+		<Resource tag="POSTED">Postet:</Resource>
 	</page>
 	<page name="CP_PROFILE">
 		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">New Message</Resource>
-		<Resource tag="CONTROL_PANEL">Control Panel</Resource>
+		<Resource tag="NEW_MESSAGE">Ny melding</Resource>
+		<Resource tag="CONTROL_PANEL">Kontrollpanel</Resource>
 		<Resource tag="MESSENGER">Messenger:</Resource>
-		<Resource tag="PERSONAL_PROFILE">Personal Profile:</Resource>
-		<Resource tag="INBOX">Inbox</Resource>
-		<Resource tag="SENTITEMS">Sent Items</Resource>
-		<Resource tag="EDIT_PROFILE">Edit Profile</Resource>
-		<Resource tag="SIGNATURE">Signature</Resource>
-		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
-		<Resource tag="YOUR_ACCOUNT">Your Account</Resource>
-		<Resource tag="YOUR_USERNAME">Your user name:</Resource>
-		<Resource tag="YOUR_EMAIL">Your email address:</Resource>
-		<Resource tag="NUMPOSTS">Number of posts:</Resource>
-		<Resource tag="GROUPS">You are a member of these groups:</Resource>
-		<Resource tag="JOINED">You have been a member since:</Resource>
+		<Resource tag="PERSONAL_PROFILE">Personlig profil:</Resource>
+		<Resource tag="INBOX">Innboks</Resource>
+		<Resource tag="SENTITEMS">Sendte meldinger</Resource>
+		<Resource tag="EDIT_PROFILE">Endre profil</Resource>
+		<Resource tag="SIGNATURE">Signatur</Resource>
+		<Resource tag="SUBSCRIPTIONS">Abonnement</Resource>
+		<Resource tag="YOUR_ACCOUNT">Din konto</Resource>
+		<Resource tag="YOUR_USERNAME">Ditt brukernavn:</Resource>
+		<Resource tag="YOUR_EMAIL">Din epost adresse:</Resource>
+		<Resource tag="NUMPOSTS">Antall postede meldinger:</Resource>
+		<Resource tag="GROUPS">Du er medlem av disse gruppene:</Resource>
+		<Resource tag="JOINED">Du har vært medlem siden:</Resource>
 	</page>
 	<page name="CP_SIGNATURE">
 		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">Edit Signature</Resource>
-		<Resource tag="SIGNATURE">Signature:</Resource>
+		<Resource tag="TITLE">Endre signatur</Resource>
+		<Resource tag="SIGNATURE">Signatur:</Resource>
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
 		<!-- cp_subscriptions.aspx -->
@@ -313,7 +334,6 @@
 		<Resource tag="FROM">From:</Resource>
 		<Resource tag="PRIORITY">Priority:</Resource>
 		<Resource tag="MESSAGE">Message:</Resource>
-		<Resource tag="ATTACH">Attach Files:</Resource>
 		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="STICKY">Sticky</Resource>
@@ -331,9 +351,10 @@
 		<Resource tag="CHOICE9">Choice 9:</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject of the message.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
-		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="SAVE">Post</Resource>
+		<Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
+		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
@@ -383,20 +404,21 @@
 	</page>
 	<page name="SEARCH">
 		<!-- search.aspx -->
-		<Resource tag="TITLE">Search</Resource>
-		<Resource tag="BTNSEARCH">Search</Resource>
-		<Resource tag="RESULTS">Results</Resource>
-		<Resource tag="TOPIC">Topic:</Resource>
-		<Resource tag="POSTED">Posted:</Resource>
-		<Resource tag="ALLFORUMS">All Forums</Resource>
-		<Resource tag="RESULT5">5 results per page</Resource>
-		<Resource tag="RESULT10">10 results per page</Resource>
-		<Resource tag="RESULT25">25 results per page</Resource>
-		<Resource tag="RESULT50">50 results per page</Resource>
-		<Resource tag="POSTS">Posts</Resource>
-		<Resource tag="POSTEDBY">Posted by</Resource>
+		<Resource tag="TITLE">Søk</Resource>
+		<Resource tag="BTNSEARCH">Søk</Resource>
+		<Resource tag="RESULTS">Resultater</Resource>
+		<Resource tag="TOPIC">Emne:</Resource>
+		<Resource tag="POSTED">Dato:</Resource>
+		<Resource tag="ALLFORUMS">Alle forum</Resource>
+		<Resource tag="RESULT5">5 resultater per side</Resource>
+		<Resource tag="RESULT10">10 resultater per side</Resource>
+		<Resource tag="RESULT25">25 resultater per side</Resource>
+		<Resource tag="RESULT50">50 resultater per side</Resource>
+		<Resource tag="POSTS">Meldinger</Resource>
+		<Resource tag="POSTEDBY">Postet av</Resource>
 		<Resource tag="MATCH_ALL">Match All Words</Resource>
 		<Resource tag="MATCH_ANY">Match Any Word</Resource>
 		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
+		<Resource tag="BY">av</Resource>
 	</page>
 </Resources>

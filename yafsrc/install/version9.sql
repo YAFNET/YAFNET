@@ -30,15 +30,22 @@ GO
 alter table yaf_System alter column AllowUserLanguage bit not null
 GO
 
-
-
-
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='LanguageFile')
 	alter table yaf_User add LanguageFile varchar(50) null
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='ThemeFile')
 	alter table yaf_User add ThemeFile varchar(50) null
+GO
+
+if not exists(select * from sysobjects where name='FK_Attachment_Message' and parent_obj=object_id('yaf_Attachment') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_Attachment] ADD 
+	CONSTRAINT [FK_Attachment_Message] FOREIGN KEY 
+	(
+		[MessageID]
+	) REFERENCES [yaf_Message] (
+		[MessageID]
+	)
 GO
 
 -- NNTP START
@@ -826,8 +833,30 @@ if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list')
 	drop procedure yaf_attachment_list
 GO
 
-create procedure yaf_attachment_list(@MessageID int) as begin
-	select * from yaf_Attachment where MessageID=@MessageID
+create procedure yaf_attachment_list(@MessageID int=null) as begin
+	if @MessageID is not null
+		select * from yaf_Attachment where MessageID=@MessageID
+	else
+		select 
+			a.*,
+			Posted		= b.Posted,
+			ForumID		= d.ForumID,
+			ForumName	= d.Name,
+			TopicID		= c.TopicID,
+			TopicName	= c.Topic
+		from 
+			yaf_Attachment a,
+			yaf_Message b,
+			yaf_Topic c,
+			yaf_Forum d
+		where
+			b.MessageID = a.MessageID and
+			c.TopicID = b.TopicID and
+			d.ForumID = c.ForumID
+		order by
+			d.Name,
+			c.Topic,
+			b.Posted
 end
 go
 
@@ -839,3 +868,39 @@ create procedure yaf_attachment_delete(@AttachmentID int) as begin
 	delete from yaf_Attachment where AttachmentID=@AttachmentID
 end
 go
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_delete
+GO
+
+create procedure yaf_user_delete(@UserID int) as
+begin
+	declare @GuestUserID int
+	declare @UserName varchar(50)
+
+	select @UserName = Name from yaf_User where UserID=@UserID
+
+	select top 1
+		@GuestUserID = a.UserID
+	from
+		yaf_User a,
+		yaf_UserGroup b,
+		yaf_Group c
+	where
+		b.UserID = a.UserID and
+		b.GroupID = c.GroupID and
+		c.IsGuest<>0
+
+	update yaf_Message set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update yaf_Topic set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update yaf_Topic set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update yaf_Forum set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+
+	delete from yaf_PMessage where FromUserID=@UserID or ToUserID=@UserID
+	delete from yaf_CheckEmail where UserID = @UserID
+	delete from yaf_WatchTopic where UserID = @UserID
+	delete from yaf_WatchForum where UserID = @UserID
+	delete from yaf_UserGroup where UserID = @UserID
+	delete from yaf_User where UserID = @UserID
+end
+GO
