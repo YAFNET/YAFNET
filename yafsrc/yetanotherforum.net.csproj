@@ -567,6 +567,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "WhatsNew.html"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "admin\admin.css"
                     BuildAction = "Content"
                 />

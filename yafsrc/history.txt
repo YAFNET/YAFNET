@@ -1,5 +1,0 @@
-Next Version
- - Option to decide whether to show moved topics.
- - Cookies for polls should allow the same computer to vote several times.
- - Polls should be displayed ok even without any votes.
- - Checks for existing user name or email address when registering new users.
