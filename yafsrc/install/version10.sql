@@ -128,12 +128,12 @@ GO
 
 CREATE VIEW yaf_vaccess as
 	select
-		UserID				= x.UserID,
+		UserID				= a.UserID,
 		ForumID				= x.ForumID,
-		IsAdmin				= convert(tinyint,b.IsAdmin),
-		IsGuest				= convert(tinyint,b.IsGuest),
-		IsForumModerator	= convert(tinyint,b.IsModerator),
-		IsModerator			= (select count(1) from yaf_ForumAccess x,yaf_AccessMask y where x.GroupID=b.GroupID and y.AccessMaskID=x.AccessMaskID and y.ModeratorAccess<>0),
+		IsAdmin				= max(convert(tinyint,b.IsAdmin)),
+		IsGuest				= max(convert(tinyint,b.IsGuest)),
+		IsForumModerator	= max(convert(tinyint,b.IsModerator)),
+		IsModerator			= (select count(1) from yaf_UserGroup v,yaf_Group w,yaf_ForumAccess x,yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and y.ModeratorAccess<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
 		ReplyAccess			= max(x.ReplyAccess),
@@ -202,13 +202,11 @@ CREATE VIEW yaf_vaccess as
 		) as x
 		join yaf_UserGroup a on a.UserID=x.UserID
 		join yaf_Group b on b.GroupID=a.GroupID
-	group by x.UserID,x.ForumID,
-		b.IsAdmin,
-		b.IsGuest,
-		b.IsModerator,
-		b.GroupID
+	group by a.UserID,x.ForumID
 
 GO
+
+select * from yaf_vaccess where userid=1
 
 if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pageload

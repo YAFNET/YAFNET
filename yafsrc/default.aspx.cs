@@ -76,9 +76,14 @@ namespace yaf
 				ActiveList.DataSource = DB.active_list(null);
 
 				// Forum statistics
-				DataRow stats = DB.stats();
+				DataRow stats = (DataRow)Cache["ForumStats"];
+				if(stats==null) 
+				{
+					stats = DB.stats();
+					Cache["ForumStats"] = stats;
+				}
 				
-				Stats.Text = String.Format(CustomCulture,GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
+				Stats.Text = String.Format(GetText("stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
 				Stats.Text += "<br/>";
 				
 				if(!stats.IsNull("LastPost")) 
@@ -103,8 +108,6 @@ namespace yaf
 					String.Format(GetText((int)stats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),stats["ActiveMembers"]),
 					String.Format(GetText((int)stats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),stats["ActiveGuests"])
 				);
-
-				//activeinfo.Text = String.Format(CustomCulture,"{0:N0} <a href=\"activeusers.aspx\">active users</a> - {1:N0} members and {2:N0} guests.",stats["ActiveUsers"],stats["ActiveMembers"],stats["ActiveGuests"]);
 
 				DataBind();
 			}

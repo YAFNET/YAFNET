@@ -519,10 +519,10 @@ namespace yaf
 			html += "<br/>";
 
 			// Joined
-			html += String.Format(CustomCulture,"{0}: {1}<br/>",GetText("joined"),FormatDateShort((DateTime)row["Joined"]));
+			html += String.Format("{0}: {1}<br/>",GetText("joined"),FormatDateShort((DateTime)row["Joined"]));
 
 			// Posts
-			html += String.Format(CustomCulture,"{0}: {1:N0}<br/>",GetText("posts"),row["Posts"]);
+			html += String.Format("{0}: {1:N0}<br/>",GetText("posts"),row["Posts"]);
 
 			// Location
 			if(row["Location"].ToString().Length>0)

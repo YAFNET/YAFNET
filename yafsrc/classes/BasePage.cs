@@ -72,6 +72,10 @@ namespace yaf
 		/// <param name="e"></param>
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
+#if DEBUG
+			QueryCounter.Reset();
+#endif
+
 			// Set the culture and UI culture to the browser's accept language
 			try 
 			{
@@ -459,7 +463,9 @@ namespace yaf
 				hiTimer.Stop();
 				writer.WriteLine("<br/>");
 				writer.WriteLine(String.Format(GetText("COMMON","GENERATED"),hiTimer.Duration));
-
+#if DEBUG
+				writer.WriteLine(String.Format("<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}",QueryCounter.Count,QueryCounter.Duration,100 * QueryCounter.Duration/hiTimer.Duration,QueryCounter.Commands));
+#endif
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
 			} else {
@@ -993,15 +999,6 @@ namespace yaf
 		}
 
 		/// <summary>
-		/// The CultureInfo for the current user
-		/// </summary>
-		protected CultureInfo CustomCulture {
-			get {
-				return Thread.CurrentThread.CurrentCulture;
-			}
-		}
-
-		/// <summary>
 		/// The smtp server to send mails from
 		/// </summary>
 		public string ReadTemplate(string name) 
@@ -1119,7 +1116,7 @@ namespace yaf
 		/// <returns></returns>
 		public string FormatDateTime(object o) {
 			DateTime dt = (DateTime)o;
-			return String.Format(CustomCulture,"{0:F}",dt + TimeOffset);
+			return String.Format("{0:F}",dt + TimeOffset);
 		}
 		/// <summary>
 		/// Formats a datetime value into 7. februar 2003
@@ -1127,7 +1124,7 @@ namespace yaf
 		/// <param name="dt">The date to be formatted</param>
 		/// <returns></returns>
 		public string FormatDateLong(DateTime dt) {
-			return String.Format(CustomCulture,"{0:D}",dt + TimeOffset);
+			return String.Format("{0:D}",dt + TimeOffset);
 		}
 		/// <summary>
 		/// Formats a datetime value into 07.03.2003

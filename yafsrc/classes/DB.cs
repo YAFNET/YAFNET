@@ -24,6 +24,78 @@ using System.Web.Security;
 
 namespace yaf
 {
+	#region QueryCounter class
+	public class QueryCounter : System.IDisposable
+	{
+#if DEBUG
+		private classes.HiPerfTimer	hiTimer				= new classes.HiPerfTimer(true);
+		private System.Web.SessionState.HttpSessionState Session = System.Web.HttpContext.Current.Session;
+		private string m_cmd;
+#endif
+
+		public QueryCounter(string sql) 
+		{
+#if DEBUG
+			m_cmd = sql;
+
+			if(Session["NumQueries"]==null)
+				Session["NumQueries"] = (int)1;
+			else
+				Session["NumQueries"] = 1 + (int)Session["NumQueries"];
+#endif
+		}
+
+		public void Dispose() 
+		{
+#if DEBUG
+			hiTimer.Stop();
+			if(Session["TimeQueries"]==null)
+				Session["TimeQueries"] = hiTimer.Duration;
+			else
+				Session["TimeQueries"] = hiTimer.Duration + (double)Session["TimeQueries"];
+
+			m_cmd = String.Format("{0}: {1:N3}",m_cmd,hiTimer.Duration);
+
+			if(Session["CmdQueries"]==null)
+				Session["CmdQueries"] = m_cmd;
+			else
+				Session["CmdQueries"] += "<br/>" + m_cmd;
+#endif
+		}
+
+#if DEBUG
+		static public void Reset() 
+		{
+			System.Web.HttpContext.Current.Session["NumQueries"] = 0;
+			System.Web.HttpContext.Current.Session["TimeQueries"] = (double)0;
+			System.Web.HttpContext.Current.Session["CmdQueries"] = "";
+		}
+
+		static public int Count 
+		{
+			get 
+			{
+				return (int)System.Web.HttpContext.Current.Session["NumQueries"];
+			}
+		}
+		static public double Duration 
+		{
+			get 
+			{
+				return (double)System.Web.HttpContext.Current.Session["TimeQueries"];
+			}
+		}
+		static public string Commands 
+		{
+			get 
+			{
+				return (string)System.Web.HttpContext.Current.Session["CmdQueries"];
+			}
+		}
+#endif
+	}
+	#endregion
+
 	public class DB 
 	{
 		#region DB Access Functions
@@ -50,50 +122,74 @@ namespace yaf
 
 		public static DataTable GetData(SqlCommand cmd) 
 		{
-			if(cmd.Connection!=null) 
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			try 
 			{
-				using(DataSet ds = new DataSet()) 
-				{
-					using(SqlDataAdapter da = new SqlDataAdapter()) 
-					{
-						da.SelectCommand = cmd;
-						da.Fill(ds);
-						return ds.Tables[0];
-					}
-				}
-			} 
-			else 
-			{
-				using(SqlConnection conn = GetConnection()) 
+				if(cmd.Connection!=null) 
 				{
 					using(DataSet ds = new DataSet()) 
 					{
 						using(SqlDataAdapter da = new SqlDataAdapter()) 
 						{
 							da.SelectCommand = cmd;
-							da.SelectCommand.Connection = conn;
 							da.Fill(ds);
-							//da.Fill(ds,0,20,"dummy");
 							return ds.Tables[0];
+						}
+					}
+				} 
+				else 
+				{
+					using(SqlConnection conn = GetConnection()) 
+					{
+						using(DataSet ds = new DataSet()) 
+						{
+							using(SqlDataAdapter da = new SqlDataAdapter()) 
+							{
+								da.SelectCommand = cmd;
+								da.SelectCommand.Connection = conn;
+								da.Fill(ds);
+								//da.Fill(ds,0,20,"dummy");
+								return ds.Tables[0];
+							}
 						}
 					}
 				}
 			}
+			finally 
+			{
+				qc.Dispose();
+			}
 		}
 		public static void ExecuteNonQuery(SqlCommand cmd) 
 		{
-			using(SqlConnection conn = GetConnection()) 
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			try 
 			{
-				cmd.Connection = conn;
-				cmd.ExecuteNonQuery();
+				using(SqlConnection conn = GetConnection()) 
+				{
+					cmd.Connection = conn;
+					cmd.ExecuteNonQuery();
+				}
+			}
+			finally 
+			{
+				qc.Dispose();
 			}
 		}
 		public static object ExecuteScalar(SqlCommand cmd) 
 		{
-			using(SqlConnection conn = GetConnection()) 
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			try 
 			{
-				cmd.Connection = conn;
-				return cmd.ExecuteScalar();
+				using(SqlConnection conn = GetConnection()) 
+				{
+					cmd.Connection = conn;
+					return cmd.ExecuteScalar();
+				}
+			}
+			finally
+			{
+				qc.Dispose();
 			}
 		}
 		public static int DBSize() 

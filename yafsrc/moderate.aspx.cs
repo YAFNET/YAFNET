@@ -166,7 +166,7 @@ namespace yaf
 					minipost, 
 					row["LastMessageID"]
 					));
-				return String.Format(CustomCulture,"{0}<br />{1}", 
+				return String.Format("{0}<br />{1}", 
 					FormatDateTime((DateTime)row["LastPosted"]),
 					by
 					);

@@ -80,7 +80,7 @@ namespace yaf
 				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
 				UserName.Text = (string)user["Name"];
 				Name.Text = (string)user["Name"];
-				Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
+				Joined.Text = String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
 				Email.Text = user["Email"].ToString();
 				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
 				Rank.Text = user["RankName"].ToString();
