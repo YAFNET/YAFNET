@@ -505,4 +505,23 @@
 		<Resource tag="UPDATE">Update</Resource>
 		<Resource tag="CANCEL">Cancel</Resource>
 	</page>
+	<page name="RTE">
+		<Resource tag="BOLD">Bold</Resource>
+		<Resource tag="ITALIC">Italic</Resource>
+		<Resource tag="UNDERLINE">Underline</Resource>
+		<Resource tag="LEFT">Align Left</Resource>
+		<Resource tag="CENTER">Center</Resource>
+		<Resource tag="RIGHT">Align Right</Resource>
+		<Resource tag="ORDERED">Ordered List</Resource>
+		<Resource tag="UNORDERED">Unordered List</Resource>
+		<Resource tag="OUTDENT">Outdent</Resource>
+		<Resource tag="INDENT">Indent</Resource>
+		<Resource tag="LINK">Insert Link</Resource>
+		<Resource tag="IMAGE">Add Image</Resource>
+		<Resource tag="SPELL">Check Spelling</Resource>
+		<Resource tag="NORMAL">Normal</Resource>
+		<Resource tag="CLEAR">Clear Formatting</Resource>
+		<Resource tag="FORMATTED">Formatted</Resource>
+		<Resource tag=""></Resource>
+	</page>
 </Resources>

@@ -52,7 +52,11 @@
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Email") %></td>
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Location") %></td>
 		<td class=post><%# FormatDateTime(DataBinder.Eval(Container.DataItem,"Joined")) %></td>
-		<td class=post><asp:linkbutton onload="Delete_Load" runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>' text="Delete"/></td>
+		<td class=post>
+			<asp:linkbutton onload="Approve_Load" runat="server" commandname="approve" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>' text="Approve"/>
+			|
+			<asp:linkbutton onload="Delete_Load" runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>' text="Delete"/>
+		</td>
 	</tr>
 </ItemTemplate>
 <FooterTemplate>

@@ -52,6 +52,11 @@ namespace yaf.admin
 			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this user?')";
 		}
 
+		protected void Approve_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this user?')";
+		}
+
 		private void BindData() 
 		{
 			ActiveList.DataSource = DB.active_list(true);
@@ -86,6 +91,10 @@ namespace yaf.admin
 				case "delete":
 					DB.user_delete(e.CommandArgument);
 					AddLoadMessage("User deleted.");
+					BindData();
+					break;
+				case "approve":
+					DB.user_approve(e.CommandArgument);
 					BindData();
 					break;
 			}

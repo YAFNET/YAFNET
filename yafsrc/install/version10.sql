@@ -982,3 +982,42 @@ select
 	LastMemberID = (select top 1 UserID from yaf_User where Approved=1 order by Joined desc),
 	LastMember = (select top 1 Name from yaf_User where Approved=1 order by Joined desc)
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_approve
+GO
+
+create procedure yaf_user_approve(@UserID int) as
+begin
+	declare @CheckEmailID int
+	declare @Email varchar(50)
+
+	select 
+		@CheckEmailID = CheckEmailID,
+		@Email = Email
+	from
+		yaf_CheckEmail
+	where
+		UserID = @UserID
+
+	-- Update new user email
+	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
+	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
+	select convert(bit,1)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_adminsave') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_adminsave
+GO
+
+create procedure yaf_user_adminsave(@UserID int,@Name varchar(50),@Email varchar(50),@RankID int) as
+begin
+	update yaf_User set
+		Name = @Name,
+		Email = @Email,
+		RankID = @RankID
+	where UserID = @UserID
+	select UserID = @UserID
+end
+GO

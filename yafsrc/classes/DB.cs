@@ -1323,6 +1323,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void user_approve(object UserID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_approve")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",UserID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		static public void user_suspend(object userID,object suspend) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_suspend")) 
@@ -1377,13 +1386,14 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void user_adminsave(object UserID,object Name,object RankID) 
+		static public void user_adminsave(object UserID,object Name,object email,object RankID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_adminsave")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Name",Name);
+				cmd.Parameters.Add("@Email",email);
 				cmd.Parameters.Add("@RankID",RankID);
 				ExecuteNonQuery(cmd);
 			}

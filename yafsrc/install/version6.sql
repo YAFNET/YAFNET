@@ -363,20 +363,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_adminsave') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_adminsave
-GO
-
-create procedure yaf_user_adminsave(@UserID int,@Name varchar(50),@RankID int) as
-begin
-	update yaf_User set
-		Name = @Name,
-		RankID = @RankID
-	where UserID = @UserID
-	select UserID = @UserID
-end
-GO
-
 if exists(select * from syscolumns where id=object_id('yaf_Group') and name='IsLadder')
 	alter table yaf_Group drop column IsLadder
 GO

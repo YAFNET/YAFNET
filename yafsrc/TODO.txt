@@ -15,5 +15,3 @@
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
 - GetTopicImage: <http://forum.yetanotherforum.net/posts.aspx?m=560#560>
 - Admin can change user password
-- Admin can validate users
-- Localizable buttons in RTE.

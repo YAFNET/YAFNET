@@ -13,7 +13,7 @@
 	</tr>
 	<tr>
 		<td class=post>E-mail:</td>
-		<td class=post><asp:TextBox style="width:300px" id=Email runat="server" ReadOnly="True"/></td>
+		<td class=post><asp:TextBox style="width:300px" id=Email runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=post>Rank:</td>

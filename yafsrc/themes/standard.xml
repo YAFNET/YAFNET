@@ -15,7 +15,6 @@
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
-		<Resource tag="TOPIC">~/topic_poll.png</Resource>
 		<Resource tag="TOPIC">~/topic.png</Resource>
 		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
 		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>

@@ -100,7 +100,7 @@ namespace yaf.admin
 		}
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.user_adminsave(Request.QueryString["u"],Name.Text,RankID.SelectedValue);
+			DB.user_adminsave(Request.QueryString["u"],Name.Text,Email.Text,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{
 				RepeaterItem item = UserGroups.Items[i];
