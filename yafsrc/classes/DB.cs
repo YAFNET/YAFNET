@@ -758,7 +758,7 @@ namespace yaf
 		#region yaf_System
 		static public void system_save(object Name,object TimeZone,object SmtpServer,object SmtpUserName,
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
-			object BlankLinks,object AvatarWidth,object AvatarHeight) 
+			object BlankLinks,object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
 			{
@@ -774,6 +774,8 @@ namespace yaf
 				cmd.Parameters.Add("@BlankLinks",BlankLinks);
 				cmd.Parameters.Add("@AvatarWidth",AvatarWidth);
 				cmd.Parameters.Add("@AvatarHeight",AvatarHeight);
+				cmd.Parameters.Add("@AvatarUpload",avatarUpload);
+				cmd.Parameters.Add("@AvatarRemote",avatarRemote);
 				ExecuteNonQuery(cmd);
 			}
 		}

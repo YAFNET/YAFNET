@@ -48,6 +48,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.Button UpdateProfile;
 		protected System.Web.UI.WebControls.TextBox Email;
 		protected System.Web.UI.HtmlControls.HtmlInputFile File;
+		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarRemoteRow;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -62,6 +63,15 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
+
+				using(DataTable dt = DB.system_list()) 
+				{
+					foreach(DataRow row in dt.Rows) {
+						AvatarUploadRow.Visible = (bool)row["AvatarUpload"];
+						AvatarRemoteRow.Visible = (bool)row["AvatarRemote"];
+					}
+					AvatarRow.Visible = AvatarUploadRow.Visible || AvatarRemoteRow.Visible;
+				}
 			}
 		}
 

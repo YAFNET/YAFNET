@@ -10,6 +10,23 @@ GO
 alter table yaf_Group alter column IsModerator bit not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AvatarUpload')
+	alter table yaf_System add AvatarUpload bit null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='AvatarRemote')
+	alter table yaf_System add AvatarRemote bit null
+GO
+
+update yaf_System set AvatarUpload=1,AvatarRemote=1 where AvatarUpload is null and AvatarRemote is null
+GO
+
+alter table yaf_System alter column AvatarUpload bit not null
+GO
+
+alter table yaf_System alter column AvatarRemote bit not null
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listread
 GO
@@ -223,5 +240,108 @@ begin
 		yaf_System s
 	where
 		a.UserID = @UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_initialize
+GO
+
+create procedure yaf_system_initialize(
+	@Name		varchar(50),
+	@TimeZone	int,
+	@ForumEmail	varchar(50),
+	@SmtpServer	varchar(50),
+	@User		varchar(50),
+	@UserEmail	varchar(50),
+	@Password	varchar(32)
+) as 
+begin
+	declare @GroupID int
+	declare @RankID int
+	declare @UserID int
+
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Administration',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
+	values('Administration',1,0,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
+	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	insert into yaf_Rank(Name,IsStart,IsLadder)
+	values('Guest',0,0)
+	set @RankID = @@IDENTITY
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
+	values('Guest',0,1,0)
+	set @GroupID = @@IDENTITY
+
+	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
+	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail)
+	set @UserID = @@IDENTITY
+
+	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+
+	-- users starts as Newbie
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Newbie',1,1,0)
+
+	-- advances to Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Member',0,1,10)
+
+	-- and ends up as Advanced Member
+	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
+	values('Advanced Member',0,1,30)
+
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
+	values('Member',0,0,1)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_system_save
+GO
+
+create procedure yaf_system_save(
+	@Name				varchar(50),
+	@TimeZone			int,
+	@SmtpServer			varchar(50),
+	@SmtpUserName		varchar(50)=null,
+	@SmtpUserPass		varchar(50)=null,
+	@ForumEmail			varchar(50),
+	@EmailVerification	bit,
+	@ShowMoved			bit,
+	@BlankLinks			bit,
+	@AvatarWidth		int,
+	@AvatarHeight		int,
+	@AvatarUpload		bit,
+	@AvatarRemote		bit
+) as
+begin
+	update yaf_System set
+		Name = @Name,
+		TimeZone = @TimeZone,
+		SmtpServer = @SmtpServer,
+		SmtpUserName = @SmtpUserName,
+		SmtpUserPass = @SmtpUserPass,
+		ForumEmail = @ForumEmail,
+		EmailVerification = @EmailVerification,
+		ShowMoved = @ShowMoved,
+		BlankLinks = @BlankLinks,
+		AvatarWidth = @AvatarWidth,
+		AvatarHeight = @AvatarHeight,
+		AvatarUpload = @AvatarUpload,
+		AvatarRemote = @AvatarRemote
 end
 GO

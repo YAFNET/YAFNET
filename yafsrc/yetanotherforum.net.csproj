@@ -152,22 +152,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "cp_avatar.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "cp_avatar.aspx.cs"
-                    DependentUpon = "cp_avatar.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "cp_avatar.aspx.resx"
-                    DependentUpon = "cp_avatar.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "cp_editprofile.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

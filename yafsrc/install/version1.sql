@@ -176,7 +176,9 @@ CREATE TABLE [yaf_System] (
 	[ShowMoved] [bit] NOT NULL,
 	[BlankLinks] [bit] NOT NULL,
 	[AvatarWidth] [int] NOT NULL,
-	[AvatarHeight] [int] NOT NULL
+	[AvatarHeight] [int] NOT NULL,
+	[AvatarUpload] [bit] NOT NULL,
+	[AvatarRemote] [bit] NOT NULL
 ) ON [PRIMARY]
 GO
 

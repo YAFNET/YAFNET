@@ -35,14 +35,14 @@
 		<td class=post><asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"/></td>
 	</tr>
 
-<tr>
+<tr runat="server" id="AvatarRow">
 	<td class=header2 colspan=2>Avatar</td>
 </tr>
-<tr>
+<tr runat="server" id="AvatarUploadRow">
 	<td class=post>Upload avatar from your computer.</td>
 	<td class=post><input type="file" id="File" runat="server"/></td>
 </tr>
-<tr>
+<tr runat="server" id="AvatarRemoteRow">
 	<td class=post>Enter the url of an avatar that will be displayed next to your posts.</td>
 	<td class=post><asp:textbox cssclass=edit id=Avatar runat="server"/></td>
 </tr>

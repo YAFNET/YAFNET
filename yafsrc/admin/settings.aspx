@@ -57,11 +57,11 @@
 	</tr>
 	<tr>
 		<td class="postheader"><b>Allow remote avatars:</b><br/>Can users use avatars from other websites.</td>
-		<td class="post">...</td>
+		<td class="post"><asp:checkbox runat="server" id="AvatarRemote"/></td>
 	</tr>
 	<tr>
 		<td class="postheader"><b>Allow avatar uploading:</b><br/>Can users upload avatars to their profile.</td>
-		<td class="post">...</td>
+		<td class="post"><asp:checkbox runat="server" id="AvatarUpload"/></td>
 	</tr>
 	<tr>
 		<td class=postheader><b>Avatar Width:</b><br/>Maximum width for uploaded avatars.</td>

@@ -72,40 +72,6 @@ begin
 end
 GO
 
-
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_save
-GO
-
-create procedure yaf_system_save(
-	@Name				varchar(50),
-	@TimeZone			int,
-	@SmtpServer			varchar(50),
-	@SmtpUserName		varchar(50)=null,
-	@SmtpUserPass		varchar(50)=null,
-	@ForumEmail			varchar(50),
-	@EmailVerification	bit,
-	@ShowMoved			bit,
-	@BlankLinks			bit,
-	@AvatarWidth		int,
-	@AvatarHeight		int
-) as
-begin
-	update yaf_System set
-		Name = @Name,
-		TimeZone = @TimeZone,
-		SmtpServer = @SmtpServer,
-		SmtpUserName = @SmtpUserName,
-		SmtpUserPass = @SmtpUserPass,
-		ForumEmail = @ForumEmail,
-		EmailVerification = @EmailVerification,
-		ShowMoved = @ShowMoved,
-		BlankLinks = @BlankLinks,
-		AvatarWidth = @AvatarWidth,
-		AvatarHeight = @AvatarHeight
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_avatarimage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_avatarimage
 GO
@@ -829,72 +795,6 @@ GO
 
 if exists(select * from syscolumns where id=object_id('yaf_Group') and name='RankImage')
 	alter table yaf_Group drop column RankImage
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_initialize
-GO
-
-create procedure yaf_system_initialize(
-	@Name		varchar(50),
-	@TimeZone	int,
-	@ForumEmail	varchar(50),
-	@SmtpServer	varchar(50),
-	@User		varchar(50),
-	@UserEmail	varchar(50),
-	@Password	varchar(32)
-) as 
-begin
-	declare @GroupID int
-	declare @RankID int
-	declare @UserID int
-
-	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,EmailVerification,ShowMoved,BlankLinks)
-	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,1,1,0)
-
-	insert into yaf_Rank(Name,IsStart,IsLadder)
-	values('Administration',0,0)
-	set @RankID = @@IDENTITY
-
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Administration',1,0,0)
-	set @GroupID = @@IDENTITY
-
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
-	values(@RankID,@User,@Password,getdate(),getdate(),0,@TimeZone,1,@UserEmail)
-	set @UserID = @@IDENTITY
-
-	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
-
-	insert into yaf_Rank(Name,IsStart,IsLadder)
-	values('Guest',0,0)
-	set @RankID = @@IDENTITY
-
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Guest',0,1,0)
-	set @GroupID = @@IDENTITY
-
-	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
-	values(@RankID,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail)
-	set @UserID = @@IDENTITY
-
-	insert into yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
-
-	-- users starts as Newbie
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Newbie',1,1,0)
-
-	-- advances to Member
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Member',0,1,10)
-
-	-- and ends up as Advanced Member
-	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
-	values('Advanced Member',0,1,30)
-
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Member',0,0,1)
-end
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)

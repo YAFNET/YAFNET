@@ -40,6 +40,7 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox Name, AvatarWidth, AvatarHeight;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
+		protected CheckBox AvatarUpload, AvatarRemote;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
 			if(!IsPostBack)
@@ -65,6 +66,8 @@ namespace yaf.admin {
 			BlankLinks.Checked = (bool)row["BlankLinks"];
 			AvatarWidth.Text = row["AvatarWidth"].ToString();
 			AvatarHeight.Text = row["AvatarHeight"].ToString();
+			AvatarUpload.Checked = (bool)row["AvatarUpload"];
+			AvatarRemote.Checked = (bool)row["AvatarRemote"];
 		}
 
 		#region Web Form Designer generated code
@@ -110,7 +113,9 @@ namespace yaf.admin {
 				ShowMoved.Checked,
 				BlankLinks.Checked,
 				AvatarWidth.Text,
-				AvatarHeight.Text);
+				AvatarHeight.Text,
+				AvatarUpload.Checked,
+				AvatarRemote.Checked);
 			Response.Redirect("main.aspx");
 		}
 	}
