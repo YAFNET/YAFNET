@@ -52,7 +52,8 @@ namespace yaf
 		}
 
 		static private RegexOptions	m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-		static private Regex		r_code = new Regex(@"\[code\](?<inner>(.*?))\[/code\]",m_options);
+		static private Regex		r_code2 = new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",m_options);
+		static private Regex		r_code1 = new Regex(@"\[code\](?<inner>(.*?))\[/code\]",m_options);
 		static private Regex		r_size = new Regex(@"\[size=(?<size>[^\]]*)\](?<inner>(.*?))\[/size\]",m_options);
 		static private Regex		r_bold = new Regex(@"\[B[^\]]*\](?<inner>(.*?))\[/B\]",m_options);
 		static private Regex		r_strike = new Regex(@"\[S[^\]]*\](?<inner>(.*?))\[/S\]",m_options);
@@ -79,24 +80,34 @@ namespace yaf
 		static private Regex		r_post = new Regex(@"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]",m_options);
 		static private Regex		r_topic = new Regex(@"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]",m_options);
 
-		static public string MakeHtml(string bbcode)
+		static public string MakeHtml(string bbcode,yaf.pages.ForumPage basePage)
 		{
-			Match m = r_code.Match(bbcode);
+			System.Collections.ArrayList codes = new System.Collections.ArrayList();
+			const string codeFormat = ".code@{0}.";
+
+			Match m = r_code2.Match(bbcode);
+			int nCodes = 0;
 			while(m.Success) 
 			{
 				string before_replace = m.Groups[0].Value;
-				string after_replace = m.Groups["inner"].Value;
-
-				after_replace = after_replace.Replace("  ","&nbsp; ");
-				after_replace = after_replace.Replace("  "," &nbsp;");
-				after_replace = after_replace.Replace("\t","&nbsp; &nbsp;&nbsp;");
-				after_replace = after_replace.Replace("[","&#91;");
-				after_replace = after_replace.Replace("]","&#93;");
-				after_replace = after_replace.Replace("<br/>","\n");
-				//after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
-				bbcode = bbcode.Replace(before_replace,string.Format("<div class='code'><b>Code:</b><div class='innercode'>{0}</div></div>",after_replace));
-				m = r_code.Match(bbcode);
+				//throw new ApplicationException(m.Groups["language"].ToString());
+				string after_replace = FixCode(m.Groups["inner"].Value);
+				bbcode = bbcode.Replace(before_replace,string.Format(codeFormat,nCodes++));
+				codes.Add(string.Format("<div class='code'><b>Code:</b><div class='innercode'>{0}</div></div>",after_replace));
+				m = r_code2.Match(bbcode);
 			}
+			
+			m = r_code1.Match(bbcode);
+			while(m.Success) 
+			{
+				string before_replace = m.Groups[0].Value;
+				string after_replace = FixCode(m.Groups["inner"].Value);
+				bbcode = bbcode.Replace(before_replace,string.Format(codeFormat,nCodes++));
+				codes.Add(string.Format("<div class='code'><b>Code:</b><div class='innercode'>{0}</div></div>",after_replace));
+				m = r_code1.Match(bbcode);
+			}
+
+			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
 
 			m = r_size.Match(bbcode);
 
@@ -160,6 +171,11 @@ namespace yaf
 				m = r_topic.Match(bbcode);
 			}
 
+			while(nCodes>0) 
+			{
+				bbcode = bbcode.Replace(string.Format(codeFormat,--nCodes),codes[nCodes].ToString());
+			}
+
 			bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
 			bbcode = r_br.Replace(bbcode,"<br/>");
 
@@ -198,6 +214,19 @@ namespace yaf
 
 		static public string SafeHtml(string html) 
 		{
+			html = html.Replace("<","&lt;");
+			html = html.Replace(">","&gt;");
+			return html;
+		}
+
+		static private string FixCode(string html) 
+		{
+			html = html.Replace("  ","&nbsp; ");
+			html = html.Replace("  "," &nbsp;");
+			html = html.Replace("\t","&nbsp; &nbsp;&nbsp;");
+			html = html.Replace("[","&#91;");
+			html = html.Replace("]","&#93;");
+			html = html.Replace("<br/>","\n");
 			html = html.Replace("<","&lt;");
 			html = html.Replace(">","&gt;");
 			return html;

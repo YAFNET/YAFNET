@@ -264,7 +264,7 @@ namespace yaf.controls
 			string html2 = row["Message"].ToString();
 
 			html2 = FormatMsg.FetchURL(ForumPage,html2,false);
-			html2 = BBCode.MakeHtml(html2);
+			html2 = BBCode.MakeHtml(html2,ForumPage);
 			
 			// define valid image extensions
 			string[] aImageExtensions = {"jpg","gif","png"};
@@ -335,7 +335,7 @@ namespace yaf.controls
 			}
 			
 			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures)
-				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString());
+				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString(),ForumPage);
 
 			return html2; //FormatMsg.FetchURL(ForumPage,html2);
 		}

@@ -213,7 +213,7 @@ namespace yaf.pages
 			DataRowView row = (DataRowView)o;
 
 			string body = row["Message"].ToString();
-			body = BBCode.MakeHtml(body);
+			body = BBCode.MakeHtml(body,this);
 
 			return FormatMsg.FetchURL(this,body,false);
 		}

@@ -261,12 +261,12 @@ namespace yaf.pages
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
 			html = FormatMsg.FetchURL(this,html,false);
-			html = BBCode.MakeHtml(html);
+			html = BBCode.MakeHtml(html,this);
 
 			if(row["Signature"].ToString().Length>0) 
 			{
 				string sig = row["Signature"].ToString();
-				sig = BBCode.MakeHtml(sig);
+				sig = BBCode.MakeHtml(sig,this);
 				
 				html += "<br/><hr noshade/>" + sig;
 			}

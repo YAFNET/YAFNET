@@ -178,7 +178,7 @@ namespace yaf
 		/// <param name="basePagee">Forum base page</param>
 		/// <param name="Message">Text to add smiles to.</param>
 		/// <returns>Processed text with smiles added.</returns>
-		static protected string iAddSmiles(yaf.pages.ForumPage basePage,string Message)
+		static public string iAddSmiles(yaf.pages.ForumPage basePage,string Message)
 		{
 			DataTable dtSmileys = GetSmilies(basePage);
 			string strTemp = Message;
@@ -252,7 +252,7 @@ namespace yaf
 			if(safe)
 				html = BBCode.SafeHtml(html);
 
-			html = iAddSmiles(basePage,html);			
+			//html = iAddSmiles(basePage,html);			
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 

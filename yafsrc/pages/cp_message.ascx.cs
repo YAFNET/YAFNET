@@ -80,7 +80,7 @@ namespace yaf.pages
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
 			string body = row["Body"].ToString();
-			body = BBCode.MakeHtml(body);
+			body = BBCode.MakeHtml(body,this);
 			return FormatMsg.FetchURL(this,body,false);
 		}
 

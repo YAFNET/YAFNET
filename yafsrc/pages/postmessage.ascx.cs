@@ -378,12 +378,12 @@ namespace yaf.pages
 
 			string body = Message.Text;
 			body = FormatMsg.FetchURL(this,body,true);
-			body = BBCode.MakeHtml(body);
+			body = BBCode.MakeHtml(body,this);
 
 			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + BBCode.MakeHtml(dt.Rows[0]["Signature"].ToString());
+					body += "<br/><hr noshade/>" + BBCode.MakeHtml(dt.Rows[0]["Signature"].ToString(),this);
 			}
 			
 			PreviewCell.InnerHtml = body;
@@ -393,12 +393,12 @@ namespace yaf.pages
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			html = BBCode.MakeHtml(html);
+			html = BBCode.MakeHtml(html,this);
 
 			string sig = row["Signature"].ToString();
 			if(sig!=string.Empty) 
 			{
-				sig = BBCode.MakeHtml(sig);
+				sig = BBCode.MakeHtml(sig,this);
 				html += "<br/><hr noshade/>" + sig;
 			}
 
