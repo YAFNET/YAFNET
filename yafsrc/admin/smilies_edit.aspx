@@ -11,7 +11,10 @@
 </tr>
 <tr>
 	<td class=postheader width=50%><b>Icon:</b></td>
-	<td class=post width=50%><asp:dropdownlist id=Icon runat="server"/></td>
+	<td class=post width=50%>
+		<asp:dropdownlist id=Icon runat="server"/>
+		<img align="absmiddle" runat=server id=Preview/>
+	</td>
 </tr>
 <tr>
 	<td class=postheader width=50%><b>Emotion:</b></td>

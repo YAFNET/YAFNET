@@ -79,11 +79,16 @@ namespace yaf
 			// Set the culture and UI culture to the browser's accept language
 			try 
 			{
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(Request.UserLanguages[0]);
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request.UserLanguages[0]);
+				string sCulture = Request.UserLanguages[0];
+				if(sCulture.IndexOf(';')>=0) 
+					sCulture = sCulture.Substring(0,sCulture.IndexOf(';'));
+
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sCulture);
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo(sCulture);
 			}
-			finally 
+			catch(Exception)
 			{
+				throw new Exception(Request.UserLanguages[0]);
 			}
 
 			//Response.Expires = -1000;

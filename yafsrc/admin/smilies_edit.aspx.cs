@@ -19,6 +19,7 @@ namespace yaf.admin
 		protected DropDownList Icon;
 		protected TextBox Code, Emotion;
 		protected Button save, cancel;
+		protected HtmlImage Preview;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -56,7 +57,7 @@ namespace yaf.admin
 				}
 				
 				Icon.DataSource = dt;
-				Icon.DataValueField = "FileID";
+				Icon.DataValueField = "FileName";
 				Icon.DataTextField = "FileName";
 			}
 			DataBind();
@@ -74,11 +75,12 @@ namespace yaf.admin
 							Code.Text = dt.Rows[0]["Code"].ToString();
 							Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
 							Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
+							Preview.Src = String.Format("../images/emoticons/{0}",dt.Rows[0]["Icon"]);
 						}
 					}
 				}
-
 			}
+			Icon.Attributes["onchange"] = "getElementById('Preview').src='../images/emoticons/' + this.value";
 		}
 
 		private void save_Click(object sender, System.EventArgs e) 
