@@ -432,8 +432,10 @@ create trigger yaf_Active_insert on dbo.yaf_Active for insert as
 begin
 	declare @BoardID int, @count int, @max int
 
+	-- Assumes only one row was inserted - shouldn't be a problem?
 	select @BoardID = BoardID from inserted
-	select @count = count(distinct IP) from yaf_Active where BoardID=@BoardID
+	
+	select @count = count(distinct IP) from yaf_Active with(nolock) where BoardID=@BoardID
 	select @max = cast(Value as int) from yaf_Registry where BoardID=@BoardID and Name=N'maxusers'
 	if @@rowcount=0
 	begin
@@ -3950,7 +3952,8 @@ begin
 		UserID		= a.UserID,
 		UserName	= b.Name
 	from
-		yaf_Active a join yaf_User b on b.UserID=a.UserID
+		yaf_Active a with(nolock)
+		join yaf_User b on b.UserID=a.UserID
 	where
 		a.TopicID = @TopicID
 	group by

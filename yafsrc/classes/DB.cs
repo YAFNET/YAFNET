@@ -99,6 +99,8 @@ namespace yaf
 
 	public class DB
 	{
+		private static IsolationLevel m_isoLevel = IsolationLevel.ReadUncommitted;
+
 		private DB() 
 		{
 		}
@@ -139,14 +141,25 @@ namespace yaf
 				{
 					using(SqlConnection conn=GetConnection()) 
 					{
-						using(DataSet ds = new DataSet()) 
+						using(SqlTransaction trans=conn.BeginTransaction(m_isoLevel)) 
 						{
-							using(SqlDataAdapter da = new SqlDataAdapter()) 
+							try
 							{
-								da.SelectCommand = cmd;
-								da.SelectCommand.Connection = conn;
-								da.Fill(ds);
-								return ds.Tables[0];
+								cmd.Transaction = trans;
+								using(DataSet ds = new DataSet()) 
+								{
+									using(SqlDataAdapter da = new SqlDataAdapter()) 
+									{
+										da.SelectCommand = cmd;
+										da.SelectCommand.Connection = conn;
+										da.Fill(ds);
+										return ds.Tables[0];
+									}
+								}
+							}
+							finally
+							{
+								trans.Commit();
 							}
 						}
 					}
@@ -169,19 +182,30 @@ namespace yaf
 			{
 				using(SqlConnection conn=GetConnection()) 
 				{
-					using(SqlCommand cmd=conn.CreateCommand())
+					using(SqlTransaction trans=conn.BeginTransaction(m_isoLevel)) 
 					{
-						cmd.CommandType = CommandType.Text;
-						cmd.CommandText = sql;
-						using(DataSet ds = new DataSet()) 
+						try
 						{
-							using(SqlDataAdapter da = new SqlDataAdapter()) 
+							using(SqlCommand cmd=conn.CreateCommand())
 							{
-								da.SelectCommand = cmd;
-								da.SelectCommand.Connection = conn;
-								da.Fill(ds);
-								return ds.Tables[0];
+								cmd.Transaction = trans;
+								cmd.CommandType = CommandType.Text;
+								cmd.CommandText = sql;
+								using(DataSet ds = new DataSet()) 
+								{
+									using(SqlDataAdapter da = new SqlDataAdapter()) 
+									{
+										da.SelectCommand = cmd;
+										da.SelectCommand.Connection = conn;
+										da.Fill(ds);
+										return ds.Tables[0];
+									}
+								}
 							}
+						}
+						finally
+						{
+							trans.Commit();
 						}
 					}
 				}
@@ -202,8 +226,13 @@ namespace yaf
 			{
 				using(SqlConnection conn=GetConnection()) 
 				{
-					cmd.Connection = conn;
-					cmd.ExecuteNonQuery();
+					using(SqlTransaction trans=conn.BeginTransaction(m_isoLevel)) 
+					{
+						cmd.Connection = conn;
+						cmd.Transaction = trans;
+						cmd.ExecuteNonQuery();
+						trans.Commit();
+					}
 				}
 			}
 			finally 
@@ -220,8 +249,14 @@ namespace yaf
 			{
 				using(SqlConnection conn=GetConnection()) 
 				{
-					cmd.Connection = conn;
-					return cmd.ExecuteScalar();
+					using(SqlTransaction trans=conn.BeginTransaction(m_isoLevel)) 
+					{
+						cmd.Connection = conn;
+						cmd.Transaction = trans;
+						object res = cmd.ExecuteScalar();
+						trans.Commit();
+						return res;
+					}
 				}
 			}
 			finally
@@ -382,30 +417,37 @@ namespace yaf
 			{
 				using(DataSet ds = new DataSet()) 
 				{
-					using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_moderators",conn)) 
+					using(SqlTransaction trans=conn.BeginTransaction(m_isoLevel)) 
 					{
-						da.SelectCommand.CommandType = CommandType.StoredProcedure;
-						da.Fill(ds,"Moderator");
+						using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_moderators",conn)) 
+						{
+							da.SelectCommand.CommandType = CommandType.StoredProcedure;
+							da.SelectCommand.Transaction = trans;
+							da.Fill(ds,"Moderator");
+						}
+						using(SqlDataAdapter da = new SqlDataAdapter("yaf_category_listread",conn)) 
+						{
+							da.SelectCommand.CommandType = CommandType.StoredProcedure;
+							da.SelectCommand.Transaction = trans;
+							da.SelectCommand.Parameters.Add("@BoardID",boardID);
+							da.SelectCommand.Parameters.Add("@UserID",UserID);
+							da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
+							da.Fill(ds,"yaf_Category");
+						}
+						using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_listread",conn)) 
+						{
+							da.SelectCommand.CommandType = CommandType.StoredProcedure;
+							da.SelectCommand.Transaction = trans;
+							da.SelectCommand.Parameters.Add("@BoardID",boardID);
+							da.SelectCommand.Parameters.Add("@UserID",UserID);
+							da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
+							da.SelectCommand.Parameters.Add("@ParentID",parentID);
+							da.Fill(ds,"yaf_Forum");
+						}
+						ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
+						ds.Relations.Add("FK_Moderator_Forum",ds.Tables["yaf_Forum"].Columns["ForumID"],ds.Tables["Moderator"].Columns["ForumID"],false);
+						trans.Commit();
 					}
-					using(SqlDataAdapter da = new SqlDataAdapter("yaf_category_listread",conn)) 
-					{
-						da.SelectCommand.CommandType = CommandType.StoredProcedure;
-						da.SelectCommand.Parameters.Add("@BoardID",boardID);
-						da.SelectCommand.Parameters.Add("@UserID",UserID);
-						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
-						da.Fill(ds,"yaf_Category");
-					}
-					using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_listread",conn)) 
-					{
-						da.SelectCommand.CommandType = CommandType.StoredProcedure;
-						da.SelectCommand.Parameters.Add("@BoardID",boardID);
-						da.SelectCommand.Parameters.Add("@UserID",UserID);
-						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
-						da.SelectCommand.Parameters.Add("@ParentID",parentID);
-						da.Fill(ds,"yaf_Forum");
-					}
-					ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
-					ds.Relations.Add("FK_Moderator_Forum",ds.Tables["yaf_Forum"].Columns["ForumID"],ds.Tables["Moderator"].Columns["ForumID"],false);
 					return ds;
 				}
 			}
@@ -422,13 +464,17 @@ namespace yaf
 			{
 				using(SqlDataAdapter da = new SqlDataAdapter("yaf_category_list",GetConnection())) 
 				{
-					da.SelectCommand.Parameters.Add("@BoardID",boardID);
-					da.SelectCommand.CommandType = CommandType.StoredProcedure;
-					da.Fill(ds,"yaf_Category");
-					da.SelectCommand.CommandText = "yaf_forum_list";
-					da.Fill(ds,"yaf_Forum");
-					ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
-
+					using(SqlTransaction trans=da.SelectCommand.Connection.BeginTransaction(m_isoLevel)) 
+					{
+						da.SelectCommand.Transaction = trans;
+						da.SelectCommand.Parameters.Add("@BoardID",boardID);
+						da.SelectCommand.CommandType = CommandType.StoredProcedure;
+						da.Fill(ds,"yaf_Category");
+						da.SelectCommand.CommandText = "yaf_forum_list";
+						da.Fill(ds,"yaf_Forum");
+						ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
+						trans.Commit();
+					}
 					return ds;
 				}
 			}
@@ -2226,7 +2272,7 @@ namespace yaf
 
 			using(SqlConnection conn = GetConnection()) 
 			{
-				using(SqlTransaction trans = conn.BeginTransaction()) 
+				using(SqlTransaction trans = conn.BeginTransaction(m_isoLevel)) 
 				{
 					try 
 					{
