@@ -6,7 +6,6 @@
 - It would be nice to have a Popup + Web + EMail notification for Personal 
   Messages + an option in the Profile to disable it.
 - tooltips for user profile links (View profile).
-- allow admin to pm all members.
 - somehow show that there are messages to be moderated.
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
 - Admin can change user password

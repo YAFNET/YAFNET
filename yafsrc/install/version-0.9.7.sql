@@ -13,6 +13,10 @@ begin
 end
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_UserPMessage') and name='UserPMessageID')
+	alter table yaf_UserPMessage add UserPMessageID int identity not null
+GO
+
 if exists(select * from sysindexes where id=object_id('yaf_UserPMessage') and name='PK_UserPMessage')
 	alter table yaf_UserPMessage drop constraint PK_UserPMessage
 GO

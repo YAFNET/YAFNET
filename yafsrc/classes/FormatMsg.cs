@@ -211,10 +211,10 @@ namespace yaf
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 //			html = Regex.Replace(html, @"(?<url>http://(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
-			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
+ 			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
+ 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
 
 			DataTable dtSmileys = GetSmilies();
 			foreach(DataRow row in dtSmileys.Rows) 
