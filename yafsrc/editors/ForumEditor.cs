@@ -251,19 +251,14 @@ namespace yaf.editor
 	}
 
 
-	public class FCKEditor : ForumEditor
+	public class RichClassEditor : ForumEditor
 	{
-		private bool bInit;
-		private Type typEditor;
-		private System.Web.UI.Control objEditor;
-		private Assembly cBin;
+		protected bool bInit;
+		protected Type typEditor;
+		protected System.Web.UI.Control objEditor;
+		protected Assembly cBin;
 
-		public FCKEditor() : this("bin\\FredCK.FCKeditorV2.dll")
-		{
-			
-		}
-
-		public FCKEditor(string BinFile) : base()
+		public RichClassEditor(string BinFile,string ClassName)
 		{
 			bInit = false;
 
@@ -278,7 +273,7 @@ namespace yaf.editor
 				foreach (Type typ in types)
 				{
 					// dynamically create or activate(if exist) object
-					if (typ.FullName == "FredCK.FCKeditorV2.FCKeditor")
+					if (typ.FullName == ClassName)
 					{
 						typEditor = typ;
 						// create this object
@@ -294,6 +289,40 @@ namespace yaf.editor
 				throw new Exception(e.Message);
 #endif
 			}
+		}
+
+		#region Properties
+
+		protected string SafeID
+		{
+			get
+			{
+				if (bInit)
+				{
+					return objEditor.ClientID.Replace("$","_");
+				}
+				return string.Empty;															 
+			}
+		}
+
+		public override bool UsesHTML
+		{
+			get	{ return true; }		
+		}
+		public override bool UsesBBCode
+		{
+			get { return false; }
+		}
+		#endregion
+
+	}
+
+
+	public class FCKEditor : RichClassEditor
+	{
+		public FCKEditor() : base("bin\\FredCK.FCKeditorV2.dll","FredCK.FCKeditorV2.FCKeditor")
+		{
+			
 		}
 
 		protected override void OnInit(EventArgs e)
@@ -341,33 +370,107 @@ namespace yaf.editor
 				}
 			}
 		}
+		#endregion
+	}
 
-		protected string SafeID
+
+	public class FreeTextBoxEditor : RichClassEditor
+	{
+		public FreeTextBoxEditor() : base("bin\\FreeTextBox.dll","FreeTextBoxControls.FreeTextBox")
+		{
+			
+		}
+
+		protected override void OnInit(EventArgs e)
+		{			
+			if (bInit)
+			{
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = typEditor.GetProperty("ID");
+				pInfo.SetValue(objEditor,"edit",null);
+				Controls.Add(objEditor);
+			}
+			base.OnInit(e);
+		}
+
+		protected virtual void Editor_Load(object sender,EventArgs e)
+		{
+			if (bInit && objEditor.Visible)
+			{
+				PropertyInfo pInfo;
+				pInfo = typEditor.GetProperty("SupportFolder");
+				pInfo.SetValue(objEditor,ResolveUrl("FreeTextBox/"),null);
+				pInfo = typEditor.GetProperty("Width");
+				pInfo.SetValue(objEditor,Unit.Percentage(100),null);
+
+				// toolbars
+
+/*			Toolbars.Clear();
+ 			
+				Toolbar toolbar1 = new Toolbar();
+				toolbar1.Items.Add(new ParagraphMenu());
+				toolbar1.Items.Add(new FontSizesMenu());
+				toolbar1.Items.Add(new FontForeColorsMenu());
+				this.Toolbars.Add(toolbar1);
+
+				Toolbar toolbar2 = new Toolbar();
+				toolbar2.Items.Add(new Bold());
+				toolbar2.Items.Add(new Italic());
+				toolbar2.Items.Add(new Underline());
+				toolbar2.Items.Add(new ToolbarSeparator());
+				toolbar2.Items.Add(new Cut());
+				toolbar2.Items.Add(new Copy());
+				toolbar2.Items.Add(new Paste());
+				toolbar2.Items.Add(new Delete());
+				toolbar2.Items.Add(new ToolbarSeparator());
+				toolbar2.Items.Add(new JustifyLeft());
+				toolbar2.Items.Add(new JustifyCenter());
+				toolbar2.Items.Add(new JustifyRight());
+				toolbar2.Items.Add(new JustifyFull());
+				toolbar2.Items.Add(new ToolbarSeparator());
+				toolbar2.Items.Add(new BulletedList());
+				toolbar2.Items.Add(new NumberedList());
+				toolbar2.Items.Add(new ToolbarSeparator());
+				toolbar2.Items.Add(new Outdent());
+				toolbar2.Items.Add(new Indent());
+				toolbar2.Items.Add(new ToolbarSeparator());
+				toolbar2.Items.Add(new CreateLink());
+				toolbar2.Items.Add(new Unlink());
+				//toolbar2.Items.Add(new InsertImage());
+				this.Toolbars.Add(toolbar2);
+*/				
+
+				Page.RegisterClientScriptBlock("insertsmiley",
+					"<script language='javascript'>\n"+
+					"function insertsmiley(code){"+
+					"FTB_InsertText('" + SafeID + "',code);"+
+					"}\n"+
+					"</script>\n");
+			}
+		}
+
+		#region Properties
+		public override string Text
 		{
 			get
 			{
 				if (bInit)
 				{
-					return objEditor.ClientID.Replace("$","_");
+					PropertyInfo pInfo = typEditor.GetProperty("Text");
+					return Convert.ToString(pInfo.GetValue(objEditor,null));
 				}
-				return string.Empty;															 
+				else return string.Empty;
+			}
+			set
+			{
+				if (bInit)
+				{
+					PropertyInfo pInfo = typEditor.GetProperty("Text");
+					pInfo.SetValue(objEditor,value,null);
+				}
 			}
 		}
-
-		public override string StyleSheet
-		{
-			set { ;	}
-		}
-		public override bool UsesHTML
-		{
-			get	{ return true; }		
-		}
-		public override bool UsesBBCode
-		{
-			get { return false; }
-		}
 		#endregion
-
 	}
 
 }
