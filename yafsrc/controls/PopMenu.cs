@@ -45,8 +45,8 @@ namespace yaf.controls
 
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
-			if(this.Visible)
-				Page.RegisterStartupScript(ClientID,string.Format("<script language='javascript'>yaf_initmenu('{0}');</script>",ControlID));
+			//if(this.Visible)
+			//	Page.RegisterStartupScript(ClientID,string.Format("<script language='javascript'>yaf_initmenu('{0}');</script>",ControlID));
 		}
 
 		override protected void OnInit(EventArgs e)
