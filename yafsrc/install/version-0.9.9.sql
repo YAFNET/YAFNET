@@ -360,10 +360,9 @@ begin
 		RegistryID		int IDENTITY(1, 1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
 		Value			nvarchar(400),
+		BoardID			int,
 		CONSTRAINT PK_Registry PRIMARY KEY (RegistryID)
 	)
-	
-	CREATE UNIQUE INDEX IX_Name ON yaf_Registry(Name)
 end
 GO
 
@@ -386,6 +385,37 @@ begin
 	alter table yaf_NntpForum alter column Active bit not null
 end
 GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
+	alter table yaf_Registry add BoardID int
+GO
+
+/*
+** Triggers
+*/
+
+if exists(select 1 from sysobjects where id=object_id(N'yaf_Active_insert') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_Active_insert
+go
+
+create trigger yaf_Active_insert on dbo.yaf_Active for insert as
+begin
+	declare @BoardID int, @count int, @max int
+
+	select @BoardID = BoardID from inserted
+	select @count = count(*) from yaf_Active where BoardID=@BoardID
+	select @max = cast(Value as int) from yaf_Registry where BoardID=@BoardID and Name=N'maxusers'
+	if @@rowcount=0
+	begin
+		insert into yaf_Registry(BoardID,Name,Value) values(@BoardID,N'maxusers',cast(@count as nvarchar))
+		insert into yaf_Registry(BoardID,Name,Value) values(@BoardID,N'maxuserswhen',convert(nvarchar,getdate(),126))
+	end else if @count>@max
+	begin
+		update yaf_Registry set Value=cast(@count as nvarchar) where BoardID=@BoardID and Name=N'maxusers'
+		update yaf_Registry set Value=convert(nvarchar,getdate(),126) where BoardID=@BoardID and Name=N'maxuserswhen'
+	end
+end
+go
 
 /*
 ** Views
@@ -870,6 +900,23 @@ GO
 if not exists(select * from sysobjects where name='FK_UserPMessage_PMessage' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserPMessage add constraint FK_UserPMessage_PMessage foreign key (PMessageID) references yaf_PMessage (PMessageID)
 GO
+
+if not exists(select * from sysobjects where name='FK_Registry_Board' and parent_obj=object_id('yaf_Registry') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table dbo.yaf_Registry add constraint FK_Registry_Board foreign key(BoardID) references yaf_Board(BoardID) on delete cascade
+go
+
+/*
+** Indexes
+*/
+
+if exists(select 1 from dbo.sysindexes where name=N'IX_Name' and id=object_id(N'yaf_Registry'))
+	drop index dbo.yaf_Registry.IX_Name
+go
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_Name' and id=object_id(N'yaf_Registry'))
+	create unique index IX_Name on dbo.yaf_Registry(BoardID,Name)
+go
+
 
 /*
 ** Stored procedures
@@ -2108,15 +2155,27 @@ if exists (select * from sysobjects where id = object_id(N'yaf_registry_list') a
 	drop procedure yaf_registry_list
 GO
 
-create procedure dbo.yaf_registry_list(@Name nvarchar(50) = null) as
+create procedure dbo.yaf_registry_list(@Name nvarchar(50) = null,@BoardID int = null) as
 BEGIN
-	IF @Name IS NULL OR @Name = ''
-	BEGIN
-		SELECT * FROM yaf_Registry
-	END ELSE
-	BEGIN
-		SELECT * FROM yaf_Registry WHERE LOWER(Name) = LOWER(@Name)
-	END
+	if @BoardID is null
+	begin
+		IF @Name IS NULL OR @Name = ''
+		BEGIN
+			SELECT * FROM yaf_Registry where BoardID is null
+		END ELSE
+		BEGIN
+			SELECT * FROM yaf_Registry WHERE LOWER(Name) = LOWER(@Name) and BoardID is null
+		END
+	end else 
+	begin
+		IF @Name IS NULL OR @Name = ''
+		BEGIN
+			SELECT * FROM yaf_Registry where BoardID=@BoardID
+		END ELSE
+		BEGIN
+			SELECT * FROM yaf_Registry WHERE LOWER(Name) = LOWER(@Name) and BoardID=@BoardID
+		END
+	end
 END
 GO
 
@@ -2127,22 +2186,27 @@ GO
 
 create procedure dbo.yaf_registry_save(
 	@Name nvarchar(50),
-	@Value nvarchar(400) = NULL
+	@Value nvarchar(400) = NULL,
+	@BoardID int = null
 ) AS
 BEGIN
-	DECLARE @RegistryID as int
-	
-	SET @RegistryID = (SELECT RegistryID FROM yaf_Registry WHERE LOWER(Name) = LOWER(@Name))
-
-	IF @RegistryID IS NULL 
-	BEGIN
-		-- Create new record
-		INSERT INTO yaf_Registry(Name,Value) VALUES(LOWER(@Name),@Value)
-	END ELSE
-	BEGIN
-		-- Update existing record
-		UPDATE yaf_Registry SET Value = @Value WHERE LOWER(Name) = LOWER(@Name)
-	END
+	if @BoardID is null
+	begin
+		if exists(select 1 from yaf_Registry where lower(Name)=lower(@Name))
+			update yaf_Registry set Value = @Value where lower(Name)=lower(@Name) and BoardID is null
+		else
+		begin
+			insert into yaf_Registry(Name,Value) values(lower(@Name),@Value)
+		end
+	end else
+	begin
+		if exists(select 1 from yaf_Registry where lower(Name)=lower(@Name) and BoardID=@BoardID)
+			update yaf_Registry set Value = @Value where lower(Name)=lower(@Name) and BoardID=@BoardID
+		else
+		begin
+			insert into yaf_Registry(Name,Value,BoardID) values(lower(@Name),@Value,@BoardID)
+		end
+	end
 END
 GO
 

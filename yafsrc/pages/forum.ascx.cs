@@ -130,6 +130,8 @@ namespace yaf.pages
 				Forum.GetLink(Pages.activeusers)
 				);
 
+			activeinfo.Text += "<br/>" + string.Format(GetText("MAX_ONLINE"),BoardSettings.MaxUsers,FormatDateTimeTopic(BoardSettings.MaxUsersWhen));
+
 			DataBind();
 		}
 

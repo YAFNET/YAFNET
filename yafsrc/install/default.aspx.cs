@@ -411,6 +411,10 @@ namespace yaf.install
 					file.Close();
 				}
 			}
+			catch(System.IO.FileNotFoundException) 
+			{
+				return;
+			}
 			catch(Exception x) 
 			{
 				throw new Exception("Failed to read "+sScriptFile,x);

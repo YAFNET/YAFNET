@@ -1648,14 +1648,24 @@ namespace yaf
 		/// </summary>
 		/// <param name="Name">Use to specify return of specific entry only. Setting this to null returns all entries.</param>
 		/// <returns>DataTable filled will registry entries</returns>
-		static public DataTable registry_list(object Name)
+		static public DataTable registry_list(object Name,object boardID)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_registry_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@Name",Name);
+				cmd.Parameters.Add("@BoardID",boardID);
 				return GetData(cmd);
 			}
+		}
+		/// <summary>
+		/// Retrieves entries in the board settings registry
+		/// </summary>
+		/// <param name="Name">Use to specify return of specific entry only. Setting this to null returns all entries.</param>
+		/// <returns>DataTable filled will registry entries</returns>
+		static public DataTable registry_list(object Name)
+		{
+			return registry_list(Name,null);
 		}
 		/// <summary>
 		/// Retrieves all the entries in the board settings registry
@@ -1663,7 +1673,7 @@ namespace yaf
 		/// <returns>DataTable filled will all registry entries</returns>
 		static public DataTable registry_list()
 		{
-			return registry_list(null);
+			return registry_list(null,null);
 		}
 		/// <summary>
 		/// Saves a single registry entry pair to the database.
@@ -1677,6 +1687,23 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@Value",Value);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		/// <summary>
+		/// Saves a single registry entry pair to the database.
+		/// </summary>
+		/// <param name="Name">Unique name associated with this entry</param>
+		/// <param name="Value">Value associated with this entry which can be null</param>
+		/// <param name="BoardID">The BoardID for this entry</param>
+		static public void registry_save(object Name,object Value,object boardID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_registry_save")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@Name",Name);
+				cmd.Parameters.Add("@Value",Value);
+				cmd.Parameters.Add("@BoardI",boardID);
 				ExecuteNonQuery(cmd);
 			}
 		}

@@ -7,7 +7,7 @@ namespace yaf
 	public class BoardSettings
 	{
 		private DataRow m_board;
-		private Hashtable m_reg;
+		private Hashtable m_reg, m_regBoard;
 
 		public BoardSettings(object boardID)
 		{
@@ -17,6 +17,7 @@ namespace yaf
 			m_board = dt.Rows[0];
 
 			m_reg = new Hashtable();
+			m_regBoard = new Hashtable();
 
 			// get all the registry values for the forum
 			using(dt = DB.registry_list())
@@ -31,6 +32,21 @@ namespace yaf
 					else
 					{
 						m_reg.Add(dr["Name"].ToString().ToLower(),dr["Value"]);
+					}
+				}
+			}
+			using(dt = DB.registry_list(null,boardID))
+			{
+				// get all the registry settings into our hash table
+				foreach(DataRow dr in dt.Rows)
+				{
+					if (dr["Value"] == DBNull.Value)
+					{
+						m_regBoard.Add(dr["Name"].ToString().ToLower(),null);
+					}
+					else
+					{
+						m_regBoard.Add(dr["Name"].ToString().ToLower(),dr["Value"]);
 					}
 				}
 			}
@@ -173,6 +189,22 @@ namespace yaf
 		{
 			get { return GetValueBool("ShowForumJump",true); }
 			set { SetValueBool("ShowForumJump",value); }
+		}
+		public int MaxUsers
+		{
+			get 
+			{ 
+				if (m_regBoard["maxusers"] == null) return 1;
+				return Convert.ToInt32(m_regBoard["maxusers"]);
+			}
+		}
+		public DateTime MaxUsersWhen
+		{
+			get 
+			{ 
+				if(m_regBoard["maxuserswhen"] == null) return DateTime.Now;
+				return DateTime.Parse(m_regBoard["maxuserswhen"].ToString());
+			}
 		}
 
 		// string settings

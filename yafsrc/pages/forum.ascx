@@ -50,7 +50,7 @@
 <tr>
 	<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_USERS") %>'></td>
 	<td class=post>
-		<asp:label runat="server" id="activeinfo"/><br>
+		<asp:label runat="server" id="activeinfo"/><br/>
 		<asp:repeater runat="server" id="ActiveList">
 			<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></ItemTemplate>
 			<SeparatorTemplate>, </SeparatorTemplate>
