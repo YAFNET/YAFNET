@@ -11,7 +11,7 @@ img
 }
 
 /* hyperlinks */
-a			{ text-decoration: none; }
+a			{ text-decoration: none; color: #000080; }
 a:hover		{ text-decoration: underline; }
 
 /* Header 1 - Main header */

@@ -44,7 +44,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink HomeLink2;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl NavLinks;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl NavLinks2;
-		protected System.Web.UI.WebControls.HyperLink CategoryLink;
+		protected System.Web.UI.WebControls.HyperLink CategoryLink, UnreadMsgs;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
 		protected System.Web.UI.WebControls.Label activeinfo;
 	
@@ -54,7 +54,19 @@ namespace yaf
 				TimeNow.Text = String.Format(GetText("default_current_time"),FormatTime(DateTime.Now));
 				TimeLastVisit.Text = String.Format(GetText("default_last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
 
-				if(PageCategoryID!=0) {
+				if(UnreadPrivate>0) 
+				{
+					UnreadMsgs.Visible = true;
+					UnreadMsgs.NavigateUrl = "cp_inbox.aspx";
+					if(UnreadPrivate==1)
+						UnreadMsgs.Text = String.Format(GetText("default_unread1"),UnreadPrivate);
+					else
+						UnreadMsgs.Text = String.Format(GetText("default_unread0"),UnreadPrivate);
+				}
+
+
+				if(PageCategoryID!=0) 
+				{
 					HomeLink.NavigateUrl = BaseDir;
 					HomeLink.Text = ForumName;
 					CategoryLink.NavigateUrl = String.Format("default.aspx?c={0}",PageCategoryID);

@@ -15,7 +15,8 @@
 	<tr>
 		<td>
 			<asp:label id=TimeNow runat="server"/><br/>
-			<asp:label id=TimeLastVisit runat="server"/>
+			<asp:label id=TimeLastVisit runat="server"/><br/>
+			<asp:hyperlink runat="server" id="UnreadMsgs" visible="false"/>
 		</td>
 	</tr>
 	</table>

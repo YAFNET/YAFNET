@@ -9,7 +9,6 @@
   Messages + an option in the Profile to disable it.
 - exact os name and browser version, Win2003 shows as WinNT. maybe show 
   service pack and runtime version.
-- better sorting in members view, buttons to indicate direction.
 - option to mark topic or forum as read.
 - show unread pm link (with number of unread).
 - tooltips for "last post" icon, and user profile links (Goto last post, View profile).

@@ -597,6 +597,13 @@ namespace yaf
 				return (bool)m_pageinfo["ShowGroups"];
 			}
 		}
+		public int UnreadPrivate 
+		{
+			get 
+			{
+				return (int)m_pageinfo["Incoming"];
+			}
+		}
 
 		public string ReadTemplate(string name) 
 		{

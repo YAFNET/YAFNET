@@ -557,6 +557,14 @@
 	<Index>default_no_posts</Index>
 	<Text>No Posts</Text>
   </Table>
+  <Table>
+	<Index>default_unread1</Index>
+	<Text>You have {0} unread message in your inbox.</Text>
+  </Table>
+  <Table>
+	<Index>default_unread</Index>
+	<Text>You have {0} unread messages in your inbox.</Text>
+  </Table>
   <!-- emailtopic.aspx -->
   <Table>
 	<Index>emailtopic_title</Index>
@@ -864,6 +872,10 @@
   <Table>
 	<Index>postmessage_fileerror</Index>
 	<Text>'{0}' is not a valid file for upload.</Text>
+  </Table>
+  <Table>
+	<Index>postmessage_posted</Index>
+	<Text>Posted:</Text>
   </Table>
   <!-- posts.aspx -->
   <Table>

@@ -130,7 +130,7 @@
 		<tr class=postheader>
 			<td width=140><b><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width=80% class=small align=left><b><%# GetText("Posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width=80% class=small align=left><b><%# GetText("postmessage_posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
 		<tr class=post>
 			<td>&nbsp;</td>
