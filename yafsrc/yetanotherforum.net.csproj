@@ -819,6 +819,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\pm.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\pm.aspx.cs"
+                    DependentUpon = "pm.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\pm.aspx.resx"
+                    DependentUpon = "pm.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\prune.aspx"
                     SubType = "Form"
                     BuildAction = "Content"

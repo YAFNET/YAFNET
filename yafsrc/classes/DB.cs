@@ -741,6 +741,24 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public DataTable pmessage_info() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_info")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				return GetData(cmd);
+			}
+		}
+		static public void pmessage_prune(object daysRead,object daysUnread) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_prune")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@DaysRead",daysRead);
+				cmd.Parameters.Add("@DaysUnread",daysUnread);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_Poll

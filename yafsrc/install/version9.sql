@@ -208,3 +208,32 @@ begin
 	values(@FromUserID,@ToUserID,getdate(),@Subject,@Body,0)
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_info
+GO
+
+create procedure yaf_pmessage_info as
+begin
+	select
+		NumRead	= (select count(1) from yaf_PMessage where IsRead<>0),
+		NumUnread = (select count(1) from yaf_PMessage where IsRead=0),
+		NumTotal = (select count(1) from yaf_PMessage)
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_prune
+GO
+
+create procedure yaf_pmessage_prune(@DaysRead int,@DaysUnread int) as
+begin
+	delete from yaf_PMessage
+	where IsRead<>0
+	and datediff(dd,Created,getdate())>@DaysRead
+
+	delete from yaf_PMessage
+	where IsRead=0
+	and datediff(dd,Created,getdate())>@DaysUnread
+end
+GO

@@ -9,7 +9,7 @@
   Messages + an option in the Profile to disable it.
 - option to mark topic or forum as read.
 - tooltips for "last post" icon, and user profile links (Goto last post, View profile).
-- allow admin to pm all members. admin function to delete old pm's
+- allow admin to pm all members.
 - visual clues on rich edit buttons.
 - somehow show that there are messages to be moderated.
 - Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
