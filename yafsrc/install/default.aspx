@@ -63,7 +63,6 @@
 	&lt;/configSections&gt;
 	&lt;yafnet&gt;
 		&lt;connstr&gt;user id=yaf;password=yafpass;data source=(local);initial catalog=yetanotherforum.net&lt;/connstr&gt;
-		&lt;root&gt;/yetanotherforum.net/&lt;/root&gt;
 		&lt;language&gt;english.xml&lt;/language&gt;
 		&lt;theme&gt;standard.xml&lt;/theme&gt;
 		&lt;uploaddir&gt;/yetanotherforum.net/upload/&lt;/uploaddir&gt;

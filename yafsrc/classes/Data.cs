@@ -212,7 +212,7 @@ namespace yaf
 		static public string AppVersionNameFromCode(long code) 
 		{
 			if((code & 0xFF)>0)
-				return String.Format("{0}.{1}.{2}.{3}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF,code & 0xFF);
+				return String.Format("{0}.{1}.{2} RC{3}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF,code & 0xFF);
 			else
 				return String.Format("{0}.{1}.{2}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF);
 		}
@@ -227,21 +227,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 15;
+				return 16;
 			}
 		}
 		static public long AppVersionCode 
 		{
 			get 
 			{
-				return 0x00090900;
+				return 0x01000001;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2004,11,10);
+				return new DateTime(2004,11,11);
 			}
 		}
 		#endregion
