@@ -68,7 +68,8 @@ namespace yaf.pages
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
 			DataRow row;
 
 			Groups.DataSource = DB.usergroup_list(PageBoardID,PageUserID);
@@ -84,11 +85,12 @@ namespace yaf.pages
 			Name.Text = (string)row["Name"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
-			if(BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+
+			if (BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
 				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",Data.ForumRoot,PageUserID);
 			} 
-			else if(row["Avatar"].ToString().Length>0) // Took out BoardSettings.AvatarRemote
+			else if(row["Avatar"].ToString().Length > 0) // Took out BoardSettings.AvatarRemote
 			{
 				AvatarImage.Src = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
 					Server.UrlEncode(row["Avatar"].ToString()),

@@ -3,9 +3,9 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class=content width="100%" cellspacing=1 cellpadding=0>
+<table class="content" width="100%" cellspacing="1" cellpadding="0">
 <tr>
-	<td class=header1 colspan=3><%= GetText("TITLE") %></td>
+	<td class="header1" colspan="3"><%= GetText("TITLE") %></td>
 </tr>
 
 <asp:repeater runat="server" id="List">
@@ -38,12 +38,12 @@
 </tr>
 <tr>
 	<td class=postheader><%= GetText("SELECT_FILE") %></td>
-	<td class=post><input type="file" id="File" runat="server"/></td>
-	<td class=post><asp:button runat="server" id="Upload"/></td>
+	<td class=post><input type="file" id="File" cssclass="pbutton" runat="server"/></td>
+	<td class=post><asp:button runat="server" cssclass="pbutton" id="Upload"/></td>
 </tr>
 
 <tr class="footer1">
-	<td colspan="3" align="center"><asp:button runat="server" id="Back"/></td>
+	<td colspan="3" align="center"><asp:button runat="server" cssclass="pbutton" id="Back"/></td>
 </tr>
 </table>
 

@@ -7,11 +7,6 @@ function doSearch() {
    if (window.event.keyCode == 13) _ctl0._ctl1__ctl0_btnSearch.focus();
 }
 </script>
-	<table class="command" cellspacing="0" cellpadding="0" width="100%">
-		<tr>
-			<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
-		</tr>
-	</table>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2"><%= GetText("title") %></td>
@@ -25,12 +20,24 @@ function doSearch() {
 			</td>
 		</tr>
 		<tr>
-			<td class="postheader" colspan="2" align="center"><asp:textbox id="txtSearchString" runat="server" Width="293px" onkeypress="doSearch();"></asp:textbox><asp:button id="btnSearch" runat="server"/></td>
+			<td class="postheader" colspan="2" align="center">
+				<asp:textbox id="txtSearchString" runat="server" Width="350px" onkeypress="doSearch();"/>
+				<asp:button id="btnSearch" cssclass="pbutton" runat="server"/>
+			</td>
 		</tr>
+	</table><br/>
+	
+	<table class="command" cellspacing="0" cellpadding="0" width="100%">
+		<tr>
+			<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
+		</tr>
+	</table>	
+	
+	<table class="content" cellSpacing="1" cellPadding="0" width="100%">	
 		<asp:repeater id="SearchRes" runat="server">
 			<HeaderTemplate>
 				<tr>
-					<td class="header2" colspan="2"><%= GetText("results") %></td>
+					<td class="header2" colspan="2"><%= GetText("RESULTS") %></td>
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
@@ -48,7 +55,23 @@ function doSearch() {
 					</td>
 				</tr>
 			</ItemTemplate>
+			<FooterTemplate>
+				<tr>
+					<td class="footer1" colspan="2">&nbsp;</td>
+				</tr>
+			</FooterTemplate>
 		</asp:repeater>
+		<asp:placeholder id="NoResults" runat="Server" visible="false">
+			<tr>
+				<td class="header2" colspan="2"><%= GetText("RESULTS") %></td>
+			</tr>			
+			<tr>
+				<td class="postheader" colspan="2" align="center"><br/><%= GetText("NO_SEARCH_RESULTS") %><br/></br></td>
+			</tr>
+			<tr>
+				<td class="footer1" colspan="2">&nbsp;</td>
+			</tr>			
+		</asp:placeholder>				
 	</table>
 	<table class="command" width="100%" cellspacing="0" cellpadding="0">
 		<tr>

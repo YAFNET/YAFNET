@@ -56,8 +56,8 @@
 	
 	<tr>
 		<td align="middle" colspan="2" class=footer1>
-			<asp:Button id=ForumRegister runat="server"/>
-			<asp:button id=cancel runat="server"/>
+			<asp:Button id=ForumRegister cssclass="pbutton" runat="server"/>
+			<asp:button id=cancel cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>
 </table>

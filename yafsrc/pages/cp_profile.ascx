@@ -51,6 +51,10 @@
 </td>
 
 <% // end %>
-</TR></TBODY></TABLE>
+</tr>
+<tr>
+	<td class="footer1" colspan="2">&nbsp;</td>
+</tr>
+</tbody></TABLE>
 
 <yaf:savescrollpos runat="server"/>

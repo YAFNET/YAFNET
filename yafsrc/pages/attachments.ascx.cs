@@ -67,7 +67,11 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			List.DataSource = DB.attachment_list(Request.QueryString["m"],null,null);
+			DataTable dt = DB.attachment_list(Request.QueryString["m"],null,null);
+			List.DataSource = dt;
+
+			List.Visible = (dt.Rows.Count > 0) ? true : false;
+		
 			DataBind();
 		}
 

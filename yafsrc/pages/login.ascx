@@ -21,8 +21,8 @@
 </tr>
 <tr>
 	<td class=postfooter colspan=2 align=middle>
-		<asp:Button id=ForumLogin runat="server"/>
-		<asp:button id=LostPassword runat="server"/>
+		<asp:Button id=ForumLogin cssclass="pbutton" runat="server"/>
+		<asp:button id=LostPassword cssclass="pbutton" runat="server"/>
 	</td>
 </tr>
 </table>

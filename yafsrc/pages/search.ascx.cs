@@ -79,6 +79,8 @@ namespace yaf.pages
 		/// Pager control.
 		/// </summary>
 		protected controls.Pager Pager;
+
+		protected System.Web.UI.WebControls.PlaceHolder NoResults;
 	
 		/// <summary>
 		/// The search page constructor.
@@ -176,6 +178,11 @@ namespace yaf.pages
 					Pager.PageSize = int.Parse(listResInPage.SelectedValue);
 					Pager.Count = dv.Count;
 					Mession.SearchData = dv;
+
+					bool bResults = (dv.Count > 0) ? true : false;
+
+					SearchRes.Visible = bResults;
+					NoResults.Visible = !bResults;
 				}
 
 				PagedDataSource pds = new PagedDataSource();
