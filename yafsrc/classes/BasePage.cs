@@ -885,7 +885,13 @@ namespace yaf
 		public TimeSpan TimeZoneOffsetForum 
 		{
 			get {
-				return new TimeSpan(1,0,0);
+				if(m_pageinfo!=null) 
+				{
+					int min = (int)m_pageinfo["TimeZoneForum"];
+					return new TimeSpan(min/60,min%60,0);
+				} 
+				else
+					return new TimeSpan(0);
 			}
 		}
 		/// <summary>
@@ -894,7 +900,7 @@ namespace yaf
 		public TimeSpan TimeZoneOffsetUser {
 			get {
 				if(m_pageinfo!=null) {
-					int min = (int)m_pageinfo["TimeZone"];
+					int min = (int)m_pageinfo["TimeZoneUser"];
 					return new TimeSpan(min/60,min%60,0);
 				} else
 					return new TimeSpan(0);
@@ -905,6 +911,7 @@ namespace yaf
 		/// </summary>
 		public TimeSpan TimeOffset {
 			get {
+				//return TimeZoneOffsetForum - TimeZoneOffsetUser;
 				return TimeZoneOffsetUser - TimeZoneOffsetForum;
 			}
 		}
@@ -931,7 +938,7 @@ namespace yaf
 		/// <param name="dt"></param>
 		/// <returns></returns>
 		public string FormatDateShort(DateTime dt) {
-			return String.Format(CustomCulture,"{0:d}",dt + TimeOffset);
+			return String.Format("{0:d}",dt + TimeOffset);
 		}
 		/// <summary>
 		/// Formats a datetime value into 22:32:34
@@ -939,7 +946,7 @@ namespace yaf
 		/// <param name="dt">The date to be formatted</param>
 		/// <returns></returns>
 		public string FormatTime(DateTime dt) {
-			return String.Format(CustomCulture,"{0:T}",dt + TimeOffset);
+			return String.Format("{0:T}",dt + TimeOffset);
 		}
 		#endregion
 

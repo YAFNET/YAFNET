@@ -51,8 +51,8 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				TimeNow.Text = String.Format(CustomCulture,GetText("Current_time"),FormatTime(DateTime.Now));
-				TimeLastVisit.Text = String.Format(CustomCulture,GetText("Last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
+				TimeNow.Text = String.Format(GetText("Current_time"),FormatTime(DateTime.Now));
+				TimeLastVisit.Text = String.Format(GetText("Last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
 
 				if(PageCategoryID!=0) {
 					HomeLink.NavigateUrl = BaseDir;
