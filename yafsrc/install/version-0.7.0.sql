@@ -3,17 +3,17 @@
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Active') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Active] (
-	[SessionID]		[varchar] (24) NOT NULL ,
+	[SessionID]		[nvarchar] (24) NOT NULL ,
 	[BoardID]		[int] NOT NULL ,
 	[UserID]		[int] NOT NULL ,
-	[IP]			[varchar] (15) NOT NULL ,
+	[IP]			[nvarchar] (15) NOT NULL ,
 	[Login]			[datetime] NOT NULL ,
 	[LastActive]	[datetime] NOT NULL ,
-	[Location]		[varchar] (50) NOT NULL ,
+	[Location]		[nvarchar] (50) NOT NULL ,
 	[ForumID]		[int] NULL ,
 	[TopicID]		[int] NULL ,
-	[Browser]		[varchar] (50) NULL ,
-	[Platform]		[varchar] (50) NULL 
+	[Browser]		[nvarchar] (50) NULL ,
+	[Platform]		[nvarchar] (50) NULL 
 ) ON [PRIMARY]
 GO
 
@@ -21,7 +21,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_BannedIP') an
 CREATE TABLE [yaf_BannedIP] (
 	[ID]			[int] IDENTITY (1, 1) NOT NULL ,
 	[BoardID]		[int] NOT NULL ,
-	[Mask]			[varchar] (15) NOT NULL ,
+	[Mask]			[nvarchar] (15) NOT NULL ,
 	[Since]			[datetime] NOT NULL 
 ) ON [PRIMARY]
 GO
@@ -30,7 +30,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Category') an
 CREATE TABLE [yaf_Category] (
 	[CategoryID] [int] IDENTITY (1, 1) NOT NULL ,
 	[BoardID] [int] NOT NULL ,
-	[Name] [varchar] (50) NOT NULL ,
+	[Name] [nvarchar] (50) NOT NULL ,
 	[SortOrder] [smallint] NOT NULL 
 ) ON [PRIMARY]
 GO
@@ -39,9 +39,9 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_CheckEmail') 
 CREATE TABLE [yaf_CheckEmail] (
 	[CheckEmailID] [int] IDENTITY (1, 1) NOT NULL ,
 	[UserID] [int] NOT NULL ,
-	[Email] [varchar] (50) NOT NULL ,
+	[Email] [nvarchar] (50) NOT NULL ,
 	[Created] [datetime] NOT NULL ,
-	[Hash] [varchar] (32) NOT NULL 
+	[Hash] [nvarchar] (32) NOT NULL 
 ) ON [PRIMARY]
 GO
 
@@ -49,7 +49,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Choice') and 
 CREATE TABLE [yaf_Choice] (
 	[ChoiceID] [int] IDENTITY (1, 1) NOT NULL ,
 	[PollID] [int] NOT NULL ,
-	[Choice] [varchar] (50) NOT NULL ,
+	[Choice] [nvarchar] (50) NOT NULL ,
 	[Votes] [int] NOT NULL 
 ) ON [PRIMARY]
 GO
@@ -59,8 +59,8 @@ CREATE TABLE [yaf_Forum] (
 	[ForumID] [int] IDENTITY (1, 1) NOT NULL ,
 	[CategoryID] [int] NOT NULL ,
 	[ParentID] [int] NULL ,
-	[Name] [varchar] (50) NOT NULL ,
-	[Description] [varchar] (255) NOT NULL ,
+	[Name] [nvarchar] (50) NOT NULL ,
+	[Description] [nvarchar] (255) NOT NULL ,
 	[SortOrder] [smallint] NOT NULL ,
 	[Locked] [bit] NOT NULL ,
 	[Hidden] [bit] NOT NULL ,
@@ -69,7 +69,7 @@ CREATE TABLE [yaf_Forum] (
 	[LastTopicID] [int] NULL ,
 	[LastMessageID] [int] NULL ,
 	[LastUserID] [int] NULL ,
-	[LastUserName] [varchar] (50) NULL ,
+	[LastUserName] [nvarchar] (50) NULL ,
 	[Moderated] [bit] NOT NULL,
 	[NumTopics] [int] NOT NULL,
 	[NumPosts] [int] NOT NULL
@@ -88,22 +88,23 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and O
 CREATE TABLE [yaf_Group] (
 	[GroupID]		[int] IDENTITY (1, 1) NOT NULL ,
 	[BoardID]		[int] NOT NULL ,
-	[Name]			[varchar] (50) NOT NULL ,
+	[Name]			[nvarchar] (50) NOT NULL ,
 	[IsAdmin]		[bit] NOT NULL ,
 	[IsGuest]		[bit] NOT NULL ,
 	[IsStart]		[bit] NOT NULL ,
-	[IsModerator]	[bit] NOT NULL 
+	[IsModerator]	[bit] NOT NULL ,
+	[RankImage]		[nvarchar] (50) NULL
 ) ON [PRIMARY]
 GO
 
 if not exists (select * from sysobjects where id = object_id(N'yaf_Mail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Mail] (
 	[MailID]		[int] IDENTITY (1, 1) NOT NULL ,
-	[FromUser]		[varchar] (50) NOT NULL ,
-	[ToUser]		[varchar] (50) NOT NULL ,
+	[FromUser]		[nvarchar] (50) NOT NULL ,
+	[ToUser]		[nvarchar] (50) NOT NULL ,
 	[Created]		[datetime] NOT NULL ,
-	[Subject]		[varchar] (100) NOT NULL ,
-	[Body]			[text] NOT NULL 
+	[Subject]		[nvarchar] (100) NOT NULL ,
+	[Body]			[ntext] NOT NULL 
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
@@ -115,10 +116,10 @@ CREATE TABLE [yaf_Message] (
 	[Position] [int] NOT NULL ,
 	[Indent] [int] NOT NULL ,
 	[UserID] [int] NOT NULL ,
-	[UserName] [varchar] (50) NULL ,
+	[UserName] [nvarchar] (50) NULL ,
 	[Posted] [datetime] NOT NULL ,
-	[Message] [text] NOT NULL ,
-	[IP] [varchar] (15) NOT NULL ,
+	[Message] [ntext] NOT NULL ,
+	[IP] [nvarchar] (15) NOT NULL ,
 	[Edited] [datetime] NULL ,
 	[Approved] [bit] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
@@ -130,8 +131,8 @@ CREATE TABLE [yaf_PMessage] (
 	[FromUserID] [int] NOT NULL ,
 	[ToUserID] [int] NOT NULL ,
 	[Created] [datetime] NOT NULL ,
-	[Subject] [varchar] (100) NOT NULL ,
-	[Body] [text] NOT NULL ,
+	[Subject] [nvarchar] (100) NOT NULL ,
+	[Body] [ntext] NOT NULL ,
 	[IsRead] [bit] NOT NULL 
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
@@ -139,7 +140,7 @@ GO
 if not exists (select * from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Poll] (
 	[PollID]		[int] IDENTITY (1, 1) NOT NULL ,
-	[Question]		[varchar] (50) NOT NULL 
+	[Question]		[nvarchar] (50) NOT NULL 
 ) ON [PRIMARY]
 GO
 
@@ -147,9 +148,9 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Smiley') and 
 CREATE TABLE [yaf_Smiley] (
 	[SmileyID]		[int] IDENTITY (1, 1) NOT NULL ,
 	[BoardID]		[int] NOT NULL ,
-	[Code]			[varchar] (10) NOT NULL ,
-	[Icon]			[varchar] (50) NOT NULL ,
-	[Emoticon]		[varchar] (50) NULL 
+	[Code]			[nvarchar] (10) NOT NULL ,
+	[Icon]			[nvarchar] (50) NOT NULL ,
+	[Emoticon]		[nvarchar] (50) NULL 
 ) ON [PRIMARY]
 GO
 
@@ -157,13 +158,13 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_System') and 
 CREATE TABLE [yaf_System] (
 	[SystemID] [int] IDENTITY(1,1) NOT NULL ,
 	[Version] [int] NOT NULL ,
-	[VersionName] [varchar] (50) NOT NULL ,
-	[Name] [varchar] (50) NOT NULL ,
+	[VersionName] [nvarchar] (50) NOT NULL ,
+	[Name] [nvarchar] (50) NOT NULL ,
 	[TimeZone] [int] NOT NULL ,
-	[SmtpServer] [varchar] (50) NOT NULL ,
-	[SmtpUserName] [varchar](50) NULL,
-	[SmtpUserPass] [varchar](50) NULL,
-	[ForumEmail] [varchar] (50) NOT NULL ,
+	[SmtpServer] [nvarchar] (50) NOT NULL ,
+	[SmtpUserName] [nvarchar](50) NULL,
+	[SmtpUserPass] [nvarchar](50) NULL,
+	[ForumEmail] [nvarchar] (50) NOT NULL ,
 	[EmailVerification] [bit] NOT NULL,
 	[ShowMoved] [bit] NOT NULL,
 	[ShowGroups] [bit] NOT NULL,
@@ -186,9 +187,9 @@ CREATE TABLE [yaf_Topic] (
 	[TopicID] [int] IDENTITY (1, 1) NOT NULL ,
 	[ForumID] [int] NOT NULL ,
 	[UserID] [int] NOT NULL ,
-	[UserName] [varchar] (50) NULL ,
+	[UserName] [nvarchar] (50) NULL ,
 	[Posted] [datetime] NOT NULL ,
-	[Topic] [varchar] (100) NOT NULL ,
+	[Topic] [nvarchar] (100) NOT NULL ,
 	[Views] [int] NOT NULL ,
 	[IsLocked] [bit] NOT NULL ,
 	[Priority] [smallint] NOT NULL ,
@@ -197,7 +198,7 @@ CREATE TABLE [yaf_Topic] (
 	[LastPosted] [datetime] NULL ,
 	[LastMessageID] [int] NULL ,
 	[LastUserID] [int] NULL ,
-	[LastUserName] [varchar] (50) NULL,
+	[LastUserName] [nvarchar] (50) NULL,
 	[NumPosts] [int] NOT NULL
 ) ON [PRIMARY]
 GO
@@ -207,33 +208,33 @@ CREATE TABLE [yaf_User] (
 	[UserID]		[int] IDENTITY (1, 1) NOT NULL ,
 	[BoardID]		[int] NOT NULL,
 	[IsHostAdmin]	[bit] NOT NULL ,
-	[Name]			[varchar] (50) NOT NULL ,
-	[Password]		[varchar] (32) NOT NULL ,
-	[Email]			[varchar] (50) NULL ,
+	[Name]			[nvarchar] (50) NOT NULL ,
+	[Password]		[nvarchar] (32) NOT NULL ,
+	[Email]			[nvarchar] (50) NULL ,
 	[Joined]		[datetime] NOT NULL ,
 	[LastVisit]		[datetime] NOT NULL ,
-	[IP]			[varchar] (15) NULL ,
+	[IP]			[nvarchar] (15) NULL ,
 	[NumPosts]		[int] NOT NULL ,
 	[Approved]		[bit] NOT NULL ,
-	[Location]		[varchar] (50) NULL ,
-	[HomePage]		[varchar] (50) NULL ,
+	[Location]		[nvarchar] (50) NULL ,
+	[HomePage]		[nvarchar] (50) NULL ,
 	[TimeZone]		[int] NOT NULL ,
-	[Avatar]		[varchar] (100) NULL ,
-	[Signature]		[varchar] (255) NULL ,
+	[Avatar]		[nvarchar] (100) NULL ,
+	[Signature]		[nvarchar] (255) NULL ,
 	[AvatarImage]	[image] NULL,
 	[RankID]		[int] NOT NULL,
 	[Suspended]		[datetime] NULL,
-	[LanguageFile]	[varchar](50) NULL,
-	[ThemeFile]		[varchar](50) NULL,
-	[MSN]			[varchar] (50) NULL ,
-	[YIM]			[varchar] (30) NULL ,
-	[AIM]			[varchar] (30) NULL ,
+	[LanguageFile]	[nvarchar](50) NULL,
+	[ThemeFile]		[nvarchar](50) NULL,
+	[MSN]			[nvarchar] (50) NULL ,
+	[YIM]			[nvarchar] (30) NULL ,
+	[AIM]			[nvarchar] (30) NULL ,
 	[ICQ]			[int] NULL ,
-	[RealName]		[varchar] (50) NULL ,
-	[Occupation]	[varchar] (50) NULL ,
-	[Interests]		[varchar] (100) NULL ,
+	[RealName]		[nvarchar] (50) NULL ,
+	[Occupation]	[nvarchar] (50) NULL ,
+	[Interests]		[nvarchar] (100) NULL ,
 	[Gender]		[tinyint] NULL ,
-	[Weblog]		[varchar] (100) NULL
+	[Weblog]		[nvarchar] (100) NULL
 ) ON [PRIMARY]
 GO
 
@@ -572,16 +573,6 @@ ALTER TABLE [yaf_PMessage] ADD
 	)
 GO
 
-if not exists(select * from sysobjects where name='FK_PMessage_User2' and parent_obj=object_id('yaf_PMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-ALTER TABLE [yaf_PMessage] ADD 
-	CONSTRAINT [FK_PMessage_User2] FOREIGN KEY 
-	(
-		[ToUserID]
-	) REFERENCES [yaf_User] (
-		[UserID]
-	)
-GO
-
 if not exists(select * from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 ALTER TABLE [yaf_Topic] ADD 
 	CONSTRAINT [FK_Topic_Forum] FOREIGN KEY 
@@ -700,46 +691,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_checkemail_save
-GO
-
-create procedure yaf_checkemail_save(@UserID int,@Hash varchar(32),@Email varchar(50)) as
-begin
-	insert into yaf_CheckEmail(UserID,Email,Created,Hash)
-	values(@UserID,@Email,getdate(),@Hash)	
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_checkemail_update
-GO
-
-create procedure yaf_checkemail_update(@Hash varchar(32)) as
-begin
-	declare @UserID int
-	declare @CheckEmailID int
-	declare @Email varchar(50)
-	set @UserID = null
-	select 
-		@CheckEmailID = CheckEmailID,
-		@UserID = UserID,
-		@Email = Email
-	from
-		yaf_CheckEmail
-	where
-		Hash = @Hash
-	if @UserID is null begin
-		select convert(bit,0)
-		return
-	end
-	-- Update new user email
-	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
-	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
-	select convert(bit,1)
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_choice_vote') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_choice_vote
 GO
@@ -812,47 +763,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_message_searchphrase') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_searchphrase
-GO
-
-create procedure yaf_message_searchphrase(@CategoryID int=null,@ForumID int=null,@UserID int,@Search varchar(255)) as
-begin
-	return
-	/*
-	declare @Filter varchar(255)
-	-- Exact phrase
-	set @Filter = '%' + @Search + '%'
-	select
-		CategoryID	= a.CategoryID,
-		ForumID		= a.ForumID,
-		TopicID		= e.TopicID,
-		MessageID	= f.MessageID,
-		Topic		= e.Topic,
-		Posted		= f.Posted,
-		Message		= convert(varchar(100),f.Message)
-	from
-		yaf_Forum a,
-		yaf_ForumAccess b,
-		yaf_Group c,
-		yaf_User d,
-		yaf_Topic e,
-		yaf_Message f
-	where
-		d.UserID = @UserID and
-		b.ReadAccess = 1 and
-		(e.Topic like @Filter or f.Message like @Filter) and
-		(@CategoryID is null or a.CategoryID = @CategoryID) and
-		(@ForumID is null or a.ForumID = @ForumID) and
-		b.ForumID = a.ForumID and
-		b.GroupID = c.GroupID and
-		c.GroupID = d.GroupID and
-		e.ForumID = a.ForumID and
-		f.TopicID = e.TopicID
-	*/
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findnext
 GO
@@ -903,23 +813,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_changepassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_changepassword
-GO
-
-create procedure yaf_user_changepassword(@UserID int,@OldPassword varchar(32),@NewPassword varchar(32)) as
-begin
-	declare @CurrentOld varchar(32)
-	select @CurrentOld = Password from yaf_User where UserID = @UserID
-	if @CurrentOld<>@OldPassword begin
-		select Success = convert(bit,0)
-		return
-	end
-	update yaf_User set Password = @NewPassword where UserID = @UserID
-	select Success = convert(bit,1)
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_getsignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_getsignature
 GO
@@ -927,33 +820,6 @@ GO
 create procedure yaf_user_getsignature(@UserID int) as
 begin
 	select Signature from yaf_User where UserID = @UserID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_recoverpassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_recoverpassword
-GO
-
-create procedure yaf_user_recoverpassword(@UserName varchar(50),@Email varchar(50),@Password varchar(32)) as
-begin
-	declare @UserID int
-	select @UserID = UserID from yaf_User where Name = @UserName and Email = @Email
-	if @UserID is null begin
-		select Success = convert(bit,0)
-		return
-	end
-	update yaf_User set Password = @Password where UserID = @UserID
-	select Success = convert(bit,1)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_savesignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_savesignature
-GO
-
-create procedure yaf_user_savesignature(@UserID int,@Signature text) as
-begin
-	update yaf_User set Signature = @Signature where UserID = @UserID
 end
 GO
 

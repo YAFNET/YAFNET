@@ -2,8 +2,8 @@
 
 -- Deletes all defaults for columns (fucks up when dropping columns)
 begin
-	declare @tname	varchar(100)
-	declare @name	varchar(100)
+	declare @tname	nvarchar(100)
+	declare @name	nvarchar(100)
 
 	declare c cursor for 
 	select tname=object_name(parent_obj),name from sysobjects 
@@ -36,7 +36,7 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Attachment') and name='ContentType')
-	alter table yaf_Attachment add ContentType varchar(50) null
+	alter table yaf_Attachment add ContentType nvarchar(50) null
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Attachment') and name='Downloads')
@@ -57,7 +57,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') 
 CREATE TABLE [yaf_AccessMask](
 	[AccessMaskID]		[int] IDENTITY NOT NULL ,
 	[BoardID]			[int] NOT NULL ,
-	[Name]				[varchar](50) NOT NULL ,
+	[Name]				[nvarchar](50) NOT NULL ,
 	[ReadAccess] 		[bit] NOT NULL ,
 	[PostAccess] 		[bit] NOT NULL ,
 	[ReplyAccess] 		[bit] NOT NULL ,
@@ -85,7 +85,7 @@ GO
 
 if not exists(select 1 from yaf_AccessMask)
 	insert into yaf_AccessMask([Name],ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
-	select min('Mask ' + convert(varchar,GroupID) + ' - ' + convert(varchar,ForumID)),ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess
+	select min('Mask ' + convert(nvarchar,GroupID) + ' - ' + convert(nvarchar,ForumID)),ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess
 	from yaf_ForumAccess
 	group by ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess
 GO
@@ -474,39 +474,6 @@ begin
 	-- update last posts
 	exec yaf_topic_updatelastpost @OldForumID
 	exec yaf_topic_updatelastpost @ForumID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_user_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_approve
-GO
-
-create procedure yaf_user_approve(@UserID int) as
-begin
-	declare @CheckEmailID int
-	declare @Email varchar(50)
-
-	select 
-		@CheckEmailID = CheckEmailID,
-		@Email = Email
-	from
-		yaf_CheckEmail
-	where
-		UserID = @UserID
-
-	-- Update new user email
-	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
-	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
-	select convert(bit,1)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_attachment_save
-GO
-
-create procedure yaf_attachment_save(@MessageID int,@FileName varchar(50),@Bytes int,@ContentType varchar(50)=null,@FileData image=null) as begin
-	insert into yaf_Attachment(MessageID,FileName,Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
 

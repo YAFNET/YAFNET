@@ -124,11 +124,11 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Rank') and OB
 CREATE TABLE [yaf_Rank] (
 	[RankID]		[int] IDENTITY (1, 1) NOT NULL,
 	[BoardID]		[int] NOT NULL ,
-	[Name]			[varchar] (50) NOT NULL,
+	[Name]			[nvarchar] (50) NOT NULL,
 	[IsStart]		[bit] NOT NULL,
 	[IsLadder]		[bit] NOT NULL,
 	[MinPosts]		[int] NULL,
-	[RankImage]		[varchar] (50) NULL
+	[RankImage]		[nvarchar] (50) NULL
 ) ON [PRIMARY]
 GO
 
@@ -146,16 +146,6 @@ GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Group') and name='MinPosts')
 	alter table yaf_Group add MinPosts int
-GO
-
-if not exists(select * from syscolumns where id=object_id('yaf_Group') and name='RankImage')
-	alter table yaf_Group add RankImage varchar(50)
-GO
-
-if not exists(select 1 from yaf_Rank)
-	insert into yaf_Rank([Name],IsStart,IsLadder,MinPosts,RankImage)
-	select [Name],IsStart,IsLadder,MinPosts,RankImage
-	from yaf_Group
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_rank_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)

@@ -3,10 +3,11 @@
 if not exists (select * from sysobjects where id = object_id(N'yaf_Attachment') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 create table [yaf_Attachment](
 	[AttachmentID]	[int] identity not null,
-	[MessageID]	[int] not null,
-	[FileName]	[varchar](250) not null,
-	[Bytes]		[int] not null,
-	[FileID]	[int] null
+	[MessageID]		[int] not null,
+	[FileName]		[nvarchar](250) not null,
+	[Bytes]			[int] not null,
+	[FileID]		[int] null,
+	[ContentType]	[nvarchar](50) null
 )
 GO
 
@@ -25,9 +26,9 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='SmtpUserName')
-	alter table yaf_System add SmtpUserName varchar(50) null
+	alter table yaf_System add SmtpUserName nvarchar(50) null
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='SmtpUserPass')
-	alter table yaf_System add SmtpUserPass varchar(50) null
+	alter table yaf_System add SmtpUserPass nvarchar(50) null
 GO

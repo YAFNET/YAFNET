@@ -61,11 +61,11 @@ alter table yaf_System alter column AllowUserLanguage bit not null
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='LanguageFile')
-	alter table yaf_User add LanguageFile varchar(50) null
+	alter table yaf_User add LanguageFile nvarchar(50) null
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='ThemeFile')
-	alter table yaf_User add ThemeFile varchar(50) null
+	alter table yaf_User add ThemeFile nvarchar(50) null
 GO
 
 if not exists(select * from sysobjects where name='FK_Attachment_Message' and parent_obj=object_id('yaf_Attachment') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
@@ -80,15 +80,15 @@ GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_User') and name='MSN')
 	alter table yaf_User add 
-		[MSN] [varchar] (50) NULL ,
-		[YIM] [varchar] (30) NULL ,
-		[AIM] [varchar] (30) NULL ,
+		[MSN] [nvarchar] (50) NULL ,
+		[YIM] [nvarchar] (30) NULL ,
+		[AIM] [nvarchar] (30) NULL ,
 		[ICQ] [int] NULL ,
-		[RealName] [varchar] (50) NULL ,
-		[Occupation] [varchar] (50) NULL ,
-		[Interests] [varchar] (100) NULL ,
+		[RealName] [nvarchar] (50) NULL ,
+		[Occupation] [nvarchar] (50) NULL ,
+		[Interests] [nvarchar] (100) NULL ,
 		[Gender] [tinyint] NULL ,
-		[Weblog] [varchar] (100) NULL
+		[Weblog] [nvarchar] (100) NULL
 GO
 
 update yaf_User set Gender=0 where Gender is null
@@ -102,10 +102,10 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') 
 create table yaf_NntpServer(
 	[NntpServerID]	[int] identity not null,
 	[BoardID]		[int] NOT NULL ,
-	[Name]			[varchar](50) not null,
-	[Address]		[varchar](100) not null,
-	[UserName]		[varchar](50) null,
-	[UserPass]		[varchar](50) null
+	[Name]			[nvarchar](50) not null,
+	[Address]		[nvarchar](100) not null,
+	[UserName]		[nvarchar](50) null,
+	[UserPass]		[nvarchar](50) null
 )
 GO
 
@@ -121,7 +121,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_NntpForum') a
 create table yaf_NntpForum(
 	[NntpForumID]	[int] identity not null,
 	[NntpServerID]	[int] not null,
-	[GroupName]		[varchar](100) not null,
+	[GroupName]		[nvarchar](100) not null,
 	[ForumID]		[int] not null,
 	[LastMessageNo]	[int] not null,
 	[LastUpdate]	[datetime] not null
@@ -215,24 +215,6 @@ GO
 create procedure yaf_nntpserver_delete(@NntpServerID int) as
 begin
 	delete from yaf_NntpServer where NntpServerID = @NntpServerID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_save
-GO
-
-create procedure yaf_nntpforum_save(@NntpForumID int=null,@NntpServerID int,@GroupName varchar(100),@ForumID int) as
-begin
-	if @NntpForumID is null
-		insert into yaf_NntpForum(NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate)
-		values(@NntpServerID,@GroupName,@ForumID,0,getdate())
-	else
-		update yaf_NntpForum set
-			NntpServerID = @NntpServerID,
-			GroupName = @GroupName,
-			ForumID = @ForumID
-		where NntpForumID = @NntpForumID
 end
 GO
 
@@ -407,60 +389,6 @@ begin
 	where ForumID=@ForumID
 end
 go
-
-if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_approve
-GO
-
-create procedure yaf_message_approve(@MessageID int) as begin
-	declare	@UserID		int
-	declare	@ForumID	int
-	declare	@TopicID	int
-	declare @Posted		datetime
-	declare	@UserName	varchar(50)
-
-	select 
-		@UserID = a.UserID,
-		@TopicID = a.TopicID,
-		@ForumID = b.ForumID,
-		@Posted = a.Posted,
-		@UserName = a.UserName
-	from
-		yaf_Message a,
-		yaf_Topic b
-	where
-		a.MessageID = @MessageID and
-		b.TopicID = a.TopicID
-
-	-- update yaf_Message
-	update yaf_Message set Approved = 1 where MessageID = @MessageID
-
-	-- update yaf_User
-	update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
-	exec yaf_user_upgrade @UserID
-
-	-- update yaf_Forum
-	update yaf_Forum set
-		LastPosted = @Posted,
-		LastTopicID = @TopicID,
-		LastMessageID = @MessageID,
-		LastUserID = @UserID,
-		LastUserName = @UserName
-	where ForumID = @ForumID
-
-	-- update yaf_Topic
-	update yaf_Topic set
-		LastPosted = @Posted,
-		LastMessageID = @MessageID,
-		LastUserID = @UserID,
-		LastUserName = @UserName,
-		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
-	where TopicID = @TopicID
-	
-	-- update forum stats
-	exec yaf_forum_updatestats @ForumID
-end
-GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpforum_update
