@@ -37,6 +37,11 @@ namespace yaf_rainbow
 			boardID.Order = 1;
 			boardID.Value = "1";
 			this._baseSettings.Add("BoardID",boardID);
+			Rainbow.Configuration.SettingItem categoryID = new Rainbow.Configuration.SettingItem(new Rainbow.UI.DataTypes.IntegerDataType());
+			categoryID.Required = false;
+			categoryID.Order = 2;
+			//categoryID.Value = string.Empty;
+			this._baseSettings.Add("CategoryID",categoryID);
 		}
 		private void RainbowModule_Load(object sender, EventArgs e)
 		{
@@ -51,6 +56,8 @@ namespace yaf_rainbow
 					try 
 					{
 						f.BoardID = int.Parse(Settings["BoardID"].ToString());
+						if(Settings["CategoryID"].ToString()!=string.Empty)
+							f.CategoryID = int.Parse(Settings["CategoryID"].ToString());
 					}
 					catch(Exception)
 					{
