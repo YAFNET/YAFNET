@@ -1,3 +1,12 @@
+//****************************************************
+//
+//		Source Control Author : Justin Wendlandt
+//			jwendl@hotmail.com
+//
+//		Control Protected by the Creative Commons License
+//		http://creativecommons.org/licenses/by-nc-sa/2.0/
+//
+//****************************************************
 namespace yaf
 {
 	using System;
