@@ -403,7 +403,7 @@ begin
 	declare @BoardID int, @count int, @max int
 
 	select @BoardID = BoardID from inserted
-	select @count = count(*) from yaf_Active where BoardID=@BoardID
+	select @count = count(distinct IP) from yaf_Active where BoardID=@BoardID
 	select @max = cast(Value as int) from yaf_Registry where BoardID=@BoardID and Name=N'maxusers'
 	if @@rowcount=0
 	begin
