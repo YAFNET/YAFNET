@@ -71,6 +71,21 @@ namespace yaf.pages
 				Utils.LogToMail(Server.GetLastError());
 		}
 
+		static public object ValidInt(object o)
+		{
+			try
+			{
+				if(o==null)
+					return null;
+
+				return int.Parse(o.ToString());
+			}
+			catch(Exception) 
+			{
+				return null;
+			}
+		}
+
 		/// <summary>
 		/// Called when page is loaded
 		/// </summary>
@@ -173,7 +188,11 @@ namespace yaf.pages
 					platform = "Win2003";
 			}
 
-			object categoryID = HttpContext.Current.Request.QueryString["c"];
+			object categoryID = ValidInt(HttpContext.Current.Request.QueryString["c"]);
+			object forumID = ValidInt(HttpContext.Current.Request.QueryString["f"]);
+			object topicID = ValidInt(HttpContext.Current.Request.QueryString["t"]);
+			object messageID = ValidInt(HttpContext.Current.Request.QueryString["m"]);
+			
 			if(ForumControl.CategoryID!=null)
 				categoryID = ForumControl.CategoryID;
 
@@ -186,9 +205,9 @@ namespace yaf.pages
 				browser,
 				platform,
 				categoryID,
-				HttpContext.Current.Request.QueryString["f"],
-				HttpContext.Current.Request.QueryString["t"],
-				HttpContext.Current.Request.QueryString["m"]);
+				forumID,
+				topicID,
+				messageID);
 
 
 			// If user wasn't found and we have foreign 
