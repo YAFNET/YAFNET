@@ -88,7 +88,7 @@ namespace yaf.pages
 					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"])) {
 						DataRow row = dt.Rows[0];
 						Subject.Text = (string)row["Subject"];
-						if(Subject.Text.Substring(0,4) != "Re: ")
+						if(Subject.Text.Length<4 || Subject.Text.Substring(0,4) != "Re: ")
 							Subject.Text = "Re: " + Subject.Text;
 
 						ToUserID = (int)row["FromUserID"];
