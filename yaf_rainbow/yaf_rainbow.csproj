@@ -65,12 +65,6 @@
             </Settings>
             <References>
                 <Reference
-                    Name = "yaf"
-                    AssemblyName = "yaf"
-                    HintPath = "bin\yaf.dll"
-                    Private = "False"
-                />
-                <Reference
                     Name = "System"
                     AssemblyName = "System"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
@@ -101,6 +95,12 @@
                     AssemblyName = "System.Xml"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
+                <Reference
+                    Name = "yaf"
+                    AssemblyName = "yaf"
+                    HintPath = "..\..\yafsrc\bin\yaf.dll"
+                    Private = "False"
+                />
             </References>
         </Build>
         <Files>
@@ -112,7 +112,7 @@
                 <File
                     RelPath = "RainbowModule.ascx.cs"
                     DependentUpon = "RainbowModule.ascx"
-                    SubType = "ASPXCodeBehind"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -129,6 +129,10 @@
                     RelPath = "RainbowUser.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Web.config.rainbow"
+                    BuildAction = "Content"
                 />
             </Include>
         </Files>
