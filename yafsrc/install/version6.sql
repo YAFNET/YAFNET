@@ -872,15 +872,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_markread
-GO
-
-create procedure yaf_pmessage_markread(@UserID int) as begin
-	update yaf_pmessage set IsRead=1 where ToUserID=@UserID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderatelist') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_moderatelist
 GO

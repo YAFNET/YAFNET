@@ -184,6 +184,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "cp_message.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "cp_message.aspx.cs"
+                    DependentUpon = "cp_message.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "cp_message.aspx.resx"
+                    DependentUpon = "cp_message.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "cp_profile.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -197,22 +213,6 @@
                 <File
                     RelPath = "cp_profile.aspx.resx"
                     DependentUpon = "cp_profile.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "cp_sentitems.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "cp_sentitems.aspx.cs"
-                    DependentUpon = "cp_sentitems.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "cp_sentitems.aspx.resx"
-                    DependentUpon = "cp_sentitems.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
@@ -1222,11 +1222,11 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\standard\sort_down.png"
+                    RelPath = "themes\standard\sort_down.gif"
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\standard\sort_up.png"
+                    RelPath = "themes\standard\sort_up.gif"
                     BuildAction = "Content"
                 />
                 <File

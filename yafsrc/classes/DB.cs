@@ -720,12 +720,13 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void pmessage_markread(object userID) 
+		static public void pmessage_markread(object userID,object pMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_markread")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@PMessageID",pMessageID);
 				ExecuteNonQuery(cmd);
 			}
 		}

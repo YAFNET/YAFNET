@@ -37,6 +37,47 @@ namespace yaf.cp
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.HyperLink UserLink, ThisLink;
 		protected System.Web.UI.WebControls.Repeater Inbox;
+		protected LinkButton FromLink, DateLink, SubjectLink;
+		protected HtmlImage SortSubject, SortFrom, SortDate;
+
+		private void SetSort(string field,bool asc) 
+		{
+			if(ViewState["SortField"]!=null && (string)ViewState["SortField"]==field) 
+			{
+				ViewState["SortAsc"] = !(bool)ViewState["SortAsc"];
+			} 
+			else 
+			{
+				ViewState["SortField"] = field;
+				ViewState["SortAsc"] = asc;
+			}
+		}
+
+		private void SubjectLink_Click(object sender, System.EventArgs e) 
+		{
+			SetSort("Subject",true);
+			BindData();
+		}
+
+		private void FromLink_Click(object sender, System.EventArgs e) 
+		{
+			if(IsSentItems)
+				SetSort("ToUser",true);
+			else
+				SetSort("FromUser",true);
+			BindData();
+		}
+
+		private void DateLink_Click(object sender, System.EventArgs e) 
+		{
+			SetSort("Created",false);
+			BindData();
+		}
+
+		protected void DeleteSelected_Load(object sender, System.EventArgs e) 
+		{
+			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("cp_inbox_confirm_delete"));
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -44,6 +85,8 @@ namespace yaf.cp
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 			
 			if(!IsPostBack) {
+				SetSort("Created",false);
+				IsSentItems = Request.QueryString["sent"]!=null;
 				BindData();
 
 				HomeLink.NavigateUrl = BaseDir;
@@ -51,14 +94,42 @@ namespace yaf.cp
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
 				ThisLink.NavigateUrl = Request.RawUrl;
-				ThisLink.Text = GetText("cp_inbox_title");
+				ThisLink.Text = GetText(IsSentItems ? "cp_inbox_sentitems" : "cp_inbox_title");
+
+				SubjectLink.Text = GetText("cp_inbox_subject");
+				FromLink.Text = GetText(IsSentItems ? "cp_inbox_to" : "cp_inbox_from");
+				DateLink.Text = GetText("cp_inbox_date");
+			}
+		}
+
+		protected bool IsSentItems 
+		{
+			get 
+			{
+				return (bool)ViewState["IsSentItems"];
+			}
+			set 
+			{
+				ViewState["IsSentItems"] = value;
 			}
 		}
 
 		private void BindData() {
-			Inbox.DataSource = DB.pmessage_list(PageUserID,false,null);
-			DataBind();
-			DB.pmessage_markread(PageUserID);
+			using(DataView dv = DB.pmessage_list(PageUserID,IsSentItems,null).DefaultView) 
+			{
+				dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAsc"] ? "asc" : "desc");
+				Inbox.DataSource = dv;
+				DataBind();
+			}
+			if(IsSentItems)
+				SortFrom.Visible = (string)ViewState["SortField"] == "ToUser";
+			else
+				SortFrom.Visible = (string)ViewState["SortField"] == "FromUser";
+			SortFrom.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
+			SortSubject.Visible = (string)ViewState["SortField"] == "Subject";
+			SortSubject.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
+			SortDate.Visible = (string)ViewState["SortField"] == "Created";
+			SortDate.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
 		}
 
 		protected string FormatBody(object o) {
@@ -69,17 +140,39 @@ namespace yaf.cp
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName == "delete") {
-				DB.pmessage_delete(e.CommandArgument);
+				long nItemCount = 0;
+				foreach(RepeaterItem item in Inbox.Items) 
+				{
+					if(((CheckBox)item.FindControl("ItemCheck")).Checked) 
+					{
+						DB.pmessage_delete(((Label)item.FindControl("PMessageID")).Text);
+						nItemCount++;
+					}
+				}
+
+				//TODO DB.pmessage_delete(e.CommandArgument);
 				BindData();
-				AddLoadMessage(GetText("cp_inbox_msg_deleted"));
-			} else if(e.CommandName == "reply") {
-				Response.Redirect(String.Format("pmessage.aspx?p={0}",e.CommandArgument));
+				if(nItemCount==1)
+					AddLoadMessage(GetText("cp_inbox_msgdeleted1"));
+				else
+					AddLoadMessage(String.Format(GetText("cp_inbox_msgdeleted2"),nItemCount));
 			}
+		}
+
+		protected string GetImage(object o) 
+		{
+			if((bool)((DataRowView)o)["IsRead"]) 
+				return ThemeFile("topic.png");
+			else
+				return ThemeFile("topic_new.png");
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			SubjectLink.Click += new EventHandler(SubjectLink_Click);
+			FromLink.Click += new EventHandler(FromLink_Click);
+			DateLink.Click += new EventHandler(DateLink_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

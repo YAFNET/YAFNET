@@ -8,40 +8,33 @@
 	&#187; <asp:hyperlink runat="server" id="ThisLink"/>
 </p>
 
+<table class=content cellspacing=1 cellpadding=0 width=100%>
+<tr>
+	<td class=header1 colspan=6><%# GetText(IsSentItems ? "cp_inbox_sentitems" : "cp_inbox_title") %></td>
+</tr>
+<tr class=header2>
+	<td>&nbsp;</td>
+	<td><img runat="server" id="SortSubject" align="absmiddle"/> <asp:linkbutton runat="server" id="SubjectLink"/></td>
+	<td><img runat="server" id="SortFrom" align="absmiddle"/> <asp:linkbutton runat="server" id="FromLink"/></td>
+	<td><img runat="server" id="SortDate" align="absmiddle"/> <asp:linkbutton runat="server" id="DateLink"/></td>
+	<td>&nbsp;</td>
+</tr>
+
 <asp:repeater id=Inbox runat=server>
-<HeaderTemplate>
-	<table class=content cellspacing=1 cellpadding=0 width=100%>
-	<tr>
-		<td class=header1 colspan=2><%# GetText("cp_inbox_title") %></td>
-	</tr>
-</HeaderTemplate>
 <FooterTemplate>
+	<tr class=footer1>
+		<td colspan="6" align="right"><asp:button runat="server" onload="DeleteSelected_Load" commandname="delete" text='<%# GetText("cp_inbox_deleteselected") %>'/></td>
+	</tr>
 	</table>
 </FooterTemplate>
-<SeparatorTemplate>
-	<tr class="postsep"><td colspan="2" style="height:7px"></td></tr>
-</SeparatorTemplate>
 <ItemTemplate>
-	<tr>
-		<td class=header2 colspan=2><%# DataBinder.Eval(Container.DataItem,"Subject") %></td>
-	</tr>
-	<tr>
-		<td class=postheader><%# DataBinder.Eval(Container.DataItem,"FromUser") %></td>
-		<td class=postheader>
-			<table cellspacing=0 cellpadding=0 width=100%><tr>
-			<td>
-				<b><%= GetText("cp_inbox_posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
-			</td>
-			<td align=right>
-				<asp:linkbutton runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><img src='<%# ThemeFile("b_delete_post.png") %>' title='Delete this message'></asp:linkbutton>
-				<asp:linkbutton runat=server commandname=reply commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><img src='<%# ThemeFile("b_quote_post.png") %>' title='Reply to this message'></asp:linkbutton>
-			</td>
-			</tr></table>
-		</td>
-	</tr>
-	<tr>
-		<td class=post>&nbsp;</td>
-		<td class=post valign=top><%# FormatBody(Container.DataItem) %></td>
+	<tr class=post>
+		<td align="center"><img src='<%# GetImage(Container.DataItem) %>'/></td>
+		<td><a href='cp_message.aspx?m=<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><%# DataBinder.Eval(Container.DataItem,"Subject") %></a></td>
+		<td><%# DataBinder.Eval(Container.DataItem,IsSentItems ? "ToUser" : "FromUser") %></td>
+		<td><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %></td>
+		<td align="center"><asp:checkbox runat="server" id="ItemCheck" /></td>
+		<asp:label runat="server" id="PMessageID" visible="false" text='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'/>
 	</tr>
 </ItemTemplate>
 </asp:repeater>

@@ -567,3 +567,15 @@ begin
 		LastPosted desc
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_markread
+GO
+
+create procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begin
+	if @PMessageID is null
+		update yaf_pmessage set IsRead=1 where ToUserID=@UserID
+	else
+		update yaf_pmessage set IsRead=1 where ToUserID=@UserID and PMessageID=@PMessageID
+end
+GO

@@ -147,13 +147,13 @@ namespace yaf
 			}
 			DataBind();
 			SortUserName.Visible = (string)ViewState["SortField"] == "Name";
-			SortUserName.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortUserName.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.gif" : "sort_down.gif");
 			SortRank.Visible = (string)ViewState["SortField"] == "RankName";
-			SortRank.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortRank.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.gif" : "sort_down.gif");
 			SortJoined.Visible = (string)ViewState["SortField"] == "Joined";
-			SortJoined.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortJoined.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.gif" : "sort_down.gif");
 			SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
-			SortPosts.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortPosts.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.gif" : "sort_down.gif");
 		}
 
 		#region Web Form Designer generated code

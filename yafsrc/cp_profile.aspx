@@ -16,7 +16,7 @@
 		<td valign=top class=post width=150>
 			<p style="FONT-WEIGHT:bold;BORDER-BOTTOM:black 1px solid"><%= GetText("cp_profile_messenger") %></p>
 			<li><a href="cp_inbox.aspx"><%= GetText("cp_profile_inbox") %></a></li>
-			<li><a href="cp_sentitems.aspx"><%= GetText("cp_profile_sentitems") %></a></li>
+			<li><a href="cp_inbox.aspx?sent=1"><%= GetText("cp_profile_sentitems") %></a></li>
 			<li><a href="pmessage.aspx"><%= GetText("cp_profile_new_message") %></a></li>
       
 			<p></p>

@@ -369,11 +369,56 @@
     <Text>Inbox</Text>
   </Table>
   <Table>
-    <Index>cp_inbox_title_msg_deleted</Index>
+	<Index>cp_inbox_sentitems</Index>
+	<Text>Sent Items</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_deleteselected</Index>
+	<Text>Delete Selected</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_subject</Index>
+	<Text>Subject</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_from</Index>
+	<Text>From</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_to</Index>
+	<Text>To</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_date</Index>
+	<Text>Date</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_msgdeleted1</Index>
+	<Text>1 message was deleted.</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_msgdeleted2</Index>
+	<Text>{0} messages was deleted.</Text>
+  </Table>
+  <Table>
+	<Index>cp_inbox_confirm_delete</Index>
+	<Text>Delete all selected messages?</Text>
+  </Table>
+  <!-- cp_message.aspx -->
+  <Table>
+	<Index>cp_message_inbox</Index>
+	<Text>Inbox</Text>
+  </Table>
+  <Table>
+	<Index>cp_message_sentitems</Index>
+	<Text>Sent Items</Text>
+  </Table>
+  <Table>
+    <Index>cp_message_msg_deleted</Index>
     <Text>Message was deleted.</Text>
   </Table>
   <Table>
-	<Index>cp_inbox_posted</Index>
+	<Index>cp_message_posted</Index>
 	<Text>Posted:</Text>
   </Table>
   <!-- cp_profile.aspx -->
@@ -435,20 +480,7 @@
   </Table>
   <Table>
     <Index>cp_profile_joined</Index>
-    <Text>When you joined:</Text>
-  </Table>
-  <!-- cp_sentitems.aspx -->
-  <Table>
-    <Index>cp_sentitems_title</Index>
-    <Text>Sent Items</Text>
-  </Table>
-  <Table>
-    <Index>cp_sentitems_msg_deleted</Index>
-    <Text>Message was deleted.</Text>
-  </Table>
-  <Table>
-    <Index>cp_sentitems_posted</Index>
-    <Text>Posted:</Text>
+    <Text>You have been a member since:</Text>
   </Table>
   <!-- cp_signature.aspx -->
   <Table>

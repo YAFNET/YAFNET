@@ -41,43 +41,43 @@
 	</tr>
 	<tr id=PollRow1 runat="server" visible="false">
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_pollquestion") %></em></td>
-		<td class=postfooter width="60%"><asp:textbox id=Question runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:textbox maxlength="50" id=Question runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id=PollRow2 runat="server" visible="false">
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice1") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice1 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice1 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow3" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice2") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice2 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice2 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow4" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice3") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice3 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice3 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow5" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice4") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice4 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice4 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow6" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice5") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice5 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice5 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow7" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice6") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice6 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice6 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow8" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice7") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice7 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice7 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow9" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice8") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice8 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice8 runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr id="PollRow10" runat="server" visible=false>
 		<td class=postfooter width="30%"><em><%= GetText("postmessage_choice9") %></em></td>
-		<td class=postfooter width="60%"><asp:TextBox id=PollChoice9 runat="server" cssclass="edit"/></td>
+		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice9 runat="server" cssclass="edit"/></td>
 	</tr>
   <tr>
     <td class=postheader vAlign=top><%= GetText("postmessage_message") %>
