@@ -90,11 +90,6 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
                 />
                 <Reference
-                    Name = "OpenSmtp"
-                    AssemblyName = "OpenSmtp"
-                    HintPath = "bin\OpenSmtp.dll"
-                />
-                <Reference
                     Name = "System.Web.Services"
                     AssemblyName = "System.Web.Services"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.Services.dll"

@@ -86,37 +86,32 @@ namespace yaf
 
 		static public void SendMail(pages.ForumPage basePage,string from,string to,string subject,string body) 
 		{
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(basePage.BoardSettings.SmtpServer,25);
-			if(basePage.BoardSettings.SmtpUserName!=null && basePage.BoardSettings.SmtpUserPass!=null) 
-			{
-				smtp.Username = basePage.BoardSettings.SmtpUserName;
-				smtp.Password = basePage.BoardSettings.SmtpUserPass;
-			}
-			smtp.SendMail(from,to,subject,body);
+			SendMail(basePage, from, null, to, null, subject, body);
 		}
 
 		static public void SendMail(pages.ForumPage basePage,string from,string fromName,string to,string toName,string subject,string body) 
 		{
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.EmailAddress smtpFrom = new OpenSmtp.Mail.EmailAddress(from, fromName);
-			OpenSmtp.Mail.EmailAddress smtpTo = new OpenSmtp.Mail.EmailAddress(to, toName);
- 		
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
- 
-			OpenSmtp.Mail.MailMessage msg = new OpenSmtp.Mail.MailMessage(smtpFrom, smtpTo);
-			msg.Subject = subject;
-			msg.Body = body;
- 
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(basePage.BoardSettings.SmtpServer,25);
-			if(basePage.BoardSettings.SmtpUserName!=null && basePage.BoardSettings.SmtpUserPass!=null) 
+			if (toName != null && toName.Length > 0) to = "\"" + toName + "\" <" + to + ">";
+			if (fromName != null && fromName.Length > 0) from = "\"" + fromName + "\" <" + from + ">";
+   
+			System.Web.Mail.MailMessage Mail = new System.Web.Mail.MailMessage();
+
+			Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserver"] = basePage.BoardSettings.SmtpServer;
+			Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverport"] = 25; 
+			Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 2;
+			if (basePage.BoardSettings.SmtpUserName != null && basePage.BoardSettings.SmtpUserPass != null) 
 			{
-				smtp.Username = basePage.BoardSettings.SmtpUserName;
-				smtp.Password = basePage.BoardSettings.SmtpUserPass;
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpauthenticate"] = 1;
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusername"] = basePage.BoardSettings.SmtpUserName; 
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendpassword"] = basePage.BoardSettings.SmtpUserPass;
 			}
-			smtp.SendMail(msg);
+			Mail.To = to;
+			Mail.From = from;
+			Mail.Subject = subject;
+			Mail.Body = body;
+
+			System.Web.Mail.SmtpMail.SmtpServer = basePage.BoardSettings.SmtpServer;
+			System.Web.Mail.SmtpMail.Send(Mail);
 		}
 
 		static public string Text2Html(string html) 
@@ -218,18 +213,24 @@ namespace yaf
 				}
 				msg.Append("</table>");
 				// Send mail
-				// http://sourceforge.net/projects/opensmtp-net/
-				OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-				OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(email,email);
-				OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(server,25);
-				if(user.Length>0 && pass.Length>0) 
+				System.Web.Mail.MailMessage Mail = new System.Web.Mail.MailMessage();
+
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserver"] = server;
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverport"] = 25; 
+				Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 2;
+				if (user.Length > 0 && pass.Length > 0) 
 				{
-					smtp.Username = user;
-					smtp.Password = pass;
+					Mail.Fields["http://schemas.microsoft.com/cdo/configuration/smtpauthenticate"] = 1;
+					Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendusername"] = user; 
+					Mail.Fields["http://schemas.microsoft.com/cdo/configuration/sendpassword"] = pass;
 				}
-				mailMessage.Subject = "Yet Another Forum.net Error Report";
-				mailMessage.HtmlBody = msg.ToString();
-				smtp.SendMail(mailMessage);
+				Mail.To = email;
+				Mail.From = email;
+				Mail.Subject = "Yet Another Forum.net Error Report";
+				Mail.Body = msg.ToString();
+
+				System.Web.Mail.SmtpMail.SmtpServer = server;
+				System.Web.Mail.SmtpMail.Send(Mail);			
 			}
 			catch(Exception) 
 			{
