@@ -213,9 +213,7 @@ namespace yaf.pages
 			DataRowView row = (DataRowView)o;
 
 			string body = row["Message"].ToString();
-			bool isHtml = body.IndexOf('<')>=0;
-			if(!isHtml) 
-				body = FormatMsg.ForumCodeToHtml(this,body);
+			body = BBCode.MakeHtml(body);
 
 			return FormatMsg.FetchURL(this,body);
 		}

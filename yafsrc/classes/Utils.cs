@@ -279,21 +279,26 @@ namespace yaf
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			// rico : run word replacement from database table names yaf_replacewords
-			using(DataTable dt = DB.replace_words_list())
-				foreach(DataRow rwords in dt.Rows)  
+			DataTable dt = (DataTable)HttpContext.Current.Cache["replacewords"];
+			if(dt==null) 
+			{
+				dt = DB.replace_words_list();
+				HttpContext.Current.Cache.Insert("replacewords",dt,null,DateTime.Now.AddMinutes(15),TimeSpan.Zero);
+			}
+			foreach(DataRow rwords in dt.Rows)  
+			{
+				// jaben : added "try...catch" due to problems if the regex expressions was not correctly formatted
+				try
 				{
-					// jaben : added "try...catch" due to problems if the regex expressions was not correctly formatted
-					try
-					{
-						strReturn = Regex.Replace(strReturn,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
-					}
-					catch (Exception e)
-					{
-#if DEBUG
-						throw new Exception("Regular Expression Failed: " + e.Message);
-#endif						
-					}
+					strReturn = Regex.Replace(strReturn,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
 				}
+				catch (Exception e)
+				{
+#if DEBUG
+					throw new Exception("Regular Expression Failed: " + e.Message);
+#endif						
+				}
+			}
 			
 			return strReturn;
 		}

@@ -96,18 +96,9 @@ namespace yaf.pages
 						string body = row["Body"].ToString();
 						bool isHtml = body.IndexOf('<')>=0;
 
-						if(Editor.IsRichBrowser)
-						{
-							if(!isHtml)
-								body = FormatMsg.ForumCodeToHtml(this,body);
-							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
-						} 
-						else if(!Editor.IsRichBrowser)
-						{
-							if(isHtml)
-								body = FormatMsg.HtmlToForumCode(body);
-							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
-						}
+						if(isHtml)
+							body = FormatMsg.HtmlToForumCode(body);
+						body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
 
 						Editor.Text = body;
 					}
@@ -165,11 +156,7 @@ namespace yaf.pages
 			if(ToList.SelectedItem!=null && ToList.SelectedItem.Value == "0")
 			{
 				string body = Editor.Text;
-				if(!Editor.IsRichBrowser) 
-					body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-				else
-					body = FormatMsg.RepairHtml(this,body);
-
+				body = BBCode.SafeHtml(body);
 				DB.pmessage_save(PageUserID,0,Subject.Text,body);
 				Forum.Redirect(Pages.cp_profile);
 			}
@@ -200,10 +187,7 @@ namespace yaf.pages
 					}
 
 					string body = Editor.Text;
-					if(!Editor.IsRichBrowser) 
-						body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-					else
-						body = FormatMsg.RepairHtml(this,body);
+					body = BBCode.SafeHtml(body);
 
 					DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
 					Forum.Redirect(Pages.cp_profile);

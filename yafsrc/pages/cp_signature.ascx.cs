@@ -60,9 +60,7 @@ namespace yaf.pages
 			{
 				string msg = DB.user_getsignature(PageUserID);
 				bool isHtml = msg.IndexOf('<')>=0;
-				if(sig.IsRichBrowser && !isHtml)
-					msg = FormatMsg.ForumCodeToHtml(this,msg);
-				else if(!sig.IsRichBrowser && isHtml)
+				if(isHtml)
 					msg = FormatMsg.HtmlToForumCode(msg);
 				sig.Text = msg;
 
@@ -78,10 +76,7 @@ namespace yaf.pages
 		private void save_Click(object sender,EventArgs e) 
 		{
 			string body = sig.Text;
-			if(!sig.IsRichBrowser)
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.RepairHtml(this,body);
+			body = FormatMsg.RepairHtml(this,body,false);
 
 			if(sig.Text.Length>0)
 				DB.user_savesignature(PageUserID,body);

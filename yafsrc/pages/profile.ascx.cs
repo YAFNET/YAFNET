@@ -258,19 +258,12 @@ namespace yaf.pages
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-
-			if(html.IndexOf('<')<0) 
-			{
-				html = FormatMsg.ForumCodeToHtml(this,html);
-			}
+			html = BBCode.MakeHtml(html);
 
 			if(row["Signature"].ToString().Length>0) 
 			{
 				string sig = row["Signature"].ToString();
-				if(sig.IndexOf('<')<0) 
-				{
-					sig = FormatMsg.ForumCodeToHtml(this,sig);
-				}
+				sig = BBCode.MakeHtml(sig);
 				
 				html += "<br/><hr noshade/>" + sig;
 			}

@@ -130,13 +130,23 @@ namespace yaf
 			bbcode = r_center.Replace(bbcode,"<div align=\"center\">${inner}</div>");
 			bbcode = r_left.Replace(bbcode,"<div align=\"left\">${inner}</div>");
 			bbcode = r_right.Replace(bbcode,"<div align=\"right\">${inner}</div>");
-			bbcode = r_quote2.Replace(bbcode,"<div><b>QUOTE (${quote})</b><div style=\"background-color:#F0F0F0\">${inner}</div></div>");
-			bbcode = r_quote1.Replace(bbcode,"<div><b>QUOTE</b><div style=\"background-color:#F0F0F0\">${inner}</div></div>");
+
+			while(r_quote2.IsMatch(bbcode))
+				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>QUOTE (${quote})</b><div class='innerquote'>${inner}</div></div>");
+			while(r_quote1.IsMatch(bbcode))
+				bbcode = r_quote1.Replace(bbcode,"<div class='quote'><b>QUOTE</b><div class='innerquote'>${inner}</div></div>");
 
 			bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
 			bbcode = r_br.Replace(bbcode,"<br/>");
 
 			return bbcode;
+		}
+
+		static public string SafeHtml(string html) 
+		{
+			html = html.Replace("<","&lt;");
+			html = html.Replace(">","&gt;");
+			return html;
 		}
 	}
 }

@@ -9,6 +9,14 @@ if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_W
 	)
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='BBCode')
+begin
+	alter table yaf_Message add BBCode bit null
+	exec('update yaf_Message set BBCode=0 where BBCode is null')
+	alter table yaf_Message alter column BBCode bit not null
+end
+go
+
 if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
 GO
@@ -458,10 +466,12 @@ end
 GO
 
 -- no longer require system table
-if exists (select * from dbo.sysobjects where id = object_id(N'[yaf_System]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if exists (select * from dbo.sysobjects where id = object_id(N'yaf_System') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
 	-- upgrade then delete
 	EXEC yaf_system_upgrade_to_registry
-	drop table [yaf_System]
+	drop table yaf_System
+end
 GO
 
 -- and upgrade procedure

@@ -144,42 +144,20 @@ namespace yaf.pages
 					// reply to post...
 					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
 
-					if(Message.IsRichBrowser) 
-					{
-						string body = msg["Message"].ToString();
-						if(!isHtml) 
-						{
-							body = FormatMsg.ForumCodeToHtml(this,body);
-						} 
-						Message.Text = String.Format("[QUOTE={0}]{1}[/QUOTE]",msg["username"],body);
-					}
-					else 
-					{
-						if(isHtml)
-							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(msg["Message"].ToString()));
-						else
-							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],msg["message"]);
-					}
+					if(isHtml)
+						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(msg["Message"].ToString()));
+					else
+						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],msg["message"]);
 				}
 				else if(Request.QueryString["m"] != null)
 				{
 					// edit message...
 					string body = msg["message"].ToString();
 					bool isHtml = body.IndexOf('<')>=0;
-					if(Message.IsRichBrowser) 
+					if(isHtml) 
 					{
-						if(!isHtml) 
-						{
-							body = FormatMsg.ForumCodeToHtml(this,body);
-						}
-					} 
-					else 
-					{
-						if(isHtml) 
-						{
-							//throw new Exception("TODO: Convert this html message to forumcodes");
-							body = FormatMsg.HtmlToForumCode(body);
-						}
+						//throw new Exception("TODO: Convert this html message to forumcodes");
+						body = FormatMsg.HtmlToForumCode(body);
 					}
 					Message.Text = body;
 					Title.Text = GetText("EDIT");
@@ -276,11 +254,7 @@ namespace yaf.pages
 				replyTo = -1;
 
 			string msg = Message.Text;
-
-			if(!Message.IsRichBrowser) 
-				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
-			else
-				msg = FormatMsg.RepairHtml(this,msg);
+			msg = BBCode.SafeHtml(msg);
 
 			Mession.LastPost = DateTime.Now;
 			
@@ -387,24 +361,15 @@ namespace yaf.pages
 			PreviewRow.Visible = true;
 
 			string body = Message.Text;
-#if DEBUG
-			//string fcode = FormatMsg.HtmlToForumCode(body);
-			//AddLoadMessage(fcode);
-#endif
-			if(!Message.IsRichBrowser) 
-				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
-			else
-				body = FormatMsg.FetchURL(this,body);
+			body = BBCode.SafeHtml(body);
+			body = BBCode.MakeHtml(body);
 
 			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,dt.Rows[0]["Signature"].ToString());
+					body += "<br/><hr noshade/>" + BBCode.MakeHtml(dt.Rows[0]["Signature"].ToString());
 			}
 			
-#if DEBUG
-			body = BBCode.MakeHtml(body);
-#endif
 			PreviewCell.InnerHtml = body;
 		}
 
@@ -412,20 +377,15 @@ namespace yaf.pages
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			bool isHtml = html.IndexOf('<')>=0;
-			if(!isHtml) 
-			{
-				html = FormatMsg.ForumCodeToHtml(this,html);
-			}
+			html = BBCode.MakeHtml(html);
 
 			string sig = row["Signature"].ToString();
-			if(sig.IndexOf('<')<0) {
-				sig = FormatMsg.ForumCodeToHtml(this,sig);
+			if(sig!=string.Empty) 
+			{
+				sig = BBCode.MakeHtml(sig);
+				html += "<br/><hr noshade/>" + sig;
 			}
 
-			html += "<br/><hr noshade/>" + sig;
-
-			html = FormatMsg.FetchURL(this,html);
 			return html;
 		}
 	}

@@ -247,29 +247,33 @@ namespace yaf
 
 		static public string FetchURL(yaf.pages.ForumPage basePage,string html) 
 		{
-			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
-			
 			html = iAddSmiles(basePage,html);
+			return html;
+
+			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "<a href=mailto:${email}>${email}</a>", options);
+			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]>", options);
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
- 			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
+			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
- 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
+			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
 
+			/*
 			options |= RegexOptions.Singleline;
 			while(Regex.IsMatch(html,@"\[quote\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b><div class='quoteinner'>$1</div></div>",options);
 			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
+			*/
 
 			// jaben : moved word replace to reusable function in class utils
 			html = Utils.BadWordReplace(html);
+			return html;
 
-			return RepairHtml(basePage,html);
+			//return RepairHtml(basePage,html,bAllowHtml);
 		}
 
 		static private bool IsValidTag(string tag) 
@@ -320,19 +324,26 @@ namespace yaf
 			return false;
 		}
 
-		static public string RepairHtml(yaf.pages.ForumPage basePage,string html) 
+		static public string RepairHtml(yaf.pages.ForumPage basePage,string html,bool bAllowHtml) 
 		{
-			RegexOptions options = RegexOptions.IgnoreCase;
-
-			MatchCollection m = Regex.Matches(html,"<.*?>",options);
-			for(int i=m.Count-1;i>=0;i--) 
+			if(!bAllowHtml) 
 			{
-				string tag = html.Substring(m[i].Index+1,m[i].Length-1).Trim().ToLower();
-				if(!IsValidTag(tag)) 
+				html = System.Web.HttpContext.Current.Server.HtmlEncode(html);
+			} 
+			else 
+			{
+				RegexOptions options = RegexOptions.IgnoreCase;
+
+				MatchCollection m = Regex.Matches(html,"<.*?>",options);
+				for(int i=m.Count-1;i>=0;i--) 
 				{
-					string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
-					html = html.Remove(m[i].Index,m[i].Length);
-					html = html.Insert(m[i].Index,tmp);
+					string tag = html.Substring(m[i].Index+1,m[i].Length-1).Trim().ToLower();
+					if(!IsValidTag(tag)) 
+					{
+						string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
+						html = html.Remove(m[i].Index,m[i].Length);
+						html = html.Insert(m[i].Index,tmp);
+					}
 				}
 			}
 			return html;

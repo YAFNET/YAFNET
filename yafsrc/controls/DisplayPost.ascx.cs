@@ -227,15 +227,15 @@ namespace yaf.controls
 
 			// Location
 			if(row["Location"].ToString().Length>0)
-				html += String.Format("{0}: {1}<br/>",ForumPage.GetText("location"),FormatMsg.RepairHtml(ForumPage,row["Location"].ToString()));
+				html += String.Format("{0}: {1}<br/>",ForumPage.GetText("location"),FormatMsg.RepairHtml(ForumPage,row["Location"].ToString(),false));
 
 			return html;
 		}
 		protected string FormatBody() 
 		{
 			DataRowView row = DataRow;
-			string html = row["Message"].ToString();
-			bool isHtml = html.IndexOf('<')>=0;
+			string html2 = row["Message"].ToString();
+			html2 = BBCode.MakeHtml(html2);
 			
 			// define valid image extensions
 			string[] aImageExtensions = {"jpg","gif","png"};
@@ -245,7 +245,7 @@ namespace yaf.controls
 				string stats = ForumPage.GetText("ATTACHMENTINFO");
 				string strFileIcon = ForumPage.GetThemeContents("ICONS","ATTACHED_FILE");
 
-				html += "<p>";
+				html2 += "<p>";
 
 				using(DataTable dt = DB.attachment_list(row["MessageID"],null,null)) 
 				{
@@ -279,39 +279,36 @@ namespace yaf.controls
 							{
 								if (bFirstItem)
 								{
-									html += "<i class=\"smallfont\">";
-									html += String.Format(ForumPage.GetText("IMAGE_ATTACHMENT_TEXT"),Convert.ToString(row["UserName"]));
-									html += "</i><br/>";
+									html2 += "<i class=\"smallfont\">";
+									html2 += String.Format(ForumPage.GetText("IMAGE_ATTACHMENT_TEXT"),Convert.ToString(row["UserName"]));
+									html2 += "</i><br/>";
 									bFirstItem = false;
 								}
-								html += String.Format("<img src=\"{0}image.aspx?a={1}\" alt=\"{2}\"><br/>",Data.ForumRoot,dr["AttachmentID"],Server.HtmlEncode(Convert.ToString(dr["FileName"])));
+								html2 += String.Format("<img src=\"{0}image.aspx?a={1}\" alt=\"{2}\"><br/>",Data.ForumRoot,dr["AttachmentID"],Server.HtmlEncode(Convert.ToString(dr["FileName"])));
 							}
 							else if (!bShowImage && tmpDisplaySort == 0)
 							{
 								if (bFirstItem)
 								{
-									html += String.Format("<b class=\"smallfont\">{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
+									html2 += String.Format("<b class=\"smallfont\">{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
 									bFirstItem = false;
 								}
 								// regular file attachment
 								int kb = (1023 + (int)dr["Bytes"]) / 1024;
-								html += String.Format("<img border='0' src='{0}'> <b><a href=\"{1}image.aspx?a={2}\">{3}</a></b> <span class='smallfont'>{4}</span><br/>",strFileIcon,Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
+								html2 += String.Format("<img border='0' src='{0}'> <b><a href=\"{1}image.aspx?a={2}\">{3}</a></b> <span class='smallfont'>{4}</span><br/>",strFileIcon,Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
 							}
 						}
 						// now show images
 						tmpDisplaySort++;
-						html += "<br/>";
+						html2 += "<br/>";
 					}
 				}
 			}
 			
 			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>")
-				html += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(ForumPage,row["Signature"].ToString());
+				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString());
 
-			if(!isHtml)
-				html = FormatMsg.ForumCodeToHtml(ForumPage,html);
-
-			return FormatMsg.FetchURL(ForumPage,html);
+			return FormatMsg.FetchURL(ForumPage,html2);
 		}
 
 		private void Delete_Click(object sender,EventArgs e)
