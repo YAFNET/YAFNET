@@ -39,11 +39,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox UserName;
 		protected System.Web.UI.WebControls.TextBox Password;
 		protected System.Web.UI.WebControls.TextBox Email;
-		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-		protected System.Web.UI.WebControls.CompareValidator CompareValidator1;
 		protected System.Web.UI.WebControls.Button ForumRegister;
-		protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
 		protected System.Web.UI.WebControls.TextBox Location;
 		protected System.Web.UI.WebControls.TextBox HomePage;
@@ -107,7 +103,7 @@ namespace yaf
 			{
 				if(DB.user_find(UserName.Text,Email.Text)) 
 				{
-					AddLoadMessage("Your username or email is already registered.");
+					AddLoadMessage(GetText("Already_registered"));
 					return;
 				}
 

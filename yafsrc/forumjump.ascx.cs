@@ -45,7 +45,7 @@ namespace yaf
 				}
 
 				int nOldCat = 0;
-				list.Items.Add(new ListItem("select forum","0"));
+				list.Items.Add(new ListItem(((BasePage)Page).GetText("select_forum"),"0"));
 				for(int i=0;i<dt.Rows.Count;i++) {
 					DataRow row = dt.Rows[i];
 					if((int)row["CategoryID"] != nOldCat) {
@@ -54,9 +54,6 @@ namespace yaf
 					}
 					list.Items.Add(new ListItem(" - " + (string)row["Forum"],row["ForumID"].ToString()));
 				}
-
-				//ListItem item = new ListItem("txt","value");
-				//list.Items.Add(item);
 			}
 		}
 

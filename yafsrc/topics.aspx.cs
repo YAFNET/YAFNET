@@ -34,7 +34,6 @@ namespace yaf
 	/// </summary>
 	public class topics : BasePage
 	{
-		protected System.Web.UI.WebControls.Label Label1;
 		protected System.Web.UI.WebControls.DropDownList ShowList;
 		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.Repeater Announcements;
@@ -55,6 +54,28 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if(!IsPostBack) 
+			{
+				WatchForum.Text = GetText("Watch_Forum");
+				moderate1.Text = String.Format("<img align=absmiddle title=\"Moderate this forum\" src=\"{0}\"/>",ThemeFile("topic_moderate.png"));
+				moderate1.ToolTip = "Moderate this forum";
+				moderate2.Text = moderate1.Text;
+				moderate2.ToolTip = moderate1.ToolTip;
+
+				NewTopic1.Text = String.Format("<img align=absmiddle title=\"Post new topic\" src=\"{0}\">",ThemeFile("b_post_topic.png"));
+				NewTopic1.ToolTip = "New Topic";
+				NewTopic2.Text = NewTopic1.Text;
+				NewTopic2.ToolTip = NewTopic1.ToolTip;
+
+				ShowList.Items.Add(new ListItem(GetText("All"),"0"));
+				ShowList.Items.Add(new ListItem(GetText("last_week"),"1"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_weeks"),"2"));
+				ShowList.Items.Add(new ListItem(GetText("last_month"),"3"));
+				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"4"));
+				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"5"));
+				ShowList.Items.Add(new ListItem(GetText("last_year"),"6"));
+			}
+
 			if(Request.QueryString["f"] == null)
 				Response.Redirect(BaseDir);
 
@@ -86,12 +107,18 @@ namespace yaf
 			}
 
 			System.Text.StringBuilder tmp = new System.Text.StringBuilder();
-			tmp.AppendFormat("You <b>{0}</b> post new topics in this forum.<br>",ForumPostAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> reply to topics in this forum.<br>",ForumReplyAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> delete your posts in this forum.<br>",ForumDeleteAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> edit your posts in this forum.<br>",ForumEditAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> create polls in this forum.<br>",ForumPollAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> vote in polls in this forum.<br>",ForumVoteAccess?"can":"cannot");
+			tmp.Append(GetText(ForumPostAccess ? "can_post" : "cannot_post"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumReplyAccess ? "can_reply" : "cannot_reply"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumDeleteAccess ? "can_delete" : "cannot_delete"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumEditAccess ? "can_edit" : "cannot_edit"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumPollAccess ? "can_poll" : "cannot_poll"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumVoteAccess ? "can_vote" : "cannot_vote"));
+			tmp.Append("<br/>");
 			AccessCell.InnerHtml = tmp.ToString();
 		}
 
@@ -100,6 +127,7 @@ namespace yaf
 		{
 			moderate1.Click += new EventHandler(moderate_Click);
 			moderate2.Click += new EventHandler(moderate_Click);
+			ShowList.SelectedIndexChanged += new EventHandler(ShowList_SelectedIndexChanged);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -139,15 +167,19 @@ namespace yaf
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br />by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img border=0 src='{3}'></a>", 
-					FormatDateTime((DateTime)row["LastPosted"]), 
+				
+				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
 					row["LastUserName"], 
 					minipost, 
 					row["LastMessageID"]
+					));
+				return String.Format(CustomCulture,"{0}<br />{1}", 
+					FormatDateTime((DateTime)row["LastPosted"]),
+					by
 				);
 			} else
-				return "No Posts";
+				return GetText("No_Posts");
 		}
 
 		protected string GetTopicImage(object o) {

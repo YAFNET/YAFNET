@@ -110,23 +110,29 @@ namespace yaf
 			BindData();
 
 			System.Text.StringBuilder tmp = new System.Text.StringBuilder();
-			tmp.AppendFormat("You <b>{0}</b> post new topics in this forum.<br>",ForumPostAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> reply to topics in this forum.<br>",ForumReplyAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> delete your posts in this forum.<br>",ForumDeleteAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> edit your posts in this forum.<br>",ForumEditAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> create polls in this forum.<br>",ForumPollAccess?"can":"cannot");
-			tmp.AppendFormat("You <b>{0}</b> vote in polls in this forum.<br>",ForumVoteAccess?"can":"cannot");
+			tmp.Append(GetText(ForumPostAccess ? "can_post" : "cannot_post"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumReplyAccess ? "can_reply" : "cannot_reply"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumDeleteAccess ? "can_delete" : "cannot_delete"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumEditAccess ? "can_edit" : "cannot_edit"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumPollAccess ? "can_poll" : "cannot_poll"));
+			tmp.Append("<br/>");
+			tmp.Append(GetText(ForumVoteAccess ? "can_vote" : "cannot_vote"));
+			tmp.Append("<br/>");
 			AccessCell.InnerHtml = tmp.ToString();
 		}
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this message?')";
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("Delete_message"));
 		}
 
 		protected void DeleteTopic_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this topic?')";
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("Delete_topic"));
 		}
 
 		#region Web Form Designer generated code
@@ -450,7 +456,33 @@ namespace yaf
 				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
 
 			// Rank
-			html += String.Format("Rank: {0}<br clear=\"all\"/><br/>",row["RankName"]);
+			html += String.Format("Rank: {0}<br clear=\"all\"/>",row["RankName"]);
+
+			// Groups
+			if(ShowGroups) 
+			{
+				using(DataTable dt = DB.usergroup_list(row["UserID"])) 
+				{
+					html += "Groups: ";
+					bool bFirst = true;
+					foreach(DataRow grp in dt.Rows) 
+					{
+						if(bFirst) 
+						{
+							html += grp["Name"].ToString();
+							bFirst = false;
+						} 
+						else 
+						{
+							html += String.Format(", {0}",grp["Name"]);
+						}
+					}
+					html += "<br/>";
+				}
+			}
+
+			// Extra row
+			html += "<br/>";
 
 			// Joined
 			html += String.Format(CustomCulture,"Joined: {0}<br/>",FormatDateShort((DateTime)row["Joined"]));

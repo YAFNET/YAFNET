@@ -146,6 +146,71 @@ namespace yaf
 				}
 			}
 		}
+		public static DataTable GetSearchResult( string ToSearch, SEARCH_FIELD sf, SEARCH_WHAT sw, int fid, int UserID ) 
+		{
+			if( ToSearch.Length == 0 )
+				return new DataTable();
+
+			if( ToSearch == "*" )
+				ToSearch = "";
+
+			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message ";
+			//sql += "from yaf_topic a left join yaf_user b on a.UserID = b.UserID left join yaf_message c on a.TopicID = c.TopicID ";
+			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID ";
+			//sql += string.Format( "where a.ForumID in ( select y.ForumID from yaf_user x, yaf_forumAccess y where x.GroupID = y.GroupID and y.ReadAccess = 1 and x.UserID = {0} ) ", UserID );
+			
+			sql += String.Format("where exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=a.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID={0} and x.ReadAccess<>0)",UserID);
+
+			if( sf == SEARCH_FIELD.sfUSER_NAME )
+			{
+				sql += string.Format( "and b.Name like '%{0}%' ", ToSearch );
+			}
+			else
+			{
+				string[] words;
+				sql += "and ( ";
+				switch( sw )
+				{
+					case SEARCH_WHAT.sfALL_WORDS:
+						words = ToSearch.Split( ' ' );
+						foreach( string word in words )
+						{
+							sql += string.Format( "(c.Message like '%{0}%' or a.Topic like '%{0}%' ) and ", word );
+						}
+						// remove last OR in sql query
+						sql = sql.Substring( 0, sql.Length - 5 );
+						break;
+					case SEARCH_WHAT.sfANY_WORDS:
+						words = ToSearch.Split( ' ' );
+						foreach( string word in words )
+						{
+							sql += string.Format( "c.Message like '%{0}%' or a.Topic like '%{0}%' or ", word );
+						}
+						// remove last OR in sql query
+						sql = sql.Substring( 0, sql.Length - 4 );
+						break;
+					case SEARCH_WHAT.sfEXACT:
+						sql += string.Format( "c.Message like '%{0}%' or a.Topic like '%{0}%' ", ToSearch );
+						break;
+				}
+				sql += " ) ";
+			}
+
+			if( fid >= 0 )
+			{
+				sql += string.Format( "and ForumID = {0}", fid );
+			}
+
+			sql += " order by c.Posted desc";
+
+			using(SqlCommand cmd = new SqlCommand()) 
+			{
+				cmd.CommandType = CommandType.Text;
+				cmd.CommandText = sql;
+				return GetData(cmd);
+			}
+		}
+
 		#endregion
 
 		#region DataSets
@@ -371,7 +436,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated) 
+		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object templateID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_save")) 
 			{
@@ -385,6 +450,7 @@ namespace yaf
 				cmd.Parameters.Add("@Hidden",Hidden);
 				cmd.Parameters.Add("@IsTest",IsTest);
 				cmd.Parameters.Add("@Moderated",moderated);
+				cmd.Parameters.Add("@TemplateID",templateID);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}
@@ -541,7 +607,16 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-
+		static public DataTable post_last10user(object userID,object pageUserID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_post_last10user")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@PageUserID",pageUserID);
+				return GetData(cmd);
+			}
+		}
 		static public DataTable message_list(object messageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_list")) 
@@ -766,7 +841,7 @@ namespace yaf
 		#region yaf_System
 		static public void system_save(object Name,object TimeZone,object SmtpServer,object SmtpUserName,
 			object SmtpUserPass,object ForumEmail,object EmailVerification,object ShowMoved,
-			object BlankLinks,
+			object BlankLinks,object showGroups,
 			object AvatarWidth,object AvatarHeight,object avatarUpload,object avatarRemote,object avatarSize) 
 		{
 			if(avatarSize!=null && avatarSize.ToString().Length==0)
@@ -788,6 +863,7 @@ namespace yaf
 				cmd.Parameters.Add("@EmailVerification",EmailVerification);
 				cmd.Parameters.Add("@ShowMoved",ShowMoved);
 				cmd.Parameters.Add("@BlankLinks",BlankLinks);
+				cmd.Parameters.Add("@ShowGroups",showGroups);
 				cmd.Parameters.Add("@AvatarWidth",AvatarWidth);
 				cmd.Parameters.Add("@AvatarHeight",AvatarHeight);
 				cmd.Parameters.Add("@AvatarUpload",avatarUpload);
@@ -1173,6 +1249,19 @@ namespace yaf
 				}
 			}
 			return false;
+		}
+		public static DataTable user_activity_rank()
+		{
+			// This define the date since the posts are counted (can pass as parameter??)
+			TimeSpan tsRange = new TimeSpan(30,0,0,0);
+			DateTime StartDate = DateTime.Now.Subtract( tsRange );
+
+			using(SqlCommand cmd = new SqlCommand("yaf_user_activity_rank"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@StartDate",StartDate);
+				return GetData(cmd);
+			}
 		}
 		#endregion
 

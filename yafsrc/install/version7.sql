@@ -31,6 +31,16 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 	alter table yaf_System add AvatarSize int null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='ShowGroups')
+	alter table yaf_System add ShowGroups bit null
+GO
+
+update yaf_System set ShowGroups=1 where ShowGroups is null
+GO
+
+alter table yaf_System alter column ShowGroups bit not null
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listread
 GO
@@ -237,6 +247,7 @@ begin
 		EmailVerification	= s.EmailVerification,
 		BlankLinks			= s.BlankLinks,
 		ShowMoved			= s.ShowMoved,
+		ShowGroups			= s.ShowGroups,
 		MailsPending		= (select count(1) from yaf_Mail),
 		Incoming			= (select count(1) from yaf_PMessage where ToUserID=a.UserID and IsRead=0)
 	from
@@ -265,8 +276,8 @@ begin
 	declare @RankID int
 	declare @UserID int
 
-	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks)
-	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0)
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1)
 
 	insert into yaf_Rank(Name,IsStart,IsLadder)
 	values('Administration',0,0)
@@ -327,6 +338,7 @@ create procedure yaf_system_save(
 	@EmailVerification	bit,
 	@ShowMoved			bit,
 	@BlankLinks			bit,
+	@ShowGroups			bit,
 	@AvatarWidth		int,
 	@AvatarHeight		int,
 	@AvatarUpload		bit,
@@ -344,6 +356,7 @@ begin
 		EmailVerification = @EmailVerification,
 		ShowMoved = @ShowMoved,
 		BlankLinks = @BlankLinks,
+		ShowGroups = @ShowGroups,
 		AvatarWidth = @AvatarWidth,
 		AvatarHeight = @AvatarHeight,
 		AvatarUpload = @AvatarUpload,
@@ -408,5 +421,101 @@ begin
 		d.TopicID = a.TopicID
 	order by
 		a.Posted asc
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_post_last10user') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_last10user
+GO
+
+create procedure yaf_post_last10user(@UserID int,@PageUserID int) as
+begin
+	set nocount on
+
+	select top 10
+		a.Posted,
+		Subject = c.Topic,
+		a.Message,
+		a.UserID,
+		UserName = IsNull(a.UserName,b.Name),
+		b.Signature,
+		c.TopicID
+	from
+		yaf_Message a, 
+		yaf_User b,
+		yaf_Topic c,
+		yaf_Forum d
+	where
+		a.Approved <> 0 and
+		a.UserID = @UserID and
+		b.UserID = a.UserID and
+		c.TopicID = a.TopicID and
+		d.ForumID = c.ForumID and
+		exists(select 1 from yaf_ForumAccess x,yaf_Group y,yaf_UserGroup z where x.ForumID=d.ForumID and y.GroupID=x.GroupID and z.GroupID=y.GroupID and z.UserID=@PageUserID and x.ReadAccess<>0)
+	order by
+		a.Posted desc
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_save
+GO
+
+create procedure yaf_forum_save(
+	@ForumID 		int,
+	@CategoryID		int,
+	@Name			varchar(50),
+	@Description	varchar(255),
+	@SortOrder		smallint,
+	@Locked			bit,
+	@Hidden			bit,
+	@IsTest			bit,
+	@Moderated		bit,
+	@TemplateID		int = null
+) as
+begin
+	if @ForumID>0 begin
+		update yaf_Forum set 
+			Name=@Name,
+			Description=@Description,
+			SortOrder=@SortOrder,
+			Hidden=@Hidden,
+			Locked=@Locked,
+			CategoryID=@CategoryID,
+			IsTest = @IsTest,
+			Moderated = @Moderated
+		where ForumID=@ForumID
+	end
+	else begin
+		insert into yaf_Forum(Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated)
+		values(@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated)
+		select @ForumID = @@IDENTITY
+
+		if @TemplateID is not null
+			insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
+			select GroupID,@ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess
+			from yaf_ForumAccess where ForumID=@TemplateID
+		else
+			insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
+			select GroupID,@ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Group
+	end
+	select ForumID = @ForumID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_activity_rank') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_activity_rank
+GO
+
+create procedure yaf_user_activity_rank(@StartDate as datetime) AS
+begin
+	select top 3  ID, Name, NumOfPosts from yaf_User u inner join
+	(
+		select m.UserID as ID, Count(m.UserID) as NumOfPosts from yaf_Message m
+		where m.Posted >= @StartDate
+		group by m.UserID
+	) as counter
+	on u.UserID = counter.ID
+	order by NumOfPosts desc
 end
 GO

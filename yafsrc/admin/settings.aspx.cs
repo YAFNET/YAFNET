@@ -40,7 +40,7 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox Name, AvatarWidth, AvatarHeight;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
-		protected CheckBox AvatarUpload, AvatarRemote;
+		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX;
 		protected TextBox AvatarSize;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
@@ -65,6 +65,7 @@ namespace yaf.admin {
 			EmailVerification.Checked = (bool)row["EmailVerification"];
 			ShowMoved.Checked = (bool)row["ShowMoved"];
 			BlankLinks.Checked = (bool)row["BlankLinks"];
+			ShowGroupsX.Checked = (bool)row["ShowGroups"];
 			AvatarWidth.Text = row["AvatarWidth"].ToString();
 			AvatarHeight.Text = row["AvatarHeight"].ToString();
 			AvatarUpload.Checked = (bool)row["AvatarUpload"];
@@ -114,6 +115,7 @@ namespace yaf.admin {
 				EmailVerification.Checked,
 				ShowMoved.Checked,
 				BlankLinks.Checked,
+				ShowGroupsX.Checked,
 				AvatarWidth.Text,
 				AvatarHeight.Text,
 				AvatarUpload.Checked,

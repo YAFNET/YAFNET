@@ -174,6 +174,7 @@ CREATE TABLE [yaf_System] (
 	[ForumEmail] [varchar] (50) NOT NULL ,
 	[EmailVerification] [bit] NOT NULL,
 	[ShowMoved] [bit] NOT NULL,
+	[ShowGroups] [bit] NOT NULL,
 	[BlankLinks] [bit] NOT NULL,
 	[AvatarWidth] [int] NOT NULL,
 	[AvatarHeight] [int] NOT NULL,

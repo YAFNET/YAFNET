@@ -38,6 +38,10 @@
 		<td class=post><asp:checkbox id="BlankLinks" runat="server"/></td>
 	</tr>
 	<tr>
+		<td class=postheader><b>Show Groups:</b><br/>Should the groups a user is part of be visible on the posts page.</td>
+		<td class=post><asp:checkbox id="ShowGroupsX" runat="server"/></td>
+	</tr>
+	<tr>
 		<td class="header2" colspan="2">SMTP Server Settings</td>
 	</tr>
 	<tr>

@@ -51,8 +51,8 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				TimeNow.Text = String.Format(CustomCulture,"Current time: {0}.",FormatTime(DateTime.Now));
-				TimeLastVisit.Text = String.Format(CustomCulture,"Your last visit: {0}.",FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
+				TimeNow.Text = String.Format(CustomCulture,GetText("Current_time"),FormatTime(DateTime.Now));
+				TimeLastVisit.Text = String.Format(CustomCulture,GetText("Last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
 
 				if(PageCategoryID!=0) {
 					HomeLink.NavigateUrl = BaseDir;
@@ -77,14 +77,25 @@ namespace yaf
 				// Forum statistics
 				DataRow stats = DB.stats();
 				
-				Stats.Text = String.Format(CustomCulture,"There are {0:N0} posts in {1:N0} topics in {2:N0} forums.<br/>",stats["posts"],stats["topics"],stats["forums"]);
+				Stats.Text = String.Format(CustomCulture,GetText("Stats_posts"),stats["posts"],stats["topics"],stats["forums"]);
+				Stats.Text += "<br/>";
 				
 				if(!stats.IsNull("LastPost")) 
-					Stats.Text += String.Format(CustomCulture,"Last post on {0} by <a href=\"profile.aspx?u={1}\">{2}</a>.<br/>",FormatDateTime((DateTime)stats["LastPost"]),stats["LastUserID"],stats["LastUser"]);
+				{
+					Stats.Text += String.Format(GetText("Stats_lastpost"),
+						FormatDateTime((DateTime)stats["LastPost"]),
+						String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastUserID"],stats["LastUser"])
+					);
+					Stats.Text += "<br/>";
+				}
 				
-				Stats.Text += String.Format(CustomCulture,"We have {0:N0} registered members.<br/>",stats["members"]);
+				Stats.Text += String.Format(GetText("Stats_members"),stats["members"]);
+				Stats.Text += "<br/>";
 
-				Stats.Text += String.Format("The newest member is <a href=\"profile.aspx?u={0}\">{1}</a><br/>",stats["LastMemberID"],stats["LastMember"]);
+				Stats.Text += String.Format(GetText("Stats_lastmember"),
+					String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",stats["LastMemberID"],stats["LastMember"])
+				);
+				Stats.Text += "<br/>";
 
 				activeinfo.Text = String.Format(CustomCulture,"{0:N0} <a href=\"activeusers.aspx\">active users</a> - {1:N0} members and {2:N0} guests.",stats["ActiveUsers"],stats["ActiveMembers"],stats["ActiveGuests"]);
 
@@ -120,18 +131,17 @@ namespace yaf
 					minipost = ThemeFile("icon_newest_reply.gif");
 				else
 					minipost = ThemeFile("icon_latest_reply.gif");
-				return String.Format(CustomCulture,"{0}<br/>in <a href=\"posts.aspx?t={5}\">{6}</a><br/>by <a href=\"profile.aspx?u={1}\">{2}</a>&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>", 
-					FormatDateTime((DateTime)row["LastPosted"]), 
-					row["LastUserID"], 
-					row["LastUser"], 
-					minipost, 
-					row["LastMessageID"],
-					row["LastTopicID"],
-					row["LastTopicName"]
+				
+				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>",
+					FormatDateTime((DateTime)row["LastPosted"]),
+					String.Format(GetText("in"),String.Format("<a href=\"posts.aspx?t={0}\">{1}</a>",row["LastTopicID"],row["LastTopicName"])),
+					String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",row["LastUserID"],row["LastUser"])),
+					minipost,
+					row["LastMessageID"]
 				);
 			}
 			else
-				return "No Posts";
+				return GetText("No_Posts");
 		}
 
 		protected string GetForumIcon(object lastPosted,object Locked,object oPostAccess,object oReplyAccess,object oReadAccess) 

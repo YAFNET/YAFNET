@@ -2,22 +2,20 @@
 
 <form runat="server">
 
-<p class="navlinks">
-	<asp:hyperlink runat="server" id="HomeLink"></asp:hyperlink>
-</p>
+<p class="navlinks"><asp:hyperlink runat="server" id="HomeLink"/></p>
 
 <table class="content" cellspacing=0 cellpadding=0 width="100%">
 	<tr>
 		<td class="header1" align="middle">Forum Rules and Policies</td>
 	</tr>
 	<tr>
-		<td>
-<asp:Label id=ForumRules runat="server">Label</asp:Label></td>
+		<td><asp:Label id=ForumRules runat="server"/></td>
 	</tr>
 	<tr>
 		<td align="middle">
-<asp:Button id=Accept runat="server" Text="Accept"></asp:Button>&nbsp;
-<asp:Button id=Cancel runat="server" Text="Cancel"></asp:Button></td>
+			<asp:Button id=Accept runat="server" Text="Accept"/>
+			<asp:Button id=Cancel runat="server" Text="Cancel"/>
+		</td>
 	</tr>
 </table>
 

@@ -11,10 +11,10 @@
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
-		<td class=navlinks align=left id=PageLinks1 runat=server></td>
+		<td class=navlinks align=left id=PageLinks1 runat="server"/>
 		<td align="right">
-			<asp:linkbutton id=moderate1 runat=server ToolTip="Moderate this forum" cssclass=imagelink><img align=absmiddle title="Moderate this forum" src='<%# ThemeFile("topic_moderate.png") %>'></asp:linkbutton>
-			<asp:linkbutton id=NewTopic1 runat="server" ToolTip="New Topic" cssclass=imagelink><img align=absmiddle title="Post new topic" src='<%# ThemeFile("b_post_topic.png") %>'></asp:linkbutton>
+			<asp:linkbutton id=moderate1 runat=server cssclass="imagelink"/>
+			<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
 		</td>
 	</tr>
 </table>
@@ -25,11 +25,11 @@
 	</tr>
   <tr>
     <td class=header2 width="1%">&nbsp;</td>
-    <td class=header2 align=left>Topics</td>
-    <td class=header2 align=left width="20%">Topic Starter</td>
-    <td class=header2 align=middle width="7%">Replies</td>
-    <td class=header2 align=middle width="7%">Views</td>
-    <td class=header2 align=middle width="25%">Last Post</td>
+    <td class=header2 align=left><%# GetText("Topics") %></td>
+    <td class=header2 align=left width="20%"><%# GetText("Topic_Starter") %></td>
+    <td class=header2 align=middle width="7%"><%# GetText("Replies") %></td>
+    <td class=header2 align=middle width="7%"><%# GetText("Views") %></td>
+    <td class=header2 align=middle width="25%"><%# GetText("Last_Post") %></td>
    </tr>
 <asp:repeater id=Announcements runat="server">
 	<ItemTemplate>
@@ -63,29 +63,22 @@
         <tr>
 				<td width="1%">
 					<nobr>
-					<asp:Label id=Label1 runat="server">Show Topics</asp:Label>
-					<asp:DropDownList id=ShowList runat="server" AutoPostBack="True">
-<asp:ListItem Value="0" Selected="True">All</asp:ListItem>
-<asp:ListItem Value="1">from the last week</asp:ListItem>
-<asp:ListItem Value="2">from the last two weeks</asp:ListItem>
-<asp:ListItem Value="3">from the last month</asp:ListItem>
-<asp:ListItem Value="4">from the last two months</asp:ListItem>
-<asp:ListItem Value="5">from the last six months</asp:ListItem>
-<asp:ListItem Value="6">from the last year</asp:ListItem></asp:DropDownList>		
+					<%# GetText("Show_Topics") %>
+					<asp:DropDownList id=ShowList runat="server" AutoPostBack="True"/>
 					</nobr>
 				</td>
 				<td align="right">
-				<asp:linkbutton id=WatchForum runat=server>Watch This Forum</asp:linkbutton>
+				<asp:linkbutton id="WatchForum" runat="server"/>
 				</td></tr></table>
 
 </td></tr></table>
 
 <table class=command width="100%" cellspacing=0 cellpadding=0>
 	<tr>
-		<td align="left" class=navlinks id=PageLinks2 runat=server></td>
+		<td align="left" class=navlinks id=PageLinks2 runat="server"/>
 		<td align="right">
-			<asp:linkbutton id=moderate2 runat=server ToolTip="Moderate this forum" cssclass=imagelink><img align=absmiddle title="Moderate this forum" src='<%# ThemeFile("topic_moderate.png") %>'></asp:linkbutton>
-			<asp:linkbutton id=NewTopic2 runat="server" ToolTip="New Topic" cssclass=imagelink><img align=absmiddle title="Post new topic" src='<%# ThemeFile("b_post_topic.png") %>'></asp:linkbutton>
+			<asp:linkbutton id=moderate2 runat=server cssclass="imagelink"/>
+			<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>
 		</td>
 	</tr>
 </table>
@@ -93,23 +86,23 @@
 <table width=100% cellspacing=0 cellpadding=0>
 <tr>
 	<td align=right colspan=2>
-		Forum Jump <uc1:forumjump id=Forumjump1 runat="server"></uc1:forumjump>
+		<%# GetText("Forum_Jump") %> <uc1:forumjump id=Forumjump1 runat="server"/>
 	</td>
 </tr>
 <tr><td valign=top>
 	<table cellspacing=1 cellpadding=1>
 		<tr>
-			<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> New Posts</td>
-			<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> No New Posts</td>
-			<td><img align=absMiddle src='<% =ThemeFile("topic_announce.png") %>'> Announcement</td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> <%# GetText("New_Posts") %></td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> <%# GetText("No_New_Posts") %></td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic_announce.png") %>'> <%# GetText("Announcement") %></td>
 		</tr>
 		<tr>
-			<td><img align=absMiddle src='<% =ThemeFile("topic_lock_new.png") %>'> New Posts (Locked)</td>
-			<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> No New Posts (Locked)</td>
-			<td><img align=absMiddle src='<% =ThemeFile("topic_sticky.png") %>'> Sticky</td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic_lock_new.png") %>'> <%# GetText("New_Posts_Locked") %></td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> <%# GetText("No_New_Posts_Locked") %></td>
+			<td><img align=absMiddle src='<% =ThemeFile("topic_sticky.png") %>'> <%# GetText("Sticky") %></td>
 		</tr>
 		<tr>
-			<td colspan=3><img align=absMiddle src='<% =ThemeFile("topic_moved.png") %>'> Moved</td>
+			<td colspan=3><img align=absMiddle src='<% =ThemeFile("topic_moved.png") %>'> <%# GetText("Moved") %></td>
 		</tr>
 	</table>
 </td><td align=right>

@@ -1058,45 +1058,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_forum_save
-GO
-
-create procedure yaf_forum_save(
-	@ForumID 		int,
-	@CategoryID		int,
-	@Name			varchar(50),
-	@Description	varchar(255),
-	@SortOrder		smallint,
-	@Locked			bit,
-	@Hidden			bit,
-	@IsTest			bit,
-	@Moderated		bit
-) as
-begin
-	if @ForumID>0 begin
-		update yaf_Forum set 
-			Name=@Name,
-			Description=@Description,
-			SortOrder=@SortOrder,
-			Hidden=@Hidden,
-			Locked=@Locked,
-			CategoryID=@CategoryID,
-			IsTest = @IsTest,
-			Moderated = @Moderated
-		where ForumID=@ForumID
-	end
-	else begin
-		insert into yaf_Forum(Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated)
-		values(@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated)
-		select @ForumID = @@IDENTITY
-		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
-		select GroupID,@ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Group
-	end
-	select ForumID = @ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_message_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_update
 GO

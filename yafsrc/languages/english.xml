@@ -1,0 +1,408 @@
+<NewDataSet>
+  <!-- "Toolbar" at top of most pages -->
+  <Table>
+	<Index>Admin</Index>
+	<Text>Admin</Text>
+  </Table>
+  <Table>
+	<Index>Moderate</Index>
+	<Text>Moderate</Text>
+  </Table>
+  <Table>
+	<Index>Active_Topics</Index>
+	<Text>Active Topics</Text>
+  </Table>
+  <Table>
+	<Index>My_Profile</Index>
+	<Text>My Profile</Text>
+  </Table>
+  <Table>
+	<Index>Members</Index>
+	<Text>Members</Text>
+  </Table>
+  <Table>
+	<Index>Logout</Index>
+	<Text>Logout</Text>
+  </Table>
+  <Table>
+	<Index>Login</Index>
+	<Text>Log In</Text>
+  </Table>
+  <Table>
+	<Index>Register</Index>
+	<Text>Register</Text>
+  </Table>
+  <Table>
+	<Index>Logged_in_as</Index>
+	<Text>Logged in as: {0}</Text>
+  </Table>
+  <Table>
+	<Index>Welcome_Guest</Index>
+	<Text>Welcome Guest</Text>
+  </Table>
+  <!-- default.aspx -->
+  <Table>
+    <Index>Forum</Index>
+    <Text>Forum</Text>
+  </Table>
+  <Table>
+    <Index>Topics</Index>
+    <Text>Topics</Text>
+  </Table>
+  <Table>
+    <Index>Posts</Index>
+    <Text>Posts</Text>
+  </Table>
+  <Table>
+    <Index>Last_Post</Index>
+    <Text>Last Post</Text>
+  </Table>
+  <Table>
+	<Index>Current_time</Index>
+	<Text>Current time: {0}.</Text>
+  </Table>
+  <Table>
+	<Index>Last_visit</Index>
+	<Text>Your last visit: {0}.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_posts</Index>
+	<Text>There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_lastpost</Index>
+	<Text>Last post on {0} by {1}.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_members</Index>
+	<Text>We have {0:N0} registered members.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_lastmember</Index>
+	<Text>The newest member is {0}.</Text>
+  </Table>
+  <Table>
+	<Index>New_Posts</Index>
+	<Text>New Posts</Text>
+  </Table>
+  <Table>
+	<Index>No_New_Posts</Index>
+	<Text>No New Posts</Text>
+  </Table>
+  <Table>
+	<Index>Announcement</Index>
+	<Text>Announcement</Text>
+  </Table>
+  <Table>
+	<Index>New_Posts_Locked</Index>
+	<Text>New Posts (Locked)</Text>
+  </Table>
+  <Table>
+	<Index>No_New_Posts_Locked</Index>
+	<Text>No New Posts (Locked)</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Locked</Index>
+	<Text>Forum Locked</Text>
+  </Table>
+  <Table>
+	<Index>Moved</Index>
+	<Text>Moved</Text>
+  </Table>
+  <Table>
+	<Index>Sticky</Index>
+	<Text>Sticky</Text>
+  </Table>
+  <Table>
+	<Index>in</Index>
+	<Text>in {0}</Text>
+  </Table>
+  <Table>
+	<Index>by</Index>
+	<Text>by {0}</Text>
+  </Table>
+  <Table>
+	<Index>Powered_by</Index>
+	<Text>Powered by {0} version {1}</Text>
+  </Table>
+  <Table>
+	<Index>Generated</Index>
+	<Text>This page was generated in {0:N3} seconds.</Text>
+  </Table>
+  <Table>
+	<Index>Moderators</Index>
+	<Text>Moderators</Text>
+  </Table>
+  <!-- topics.aspx -->
+  <Table>
+	<Index>Topic_Starter</Index>
+	<Text>Topic Starter</Text>
+  </Table> 
+  <Table>
+	<Index>Replies</Index>
+	<Text>Replies</Text>
+  </Table>
+  <Table>
+	<Index>Views</Index>
+	<Text>Views</Text>
+  </Table>
+  <Table>
+	<Index>No_Posts</Index>
+	<Text>No Posts</Text>
+  </Table>
+  <Table>
+	<Index>Watch_Forum</Index>
+	<Text>Watch Forum</Text>
+  </Table>
+  <Table>
+	<Index>Show_Topics</Index>
+	<Text>Show Topics</Text>
+  </Table>
+  <Table>
+	<Index>All</Index>
+	<Text>All</Text>
+  </Table>
+  <Table>
+	<Index>last_week</Index>
+	<Text>from the last week</Text>
+  </Table>
+  <Table>
+	<Index>last_two_weeks</Index>
+	<Text>from the last two weeks</Text>
+  </Table>
+  <Table>
+	<Index>last_month</Index>
+	<Text>from the last month</Text>
+  </Table>
+  <Table>
+	<Index>last_two_months</Index>
+	<Text>from the last two months</Text>
+  </Table>
+  <Table>
+	<Index>last_six_months</Index>
+	<Text>from the last six months</Text>
+  </Table>
+  <Table>
+	<Index>last_year</Index>
+	<Text>from the last year</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Jump</Index>
+	<Text>Forum Jump</Text>
+  </Table>
+  <Table>
+	<Index>select_forum</Index>
+	<Text>select forum</Text>
+  </Table>
+  <!-- register.aspx -->
+  <Table>
+	<Index>Register_New_User</Index>
+	<Text>Register New User</Text>
+  </Table>
+  <Table>
+	<Index>Registration_Details</Index>
+	<Text>Registration Details</Text>
+  </Table>
+  <Table>
+	<Index>User_Name</Index>
+	<Text>User Name</Text>
+  </Table>
+  <Table>
+	<Index>User_Name_required</Index>
+	<Text>User Name is required.</Text>
+  </Table>
+  <Table>
+	<Index>Password</Index>
+	<Text>Password</Text>
+  </Table>
+  <Table>
+	<Index>Password_required</Index>
+	<Text>Password is required.</Text>
+  </Table>
+  <Table>
+	<Index>Retype_Password</Index>
+	<Text>Retype Password</Text>
+  </Table>
+  <Table>
+	<Index>Password_dont_match</Index>
+	<Text>Passwords didn't match.</Text>
+  </Table>
+  <Table>
+	<Index>Email_Address</Index>
+	<Text>Email Address</Text>
+  </Table>
+  <Table>
+	<Index>Profile_Information</Index>
+	<Text>Profile Information</Text>
+  </Table>
+  <Table>
+	<Index>Location</Index>
+	<Text>Location</Text>
+  </Table>
+  <Table>
+	<Index>Home_Page</Index>
+	<Text>Home Page</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Preferences</Index>
+	<Text>Forum Preferences</Text>
+  </Table>
+  <Table>
+	<Index>Time_Zone</Index>
+	<Text>Time Zone</Text>
+  </Table>
+  <Table>
+	<Index>Cancel</Index>
+	<Text>Cancel</Text>
+  </Table>
+  <Table>
+	<Index>Already_registered</Index>
+	<Text>Your username or email is already registered.</Text>
+  </Table>
+  <!-- login.aspx -->
+  <Table>
+	<Index>Auto_Login</Index>
+	<Text>Auto Login</Text>
+  </Table>
+  <Table>
+	<Index>Lost_Password</Index>
+	<Text>Lost Password</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Login</Index>
+	<Text>Forum Login</Text>
+  </Table>
+  <Table>
+	<Index>Login_password_error</Index>
+	<Text>The user name or password entered is incorrect. Please try again.</Text>
+  </Table>
+  <Table>
+	<Index>Recover_Password</Index>
+	<Text>Recover Password</Text>
+  </Table>
+  <Table>
+	<Index>Wrong_username_email</Index>
+	<Text>Wrong user name or email address.</Text>
+  </Table>
+  <Table>
+	<Index>Email_sent_password</Index>
+	<Text>A mail has been sent with your new password.</Text>
+  </Table>
+  <Table>
+	<Index>Send_Password</Index>
+	<Text>Send Password</Text>
+  </Table>
+  <Table>
+	<Index>Both_username_email</Index>
+	<Text>Both user name and email address must be entered.</Text>
+  </Table>
+  <Table>
+	<Index>can_post</Index>
+	<Text>You [b]can[/b] post new topics in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>can_reply</Index>
+	<Text>You [b]can[/b] reply to topics in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>can_delete</Index>
+	<Text>You [b]can[/b] delete your posts in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>can_edit</Index>
+	<Text>You [b]can[/b] edit your posts in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>can_poll</Index>
+	<Text>You [b]can[/b] create polls in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>can_vote</Index>
+	<Text>You [b]can[/b] vote in polls in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_post</Index>
+	<Text>You [b]cannot[/b] post new topics in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_reply</Index>
+	<Text>You [b]cannot[/b] reply to topics in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_delete</Index>
+	<Text>You [b]cannot[/b] delete your posts in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_edit</Index>
+	<Text>You [b]cannot[/b] edit your posts in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_poll</Index>
+	<Text>You [b]cannot[/b] create polls in this forum.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_vote</Index>
+	<Text>You [b]cannot[/b] vote in polls in this forum.</Text>
+  </Table>
+  <!-- posts.aspx -->
+  <Table>
+	<Index>Poll_Question</Index>
+	<Text>Poll Question</Text>
+  </Table>
+  <Table>
+	<Index>Choice</Index>
+	<Text>Choice</Text>
+  </Table>
+  <Table>
+	<Index>Votes</Index>
+	<Text>Votes</Text>
+  </Table>
+  <Table>
+	<Index>Statistics</Index>
+	<Text>Statistics</Text>
+  </Table>
+  <Table>
+	<Index>Previous_Topic</Index>
+	<Text>Previous Topic</Text>
+  </Table>
+  <Table>
+	<Index>Next_Topic</Index>
+	<Text>Next Topic</Text>
+  </Table>
+  <Table>
+	<Index>Watch_topic</Index>
+	<Text>Watch this topic</Text>
+  </Table>
+  <Table>
+	<Index>Email_topic</Index>
+	<Text>Email this topic</Text>
+  </Table>
+  <Table>
+	<Index>Print_topic</Index>
+	<Text>Print this topic</Text>
+  </Table>
+  <Table>
+	<Index>Posted</Index>
+	<Text>Posted</Text>
+  </Table>
+  <Table>
+	<Index>Back_to_top</Index>
+	<Text>Back to top</Text>
+  </Table>
+  <Table>
+	<Index>PM</Index>
+	<Text>PM</Text>
+  </Table>
+  <Table>
+	<Index>Delete_message</Index>
+	<Text>Delete this message?</Text>
+  </Table>
+  <Table>
+	<Index>Delete_topic</Index>
+	<Text>Delete this topic?</Text>
+  </Table>
+  <Table>
+	<Index></Index>
+	<Text></Text>
+  </Table>
+</NewDataSet>

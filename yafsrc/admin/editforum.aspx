@@ -32,6 +32,10 @@
 		<td class=postheader colspan=4><b>Moderated:</b><br/>If the forum is moderated, posts have to be approved by a moderator.</td>
 		<td class=post colspan=7><asp:checkbox id="Moderated" runat="server"/></td>
 	</tr>
+	<tr runat="server" id="TemplateRow">
+		<td class="postheader" colspan="4"><b>Template Forum:</b><br/>Create access rights based on this forum.</td>
+		<td class="post" colspan="7"><asp:dropdownlist id="TemplateID" runat="server"/></td>
+	</tr>
 
     <asp:repeater id=AccessList runat="server">
 	<HeaderTemplate>

@@ -39,12 +39,10 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox Password;
 		protected System.Web.UI.WebControls.CheckBox AutoLogin;
 		protected System.Web.UI.WebControls.Button ForumLogin;
-		protected System.Web.UI.WebControls.Label ErrorMsg;
 		protected System.Web.UI.WebControls.HyperLink HomeLink;
-		protected System.Web.UI.WebControls.Button Button1;
 		protected System.Web.UI.HtmlControls.HtmlTable LoginView;
 		protected System.Web.UI.HtmlControls.HtmlTable RecoverView;
-		protected System.Web.UI.WebControls.LinkButton LostPassword;
+		protected System.Web.UI.WebControls.Button LostPassword;
 		protected System.Web.UI.WebControls.TextBox LostUserName;
 		protected System.Web.UI.WebControls.TextBox LostEmail;
 		protected System.Web.UI.WebControls.Button Recover;
@@ -59,22 +57,30 @@ namespace yaf
 			
 			LostPassword.Click += new System.EventHandler(LostPassword_Click);
 			Recover.Click += new System.EventHandler(Recover_Click);
+
+			if(!IsPostBack) 
+			{
+				ForumLogin.Text = GetText("Forum_Login");
+				LostPassword.Text = GetText("Lost_Password");
+				Recover.Text = GetText("Send_Password");
+			}
 		}
 
 		private void LostPassword_Click(object sender,EventArgs e) {
 			LoginView.Visible = false;
 			RecoverView.Visible = true;
 		}
+
 		private void Recover_Click(object sender,EventArgs e) {
 			if(LostEmail.Text.Length==0 || LostUserName.Text.Length==0) {
-				AddLoadMessage("Both user name and email address must be entered.");
+				AddLoadMessage(GetText("Both_username_email"));
 				return;
 			}
 
 			string newpw = register.CreatePassword(8);
 
 			if(!DB.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
-				AddLoadMessage("Wrong user name or email address.");
+				AddLoadMessage(GetText("Wrong_username_email"));
 				return;
 			}
 
@@ -86,7 +92,7 @@ namespace yaf
 			
 			SendMail(ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
-			AddLoadMessage("A mail has been sent with the your new password.");
+			AddLoadMessage(GetText("Email_sent_password"));
 			LoginView.Visible = true;
 			RecoverView.Visible = false;
 		}
@@ -121,8 +127,7 @@ namespace yaf
 				FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
 				Response.Redirect(BaseDir);
 			} else {
-				ErrorMsg.Visible = true;
-				ErrorMsg.Text = "The user name or password entered is incorrect. Please try again.";
+				AddLoadMessage(GetText("Login_password_error"));
 			}
 		}
 	}

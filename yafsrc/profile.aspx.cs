@@ -42,7 +42,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.Label LastVisit;
 		protected System.Web.UI.WebControls.Label NumPosts;
 		protected System.Web.UI.WebControls.Label UserName;
-		protected Repeater Groups;
+		protected Repeater Groups, LastPosts;
 		protected Label Rank;
 	
 		private void Page_Load(object sender, System.EventArgs e)
@@ -72,8 +72,26 @@ namespace yaf
 				{
 					EmailRow.Visible = true;
 				}
+
+				LastPosts.DataSource = DB.post_last10user(Request.QueryString["u"],PageUserID);
+				
 				DataBind();
 			}
+		}
+
+		private FormatMsg fmt;
+
+		protected string FormatBody(object o) 
+		{
+			DataRowView row = (DataRowView)o;
+			string html = row["Message"].ToString();
+			if(row["Signature"].ToString().Length>0)
+				html += "\r\n\r\n-- \r\n" + row["Signature"].ToString();
+
+			if(fmt==null)
+				fmt = new FormatMsg(this);
+
+			return fmt.FormatMessage(html);
 		}
 
 		#region Web Form Designer generated code

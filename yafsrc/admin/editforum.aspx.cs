@@ -44,6 +44,8 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.CheckBox IsTest;
 		protected System.Web.UI.WebControls.Label ForumNameTitle;
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
+		protected DropDownList TemplateID;
+		protected HtmlTableRow TemplateRow;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
 			if(!IsPostBack) {
@@ -63,6 +65,7 @@ namespace yaf.admin
 
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 					}
+					TemplateRow.Visible = false;
 				}
 			}
 		}
@@ -72,7 +75,12 @@ namespace yaf.admin
 			if(Request.QueryString["f"] != null)
 				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
 
+			TemplateID.DataSource = DB.forum_list(null);
+			TemplateID.DataValueField = "ForumID";
+			TemplateID.DataTextField = "Name";
 			DataBind();
+
+			TemplateID.Items.Insert(0,new ListItem());
 		}
 
 		#region Web Form Designer generated code
@@ -105,8 +113,12 @@ namespace yaf.admin
 				// Forum
 				long ForumID = 0;
 				if(Request.QueryString["f"] != null) ForumID = long.Parse(Request.QueryString["f"]);
-				
-				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked);
+
+				object templateID = null;
+				if(TemplateID.SelectedIndex>0)
+					templateID = TemplateID.SelectedValue;
+
+				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,templateID);
 
 				// Access
 				if(Request.QueryString["f"] != null) 

@@ -270,6 +270,47 @@ namespace yaf
 					Cache["htmltemplate"] = html;
 				}
 #endif
+
+				#region User Activity Rank by Fabrizio Bernabei
+				if(html.IndexOf("{user_rank}")>=0) 
+				{
+					string act_rank = "";
+
+					act_rank += "<table width=\"90%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
+					act_rank += "<tr class=\"header2\"><td>Most active users</td></tr>";
+					//act_rank += "<tr class=header2><td colspan=\"2\">User</td>";
+					//act_rank += "<td align=\"center\">Posts</td></tr>";
+			
+					DataTable rank = DB.user_activity_rank();
+					int i = 1;
+
+					act_rank += "<tr><td class=post><table cellspacing=0 cellpadding=0 align=center>";
+
+					foreach( DataRow r in rank.Rows )
+					{
+						string img = string.Format( "<img src=\"{0}\"/>", ThemeFile( string.Format( "user_rank{0}.gif", i ) ) );
+						i++;
+						act_rank += "<tr class=\"post\">";
+				
+						// Immagine
+						act_rank += string.Format( "<td align=\"center\">{0}</td>", img );
+
+						// Nome autore
+						act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='profile.aspx?u={1}'>{0}</a></td>", r["Name"], r["ID"] );
+
+						// Numero post
+						act_rank += string.Format( "<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);
+
+						act_rank += "</tr>";
+					}
+
+					act_rank += "</table></td></tr>";
+
+					act_rank += "</table>";
+					html = html.Replace( "{user_rank}", act_rank );
+				}
+				#endregion
+
 				string title = String.Format("<title>{0}</title>",ForumName);
 				string css = String.Format("<link type=text/css rel=stylesheet href='{0}forum.css' />",BaseDir);
 				css += String.Format("\n<link type=text/css rel=stylesheet href='{0}' />",ThemeFile("theme.css"));
@@ -295,31 +336,33 @@ namespace yaf
 
 				if(User.Identity.IsAuthenticated) 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>Logged in as: {0}</b></td>",PageUserName));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("Logged_in_as"),PageUserName)));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">Search</a> |"));
 					if(IsAdmin)
-						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">Admin</a> |",BaseDir));
+						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("Admin")));
 					if(IsModerator || IsForumModerator)
-						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">Moderate</a> |",BaseDir));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">Active Topics</a> |",BaseDir));
+						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("Moderate")));
+					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("Active_Topics")));
 					if(!IsGuest)
-						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">My Profile</a> |",BaseDir));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">Members</a>",BaseDir));
+						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("My_Profile")));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("Members")));
 					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">Logout</a>",BaseDir));
+						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("Logout")));
 				} 
 				else 
 				{
-					writer.WriteLine("<td style=\"padding:5px\" class=post align=left><b>Welcome Guest</b></td>");
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("Welcome_Guest")));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
+					writer.WriteLine(String.Format("	<a href=\"search.aspx\">Search</a> |"));
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
 					{
-						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">Log In</a> |",BaseDir));
-						writer.WriteLine(String.Format("	<a href=\"{0}rules.aspx\">Register</a> |",BaseDir));
+						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">{1}</a> |",BaseDir,GetText("Login")));
+						writer.WriteLine(String.Format("	<a href=\"{0}rules.aspx\">{1}</a> |",BaseDir,GetText("Register")));
 					}
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">Members</a>",BaseDir));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("Members")));
 				}
 				writer.WriteLine("</td></tr></table>");
 				writer.WriteLine("<br />");
@@ -328,9 +371,14 @@ namespace yaf
 				RenderBody(writer);
 				writer.WriteLine("<p style=\"text-align:center;font-size:7pt\">");
 
-				writer.WriteLine(String.Format("Powered by <a title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">{0}</a> version {1} - {2}<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.","Yet Another Forum.net",AppVersionName,FormatDateShort(AppVersionDate)));
+				writer.WriteLine(String.Format(GetText("Powered_by"),
+					String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
+					String.Format("{0} - {1}",AppVersionName,FormatDateShort(AppVersionDate))
+				));
+				writer.WriteLine("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
 				hiTimer.Stop();
-				writer.WriteLine(String.Format(CustomCulture,"<br>This page was generated in {0:N3} seconds.",hiTimer.Duration));
+				writer.WriteLine("<br/>");
+				writer.WriteLine(String.Format(GetText("Generated"),hiTimer.Duration));
 
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
@@ -536,6 +584,13 @@ namespace yaf
 			get 
 			{
 				return (bool)m_pageinfo["ShowMoved"];
+			}
+		}
+		public bool ShowGroups 
+		{
+			get 
+			{
+				return (bool)m_pageinfo["ShowGroups"];
 			}
 		}
 
@@ -912,6 +967,46 @@ namespace yaf
 #endif
 		}
 
+		private DataTable	m_dtText;
+
+		public string GetText(string text) 
+		{
+			try 
+			{
+				if(m_dtText==null) 
+				{
+					using(DataSet ds = new DataSet()) 
+					{
+						string filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+						if(filename==null)
+							filename = "languages/english.xml";
+
+						ds.ReadXml(Server.MapPath(String.Format("{0}{1}",BaseDir,filename)));
+						m_dtText = ds.Tables[0];
+					}
+				}
+			
+				DataRow[] rows = m_dtText.Select(String.Format("Index='{0}'",text)); 
+				if(rows.Length==1) 
+				{
+					string str = rows[0]["Text"].ToString();
+					str = str.Replace("[b]","<b>");
+					str = str.Replace("[/b]","</b>");
+					return str;
+				}
+			}
+			catch(Exception x) 
+			{
+				throw new Exception(text,x);
+			}
+
+#if DEBUG
+			throw new Exception(String.Format("Missing text '{0}'.",text));
+#else
+			return String.Format("[{0}]",text);
+#endif
+		}
+
 		static public int AppVersion 
 		{
 			get 
@@ -930,7 +1025,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,12);
+				return new DateTime(2003,10,16);
 			}
 		}
 	}

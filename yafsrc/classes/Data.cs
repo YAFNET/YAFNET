@@ -28,6 +28,19 @@ namespace yaf
 		RainBow
 	};
 
+	public enum SEARCH_FIELD
+	{
+		sfMESSAGE = 0,
+		sfUSER_NAME = 1
+	}
+
+	public enum SEARCH_WHAT
+	{
+		sfALL_WORDS = 0,
+		sfANY_WORDS = 1,
+		sfEXACT = 2
+	}
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>

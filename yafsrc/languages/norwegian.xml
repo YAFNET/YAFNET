@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<NewDataSet>
+  <!-- "Toolbar" at top of most pages -->
+  <Table>
+	<Index>Admin</Index>
+	<Text>Admin</Text>
+  </Table>
+  <Table>
+	<Index>Moderate</Index>
+	<Text>Moderer</Text>
+  </Table>
+  <Table>
+	<Index>Active_Topics</Index>
+	<Text>Aktive emner</Text>
+  </Table>
+  <Table>
+	<Index>My_Profile</Index>
+	<Text>Min profil</Text>
+  </Table>
+  <Table>
+	<Index>Members</Index>
+	<Text>Medlemmer</Text>
+  </Table>
+  <Table>
+	<Index>Logout</Index>
+	<Text>Logg av</Text>
+  </Table>
+  <Table>
+	<Index>Login</Index>
+	<Text>Logg inn</Text>
+  </Table>
+  <Table>
+	<Index>Register</Index>
+	<Text>Registrering</Text>
+  </Table>
+  <Table>
+	<Index>Logged_in_as</Index>
+	<Text>Du er innlogget som {0}.</Text>
+  </Table>
+  <Table>
+	<Index>Welcome_Guest</Index>
+	<Text>Velkommen gjest</Text>
+  </Table>
+  <!-- default.aspx -->
+  <Table>
+    <Index>Forum</Index>
+    <Text>Forum</Text>
+  </Table>
+  <Table>
+    <Index>Topics</Index>
+    <Text>Emner</Text>
+  </Table>
+  <Table>
+    <Index>Posts</Index>
+    <Text>Meldinger</Text>
+  </Table>
+  <Table>
+    <Index>Last_Post</Index>
+    <Text>Siste melding</Text>
+  </Table>
+  <Table>
+	<Index>Current_time</Index>
+	<Text>Klokkeslett: {0}.</Text>
+  </Table>
+  <Table>
+	<Index>Last_visit</Index>
+	<Text>Ditt siste besøk: {0}.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_posts</Index>
+	<Text>Det er {0:N0} meldinger i {1:N0} emner og {2:N0} forum.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_lastpost</Index>
+	<Text>Siste melding {0} av {1}.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_members</Index>
+	<Text>Vi har {0:N0} registerte medlemmer.</Text>
+  </Table>
+  <Table>
+	<Index>Stats_lastmember</Index>
+	<Text>Nyeste medlem er {0}.</Text>
+  </Table>
+  <Table>
+	<Index>New_Posts</Index>
+	<Text>Nye meldinger</Text>
+  </Table>
+  <Table>
+	<Index>No_New_Posts</Index>
+	<Text>Ingen nye meldinger</Text>
+  </Table>
+  <Table>
+	<Index>Announcement</Index>
+	<Text>Annonsering</Text>
+  </Table>
+  <Table>
+	<Index>New_Posts_Locked</Index>
+	<Text>Ny meldinger (stengt)</Text>
+  </Table>
+  <Table>
+	<Index>No_New_Posts_Locked</Index>
+	<Text>Ingen nye meldinger (stengt)</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Locked</Index>
+	<Text>Forum stengt</Text>
+  </Table>
+  <Table>
+	<Index>Moved</Index>
+	<Text>Flyttet</Text>
+  </Table>
+  <Table>
+	<Index>Sticky</Index>
+	<Text>Fast</Text>
+  </Table>
+  <Table>
+	<Index>in</Index>
+	<Text>i {0}</Text>
+  </Table>
+  <Table>
+	<Index>by</Index>
+	<Text>av {0}</Text>
+  </Table>
+  <Table>
+	<Index>Powered_by</Index>
+	<Text>Kjører {0} versjon {1}</Text>
+  </Table>
+  <Table>
+	<Index>Generated</Index>
+	<Text>Denne siden ble generert på {0:N3} sekunder.</Text>
+  </Table>
+  <Table>
+	<Index>Moderators</Index>
+	<Text>Moderatorer</Text>
+  </Table>
+  <!-- topics.aspx -->
+  <Table>
+	<Index>Topic_Starter</Index>
+	<Text>Emne startet av</Text>
+  </Table> 
+  <Table>
+	<Index>Replies</Index>
+	<Text>Svar</Text>
+  </Table>
+  <Table>
+	<Index>Views</Index>
+	<Text>Visninger</Text>
+  </Table>
+  <Table>
+	<Index>No_Posts</Index>
+	<Text>Ingen meldinger</Text>
+  </Table>
+  <Table>
+	<Index>Watch_Forum</Index>
+	<Text>Følg forum</Text>
+  </Table>
+  <Table>
+	<Index>Show_Topics</Index>
+	<Text>Vis emner</Text>
+  </Table>
+  <Table>
+	<Index>All</Index>
+	<Text>Alle</Text>
+  </Table>
+  <Table>
+	<Index>last_week</Index>
+	<Text>fra siste uke</Text>
+  </Table>
+  <Table>
+	<Index>last_two_weeks</Index>
+	<Text>fra siste to uker</Text>
+  </Table>
+  <Table>
+	<Index>last_month</Index>
+	<Text>fra siste måned</Text>
+  </Table>
+  <Table>
+	<Index>last_two_months</Index>
+	<Text>fra siste to måneder</Text>
+  </Table>
+  <Table>
+	<Index>last_six_months</Index>
+	<Text>fra siste seks måneder</Text>
+  </Table>
+  <Table>
+	<Index>last_year</Index>
+	<Text>fra siste år</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Jump</Index>
+	<Text>Gå til forum</Text>
+  </Table>
+  <Table>
+	<Index>select_forum</Index>
+	<Text>velg forum</Text>
+  </Table>
+  <!-- register.aspx -->
+  <Table>
+	<Index>Register_New_User</Index>
+	<Text>Registrer ny bruker</Text>
+  </Table>
+  <Table>
+	<Index>Registration_Details</Index>
+	<Text>Registreringdetaljer</Text>
+  </Table>
+  <Table>
+	<Index>User_Name</Index>
+	<Text>Brukernavn</Text>
+  </Table>
+  <Table>
+	<Index>User_Name_required</Index>
+	<Text>Du må skrive inn brukernavn.</Text>
+  </Table>
+  <Table>
+	<Index>Password</Index>
+	<Text>Passord</Text>
+  </Table>
+  <Table>
+	<Index>Password_required</Index>
+	<Text>Du må skrive inn passord.</Text>
+  </Table>
+  <Table>
+	<Index>Retype_Password</Index>
+	<Text>Gjenta passord</Text>
+  </Table>
+  <Table>
+	<Index>Password_dont_match</Index>
+	<Text>Passord stemmer ikke med hverandre.</Text>
+  </Table>
+  <Table>
+	<Index>Email_Address</Index>
+	<Text>Email adresse</Text>
+  </Table>
+  <Table>
+	<Index>Profile_Information</Index>
+	<Text>Profilinformation</Text>
+  </Table>
+  <Table>
+	<Index>Location</Index>
+	<Text>Sted</Text>
+  </Table>
+  <Table>
+	<Index>Home_Page</Index>
+	<Text>Hjemmeside</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Preferences</Index>
+	<Text>Foruminnstillinger</Text>
+  </Table>
+  <Table>
+	<Index>Time_Zone</Index>
+	<Text>Tidssone</Text>
+  </Table>
+  <Table>
+	<Index>Cancel</Index>
+	<Text>Avbryt</Text>
+  </Table>
+  <Table>
+	<Index>Already_registered</Index>
+	<Text>Ditt brukernavn eller din email adresse er allerede registrert.</Text>
+  </Table>
+  <!-- login.aspx -->
+  <Table>
+	<Index>Auto_Login</Index>
+	<Text>Logg inn automatisk</Text>
+  </Table>
+  <Table>
+	<Index>Lost_Password</Index>
+	<Text>Mistet passord</Text>
+  </Table>
+  <Table>
+	<Index>Forum_Login</Index>
+	<Text>Logg inn</Text>
+  </Table>
+  <Table>
+	<Index>Login_password_error</Index>
+	<Text>Brukernavnet eller passord er feil. Vennligst prøv igjen.</Text>
+  </Table>
+  <Table>
+	<Index>Recover_Password</Index>
+	<Text>Gjenopprett passord</Text>
+  </Table>
+  <Table>
+	<Index>Wrong_username_email</Index>
+	<Text>Feil brukernavn eller email adresse.</Text>
+  </Table>
+  <Table>
+	<Index>Email_sent_password</Index>
+	<Text>En mail med ditt nye passord har blitt sendt.</Text>
+  </Table>
+  <Table>
+	<Index>Send_Password</Index>
+	<Text>Send passord</Text>
+  </Table>
+  <Table>
+	<Index>Both_username_email</Index>
+	<Text>Både brukernavn og email må fylles inn.</Text>
+  </Table>
+  <Table>
+	<Index>can_post</Index>
+	<Text>Du [b]kan[/b] skrive nye emner i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>can_reply</Index>
+	<Text>Du [b]kan[/b] svare på emner i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>can_delete</Index>
+	<Text>Du [b]kan[/b] slette dine meldinger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>can_edit</Index>
+	<Text>Du [b]kan[/b] endre dine meldinger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>can_poll</Index>
+	<Text>Du [b]kan[/b] lage avstemninger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>can_vote</Index>
+	<Text>Du [b]kan[/b] stemme i avstemninger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_post</Index>
+	<Text>Du [b]kan ikke[/b] skrive nye emner i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_reply</Index>
+	<Text>Du [b]kan ikke[/b] svare på emner i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_delete</Index>
+	<Text>Du [b]kan ikke[/b] slette dine meldinger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_edit</Index>
+	<Text>Du [b]kan ikke[/b] endre dine meldinger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_poll</Index>
+	<Text>Du [b]kan ikke[/b] lage avstemninger i dette forumet.</Text>
+  </Table>
+  <Table>
+	<Index>cannot_vote</Index>
+	<Text>Du [b]kan ikke[/b] stemme i avstemninger i dette forumet.</Text>
+  </Table>
+  <!-- posts.aspx -->
+  <Table>
+	<Index>Poll_Question</Index>
+	<Text>Spørsmål</Text>
+  </Table>
+  <Table>
+	<Index>Choice</Index>
+	<Text>Valg</Text>
+  </Table>
+  <Table>
+	<Index>Votes</Index>
+	<Text>Stemmer</Text>
+  </Table>
+  <Table>
+	<Index>Statistics</Index>
+	<Text>Statistikk</Text>
+  </Table>
+  <Table>
+	<Index>Previous_Topic</Index>
+	<Text>Forrige emne</Text>
+  </Table>
+  <Table>
+	<Index>Next_Topic</Index>
+	<Text>Neste emne</Text>
+  </Table>
+  <Table>
+	<Index>Watch_topic</Index>
+	<Text>Følg dette emnet</Text>
+  </Table>
+  <Table>
+	<Index>Email_topic</Index>
+	<Text>Email dette emnet</Text>
+  </Table>
+  <Table>
+	<Index>Print_topic</Index>
+	<Text>Skriv ut dette emnet</Text>
+  </Table>
+  <Table>
+	<Index>Posted</Index>
+	<Text>Postet</Text>
+  </Table>
+  <Table>
+	<Index>Back_to_top</Index>
+	<Text>Til toppen</Text>
+  </Table>
+  <Table>
+	<Index>PM</Index>
+	<Text>Privat melding</Text>
+  </Table>
+  <Table>
+	<Index>Delete_message</Index>
+	<Text>Slett denne meldinga?</Text>
+  </Table>
+  <Table>
+	<Index>Delete_topic</Index>
+	<Text>Slett dette emnet?</Text>
+  </Table>
+</NewDataSet>

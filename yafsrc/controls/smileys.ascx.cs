@@ -53,7 +53,7 @@ namespace yaf.controls
 				} else {
 					evt = "javascript:void()";
 				}
-				html.AppendFormat("<td><a href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",basePage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
+				html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",basePage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
 			}
 			html.AppendFormat("</tr>");
 			html.AppendFormat("</table>");

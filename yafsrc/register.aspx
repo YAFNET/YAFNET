@@ -8,41 +8,62 @@
 
 <table class="content" cellspacing=1 cellpadding=0 width="100%">
 	<tr>
-		<td class=header1 colspan=2>Register New User</td>
+		<td class=header1 colspan=2><%# GetText("Register_New_User") %></td>
 	</tr>
 	<tr>
-		<td class=header2 colspan=2 align="middle">Registration Details</td>
+		<td class=header2 colspan=2 align="middle"><%# GetText("Registration_Details") %></td>
 	</tr>
 	<tr>
-		<td width="50%" class=postheader>User Name:</td>
-		<td class=post><asp:TextBox id=UserName runat="server"></asp:TextBox>
-<asp:RequiredFieldValidator id=RequiredFieldValidator1 runat="server" ErrorMessage="User Name is required." ControlToValidate="UserName" EnableClientScript="False"></asp:RequiredFieldValidator></td></tr>
-	<tr><td class=postheader>Password:</td><td class=post>
-<asp:TextBox id=Password runat="server" TextMode="Password"></asp:TextBox>
-<asp:RequiredFieldValidator id=RequiredFieldValidator2 runat="server" ErrorMessage="Password is required." ControlToValidate="Password" EnableClientScript="False"></asp:RequiredFieldValidator></td></tr>
-	<tr><td class=postheader>Retype Password:</td><td class=post>
-<asp:TextBox id=Password2 runat="server" TextMode="Password"></asp:TextBox>
-<asp:CompareValidator id=CompareValidator1 runat="server" ErrorMessage="Passwords didn't match." ControlToValidate="Password2" ControlToCompare="Password" EnableClientScript="False"></asp:CompareValidator>
-<asp:RequiredFieldValidator id=RequiredFieldValidator3 runat="server" ErrorMessage="Password is required." ControlToValidate="Password2" EnableClientScript="False"></asp:RequiredFieldValidator></td></tr>
-	<tr><td class=postheader>Email Address:</td><td class=post>
-<asp:TextBox id=Email runat="server"></asp:TextBox></td></tr>
-	<tr>
-		<td class=header2 colspan=2 align="middle">Profile Information</td>
+		<td width="50%" class=postheader><%# GetText("User_Name") %>:</td>
+		<td class=post>
+			<asp:TextBox id=UserName runat="server"/>
+			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("User_Name_required") %>' ControlToValidate="UserName" EnableClientScript="False"/>
+		</td>
 	</tr>
-	<tr><td class=postheader>Location:</td><td class=post>
-<asp:TextBox id=Location runat="server"></asp:TextBox></td></tr>
-	<tr><td class=postheader>Home Page:</td><td class=post>
-<asp:TextBox id=HomePage runat="server"></asp:TextBox></td></tr>
 	<tr>
-		<td class="header2" colspan=2 align="middle">Forum Preferences</td>
+		<td class=postheader><%# GetText("Password") %>:</td>
+		<td class=post>
+			<asp:TextBox id=Password runat="server" TextMode="Password"/>
+			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("Password_required") %>' ControlToValidate="Password" EnableClientScript="False"/>
+		</td>
 	</tr>
-	<tr><td class=postheader>Time Zone:</td><td class=post>
-<asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"></asp:DropDownList></td></tr>
+	<tr>
+		<td class=postheader><%# GetText("Retype_Password") %>:</td>
+		<td class=post>
+			<asp:TextBox id=Password2 runat="server" TextMode="Password"/>
+			<asp:CompareValidator runat="server" ErrorMessage='<%# GetText("Password_dont_match") %>' ControlToValidate="Password2" ControlToCompare="Password" EnableClientScript="False"/>
+			<asp:RequiredFieldValidator runat="server" ErrorMessage='<%# GetText("Password_required") %>' ControlToValidate="Password2" EnableClientScript="False"/>
+		</td>
+	</tr>
+	<tr>
+		<td class=postheader><%# GetText("Email_Address") %>:</td>
+		<td class=post><asp:TextBox id=Email runat="server"/></td>
+	</tr>
+	<tr>
+		<td class=header2 colspan=2 align="middle"><%# GetText("Profile_Information") %></td>
+	</tr>
+	<tr>
+		<td class=postheader><%# GetText("Location") %>:</td>
+		<td class=post><asp:TextBox id=Location runat="server"/></td>
+	</tr>
+	<tr>
+		<td class=postheader><%# GetText("Home_Page") %>:</td>
+		<td class=post><asp:TextBox id=HomePage runat="server"/></td>
+	</tr>
+	<tr>
+		<td class="header2" colspan=2 align="middle"><%# GetText("Forum_Preferences") %></td>
+	</tr>
+	<tr>
+		<td class=postheader><%# GetText("Time_Zone") %>:</td>
+		<td class=post><asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"/></td>
+	</tr>
 	
-	<tr><td align="middle" colspan="2" class=footer1>
-<asp:Button id=ForumRegister runat="server" Text="Register"></asp:Button>
-<asp:button id=cancel runat=server text=Cancel></asp:button>
-</td></tr>
+	<tr>
+		<td align="middle" colspan="2" class=footer1>
+			<asp:Button id=ForumRegister runat="server" Text='<%# GetText("Register") %>'/>
+			<asp:button id=cancel runat=server text='<%# GetText("Cancel") %>'/>
+		</td>
+	</tr>
 </table>
 
 </form>

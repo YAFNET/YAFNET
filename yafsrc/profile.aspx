@@ -9,13 +9,18 @@
 </p>
 
 <table class="content" align=center width="100%" cellspacing=1 cellpadding=0>
-	<tr><td class="header1" colspan=2>Profile: <asp:Label id=UserName runat="server">Label</asp:Label> </td></tr>
+	<tr>
+		<td class="header1" colspan=2>
+			Profile: <asp:Label id=UserName runat="server"/> 
+			
+		</td>
+	</tr>
 	<tr>
 		<td class="header2" colspan=2>About</td>
 	</tr>
 	<tr>
 		<td class=postheader>User Name:</td>
-		<td class=post><asp:Label id=Name runat="server"/></td>
+		<td class=post><asp:Label id=Name runat="server"/>&nbsp;<a href='pmessage.aspx?u=<%= Request.QueryString["u"].ToString() %>'>PM</a></td>
 	</tr>
 	<tr>
 		<td class=postheader>Groups:</td>
@@ -49,6 +54,27 @@
 		<td class=postheader>Number of Posts:</td>
 		<td class=post><asp:label id=NumPosts runat="server"/></td>
 	</tr>
+
+	<asp:repeater id="LastPosts" runat="server">
+	<HeaderTemplate>
+		<tr>
+			<td class=header2 colSpan=2>Last 10 Posts</td>
+		</tr>
+	</HeaderTemplate>
+	<ItemTemplate>
+		<tr class=postheader>
+			<td class=small align=left colspan="2">
+				<b>Topic:</b> <a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem,"TopicID") %>'><%# DataBinder.Eval(Container.DataItem,"Subject") %></a><br/>
+				<b>Posted:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+			</td>
+		</tr>
+		<tr class=post>
+			<td valign=top class="message" colspan="2">
+				<%# FormatBody(Container.DataItem) %>
+			</td>
+		</tr>
+	</ItemTemplate>
+	</asp:repeater>
 </table>
 
 </form>

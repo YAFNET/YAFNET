@@ -576,6 +576,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "search.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "search.aspx.cs"
+                    DependentUpon = "search.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "search.aspx.resx"
+                    DependentUpon = "search.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "TODO.txt"
                     BuildAction = "Content"
                 />
@@ -1045,6 +1061,14 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "languages\english.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "languages\norwegian.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "moderate\default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -1218,6 +1242,18 @@
                 />
                 <File
                     RelPath = "themes\standard\topic_sticky.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\user_rank1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\user_rank2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\user_rank3.gif"
                     BuildAction = "Content"
                 />
                 <File
