@@ -206,16 +206,6 @@ namespace yaf
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 			
-			//Email -- RegEx VS.NET
-			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "<a href=mailto:${email}>${email}</a>", options);
-
-			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-//			html = Regex.Replace(html, @"(?<url>http://(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
- 			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
-
-			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
- 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
-
 			DataTable dtSmileys = GetSmilies();
 			foreach(DataRow row in dtSmileys.Rows) 
 			{
@@ -224,13 +214,20 @@ namespace yaf
 				html = html.Replace(code.ToUpper(),String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
 			}
 
-#if true
+			//Email -- RegEx VS.NET
+			html = Regex.Replace(html, @"(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "<a href=mailto:${email}>${email}</a>", options);
+
+			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+ 			html = Regex.Replace(html, "(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "<a href=${url} target=_blank>${url}</a>", options);
+
+			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+ 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
+
 			options |= RegexOptions.Singleline;
 			while(Regex.IsMatch(html,@"\[quote\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b><div class='quoteinner'>$1</div></div>",options);
 			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
 				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
-#endif
 
 			return RepairHtml(basePage,html);
 		}

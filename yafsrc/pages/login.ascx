@@ -32,11 +32,11 @@
 	<td class=header1 colspan=2><%= GetText("recover") %></td>
 </tr>
 <tr>
-	<td class=postheader width=50%><%= GetText("username") %>:</td>
+	<td class=postheader width=50%><%= GetText("username") %></td>
 	<td class=post width=50%><asp:textbox id=LostUserName runat="server"/></td>
 </tr>
 <tr>
-	<td class=postheader><%= GetText("email") %>:</td>
+	<td class=postheader><%= GetText("email") %></td>
 	<td class=post><asp:textbox id=LostEmail runat="server"/></td>
 </tr>
 <tr>

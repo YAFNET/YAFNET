@@ -148,7 +148,7 @@ begin
 	if @UserID is null or @UserID<1 begin
 		if @Email = '' set @Email = null
 		
-		select @RankID = RankID from yaf_Rank where IsStart<>0
+		select @RankID = RankID from yaf_Rank where IsStart<>0 and BoardID=@BoardID
 		
 		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar,Gender,IsHostAdmin) 
 		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar,@Gender,0)
@@ -452,15 +452,15 @@ end
 GO
 
 -- yaf_user_delete
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_delete
 GO
 
 create procedure yaf_user_delete(@UserID int) as
 begin
-	declare @GuestUserID int
-	declare @UserName varchar(50)
+	declare @GuestUserID	int
+	declare @UserName		varchar(50)
+	declare @GuestCount		int
 
 	select @UserName = Name from yaf_User where UserID=@UserID
 
@@ -474,6 +474,18 @@ begin
 		b.UserID = a.UserID and
 		b.GroupID = c.GroupID and
 		c.IsGuest<>0
+
+	select 
+		@GuestCount = count(1) 
+	from 
+		yaf_UserGroup a
+		join yaf_Group b on b.GroupID=a.GroupID
+	where
+		b.IsGuest<>0
+
+	if @GuestUserID=@UserID and @GuestCount=1 begin
+		return
+	end
 
 	update yaf_Message set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
 	update yaf_Topic set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
@@ -883,5 +895,41 @@ begin
 	order by
 		b.SortOrder,
 		a.SortOrder
+end
+GO
+
+-- yaf_user_find
+if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_find
+GO
+
+create procedure yaf_user_find(@BoardID int,@Filter bit,@UserName varchar(50)=null,@Email varchar(50)=null) as
+begin
+	if @Filter<>0
+	begin
+		if @UserName is not null
+			set @UserName = '%' + @UserName + '%'
+
+		select 
+			a.*,
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+		from 
+			yaf_User a
+		where 
+			a.BoardID=@BoardID and
+			(@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email)
+		order by
+			a.Name
+	end else
+	begin
+		select 
+			a.UserID,
+			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
+		from 
+			yaf_User a
+		where 
+			a.BoardID=@BoardID and
+			((@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email))
+	end
 end
 GO

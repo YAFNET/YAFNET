@@ -743,42 +743,6 @@ begin
 end
 GO
 
--- yaf_user_find
-if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_find
-GO
-
-create procedure yaf_user_find(@BoardID int,@Filter bit,@UserName varchar(50)=null,@Email varchar(50)=null) as
-begin
-	if @Filter<>0
-	begin
-		if @UserName is not null
-			set @UserName = '%' + @UserName + '%'
-
-		select 
-			a.*,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
-		from 
-			yaf_User a
-		where 
-			a.BoardID=@BoardID and
-			(@UserName is not null and a.Name like @UserName) or (@Email is not null and Email like @Email)
-		order by
-			a.Name
-	end else
-	begin
-		select 
-			a.UserID,
-			IsGuest = (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0)
-		from 
-			yaf_User a
-		where 
-			a.BoardID=@BoardID and
-			(@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email)
-	end
-end
-GO
-
 -- yaf_nntpserver_list
 if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpserver_list
