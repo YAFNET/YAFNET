@@ -42,7 +42,7 @@ namespace yaf
 			//act_rank += "<tr class=header2><td colspan=\"2\">User</td>";
 			//act_rank += "<td align=\"center\">Posts</td></tr>";
 			
-			System.Data.DataTable rank = ForumPage.DataProvider.user_activity_rank();
+			System.Data.DataTable rank = DB.DataProvider.user_activity_rank();
 			int i = 1;
 
 			act_rank += "<tr><td class=post><table cellspacing=0 cellpadding=0 align=center>";

@@ -382,7 +382,7 @@ namespace yaf.pages
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
 				if(User!=null && User.CanLogin) 
 				{
-					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login),GetText("TOOLBAR","LOGIN")));
+					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login,"ReturnUrl={0}",Server.UrlEncode(Request.RawUrl)),GetText("TOOLBAR","LOGIN")));
 					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));
 				}
 			}

@@ -93,7 +93,6 @@ namespace yaf.pages.admin
 					break;
 				case "delete":
 					DataProvider.user_delete(e.CommandArgument);
-					AddLoadMessage("User deleted.");
 					BindData();
 					break;
 				case "approve":
