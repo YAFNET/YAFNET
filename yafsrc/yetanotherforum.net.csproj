@@ -311,10 +311,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "history.txt"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "install.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
