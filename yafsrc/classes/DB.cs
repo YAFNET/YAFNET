@@ -1092,6 +1092,15 @@ namespace yaf
 				}
 			}
 		}
+		static public void user_deleteavatar(object userID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_deleteavatar")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		static public void user_register(BasePage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
 			string hashinput = DateTime.Now.ToString() + email.ToString() + register.CreatePassword(20);

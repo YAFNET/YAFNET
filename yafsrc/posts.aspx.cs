@@ -436,11 +436,11 @@ namespace yaf
 			string html = "";
 
 			// Avatar
-			if(row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			if((bool)row["AvatarUpload"] && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
 				html += String.Format("<img src='image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"]);
 			} 
-			else if(row["Avatar"].ToString().Length>0) 
+			else if((bool)row["AvatarRemote"] && row["Avatar"].ToString().Length>0) 
 			{
 				html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 			}

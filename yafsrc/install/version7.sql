@@ -351,3 +351,62 @@ begin
 		AvatarSize = @AvatarSize
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_deleteavatar
+GO
+
+create procedure yaf_user_deleteavatar(@UserID int) as begin
+	update yaf_User set AvatarImage = null where UserID = @UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_list
+GO
+
+create procedure yaf_post_list(@TopicID int,@UserID int,@UpdateViewCount smallint=1) as
+begin
+	set nocount on
+
+	if @UpdateViewCount>0
+		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
+
+	select
+		d.TopicID,
+		a.MessageID,
+		a.Posted,
+		Subject = d.Topic,
+		a.Message,
+		a.UserID,
+		UserName	= IsNull(a.UserName,b.Name),
+		b.Joined,
+		Posts		= b.NumPosts,
+		d.Views,
+		d.ForumID,
+		Avatar = b.Avatar,
+		b.Location,
+		b.HomePage,
+		b.Signature,
+		RankName = c.Name,
+		c.RankImage,
+		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
+		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null),
+		e.AvatarUpload,
+		e.AvatarRemote
+	from
+		yaf_Message a, 
+		yaf_User b,
+		yaf_Rank c,
+		yaf_Topic d,
+		yaf_System e
+	where
+		a.Approved <> 0 and
+		a.TopicID = @TopicID and
+		b.UserID = a.UserID and
+		c.RankID = b.RankID and
+		d.TopicID = a.TopicID
+	order by
+		a.Posted asc
+end
+GO

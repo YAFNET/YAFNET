@@ -44,6 +44,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink UserLink;
 		protected System.Web.UI.WebControls.Label AccountEmail;
 		protected Repeater Groups;
+		protected HtmlImage AvatarImage;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -76,6 +77,9 @@ namespace yaf
 			Name.Text = (string)row["Name"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format(CustomCulture,"{0:N0}",row["NumPosts"]);
+			AvatarImage.Visible = row["AvatarImage"]!=null;
+			if(AvatarImage.Visible)
+				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",BaseDir,PageUserID);
 		}
 
 		#region Web Form Designer generated code

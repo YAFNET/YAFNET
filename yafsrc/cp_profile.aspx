@@ -35,11 +35,12 @@
 
 <table align=center cellspacing=0 cellpadding=0 width="100%">
 	<tr>
-		<td colspan=2 class=header2>Your Account</td>
+		<td colspan=3 class=header2>Your Account</td>
 	</tr>
 	<tr>
 		<td width="33%">Your user name:</td>
 		<td><asp:Label id=Name runat="server"/></td>
+		<td valign="top" rowspan="5"><img runat="server" id="AvatarImage" align="right"/></td>
 	</tr>
 	<tr>
 		<td>Your email address:</td>
