@@ -434,12 +434,12 @@ namespace yaf.pages
 				if(Config.IsDotNetNuke) 
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
 				} 
 				else if(Config.IsRainbow)
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
 				}
 				else 
 				{
@@ -447,7 +447,7 @@ namespace yaf.pages
 						String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
 						String.Format("{0} - {1}",Data.AppVersionName,FormatDateShort(Data.AppVersionDate))
 						);
-					footer.AppendFormat("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
 					footer.AppendFormat("<br/>");
 					hiTimer.Stop();
 					footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);
