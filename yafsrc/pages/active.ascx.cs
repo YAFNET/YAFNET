@@ -49,9 +49,19 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
  			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", Data.ForumRoot);
-			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic, "pg=active");
- 			RssFeed.Text = GetText("RSSFEED");
-			if(!IsPostBack) {
+			if (BoardSettings.ShowRSSLink)
+			{
+				RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic, "pg=active");
+				RssFeed.Text = GetText("RSSFEED");
+				RssFeed.Visible = true;
+			}
+			else
+			{
+				RssFeed.Visible = false;
+			}
+
+			if(!IsPostBack)
+			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

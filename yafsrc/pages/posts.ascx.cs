@@ -76,7 +76,7 @@ namespace yaf.pages
 			MyTestMenu.AddItem("watch",GetText("watchtopic"));
 			MyTestMenu.AddItem("email",GetText("emailtopic"));
 			MyTestMenu.AddItem("print",GetText("printtopic"));
-			MyTestMenu.AddItem("rssfeed",GetText("rsstopic"));
+			if (BoardSettings.ShowRSSLink) MyTestMenu.AddItem("rssfeed",GetText("rsstopic"));
 			ViewMenu.AddItem("normal",GetText("NORMAL"));
 			ViewMenu.AddItem("threaded",GetText("THREADED"));
 			MyTestMenu.Attach(MyTest);
@@ -103,7 +103,9 @@ namespace yaf.pages
 				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = Utils.BadWordReplace((string)topic["Topic"]);
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
+
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
+				RssTopic.Visible = BoardSettings.ShowRSSLink;
 
 				if(!ForumPostAccess) 
 				{
