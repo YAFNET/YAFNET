@@ -690,6 +690,18 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		//ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
+		static public DataTable forum_listallMyModerated(object boardID,object userID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listallmymoderated")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@UserID",userID);
+				return GetData(cmd);
+			}
+		}
+		//END ABOT NEW 16.04.04
 		static public DataTable forum_list(object boardID,object ForumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) 
