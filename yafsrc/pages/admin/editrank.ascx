@@ -28,8 +28,8 @@
 	<tr>
 		<td class=postheader colspan=4><b>Rank Image:</b><br/>This image will be shown next to users of this rank.</td>
 		<td class=post colspan=7>
-			<asp:dropdownlist id=RankImage runat="server"/>
-			<img align="absmiddle" runat=server id=Preview/>
+			<asp:dropdownlist id=RankImage runat="server" />
+			<img align="absmiddle" runat=server id="Preview" />
 		</td>
 	</tr>
 

@@ -63,12 +63,23 @@ namespace yaf.pages.admin
 						IsLadder.Checked = (bool)row["IsLadder"];
 						MinPosts.Text = row["MinPosts"].ToString();
 						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
-						if(item!=null) item.Selected = true;
-						Preview.Src = String.Format("../images/ranks/{0}",row["RankImage"]);
+						if(item!=null) 
+						{
+							item.Selected = true;
+							Preview.Src = String.Format("{0}images/ranks/{1}", Data.ForumRoot, row["RankImage"]); //path corrected
+						}
+						else
+						{
+							Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+						}
 					}
 				}
+				else
+				{
+					Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+				}
 			}
-			RankImage.Attributes["onchange"] = "getElementById('Preview').src='../images/ranks/' + this.value";
+			RankImage.Attributes["onchange"] = "getElementById('_ctl1__ctl0_Preview').src='../images/ranks/' + this.value";
 		}
 
 		#region Web Form Designer generated code
@@ -99,9 +110,11 @@ namespace yaf.pages.admin
 			{
 				dt.Columns.Add("FileID",typeof(long));
 				dt.Columns.Add("FileName",typeof(string));
+				dt.Columns.Add("Description",typeof(string));
 				DataRow dr = dt.NewRow();
 				dr["FileID"] = 0;
-				dr["FileName"] = "Select Rank Image";
+				dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
 				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",Data.ForumRoot)));
@@ -116,12 +129,13 @@ namespace yaf.pages.admin
 					dr = dt.NewRow();
 					dr["FileID"] = nFileID++;
 					dr["FileName"] = file.Name;
+					dr["Description"] = file.Name;
 					dt.Rows.Add(dr);
 				}
 				
 				RankImage.DataSource = dt;
 				RankImage.DataValueField = "FileName";
-				RankImage.DataTextField = "FileName";
+				RankImage.DataTextField = "Description";
 			}
 			DataBind();
 		}
