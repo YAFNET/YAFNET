@@ -1,5 +1,62 @@
 /* Version 0.9.7 */
 
+-- yaf_UserPMessage
+if not exists (select * from sysobjects where id = object_id(N'yaf_UserPMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table yaf_UserPMessage(
+		UserID		int not null,
+		PMessageID	int not null,
+		IsRead		bit not null
+	)
+	EXEC('insert into yaf_UserPMessage(UserID,PMessageID,IsRead) select ToUserID,PMessageID,IsRead from yaf_PMessage')
+end
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_UserPMessage') and name='PK_UserPMessage')
+ALTER TABLE [yaf_UserPMessage] WITH NOCHECK ADD 
+	CONSTRAINT [PK_UserPMessage] PRIMARY KEY  CLUSTERED 
+	(
+		[UserID],[PMessageID]
+	) 
+GO
+
+if not exists(select * from sysobjects where name='FK_UserPMessage_User' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_UserPMessage] ADD 
+	CONSTRAINT [FK_UserPMessage_User] FOREIGN KEY 
+	(
+		[UserID]
+	) REFERENCES [yaf_User] (
+		[UserID]
+	)
+GO
+
+if not exists(select * from sysobjects where name='FK_UserPMessage_PMessage' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+ALTER TABLE [yaf_UserPMessage] ADD 
+	CONSTRAINT [FK_UserPMessage_PMessage] FOREIGN KEY 
+	(
+		[PMessageID]
+	) REFERENCES [yaf_PMessage] (
+		[PMessageID]
+	)
+GO
+
+-- yaf_PMessage
+if exists(select * from sysobjects where name='FK_PMessage_User2' and parent_obj=object_id('yaf_PMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	ALTER TABLE [yaf_PMessage] DROP CONSTRAINT [FK_PMessage_User2]
+GO
+
+if exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='ToUserID')
+	alter table yaf_PMessage drop column [ToUserID]
+GO
+
+if exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='ToUserID')
+	alter table yaf_PMessage drop column [ToUserID]
+GO
+
+if exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='IsRead')
+	alter table yaf_PMessage drop column [IsRead]
+GO
+
 -- PK_Attachment
 if not exists(select * from sysindexes where id=object_id('yaf_Attachment') and name='PK_Attachment')
 ALTER TABLE [yaf_Attachment] WITH NOCHECK ADD 
@@ -144,3 +201,276 @@ begin
 end
 GO
 
+-- yaf_pmessage_list
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_list
+GO
+
+create procedure yaf_pmessage_list(@UserID int=null,@Sent bit=null,@PMessageID int=null) as
+begin
+	if @PMessageID is null begin
+		select
+			a.*,
+			FromUser = b.Name,
+			ToUserID = c.UserID,
+			ToUser = c.Name,
+			d.IsRead
+		from
+			yaf_PMessage a,
+			yaf_User b,
+			yaf_User c,
+			yaf_UserPMessage d
+		where
+			b.UserID = a.FromUserID and
+			c.UserID = d.UserID and
+			d.PMessageID = a.PMessageID and
+			((@Sent=0 and d.UserID = @UserID) or (@Sent=1 and a.FromUserID = @UserID))
+		order by
+			Created desc
+	end
+	else begin
+		select
+			a.*,
+			FromUser = b.Name,
+			ToUserID = c.UserID,
+			ToUser = c.Name,
+			d.IsRead
+		from
+			yaf_PMessage a,
+			yaf_User b,
+			yaf_User c,
+			yaf_UserPMessage d
+		where
+			b.UserID = a.FromUserID and
+			c.UserID = d.UserID and
+			d.PMessageID = a.PMessageID and
+			a.PMessageID = @PMessageID
+		order by
+			Created desc
+	end
+end
+GO
+
+-- yaf_pmessage_markread
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_markread
+GO
+
+create procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begin
+	if @PMessageID is null
+		update yaf_UserPMessage set IsRead=1 where UserID=@UserID
+	else
+		update yaf_UserPMessage set IsRead=1 where UserID=@UserID and PMessageID=@PMessageID
+end
+GO
+
+-- yaf_pmessage_save
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_save
+GO
+
+create procedure yaf_pmessage_save(
+	@FromUserID	int,
+	@ToUserID	int,
+	@Subject	varchar(100),
+	@Body		text
+) as
+begin
+	declare @PMessageID int
+
+	insert into yaf_PMessage(FromUserID,Created,Subject,Body)
+	values(@FromUserID,getdate(),@Subject,@Body)
+
+	set @PMessageID = @@IDENTITY
+	insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
+end
+GO
+
+-- yaf_pmessage_info
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_info
+GO
+
+create procedure yaf_pmessage_info as
+begin
+	select
+		NumRead	= (select count(1) from yaf_UserPMessage where IsRead<>0),
+		NumUnread = (select count(1) from yaf_UserPMessage where IsRead=0),
+		NumTotal = (select count(1) from yaf_UserPMessage)
+end
+GO
+
+-- yaf_pmessage_prune
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_prune
+GO
+
+create procedure yaf_pmessage_prune(@DaysRead int,@DaysUnread int) as
+begin
+	delete from yaf_UserPMessage
+	where IsRead<>0
+	and datediff(dd,(select Created from yaf_PMessage x where x.PMessageID=yaf_UserPMessage.PMessageID),getdate())>@DaysRead
+
+	delete from yaf_UserPMessage
+	where IsRead=0
+	and datediff(dd,(select Created from yaf_PMessage x where x.PMessageID=yaf_UserPMessage.PMessageID),getdate())>@DaysUnread
+
+	delete from yaf_PMessage
+	where not exists(select 1 from yaf_UserPMessage x where x.PMessageID=yaf_PMessage.PMessageID)
+end
+GO
+
+-- yaf_pageload
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pageload
+GO
+
+create procedure yaf_pageload(
+	@SessionID	varchar(24),
+	@BoardID	int,
+	@User		varchar(50),
+	@IP			varchar(15),
+	@Location	varchar(50),
+	@Browser	varchar(50),
+	@Platform	varchar(50),
+	@CategoryID	int = null,
+	@ForumID	int = null,
+	@TopicID	int = null,
+	@MessageID	int = null
+) as
+begin
+	declare @UserID			int
+	declare @UserBoardID	int
+	declare @IsGuest		tinyint
+	
+	if @User is null or @User='' 
+	begin
+		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and c.IsGuest=1
+		set @IsGuest = 1
+		set @UserBoardID = @BoardID
+	end else
+	begin
+		select @UserID = UserID, @UserBoardID = BoardID from yaf_User where BoardID=@BoardID and [Name]=@User
+		set @IsGuest = 0
+	end
+	-- Check valid ForumID
+	if @ForumID is not null and not exists(select 1 from yaf_Forum where ForumID=@ForumID) begin
+		set @ForumID = null
+	end
+	-- Check valid CategoryID
+	if @CategoryID is not null and not exists(select 1 from yaf_Category where CategoryID=@CategoryID) begin
+		set @CategoryID = null
+	end
+	-- Check valid MessageID
+	if @MessageID is not null and not exists(select 1 from yaf_Message where MessageID=@MessageID) begin
+		set @MessageID = null
+	end
+	-- Check valid TopicID
+	if @TopicID is not null and not exists(select 1 from yaf_Topic where TopicID=@TopicID) begin
+		set @TopicID = null
+	end
+
+	-- update last visit
+	update yaf_User set 
+		LastVisit = getdate(),
+		IP = @IP
+	where UserID = @UserID
+	-- find missing ForumID/TopicID
+	if @MessageID is not null begin
+		select
+			@CategoryID = c.CategoryID,
+			@ForumID = b.ForumID,
+			@TopicID = b.TopicID
+		from
+			yaf_Message a,
+			yaf_Topic b,
+			yaf_Forum c,
+			yaf_Category d
+		where
+			a.MessageID = @MessageID and
+			b.TopicID = a.TopicID and
+			c.ForumID = b.ForumID and
+			d.CategoryID = c.CategoryID and
+			d.BoardID = @BoardID
+	end
+	else if @TopicID is not null begin
+		select 
+			@CategoryID = b.CategoryID,
+			@ForumID = a.ForumID 
+		from 
+			yaf_Topic a,
+			yaf_Forum b,
+			yaf_Category c
+		where 
+			a.TopicID = @TopicID and
+			b.ForumID = a.ForumID and
+			c.CategoryID = b.CategoryID and
+			c.BoardID = @BoardID
+	end
+	else if @ForumID is not null begin
+		select
+			@CategoryID = a.CategoryID
+		from
+			yaf_Forum a,
+			yaf_Category b
+		where
+			a.ForumID = @ForumID and
+			b.CategoryID = a.CategoryID and
+			b.BoardID = @BoardID
+	end
+	-- update active
+	if @UserID is not null and @UserBoardID=@BoardID begin
+		if exists(select 1 from yaf_Active where SessionID=@SessionID and BoardID=@BoardID)
+		begin
+			update yaf_Active set
+				UserID = @UserID,
+				IP = @IP,
+				LastActive = getdate(),
+				Location = @Location,
+				ForumID = @ForumID,
+				TopicID = @TopicID,
+				Browser = @Browser,
+				Platform = @Platform
+			where SessionID = @SessionID
+		end
+		else begin
+			insert into yaf_Active(SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
+			values(@SessionID,@BoardID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
+		end
+		-- remove duplicate users
+		if @IsGuest=0
+			delete from yaf_Active where UserID=@UserID and BoardID=@BoardID and SessionID<>@SessionID
+	end
+	-- return information
+	select
+		a.UserID,
+		a.IsHostAdmin,
+		UserName			= a.Name,
+		Suspended			= a.Suspended,
+		ThemeFile			= a.ThemeFile,
+		LanguageFile		= a.LanguageFile,
+		TimeZoneUser		= a.TimeZone,
+		x.*,
+		CategoryID			= @CategoryID,
+		CategoryName		= (select Name from yaf_Category where CategoryID = @CategoryID),
+		ForumID				= @ForumID,
+		ForumName			= (select Name from yaf_Forum where ForumID = @ForumID),
+		TopicID				= @TopicID,
+		TopicName			= (select Topic from yaf_Topic where TopicID = @TopicID),
+		MailsPending		= (select count(1) from yaf_Mail),
+		Incoming			= (select count(1) from yaf_UserPMessage where UserID=a.UserID and IsRead=0)
+	from
+		yaf_User a,
+		yaf_vaccess x
+	where
+		a.UserID = @UserID and
+		x.UserID = a.UserID and
+		x.ForumID = IsNull(@ForumID,0)
+end
+GO

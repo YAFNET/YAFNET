@@ -252,51 +252,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_save
-GO
-
-create procedure yaf_pmessage_save(
-	@FromUserID	int,
-	@ToUserID	int,
-	@Subject	varchar(100),
-	@Body		text
-) as
-begin
-	insert into yaf_PMessage(FromUserID,ToUserID,Created,Subject,Body,IsRead)
-	values(@FromUserID,@ToUserID,getdate(),@Subject,@Body,0)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_info
-GO
-
-create procedure yaf_pmessage_info as
-begin
-	select
-		NumRead	= (select count(1) from yaf_PMessage where IsRead<>0),
-		NumUnread = (select count(1) from yaf_PMessage where IsRead=0),
-		NumTotal = (select count(1) from yaf_PMessage)
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_prune
-GO
-
-create procedure yaf_pmessage_prune(@DaysRead int,@DaysUnread int) as
-begin
-	delete from yaf_PMessage
-	where IsRead<>0
-	and datediff(dd,Created,getdate())>@DaysRead
-
-	delete from yaf_PMessage
-	where IsRead=0
-	and datediff(dd,Created,getdate())>@DaysUnread
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_updatelastpost
 GO

@@ -863,47 +863,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_pmessage_list
-GO
-
-create procedure yaf_pmessage_list(@UserID int=null,@Sent bit=null,@PMessageID int=null) as
-begin
-	if @PMessageID is null begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUser = c.Name
-		from
-			yaf_PMessage a,
-			yaf_User b,
-			yaf_User c
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = a.ToUserID and
-			((@Sent=0 and a.ToUserID = @UserID) or (@Sent=1 and a.FromUserID = @UserID))
-		order by
-			Created desc
-	end
-	else begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUser = c.Name
-		from
-			yaf_PMessage a,
-			yaf_User b,
-			yaf_User c
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = a.ToUserID and
-			a.PMessageID = @PMessageID
-		order by
-			Created desc
-	end
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findnext
 GO
