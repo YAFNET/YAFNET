@@ -135,6 +135,7 @@
  		<Resource tag="RSSFEED">Rss Feed</Resource>
  		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
  		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+ 		<Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
