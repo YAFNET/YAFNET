@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class users : AdminPage
+	public class users : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater UserList;
 	

@@ -234,10 +234,9 @@ namespace yaf.pages
 				if(nFindMessage>0) 
 				{
 					// Find correct page for message
-					long nMessageID = long.Parse(Request.QueryString["m"]);
 					for(int nRow=0;nRow<dt.Rows.Count;nRow++) 
 					{
-						if((int)dt.Rows[nRow]["MessageID"] == nMessageID) 
+						if((int)dt.Rows[nRow]["MessageID"] == nFindMessage) 
 						{
 							pds.CurrentPageIndex = nRow / pds.PageSize;
 							break;

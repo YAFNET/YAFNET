@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editforum : AdminPage {
+	public class editforum : BaseAdminPage {
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.TextBox Description;
 		protected System.Web.UI.WebControls.TextBox SortOrder;

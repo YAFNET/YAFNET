@@ -766,11 +766,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "classes\AdminPage.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "classes\BaseAdminPage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"

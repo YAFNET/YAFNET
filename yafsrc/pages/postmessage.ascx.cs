@@ -307,7 +307,10 @@ namespace yaf.pages
 				// Tell user that his message will have to be approved by a moderator
 				//AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
 				string url = Forum.GetLink(Pages.topics,"f={0}",PageForumID);
-				Forum.Redirect(Pages.info,"i=1&url={0}",Server.UrlEncode(url));
+				if(Config.IsRainbow)
+					Forum.Redirect(Pages.info,"i=1");
+				else
+					Forum.Redirect(Pages.info,"i=1&url={0}",Server.UrlEncode(url));
 			}
 		}
 

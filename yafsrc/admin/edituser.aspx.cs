@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public class edituser : AdminPage
+	public class edituser : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.TextBox Email;
@@ -89,7 +89,7 @@ namespace yaf.admin
 
 		private void BindData() {
 			UserGroups.DataSource = DB.group_member(PageBoardID,Request.QueryString["u"]);
-			RankID.DataSource = DB.rank_list(null);
+			RankID.DataSource = DB.rank_list(PageBoardID,null);
 			RankID.DataValueField = "RankID";
 			RankID.DataTextField = "Name";
 			DataBind();

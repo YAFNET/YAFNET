@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class ranks : AdminPage
+	public class ranks : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewRank;
 		protected System.Web.UI.WebControls.Repeater RankList;
@@ -75,7 +75,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DB.rank_list(null);
+			RankList.DataSource = DB.rank_list(PageBoardID,null);
 			DataBind();
 		}
 

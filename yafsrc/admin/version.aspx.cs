@@ -14,7 +14,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public class version : AdminPage
+	public class version : BaseAdminPage
 	{
 		protected	HtmlGenericControl	Upgrade;
 		private		long				m_lastVersion;

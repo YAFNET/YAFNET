@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpforums : AdminPage
+	public class nntpforums : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewForum;
 		protected System.Web.UI.WebControls.Repeater RankList;

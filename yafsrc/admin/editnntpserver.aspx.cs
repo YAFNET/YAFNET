@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editnntpserver : AdminPage
+	public class editnntpserver : BaseAdminPage
 	{
 		protected TextBox Name, Address, UserName, UserPass;
 		protected Button Save, Cancel;

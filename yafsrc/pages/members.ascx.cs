@@ -47,7 +47,12 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
-				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+			{
+				if(User.CanLogin)
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+				else
+					Forum.Redirect(Pages.forum);
+			}
 
 			if(!IsPostBack) 
 			{

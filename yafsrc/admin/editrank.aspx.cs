@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editrank : AdminPage
+	public class editrank : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.CheckBox IsStart;
@@ -50,7 +50,7 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{
-					using(DataTable dt = DB.rank_list(Request.QueryString["r"]))
+					using(DataTable dt = DB.rank_list(PageBoardID,Request.QueryString["r"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -135,7 +135,7 @@ namespace yaf.admin
 			object rankImage = null;
 			if(RankImage.SelectedIndex>0)
 				rankImage = RankImage.SelectedValue;
-			DB.rank_save(RankID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
+			DB.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
 			Response.Redirect("ranks.aspx");
 		}

@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public class mail : AdminPage
+	public class mail : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected System.Web.UI.WebControls.DropDownList ToList;

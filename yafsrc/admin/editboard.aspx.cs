@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editboard : AdminPage {
+	public class editboard : BaseAdminPage {
 		protected System.Web.UI.WebControls.TextBox Name, UserName, UserEmail, UserPass1, UserPass2;
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Button Cancel;

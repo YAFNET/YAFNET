@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public class accessmasks : AdminPage
+	public class accessmasks : BaseAdminPage
 	{
 		protected LinkButton New;
 		protected Repeater List;

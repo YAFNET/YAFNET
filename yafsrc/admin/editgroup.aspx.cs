@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editgroup : AdminPage
+	public class editgroup : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.CheckBox IsGuestGroup;

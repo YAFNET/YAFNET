@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public class prune : AdminPage
+	public class prune : BaseAdminPage
 	{
 		protected DropDownList forumlist;
 		protected TextBox days;

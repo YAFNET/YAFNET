@@ -14,7 +14,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public class attachments : AdminPage
+	public class attachments : BaseAdminPage
 	{
 		protected Repeater List;
 

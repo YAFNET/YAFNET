@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for bannedip.
 	/// </summary>
-	public class bannedip : AdminPage
+	public class bannedip : BaseAdminPage
 	{
 		protected Repeater list;
 

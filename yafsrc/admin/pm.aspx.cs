@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public class pm : AdminPage
+	public class pm : BaseAdminPage
 	{
 		protected Label Count;
 		protected TextBox Days1, Days2;

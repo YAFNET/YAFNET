@@ -32,7 +32,7 @@ namespace yaf.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class boardsettings : AdminPage {
+	public class boardsettings : BaseAdminPage {
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.TextBox Name;
 	

@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for groups.
 	/// </summary>
-	public class groups : AdminPage
+	public class groups : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewGroup;
 		protected System.Web.UI.WebControls.Repeater GroupList;

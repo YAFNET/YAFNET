@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public class forums : AdminPage
+	public class forums : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewForum;
 		protected System.Web.UI.WebControls.LinkButton NewCategory;

@@ -1851,3 +1851,61 @@ begin
 		b.SortOrder
 end
 GO
+
+-- yaf_rank_list
+if exists (select * from sysobjects where id = object_id(N'yaf_rank_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_rank_list
+GO
+
+create procedure yaf_rank_list(@BoardID int,@RankID int=null) as begin
+	if @RankID is null
+		select
+			a.*
+		from
+			yaf_Rank a
+		where
+			a.BoardID=@BoardID
+		order by
+			a.Name
+	else
+		select
+			a.*
+		from
+			yaf_Rank a
+		where
+			a.RankID = @RankID
+end
+GO
+
+-- yaf_rank_save
+if exists (select * from sysobjects where id = object_id(N'yaf_rank_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_rank_save
+GO
+
+create procedure yaf_rank_save(
+	@RankID		int,
+	@BoardID	int,
+	@Name		varchar(50),
+	@IsStart	bit,
+	@IsLadder	bit,
+	@MinPosts	int,
+	@RankImage	varchar(50)=null
+) as
+begin
+	if @IsLadder=0 set @MinPosts = null
+	if @IsLadder=1 and @MinPosts is null set @MinPosts = 0
+	if @RankID>0 begin
+		update yaf_Rank set
+			Name = @Name,
+			IsStart = @IsStart,
+			IsLadder = @IsLadder,
+			MinPosts = @MinPosts,
+			RankImage = @RankImage
+		where RankID = @RankID
+	end
+	else begin
+		insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts,RankImage)
+		values(@BoardID,@Name,@IsStart,@IsLadder,@MinPosts,@RankImage);
+	end
+end
+GO

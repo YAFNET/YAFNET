@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editnntpforum : AdminPage
+	public class editnntpforum : BaseAdminPage
 	{
 		protected DropDownList NntpServerID, ForumID;
 		protected TextBox GroupName;

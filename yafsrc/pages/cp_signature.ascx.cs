@@ -47,9 +47,15 @@ namespace yaf.pages
 			sig.EnableRTE = Config.BoardSettings.AllowRichEdit;
 
 			if(!User.IsAuthenticated)
-				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+			{
+				if(User.CanLogin)
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+				else
+					Forum.Redirect(Pages.forum);
+			}
 
-			if(!IsPostBack) {
+			if(!IsPostBack) 
+			{
 				string msg = DB.user_getsignature(PageUserID);
 				bool isHtml = msg.IndexOf('<')>=0;
 				if(sig.IsRTEBrowser && !isHtml)

@@ -13,7 +13,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies.
 	/// </summary>
-	public class smilies : AdminPage
+	public class smilies : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater List;
 

@@ -13,7 +13,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies_edit.
 	/// </summary>
-	public class smilies_edit : AdminPage
+	public class smilies_edit : BaseAdminPage
 	{
 		protected DropDownList Icon;
 		protected TextBox Code, Emotion;

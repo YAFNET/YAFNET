@@ -13,7 +13,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for smilies_import.
 	/// </summary>
-	public class smilies_import : AdminPage
+	public class smilies_import : BaseAdminPage
 	{
 		protected DropDownList File;
 		protected CheckBox DeleteExisting;

@@ -33,7 +33,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for contents.
 	/// </summary>
-	public class contents : AdminPage
+	public class contents : BaseAdminPage
 	{
 		/// <summary>
 		/// Link to home page of forum

@@ -158,65 +158,12 @@ if not exists(select 1 from yaf_Rank)
 	from yaf_Group
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_rank_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_rank_list
-GO
-
-create procedure yaf_rank_list(@RankID int=null) as begin
-	if @RankID is null
-		select
-			a.*
-		from
-			yaf_Rank a
-		order by
-			a.Name
-	else
-		select
-			a.*
-		from
-			yaf_Rank a
-		where
-			a.RankID = @RankID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_rank_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_delete
 GO
 
 create procedure yaf_rank_delete(@RankID int) as begin
 	delete from yaf_Rank where RankID = @RankID
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_rank_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_rank_save
-GO
-
-create procedure yaf_rank_save(
-	@RankID		int,
-	@Name		varchar(50),
-	@IsStart	bit,
-	@IsLadder	bit,
-	@MinPosts	int,
-	@RankImage	varchar(50)=null
-) as
-begin
-	if @IsLadder=0 set @MinPosts = null
-	if @IsLadder=1 and @MinPosts is null set @MinPosts = 0
-	if @RankID>0 begin
-		update yaf_Rank set
-			Name = @Name,
-			IsStart = @IsStart,
-			IsLadder = @IsLadder,
-			MinPosts = @MinPosts,
-			RankImage = @RankImage
-		where RankID = @RankID
-	end
-	else begin
-		insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts,RankImage)
-		values(@Name,@IsStart,@IsLadder,@MinPosts,@RankImage);
-	end
 end
 GO
 

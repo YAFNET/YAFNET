@@ -1166,21 +1166,23 @@ namespace yaf
 		#endregion
 
 		#region yaf_Rank
-		static public DataTable rank_list(object RankID) 
+		static public DataTable rank_list(object boardID,object rankID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_rank_list")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@RankID",RankID);
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@RankID",rankID);
 				return GetData(cmd);
 			}
 		}
-		static public void rank_save(object RankID,object Name,object IsStart,object IsLadder,object MinPosts,object RankImage) 
+		static public void rank_save(object RankID,object boardID,object Name,object IsStart,object IsLadder,object MinPosts,object RankImage) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_rank_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@RankID",RankID);
+				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@IsStart",IsStart);
 				cmd.Parameters.Add("@IsLadder",IsLadder);

@@ -39,7 +39,6 @@ namespace yaf
 	/// </summary>
 	public class BaseAdminPage : System.Web.UI.Page
 	{
-		private bool		m_bNoDataBase	= false;
 		private PageInfo	m_pageInfo		= new PageInfo();
 
 		public new IForumUser User
@@ -68,8 +67,9 @@ namespace yaf
 		}
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
-			if(!m_bNoDataBase)
-				m_pageInfo.PageLoad(true);
+			m_pageInfo.PageLoad(true);
+			if(!IsAdmin)
+				Data.AccessDenied();
 		}
 		public string GetThemeContents(string page,string tag) 
 		{
@@ -96,29 +96,17 @@ namespace yaf
 			writer.WriteLine("</head>");
 			writer.WriteLine("<body onload='yaf_onload()'>");
 			
-			RenderBody(writer);
+			BaseRender(writer);
 			
 			writer.WriteLine("</body>");
 			writer.WriteLine("</html>");
 		}
 
-		protected virtual void RenderBody(System.Web.UI.HtmlTextWriter writer) 
-		{
-			RenderBase(writer);
-		}
-
-		protected void RenderBase(System.Web.UI.HtmlTextWriter writer) 
+		protected void BaseRender(System.Web.UI.HtmlTextWriter writer) 
 		{
 			base.Render(writer);
 		}
 
-		protected bool NoDataBase 
-		{
-			set 
-			{
-				m_bNoDataBase = value;
-			}
-		}
 		public int PageBoardID
 		{
 			get

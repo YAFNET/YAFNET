@@ -29,6 +29,7 @@ namespace yaf
 		{
 			get;
 		}
+		void UpdateUserInfo(int userID);
 	}
 
 	public class RainbowUser : IForumUser
@@ -136,6 +137,14 @@ namespace yaf
 			get
 			{
 				return false;
+			}
+		}
+		public void UpdateUserInfo(int userID) 
+		{
+			using(System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
+			{
+				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID);
+				DB.ExecuteNonQuery(cmd);
 			}
 		}
 	}
@@ -254,6 +263,14 @@ namespace yaf
 				return false;
 			}
 		}
+		public void UpdateUserInfo(int userID) 
+		{
+			using(System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
+			{
+				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID);
+				DB.ExecuteNonQuery(cmd);
+			}
+		}
 	}
 
 	public class WindowsUser : IForumUser
@@ -331,6 +348,9 @@ namespace yaf
 				return false;
 			}
 		}
+		public void UpdateUserInfo(int userID) 
+		{
+		}
 	}
 	
 	public class FormsUser : IForumUser
@@ -349,10 +369,10 @@ namespace yaf
 					string[] parts = userName.Split(';');
 					if(parts.Length==3)
 					{
-						m_userID	= int.Parse(parts[0]);
-						m_boardID	= int.Parse(parts[1]);
-						m_userName	= parts[2];
-						m_isAuthenticated = true;
+						m_userID			= int.Parse(parts[0]);
+						m_boardID			= int.Parse(parts[1]);
+						m_userName			= parts[2];
+						m_isAuthenticated	= true;
 						return;
 					}
 				}
@@ -360,10 +380,10 @@ namespace yaf
 			catch(Exception)
 			{
 			}
-			m_userName	= "";
-			m_userID	= 0;
-			m_boardID	= 0;
-			m_isAuthenticated = false;
+			m_userName			= "";
+			m_userID			= 0;
+			m_boardID			= 0;
+			m_isAuthenticated	= false;
 		}
 
 		public string Name
@@ -410,6 +430,9 @@ namespace yaf
 			{
 				return true;
 			}
+		}
+		public void UpdateUserInfo(int userID) 
+		{
 		}
 	}
 	public class GuestUser : IForumUser
@@ -458,6 +481,9 @@ namespace yaf
 			{
 				return true;
 			}
+		}
+		public void UpdateUserInfo(int userID) 
+		{
 		}
 	}
 }

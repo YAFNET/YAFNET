@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class main : AdminPage
+	public class main : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
 		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;

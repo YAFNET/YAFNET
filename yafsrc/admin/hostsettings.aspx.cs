@@ -32,7 +32,7 @@ namespace yaf.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class hostsettings : AdminPage {
+	public class hostsettings : BaseAdminPage {
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Label SQLVersion;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;

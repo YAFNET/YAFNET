@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpservers : AdminPage
+	public class nntpservers : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewServer;
 		protected System.Web.UI.WebControls.Repeater RankList;
@@ -40,9 +40,7 @@ namespace yaf.admin
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
-			{
 				BindData();
-			}
 		}
 
 		#region Web Form Designer generated code

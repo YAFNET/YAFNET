@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class boards : AdminPage
+	public class boards : BaseAdminPage
 	{
 		protected Repeater List;
 		protected LinkButton New;

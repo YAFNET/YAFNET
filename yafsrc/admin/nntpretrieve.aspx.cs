@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpretrieve : AdminPage
+	public class nntpretrieve : BaseAdminPage
 	{
 		protected Repeater List;
 		protected TextBox Seconds;

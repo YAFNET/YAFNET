@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for bannedip_edit.
 	/// </summary>
-	public class bannedip_edit : AdminPage
+	public class bannedip_edit : BaseAdminPage
 	{
 		protected TextBox mask;
 		protected Button save, cancel;

@@ -164,9 +164,15 @@ namespace yaf
 				HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 
-			if(Mession.LastVisit == DateTime.MinValue && (int)m_pageinfo["Incoming"]>0) 
+			// This happens when user logs in
+			if(Mession.LastVisit == DateTime.MinValue)
 			{
-				AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
+				// Only important for portals like Rainbow or DotNetNuke
+				if(User.IsAuthenticated)
+					User.UpdateUserInfo(PageUserID);
+
+				if((int)m_pageinfo["Incoming"]>0) 
+					AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
 			}
 
 			if(Mession.LastVisit == DateTime.MinValue && HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null) 

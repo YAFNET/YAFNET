@@ -32,7 +32,7 @@ namespace yaf.admin
 	/// <summary>
 	/// Summary description for editcategory.
 	/// </summary>
-	public class editcategory : AdminPage
+	public class editcategory : BaseAdminPage
 	{
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.TextBox Name;

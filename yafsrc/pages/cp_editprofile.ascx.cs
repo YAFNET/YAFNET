@@ -56,6 +56,7 @@ namespace yaf.pages
 		protected DropDownList Gender;
 		protected HyperLink OurAvatar;
 		protected Image AvatarImg;
+		protected PlaceHolder LoginInfo;
 		
 		private bool bUpdateEmail = false;
 
@@ -66,9 +67,17 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
-				Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+			{
+				if(User.CanLogin)
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+				else
+					Forum.Redirect(Pages.forum);
+			}
 			
-			if(!IsPostBack) {
+			if(!IsPostBack) 
+			{
+				LoginInfo.Visible = User.CanLogin;
+
 				// Begin Modifications for enhanced profile
 				Gender.Items.Add(GetText("gender0"));
 				Gender.Items.Add(GetText("gender1"));

@@ -109,6 +109,7 @@
 		<td class=post><asp:textbox cssclass=edit id=Avatar runat="server"/></td>
 	</tr>
 
+	<asp:placeholder runat="server" id="LoginInfo" visible="false">
 	<tr>
 		<td class=header2 colspan=2><%= GetText("change_password") %></td>
 	</tr>
@@ -132,6 +133,7 @@
 		<td class=postheader><%= GetText("email") %></td>
 		<td class=post><asp:TextBox id=Email cssclass=edit runat="server"/></td>
 	</tr>
+	</asp:placeholder>
 
 	<tr>
 		<td class=footer1 colspan=2 align=middle>
