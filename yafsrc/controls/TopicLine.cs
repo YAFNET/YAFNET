@@ -62,7 +62,7 @@ namespace yaf.controls
 		{
 			DataRowView	row			= (DataRowView)o;
 			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000,1,1);
-			bool		isLocked	= (bool)row["IsLocked"];
+			bool		isLocked	= ((int)row["TopicFlags"] & (int)TopicFlags.Locked) == (int)TopicFlags.Locked;
 			
 			imgTitle = "???";
 

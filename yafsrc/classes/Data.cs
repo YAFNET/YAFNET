@@ -75,6 +75,18 @@ namespace yaf
 		UploadAccess 	= 512
 	}
 
+	public enum TopicFlags : int
+	{
+		Locked			= 1,
+		Deleted			= 8
+	}
+
+	public enum UserFlags : int
+	{
+		IsHostAdmin		= 1,
+		Approved		= 2
+	}
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>

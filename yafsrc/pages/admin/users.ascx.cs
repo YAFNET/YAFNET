@@ -142,5 +142,11 @@ namespace yaf.pages.admin
 		{
 			BindData();
 		}
+
+		protected bool BitSet(object _o,int bitmask) 
+		{
+			int i = (int)_o;
+			return (i & bitmask)!=0;
+		}
 	}
 }

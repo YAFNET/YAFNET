@@ -40,10 +40,10 @@ namespace yaf.pages
 				if(!ForumReadAccess)
 					Data.AccessDenied();
 
-				if((bool)topic["IsLocked"]) 
+				if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked) 
 					Data.AccessDenied(/*"The topic is closed."*/);
 
-				if((bool)forum["Locked"]) 
+				if(((int)forum["Flags"] & (int)ForumFlags.Locked)==(int)ForumFlags.Locked) 
 					Data.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written

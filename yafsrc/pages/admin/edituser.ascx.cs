@@ -61,7 +61,7 @@ namespace yaf.pages.admin
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
 					Email.Text = row["Email"].ToString();
-					IsHostAdminX.Checked = (bool)row["IsHostAdmin"];
+					IsHostAdminX.Checked = ((int)row["Flags"] & (int)UserFlags.IsHostAdmin) == (int)UserFlags.IsHostAdmin;
 					Joined.Text = row["Joined"].ToString();
 					LastVisit.Text = row["LastVisit"].ToString();
 					ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());

@@ -131,7 +131,7 @@ namespace yaf.pages
 				{
 					// new post...
 					DataRow topic = DB.topic_info(Request.QueryString["t"]);
-					if((bool)topic["IsLocked"])
+					if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked)
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
 					Title.Text = GetText("reply");

@@ -953,7 +953,7 @@ namespace yaf.pages
 			get 
 			{
 				if(m_pageinfo!=null)
-					return (bool)m_pageinfo["IsHostAdmin"];
+					return ((int)m_pageinfo["UserFlags"] & (int)UserFlags.IsHostAdmin) == (int)UserFlags.IsHostAdmin;
 				else
 					return false;
 			}

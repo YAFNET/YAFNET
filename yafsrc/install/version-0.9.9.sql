@@ -158,7 +158,6 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Topic') and O
 		Posted			datetime NOT NULL ,
 		Topic			nvarchar (100) NOT NULL ,
 		Views			int NOT NULL ,
-		IsLocked		bit NOT NULL ,
 		Priority		smallint NOT NULL ,
 		PollID			int NULL ,
 		TopicMovedID	int NULL ,
@@ -175,7 +174,6 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OB
 	create table dbo.yaf_User(
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
-		IsHostAdmin		bit NOT NULL ,
 		Name			nvarchar (50) NOT NULL ,
 		Password		nvarchar (32) NOT NULL ,
 		Email			nvarchar (50) NULL ,
@@ -183,7 +181,6 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OB
 		LastVisit		datetime NOT NULL ,
 		IP				nvarchar (15) NULL ,
 		NumPosts		int NOT NULL ,
-		Approved		bit NOT NULL ,
 		Location		nvarchar (50) NULL ,
 		HomePage		nvarchar (50) NULL ,
 		TimeZone		int NOT NULL ,
@@ -202,7 +199,8 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OB
 		Occupation		nvarchar (50) NULL ,
 		Interests		nvarchar (100) NULL ,
 		Gender			tinyint NOT NULL ,
-		Weblog			nvarchar (100) NULL
+		Weblog			nvarchar (100) NULL,
+		Flags			int not null
 )
 GO
 
@@ -540,6 +538,39 @@ begin
 end
 GO
 
+if exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='IsLocked')
+begin
+	grant update on yaf_Topic to public
+	exec('update yaf_Topic set Flags = Flags | 1 where IsLocked<>0')
+	revoke update on yaf_Topic from public
+	alter table dbo.yaf_Topic drop column IsLocked
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Flags')
+begin
+	alter table dbo.yaf_User add Flags int not null constraint DF_yaf_User_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='IsHostAdmin')
+begin
+	grant update on yaf_User to public
+	exec('update yaf_User set Flags = Flags | 1 where IsHostAdmin<>0')
+	revoke update on yaf_User from public
+	alter table dbo.yaf_User drop column IsHostAdmin
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Approved')
+begin
+	grant update on yaf_User to public
+	exec('update yaf_User set Flags = Flags | 2 where Approved<>0')
+	revoke update on yaf_User from public
+	alter table dbo.yaf_User drop column Approved
+end
+GO
+
 /*
 ** Defaults
 */
@@ -566,6 +597,10 @@ GO
 
 if not exists(select 1 from sysobjects where name=N'DF_yaf_AccessMask_Flags' and parent_obj=object_id(N'yaf_AccessMask'))
 	alter table dbo.yaf_AccessMask add constraint DF_yaf_AccessMask_Flags default (0) for Flags
+GO
+
+if not exists(select 1 from sysobjects where name=N'DF_yaf_User_Flags' and parent_obj=object_id(N'yaf_User'))
+	alter table dbo.yaf_User add constraint DF_yaf_User_Flags default (0) for Flags
 GO
 
 /*
@@ -1356,7 +1391,7 @@ begin
 			a.UserID = @UserID and
 			a.BoardID = @BoardID and
 			IsNull(c.ForumID,0) = 0 and
-			(@Approved is null or a.Approved = @Approved)
+			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2))
 		order by 
 			a.Name
 	else if @GroupID is null and @RankID is null
@@ -1371,7 +1406,7 @@ begin
 			join yaf_Rank b on b.RankID=a.RankID
 		where 
 			a.BoardID = @BoardID and
-			(@Approved is null or a.Approved = @Approved)
+			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2))
 		order by 
 			a.Name
 	else
@@ -1386,7 +1421,7 @@ begin
 			join yaf_Rank b on b.RankID=a.RankID
 		where 
 			a.BoardID = @BoardID and
-			(@Approved is null or a.Approved = @Approved) and
+			(@Approved is null or (@Approved=0 and (a.Flags & 2)=0) or (@Approved=1 and (a.Flags & 2)=2)) and
 			(@GroupID is null or exists(select 1 from yaf_UserGroup x where x.UserID=a.UserID and x.GroupID=@GroupID)) and
 			(@RankID is null or a.RankID=@RankID)
 		order by 
@@ -1661,7 +1696,7 @@ begin
 		return
 	end
 	-- Update new user email
-	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
+	update yaf_User set Email = @Email, Flags = Flags | 2 where UserID = @UserID
 	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
 	select convert(bit,1)
 end
@@ -1790,7 +1825,7 @@ begin
 		UserID = @UserID
 
 	-- Update new user email
-	update yaf_User set Email = @Email, Approved = 1 where UserID = @UserID
+	update yaf_User set Email = @Email, Flags = Flags | 2 where UserID = @UserID
 	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
 	select convert(bit,1)
 end
@@ -1984,10 +2019,14 @@ GO
 
 create procedure dbo.yaf_user_adminsave(@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@RankID int) as
 begin
+	if @IsHostAdmin<>0
+		update yaf_User set Flags = Flags | 1 where UserID = @UserID
+	else
+		update yaf_User set Flags = Flags & ~1 where UserID = @UserID
+
 	update yaf_User set
 		Name = @Name,
 		Email = @Email,
-		IsHostAdmin = @IsHostAdmin,
 		RankID = @RankID
 	where UserID = @UserID
 	select UserID = @UserID
@@ -2137,8 +2176,8 @@ begin
 
 	if @Posted is null set @Posted = getdate()
 
-	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName,NumPosts)
-	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,0,@PollID,@UserName,0)
+	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
+	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@PollID,@UserName,0)
 	set @TopicID = @@IDENTITY
 	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@Flags,@MessageID output
 
@@ -2155,7 +2194,7 @@ create procedure dbo.yaf_user_login(@BoardID int,@Name nvarchar(50),@Password nv
 begin
 	declare @UserID int
 
-	if not exists(select UserID from yaf_User where Name=@Name and Password=@Password and (BoardID=@BoardID or IsHostAdmin<>0) and Approved<>0)
+	if not exists(select UserID from yaf_User where Name=@Name and Password=@Password and (BoardID=@BoardID or (Flags & 3)=3))
 		set @UserID=null
 	else
 		select 
@@ -2165,8 +2204,8 @@ begin
 		where 
 			Name=@Name and 
 			Password=@Password and 
-			(BoardID=@BoardID or IsHostAdmin<>0) and
-			Approved<>0
+			(BoardID=@BoardID or (Flags & 1)=1) and
+			(Flags & 2)=2
 
 	select @UserID
 end
@@ -2203,7 +2242,11 @@ create procedure dbo.yaf_user_save(
 ) as
 begin
 	declare @RankID int
-
+	declare @Flags int
+	
+	set @Flags = 0
+	if @Approved<>0 set @Flags = @Flags | 2
+	
 	if @Location is not null and @Location = '' set @Location = null
 	if @HomePage is not null and @HomePage = '' set @HomePage = null
 	if @Avatar is not null and @Avatar = '' set @Avatar = null
@@ -2221,8 +2264,8 @@ begin
 		
 		select @RankID = RankID from yaf_Rank where IsStart<>0 and BoardID=@BoardID
 		
-		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Approved,Location,HomePage,TimeZone,Avatar,Gender,IsHostAdmin) 
-		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Approved,@Location,@HomePage,@TimeZone,@Avatar,@Gender,0)
+		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags) 
+		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags)
 	
 		set @UserID = @@IDENTITY
 
@@ -2553,6 +2596,10 @@ begin
 	declare @RankIDAdvanced			int
 	declare	@CategoryID				int
 	declare	@ForumID				int
+	declare @UserFlags				int
+
+	set @UserFlags = 2
+	if @IsHostAdmin<>0 set @UserFlags = @UserFlags | 1
 
 	SET @TimeZone = (SELECT CAST(Value as int) FROM yaf_Registry WHERE LOWER(Name) = LOWER('TimeZone'))
 	SET @ForumEmail = (SELECT Value FROM yaf_Registry WHERE LOWER(Name) = LOWER('ForumEmail'))
@@ -2596,12 +2643,12 @@ begin
 	set @GroupIDMember = @@IDENTITY
 
 	-- yaf_User
-	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
-	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,1,@UserEmail,0,@IsHostAdmin)
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
+	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,0,@UserFlags)
 	set @UserIDAdmin = @@IDENTITY
 
-	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email,Gender,IsHostAdmin)
-	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,1,@ForumEmail,0,0)
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
+	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,0,@UserFlags)
 	set @UserIDGuest = @@IDENTITY
 
 	-- yaf_UserGroup
@@ -2744,23 +2791,6 @@ begin
 end
 GO
 
--- yaf_user_deleteold
-if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteold') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_deleteold
-GO
-
-create procedure dbo.yaf_user_deleteold(@BoardID int) as
-begin
-	declare @Since datetime
-	
-	set @Since = getdate()
-
-	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2)
-	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2)
-	delete from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,@Since)>2
-end
-GO
-
 -- yaf_post_list
 if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_list
@@ -2775,7 +2805,7 @@ begin
 
 	select
 		d.TopicID,
-		TopicLocked	= d.IsLocked,
+		TopicFlags	= d.Flags,
 		ForumFlags	= g.Flags,
 		a.MessageID,
 		a.Posted,
@@ -2886,8 +2916,8 @@ begin
 	end else
 	begin
 		-- thread doesn't exists
-		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,IsLocked,Priority,NumPosts)
-		values(@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0,0)
+		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,Priority,NumPosts)
+		values(@ForumID,@UserID,@UserName,@Posted,@Topic,0,0,0)
 		set @TopicID=@@IDENTITY
 
 		insert into yaf_NntpTopic(NntpForumID,Thread,TopicID)
@@ -3203,6 +3233,23 @@ begin
 end
 go
 
+if exists(select 1 from sysobjects where id = object_id(N'yaf_bitset') and OBJECTPROPERTY(id, N'IsScalarFunction')=1)
+	drop function dbo.yaf_bitset
+go
+
+create function dbo.yaf_bitset(@Flags int,@Mask int) returns bit as
+begin
+	declare @bool bit
+
+	if (@Flags & @Mask) = @Mask
+		set @bool = 1
+	else
+		set @bool = 0
+		
+	return @bool
+end
+go
+
 if exists(select 1 from sysobjects where id = object_id(N'yaf_forum_topics') and OBJECTPROPERTY(id, N'IsScalarFunction')=1)
 	drop function dbo.yaf_forum_topics
 go
@@ -3464,7 +3511,10 @@ GO
 
 create procedure dbo.yaf_topic_lock(@TopicID int,@Locked bit) as
 begin
-	update yaf_Topic set IsLocked = @Locked where TopicID = @TopicID
+	if @Locked<>0
+		update yaf_Topic set Flags = Flags | 1 where TopicID = @TopicID
+	else
+		update yaf_Topic set Flags = Flags & ~1 where TopicID = @TopicID
 end
 GO
 
@@ -3704,18 +3754,6 @@ create procedure dbo.yaf_forum_moderatelist as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_board_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_board_stats
-GO
-
-create procedure dbo.yaf_board_stats as begin
-	select
-		NumPosts	= (select count(1) from yaf_Message where (Flags & 24)=16),
-		NumTopics	= (select count(1) from yaf_Topic),
-		NumUsers	= (select count(1) from yaf_User where Approved<>0),
-		BoardStart	= (select min(Joined) from yaf_User)
-end
-GO
 if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_deleteavatar
 GO
@@ -4179,7 +4217,7 @@ begin
 		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastTopicID = c.TopicID,
-		c.IsLocked,
+		TopicFlags = c.Flags,
 		c.Priority,
 		c.PollID,
 		ForumFlags = d.Flags
@@ -4207,8 +4245,8 @@ begin
 
 	if @ShowMoved<>0 begin
 		-- create a moved message
-		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,IsLocked,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
-		select ForumID,UserID,UserName,Posted,Topic,0,IsLocked,Priority,PollID,@TopicID,LastPosted,0
+		insert into yaf_Topic(ForumID,UserID,UserName,Posted,Topic,Views,Flags,Priority,PollID,TopicMovedID,LastPosted,NumPosts)
+		select ForumID,UserID,UserName,Posted,Topic,0,Flags,Priority,PollID,@TopicID,LastPosted,0
 		from yaf_Topic where TopicID = @TopicID
 	end
 
@@ -4288,54 +4326,6 @@ if exists (select * from sysobjects where id = object_id(N'yaf_forum_stats') and
 GO
 
 -- yaf_board_stats
-if exists (select * from sysobjects where id = object_id(N'yaf_board_poststats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_board_poststats
-GO
-
-create procedure dbo.yaf_board_poststats(@BoardID int) as
-begin
-	select
-		Posts = (select count(1) from yaf_Message a join yaf_Topic b on b.TopicID=a.TopicID join yaf_Forum c on c.ForumID=b.ForumID join yaf_Category d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID),
-		Topics = (select count(1) from yaf_Topic a join yaf_Forum b on b.ForumID=a.ForumID join yaf_Category c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID),
-		Forums = (select count(1) from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
-		Members = (select count(1) from yaf_User a where a.BoardID=@BoardID),
-		LastPostInfo.*,
-		LastMemberInfo.*
-	from
-		(
-			select top 1 
-				LastMemberInfoID= 1,
-				LastMemberID	= UserID,
-				LastMember	= Name
-			from 
-				yaf_User 
-			where 
-				Approved=1 and 
-				BoardID=@BoardID 
-			order by 
-				Joined desc
-		) as LastMemberInfo
-		left join (
-			select top 1 
-				LastPostInfoID	= 1,
-				LastPost	= a.Posted,
-				LastUserID	= a.UserID,
-				LastUser	= e.Name
-			from 
-				yaf_Message a 
-				join yaf_Topic b on b.TopicID=a.TopicID 
-				join yaf_Forum c on c.ForumID=b.ForumID 
-				join yaf_Category d on d.CategoryID=c.CategoryID 
-				join yaf_User e on e.UserID=a.UserID
-			where 
-				d.BoardID=@BoardID
-			order by
-				a.Posted desc
-		) as LastPostInfo
-		on LastMemberInfoID=LastPostInfoID
-end
-GO
-
 -- yaf_accessmask_list
 if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_list
@@ -4617,7 +4607,7 @@ begin
 		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastTopicID = c.TopicID,
-		c.IsLocked,
+		TopicFlags = c.Flags,
 		c.Priority,
 		c.PollID,
 		ForumName = d.Name,
@@ -5024,7 +5014,7 @@ begin
 	-- return information
 	select
 		a.UserID,
-		a.IsHostAdmin,
+		UserFlags			= a.Flags,
 		UserName			= a.Name,
 		Suspended			= a.Suspended,
 		ThemeFile			= a.ThemeFile,
@@ -5267,3 +5257,84 @@ begin
 	select UserID=@UserID
 end
 go
+
+-- yaf_user_deleteold
+if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteold') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_deleteold
+GO
+
+create procedure dbo.yaf_user_deleteold(@BoardID int) as
+begin
+	declare @Since datetime
+	
+	set @Since = getdate()
+
+	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2
+end
+GO
+
+-- yaf_board_stats
+if exists (select * from sysobjects where id = object_id(N'yaf_board_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_stats
+GO
+
+create procedure dbo.yaf_board_stats as begin
+	select
+		NumPosts	= (select count(1) from yaf_Message where (Flags & 24)=16),
+		NumTopics	= (select count(1) from yaf_Topic),
+		NumUsers	= (select count(1) from yaf_User where dbo.yaf_bitset(Flags,2)<>0),
+		BoardStart	= (select min(Joined) from yaf_User)
+end
+GO
+
+-- yaf_board_poststats
+if exists (select * from sysobjects where id = object_id(N'yaf_board_poststats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_poststats
+GO
+
+create procedure dbo.yaf_board_poststats(@BoardID int) as
+begin
+	select
+		Posts = (select count(1) from yaf_Message a join yaf_Topic b on b.TopicID=a.TopicID join yaf_Forum c on c.ForumID=b.ForumID join yaf_Category d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID),
+		Topics = (select count(1) from yaf_Topic a join yaf_Forum b on b.ForumID=a.ForumID join yaf_Category c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID),
+		Forums = (select count(1) from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
+		Members = (select count(1) from yaf_User a where a.BoardID=@BoardID),
+		LastPostInfo.*,
+		LastMemberInfo.*
+	from
+		(
+			select top 1 
+				LastMemberInfoID= 1,
+				LastMemberID	= UserID,
+				LastMember	= Name
+			from 
+				yaf_User 
+			where 
+				dbo.yaf_bitset(Flags,2)=1 and 
+				BoardID=@BoardID 
+			order by 
+				Joined desc
+		) as LastMemberInfo
+		left join (
+			select top 1 
+				LastPostInfoID	= 1,
+				LastPost	= a.Posted,
+				LastUserID	= a.UserID,
+				LastUser	= e.Name
+			from 
+				yaf_Message a 
+				join yaf_Topic b on b.TopicID=a.TopicID 
+				join yaf_Forum c on c.ForumID=b.ForumID 
+				join yaf_Category d on d.CategoryID=c.CategoryID 
+				join yaf_User e on e.UserID=a.UserID
+			where 
+				d.BoardID=@BoardID
+			order by
+				a.Posted desc
+		) as LastPostInfo
+		on LastMemberInfoID=LastPostInfoID
+end
+GO
+

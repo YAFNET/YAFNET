@@ -118,7 +118,7 @@ namespace yaf.pages
 					NewTopic2.Visible = false;
 				}
 			
-				if(!ForumReplyAccess || (bool)topic["IsLocked"]) 
+				if(!ForumReplyAccess || ((int)topic["Flags"] & (int)TopicFlags.Locked) == (int)TopicFlags.Locked) 
 				{
 					PostReplyLink1.Visible = false;
 					PostReplyLink2.Visible = false;
@@ -171,9 +171,9 @@ namespace yaf.pages
 				} 
 				else 
 				{
-					LockTopic1.Visible = !(bool)topic["IsLocked"];
+					LockTopic1.Visible = ((int)topic["Flags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked;
 					UnlockTopic1.Visible = !LockTopic1.Visible;
-					LockTopic2.Visible = !(bool)topic["IsLocked"];
+					LockTopic2.Visible = LockTopic1.Visible;
 					UnlockTopic2.Visible = !LockTopic2.Visible;
 				}
 
@@ -423,7 +423,7 @@ namespace yaf.pages
 					return;
 				}
 
-				if((bool)topic["IsLocked"]) {
+				if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked) {
 					AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 					return;
 				}
@@ -442,7 +442,7 @@ namespace yaf.pages
 		}
 
 		private void PostReplyLink_Click(object sender, System.EventArgs e) {
-			if((bool)topic["IsLocked"]) {
+			if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked) {
 				AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 				return;
 			}
