@@ -96,7 +96,20 @@ begin
 	delete from yaf_Board where BoardID=@BoardID
 end
 GO
+-- yaf_pmessage_markread
 
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_markread
+GO
+-- ABOT CHANGE 16.04.04
+CREATE procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begin
+	if @PMessageID is null
+		update yaf_UserPMessage set IsRead=1 where UserID=@UserID
+	else
+		update yaf_UserPMessage set IsRead=1 where UserID=@UserID and UserPMessageID=@PMessageID
+end
+GO
+-- END ABOT CHANGE 16.04.04
 -- yaf_pmessage_info
 if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_info
@@ -201,6 +214,20 @@ begin
 		exec yaf_forum_updatestats @ForumID
 end
 GO
+
+-- yaf_topic_listmessages
+--ABOT NEW 16.04.04
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_listmessages
+GO
+
+create procedure yaf_topic_listmessages(@TopicID int) as
+begin
+select * from yaf_Message
+Where TopicID = @TopicID
+end
+GO
+--END ABOT NEW 16.04.04
 
 -- yaf_message_delete
 if exists (select * from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -360,6 +387,31 @@ begin
 		d.UserPMessageID = @UserPMessageID
 end
 GO
+--ABOT NEW 16.04.04
+-- yaf_forum_listSubForums
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listSubForums') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listSubForums
+GO
+
+CREATE procedure yaf_forum_listSubForums(@ForumID int) as
+begin
+	select Sum(1) from yaf_Forum where ParentID = @ForumID
+end
+GO
+--END ABOT NEW 16.04.04
+--ABOT NEW 16.04.04
+-- yaf_forum_listtopics
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_listtopics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_listtopics
+GO
+
+create procedure yaf_forum_listtopics(@ForumID int) as
+begin
+select * from yaf_Topic
+Where ForumID = @ForumID
+end
+GO
+--END ABOT NEW 16.04.04
 
 -- yaf_forum_delete
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -411,6 +463,10 @@ begin
 	-- END BAI CHANGED 02.02.2004
 
 	delete from yaf_ForumAccess where ForumID = @ForumID
+	--ABOT CHANGED
+	--Delete UserForums Too 
+	delete from yaf_UserForum where ForumID = @ForumID
+	--END ABOT CHANGED 09.04.2004
 	delete from yaf_Forum where ForumID = @ForumID
 end
 GO

@@ -1547,6 +1547,10 @@ begin
 	delete from yaf_WatchTopic where UserID = @UserID
 	delete from yaf_WatchForum where UserID = @UserID
 	delete from yaf_UserGroup where UserID = @UserID
+	--ABOT CHANGED
+	--Delete UserForums entries Too 
+	delete from yaf_UserForum where UserID = @UserID
+	--END ABOT CHANGED 09.04.2004
 	delete from yaf_User where UserID = @UserID
 end
 GO

@@ -489,8 +489,32 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		//ABOT CHANGE 16.04.04
 		static public void attachment_delete(object attachmentID) 
 		{
+			//Delete Attachments from Hard Drive
+			bool useFileTable = false;
+			using(DataTable dt=DB.system_list()) 
+			{
+				foreach(DataRow row in dt.Rows) 
+				{
+					useFileTable = (bool)row["UseFileTable"];
+				}
+			}
+			//If the files are actually saved in the Hard Drive
+			if(!useFileTable) 
+			{
+				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add("@AttachmentID",attachmentID);
+					DataTable tbAttachments = GetData(cmd);
+					string sUpDir = Config.ConfigSection["uploadphysicalpath"];
+					foreach (DataRow row in tbAttachments.Rows)
+						System.IO.File.Delete(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
+				}
+				
+			}
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_delete")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -498,6 +522,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		//END ABOT CHANGE 16.04.04
 		static public void attachment_download(object attachmentID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_download")) 
@@ -681,15 +706,46 @@ namespace yaf
 		#endregion
 
 		#region yaf_Forum
-		static public void forum_delete(object ForumID) 
+		//ABOT NEW 16.04.04
+		static private void forum_deleteAttachments(object ForumID)
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_forum_delete")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listtopics")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
-				ExecuteNonQuery(cmd);
+				using(DataTable dt= GetData(cmd)) 
+				{
+					foreach(DataRow row in dt.Rows) 
+					{
+						topic_delete(row["TopicID"]);
+					}
+				}
 			}
 		}
+		//END ABOT NEW 16.04.04
+		//ABOT CHANGE 16.04.04
+		static public bool forum_delete(object ForumID) 
+		{	
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listSubForums")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ForumID",ForumID);
+				if (ExecuteScalar(cmd) is DBNull)
+				{
+					forum_deleteAttachments(ForumID);
+					using(SqlCommand cmd_new = new SqlCommand("yaf_forum_delete")) 
+					{
+						cmd_new.CommandType = CommandType.StoredProcedure;
+						cmd_new.Parameters.Add("@ForumID",ForumID);
+						ExecuteNonQuery(cmd_new);
+					}
+					return true;
+				}
+				else
+					return false;
+			} 
+		}
+		//END ABOT CHANGE 16.04.04
 		//ABOT NEW 16.04.04: This new function lists all moderated topic by the specified user
 		static public DataTable forum_listallMyModerated(object boardID,object userID) 
 		{
@@ -937,6 +993,32 @@ namespace yaf
 				foreach (DataRow row in tbReplies.Rows)
 					message_deleteRecursively(row["MessageID"]);
 			}
+
+			//ABOT CHANGED 16.01.04: Delete files from hard disk
+			//Delete Attachments from Hard Drive
+			bool useFileTable = false;
+			using(DataTable dt=DB.system_list()) 
+			{
+				foreach(DataRow row in dt.Rows) 
+				{
+					useFileTable = (bool)row["UseFileTable"];
+				}
+			}
+			//If the files are actually saved in the Hard Drive
+			if(!useFileTable) 
+			{
+				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add("@MessageID",messageID);
+					DataTable tbAttachments = GetData(cmd);
+					string sUpDir = Config.ConfigSection["uploadphysicalpath"];
+					foreach (DataRow row in tbAttachments.Rows)
+						System.IO.File.Delete(String.Format("{0}{1}.{2}",sUpDir,messageID,row["FileName"]));
+				}
+				
+			}
+			//END ABOT CHANGE 16.04.04
 		  
 			//Delete Message
 			using(SqlCommand cmd = new SqlCommand("yaf_message_delete")) 
@@ -1400,8 +1482,28 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		//ABOT NEW 16.04.04:Delete all topic's messages
+		static private void topic_deleteAttachments(object TopicID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_topic_listmessages")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@TopicID",TopicID);
+				using(DataTable dt= GetData(cmd)) 
+				{
+					foreach(DataRow row in dt.Rows) 
+					{
+						message_deleteRecursively(row["MessageID"]);
+					}
+				}
+			}
+		}
+		//END ABOT NEW
 		static public void topic_delete(object TopicID) 
 		{
+			//ABOT CHANGE 16.04.04
+			topic_deleteAttachments(TopicID);
+			//END ABOT CHANGE 16.04.04
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_delete")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;

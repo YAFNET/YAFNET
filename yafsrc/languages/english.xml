@@ -455,7 +455,7 @@
 		<Resource tag="YIM">Yahoo Messenger:</Resource>
 		<Resource tag="AIM">AIM-Name:</Resource>
 		<Resource tag="ICQ">ICQ-Number:</Resource>
-		<Resource tag="REALNAME">Real Rame:</Resource>
+		<Resource tag="REALNAME">Real Name:</Resource>
 		<Resource tag="WEBSITE">Home Page:</Resource>
 		<Resource tag="WEBLOG">Weblog:</Resource>
 		<Resource tag="OCCUPATION">Occupation:</Resource>
@@ -468,6 +468,7 @@
 		<Resource tag="NUMDAY">{0:N2} posts per day</Resource>
 		<Resource tag="ERROR_ADMINISTRATORS">You can not suspend administrators.</Resource>
 		<Resource tag="ERROR_FORUMMODERATORS">You can not suspend forum moderators.</Resource>
+		<Resource tag="ERROR_GUESTACCOUNT">You can not suspend the guest account.</Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->
