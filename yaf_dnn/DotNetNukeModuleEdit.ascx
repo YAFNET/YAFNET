@@ -4,7 +4,11 @@
 <table width="100%" cellspacing="0" cellpadding="2">
 <tr>
 	<td width="50%" class="SubHead">Select Board to use in this module.</td>
-	<td width="50%"><asp:dropdownlist cssclass="NormalTextBox" runat="server" id="BoardID"/></td>
+	<td width="50%"><asp:dropdownlist autopostback="true" cssclass="NormalTextBox" runat="server" id="BoardID"/></td>
+</tr>
+<tr>
+	<td width="50%" class="SubHead">Select Category to show in this module.</td>
+	<td width="50%"><asp:dropdownlist cssclass="NormalTextBox" runat="server" id="CategoryID"/></td>
 </tr>
 </table>
 

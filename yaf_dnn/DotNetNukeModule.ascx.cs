@@ -32,6 +32,10 @@ namespace yaf_dnn
 			try 
 			{
 				Forum1.BoardID = int.Parse(Settings["forumboardid"].ToString());
+
+				string cID = Settings["forumcategoryid"].ToString();
+				if(cID!=string.Empty)
+					Forum1.CategoryID = int.Parse(cID);
 			}
 			catch(Exception)
 			{

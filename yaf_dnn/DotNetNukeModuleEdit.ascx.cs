@@ -15,7 +15,7 @@ namespace yaf_dnn
 	/// </summary>
 	public class DotNetNukeModuleEdit : PortalModuleControl
 	{
-		protected DropDownList	BoardID;
+		protected DropDownList	BoardID, CategoryID;
 		protected LinkButton	update, cancel, create;
 
 		private void DotNetNukeModuleEdit_Load(object sender, System.EventArgs e)
@@ -34,26 +34,24 @@ namespace yaf_dnn
 					BoardID.DataSource = dt;
 					BoardID.DataTextField = "Name";
 					BoardID.DataValueField = "BoardID";
+					BoardID.DataBind();
+					if(Settings["forumboardid"]!=null) 
+					{
+						ListItem item = BoardID.Items.FindByValue(Settings["forumboardid"].ToString());
+						if(item!=null) item.Selected = true;
+					}
 				}
-				DataBind();
-				if(ModuleId>0)
-				{
-					if(Settings["forumboardid"]!=null)
-						BoardID.Items.FindByValue(Settings["forumboardid"].ToString()).Selected = true;
-				}
+				BindCategories();
 			}
 		}
 
-		private void InitializeComponent()
-		{
-		}
-	
 		override protected void OnInit(EventArgs e)
 		{
 			Load += new EventHandler(DotNetNukeModuleEdit_Load);
 			update.Click += new EventHandler(update_Click);
 			cancel.Click += new EventHandler(cancel_Click);
 			create.Click += new EventHandler(create_Click);
+			BoardID.SelectedIndexChanged += new EventHandler(BoardID_SelectedIndexChanged);
 			base.OnInit(e);
 		}
 
@@ -61,6 +59,7 @@ namespace yaf_dnn
 		{
 			DotNetNuke.ModuleController objModules = new DotNetNuke.ModuleController();
 			objModules.UpdateModuleSetting(ModuleId,"forumboardid",BoardID.SelectedValue);
+			objModules.UpdateModuleSetting(ModuleId,"forumcategoryid",CategoryID.SelectedValue);
 			yaf.Forum.Redirect(Pages.forum);
 		}
 
@@ -78,6 +77,32 @@ namespace yaf_dnn
 		private void cancel_Click(object sender, EventArgs e)
 		{
 			yaf.Forum.Redirect(Pages.forum);
+		}
+
+		private void BoardID_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			BindCategories();
+		}
+
+		private void BindCategories() 
+		{
+			using(DataTable dt = yaf.DB.category_list(BoardID.SelectedValue,DBNull.Value))
+			{
+				DataRow row = dt.NewRow();
+				row["Name"] = "[All Categories]";
+				row["CategoryID"] = DBNull.Value;
+				dt.Rows.InsertAt(row,0);
+
+				CategoryID.DataSource = dt;
+				CategoryID.DataTextField = "Name";
+				CategoryID.DataValueField = "CategoryID";
+				CategoryID.DataBind();
+				if(Settings["forumcategoryid"]!=null) 
+				{
+					ListItem item = CategoryID.Items.FindByValue(Settings["forumcategoryid"].ToString());
+					if(item!=null) item.Selected = true;
+				}
+			}
 		}
 	}
 }
