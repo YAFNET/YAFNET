@@ -1639,6 +1639,14 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\ASPNET.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\ASPNet.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\standard.xml"
                     BuildAction = "Content"
                 />
