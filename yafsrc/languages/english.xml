@@ -28,7 +28,7 @@
 		<Resource tag="FORMAT_DATE_LONG">D</Resource>
 		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
 		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">Most users ever online was [b]{0}[/b] on {1}.</Resource>
+		<Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->

@@ -80,7 +80,8 @@ namespace yaf
 		im_icq,
 		im_email,
 		rsstopic,
-		help_index
+		help_index,
+		help_recover
 	}
 
 	/// <summary>
@@ -329,6 +330,9 @@ namespace yaf
 					// ADDED BAI 07.01.2004	
 				case "help_index":
 					page = Pages.help_index;
+					break;
+				case "help_recover":
+					page = Pages.help_recover;
 					break;
 			}
 

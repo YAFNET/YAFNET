@@ -1643,6 +1643,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "pages\help\recover.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\help\recover.ascx.cs"
+                    DependentUpon = "recover.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\help\recover.ascx.resx"
+                    DependentUpon = "recover.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "pages\moderate\forum.ascx"
                     BuildAction = "Content"
                 />

@@ -44,7 +44,7 @@ namespace yaf.controls
 			}
 
 			writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Topics</b></td></tr>");
-			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Recover lost passwords</a></td></tr>",Forum.GetLink(Pages.help_index));
+			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Recover lost passwords</a></td></tr>",Forum.GetLink(Pages.help_recover));
 
 			writer.WriteLine("</table>");
 			writer.WriteLine("</td></tr></table>");
