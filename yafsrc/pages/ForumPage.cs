@@ -88,21 +88,33 @@ namespace yaf.pages
 			// Set the culture and UI culture to the browser's accept language
 			try 
 			{
-				string sCulture = HttpContext.Current.Request.UserLanguages[0];
-				if(sCulture.IndexOf(';')>=0) 
-					sCulture = sCulture.Substring(0,sCulture.IndexOf(';'));
+				string sCulture = "";
+				string [] sTmp = HttpContext.Current.Request.UserLanguages;
+				if (sTmp != null)
+				{
+					sCulture = sTmp[0];
+					if(sCulture.IndexOf(';')>=0)
+					{
+						sCulture = sCulture.Substring(0, sCulture.IndexOf(';'));
+					}
+				} 
+				else 
+				{
+					sCulture = "en-US";
+				}
 
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sCulture);
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(sCulture);
 			}
-			catch(Exception)
+			catch(Exception ex)
 			{
+				throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
 			}
 
 			//Response.Expires = -1000;
-			HttpContext.Current.Response.AddHeader("Cache-control","private, no-cache, must-revalidate");
-			HttpContext.Current.Response.AddHeader("Expires","Mon, 26 Jul 1997 05:00:00 GMT"); // Past date
-			HttpContext.Current.Response.AddHeader("Pragma","no-cache");
+			HttpContext.Current.Response.AddHeader("Cache-control", "private, no-cache, must-revalidate");
+			HttpContext.Current.Response.AddHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT"); // Past date
+			HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
 
 			try 
 			{
@@ -114,7 +126,7 @@ namespace yaf.pages
 					HttpContext.Current.Cache[key] = banip;
 				}
 				foreach(DataRow row in banip.Rows)
-					if(Utils.IsBanned((string)row["Mask"],HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
+					if(Utils.IsBanned((string)row["Mask"], HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
 						HttpContext.Current.Response.End();
 			}
 			catch(Exception) 
@@ -145,13 +157,16 @@ namespace yaf.pages
 					break;
 			}
 			m_forumUser = (IForumUser)Activator.CreateInstance(Type.GetType(typeUser));
-			m_forumUser.Initialize(HttpContext.Current.User.Identity.Name,HttpContext.Current.User.Identity.IsAuthenticated);
+			m_forumUser.Initialize(HttpContext.Current.User.Identity.Name, HttpContext.Current.User.Identity.IsAuthenticated);
 
 			string browser = String.Format("{0} {1}",HttpContext.Current.Request.Browser.Browser,HttpContext.Current.Request.Browser.Version);
 			string platform = HttpContext.Current.Request.Browser.Platform;
 
-			if(HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2")>=0)
-				platform = "Win2003";
+			if (HttpContext.Current.Request.UserAgent != null)
+			{
+				if(HttpContext.Current.Request.UserAgent.IndexOf("Windows NT 5.2")>=0)
+					platform = "Win2003";
+			}
 
 			m_pageinfo = DB.pageload(
 				HttpContext.Current.Session.SessionID,
@@ -165,6 +180,7 @@ namespace yaf.pages
 				HttpContext.Current.Request.QueryString["f"],
 				HttpContext.Current.Request.QueryString["t"],
 				HttpContext.Current.Request.QueryString["m"]);
+
 
 			// If user wasn't found and we have foreign 
 			// authorization, try to register the user.

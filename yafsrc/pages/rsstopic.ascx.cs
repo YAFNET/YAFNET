@@ -47,6 +47,7 @@ namespace yaf.pages
             
 			XmlTextWriter writer = new XmlTextWriter(Response.OutputStream, System.Text.Encoding.UTF8);  
  
+			writer.Formatting = Formatting.Indented;
 			rf.WriteRSSPrologue(writer,this);
   
 			// Usage rf.AddRSSItem(writer, "Item Title", "http://test.com", "This is a test item");
