@@ -2023,7 +2023,7 @@ begin
 	
 		set @UserID = @@IDENTITY
 
-		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where IsStart<>0
+		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where BoardID=@BoardID and IsStart<>0
 		
 		if @Hash is not null and @Hash <> '' and @Approved=0 begin
 			insert into yaf_CheckEmail(UserID,Email,Created,Hash)

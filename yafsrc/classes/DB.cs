@@ -152,10 +152,6 @@ namespace yaf
 					}
 				}
 			}
-			catch(SqlException x) 
-			{
-				throw new ApplicationException(string.Format("Sql Exception with error number {0}",x.Number),x);
-			}
 			finally 
 			{
 				qc.Dispose();
@@ -252,26 +248,45 @@ namespace yaf
 		static public DataRow pageload(object SessionID,object boardID,object User,object IP,object Location,object Browser,
 			object Platform,object CategoryID,object ForumID,object TopicID,object MessageID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_pageload")) 
+			int nTries = 0;
+			while(true) 
 			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@SessionID",SessionID);
-				cmd.Parameters.Add("@BoardID",boardID);
-				cmd.Parameters.Add("@User",User);
-				cmd.Parameters.Add("@IP",IP);
-				cmd.Parameters.Add("@Location",Location);
-				cmd.Parameters.Add("@Browser",Browser);
-				cmd.Parameters.Add("@Platform",Platform);
-				cmd.Parameters.Add("@CategoryID",CategoryID);
-				cmd.Parameters.Add("@ForumID",ForumID);
-				cmd.Parameters.Add("@TopicID",TopicID);
-				cmd.Parameters.Add("@MessageID",MessageID);
-				using(DataTable dt = GetData(cmd)) 
+				++nTries;
+
+				try
 				{
-					if(dt.Rows.Count>0) 
-						return dt.Rows[0];
+
+					using(SqlCommand cmd = new SqlCommand("yaf_pageload")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@SessionID",SessionID);
+						cmd.Parameters.Add("@BoardID",boardID);
+						cmd.Parameters.Add("@User",User);
+						cmd.Parameters.Add("@IP",IP);
+						cmd.Parameters.Add("@Location",Location);
+						cmd.Parameters.Add("@Browser",Browser);
+						cmd.Parameters.Add("@Platform",Platform);
+						cmd.Parameters.Add("@CategoryID",CategoryID);
+						cmd.Parameters.Add("@ForumID",ForumID);
+						cmd.Parameters.Add("@TopicID",TopicID);
+						cmd.Parameters.Add("@MessageID",MessageID);
+						using(DataTable dt = GetData(cmd)) 
+						{
+							if(dt.Rows.Count>0) 
+								return dt.Rows[0];
+							else
+								return null;
+						}
+					}
+				}
+				catch(SqlException x) 
+				{
+					if(x.Number==1205 && nTries<3)
+					{
+						/// Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+					}
 					else
-						return null;
+						throw new ApplicationException(string.Format("Sql Exception with error number {0} (Retries={1})",x.Number,nTries),x);
 				}
 			}
 		}

@@ -294,17 +294,18 @@ namespace yaf.classes
 						name = name.Substring(0,pos1-1).Trim();
 						if(name.Length>2 && name[0]=='"' && name[name.Length-1]=='"')
 							name = name.Substring(1,name.Length-2);
-						return name;
+						
+						return name.Replace("\\","");
 					}
 					// email (Name)
 					pos1 = name.IndexOf('(');
 					pos2 = name.IndexOf(')');
 					if(pos1>0 && pos2>pos1) 
 					{
-						name = name.Substring(pos1+1,pos2-pos1-2).Trim();
-						return name;
+						name = name.Substring(pos1+1,pos2-pos1-1).Trim();
+						return name.Replace("\\","");
 					}
-					return name;
+					return name.Replace("\\","");
 				}
 			}
 			public string FromEmail

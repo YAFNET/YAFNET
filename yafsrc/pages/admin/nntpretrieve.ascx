@@ -28,7 +28,7 @@
 </asp:repeater>
 <tr>
 	<td colspan="2" class="postheader" width="50%">Specify how much time article retrieval should use.</td>
-	<td class="post" width="50%"><asp:textbox runat="server" id="Seconds" text="10"/>&nbsp;seconds</td>
+	<td class="post" width="50%"><asp:textbox runat="server" id="Seconds" text="30"/>&nbsp;seconds</td>
 </tr>
 <tr class="footer1">
 	<td colspan="3" align="center"><asp:button runat="server" id="Retrieve" text="Retrieve"/></td>
