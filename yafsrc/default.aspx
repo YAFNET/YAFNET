@@ -17,7 +17,7 @@ public void Page_Error(object sender,System.EventArgs e)
 </head>
 <body>
 
-<img src="images/yaf.png"/>
+<img src="images/yaflogo.jpg" width="400" height="50"/>
 <br />
 
 <form runat="server" enctype="multipart/form-data">
