@@ -436,11 +436,15 @@ namespace yaf
 
 			// Avatar
 			if(row["Avatar"].ToString().Length>0) {
-				html += String.Format("<img src='{0}'><br/>",row["Avatar"]);
+				html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 			}
 
+			// Rank Image
+			if(row["RankImage"].ToString().Length>0)
+				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
+
 			// Group
-			html += String.Format("Group: {0}<br/>",row["GroupName"]);
+			html += String.Format("Group: {0}<br clear=\"all\"/>",row["GroupName"]);
 
 			// Joined
 			html += String.Format(CustomCulture,"Joined: {0}<br/>",FormatDateShort((DateTime)row["Joined"]));

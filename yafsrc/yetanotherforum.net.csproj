@@ -935,15 +935,9 @@
                     RelPath = "images\yaf.png"
                     BuildAction = "Content"
                 />
-                <File
-                    RelPath = "images\avatars\bhenden.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\avatars\runner.gif"
-                    BuildAction = "Content"
-                />
+                <Folder RelPath = "images\avatars\" />
                 <Folder RelPath = "images\emoticons\" />
+                <Folder RelPath = "images\ranks\" />
                 <File
                     RelPath = "install\smileys.sql"
                     BuildAction = "Content"

@@ -45,13 +45,16 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.TextBox MinPosts;
 		protected System.Web.UI.WebControls.CheckBox IsAdminX;
 		protected System.Web.UI.WebControls.Button Cancel;
-	
+		protected DropDownList RankImage;
+		protected HtmlImage Preview;
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsAdmin) Response.Redirect(BaseDir);
 			TopMenu = false;
 			if(!IsPostBack) 
 			{
+				BindData();
 				if(Request.QueryString["g"] != null) 
 				{
 					using(SqlCommand cmd = new SqlCommand("yaf_group_list")) {
@@ -65,11 +68,14 @@ namespace yaf.admin
 							IsStart.Checked = (bool)row["IsStart"];
 							IsLadder.Checked = (bool)row["IsLadder"];
 							MinPosts.Text = row["MinPosts"].ToString();
+							ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
+							if(item!=null) item.Selected = true;
+							Preview.Src = String.Format("../images/ranks/{0}",row["RankImage"]);
 						}
 					}
 				}
-				BindData();
 			}
+			RankImage.Attributes["onchange"] = "getElementById('Preview').src='../images/ranks/' + this.value";
 		}
 
 		#region Web Form Designer generated code
@@ -96,7 +102,37 @@ namespace yaf.admin
 		#endregion
 
 		private void BindData() {
-			if(Request.QueryString["g"] != null) {
+			using(DataTable dt = new DataTable("Files")) 
+			{
+				dt.Columns.Add("FileID",typeof(long));
+				dt.Columns.Add("FileName",typeof(string));
+				DataRow dr = dt.NewRow();
+				dr["FileID"] = 0;
+				dr["FileName"] = "Select Rank Image";
+				dt.Rows.Add(dr);
+				
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",BaseDir)));
+				System.IO.FileInfo[] files = dir.GetFiles("*.*");
+				long nFileID = 1;
+				foreach(System.IO.FileInfo file in files) 
+				{
+					string sExt = file.Extension.ToLower();
+					if(sExt!=".png" && sExt!=".gif" && sExt!=".jpg")
+						continue;
+					
+					dr = dt.NewRow();
+					dr["FileID"] = nFileID++;
+					dr["FileName"] = file.Name;
+					dt.Rows.Add(dr);
+				}
+				
+				RankImage.DataSource = dt;
+				RankImage.DataValueField = "FileName";
+				RankImage.DataTextField = "FileName";
+			}
+
+			if(Request.QueryString["g"] != null) 
+			{
 				using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_group")) {
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add("@GroupID",Request.QueryString["g"]);
@@ -126,6 +162,8 @@ namespace yaf.admin
 			cmd.Parameters.Add("@IsStart",IsStart.Checked);
 			cmd.Parameters.Add("@IsLadder",IsLadder.Checked);
 			cmd.Parameters.Add("@MinPosts",MinPosts.Text);
+			if(RankImage.SelectedIndex>0)
+				cmd.Parameters.Add("@RankImage",RankImage.SelectedValue);
 				
 			GroupID = int.Parse(DataManager.ExecuteScalar(cmd).ToString());
 

@@ -8,26 +8,34 @@
 		<td class=header1 colspan=10>Edit Group</td>
 	</tr>
   <tr>
-    <td class=post colspan=3><b>Name:</b><br>Name of this group.</td>
+    <td class=postheader colspan=3><b>Name:</b><br/>Name of this group.</td>
     <td class=post colspan=7><asp:textbox style="width:300px" id=Name runat="server"/></td></tr>
   <tr>
-    <td class=post colspan=3><b>Is Admin:</b><br>Means that users in this group are admins.</td>
+    <td class=postheader colspan=3><b>Is Admin:</b><br/>Means that users in this group are admins.</td>
     <td class=post colspan=7><asp:checkbox id=IsAdminX runat="server"></asp:checkbox></td></tr>
   <tr>
-    <td class=post colspan=3><b>Is Guest:</b><br>Means that users in this group are guests (anonymous).</td>
+    <td class=postheader colspan=3><b>Is Guest:</b><br/>Means that users in this group are guests (anonymous).</td>
     <td class=post colspan=7><asp:checkbox id=IsGuestGroup runat="server"></asp:checkbox></td></tr>
   
   <tr>
-    <td class=post colspan=3><b>Is Start:</b><br>Means that this is the group that new users start in.</td>
+    <td class=postheader colspan=3><b>Is Start:</b><br/>Means that this is the group that new users start in.</td>
     <td class=post colspan=7><asp:checkbox id=IsStart runat="server"></asp:checkbox></td></tr>
     
   <tr>
-    <td class=post colspan=3><b>Is Ladder Group:</b><br>If this is checked, this group should be part of the ladder system where users advance as they post messages.</td>
+    <td class=postheader colspan=3><b>Is Ladder Group:</b><br/>If this is checked, this group should be part of the ladder system where users advance as they post messages.</td>
     <td class=post colspan=7><asp:checkbox id="IsLadder" runat="server"></asp:checkbox></td></tr>
 
-  <tr>
-    <td class=post colspan=3><b>Minimum Posts:</b><br>Minimum number of posts before users are advanced to this group.</td>
-    <td class=post colspan=7><asp:textbox id="MinPosts" runat="server"></asp:textbox></td></tr>
+	<tr>
+		<td class=postheader colspan=3><b>Minimum Posts:</b><br/>Minimum number of posts before users are advanced to this group.</td>
+		<td class=post colspan=7><asp:textbox id="MinPosts" runat="server"/></td>
+	</tr>
+	<tr>
+		<td class=postheader colspan=3><b>Rank Image:</b><br/>This image will be shown next to members of this group.</td>
+		<td class=post colspan=7>
+			<asp:dropdownlist id=RankImage runat="server"/>
+			<img align="absmiddle" runat=server id=Preview/>
+		</td>
+	</tr>
 
     <asp:repeater id=AccessList runat="server">
 	<HeaderTemplate>

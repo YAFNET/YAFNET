@@ -157,14 +157,15 @@ begin
 		a.UserID,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
-		Posts = (select count(1) from yaf_Message x where x.UserID=b.UserID),
+		Posts		= b.NumPosts,
 		GroupName	= c.Name,
 		d.Views,
 		d.ForumID,
 		Avatar = b.Avatar,
 		b.Location,
 		b.HomePage,
-		b.Signature
+		b.Signature,
+		c.RankImage
 	from
 		yaf_Message a, 
 		yaf_User b,
@@ -250,5 +251,51 @@ begin
 		select * from yaf_Smiley order by LEN(Code) desc
 	else
 		select * from yaf_Smiley where SmileyID=@SmileyID
+end
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Group') and name='RankImage')
+	alter table yaf_Group add RankImage varchar(50) null
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_group_save
+GO
+
+create procedure yaf_group_save(
+	@GroupID	int,
+	@Name		varchar(50),
+	@IsAdmin	bit,
+	@IsGuest	bit,
+	@IsStart	bit,
+	@IsLadder	bit,
+	@MinPosts	int,
+	@RankImage	varchar(50)=null
+) as
+begin
+	if @IsAdmin = 1 update yaf_Group set IsAdmin = 0
+	if @IsGuest = 1 update yaf_Group set IsGuest = 0
+	if @IsStart = 1 update yaf_Group set IsStart = 0
+	if @IsLadder=0 set @MinPosts = null
+	if @IsLadder=1 and @MinPosts is null set @MinPosts = 0
+	if @GroupID>0 begin
+		update yaf_Group set
+			Name = @Name,
+			IsAdmin = @IsAdmin,
+			IsGuest = @IsGuest,
+			IsStart = @IsStart,
+			IsLadder = @IsLadder,
+			MinPosts = @MinPosts,
+			RankImage = @RankImage
+		where GroupID = @GroupID
+	end
+	else begin
+		insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsLadder,MinPosts,RankImage)
+		values(@Name,@IsAdmin,@IsGuest,@IsStart,@IsLadder,@MinPosts,@RankImage);
+		set @GroupID = @@IDENTITY
+		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess)
+		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0 from yaf_Forum
+	end
+	select GroupID = @GroupID
 end
 GO
