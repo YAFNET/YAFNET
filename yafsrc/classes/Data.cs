@@ -51,7 +51,7 @@ namespace yaf
 		{
 			get 
 			{
-				return System.Configuration.ConfigurationSettings.AppSettings["basedir"];
+				return Config.ConfigSection["root"];
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace yaf
 		{
 			get 
 			{
-				string auth = System.Configuration.ConfigurationSettings.AppSettings["authorization"];
+				string auth = Config.ConfigSection["authorization"];
 				if(auth==null)
 					return AuthType.YetAnotherForum;
 

@@ -27,9 +27,12 @@ namespace yaf
 		}
 	}
 
-
 	public class Test : BaseControl
 	{
+		public Test()
+		{
+		}
+
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
 			string act_rank = "";

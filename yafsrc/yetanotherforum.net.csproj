@@ -713,11 +713,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "classes\Extension.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "classes\FormatMsg.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -734,6 +729,11 @@
                 />
                 <File
                     RelPath = "classes\Nntp.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "classes\SectionHandler.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -854,6 +854,10 @@
                 />
                 <File
                     RelPath = "install\version10.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version11.sql"
                     BuildAction = "Content"
                 />
                 <File

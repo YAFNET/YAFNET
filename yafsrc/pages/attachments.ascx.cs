@@ -138,7 +138,7 @@ namespace yaf.pages
 			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
 				return;
 
-			string sUpDir = Request.MapPath(System.Configuration.ConfigurationSettings.AppSettings["uploaddir"]);
+			string sUpDir = Request.MapPath(Config.ConfigSection["uploaddir"]);
 
 			string filename = file.PostedFile.FileName;
 			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});

@@ -28,13 +28,13 @@ namespace yaf
 	{
 		public AdminPage()
 		{
-			ShowToolBar = false;
 			this.Load += new System.EventHandler(this.AdminPage_Load);
 		}
 	
 		private void AdminPage_Load(object sender, System.EventArgs e)
 		{
-			if(!IsAdmin) Response.Redirect(BaseDir);
+			if(!IsAdmin)
+				Data.AccessDenied();
 		}
 	}
 }

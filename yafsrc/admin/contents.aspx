@@ -33,6 +33,6 @@
 
 	<tr><td class="header2"><b>Upgrade</b></td></tr>
 	<tr><td class="post"><a target="main" href="version.aspx">Version Check</a></td></tr>
-	<tr><td class=post><a target="_top" href="../install.aspx">Install</a></td></tr>
+	<tr><td class=post><a target="_top" href="../install/">Install</a></td></tr>
 </table>
 </td></tr></table>

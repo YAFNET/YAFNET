@@ -95,8 +95,8 @@ namespace yaf
 			try 
 			{
 				// Send email about the error
-				string sErrorSmtp = System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
-				string sErrorEmail = System.Configuration.ConfigurationSettings.AppSettings["erroremail"];
+				string sErrorSmtp = Config.ConfigSection["smtpserver"];
+				string sErrorEmail = Config.ConfigSection["erroremail"];
 				if(sErrorEmail==null || sErrorEmail.Length==0 || sErrorSmtp==null || sErrorSmtp.Length==0)
 					return;
 

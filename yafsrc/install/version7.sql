@@ -49,24 +49,6 @@ if not exists(select * from syscolumns where id=object_id('yaf_WatchTopic') and 
 	alter table yaf_WatchTopic add LastMail datetime null
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Extension') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-CREATE TABLE [yaf_Extension] (
-	[ExtensionID]	[int] IDENTITY NOT NULL,
-	[Name]			[varchar](50) NOT NULL,
-	[Priority]		[smallint] NOT NULL,
-	[Class]			[varchar](50) NOT NULL,
-	[Code]			[varchar](50) NOT NULL
-)
-GO
-
-if not exists(select * from sysindexes where id=object_id('yaf_Extension') and name='PK_Extension')
-ALTER TABLE [yaf_Extension] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Extension] PRIMARY KEY  CLUSTERED 
-	(
-		[ExtensionID]
-	)
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_deleteavatar
 GO
@@ -278,20 +260,5 @@ begin
 	
 	-- If forum is moderated, make sure last post pointers are correct
 	if @Moderated<>0 exec yaf_topic_updatelastpost
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_extension_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_extension_list
-GO
-
-create procedure yaf_extension_list as
-begin
-	select
-		a.*
-	from
-		yaf_Extension a
-	order by
-		a.Priority desc
 end
 GO

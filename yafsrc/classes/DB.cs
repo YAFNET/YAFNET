@@ -110,7 +110,7 @@ namespace yaf
 		{
 			try 
 			{
-				SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connstr"]);
+				SqlConnection conn = new SqlConnection(Config.ConfigSection["connstr"]);
 				conn.Open();
 				return conn;
 			}
@@ -122,7 +122,7 @@ namespace yaf
 
 		public static SqlConnection GetInstallConnection() 
 		{
-			SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connstr"]);
+			SqlConnection conn = new SqlConnection(Config.ConfigSection["connstr"]);
 			conn.Open();
 			return conn;
 		}
@@ -591,17 +591,6 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ChoiceID",choiceID);
 				ExecuteNonQuery(cmd);
-			}
-		}
-		#endregion
-
-		#region yaf_Extension
-		static public DataTable extension_list() 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_extension_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				return GetData(cmd);
 			}
 		}
 		#endregion

@@ -39,16 +39,14 @@ namespace yaf
 	public class BaseAdminPage : System.Web.UI.Page
 	{
 		#region Variables
-		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
 		private DataRow		m_pageinfo;
 		private string		m_strForumName		= "Yet Another Forum.net";
 		private string		m_strLoadMessage	= "";
 		private string		m_strRefreshURL		= null;
 		private bool		m_bNoDataBase		= false;
-		private bool		m_bShowToolBar		= true;
 		private bool		m_bCheckSuspended	= true;
-		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
-		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
+		private string		m_strSmtpServer		= null;
+		private string		m_strForumEmail		= null;
 		#endregion
 		#region Constructor and events
 		/// <summary>
@@ -188,7 +186,7 @@ namespace yaf
 					DB.user_suspend(PageUserID,null);
 					Response.Redirect(Request.RawUrl);
 				}
-				Response.Redirect(String.Format("{0}info.aspx?i=2",BaseDir));
+				Forum.Redirect(Pages.info,"i=2");
 			}
 
 			m_strForumName = (string)m_pageinfo["BBName"];
@@ -312,7 +310,7 @@ namespace yaf
 			if(themefile==null) 
 			{
 				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !AllowUserTheme)
-					themefile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
 
@@ -363,156 +361,27 @@ namespace yaf
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
-			if(m_bShowToolBar) 
-			{
-				string html = ReadTemplate("page.html");
-
-				string title = String.Format("<title>{0}</title>",ForumName);
-				string css = String.Format("<link type=text/css rel=stylesheet href='{0}forum.css' />",BaseDir);
-				css += String.Format("\n<link type=text/css rel=stylesheet href='{0}' />",ThemeFile("theme.css"));
-				string script = "<script>\nfunction yaf_onload() {}\n</script>\n";
-				if(m_strLoadMessage.Length>0)
-					script = String.Format("<script>\nfunction yaf_onload() {1}\nalert(\"{0}\")\n{2}\n</script>\n",m_strLoadMessage,'{','}');
-
-				if(m_strRefreshURL!=null) 
-					script = script.Insert(0,String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">\n",m_strRefreshURL));
-
-				html = html.Replace("{title}",title);
-				html = html.Replace("{css}",css);
-				html = html.Replace("{script}",script);
-
-				int pos = html.IndexOf("{forum}");
-				if(pos<0)
-					throw new Exception("Invalid template -- {forum} constant is missing.");
-
-				writer.Write(html.Substring(0,pos));	// Write html before forum
-
-				writer.WriteLine("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
-
-				if(User.Identity.IsAuthenticated) 
-				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
-
-					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"{0}search.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","SEARCH")));
-					if(IsAdmin)
-						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("TOOLBAR","ADMIN")));
-					if(IsModerator || IsForumModerator)
-						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">{1}</a> |",BaseDir,GetText("TOOLBAR","MODERATE")));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","ACTIVETOPICS")));
-					if(!IsGuest)
-						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","MYPROFILE")));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","MEMBERS")));
-					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","LOGOUT")));
-				} 
-				else 
-				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("TOOLBAR","WELCOME_GUEST")));
-
-					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"{0}search.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","SEARCH")));
-					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">{1}</a> |",BaseDir,GetText("TOOLBAR","ACTIVETOPICS")));
-					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","MEMBERS")));
-					if(Data.GetAuthType==AuthType.YetAnotherForum) 
-					{
-						writer.WriteLine(String.Format("| <a href=\"{0}login.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","LOGIN")));
-						writer.WriteLine(String.Format("| <a href=\"{0}rules.aspx\">{1}</a>",BaseDir,GetText("TOOLBAR","REGISTER")));
-					}
-				}
-				writer.WriteLine("</td></tr></table>");
-				writer.WriteLine("<br />");
-
-
-				RenderBody(writer);
-				writer.WriteLine("<p style=\"text-align:center;font-size:7pt\">");
-
-				writer.WriteLine(String.Format(GetText("COMMON","POWERED_BY"),
-					String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
-					String.Format("{0} - {1}",AppVersionName,FormatDateShort(AppVersionDate))
-				));
-				writer.WriteLine("<br/>Copyright &copy; 2003 Yet Another Forum.net. All rights reserved.");
-				hiTimer.Stop();
-				writer.WriteLine("<br/>");
-				writer.WriteLine(String.Format(GetText("COMMON","GENERATED"),hiTimer.Duration));
-#if DEBUG
-				writer.WriteLine(String.Format("<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}",QueryCounter.Count,QueryCounter.Duration,100 * QueryCounter.Duration/hiTimer.Duration,QueryCounter.Commands));
-#endif
-				writer.WriteLine("</p>");
-				writer.Write(html.Substring(pos+7));	// Write html after forum
-
-#if DEBUG && true
-				if(Request.QueryString["debug"]!=null) 
-				{
-					System.Text.StringBuilder msg = new System.Text.StringBuilder();
-					msg.Append("<style>\n");
-					msg.Append("body,td,th{font:8pt tahoma}\n");
-					msg.Append("table{background-color:#C0C0C0}\n");
-					msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\n");
-					msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\n");
-					msg.Append("</style>\n");
-					msg.Append("<table cellpadding=1 cellspacing=1>\n");
-
-					msg.Append("<tr><th colspan=2>QueryString</th></tr>");
-					foreach(string key in HttpContext.Current.Request.QueryString.AllKeys) 
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.QueryString[key]);
-					}
-					msg.Append("<tr><th colspan=2>Form</th></tr>");
-					foreach(string key in HttpContext.Current.Request.Form.AllKeys) 
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Form[key]);
-					}
-					msg.Append("<tr><th colspan=2>ServerVariables</th></tr>");
-					foreach(string key in HttpContext.Current.Request.ServerVariables.AllKeys)
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.ServerVariables[key]);
-					}
-					msg.Append("<tr><th colspan=2>Session</th></tr>");
-					foreach(string key in HttpContext.Current.Session)
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Session[key]);
-					}
-					msg.Append("<tr><th colspan=2>Application</th></tr>");
-					foreach(string key in HttpContext.Current.Application)
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Application[key]);
-					}
-					msg.Append("<tr><th colspan=2>Cookies</th></tr>");
-					foreach(string key in HttpContext.Current.Request.Cookies.AllKeys)
-					{
-						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
-					}
-					msg.Append("</table>");
-
-					writer.Write(msg.ToString());        
-				}
-#endif
-			} 
-			else 
-			{
-				writer.WriteLine("<html>");
-				writer.WriteLine("<!-- Copyright 2003 Bjørnar Henden -->");
-				writer.WriteLine("<head>");
-				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",BaseDir));
-				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-				writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
-				writer.WriteLine("<script>");
-				writer.WriteLine("function yaf_onload() {");
-				if(m_strLoadMessage.Length>0)
-					writer.WriteLine(String.Format("	alert(\"{0}\");",m_strLoadMessage));
-				writer.WriteLine("}");
-				writer.WriteLine("</script>");
-				if(m_strRefreshURL!=null) 
-					writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
-				writer.WriteLine("</head>");
-				writer.WriteLine("<body onload='yaf_onload()'>");
-				
-				RenderBody(writer);
-				
-				writer.WriteLine("</body>");
-				writer.WriteLine("</html>");
-			}
+			writer.WriteLine("<html>");
+			writer.WriteLine("<!-- Copyright 2003 Bjørnar Henden -->");
+			writer.WriteLine("<head>");
+			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",BaseDir));
+			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
+			writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
+			writer.WriteLine("<script>");
+			writer.WriteLine("function yaf_onload() {");
+			if(m_strLoadMessage.Length>0)
+				writer.WriteLine(String.Format("	alert(\"{0}\");",m_strLoadMessage));
+			writer.WriteLine("}");
+			writer.WriteLine("</script>");
+			if(m_strRefreshURL!=null) 
+				writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
+			writer.WriteLine("</head>");
+			writer.WriteLine("<body onload='yaf_onload()'>");
+			
+			RenderBody(writer);
+			
+			writer.WriteLine("</body>");
+			writer.WriteLine("</html>");
 		}
 
 		/// <summary>
@@ -913,17 +782,6 @@ namespace yaf
 		}
 		#endregion
 		#region Layout functions
-		/// <summary>
-		/// Set to false if you don't want the menus at top and bottom. Only admin pages will set this to false
-		/// </summary>
-		protected bool ShowToolBar 
-		{
-			set 
-			{
-				m_bShowToolBar = value;
-			}
-		}
-
 		public int UnreadPrivate 
 		{
 			get 
@@ -965,7 +823,7 @@ namespace yaf
 			string filename = null;
 
 			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-				filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+				filename = Config.ConfigSection["language"];
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
 
@@ -1019,7 +877,7 @@ namespace yaf
 				string filename = null;
 
 				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-					filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+					filename = Config.ConfigSection["language"];
 				else
 					filename = (string)m_pageinfo["LanguageFile"];
 

@@ -47,8 +47,8 @@ namespace yaf.pages
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_bCheckSuspended	= true;
-		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
-		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
+		private string		m_strSmtpServer		= Config.ConfigSection["smtpserver"];
+		private string		m_strForumEmail		= Config.ConfigSection["forumemail"];
 		#endregion
 		#region Constructor and events
 		/// <summary>
@@ -189,7 +189,7 @@ namespace yaf.pages
 					DB.user_suspend(PageUserID,null);
 					Response.Redirect(Request.RawUrl);
 				}
-				Response.Redirect(String.Format("{0}info.aspx?i=2",BaseDir));
+				Forum.Redirect(Pages.info,"i=2");
 			}
 
 			m_strForumName = (string)m_pageinfo["BBName"];
@@ -313,7 +313,7 @@ namespace yaf.pages
 			if(themefile==null) 
 			{
 				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !AllowUserTheme)
-					themefile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
 
@@ -439,43 +439,6 @@ namespace yaf.pages
 		{
 			if(m_bShowToolBar) 
 			{
-				#region Extension code
-#if TODO
-				if(!m_bNoDataBase) 
-				{
-					DataTable dtExt = (DataTable)Cache["Extensions"];
-					if(dtExt==null) 
-					{
-						dtExt = DB.extension_list();
-						Cache["Extensions"] = dtExt;
-					}
-					foreach(DataRow row in dtExt.Rows) 
-					{
-						string sCode = row["Code"].ToString();
-						if(html.IndexOf(sCode)>=0) 
-						{
-							System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-
-							string sClass = row["Class"].ToString();
-							int dotpos = sClass.IndexOf('.');
-							if(dotpos>0) 
-							{
-								string asmname = sClass.Substring(0,dotpos);
-								if(asmname!="yaf")
-									asm = System.Reflection.Assembly.Load(asmname);
-							}
-
-							Extension ext = (Extension)asm.CreateInstance(row["Class"].ToString());
-							ext.Initialize((yaf.BasePage)Page);
-							System.Text.StringBuilder txt = new System.Text.StringBuilder();
-							ext.Render(ref txt);
-							html = html.Replace(sCode,txt.ToString());
-						}
-					}
-				}
-#endif
-				#endregion
-
 				writer.WriteLine("<link type='text/css' rel='stylesheet' href='{0}forum.css' />",BaseDir);
 				writer.WriteLine("<link type='text/css' rel='stylesheet' href='{0}' />",ThemeFile("theme.css"));
 				string script = "";
@@ -488,51 +451,8 @@ namespace yaf.pages
 #endif
 
 				/// BEGIN HEADER
-#if true
 				if(m_headerInfo!=null)
 					writer.Write(m_headerInfo);
-#else
-				StringBuilder header = new StringBuilder();
-				header.AppendFormat("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
-
-				if(Page.User.Identity.IsAuthenticated) 
-				{
-					header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
-
-					header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
-					if(IsAdmin)
-						header.AppendFormat(String.Format("	<a href=\"{0}admin/\">{1}</a> |",BaseDir,GetText("TOOLBAR","ADMIN")));
-					if(IsModerator || IsForumModerator)
-						header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.moderate_index),GetText("TOOLBAR","MODERATE")));
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
-					if(!IsGuest)
-						header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.cp_profile),GetText("TOOLBAR","MYPROFILE")));
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
-				} 
-				else 
-				{
-					header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",GetText("TOOLBAR","WELCOME_GUEST")));
-
-					header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> |",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
-					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-					if(Data.GetAuthType==AuthType.YetAnotherForum) 
-					{
-						header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login),GetText("TOOLBAR","LOGIN")));
-						header.AppendFormat(String.Format("| <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));
-					}
-				}
-				header.AppendFormat("</td></tr></table>");
-				header.AppendFormat("<br />");
-				if(ForumControl.Header!=null)
-					ForumControl.Header.Info = header.ToString();
-				else
-					writer.Write(header.ToString());
-#endif
 				/// END HEADER
 
 				RenderBody(writer);
@@ -1343,7 +1263,7 @@ namespace yaf.pages
 			string filename = null;
 
 			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-				filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+				filename = Config.ConfigSection["language"];
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
 
@@ -1397,7 +1317,7 @@ namespace yaf.pages
 				string filename = null;
 
 				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-					filename = System.Configuration.ConfigurationSettings.AppSettings["language"];
+					filename = Config.ConfigSection["language"];
 				else
 					filename = (string)m_pageinfo["LanguageFile"];
 
