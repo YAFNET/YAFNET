@@ -175,16 +175,7 @@ namespace yaf
 					DataTable dt = DataManager.GetData("yaf_mail_list",CommandType.StoredProcedure);
 					for(int i=0;i<dt.Rows.Count;i++) {
 						// Build a MailMessage
-						System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-						mailMessage.From = ForumEmail;
-						mailMessage.To = (string)dt.Rows[i]["ToUser"];
-						mailMessage.Subject = (string)dt.Rows[i]["Subject"];
-						mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-						mailMessage.Body = (string)dt.Rows[i]["Body"];
-
-						System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-						System.Web.Mail.SmtpMail.Send(mailMessage);
-
+						SendMail(ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 						using(SqlCommand cmd = new SqlCommand("yaf_mail_delete")) {
 							cmd.CommandType = CommandType.StoredProcedure;
 							cmd.Parameters.Add("@MailID",dt.Rows[i]["MailID"]);
@@ -400,11 +391,11 @@ namespace yaf
 		/// <param name="msg">The message to display</param>
 		public void AddLoadMessage(string msg) 
 		{
-			msg = msg.Replace("\"","\\\"");
 			msg = msg.Replace("'","\\'");
 			msg = msg.Replace("\r\n","\\r\\n");
 			msg = msg.Replace("\n","\\n");
 			msg = msg.Replace("\\","\\\\");
+			msg = msg.Replace("\"","\\\"");
 			m_strLoadMessage += msg + "\\n\\n";
 		}
 
@@ -433,10 +424,27 @@ namespace yaf
 				return m_strSmtpServer;
 			}
 		}
+		public string SmtpUserName 
+		{
+			get 
+			{
+				string tmp = pageinfo["SmtpUserName"].ToString();
+				return tmp.Length>0 ? tmp : null;
+			}
+		}
+		public string SmtpUserPass
+		{
+			get 
+			{
+				string tmp = pageinfo["SmtpUserPass"].ToString();
+				return tmp.Length>0 ? tmp : null;
+			}
+		}
 		/// <summary>
 		/// The official forum email address. 
 		/// </summary>
-		public string ForumEmail {
+		public string ForumEmail 
+		{
 			get {
 				return m_strForumEmail;
 			}
@@ -770,5 +778,31 @@ namespace yaf
 			return String.Format(CustomCulture,"{0:T}",dt + TimeOffset);
 		}
 		#endregion
+
+	
+		public void SendMail(string from,string to,string subject,string body) 
+		{
+#if true
+			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
+			mailMessage.From = from;
+			mailMessage.To = to;
+			mailMessage.Subject = subject;
+			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
+			mailMessage.Body = body;
+			System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
+			System.Web.Mail.SmtpMail.Send(mailMessage);
+#else
+			string sUserName = SmtpUserName;
+			string sUserPass = SmtpUserPass;
+			
+			Smtp mail;
+			if(sUserName!=null && sUserPass!=null)
+				mail = new Smtp(SmtpServer,sUserName,sUserPass);
+			else
+				mail = new Smtp(SmtpServer);
+			mail.SendMail(from,to,subject,body);
+			mail.Quit();
+#endif
+		}
 	}
 }

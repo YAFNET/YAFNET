@@ -102,15 +102,7 @@ namespace yaf
 				}
 
 				//  Build a MailMessage
-				System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-				mailMessage.From = senderemail;
-				mailMessage.To = EmailAddress.Text;
-				mailMessage.Subject = Subject.Text;
-				mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-				mailMessage.Body = Message.Text;
-
-				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-				System.Web.Mail.SmtpMail.Send(mailMessage);
+				SendMail(senderemail,EmailAddress.Text,Subject.Text,Message.Text);
 				Response.Redirect(String.Format("posts.aspx?t={0}",PageTopicID));
 			}
 			catch(Exception x) {

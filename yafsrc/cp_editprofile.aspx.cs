@@ -108,15 +108,7 @@ namespace yaf
 					DataManager.ExecuteNonQuery(cmd);
 		
 					//  Build a MailMessage
-					System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-					mailMessage.From = ForumEmail;
-					mailMessage.To = Email.Text;
-					mailMessage.Subject = "Changed email";
-					mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-					mailMessage.Body = msg.ToString();
-					System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-					System.Web.Mail.SmtpMail.Send(mailMessage);
-				
+					SendMail(ForumEmail,Email.Text,"Changed email",msg.ToString());
 					AddLoadMessage(String.Format("A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.",Email.Text));
 				}
 			}

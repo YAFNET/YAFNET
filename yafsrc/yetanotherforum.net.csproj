@@ -899,6 +899,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "classes\Smtp.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "classes\Utils.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

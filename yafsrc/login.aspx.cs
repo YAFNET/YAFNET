@@ -90,14 +90,7 @@ namespace yaf
 			msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
 			msg.AppendFormat("Visit {0} at {1}",ForumName,ForumURL);
 			
-			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-			mailMessage.From = ForumEmail;
-			mailMessage.To = LostEmail.Text;
-			mailMessage.Subject = "New password";
-			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-			mailMessage.Body = msg.ToString();
-			System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-			System.Web.Mail.SmtpMail.Send(mailMessage);
+			SendMail(ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
 			AddLoadMessage("A mail has been sent with the your new password.");
 			LoginView.Visible = true;

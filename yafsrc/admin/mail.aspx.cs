@@ -87,15 +87,7 @@ namespace yaf.admin
 				using(DataTable dt = DataManager.GetData(cmd)) {
 					for(int i=0;i<dt.Rows.Count;i++) {
 						//  Build a MailMessage
-						System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-						mailMessage.From = ForumEmail;
-						mailMessage.To = (string)dt.Rows[i]["Email"];
-						mailMessage.Subject = Subject.Text;
-						mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-						mailMessage.Body = Body.Text;
-
-						System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-						System.Web.Mail.SmtpMail.Send(mailMessage);
+						SendMail(ForumEmail,(string)dt.Rows[i]["Email"],Subject.Text,Body.Text);
 					}
 				}
 			}

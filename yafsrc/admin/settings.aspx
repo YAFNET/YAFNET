@@ -23,6 +23,14 @@
 		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpServer runat="server"/></td>
 	</tr>
 	<tr>
+		<td class=postheader><b>SMTP User Name:</b><br>If you need to be authorized to send email.</td>
+		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpUserName runat="server"/></td>
+	</tr>
+	<tr>
+		<td class=postheader><b>SMTP Password:</b><br>If you need to be authorized to send email.</td>
+		<td class=post><asp:TextBox style="width:300px" id=ForumSmtpUserPass runat="server"/></td>
+	</tr>
+	<tr>
 		<td class=postheader><b>Forum Email:</b><br/>The from address when sending emails to users.</td>
 		<td class=post><asp:TextBox style="width:300px" id=ForumEmailEdit runat="server"/></td>
 	</tr>

@@ -38,7 +38,7 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Label SQLVersion;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
-		protected System.Web.UI.WebControls.TextBox ForumSmtpServer;
+		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox Name;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
@@ -63,6 +63,8 @@ namespace yaf.admin {
 			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
 			Name.Text = (string)row["Name"];
 			ForumSmtpServer.Text = (string)row["SmtpServer"];
+			ForumSmtpUserName.Text = row["SmtpUserName"].ToString();
+			ForumSmtpUserPass.Text = row["SmtpUserPass"].ToString();
 			ForumEmailEdit.Text = (string)row["ForumEmail"];
 			EmailVerification.Checked = (bool)row["EmailVerification"];
 			ShowMoved.Checked = (bool)row["ShowMoved"];
@@ -94,11 +96,21 @@ namespace yaf.admin {
 		private void Save_Click(object sender, System.EventArgs e) {
 			if(!IsValid) return;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) {
+			string sUserName = ForumSmtpUserName.Text.Trim();
+			if(sUserName.Length==0)
+				sUserName = null;
+			string sUserPass = ForumSmtpUserPass.Text.Trim();
+			if(sUserPass.Length==0)
+				sUserPass = null;
+
+			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
+			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@Name",Name.Text);
 				cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
 				cmd.Parameters.Add("@SmtpServer",ForumSmtpServer.Text);
+				cmd.Parameters.Add("@SmtpUserName",sUserName);
+				cmd.Parameters.Add("@SmtpUserPass",sUserPass);
 				cmd.Parameters.Add("@ForumEmail",ForumEmailEdit.Text);
 				cmd.Parameters.Add("@EmailVerification",EmailVerification.Checked);
 				cmd.Parameters.Add("@ShowMoved",ShowMoved.Checked);

@@ -1,2 +1,4 @@
 - upload/attach files
 - smtp server login
+- See who isn't validated
+- Remove unvalidated people after 24 hours

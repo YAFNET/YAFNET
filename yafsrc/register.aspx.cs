@@ -111,23 +111,13 @@ namespace yaf
 					if(EmailVerification) 
 					{
 						//  Build a MailMessage
-						System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-						mailMessage.From = ForumEmail;
-						mailMessage.To = Email.Text;
-						mailMessage.Subject = String.Format("{0} email verification",ForumName);
-						mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-	
 						string body = ReadTemplate("verifyemail.txt");
 						body = body.Replace("{link}",String.Format("http://{2}{1}approve.aspx?k={0}",hash,BaseDir,Request.ServerVariables["SERVER_NAME"]));
 						body = body.Replace("{key}",hash);
 						body = body.Replace("{forumname}",ForumName);
 						body = body.Replace("{forumlink}",String.Format("http://{0}{1}",Request.ServerVariables["SERVER_NAME"],BaseDir));
 
-						mailMessage.Body = body;
-
-						System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-						System.Web.Mail.SmtpMail.Send(mailMessage);
-
+						SendMail(ForumEmail,Email.Text,String.Format("{0} email verification",ForumName),body);
 						AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");
 					} 
 					else 

@@ -239,6 +239,18 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 	alter table yaf_System add BlankLinks bit not null default(0)
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='SmtpUserName')
+	alter table yaf_System add SmtpUserName varchar(50) null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='SmtpUserPass')
+	alter table yaf_System add SmtpUserPass varchar(50) null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_System') and name='BlankLinks')
+	alter table yaf_System add BlankLinks bit not null default(0)
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_save
 GO
@@ -247,6 +259,8 @@ create procedure yaf_system_save(
 	@Name				varchar(50),
 	@TimeZone			int,
 	@SmtpServer			varchar(50),
+	@SmtpUserName		varchar(50)=null,
+	@SmtpUserPass		varchar(50)=null,
 	@ForumEmail			varchar(50),
 	@EmailVerification	bit,
 	@ShowMoved			bit,
@@ -257,6 +271,8 @@ begin
 		Name = @Name,
 		TimeZone = @TimeZone,
 		SmtpServer = @SmtpServer,
+		SmtpUserName = @SmtpUserName,
+		SmtpUserPass = @SmtpUserPass,
 		ForumEmail = @ForumEmail,
 		EmailVerification = @EmailVerification,
 		ShowMoved = @ShowMoved,
@@ -371,6 +387,8 @@ begin
 		TimeZone			= a.TimeZone,
 		BBName				= s.Name,
 		SmtpServer			= s.SmtpServer,
+		SmtpUserName		= s.SmtpUserName,
+		SmtpUserPass		= s.SmtpUserPass,
 		ForumEmail			= s.ForumEmail,
 		EmailVerification	= s.EmailVerification,
 		BlankLinks			= s.BlankLinks,
