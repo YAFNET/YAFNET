@@ -98,6 +98,27 @@ namespace yaf
 			smtp.SendMail(from,to,subject,body);
 		}
 
+		static public void SendMail(string from,string fromName,string to,string toName,string subject,string body) 
+		{
+			// http://sourceforge.net/projects/opensmtp-net/
+			OpenSmtp.Mail.EmailAddress smtpFrom = new OpenSmtp.Mail.EmailAddress(from, fromName);
+			OpenSmtp.Mail.EmailAddress smtpTo = new OpenSmtp.Mail.EmailAddress(to, toName);
+ 		
+			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+ 
+			OpenSmtp.Mail.MailMessage msg = new OpenSmtp.Mail.MailMessage(smtpFrom, smtpTo);
+			msg.Subject = subject;
+			msg.Body = body;
+ 
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.BoardSettings.SmtpServer,25);
+			if(Config.BoardSettings.SmtpUserName!=null && Config.BoardSettings.SmtpUserPass!=null) 
+			{
+				smtp.Username = Config.BoardSettings.SmtpUserName;
+				smtp.Password = Config.BoardSettings.SmtpUserPass;
+			}
+			smtp.SendMail(msg);
+		}
+
 		static public string Text2Html(string html) 
 		{
 			html = html.Replace("\r\n","<br/>");

@@ -67,12 +67,14 @@ namespace yaf.pages
 		{
 			try
 			{
-				string	from = string.Empty, to = string.Empty;
+ 				string from = string.Empty, to = string.Empty;
+ 				string fromName = string.Empty, toName = string.Empty;
 				using(DataTable dt=DataProvider.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						to = string.Format("{0} ({1})",row["Email"],row["Name"]);
+ 						to = row["Email"].ToString();
+ 						toName = row["Name"].ToString();
 						break;
 					}
 				}
@@ -80,11 +82,12 @@ namespace yaf.pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						from = string.Format("{0} ({1})",row["Email"],row["Name"]);
+ 						from = row["Email"].ToString();
+ 						fromName = row["Name"].ToString();
 						break;
 					}
 				}
-				Utils.SendMail(from,to,Subject.Text,Body.Text);
+ 				Utils.SendMail(from, fromName, to, toName, Subject.Text, Body.Text);
 				Forum.Redirect(Pages.profile,"u={0}",Request.QueryString["u"]);
 			}
 			catch(Exception x) 
