@@ -511,6 +511,7 @@
 		<Resource tag="MATCH_ALL">Match All Words</Resource>
 		<Resource tag="MATCH_ANY">Match Any Word</Resource>
 		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
+		<Resource tag="NO_SEARCH_RESULTS">[b]No results found for search.[/b]</Resource>
 		<Resource tag="BY">by</Resource>
 	</page>
 	<page name="MODERATE_DEFAULT">
