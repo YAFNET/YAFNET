@@ -85,11 +85,10 @@ namespace yaf.cp
 			string body = row["Body"].ToString();
 			if(body.IndexOf('<')<0) 
 			{
-				FormatMsg fmt = new FormatMsg(this);
-				body = fmt.FormatMessage(body);
+				body = FormatMsg.ForumCodeToHtml(this,body);
 			}
 
-			return FormatMsg.FetchURL(body);
+			return FormatMsg.FetchURL(this,body);
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

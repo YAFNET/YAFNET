@@ -64,7 +64,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.LinkButton TrackTopic;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
-		private FormatMsg fmt;
 		protected System.Web.UI.HtmlControls.HtmlTableCell AccessCell;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -571,16 +570,13 @@ namespace yaf
 				html += "</p>";
 			}
 			
-			if(fmt==null)
-				fmt = new FormatMsg(this);
-
 			if(row["Signature"].ToString().Length>0)
-				html += "<br/><hr noshade/>" + fmt.FormatMessage(row["Signature"].ToString());
+				html += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,row["Signature"].ToString());
 
 			if(!isHtml)
-				html = fmt.FormatMessage(html);
+				html = FormatMsg.ForumCodeToHtml(this,html);
 
-			return FormatMsg.FetchURL(html);
+			return FormatMsg.FetchURL(this,html);
 		}
 
 		protected bool CanEditPost(DataRowView row) 

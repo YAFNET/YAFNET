@@ -278,33 +278,36 @@ namespace yaf
 #endif
 
 				#region Extension code
-				DataTable dtExt = (DataTable)Cache["Extensions"];
-				if(dtExt==null) 
+				if(!m_bNoDataBase) 
 				{
-					dtExt = DB.extension_list();
-					Cache["Extensions"] = dtExt;
-				}
-				foreach(DataRow row in dtExt.Rows) 
-				{
-					string sCode = row["Code"].ToString();
-					if(html.IndexOf(sCode)>=0) 
+					DataTable dtExt = (DataTable)Cache["Extensions"];
+					if(dtExt==null) 
 					{
-						System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-
-						string sClass = row["Class"].ToString();
-						int dotpos = sClass.IndexOf('.');
-						if(dotpos>0) 
+						dtExt = DB.extension_list();
+						Cache["Extensions"] = dtExt;
+					}
+					foreach(DataRow row in dtExt.Rows) 
+					{
+						string sCode = row["Code"].ToString();
+						if(html.IndexOf(sCode)>=0) 
 						{
-							string asmname = sClass.Substring(0,dotpos);
-							if(asmname!="yaf")
-								asm = System.Reflection.Assembly.Load(asmname);
-						}
+							System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
 
-						Extension ext = (Extension)asm.CreateInstance(row["Class"].ToString());
-						ext.Initialize(this);
-						System.Text.StringBuilder txt = new System.Text.StringBuilder();
-						ext.Render(ref txt);
-						html = html.Replace(sCode,txt.ToString());
+							string sClass = row["Class"].ToString();
+							int dotpos = sClass.IndexOf('.');
+							if(dotpos>0) 
+							{
+								string asmname = sClass.Substring(0,dotpos);
+								if(asmname!="yaf")
+									asm = System.Reflection.Assembly.Load(asmname);
+							}
+
+							Extension ext = (Extension)asm.CreateInstance(row["Class"].ToString());
+							ext.Initialize(this);
+							System.Text.StringBuilder txt = new System.Text.StringBuilder();
+							ext.Render(ref txt);
+							html = html.Replace(sCode,txt.ToString());
+						}
 					}
 				}
 				#endregion
@@ -1073,7 +1076,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,27);
+				return new DateTime(2003,10,28);
 			}
 		}
 	}

@@ -92,8 +92,7 @@ namespace yaf
 			bool isHtml = msg.IndexOf('<')>=0;
 			if(!isHtml) 
 			{
-				FormatMsg fmt = new FormatMsg(this);
-				msg = fmt.FormatMessage(msg);
+				msg = FormatMsg.ForumCodeToHtml(this,msg);
 			}
 			return msg;
 		}

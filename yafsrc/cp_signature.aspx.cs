@@ -71,7 +71,7 @@ namespace yaf
 			if(!sig.IsRTEBrowser)
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 			else
-				body = FormatMsg.RepairHtml(body);
+				body = FormatMsg.RepairHtml(this,body);
 
 			DB.user_savesignature(PageUserID,body);
 			Response.Redirect("cp_profile.aspx");

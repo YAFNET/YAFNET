@@ -142,7 +142,7 @@ namespace yaf
 			if(!Editor.IsRTEBrowser) 
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 			else
-				body = FormatMsg.RepairHtml(body);
+				body = FormatMsg.RepairHtml(this,body);
 
 			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,body);
 			Response.Redirect("cp_profile.aspx");

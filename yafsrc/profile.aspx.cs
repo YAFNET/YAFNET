@@ -84,8 +84,6 @@ namespace yaf
 			}
 		}
 
-		private FormatMsg fmt;
-
 		protected string FormatBody(object o) 
 		{
 			DataRowView row = (DataRowView)o;
@@ -93,8 +91,7 @@ namespace yaf
 
 			if(html.IndexOf('<')<0) 
 			{
-				if(fmt==null) fmt = new FormatMsg(this);
-				html = fmt.FormatMessage(html);
+				html = FormatMsg.ForumCodeToHtml(this,html);
 			}
 
 			if(row["Signature"].ToString().Length>0) 
@@ -102,14 +99,13 @@ namespace yaf
 				string sig = row["Signature"].ToString();
 				if(sig.IndexOf('<')<0) 
 				{
-					if(fmt==null) fmt = new FormatMsg(this);
-					sig = fmt.FormatMessage(sig);
+					sig = FormatMsg.ForumCodeToHtml(this,sig);
 				}
 				
 				html += "<br/><hr noshade/>" + sig;
 			}
 
-			return FormatMsg.FetchURL(html);
+			return FormatMsg.FetchURL(this,html);
 		}
 
 		#region Web Form Designer generated code

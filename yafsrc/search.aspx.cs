@@ -187,10 +187,9 @@ namespace yaf
 			bool isHtml = body.IndexOf('<')>=0;
 			if(!isHtml) 
 			{
-				FormatMsg fmt = new FormatMsg(this);
-				body = fmt.FormatMessage(body);
+				body = FormatMsg.ForumCodeToHtml(this,body);
 			}
-			return FormatMsg.FetchURL(body);
+			return FormatMsg.FetchURL(this,body);
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)

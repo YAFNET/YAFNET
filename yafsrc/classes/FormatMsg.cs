@@ -28,17 +28,9 @@ namespace yaf
 	/// </summary>
 	public class FormatMsg
 	{
-		private DataTable dtSmileys;
-		private BasePage basePage;
-
-		public FormatMsg(BasePage bp) {
-			basePage = bp;
-		}
-
-		public string FormatMessage(string Message) 
+		static public string ForumCodeToHtml(BasePage basePage,string Message) 
 		{
-			if(dtSmileys == null)
-				dtSmileys = DB.smiley_list(null);
+			DataTable dtSmileys = GetSmilies();
 
 			string tmp = "";
 			bool bInCode = false;
@@ -165,12 +157,6 @@ namespace yaf
 			return tmp;
 		}
 	
-		static public string ForumCodeToHtml(BasePage basePage,string message) 
-		{
-			FormatMsg fmt = new FormatMsg(basePage);
-			return fmt.FormatMessage(message);
-		}
-
 		static public string HtmlToForumCode(string html) 
 		{
 			html = html.Replace("<ul>","[list]");	// TODO
@@ -207,7 +193,18 @@ namespace yaf
 			return html;
 		}
 
-		static public string FetchURL(string html) 
+		static public DataTable GetSmilies() 
+		{
+			DataTable dt = (DataTable)System.Web.HttpContext.Current.Cache["Smilies"];
+			if(dt==null) 
+			{
+				dt = DB.smiley_list(null);
+				System.Web.HttpContext.Current.Cache["Smilies"] = dt;
+			}
+			return dt;
+		}
+
+		static public string FetchURL(BasePage basePage,string html) 
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 			
@@ -221,10 +218,14 @@ namespace yaf
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=]*)?)", "<a href=http://${url} target=_blank>${url}</a>", options);
 
-			return RepairHtml(html);
+			DataTable dtSmileys = GetSmilies();
+			foreach(DataRow row in dtSmileys.Rows)
+				html = html.Replace((string)row["Code"],String.Format("<img src=\"{0}\"/>",basePage.Smiley((string)row["Icon"])));
+
+			return RepairHtml(basePage,html);
 		}
 
-		static public string RepairHtml(string html) 
+		static public string RepairHtml(BasePage basePage,string html) 
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 

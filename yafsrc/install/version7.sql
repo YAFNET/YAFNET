@@ -311,8 +311,8 @@ begin
 	values('Administration',0,0)
 	set @RankID = @@IDENTITY
 
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Administration',1,0,0)
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Administration',1,0,0,0)
 	set @GroupID = @@IDENTITY
 
 	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
@@ -325,8 +325,8 @@ begin
 	values('Guest',0,0)
 	set @RankID = @@IDENTITY
 
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Guest',0,1,0)
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Guest',0,1,0,0)
 	set @GroupID = @@IDENTITY
 
 	insert into yaf_User(RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Approved,Email)
@@ -347,8 +347,8 @@ begin
 	insert into yaf_Rank(Name,IsStart,IsLadder,MinPosts)
 	values('Advanced Member',0,1,30)
 
-	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
-	values('Member',0,0,1)
+	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
+	values('Member',0,0,1,0)
 end
 GO
 

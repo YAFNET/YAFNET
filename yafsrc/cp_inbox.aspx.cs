@@ -134,8 +134,7 @@ namespace yaf.cp
 
 		protected string FormatBody(object o) {
 			DataRowView row = (DataRowView)o;
-			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage((string)row["Body"]);
+			return FormatMsg.ForumCodeToHtml(this,(string)row["Body"]);
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

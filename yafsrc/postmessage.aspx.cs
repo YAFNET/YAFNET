@@ -74,7 +74,6 @@ namespace yaf
 		protected System.Web.UI.WebControls.HyperLink ForumLink;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		private int ForumID;
-		private FormatMsg fmt;
 		protected System.Web.UI.HtmlControls.HtmlTableRow UploadRow1, UploadRow2, UploadRow3;
 		protected System.Web.UI.HtmlControls.HtmlInputFile File1, File2, File3;
 
@@ -150,8 +149,7 @@ namespace yaf
 						string body = msg["Message"].ToString();
 						if(!isHtml) 
 						{
-							FormatMsg fmt = new FormatMsg(this);
-							body = fmt.FormatMessage(body);
+							body = FormatMsg.ForumCodeToHtml(this,body);
 						}
 						Message.Text = String.Format("<br/><div class=\"quote\">{0} wrote:<div class=\"quoteinner\">{1}</div></div><br/>",msg["username"],Server.HtmlDecode(body));
 					}
@@ -169,8 +167,7 @@ namespace yaf
 					{
 						if(!isHtml) 
 						{
-							FormatMsg fmt = new FormatMsg(this);
-							body = fmt.FormatMessage(body);
+							body = FormatMsg.ForumCodeToHtml(this,body);
 						}
 					} 
 					else 
@@ -267,7 +264,7 @@ namespace yaf
 			if(!Message.IsRTEBrowser) 
 				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
 			else
-				msg = FormatMsg.RepairHtml(msg);
+				msg = FormatMsg.RepairHtml(this,msg);
 
 			Session["lastpost"] = DateTime.Now;
 			if(Request.QueryString["t"] != null) {
@@ -400,20 +397,20 @@ namespace yaf
 		private void Preview_Click(object sender, System.EventArgs e) {
 			PreviewRow.Visible = true;
 
-			FormatMsg fmt = new FormatMsg(this);
-
 			string body = Message.Text;
 #if DEBUG
 			string fcode = FormatMsg.HtmlToForumCode(body);
 			AddLoadMessage(fcode);
 #endif
 			if(!Message.IsRTEBrowser) 
-				body = fmt.FormatMessage(Server.HtmlEncode(body));
+				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+			else
+				body = FormatMsg.FetchURL(this,body);
 
 			using(DataTable dt = DB.user_list(PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + fmt.FormatMessage(dt.Rows[0]["Signature"].ToString());
+					body += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(this,dt.Rows[0]["Signature"].ToString());
 			}
 			
 			PreviewCell.InnerHtml = body;
@@ -426,19 +423,17 @@ namespace yaf
 			bool isHtml = html.IndexOf('<')>=0;
 			if(!isHtml) 
 			{
-				if(fmt==null) fmt = new FormatMsg(this);
-				html = fmt.FormatMessage(html);
+				html = FormatMsg.ForumCodeToHtml(this,html);
 			}
 
 			string sig = row["Signature"].ToString();
 			if(sig.IndexOf('<')<0) {
-				if(fmt==null) fmt = new FormatMsg(this);
-				sig = fmt.FormatMessage(sig);
+				sig = FormatMsg.ForumCodeToHtml(this,sig);
 			}
 
 			html += "<br/><hr noshade/>" + sig;
 
-			html = FormatMsg.FetchURL(html);
+			html = FormatMsg.FetchURL(this,html);
 			return html;
 		}
 	}
