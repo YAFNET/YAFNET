@@ -6,9 +6,9 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class=rte cellSpacing=1 cellPadding=0 width="100%" align=center>
+<table class="rte" cellSpacing="1" cellPadding="4" width="100%" align="center">
 	<tr>
-		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server"><%= GetText("newtopic") %></asp:label></td>
+		<td class=header1 align=middle colSpan=2><asp:label id=Title runat="server"/></td>
 	</tr>
 
 	<tr id=PreviewRow runat=server visible=false>
@@ -79,7 +79,7 @@
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
 		<td class="post" id="RichEdit">
-			<rte:richedit runat="server" id="Message" />
+			<rte:RichEdit runat="server" id="Message" />
 		</td>
 	</tr>
 	<!--tr>

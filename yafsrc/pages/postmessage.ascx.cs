@@ -70,6 +70,7 @@ namespace yaf.pages
 		protected System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
 		protected System.Web.UI.WebControls.Repeater LastPosts;
+		protected System.Web.UI.WebControls.Label NoEditSubject;
 		protected controls.PageLinks PageLinks;
 
 		public postmessage() : base("POSTMESSAGE")
@@ -102,6 +103,8 @@ namespace yaf.pages
 			Message.StyleSheet = this.ThemeFile("theme.css");
 			Message.BaseDir = Data.ForumRoot + "rte";
 
+			Title.Text = GetText("NEWTOPIC");
+						
 			if(!IsPostBack) 
 			{
 				Priority.Items.Add(new ListItem(GetText("normal"),"0"));
@@ -123,6 +126,7 @@ namespace yaf.pages
 
 				if(Request.QueryString["t"] != null) 
 				{
+					// new post...
 					DataRow topic = DB.topic_info(Request.QueryString["t"]);
 					if((bool)topic["IsLocked"])
 						Response.Redirect(Request.UrlReferrer.ToString());
@@ -135,7 +139,9 @@ namespace yaf.pages
 					LastPosts.DataBind();
 				}
 
-				if(Request.QueryString["q"] != null) {
+				if(Request.QueryString["q"] != null)
+				{
+					// reply to post...
 					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
 
 					if(Message.IsRichBrowser) 
@@ -154,7 +160,10 @@ namespace yaf.pages
 						else
 							Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],msg["message"]);
 					}
-				} else if(Request.QueryString["m"] != null) {
+				}
+				else if(Request.QueryString["m"] != null)
+				{
+					// edit message...
 					string body = msg["message"].ToString();
 					bool isHtml = body.IndexOf('<')>=0;
 					if(Message.IsRichBrowser) 
@@ -173,10 +182,21 @@ namespace yaf.pages
 						}
 					}
 					Message.Text = body;
-					//Message.Text = "<b>test</b><br/>&lt;b&gt;test&lt;/b&gt;";
+					Title.Text = GetText("EDIT");
+
+					Subject.Text = Convert.ToString(msg["Topic"]);
+
+					if ((Convert.ToInt32(msg["TopicOwnerID"]) == Convert.ToInt32(msg["UserID"])) || ForumModeratorAccess)
+					{
+						// allow editing of the topic subject
+						Subject.Enabled = true;
+					}
+					else
+					{
+						// disable the subject
+						Subject.Enabled = false;
+					}					
 					
-					Subject.Text = (string)msg["Topic"];
-					Subject.Enabled = false;
 					CreatePollRow.Visible = false;
 					Priority.SelectedItem.Selected = false;
 					Priority.Items.FindByValue(msg["Priority"].ToString()).Selected = true;
@@ -248,6 +268,7 @@ namespace yaf.pages
 			long TopicID;
 			long nMessageID = 0;
 			object replyTo = null;
+
 			if(Request.QueryString["q"]!=null)
 				replyTo = int.Parse(Request.QueryString["q"]);
 			else
@@ -255,13 +276,16 @@ namespace yaf.pages
 				replyTo = -1;
 
 			string msg = Message.Text;
+
 			if(!Message.IsRichBrowser) 
 				msg = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(msg));
 			else
 				msg = FormatMsg.RepairHtml(this,msg);
 
 			Mession.LastPost = DateTime.Now;
-			if(Request.QueryString["t"] != null) {
+			
+			if(Request.QueryString["t"] != null)
+			{
 				if(!ForumReplyAccess)
 					Data.AccessDenied();
 
@@ -269,20 +293,28 @@ namespace yaf.pages
 				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,ref nMessageID))
 					TopicID = 0;
 			} 
-			else if(Request.QueryString["m"] != null) {
+			else if(Request.QueryString["m"] != null)
+			{
 				if(!ForumEditAccess)
 					Data.AccessDenied();
 
-				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg);
+				string SubjectSave = "";
+
+				if (Subject.Enabled) SubjectSave = Server.HtmlEncode(Subject.Text);
+
+				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg,SubjectSave);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
-			else {
+			else
+			{
 				if(!ForumPostAccess)
 					Data.AccessDenied();
 
 				object PollID = null;
-				if(PollRow1.Visible) {
+				
+				if (PollRow1.Visible)
+				{
 					PollID = DB.poll_save(Question.Text,
 						PollChoice1.Text,
 						PollChoice2.Text,
@@ -337,8 +369,18 @@ namespace yaf.pages
 			PollRow10.Visible = true;
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e) {
-			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
+		private void Cancel_Click(object sender, System.EventArgs e)
+		{
+			if (Request.QueryString["t"] != null || Request.QueryString["m"] != null)
+			{
+				// reply to existing topic or editing of existing topic
+				Forum.Redirect(Pages.posts,"t={0}",PageTopicID);
+			}
+			else
+			{
+				// new topic -- cancel back to forum
+				Forum.Redirect(Pages.topics,"f={0}",PageForumID);				
+			}
 		}
 
 		private void Preview_Click(object sender, System.EventArgs e) {
