@@ -63,6 +63,7 @@ namespace yaf.pages
 		protected LinkButton NormalView,ThreadView;
 		protected HtmlTableCell ThreadViewCell;
 		private bool m_bDataBound = false;
+		private bool m_bIgnoreQueryString = false;
 
 		public posts() : base("POSTS")
 		{
@@ -177,6 +178,7 @@ namespace yaf.pages
 
 		private void Pager_PageChange(object sender, EventArgs e)
 		{
+			m_bIgnoreQueryString = true;
 			BindData();
 		}
 
@@ -259,7 +261,10 @@ namespace yaf.pages
 				int nFindMessage = 0;
 				try
 				{
-					if(Request.QueryString["m"]!=null)
+					if(m_bIgnoreQueryString) 
+					{
+					}
+					else if(Request.QueryString["m"]!=null)
 					{
 						// Show this message
 						nFindMessage = int.Parse(Request.QueryString["m"]);
