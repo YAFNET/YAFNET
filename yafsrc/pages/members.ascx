@@ -3,7 +3,9 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class=command><tr><td class=navlinks id=PageLinks1 runat=server></td></tr></table>
+<table class=command><tr><td class="navlinks"><yaf:pager runat="server" id="Pager"/></td></tr></table>
+
+
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>
@@ -28,8 +30,6 @@
 	</asp:repeater>
 </table>
 
-<asp:linkbutton id=GoPage runat=server visible=false/>
-
-<table class=command><tr><td class=navlinks id=PageLinks2 runat=server></td></tr></table>
+<table class=command><tr><td class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td></tr></table>
 
 <yaf:savescrollpos runat="server"/>

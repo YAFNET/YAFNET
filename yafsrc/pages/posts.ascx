@@ -31,7 +31,7 @@
 </asp:repeater>
 <table class=command cellSpacing=0 cellPadding=0 width="100%">
   <tr>
-    <td align=left class=navlinks id=PageLinks1 runat=server></td>
+    <td align=left class=navlinks><yaf:pager runat="server" id="Pager"/></td>
     <td align=right>
 		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply"/>
 		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
@@ -100,7 +100,7 @@
     
 <table class=command cellSpacing=0 cellPadding=0 width="100%">
   <tr>
-    <td align=left class=navlinks id=PageLinks2 runat=server></td>
+    <td align=left class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td>
     <td align=right>
 		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>

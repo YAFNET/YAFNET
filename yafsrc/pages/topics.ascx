@@ -5,7 +5,7 @@
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
-		<td class=navlinks align=left id=PageLinks1 runat="server"/>
+		<td class="navlinks" align="left"><yaf:pager runat="server" id="Pager"/></td>
 		<td align="right">
 			<asp:linkbutton id=moderate1 runat=server cssclass="imagelink"/>
 			<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
@@ -58,7 +58,7 @@
 
 <table class=command width="100%" cellspacing=0 cellpadding=0>
 	<tr>
-		<td align="left" class=navlinks id=PageLinks2 runat="server"/>
+		<td align="left" class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
 		<td align="right">
 			<asp:linkbutton id=moderate2 runat=server cssclass="imagelink"/>
 			<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>

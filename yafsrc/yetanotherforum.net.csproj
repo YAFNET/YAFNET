@@ -920,6 +920,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "install\version12.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "install\version2.sql"
                     BuildAction = "Content"
                 />

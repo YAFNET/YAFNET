@@ -130,9 +130,8 @@
 	</td>
 </tr>
 
-<tr class="post"><td colspan="2">
-
-	<asp:placeholder runat="server" id="ModeratorInfo" visible="false">
+<asp:placeholder runat="server" id="ModeratorInfo" visible="false">
+<tr class="post"><td valign="top">
 	<table width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header2" colspan=2><%= GetText("admin") %></td>
@@ -150,8 +149,24 @@
 		</td>	
 	</tr>
 	</table>
-	</asp:placeholder>
+</td><td valign="top">
+	<table width="100%" cellspacing="1" cellpadding="0">
+	<tr class="header2">
+		<td class="header2" colspan="2">Forum Access</td>
+	</tr>
+		<asp:repeater runat="server" id="ForumAccess">
+			<ItemTemplate>
+				<tr>
+					<td class="postheader" width="50%"><a href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",DataBinder.Eval(Container.DataItem,"ForumID")) %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
+					<td class="post" width="50%"><%# DataBinder.Eval(Container.DataItem,"AccessMaskName") %></td>
+				</tr>
+			</ItemTemplate>
+		</asp:repeater>
+	</td></tr>
+	</table>
 </td></tr>
+</asp:placeholder>
+
 <tr class="post"><td colspan="2">
 	<asp:repeater id="LastPosts" runat="server">
 	<HeaderTemplate>

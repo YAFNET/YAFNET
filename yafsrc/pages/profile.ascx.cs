@@ -51,6 +51,7 @@ namespace yaf.pages
 		protected HtmlTableCell Stats, MSN, YIM, AIM, ICQ, RealName, Occupation, Interests, Gender;
 		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
+		protected Repeater ForumAccess;
 	
 		public profile() : base("PROFILE")
 		{
@@ -140,6 +141,13 @@ namespace yaf.pages
 
 				RemoveSuspension.Text = GetText("REMOVESUSPENSION");
 				Suspend.Text = GetText("SUSPEND");
+
+				if(IsAdmin || IsForumModerator)
+				{
+					DataView dv = DB.user_accessmasks(Request.QueryString["u"]).DefaultView;
+						dv.Sort = "ForumName";
+						ForumAccess.DataSource = dv;
+				}
 			}
 
 			LastPosts.DataSource = DB.post_last10user(Request.QueryString["u"],PageUserID);

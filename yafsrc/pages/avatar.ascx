@@ -3,6 +3,8 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
+<p class="navlinks"><yaf:pager runat="server" id="pager"/></p>
+
 <table class="content" cellSpacing="1" cellPadding="0" width="100%">
 	<tr>
 		<td class="header1" colSpan="10"><%= GetText("TITLE") %></td>
@@ -11,6 +13,6 @@
 	<asp:Literal id="AvatarResults" Runat="server" />
 </table>
 
-<yaf:pager runat="server" id="pager"/>
+<p class="navlinks"><yaf:pager runat="server" linkedpager="pager"/></p>
 
 <asp:linkbutton runat="server" id="GoDir" visible="false"/>

@@ -40,6 +40,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton PostReplyLink1;
 		protected System.Web.UI.WebControls.Repeater Poll;
 		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 
 		private DataRow forum, topic;
 		protected System.Web.UI.WebControls.LinkButton PrevTopic;
@@ -51,13 +52,11 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton UnlockTopic1;
 		protected System.Web.UI.WebControls.Label TopicTitle;
 		private DataTable dtPoll;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.WebControls.LinkButton PostReplyLink2;
 		protected System.Web.UI.WebControls.LinkButton NewTopic2;
 		protected System.Web.UI.WebControls.LinkButton DeleteTopic2;
 		protected System.Web.UI.WebControls.LinkButton LockTopic2;
 		protected System.Web.UI.WebControls.LinkButton UnlockTopic2;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.LinkButton TrackTopic;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
@@ -77,6 +76,9 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
+				if(Request.QueryString["p"] != null)
+					Pager.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
+
 				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
@@ -147,9 +149,15 @@ namespace yaf.pages
 			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_deletetopic"));
 		}
 
+		private void Pager_PageChange(object sender, EventArgs e)
+		{
+			BindData();
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			Pager.PageChange += new EventHandler(Pager_PageChange);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -189,14 +197,17 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
+			Pager.PageSize = 20;
 			if(topic==null)
 				Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
-			pds.PageSize = 20;
+			pds.PageSize = Pager.PageSize;
+
 			using(DataTable dt = DB.post_list(PageTopicID,1)) 
 			{
+				Pager.Count = dt.Rows.Count;
 				pds.DataSource = dt.DefaultView;
 				if(Request.QueryString["m"] != null) 
 				{
@@ -213,34 +224,11 @@ namespace yaf.pages
 				}
 			}
 
-			if(Request.QueryString["p"] != null)
-				pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
+			pds.CurrentPageIndex = Pager.CurrentPageIndex;
 
 			if(pds.CurrentPageIndex>=pds.PageCount) pds.CurrentPageIndex = pds.PageCount - 1;
 				
 			MessageList.DataSource = pds;
-
-			if(pds.PageCount>1) 
-			{
-				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) 
-				{
-					if(i==pds.CurrentPageIndex) 
-					{
-						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} 
-					else 
-					{
-						PageLinks1.InnerHtml += String.Format(" <a href=\"{1}\">{0}</a>",i+1,Forum.GetLink(Pages.posts,"t={0}&p={1}",PageTopicID,i));
-					}
-				}
-				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-			} 
-			else 
-			{
-				PageLinks1.Visible = false;
-				PageLinks2.Visible = false;
-			}
 
 			if(topic["PollID"]!=DBNull.Value) 
 			{

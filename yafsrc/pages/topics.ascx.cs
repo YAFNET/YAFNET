@@ -43,11 +43,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
 		private DataRow forum;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
 		protected LinkButton moderate1, moderate2, MarkRead;
 		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 
 		public topics() : base("TOPICS")
 		{
@@ -131,6 +130,11 @@ namespace yaf.pages
 			BindData();
 		}
 
+		private void Pager_PageChange(object sender, EventArgs e)
+		{
+			BindData();
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
@@ -139,6 +143,7 @@ namespace yaf.pages
 			moderate2.Click += new EventHandler(moderate_Click);
 			ShowList.SelectedIndexChanged += new EventHandler(ShowList_SelectedIndexChanged);
 			MarkRead.Click += new EventHandler(MarkRead_Click);
+			Pager.PageChange += new EventHandler(Pager_PageChange);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -173,13 +178,13 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
+			Pager.PageSize = 15;
+
 			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
-			int nPageSize = System.Math.Max(5,15 - dt.Rows.Count);
+			int nPageSize = System.Math.Max(5,Pager.PageSize - dt.Rows.Count);
 			Announcements.DataSource = dt;
 
-			int nCurrentPageIndex = 0;
-			if(Request.QueryString["p"] != null)
-				nCurrentPageIndex = int.Parse(Request.QueryString["p"]);
+			int nCurrentPageIndex = Pager.CurrentPageIndex;
 
 			DataTable dtTopics;
 			if(ShowList.SelectedIndex==0) 
@@ -222,38 +227,11 @@ namespace yaf.pages
 			if(dtTopics.Rows.Count>0) nRowCount = (int)dtTopics.Rows[0]["RowCount"];
 			int nPageCount = (nRowCount + nPageSize - 1) / nPageSize;
 
-			//TopicList.DataSource = pds;
 			TopicList.DataSource = dtTopics;
 
 			DataBind();
 
-			if(nPageCount>1) {
-				PageLinks1.InnerHtml = String.Format("{0} pages:",nPageCount);
-				int iStart = nCurrentPageIndex - 10;
-				int iEnd = nCurrentPageIndex + 10;
-				if(iStart<0) iStart = 0;
-				if(iEnd>nPageCount) iEnd = nPageCount;
-				if(iStart>0) 
-				{
-					PageLinks1.InnerHtml += String.Format(" <a href=\"{0}\">First</a> ...",Forum.GetLink(Pages.topics,"f={0}",PageForumID));
-				}
-				for(int i=iStart;i<iEnd;i++) 
-				{
-					if(i==nCurrentPageIndex) {
-						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} else {
-						PageLinks1.InnerHtml += String.Format(" <a href=\"{1}\">{0}</a>",i+1,Forum.GetLink(Pages.topics,"f={0}&p={1}",PageForumID,i));
-					}
-				}
-				if(iEnd<nPageCount) 
-				{
-					PageLinks1.InnerHtml += String.Format(" ... <a href=\"{0}\">Last</a>",Forum.GetLink(Pages.topics,"f={0}&p={1}",PageForumID,nPageCount-1));
-				}
-				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-			} else {
-				PageLinks1.Visible = false;
-				PageLinks2.Visible = false;
-			}
+			Pager.Count = nRowCount;
 		}
 
 		private void NewTopic_Click(object sender, System.EventArgs e) {

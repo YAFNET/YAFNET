@@ -1413,6 +1413,16 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataTable user_accessmasks(object userID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_accessmasks")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+
+				return GetData(cmd);
+			}
+		}
 		static public bool user_recoverpassword(object userName,object email,object password) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_recoverpassword")) 

@@ -1638,14 +1638,14 @@ namespace yaf.pages
 		{
 			get 
 			{
-				return 11;
+				return 12;
 			}
 		}
 		static public long AppVersionCode 
 		{
 			get 
 			{
-				return 0x00090500;
+				return 0x00090600;
 			}
 		}
 		static public DateTime AppVersionDate 

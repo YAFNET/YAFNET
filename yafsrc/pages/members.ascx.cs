@@ -34,12 +34,11 @@ namespace yaf.pages
 	/// </summary>
 	public class members : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater MemberList;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
-		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
+		protected Repeater MemberList;
+		protected LinkButton UserName,Joined,Posts, Rank;
 		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
 		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 
 		public members() : base("MEMBERS")
 		{
@@ -103,53 +102,28 @@ namespace yaf.pages
 			BindData();
 		}
 
-		private void GoPage_Click(object sender, System.EventArgs e) 
+		private void Pager_PageChange(object sender, EventArgs e)
 		{
-			ViewState["PageNo"] = int.Parse(Request.Form["__EVENTARGUMENT"]);
 			BindData();
 		}
 
 		private void BindData() 
 		{
-			int CurrentPage = 0;
-			if(ViewState["PageNo"]!=null)
-				CurrentPage = (int)ViewState["PageNo"];
+			Pager.PageSize = 20;
 
-			PagedDataSource pds = new PagedDataSource();
 			DataView dv = DB.user_list(null,true).DefaultView;
+			Pager.Count = dv.Count;
+
 			dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAscending"] ? "asc" : "desc");
+			PagedDataSource pds = new PagedDataSource();
 			pds.DataSource = dv;
 			pds.AllowPaging = true;
-			pds.CurrentPageIndex = CurrentPage;
-			pds.PageSize = 20;
+			pds.CurrentPageIndex = Pager.CurrentPageIndex;
+			pds.PageSize = Pager.PageSize;
 			
 			MemberList.DataSource = pds;
 			DataBind();
 
-			if(pds.PageCount>1) 
-			{
-				PageLinks1.InnerHtml = String.Format(GetText("pages"),pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) 
-				{
-					if(i==pds.CurrentPageIndex) 
-					{
-						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} 
-					else 
-					{
-						PageLinks1.InnerHtml += string.Format(" <a href=\"{1}\">{0}</a>",
-							i+1,
-							Page.GetPostBackClientHyperlink(GoPage,i.ToString()));
-					}
-				}
-				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-			} 
-			else 
-			{
-				PageLinks1.Visible = false;
-				PageLinks2.Visible = false;
-			}
-			DataBind();
 			SortUserName.Visible = (string)ViewState["SortField"] == "Name";
 			SortUserName.Src = GetThemeContents("SORT",(bool)ViewState["SortAscending"] ? "ASCENDING" : "DESCENDING");
 			SortRank.Visible = (string)ViewState["SortField"] == "RankName";
@@ -167,7 +141,7 @@ namespace yaf.pages
 			this.Joined.Click += new EventHandler(this.Joined_Click);
 			this.Posts.Click += new EventHandler(this.Posts_Click);
 			this.Rank.Click += new EventHandler(this.Rank_Click);
-			this.GoPage.Click += new EventHandler(this.GoPage_Click);
+			this.Pager.PageChange += new EventHandler(Pager_PageChange);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

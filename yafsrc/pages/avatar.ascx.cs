@@ -54,7 +54,7 @@ namespace yaf.pages
 				if(ViewState["CurrentDir"]!=null)
 					return (string)ViewState["CurrentDir"];
 				else
-					return "images/avatars";
+					return "";
 			}
 			set
 			{
@@ -111,6 +111,8 @@ namespace yaf.pages
 
 		private void Get_Avatar()
 		{
+			string avatarpath = ForumRoot + "images/avatars/";
+
 			//string curdir = CurrentDir;
 			string pdir = "";
 			int ct = 1;
@@ -124,34 +126,27 @@ namespace yaf.pages
 
 			filepath = CurrentDir;
 			string[] pardir = CurrentDir.Split('/');
-			if(pardir.Length<3)
-			{
-				pdir = CurrentDir;
-			}
-			else
-			{
-				for(int i=0;i<pardir.Length-1;i++)
-					pdir += pardir[i] + "/";
-				pdir = pdir.Substring(0,pdir.Length-1);
-			}
+			for(int i=0;i<pardir.Length-1;i++)
+				pdir += pardir[i] + "/";
+			if(pdir.Length>0) pdir = pdir.Substring(0,pdir.Length-1);
 			
 			// Count Images
 			int imgct = 0;
 			string[] files;
 
-			files = Directory.GetFiles(Server.MapPath(filepath), "*.jpg");
+			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.jpg");
 			imgct = files.Length;
-			files = Directory.GetFiles(Server.MapPath(filepath), "*.gif");
+			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.gif");
 			imgct += files.Length;
-			files = Directory.GetFiles(Server.MapPath(filepath), "*.jpeg");
+			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.jpeg");
 			imgct += files.Length;
-			files = Directory.GetFiles(Server.MapPath(filepath), "*.png");
+			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.png");
 			imgct += files.Length;
 
 			string[] tmpfiles = new string[imgct];
 
 			int count = 0;
-			foreach(string x in Directory.GetFiles(Server.MapPath(filepath)))
+			foreach(string x in Directory.GetFiles(Server.MapPath(avatarpath + filepath)))
 			{
 				if (x.EndsWith(".jpg") || x.EndsWith(".jpeg") || x.EndsWith(".gif") || x.EndsWith(".png"))
 				{
@@ -164,7 +159,9 @@ namespace yaf.pages
 
 			files = tmpfiles;
 
-			dirs = Directory.GetDirectories(Server.MapPath(filepath));
+			dirs = Directory.GetDirectories(Server.MapPath(avatarpath + filepath));
+
+			if(filepath.Length>0 && !filepath.EndsWith("/")) filepath += "/";
 
 			DirResults.Text = string.Format("<tr class='postheader'><td align='center'><a href=\"{0}\"><img src=\""+ForumRoot+"images/folder.gif\" alt=\"Up\" class=\"borderless\" /><br />Up</a></td><td colspan=\"4\"><b>" + CurrentDir + "</b></td></tr>",Page.GetPostBackClientHyperlink(GoDir,pdir));
 
@@ -189,7 +186,7 @@ namespace yaf.pages
 				}
 
 				DirResults.Text += string.Format("<td width='20%' align=\"center\"><a href=\"{0}\"><img src=\"{2}\" alt=\"{1}\" class=\"borderless\" /><br />{1}</a></td>",
-					Page.GetPostBackClientHyperlink(GoDir,filepath + "/" + diral[nodir]),
+					Page.GetPostBackClientHyperlink(GoDir,filepath + diral[nodir]),
 					diral[nodir],
 					ForumRoot + "images/folder.gif"
 					);
@@ -219,7 +216,6 @@ namespace yaf.pages
 			int y = 1;
 
 			AvatarResults.Text = "";
-			//AvatarResults.Text += "<tr><td>&nbsp;...</td></tr>";
 
 			filepath = filepath.Replace("images/avatars/", "");
 
@@ -239,7 +235,7 @@ namespace yaf.pages
 
 						AvatarResults.Text += "<td width='20%' align=\"center\">";
 
-						AvatarResults.Text += "<a href=\"" + Forum.GetLink(Pages.cp_editprofile,"av=" + filepath + "/" + file.Name) + "\"><img src=\"images/avatars/" + filepath + "/" + file.Name + "\" alt=\"" + file.Name + "\" class=\"borderless\" /></a><br /><small>";
+						AvatarResults.Text += "<a href=\"" + Forum.GetLink(Pages.cp_editprofile,"av=" + filepath + file.Name) + "\"><img src=\"" + avatarpath + filepath + file.Name + "\" alt=\"" + file.Name + "\" class=\"borderless\" /></a><br /><small>";
 						AvatarResults.Text += file.Name;
 						AvatarResults.Text += "</small></td>" + Environment.NewLine;
 
