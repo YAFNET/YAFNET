@@ -468,3 +468,24 @@ GO
 if exists (select * from sysobjects where id = object_id(N'yaf_system_upgrade_to_registry') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_upgrade_to_registry
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_watchtopic_check
+GO
+
+create procedure yaf_watchtopic_check(@UserID int,@TopicID int) as
+begin
+	SELECT WatchTopicID FROM yaf_WatchTopic WHERE UserID = @UserID AND TopicID = @TopicID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_watchforum_check
+GO
+
+create procedure yaf_watchforum_check(@UserID int,@ForumID int) as
+begin
+	SELECT WatchForumID FROM yaf_WatchForum WHERE UserID = @UserID AND ForumID = @ForumID
+end
+GO
+
