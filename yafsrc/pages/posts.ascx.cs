@@ -100,7 +100,7 @@ namespace yaf.pages
 					NewTopic2.Visible = false;
 				}
 			
-				if(!ForumReplyAccess) 
+				if(!ForumReplyAccess || (bool)topic["IsLocked"]) 
 				{
 					PostReplyLink1.Visible = false;
 					PostReplyLink2.Visible = false;
@@ -347,6 +347,8 @@ namespace yaf.pages
 			UnlockTopic1.Visible = !UnlockTopic1.Visible;
 			LockTopic2.Visible = LockTopic1.Visible;
 			UnlockTopic2.Visible = UnlockTopic1.Visible;
+			PostReplyLink1.Visible = false;
+			PostReplyLink2.Visible = false;
 		}
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
@@ -358,6 +360,8 @@ namespace yaf.pages
 			UnlockTopic1.Visible = !UnlockTopic1.Visible;
 			LockTopic2.Visible = LockTopic1.Visible;
 			UnlockTopic2.Visible = UnlockTopic1.Visible;
+			PostReplyLink1.Visible = ForumReplyAccess;
+			PostReplyLink2.Visible = ForumReplyAccess;
 		}
 
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
