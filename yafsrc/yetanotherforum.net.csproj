@@ -94,12 +94,6 @@
                     AssemblyName = "System.Web.Services"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.Services.dll"
                 />
-                <Reference
-                    Name = "FreeTextBox"
-                    AssemblyName = "FreeTextBox"
-                    HintPath = "C:\Program Files\FreeTextBox 2.0\web\bin\FreeTextBox.dll"
-                    Private = "False"
-                />
             </References>
         </Build>
         <Files>
