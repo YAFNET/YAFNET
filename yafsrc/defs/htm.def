@@ -1,0 +1,26 @@
+- Test HTML Definition File.
+- Author: Justin Wendlandt
+- Just testing if I can add a file to CVS...
+
+- Comments
+<!--(.|[\r\n])*?//-->
+
+- Keywords
+<html>
+</html>
+<body
+</body>
+<head>
+</head>
+<style
+>
+/>
+<b>
+</b>
+<a
+</a>
+<table
+
+
+- KeyTypes
+NothinGoesHere
