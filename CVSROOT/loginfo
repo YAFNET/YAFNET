@@ -27,4 +27,4 @@
 
 CVSROOT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} bhenden@users.sourceforge.net
 
-DEFAULT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} bhenden@users.sourceforge.net
+DEFAULT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} yafdotnet-cvs@lists.sourceforge.net
