@@ -1033,8 +1033,8 @@ namespace yaf.pages
 		/// <summary>
 		/// Formats a datetime value into 07.03.2003
 		/// </summary>
-		/// <param name="dt"></param>
-		/// <returns></returns>
+		/// <param name="o">This formats the date.</param>
+		/// <returns>Short formatted date.</returns>
 		public string FormatDateShort(object o) 
 		{
 			DateTime dt = (DateTime)o;

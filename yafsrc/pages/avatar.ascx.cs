@@ -25,15 +25,10 @@ namespace yaf.pages
 	/// </summary>
 	public class avatar : ForumPage
 	{
-		protected System.Web.UI.WebControls.DropDownList listForum;
-		protected System.Web.UI.WebControls.DropDownList listResInPage;
-		protected System.Web.UI.WebControls.DropDownList listSearchWhere;
-		protected System.Web.UI.WebControls.DropDownList listSearchWath;
-		protected System.Web.UI.WebControls.TextBox txtSearchString;
-		protected System.Web.UI.WebControls.Button btnSearch;
-		protected System.Web.UI.WebControls.Repeater SearchRes;
-		protected System.Web.UI.WebControls.Literal AvatarResults;
-		protected System.Web.UI.WebControls.Literal DirResults;
+		protected System.Web.UI.WebControls.Label title;
+		protected System.Web.UI.WebControls.DataList files;
+		protected System.Web.UI.WebControls.DataList directories;
+		protected System.Web.UI.WebControls.HyperLink goup;
 		protected controls.PageLinks PageLinks;
 		protected controls.Pager pager;
 		protected LinkButton GoDir;
@@ -72,7 +67,7 @@ namespace yaf.pages
 				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.avatar));
 
 				pager.PageSize = 20;
-				Get_Avatar();
+				bind_data();
 			}
 		}
 
@@ -100,162 +95,83 @@ namespace yaf.pages
 
 		private void pager_PageChange(object sender,EventArgs e)
 		{
-			Get_Avatar();
+			bind_data();
 		}
 
-		private void GoDir_Click(object sender,EventArgs e)
+		private void GoDir_Click(object sender, EventArgs e)
 		{
 			CurrentDir = Request.Form["__EVENTARGUMENT"];
-			Get_Avatar();
+			bind_data();
 		}
 
-		private void Get_Avatar()
+		public void files_bind(object sender, DataListItemEventArgs e)
 		{
-			string avatarpath = Data.ForumRoot + "images/avatars/";
+			string strDirectory = Data.ForumRoot + "images/avatars/" + CurrentDir;
 
-			//string curdir = CurrentDir;
+			/*
 			string pdir = "";
-			int ct = 1;
-
-			FileInfo file;
-			FileInfo dir;
-
-			string fname = "";
-
-			string[] dirs;
-
-			filepath = CurrentDir;
 			string[] pardir = CurrentDir.Split('/');
-			for(int i=0;i<pardir.Length-1;i++)
+			for (int i=0; i<pardir.Length-1; i++)
 				pdir += pardir[i] + "/";
 			if(pdir.Length>0) pdir = pdir.Substring(0,pdir.Length-1);
+			*/
 			
-			// Count Images
-			int imgct = 0;
-			string[] files;
-
-			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.jpg");
-			imgct = files.Length;
-			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.gif");
-			imgct += files.Length;
-			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.jpeg");
-			imgct += files.Length;
-			files = Directory.GetFiles(Server.MapPath(avatarpath + filepath), "*.png");
-			imgct += files.Length;
-
-			string[] tmpfiles = new string[imgct];
-
-			int count = 0;
-			foreach(string x in Directory.GetFiles(Server.MapPath(avatarpath + filepath)))
-			{
-				if (x.EndsWith(".jpg") || x.EndsWith(".jpeg") || x.EndsWith(".gif") || x.EndsWith(".png"))
-				{
-					if(x.ToLower()!="cvs")
-						tmpfiles[count] = x;
-				}
-
-				count++;
-			}
-
-			files = tmpfiles;
-
-			dirs = Directory.GetDirectories(Server.MapPath(avatarpath + filepath));
-
-			if(filepath.Length>0 && !filepath.EndsWith("/")) filepath += "/";
-
-			DirResults.Text = string.Format("<tr class='postheader'><td align='center'><a href=\"{0}\"><img src=\""+Data.ForumRoot+"images/folder.gif\" alt=\"Up\" class=\"borderless\" /><br />Up</a></td><td colspan=\"4\"><b>" + CurrentDir + "</b></td></tr>",Page.GetPostBackClientHyperlink(GoDir,pdir));
-
-			ArrayList diral = new ArrayList();
+			Literal fname = (Literal)e.Item.FindControl("fname");
 	
-			int ttldir = 0;
-
-			for (int d = 0; d < dirs.Length; d++)
+			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
-				dir = new FileInfo(dirs[d]);
-				diral.Add(dir.Name);
-				ttldir++;
-			}
+				FileInfo finfo = new FileInfo(Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
+				string tmpExt = finfo.Extension.ToLower();
 
-			diral.Sort();
-
-			for (int nodir = 0; nodir < ttldir; nodir++)
-			{
-				if (nodir == 0)
+				if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
 				{
-					DirResults.Text += "<tr class='postheader'>" + Environment.NewLine;
-				}
-
-				DirResults.Text += string.Format("<td width='20%' align=\"center\"><a href=\"{0}\"><img src=\"{2}\" alt=\"{1}\" class=\"borderless\" /><br />{1}</a></td>",
-					Page.GetPostBackClientHyperlink(GoDir,filepath + diral[nodir]),
-					diral[nodir],
-					Data.ForumRoot + "images/folder.gif"
-					);
-				if (ct >= 5 && nodir != (ttldir - 1))
-				{
-					DirResults.Text += "</tr><tr class='postheader'>";
-					ct = 1;
+					fname.Text += "<p align=\"center\"><a href=\"" + Forum.GetLink(Pages.cp_editprofile, "av=" + CurrentDir + "/" + finfo.Name) + "\"><img src=\"" + strDirectory + "/" + finfo.Name + "\" alt=\"" + finfo.Name + "\" class=\"borderless\" /></a><br /><small>";
+					fname.Text += finfo.Name;
+					fname.Text += "</small></p>" + Environment.NewLine;
 				} 
-				else 
-				{
-					ct++;
-				}
-
-				if (nodir == (ttldir - 1))
-				{
-					if(ct<=5) DirResults.Text += string.Format("<td colspan='{0}'>&nbsp;</td>",6-ct);
-					DirResults.Text += "</tr>" + Environment.NewLine;
-				}
 			}
-
-			Array.Sort(files);
-
-			int pgnum = pager.CurrentPageIndex;
-			pager.Count = count;
-
-			int intpg = pgnum * pagesize;
-			int y = 1;
-
-			AvatarResults.Text = "";
-
-			filepath = filepath.Replace("images/avatars/", "");
-
-			for (int x = intpg; x < intpg + pagesize; x++)
+			
+			/*
+			if (e.Item.ItemType == ListItemType.Header) 
 			{
-				if (x < files.Length)
-				{
-					file = new FileInfo(files[x]);
-					fname = file.Name.ToLower();
+				HyperLink dhead = (HyperLink)e.Item.FindControl("dhead");
+				dhead.NavigateUrl = Page.GetPostBackClientHyperlink(GoDir, pdir);
+				dhead.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />UP</a></p>", Data.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+			}
+			*/
+		}
 
-					if (fname.EndsWith(".jpg") || fname.EndsWith(".gif") || fname.EndsWith(".jpeg") || fname.EndsWith(".png"))
-					{
-						if (x == intpg)
-						{
-							AvatarResults.Text += "<tr class='post'>" + Environment.NewLine;
-						}
+		public void directories_bind(object sender, DataListItemEventArgs e)
+		{
+			string strDirectory = Data.ForumRoot + "images/avatars/";
+	
+			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+			{
+				HyperLink dname = (HyperLink)e.Item.FindControl("dname");
+				dname.NavigateUrl = Page.GetPostBackClientHyperlink(GoDir, filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+				dname.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", Data.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+			}
+		}
+		
+		private void bind_data()
+		{
+			string strDirectory = Data.ForumRoot + "images/avatars/" + CurrentDir;
 
-						AvatarResults.Text += "<td width='20%' align=\"center\">";
+			DirectoryInfo dirinfo = new DirectoryInfo(Server.MapPath(strDirectory));
 
-						AvatarResults.Text += "<a href=\"" + Forum.GetLink(Pages.cp_editprofile,"av=" + filepath + file.Name) + "\"><img src=\"" + avatarpath + filepath + file.Name + "\" alt=\"" + file.Name + "\" class=\"borderless\" /></a><br /><small>";
-						AvatarResults.Text += file.Name;
-						AvatarResults.Text += "</small></td>" + Environment.NewLine;
-
-						if (y == 5 && x != ((intpg + pagesize) - 1))
-						{
-							AvatarResults.Text += "</tr><tr class='post'>";
-							y = 1;
-						} 
-						else 
-						{
-							y++;
-						}
-
-						if (x == ((intpg + pagesize) - 1) || x == (files.Length - 1))
-						{
-							if(y<=5) AvatarResults.Text += string.Format("<td colspan='{0}'>&nbsp;</td>",6-y);
-							AvatarResults.Text += "</tr>";
-						}
-					}
-				}
+			if (CurrentDir == "") 
+			{
+				files.Visible = false;
+				directories.Visible = true;
+				directories.DataSource = dirinfo.GetDirectories();
+				directories.DataBind();
+			}
+			else
+			{
+				files.Visible = true;
+				directories.Visible = false;
+				files.DataSource = dirinfo.GetFiles("*.*");
+				files.DataBind();
 			}
 		}
 	}

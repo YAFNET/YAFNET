@@ -10,6 +10,9 @@ namespace yaf
 		private string	m_html		= "";
 		private bool	m_rendered	= false;
 
+		/// <summary>
+		/// Status information about the header class.
+		/// </summary>
 		public string Info
 		{
 			set
@@ -20,6 +23,10 @@ namespace yaf
 			}
 		}
 
+		/// <summary>
+		/// Renders the header.
+		/// </summary>
+		/// <param name="writer">The HtmlTextWriter that we are using.</param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			writer.Write(m_html);
@@ -27,12 +34,22 @@ namespace yaf
 		}
 	}
 
+	/// <summary>
+	/// Class test.
+	/// </summary>
 	public class Test : BaseControl
 	{
+		/// <summary>
+		/// The default constructor for Test.
+		/// </summary>
 		public Test()
 		{
 		}
 
+		/// <summary>
+		/// Renders the Test class.
+		/// </summary>
+		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer)
 		{
 			string act_rank = "";
@@ -49,7 +66,9 @@ namespace yaf
 
 			foreach( System.Data.DataRow r in rank.Rows )
 			{
-				string img = "<img src='/yetanotherforum.net/themes/standard/user_rank1.gif'/>";//string.Format( "<img src=\"{0}\"/>", MyPage.ThemeFile( string.Format( "user_rank{0}.gif", i ) ) );
+				string img = "<img src='/yetanotherforum.net/themes/standard/user_rank1.gif'/>";
+				// string.Format( "<img src=\"{0}\"/>", MyPage.ThemeFile( string.Format( "user_rank{0}.gif", i ) ) );
+
 				i++;
 				act_rank += "<tr class=\"post\">";
 				
