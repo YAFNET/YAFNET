@@ -39,9 +39,26 @@ namespace yaf.pages
 		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
 		protected controls.PageLinks PageLinks;
 		protected controls.Pager Pager;
+		protected HtmlTableRow LetterRow;
 
 		public members() : base("MEMBERS")
 		{
+		}
+
+		private object QLetter
+		{
+			get
+			{
+				string rletter = string.Empty;
+				if(Request.QueryString["letter"]!=null) 
+				{
+					rletter = Request.QueryString["letter"];
+					if(rletter=="_")
+						rletter = "#";
+					return rletter;
+				}
+				return null;
+			}
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -57,7 +74,7 @@ namespace yaf.pages
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.members));
 
 				SetSort("Name",true);
 
@@ -117,6 +134,24 @@ namespace yaf.pages
 			Pager.PageSize = 20;
 
 			DataView dv = DB.user_list(PageBoardID,null,true).DefaultView;
+			
+			if(QLetter!=null) {
+				if(QLetter.ToString()=="#") 
+				{
+					string filter = string.Empty;
+					foreach(char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
+					{
+						if(filter==string.Empty)
+							filter = string.Format("Name not like '{0}%'",letter);
+						else
+							filter += string.Format("and Name not like '{0}%'",letter);
+					}
+					dv.RowFilter = filter;
+				}
+				else
+					dv.RowFilter = string.Format("Name like '{0}%'",QLetter);
+			}
+
 			Pager.Count = dv.Count;
 
 			dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAscending"] ? "asc" : "desc");
@@ -152,6 +187,23 @@ namespace yaf.pages
 			//
 			InitializeComponent();
 			base.OnInit(e);
+		
+			foreach(char letter in "#ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
+			{
+				HtmlTableCell cell = new HtmlTableCell();
+				cell.Align = "center";
+				if(QLetter!=null && QLetter.ToString()==letter.ToString())
+					cell.Attributes["class"] = "postheader";
+				else
+					cell.Attributes["class"] = "post";
+	
+				HyperLink btn = new HyperLink();
+				btn.Text = letter.ToString();
+				btn.NavigateUrl = Forum.GetLink(Pages.members,"letter={0}",letter=='#'?'_':letter);
+				cell.Controls.Add(btn);
+
+				LetterRow.Cells.Add(cell);
+			}
 		}
 		
 		/// <summary>

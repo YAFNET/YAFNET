@@ -5,7 +5,6 @@
 public void Page_Error(object sender,System.EventArgs e)
 {
 	yaf.Utils.LogToMail(Server.GetLastError());
-	Forum.Redirect(yaf.Pages.error);
 }
 </script>
 

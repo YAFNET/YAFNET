@@ -3,9 +3,11 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
+<table class="content" width="100%" cellspacing="1" cellpadding="0">
+<tr runat="server" id="LetterRow"/>
+</table>
+
 <table class=command><tr><td class="navlinks"><yaf:pager runat="server" id="Pager"/></td></tr></table>
-
-
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>

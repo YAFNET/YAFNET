@@ -5063,7 +5063,7 @@ create procedure dbo.yaf_user_nntp(@BoardID int,@UserName nvarchar(50),@Email nv
 begin
 	declare @UserID int
 
-	set @UserName = 'NNTP-' + @UserName
+	set @UserName = @UserName + ' (NNTP)'
 
 	select
 		@UserID=UserID
