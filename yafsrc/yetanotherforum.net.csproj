@@ -419,6 +419,10 @@
                     RelPath = "images\yaf.png"
                     BuildAction = "Content"
                 />
+                <File
+                    RelPath = "images\YAFLogo.jpg"
+                    BuildAction = "Content"
+                />
                 <Folder RelPath = "images\avatars\" />
                 <Folder RelPath = "images\emoticons\" />
                 <Folder RelPath = "images\ranks\" />

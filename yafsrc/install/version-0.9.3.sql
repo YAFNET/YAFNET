@@ -391,31 +391,6 @@ begin
 end
 go
 
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_nntpforum_update
-GO
-
-create procedure yaf_nntpforum_update(@NntpForumID int,@LastMessageNo int,@UserID int) as
-begin
-	declare	@ForumID	int
-	
-	select @ForumID=ForumID from yaf_NntpForum where NntpForumID=@NntpForumID
-
-	update yaf_NntpForum set
-		LastMessageNo = @LastMessageNo,
-		LastUpdate = getdate()
-	where NntpForumID = @NntpForumID
-
-	update yaf_Topic set 
-		NumPosts = (select count(1) from yaf_message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0)
-	where ForumID=@ForumID
-
-	--exec yaf_user_upgrade @UserID
-	exec yaf_forum_updatestats @ForumID
-	--exec yaf_topic_updatelastpost @ForumID,null
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_category_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_delete
 GO
