@@ -1660,3 +1660,40 @@ CREATE procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begi
 		update yaf_UserPMessage set IsRead=1 where UserID=@UserID and UserPMessageID=@PMessageID
 end
 GO
+
+-- yaf_attachment_list
+if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_attachment_list
+GO
+
+create procedure yaf_attachment_list(@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
+	if @MessageID is not null
+		select * from yaf_Attachment where MessageID=@MessageID
+	else if @AttachmentID is not null
+		select * from yaf_Attachment where AttachmentID=@AttachmentID
+	else
+		select 
+			a.*,
+			Posted		= b.Posted,
+			ForumID		= d.ForumID,
+			ForumName	= d.Name,
+			TopicID		= c.TopicID,
+			TopicName	= c.Topic
+		from 
+			yaf_Attachment a,
+			yaf_Message b,
+			yaf_Topic c,
+			yaf_Forum d,
+			yaf_Category e
+		where
+			b.MessageID = a.MessageID and
+			c.TopicID = b.TopicID and
+			d.ForumID = c.ForumID and
+			e.CategoryID = d.CategoryID and
+			e.BoardID = @BoardID
+		order by
+			d.Name,
+			c.Topic,
+			b.Posted
+end
+GO
