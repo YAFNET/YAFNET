@@ -97,7 +97,9 @@ namespace yaf
 			if(ForumID == 0)
 				Response.Redirect(BaseDir);
 
-			if(!ForumPostAccess)
+			if(Request["t"]==null && !ForumPostAccess)
+				Response.Redirect(BaseDir);
+			if(Request["t"]!=null && !ForumReplyAccess)
 				Response.Redirect(BaseDir);
 
 			if(!IsPostBack) 
