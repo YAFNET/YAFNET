@@ -60,7 +60,10 @@ namespace yaf.controls
 				bool bIsLocked = isLocked || (bool)m_row["ForumLocked"];
 
 				if(row["TopicMovedID"].ToString().Length>0)
+				{
+					imgTitle = ForumPage.GetText("MOVED");
 					return ForumPage.GetThemeContents("ICONS","TOPIC_MOVED");
+				}
 
 				DateTime lastRead = ForumPage.GetTopicRead((int)row["TopicID"]);
 				DateTime lastReadForum = ForumPage.GetForumRead((int)row["ForumID"]);
