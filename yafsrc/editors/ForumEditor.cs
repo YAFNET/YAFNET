@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Web.UI;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
@@ -248,5 +250,124 @@ namespace yaf.editor
 		#endregion
 	}
 
+
+	public class FCKEditor : ForumEditor
+	{
+		private bool bInit;
+		private Type typEditor;
+		private System.Web.UI.Control objEditor;
+		private Assembly cBin;
+
+		public FCKEditor() : this("bin\\FredCK.FCKeditorV2.dll")
+		{
+			
+		}
+
+		public FCKEditor(string BinFile) : base()
+		{
+			bInit = false;
+
+			BinFile = System.Web.HttpContext.Current.Server.MapPath(BinFile);
+	
+			try
+			{
+				cBin = Assembly.LoadFrom(BinFile);
+				// get all the types in the loaded assembly
+				Type[] types = cBin.GetTypes();
+
+				foreach (Type typ in types)
+				{
+					// dynamically create or activate(if exist) object
+					if (typ.FullName == "FredCK.FCKeditorV2.FCKeditor")
+					{
+						typEditor = typ;
+						// create this object
+						objEditor = (System.Web.UI.Control)Activator.CreateInstance(typ);
+						bInit = true;
+						break;
+					}
+				}
+			}
+			catch(Exception e)
+			{
+#if DEBUG
+				throw new Exception(e.Message);
+#endif
+			}
+		}
+
+		protected override void OnInit(EventArgs e)
+		{			
+			if (bInit)
+			{
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = typEditor.GetProperty("ID");
+				pInfo.SetValue(objEditor,"edit",null);
+				Controls.Add(objEditor);
+			}
+			base.OnInit(e);
+		}
+
+		protected virtual void Editor_Load(object sender,EventArgs e)
+		{
+			if (bInit && objEditor.Visible)
+			{
+				PropertyInfo pInfo;
+				pInfo = typEditor.GetProperty("BasePath");
+				pInfo.SetValue(objEditor,ResolveUrl("FCKEditor/"),null);
+
+				Page.RegisterClientScriptBlock("fckeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("FCKEditor/FCKEditor.js")));
+			}
+		}
+
+		#region Properties
+		public override string Text
+		{
+			get
+			{
+				if (bInit)
+				{
+					PropertyInfo pInfo = typEditor.GetProperty("Value");
+					return Convert.ToString(pInfo.GetValue(objEditor,null));
+				}
+				else return string.Empty;
+			}
+			set
+			{
+				if (bInit)
+				{
+					PropertyInfo pInfo = typEditor.GetProperty("Value");
+					pInfo.SetValue(objEditor,value,null);
+				}
+			}
+		}
+
+		protected string SafeID
+		{
+			get
+			{
+				if (bInit)
+				{
+					return objEditor.ClientID.Replace("$","_");
+				}
+				return string.Empty;															 
+			}
+		}
+
+		public override string StyleSheet
+		{
+			set { ;	}
+		}
+		public override bool UsesHTML
+		{
+			get	{ return true; }		
+		}
+		public override bool UsesBBCode
+		{
+			get { return false; }
+		}
+		#endregion
+
+	}
 
 }
