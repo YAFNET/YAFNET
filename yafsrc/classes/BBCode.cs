@@ -79,6 +79,7 @@ namespace yaf
 		static private Regex		r_br = new Regex("[\r]?\n",m_options);
 		static private Regex		r_post = new Regex(@"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]",m_options);
 		static private Regex		r_topic = new Regex(@"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]",m_options);
+		static private Regex		r_img = new Regex(@"\[img[^\]]*\](?<inner>(.*?))\[/img\]",m_options);
 
 		static public string MakeHtml(yaf.pages.ForumPage basePage,string bbcode,bool DoFormatting)
 		{
@@ -172,6 +173,8 @@ namespace yaf
 				NestedReplace(ref bbcode,r_center,"<div align=\"center\">${inner}</div>");
 				NestedReplace(ref bbcode,r_left,"<div align=\"left\">${inner}</div>");
 				NestedReplace(ref bbcode,r_right,"<div align=\"right\">${inner}</div>");
+				// image
+				NestedReplace(ref bbcode,r_img,"<img src=\"${inner}\"/>");
 
 				bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
 				bbcode = r_br.Replace(bbcode,"<br/>");
