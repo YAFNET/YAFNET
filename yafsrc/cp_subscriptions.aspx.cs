@@ -102,7 +102,7 @@ namespace yaf
 				}
 			}
 			if(NoneChecked)
-				AddLoadMessage("Please select topics to unsubscribe from first.");
+				AddLoadMessage(GetText("WARN_SELECTTOPICS"));
 			else
 				BindData();
 		}
@@ -118,7 +118,7 @@ namespace yaf
 				}
 			}
 			if(NoneChecked)
-				AddLoadMessage("Please select forums to unsubscribe from first.");
+				AddLoadMessage(GetText("WARN_SELECTFORUMS"));
 			else
 				BindData();
 		}

@@ -164,9 +164,9 @@ namespace yaf
 				{
 					if(img.Width>x || img.Height>y)
 					{
-						AddLoadMessage(String.Format("Image size can't be larger than {0}x{1} pixels.",x,y));
-						AddLoadMessage(String.Format("The size of your image was {0}x{1} pixels.",img.Width,img.Height));
-						AddLoadMessage(String.Format("The image was resized to fit."));
+						AddLoadMessage(String.Format(GetText("WARN_TOOBIG"),x,y));
+						AddLoadMessage(String.Format(GetText("WARN_SIZE"),img.Width,img.Height));
+						AddLoadMessage(GetText("WARN_RESIZED"));
 
 						using(System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(img, new System.Drawing.Size((int)x, (int)y)))
 						{
@@ -176,8 +176,8 @@ namespace yaf
 					}
 					if (File.PostedFile.ContentLength>=nAvatarSize && resized == null)
 					{
-						AddLoadMessage(String.Format("The size of your image can't be more than {0} bytes.",nAvatarSize));
-						AddLoadMessage(String.Format("The size of your image was {0} bytes.",File.PostedFile.ContentLength));
+						AddLoadMessage(String.Format(GetText("WARN_BIGFILE"),nAvatarSize));
+						AddLoadMessage(String.Format(GetText("WARN_FILESIZE"),File.PostedFile.ContentLength));
 						return;
 					}
 

@@ -237,15 +237,13 @@ namespace yaf
 
 		private void NewTopic_Click(object sender, System.EventArgs e) {
 			if((bool)forum["Locked"]) {
-				AddLoadMessage("The forum is closed.");
+				AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
 
 			int ForumID = int.Parse(Request.QueryString["f"]);
-			if(!ForumPostAccess) {
-				AddLoadMessage("You don't have access to post new topics in this forum.");
-				return;
-			}
+			if(!ForumPostAccess)
+				Data.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
 			
 			Response.Redirect(String.Format("postmessage.aspx?f={0}",ForumID));
 		}
@@ -255,12 +253,12 @@ namespace yaf
 				return;
 
 			if(IsGuest) {
-				AddLoadMessage("You must be registered to watch forums.");
+				AddLoadMessage(GetText("WARN_LOGIN_FORUMWATCH"));
 				return;
 			}
 
 			DB.watchforum_add(PageUserID,PageForumID);
-			AddLoadMessage("You will now be notified when new posts arrive in this forum.");
+			AddLoadMessage(GetText("INFO_WATCH_FORUM"));
 		}
 	}
 }

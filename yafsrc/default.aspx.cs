@@ -188,7 +188,7 @@ namespace yaf
 					if(DB.user_access(PageUserID,e.CommandArgument))
 						Response.Redirect(String.Format("topics.aspx?f={0}",e.CommandArgument));
 
-					AddLoadMessage("You can't access that forum.");
+					AddLoadMessage(GetText("ERROR_NOFORUMACCESS"));
 					break;
 			}
 		}

@@ -265,10 +265,8 @@ namespace yaf
 
 		private void DeleteTopic_Click(object sender, System.EventArgs e)
 		{
-			if(!ForumModeratorAccess) {
-				AddLoadMessage("You don't have access to delete topics.");
-				return;
-			}
+			if(!ForumModeratorAccess)
+				Data.AccessDenied(/*"You don't have access to delete topics."*/);
 
 			DB.topic_delete(PageTopicID);
 			Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
@@ -278,14 +276,14 @@ namespace yaf
 		{
 			DB.topic_lock(PageTopicID,true);
 			BindData();
-			AddLoadMessage("Topic was locked.");
+			AddLoadMessage(GetText("INFO_TOPIC_LOCKED"));
 		}
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
 		{
 			DB.topic_lock(PageTopicID,false);
 			BindData();
-			AddLoadMessage("Topic was unlocked.");
+			AddLoadMessage(GetText("INFO_TOPIC_UNLOCKED"));
 		}
 
 
@@ -312,62 +310,53 @@ namespace yaf
 					break;
 				case "Delete":
 					if((bool)topic["IsLocked"]) {
-						AddLoadMessage("The topic is closed.");
+						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 						return;
 					}
 
 					if((bool)forum["Locked"]) {
-						AddLoadMessage("The forum is closed.");
+						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 						return;
 					}
 
-					if(!ForumDeleteAccess) {
-						AddLoadMessage("You don't have access to delete posts in this forum.");
-						return;
-					}
+					if(!ForumDeleteAccess)
+						Data.AccessDenied(/*"You don't have access to delete posts in this forum."*/);
 
 					// Check that non-moderators only delete messages they have written
 					if(!ForumModeratorAccess) {
 						using(DataTable dt = DB.message_list(e.CommandArgument)) {
-							if((int)dt.Rows[0]["UserID"] != PageUserID) {
-								AddLoadMessage("You didn't post this message.");
-								return;
-							}
+							if((int)dt.Rows[0]["UserID"] != PageUserID)
+								Data.AccessDenied(/*"You didn't post this message."*/);
 						}
 					}
 
 					DB.message_delete(e.CommandArgument);
 					BindData();
-					AddLoadMessage("Message was deleted.");
+					AddLoadMessage(GetText("INFO_MESSAGE_DELETED"));
 					break;
 				case "Attach":
 					if((bool)topic["IsLocked"]) 
 					{
-						AddLoadMessage("The topic is closed.");
+						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 						return;
 					}
 
 					if((bool)forum["Locked"]) 
 					{
-						AddLoadMessage("The forum is closed.");
+						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 						return;
 					}
 
 					if(!ForumUploadAccess) 
-					{
-						AddLoadMessage("You don't have access to attach files in this forum.");
-						return;
-					}
+						Data.AccessDenied(/*"You don't have access to attach files in this forum."*/);
+
 					// Check that non-moderators only edit messages they have written
 					if(!ForumModeratorAccess) 
 					{
 						using(DataTable dt = DB.message_list(e.CommandArgument)) 
 						{
 							if((int)dt.Rows[0]["UserID"] != PageUserID) 
-							{
-								AddLoadMessage("You didn't post this message.");
-								return;
-							}
+								Data.AccessDenied(/*"You didn't post this message."*/);
 						}
 					}
 
@@ -375,27 +364,23 @@ namespace yaf
 					break;
 				case "Edit":
 					if((bool)topic["IsLocked"]) {
-						AddLoadMessage("The topic is closed.");
+						AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 						return;
 					}
 
 					if((bool)forum["Locked"]) {
-						AddLoadMessage("The forum is closed.");
+						AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 						return;
 					}
 
-					if(!ForumEditAccess) {
-						AddLoadMessage("You don't have access to edit posts in this forum.");
-						return;
-					}
+					if(!ForumEditAccess)
+						Data.AccessDenied(/*"You don't have access to edit posts in this forum."*/);
 
 					// Check that non-moderators only edit messages they have written
 					if(!ForumModeratorAccess) {
 						using(DataTable dt = DB.message_list(e.CommandArgument)) {
-							if((int)dt.Rows[0]["UserID"] != PageUserID) {
-								AddLoadMessage("You didn't post this message.");
-								return;
-							}
+							if((int)dt.Rows[0]["UserID"] != PageUserID)
+								Data.AccessDenied(/*"You didn't post this message."*/);
 						}
 					}
 
@@ -403,7 +388,7 @@ namespace yaf
 					break;
 				case "PM":
 					if(!User.Identity.IsAuthenticated) {
-						AddLoadMessage("You must be logged in to send private messages.");
+						AddLoadMessage(GetText("WARN_PMLOGIN"));
 						return;
 					}
 
@@ -418,12 +403,12 @@ namespace yaf
 				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
 			
 				if(Request.Cookies[cookie] != null) {
-					AddLoadMessage("You have already voted.");
+					AddLoadMessage(GetText("WARN_ALREADY_VOTED"));
 					return;
 				}
 
 				if((bool)topic["IsLocked"]) {
-					AddLoadMessage("The topic is closed.");
+					AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 					return;
 				}
 
@@ -431,7 +416,7 @@ namespace yaf
 				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
 				c.Expires = DateTime.Now + TimeSpan.FromDays(365);
 				Response.Cookies.Add(c);
-				AddLoadMessage("Thank you for your vote!");
+				AddLoadMessage(GetText("INFO_VOTED"));
 				BindData();
 			}
 		}
@@ -442,12 +427,12 @@ namespace yaf
 
 		private void PostReplyLink_Click(object sender, System.EventArgs e) {
 			if((bool)topic["IsLocked"]) {
-				AddLoadMessage("The topic is closed.");
+				AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 				return;
 			}
 
 			if((bool)forum["Locked"]) {
-				AddLoadMessage("The forum is closed.");
+				AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
 					
@@ -456,7 +441,7 @@ namespace yaf
 
 		private void NewTopic_Click(object sender, System.EventArgs e) {
 			if((bool)forum["Locked"]) {
-				AddLoadMessage("The forum is closed.");
+				AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
 			Response.Redirect("postmessage.aspx?f=" + PageForumID);
@@ -528,19 +513,17 @@ namespace yaf
 
 		private void TrackTopic_Click(object sender, System.EventArgs e) {
 			if(IsGuest) {
-				AddLoadMessage("You must be registered to watch topics.");
+				AddLoadMessage(GetText("WARN_WATCHLOGIN"));
 				return;
 			}
 
 			DB.watchtopic_add(PageUserID,PageTopicID);
-			AddLoadMessage("You will now be notified when new posts arrive in this topic.");
+			AddLoadMessage(GetText("INFO_WATCH_TOPIC"));
 		}
 		
 		private void MoveTopic_Click(object sender, System.EventArgs e) {
-			if(!ForumModeratorAccess) {
-				AddLoadMessage("You are not a forum moderator.");
-				return;
-			}
+			if(!ForumModeratorAccess)
+				Data.AccessDenied(/*"You are not a forum moderator."*/);
 
 			Response.Redirect(String.Format("movetopic.aspx?t={0}",PageTopicID));
 		}
@@ -548,7 +531,7 @@ namespace yaf
 		private void PrevTopic_Click(object sender, System.EventArgs e) {
 			using(DataTable dt = DB.topic_findprev(PageTopicID)) {
 				if(dt.Rows.Count==0) {
-					AddLoadMessage("No more topics in this forum.");
+					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;
 				}
 				Response.Redirect(String.Format("posts.aspx?t={0}",dt.Rows[0]["TopicID"]));
@@ -558,7 +541,7 @@ namespace yaf
 		private void NextTopic_Click(object sender, System.EventArgs e) {
 			using(DataTable dt = DB.topic_findnext(PageTopicID)) {
 				if(dt.Rows.Count==0) {
-					AddLoadMessage("No more topics in this forum.");
+					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
 					return;
 				}
 				Response.Redirect(String.Format("posts.aspx?t={0}",dt.Rows[0]["TopicID"]));
@@ -566,7 +549,7 @@ namespace yaf
 		}
 		private void EmailTopic_Click(object sender, System.EventArgs e) {
 			if(!User.Identity.IsAuthenticated) {
-				AddLoadMessage("You must be registered to send emails.");
+				AddLoadMessage(GetText("WARN_EMAILLOGIN"));
 				return;
 			}
 			Response.Redirect(String.Format("emailtopic.aspx?t={0}",PageTopicID));
@@ -584,7 +567,7 @@ namespace yaf
 			{
 				string sUpDir = System.Configuration.ConfigurationSettings.AppSettings["uploaddir"];
 
-				html += "<p><b>Attachments:</b><br/>";
+				html += String.Format("<p><b>{0}</b><br/>",GetText("ATTACHMENTS"));
 				using(DataTable dt = DB.attachment_list(row["MessageID"])) 
 				{
 					foreach(DataRow dr in dt.Rows) 

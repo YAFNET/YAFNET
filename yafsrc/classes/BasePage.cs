@@ -1248,9 +1248,9 @@ namespace yaf
 			if(str==null) 
 			{
 #if !DEBUG
-				Cache["Localizer." + filename] = null;
+				Cache.Remove("Localizer." + filename);
 #endif
-				throw new Exception(String.Format("Missing language item {0} ({1})",text,page));
+				throw new Exception(String.Format("Missing translation for {1}.{0}",text.ToUpper(),page.ToUpper()));
 			}
 			str = str.Replace("[b]","<b>");
 			str = str.Replace("[/b]","</b>");

@@ -86,6 +86,7 @@
 		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} guest</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
 		<Resource tag="VIEWING">({0} Viewing)</Resource>
+		<Resource tag="ERROR_NOFORUMACCESS">You don't have access to the chosen forum.</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -109,6 +110,9 @@
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="FORUMUSERS">Users browsing this forum</Resource>
 		<Resource tag="CREATED">Created</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
+		<Resource tag="WARN_LOGIN_FORUMWATCH">You must be registered to watch forums.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts arrive in this forum.</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -132,6 +136,19 @@
 		<Resource tag="POSTS">Posts</Resource>
 		<Resource tag="LOCATION">Location</Resource>
 		<Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">Topic was locked.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">Topic was unlocked.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">The topic is closed.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
+		<Resource tag="INFO_MESSAGE_DELETED">Message was deleted.</Resource>
+		<Resource tag="WARN_PMLOGIN">You must be logged in to send private messages.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
+		<Resource tag="INFO_VOTED">Thank you for your vote!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts arrive in this topic.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
+		<Resource tag="ATTACHMENTS">Attachments:</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -203,6 +220,11 @@
 		<Resource tag="MESSENGER">Instant messaging services</Resource>
 		<Resource tag="ABOUTYOU">About You</Resource>
 		<Resource tag="REALNAME2">What's you real name?</Resource>
+		<Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+		<Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
+		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
+		<Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
+		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -259,6 +281,8 @@
 		<Resource tag="VIEWS">Views</Resource>
 		<Resource tag="UNSUBSCRIBE">Unsubscribe</Resource>
 		<Resource tag="LASTPOSTLINK">{0} by {1}</Resource>
+		<Resource tag="WARN_SELECTTOPICS">Please select topics to unsubscribe from first.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">Please select forums to unsubscribe from first.</Resource>
 	</page>
 	<page name="EMAILTOPIC">
 		<!-- emailtopic.aspx -->
