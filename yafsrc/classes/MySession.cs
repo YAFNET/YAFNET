@@ -76,7 +76,7 @@ namespace yaf
 				if(HttpContext.Current.Session["showlist"]!=null)
 					return (int)HttpContext.Current.Session["showlist"];
 				else
-					return 0;
+					return 5;
 			}
 			set
 			{

@@ -378,5 +378,10 @@ namespace yaf.pages
 
 			HandleWatchForum();
 		}
+
+		protected string GetSubForumTitle() 
+		{
+			return string.Format(GetText("SUBFORUMS"),PageForumName);
+		}
 	}
 }

@@ -6,7 +6,7 @@
 
 <asp:placeholder runat="server" id="SubForums" visible="false">
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
-	<tr class="header1"><td colspan="5"><%=GetText("SUBFORUMS")%></td></tr>
+	<tr class="header1"><td colspan="5"><%=GetSubForumTitle()%></td></tr>
 	<tr class="header2">
 		<td width=1%>&nbsp;</td>
 		<td align=left><%# GetText("FORUM") %></td>
