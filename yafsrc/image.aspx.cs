@@ -24,7 +24,7 @@ namespace yaf
 					byte[] data = (byte[])row["AvatarImage"];
 
 					Response.Clear();
-					Response.ContentType = "image/jpg";
+					//Response.ContentType = "image/jpg";
 					Response.OutputStream.Write(data,0,data.Length);
 					Response.End();
 					break;

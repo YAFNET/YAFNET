@@ -77,7 +77,7 @@ namespace yaf
 			Name.Text = (string)row["Name"];
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format(CustomCulture,"{0:N0}",row["NumPosts"]);
-			AvatarImage.Visible = row["AvatarImage"]!=null;
+			AvatarImage.Visible = row["AvatarImage"].ToString().Length>0;
 			if(AvatarImage.Visible)
 				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",BaseDir,PageUserID);
 		}

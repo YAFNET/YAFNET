@@ -17,21 +17,21 @@
 		<td colspan=2 class=header2><b>Location</b></td>
 	</tr>
 	<tr>
-		<td class=post>Where do you live?</td>
+		<td class=postheader>Where do you live?</td>
 		<td class=post><asp:TextBox id=Location runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr>
 		<td colspan=2 class=header2><b>Home Page</b></td>
 	</tr>
 	<tr>
-		<td class=post>Your home page:</td>
+		<td class=postheader>Your home page:</td>
 		<td class=post><asp:TextBox id=HomePage runat="server" cssclass="edit"/></td>
 	</tr>
 	<tr>
 		<td colspan=2 class=header2><b>Time Zone</b></td>
 	</tr>
 	<tr>
-		<td class=post>To give you times and dates in your local time, we need to know your time zone.</td>
+		<td class=postheader>To give you times and dates in your local time, we need to know your time zone.</td>
 		<td class=post><asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"/></td>
 	</tr>
 
@@ -39,11 +39,15 @@
 	<td class=header2 colspan=2>Avatar</td>
 </tr>
 <tr runat="server" id="AvatarUploadRow">
-	<td class=post>Upload avatar from your computer.</td>
+	<td class=postheader>Upload avatar from your computer.</td>
 	<td class=post><input type="file" id="File" runat="server"/></td>
 </tr>
+<tr runat="server" id="AvatarDeleteRow">
+	<td class=postheader>Delete uploaded avatar.</td>
+	<td class=post><asp:button runat="server" id="DeleteAvatar" text="Delete Avatar"/></td>
+</tr>
 <tr runat="server" id="AvatarRemoteRow">
-	<td class=post>Enter the url of an avatar that will be displayed next to your posts.</td>
+	<td class=postheader>Enter the url of an avatar that will be displayed next to your posts.</td>
 	<td class=post><asp:textbox cssclass=edit id=Avatar runat="server"/></td>
 </tr>
 

@@ -48,7 +48,8 @@ namespace yaf
 		protected System.Web.UI.WebControls.Button UpdateProfile;
 		protected System.Web.UI.WebControls.TextBox Email;
 		protected System.Web.UI.HtmlControls.HtmlInputFile File;
-		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarRemoteRow;
+		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarDeleteRow, AvatarRemoteRow;
+		protected Button DeleteAvatar;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -63,15 +64,6 @@ namespace yaf
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
 				UserLink.Text = PageUserName;
-
-				using(DataTable dt = DB.system_list()) 
-				{
-					foreach(DataRow row in dt.Rows) {
-						AvatarUploadRow.Visible = (bool)row["AvatarUpload"];
-						AvatarRemoteRow.Visible = (bool)row["AvatarRemote"];
-					}
-					AvatarRow.Visible = AvatarUploadRow.Visible || AvatarRemoteRow.Visible;
-				}
 			}
 		}
 
@@ -80,7 +72,8 @@ namespace yaf
 			TimeZones.DataSource = Data.TimeZones();
 			DataBind();
 
-			using(DataTable dt = DB.user_list(PageUserID,true)) {
+			using(DataTable dt = DB.user_list(PageUserID,true)) 
+			{
 				row = dt.Rows[0];
 			}
 
@@ -89,9 +82,27 @@ namespace yaf
 			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
 			Avatar.Text = row["Avatar"].ToString();
 			Email.Text = row["Email"].ToString();
+
+			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
+			using(DataTable dt = DB.system_list()) 
+			{
+				foreach(DataRow row2 in dt.Rows) 
+				{
+					AvatarUploadRow.Visible = (bool)row2["AvatarUpload"];
+					AvatarRemoteRow.Visible = (bool)row2["AvatarRemote"];
+				}
+				AvatarRow.Visible = AvatarUploadRow.Visible || AvatarRemoteRow.Visible || AvatarDeleteRow.Visible;
+			}
 		}
 
-		private void UpdateProfile_Click(object sender, System.EventArgs e) {
+		private void DeleteAvatar_Click(object sender, System.EventArgs e) 
+		{
+			DB.user_deleteavatar(PageUserID);
+			BindData();
+		}
+
+		private void UpdateProfile_Click(object sender, System.EventArgs e) 
+		{
 			if(File.PostedFile!=null && File.PostedFile.FileName.Trim().Length>0 && File.PostedFile.ContentLength>0) 
 			{
 				long x,y;
@@ -175,6 +186,7 @@ namespace yaf
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			DeleteAvatar.Click += new System.EventHandler(DeleteAvatar_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
