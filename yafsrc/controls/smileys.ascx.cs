@@ -48,7 +48,7 @@ namespace yaf.controls
 			html.AppendFormat("<tr>");
 			for(int i=0;i<dtSmileys.Rows.Count;i++) {
 				DataRow row = dtSmileys.Rows[i];
-				if(i%5==0 && i>0 && i+1<dtSmileys.Rows.Count) html.Append("</tr><tr>\n");
+				if(i%8==0 && i>0 && i+1<dtSmileys.Rows.Count) html.Append("</tr><tr>\n");
 				string evt = "";
 				if(_onclick.Length>0) {
 					evt = String.Format("javascript:{0}('{1}')",_onclick,row["Code"]);
