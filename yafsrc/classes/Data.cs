@@ -118,5 +118,54 @@ namespace yaf
 				return dt;
 			}
 		}
+
+		public static DataTable Themes() 
+		{
+			using(DataTable dt = new DataTable("Themes")) 
+			{
+				dt.Columns.Add("Theme",typeof(string));
+				
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}themes",BaseDir)));
+				System.IO.DirectoryInfo[] dirs = dir.GetDirectories();
+				foreach(System.IO.DirectoryInfo file in dirs) 
+				{
+					if(file.Name.ToLower()!="cvs") 
+					{
+						DataRow dr = dt.NewRow();
+						dr["Theme"] = file.Name;
+						dt.Rows.Add(dr);
+					}
+				}
+				return dt;
+			}
+		}
+
+		public static DataTable Languages() 
+		{
+			using(DataTable dt = new DataTable("Languages")) 
+			{
+				dt.Columns.Add("Language",typeof(string));
+				dt.Columns.Add("FileName",typeof(string));
+				
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}languages",BaseDir)));
+				System.IO.FileInfo[] files = dir.GetFiles("*.xml");
+				foreach(System.IO.FileInfo file in files) 
+				{
+					try 
+					{
+						System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+						doc.Load(file.FullName);
+						DataRow dr = dt.NewRow();
+						dr["Language"] = doc.DocumentElement.Attributes["language"].Value;
+						dr["FileName"] = file.Name;
+						dt.Rows.Add(dr);
+					}
+					catch(Exception) 
+					{
+					}
+				}
+				return dt;
+			}
+		}
 	}
 }

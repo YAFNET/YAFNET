@@ -27,7 +27,7 @@
 		<tr>
 			<td class=post><%# DataBinder.Eval(Container.DataItem,"ForumName") %></td>
 			<td class=post align=center><%# DataBinder.Eval(Container.DataItem,"Topics") %></td>
-			<td class=post align=center><%# DataBinder.Eval(Container.DataItem,"Replies") %></td>
+			<td class=post align=center><%# FormatForumReplies(Container.DataItem) %></td>
 			<td class=post><%# FormatLastPosted(Container.DataItem) %></td>
 			<td class=post align=center><asp:checkbox id=unsubf runat="server"/></td>
 		</tr>

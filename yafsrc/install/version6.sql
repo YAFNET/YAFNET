@@ -241,52 +241,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_list
-GO
-
-CREATE  procedure yaf_topic_list(@ForumID int,@UserID int,@Announcement smallint,@Date datetime=null) as
-begin
-	select
-		c.ForumID,
-		c.TopicID,
-		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
-		c.TopicMovedID,
-		Subject = c.Topic,
-		c.UserID,
-		Starter = IsNull(c.UserName,b.Name),
-		Replies = (select count(1) from yaf_Message x where x.TopicID=c.TopicID) - 1,
-		Views = c.Views,
-		LastPosted = c.LastPosted,
-		LastUserID = c.LastUserID,
-		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
-		LastMessageID = c.LastMessageID,
-		LastTopicID = c.TopicID,
-		c.IsLocked,
-		c.Priority,
-		c.PollID,
-		PostAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.PostAccess<>0),
-		ReplyAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReplyAccess<>0),
-		ReadAccess	= (select count(1) from yaf_UserGroup x,yaf_ForumAccess y where x.UserID=g.UserID and y.GroupID=x.GroupID and y.ReadAccess<>0)
-	from
-		yaf_Topic c,
-		yaf_User b,
-		yaf_Forum d,
-		yaf_User g
-	where
-		c.ForumID = @ForumID and
-		b.UserID = c.UserID and
-		(@Date is null or c.Posted>=@Date or Priority>0) and
-		d.ForumID = c.ForumID and
-		g.UserID = @UserID and
-		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
-		exists(select 1 from yaf_Message x where x.TopicID=c.TopicID and x.Approved<>0)
-	order by
-		Priority desc,
-		LastPosted desc
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_approve
 GO

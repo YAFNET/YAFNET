@@ -1327,31 +1327,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_watchforum_list
-GO
-
-create procedure yaf_watchforum_list(@UserID int) as
-begin
-	select
-		a.*,
-		ForumName = b.Name,
-		Replies = (select count(1) from yaf_Topic x, yaf_Message y where x.ForumID=a.ForumID and y.TopicID=x.TopicID) - 1,
-		Topics = (select count(1) from yaf_Topic x where x.ForumID=a.ForumID),
-		b.LastPosted,
-		b.LastMessageID,
-		LastTopicID = (select TopicID from yaf_Message x where x.MessageID=b.LastMessageID),
-		b.LastUserID,
-		LastUserName = IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID))
-	from
-		yaf_WatchForum a,
-		yaf_Forum b
-	where
-		a.UserID = @UserID and
-		b.ForumID = a.ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_delete
 GO

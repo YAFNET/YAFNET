@@ -334,7 +334,7 @@ namespace yaf.classes
 						int nLastMessage = group.Last;
 						//Console.WriteLine(String.Format("Last message: {0}",nLastMessage));
 						int nCurrentMessage = (int)drForum["LastMessageNo"];
-						if((nCurrentMessage==0) || (nLastMessage - 500 > nCurrentMessage))
+						if(nCurrentMessage==0)
 							nCurrentMessage = nLastMessage - 500;
 
 						nCurrentMessage++;
@@ -342,7 +342,7 @@ namespace yaf.classes
 						int nForumID	= (int)drForum["ForumID"];
 						int nCount		= 0;
 
-						for(;nCurrentMessage<=nLastMessage;nCurrentMessage++) 
+						for(;nCurrentMessage<nLastMessage;nCurrentMessage++) 
 						{
 							try 
 							{
@@ -378,6 +378,8 @@ namespace yaf.classes
 							{
 							}
 						}
+						if(nCurrentMessage>nLastMessage)
+							nCurrentMessage = nLastMessage;
 						DB.nntpforum_update(drForum["NntpForumID"],nCurrentMessage);
 					}
 				}

@@ -1157,6 +1157,10 @@
                     BuildAction = "None"
                 />
                 <File
+                    RelPath = "languages\german-du.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "languages\norwegian.xml"
                     BuildAction = "Content"
                 />

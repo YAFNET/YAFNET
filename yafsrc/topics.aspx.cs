@@ -161,7 +161,7 @@ namespace yaf
 
 		protected string FormatLastPost(System.Data.DataRowView row) 
 		{
-			if(row["LastPosted"].ToString().Length>0) {
+			if(row["LastMessageID"].ToString().Length>0) {
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
 					minipost = ThemeFile("icon_newest_reply.gif");
@@ -180,6 +180,16 @@ namespace yaf
 				);
 			} else
 				return GetText("no_posts");
+		}
+
+		protected string FormatReplies(object o) 
+		{
+			DataRowView row = (DataRowView)o;
+			int nReplies = (int)row["Replies"];
+			if(nReplies<0)
+				return "&nbsp;";
+			else
+				return String.Format("{0}",row["Replies"]);
 		}
 
 		protected string GetTopicImage(object o) {

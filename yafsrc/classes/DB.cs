@@ -41,6 +41,13 @@ namespace yaf
 			}
 		}
 
+		public static SqlConnection GetInstallConnection() 
+		{
+			SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationSettings.AppSettings["connstr"]);
+			conn.Open();
+			return conn;
+		}
+
 		public static DataTable GetData(SqlCommand cmd) 
 		{
 			if(cmd.Connection!=null) 

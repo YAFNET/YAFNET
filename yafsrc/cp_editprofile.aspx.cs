@@ -50,6 +50,7 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlInputFile File;
 		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarDeleteRow, AvatarRemoteRow;
 		protected Button DeleteAvatar;
+		protected DropDownList Theme, Language;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -75,6 +76,12 @@ namespace yaf
 		private void BindData() {
 			DataRow row;
 			TimeZones.DataSource = Data.TimeZones();
+			Theme.DataSource = Data.Themes();
+			Theme.DataTextField = "Theme";
+			Theme.DataValueField = "Theme";
+			Language.DataSource = Data.Languages();
+			Language.DataTextField = "Language";
+			Language.DataValueField = "Language";
 			DataBind();
 
 			using(DataTable dt = DB.user_list(PageUserID,true)) 

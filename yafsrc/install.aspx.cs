@@ -102,11 +102,16 @@ namespace yaf
 
 		private void next_Click(object sender,System.EventArgs e) {
 			if(CurStep == Step.Connect) {
-				using(SqlConnection conn = DB.GetConnection()) {
-					if(conn==null) {
-						AddLoadMessage("Connection failed. Modify Web.config and try again.");
-						return;
+				try 
+				{
+					using(SqlConnection conn = DB.GetInstallConnection()) 
+					{
 					}
+				}
+				catch(Exception x) 
+				{
+					AddLoadMessage(String.Format("Connection failed. Modify Web.config and try again.\n\nThe error message was:\n\n{0}",x.Message));
+					return;
 				}
 			} else if(CurStep == Step.Database) {
 				try {

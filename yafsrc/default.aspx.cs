@@ -109,7 +109,13 @@ namespace yaf
 				);
 				Stats.Text += "<br/>";
 
-				activeinfo.Text = String.Format(CustomCulture,"{0:N0} <a href=\"activeusers.aspx\">active users</a> - {1:N0} members and {2:N0} guests.",stats["ActiveUsers"],stats["ActiveMembers"],stats["ActiveGuests"]);
+				activeinfo.Text = String.Format("<a href=\"activeusers.aspx\">{0}</a> - {1}, {2}.",
+					String.Format(GetText((int)stats["ActiveUsers"]==1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2"),stats["ActiveUsers"]),
+					String.Format(GetText((int)stats["ActiveMembers"]==1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2"),stats["ActiveMembers"]),
+					String.Format(GetText((int)stats["ActiveGuests"]==1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2"),stats["ActiveGuests"])
+				);
+
+				//activeinfo.Text = String.Format(CustomCulture,"{0:N0} <a href=\"activeusers.aspx\">active users</a> - {1:N0} members and {2:N0} guests.",stats["ActiveUsers"],stats["ActiveMembers"],stats["ActiveGuests"]);
 
 				DataBind();
 			}

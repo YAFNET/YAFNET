@@ -38,7 +38,7 @@
 			<td class=largefont><%# GetPriorityMessage((System.Data.DataRowView)Container.DataItem) %>
 				<a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "LinkTopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Subject") %></a></td>
 			<td><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Starter") %></a></td>
-			<td align=center><%# DataBinder.Eval(Container.DataItem, "Replies") %></td>
+			<td align=center><%# FormatReplies(Container.DataItem) %></td>
 			<td align=center><%# DataBinder.Eval(Container.DataItem, "Views") %></td>
 			<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRowView)Container.DataItem) %></td>
 		</tr>
@@ -51,7 +51,7 @@
 			<td class=largefont><%# GetPriorityMessage((System.Data.DataRowView)Container.DataItem) %>
 				<a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "LinkTopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Subject") %></a></td>
 			<td><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Starter") %></a></td>
-			<td align=center><%# DataBinder.Eval(Container.DataItem, "Replies") %></td>
+			<td align=center><%# FormatReplies(Container.DataItem) %></td>
 			<td align=center><%# DataBinder.Eval(Container.DataItem, "Views") %></td>
 			<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRowView)Container.DataItem) %></td>
 		</tr>

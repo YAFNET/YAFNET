@@ -67,6 +67,12 @@ namespace yaf
 			DataBind();
 		}
 
+		protected string FormatForumReplies(object o) 
+		{
+			DataRowView row = (DataRowView)o;
+			return String.Format("{0}",(int)row["Messages"] - (int)row["Topics"]);
+		}
+
 		protected string FormatLastPosted(object o) {
 			DataRowView row = (DataRowView)o;
 

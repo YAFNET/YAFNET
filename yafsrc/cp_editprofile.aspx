@@ -35,6 +35,20 @@
 		<td class=post><asp:DropDownList runat="server" id="TimeZones" DataTextField="Name" DataValueField="Value"/></td>
 	</tr>
 
+	<asp:placeholder runat="server" visible="false">
+	<tr>
+		<td colspan=2 class=header2><b><%= GetText("FORUM_SETTINGS") %></b></td>
+	</tr>
+	<tr>
+		<td class="postheader"><%= GetText("SELECT_THEME") %></td>
+		<td class="post"><asp:dropdownlist runat="server" id="Theme"/></td>
+	</tr>
+	<tr>
+		<td class="postheader"><%= GetText("SELECT_LANGUAGE") %></td>
+		<td class="post"><asp:dropdownlist runat="server" id="Language"/></td>
+	</tr>
+	</asp:placeholder>
+
 	<tr runat="server" id="AvatarRow">
 		<td class=header2 colspan=2><%= GetText("avatar") %></td>
 	</tr>

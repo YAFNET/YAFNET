@@ -68,30 +68,24 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=2>Information</td>
+	<td class=header1 colspan=2><%= GetText("INFORMATION") %></td>
 </tr>
 <tr>
-	<td class=header2 colspan=2>Active Users</td>
+	<td class=header2 colspan=2><%= GetText("ACTIVE_USERS") %></td>
 </tr>
 <tr>
 	<td class=post width=1%><img src='<%# ThemeFile("folder_who.png") %>'></td>
 	<td class=post>
-		<asp:label id=activeinfo runat=server></asp:label><br>
-
-<asp:repeater runat=server id=ActiveList>
-<ItemTemplate>
-	<a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a>
-</ItemTemplate>
-<SeparatorTemplate>
--
-</SeparatorTemplate>
-</asp:repeater>
-
+		<asp:label runat="server" id="activeinfo"/><br>
+		<asp:repeater runat="server" id="ActiveList">
+			<ItemTemplate><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></ItemTemplate>
+			<SeparatorTemplate>, </SeparatorTemplate>
+		</asp:repeater>
 	</td>
 </tr>
 
 <tr>
-    <td class=header2 colspan=2>Statistics</td>
+    <td class=header2 colspan=2><%= GetText("STATS") %></td>
 </tr>
 <tr>
 	<td class=post width=1%><img src='<%# ThemeFile("folder_stats.png") %>'></td>

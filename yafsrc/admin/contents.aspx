@@ -21,9 +21,11 @@
 	<tr><td class=post><a target="main" href="prune.aspx">Prune Topics</a></td></tr>
 	<tr><td class=post><a target="main" href="pm.aspx">Private Messages</a></td></tr>
 
+	<asp:placeholder runat="server" visible="false">
 	<tr><td class="header2"><b>NNTP</b></td></tr>
 	<tr><td class=post><a target="main" href="nntpservers.aspx">NNTP Servers</a></td></tr>
 	<tr><td class=post><a target="main" href="nntpforums.aspx">NNTP Forums</a></td></tr>
+	</asp:placeholder>
 
 	<tr><td class="header2"><b>Upgrade</b></td></tr>
 	<tr><td class=post><a target="_top" href="../install.aspx">Install</a></td></tr>

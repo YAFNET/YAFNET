@@ -64,6 +64,15 @@
 		<Resource tag="NO_POSTS">No Posts</Resource>
 		<Resource tag="UNREAD1">You have {0} unread message in your inbox.</Resource>
 		<Resource tag="UNREAD0">You have {0} unread messages in your inbox.</Resource>
+		<Resource tag="INFORMATION">Information</Resource>
+		<Resource tag="STATS">Statistics</Resource>
+		<Resource tag="ACTIVE_USERS">Active Users</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} active user</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} active users</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} member</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} members</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} guest</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -169,6 +178,9 @@
 		<Resource tag="NO_PASSWORD_MATCH">New passwords doesn't match.</Resource>
 		<Resource tag="OLD_PASSWORD_WRONG">Old password was wrong.</Resource>
 		<Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
+		<Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
+		<Resource tag="SELECT_THEME">Select your preferred theme:</Resource>
+		<Resource tag="SELECT_LANGUAGE">What language do you want to use:</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -358,7 +370,6 @@
 		<Resource tag="DAYS">days</Resource>
 		<Resource tag="HOURS">hours</Resource>
 		<Resource tag="MINUTES">minutes</Resource>
-		<Resource tag=""></Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->
@@ -396,5 +407,6 @@
 		<Resource tag="MATCH_ALL">Match All Words</Resource>
 		<Resource tag="MATCH_ANY">Match Any Word</Resource>
 		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
+		<Resource tag="BY">by</Resource>
 	</page>
 </Resources>
