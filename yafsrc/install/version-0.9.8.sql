@@ -753,56 +753,6 @@ begin
 end
 GO
 
--- yaf_system_save
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_save
-GO
-
-create procedure yaf_system_save(
-	@TimeZone			int,
-	@SmtpServer			nvarchar(50),
-	@SmtpUserName		nvarchar(50)=null,
-	@SmtpUserPass		nvarchar(50)=null,
-	@ForumEmail			nvarchar(50),
-	@EmailVerification	bit,
-	@ShowMoved			bit,
-	@BlankLinks			bit,
-	@ShowGroups			bit,
-	@AvatarWidth		int,
-	@AvatarHeight		int,
-	@AvatarUpload		bit,
-	@AvatarRemote		bit,
-	@AvatarSize			int=null,
-	@AllowRichEdit		bit,
-	@AllowUserTheme		bit,
-	@AllowUserLanguage	bit,
-	@UseFileTable		bit,
-	@MaxFileSize		int=null
-) as
-begin
-	update yaf_System set
-		TimeZone = @TimeZone,
-		SmtpServer = @SmtpServer,
-		SmtpUserName = @SmtpUserName,
-		SmtpUserPass = @SmtpUserPass,
-		ForumEmail = @ForumEmail,
-		EmailVerification = @EmailVerification,
-		ShowMoved = @ShowMoved,
-		BlankLinks = @BlankLinks,
-		ShowGroups = @ShowGroups,
-		AvatarWidth = @AvatarWidth,
-		AvatarHeight = @AvatarHeight,
-		AvatarUpload = @AvatarUpload,
-		AvatarRemote = @AvatarRemote,
-		AvatarSize = @AvatarSize,
-		AllowRichEdit = @AllowRichEdit,
-		AllowUserTheme = @AllowUserTheme,
-		AllowUserLanguage = @AllowUserLanguage,
-		UseFileTable = @UseFileTable,
-		MaxFileSize = @MaxFileSize
-end
-GO
-
 -- yaf_board_save
 if exists (select * from sysobjects where id = object_id(N'yaf_board_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_save

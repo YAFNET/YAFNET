@@ -318,21 +318,6 @@ if not exists(select * from sysobjects where name='FK_Message_Message' and paren
 		REFERENCES yaf_Message(MessageID)
 GO
 
--- yaf_system_list
-if exists (select * from sysobjects where id = object_id(N'yaf_system_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_system_list
-GO
-
-create procedure yaf_system_list as
-begin
-	select top 1 
-		a.*,
-		SQLVersion = @@VERSION
-	from 
-		yaf_System a
-end
-GO
-
 -- yaf_forumlayout
 if exists (select * from sysobjects where id = object_id(N'yaf_forumlayout') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumlayout
@@ -369,24 +354,6 @@ begin
 		select a.* from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.SortOrder
 	else
 		select a.* from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID and a.ForumID = @ForumID
-end
-GO
-
--- yaf_board_list
-if exists (select * from sysobjects where id = object_id(N'yaf_board_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_board_list
-GO
-
-create procedure yaf_board_list(@BoardID int=null) as
-begin
-	select
-		a.*,
-		b.*,
-		SQLVersion = @@VERSION
-	from 
-		yaf_System a,yaf_Board b
-	where
-		(@BoardID is null or b.BoardID = @BoardID)
 end
 GO
 
