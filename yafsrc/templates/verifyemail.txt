@@ -1,0 +1,11 @@
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+<{link}>
+
+Your approval key is: 
+{key}
+
+Visit {forumname} at {forumlink}
+
