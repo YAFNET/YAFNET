@@ -1009,6 +1009,11 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Sorry no idea what this does
+		/// </summary>
+		/// <param name="forumID"></param>
+		/// <returns></returns>
 		static public DataTable forum_listpath(object forumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listpath")) 
@@ -1018,6 +1023,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Lists read topics
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="UserID">UserID</param>
+		/// <param name="CategoryID">CategoryID</param>
+		/// <param name="parentID">ParentID</param>
+		/// <returns>DataTable with list</returns>
 		static public DataTable forum_listread(object boardID,object UserID,object CategoryID,object parentID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) 
@@ -1030,6 +1043,10 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		static public DataTable forum_moderatelist() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_moderatelist")) 
