@@ -23,7 +23,8 @@ namespace yaf.controls
 
 			html.Append("<tr class='post'>");
 			// Icon
-			html.AppendFormat("<td><img src='{0}'></td>",GetTopicImage(m_row));
+			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);
+			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);
 			// Topic
 			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
 			html.AppendFormat("<a href='posts.aspx?t={0}'>{1}</a>",m_row["LinkTopicID"],m_row["Subject"]);
@@ -44,27 +45,20 @@ namespace yaf.controls
 			writer.Write("</tr>");
 		}
 
-		protected string GetTopicImage(object o) 
+		protected string GetTopicImage(object o,ref string imgTitle) 
 		{
 			DataRowView	row			= (DataRowView)o;
 			DateTime	lastPosted	= (DateTime)row["LastPosted"];
 			bool		isLocked	= (bool)row["IsLocked"];
 			
+			imgTitle = "???";
+
 			try 
 			{
 				bool bIsLocked = isLocked || (bool)m_row["ForumLocked"];
 
-				if(row["PollID"].ToString().Length>0)
-					return Page.GetThemeContents("ICONS","TOPIC_POLL");
-
 				if(row["TopicMovedID"].ToString().Length>0)
 					return Page.GetThemeContents("ICONS","TOPIC_MOVED");
-
-				if(row["Priority"].ToString() == "1")
-					return Page.GetThemeContents("ICONS","TOPIC_STICKY");
-
-				if(row["Priority"].ToString() == "2")
-					return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
 
 				DateTime lastRead = Page.GetTopicRead((int)row["TopicID"]);
 				DateTime lastReadForum = Page.GetForumRead((int)row["ForumID"]);
@@ -73,17 +67,60 @@ namespace yaf.controls
 				if(lastPosted > lastRead) 
 				{
 					Page.Session["unreadtopics"] = 1 + (int)Page.Session["unreadtopics"];
-					if(bIsLocked)
+
+					if(row["PollID"]!=DBNull.Value) 
+					{
+						imgTitle = Page.GetText("POLL_NEW");
+						return Page.GetThemeContents("ICONS","TOPIC_POLL_NEW");
+					}
+					else if(row["Priority"].ToString() == "1")
+					{
+						imgTitle = Page.GetText("STICKY");
+						return Page.GetThemeContents("ICONS","TOPIC_STICKY");
+					}
+					else if(row["Priority"].ToString() == "2")
+					{
+						imgTitle = Page.GetText("ANNOUNCEMENT");
+						return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT_NEW");
+					}
+					else if(bIsLocked)
+					{
+						imgTitle = Page.GetText("NEW_POSTS_LOCKED");
 						return Page.GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
+					}
 					else
+					{
+						imgTitle = Page.GetText("NEW_POSTS");
 						return Page.GetThemeContents("ICONS","TOPIC_NEW");
+					}
 				}
 				else 
 				{
-					if(bIsLocked)
+					if(row["PollID"]!=DBNull.Value)
+					{
+						imgTitle = Page.GetText("POLL");
+						return Page.GetThemeContents("ICONS","TOPIC_POLL");
+					}
+					else if(row["Priority"].ToString() == "1")
+					{
+						imgTitle = Page.GetText("STICKY");
+						return Page.GetThemeContents("ICONS","TOPIC_STICKY");
+					}
+					else if(row["Priority"].ToString() == "2")
+					{
+						imgTitle = Page.GetText("ANNOUNCEMENT");
+						return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
+					}
+					else if(bIsLocked)
+					{
+						imgTitle = Page.GetText("NO_NEW_POSTS_LOCKED");
 						return Page.GetThemeContents("ICONS","TOPIC_LOCKED");
+					}
 					else
+					{
+						imgTitle = Page.GetText("NO_NEW_POSTS");
 						return Page.GetThemeContents("ICONS","TOPIC");
+					}
 				}
 			}
 			catch(Exception) 
@@ -135,7 +172,7 @@ namespace yaf.controls
 					row["LastMessageID"]
 					));
 				return String.Format("{0}<br />{1}", 
-					Page.FormatDateTimeShort((DateTime)row["LastPosted"]),
+					Page.FormatDateTime((DateTime)row["LastPosted"]),
 					by
 					);
 			} 

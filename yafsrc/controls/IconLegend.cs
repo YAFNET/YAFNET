@@ -21,8 +21,8 @@ namespace yaf.controls
 			html.AppendFormat("<td><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT"),Page.GetText("ANNOUNCEMENT"));
 			html.AppendFormat("<td><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_STICKY"),Page.GetText("STICKY"));
 			html.Append("</tr><tr>");
-			html.AppendFormat("<td colspan=1><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_MOVED"),Page.GetText("MOVED"));
-			html.AppendFormat("<td colspan=1><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_POLL"),Page.GetText("POLL"));
+			html.AppendFormat("<td><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_MOVED"),Page.GetText("MOVED"));
+			html.AppendFormat("<td><img align=absMiddle src='{0}'/> {1}</td>",Page.GetThemeContents("ICONS","TOPIC_POLL"),Page.GetText("POLL"));
 			html.Append("</tr></table>");
 
 			writer.Write(html.ToString());
