@@ -151,73 +151,6 @@ namespace yaf
 			BindData();
 		}
 
-		protected string FormatLastPost(System.Data.DataRowView row) 
-		{
-			if(row["LastMessageID"].ToString().Length>0) {
-				string minipost;
-				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
-					minipost = GetThemeContents("ICONS","ICON_NEWEST");
-				else
-					minipost = GetThemeContents("ICONS","ICON_LATEST");
-				
-				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
-					row["LastUserID"], 
-					row["LastUserName"], 
-					minipost, 
-					row["LastMessageID"]
-					));
-				return String.Format("{0}<br />{1}", 
-					FormatDateTime((DateTime)row["LastPosted"]),
-					by
-				);
-			} else
-				return GetText("no_posts");
-		}
-
-		protected string FormatReplies(object o) 
-		{
-			DataRowView row = (DataRowView)o;
-			int nReplies = (int)row["Replies"];
-			if(nReplies<0)
-				return "&nbsp;";
-			else
-				return String.Format("{0}",row["Replies"]);
-		}
-
-		protected string GetTopicImage(object o) {
-			DataRowView row = (DataRowView)o;
-			object lastPosted = row["LastPosted"];
-			object isLocked = row["IsLocked"];
-			try {
-				bool bIsLocked = (bool)isLocked || (bool)forum["Locked"];
-
-				if(row["TopicMovedID"].ToString().Length>0)
-					return GetThemeContents("ICONS","TOPIC_MOVED");
-
-				if(row["Priority"].ToString() == "1")
-					return GetThemeContents("ICONS","TOPIC_STICKY");
-
-				if(row["Priority"].ToString() == "2")
-					return GetThemeContents("ICONS","TOPIC_ANNOUNCE");
-
-				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Session["lastvisit"]) {
-					if(bIsLocked)
-						return GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
-					else
-						return GetThemeContents("ICONS","TOPIC_NEW");
-				}
-				else {
-					if(bIsLocked)
-						return GetThemeContents("ICONS","TOPIC_LOCKED");
-					else
-						return GetThemeContents("ICONS","TOPIC");
-				}
-			}
-			catch(Exception) {
-				return GetThemeContents("ICONS","TOPIC");
-			}
-		}
-
 		private void BindData() 
 		{
 			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
@@ -300,23 +233,6 @@ namespace yaf
 			} else {
 				PageLinks1.Visible = false;
 				PageLinks2.Visible = false;
-			}
-		}
-
-		protected string GetPriorityMessage(DataRowView row) {
-			if(row["TopicMovedID"].ToString().Length>0)
-				return "[ Moved ] ";
-
-			if(row["PollID"].ToString()!="")
-				return "[ Poll ] ";
-
-			switch(int.Parse(row["Priority"].ToString())) {
-				case 1:
-					return "[ Sticky ] ";
-				case 2:
-					return "[ Announcement ] ";
-				default:
-					return "";
 			}
 		}
 

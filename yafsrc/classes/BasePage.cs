@@ -1118,12 +1118,18 @@ namespace yaf
 			DateTime dt = (DateTime)o;
 			return String.Format("{0:F}",dt + TimeOffset);
 		}
+		public string FormatDateTimeShort(object o) 
+		{
+			DateTime dt = (DateTime)o;
+			return String.Format("{0:f}",dt + TimeOffset);
+		}
 		/// <summary>
 		/// Formats a datetime value into 7. februar 2003
 		/// </summary>
 		/// <param name="dt">The date to be formatted</param>
 		/// <returns></returns>
-		public string FormatDateLong(DateTime dt) {
+		public string FormatDateLong(DateTime dt) 
+		{
 			return String.Format("{0:D}",dt + TimeOffset);
 		}
 		/// <summary>
@@ -1131,7 +1137,8 @@ namespace yaf
 		/// </summary>
 		/// <param name="dt"></param>
 		/// <returns></returns>
-		public string FormatDateShort(DateTime dt) {
+		public string FormatDateShort(object o) {
+			DateTime dt = (DateTime)o;
 			return String.Format("{0:d}",dt + TimeOffset);
 		}
 		/// <summary>

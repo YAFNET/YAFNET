@@ -43,6 +43,7 @@
 		<Resource tag="NO_NEW_POSTS_LOCKED">No New Posts (Locked)</Resource>
 		<Resource tag="FORUM_LOCKED">Forum Locked</Resource>
 		<Resource tag="MOVED">Moved</Resource>
+		<Resource tag="POLL">Poll</Resource>
 		<Resource tag="STICKY">Sticky</Resource>
 	</page>
 	<page name="ATTACHMENTS">

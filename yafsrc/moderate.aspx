@@ -53,18 +53,11 @@
 
 <asp:repeater id=topiclist runat=server>
 <itemtemplate>
-	<tr class=post>
-		<td><img src='<%# GetTopicImage(Container.DataItem) %>'></td>
-		<td class=largefont><%# GetPriorityMessage((System.Data.DataRowView)Container.DataItem) %>
-			<a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "LinkTopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Subject") %></a></td>
-		<td><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Starter") %></a></td>
-		<td align=center><%# DataBinder.Eval(Container.DataItem, "Replies") %></td>
-		<td align=center><%# DataBinder.Eval(Container.DataItem, "Views") %></td>
-		<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRowView)Container.DataItem) %></td>
-		<td>
+	<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>>
+		<td class="postheader" align="center">
 			<asp:linkbutton runat=server onload="Delete_Load" commandargument='<%# DataBinder.Eval(Container.DataItem, "TopicID") %>' commandname='delete'><%# GetThemeContents("BUTTONS","DELETETOPIC") %></asp:linkbutton>
 		</td>
-	</tr>
+	</yaf:TopicLine>
 </itemtemplate>
 </asp:repeater>
 

@@ -702,6 +702,8 @@ begin
 	select
 		c.ForumID,
 		c.TopicID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
 		Subject = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
@@ -716,7 +718,8 @@ begin
 		c.Priority,
 		c.PollID,
 		ForumName = d.Name,
-		c.TopicMovedID
+		c.TopicMovedID,
+		ForumLocked = d.Locked
 	from
 		yaf_Topic c,
 		yaf_User b,
@@ -792,5 +795,63 @@ begin
 		b.Name
 	order by
 		b.Name
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_list
+GO
+
+CREATE  procedure yaf_topic_list(@ForumID int,@Announcement smallint,@Date datetime=null,@Offset int,@Count int) as
+begin
+	create table #data(
+		RowNo	int identity primary key not null,
+		TopicID	int not null
+	)
+
+	insert into #data(TopicID)
+	select
+		c.TopicID
+	from
+		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID
+	where
+		c.ForumID = @ForumID and
+		(@Date is null or c.Posted>=@Date or c.LastPosted>=@Date or Priority>0) and
+		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
+		(c.TopicMovedID is not null or c.NumPosts>0)
+	order by
+		Priority desc,
+		c.LastPosted desc
+
+	declare	@RowCount int
+	set @RowCount = (select count(1) from #data)
+
+	select
+		[RowCount] = @RowCount,
+		c.ForumID,
+		c.TopicID,
+		c.Posted,
+		LinkTopicID = IsNull(c.TopicMovedID,c.TopicID),
+		c.TopicMovedID,
+		Subject = c.Topic,
+		c.UserID,
+		Starter = IsNull(c.UserName,b.Name),
+		Replies = c.NumPosts - 1,
+		Views = c.Views,
+		LastPosted = c.LastPosted,
+		LastUserID = c.LastUserID,
+		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
+		LastMessageID = c.LastMessageID,
+		LastTopicID = c.TopicID,
+		c.IsLocked,
+		c.Priority,
+		c.PollID,
+		ForumLocked = d.Locked
+	from
+		yaf_Topic c join yaf_User b on b.UserID=c.UserID join yaf_Forum d on d.ForumID=c.ForumID join #data e on e.TopicID=c.TopicID
+	where
+		e.RowNo between @Offset+1 and @Offset + @Count
+	order by
+		e.RowNo
 end
 GO

@@ -24,15 +24,7 @@
 <asp:repeater id=TopicList runat="server">
 <ItemTemplate>
 	<%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-	<tr class=post>
-		<td><img src='<%# GetTopicImage(Container.DataItem) %>'></td>
-		<td class=largefont><%# GetPriorityMessage(Container.DataItem) %>
-			<a href='posts.aspx?t=<%# DataBinder.Eval(Container.DataItem, "TopicID") %>'><%# DataBinder.Eval(Container.DataItem, "Subject") %></a></td>
-		<td><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "Starter") %></a></td>
-		<td align=center><%# DataBinder.Eval(Container.DataItem, "Replies") %></td>
-		<td align=center><%# DataBinder.Eval(Container.DataItem, "Views") %></td>
-		<td align=center class=smallfont><%# FormatLastPost((System.Data.DataRowView)Container.DataItem) %></td>
-	</tr>
+	<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>/>
 </ItemTemplate>
 </asp:repeater>
 <tr>
@@ -52,23 +44,9 @@
 		<%= GetText("Forum_Jump") %> <yaf:forumjump runat="server"/>
 	</td>
 </tr>
-<tr><td valign=top>
-	<table cellspacing=1 cellpadding=1>
-	<tr>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_NEW") %>'> <%= GetText("New_Posts") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC") %>'> <%= GetText("No_New_Posts") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT") %>'> <%= GetText("Announcement") %></td>
-	</tr>
-	<tr>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_NEW_LOCKED") %>'> <%= GetText("New_Posts_Locked") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_LOCKED") %>'> <%= GetText("No_New_Posts_Locked") %></td>
-		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_STICKY") %>'> <%= GetText("Sticky") %></td>
-	</tr>
-	<tr>
-		<td colspan=3><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_MOVED") %>'> <%= GetText("Moved") %></td>
-	</tr>
-	</table>
-</td></tr>
+<tr>
+	<td valign=top><yaf:IconLegend runat="server"/></td>
+</tr>
 </table>
 
 <yaf:savescrollpos runat="server"/>

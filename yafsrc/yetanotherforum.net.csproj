@@ -1172,6 +1172,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\IconLegend.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\PageAccess.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -1201,6 +1206,11 @@
                     RelPath = "controls\smileys.ascx.resx"
                     DependentUpon = "smileys.ascx.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "controls\TopicLine.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "images\delete_icon.gif"
@@ -1520,6 +1530,10 @@
                 />
                 <File
                     RelPath = "themes\standard\topic_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\topic_poll.png"
                     BuildAction = "Content"
                 />
                 <File
