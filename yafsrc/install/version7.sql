@@ -53,6 +53,16 @@ if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') 
 	drop procedure yaf_forum_listread
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Format')
+	alter table yaf_Message add Format smallint null
+GO
+
+update yaf_Message set Format = 0 where Format is null
+GO
+
+alter table yaf_Message alter column Format smallint not null
+GO
+
 create procedure yaf_forum_listread(@UserID int,@CategoryID int=null) as
 begin
 	select 
@@ -402,6 +412,7 @@ begin
 		Subject = d.Topic,
 		a.Message,
 		a.UserID,
+		a.Format,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		Posts		= b.NumPosts,
@@ -449,6 +460,7 @@ begin
 		Subject = c.Topic,
 		a.Message,
 		a.UserID,
+		a.Format,
 		UserName = IsNull(a.UserName,b.Name),
 		b.Signature,
 		c.TopicID
@@ -636,5 +648,145 @@ create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject va
 	update yaf_WatchForum set LastMail = getdate() 
 	where ForumID = (select ForumID from yaf_Topic where TopicID = @TopicID)
 	and UserID <> @UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_save
+GO
+
+CREATE  procedure yaf_message_save(
+	@TopicID	int,
+	@UserID		int,
+	@Message	text,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@Format		smallint,
+	@MessageID	int output
+) as
+begin
+	declare @ForumID	int
+	declare	@Moderated	bit
+
+	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
+
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Format,Approved)
+	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,@Format,0)
+	set @MessageID = @@IDENTITY
+	
+	if @Moderated=0
+		exec yaf_message_approve @MessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_save
+GO
+
+create procedure yaf_topic_save(
+	@ForumID	int,
+	@Subject	varchar(100),
+	@UserID		int,
+	@Message	text,
+	@Priority	smallint,
+	@UserName	varchar(50)=null,
+	@IP			varchar(15),
+	@Format		smallint,
+	@PollID		int=null
+) as
+begin
+	declare @TopicID int
+	declare @MessageID int
+
+	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName)
+	values(@ForumID,@Subject,@UserID,getdate(),0,@Priority,0,@PollID,@UserName)
+	set @TopicID = @@IDENTITY
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Format,@MessageID output
+
+	select TopicID = @TopicID, MessageID = @MessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_list_reverse10
+GO
+
+create procedure yaf_post_list_reverse10(@TopicID int) as
+begin
+	set nocount on
+
+	select top 10
+		a.Posted,
+		Subject = d.Topic,
+		a.Message,
+		a.UserID,
+		a.Format,
+		UserName = IsNull(a.UserName,b.Name),
+		b.Signature
+	from
+		yaf_Message a, 
+		yaf_User b,
+		yaf_Topic d
+	where
+		a.Approved <> 0 and
+		a.TopicID = @TopicID and
+		b.UserID = a.UserID and
+		d.TopicID = a.TopicID
+	order by
+		a.Posted desc
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_unapproved') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_unapproved
+GO
+
+create procedure yaf_message_unapproved(@ForumID int) as begin
+	select
+		MessageID	= b.MessageID,
+		UserName	= IsNull(b.UserName,c.Name),
+		Posted		= b.Posted,
+		Topic		= a.Topic,
+		Message		= b.Message,
+		Format		= b.Format
+	from
+		yaf_Topic a,
+		yaf_Message b,
+		yaf_User c
+	where
+		a.ForumID = @ForumID and
+		b.TopicID = a.TopicID and
+		b.Approved=0 and
+		c.UserID = b.UserID
+	order by
+		a.Posted
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_list
+GO
+
+create procedure yaf_message_list(@MessageID int) as
+begin
+	select
+		a.MessageID,
+		a.UserID,
+		UserName = b.Name,
+		a.Message,
+		c.TopicID,
+		c.ForumID,
+		c.Topic,
+		c.Priority,
+		a.Approved,
+		a.Format
+	from
+		yaf_Message a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		a.MessageID = @MessageID and
+		b.UserID = a.UserID and
+		c.TopicID = a.TopicID
 end
 GO

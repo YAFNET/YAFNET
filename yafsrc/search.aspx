@@ -42,7 +42,7 @@
 				</tr>
 				<tr class="post">
 					<td class="largefont" width="99%">
-						<%# FormatMessage( DataBinder.Eval(Container.DataItem, "Message") ) %>
+						<%# FormatMessage(Container.DataItem) %>
 					</td>
 				</tr>
 			</ItemTemplate>

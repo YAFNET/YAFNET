@@ -287,62 +287,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_post_list_reverse10
-GO
-
-create procedure yaf_post_list_reverse10(@TopicID int) as
-begin
-	set nocount on
-
-	select top 10
-		a.Posted,
-		Subject = d.Topic,
-		a.Message,
-		a.UserID,
-		UserName = IsNull(a.UserName,b.Name),
-		b.Signature
-	from
-		yaf_Message a, 
-		yaf_User b,
-		yaf_Topic d
-	where
-		a.Approved <> 0 and
-		a.TopicID = @TopicID and
-		b.UserID = a.UserID and
-		d.TopicID = a.TopicID
-	order by
-		a.Posted desc
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_save
-GO
-
-CREATE  procedure yaf_message_save(
-	@TopicID	int,
-	@UserID		int,
-	@Message	text,
-	@UserName	varchar(50)=null,
-	@IP			varchar(15),
-	@MessageID	int output
-) as
-begin
-	declare @ForumID	int
-	declare	@Moderated	bit
-
-	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
-
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved)
-	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,0)
-	set @MessageID = @@IDENTITY
-	
-	if @Moderated=0
-		exec yaf_message_approve @MessageID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_approve
 GO
@@ -666,33 +610,6 @@ if exists(select * from syscolumns where id=object_id('yaf_Group') and name='Ran
 	alter table yaf_Group drop column RankImage
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_save
-GO
-
-create procedure yaf_topic_save(
-	@ForumID	int,
-	@Subject	varchar(100),
-	@UserID		int,
-	@Message	text,
-	@Priority	smallint,
-	@UserName	varchar(50)=null,
-	@IP			varchar(15),
-	@PollID		int=null
-) as
-begin
-	declare @TopicID int
-	declare @MessageID int
-
-	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,IsLocked,PollID,UserName)
-	values(@ForumID,@Subject,@UserID,getdate(),0,@Priority,0,@PollID,@UserName)
-	set @TopicID = @@IDENTITY
-	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@MessageID output
-
-	select TopicID = @TopicID, MessageID = @MessageID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_user_emails') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_emails
 GO
@@ -863,58 +780,6 @@ create procedure yaf_forum_moderatelist as begin
 	order by
 		a.SortOrder,
 		b.SortOrder
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_message_unapproved') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_unapproved
-GO
-
-create procedure yaf_message_unapproved(@ForumID int) as begin
-	select
-		MessageID	= b.MessageID,
-		UserName	= IsNull(b.UserName,c.Name),
-		Posted		= b.Posted,
-		Topic		= a.Topic,
-		Message		= b.Message
-	from
-		yaf_Topic a,
-		yaf_Message b,
-		yaf_User c
-	where
-		a.ForumID = @ForumID and
-		b.TopicID = a.TopicID and
-		b.Approved=0 and
-		c.UserID = b.UserID
-	order by
-		a.Posted
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_list
-GO
-
-create procedure yaf_message_list(@MessageID int) as
-begin
-	select
-		a.MessageID,
-		a.UserID,
-		UserName = b.Name,
-		a.Message,
-		c.TopicID,
-		c.ForumID,
-		c.Topic,
-		c.Priority,
-		a.Approved
-	from
-		yaf_Message a,
-		yaf_User b,
-		yaf_Topic c
-	where
-		a.MessageID = @MessageID and
-		b.UserID = a.UserID and
-		c.TopicID = a.TopicID
 end
 GO
 

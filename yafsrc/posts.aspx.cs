@@ -570,11 +570,14 @@ namespace yaf
 				html += "</p>";
 			}
 			
-			if(row["Signature"].ToString().Length>0)
-				html += "\r\n\r\n-- \r\n" + row["Signature"].ToString();
-
 			if(fmt==null)
 				fmt = new FormatMsg(this);
+
+			if(row["Signature"].ToString().Length>0)
+				html += "<br/><hr noshade/>" + fmt.FormatMessage(row["Signature"].ToString());
+
+			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.HTML)
+				return html;
 
 			return fmt.FormatMessage(html);
 		}

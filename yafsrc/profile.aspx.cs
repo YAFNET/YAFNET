@@ -90,13 +90,17 @@ namespace yaf
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			if(row["Signature"].ToString().Length>0)
-				html += "\r\n\r\n-- \r\n" + row["Signature"].ToString();
 
 			if(fmt==null)
 				fmt = new FormatMsg(this);
 
-			return fmt.FormatMessage(html);
+			if(row["Signature"].ToString().Length>0)
+				html += "\r\n\r\n-- \r\n" + fmt.FormatMessage(row["Signature"].ToString());
+
+			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM)
+				html = fmt.FormatMessage(html);
+
+			return html;
 		}
 
 		#region Web Form Designer generated code

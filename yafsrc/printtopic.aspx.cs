@@ -88,8 +88,13 @@ namespace yaf
 		}
 		protected string GetPrintBody(object o) {
 			DataRowView row = (DataRowView)o;
-			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage((string)row["Message"]);
+			string msg = row["Message"].ToString();
+			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM) 
+			{
+				FormatMsg fmt = new FormatMsg(this);
+				msg = fmt.FormatMessage(msg);
+			}
+			return msg;
 		}
 	}
 }

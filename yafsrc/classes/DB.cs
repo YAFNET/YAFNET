@@ -154,7 +154,7 @@ namespace yaf
 			if( ToSearch == "*" )
 				ToSearch = "";
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message ";
+			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message, c.Format ";
 			//sql += "from yaf_topic a left join yaf_user b on a.UserID = b.UserID left join yaf_message c on a.TopicID = c.TopicID ";
 			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID ";
 			//sql += string.Format( "where a.ForumID in ( select y.ForumID from yaf_user x, yaf_forumAccess y where x.GroupID = y.GroupID and y.ReadAccess = 1 and x.UserID = {0} ) ", UserID );
@@ -655,7 +655,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,ref long nMessageID) 		{
+		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object format,ref long nMessageID) {
 			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 				UserName = null;
 
@@ -670,6 +670,7 @@ namespace yaf
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
+				cmd.Parameters.Add("@Format",format);
 				cmd.Parameters.Add(pMessageID);
 				DB.ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;
@@ -964,7 +965,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
+		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object format,ref long nMessageID) 
 		{
 			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
 				UserName = null;
@@ -979,6 +980,7 @@ namespace yaf
 				cmd.Parameters.Add("@Priority",Priority);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
+				cmd.Parameters.Add("@Format",format);
 				cmd.Parameters.Add("@PollID",PollID);
 
 				DataTable dt = DB.GetData(cmd);

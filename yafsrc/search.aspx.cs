@@ -179,13 +179,17 @@ namespace yaf
 			DataBind();
 		}
 
-		public string FormatMessage( object msg )
+		public string FormatMessage( object o )
 		{
-			//string body = Server.HtmlEncode(msg.ToString());
-			string body = msg.ToString();
-			
-			FormatMsg fmt = new FormatMsg(this);
-			return fmt.FormatMessage(body);
+			DataRowView row = (DataRowView)o;
+
+			string body = row["Message"].ToString();
+			if(Data.GetMsgFormat(row["Format"])==MSGFORMAT.FORUM) 
+			{
+				FormatMsg fmt = new FormatMsg(this);
+				body = fmt.FormatMessage(body);
+			}
+			return body;
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)

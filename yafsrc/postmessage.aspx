@@ -1,5 +1,6 @@
 <%@ Page language="c#" Codebehind="postmessage.aspx.cs" AutoEventWireup="false" Inherits="yaf.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="controls/smileys.ascx" %>
+<%@ Register TagPrefix="RichEdit" TagName="rte" Src="rte/rte.ascx" %>
 
 <script src=jscode.aspx></script>
 
@@ -79,12 +80,15 @@
 		<td class=postfooter width="30%"><em><%= GetText("choice9") %></em></td>
 		<td class=postfooter width="60%"><asp:TextBox maxlength="50" id=PollChoice9 runat="server" cssclass="edit"/></td>
 	</tr>
-  <tr>
-    <td class=postheader vAlign=top><%= GetText("message") %>
-    <uc1:smileys runat="server" onclick="insertsmiley"/>
-    </td>
-    <td class=post><asp:textbox id=Message runat="server" cssclass="posteditor" TextMode="MultiLine" Rows="12"></asp:textbox></td></tr>
 	<tr>
+		<td class=postheader vAlign=top><%= GetText("message") %>
+			<uc1:smileys runat="server" onclick="insertsmiley"/>
+		</td>
+		<td class=post>
+			<RichEdit:rte runat="server" id="Message" cssclass="posteditor"/>
+		</td>
+	</tr>
+	<!--tr>
 		<td class=postheader>&nbsp;</td>
 		<td class=post>
 			<input type=button value=" B " style="font-weight:bold" onclick="makebold()">
@@ -95,7 +99,7 @@
 			<input type=button value=" IMG " onclick="makeimg()">
 			<input type=button value=" CODE " onclick="makecode()">
 		</td>
-	</tr>
+	</tr-->
 	<tr id=UploadRow1 runat="server">
 		<td class=postheader rowspan="3" valign="top"><%= GetText("attach") %></td>
 		<td class=post><input type="file" id="File1" runat="server"/></td>

@@ -123,9 +123,13 @@ namespace yaf
 		{
 			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
 			if(DB.user_login(UserName.Text,sPassword)) {
-				//FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
-				FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
-				Response.Redirect(BaseDir);
+				if(Request.QueryString["ReturnUrl"]!=null)
+					FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
+				else 
+				{
+					FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
+					Response.Redirect(BaseDir);
+				}
 			} else {
 				AddLoadMessage(GetText("password_error"));
 			}
