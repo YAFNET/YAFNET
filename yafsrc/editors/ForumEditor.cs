@@ -50,6 +50,7 @@ namespace yaf.editor
 		}
 		public virtual string StyleSheet
 		{
+			get { return string.Empty; }
 			set { ;	}
 		}
 		public virtual bool UsesHTML
@@ -83,12 +84,21 @@ namespace yaf.editor
 		{
 			if (this.Visible)
 			{
+				Page.RegisterClientScriptBlock("yafeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("yafEditor/yafEditor.js")));
+
 				Page.RegisterClientScriptBlock("insertsmiley",
 					"<script language='javascript'>\n"+
 					"function insertsmiley(code) {\n"+
 					"	" + SafeID + ".InsertSmiley(code);\n"+
 					"}\n"+
 					"</script>\n");
+
+				Page.RegisterClientScriptBlock("createyafeditor",
+					"\n<script language='javascript'>\n"+
+					"var "+SafeID+"=new yafEditor('"+SafeID+"');\n"+
+					"function setStyle(style,option) {\n"+
+          "	"+SafeID+".FormatText(style,option);\n"+
+					"}\n"+"</script>");
 			}
 		}
 
@@ -130,14 +140,6 @@ namespace yaf.editor
 
 		protected override void Render(HtmlTextWriter writer)
 		{
-			writer.WriteLine("");
-			writer.WriteLine("<script language='javascript'>");
-			writer.WriteLine("var {0}=new yafEditor('{0}');",SafeID);
-			writer.WriteLine("function setStyle(style,option) {");
-			writer.WriteLine("	{0}.FormatText(style,option);",SafeID);
-			writer.WriteLine("}");
-			writer.WriteLine("</script>");
-
 			writer.WriteLine("<table border='0' cellpadding='0' cellspacing='2' width='100%' height='300'>");
 			writer.WriteLine("<tr><td valign='top'>");
 			writer.WriteLine("	<table border='0' cellpadding='1' cellspacing='2'>");
@@ -230,16 +232,8 @@ namespace yaf.editor
 					"	border: #7F9DB9 1px solid;\n"+
 					"}\n"+
 					"</style>\n");
-				
-				Page.RegisterClientScriptBlock("yafeditorjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("yafEditor/yafEditor.js")));
-
-				Page.RegisterClientScriptBlock("insertsmiley",
-					"<script language='javascript'>\n"+
-					"function insertsmiley(code) {\n"+
-					"	" + SafeID + ".InsertSmiley(code);\n"+
-					"}\n"+
-					"</script>\n");
 			}
+			base.Editor_Load(sender,e);
 		}
 
 		#region Properties
@@ -258,36 +252,47 @@ namespace yaf.editor
 		protected Type typEditor;
 		protected System.Web.UI.Control objEditor;
 		protected Assembly cBin;
+		protected string FStyleSheet;
 
 		public RichClassEditor(string BinFile,string ClassName)
 		{
 			bInit = false;
-
+			FStyleSheet = string.Empty;
+			objEditor = null;
+			typEditor = null;
 			BinFile = System.Web.HttpContext.Current.Server.MapPath(BinFile);
 	
 			try
 			{
 				cBin = Assembly.LoadFrom(BinFile);
-				// get all the types in the loaded assembly
-				Type[] types = cBin.GetTypes();
+				// get the interface needed
+				typEditor = GetInterfaceInAssembly(cBin,ClassName);
 
-				foreach (Type typ in types)
+				if (typEditor != null)
 				{
-					// dynamically create or activate(if exist) object
-					if (typ.FullName == ClassName)
-					{
-						typEditor = typ;
-						// create this object
-						objEditor = (System.Web.UI.Control)Activator.CreateInstance(typ);
-						bInit = true;
-						break;
-					}
+					// create instance of main class
+					objEditor = (System.Web.UI.Control)Activator.CreateInstance(typEditor);
+					bInit = true;
 				}
 			}
 			catch(Exception)
 			{
 				// dll is not accessible
 			}
+		}
+
+		protected Type GetInterfaceInAssembly(Assembly cAssembly, string ClassName)
+		{
+			Type[] types = cAssembly.GetTypes();
+			foreach (Type typ in types)
+			{
+				// dynamically create or activate(if exist) object
+				if (typ.FullName == ClassName)
+				{
+					return typ;
+				}
+			}
+			return null;
 		}
 
 		#region Properties
@@ -307,6 +312,12 @@ namespace yaf.editor
 		public bool IsInitialized
 		{
 			get { return bInit; }
+		}
+
+		public override string StyleSheet
+		{
+			get { return FStyleSheet; }
+			set { FStyleSheet = value;	}
 		}
 
 		public override bool UsesHTML
@@ -406,10 +417,23 @@ namespace yaf.editor
 				pInfo.SetValue(objEditor,ResolveUrl("FreeTextBox/"),null);
 				pInfo = typEditor.GetProperty("Width");
 				pInfo.SetValue(objEditor,Unit.Percentage(100),null);
+				pInfo = typEditor.GetProperty("DesignModeCss");
+				pInfo.SetValue(objEditor,StyleSheet,null);
 
 				// toolbars
+/*
+				Type typeToolbar = GetInterfaceInAssembly(cBin,"FreeTextBoxControls.Toolbar");
+				if (typeToolbar != null)
+				{
+					object toolbar1 = Activator.CreateInstance(typeToolbar);
+					if (toolbar1 != null)
+					{
+						MethodInfo pMethod = typeToolbar.GetMethod("Clear");
+						pMethod.Invoke(toolbar1,null);
+					}
+				}
 
-/*			Toolbars.Clear();
+				Toolbars.Clear();
  			
 				Toolbar toolbar1 = new Toolbar();
 				toolbar1.Items.Add(new ParagraphMenu());
