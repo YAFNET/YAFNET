@@ -394,12 +394,12 @@ GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Flags')
 	alter table yaf_Message add Flags int not null
-	UPDATE yaf_Message SET Flags = 0xFFFFFFFF
+	UPDATE yaf_Message SET Flags = 0x7FFFFFFF
 GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
 	alter table yaf_PMessage add Flags int not null
-	UPDATE yaf_PMessage SET Flags = 0xFFFFFFFF
+	UPDATE yaf_PMessage SET Flags = 0x7FFFFFFF
 GO
 
 /*
