@@ -75,14 +75,18 @@ namespace yaf.pages
 			}
 		}
 
-		private void save_Click(object sender,EventArgs e) {
+		private void save_Click(object sender,EventArgs e) 
+		{
 			string body = sig.Text;
 			if(!sig.IsRichBrowser)
 				body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 			else
 				body = FormatMsg.RepairHtml(this,body);
 
-			DB.user_savesignature(PageUserID,body);
+			if(sig.Text.Length>0)
+				DB.user_savesignature(PageUserID,body);
+			else
+				DB.user_savesignature(PageUserID,DBNull.Value);
 			Forum.Redirect(Pages.cp_profile);
 		}
 

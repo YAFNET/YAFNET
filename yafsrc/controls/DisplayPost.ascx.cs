@@ -238,7 +238,7 @@ namespace yaf.controls
 				html += "</p>";
 			}
 			
-			if(row["Signature"] != DBNull.Value)
+			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>")
 				html += "<br/><hr noshade/>" + FormatMsg.ForumCodeToHtml(ForumPage,row["Signature"].ToString());
 
 			if(!isHtml)

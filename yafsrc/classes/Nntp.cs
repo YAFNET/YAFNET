@@ -560,10 +560,6 @@ namespace yaf.classes
 					}
 				}
 			}
-			catch(Exception x)
-			{
-				throw x;
-			}
 			finally 
 			{
 				if(nntp!=null) 

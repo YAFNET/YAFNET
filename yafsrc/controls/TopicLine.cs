@@ -20,7 +20,6 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{	
 			System.Text.StringBuilder html = new System.Text.StringBuilder(2000);
-
 			html.Append("<tr class='post'>");
 			// Icon
 			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);

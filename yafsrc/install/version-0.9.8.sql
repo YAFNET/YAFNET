@@ -1658,11 +1658,8 @@ if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread
 	drop procedure yaf_pmessage_markread
 GO
 
-CREATE procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begin
-	if @PMessageID is null
-		update yaf_UserPMessage set IsRead=1 where UserID=@UserID
-	else
-		update yaf_UserPMessage set IsRead=1 where UserID=@UserID and UserPMessageID=@PMessageID
+CREATE procedure yaf_pmessage_markread(@UserPMessageID int=null) as begin
+	update yaf_UserPMessage set IsRead=1 where UserPMessageID=@UserPMessageID
 end
 GO
 
