@@ -395,7 +395,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_vaccess') and OBJ
 	drop view yaf_vaccess
 GO
 
-CREATE VIEW dbo.yaf_vaccess as
+create view dbo.yaf_vaccess as
 	select
 		UserID				= a.UserID,
 		ForumID				= x.ForumID,

@@ -95,7 +95,8 @@ namespace yaf
 				after_replace = after_replace.Replace("<br/>","\n");
 				//after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
 				bbcode = bbcode.Replace(before_replace,string.Format("<blockquote><pre style=\"font-size:10px\">{0}</pre></blockquote>",after_replace));
-				break;
+
+				m = r_code.Match(bbcode);
 			}
 
 			m = r_size.Match(bbcode);
