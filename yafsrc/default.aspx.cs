@@ -183,8 +183,8 @@ namespace yaf
 		{
 			DataRow		row			= (DataRow)o;
 			bool		locked		= (bool)row["Locked"];
-			DateTime	lastPosted	= (DateTime)row["LastPosted"];
 			DateTime	lastRead	= GetForumRead((int)row["ForumID"]);
+			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : lastRead;
 
 			string		img, imgTitle;
 			

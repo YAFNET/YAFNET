@@ -1377,7 +1377,6 @@ namespace yaf
 		{
 			get 
 			{
-				//return "0.9.4";
 				return AppVersionNameFromCode(AppVersionCode);
 			}
 		}
@@ -1385,21 +1384,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 10;
+				return 11;
 			}
 		}
 		static public long AppVersionCode 
 		{
 			get 
 			{
-				return 0x00090400;
+				return 0x00090500;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2003,11,20);
+				return new DateTime(2003,11,21);
 			}
 		}
 		#endregion

@@ -103,11 +103,40 @@ namespace yaf.admin
 
 		private void Save_Click(object sender, System.EventArgs e)
 		{
+			if(CategoryList.SelectedValue.Trim().Length==0) 
+			{
+				AddLoadMessage("You must select a category for the forum.");
+				return;
+			}
+			if(Name.Text.Trim().Length==0) 
+			{
+				AddLoadMessage("You must enter a name for the forum.");
+				return;
+			}
+			if(Description.Text.Trim().Length==0)
+			{
+				AddLoadMessage("You must enter a description for the forum.");
+				return;
+			}
+			if(SortOrder.Text.Trim().Length==0) 
+			{
+				AddLoadMessage("You must enter a value for sort order.");
+				return;
+			}
+
 			if(IsValid) 
 			{
 				// Forum
 				long ForumID = 0;
-				if(Request.QueryString["f"] != null) ForumID = long.Parse(Request.QueryString["f"]);
+				if(Request.QueryString["f"] != null) 
+				{
+					ForumID = long.Parse(Request.QueryString["f"]);
+				}
+				else if(AccessMaskID.SelectedValue.Length==0) 
+				{
+					AddLoadMessage("You must select an initial access mask for the forum.");
+					return;
+				}
 
 				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,false);
 

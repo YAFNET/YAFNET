@@ -1124,12 +1124,24 @@ begin
 	declare @UserID int
 
 	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,AvatarUpload,AvatarRemote,EmailVerification,ShowMoved,BlankLinks,ShowGroups,AllowRichEdit,AllowUserTheme,AllowUserLanguage,UseFileTable)
-	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
+	values(1,1,'0.9.5',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
 
 	insert into yaf_Rank(Name,IsStart,IsLadder)
 	values('Administration',0,0)
 	set @RankID = @@IDENTITY
 
+	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values('Admin Access Mask',1,1,1,1,1,1,1,1,1,1)
+
+	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values('Moderator Access Mask',1,1,1,0,0,1,1,1,1,0)
+
+	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values('Member Access Mask',1,1,1,0,0,1,0,1,1,0)
+
+	insert into yaf_AccessMask(Name,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+	values('Read Only Access Mask',1,0,0,0,0,0,0,0,0,0)
+	
 	insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart,IsModerator)
 	values('Administration',1,0,0,0)
 	set @GroupID = @@IDENTITY
