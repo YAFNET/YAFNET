@@ -164,6 +164,12 @@ namespace yaf
 			get { return GetValueBool("ShowRSSLink",true); }
 			set { SetValueBool("ShowRSSLink",value); }
 		}
+		public bool ShowForumJump
+		{
+			get { return GetValueBool("ShowForumJump",true); }
+			set { SetValueBool("ShowForumJump",value); }
+		}
+
 		// string settings
 		public string ForumEmail 
 		{

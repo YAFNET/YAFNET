@@ -2291,6 +2291,16 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataTable watchforum_check(object userID,object forumID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_watchforum_check")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
+			}
+		}
 		static public void watchforum_delete(object watchForumID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_watchforum_delete")) 
@@ -2309,6 +2319,16 @@ namespace yaf
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@UserID",userID);
+				return GetData(cmd);
+			}
+		}
+		static public DataTable watchtopic_check(object userID,object topicID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_watchtopic_check")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@TopicID",topicID);
 				return GetData(cmd);
 			}
 		}
