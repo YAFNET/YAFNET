@@ -370,7 +370,7 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "controls\SaveScrollPos.cs"
+                    RelPath = "controls\SmartScroller.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

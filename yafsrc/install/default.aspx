@@ -202,7 +202,7 @@
 </table>
 
 
-<yaf:savescrollpos runat="server"/>
+<yaf:smartscroller runat="server"/>
 </form>
 
 </body>

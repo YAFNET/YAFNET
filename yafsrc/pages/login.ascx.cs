@@ -142,7 +142,7 @@ namespace yaf.pages
 			object userID = DB.user_login(PageBoardID,UserName.Text,sPassword);
 			if(userID!=DBNull.Value) {
 				string idName = string.Format("{0};{1};{2}",userID,PageBoardID,UserName.Text);
-				if(Request.QueryString["ReturnUrl"]!=null && false) 
+				if(Request.QueryString["ReturnUrl"]!=null) 
 				{
 					FormsAuthentication.RedirectFromLoginPage(idName, AutoLogin.Checked);
 				}
