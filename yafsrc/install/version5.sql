@@ -1,3 +1,5 @@
+/* Version 0.8.2 */
+
 if not exists(select * from syscolumns where id=object_id('yaf_ForumAccess') and name='UploadAccess')
 	alter table yaf_ForumAccess add UploadAccess bit not null default(0)
 GO

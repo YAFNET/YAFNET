@@ -1,4 +1,4 @@
-/* 0.8.* */
+/* 0.8.0 */
 
 if exists(select * from syscolumns where id=object_id('yaf_System') and name='Culture')
 	alter table yaf_System drop column Culture

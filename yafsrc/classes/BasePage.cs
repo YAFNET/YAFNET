@@ -391,10 +391,10 @@ namespace yaf
 		/// <param name="msg">The message to display</param>
 		public void AddLoadMessage(string msg) 
 		{
+			msg = msg.Replace("\\","\\\\");
 			msg = msg.Replace("'","\\'");
 			msg = msg.Replace("\r\n","\\r\\n");
 			msg = msg.Replace("\n","\\n");
-			msg = msg.Replace("\\","\\\\");
 			msg = msg.Replace("\"","\\\"");
 			m_strLoadMessage += msg + "\\n\\n";
 		}

@@ -1,4 +1,4 @@
-/* Version 8.0.1 */
+/* Version 0.8.1 */
 
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='ShowMoved')
 	alter table yaf_System add ShowMoved bit not null default(1)
