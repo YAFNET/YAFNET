@@ -474,3 +474,42 @@ begin
 		x.ForumID = IsNull(@ForumID,0)
 end
 GO
+
+-- yaf_user_delete
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_delete
+GO
+
+create procedure yaf_user_delete(@UserID int) as
+begin
+	declare @GuestUserID int
+	declare @UserName varchar(50)
+
+	select @UserName = Name from yaf_User where UserID=@UserID
+
+	select top 1
+		@GuestUserID = a.UserID
+	from
+		yaf_User a,
+		yaf_UserGroup b,
+		yaf_Group c
+	where
+		b.UserID = a.UserID and
+		b.GroupID = c.GroupID and
+		c.IsGuest<>0
+
+	update yaf_Message set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update yaf_Topic set UserName=@UserName,UserID=@GuestUserID where UserID=@UserID
+	update yaf_Topic set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+	update yaf_Forum set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
+
+	delete from yaf_PMessage where FromUserID=@UserID
+	delete from yaf_UserPMessage where UserID=@UserID
+	delete from yaf_CheckEmail where UserID = @UserID
+	delete from yaf_WatchTopic where UserID = @UserID
+	delete from yaf_WatchForum where UserID = @UserID
+	delete from yaf_UserGroup where UserID = @UserID
+	delete from yaf_User where UserID = @UserID
+end
+GO
