@@ -1647,6 +1647,14 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\djrm1.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\standard.xml"
                     BuildAction = "Content"
                 />
@@ -1828,6 +1836,254 @@
                 />
                 <File
                     RelPath = "themes\ASPNET\voting_bar.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_attachments.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_delete_post.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_delete_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_edit_post.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_lock_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_mod.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_move_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_post_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_post_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_quote_post.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\b_unlock_topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\bg_footer1.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\bg_header1.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\bg_header2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\bg_header2.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\bgh1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\folder_stats.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\folder_who.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\hdbg1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\icon_latest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\icon_newest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_ann.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_ann_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_locked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_moved.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_new_locked.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_poll.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_poll_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\m_sticky.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_aim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_blog.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_email.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_icq.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_msn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_pm.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_www.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\p_yim.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\sort_down.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\sort_up.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\theme.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_announce.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_announce_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_lock.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_lock.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_lock_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_moderate.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_moved.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_new.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_poll.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_poll_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\topic_sticky.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\user_rank1.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\user_rank2.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\user_rank3.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\vote_lcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\vote_rcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\djrm1\voting_bar.gif"
                     BuildAction = "Content"
                 />
                 <File
