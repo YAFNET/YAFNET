@@ -72,5 +72,23 @@ namespace yaf.RegisterForum {
             object[] results = this.EndInvoke(asyncResult);
             return ((long)(results[0]));
         }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.yetanotherforum.net/Register/LatestVersionDate", RequestNamespace="http://www.yetanotherforum.net/Register", ResponseNamespace="http://www.yetanotherforum.net/Register", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public System.DateTime LatestVersionDate() {
+            object[] results = this.Invoke("LatestVersionDate", new object[0]);
+            return ((System.DateTime)(results[0]));
+        }
+        
+        /// <remarks/>
+        public System.IAsyncResult BeginLatestVersionDate(System.AsyncCallback callback, object asyncState) {
+            return this.BeginInvoke("LatestVersionDate", new object[0], callback, asyncState);
+        }
+        
+        /// <remarks/>
+        public System.DateTime EndLatestVersionDate(System.IAsyncResult asyncResult) {
+            object[] results = this.EndInvoke(asyncResult);
+            return ((System.DateTime)(results[0]));
+        }
     }
 }

@@ -238,7 +238,7 @@ namespace yaf
 				PageLinks2.Visible = false;
 			}
 
-			if(topic["PollID"].ToString() != "") {
+			if(topic["PollID"]!=DBNull.Value) {
 				Poll.Visible = true;
 				dtPoll = DB.poll_stats(topic["PollID"]);
 				Poll.DataSource = dtPoll;
@@ -264,6 +264,14 @@ namespace yaf
 			DataBind();
 		}
 
+		protected bool CanVote
+		{
+			get
+			{
+				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
+				return ForumVoteAccess && Request.Cookies[cookie] == null;
+			}
+		}
 
 		private void DeleteTopic_Click(object sender, System.EventArgs e)
 		{
@@ -403,8 +411,9 @@ namespace yaf
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName=="vote" && ForumVoteAccess) {
 				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
-			
-				if(Request.Cookies[cookie] != null) {
+
+				if(Request.Cookies[cookie] != null) 
+				{
 					AddLoadMessage(GetText("WARN_ALREADY_VOTED"));
 					return;
 				}
@@ -416,7 +425,7 @@ namespace yaf
 
 				DB.choice_vote(e.CommandArgument);
 				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
-				c.Expires = DateTime.Now + TimeSpan.FromDays(365);
+				c.Expires = DateTime.Now.AddYears(1);
 				Response.Cookies.Add(c);
 				AddLoadMessage(GetText("INFO_VOTED"));
 				BindData();

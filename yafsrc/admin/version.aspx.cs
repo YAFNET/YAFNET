@@ -18,6 +18,7 @@ namespace yaf.admin
 	{
 		protected	HtmlGenericControl	Upgrade;
 		private		long				m_lastVersion;
+		private		DateTime			m_lastVersionDate;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -26,6 +27,7 @@ namespace yaf.admin
 				using(RegisterForum.Register reg = new RegisterForum.Register()) 
 				{
 					m_lastVersion = reg.LatestVersion();
+					m_lastVersionDate = reg.LatestVersionDate();
 				}
 			}
 			catch(Exception) 
@@ -39,10 +41,14 @@ namespace yaf.admin
 		{
 			get 
 			{
-				using(RegisterForum.Register reg = new RegisterForum.Register()) 
-				{
-					return AppVersionNameFromCode(m_lastVersion);
-				}
+				return AppVersionNameFromCode(m_lastVersion);
+			}
+		}
+		protected string LastVersionDate
+		{
+			get
+			{
+				return m_lastVersionDate.ToShortDateString();
 			}
 		}
 

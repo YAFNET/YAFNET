@@ -28,6 +28,16 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="LatestVersionDate">
+        <s:complexType />
+      </s:element>
+      <s:element name="LatestVersionDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="LatestVersionDateResult" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </types>
   <message name="RegisterForumSoapIn">
@@ -42,6 +52,12 @@
   <message name="LatestVersionSoapOut">
     <part name="parameters" element="s0:LatestVersionResponse" />
   </message>
+  <message name="LatestVersionDateSoapIn">
+    <part name="parameters" element="s0:LatestVersionDate" />
+  </message>
+  <message name="LatestVersionDateSoapOut">
+    <part name="parameters" element="s0:LatestVersionDateResponse" />
+  </message>
   <portType name="RegisterSoap">
     <operation name="RegisterForum">
       <documentation>Register Yet Another Forum.net</documentation>
@@ -52,6 +68,11 @@
       <documentation>Get the latest version number.</documentation>
       <input message="s0:LatestVersionSoapIn" />
       <output message="s0:LatestVersionSoapOut" />
+    </operation>
+    <operation name="LatestVersionDate">
+      <documentation>Get the date of the last version.</documentation>
+      <input message="s0:LatestVersionDateSoapIn" />
+      <output message="s0:LatestVersionDateSoapOut" />
     </operation>
   </portType>
   <binding name="RegisterSoap" type="s0:RegisterSoap">
@@ -67,6 +88,15 @@
     </operation>
     <operation name="LatestVersion">
       <soap:operation soapAction="http://www.yetanotherforum.net/Register/LatestVersion" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="LatestVersionDate">
+      <soap:operation soapAction="http://www.yetanotherforum.net/Register/LatestVersionDate" style="document" />
       <input>
         <soap:body use="literal" />
       </input>

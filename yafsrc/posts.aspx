@@ -22,7 +22,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post>
-<asp:linkbutton runat=server commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'><%# DataBinder.Eval(Container.DataItem, "Choice") %></asp:linkbutton></td>
+		<yaf:mylinkbutton runat=server enabled=<%#CanVote%> commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>'/></td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "Votes") %></td>
 		<td class=post><nobr><img src='<%# GetThemeContents("VOTE","LCAP") %>'><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# VoteWidth(Container.DataItem) %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
 	</tr>
@@ -126,5 +126,4 @@
 
 <yaf:savescrollpos runat="server"/>
 
-<%=GetCookie("topicsread")%>
 </form>

@@ -197,7 +197,7 @@ namespace yaf
 			if(Request.Cookies["yaf"]!=null) 
 			{
 				Response.Cookies.Add(Request.Cookies["yaf"]);
-				Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+				Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 
 			if(Session["lastvisit"] == null && (int)m_pageinfo["Incoming"]>0) 
@@ -216,13 +216,11 @@ namespace yaf
 					Session["lastvisit"] = DateTime.Now;
 				}
 				Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-				Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
-				SetCookie("topicsread","");
+				Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 			else if(Session["lastvisit"] == null) 
 			{
 				Session["lastvisit"] = DateTime.Now;
-				SetCookie("topicsread","");
 			}
 
 			if(Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
@@ -232,19 +230,19 @@ namespace yaf
 					if(DateTime.Parse(Request.Cookies["yaf"]["lastvisit"]) < DateTime.Now - TimeSpan.FromMinutes(5)) 
 					{
 						Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-						Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+						Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 					}
 				}
 				catch(Exception) 
 				{
 					Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-					Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+					Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 				}
 			}
 			else 
 			{
 				Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-				Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
+				Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 
 			// Check if pending mails, and send 10 of them if possible
@@ -527,21 +525,51 @@ namespace yaf
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
 
-#if DEBUG && false
-				foreach(string key in HttpContext.Current.Session)
+#if DEBUG && true
+				if(Request.QueryString["debug"]!=null) 
 				{
-					if(HttpContext.Current.Session[key].GetType()==typeof(System.Collections.Hashtable)) 
+					System.Text.StringBuilder msg = new System.Text.StringBuilder();
+					msg.Append("<style>\n");
+					msg.Append("body,td,th{font:8pt tahoma}\n");
+					msg.Append("table{background-color:#C0C0C0}\n");
+					msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\n");
+					msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\n");
+					msg.Append("</style>\n");
+					msg.Append("<table cellpadding=1 cellspacing=1>\n");
+
+					msg.Append("<tr><th colspan=2>QueryString</th></tr>");
+					foreach(string key in HttpContext.Current.Request.QueryString.AllKeys) 
 					{
-						System.Collections.Hashtable h = (System.Collections.Hashtable)HttpContext.Current.Session[key];
-						writer.WriteLine("<b>{0}:</b><ul>",key);
-						foreach(object hk in h.Keys)
-							writer.WriteLine("<li>{0} = {1}</li>",hk,h[hk]);
-						writer.WriteLine("</ul><br>");
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.QueryString[key]);
 					}
-					else 
+					msg.Append("<tr><th colspan=2>Form</th></tr>");
+					foreach(string key in HttpContext.Current.Request.Form.AllKeys) 
 					{
-						writer.WriteLine("{0} = {1}<br/>",key,HttpContext.Current.Session[key]);
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Form[key]);
 					}
+					msg.Append("<tr><th colspan=2>ServerVariables</th></tr>");
+					foreach(string key in HttpContext.Current.Request.ServerVariables.AllKeys)
+					{
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.ServerVariables[key]);
+					}
+					msg.Append("<tr><th colspan=2>Session</th></tr>");
+					foreach(string key in HttpContext.Current.Session)
+					{
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Session[key]);
+					}
+					msg.Append("<tr><th colspan=2>Application</th></tr>");
+					foreach(string key in HttpContext.Current.Application)
+					{
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Application[key]);
+					}
+					msg.Append("<tr><th colspan=2>Cookies</th></tr>");
+					foreach(string key in HttpContext.Current.Request.Cookies.AllKeys)
+					{
+						msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
+					}
+					msg.Append("</table>");
+
+					writer.Write(msg.ToString());        
 				}
 #endif
 			} 
@@ -1133,43 +1161,6 @@ namespace yaf
 			get 
 			{
 				return m_bCheckSuspended;
-			}
-		}
-		public string GetCookie(string key) 
-		{
-			return Request.Cookies["yaf"][key];
-		}
-		public void SetCookie(string key,string cookie) 
-		{
-			Response.Cookies["yaf"][key] = cookie;
-			Response.Cookies["yaf"].Expires = DateTime.Now + TimeSpan.FromDays(365);
-		}
-		public HttpCookie RequestCookie
-		{
-			get
-			{
-				HttpCookie cookie = Request.Cookies["yaf"];
-				if(cookie==null) 
-				{
-					cookie = new HttpCookie("yaf");
-					cookie.Expires = DateTime.Now + TimeSpan.FromDays(365);
-					//Request.AppendCookie(cookie);
-				}
-				return cookie;
-			}
-		}
-		public HttpCookie ResponseCookie 
-		{
-			get 
-			{
-				HttpCookie cookie = Response.Cookies["yaf"];
-				if(cookie==null) 
-				{
-					cookie = new HttpCookie("yaf");
-					cookie.Expires = DateTime.Now + TimeSpan.FromDays(365);
-					Response.AppendCookie(cookie);
-				}
-				return cookie;
 			}
 		}
 		#endregion

@@ -13,7 +13,7 @@
 			<td>
 				<p>You are running Yet Another Forum.net version <%=AppVersionName%>.</p>
 				
-				<p>The latest available version is <%=LastVersion%>.</p>
+				<p>The latest available version is <%=LastVersion%> released <%=LastVersionDate%>.</p>
 				
 				<p runat="server" id="Upgrade" visible="false">You can download the latest version from <a target="_top" href="http://sourceforge.net/project/showfiles.php?group_id=90539">here</a>.</p>
 			</td>

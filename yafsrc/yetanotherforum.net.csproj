@@ -1182,6 +1182,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\MyLinkButton.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\PageAccess.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -1520,6 +1525,10 @@
                 />
                 <File
                     RelPath = "themes\standard\topic_announce.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\topic_announce_new.png"
                     BuildAction = "Content"
                 />
                 <File
