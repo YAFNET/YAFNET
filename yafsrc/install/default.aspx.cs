@@ -71,7 +71,8 @@ namespace yaf.install
 			"version-0.9.4.sql",	/// 10
 			"version-0.9.5.sql",	/// 11
 			"version-0.9.6.sql",	/// 12
-			"version-0.9.7.sql"		/// 13
+			"version-0.9.7.sql",	/// 13
+			"version-0.9.8.sql"		/// 14
 		};
 
 		void AddLoadMessage(string msg)

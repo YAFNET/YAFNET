@@ -56,7 +56,7 @@ namespace yaf.pages
 		}
 
 		private void BindData() {
-			using(DataTable dt = DB.userpmessage_list(Request.QueryString["m"])) 
+			using(DataTable dt = DB.userpmessage_list(Request.QueryString["pm"])) 
 			{
 				foreach(DataRow row in dt.Rows) 
 				{
@@ -74,7 +74,7 @@ namespace yaf.pages
 				Inbox.DataSource = dt;
 			}
 			DataBind();
-			DB.pmessage_markread(PageUserID,Request.QueryString["m"]);
+			DB.pmessage_markread(Request.QueryString["pm"]);
 		}
 
 		protected string FormatBody(object o) {

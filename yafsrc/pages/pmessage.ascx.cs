@@ -162,7 +162,7 @@ namespace yaf.pages
 				To.Text = ToList.SelectedItem.Text;
 
 
-			if (ToList.SelectedItem.Value == "0")
+			if(ToList.SelectedItem!=null && ToList.SelectedItem.Value == "0")
 			{
 				string body = Editor.Text;
 				if(!Editor.IsRichBrowser) 

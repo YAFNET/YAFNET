@@ -482,6 +482,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "install\version-0.9.8.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "languages\english.xml"
                     BuildAction = "Content"
                 />
