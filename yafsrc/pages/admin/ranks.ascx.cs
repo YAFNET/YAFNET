@@ -103,13 +103,25 @@ namespace yaf.pages.admin
 			Forum.Redirect(Pages.admin_editrank);
 		}
 
-		protected string LadderInfo(object IsLadder,object MinPosts) {
-			string tmp;
-			tmp = String.Format("{0}",IsLadder);
-			if((bool)IsLadder) {
-				tmp += String.Format(" ({0} posts)",MinPosts);
+		protected string LadderInfo(object _o) {
+			DataRowView dr = (DataRowView)_o;
+
+			///object IsLadder,object MinPosts
+			///DataBinder.Eval(Container.DataItem, "IsLadder"),DataBinder.Eval(Container.DataItem, "MinPosts")
+			
+			bool isLadder = ((int)dr["Flags"] & (int)RankFlags.IsLadder) == (int)RankFlags.IsLadder;
+			
+			string tmp = String.Format("{0}",isLadder);
+			if(isLadder) {
+				tmp += String.Format(" ({0} posts)",dr["MinPosts"]);
 			}
 			return tmp;
+		}
+
+		protected bool BitSet(object _o,int bitmask) 
+		{
+			int i = (int)_o;
+			return (i & bitmask)!=0;
 		}
 	}
 }

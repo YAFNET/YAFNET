@@ -59,8 +59,8 @@ namespace yaf.pages.admin
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
-						IsStart.Checked = (bool)row["IsStart"];
-						IsLadder.Checked = (bool)row["IsLadder"];
+						IsStart.Checked = ((int)row["Flags"] & (int)RankFlags.IsStart) == (int)RankFlags.IsStart;
+						IsLadder.Checked = ((int)row["Flags"] & (int)RankFlags.IsLadder) == (int)RankFlags.IsLadder;
 						MinPosts.Text = row["MinPosts"].ToString();
 						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
 						if(item!=null) 

@@ -72,7 +72,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Forum') and O
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
-		Flags			int not null
+		Flags			int not null constraint DF_yaf_Forum_Flags default (0)
 	)
 GO
 
@@ -89,7 +89,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and O
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL ,
-		Flags			int not null
+		Flags			int not null constraint DF_yaf_Group_Flags default (0)
 	)
 GO
 
@@ -117,7 +117,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and
 		Message			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
 		Edited			datetime NULL ,
-		Flags			int NOT NULL
+		Flags			int NOT NULL constraint DF_yaf_Message_Flags default (23)
 	)
 GO
 
@@ -128,7 +128,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_PMessage') an
 		Created			datetime NOT NULL ,
 		Subject			nvarchar (100) NOT NULL ,
 		Body			ntext NOT NULL,
-		Flags			int NOT NULL
+		Flags			int NOT NULL 
 	)
 GO
 
@@ -166,7 +166,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Topic') and O
 		LastUserID		int NULL ,
 		LastUserName	nvarchar (50) NULL,
 		NumPosts		int NOT NULL,
-		Flags			int not null
+		Flags			int not null constraint DF_yaf_Topic_Flags default (0)
 	)
 GO
 
@@ -200,7 +200,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OB
 		Interests		nvarchar (100) NULL ,
 		Gender			tinyint NOT NULL ,
 		Weblog			nvarchar (100) NULL,
-		Flags			int not null
+		Flags			int not null constraint DF_yaf_User_Flags default (0)
 )
 GO
 
@@ -249,10 +249,9 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Rank') and OB
 		RankID			int IDENTITY (1, 1) NOT NULL,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL,
-		IsStart			bit NOT NULL,
-		IsLadder		bit NOT NULL,
 		MinPosts		int NULL,
-		RankImage		nvarchar (50) NULL
+		RankImage		nvarchar (50) NULL,
+		Flags			int not null constraint DF_yaf_Rank_Flags default (0)
 	)
 GO
 
@@ -261,7 +260,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') 
 		AccessMaskID	int IDENTITY NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) NOT NULL ,
-		Flags			int not null
+		Flags			int not null constraint DF_yaf_AccessMask_Flags default (0)
 	)
 GO
 
@@ -571,6 +570,30 @@ begin
 end
 GO
 
+if not exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='Flags')
+begin
+	alter table dbo.yaf_Rank add Flags int not null constraint DF_yaf_Rank_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='IsStart')
+begin
+	grant update on yaf_Rank to public
+	exec('update yaf_Rank set Flags = Flags | 1 where IsStart<>0')
+	revoke update on yaf_Rank from public
+	alter table dbo.yaf_Rank drop column IsStart
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='IsLadder')
+begin
+	grant update on yaf_Rank to public
+	exec('update yaf_Rank set Flags = Flags | 2 where IsLadder<>0')
+	revoke update on yaf_Rank from public
+	alter table dbo.yaf_Rank drop column IsLadder
+end
+GO
+
 /*
 ** Defaults
 */
@@ -581,26 +604,6 @@ GO
 
 if not exists(select 1 from sysobjects where name=N'DF_yaf_Message_Flags' and parent_obj=object_id(N'yaf_Message'))
 	alter table dbo.yaf_Message add constraint DF_yaf_Message_Flags default (23) for Flags
-GO
-
-if not exists(select 1 from sysobjects where name=N'DF_yaf_Topic_Flags' and parent_obj=object_id(N'yaf_Topic'))
-	alter table dbo.yaf_Topic add constraint DF_yaf_Topic_Flags default (0) for Flags
-GO
-
-if not exists(select 1 from sysobjects where name=N'DF_yaf_Forum_Flags' and parent_obj=object_id(N'yaf_Forum'))
-	alter table dbo.yaf_Forum add constraint DF_yaf_Forum_Flags default (0) for Flags
-GO
-
-if not exists(select 1 from sysobjects where name=N'DF_yaf_Group_Flags' and parent_obj=object_id(N'yaf_Group'))
-	alter table dbo.yaf_Group add constraint DF_yaf_Group_Flags default (0) for Flags
-GO
-
-if not exists(select 1 from sysobjects where name=N'DF_yaf_AccessMask_Flags' and parent_obj=object_id(N'yaf_AccessMask'))
-	alter table dbo.yaf_AccessMask add constraint DF_yaf_AccessMask_Flags default (0) for Flags
-GO
-
-if not exists(select 1 from sysobjects where name=N'DF_yaf_User_Flags' and parent_obj=object_id(N'yaf_User'))
-	alter table dbo.yaf_User add constraint DF_yaf_User_Flags default (0) for Flags
 GO
 
 /*
@@ -2062,20 +2065,26 @@ create procedure dbo.yaf_rank_save(
 	@RankImage	nvarchar(50)=null
 ) as
 begin
+	declare @Flags int
+
 	if @IsLadder=0 set @MinPosts = null
 	if @IsLadder=1 and @MinPosts is null set @MinPosts = 0
+	
+	set @Flags = 0
+	if @IsStart<>0 set @Flags = @Flags | 1
+	if @IsLadder<>0 set @Flags = @Flags | 2
+	
 	if @RankID>0 begin
 		update yaf_Rank set
 			Name = @Name,
-			IsStart = @IsStart,
-			IsLadder = @IsLadder,
+			Flags = @Flags,
 			MinPosts = @MinPosts,
 			RankImage = @RankImage
 		where RankID = @RankID
 	end
 	else begin
-		insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts,RankImage)
-		values(@BoardID,@Name,@IsStart,@IsLadder,@MinPosts,@RankImage);
+		insert into yaf_Rank(BoardID,Name,Flags,MinPosts,RankImage)
+		values(@BoardID,@Name,@Flags,@MinPosts,@RankImage);
 	end
 end
 GO
@@ -2262,7 +2271,7 @@ begin
 	if @UserID is null or @UserID<1 begin
 		if @Email = '' set @Email = null
 		
-		select @RankID = RankID from yaf_Rank where IsStart<>0 and BoardID=@BoardID
+		select @RankID = RankID from yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 		
 		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags) 
 		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags)
@@ -2609,15 +2618,15 @@ begin
 	set @BoardID = @@IDENTITY
 
 	-- yaf_Rank
-	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Administration',0,0,null)
+	insert into yaf_Rank(BoardID,Name,Flags,MinPosts) values(@BoardID,'Administration',0,null)
 	set @RankIDAdmin = @@IDENTITY
-	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Guest',0,0,null)
+	insert into yaf_Rank(BoardID,Name,Flags,MinPosts) values(@BoardID,'Guest',0,null)
 	set @RankIDGuest = @@IDENTITY
-	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Newbie',1,1,0)
+	insert into yaf_Rank(BoardID,Name,Flags,MinPosts) values(@BoardID,'Newbie',3,0)
 	set @RankIDNewbie = @@IDENTITY
-	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Member',0,1,10)
+	insert into yaf_Rank(BoardID,Name,Flags,MinPosts) values(@BoardID,'Member',2,10)
 	set @RankIDMember = @@IDENTITY
-	insert into yaf_Rank(BoardID,Name,IsStart,IsLadder,MinPosts) values(@BoardID,'Advanced Member',0,1,30)
+	insert into yaf_Rank(BoardID,Name,Flags,MinPosts) values(@BoardID,'Advanced Member',2,30)
 	set @RankIDAdvanced = @@IDENTITY
 
 	-- yaf_AccessMask
@@ -3653,7 +3662,7 @@ if not exists(select * from syscolumns where id=object_id('yaf_User') and name='
 GO
 
 if not exists(select * from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	update yaf_User set RankID = (select RankID from yaf_Rank where IsStart<>0)
+	update yaf_User set RankID = (select RankID from yaf_Rank where (Flags & 2)<>0)
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_user_upgrade') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -3663,13 +3672,13 @@ GO
 create procedure dbo.yaf_user_upgrade(@UserID int) as
 begin
 	declare @RankID		int
-	declare @IsLadder	bit
+	declare @Flags		int
 	declare @MinPosts	int
 	declare @NumPosts	int
 	-- Get user and rank information
 	select
 		@RankID = b.RankID,
-		@IsLadder = b.IsLadder,
+		@Flags = b.Flags,
 		@MinPosts = b.MinPosts,
 		@NumPosts = a.NumPosts
 	from
@@ -3678,15 +3687,17 @@ begin
 	where
 		a.UserID = @UserID and
 		b.RankID = a.RankID
+	
 	-- If user isn't member of a ladder rank, exit
-	if @IsLadder = 0 return
+	if (@Flags & 2) = 0 return
+	
 	-- See if user got enough posts for next ladder group
 	select top 1
 		@RankID = RankID
 	from
 		yaf_Rank
 	where
-		IsLadder = 1 and
+		(Flags & 2) = 2 and
 		MinPosts <= @NumPosts and
 		MinPosts > @MinPosts
 	order by

@@ -87,6 +87,12 @@ namespace yaf
 		Approved		= 2
 	}
 
+	public enum RankFlags : int
+	{
+		IsStart			= 1,
+		IsLadder		= 2
+	}
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>

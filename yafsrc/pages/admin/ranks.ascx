@@ -25,10 +25,10 @@
 				<%# DataBinder.Eval(Container.DataItem, "Name") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "IsStart") %>
+				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),1) %>
 			</td>
 			<td class=post>
-				<%# LadderInfo(DataBinder.Eval(Container.DataItem, "IsLadder"),DataBinder.Eval(Container.DataItem, "MinPosts")) %>
+				<%# LadderInfo(Container.DataItem) %>
 			</td>
 			<td class=post>
 				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Edit</asp:linkbutton>
