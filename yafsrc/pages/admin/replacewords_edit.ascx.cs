@@ -42,11 +42,13 @@ namespace yaf.pages.admin
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
+
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Replace Words Edit",Forum.GetLink(Pages.admin_replacewords));
+				PageLinks.AddLink(strAddEdit + " Word Replace",Forum.GetLink(Pages.admin_replacewords));
 
 				BindData();
 			}
