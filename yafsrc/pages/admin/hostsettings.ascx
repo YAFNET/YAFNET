@@ -82,7 +82,13 @@
 				Enable or disable display of RSS links throughout the forum.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowRSSLinkX" runat="server"></asp:checkbox></TD>
-		</TR>		
+		</TR>	
+		<TR>
+			<TD class="postheader"><B>Show Forum Jump Box:</B><BR>
+				Enable or disable display of the Forum Jump Box throughout the forum.</TD>
+			<TD class="post">
+				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></TD>
+		</TR>			
 		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>

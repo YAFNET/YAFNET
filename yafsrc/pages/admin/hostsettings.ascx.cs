@@ -40,7 +40,7 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
-		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX, ShowRSSLinkX;
+		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX, ShowRSSLinkX, ShowForumJumpX;
 		protected TextBox AvatarSize, MaxFileSize;
 		protected yaf.controls.AdminMenu Adminmenu1;
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
@@ -95,6 +95,7 @@ namespace yaf.pages.admin {
 			AllowUserLanguageX.Checked = BoardSettings.AllowUserLanguage;
 			UseFileTableX.Checked = BoardSettings.UseFileTable;
 			ShowRSSLinkX.Checked = BoardSettings.ShowRSSLink;
+			ShowForumJumpX.Checked = BoardSettings.ShowForumJump;
 			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
 			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
@@ -150,6 +151,7 @@ namespace yaf.pages.admin {
 			BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
 			BoardSettings.UseFileTable = UseFileTableX.Checked;
 			BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
+			BoardSettings.ShowForumJump = ShowForumJumpX.Checked;
 			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
 			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
 			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
