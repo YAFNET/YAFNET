@@ -2,7 +2,11 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 	<yaf:PageLinks runat="server" id="PageLinks"/>
-	
+	<script language="javascript">
+function doSearch() {
+   if (window.event.keyCode == 13) _ctl0._ctl1__ctl0_btnSearch.focus();
+}
+</script>
 	<table class="command" cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 			<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
@@ -21,7 +25,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="postheader" colspan="2" align="center"><asp:textbox id="txtSearchString" runat="server" Width="293px"></asp:textbox><asp:button id="btnSearch" runat="server"/></td>
+			<td class="postheader" colspan="2" align="center"><asp:textbox id="txtSearchString" runat="server" Width="293px"onkeydown="doSearch();"></asp:textbox><asp:button id="btnSearch" runat="server"/></td>
 		</tr>
 		<asp:repeater id="SearchRes" runat="server">
 			<HeaderTemplate>
