@@ -1012,6 +1012,35 @@ namespace yaf.pages
 		}
 
 		/// <summary>
+		/// Formats a datatime value into 07.03.2003 00:00:00 except if 
+		/// the date is yesterday or today -- in which case it says that.
+		/// </summary>
+		/// <param name="o">The datetime to be formatted</param>
+		/// <returns>Formatted string of DateTime object</returns>
+		public string FormatDateTimeTopic(object o)
+		{
+			string strDateFormat;
+			DateTime dt = Convert.ToDateTime(o) + TimeOffset;
+			DateTime nt = DateTime.Now + TimeOffset;
+
+			if (dt.Date == nt.Date)
+			{
+				// today
+				strDateFormat = String.Format(GetText("TodayAt"),dt);
+			}
+			else if (dt.Date == nt.AddDays(-1).Date)
+			{
+				// yesterday
+				strDateFormat = String.Format(GetText("YesterdayAt"),dt);
+			}
+			else
+			{
+				strDateFormat = String.Format("{0:F}",dt);
+			}
+
+			return strDateFormat;
+		}
+		/// <summary>
 		/// This formats a DateTime into a short string
 		/// </summary>
 		/// <param name="o">The DateTime like object you wish to make a formatted string.</param>
