@@ -81,7 +81,7 @@ namespace yaf.pages
 			DataRowView row = (DataRowView)o;
 			string body = row["Body"].ToString();
 			body = BBCode.MakeHtml(body);
-			return FormatMsg.FetchURL(this,body);
+			return FormatMsg.FetchURL(this,body,false);
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

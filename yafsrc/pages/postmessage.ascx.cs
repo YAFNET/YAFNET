@@ -360,7 +360,7 @@ namespace yaf.pages
 			PreviewRow.Visible = true;
 
 			string body = Message.Text;
-			body = FormatMsg.FetchURL(this,body);
+			body = FormatMsg.FetchURL(this,body,true);
 			body = BBCode.MakeHtml(body);
 
 			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 

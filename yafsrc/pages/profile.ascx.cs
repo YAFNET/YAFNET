@@ -258,7 +258,7 @@ namespace yaf.pages
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
-			html = FormatMsg.FetchURL(this,html);
+			html = FormatMsg.FetchURL(this,html,false);
 			html = BBCode.MakeHtml(html);
 
 			if(row["Signature"].ToString().Length>0) 

@@ -52,7 +52,6 @@ namespace yaf.install
 		protected System.Web.UI.WebControls.Label cursteplabel;
 		protected System.Web.UI.HtmlControls.HtmlTable stepWelcome, stepConfig, stepConnect, stepDatabase, stepForum, stepFinished;
 		protected PlaceHolder ConfigSample;
-		protected HtmlGenericControl dboinfo;
 		// Forum
 		protected System.Web.UI.WebControls.TextBox TheForumName, UserName, Password1, Password2, AdminEmail, ForumEmailAddress, SmptServerAddress;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
@@ -193,7 +192,6 @@ namespace yaf.install
 			} 
 			else if(CurStep == Step.Connect) 
 			{
-				dboinfo.InnerHtml = string.Format("Your config will use <b>{0}</b> as the database owner. If this is not correct, modify your Web.config file now.",DBO);
 				try 
 				{
 					SqlConnection conn = DB.GetConnection();
@@ -208,8 +206,17 @@ namespace yaf.install
 			{
 				try 
 				{
+					if(InstalledVersion>0 && InstalledVersion<14) 
+					{
+						AddLoadMessage("You must upgrade to version 0.9.8 before installing this version.");
+						return;
+					}
+					FixAccess(false);
+
 					for(int i=InstalledVersion;i<m_scripts.Length;i++)
 						ExecuteScript(m_scripts[i]);
+
+					FixAccess(true);
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
@@ -393,17 +400,6 @@ namespace yaf.install
 			}
 		}
 
-		private string DBO
-		{
-			get
-			{
-				string dbo = Config.ConfigSection["dbo"];
-				if(dbo==string.Empty)
-					dbo = "dbo";
-				return dbo;
-			}
-		}
-
 		private void ExecuteScript(string sScriptFile) 
 		{
 			string sScript = null;
@@ -422,18 +418,12 @@ namespace yaf.install
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-				SqlConnection conn = DB.GetConnection();
+			SqlConnection conn = DB.GetConnection();
 			using(SqlTransaction trans = conn.BeginTransaction()) 
 			{
-				string dbo = DBO;
-
 				foreach(string sql0 in statements) 
 				{
 					string sql = sql0.Trim();
-					sql = sql.Replace("[dbo]",dbo);
-					sql = sql.Replace("{dbo}",dbo);
-
-					
 
 					try 
 					{
@@ -459,6 +449,70 @@ namespace yaf.install
 					}
 				}
 				trans.Commit();
+			}
+		}
+
+		private void FixAccess(bool bGrant) 
+		{
+			using(SqlConnection conn = DB.GetConnection()) 
+			{
+				using(DataSet ds=new DataSet()) 
+				{
+					using(SqlDataAdapter da=new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'",conn)) 
+					{
+						using(DataTable dt=new DataTable("sysobjects")) 
+						{
+							da.Fill(dt);
+							using(SqlCommand cmd=conn.CreateCommand()) 
+							{
+								cmd.CommandType = CommandType.Text;
+								cmd.CommandText = "select current_user";
+								string userName = (string)cmd.ExecuteScalar();
+
+								if(bGrant) 
+								{
+									cmd.CommandType = CommandType.Text;
+									foreach(DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1")) 
+									{
+										cmd.CommandText = string.Format("grant execute on {0} to {1}",row["Name"],userName);
+										cmd.ExecuteNonQuery();
+									}
+								} 
+								else 
+								{
+									cmd.CommandText = "sp_changeobjectowner";
+									cmd.CommandType = CommandType.StoredProcedure;
+									foreach(DataRow row in dt.Select("IsUserTable=1")) 
+									{
+										cmd.Parameters.Clear();
+										cmd.Parameters.Add("@objname",row["Name"]);
+										cmd.Parameters.Add("@newowner","dbo");
+										try
+										{
+											cmd.ExecuteNonQuery();
+										}
+										catch(SqlException)
+										{
+										}
+									}
+									foreach(DataRow row in dt.Select("IsView=1")) 
+									{
+										cmd.Parameters.Clear();
+										cmd.Parameters.Add("@objname",row["Name"]);
+										cmd.Parameters.Add("@newowner","dbo");
+										try
+										{
+											cmd.ExecuteNonQuery();
+										}
+										catch(SqlException)
+										{
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}

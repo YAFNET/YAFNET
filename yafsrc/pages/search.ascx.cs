@@ -215,7 +215,7 @@ namespace yaf.pages
 			string body = row["Message"].ToString();
 			body = BBCode.MakeHtml(body);
 
-			return FormatMsg.FetchURL(this,body);
+			return FormatMsg.FetchURL(this,body,false);
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)

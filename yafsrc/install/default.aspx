@@ -111,7 +111,6 @@
 			already existing version, your database will be updated to the latest
 			version.
 		</p>
-		<p runat="server" id="dboinfo"/>
 		<p>
 			Click next to setup your database.
 		</p>

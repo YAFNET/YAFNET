@@ -245,10 +245,12 @@ namespace yaf
 			return dt;
 		}
 
-		static public string FetchURL(yaf.pages.ForumPage basePage,string html) 
+		static public string FetchURL(yaf.pages.ForumPage basePage,string html,bool safe) 
 		{
 			// make "html safe" here
-			html = BBCode.SafeHtml(html);
+			// Lots of messages already written use html - don't touch them
+			if(safe)
+				html = BBCode.SafeHtml(html);
 
 			html = iAddSmiles(basePage,html);			
 
