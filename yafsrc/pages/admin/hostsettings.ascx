@@ -104,6 +104,13 @@
 				<asp:TextBox id="SmiliesColumns" runat="server"></asp:TextBox>
 				</TD>
 		</TR>		
+		<tr>
+			<td class="postheader"><b>Days before posts are locked:</b><br/>
+				Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit.</td>
+			<td class="post">
+				<asp:textbox id="LockPosts" runat="server"/>
+			</td>
+		</tr>
 		<TR>
 			<TD class="header2" colSpan="2" align="center">SMTP Server Settings</TD>
 		</TR>

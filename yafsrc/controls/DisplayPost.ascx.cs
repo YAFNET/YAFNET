@@ -106,7 +106,21 @@ override protected void OnInit(EventArgs e)
 		{
 			get
 			{
-				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
+				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumEditAccess;
+			}
+		}
+
+		private bool PostLocked
+		{
+			get
+			{
+				if(!ForumPage.IsAdmin && ForumPage.BoardSettings.LockPosts>0) 
+				{
+					DateTime edited = (DateTime)DataRow["Edited"];
+					if(edited.AddDays(ForumPage.BoardSettings.LockPosts)<DateTime.Now)
+						return true;
+				}
+				return false;
 			}
 		}
 
@@ -114,7 +128,7 @@ override protected void OnInit(EventArgs e)
 		{
 			get
 			{
-				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
+				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumUploadAccess;
 			}
 		}
 
@@ -122,7 +136,7 @@ override protected void OnInit(EventArgs e)
 		{
 			get
 			{
-				return !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
+				return !PostLocked && !(bool)DataRow["ForumLocked"] && !(bool)DataRow["TopicLocked"] && ((int)DataRow["UserID"]==ForumPage.PageUserID || ForumPage.ForumModeratorAccess) && ForumPage.ForumDeleteAccess;
 			}
 		}
 		protected bool CanReply
@@ -235,6 +249,7 @@ override protected void OnInit(EventArgs e)
 		{
 			DataRowView row = DataRow;
 			string html2 = row["Message"].ToString();
+			html2 = FormatMsg.FetchURL(ForumPage,html2);
 			html2 = BBCode.MakeHtml(html2);
 			
 			// define valid image extensions
@@ -308,7 +323,7 @@ override protected void OnInit(EventArgs e)
 			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>")
 				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString());
 
-			return FormatMsg.FetchURL(ForumPage,html2);
+			return html2; //FormatMsg.FetchURL(ForumPage,html2);
 		}
 
 		private void Delete_Click(object sender,EventArgs e)

@@ -258,6 +258,7 @@ namespace yaf.pages
 		{
 			DataRowView row = (DataRowView)o;
 			string html = row["Message"].ToString();
+			html = FormatMsg.FetchURL(this,html);
 			html = BBCode.MakeHtml(html);
 
 			if(row["Signature"].ToString().Length>0) 
@@ -268,7 +269,7 @@ namespace yaf.pages
 				html += "<br/><hr noshade/>" + sig;
 			}
 
-			return FormatMsg.FetchURL(this,html);
+			return html;
 		}
 
 		#region Web Form Designer generated code

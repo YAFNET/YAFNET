@@ -361,7 +361,8 @@ namespace yaf.pages
 			PreviewRow.Visible = true;
 
 			string body = Message.Text;
-			//body = BBCode.SafeHtml(body);
+			body = BBCode.SafeHtml(body);
+			body = FormatMsg.FetchURL(this,body);
 			body = BBCode.MakeHtml(body);
 
 			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 

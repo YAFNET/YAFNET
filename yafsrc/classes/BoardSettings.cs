@@ -108,6 +108,11 @@ namespace yaf
 			get { return GetValueInt("SmiliesPerRow",6); }
 			set { SetValueInt("SmiliesPerRow",value); }
 		}
+		public int LockPosts
+		{
+			get { return GetValueInt("LockPosts",0); }
+			set { SetValueInt("LockPosts",value); }
+		}
 		// boolean settings
 		public bool EmailVerification
 		{

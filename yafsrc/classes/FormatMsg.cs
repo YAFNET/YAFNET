@@ -248,7 +248,6 @@ namespace yaf
 		static public string FetchURL(yaf.pages.ForumPage basePage,string html) 
 		{
 			html = iAddSmiles(basePage,html);
-			return html;
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
@@ -261,19 +260,9 @@ namespace yaf
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			html = Regex.Replace(html, @"(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
 
-			/*
-			options |= RegexOptions.Singleline;
-			while(Regex.IsMatch(html,@"\[quote\](.*?)\[/quote\]",options)) 
-				html = Regex.Replace(html,@"\[quote\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b><div class='quoteinner'>$1</div></div>",options);
-			while(Regex.IsMatch(html,@"\[quote=(.*?)\](.*?)\[/quote\]",options)) 
-				html = Regex.Replace(html,@"\[quote=(.*?)\](.*?)\[/quote\]","<div class='quote'><b>QUOTE</b> ($1)<div class='quoteinner'>$2</div></div>",options);
-			*/
-
 			// jaben : moved word replace to reusable function in class utils
 			html = Utils.BadWordReplace(html);
 			return html;
-
-			//return RepairHtml(basePage,html,bAllowHtml);
 		}
 
 		static private bool IsValidTag(string tag) 

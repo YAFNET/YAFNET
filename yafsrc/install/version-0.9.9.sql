@@ -501,3 +501,61 @@ begin
 	delete from yaf_User where BoardID=@BoardID and Approved=0 and datediff(day,Joined,getdate())>2
 end
 GO
+
+-- yaf_post_list
+if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_post_list
+GO
+
+create procedure yaf_post_list(@TopicID int,@UpdateViewCount smallint=1) as
+begin
+	set nocount on
+
+	if @UpdateViewCount>0
+		update yaf_Topic set [Views] = [Views] + 1 where TopicID = @TopicID
+
+	select
+		d.TopicID,
+		TopicLocked	= d.IsLocked,
+		ForumLocked	= g.Locked,
+		a.MessageID,
+		a.Posted,
+		Subject = d.Topic,
+		a.Message,
+		a.UserID,
+		a.Position,
+		a.Indent,
+		UserName	= IsNull(a.UserName,b.Name),
+		b.Joined,
+		b.Avatar,
+		b.Location,
+		b.Signature,
+		b.HomePage,
+		b.Weblog,
+		b.MSN,
+		b.YIM,
+		b.AIM,
+		b.ICQ,
+		Posts		= b.NumPosts,
+		d.Views,
+		d.ForumID,
+		RankName = c.Name,
+		c.RankImage,
+		Edited = IsNull(a.Edited,a.Posted),
+		HasAttachments	= (select count(1) from yaf_Attachment x where x.MessageID=a.MessageID),
+		HasAvatarImage = (select count(1) from yaf_User x where x.UserID=b.UserID and AvatarImage is not null)
+	from
+		yaf_Message a
+		join yaf_User b on b.UserID=a.UserID
+		join yaf_Topic d on d.TopicID=a.TopicID
+		join yaf_Forum g on g.ForumID=d.ForumID
+		join yaf_Category h on h.CategoryID=g.CategoryID
+		join yaf_Rank c on c.RankID=b.RankID
+	where
+		a.Approved <> 0 and
+		a.TopicID = @TopicID
+	order by
+		a.Posted asc
+end
+GO
+

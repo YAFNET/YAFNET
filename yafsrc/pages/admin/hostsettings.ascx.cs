@@ -45,6 +45,7 @@ namespace yaf.pages.admin {
 		protected yaf.controls.AdminMenu Adminmenu1;
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
+		protected TextBox LockPosts;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
@@ -99,6 +100,7 @@ namespace yaf.pages.admin {
 			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
 			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
+			LockPosts.Text = BoardSettings.LockPosts.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -155,6 +157,7 @@ namespace yaf.pages.admin {
 			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
 			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
 			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
+			BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();
