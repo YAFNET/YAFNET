@@ -236,20 +236,73 @@ namespace yaf.controls
 			DataRowView row = DataRow;
 			string html = row["Message"].ToString();
 			bool isHtml = html.IndexOf('<')>=0;
+			
+			// define valid image extensions
+			string[] aImageExtensions = {"jpg","gif","png"};
 		
-			if(long.Parse(row["HasAttachments"].ToString())>0) 
-			{
-				html += String.Format("<p><b class='smallfont'>{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
+			if (long.Parse(row["HasAttachments"].ToString()) > 0) 
+			{				
 				string stats = ForumPage.GetText("ATTACHMENTINFO");
+				string strFileIcon = ForumPage.GetThemeContents("ICONS","ATTACHED_FILE");
+
+				html += "<p>";
+
 				using(DataTable dt = DB.attachment_list(row["MessageID"],null,null)) 
 				{
-					foreach(DataRow dr in dt.Rows) 
+					// show file then image attachments...
+					int tmpDisplaySort = 0;
+					
+					while (tmpDisplaySort <= 1)
 					{
-						int kb = (1023 + (int)dr["Bytes"]) / 1024;
-						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
+						bool bFirstItem = true;
+
+						foreach(DataRow dr in dt.Rows) 
+						{
+							string strFilename = Convert.ToString(dr["FileName"]).ToLower();
+							bool bShowImage = false;
+
+							// verify it's not too large to display (might want to make this a board setting)
+							if (Convert.ToInt32(dr["Bytes"]) <= 262144)
+							{
+								// is it an image file?
+								for (int i=0;i<aImageExtensions.Length;i++)
+								{
+									if (strFilename.EndsWith(aImageExtensions[i]))
+									{
+										bShowImage = true;
+										break;
+									}									
+								}
+							}
+
+							if (bShowImage && tmpDisplaySort == 1)
+							{
+								if (bFirstItem)
+								{
+									html += "<i class=\"smallfont\">";
+									html += String.Format(ForumPage.GetText("IMAGE_ATTACHMENT_TEXT"),Convert.ToString(row["UserName"]));
+									html += "</i><br/>";
+									bFirstItem = false;
+								}
+								html += String.Format("<img src=\"{0}image.aspx?a={1}\" alt=\"{2}\"><br/>",Data.ForumRoot,dr["AttachmentID"],Server.HtmlEncode(Convert.ToString(dr["FileName"])));
+							}
+							else if (!bShowImage && tmpDisplaySort == 0)
+							{
+								if (bFirstItem)
+								{
+									html += String.Format("<b class=\"smallfont\">{0}</b><br/>",ForumPage.GetText("ATTACHMENTS"));
+									bFirstItem = false;
+								}
+								// regular file attachment
+								int kb = (1023 + (int)dr["Bytes"]) / 1024;
+								html += String.Format("<img border='0' src='{0}'> <b><a href=\"{1}image.aspx?a={2}\">{3}</a></b> <span class='smallfont'>{4}</span><br/>",strFileIcon,Data.ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
+							}
+						}
+						// now show images
+						tmpDisplaySort++;
+						html += "<br/>";
 					}
 				}
-				html += "</p>";
 			}
 			
 			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>")
