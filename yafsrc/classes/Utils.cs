@@ -149,7 +149,7 @@ namespace yaf
 				msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
 			}
 			msg.Append("</table>");
-#if  false
+#if  true
 			// .NET
 			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
 			mailMessage.From = sErrorEmail;

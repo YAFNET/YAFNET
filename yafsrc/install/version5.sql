@@ -289,7 +289,7 @@ GO
 create procedure yaf_pageload(
 	@SessionID	varchar(24),
 	@User		varchar(50),
-	@IP		varchar(15),
+	@IP			varchar(15),
 	@Location	varchar(50),
 	@Browser	varchar(50),
 	@Platform	varchar(50),
