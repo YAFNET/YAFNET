@@ -1,8 +1,18 @@
+body, td, input, select
+{
+	font-family: Verdana;
+	font-size: 8pt;
+}
+
 /*  */
 img 
 {
 	border: 0;
 }
+
+/* hyperlinks */
+a			{ text-decoration: none; }
+a:hover		{ text-decoration: underline; }
 
 /* Header 1 - Main header */
 .header1 {
@@ -60,7 +70,7 @@ img
 }
 
 /* most tables are class 'content' */
-table.content {
+.content {
 	font-family: verdana;
 	font-size: 8pt;
 	border: solid 1px #2163E8;
@@ -69,7 +79,7 @@ table.content {
 	background-color: #FFFFFF;
 }
 
-table.content td {
+.content td {
 	padding: 3px;
 }
 
@@ -130,7 +140,7 @@ table.command
 .navlinks a:hover { color: #0000FF; }
 
 /* for printing */
-table.print 
+.print 
 {
 	border: solid 1px #C0C0C0;
 }

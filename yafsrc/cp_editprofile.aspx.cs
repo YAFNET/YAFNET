@@ -47,7 +47,7 @@ namespace yaf
 		protected System.Web.UI.WebControls.TextBox NewPassword2;
 		protected System.Web.UI.WebControls.Button UpdateProfile;
 		protected System.Web.UI.WebControls.TextBox Email;
-		protected LinkButton UploadAvatar;
+		protected System.Web.UI.HtmlControls.HtmlInputFile File;
 		private bool bUpdateEmail = false;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -82,7 +82,29 @@ namespace yaf
 		}
 
 		private void UpdateProfile_Click(object sender, System.EventArgs e) {
-			if(bUpdateEmail && UseEmailVerification) {
+			if(File.PostedFile!=null && File.PostedFile.FileName.Trim().Length>0 && File.PostedFile.ContentLength>0) 
+			{
+				long x,y;
+				using(DataTable dt = DB.system_list())
+				{
+					x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
+					y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
+				}
+
+
+				System.Drawing.Image img = System.Drawing.Image.FromStream(File.PostedFile.InputStream);
+				if(img.Width>x || img.Height>y) 
+				{
+					AddLoadMessage(String.Format("Image size can't be larger than {0}x{1} pixels.",x,y));
+					AddLoadMessage(String.Format("The size of your image was {0}x{1} pixels.",img.Width,img.Height));
+					return;
+				}
+
+				DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
+			}
+
+			if(bUpdateEmail && UseEmailVerification) 
+			{
 				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
@@ -131,15 +153,9 @@ namespace yaf
 			bUpdateEmail = true;
 		}
 
-		private void UploadAvatar_Click(object sender, System.EventArgs e) 
-		{
-			Response.Redirect("cp_avatar.aspx");
-		}
-
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			UploadAvatar.Click += new System.EventHandler(this.UploadAvatar_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

@@ -7,12 +7,17 @@
 	<tr><td class=post><a target="main" href="main.aspx">Admin Index</a></td></tr>
 	<tr><td class=post><a target="main" href="settings.aspx">Settings</a></td></tr>
 	<tr><td class=post><a target="main" href="forums.aspx">Forums</a></td></tr>
-	<tr><td class=post><a target="main" href="groups.aspx">Groups</a></td></tr>
-	<tr><td class=post><a target="main" href="ranks.aspx">Ranks</a></td></tr>
-	<tr><td class=post><a target="main" href="users.aspx">Users</a></td></tr>
-	<tr><td class=post><a target="main" href="mail.aspx">Mail</a></td></tr>
 	<tr><td class=post><a target="main" href="bannedip.aspx">Banned IP</a></td></tr>
 	<tr><td class=post><a target="main" href="prune.aspx">Prune Topics</a></td></tr>
 	<tr><td class=post><a target="main" href="repair.aspx">Repair</a></td></tr>
 	<tr><td class=post><a target="main" href="smilies.aspx">Smilies</a></td></tr>
+
+	<tr><td class="header2"><b>Groups and Users</b></td></tr>
+	<tr><td class=post><a target="main" href="groups.aspx">Groups (Roles)</a></td></tr>
+	<tr><td class=post><a target="main" href="users.aspx">Users</a></td></tr>
+	<tr><td class=post><a target="main" href="ranks.aspx">Ranks</a></td></tr>
+	<tr><td class=post><a target="main" href="mail.aspx">Mail</a></td></tr>
+
+	<tr><td class="header2"><b>Upgrade</b></td></tr>
+	<tr><td class=post><a target="_top" href="../install.aspx">Install</a></td></tr>
 </table>

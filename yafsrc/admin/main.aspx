@@ -93,4 +93,10 @@
 	</tr>
 </table>
 
+<p runat="server" id="UpgradeNotice" visible="false">
+The installed version of Yet Another Forum.net and the version of your database
+does not match. You should go to <a target=_"top" href="../install.aspx">install</a>
+and update your database.
+</p>
+
 </form>

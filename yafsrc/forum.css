@@ -1,26 +1,4 @@
-body, td, input, select
-{
-	font-family: Verdana;
-	font-size: 8pt;
-}
-
-h1 
-{
-	font-size: 13pt;
-}
-
 .edit 
 {
 	width: 460px;
 }
-
-/* Menu line just above forum/post table */
-.title1 
-{
-	padding: 2px;
-}
-
-/* hyperlinks */
-a			{ text-decoration: none; }
-a:hover		{ text-decoration: underline; }
-

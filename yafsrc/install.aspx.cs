@@ -83,7 +83,7 @@ namespace yaf
 			cursteplabel.Text = ((int)CurStep).ToString();
 		}
 
-		private int GetCurrentVersion() {
+		public static int GetCurrentVersion() {
 			try {
 				using(DataTable dt = DB.system_list()) {
 					if(dt.Rows.Count == 0)

@@ -41,6 +41,7 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.Repeater AccessList;
 		protected System.Web.UI.WebControls.CheckBox IsAdminX;
 		protected System.Web.UI.WebControls.Button Cancel;
+		protected CheckBox IsModeratorX;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -56,6 +57,7 @@ namespace yaf.admin
 						IsAdminX.Checked = (bool)row["IsAdmin"];
 						IsGuestGroup.Checked = (bool)row["IsGuest"];
 						IsStart.Checked = (bool)row["IsStart"];
+						IsModeratorX.Checked = (bool)row["IsModerator"];
 					}
 				}
 			}
@@ -127,7 +129,7 @@ namespace yaf.admin
 			long GroupID = 0;
 			if(Request.QueryString["g"] != null) GroupID = long.Parse(Request.QueryString["g"]);
 				
-			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked);
+			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked);
 
 			// Access
 			if(Request.QueryString["g"] != null) 

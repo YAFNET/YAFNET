@@ -300,7 +300,7 @@ namespace yaf
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
 					if(IsAdmin)
 						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">Admin</a> |",BaseDir));
-					if(IsModerator)
+					if(IsModerator || IsForumModerator)
 						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">Moderate</a> |",BaseDir));
 					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">Active Topics</a> |",BaseDir));
 					if(!IsGuest)
@@ -675,6 +675,19 @@ namespace yaf
 			get {
 				if(m_pageinfo!=null)
 					return long.Parse(m_pageinfo["IsGuest"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a forum moderator (mini-admin)
+		/// </summary>
+		protected bool IsForumModerator 
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsForumModerator"].ToString())!=0;
 				else
 					return false;
 			}

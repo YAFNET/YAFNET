@@ -463,7 +463,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long group_save(object GroupID,object Name,object IsAdmin,object IsGuest,object IsStart) 
+		static public long group_save(object GroupID,object Name,object IsAdmin,object IsGuest,object IsStart,object isModerator) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_group_save")) 
 			{
@@ -473,6 +473,7 @@ namespace yaf
 				cmd.Parameters.Add("@IsAdmin",IsAdmin);
 				cmd.Parameters.Add("@IsGuest",IsGuest);
 				cmd.Parameters.Add("@IsStart",IsStart);
+				cmd.Parameters.Add("@IsModerator",isModerator);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}

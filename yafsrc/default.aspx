@@ -10,9 +10,15 @@
 	<asp:hyperlink id="HomeLink2" runat=server>HomeLink</asp:hyperlink>
 </p> 
 
-<p id=Welcome runat=server><table class=title1 cellSpacing=0 cellPadding=0>
-  <tr>
-    <td><asp:label id=TimeNow runat="server">Label</asp:label><br><asp:label id=TimeLastVisit runat="server"></asp:label></td></tr></table>
+<p id=Welcome runat=server>
+	<table cellSpacing=0 cellPadding=0>
+	<tr>
+		<td>
+			<asp:label id=TimeNow runat="server"/><br/>
+			<asp:label id=TimeLastVisit runat="server"/>
+		</td>
+	</tr>
+	</table>
 </p>
 
 <asp:repeater id=CategoryList runat="server">

@@ -103,7 +103,8 @@ CREATE TABLE [yaf_Group] (
 	[Name] [varchar] (50) NOT NULL ,
 	[IsAdmin] [bit] NOT NULL ,
 	[IsGuest] [bit] NOT NULL ,
-	[IsStart] [bit] NOT NULL
+	[IsStart] [bit] NOT NULL ,
+	[IsModerator] [bit] NOT NULL 
 ) ON [PRIMARY]
 GO
 

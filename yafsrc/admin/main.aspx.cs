@@ -36,10 +36,15 @@ namespace yaf.admin
 	{
 		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
 		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers;
+		protected HtmlGenericControl UpgradeNotice;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsPostBack) BindData();
+			if(!IsPostBack) 
+			{
+				BindData();
+				UpgradeNotice.Visible = install.GetCurrentVersion() < AppVersion;
+			}
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
