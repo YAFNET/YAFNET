@@ -245,7 +245,8 @@ namespace yaf.pages
 		{
 			m_bDataBound = true;
 
-			Pager.PageSize = 20;
+			Pager.PageSize = BoardSettings.PostsPerPage;
+
 			if(topic==null)
 				Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 
@@ -253,9 +254,10 @@ namespace yaf.pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-			using(DataTable dt0 = DB.post_list(PageTopicID,IsPostBack?0:1)) 
+			using(DataTable dt0 = DB.post_list(PageTopicID,IsPostBack ? 0 : 1)) 
 			{
 				DataView dt = dt0.DefaultView;
+
 				if(IsThreaded)
 					dt.Sort = "Position";
 				else
@@ -268,6 +270,16 @@ namespace yaf.pages
 				{
 					if(m_bIgnoreQueryString) 
 					{
+					}
+					else if(Request.QueryString["p"]!=null)
+					{
+						// show specific page (p is 1 based)
+						int tPage = Convert.ToInt32(Request.QueryString["p"]);
+						if (pds.PageCount >= tPage)
+						{
+							pds.CurrentPageIndex = tPage - 1;
+							Pager.CurrentPageIndex = pds.CurrentPageIndex;
+						}
 					}
 					else if(Request.QueryString["m"]!=null)
 					{

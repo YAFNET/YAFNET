@@ -286,7 +286,7 @@ namespace yaf.pages
 				SubForums.Visible = true;
 			}
 
-			Pager.PageSize = 15;
+			Pager.PageSize = BoardSettings.TopicsPerPage;
 
 			DataTable dt = DB.topic_list(PageForumID,1,null,0,10);
 			int nPageSize = System.Math.Max(5,Pager.PageSize - dt.Rows.Count);
