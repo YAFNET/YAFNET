@@ -1,5 +1,4 @@
 <%@ Page language="c#" Codebehind="search.aspx.cs" AutoEventWireup="false" Inherits="yaf.search" %>
-<%@ Register TagPrefix="uc1" TagName="forumjump" Src="forumjump.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <form runat="server">

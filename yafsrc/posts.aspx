@@ -1,4 +1,3 @@
-<%@ Register TagPrefix="uc1" TagName="forumjump" Src="forumjump.ascx" %>
 <%@ Page language="c#" Codebehind="posts.aspx.cs" AutoEventWireup="false" Inherits="yaf.posts" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
@@ -117,7 +116,7 @@
 <br>
 <table cellSpacing=0 cellPadding=0 width="100%">
   <tr>
-    <td align=right>Forum Jump <uc1:forumjump id=Forumjump1 runat="server"></uc1:forumjump></TD>
+    <td align=right>Forum Jump <yaf:forumjump runat="server"/></TD>
 </TR>
 <tr>
 	<td align="right" valign="top" class="smallfont"><yaf:PageAccess runat="server"/></td>

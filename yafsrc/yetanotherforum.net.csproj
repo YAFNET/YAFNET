@@ -1130,6 +1130,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\ForumJump.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\ForumUsers.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

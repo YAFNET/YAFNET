@@ -7,7 +7,6 @@
 		<Resource tag="SAVE">Save</Resource>
 		<Resource tag="CANCEL">Cancel</Resource>
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
-		<Resource tag="SELECT_FORUM">select forum</Resource>
 		<Resource tag="CAN_POST">You [b]can[/b] post new topics in this forum.</Resource>
 		<Resource tag="CAN_REPLY">You [b]can[/b] reply to topics in this forum.</Resource>
 		<Resource tag="CAN_DELETE">You [b]can[/b] delete your posts in this forum.</Resource>
