@@ -73,18 +73,6 @@ namespace yaf.controls
 
 			return String.Format("<img src=\"{0}\" title=\"{1}\"/>",img,imgTitle);
 		}
-		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
-		{
-			switch(e.CommandName) 
-			{
-				case "forum":
-					if(DB.user_access(ForumPage.PageUserID,e.CommandArgument))
-						Forum.Redirect(Pages.topics,"f={0}",e.CommandArgument);
-
-					ForumPage.AddLoadMessage(ForumPage.GetText("ERROR_NOFORUMACCESS"));
-					break;
-			}
-		}
 
 		protected void ModeratorList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
 		{
@@ -92,27 +80,76 @@ namespace yaf.controls
 			//TODO: Show moderators
 		}
 
-		protected string FormatLastPost(System.Data.DataRow row) 
+		/// <summary>
+		/// Provides the "Forum Link Text" for the ForumList control.
+		/// Automatically disables the link if the current user doesn't
+		/// have proper permissions.
+		/// </summary>
+		/// <param name="row">Current data row</param>
+		/// <returns>Forum link text</returns>
+		protected string GetForumLink(System.Data.DataRow row)
 		{
-			if(!row.IsNull("LastPosted")) 
+			string strReturn = "";
+			int ForumID = Convert.ToInt16(row["ForumID"]);
+
+			// get the Forum Description
+			strReturn = Convert.ToString(row["Forum"]);
+
+			if (DB.user_access(ForumPage.PageUserID,ForumID))
 			{
-				string minipost;
-				if(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit)
-					minipost = ForumPage.GetThemeContents("ICONS","ICON_NEWEST");
-				else
-					minipost = ForumPage.GetThemeContents("ICONS","ICON_LATEST");
-				
-				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
-					ForumPage.FormatDateTime((DateTime)row["LastPosted"]),
-					String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),Truncate(row["LastTopicName"].ToString(), 50))),
-					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"])),
-					minipost,
-					ForumPage.GetText("GO_LAST_POST"),
-					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"])
+				strReturn = String.Format("<a href=\"{0}\">{1}</a>",
+					Forum.GetLink(yaf.Pages.topics,"f={0}",ForumID),
+					strReturn
 					);
 			}
 			else
-				return ForumPage.GetText("NO_POSTS");
+			{
+				// no access to this forum
+				strReturn = String.Format("{0} {1}",strReturn,ForumPage.GetText("NO_FORUM_ACCESS"));
+			}
+
+			return strReturn;
+		}
+
+		/// <summary>
+		/// Creates the text for the "Last Post" information on a forum listing.
+		/// Detects user permissions and disables links if they have none.
+		/// </summary>
+		/// <param name="row">Current data row</param>
+		/// <returns>Formatted "Last Post" text</returns>
+		protected string FormatLastPost(System.Data.DataRow row) 
+		{
+			int ForumID = Convert.ToInt16(row["ForumID"]);
+			// defaults to "no posts" text
+			string strTemp = ForumPage.GetText("NO_POSTS");
+
+			if (!row.IsNull("LastPosted")) 
+			{
+				strTemp = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(Convert.ToString(row["LastPosted"])) > Mession.LastVisit) ? "ICON_NEWEST" : "ICON_LATEST");
+
+				if (DB.user_access(ForumPage.PageUserID,ForumID))
+				{
+					strTemp = String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
+							ForumPage.FormatDateTimeTopic((DateTime)row["LastPosted"]),
+							String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),Truncate(row["LastTopicName"].ToString(), 50))),
+							String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"])),
+							strTemp,
+							ForumPage.GetText("GO_LAST_POST"),
+							Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"])
+						);
+				}
+				else
+				{
+					// no access to this forum... disable links
+					strTemp = String.Format("{0}<br/>{1}<br/>{2}",
+							ForumPage.FormatDateTimeTopic((DateTime)row["LastPosted"]),
+							String.Format(ForumPage.GetText("in"),String.Format("{0}",Truncate(row["LastTopicName"].ToString(), 50))),
+							String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"]))
+						);
+				}
+			}
+
+			return strTemp;
 		}
 
 		protected string GetViewing(object o) 
