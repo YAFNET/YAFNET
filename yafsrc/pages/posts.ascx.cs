@@ -33,7 +33,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for posts.
 	/// </summary>
-	public class posts : BasePage
+	public class posts : ForumPage
 	{
 		protected System.Web.UI.WebControls.LinkButton NewTopic1;
 		protected System.Web.UI.WebControls.Repeater MessageList;
@@ -62,6 +62,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
 
+		public posts() : base("POSTS")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			topic = DB.topic_info(PageTopicID);
@@ -69,7 +73,7 @@ namespace yaf.pages
 				forum = dt.Rows[0];
 
 			if(!ForumReadAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -465,7 +469,7 @@ namespace yaf.pages
 			// Avatar
 			if((bool)row["AvatarUpload"] && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
-				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],BaseDir);
+				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],ForumRoot);
 			} 
 			else if((bool)row["AvatarRemote"] && row["Avatar"].ToString().Length>0) 
 			{
@@ -474,13 +478,13 @@ namespace yaf.pages
 					Server.UrlEncode(row["Avatar"].ToString()),
 					row["AvatarWidth"],
 					row["AvatarHeight"],
-					BaseDir
+					ForumRoot
 				);
 			}
 
 			// Rank Image
 			if(row["RankImage"].ToString().Length>0)
-				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",BaseDir,row["RankImage"]);
+				html += String.Format("<img align=left src=\"{0}images/ranks/{1}\"/><br clear=\"all\"/>",ForumRoot,row["RankImage"]);
 
 			// Rank
 			html += String.Format("{0}: {1}<br clear=\"all\"/>",GetText("rank"),row["RankName"]);
@@ -585,7 +589,7 @@ namespace yaf.pages
 					foreach(DataRow dr in dt.Rows) 
 					{
 						int kb = (1023 + (int)dr["Bytes"]) / 1024;
-						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",BaseDir,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
+						html += String.Format("<a href=\"{0}image.aspx?a={1}\">{2}</a> <span class='smallfont'>- {3}</span><br/>",ForumRoot,dr["AttachmentID"],dr["FileName"],String.Format(stats,kb,dr["Downloads"]));
 					}
 				}
 				html += "</p>";

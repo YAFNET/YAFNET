@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="yaf.pages._default" %>
+<%@ Page Language="C#" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
-
 <html>
 <head>
 <meta name="Description" content="A bulletin board system written in ASP.NET">
 <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource">
-<title runat="server" id="ForumTitle">runat="server" necessary if the forum should set the title</title>
+<!-- If you don't want the forum to set the page title, you can remove runat and id -->
+<title runat="server" id="ForumTitle">This title is overwritten</title>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 <br />
 
 <form runat="server" enctype="multipart/form-data">
-	<yaf:forum runat="server" root="/yetanotherforum.net"/>
+	<yaf:forum runat="server"/>
 </form>
 
 </body>

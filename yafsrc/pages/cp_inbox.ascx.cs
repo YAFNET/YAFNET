@@ -32,12 +32,16 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public class cp_inbox : BasePage
+	public class cp_inbox : ForumPage
 	{
 		protected System.Web.UI.WebControls.Repeater Inbox;
 		protected LinkButton FromLink, DateLink, SubjectLink;
 		protected HtmlImage SortSubject, SortFrom, SortDate;
 		protected controls.PageLinks PageLinks;
+
+		public cp_inbox() : base("CP_INBOX")
+		{
+		}
 
 		private void SetSort(string field,bool asc) 
 		{

@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for editprofile.
 	/// </summary>
-	public class cp_profile : BasePage
+	public class cp_profile : ForumPage
 	{
 		protected System.Web.UI.WebControls.Label TitleUserName;
 		protected System.Web.UI.WebControls.Label NumPosts;
@@ -44,6 +44,10 @@ namespace yaf.pages
 		protected Repeater Groups;
 		protected HtmlImage AvatarImage;
 		protected controls.PageLinks PageLinks;
+
+		public cp_profile() : base("CP_PROFILE")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -76,7 +80,7 @@ namespace yaf.pages
 			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
 			AvatarImage.Visible = row["AvatarImage"].ToString().Length>0;
 			if(AvatarImage.Visible)
-				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",BaseDir,PageUserID);
+				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",ForumRoot,PageUserID);
 		}
 
 		#region Web Form Designer generated code

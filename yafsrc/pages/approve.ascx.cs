@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for approve.
 	/// </summary>
-	public class approve : BasePage
+	public class approve : ForumPage
 	{
 		protected System.Web.UI.HtmlControls.HtmlTable approved;
 		protected System.Web.UI.HtmlControls.HtmlTable error;
@@ -40,6 +40,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Button ValidateKey;
 		protected controls.PageLinks PageLinks;
 		
+		public approve() : base("APPROVE")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {

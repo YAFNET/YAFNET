@@ -1512,7 +1512,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void user_register(yaf.pages.BasePage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
+		static public bool user_register(yaf.pages.ForumPage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
 			string hashinput = DateTime.Now.ToString() + email.ToString() + pages.register.CreatePassword(20);
 			string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
@@ -1564,9 +1564,11 @@ namespace yaf
 					{
 						trans.Rollback();
 						page.AddLoadMessage(x.Message);
+						return false;
 					}
 				}
 			}
+			return true;
 		}
 		public static bool user_access(object userID,object forumID) 
 		{

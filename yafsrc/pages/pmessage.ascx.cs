@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for pmessage.
 	/// </summary>
-	public class pmessage : BasePage
+	public class pmessage : ForumPage
 	{
 		protected System.Web.UI.WebControls.TextBox Subject;
 		protected rte.rte Editor;
@@ -44,6 +44,10 @@ namespace yaf.pages
 		protected Button FindUsers;
 		protected controls.PageLinks PageLinks;
 	
+		public pmessage() : base("PMESSAGE")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			Editor.EnableRTE = AllowRichEdit;

@@ -32,15 +32,19 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for printtopic.
 	/// </summary>
-	public class printtopic : BasePage
+	public class printtopic : ForumPage
 	{
 		protected System.Web.UI.WebControls.Repeater Posts;
 		protected controls.PageLinks PageLinks;
 
+		public printtopic() : base("PRINTTOPIC")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumReadAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			ShowToolBar = false;
 

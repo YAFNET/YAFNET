@@ -34,11 +34,12 @@ namespace yaf.install
 	/// <summary>
 	/// Summary description for install.
 	/// </summary>
-	public class _default : BaseAdminPage
+	public class _default : System.Web.UI.Page
 	{
 		enum Step 
 		{
 			Welcome = 0,
+			Config,
 			Connect,
 			Database,
 			Forum,
@@ -49,20 +50,38 @@ namespace yaf.install
 		private Step CurStep = Step.Welcome;
 		protected System.Web.UI.WebControls.Button back, next, finish;
 		protected System.Web.UI.WebControls.Label cursteplabel;
-		protected System.Web.UI.HtmlControls.HtmlTable stepWelcome, stepConnect, stepDatabase, stepForum, stepFinished;
+		protected System.Web.UI.HtmlControls.HtmlTable stepWelcome, stepConfig, stepConnect, stepDatabase, stepForum, stepFinished;
+		protected PlaceHolder ConfigSample;
 		// Forum
 		protected System.Web.UI.WebControls.TextBox TheForumName, UserName, Password1, Password2, AdminEmail, ForumEmailAddress, SmptServerAddress;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 
+		// BEGIN TODO
+		//int		AppVersion		= 11;
+		//string	AppVersionName	= "DEV-DEBUG";
+		/// END TODO
+
+		private	string	BaseDir			= "..";
+		private	string	m_loadMessage	= "";
+
+		void AddLoadMessage(string msg)
+		{
+			msg = msg.Replace("\\","\\\\");
+			msg = msg.Replace("'","\\'");
+			msg = msg.Replace("\r\n","\\r\\n");
+			msg = msg.Replace("\n","\\n");
+			msg = msg.Replace("\"","\\\"");
+			m_loadMessage += msg + "\\n\\n";
+		}
+
 		public _default() {
-			NoDataBase = true;
 			InstalledVersion = GetCurrentVersion();
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				if(InstalledVersion >= AppVersion) {
+				if(InstalledVersion >= pages.ForumPage.AppVersion) {
 					LeaveStep(CurStep);
 					CurStep = Step.Finished;
 					EnterStep(CurStep);
@@ -101,8 +120,43 @@ namespace yaf.install
 			Response.Redirect(BaseDir);
 		}
 
-		private void next_Click(object sender,System.EventArgs e) {
-			if(CurStep == Step.Connect) {
+		private void next_Click(object sender,System.EventArgs e) 
+		{
+			if(CurStep == Step.Config)
+			{
+				Config config = Config.ConfigSection;
+				ConfigSample.Visible = true;
+				if(config==null)
+				{
+					AddLoadMessage("Web.config is missing the configuration/yafnet section.");
+					return;
+				}
+				if(config["connstr"]==null)
+				{
+					AddLoadMessage("Web.config is missing configuration/yafnet/connstr");
+					return;
+				}
+				if(config["root"]==null)
+				{
+					AddLoadMessage("Web.config is missing configuration/yafnet/root");
+					return;
+				}
+				if(config["language"]==null)
+				{
+					AddLoadMessage("Web.config is missing configuration/yafnet/language");
+					return;
+				}
+				if(config["theme"]==null)
+				{
+					AddLoadMessage("Web.config is missing configuration/yafnet/theme");
+					return;
+				}
+
+				ConfigSample.Visible = false;
+				//if(config["connstr"]==null
+			} 
+			else if(CurStep == Step.Connect) 
+			{
 				try 
 				{
 					using(SqlConnection conn = DB.GetInstallConnection()) 
@@ -114,54 +168,69 @@ namespace yaf.install
 					AddLoadMessage(String.Format("Connection failed. Modify Web.config and try again.\n\nThe error message was:\n\n{0}",x.Message));
 					return;
 				}
-			} else if(CurStep == Step.Database) {
-				try {
-					for(long i=InstalledVersion;i<AppVersion;i++) 
+			} 
+			else if(CurStep == Step.Database) 
+			{
+				try 
+				{
+					for(long i=InstalledVersion;i<pages.ForumPage.AppVersion;i++) 
 						ExecuteScript(String.Format("version{0}.sql",i+1));
 
 					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Version",AppVersion);
-						cmd.Parameters.Add("@VersionName",AppVersionName);
+						cmd.Parameters.Add("@Version",pages.ForumPage.AppVersion);
+						cmd.Parameters.Add("@VersionName",pages.ForumPage.AppVersionName);
 						DB.ExecuteNonQuery(cmd);
 					}
 				}
-				catch(Exception x) {
+				catch(Exception x) 
+				{
 					AddLoadMessage(x.Message);
 					return;
 				}
-			} else if(CurStep == Step.Forum) {
-				if(TheForumName.Text.Length==0) {
+			} 
+			else if(CurStep == Step.Forum) 
+			{
+				if(TheForumName.Text.Length==0) 
+				{
 					AddLoadMessage("You must enter a forum name.");
 					return;
 				}
-				if(ForumEmailAddress.Text.Length == 0) {
+				if(ForumEmailAddress.Text.Length == 0) 
+				{
 					AddLoadMessage("You must enter a forum email address.");
 					return;
 				}
-				if(SmptServerAddress.Text.Length == 0) {
+				if(SmptServerAddress.Text.Length == 0) 
+				{
 					AddLoadMessage("You must enter a smtp server.");
 					return;
 				}
-				if(UserName.Text.Length==0) {
+				if(UserName.Text.Length==0) 
+				{
 					AddLoadMessage("You must enter the admin user name,");
 					return;
 				}
-				if(AdminEmail.Text.Length == 0) {
+				if(AdminEmail.Text.Length == 0) 
+				{
 					AddLoadMessage("You must enter the administrators email address.");
 					return;
 				}
-				if(Password1.Text.Length==0) {
+				if(Password1.Text.Length==0) 
+				{
 					AddLoadMessage("You must enter a password.");
 					return;
 				}
-				if(Password1.Text != Password2.Text) {
+				if(Password1.Text != Password2.Text) 
+				{
 					AddLoadMessage("The passwords must match.");
 					return;
 				}
-				try {
-					using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) {
+				try 
+				{
+					using(SqlCommand cmd = new SqlCommand("yaf_system_initialize")) 
+					{
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.Add("@Name",TheForumName.Text);
 						cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
@@ -172,8 +241,17 @@ namespace yaf.install
 						cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
 						DB.ExecuteNonQuery(cmd);
 					}
+
+					using(SqlCommand cmd = new SqlCommand("yaf_system_updateversion")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@Version",pages.ForumPage.AppVersion);
+						cmd.Parameters.Add("@VersionName",pages.ForumPage.AppVersionName);
+						DB.ExecuteNonQuery(cmd);
+					}
 				}
-				catch(Exception x) {
+				catch(Exception x) 
+				{
 					AddLoadMessage(x.Message);
 					return;
 				}
@@ -193,6 +271,9 @@ namespace yaf.install
 				case Step.Welcome:
 					stepWelcome.Visible = false;
 					break;
+				case Step.Config:
+					stepConfig.Visible = false;
+					break;
 				case Step.Connect:
 					stepConnect.Visible = false;
 					break;
@@ -210,6 +291,11 @@ namespace yaf.install
 				case Step.Welcome:
 					stepWelcome.Visible = true;
 					back.Enabled = false;
+					next.Enabled = true;
+					break;
+				case Step.Config:
+					stepConfig.Visible = true;
+					back.Enabled = true;
 					next.Enabled = true;
 					break;
 				case Step.Connect:
@@ -258,6 +344,19 @@ namespace yaf.install
 			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
+
+		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
+		{
+			base.Render(writer);
+			if(m_loadMessage!="")
+			{
+				writer.WriteLine("<script language='javascript'>");
+				writer.WriteLine("onload = function() {");
+				writer.WriteLine("	alert('{0}');",m_loadMessage);
+				writer.WriteLine("}");
+				writer.WriteLine("</script>");
+			}
+		}
 
 		private void ExecuteScript(string sScriptFile) 
 		{

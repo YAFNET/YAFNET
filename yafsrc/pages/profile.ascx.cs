@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for profile.
 	/// </summary>
-	public class profile : BasePage
+	public class profile : ForumPage
 	{
 		protected System.Web.UI.WebControls.Label Name;
 		protected System.Web.UI.WebControls.Label Joined;
@@ -52,10 +52,14 @@ namespace yaf.pages
 		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
 	
+		public profile() : base("PROFILE")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["u"] == null)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -111,7 +115,7 @@ namespace yaf.pages
 
 				if((bool)user["AvatarUpload"] && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
 				{
-					Avatar.ImageUrl = BaseDir + "image.aspx?u=" + (Request.QueryString["u"]);
+					Avatar.ImageUrl = ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
 				} 
 				else if((bool)user["AvatarRemote"] && user["Avatar"].ToString().Length>0) 
 				{
@@ -119,7 +123,7 @@ namespace yaf.pages
 						Server.UrlEncode(user["Avatar"].ToString()),
 						user["AvatarWidth"],
 						user["AvatarHeight"],
-						BaseDir);
+						ForumRoot);
 				} 
 				else 
 				{

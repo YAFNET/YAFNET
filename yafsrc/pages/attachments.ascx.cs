@@ -14,13 +14,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public class attachments : BasePage
+	public class attachments : ForumPage
 	{
 		private DataRow forum, topic;
 		protected Repeater List;
 		protected Button Back, Upload;
 		protected HtmlInputFile File;
 		protected controls.PageLinks PageLinks;
+
+		public attachments() : base("ATTACHMENTS")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

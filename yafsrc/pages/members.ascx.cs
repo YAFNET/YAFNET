@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class members : BasePage
+	public class members : ForumPage
 	{
 		protected System.Web.UI.WebControls.Repeater MemberList;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
@@ -40,6 +40,10 @@ namespace yaf.pages
 		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
 		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
 		protected controls.PageLinks PageLinks;
+
+		public members() : base("MEMBERS")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public class active : BasePage
+	public class active : ForumPage
 	{
 		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
@@ -41,6 +41,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.DropDownList Since;
 		protected controls.PageLinks PageLinks;
 		protected string LastForumName = "";
+
+		public active() : base("ACTIVE")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

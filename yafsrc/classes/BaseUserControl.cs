@@ -8,7 +8,7 @@ namespace yaf
 	/// </summary>
 	public class BaseUserControl : System.Web.UI.UserControl
 	{
-		public yaf.pages.BasePage MyPage
+		public yaf.pages.ForumPage ForumPage
 		{
 			get 
 			{
@@ -20,7 +20,7 @@ namespace yaf
 					ctl = ctl.Parent;
 				}
 
-				return (yaf.pages.BasePage)thePage;
+				return (yaf.pages.ForumPage)thePage;
 			}
 		}
 	}

@@ -118,17 +118,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "default.aspx.cs"
-                    DependentUpon = "default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "default.aspx.resx"
-                    DependentUpon = "default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "error.aspx"
                     BuildAction = "Content"
                 />
@@ -181,6 +170,10 @@
                 />
                 <File
                     RelPath = "install.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "RainbowModule.ascx"
                     BuildAction = "Content"
                 />
                 <File
@@ -688,13 +681,13 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "classes\BaseControl.cs"
-                    SubType = "Code"
+                    RelPath = "classes\BaseAdminPage.cs"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "classes\BasePage.cs"
-                    SubType = "ASPXCodeBehind"
+                    RelPath = "classes\BaseControl.cs"
+                    SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
@@ -970,11 +963,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "pages\BasePage.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "pages\cp_editprofile.ascx"
                     BuildAction = "Content"
                 />
@@ -1111,6 +1099,11 @@
                 />
                 <File
                     RelPath = "pages\Forum.cs"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\ForumPage.cs"
                     SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />

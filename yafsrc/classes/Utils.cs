@@ -174,7 +174,7 @@ namespace yaf
 			{
 			}
 		}
-		static public void CreateWatchEmail(yaf.pages.BasePage basePage,object messageID) 
+		static public void CreateWatchEmail(yaf.pages.ForumPage basePage,object messageID) 
 		{
 			using(DataTable dt = DB.message_list(messageID)) 
 			{
@@ -186,7 +186,7 @@ namespace yaf
 					string body = basePage.ReadTemplate("topicpost.txt");
 					body = body.Replace("{forumname}",basePage.ForumName);
 					body = body.Replace("{topic}",row["Topic"].ToString());
-					body = body.Replace("{link}",String.Format("{0}posts.aspx?m={1}#{1}",basePage.ForumURL,messageID));
+					body = body.Replace("{link}",String.Format("{0}{1}",basePage.ServerURL,Forum.GetLink(Pages.posts,"m={0}#{0}",messageID)));
 
 					DB.mail_createwatch(row["TopicID"],basePage.ForumEmail,subject,body,row["UserID"]);
 				}

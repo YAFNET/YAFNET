@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public class topics : BasePage
+	public class topics : ForumPage
 	{
 		protected System.Web.UI.WebControls.DropDownList ShowList;
 		protected System.Web.UI.WebControls.Repeater TopicList;
@@ -48,6 +48,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton WatchForum;
 		protected LinkButton moderate1, moderate2, MarkRead;
 		protected controls.PageLinks PageLinks;
+
+		public topics() : base("TOPICS")
+		{
+		}
 
 		private void topics_Unload(object sender, System.EventArgs e)
 		{
@@ -98,10 +102,10 @@ namespace yaf.pages
 			}
 
 			if(Request.QueryString["f"] == null)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(!ForumReadAccess)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			using(DataTable dt = DB.forum_list(PageForumID))
 				forum = dt.Rows[0];
@@ -238,12 +242,12 @@ namespace yaf.pages
 					if(i==nCurrentPageIndex) {
 						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
 					} else {
-						PageLinks1.InnerHtml += String.Format(" <a href=\"{2}&p={1}\">{0}</a>",i+1,i,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
+						PageLinks1.InnerHtml += String.Format(" <a href=\"{1}\">{0}</a>",i+1,Forum.GetLink(Pages.topics,"f={0}&p={1}",PageForumID,i));
 					}
 				}
 				if(iEnd<nPageCount) 
 				{
-					PageLinks1.InnerHtml += String.Format(" ... <a href=\"{0}&p={1}\">Last</a>",Forum.GetLink(Pages.topics,"f={0}",PageForumID),nPageCount-1);
+					PageLinks1.InnerHtml += String.Format(" ... <a href=\"{0}\">Last</a>",Forum.GetLink(Pages.topics,"f={0}&p={1}",PageForumID,nPageCount-1));
 				}
 				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
 			} else {

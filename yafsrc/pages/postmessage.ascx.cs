@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
-	public class postmessage : BasePage
+	public class postmessage : ForumPage
 	{
 		protected rte.rte Message;
 		protected System.Web.UI.WebControls.TextBox Subject;
@@ -73,6 +73,10 @@ namespace yaf.pages
 		protected controls.PageLinks PageLinks;
 		private int ForumID;
 
+		public postmessage() : base("POSTMESSAGE")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			ForumID = PageForumID;
@@ -86,7 +90,7 @@ namespace yaf.pages
 					msg = dt.Rows[0];
 			
 				if(!ForumModeratorAccess && PageUserID != (int)msg["UserID"])
-					Response.Redirect(BaseDir);
+					Data.AccessDenied();
 			}
 	
 			if(ForumID == 0)

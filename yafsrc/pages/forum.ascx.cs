@@ -32,7 +32,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public class forum : BasePage
+	public class forum : ForumPage
 	{
 		protected System.Web.UI.WebControls.Label TimeNow;
 		protected System.Web.UI.WebControls.Label Stats;
@@ -46,6 +46,10 @@ namespace yaf.pages
 		protected LinkButton MarkAll;
 		protected controls.PageLinks PageLinks;
 	
+		public forum() : base("DEFAULT")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 

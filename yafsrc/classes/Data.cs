@@ -51,7 +51,14 @@ namespace yaf
 		{
 			get 
 			{
-				return Config.ConfigSection["root"];
+				try
+				{
+					return Config.ConfigSection["root"];
+				}
+				catch(Exception)
+				{
+					return "/";
+				}
 			}
 		}
 

@@ -1065,24 +1065,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_smiley_listunique
-GO
-
-create procedure yaf_smiley_listunique as
-begin
-	select 
-		Icon, 
-		Emoticon,
-		Code = (select top 1 Code from yaf_Smiley x where x.Icon=yaf_Smiley.Icon)
-	from 
-		yaf_Smiley
-	group by
-		Icon,
-		Emoticon
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_system_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_list
 GO

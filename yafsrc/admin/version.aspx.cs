@@ -34,14 +34,14 @@ namespace yaf.admin
 			{
 				m_lastVersion = 0;
 			}
-			Upgrade.Visible = m_lastVersion > AppVersionCode;
+			Upgrade.Visible = m_lastVersion > pages.ForumPage.AppVersionCode;
 		}
 
 		protected string LastVersion 
 		{
 			get 
 			{
-				return AppVersionNameFromCode(m_lastVersion);
+				return pages.ForumPage.AppVersionNameFromCode(m_lastVersion);
 			}
 		}
 		protected string LastVersionDate

@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public class register : BasePage
+	public class register : ForumPage
 	{
 		protected System.Web.UI.WebControls.TextBox UserName;
 		protected System.Web.UI.WebControls.TextBox Password;
@@ -47,10 +47,14 @@ namespace yaf.pages
 		protected Button cancel;
 		protected controls.PageLinks PageLinks;
 	
+		public register() : base("REGISTER")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Data.GetAuthType!=AuthType.YetAnotherForum)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 
 			if(!IsPostBack) {
 				PageLinks.AddLink(ForumName,Forum.GetLink(Pages.forum));

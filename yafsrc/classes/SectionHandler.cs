@@ -35,7 +35,10 @@ namespace yaf
 		{
 			get
 			{
-				return (Config)System.Configuration.ConfigurationSettings.GetConfig("yafnet");
+				Config config = (Config)System.Configuration.ConfigurationSettings.GetConfig("yafnet");
+				if(config==null)
+					throw new ApplicationException("Failed to get configuration from Web.config");
+				return config;
 			}
 		}
 	}

@@ -14,12 +14,12 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for info.
 	/// </summary>
-	public class info : BasePage
+	public class info : ForumPage
 	{
 		protected Label Info;
 		protected HyperLink Continue;
 
-		public info() 
+		public info() : base("INFO")
 		{
 			CheckSuspended = false;
 		}

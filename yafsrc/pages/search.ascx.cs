@@ -35,7 +35,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public class search : BasePage
+	public class search : ForumPage
 	{
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected System.Web.UI.WebControls.DropDownList DropDownList1;
@@ -54,6 +54,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Repeater SearchRes;
 		protected controls.PageLinks PageLinks;
 	
+		public search() : base("SEARCH")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)

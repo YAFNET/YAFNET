@@ -33,7 +33,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public class login : BasePage
+	public class login : ForumPage
 	{
 		protected System.Web.UI.WebControls.TextBox UserName;
 		protected System.Web.UI.WebControls.TextBox Password;
@@ -47,6 +47,10 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Button Recover;
 		protected controls.PageLinks PageLinks;
 	
+		public login() : base("LOGIN")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Data.GetAuthType!=AuthType.YetAnotherForum)

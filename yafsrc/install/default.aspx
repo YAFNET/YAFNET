@@ -1,6 +1,15 @@
 <%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="yaf.install._default" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
+<html>
+<head>
+<title>Yet Another Forum.net Installation</title>
+<link type="text/css" rel="stylesheet" href="../forum.css">
+<link type="text/css" rel="stylesheet" href="../themes/standard/theme.css">
+</head>
+<body>
+
+
 <form runat=server>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
@@ -30,6 +39,47 @@
 		</td>
 	</tr>
 	</table>
+
+	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepConfig>
+	<tr>
+		<td class=header2 colspan=2>Step 0: Configuration setup</td>
+	</tr>
+	<tr>
+		<td colspan=2>
+		<p>
+			This step will try to verify your Web.config file. You might need
+			to modify "<%= Server.MapPath("Web.config") %>".
+		</p>
+		
+		<asp:placeholder runat="server" id="ConfigSample" visible="False">
+		<p>
+			Here is an example &lt;yafnet&gt; section:
+		</p>
+		
+		<pre>
+&lt;configuration&gt;
+	&lt;configSections&gt;
+		&lt;section name="yafnet" type="yaf.SectionHandler,yaf" /&gt;
+	&lt;/configSections&gt;
+	&lt;yafnet&gt;
+		&lt;connstr&gt;user id=yaf;password=yafpass;data source=(local);initial catalog=yetanotherforum.net&lt;/connstr&gt;
+		&lt;root&gt;/yetanotherforum.net/&lt;/root&gt;
+		&lt;language&gt;english.xml&lt;/language&gt;
+		&lt;theme&gt;standard.xml&lt;/theme&gt;
+		&lt;uploaddir&gt;/yetanotherforum.net/upload/&lt;/uploaddir&gt;
+	&lt;/yafnet&gt;
+&lt;/configuration&gt;
+		</pre>
+		</asp:placeholder>
+
+		<p>
+			Click next to verify the configuration.
+		</p>
+		
+		</td>
+	</tr>
+	</table>
+
 
 	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepConnect>
 	<tr>
@@ -155,3 +205,6 @@
 
 <yaf:savescrollpos runat="server"/>
 </form>
+
+</body>
+</html>

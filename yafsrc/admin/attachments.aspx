@@ -23,8 +23,8 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=post>
-			<td><a target="_top" href='../topics.aspx?f=<%# DataBinder.Eval(Container.DataItem,"ForumID") %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
-			<td><a target="_top" href='../posts.aspx?t=<%# DataBinder.Eval(Container.DataItem,"TopicID") %>'><%# DataBinder.Eval(Container.DataItem,"TopicName") %></a></td>
+			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",DataBinder.Eval(Container.DataItem,"ForumID")) %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
+			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'><%# DataBinder.Eval(Container.DataItem,"TopicName") %></a></td>
 			<td><%# FormatDateTimeShort(DataBinder.Eval(Container.DataItem, "Posted")) %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "FileName") %></td>
 			<td align="right"><%# DataBinder.Eval(Container.DataItem, "Downloads") %></td>

@@ -34,12 +34,16 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for logout.
 	/// </summary>
-	public class logout : BasePage
+	public class logout : ForumPage
 	{
+		public logout() : base("LOGOUT")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Data.GetAuthType!=AuthType.YetAnotherForum)
-				Response.Redirect(BaseDir);
+				Data.AccessDenied();
 			
 			FormsAuthentication.SignOut();
 			Session.Abandon();

@@ -99,7 +99,7 @@ namespace yaf.admin
 				dr["FileName"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",BaseDir)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.*");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 

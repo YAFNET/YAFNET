@@ -13,10 +13,14 @@ namespace yaf.pages.moderate
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public class forum : BasePage
+	public class forum : ForumPage
 	{
 		protected Repeater List;
 		protected controls.PageLinks PageLinks;
+
+		public forum() : base("MODERATE_FORUM")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

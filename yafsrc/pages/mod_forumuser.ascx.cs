@@ -32,12 +32,16 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public class mod_forumuser : BasePage
+	public class mod_forumuser : ForumPage
 	{
 		protected controls.PageLinks PageLinks;
 		protected DropDownList AccessMaskID, ToList;
 		protected Button FindUsers, Update, Cancel;
 		protected TextBox UserName;
+
+		public mod_forumuser() : base("MOD_FORUMUSER")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -32,12 +32,16 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for movetopic.
 	/// </summary>
-	public class movetopic : BasePage
+	public class movetopic : ForumPage
 	{
 		protected System.Web.UI.WebControls.Button Move;
 		protected System.Web.UI.WebControls.DropDownList ForumList;
 		protected controls.PageLinks PageLinks;
 	
+		public movetopic() : base("MOVETOPIC")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumModeratorAccess)

@@ -529,6 +529,5 @@
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="CLEAR">Clear Formatting</Resource>
 		<Resource tag="FORMATTED">Formatted</Resource>
-		<Resource tag=""></Resource>
 	</page>
 </Resources>

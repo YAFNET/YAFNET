@@ -11,22 +11,22 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			DataTable dt = (DataTable)ViewState["data"];
-			bool bTopic = MyPage.PageTopicID>0;
+			bool bTopic = ForumPage.PageTopicID>0;
 			try 
 			{
 				if(dt==null) 
 				{
 					if(bTopic)
-						dt = DB.active_listtopic(MyPage.PageTopicID);
+						dt = DB.active_listtopic(ForumPage.PageTopicID);
 					else
-						dt = DB.active_listforum(MyPage.PageForumID);
+						dt = DB.active_listforum(ForumPage.PageForumID);
 					ViewState["data"] = dt;
 				}
 	
 				if(bTopic) 
 				{
 					writer.WriteLine("<tr class=\"header2\">");
-					writer.WriteLine(String.Format("<td colspan=\"2\">{0}</td>",MyPage.GetText("TOPICBROWSERS")));
+					writer.WriteLine(String.Format("<td colspan=\"2\">{0}</td>",ForumPage.GetText("TOPICBROWSERS")));
 					writer.WriteLine("</tr>");
 					writer.WriteLine("<tr class=\"post\">");
 					writer.WriteLine("<td colspan=\"2\">");
@@ -34,7 +34,7 @@ namespace yaf.controls
 				else 
 				{
 					writer.WriteLine("<tr class=\"header2\">");
-					writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>",MyPage.GetText("FORUMUSERS")));
+					writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>",ForumPage.GetText("FORUMUSERS")));
 					writer.WriteLine("</tr>");
 					writer.WriteLine("<tr class=\"post\">");
 					writer.WriteLine("<td colspan=\"6\">");
@@ -51,7 +51,7 @@ namespace yaf.controls
 					{
 						bFirst = false;
 					}
-					writer.Write(String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>",dr["UserID"],dr["UserName"]));
+					writer.Write(String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",dr["UserID"]),dr["UserName"]));
 				}
 				writer.WriteLine("</td>");
 				writer.WriteLine("</tr>");

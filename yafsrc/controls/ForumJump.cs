@@ -11,7 +11,7 @@ namespace yaf.controls
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!Page.IsPostBack)
-				ForumID = MyPage.PageForumID;
+				ForumID = ForumPage.PageForumID;
 		}
 
 		override protected void OnInit(EventArgs e)
@@ -70,13 +70,13 @@ namespace yaf.controls
 			} 
 			else 
 			{
-				dt = DB.forum_listread(MyPage.PageUserID,null);
+				dt = DB.forum_listread(ForumPage.PageUserID,null);
 				Page.Cache[cachename] = dt;
 			}
 
 			writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">",this.UniqueID,Page.GetPostBackEventReference(this)));
 
-			int nForumID = MyPage.PageForumID;
+			int nForumID = ForumPage.PageForumID;
 			if(nForumID<=0)
 				writer.WriteLine("<option/>");
 			int nOldCat = 0;

@@ -32,11 +32,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public class moderate0 : BasePage
+	public class moderate0 : ForumPage
 	{
 		protected Repeater topiclist, UserList;
 		protected controls.PageLinks PageLinks;
 		protected LinkButton AddUser;
+
+		public moderate0() : base("MODERATE")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

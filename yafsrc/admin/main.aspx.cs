@@ -43,7 +43,7 @@ namespace yaf.admin
 			if(!IsPostBack) 
 			{
 				BindData();
-				UpgradeNotice.Visible = install._default.GetCurrentVersion() < AppVersion;
+				UpgradeNotice.Visible = install._default.GetCurrentVersion() < pages.ForumPage.AppVersion;
 			}
 		}
 
@@ -105,14 +105,14 @@ namespace yaf.admin
 			if(ForumID.ToString()=="" || ForumName.ToString()=="")
 				return "";
 
-			return String.Format("<a target=\"_top\" href=\"../topics.aspx?f={0}\">{1}</a>",ForumID,ForumName);
+			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",Forum.GetLink(Pages.topics,"f={0}",ForumID),ForumName);
 		}
 
 		protected string FormatTopicLink(object TopicID,object TopicName) {
 			if(TopicID.ToString()=="" || TopicName.ToString()=="")
 				return "";
 
-			return String.Format("<a target=\"_top\" href=\"../posts.aspx?t={0}\">{1}</a>",TopicID,TopicName);
+			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",TopicID),TopicName);
 		}
 
 		#region Web Form Designer generated code

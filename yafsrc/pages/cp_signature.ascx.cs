@@ -32,11 +32,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_signature.
 	/// </summary>
-	public class cp_signature : BasePage
+	public class cp_signature : ForumPage
 	{
 		protected Button save, cancel;
 		protected rte.rte sig;
 		protected controls.PageLinks PageLinks;
+
+		public cp_signature() : base("CP_SIGNATURE")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <configuration>
-	<appSettings>
-		<add key="connstr" value="user id=yaf;password=yafpass;data source=(local);initial catalog=yetanotherforum.net" />
-		<add key="basedir" value="/rainbow/forum/" />
-		<add key="themedir" value="/rainbow/forum/themes/standard/" />
-		<add key="uploaddir" value="/rainbow/forum/upload/" />
-		<add key="authorization" value="rainbow" />
-		<!--add key="smtpserver" value="" /-->
-		<!--add key="erroremail" value="" /-->
-	</appSettings>
-	<system.web>
-		<globalization requestEncoding="utf-8" responseEncoding="utf-8" />
-		<compilation defaultLanguage="c#" debug="true"/>
-		<pages validateRequest="false" smartNavigation="false" />
-		<customErrors defaultRedirect="error.aspx" mode="RemoteOnly" />
-	</system.web>
+	<configSections>
+		<!-- Yet Another Forum.net handler -->
+		<section name="yafnet" type="yaf.SectionHandler,yaf" />
+	</configSections>
+	
+	<!-- Yet Another Forum.net configuration -->
+	<yafnet>
+		<connstr>user id=yaf;password=yafpass;data source=mondeo;initial catalog=yetanotherforum.net</connstr>
+		<root>/rainbowportal/desktopmodules/yetanotherforum.net/</root>
+		<language>english.xml</language>
+		<theme>standard.xml</theme>
+		<uploaddir>/rainbowportal/desktopmodules/yetanotherforum.net/</uploaddir>
+		<authorization>rainbow</authorization>
+	</yafnet>
 </configuration>
 <!-- SessionState must be enabled from Rainbow's Web.config file -->

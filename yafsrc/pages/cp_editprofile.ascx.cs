@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_editprofile.
 	/// </summary>
-	public class cp_editprofile : BasePage
+	public class cp_editprofile : ForumPage
 	{
 		protected System.Web.UI.WebControls.TextBox Location;
 		protected System.Web.UI.WebControls.TextBox HomePage;
@@ -56,6 +56,10 @@ namespace yaf.pages
 		protected DropDownList Gender;
 		
 		private bool bUpdateEmail = false;
+
+		public cp_editprofile() : base("CP_EDITPROFILE")
+		{
+		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

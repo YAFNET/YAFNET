@@ -57,7 +57,7 @@ namespace yaf
 				act_rank += string.Format( "<td align=\"center\">{0}</td>", img );
 
 				// Nome autore
-				act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='profile.aspx?u={1}'>{0}</a></td>", r["Name"], r["ID"] );
+				act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], Forum.GetLink(Pages.profile,"u={0}",r["ID"]) );
 
 				// Numero post
 				act_rank += string.Format( "<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);

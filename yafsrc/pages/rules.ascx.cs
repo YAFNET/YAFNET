@@ -33,13 +33,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for rules.
 	/// </summary>
-	public class rules : BasePage
+	public class rules : ForumPage
 	{
 		protected System.Web.UI.WebControls.Label ForumRules;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.Button Accept;
 		protected controls.PageLinks PageLinks;
 	
+		public rules() : base("RULES")
+		{
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 

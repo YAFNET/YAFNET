@@ -28,7 +28,7 @@ namespace yaf
 	/// </summary>
 	public class FormatMsg
 	{
-		static public string ForumCodeToHtml(yaf.pages.BasePage basePage,string Message) 
+		static public string ForumCodeToHtml(yaf.pages.ForumPage basePage,string Message) 
 		{
 			DataTable dtSmileys = GetSmilies();
 
@@ -199,7 +199,7 @@ namespace yaf
 			return dt;
 		}
 
-		static public string FetchURL(yaf.pages.BasePage basePage,string html) 
+		static public string FetchURL(yaf.pages.ForumPage basePage,string html) 
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 			
@@ -273,7 +273,7 @@ namespace yaf
 			return false;
 		}
 
-		static public string RepairHtml(yaf.pages.BasePage basePage,string html) 
+		static public string RepairHtml(yaf.pages.ForumPage basePage,string html) 
 		{
 			RegexOptions options = RegexOptions.IgnoreCase;
 

@@ -43,8 +43,6 @@ namespace yaf
 	/// </summary>
 	public class Forum : System.Web.UI.UserControl
 	{
-		private	string	m_baseDir;
-
 		public Forum()
 		{
 			this.Load += new EventHandler(Forum_Load);
@@ -52,20 +50,13 @@ namespace yaf
 
 		private void Forum_Load(object sender,EventArgs e) 
 		{
-			if(m_baseDir==null || m_baseDir.Length==0) 
-			{
-				m_baseDir = Request.ServerVariables["SCRIPT_NAME"];
-				int i = m_baseDir.LastIndexOf('/');
-				if(i>=0)
-					m_baseDir = m_baseDir.Substring(0,i+1);
-			}
-
 			Pages page;
+			string m_baseDir = Config.ConfigSection["root"];
 
 			switch(Request.QueryString["g"])
 			{
 				default:
-					throw new ApplicationException(Request.QueryString["g"]);
+					//throw new ApplicationException(Request.QueryString["g"]);
 				case "forum":
 				case null:
 					page = Pages.forum;
@@ -168,27 +159,13 @@ namespace yaf
 
 			try
 			{
-				pages.BasePage ctl = (pages.BasePage)LoadControl(src);
+				pages.ForumPage ctl = (pages.ForumPage)LoadControl(src);
 				ctl.ForumControl = this;
 				this.Controls.Add(ctl);
 			}
 			catch(System.IO.FileNotFoundException)
 			{
 				throw new ApplicationException("Failed to load " + src + ".");
-			}
-		}
-
-		public string Root
-		{
-			set
-			{
-				m_baseDir = value;
-				if(m_baseDir.Length>0 && m_baseDir[m_baseDir.Length-1]!='/')
-					m_baseDir += '/';
-			}
-			get
-			{
-				return m_baseDir;
 			}
 		}
 
@@ -219,23 +196,43 @@ namespace yaf
 			}
 		}
 
+		public string Rainbow
+		{
+			get
+			{
+				return (string)Session["yaf_rainbow"];
+			}
+			set
+			{
+				Session["yaf_rainbow"] = value;
+			}
+		}
+
+		static private string BuildUrl(string url)
+		{
+			string rainbow = (string)System.Web.HttpContext.Current.Session["yaf_rainbow"];
+			if(rainbow!=null)
+			{
+				// TODO: This only works with default settings
+				url = url.Replace("&","/");
+				url = url.Replace("=","__");
+				int pos = rainbow.LastIndexOf('/');
+				return rainbow.Insert(pos,"/"+url);
+			}
+			else
+			{
+				return string.Format("{0}?{1}",System.Web.HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"],url);
+			}
+		}
+
 		static public string GetLink(Pages page)
 		{
-			string path = string.Format("{0}?g={1}",
-				System.Web.HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"],
-				page
-			);
-			return path;
+			return BuildUrl(string.Format("g={0}",page));
 		}
 
 		static public string GetLink(Pages page,string format,params object[] args)
 		{
-			string path = string.Format("{0}?g={1}&{2}",
-				System.Web.HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"],
-				page,
-				string.Format(format,args)
-				);
-			return path;
+			return BuildUrl(string.Format("g={0}&{1}",page,string.Format(format,args)));
 		}
 
 		static public void Redirect(Pages page)
