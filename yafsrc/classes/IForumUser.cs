@@ -30,7 +30,6 @@ namespace yaf
 			get;
 		}
 		void UpdateUserInfo(int userID);
-		void Initialize(string userName,bool isAuthenticated);
 	}
 
 	public class WindowsUser : IForumUser
@@ -39,11 +38,13 @@ namespace yaf
 		private	string	m_email;
 		private	bool	m_isAuthenticated;
 
-		public void Initialize(string userName,bool isAuthenticated)
+		public WindowsUser() 
 		{
+			string userName = HttpContext.Current.User.Identity.Name;
+
 			try
 			{
-				if(isAuthenticated)
+				if(HttpContext.Current.User.Identity.IsAuthenticated)
 				{
 					string[] parts = userName.Split('\\');
 					m_userName  = parts[parts.Length-1];
@@ -121,11 +122,13 @@ namespace yaf
 		private	int		m_boardID;
 		private	bool	m_isAuthenticated;
 
-		public void Initialize(string userName,bool isAuthenticated)
+		public FormsUser() 
 		{
+			string userName = HttpContext.Current.User.Identity.Name;
+
 			try
 			{
-				if(isAuthenticated)
+				if(HttpContext.Current.User.Identity.IsAuthenticated)
 				{
 					string[] parts = userName.Split(';');
 					if(parts.Length==3)
@@ -198,10 +201,6 @@ namespace yaf
 	}
 	public class GuestUser : IForumUser
 	{
-		public void Initialize(string userName,bool isAuthenticated)
-		{
-		}
-
 		public string Name
 		{
 			get

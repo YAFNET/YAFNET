@@ -163,7 +163,6 @@ namespace yaf.pages
 					break;
 			}
 			m_forumUser = (IForumUser)Activator.CreateInstance(Type.GetType(typeUser));
-			m_forumUser.Initialize(HttpContext.Current.User.Identity.Name, HttpContext.Current.User.Identity.IsAuthenticated);
 
 			string browser = String.Format("{0} {1}",HttpContext.Current.Request.Browser.Browser,HttpContext.Current.Request.Browser.Version);
 			string platform = HttpContext.Current.Request.Browser.Platform;
