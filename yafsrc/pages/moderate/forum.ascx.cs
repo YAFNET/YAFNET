@@ -65,7 +65,7 @@ namespace yaf.pages.moderate
 					DB.message_approve(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","APPROVED"));
-					Utils.CreateWatchEmail(PageInfo,e.CommandArgument);
+					Utils.CreateWatchEmail(this,e.CommandArgument);
 					break;
 				case "delete":
 					DB.message_delete(e.CommandArgument);

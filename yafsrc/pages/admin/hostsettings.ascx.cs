@@ -44,7 +44,7 @@ namespace yaf.pages.admin {
 		protected TextBox AvatarSize, MaxFileSize;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
-			if(!PageInfo.IsHostAdmin)
+			if(!IsHostAdmin)
 				Data.AccessDenied();
 
 			if(!IsPostBack)

@@ -81,7 +81,7 @@ namespace yaf.pages.admin
 			//ParentList.DataTextField = "Name";
 			// Load forum's combo
 			ParentList.Items.Add(new ListItem("",""));
-			DataTable dt = DB.forum_listall(PageBoardID,PageInfo.PageUserID);
+			DataTable dt = DB.forum_listall(PageBoardID,PageUserID);
 
 			int nOldCat = 0;
 			for(int i=0;i<dt.Rows.Count;i++) 

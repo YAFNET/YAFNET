@@ -299,7 +299,7 @@ namespace yaf.pages
 			// Create notification emails
 			if(bApproved) 
 			{
-				Utils.CreateWatchEmail(PageInfo,nMessageID);
+				Utils.CreateWatchEmail(this,nMessageID);
 				Forum.Redirect(Pages.posts,"m={0}&#{0}",nMessageID);
 			} 
 			else 

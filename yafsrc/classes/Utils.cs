@@ -219,7 +219,7 @@ namespace yaf
 			{
 			}
 		}
-		static public void CreateWatchEmail(PageInfo basePage,object messageID) 
+		static public void CreateWatchEmail(pages.ForumPage basePage,object messageID) 
 		{
 			using(DataTable dt = DB.message_list(messageID)) 
 			{

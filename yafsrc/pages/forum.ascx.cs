@@ -57,14 +57,14 @@ namespace yaf.pages
 				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit));
 				MarkAll.Text = GetText("MARKALL");
 
-				if(PageInfo.UnreadPrivate>0) 
+				if(UnreadPrivate>0) 
 				{
 					UnreadMsgs.Visible = true;
 					UnreadMsgs.NavigateUrl = Forum.GetLink(Pages.cp_inbox);
-					if(PageInfo.UnreadPrivate==1)
-						UnreadMsgs.Text = String.Format(GetText("unread1"),PageInfo.UnreadPrivate);
+					if(UnreadPrivate==1)
+						UnreadMsgs.Text = String.Format(GetText("unread1"),UnreadPrivate);
 					else
-						UnreadMsgs.Text = String.Format(GetText("unread0"),PageInfo.UnreadPrivate);
+						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
 				}
 
 				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));

@@ -42,7 +42,7 @@ namespace yaf.pages
 						Info.Text = GetText("moderated");
 						break;
 					case 2:
-						Info.Text = String.Format(GetText("suspended"),FormatDateTime(PageInfo.SuspendedTo));
+						Info.Text = String.Format(GetText("suspended"),FormatDateTime(SuspendedTo));
 						break;
 				}
 			}

@@ -47,7 +47,7 @@ namespace yaf.pages.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			IsHostAdminRow.Visible = PageInfo.IsHostAdmin;
+			IsHostAdminRow.Visible = IsHostAdmin;
 
 			if(!IsPostBack) {
 				BindData();

@@ -34,10 +34,10 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				if(!PageInfo.ForumModeratorAccess && !PageInfo.ForumUploadAccess)
+				if(!ForumModeratorAccess && !ForumUploadAccess)
 					Data.AccessDenied();
 
-				if(!PageInfo.ForumReadAccess)
+				if(!ForumReadAccess)
 					Data.AccessDenied();
 
 				if((bool)topic["IsLocked"]) 
@@ -47,7 +47,7 @@ namespace yaf.pages
 					Data.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written
-				if(!PageInfo.ForumModeratorAccess) 
+				if(!ForumModeratorAccess) 
 					using(DataTable dt = DB.message_list(Request.QueryString["m"])) 
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);

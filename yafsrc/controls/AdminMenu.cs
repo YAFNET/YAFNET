@@ -22,7 +22,7 @@ namespace yaf.controls
 			writer.WriteLine("<table class=\"content\" width=\"100%\" cellspacing=0 cellpadding=0><tr><td class=\"post\" valign='top'>");
 			writer.WriteLine("<table width=\"100%\" cellspacing=0 cellpadding=0>");
 			
-			if(ForumPage.PageInfo.IsHostAdmin) 
+			if(ForumPage.IsHostAdmin) 
 			{
 				writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Host Admin</b></td></tr>");
 				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Host Settings</a></td></tr>",Forum.GetLink(Pages.admin_hostsettings));

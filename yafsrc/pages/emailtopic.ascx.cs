@@ -46,7 +46,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["t"] == null || !PageInfo.ForumReadAccess)
+			if(Request.QueryString["t"] == null || !ForumReadAccess)
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
@@ -59,7 +59,7 @@ namespace yaf.pages
 
 				Subject.Text = PageTopicName;
 				string msg = Utils.ReadTemplate("emailtopic.txt");
-				msg = msg.Replace("{link}",String.Format("{0}{1}",PageInfo.ServerURL,Forum.GetLink(Pages.posts,"t={0}",PageTopicID)));
+				msg = msg.Replace("{link}",String.Format("{0}{1}",ServerURL,Forum.GetLink(Pages.posts,"t={0}",PageTopicID)));
 				msg = msg.Replace("{user}",PageUserName);
 				Message.Text = msg;
 			}

@@ -1623,7 +1623,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public bool user_register(PageInfo page,object boardID,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
+		static public bool user_register(pages.ForumPage page,object boardID,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
 			string hashinput = DateTime.Now.ToString() + email.ToString() + pages.register.CreatePassword(20);
 			string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");

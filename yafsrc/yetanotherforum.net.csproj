@@ -240,11 +240,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "classes\BaseAdminPage.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "classes\BaseControl.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -301,11 +296,6 @@
                 />
                 <File
                     RelPath = "classes\Nntp.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\PageInfo.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

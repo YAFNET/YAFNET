@@ -39,7 +39,7 @@ namespace yaf.pages.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!PageInfo.IsHostAdmin)
+			if(!IsHostAdmin)
 				Data.AccessDenied();
 
 			if(!IsPostBack) 

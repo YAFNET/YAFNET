@@ -101,7 +101,7 @@ namespace yaf.pages
 
 				if(Request.QueryString["av"]!=null)
 				{
-					AvatarImg.ImageUrl = string.Format("{2}{0}images/avatars/{1}",Data.ForumRoot,Request.QueryString["av"],PageInfo.ServerURL);
+					AvatarImg.ImageUrl = string.Format("{2}{0}images/avatars/{1}",Data.ForumRoot,Request.QueryString["av"],ServerURL);
 					AvatarImg.Visible = true;
 					Avatar.Text = AvatarImg.ImageUrl;
 					OurAvatar.Visible = false;
@@ -250,11 +250,11 @@ namespace yaf.pages
 				// Email Body
 				string msg = Utils.ReadTemplate("changeemail.txt");
 				msg = msg.Replace("{user}",PageUserName);
-				msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),PageInfo.ServerURL));
+				msg = msg.Replace("{link}",String.Format("{1}{0}\r\n\r\n",Forum.GetLink(Pages.approve,"k={0}",hash),ServerURL));
 				msg = msg.Replace("{newemail}",Email.Text);
 				msg = msg.Replace("{key}",hash);
 				msg = msg.Replace("{forumname}",Config.BoardSettings.Name);
-				msg = msg.Replace("{forumlink}",PageInfo.ForumURL);
+				msg = msg.Replace("{forumlink}",ForumURL);
 
 				DB.checkemail_save(PageUserID,hash,Email.Text);
 				//  Build a MailMessage
