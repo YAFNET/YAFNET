@@ -116,11 +116,23 @@ namespace yaf.install
 
 		public static int GetCurrentVersion() 
 		{
+			try
+			{
+				// get newer version from registry
+				using (DataTable dt = DB.registry_list("Version"))
+					foreach(DataRow row in dt.Rows)
+						return Convert.ToInt32(row["Value"]);
+			}
+			catch(Exception)
+			{
+			}
+
+			// attempt to get older version information
 			try 
 			{
 				using(DataTable dt = DB.system_list())
 					foreach(DataRow row in dt.Rows) 
-						return (int)row["Version"];
+						return Convert.ToInt32(row["Version"]);
 			}
 			catch(Exception) 
 			{
