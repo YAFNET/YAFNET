@@ -520,6 +520,11 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Gets the list of active users in a topic
+		/// </summary>
+		/// <param name="topicID">ID of topic </param>
+		/// <returns>DataTable of all users that are in a topic</returns>
 		static public DataTable active_listtopic(object topicID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_listtopic")) 
@@ -529,6 +534,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		
+		/// <summary>
+		/// Gets the activity statistics for a board
+		/// </summary>
+		/// <param name="boardID">boardID</param>
+		/// <returns>DataRow of activity stata</returns>
 		static public DataRow active_stats(object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_active_stats")) 
@@ -544,6 +555,13 @@ namespace yaf
 		#endregion
 
 		#region yaf_Attachment
+		/// <summary>
+		/// Gets a list of attachments
+		/// </summary>
+		/// <param name="messageID">messageID</param>
+		/// <param name="attachmentID">attachementID</param>
+		/// <param name="boardID">boardID</param>
+		/// <returns>DataTable with attachement list</returns>
 		static public DataTable attachment_list(object messageID,object attachmentID,object boardID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
@@ -555,6 +573,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// saves attachment
+		/// </summary>
+		/// <param name="messageID">messageID</param>
+		/// <param name="fileName">File Name</param>
+		/// <param name="bytes">number of bytes</param>
+		/// <param name="contentType">type of attchment</param>
+		/// <param name="stream">stream of bytes</param>
 		static public void attachment_save(object messageID,object fileName,object bytes,object contentType,System.IO.Stream stream) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_save")) 
@@ -576,6 +602,10 @@ namespace yaf
 			}
 		}
 		//ABOT CHANGE 16.04.04
+		/// <summary>
+		/// Delete attachment
+		/// </summary>
+		/// <param name="attachmentID">ID of attachment to delete</param>
 		static public void attachment_delete(object attachmentID) 
 		{
 			//Delete Attachments from Hard Drive
@@ -607,8 +637,14 @@ namespace yaf
 				cmd.Parameters.Add("@AttachmentID",attachmentID);
 				ExecuteNonQuery(cmd);
 			}
+			//End ABOT CHANGE 16.04.04
 		}
-		//END ABOT CHANGE 16.04.04
+		
+
+		/// <summary>
+		/// Attachement dowload
+		/// </summary>
+		/// <param name="attachmentID">ID of attachemnt to download</param>
 		static public void attachment_download(object attachmentID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_attachment_download")) 
@@ -621,6 +657,12 @@ namespace yaf
 		#endregion
 
 		#region yaf_BannedIP
+		/// <summary>
+		/// List of Baned IP's
+		/// </summary>
+		/// <param name="boardID">ID of board</param>
+		/// <param name="ID">ID</param>
+		/// <returns>DataTable of banned IPs</returns>
 		static public DataTable bannedip_list(object boardID,object ID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_list")) 
@@ -631,6 +673,12 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Saves baned ip in database
+		/// </summary>
+		/// <param name="ID">ID</param>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="Mask">Mask</param>
 		static public void bannedip_save(object ID,object boardID,object Mask) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_save")) 
@@ -642,6 +690,10 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Deletes Banned IP
+		/// </summary>
+		/// <param name="ID">ID of banned ip to delete</param>
 		static public void bannedip_delete(object ID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_delete")) 
