@@ -30,7 +30,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("ASP.NET Forum Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bjørnar Henden")]
-[assembly: AssemblyProduct("http://www.yetanotherforum.org/")]
+[assembly: AssemblyProduct("http://www.yetanotherforum.net/")]
 [assembly: AssemblyCopyright("Copyright &copy; 2003 by Bjørnar Henden. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		

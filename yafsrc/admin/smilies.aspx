@@ -9,7 +9,7 @@
 	</tr>
 	<tr>
 		<td class=header2>Code</td>
-		<td class=header2>Smile</td>
+		<td class=header2 align="center">Smile</td>
 		<td class=header2>Emotion</td>
 		<td class=header2>Commands</td>
 	</tr>
@@ -17,7 +17,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Code") %></td>
-		<td class=post><img src='../images/emoticons/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></td>		
+		<td class=post align="center"><img src='../images/emoticons/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></td>		
 		<td class=post><%# DataBinder.Eval(Container.DataItem,"Emoticon") %></td>
 		<td class=post>
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Edit"/>

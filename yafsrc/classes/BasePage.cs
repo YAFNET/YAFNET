@@ -57,16 +57,10 @@ namespace yaf
 			this.Error += new System.EventHandler(this.Page_Error);
 		}
 
-		private void Page_Error(object sender, System.EventArgs e) {
-			/*
-			try {
-				if(!IsLocal) {
-					// Send email or make log or something...
-				}
-			}
-			catch(Exception) {
-			}
-			*/
+		private void Page_Error(object sender, System.EventArgs e) 
+		{
+			if(!IsLocal) 
+				yaf.Utils.ReportError(Server.GetLastError());
 		}
 
 		/// <summary>
@@ -88,7 +82,6 @@ namespace yaf
 			}
 			catch(Exception)
 			{
-				throw new Exception(Request.UserLanguages[0]);
 			}
 
 			//Response.Expires = -1000;

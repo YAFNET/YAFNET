@@ -1,7 +1,5 @@
 <%@ Page language="c#" Codebehind="groups.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.groups" %>
 
-<h1>Groups</h1>
-
 <form runat="server">
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
