@@ -39,6 +39,7 @@ namespace yaf
 		private DataRow		m_pageinfo;
 		private string		m_strForumName		= "Yet Another Forum.net";
 		private string		m_strLoadMessage	= "";
+		private string		m_strRefreshURL		= null;
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private string		m_strThemeDir		= System.Configuration.ConfigurationSettings.AppSettings["themedir"];
@@ -256,48 +257,33 @@ namespace yaf
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
+			if(m_bShowToolBar) 
+			{
 #if true
-			string html = ReadTemplate("page.html");
+				string html = ReadTemplate("page.html");
 #else
-			string html;
-			if(Cache["htmltemplate"] != null) {
-				html = Cache["htmltemplate"].ToString();
-			} else {
-				html = ReadTemplate("page.html");
-				Cache["htmltemplate"] = html;
-			}
+				string html;
+				if(Cache["htmltemplate"] != null) {
+					html = Cache["htmltemplate"].ToString();
+				} else {
+					html = ReadTemplate("page.html");
+					Cache["htmltemplate"] = html;
+				}
 #endif
-			
-			if(!m_bShowToolBar) {
-				writer.WriteLine("<html>");
-				writer.WriteLine("<!-- Copyright 2003 Bjørnar Henden -->");
-				writer.WriteLine("<head>");
-				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",BaseDir));
-				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-				writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
-				writer.WriteLine("<script>");
-				writer.WriteLine("function yaf_onload() {");
-				if(m_strLoadMessage.Length>0)
-					writer.WriteLine(String.Format("	alert(\"{0}\");",m_strLoadMessage));
-				writer.WriteLine("}");
-				writer.WriteLine("</script>");
-				writer.WriteLine("</head>");
-				writer.WriteLine("<body onload='yaf_onload()'>");
-			} else {
 				string title = String.Format("<title>{0}</title>",ForumName);
 				string css = String.Format("<link type=text/css rel=stylesheet href='{0}forum.css' />",BaseDir);
 				css += String.Format("\n<link type=text/css rel=stylesheet href='{0}' />",ThemeFile("theme.css"));
-				string script = "<script>\nfunction yaf_onload() {}\n</script>";
+				string script = "<script>\nfunction yaf_onload() {}\n</script>\n";
 				if(m_strLoadMessage.Length>0)
 					script = String.Format("<script>\nfunction yaf_onload() {1}\nalert(\"{0}\")\n{2}\n</script>\n",m_strLoadMessage,'{','}');
+
+				if(m_strRefreshURL!=null) 
+					script = script.Insert(0,String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">\n",m_strRefreshURL));
 
 				html = html.Replace("{title}",title);
 				html = html.Replace("{css}",css);
 				html = html.Replace("{script}",script);
-			}
 
-			if(m_bShowToolBar) 
-			{
 				int pos = html.IndexOf("{forum}");
 				if(pos<0)
 					throw new Exception("Invalid template -- {forum} constant is missing.");
@@ -349,7 +335,25 @@ namespace yaf
 				writer.WriteLine("</p>");
 				writer.Write(html.Substring(pos+7));	// Write html after forum
 			} else {
+				writer.WriteLine("<html>");
+				writer.WriteLine("<!-- Copyright 2003 Bjørnar Henden -->");
+				writer.WriteLine("<head>");
+				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",BaseDir));
+				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
+				writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
+				writer.WriteLine("<script>");
+				writer.WriteLine("function yaf_onload() {");
+				if(m_strLoadMessage.Length>0)
+					writer.WriteLine(String.Format("	alert(\"{0}\");",m_strLoadMessage));
+				writer.WriteLine("}");
+				writer.WriteLine("</script>");
+				if(m_strRefreshURL!=null) 
+					writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
+				writer.WriteLine("</head>");
+				writer.WriteLine("<body onload='yaf_onload()'>");
+				
 				RenderBody(writer);
+				
 				writer.WriteLine("</body>");
 				writer.WriteLine("</html>");
 			}
@@ -554,6 +558,14 @@ namespace yaf
 			get {
 				string s = Request.ServerVariables["SERVER_NAME"];
 				return s!=null && s.ToLower()=="localhost";
+			}
+		}
+
+		public string RefreshURL
+		{
+			set 
+			{
+				m_strRefreshURL = value;
 			}
 		}
 

@@ -92,7 +92,7 @@
                 <Reference
                     Name = "OpenSmtp"
                     AssemblyName = "OpenSmtp"
-                    HintPath = "..\..\..\Utvk\dotnet\OpenSmtp.net\release\bin\OpenSmtp.dll"
+                    HintPath = "bin\OpenSmtp.dll"
                 />
             </References>
         </Build>

@@ -25,6 +25,7 @@ namespace yaf
 			if(!IsPostBack) 
 			{
 				Continue.NavigateUrl = Request.QueryString["url"];
+				RefreshURL = Request.QueryString["url"];
 
 				switch(int.Parse(Request.QueryString["i"])) 
 				{
