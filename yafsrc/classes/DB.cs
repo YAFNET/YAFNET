@@ -20,6 +20,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 using System.Web.Security;
 
 namespace yaf
@@ -29,7 +30,6 @@ namespace yaf
 	{
 #if DEBUG
 		private classes.HiPerfTimer	hiTimer				= new classes.HiPerfTimer(true);
-		private System.Web.SessionState.HttpSessionState Session = System.Web.HttpContext.Current.Session;
 		private string m_cmd;
 #endif
 
@@ -38,13 +38,10 @@ namespace yaf
 #if DEBUG
 			m_cmd = sql;
 
-			if(Session==null)
-				return;
-
-			if(Session["NumQueries"]==null)
-				Session["NumQueries"] = (int)1;
+			if(HttpContext.Current.Items["NumQueries"]==null)
+				HttpContext.Current.Items["NumQueries"] = (int)1;
 			else
-				Session["NumQueries"] = 1 + (int)Session["NumQueries"];
+				HttpContext.Current.Items["NumQueries"] = 1 + (int)HttpContext.Current.Items["NumQueries"];
 #endif
 		}
 
@@ -55,48 +52,45 @@ namespace yaf
 
 			m_cmd = String.Format("{0}: {1:N3}",m_cmd,hiTimer.Duration);
 
-			if(Session==null)
-				return;
-
-			if(Session["TimeQueries"]==null)
-				Session["TimeQueries"] = hiTimer.Duration;
+			if(HttpContext.Current.Items["TimeQueries"]==null)
+				HttpContext.Current.Items["TimeQueries"] = hiTimer.Duration;
 			else
-				Session["TimeQueries"] = hiTimer.Duration + (double)Session["TimeQueries"];
+				HttpContext.Current.Items["TimeQueries"] = hiTimer.Duration + (double)HttpContext.Current.Items["TimeQueries"];
 
-			if(Session["CmdQueries"]==null)
-				Session["CmdQueries"] = m_cmd;
+			if(HttpContext.Current.Items["CmdQueries"]==null)
+				HttpContext.Current.Items["CmdQueries"] = m_cmd;
 			else
-				Session["CmdQueries"] += "<br/>" + m_cmd;
+				HttpContext.Current.Items["CmdQueries"] += "<br/>" + m_cmd;
 #endif
 		}
 
 #if DEBUG
 		static public void Reset() 
 		{
-			System.Web.HttpContext.Current.Session["NumQueries"] = 0;
-			System.Web.HttpContext.Current.Session["TimeQueries"] = (double)0;
-			System.Web.HttpContext.Current.Session["CmdQueries"] = "";
+			HttpContext.Current.Items["NumQueries"] = 0;
+			HttpContext.Current.Items["TimeQueries"] = (double)0;
+			HttpContext.Current.Items["CmdQueries"] = "";
 		}
 
 		static public int Count 
 		{
 			get 
 			{
-				return (int)System.Web.HttpContext.Current.Session["NumQueries"];
+				return (int)System.Web.HttpContext.Current.Items["NumQueries"];
 			}
 		}
 		static public double Duration 
 		{
 			get 
 			{
-				return (double)System.Web.HttpContext.Current.Session["TimeQueries"];
+				return (double)System.Web.HttpContext.Current.Items["TimeQueries"];
 			}
 		}
 		static public string Commands 
 		{
 			get 
 			{
-				return (string)System.Web.HttpContext.Current.Session["CmdQueries"];
+				return (string)System.Web.HttpContext.Current.Items["CmdQueries"];
 			}
 		}
 #endif
@@ -265,7 +259,9 @@ namespace yaf
 			if( ToSearch == "*" )
 				ToSearch = "";
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.Posted, c.Message ";
+			ToSearch = ToSearch.Replace("'","''");
+
+			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message ";
 			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID join yaf_vaccess x on x.ForumID=a.ForumID ";
 			
 			sql += String.Format("where x.ReadAccess<>0 and x.UserID={0} ",UserID);
@@ -865,6 +861,16 @@ namespace yaf
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
+			}
+		}
+		static public DataTable message_findunread(object topicID,object lastRead) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_message_findunread")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@TopicID",topicID);
+				cmd.Parameters.Add("@LastRead",lastRead);
 				return GetData(cmd);
 			}
 		}

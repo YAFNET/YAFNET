@@ -62,6 +62,10 @@ namespace yaf
 
 				return (ForumSettings)HttpContext.Current.Application["yaf_ForumSettings"];
 			}
+			set
+			{
+				HttpContext.Current.Application.Remove("yaf_ForumSettings");
+			}
 		}
 
 		static public IUrlBuilder UrlBuilder
