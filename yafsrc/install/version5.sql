@@ -392,6 +392,7 @@ begin
 		ForumEmail			= s.ForumEmail,
 		EmailVerification	= s.EmailVerification,
 		BlankLinks			= s.BlankLinks,
+		ShowMoved			= s.ShowMoved,
 		MailsPending		= (select count(1) from yaf_Mail)
 	from
 		yaf_User a,

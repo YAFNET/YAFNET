@@ -18,8 +18,6 @@ namespace yaf
 		const int			_pollTimeout	= 100000;	// in microseconds
 
 		const string		CRLF			= "\r\n";
-		const string		STAT_OK			= "+OK";
-		const string		STAT_ERR		= "-ERR";
 
 		string				_server			= null;
 		string				_username		= null;
@@ -198,7 +196,7 @@ namespace yaf
 				int recv = Client.Receive(buf, SocketFlags.None);
 				if (recv == 0) 
 				{
-					if (tmp.Length > STAT_ERR.Length) 
+					if (tmp.Length > 3) 
 						break;
 
 					Close();
