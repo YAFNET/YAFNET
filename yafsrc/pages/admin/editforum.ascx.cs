@@ -46,6 +46,8 @@ namespace yaf.pages.admin
 		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
 		protected DropDownList AccessMaskID, ParentList;
 		protected HtmlTableRow NewGroupRow;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -77,10 +79,16 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
+			int ForumID = 0;
 			CategoryList.DataSource = DB.category_list(PageBoardID,null);
-			if(Request.QueryString["f"] != null)
-				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
+
+			if (Request.QueryString["f"] != null)
+			{
+				ForumID = Convert.ToInt32(Request.QueryString["f"]);
+				AccessList.DataSource = DB.forumaccess_list(ForumID);
+			}
 
 			//ParentList.DataSource = DB.forum_list(PageBoardID,null);
 			//ParentList.DataValueField = "ForumID";
@@ -98,10 +106,14 @@ namespace yaf.pages.admin
 					nOldCat = (int)row["CategoryID"];
 					ParentList.Items.Add(new ListItem((string)row["Category"],""));
 				}
-				string sIndent = "";
-				for(int j=0;j<(int)row["Indent"];j++)
-					sIndent += "--";
-				ParentList.Items.Add(new ListItem(string.Format(" -{0} {1}",sIndent,row["Forum"]),row["ForumID"].ToString()));
+
+				if (ForumID != Convert.ToInt32(row["ForumID"]))
+				{
+					string sIndent = "";
+					int iIndent = Convert.ToInt32(row["Indent"]);
+					for (int j=0;j<iIndent;j++) sIndent += "--";
+					ParentList.Items.Add(new ListItem(string.Format(" -{0} {1}",sIndent,row["Forum"]),row["ForumID"].ToString()));
+				}
 			}
 
 			DataBind();
