@@ -57,7 +57,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				ForumRegister.Text = GetText("register");
 				cancel.Text = GetText("Cancel");
 
@@ -119,7 +119,7 @@ namespace yaf.pages
 					return;
 				}
 
-				DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
+				DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification);
 				Forum.Redirect(Pages.login);
 			}
 		}

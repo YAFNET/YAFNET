@@ -54,23 +54,6 @@ namespace yaf
 			}
 		}
 
-		static public BoardSettings BoardSettings
-		{
-			get
-			{
-				string key = string.Format("yaf_BoardSettings.{0}",ForumPage.PageBoardID);
-				if(HttpContext.Current.Application[key]==null)
-					HttpContext.Current.Application[key] = new BoardSettings(ForumPage.PageBoardID);
-
-				return (BoardSettings)HttpContext.Current.Application[key];
-			}
-			set
-			{
-				string key = string.Format("yaf_BoardSettings.{0}",ForumPage.PageBoardID);
-				HttpContext.Current.Application.Remove(key);
-			}
-		}
-
 		static public IUrlBuilder UrlBuilder
 		{
 			get

@@ -50,7 +50,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
@@ -98,7 +98,7 @@ namespace yaf.pages
 					senderemail = (string)dt.Rows[0]["Email"];
 
 				//  Build a MailMessage
-				Utils.SendMail(senderemail,EmailAddress.Text,Subject.Text,Message.Text);
+				Utils.SendMail(this,senderemail,EmailAddress.Text,Subject.Text,Message.Text);
 				Forum.Redirect(Pages.posts,"t={0}",PageTopicID);
 			}
 			catch(Exception x) {

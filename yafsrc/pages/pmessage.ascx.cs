@@ -51,7 +51,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Editor.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			Editor.EnableRTE = BoardSettings.AllowRichEdit;
 			Editor.BaseDir = Data.ForumRoot + "rte";
 			Editor.StyleSheet = this.ThemeFile("theme.css");
 
@@ -67,7 +67,7 @@ namespace yaf.pages
 			{
 
 				BindData();
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				Save.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
 				FindUsers.Text = GetText("FINDUSERS");

@@ -21,7 +21,7 @@ namespace yaf
 			if(!IsPostBack)
 			{
 				controls.PageLinks ctl = new controls.PageLinks();
-				ctl.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				ctl.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				ctl.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				Controls.AddAt(0,ctl);
 			}

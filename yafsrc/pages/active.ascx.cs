@@ -52,7 +52,7 @@ namespace yaf.pages
 			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg=active");
  			RssFeed.Text = GetText("RSSFEED");
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
 				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));

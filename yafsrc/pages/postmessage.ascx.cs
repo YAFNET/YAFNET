@@ -98,7 +98,7 @@ namespace yaf.pages
 			if(Request["t"]!=null && !ForumReplyAccess)
 				Data.AccessDenied();
 
-			Message.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			Message.EnableRTE = BoardSettings.AllowRichEdit;
 			Message.StyleSheet = this.ThemeFile("theme.css");
 			Message.BaseDir = Data.ForumRoot + "rte";
 
@@ -117,7 +117,7 @@ namespace yaf.pages
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 

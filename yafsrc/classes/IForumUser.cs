@@ -53,6 +53,7 @@ namespace yaf
 						m_email = m_userName;
 					
 					m_isAuthenticated = true;
+					return;
 				}
 			}
 			catch(Exception)

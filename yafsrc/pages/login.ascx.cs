@@ -61,7 +61,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				ForumLogin.Text = GetText("forum_login");
 				LostPassword.Text = GetText("lostpassword");
 				Recover.Text = GetText("sendpassword");
@@ -90,9 +90,9 @@ namespace yaf.pages
 			System.Text.StringBuilder msg = new System.Text.StringBuilder();
 			msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
 			msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
-			msg.AppendFormat("Visit {0} at {1}",Config.BoardSettings.Name,ForumURL);
+			msg.AppendFormat("Visit {0} at {1}",BoardSettings.Name,ForumURL);
 			
-			Utils.SendMail(Config.BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
+			Utils.SendMail(this,BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
 			AddLoadMessage(GetText("email_sent_password"));
 			LoginView.Visible = true;

@@ -53,7 +53,7 @@ namespace yaf.pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_email,"u={0}",row["UserID"]));
 						break;
@@ -87,7 +87,7 @@ namespace yaf.pages
 						break;
 					}
 				}
- 				Utils.SendMail(from, fromName, to, toName, Subject.Text, Body.Text);
+ 				Utils.SendMail(this, from, fromName, to, toName, Subject.Text, Body.Text);
 				Forum.Redirect(Pages.profile,"u={0}",Request.QueryString["u"]);
 			}
 			catch(Exception x) 

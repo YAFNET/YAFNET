@@ -44,7 +44,7 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Mail",Forum.GetLink(Pages.admin_mail));
 
@@ -91,7 +91,7 @@ namespace yaf.pages.admin
 			{
 				foreach(DataRow row in dt.Rows)
 					//  Build a MailMessage
-					Utils.SendMail(Config.BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
+					Utils.SendMail(this,BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
 			}
 			Subject.Text = "";
 			Body.Text = "";

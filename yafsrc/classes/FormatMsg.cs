@@ -30,7 +30,7 @@ namespace yaf
 	{
 		static public string ForumCodeToHtml(yaf.pages.ForumPage basePage,string Message) 
 		{
-			DataTable dtSmileys = GetSmilies();
+			DataTable dtSmileys = GetSmilies(basePage);
 
 			string tmp = "";
 			bool bInCode = false;
@@ -86,7 +86,7 @@ namespace yaf
 								case "url":
 									if(arg!=null) 
 									{
-										if(Config.BoardSettings.BlankLinks)
+										if(basePage.BoardSettings.BlankLinks)
 											tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
 										else
 											tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
@@ -188,12 +188,12 @@ namespace yaf
 			return html;
 		}
 
-		static public DataTable GetSmilies() 
+		static public DataTable GetSmilies(yaf.pages.ForumPage basePage) 
 		{
 			DataTable dt = (DataTable)System.Web.HttpContext.Current.Cache["Smilies"];
 			if(dt==null) 
 			{
-				dt = DB.smiley_list(pages.ForumPage.PageBoardID,null);
+				dt = DB.smiley_list(basePage.PageBoardID,null);
 				System.Web.HttpContext.Current.Cache["Smilies"] = dt;
 			}
 			return dt;
@@ -203,7 +203,7 @@ namespace yaf
 		{
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 			
-			DataTable dtSmileys = GetSmilies();
+			DataTable dtSmileys = GetSmilies(basePage);
 			foreach(DataRow row in dtSmileys.Rows) 
 			{
 				string code = row["Code"].ToString();

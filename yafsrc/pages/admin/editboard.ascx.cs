@@ -42,7 +42,7 @@ namespace yaf.pages.admin
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Boards",Forum.GetLink(Pages.admin_boards));
 
@@ -133,7 +133,7 @@ namespace yaf.pages.admin
 			}
 
 			// Done
-			Config.BoardSettings = null;
+			BoardSettings = null;
 			Forum.Redirect(Pages.admin_boards);
 		}
 

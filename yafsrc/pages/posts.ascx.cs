@@ -87,14 +87,14 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = (string)topic["Topic"];
 				NormalView.Text = GetText("NORMAL");
 				ThreadView.Text = GetText("THREADED");
-				ThreadViewCell.Visible = Config.BoardSettings.AllowThreaded;
+				ThreadViewCell.Visible = BoardSettings.AllowThreaded;
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 
 				if(!ForumPostAccess) 

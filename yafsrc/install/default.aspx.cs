@@ -128,7 +128,18 @@ namespace yaf.install
 		}
 
 		private void finish_Click(object sender,System.EventArgs e) {
-			Response.Redirect(Data.ForumRoot);
+			if(Config.IsDotNetNuke)
+			{
+				//Redirect back to the portal main page.
+				string rPath = Data.ForumRoot;
+				int pos = rPath.IndexOf("/",2);
+				rPath = rPath.Substring(0,pos);
+				Response.Redirect(rPath);
+			}
+			else
+			{
+				Response.Redirect(Data.ForumRoot);
+			}
 		}
 
 		private void next_Click(object sender,System.EventArgs e) 

@@ -1819,10 +1819,10 @@ namespace yaf
 							string body = Utils.ReadTemplate("verifyemail.txt");
 							body = body.Replace("{link}",String.Format("{1}{0}",Forum.GetLink(Pages.approve,"k={0}",hash),page.ServerURL));
 							body = body.Replace("{key}",hash);
-							body = body.Replace("{forumname}",Config.BoardSettings.Name);
+							body = body.Replace("{forumname}",page.BoardSettings.Name);
 							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
-							Utils.SendMail(Config.BoardSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.BoardSettings.Name),body);
+							Utils.SendMail(page,page.BoardSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",page.BoardSettings.Name),body);
 							//ABOT DELETED 16.04.04
 							//page.AddLoadMessage(page.GetText("REGMAIL_SENT"));
 							//END ABOT DELETED 16.04.04

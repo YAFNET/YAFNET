@@ -853,7 +853,7 @@ begin
 	values(1,1,'0.9.5',@TimeZone,@SmtpServer,@ForumEmail,50,80,0,0,1,1,0,1,1,0,0,0)
 	SET IDENTITY_INSERT yaf_System OFF
 
-	exec yaf_board_create @Name,0,@User,@UserEmail,@Password,1
+	exec yaf_board_create @Name,0,@User,@UserEmail,@Password,1,0
 end
 GO
 
@@ -1747,4 +1747,3 @@ begin
 		b.GroupName
 end
 GO
-

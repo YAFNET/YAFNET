@@ -29,7 +29,7 @@ namespace yaf.pages.moderate
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),Forum.GetLink(Pages.moderate_index));
 				PageLinks.AddForumLinks(PageForumID);
 				BindData();

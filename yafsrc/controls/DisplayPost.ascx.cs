@@ -151,23 +151,23 @@ namespace yaf.controls
 				return "1";
 		}
 
-		protected string FormatUserBox() 
+		protected string FormatUserBox(pages.ForumPage basePage) 
 		{
 			System.Data.DataRowView row = DataRow;
 			string html = "";
 
 			// Avatar
-			if(Config.BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			if(basePage.BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
 			{
 				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],Data.ForumRoot);
 			} 
-			else if(Config.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
+			else if(basePage.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
 			{
 				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 				html += String.Format("<img src='{3}image.aspx?url={0}&width={1}&height={2}'><br clear=\"all\"/>",
 					Server.UrlEncode(row["Avatar"].ToString()),
-					Config.BoardSettings.AvatarWidth,
-					Config.BoardSettings.AvatarHeight,
+					basePage.BoardSettings.AvatarWidth,
+					basePage.BoardSettings.AvatarHeight,
 					Data.ForumRoot
 					);
 			}
@@ -180,9 +180,9 @@ namespace yaf.controls
 			html += String.Format("{0}: {1}<br clear=\"all\"/>",ForumPage.GetText("rank"),row["RankName"]);
 
 			// Groups
-			if(Config.BoardSettings.ShowGroups) 
+			if(basePage.BoardSettings.ShowGroups) 
 			{
-				using(DataTable dt = DB.usergroup_list(yaf.pages.ForumPage.PageBoardID,row["UserID"])) 
+				using(DataTable dt = DB.usergroup_list(ForumPage.PageBoardID,row["UserID"])) 
 				{
 					html += String.Format("{0}: ",ForumPage.GetText("groups"));
 					bool bFirst = true;

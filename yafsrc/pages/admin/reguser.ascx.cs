@@ -51,7 +51,7 @@ namespace yaf.pages.admin
 		{
       if(!IsPostBack) 
       {
-        PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+        PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
         PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
         PageLinks.AddLink("Users",Forum.GetLink(Pages.admin_users));
 
@@ -105,7 +105,7 @@ namespace yaf.pages.admin
           return;
         }
 
-        DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,Config.BoardSettings.EmailVerification);
+        DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification);
         Forum.Redirect(Pages.admin_reguser);
       }
     }

@@ -92,13 +92,13 @@
                 <Reference
                     Name = "DotNetNuke"
                     AssemblyName = "DotNetNuke"
-                    HintPath = "..\DotNetNuke\bin\DotNetNuke.dll"
+                    HintPath = "..\..\..\www\DotNetNuke\bin\DotNetNuke.dll"
                     Private = "False"
                 />
                 <Reference
                     Name = "yaf"
                     AssemblyName = "yaf"
-                    HintPath = "..\..\yafsrc\bin\yaf.dll"
+                    HintPath = "..\yafsrc\bin\yaf.dll"
                     Private = "False"
                 />
             </References>
@@ -121,6 +121,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "DotNetNukeModuleEdit.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "DotNetNukeModuleEdit.ascx.cs"
+                    DependentUpon = "DotNetNukeModuleEdit.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DotNetNukeModuleEdit.ascx.resx"
+                    DependentUpon = "DotNetNukeModuleEdit.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "DotNetNukeUrlBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
@@ -129,14 +144,6 @@
                     RelPath = "DotNetNukeUser.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Install.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Web.config.dotnetnuke"
-                    BuildAction = "Content"
                 />
             </Include>
         </Files>

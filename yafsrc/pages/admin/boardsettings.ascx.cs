@@ -42,7 +42,7 @@ namespace yaf.pages.admin {
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Board Settings",Forum.GetLink(Pages.admin_boardsettings));
 
@@ -85,7 +85,7 @@ namespace yaf.pages.admin {
 		private void Save_Click(object sender, System.EventArgs e) {
 			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
-			Config.BoardSettings = null;	/// Reload forum settings
+			BoardSettings = null;	/// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

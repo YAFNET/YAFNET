@@ -53,7 +53,7 @@ namespace yaf.pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_yim,"u={0}",row["UserID"]));
 						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);

@@ -104,16 +104,24 @@ namespace yaf.pages
 			HttpContext.Current.Response.AddHeader("Expires","Mon, 26 Jul 1997 05:00:00 GMT"); // Past date
 			HttpContext.Current.Response.AddHeader("Pragma","no-cache");
 
-			string key = string.Format("BannedIP.{0}",PageBoardID);
-			DataTable banip = (DataTable)HttpContext.Current.Cache[key];
-			if(banip == null) 
+			try 
 			{
-				banip = DB.bannedip_list(PageBoardID,null);
-				HttpContext.Current.Cache[key] = banip;
+				string key = string.Format("BannedIP.{0}",PageBoardID);
+				DataTable banip = (DataTable)HttpContext.Current.Cache[key];
+				if(banip == null) 
+				{
+					banip = DB.bannedip_list(PageBoardID,null);
+					HttpContext.Current.Cache[key] = banip;
+				}
+				foreach(DataRow row in banip.Rows)
+					if(Utils.IsBanned((string)row["Mask"],HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
+						HttpContext.Current.Response.End();
 			}
-			foreach(DataRow row in banip.Rows)
-				if(Utils.IsBanned((string)row["Mask"],HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]))
-					HttpContext.Current.Response.End();
+			catch(Exception) 
+			{
+				/// If the above fails chances are that this is a new install
+				Response.Redirect(Config.ConfigSection["root"] + "install/");
+			}
 
 			// Find user name
 			AuthType authType = Data.GetAuthType;
@@ -264,7 +272,7 @@ namespace yaf.pages
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
-							Utils.SendMail(Config.BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							Utils.SendMail(this,BoardSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
@@ -346,7 +354,7 @@ namespace yaf.pages
 			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
 			ctl = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.FindControl("ForumTitle");
 			if(ctl!=null)
-				ctl.InnerText = Config.BoardSettings.Name;
+				ctl.InnerText = BoardSettings.Name;
 
 			/// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
@@ -464,7 +472,7 @@ namespace yaf.pages
 				writer.WriteLine("<head>");
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",Data.ForumRoot));
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-				writer.WriteLine(String.Format("<title>{0}</title>",Config.BoardSettings.Name));
+				writer.WriteLine(String.Format("<title>{0}</title>",BoardSettings.Name));
 				if(m_strRefreshURL!=null) 
 					writer.WriteLine(String.Format("<meta HTTP-EQUIV=\"Refresh\" CONTENT=\"10;{0}\">",m_strRefreshURL));
 				writer.WriteLine("</head>");
@@ -722,13 +730,14 @@ namespace yaf.pages
 					return long.Parse(m_pageinfo["UploadAccess"].ToString())>0;
 			}
 		}
-		static public int PageBoardID
+
+		public int PageBoardID
 		{
 			get
 			{
 				try
 				{
-					return int.Parse(Config.ConfigSection["boardid"]);
+					return ForumControl.BoardID;
 				}
 				catch(Exception)
 				{
@@ -847,6 +856,24 @@ namespace yaf.pages
 					return false;
 			}
 		}
+
+		public BoardSettings BoardSettings
+		{
+			get
+			{
+				string key = string.Format("yaf_BoardSettings.{0}",PageBoardID);
+				if(HttpContext.Current.Application[key]==null)
+					HttpContext.Current.Application[key] = new BoardSettings(PageBoardID);
+
+				return (BoardSettings)HttpContext.Current.Application[key];
+			}
+			set
+			{
+				string key = string.Format("yaf_BoardSettings.{0}",PageBoardID);
+				HttpContext.Current.Application.Remove(key);
+			}
+		}
+
 		/// <summary>
 		/// True if current user is an administrator
 		/// </summary>
@@ -927,7 +954,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				return TimeZoneOffsetUser - Config.BoardSettings.TimeZone;
+				return TimeZoneOffsetUser - BoardSettings.TimeZone;
 			}
 		}
 		/// <summary>
@@ -980,7 +1007,7 @@ namespace yaf.pages
 		{
 			if(themefile==null) 
 			{
-				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.BoardSettings.AllowUserTheme)
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !BoardSettings.AllowUserTheme)
 					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
@@ -1069,7 +1096,7 @@ namespace yaf.pages
 			
 			string filename = null;
 
-			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.BoardSettings.AllowUserLanguage)
+			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !BoardSettings.AllowUserLanguage)
 				filename = Config.ConfigSection["language"];
 			else
 				filename = (string)m_pageinfo["LanguageFile"];
@@ -1123,7 +1150,7 @@ namespace yaf.pages
 #if !DEBUG
 				string filename = null;
 
-				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !Config.BoardSettings.AllowUserLanguage)
+				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !BoardSettings.AllowUserLanguage)
 					filename = Config.ConfigSection["language"];
 				else
 					filename = (string)m_pageinfo["LanguageFile"];

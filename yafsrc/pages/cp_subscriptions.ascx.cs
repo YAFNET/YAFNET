@@ -58,7 +58,7 @@ namespace yaf.pages
 			{
 				BindData();
 
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

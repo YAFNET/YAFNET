@@ -81,7 +81,7 @@ namespace yaf.pages
 					Data.AccessDenied(/*No such user exists*/);
 				DataRow user = dt.Rows[0];
 
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
 				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
 				UserName.Text = (string)user["Name"];
@@ -132,16 +132,16 @@ namespace yaf.pages
 				Occupation.InnerText = user["Occupation"].ToString();
 				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
 
-				if(Config.BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
+				if(BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
 				{
 					Avatar.ImageUrl = Data.ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
 				} 
-				else if(Config.BoardSettings.AvatarRemote && user["Avatar"].ToString().Length>0) 
+				else if(BoardSettings.AvatarRemote && user["Avatar"].ToString().Length>0) 
 				{
 					Avatar.ImageUrl = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
 						Server.UrlEncode(user["Avatar"].ToString()),
-						Config.BoardSettings.AvatarWidth,
-						Config.BoardSettings.AvatarHeight,
+						BoardSettings.AvatarWidth,
+						BoardSettings.AvatarHeight,
 						Data.ForumRoot);
 				} 
 				else 

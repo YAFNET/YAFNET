@@ -44,7 +44,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.EnableRTE = Config.BoardSettings.AllowRichEdit;
+			sig.EnableRTE = BoardSettings.AllowRichEdit;
 			sig.BaseDir = Data.ForumRoot + "rte";
 			sig.StyleSheet = this.ThemeFile("theme.css");
 
@@ -66,7 +66,7 @@ namespace yaf.pages
 					msg = FormatMsg.HtmlToForumCode(msg);
 				sig.Text = msg;
 
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 

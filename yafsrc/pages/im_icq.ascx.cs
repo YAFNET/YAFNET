@@ -56,7 +56,7 @@ namespace yaf.pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_icq,"u={0}",row["UserID"]));
 						ViewState["to"] = (int)row["ICQ"];

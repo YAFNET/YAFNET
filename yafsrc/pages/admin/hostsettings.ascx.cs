@@ -51,7 +51,7 @@ namespace yaf.pages.admin {
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Host Settings",Forum.GetLink(Pages.admin_hostsettings));
 
@@ -139,7 +139,7 @@ namespace yaf.pages.admin {
 				UseFileTableX.Checked,
 				MaxFileSize.Text.Trim().Length>0 ? MaxFileSize.Text : null);
 
-			Config.BoardSettings = null;	/// Reload forum settings
+			BoardSettings = null;	/// Reload forum settings
 			Forum.Redirect(Pages.admin_admin);
 		}
 	}

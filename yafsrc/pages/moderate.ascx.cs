@@ -51,7 +51,7 @@ namespace yaf.pages
 			{
 				AddUser.Text = GetText("INVITE");
 
-				PageLinks.AddLink(Config.BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);

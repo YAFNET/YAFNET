@@ -375,5 +375,18 @@ namespace yaf
 		{
 			System.Web.HttpContext.Current.Response.Redirect(GetLink(page,format,args));
 		}
+
+		private int m_boardID = 1;
+		public int BoardID
+		{
+			get
+			{
+				return m_boardID;
+			}
+			set
+			{
+				m_boardID = value;
+			}
+		}
 	}
 }

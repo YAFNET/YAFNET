@@ -22,7 +22,7 @@ begin
 	CREATE TABLE [yaf_Board] (
 		[BoardID]		[int]			NOT NULL IDENTITY(1,1),
 		[Name]			[nvarchar](50)	NOT NULL,
-		[AllowThreaded]	[bit]			NOT NULL
+		[AllowThreaded]	[bit]			NOT NULL,
 	)
 	EXEC('insert into yaf_Board(Name,AllowThreaded) select Name,0 from yaf_System')
 end

@@ -84,21 +84,21 @@ namespace yaf
 			return file;
 		}
 
-		static public void SendMail(string from,string to,string subject,string body) 
+		static public void SendMail(pages.ForumPage basePage,string from,string to,string subject,string body) 
 		{
 			// http://sourceforge.net/projects/opensmtp-net/
 			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
 
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.BoardSettings.SmtpServer,25);
-			if(Config.BoardSettings.SmtpUserName!=null && Config.BoardSettings.SmtpUserPass!=null) 
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(basePage.BoardSettings.SmtpServer,25);
+			if(basePage.BoardSettings.SmtpUserName!=null && basePage.BoardSettings.SmtpUserPass!=null) 
 			{
-				smtp.Username = Config.BoardSettings.SmtpUserName;
-				smtp.Password = Config.BoardSettings.SmtpUserPass;
+				smtp.Username = basePage.BoardSettings.SmtpUserName;
+				smtp.Password = basePage.BoardSettings.SmtpUserPass;
 			}
 			smtp.SendMail(from,to,subject,body);
 		}
 
-		static public void SendMail(string from,string fromName,string to,string toName,string subject,string body) 
+		static public void SendMail(pages.ForumPage basePage,string from,string fromName,string to,string toName,string subject,string body) 
 		{
 			// http://sourceforge.net/projects/opensmtp-net/
 			OpenSmtp.Mail.EmailAddress smtpFrom = new OpenSmtp.Mail.EmailAddress(from, fromName);
@@ -110,11 +110,11 @@ namespace yaf
 			msg.Subject = subject;
 			msg.Body = body;
  
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.BoardSettings.SmtpServer,25);
-			if(Config.BoardSettings.SmtpUserName!=null && Config.BoardSettings.SmtpUserPass!=null) 
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(basePage.BoardSettings.SmtpServer,25);
+			if(basePage.BoardSettings.SmtpUserName!=null && basePage.BoardSettings.SmtpUserPass!=null) 
 			{
-				smtp.Username = Config.BoardSettings.SmtpUserName;
-				smtp.Password = Config.BoardSettings.SmtpUserPass;
+				smtp.Username = basePage.BoardSettings.SmtpUserName;
+				smtp.Password = basePage.BoardSettings.SmtpUserPass;
 			}
 			smtp.SendMail(msg);
 		}
@@ -242,14 +242,14 @@ namespace yaf
 				foreach(DataRow row in dt.Rows) 
 				{
 					// Send track mails
-					string subject = String.Format("Topic Subscription New Post Notification (From {0})",Config.BoardSettings.Name);
+					string subject = String.Format("Topic Subscription New Post Notification (From {0})",basePage.BoardSettings.Name);
 
 					string body = Utils.ReadTemplate("topicpost.txt");
-					body = body.Replace("{forumname}",Config.BoardSettings.Name);
+					body = body.Replace("{forumname}",basePage.BoardSettings.Name);
 					body = body.Replace("{topic}",row["Topic"].ToString());
 					body = body.Replace("{link}",String.Format("{0}{1}",basePage.ServerURL,Forum.GetLink(Pages.posts,"m={0}#{0}",messageID)));
 
-					DB.mail_createwatch(row["TopicID"],Config.BoardSettings.ForumEmail,subject,body,row["UserID"]);
+					DB.mail_createwatch(row["TopicID"],basePage.BoardSettings.ForumEmail,subject,body,row["UserID"]);
 				}
 			}
 		}
