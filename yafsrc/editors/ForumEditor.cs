@@ -403,6 +403,10 @@ namespace yaf.editor
 				Load += new EventHandler(Editor_Load);
 				PropertyInfo pInfo = typEditor.GetProperty("ID");
 				pInfo.SetValue(objEditor,"edit",null);
+				pInfo = typEditor.GetProperty("AutoGenerateToolbarsFromString");
+				pInfo.SetValue(objEditor,true,null);
+				pInfo = typEditor.GetProperty("ToolbarLayout");
+				pInfo.SetValue(objEditor,"FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent",null);
 				Controls.Add(objEditor);
 			}
 			base.OnInit(e);
@@ -419,54 +423,8 @@ namespace yaf.editor
 				pInfo.SetValue(objEditor,Unit.Percentage(100),null);
 				pInfo = typEditor.GetProperty("DesignModeCss");
 				pInfo.SetValue(objEditor,StyleSheet,null);
-
-				// toolbars
-/*
-				Type typeToolbar = GetInterfaceInAssembly(cBin,"FreeTextBoxControls.Toolbar");
-				if (typeToolbar != null)
-				{
-					object toolbar1 = Activator.CreateInstance(typeToolbar);
-					if (toolbar1 != null)
-					{
-						MethodInfo pMethod = typeToolbar.GetMethod("Clear");
-						pMethod.Invoke(toolbar1,null);
-					}
-				}
-
-				Toolbars.Clear();
- 			
-				Toolbar toolbar1 = new Toolbar();
-				toolbar1.Items.Add(new ParagraphMenu());
-				toolbar1.Items.Add(new FontSizesMenu());
-				toolbar1.Items.Add(new FontForeColorsMenu());
-				this.Toolbars.Add(toolbar1);
-
-				Toolbar toolbar2 = new Toolbar();
-				toolbar2.Items.Add(new Bold());
-				toolbar2.Items.Add(new Italic());
-				toolbar2.Items.Add(new Underline());
-				toolbar2.Items.Add(new ToolbarSeparator());
-				toolbar2.Items.Add(new Cut());
-				toolbar2.Items.Add(new Copy());
-				toolbar2.Items.Add(new Paste());
-				toolbar2.Items.Add(new Delete());
-				toolbar2.Items.Add(new ToolbarSeparator());
-				toolbar2.Items.Add(new JustifyLeft());
-				toolbar2.Items.Add(new JustifyCenter());
-				toolbar2.Items.Add(new JustifyRight());
-				toolbar2.Items.Add(new JustifyFull());
-				toolbar2.Items.Add(new ToolbarSeparator());
-				toolbar2.Items.Add(new BulletedList());
-				toolbar2.Items.Add(new NumberedList());
-				toolbar2.Items.Add(new ToolbarSeparator());
-				toolbar2.Items.Add(new Outdent());
-				toolbar2.Items.Add(new Indent());
-				toolbar2.Items.Add(new ToolbarSeparator());
-				toolbar2.Items.Add(new CreateLink());
-				toolbar2.Items.Add(new Unlink());
-				//toolbar2.Items.Add(new InsertImage());
-				this.Toolbars.Add(toolbar2);
-*/				
+				//pInfo = typEditor.GetProperty("EnableHtmlMode");
+				//pInfo.SetValue(objEditor,false,null);
 
 				Page.RegisterClientScriptBlock("insertsmiley",
 					"<script language='javascript'>\n"+
