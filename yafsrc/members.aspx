@@ -14,10 +14,10 @@
 		<td class=header1 colspan=4><%= GetText("members_title") %></td>
 	</tr>
 	<tr>
-		<td class=header2><asp:linkbutton runat=server id="UserName"/></td>
-		<td class=header2><asp:linkbutton runat=server id="Rank"/></td>
-		<td class=header2><asp:linkbutton runat=server id="Joined"/></td>
-		<td class=header2 align=center><asp:linkbutton runat=server id="Posts"/></td>
+		<td class=header2><img runat="server" id="SortUserName" align="absmiddle"/> <asp:linkbutton runat=server id="UserName"/></td>
+		<td class=header2><img runat="server" id="SortRank" align="absmiddle"/> <asp:linkbutton runat=server id="Rank"/></td>
+		<td class=header2><img runat="server" id="SortJoined" align="absmiddle"/> <asp:linkbutton runat=server id="Joined"/></td>
+		<td class=header2 align=center><img runat="server" id="SortPosts" align="absmiddle"/> <asp:linkbutton runat=server id="Posts"/></td>
 	</tr>
 	
 	<asp:repeater id=MemberList runat=server>

@@ -68,18 +68,18 @@
 		<td class="post"><asp:checkbox runat="server" id="AvatarUpload"/></td>
 	</tr>
 	<tr>
-		<td class=postheader><b>Avatar Width:</b><br/>Maximum width for uploaded avatars.</td>
+		<td class=postheader><b>Avatar Width:</b><br/>Maximum width for avatars.</td>
 		<td class=post><asp:textbox id="AvatarWidth" runat="server"/></td>
 	</tr>
 	<tr>
-		<td class=postheader><b>Avatar Height:</b><br/>Maximum height for uploaded avatars.</td>
+		<td class=postheader><b>Avatar Height:</b><br/>Maximum height for avatars.</td>
 		<td class=post><asp:textbox id="AvatarHeight" runat="server"/></td>
 	</tr>
 	<tr>
 		<td class=postheader><b>Avatar Size:</b><br/>Maximum size for avatars in bytes.</td>
 		<td class=post><asp:textbox id="AvatarSize" runat="server"/></td>
 	</tr>
-	<tr>
+	<!--tr>
 		<td class="header2" colspan="2">Forum Moderator Access</td>
 	</tr>
 	<tr>
@@ -93,7 +93,7 @@
 	<tr>
 		<td class="postheader"><b>...</b><br/>...</td>
 		<td class="post">...</td>
-	</tr>
+	</tr-->
 
 	<tr>
 		<td class=postfooter colspan=2 align=middle>

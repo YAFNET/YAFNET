@@ -16,7 +16,3 @@
 - rich text component (http://www.revjon.com/ftb/).
 - [code] tag where contents are displayed as-is.
 - inserting smilies: http://forum.yetanotherforum.net/posts.aspx?t=155
-
-- Translation:
-	* Mail template in cp_editprofile.aspx
-	

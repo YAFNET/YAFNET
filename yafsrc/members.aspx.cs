@@ -39,6 +39,7 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
+		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -52,6 +53,8 @@ namespace yaf
 				ThisLink.NavigateUrl = Request.RawUrl;
 				ThisLink.Text = GetText("members_title");
 
+				SetSort("Name",true);
+
 				UserName.Text = GetText("members_username");
 				Rank.Text = GetText("members_rank");
 				Joined.Text = GetText("members_joined");
@@ -61,27 +64,40 @@ namespace yaf
 			}
 		}
 
+		private void SetSort(string field,bool asc) 
+		{
+			if(ViewState["SortField"]!=null && (string)ViewState["SortField"] == field) 
+			{
+				ViewState["SortAscending"] = !(bool)ViewState["SortAscending"];
+			}
+			else 
+			{
+				ViewState["SortField"] = field;
+				ViewState["SortAscending"] = asc;
+			}
+		}
+
 		private void UserName_Click(object sender, System.EventArgs e) 
 		{
-			ViewState["SortOrder"] = "Name asc";
+			SetSort("Name",true);
 			BindData();
 		}
 
 		private void Joined_Click(object sender, System.EventArgs e) 
 		{
-			ViewState["SortOrder"] = "Joined asc";
+			SetSort("Joined",true);
 			BindData();
 		}
 
 		private void Posts_Click(object sender, System.EventArgs e) 
 		{
-			ViewState["SortOrder"] = "NumPosts desc";
+			SetSort("NumPosts",false);
 			BindData();
 		}
 
 		private void Rank_Click(object sender, System.EventArgs e) 
 		{
-			ViewState["SortOrder"] = "RankName asc";
+			SetSort("RankName",true);
 			BindData();
 		}
 
@@ -99,8 +115,7 @@ namespace yaf
 
 			PagedDataSource pds = new PagedDataSource();
 			DataView dv = DB.user_list(null,true).DefaultView;
-			if(ViewState["SortOrder"]!=null)
-				dv.Sort = (string)ViewState["SortOrder"];
+			dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAscending"] ? "asc" : "desc");
 			pds.DataSource = dv;
 			pds.AllowPaging = true;
 			pds.CurrentPageIndex = CurrentPage;
@@ -131,6 +146,14 @@ namespace yaf
 				PageLinks2.Visible = false;
 			}
 			DataBind();
+			SortUserName.Visible = (string)ViewState["SortField"] == "Name";
+			SortUserName.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortRank.Visible = (string)ViewState["SortField"] == "RankName";
+			SortRank.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortJoined.Visible = (string)ViewState["SortField"] == "Joined";
+			SortJoined.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
+			SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
+			SortPosts.Src = ThemeFile((bool)ViewState["SortAscending"] ? "sort_up.png" : "sort_down.png");
 		}
 
 		#region Web Form Designer generated code

@@ -1222,6 +1222,14 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\standard\sort_down.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\standard\sort_up.png"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\standard\theme.css"
                     BuildAction = "Content"
                 />
