@@ -4738,12 +4738,18 @@ begin
 	declare @UserID			int
 	declare @UserBoardID	int
 	declare @IsGuest		tinyint
+	declare @rowcount		int
 	
 	set implicit_transactions off
 
 	if @User is null or @User='' 
 	begin
 		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and c.IsGuest=1
+		set @rowcount=@@rowcount
+		if @rowcount<>1
+		begin
+			raiserror('Found %d possible guest users. Only 1 guest user should be a member of the group marked as the guest group.',16,1,@rowcount)
+		end
 		set @IsGuest = 1
 		set @UserBoardID = @BoardID
 	end else
