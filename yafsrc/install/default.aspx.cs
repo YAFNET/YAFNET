@@ -52,6 +52,7 @@ namespace yaf.install
 		protected System.Web.UI.WebControls.Label cursteplabel;
 		protected System.Web.UI.HtmlControls.HtmlTable stepWelcome, stepConfig, stepConnect, stepDatabase, stepForum, stepFinished;
 		protected PlaceHolder ConfigSample;
+		protected HtmlGenericControl dboinfo;
 		// Forum
 		protected System.Web.UI.WebControls.TextBox TheForumName, UserName, Password1, Password2, AdminEmail, ForumEmailAddress, SmptServerAddress;
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
@@ -192,6 +193,7 @@ namespace yaf.install
 			} 
 			else if(CurStep == Step.Connect) 
 			{
+				dboinfo.InnerHtml = string.Format("Your config will use <b>{0}</b> as the database owner. If this is not correct, modify your Web.config file now.",DBO);
 				try 
 				{
 					SqlConnection conn = DB.GetConnection();
@@ -391,6 +393,17 @@ namespace yaf.install
 			}
 		}
 
+		private string DBO
+		{
+			get
+			{
+				string dbo = Config.ConfigSection["dbo"];
+				if(dbo==string.Empty)
+					dbo = "dbo";
+				return dbo;
+			}
+		}
+
 		private void ExecuteScript(string sScriptFile) 
 		{
 			string sScript = null;
@@ -412,9 +425,7 @@ namespace yaf.install
 				SqlConnection conn = DB.GetConnection();
 			using(SqlTransaction trans = conn.BeginTransaction()) 
 			{
-				string dbo = Config.ConfigSection["dbo"];
-				if(dbo==string.Empty)
-					dbo = "dbo";
+				string dbo = DBO;
 
 				foreach(string sql0 in statements) 
 				{
