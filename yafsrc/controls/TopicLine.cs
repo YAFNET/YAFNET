@@ -8,6 +8,7 @@ namespace yaf.controls
 	public class TopicLine : BaseControl
 	{
 		private DataRowView	m_row = null;
+		
 
 		public object DataRow
 		{
@@ -20,17 +21,27 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{	
 			System.Text.StringBuilder html = new System.Text.StringBuilder(2000);
+
 			html.Append("<tr class='post'>");
 			// Icon
 			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);
 			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);
 			// Topic
-			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
+			html.AppendFormat("<td><span class='post_priority'>{0}</span>",GetPriorityMessage(m_row));
 			if(FindUnread)
-				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
+				html.AppendFormat("<a href='{0}' class='post_link'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
 			else
-				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
-			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
+				html.AppendFormat("<a href='{0}' class='post_link'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
+
+			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,ForumPage.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
+			if (tPager != String.Empty)
+			{
+				// more then one page to show
+				html.AppendFormat("<br/><span class='smallfont'>{0}</span>",String.Format(ForumPage.GetText("GOTO_POST_PAGER"),tPager));
+			}
+
+			//html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
+			
 			html.Append("</td>");
 			// Topic Starter
 			html.AppendFormat("<td><a href='{0}'>{1}</a></td>",Forum.GetLink(Pages.profile,"u={0}",m_row["UserID"]),m_row["Starter"]);
@@ -142,21 +153,19 @@ namespace yaf.controls
 		{
 			string strReturn = "";
 
-			// TODO: Topic status needs to be localized
-
 			if (row["TopicMovedID"].ToString().Length > 0)
 			{
-				strReturn = "Moved";
+				strReturn = ForumPage.GetText("MOVED");
 			}
 			else if (row["PollID"].ToString() != "")
 			{
-				strReturn = "Poll";
+				strReturn = ForumPage.GetText("POLL");
 			}
 			else switch(int.Parse(row["Priority"].ToString())) 
-			{
-				case 1: strReturn = "Sticky"; break;
-				case 2: strReturn = "Announcement"; break;
-			}
+					 {
+						 case 1: strReturn = ForumPage.GetText("STICKY"); break;
+						 case 2: strReturn = ForumPage.GetText("ANNOUNCEMENT"); break;
+					 }
 
 			if (strReturn.Length > 0) strReturn = String.Format("[ {0} ] ",strReturn);
 
@@ -201,6 +210,58 @@ namespace yaf.controls
 			} 
 
 			return strReturn;			
+		}
+
+		/// <summary>
+		/// Create pager for post.
+		/// </summary>
+		/// 
+		protected string CreatePostPager(int Count,int PageSize,int TopicID)
+		{
+			string strReturn = "";
+
+			int NumToDisplay = 4;
+			int PageCount = (int)Math.Ceiling((double)Count/PageSize);
+
+			if (PageCount > 1)
+			{
+				if (PageCount > NumToDisplay)
+				{
+					strReturn += MakeLink("1",Forum.GetLink(Pages.posts,"t={0}",TopicID));
+					strReturn += " ... ";
+					bool bFirst = true;
+
+					// show links from the end
+					for (int i=(PageCount-(NumToDisplay-1));i<PageCount;i++)
+					{
+						int iPost = i+1;
+
+						if (bFirst) bFirst = false;
+						else strReturn += ", ";
+
+						strReturn += MakeLink(iPost.ToString(),Forum.GetLink(Pages.posts,"t={0}&p={1}",TopicID,iPost));
+					}
+				}
+				else
+				{
+					bool bFirst = true;
+					for (int i=0;i<PageCount;i++)
+					{
+						int iPost = i+1;
+
+						if (bFirst) bFirst = false;
+						else strReturn += ", ";
+						
+            strReturn += MakeLink(iPost.ToString(),Forum.GetLink(Pages.posts,"t={0}&p={1}",TopicID,iPost));
+					}
+				}
+			}
+			return strReturn;
+		}
+
+		private string MakeLink(string Text,string Link)
+		{
+			return String.Format("<a href=\"{0}\">{1}</a>",Link,Text); 
 		}
 
 		public bool FindUnread
