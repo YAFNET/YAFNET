@@ -112,7 +112,7 @@
                 <File
                     RelPath = "DotNetNukeModule.ascx.cs"
                     DependentUpon = "DotNetNukeModule.ascx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -129,6 +129,14 @@
                     RelPath = "DotNetNukeUser.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Install.txt"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web.config.dotnetnuke"
+                    BuildAction = "Content"
                 />
             </Include>
         </Files>
