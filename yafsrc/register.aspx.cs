@@ -21,7 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -104,72 +103,13 @@ namespace yaf
 			bool EmailVerification = (bool)pageinfo["EmailVerification"];
 			if(IsValid) 
 			{
-				string hashinput = DateTime.Now.ToString() + Email.Text + CreatePassword(20);
-				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
-
-				using(SqlConnection conn = DataManager.GetConnection()) 
+				if(DB.user_find(UserName.Text,Email.Text)) 
 				{
-					using(SqlTransaction trans = conn.BeginTransaction()) 
-					{
-						try 
-						{
-							using(SqlCommand cmd = new SqlCommand("yaf_user_find",conn)) 
-							{
-								cmd.Transaction = trans;
-								cmd.CommandType = CommandType.StoredProcedure;
-								cmd.Parameters.Add("@UserName",UserName.Text);
-								cmd.Parameters.Add("@Email",Email.Text);
-								DataTable dtUser = DataManager.GetData(cmd);
-								if(dtUser.Rows.Count>0) 
-								{
-									AddLoadMessage("Your username or email is already registered.");
-									return;
-								}
-							}
-							using(SqlCommand cmd = new SqlCommand("yaf_user_save",conn)) 
-							{
-								cmd.Transaction = trans;
-								cmd.Connection = conn;
-								cmd.CommandType = CommandType.StoredProcedure;
-								int UserID = 0;
-								cmd.Parameters.Add("@UserID",UserID);
-								cmd.Parameters.Add("@UserName",UserName.Text);
-								cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5"));
-								cmd.Parameters.Add("@Email",Email.Text);
-								cmd.Parameters.Add("@Hash",hash);
-								cmd.Parameters.Add("@Location",Location.Text);
-								cmd.Parameters.Add("@HomePage",HomePage.Text);
-								cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
-								cmd.Parameters.Add("@Approved",!EmailVerification);
-								cmd.ExecuteNonQuery();
-							}
-
-							if(EmailVerification) 
-							{
-								//  Build a MailMessage
-								string body = ReadTemplate("verifyemail.txt");
-								body = body.Replace("{link}",String.Format("http://{2}{1}approve.aspx?k={0}",hash,BaseDir,Request.ServerVariables["SERVER_NAME"]));
-								body = body.Replace("{key}",hash);
-								body = body.Replace("{forumname}",ForumName);
-								body = body.Replace("{forumlink}",String.Format("http://{0}{1}",Request.ServerVariables["SERVER_NAME"],BaseDir));
-
-								SendMail(ForumEmail,Email.Text,String.Format("{0} email verification",ForumName),body);
-								AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");
-								trans.Commit();
-							} 
-							else 
-							{
-								trans.Commit();
-								FormsAuthentication.RedirectFromLoginPage(UserName.Text, false);
-							}
-						}
-						catch(Exception x) 
-						{
-							trans.Rollback();
-							AddLoadMessage(x.Message);
-						}
-					}
+					AddLoadMessage("Your username or email is already registered.");
+					return;
 				}
+
+				DB.user_register(this,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,EmailVerification);
 			}
 		}
 	}

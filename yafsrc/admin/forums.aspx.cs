@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -64,15 +62,8 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			DataSet ds = new DataSet();
-			SqlDataAdapter da = new SqlDataAdapter("yaf_category_list",DataManager.GetConnection());
-			da.SelectCommand.CommandType = CommandType.StoredProcedure;
-			da.Fill(ds,"yaf_Category");
-			da.SelectCommand.CommandText = "yaf_forum_list";
-			da.Fill(ds,"yaf_Forum");
-			ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
-
-			CategoryList.DataSource = ds.Tables["yaf_Category"];
+			using(DataSet ds = DB.ds_forumadmin())
+				CategoryList.DataSource = ds.Tables["yaf_Category"];
 			DataBind();
 		}
 
@@ -108,12 +99,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("editforum.aspx?f={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_forum_delete")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@ForumID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.forum_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
@@ -132,11 +118,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("editcategory.aspx?c={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_category_delete")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@CategoryID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.category_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

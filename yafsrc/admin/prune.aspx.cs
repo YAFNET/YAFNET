@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -52,25 +50,16 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				forumlist.DataValueField = "ForumID";
-				forumlist.DataTextField = "Forum";
-				forumlist.DataSource = DataManager.GetData(cmd);
-			}
+			forumlist.DataSource = DB.forum_listread(PageUserID,null);
+			forumlist.DataValueField = "ForumID";
+			forumlist.DataTextField = "Forum";
 			DataBind();
 			forumlist.Items.Insert(0,new ListItem("All Forums","0"));
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_prune")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@ForumID",forumlist.SelectedItem.Value);
-				cmd.Parameters.Add("@Days",int.Parse(days.Text));
-				int Count = (int)DataManager.ExecuteScalar(cmd);
-				AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
-			}
+			int Count = DB.topic_prune(forumlist.SelectedValue,days.Text);
+			AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 
 		#region Web Form Designer generated code

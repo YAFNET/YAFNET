@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -49,13 +47,8 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 			}
 
-			if(Request.QueryString["k"] != null) {
-				using(SqlCommand cmd = new SqlCommand("yaf_checkemail_update")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@Hash",Request.QueryString["k"]);
-					approved.Visible = (bool)DataManager.ExecuteScalar(cmd);
-				}
-			}
+			if(Request.QueryString["k"] != null)
+				approved.Visible = DB.checkemail_update(Request.QueryString["k"]);
 
 			error.Visible = !approved.Visible;
 		}

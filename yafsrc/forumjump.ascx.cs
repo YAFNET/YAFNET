@@ -21,8 +21,6 @@ namespace yaf
 {
 	using System;
 	using System.Data;
-	using System.Data.SqlClient;
-	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
@@ -42,12 +40,8 @@ namespace yaf
 				if(Cache[cachename] != null) {
 					dt = (DataTable)Cache[cachename];
 				} else {
-					using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@UserID",((BasePage)Page).PageUserID);
-						dt = DataManager.GetData(cmd);
-						Cache[cachename] = dt;
-					}
+					dt = DB.forum_listread(((BasePage)Page).PageUserID,null);
+					Cache[cachename] = dt;
 				}
 
 				int nOldCat = 0;

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -79,7 +77,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DataManager.GetData("yaf_rank_list",CommandType.StoredProcedure);
+			RankList.DataSource = DB.rank_list(null);
 			DataBind();
 		}
 
@@ -91,12 +89,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("editrank.aspx?r={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_rank_delete")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@RankID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.rank_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

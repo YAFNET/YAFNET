@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
@@ -65,22 +63,12 @@ namespace yaf
 		private void BindData() {
 			DataRow row;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				Groups.DataSource = DataManager.GetData(cmd);
-			}
+			Groups.DataSource = DB.usergroup_list(PageUserID);
 
 			// Bind			
 			DataBind();
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",pageinfo["UserID"]);
-				cmd.Parameters.Add("@Approved",true);
-				using(DataTable dt = DataManager.GetData(cmd)) {
-					row = dt.Rows[0];
-				}
+			using(DataTable dt = DB.user_list(pageinfo["UserID"],true)) {
+				row = dt.Rows[0];
 			}
 
 			TitleUserName.Text = (string)row["Name"];

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -49,7 +47,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			ToList.DataSource = DataManager.GetData("yaf_group_list",CommandType.StoredProcedure);
+			ToList.DataSource = DB.group_list(null);
 			DataBind();
 
 			ListItem item = new ListItem("All Users","0");
@@ -79,17 +77,15 @@ namespace yaf.admin
 		#endregion
 
 		private void Send_Click(object sender, System.EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_user_emails")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				if(ToList.SelectedItem.Value!="0")
-					cmd.Parameters.Add("@GroupID",ToList.SelectedItem.Value);
+			object GroupID = null;
+			if(ToList.SelectedItem.Value!="0")
+				GroupID = ToList.SelectedValue;
 
-				using(DataTable dt = DataManager.GetData(cmd)) {
-					for(int i=0;i<dt.Rows.Count;i++) {
-						//  Build a MailMessage
-						SendMail(ForumEmail,(string)dt.Rows[i]["Email"],Subject.Text,Body.Text);
-					}
-				}
+			using(DataTable dt = DB.user_emails(GroupID)) 
+			{
+				foreach(DataRow row in dt.Rows)
+					//  Build a MailMessage
+					SendMail(ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
 			}
 			Subject.Text = "";
 			Body.Text = "";

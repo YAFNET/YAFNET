@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -72,13 +70,8 @@ namespace yaf
 			TimeZones.DataSource = Data.TimeZones();
 			DataBind();
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",pageinfo["UserID"]);
-				cmd.Parameters.Add("@Approved",true);
-				using(DataTable dt = DataManager.GetData(cmd)) {
-					row = dt.Rows[0];
-				}
+			using(DataTable dt = DB.user_list(pageinfo["UserID"],true)) {
+				row = dt.Rows[0];
 			}
 
 			Location.Text = row["Location"].ToString();
@@ -102,17 +95,10 @@ namespace yaf
 				msg.AppendFormat("Your approval key is: {0}\r\n\r\n",hash);
 				msg.AppendFormat("Visit {0} at http://{1}{2}",ForumName,Request.ServerVariables["SERVER_NAME"],BaseDir);
 
-				using(SqlCommand cmd = new SqlCommand("yaf_checkemail_save")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",PageUserID);
-					cmd.Parameters.Add("@Hash",hash);
-					cmd.Parameters.Add("@Email",Email.Text);
-					DataManager.ExecuteNonQuery(cmd);
-		
-					//  Build a MailMessage
-					SendMail(ForumEmail,Email.Text,"Changed email",msg.ToString());
-					AddLoadMessage(String.Format("A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.",Email.Text));
-				}
+				DB.checkemail_save(PageUserID,hash,Email.Text);
+				//  Build a MailMessage
+				SendMail(ForumEmail,Email.Text,"Changed email",msg.ToString());
+				AddLoadMessage(String.Format("A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.",Email.Text));
 			}
 
 			if(OldPassword.Text.Length > 0) {
@@ -128,30 +114,16 @@ namespace yaf
 				string oldpw = FormsAuthentication.HashPasswordForStoringInConfigFile(OldPassword.Text,"md5");
 				string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword1.Text,"md5");
 
-				using(SqlCommand cmd = new SqlCommand("yaf_user_changepassword")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",PageUserID);
-					cmd.Parameters.Add("@OldPassword",oldpw);
-					cmd.Parameters.Add("@NewPassword",newpw);
-					bool Success = (bool)DataManager.ExecuteScalar(cmd);
-					if(!Success) {
-						AddLoadMessage("Old password was wrong.");
-						return;
-					}
+				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) {
+					AddLoadMessage("Old password was wrong.");
 				}
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_save")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",pageinfo["UserID"]);
-				cmd.Parameters.Add("@Location",Location.Text);
-				cmd.Parameters.Add("@HomePage",HomePage.Text);
-				cmd.Parameters.Add("@TimeZone",int.Parse(TimeZones.SelectedItem.Value));
-				cmd.Parameters.Add("@Avatar",Avatar.Text);
-				if(!(bool)pageinfo["EmailVerification"])
-					cmd.Parameters.Add("@Email",Email.Text);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			object email = null;
+			if(!(bool)pageinfo["EmailVerification"])
+				email = Email.Text;
+
+			DB.user_save(pageinfo["UserID"],null,null,email,null,Location.Text,HomePage.Text,TimeZones.SelectedValue,Avatar.Text,null);
 			Response.Redirect("cp_profile.aspx");
 		}
 

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -53,8 +51,6 @@ namespace yaf
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				DataSet ds = new DataSet();
-
 				TimeNow.Text = String.Format(CustomCulture,"Current time: {0}.",FormatTime(DateTime.Now));
 				TimeLastVisit.Text = String.Format(CustomCulture,"Your last visit: {0}.",FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
 
@@ -71,29 +67,15 @@ namespace yaf
 					NavLinks.Visible = false;
 				}
 
-				SqlDataAdapter da = new SqlDataAdapter("yaf_forum_moderators",yaf.DataManager.GetConnection());
-				da.SelectCommand.CommandType = CommandType.StoredProcedure;
-				da.Fill(ds,"Moderators");
-				da.SelectCommand.Parameters.Add("@UserID",PageUserID);
-				if(PageCategoryID!=0)
-					da.SelectCommand.Parameters.Add("@CategoryID",PageCategoryID);
-				da.SelectCommand.CommandText = "yaf_category_listread";
-				da.Fill(ds,"yaf_Category");
-				da.SelectCommand.CommandText = "yaf_forum_listread";
-				da.Fill(ds,"yaf_Forum");
-
+				DataSet ds = DB.ds_forumlayout(PageUserID,PageCategoryID);
 				CategoryList.DataSource = ds.Tables["yaf_Category"];
 
-				ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
-				ds.Relations.Add("rel2",ds.Tables["yaf_Forum"].Columns["ForumID"],ds.Tables["Moderators"].Columns["ForumID"],false);
-
 				// Active users
-				// Call this before yaf_forum_stats to clean up active users
-				ActiveList.DataSource = DataManager.GetData("yaf_active_list",CommandType.StoredProcedure);
+				// Call this before forum_stats to clean up active users
+				ActiveList.DataSource = DB.active_list(null);
 
 				// Forum statistics
-				DataTable dtStats = yaf.DataManager.GetData("yaf_forum_stats",CommandType.StoredProcedure);
-				DataRow stats = dtStats.Rows[0];
+				DataRow stats = DB.stats();
 				
 				Stats.Text = String.Format(CustomCulture,"There are {0:N0} posts in {1:N0} topics in {2:N0} forums.<br/>",stats["posts"],stats["topics"],stats["forums"]);
 				
@@ -172,7 +154,7 @@ namespace yaf
 		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "forum":
-					if(Data.ForumReadAccess(PageUserID,e.CommandArgument))
+					if(DB.user_access(PageUserID,e.CommandArgument))
 						Response.Redirect(String.Format("topics.aspx?f={0}",e.CommandArgument));
 
 					AddLoadMessage("You can't access that forum.");

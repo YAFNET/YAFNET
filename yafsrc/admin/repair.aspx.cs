@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -67,10 +65,7 @@ namespace yaf.admin
 		#endregion
 
 		private void RepairAccess_Click(object sender, System.EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_repair")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.forumaccess_repair();
 			AddLoadMessage("User rights should be repaired.");
 		}
 	}

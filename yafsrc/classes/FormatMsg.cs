@@ -19,7 +19,6 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace yaf
 {
@@ -37,7 +36,7 @@ namespace yaf
 
 		public string FormatMessage(BasePage page,string Message) {
 			if(dtSmileys == null)
-				dtSmileys = DataManager.GetData("yaf_smiley_list",CommandType.StoredProcedure);
+				dtSmileys = DB.smiley_list(null);
 
 			string tmp = "";
 			for(int i=0;i<Message.Length;i++) {

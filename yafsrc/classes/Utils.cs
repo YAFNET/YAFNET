@@ -19,24 +19,23 @@
 
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 
 namespace yaf
 {
 	public class User 
 	{
-		static public long ValidateUser(string username,string email) 
+		/// <summary>
+		/// Can be called by other applications to validate a user. 
+		/// </summary>
+		/// <param name="username">The name of the user (can be the same as email).</param>
+		/// <param name="email">The user's email address.</param>
+		/// <returns>The UserID of the user, or 0 if validation failed.</returns>
+		static public int ValidateUser(string username,string email) 
 		{
 			try 
 			{
-				using(SqlCommand cmd = new SqlCommand("yaf_user_extvalidate")) 
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@Name",username);
-					cmd.Parameters.Add("@Email",email);
-					return (long)DataManager.ExecuteScalar(cmd);
-				}
+				return DB.user_extvalidate(username,email);
 			}
 			catch(Exception) 
 			{

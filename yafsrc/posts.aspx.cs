@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -74,8 +72,9 @@ namespace yaf
 			//if(Request.QueryString["t"] == null)
 			//	Response.Redirect(BaseDir);
 
-			forum = Data.ForumInfo(PageForumID);
-			topic = Data.TopicInfo(PageTopicID);
+			using(DataTable dt = DB.forum_list(PageForumID))
+				forum = dt.Rows[0];
+			topic = DB.topic_info(PageTopicID);
 
 			if(!ForumReadAccess)
 				Response.Redirect(BaseDir);
@@ -172,20 +171,17 @@ namespace yaf
 
 		private void BindData() 
 		{
-			forum = Data.ForumInfo(PageForumID);
-			topic = Data.TopicInfo(PageTopicID);
+			using(DataTable dt = DB.forum_list(PageForumID))
+				forum = dt.Rows[0];
+
+			topic = DB.topic_info(PageTopicID);
 			if(topic==null)
 				Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 
-			using(SqlCommand cmd = new SqlCommand("yaf_post_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				cmd.Parameters.Add("@UserID",PageUserID);
 				PagedDataSource pds = new PagedDataSource();
 				pds.AllowPaging = true;
 				pds.PageSize = 20;
-				using(DataTable dt = yaf.DataManager.GetData(cmd)) 
+				using(DataTable dt = DB.post_list(PageTopicID,PageUserID,1)) 
 				{
 					pds.DataSource = dt.DefaultView;
 					if(Request.QueryString["m"] != null) 
@@ -203,37 +199,39 @@ namespace yaf
 					}
 				}
 
-				if(Request.QueryString["p"] != null)
-					pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
+					if(Request.QueryString["p"] != null)
+						pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
 
-				if(pds.CurrentPageIndex>=pds.PageCount) pds.CurrentPageIndex = pds.PageCount - 1;
+					if(pds.CurrentPageIndex>=pds.PageCount) pds.CurrentPageIndex = pds.PageCount - 1;
 				
-				MessageList.DataSource = pds;
+					MessageList.DataSource = pds;
 
-				if(pds.PageCount>1) {
-					PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-					for(int i=0;i<pds.PageCount;i++) {
-						if(i==pds.CurrentPageIndex) {
-							PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-						} else {
-							PageLinks1.InnerHtml += String.Format(" <a href=\"posts.aspx?t={2}&p={1}\">{0}</a>",i+1,i,PageTopicID);
-						}
+			if(pds.PageCount>1) 
+			{
+				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
+				for(int i=0;i<pds.PageCount;i++) 
+				{
+					if(i==pds.CurrentPageIndex) 
+					{
+						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
+					} 
+					else 
+					{
+						PageLinks1.InnerHtml += String.Format(" <a href=\"posts.aspx?t={2}&p={1}\">{0}</a>",i+1,i,PageTopicID);
 					}
-					PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-				} else {
-					PageLinks1.Visible = false;
-					PageLinks2.Visible = false;
 				}
+				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
+			} 
+			else 
+			{
+				PageLinks1.Visible = false;
+				PageLinks2.Visible = false;
 			}
 
 			if(topic["PollID"].ToString() != "") {
 				Poll.Visible = true;
-				using(SqlCommand cmd = new SqlCommand("yaf_poll_stats")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@PollID",topic["PollID"]);
-					dtPoll = DataManager.GetData(cmd);
-					Poll.DataSource = dtPoll;
-				}
+				dtPoll = DB.poll_stats(topic["PollID"]);
+				Poll.DataSource = dtPoll;
 			}
 			
 			if(!IsAdmin) {
@@ -262,24 +260,20 @@ namespace yaf
 				return;
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_delete")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.topic_delete(PageTopicID);
 			Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 		}
 
 		private void LockTopic_Click(object sender, System.EventArgs e)
 		{
-			Data.LockTopic(PageTopicID,true);
+			DB.topic_lock(PageTopicID,true);
 			BindData();
 			AddLoadMessage("Topic was locked.");
 		}
 
 		private void UnlockTopic_Click(object sender, System.EventArgs e)
 		{
-			Data.LockTopic(PageTopicID,false);
+			DB.topic_lock(PageTopicID,false);
 			BindData();
 			AddLoadMessage("Topic was unlocked.");
 		}
@@ -324,10 +318,7 @@ namespace yaf
 
 					// Check that non-moderators only delete messages they have written
 					if(!ForumModeratorAccess) {
-						using(SqlCommand cmd = new SqlCommand("yaf_message_list")) {
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@MessageID",e.CommandArgument);
-							DataTable dt = DataManager.GetData(cmd);
+						using(DataTable dt = DB.message_list(e.CommandArgument)) {
 							if((int)dt.Rows[0]["UserID"] != PageUserID) {
 								AddLoadMessage("You didn't post this message.");
 								return;
@@ -335,11 +326,7 @@ namespace yaf
 						}
 					}
 
-					using(SqlCommand cmd = new SqlCommand("yaf_message_delete")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@MessageID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.message_delete(e.CommandArgument);
 					BindData();
 					AddLoadMessage("Message was deleted.");
 					break;
@@ -361,10 +348,7 @@ namespace yaf
 
 					// Check that non-moderators only edit messages they have written
 					if(!ForumModeratorAccess) {
-						using(SqlCommand cmd = new SqlCommand("yaf_message_list")) {
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@MessageID",e.CommandArgument);
-							DataTable dt = DataManager.GetData(cmd);
+						using(DataTable dt = DB.message_list(e.CommandArgument)) {
 							if((int)dt.Rows[0]["UserID"] != PageUserID) {
 								AddLoadMessage("You didn't post this message.");
 								return;
@@ -411,11 +395,7 @@ namespace yaf
 					return;
 				}
 
-				using(SqlCommand cmd = new SqlCommand("yaf_choice_vote")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@ChoiceID",e.CommandArgument);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.choice_vote(e.CommandArgument);
 				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
 				c.Expires = DateTime.Now + TimeSpan.FromDays(365);
 				Response.Cookies.Add(c);
@@ -489,12 +469,7 @@ namespace yaf
 				return;
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_watchtopic_add")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@User",User.Identity.Name);
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.watchtopic_add(PageUserID,PageTopicID);
 			AddLoadMessage("You will now be notified when new posts arrive in this topic.");
 		}
 		
@@ -508,10 +483,7 @@ namespace yaf
 		}
 
 		private void PrevTopic_Click(object sender, System.EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_findprev")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				DataTable dt = DataManager.GetData(cmd);
+			using(DataTable dt = DB.topic_findprev(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage("No more topics in this forum.");
 					return;
@@ -521,10 +493,7 @@ namespace yaf
 		}
 
 		private void NextTopic_Click(object sender, System.EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_findnext")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				DataTable dt = DataManager.GetData(cmd);
+			using(DataTable dt = DB.topic_findnext(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage("No more topics in this forum.");
 					return;
@@ -552,15 +521,11 @@ namespace yaf
 				string sUpDir = System.Configuration.ConfigurationSettings.AppSettings["uploaddir"];
 
 				html += "<p><b>Attachments:</b><br/>";
-				using(SqlCommand cmd = new SqlCommand("yaf_attachment_list")) 
+				using(DataTable dt = DB.attachment_list(row["MessageID"])) 
 				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@MessageID",row["MessageID"]);
-					using(DataTable dt = DataManager.GetData(cmd)) 
+					foreach(DataRow dr in dt.Rows) 
 					{
-						foreach(DataRow dr in dt.Rows) {
-							html += String.Format("<a href=\"{0}{1}\">{1}</a><br/>",sUpDir,dr["FileName"]);
-						}
+						html += String.Format("<a href=\"{0}{1}\">{1}</a><br/>",sUpDir,dr["FileName"]);
 					}
 				}
 				html += "</p>";

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -58,12 +56,7 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
-				using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",PageUserID);
-					ForumList.DataSource = DataManager.GetData(cmd);
-				}
-
+				ForumList.DataSource = DB.forum_listread(PageUserID,null);
 				DataBind();
 				ForumList.Items.FindByValue(PageForumID.ToString()).Selected = true;
 			}
@@ -92,14 +85,7 @@ namespace yaf
 		#endregion
 
 		private void Move_Click(object sender, System.EventArgs e) {
-			bool ShowMoved = (bool)pageinfo["ShowMoved"];
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_move")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@TopicID",PageTopicID);
-				cmd.Parameters.Add("@ForumID",ForumList.SelectedItem.Value);
-				cmd.Parameters.Add("@ShowMoved",ShowMoved);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.topic_move(PageTopicID,ForumList.SelectedValue,pageinfo["ShowMoved"]);
 			Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 		}
 	}

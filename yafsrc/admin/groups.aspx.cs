@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -79,7 +77,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			GroupList.DataSource = DataManager.GetData("yaf_group_list",CommandType.StoredProcedure);
+			GroupList.DataSource = DB.group_list(null);
 			DataBind();
 		}
 
@@ -91,12 +89,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("editgroup.aspx?g={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_group_delete")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@GroupID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.group_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

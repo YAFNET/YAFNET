@@ -32,8 +32,6 @@
 	</asp:repeater>
 </table>
 
-<asp:label id=SortOrder runat=server visible=false/>
-<asp:label id=PageNo runat=server visible=false/>
 <asp:linkbutton id=GoPage runat=server visible=false/>
 
 <table class=command><tr><td class=navlinks id=PageLinks2 runat=server></td></tr></table>

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -53,16 +51,13 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["g"] != null) 
 				{
-					using(SqlCommand cmd = new SqlCommand("yaf_group_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@GroupID",Request.QueryString["g"]);
-						using(DataTable dt = DataManager.GetData(cmd)) {
-							DataRow row = dt.Rows[0];
-							Name.Text = (string)row["Name"];
-							IsAdminX.Checked = (bool)row["IsAdmin"];
-							IsGuestGroup.Checked = (bool)row["IsGuest"];
-							IsStart.Checked = (bool)row["IsStart"];
-						}
+					using(DataTable dt = DB.group_list(Request.QueryString["g"])) 
+					{
+						DataRow row = dt.Rows[0];
+						Name.Text = (string)row["Name"];
+						IsAdminX.Checked = (bool)row["IsAdmin"];
+						IsGuestGroup.Checked = (bool)row["IsGuest"];
+						IsStart.Checked = (bool)row["IsStart"];
 					}
 				}
 			}
@@ -118,13 +113,8 @@ namespace yaf.admin
 			}
 
 			if(Request.QueryString["g"] != null) 
-			{
-				using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_group")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@GroupID",Request.QueryString["g"]);
-					AccessList.DataSource = DataManager.GetData(cmd);
-				}
-			}
+				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["g"]);
+
 			DataBind();
 		}
 
@@ -136,18 +126,10 @@ namespace yaf.admin
 		private void Save_Click(object sender, System.EventArgs e)
 		{
 			// Group
-			int GroupID = 0;
-			if(Request.QueryString["g"] != null) GroupID = int.Parse(Request.QueryString["g"]);
+			long GroupID = 0;
+			if(Request.QueryString["g"] != null) GroupID = long.Parse(Request.QueryString["g"]);
 				
-			SqlCommand cmd = new SqlCommand("yaf_group_save");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@GroupID",GroupID);
-			cmd.Parameters.Add("@Name",Name.Text);
-			cmd.Parameters.Add("@IsAdmin",IsAdminX.Checked);
-			cmd.Parameters.Add("@IsGuest",IsGuestGroup.Checked);
-			cmd.Parameters.Add("@IsStart",IsStart.Checked);
-				
-			GroupID = int.Parse(DataManager.ExecuteScalar(cmd).ToString());
+			GroupID = DB.group_save(GroupID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked);
 
 			// Access
 			if(Request.QueryString["g"] != null) 
@@ -156,22 +138,18 @@ namespace yaf.admin
 				{
 					RepeaterItem item = AccessList.Items[i];
 					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-					using(SqlCommand cmd2 = new SqlCommand("yaf_forumaccess_save")) {
-						cmd2.CommandType = CommandType.StoredProcedure;
-						cmd2.Parameters.Add("@ForumID",ForumID);
-						cmd2.Parameters.Add("@GroupID",GroupID);
-						cmd2.Parameters.Add("@ReadAccess",((CheckBox)item.FindControl("ReadAccess")).Checked);
-						cmd2.Parameters.Add("@PostAccess",((CheckBox)item.FindControl("PostAccess")).Checked);
-						cmd2.Parameters.Add("@ReplyAccess",((CheckBox)item.FindControl("ReplyAccess")).Checked);
-						cmd2.Parameters.Add("@PriorityAccess",((CheckBox)item.FindControl("PriorityAccess")).Checked);
-						cmd2.Parameters.Add("@PollAccess",((CheckBox)item.FindControl("PollAccess")).Checked);
-						cmd2.Parameters.Add("@VoteAccess",((CheckBox)item.FindControl("VoteAccess")).Checked);
-						cmd2.Parameters.Add("@ModeratorAccess",((CheckBox)item.FindControl("ModeratorAccess")).Checked);
-						cmd2.Parameters.Add("@EditAccess",((CheckBox)item.FindControl("EditAccess")).Checked);
-						cmd2.Parameters.Add("@DeleteAccess",((CheckBox)item.FindControl("DeleteAccess")).Checked);
-						cmd2.Parameters.Add("@UploadAccess",((CheckBox)item.FindControl("UploadAccess")).Checked);
-						DataManager.ExecuteNonQuery(cmd2);
-					}
+					DB.forumaccess_save(ForumID,GroupID,
+						((CheckBox)item.FindControl("ReadAccess")).Checked,
+						((CheckBox)item.FindControl("PostAccess")).Checked,
+						((CheckBox)item.FindControl("ReplyAccess")).Checked,
+						((CheckBox)item.FindControl("PriorityAccess")).Checked,
+						((CheckBox)item.FindControl("PollAccess")).Checked,
+						((CheckBox)item.FindControl("VoteAccess")).Checked,
+						((CheckBox)item.FindControl("ModeratorAccess")).Checked,
+						((CheckBox)item.FindControl("EditAccess")).Checked,
+						((CheckBox)item.FindControl("DeleteAccess")).Checked,
+						((CheckBox)item.FindControl("UploadAccess")).Checked
+					);
 				}
 				Response.Redirect("groups.aspx");
 			}

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -59,16 +57,8 @@ namespace yaf
 		}
 
 		private void BindData() {
-			using(SqlCommand cmd = new SqlCommand("yaf_watchforum_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				ForumList.DataSource = DataManager.GetData(cmd);
-			}
-			using(SqlCommand cmd = new SqlCommand("yaf_watchtopic_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				TopicList.DataSource = DataManager.GetData(cmd);
-			}
+			ForumList.DataSource = DB.watchforum_list(PageUserID);
+			TopicList.DataSource = DB.watchtopic_list(PageUserID);
 			DataBind();
 		}
 
@@ -110,11 +100,7 @@ namespace yaf
 				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
 				Label lbl = (Label)TopicList.Items[i].FindControl("ttid");
 				if(ctrl.Checked) {
-					using(SqlCommand cmd = new SqlCommand("yaf_watchtopic_delete")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@WatchTopicID",lbl.Text);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.watchtopic_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}
@@ -130,11 +116,7 @@ namespace yaf
 				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
 				Label lbl = (Label)ForumList.Items[i].FindControl("tfid");
 				if(ctrl.Checked) {
-					using(SqlCommand cmd = new SqlCommand("yaf_watchforum_delete")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@WatchForumID",lbl.Text);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.watchforum_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}

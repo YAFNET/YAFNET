@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -108,12 +106,7 @@ namespace yaf
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 			
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_active")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Since",SinceDate);
-				pds.DataSource = DataManager.GetData(cmd).DefaultView;
-			}
+			pds.DataSource = DB.topic_active(PageUserID,SinceDate).DefaultView;
 
 			pds.PageSize = 15;
 			if(Request.QueryString["p"] != null)

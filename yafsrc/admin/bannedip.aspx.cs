@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -50,7 +48,7 @@ namespace yaf.admin
 		}
 
 		private void BindData() {
-			list.DataSource = DataManager.GetData("yaf_bannedip_list",CommandType.StoredProcedure);
+			list.DataSource = DB.bannedip_list(null);
 			DataBind();
 		}
 
@@ -60,13 +58,9 @@ namespace yaf.admin
 			else if(e.CommandName == "edit")
 				Response.Redirect(String.Format("bannedip_edit.aspx?i={0}",e.CommandArgument));
 			else if(e.CommandName == "delete") {
-				using(SqlCommand cmd = new SqlCommand("yaf_bannedip_delete")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@ID",e.CommandArgument);
-					DataManager.ExecuteNonQuery(cmd);
-					Cache.Remove("bannedip");
-					BindData();
-				}
+				DB.bannedip_delete(e.CommandArgument);
+				Cache.Remove("bannedip");
+				BindData();
 				AddLoadMessage("Removed IP address ban.");
 			}
 		}

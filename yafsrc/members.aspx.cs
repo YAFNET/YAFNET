@@ -21,7 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -40,7 +39,6 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected LinkButton UserName,Joined,Posts, GoPage, Rank;
-		protected Label SortOrder, PageNo;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -56,51 +54,45 @@ namespace yaf
 
 		private void UserName_Click(object sender, System.EventArgs e) 
 		{
-			SortOrder.Text = "Name asc";
+			ViewState["SortOrder"] = "Name asc";
 			BindData();
 		}
 
 		private void Joined_Click(object sender, System.EventArgs e) 
 		{
-			SortOrder.Text = "Joined asc";
+			ViewState["SortOrder"] = "Joined asc";
 			BindData();
 		}
 
 		private void Posts_Click(object sender, System.EventArgs e) 
 		{
-			SortOrder.Text = "NumPosts desc";
+			ViewState["SortOrder"] = "NumPosts desc";
 			BindData();
 		}
 
 		private void Rank_Click(object sender, System.EventArgs e) 
 		{
-			SortOrder.Text = "RankName asc";
+			ViewState["SortOrder"] = "RankName asc";
 			BindData();
 		}
 
 		private void GoPage_Click(object sender, System.EventArgs e) 
 		{
-			PageNo.Text = Request.Form["__EVENTARGUMENT"];
+			ViewState["PageNo"] = int.Parse(Request.Form["__EVENTARGUMENT"]);
 			BindData();
 		}
 
 		private void BindData() 
 		{
 			int CurrentPage = 0;
-			if(PageNo.Text.Length>0)
-				CurrentPage = int.Parse(PageNo.Text);
+			if(ViewState["PageNo"]!=null)
+				CurrentPage = (int)ViewState["PageNo"];
 
 			PagedDataSource pds = new PagedDataSource();
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",null);
-				cmd.Parameters.Add("@Approved",true);
-				DataView dv = DataManager.GetData(cmd).DefaultView;
-				if(SortOrder.Text.Length>0)
-					dv.Sort = SortOrder.Text;
-				pds.DataSource = dv;
-			}
+			DataView dv = DB.user_list(null,true).DefaultView;
+			if(ViewState["SortOrder"]!=null)
+				dv.Sort = (string)ViewState["SortOrder"];
+			pds.DataSource = dv;
 			pds.AllowPaging = true;
 			pds.CurrentPageIndex = CurrentPage;
 			pds.PageSize = 20;
@@ -119,7 +111,6 @@ namespace yaf
 					} 
 					else 
 					{
-						//PageLinks1.InnerHtml += String.Format(" <a href=\"members.aspx?p={1}\">{0}</a>",i+1,i);
 						PageLinks1.InnerHtml += String.Format(" <a href=\"javascript:__doPostBack('GoPage','{1}')\">{0}</a>",i+1,i);
 					}
 				}

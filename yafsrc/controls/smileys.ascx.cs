@@ -21,8 +21,6 @@ namespace yaf.controls
 {
 	using System;
 	using System.Data;
-	using System.Data.SqlClient;
-	using System.Drawing;
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
@@ -39,7 +37,7 @@ namespace yaf.controls
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			basePage = (BasePage)Page;
-			dtSmileys = DataManager.GetData("yaf_smiley_listunique",CommandType.StoredProcedure);
+			dtSmileys = DB.smiley_listunique();
 		}
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) {

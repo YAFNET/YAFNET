@@ -21,9 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -64,7 +61,8 @@ namespace yaf
 			if(!ForumReadAccess)
 				Response.Redirect(BaseDir);
 
-			forum = Data.ForumInfo(PageForumID);
+			using(DataTable dt = DB.forum_list(PageForumID))
+				forum = dt.Rows[0];
 
 			PageTitle.Text = (string)forum["Name"];
 			HomeLink.NavigateUrl = BaseDir;
@@ -191,17 +189,11 @@ namespace yaf
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@ForumID",PageForumID);
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Announcement",true);
-				Announcements.DataSource = DataManager.GetData(cmd);
-			}
+			Announcements.DataSource = DB.topic_list(PageForumID,PageUserID,true,null);
 
 			if(ShowList.SelectedIndex==0) 
 			{
-				pds.DataSource = Data.GetTopics(int.Parse(Request.QueryString["f"]),PageUserID,false).DefaultView;
+				pds.DataSource = DB.topic_list(Request.QueryString["f"],PageUserID,false,null).DefaultView;
 			} 
 			else 
 			{
@@ -227,8 +219,7 @@ namespace yaf
 						date -= TimeSpan.FromDays(365);
 						break;
 				}
-				pds.DataSource = Data.GetTopics(int.Parse(Request.QueryString["f"]),PageUserID,false,date).DefaultView;
-
+				pds.DataSource = DB.topic_list(Request.QueryString["f"],PageUserID,false,date).DefaultView;
 			}
 
 			pds.PageSize = 15;
@@ -298,12 +289,7 @@ namespace yaf
 				return;
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_watchforum_add")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@ForumID",PageForumID);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.watchforum_add(PageUserID,PageForumID);
 			AddLoadMessage("You will now be notified when new posts arrive in this forum.");
 		}
 	}

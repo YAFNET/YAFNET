@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -54,19 +52,16 @@ namespace yaf.admin
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{
-					using(SqlCommand cmd = new SqlCommand("yaf_rank_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@RankID",Request.QueryString["r"]);
-						using(DataTable dt = DataManager.GetData(cmd)) {
-							DataRow row = dt.Rows[0];
-							Name.Text = (string)row["Name"];
-							IsStart.Checked = (bool)row["IsStart"];
-							IsLadder.Checked = (bool)row["IsLadder"];
-							MinPosts.Text = row["MinPosts"].ToString();
-							ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
-							if(item!=null) item.Selected = true;
-							Preview.Src = String.Format("../images/ranks/{0}",row["RankImage"]);
-						}
+					using(DataTable dt = DB.rank_list(Request.QueryString["r"]))
+					{
+						DataRow row = dt.Rows[0];
+						Name.Text = (string)row["Name"];
+						IsStart.Checked = (bool)row["IsStart"];
+						IsLadder.Checked = (bool)row["IsLadder"];
+						MinPosts.Text = row["MinPosts"].ToString();
+						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
+						if(item!=null) item.Selected = true;
+						Preview.Src = String.Format("../images/ranks/{0}",row["RankImage"]);
 					}
 				}
 			}
@@ -138,17 +133,11 @@ namespace yaf.admin
 			// Group
 			int RankID = 0;
 			if(Request.QueryString["r"] != null) RankID = int.Parse(Request.QueryString["r"]);
-				
-			SqlCommand cmd = new SqlCommand("yaf_rank_save");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@RankID",RankID);
-			cmd.Parameters.Add("@Name",Name.Text);
-			cmd.Parameters.Add("@IsStart",IsStart.Checked);
-			cmd.Parameters.Add("@IsLadder",IsLadder.Checked);
-			cmd.Parameters.Add("@MinPosts",MinPosts.Text);
+
+			object rankImage = null;
 			if(RankImage.SelectedIndex>0)
-				cmd.Parameters.Add("@RankImage",RankImage.SelectedValue);
-			DataManager.ExecuteNonQuery(cmd);
+				rankImage = RankImage.SelectedValue;
+			DB.rank_save(RankID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
 			Response.Redirect("ranks.aspx");
 		}

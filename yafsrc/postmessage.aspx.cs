@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -88,9 +86,11 @@ namespace yaf
 			DataRow msg = null;
 			
 			if(Request.QueryString["q"] != null)
-				msg = Data.GetMessageInfo(int.Parse(Request.QueryString["q"]));
+				using(DataTable dt = DB.message_list(Request.QueryString["q"]))
+					msg = dt.Rows[0];
 			else if(Request.QueryString["m"] != null) {
-				msg = Data.GetMessageInfo(int.Parse(Request.QueryString["m"]));
+				using(DataTable dt = DB.message_list(Request.QueryString["m"]))
+					msg = dt.Rows[0];
 			
 				if(!ForumModeratorAccess && PageUserID != (int)msg["UserID"])
 					Response.Redirect(BaseDir);
@@ -120,7 +120,7 @@ namespace yaf
 
 				if(Request.QueryString["t"] != null) 
 				{
-					DataRow topic = Data.TopicInfo(int.Parse(Request.QueryString["t"]));
+					DataRow topic = DB.topic_info(Request.QueryString["t"]);
 					if((bool)topic["IsLocked"])
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
@@ -128,14 +128,8 @@ namespace yaf
 
 					// History (Last 10 posts)
 					LastPosts.Visible = true;
-					using(SqlCommand cmd = new SqlCommand("yaf_post_list_reverse10")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@TopicID",Request.QueryString["t"]);
-						//cmd.Parameters.Add("@UserID",PageUserID);
-						LastPosts.DataSource = yaf.DataManager.GetData(cmd);
-						LastPosts.DataBind();
-					}
+					LastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
+					LastPosts.DataBind();
 				}
 
 				if(Request.QueryString["q"] != null) {
@@ -154,9 +148,14 @@ namespace yaf
 					FromRow.Visible = false;
 			}
 
-			DataRow forum = Data.ForumInfo(ForumID);
-			ForumLink.Text = (string)forum["Name"];
-			ForumLink.NavigateUrl = "topics.aspx?f=" + ForumID.ToString();
+			using(DataTable dt = DB.forum_list(ForumID)) 
+			{
+				foreach(DataRow forum in dt.Rows) 
+				{
+					ForumLink.Text = (string)forum["Name"];
+					ForumLink.NavigateUrl = "topics.aspx?f=" + ForumID.ToString();
+				}
+			}
 
 		}
 
@@ -211,21 +210,14 @@ namespace yaf
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!Data.PostReply(TopicID,User.Identity.Name,msg,From.Text,Request.UserHostAddress,ref nMessageID))
+				if(!DB.message_save(TopicID,User.Identity.Name,msg,From.Text,Request.UserHostAddress,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
 				if(!ForumEditAccess)
 					Data.AccessDenied();
 
-				using(SqlCommand cmd = new SqlCommand("yaf_message_update")) 
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@MessageID",Request.QueryString["m"]);
-					cmd.Parameters.Add("@Priority",Priority.SelectedItem.Value);
-					cmd.Parameters.Add("@Message",Message.Text);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,Message.Text);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
@@ -233,26 +225,22 @@ namespace yaf
 				if(!ForumPostAccess)
 					Data.AccessDenied();
 
-				int PollID = 0;
+				object PollID = null;
 				if(PollRow1.Visible) {
-					using(SqlCommand cmd = new SqlCommand("yaf_poll_save")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@Question",Question.Text);
-						cmd.Parameters.Add("@Choice1",PollChoice1.Text);
-						cmd.Parameters.Add("@Choice2",PollChoice2.Text);
-						cmd.Parameters.Add("@Choice3",PollChoice3.Text);
-						cmd.Parameters.Add("@Choice4",PollChoice4.Text);
-						cmd.Parameters.Add("@Choice5",PollChoice5.Text);
-						cmd.Parameters.Add("@Choice6",PollChoice6.Text);
-						cmd.Parameters.Add("@Choice7",PollChoice7.Text);
-						cmd.Parameters.Add("@Choice8",PollChoice8.Text);
-						cmd.Parameters.Add("@Choice9",PollChoice9.Text);
-						PollID = (int)DataManager.ExecuteScalar(cmd);
-					}
+					PollID = DB.poll_save(Question.Text,
+						PollChoice1.Text,
+						PollChoice2.Text,
+						PollChoice3.Text,
+						PollChoice4.Text,
+						PollChoice5.Text,
+						PollChoice6.Text,
+						PollChoice7.Text,
+						PollChoice8.Text,
+						PollChoice9.Text);
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = Data.PostMessage(ForumID,subject,msg,User.Identity.Name,int.Parse(Priority.SelectedItem.Value),PollID,From.Text,Request.UserHostAddress,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,User.Identity.Name,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,ref nMessageID);
 			}
 
 			SaveAttachment(nMessageID,File1);
@@ -262,25 +250,17 @@ namespace yaf
 			if(TopicID>0) 
 			{
 				// Get Topic Info
-				DataRow topic = Data.TopicInfo(TopicID);
+				DataRow topic = DB.topic_info(TopicID);
 
 				// Send track mails
-				using(SqlCommand cmd = new SqlCommand("yaf_mail_createwatch")) {
-					string subject = String.Format("Topic Subscription New Post Notification (From {0})",ForumName);
+				string subject = String.Format("Topic Subscription New Post Notification (From {0})",ForumName);
 
-					string body = ReadTemplate("topicpost.txt");
-					body = body.Replace("{forumname}",ForumName);
-					body = body.Replace("{topic}",(string)topic["Topic"]);
-					body = body.Replace("{link}",String.Format("http://{0}{1}posts.aspx?m={2}#{2}",Request.ServerVariables["SERVER_NAME"],BaseDir,nMessageID));
+				string body = ReadTemplate("topicpost.txt");
+				body = body.Replace("{forumname}",ForumName);
+				body = body.Replace("{topic}",(string)topic["Topic"]);
+				body = body.Replace("{link}",String.Format("http://{0}{1}posts.aspx?m={2}#{2}",Request.ServerVariables["SERVER_NAME"],BaseDir,nMessageID));
 
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@TopicID",TopicID);
-					cmd.Parameters.Add("@From",ForumEmail);
-					cmd.Parameters.Add("@Subject",subject);
-					cmd.Parameters.Add("@Body",body);
-					cmd.Parameters.Add("@UserID",PageUserID);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.mail_createwatch(TopicID,ForumEmail,subject,body,PageUserID);
 
 				//Response.Redirect("posts.aspx?t=" + TopicID);
 				Response.Redirect(String.Format("posts.aspx?m={0}#{0}",nMessageID));
@@ -295,14 +275,7 @@ namespace yaf
 			string sUpDir = Request.MapPath(System.Configuration.ConfigurationSettings.AppSettings["uploaddir"]);
 
 			file.PostedFile.SaveAs(sUpDir + file.PostedFile.FileName);
-			using(SqlCommand cmd = new SqlCommand("yaf_attachment_save")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@MessageID",nMessageID);
-				cmd.Parameters.Add("@FileName",file.PostedFile.FileName);
-				cmd.Parameters.Add("@Bytes",file.PostedFile.ContentLength);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.attachment_save(nMessageID,file.PostedFile.FileName,file.PostedFile.ContentLength);
 		}
 
 		private void CreatePoll_Click(object sender, System.EventArgs e) {
@@ -328,11 +301,7 @@ namespace yaf
 
 			string body = Server.HtmlEncode(Message.Text);
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Approved",true);
-				DataTable dt = DataManager.GetData(cmd);
+			using(DataTable dt = DB.user_list(PageUserID,true)) {
 				if(!dt.Rows[0].IsNull("Signature"))
 					body += "\r\n\r\n-- \r\n" + dt.Rows[0]["Signature"].ToString();
 			}

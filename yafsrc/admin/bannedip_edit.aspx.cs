@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -52,12 +50,8 @@ namespace yaf.admin
 
 		private void BindData() {
 			if(Request.QueryString["i"] != null) {
-				using(SqlCommand cmd = new SqlCommand("yaf_bannedip_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@ID",Request.QueryString["i"]);
-					DataRow row = DataManager.GetData(cmd).Rows[0];
-					mask.Text = (string)row["Mask"];
-				}
+				DataRow row = DB.bannedip_list(Request.QueryString["i"]).Rows[0];
+				mask.Text = (string)row["Mask"];
 			}
 		}
 
@@ -67,13 +61,8 @@ namespace yaf.admin
 				AddLoadMessage("Invalid ip address.");
 				return;
 			}
-			using(SqlCommand cmd = new SqlCommand("yaf_bannedip_save")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@ID",Request.QueryString["i"]);
-				cmd.Parameters.Add("@Mask",mask.Text);
-				DataManager.ExecuteNonQuery(cmd);
-				Cache.Remove("bannedip");
-			}
+			DB.bannedip_save(Request.QueryString["i"],mask.Text);
+			Cache.Remove("bannedip");
 			Response.Redirect("bannedip.aspx");
 		}
 

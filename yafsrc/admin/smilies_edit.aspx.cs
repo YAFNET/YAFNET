@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -64,19 +63,14 @@ namespace yaf.admin
 
 			if(Request["s"]!=null) 
 			{
-				using(SqlCommand cmd = new SqlCommand("yaf_smiley_list")) 
+				using(DataTable dt = DB.smiley_list(Request.QueryString["s"])) 
 				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@SmileyID",Request["s"]);
-					using(DataTable dt = DataManager.GetData(cmd)) 
+					if(dt.Rows.Count>0) 
 					{
-						if(dt.Rows.Count>0) 
-						{
-							Code.Text = dt.Rows[0]["Code"].ToString();
-							Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
-							Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
-							Preview.Src = String.Format("../images/emoticons/{0}",dt.Rows[0]["Icon"]);
-						}
+						Code.Text = dt.Rows[0]["Code"].ToString();
+						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
+						Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
+						Preview.Src = String.Format("../images/emoticons/{0}",dt.Rows[0]["Icon"]);
 					}
 				}
 			}
@@ -104,17 +98,7 @@ namespace yaf.admin
 				AddLoadMessage("Please select an icon to use for this emotion.");
 				return;
 			}
-			using(SqlCommand cmd = new SqlCommand("yaf_smiley_save")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				if(Request["s"]!=null)
-					cmd.Parameters.Add("@SmileyID",Request["s"]);
-				cmd.Parameters.Add("@Code",sCode);
-				cmd.Parameters.Add("@Icon",sIcon);
-				cmd.Parameters.Add("@Emoticon",sEmotion);
-				cmd.Parameters.Add("@Replace",0);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.smiley_save(Request.QueryString["s"],sCode,sIcon,sEmotion,0);
 			Response.Redirect("smilies.aspx");
 		}
 

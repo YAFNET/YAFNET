@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -59,12 +57,7 @@ namespace yaf
 				TopicLink.Text = PageTopicName;
 				TopicLink.NavigateUrl = String.Format("posts.aspx?t={0}",PageTopicID);
 
-				using(SqlCommand cmd = new SqlCommand("yaf_post_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@TopicID",PageTopicID);
-					cmd.Parameters.Add("@UserID",PageUserID);
-					Posts.DataSource = DataManager.GetData(cmd);
-				}
+				Posts.DataSource = DB.post_list(PageTopicID,PageUserID,1);
 				DataBind();
 			}
 		}

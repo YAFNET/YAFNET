@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -18,26 +17,17 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_avatarimage",DataManager.GetConnection())) 
+			using(DataTable dt = DB.user_avatarimage(Request.QueryString["u"])) 
 			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-				using(SqlDataAdapter da = new SqlDataAdapter(cmd)) 
+				foreach(DataRow row in dt.Rows) 
 				{
-					using(SqlCommandBuilder cb = new SqlCommandBuilder(da)) 
-					{
-						using(DataSet ds = new DataSet()) 
-						{
-							da.Fill(ds);
+					byte[] data = (byte[])row["AvatarImage"];
 
-							byte[] data = (byte[])ds.Tables[0].Rows[0]["AvatarImage"];
-
-							Response.Clear();
-							Response.ContentType = "image/jpg";
-							Response.OutputStream.Write(data,0,data.Length);
-							Response.End();
-						}
-					}
+					Response.Clear();
+					Response.ContentType = "image/jpg";
+					Response.OutputStream.Write(data,0,data.Length);
+					Response.End();
+					break;
 				}
 			}
 		}

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -57,10 +55,7 @@ namespace yaf
 				int ToUserID = 0;
 
 				if(Request.QueryString["p"] != null) {
-					using(SqlCommand cmd = new SqlCommand("yaf_pmessage_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@PMessageID",Request.QueryString["p"]);
-						DataTable dt = DataManager.GetData(cmd);
+					using(DataTable dt = DB.pmessage_list(null,null,Request.QueryString["p"])) {
 						DataRow row = dt.Rows[0];
 						Subject.Text = (string)row["Subject"];
 						if(Subject.Text.Substring(0,4) != "Re: ")
@@ -75,11 +70,8 @@ namespace yaf
 					ToUserID = int.Parse(Request.QueryString["u"].ToString());
 
 				if(ToUserID!=0) {
-					using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@UserID",ToUserID);
-						cmd.Parameters.Add("@Approved",true);
-						DataTable dt = DataManager.GetData(cmd);
+					using(DataTable dt = DB.user_list(ToUserID,true)) 
+					{
 						To.Text = (string)dt.Rows[0]["Name"];
 						To.Enabled = false;
 					}
@@ -127,15 +119,8 @@ namespace yaf
 				return;
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_save")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@From",User.Identity.Name);
-				cmd.Parameters.Add("@To",To.Text);
-				cmd.Parameters.Add("@Subject",Subject.Text);
-				cmd.Parameters.Add("@Body",Editor.Text);
-				DataManager.ExecuteNonQuery(cmd);
-				Response.Redirect("cp_profile.aspx");
-			}
+			DB.pmessage_save(User.Identity.Name,To.Text,Subject.Text,Editor.Text);
+			Response.Redirect("cp_profile.aspx");
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e) {

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -55,35 +53,28 @@ namespace yaf.admin
 			if(!IsPostBack) {
 				BindData();
 				if(Request.QueryString["f"] != null) {
-					using(SqlCommand cmd = new SqlCommand("yaf_forum_list")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@ForumID",Request.QueryString["f"]);
-						using(DataTable dt = DataManager.GetData(cmd)) {
-							DataRow row = dt.Rows[0];
-							Name.Text = (string)row["Name"];
-							Description.Text = (string)row["Description"];
-							SortOrder.Text = row["SortOrder"].ToString();
-							HideNoAccess.Checked = (bool)row["Hidden"];
-							Locked.Checked = (bool)row["Locked"];
-							IsTest.Checked = (bool)row["IsTest"];
-							ForumNameTitle.Text = Name.Text;
+					using(DataTable dt = DB.forum_list(Request.QueryString["f"])) 
+					{
+						DataRow row = dt.Rows[0];
+						Name.Text = (string)row["Name"];
+						Description.Text = (string)row["Description"];
+						SortOrder.Text = row["SortOrder"].ToString();
+						HideNoAccess.Checked = (bool)row["Hidden"];
+						Locked.Checked = (bool)row["Locked"];
+						IsTest.Checked = (bool)row["IsTest"];
+						ForumNameTitle.Text = Name.Text;
 
-							CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
-						}
+						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 					}
 				}
 			}
 		}
 
 		private void BindData() {
-			CategoryList.DataSource = DataManager.GetData("yaf_category_list",CommandType.StoredProcedure);
-			if(Request.QueryString["f"] != null) {
-				using(SqlCommand cmd = new SqlCommand("yaf_forumaccess_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@ForumID",Request.QueryString["f"]);
-					AccessList.DataSource = DataManager.GetData(cmd);
-				}
-			}
+			CategoryList.DataSource = DB.category_list(null);
+			if(Request.QueryString["f"] != null)
+				AccessList.DataSource = DB.forumaccess_list(Request.QueryString["f"]);
+
 			DataBind();
 		}
 
@@ -115,21 +106,10 @@ namespace yaf.admin
 			if(IsValid) 
 			{
 				// Forum
-				int ForumID = 0;
-				if(Request.QueryString["f"] != null) ForumID = int.Parse(Request.QueryString["f"]);
+				long ForumID = 0;
+				if(Request.QueryString["f"] != null) ForumID = long.Parse(Request.QueryString["f"]);
 				
-				SqlCommand cmd = new SqlCommand("yaf_forum_save");
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@ForumID",ForumID);
-				cmd.Parameters.Add("@CategoryID",CategoryList.SelectedItem.Value);
-				cmd.Parameters.Add("@Name",Name.Text);
-				cmd.Parameters.Add("@Description",Description.Text);
-				cmd.Parameters.Add("@SortOrder",SortOrder.Text);
-				cmd.Parameters.Add("@Locked",Locked.Checked);
-				cmd.Parameters.Add("@Hidden",HideNoAccess.Checked);
-				cmd.Parameters.Add("@IsTest",IsTest.Checked);
-				
-				ForumID = int.Parse(DataManager.ExecuteScalar(cmd).ToString());
+				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked);
 
 				// Access
 				if(Request.QueryString["f"] != null) 
@@ -138,22 +118,18 @@ namespace yaf.admin
 					{
 						RepeaterItem item = AccessList.Items[i];
 						int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-						using(SqlCommand cmd2 = new SqlCommand("yaf_forumaccess_save")) {
-							cmd2.CommandType = CommandType.StoredProcedure;
-							cmd2.Parameters.Add("@ForumID",ForumID);
-							cmd2.Parameters.Add("@GroupID",GroupID);
-							cmd2.Parameters.Add("@ReadAccess",((CheckBox)item.FindControl("ReadAccess")).Checked);
-							cmd2.Parameters.Add("@PostAccess",((CheckBox)item.FindControl("PostAccess")).Checked);
-							cmd2.Parameters.Add("@ReplyAccess",((CheckBox)item.FindControl("ReplyAccess")).Checked);
-							cmd2.Parameters.Add("@PriorityAccess",((CheckBox)item.FindControl("PriorityAccess")).Checked);
-							cmd2.Parameters.Add("@PollAccess",((CheckBox)item.FindControl("PollAccess")).Checked);
-							cmd2.Parameters.Add("@VoteAccess",((CheckBox)item.FindControl("VoteAccess")).Checked);
-							cmd2.Parameters.Add("@ModeratorAccess",((CheckBox)item.FindControl("ModeratorAccess")).Checked);
-							cmd2.Parameters.Add("@EditAccess",((CheckBox)item.FindControl("EditAccess")).Checked);
-							cmd2.Parameters.Add("@DeleteAccess",((CheckBox)item.FindControl("DeleteAccess")).Checked);
-							cmd2.Parameters.Add("@UploadAccess",((CheckBox)item.FindControl("UploadAccess")).Checked);
-							DataManager.ExecuteNonQuery(cmd2);
-						}
+						DB.forumaccess_save(ForumID,GroupID,
+							((CheckBox)item.FindControl("ReadAccess")).Checked,
+							((CheckBox)item.FindControl("PostAccess")).Checked,
+							((CheckBox)item.FindControl("ReplyAccess")).Checked,
+							((CheckBox)item.FindControl("PriorityAccess")).Checked,
+							((CheckBox)item.FindControl("PollAccess")).Checked,
+							((CheckBox)item.FindControl("VoteAccess")).Checked,
+							((CheckBox)item.FindControl("ModeratorAccess")).Checked,
+							((CheckBox)item.FindControl("EditAccess")).Checked,
+							((CheckBox)item.FindControl("DeleteAccess")).Checked,
+							((CheckBox)item.FindControl("UploadAccess")).Checked
+						);
 					}
 					Response.Redirect("forums.aspx");
 				}

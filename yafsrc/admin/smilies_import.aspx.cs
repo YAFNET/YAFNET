@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -73,13 +72,7 @@ namespace yaf.admin
 			{
 				// Delete existing smilies?
 				if(DeleteExisting.Checked) 
-				{
-					using(SqlCommand cmd = new SqlCommand("yaf_smiley_delete")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						DataManager.ExecuteNonQuery(cmd);
-					}
-				}
+					DB.smiley_delete(null);
 
 				do 
 				{
@@ -89,21 +82,7 @@ namespace yaf.admin
 
 					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
 					if(split.Length==3) 
-					{
-						string sFile	= split[0];
-						string sEmotion	= split[1];
-						string sCode	= split[2];
-						
-						using(SqlCommand cmd = new SqlCommand("yaf_smiley_save")) 
-						{
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@Code",split[2]);
-							cmd.Parameters.Add("@Icon",split[0]);
-							cmd.Parameters.Add("@Emoticon",split[1]);
-							cmd.Parameters.Add("@Replace",0);
-							DataManager.ExecuteNonQuery(cmd);
-						}
-					}
+						DB.smiley_save(null,split[2],split[0],split[1],0);
 				} while(true);
 				file.Close();
 			}

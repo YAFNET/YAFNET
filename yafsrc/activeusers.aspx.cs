@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -45,11 +43,7 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 
-				using(SqlCommand cmd = new SqlCommand("yaf_active_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@Guests",true);
-					UserList.DataSource = DataManager.GetData(cmd);
-				}
+				UserList.DataSource = DB.active_list(true);
 				DataBind();
 			}
 		}

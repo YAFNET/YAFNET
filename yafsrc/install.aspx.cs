@@ -22,7 +22,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -86,9 +85,7 @@ namespace yaf
 
 		private int GetCurrentVersion() {
 			try {
-				using(SqlCommand cmd = new SqlCommand("yaf_system_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					DataTable dt = DataManager.GetData(cmd);
+				using(DataTable dt = DB.system_list()) {
 					if(dt.Rows.Count == 0)
 						return 0;
 					return (int)dt.Rows[0]["Version"];
@@ -103,10 +100,9 @@ namespace yaf
 			Response.Redirect(BaseDir);
 		}
 
-
 		private void next_Click(object sender,System.EventArgs e) {
 			if(CurStep == Step.Connect) {
-				using(SqlConnection conn = DataManager.GetConnection()) {
+				using(SqlConnection conn = DB.GetConnection()) {
 					if(conn==null) {
 						AddLoadMessage("Connection failed. Modify Web.config and try again.");
 						return;
@@ -132,7 +128,7 @@ namespace yaf
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.Add("@Version",AppVersion);
 						cmd.Parameters.Add("@VersionName",AppVersionName);
-						DataManager.ExecuteNonQuery(cmd);
+						DB.ExecuteNonQuery(cmd);
 					}
 				}
 				catch(Exception x) {
@@ -178,7 +174,7 @@ namespace yaf
 						cmd.Parameters.Add("@User",UserName.Text);
 						cmd.Parameters.Add("@UserEmail",AdminEmail.Text);
 						cmd.Parameters.Add("@Password",System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(Password1.Text,"md5"));
-						DataManager.ExecuteNonQuery(cmd);
+						DB.ExecuteNonQuery(cmd);
 					}
 				}
 				catch(Exception x) {
@@ -285,7 +281,7 @@ namespace yaf
 
 			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-			using(SqlConnection conn = DataManager.GetConnection()) 
+			using(SqlConnection conn = DB.GetConnection()) 
 			{
 				using(SqlTransaction trans = conn.BeginTransaction()) 
 				{

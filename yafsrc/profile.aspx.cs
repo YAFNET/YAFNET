@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -55,31 +53,20 @@ namespace yaf
 			HomeLink.Text = ForumName;
 			HomeLink.NavigateUrl = BaseDir;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-				cmd.Parameters.Add("@Approved",true);
-				using(DataTable dt = DataManager.GetData(cmd)) {
-					DataRow user = dt.Rows[0];
+			using(DataTable dt = DB.user_list(Request.QueryString["u"],true)) {
+				DataRow user = dt.Rows[0];
 
-					UserName.Text = (string)user["Name"];
-					Name.Text = (string)user["Name"];
-					Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
-					Email.Text = user["Email"].ToString();
-					LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
-					NumPosts.Text = user["NumPosts"].ToString();
-					Rank.Text = user["RankName"].ToString();
-				}
+				UserName.Text = (string)user["Name"];
+				Name.Text = (string)user["Name"];
+				Joined.Text = String.Format(CustomCulture,"{0}",FormatDateLong((DateTime)user["Joined"]));
+				Email.Text = user["Email"].ToString();
+				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
+				NumPosts.Text = user["NumPosts"].ToString();
+				Rank.Text = user["RankName"].ToString();
 			}
 
 			if(!IsPostBack) {
-				using(SqlCommand cmd = new SqlCommand("yaf_usergroup_list")) 
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-					Groups.DataSource = DataManager.GetData(cmd);
-				}
+				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
 
 				if(long.Parse(pageinfo["IsAdmin"].ToString())>0) 
 				{

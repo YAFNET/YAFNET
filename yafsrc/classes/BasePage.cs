@@ -21,7 +21,6 @@ using System;
 using System.IO;
 using System.Text;
 using System.Data;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Threading;
 using yaf.classes;
@@ -41,7 +40,7 @@ namespace yaf
 		private string m_strLoadMessage = "";
 		private string m_strForumName = "Yet Another Forum.net";
 		private string m_strThemeDir = System.Configuration.ConfigurationSettings.AppSettings["themedir"];
-		private string m_strBaseDir = System.Configuration.ConfigurationSettings.AppSettings["basedir"];
+		//private string m_strBaseDir = Data.BaseDir;
 		private bool m_bTopMenu = true;
 		protected DataRow	pageinfo;
 		private bool m_bStartPage = false;
@@ -93,7 +92,7 @@ namespace yaf
 
 			DataTable banip = (DataTable)Cache["bannedip"];
 			if(banip == null) {
-				banip = DataManager.GetData("yaf_bannedip_list",CommandType.StoredProcedure);
+				banip = DB.bannedip_list(null);
 				Cache["bannedip"] = banip;
 			}
 			for(int i=0;i<banip.Rows.Count;i++) {
@@ -102,27 +101,26 @@ namespace yaf
 			}
 
 
-			using(SqlCommand cmd = new SqlCommand("yaf_pageload")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@SessionID",Session.SessionID);
-				cmd.Parameters.Add("@User",User.Identity.Name);
-				cmd.Parameters.Add("@IP",Request.UserHostAddress);
-				cmd.Parameters.Add("@Location",Request.FilePath);
-				cmd.Parameters.Add("@Browser",Request.Browser.Browser);
-				cmd.Parameters.Add("@Platform",Request.Browser.Platform);
-				cmd.Parameters.Add("@CategoryID",Request.QueryString["c"]);
-				cmd.Parameters.Add("@ForumID",Request.QueryString["f"]);
-				cmd.Parameters.Add("@TopicID",Request.QueryString["t"]);
-				cmd.Parameters.Add("@MessageID",Request.QueryString["m"]);
-				DataTable dt = DataManager.GetData(cmd);
-				if(dt.Rows.Count==0) {
-					if(User.Identity.IsAuthenticated) {
-						System.Web.Security.FormsAuthentication.SignOut();
-						Response.Redirect(BaseDir);
-					} else
-						throw new Exception("Couldn't find user.");
-				}
-				pageinfo = dt.Rows[0];
+			pageinfo = DB.pageload(
+				Session.SessionID,
+				User.Identity.Name,
+				Request.UserHostAddress,
+				Request.FilePath,
+				Request.Browser.Browser,
+				Request.Browser.Platform,
+				Request.QueryString["c"],
+				Request.QueryString["f"],
+				Request.QueryString["t"],
+				Request.QueryString["m"]);
+			if(pageinfo==null) 
+			{
+				if(User.Identity.IsAuthenticated) 
+				{
+					System.Web.Security.FormsAuthentication.SignOut();
+					Response.Redirect(BaseDir);
+				} 
+				else
+					throw new Exception("Couldn't find user.");
 			}
 
 			m_strForumName = (string)pageinfo["BBName"];
@@ -172,17 +170,16 @@ namespace yaf
 			// Check if pending mails, and send 10 of them if possible
 			if((int)pageinfo["MailsPending"]>0) {
 				try {
-					DataTable dt = DataManager.GetData("yaf_mail_list",CommandType.StoredProcedure);
-					for(int i=0;i<dt.Rows.Count;i++) {
-						// Build a MailMessage
-						SendMail(ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
-						using(SqlCommand cmd = new SqlCommand("yaf_mail_delete")) {
-							cmd.CommandType = CommandType.StoredProcedure;
-							cmd.Parameters.Add("@MailID",dt.Rows[i]["MailID"]);
-							DataManager.ExecuteNonQuery(cmd);
+					using(DataTable dt = DB.mail_list()) 
+					{
+						for(int i=0;i<dt.Rows.Count;i++) 
+						{
+							// Build a MailMessage
+							SendMail(ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
+						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
-					if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 				}
 				catch(Exception x) {
 					if(IsAdmin) {
@@ -330,7 +327,7 @@ namespace yaf
 		/// <summary>
 		/// The name of the froum
 		/// </summary>
-		protected string ForumName 
+		public string ForumName 
 		{
 			get 
 			{
@@ -367,11 +364,11 @@ namespace yaf
 		/// <summary>
 		/// Base directory for forum
 		/// </summary>
-		protected string BaseDir 
+		public string BaseDir 
 		{
 			get 
 			{
-				return m_strBaseDir;
+				return Data.BaseDir;
 			}
 		}
 

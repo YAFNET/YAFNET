@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -55,9 +53,9 @@ namespace yaf.admin {
 		private void BindData() {
 			DataRow row;
 			TimeZones.DataSource = Data.TimeZones();
-			using(DataTable dt = DataManager.GetData("yaf_system_list",CommandType.StoredProcedure)) {
+			using(DataTable dt = DB.system_list())
 				row = dt.Rows[0];
-			}
+
 			DataBind();
 			SQLVersion.Text = (string)row["SQLVersion"];
 			TimeZones.Items.FindByValue(row["TimeZone"].ToString()).Selected = true;
@@ -105,22 +103,18 @@ namespace yaf.admin {
 			if(sUserPass.Length==0)
 				sUserPass = null;
 
-			using(SqlCommand cmd = new SqlCommand("yaf_system_save")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@Name",Name.Text);
-				cmd.Parameters.Add("@TimeZone",TimeZones.SelectedItem.Value);
-				cmd.Parameters.Add("@SmtpServer",ForumSmtpServer.Text);
-				cmd.Parameters.Add("@SmtpUserName",sUserName);
-				cmd.Parameters.Add("@SmtpUserPass",sUserPass);
-				cmd.Parameters.Add("@ForumEmail",ForumEmailEdit.Text);
-				cmd.Parameters.Add("@EmailVerification",EmailVerification.Checked);
-				cmd.Parameters.Add("@ShowMoved",ShowMoved.Checked);
-				cmd.Parameters.Add("@BlankLinks",BlankLinks.Checked);
-				cmd.Parameters.Add("@AvatarWidth",AvatarWidth.Text);
-				cmd.Parameters.Add("@AvatarHeight",AvatarHeight.Text);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.system_save(
+				Name.Text,
+				TimeZones.SelectedItem.Value,
+				ForumSmtpServer.Text,
+				sUserName,
+				sUserPass,
+				ForumEmailEdit.Text,
+				EmailVerification.Checked,
+				ShowMoved.Checked,
+				BlankLinks.Checked,
+				AvatarWidth.Text,
+				AvatarHeight.Text);
 			Response.Redirect("main.aspx");
 		}
 	}

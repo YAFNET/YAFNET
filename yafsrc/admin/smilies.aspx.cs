@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -34,11 +33,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_smiley_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				List.DataSource = DataManager.GetData(cmd);
-			}
+			List.DataSource = DB.smiley_list(null);
 			DataBind();
 		}
 
@@ -53,12 +48,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("smilies_edit.aspx?s={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_smiley_delete")) 
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@SmileyID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.smiley_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "import":

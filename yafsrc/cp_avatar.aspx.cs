@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -52,7 +50,7 @@ namespace yaf
 				return;
 
 			long x,y;
-			using(DataTable dt = DataManager.GetData("yaf_system_list",CommandType.StoredProcedure)) 
+			using(DataTable dt = DB.system_list())
 			{
 				x = long.Parse(dt.Rows[0]["AvatarWidth"].ToString());
 				y = long.Parse(dt.Rows[0]["AvatarHeight"].ToString());
@@ -67,28 +65,7 @@ namespace yaf
 				return;
 			}
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_avatarimage",DataManager.GetConnection())) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-
-				using(SqlDataAdapter da = new SqlDataAdapter(cmd)) 
-				{
-					using(SqlCommandBuilder cb = new SqlCommandBuilder(da)) 
-					{
-						using(DataSet ds = new DataSet()) 
-						{
-							byte[] data = new byte[File.PostedFile.InputStream.Length];
-							File.PostedFile.InputStream.Seek(0,System.IO.SeekOrigin.Begin);
-							File.PostedFile.InputStream.Read(data,0,(int)File.PostedFile.InputStream.Length);
-
-							da.Fill(ds);
-							ds.Tables[0].Rows[0]["AvatarImage"] = data;
-							da.Update(ds);
-						}
-					}
-				}
-			}
+			DB.user_saveavatar(PageUserID,File.PostedFile.InputStream);
 			Response.Redirect("cp_profile.aspx");
 		}
 

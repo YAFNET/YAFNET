@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -76,14 +74,7 @@ namespace yaf.admin
 
 		private void BindData() 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_list")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",null);
-				cmd.Parameters.Add("@Approved",null);
-				//UserList.DataSource = DataManager.GetData("yaf_user_list",CommandType.StoredProcedure);
-				UserList.DataSource = DataManager.GetData(cmd);
-			}
+			UserList.DataSource = DB.user_list(null,null);
 			DataBind();
 		}
 
@@ -93,11 +84,7 @@ namespace yaf.admin
 					Response.Redirect(String.Format("edituser.aspx?u={0}",e.CommandArgument));
 					break;
 				case "delete":
-					using(SqlCommand cmd = new SqlCommand("yaf_user_delete")) {
-						cmd.CommandType = CommandType.StoredProcedure;
-						cmd.Parameters.Add("@UserID",e.CommandArgument);
-						DataManager.ExecuteNonQuery(cmd);
-					}
+					DB.user_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -46,12 +44,7 @@ namespace yaf
 				Response.Redirect(String.Format("login.aspx?ReturnUrl={0}",Request.RawUrl));
 
 			if(!IsPostBack) {
-				using(SqlCommand cmd = new SqlCommand("yaf_user_getsignature")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",PageUserID);
-					sig.Text = DataManager.ExecuteScalar(cmd).ToString();
-				}
-				//BindData();
+				sig.Text = DB.user_getsignature(PageUserID);
 
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
@@ -61,12 +54,7 @@ namespace yaf
 		}
 
 		private void save_Click(object sender,EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_user_savesignature")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Signature",sig.Text);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.user_savesignature(PageUserID,sig.Text);
 			Response.Redirect("cp_profile.aspx");
 		}
 

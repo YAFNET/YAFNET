@@ -751,6 +751,10 @@ if not exists(select * from syscolumns where id=object_id('yaf_Group') and name=
 	alter table yaf_Group add MinPosts int
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_Group') and name='RankImage')
+	alter table yaf_Group add RankImage varchar(50)
+GO
+
 if not exists(select 1 from yaf_Rank)
 	insert into yaf_Rank([Name],IsStart,IsLadder,MinPosts,RankImage)
 	select [Name],IsStart,IsLadder,MinPosts,RankImage
@@ -1082,14 +1086,8 @@ if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_add') 
 	drop procedure yaf_watchtopic_add
 GO
 
-CREATE  procedure yaf_watchtopic_add(@User varchar(50),@TopicID int) as
+CREATE  procedure yaf_watchtopic_add(@UserID int,@TopicID int) as
 begin
-	declare @UserID int
-	if @User is null or @User='' 
-		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and b.GroupID=c.GroupID and c.IsGuest<>0
-	else begin
-		select @UserID = UserID from yaf_User where Name = @User
-	end
 	insert into yaf_WatchTopic(TopicID,UserID,Created)
 	select @TopicID, @UserID, getdate()
 	where not exists(select 1 from yaf_WatchTopic where TopicID=@TopicID and UserID=@UserID)

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -82,15 +80,12 @@ namespace yaf.admin
 		{
 			if(Request.QueryString["c"] != null) 
 			{
-				using(SqlCommand cmd = new SqlCommand("yaf_category_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@CategoryID",Request.QueryString["c"]);
-					using(DataTable dt = DataManager.GetData(cmd)) {
-						DataRow row = dt.Rows[0];
-						Name.Text = (string)row["Name"];
-						SortOrder.Text = row["SortOrder"].ToString();
-						CategoryNameTitle.Text = Name.Text;
-					}
+				using(DataTable dt = DB.category_list(Request.QueryString["c"]))
+				{
+					DataRow row = dt.Rows[0];
+					Name.Text = (string)row["Name"];
+					SortOrder.Text = row["SortOrder"].ToString();
+					CategoryNameTitle.Text = Name.Text;
 				}
 			}
 		}
@@ -100,13 +95,7 @@ namespace yaf.admin
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
-			SqlCommand cmd = new SqlCommand("yaf_category_save");
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@CategoryID",CategoryID);
-			cmd.Parameters.Add("@Name",Name.Text);
-			cmd.Parameters.Add("@SortOrder",SortOrder.Text);
-				
-			DataManager.ExecuteNonQuery(cmd);
+			DB.category_save(CategoryID,Name.Text,SortOrder.Text);
 			Response.Redirect("forums.aspx");
 		}
 	}

@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -56,12 +54,7 @@ namespace yaf
 		}
 
 		private void BindData() {
-			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Sent",true);
-				Inbox.DataSource = DataManager.GetData(cmd);
-			}
+			Inbox.DataSource = DB.pmessage_list(PageUserID,true,null);
 			DataBind();
 		}
 
@@ -73,11 +66,7 @@ namespace yaf
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName == "delete") {
-				using(SqlCommand cmd = new SqlCommand("yaf_pmessage_delete")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@PMessageID",e.CommandArgument);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.pmessage_delete(e.CommandArgument);
 				BindData();
 				AddLoadMessage("Message was deleted.");
 			} else {

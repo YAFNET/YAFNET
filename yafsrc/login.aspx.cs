@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -72,16 +70,9 @@ namespace yaf
 
 			string newpw = register.CreatePassword(8);
 
-			using(SqlCommand cmd = new SqlCommand("yaf_user_recoverpassword")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserName",LostUserName.Text);
-				cmd.Parameters.Add("@Email",LostEmail.Text);
-				cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"));
-				bool Success = (bool)DataManager.ExecuteScalar(cmd);
-				if(!Success) {
-					AddLoadMessage("Wrong user name or email address.");
-					return;
-				}
+			if(!DB.user_recoverpassword(LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) {
+				AddLoadMessage("Wrong user name or email address.");
+				return;
 			}
 
 			// Email Body
@@ -121,16 +112,8 @@ namespace yaf
 
 		private void ForumLogin_Click(object sender, System.EventArgs e)
 		{
-			bool Success = false;
 			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
-			using(SqlCommand cmd = new SqlCommand("yaf_user_login")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@Name",UserName.Text);
-				cmd.Parameters.Add("@Password",sPassword);
-				Success = (bool)DataManager.ExecuteScalar(cmd);
-			}
-
-			if(Success) {
+			if(DB.user_login(UserName.Text,sPassword)) {
 				//FormsAuthentication.RedirectFromLoginPage(UserName.Text, AutoLogin.Checked);
 				FormsAuthentication.SetAuthCookie(UserName.Text, AutoLogin.Checked);
 				Response.Redirect(BaseDir);

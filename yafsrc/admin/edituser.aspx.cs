@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -51,17 +49,14 @@ namespace yaf.admin
 			TopMenu = false;
 			if(!IsPostBack) {
 				BindData();
-				using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-					using(DataTable dt = DataManager.GetData(cmd)) {
-						DataRow row = dt.Rows[0];
-						Name.Text = (string)row["Name"];
-						Email.Text = row["Email"].ToString();
-						Joined.Text = row["Joined"].ToString();
-						LastVisit.Text = row["LastVisit"].ToString();
-						RankID.Items.FindByValue(row["RankID"].ToString()).Selected = true;
-					}
+				using(DataTable dt = DB.user_list(Request.QueryString["u"],null)) 
+				{
+					DataRow row = dt.Rows[0];
+					Name.Text = (string)row["Name"];
+					Email.Text = row["Email"].ToString();
+					Joined.Text = row["Joined"].ToString();
+					LastVisit.Text = row["LastVisit"].ToString();
+					RankID.Items.FindByValue(row["RankID"].ToString()).Selected = true;
 				}
 			}
 		}
@@ -90,13 +85,8 @@ namespace yaf.admin
 		#endregion
 
 		private void BindData() {
-			using(SqlCommand cmd = new SqlCommand("yaf_group_member",DataManager.GetConnection()))
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-				UserGroups.DataSource = DataManager.GetData(cmd);
-			}
-			RankID.DataSource = DataManager.GetData("yaf_rank_list",CommandType.StoredProcedure);
+			UserGroups.DataSource = DB.group_member(Request.QueryString["u"]);
+			RankID.DataSource = DB.rank_list(null);
 			RankID.DataValueField = "RankID";
 			RankID.DataTextField = "Name";
 			DataBind();
@@ -112,25 +102,12 @@ namespace yaf.admin
 		}
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			using(SqlCommand cmd = new SqlCommand("yaf_user_adminsave")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-				cmd.Parameters.Add("@Name",Name.Text);
-				cmd.Parameters.Add("@RankID",RankID.SelectedValue);
-				DataManager.ExecuteNonQuery(cmd);
-			}
+			DB.user_adminsave(Request.QueryString["u"],Name.Text,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{
 				RepeaterItem item = UserGroups.Items[i];
 				int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-				using(SqlCommand cmd = new SqlCommand("yaf_usergroup_save")) 
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",Request.QueryString["u"]);
-					cmd.Parameters.Add("@GroupID",GroupID);
-					cmd.Parameters.Add("@Member",((CheckBox)item.FindControl("GroupMember")).Checked);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.usergroup_save(Request.QueryString["u"],GroupID,((CheckBox)item.FindControl("GroupMember")).Checked);
 			}
 
 			Response.Redirect("users.aspx");

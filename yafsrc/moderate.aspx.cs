@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -63,13 +61,7 @@ namespace yaf
 
 		private void BindData() 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_topic_list")) {
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@ForumID",PageForumID);
-				cmd.Parameters.Add("@UserID",PageUserID);
-				cmd.Parameters.Add("@Announcement",-1);
-				topiclist.DataSource = DataManager.GetData(cmd);
-			}
+			topiclist.DataSource = DB.topic_list(PageForumID,PageUserID,-1,null);
 			DataBind();
 		}
 
@@ -80,11 +72,7 @@ namespace yaf
 					return;
 				}
 
-				using(SqlCommand cmd = new SqlCommand("yaf_topic_delete")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@TopicID",e.CommandArgument);
-					DataManager.ExecuteNonQuery(cmd);
-				}
+				DB.topic_delete(e.CommandArgument);
 				AddLoadMessage("Topic deleted.");
 				BindData();
 			}

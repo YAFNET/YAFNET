@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.UI;
@@ -94,13 +92,8 @@ namespace yaf
 
 			try {
 				string senderemail;
-				using(SqlCommand cmd = new SqlCommand("yaf_user_list")) {
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",PageUserID);
-					cmd.Parameters.Add("@Approved",true);
-					DataTable dt = DataManager.GetData(cmd);
+				using(DataTable dt = DB.user_list(PageUserID,true))
 					senderemail = (string)dt.Rows[0]["Email"];
-				}
 
 				//  Build a MailMessage
 				SendMail(senderemail,EmailAddress.Text,Subject.Text,Message.Text);
