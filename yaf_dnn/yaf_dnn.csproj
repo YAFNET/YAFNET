@@ -147,7 +147,7 @@
                 />
                 <File
                     RelPath = "Install.txt"
-                    BuildAction = "None"
+                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "Web.config.dotnetnuke"
