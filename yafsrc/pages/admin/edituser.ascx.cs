@@ -64,7 +64,9 @@ namespace yaf.pages.admin
 					IsHostAdminX.Checked = (bool)row["IsHostAdmin"];
 					Joined.Text = row["Joined"].ToString();
 					LastVisit.Text = row["LastVisit"].ToString();
-					RankID.Items.FindByValue(row["RankID"].ToString()).Selected = true;
+					ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
+					if(item!=null)
+						item.Selected = true;
 				}
 			}
 		}

@@ -384,6 +384,930 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "FreeTextBox\FreeTextBox-MainScript.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\FreeTextBox-ToolbarItemsScript.js"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\csharp.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\delete.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablecolumnafter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablecolumnbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablerowafter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttablerowbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\mergecells.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\mergecolumns.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\normal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\s.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\separator.vertical.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.horizontal.background.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.vertical.background.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.vertical.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbar.vertical.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\toolbarbutton.background.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\wordclean.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\images\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\de-de.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\en-US.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\es-ES.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\fr-FR.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\he-IL.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\it-IT.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\ja-JP.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\ko-kr.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\Languages.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\nb-NO.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\nl-NL.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\pt-pt.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\ru-ru.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\zh-cn.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\Languages\zh-TW.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\delete.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertablecolumnafter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertablecolumnbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertablerowbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\mergecells.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\mergerows.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\normal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\normal.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\s.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\wordclean.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\office2000\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\bold.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\bulletedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\bulletedlist.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\copy.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\copy.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\createlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\createlink.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\cut.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\cut.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\delete.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\delete.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\deletetablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\deletetablecolumn.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\deletetablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\deletetablerow.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\fontbackcolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\fontbackcolorpicker.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\fontforecolorpicker.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\fontforecolorpicker.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\forumColumnBackground.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\indent.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertdate.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertdate.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertimage.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertimage.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertimagefromgallery.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertimagefromgallery.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertrule.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\insertrule.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttable.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttable.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumn.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumn.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumnafter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumnafter.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumnbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablecolumnbefore.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerow.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerow.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerowafter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerowafter.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerowbefore.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttablerowbefore.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttime.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\inserttime.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\italic.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifycenter.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyfull.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyfull.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyleft.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\justifyright.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mergecells.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mergecells.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mergerows.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mergerows.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mode.design.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\mode.html.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\normal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\normal.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\numberedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\numberedlist.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\outdent.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\paste.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\paste.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\print.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\print.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\redo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\redo.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\removeformat.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\removeformat.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\s.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\save.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\save.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\separator.horizontal.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\spellcheck.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\strikethrough.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\strikethrough.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\subscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\subscript.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\superscript.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\superscript.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\toolbar.horizontal.end.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\toolbar.horizontal.start.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\underline.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\undo.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\undo.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\unlink.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\unlink.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\wordclean.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\wordclean.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\wordcount.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FreeTextBox\officexp\wordcount.over.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "images\delete_icon.gif"
                     BuildAction = "Content"
                 />
