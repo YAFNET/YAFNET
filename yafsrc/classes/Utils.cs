@@ -74,7 +74,7 @@ namespace yaf
 			} 
 			else 
 			{
-				string templatefile = HttpContext.Current.Server.MapPath(String.Format("{0}templates/{1}",Data.BaseDir,name));
+				string templatefile = HttpContext.Current.Server.MapPath(String.Format("{0}templates/{1}",Data.ForumRoot,name));
 				StreamReader sr = new StreamReader(templatefile,Encoding.ASCII);
 				file = sr.ReadToEnd();
 				sr.Close();
@@ -219,7 +219,7 @@ namespace yaf
 			{
 			}
 		}
-		static public void CreateWatchEmail(yaf.pages.ForumPage basePage,object messageID) 
+		static public void CreateWatchEmail(PageInfo basePage,object messageID) 
 		{
 			using(DataTable dt = DB.message_list(messageID)) 
 			{

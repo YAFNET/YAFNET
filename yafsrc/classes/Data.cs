@@ -19,6 +19,7 @@
 
 using System;
 using System.Data;
+using System.Web;
 
 namespace yaf
 {
@@ -49,7 +50,7 @@ namespace yaf
 	/// </summary>
 	public class Data 
 	{
-		public static string BaseDir 
+		public static string ForumRoot
 		{
 			get 
 			{
@@ -95,7 +96,7 @@ namespace yaf
 #if DEBUG
 			throw new Exception("ACCESS DENIED!");
 #else
-			System.Web.HttpContext.Current.Response.Redirect(BaseDir);
+			System.Web.HttpContext.Current.Response.Redirect(Data.ForumRoot);
 #endif
 		}
 
@@ -146,7 +147,7 @@ namespace yaf
 				dt.Columns.Add("Theme",typeof(string));
 				dt.Columns.Add("FileName",typeof(string));
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}themes",BaseDir)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}themes",Data.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.xml");
 				foreach(System.IO.FileInfo file in files) 
 				{
@@ -175,7 +176,7 @@ namespace yaf
 				dt.Columns.Add("Language",typeof(string));
 				dt.Columns.Add("FileName",typeof(string));
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}languages",BaseDir)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Request.MapPath(String.Format("{0}languages",ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.xml");
 				foreach(System.IO.FileInfo file in files) 
 				{
@@ -195,5 +196,51 @@ namespace yaf
 				return dt;
 			}
 		}
+		static public bool IsLocal 
+		{
+			get 
+			{
+				string s = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
+				return s!=null && s.ToLower()=="localhost";
+			}
+		}
+
+		#region Version Information
+		static public string AppVersionNameFromCode(long code) 
+		{
+			if((code & 0xFF)>0)
+				return String.Format("{0}.{1}.{2}.{3}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF,code & 0xFF);
+			else
+				return String.Format("{0}.{1}.{2}",(code>>24) & 0xFF,(code>>16) & 0xFF,(code>>8) & 0xFF);
+		}
+		static public string AppVersionName 
+		{
+			get 
+			{
+				return AppVersionNameFromCode(AppVersionCode);
+			}
+		}
+		static public int AppVersion 
+		{
+			get 
+			{
+				return 12;
+			}
+		}
+		static public long AppVersionCode 
+		{
+			get 
+			{
+				return 0x00090600;
+			}
+		}
+		static public DateTime AppVersionDate 
+		{
+			get 
+			{
+				return new DateTime(2003,12,2);
+			}
+		}
+		#endregion
 	}
 }

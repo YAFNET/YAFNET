@@ -298,26 +298,39 @@ namespace yaf
 		#endregion
 
 		#region DataSets
-		static public DataSet board_layout(object boardID,object UserID,object CategoryID) 
+		static public DataSet board_layout(object boardID,object UserID,object CategoryID,object parentID) 
 		{
-			using(DataSet ds = new DataSet()) 
+			if(CategoryID!=null && long.Parse(CategoryID.ToString())==0) 
+				CategoryID = null;
+
+			using(SqlConnection conn=GetConnection()) 
 			{
-				using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_moderators",GetConnection())) 
+				using(DataSet ds = new DataSet()) 
 				{
-					da.SelectCommand.CommandType = CommandType.StoredProcedure;
-					da.Fill(ds,"Moderators");
-					
-					da.SelectCommand.Parameters.Add("@BoardID",boardID);
-					da.SelectCommand.Parameters.Add("@UserID",UserID);
-					if(CategoryID!=null && long.Parse(CategoryID.ToString())!=0)
+					using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_moderators",conn)) 
+					{
+						da.SelectCommand.CommandType = CommandType.StoredProcedure;
+						da.Fill(ds,"Moderator");
+					}
+					using(SqlDataAdapter da = new SqlDataAdapter("yaf_category_listread",conn)) 
+					{
+						da.SelectCommand.CommandType = CommandType.StoredProcedure;
+						da.SelectCommand.Parameters.Add("@BoardID",boardID);
+						da.SelectCommand.Parameters.Add("@UserID",UserID);
 						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
-					da.SelectCommand.CommandText = "yaf_board_layout";
-					da.Fill(ds,"yaf_Category");
-	
-		
-					ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Category1"].Columns["CategoryID"]);
-					ds.Relations.Add("rel2",ds.Tables["yaf_Category1"].Columns["ForumID"],ds.Tables["Moderators"].Columns["ForumID"],false);
-			
+						da.Fill(ds,"yaf_Category");
+					}
+					using(SqlDataAdapter da = new SqlDataAdapter("yaf_forum_listread",conn)) 
+					{
+						da.SelectCommand.CommandType = CommandType.StoredProcedure;
+						da.SelectCommand.Parameters.Add("@BoardID",boardID);
+						da.SelectCommand.Parameters.Add("@UserID",UserID);
+						da.SelectCommand.Parameters.Add("@CategoryID",CategoryID);
+						da.SelectCommand.Parameters.Add("@ParentID",parentID);
+						da.Fill(ds,"yaf_Forum");
+					}
+					ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
+					ds.Relations.Add("FK_Moderator_Forum",ds.Tables["yaf_Forum"].Columns["ForumID"],ds.Tables["Moderator"].Columns["ForumID"],false);
 					return ds;
 				}
 			}
@@ -333,7 +346,7 @@ namespace yaf
 					da.Fill(ds,"yaf_Category");
 					da.SelectCommand.CommandText = "yaf_forum_list";
 					da.Fill(ds,"yaf_Forum");
-					ds.Relations.Add("myrelation",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
+					ds.Relations.Add("FK_Forum_Category",ds.Tables["yaf_Category"].Columns["CategoryID"],ds.Tables["yaf_Forum"].Columns["CategoryID"]);
 
 					return ds;
 				}
@@ -667,15 +680,34 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public DataTable forum_listread(object boardID,object UserID,object CategoryID) 
+		static public DataTable forum_listall(object boardID,object userID) 
 		{
-			using(SqlCommand cmd = new SqlCommand("yaf_board_layout")) 
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listall")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@UserID",userID);
+				return GetData(cmd);
+			}
+		}
+		static public DataTable forum_listpath(object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listpath")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
+			}
+		}
+		static public DataTable forum_listread(object boardID,object UserID,object CategoryID,object parentID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_listread")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@CategoryID",CategoryID);
-				cmd.Parameters.Add("@OnlyForum",1);
+				cmd.Parameters.Add("@ParentID",parentID);
 				return GetData(cmd);
 			}
 		}
@@ -696,13 +728,14 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object accessMaskID,bool dummy) 
+		static public long forum_save(object ForumID,object CategoryID,object parentID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated,object accessMaskID,bool dummy) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
 				cmd.Parameters.Add("@CategoryID",CategoryID);
+				cmd.Parameters.Add("@ParentID",parentID);
 				cmd.Parameters.Add("@Name",Name);
 				cmd.Parameters.Add("@Description",Description);
 				cmd.Parameters.Add("@SortOrder",SortOrder);
@@ -1588,7 +1621,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public bool user_register(yaf.pages.ForumPage page,object boardID,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
+		static public bool user_register(PageInfo page,object boardID,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
 			string hashinput = DateTime.Now.ToString() + email.ToString() + pages.register.CreatePassword(20);
 			string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
