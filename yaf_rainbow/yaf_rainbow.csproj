@@ -85,12 +85,6 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
                 />
                 <Reference
-                    Name = "Rainbow"
-                    AssemblyName = "Rainbow"
-                    HintPath = "\\mondeo\WWWROOT\rainbowportal\bin\Rainbow.dll"
-                    Private = "False"
-                />
-                <Reference
                     Name = "System.XML"
                     AssemblyName = "System.Xml"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
@@ -98,7 +92,13 @@
                 <Reference
                     Name = "yaf"
                     AssemblyName = "yaf"
-                    HintPath = "..\..\yafsrc\bin\yaf.dll"
+                    HintPath = "..\yafsrc\bin\yaf.dll"
+                    Private = "False"
+                />
+                <Reference
+                    Name = "Rainbow"
+                    AssemblyName = "Rainbow"
+                    HintPath = "..\..\..\www\Rainbow\bin\Rainbow.dll"
                     Private = "False"
                 />
             </References>
@@ -112,7 +112,7 @@
                 <File
                     RelPath = "RainbowModule.ascx.cs"
                     DependentUpon = "RainbowModule.ascx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
