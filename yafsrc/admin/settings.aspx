@@ -35,6 +35,10 @@
 		<td class=post><asp:checkbox id="ShowMoved" runat="server"/></td>
 	</tr>
 	<tr>
+		<td class=postheader><b>Links in New Window:</b><br/>If this is checked, links in messages will open in a new window.</td>
+		<td class=post><asp:checkbox id="BlankLinks" runat="server"/></td>
+	</tr>
+	<tr>
 		<td class=postfooter colspan=2 align=middle>
 <asp:Button id=Save runat="server" Text="Save"></asp:Button></td>
 	</tr>

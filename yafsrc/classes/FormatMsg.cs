@@ -35,7 +35,7 @@ namespace yaf
 			basePage = bp;
 		}
 
-		public string FormatMessage(System.Web.UI.Page page,string Message) {
+		public string FormatMessage(BasePage page,string Message) {
 			if(dtSmileys == null)
 				dtSmileys = DataManager.GetData("yaf_smiley_list",CommandType.StoredProcedure);
 
@@ -81,8 +81,13 @@ namespace yaf
 								tmp += "</u>";
 								break;
 							case "url":
-								if(arg!=null)
-									tmp += String.Format("<a href=\"{0}\">",arg);
+								if(arg!=null) 
+								{
+									if(page.UseBlankLinks)
+										tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
+									else
+										tmp += String.Format("<a href=\"{0}\">",arg);
+								}
 								else
 									tmp += "<a>";
 								break;

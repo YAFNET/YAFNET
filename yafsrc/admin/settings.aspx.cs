@@ -41,7 +41,7 @@ namespace yaf.admin {
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved;
+		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
 			if(!IsAdmin) Response.Redirect(BaseDir);
@@ -66,6 +66,7 @@ namespace yaf.admin {
 			ForumEmailEdit.Text = (string)row["ForumEmail"];
 			EmailVerification.Checked = (bool)row["EmailVerification"];
 			ShowMoved.Checked = (bool)row["ShowMoved"];
+			BlankLinks.Checked = (bool)row["BlankLinks"];
 		}
 
 		#region Web Form Designer generated code
@@ -101,6 +102,7 @@ namespace yaf.admin {
 				cmd.Parameters.Add("@ForumEmail",ForumEmailEdit.Text);
 				cmd.Parameters.Add("@EmailVerification",EmailVerification.Checked);
 				cmd.Parameters.Add("@ShowMoved",ShowMoved.Checked);
+				cmd.Parameters.Add("@BlankLinks",BlankLinks.Checked);
 				DataManager.ExecuteNonQuery(cmd);
 			}
 			Response.Redirect("main.aspx");

@@ -442,6 +442,14 @@ namespace yaf
 			}
 		}
 
+		public bool UseBlankLinks 
+		{
+			get 
+			{
+				return (bool)pageinfo["BlankLinks"];
+			}
+		}
+
 		public string ReadTemplate(string name) {
 			string file;
 			if(Cache[name] != null && false) {
