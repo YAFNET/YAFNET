@@ -416,5 +416,19 @@ namespace yaf
 				m_boardID = value;
 			}
 		}
+
+		private object m_categoryID = Config.ConfigSection["categoryid"];
+
+		public object CategoryID
+		{
+			get
+			{
+				return m_categoryID;
+			}
+			set
+			{
+				m_categoryID = value;
+			}
+		}
 	}
 }

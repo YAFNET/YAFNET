@@ -87,6 +87,9 @@ namespace yaf.controls
 			for(int i=0;i<dt.Rows.Count;i++) 
 			{
 				DataRow row = dt.Rows[i];
+				if(ForumPage.ForumControl.CategoryID!=null && row["CategoryID"].ToString()!=ForumPage.ForumControl.CategoryID.ToString())
+					continue;
+
 				if((int)row["CategoryID"] != nOldCat) 
 				{
 					nOldCat = (int)row["CategoryID"];

@@ -94,7 +94,7 @@ namespace yaf.pages
 
 					break;
 				case "active":
-					using(DataTable dt=DB.topic_active(PageBoardID,PageUserID,DateTime.Now + TimeSpan.FromHours(-24)))
+					using(DataTable dt=DB.topic_active(PageBoardID,PageUserID,DateTime.Now + TimeSpan.FromHours(-24),ForumControl.CategoryID))
 					{
 						foreach(DataRow row in dt.Rows)
 						{

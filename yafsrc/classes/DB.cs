@@ -1839,7 +1839,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable topic_active(object boardID,object UserID,object Since) 
+		static public DataTable topic_active(object boardID,object UserID,object Since,object categoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_active")) 
 			{
@@ -1847,6 +1847,7 @@ namespace yaf
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Since",Since);
+				cmd.Parameters.Add("@CategoryID",categoryID);
 				return GetData(cmd);
 			}
 		}

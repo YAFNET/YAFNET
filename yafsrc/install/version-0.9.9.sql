@@ -4423,7 +4423,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_topic_active') an
 	drop procedure yaf_topic_active
 GO
 
-create procedure dbo.yaf_topic_active(@BoardID int,@UserID int,@Since datetime) as
+create procedure dbo.yaf_topic_active(@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
 begin
 	select
 		c.ForumID,
@@ -4456,7 +4456,8 @@ begin
 		@Since < c.LastPosted and
 		x.UserID = @UserID and
 		x.ReadAccess <> 0 and
-		e.BoardID = @BoardID
+		e.BoardID = @BoardID and
+		(@CategoryID is null or e.CategoryID=@CategoryID)
 	order by
 		d.Name asc,
 		Priority desc,

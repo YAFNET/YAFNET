@@ -124,7 +124,7 @@ namespace yaf.pages
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 
-			DataView dv = DB.topic_active(PageBoardID,PageUserID,SinceDate).DefaultView;
+			DataView dv = DB.topic_active(PageBoardID,PageUserID,SinceDate,ForumControl.CategoryID).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;

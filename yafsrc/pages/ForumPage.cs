@@ -173,6 +173,10 @@ namespace yaf.pages
 					platform = "Win2003";
 			}
 
+			object categoryID = HttpContext.Current.Request.QueryString["c"];
+			if(ForumControl.CategoryID!=null)
+				categoryID = ForumControl.CategoryID;
+
 			m_pageinfo = DB.pageload(
 				HttpContext.Current.Session.SessionID,
 				PageBoardID,
@@ -181,7 +185,7 @@ namespace yaf.pages
 				HttpContext.Current.Request.FilePath,
 				browser,
 				platform,
-				HttpContext.Current.Request.QueryString["c"],
+				categoryID,
 				HttpContext.Current.Request.QueryString["f"],
 				HttpContext.Current.Request.QueryString["t"],
 				HttpContext.Current.Request.QueryString["m"]);
@@ -864,7 +868,9 @@ namespace yaf.pages
 		{
 			get 
 			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryID"))
+				if(ForumControl.CategoryID!=null)
+					return int.Parse(ForumControl.CategoryID.ToString());
+				else if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryID"))
 					return (int)m_pageinfo["CategoryID"];
 				else
 					return 0;

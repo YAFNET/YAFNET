@@ -50,7 +50,7 @@ namespace yaf.controls
 			writer.WriteLine("<p class='navlinks'>");
 
 			bool bFirst = true;
-			foreach(DataRow row in m_links.Rows) 
+			foreach(DataRow row in m_links.Rows)
 			{
 				if(!bFirst) 
 				{
@@ -61,7 +61,6 @@ namespace yaf.controls
 					bFirst = false;
 				}
 				writer.WriteLine(String.Format("<a href='{0}'>{1}</a>",row["URL"],row["Title"]));
-				//<asp:hyperlink id=HomeLink runat="server"/>
 			}
 			
 			writer.WriteLine("</p>");
