@@ -354,6 +354,7 @@
 		<Resource tag="EMAIL_SENT_PASSWORD">A mail has been sent with your new password.</Resource>
 		<Resource tag="SENDPASSWORD">Send Password</Resource>
 		<Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
+		<Resource tag="RECOVER_ERROR">There was an error when creating your new password.</Resource>
 	</page>
 	<page name="MEMBERS">
 		<!-- members.aspx -->
