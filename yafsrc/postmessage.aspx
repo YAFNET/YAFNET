@@ -106,4 +106,32 @@
 		</td>
 	</tr>
 </table>
+
+<br/>
+
+<asp:repeater id="LastPosts" runat="server" visible="false">
+<HeaderTemplate>
+	<table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>
+		<tr>
+			<td class=header2 align=middle colSpan=2>Last 10 Posts (In reverse order)</td>
+		</tr>
+</HeaderTemplate>
+<FooterTemplate>
+	</table>
+</FooterTemplate>
+<ItemTemplate>
+		<tr class=postheader>
+			<td width=140><b><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			</td>
+			<td width=80% class=small align=left><b>Posted:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+		</tr>
+		<tr class=post>
+			<td>&nbsp;</td>
+			<td valign=top class="message">
+				<%# FormatBody(Container.DataItem) %>
+			</td>
+		</tr>
+</ItemTemplate>
+</asp:repeater>
+
 </form>

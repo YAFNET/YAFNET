@@ -58,7 +58,8 @@
             Topic</asp:linkbutton> | <asp:linkbutton id=NextTopic runat=server>Next Topic</asp:linkbutton></TD>
           <td align=right><asp:linkbutton id=TrackTopic runat=server>Watch this topic</asp:linkbutton> | 
           <asp:linkbutton id=EmailTopic runat=server>Email this topic</asp:linkbutton> | 
-          <asp:linkbutton id=PrintTopic runat=server>Print this topic</asp:linkbutton></TD></TR></TABLE></TD></TR><asp:repeater id=MessageList runat="server">
+          <asp:linkbutton id=PrintTopic runat=server>Print this topic</asp:linkbutton></TD></TR></TABLE></TD></TR>
+          <asp:repeater id=MessageList runat="server">
 <ItemTemplate>
 		<tr class=postheader>
 			<td width=140><a name='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>'/><b><a href='profile.aspx?u=<%# DataBinder.Eval(Container.DataItem, "UserID") %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>

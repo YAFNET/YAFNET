@@ -76,7 +76,9 @@ namespace yaf
 		protected System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
 		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
 		protected System.Web.UI.WebControls.HyperLink ForumLink;
+		protected System.Web.UI.WebControls.Repeater LastPosts;
 		private int ForumID;
+		private FormatMsg fmt;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -115,6 +117,17 @@ namespace yaf
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
 					Title.Text = "Post a reply";
+
+					// History (Last 10 posts)
+					LastPosts.Visible = true;
+					using(SqlCommand cmd = new SqlCommand("yaf_post_list_reverse10")) 
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.Add("@TopicID",Request.QueryString["t"]);
+						//cmd.Parameters.Add("@UserID",PageUserID);
+						LastPosts.DataSource = yaf.DataManager.GetData(cmd);
+						LastPosts.DataBind();
+					}
 				}
 
 				if(Request.QueryString["q"] != null) {
@@ -287,5 +300,17 @@ namespace yaf
 			PreviewCell.InnerHtml = fmt.FormatMessage(this,body);
 		}
 
+		protected string FormatBody(object o) 
+		{
+			DataRowView row = (DataRowView)o;
+			string html = row["Message"].ToString();
+			if(row["Signature"].ToString().Length>0)
+				html += "\r\n\r\n-- \r\n" + row["Signature"].ToString();
+
+			if(fmt==null)
+				fmt = new FormatMsg(this);
+
+			return fmt.FormatMessage(this,html);
+		}
 	}
 }
