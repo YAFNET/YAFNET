@@ -1053,6 +1053,13 @@ namespace yaf
 #endif
 			}
 			string str = m_localizer.GetText(page,text);
+			if(str==null) 
+			{
+#if !DEBUG
+				Cache["Localizer"] = null;
+#endif
+				throw new Exception(String.Format("Missing language item {0} ({1})",text,page));
+			}
 			str = str.Replace("[b]","<b>");
 			str = str.Replace("[/b]","</b>");
 			return str;
@@ -1076,7 +1083,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,29);
+				return new DateTime(2003,10,30);
 			}
 		}
 	}

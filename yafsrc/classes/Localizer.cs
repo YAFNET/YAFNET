@@ -93,8 +93,8 @@ namespace yaf
 			if( el != null )
 				return el.InnerText;
 			else
-				throw new Exception(String.Format("Missing language item {0}",text));
-				//return "";
+				//throw new Exception(String.Format("Missing language item {0}",text));
+				return null;
 		}
 
 		public string GetText( string page, string text )

@@ -294,6 +294,7 @@
 		<Resource tag="NEED_TO">You haven't said who the message is to.</Resource>
 		<Resource tag="NEED_SUBJECT">You must enter a subject.</Resource>
 		<Resource tag="NEED_MESSAGE">You haven't written anything in the message.</Resource>
+		<Resource tag="SAVE">Post</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
@@ -325,6 +326,7 @@
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
+		<Resource tag="SAVE">Post</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->

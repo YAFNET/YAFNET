@@ -11,3 +11,7 @@
 - tooltips for "last post" icon, and user profile links (Goto last post, View profile).
 - inserting smilies: http://forum.yetanotherforum.net/posts.aspx?t=155
 - allow admin to pm all members. admin function to delete old pm's
+- visual clues on rich edit buttons.
+- somehow show that there are messages to be moderated.
+- Is there an option to lock a users account?  If so can you give moderators that ability?
+- Keep deleted posts for later purge. Option for moderators to tell why the post was deleted.
