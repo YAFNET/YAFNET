@@ -102,7 +102,7 @@
 	</tr>
 	<tr runat="server" id="AvatarOurs">
 		<td class="postheader" valign="top"><%= GetText("ouravatar") %></td>
-		<td class="post"><asp:hyperlink id="OurAvatar" runat="server" /><asp:image id="AvatarImg" runat="server" visible="false"/></td> 
+		<td class="post"><asp:image id="AvatarImg" runat="server" visible="false"/><br /><asp:hyperlink id="OurAvatar" runat="server" /></td>
 	</tr>
 	<tr runat="server" id="AvatarRemoteRow">
 		<td class=postheader><%= GetText("avatarremote") %></td>

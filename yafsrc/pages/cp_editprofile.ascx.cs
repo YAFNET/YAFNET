@@ -99,12 +99,18 @@ namespace yaf.pages
 				UserThemeRow.Visible = BoardSettings.AllowUserTheme;
 				UserLanguageRow.Visible = BoardSettings.AllowUserLanguage;
 
-				if(Request.QueryString["av"]!=null)
+				if (Request.QueryString["av"] != null)
 				{
 					AvatarImg.ImageUrl = string.Format("{2}{0}images/avatars/{1}",Data.ForumRoot,Request.QueryString["av"],ServerURL);
 					AvatarImg.Visible = true;
 					Avatar.Text = AvatarImg.ImageUrl;
-					OurAvatar.Visible = false;
+					// OurAvatar.Visible = false;
+				}
+
+				if (DeleteAvatar.Visible == true)
+				{
+					AvatarImg.Visible = false;
+					Avatar.Text = "";
 				}
 			}
 		}
@@ -151,6 +157,8 @@ namespace yaf.pages
 			Language.Items.FindByValue(languageFile).Selected = true;
 
 			AvatarDeleteRow.Visible = row["AvatarImage"].ToString().Length>0;
+			AvatarImg.Visible = row["Avatar"].ToString().Length>0;
+			AvatarImg.ImageUrl = row["Avatar"].ToString();
 			using(DataTable dt = DB.system_list()) 
 			{
 				foreach(DataRow row2 in dt.Rows) 
@@ -162,7 +170,7 @@ namespace yaf.pages
 			}
 		}
 
-		private void DeleteAvatar_Click(object sender, System.EventArgs e) 
+		private void DeleteAvatar_Click(object sender, System.EventArgs e)
 		{
 			DB.user_deleteavatar(PageUserID);
 			BindData();
@@ -278,12 +286,15 @@ namespace yaf.pages
 				}
 			}
 
-			if(OldPassword.Text.Length > 0) {
-				if(NewPassword1.Text.Length==0 || NewPassword2.Text.Length==0) {
+			if(OldPassword.Text.Length > 0) 
+			{
+				if(NewPassword1.Text.Length==0 || NewPassword2.Text.Length==0) 
+				{
 					AddLoadMessage(GetText("no_empty_password"));
 					return;
 				}
-				if(NewPassword1.Text != NewPassword2.Text) {
+				if(NewPassword1.Text != NewPassword2.Text) 
+				{
 					AddLoadMessage(GetText("no_password_match"));
 					return;
 				}
@@ -291,9 +302,15 @@ namespace yaf.pages
 				string oldpw = FormsAuthentication.HashPasswordForStoringInConfigFile(OldPassword.Text,"md5");
 				string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword1.Text,"md5");
 
-				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) {
+				if(!DB.user_changepassword(PageUserID,oldpw,newpw)) 
+				{
 					AddLoadMessage(GetText("old_password_wrong"));
 				}
+			}
+
+			if (AvatarImg.ImageUrl != "")
+			{
+				Avatar.Text = AvatarImg.ImageUrl;
 			}
 
 			object email = null;

@@ -161,7 +161,7 @@ namespace yaf.controls
 			{
 				html += String.Format("<img src='{1}image.aspx?u={0}'><br clear=\"all\"/>",row["UserID"],Data.ForumRoot);
 			} 
-			else if(ForumPage.BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
+			else if(row["Avatar"].ToString().Length>0) // Took out ForumPage.BoardSettings.AvatarRemote
 			{
 				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
 				html += String.Format("<img src='{3}image.aspx?url={0}&width={1}&height={2}'><br clear=\"all\"/>",

@@ -88,7 +88,7 @@ namespace yaf.pages
 			{
 				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",Data.ForumRoot,PageUserID);
 			} 
-			else if(BoardSettings.AvatarRemote && row["Avatar"].ToString().Length>0) 
+			else if(row["Avatar"].ToString().Length>0) // Took out BoardSettings.AvatarRemote
 			{
 				AvatarImage.Src = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
 					Server.UrlEncode(row["Avatar"].ToString()),
@@ -96,7 +96,7 @@ namespace yaf.pages
 					BoardSettings.AvatarHeight,
 					Data.ForumRoot);
 			} 
-			else 
+			else
 			{
 				AvatarImage.Visible = false;
 			}

@@ -27,7 +27,6 @@ namespace yaf
 			writer.WriteElementString("link", page.ForumURL);
 			writer.WriteElementString("description", "Yet Another Forum Web Application");
 			writer.WriteElementString("copyright", "Copyright 2002-2004 Bjørnar Henden");
-			writer.WriteElementString("generator", "RssFeed v1.0"); 
 
 			return writer;
 		}

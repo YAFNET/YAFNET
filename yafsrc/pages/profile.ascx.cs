@@ -136,7 +136,7 @@ namespace yaf.pages
 				{
 					Avatar.ImageUrl = Data.ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
 				} 
-				else if(BoardSettings.AvatarRemote && user["Avatar"].ToString().Length>0) 
+				else if(user["Avatar"].ToString().Length>0) // Took out BoardSettings.AvatarRemote
 				{
 					Avatar.ImageUrl = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
 						Server.UrlEncode(user["Avatar"].ToString()),
