@@ -124,7 +124,7 @@ namespace yaf
 
 			while(m.Success) 
 			{
-				Console.WriteLine("{0}",m.Groups["size"]);
+				///Console.WriteLine("{0}",m.Groups["size"]);
 				int i = GetNumber(m.Groups["size"].Value);
 				string tmp;
 				if(i<1)

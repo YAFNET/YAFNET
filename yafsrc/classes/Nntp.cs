@@ -48,9 +48,9 @@ namespace yaf.classes
 			byte []serverbuff = new Byte[1024];
 			System.Net.Sockets.NetworkStream stream = GetStream();
 			int count = 0;
+			byte []buff = new Byte[2];
 			while (true)
 			{
-				byte []buff = new Byte[2];
 				int bytes = stream.Read( buff, 0, 1 );
 				if (bytes == 1)
 				{
@@ -68,7 +68,9 @@ namespace yaf.classes
 			};
 
 			string sLine = enc.GetString(serverbuff,0,count);
-			Console.WriteLine(sLine);
+#if DEBUG
+			///Console.WriteLine(sLine);
+#endif
 			return sLine;
 		}
 		private static string GetHeader(string headers,string tofind) 
