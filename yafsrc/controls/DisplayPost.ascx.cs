@@ -81,13 +81,13 @@ namespace yaf.controls
 			Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",DataRow["UserID"]);
 		}
 
-		override protected void OnInit(EventArgs e)
-		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			this.PreRender += new EventHandler(DisplayPost_PreRender);
-			Delete.Click += new EventHandler(Delete_Click);
-			base.OnInit(e);
-		}
+override protected void OnInit(EventArgs e)
+{
+	this.Load += new System.EventHandler(this.Page_Load);
+	this.PreRender += new EventHandler(DisplayPost_PreRender);
+	Delete.Click += new EventHandler(Delete_Click);
+	base.OnInit(e);
+}
 
 		private DataRowView	m_row = null;
 		public DataRowView DataRow

@@ -76,6 +76,8 @@ namespace yaf
 		static private Regex		r_quote1 = new Regex(@"\[quote\](?<inner>(.*?))\[/quote\]",m_options);
 		static private Regex		r_hr = new Regex("^[-][-][-][-][-]*[\r]?[\n]",m_options);
 		static private Regex		r_br = new Regex("[\r]?\n",m_options);
+		static private Regex		r_post = new Regex(@"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]",m_options);
+		static private Regex		r_topic = new Regex(@"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]",m_options);
 
 		static public string MakeHtml(string bbcode)
 		{
@@ -91,7 +93,7 @@ namespace yaf
 				after_replace = after_replace.Replace("[","&#91;");
 				after_replace = after_replace.Replace("]","&#93;");
 				after_replace = after_replace.Replace("<br/>","\n");
-				after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
+				//after_replace = System.Web.HttpContext.Current.Server.HtmlEncode(after_replace);
 				bbcode = bbcode.Replace(before_replace,string.Format("<pre>{0}</pre>",after_replace));
 				break;
 			}
@@ -135,6 +137,22 @@ namespace yaf
 				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>QUOTE (${quote})</b><div class='innerquote'>${inner}</div></div>");
 			while(r_quote1.IsMatch(bbcode))
 				bbcode = r_quote1.Replace(bbcode,"<div class='quote'><b>QUOTE</b><div class='innerquote'>${inner}</div></div>");
+
+			m = r_post.Match(bbcode);
+			while(m.Success) 
+			{
+				string link = Forum.GetLink(Pages.posts,"m={0}#{0}",m.Groups["post"]);
+				bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				m = r_post.Match(bbcode);
+			}
+
+			m = r_topic.Match(bbcode);
+			while(m.Success) 
+			{
+				string link = Forum.GetLink(Pages.posts,"t={0}",m.Groups["topic"]);
+				bbcode = bbcode.Replace(m.Groups[0].ToString(),string.Format("<a href=\"{0}\">{1}</a>",link,m.Groups["inner"]));
+				m = r_topic.Match(bbcode);
+			}
 
 			bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
 			bbcode = r_br.Replace(bbcode,"<br/>");
