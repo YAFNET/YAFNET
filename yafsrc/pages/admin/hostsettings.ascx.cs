@@ -38,7 +38,7 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.DropDownList TimeZones;
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
-		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow;
+		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 		protected CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX, ShowRSSLinkX, ShowForumJumpX;
 		protected TextBox AvatarSize, MaxFileSize;
@@ -101,6 +101,8 @@ namespace yaf.pages.admin {
 			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
 			LockPosts.Text = BoardSettings.LockPosts.ToString();
+			PostsPerPage.Text = BoardSettings.PostsPerPage.ToString();
+			TopicsPerPage.Text = BoardSettings.TopicsPerPage.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -158,6 +160,8 @@ namespace yaf.pages.admin {
 			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
 			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
 			BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
+			BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
+			BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

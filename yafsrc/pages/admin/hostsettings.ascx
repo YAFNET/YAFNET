@@ -105,6 +105,18 @@
 				</TD>
 		</TR>		
 		<tr>
+			<TD class="postheader"><B>Posts Per Page:</B><BR>
+				Number of posts to show per page.</TD>
+			<TD class="post">
+				<asp:TextBox id="PostsPerPage" runat="server"></asp:TextBox></TD>		
+		</tr>
+		<tr>
+			<TD class="postheader"><B>Topics Per Page:</B><BR>
+				Number of topics to show per page.</TD>
+			<TD class="post">
+				<asp:TextBox id="TopicsPerPage" runat="server"></asp:TextBox></TD>		
+		</tr>		
+		<tr>
 			<td class="postheader"><b>Days before posts are locked:</b><br/>
 				Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit.</td>
 			<td class="post">
