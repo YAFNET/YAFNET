@@ -76,9 +76,6 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				if(Request.QueryString["p"] != null)
-					Pager.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
-
 				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddLink(PageForumName,Forum.GetLink(Pages.topics,"f={0}",PageForumID));
@@ -209,7 +206,32 @@ namespace yaf.pages
 			{
 				Pager.Count = dt.Rows.Count;
 				pds.DataSource = dt.DefaultView;
-				if(Request.QueryString["m"] != null) 
+				int nFindMessage = 0;
+				try
+				{
+					if(Request.QueryString["m"]!=null)
+					{
+						// Show this message
+						nFindMessage = int.Parse(Request.QueryString["m"]);
+					}
+					else if(Request.QueryString["find"]!=null && Request.QueryString["find"].ToLower()=="unread")
+					{
+						// Find next unread
+						using(DataTable dtUnread = DB.message_findunread(PageTopicID,Mession.LastVisit))
+						{
+							foreach(DataRow row in dtUnread.Rows)
+							{
+								nFindMessage = (int)row["MessageID"];
+								break;
+							}
+						}
+					}
+				}
+				catch(Exception)
+				{
+				}
+
+				if(nFindMessage>0) 
 				{
 					// Find correct page for message
 					long nMessageID = long.Parse(Request.QueryString["m"]);

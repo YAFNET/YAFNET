@@ -154,15 +154,7 @@
 	<tr class="header2">
 		<td class="header2" colspan="2">Forum Access</td>
 	</tr>
-		<asp:repeater runat="server" id="ForumAccess">
-			<ItemTemplate>
-				<tr>
-					<td class="postheader" width="50%"><a href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",DataBinder.Eval(Container.DataItem,"ForumID")) %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
-					<td class="post" width="50%"><%# DataBinder.Eval(Container.DataItem,"AccessMaskName") %></td>
-				</tr>
-			</ItemTemplate>
-		</asp:repeater>
-	</td></tr>
+	<asp:literal runat="server" id="AccessMaskRow"/>
 	</table>
 </td></tr>
 </asp:placeholder>

@@ -632,7 +632,7 @@ namespace yaf.pages
 			if(m_pageinfo==null) 
 			{
 				if(User.IsAuthenticated) 
-					throw new ApplicationException(string.Format("User '{0}' not in database.",User.Name));
+					throw new ApplicationException(string.Format("User '{0}' isn't registered.",User.Name));
 				else
 					throw new ApplicationException("Failed to find guest user.");
 			}
@@ -653,27 +653,27 @@ namespace yaf.pages
 				Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 
-			if(Session["lastvisit"] == null && (int)m_pageinfo["Incoming"]>0) 
+			if(Mession.LastVisit == DateTime.MinValue && (int)m_pageinfo["Incoming"]>0) 
 			{
 				AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
 			}
 
-			if(Session["lastvisit"] == null && Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
+			if(Mession.LastVisit == DateTime.MinValue && Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
 			{
 				try 
 				{
-					Session["lastvisit"] = DateTime.Parse(Request.Cookies["yaf"]["lastvisit"]);
+					Mession.LastVisit = DateTime.Parse(Request.Cookies["yaf"]["lastvisit"]);
 				}
 				catch(Exception) 
 				{
-					Session["lastvisit"] = DateTime.Now;
+					Mession.LastVisit = DateTime.Now;
 				}
 				Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
 				Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
-			else if(Session["lastvisit"] == null) 
+			else if(Mession.LastVisit == DateTime.MinValue) 
 			{
-				Session["lastvisit"] = DateTime.Now;
+				Mession.LastVisit = DateTime.Now;
 			}
 
 			if(Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
@@ -726,39 +726,39 @@ namespace yaf.pages
 
 		public DateTime GetForumRead(int forumID)
 		{
-			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["forumread"];
+			System.Collections.Hashtable t = Mession.ForumRead;
 			if(t==null || !t.ContainsKey(forumID)) 
-				return (DateTime)Session["lastvisit"];
+				return (DateTime)Mession.LastVisit;
 			else
 				return (DateTime)t[forumID];
 		}
 		public void SetForumRead(int forumID,DateTime date) 
 		{
-			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["forumread"];
+			System.Collections.Hashtable t = Mession.ForumRead;
 			if(t==null) 
 			{
 				t = new System.Collections.Hashtable();
 			}
 			t[forumID] = date;
-			Session["forumread"] = t;
+			Mession.ForumRead = t;
 		}
 		public DateTime GetTopicRead(int topicID)
 		{
-			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["topicread"];
+			System.Collections.Hashtable t = Mession.TopicRead;
 			if(t==null || !t.ContainsKey(topicID)) 
-				return (DateTime)Session["lastvisit"];
+				return (DateTime)Mession.LastVisit;
 			else
 				return (DateTime)t[topicID];
 		}
 		public void SetTopicRead(int topicID,DateTime date) 
 		{
-			System.Collections.Hashtable t = (System.Collections.Hashtable)Session["topicread"];
+			System.Collections.Hashtable t = Mession.TopicRead;
 			if(t==null) 
 			{
 				t = new System.Collections.Hashtable();
 			}
 			t[topicID] = date;
-			Session["topicread"] = t;
+			Mession.TopicRead = t;
 		}
 		#endregion
 		#region Theme Functions

@@ -131,6 +131,8 @@ namespace yaf.admin {
 				AllowUserLanguageX.Checked,
 				UseFileTableX.Checked,
 				MaxFileSize.Text.Trim().Length>0 ? MaxFileSize.Text : null);
+
+			Config.ForumSettings = null;	/// Reload forum settings
 			Response.Redirect("main.aspx");
 		}
 	}

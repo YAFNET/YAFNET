@@ -240,14 +240,10 @@ namespace yaf.pages
 
 
 			// Must wait 30 seconds before posting again
-			if(Session["lastpost"] != null && Request.QueryString["m"]==null) 
+			if(Mession.LastPost>DateTime.Now.AddSeconds(-30) && Request.QueryString["m"]==null) 
 			{
-				DateTime lastpost = DateTime.Parse(Session["lastpost"].ToString());
-				lastpost += TimeSpan.FromSeconds(30);
-				if(lastpost > DateTime.Now) {
-					AddLoadMessage(String.Format(GetText("wait"),(lastpost - DateTime.Now).Seconds));
-					return;
-				}
+				AddLoadMessage(String.Format(GetText("wait"),(Mession.LastPost - DateTime.Now.AddSeconds(-30)).Seconds));
+				return;
 			}
 
 			long TopicID;
@@ -258,7 +254,7 @@ namespace yaf.pages
 			else
 				msg = FormatMsg.RepairHtml(this,msg);
 
-			Session["lastpost"] = DateTime.Now;
+			Mession.LastPost = DateTime.Now;
 			if(Request.QueryString["t"] != null) {
 				if(!ForumReplyAccess)
 					Data.AccessDenied();

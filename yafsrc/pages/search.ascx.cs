@@ -21,8 +21,6 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data.OleDb;
 using System.Drawing;
 using System.Web;
 using System.Web.SessionState;
@@ -37,22 +35,15 @@ namespace yaf.pages
 	/// </summary>
 	public class search : ForumPage
 	{
-		protected System.Web.UI.WebControls.DropDownList ForumJump;
-		protected System.Web.UI.WebControls.DropDownList DropDownList1;
-		protected LinkButton moderate1, moderate2;
 		protected System.Web.UI.WebControls.Button btnSearch;
 		protected System.Web.UI.WebControls.DropDownList listForum;
 		protected System.Web.UI.WebControls.TextBox txtSearchString;
 		protected System.Web.UI.WebControls.DropDownList listResInPage;
 		protected System.Web.UI.WebControls.DropDownList listSearchWath;
 		protected System.Web.UI.WebControls.DropDownList listSearchWhere;
-		protected System.Web.UI.WebControls.Label lblPageCounts;
-		protected System.Web.UI.WebControls.LinkButton btnPrevPage;
-		protected System.Web.UI.WebControls.LinkButton btnNextPage;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.Repeater SearchRes;
 		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 	
 		public search() : base("SEARCH")
 		{
@@ -96,14 +87,18 @@ namespace yaf.pages
 					}
 					listForum.Items.Add(new ListItem(" - " + (string)row["Forum"],row["ForumID"].ToString()));
 				}
-
-				BindData( false );
 			}
+		}
+
+		private void Pager_PageChange(object sender,EventArgs e)
+		{
+			BindData(false);
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			Pager.PageChange += new EventHandler(Pager_PageChange);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -126,59 +121,37 @@ namespace yaf.pages
 
 		private void BindData( bool newSearch )
 		{
-			if( Request.QueryString["p"] == null && !newSearch )
-				return;
-
-			PagedDataSource pds = new PagedDataSource();
-			pds.AllowPaging = true;
-			
-			if( newSearch )
+			try
 			{
-				SEARCH_FIELD sf = (SEARCH_FIELD)System.Enum.Parse( typeof( SEARCH_FIELD ), listSearchWhere.SelectedValue );
-				SEARCH_WHAT sw = (SEARCH_WHAT)System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
-				int forumID = int.Parse( listForum.SelectedValue );
-				int pages = int.Parse( listResInPage.SelectedValue );
-
-				pds.DataSource = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
-				pds.PageSize = pages;
-				Session[ "ds" ] = pds.DataSource;
-				pds.CurrentPageIndex = 0;
-			}
-			else
-			{
-				pds.PageSize = int.Parse( Request.QueryString["pp"] );
-				pds.CurrentPageIndex = int.Parse( Request.QueryString["p"] );
-				pds.DataSource = (System.Collections.IEnumerable)Session[ "ds" ];
-			}
-
-			if(pds.PageCount>1) 
-			{
-				PageLinks1.Visible = true;
-				PageLinks2.Visible = true;
-
-				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) 
+				if( newSearch )
 				{
-					if(i==pds.CurrentPageIndex) 
-					{
-						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} 
-					else 
-					{
-						PageLinks1.InnerHtml += String.Format(" <a href=\"{1}\">{0}</a>",i+1,Forum.GetLink(Pages.search,"p={0}&pp={1}",i,pds.PageSize));
-					}
+					SEARCH_FIELD sf = (SEARCH_FIELD)System.Enum.Parse( typeof( SEARCH_FIELD ), listSearchWhere.SelectedValue );
+					SEARCH_WHAT sw = (SEARCH_WHAT)System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
+					int forumID = int.Parse( listForum.SelectedValue );
+				
+					DataView dv = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
+					Pager.CurrentPageIndex = 0;
+					Pager.PageSize = int.Parse(listResInPage.SelectedValue);
+					Pager.Count = dv.Count;
+					Mession.SearchData = dv;
 				}
-				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-			} 
-			else 
-			{
-				PageLinks1.Visible = false;
-				PageLinks2.Visible = false;
+
+				PagedDataSource pds = new PagedDataSource();
+				pds.AllowPaging = true;
+				pds.DataSource = Mession.SearchData;
+				pds.PageSize = Pager.PageSize;
+				pds.CurrentPageIndex = Pager.CurrentPageIndex;
+
+				SearchRes.DataSource = pds;
+				DataBind();
 			}
-
-			SearchRes.DataSource = pds;
-
-			DataBind();
+			catch(System.Data.SqlClient.SqlException x)
+			{
+				if(IsAdmin)
+					AddLoadMessage(x.Message);
+				else
+					AddLoadMessage("An error occurred in the database.");
+			}
 		}
 
 		public string FormatMessage( object o )
@@ -188,26 +161,24 @@ namespace yaf.pages
 			string body = row["Message"].ToString();
 			bool isHtml = body.IndexOf('<')>=0;
 			if(!isHtml) 
-			{
 				body = FormatMsg.ForumCodeToHtml(this,body);
-			}
+
 			return FormatMsg.FetchURL(this,body);
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)
 		{
-			BindData( true );
+			BindData(true);
 		}
 
 		private void SearchRes_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
 		{
-			object o = e.Item.FindControl( "CounterCol" );
-			if( o != null )
+			HtmlTableCell cell = (HtmlTableCell)e.Item.FindControl("CounterCol");
+			if(cell!=null)
 			{
-				int rowCount = e.Item.ItemIndex + 1 + (((PagedDataSource)SearchRes.DataSource).CurrentPageIndex * ((PagedDataSource)SearchRes.DataSource).PageSize);
-
-
-				((System.Web.UI.HtmlControls.HtmlTableCell)o).InnerHtml = string.Format( "&nbsp;<B>{0}</B>.", rowCount );
+				string messageID = cell.InnerText;
+				int rowCount = e.Item.ItemIndex + 1 + (Pager.CurrentPageIndex * Pager.PageSize);
+				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, Forum.GetLink(Pages.posts,"m={0}#{0}",messageID));
 			}
 		}
 	}

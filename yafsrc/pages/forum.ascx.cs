@@ -55,7 +55,7 @@ namespace yaf.pages
 			if(!IsPostBack) 
 			{
 				TimeNow.Text = String.Format(GetText("current_time"),FormatTime(DateTime.Now));
-				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString())));
+				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit));
 				MarkAll.Text = GetText("MARKALL");
 
 				if(UnreadPrivate>0) 
@@ -81,7 +81,7 @@ namespace yaf.pages
 
 		private void MarkAll_Click(object sender, System.EventArgs e)
 		{
-			Session["lastvisit"] = DateTime.Now;
+			Mession.LastVisit = DateTime.Now;
 			BindData();
 		}
 
@@ -157,7 +157,7 @@ namespace yaf.pages
 		protected string FormatLastPost(System.Data.DataRow row) {
 			if(!row.IsNull("LastPosted")) {
 				string minipost;
-				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
+				if(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit)
 					minipost = GetThemeContents("ICONS","ICON_NEWEST");
 				else
 					minipost = GetThemeContents("ICONS","ICON_LATEST");

@@ -5,7 +5,7 @@
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
-		<td class=navlinks align=left id=PageLinks1 runat=server></td>
+		<td class=navlinks><yaf:pager runat="server" id="Pager"/></td>
 		<td align=right><%= GetText("since") %> <asp:DropDownList id=Since runat="server" AutoPostBack="True"/></td>
 	</tr>
 </table>
@@ -22,7 +22,7 @@
 <asp:repeater id=TopicList runat="server">
 <ItemTemplate>
 	<%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-	<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>/>
+	<yaf:TopicLine runat="server" findunread="true" DataRow=<%# Container.DataItem %>/>
 </ItemTemplate>
 </asp:repeater>
 <tr>
@@ -32,7 +32,7 @@
 
 <table class=command width="100%" cellspacing=0 cellpadding=0>
 <tr>
-	<td align="left" class=navlinks id=PageLinks2 runat="server"/>
+	<td class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td>
 </tr>
 </table>
 

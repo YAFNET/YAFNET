@@ -54,14 +54,13 @@ namespace yaf.pages
 
 		private void topics_Unload(object sender, System.EventArgs e)
 		{
-			if((int)Session["unreadtopics"]==0) 
+			if(Mession.UnreadTopics==0) 
 				SetForumRead(PageForumID,DateTime.Now);
-			//throw new Exception(Session["unreadtopics"].ToString());
 		}
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Session["unreadtopics"] = 0;
+			Mession.UnreadTopics = 0;
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
@@ -92,7 +91,7 @@ namespace yaf.pages
 
 				try 
 				{
-					ShowList.SelectedIndex = (int)Session["ShowList"];
+					ShowList.SelectedIndex = Mession.ShowList;
 				}
 				catch(Exception) 
 				{
@@ -172,7 +171,7 @@ namespace yaf.pages
 
 		private void ShowList_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			Session["ShowList"] = ShowList.SelectedIndex;
+			Mession.ShowList = ShowList.SelectedIndex;
 			BindData();
 		}
 

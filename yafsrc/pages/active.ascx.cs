@@ -36,10 +36,9 @@ namespace yaf.pages
 	{
 		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks1;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PageLinks2;
 		protected System.Web.UI.WebControls.DropDownList Since;
 		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 		protected string LastForumName = "";
 
 		public active() : base("ACTIVE")
@@ -52,7 +51,7 @@ namespace yaf.pages
 				PageLinks.AddLink(Config.ForumSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
 
-				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(DateTime.Parse(Session["lastvisit"].ToString()))),"0"));
+				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));
 				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));
 				Since.Items.Add(new ListItem(GetText("last_two_hours"),"-2"));
 				Since.Items.Add(new ListItem(GetText("last_day"),"1"));
@@ -60,16 +59,19 @@ namespace yaf.pages
 				Since.Items.Add(new ListItem(GetText("last_week"),"7"));
 				Since.Items.Add(new ListItem(GetText("last_two_weeks"),"14"));
 				Since.Items.Add(new ListItem(GetText("last_month"),"31"));
-
-				if(Request.QueryString["k"] != null)
-					Since.Items.FindByValue(Request.QueryString["k"]).Selected = true;
 			}
+			BindData();
+		}
+
+		private void Pager_PageChange(object sender,EventArgs e)
+		{
 			BindData();
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			Pager.PageChange += new EventHandler(Pager_PageChange);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -102,40 +104,22 @@ namespace yaf.pages
 					SinceDate = DateTime.Now + TimeSpan.FromHours(SinceValue);
 			}
 			if(SinceValue==0)
-				SinceDate = DateTime.Parse(Session["lastvisit"].ToString());
+				SinceDate = Mession.LastVisit;
 
 
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 			
-			pds.DataSource = DB.topic_active(PageUserID,SinceDate).DefaultView;
+			DataView dv = DB.topic_active(PageUserID,SinceDate).DefaultView;
+			pds.DataSource = dv;
+			Pager.Count = dv.Count;
+			Pager.PageSize = 15;
+			pds.PageSize = Pager.PageSize;
 
-			pds.PageSize = 15;
-			if(Request.QueryString["p"] != null)
-				pds.CurrentPageIndex = int.Parse(Request.QueryString["p"]);
-			else
-				pds.CurrentPageIndex = 0;
-
+			pds.CurrentPageIndex = Pager.CurrentPageIndex;
 			TopicList.DataSource = pds;
 
 			DataBind();
-
-			if(pds.PageCount>1) {
-				PageLinks1.InnerHtml = String.Format("{0} Pages:",pds.PageCount);
-				for(int i=0;i<pds.PageCount;i++) {
-					if(i==pds.CurrentPageIndex) {
-						PageLinks1.InnerHtml += String.Format(" [{0}]",i+1);
-					} else {
-						PageLinks1.InnerHtml += String.Format(" <a href=\"{1}\">{0}</a>",i+1,Forum.GetLink(Pages.active,"p={0}&k={1}",i,SinceValue));
-					}
-				}
-				PageLinks2.InnerHtml = PageLinks1.InnerHtml;
-				PageLinks1.Visible = true;
-				PageLinks2.Visible = true;
-			} else {
-				PageLinks1.Visible = false;
-				PageLinks2.Visible = false;
-			}
 		}
 
 		protected string PrintForumName(DataRowView row) {

@@ -5,7 +5,7 @@
 	
 	<table class="command" cellspacing="0" cellpadding="0" width="100%">
 		<tr>
-			<td class="navlinks" align="left" id="PageLinks1" runat="server"></td>
+			<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
 		</tr>
 	</table>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
@@ -31,15 +31,15 @@
 			</HeaderTemplate>
 			<ItemTemplate>
 				<tr class="post">
-					<td class="largefont" id="CounterCol" rowspan="2" runat="server"></td>
-					<td class="postheader">
+					<td class="largefont" id="CounterCol" align="center" rowspan="2" runat="server"><%# DataBinder.Eval(Container.DataItem, "MessageID") %></td>
+					<td class="postheader" width="99%">
 						<b><%= GetText("topic") %></b> <a href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>'><%# DataBinder.Eval(Container.DataItem, "Topic") %></a><br/>
 						<b><%= GetText("posted") %></b> <%# DataBinder.Eval(Container.DataItem, "Posted") %>
 						<%= GetText("SEARCH","BY") %> <a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a>
 					</td>
 				</tr>
 				<tr class="post">
-					<td class="largefont" width="99%">
+					<td width="99%">
 						<%# FormatMessage(Container.DataItem) %>
 					</td>
 				</tr>
@@ -48,7 +48,7 @@
 	</table>
 	<table class="command" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td align="left" class="navlinks" id="PageLinks2" runat="server"></td>
+			<td class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
 		</tr>
 	</table>
 

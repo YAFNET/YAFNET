@@ -24,16 +24,6 @@ CREATE TABLE [yaf_BannedIP] (
 ) ON [PRIMARY]
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Buddy') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-CREATE TABLE [yaf_Buddy] (
-	[BuddyID] [int] IDENTITY (1, 1) NOT NULL ,
-	[UserID] [int] NOT NULL ,
-	[BuddyUserID] [int] NOT NULL ,
-	[Description] [varchar] (50) NULL ,
-	[Block] [bit] NOT NULL 
-) ON [PRIMARY]
-GO
-
 if not exists (select * from sysobjects where id = object_id(N'yaf_Category') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 CREATE TABLE [yaf_Category] (
 	[CategoryID] [int] IDENTITY (1, 1) NOT NULL ,
@@ -270,14 +260,6 @@ ALTER TABLE [yaf_BannedIP] WITH NOCHECK ADD
 	)  ON [PRIMARY] 
 GO
 
-if not exists(select * from sysindexes where id=object_id('yaf_Buddy') and name='PK_Buddy')
-ALTER TABLE [yaf_Buddy] WITH NOCHECK ADD 
-	CONSTRAINT [PK_Buddy] PRIMARY KEY  CLUSTERED 
-	(
-		[BuddyID]
-	)  ON [PRIMARY] 
-GO
-
 if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='PK_Category')
 ALTER TABLE [yaf_Category] WITH NOCHECK ADD 
 	CONSTRAINT [PK_Category] PRIMARY KEY  CLUSTERED 
@@ -420,15 +402,6 @@ ALTER TABLE [yaf_BannedIP] ADD
 	)  ON [PRIMARY] 
 GO
 
-if not exists(select * from sysindexes where id=object_id('yaf_Buddy') and name='IX_Buddy')
-ALTER TABLE [yaf_Buddy] ADD 
-	CONSTRAINT [IX_Buddy] UNIQUE  NONCLUSTERED 
-	(
-		[UserID],
-		[BuddyUserID]
-	)  ON [PRIMARY] 
-GO
-
 if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
 ALTER TABLE [yaf_Category] ADD 
 	CONSTRAINT [IX_Category] UNIQUE  NONCLUSTERED 
@@ -513,26 +486,6 @@ ALTER TABLE [yaf_Active] ADD
 	CONSTRAINT [FK_Active_User] FOREIGN KEY 
 	(
 		[UserID]
-	) REFERENCES [yaf_User] (
-		[UserID]
-	)
-GO
-
-if not exists(select * from sysobjects where name='FK_Buddy_User1' and parent_obj=object_id('yaf_Buddy') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-ALTER TABLE [yaf_Buddy] ADD 
-	CONSTRAINT [FK_Buddy_User1] FOREIGN KEY 
-	(
-		[UserID]
-	) REFERENCES [yaf_User] (
-		[UserID]
-	)
-GO
-
-if not exists(select * from sysobjects where name='FK_Buddy_User2' and parent_obj=object_id('yaf_Buddy') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-ALTER TABLE [yaf_Buddy] ADD 
-	CONSTRAINT [FK_Buddy_User2] FOREIGN KEY 
-	(
-		[BuddyUserID]
 	) REFERENCES [yaf_User] (
 		[UserID]
 	)

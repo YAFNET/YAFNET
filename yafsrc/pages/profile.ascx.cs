@@ -52,6 +52,7 @@ namespace yaf.pages
 		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
 		protected Repeater ForumAccess;
+		protected Literal AccessMaskRow;
 	
 		public profile() : base("PROFILE")
 		{
@@ -144,9 +145,29 @@ namespace yaf.pages
 
 				if(IsAdmin || IsForumModerator)
 				{
-					DataView dv = DB.user_accessmasks(Request.QueryString["u"]).DefaultView;
-						dv.Sort = "ForumName";
-						ForumAccess.DataSource = dv;
+					using(DataTable dt2 = DB.user_accessmasks(Request.QueryString["u"]))
+					{
+						System.Text.StringBuilder html = new System.Text.StringBuilder();
+						int nLastForumID = 0;
+						foreach(DataRow row in dt2.Rows)
+						{
+							if(nLastForumID!=(int)row["ForumID"])
+							{
+								if(nLastForumID!=0)
+									html.AppendFormat("</td></tr>");
+								html.AppendFormat("<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>",row["ForumName"]);
+								nLastForumID = (int)row["ForumID"];
+							}
+							else
+							{
+								html.AppendFormat(", ");
+							}
+							html.AppendFormat("{0}",row["AccessMaskName"]);
+						}
+						if(nLastForumID!=0)
+							html.AppendFormat("</td></tr>");
+						AccessMaskRow.Text = html.ToString();
+					}
 				}
 			}
 

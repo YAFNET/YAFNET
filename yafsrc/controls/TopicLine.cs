@@ -27,7 +27,10 @@ namespace yaf.controls
 			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);
 			// Topic
 			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
-			html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),m_row["Subject"]);
+			if(FindUnread)
+				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),m_row["Subject"]);
+			else
+				html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),m_row["Subject"]);
 			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
 			html.Append("</td>");
 			// Topic Starter
@@ -66,7 +69,7 @@ namespace yaf.controls
 
 				if(lastPosted > lastRead) 
 				{
-					Page.Session["unreadtopics"] = 1 + (int)Page.Session["unreadtopics"];
+					Mession.UnreadTopics++;
 
 					if(row["PollID"]!=DBNull.Value) 
 					{
@@ -160,7 +163,7 @@ namespace yaf.controls
 			if(row["LastMessageID"].ToString().Length>0) 
 			{
 				string minipost;
-				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Page.Session["lastvisit"])
+				if(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit)
 					minipost = ForumPage.GetThemeContents("ICONS","ICON_NEWEST");
 				else
 					minipost = ForumPage.GetThemeContents("ICONS","ICON_LATEST");
@@ -179,6 +182,20 @@ namespace yaf.controls
 			} 
 			else
 				return ForumPage.GetText("no_posts");
+		}
+		public bool FindUnread
+		{
+			set
+			{
+				ViewState["FindUnread"] = value;
+			}
+			get
+			{
+				if(ViewState["FindUnread"]!=null)
+					return (bool)ViewState["FindUnread"];
+				else
+					return false;
+			}
 		}
 	}
 }

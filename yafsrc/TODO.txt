@@ -15,6 +15,4 @@
 - Admin can change user password
 - Language strings: tooltips for buttons (reply, quote, ...)
 - Censoring: <http://forum.yetanotherforum.net/posts.aspx?t=339>
-- Goto latest page from active topics (first unread).
-- Access Masks: <http://forum.yetanotherforum.net/default.aspx?g=posts&t=350>
 - Create example category/forum/message on first install
