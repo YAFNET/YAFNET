@@ -132,7 +132,10 @@
 	</td>
 </tr>
 
+<tr class="post"><td colspan="2">
+
 	<asp:placeholder runat="server" id="ModeratorInfo" visible="false">
+	<table width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header2" colspan=2><%= GetText("admin") %></td>
 	</tr>
@@ -148,14 +151,20 @@
 			<asp:textbox runat="server" id="SuspendCount" style="width:60px"/>&nbsp;<asp:dropdownlist runat="server" id="SuspendUnit"/>&nbsp;<asp:button runat="server" id="Suspend"/>
 		</td>	
 	</tr>
+	</table>
 	</asp:placeholder>
-
+</td></tr>
+<tr class="post"><td colspan="2">
 	<asp:repeater id="LastPosts" runat="server">
 	<HeaderTemplate>
+		<table width="100%" cellspacing="1" cellpadding="0">
 		<tr>
 			<td class=header2 colSpan=2><%= GetText("last10") %></td>
 		</tr>
 	</HeaderTemplate>
+	<FooterTemplate>
+		</table>
+	</FooterTemplate>
 	<ItemTemplate>
 		<tr class=postheader>
 			<td class=small align=left colspan="2">
@@ -170,6 +179,8 @@
 		</tr>
 	</ItemTemplate>
 	</asp:repeater>
+
+</td></tr>
 </table>
 
 <yaf:savescrollpos runat="server"/>

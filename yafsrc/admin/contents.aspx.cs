@@ -42,7 +42,7 @@ namespace yaf.admin
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			HomeLink.Text = String.Format("Back to {0}",ForumName);
+			HomeLink.Text = ForumName;
 			HomeLink.NavigateUrl = BaseDir;
 		}
 

@@ -773,3 +773,24 @@ begin
 		a.Posted desc
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_active_listtopic') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_active_listtopic
+GO
+
+create procedure yaf_active_listtopic(@TopicID int) as
+begin
+	select
+		UserID		= a.UserID,
+		UserName	= b.Name
+	from
+		yaf_Active a join yaf_User b on b.UserID=a.UserID
+	where
+		a.TopicID = @TopicID
+	group by
+		a.UserID,
+		b.Name
+	order by
+		b.Name
+end
+GO

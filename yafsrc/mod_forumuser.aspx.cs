@@ -46,6 +46,10 @@ namespace yaf
 
 			if(!IsPostBack) 
 			{
+				FindUsers.Text = GetText("FIND");
+				Update.Text = GetText("UPDATE");
+				Cancel.Text = GetText("CANCEL");
+
 				PageLinks.AddLink(ForumName,BaseDir);
 				PageLinks.AddLink(PageCategoryName,String.Format("{0}?c={1}",BaseDir,PageCategoryID));
 				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));

@@ -561,26 +561,3 @@ create procedure yaf_board_stats as begin
 		BoardStart	= (select min(Joined) from yaf_User)
 end
 GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_active_listforum') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_active_listforum
-GO
-
-create procedure yaf_active_listforum(@ForumID int) as
-begin
-	select
-		UserID		= a.UserID,
-		UserName	= b.Name
-	from
-		yaf_Active a,
-		yaf_User b
-	where
-		a.ForumID = @ForumID and
-		b.UserID = a.UserID
-	group by
-		a.UserID,
-		b.Name
-	order by
-		b.Name
-end
-GO

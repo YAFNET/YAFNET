@@ -7,13 +7,13 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=4>Members</td>
+	<td class=header1 colspan=4><%=GetText("MEMBERS")%></td>
 </tr>
 
 <tr class="header2">
-	<td>User</td>
-	<td align="center">Accepted</td>
-	<td>Access Mask</td>
+	<td><%=GetText("USER")%></td>
+	<td align="center"><%=GetText("ACCEPTED")%></td>
+	<td><%=GetText("ACCESSMASK")%></td>
 	<td>&nbsp;</td>
 </tr>
 <asp:repeater runat="server" id="UserList">
@@ -23,9 +23,9 @@
 	<td align="center"><%# DataBinder.Eval(Container.DataItem,"Accepted") %></td>
 	<td><%# DataBinder.Eval(Container.DataItem,"Access") %></td>
 	<td>
-		<asp:linkbutton runat="server" text="Edit" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+		<asp:linkbutton runat="server" text='<%#GetText("EDIT")%>' commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
 		|
-		<asp:linkbutton runat="server" text="Remove" onload="DeleteUser_Load" commandname="remove" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+		<asp:linkbutton runat="server" text='<%#GetText("REMOVE")%>' onload="DeleteUser_Load" commandname="remove" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
 	</td>
 </tr>
 </ItemTemplate>

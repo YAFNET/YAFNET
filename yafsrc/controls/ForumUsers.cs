@@ -11,19 +11,34 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			DataTable dt = (DataTable)ViewState["data"];
+			bool bTopic = Page.PageTopicID>0;
 			try 
 			{
 				if(dt==null) 
 				{
-					dt = DB.active_listforum(Page.PageForumID);
+					if(bTopic)
+						dt = DB.active_listtopic(Page.PageTopicID);
+					else
+						dt = DB.active_listforum(Page.PageForumID);
 					ViewState["data"] = dt;
 				}
 	
-				writer.WriteLine("<tr class=\"header2\">");
-				writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>",Page.GetText("FORUMUSERS")));
-				writer.WriteLine("</tr>");
-				writer.WriteLine("<tr class=\"post\">");
-				writer.WriteLine("<td colspan=\"6\">");
+				if(bTopic) 
+				{
+					writer.WriteLine("<tr class=\"header2\">");
+					writer.WriteLine(String.Format("<td colspan=\"2\">{0}</td>",Page.GetText("TOPICBROWSERS")));
+					writer.WriteLine("</tr>");
+					writer.WriteLine("<tr class=\"post\">");
+					writer.WriteLine("<td colspan=\"2\">");
+				} 
+				else 
+				{
+					writer.WriteLine("<tr class=\"header2\">");
+					writer.WriteLine(String.Format("<td colspan=\"6\">{0}</td>",Page.GetText("FORUMUSERS")));
+					writer.WriteLine("</tr>");
+					writer.WriteLine("<tr class=\"post\">");
+					writer.WriteLine("<td colspan=\"6\">");
+				}
 
 				bool bFirst = true;
 				foreach(DataRow dr in dt.Rows) 

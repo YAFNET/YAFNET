@@ -64,12 +64,9 @@ namespace yaf
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			//if(Request.QueryString["t"] == null)
-			//	Response.Redirect(BaseDir);
-
+			topic = DB.topic_info(PageTopicID);
 			using(DataTable dt = DB.forum_list(PageForumID))
 				forum = dt.Rows[0];
-			topic = DB.topic_info(PageTopicID);
 
 			if(!ForumReadAccess)
 				Response.Redirect(BaseDir);
@@ -81,28 +78,30 @@ namespace yaf
 				PageLinks.AddLink(PageForumName,String.Format("topics.aspx?f={0}",PageForumID));
 				PageLinks.AddLink(PageTopicName,String.Format("posts.aspx?t={0}",PageTopicID));
 				TopicTitle.Text = (string)topic["Topic"];
-			}
 
-			if(!ForumPostAccess) {
-				NewTopic1.Visible = false;
-				NewTopic2.Visible = false;
-			}
+				if(!ForumPostAccess) 
+				{
+					NewTopic1.Visible = false;
+					NewTopic2.Visible = false;
+				}
 			
-			if(!ForumReplyAccess) {
-				PostReplyLink1.Visible = false;
-				PostReplyLink2.Visible = false;
-			}
+				if(!ForumReplyAccess) 
+				{
+					PostReplyLink1.Visible = false;
+					PostReplyLink2.Visible = false;
+				}
 
-			if(ForumModeratorAccess) {
-				MoveTopic1.Visible = true;
-				MoveTopic2.Visible = true;
-			} else {
-				MoveTopic1.Visible = false;
-				MoveTopic2.Visible = false;
-			}
+				if(ForumModeratorAccess) 
+				{
+					MoveTopic1.Visible = true;
+					MoveTopic2.Visible = true;
+				} 
+				else 
+				{
+					MoveTopic1.Visible = false;
+					MoveTopic2.Visible = false;
+				}
 
-			if(!IsPostBack) 
-			{
 				PostReplyLink1.Text = GetThemeContents("BUTTONS","POSTREPLY");
 				PostReplyLink1.ToolTip = "Post reply";
 				PostReplyLink2.Text = PostReplyLink1.Text;
@@ -127,9 +126,9 @@ namespace yaf
 				MoveTopic1.ToolTip = "Move this topic";
 				MoveTopic2.Text = MoveTopic1.Text;
 				MoveTopic2.ToolTip = MoveTopic1.ToolTip;
-			}
 
-			BindData();
+				BindData();
+			}
 		}
 
 		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
@@ -184,10 +183,6 @@ namespace yaf
 
 		private void BindData() 
 		{
-			using(DataTable dt = DB.forum_list(PageForumID))
-				forum = dt.Rows[0];
-
-			topic = DB.topic_info(PageTopicID);
 			if(topic==null)
 				Response.Redirect(String.Format("topics.aspx?f={0}",PageForumID));
 

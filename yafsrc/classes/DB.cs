@@ -417,6 +417,15 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataTable active_listtopic(object topicID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_active_listtopic")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@TopicID",topicID);
+				return GetData(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_Attachment

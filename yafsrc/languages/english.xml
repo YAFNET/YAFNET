@@ -129,6 +129,7 @@
 		<Resource tag="JOINED">Joined</Resource>
 		<Resource tag="POSTS">Posts</Resource>
 		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -310,6 +311,13 @@
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="DELETED">Topic deleted.</Resource>
 		<Resource tag="NO_POSTS">No Posts</Resource>
+		<Resource tag="MEMBERS">Members</Resource>
+		<Resource tag="USER">User</Resource>
+		<Resource tag="ACCEPTED">Accepted</Resource>
+		<Resource tag="ACCESSMASK">Access Mask</Resource>
+		<Resource tag="EDIT">Edit</Resource>
+		<Resource tag="REMOVE">Remove</Resource>
+		<Resource tag="INVITE">Invite User</Resource>
 	</page>
 	<page name="MOVETOPIC">
 		<!-- movetopic.aspx -->
@@ -465,5 +473,10 @@
 	</page>
 	<page name="MOD_FORUMUSER">
 		<Resource tag="TITLE">Forum User</Resource>
+		<Resource tag="USER">User:</Resource>
+		<Resource tag="FIND">Find Users</Resource>
+		<Resource tag="ACCESSMASK">Access Mask:</Resource>
+		<Resource tag="UPDATE">Update</Resource>
+		<Resource tag="CANCEL">Cancel</Resource>
 	</page>
 </Resources>

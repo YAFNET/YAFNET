@@ -623,7 +623,7 @@ namespace yaf
 		/// <summary>
 		/// The TopicID of the current page, or 0 if not in any topic
 		/// </summary>
-		protected int PageTopicID 
+		public int PageTopicID 
 		{
 			get 
 			{
@@ -636,7 +636,7 @@ namespace yaf
 		/// <summary>
 		/// Name of topic for the current page, or an empty string if not in any topic
 		/// </summary>
-		protected string PageTopicName 
+		public string PageTopicName 
 		{
 			get 
 			{

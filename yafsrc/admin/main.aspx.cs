@@ -59,9 +59,9 @@ namespace yaf.admin
 			DataBind();
 
 			DataRow row = DB.board_stats();
-			NumPosts.Text	= row["NumPosts"].ToString();
-			NumTopics.Text	= row["NumTopics"].ToString();
-			NumUsers.Text	= row["NumUsers"].ToString();
+			NumPosts.Text	= String.Format("{0:N0}",row["NumPosts"]);
+			NumTopics.Text	= String.Format("{0:N0}",row["NumTopics"]);
+			NumUsers.Text	= String.Format("{0:N0}",row["NumUsers"]);
 
 			TimeSpan span = DateTime.Now - (DateTime)row["BoardStart"];
 			double days = span.Days;

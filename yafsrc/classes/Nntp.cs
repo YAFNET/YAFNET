@@ -404,8 +404,16 @@ namespace yaf.classes
 					} 
 					else if(timezone.Length==4) 
 					{
-						hour = int.Parse(timezone.Substring(0,2));
-						min = int.Parse(timezone.Substring(2,2));
+						try 
+						{
+							hour = int.Parse(timezone.Substring(0,2));
+							min = int.Parse(timezone.Substring(2,2));
+						}
+						catch(Exception) 
+						{
+							hour = 0;
+							min = 0;
+						}
 					}
 					else 
 					{

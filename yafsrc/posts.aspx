@@ -91,12 +91,12 @@
 				<asp:linkbutton commandname=PM commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' runat=server><%# GetText("pm") %></asp:linkbutton>
 			</td>
 		</tr>
-</ItemTemplate>
-
-<SeparatorTemplate>
 		<tr class="postsep"><td colspan="2" style="height:7px"></td></tr>
-</SeparatorTemplate>
+</ItemTemplate>
 </asp:repeater>
+
+<yaf:ForumUsers runat="server"/>
+
   <tr>
     <td class=footer1 colSpan=2>&nbsp;</TD></TR></TABLE>
     

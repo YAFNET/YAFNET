@@ -1,9 +1,11 @@
 <%@ Page language="c#" Codebehind="contents.aspx.cs" AutoEventWireup="false" Inherits="yaf.admin.contents" %>
 
-<p><asp:hyperlink runat=server id=HomeLink Target="_top">Home</asp:hyperlink></p>
+<p></p>
 
-<table class="content" width="100%" cellspacing=1 cellpadding=0>
+<table class="content" width="100%" cellspacing=0 cellpadding=0><tr><td class="post">
+<table class="_content" width="100%" cellspacing=0 cellpadding=0>
 	<tr><td class="header2"><b>Admin</b></td></tr>
+	<tr><td class="post"><asp:hyperlink runat=server id=HomeLink Target="_top"/></td></tr>
 	<tr><td class=post><a target="main" href="main.aspx">Admin Index</a></td></tr>
 	<tr><td class=post><a target="main" href="settings.aspx">Settings</a></td></tr>
 	<tr><td class=post><a target="main" href="forums.aspx">Forums</a></td></tr>
@@ -33,3 +35,4 @@
 	<tr><td class="header2"><b>Upgrade</b></td></tr>
 	<tr><td class=post><a target="_top" href="../install.aspx">Install</a></td></tr>
 </table>
+</td></tr></table>
