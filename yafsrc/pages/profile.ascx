@@ -9,9 +9,21 @@
 		<%= GetText("profile") %> <asp:Label id=UserName runat="server"/> 
 	</td>
 </tr>
+				<tr class="post"><td colspan="2">
+					<asp:hyperlink runat='server' id='Pm'/>
+					<asp:linkbutton runat='server' id='Email' disabled='true'/>
+					<asp:hyperlink runat='server' id='Home'/>
+					<asp:hyperlink runat='server' id='Blog'/>
+					<asp:hyperlink runat="server" id="Weblog" target="_blank" />
+					<asp:linkbutton runat='server' id='Msn' disabled='true'/>
+					<asp:hyperlink runat='server' id='Yim'/>
+					<asp:hyperlink runat='server' id='Aim'/>
+					<asp:hyperlink runat='server' id='Icq'/>
+				</td></tr>
+
 
 <tr class="post">
-	<td width="50%" valign="top">
+	<td width="50%" valign="top" rowspan="2">
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>
 					<td class="header2" colspan="2"><%= GetText("about") %></td>
@@ -38,15 +50,6 @@
 					<td class="post" runat="server" id="RealName"/>
 				</tr>
 				<tr>
-					<td class="postheader"><%= GetText("website") %></td>
-					<td class="post">
-						<asp:hyperlink runat="server" id="HomePage" target="_blank" /></td>
-				</tr>
-				<TR>
-					<TD class="postheader"><%= GetText("weblog") %></TD>
-					<TD class="post"><asp:hyperlink runat="server" id="Weblog" target="_blank" /></TD>
-				</TR>
-				<tr>
 					<td class="postheader"><%= GetText("location") %></td>
 					<td class="post"><asp:label id="Location" runat="server" /></td>
 				</tr>
@@ -67,39 +70,6 @@
 	<td width="50%" valign="top">
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>
-					<td class="header2" colspan="2"><%= GetText("contact") %></td>
-				</tr>
-				<tr id="EmailRow" runat="server" visible="false">
-					<td width="50%" class="postheader"><%= GetText("email") %></td>
-					<td width="50%" class="post"><asp:label id="Email" runat="server" /></td>
-				</tr>
-				<tr>
-					<td width="50%" class="postheader"><%= GetText("pm") %></td>
-					<td width="50%" class="post"><a href='<%= yaf.Forum.GetLink(yaf.Pages.pmessage,"u={0}",Request.QueryString["u"]) %>'>PM</a></td>
-				</tr>
-				<tr>
-					<td class="postheader"><%= GetText("msn") %></td>
-					<td class="post" runat="server" id="MSN"/>
-				</tr>
-				<tr>
-					<td class="postheader"><%= GetText("yim") %></td>
-					<td class="post" runat="server" id="YIM"/>
-				</tr>
-				<tr>
-					<td class="postheader"><%= GetText("aim") %></td>
-					<td class="post" runat="server" id="AIM"/>
-				</tr>
-				<tr>
-					<td class="postheader"><%= GetText("icq") %></td>
-					<td class="post" runat="server" id="ICQ"/>
-				</tr>
-			</table>
-	</td>
-</tr>
-<tr class="post">
-	<td width="50%" valign="top">
-			<table align="center" width="100%" cellspacing="1" cellpadding="0">
-				<tr>
 					<td class="header2" colspan="2"><%= GetText("statistics") %></td>
 				</tr>
 				<tr>
@@ -116,6 +86,8 @@
 				</tr>
 			</table>
 	</td>
+</tr>
+<tr class="post">
 	<td width="50%" valign="top">
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>

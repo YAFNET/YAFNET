@@ -1618,10 +1618,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "templates\page.html"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "templates\topicpost.txt"
                     BuildAction = "Content"
                 />

@@ -36,8 +36,6 @@ namespace yaf.pages
 	{
 		protected System.Web.UI.WebControls.Label Name;
 		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.Label Email;
-		protected System.Web.UI.HtmlControls.HtmlTableRow EmailRow;
 		protected System.Web.UI.WebControls.Label LastVisit;
 		protected System.Web.UI.WebControls.Label UserName;
 		protected Repeater Groups, LastPosts;
@@ -47,8 +45,9 @@ namespace yaf.pages
 		protected DropDownList SuspendUnit;
 		protected TextBox SuspendCount;
 		protected Button RemoveSuspension, Suspend;
-		protected HyperLink HomePage, Weblog;
-		protected HtmlTableCell Stats, MSN, YIM, AIM, ICQ, RealName, Occupation, Interests, Gender;
+		protected HtmlTableCell Stats, RealName, Occupation, Interests, Gender;
+		protected LinkButton Msn, Email;
+		protected HyperLink Yim, Aim, Icq, Pm, Home, Weblog;
 		protected Image Avatar;
 		protected controls.PageLinks PageLinks;
 		protected Repeater ForumAccess;
@@ -87,12 +86,9 @@ namespace yaf.pages
 				UserName.Text = (string)user["Name"];
 				Name.Text = (string)user["Name"];
 				Joined.Text = String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
-				Email.Text = user["Email"].ToString();
 				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
 				Rank.Text = user["RankName"].ToString();
 				Location.Text = user["Location"].ToString();
-				HomePage.Text = user["HomePage"].ToString();
-				HomePage.NavigateUrl = user["HomePage"].ToString();
 				
 				double dAllPosts = 0.0;
 				if((int)user["NumPostsForum"]>0) 
@@ -104,13 +100,31 @@ namespace yaf.pages
 					String.Format(GetText("NUMDAY"),(double)(int)user["NumPosts"] / (int)user["NumDays"])
 					);
 
-				MSN.InnerText = user["MSN"].ToString();
-				YIM.InnerText = user["YIM"].ToString();
-				AIM.InnerText = user["AIM"].ToString();
-				ICQ.InnerText = user["ICQ"].ToString();
+				Pm.Visible			= User.IsAuthenticated;
+				Pm.Text				= GetThemeContents("BUTTONS","PM");
+				Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
+				Email.Visible		= false;
+				Email.Text			= GetThemeContents("BUTTONS","EMAIL");
+				if(IsAdmin) Email.ToolTip = user["Email"].ToString();
+				Home.Visible		= user["HomePage"]!=DBNull.Value;
+				Home.NavigateUrl	= user["HomePage"].ToString();
+				Home.Text			= GetThemeContents("BUTTONS","WWW");
+				Weblog.Visible		= false && user["Weblog"]!=DBNull.Value;
+				Weblog.NavigateUrl	= user["Weblog"].ToString();
+				Weblog.Text			= GetThemeContents("BUTTONS","WEBLOG");
+				Msn.Visible			= User.IsAuthenticated && user["MSN"]!=DBNull.Value;
+				Msn.Text			= GetThemeContents("BUTTONS","MSN");
+				Yim.Visible			= User.IsAuthenticated && user["YIM"]!=DBNull.Value;
+				Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",user["UserID"]);
+				Yim.Text			= GetThemeContents("BUTTONS","YAHOO");
+				Aim.Visible			= User.IsAuthenticated && user["AIM"]!=DBNull.Value;
+				Aim.Text			= GetThemeContents("BUTTONS","AIM");
+				Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",user["UserID"]);
+				Icq.Visible			= User.IsAuthenticated && user["ICQ"]!=DBNull.Value;
+				Icq.Text			= GetThemeContents("BUTTONS","ICQ");
+				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",user["UserID"]);
+				
 				RealName.InnerText = user["RealName"].ToString();
-				Weblog.Text = user["Weblog"].ToString();
-				Weblog.NavigateUrl = user["Weblog"].ToString();
 				Interests.InnerText = user["Interests"].ToString();
 				Occupation.InnerText = user["Occupation"].ToString();
 				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
@@ -134,7 +148,7 @@ namespace yaf.pages
 
 				Groups.DataSource = DB.usergroup_list(PageBoardID,Request.QueryString["u"]);
 
-				EmailRow.Visible = IsAdmin;
+				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
 				SuspendedRow.Visible = !user.IsNull("Suspended");
 				if(!user.IsNull("Suspended"))
