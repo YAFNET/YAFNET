@@ -567,6 +567,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void board_delete(object boardID)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_board_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		#endregion
 
 		#region yaf_Category

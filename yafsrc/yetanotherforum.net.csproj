@@ -303,6 +303,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "admin\boards.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\boards.aspx.cs"
+                    DependentUpon = "boards.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\boards.aspx.resx"
+                    DependentUpon = "boards.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "admin\boardsettings.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -363,6 +379,22 @@
                 <File
                     RelPath = "admin\editaccessmask.aspx.resx"
                     DependentUpon = "editaccessmask.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "admin\editboard.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "admin\editboard.aspx.cs"
+                    DependentUpon = "editboard.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "admin\editboard.aspx.resx"
+                    DependentUpon = "editboard.aspx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File

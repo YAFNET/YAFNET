@@ -55,6 +55,14 @@ ALTER TABLE [yaf_Category] ADD
 	)
 GO
 
+if exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
+	ALTER TABLE [yaf_Category] DROP CONSTRAINT [IX_Category]
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Category') and name='IX_Category')
+	ALTER TABLE [yaf_Category] ADD CONSTRAINT [IX_Category] UNIQUE NONCLUSTERED([BoardID],[Name])
+GO
+
 -- yaf_AccessMask
 if not exists(select * from syscolumns where id=object_id('yaf_AccessMask') and name='BoardID')
 begin
@@ -167,6 +175,14 @@ ALTER TABLE [yaf_Rank] ADD
 	) REFERENCES [yaf_Board] (
 		[BoardID]
 	)
+GO
+
+if exists(select * from sysindexes where id=object_id('yaf_Rank') and name='IX_Rank')
+	ALTER TABLE [yaf_Rank] DROP CONSTRAINT [IX_Rank]
+GO
+
+if not exists(select * from sysindexes where id=object_id('yaf_Rank') and name='IX_Rank')
+	ALTER TABLE [yaf_Rank] ADD CONSTRAINT [IX_Rank] UNIQUE([BoardID],[Name])
 GO
 
 -- yaf_Smiley
@@ -293,12 +309,12 @@ begin
 	
 	if @User is null or @User='' 
 	begin
-		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and b.GroupID=c.GroupID and c.IsGuest=1
+		select @UserID = a.UserID from yaf_User a,yaf_UserGroup b,yaf_Group c where a.UserID=b.UserID and a.BoardID=@BoardID and b.GroupID=c.GroupID and c.IsGuest=1
 		set @IsGuest = 1
 		set @UserBoardID = @BoardID
 	end else
 	begin
-		select @UserID = UserID, @UserBoardID = BoardID from yaf_User where Name = @User
+		select @UserID = UserID, @UserBoardID = BoardID from yaf_User where BoardID=@BoardID and [Name]=@User
 		set @IsGuest = 0
 	end
 	-- Check valid ForumID
@@ -552,16 +568,16 @@ if exists (select * from sysobjects where id = object_id(N'yaf_board_list') and 
 	drop procedure yaf_board_list
 GO
 
-create procedure yaf_board_list(@BoardID int) as
+create procedure yaf_board_list(@BoardID int=null) as
 begin
-	select top 1 
+	select
 		a.*,
 		b.*,
 		SQLVersion = @@VERSION
 	from 
 		yaf_System a,yaf_Board b
 	where
-		b.BoardID = @BoardID
+		(@BoardID is null or b.BoardID = @BoardID)
 end
 GO
 
@@ -1618,7 +1634,7 @@ begin
 	insert into yaf_UserGroup(UserID,GroupID) values(@UserIDGuest,@GroupIDGuest)
 
 	-- yaf_Category
-	insert into yaf_Category(CategoryID,BoardID,Name,SortOrder) values(1,@BoardID,'Test Category',1)
+	insert into yaf_Category(BoardID,Name,SortOrder) values(@BoardID,'Test Category',1)
 	set @CategoryID = @@IDENTITY
 	
 	-- yaf_Forum
@@ -1630,5 +1646,24 @@ begin
 	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
 	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
 	insert into yaf_ForumAccess(GroupID,ForumID,AccessMaskID) values(@GroupIDMember,@ForumID,@AccessMaskIDMember)
+end
+GO
+
+-- yaf_board_delete
+if exists (select * from sysobjects where id = object_id(N'yaf_board_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_board_delete
+GO
+
+create procedure yaf_board_delete(@BoardID int) as
+begin
+	delete from yaf_Forum where exists(select 1 from yaf_Category x where x.CategoryID=yaf_Forum.CategoryID and x.BoardID=@BoardID)
+	delete from yaf_UserGroup where exists(select 1 from yaf_User x where x.UserID=yaf_UserGroup.UserID and x.BoardID=@BoardID)
+	delete from yaf_ForumAccess where exists(select 1 from yaf_Group x where x.GroupID=yaf_ForumAccess.GroupID and x.BoardID=@BoardID)
+	delete from yaf_Category where BoardID=@BoardID
+	delete from yaf_User where BoardID=@BoardID
+	delete from yaf_Rank where BoardID=@BoardID
+	delete from yaf_Group where BoardID=@BoardID
+	delete from yaf_AccessMask where BoardID=@BoardID
+	delete from yaf_Board where BoardID=@BoardID
 end
 GO

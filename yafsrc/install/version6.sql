@@ -140,14 +140,6 @@ ALTER TABLE [yaf_Rank] WITH NOCHECK ADD
 	)  ON [PRIMARY] 
 GO
 
-if not exists(select * from sysindexes where id=object_id('yaf_Rank') and name='IX_Rank')
-ALTER TABLE [yaf_Rank] WITH NOCHECK ADD 
-	CONSTRAINT [IX_Rank] UNIQUE
-	(
-		[Name]
-	)  ON [PRIMARY] 
-GO
-
 if not exists(select * from syscolumns where id=object_id('yaf_Group') and name='IsLadder')
 	alter table yaf_Group add IsLadder bit
 GO

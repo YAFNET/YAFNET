@@ -7,6 +7,7 @@
 	<% if(IsHostAdmin) { %>
 	<tr><td class="header2"><b>Host Admin</b></td></tr>
 	<tr><td class=post><a target="main" href="hostsettings.aspx">Host Settings</a></td></tr>
+	<tr><td class=post><a target="main" href="boards.aspx">Boards</a></td></tr>
 	<% } %>
 	
 	<tr><td class="header2"><b>Admin</b></td></tr>
