@@ -228,6 +228,7 @@ namespace yaf
 				Mail.To = email;
 				Mail.From = email;
 				Mail.Subject = "Yet Another Forum.net Error Report";
+				Mail.BodyFormat = System.Web.Mail.MailFormat.Html;
 				Mail.Body = msg.ToString();
 
 				System.Web.Mail.SmtpMail.SmtpServer = server;

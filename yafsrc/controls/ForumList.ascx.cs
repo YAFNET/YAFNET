@@ -87,7 +87,7 @@ namespace yaf.controls
 		/// </summary>
 		/// <param name="row">Current data row</param>
 		/// <returns>Forum link text</returns>
-		protected string GetForumLink(System.Data.DataRow row)
+		public string GetForumLink(System.Data.DataRow row)
 		{
 			string strReturn = "";
 			int ForumID = Convert.ToInt16(row["ForumID"]);
