@@ -130,6 +130,22 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	border: solid 1px #95B4F3;
 }
 
+/* used for code */
+.code
+{
+	margin-left: 16px;
+	padding-left: 16px;	
+}
+
+.innercode
+{
+	padding: 4px;
+	background-color: #B2C8F6;
+	border: solid 1px #95B4F3;
+	color:#014C00;
+	font-family:Courier New,Courier;
+}
+
 /* font sizes */
 .smallfont	{ font-size: 7.5pt; }
 .largefont	{ font-size: 9pt; }
