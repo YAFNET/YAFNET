@@ -76,21 +76,21 @@ namespace yaf
 		{
 			get 
 			{
-				return (int)System.Web.HttpContext.Current.Items["NumQueries"];
+				return (int)HttpContext.Current.Items["NumQueries"];
 			}
 		}
 		static public double Duration 
 		{
 			get 
 			{
-				return (double)System.Web.HttpContext.Current.Items["TimeQueries"];
+				return (double)HttpContext.Current.Items["TimeQueries"];
 			}
 		}
 		static public string Commands 
 		{
 			get 
 			{
-				return (string)System.Web.HttpContext.Current.Items["CmdQueries"];
+				return (string)HttpContext.Current.Items["CmdQueries"];
 			}
 		}
 #endif
@@ -1306,7 +1306,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void message_update(object messageID,object priority,object message) 
+		static public void message_update(object messageID,object priority,object message,object subject) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_update")) 
 			{
@@ -1314,6 +1314,7 @@ namespace yaf
 				cmd.Parameters.Add("@MessageID",messageID);
 				cmd.Parameters.Add("@Priority",priority);
 				cmd.Parameters.Add("@Message",message);
+				cmd.Parameters.Add("@Subject",subject);
 				ExecuteNonQuery(cmd);
 			}
 		}
