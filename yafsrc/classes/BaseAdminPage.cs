@@ -27,6 +27,7 @@ using System.Threading;
 using System.Xml;
 using System.Web;
 using yaf.classes;
+using yaf.pages;
 
 // Grønn: #25C110
 // Brown: #D0BF8C
@@ -40,13 +41,19 @@ namespace yaf
 	{
 		#region Variables
 		private DataRow		m_pageinfo;
-		private string		m_strForumName		= "Yet Another Forum.net";
 		private string		m_strLoadMessage	= "";
 		private string		m_strRefreshURL		= null;
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bCheckSuspended	= true;
-		private string		m_strSmtpServer		= null;
-		private string		m_strForumEmail		= null;
+		private IForumUser	m_forumUser			= null;
+
+		public new IForumUser User
+		{
+			get
+			{
+				return m_forumUser;
+			}
+		}
 		#endregion
 		#region Constructor and events
 		/// <summary>
@@ -61,7 +68,7 @@ namespace yaf
 		private void Page_Error(object sender, System.EventArgs e) 
 		{
 			if(!IsLocal) 
-				Utils.ReportError(Server.GetLastError());
+				Utils.LogToMail(Server.GetLastError());
 		}
 
 		/// <summary>
@@ -107,27 +114,23 @@ namespace yaf
 
 			// Find user name
 			AuthType authType = Data.GetAuthType;
-			string	sUserIdentityName = User.Identity.Name;
-			string	sUserEmail = null;
-			if(authType==AuthType.RainBow) 
+			switch(authType)
 			{
-				try 
-				{
-					string[] split = sUserIdentityName.Split('|');
-					sUserIdentityName = split[0];
-					sUserEmail = split[1];
-				}
-				catch(Exception) 
-				{
-					sUserIdentityName = User.Identity.Name;
-				}
-			} 
-			else if(authType==AuthType.Windows) 
-			{
-				string[] parts = sUserIdentityName.Split('\\');
-				sUserIdentityName = parts[parts.Length-1];
-				if(parts.Length>1)
-					sUserEmail = String.Format("{0}@{1}",parts[1],parts[0]);
+				case AuthType.Guest:
+					m_forumUser = new GuestUser();
+					break;
+				case AuthType.Rainbow:
+					m_forumUser = new RainbowUser(base.User.Identity.Name,base.User.Identity.IsAuthenticated);
+					break;
+				case AuthType.DotNetNuke:
+					m_forumUser = new DotNetNukeUser(base.User.Identity.Name,base.User.Identity.IsAuthenticated);
+					break;
+				case AuthType.Windows:
+					m_forumUser = new WindowsUser(base.User.Identity.Name,base.User.Identity.IsAuthenticated);
+					break;
+				default:
+					m_forumUser = new FormsUser(base.User.Identity.Name,base.User.Identity.IsAuthenticated);
+					break;
 			}
 
 			string browser = String.Format("{0} {1}",Request.Browser.Browser,Request.Browser.Version);
@@ -138,7 +141,7 @@ namespace yaf
 
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
-				sUserIdentityName,
+				User.Name,
 				Request.UserHostAddress,
 				Request.FilePath,
 				browser,
@@ -170,8 +173,8 @@ namespace yaf
 #endif
 			if(m_pageinfo==null) 
 			{
-				if(User.Identity.IsAuthenticated) 
-					throw new ApplicationException(string.Format("User '{0}' not in database.",Page.User.Identity.Name));
+				if(User.IsAuthenticated) 
+					throw new ApplicationException(string.Format("User '{0}' not in database.",User.Name));
 				else
 					throw new ApplicationException("Failed to find guest user.");
 			}
@@ -185,10 +188,6 @@ namespace yaf
 				}
 				Forum.Redirect(Pages.info,"i=2");
 			}
-
-			m_strForumName = (string)m_pageinfo["BBName"];
-			m_strSmtpServer = (string)m_pageinfo["SmtpServer"];
-			m_strForumEmail = (string)m_pageinfo["ForumEmail"];
 
 			if(Request.Cookies["yaf"]!=null) 
 			{
@@ -249,7 +248,7 @@ namespace yaf
 						for(int i=0;i<dt.Rows.Count;i++) 
 						{
 							// Build a MailMessage
-							SendMail(ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
+							Utils.SendMail(Config.ForumSettings.ForumEmail,(string)dt.Rows[i]["ToUser"],(string)dt.Rows[i]["Subject"],(string)dt.Rows[i]["Body"]);
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
@@ -306,7 +305,7 @@ namespace yaf
 		{
 			if(themefile==null) 
 			{
-				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !AllowUserTheme)
+				if(m_pageinfo==null || m_pageinfo.IsNull("ThemeFile") || !Config.ForumSettings.AllowUserTheme)
 					themefile = Config.ConfigSection["theme"];
 				else
 					themefile = (string)m_pageinfo["ThemeFile"];
@@ -335,7 +334,7 @@ namespace yaf
 			XmlDocument doc = LoadTheme(null);
 
 			string themeDir = doc.DocumentElement.Attributes["dir"].Value;
-			string langCode = LoadTranslation().ToUpper();
+			string langCode = "en"; //LoadTranslation().ToUpper();
 			string select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']", page.ToUpper(),tag.ToUpper(),langCode);
 			XmlNode node = doc.SelectSingleNode(select);
 			if(node==null)
@@ -363,7 +362,7 @@ namespace yaf
 			writer.WriteLine("<head>");
 			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}forum.css>",ForumRoot));
 			writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
-			writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
+			writer.WriteLine(String.Format("<title>{0}</title>",Config.ForumSettings.Name));
 			writer.WriteLine("<script>");
 			writer.WriteLine("function yaf_onload() {");
 			if(m_strLoadMessage.Length>0)
@@ -409,16 +408,6 @@ namespace yaf
 			set 
 			{
 				m_bNoDataBase = value;
-			}
-		}
-		/// <summary>
-		/// The name of the froum
-		/// </summary>
-		public string ForumName 
-		{
-			get 
-			{
-				return m_strForumName;
 			}
 		}
 		/// <summary>
@@ -496,91 +485,8 @@ namespace yaf
 					return false;
 			}
 		}
-		public string SmtpServer 
-		{
-			get 
-			{
-				return m_strSmtpServer.Length>0 ? m_strSmtpServer : null;
-			}
-		}
-		public string SmtpUserName 
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserName"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		public string SmtpUserPass
-		{
-			get 
-			{
-				string tmp = m_pageinfo["SmtpUserPass"].ToString();
-				return tmp.Length>0 ? tmp : null;
-			}
-		}
-		/// <summary>
-		/// The official forum email address. 
-		/// </summary>
-		public string ForumEmail 
-		{
-			get 
-			{
-				return m_strForumEmail;
-			}
-		}
-		public bool AllowUserTheme 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserTheme"];
-			}
-		}
-		public bool AllowUserLanguage 
-		{
-			get 
-			{
-				return m_pageinfo!=null && (bool)m_pageinfo["AllowUserLanguage"];
-			}
-		}
-
 		#endregion
 		#region Other
-		public void SendMail(string from,string to,string subject,string body) 
-		{
-#if false
-			// .NET
-			System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-			mailMessage.From = from;
-			mailMessage.To = to;
-			mailMessage.Subject = subject;
-			mailMessage.BodyFormat = System.Web.Mail.MailFormat.Text;
-			mailMessage.Body = body;
-			if(SmtpServer!=null)
-				System.Web.Mail.SmtpMail.SmtpServer = SmtpServer;
-			System.Web.Mail.SmtpMail.Send(mailMessage);
-#else
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(SmtpServer,25);
-			if(SmtpUserName!=null && SmtpUserPass!=null) 
-			{
-				smtp.Username = SmtpUserName;
-				smtp.Password = SmtpUserPass;
-			}
-			smtp.SendMail(from,to,subject,body);
-#endif
-		}
-		/// <summary>
-		/// Find the path of a smiley icon
-		/// </summary>
-		/// <param name="icon">The file name of the icon you want</param>
-		/// <returns>The path to the image file</returns>
-		public string Smiley(string icon) 
-		{
-			return String.Format("{0}images/emoticons/{1}",ForumRoot,icon);
-		}
 		/// <summary>
 		/// The directory of theme files
 		/// </summary>
@@ -690,21 +596,6 @@ namespace yaf
 		#endregion
 		#region Date and time functions
 		/// <summary>
-		/// Returns the forum timezone offset from GMT
-		/// </summary>
-		public TimeSpan TimeZoneOffsetForum 
-		{
-			get {
-				if(m_pageinfo!=null) 
-				{
-					int min = (int)m_pageinfo["TimeZoneForum"];
-					return new TimeSpan(min/60,min%60,0);
-				} 
-				else
-					return new TimeSpan(0);
-			}
-		}
-		/// <summary>
 		/// Returns the user timezone offset from GMT
 		/// </summary>
 		public TimeSpan TimeZoneOffsetUser {
@@ -721,8 +612,7 @@ namespace yaf
 		/// </summary>
 		public TimeSpan TimeOffset {
 			get {
-				//return TimeZoneOffsetForum - TimeZoneOffsetUser;
-				return TimeZoneOffsetUser - TimeZoneOffsetForum;
+				return TimeZoneOffsetUser - Config.ForumSettings.TimeZone;
 			}
 		}
 		/// <summary>
@@ -767,14 +657,6 @@ namespace yaf
 		}
 		#endregion
 		#region Layout functions
-		public int UnreadPrivate 
-		{
-			get 
-			{
-				return (int)m_pageinfo["Incoming"];
-			}
-		}
-
 		public bool IsLocal 
 		{
 			get 
@@ -784,99 +666,6 @@ namespace yaf
 			}
 		}
 
-		#endregion
-		#region Localizing
-		private Localizer	m_localizer = null;
-		private	Localizer	m_defaultLocale	= null;
-
-		public string GetText(string text) 
-		{
-			string page = Request.ServerVariables["SCRIPT_NAME"].ToUpper();
-			int pos = page.LastIndexOf('/');
-			if(pos>=0) page = page.Substring(pos+1);
-			pos = page.LastIndexOf('.');
-			if(pos>=0) page = page.Substring(0,pos);
-			
-			return GetText(page,text);
-		}
-
-		private string LoadTranslation() 
-		{
-			if(m_localizer!=null) 
-				return m_localizer.LanguageCode;
-			
-			string filename = null;
-
-			if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-				filename = Config.ConfigSection["language"];
-			else
-				filename = (string)m_pageinfo["LanguageFile"];
-
-			if(filename==null)
-				filename = "english.xml";
-
-#if !DEBUG
-			if(m_localizer==null && Cache["Localizer." + filename]!=null)
-				m_localizer = (Localizer)Cache["Localizer." + filename];
-#endif
-			if(m_localizer==null) 
-			{
-
-				m_localizer = new Localizer(Server.MapPath(String.Format("{0}languages/{1}",ForumRoot,filename)));
-#if !DEBUG
-				Cache["Localizer." + filename] = m_localizer;
-#endif
-			}
-			/// If not using default language load that too
-			if(filename.ToLower()!="english.xml") 
-			{
-#if !DEBUG
-				if(m_defaultLocale==null && Cache["DefaultLocale"]!=null)
-					m_defaultLocale = (Localizer)Cache["DefaultLocale"];
-#endif
-
-				if(m_defaultLocale==null) 
-				{
-					m_defaultLocale = new Localizer(Server.MapPath(String.Format("{0}languages/english.xml",ForumRoot)));
-#if !DEBUG
-					Cache["DefaultLocale"] = m_defaultLocale;
-#endif
-				}
-			}
-			return m_localizer.LanguageCode;
-		}
-
-		public string GetText(string page,string text) 
-		{
-			LoadTranslation();
-			string str = m_localizer.GetText(page,text);
-			/// If not default language, try to use that instead
-			if(str==null && m_defaultLocale!=null) 
-			{
-				str = m_defaultLocale.GetText(page,text);
-				if(str!=null) str = '[' + str + ']';
-			}
-			if(str==null) 
-			{
-#if !DEBUG
-				string filename = null;
-
-				if(m_pageinfo==null || m_pageinfo.IsNull("LanguageFile") || !AllowUserLanguage)
-					filename = Config.ConfigSection["language"];
-				else
-					filename = (string)m_pageinfo["LanguageFile"];
-
-				if(filename==null)
-					filename = "english.xml";
-
-				Cache.Remove("Localizer." + filename);
-#endif
-				throw new Exception(String.Format("Missing translation for {1}.{0}",text.ToUpper(),page.ToUpper()));
-			}
-			str = str.Replace("[b]","<b>");
-			str = str.Replace("[/b]","</b>");
-			return str;
-		}
 		#endregion
 	}
 }

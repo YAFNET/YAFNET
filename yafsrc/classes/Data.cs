@@ -24,9 +24,11 @@ namespace yaf
 {
 	public enum AuthType 
 	{
-		YetAnotherForum,
+		Guest,
+		Forms,
 		Windows,
-		RainBow
+		Rainbow,
+		DotNetNuke
 	};
 
 	public enum SEARCH_FIELD
@@ -66,21 +68,25 @@ namespace yaf
 		{
 			get 
 			{
-				string auth = Config.ConfigSection["authorization"];
-				if(auth==null)
-					return AuthType.YetAnotherForum;
+				if(Config.IsDotNetNuke)
+					return AuthType.DotNetNuke;
+				else if(Config.IsRainbow)
+					return AuthType.Rainbow;
 
-				switch(auth.Trim().ToLower()) 
-				{
-					case "rainbow":
-						return AuthType.RainBow;
-					case "yetanotherforum":
-						return AuthType.YetAnotherForum;
-					case "windows":
-						return AuthType.Windows;
-					default:
-						throw new Exception(String.Format("Invalid authorization \"{0}\" in Web.config.",auth));
-				}
+				Type secType = System.Web.HttpContext.Current.User.Identity.GetType();
+
+				if(secType==typeof(System.Web.Security.FormsIdentity)) 
+					return AuthType.Forms;
+				else if(secType==typeof(System.Security.Principal.WindowsIdentity)) 
+					return AuthType.Windows;
+				else if(secType==typeof(System.Security.Principal.GenericIdentity)) 
+					return AuthType.Guest;
+				else
+#if DEBUG
+					throw new Exception(string.Format("Unknown security: {0}",secType));
+#else
+					return AuthType.Guest;
+#endif
 			}
 		}
 

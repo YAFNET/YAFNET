@@ -841,9 +841,6 @@ namespace yaf
 			}
 		}
 		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,ref long nMessageID) {
-			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-			//	UserName = null;
-
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
 				SqlParameter pMessageID = new SqlParameter("@MessageID",nMessageID);
@@ -1276,9 +1273,6 @@ namespace yaf
 		}
 		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,object posted,ref long nMessageID) 
 		{
-			//if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-			//	UserName = null;
-
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -1479,16 +1473,6 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public int user_extvalidate(object userName,object email) 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_extvalidate")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@Name",userName);
-				cmd.Parameters.Add("@Email",email);
-				return (int)ExecuteScalar(cmd);
-			}
-		}
 		static public void user_saveavatar(object userID,System.IO.Stream stream) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_saveavatar")) 
@@ -1544,13 +1528,13 @@ namespace yaf
 						if(emailVerification) 
 						{
 							//  Build a MailMessage
-							string body = page.ReadTemplate("verifyemail.txt");
+							string body = Utils.ReadTemplate("verifyemail.txt");
 							body = body.Replace("{link}",String.Format("{1}{0}",Forum.GetLink(Pages.approve,"k={0}",hash),page.ServerURL));
 							body = body.Replace("{key}",hash);
-							body = body.Replace("{forumname}",page.ForumName);
+							body = body.Replace("{forumname}",Config.ForumSettings.Name);
 							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));
 
-							page.SendMail(page.ForumEmail,email.ToString(),String.Format("{0} email verification",page.ForumName),body);
+							Utils.SendMail(Config.ForumSettings.ForumEmail,email.ToString(),String.Format("{0} email verification",Config.ForumSettings.Name),body);
 							page.AddLoadMessage("A mail has been sent. Check your inbox and click the link in the mail.");
 							trans.Commit();
 						} 

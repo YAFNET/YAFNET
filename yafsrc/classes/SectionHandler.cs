@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Web;
 
 namespace yaf
 {
@@ -7,39 +9,6 @@ namespace yaf
 		public object Create(object parent,object configContext,System.Xml.XmlNode section) 
 		{
 			return new Config(section);
-		}
-	}
-
-	public class Config
-	{
-		private	System.Xml.XmlNode m_section;
-
-		public Config(System.Xml.XmlNode node)
-		{
-			m_section = node;
-		}
-
-		public string this[string key]
-		{
-			get
-			{
-				System.Xml.XmlNode node = m_section.SelectSingleNode(key);
-				if(node!=null)
-					return node.InnerText;
-				else
-					return null;
-			}
-		}
-
-		static public Config ConfigSection
-		{
-			get
-			{
-				Config config = (Config)System.Configuration.ConfigurationSettings.GetConfig("yafnet");
-				if(config==null)
-					throw new ApplicationException("Failed to get configuration from Web.config");
-				return config;
-			}
 		}
 	}
 }

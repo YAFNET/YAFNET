@@ -86,7 +86,7 @@ namespace yaf
 								case "url":
 									if(arg!=null) 
 									{
-										if(basePage.UseBlankLinks)
+										if(Config.ForumSettings.BlankLinks)
 											tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
 										else
 											tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);

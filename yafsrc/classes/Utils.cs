@@ -19,31 +19,12 @@
 
 using System;
 using System.Data;
+using System.IO;
+using System.Text;
 using System.Web;
 
 namespace yaf
 {
-	public class User 
-	{
-		/// <summary>
-		/// Can be called by other applications to validate a user. 
-		/// </summary>
-		/// <param name="username">The name of the user (can be the same as email).</param>
-		/// <param name="email">The user's email address.</param>
-		/// <returns>The UserID of the user, or 0 if validation failed.</returns>
-		static public int ValidateUser(string username,string email) 
-		{
-			try 
-			{
-				return DB.user_extvalidate(username,email);
-			}
-			catch(Exception) 
-			{
-				return 0;
-			}
-		}
-	}
-
 	/// <summary>
 	/// Summary description for Utils.
 	/// </summary>
@@ -79,6 +60,43 @@ namespace yaf
 			return (ipchk & banchk) == banmask;
 		}
 
+		/// <summary>
+		/// Reads a template from the templates directory
+		/// </summary>
+		/// <param name="name">Name of template (not including path)</param>
+		/// <returns>The template</returns>
+		static public string ReadTemplate(string name) 
+		{
+			string file;
+			if(HttpContext.Current.Cache[name] != null && false) 
+			{
+				file = HttpContext.Current.Cache[name].ToString();
+			} 
+			else 
+			{
+				string templatefile = HttpContext.Current.Server.MapPath(String.Format("{0}templates/{1}",Data.BaseDir,name));
+				StreamReader sr = new StreamReader(templatefile,Encoding.ASCII);
+				file = sr.ReadToEnd();
+				sr.Close();
+				HttpContext.Current.Cache[name] = file;
+			}
+			return file;
+		}
+
+		static public void SendMail(string from,string to,string subject,string body) 
+		{
+			// http://sourceforge.net/projects/opensmtp-net/
+			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+
+			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(Config.ForumSettings.SmtpServer,25);
+			if(Config.ForumSettings.SmtpUserName!=null && Config.ForumSettings.SmtpUserPass!=null) 
+			{
+				smtp.Username = Config.ForumSettings.SmtpUserName;
+				smtp.Password = Config.ForumSettings.SmtpUserPass;
+			}
+			smtp.SendMail(from,to,subject,body);
+		}
+
 		static public string Text2Html(string html) 
 		{
 			html = html.Replace("\n","<br/>");
@@ -90,10 +108,43 @@ namespace yaf
 		/// smtpserver and erroremail must be set in Web.config.
 		/// </summary>
 		/// <param name="x">The Exception object to report.</param>
-		static public void ReportError(Exception x) 
+		static public void LogToMail(Exception x) 
 		{
 			try 
 			{
+				string	config	= Config.ConfigSection["logtomail"];
+				if(config==null)
+					return;
+
+				// Find mail info
+				string	email	= "";
+				string	server	= "";
+				string	user	= "";
+				string	pass	= "";
+
+				foreach(string part in config.Split(';'))
+				{
+					string[] pair = part.Split('=');
+					if(pair.Length!=2) continue;
+
+					switch(pair[0].Trim().ToLower())
+					{
+						case "email":
+							email = pair[1].Trim();
+							break;
+						case "server":
+							server = pair[1].Trim();
+							break;
+						case "user":
+							user = pair[1].Trim();
+							break;
+						case "pass":
+							pass = pair[1].Trim();
+							break;
+					}
+				}
+
+
 				// Send email about the error
 				string sErrorSmtp = Config.ConfigSection["smtpserver"];
 				string sErrorEmail = Config.ConfigSection["erroremail"];
@@ -150,25 +201,19 @@ namespace yaf
 					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>",key,HttpContext.Current.Request.Cookies[key].Value);
 				}
 				msg.Append("</table>");
-#if  true
-				// .NET
-				System.Web.Mail.MailMessage mailMessage = new System.Web.Mail.MailMessage();
-				mailMessage.From = sErrorEmail;
-				mailMessage.To = sErrorEmail;
+				// Send mail
+				// http://sourceforge.net/projects/opensmtp-net/
+				OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
+				OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(email, email);
+				OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(server,25);
+				if(user.Length>0 && pass.Length>0) 
+				{
+					smtp.Username = user;
+					smtp.Password = pass;
+				}
 				mailMessage.Subject = "Yet Another Forum.net Error Report";
-				mailMessage.BodyFormat = System.Web.Mail.MailFormat.Html;
-				mailMessage.Body = msg.ToString();
-				System.Web.Mail.SmtpMail.SmtpServer = sErrorSmtp;
-				System.Web.Mail.SmtpMail.Send(mailMessage);
-#else
-			// http://sourceforge.net/projects/opensmtp-net/
-			OpenSmtp.Mail.SmtpConfig.VerifyAddresses = false;
-			OpenSmtp.Mail.MailMessage mailMessage = new OpenSmtp.Mail.MailMessage(sErrorEmail, sErrorEmail);
-			OpenSmtp.Mail.Smtp smtp = new OpenSmtp.Mail.Smtp(sErrorSmtp,25);
-			mailMessage.Subject = "Yet Another Forum.net Error Report";
-			mailMessage.HtmlBody = msg.ToString();
-			smtp.SendMail(mailMessage);
-#endif	
+				mailMessage.HtmlBody = msg.ToString();
+				smtp.SendMail(mailMessage);
 			}
 			catch(Exception) 
 			{
@@ -181,14 +226,14 @@ namespace yaf
 				foreach(DataRow row in dt.Rows) 
 				{
 					// Send track mails
-					string subject = String.Format("Topic Subscription New Post Notification (From {0})",basePage.ForumName);
+					string subject = String.Format("Topic Subscription New Post Notification (From {0})",Config.ForumSettings.Name);
 
-					string body = basePage.ReadTemplate("topicpost.txt");
-					body = body.Replace("{forumname}",basePage.ForumName);
+					string body = Utils.ReadTemplate("topicpost.txt");
+					body = body.Replace("{forumname}",Config.ForumSettings.Name);
 					body = body.Replace("{topic}",row["Topic"].ToString());
 					body = body.Replace("{link}",String.Format("{0}{1}",basePage.ServerURL,Forum.GetLink(Pages.posts,"m={0}#{0}",messageID)));
 
-					DB.mail_createwatch(row["TopicID"],basePage.ForumEmail,subject,body,row["UserID"]);
+					DB.mail_createwatch(row["TopicID"],Config.ForumSettings.ForumEmail,subject,body,row["UserID"]);
 				}
 			}
 		}
