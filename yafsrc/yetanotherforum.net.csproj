@@ -386,6 +386,87 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "editors\ForumEditor.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "editors\yafEditor\backcolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\bold.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\code.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\forecolor.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\image.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\indent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\italic.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\justifycenter.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\justifyleft.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\justifyright.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\link.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\orderedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\quote.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\smiley.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\spellcheck.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\underline.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\unorderedlist.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "editors\yafEditor\yafEditor.js"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "images\delete_icon.gif"
                     BuildAction = "Content"
                 />
@@ -1570,87 +1651,6 @@
                     RelPath = "pages\moderate\index.ascx.resx"
                     DependentUpon = "index.ascx.cs"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "rte\RichEdit.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "rte\RichEdit.js"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\backcolor.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\bold.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\code.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\forecolor.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\image.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\indent.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\italic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\justifycenter.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\justifyleft.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\justifyright.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\link.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\orderedlist.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\outdent.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\quote.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\smiley.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\spellcheck.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\underline.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "rte\images\unorderedlist.gif"
-                    BuildAction = "Content"
                 />
                 <File
                     RelPath = "templates\changeemail.txt"
