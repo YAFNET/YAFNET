@@ -1,8 +1,9 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <tr class=postheader>
 	<%#GetIndentCell()%>
-	<td width="140px" colspan='<%#GetIndentSpan()%>'>
+	<td width="140px" id="NameCell" runat="server">
 		<a name='<%# DataRow["MessageID"] %>'/>
 		<b><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# DataRow["UserName"] %></a></b>
 	</td>
@@ -47,3 +48,5 @@
 	</td>
 </tr>
 <tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
+
+<yaf:PopMenu runat="server" id="PopMenu1" control="NameCell"/>

@@ -337,6 +337,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "controls\PopMenu.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "controls\ProfileMenu.cs"
                     SubType = "Code"
                     BuildAction = "Compile"

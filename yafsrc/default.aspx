@@ -17,7 +17,7 @@ public void Page_Error(object sender,System.EventArgs e)
 </head>
 <body>
 
-<a href="http://www.jwendl.net/">jwendl.net</a>
+<img src="images/yaf.png"/>
 <br />
 
 <form runat="server" enctype="multipart/form-data">

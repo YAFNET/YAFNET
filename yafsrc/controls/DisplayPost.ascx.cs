@@ -15,12 +15,23 @@ namespace yaf.controls
 		protected HyperLink		Attach, Edit, Quote;
 		protected LinkButton	Delete;
 		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
+		protected HtmlTableCell	NameCell;
+		protected controls.PopMenu	PopMenu1;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			PopMenu1.Visible = ForumPage.IsAdmin;
+			if(PopMenu1.Visible) 
+			{
+				PopMenu1.AddItem("User Profile","window.location.href='" + Forum.GetLink(Pages.cp_profile,"u={0}",DataRow["UserID"])+"';");
+				PopMenu1.AddItem("Edit User (Admin)","window.location.href='" + Forum.GetLink(Pages.admin_edituser,"u={0}",DataRow["UserID"])+"';");
+			}
+
 			if(!IsPostBack || true) 
 			{
 			}
+			Page.RegisterClientScriptBlock("yafjs",string.Format("<script language='javascript' src='{0}'></script>",ResolveUrl("../yaf.js")));
+			NameCell.ColSpan = int.Parse(GetIndentSpan());
 		}
 		private void DisplayPost_PreRender(object sender,EventArgs e)
 		{
