@@ -279,13 +279,33 @@ create procedure yaf_pmessage_save(
 	@Body		text
 ) as
 begin
-	declare @PMessageID int
-
-	insert into yaf_PMessage(FromUserID,Created,Subject,Body)
-	values(@FromUserID,getdate(),@Subject,@Body)
-
-	set @PMessageID = @@IDENTITY
-	insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
+      declare @PMessageID int
+      declare @UserID int
+ 
+      insert into yaf_PMessage(FromUserID,Created,Subject,Body)
+      values(@FromUserID,getdate(),@Subject,@Body)
+ 
+      set @PMessageID = @@IDENTITY
+      IF (@ToUserID = 0)
+            begin
+                  Declare c1 cursor for select UserID from yaf_User where Name <> 'Guest' and Approved = 1 and UserID <> @FromUserID
+            
+                  open c1
+            
+                  fetch next from c1 into @UserID
+            
+                  while @@fetch_status = 0
+                  begin
+                        insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@UserID,@PMessageID,0)
+                  
+                        fetch next from c1 into @UserID
+                  end
+                  close c1
+            end
+      ELSE
+            begin
+                  insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
+            end
 end
 GO
 

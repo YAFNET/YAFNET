@@ -42,6 +42,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Button Save;
 		protected DropDownList ToList;
 		protected Button FindUsers;
+		protected Button AllUsers;
 		protected controls.PageLinks PageLinks;
 	
 		public pmessage() : base("PMESSAGE")
@@ -70,6 +71,16 @@ namespace yaf.pages
 				Save.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
 				FindUsers.Text = GetText("FINDUSERS");
+				AllUsers.Text = GetText("ALLUSERS");
+
+				if (IsAdmin)
+				{
+					AllUsers.Visible = true;
+				}
+				else
+				{
+					AllUsers.Visible = false;
+				}
 
 				int ToUserID = 0;
 
@@ -123,6 +134,7 @@ namespace yaf.pages
 			this.Save.Click += new System.EventHandler(this.Save_Click);
 			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.FindUsers.Click += new System.EventHandler(this.FindUsers_Click);
+			this.AllUsers.Click += new System.EventHandler(this.AllUsers_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -149,39 +161,55 @@ namespace yaf.pages
 			if(ToList.Visible)
 				To.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = DataProvider.user_find(PageBoardID,false,To.Text,null)) 
+
+			if (ToList.SelectedItem.Value == "0")
 			{
-				if(dt.Rows.Count!=1) 
-				{
-					AddLoadMessage(GetText("NO_SUCH_USER"));
-					return;
-				} 
-				else if((int)dt.Rows[0]["IsGuest"]>0) 
-				{
-					AddLoadMessage(GetText("NOT_GUEST"));
-					return;	
-				}
-
-				if(Subject.Text.Length<=0) 
-				{
-					AddLoadMessage(GetText("need_subject"));
-					return;
-				}
-				if(Editor.Text.Length<=0) 
-				{
-					AddLoadMessage(GetText("need_message"));
-					return;
-				}
-
 				string body = Editor.Text;
 				if(!Editor.IsRichBrowser) 
 					body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
 				else
 					body = FormatMsg.RepairHtml(this,body);
 
-				DataProvider.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
+				DataProvider.pmessage_save(PageUserID,0,Subject.Text,body);
 				Forum.Redirect(Pages.cp_profile);
 			}
+			else
+			{
+				using(DataTable dt = DataProvider.user_find(PageBoardID,false,To.Text,null)) 
+				{
+					if(dt.Rows.Count!=1) 
+					{
+						AddLoadMessage(GetText("NO_SUCH_USER"));
+						return;
+					} 
+					else if((int)dt.Rows[0]["IsGuest"]>0) 
+					{
+						AddLoadMessage(GetText("NOT_GUEST"));
+						return;	
+					}
+
+					if(Subject.Text.Length<=0) 
+					{
+						AddLoadMessage(GetText("need_subject"));
+						return;
+					}
+					if(Editor.Text.Length<=0) 
+					{
+						AddLoadMessage(GetText("need_message"));
+						return;
+					}
+
+					string body = Editor.Text;
+					if(!Editor.IsRichBrowser) 
+						body = FormatMsg.ForumCodeToHtml(this,Server.HtmlEncode(body));
+					else
+						body = FormatMsg.RepairHtml(this,body);
+
+					DataProvider.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
+					Forum.Redirect(Pages.cp_profile);
+				}
+			}
+			
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e) {
@@ -206,6 +234,16 @@ namespace yaf.pages
 				} 
 				DataBind();
 			}
+		}
+		private void AllUsers_Click(object sender, System.EventArgs e) 
+		{
+			ListItem li = new ListItem("All Users", "0");
+			ToList.Items.Add(li);
+			ToList.Visible = true;
+			To.Text = "All Users";
+			To.Visible = false;
+			FindUsers.Visible = false;
+			AllUsers.Visible = false;
 		}
 	}
 }

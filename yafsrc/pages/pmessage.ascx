@@ -15,6 +15,7 @@
 			<asp:TextBox id=To runat="server"/>
 			<asp:DropDownList runat="server" id="ToList" visible="false"/>
 			<asp:button runat="server" id="FindUsers"/>
+			<asp:button runat="server" id="AllUsers"/>
 		</td>
 	</tr>
 	<tr>
