@@ -17,14 +17,17 @@ namespace yaf.controls
 		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
 		protected HtmlTableCell	NameCell;
 		protected controls.PopMenu	PopMenu1;
+		protected HyperLink UserName;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			PopMenu1.Visible = ForumPage.IsAdmin;
 			if(PopMenu1.Visible) 
 			{
-				PopMenu1.AddItem("User Profile","window.location.href='" + Forum.GetLink(Pages.profile,"u={0}",DataRow["UserID"])+"';");
-				PopMenu1.AddItem("Edit User (Admin)","window.location.href='" + Forum.GetLink(Pages.admin_edituser,"u={0}",DataRow["UserID"])+"';");
+				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
+				PopMenu1.AddItem("userprofile","User Profile");
+				PopMenu1.AddItem("edituser","Edit User (Admin)");
+				PopMenu1.Attach(UserName);
 			}
 
 			if(!IsPostBack || true) 
@@ -283,6 +286,19 @@ namespace yaf.controls
 				Forum.Redirect(Pages.posts,"t={0}",tmpTopicID);
       
 			// END CHANGED BAI 30.01.2004
+		}
+
+		private void PopMenu1_ItemClick(object sender, PopEventArgs e)
+		{
+			switch(e.Item) 
+			{
+				case "userprofile":
+					Forum.Redirect(Pages.profile,"u={0}",DataRow["UserID"]);
+					break;
+				case "edituser":
+					Forum.Redirect(Pages.admin_edituser,"u={0}",DataRow["UserID"]);
+					break;
+			}
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace yaf.controls
 	/// <summary>
 	/// Summary description for ForumJump.
 	/// </summary>
-	public class PopMenu : BaseControl
+	public class PopMenu : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
 		private string	m_control = string.Empty;
 		private Hashtable	m_items = new Hashtable();
@@ -37,6 +37,12 @@ namespace yaf.controls
 			m_items.Add(title,script);
 		}
 
+		public void Attach(System.Web.UI.WebControls.WebControl ctl) 
+		{
+			ctl.Attributes["onclick"] = string.Format("yaf_popit('{0}')",this.UniqueID);
+			ctl.Attributes["onmouseover"] = string.Format("yaf_mouseover('{0}')",this.UniqueID);
+		}
+
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(this.Visible)
@@ -60,22 +66,46 @@ namespace yaf.controls
 				return;
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.AppendFormat("<table class='content' border=\"0\" cellspacing=\"0\" cellpadding=\"4\" id=\"{0}_menu\" style=\"position:absolute;z-index:100;left:0;top:0;width:150;visibility:hidden;padding:0px;border:1px solid #FFFFFF;background-color:#FFFFFF\">",ControlID);
-#if true
+			sb.AppendFormat("<table width='1%' class='content' border=\"0\" cellspacing=\"0\" cellpadding=\"4\" id=\"{0}\" style=\"position:absolute;z-index:100;left:0;top:0;visibility:hidden;padding:0px;border:1px solid #FFFFFF;background-color:#FFFFFF\">",UniqueID);
 			foreach(string key in m_items.Keys) 
 			{
-				sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"{1}\">{0}</td></tr>",key,m_items[key]);
+				sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"{1}\"><nobr>{0}</nobr></td></tr>\n",m_items[key],Page.GetPostBackClientHyperlink(this,key));
 			}
-#else
-			sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"mouseClick()\">Show Profile</td></tr>");
-			sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"mouseClick()\">Send Private Message</td></tr>");
-			sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"mouseClick()\">Edit User (Admin)</td></tr>");
-			sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"mouseClick()\">Ban User (Admin)</td></tr>");
-			sb.AppendFormat("<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"mouseClick()\">Delete User (Admin)</td></tr>");
-#endif
 			sb.AppendFormat("</table>");
 
 			Page.RegisterStartupScript(ClientID+"_menuscript",sb.ToString());
 		}
+
+		#region IPostBackEventHandler
+		public event PopEventHandler ItemClick;
+
+		public void RaisePostBackEvent(string eventArgument)
+		{
+			if(ItemClick!=null)
+			{
+				ItemClick(this,new PopEventArgs(eventArgument));
+			}
+		}
+		#endregion
 	}
+
+	public class PopEventArgs : EventArgs
+	{
+		private string m_item;
+
+		public PopEventArgs(string eventArgument)
+		{
+			m_item = eventArgument;
+		}
+
+		public string Item 
+		{
+			get
+			{
+				return m_item;
+			}
+		}
+	}
+
+	public delegate void PopEventHandler(object sender,PopEventArgs e);
 }

@@ -47,13 +47,15 @@
 <table class=content cellSpacing=1 cellPadding=0 width="100%" border="0">
 <tr class="header1">
 	<td colspan="3">
-		<table class="header1" width="100%" cellspacing="0" cellpadding="0">
+		<table border="0" class="header1" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td class="header1"><asp:label id=TopicTitle runat="server"/></td>
-			<td align="right" runat="server" id="ThreadViewCell">
-				<asp:linkbutton runat="server" id="NormalView"/>
+			<td><asp:label id=TopicTitle runat="server"/></td>
+			<td align="right">
+				<asp:hyperlink id="MyTest" runat="server">Options</asp:hyperlink>
+				<asp:placeholder runat="server" id="ViewOptions">
 				&middot;
-				<asp:linkbutton runat="server" id="ThreadView"/>
+				<asp:hyperlink id="View" runat="server">View</asp:hyperlink>
+				</asp:placeholder>
 			</td>
 		</tr>
 		</table>
@@ -68,7 +70,7 @@
 				&middot;
 				<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
 			</td>
-			<td class='header2' align=right>
+			<td class='header2' align=right runat="server" visible="false">
 				<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
 				&middot;
 				<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
@@ -118,3 +120,6 @@
 </table>
 
 <yaf:savescrollpos runat="server"/>
+
+<yaf:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
+<yaf:PopMenu runat="server" id="ViewMenu" control="View"/>

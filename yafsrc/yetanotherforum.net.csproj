@@ -113,6 +113,10 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "COPYING"
+                    BuildAction = "None"
+                />
+                <File
                     RelPath = "default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -166,6 +170,10 @@
                 />
                 <File
                     RelPath = "WhatsNew.html"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "yaf.js"
                     BuildAction = "Content"
                 />
                 <Folder RelPath = "bin\" />

@@ -5,7 +5,7 @@
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
 		<a name='<%# DataRow["MessageID"] %>'/>
-		<b><a id="UserName" runat="server" href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# DataRow["UserName"] %></a></b>
+		<b><asp:hyperlink id="UserName" runat="server" href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# DataRow["UserName"] %></asp:hyperlink></b>
 	</td>
 	<td width=80%>
 		<table cellspacing=0 cellpadding=0 width=100%>

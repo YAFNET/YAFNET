@@ -61,10 +61,11 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
 		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
 		protected System.Web.UI.WebControls.HyperLink RssTopic;
-		protected LinkButton NormalView,ThreadView;
-		protected HtmlTableCell ThreadViewCell;
 		private bool m_bDataBound = false;
 		private bool m_bIgnoreQueryString = false;
+		protected controls.PopMenu	MyTestMenu, ViewMenu;
+		protected PlaceHolder ViewOptions;
+		protected HyperLink MyTest, View;
 
 		public posts() : base("POSTS")
 		{
@@ -72,6 +73,15 @@ namespace yaf.pages
 
 		private void posts_PreRender(object sender,EventArgs e)
 		{
+			MyTestMenu.AddItem("watch",GetText("watchtopic"));
+			MyTestMenu.AddItem("email",GetText("emailtopic"));
+			MyTestMenu.AddItem("print",GetText("printtopic"));
+			MyTestMenu.AddItem("rssfeed",GetText("rsstopic"));
+			ViewMenu.AddItem("normal",GetText("NORMAL"));
+			ViewMenu.AddItem("threaded",GetText("THREADED"));
+			MyTestMenu.Attach(MyTest);
+			ViewMenu.Attach(View);
+			
 			if(!m_bDataBound)
 				BindData();
 		}
@@ -92,9 +102,7 @@ namespace yaf.pages
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				TopicTitle.Text = (string)topic["Topic"];
-				NormalView.Text = GetText("NORMAL");
-				ThreadView.Text = GetText("THREADED");
-				ThreadViewCell.Visible = BoardSettings.AllowThreaded;
+				ViewOptions.Visible = BoardSettings.AllowThreaded;
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 
 				if(!ForumPostAccess) 
@@ -184,23 +192,10 @@ namespace yaf.pages
 			BindData();
 		}
 
-		private void NormalView_Click(object sender,EventArgs e)
-		{
-			IsThreaded = false;
-			BindData();
-		}
-		private void ThreadView_Click(object sender,EventArgs e)
-		{
-			IsThreaded = true;
-			BindData();
-		}
-
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
 			Pager.PageChange += new EventHandler(Pager_PageChange);
-			NormalView.Click += new EventHandler(NormalView_Click);
-			ThreadView.Click += new EventHandler(ThreadView_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -234,7 +229,8 @@ namespace yaf.pages
 			this.EmailTopic.Click += new System.EventHandler(this.EmailTopic_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
 			this.PreRender += new EventHandler(posts_PreRender);
-
+			this.MyTestMenu.ItemClick += new yaf.controls.PopEventHandler(MyTestMenu_ItemClick);
+			this.ViewMenu.ItemClick += new yaf.controls.PopEventHandler(ViewMenu_ItemClick);
 		}
 		#endregion
 
@@ -556,6 +552,44 @@ namespace yaf.pages
 				return string.Format("<img src='{1}images/spacer.gif' width='{0}' height='2'/>",iIndent*32,Data.ForumRoot);
 			else
 				return "";
+		}
+
+		private void MyTestMenu_ItemClick(object sender, yaf.controls.PopEventArgs e)
+		{
+			switch(e.Item) 
+			{
+				case "print":
+					Forum.Redirect(Pages.printtopic,"t={0}",PageTopicID);
+					break;
+				case "watch":
+					TrackTopic_Click(sender,e);
+					break;
+				case "email":
+					EmailTopic_Click(sender,e);
+					break;
+				case "rssfeed":
+					Forum.Redirect(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
+					break;
+				default:
+					throw new ApplicationException(e.Item);
+			}
+		}
+
+		private void ViewMenu_ItemClick(object sender, yaf.controls.PopEventArgs e)
+		{
+			switch(e.Item) 
+			{
+				case "normal":
+					IsThreaded = false;
+					BindData();
+					break;
+				case "threaded":
+					IsThreaded = true;
+					BindData();
+					break;
+				default:
+					throw new ApplicationException(e.Item);
+			}
 		}
 	}
 }
