@@ -9,6 +9,10 @@ if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_W
 	)
 GO
 
+alter table yaf_User alter column Signature ntext null
+go
+
+
 if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
 GO
@@ -559,3 +563,13 @@ begin
 end
 GO
 
+-- yaf_user_savesignature
+if exists (select * from sysobjects where id = object_id(N'yaf_user_savesignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_savesignature
+GO
+
+create procedure yaf_user_savesignature(@UserID int,@Signature ntext) as
+begin
+	update yaf_User set Signature = @Signature where UserID = @UserID
+end
+GO

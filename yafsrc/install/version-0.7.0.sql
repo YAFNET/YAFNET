@@ -220,7 +220,7 @@ CREATE TABLE [yaf_User] (
 	[HomePage]		[nvarchar] (50) NULL ,
 	[TimeZone]		[int] NOT NULL ,
 	[Avatar]		[nvarchar] (255) NULL ,
-	[Signature]		[nvarchar] (255) NULL ,
+	[Signature]		[ntext] NULL ,
 	[AvatarImage]	[image] NULL,
 	[RankID]		[int] NOT NULL,
 	[Suspended]		[datetime] NULL,

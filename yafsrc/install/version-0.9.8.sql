@@ -236,9 +236,6 @@ GO
 alter table yaf_User alter column Avatar nvarchar(255) null
 GO
 
-alter table yaf_User alter column Signature nvarchar(255) null
-GO
-
 alter table yaf_User alter column LanguageFile nvarchar(50) null
 GO
 
@@ -1400,17 +1397,6 @@ begin
 			a.BoardID=@BoardID and
 			((@UserName is not null and a.Name=@UserName) or (@Email is not null and Email=@Email))
 	end
-end
-GO
-
--- yaf_user_savesignature
-if exists (select * from sysobjects where id = object_id(N'yaf_user_savesignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_savesignature
-GO
-
-create procedure yaf_user_savesignature(@UserID int,@Signature ntext) as
-begin
-	update yaf_User set Signature = @Signature where UserID = @UserID
 end
 GO
 
