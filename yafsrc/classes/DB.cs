@@ -2171,23 +2171,6 @@ namespace yaf
 			}
 			return true;
 		}
-		static public bool user_access(object userID,object forumID) 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_access")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",userID);
-				cmd.Parameters.Add("@ForumID",forumID);
-				using(DataTable dt = GetData(cmd)) 
-				{
-					foreach(DataRow row in dt.Rows) 
-					{
-						return long.Parse(row["ReadAccess"].ToString())>0;
-					}
-				}
-			}
-			return false;
-		}
 		static public int user_guest() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_guest")) 

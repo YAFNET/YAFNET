@@ -95,7 +95,7 @@ namespace yaf.controls
 			// get the Forum Description
 			strReturn = Convert.ToString(row["Forum"]);
 
-			if (DB.user_access(ForumPage.PageUserID,ForumID))
+			if(int.Parse(row["ReadAccess"].ToString())>0)
 			{
 				strReturn = String.Format("<a href=\"{0}\">{1}</a>",
 					Forum.GetLink(yaf.Pages.topics,"f={0}",ForumID),
@@ -130,7 +130,7 @@ namespace yaf.controls
 			{
 				strTemp = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(Convert.ToString(row["LastPosted"])) > Mession.LastVisit) ? "ICON_NEWEST" : "ICON_LATEST");
 
-				if (DB.user_access(ForumPage.PageUserID,ForumID))
+				if(int.Parse(row["ReadAccess"].ToString())>0)
 				{
 					strTemp = String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
 							ForumPage.FormatDateTimeTopic((DateTime)row["LastPosted"]),

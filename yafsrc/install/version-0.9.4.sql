@@ -281,16 +281,6 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_access
-GO
-
-create procedure yaf_user_access(@UserID int,@ForumID int) as
-begin
-	select * from yaf_vaccess where UserID=@UserID and ForumID=@ForumID
-end
-GO
-
 if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_delete
 GO

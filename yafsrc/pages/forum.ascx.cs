@@ -220,16 +220,6 @@ namespace yaf.pages
 
 			return String.Format("<img src=\"{0}\" title=\"{1}\"/>",img,imgTitle);
 		}
-		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
-			switch(e.CommandName) {
-				case "forum":
-					if(DB.user_access(PageUserID,e.CommandArgument))
-						Forum.Redirect(Pages.topics,"f={0}",e.CommandArgument);
-
-					AddLoadMessage(GetText("ERROR_NOFORUMACCESS"));
-					break;
-			}
-		}
 
 		protected void ModeratorList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			//AddLoadMessage("TODO: Fix this");

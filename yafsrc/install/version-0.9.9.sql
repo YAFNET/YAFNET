@@ -1040,7 +1040,8 @@ begin
 		b.Locked,
 		b.Moderated,
 		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
-		b.RemoteURL
+		b.RemoteURL,
+		x.ReadAccess
 	from 
 		yaf_Category a
 		join yaf_Forum b on b.CategoryID=a.CategoryID
@@ -1057,3 +1058,7 @@ begin
 end
 GO
 
+-- yaf_user_access
+if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_access
+GO
