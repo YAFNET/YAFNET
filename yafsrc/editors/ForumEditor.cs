@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Web.UI;
@@ -283,11 +284,9 @@ namespace yaf.editor
 					}
 				}
 			}
-			catch(Exception e)
+			catch(Exception)
 			{
-#if DEBUG
-				throw new Exception(e.Message);
-#endif
+				// dll is not accessible
 			}
 		}
 
@@ -303,6 +302,11 @@ namespace yaf.editor
 				}
 				return string.Empty;															 
 			}
+		}
+
+		public bool IsInitialized
+		{
+			get { return bInit; }
 		}
 
 		public override bool UsesHTML
@@ -473,4 +477,67 @@ namespace yaf.editor
 		#endregion
 	}
 
+
+	/// <summary>
+	/// This class provides a way to
+	/// get information on the editors. All 
+	/// functions and variables are static.
+	/// </summary>
+	public class EditorHelper
+	{
+		public enum EditorType
+		{
+			etText = 0,
+			etBBCode = 1,
+			etFCK = 2,
+			etFreeTextBox = 3
+		}
+
+		public static int EditorCount = 4;
+
+		public static string [] EditorTypeText =
+		{
+			"Text Editor",
+			"BBCode Editor",
+			"FCK Editor v2 (HTML)",
+			"FreeTextBox v2 (HTML)"
+		};
+
+		public static ForumEditor CreateEditorFromType(int Value)
+		{
+			if (Value < EditorCount)
+			{
+				return CreateEditorFromType((EditorType)Value);
+			}
+			return null;
+		}
+
+		public static ForumEditor CreateEditorFromType(EditorType etValue)
+		{	
+			switch (etValue)
+			{
+				case EditorType.etText: return new TextEditor();
+				case EditorType.etBBCode: return new BBCodeEditor();
+				case EditorType.etFCK: return new FCKEditor();
+				case EditorType.etFreeTextBox: return new FreeTextBoxEditor();
+			}
+
+			return null;
+		}
+
+		public static DataTable GetEditorsTable()
+		{
+			using(DataTable dt = new DataTable("TimeZone")) 
+			{
+				dt.Columns.Add("Value",Type.GetType("System.Int32"));
+				dt.Columns.Add("Name",Type.GetType("System.String"));
+
+				for (int i=0;i<EditorCount;i++)
+				{
+					dt.Rows.Add(new object[]{i,EditorTypeText[i]});
+				}
+				return dt;
+			}
+		}
+	}
 }

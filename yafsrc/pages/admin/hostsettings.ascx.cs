@@ -32,20 +32,23 @@ namespace yaf.pages.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class hostsettings : AdminPage {
+	public class hostsettings : AdminPage
+	{
 		protected System.Web.UI.WebControls.Button Save;
 		protected System.Web.UI.WebControls.Label SQLVersion;
-		protected System.Web.UI.WebControls.DropDownList TimeZones;
+		protected System.Web.UI.WebControls.DropDownList TimeZones, ForumEditorList;
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
 		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
-		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize;
+		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize, AcceptedHTML;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
 		protected System.Web.UI.WebControls.CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
 		protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX, ShowForumJumpX, AllowPrivateMessagesX, AllowEmailSendingX, AllowSignaturesX, RemoveNestedQuotesX, DateFormatFromLanguage;
 		protected yaf.controls.AdminMenu Adminmenu1;
 		protected yaf.controls.SaveScrollPos Savescrollpos1;
 		protected controls.PageLinks PageLinks;
+		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
+		protected System.Web.UI.WebControls.CheckBox AllowHTMLX;
 		protected TextBox LockPosts;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -69,16 +72,20 @@ namespace yaf.pages.admin {
 			ForumSmtpServer.Attributes.Add("style","width:200px");
 			ForumSmtpUserName.Attributes.Add("style","width:200px");
 			ForumSmtpUserPass.Attributes.Add("style","width:200px");
+			AcceptedHTML.Attributes.Add("style","width:200px");			
 		}
 
 		private void BindData()
 		{
 			TimeZones.DataSource = Data.TimeZones();
+			ForumEditorList.DataSource = yaf.editor.EditorHelper.GetEditorsTable();
+
 			DataBind();
 
 			// grab all the settings form the current board settings class
 			SQLVersion.Text = BoardSettings.SQLVersion;
 			TimeZones.Items.FindByValue(BoardSettings.TimeZoneRaw.ToString()).Selected = true;
+			ForumEditorList.Items.FindByValue(BoardSettings.ForumEditor.ToString()).Selected = true;
 			ForumSmtpServer.Text = BoardSettings.SmtpServer;
 			ForumSmtpUserName.Text = BoardSettings.SmtpUserName;
 			ForumSmtpUserPass.Text = BoardSettings.SmtpUserPass;
@@ -92,7 +99,6 @@ namespace yaf.pages.admin {
 			AvatarUpload.Checked = BoardSettings.AvatarUpload;
 			AvatarRemote.Checked = BoardSettings.AvatarRemote;
 			AvatarSize.Text = (BoardSettings.AvatarSize != 0) ? BoardSettings.AvatarSize.ToString() : "";
-			AllowRichEditX.Checked = BoardSettings.AllowRichEdit;
 			AllowUserThemeX.Checked = BoardSettings.AllowUserTheme;
 			AllowUserLanguageX.Checked = BoardSettings.AllowUserLanguage;
 			UseFileTableX.Checked = BoardSettings.UseFileTable;
@@ -109,6 +115,7 @@ namespace yaf.pages.admin {
 			PostsPerPage.Text = BoardSettings.PostsPerPage.ToString();
 			TopicsPerPage.Text = BoardSettings.TopicsPerPage.ToString();
 			DateFormatFromLanguage.Checked = BoardSettings.DateFormatFromLanguage;
+			AcceptedHTML.Text = BoardSettings.AcceptedHTML;
 		}
 
 		#region Web Form Designer generated code
@@ -143,6 +150,7 @@ namespace yaf.pages.admin {
 
 			// write all the settings back to the settings class
 			BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
+			BoardSettings.ForumEditor = Convert.ToInt32(ForumEditorList.SelectedItem.Value);
 			BoardSettings.SmtpServer = ForumSmtpServer.Text;
 			BoardSettings.SmtpUserName = sUserName;
 			BoardSettings.SmtpUserPass = sUserPass;
@@ -156,7 +164,6 @@ namespace yaf.pages.admin {
 			BoardSettings.AvatarUpload = AvatarUpload.Checked;
 			BoardSettings.AvatarRemote = AvatarRemote.Checked;
 			BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32(AvatarSize.Text) : 0;
-			BoardSettings.AllowRichEdit = AllowRichEditX.Checked;
 			BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
 			BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
 			BoardSettings.UseFileTable = UseFileTableX.Checked;
@@ -173,6 +180,7 @@ namespace yaf.pages.admin {
 			BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
 			BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
 			BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
+			BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

@@ -211,11 +211,7 @@ namespace yaf.pages
 		public string FormatMessage( object o )
 		{
 			DataRowView row = (DataRowView)o;
-
-			string body = row["Message"].ToString();
-			body = BBCode.MakeHtml(body,this);
-
-			return FormatMsg.FetchURL(this,body,false);
+			return FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 		}
 
 		private void btnSearch_Click(object sender, System.EventArgs e)

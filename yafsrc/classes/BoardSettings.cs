@@ -148,6 +148,12 @@ namespace yaf
 			get { return m_reg.GetValueInt("TopicsPerPage",15); }
 			set { m_reg.SetValueInt("TopicsPerPage",value); }
 		}
+		public int ForumEditor
+		{
+			get { return m_reg.GetValueInt("ForumEditor",1); }
+			set { m_reg.SetValueInt("ForumEditor",value); }
+		}
+
 		// boolean settings
 		public bool EmailVerification
 		{
@@ -168,11 +174,6 @@ namespace yaf
 		{
 			get {	return m_reg.GetValueBool("BlankLinks",false); }
 			set { m_reg.SetValueBool("BlankLinks",value); }
-		}
-		public bool AllowRichEdit 
-		{
-			get {	return m_reg.GetValueBool("AllowRichEdit",true); }
-			set { m_reg.SetValueBool("AllowRichEdit",value); }
 		}
 		public bool AllowUserTheme 
 		{
@@ -255,6 +256,11 @@ namespace yaf
 		{
 			get { return m_reg.GetValueString("SmtpUserPass",null); }
 			set { m_reg.SetValueString("SmtpUserPass",value); }
+		}
+		public string AcceptedHTML
+		{
+			get { return m_reg.GetValueString("AcceptedHTML","br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address"); }
+			set { m_reg.SetValueString("AcceptedHTML",value.ToLower()); }
 		}
 	}
 

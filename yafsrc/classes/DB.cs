@@ -294,7 +294,7 @@ namespace yaf
 
 			ToSearch = ToSearch.Replace("'","''");
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message ";
+			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
 			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID join yaf_vaccess x on x.ForumID=a.ForumID ";
 			
 			sql += String.Format("where x.ReadAccess<>0 and x.UserID={0} ",UserID);
@@ -1305,7 +1305,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void message_update(object messageID,object priority,object message,object subject) 
+		static public void message_update(object messageID,object priority,object message,object subject,object flags) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_update")) 
 			{
@@ -1314,10 +1314,11 @@ namespace yaf
 				cmd.Parameters.Add("@Priority",priority);
 				cmd.Parameters.Add("@Message",message);
 				cmd.Parameters.Add("@Subject",subject);
+				cmd.Parameters.Add("@Flags",flags);
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,object replyTo,ref long nMessageID) 
+		static public bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,object posted,object replyTo,object Flags,ref long nMessageID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
@@ -1332,6 +1333,7 @@ namespace yaf
 				cmd.Parameters.Add("@IP",IP);
 				cmd.Parameters.Add("@Posted",posted);
 				cmd.Parameters.Add("@ReplyTo",replyTo);
+				cmd.Parameters.Add("@Flags",Flags);
 				cmd.Parameters.Add(pMessageID);
 				ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;
@@ -1493,7 +1495,7 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void pmessage_save(object fromUserID,object toUserID,object subject,object body) 
+		static public void pmessage_save(object fromUserID,object toUserID,object subject,object body,object Flags) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_save")) 
 			{
@@ -1502,6 +1504,7 @@ namespace yaf
 				cmd.Parameters.Add("@ToUserID",toUserID);
 				cmd.Parameters.Add("@Subject",subject);
 				cmd.Parameters.Add("@Body",body);
+				cmd.Parameters.Add("@Flags",Flags);
 				ExecuteNonQuery(cmd);
 			}
 		}

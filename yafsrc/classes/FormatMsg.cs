@@ -182,7 +182,7 @@ namespace yaf
 		{
 			DataTable dtSmileys = GetSmilies(basePage);
 			string strTemp = Message;
-	
+
 			foreach(DataRow row in dtSmileys.Rows) 
 			{
 				string code = row["Code"].ToString();
@@ -245,76 +245,49 @@ namespace yaf
 			return dt;
 		}
 
-		static public string FetchURL(yaf.pages.ForumPage basePage,string html,bool safe) 
+		static public string FormatMessage(yaf.pages.ForumPage basePage,string Message,MessageFlags mFlags) 
 		{
-			// make "html safe" here
-			// Lots of messages already written use html - don't touch them
-			if(safe)
-				html = BBCode.SafeHtml(html);
+			// do html damage control
+			Message = RepairHtml(basePage,Message,mFlags.IsHTML);
 
-			//html = iAddSmiles(basePage,html);			
+			// do BBCode and Smilies...
+			Message = BBCode.MakeHtml(basePage,Message);
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			html = Regex.Replace(html, @"(^|[\n ])(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]", options);
+			Message = Regex.Replace(Message, @"(^|[\n ])(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]", options);
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, "(^|[\n ])(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
+			Message = Regex.Replace(Message, "(^|[\n ])(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			html = Regex.Replace(html, @"(^|[\n ])(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
+			Message = Regex.Replace(Message, @"(^|[\n ])(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
 
 			// jaben : moved word replace to reusable function in class utils
-			html = Utils.BadWordReplace(html);
-			return html;
+			Message = Utils.BadWordReplace(Message);
+
+			return Message;
 		}
 
-		static private bool IsValidTag(string tag) 
+		static private bool IsValidTag(string tag,string[] AllowedTags) 
 		{
-			if(tag.IndexOf("javascript")>=0)
-				return false;
-
-			if(tag.IndexOf("vbscript")>=0)
-				return false;
-
-			if(tag.IndexOf("onclick")>=0)
-				return false;
+			if (tag.IndexOf("javascript") >= 0) return false;
+			if (tag.IndexOf("vbscript") >= 0) return false;
+			if (tag.IndexOf("onclick") >= 0)	return false;
 
 			char[] endchars = new char[]{' ','>','/','\t'};
+			
 			int pos = tag.IndexOfAny(endchars,1);
-			if(pos>0) tag = tag.Substring(0,pos);
+			if (pos > 0) tag = tag.Substring(0,pos);
+			if (tag[0] == '/') tag = tag.Substring(1);
 
-			if(tag[0]=='/') tag = tag.Substring(1);
-			switch(tag) 
+			// check if it's a valid tag
+			foreach (string aTag in AllowedTags)
 			{
-				case "br":
-				case "hr":
-				case "b":
-				case "i":
-				case "u":
-				case "a":
-				case "div":
-				case "ol":
-				case "ul":
-				case "li":
-				case "blockquote":
-				case "img":
-				case "span":
-				case "p":
-				case "em":
-				case "strong":
-				case "font":
-				case "pre":
-				case "h1":
-				case "h2":
-				case "h3":
-				case "h4":
-				case "h5":
-				case "h6":
-				case "address":
-					return true;
+				if (tag == aTag) return true;
 			}
+
 			return false;
 		}
 
@@ -322,25 +295,105 @@ namespace yaf
 		{
 			if(!bAllowHtml) 
 			{
-				html = System.Web.HttpContext.Current.Server.HtmlEncode(html);
+				html = BBCode.SafeHtml(html);
 			} 
 			else 
 			{
+				// get allowable html tags
+				string tStr = basePage.BoardSettings.AcceptedHTML;
+				string[] AllowedTags = tStr.Split(',');
+
 				RegexOptions options = RegexOptions.IgnoreCase;
 
 				MatchCollection m = Regex.Matches(html,"<.*?>",options);
+
 				for(int i=m.Count-1;i>=0;i--) 
 				{
 					string tag = html.Substring(m[i].Index+1,m[i].Length-1).Trim().ToLower();
-					if(!IsValidTag(tag)) 
+
+					if (!IsValidTag(tag,AllowedTags)) 
 					{
-						string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
 						html = html.Remove(m[i].Index,m[i].Length);
-						html = html.Insert(m[i].Index,tmp);
+						// just don't show this tag for now
+
+						//string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
+						//html = html.Insert(m[i].Index,tmp);
 					}
 				}
 			}
 			return html;
+		}
+	}
+
+	public class MessageFlags
+	{
+		int FBitValue;
+
+		public MessageFlags() : this(0x7FFFFFFF)
+		{
+
+		}
+
+		public MessageFlags(int bitValue)
+		{
+			FBitValue = bitValue;
+		}
+
+		static public bool GetBitAsBool(int bitValue,int bitShift)
+		{
+			if (bitShift > 31) bitShift %= 31;
+			if (((bitValue >> bitShift) & 0x00000001) == 1) return true;
+			return false;
+		}
+
+		static public int SetBitFromBool(int bitValue,int bitShift,bool bValue)
+		{
+			if (bitShift > 31) bitShift %= 31;
+
+			if (GetBitAsBool(bitValue,bitShift) != bValue)
+			{
+				// toggle that value using XOR
+				int tV = 0x00000001 << bitShift;
+				bitValue ^= tV;
+			}
+			return bitValue;
+		}
+
+		public static implicit operator	MessageFlags(int newBitValue)
+		{
+			MessageFlags mf = new MessageFlags(newBitValue);
+			return mf;
+		}
+
+		public int BitValue
+		{
+			get { return FBitValue; }
+			set { FBitValue = value; }
+		}
+
+		public bool this[int index]
+		{
+			get { return GetBitAsBool(FBitValue,index); }
+			set { FBitValue = SetBitFromBool(FBitValue,index,value); }
+		}
+
+		// actual flags here -- can be a total of 31
+		public bool IsHTML
+		{
+			get { return GetBitAsBool(FBitValue,0); }
+			set { FBitValue = SetBitFromBool(FBitValue,0,value); }
+		}
+
+		public bool IsBBCode
+		{
+			get { return GetBitAsBool(FBitValue,1); }
+			set { FBitValue = SetBitFromBool(FBitValue,1,value); }
+		}
+
+		public bool IsSmilies
+		{
+			get { return GetBitAsBool(FBitValue,2); }
+			set { FBitValue = SetBitFromBool(FBitValue,2,value); }
 		}
 	}
 }

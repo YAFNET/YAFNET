@@ -7,7 +7,7 @@
 			<TD class="header1" colSpan="2">Forum Settings</TD>
 		</TR>
 		<TR>
-			<TD class="header2" colSpan="2" align="center">Forum Setup</TD>
+			<TD class="header2" align="center" colSpan="2">Forum Setup</TD>
 		</TR>
 		<TR>
 			<TD class="postheader" width="50%"><B>MS SQL Server Version:</B><BR>
@@ -46,12 +46,12 @@
 			<TD class="post">
 				<asp:checkbox id="BlankLinks" runat="server"></asp:checkbox></TD>
 		</TR>
-		<tr>
+		<TR>
 			<TD class="postheader"><B>Show Groups:</B><BR>
 				Should the groups a user is part of be visible on the posts page.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowGroupsX" runat="server"></asp:checkbox></TD>
-		</tr>
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Use File Table:</B><BR>
 				Uploaded files will be saved in the database instead of the file system.</TD>
@@ -63,19 +63,19 @@
 				Enable or disable display of RSS links throughout the forum.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowRSSLinkX" runat="server"></asp:checkbox></TD>
-		</TR>	
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Show Forum Jump Box:</B><BR>
 				Enable or disable display of the Forum Jump Box throughout the forum.</TD>
 			<TD class="post">
 				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></TD>
-		</TR>	
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Remove Nested Quotes:</B><BR>
 				Automatically remove nested [quote] tags from replies.</TD>
 			<TD class="post">
 				<asp:checkbox id="RemoveNestedQuotesX" runat="server"></asp:checkbox></TD>
-		</TR>		
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>
@@ -86,45 +86,57 @@
 			<TD class="postheader"><B>Smilies Display Grid Size:</B><BR>
 				Number of smilies to show by number of rows and columns.</TD>
 			<TD class="post">
-				<asp:TextBox id="SmiliesPerRow" runat="server"></asp:TextBox>
-				<b>x</b>
-				<asp:TextBox id="SmiliesColumns" runat="server"></asp:TextBox>
-				</TD>
-		</TR>		
-		<tr>
+				<asp:TextBox id="SmiliesPerRow" runat="server"></asp:TextBox><B>x</B>
+				<asp:TextBox id="SmiliesColumns" runat="server"></asp:TextBox></TD>
+		</TR>
+		<TR>
 			<TD class="postheader"><B>Posts Per Page:</B><BR>
 				Number of posts to show per page.</TD>
 			<TD class="post">
-				<asp:TextBox id="PostsPerPage" runat="server"></asp:TextBox></TD>		
-		</tr>
-		<tr>
+				<asp:TextBox id="PostsPerPage" runat="server"></asp:TextBox></TD>
+		</TR>
+		<TR>
 			<TD class="postheader"><B>Topics Per Page:</B><BR>
 				Number of topics to show per page.</TD>
 			<TD class="post">
-				<asp:TextBox id="TopicsPerPage" runat="server"></asp:TextBox></TD>		
-		</tr>		
-		<tr>
-			<td class="postheader"><b>Days before posts are locked:</b><br/>
-				Number of days until posts are locked and not possible to edit or delete. Set to 0 for no limit.</td>
-			<td class="post">
-				<asp:textbox id="LockPosts" runat="server"/>
-			</td>
-		</tr>
-		<tr>
-			<td class="postheader"><b>Date and time format from language file:</b><br/>
-				If this is checked, the date and time format will use settings from the language file. Otherwise the browser settings will be used.</td>
-			<td class="post"><asp:checkbox runat="server" id="DateFormatFromLanguage"/></td>				
-		</tr>
-		<TR>
-			<TD class="header2" colSpan="2" align="center">User Options</TD>
+				<asp:TextBox id="TopicsPerPage" runat="server"></asp:TextBox></TD>
 		</TR>
-		<tr runat="server" visible="false" ID="Tr1">
-			<TD class="postheader"><B>Allow Rich Text Editing:</B><BR>
-				If this is checked your users will be able to use a rich edit control when 
-				posting messages.</TD>
+		<TR>
+			<TD class="postheader"><B>Days before posts are locked:</B><BR>
+				Number of days until posts are locked and not possible to edit or delete. Set 
+				to 0 for no limit.</TD>
 			<TD class="post">
-				<asp:checkbox id="AllowRichEditX" runat="server"></asp:checkbox></TD>
-		</tr>
+				<asp:textbox id="LockPosts" runat="server"></asp:textbox></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Date and time format from language file:</B><BR>
+				If this is checked, the date and time format will use settings from the 
+				language file. Otherwise the browser settings will be used.</TD>
+			<TD class="post">
+				<asp:checkbox id="DateFormatFromLanguage" runat="server"></asp:checkbox></TD>
+		</TR>
+		<TR>
+			<TD class="header2" align="center" colSpan="2">Editing/Formatting Settings</TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Forum Editor:</B><BR>
+				Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox)
+				the .bin file must be in the \bin directory and the proper support files must be put in
+				\editors.	
+			</TD>
+			<TD class="post">
+				<asp:dropdownlist id="ForumEditorList" runat="server" DataValueField="Value" DataTextField="Name"></asp:dropdownlist></TD>
+		</TR>
+		<TR>
+			<TD class="postheader"><B>Accepted HTML Tags:</B><BR>
+				Comma seperated list (no spaces) of HTML tags that are allowed in posts using
+				HTML editors.</TD>
+			<TD class="post">
+				<asp:TextBox id="AcceptedHTML" runat="server"></asp:TextBox></TD>
+		</TR>
+		<TR>
+			<TD class="header2" align="center" colSpan="2">Permissions Settings</TD>
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Allow User Change Theme:</B><BR>
 				Should users be able to choose what theme they want to use?</TD>
@@ -142,21 +154,21 @@
 				Allow users to access and send private messages.</TD>
 			<TD class="post">
 				<asp:checkbox id="AllowPrivateMessagesX" runat="server"></asp:checkbox></TD>
-		</TR>		
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Allow Email Sending:</B><BR>
 				Allow users to send emails to each other.</TD>
 			<TD class="post">
 				<asp:checkbox id="AllowEmailSendingX" runat="server"></asp:checkbox></TD>
-		</TR>	
+		</TR>
 		<TR>
 			<TD class="postheader"><B>Allow Signatures:</B><BR>
 				Allow users to create signatures.</TD>
 			<TD class="post">
 				<asp:checkbox id="AllowSignaturesX" runat="server"></asp:checkbox></TD>
-		</TR>							
+		</TR>
 		<TR>
-			<TD class="header2" colSpan="2" align="center">SMTP Server Settings</TD>
+			<TD class="header2" align="center" colSpan="2">SMTP Server Settings</TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>SMTP Server:</B><BR>
@@ -177,7 +189,7 @@
 				<asp:TextBox id="ForumSmtpUserPass" runat="server"></asp:TextBox></TD>
 		</TR>
 		<TR>
-			<TD class="header2" colSpan="2" align="center">Avatar Settings</TD>
+			<TD class="header2" align="center" colSpan="2">Avatar Settings</TD>
 		</TR>
 		<TR>
 			<TD class="postheader"><B>Allow remote avatars:</B><BR>

@@ -261,10 +261,8 @@ namespace yaf.controls
 		protected string FormatBody() 
 		{
 			DataRowView row = DataRow;
-			string html2 = row["Message"].ToString();
 
-			html2 = FormatMsg.FetchURL(ForumPage,html2,false);
-			html2 = BBCode.MakeHtml(html2,ForumPage);
+			string html2 = FormatMsg.FormatMessage(ForumPage,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 			
 			// define valid image extensions
 			string[] aImageExtensions = {"jpg","gif","png"};
@@ -335,9 +333,15 @@ namespace yaf.controls
 			}
 			
 			if(row["Signature"] != DBNull.Value && row["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures)
-				html2 += "<br/><hr noshade/>" + BBCode.MakeHtml(row["Signature"].ToString(),ForumPage);
+			{
+				// don't allow any HTML on signatures
+				MessageFlags tFlags = new MessageFlags();
+				tFlags.IsHTML = false;
 
-			return html2; //FormatMsg.FetchURL(ForumPage,html2);
+				html2 += "<br/><hr noshade/>" + FormatMsg.FormatMessage(ForumPage,row["Signature"].ToString(),tFlags);
+			}
+
+			return html2;
 		}
 
 		private void Delete_Click(object sender,EventArgs e)

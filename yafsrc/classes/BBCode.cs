@@ -80,7 +80,7 @@ namespace yaf
 		static private Regex		r_post = new Regex(@"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]",m_options);
 		static private Regex		r_topic = new Regex(@"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]",m_options);
 
-		static public string MakeHtml(string bbcode,yaf.pages.ForumPage basePage)
+		static public string MakeHtml(yaf.pages.ForumPage basePage,string bbcode)
 		{
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
@@ -107,8 +107,6 @@ namespace yaf
 				m = r_code1.Match(bbcode);
 			}
 
-			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
-
 			m = r_size.Match(bbcode);
 
 			while(m.Success) 
@@ -125,6 +123,8 @@ namespace yaf
 				bbcode = bbcode.Substring(0,m.Groups[0].Index) + tmp + bbcode.Substring(m.Groups[0].Index + m.Groups[0].Length);
 				m = r_size.Match(bbcode);
 			}
+
+			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
 
 			NestedReplace(ref bbcode,r_bold,"<b>${inner}</b>");
 			NestedReplace(ref bbcode,r_strike,"<s>${inner}</s>");

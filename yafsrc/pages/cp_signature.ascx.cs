@@ -45,7 +45,6 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			//sig.EnableRTE = BoardSettings.AllowRichEdit;
 			sig.BaseDir = Data.ForumRoot + "editors";
 			sig.StyleSheet = this.ThemeFile("theme.css");
 
@@ -93,6 +92,7 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
+			// since signatures are so small only allow BBCode in them...
 			sig = new yaf.editor.BBCodeEditor();
 			EditorLine.Controls.Add(sig);
 

@@ -124,7 +124,8 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and
 		Message			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
 		Edited			datetime NULL ,
-		Approved		bit NOT NULL
+		Approved		bit NOT NULL ,
+		Flags			int NOT NULL
 	)
 GO
 
@@ -134,7 +135,8 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_PMessage') an
 		FromUserID		int NOT NULL ,
 		Created			datetime NOT NULL ,
 		Subject			nvarchar (100) NOT NULL ,
-		Body			ntext NOT NULL
+		Body			ntext NOT NULL,
+		Flags			int NOT NULL
 	)
 GO
 
@@ -388,6 +390,16 @@ GO
 
 if not exists(select * from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
 	alter table yaf_Registry add BoardID int
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Flags')
+	alter table yaf_Message add Flags int not null
+	UPDATE yaf_Message SET Flags = 0xFFFFFFFF
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
+	alter table yaf_PMessage add Flags int not null
+	UPDATE yaf_PMessage SET Flags = 0xFFFFFFFF
 GO
 
 /*
@@ -1815,21 +1827,22 @@ if exists (select * from sysobjects where id = object_id(N'yaf_message_save') an
 	drop procedure yaf_message_save
 GO
 
-create procedure dbo.yaf_message_save(
+CREATE procedure dbo.yaf_message_save(
 	@TopicID	int,
-	@UserID		int,
+	@UserID	int,
 	@Message	ntext,
 	@UserName	nvarchar(50)=null,
-	@IP			nvarchar(15),
-	@Posted		datetime=null,
+	@IP		nvarchar(15),
+	@Posted	datetime=null,
 	@ReplyTo	int,
+	@Flags		int,
 	@MessageID	int output
 ) as
 begin
 	declare @ForumID	int
 	declare	@Moderated	bit
 	declare @Position	int
-	declare	@Indent		int
+	declare	@Indent	int
 
 	if @Posted is null set @Posted = getdate()
 
@@ -1873,8 +1886,8 @@ begin
 		update yaf_Message set Position=Position+1 where TopicID=@TopicID and Position>=@Position
 	end
 
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved,ReplyTo,Position,Indent)
-	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,0,@ReplyTo,@Position,@Indent)
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved,ReplyTo,Position,Indent,Flags)
+	values(@UserID,@Message,@TopicID,@Posted,@UserName,@IP,0,@ReplyTo,@Position,@Indent,@Flags)
 	set @MessageID = @@IDENTITY
 	
 	if @Moderated=0
@@ -2076,7 +2089,8 @@ if exists (select * from dbo.sysobjects where id = object_id(N'yaf_message_updat
 	drop procedure yaf_message_update
 GO
 
-create procedure dbo.yaf_message_update(@MessageID int,@Priority int,@Subject nvarchar(100),@Message ntext) as
+
+CREATE procedure dbo.yaf_message_update(@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext) as
 begin
 	declare @TopicID	int
 	declare	@Moderated	bit
@@ -2101,6 +2115,7 @@ begin
 	update yaf_Message set
 		Message = @Message,
 		Edited = getdate(),
+		Flags = @Flags,
 		Approved = @Approved
 	where
 		MessageID = @MessageID
@@ -2124,6 +2139,8 @@ begin
 end
 GO
 
+
+
 -- yaf_message_list
 if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_list
@@ -2141,6 +2158,7 @@ begin
 		c.Topic,
 		c.Priority,
 		a.Approved,
+		a.Flags,
 		c.UserID as TopicOwnerID
 	from
 		yaf_Message a,
@@ -2462,8 +2480,6 @@ begin
 	EXEC yaf_registry_save 'AvatarUpload',@AvatarUpload
 	SET @tmp = CAST(@AvatarRemote AS nvarchar(100))
 	EXEC yaf_registry_save 'AvatarRemote',@AvatarRemote
-	SET @tmp = CAST(@AllowRichEdit AS nvarchar(100))
-	EXEC yaf_registry_save 'AllowRichEdit',@AllowRichEdit
 	SET @tmp = CAST(@AllowUserTheme AS nvarchar(100))
 	EXEC yaf_registry_save 'AllowUserTheme',@AllowUserTheme
 	SET @tmp = CAST(@AllowUserLanguage AS nvarchar(100))
@@ -2553,6 +2569,7 @@ begin
 		a.Position,
 		a.Indent,
 		a.IP,
+		a.Flags,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
@@ -3550,6 +3567,7 @@ begin
 		Subject = d.Topic,
 		a.Message,
 		a.UserID,
+		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
 		b.Signature
 	from
@@ -4359,6 +4377,7 @@ begin
 		Subject = c.Topic,
 		a.Message,
 		a.UserID,
+		a.Flags,
 		UserName = IsNull(a.UserName,b.Name),
 		b.Signature,
 		c.TopicID
@@ -4642,14 +4661,15 @@ create procedure dbo.yaf_pmessage_save(
 	@FromUserID	int,
 	@ToUserID	int,
 	@Subject	nvarchar(100),
-	@Body		ntext
+	@Body		ntext,
+	@Flags		int
 ) as
 begin
 	declare @PMessageID int
 	declare @UserID int
 
-	insert into yaf_PMessage(FromUserID,Created,Subject,Body)
-	values(@FromUserID,getdate(),@Subject,@Body)
+	insert into yaf_PMessage(FromUserID,Created,Subject,Body,Flags)
+	values(@FromUserID,getdate(),@Subject,@Body,@Flags)
 
 	set @PMessageID = @@IDENTITY
 	if (@ToUserID = 0)
@@ -4671,6 +4691,7 @@ begin
 		insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
 	end
 end
+
 GO
 
 -- yaf_pageload

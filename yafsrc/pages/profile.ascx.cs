@@ -259,15 +259,17 @@ namespace yaf.pages
 		protected string FormatBody(object o) 
 		{
 			DataRowView row = (DataRowView)o;
-			string html = row["Message"].ToString();
-			html = FormatMsg.FetchURL(this,html,false);
-			html = BBCode.MakeHtml(html,this);
+			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 
 			if(row["Signature"].ToString().Length>0) 
 			{
 				string sig = row["Signature"].ToString();
-				sig = BBCode.MakeHtml(sig,this);
 				
+				// don't allow any HTML on signatures
+				MessageFlags tFlags = new MessageFlags();
+				tFlags.IsHTML = false;
+
+				sig = FormatMsg.FormatMessage(this,sig,tFlags);
 				html += "<br/><hr noshade/>" + sig;
 			}
 

@@ -133,7 +133,7 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			Editor = new yaf.editor.BBCodeEditor();
+			Editor = yaf.editor.EditorHelper.CreateEditorFromType(BoardSettings.ForumEditor);
 			EditorLine.Controls.Add(Editor);
 
 			this.Save.Click += new System.EventHandler(this.Save_Click);
@@ -170,7 +170,10 @@ namespace yaf.pages
 			if(ToList.SelectedItem!=null && ToList.SelectedItem.Value == "0")
 			{
 				string body = Editor.Text;
-				DB.pmessage_save(PageUserID,0,Subject.Text,body);
+				MessageFlags tFlags = new MessageFlags();
+				tFlags.IsHTML = Editor.UsesHTML;
+				tFlags.IsBBCode = Editor.UsesBBCode;
+				DB.pmessage_save(PageUserID,0,Subject.Text,body,tFlags.BitValue);
 				Forum.Redirect(Pages.cp_profile);
 			}
 			else
@@ -201,7 +204,11 @@ namespace yaf.pages
 
 					string body = Editor.Text;
 
-					DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
+					MessageFlags tFlags = new MessageFlags();
+					tFlags.IsHTML = Editor.UsesHTML;
+					tFlags.IsBBCode = Editor.UsesBBCode;
+
+					DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body,tFlags.BitValue);
 					Forum.Redirect(Pages.cp_profile);
 				}
 			}

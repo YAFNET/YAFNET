@@ -77,11 +77,10 @@ namespace yaf.pages
 			DB.pmessage_markread(Request.QueryString["pm"]);
 		}
 
-		protected string FormatBody(object o) {
+		protected string FormatBody(object o)
+		{
 			DataRowView row = (DataRowView)o;
-			string body = row["Body"].ToString();
-			body = BBCode.MakeHtml(body,this);
-			return FormatMsg.FetchURL(this,body,false);
+			return FormatMsg.FormatMessage(this,row["Body"].ToString(),Convert.ToInt32(row["Flags"]));
 		}
 
 		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

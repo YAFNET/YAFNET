@@ -202,8 +202,8 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			// determine the editor desired here and add to the form
-			Message = new yaf.editor.BBCodeEditor();
+			// get the forum editor based on the settings
+			Message = yaf.editor.EditorHelper.CreateEditorFromType(BoardSettings.ForumEditor);
 			EditorLine.Controls.Add(Message);
 
 			//
@@ -280,7 +280,13 @@ namespace yaf.pages
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,ref nMessageID))
+				// make message flags
+				MessageFlags tFlags = new MessageFlags();
+
+				tFlags.IsHTML = Message.UsesHTML;
+				tFlags.IsBBCode = Message.UsesBBCode;
+
+				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,tFlags.BitValue,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null)
@@ -289,10 +295,15 @@ namespace yaf.pages
 					Data.AccessDenied();
 
 				string SubjectSave = "";
-
 				if (Subject.Enabled) SubjectSave = Server.HtmlEncode(Subject.Text);
 
-				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg,SubjectSave);
+				// make message flags
+				MessageFlags tFlags = new MessageFlags();
+
+				tFlags.IsHTML = Message.UsesHTML;
+				tFlags.IsBBCode = Message.UsesBBCode;
+
+				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg,SubjectSave,tFlags.BitValue);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse(Request.QueryString["m"]);
 			} 
@@ -376,14 +387,16 @@ namespace yaf.pages
 		private void Preview_Click(object sender, System.EventArgs e) {
 			PreviewRow.Visible = true;
 
-			string body = Message.Text;
-			body = FormatMsg.FetchURL(this,body,true);
-			body = BBCode.MakeHtml(body,this);
+			MessageFlags tFlags = new MessageFlags();
+			tFlags.IsHTML = Message.UsesHTML;
+			tFlags.IsBBCode = Message.UsesBBCode;
+
+			string body = FormatMsg.FormatMessage(this,Message.Text,tFlags);
 
 			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
 			{
 				if(!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + BBCode.MakeHtml(dt.Rows[0]["Signature"].ToString(),this);
+					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage(this,dt.Rows[0]["Signature"].ToString(),new MessageFlags());
 			}
 			
 			PreviewCell.InnerHtml = body;
@@ -392,13 +405,12 @@ namespace yaf.pages
 		protected string FormatBody(object o) 
 		{
 			DataRowView row = (DataRowView)o;
-			string html = row["Message"].ToString();
-			html = BBCode.MakeHtml(html,this);
+			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 
 			string sig = row["Signature"].ToString();
 			if(sig!=string.Empty) 
 			{
-				sig = BBCode.MakeHtml(sig,this);
+				sig = FormatMsg.FormatMessage(this,sig,new MessageFlags());
 				html += "<br/><hr noshade/>" + sig;
 			}
 
