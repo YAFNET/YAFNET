@@ -27,7 +27,7 @@
 			<%= GetText("message") %>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
-		<td class=post>
+		<td id="RichEdit" class=post>
 			<rte:RichEdit runat="server" id="Editor"/>
 		</td>
 	</tr>
