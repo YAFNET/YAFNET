@@ -249,6 +249,9 @@ namespace yaf
 		{
 			html = iAddSmiles(basePage,html);
 
+			// make "html safe" here
+			html = BBCode.SafeHtml(html);
+
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET

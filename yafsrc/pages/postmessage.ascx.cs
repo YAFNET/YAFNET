@@ -254,7 +254,6 @@ namespace yaf.pages
 				replyTo = -1;
 
 			string msg = Message.Text;
-			msg = BBCode.SafeHtml(msg);
 
 			Mession.LastPost = DateTime.Now;
 			
@@ -361,7 +360,6 @@ namespace yaf.pages
 			PreviewRow.Visible = true;
 
 			string body = Message.Text;
-			body = BBCode.SafeHtml(body);
 			body = FormatMsg.FetchURL(this,body);
 			body = BBCode.MakeHtml(body);
 

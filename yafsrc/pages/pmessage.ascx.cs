@@ -156,7 +156,6 @@ namespace yaf.pages
 			if(ToList.SelectedItem!=null && ToList.SelectedItem.Value == "0")
 			{
 				string body = Editor.Text;
-				body = BBCode.SafeHtml(body);
 				DB.pmessage_save(PageUserID,0,Subject.Text,body);
 				Forum.Redirect(Pages.cp_profile);
 			}
@@ -187,7 +186,6 @@ namespace yaf.pages
 					}
 
 					string body = Editor.Text;
-					body = BBCode.SafeHtml(body);
 
 					DB.pmessage_save(PageUserID,dt.Rows[0]["UserID"],Subject.Text,body);
 					Forum.Redirect(Pages.cp_profile);

@@ -249,6 +249,7 @@ override protected void OnInit(EventArgs e)
 		{
 			DataRowView row = DataRow;
 			string html2 = row["Message"].ToString();
+
 			html2 = FormatMsg.FetchURL(ForumPage,html2);
 			html2 = BBCode.MakeHtml(html2);
 			
