@@ -33,8 +33,8 @@
 	</tr>
 	<tr>
 		<td class="postfooter" colspan=2 align=middle>
-			<asp:Button id=Save runat="server"/>
-			<asp:Button id=Cancel runat="server"/>
+			<asp:Button id=Save cssclass="pbutton" runat="server"/>
+			<asp:Button id=Cancel cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>
 </table>

@@ -26,6 +26,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
 
 namespace yaf.pages
 {
@@ -144,10 +145,22 @@ namespace yaf.pages
 					// reply to post...
 					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
 
+					string tmpMessage = msg["Message"].ToString();
+
+					if (BoardSettings.RemoveNestedQuotes)
+					{
+						RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+						Regex	quotebegin = new Regex(@"\[quote(\=.*)?\]",m_options);
+						Regex quoteend = new Regex(@"\[/quote\]",m_options);
+						// remove the quotes
+						tmpMessage = quotebegin.Replace(tmpMessage,"");
+						tmpMessage = quoteend.Replace(tmpMessage,"");
+					}
+
 					if(isHtml)
-						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(msg["Message"].ToString()));
+						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(tmpMessage));
 					else
-						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],msg["message"]);
+						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],tmpMessage);
 				}
 				else if(Request.QueryString["m"] != null)
 				{

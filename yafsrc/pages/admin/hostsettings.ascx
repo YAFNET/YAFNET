@@ -71,6 +71,12 @@
 				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></TD>
 		</TR>	
 		<TR>
+			<TD class="postheader"><B>Remove Nested Quotes:</B><BR>
+				Automatically remove nested [quote] tags from replies.</TD>
+			<TD class="post">
+				<asp:checkbox id="RemoveNestedQuotesX" runat="server"></asp:checkbox></TD>
+		</TR>		
+		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>
 			<TD class="post">
