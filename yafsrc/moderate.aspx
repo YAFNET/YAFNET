@@ -4,9 +4,9 @@
 
 <p class="navlinks">
 	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	» <asp:hyperlink id=CategoryLink runat="server">Category</asp:hyperlink>
-	» <asp:hyperlink id=ForumLink runat="server">Forum</asp:hyperlink>
-	» <asp:hyperlink id=ModLink runat="server">Moderate Forum</asp:hyperlink>
+	&#187; <asp:hyperlink id=CategoryLink runat="server">Category</asp:hyperlink>
+	&#187; <asp:hyperlink id=ForumLink runat="server">Forum</asp:hyperlink>
+	&#187; <asp:hyperlink id=ModLink runat="server">Moderate Forum</asp:hyperlink>
 </p>
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>

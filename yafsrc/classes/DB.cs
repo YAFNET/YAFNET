@@ -542,8 +542,10 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		public static bool message_save(object TopicID,object User,object Message,object UserName,object IP,ref long nMessageID) 
-		{
+		public static bool message_save(object TopicID,object UserID,object Message,object UserName,object IP,ref long nMessageID) 		{
+			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+				UserName = null;
+
 			using(SqlCommand cmd = new SqlCommand("yaf_message_save")) 
 			{
 				SqlParameter pMessageID = new SqlParameter("@MessageID",nMessageID);
@@ -551,7 +553,7 @@ namespace yaf
 
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@TopicID",TopicID);
-				cmd.Parameters.Add("@User",User);
+				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@UserName",UserName);
 				cmd.Parameters.Add("@IP",IP);
@@ -818,14 +820,17 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public long topic_save(object ForumID,object Subject,object Message,object User,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
+		static public long topic_save(object ForumID,object Subject,object Message,object UserID,object Priority,object PollID,object UserName,object IP,ref long nMessageID) 
 		{
+			if(System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+				UserName = null;
+
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_save")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ForumID",ForumID);
 				cmd.Parameters.Add("@Subject",Subject);
-				cmd.Parameters.Add("@User",User);
+				cmd.Parameters.Add("@UserID",UserID);
 				cmd.Parameters.Add("@Message",Message);
 				cmd.Parameters.Add("@Priority",Priority);
 				cmd.Parameters.Add("@UserName",UserName);

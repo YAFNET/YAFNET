@@ -7,8 +7,8 @@
 
 <p class="navlinks">
 	<asp:hyperlink id=HomeLink runat="server">HomeLink</asp:hyperlink>
-	» <asp:hyperlink id=CategoryLink runat="server">CategoryLink</asp:hyperlink>
-	» <asp:hyperlink id=ForumLink runat="server">HyperLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=CategoryLink runat="server">CategoryLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=ForumLink runat="server">HyperLink</asp:hyperlink>
 </p>
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%" align=center>

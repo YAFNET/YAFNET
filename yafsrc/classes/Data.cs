@@ -22,6 +22,12 @@ using System.Data;
 
 namespace yaf
 {
+	public enum AuthType 
+	{
+		YetAnotherForum,
+		RainBow
+	};
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>
@@ -32,6 +38,26 @@ namespace yaf
 			get 
 			{
 				return System.Configuration.ConfigurationSettings.AppSettings["basedir"];
+			}
+		}
+
+		public static AuthType GetAuthType 
+		{
+			get 
+			{
+				string auth = System.Configuration.ConfigurationSettings.AppSettings["authorization"];
+				if(auth==null)
+					return AuthType.YetAnotherForum;
+
+				switch(auth.Trim().ToLower()) 
+				{
+					case "rainbow":
+						return AuthType.RainBow;
+					case "yetanotherforum":
+						return AuthType.YetAnotherForum;
+					default:
+						throw new Exception(String.Format("Invalid authorization \"{0}\" in Web.config.",auth));
+				}
 			}
 		}
 

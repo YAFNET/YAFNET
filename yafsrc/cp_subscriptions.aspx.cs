@@ -52,7 +52,7 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = User.Identity.Name;
+				UserLink.Text = PageUserName;
 			}
 		}
 

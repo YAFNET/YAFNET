@@ -210,7 +210,7 @@ namespace yaf
 					Data.AccessDenied();
 
 				TopicID = long.Parse(Request.QueryString["t"]);
-				if(!DB.message_save(TopicID,User.Identity.Name,msg,From.Text,Request.UserHostAddress,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,From.Text,Request.UserHostAddress,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null) {
@@ -240,7 +240,7 @@ namespace yaf
 				}
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(ForumID,subject,msg,User.Identity.Name,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,ref nMessageID);
+				TopicID = DB.topic_save(ForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,From.Text,Request.UserHostAddress,ref nMessageID);
 			}
 
 			SaveAttachment(nMessageID,File1);

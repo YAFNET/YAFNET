@@ -4,8 +4,8 @@
 
 <p class=navlinks>
 	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	» <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
-	» <a href="cp_sentitems.aspx">Sent Items</a>
+	&#187; <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
+	&#187; <a href="cp_sentitems.aspx">Sent Items</a>
 </p>
 
 <asp:repeater id=Inbox runat=server>

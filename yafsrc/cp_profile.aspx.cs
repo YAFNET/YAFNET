@@ -56,7 +56,7 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = Request.RawUrl;
-				UserLink.Text = User.Identity.Name;
+				UserLink.Text = PageUserName;
 			}
 		}
 

@@ -5,9 +5,9 @@
 
 <p class=navlinks>
 	<ASP:HYPERLINK id=HomeLink runat="server">Home</ASP:HYPERLINK>
-	» <asp:hyperlink id=CategoryLink runat="server">CategoryLink</asp:hyperlink>
-	» <asp:hyperlink id=ForumLink runat="server">ForumLink</asp:hyperlink> 
-	» <asp:hyperlink id=TopicLink runat="server">TopicLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=CategoryLink runat="server">CategoryLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=ForumLink runat="server">ForumLink</asp:hyperlink> 
+	&#187; <asp:hyperlink id=TopicLink runat="server">TopicLink</asp:hyperlink>
 </P>
 
 <a name=top></a>

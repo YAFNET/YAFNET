@@ -9,7 +9,7 @@
 
 <p class="navlinks">
 	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	» <a href="active.aspx">Active Topics</a>
+	&#187; <a href="active.aspx">Active Topics</a>
 </p>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">

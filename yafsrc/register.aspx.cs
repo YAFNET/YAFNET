@@ -53,6 +53,9 @@ namespace yaf
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if(Data.GetAuthType!=AuthType.YetAnotherForum)
+				Response.Redirect(BaseDir);
+
 			HomeLink.Text = ForumName;
 			HomeLink.NavigateUrl = BaseDir;
 			if(!IsPostBack) {

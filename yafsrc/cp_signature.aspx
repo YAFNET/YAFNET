@@ -4,8 +4,8 @@
 
 <p class=navlinks>
 	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	» <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
-	» <a href="cp_signature.aspx">Signature</a>
+	&#187; <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
+	&#187; <a href="cp_signature.aspx">Signature</a>
 </p>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>

@@ -106,7 +106,7 @@
                 <File
                     RelPath = "active.aspx.cs"
                     DependentUpon = "active.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -122,7 +122,7 @@
                 <File
                     RelPath = "activeusers.aspx.cs"
                     DependentUpon = "activeusers.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -138,7 +138,7 @@
                 <File
                     RelPath = "approve.aspx.cs"
                     DependentUpon = "approve.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -159,7 +159,7 @@
                 <File
                     RelPath = "cp_avatar.aspx.cs"
                     DependentUpon = "cp_avatar.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -239,7 +239,7 @@
                 <File
                     RelPath = "cp_signature.aspx.cs"
                     DependentUpon = "cp_signature.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -255,7 +255,7 @@
                 <File
                     RelPath = "cp_subscriptions.aspx.cs"
                     DependentUpon = "cp_subscriptions.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -271,7 +271,7 @@
                 <File
                     RelPath = "default.aspx.cs"
                     DependentUpon = "default.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -287,7 +287,7 @@
                 <File
                     RelPath = "emailtopic.aspx.cs"
                     DependentUpon = "emailtopic.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -391,7 +391,7 @@
                 <File
                     RelPath = "login.aspx.cs"
                     DependentUpon = "login.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -407,7 +407,7 @@
                 <File
                     RelPath = "logout.aspx.cs"
                     DependentUpon = "logout.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -423,7 +423,7 @@
                 <File
                     RelPath = "members.aspx.cs"
                     DependentUpon = "members.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -439,7 +439,7 @@
                 <File
                     RelPath = "moderate.aspx.cs"
                     DependentUpon = "moderate.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -471,7 +471,7 @@
                 <File
                     RelPath = "pmessage.aspx.cs"
                     DependentUpon = "pmessage.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -535,7 +535,7 @@
                 <File
                     RelPath = "profile.aspx.cs"
                     DependentUpon = "profile.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -567,7 +567,7 @@
                 <File
                     RelPath = "rules.aspx.cs"
                     DependentUpon = "rules.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -587,7 +587,7 @@
                 <File
                     RelPath = "topics.aspx.cs"
                     DependentUpon = "topics.aspx"
-                    SubType = "Code"
+                    SubType = "ASPXCodeBehind"
                     BuildAction = "Compile"
                 />
                 <File
@@ -598,6 +598,10 @@
                 <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Web.config.rainbow"
+                    BuildAction = "None"
                 />
                 <File
                     RelPath = "WhatsNew.html"

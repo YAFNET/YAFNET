@@ -35,15 +35,15 @@ namespace yaf
 	/// </summary>
 	public class BasePage : System.Web.UI.Page
 	{
-		private HiPerfTimer	hiTimer			= new HiPerfTimer(true);
-		private string m_strLoadMessage = "";
-		private string m_strForumName = "Yet Another Forum.net";
-		private string m_strThemeDir = System.Configuration.ConfigurationSettings.AppSettings["themedir"];
-		private bool		m_bNoDataBase	= false;
-		private bool		m_bShowToolBar	= true;
-		protected DataRow	m_pageinfo;
-		private string m_strSmtpServer = System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
-		private string m_strForumEmail = System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
+		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
+		private DataRow		m_pageinfo;
+		private string		m_strForumName		= "Yet Another Forum.net";
+		private string		m_strLoadMessage	= "";
+		private bool		m_bNoDataBase		= false;
+		private bool		m_bShowToolBar		= true;
+		private string		m_strThemeDir		= System.Configuration.ConfigurationSettings.AppSettings["themedir"];
+		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
+		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
 
 		/// <summary>
 		/// Constructor
@@ -57,7 +57,7 @@ namespace yaf
 		private void Page_Error(object sender, System.EventArgs e) 
 		{
 			if(!IsLocal) 
-				yaf.Utils.ReportError(Server.GetLastError());
+				Utils.ReportError(Server.GetLastError());
 		}
 
 		/// <summary>
@@ -93,15 +93,31 @@ namespace yaf
 				banip = DB.bannedip_list(null);
 				Cache["bannedip"] = banip;
 			}
-			for(int i=0;i<banip.Rows.Count;i++) {
-				if(Utils.IsBanned((string)banip.Rows[i]["Mask"],Request.ServerVariables["REMOTE_ADDR"]))
+			foreach(DataRow row in banip.Rows)
+				if(Utils.IsBanned((string)row["Mask"],Request.ServerVariables["REMOTE_ADDR"]))
 					Response.End();
-			}
 
+			// Find user name
+			AuthType authType = Data.GetAuthType;
+			string	sUserIdentityName = User.Identity.Name;
+			string	sUserEmail = null;
+			if(authType==AuthType.RainBow) 
+			{
+				try 
+				{
+					string[] split = sUserIdentityName.Split('|');
+					sUserIdentityName = split[0];
+					sUserEmail = split[1];
+				}
+				catch(Exception) 
+				{
+					sUserIdentityName = User.Identity.Name;
+				}
+			}
 
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
-				User.Identity.Name,
+				sUserIdentityName,
 				Request.UserHostAddress,
 				Request.FilePath,
 				Request.Browser.Browser,
@@ -110,6 +126,26 @@ namespace yaf
 				Request.QueryString["f"],
 				Request.QueryString["t"],
 				Request.QueryString["m"]);
+
+			// If user wasn't found and we have foreign 
+			// authorization, try to register the user.
+			if(m_pageinfo==null && authType!=AuthType.YetAnotherForum) 
+			{
+				DB.user_register(this,sUserIdentityName,"ext",sUserEmail,"-","-",0,false);
+
+				m_pageinfo = DB.pageload(
+					Session.SessionID,
+					sUserIdentityName,
+					Request.UserHostAddress,
+					Request.FilePath,
+					Request.Browser.Browser,
+					Request.Browser.Platform,
+					Request.QueryString["c"],
+					Request.QueryString["f"],
+					Request.QueryString["t"],
+					Request.QueryString["m"]);
+			}
+
 			if(m_pageinfo==null) 
 			{
 				if(User.Identity.IsAuthenticated) 
@@ -193,18 +229,17 @@ namespace yaf
 		/// <param name="writer"></param>
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
+#if true
 			string html = ReadTemplate("page.html");
-			/*
-			if(Cache["html"] != null && false) {
-				html = Cache["html"].ToString();
+#else
+			string html;
+			if(Cache["htmltemplate"] != null) {
+				html = Cache["htmltemplate"].ToString();
 			} else {
-				string templatefile = Server.MapPath(String.Format("{0}templates/page.html",BaseDir));
-				StreamReader sr = new StreamReader(templatefile,Encoding.ASCII);
-				html = sr.ReadToEnd();
-				sr.Close();
-				Cache["html"] = html;
+				html = ReadTemplate("page.html");
+				Cache["htmltemplate"] = html;
 			}
-			*/
+#endif
 			
 			if(!m_bShowToolBar) {
 				writer.WriteLine("<html>");
@@ -214,10 +249,10 @@ namespace yaf
 				writer.WriteLine(String.Format("<link rel=stylesheet type=text/css href={0}>",ThemeFile("theme.css")));
 				writer.WriteLine(String.Format("<title>{0}</title>",ForumName));
 				writer.WriteLine("<script>");
-				writer.WriteLine("	function yaf_onload() {");
+				writer.WriteLine("function yaf_onload() {");
 				if(m_strLoadMessage.Length>0)
-					writer.WriteLine(String.Format("		alert(\"{0}\");",m_strLoadMessage));
-				writer.WriteLine("	}");
+					writer.WriteLine(String.Format("	alert(\"{0}\");",m_strLoadMessage));
+				writer.WriteLine("}");
 				writer.WriteLine("</script>");
 				writer.WriteLine("</head>");
 				writer.WriteLine("<body onload='yaf_onload()'>");
@@ -247,7 +282,7 @@ namespace yaf
 
 				if(User.Identity.IsAuthenticated) 
 				{
-					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>Logged in as: {0}</b></td>",User.Identity.Name));
+					writer.WriteLine(String.Format("<td style=\"padding:5px\" class=post align=left><b>Logged in as: {0}</b></td>",PageUserName));
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
 					if(IsAdmin)
@@ -255,16 +290,20 @@ namespace yaf
 					writer.WriteLine("	<a href=\"active.aspx\">Active Topics</a> |");
 					if(!IsGuest)
 						writer.WriteLine(String.Format("	<a href=\"cp_profile.aspx\">My Profile</a> |"));
-					writer.WriteLine(String.Format("	<a href=\"members.aspx\">Members</a> |"));
-					writer.WriteLine(String.Format("	<a href=\"logout.aspx\">Logout</a>"));
+					writer.WriteLine(String.Format("	<a href=\"members.aspx\">Members</a>"));
+					if(Data.GetAuthType==AuthType.YetAnotherForum)
+						writer.WriteLine(String.Format("| <a href=\"logout.aspx\">Logout</a>"));
 				} 
 				else 
 				{
 					writer.WriteLine("<td style=\"padding:5px\" class=post align=left><b>Welcome Guest</b></td>");
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
-					writer.WriteLine(String.Format("	<a href=\"login.aspx\">Log In</a> |"));
-					writer.WriteLine(String.Format("	<a href=\"rules.aspx\">Register</a> |"));
+					if(Data.GetAuthType==AuthType.YetAnotherForum) 
+					{
+						writer.WriteLine(String.Format("	<a href=\"login.aspx\">Log In</a> |"));
+						writer.WriteLine(String.Format("	<a href=\"rules.aspx\">Register</a> |"));
+					}
 					writer.WriteLine(String.Format("	<a href=\"members.aspx\">Members</a>"));
 				}
 				writer.WriteLine("</td></tr></table>");

@@ -4,7 +4,7 @@
 
 <p class="navlinks" id=NavLinks runat=server>
 	<asp:hyperlink id=HomeLink runat=server>HomeLink</asp:hyperlink>
-	» <asp:hyperlink id=CategoryLink runat=server>CategoryLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=CategoryLink runat=server>CategoryLink</asp:hyperlink>
 </p>
 <p class="navlinks" id="NavLinks2" runat=server>
 	<asp:hyperlink id="HomeLink2" runat=server>HomeLink</asp:hyperlink>

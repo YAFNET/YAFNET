@@ -38,6 +38,9 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			if(Data.GetAuthType!=AuthType.YetAnotherForum)
+				Response.Redirect(BaseDir);
+			
 			FormsAuthentication.SignOut();
 			Session.Abandon();
 			Response.Redirect(BaseDir);

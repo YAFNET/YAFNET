@@ -4,7 +4,7 @@
 
 <p class=navlinks>
 	<asp:hyperlink id=HomeLink runat="server">Home</asp:hyperlink>
-	» <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
+	&#187; <asp:hyperlink id=UserLink runat="server">UserLink</asp:hyperlink>
 </p>
 
 <table width="100%" cellspacing=1 cellpadding=0 class=content >

@@ -61,7 +61,7 @@ namespace yaf
 				HomeLink.NavigateUrl = BaseDir;
 				HomeLink.Text = ForumName;
 				UserLink.NavigateUrl = "cp_profile.aspx";
-				UserLink.Text = User.Identity.Name;
+				UserLink.Text = PageUserName;
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace yaf
 
 				// Email Body
 				System.Text.StringBuilder msg = new System.Text.StringBuilder();
-				msg.AppendFormat("Hello {0}.\r\n\r\n",User.Identity.Name);
+				msg.AppendFormat("Hello {0}.\r\n\r\n",PageUserName);
 				msg.AppendFormat("You have requested to change your email address to {0}\r\n\r\n",Email.Text);
 				msg.AppendFormat("To change your address you will have to click on the following link:\r\n");
 				msg.AppendFormat("{1}approve.aspx?k={0}\r\n\r\n",hash,ForumURL);
