@@ -36,7 +36,7 @@ namespace yaf
 	/// <summary>
 	/// Summary description for BasePage.
 	/// </summary>
-	public class BasePage : System.Web.UI.Page
+	public class BaseAdminPage : System.Web.UI.Page
 	{
 		#region Variables
 		private HiPerfTimer	hiTimer				= new HiPerfTimer(true);
@@ -54,7 +54,7 @@ namespace yaf
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public BasePage()
+		public BaseAdminPage()
 		{
 			this.Load += new System.EventHandler(this.Page_Load);
 			this.Error += new System.EventHandler(this.Page_Error);
@@ -150,6 +150,7 @@ namespace yaf
 				Request.QueryString["t"],
 				Request.QueryString["m"]);
 
+#if false
 			// If user wasn't found and we have foreign 
 			// authorization, try to register the user.
 			if(m_pageinfo==null && authType!=AuthType.YetAnotherForum) 
@@ -168,7 +169,7 @@ namespace yaf
 					Request.QueryString["t"],
 					Request.QueryString["m"]);
 			}
-
+#endif
 			if(m_pageinfo==null) 
 			{
 				if(User.Identity.IsAuthenticated) 
@@ -364,92 +365,7 @@ namespace yaf
 		{
 			if(m_bShowToolBar) 
 			{
-#if true
 				string html = ReadTemplate("page.html");
-#else
-				string html;
-				if(Cache["htmltemplate"] != null) {
-					html = Cache["htmltemplate"].ToString();
-				} else {
-					html = ReadTemplate("page.html");
-					Cache["htmltemplate"] = html;
-				}
-#endif
-
-				#region Extension code
-				if(!m_bNoDataBase) 
-				{
-					DataTable dtExt = (DataTable)Cache["Extensions"];
-					if(dtExt==null) 
-					{
-						dtExt = DB.extension_list();
-						Cache["Extensions"] = dtExt;
-					}
-					foreach(DataRow row in dtExt.Rows) 
-					{
-						string sCode = row["Code"].ToString();
-						if(html.IndexOf(sCode)>=0) 
-						{
-							System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
-
-							string sClass = row["Class"].ToString();
-							int dotpos = sClass.IndexOf('.');
-							if(dotpos>0) 
-							{
-								string asmname = sClass.Substring(0,dotpos);
-								if(asmname!="yaf")
-									asm = System.Reflection.Assembly.Load(asmname);
-							}
-
-							Extension ext = (Extension)asm.CreateInstance(row["Class"].ToString());
-							ext.Initialize(this);
-							System.Text.StringBuilder txt = new System.Text.StringBuilder();
-							ext.Render(ref txt);
-							html = html.Replace(sCode,txt.ToString());
-						}
-					}
-				}
-				#endregion
-
-				#region User Activity Rank by Fabrizio Bernabei
-				if(html.IndexOf("{user_rank}")>=0 && false) 
-				{
-					string act_rank = "";
-
-					act_rank += "<table width=\"90%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
-					act_rank += "<tr class=\"header2\"><td>Most active users</td></tr>";
-					//act_rank += "<tr class=header2><td colspan=\"2\">User</td>";
-					//act_rank += "<td align=\"center\">Posts</td></tr>";
-			
-					DataTable rank = DB.user_activity_rank();
-					int i = 1;
-
-					act_rank += "<tr><td class=post><table cellspacing=0 cellpadding=0 align=center>";
-
-					foreach( DataRow r in rank.Rows )
-					{
-						string img = string.Format( "<img src=\"{0}\"/>", ThemeFile( string.Format( "user_rank{0}.gif", i ) ) );
-						i++;
-						act_rank += "<tr class=\"post\">";
-				
-						// Immagine
-						act_rank += string.Format( "<td align=\"center\">{0}</td>", img );
-
-						// Nome autore
-						act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='profile.aspx?u={1}'>{0}</a></td>", r["Name"], r["ID"] );
-
-						// Numero post
-						act_rank += string.Format( "<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);
-
-						act_rank += "</tr>";
-					}
-
-					act_rank += "</table></td></tr>";
-
-					act_rank += "</table>";
-					html = html.Replace( "{user_rank}", act_rank );
-				}
-				#endregion
 
 				string title = String.Format("<title>{0}</title>",ForumName);
 				string css = String.Format("<link type=text/css rel=stylesheet href='{0}forum.css' />",BaseDir);
@@ -675,84 +591,6 @@ namespace yaf
 			}
 		}
 		/// <summary>
-		/// ForumID for the current page, or 0 if not in any forum
-		/// </summary>
-		public int PageForumID 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumID"))
-					return (int)m_pageinfo["ForumID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of forum for the current page, or an empty string if not in any forum
-		/// </summary>
-		protected string PageForumName 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumName"))
-					return (string)m_pageinfo["ForumName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// CategoryID for the current page, or 0 if not in any category
-		/// </summary>
-		protected int PageCategoryID 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryID"))
-					return (int)m_pageinfo["CategoryID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of category for the current page, or an empty string if not in any category
-		/// </summary>
-		protected string PageCategoryName 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("CategoryName"))
-					return (string)m_pageinfo["CategoryName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
-		/// The TopicID of the current page, or 0 if not in any topic
-		/// </summary>
-		public int PageTopicID 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicID"))
-					return (int)m_pageinfo["TopicID"];
-				else
-					return 0;
-			}
-		}
-		/// <summary>
-		/// Name of topic for the current page, or an empty string if not in any topic
-		/// </summary>
-		public string PageTopicName 
-		{
-			get 
-			{
-				if(m_pageinfo!=null && !m_pageinfo.IsNull("TopicName"))
-					return (string)m_pageinfo["TopicName"];
-				else
-					return "";
-			}
-		}
-		/// <summary>
 		/// True if current user is an administrator
 		/// </summary>
 		protected bool IsAdmin 
@@ -804,136 +642,6 @@ namespace yaf
 					return false;
 			}
 		}
-		/// <summary>
-		/// True if current user has post access in the current forum
-		/// </summary>
-		public bool ForumPostAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("PostAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PostAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has reply access in the current forum
-		/// </summary>
-		public bool ForumReplyAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("ReplyAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ReplyAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has read access in the current forum
-		/// </summary>
-		public bool ForumReadAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("ReadAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ReadAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create priority topics in the current forum
-		/// </summary>
-		public bool ForumPriorityAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("PriorityAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PriorityAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create polls in the current forum.
-		/// </summary>
-		public bool ForumPollAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("PollAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["PollAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to vote on polls in the current forum
-		/// </summary>
-		public bool ForumVoteAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("VoteAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["VoteAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a moderator of the current forum
-		/// </summary>
-		public bool ForumModeratorAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("ModeratorAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["ModeratorAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can delete own messages in the current forum
-		/// </summary>
-		public bool ForumDeleteAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("DeleteAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["DeleteAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can edit own messages in the current forum
-		/// </summary>
-		public bool ForumEditAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("EditAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["EditAccess"].ToString())>0;
-			}
-		}
-		/// <summary>
-		/// True if the current user can upload attachments
-		/// </summary>
-		public bool ForumUploadAccess 
-		{
-			get 
-			{
-				if(m_pageinfo.IsNull("UploadAccess"))
-					return false;
-				else
-					return long.Parse(m_pageinfo["UploadAccess"].ToString())>0;
-			}
-		}
 		public string SmtpServer 
 		{
 			get 
@@ -965,44 +673,6 @@ namespace yaf
 			get 
 			{
 				return m_strForumEmail;
-			}
-		}
-
-		public bool UseBlankLinks 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["BlankLinks"];
-			}
-		}
-
-		public bool UseEmailVerification 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["EmailVerification"];
-			}
-		}
-
-		public bool ShowMovedTopics
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowMoved"];
-			}
-		}
-		public bool ShowGroups 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["ShowGroups"];
-			}
-		}
-		public bool AllowRichEdit 
-		{
-			get 
-			{
-				return (bool)m_pageinfo["AllowRichEdit"];
 			}
 		}
 		public bool AllowUserTheme 

@@ -33,17 +33,11 @@ namespace yaf
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public class error : BasePage
+	public class error : System.Web.UI.Page
 	{
-		protected System.Web.UI.HtmlControls.HtmlTableCell errormsg;
-
-		public error() {
-			NoDataBase = true;
-		}
-
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			errormsg.InnerText = String.Format("An error has occured in '{0}'.",Request.QueryString["aspxerrorpath"]);
+			Forum.Redirect(Pages.error,Request.QueryString.ToString());
 		}
 
 		#region Web Form Designer generated code

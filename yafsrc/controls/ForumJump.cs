@@ -11,7 +11,7 @@ namespace yaf.controls
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!Page.IsPostBack)
-				ForumID = Page.PageForumID;
+				ForumID = MyPage.PageForumID;
 		}
 
 		override protected void OnInit(EventArgs e)
@@ -54,29 +54,29 @@ namespace yaf.controls
 		public virtual void RaisePostDataChangedEvent() 
 		{
 			if(ForumID>0)
-				Page.Response.Redirect(String.Format("topics.aspx?f={0}",ForumID));
+				Forum.Redirect(Pages.topics,"f={0}",ForumID);
 			else
-				Page.Response.Redirect(String.Format("{0}?c={1}",Page.BaseDir,-ForumID));
+				Forum.Redirect(Pages.forum,"c={0}",-ForumID);
 		}
 		#endregion
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			DataTable dt;
-			string cachename = String.Format("forumjump_{0}",Page.User.Identity.Name);
+			string cachename = String.Format("forumjump_{0}",Page.Page.User.Identity.Name);
 			if(Page.Cache[cachename] != null) 
 			{
 				dt = (DataTable)Page.Cache[cachename];
 			} 
 			else 
 			{
-				dt = DB.forum_listread(((BasePage)Page).PageUserID,null);
+				dt = DB.forum_listread(MyPage.PageUserID,null);
 				Page.Cache[cachename] = dt;
 			}
 
 			writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">",this.UniqueID,Page.GetPostBackEventReference(this)));
 
-			int nForumID = ((BasePage)Page).PageForumID;
+			int nForumID = MyPage.PageForumID;
 			if(nForumID<=0)
 				writer.WriteLine("<option/>");
 			int nOldCat = 0;

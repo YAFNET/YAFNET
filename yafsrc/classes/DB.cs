@@ -307,7 +307,7 @@ namespace yaf
 
 			if( fid >= 0 )
 			{
-				sql += string.Format( "and ForumID = {0}", fid );
+				sql += string.Format( "and a.ForumID = {0}", fid );
 			}
 
 			sql += " order by c.Posted desc";
@@ -1523,9 +1523,9 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void user_register(BasePage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
+		static public void user_register(yaf.pages.BasePage page,object userName,object password,object email,object location,object homePage,object timeZone,bool emailVerification) 
 		{
-			string hashinput = DateTime.Now.ToString() + email.ToString() + register.CreatePassword(20);
+			string hashinput = DateTime.Now.ToString() + email.ToString() + pages.register.CreatePassword(20);
 			string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
 			using(SqlConnection conn = GetConnection()) 
@@ -1556,7 +1556,7 @@ namespace yaf
 						{
 							//  Build a MailMessage
 							string body = page.ReadTemplate("verifyemail.txt");
-							body = body.Replace("{link}",String.Format("{1}approve.aspx?k={0}",hash,page.ForumURL));
+							body = body.Replace("{link}",String.Format("{1}{0}",Forum.GetLink(Pages.approve,"k={0}",hash),page.ServerURL));
 							body = body.Replace("{key}",hash);
 							body = body.Replace("{forumname}",page.ForumName);
 							body = body.Replace("{forumlink}",String.Format("{0}",page.ForumURL));

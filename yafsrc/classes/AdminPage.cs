@@ -24,7 +24,7 @@ namespace yaf
 	/// <summary>
 	/// Summary description for AdminPage.
 	/// </summary>
-	public class AdminPage : BasePage
+	public class AdminPage : BaseAdminPage
 	{
 		public AdminPage()
 		{

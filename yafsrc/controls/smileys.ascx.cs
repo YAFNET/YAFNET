@@ -28,15 +28,13 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for smileys.
 	/// </summary>
-	public abstract class smileys : System.Web.UI.UserControl
+	public abstract class smileys : BaseUserControl
 	{
-		protected BasePage basePage;
 		protected DataTable dtSmileys;
 		private string _onclick;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			basePage = (BasePage)Page;
 			dtSmileys = DB.smiley_listunique();
 		}
 
@@ -49,11 +47,11 @@ namespace yaf.controls
 				if(i%8==0 && i>0 && i+1<dtSmileys.Rows.Count) html.Append("</tr><tr>\n");
 				string evt = "";
 				if(_onclick.Length>0) {
-					evt = String.Format("javascript:{0}('{1}','{3}images/emoticons/{2}')",_onclick,row["Code"],row["Icon"],basePage.BaseDir);
+					evt = String.Format("javascript:{0}('{1}','{3}images/emoticons/{2}')",_onclick,row["Code"],row["Icon"],MyPage.BaseDir);
 				} else {
 					evt = "javascript:void()";
 				}
-				html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",basePage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
+				html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n",MyPage.Smiley((string)row["Icon"]),row["Emoticon"],evt);
 			}
 			html.AppendFormat("</tr>");
 			html.AppendFormat("</table>");

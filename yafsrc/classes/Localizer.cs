@@ -78,7 +78,7 @@ namespace yaf
 
 			XmlNode el = null;
 
-#if DEBUG
+#if DEBUG && false
 			if( _pagePointer == null )
 				throw new Exception("Missing page pointer: " + text);
 #endif

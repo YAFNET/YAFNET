@@ -43,7 +43,7 @@ namespace yaf.admin
 			if(!IsPostBack) 
 			{
 				BindData();
-				UpgradeNotice.Visible = install.GetCurrentVersion() < AppVersion;
+				UpgradeNotice.Visible = install._default.GetCurrentVersion() < AppVersion;
 			}
 		}
 

@@ -27,11 +27,11 @@ namespace yaf.controls
 			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);
 			// Topic
 			html.AppendFormat("<td>{0}",GetPriorityMessage(m_row));
-			html.AppendFormat("<a href='posts.aspx?t={0}'>{1}</a>",m_row["LinkTopicID"],m_row["Subject"]);
-			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",Page.GetText("TOPICS","CREATED"),Page.FormatDateShort(m_row["Posted"]));
+			html.AppendFormat("<a href='{0}'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),m_row["Subject"]);
+			html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",MyPage.GetText("TOPICS","CREATED"),MyPage.FormatDateShort(m_row["Posted"]));
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat("<td><a href='profile.aspx?u={0}'>{1}</a></td>",m_row["UserID"],m_row["Starter"]);
+			html.AppendFormat("<td><a href='{0}'>{1}</a></td>",Forum.GetLink(Pages.profile,"u={0}",m_row["UserID"]),m_row["Starter"]);
 			// Replies
 			html.AppendFormat("<td align=center>{0}</td>",FormatReplies());
 			// Views
@@ -58,10 +58,10 @@ namespace yaf.controls
 				bool bIsLocked = isLocked || (bool)m_row["ForumLocked"];
 
 				if(row["TopicMovedID"].ToString().Length>0)
-					return Page.GetThemeContents("ICONS","TOPIC_MOVED");
+					return MyPage.GetThemeContents("ICONS","TOPIC_MOVED");
 
-				DateTime lastRead = Page.GetTopicRead((int)row["TopicID"]);
-				DateTime lastReadForum = Page.GetForumRead((int)row["ForumID"]);
+				DateTime lastRead = MyPage.GetTopicRead((int)row["TopicID"]);
+				DateTime lastReadForum = MyPage.GetForumRead((int)row["ForumID"]);
 				if(lastReadForum>lastRead) lastRead = lastReadForum;
 
 				if(lastPosted > lastRead) 
@@ -70,62 +70,62 @@ namespace yaf.controls
 
 					if(row["PollID"]!=DBNull.Value) 
 					{
-						imgTitle = Page.GetText("POLL_NEW");
-						return Page.GetThemeContents("ICONS","TOPIC_POLL_NEW");
+						imgTitle = MyPage.GetText("POLL_NEW");
+						return MyPage.GetThemeContents("ICONS","TOPIC_POLL_NEW");
 					}
 					else if(row["Priority"].ToString() == "1")
 					{
-						imgTitle = Page.GetText("STICKY");
-						return Page.GetThemeContents("ICONS","TOPIC_STICKY");
+						imgTitle = MyPage.GetText("STICKY");
+						return MyPage.GetThemeContents("ICONS","TOPIC_STICKY");
 					}
 					else if(row["Priority"].ToString() == "2")
 					{
-						imgTitle = Page.GetText("ANNOUNCEMENT");
-						return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT_NEW");
+						imgTitle = MyPage.GetText("ANNOUNCEMENT");
+						return MyPage.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT_NEW");
 					}
 					else if(bIsLocked)
 					{
-						imgTitle = Page.GetText("NEW_POSTS_LOCKED");
-						return Page.GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
+						imgTitle = MyPage.GetText("NEW_POSTS_LOCKED");
+						return MyPage.GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
 					}
 					else
 					{
-						imgTitle = Page.GetText("NEW_POSTS");
-						return Page.GetThemeContents("ICONS","TOPIC_NEW");
+						imgTitle = MyPage.GetText("NEW_POSTS");
+						return MyPage.GetThemeContents("ICONS","TOPIC_NEW");
 					}
 				}
 				else 
 				{
 					if(row["PollID"]!=DBNull.Value)
 					{
-						imgTitle = Page.GetText("POLL");
-						return Page.GetThemeContents("ICONS","TOPIC_POLL");
+						imgTitle = MyPage.GetText("POLL");
+						return MyPage.GetThemeContents("ICONS","TOPIC_POLL");
 					}
 					else if(row["Priority"].ToString() == "1")
 					{
-						imgTitle = Page.GetText("STICKY");
-						return Page.GetThemeContents("ICONS","TOPIC_STICKY");
+						imgTitle = MyPage.GetText("STICKY");
+						return MyPage.GetThemeContents("ICONS","TOPIC_STICKY");
 					}
 					else if(row["Priority"].ToString() == "2")
 					{
-						imgTitle = Page.GetText("ANNOUNCEMENT");
-						return Page.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
+						imgTitle = MyPage.GetText("ANNOUNCEMENT");
+						return MyPage.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
 					}
 					else if(bIsLocked)
 					{
-						imgTitle = Page.GetText("NO_NEW_POSTS_LOCKED");
-						return Page.GetThemeContents("ICONS","TOPIC_LOCKED");
+						imgTitle = MyPage.GetText("NO_NEW_POSTS_LOCKED");
+						return MyPage.GetThemeContents("ICONS","TOPIC_LOCKED");
 					}
 					else
 					{
-						imgTitle = Page.GetText("NO_NEW_POSTS");
-						return Page.GetThemeContents("ICONS","TOPIC");
+						imgTitle = MyPage.GetText("NO_NEW_POSTS");
+						return MyPage.GetThemeContents("ICONS","TOPIC");
 					}
 				}
 			}
 			catch(Exception) 
 			{
-				return Page.GetThemeContents("ICONS","TOPIC");
+				return MyPage.GetThemeContents("ICONS","TOPIC");
 			}
 		}
 		protected string GetPriorityMessage(DataRowView row) 
@@ -161,24 +161,24 @@ namespace yaf.controls
 			{
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Page.Session["lastvisit"])
-					minipost = Page.GetThemeContents("ICONS","ICON_NEWEST");
+					minipost = MyPage.GetThemeContents("ICONS","ICON_NEWEST");
 				else
-					minipost = Page.GetThemeContents("ICONS","ICON_LATEST");
+					minipost = MyPage.GetThemeContents("ICONS","ICON_LATEST");
 				
-				string by = String.Format(Page.GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
-					row["LastUserID"], 
+				string by = String.Format(MyPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
+					Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]), 
 					row["LastUserName"], 
 					minipost, 
-					row["LastMessageID"],
-					Page.GetText("GO_LAST_POST")
+					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"]),
+					MyPage.GetText("GO_LAST_POST")
 					));
 				return String.Format("{0}<br />{1}", 
-					Page.FormatDateTime((DateTime)row["LastPosted"]),
+					MyPage.FormatDateTime((DateTime)row["LastPosted"]),
 					by
 					);
 			} 
 			else
-				return Page.GetText("no_posts");
+				return MyPage.GetText("no_posts");
 		}
 	}
 }

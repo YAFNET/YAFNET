@@ -174,7 +174,7 @@ namespace yaf
 			{
 			}
 		}
-		static public void CreateWatchEmail(BasePage basePage,object messageID) 
+		static public void CreateWatchEmail(yaf.pages.BasePage basePage,object messageID) 
 		{
 			using(DataTable dt = DB.message_list(messageID)) 
 			{

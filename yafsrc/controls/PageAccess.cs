@@ -20,17 +20,17 @@ namespace yaf.controls
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
-			writer.WriteLine(Page.GetText(Page.ForumPostAccess ? "can_post" : "cannot_post"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumPostAccess ? "can_post" : "cannot_post"));
 			writer.WriteLine("<br/>");
-			writer.WriteLine(Page.GetText(Page.ForumReplyAccess ? "can_reply" : "cannot_reply"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumReplyAccess ? "can_reply" : "cannot_reply"));
 			writer.WriteLine("<br/>");
-			writer.WriteLine(Page.GetText(Page.ForumDeleteAccess ? "can_delete" : "cannot_delete"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumDeleteAccess ? "can_delete" : "cannot_delete"));
 			writer.WriteLine("<br/>");
-			writer.WriteLine(Page.GetText(Page.ForumEditAccess ? "can_edit" : "cannot_edit"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumEditAccess ? "can_edit" : "cannot_edit"));
 			writer.WriteLine("<br/>");
-			writer.WriteLine(Page.GetText(Page.ForumPollAccess ? "can_poll" : "cannot_poll"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumPollAccess ? "can_poll" : "cannot_poll"));
 			writer.WriteLine("<br/>");
-			writer.WriteLine(Page.GetText(Page.ForumVoteAccess ? "can_vote" : "cannot_vote"));
+			writer.WriteLine(MyPage.GetText(MyPage.ForumVoteAccess ? "can_vote" : "cannot_vote"));
 			writer.WriteLine("<br/>");
 		}
 	}

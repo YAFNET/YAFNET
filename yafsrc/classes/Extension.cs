@@ -4,6 +4,7 @@ namespace yaf
 {
 	public class Extension 
 	{
+#if TODO
 		private BasePage	m_page;
 		private string		m_sExtName, m_sExtClass, m_sExtCode;
 		private	int			m_nPriority = 100;
@@ -72,5 +73,6 @@ namespace yaf
 				return m_page;
 			}
 		}
+#endif
 	}
 }
