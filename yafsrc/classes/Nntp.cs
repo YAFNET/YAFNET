@@ -430,8 +430,8 @@ namespace yaf.classes
 					case "adt":
 						return new TimeSpan(-3,0,0);
 					case "ast":
-						return new TimeSpan(-4,0,0);
 					case "edt":
+					case "gmt-4":
 						return new TimeSpan(-4,0,0);
 					case "est":
 						return new TimeSpan(-5,0,0);
@@ -455,7 +455,7 @@ namespace yaf.classes
 					case "hst":
 						return new TimeSpan(-10,0,0);
 				}
-				throw new Exception(timezone);
+				throw new ApplicationException(string.Format("Unknown timezone: {0}",timezone));
 			}
 			#endregion
 		}
