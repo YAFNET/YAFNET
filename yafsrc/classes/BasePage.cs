@@ -116,13 +116,19 @@ namespace yaf
 				}
 			}
 
+			string browser = String.Format("{0} {1}",Request.Browser.Browser,Request.Browser.Version);
+			string platform = Request.Browser.Platform;
+
+			if(Request.UserAgent.IndexOf("Windows NT 5.2")>=0)
+				platform = "Win2003";
+
 			m_pageinfo = DB.pageload(
 				Session.SessionID,
 				sUserIdentityName,
 				Request.UserHostAddress,
 				Request.FilePath,
-				Request.Browser.Browser,
-				Request.Browser.Platform,
+				browser,
+				platform,
 				Request.QueryString["c"],
 				Request.QueryString["f"],
 				Request.QueryString["t"],
@@ -1047,7 +1053,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,18);
+				return new DateTime(2003,10,20);
 			}
 		}
 	}

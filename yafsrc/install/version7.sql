@@ -41,6 +41,14 @@ GO
 alter table yaf_System alter column ShowGroups bit not null
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_WatchForum') and name='LastMail')
+	alter table yaf_WatchForum add LastMail datetime null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_WatchTopic') and name='LastMail')
+	alter table yaf_WatchTopic add LastMail datetime null
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listread
 GO
@@ -577,5 +585,54 @@ create procedure yaf_pmessage_markread(@UserID int,@PMessageID int=null) as begi
 		update yaf_pmessage set IsRead=1 where ToUserID=@UserID
 	else
 		update yaf_pmessage set IsRead=1 where ToUserID=@UserID and PMessageID=@PMessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_mail_createwatch
+GO
+
+create procedure yaf_mail_createwatch(@TopicID int,@From varchar(50),@Subject varchar(100),@Body text,@UserID int) as
+begin
+	declare @LastVisit	datetime
+	
+	select @LastVisit = LastVisit from yaf_User where UserID = @UserID
+
+	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
+	select
+		@From,
+		b.Email,
+		getdate(),
+		@Subject,
+		@Body
+	from
+		yaf_WatchTopic a,
+		yaf_User b
+	where
+		b.UserID <> @UserID and
+		b.UserID = a.UserID and
+		a.TopicID = @TopicID and
+		a.LastMail < @LastVisit
+	
+	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
+	select
+		@From,
+		b.Email,
+		getdate(),
+		@Subject,
+		@Body
+	from
+		yaf_WatchForum a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		b.UserID <> @UserID and
+		b.UserID = a.UserID and
+		c.TopicID = @TopicID and
+		c.ForumID = a.ForumID and
+		a.LastMail < @LastVisit
+
+	update yaf_WatchTopic set LastMail = getdate() where UserID = @UserID and TopicID = @TopicID
+	update yaf_WatchForum set LastMail = getdate() where UserID = @UserID and ForumID = (select ForumID from yaf_Topic where TopicID = @TopicID)
 end
 GO
