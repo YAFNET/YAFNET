@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="moderate.aspx.cs" AutoEventWireup="false" Inherits="yaf.moderate" %>
+<%@ Page language="c#" Codebehind="moderate.aspx.cs" AutoEventWireup="false" Inherits="yaf.moderate0" %>
 
 <form runat=server>
 

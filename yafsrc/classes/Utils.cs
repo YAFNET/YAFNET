@@ -168,5 +168,23 @@ namespace yaf
 			smtp.SendMail(mailMessage);
 #endif	
 		}
+		static public void CreateWatchEmail(BasePage basePage,object messageID) 
+		{
+			using(DataTable dt = DB.message_list(messageID)) 
+			{
+				foreach(DataRow row in dt.Rows) 
+				{
+					// Send track mails
+					string subject = String.Format("Topic Subscription New Post Notification (From {0})",basePage.ForumName);
+
+					string body = basePage.ReadTemplate("topicpost.txt");
+					body = body.Replace("{forumname}",basePage.ForumName);
+					body = body.Replace("{topic}",row["Topic"].ToString());
+					body = body.Replace("{link}",String.Format("{0}posts.aspx?m={1}#{1}",basePage.ForumURL,messageID));
+
+					DB.mail_createwatch(row["TopicID"],basePage.ForumEmail,subject,body,row["UserID"]);
+				}
+			}
+		}
 	}
 }

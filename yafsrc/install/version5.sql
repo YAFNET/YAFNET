@@ -123,7 +123,3 @@ GO
 if not exists(select * from syscolumns where id=object_id('yaf_System') and name='SmtpUserPass')
 	alter table yaf_System add SmtpUserPass varchar(50) null
 GO
-
-if not exists(select * from syscolumns where id=object_id('yaf_System') and name='BlankLinks')
-	alter table yaf_System add BlankLinks bit not null default(0)
-GO

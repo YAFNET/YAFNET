@@ -32,7 +32,7 @@ namespace yaf
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public class moderate : BasePage
+	public class moderate0 : BasePage
 	{
 		protected HyperLink HomeLink, CategoryLink, ForumLink, ModLink;
 		protected Repeater topiclist;

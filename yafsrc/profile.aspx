@@ -11,6 +11,9 @@
 <table class="content" align=center width="100%" cellspacing=1 cellpadding=0>
 	<tr><td class="header1" colspan=2>Profile: <asp:Label id=UserName runat="server">Label</asp:Label> </td></tr>
 	<tr>
+		<td class="header2" colspan=2>About</td>
+	</tr>
+	<tr>
 		<td class=postheader>User Name:</td>
 		<td class=post><asp:Label id=Name runat="server"/></td>
 	</tr>
@@ -38,6 +41,9 @@
 	<tr>
 		<td class=postheader>Last Visit:</td>
 		<td class=post><asp:label id=LastVisit runat="server"/></td>
+	</tr>
+	<tr>
+		<td class="header2" colspan=2>Statistics</td>
 	</tr>
 	<tr>
 		<td class=postheader>Number of Posts:</td>

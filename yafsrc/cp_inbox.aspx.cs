@@ -56,6 +56,7 @@ namespace yaf.cp
 		private void BindData() {
 			Inbox.DataSource = DB.pmessage_list(PageUserID,false,null);
 			DataBind();
+			DB.pmessage_markread(PageUserID);
 		}
 
 		protected string FormatBody(object o) {

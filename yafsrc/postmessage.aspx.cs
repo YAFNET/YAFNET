@@ -247,26 +247,22 @@ namespace yaf
 			SaveAttachment(nMessageID,File2);
 			SaveAttachment(nMessageID,File3);
 
-			if(TopicID>0) 
+			// Check if message is approved
+			bool bApproved = false;
+			using(DataTable dt = DB.message_list(nMessageID)) 
+				foreach(DataRow row in dt.Rows) 
+					bApproved = (bool)row["Approved"];
+
+			// Create notification emails
+			if(bApproved) 
 			{
-				// Get Topic Info
-				DataRow topic = DB.topic_info(TopicID);
-
-				// Send track mails
-				string subject = String.Format("Topic Subscription New Post Notification (From {0})",ForumName);
-
-				string body = ReadTemplate("topicpost.txt");
-				body = body.Replace("{forumname}",ForumName);
-				body = body.Replace("{topic}",(string)topic["Topic"]);
-				body = body.Replace("{link}",String.Format("{0}posts.aspx?m={1}#{1}",ForumURL,nMessageID));
-
-				DB.mail_createwatch(TopicID,ForumEmail,subject,body,PageUserID);
-
-				//Response.Redirect("posts.aspx?t=" + TopicID);
-				if(this.IsIE)
-					Response.Redirect(String.Format("posts.aspx?m={0}",nMessageID));
-				else
-					Response.Redirect(String.Format("posts.aspx?m={0}#{0}",nMessageID));
+				Utils.CreateWatchEmail(this,nMessageID);
+				Response.Redirect(String.Format("posts.aspx?m={0}&#{0}",nMessageID));
+			} 
+			else 
+			{
+				// Tell user that his message will have to be approved by a moderator
+				AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
 			}
 		}
 

@@ -12,6 +12,26 @@ if not exists(select * from syscolumns where id=object_id('yaf_System') and name
 	alter table yaf_System add AvatarHeight int not null default(80)
 GO
 
+if not exists(select * from syscolumns where id=object_id('yaf_Message') and name='Approved')
+	alter table yaf_Message add Approved bit null
+GO
+
+update yaf_Message set Approved=1 where Approved is null
+GO
+
+alter table yaf_Message alter column Approved bit not null
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='Moderated')
+	alter table yaf_Forum add Moderated bit null
+GO
+
+update yaf_Forum set Moderated=0 where Moderated is null
+GO
+
+alter table yaf_Forum alter column Moderated bit not null
+GO
+
 if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_mail_createwatch
 GO
@@ -264,6 +284,7 @@ begin
 		UserName			= a.Name,
 		IsAdmin				= (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsAdmin<>0),
 		IsGuest				= (select count(1) from yaf_UserGroup x,yaf_Group y where x.UserID=a.UserID and x.GroupID=y.GroupID and y.IsGuest<>0),
+		IsModerator			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ModeratorAccess<>0),
 		ReadAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.ReadAccess<>0),
 		PostAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.PostAccess<>0),
 		ReplyAccess			= (select count(1) from yaf_ForumAccess x,yaf_UserGroup y where y.UserID=a.UserID and x.GroupID=y.GroupID and x.ForumID=@ForumID and x.ReplyAccess<>0),
@@ -289,7 +310,8 @@ begin
 		EmailVerification	= s.EmailVerification,
 		BlankLinks			= s.BlankLinks,
 		ShowMoved			= s.ShowMoved,
-		MailsPending		= (select count(1) from yaf_Mail)
+		MailsPending		= (select count(1) from yaf_Mail),
+		Incoming			= (select count(1) from yaf_PMessage where ToUserID=a.UserID and IsRead=0)
 	from
 		yaf_User a,
 		yaf_System s
@@ -340,8 +362,8 @@ begin
 		ForumID = b.ForumID,
 		Forum = b.Name, 
 		Description,
-		Topics = (select count(1) from yaf_Topic x where x.ForumID=b.ForumID),
-		Posts = (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = b.ForumID),
+		Topics = (select count(distinct x.TopicID) from yaf_Topic x,yaf_Message y where x.ForumID=b.ForumID and y.TopicID=x.TopicID and y.Approved<>0),
+		Posts = (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = b.ForumID and x.Approved<>0),
 		LastPosted = b.LastPosted,
 		LastMessageID = b.LastMessageID,
 		LastUserID = b.LastUserID,
@@ -509,7 +531,8 @@ begin
 		(@Date is null or c.Posted>=@Date or Priority>0) and
 		d.ForumID = c.ForumID and
 		g.UserID = @UserID and
-		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0))
+		((@Announcement=1 and c.Priority=2) or (@Announcement=0 and c.Priority<>2) or (@Announcement<0)) and
+		exists(select 1 from yaf_Message x where x.TopicID=c.TopicID and x.Approved<>0)
 	order by
 		Priority desc,
 		LastPosted desc
@@ -536,6 +559,7 @@ begin
 		yaf_User b,
 		yaf_Topic d
 	where
+		a.Approved <> 0 and
 		a.TopicID = @TopicID and
 		b.UserID = a.UserID and
 		d.TopicID = a.TopicID
@@ -557,15 +581,52 @@ CREATE  procedure yaf_message_save(
 	@MessageID	int output
 ) as
 begin
-	declare @ForumID int
+	declare @ForumID	int
+	declare	@Moderated	bit
 
-	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP)
-	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP)
+	select @ForumID = x.ForumID, @Moderated = y.Moderated from yaf_Topic x,yaf_Forum y where x.TopicID = @TopicID and y.ForumID=x.ForumID
+
+	insert into yaf_Message(UserID,Message,TopicID,Posted,UserName,IP,Approved)
+	values(@UserID,@Message,@TopicID,getdate(),@UserName,@IP,0)
 	set @MessageID = @@IDENTITY
+	
+	if @Moderated=0
+		exec yaf_message_approve @MessageID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_approve
+GO
+
+create procedure yaf_message_approve(@MessageID int) as begin
+	declare	@UserID		int
+	declare	@ForumID	int
+	declare	@TopicID	int
+	declare @Posted		datetime
+	declare	@UserName	varchar(50)
+
+	select 
+		@UserID = a.UserID,
+		@TopicID = a.TopicID,
+		@ForumID = b.ForumID,
+		@Posted = a.Posted,
+		@UserName = a.UserName
+	from
+		yaf_Message a,
+		yaf_Topic b
+	where
+		a.MessageID = @MessageID and
+		b.TopicID = a.TopicID
+
+	-- update yaf_Message
+	update yaf_Message set Approved = 1 where MessageID = @MessageID
+
+	-- update yaf_User
 	update yaf_User set NumPosts = NumPosts + 1 where UserID = @UserID
 	exec yaf_user_upgrade @UserID
+
 	-- update yaf_Forum
-	select @ForumID = ForumID from yaf_Topic where TopicID = @TopicID
 	update yaf_Forum set
 		LastPosted = getdate(),
 		LastTopicID = @TopicID,
@@ -573,6 +634,7 @@ begin
 		LastUserID = @UserID,
 		LastUserName = @UserName
 	where ForumID = @ForumID
+
 	-- update yaf_Topic
 	update yaf_Topic set
 		LastPosted = getdate(),
@@ -925,6 +987,7 @@ begin
 		yaf_Rank c,
 		yaf_Topic d
 	where
+		a.Approved <> 0 and
 		a.TopicID = @TopicID and
 		b.UserID = a.UserID and
 		c.RankID = b.RankID and
@@ -964,8 +1027,8 @@ begin
 	declare @RankID int
 	declare @UserID int
 
-	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail)
-	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail)
+	insert into yaf_System(SystemID,Version,VersionName,Name,TimeZone,SmtpServer,ForumEmail,AvatarWidth,AvatarHeight,EmailVerification,ShowMoved,BlankLinks)
+	values(1,1,'0.7.0',@Name,@TimeZone,@SmtpServer,@ForumEmail,50,80,1,1,0)
 
 	insert into yaf_Rank(Name,IsStart,IsLadder)
 	values('Administration',0,0)
@@ -1132,8 +1195,8 @@ begin
 		insert into yaf_Group(Name,IsAdmin,IsGuest,IsStart)
 		values(@Name,@IsAdmin,@IsGuest,@IsStart);
 		set @GroupID = @@IDENTITY
-		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess)
-		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0 from yaf_Forum
+		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess)
+		select @GroupID,ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Forum
 	end
 	select GroupID = @GroupID
 end
@@ -1209,5 +1272,204 @@ begin
 		if @Email is not null
 			update yaf_User set Email = @Email where UserID = @UserID
 	end
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pmessage_markread
+GO
+
+create procedure yaf_pmessage_markread(@UserID int) as begin
+	update yaf_pmessage set IsRead=1 where ToUserID=@UserID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderatelist') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_moderatelist
+GO
+
+create procedure yaf_forum_moderatelist as begin
+	select
+		CategoryID	= a.CategoryID,
+		CategoryName	= a.Name,
+		ForumID		= b.ForumID,
+		ForumName	= b.Name,
+		MessageCount	= count(d.MessageID)
+	from
+		yaf_Category a,
+		yaf_Forum b,
+		yaf_Topic c,
+		yaf_Message d
+	where
+		b.CategoryID = a.CategoryID and
+		c.ForumID = b.ForumID and
+		d.TopicID = c.TopicID and
+		d.Approved=0
+	group by
+		a.CategoryID,
+		a.Name,
+		a.SortOrder,
+		b.ForumID,
+		b.Name,
+		b.SortOrder
+	order by
+		a.SortOrder,
+		b.SortOrder
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_unapproved') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_unapproved
+GO
+
+create procedure yaf_message_unapproved(@ForumID int) as begin
+	select
+		MessageID	= b.MessageID,
+		UserName	= IsNull(b.UserName,c.Name),
+		Posted		= b.Posted,
+		Topic		= a.Topic,
+		Message		= b.Message
+	from
+		yaf_Topic a,
+		yaf_Message b,
+		yaf_User c
+	where
+		a.ForumID = @ForumID and
+		b.TopicID = a.TopicID and
+		b.Approved=0 and
+		c.UserID = b.UserID
+	order by
+		a.Posted
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_list
+GO
+
+create procedure yaf_message_list(@MessageID int) as
+begin
+	select
+		a.MessageID,
+		a.UserID,
+		UserName = b.Name,
+		a.Message,
+		c.TopicID,
+		c.ForumID,
+		c.Topic,
+		c.Priority,
+		a.Approved
+	from
+		yaf_Message a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		a.MessageID = @MessageID and
+		b.UserID = a.UserID and
+		c.TopicID = a.TopicID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_save
+GO
+
+create procedure yaf_forum_save(
+	@ForumID 		int,
+	@CategoryID		int,
+	@Name			varchar(50),
+	@Description	varchar(255),
+	@SortOrder		smallint,
+	@Locked			bit,
+	@Hidden			bit,
+	@IsTest			bit,
+	@Moderated		bit
+) as
+begin
+	if @ForumID>0 begin
+		update yaf_Forum set 
+			Name=@Name,
+			Description=@Description,
+			SortOrder=@SortOrder,
+			Hidden=@Hidden,
+			Locked=@Locked,
+			CategoryID=@CategoryID,
+			IsTest = @IsTest,
+			Moderated = @Moderated
+		where ForumID=@ForumID
+	end
+	else begin
+		insert into yaf_Forum(Name,Description,SortOrder,Hidden,Locked,CategoryID,IsTest,Moderated)
+		values(@Name,@Description,@SortOrder,@Hidden,@Locked,@CategoryID,@IsTest,@Moderated)
+		select @ForumID = @@IDENTITY
+		insert into yaf_ForumAccess(GroupID,ForumID,ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess) 
+		select GroupID,@ForumID,0,0,0,0,0,0,0,0,0,0 from yaf_Group
+	end
+	select ForumID = @ForumID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_message_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_message_update
+GO
+
+create procedure yaf_message_update(@MessageID int,@Priority int,@Message text) as
+begin
+	declare @TopicID	int
+	declare	@Moderated	bit
+	declare	@Approved	bit
+	
+	set @Approved = 0
+	
+	select 
+		@TopicID	= a.TopicID,
+		@Moderated	= c.Moderated
+	from 
+		yaf_Message a,
+		yaf_Topic b,
+		yaf_Forum c
+	where 
+		a.MessageID = @MessageID and
+		b.TopicID = a.TopicID and
+		c.ForumID = b.ForumID
+
+	if @Moderated=0 set @Approved = 1
+
+	update yaf_Message set
+		Message = @Message,
+		Edited = getdate(),
+		Approved = @Approved
+	where
+		MessageID = @MessageID
+
+	if @Priority is not null begin
+		update yaf_Topic set
+			Priority = @Priority
+		where
+			TopicID = @TopicID
+	end
+	
+	-- If forum is moderated, make sure last post pointers are correct
+	if @Moderated<>0 exec yaf_topic_updatelastpost
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_updatelastpost
+GO
+
+create procedure yaf_topic_updatelastpost as
+begin
+	update yaf_Topic set
+		LastPosted = (select top 1 x.Posted from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+		LastMessageID = (select top 1 x.MessageID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+		LastUserID = (select top 1 x.UserID from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc),
+		LastUserName = (select top 1 x.UserName from yaf_Message x where x.TopicID=yaf_Topic.TopicID and x.Approved<>0 order by Posted desc)
+	update yaf_Forum set
+		LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastTopicID = (select top 1 y.TopicID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastMessageID = (select top 1 y.MessageID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastUserID = (select top 1 y.UserID from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc),
+		LastUserName = (select top 1 y.UserName from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and y.Approved<>0 order by y.Posted desc)
 end
 GO

@@ -28,6 +28,10 @@
 		<td class=postheader colspan=4><b>Is Test:</b><br>If this is checked, posts in this forum will not count in the ladder system.</td>
 		<td class=post colSpan=7><asp:checkbox id="IsTest" runat="server"></asp:checkbox></td>
 	</tr>
+	<tr>
+		<td class=postheader colspan=4><b>Moderated:</b><br/>If the forum is moderated, posts have to be approved by a moderator.</td>
+		<td class=post colspan=7><asp:checkbox id="Moderated" runat="server"/></td>
+	</tr>
 
     <asp:repeater id=AccessList runat="server">
 	<HeaderTemplate>

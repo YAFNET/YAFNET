@@ -335,6 +335,15 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
+		static public DataTable forum_moderatelist() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_forum_moderatelist")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				//cmd.Parameters.Add("@UserID",UserID);
+				return GetData(cmd);
+			}
+		}
 		static public DataTable forum_moderators() 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_moderators")) 
@@ -343,7 +352,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest) 
+		static public long forum_save(object ForumID,object CategoryID,object Name,object Description,object SortOrder,object Locked,object Hidden,object IsTest,object moderated) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_forum_save")) 
 			{
@@ -356,7 +365,7 @@ namespace yaf
 				cmd.Parameters.Add("@Locked",Locked);
 				cmd.Parameters.Add("@Hidden",Hidden);
 				cmd.Parameters.Add("@IsTest",IsTest);
-				
+				cmd.Parameters.Add("@Moderated",moderated);
 				return long.Parse(ExecuteScalar(cmd).ToString());
 			}
 		}
@@ -531,6 +540,15 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public void message_approve(object messageID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_message_approve")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@MessageID",messageID);
+				ExecuteNonQuery(cmd);
+			}
+		}
 		static public void message_update(object messageID,object priority,object message) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_message_update")) 
@@ -561,6 +579,15 @@ namespace yaf
 				DB.ExecuteNonQuery(cmd);
 				nMessageID = (long)pMessageID.Value;
 				return true;
+			}
+		}
+		static public DataTable message_unapproved(object forumID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_message_unapproved")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@ForumID",forumID);
+				return GetData(cmd);
 			}
 		}
 		#endregion
@@ -595,6 +622,15 @@ namespace yaf
 				cmd.Parameters.Add("@To",to);
 				cmd.Parameters.Add("@Subject",subject);
 				cmd.Parameters.Add("@Body",body);
+				ExecuteNonQuery(cmd);
+			}
+		}
+		static public void pmessage_markread(object userID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_pmessage_markread")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
 				ExecuteNonQuery(cmd);
 			}
 		}

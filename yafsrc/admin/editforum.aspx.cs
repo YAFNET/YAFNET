@@ -43,7 +43,7 @@ namespace yaf.admin
 		protected System.Web.UI.WebControls.Repeater AccessList;
 		protected System.Web.UI.WebControls.CheckBox IsTest;
 		protected System.Web.UI.WebControls.Label ForumNameTitle;
-		protected System.Web.UI.WebControls.CheckBox HideNoAccess;
+		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
 	
 		private void Page_Load(object sender, System.EventArgs e) {
 			if(!IsPostBack) {
@@ -59,6 +59,7 @@ namespace yaf.admin
 						Locked.Checked = (bool)row["Locked"];
 						IsTest.Checked = (bool)row["IsTest"];
 						ForumNameTitle.Text = Name.Text;
+						Moderated.Checked = (bool)row["Moderated"];
 
 						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
 					}
@@ -105,7 +106,7 @@ namespace yaf.admin
 				long ForumID = 0;
 				if(Request.QueryString["f"] != null) ForumID = long.Parse(Request.QueryString["f"]);
 				
-				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked);
+				ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked);
 
 				// Access
 				if(Request.QueryString["f"] != null) 

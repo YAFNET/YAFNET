@@ -161,6 +161,11 @@ namespace yaf
 			m_strSmtpServer = (string)m_pageinfo["SmtpServer"];
 			m_strForumEmail = (string)m_pageinfo["ForumEmail"];
 
+			if(Session["lastvisit"] == null && (int)m_pageinfo["Incoming"]>0) 
+			{
+				AddLoadMessage(String.Format("You have {0} unread message(s) in your Inbox",m_pageinfo["Incoming"]));
+			}
+
 			if(Session["lastvisit"] == null && Request.Cookies["yaf"] != null && Request.Cookies["yaf"]["lastvisit"] != null) 
 			{
 				try 
@@ -308,13 +313,15 @@ namespace yaf
 
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
 					if(IsAdmin)
-						writer.WriteLine(String.Format("	<a href=\"admin/\">Admin</a> |"));
-					writer.WriteLine("	<a href=\"active.aspx\">Active Topics</a> |");
+						writer.WriteLine(String.Format("	<a href=\"{0}admin/\">Admin</a> |",BaseDir));
+					if(IsModerator)
+						writer.WriteLine(String.Format("	<a href=\"{0}moderate/\">Moderate</a> |",BaseDir));
+					writer.WriteLine(String.Format("	<a href=\"{0}active.aspx\">Active Topics</a> |",BaseDir));
 					if(!IsGuest)
-						writer.WriteLine(String.Format("	<a href=\"cp_profile.aspx\">My Profile</a> |"));
-					writer.WriteLine(String.Format("	<a href=\"members.aspx\">Members</a>"));
+						writer.WriteLine(String.Format("	<a href=\"{0}cp_profile.aspx\">My Profile</a> |",BaseDir));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">Members</a>",BaseDir));
 					if(Data.GetAuthType==AuthType.YetAnotherForum)
-						writer.WriteLine(String.Format("| <a href=\"logout.aspx\">Logout</a>"));
+						writer.WriteLine(String.Format("| <a href=\"{0}logout.aspx\">Logout</a>",BaseDir));
 				} 
 				else 
 				{
@@ -323,10 +330,10 @@ namespace yaf
 					writer.WriteLine("<td style=\"padding:5px\" align=right valign=middle class=post>");
 					if(Data.GetAuthType==AuthType.YetAnotherForum) 
 					{
-						writer.WriteLine(String.Format("	<a href=\"login.aspx\">Log In</a> |"));
-						writer.WriteLine(String.Format("	<a href=\"rules.aspx\">Register</a> |"));
+						writer.WriteLine(String.Format("	<a href=\"{0}login.aspx\">Log In</a> |",BaseDir));
+						writer.WriteLine(String.Format("	<a href=\"{0}rules.aspx\">Register</a> |",BaseDir));
 					}
-					writer.WriteLine(String.Format("	<a href=\"members.aspx\">Members</a>"));
+					writer.WriteLine(String.Format("	<a href=\"{0}members.aspx\">Members</a>",BaseDir));
 				}
 				writer.WriteLine("</td></tr></table>");
 				writer.WriteLine("<br />");
@@ -340,7 +347,7 @@ namespace yaf
 				writer.WriteLine(String.Format(CustomCulture,"<br>This page was generated in {0:N3} seconds.",hiTimer.Duration));
 
 				writer.WriteLine("</p>");
-				writer.Write(html.Substring(pos+8));	// Write html after forum
+				writer.Write(html.Substring(pos+7));	// Write html after forum
 			} else {
 				RenderBody(writer);
 				writer.WriteLine("</body>");
@@ -661,9 +668,23 @@ namespace yaf
 			}
 		}
 		/// <summary>
+		/// True if current user is a modeator for at least one forum
+		/// </summary>
+		protected bool IsModerator
+		{
+			get 
+			{
+				if(m_pageinfo!=null)
+					return long.Parse(m_pageinfo["IsModerator"].ToString())!=0;
+				else
+					return false;
+			}
+		}
+		/// <summary>
 		/// True if current user has post access in the current forum
 		/// </summary>
-		protected bool ForumPostAccess {
+		protected bool ForumPostAccess 
+		{
 			get {
 				if(m_pageinfo.IsNull("PostAccess"))
 					return false;
@@ -884,7 +905,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2003,10,6);
+				return new DateTime(2003,10,10);
 			}
 		}
 	}
