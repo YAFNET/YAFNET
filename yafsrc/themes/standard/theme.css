@@ -108,14 +108,14 @@ a:hover		{ text-decoration: underline; }
 /* Image Links */
 a.imagelink 
 {
-	font-family: Trebuchet MS;
-	font-size: 9pt;
+	font-size: 8pt;
 	font-weight: bold;
-	color: #000000;
+	color: #000080;
 }
 a:hover.imagelink
 {
-	text-decoration: none;
+	text-decoration: underline;
+	color: #0000FF;
 	/*background-color: #D0D0D0;*/
 }
 

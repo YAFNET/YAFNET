@@ -57,13 +57,13 @@ namespace yaf
 			if(!IsPostBack) 
 			{
 				WatchForum.Text = GetText("watchforum");
-				moderate1.Text = String.Format("<img align=absmiddle title=\"Moderate this forum\" src=\"{0}\"/>",ThemeFile("topic_moderate.png"));
+				moderate1.Text = GetThemeContents("BUTTONS","MODERATE");
 				moderate1.ToolTip = "Moderate this forum";
 				moderate2.Text = moderate1.Text;
 				moderate2.ToolTip = moderate1.ToolTip;
 
-				NewTopic1.Text = String.Format("<img align=absmiddle title=\"Post new topic\" src=\"{0}\">",ThemeFile("b_post_topic.png"));
-				NewTopic1.ToolTip = "New Topic";
+				NewTopic1.Text = GetThemeContents("BUTTONS","NEWTOPIC");
+				NewTopic1.ToolTip = "Post new topic";
 				NewTopic2.Text = NewTopic1.Text;
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
@@ -164,9 +164,9 @@ namespace yaf
 			if(row["LastMessageID"].ToString().Length>0) {
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
-					minipost = ThemeFile("icon_newest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_NEWEST");
 				else
-					minipost = ThemeFile("icon_latest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_LATEST");
 				
 				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 
@@ -200,29 +200,29 @@ namespace yaf
 				bool bIsLocked = (bool)isLocked || (bool)forum["Locked"];
 
 				if(row["TopicMovedID"].ToString().Length>0)
-					return ThemeFile("topic_moved.png");
+					return GetThemeContents("ICONS","TOPIC_MOVED");
 
 				if(row["Priority"].ToString() == "1")
-					return ThemeFile("topic_sticky.png");
+					return GetThemeContents("ICONS","TOPIC_STICKY");
 
 				if(row["Priority"].ToString() == "2")
-					return ThemeFile("topic_announce.png");
+					return GetThemeContents("ICONS","TOPIC_ANNOUNCE");
 
 				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Session["lastvisit"]) {
 					if(bIsLocked)
-						return ThemeFile("topic_lock_new.png");
+						return GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
 					else
-						return ThemeFile("topic_new.png");
+						return GetThemeContents("ICONS","TOPIC_NEW");
 				}
 				else {
 					if(bIsLocked)
-						return ThemeFile("topic_lock.png");
+						return GetThemeContents("ICONS","TOPIC_LOCKED");
 					else
-						return ThemeFile("topic.png");
+						return GetThemeContents("ICONS","TOPIC");
 				}
 			}
 			catch(Exception) {
-				return ThemeFile("topic.png");
+				return GetThemeContents("ICONS","TOPIC");
 			}
 		}
 

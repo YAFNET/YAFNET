@@ -23,6 +23,7 @@ using System.Text;
 using System.Data;
 using System.Globalization;
 using System.Threading;
+using System.Xml;
 using yaf.classes;
 
 // Grønn: #25C110
@@ -43,7 +44,6 @@ namespace yaf
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_bCheckSuspended	= true;
-		private string		m_strThemeDir		= System.Configuration.ConfigurationSettings.AppSettings["themedir"];
 		private string		m_strSmtpServer		= System.Configuration.ConfigurationSettings.AppSettings["smtpserver"];
 		private string		m_strForumEmail		= System.Configuration.ConfigurationSettings.AppSettings["forumemail"];
 
@@ -266,6 +266,42 @@ namespace yaf
 			{
 				return Request.Browser.Browser.ToLower() == "opera";
 			}
+		}
+
+		// XML THEME FILE (TEST)
+		static private XmlDocument LoadTheme(string themefile) 
+		{
+			if(themefile==null)
+				themefile = System.Configuration.ConfigurationSettings.AppSettings["theme"];
+
+			XmlDocument doc = null;
+#if !DEBUG
+			doc = (XmlDocument)System.Web.HttpContext.Current.Cache[themefile];
+#endif
+			if(doc==null) 
+			{
+				doc = new XmlDocument();
+				doc.Load(System.Web.HttpContext.Current.Server.MapPath(themefile));
+#if !DEBUG
+				System.Web.HttpContext.Current.Cache[themefile] = doc;
+#endif
+			}
+			return doc;
+		}
+
+		public string GetThemeContents(string page,string tag) 
+		{
+			XmlDocument doc = LoadTheme(null);
+
+			string themeDir = doc.DocumentElement.Attributes["dir"].Value;
+
+			XmlNode node = doc.SelectSingleNode( string.Format( "//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(),tag.ToUpper()));
+			if(node==null)
+				throw new Exception(String.Format("Missing theme item: {0}.{1}",page.ToUpper(),tag.ToUpper()));
+
+			string contents = node.InnerText;
+			contents = contents.Replace("~",String.Format("{0}themes/{1}",BaseDir,themeDir));
+			return contents;
 		}
 
 		/// <summary>
@@ -525,7 +561,8 @@ namespace yaf
 		{
 			get 
 			{
-				return m_strThemeDir;
+				XmlDocument doc = LoadTheme(null);
+				return String.Format("{0}themes/{1}/",BaseDir,doc.DocumentElement.Attributes["dir"].Value);
 			}
 		}
 

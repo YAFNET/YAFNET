@@ -106,6 +106,34 @@ namespace yaf
 				MoveTopic2.Visible = false;
 			}
 
+			if(!IsPostBack) 
+			{
+				PostReplyLink1.Text = GetThemeContents("BUTTONS","POSTREPLY");
+				PostReplyLink1.ToolTip = "Post reply";
+				PostReplyLink2.Text = PostReplyLink1.Text;
+				PostReplyLink2.ToolTip = PostReplyLink1.ToolTip;
+				NewTopic1.Text = GetThemeContents("BUTTONS","NEWTOPIC");
+				NewTopic1.ToolTip = "Post new topic";
+				NewTopic2.Text = NewTopic1.Text;
+				NewTopic2.ToolTip = NewTopic1.ToolTip;
+				DeleteTopic1.Text = GetThemeContents("BUTTONS","DELETETOPIC");
+				DeleteTopic1.ToolTip = "Delete this topic";
+				DeleteTopic2.Text = DeleteTopic1.Text;
+				DeleteTopic2.ToolTip = DeleteTopic1.ToolTip;
+				LockTopic1.Text = GetThemeContents("BUTTONS","LOCKTOPIC");
+				LockTopic1.ToolTip = "Lock this topic";
+				LockTopic2.Text = LockTopic1.Text;
+				LockTopic2.ToolTip = LockTopic1.ToolTip;
+				UnlockTopic1.Text = GetThemeContents("BUTTONS","UNLOCKTOPIC");
+				UnlockTopic1.ToolTip = "Unlock this topic";
+				UnlockTopic2.Text = UnlockTopic1.Text;
+				UnlockTopic2.ToolTip = UnlockTopic1.ToolTip;
+				MoveTopic1.Text = GetThemeContents("BUTTONS","MOVETOPIC");
+				MoveTopic1.ToolTip = "Move this topic";
+				MoveTopic2.Text = MoveTopic1.Text;
+				MoveTopic2.ToolTip = MoveTopic1.ToolTip;
+			}
+
 			BindData();
 
 			System.Text.StringBuilder tmp = new System.Text.StringBuilder();

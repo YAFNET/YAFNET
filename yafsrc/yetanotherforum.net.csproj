@@ -1297,15 +1297,7 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\standard\b_bar_left.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_bar_middle.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_bar_right.png"
+                    RelPath = "themes\standard.xml"
                     BuildAction = "Content"
                 />
                 <File
@@ -1337,10 +1329,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\standard\b_profile.png"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "themes\standard\b_quote_post.png"
                     BuildAction = "Content"
                 />
@@ -1358,22 +1346,6 @@
                 />
                 <File
                     RelPath = "themes\standard\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder_new.png"
                     BuildAction = "Content"
                 />
                 <File

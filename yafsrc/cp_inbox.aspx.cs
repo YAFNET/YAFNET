@@ -125,11 +125,11 @@ namespace yaf.cp
 				SortFrom.Visible = (string)ViewState["SortField"] == "ToUser";
 			else
 				SortFrom.Visible = (string)ViewState["SortField"] == "FromUser";
-			SortFrom.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
+			SortFrom.Src = GetThemeContents("SORT",(bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 			SortSubject.Visible = (string)ViewState["SortField"] == "Subject";
-			SortSubject.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
+			SortSubject.Src = GetThemeContents("SORT",(bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 			SortDate.Visible = (string)ViewState["SortField"] == "Created";
-			SortDate.Src = ThemeFile((bool)ViewState["SortAsc"] ? "sort_up.gif" : "sort_down.gif");
+			SortDate.Src = GetThemeContents("SORT",(bool)ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
 		}
 
 		protected string FormatBody(object o) {
@@ -161,9 +161,9 @@ namespace yaf.cp
 		protected string GetImage(object o) 
 		{
 			if((bool)((DataRowView)o)["IsRead"]) 
-				return ThemeFile("topic.png");
+				return GetThemeContents("ICONS","TOPIC");
 			else
-				return ThemeFile("topic_new.png");
+				return GetThemeContents("ICONS","TOPIC_NEW");
 		}
 
 		#region Web Form Designer generated code

@@ -90,7 +90,7 @@ namespace yaf
 			string html = String.Format("{0} <a href=\"posts.aspx?m={1}#{1}\"><img src=\"{2}\"'></a>",
 				by,
 				row["LastMessageID"],
-				ThemeFile("icon_latest_reply.gif")
+				GetThemeContents("ICONS","ICON_LATEST")
 				);
 			return html;
 		}

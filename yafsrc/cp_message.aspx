@@ -31,8 +31,8 @@
 				<b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 			</td>
 			<td align=right>
-				<asp:linkbutton runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><img src='<%# ThemeFile("b_delete_post.png") %>' title='Delete this message'></asp:linkbutton>
-				<asp:linkbutton runat=server commandname=reply commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><img src='<%# ThemeFile("b_quote_post.png") %>' title='Reply to this message'></asp:linkbutton>
+				<asp:linkbutton tooltip="Delete this message" runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
+				<asp:linkbutton tooltip="Reply to this message" runat=server commandname=reply commandargument='<%# DataBinder.Eval(Container.DataItem,"PMessageID") %>'><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:linkbutton>
 			</td>
 			</tr></table>
 		</td>

@@ -146,9 +146,9 @@ namespace yaf
 			if(!row.IsNull("LastPosted")) {
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
-					minipost = ThemeFile("icon_newest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_NEWEST");
 				else
-					minipost = ThemeFile("icon_latest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_LATEST");
 				
 				return String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a href=\"posts.aspx?m={4}#{4}\"><img src='{3}'></a>",
 					FormatDateTime((DateTime)row["LastPosted"]),
@@ -167,16 +167,16 @@ namespace yaf
 			try 
 			{
 				if((bool)Locked)
-					return ThemeFile("topic_lock.png");
+					return GetThemeContents("ICONS","FORUM_LOCKED");
 
 				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Session["lastvisit"])
-					return ThemeFile("topic_new.png");
+					return GetThemeContents("ICONS","FORUM_NEW");
 				else
-					return ThemeFile("topic.png");
+					return GetThemeContents("ICONS","FORUM");
 			}
 			catch(Exception) 
 			{
-				return ThemeFile("topic.png");
+				return GetThemeContents("ICONS","FORUM");
 			}
 		}
 		protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {

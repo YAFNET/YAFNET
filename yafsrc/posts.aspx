@@ -29,7 +29,7 @@
 		<td class=post>
 <asp:linkbutton runat=server commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>'><%# DataBinder.Eval(Container.DataItem, "Choice") %></asp:linkbutton></td>
 		<td class=post align=center><%# DataBinder.Eval(Container.DataItem, "Votes") %></td>
-		<td class=post><nobr><img src='<%# ThemeFile("vote_lcap.gif") %>'><img src='<%# ThemeFile("voting_bar.gif") %>' height=12px width='<%# DataBinder.Eval(Container.DataItem,"Stats") %>%'><img src='<%# ThemeFile("vote_rcap.gif") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
+		<td class=post><nobr><img src='<%# GetThemeContents("VOTE","LCAP") %>'><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# DataBinder.Eval(Container.DataItem,"Stats") %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
 	</tr>
 </ItemTemplate>
 <FooterTemplate>
@@ -40,12 +40,12 @@
   <tr>
     <td align=left class=navlinks id=PageLinks1 runat=server></td>
     <td align=right>
-		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply"><img align=absmiddle title="Post reply" src='<%# ThemeFile("b_post_reply.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink" ToolTip="New Topic"><img align=absmiddle title="Post new topic" src='<%# ThemeFile("b_post_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=DeleteTopic1 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"><img align=absmiddle title="Delete this topic" src='<%# ThemeFile("b_delete_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=LockTopic1 runat="server" cssclass="imagelink"><img align=absmiddle title="Lock this topic" src='<%# ThemeFile("b_lock_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=UnlockTopic1 runat="server" cssclass="imagelink"><img align=absmiddle title="Unlock this topic" src='<%# ThemeFile("b_unlock_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=MoveTopic1 runat="server" cssclass="imagelink"><img align=absmiddle title="Move topic" src='<%# ThemeFile("b_move_topic.png") %>'></asp:linkbutton>
+		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply"/>
+		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=DeleteTopic1 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>
+		<asp:linkbutton id=LockTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=UnlockTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=MoveTopic1 runat="server" cssclass="imagelink"/>
 		</TD></TR></TABLE>
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
   <tr>
@@ -71,9 +71,9 @@
 					<tr>
 						<td class=small align=left><b><%# GetText("posted") %>:</b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 						<td align=right>
-							<asp:linkbutton visible='<%# CanEditPost((System.Data.DataRowView)Container.DataItem) %>' CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Edit this post" src='<%# ThemeFile("b_edit_post.png") %>'></asp:linkbutton>
-							<asp:linkbutton visible="<%# CanDeletePost((System.Data.DataRowView)Container.DataItem) %>" CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Delete this post" src='<%# ThemeFile("b_delete_post.png") %>'></asp:linkbutton>
-							<asp:linkbutton visible="<%# ForumReplyAccess %>" CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><img title="Reply with quote" src='<%# ThemeFile("b_quote_post.png") %>'></asp:linkbutton>
+							<asp:linkbutton tooltip="Edit this post" visible='<%# CanEditPost((System.Data.DataRowView)Container.DataItem) %>' CommandName=Edit CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","EDITPOST") %></asp:linkbutton>
+							<asp:linkbutton tooltip="Delete this post" visible="<%# CanDeletePost((System.Data.DataRowView)Container.DataItem) %>" CommandName=Delete onload="DeleteMessage_Load" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
+							<asp:linkbutton tooltip="Reply with quote" visible="<%# ForumReplyAccess %>" CommandName=Quote CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' runat="server"><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:linkbutton>
 						</td>
 					</tr>
 				</table>
@@ -108,12 +108,12 @@
   <tr>
     <td align=left class=navlinks id=PageLinks2 runat=server></td>
     <td align=right>
-		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink" ToolTip="Post Reply"><img align=absmiddle title="Post reply" src='<%# ThemeFile("b_post_reply.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink" ToolTip="New Topic"><img align=absmiddle title="Post new topic" src='<%# ThemeFile("b_post_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=DeleteTopic2 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"><img align=absmiddle title="Delete this topic" src='<%# ThemeFile("b_delete_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=LockTopic2 runat="server" cssclass="imagelink"><img align=absmiddle title="Lock this topic" src='<%# ThemeFile("b_lock_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=UnlockTopic2 runat="server" cssclass="imagelink"><img align=absmiddle title="Unlock this topic" src='<%# ThemeFile("b_unlock_topic.png") %>'></asp:linkbutton>
-		<asp:linkbutton id=MoveTopic2 runat="server" cssclass="imagelink"><img align=absmiddle title="Move topic" src='<%# ThemeFile("b_move_topic.png") %>'></asp:linkbutton>
+		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=DeleteTopic2 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>
+		<asp:linkbutton id=LockTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=UnlockTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=MoveTopic2 runat="server" cssclass="imagelink"/>
 </TD></TR>
 </TABLE>
     

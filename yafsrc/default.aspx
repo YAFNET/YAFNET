@@ -74,7 +74,7 @@
 	<td class=header2 colspan=2><%= GetText("ACTIVE_USERS") %></td>
 </tr>
 <tr>
-	<td class=post width=1%><img src='<%# ThemeFile("folder_who.png") %>'></td>
+	<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_USERS") %>'></td>
 	<td class=post>
 		<asp:label runat="server" id="activeinfo"/><br>
 		<asp:repeater runat="server" id="ActiveList">
@@ -88,16 +88,16 @@
     <td class=header2 colspan=2><%= GetText("STATS") %></td>
 </tr>
 <tr>
-	<td class=post width=1%><img src='<%# ThemeFile("folder_stats.png") %>'></td>
+	<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_STATS") %>'></td>
 	<td class=post><asp:label id=Stats runat="server">Label</asp:label></td>
 </tr>
 </table>
 
 <table cellspacing=1 cellpadding=1>
 	<tr>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> <%# GetText("ICONLEGEND","New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> <%# GetText("ICONLEGEND","No_New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> <%# GetText("ICONLEGEND","Forum_Locked") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_NEW") %>'> <%# GetText("ICONLEGEND","New_Posts") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM") %>'> <%# GetText("ICONLEGEND","No_New_Posts") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","FORUM_LOCKED") %>'> <%# GetText("ICONLEGEND","Forum_Locked") %></td>
 	</tr>
 </table>
 

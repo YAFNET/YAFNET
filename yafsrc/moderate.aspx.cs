@@ -84,29 +84,29 @@ namespace yaf
 				bool bIsLocked = (bool)isLocked /*|| (bool)forum["Locked"]*/;
 
 				if(row["TopicMovedID"].ToString().Length>0)
-					return ThemeFile("topic_moved.png");
+					return GetThemeContents("ICONS","TOPIC_MOVED");
 
 				if(row["Priority"].ToString() == "1")
-					return ThemeFile("topic_sticky.png");
+					return GetThemeContents("ICONS","TOPIC_STICKY");
 
 				if(row["Priority"].ToString() == "2")
-					return ThemeFile("topic_announce.png");
+					return GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
 
 				if(DateTime.Parse(lastPosted.ToString()) > (DateTime)Session["lastvisit"]) {
 					if(bIsLocked)
-						return ThemeFile("topic_lock_new.png");
+						return GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
 					else
-						return ThemeFile("topic_new.png");
+						return GetThemeContents("ICONS","TOPIC_NEW");
 				}
 				else {
 					if(bIsLocked)
-						return ThemeFile("topic_lock.png");
+						return GetThemeContents("ICONS","TOPIC_LOCKED");
 					else
-						return ThemeFile("topic.png");
+						return GetThemeContents("ICONS","TOPIC");
 				}
 			}
 			catch(Exception) {
-				return ThemeFile("topic.png");
+				return GetThemeContents("ICONS","TOPIC");
 			}
 		}
 		protected string GetPriorityMessage(DataRowView row) {
@@ -131,9 +131,9 @@ namespace yaf
 			{
 				string minipost;
 				if(DateTime.Parse(row["LastPosted"].ToString()) > (DateTime)Session["lastvisit"])
-					minipost = ThemeFile("icon_newest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_NEWEST");
 				else
-					minipost = ThemeFile("icon_latest_reply.gif");
+					minipost = GetThemeContents("ICONS","ICON_LATEST");
 				
 				string by = String.Format(GetText("by"),String.Format("<a href=\"profile.aspx?u={0}\">{1}</a>&nbsp;<a href=\"posts.aspx?m={3}#{3}\"><img border=0 src='{2}'></a>",
 					row["LastUserID"], 

@@ -58,17 +58,17 @@
 <tr><td valign=top>
 	<table cellspacing=1 cellpadding=1>
 	<tr>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_new.png") %>'> <%= GetText("New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic.png") %>'> <%= GetText("No_New_Posts") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_announce.png") %>'> <%= GetText("Announcement") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_NEW") %>'> <%= GetText("New_Posts") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC") %>'> <%= GetText("No_New_Posts") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT") %>'> <%= GetText("Announcement") %></td>
 	</tr>
 	<tr>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_lock_new.png") %>'> <%= GetText("New_Posts_Locked") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_lock.png") %>'> <%= GetText("No_New_Posts_Locked") %></td>
-		<td><img align=absMiddle src='<% =ThemeFile("topic_sticky.png") %>'> <%= GetText("Sticky") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_NEW_LOCKED") %>'> <%= GetText("New_Posts_Locked") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_LOCKED") %>'> <%= GetText("No_New_Posts_Locked") %></td>
+		<td><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_STICKY") %>'> <%= GetText("Sticky") %></td>
 	</tr>
 	<tr>
-		<td colspan=3><img align=absMiddle src='<% =ThemeFile("topic_moved.png") %>'> <%= GetText("Moved") %></td>
+		<td colspan=3><img align=absMiddle src='<% =GetThemeContents("ICONS","TOPIC_MOVED") %>'> <%= GetText("Moved") %></td>
 	</tr>
 	</table>
 </td></tr>
