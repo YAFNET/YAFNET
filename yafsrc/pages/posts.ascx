@@ -44,7 +44,7 @@
 </tr>
 </table>
 
-<table class=content cellSpacing=1 cellPadding=0 width="100%">
+<table class=content cellSpacing=1 cellPadding=0 width="100%" border="0">
 <tr class="header1">
 	<td colspan="3">
 		<table class="header1" width="100%" cellspacing="0" cellpadding="0">
@@ -87,8 +87,6 @@
 	<%# GetThreadedRow(Container.DataItem) %>
 
 	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> visible=<%#IsCurrentMessage(Container.DataItem)%> isthreaded=<%#IsThreaded%>/>
-
-	<tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
 </ItemTemplate>
 </asp:repeater>
 

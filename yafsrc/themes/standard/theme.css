@@ -87,6 +87,11 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	padding: 3px;
 }
 
+#RichEdit td 
+{
+	padding: 0px;
+}
+
 /* links inside content table*/
 .content a			{ color: navy; text-decoration: underline; }
 .content a:hover	{ color: #000000; text-decoration: underline; }

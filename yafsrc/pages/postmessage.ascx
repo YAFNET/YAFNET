@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Register TagPrefix="rte" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="FTB" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -77,8 +78,8 @@
 		<td class=postheader vAlign=top><%= GetText("message") %>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
-		<td class=post>
-			<rte:richedit runat="server" id="Message"/>
+		<td class=post id="RichEdit">
+			<rte:richedit runat="server" id="Message" />
 		</td>
 	</tr>
 	<!--tr>

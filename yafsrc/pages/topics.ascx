@@ -40,9 +40,6 @@
     <td class=header2 align=middle width="7%"><%# GetText("views") %></td>
     <td class=header2 align=middle width="25%"><%# GetText("lastpost") %></td>
    </tr>
- 	<tr>
- 		<td class=header2 align=right width="100%" colspan="6"><asp:hyperlink id="RssFeed" runat="server" /></td>
- 	</tr>
 <asp:repeater id=Announcements runat="server">
 	<ItemTemplate>
 		<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>/>
@@ -70,6 +67,8 @@
 				<asp:linkbutton id="WatchForum" runat="server"/>
 				|
 				<asp:linkbutton runat="server" id="MarkRead"/>
+				|
+				<asp:hyperlink id="RssFeed" runat="server" />
 				</td></tr></table>
 
 </td></tr></table>
