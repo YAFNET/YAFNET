@@ -430,7 +430,7 @@ namespace yaf.pages
 				footer.AppendFormat("<p style=\"text-align:center;font-size:7pt\">");
 
  				footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />",Forum.GetLink(Pages.rsstopic,"pg=forum"),Data.ForumRoot);
- 
+				// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
 				if(Config.IsDotNetNuke) 
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.",Data.AppVersionName);

@@ -62,7 +62,7 @@ namespace yaf.pages
 						using(DataTable dt=DB.post_list(PageTopicID,1)) 
 						{
 							foreach(DataRow row in dt.Rows)
-								rf.AddRSSItem(writer, row["Subject"].ToString(), Request.Url.AbsoluteUri.ToString().Substring(0, Request.Url.AbsoluteUri.ToString().LastIndexOf("/")) + Forum.GetLink(Pages.posts,"t={0}",Request.QueryString["t"]), row["Message"].ToString());
+								rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}",Request.QueryString["t"]), row["Message"].ToString());
 						}
 					}
 
@@ -72,7 +72,7 @@ namespace yaf.pages
 					{
 						foreach(DataRow row in dt.Rows) 
 						{
-							rf.AddRSSItem(writer, row["Forum"].ToString(), "http://" + Request.Url.Host.ToString() + Forum.GetLink(Pages.posts,"t={0}", row["LastTopicID"]), row["Description"].ToString());
+							rf.AddRSSItem(writer, row["Forum"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}", row["LastTopicID"]), row["Description"].ToString());
 						}
 					}
 					break;
@@ -86,7 +86,7 @@ namespace yaf.pages
 						{
 							foreach(DataRow row in dt.Rows)
 							{
-								rf.AddRSSItem(writer, row["Name"].ToString(), Request.Url.AbsoluteUri.ToString().Substring(0, Request.Url.AbsoluteUri.ToString().LastIndexOf("/")) + Forum.GetLink(Pages.posts,"t={0}", row["TopicID"]), row["Topic"].ToString());
+								rf.AddRSSItem(writer, row["Topic"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}", row["TopicID"]), row["Topic"].ToString());
 							}
 						}
 					}
@@ -97,7 +97,7 @@ namespace yaf.pages
 					{
 						foreach(DataRow row in dt.Rows)
 						{
-							rf.AddRSSItem(writer, row["Subject"].ToString(), Request.Url.AbsoluteUri.ToString().Substring(0, Request.Url.AbsoluteUri.ToString().LastIndexOf("/")) + Forum.GetLink(Pages.posts,"t={0}", row["LinkTopicID"]), row["Subject"].ToString());
+							rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}", row["LinkTopicID"]), row["Subject"].ToString());
 						}
 					}
 					break;
