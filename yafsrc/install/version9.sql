@@ -904,3 +904,121 @@ begin
 	delete from yaf_User where UserID = @UserID
 end
 GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_user_guest') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_guest
+GO
+
+create procedure yaf_user_guest as
+begin
+	select top 1
+		a.UserID
+	from
+		yaf_User a,
+		yaf_UserGroup b,
+		yaf_Group c
+	where
+		b.UserID = a.UserID and
+		b.GroupID = c.GroupID and
+		c.IsGuest<>0
+end
+go
+
+if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_forum_delete
+GO
+
+create procedure yaf_forum_delete(@ForumID int) as
+begin
+	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
+	update yaf_Forum set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
+	update yaf_Topic set LastMessageID=null where ForumID=@ForumID
+	delete from yaf_WatchTopic from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_WatchTopic.TopicID = yaf_Topic.TopicID
+
+	delete from yaf_NntpTopic from yaf_NntpForum where yaf_NntpForum.ForumID = @ForumID and yaf_NntpTopic.NntpForumID = yaf_NntpForum.NntpForumID
+	delete from yaf_NntpForum where ForumID=@ForumID	
+	delete from yaf_WatchForum where ForumID = @ForumID
+	delete from yaf_Message from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_Message.TopicID = yaf_Topic.TopicID
+	delete from yaf_Topic where ForumID = @ForumID
+	delete from yaf_ForumAccess where ForumID = @ForumID
+	delete from yaf_Forum where ForumID = @ForumID
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_delete
+GO
+
+CREATE   procedure yaf_topic_delete(@TopicID int,@UpdateLastPost bit=1) as
+begin
+	--begin transaction
+	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
+	update yaf_Forum set 
+		LastTopicID = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null,
+		LastPosted = null
+	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
+	update yaf_Active set TopicID = null where TopicID = @TopicID
+	--commit
+	--begin transaction
+	delete from yaf_NntpTopic where TopicID = @TopicID
+	delete from yaf_WatchTopic where TopicID = @TopicID
+	delete from yaf_Message where TopicID = @TopicID
+	delete from yaf_Topic where TopicMovedID = @TopicID
+	delete from yaf_Topic where TopicID = @TopicID
+	--commit
+	if @UpdateLastPost<>0
+		exec yaf_topic_updatelastpost
+end
+GO
+
+if exists (select * from sysobjects where id = object_id(N'yaf_topic_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_topic_prune
+GO
+
+create procedure yaf_topic_prune(@ForumID int=null,@Days int) as
+begin
+	declare @c cursor
+	declare @TopicID int
+	declare @Count int
+	set @Count = 0
+	if @ForumID = 0 set @ForumID = null
+	if @ForumID is not null begin
+		set @c = cursor for
+		select 
+			TopicID
+		from 
+			yaf_Topic
+		where 
+			ForumID = @ForumID and
+			Priority = 0 and
+			datediff(dd,LastPosted,getdate())>@Days
+	end
+	else begin
+		set @c = cursor for
+		select 
+			TopicID
+		from 
+			yaf_Topic
+		where 
+			Priority = 0 and
+			datediff(dd,LastPosted,getdate())>@Days
+	end
+	open @c
+	fetch @c into @TopicID
+	while @@FETCH_STATUS=0 begin
+		exec yaf_topic_delete @TopicID,0
+		set @Count = @Count + 1
+		fetch @c into @TopicID
+	end
+	close @c
+	deallocate @c
+
+	-- This takes forever with many posts...
+	--exec yaf_topic_updatelastpost
+
+	select [Count] = @Count
+end
+GO

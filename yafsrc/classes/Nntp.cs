@@ -5,6 +5,13 @@ using System.Text.RegularExpressions;
 
 namespace yaf.classes
 {
+	public class NntpException : Exception 
+	{
+		public NntpException(string message) : base(message) 
+		{
+		}
+	}
+
 	public class Nntp : System.Net.Sockets.TcpClient
 	{
 		public void Connect(string hostname) 
@@ -12,7 +19,7 @@ namespace yaf.classes
 			Connect(hostname,119);
 			string response = ReadLine();
 			if(response.Substring(0,3)!="200")
-				throw new Exception(response);
+				throw new NntpException(response);
 		}
 
 		public void Disconnect() 
@@ -23,7 +30,16 @@ namespace yaf.classes
 
 		private string ReadLine() 
 		{
-			return ReadLine(System.Text.Encoding.ASCII);
+			return ReadLine(DefaultEncoding);
+		}
+
+		static private System.Text.Encoding DefaultEncoding 
+		{
+			get 
+			{
+				//return System.Text.Encoding.ASCII;
+				return System.Text.Encoding.GetEncoding("ISO-8859-1");
+			}
 		}
 
 		private string ReadLine(System.Text.Encoding enc) 
@@ -79,7 +95,7 @@ namespace yaf.classes
 						string		text	= m2[i].Groups[3].Value;
 
 						if(enctype.ToLower()!="q")
-							throw new Exception("Unsupported inline QP: " + enctype);
+							throw new NntpException("Unsupported inline QP: " + enctype);
 
 						try 
 						{
@@ -87,20 +103,24 @@ namespace yaf.classes
 						}
 						catch(Exception) 
 						{
-							enc = Encoding.ASCII;
+							enc = DefaultEncoding;
 						}
 
-						byte[] tmp = Encoding.ASCII.GetBytes(text);
+						byte[] tmp = DefaultEncoding.GetBytes(text);
 						byte[] newstr = new byte[tmp.Length];
 						int count = 0;
-						for(int j=0;j<tmp.Length-2;j++) 
+						for(int j=0;j<tmp.Length;j++) 
 						{
 							if(tmp[j]=='=') 
 							{
 								int ch = int.Parse(text.Substring(j+1,2),System.Globalization.NumberStyles.HexNumber);
 								newstr[count++] = (byte)ch;
 								j += 2;
-							} 
+							}
+							else if(tmp[j]=='_') 
+							{
+								newstr[count++] = (byte)' ';
+							}
 							else 
 							{
 								newstr[count++] = tmp[j];
@@ -118,7 +138,7 @@ namespace yaf.classes
 		{
 			StringBuilder article = new StringBuilder(10000);
 
-			Encoding enc = Encoding.ASCII;
+			Encoding enc = DefaultEncoding;
 			bool bInHeader = true;
 			while(true) 
 			{
@@ -149,7 +169,7 @@ namespace yaf.classes
 									}
 									catch(Exception) 
 									{
-										enc = Encoding.ASCII;
+										enc = DefaultEncoding;
 									}
 								}
 							}
@@ -165,7 +185,7 @@ namespace yaf.classes
 
 		public string Write(string input) 
 		{
-			byte[] sendBytes = System.Text.Encoding.ASCII.GetBytes(input + "\r\n");
+			byte[] sendBytes = DefaultEncoding.GetBytes(input + "\r\n");
 			GetStream().Write(sendBytes,0,sendBytes.Length);
 			return ReadLine();
 		}
@@ -256,6 +276,33 @@ namespace yaf.classes
 					return m_sFrom;
 				}
 			}
+			public string FromName 
+			{
+				get 
+				{
+					string name = m_sFrom;
+					int pos1, pos2;
+					// Name <email>
+					pos1 = name.IndexOf('<');
+					pos2 = name.IndexOf('>');
+					if(pos1>0 && pos2>pos1) 
+					{
+						name = name.Substring(0,pos1-1).Trim();
+						if(name[0]=='"' && name[name.Length-1]=='"')
+							name = name.Substring(1,name.Length-2);
+						return name;
+					}
+					// email (Name)
+					pos1 = name.IndexOf('(');
+					pos2 = name.IndexOf(')');
+					if(pos1>0 && pos2>pos1) 
+					{
+						name = name.Substring(pos1+1,pos2-pos1-2).Trim();
+						return name;
+					}
+					return name;
+				}
+			}
 			public string Subject 
 			{
 				get 
@@ -292,7 +339,7 @@ namespace yaf.classes
 		{
 			string response = Write("GROUP " + group);
 			if(!response.StartsWith("211")) 
-				throw new Exception(response);
+				throw new NntpException(response);
 				
 			return new GroupInfo(response);
 		}
@@ -300,14 +347,14 @@ namespace yaf.classes
 		{
 			string response = Write("ARTICLE " + article.ToString());
 			if(!response.StartsWith("220"))
-				throw new Exception(response);
+				throw new NntpException(response);
 
 			return new ArticleInfo(ReadArticle());
 		}
 
 		static public void ReadArticles() 
 		{
-			int nUserID = 2;	// Guest - TODO
+			int nUserID = DB.user_guest();	// Use guests user-id
 
 			Nntp nntp = null;
 			string hostname = null;
@@ -331,18 +378,17 @@ namespace yaf.classes
 						}
 
 						GroupInfo group = nntp.Group(drForum["GroupName"].ToString());
-						int nLastMessage = group.Last;
-						//Console.WriteLine(String.Format("Last message: {0}",nLastMessage));
-						int nCurrentMessage = (int)drForum["LastMessageNo"];
+						int nLastMessageNo = (int)drForum["LastMessageNo"];
+						int nCurrentMessage = nLastMessageNo;
 						if(nCurrentMessage==0)
-							nCurrentMessage = nLastMessage - 500;
+							nCurrentMessage = group.Last - 500;
 
 						nCurrentMessage++;
 
 						int nForumID	= (int)drForum["ForumID"];
 						int nCount		= 0;
 
-						for(;nCurrentMessage<nLastMessage;nCurrentMessage++) 
+						for(;nCurrentMessage<group.Last;nCurrentMessage++) 
 						{
 							try 
 							{
@@ -351,11 +397,10 @@ namespace yaf.classes
 								string	sBody		= article.Body;
 								string	sThread		= article.Thread;
 								string	sSubject	= article.Subject;
-								string	sFrom		= article.From;
+								string	sFrom		= article.FromName;
 								string	sDate		= article.Date;
 							
 								sBody = String.Format("Date: {0}\r\n\r\n",sDate) + sBody;
-								sBody = String.Format("From: {0}\r\n",sFrom) + sBody;
 
 								sBody = System.Web.HttpContext.Current.Server.HtmlEncode(sBody);
 								DataTable dt = DB.nntptopic_list(sThread);
@@ -372,15 +417,15 @@ namespace yaf.classes
 									long nTopicID = DB.topic_save(nForumID,sSubject,sBody,nUserID,0,null,sFrom,System.Web.HttpContext.Current.Request.UserHostAddress,ref nMessageID);
 									DB.nntptopic_save(drForum["NntpForumID"],sThread,nTopicID);
 								}
-								if(++nCount>10) break;
+								nLastMessageNo = nCurrentMessage;
+								// We don't wanna retrieve articles forever...
+								if(++nCount>25) break;
 							}
-							catch(Exception) 
+							catch(NntpException) 
 							{
 							}
 						}
-						if(nCurrentMessage>nLastMessage)
-							nCurrentMessage = nLastMessage;
-						DB.nntpforum_update(drForum["NntpForumID"],nCurrentMessage);
+						DB.nntpforum_update(drForum["NntpForumID"],nLastMessageNo);
 					}
 				}
 			}

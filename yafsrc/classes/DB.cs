@@ -1405,6 +1405,14 @@ namespace yaf
 			}
 			return false;
 		}
+		public static int user_guest() 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_guest")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				return (int)ExecuteScalar(cmd);
+			}
+		}
 		public static DataTable user_activity_rank()
 		{
 			// This define the date since the posts are counted (can pass as parameter??)

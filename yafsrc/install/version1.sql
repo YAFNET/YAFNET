@@ -181,7 +181,9 @@ CREATE TABLE [yaf_System] (
 	[AvatarUpload] [bit] NOT NULL,
 	[AvatarRemote] [bit] NOT NULL,
 	[AvatarSize] [int] NULL,
-	[AllowRichEdit] [bit] NOT NULL
+	[AllowRichEdit] [bit] NOT NULL,
+	[AllowUserTheme] [bit] NOT NULL,
+	[AllowUserLanguage] [bit] NOT NULL
 ) ON [PRIMARY]
 GO
 
@@ -222,7 +224,10 @@ CREATE TABLE [yaf_User] (
 	[Avatar] [varchar] (100) NULL ,
 	[Signature] [varchar] (255) NULL ,
 	[AvatarImage] [image] NULL,
-	[RankID] [int] not null
+	[RankID] [int] NOT NULL,
+	[Suspended] [datetime] NULL,
+	[LanguageFile] [varchar](50) NULL,
+	[ThemeFile] [varchar](50) NULL
 ) ON [PRIMARY]
 GO
 
@@ -1149,33 +1154,6 @@ begin
 		SQLVersion = @@VERSION
 	from 
 		yaf_System a
-end
-GO
-
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_delete
-GO
-
-CREATE   procedure yaf_topic_delete(@TopicID int) as
-begin
-	--begin transaction
-	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
-	update yaf_Forum set 
-		LastTopicID = null,
-		LastMessageID = null,
-		LastUserID = null,
-		LastUserName = null,
-		LastPosted = null
-	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
-	update yaf_Active set TopicID = null where TopicID = @TopicID
-	--commit
-	--begin transaction
-	delete from yaf_WatchTopic where TopicID = @TopicID
-	delete from yaf_Message where TopicID = @TopicID
-	delete from yaf_Topic where TopicMovedID = @TopicID
-	delete from yaf_Topic where TopicID = @TopicID
-	--commit
-	exec yaf_topic_updatelastpost
 end
 GO
 

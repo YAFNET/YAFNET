@@ -22,7 +22,7 @@
 	<tr><td class=post><a target="main" href="pm.aspx">Private Messages</a></td></tr>
 	<tr><td class=post><a target="main" href="attachments.aspx">Attachments</a></td></tr>
 
-	<asp:placeholder runat="server" visible="false">
+	<asp:placeholder runat="server" visible="true">
 	<tr><td class="header2"><b>NNTP</b></td></tr>
 	<tr><td class=post><a target="main" href="nntpservers.aspx">NNTP Servers</a></td></tr>
 	<tr><td class=post><a target="main" href="nntpforums.aspx">NNTP Forums</a></td></tr>
