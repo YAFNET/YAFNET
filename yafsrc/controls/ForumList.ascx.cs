@@ -134,8 +134,8 @@ namespace yaf.controls
 				{
 					strTemp = String.Format("{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
 							ForumPage.FormatDateTimeTopic((DateTime)row["LastPosted"]),
-							String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),Truncate(row["LastTopicName"].ToString(), 50))),
-							String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),row["LastUser"])),
+							String.Format(ForumPage.GetText("in"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.posts,"t={0}",row["LastTopicID"]),Truncate(Utils.BadWordReplace(row["LastTopicName"].ToString()), 50))),
+							String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),BBCode.EncodeHTML(row["LastUser"].ToString()))),
 							strTemp,
 							ForumPage.GetText("GO_LAST_POST"),
 							Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"])

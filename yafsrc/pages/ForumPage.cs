@@ -432,7 +432,7 @@ namespace yaf.pages
 
 			if(User!=null && User.IsAuthenticated) 
 			{
-				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),PageUserName)));
+				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),Server.HtmlEncode(PageUserName))));
 
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
 				if(IsAdmin)

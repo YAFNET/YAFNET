@@ -44,7 +44,7 @@ namespace yaf.controls
 			
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat("<td><a href='{0}'>{1}</a></td>",Forum.GetLink(Pages.profile,"u={0}",m_row["UserID"]),m_row["Starter"]);
+			html.AppendFormat("<td><a href='{0}'>{1}</a></td>",Forum.GetLink(Pages.profile,"u={0}",m_row["UserID"]),BBCode.EncodeHTML(m_row["Starter"].ToString()));
 			// Replies
 			html.AppendFormat("<td align=center>{0}</td>",FormatReplies());
 			// Views
@@ -197,7 +197,7 @@ namespace yaf.controls
 				string strBy =
 					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
 					Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]), 
-					row["LastUserName"], 
+					BBCode.EncodeHTML(row["LastUserName"].ToString()), 
 					strMiniPost, 
 					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"]),
 					ForumPage.GetText("GO_LAST_POST")

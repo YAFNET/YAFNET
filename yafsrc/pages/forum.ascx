@@ -52,7 +52,7 @@
 	<td class=post>
 		<asp:label runat="server" id="activeinfo"/><br/>
 		<asp:repeater runat="server" id="ActiveList">
-			<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></ItemTemplate>
+			<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %></a></ItemTemplate>
 			<SeparatorTemplate>, </SeparatorTemplate>
 		</asp:repeater>
 	</td>

@@ -245,11 +245,14 @@ namespace yaf
 			}
 		}
 
-		static public string SafeHtml(string html) 
+		static public string EncodeHTML(string html) 
 		{
-			html = html.Replace("<","&lt;");
-			html = html.Replace(">","&gt;");
-			return html;
+			return System.Web.HttpContext.Current.Server.HtmlEncode(html);
+		}
+
+		static public string DecodeHTML(string text)
+		{
+			return System.Web.HttpContext.Current.Server.HtmlDecode(text);
 		}
 
 		static private string FixCode(string html) 

@@ -295,7 +295,7 @@ namespace yaf
 		{
 			if(!bAllowHtml) 
 			{
-				html = BBCode.SafeHtml(html);
+				html = BBCode.EncodeHTML(html);
 			} 
 			else 
 			{

@@ -51,7 +51,7 @@ namespace yaf.controls
 					{
 						bFirst = false;
 					}
-					writer.Write(String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",dr["UserID"]),dr["UserName"]));
+					writer.Write(String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",dr["UserID"]),BBCode.EncodeHTML(dr["UserName"].ToString())));
 				}
 				writer.WriteLine("</td>");
 				writer.WriteLine("</tr>");

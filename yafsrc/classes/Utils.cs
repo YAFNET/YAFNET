@@ -259,7 +259,7 @@ namespace yaf
 		}
 		static public bool IsValidEmail(string email)
 		{
-			return Regex.IsMatch(email,@"^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,3})(\]?)$");
+			return Regex.IsMatch(email,@"^.+\@(\[?)[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,4})(\]?)$");
 		}
 		static public bool IsValidURL(string url)
 		{

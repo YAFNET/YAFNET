@@ -109,7 +109,7 @@ namespace yaf.pages
 			{
 				Stats.Text += String.Format(GetText("stats_lastpost"),
 					FormatDateTimeTopic((DateTime)stats["LastPost"]),
-					String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",stats["LastUserID"]),stats["LastUser"])
+					String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",stats["LastUserID"]),Server.HtmlEncode(stats["LastUser"].ToString()))
 				);
 				Stats.Text += "<br/>";
 			}
@@ -118,7 +118,7 @@ namespace yaf.pages
 			Stats.Text += "<br/>";
 
 			Stats.Text += String.Format(GetText("stats_lastmember"),
-				String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",stats["LastMemberID"]),stats["LastMember"])
+				String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",stats["LastMemberID"]),Server.HtmlEncode(stats["LastMember"].ToString()))
 				);
 			Stats.Text += "<br/>";
 

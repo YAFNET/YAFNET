@@ -84,15 +84,19 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
-				PageLinks.AddLink(user["Name"].ToString(),Request.RawUrl);
+				PageLinks.AddLink(Server.HtmlEncode(user["Name"].ToString()),Request.RawUrl);
 	
 				// populate user information controls...
-				UserName.Text = (string)user["Name"];
-				Name.Text = (string)user["Name"];
-				Joined.Text = String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
-				LastVisit.Text = FormatDateTime((DateTime)user["LastVisit"]);
-				Rank.Text = user["RankName"].ToString();
-				Location.Text = Utils.BadWordReplace(user["Location"].ToString());
+				UserName.Text					=	Server.HtmlEncode(user["Name"].ToString());
+				Name.Text							=	Server.HtmlEncode(user["Name"].ToString());
+				Joined.Text						=	String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
+				LastVisit.Text				= FormatDateTime((DateTime)user["LastVisit"]);
+				Rank.Text							=	user["RankName"].ToString();
+				Location.Text					=	Server.HtmlEncode(Utils.BadWordReplace(user["Location"].ToString()));				
+				RealName.InnerText		= Server.HtmlEncode(Utils.BadWordReplace(user["RealName"].ToString()));
+				Interests.InnerText		= Server.HtmlEncode(Utils.BadWordReplace(user["Interests"].ToString()));
+				Occupation.InnerText	= Server.HtmlEncode(Utils.BadWordReplace(user["Occupation"].ToString()));
+				Gender.InnerText			= GetText("GENDER" + user["Gender"].ToString());
 				
 				double dAllPosts = 0.0;
 				if((int)user["NumPostsForum"]>0) 
@@ -131,11 +135,6 @@ namespace yaf.pages
 				Icq.Visible			= User.IsAuthenticated && user["ICQ"]!=DBNull.Value;
 				Icq.Text			= GetThemeContents("BUTTONS","ICQ");
 				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",user["UserID"]);
-				
-				RealName.InnerText = user["RealName"].ToString();
-				Interests.InnerText = Utils.BadWordReplace(user["Interests"].ToString());
-				Occupation.InnerText = Utils.BadWordReplace(user["Occupation"].ToString());
-				Gender.InnerText = GetText("GENDER" + user["Gender"].ToString());
 
 				if(BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
 				{

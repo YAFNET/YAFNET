@@ -19,7 +19,7 @@
 <asp:repeater id=UserList runat=server>
 <ItemTemplate>
 <tr>
-	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem,"UserID")) %>' Text='<%# DataBinder.Eval(Container.DataItem,"Name") %>' runat="server" /></td>
+	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem,"UserID")) %>' Text='<%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"Name"))) %>' runat="server" /></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
 	<td class=post><%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>
