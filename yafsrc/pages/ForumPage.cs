@@ -1025,7 +1025,10 @@ namespace yaf.pages
 		public string FormatDateTime(object o) 
 		{
 			DateTime dt = (DateTime)o + TimeOffset;
-			return dt.ToString(GetText("FORMAT_DATE_TIME_LONG"));
+			if(BoardSettings.DateFormatFromLanguage) 
+				return dt.ToString(GetText("FORMAT_DATE_TIME_LONG"));
+			else 
+				return String.Format("{0:F}",dt);
 		}
 
 		/// <summary>
@@ -1052,9 +1055,13 @@ namespace yaf.pages
 					// yesterday
 					strDateFormat = String.Format(GetText("YesterdayAt"),dt);
 				}
-				else
+				else if(BoardSettings.DateFormatFromLanguage)
 				{
 					strDateFormat = dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+				} 
+				else 
+				{
+					strDateFormat = String.Format("{0:f}",dt);
 				}
 				return strDateFormat;
 			}
@@ -1073,7 +1080,10 @@ namespace yaf.pages
 			DateTime dt = (DateTime)o + TimeOffset;
 			try
 			{
-				return dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+				if(BoardSettings.DateFormatFromLanguage)
+					return dt.ToString(GetText("FORMAT_DATE_TIME_SHORT"));
+				else
+					return String.Format("{0:f}",dt);
 			}
 			catch(Exception)
 			{
@@ -1090,7 +1100,10 @@ namespace yaf.pages
 			dt += TimeOffset;
 			try
 			{
-				return dt.ToString(GetText("FORMAT_DATE_LONG"));
+				if(BoardSettings.DateFormatFromLanguage)
+					return dt.ToString(GetText("FORMAT_DATE_LONG"));
+				else
+					return String.Format("{0:D}",dt);
 			}
 			catch(Exception) 
 			{
@@ -1107,7 +1120,10 @@ namespace yaf.pages
 			DateTime dt = (DateTime)o + TimeOffset;
 			try
 			{
-				return dt.ToString(GetText("FORMAT_DATE_SHORT"));
+				if(BoardSettings.DateFormatFromLanguage)
+					return dt.ToString(GetText("FORMAT_DATE_SHORT"));
+				else
+					return String.Format("{0:d}",dt);
 			}
 			catch(Exception)
 			{
@@ -1124,7 +1140,10 @@ namespace yaf.pages
 			dt += TimeOffset;
 			try
 			{
-				return dt.ToString(GetText("FORMAT_TIME"));
+				if(BoardSettings.DateFormatFromLanguage)
+					return dt.ToString(GetText("FORMAT_TIME"));
+				else
+					return String.Format("{0:T}",dt);
 			}
 			catch(Exception)
 			{

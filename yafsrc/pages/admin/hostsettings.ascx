@@ -110,6 +110,11 @@
 				<asp:textbox id="LockPosts" runat="server"/>
 			</td>
 		</tr>
+		<tr>
+			<td class="postheader"><b>Date and time format from language file:</b><br/>
+				If this is checked, the date and time format will use settings from the language file. Otherwise the browser settings will be used.</td>
+			<td class="post"><asp:checkbox runat="server" id="DateFormatFromLanguage"/></td>				
+		</tr>
 		<TR>
 			<TD class="header2" colSpan="2" align="center">User Options</TD>
 		</TR>

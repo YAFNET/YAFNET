@@ -229,6 +229,11 @@ namespace yaf
 			get { return m_reg.GetValueBool("RemoveNestedQuotes",false); }
 			set { m_reg.SetValueBool("RemoveNestedQuotes",value); }
 		}
+		public bool DateFormatFromLanguage
+		{
+			get { return m_reg.GetValueBool("DateFormatFromLanguage",false); }
+			set { m_reg.SetValueBool("DateFormatFromLanguage",value); }
+		}
 
 		// string settings
 		public string ForumEmail 
