@@ -1,0 +1,164 @@
+body, tr, input, select
+{
+	font-family: Verdana, Helvetica;
+	font-size: 8pt;
+}
+
+/*  */
+img 
+{
+	border: 0;
+}
+
+/* hyperlinks */
+a			{ text-decoration: none; color: #000080; }
+a:hover		{ text-decoration: underline; }
+
+/* Header 1 - Main header */
+.header1 {
+	/* background-image: url('bg_header1.png'); */
+	background-color: #314931;
+	color: #FFFFFF;
+	font-weight: bold;
+	height: 32px;
+}
+
+/* Links in header1 */
+tr.header1 a		{color:#FFFFFF;text-decoration:none}
+tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
+
+/* Header 2 - Sub header */
+.header2 {
+	/* background-image: url('bg_header2.png'); */
+	background-color: #7b714a;
+	color: #000000;
+	font-weight: bold;
+	height: 28px;
+}
+
+/* Footer1 - Bottom of tables */
+.footer1 {
+	/* background-image: url('bg_footer1.png'); */
+	background-color: #b5a273;
+	font-size: 7pt;
+	height: 28px;
+}
+
+.footer1 select, .footer1 td
+{
+	font-size: 7pt;
+}
+
+/* Header of posts */
+.postheader 
+{
+	background-color: #C2B789;
+}
+
+/* User info and post/article */
+.post 
+{
+	background-color: #92ae6d;
+}
+
+/* Footer of posts */
+.postfooter 
+{
+    background-color: #C2B789;
+}
+
+/* Area between posts */
+.postsep 
+{
+	background-color: #7b5931;
+	height: 1px 
+}
+
+/* most tables are class 'content' */
+.content {
+	font-family: verdana;
+	font-size: 8pt;
+	border: solid 1px #000000;
+	color: #000000;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
+.content td {
+	padding: 3px;
+}
+
+/* links inside content table*/
+.content a			{ color: navy; text-decoration: underline; }
+.content a:hover	{ color: #000000; text-decoration: underline; }
+
+/* used for quoting messages */
+.quote 
+{
+	margin-left: 16px;
+	padding-left: 16px;
+}
+
+.quoteinner 
+{
+	padding: 4px;
+	background-color: #B5a273;
+	border: solid 1px #000000;
+}
+
+/* font sizes */
+.smallfont	{ font-size: 7.5pt; }
+.largefont	{ font-size: 9pt; }
+
+/* Image Links */
+a.imagelink 
+{
+	font-size: 8pt;
+	font-weight: bold;
+	color: #000080;
+}
+a:hover.imagelink
+{
+	text-decoration: underline;
+	color: #0000FF;
+	/*background-color: #D0D0D0;*/
+}
+
+/* Used for editor textarea */
+.posteditor 
+{
+	width: 100%;
+	height: 200px;
+	font-family: Verdana;
+	font-size: 8pt;
+}
+
+/* Table just above and below tables */
+table.command 
+{
+	/*border: solid 1px blue;*/
+	padding: 3px;
+}
+
+/* p-tag at the top of pages with navigation links */
+.navlinks { font-weight: bold; color: #000000; }
+.navlinks a { color: #000080; text-decoration: none }
+.navlinks a:hover { color: #808080; }
+
+/* for printing */
+.print 
+{
+	border: solid 1px #C0C0C0;
+}
+.printheader 
+{
+	background-color: #DDDDDD;
+	color: #000000;
+	padding: 4px;
+}
+.printbody 
+{
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 4px;
+}
