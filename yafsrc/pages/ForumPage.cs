@@ -106,12 +106,16 @@ namespace yaf.pages
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sCulture);
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(sCulture);
 			}
+#if DEBUG
 			catch(Exception ex)
 			{
-#if DEBUG
 				throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
-#endif
 			}
+#else
+			catch(Exception)
+			{
+			}
+#endif
 
 			//Response.Expires = -1000;
 			HttpContext.Current.Response.AddHeader("Cache-control", "private, no-cache, must-revalidate");

@@ -415,6 +415,19 @@ namespace yaf.classes
 							hour = 0;
 							min = 0;
 						}
+					} 
+					else if(timezone[0]=='+' || timezone[0]=='-') 
+					{
+						try
+						{
+							hour = int.Parse(timezone.Substring(0,3));
+							min = int.Parse(timezone.Substring(3,2));
+						}
+						catch(Exception) 
+						{
+							hour = 0;
+							min = 0;
+						}
 					}
 					else 
 					{

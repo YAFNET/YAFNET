@@ -1589,6 +1589,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "rte\images\code.gif"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "rte\images\forecolor.gif"
                     BuildAction = "Content"
                 />
@@ -1626,6 +1630,10 @@
                 />
                 <File
                     RelPath = "rte\images\outdent.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "rte\images\quote.gif"
                     BuildAction = "Content"
                 />
                 <File
@@ -2193,30 +2201,6 @@
                     BuildAction = "None"
                 />
                 <File
-                    RelPath = "themes\chrome\CVS\Entries"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\chrome\CVS\Entries.Extra"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\chrome\CVS\Entries.Extra.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\chrome\CVS\Entries.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\chrome\CVS\Repository"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\chrome\CVS\Root"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "themes\djrm1\b_attachments.gif"
                     BuildAction = "Content"
                 />
@@ -2625,30 +2609,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Entries"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Entries.Extra"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Entries.Extra.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Entries.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Repository"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\CVS\Root"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "themes\purple\ButtonPack2\b_delete_post.png"
                     BuildAction = "Content"
                 />
@@ -2689,30 +2649,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Entries"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Entries.Extra"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Entries.Extra.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Entries.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Repository"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\CVS\Root"
-                    BuildAction = "None"
-                />
-                <File
                     RelPath = "themes\purple\ButtonPack3\b_delete_post.png"
                     BuildAction = "Content"
                 />
@@ -2751,54 +2687,6 @@
                 <File
                     RelPath = "themes\purple\ButtonPack3\topic_moderate.png"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Entries"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Entries.Extra"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Entries.Extra.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Entries.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Repository"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\CVS\Root"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Entries"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Entries.Extra"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Entries.Extra.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Entries.Old"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Repository"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\CVS\Root"
-                    BuildAction = "None"
                 />
                 <File
                     RelPath = "themes\standard\b_attachments.png"

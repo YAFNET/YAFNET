@@ -293,12 +293,16 @@ namespace yaf
 				{
 					strReturn = Regex.Replace(strReturn,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
 				}
+#if DEBUG
 				catch (Exception e)
 				{
-#if DEBUG
 					throw new Exception("Regular Expression Failed: " + e.Message);
-#endif						
 				}
+#else
+				catch (Exception)
+				{
+				}
+#endif						
 			}
 			
 			return strReturn;
