@@ -343,7 +343,8 @@ namespace yaf.pages
 		}
 
 		private void NewTopic_Click(object sender, System.EventArgs e) {
-			if((bool)forum["Locked"]) {
+			if(((int)forum["Flags"] & (int)ForumFlags.Locked)==(int)ForumFlags.Locked) 
+			{
 				AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
