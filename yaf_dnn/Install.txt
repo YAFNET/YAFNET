@@ -1,15 +1,10 @@
 Instructions for installing Yet Another Forum.net as a module for DotNetNuke 2.0
 
-1. Download Yet Another Forum from http://sourceforge.net/projects/yafdotnet/. You 
-   only need one of the files (ex. yafbin-x.zip where x is the version number).
-2. Unzip yafbin-x.zip to "DotNetNuke/DesktopModules/YetAnotherForum.net".
-3. Delete (or rename) "DotNetNuke/DesktopModules/YetAnotherForum.net/Web.config".
-4. Copy "DotNetNuke/DesktopModules/YetAnotherForum.net/bin" to "DotNetNuke/bin".
-5. From this folder (yaf_dnn), copy "bin" to "DotNetNuke/bin" and "DotNetNukeModule.ascx"
-   to "DotNetNuke/DesktopModules/YetAnotherForum.net".
-6. Modify "Web.config.dotnetnuke" to point to the yafnet database, and "merge" it
+1. Unzip yafdnn-0.9.8.zip to your DotNetNuke directory.
+2. Modify "Web.config.dotnetnuke" to point to the yafnet database, and "merge" it
    with "DotNetNuke/Web.config".
-7. Go to your DotNetNuke site and add Yet Another Forum.net as a new module definition
-   and insert the module like you would any other module.
+3. Go to your DotNetNuke site and add Yet Another Forum.net as a new module definition
+   and insert the module like you would any other module. Please note that there are
+   two module controls to add. One for viewing and one for editing.
 
 http://www.yetanotherforum.net/

@@ -77,14 +77,11 @@
     </exceptionManagement>
 	<yafnet>
 		<dataprovider>yaf.MsSql,yaf</dataprovider>
-		<connstr>user id=User;password=password;data source=dbserver;initial catalog=Database;timeout=90</connstr>
-		<root>/DotNetNuke/DesktopModules/YAF/</root>
+		<connstr>user id=yaf;password=yafpass;data source=(local);initial catalog=yafnet;timeout=90</connstr>
+		<root>/DotNetNuke/DesktopModules/YetAnotherForumDotNet/</root>
 		<language>english.xml</language>
 		<theme>standard.xml</theme>
-		<uploaddir>/DotNetNuke/DesktopModules/YAF/upload/</uploaddir>
-		<uploadphysicalpath>C:\inetpub\DotNetNuke\DesktopModules\YAF\upload\</uploadphysicalpath>
-		<moduledir>/YAF/</moduledir>
+		<uploaddir>/DotNetNuke/DesktopModules/YetAnotherForumDotNet/upload/</uploaddir>
 		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
-		<boardid>1</boardid>
 	</yafnet>
 </configuration>

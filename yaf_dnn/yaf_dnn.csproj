@@ -145,6 +145,14 @@
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
+                <File
+                    RelPath = "Install.txt"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "Web.config.dotnetnuke"
+                    BuildAction = "None"
+                />
             </Include>
         </Files>
     </CSHARP>
