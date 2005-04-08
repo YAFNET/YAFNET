@@ -46,7 +46,7 @@ function doSearch() {
 					<td class="postheader" width="99%">
 						<b><%= GetText("topic") %></b> <a href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>'><%# DataBinder.Eval(Container.DataItem, "Topic") %></a><br/>
 						<b><%= GetText("posted") %></b> <%# DataBinder.Eval(Container.DataItem, "Posted") %>
-						<%= GetText("SEARCH","BY") %> <a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a>
+						<%= GetText("SEARCH","BY") %> <a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %></a>
 					</td>
 				</tr>
 				<tr class="post">

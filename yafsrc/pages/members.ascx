@@ -23,7 +23,7 @@
 	<asp:repeater id=MemberList runat=server>
 		<ItemTemplate>
 			<tr>
-				<td class=post><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem,"UserID")) %>'><%# DataBinder.Eval(Container.DataItem,"Name") %></a></td>
+				<td class=post><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem,"UserID")) %>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"Name"))) %></a></td>
 				<td class=post><%# DataBinder.Eval(Container.DataItem,"RankName") %></td>
 				<td class=post><%# FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %></td>
 				<td class=post align=center><%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %></td>
