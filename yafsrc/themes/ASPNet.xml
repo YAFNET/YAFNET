@@ -35,8 +35,8 @@
 		<Resource tag="FORUM">~/forum_status.gif</Resource>
 		<Resource tag="FORUM_NEW">~/forum_status_new.gif</Resource>
 		<Resource tag="FORUM_LOCKED">~/forum_private.gif</Resource>
-		<Resource tag="FORUM_STATS">~/folder_stats.png</Resource>
-		<Resource tag="FORUM_USERS">~/folder_who.png</Resource>
+		<Resource tag="FORUM_STATS">~/icon_stats.gif</Resource>
+		<Resource tag="FORUM_USERS">~/users_icon.gif</Resource>
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
 		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>		
