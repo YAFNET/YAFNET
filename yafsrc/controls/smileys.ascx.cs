@@ -86,7 +86,9 @@ namespace yaf.controls
 					if(_onclick.Length>0) 
 					{
 						string strCode = Convert.ToString(row["Code"]).ToLower();
+						strCode = strCode.Replace("&","&amp;");
 						strCode = strCode.Replace("\"","&quot;");
+						strCode = strCode.Replace("'","\\'");
 						evt = String.Format("javascript:{0}('{1} ','{3}images/emoticons/{2}')",_onclick,strCode,row["Icon"],Data.ForumRoot);
 					} 
 					else 
