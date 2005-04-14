@@ -61,8 +61,8 @@ namespace yaf
 		static private Regex		r_underline = new Regex(@"\[U[^\]]*\](?<inner>(.*?))\[/U\]",m_options);
 		static private Regex		r_email2 = new Regex(@"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]",m_options);
 		static private Regex		r_email1 = new Regex(@"\[email[^\]]*\](?<inner>(.*?))\[/email\]",m_options);
-		static private Regex		r_url2 = new Regex(@"\[url=(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]",m_options);
-		static private Regex		r_url1 = new Regex(@"\[url[^\]]*\](?<inner>(.*?))\[/url\]",m_options);
+		static private Regex		r_url1 = new Regex(@"\[url[^\]]*\](?<http>(http://)|(https://)|(ftp://))?(?<inner>(.*?))\[/url\]",m_options);
+		static private Regex		r_url2 = new Regex(@"\[url=(?<http>(http://)|(https://)|(ftp://))?(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]",m_options);
 		static private Regex		r_font = new Regex(@"\[font=(?<font>[^\]]*)\](?<inner>(.*?))\[/font\]",m_options);
 		static private Regex		r_color = new Regex(@"\[color=(?<color>[^\]]*)\](?<inner>(.*?))\[/color\]",m_options);
 		static private Regex		r_bullet = new Regex(@"\[\*\]",m_options);
@@ -152,13 +152,13 @@ namespace yaf
 				// urls
 				if(basePage.BoardSettings.BlankLinks) 
 				{
-					NestedReplace(ref bbcode,r_url2,"<a target=\"_blank\" href=\"${url}\">${inner}</a>",new string[]{"url"});
-					NestedReplace(ref bbcode,r_url1,"<a target=\"_blank\" href=\"${inner}\">${inner}</a>");
+					NestedReplace(ref bbcode,r_url2,"<a target=\"_blank\" href=\"${http}${url}\">${inner}</a>",new string[]{"url","http"},new string[]{"","http://"});
+					NestedReplace(ref bbcode,r_url1,"<a target=\"_blank\" href=\"${http}${inner}\">${http}${inner}</a>",new string[]{"http"},new string[]{"http://"});
 				} 
 				else 
 				{
-					NestedReplace(ref bbcode,r_url2,"<a href=\"${url}\">${inner}</a>",new string[]{"url"});
-					NestedReplace(ref bbcode,r_url1,"<a href=\"${inner}\">${inner}</a>");
+					NestedReplace(ref bbcode,r_url2,"<a href=\"${http}${url}\">${inner}</a>",new string[]{"url","http"},new string[]{"","http://"});
+					NestedReplace(ref bbcode,r_url1,"<a href=\"${http}${inner}\">${http}${inner}</a>",new string[]{"http"},new string[]{"http://"});
 				}
 				// font
 				NestedReplace(ref bbcode,r_font,"<span style=\"font-family:${font}\">${inner}</span>",new string[]{"font"});
@@ -213,6 +213,33 @@ namespace yaf
 			}
 
 			return bbcode;
+		}
+
+		static protected void NestedReplace(ref string refText,Regex regexMatch,string strReplace,string[] Variables,string[] VarDefaults)
+		{
+			Match m = regexMatch.Match(refText);
+			while (m.Success)
+			{
+				string tStr = strReplace;
+				int i = 0;
+
+				foreach (string tVar in Variables)
+				{
+					string tValue = m.Groups[tVar].Value;
+					if (tValue.Length == 0)
+					{
+						// use default instead
+						tValue = VarDefaults[i];
+					}
+					tStr = tStr.Replace("${"+tVar+"}",tValue);
+					i++;
+				}
+
+				tStr = tStr.Replace("${inner}",m.Groups["inner"].Value);
+
+				refText = refText.Substring(0,m.Groups[0].Index) + tStr + refText.Substring(m.Groups[0].Index + m.Groups[0].Length);
+				m = regexMatch.Match(refText);
+			}
 		}
 
 		static protected void NestedReplace(ref string refText,Regex regexMatch,string strReplace,string[] Variables)

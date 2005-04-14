@@ -250,19 +250,25 @@ namespace yaf
 			// do html damage control
 			Message = RepairHtml(basePage,Message,mFlags.IsHTML);
 
+			// convert spaces if bbcode
+			if (mFlags.IsBBCode)
+			{
+				Message = Message.Replace(" ","&nbsp;");
+			}
+
 			// do BBCode and Smilies...
 			Message = BBCode.MakeHtml(basePage,Message,mFlags.IsBBCode);
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			Message = Regex.Replace(Message, @"(^|[\n ])(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "[email]${email}[/email]", options);
+			Message = Regex.Replace(Message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options);
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace(Message, "(^|[\n ])(?<!href=\")(?<!src=\")(?<url>http://(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "[url]${url}[/url]", options);
+			Message = Regex.Replace(Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a href=\"${url}\">${url}</a>", options);
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace(Message, @"(^|[\n ])(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "[url=http://${url}]${url}[/url]", options);
+			Message = Regex.Replace(Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a href=\"http://${url}\">${url}</a>", options);
 
 			// jaben : moved word replace to reusable function in class utils
 			Message = Utils.BadWordReplace(Message);
