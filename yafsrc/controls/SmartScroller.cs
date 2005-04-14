@@ -54,6 +54,19 @@ namespace yaf.controls
 <!-- yaf.controls.SmartScroller ASP.NET Generated Code -->
 <script language = ""javascript"">
 <!--
+
+  function yaf_GetForm()
+  {
+    var theform;
+    if (window.navigator.appName.toLowerCase().indexOf(""microsoft"") > -1)
+    {
+	  theform = document._ctl0;
+	}
+	else {
+	  theform = document.forms[""" + m_theForm.ClientID + @"""];
+	}
+  }
+
   function yaf_SmartScroller_GetCoords()
   {
     var scrollX, scrollY;
@@ -74,15 +87,16 @@ namespace yaf.controls
       scrollX = window.pageXOffset;
       scrollY = window.pageYOffset;
     }
-    document.forms[""" + m_theForm.ClientID + @"""]." + hidScrollLeft.ClientID + @".value = scrollX;
-    document.forms[""" + m_theForm.ClientID + @"""]." + hidScrollTop.ClientID + @".value = scrollY;
+	var cForm = yaf_GetForm();
+    cForm." + hidScrollLeft.ClientID + @".value = scrollX;
+    cForm." + hidScrollTop.ClientID + @".value = scrollY;
   }
-
 
   function yaf_SmartScroller_Scroll()
   {
-    var x = document.forms[""" + m_theForm.ClientID + @"""]." + hidScrollLeft.ClientID + @".value;
-    var y = document.forms[""" + m_theForm.ClientID + @"""]." + hidScrollTop.ClientID + @".value;
+    var cForm = yaf_GetForm();
+    var x = cForm." + hidScrollLeft.ClientID + @".value;
+    var y = cForm." + hidScrollTop.ClientID + @".value;
     window.scrollTo(x, y);
   }
 
