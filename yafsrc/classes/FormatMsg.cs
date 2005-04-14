@@ -187,6 +187,9 @@ namespace yaf
 			{
 				string code = row["Code"].ToString();
 
+				code = code.Replace("&","&amp;");
+				code = code.Replace("\"","&quot;");			
+
 				strTemp = strTemp.Replace(code.ToLower(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
 				strTemp = strTemp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
 			}
@@ -250,11 +253,11 @@ namespace yaf
 			// do html damage control
 			Message = RepairHtml(basePage,Message,mFlags.IsHTML);
 
-			// convert spaces if bbcode
-			if (mFlags.IsBBCode)
+			// convert spaces if bbcode (causes too many problems)
+			/*if (mFlags.IsBBCode)
 			{
 				Message = Message.Replace(" ","&nbsp;");
-			}
+			}*/
 
 			// do BBCode and Smilies...
 			Message = BBCode.MakeHtml(basePage,Message,mFlags.IsBBCode);
