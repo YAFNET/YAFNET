@@ -97,6 +97,11 @@ namespace yaf
 			get { return m_regBoard.GetValueString("Language","english.xml"); }
 			set	{ m_regBoard.SetValueString("Language",value); }
 		}
+		public int ShowTopicsDefault
+		{
+			get { return m_regBoard.GetValueInt("ShowTopicsDefault",5); }
+			set	{ m_regBoard.SetValueInt("ShowTopicsDefault",value); }
+		}
 
 		// didn't know where else to put this :)
 		public string SQLVersion

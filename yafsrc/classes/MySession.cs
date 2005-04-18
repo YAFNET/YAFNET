@@ -73,10 +73,15 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["showlist"]!=null)
+				if(HttpContext.Current.Session["showlist"] != null)
+				{
 					return (int)HttpContext.Current.Session["showlist"];
+				}
 				else
-					return 5;
+				{
+					// nothing in session
+					return -1;
+				}
 			}
 			set
 			{

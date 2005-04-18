@@ -247,6 +247,33 @@ namespace yaf
 				return dt;
 			}
 		}
+
+		static public DataTable TopicTimes()
+		{
+			return TopicTimes(null);
+		}
+
+		static public DataTable TopicTimes(yaf.pages.ForumPage basePage)
+		{
+			using(DataTable dt = new DataTable("TopicTimes")) 
+			{
+				dt.Columns.Add("TopicText",typeof(string));
+				dt.Columns.Add("TopicValue",typeof(int));
+
+				string[] tTextArray = { "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month", "last_two_months", "last_six_months", "last_year" };
+				string[] tTextArrayProp = { "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month", "Last Two Months", "Last Six Months", "Last Year" };
+
+				for (int i=0;i<8;i++)
+				{
+					DataRow dr = dt.NewRow();					
+					dr["TopicText"] = (basePage == null) ? tTextArrayProp[i] : basePage.GetText(tTextArray[i]);
+					dr["TopicValue"] = i;
+					dt.Rows.Add(dr);
+				}
+				return dt;
+			}
+		}
+
 		static public bool IsLocal 
 		{
 			get 
