@@ -93,9 +93,9 @@ namespace yaf.pages
 				LastVisit.Text				= FormatDateTime((DateTime)user["LastVisit"]);
 				Rank.Text							=	user["RankName"].ToString();
 				Location.Text					=	Server.HtmlEncode(Utils.BadWordReplace(user["Location"].ToString()));				
-				RealName.InnerText		= Server.HtmlEncode(Utils.BadWordReplace(user["RealName"].ToString()));
-				Interests.InnerText		= Server.HtmlEncode(Utils.BadWordReplace(user["Interests"].ToString()));
-				Occupation.InnerText	= Server.HtmlEncode(Utils.BadWordReplace(user["Occupation"].ToString()));
+				RealName.InnerHtml		= Server.HtmlEncode(Utils.BadWordReplace(user["RealName"].ToString()));
+				Interests.InnerHtml		= Server.HtmlEncode(Utils.BadWordReplace(user["Interests"].ToString()));
+				Occupation.InnerHtml	= Server.HtmlEncode(Utils.BadWordReplace(user["Occupation"].ToString()));
 				Gender.InnerText			= GetText("GENDER" + user["Gender"].ToString());
 				
 				double dAllPosts = 0.0;

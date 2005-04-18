@@ -28,7 +28,7 @@
 					<td class="header2" colspan="2"><%= GetText("about") %></td>
 				</tr>
 				<tr>
-					<td width="50%" class="postheader"><%= GetText("username") %></td>
+					<td width="50%" class="postheader"><b><%= GetText("username") %></b></td>
 					<td width="50%" class="post"><asp:Label id="Name" runat="server" /></td>
 				</tr>
 				<tr runat="server" id="userGroupsRow">

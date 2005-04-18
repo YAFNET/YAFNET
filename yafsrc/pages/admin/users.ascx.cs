@@ -39,6 +39,8 @@ namespace yaf.pages.admin
 		protected LinkButton NewUser;
 		protected DropDownList group, rank;
 		protected Button search;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected yaf.controls.SmartScroller SmartScroller1;
 		protected TextBox name;
 
 		private void Page_Load(object sender, System.EventArgs e)
@@ -141,6 +143,11 @@ namespace yaf.pages.admin
 		private void search_Click(object sender, EventArgs e)
 		{
 			BindData();
+		}
+
+		private void InitializeComponent()
+		{
+		
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

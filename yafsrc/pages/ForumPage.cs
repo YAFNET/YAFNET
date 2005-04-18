@@ -1067,10 +1067,21 @@ namespace yaf.pages
 		public string FormatDateTime(object o) 
 		{
 			DateTime dt = (DateTime)o + TimeOffset;
-			if(BoardSettings.DateFormatFromLanguage) 
-				return dt.ToString(GetText("FORMAT_DATE_TIME_LONG"));
-			else 
-				return String.Format("{0:F}",dt);
+			string strDateFormat;
+
+			strDateFormat = String.Format("{0:F}",dt);
+
+			try
+			{
+				if (BoardSettings.DateFormatFromLanguage) 
+					strDateFormat = dt.ToString(GetText("FORMAT_DATE_TIME_LONG"));
+			}
+			catch (Exception)
+			{
+
+			}
+
+			return strDateFormat;
 		}
 
 		/// <summary>

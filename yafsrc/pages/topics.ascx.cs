@@ -115,6 +115,8 @@ namespace yaf.pages
 		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchForumID;
 		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
 
+		protected int ShowTopicListSelected;
+
 		/// <summary>
 		/// Overloads the topics page.
 		/// </summary>
@@ -153,27 +155,13 @@ namespace yaf.pages
 				NewTopic1.ToolTip = "Post new topic";
 				NewTopic2.Text = NewTopic1.Text;
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
-
-				ShowList.Items.Add(new ListItem(GetText("all"),"0"));
-				ShowList.Items.Add(new ListItem(GetText("last_day"),"1"));
-				ShowList.Items.Add(new ListItem(GetText("last_two_days"),"2"));
-				ShowList.Items.Add(new ListItem(GetText("last_week"),"3"));
-				ShowList.Items.Add(new ListItem(GetText("last_two_weeks"),"4"));
-				ShowList.Items.Add(new ListItem(GetText("last_month"),"5"));
-				ShowList.Items.Add(new ListItem(GetText("last_two_months"),"6"));
-				ShowList.Items.Add(new ListItem(GetText("last_six_months"),"7"));
-				ShowList.Items.Add(new ListItem(GetText("last_year"),"8"));
+				
+				ShowList.DataSource = Data.TopicTimes(this);
+				ShowList.DataTextField = "TopicText";
+				ShowList.DataValueField = "TopicValue";
+				ShowTopicListSelected = (Mession.ShowList == -1) ? BoardSettings.ShowTopicsDefault : Mession.ShowList;
 
 				HandleWatchForum();
-
-				try 
-				{
-					ShowList.SelectedIndex = Mession.ShowList;
-				}
-				catch(Exception) 
-				{
-					ShowList.SelectedIndex = 8;
-				}
 			}
 
 			if(Request.QueryString["f"] == null)
@@ -273,7 +261,7 @@ namespace yaf.pages
 
 		private void ShowList_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			Mession.ShowList = ShowList.SelectedIndex;
+			ShowTopicListSelected = ShowList.SelectedIndex;
 			BindData();
 		}
 
@@ -295,14 +283,14 @@ namespace yaf.pages
 			int nCurrentPageIndex = Pager.CurrentPageIndex;
 
 			DataTable dtTopics;
-			if(ShowList.SelectedIndex==0) 
+			if(ShowTopicListSelected == 0) 
 			{
 				dtTopics = DB.topic_list(PageForumID,0,null,nCurrentPageIndex*nPageSize,nPageSize);
 			} 
 			else 
 			{
 				DateTime date = DateTime.Now;
-				switch(ShowList.SelectedIndex) 
+				switch(ShowTopicListSelected) 
 				{
 					case 1:
 						date -= TimeSpan.FromDays(1);
@@ -338,6 +326,10 @@ namespace yaf.pages
 			TopicList.DataSource = dtTopics;
 
 			DataBind();
+
+			// setup the show topic list selection after data binding
+			ShowList.SelectedIndex = ShowTopicListSelected;
+			Mession.ShowList = ShowTopicListSelected;
 
 			Pager.Count = nRowCount;
 		}

@@ -32,12 +32,15 @@ namespace yaf.pages.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class boardsettings : AdminPage {
+	public class boardsettings : AdminPage
+	{
 		protected Button Save;
 		protected TextBox Name;
 		protected CheckBox AllowThreaded;
 		protected controls.PageLinks PageLinks;
-		protected DropDownList Theme, Language;
+		protected DropDownList Theme, Language, ShowTopic;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected yaf.controls.SmartScroller SmartScroller1;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
@@ -47,6 +50,7 @@ namespace yaf.pages.admin {
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
 				PageLinks.AddLink("Board Settings",Forum.GetLink(Pages.admin_boardsettings));
 
+				// create list boxes by populating datasources from Data class
 				Theme.DataSource = Data.Themes();
 				Theme.DataTextField = "Theme";
 				Theme.DataValueField = "FileName";
@@ -55,14 +59,20 @@ namespace yaf.pages.admin {
 				Language.DataTextField = "Language";
 				Language.DataValueField = "FileName";
 
+				ShowTopic.DataSource = Data.TopicTimes();
+				ShowTopic.DataTextField = "TopicText";
+				ShowTopic.DataValueField = "TopicValue";
+
 				BindData();
 				
 				Theme.Items.FindByValue(BoardSettings.Theme).Selected = true;
 				Language.Items.FindByValue(BoardSettings.Language).Selected = true;
+				ShowTopic.Items.FindByValue(BoardSettings.ShowTopicsDefault.ToString()).Selected = true;
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
 			DataRow row;
 			using(DataTable dt = DB.board_list(PageBoardID))
 				row = dt.Rows[0];
@@ -94,11 +104,13 @@ namespace yaf.pages.admin {
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e) {
+		private void Save_Click(object sender, System.EventArgs e)
+		{
 			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 
 			BoardSettings.Theme = Theme.SelectedValue;
 			BoardSettings.Language = Language.SelectedValue;
+			BoardSettings.ShowTopicsDefault = Convert.ToInt32(ShowTopic.SelectedValue);
 
 			/// save the settings to the database
 			BoardSettings.SaveRegistry();
