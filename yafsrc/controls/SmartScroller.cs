@@ -64,7 +64,8 @@ namespace yaf.controls
 	}
 	else {
 	  theform = document.forms[""" + m_theForm.ClientID + @"""];
-	}
+    }
+    return theform;
   }
 
   function yaf_SmartScroller_GetCoords()
