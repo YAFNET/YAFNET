@@ -60,7 +60,7 @@ namespace yaf.controls
     var theform;
     if (window.navigator.appName.toLowerCase().indexOf(""microsoft"") > -1)
     {
-	  theform = document._ctl0;
+	  theform = document.""" + m_theForm.ClientID + @""";
 	}
 	else {
 	  theform = document.forms[""" + m_theForm.ClientID + @"""];
