@@ -62,6 +62,15 @@ namespace yaf
 			return (ipchk & banchk) == banmask;
 		}
 
+		static public string GetSafeRawUrl()
+		{
+			string tProcessedRaw = System.Web.HttpContext.Current.Request.RawUrl;
+			tProcessedRaw = tProcessedRaw.Replace("\"",string.Empty);
+			tProcessedRaw = tProcessedRaw.Replace("<","%3C");
+			tProcessedRaw = tProcessedRaw.Replace(">","%3E");
+			return tProcessedRaw.Replace("'",string.Empty);
+		}
+
 		/// <summary>
 		/// Reads a template from the templates directory
 		/// </summary>
