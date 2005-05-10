@@ -1,4 +1,4 @@
-/* Version 0.9.9 */
+/* Version 1.0.0 */
 
 /*
 ** Create missing tables
@@ -671,7 +671,7 @@ create view dbo.yaf_vaccess as
 		ForumID				= x.ForumID,
 		IsAdmin				= max(convert(int,b.Flags & 1)),
 		IsGuest				= max(convert(int,b.Flags & 2)),
-		IsForumModerator	= max(convert(int,b.Flags & 4)),
+		IsForumModerator	= max(convert(int,b.Flags & 8)),
 		IsModerator			= (select count(1) from dbo.yaf_UserGroup v,dbo.yaf_Group w,dbo.yaf_ForumAccess x,dbo.yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
@@ -996,8 +996,12 @@ if not exists(select * from sysobjects where name='FK_PMessage_User1' and parent
 	alter table dbo.yaf_PMessage add constraint FK_PMessage_User1 foreign key (FromUserID) references dbo.yaf_User (UserID)
 GO
 
+if exists(select * from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table dbo.yaf_Topic drop constraint FK_Topic_Forum
+GO
+
 if not exists(select * from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table dbo.yaf_Topic add constraint FK_Topic_Forum foreign key (ForumID) references dbo.yaf_Forum (ForumID)
+	alter table dbo.yaf_Topic add constraint FK_Topic_Forum foreign key (ForumID) references dbo.yaf_Forum (ForumID) ON DELETE CASCADE
 GO
 
 if not exists(select * from sysobjects where name='FK_Topic_Message' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
@@ -1319,7 +1323,7 @@ begin
 	update yaf_Forum set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
 	update yaf_Topic set LastMessageID=null where ForumID=@ForumID
 	delete from yaf_WatchTopic from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_WatchTopic.TopicID = yaf_Topic.TopicID
-
+	delete from yaf_Active from yaf_Topic where yaf_Topic.ForumID = @ForumID and yaf_Active.TopicID = yaf_Topic.TopicID
 	delete from yaf_NntpTopic from yaf_NntpForum where yaf_NntpForum.ForumID = @ForumID and yaf_NntpTopic.NntpForumID = yaf_NntpForum.NntpForumID
 	delete from yaf_NntpForum where ForumID=@ForumID	
 	delete from yaf_WatchForum where ForumID = @ForumID
@@ -1932,9 +1936,6 @@ begin
 	if @IsStart<>0 set @Flags = @Flags | 4
 	if @IsModerator<>0 set @Flags = @Flags | 8
 
-	if @IsAdmin = 1 update yaf_Group set Flags = Flags | 1 where BoardID=@BoardID
-	if @IsGuest = 1 update yaf_Group set Flags = Flags | 2 where BoardID=@BoardID
-	if @IsStart = 1 update yaf_Group set Flags = Flags | 4 where BoardID=@BoardID
 	if @GroupID>0 begin
 		update yaf_Group set
 			Name = @Name,
@@ -2521,7 +2522,7 @@ begin
 
 	-- initalize required 'registry' settings
 	EXEC yaf_registry_save 'Version','1'
-	EXEC yaf_registry_save 'VersionName','0.9.9'
+	EXEC yaf_registry_save 'VersionName','1.0.0'
 	SET @tmpValue = CAST(@TimeZone AS nvarchar(100))
 	EXEC yaf_registry_save 'TimeZone', @tmpValue
 	EXEC yaf_registry_save 'SmtpServer', @SmtpServer
