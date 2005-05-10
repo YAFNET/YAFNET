@@ -247,7 +247,7 @@ namespace yaf.pages
 				if(SuspendedTo < DateTime.Now) 
 				{
 					DB.user_suspend(PageUserID,null);
-					HttpContext.Current.Response.Redirect(HttpContext.Current.Request.RawUrl);
+					HttpContext.Current.Response.Redirect(Utils.GetSafeRawUrl());
 				}
 				Forum.Redirect(Pages.info,"i=2");
 			}
@@ -459,7 +459,7 @@ namespace yaf.pages
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
 				if(User!=null && User.CanLogin) 
 				{
-					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login,"ReturnUrl={0}",Server.UrlEncode(Request.RawUrl)),GetText("TOOLBAR","LOGIN")));
+					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login,"ReturnUrl={0}",Server.UrlEncode(Utils.GetSafeRawUrl())),GetText("TOOLBAR","LOGIN")));
 					if(!BoardSettings.DisableRegistrations)
 						header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.rules),GetText("TOOLBAR","REGISTER")));
 				}
@@ -514,12 +514,12 @@ namespace yaf.pages
 				if(Config.IsDotNetNuke) 
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
 				} 
 				else if(Config.IsRainbow)
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
 				}
 				else 
 				{
@@ -527,7 +527,7 @@ namespace yaf.pages
 						String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
 						String.Format("{0} - {1}",Data.AppVersionName,FormatDateShort(Data.AppVersionDate))
 						);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2004 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
 					footer.AppendFormat("<br/>");
 					hiTimer.Stop();
 					footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);

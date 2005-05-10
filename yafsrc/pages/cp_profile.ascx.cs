@@ -54,7 +54,7 @@ namespace yaf.pages
 			if(!User.IsAuthenticated)
 			{
 				if(User.CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);
 			}
@@ -64,7 +64,7 @@ namespace yaf.pages
 				BindData();
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,Request.RawUrl);
+				PageLinks.AddLink(PageUserName,Utils.GetSafeRawUrl());
 			}
 		}
 
@@ -80,9 +80,9 @@ namespace yaf.pages
 				row = dt.Rows[0];
 			}
 
-			TitleUserName.Text = (string)row["Name"];
+			TitleUserName.Text = Server.HtmlEncode((string)row["Name"]);
 			AccountEmail.Text = row["Email"].ToString();
-			Name.Text = (string)row["Name"];
+			Name.Text = Server.HtmlEncode((string)row["Name"]);
 			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
 			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
 

@@ -63,7 +63,7 @@ namespace yaf.pages
 			if(!IsPostBack)
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
 
 				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));
 				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));

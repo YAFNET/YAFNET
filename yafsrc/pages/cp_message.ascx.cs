@@ -46,7 +46,7 @@ namespace yaf.pages
 			if(!User.IsAuthenticated)
 			{
 				if(User.CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);
 			}
@@ -69,7 +69,7 @@ namespace yaf.pages
 						PageLinks.AddLink(GetText("INBOX"),Forum.GetLink(Pages.cp_inbox));
 					else 
 						PageLinks.AddLink(GetText("SENTITEMS"),Forum.GetLink(Pages.cp_inbox,"sent=1"));
-					PageLinks.AddLink(row["Subject"].ToString(),Request.RawUrl);
+					PageLinks.AddLink(row["Subject"].ToString(),Utils.GetSafeRawUrl());
 				}
 				Inbox.DataSource = dt;
 			}

@@ -84,7 +84,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
-				PageLinks.AddLink(Server.HtmlEncode(user["Name"].ToString()),Request.RawUrl);
+				PageLinks.AddLink(Server.HtmlEncode(user["Name"].ToString()),Utils.GetSafeRawUrl());
 	
 				// populate user information controls...
 				UserName.Text					=	Server.HtmlEncode(user["Name"].ToString());

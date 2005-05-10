@@ -81,7 +81,8 @@ namespace yaf
 		im_email,
 		rsstopic,
 		help_index,
-		help_recover
+		help_recover,
+		lastposts
 	}
 
 	/// <summary>

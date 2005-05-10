@@ -56,7 +56,7 @@ namespace yaf.pages
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
 
 				Back.Text = GetText("BACK");
 				Upload.Text = GetText("UPLOAD");

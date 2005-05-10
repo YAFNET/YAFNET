@@ -49,7 +49,7 @@ namespace yaf.pages
 			if(!User.IsAuthenticated)
 			{
 				if(User.CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);
 			}
@@ -60,7 +60,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
 				UnsubscribeTopics.Text = GetText("unsubscribe");

@@ -130,4 +130,6 @@
 </ItemTemplate>
 </asp:repeater>
 
+<iframe runat="server" Visible="false" id="LastPostsIFrame" name="lastposts" width="100%" height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
+
 <yaf:SmartScroller id="SmartScroller1" runat = "server" />

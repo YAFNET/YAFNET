@@ -45,7 +45,7 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Request.RawUrl);
+				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
 
 				UserList.DataSource = DB.active_list(PageBoardID,true);
 				DataBind();

@@ -73,6 +73,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Repeater LastPosts;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
 		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl LastPostsIFrame;
 		protected controls.PageLinks PageLinks;
 
 		public postmessage() : base("POSTMESSAGE")
@@ -136,10 +137,18 @@ namespace yaf.pages
 					SubjectRow.Visible = false;
 					Title.Text = GetText("reply");
 
-					// History (Last 10 posts)
-					LastPosts.Visible = true;
-					LastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
-					LastPosts.DataBind();
+					if (Config.IsDotNetNuke || Config.IsRainbow)
+					{
+						// can't use the last post iframe
+						LastPosts.Visible = true;
+						LastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
+						LastPosts.DataBind();
+					}
+					else
+					{
+						LastPostsIFrame.Visible = true;
+						LastPostsIFrame.Attributes.Add("src","framehelper.aspx?g=lastposts&t=" + Request.QueryString["t"]);
+					}
 				}
 
 				if(Request.QueryString["q"] != null)

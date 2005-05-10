@@ -113,7 +113,7 @@
 			<%= GetSuspendedTo() %>&nbsp;<asp:button runat="server" id="RemoveSuspension"/>
 		</td>	
 	</tr>
-	<tr>
+	<tr runat="server">
 		<td class=postheader>Suspend User:</td>
 		<td class=post>
 			<asp:textbox runat="server" id="SuspendCount" style="width:60px"/>&nbsp;<asp:dropdownlist runat="server" id="SuspendUnit"/>&nbsp;<asp:button runat="server" id="Suspend"/>
