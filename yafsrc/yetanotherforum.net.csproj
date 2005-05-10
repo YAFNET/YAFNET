@@ -136,6 +136,11 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "framehelper.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "image.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
@@ -580,6 +585,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "install\version-1.0.0.sql"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "languages\china.xml"
                     BuildAction = "Content"
                 />
@@ -926,6 +935,22 @@
                 <File
                     RelPath = "pages\info.ascx.resx"
                     DependentUpon = "info.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "pages\lastposts.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\lastposts.ascx.cs"
+                    DependentUpon = "lastposts.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\lastposts.ascx.resx"
+                    DependentUpon = "lastposts.ascx.cs"
                     BuildAction = "EmbeddedResource"
                 />
                 <File
