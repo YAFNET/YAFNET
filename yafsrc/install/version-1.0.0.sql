@@ -3132,8 +3132,11 @@ GO
 create procedure dbo.yaf_topic_delete (@TopicID int,@UpdateLastPost bit=1) 
 as
 begin
-	declare @ForumID int
+	SET NOCOUNT ON
 
+	declare @ForumID int
+	declare @pollID int
+	
 	select @ForumID=ForumID from yaf_Topic where TopicID=@TopicID
 
 	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
@@ -3145,9 +3148,20 @@ begin
 		LastPosted = null
 	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
 	update yaf_Active set TopicID = null where TopicID = @TopicID
-
-	update yaf_Topic set Flags = Flags | 8 where TopicID = @TopicID
-	update yaf_Topic set Flags = Flags | 8 where TopicMovedID = @TopicID
+	
+	--remove polls	
+	select @pollID = pollID from yaf_topic where TopicID = @TopicID
+	if (@pollID is not null)
+	begin
+		delete from yaf_choice where PollID = @PollID
+		update yaf_topic set PollID = null where TopicID = @TopicID
+		delete from yaf_poll where PollID = @PollID	
+	end	
+	
+	--delete messages and topics
+	delete from yaf_message where TopicID = @TopicID
+	delete from yaf_topic where TopicMovedID = @TopicID
+	delete from yaf_topic where TopicID = @TopicID
 	
 	--commit
 	if @UpdateLastPost<>0
