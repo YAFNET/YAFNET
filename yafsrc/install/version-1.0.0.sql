@@ -2608,9 +2608,6 @@ begin
 	declare	@ForumID				int
 	declare @UserFlags				int
 
-	set @UserFlags = 2
-	if @IsHostAdmin<>0 set @UserFlags = @UserFlags | 1
-
 	SET @TimeZone = (SELECT CAST(Value as int) FROM yaf_Registry WHERE LOWER(Name) = LOWER('TimeZone'))
 	SET @ForumEmail = (SELECT Value FROM yaf_Registry WHERE LOWER(Name) = LOWER('ForumEmail'))
 
@@ -2650,16 +2647,20 @@ begin
 	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Guest',2)
 	set @GroupIDGuest = @@IDENTITY
 	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Member',4)
-	set @GroupIDMember = @@IDENTITY
+	set @GroupIDMember = @@IDENTITY	
+	
+	SET @UserFlags = 2
 
 	-- yaf_User
 	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
+	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,0,@UserFlags)
+	set @UserIDGuest = @@IDENTITY	
+	
+	if @IsHostAdmin<>0 SET @UserFlags = 3
+	
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
 	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,0,@UserFlags)
 	set @UserIDAdmin = @@IDENTITY
-
-	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
-	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,0,@UserFlags)
-	set @UserIDGuest = @@IDENTITY
 
 	-- yaf_UserGroup
 	insert into yaf_UserGroup(UserID,GroupID) values(@UserIDAdmin,@GroupIDAdmin)
