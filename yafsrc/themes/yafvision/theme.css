@@ -50,8 +50,8 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	height: 28px;
 }
 
-tr.header2 a 		{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
-tr.header2 a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 
 /* Footer1 - Bottom of tables */
 .footer1 {
@@ -83,6 +83,12 @@ tr.header2 a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 {
 	background-color: #DFE6EF;
 	color:#404040;
+}
+
+.post_alt
+{
+	background-color: #dfe9f7;
+	color:#404040;	
 }
 
 .post_priority
