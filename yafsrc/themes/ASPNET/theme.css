@@ -60,6 +60,11 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	background-color: #CFDDF8;
 }
 
+.post_alt 
+{
+	background-color: #c0d3f8;
+}
+
 /* Footer of posts */
 .postfooter 
 {
