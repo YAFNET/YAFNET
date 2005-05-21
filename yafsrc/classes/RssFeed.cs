@@ -54,7 +54,7 @@ namespace yaf
 			*/
 
 			writer.WriteRaw("\t\t<item>" + en);
-			writer.WriteRaw("\t\t\t<title>" + sItemTitle + "</title>" + en);
+			writer.WriteRaw("\t\t\t<title>" + Encode(sItemTitle) + "</title>" + en);
 			writer.WriteRaw("\t\t\t<link>" + Encode(sItemLink) + "</link>" + en);
 			writer.WriteRaw("\t\t\t<description><![CDATA[" + sItemDescription + "]]></description>" + en);
 			writer.WriteRaw("\t\t\t<pubDate>" + DateTime.Now.ToString("r") + "</pubDate>" + en);
