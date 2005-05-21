@@ -14,7 +14,7 @@ namespace yaf.pages
 	{
 		protected System.Web.UI.WebControls.Repeater repLastPosts;
 
-		public lastposts() : base("LASTPOSTS")
+		public lastposts() : base("POSTMESSAGE")
 		{
 			ShowToolBar = false;
 		}

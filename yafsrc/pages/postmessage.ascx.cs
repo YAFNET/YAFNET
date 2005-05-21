@@ -262,11 +262,15 @@ namespace yaf.pages
 			}
 
 
-			// Must wait 30 seconds before posting again
-			if(Mession.LastPost>DateTime.Now.AddSeconds(-30) && Request.QueryString["m"]==null) 
+			// see if there is a post delay
+			if (!(IsAdmin || IsModerator) && BoardSettings.PostFloodDelay > 0)
 			{
-				AddLoadMessage(String.Format(GetText("wait"),(Mession.LastPost - DateTime.Now.AddSeconds(-30)).Seconds));
-				return;
+				// see if they've past that delay point
+				if (Mession.LastPost > DateTime.Now.AddSeconds(-BoardSettings.PostFloodDelay) && Request.QueryString["m"] == null) 
+				{
+					AddLoadMessage(String.Format(GetText("wait"),(Mession.LastPost - DateTime.Now.AddSeconds(-BoardSettings.PostFloodDelay)).Seconds));
+					return;
+				}
 			}
 
 			long TopicID;

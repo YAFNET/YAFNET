@@ -38,7 +38,7 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.Label SQLVersion;
 		protected System.Web.UI.WebControls.DropDownList TimeZones, ForumEditorList;
 		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
-		protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
+		protected System.Web.UI.WebControls.TextBox ForumEmailEdit, PostFloodDelay;
 		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
 		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize, AcceptedHTML;
 		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
@@ -118,6 +118,7 @@ namespace yaf.pages.admin {
 			DisableRegistrations.Checked = BoardSettings.DisableRegistrations;
 			CreateNntpUsers.Checked = BoardSettings.CreateNntpUsers;
 			ShowGroupsProfile.Checked = BoardSettings.ShowGroupsProfile;
+			PostFloodDelay.Text = BoardSettings.PostFloodDelay.ToString();
 
 		}
 
@@ -182,6 +183,7 @@ namespace yaf.pages.admin {
 			BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
 			BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
 			BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
+			BoardSettings.PostFloodDelay = Convert.ToInt32(PostFloodDelay.Text.Trim());
 			BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
 			BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
 			BoardSettings.DisableRegistrations = DisableRegistrations.Checked;

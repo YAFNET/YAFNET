@@ -49,6 +49,9 @@
 	<ItemTemplate>
 		<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>/>
 	</ItemTemplate>
+	<AlternatingItemTemplate>
+		<yaf:TopicLine runat="server" IsAlt="True" DataRow=<%# Container.DataItem %>/>
+	</AlternatingItemTemplate>
 </asp:repeater>
 
 <yaf:ForumUsers runat="server"/>

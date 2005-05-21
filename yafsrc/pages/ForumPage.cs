@@ -423,8 +423,17 @@ namespace yaf.pages
 		{
 			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
 			ctl = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.FindControl("ForumTitle");
+
 			if(ctl!=null)
-				ctl.InnerText = BoardSettings.Name;
+			{
+				System.Text.StringBuilder title = new StringBuilder();
+				if(this.PageTopicID!=0)
+					title.AppendFormat("{0} - ",this.PageTopicName); // Tack on the topic we're viewing
+				if(this.PageForumName!=string.Empty)
+					title.AppendFormat("{0} - ",this.PageForumName); // Tack on the forum we're viewing
+				title.Append(BoardSettings.Name); // and lastly, tack on the board's name
+				ctl.InnerText = title.ToString();
+			}
 
 			// BEGIN HEADER
 			StringBuilder header = new StringBuilder();

@@ -115,6 +115,12 @@
 				<asp:textbox id="LockPosts" runat="server"></asp:textbox></TD>
 		</TR>
 		<TR>
+			<TD class="postheader"><B>Post Flood Delay:</B><BR>
+				Number of seconds before another post can be entered. (Does not apply to admins or mods.)</TD>
+			<TD class="post">
+				<asp:TextBox id="PostFloodDelay" runat="server"></asp:TextBox></TD>
+		</TR>		
+		<TR>
 			<TD class="postheader"><B>Date and time format from language file:</B><BR>
 				If this is checked, the date and time format will use settings from the 
 				language file. Otherwise the browser settings will be used.</TD>

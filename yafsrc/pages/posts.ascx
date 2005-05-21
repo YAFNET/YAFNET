@@ -61,19 +61,19 @@
 		</table>
 	</td>
 </tr>
-<tr class='header2'>
-	<td colspan="3" align="right">
-		<asp:linkbutton id=PrevTopic runat=server><%# GetText("prevtopic") %></asp:linkbutton>
+<tr class="header2">
+	<td colspan="3" align="right" class="header2links">
+		<asp:linkbutton id="PrevTopic" class="header2link" runat="server"><%# GetText("prevtopic") %></asp:linkbutton>
 		&middot;
-		<asp:linkbutton id=NextTopic runat=server><%# GetText("nexttopic") %></asp:linkbutton>
+		<asp:linkbutton id="NextTopic" class="header2link" runat="server"><%# GetText("nexttopic") %></asp:linkbutton>
 		<div runat="server" visible="false">
-			<asp:linkbutton id=TrackTopic runat=server><%# GetText("watchtopic") %></asp:linkbutton>
+			<asp:linkbutton id="TrackTopic" class="header2link" runat="server"><%# GetText("watchtopic") %></asp:linkbutton>
 			&middot;
-			<asp:linkbutton id=EmailTopic runat=server><%# GetText("emailtopic") %></asp:linkbutton>
+			<asp:linkbutton id="EmailTopic" class="header2link" runat="server"><%# GetText("emailtopic") %></asp:linkbutton>
 			&middot;
-			<asp:linkbutton id=PrintTopic runat=server><%# GetText("printtopic") %></asp:linkbutton>
+			<asp:linkbutton id="PrintTopic" class="header2link" runat="server"><%# GetText("printtopic") %></asp:linkbutton>
  			&middot;
- 			<asp:hyperlink id=RssTopic runat=server><%# GetText("rsstopic") %></asp:hyperlink>
+ 			<asp:hyperlink id="RssTopic" class="header2link" runat="server"><%# GetText("rsstopic") %></asp:hyperlink>
 		</div>
 	</td>
 </tr>
@@ -81,19 +81,22 @@
 <asp:repeater id=MessageList runat="server">
 <ItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
-
 	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> visible=<%#IsCurrentMessage(Container.DataItem)%> isthreaded=<%#IsThreaded%>/>
 </ItemTemplate>
+<AlternatingItemTemplate>
+	<%# GetThreadedRow(Container.DataItem) %>
+	<yaf:displaypost runat="server" datarow=<%# Container.DataItem %> IsAlt="True" visible=<%#IsCurrentMessage(Container.DataItem)%> isthreaded=<%#IsThreaded%>/>
+</AlternatingItemTemplate>
 </asp:repeater>
 
 <yaf:ForumUsers runat="server"/>
 
 </table>
     
-<table class=command cellSpacing=0 cellPadding=0 width="100%">
+<table class="command" cellSpacing="0" cellPadding="0" width="100%">
   <tr>
-    <td align=left class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td>
-    <td align=right>
+    <td align="left" class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
+    <td align="right">
 		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>
 		<asp:linkbutton id=DeleteTopic2 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>

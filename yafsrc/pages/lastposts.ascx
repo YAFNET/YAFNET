@@ -11,18 +11,29 @@
 	</table>
 </FooterTemplate>
 <ItemTemplate>
-		<tr class=postheader>
-			<td width=140><b><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>'><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+		<tr class="postheader">
+			<td width="140"><b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width=80% class=small align=left><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
-		<tr class=post>
+		<tr class="post">
 			<td>&nbsp;</td>
-			<td valign=top class="message">
+			<td valign="top" class="message">
 				<%# FormatBody(Container.DataItem) %>
 			</td>
 		</tr>
 </ItemTemplate>
+<AlternatingItemTemplate>
+		<tr class="postheader">
+			<td width="140"><b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			</td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+		</tr>
+		<tr class="post_alt">
+			<td>&nbsp;</td>
+			<td valign="top" class="message">
+				<%# FormatBody(Container.DataItem) %>
+			</td>
+		</tr>
+</AlternatingItemTemplate>
 </asp:repeater>
-
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />

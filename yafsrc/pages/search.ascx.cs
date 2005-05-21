@@ -79,7 +79,7 @@ namespace yaf.pages
 		/// Pager control.
 		/// </summary>
 		protected controls.Pager Pager;
-
+    
 		protected System.Web.UI.WebControls.PlaceHolder NoResults;
 	
 		/// <summary>
