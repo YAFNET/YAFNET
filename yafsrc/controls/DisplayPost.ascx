@@ -1,30 +1,30 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
-<tr class=postheader>
+<tr class="postheader">
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
-		<a name='<%# DataRow["MessageID"] %>'/>
+		<a name="<%# DataRow["MessageID"] %>"/>
 		<b><asp:hyperlink id="UserName" runat="server" href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# Server.HtmlEncode(DataRow["UserName"].ToString()) %></asp:hyperlink></b>
 	</td>
-	<td width=80%>
-		<table cellspacing=0 cellpadding=0 width=100%>
+	<td width="80%">
+		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
-			<td class=postheader>
+			<td class="postheader">
 				<b><%# ForumPage.GetText("POSTED") %>:</b> 
 				<%# ForumPage.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 			</td>
-			<td class=postheader align=right>
-				<asp:hyperlink runat='server' id='Attach'/>
-				<asp:hyperlink runat='server' id='Edit'/>
-				<asp:linkbutton runat='server' id='Delete'/>
-				<asp:hyperlink runat='server' id='Quote'/>
+			<td class="postheader" align="right">
+				<asp:hyperlink runat="server" id="Attach"/>
+				<asp:hyperlink runat="server" id="Edit"/>
+				<asp:linkbutton runat="server" id="Delete"/>
+				<asp:hyperlink runat="server" id="Quote"/>
 			</td>
 		</tr>
 		</table>
 	</td>
 </tr>
-<tr class=post>
+<tr class=<%#GetPostClass()%>>
 	<td valign="top" height="100" colspan='<%#GetIndentSpan()%>'>
 		<%# FormatUserBox() %>
 	</td>
@@ -32,7 +32,7 @@
 		<%# FormatBody() %>
 	</td>
 </tr>
-<tr class=postfooter>
+<tr class="postfooter">
 	<td class="small" colspan='<%#GetIndentSpan()%>'>
 		<a href="javascript:scroll(0,0)"><%# ForumPage.GetText("TOP") %></a>
 	</td>

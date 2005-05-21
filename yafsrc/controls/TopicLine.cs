@@ -8,7 +8,13 @@ namespace yaf.controls
 	public class TopicLine : BaseControl
 	{
 		private DataRowView	m_row = null;
+		private bool m_isAlt;
 		
+		public bool IsAlt
+		{
+			get { return this.m_isAlt; }
+			set { this.m_isAlt = value; }
+		}		
 
 		public object DataRow
 		{
@@ -22,7 +28,8 @@ namespace yaf.controls
 		{	
 			System.Text.StringBuilder html = new System.Text.StringBuilder(2000);
 
-			html.Append("<tr class='post'>");
+			html.AppendFormat("<tr class=\"{0}\">",(IsAlt ? "post_alt" : "post"));
+
 			// Icon
 			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);
 			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);

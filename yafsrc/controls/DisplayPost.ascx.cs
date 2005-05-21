@@ -160,6 +160,13 @@ namespace yaf.controls
 			}
 		}
 
+		private bool m_isAlt = false;
+		public bool IsAlt
+		{
+			get { return this.m_isAlt; }
+			set { this.m_isAlt = value; }
+		}
+
 		private bool m_isThreaded = false;
 		public bool IsThreaded
 		{
@@ -190,6 +197,13 @@ namespace yaf.controls
 				return "2";
 			else
 				return "1";
+		}
+		protected string GetPostClass() 
+		{
+			if(this.IsAlt)
+				return "post_alt";
+			else
+				return "post";
 		}
 
 		protected string FormatUserBox() 
