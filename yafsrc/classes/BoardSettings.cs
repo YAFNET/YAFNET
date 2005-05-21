@@ -174,6 +174,11 @@ namespace yaf
 			get { return m_reg.GetValueInt("ForumEditor",1); }
 			set { m_reg.SetValueInt("ForumEditor",value); }
 		}
+		public int PostFloodDelay
+		{
+			get { return m_reg.GetValueInt("PostFloodDelay",30); }
+			set { m_reg.SetValueInt("PostFloodDelay",value); }
+		}
 
 		// boolean settings
 		public bool EmailVerification
