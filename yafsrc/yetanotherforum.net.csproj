@@ -581,10 +581,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "install\version-0.9.9.sql"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "install\version-1.0.0.sql"
                     BuildAction = "Content"
                 />
