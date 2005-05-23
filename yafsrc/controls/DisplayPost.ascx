@@ -25,7 +25,7 @@
 	</td>
 </tr>
 <tr class=<%#GetPostClass()%>>
-	<td valign="top" height="100" colspan='<%#GetIndentSpan()%>'>
+	<td valign="top" height="100" class="UserBox" colspan='<%#GetIndentSpan()%>'>
 		<%# FormatUserBox() %>
 	</td>
 	<td valign="top" class="message">

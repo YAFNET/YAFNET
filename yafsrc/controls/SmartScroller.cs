@@ -99,8 +99,10 @@ namespace yaf.controls
     var x = cForm." + hidScrollLeft.ClientID + @".value;
     var y = cForm." + hidScrollTop.ClientID + @".value;
     window.scrollTo(x, y);
+		if (oldOnLoad != null) oldOnLoad();
   }
-
+	
+	var oldOnLoad = window.onload;
   
   window.onload = yaf_SmartScroller_Scroll;
   window.onscroll = yaf_SmartScroller_GetCoords;

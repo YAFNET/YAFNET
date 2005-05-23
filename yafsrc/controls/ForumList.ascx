@@ -5,9 +5,9 @@
 	<tr class="post">
 		<td><%# GetForumIcon(Container.DataItem) %></td>
 		<td>
-			<%# GetForumLink((System.Data.DataRow)Container.DataItem) %>
-			<%# GetViewing(Container.DataItem) %><br>
-			<span class="smallfont"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
+			<span class="forumheading"><%# GetForumLink((System.Data.DataRow)Container.DataItem) %></span>
+			<span class="forumviewing"><%# GetViewing(Container.DataItem) %></span><br>
+			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="ModeratorList" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<HeaderTemplate><span class="smallfont"><%# ForumPage.GetText("moderators") %>: </HeaderTemplate>
@@ -25,9 +25,9 @@
 	<tr class="post_alt">
 		<td><%# GetForumIcon(Container.DataItem) %></td>
 		<td>
-			<%# GetForumLink((System.Data.DataRow)Container.DataItem) %>
-			<%# GetViewing(Container.DataItem) %><br>
-			<span class="smallfont"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
+			<span class="forumheading"><%# GetForumLink((System.Data.DataRow)Container.DataItem) %></span>
+			<span class="forumviewing"><%# GetViewing(Container.DataItem) %></span><br>
+			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="Repeater1" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<HeaderTemplate><span class="smallfont"><%# ForumPage.GetText("moderators") %>: </HeaderTemplate>
