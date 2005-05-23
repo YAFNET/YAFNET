@@ -109,7 +109,16 @@ namespace yaf
 					if(!path.EndsWith("/")) path += "/";
 
 					if(Config.IsDotNetNuke || Config.IsRainbow)
-						path += "DesktopModules/YetAnotherForumDotNet/";
+					{
+						if (Config.ConfigSection["root"] == null)
+						{
+							path += "DesktopModules/YetAnotherForumDotNet/";
+						}
+						else
+						{
+							path += Config.ConfigSection["root"];
+						}
+					}
 
 					return path;
 				}
