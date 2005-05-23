@@ -77,7 +77,7 @@ namespace yaf.pages.admin
 					{
 						Code.Text = dt.Rows[0]["Code"].ToString();
 						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
-						Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
+						if (Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()) != null) Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
 						Preview.Src = String.Format("{0}images/emoticons/{1}",Data.ForumRoot,dt.Rows[0]["Icon"]);
 					}
 				}

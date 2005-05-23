@@ -171,7 +171,8 @@ namespace yaf.pages
 					typeUser = "yaf_rainbow.RainbowUser,yaf_rainbow";
 					break;
 				case AuthType.DotNetNuke:
-					typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
+					//typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
+					typeUser = "DotNetNuke.Modules.YAF.DotNetNukeUser,DotNetNuke.Modules.YAF";
 					break;
 				case AuthType.Windows:
 					typeUser = "yaf.WindowsUser,yaf";
@@ -428,7 +429,7 @@ namespace yaf.pages
 			{
 				System.Text.StringBuilder title = new StringBuilder();
 				if(this.PageTopicID!=0)
-					title.AppendFormat("{0} - ",this.PageTopicName); // Tack on the topic we're viewing
+					title.AppendFormat("{0} - ",Server.HtmlEncode(this.PageTopicName)); // Tack on the topic we're viewing
 				if(this.PageForumName!=string.Empty)
 					title.AppendFormat("{0} - ",this.PageForumName); // Tack on the forum we're viewing
 				title.Append(BoardSettings.Name); // and lastly, tack on the board's name

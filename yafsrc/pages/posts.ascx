@@ -49,7 +49,7 @@
 	<td colspan="3" style="padding:0px">
 		<table border="0" cellpadding="0" cellspacing="0" width="100%" class="header1">
 			<tr class="header1">
-				<td><asp:label id=TopicTitle runat="server"/></td>
+				<td class="header1Title"><asp:label id="TopicTitle" runat="server"/></td>
 				<td align="right">
 					<asp:hyperlink id="MyTest" runat="server">Options</asp:hyperlink>
 					<asp:placeholder runat="server" id="ViewOptions">
