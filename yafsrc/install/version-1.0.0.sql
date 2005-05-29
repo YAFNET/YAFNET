@@ -671,18 +671,18 @@ create view dbo.yaf_vaccess as
 		ForumID				= x.ForumID,
 		IsAdmin				= max(convert(int,b.Flags & 1)),
 		IsGuest				= max(convert(int,b.Flags & 2)),
-		IsForumModerator	= max(convert(int,b.Flags & 8)),
+		IsForumModerator		= max(convert(int,b.Flags & 8)),
 		IsModerator			= (select count(1) from dbo.yaf_UserGroup v,dbo.yaf_Group w,dbo.yaf_ForumAccess x,dbo.yaf_AccessMask y where v.UserID=a.UserID and w.GroupID=v.GroupID and x.GroupID=w.GroupID and y.AccessMaskID=x.AccessMaskID and (y.Flags & 64)<>0),
 		ReadAccess			= max(x.ReadAccess),
 		PostAccess			= max(x.PostAccess),
 		ReplyAccess			= max(x.ReplyAccess),
-		PriorityAccess		= max(x.PriorityAccess),
+		PriorityAccess			= max(x.PriorityAccess),
 		PollAccess			= max(x.PollAccess),
 		VoteAccess			= max(x.VoteAccess),
-		ModeratorAccess		= max(x.ModeratorAccess),
+		ModeratorAccess			= max(x.ModeratorAccess),
 		EditAccess			= max(x.EditAccess),
-		DeleteAccess		= max(x.DeleteAccess),
-		UploadAccess		= max(x.UploadAccess)
+		DeleteAccess			= max(x.DeleteAccess),
+		UploadAccess			= max(x.UploadAccess)
 	from
 		(select
 			b.UserID,
@@ -690,13 +690,13 @@ create view dbo.yaf_vaccess as
 			ReadAccess		= convert(int,c.Flags & 1),
 			PostAccess		= convert(int,c.Flags & 2),
 			ReplyAccess		= convert(int,c.Flags & 4),
-			PriorityAccess	= convert(int,c.Flags & 8),
+			PriorityAccess		= convert(int,c.Flags & 8),
 			PollAccess		= convert(int,c.Flags & 16),
 			VoteAccess		= convert(int,c.Flags & 32),
-			ModeratorAccess	= convert(int,c.Flags & 64),
+			ModeratorAccess		= convert(int,c.Flags & 64),
 			EditAccess		= convert(int,c.Flags & 128),
-			DeleteAccess	= convert(int,c.Flags & 256),
-			UploadAccess	= convert(int,c.Flags & 512)
+			DeleteAccess		= convert(int,c.Flags & 256),
+			UploadAccess		= convert(int,c.Flags & 512)
 		from
 			dbo.yaf_UserForum b
 			join dbo.yaf_AccessMask c on c.AccessMaskID=b.AccessMaskID
@@ -709,13 +709,13 @@ create view dbo.yaf_vaccess as
 			ReadAccess		= convert(int,d.Flags & 1),
 			PostAccess		= convert(int,d.Flags & 2),
 			ReplyAccess		= convert(int,d.Flags & 4),
-			PriorityAccess	= convert(int,d.Flags & 8),
+			PriorityAccess		= convert(int,d.Flags & 8),
 			PollAccess		= convert(int,d.Flags & 16),
 			VoteAccess		= convert(int,d.Flags & 32),
-			ModeratorAccess	= convert(int,d.Flags & 64),
+			ModeratorAccess		= convert(int,d.Flags & 64),
 			EditAccess		= convert(int,d.Flags & 128),
-			DeleteAccess	= convert(int,d.Flags & 256),
-			UploadAccess	= convert(int,d.Flags & 512)
+			DeleteAccess		= convert(int,d.Flags & 256),
+			UploadAccess		= convert(int,d.Flags & 512)
 		from
 			dbo.yaf_UserGroup b
 			join dbo.yaf_ForumAccess c on c.GroupID=b.GroupID
