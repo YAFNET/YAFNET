@@ -414,7 +414,8 @@ namespace yaf.pages
 		}
 
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
-			if(e.CommandName=="vote" && ForumVoteAccess) {
+			if(e.CommandName=="vote" && ForumVoteAccess)
+			{
 				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
 
 				if(Request.Cookies[cookie] != null) 
@@ -437,7 +438,8 @@ namespace yaf.pages
 			}
 		}
 
-		protected string GetPollQuestion() {
+		protected string GetPollQuestion()
+		{
 			return (string)dtPoll.Rows[0]["Question"];
 		}
 
