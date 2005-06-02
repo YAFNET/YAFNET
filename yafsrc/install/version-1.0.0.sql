@@ -375,7 +375,7 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
 begin
-	alter table dbo.yaf_Message add Flags int not null constraint DF_yaf_Message_Flags default (23)
+	alter table dbo.yaf_PMessage add Flags int not null constraint DF_yaf_Message_Flags default (23)
 end
 GO
 
