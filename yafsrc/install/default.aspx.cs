@@ -94,10 +94,21 @@ namespace yaf.install
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsPostBack) {
-				if(InstalledVersion >= Data.AppVersion) {
+			if(!IsPostBack)
+			{				
+				if (InstalledVersion >= Data.AppVersion)
+				{					
 					LeaveStep(CurStep);
-					CurStep = Step.Finished;
+					// see if a forced upgrade was requested
+					if (Request.QueryString["forceupgrade"] != null)
+					{
+						// user is forcing a database update -- just move to that step
+						CurStep = Step.Database;
+					}
+					else
+					{
+						CurStep = Step.Finished;
+					}
 					EnterStep(CurStep);
 				}
 
@@ -105,7 +116,9 @@ namespace yaf.install
 				TimeZones.DataSource = Data.TimeZones();
 				DataBind();
 				TimeZones.Items.FindByValue("0").Selected = true;
-			} else {
+			}
+			else
+			{
 				CurStep = (Step)int.Parse(cursteplabel.Text);
 			}
 		}
@@ -202,6 +215,12 @@ namespace yaf.install
 						return;
 					}
 					FixAccess(false);
+
+					if (Request.QueryString["forceupgrade"] != null)
+					{
+						// get the version to force upgrade from...
+						InstalledVersion = int.Parse(Request.QueryString["forceupgrade"]);
+					}
 
 					for(int i=InstalledVersion;i<m_scripts.Length;i++)
 						ExecuteScript(m_scripts[i]);

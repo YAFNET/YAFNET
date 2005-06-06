@@ -331,8 +331,8 @@ GO
 if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_Words') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Replace_Words(
 		id				int IDENTITY (1, 1) NOT NULL ,
-		badword			nvarchar (50) NULL ,
-		goodword		nvarchar (50) NULL ,
+		badword			nvarchar (255) NULL ,
+		goodword		nvarchar (255) NULL ,
 		constraint PK_Replace_Words primary key(id)
 	)
 GO
@@ -368,6 +368,14 @@ begin
 	alter table yaf_NntpForum alter column Active bit not null
 end
 GO
+
+if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='badword' and prec < 255)
+ 	alter table yaf_Replace_Words alter column badword nvarchar(255) NULL
+GO
+
+if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='goodword' and prec < 255)
+	alter table yaf_Replace_Words alter column goodword nvarchar(255) NULL
+GO	
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
 	alter table yaf_Registry add BoardID int
@@ -2344,7 +2352,7 @@ if exists (select * from dbo.sysobjects where id = object_id(N'yaf_replace_words
 	drop procedure yaf_replace_words_save
 GO
 
-create procedure dbo.yaf_replace_words_save(@ID int=null,@badword nvarchar(30),@goodword nvarchar(30)) as
+create procedure dbo.yaf_replace_words_save(@ID int=null,@badword nvarchar(255),@goodword nvarchar(255)) as
 begin
 	if @ID is null or @ID = 0 begin
 		insert into yaf_replace_words(badword,goodword) values(@badword,@goodword)
