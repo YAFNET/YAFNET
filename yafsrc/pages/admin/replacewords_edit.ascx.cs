@@ -51,6 +51,8 @@ namespace yaf.pages.admin
 
 				BindData();
 			}
+			badword.Attributes.Add("style","width:250px");
+			goodword.Attributes.Add("style","width:250px");
 		}
 
 		private void BindData() 
@@ -99,3 +101,4 @@ namespace yaf.pages.admin
 		#endregion
 	}
 }
+
