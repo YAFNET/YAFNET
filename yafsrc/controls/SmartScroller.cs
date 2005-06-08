@@ -10,7 +10,7 @@ namespace yaf.controls
 	/// </summary>
 	public class SmartScroller : System.Web.UI.Control
 	{
-		private HtmlForm m_theForm = new HtmlForm();		
+		private HtmlForm m_theForm = null;		
 		
 		public SmartScroller()
 		{
@@ -18,7 +18,7 @@ namespace yaf.controls
 		
 		private HtmlForm GetServerForm(ControlCollection parent)
 		{
-			HtmlForm tmpHtmlForm;
+			HtmlForm tmpHtmlForm = null;
             
 			foreach (Control child in parent)
 			{                                
@@ -28,18 +28,28 @@ namespace yaf.controls
                 
 				if (child.HasControls())    
 				{
-					tmpHtmlForm=GetServerForm(child.Controls);
-					if(tmpHtmlForm.ClientID !=null)
+					tmpHtmlForm = GetServerForm(child.Controls);
+					if (tmpHtmlForm != null && tmpHtmlForm.ClientID != null)
 						return tmpHtmlForm;
 				}
 			}
         
-			return new HtmlForm();
+			return null;
 		}
 
 		protected override void OnInit(EventArgs e)
-		{
-			m_theForm = GetServerForm(Page.Controls);
+		{			
+			string tFormID = "Form";
+
+			if (Page.Parent != null)
+				m_theForm = GetServerForm(Page.Parent.Controls);
+			else
+				m_theForm = GetServerForm(Page.Controls);
+
+			if (m_theForm != null && m_theForm.ClientID != null)
+			{
+				tFormID = m_theForm.ClientID;
+			}
 										
 			HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
 			hidScrollLeft.ID = "scrollLeft";
@@ -60,10 +70,10 @@ namespace yaf.controls
     var theform;
     if (window.navigator.appName.toLowerCase().indexOf(""microsoft"") > -1)
     {
-	  theform = document." + m_theForm.ClientID + @";
+	  theform = document." + tFormID + @";
 	}
 	else {
-	  theform = document.forms[""" + m_theForm.ClientID + @"""];
+	  theform = document.forms[""" + tFormID + @"""];
     }
     return theform;
   }
