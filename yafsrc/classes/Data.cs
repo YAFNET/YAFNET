@@ -29,7 +29,8 @@ namespace yaf
 		Forms,
 		Windows,
 		Rainbow,
-		DotNetNuke
+		DotNetNuke,
+		DotNetNuke3
 	};
 
 	public enum SEARCH_FIELD
@@ -133,10 +134,14 @@ namespace yaf
 		{
 			get 
 			{
-				if(Config.IsDotNetNuke)
+				if (Config.IsDotNetNuke)
+				{
 					return AuthType.DotNetNuke;
+				}
 				else if(Config.IsRainbow)
+				{
 					return AuthType.Rainbow;
+				}
 
 				Type secType = System.Web.HttpContext.Current.User.Identity.GetType();
 

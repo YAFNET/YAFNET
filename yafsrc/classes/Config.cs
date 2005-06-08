@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using System.Reflection;
 using yaf.pages;
 
 namespace yaf
@@ -60,15 +61,31 @@ namespace yaf
 			{
 				if(HttpContext.Current.Application["yaf_UrlBuilder"]==null)
 				{
-					string type;
+					string urlAssembly;
+
 					if(IsRainbow)
-						type = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
-					else if(IsDotNetNuke)
-						type = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
+					{
+						urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
+					}
+					else if (IsDotNetNuke)
+					{
+						urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
+						try
+						{
+							// see which assembly is valid
+							Type.GetType(urlAssembly,true);
+						}
+						catch (Exception)
+						{
+							urlAssembly = "DotNetNuke.Modules.YAF.DotNetNukeUrlBuilder,DotNetNuke.Modules.YAF";
+						}
+					}
 					else
-						type = "yaf.UrlBuilder,yaf";
+					{
+						urlAssembly = "yaf.UrlBuilder,yaf";
+					}
 					
-					HttpContext.Current.Application["yaf_UrlBuilder"] = Activator.CreateInstance(Type.GetType(type));
+					HttpContext.Current.Application["yaf_UrlBuilder"] = Activator.CreateInstance(Type.GetType(urlAssembly));
 				}
 
 				return (IUrlBuilder)HttpContext.Current.Application["yaf_UrlBuilder"];
