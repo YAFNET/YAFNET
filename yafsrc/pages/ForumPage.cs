@@ -171,8 +171,16 @@ namespace yaf.pages
 					typeUser = "yaf_rainbow.RainbowUser,yaf_rainbow";
 					break;
 				case AuthType.DotNetNuke:
-					//typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
-					typeUser = "DotNetNuke.Modules.YAF.DotNetNukeUser,DotNetNuke.Modules.YAF";
+					typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
+					try
+					{
+						// see which assembly is valid
+						Type.GetType(typeUser,true);
+					}
+					catch (Exception)
+					{
+						typeUser = "DotNetNuke.Modules.YAF.DotNetNukeUser,DotNetNuke.Modules.YAF";
+					}					
 					break;
 				case AuthType.Windows:
 					typeUser = "yaf.WindowsUser,yaf";
@@ -181,6 +189,7 @@ namespace yaf.pages
 					typeUser = "yaf.FormsUser,yaf";
 					break;
 			}
+
 			m_forumUser = (IForumUser)Activator.CreateInstance(Type.GetType(typeUser));
 
 			string browser = String.Format("{0} {1}",HttpContext.Current.Request.Browser.Browser,HttpContext.Current.Request.Browser.Version);
@@ -996,7 +1005,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				if(IsHostAdmin)
+				if (IsHostAdmin)
 					return true;
 
 				if(m_pageinfo!=null)
