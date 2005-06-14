@@ -9,7 +9,6 @@ using System.Web.UI.HtmlControls;
 
 namespace yaf.editor
 {
-
 	/// <summary>
 	/// Summary description for ForumEditorBase.
 	/// </summary>
@@ -251,25 +250,39 @@ namespace yaf.editor
 		protected bool bInit;
 		protected Type typEditor;
 		protected System.Web.UI.Control objEditor;
-		protected Assembly cBin;
 		protected string FStyleSheet;
 
-		public RichClassEditor(string BinFile,string ClassName)
+		public RichClassEditor()
 		{
 			bInit = false;
 			FStyleSheet = string.Empty;
 			objEditor = null;
-			typEditor = null;
-			string tPath = System.Web.HttpContext.Current.Request.PhysicalPath.Substring(0,System.Web.HttpContext.Current.Request.PhysicalPath.LastIndexOf("/")+1);
-			BinFile = System.Web.HttpContext.Current.Server.MapPath(tPath + "bin\\" + BinFile);
-	
+			typEditor = null;		
+		}
+
+		public RichClassEditor(string ClassBinStr)
+		{
+			bInit = false;
+			FStyleSheet = string.Empty;
+			objEditor = null;
+
 			try
 			{
-				cBin = Assembly.LoadFrom(BinFile);
-				// get the interface needed
-				typEditor = GetInterfaceInAssembly(cBin,ClassName);
+				typEditor = Type.GetType(ClassBinStr,true);
+			}
+			catch (Exception)
+			{
+#if DEBUG
+				throw new Exception("Unable to load editor class/dll: " + ClassBinStr);
+#endif
+			}
+		}
 
-				if (typEditor != null)
+		protected bool InitEditorObject()
+		{
+			try
+			{
+				if (!bInit && typEditor != null)
 				{
 					// create instance of main class
 					objEditor = (System.Web.UI.Control)Activator.CreateInstance(typEditor);
@@ -279,7 +292,9 @@ namespace yaf.editor
 			catch(Exception)
 			{
 				// dll is not accessible
+				return false;
 			}
+			return true;
 		}
 
 		protected Type GetInterfaceInAssembly(Assembly cAssembly, string ClassName)
@@ -333,16 +348,15 @@ namespace yaf.editor
 
 	}
 
-
 	public class FCKEditorV2 : RichClassEditor
 	{
-		public FCKEditorV2() : base("FredCK.FCKeditorV2.dll","FredCK.FCKeditorV2.FCKeditor")
+		public FCKEditorV2() : base("FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2")
 		{
-			
+			InitEditorObject();	
 		}
 
 		protected override void OnInit(EventArgs e)
-		{			
+		{
 			if (bInit)
 			{
 				Load += new EventHandler(Editor_Load);
@@ -395,9 +409,9 @@ namespace yaf.editor
 
 	public class FCKEditorV1 : RichClassEditor
 	{
-		public FCKEditorV1() : base("FredCK.FCKeditor.dll","FredCK.FCKeditor")
+		public FCKEditorV1() : base("FredCK.FCKeditor,FredCK.FCKeditor")
 		{
-			
+			InitEditorObject();		
 		}
 
 		protected override void OnInit(EventArgs e)
@@ -451,9 +465,9 @@ namespace yaf.editor
 
 	public class FreeTextBoxEditor : RichClassEditor
 	{
-		public FreeTextBoxEditor() : base("FreeTextBox.dll","FreeTextBoxControls.FreeTextBox")
+		public FreeTextBoxEditor() : base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
 		{
-			
+			InitEditorObject();			
 		}
 
 		protected override void OnInit(EventArgs e)
@@ -518,7 +532,6 @@ namespace yaf.editor
 		}
 		#endregion
 	}
-
 
 	/// <summary>
 	/// This class provides a way to
