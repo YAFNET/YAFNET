@@ -172,15 +172,6 @@ namespace yaf.pages
 					break;
 				case AuthType.DotNetNuke:
 					typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
-					try
-					{
-						// see which assembly is valid
-						Type.GetType(typeUser,true);
-					}
-					catch (Exception)
-					{
-						typeUser = "DotNetNuke.Modules.YAF.DotNetNukeUser,DotNetNuke.Modules.YAF";
-					}					
 					break;
 				case AuthType.Windows:
 					typeUser = "yaf.WindowsUser,yaf";

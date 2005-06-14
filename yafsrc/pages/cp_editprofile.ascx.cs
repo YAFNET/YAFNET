@@ -57,8 +57,6 @@ namespace yaf.pages
 		protected HyperLink OurAvatar;
 		protected Image AvatarImg;
 		protected PlaceHolder LoginInfo;
-		
-		private bool bUpdateEmail = false;
 
 		public cp_editprofile() : base("CP_EDITPROFILE")
 		{
@@ -252,7 +250,7 @@ namespace yaf.pages
 				}			
 			}
 
-			if(bUpdateEmail)
+			if (UpdateEmailFlag)
 			{
 				if(!Utils.IsValidEmail(Email.Text))
 				{
@@ -317,8 +315,15 @@ namespace yaf.pages
 			Forum.Redirect(Pages.cp_profile);
 		}
 
-		private void Email_TextChanged(object sender, System.EventArgs e) {
-			bUpdateEmail = true;
+		private void Email_TextChanged(object sender, System.EventArgs e)
+		{
+			UpdateEmailFlag = true;
+		}
+
+		protected bool UpdateEmailFlag
+		{
+			get { return (bool)ViewState["bUpdateEmail"]; }
+			set { ViewState["bUpdateEmail"] = value; }
 		}
 
 		#region Web Form Designer generated code
