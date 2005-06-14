@@ -323,7 +323,7 @@ namespace yaf
 		{
 			get 
 			{
-				return 0x01000001;
+				return 0x01000002;
 			}
 		}
 		static public DateTime AppVersionDate 
