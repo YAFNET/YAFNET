@@ -70,15 +70,6 @@ namespace yaf
 					else if (IsDotNetNuke)
 					{
 						urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
-						try
-						{
-							// see which assembly is valid
-							Type.GetType(urlAssembly,true);
-						}
-						catch (Exception)
-						{
-							urlAssembly = "DotNetNuke.Modules.YAF.DotNetNukeUrlBuilder,DotNetNuke.Modules.YAF";
-						}
 					}
 					else
 					{
