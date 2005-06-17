@@ -50,6 +50,11 @@ namespace yaf.pages
 		/// <summary>
 		/// Constructor
 		/// </summary>
+		public ForumPage() : this("")
+		{
+
+		}
+
 		public ForumPage(string transPage)
 		{
 			TransPage = transPage;
