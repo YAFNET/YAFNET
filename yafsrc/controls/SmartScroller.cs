@@ -108,7 +108,7 @@ namespace yaf.controls
     var cForm = yaf_GetForm();
     var x = cForm." + hidScrollLeft.ClientID + @".value;
     var y = cForm." + hidScrollTop.ClientID + @".value;
-    window.scrollTo(x, y);
+		if (x || y) window.scrollTo(x, y);
 		if (oldOnLoad != null) oldOnLoad();
   }
 	
