@@ -103,6 +103,8 @@
 		<Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
 		<Resource tag="MARKALL">Mark all forums as read</Resource>
 		<Resource tag="GO_LAST_POST">Go to last post</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
+		<Resource tag="LATEST_POSTS">Latest Posts</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -452,7 +454,7 @@
 		<Resource tag="ABOUT">About</Resource>
 		<Resource tag="USERNAME">User Name:</Resource>
 		<Resource tag="GROUPS">Groups:</Resource>
-		<Resource tag="RANK">Rank:</Resource>
+		<Resource tag="RANK">Forum Rank:</Resource>
 		<Resource tag="JOINED">Joined:</Resource>
 		<Resource tag="EMAIL">E-mail:</Resource>
 		<Resource tag="LASTVISIT">Last Visit:</Resource>

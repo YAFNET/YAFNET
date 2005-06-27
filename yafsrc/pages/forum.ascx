@@ -42,28 +42,52 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=2><%= GetText("INFORMATION") %></td>
-</tr>
-<tr>
-	<td class=header2 colspan=2><%= GetText("ACTIVE_USERS") %></td>
-</tr>
-<tr>
-	<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_USERS") %>'></td>
-	<td class=post>
-		<asp:label runat="server" id="activeinfo"/><br/>
-		<asp:repeater runat="server" id="ActiveList">
-			<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %></a></ItemTemplate>
-			<SeparatorTemplate>, </SeparatorTemplate>
-		</asp:repeater>
+	<td width="35%" valign="top">		
+		<table class=content cellspacing=1 cellpadding=0 width=100%>
+		<tr>
+			<td class=header1 colspan=2><%= GetText("ACTIVE_DISCUSSIONS") %></td>
+		</tr>
+		<tr>
+			<td class=header2 colspan=2><%= GetText("LATEST_POSTS") %></td>
+		</tr>
+		<tr>
+			<td class=post>
+				<asp:Repeater runat="server" id="LatestPosts">
+					<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic")) %></a><br /></ItemTemplate>
+				</asp:Repeater>
+			</td>
+		</tr>
+		</table>
 	</td>
-</tr>
-
-<tr>
-    <td class=header2 colspan=2><%= GetText("STATS") %></td>
-</tr>
-<tr>
-	<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_STATS") %>'></td>
-	<td class=post><asp:label id=Stats runat="server">Label</asp:label></td>
+	<td width="65%" valign="top">
+		<table class=content cellspacing=1 cellpadding=0 width=100%>
+		<tr>
+			<td class=header1 colspan=2><%= GetText("INFORMATION") %></td>
+		</tr>
+		<tr>
+			<td class=header2 colspan=2><%= GetText("ACTIVE_USERS") %></td>
+		</tr>
+		<tr>
+			<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_USERS") %>'></td>
+			<td class=post>
+				<asp:label runat="server" id="activeinfo"/><br/>
+				<asp:repeater runat="server" id="ActiveList">
+					<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %></a></ItemTemplate>
+					<SeparatorTemplate>, </SeparatorTemplate>
+				</asp:repeater>
+			</td>
+		</tr>
+<!-- Makes it line up better without this
+		<tr>
+				<td class=header2 colspan=2><%= GetText("STATS") %></td>
+		</tr>
+-->
+		<tr>
+			<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_STATS") %>'></td>
+			<td class=post><asp:label id=Stats runat="server">Label</asp:label></td>
+		</tr>
+		</table>
+	</td>
 </tr>
 </table>
 

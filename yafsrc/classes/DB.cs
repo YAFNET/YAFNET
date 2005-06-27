@@ -1889,6 +1889,16 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
+		static public DataTable topic_latest(object boardID,object numOfPostsToRetrieve)
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_topic_latest")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				cmd.Parameters.Add("@NumPosts",numOfPostsToRetrieve);
+				return GetData(cmd);
+			}
+		}
 		static public DataTable topic_active(object boardID,object UserID,object Since,object categoryID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_active")) 

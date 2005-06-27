@@ -38,7 +38,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.Label Stats;
 		protected System.Web.UI.WebControls.Repeater CategoryList;
 		protected System.Web.UI.WebControls.Label TimeLastVisit;
-		protected System.Web.UI.WebControls.Repeater ActiveList;
+		protected System.Web.UI.WebControls.Repeater ActiveList, LatestPosts;
 		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
 		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
 		protected System.Web.UI.WebControls.Label activeinfo;
@@ -92,6 +92,10 @@ namespace yaf.pages
 			// Active users
 			// Call this before forum_stats to clean up active users
 			ActiveList.DataSource = DB.active_list(PageBoardID,null);
+
+			// Latest forum posts
+			// Shows the latest n number of posts on the main forum list page
+			LatestPosts.DataSource = DB.topic_latest(PageBoardID,7);
 
 			// Forum statistics
 			string key = string.Format("BoardStats.{0}",PageBoardID);
