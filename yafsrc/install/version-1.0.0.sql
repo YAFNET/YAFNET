@@ -2358,26 +2358,17 @@ CREATE PROCEDURE dbo.yaf_topic_latest
 	@NumPosts int
 )
 AS
-begin
+BEGIN
 
-create table #num_posts(table_index int identity, topic int, posted datetime, messageid int)
-insert #num_posts(topic, posted, messageid)
-SELECT DISTINCT dbo.yaf_Topic.TopicID, dbo.yaf_Topic.LastPosted, dbo.yaf_Topic.LastMessageID
-FROM         dbo.yaf_Topic INNER JOIN
-                      dbo.yaf_Message ON dbo.yaf_Topic.TopicID = dbo.yaf_Message.TopicID INNER JOIN
-                      dbo.yaf_Category INNER JOIN
-                      dbo.yaf_Forum ON dbo.yaf_Category.CategoryID = dbo.yaf_Forum.CategoryID ON dbo.yaf_Topic.ForumID = dbo.yaf_Forum.ForumID
-WHERE     (dbo.yaf_Category.BoardID =@boardid)
-ORDER BY dbo.yaf_Topic.LastPosted DESC
+	DECLARE @SQL nvarchar(500)
 
-begin
-SELECT dbo.yaf_Topic.Topic, dbo.yaf_Topic.LastPosted, dbo.yaf_Topic.TopicID, dbo.yaf_Topic.LastMessageID
-FROM         dbo.yaf_Topic, #num_posts n
-WHERE n.table_index <= @numposts and topicid = n.topic
-ORDER BY dbo.yaf_Topic.LastPosted DESC
-end
-drop table #num_posts
-end
+	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
+	SET @SQL = @SQL + ' yaf_Topic t INNER JOIN yaf_Category c INNER JOIN yaf_Forum f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' ORDER BY t.LastPosted DESC'
+
+	EXEC(@SQL)	
+	
+END
 GO
 
 if exists (select * from dbo.sysobjects where id = object_id(N'yaf_replace_words_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
