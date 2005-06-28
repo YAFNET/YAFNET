@@ -40,25 +40,8 @@
 
 <br>
 
-<table class=content cellspacing=1 cellpadding=0 width=100%>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
 <tr>
-	<td width="35%" valign="top">		
-		<table class=content cellspacing=1 cellpadding=0 width=100%>
-		<tr>
-			<td class=header1 colspan=2><%= GetText("ACTIVE_DISCUSSIONS") %></td>
-		</tr>
-		<tr>
-			<td class=header2 colspan=2><%= GetText("LATEST_POSTS") %></td>
-		</tr>
-		<tr>
-			<td class=post>
-				<asp:Repeater runat="server" id="LatestPosts">
-					<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic")) %></a><br /></ItemTemplate>
-				</asp:Repeater>
-			</td>
-		</tr>
-		</table>
-	</td>
 	<td width="65%" valign="top">
 		<table class=content cellspacing=1 cellpadding=0 width=100%>
 		<tr>
@@ -77,17 +60,33 @@
 				</asp:repeater>
 			</td>
 		</tr>
-<!-- Makes it line up better without this
 		<tr>
 				<td class=header2 colspan=2><%= GetText("STATS") %></td>
 		</tr>
--->
 		<tr>
 			<td class=post width=1%><img src='<%# GetThemeContents("ICONS","FORUM_STATS") %>'></td>
 			<td class=post><asp:label id=Stats runat="server">Label</asp:label></td>
 		</tr>
 		</table>
 	</td>
+	<td width="10">&nbsp;</td>
+	<td width="35%" valign="top" class="content" height="100%">		
+		<table class="post" border="0" cellspacing="1" cellpadding="0" width="100%" height="100%">
+		<tr>
+			<td class="header1" colspan="2"><%= GetText("ACTIVE_DISCUSSIONS") %></td>
+		</tr>
+		<tr>
+			<td class="header2" colspan="2"><%= GetText("LATEST_POSTS") %></td>
+		</tr>
+		<tr>
+			<td class="post" valign="top">
+				<asp:Repeater runat="server" id="LatestPosts">
+					<ItemTemplate>&nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic")) %></a> <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>"><img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0"></a><br/></ItemTemplate>
+				</asp:Repeater>
+			</td>
+		</tr>
+		</table>
+	</td>	
 </tr>
 </table>
 
