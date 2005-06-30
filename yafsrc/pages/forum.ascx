@@ -70,8 +70,8 @@
 		</table>
 	</td>
 	<td width="10">&nbsp;</td>
-	<td width="35%" valign="top" class="content" height="100%">		
-		<table class="post" border="0" cellspacing="1" cellpadding="0" width="100%" height="100%">
+	<td width="35%" valign="top" class="post" height="100%">		
+		<table class="content" border="0" cellspacing="1" cellpadding="0" width="100%" height="100%">
 		<tr>
 			<td class="header1" colspan="2"><%= GetText("ACTIVE_DISCUSSIONS") %></td>
 		</tr>
