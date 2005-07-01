@@ -43,8 +43,8 @@ namespace yaf.pages
 		protected PlaceHolder ModeratorInfo;
 		protected HtmlTableRow SuspendedRow, userGroupsRow;
 		protected DropDownList SuspendUnit;
-		protected TextBox SuspendCount;
-		protected Button RemoveSuspension, Suspend;
+		protected TextBox SuspendCount, UserSignature;
+		protected Button RemoveSuspension, Suspend, EditSignature;
 		protected HtmlTableCell Stats, RealName, Occupation, Interests, Gender;
 		protected HyperLink Yim, Aim, Icq, Pm, Home, Blog, Msn, Email;
 		protected Image Avatar;
@@ -97,6 +97,12 @@ namespace yaf.pages
 				Interests.InnerHtml		= Server.HtmlEncode(Utils.BadWordReplace(user["Interests"].ToString()));
 				Occupation.InnerHtml	= Server.HtmlEncode(Utils.BadWordReplace(user["Occupation"].ToString()));
 				Gender.InnerText			= GetText("GENDER" + user["Gender"].ToString());
+				
+				if(IsAdmin || IsForumModerator)
+				{
+					EditSignature.CommandArgument = user["UserID"].ToString();
+					UserSignature.Text = Server.HtmlEncode(Utils.BadWordReplace(user["Signature"].ToString()));
+				}
 				
 				double dAllPosts = 0.0;
 				if((int)user["NumPostsForum"]>0) 
@@ -163,6 +169,7 @@ namespace yaf.pages
 
 				RemoveSuspension.Text = GetText("REMOVESUSPENSION");
 				Suspend.Text = GetText("SUSPEND");
+				EditSignature.Text = GetText("EDIT_SIGNATURE");
 
 				if(IsAdmin || IsForumModerator)
 				{
@@ -195,6 +202,23 @@ namespace yaf.pages
 			LastPosts.DataSource = DB.post_last10user(PageBoardID,Request.QueryString["u"],PageUserID);
 			
 			DataBind();
+		}
+
+		/// <summary>
+		/// Edits the user's signature when clicked
+		/// </summary>
+		/// <param name="sender">The object sender inherit from Page.</param>
+		/// <param name="e">The System.EventArgs inherit from Page.</param>
+		protected void EditSignature_Command(object sender, CommandEventArgs e)
+		{
+			string body = UserSignature.Text;
+			body = FormatMsg.RepairHtml(this,body,false);
+
+			if(UserSignature.Text.Length>0)
+				DB.user_savesignature(e.CommandArgument,body);
+			else
+				DB.user_savesignature(e.CommandArgument,DBNull.Value);
+			
 		}
 
 		/// <summary>

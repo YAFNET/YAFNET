@@ -119,6 +119,12 @@
 			<asp:textbox runat="server" id="SuspendCount" style="width:60px"/>&nbsp;<asp:dropdownlist runat="server" id="SuspendUnit"/>&nbsp;<asp:button runat="server" id="Suspend"/>
 		</td>	
 	</tr>
+	<tr>
+		<td class=postheader>Edit User Signature:</td>
+		<td class=post>
+			<asp:textbox runat="server" id="UserSignature" TextMode="MultiLine" Rows="5" Columns="40" /><br /><asp:button runat="server" id="EditSignature" OnCommand="EditSignature_Command"/>
+		</td>	
+	</tr>
 	</table>
 </td><td valign="top">
 	<table width="100%" cellspacing="1" cellpadding="0">
