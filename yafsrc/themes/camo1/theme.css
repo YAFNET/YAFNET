@@ -4,6 +4,29 @@ body, tr, input, select
 	font-size: 8pt;
 }
 
+/* For BBCode Post Buttons */
+.ButtonOut
+{
+	filter: alpha(opacity=70);
+	border: #7F9DB9 1px solid;
+}
+.ButtonOver
+{
+	background-color: #FFE1AC;
+	border: #FFAD55 1px solid;
+}
+.ButtonChecked
+{
+	background-color: #FFCB7E;
+	border: #FFAD55 1px solid;
+}
+.ButtonOff
+{
+	filter: gray() alpha(opacity=30);
+	background-color: #C0C0C0;
+	border: #7F9DB9 1px solid;
+}
+
 /*  */
 img 
 {

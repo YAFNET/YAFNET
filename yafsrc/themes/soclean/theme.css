@@ -18,6 +18,29 @@ input{border:1px solid #404040;font-size:8pt;}
 
 input.pbutton{background:#EEEEEE;}
 
+/* For BBCode Post Buttons */
+.ButtonOut
+{
+	filter: alpha(opacity=70);
+	border: #7F9DB9 1px solid;
+}
+.ButtonOver
+{
+	background-color: #FFE1AC;
+	border: #FFAD55 1px solid;
+}
+.ButtonChecked
+{
+	background-color: #FFCB7E;
+	border: #FFAD55 1px solid;
+}
+.ButtonOff
+{
+	filter: gray() alpha(opacity=30);
+	background-color: #C0C0C0;
+	border: #7F9DB9 1px solid;
+}
+
 /*  */
 img 
 {
@@ -167,7 +190,7 @@ td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 }
 .forumsubheading
 {
-	font-weight:7.5pt;
+	font-size:7.5pt;
 }
 
 #RichEdit td 
