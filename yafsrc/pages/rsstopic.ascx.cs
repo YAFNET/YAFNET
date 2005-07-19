@@ -63,7 +63,7 @@ namespace yaf.pages
 						using(DataTable dt=DB.post_list(PageTopicID,1)) 
 						{
 							foreach(DataRow row in dt.Rows)
-								rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}",Request.QueryString["t"]), row["Message"].ToString());
+								rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}",Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 						}
 					}
 
@@ -83,11 +83,12 @@ namespace yaf.pages
 
 					if (Request.QueryString["f"] != null)
 					{
-						using(DataTable dt = DB.GetData("select Topic = a.Topic, TopicID = a.TopicID, Name = b.Name from yaf_Topic a, yaf_Forum b where a.ForumID=" + Request.QueryString["f"] + " and b.ForumID = a.ForumID")) 
+						string tSQL = "select Topic = a.Topic, TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from yaf_Topic a, yaf_Forum b where a.ForumID=" + Request.QueryString["f"] + " and b.ForumID = a.ForumID";
+						using(DataTable dt = DB.GetData(tSQL))
 						{
 							foreach(DataRow row in dt.Rows)
 							{
-								rf.AddRSSItem(writer, row["Topic"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}", row["TopicID"]), row["Topic"].ToString());
+								rf.AddRSSItem(writer, row["Topic"].ToString(), ServerURL + Forum.GetLink(Pages.posts,"t={0}", row["TopicID"]), row["Topic"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 							}
 						}
 					}
