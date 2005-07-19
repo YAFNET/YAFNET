@@ -44,6 +44,11 @@ namespace yaf
 
 		public XmlTextWriter AddRSSItem(XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription)
 		{
+			return this.AddRSSItem(writer,sItemTitle,sItemLink,sItemDescription,DateTime.Now.ToString("r"));
+		}
+
+		public XmlTextWriter AddRSSItem(XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription, string sPubDate)
+		{
 			/*
 				writer.WriteStartElement("item");
 				writer.WriteElementString("title", sItemTitle);
@@ -57,7 +62,7 @@ namespace yaf
 			writer.WriteRaw("\t\t\t<title>" + Encode(sItemTitle) + "</title>" + en);
 			writer.WriteRaw("\t\t\t<link>" + Encode(sItemLink) + "</link>" + en);
 			writer.WriteRaw("\t\t\t<description><![CDATA[" + sItemDescription + "]]></description>" + en);
-			writer.WriteRaw("\t\t\t<pubDate>" + DateTime.Now.ToString("r") + "</pubDate>" + en);
+			writer.WriteRaw("\t\t\t<pubDate>" + sPubDate + "</pubDate>" + en);
 			writer.WriteRaw("\t\t</item>" + en);
 
 			return writer;
