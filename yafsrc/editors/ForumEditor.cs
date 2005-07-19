@@ -205,33 +205,6 @@ namespace yaf.editor
 
 		protected override void Editor_Load(object sender,EventArgs e)
 		{
-			if(this.Visible)
-			{
-				Page.RegisterClientScriptBlock("richeditstyles",
-					"<style>\n"+
-					".ButtonOut\n"+
-					"{\n"+
-					"	filter: alpha(opacity=70);\n"+
-					"	border: #7F9DB9 1px solid;\n"+
-					"}\n"+
-					".ButtonOver\n"+
-					"{\n"+
-					"	background-color: #FFE1AC;\n"+
-					"	border: #FFAD55 1px solid;\n"+
-					"}\n"+
-					".ButtonChecked\n"+
-					"{\n"+
-					"	background-color: #FFCB7E;\n"+
-					"	border: #FFAD55 1px solid;\n"+
-					"}\n"+
-					".ButtonOff\n"+
-					"{\n"+
-					"	filter: gray() alpha(opacity=30);\n"+
-					"	background-color: #C0C0C0;\n"+
-					"	border: #7F9DB9 1px solid;\n"+
-					"}\n"+
-					"</style>\n");
-			}
 			base.Editor_Load(sender,e);
 		}
 
