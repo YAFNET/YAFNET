@@ -89,7 +89,7 @@ namespace yaf
 		}
 		public string Theme
 		{
-			get { return m_regBoard.GetValueString("Theme","standard.xml"); }
+			get { return m_regBoard.GetValueString("Theme","soclean.xml"); }
 			set	{ m_regBoard.SetValueString("Theme",value); }
 		}
 		public string Language
