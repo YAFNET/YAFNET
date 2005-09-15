@@ -278,7 +278,7 @@ namespace yaf
 		/// <returns>intager value for database size</returns>
 		static public int DBSize() 
 		{
-			using(SqlCommand cmd = new SqlCommand("select sum(size) * 8 * 1024 from sysfiles")) 
+			using(SqlCommand cmd = new SqlCommand("select sum(size) from sysfiles")) 
 			{
 				cmd.CommandType = CommandType.Text;
 				return (int)ExecuteScalar(cmd);
