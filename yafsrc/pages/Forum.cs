@@ -130,6 +130,7 @@ namespace yaf
 			{
 				pages.ForumPage ctl = (pages.ForumPage)LoadControl(src);
 				ctl.ForumControl = this;
+
 				this.Controls.Add(ctl);
 			}
 			catch(System.IO.FileNotFoundException)

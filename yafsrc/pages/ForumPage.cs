@@ -45,6 +45,7 @@ namespace yaf.pages
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_checkSuspended	= true;
+
 		#endregion
 		#region Constructor and events
 		/// <summary>
@@ -62,7 +63,7 @@ namespace yaf.pages
 			this.Load += new System.EventHandler(this.ForumPage_Load);
 			this.Unload += new EventHandler(ForumPage_Unload);
 			this.Error += new System.EventHandler(this.ForumPage_Error);
-			this.PreRender += new EventHandler(ForumPage_PreRender);
+			this.PreRender += new EventHandler(ForumPage_PreRender);			
 		}
 
 		private void ForumPage_Unload(object sender,EventArgs e)
@@ -126,6 +127,7 @@ namespace yaf.pages
 
 				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(sCulture);
 				Thread.CurrentThread.CurrentUICulture = new CultureInfo(sCulture);
+
 			}
 #if DEBUG
 			catch(Exception ex)
@@ -239,7 +241,6 @@ namespace yaf.pages
 					HttpContext.Current.Request.QueryString["t"],
 					HttpContext.Current.Request.QueryString["m"]);
 			}
-
 			if(m_pageinfo==null) 
 			{
 				if(User.IsAuthenticated) 
@@ -511,7 +512,7 @@ namespace yaf.pages
 					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"10;{0}\">\n",m_strRefreshURL));
 #else
 				if(m_strRefreshURL!=null && m_nRefreshTime>=0) 
-					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"{1};{0}\">\n",m_strRefreshURL,m_nRefreshTime));
+					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"{1};url={0}\">\n",m_strRefreshURL,m_nRefreshTime));
 #endif
 
 				// BEGIN HEADER

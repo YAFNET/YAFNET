@@ -88,24 +88,25 @@ namespace yaf.pages
 				/// Generate the new password
 				string newpw = pages.register.CreatePassword(8);
 
-				/// Email Body
-				System.Text.StringBuilder msg = new System.Text.StringBuilder();
-				msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
-				msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
-				msg.AppendFormat("Visit {0} at {1}",BoardSettings.Name,ForumURL);
-			
-				Utils.SendMail(this,BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
-
 				/// Update password in db
 				if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) 
 				{
 					AddLoadMessage(GetText("wrong_username_email"));
-					return;
 				}
+				else
+				{
+					/// Email Body
+					System.Text.StringBuilder msg = new System.Text.StringBuilder();
+					msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
+					msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
+					msg.AppendFormat("Visit {0} at {1}",BoardSettings.Name,ForumURL);
+			
+					Utils.SendMail(this,BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
 
-				LoginView.Visible = true;
-				RecoverView.Visible = false;
-				AddLoadMessage(GetText("email_sent_password"));
+					LoginView.Visible = true;
+					RecoverView.Visible = false;
+					AddLoadMessage(GetText("email_sent_password"));
+				}
 			}
 			catch(Exception x) 
 			{
