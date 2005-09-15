@@ -43,6 +43,12 @@ namespace yaf
 			return num;
 		}
 
+		static public ulong IPStrToLong(string IPAddress)
+		{
+			string[] ip = IPAddress.Split('.');
+			return Str2IP(ip);
+		}
+
 		static public bool IsBanned(string ban,string chk) {
 			String[] ipmask = ban.Split('.');
 			String[] ip = ban.Split('.');

@@ -1,4 +1,4 @@
-/* Version 1.0.0 */
+/* Version 1.0.1 */
 
 /*
 ** Create missing tables
@@ -53,6 +53,15 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Choice') and 
 		PollID			int NOT NULL ,
 		Choice			nvarchar (50) NOT NULL ,
 		Votes			int NOT NULL 
+	)
+GO
+
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_PollVote') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yaf_PollVote] (
+		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
+		[PollID] [int] NOT NULL ,
+		[UserID] [int] NULL ,
+		[RemoteIP] [nvarchar] (10) NULL 
 	)
 GO
 
@@ -868,6 +877,10 @@ if not exists(select * from sysindexes where id=object_id('yaf_Active') and name
 	alter table dbo.yaf_Active with nocheck add constraint PK_Active primary key clustered(SessionID,BoardID)
 GO
 
+if not exists(select * from sysindexes where id=object_id('yaf_PollVote') and name='PK_PollVote')
+	alter table dbo.yaf_PollVote with nocheck add constraint PK_PollVote primary key clustered(PollVoteID)
+GO
+
 /*
 ** Unique constraints
 */
@@ -1156,6 +1169,10 @@ if not exists(select * from sysobjects where name='FK_Registry_Board' and parent
 	alter table dbo.yaf_Registry add constraint FK_Registry_Board foreign key(BoardID) references yaf_Board(BoardID) on delete cascade
 go
 
+if not exists(select * from sysobjects where name='FK_yaf_PollVote_yaf_Poll' and parent_obj=object_id('yaf_PollVote') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table dbo.yaf_PollVote add constraint FK_yaf_PollVote_yaf_Poll foreign key(PollID) references yaf_Poll(PollID) on delete cascade
+go
+
 /*
 ** Indexes
 */
@@ -1167,6 +1184,18 @@ go
 if not exists(select 1 from dbo.sysindexes where name=N'IX_Name' and id=object_id(N'yaf_Registry'))
 	create unique index IX_Name on dbo.yaf_Registry(BoardID,Name)
 go
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_yaf_PollVote_RemoteIP' and id=object_id(N'yaf_PollVote'))
+ CREATE  INDEX [IX_yaf_PollVote_RemoteIP] ON [dbo].[yaf_PollVote]([RemoteIP])
+GO
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_yaf_PollVote_UserID' and id=object_id(N'yaf_PollVote'))
+ CREATE  INDEX [IX_yaf_PollVote_UserID] ON [dbo].[yaf_PollVote]([UserID])
+GO
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_yaf_PollVote_PollID' and id=object_id(N'yaf_PollVote'))
+ CREATE  INDEX [IX_yaf_PollVote_PollID] ON [dbo].[yaf_PollVote]([PollID])
+GO
 
 /*
 ** Stored procedures
@@ -3453,10 +3482,41 @@ if exists (select * from sysobjects where id = object_id(N'yaf_choice_vote') and
 	drop procedure yaf_choice_vote
 GO
 
-create procedure dbo.yaf_choice_vote(@ChoiceID int) as
-begin
-	update yaf_Choice set Votes = Votes + 1 where ChoiceID = @ChoiceID
-end
+CREATE PROCEDURE dbo.yaf_choice_vote(@ChoiceID int,@UserID int = NULL, @RemoteIP nvarchar(10) = NULL) AS
+BEGIN
+	DECLARE @PollID int
+
+	SET @PollID = (SELECT PollID FROM yaf_Choice WHERE ChoiceID = @ChoiceID)
+
+	IF @UserID = NULL 
+	BEGIN
+		INSERT INTO yaf_PollVote (PollID, UserID, RemoteIP) VALUES (@PollID,NULL,@RemoteIP)
+	END
+	ELSE
+	BEGIN
+		INSERT INTO yaf_PollVote (PollID, UserID, RemoteIP) VALUES (@PollID,@UserID,@RemoteIP)
+	END
+
+	UPDATE yaf_Choice SET Votes = Votes + 1 WHERE ChoiceID = @ChoiceID
+END
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'yaf_pollvote_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_pollvote_check
+GO
+
+CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP nvarchar(10) = NULL) AS
+
+	IF @UserID IS NULL
+	BEGIN
+		-- check by remote IP
+		SELECT PollVoteID FROM yaf_PollVote WHERE PollID = @PollID AND RemoteIP = @RemoteIP
+	END
+	ELSE
+	BEGIN
+		-- check by userid or remote IP
+		SELECT PollVoteID FROM yaf_PollVote WHERE PollID = @PollID AND (UserID = @UserID OR RemoteIP = @RemoteIP)
+	END
 GO
 
 if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_group') and OBJECTPROPERTY(id, N'IsProcedure') = 1)

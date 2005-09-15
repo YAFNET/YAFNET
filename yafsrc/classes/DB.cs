@@ -966,13 +966,33 @@ namespace yaf
 		/// Saves a vote in the database
 		/// </summary>
 		/// <param name="choiceID">Choice of the vote</param>
-		static public void choice_vote(object choiceID) 
+		static public void choice_vote(object choiceID,object userID,object remoteIP) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_choice_vote")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@ChoiceID",choiceID);
+				cmd.Parameters.Add("@UserID",userID);
+				cmd.Parameters.Add("@RemoteIP",remoteIP);
 				ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_PollVote
+		/// <summary>
+		/// Checks for a vote in the database
+		/// </summary>
+		/// <param name="choiceID">Choice of the vote</param>
+		static public DataTable pollvote_check(object pollid, object userid, object remoteip) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_pollvote_check")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@PollID",pollid);
+				cmd.Parameters.Add("@UserID",userid);
+				cmd.Parameters.Add("@RemoteIP",remoteip);
+				return GetData(cmd);
 			}
 		}
 		#endregion

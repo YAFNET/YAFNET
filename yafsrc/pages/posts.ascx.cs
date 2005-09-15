@@ -343,15 +343,6 @@ namespace yaf.pages
 			DataBind();
 		}
 
-		protected bool CanVote
-		{
-			get
-			{
-				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
-				return ForumVoteAccess && Request.Cookies[cookie] == null;
-			}
-		}
-
 		private bool HandleWatchTopic()
 		{
 			if (IsGuest) return false;
@@ -413,26 +404,69 @@ namespace yaf.pages
 			PostReplyLink2.Visible = ForumReplyAccess;
 		}
 
+		protected bool CanVote
+		{
+			get
+			{
+				// rule out users without voting rights
+				if (!ForumVoteAccess) return false;
+
+				// check for voting cookie
+				string cookieName = String.Format("poll#{0}",topic["PollID"]);
+				if (Request.Cookies[cookieName] != null) return false;
+
+				object UserID = null;
+				object RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
+
+				if (!IsGuest)
+				{
+					UserID = PageUserID;					
+				}
+
+				// check for a record of a vote
+				using(DataTable dt = DB.pollvote_check(topic["PollID"],UserID,RemoteIP))
+				{
+					if (dt.Rows.Count == 0)
+					{
+						// user hasn't voted yet...
+						return true;
+					}
+				}
+
+				return false;
+			}
+		}
+
 		private void Poll_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			if(e.CommandName=="vote" && ForumVoteAccess)
 			{
-				string cookie = String.Format("poll#{0}#{1}",topic["PollID"],PageUserID);
-
-				if(Request.Cookies[cookie] != null) 
+				if (!this.CanVote) 
 				{
 					AddLoadMessage(GetText("WARN_ALREADY_VOTED"));
 					return;
 				}
 
-				if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked) {
+				if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked)
+				{
 					AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 					return;
 				}
 
-				DB.choice_vote(e.CommandArgument);
-				HttpCookie c = new HttpCookie(cookie,e.CommandArgument.ToString());
+				object UserID = null;
+				object RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
+
+				if (!IsGuest)
+				{
+					UserID = PageUserID;					
+				}
+
+				DB.choice_vote(e.CommandArgument,UserID,RemoteIP);
+
+				string cookieName = String.Format("poll#{0}",e.CommandArgument);
+				HttpCookie c = new HttpCookie(cookieName,e.CommandArgument.ToString());
 				c.Expires = DateTime.Now.AddYears(1);
 				Response.Cookies.Add(c);
+
 				AddLoadMessage(GetText("INFO_VOTED"));
 				BindData();
 			}
