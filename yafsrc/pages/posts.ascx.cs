@@ -411,12 +411,16 @@ namespace yaf.pages
 				// rule out users without voting rights
 				if (!ForumVoteAccess) return false;
 
+				if (IsPollClosed()) return false;
+
 				// check for voting cookie
 				string cookieName = String.Format("poll#{0}",topic["PollID"]);
 				if (Request.Cookies[cookieName] != null) return false;
 
 				object UserID = null;
-				object RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
+				object RemoteIP = null;
+				
+				if (BoardSettings.PollVoteTiedToIP) RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
 
 				if (!IsGuest)
 				{
@@ -452,8 +456,16 @@ namespace yaf.pages
 					return;
 				}
 
+				if (IsPollClosed())
+				{
+					AddLoadMessage(GetText("WARN_POLL_CLOSED"));
+					return;
+				}
+
 				object UserID = null;
-				object RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
+				object RemoteIP = null;
+				
+				if (BoardSettings.PollVoteTiedToIP) RemoteIP = Utils.IPStrToLong(Request.ServerVariables["REMOTE_ADDR"]).ToString();
 
 				if (!IsGuest)
 				{
@@ -470,6 +482,28 @@ namespace yaf.pages
 				AddLoadMessage(GetText("INFO_VOTED"));
 				BindData();
 			}
+		}
+
+		protected bool IsPollClosed()
+		{
+			bool bIsClosed = false;
+
+			if (dtPoll.Rows[0]["Closes"] != DBNull.Value)
+			{
+				DateTime tCloses = Convert.ToDateTime(dtPoll.Rows[0]["Closes"]);
+				if (tCloses < DateTime.Now)
+				{
+					bIsClosed = true;
+				}
+			}
+			return bIsClosed;
+		}
+
+		protected string GetPollIsClosed()
+		{
+			string strPollClosed = "";
+			if (IsPollClosed()) strPollClosed = GetText("POLL_CLOSED");
+			return strPollClosed;
 		}
 
 		protected string GetPollQuestion()

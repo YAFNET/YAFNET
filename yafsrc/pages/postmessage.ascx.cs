@@ -55,6 +55,7 @@ namespace yaf.pages
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow8;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow9;
 		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow10;
+		protected System.Web.UI.HtmlControls.HtmlTableRow PollRowExpire;
 		protected System.Web.UI.WebControls.TextBox PollChoice1;
 		protected System.Web.UI.WebControls.TextBox PollChoice2;
 		protected System.Web.UI.WebControls.TextBox PollChoice3;
@@ -64,6 +65,7 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.TextBox PollChoice7;
 		protected System.Web.UI.WebControls.TextBox PollChoice8;
 		protected System.Web.UI.WebControls.TextBox PollChoice9;
+		protected System.Web.UI.WebControls.TextBox PollExpire;
 		protected System.Web.UI.WebControls.Button Cancel;
 		protected System.Web.UI.WebControls.TextBox Question;
 		protected System.Web.UI.WebControls.TextBox From;
@@ -108,6 +110,7 @@ namespace yaf.pages
 			Message.BaseDir = Data.ForumRoot + "editors";
 
 			Title.Text = GetText("NEWTOPIC");
+			PollExpire.Attributes.Add("style","width:50px");
 						
 			if(!IsPostBack) 
 			{
@@ -329,6 +332,24 @@ namespace yaf.pages
 				
 				if (PollRow1.Visible)
 				{
+
+					int daysPollExpire = 0;
+					object datePollExpire = null;
+
+					try
+					{
+						daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
+					}
+					catch
+					{
+
+					}
+
+					if (daysPollExpire > 0)
+					{
+						datePollExpire = DateTime.Now.AddDays(daysPollExpire);
+					}
+
 					PollID = DB.poll_save(Question.Text,
 						PollChoice1.Text,
 						PollChoice2.Text,
@@ -338,7 +359,8 @@ namespace yaf.pages
 						PollChoice6.Text,
 						PollChoice7.Text,
 						PollChoice8.Text,
-						PollChoice9.Text);
+						PollChoice9.Text,
+						datePollExpire);
 				}
 
 				// make message flags
@@ -387,6 +409,7 @@ namespace yaf.pages
 			PollRow8.Visible = true;
 			PollRow9.Visible = true;
 			PollRow10.Visible = true;
+			PollRowExpire.Visible = true;
 		}
 
 		private void Cancel_Click(object sender, System.EventArgs e)

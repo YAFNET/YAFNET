@@ -41,7 +41,7 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.WebControls.TextBox ForumEmailEdit, PostFloodDelay;
 		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
 		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize, AcceptedHTML;
-		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks;
+		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks, PollVoteTiedToIPX;
 		protected System.Web.UI.WebControls.CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
 		protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX, ShowForumJumpX, AllowPrivateMessagesX, AllowEmailSendingX, AllowSignaturesX, RemoveNestedQuotesX, DateFormatFromLanguage;
 		protected yaf.controls.AdminMenu Adminmenu1;
@@ -119,6 +119,7 @@ namespace yaf.pages.admin {
 			CreateNntpUsers.Checked = BoardSettings.CreateNntpUsers;
 			ShowGroupsProfile.Checked = BoardSettings.ShowGroupsProfile;
 			PostFloodDelay.Text = BoardSettings.PostFloodDelay.ToString();
+			PollVoteTiedToIPX.Checked = BoardSettings.PollVoteTiedToIP;
 
 		}
 
@@ -189,6 +190,7 @@ namespace yaf.pages.admin {
 			BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
 			BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
 			BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
+			BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

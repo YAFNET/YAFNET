@@ -10,7 +10,7 @@
 <HeaderTemplate>
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 	<tr>
-		<td class=header1 colspan=3><%= GetText("question") %>: <%# GetPollQuestion() %></td>
+		<td class=header1 colspan=3><%= GetText("question") %>: <%# GetPollQuestion() %> <%# GetPollIsClosed() %></td>
 	</tr>
 	<tr>
 		<td class=header2><%= GetText("choice") %></td>

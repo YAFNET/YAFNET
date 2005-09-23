@@ -73,6 +73,10 @@
 		<td class="postformheader" width="20%"><em><%= GetText("choice9") %></em></td>
 		<td class="post" width="80%"><asp:TextBox maxlength="50" id=PollChoice9 runat="server" cssclass="edit"/></td>
 	</tr>
+	<tr id="PollRowExpire" runat="server" visible=false>
+		<td class="postformheader" width="20%"><em><%= GetText("poll_expire") %></em></td>
+		<td class="post" width="80%"><asp:TextBox maxlength="10" id="PollExpire" runat="server" cssclass="edit"/> <%= GetText("poll_expire_explain") %></td>
+	</tr>	
 	<tr>
 		<td class="postformheader" width="20%" vAlign="top"><%= GetText("message") %>
 			<br/>

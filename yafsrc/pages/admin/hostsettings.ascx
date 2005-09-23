@@ -83,6 +83,14 @@
 				<asp:checkbox id="RemoveNestedQuotesX" runat="server"></asp:checkbox></TD>
 		</TR>
 		<TR>
+			<TD class="postheader"><B>Poll Votes Dependant on IP:</B><BR>
+			By default, poll voting is tracked via username and client-side cookie. (One vote per username. Cookies are used if guest voting is allowed.)
+			If this option is enabled, votes also use IP as a reference providing	the most security against voter fraud.
+			</TD>
+			<TD class="post">
+				<asp:checkbox id="PollVoteTiedToIPX" runat="server"></asp:checkbox></TD>
+		</TR>			
+		<TR>
 			<TD class="postheader"><B>Max File Size:</B><BR>
 				Maximum size of uploaded files. Leave empty for no limit.</TD>
 			<TD class="post">
