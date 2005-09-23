@@ -170,6 +170,8 @@
 		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
 		<Resource tag="WARN_PMLOGIN">You must be logged in to send private messages.</Resource>
 		<Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
+		<Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
 		<Resource tag="INFO_VOTED">Thank you for your vote!</Resource>
 		<Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
 		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts are made in this topic.</Resource>
@@ -436,6 +438,8 @@
 		<Resource tag="CHOICE7">Choice 7:</Resource>
 		<Resource tag="CHOICE8">Choice 8:</Resource>
 		<Resource tag="CHOICE9">Choice 9:</Resource>
+		<Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank for a never ending poll ]</Resource>		
 		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
