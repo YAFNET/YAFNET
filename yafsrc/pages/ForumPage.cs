@@ -451,8 +451,7 @@ namespace yaf.pages
 
 			if(User!=null && User.IsAuthenticated) 
 			{
-				header.AppendFormat(String.Format("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS"),Server.HtmlEncode(PageUserName))));
-
+				header.AppendFormat("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS") + " ",Server.HtmlEncode(PageUserName)));
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
 				if(!IsGuest)
 					header.AppendFormat(String.Format("	<a target='_top' href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.cp_inbox),GetText("CP_INBOX","TITLE")));
