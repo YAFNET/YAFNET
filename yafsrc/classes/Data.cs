@@ -105,23 +105,21 @@ namespace yaf
 			{
 				try
 				{
-					///return Config.ConfigSection["root"];
 					string path = HttpContext.Current.Request.ApplicationPath;
-					if(!path.EndsWith("/")) path += "/";
 
-					if(Config.IsDotNetNuke || Config.IsRainbow)
-					{
-						if (Config.ConfigSection["root"] == null)
-						{
-							path += "DesktopModules/YetAnotherForumDotNet/";
-						}
-						else
-						{							
-							string offsetRoot = Config.ConfigSection["root"];
-							if (offsetRoot.Length > 1 && offsetRoot[0] == '/') offsetRoot = offsetRoot.Remove(0,1);
-							path += offsetRoot;
-						}
+					if (Config.ConfigSection["root"] != null)
+					{	
+						// use specified root
+						path = Config.ConfigSection["root"];
+						if (path[0] != '/') path = path.Insert(0,"/");
+						
 					}
+					else if (Config.IsDotNetNuke || Config.IsRainbow)
+					{
+						path += "DesktopModules/YetAnotherForumDotNet/";
+					}
+
+					if (!path.EndsWith("/")) path += "/";
 
 					return path;
 				}
