@@ -276,6 +276,11 @@ namespace yaf
 			get { return m_reg.GetValueBool("ShowGroupsProfile",false); }
 			set { m_reg.SetValueBool("ShowGroupsProfile",value); }
 		}
+		public bool PollVoteTiedToIP
+		{
+			get {	return m_reg.GetValueBool("PollVoteTiedToIP",true); }
+			set	{	m_reg.SetValueBool("PollVoteTiedToIP",value);	}
+		}
 
 		// string settings
 		public string ForumEmail 

@@ -116,8 +116,10 @@ namespace yaf
 							path += "DesktopModules/YetAnotherForumDotNet/";
 						}
 						else
-						{
-							path += Config.ConfigSection["root"];
+						{							
+							string offsetRoot = Config.ConfigSection["root"];
+							if (offsetRoot.Length > 1 && offsetRoot[0] == '/') offsetRoot = offsetRoot.Remove(0,1);
+							path += offsetRoot;
 						}
 					}
 
@@ -323,14 +325,14 @@ namespace yaf
 		{
 			get 
 			{
-				return 0x01000002;
+				return 0x01000003;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2005,6,13);
+				return new DateTime(2005,9,24);
 			}
 		}
 		#endregion

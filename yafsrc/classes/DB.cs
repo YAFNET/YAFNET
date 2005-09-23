@@ -1690,7 +1690,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public int poll_save(object question,object c1,object c2,object c3,object c4,object c5,object c6,object c7,object c8,object c9) 
+		static public int poll_save(object question,object c1,object c2,object c3,object c4,object c5,object c6,object c7,object c8,object c9,object c10) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_poll_save")) 
 			{
@@ -1705,6 +1705,7 @@ namespace yaf
 				cmd.Parameters.Add("@Choice7",c7);
 				cmd.Parameters.Add("@Choice8",c8);
 				cmd.Parameters.Add("@Choice9",c9);
+				cmd.Parameters.Add("@Closes",c10);
 				return (int)ExecuteScalar(cmd);
 			}
 		}
