@@ -144,7 +144,8 @@ GO
 if not exists (select * from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Poll(
 		PollID			int IDENTITY (1, 1) NOT NULL ,
-		Question		nvarchar (50) NOT NULL 
+		Question		nvarchar (50) NOT NULL,
+		Closes datetime NULL 		
 	)
 GO
 
@@ -608,6 +609,12 @@ begin
 	exec('update yaf_Rank set Flags = Flags | 2 where IsLadder<>0')
 	revoke update on yaf_Rank from public
 	alter table dbo.yaf_Rank drop column IsLadder
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Poll') and name='Closes')
+begin
+	alter table dbo.yaf_Poll add Closes datetime null
 end
 GO
 
@@ -1606,7 +1613,7 @@ if exists (select * from sysobjects where id = object_id(N'yaf_poll_save') and O
 	drop procedure yaf_poll_save
 GO
 
-create procedure dbo.yaf_poll_save(
+CREATE procedure dbo.yaf_poll_save(
 	@Question	nvarchar(50),
 	@Choice1	nvarchar(50),
 	@Choice2	nvarchar(50),
@@ -1616,11 +1623,12 @@ create procedure dbo.yaf_poll_save(
 	@Choice6	nvarchar(50) = null,
 	@Choice7	nvarchar(50) = null,
 	@Choice8	nvarchar(50) = null,
-	@Choice9	nvarchar(50) = null
+	@Choice9	nvarchar(50) = null,
+	@Closes 	datetime = null
 ) as
 begin
 	declare @PollID	int
-	insert into yaf_Poll(Question) values(@Question)
+	insert into yaf_Poll(Question,Closes) values(@Question,@Closes)
 	set @PollID = @@IDENTITY
 	if @Choice1<>'' and @Choice1 is not null
 		insert into yaf_Choice(PollID,Choice,Votes)
@@ -3488,9 +3496,12 @@ BEGIN
 
 	SET @PollID = (SELECT PollID FROM yaf_Choice WHERE ChoiceID = @ChoiceID)
 
-	IF @UserID = NULL 
+	IF @UserID = NULL
 	BEGIN
-		INSERT INTO yaf_PollVote (PollID, UserID, RemoteIP) VALUES (@PollID,NULL,@RemoteIP)
+		IF @RemoteIP != NULL
+		BEGIN
+			INSERT INTO yaf_PollVote (PollID, UserID, RemoteIP) VALUES (@PollID,NULL,@RemoteIP)	
+		END
 	END
 	ELSE
 	BEGIN
@@ -3501,6 +3512,7 @@ BEGIN
 END
 GO
 
+
 if exists (select * from dbo.sysobjects where id = object_id(N'yaf_pollvote_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pollvote_check
 GO
@@ -3509,8 +3521,11 @@ CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@Rem
 
 	IF @UserID IS NULL
 	BEGIN
-		-- check by remote IP
-		SELECT PollVoteID FROM yaf_PollVote WHERE PollID = @PollID AND RemoteIP = @RemoteIP
+		IF @RemoteIP IS NOT NULL
+		BEGIN
+			-- check by remote IP
+			SELECT PollVoteID FROM yaf_PollVote WHERE PollID = @PollID AND RemoteIP = @RemoteIP
+		END
 	END
 	ELSE
 	BEGIN
@@ -3518,6 +3533,7 @@ CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@Rem
 		SELECT PollVoteID FROM yaf_PollVote WHERE PollID = @PollID AND (UserID = @UserID OR RemoteIP = @RemoteIP)
 	END
 GO
+
 
 if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_group') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_group
@@ -3704,23 +3720,25 @@ if exists (select * from sysobjects where id = object_id(N'yaf_poll_stats') and 
 	drop procedure yaf_poll_stats
 GO
 
-create procedure dbo.yaf_poll_stats(@PollID int) as
-begin
-	select
+CREATE PROCEDURE dbo.yaf_poll_stats(@PollID int) AS
+BEGIN
+	SELECT
 		a.PollID,
 		b.Question,
+		b.Closes,
 		a.ChoiceID,
 		a.Choice,
 		a.Votes,
 		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from yaf_Choice x where x.PollID=a.PollID)
-	from
+	FROM
 		yaf_Choice a,
 		yaf_Poll b
-	where
-		b.PollID = a.PollID and
+	WHERE
+		b.PollID = a.PollID AND
 		b.PollID = @PollID
-end
+END
 GO
+
 
 if exists (select * from sysobjects where id = object_id(N'yaf_smiley_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_delete
