@@ -76,7 +76,7 @@ namespace yaf.pages
 		private void save_Click(object sender,EventArgs e) 
 		{
 			string body = sig.Text;
-			body = FormatMsg.RepairHtml(this,body,false);
+			//body = FormatMsg.RepairHtml(this,body,false);
 
 			if(sig.Text.Length>0)
 				DB.user_savesignature(PageUserID,body);
