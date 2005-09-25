@@ -1,5 +1,6 @@
 <%@ Page Language="C#" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="yc" Namespace="yaf.controls" Assembly="yaf" %>
 
 <script runat="server">
 public void Page_Error(object sender,System.EventArgs e)
@@ -17,8 +18,10 @@ public void Page_Error(object sender,System.EventArgs e)
 </head>
 <body>
 
+<img src="images/yaflogo.jpg" width="400" height="50"/>
+<br />
+
 <form runat="server" enctype="multipart/form-data">
-	<yaf:forumHeader runat="server" />
 	<yaf:forum runat="server"/>
 </form>
 
