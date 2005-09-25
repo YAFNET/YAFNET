@@ -612,7 +612,7 @@ begin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Poll') and name='Closes')
+if not exists(select 1 from syscolumns where id=object_id('yaf_Poll') and name='Closes')
 begin
 	alter table dbo.yaf_Poll add Closes datetime null
 end
