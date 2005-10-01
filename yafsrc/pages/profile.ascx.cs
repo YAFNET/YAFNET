@@ -101,7 +101,8 @@ namespace yaf.pages
 				if(IsAdmin || IsForumModerator)
 				{
 					EditSignature.CommandArgument = user["UserID"].ToString();
-					UserSignature.Text = Server.HtmlEncode(Utils.BadWordReplace(user["Signature"].ToString()));
+					// when you set the TextBox using .Text it automatically encodes HTML
+					UserSignature.Text = user["Signature"].ToString();
 				}
 				
 				double dAllPosts = 0.0;

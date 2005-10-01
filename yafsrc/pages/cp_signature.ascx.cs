@@ -58,11 +58,7 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				string msg = DB.user_getsignature(PageUserID);
-				bool isHtml = msg.IndexOf('<')>=0;
-				if(isHtml)
-					msg = FormatMsg.HtmlToForumCode(msg);
-				sig.Text = msg;
+				sig.Text = DB.user_getsignature(PageUserID);
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
