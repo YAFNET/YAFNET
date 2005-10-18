@@ -9,17 +9,21 @@ updated.
 1. Unzip to a folder available from your web server.
 
 2. Modify the Web.config file you just unzipped. You must modify
-   connstr, basedir, themedir to valid values. The database pointed 
-   to by connstr can be an already existing database, or you can 
+   connstr to valid values. The database pointed 
+   to by <connstr> can be an already existing database, or you can 
    create a new database to install to.
 
 3. If YetAnotherForum.net isn't installed at the root of your web
    server, make sure the files in the bin directory of the zip file
-   is copied to /bin on your web server.
+   is copied to /bin on your web server. Also you'll need to add the
+   <root> element to the web.config to point to the correct URL.
+   Example: If you have install the forum in the directory "/forum/yaf/"
+   you will need to add <root>/forum/yaf/</root> to web.config.
 
-4. Open the file install/default.aspx on your webserver. If you are testing
-   on your local computer, under a directory called forum, the 
-   address should be http://localhost/forum/install/
+4. Open the file <YAFroot>install/default.aspx on your web site. If you
+   are testing on your local computer, under a directory called
+   YetAnotherForum.Net, the address should be:
+   http://localhost/yetanotherforum.net/install/
 
 5. Follow the directions and log in with the administration account
    you created during the setup.
