@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="accessmasks.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.accessmasks" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.admin.accessmasks" CodeFile="accessmasks.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -51,7 +51,7 @@
 </asp:repeater>
 <tr class="footer1">
 	<td colSpan="12">
-		<asp:linkbutton id="New" runat="server" text="New Access Mask"/>
+		<asp:linkbutton id="New" runat="server" text="New Access Mask" onclick="New_Click" />
 	</td>
 </tr>
 </table>

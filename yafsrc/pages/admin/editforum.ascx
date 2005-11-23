@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="editforum.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editforum" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Inherits="yaf.pages.admin.editforum" CodeFile="editforum.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">

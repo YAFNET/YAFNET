@@ -36,9 +36,9 @@ namespace yaf
 	/// <summary>
 	/// Summary description for image.
 	/// </summary>
-	public class image : System.Web.UI.Page
+    public partial class Migrated_image : System.Web.UI.Page
 	{
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["u"]!=null) 
 			{
@@ -170,7 +170,6 @@ namespace yaf
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

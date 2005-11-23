@@ -32,21 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public class edituser : AdminPage
+	public partial class edituser : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.TextBox Email;
-		protected System.Web.UI.WebControls.TextBox Joined;
-		protected System.Web.UI.WebControls.TextBox LastVisit;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected Repeater UserGroups;
-		protected CheckBox IsHostAdminX;
-		protected DropDownList RankID;
-		protected HtmlTableRow IsHostAdminRow;
-		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			IsHostAdminRow.Visible = IsHostAdmin;
 
@@ -87,9 +76,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -107,11 +93,11 @@ namespace yaf.pages.admin
 			return long.Parse(o.ToString()) > 0;
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e) {
+		protected void Cancel_Click(object sender, System.EventArgs e) {
 			Forum.Redirect(Pages.admin_users);
 		}
 
-		private void Save_Click(object sender, System.EventArgs e) {
+		protected void Save_Click(object sender, System.EventArgs e) {
 			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{

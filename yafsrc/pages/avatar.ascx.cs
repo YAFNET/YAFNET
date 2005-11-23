@@ -23,15 +23,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for avatar.
 	/// </summary>
-	public class avatar : ForumPage
+	public partial class avatar : ForumPage
 	{
 		protected System.Web.UI.WebControls.Label title;
-		protected System.Web.UI.WebControls.DataList files;
-		protected System.Web.UI.WebControls.DataList directories;
-		protected System.Web.UI.WebControls.HyperLink goup;
-		protected controls.PageLinks PageLinks;
-		protected controls.Pager pager;
-		protected LinkButton GoDir;
 	
 		public int pagenum = 0;
 		public int pagesize = 20;
@@ -57,7 +51,7 @@ namespace yaf.pages
 			}
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
@@ -87,7 +81,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 			pager.PageChange += new EventHandler(pager_PageChange);
 			GoDir.Click += new EventHandler(GoDir_Click);
 		}

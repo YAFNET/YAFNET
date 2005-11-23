@@ -32,31 +32,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for profile.
 	/// </summary>
-	public class profile : ForumPage
+	public partial class profile : ForumPage
 	{
-		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.Label LastVisit;
-		protected System.Web.UI.WebControls.Label UserName;
-		protected Repeater Groups, LastPosts;
-		protected Label Rank, Location;
-		protected PlaceHolder ModeratorInfo;
-		protected HtmlTableRow SuspendedRow, userGroupsRow;
-		protected DropDownList SuspendUnit;
-		protected TextBox SuspendCount, UserSignature;
-		protected Button RemoveSuspension, Suspend, EditSignature;
-		protected HtmlTableCell Stats, RealName, Occupation, Interests, Gender;
-		protected HyperLink Yim, Aim, Icq, Pm, Home, Blog, Msn, Email;
-		protected Image Avatar;
-		protected controls.PageLinks PageLinks;
 		protected Repeater ForumAccess;
-		protected Literal AccessMaskRow;
 	
 		public profile() : base("PROFILE")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["u"] == null)
 				Data.AccessDenied();
@@ -319,7 +303,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

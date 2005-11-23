@@ -10,16 +10,15 @@ namespace yaf.pages
 	/// <summary>
 	///		Summary description for LastPosts.
 	/// </summary>
-	public class lastposts : ForumPage
+	public partial class lastposts : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater repLastPosts;
 
 		public lastposts() : base("POSTMESSAGE")
 		{
 			ShowToolBar = false;
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!ForumReadAccess)
 				Data.AccessDenied();
@@ -47,7 +46,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

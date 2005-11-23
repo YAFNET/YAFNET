@@ -32,13 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class boards : AdminPage
+	public partial class boards : AdminPage
 	{
-		protected Repeater List;
-		protected LinkButton New;
-		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsHostAdmin)
 				Data.AccessDenied();

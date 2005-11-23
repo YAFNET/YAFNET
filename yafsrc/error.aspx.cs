@@ -33,9 +33,9 @@ namespace yaf
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public class error : System.Web.UI.Page
+	public partial class error : System.Web.UI.Page
 	{
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			//Forum.Redirect(Pages.error,Request.QueryString.ToString());
 		}

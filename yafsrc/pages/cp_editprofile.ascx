@@ -1,5 +1,6 @@
-<%@ Control language="c#" Codebehind="cp_editprofile.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_editprofile" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Reference Control="~/pages/register.ascx" %>
+<%@ Control language="c#" Inherits="yaf.pages.cp_editprofile" CodeFile="cp_editprofile.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -131,13 +132,13 @@
 	</tr>
 	<tr>
 		<td class=postheader><%= GetText("email") %></td>
-		<td class=post><asp:TextBox id=Email cssclass=edit runat="server"/></td>
+		<td class=post><asp:TextBox id=Email cssclass=edit runat="server" ontextchanged="Email_TextChanged" /></td>
 	</tr>
 	</asp:placeholder>
 
 	<tr>
 		<td class=footer1 colspan=2 align=middle>
-			<asp:Button id=UpdateProfile cssclass="pbutton" runat="server"/>
+			<asp:Button id=UpdateProfile cssclass="pbutton" runat="server" onclick="UpdateProfile_Click" />
 		</td>
 	</tr>
 </table>

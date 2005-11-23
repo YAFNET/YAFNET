@@ -14,19 +14,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public class attachments : ForumPage
+	public partial class attachments : ForumPage
 	{
 		private DataRow forum, topic;
-		protected Repeater List;
-		protected Button Back, Upload;
-		protected HtmlInputFile File;
-		protected controls.PageLinks PageLinks;
 
 		public attachments() : base("ATTACHMENTS")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
 				forum = dt.Rows[0];
@@ -186,7 +182,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

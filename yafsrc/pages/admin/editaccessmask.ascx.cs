@@ -32,13 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editaccessmask : AdminPage {
-		protected TextBox Name;
-		protected Button Save, Cancel;
-		protected CheckBox ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess;
-		protected controls.PageLinks PageLinks;
-	
-		private void Page_Load(object sender, System.EventArgs e) 
+	public partial class editaccessmask : AdminPage {
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -86,14 +81,11 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			// Forum
 			object accessMaskID = null;
@@ -116,7 +108,7 @@ namespace yaf.pages.admin
 			Forum.Redirect(Pages.admin_accessmasks);
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_accessmasks);
 		}

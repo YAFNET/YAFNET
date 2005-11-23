@@ -32,13 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for bannedip.
 	/// </summary>
-	public class replacewords : AdminPage
+	public partial class replacewords : AdminPage
 	{
-		protected Repeater list;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected controls.PageLinks PageLinks;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -88,7 +85,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

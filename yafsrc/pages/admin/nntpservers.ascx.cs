@@ -32,13 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpservers : AdminPage
+	public partial class nntpservers : AdminPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewServer;
-		protected System.Web.UI.WebControls.Repeater RankList;
-		protected controls.PageLinks PageLinks;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -67,8 +64,6 @@ namespace yaf.pages.admin
 		private void InitializeComponent()
 		{    
 			this.RankList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.RankList_ItemCommand);
-			this.NewServer.Click += new System.EventHandler(this.NewServer_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -98,7 +93,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void NewServer_Click(object sender, System.EventArgs e)
+		protected void NewServer_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_editnntpserver);
 		}

@@ -1,6 +1,6 @@
-<%@ Control language="c#" Codebehind="cp_signature.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_signature" %>
-<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.cp_signature" CodeFile="cp_signature.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

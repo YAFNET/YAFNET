@@ -1,6 +1,6 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
-<%@ Register TagPrefix="yc" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf" %>
+<%@ Register TagPrefix="yc" Namespace="yaf.controls" %>
 
 <script runat="server">
 public void Page_Error(object sender,System.EventArgs e)

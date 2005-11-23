@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="editboard.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editboard" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.admin.editboard" CodeFile="editboard.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -37,8 +37,8 @@
 </asp:placeholder>
 <tr>
 	<td class=postfooter align=middle colSpan="2">
-		<asp:button id=Save runat="server" Text="Save"/>
-		<asp:Button id=Cancel runat="server" Text="Cancel"/>
+		<asp:button id=Save runat="server" Text="Save" onclick="Save_Click" />
+		<asp:Button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click" />
 	</td>
 </tr>
 </table>

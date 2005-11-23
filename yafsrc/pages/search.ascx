@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.search" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.search" CodeFile="search.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 	<yaf:PageLinks runat="server" id="PageLinks"/>
 	<script language="javascript">
@@ -22,7 +22,7 @@ function doSearch() {
 		<tr>
 			<td class="postheader" colspan="2" align="center">
 				<asp:textbox id="txtSearchString" runat="server" Width="350px" onkeypress="doSearch();"/>
-				<asp:button id="btnSearch" cssclass="pbutton" runat="server"/>
+				<asp:button id="btnSearch" cssclass="pbutton" runat="server" onclick="btnSearch_Click" />
 			</td>
 		</tr>
 	</table><br/>

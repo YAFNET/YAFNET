@@ -1,5 +1,5 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf" %>
 <script runat="server">
 void Page_Load(object sender,System.EventArgs e)
 {

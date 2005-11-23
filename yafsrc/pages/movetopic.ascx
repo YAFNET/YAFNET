@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="movetopic.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.movetopic" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.movetopic" CodeFile="movetopic.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -15,7 +15,7 @@
 </tr>
 <tr>
 	<td class=footer1 colspan=2 align=middle>
-		<asp:Button id=Move runat="server"/>
+		<asp:Button id=Move runat="server" onclick="Move_Click" />
 	</td>
 </tr>
 </table>

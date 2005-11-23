@@ -33,57 +33,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
-	public class postmessage : ForumPage
+	public partial class postmessage : ForumPage
 	{
 		protected yaf.editor.ForumEditor Message;
-		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.Button PostReply;
-		protected System.Web.UI.WebControls.Label Title;
-		protected System.Web.UI.HtmlControls.HtmlTableRow SubjectRow;
-		protected System.Web.UI.WebControls.Button Preview;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PriorityRow;
-		protected System.Web.UI.WebControls.DropDownList Priority;
-		protected System.Web.UI.HtmlControls.HtmlTableRow CreatePollRow;
-		protected System.Web.UI.WebControls.LinkButton CreatePoll;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow1;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow2;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow3;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow4;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow5;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow6;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow7;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow8;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow9;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow10;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRowExpire;
-		protected System.Web.UI.WebControls.TextBox PollChoice1;
-		protected System.Web.UI.WebControls.TextBox PollChoice2;
-		protected System.Web.UI.WebControls.TextBox PollChoice3;
-		protected System.Web.UI.WebControls.TextBox PollChoice4;
-		protected System.Web.UI.WebControls.TextBox PollChoice5;
-		protected System.Web.UI.WebControls.TextBox PollChoice6;
-		protected System.Web.UI.WebControls.TextBox PollChoice7;
-		protected System.Web.UI.WebControls.TextBox PollChoice8;
-		protected System.Web.UI.WebControls.TextBox PollChoice9;
-		protected System.Web.UI.WebControls.TextBox PollExpire;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.TextBox Question;
-		protected System.Web.UI.WebControls.TextBox From;
-		protected System.Web.UI.HtmlControls.HtmlTableRow FromRow;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
-		protected System.Web.UI.WebControls.Repeater LastPosts;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
-		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl LastPostsIFrame;
-		protected controls.PageLinks PageLinks;
 
 		public postmessage() : base("POSTMESSAGE")
 		{
 
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			DataRow msg = null;
 			
@@ -231,16 +191,11 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.CreatePoll.Click += new System.EventHandler(this.CreatePoll_Click);
-			this.Preview.Click += new System.EventHandler(this.Preview_Click);
-			this.PostReply.Click += new System.EventHandler(this.PostReply_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void PostReply_Click(object sender, System.EventArgs e)
+		protected void PostReply_Click(object sender, System.EventArgs e)
 		{
 			if(SubjectRow.Visible && Subject.Text.Length<=0) {
 				AddLoadMessage(GetText("need_subject"));
@@ -397,7 +352,7 @@ namespace yaf.pages
 			}
 		}
 
-		private void CreatePoll_Click(object sender, System.EventArgs e) {
+		protected void CreatePoll_Click(object sender, System.EventArgs e) {
 			CreatePollRow.Visible = false;
 			PollRow1.Visible = true;
 			PollRow2.Visible = true;
@@ -412,7 +367,7 @@ namespace yaf.pages
 			PollRowExpire.Visible = true;
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			if (Request.QueryString["t"] != null || Request.QueryString["m"] != null)
 			{
@@ -426,7 +381,7 @@ namespace yaf.pages
 			}
 		}
 
-		private void Preview_Click(object sender, System.EventArgs e) {
+		protected void Preview_Click(object sender, System.EventArgs e) {
 			PreviewRow.Visible = true;
 
 			MessageFlags tFlags = new MessageFlags();

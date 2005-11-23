@@ -33,15 +33,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public class error : ForumPage
+	public partial class error : ForumPage
 	{
-		protected System.Web.UI.HtmlControls.HtmlTableCell errormsg;
 
 		public error() : base("ERROR") {
 			NoDataBase = true;
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			errormsg.InnerText = String.Format("An error has occured in '{0}'.",Request.QueryString["aspxerrorpath"]);
 		}
@@ -62,7 +61,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

@@ -32,24 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editforum : AdminPage {
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.TextBox Description;
-		protected System.Web.UI.WebControls.TextBox SortOrder, remoteurl;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.CheckBox Locked;
-		protected System.Web.UI.WebControls.DropDownList CategoryList;
-		protected System.Web.UI.WebControls.Repeater AccessList;
-		protected System.Web.UI.WebControls.CheckBox IsTest;
-		protected System.Web.UI.WebControls.Label ForumNameTitle;
-		protected System.Web.UI.WebControls.CheckBox HideNoAccess, Moderated;
-		protected DropDownList AccessMaskID, ParentList;
-		protected HtmlTableRow NewGroupRow;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected controls.PageLinks PageLinks;
-	
-		private void Page_Load(object sender, System.EventArgs e) 
+	public partial class editforum : AdminPage {
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));

@@ -13,15 +13,9 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for smilies_edit.
 	/// </summary>
-	public class smilies_edit : AdminPage
+	public partial class smilies_edit : AdminPage
 	{
-		protected DropDownList Icon;
-		protected TextBox Code, Emotion;
-		protected Button save, cancel;
-		protected HtmlImage Preview;
-		protected controls.PageLinks PageLinks;
-
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
@@ -142,7 +136,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

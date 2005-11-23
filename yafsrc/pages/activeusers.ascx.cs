@@ -32,16 +32,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for activeusers.
 	/// </summary>
-	public class activeusers : ForumPage
+	public partial class activeusers : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater UserList;
-		protected controls.PageLinks PageLinks;
 
 		public activeusers() : base("ACTIVEUSERS")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -68,7 +66,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

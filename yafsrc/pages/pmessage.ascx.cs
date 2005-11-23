@@ -33,25 +33,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for pmessage.
 	/// </summary>
-	public class pmessage : ForumPage
+	public partial class pmessage : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox Subject;
 		protected yaf.editor.ForumEditor Editor;
-		protected System.Web.UI.WebControls.TextBox To;
-		protected System.Web.UI.HtmlControls.HtmlTableRow ToRow;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
-		protected DropDownList ToList;
-		protected Button FindUsers;
-		protected Button AllUsers;
-		protected controls.PageLinks PageLinks;
 	
 		public pmessage() : base("PMESSAGE")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			Editor.BaseDir = Data.ForumRoot + "editors";
 			Editor.StyleSheet = this.ThemeFile("theme.css");
@@ -153,7 +143,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

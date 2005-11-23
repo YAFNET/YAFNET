@@ -32,16 +32,9 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class admin : AdminPage
+	public partial class admin : AdminPage
 	{
-		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
-		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;
-		protected HtmlGenericControl UpgradeNotice;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SmartScroller SmartScroller1;
-		protected controls.PageLinks PageLinks;
-	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -140,7 +133,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

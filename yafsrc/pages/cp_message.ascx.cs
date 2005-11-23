@@ -32,16 +32,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public class cp_message : ForumPage
+	public partial class cp_message : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater Inbox;
-		protected controls.PageLinks PageLinks;
 
 		public cp_message() : base("CP_MESSAGE")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 			{
@@ -110,7 +108,6 @@ namespace yaf.pages
 		private void InitializeComponent()
 		{    
 			this.Inbox.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.Inbox_ItemCommand);
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

@@ -32,17 +32,9 @@ namespace yaf.pages.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class boardsettings : AdminPage
+	public partial class boardsettings : AdminPage
 	{
-		protected Button Save;
-		protected TextBox Name;
-		protected CheckBox AllowThreaded;
-		protected controls.PageLinks PageLinks;
-		protected DropDownList Theme, Language, ShowTopic;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SmartScroller SmartScroller1;
-	
-		private void Page_Load(object sender, System.EventArgs e) 
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack)
 			{
@@ -98,13 +90,11 @@ namespace yaf.pages.admin {
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
 

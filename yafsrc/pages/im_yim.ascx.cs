@@ -32,17 +32,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public class im_yim : ForumPage
+	public partial class im_yim : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
-		protected HyperLink Msg;
-		protected HtmlImage Img;
 
 		public im_yim() : base("IM_YIM")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 				Data.AccessDenied();

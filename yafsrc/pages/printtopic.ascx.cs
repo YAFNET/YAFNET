@@ -32,16 +32,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for printtopic.
 	/// </summary>
-	public class printtopic : ForumPage
+	public partial class printtopic : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater Posts;
-		protected controls.PageLinks PageLinks;
 
 		public printtopic() : base("PRINTTOPIC")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumReadAccess)
 				Data.AccessDenied();
@@ -75,7 +73,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

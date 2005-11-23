@@ -32,15 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public class mail : AdminPage
+	public partial class mail : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.DropDownList ToList;
-		protected System.Web.UI.WebControls.Button Send;
-		protected System.Web.UI.WebControls.TextBox Body;
-		protected controls.PageLinks PageLinks;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -76,13 +71,11 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Send.Click += new System.EventHandler(this.Send_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Send_Click(object sender, System.EventArgs e) {
+		protected void Send_Click(object sender, System.EventArgs e) {
 			object GroupID = null;
 			if(ToList.SelectedItem.Value!="0")
 				GroupID = ToList.SelectedValue;

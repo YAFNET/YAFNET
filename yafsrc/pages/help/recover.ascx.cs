@@ -32,15 +32,14 @@ namespace yaf.pages.help
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class recover : ForumPage
+	public partial class recover : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
 
 		public recover() : base(null)
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{

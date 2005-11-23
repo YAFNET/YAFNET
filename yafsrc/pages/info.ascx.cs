@@ -14,17 +14,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for info.
 	/// </summary>
-	public class info : ForumPage
+	public partial class info : ForumPage
 	{
-		protected Label Info, Title;
-		protected HyperLink Continue;
-
 		public info() : base("INFO")
 		{
 			CheckSuspended = false;
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
 			if(!IsPostBack) 
@@ -90,7 +87,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

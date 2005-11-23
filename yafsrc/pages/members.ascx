@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="members.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.members" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.members" CodeFile="members.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

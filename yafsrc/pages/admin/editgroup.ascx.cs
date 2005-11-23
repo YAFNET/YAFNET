@@ -32,21 +32,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editgroup : AdminPage
+	public partial class editgroup : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.CheckBox IsGuestGroup;
-		protected System.Web.UI.WebControls.CheckBox IsStart;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Repeater AccessList;
-		protected System.Web.UI.WebControls.CheckBox IsAdminX;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected CheckBox IsModeratorX;
-		protected HtmlTableRow NewGroupRow;
-		protected DropDownList AccessMaskID;
-		protected controls.PageLinks PageLinks;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -87,9 +76,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -126,12 +112,12 @@ namespace yaf.pages.admin
 			DataBind();
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_groups);
 		}
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			// Group
 			long GroupID = 0;

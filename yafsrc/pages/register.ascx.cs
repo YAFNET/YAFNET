@@ -34,24 +34,14 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public class register : ForumPage
+    public partial class register : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox UserName;
-		protected System.Web.UI.WebControls.TextBox Password;
-		protected System.Web.UI.WebControls.TextBox Email;
-		protected System.Web.UI.WebControls.Button ForumRegister;
-		protected System.Web.UI.WebControls.TextBox Location;
-		protected System.Web.UI.WebControls.TextBox HomePage;
-		protected System.Web.UI.WebControls.DropDownList TimeZones;
-		protected System.Web.UI.WebControls.TextBox Password2;
-		protected Button cancel;
-		protected controls.PageLinks PageLinks;
 	
-		public register() : base("REGISTER")
+		public  register() : base("REGISTER")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.CanLogin || BoardSettings.DisableRegistrations)
 				Data.AccessDenied();
@@ -88,22 +78,11 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.ForumRegister.Click += new System.EventHandler(this.ForumRegister_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		static public string CreatePassword(int length) {
-			string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-			string res = "";
-			Random rnd = new Random();
-			while(0<length--)
-				res += valid[rnd.Next(valid.Length)];
-			return res;
-		}
-
-		private void ForumRegister_Click(object sender, System.EventArgs e)
+		protected void ForumRegister_Click(object sender, System.EventArgs e)
 		{
 			if(Page.IsValid) 
 			{

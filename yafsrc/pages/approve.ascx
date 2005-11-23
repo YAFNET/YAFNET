@@ -1,5 +1,6 @@
-<%@ Control language="c#" Codebehind="approve.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.approve" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Reference Control="~/pages/error.ascx" %>
+<%@ Control language="c#" Inherits="yaf.pages.approve" CodeFile="approve.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

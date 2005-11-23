@@ -32,17 +32,14 @@ namespace yaf.pages.help
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class index : ForumPage
+	public partial class index : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
-		protected TextBox search;
-		protected Button DoSearch;
 
 		public index() : base(null)
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{

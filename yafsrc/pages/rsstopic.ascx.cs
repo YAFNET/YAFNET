@@ -34,13 +34,13 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for rss.
 	/// </summary>
-	public class rsstopic : ForumPage
+	public partial class rsstopic : ForumPage
 	{
 		public rsstopic() : base("RSSTOPIC")
 		{
 		}
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
 			RssFeed rf = new RssFeed();
@@ -135,7 +135,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

@@ -32,15 +32,9 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editnntpforum : AdminPage
+	public partial class editnntpforum : AdminPage
 	{
-		protected DropDownList NntpServerID, ForumID;
-		protected TextBox GroupName;
-		protected Button Save, Cancel;
-		protected CheckBox Active;
-		protected controls.PageLinks PageLinks;
-
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -79,9 +73,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -96,12 +87,12 @@ namespace yaf.pages.admin
 			DataBind();
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_nntpforums);
 		}
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			object nntpForumID = null;
 			if(Request.QueryString["s"]!=null) nntpForumID = Request.QueryString["s"];

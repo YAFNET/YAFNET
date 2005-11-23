@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="register.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.register" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.register" CodeFile="register.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -56,7 +56,7 @@
 	
 	<tr>
 		<td align="middle" colspan="2" class=footer1>
-			<asp:Button id=ForumRegister cssclass="pbutton" runat="server"/>
+			<asp:Button id=ForumRegister cssclass="pbutton" runat="server" onclick="ForumRegister_Click" />
 			<asp:button id=cancel cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>

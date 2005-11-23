@@ -10,16 +10,9 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for DisplayPost.
 	/// </summary>
-	public class DisplayPost : BaseUserControl
+	public partial class DisplayPost : BaseUserControl
 	{
-		protected HyperLink		Attach, Edit, Quote;
-		protected LinkButton	Delete;
-		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
-		protected HtmlTableCell	NameCell, AdminInfo;
-		protected controls.PopMenu	PopMenu1;
-		protected HyperLink UserName;
-
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			PopMenu1.Visible = ForumPage.IsAdmin;
 			if(PopMenu1.Visible) 

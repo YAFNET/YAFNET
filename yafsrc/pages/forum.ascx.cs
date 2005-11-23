@@ -32,24 +32,13 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public class forum : ForumPage
+	public partial class forum : ForumPage
 	{
-		protected System.Web.UI.WebControls.Label TimeNow;
-		protected System.Web.UI.WebControls.Label Stats;
-		protected System.Web.UI.WebControls.Repeater CategoryList;
-		protected System.Web.UI.WebControls.Label TimeLastVisit;
-		protected System.Web.UI.WebControls.Repeater ActiveList, LatestPosts;
-		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
-		protected System.Web.UI.WebControls.Label activeinfo;
-		protected LinkButton MarkAll;
-		protected controls.PageLinks PageLinks;
-	
 		public forum() : base("DEFAULT")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -156,7 +145,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

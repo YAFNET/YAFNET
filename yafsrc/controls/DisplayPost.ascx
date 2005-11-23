@@ -1,5 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Reference Page="~/image.aspx" %>
+<%@ Control Language="c#" Inherits="yaf.controls.DisplayPost" EnableViewState="false" CodeFile="DisplayPost.ascx.cs" CodeFileBaseClass="yaf.BaseUserControl" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <tr class="postheader">
 	<%#GetIndentCell()%>

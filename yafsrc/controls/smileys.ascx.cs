@@ -28,11 +28,8 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for smileys.
 	/// </summary>
-	public abstract class smileys : BaseUserControl
+	public partial  class smileys : BaseUserControl
 	{
-		protected System.Web.UI.WebControls.Literal SmileyResults;
-		protected System.Web.UI.HtmlControls.HtmlTableCell AddSmiley;
-		protected controls.Pager pager;
 		protected DataTable dtSmileys;
 		private string _onclick;
 			
@@ -40,7 +37,7 @@ namespace yaf.controls
 		public int pagesize = 18;
 		public int perrow = 6;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			BoardSettings bs = ForumPage.BoardSettings;
 			pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
@@ -120,7 +117,6 @@ namespace yaf.controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
 			pager.PageChange += new EventHandler(pager_PageChange);
 		}
 		#endregion

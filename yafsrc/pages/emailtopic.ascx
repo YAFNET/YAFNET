@@ -1,5 +1,5 @@
-<%@ Control language="c#" Codebehind="emailtopic.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.emailtopic" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.emailtopic" CodeFile="emailtopic.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -20,7 +20,7 @@
 	<td class=post valign=top><asp:textbox id=Message runat=server cssclass=edit TextMode="MultiLine" Rows="12"></asp:textbox></td>
 </tr>
 <tr>
-	<td class=footer1 colspan=2 align=center><asp:button id=SendEmail runat="server"/></td>
+	<td class=footer1 colspan=2 align=center><asp:button id=SendEmail runat="server" onclick="SendEmail_Click" /></td>
 </tr>
 </table>
 

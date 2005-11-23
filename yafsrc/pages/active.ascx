@@ -1,12 +1,12 @@
-<%@ Control language="c#" Codebehind="active.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.active" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Inherits="yaf.pages.active" CodeFile="active.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
 <table class=command cellspacing=0 cellpadding=0 width="100%">
 	<tr>
 		<td class=navlinks><yaf:pager runat="server" id="Pager"/></td>
-		<td align=right><%= GetText("since") %> <asp:DropDownList id=Since runat="server" AutoPostBack="True"/></td>
+		<td align=right><%= GetText("since") %> <asp:DropDownList id=Since runat="server" AutoPostBack="True" onselectedindexchanged="Since_SelectedIndexChanged" /></td>
 	</tr>
 </table>
 
