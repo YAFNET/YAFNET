@@ -2392,7 +2392,8 @@ GO
 CREATE PROCEDURE dbo.yaf_topic_latest
 (
 	@BoardID int,
-	@NumPosts int
+	@NumPosts int,
+	@UserID int
 )
 AS
 BEGIN
@@ -2401,7 +2402,8 @@ BEGIN
 
 	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
 	SET @SQL = @SQL + ' yaf_Topic t INNER JOIN yaf_Category c INNER JOIN yaf_Forum f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' ORDER BY t.LastPosted DESC'
+	SET @SQL = @SQL + ' join yaf_vaccess v on v.ForumID=f.ForumID'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' and v.UserID=' + convert(varchar,@UserID) + ' and (v.ReadAccess<>0 or (f.Flags & 2)=0) ORDER BY t.LastPosted DESC'
 
 	EXEC(@SQL)	
 	

@@ -36,7 +36,7 @@ namespace yaf
 	/// <summary>
 	/// Summary description for image.
 	/// </summary>
-	public class image : System.Web.UI.Page
+    public class image : System.Web.UI.Page
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
