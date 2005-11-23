@@ -95,7 +95,7 @@ namespace yaf.pages
 
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
-			LatestPosts.DataSource = DB.topic_latest(PageBoardID,7);
+			LatestPosts.DataSource = DB.topic_latest(PageBoardID,7,PageUserID);
 
 			// Forum statistics
 			string key = string.Format("BoardStats.{0}",PageBoardID);

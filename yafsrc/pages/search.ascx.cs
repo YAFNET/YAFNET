@@ -196,7 +196,7 @@ namespace yaf.pages
 			}
 			catch(System.Data.SqlClient.SqlException x)
 			{
-				Utils.LogToMail(x);
+				///Utils.LogToMail(x);
 				if(IsAdmin)
 					AddLoadMessage(string.Format("{0}",x));
 				else
@@ -204,7 +204,7 @@ namespace yaf.pages
 			}
 			catch(Exception x) 
 			{
-				Utils.LogToMail(x);
+				///Utils.LogToMail(x);
 				if(IsAdmin)
 					AddLoadMessage(string.Format("{0}",x));
 				else

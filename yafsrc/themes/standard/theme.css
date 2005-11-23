@@ -52,8 +52,8 @@ a:hover		{ text-decoration: underline; }
 
 /* Header 1 - Main header */
 .header1 {
-	/*background-image: url('bg_header1.gif');*/
-	background-color: #808080;
+	background-image: url('bg_header1.png');
+	background-color: #7D8CFF;
 	color: #FFFFFF;
 	font-weight: bold;
 	height: 32px;
