@@ -660,9 +660,12 @@ namespace yaf.pages
 			
 			while(Regex.IsMatch(brief,@"<.*?>",options))
 				brief = Regex.Replace(brief,@"<.*?>","",options);
+			while(Regex.IsMatch(brief,@"\[.*?\]",options))
+				brief = Regex.Replace(brief,@"\[.*?\]","",options);
 
 			if(brief.Length>42)
 				brief = brief.Substring(0,40) + "...";
+			brief=FormatMsg.iAddSmiles(this,brief);
 
 			html.AppendFormat("<tr class='post'><td colspan='3' nowrap>");
 			html.AppendFormat(GetIndentImage(row["Indent"]));
