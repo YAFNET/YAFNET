@@ -13,10 +13,12 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for smilies.
 	/// </summary>
-	public partial class smilies : AdminPage
+	public class smilies : AdminPage
 	{
+		protected System.Web.UI.WebControls.Repeater List;
+		protected controls.PageLinks PageLinks;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -76,6 +78,7 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

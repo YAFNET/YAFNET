@@ -32,8 +32,15 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public partial class members : ForumPage
+	public class members : ForumPage
 	{
+		protected Repeater MemberList;
+		protected LinkButton UserName,Joined,Posts, Rank;
+		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
+		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
+		protected HtmlTableRow LetterRow;
+
 		public members() : base("MEMBERS")
 		{
 		}
@@ -54,7 +61,7 @@ namespace yaf.pages
 			}
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 			{
@@ -205,6 +212,7 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

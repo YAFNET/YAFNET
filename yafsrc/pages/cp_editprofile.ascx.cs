@@ -34,13 +34,35 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_editprofile.
 	/// </summary>
-	public partial class cp_editprofile : ForumPage
+	public class cp_editprofile : ForumPage
 	{
+		protected System.Web.UI.WebControls.TextBox Location;
+		protected System.Web.UI.WebControls.TextBox HomePage;
+		protected System.Web.UI.WebControls.DropDownList TimeZones;
+		protected System.Web.UI.WebControls.TextBox Avatar;
+		protected System.Web.UI.WebControls.TextBox OldPassword;
+		protected System.Web.UI.WebControls.TextBox NewPassword1;
+		protected System.Web.UI.WebControls.TextBox NewPassword2;
+		protected System.Web.UI.WebControls.Button UpdateProfile;
+		protected System.Web.UI.WebControls.TextBox Email;
+		protected System.Web.UI.HtmlControls.HtmlInputFile File;
+		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarDeleteRow, AvatarRemoteRow;
+		protected Button DeleteAvatar;
+		protected DropDownList Theme, Language;
+		protected PlaceHolder ForumSettingsRows;
+		protected HtmlTableRow UserThemeRow, UserLanguageRow;
+		protected controls.PageLinks PageLinks;
+		protected TextBox Realname, Occupation, Interests, Weblog, MSN, YIM, AIM, ICQ;
+		protected DropDownList Gender;
+		protected HyperLink OurAvatar;
+		protected Image AvatarImg;
+		protected PlaceHolder LoginInfo;
+
 		public cp_editprofile() : base("CP_EDITPROFILE")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 			{
@@ -153,7 +175,7 @@ namespace yaf.pages
 			BindData();
 		}
 
-		protected void UpdateProfile_Click(object sender, System.EventArgs e) 
+		private void UpdateProfile_Click(object sender, System.EventArgs e) 
 		{
 			if(HomePage.Text.Length>0 && !HomePage.Text.StartsWith("http://"))
 				HomePage.Text = "http://" + HomePage.Text;
@@ -238,7 +260,7 @@ namespace yaf.pages
 
 				if(BoardSettings.EmailVerification) 
 				{
-                    string hashinput = DateTime.Now.ToString() + Email.Text + Utils.CreatePassword(20);
+					string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword(20);
 					string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput,"md5");
 
 					// Email Body
@@ -293,7 +315,7 @@ namespace yaf.pages
 			Forum.Redirect(Pages.cp_profile);
 		}
 
-		protected void Email_TextChanged(object sender, System.EventArgs e)
+		private void Email_TextChanged(object sender, System.EventArgs e)
 		{
 			UpdateEmailFlag = true;
 		}
@@ -321,6 +343,9 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.UpdateProfile.Click += new System.EventHandler(this.UpdateProfile_Click);
+			this.Email.TextChanged += new System.EventHandler(this.Email_TextChanged);
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

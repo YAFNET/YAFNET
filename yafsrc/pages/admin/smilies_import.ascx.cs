@@ -13,9 +13,14 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for smilies_import.
 	/// </summary>
-	public partial class smilies_import : AdminPage
+	public class smilies_import : AdminPage
 	{
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected DropDownList File;
+		protected CheckBox DeleteExisting;
+		protected Button import, cancel;
+		protected controls.PageLinks PageLinks;
+
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
@@ -112,6 +117,7 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

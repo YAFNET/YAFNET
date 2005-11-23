@@ -32,10 +32,19 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editrank : AdminPage
+	public class editrank : AdminPage
 	{
+		protected System.Web.UI.WebControls.TextBox Name;
+		protected System.Web.UI.WebControls.CheckBox IsStart;
+		protected System.Web.UI.WebControls.Button Save;
+		protected System.Web.UI.WebControls.CheckBox IsLadder;
+		protected System.Web.UI.WebControls.TextBox MinPosts;
+		protected System.Web.UI.WebControls.Button Cancel;
+		protected DropDownList RankImage;
+		protected HtmlImage Preview;
+		protected controls.PageLinks PageLinks;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -93,6 +102,9 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -132,12 +144,12 @@ namespace yaf.pages.admin
 			DataBind();
 		}
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		private void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_ranks);
 		}
 
-		protected void Save_Click(object sender, System.EventArgs e)
+		private void Save_Click(object sender, System.EventArgs e)
 		{
 			// Group
 			int RankID = 0;

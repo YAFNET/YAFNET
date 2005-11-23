@@ -1,6 +1,5 @@
-<%@ Reference Page="~/install/default.aspx" %>
-<%@ Control language="c#" Inherits="yaf.pages.admin.admin" CodeFile="admin.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.admin" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="ActiveList" runat="server">

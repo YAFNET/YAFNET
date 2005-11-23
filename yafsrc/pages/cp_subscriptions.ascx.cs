@@ -32,14 +32,19 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_subscriptions.
 	/// </summary>
-	public partial class cp_subscriptions : ForumPage
+	public class cp_subscriptions : ForumPage
 	{
+		protected System.Web.UI.WebControls.Button UnsubscribeForums;
+		protected System.Web.UI.WebControls.Repeater ForumList;
+		protected System.Web.UI.WebControls.Button UnsubscribeTopics;
+		protected System.Web.UI.WebControls.Repeater TopicList;
+		protected controls.PageLinks PageLinks;
 
 		public cp_subscriptions() : base("CP_SUBSCRIPTIONS")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 			{
@@ -96,7 +101,7 @@ namespace yaf.pages
 			return html;
 		}
 
-		protected void UnsubscribeTopics_Click(object sender, System.EventArgs e) {
+		private void UnsubscribeTopics_Click(object sender, System.EventArgs e) {
 			bool NoneChecked = true;
 			for(int i=0;i<TopicList.Items.Count;i++) {
 				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
@@ -112,7 +117,7 @@ namespace yaf.pages
 				BindData();
 		}
 
-		protected void UnsubscribeForums_Click(object sender, System.EventArgs e) {
+		private void UnsubscribeForums_Click(object sender, System.EventArgs e) {
 			bool NoneChecked = true;
 			for(int i=0;i<ForumList.Items.Count;i++) {
 				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
@@ -144,6 +149,9 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.UnsubscribeForums.Click += new System.EventHandler(this.UnsubscribeForums_Click);
+			this.UnsubscribeTopics.Click += new System.EventHandler(this.UnsubscribeTopics_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
-<%@ Control language="c#" Inherits="yaf.pages.admin.boardsettings" CodeFile="boardsettings.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="boardsettings.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.boardsettings" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">
@@ -41,7 +41,7 @@
 		</TR>
 		<TR>
 			<TD class="postfooter" align="center" colSpan="2">
-				<asp:Button id="Save" runat="server" Text="Save" onclick="Save_Click"></asp:Button></TD>
+				<asp:Button id="Save" runat="server" Text="Save"></asp:Button></TD>
 		</TR>
 	</TABLE>
 </yaf:adminmenu>

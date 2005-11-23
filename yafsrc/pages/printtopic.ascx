@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.printtopic" CodeFile="printtopic.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="printtopic.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.printtopic" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

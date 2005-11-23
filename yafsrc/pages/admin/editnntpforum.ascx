@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.editnntpforum" CodeFile="editnntpforum.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="editnntpforum.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editnntpforum" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -28,8 +28,8 @@
 
 	<tr>
 		<td class=postfooter align=middle colspan=2>
-			<asp:button id=Save runat="server" Text="Save" onclick="Save_Click" />&nbsp; 
-			<asp:button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click" />
+			<asp:button id=Save runat="server" Text="Save"/>&nbsp; 
+			<asp:button id=Cancel runat="server" Text="Cancel"/>
 		</td>
 	</tr>
 

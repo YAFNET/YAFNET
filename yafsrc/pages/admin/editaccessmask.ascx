@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.editaccessmask" CodeFile="editaccessmask.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="editaccessmask.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editaccessmask" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -56,8 +56,8 @@
 
 <tr class="postfooter">
     <td align="middle" colspan="2">
-		<asp:button id=Save runat="server" Text="Save" onclick="Save_Click" />
-		<asp:Button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click" />
+		<asp:button id=Save runat="server" Text="Save"/>
+		<asp:Button id=Cancel runat="server" Text="Cancel"/>
 	</td>
 </tr>
 </table>

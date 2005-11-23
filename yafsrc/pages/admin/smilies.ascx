@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.smilies" CodeFile="smilies.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="smilies.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.smilies" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

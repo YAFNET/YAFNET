@@ -28,11 +28,25 @@ namespace yaf.pages.admin
 	/// <summary>
 	///		Summary description for reguser.
 	/// </summary>
-	public partial class reguser : AdminPage
+	public class reguser : AdminPage
 	{
+    protected yaf.controls.AdminMenu Adminmenu1;
+    protected yaf.controls.PageLinks PageLinks;
     
+    protected System.Web.UI.WebControls.TextBox UserName;
+    protected System.Web.UI.WebControls.TextBox Password;
+    protected System.Web.UI.WebControls.TextBox Email;
+    protected System.Web.UI.WebControls.Button ForumRegister;
+    protected System.Web.UI.WebControls.TextBox Location;
+    protected System.Web.UI.WebControls.TextBox HomePage;
+    protected System.Web.UI.WebControls.DropDownList TimeZones;
+    protected System.Web.UI.WebControls.TextBox Password2;
+    protected System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator1;
+    protected System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
+    protected System.Web.UI.WebControls.CompareValidator Comparevalidator1;
+    protected Button cancel;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
       if(!IsPostBack) 
       {
@@ -62,16 +76,19 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.ForumRegister.Click += new System.EventHandler(this.ForumRegister_Click);
+			this.cancel.Click += new System.EventHandler(this.cancel_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 		
-    protected void cancel_Click(object sender,EventArgs e) 
+    private void cancel_Click(object sender,EventArgs e) 
     {
       Forum.Redirect(Pages.admin_users);
     }
 		
-    protected void ForumRegister_Click(object sender, System.EventArgs e)
+    private void ForumRegister_Click(object sender, System.EventArgs e)
     {
       if(Page.IsValid) 
       {

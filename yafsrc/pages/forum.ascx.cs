@@ -32,13 +32,24 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class forum : ForumPage
+	public class forum : ForumPage
 	{
+		protected System.Web.UI.WebControls.Label TimeNow;
+		protected System.Web.UI.WebControls.Label Stats;
+		protected System.Web.UI.WebControls.Repeater CategoryList;
+		protected System.Web.UI.WebControls.Label TimeLastVisit;
+		protected System.Web.UI.WebControls.Repeater ActiveList, LatestPosts;
+		protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
+		protected System.Web.UI.WebControls.Label activeinfo;
+		protected LinkButton MarkAll;
+		protected controls.PageLinks PageLinks;
+	
 		public forum() : base("DEFAULT")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -84,7 +95,7 @@ namespace yaf.pages
 
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
-			LatestPosts.DataSource = DB.topic_latest(PageBoardID,7,PageUserID);
+			LatestPosts.DataSource = DB.topic_latest(PageBoardID,7);
 
 			// Forum statistics
 			string key = string.Format("BoardStats.{0}",PageBoardID);
@@ -145,6 +156,7 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

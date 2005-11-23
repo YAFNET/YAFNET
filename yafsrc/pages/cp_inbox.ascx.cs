@@ -32,8 +32,13 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public partial class cp_inbox : ForumPage
+	public class cp_inbox : ForumPage
 	{
+		protected System.Web.UI.WebControls.Repeater Inbox;
+		protected LinkButton FromLink, DateLink, SubjectLink;
+		protected HtmlImage SortSubject, SortFrom, SortDate;
+		protected controls.PageLinks PageLinks;
+
 		public cp_inbox() : base("CP_INBOX")
 		{
 		}
@@ -77,7 +82,7 @@ namespace yaf.pages
 			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_delete"));
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 			{
@@ -193,6 +198,7 @@ namespace yaf.pages
 		private void InitializeComponent()
 		{    
 			this.Inbox.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.Inbox_ItemCommand);
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

@@ -1,6 +1,5 @@
-<%@ Reference Control="~/pages/forum.ascx" %>
-<%@ Control language="c#" Inherits="yaf.pages.posts" CodeFile="posts.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="posts.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.posts" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Register TagPrefix="yaf" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -35,12 +34,12 @@
 <tr>
 	<td align=left class=navlinks><yaf:pager runat="server" id="Pager"/></td>
 	<td align='right'>
-		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply" onclick="PostReplyLink_Click" />
-		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
-		<asp:linkbutton id=DeleteTopic1 runat="server" onload="DeleteTopic_Load" cssclass="imagelink" onclick="DeleteTopic_Click" />
-		<asp:linkbutton id=LockTopic1 runat="server" cssclass="imagelink" onclick="LockTopic_Click" />
-		<asp:linkbutton id=UnlockTopic1 runat="server" cssclass="imagelink" onclick="UnlockTopic_Click" />
-		<asp:linkbutton id=MoveTopic1 runat="server" cssclass="imagelink" onclick="MoveTopic_Click" />
+		<asp:linkbutton id=PostReplyLink1 runat="server" cssclass="imagelink" ToolTip="Post Reply"/>
+		<asp:linkbutton id=NewTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=DeleteTopic1 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>
+		<asp:linkbutton id=LockTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=UnlockTopic1 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=MoveTopic1 runat="server" cssclass="imagelink"/>
 	</td>
 </tr>
 </table>
@@ -64,15 +63,15 @@
 </tr>
 <tr class="header2">
 	<td colspan="3" align="right" class="header2links">
-		<asp:linkbutton id="PrevTopic" class="header2link" runat="server" onclick="PrevTopic_Click"><%# GetText("prevtopic") %></asp:linkbutton>
+		<asp:linkbutton id="PrevTopic" class="header2link" runat="server"><%# GetText("prevtopic") %></asp:linkbutton>
 		&middot;
-		<asp:linkbutton id="NextTopic" class="header2link" runat="server" onclick="NextTopic_Click"><%# GetText("nexttopic") %></asp:linkbutton>
+		<asp:linkbutton id="NextTopic" class="header2link" runat="server"><%# GetText("nexttopic") %></asp:linkbutton>
 		<div runat="server" visible="false">
-			<asp:linkbutton id="TrackTopic" class="header2link" runat="server" onclick="TrackTopic_Click"><%# GetText("watchtopic") %></asp:linkbutton>
+			<asp:linkbutton id="TrackTopic" class="header2link" runat="server"><%# GetText("watchtopic") %></asp:linkbutton>
 			&middot;
-			<asp:linkbutton id="EmailTopic" class="header2link" runat="server" onclick="EmailTopic_Click"><%# GetText("emailtopic") %></asp:linkbutton>
+			<asp:linkbutton id="EmailTopic" class="header2link" runat="server"><%# GetText("emailtopic") %></asp:linkbutton>
 			&middot;
-			<asp:linkbutton id="PrintTopic" class="header2link" runat="server" onclick="PrintTopic_Click"><%# GetText("printtopic") %></asp:linkbutton>
+			<asp:linkbutton id="PrintTopic" class="header2link" runat="server"><%# GetText("printtopic") %></asp:linkbutton>
  			&middot;
  			<asp:hyperlink id="RssTopic" class="header2link" runat="server"><%# GetText("rsstopic") %></asp:hyperlink>
 		</div>
@@ -98,12 +97,12 @@
   <tr>
     <td align="left" class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
     <td align="right">
-		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink" onclick="PostReplyLink_Click" />
-		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
-		<asp:linkbutton id=DeleteTopic2 runat="server" onload="DeleteTopic_Load" cssclass="imagelink" onclick="DeleteTopic_Click" />
-		<asp:linkbutton id=LockTopic2 runat="server" cssclass="imagelink" onclick="LockTopic_Click" />
-		<asp:linkbutton id=UnlockTopic2 runat="server" cssclass="imagelink" onclick="UnlockTopic_Click" />
-		<asp:linkbutton id=MoveTopic2 runat="server" cssclass="imagelink" onclick="MoveTopic_Click" />
+		<asp:linkbutton id=PostReplyLink2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=NewTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=DeleteTopic2 runat="server" onload="DeleteTopic_Load" cssclass="imagelink"/>
+		<asp:linkbutton id=LockTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=UnlockTopic2 runat="server" cssclass="imagelink"/>
+		<asp:linkbutton id=MoveTopic2 runat="server" cssclass="imagelink"/>
 </td></tr>
 </table>
 

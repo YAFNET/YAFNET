@@ -32,14 +32,19 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for emailtopic.
 	/// </summary>
-	public partial class emailtopic : ForumPage
+	public class emailtopic : ForumPage
 	{
+		protected System.Web.UI.WebControls.TextBox EmailAddress;
+		protected System.Web.UI.WebControls.TextBox Subject;
+		protected System.Web.UI.WebControls.TextBox Message;
+		protected System.Web.UI.WebControls.Button SendEmail;
+		protected controls.PageLinks PageLinks;
 
 		public emailtopic() : base("EMAILTOPIC")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumReadAccess)
 				Data.AccessDenied();
@@ -76,10 +81,12 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.SendEmail.Click += new System.EventHandler(this.SendEmail_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 
-		protected void SendEmail_Click(object sender, System.EventArgs e) {
+		private void SendEmail_Click(object sender, System.EventArgs e) {
 			if(EmailAddress.Text.Length==0) {
 				AddLoadMessage(GetText("need_email"));
 				return;

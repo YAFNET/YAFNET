@@ -32,10 +32,12 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for bannedip.
 	/// </summary>
-	public partial class bannedip : AdminPage
+	public class bannedip : AdminPage
 	{
+		protected Repeater list;
+		protected controls.PageLinks PageLinks;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -81,6 +83,7 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

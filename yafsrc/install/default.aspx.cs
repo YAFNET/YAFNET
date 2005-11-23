@@ -34,7 +34,7 @@ namespace yaf.install
 	/// <summary>
 	/// Summary description for install.
 	/// </summary>
-	public partial class _default : System.Web.UI.Page
+	public class _default : System.Web.UI.Page
 	{
 		enum Step 
 		{
@@ -48,6 +48,13 @@ namespace yaf.install
 
 		private int InstalledVersion = 0;
 		private Step CurStep = Step.Welcome;
+		protected System.Web.UI.WebControls.Button back, next, finish;
+		protected System.Web.UI.WebControls.Label cursteplabel;
+		protected System.Web.UI.HtmlControls.HtmlTable stepWelcome, stepConfig, stepConnect, stepDatabase, stepForum, stepFinished;
+		protected PlaceHolder ConfigSample;
+		// Forum
+		protected System.Web.UI.WebControls.TextBox TheForumName, UserName, Password1, Password2, AdminEmail, ForumEmailAddress, SmptServerAddress;
+		protected System.Web.UI.WebControls.DropDownList TimeZones;
 
 		private	string	m_loadMessage	= "";
 		private string[]	m_scripts	= new string[]
@@ -85,7 +92,7 @@ namespace yaf.install
 			InstalledVersion = GetCurrentVersion();
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{				

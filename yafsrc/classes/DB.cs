@@ -1910,14 +1910,13 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public DataTable topic_latest(object boardID,object numOfPostsToRetrieve,object userID)
+		static public DataTable topic_latest(object boardID,object numOfPostsToRetrieve)
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_topic_latest")) 
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@NumPosts",numOfPostsToRetrieve);
-				cmd.Parameters.Add("@UserID",userID);
 				return GetData(cmd);
 			}
 		}

@@ -32,15 +32,18 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_signature.
 	/// </summary>
-	public partial class cp_signature : ForumPage
+	public class cp_signature : ForumPage
 	{
+		protected Button save, cancel;
 		protected yaf.editor.ForumEditor sig;
+		protected controls.PageLinks PageLinks;
+		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
 
 		public cp_signature() : base("CP_SIGNATURE")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			sig.BaseDir = Data.ForumRoot + "editors";
 			sig.StyleSheet = this.ThemeFile("theme.css");
@@ -104,6 +107,7 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

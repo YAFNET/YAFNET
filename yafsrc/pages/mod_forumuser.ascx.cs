@@ -32,13 +32,18 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public partial class mod_forumuser : ForumPage
+	public class mod_forumuser : ForumPage
 	{
+		protected controls.PageLinks PageLinks;
+		protected DropDownList AccessMaskID, ToList;
+		protected Button FindUsers, Update, Cancel;
+		protected TextBox UserName;
+
 		public mod_forumuser() : base("MOD_FORUMUSER")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
 				Data.AccessDenied();
@@ -151,6 +156,7 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

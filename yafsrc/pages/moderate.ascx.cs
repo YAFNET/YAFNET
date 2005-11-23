@@ -32,13 +32,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public partial class moderate0 : ForumPage
+	public class moderate0 : ForumPage
 	{
+		protected Repeater topiclist, UserList;
+		protected controls.PageLinks PageLinks;
+		protected LinkButton AddUser;
+
 		public moderate0() : base("MODERATE")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
 				Data.AccessDenied();
@@ -118,6 +122,7 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

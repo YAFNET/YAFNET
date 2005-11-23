@@ -1,6 +1,5 @@
-<%@ Reference Control="~/pages/forum.ascx" %>
-<%@ Control language="c#" Inherits="yaf.pages.admin.forums" CodeFile="forums.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="forums.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.forums" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -41,9 +40,9 @@
 </ItemTemplate>
 </asp:repeater>
   <tr>
-    <td class=footer1 colSpan=3><asp:linkbutton id=NewCategory runat="server" onclick="NewCategory_Click">New Category</asp:linkbutton>
+    <td class=footer1 colSpan=3><asp:linkbutton id=NewCategory runat="server">New Category</asp:linkbutton>
 		|
-		<asp:LinkButton id=NewForum runat="server" onclick="NewForum_Click">New Forum</asp:LinkButton></TD></TR></TABLE>
+		<asp:LinkButton id=NewForum runat="server">New Forum</asp:LinkButton></TD></TR></TABLE>
 		
 </yaf:adminmenu>
 

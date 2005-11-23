@@ -32,32 +32,38 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public partial class topics : ForumPage
+	public class topics : ForumPage
 	{
 
 		/// <summary>
 		/// ShowList DropDownList.
 		/// </summary>
+		protected System.Web.UI.WebControls.DropDownList ShowList;
 
 		/// <summary>
 		/// TopicList Repeater Control.
 		/// </summary>
+		protected System.Web.UI.WebControls.Repeater TopicList;
 
 		/// <summary>
 		/// Announcements Repeater Control.
 		/// </summary>
+		protected System.Web.UI.WebControls.Repeater Announcements;
 
 		/// <summary>
 		/// NewTopic Button 2.
 		/// </summary>
+		protected System.Web.UI.WebControls.LinkButton NewTopic2;
 
 		/// <summary>
 		/// NewTopic Button 1.
 		/// </summary>
+		protected System.Web.UI.WebControls.LinkButton NewTopic1;
 		
 		/// <summary>
 		/// The PageTitle Control.
 		/// </summary>
+		protected System.Web.UI.WebControls.Label PageTitle;
 
 		/// <summary>
 		/// ForumJump Control.
@@ -72,28 +78,42 @@ namespace yaf.pages
 		/// <summary>
 		/// RssFeed Control.
 		/// </summary>
+		protected System.Web.UI.WebControls.HyperLink RssFeed;
 		private DataRow forum;
 
 		/// <summary>
 		/// FIXME: I have no clue what this is.
 		/// </summary>
+		protected System.Web.UI.WebControls.LinkButton WatchForum;
+
+		/// <summary>
+		/// Linkbuttons for Moderation.
+		/// </summary>
+		protected LinkButton moderate1, moderate2, MarkRead;
 
 		/// <summary>
 		/// The PageLinks Object.
 		/// </summary>
+		protected controls.PageLinks PageLinks;
 
 		/// <summary>
 		/// The Pager Control.
 		/// </summary>
+		protected controls.Pager Pager;
 
 		/// <summary>
 		/// The ForumList control.
 		/// </summary>
+		protected controls.ForumList ForumList;
 
 		/// <summary>
 		/// FIXME: I have no clue what this is.
 		/// </summary>
+		protected PlaceHolder SubForums;
 
+		protected System.Web.UI.HtmlControls.HtmlGenericControl RSSLinkSpacer;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchForumID;
+		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
 
 		protected int ShowTopicListSelected;
 
@@ -110,7 +130,7 @@ namespace yaf.pages
 				SetForumRead(PageForumID,DateTime.Now);
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			Mession.UnreadTopics = 0;
  			RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg=topics&f={0}", Request.QueryString["f"]);

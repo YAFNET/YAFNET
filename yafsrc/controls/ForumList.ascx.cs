@@ -10,10 +10,11 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for ForumList.
 	/// </summary>
-	public partial class ForumList : BaseUserControl
+	public class ForumList : BaseUserControl
 	{
+		protected Repeater forumList;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 		}
 
@@ -33,6 +34,7 @@ namespace yaf.controls
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 

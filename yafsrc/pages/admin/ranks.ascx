@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.ranks" CodeFile="ranks.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="ranks.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.ranks" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -40,7 +40,7 @@
 </asp:repeater>
 
 <tr>
-	<td class=footer1 colspan=6><asp:linkbutton id=NewRank runat="server" text="New Rank" onclick="NewRank_Click" /></td>
+	<td class=footer1 colspan=6><asp:linkbutton id=NewRank runat="server" text="New Rank"/></td>
 </tr>
 </table>
 

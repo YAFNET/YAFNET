@@ -32,9 +32,14 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for bannedip_edit.
 	/// </summary>
-	public partial class replacewords_edit : AdminPage
+	public class replacewords_edit : AdminPage
 	{
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected Button save, cancel;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected System.Web.UI.WebControls.TextBox badword,goodword;
+		protected controls.PageLinks PageLinks;
+
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
 
@@ -90,6 +95,7 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion

@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
-<%@ Control language="c#" Inherits="yaf.pages.admin.replacewords_edit" CodeFile="replacewords_edit.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="replacewords_edit.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.replacewords_edit" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">

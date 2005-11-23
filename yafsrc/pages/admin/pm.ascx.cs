@@ -32,9 +32,14 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public partial class pm : AdminPage
+	public class pm : AdminPage
 	{
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected Label Count;
+		protected TextBox Days1, Days2;
+		protected Button commit;
+		protected controls.PageLinks PageLinks;
+
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -74,6 +79,7 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

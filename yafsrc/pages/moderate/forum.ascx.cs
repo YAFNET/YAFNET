@@ -13,14 +13,16 @@ namespace yaf.pages.moderate
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class forum : ForumPage
+	public class forum : ForumPage
 	{
+		protected Repeater List;
+		protected controls.PageLinks PageLinks;
 
 		public forum() : base("MODERATE_FORUM")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsModerator || !ForumModeratorAccess) 
 				Data.AccessDenied();
@@ -90,6 +92,7 @@ namespace yaf.pages.moderate
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

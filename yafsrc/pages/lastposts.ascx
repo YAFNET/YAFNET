@@ -1,5 +1,5 @@
-<%@ Control Language="c#" Inherits="yaf.pages.lastposts" CodeFile="lastposts.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="lastposts.ascx.cs" Inherits="yaf.pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <asp:repeater id="repLastPosts" runat="server" visible="true">
 <HeaderTemplate>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">

@@ -32,16 +32,21 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class active : ForumPage
+	public class active : ForumPage
 	{
+		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
+		protected System.Web.UI.WebControls.DropDownList Since;
+		protected System.Web.UI.WebControls.HyperLink RssFeed;
+		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 		protected string LastForumName = "";
 
 		public active() : base("ACTIVE")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
  			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", Data.ForumRoot);
 			if (BoardSettings.ShowRSSLink)
@@ -94,6 +99,8 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Since.SelectedIndexChanged += new System.EventHandler(this.Since_SelectedIndexChanged);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -139,7 +146,7 @@ namespace yaf.pages
 			return html;
 		}
 
-		protected void Since_SelectedIndexChanged(object sender, System.EventArgs e) {
+		private void Since_SelectedIndexChanged(object sender, System.EventArgs e) {
 			BindData();
 		}
 	}

@@ -1,4 +1,4 @@
-<%@ Control language="c#" Inherits="yaf.pages.info" CodeFile="info.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Control language="c#" Codebehind="info.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.info" %>
 
 <table width="100%" height="50%" border="0"><tr><td valign="middle" align="center">
 

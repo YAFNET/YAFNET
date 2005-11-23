@@ -1,7 +1,7 @@
-<%@ Control language="c#" Inherits="yaf.pages.postmessage" CodeFile="postmessage.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
-<%@ Register TagPrefix="editor" Namespace="yaf.editor" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -30,7 +30,7 @@
 		</td>
 	</tr>
 	<tr id=CreatePollRow runat="server">
-		<td class="postformheader" width="20%"><asp:linkbutton id=CreatePoll runat="server" onclick="CreatePoll_Click" /></td>
+		<td class="postformheader" width="20%"><asp:linkbutton id=CreatePoll runat="server"/></td>
 		<td class="post" width="80%">&nbsp;</td>
 	</tr>
 	<tr id=PollRow1 runat="server" visible="false">
@@ -100,9 +100,9 @@
 	</tr-->
 	<tr>
 		<td align=middle colSpan=2 class=footer1>
-			<asp:Button id=Preview cssclass="pbutton" runat="server" onclick="Preview_Click" />
-			<asp:button id=PostReply cssclass="pbutton" runat="server" onclick="PostReply_Click" />
-			<asp:Button id=Cancel cssclass="pbutton" runat="server" onclick="Cancel_Click" />
+			<asp:Button id=Preview cssclass="pbutton" runat="server"/>
+			<asp:button id=PostReply cssclass="pbutton" runat="server"/>
+			<asp:Button id=Cancel cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>
 </table>

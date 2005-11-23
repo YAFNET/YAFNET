@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.editnntpserver" CodeFile="editnntpserver.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="editnntpserver.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editnntpserver" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -31,8 +31,8 @@
 		<td class=post colspan=7><asp:textbox id="UserPass" runat="server" enabled="false"/></td>
 	</tr>
   <tr>
-    <td class=postfooter align=middle colspan=11><asp:button id=Save runat="server" Text="Save" onclick="Save_Click"></asp:button>&nbsp; 
-<asp:button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click"></asp:button></td></tr></table>
+    <td class=postfooter align=middle colspan=11><asp:button id=Save runat="server" Text="Save"></asp:button>&nbsp; 
+<asp:button id=Cancel runat="server" Text="Cancel"></asp:button></td></tr></table>
 
 </yaf:adminmenu>
 

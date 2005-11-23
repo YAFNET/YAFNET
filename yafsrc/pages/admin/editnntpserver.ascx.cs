@@ -32,9 +32,13 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editnntpserver : AdminPage
+	public class editnntpserver : AdminPage
 	{
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected TextBox Name, Address, Port, UserName, UserPass;
+		protected Button Save, Cancel;
+		protected controls.PageLinks PageLinks;
+
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -78,6 +82,9 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Save.Click += new System.EventHandler(this.Save_Click);
+			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -86,12 +93,12 @@ namespace yaf.pages.admin
 			DataBind();
 		}
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		private void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_nntpservers);
 		}
 
-		protected void Save_Click(object sender, System.EventArgs e)
+		private void Save_Click(object sender, System.EventArgs e)
 		{
 			if(Name.Text.Trim().Length==0) 
 			{

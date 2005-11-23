@@ -33,13 +33,41 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for posts.
 	/// </summary>
-	public partial class posts : ForumPage
+	public class posts : ForumPage
 	{
+		protected System.Web.UI.WebControls.LinkButton NewTopic1;
+		protected System.Web.UI.WebControls.Repeater MessageList;
+		protected System.Web.UI.WebControls.LinkButton PostReplyLink1;
+		protected System.Web.UI.WebControls.Repeater Poll;
+		protected controls.PageLinks PageLinks;
+		protected controls.Pager Pager;
 
 		private DataRow forum, topic;
+		protected System.Web.UI.WebControls.LinkButton PrevTopic;
+		protected System.Web.UI.WebControls.LinkButton NextTopic;
+		protected System.Web.UI.WebControls.LinkButton PrintTopic;
+		protected System.Web.UI.WebControls.LinkButton EmailTopic;
+		protected System.Web.UI.WebControls.LinkButton DeleteTopic1;
+		protected System.Web.UI.WebControls.LinkButton LockTopic1;
+		protected System.Web.UI.WebControls.LinkButton UnlockTopic1;
+		protected System.Web.UI.WebControls.Label TopicTitle;
 		private DataTable dtPoll;
+		protected System.Web.UI.WebControls.LinkButton PostReplyLink2;
+		protected System.Web.UI.WebControls.LinkButton NewTopic2;
+		protected System.Web.UI.WebControls.LinkButton DeleteTopic2;
+		protected System.Web.UI.WebControls.LinkButton LockTopic2;
+		protected System.Web.UI.WebControls.LinkButton UnlockTopic2;
+		protected System.Web.UI.WebControls.LinkButton TrackTopic;
+		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
+		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
+		protected System.Web.UI.WebControls.HyperLink RssTopic;
+		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
+		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
 		private bool m_bDataBound = false;
 		private bool m_bIgnoreQueryString = false;
+		protected controls.PopMenu	MyTestMenu, ViewMenu;
+		protected PlaceHolder ViewOptions;
+		protected HyperLink MyTest, View;
 
 		public posts() : base("POSTS")
 		{
@@ -62,7 +90,7 @@ namespace yaf.pages
 				BindData();
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			topic = DB.topic_info(PageTopicID);
 			using(DataTable dt = DB.forum_list(PageBoardID,PageForumID))
@@ -189,6 +217,24 @@ namespace yaf.pages
 		private void InitializeComponent()
 		{    
 			this.Poll.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.Poll_ItemCommand);
+			this.PostReplyLink1.Click += new System.EventHandler(this.PostReplyLink_Click);
+			this.NewTopic1.Click += new System.EventHandler(this.NewTopic_Click);
+			this.DeleteTopic1.Click += new System.EventHandler(this.DeleteTopic_Click);
+			this.LockTopic1.Click += new System.EventHandler(this.LockTopic_Click);
+			this.UnlockTopic1.Click += new System.EventHandler(this.UnlockTopic_Click);
+			this.TrackTopic.Click += new System.EventHandler(this.TrackTopic_Click);
+			this.PostReplyLink2.Click += new System.EventHandler(this.PostReplyLink_Click);
+			this.NewTopic2.Click += new System.EventHandler(this.NewTopic_Click);
+			this.DeleteTopic2.Click += new System.EventHandler(this.DeleteTopic_Click);
+			this.LockTopic2.Click += new System.EventHandler(this.LockTopic_Click);
+			this.UnlockTopic2.Click += new System.EventHandler(this.UnlockTopic_Click);
+			this.MoveTopic1.Click += new System.EventHandler(this.MoveTopic_Click);
+			this.MoveTopic2.Click += new System.EventHandler(this.MoveTopic_Click);
+			this.PrevTopic.Click += new System.EventHandler(this.PrevTopic_Click);
+			this.NextTopic.Click += new System.EventHandler(this.NextTopic_Click);
+			this.PrintTopic.Click += new System.EventHandler(this.PrintTopic_Click);
+			this.EmailTopic.Click += new System.EventHandler(this.EmailTopic_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 			this.PreRender += new EventHandler(posts_PreRender);
 			this.MyTestMenu.ItemClick += new yaf.controls.PopEventHandler(MyTestMenu_ItemClick);
 			this.ViewMenu.ItemClick += new yaf.controls.PopEventHandler(ViewMenu_ItemClick);
@@ -323,7 +369,7 @@ namespace yaf.pages
 			return false;
 		}
 
-		protected void DeleteTopic_Click(object sender, System.EventArgs e)
+		private void DeleteTopic_Click(object sender, System.EventArgs e)
 		{
 			if(!ForumModeratorAccess)
 				Data.AccessDenied(/*"You don't have access to delete topics."*/);
@@ -332,7 +378,7 @@ namespace yaf.pages
 			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 		}
 
-		protected void LockTopic_Click(object sender, System.EventArgs e)
+		private void LockTopic_Click(object sender, System.EventArgs e)
 		{
 			DB.topic_lock(PageTopicID,true);
 			BindData();
@@ -345,7 +391,7 @@ namespace yaf.pages
 			PostReplyLink2.Visible = false;
 		}
 
-		protected void UnlockTopic_Click(object sender, System.EventArgs e)
+		private void UnlockTopic_Click(object sender, System.EventArgs e)
 		{
 			DB.topic_lock(PageTopicID,false);
 			BindData();
@@ -465,7 +511,7 @@ namespace yaf.pages
 			return (string)dtPoll.Rows[0]["Question"];
 		}
 
-		protected void PostReplyLink_Click(object sender, System.EventArgs e) {
+		private void PostReplyLink_Click(object sender, System.EventArgs e) {
 			if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked) {
 				AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
 				return;
@@ -479,7 +525,7 @@ namespace yaf.pages
 			Forum.Redirect(Pages.postmessage,"t={0}&f={1}",PageTopicID,PageForumID);
 		}
 
-		protected void NewTopic_Click(object sender, System.EventArgs e) {
+		private void NewTopic_Click(object sender, System.EventArgs e) {
 			if(((int)forum["Flags"] & (int)ForumFlags.Locked)==(int)ForumFlags.Locked) 
 			{
 				AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
@@ -488,7 +534,7 @@ namespace yaf.pages
 			Forum.Redirect(Pages.postmessage,"f={0}",PageForumID);
 		}
 
-		protected void TrackTopic_Click(object sender, System.EventArgs e) {
+		private void TrackTopic_Click(object sender, System.EventArgs e) {
 			if(IsGuest)
 			{
 				AddLoadMessage(GetText("WARN_WATCHLOGIN"));
@@ -512,14 +558,14 @@ namespace yaf.pages
 			BindData();
 		}
 		
-		protected void MoveTopic_Click(object sender, System.EventArgs e) {
+		private void MoveTopic_Click(object sender, System.EventArgs e) {
 			if(!ForumModeratorAccess)
 				Data.AccessDenied(/*"You are not a forum moderator."*/);
 
 			Forum.Redirect(Pages.movetopic,"t={0}",PageTopicID);
 		}
 
-		protected void PrevTopic_Click(object sender, System.EventArgs e) {
+		private void PrevTopic_Click(object sender, System.EventArgs e) {
 			using(DataTable dt = DB.topic_findprev(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
@@ -529,7 +575,7 @@ namespace yaf.pages
 			}
 		}
 
-		protected void NextTopic_Click(object sender, System.EventArgs e) {
+		private void NextTopic_Click(object sender, System.EventArgs e) {
 			using(DataTable dt = DB.topic_findnext(PageTopicID)) {
 				if(dt.Rows.Count==0) {
 					AddLoadMessage(GetText("INFO_NOMORETOPICS"));
@@ -538,14 +584,14 @@ namespace yaf.pages
 				Forum.Redirect(Pages.posts,"t={0}",dt.Rows[0]["TopicID"]);
 			}
 		}
-		protected void EmailTopic_Click(object sender, System.EventArgs e) {
+		private void EmailTopic_Click(object sender, System.EventArgs e) {
 			if(!User.IsAuthenticated) {
 				AddLoadMessage(GetText("WARN_EMAILLOGIN"));
 				return;
 			}
 			Forum.Redirect(Pages.emailtopic,"t={0}",PageTopicID);
 		}
-		protected void PrintTopic_Click(object sender, System.EventArgs e) {
+		private void PrintTopic_Click(object sender, System.EventArgs e) {
 			Forum.Redirect(Pages.printtopic,"t={0}",PageTopicID);
 		}
 		

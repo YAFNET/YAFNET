@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.edituser" CodeFile="edituser.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="edituser.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.edituser" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -56,8 +56,8 @@
 	
 	<tr>
 		<td class=postfooter colspan=2 align=middle>
-			<asp:Button id=Save runat="server" Text="Save" onclick="Save_Click" />
-			<asp:Button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click" />
+			<asp:Button id=Save runat="server" Text="Save"/>
+			<asp:Button id=Cancel runat="server" Text="Cancel"/>
 		</td>
 	</tr>
 

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" Inherits="yaf.controls.ForumList" EnableViewState="false" CodeFile="ForumList.ascx.cs" CodeFileBaseClass="yaf.BaseUserControl" %>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="ForumList.ascx.cs" Inherits="yaf.controls.ForumList" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
 
 <asp:Repeater id="forumList" runat="server">
 <ItemTemplate>

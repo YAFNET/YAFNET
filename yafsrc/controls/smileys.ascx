@@ -1,5 +1,5 @@
-<%@ Control Language="c#" Inherits="yaf.controls.smileys" CodeFile="smileys.ascx.cs" CodeFileBaseClass="yaf.BaseUserControl" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="smileys.ascx.cs" Inherits="yaf.controls.smileys" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <br /><br />
 
 <table class="content" align="center" cellspacing="0" cellpadding="9">

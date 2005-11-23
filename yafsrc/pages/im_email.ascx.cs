@@ -32,13 +32,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class im_email : ForumPage
+	public class im_email : ForumPage
 	{
+		protected controls.PageLinks PageLinks;
+		protected Button Send;
+		protected TextBox Subject, Body;
+
 		public im_email() : base("IM_EMAIL")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.IsAuthenticated)
 				Data.AccessDenied();

@@ -1,6 +1,5 @@
-<%@ Reference Control="~/pages/register.ascx" %>
-<%@ Control language="c#" Inherits="yaf.pages.login" CodeFile="login.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="login.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.login" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
@@ -22,7 +21,7 @@
 </tr>
 <tr>
 	<td class=postfooter colspan=2 align=middle>
-		<asp:Button id=ForumLogin cssclass="pbutton" runat="server" onclick="ForumLogin_Click" />
+		<asp:Button id=ForumLogin cssclass="pbutton" runat="server"/>
 		<asp:button id=LostPassword cssclass="pbutton" runat="server"/>
 	</td>
 </tr>

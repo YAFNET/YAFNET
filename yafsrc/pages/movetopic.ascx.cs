@@ -32,14 +32,17 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for movetopic.
 	/// </summary>
-	public partial class movetopic : ForumPage
+	public class movetopic : ForumPage
 	{
+		protected System.Web.UI.WebControls.Button Move;
+		protected System.Web.UI.WebControls.DropDownList ForumList;
+		protected controls.PageLinks PageLinks;
 	
 		public movetopic() : base("MOVETOPIC")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(Request.QueryString["t"] == null || !ForumModeratorAccess)
 				Data.AccessDenied();
@@ -75,11 +78,13 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.Move.Click += new System.EventHandler(this.Move_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		protected void Move_Click(object sender, System.EventArgs e)
+		private void Move_Click(object sender, System.EventArgs e)
 		{
 			// only move if it's a destination is a different forum.
 			if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)

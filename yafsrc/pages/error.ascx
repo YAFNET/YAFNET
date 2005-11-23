@@ -1,5 +1,4 @@
-<%@ Reference Page="~/error.aspx" %>
-<%@ Control language="c#" Inherits="yaf.pages.error" CodeFile="error.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
+<%@ Control language="c#" Codebehind="error.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.error" %>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>

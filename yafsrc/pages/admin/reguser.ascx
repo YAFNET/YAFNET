@@ -1,5 +1,5 @@
-<%@ Control Language="c#" Inherits="yaf.pages.admin.reguser" CodeFile="reguser.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="reguser.ascx.cs" Inherits="yaf.pages.admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
   <TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">
@@ -58,8 +58,8 @@
     </TR>
     <TR>
       <TD class="footer1" align="center" colSpan="2">
-        <asp:Button id="ForumRegister" runat="server" text="Register" onclick="ForumRegister_Click"></asp:Button>
-        <asp:button id="cancel" runat="server" text="Cancel" onclick="cancel_Click"></asp:button></TD>
+        <asp:Button id="ForumRegister" runat="server" text="Register"></asp:Button>
+        <asp:button id="cancel" runat="server" text="Cancel"></asp:button></TD>
     </TR>
   </TABLE>
 </yaf:adminmenu>

@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.prune" CodeFile="prune.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="prune.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.prune" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

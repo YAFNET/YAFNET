@@ -1,7 +1,7 @@
-<%@ Control language="c#" Inherits="yaf.pages.pmessage" CodeFile="pmessage.ascx.cs" CodeFileBaseClass="yaf.pages.ForumPage" %>
-<%@ Register TagPrefix="editor" Namespace="yaf.editor" %>
+<%@ Control language="c#" Codebehind="pmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.pmessage" %>
+<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

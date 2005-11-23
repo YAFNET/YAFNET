@@ -1,5 +1,5 @@
-<%@ Control language="c#" Inherits="yaf.pages.admin.bannedip_edit" CodeFile="bannedip_edit.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Control language="c#" Codebehind="bannedip_edit.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.bannedip_edit" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 

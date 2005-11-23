@@ -1,6 +1,5 @@
-<%@ Reference Control="~/pages/search.ascx" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
-<%@ Control language="c#" Inherits="yaf.pages.admin.users" CodeFile="users.ascx.cs" CodeFileBaseClass="yaf.AdminPage" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="users.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.users" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
 	<TABLE class="content" cellSpacing="0" cellPadding="0" width="100%">

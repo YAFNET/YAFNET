@@ -1,1 +1,1 @@
-<%@ Page language="c#" Inherits="yaf.Migrated_image" CodeFile="image.aspx.cs" %>
+<%@ Page language="c#" Codebehind="image.aspx.cs" AutoEventWireup="false" Inherits="yaf.image" %>

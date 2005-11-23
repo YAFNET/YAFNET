@@ -339,7 +339,7 @@ namespace yaf.pages
 				{
 					if(IsAdmin) 
 					{
-						AddLoadMessage(x.ToString());
+						AddLoadMessage(x.Message);
 					}
 				}
 			}

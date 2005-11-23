@@ -33,14 +33,25 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public partial class login : ForumPage
+	public class login : ForumPage
 	{
+		protected System.Web.UI.WebControls.TextBox UserName;
+		protected System.Web.UI.WebControls.TextBox Password;
+		protected System.Web.UI.WebControls.CheckBox AutoLogin;
+		protected System.Web.UI.WebControls.Button ForumLogin;
+		protected System.Web.UI.HtmlControls.HtmlTable LoginView;
+		protected System.Web.UI.HtmlControls.HtmlTable RecoverView;
+		protected System.Web.UI.WebControls.Button LostPassword;
+		protected System.Web.UI.WebControls.TextBox LostUserName;
+		protected System.Web.UI.WebControls.TextBox LostEmail;
+		protected System.Web.UI.WebControls.Button Recover;
+		protected controls.PageLinks PageLinks;
 	
 		public login() : base("LOGIN")
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!User.CanLogin)
 				Forum.Redirect(Pages.forum);
@@ -75,7 +86,7 @@ namespace yaf.pages
 				}
 
 				/// Generate the new password
-                string newpw = Utils.CreatePassword(8);
+				string newpw = pages.register.CreatePassword(8);
 
 				/// Update password in db
 				if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) 
@@ -120,11 +131,13 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
+			this.ForumLogin.Click += new System.EventHandler(this.ForumLogin_Click);
+			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		protected void ForumLogin_Click(object sender, System.EventArgs e)
+		private void ForumLogin_Click(object sender, System.EventArgs e)
 		{
 			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
 			object userID = DB.user_login(PageBoardID,UserName.Text,sPassword);

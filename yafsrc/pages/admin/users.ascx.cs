@@ -32,9 +32,18 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public partial class users : AdminPage
+	public class users : AdminPage
 	{
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected System.Web.UI.WebControls.Repeater UserList;
+		protected controls.PageLinks PageLinks;
+		protected LinkButton NewUser;
+		protected DropDownList group, rank;
+		protected Button search;
+		protected yaf.controls.AdminMenu Adminmenu1;
+		protected yaf.controls.SmartScroller SmartScroller1;
+		protected TextBox name;
+
+		private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));

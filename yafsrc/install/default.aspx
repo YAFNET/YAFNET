@@ -1,5 +1,5 @@
-<%@ Page language="c#" Inherits="yaf.install._default" CodeFile="default.aspx.cs" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" %>
+<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="yaf.install._default" %>
+<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <html>
 <head>
