@@ -268,9 +268,10 @@ table.command
 }
 
 /* p-tag at the top of pages with navigation links */
-.navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
-.navlinks a { color: #000000; text-decoration: none }
-.navlinks a:hover { color: #C00000; }
+.navlinks { font-weight: bold; color: #333333; font-size: 9pt; }
+.navlinks a { color: #000000; text-decoration: none; }
+.navlinks a:hover { color: #C00000; text-decoration: underline; }
+.navlinks #current { color: #900000; } 
 
 /* for printing */
 .print 
