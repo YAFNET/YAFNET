@@ -47,7 +47,8 @@ namespace yaf.pages
 			if(Request.QueryString["t"] == null || !ForumModeratorAccess)
 				Data.AccessDenied();
 
-			if(!IsPostBack) {
+			if(!IsPostBack)
+			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
@@ -56,9 +57,11 @@ namespace yaf.pages
 				Move.Text = GetText("move");
 
 				ForumList.DataSource = DB.forum_listall(PageBoardID,PageUserID);
-				//ForumList.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
+				
 				DataBind();
-				ForumList.Items.FindByValue(PageForumID.ToString()).Selected = true;
+				
+				System.Web.UI.WebControls.ListItem pageItem = ForumList.Items.FindByValue(PageForumID.ToString());
+				if (pageItem != null) pageItem.Selected = true;
 			}
 		}
 
