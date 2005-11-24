@@ -79,19 +79,21 @@ namespace yaf.pages
 		}
 		#endregion
 
-		protected string GetPrintHeader(object o) {
+		protected string GetPrintHeader(object o)
+		{
 			DataRowView row = (DataRowView)o;
 			return String.Format("<b>{2}: {0}</b> - {1}",row["UserName"],FormatDateTime((DateTime)row["Posted"]),GetText("postedby"));
 		}
-		protected string GetPrintBody(object o) {
+
+		protected string GetPrintBody(object o)
+		{
 			DataRowView row = (DataRowView)o;
-			string msg = row["Message"].ToString();
-			bool isHtml = msg.IndexOf('<')>=0;
-			if(!isHtml) 
-			{
-				msg = FormatMsg.ForumCodeToHtml(this,msg);
-			}
-			return msg;
+		
+			string message = row["Message"].ToString();
+
+			message = FormatMsg.FormatMessage(this,message,new MessageFlags(Convert.ToInt32(row["Flags"])));
+			
+			return message;
 		}
 	}
 }
