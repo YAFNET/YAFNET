@@ -37,7 +37,7 @@ namespace yaf
 			writer.WriteRaw("\t\t<title>RSS Feed for " + page.ServerURL + "</title>" + en);
 			writer.WriteRaw("\t\t<link>" + Encode(page.ForumURL) + "</link>" + en);
 			writer.WriteRaw("\t\t<description>Yet Another Forum Web Application RSS Feed</description>" + en);
-			writer.WriteRaw("\t\t<copyright>Copyright 2002 - 2004 Bjørnar Henden</copyright>" + en);
+			writer.WriteRaw("\t\t<copyright>Copyright 2002 - 2005 Bjørnar Henden</copyright>" + en);
 
 			return writer;
 		}
