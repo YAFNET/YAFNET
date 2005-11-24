@@ -26,9 +26,21 @@ namespace yaf.controls
 
 		public void AddForumLinks(int forumID)
 		{
+			this.AddForumLinks(forumID,false);
+		}
+
+		public void AddForumLinks(int forumID, bool noForumLink)
+		{
 			using(DataTable dtLinks=DB.forum_listpath(forumID))
-				foreach(DataRow row in dtLinks.Rows)
-					AddLink((string)row["Name"],Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
+			{
+				foreach(DataRow row in dtLinks.Rows)				
+				{
+					if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
+						AddLink(row["Name"].ToString(),"");
+					else
+						AddLink(row["Name"].ToString(),Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
+				}
+			}
 		}
 
 		private void Page_Load(object sender, System.EventArgs e) 
@@ -44,23 +56,23 @@ namespace yaf.controls
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
 			DataTable m_links = (DataTable)ViewState["data"];
-			if(m_links==null || m_links.Rows.Count==0)
-				return;
+			
+			if (m_links == null || m_links.Rows.Count == 0) return;
 
-			writer.WriteLine("<p class='navlinks'>");
+			writer.WriteLine("<p class=\"navlinks\">");
 
 			bool bFirst = true;
 			foreach(DataRow row in m_links.Rows)
 			{
 				if(!bFirst) 
-				{
-					writer.WriteLine("&#187;");
-				} 
+					writer.WriteLine("&#187;"); 
 				else 
-				{
 					bFirst = false;
-				}
-				writer.WriteLine(String.Format("<a href='{0}'>{1}</a>",row["URL"],row["Title"]));
+
+				if (row["URL"].ToString().Equals(""))
+					writer.WriteLine("<span id=\"current\">" + row["Title"].ToString() + "</span>");
+				else
+					writer.WriteLine(String.Format("<a href=\"{0}\">{1}</a>",row["URL"],row["Title"]));
 			}
 			
 			writer.WriteLine("</p>");
