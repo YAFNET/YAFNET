@@ -449,11 +449,14 @@ namespace yaf.pages
 			DataRowView row = (DataRowView)o;
 			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 
-			string sig = row["Signature"].ToString();
-			if(sig!=string.Empty) 
+			string messageSignature = row["Signature"].ToString();
+
+			if (messageSignature != string.Empty) 
 			{
-				sig = FormatMsg.FormatMessage(this,sig,new MessageFlags());
-				html += "<br/><hr noshade/>" + sig;
+				MessageFlags flags = new MessageFlags();
+				flags.IsHTML = false;
+				messageSignature = FormatMsg.FormatMessage(this,messageSignature,flags);
+				html += "<br/><hr noshade/>" + messageSignature;
 			}
 
 			return html;
