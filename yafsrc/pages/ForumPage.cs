@@ -1430,13 +1430,27 @@ namespace yaf.pages
 		{
 			get
 			{
-				long port = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
-				if(port!=80)
-					return String.Format("http://{0}:{1}",HttpContext.Current.Request.ServerVariables["SERVER_NAME"],port);
-				else
-					return String.Format("http://{0}",HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
+				long serverPort = long.Parse(HttpContext.Current.Request.ServerVariables["SERVER_PORT"]);
+				bool isSecure = (HttpContext.Current.Request.ServerVariables["HTTPS"] == "ON");
+
+				StringBuilder url = new StringBuilder("http");
+
+				if (isSecure)
+				{
+					url.Append("s");
+				}
+
+				url.AppendFormat("://{0}",HttpContext.Current.Request.ServerVariables["SERVER_NAME"]);
+
+				if ((!isSecure && serverPort != 80) || (isSecure && serverPort != 443))
+				{
+					url.AppendFormat(":{0}",serverPort.ToString());
+				}
+
+				return url.ToString();
 			}
 		}
+
 		public string ThemeFile(string filename) 
 		{
 			return ThemeDir + filename;
