@@ -438,8 +438,8 @@ namespace yaf.pages
 			{
 				System.Text.StringBuilder title = new StringBuilder();
 				if(this.PageTopicID!=0)
-					//title.AppendFormat("{0} - ",Server.HtmlEncode(this.PageTopicName)); // Tack on the topic we're viewing
-					title.AppendFormat("{0} - ",Utils.BadWordReplace(this.PageTopicName)); // Tack on the topic we're viewing
+					title.AppendFormat("{0} - ",Server.HtmlEncode(this.PageTopicName)); // Tack on the topic we're viewing
+					//title.AppendFormat("{0} - ",Utils.BadWordReplace(this.PageTopicName)); // Tack on the topic we're viewing
 				if(this.PageForumName!=string.Empty)
 					title.AppendFormat("{0} - ",this.PageForumName); // Tack on the forum we're viewing
 				title.Append(BoardSettings.Name); // and lastly, tack on the board's name
