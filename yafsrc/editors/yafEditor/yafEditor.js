@@ -34,11 +34,21 @@ yafEditor.prototype.FormatText = function(command, option) {
 			break;
 		case "createlink":
 			var url = prompt('Enter URL:','http://');
-			if(url!='' && url!=null) {
-				if(getSelection(textObj))
+			if (url != '' && url != null)
+			{
+				if (getSelection(textObj))
+				{
 					wrapSelection(textObj,'[url='+url+']','[/url]');
+				}
 				else
-					replaceSelection(textObj,'[url]'+url+'[/url]');
+				{
+					// ask for the description text...
+					var desc = prompt('Enter URL Description:','');
+					if (desc != '' && desc != null)
+						replaceSelection(textObj,'[url='+url+']'+desc+'[/url]');
+					else
+						replaceSelection(textObj,'[url]'+url+'[/url]');
+				}
 			}
 			break;
 		case "color":
