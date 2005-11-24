@@ -104,7 +104,8 @@ namespace yaf.pages
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
+				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),"");
+
 				TopicTitle.Text = Utils.BadWordReplace((string)topic["Topic"]);
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
 				ForumJumpLine.Visible = BoardSettings.ShowForumJump;

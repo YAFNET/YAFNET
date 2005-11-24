@@ -143,7 +143,7 @@ namespace yaf.pages
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-				PageLinks.AddForumLinks(PageForumID);
+				PageLinks.AddForumLinks(PageForumID,true);
 
 				moderate1.Text = GetThemeContents("BUTTONS","MODERATE");
 				moderate1.ToolTip = "Moderate this forum";
