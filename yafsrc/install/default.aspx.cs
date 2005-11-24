@@ -477,12 +477,12 @@ namespace yaf.install
 									cmd.CommandType = CommandType.Text;
 									foreach(DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1")) 
 									{
-										cmd.CommandText = string.Format("grant execute on {0} to {1}",row["Name"],userName);
+										cmd.CommandText = string.Format("grant execute on {0} to [{1}]",row["Name"],userName);
 										cmd.ExecuteNonQuery();
 									}
 									foreach(DataRow row in dt.Select("IsUserTable=1 or IsView=1")) 
 									{
-										cmd.CommandText = string.Format("grant select,update on {0} to {1}",row["Name"],userName);
+										cmd.CommandText = string.Format("grant select,update on {0} to [{1}]",row["Name"],userName);
 										cmd.ExecuteNonQuery();
 									}
 								} 
