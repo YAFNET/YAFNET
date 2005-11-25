@@ -663,22 +663,32 @@ if exists(select 1 from sysobjects where id=object_id(N'yaf_Forum_update') and o
 	drop trigger yaf_Forum_update
 go
 
-create trigger yaf_Forum_update on dbo.yaf_Forum for update as
-begin
-	if update(LastTopicID) or update(LastMessageID)
-	begin
-		update a set
-			a.LastPosted=b.LastPosted,
-			a.LastTopicID=b.LastTopicID,
-			a.LastMessageID=b.LastMessageID,
-			a.LastUserID=b.LastUserID,
-			a.LastUserName=b.LastUserName
-		from
-			yaf_Forum a join inserted b on a.ForumID=b.ParentID
-		where
-			a.LastPosted < b.LastPosted
-	end
-end
+CREATE TRIGGER yaf_Forum_update ON dbo.yaf_Forum FOR UPDATE AS
+BEGIN
+	IF UPDATE(LastTopicID) OR UPDATE(LastMessageID)
+	BEGIN	
+		-- recursively update the forum
+		DECLARE @ParentID int		
+
+		SET @ParentID = (SELECT TOP 1 ParentID FROM inserted)
+		
+		WHILE (@ParentID IS NOT NULL)
+		BEGIN
+			UPDATE a SET
+				a.LastPosted = b.LastPosted,
+				a.LastTopicID = b.LastTopicID,
+				a.LastMessageID = b.LastMessageID,
+				a.LastUserID = b.LastUserID,
+				a.LastUserName = b.LastUserName
+			FROM
+				yaf_Forum a, inserted b
+			WHERE
+				a.ForumID = @ParentID AND ((a.LastPosted < b.LastPosted) OR a.LastPosted IS NULL);
+			
+			SET @ParentID = (SELECT ParentID FROM yaf_Forum WHERE ForumID = @ParentID)
+		END
+	END
+END
 go
 
 /*
@@ -1544,6 +1554,7 @@ begin
 end
 GO
 -- END ABOT NEW 16.04.04
+
 -- yaf_forum_listall
 if exists (select * from sysobjects where id = object_id(N'yaf_forum_listall') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listall
@@ -1591,6 +1602,20 @@ begin
 			join yaf_Forum b on b.CategoryID=a.CategoryID
 			join yaf_Forum c on c.ParentID=b.ForumID
 			join yaf_Forum d on d.ParentID=c.ForumID
+		where
+			a.BoardID=@BoardID and
+			b.ParentID is null
+		union
+	
+		select
+			e.ForumID,
+			Indent = 3
+		from
+			yaf_Category a
+			join yaf_Forum b on b.CategoryID=a.CategoryID
+			join yaf_Forum c on c.ParentID=b.ForumID
+			join yaf_Forum d on d.ParentID=c.ForumID
+			join yaf_Forum e on e.ParentID=d.ForumID
 		where
 			a.BoardID=@BoardID and
 			b.ParentID is null
@@ -4852,6 +4877,7 @@ GO
 
 create procedure dbo.yaf_forum_listpath(@ForumID int) as
 begin
+	-- supports up to 4 levels of nested forums
 	select
 		a.ForumID,
 		a.Name
@@ -4884,6 +4910,19 @@ begin
 			yaf_Forum a
 			join yaf_Forum b on b.ForumID=a.ParentID
 			join yaf_Forum c on c.ForumID=b.ParentID
+		where
+			a.ForumID=@ForumID
+
+		union 
+
+		select
+			d.ForumID,
+			Indent = 3
+		from
+			yaf_Forum a
+			join yaf_Forum b on b.ForumID=a.ParentID
+			join yaf_Forum c on c.ForumID=b.ParentID
+			join yaf_Forum d on d.ForumID=c.ParentID
 		where
 			a.ForumID=@ForumID
 		) as x	
