@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <Resources language="Русский">
 	<page name="COMMON">
 		<!-- common... -->
-		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
-		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
+		<Resource tag="POWERED_BY">Движок {0} версии {1}</Resource>
+		<Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
 		<Resource tag="SAVE">Сохранить</Resource>
 		<Resource tag="CANCEL">Отмена</Resource>
 		<Resource tag="FORUM_JUMP">Перейти</Resource>
@@ -19,11 +19,13 @@
 		<Resource tag="CANNOT_EDIT">Вы [b]не можете[/b] редактировать Ваши сообщения в этом форуме.</Resource>
 		<Resource tag="CANNOT_POLL">Вы [b]не можете[/b] создавать опросы в этом форуме.</Resource>
 		<Resource tag="CANNOT_VOTE">Вы [b]не можете[/b] голосовать в этом форуме.</Resource>
+		<Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
+		<Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">Поиск</Resource>
-		<Resource tag="ADMIN">Админ</Resource>
+		<Resource tag="ADMIN">Администрирование</Resource>
 		<Resource tag="MODERATE">Модерирование</Resource>
 		<Resource tag="ACTIVETOPICS">Активные темы</Resource>
 		<Resource tag="MYPROFILE">Мой профиль</Resource>
@@ -33,6 +35,7 @@
 		<Resource tag="REGISTER">Регистрация</Resource>
 		<Resource tag="LOGGED_IN_AS">Добро пожаловать, {0}!</Resource>
 		<Resource tag="WELCOME_GUEST">Добро пожаловать!</Resource>
+		<Resource tag="HELP">Помощь</Resource>
 	</page>
 	<page name="ICONLEGEND">
 		<!-- Common icon texts -->
@@ -69,9 +72,9 @@
 		<Resource tag="LASTPOST">Последнее сообщение</Resource>
 		<Resource tag="MODERATORS">Модераторы</Resource>
 		<Resource tag="CURRENT_TIME">Текущее время: {0}.</Resource>
-		<Resource tag="LAST_VISIT">Время Вашего предыдущего визита: {0}.</Resource>
+		<Resource tag="LAST_VISIT">Время Вашего прошлого визита: {0}.</Resource>
 		<Resource tag="STATS_POSTS">Всего // Сообщений: {0:N0}, Тем: {1:N0}, Форумов: {2:N0}.</Resource>
-		<Resource tag="STATS_LASTPOST">Последнее сообщение от {0} разместил {1}.</Resource>
+		<Resource tag="STATS_LASTPOST">Последнее сообщение {0} разместил {1}.</Resource>
 		<Resource tag="STATS_MEMBERS">Количество зарегистрированных пользователей: {0:N0}.</Resource>
 		<Resource tag="STATS_LASTMEMBER">Представляем нового пользователя: {0}.</Resource>
 		<Resource tag="IN">в {0}</Resource>
@@ -90,8 +93,10 @@
 		<Resource tag="ACTIVE_USERS_GUESTS2">Гостей: {0:N0}</Resource>
 		<Resource tag="VIEWING">(Пользователей: {0})</Resource>
 		<Resource tag="ERROR_NOFORUMACCESS">У Вас нет доступа к выбранному форуму.</Resource>
-		<Resource tag="MARKALL">Пометить все форумы как прочтенные</Resource>
-		<Resource tag="GO_LAST_POST">Перейти к последнему размещенному сообщению</Resource>
+		<Resource tag="MARKALL">Пометить все форумы как прочтённые</Resource>
+		<Resource tag="GO_LAST_POST">Перейти к последнему размещённому сообщению</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">Активные темы</Resource>
+		<Resource tag="LATEST_POSTS">Последние сообщения</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
@@ -118,10 +123,12 @@
 		<Resource tag="WARN_FORUM_LOCKED">Форум закрыт.</Resource>
 		<Resource tag="WARN_LOGIN_FORUMWATCH">Вы должны зарегистрироваться для подписки на данный форум.</Resource>
 		<Resource tag="INFO_WATCH_FORUM">На Ваш электронный адрес будут высылаться уведомления о новых сообщениях в данном форуме.</Resource>
-		<Resource tag="MARKREAD">Пометить форум как прочтенный</Resource>
+		<Resource tag="MARKREAD">Пометить форум, как прочтённый</Resource>
 		<Resource tag="SUBFORUMS">Подразделы</Resource>
- 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+ 		<Resource tag="TODAYAT">[b]Сегодня[/b] в {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Вчера[/b] в {0:T}</Resource>
+ 		<Resource tag="RSSFEED">RSS сборка</Resource>
+ 		<Resource tag="GOTO_POST_PAGER">(Страницы: {0})</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
@@ -141,10 +148,10 @@
 		<Resource tag="CONFIRM_DELETETOPIC">Удалить тему?</Resource>
 		<Resource tag="RANK">Ранг</Resource>
 		<Resource tag="GROUPS">Группа</Resource>
-		<Resource tag="JOINED">Зарегистрирован</Resource>
+		<Resource tag="JOINED">Регистрация</Resource>
 		<Resource tag="POSTS">Сообщений</Resource>
-		<Resource tag="LOCATION">Местонахождение</Resource>
-		<Resource tag="TOPICBROWSERS">Пользователей, просматривающих тему</Resource>
+		<Resource tag="LOCATION">Откуда</Resource>
+		<Resource tag="TOPICBROWSERS">Пользователи, просматривающие тему</Resource>
 		<Resource tag="INFO_TOPIC_LOCKED">Тема успешно закрыта.</Resource>
 		<Resource tag="INFO_TOPIC_UNLOCKED">Тема успешно открыта.</Resource>
 		<Resource tag="WARN_TOPIC_LOCKED">Тема закрыта.</Resource>
@@ -161,12 +168,14 @@
 		<Resource tag="ATTACHMENTINFO">{0:N0} KB, загружено: {1:N0} раз.</Resource>
 		<Resource tag="NORMAL">Обычное</Resource>
 		<Resource tag="THREADED">В виде списка</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} присоединил одну или несколько картинок:</Resource>
+		<Resource tag="RSSTOPIC">RSS сборка</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
 		<Resource tag="TITLE">Активные темы</Resource>
 		<Resource tag="SINCE">с </Resource>
-		<Resource tag="LAST_VISIT">предыдущего визита от {0}</Resource>
+		<Resource tag="LAST_VISIT">прошлого визита от {0}</Resource>
 		<Resource tag="LAST_HOUR">за час</Resource>
 		<Resource tag="LAST_TWO_HOURS">за два часа</Resource>
 		<Resource tag="LAST_DAY">за день</Resource>
@@ -181,13 +190,14 @@
 		<Resource tag="LASTPOST">Последнее сообщение</Resource>
 		<Resource tag="BY">от {0}</Resource>
 		<Resource tag="NO_POSTS">Нет сообщений</Resource>
+ 		<Resource tag="RSSFEED">RSS сборка</Resource>
 	</page>
 	<page name="ACTIVEUSERS">
 		<!-- activeusers.aspx -->
 		<Resource tag="TITLE">Активных пользователей</Resource>
 		<Resource tag="USERNAME">Имя</Resource>
 		<Resource tag="LOGGED_IN">Зарегистрирован как</Resource>
-		<Resource tag="LAST_ACTIVE">Предыдущий визит</Resource>
+		<Resource tag="LAST_ACTIVE">Прошлый визит</Resource>
 		<Resource tag="ACTIVE">Активный</Resource>
 		<Resource tag="BROWSER">Просматривают</Resource>
 		<Resource tag="PLATFORM">Платформа</Resource>
@@ -282,6 +292,7 @@
 		<Resource tag="NUMPOSTS">Количество сообщений:</Resource>
 		<Resource tag="GROUPS">Группы:</Resource>
 		<Resource tag="JOINED">Зарегистрирован с:</Resource>
+		<Resource tag="EDIT_SIGNATURE">Править подпись</Resource>
 	</page>
 	<page name="CP_SIGNATURE">
 		<!-- cp_signature.aspx -->
@@ -316,7 +327,7 @@
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">Продолжить...</Resource>
-		<Resource tag="MODERATED">В связи с тем, что форум является модерируемым (цензируемым), Ваше сообщение перед размещением должно быть проверено модератором.</Resource>
+		<Resource tag="MODERATED">В связи с тем, что форум является модерируемым, Ваше сообщение перед размещением должно быть проверено модератором.</Resource>
 		<Resource tag="SUSPENDED">Ваша учетная запись деактивирована до {0}.</Resource>
 	</page>
 	<page name="LOGIN">
@@ -367,7 +378,7 @@
 	<page name="MOVETOPIC">
 		<!-- movetopic.aspx -->
 		<Resource tag="TITLE">Переместить тему</Resource>
-		<Resource tag="SELECT_FORUM">Выберите форум, в котороый нужно переместить сообщение:</Resource>
+		<Resource tag="SELECT_FORUM">Выберите форум, в который нужно переместить сообщение:</Resource>
 		<Resource tag="MOVE">Переместить тему</Resource>
 	</page>
 	<page name="PMESSAGE">
@@ -415,6 +426,9 @@
 		<Resource tag="SAVE">Отправить</Resource>
 		<Resource tag="NEED_QUESTION">Не указана тема опроса.</Resource>
 		<Resource tag="NEED_CHOICES">Опрос должен иметь не менее двух вариантов ответов.</Resource>
+		<Resource tag="POLL_EXPIRE">Опрос действует</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]дней[/b] (не заполняйте, если опрос не имеет срока).</Resource>		
+		<Resource tag="SMILIES_HEADER">Смайлики</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
@@ -430,7 +444,7 @@
 		<Resource tag="RANK">Ранг:</Resource>
 		<Resource tag="JOINED">Зарегистрирован:</Resource>
 		<Resource tag="EMAIL">Электронный адрес:</Resource>
-		<Resource tag="LASTVISIT">Предыдущий визит:</Resource>
+		<Resource tag="LASTVISIT">Последний визит:</Resource>
 		<Resource tag="STATISTICS">Статистика</Resource>
 		<Resource tag="NUMPOSTS">Количество сообщений:</Resource>
 		<Resource tag="LAST10">Последние 10 сообщений</Resource>
