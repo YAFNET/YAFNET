@@ -52,8 +52,8 @@ a:hover		{ text-decoration: underline; }
 
 /* Header 1 - Main header */
 .header1 {
-	/*background-image: url('bg_header1.gif');*/
-	background-color: #808080;
+	background-image: url('bg_header1.png');
+	background-color: #7D8CFF;
 	color: #FFFFFF;
 	font-weight: bold;
 	height: 32px;
@@ -135,7 +135,7 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 .content {
 	font-family: Verdana, Arial,Helvetica,sans-serif;
 	font-size: 8pt;
-	border: solid 1px #000000;
+	border: solid 1px #2163E8;
 	color: #000000;
 	padding: 0px;
 	background-color: #FFFFFF;
