@@ -138,8 +138,6 @@ namespace yaf
 				m = r_size.Match(bbcode);
 			}
 
-			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
-
 			if (DoFormatting)
 			{
 				NestedReplace(ref bbcode,r_bold,"<b>${inner}</b>");
@@ -179,6 +177,8 @@ namespace yaf
 				bbcode = r_hr.Replace(bbcode,"<hr noshade/>");
 				bbcode = r_br.Replace(bbcode,"<br/>");
 			}
+
+			bbcode = FormatMsg.iAddSmiles(basePage,bbcode);
 
 			while(r_quote2.IsMatch(bbcode))
 				bbcode = r_quote2.Replace(bbcode,"<div class='quote'><b>${quote} wrote:</b><div class='innerquote'>${inner}</div></div>");

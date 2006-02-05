@@ -243,7 +243,7 @@ namespace yaf
 			if(dt==null) 
 			{
 				dt = DB.smiley_list(basePage.PageBoardID,null);
-				System.Web.HttpContext.Current.Cache["Smilies"] = dt;
+				System.Web.HttpContext.Current.Cache.Insert("Smilies",dt,null,DateTime.Now.AddMinutes(60),TimeSpan.Zero);
 			}
 			return dt;
 		}

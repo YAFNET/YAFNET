@@ -1775,6 +1775,7 @@ namespace yaf
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.Add("@SmileyID",SmileyID);
 				ExecuteNonQuery(cmd);
+				System.Web.HttpContext.Current.Cache.Remove("Smiles");
 			}
 		}
 		static public void smiley_save(object SmileyID,object boardID,object Code,object Icon,object Emoticon,object Replace) 
@@ -1789,6 +1790,7 @@ namespace yaf
 				cmd.Parameters.Add("@Emoticon",Emoticon);
 				cmd.Parameters.Add("@Replace",Replace);
 				ExecuteNonQuery(cmd);
+				System.Web.HttpContext.Current.Cache.Remove("Smiles");
 			}
 		}
 		#endregion

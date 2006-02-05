@@ -126,6 +126,12 @@ namespace yaf
 			Mail.Subject = subject;
 			Mail.Body = body;
 
+			if(!Regex.IsMatch(Mail.Body,   @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])",RegexOptions.IgnoreCase)||
+				!Regex.IsMatch(Mail.Subject,@"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])",RegexOptions.IgnoreCase))
+			{
+				Mail.BodyEncoding=Encoding.UTF8;
+			}
+
 			System.Web.Mail.SmtpMail.SmtpServer = basePage.BoardSettings.SmtpServer;
 			System.Web.Mail.SmtpMail.Send(Mail);
 		}
