@@ -323,14 +323,14 @@ namespace yaf
 		{
 			get 
 			{
-				return 0x01000003;
+				return 0x01000004;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2005,11,23);
+				return new DateTime(2006,02,05);
 			}
 		}
 		#endregion
