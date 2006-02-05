@@ -1,0 +1,614 @@
+<?xml version="1.0"?>
+<Resources language="Finnish" code="fi">
+	<!-- 
+		Finnish.xml by tomi(at)reedspit.com
+		http://reedspit.com
+		Modify freely
+	-->
+	<page name="COMMON">
+		<!-- common... -->
+		<Resource tag="POWERED_BY">Keskustelualueen voiman takaa {0} versiolla {1}</Resource>
+		<Resource tag="GENERATED">Tämä sivu luotiin {0:N3} sekunnissa.</Resource>
+		<Resource tag="SAVE">Tallenna</Resource>
+		<Resource tag="CANCEL">Peruuta</Resource>
+		<Resource tag="FORUM_JUMP">Siirry alueelle </Resource>
+		<Resource tag="CAN_POST">[b]Voit[/b] aloittaa uden aiheen tällä alueella.</Resource>
+		<Resource tag="CAN_REPLY">[b]Voit[/b] vastata viesteihin tällä alueella.</Resource>
+		<Resource tag="CAN_DELETE">[b]Voit[/b] poistaa omia viestejä tällä alueella.</Resource>
+		<Resource tag="CAN_EDIT">[b]Voit[/b] muokata omia viestejäsi tällä alueella.</Resource>
+		<Resource tag="CAN_POLL">[b]Voit[/b] aloittaa äänestyksen tällä alueella.</Resource>
+		<Resource tag="CAN_VOTE">[b]Voit[/b] äänestää äänestyksissä tällä alueella.</Resource>
+		<Resource tag="CANNOT_POST">[b]Et voi[/b] aloittaa uutta aihetta tällä alueella.</Resource>
+		<Resource tag="CANNOT_REPLY">[b]Et voi[/b] voi vastata viesteihin tällä alueella.</Resource>
+		<Resource tag="CANNOT_DELETE">[b]Et voi[/b] poistaa omia viestejäsi tällä alueella.</Resource>
+		<Resource tag="CANNOT_EDIT">[b]Et voi[/b] muokata omia viestejäsi tällä alueella.</Resource>
+		<Resource tag="CANNOT_POLL">[b]Et voi[/b] aloittaa äänestystä tällä alueella.</Resource>
+		<Resource tag="CANNOT_VOTE">[b]Et voi[/b] äänestää äänestyksissä tällä alueella.</Resource>
+		<Resource tag="REGMAIL_SENT">Posti on lähetetty. Tarkista postilaatikkosi ja klikkaa linkkiä viestissä.</Resource>
+		<Resource tag="UNREAD_MSG">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
+		<Resource tag="REGMAIL_WILL_BE_SEND">Rekisteröinnin yhteydessä lähetetään sähköpostia sinulle. Ennen kuin voit kirjautua sisään, tulee sinun varmistaa sähköpostin toimivuus seuraamalla postissa olevaa linkkiä.</Resource>
+		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+		<!--<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+		<Resource tag="FORMAT_DATE_LONG">D</Resource>
+		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
+		<Resource tag="FORMAT_TIME">TT</Resource>-->
+		<Resource tag="FORMAT_DATE_TIME_LONG">ddd, MMM d yyyy HH:mm:ss</Resource>
+		<Resource tag="FORMAT_DATE_TIME_SHORT">d.M.yyyy HH:mm:ss</Resource>
+		<Resource tag="FORMAT_DATE_LONG">ddd, MMM d yyyy HH:mm:ss</Resource>
+		<Resource tag="FORMAT_DATE_SHORT">d.M.yyyy</Resource>
+		<Resource tag="FORMAT_TIME">HH:mm:ss</Resource>
+		<Resource tag="MAX_ONLINE">Eniten käyttäjiä ({0}) oli linjoilla {1}.</Resource>
+	</page>
+	<page name="TOOLBAR">
+		<!-- "Toolbar" at top of most pages -->
+		<Resource tag="SEARCH">Etsi</Resource>
+		<Resource tag="ADMIN">Hallinta</Resource>
+		<Resource tag="MODERATE">Moderointi</Resource>
+		<Resource tag="ACTIVETOPICS">Aktiiviset aiheet</Resource>
+		<Resource tag="MYPROFILE">Oma profiili</Resource>
+		<Resource tag="MEMBERS">Käyttäjät</Resource>
+		<Resource tag="LOGOUT">Kirjaudu ulos</Resource>
+		<Resource tag="LOGIN">Kirjaudu</Resource>
+		<Resource tag="REGISTER">Rekisteröidy</Resource>
+		<Resource tag="LOGGED_IN_AS">Käyttäjä: {0}</Resource>
+		<Resource tag="WELCOME_GUEST">Tervetuloa vieras</Resource>
+		<Resource tag="HELP">Apua</Resource>
+	</page>
+	<page name="ICONLEGEND">
+		<!-- Common icon texts -->
+		<Resource tag="NEW_POSTS">Uusia viestejä</Resource>
+		<Resource tag="NO_NEW_POSTS">Ei uusia viestejä</Resource>
+		<Resource tag="ANNOUNCEMENT">Ilmoitus</Resource>
+		<Resource tag="ANNOUNCEMENT_NEW">Ilmoitus (uusia viestejä)</Resource>
+		<Resource tag="NEW_POSTS_LOCKED">Uusia viestejä (lukittu)</Resource>
+		<Resource tag="NO_NEW_POSTS_LOCKED">Ei uusia viestejä (lukittu)</Resource>
+		<Resource tag="FORUM_LOCKED">Alue on lukittu</Resource>
+		<Resource tag="MOVED">Siirretty</Resource>
+		<Resource tag="POLL">Äänestys</Resource>
+		<Resource tag="POLL_NEW">Äänestys (uusia viestejä)</Resource>
+		<Resource tag="STICKY">Tiedote</Resource>
+	</page>
+	<page name="ATTACHMENTS">
+		<Resource tag="TITLE">Liitetiedostot</Resource>
+		<Resource tag="BACK">Takaisin</Resource>
+		<Resource tag="UPLOAD">Lataa</Resource>
+		<Resource tag="SELECT_FILE">Valitse ladattava tiedosto.</Resource>
+		<Resource tag="UPLOAD_TITLE">Lataa tiedosto</Resource>
+		<Resource tag="FILENAME">Tiedostonimi</Resource>
+		<Resource tag="SIZE">Koko</Resource>
+		<Resource tag="DELETE">Poista</Resource>
+		<Resource tag="FILEERROR">'{0}' ei ole hyväksytty tiedostomuoto.</Resource>
+		<Resource tag="ASK_DELETE">Poista liitetiedosto?</Resource>
+		<Resource tag="ERROR_TOOBIG">Et voi ladata näin isoa tiedostoa.</Resource>
+	</page>
+	<page name="DEFAULT">
+		<!-- default.aspx -->
+		<Resource tag="FORUM">Alue</Resource>
+		<Resource tag="TOPICS">Aiheita</Resource>
+		<Resource tag="POSTS">Viestejä</Resource>
+		<Resource tag="LASTPOST">Viimeisin viesti</Resource>
+		<Resource tag="MODERATORS">Moderaattorit</Resource>
+		<Resource tag="CURRENT_TIME">Aika nyt: {0}.</Resource>
+		<Resource tag="LAST_VISIT">Vierailit viimeksi: {0}.</Resource>
+		<Resource tag="STATS_POSTS">Keskustelualueella on {0:N0} viestiä, {1:N0} aihetta ja {2:N0} aluetta.</Resource>
+		<Resource tag="STATS_LASTPOST">Viimeisin viesti on kirjoitettu {0}, lähettäjänä {1}.</Resource>
+		<Resource tag="STATS_MEMBERS">Keskustelualueella on {0:N0} rekisteröitynyttä jäsentä.</Resource>
+		<Resource tag="STATS_LASTMEMBER">Uusin jäsen on {0}.</Resource>
+		<Resource tag="IN">aiheessa {0}</Resource>
+		<Resource tag="BY">kirjoitti {0}</Resource>
+		<Resource tag="NO_POSTS">Ei viestejä</Resource>
+		<Resource tag="UNREAD1">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
+		<Resource tag="UNREAD0">Sinulla on {0} lukematonta yksityisviestiä.</Resource>
+		<Resource tag="INFORMATION">Tietoja</Resource>
+		<Resource tag="STATS">Tilastotietoa</Resource>
+		<Resource tag="ACTIVE_USERS">Paikalla olevat käyttäjät</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} käyttäjä </Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} käyttäjää</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} jäsen</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} jäsentä</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} vieras</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} vierasta</Resource>
+		<Resource tag="VIEWING">({0} lukemassa)</Resource>
+		<Resource tag="NO_FORUM_ACCESS">(Ei pääsyä)</Resource>
+		<Resource tag="MARKALL">Merkitse kaikki alueet luetuksi</Resource>
+		<Resource tag="GO_LAST_POST">Siirry viimeisimpään viestiin</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">Aktiiviset keskustelut</Resource>
+		<Resource tag="LATEST_POSTS">Viimeisimmät viestit</Resource>
+	</page>
+	<page name="TOPICS">
+		<!-- topics.aspx -->
+		<Resource tag="TOPICS">Aiheet</Resource>
+		<Resource tag="TOPIC_STARTER">Aloittaja</Resource>
+		<Resource tag="REPLIES">Vastauksia</Resource>
+		<Resource tag="VIEWS">Luettu</Resource>
+		<Resource tag="LASTPOST">Viimeinen viesti</Resource>
+		<Resource tag="NO_POSTS">Ei viestejä</Resource>
+		<Resource tag="WATCHFORUM">Seuraa aluetta</Resource>
+		<Resource tag="UNWATCHFORUM">Peru alueen seuranta</Resource>
+		<Resource tag="SHOWTOPICS">Näytä aiheet </Resource>
+		<Resource tag="ALL">Kaikki</Resource>
+		<Resource tag="LAST_DAY">viimeisen päivän ajalta</Resource>
+		<Resource tag="LAST_TWO_DAYS">viimeisen kahden päivän ajalta</Resource>
+		<Resource tag="LAST_WEEK">viimeisen viikon ajalta</Resource>
+		<Resource tag="LAST_TWO_WEEKS">viimeisen kahden viikon ajalta</Resource>
+		<Resource tag="LAST_MONTH">viimeisen kuukauden ajalta</Resource>
+		<Resource tag="LAST_TWO_MONTHS">viimeisen kahden kuukauden ajalta</Resource>
+		<Resource tag="LAST_SIX_MONTHS">viimeisen puolen vuoden ajalta</Resource>
+		<Resource tag="LAST_YEAR">viimeisen vuoden ajalta</Resource>
+		<Resource tag="BY">kirjoittaja {0}</Resource>
+		<Resource tag="FORUMUSERS">Käyttäjät lukemassa tätä aluetta</Resource>
+		<Resource tag="CREATED">Luotu</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Alue on suljettu.</Resource>
+		<Resource tag="WARN_LOGIN_FORUMWATCH">Sinun täytyy rekisteröityä lukeaksi alueita.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">Saat ilmoituksen uusista viesteistä tälle alueelle.</Resource>
+		<Resource tag="INFO_UNWATCH_FORUM">Et saa enää ilmoituksia uusista viesteistä tälle alueelle.</Resource>
+		<Resource tag="MARKREAD">Merkitse tämä alue luetuksi</Resource>
+		<Resource tag="SUBFORUMS">{0} alialuetta</Resource>
+ 		<Resource tag="RSSFEED">RSS -syöte</Resource>
+ 		<Resource tag="TODAYAT">[b]Tänään[/b] kello {0:HH:mm:ss}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Eilen[/b] kello {0:HH:mm:ss}</Resource>
+ 		<Resource tag="GOTO_POST_PAGER">[ Siirry sivulle: {0} ]</Resource>
+	</page>
+	<page name="POSTS">
+		<!-- posts.aspx -->
+		<Resource tag="QUESTION">Äänestyskysymys</Resource>
+		<Resource tag="CHOICE">Vaihtoehto</Resource>
+		<Resource tag="VOTES">Ääniä</Resource>
+		<Resource tag="STATISTICS">Tietoa</Resource>
+		<Resource tag="PREVTOPIC">Edellinen aihe</Resource>
+		<Resource tag="NEXTTOPIC">Seuraava aihe</Resource>
+		<Resource tag="WATCHTOPIC">Seuraa tätä aihetta</Resource>
+		<Resource tag="UNWATCHTOPIC">Lopeta aiheen seuranta</Resource>
+		<Resource tag="EMAILTOPIC">Lähetä aihe sähköpostilla</Resource>
+		<Resource tag="PRINTTOPIC">Tulosta aihe</Resource>
+ 		<Resource tag="RSSTOPIC">RSS -syöte</Resource>
+		<Resource tag="POSTED">Lähetetty</Resource>
+		<Resource tag="TOP">Takaisin ylös</Resource>
+		<Resource tag="PM">PM</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">Poista tämä viesti?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Poista tämä aihe?</Resource>
+		<Resource tag="RANK">Taso</Resource>
+		<Resource tag="GROUPS">Ryhmät</Resource>
+		<Resource tag="JOINED">Liittynyt</Resource>
+		<Resource tag="POSTS">Viestejä</Resource>
+		<Resource tag="LOCATION">Paikka</Resource>
+		<Resource tag="TOPICBROWSERS">Käyttäjät lukemassa tätä aihetta</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">Aihe on lukittu.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">Aihe on avattu.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">Aihe on lukittu.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Alue on lukittu.</Resource>
+		<Resource tag="WARN_PMLOGIN">Sinun täytyy kirjautua lähettääksesi yksityisviestejä.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">Olet jo äänestänyt.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">Äänestys on suljettu.</Resource>
+		<Resource tag="POLL_CLOSED">(Äänestys on suljettu)</Resource>
+		<Resource tag="INFO_VOTED">Kiitos äänestäsi!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">Sinun pitää rekisteröityä seurataksesi aiheita.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">Saat ilmoituksen uusista viesteistä tässä aiheessa.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">Et saa enää ilmoitusta uusista viesteistä tässä aiheessa.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">Ei enempää aiheita tällä alueella.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">Sinun pitää rekisteröityä lähettääksesi sähköpostia.</Resource>
+		<Resource tag="ATTACHMENTS">Liitetiedosto(t):</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} liitti seuraavat tiedostot:</Resource>
+		<Resource tag="ATTACHMENTINFO">({0:N0}kb) katsottu [b]{1:N0}[/b] kertaa.</Resource>
+		<Resource tag="NORMAL">Tavallinen</Resource>
+		<Resource tag="THREADED">Ketjutettu</Resource>
+		<Resource tag="FORUM_JUMP">Siirry alueelle </Resource>
+	</page>
+	<page name="ACTIVE">
+		<!-- active.aspx -->
+		<Resource tag="TITLE">Aktiiviset aiheet</Resource>
+		<Resource tag="SINCE">Näytä aiheet </Resource>
+		<Resource tag="LAST_VISIT">sitten viimeisen käyntisi {0}</Resource>
+		<Resource tag="LAST_HOUR">viimeisen tunnin ajalta</Resource>
+		<Resource tag="LAST_TWO_HOURS">viimeisen kahden tunnin ajalta</Resource>
+		<Resource tag="LAST_DAY">viimeisen päivän ajalta</Resource>
+		<Resource tag="LAST_TWO_DAYS">viimeisen kahden päivän ajalta</Resource>
+		<Resource tag="LAST_WEEK">viimeisen viikon ajalta</Resource>
+		<Resource tag="LAST_TWO_WEEKS">viimeisen kahden viikon ajalta</Resource>
+		<Resource tag="LAST_MONTH">viimeisen kuukauden ajalta</Resource>
+		<Resource tag="TOPICS">Aiheet</Resource>
+		<Resource tag="TOPIC_STARTER">Aloittaja</Resource>
+		<Resource tag="REPLIES">Vastauksia</Resource>
+ 		<Resource tag="RSSFEED">Rss -syöte</Resource>
+		<Resource tag="VIEWS">Katsottu</Resource>
+		<Resource tag="LASTPOST">Viimeisin viesti</Resource>
+		<Resource tag="BY">kirjoittaja {0}</Resource>
+		<Resource tag="NO_POSTS">ei viestejä</Resource>
+	</page>
+	<page name="ACTIVEUSERS">
+		<!-- activeusers.aspx -->
+		<Resource tag="TITLE">Aktiiviset käyttäjät</Resource>
+		<Resource tag="USERNAME">Käyttäjätunnus</Resource>
+		<Resource tag="LOGGED_IN">Kirjautui sisään</Resource>
+		<Resource tag="LAST_ACTIVE">Viimeksi aktiivinen</Resource>
+		<Resource tag="ACTIVE">Vierailuaika</Resource>
+		<Resource tag="BROWSER">Selain</Resource>
+		<Resource tag="PLATFORM">Käyttöjärjestelmä</Resource>
+		<Resource tag="MINUTES">{0:N0} minuuttia</Resource>
+	</page>
+	<page name="APPROVE">
+		<!-- approve.aspx -->
+		<Resource tag="TITLE">Varmista sähköpostiosoite</Resource>
+		<Resource tag="EMAIL_VERIFIED">Sähköpostiosoitteesi on varmistettu.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Sähköpostin varmistus epäonnistui.</Resource>
+		<Resource tag="ENTER_KEY">Syötä varmistusavain</Resource>
+		<Resource tag="VALIDATE">Varmista</Resource>
+	</page>
+	<page name="CP_EDITPROFILE">
+		<!-- cp_editprofile.aspx -->
+		<Resource tag="TITLE">Muokkaa profiilia</Resource>
+		<Resource tag="LOCATION">Paikka</Resource>
+		<Resource tag="WHERE">Missä asut?</Resource>
+		<Resource tag="HOMEPAGE">Kotisivu</Resource>
+		<Resource tag="HOMEPAGE2">Kotisivujen osoite:</Resource>
+		<Resource tag="TIMEZONE">Aikavyöhyke</Resource>
+			<Resource tag="TIMEZONE2">nähdäksesi ajat oikein, tarvitsemme tietoomme aikavyöhykkeesi.</Resource>
+		<Resource tag="AVATAR">Avatar</Resource>
+		<Resource tag="AVATARUPLOAD">Lataa avatar koneeltasi.</Resource>
+		<Resource tag="AVATARDELETE">Poista ladattu avatar.</Resource>
+		<Resource tag="DELETE_AVATAR">Poista avatar</Resource>
+		<Resource tag="AVATARREMOTE">Anna oman avatarisi osoite.</Resource>
+		<Resource tag="CHANGE_PASSWORD">Vaihda salasana</Resource>
+		<Resource tag="OLDPASSWORD">Nykyinen salasana:</Resource>
+		<Resource tag="NEWPASSWORD">Uusi salasana:</Resource>
+		<Resource tag="CONFIRMPASSWORD">Varmista uusi salasana:</Resource>
+		<Resource tag="CHANGE_EMAIL">Vaihda sähköpostiosoite</Resource>
+		<Resource tag="EMAIL">Sähköpostin on aina oltava toimiva.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">Salasana ei voi olla tyhjä.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">Salasana ja varmistus eivät ole sama.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">Nykyinen salasana on väärin.</Resource>
+		<Resource tag="MAIL_SENT">Osoitteeseen {0} on lähetetty sähköposti.\n\nSinun pitää varmistaa sähköpostin toimivuus\nseuraamalla linkkiä viestissä ennen kuin sähköpostisi vaihdetaan.</Resource>
+		<Resource tag="FORUM_SETTINGS">Keskustelualueen asetukset</Resource>
+		<Resource tag="SELECT_THEME">Valitse haluamasi teema:</Resource>
+		<Resource tag="SELECT_LANGUAGE">Mitä kieltä haluat käyttää:</Resource>
+		<Resource tag="WEBLOG2">Blogisi:</Resource>
+		<Resource tag="MESSENGER">Pikaviestinpalvelut</Resource>
+		<Resource tag="ABOUTYOU">Tietoja itsestäsi</Resource>
+		<Resource tag="REALNAME2">Oikea nimesi:</Resource>
+		<Resource tag="WARN_TOOBIG">Kuvan koko ei voi olla isompi kuin {0}x{1} pikseliä.</Resource>
+		<Resource tag="WARN_SIZE">Kuvan koko on {0}x{1} pikseliä.</Resource>
+		<Resource tag="WARN_RESIZED">Kuvan koko muutettiin sopivaksi.</Resource>
+		<Resource tag="WARN_BIGFILE">Kuvan koko ei voi olla enemmän kuin {0} bittiä.</Resource>
+		<Resource tag="WARN_FILESIZE">Kuvan koko oli {0} bittiä.</Resource>
+		<Resource tag="OURAVATAR">Avatarkokoelma.</Resource>
+		<Resource tag="OURAVATAR_SELECT">Valitse avatarkokoelmastamme.</Resource>
+		<Resource tag="BAD_EMAIL">Annoit virheellisen sähköpostiosoitteen.</Resource>
+		<Resource tag="BAD_MSN">Annoit virheellisen sähköpostiosoitteen MSN -tiliin.</Resource>
+		<Resource tag="BAD_HOME">Annoit virheellisen osoitteen kotisivuille.</Resource>
+		<Resource tag="BAD_WEBLOG">Annoit virheellisen osoitteen blogillesi.</Resource>
+		<Resource tag="BAD_ICQ">Annoit virheellisen ICQ -numeron.</Resource>
+	</page>
+	<page name="CP_INBOX">
+		<!-- cp_inbox.aspx -->
+		<Resource tag="TITLE">Yksityisviestit</Resource>
+		<Resource tag="SENTITEMS">Lähetetyt viestit</Resource>
+		<Resource tag="DELETESELECTED">Poista valitut</Resource>
+		<Resource tag="SUBJECT">Aihe</Resource>
+		<Resource tag="FROM">Lähettäjä</Resource>
+		<Resource tag="TO">Vastaanottaja</Resource>
+		<Resource tag="DATE">Päiväys</Resource>
+		<Resource tag="MSGDELETED1">1 viesti poistettiin.</Resource>
+		<Resource tag="MSGDELETED2">{0} viestiä poistettiin.</Resource>
+		<Resource tag="CONFIRM_DELETE">Poista kaikki valitut viestit?</Resource>
+	</page>
+	<page name="CP_MESSAGE">
+		<!-- cp_message.aspx -->
+		<Resource tag="INBOX">Postilaatikko</Resource>
+		<Resource tag="SENTITEMS">Lähetetyt viestit</Resource>
+		<Resource tag="MSG_DELETED">Viesti poistettiin.</Resource>
+		<Resource tag="POSTED">Lähetetty:</Resource>
+	</page>
+	<page name="CP_PROFILE">
+		<!-- cp_profile.aspx -->
+		<Resource tag="NEW_MESSAGE">Uusi viesti</Resource>
+		<Resource tag="CONTROL_PANEL">Hallintapaneeli</Resource>
+		<Resource tag="MESSENGER">Postilaatikko:</Resource>
+		<Resource tag="PERSONAL_PROFILE">Oma profiilisi:</Resource>
+		<Resource tag="INBOX">Saapuneet viestit</Resource>
+		<Resource tag="SENTITEMS">Lähetetyt viestit</Resource>
+		<Resource tag="EDIT_PROFILE">Muokkaa profiilia</Resource>
+		<Resource tag="SIGNATURE">Allekirjoitus</Resource>
+		<Resource tag="SUBSCRIPTIONS">Seuratut aiheet</Resource>
+		<Resource tag="YOUR_ACCOUNT">Tilisi</Resource>
+		<Resource tag="YOUR_USERNAME">Käyttäjätunnus:</Resource>
+		<Resource tag="YOUR_EMAIL">Sähköpostiosoitteesi:</Resource>
+		<Resource tag="NUMPOSTS">Lähetetyt viestit:</Resource>
+		<Resource tag="GROUPS">Kuulut seuraaviin ryhmiin:</Resource>
+		<Resource tag="JOINED">Olet ollut jäsen sitten:</Resource>
+		<Resource tag="EDIT_SIGNATURE">Muokkaa allekirjoitusta</Resource>
+	</page>
+	<page name="CP_SIGNATURE">
+		<!-- cp_signature.aspx -->
+		<Resource tag="TITLE">Muokkaa allekirjoitusta</Resource>
+		<Resource tag="SIGNATURE">Allekirjoitus:</Resource>
+	</page>
+	<page name="CP_SUBSCRIPTIONS">
+		<!-- cp_subscriptions.aspx -->
+		<Resource tag="TITLE">Seuratut aiheet</Resource>
+		<Resource tag="FORUMS">Alueet</Resource>
+		<Resource tag="FORUM">Alue</Resource>
+		<Resource tag="TOPICS">Aiheet</Resource>
+		<Resource tag="REPLIES">Vastauksia</Resource>
+		<Resource tag="LASTPOST">Viimeisin viesti</Resource>
+		<Resource tag="TOPIC">Aihe</Resource>
+		<Resource tag="VIEWS">Katsottu</Resource>
+		<Resource tag="UNSUBSCRIBE">Peruuta seuranta</Resource>
+		<Resource tag="LASTPOSTLINK">{0} kirjoittaja {1}</Resource>
+		<Resource tag="WARN_SELECTTOPICS">Valitse ensin aiheet mitkä haluat peruuttaa.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">Valitse ensin alueet minkä seurannat haluat peruuttaa.</Resource>
+	</page>
+	<page name="EMAILTOPIC">
+		<!-- emailtopic.aspx -->
+		<Resource tag="TITLE">Lähetä sivu kaverille</Resource>
+		<Resource tag="TO">Sähköpostiosoite:</Resource>
+		<Resource tag="SUBJECT">Aihe:</Resource>
+		<Resource tag="MESSAGE">Viesti:</Resource>
+		<Resource tag="SEND">Lähetä sähköposti</Resource>
+		<Resource tag="NEED_EMAIL">Anna sähköpostiosoite.</Resource>
+		<Resource tag="FAILED">Sähköpostin lähetys epäonnistui.\n\n{0}</Resource>
+	</page>
+	<page name="INFO">
+		<!-- info.aspx -->
+		<Resource tag="CONTINUE">Jatka...</Resource>
+		<Resource tag="MODERATED">Koska kirjoitit viestin moderoidulle alueelle, moderaattorin pitää hyväksyä viestisi ennen kuin se tulee näkyväksi.</Resource>
+		<Resource tag="SUSPENDED">Tilisi on väliaikaisesti jäähyllä. Jäähy päättyy {0}.</Resource>
+	</page>
+	<page name="LOGIN">
+		<!-- login.aspx -->
+		<Resource tag="TITLE">Kirjaudu</Resource>
+		<Resource tag="USERNAME">Käyttäjätunnus:</Resource>
+		<Resource tag="PASSWORD">Salasana:</Resource>
+		<Resource tag="AUTO">Kirjaudu automaattisesti:</Resource>
+		<Resource tag="LOSTPASSWORD">Hukkunut salasana</Resource>
+		<Resource tag="FORUM_LOGIN">Kirjaudu</Resource>
+		<Resource tag="EMAIL">Sähköpostiosoite</Resource>
+		<Resource tag="PASSWORD_ERROR">Käyttäjätunnus tai salasana on virheellinen. Yritä uudestaan.</Resource>
+		<Resource tag="RECOVER">Hukkunut salasana</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">Virheellinen käyttäjätunnus tai salasana.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">Sähköpostiisi on lähetetty uusi salasana.</Resource>
+		<Resource tag="SENDPASSWORD">Lähetä salasana</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">Sekä käyttäjätunnus että sähköpostiosoite pitää antaa.</Resource>
+		<Resource tag="RECOVER_ERROR">Uuden salasanan luonnin yhteydessä tapahtui virhe.</Resource>
+	</page>
+	<page name="MEMBERS">
+		<!-- members.aspx -->
+		<Resource tag="TITLE">Rekisteröityneet käyttäjät</Resource>
+		<Resource tag="USERNAME">Käyttäjätunnus</Resource>
+		<Resource tag="RANK">Taso</Resource>
+		<Resource tag="JOINED">Liittynyt</Resource>
+		<Resource tag="POSTS">Viestejä</Resource>
+		<Resource tag="PAGES">{0} sivua:</Resource>
+	</page>
+	<page name="MODERATE">
+		<!-- moderate.aspx -->
+		<Resource tag="TITLE">Moderointi</Resource>
+		<Resource tag="TOPICS">Aiheet</Resource>
+		<Resource tag="TOPIC_STARTER">Aloittaja</Resource>
+		<Resource tag="REPLIES">Vastauksia</Resource>
+		<Resource tag="VIEWS">Katsottu</Resource>
+		<Resource tag="LASTPOST">Viimeisin viesti</Resource>
+		<Resource tag="CONFIRM_DELETE">Poista aihe?</Resource>
+		<Resource tag="BY">kirjoittaja {0}</Resource>
+		<Resource tag="DELETED">Aihe poistettu.</Resource>
+		<Resource tag="NO_POSTS">Ei viestejä</Resource>
+		<Resource tag="MEMBERS">Käyttäjät</Resource>
+		<Resource tag="USER">Käyttäjä</Resource>
+		<Resource tag="ACCEPTED">Hyväksytty</Resource>
+		<Resource tag="ACCESSMASK">Pääsyoikeudet</Resource>
+		<Resource tag="EDIT">Muokkaa</Resource>
+		<Resource tag="REMOVE">Poista</Resource>
+		<Resource tag="INVITE">Kutsu käyttäjä</Resource>
+	</page>
+	<page name="MOVETOPIC">
+		<!-- movetopic.aspx -->
+		<Resource tag="TITLE">Siirrä aihe</Resource>
+		<Resource tag="SELECT_FORUM">Valitse alue minne haluat viestin siirtää:</Resource>
+		<Resource tag="MOVE">Siirrä</Resource>
+	</page>
+
+	<page name="PMESSAGE">
+		<!-- pmessage.aspx -->
+		<Resource tag="TITLE">Lähetä yksityisviesti</Resource>
+		<Resource tag="TO">Vastaanottaja:</Resource>
+		<Resource tag="SUBJECT">Aihe:</Resource>
+		<Resource tag="MESSAGE">Viesti:</Resource>
+		<Resource tag="NEED_TO">Kenelle viesti lähetetään?</Resource>
+		<Resource tag="NEED_SUBJECT">Anna viestille aihe.</Resource>
+		<Resource tag="NEED_MESSAGE">Et kirjoittanut viestiin mitään.</Resource>
+		<Resource tag="SAVE">Lähetä</Resource>
+		<Resource tag="NO_SUCH_USER">Antamaasi käyttäjää ei löytynyt.</Resource>
+		<Resource tag="NOT_GUEST">Yksityisviesti ei voi lähettää vieras -tilille.</Resource>
+		<Resource tag="FINDUSERS">Valitse käyttäjä</Resource>
+		<Resource tag="ALLUSERS">Kaikille käyttäjille</Resource>
+	</page>
+	<page name="POSTMESSAGE">
+		<!-- postmessage.aspx -->
+		<Resource tag="NEWTOPIC">Aloita uusi aihe</Resource>
+		<Resource tag="REPLY">Vastaa aiheeseen</Resource>
+		<Resource tag="EDIT">Muokkaa viestiä</Resource>
+		<Resource tag="PREVIEW">Esikatsele</Resource>
+		<Resource tag="PREVIEWTITLE">Esikatselu:</Resource>
+		<Resource tag="SUBJECT">Aihe:</Resource>
+		<Resource tag="FROM">Keneltä:</Resource>
+		<Resource tag="PRIORITY">Tärkeys:</Resource>
+		<Resource tag="MESSAGE">Viesti:</Resource>
+		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+		<Resource tag="NORMAL">Normaali</Resource>
+		<Resource tag="STICKY">Tiedote</Resource>
+		<Resource tag="ANNOUNCEMENT">Ilmoitus</Resource>
+		<Resource tag="CREATEPOLL">Luo äänestys</Resource>
+		<Resource tag="POLLQUESTION">Äänestyskysymys:</Resource>
+		<Resource tag="CHOICE1">Vaihtoehto 1:</Resource>
+		<Resource tag="CHOICE2">Vaihtoehto 2:</Resource>
+		<Resource tag="CHOICE3">Vaihtoehto 3:</Resource>
+		<Resource tag="CHOICE4">Vaihtoehto 4:</Resource>
+		<Resource tag="CHOICE5">Vaihtoehto 5:</Resource>
+		<Resource tag="CHOICE6">Vaihtoehto 6:</Resource>
+		<Resource tag="CHOICE7">Vaihtoehto 7:</Resource>
+		<Resource tag="CHOICE8">Vaihtoehto 8:</Resource>
+		<Resource tag="CHOICE9">Vaihtoehto 9:</Resource>
+		<Resource tag="POLL_EXPIRE">Voimassaoloaika:</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]päivää[/b] [ jätä tyhjäksi päättymättömällä äänestyksellä ]</Resource>		
+		<Resource tag="NEED_SUBJECT">Anna aiheelle otsikko.</Resource>
+		<Resource tag="WAIT">Et voi kirjoittaa viestiä seuraavaan {0:N0} sekuntiin.</Resource>
+		<Resource tag="POSTED">Lähetetty:</Resource>
+		<Resource tag="SAVE">Lähetä</Resource>
+		<Resource tag="NEED_QUESTION">Anna äänestyskysymys.</Resource>
+		<Resource tag="NEED_CHOICES">Äänestyksellä pitää olla ainakin kaksi vastausvaihtoehtoa.</Resource>
+		<Resource tag="SMILIES_HEADER">[b]Lisää hymiö[/b]</Resource>
+	</page>
+	<page name="PRINTTOPIC">
+		<!-- printtopic.aspx -->
+		<Resource tag="POSTEDBY">Kirjoittanut</Resource>
+	</page>
+	<page name="PROFILE">
+		<!-- profile.aspx -->
+		<Resource tag="MEMBERS">Käyttäjät</Resource>
+		<Resource tag="PROFILE">Profiili:</Resource>
+		<Resource tag="ABOUT">Tietoja</Resource>
+		<Resource tag="USERNAME">Käyttäjätunnus:</Resource>
+		<Resource tag="GROUPS">Ryhmät:</Resource>
+		<Resource tag="RANK">Taso:</Resource>
+		<Resource tag="JOINED">Liittynyt:</Resource>
+		<Resource tag="EMAIL">Sähköposti:</Resource>
+		<Resource tag="LASTVISIT">Viimeksi käynyt:</Resource>
+		<Resource tag="STATISTICS">Tilastotietoa</Resource>
+		<Resource tag="NUMPOSTS">Viestejä:</Resource>
+		<Resource tag="LAST10">Viimeiset 10 viestiä</Resource>
+		<Resource tag="TOPIC">Aihe:</Resource>
+		<Resource tag="POSTED">Lähetetty:</Resource>
+		<Resource tag="ENDS">Käyttäjän jäähy loppuu:</Resource>
+		<Resource tag="REMOVESUSPENSION">Poista jäähy</Resource>
+		<Resource tag="SUSPEND">Laita jäähylle</Resource>
+		<Resource tag="DAYS">päivää</Resource>
+		<Resource tag="HOURS">tuntia</Resource>
+		<Resource tag="MINUTES">minuuttia</Resource>
+		<Resource tag="AVATAR">Avatar</Resource>
+		<Resource tag="CONTACT">Ota yhteyttä</Resource>
+		<Resource tag="PM">Yksityisviesti:</Resource>
+		<Resource tag="MSN">MSN Messenger:</Resource>
+		<Resource tag="YIM">Yahoo Messenger:</Resource>
+		<Resource tag="AIM">AIM-nimi:</Resource>
+		<Resource tag="ICQ">ICQ-numero:</Resource>
+		<Resource tag="REALNAME">Oikea nimi:</Resource>
+		<Resource tag="WEBSITE">Kotisivut:</Resource>
+		<Resource tag="WEBLOG">Blogi:</Resource>
+		<Resource tag="OCCUPATION">Ammatti:</Resource>
+		<Resource tag="INTERESTS">Kiinnostuksen kohteet:</Resource>
+		<Resource tag="GENDER">Sukupuoli:</Resource>
+		<Resource tag="GENDER0">Määrittelemätön</Resource>
+		<Resource tag="GENDER1">Mies</Resource>
+		<Resource tag="GENDER2">Nainen</Resource>
+		<Resource tag="NUMALL">{0:N2}% kaikista viesteistä</Resource>
+		<Resource tag="NUMDAY">{0:N2} viestiä päivässä</Resource>
+		<Resource tag="ERROR_ADMINISTRATORS">Et voi laittaa adminia jäähylle.</Resource>
+		<Resource tag="ERROR_FORUMMODERATORS">Et voi laittaa moderaattoria jäähylle.</Resource>
+		<Resource tag="ERROR_GUESTACCOUNT">Et voi laittaa vieras-tiliä jäähylle.</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">Rekisteröi uusi käyttäjä</Resource>
+		<Resource tag="DETAILS">Rekisteröintitiedot</Resource>
+		<Resource tag="USERNAME">Käyttäjätunnus</Resource>
+		<Resource tag="NEED_USERNAME">Käyttäjätunnus on pakollinen.</Resource>
+		<Resource tag="PASSWORD">Salasana</Resource>
+		<Resource tag="NEED_PASSWORD">Salasana on pakollinen.</Resource>
+		<Resource tag="RETYPE_PASSWORD">Varmista salasana</Resource>
+		<Resource tag="NEED_MATCH">Salasanat eivät täsmää.</Resource>
+		<Resource tag="EMAIL">Sähköposti</Resource>
+		<Resource tag="PROFILE">Profiilin tiedot</Resource>
+		<Resource tag="LOCATION">Paikka</Resource>
+		<Resource tag="HOMEPAGE">Kotisivut</Resource>
+		<Resource tag="PREFERENCES">Forumin asetukset</Resource>
+		<Resource tag="TIMEZONE">Aikavyöhyke</Resource>
+		<Resource tag="ALREADY_REGISTERED">Käyttäjätunnuksesi tai sähköpostiosoitteesi löytyi jo rekisteröityneiden käyttäjien joukosta.</Resource>
+		<Resource tag="REGISTER">Rekisteröidy</Resource>
+		<Resource tag="BAD_EMAIL">Syötit virheellisen sähköpostiosoitteen.</Resource>
+	</page>
+	<page name="SEARCH">
+		<!-- search.aspx -->
+		<Resource tag="TITLE">Haku</Resource>
+		<Resource tag="BTNSEARCH">Etsi</Resource>
+		<Resource tag="RESULTS">Tulokset</Resource>
+		<Resource tag="TOPIC">Aihe:</Resource>
+		<Resource tag="POSTED">Lähetetty:</Resource>
+		<Resource tag="ALLFORUMS">Kaikki forumit</Resource>
+		<Resource tag="RESULT5">näytä 5 tulosta sivulla</Resource>
+		<Resource tag="RESULT10">näytä 10 tulosta sivulla</Resource>
+		<Resource tag="RESULT25">näytä 25 tulosta sivulla</Resource>
+		<Resource tag="RESULT50">näytä 50 tulosta sivulla</Resource>
+		<Resource tag="POSTS">hae viesteistä</Resource>
+		<Resource tag="POSTEDBY">hae käyttäjän viestejä</Resource>
+		<Resource tag="MATCH_ALL">täsmäämällä kaikki sanat</Resource>
+		<Resource tag="MATCH_ANY">millä tahansa hakusanalla</Resource>
+		<Resource tag="MATCH_EXACT">täsmälleen annetulla hakusanalla</Resource>
+		<Resource tag="NO_SEARCH_RESULTS">[b]Haulla ei löytynyt yhtään viestiä.[/b]</Resource>
+		<Resource tag="BY">kirjoittaja</Resource>
+	</page>
+	<page name="MODERATE_DEFAULT">
+		<Resource tag="TITLE">Moderoi</Resource>
+		<Resource tag="FORUM">Forumi</Resource>
+		<Resource tag="UNAPPROVED">Hyväksymättömät viestit</Resource>
+		<Resource tag="CATEGORY">Kategoria</Resource>
+	</page>
+	<page name="MODERATE_FORUM">
+		<Resource tag="UNAPPROVED">Hyväksymättömät viestit</Resource>
+		<Resource tag="TOP">Takaisin ylös</Resource>
+		<Resource tag="APPROVE">Hyväksy viesti</Resource>
+		<Resource tag="DELETE">Poista viesti</Resource>
+		<Resource tag="ASK_DELETE">Poista tämä viesti?</Resource>
+		<Resource tag="APPROVED">Viesti hyväksytty.</Resource>
+		<Resource tag="DELETED">Viesti poistettu.</Resource>
+	</page>
+	<page name="MOD_FORUMUSER">
+		<Resource tag="TITLE">Käyttäjä</Resource>
+		<Resource tag="USER">Käyttäjä:</Resource>
+		<Resource tag="FIND">Etsi käyttäjä</Resource>
+		<Resource tag="ACCESSMASK">Pääsyoikeudet:</Resource>
+		<Resource tag="UPDATE">Päivitä</Resource>
+		<Resource tag="CANCEL">Peruuta</Resource>
+	</page>
+	<page name="RTE">
+		<Resource tag="BOLD">Vahvennettu</Resource>
+		<Resource tag="ITALIC">Kallistettu</Resource>
+		<Resource tag="UNDERLINE">Alleviivaa</Resource>
+		<Resource tag="LEFT">Asemoi vasemmalle</Resource>
+		<Resource tag="CENTER">Keskitetty</Resource>
+		<Resource tag="RIGHT">Asemoi oikealle</Resource>
+		<Resource tag="ORDERED">Järjestetty lista</Resource>
+		<Resource tag="UNORDERED">Järjestämätön lista</Resource>
+		<Resource tag="OUTDENT">Ulonna</Resource>
+		<Resource tag="INDENT">Sisennä</Resource>
+		<Resource tag="LINK">Lisää linkki</Resource>
+		<Resource tag="IMAGE">Lisää kuva</Resource>
+		<Resource tag="SPELL">Tarkista oikeinkirjoitus</Resource>
+		<Resource tag="NORMAL">Normaali</Resource>
+		<Resource tag="CLEAR">Poista muotoilut</Resource>
+		<Resource tag="FORMATTED">Muotoiltu</Resource>
+	</page>
+	<page name="AVATAR">
+		<Resource tag="TITLE">Avatarit</Resource>
+		<Resource tag="EDITPROFILE">Muokkaa profiilia</Resource>
+	</page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+		<Resource tag="TITLE">ICQ</Resource>
+		<Resource tag="NAME">Nimesi:</Resource>
+		<Resource tag="EMAIL">Sähköpostiosoitteesi:</Resource>
+		<Resource tag="SEND">Lähetä viesti</Resource>
+		<Resource tag="BODY">Kirjoita viestisi tähän:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+		<Resource tag="TITLE">Sähköposti</Resource>
+		<Resource tag="SEND">Lähetä sähköposti</Resource>
+		<Resource tag="SUBJECT">Aihe:</Resource>
+		<Resource tag="BODY">Kirjoita viestisi tähän:</Resource>
+		<Resource tag="ERROR">Sähköpostin lähetyksessä tapahtui virhe.</Resource>
+	</page>
+</Resources>
