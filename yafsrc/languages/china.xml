@@ -1,134 +1,189 @@
 <?xml version="1.0" encoding="gb2312" ?>
-<Resources language="China">
+<Resources language="Chinese Simp">
 	<page name="COMMON">
 		<!-- common... -->
-		<Resource tag="POWERED_BY">由 {0} 版本 {1}</Resource>
-		<Resource tag="GENERATED">页面生成时间： {0:N3} 秒。</Resource>
+		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+		<Resource tag="GENERATED">页面生成时间： {0:N3} 秒.</Resource>
 		<Resource tag="SAVE">保存</Resource>
 		<Resource tag="CANCEL">取消</Resource>
 		<Resource tag="FORUM_JUMP">论坛跳转</Resource>
-		<Resource tag="CAN_POST">您 [b]可以[/b] 发新贴.</Resource>
-		<Resource tag="CAN_REPLY">您 [b]可以[/b] 回复.</Resource>
-		<Resource tag="CAN_DELETE">您 [b]可以[/b] 删除.</Resource>
-		<Resource tag="CAN_EDIT">您 [b]可以[/b] 编辑.</Resource>
-		<Resource tag="CAN_POLL">您 [b]可以[/b] 征求分数.</Resource>
-		<Resource tag="CAN_VOTE">您 [b]可以[/b] 打分.</Resource>
-		<Resource tag="CANNOT_POST">您 [b]不可以[/b] 发新贴.</Resource>
-		<Resource tag="CANNOT_REPLY">您 [b]不可以[/b] 回复.</Resource>
-		<Resource tag="CANNOT_DELETE">您 [b]不可以[/b] 删除.</Resource>
-		<Resource tag="CANNOT_EDIT">您 [b]不可以[/b] 编辑.</Resource>
-		<Resource tag="CANNOT_POLL">您 [b]不可以[/b] 征求分数.</Resource>
-		<Resource tag="CANNOT_VOTE">您 [b]不可以[/b] 打分.</Resource>
+		<Resource tag="CAN_POST">您 [b]可以[/b] 发表新话题.</Resource>
+		<Resource tag="CAN_REPLY">您 [b]可以[/b] 回复话题.</Resource>
+		<Resource tag="CAN_DELETE">您 [b]可以[/b] 删除自己的发言.</Resource>
+		<Resource tag="CAN_EDIT">您 [b]可以[/b] 编辑自己的发言.</Resource>
+		<Resource tag="CAN_POLL">您 [b]可以[/b] 发表投票.</Resource>
+		<Resource tag="CAN_VOTE">您 [b]可以[/b] 投票.</Resource>
+		<Resource tag="CANNOT_POST">您 [b]不可以[/b] 发表新话题.</Resource>
+		<Resource tag="CANNOT_REPLY">您 [b]不可以[/b] 回复话题.</Resource>
+		<Resource tag="CANNOT_DELETE">您 [b]不可以[/b] 删除自己的发言.</Resource>
+		<Resource tag="CANNOT_EDIT">您 [b]不可以[/b] 编辑自己的发言.</Resource>
+		<Resource tag="CANNOT_POLL">您 [b]不可以[/b] 发表投票.</Resource>
+		<Resource tag="CANNOT_VOTE">您 [b]不可以[/b] 投票.</Resource>
+		<Resource tag="REGMAIL_SENT">邮件已经发出，请查收.</Resource>
+		<Resource tag="UNREAD_MSG">你有 {0} 条未读悄悄话.</Resource>
+		<Resource tag="REGMAIL_WILL_BE_SEND">注册后系统将发送邮件给您，您必须点击邮件中的连接后，才能登陆论坛.</Resource>
+		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+		<Resource tag="FORMAT_DATE_LONG">D</Resource>
+		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
+		<Resource tag="FORMAT_TIME">T</Resource>
+		<Resource tag="MAX_ONLINE">最高在线记录 {0}, {1}.</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">搜索</Resource>
-		<Resource tag="ADMIN">管理员</Resource>
-		<Resource tag="MODERATE">审批</Resource>
+		<Resource tag="ADMIN">后台管理</Resource>
+		<Resource tag="MODERATE">版主审核</Resource>
 		<Resource tag="ACTIVETOPICS">活动主题</Resource>
 		<Resource tag="MYPROFILE">个人配置</Resource>
-		<Resource tag="MEMBERS">成员</Resource>
+		<Resource tag="MEMBERS">会员</Resource>
 		<Resource tag="LOGOUT">注销</Resource>
 		<Resource tag="LOGIN">登录</Resource>
 		<Resource tag="REGISTER">注册</Resource>
-		<Resource tag="LOGGED_IN_AS">当前帐号： {0}</Resource>
-		<Resource tag="WELCOME_GUEST">欢迎您，来宾。</Resource>
+		<Resource tag="LOGGED_IN_AS">欢迎回来，{0}</Resource>
+		<Resource tag="WELCOME_GUEST">欢迎您，来宾.</Resource>
+		<Resource tag="HELP">帮助</Resource>
 	</page>
 	<page name="ICONLEGEND">
 		<!-- Common icon texts -->
 		<Resource tag="NEW_POSTS">有新贴</Resource>
 		<Resource tag="NO_NEW_POSTS">无新贴</Resource>
-		<Resource tag="ANNOUNCEMENT">高优先级</Resource>
+		<Resource tag="ANNOUNCEMENT">公告</Resource>
+		<Resource tag="ANNOUNCEMENT_NEW">公告 (有新贴)</Resource>
 		<Resource tag="NEW_POSTS_LOCKED">有新贴 (锁定)</Resource>
 		<Resource tag="NO_NEW_POSTS_LOCKED">无新贴 (锁定)</Resource>
 		<Resource tag="FORUM_LOCKED">论坛锁定</Resource>
-		<Resource tag="MOVED">已移动</Resource>
-		<Resource tag="STICKY">低优先级</Resource>
+		<Resource tag="MOVED">移动</Resource>
+		<Resource tag="POLL">投票</Resource>
+		<Resource tag="POLL_NEW">投票 (有新贴)</Resource>
+		<Resource tag="STICKY">置顶</Resource>
 	</page>
 	<page name="ATTACHMENTS">
 		<Resource tag="TITLE">附件</Resource>
 		<Resource tag="BACK">返回</Resource>
 		<Resource tag="UPLOAD">上传</Resource>
 		<Resource tag="SELECT_FILE">选择一个您要上传的文件.</Resource>
-		<Resource tag="UPLOAD_TITLE">上传文件</Resource>
-		<Resource tag="FILENAME">文件名称</Resource>
+		<Resource tag="UPLOAD_TITLE">请上传文件</Resource>
+		<Resource tag="FILENAME">文件名</Resource>
 		<Resource tag="SIZE">大小</Resource>
 		<Resource tag="DELETE">删除</Resource>
-		<Resource tag="FILEERROR">'{0}' 不是一个有效的上传文件.</Resource>
+		<Resource tag="FILEERROR">'{0}' 不能上传.</Resource>
 		<Resource tag="ASK_DELETE">删除此附件吗?</Resource>
+		<Resource tag="ERROR_TOOBIG">你不能用那么大的附件.</Resource>
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
 		<Resource tag="FORUM">论坛</Resource>
-		<Resource tag="TOPICS">标题</Resource>
-		<Resource tag="POSTS">发贴数</Resource>
-		<Resource tag="LASTPOST">最后更新</Resource>
+		<Resource tag="TOPICS">话题数量</Resource>
+		<Resource tag="POSTS">贴子数量</Resource>
+		<Resource tag="LASTPOST">最后发表</Resource>
 		<Resource tag="MODERATORS">版主</Resource>
 		<Resource tag="CURRENT_TIME">当前时间: {0}.</Resource>
 		<Resource tag="LAST_VISIT">上次登录时间: {0}.</Resource>
-		<Resource tag="STATS_POSTS">共计发贴 {0:N0} 个 标题 {1:N0} 个 在 {2:N0} 个论坛中.</Resource>
-		<Resource tag="STATS_LASTPOST">最后更新 {0} 由 {1}.</Resource>
-		<Resource tag="STATS_MEMBERS">论坛拥有 {0:N0} 成员.</Resource>
-		<Resource tag="STATS_LASTMEMBER">最新成员是 {0}.</Resource>
+		<Resource tag="STATS_POSTS">共有 {0:N0} 个帖子，{1:N0} 个话题，{2:N0} 个论坛.</Resource>
+		<Resource tag="STATS_LASTPOST">最后由 {1} 发表于 {0}.</Resource>
+		<Resource tag="STATS_MEMBERS">共有 {0:N0} 个注册会员.</Resource>
+		<Resource tag="STATS_LASTMEMBER">最新会员: {0}.</Resource>
 		<Resource tag="IN">在 {0}</Resource>
 		<Resource tag="BY">由 {0}</Resource>
 		<Resource tag="NO_POSTS">无新贴</Resource>
-		<Resource tag="UNREAD1">您有 {0} 个未阅读信息在收件箱.</Resource>
-		<Resource tag="UNREAD0">您有 {0} 个未阅读信息在收件箱.</Resource>
+		<Resource tag="UNREAD1">您有 {0} 个未读悄悄话.</Resource>
+		<Resource tag="UNREAD0">您有 {0} 个未读悄悄话.</Resource>
 		<Resource tag="INFORMATION">信息</Resource>
 		<Resource tag="STATS">统计</Resource>
 		<Resource tag="ACTIVE_USERS">在线用户</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} 在线用户</Resource>
-		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} 在线用户</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} 成员</Resource>
-		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} 成员</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} 人在线</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} 人在线</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} 会员</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} 会员</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} 来宾</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} 来宾</Resource>
 		<Resource tag="VIEWING">({0} 新贴)</Resource>
+		<Resource tag="NO_FORUM_ACCESS">你没有访问这个论坛板块的权限.</Resource>
+		<Resource tag="MARKALL">标注所有论坛板块为已读.</Resource>
+		<Resource tag="GO_LAST_POST">前往最新帖子</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">当前讨论</Resource>
+		<Resource tag="LATEST_POSTS">最后发表</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
-		<Resource tag="TOPICS">标题</Resource>
-		<Resource tag="TOPIC_STARTER">发贴人</Resource>
+		<Resource tag="TOPICS">话题</Resource>
+		<Resource tag="TOPIC_STARTER">话题发起人</Resource>
 		<Resource tag="REPLIES">回复</Resource>
 		<Resource tag="VIEWS">浏览</Resource>
-		<Resource tag="LASTPOST">最后更新</Resource>
-		<Resource tag="NO_POSTS">无新贴</Resource>
+		<Resource tag="LASTPOST">最后发表</Resource>
+		<Resource tag="NO_POSTS">没有新贴</Resource>
 		<Resource tag="WATCHFORUM">订阅</Resource>
-		<Resource tag="SHOWTOPICS">显示标题</Resource>
+		<Resource tag="UNWATCHFORUM">未订阅</Resource>
+		<Resource tag="SHOWTOPICS">显示话题</Resource>
 		<Resource tag="ALL">全部</Resource>
-		<Resource tag="LAST_WEEK">上周以来</Resource>
-		<Resource tag="LAST_TWO_WEEKS">两周以来</Resource>
-		<Resource tag="LAST_MONTH">上月以来</Resource>
-		<Resource tag="LAST_TWO_MONTHS">两月以来</Resource>
-		<Resource tag="LAST_SIX_MONTHS">半年以来</Resource>
-		<Resource tag="LAST_YEAR">一年来</Resource>
+		<Resource tag="LAST_DAY">1天内</Resource>
+		<Resource tag="LAST_TWO_DAYS">2天内</Resource>
+		<Resource tag="LAST_WEEK">1周内</Resource>
+		<Resource tag="LAST_TWO_WEEKS">2周内</Resource>
+		<Resource tag="LAST_MONTH">1个月内</Resource>
+		<Resource tag="LAST_TWO_MONTHS">2个月内</Resource>
+		<Resource tag="LAST_SIX_MONTHS">6个月内</Resource>
+		<Resource tag="LAST_YEAR">1年内</Resource>
 		<Resource tag="BY">由 {0}</Resource>
 		<Resource tag="FORUMUSERS">用户浏览此论坛</Resource>
- 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+		<Resource tag="CREATED">创建</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">论坛关闭.</Resource>
+		<Resource tag="WARN_LOGIN_FORUMWATCH">注册后才能订阅论坛.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">论坛里有新帖子时会提醒您.</Resource>
+		<Resource tag="INFO_UNWATCH_FORUM">论坛里有新帖子时将不再提醒您.</Resource>
+		<Resource tag="MARKREAD">标注本论坛为已读</Resource>
+		<Resource tag="SUBFORUMS">子论坛</Resource>
+ 		<Resource tag="RSSFEED">Rss Feed</Resource>
+		<Resource tag="TODAYAT">[b]今天[/b] 于 {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]昨天[/b] 于 {0:T}</Resource>
+ 		<Resource tag="GOTO_POST_PAGER">[ 前往页面: {0} ]</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
-		<Resource tag="QUESTION">征求分数</Resource>
+		<Resource tag="QUESTION">发表投票</Resource>
 		<Resource tag="CHOICE">选择</Resource>
 		<Resource tag="VOTES">投票</Resource>
 		<Resource tag="STATISTICS">统计</Resource>
-		<Resource tag="PREVTOPIC">上一个</Resource>
-		<Resource tag="NEXTTOPIC">下一个</Resource>
+		<Resource tag="PREVTOPIC">上一话题</Resource>
+		<Resource tag="NEXTTOPIC">下一话题</Resource>
 		<Resource tag="WATCHTOPIC">订阅</Resource>
-		<Resource tag="EMAILTOPIC">发信</Resource>
+		<Resource tag="UNWATCHTOPIC">取消订阅</Resource>
+		<Resource tag="EMAILTOPIC">发送邮件</Resource>
 		<Resource tag="PRINTTOPIC">打印</Resource>
-		<Resource tag="POSTED">时间</Resource>
+		<Resource tag="RSSTOPIC">RSS Feed</Resource>
+		<Resource tag="POSTED">发表时间</Resource>
 		<Resource tag="TOP">到顶</Resource>
-		<Resource tag="PM">馔写私人信件</Resource>
-		<Resource tag="CONFIRM_DELETEMESSAGE">删除此信息?</Resource>
-		<Resource tag="CONFIRM_DELETETOPIC">删除此标题?</Resource>
-		<Resource tag="RANK">级别</Resource>
+		<Resource tag="PM">悄悄话</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">删除这条信息?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">删除这条话题？</Resource>
+		<Resource tag="RANK">等级</Resource>
 		<Resource tag="GROUPS">组</Resource>
 		<Resource tag="JOINED">注册时间</Resource>
-		<Resource tag="POSTS">发贴数</Resource>
-		<Resource tag="LOCATION">地址</Resource>
+		<Resource tag="POSTS">帖子数量</Resource>
+		<Resource tag="LOCATION">位置</Resource>
+		<Resource tag="TOPICBROWSERS">浏览本话题的用户</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">话题被锁定.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">话题未锁定.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">话题被关闭.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">论坛关闭.</Resource>
+		<Resource tag="WARN_PMLOGIN">登录后才能发送悄悄话.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">你已经投过票了.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">投票已经关闭.</Resource>
+		<Resource tag="POLL_CLOSED">(投票已经关闭)</Resource>
+		<Resource tag="INFO_VOTED">感谢你的投票！</Resource>
+		<Resource tag="WARN_WATCHLOGIN">注册后才能关注话题.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">当这个话题有新帖子时，将会提醒你.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">当这个话题有新帖子时，将不再提醒你.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">这个论坛没有更多的话题了.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">注册后才能发送邮件.</Resource>
+		<Resource tag="ATTACHMENTS">附件:</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} 个图片附件:</Resource>
+		<Resource tag="ATTACHMENTINFO">{0:N0} KB, 下载 {1:N0} 次.</Resource>
+		<Resource tag="NORMAL">常规模式</Resource>
+		<Resource tag="THREADED">线索模式</Resource>
+		<Resource tag="FORUM_JUMP">论坛跳转</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -142,13 +197,14 @@
 		<Resource tag="LAST_WEEK">一周以来</Resource>
 		<Resource tag="LAST_TWO_WEEKS">两周以来</Resource>
 		<Resource tag="LAST_MONTH">一个月以来</Resource>
-		<Resource tag="TOPICS">标题</Resource>
-		<Resource tag="TOPIC_STARTER">发贴人</Resource>
+		<Resource tag="TOPICS">话题</Resource>
+		<Resource tag="TOPIC_STARTER">话题发起人</Resource>
 		<Resource tag="REPLIES">回复</Resource>
+		<Resource tag="RSSFEED">Rss Feed</Resource>
 		<Resource tag="VIEWS">浏览</Resource>
-		<Resource tag="LASTPOST">最后更新</Resource>
+		<Resource tag="LASTPOST">最后发表</Resource>
 		<Resource tag="BY">由 {0}</Resource>
-		<Resource tag="NO_POSTS">无新贴</Resource>
+		<Resource tag="NO_POSTS">没有新贴</Resource>
 	</page>
 	<page name="ACTIVEUSERS">
 		<!-- activeusers.aspx -->
@@ -171,35 +227,47 @@
 	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">配置</Resource>
-		<Resource tag="LOCATION">地址</Resource>
+		<Resource tag="TITLE">个人配置</Resource>
+		<Resource tag="LOCATION">位置</Resource>
 		<Resource tag="WHERE">您住在哪里?</Resource>
 		<Resource tag="HOMEPAGE">主页</Resource>
 		<Resource tag="HOMEPAGE2">您的主页地址:</Resource>
 		<Resource tag="TIMEZONE">时区</Resource>
-		<Resource tag="TIMEZONE2">请输入您所在的时区，一般是(GMT+8:00 表示中国).</Resource>
-		<Resource tag="AVATAR">个人图片</Resource>
-		<Resource tag="AVATARUPLOAD">从您的计算机上传个人图片.</Resource>
-		<Resource tag="AVATARDELETE">删除上传的个人图片.</Resource>
-		<Resource tag="DELETE_AVATAR">删除个人图片</Resource>
-		<Resource tag="AVATARREMOTE">请输入您的个人图片的 URL 路径，它将在您下次发贴时显示.</Resource>
-		<Resource tag="CHANGE_PASSWORD">更改口令</Resource>
-		<Resource tag="OLDPASSWORD">旧口令:</Resource>
-		<Resource tag="NEWPASSWORD">新口令:</Resource>
-		<Resource tag="CONFIRMPASSWORD">再次输入新口令:</Resource>
-		<Resource tag="CHANGE_EMAIL">更改电子邮件地址</Resource>
+		<Resource tag="TIMEZONE2">请输入您所在的时区，GMT+8:00 表示中国.</Resource>
+		<Resource tag="AVATAR">头像</Resource>
+		<Resource tag="AVATARUPLOAD">从您的计算机上传头像.</Resource>
+		<Resource tag="AVATARDELETE">删除上传的头像.</Resource>
+		<Resource tag="DELETE_AVATAR">删除头像</Resource>
+		<Resource tag="AVATARREMOTE">请输入您的头像的 URL 路径，它将在您下次发贴时显示.</Resource>
+		<Resource tag="CHANGE_PASSWORD">修改密码</Resource>
+		<Resource tag="OLDPASSWORD">旧密码:</Resource>
+		<Resource tag="NEWPASSWORD">新密码:</Resource>
+		<Resource tag="CONFIRMPASSWORD">再次输入新密码:</Resource>
+		<Resource tag="CHANGE_EMAIL">修改电子邮件地址</Resource>
 		<Resource tag="EMAIL">您必须拥有一个有效的电子邮件地址.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">口令不能为空.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">两次输入的口令不一致.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">旧口令输入错误.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">密码不能为空.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">两次输入的密码不一致.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">旧密码输入错误.</Resource>
 		<Resource tag="MAIL_SENT">一封邮件已经发送到您的信箱 {0} 里.\n\n 您需要打开邮件，点击链接，以便校验您的电子邮件地址.</Resource>		
-                <Resource tag="FORUM_SETTINGS">论坛设定</Resource>
+        <Resource tag="FORUM_SETTINGS">论坛设定</Resource>
 		<Resource tag="SELECT_THEME">请选择您要使用的页面主题:</Resource>
 		<Resource tag="SELECT_LANGUAGE">请选择您使用的语言:</Resource>
-		<Resource tag="WEBLOG2">Your Weblog:</Resource>
-		<Resource tag="MESSENGER">实时消息服务</Resource>
+		<Resource tag="WEBLOG2">您的博客:</Resource>
+		<Resource tag="MESSENGER">即时消息服务</Resource>
 		<Resource tag="ABOUTYOU">关于您</Resource>
 		<Resource tag="REALNAME2">您的真实名字?</Resource>
+		<Resource tag="WARN_TOOBIG">图像大小不能超过 {0}x{1} 像素.</Resource>
+		<Resource tag="WARN_SIZE">你的图像的大小是 {0}x{1} 像素.</Resource>
+		<Resource tag="WARN_RESIZED">图像将被更改大小.</Resource>
+		<Resource tag="WARN_BIGFILE">你的图像的文件大小不能超过 {0} 字节.</Resource>
+		<Resource tag="WARN_FILESIZE">你的图像文件大小是 {0} 字节.</Resource>
+		<Resource tag="OURAVATAR">我们搜集的头像.</Resource>
+		<Resource tag="OURAVATAR_SELECT">从我们搜集的头像中选择.</Resource>
+		<Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
+		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
+		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
+		<Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
+		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -207,12 +275,12 @@
 		<Resource tag="SENTITEMS">发件箱</Resource>
 		<Resource tag="DELETESELECTED">删除</Resource>
 		<Resource tag="SUBJECT">标题</Resource>
-		<Resource tag="FROM">发信人</Resource>
-		<Resource tag="TO">收信人</Resource>
+		<Resource tag="FROM">发件人</Resource>
+		<Resource tag="TO">收件人</Resource>
 		<Resource tag="DATE">时间</Resource>
-		<Resource tag="MSGDELETED1">1 封信被删除.</Resource>
-		<Resource tag="MSGDELETED2">{0} 封信被删除.</Resource>
-		<Resource tag="CONFIRM_DELETE">删除所有信件吗?</Resource>
+		<Resource tag="MSGDELETED1">1 条悄悄话被删除.</Resource>
+		<Resource tag="MSGDELETED2">{0} 条悄悄话被删除.</Resource>
+		<Resource tag="CONFIRM_DELETE">删除所有悄悄话吗?</Resource>
 	</page>
 	<page name="CP_MESSAGE">
 		<!-- cp_message.aspx -->
@@ -223,7 +291,7 @@
 	</page>
 	<page name="CP_PROFILE">
 		<!-- cp_profile.aspx -->
-		<Resource tag="NEW_MESSAGE">写信</Resource>
+		<Resource tag="NEW_MESSAGE">撰写</Resource>
 		<Resource tag="CONTROL_PANEL">控制面板</Resource>
 		<Resource tag="MESSENGER">信息:</Resource>
 		<Resource tag="PERSONAL_PROFILE">个人配置:</Resource>
@@ -233,15 +301,16 @@
 		<Resource tag="SIGNATURE">签名</Resource>
 		<Resource tag="SUBSCRIPTIONS">订阅</Resource>
 		<Resource tag="YOUR_ACCOUNT">您的帐号</Resource>
-		<Resource tag="YOUR_USERNAME">名称:</Resource>
+		<Resource tag="YOUR_USERNAME">用户名</Resource>
 		<Resource tag="YOUR_EMAIL">电子邮件地址:</Resource>
-		<Resource tag="NUMPOSTS">发贴数:</Resource>
+		<Resource tag="NUMPOSTS">发贴数量:</Resource>
 		<Resource tag="GROUPS">属于组:</Resource>
 		<Resource tag="JOINED">注册日期:</Resource>
+		<Resource tag="EDIT_SIGNATURE">编辑签名</Resource>
 	</page>
 	<page name="CP_SIGNATURE">
 		<!-- cp_signature.aspx -->
-		<Resource tag="TITLE">签名</Resource>
+		<Resource tag="TITLE">编辑签名</Resource>
 		<Resource tag="SIGNATURE">签名:</Resource>
 	</page>
 	<page name="CP_SUBSCRIPTIONS">
@@ -249,67 +318,77 @@
 		<Resource tag="TITLE">订阅</Resource>
 		<Resource tag="FORUMS">论坛</Resource>
 		<Resource tag="FORUM">论坛</Resource>
-		<Resource tag="TOPICS">标题</Resource>
+		<Resource tag="TOPICS">话题</Resource>
 		<Resource tag="REPLIES">回复</Resource>
 		<Resource tag="LASTPOST">最后更新</Resource>
-		<Resource tag="TOPIC">标题</Resource>
+		<Resource tag="TOPIC">话题</Resource>
 		<Resource tag="VIEWS">浏览</Resource>
 		<Resource tag="UNSUBSCRIBE">退订</Resource>
 		<Resource tag="LASTPOSTLINK">{0} 由 {1}</Resource>
+		<Resource tag="WARN_SELECTTOPICS">请先选择要退订的话题.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">请先选择要退订的论坛.</Resource>
 	</page>
 	<page name="EMAILTOPIC">
 		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">发送电子邮件</Resource>
+		<Resource tag="TITLE">发送此页给朋友</Resource>
 		<Resource tag="TO">收件人（电子邮件地址）:</Resource>
 		<Resource tag="SUBJECT">标题:</Resource>
 		<Resource tag="MESSAGE">信息:</Resource>
 		<Resource tag="SEND">发送电子邮件</Resource>
-		<Resource tag="NEED_EMAIL">收件人或电子邮件地址必须输入.</Resource>
+		<Resource tag="NEED_EMAIL">必须输入电子邮件地址.</Resource>
 		<Resource tag="FAILED">发送电子邮件失败.\n\n{0}</Resource>
 	</page>
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">继续...</Resource>
-		<Resource tag="MODERATED">您发贴到了一个需审批的论坛，在发布之前，需要版主审批.</Resource>
+		<Resource tag="MODERATED">由于您在一个需审核的论坛发贴，在发布之前，需要版主审核.</Resource>
 		<Resource tag="SUSPENDED">您的帐号已经被暂停使用. 暂停期将在 {0} 结束.</Resource>
 	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">登录</Resource>
-		<Resource tag="USERNAME">名称:</Resource>
-		<Resource tag="PASSWORD">口令:</Resource>
+		<Resource tag="USERNAME">用户名:</Resource>
+		<Resource tag="PASSWORD">密码</Resource>
 		<Resource tag="AUTO">自动登录:</Resource>
-		<Resource tag="LOSTPASSWORD">我忘记了口令</Resource>
+		<Resource tag="LOSTPASSWORD">忘记密码</Resource>
 		<Resource tag="FORUM_LOGIN">登录论坛</Resource>
 		<Resource tag="EMAIL">电子邮件地址</Resource>
-		<Resource tag="PASSWORD_ERROR">名称或口令输入有误，请重新输入.</Resource>
-		<Resource tag="RECOVER">恢复口令</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">错误的名称或电子邮件地址.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">一封电子邮件已经发送给您，里面有新的口令.</Resource>
-		<Resource tag="SENDPASSWORD">发送口令</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">名称和电子邮件地址必须输入.</Resource>
+		<Resource tag="PASSWORD_ERROR">用户名或密码输入有误，请重新输入.</Resource>
+		<Resource tag="RECOVER">恢复密码</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">错误的用户名或电子邮件地址.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">一封电子邮件已经发送给您，里面有新的密码.</Resource>
+		<Resource tag="SENDPASSWORD">发送密码</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">用户名和电子邮件地址必须输入.</Resource>
+		<Resource tag="RECOVER_ERROR">创建新密码时出错.</Resource>
 	</page>
 	<page name="MEMBERS">
 		<!-- members.aspx -->
-		<Resource tag="TITLE">成员</Resource>
-		<Resource tag="USERNAME">名称</Resource>
-		<Resource tag="RANK">级别</Resource>
+		<Resource tag="TITLE">会员</Resource>
+		<Resource tag="USERNAME">用户名</Resource>
+		<Resource tag="RANK">等级</Resource>
 		<Resource tag="JOINED">注册时间</Resource>
-		<Resource tag="POSTS">发贴数</Resource>
+		<Resource tag="POSTS">发贴数量</Resource>
 		<Resource tag="PAGES">{0} 页:</Resource>
 	</page>
 	<page name="MODERATE">
 		<!-- moderate.aspx -->
-		<Resource tag="TITLE">审批</Resource>
-		<Resource tag="TOPICS">标题</Resource>
-		<Resource tag="TOPIC_STARTER">发贴人</Resource>
+		<Resource tag="TITLE">版主审核</Resource>
+		<Resource tag="TOPICS">话题</Resource>
+		<Resource tag="TOPIC_STARTER">话题发起人</Resource>
 		<Resource tag="REPLIES">回复</Resource>
 		<Resource tag="VIEWS">浏览</Resource>
-		<Resource tag="LASTPOST">最后更新</Resource>
-		<Resource tag="CONFIRM_DELETE">删除此标题?</Resource>
+		<Resource tag="LASTPOST">最后发表</Resource>
+		<Resource tag="CONFIRM_DELETE">删除此话题？</Resource>
 		<Resource tag="BY">由 {0}</Resource>
-		<Resource tag="DELETED">标题已删除.</Resource>
-		<Resource tag="NO_POSTS">无新贴</Resource>
+		<Resource tag="DELETED">话题已删除.</Resource>
+		<Resource tag="NO_POSTS">没有新贴</Resource>
+		<Resource tag="MEMBERS">会员</Resource>
+		<Resource tag="USER">用户</Resource>
+		<Resource tag="ACCEPTED">Accepted</Resource>
+		<Resource tag="ACCESSMASK">权限模块</Resource>
+		<Resource tag="EDIT">编辑</Resource>
+		<Resource tag="REMOVE">Remove</Resource>
+		<Resource tag="INVITE">Invite User</Resource>
 	</page>
 	<page name="MOVETOPIC">
 		<!-- movetopic.aspx -->
@@ -317,9 +396,10 @@
 		<Resource tag="SELECT_FORUM">选择您要移动到的论坛:</Resource>
 		<Resource tag="MOVE">移动标题</Resource>
 	</page>
+
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
-		<Resource tag="TITLE">馔写私人信件</Resource>
+		<Resource tag="TITLE">馔写悄悄话</Resource>
 		<Resource tag="TO">收件人:</Resource>
 		<Resource tag="SUBJECT">标题:</Resource>
 		<Resource tag="MESSAGE">信息:</Resource>
@@ -328,12 +408,13 @@
 		<Resource tag="NEED_MESSAGE">信息栏为空白.</Resource>
 		<Resource tag="SAVE">提交</Resource>
 		<Resource tag="NO_SUCH_USER">无此用户.</Resource>
-		<Resource tag="NOT_GUEST">不能向来宾发送私人信件.</Resource>
+		<Resource tag="NOT_GUEST">不能向来宾发送悄悄话.</Resource>
 		<Resource tag="FINDUSERS">查找用户</Resource>
+		<Resource tag="ALLUSERS">所有用户</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
-		<Resource tag="NEWTOPIC">发新贴</Resource>
+		<Resource tag="NEWTOPIC">发新主题</Resource>
 		<Resource tag="REPLY">回复</Resource>
 		<Resource tag="PREVIEW">预览</Resource>
 		<Resource tag="PREVIEWTITLE">预览:</Resource>
@@ -344,10 +425,10 @@
 		<Resource tag="ATTACH">附件:</Resource>
 		<Resource tag="LAST10">最后 10 个新贴（倒序）</Resource>
 		<Resource tag="NORMAL">普通</Resource>
-		<Resource tag="STICKY">低</Resource>
-		<Resource tag="ANNOUNCEMENT">高</Resource>
-		<Resource tag="CREATEPOLL">征求分数</Resource>
-		<Resource tag="POLLQUESTION">问题:</Resource>
+		<Resource tag="STICKY">置顶</Resource>
+		<Resource tag="ANNOUNCEMENT">公告</Resource>
+		<Resource tag="CREATEPOLL">发起投票</Resource>
+		<Resource tag="POLLQUESTION">投票问题:</Resource>
 		<Resource tag="CHOICE1">选择 1:</Resource>
 		<Resource tag="CHOICE2">选择 2:</Resource>
 		<Resource tag="CHOICE3">选择 3:</Resource>
@@ -357,50 +438,52 @@
 		<Resource tag="CHOICE7">选择 7:</Resource>
 		<Resource tag="CHOICE8">选择 8:</Resource>
 		<Resource tag="CHOICE9">选择 9:</Resource>
+		<Resource tag="POLL_EXPIRE">投票事项:</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]天[/b] [ 留空表示永不截止 ]</Resource>
 		<Resource tag="NEED_SUBJECT">标题必须输入.</Resource>
 		<Resource tag="WAIT">您输入的太快，{0:N0} 秒内将不能提交.</Resource>
-		<Resource tag="FILEERROR">'{0}' 不是一个有效的、可接受的上传文件.</Resource>
 		<Resource tag="POSTED">时间:</Resource>
 		<Resource tag="SAVE">提交</Resource>
 		<Resource tag="NEED_QUESTION">您必须输入一个问题.</Resource>
 		<Resource tag="NEED_CHOICES">一个问题需要至少两个答案.</Resource>
+		<Resource tag="SMILIES_HEADER">[b]添加表情图释[/b]</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">发贴人</Resource>
+		<Resource tag="POSTEDBY">话题发起人</Resource>
 	</page>
 	<page name="PROFILE">
 		<!-- profile.aspx -->
-		<Resource tag="MEMBERS">成员</Resource>
+		<Resource tag="MEMBERS">会员</Resource>
 		<Resource tag="PROFILE">帐号:</Resource>
 		<Resource tag="ABOUT">有关信息</Resource>
-		<Resource tag="USERNAME">名称:</Resource>
+		<Resource tag="USERNAME">用户名:</Resource>
 		<Resource tag="GROUPS">组:</Resource>
-		<Resource tag="RANK">级别:</Resource>
+		<Resource tag="RANK">等级:</Resource>
 		<Resource tag="JOINED">注册日期:</Resource>
 		<Resource tag="EMAIL">电子邮件:</Resource>
 		<Resource tag="LASTVISIT">最后登录:</Resource>
 		<Resource tag="STATISTICS">统计</Resource>
-		<Resource tag="NUMPOSTS">发贴数:</Resource>
+		<Resource tag="NUMPOSTS">发贴数量:</Resource>
 		<Resource tag="LAST10">最新 10 个帖子</Resource>
-		<Resource tag="TOPIC">标题:</Resource>
-		<Resource tag="POSTED">时间:</Resource>
-		<Resource tag="ENDS">用户暂停结束:</Resource>
-		<Resource tag="REMOVESUSPENSION">取消暂停</Resource>
-		<Resource tag="SUSPEND">暂停</Resource>
+		<Resource tag="TOPIC">话题:</Resource>
+		<Resource tag="POSTED">发表时间:</Resource>
+		<Resource tag="ENDS">用户忽略结束时间:</Resource>
+		<Resource tag="REMOVESUSPENSION">取消忽略</Resource>
+		<Resource tag="SUSPEND">忽略</Resource>
 		<Resource tag="DAYS">天</Resource>
 		<Resource tag="HOURS">小时</Resource>
 		<Resource tag="MINUTES">分钟</Resource>
-		<Resource tag="AVATAR">个人图片</Resource>
+		<Resource tag="AVATAR">头像</Resource>
 		<Resource tag="CONTACT">联系</Resource>
-		<Resource tag="PM">私人信件:</Resource>
+		<Resource tag="PM">悄悄话:</Resource>
 		<Resource tag="MSN">MSN Messenger:</Resource>
 		<Resource tag="YIM">Yahoo Messenger:</Resource>
 		<Resource tag="AIM">AIM-Name:</Resource>
 		<Resource tag="ICQ">ICQ-Number:</Resource>
 		<Resource tag="REALNAME">真实姓名:</Resource>
 		<Resource tag="WEBSITE">主页:</Resource>
-		<Resource tag="WEBLOG">Weblog:</Resource>
+		<Resource tag="WEBLOG">博客</Resource>
 		<Resource tag="OCCUPATION">职业:</Resource>
 		<Resource tag="INTERESTS">兴趣:</Resource>
 		<Resource tag="GENDER">性别:</Resource>
@@ -409,35 +492,37 @@
 		<Resource tag="GENDER2">女</Resource>
 		<Resource tag="NUMALL">全部发贴百分比：{0:N2}% </Resource>
 		<Resource tag="NUMDAY">每天发贴数: {0:N2} </Resource>
-		<Resource tag=""></Resource>
-		<Resource tag=""></Resource>
+		<Resource tag="ERROR_ADMINISTRATORS">您不能忽略管理员.</Resource>
+		<Resource tag="ERROR_FORUMMODERATORS">您不能忽略论坛版主</Resource>
+		<Resource tag="ERROR_GUESTACCOUNT">您不能忽略来宾帐号.</Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->
 		<Resource tag="TITLE">注册新用户</Resource>
 		<Resource tag="DETAILS">详细情况</Resource>
-		<Resource tag="USERNAME">用户名称</Resource>
-		<Resource tag="NEED_USERNAME">用户名称必须输入.</Resource>
-		<Resource tag="PASSWORD">口令</Resource>
-		<Resource tag="NEED_PASSWORD">口令必须输入.</Resource>
-		<Resource tag="RETYPE_PASSWORD">再次输入口令</Resource>
-		<Resource tag="NEED_MATCH">两次输入的口令不一致.</Resource>
+		<Resource tag="USERNAME">用户名</Resource>
+		<Resource tag="NEED_USERNAME">用户名必须输入.</Resource>
+		<Resource tag="PASSWORD">密码</Resource>
+		<Resource tag="NEED_PASSWORD">密码必须输入.</Resource>
+		<Resource tag="RETYPE_PASSWORD">再次输入密码</Resource>
+		<Resource tag="NEED_MATCH">两次输入的密码不一致.</Resource>
 		<Resource tag="EMAIL">电子邮件地址</Resource>
 		<Resource tag="PROFILE">个人信息</Resource>
-		<Resource tag="LOCATION">地址</Resource>
+		<Resource tag="LOCATION">位置</Resource>
 		<Resource tag="HOMEPAGE">个人主页</Resource>
 		<Resource tag="PREFERENCES">社区信息</Resource>
 		<Resource tag="TIMEZONE">时区(GMT+8:00 表示中国)</Resource>
-		<Resource tag="ALREADY_REGISTERED">您输入的用户名称或电子邮件地址已经被注册，请更换一个.</Resource>
+		<Resource tag="ALREADY_REGISTERED">您输入的用户名或电子邮件地址已经被注册，请更换一个.</Resource>
 		<Resource tag="REGISTER">注册</Resource>
+		<Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>
 	</page>
 	<page name="SEARCH">
 		<!-- search.aspx -->
 		<Resource tag="TITLE">搜索</Resource>
 		<Resource tag="BTNSEARCH">搜索</Resource>
 		<Resource tag="RESULTS">搜索结果</Resource>
-		<Resource tag="TOPIC">标题:</Resource>
-		<Resource tag="POSTED">时间:</Resource>
+		<Resource tag="TOPIC">话题:</Resource>
+		<Resource tag="POSTED">发表时间:</Resource>
 		<Resource tag="ALLFORUMS">所有论坛</Resource>
 		<Resource tag="RESULT5">每页 5 条</Resource>
 		<Resource tag="RESULT10">每页 10 条</Resource>
@@ -448,21 +533,72 @@
 		<Resource tag="MATCH_ALL">匹配所有单词</Resource>
 		<Resource tag="MATCH_ANY">匹配任何单词</Resource>
 		<Resource tag="MATCH_EXACT">精确语法匹配</Resource>
+		<Resource tag="NO_SEARCH_RESULTS">[b]抱歉,没有找到任何相符的结果.[/b]</Resource>
 		<Resource tag="BY">由</Resource>
 	</page>
 	<page name="MODERATE_DEFAULT">
-		<Resource tag="TITLE">审批</Resource>
+		<Resource tag="TITLE">审核</Resource>
 		<Resource tag="FORUM">论坛</Resource>
-		<Resource tag="UNAPPROVED">未经审批的帖子</Resource>
+		<Resource tag="UNAPPROVED">未经审核的帖子</Resource>
 		<Resource tag="CATEGORY">分类</Resource>
 	</page>
 	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">未经审批的帖子</Resource>
-		<Resource tag="TOP">到顶</Resource>
-		<Resource tag="APPROVE">审批帖子</Resource>
+		<Resource tag="UNAPPROVED">未经审核的帖子</Resource>
+		<Resource tag="TOP">回到顶部</Resource>
+		<Resource tag="APPROVE">审核帖子</Resource>
 		<Resource tag="DELETE">删除帖子</Resource>
 		<Resource tag="ASK_DELETE">删除此帖子吗?</Resource>
-		<Resource tag="APPROVED">帖子已审批.</Resource>
+		<Resource tag="APPROVED">帖子已审核.</Resource>
 		<Resource tag="DELETED">帖子已删除.</Resource>
+	</page>
+	<page name="MOD_FORUMUSER">
+		<Resource tag="TITLE">论坛用户</Resource>
+		<Resource tag="USER">用户:</Resource>
+		<Resource tag="FIND">查找用户</Resource>
+		<Resource tag="ACCESSMASK">权限模块:</Resource>
+		<Resource tag="UPDATE">更新</Resource>
+		<Resource tag="CANCEL">取消</Resource>
+	</page>
+	<page name="RTE">
+		<Resource tag="BOLD">粗体</Resource>
+		<Resource tag="ITALIC">斜体</Resource>
+		<Resource tag="UNDERLINE">下划线</Resource>
+		<Resource tag="LEFT">左对齐</Resource>
+		<Resource tag="CENTER">居中</Resource>
+		<Resource tag="RIGHT">右对齐</Resource>
+		<Resource tag="ORDERED">排序列表</Resource>
+		<Resource tag="UNORDERED">无序列表</Resource>
+		<Resource tag="OUTDENT">突出</Resource>
+		<Resource tag="INDENT">缩进</Resource>
+		<Resource tag="LINK">插入连接</Resource>
+		<Resource tag="IMAGE">添加图像</Resource>
+		<Resource tag="SPELL">拼写检查</Resource>
+		<Resource tag="NORMAL">Normal</Resource>
+		<Resource tag="CLEAR">清除格式</Resource>
+		<Resource tag="FORMATTED">格式化</Resource>
+	</page>
+	<page name="AVATAR">
+		<Resource tag="TITLE">头像</Resource>
+		<Resource tag="EDITPROFILE">Edit Profile</Resource>
+	</page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+		<Resource tag="TITLE">ICQ</Resource>
+		<Resource tag="NAME">姓名:</Resource>
+		<Resource tag="EMAIL">电子邮件地址:</Resource>
+		<Resource tag="SEND">发送消息</Resource>
+		<Resource tag="BODY">在这里输入消息:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+		<Resource tag="TITLE">电子邮件</Resource>
+		<Resource tag="SEND">发送电子邮件</Resource>
+		<Resource tag="SUBJECT">标题:</Resource>
+		<Resource tag="BODY">在这里输入消息:</Resource>
+		<Resource tag="ERROR">发送电子邮件失败.</Resource>
 	</page>
 </Resources>
