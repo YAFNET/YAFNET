@@ -322,7 +322,7 @@ namespace yaf.pages
 
 		protected bool UpdateEmailFlag
 		{
-			get { return Convert.ToBoolean(ViewState["bUpdateEmail"]); }
+			get { return ViewState["bUpdateEmail"]!=null ? (bool)ViewState["bUpdateEmail"] : false; }
 			set { ViewState["bUpdateEmail"] = value; }
 		}
 
