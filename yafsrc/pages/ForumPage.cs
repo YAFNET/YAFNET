@@ -45,6 +45,7 @@ namespace yaf.pages
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_checkSuspended	= true;
+		private string  m_adminErrorMessage = string.Empty;
 
 		#endregion
 		#region Constructor and events
@@ -335,18 +336,12 @@ namespace yaf.pages
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
 				}
-				catch/*(Exception x)*/ 
+				catch(Exception x)
 				{
-					// TODO: Come up with a better way to throw error.
-					//
-					// If an email is not sent an admin will receive a message each time a page is loaded.
-					// Quite annoying, and not helpful (Maybe put a test function on the host settings page?).
-					// There's got to be a better way to do this.  Going to
-					// kill the pop-up for now as people have actually posted this as a bug.
-					/*if(IsAdmin) 
+					if(IsAdmin) 
 					{
-						AddLoadMessage(String.Format("There was a problem sending out an email.  Please check your settings and try again. ERROR: {0}", x.ToString()));
-					}*/
+						this.AddAdminErrorMessage("Error sending emails to users", x.ToString());
+					}
 				}
 			}
 		}
@@ -556,6 +551,7 @@ namespace yaf.pages
 						);
 					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
 					footer.AppendFormat("<br/>");
+					footer.AppendFormat(this.m_adminErrorMessage); // Append a error message for an admin to see (but not nag)
 					hiTimer.Stop();
 					footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);
 				}
@@ -724,6 +720,17 @@ namespace yaf.pages
 			msg = msg.Replace("\n","\\n");
 			msg = msg.Replace("\"","\\\"");
 			m_strLoadMessage += msg + "\\n\\n";
+		}
+
+		/// <summary>
+		/// Instead of showing error messages in a pop-up javascript window every time
+		/// the page loads (in some cases) provide a error message towards the bottom 
+		/// of the page.
+		/// </summary>
+		/// <param name="msg"></param>
+		public void AddAdminErrorMessage(string errorType, string errorMessage)
+		{
+			this.m_adminErrorMessage = string.Format("<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>",errorType, errorMessage);			
 		}
 
 		#region Forum Access
