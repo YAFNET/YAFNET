@@ -330,7 +330,7 @@ namespace yaf
 		{
 			get 
 			{
-				return new DateTime(2006,02,05);
+				return new DateTime(2006,02,06);
 			}
 		}
 		#endregion
