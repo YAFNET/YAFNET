@@ -1052,6 +1052,29 @@ namespace yaf.pages
 					return false;
 			}
 		}
+
+		/// <summary>
+		/// True if board is private (20050909 CHP)
+		/// </summary>
+		public bool IsPrivate
+		{
+			get
+			{
+#if TODO
+				try
+				{
+					return
+						int.Parse(Config.ConfigSection[string.Format("isprivate{0}", PageBoardID)])!=0;
+				}
+				catch
+				{
+					return false;
+				}
+#else
+				return false;
+#endif
+			}
+		}
 		#endregion
 		#region Date and time functions
 		/// <summary>

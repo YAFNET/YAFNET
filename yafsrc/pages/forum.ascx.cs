@@ -53,6 +53,11 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) 
 			{
+				if (IsPrivate && (User==null || (User!=null && !User.IsAuthenticated)))
+				{
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+				}
+
 				TimeNow.Text = String.Format(GetText("CURRENT_TIME"),FormatTime(DateTime.Now));
 				TimeLastVisit.Text = String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit));
 				MarkAll.Text = GetText("MARKALL");

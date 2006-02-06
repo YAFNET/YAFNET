@@ -93,6 +93,16 @@ namespace yaf.pages
 		{
 			if(!IsPostBack)
 			{
+				// 20050909 CHP : BEGIN
+				if (IsPrivate && !User.IsAuthenticated)
+				{
+					if(User.CanLogin)
+						Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					else
+						Forum.Redirect(Pages.forum);
+				}
+				// 20050909 CHP : END
+
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.search));
 				btnSearch.Text = GetText("btnsearch");

@@ -58,6 +58,16 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			// 20050909 CHP : BEGIN
+			if (IsPrivate && !User.IsAuthenticated)
+			{
+				if(User.CanLogin)
+					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+				else
+					Forum.Redirect(Pages.forum);
+			}
+			// 20050909 CHP : END
+
 			if(Request.QueryString["u"] == null)
 				Data.AccessDenied();
 
