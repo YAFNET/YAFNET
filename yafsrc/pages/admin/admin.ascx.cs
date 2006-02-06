@@ -83,7 +83,7 @@ namespace yaf.pages.admin
 			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);
 			DayUsers.Text = String.Format("{0:N2}",(int)row["NumUsers"] / days);
 
-			DBSize.Text = String.Format("{0:N2} MB",(float)DB.DBSize() / 128.0);
+			DBSize.Text = String.Format("{0} MB",DB.DBSize());
 		}
 
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
