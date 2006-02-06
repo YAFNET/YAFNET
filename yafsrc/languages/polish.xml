@@ -436,7 +436,7 @@
 		<Resource tag="INTERESTS">Zainteresowania:</Resource>
 		<Resource tag="GENDER">Płeć:</Resource>
 		<Resource tag="GENDER0">Nieokreślona</Resource>
-		<Resource tag="GENDER1">Męszczyzna</Resource>
+		<Resource tag="GENDER1">m&amp;#281;&amp;#380;czyzna</Resource>
 		<Resource tag="GENDER2">Kobieta</Resource>
 		<Resource tag="NUMALL">{0:N2}% wszystkich postów</Resource>
 		<Resource tag="NUMDAY">{0:N2} postów na dzień</Resource>
