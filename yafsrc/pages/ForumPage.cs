@@ -335,12 +335,18 @@ namespace yaf.pages
 						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
 				}
-				catch(Exception x) 
+				catch/*(Exception x)*/ 
 				{
-					if(IsAdmin) 
+					// TODO: Come up with a better way to throw error.
+					//
+					// If an email is not sent an admin will receive a message each time a page is loaded.
+					// Quite annoying, and not helpful (Maybe put a test function on the host settings page?).
+					// There's got to be a better way to do this.  Going to
+					// kill the pop-up for now as people have actually posted this as a bug.
+					/*if(IsAdmin) 
 					{
-						AddLoadMessage(x.ToString());
-					}
+						AddLoadMessage(String.Format("There was a problem sending out an email.  Please check your settings and try again. ERROR: {0}", x.ToString()));
+					}*/
 				}
 			}
 		}
