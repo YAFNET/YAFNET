@@ -2235,7 +2235,7 @@ namespace yaf
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@Email",email);
-				cmd.Parameters.Add("@Password",password);
+				cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(),"md5"));
 				return (bool)ExecuteScalar(cmd);
 			}
 		}

@@ -45,7 +45,7 @@ namespace yaf.pages
 		private bool		m_bNoDataBase		= false;
 		private bool		m_bShowToolBar		= true;
 		private bool		m_checkSuspended	= true;
-		private string  m_adminErrorMessage = string.Empty;
+		private string  m_adminMessage = string.Empty;
 
 		#endregion
 		#region Constructor and events
@@ -333,14 +333,14 @@ namespace yaf.pages
 							}
 							DB.mail_delete(dt.Rows[i]["MailID"]);
 						}
-						if(IsAdmin) AddLoadMessage(String.Format("Sent {0} mails.",dt.Rows.Count));
+						if(IsAdmin) this.AddAdminMessage("Sent Mail", String.Format("Sent {0} mails.",dt.Rows.Count));
 					}
 				}
 				catch(Exception x)
 				{
 					if(IsAdmin) 
 					{
-						this.AddAdminErrorMessage("Error sending emails to users", x.ToString());
+						this.AddAdminMessage("Error sending emails to users", x.ToString());
 					}
 				}
 			}
@@ -551,7 +551,7 @@ namespace yaf.pages
 						);
 					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
 					footer.AppendFormat("<br/>");
-					footer.AppendFormat(this.m_adminErrorMessage); // Append a error message for an admin to see (but not nag)
+					footer.AppendFormat(this.m_adminMessage); // Append a error message for an admin to see (but not nag)
 					hiTimer.Stop();
 					footer.AppendFormat(GetText("COMMON","GENERATED"),hiTimer.Duration);
 				}
@@ -728,9 +728,9 @@ namespace yaf.pages
 		/// of the page.
 		/// </summary>
 		/// <param name="msg"></param>
-		public void AddAdminErrorMessage(string errorType, string errorMessage)
+		public void AddAdminMessage(string errorType, string errorMessage)
 		{
-			this.m_adminErrorMessage = string.Format("<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>",errorType, errorMessage);			
+			this.m_adminMessage = string.Format("<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>",errorType, errorMessage);			
 		}
 
 		#region Forum Access

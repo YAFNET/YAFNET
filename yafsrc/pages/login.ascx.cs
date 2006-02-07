@@ -89,13 +89,13 @@ namespace yaf.pages
 				string newpw = pages.register.CreatePassword(8);
 
 				/// Update password in db
-				if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,FormsAuthentication.HashPasswordForStoringInConfigFile(newpw,"md5"))) 
+				if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,newpw)) 
 				{
 					AddLoadMessage(GetText("wrong_username_email"));
 				}
 				else
 				{
-					/// Email Body
+					/// Email generated password to user
 					System.Text.StringBuilder msg = new System.Text.StringBuilder();
 					msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
 					msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
