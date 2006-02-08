@@ -3254,6 +3254,7 @@ begin
 	end	
 	
 	--delete messages and topics
+	delete from yaf_nntptopic where TopicID = @TopicID
 	delete from yaf_message where TopicID = @TopicID
 	delete from yaf_topic where TopicMovedID = @TopicID
 	delete from yaf_topic where TopicID = @TopicID
