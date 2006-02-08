@@ -301,11 +301,6 @@ namespace yaf.pages
 				}
 			}
 
-			if (AvatarImg.ImageUrl != "")
-			{
-				Avatar.Text = AvatarImg.ImageUrl;
-			}
-
 			object email = null;
 			if(!BoardSettings.EmailVerification)
 				email = Email.Text;
