@@ -664,6 +664,8 @@ namespace yaf.pages
 			while(Regex.IsMatch(brief,@"\[.*?\]",options))
 				brief = Regex.Replace(brief,@"\[.*?\]","",options);
 
+			brief = Utils.BadWordReplace(brief);
+
 			if(brief.Length>42)
 				brief = brief.Substring(0,40) + "...";
 			brief=FormatMsg.iAddSmiles(this,brief);
