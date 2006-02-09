@@ -89,8 +89,43 @@ namespace yaf.pages
 		{
 		}
 
+		private HtmlForm GetServerForm(ControlCollection parent)
+		{
+			HtmlForm tmpHtmlForm = null;
+            
+			foreach (Control child in parent)
+			{                                
+				Type t = child.GetType();
+				if (t == typeof(System.Web.UI.HtmlControls.HtmlForm))
+					return (HtmlForm)child;
+                
+				if (child.HasControls())    
+				{
+					tmpHtmlForm = GetServerForm(child.Controls);
+					if (tmpHtmlForm != null && tmpHtmlForm.ClientID != null)
+						return tmpHtmlForm;
+				}
+			}
+        
+			return null;
+		}
+
+		public string test()
+		{
+			HtmlForm theForm;
+			if (Page.Parent != null)
+				theForm = GetServerForm(Page.Parent.Controls);
+			else
+				theForm = GetServerForm(Page.Controls);
+
+			return theForm.ClientID + "." + btnSearch.ClientID;
+		}
+
 		private void Page_Load(object sender, System.EventArgs e)
 		{
+			//Page.Reg
+			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
+
 			if(!IsPostBack)
 			{
 				// 20050909 CHP : BEGIN
