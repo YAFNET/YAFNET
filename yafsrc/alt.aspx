@@ -8,7 +8,9 @@ void Page_Load(object sender,System.EventArgs e)
 }
 public void Page_Error(object sender,System.EventArgs e)
 {
-	yaf.Utils.LogToMail(Server.GetLastError());
+	Exception x = Server.GetLastError();
+	yaf.DB.eventlog_create(yafForum.PageUserID,this,x);
+	yaf.Utils.LogToMail(x);
 }
 </script>
 

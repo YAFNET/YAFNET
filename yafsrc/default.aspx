@@ -5,7 +5,9 @@
 <script runat="server">
 public void Page_Error(object sender,System.EventArgs e)
 {
-	yaf.Utils.LogToMail(Server.GetLastError());
+	Exception x = Server.GetLastError();
+	yaf.DB.eventlog_create(forum.PageUserID,this,x);
+	yaf.Utils.LogToMail(x);
 }
 </script>
 
@@ -22,7 +24,7 @@ public void Page_Error(object sender,System.EventArgs e)
 <br />
 
 <form runat="server" enctype="multipart/form-data">
-	<yaf:forum runat="server"/>
+	<yaf:forum runat="server" id="forum"/>
 </form>
 
 </body>

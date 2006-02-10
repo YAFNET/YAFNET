@@ -201,6 +201,19 @@ namespace yaf
 			}
 		}
 
+		public int PageUserID
+		{
+			get
+			{
+				foreach(Control c in Controls)
+				{
+					if(c is pages.ForumPage)
+						return (c as pages.ForumPage).PageUserID;
+				}
+				return 0;
+			}
+		}
+
 		private object m_categoryID = Config.ConfigSection["categoryid"];
 
 		public object CategoryID

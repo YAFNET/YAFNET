@@ -75,6 +75,7 @@ namespace yaf.pages
 		{
 			// This doesn't seem to work...
 			Exception x = Server.GetLastError();
+			DB.eventlog_create(PageUserID,this,x);
 			if(!Data.IsLocal) 
 				Utils.LogToMail(Server.GetLastError());
 		}
