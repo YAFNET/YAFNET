@@ -1821,21 +1821,28 @@ if exists (select 1 from sysobjects where id = object_id(N'yaf_user_recoverpassw
 	drop procedure yaf_user_recoverpassword
 GO
 
-create procedure dbo.yaf_user_recoverpassword(@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@Password nvarchar(32)) as
+create procedure dbo.yaf_user_recoverpassword(@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
 begin
 	declare @UserID int
 	select @UserID = UserID from yaf_User where BoardID = @BoardID and Name = @UserName and Email = @Email
 	if @UserID is null begin
-		select Success = convert(bit,0)
+		select UserID = convert(int,null)
 		return
-	end
-	update yaf_User set Password = @Password where UserID = @UserID
-	if @@rowcount<>1
+	end else
 	begin
-		select Success = convert(bit,0)
-		return
+		select UserID = @UserID
 	end
-	select Success = convert(bit,1)
+end
+GO
+
+-- yaf_user_savepassword
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_savepassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_user_savepassword
+GO
+
+create procedure dbo.yaf_user_savepassword(@UserID int,@Password nvarchar(32)) as
+begin
+	update dbo.yaf_User set Password = @Password where UserID = @UserID
 end
 GO
 

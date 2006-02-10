@@ -106,6 +106,7 @@ namespace yaf.pages
 			}
 			catch(Exception x) 
 			{
+				DB.eventlog_create(PageUserID,this,x);
 				AddLoadMessage(x.Message);
 				return;
 			}

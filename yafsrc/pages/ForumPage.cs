@@ -134,6 +134,7 @@ namespace yaf.pages
 #if DEBUG
 			catch(Exception ex)
 			{
+				DB.eventlog_create(PageUserID,this,ex);
 				throw new ApplicationException("Error getting User Language." + Environment.NewLine + ex.ToString());
 			}
 #else
@@ -339,6 +340,7 @@ namespace yaf.pages
 				}
 				catch(Exception x)
 				{
+					DB.eventlog_create(PageUserID,this,x);
 					if(IsAdmin) 
 					{
 						this.AddAdminMessage("Error sending emails to users", x.ToString());

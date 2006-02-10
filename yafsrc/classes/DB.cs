@@ -2268,7 +2268,7 @@ namespace yaf
 				return GetData(cmd);
 			}
 		}
-		static public bool user_recoverpassword(object boardID,object userName,object email,object password) 
+		static public object user_recoverpassword(object boardID,object userName,object email) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_recoverpassword")) 
 			{
@@ -2276,8 +2276,17 @@ namespace yaf
 				cmd.Parameters.Add("@BoardID",boardID);
 				cmd.Parameters.Add("@UserName",userName);
 				cmd.Parameters.Add("@Email",email);
+				return ExecuteScalar(cmd);
+			}
+		}
+		static public void user_savepassword(object userID,object password) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_user_savepassword")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@UserID",userID);
 				cmd.Parameters.Add("@Password",FormsAuthentication.HashPasswordForStoringInConfigFile(password.ToString(),"md5"));
-				return (bool)ExecuteScalar(cmd);
+				ExecuteNonQuery(cmd);
 			}
 		}
 		static public object user_login(object boardID,object name,object password) 

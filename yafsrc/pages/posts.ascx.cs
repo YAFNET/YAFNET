@@ -300,8 +300,9 @@ namespace yaf.pages
 						}
 					}
 				}
-				catch(Exception)
+				catch(Exception x)
 				{
+					DB.eventlog_create(PageUserID,this,x);
 				}
 
 				if(nFindMessage>0) 

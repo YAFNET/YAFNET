@@ -102,6 +102,7 @@ namespace yaf.pages
 				Forum.Redirect(Pages.posts,"t={0}",PageTopicID);
 			}
 			catch(Exception x) {
+				DB.eventlog_create(PageUserID,this,x);
 				AddLoadMessage(String.Format(GetText("failed"),x.Message));
 			}
 		}

@@ -241,6 +241,7 @@ namespace yaf.pages
 			}
 			catch(System.Data.SqlClient.SqlException x)
 			{
+				DB.eventlog_create(PageUserID,this,x);
 				Utils.LogToMail(x);
 				if(IsAdmin)
 					AddLoadMessage(string.Format("{0}",x));
@@ -249,6 +250,7 @@ namespace yaf.pages
 			}
 			catch(Exception x) 
 			{
+				DB.eventlog_create(PageUserID,this,x);
 				Utils.LogToMail(x);
 				if(IsAdmin)
 					AddLoadMessage(string.Format("{0}",x));

@@ -92,6 +92,7 @@ namespace yaf.pages
 			}
 			catch(Exception x) 
 			{
+				DB.eventlog_create(PageUserID,this,x);
 				if(IsAdmin)
 					AddLoadMessage(x.Message);
 				else

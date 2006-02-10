@@ -89,7 +89,8 @@ namespace yaf.pages
 				string newpw = pages.register.CreatePassword(8);
 
 				/// Update password in db
-				if(!DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text,newpw)) 
+				object userID = DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text);
+				if(userID==DBNull.Value) 
 				{
 					AddLoadMessage(GetText("wrong_username_email"));
 				}
@@ -102,6 +103,8 @@ namespace yaf.pages
 					msg.AppendFormat("Visit {0} at {1}",BoardSettings.Name,ForumURL);
 			
 					Utils.SendMail(this,BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
+
+					DB.user_savepassword(userID,newpw);
 
 					LoginView.Visible = true;
 					RecoverView.Visible = false;
