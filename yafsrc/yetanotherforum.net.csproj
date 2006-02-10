@@ -1430,6 +1430,21 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "pages\admin\eventlog.ascx"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "pages\admin\eventlog.ascx.cs"
+                    DependentUpon = "eventlog.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "pages\admin\eventlog.ascx.resx"
+                    DependentUpon = "eventlog.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "pages\admin\forums.ascx"
                     BuildAction = "Content"
                 />

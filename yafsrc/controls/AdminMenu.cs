@@ -47,6 +47,7 @@ namespace yaf.controls
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Prune Topics</a></td></tr>",Forum.GetLink(Pages.admin_prune));
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Private Messages</a></td></tr>",Forum.GetLink(Pages.admin_pm));
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Attachments</a></td></tr>",Forum.GetLink(Pages.admin_attachments));
+			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Event Log</a></td></tr>",Forum.GetLink(Pages.admin_eventlog));
 
 			writer.WriteLine("<tr><td nowrap class=\"header2\"><b>NNTP</b></td></tr>");
 			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">NNTP Servers</a></td></tr>",Forum.GetLink(Pages.admin_nntpservers));

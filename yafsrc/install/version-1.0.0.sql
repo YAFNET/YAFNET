@@ -93,7 +93,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_ForumAccess')
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Group') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Group(
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -102,7 +102,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Group') and O
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Mail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Mail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Mail(
 		MailID			int IDENTITY (1, 1) NOT NULL ,
 		FromUser		nvarchar (50) NOT NULL ,
@@ -113,7 +113,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Mail') and OB
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Message') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Message(
 		MessageID		int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
@@ -130,7 +130,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Message') and
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_PMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_PMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_PMessage(
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
 		FromUserID		int NOT NULL ,
@@ -141,7 +141,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_PMessage') an
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Poll(
 		PollID			int IDENTITY (1, 1) NOT NULL ,
 		Question		nvarchar (50) NOT NULL,
@@ -149,7 +149,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Poll') and OB
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Smiley') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Smiley') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Smiley(
 		SmileyID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -159,7 +159,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Smiley') and 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Topic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Topic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Topic(
 		TopicID			int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -180,7 +180,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Topic') and O
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_User(
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
@@ -214,7 +214,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_User') and OB
 )
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_WatchForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_WatchForum(
 		WatchForumID	int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -224,7 +224,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_WatchForum') 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_WatchTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_WatchTopic(
 		WatchTopicID	int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
@@ -234,7 +234,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_WatchTopic') 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Attachment') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Attachment') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Attachment(
 		AttachmentID	int identity not null,
 		MessageID		int not null,
@@ -247,14 +247,14 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Attachment') 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_UserGroup') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserGroup') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_UserGroup(
 		UserID			int NOT NULL,
 		GroupID			int NOT NULL
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Rank') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Rank') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_Rank(
 		RankID			int IDENTITY (1, 1) NOT NULL,
 		BoardID			int NOT NULL ,
@@ -265,7 +265,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_Rank') and OB
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_AccessMask(
 		AccessMaskID	int IDENTITY NOT NULL ,
 		BoardID			int NOT NULL ,
@@ -274,7 +274,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_AccessMask') 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_UserForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_UserForum(
 		UserID			int NOT NULL ,
 		ForumID			int NOT NULL ,
@@ -284,7 +284,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_UserForum') a
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Board') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Board') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table dbo.yaf_Board(
 		BoardID			int NOT NULL IDENTITY(1,1),
@@ -294,7 +294,7 @@ begin
 end
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_NntpServer(
 		NntpServerID	int identity not null,
 		BoardID			int NOT NULL ,
@@ -306,7 +306,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_NntpServer') 
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_NntpForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_NntpForum(
 		NntpForumID		int identity not null,
 		NntpServerID	int not null,
@@ -318,7 +318,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_NntpForum') a
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_NntpTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_NntpTopic(
 		NntpTopicID		int identity not null,
 		NntpForumID		int not null,
@@ -327,7 +327,7 @@ if not exists (select * from sysobjects where id = object_id(N'yaf_NntpTopic') a
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_UserPMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserPMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table dbo.yaf_UserPMessage(
 		UserPMessageID	int identity not null,
@@ -347,7 +347,7 @@ if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_W
 	)
 GO
 
-if not exists (select * from sysobjects where id = object_id(N'yaf_Registry') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_Registry') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table dbo.yaf_Registry(
 		RegistryID		int IDENTITY(1, 1) NOT NULL,
@@ -355,6 +355,20 @@ begin
 		Value			nvarchar(400),
 		BoardID			int,
 		CONSTRAINT PK_Registry PRIMARY KEY (RegistryID)
+	)
+end
+GO
+
+if not exists (select 1 from sysobjects where id = object_id(N'yaf_EventLog') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table dbo.yaf_EventLog(
+		EventLogID	int identity(1,1) not null,
+		EventTime	datetime not null constraint DF_EventLog_EventTime default getdate(),
+		UserID		int not null,
+		Source		nvarchar(50) not null,
+		Description	ntext not null,
+		constraint PK_EventLog primary key(EventLogID),
+		constraint FK_EventLog_User foreign key(UserID) references dbo.yaf_User(UserID)
 	)
 end
 GO
@@ -695,7 +709,7 @@ go
 ** Views
 */
 
-if exists (select * from sysobjects where id = object_id(N'yaf_vaccess') and OBJECTPROPERTY(id, N'IsView') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_vaccess') and OBJECTPROPERTY(id, N'IsView') = 1)
 	drop view yaf_vaccess
 GO
 
@@ -978,215 +992,215 @@ GO
 ** Foreign keys
 */
 
-if not exists(select * from sysobjects where name='FK_Active_Forum' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Active_Forum' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Active add constraint FK_Active_Forum foreign key (ForumID) references dbo.yaf_Forum (ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Active_Topic' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Active_Topic' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Active add constraint FK_Active_Topic foreign key (TopicID) references dbo.yaf_Topic (TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Active_User' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Active_User' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Active add constraint FK_Active_User foreign key (UserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_CheckEmail_User' and parent_obj=object_id('yaf_CheckEmail') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_CheckEmail_User' and parent_obj=object_id('yaf_CheckEmail') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_CheckEmail add constraint FK_CheckEmail_User foreign key (UserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Choice_Poll' and parent_obj=object_id('yaf_Choice') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Choice_Poll' and parent_obj=object_id('yaf_Choice') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Choice add constraint FK_Choice_Poll foreign key (PollID) references dbo.yaf_Poll (PollID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Forum_Category' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Forum_Category' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Forum add constraint FK_Forum_Category foreign key (CategoryID) references dbo.yaf_Category (CategoryID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Forum_Message' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Forum_Message' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Forum add constraint FK_Forum_Message foreign key (LastMessageID) references dbo.yaf_Message (MessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Forum_Topic' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Forum_Topic' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Forum add constraint FK_Forum_Topic foreign key (LastTopicID) references dbo.yaf_Topic (TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Forum_User' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Forum_User' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Forum add constraint FK_Forum_User foreign key (LastUserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_ForumAccess_Forum' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_ForumAccess_Forum' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_ForumAccess add constraint FK_ForumAccess_Forum foreign key (ForumID) references dbo.yaf_Forum (ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_ForumAccess_Group' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_ForumAccess_Group' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_ForumAccess add constraint FK_ForumAccess_Group foreign key (GroupID) references dbo.yaf_Group (GroupID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Message_Topic' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Message_Topic' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Message add constraint FK_Message_Topic foreign key (TopicID) references dbo.yaf_Topic (TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Message_User' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Message_User' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Message add constraint FK_Message_User foreign key (UserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_PMessage_User1' and parent_obj=object_id('yaf_PMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_PMessage_User1' and parent_obj=object_id('yaf_PMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_PMessage add constraint FK_PMessage_User1 foreign key (FromUserID) references dbo.yaf_User (UserID)
 GO
 
-if exists(select * from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if exists(select 1 from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic drop constraint FK_Topic_Forum
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_Forum' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_Forum foreign key (ForumID) references dbo.yaf_Forum (ForumID) ON DELETE CASCADE
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_Message' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_Message' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_Message foreign key (LastMessageID) references dbo.yaf_Message (MessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_Poll' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_Poll' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_Poll foreign key (PollID) references dbo.yaf_Poll (PollID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_Topic' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_Topic' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_Topic foreign key (TopicMovedID) references dbo.yaf_Topic (TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_User' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_User' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_User foreign key (UserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Topic_User2' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Topic_User2' and parent_obj=object_id('yaf_Topic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Topic add constraint FK_Topic_User2 foreign key (LastUserID) references dbo.yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_WatchForum_Forum' and parent_obj=object_id('yaf_WatchForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_WatchForum_Forum' and parent_obj=object_id('yaf_WatchForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_WatchForum add constraint FK_WatchForum_Forum foreign key (ForumID) references dbo.yaf_Forum(ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_WatchForum_User' and parent_obj=object_id('yaf_WatchForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_WatchForum_User' and parent_obj=object_id('yaf_WatchForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_WatchForum add constraint FK_WatchForum_User foreign key (UserID) references dbo.yaf_User(UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_WatchTopic_Topic' and parent_obj=object_id('yaf_WatchTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_WatchTopic_Topic' and parent_obj=object_id('yaf_WatchTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_WatchTopic add constraint FK_WatchTopic_Topic foreign key (TopicID) references dbo.yaf_Topic(TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_WatchTopic_User' and parent_obj=object_id('yaf_WatchTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_WatchTopic_User' and parent_obj=object_id('yaf_WatchTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_WatchTopic add constraint FK_WatchTopic_User foreign key (UserID) references dbo.yaf_User(UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Active_Forum' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Active_Forum' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Attachment add constraint FK_Attachment_Message foreign key (MessageID) references yaf_Message (MessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserGroup_User' and parent_obj=object_id('yaf_UserGroup') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserGroup_User' and parent_obj=object_id('yaf_UserGroup') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserGroup add constraint FK_UserGroup_User foreign key (UserID) references yaf_User(UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserGroup_Group' and parent_obj=object_id('yaf_UserGroup') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserGroup_Group' and parent_obj=object_id('yaf_UserGroup') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserGroup add constraint FK_UserGroup_Group foreign key(GroupID) references yaf_Group (GroupID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Attachment_Message' and parent_obj=object_id('yaf_Attachment') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Attachment_Message' and parent_obj=object_id('yaf_Attachment') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Attachment add constraint FK_Attachment_Message foreign key (MessageID) references yaf_Message (MessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_NntpForum_NntpServer' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_NntpForum_NntpServer' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_NntpForum add constraint FK_NntpForum_NntpServer foreign key (NntpServerID) references yaf_NntpServer(NntpServerID)
 GO
 
-if not exists(select * from sysobjects where name='FK_NntpForum_Forum' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_NntpForum_Forum' and parent_obj=object_id('yaf_NntpForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_NntpForum add constraint FK_NntpForum_Forum foreign key (ForumID) references yaf_Forum(ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_NntpTopic_NntpForum' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_NntpTopic_NntpForum' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_NntpTopic add constraint FK_NntpTopic_NntpForum foreign key (NntpForumID) references yaf_NntpForum(NntpForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_NntpTopic_Topic' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_NntpTopic_Topic' and parent_obj=object_id('yaf_NntpTopic') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_NntpTopic add constraint FK_NntpTopic_Topic foreign key (TopicID) references yaf_Topic(TopicID)
 GO
 
-if not exists(select * from sysobjects where name='FK_ForumAccess_AccessMask' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_ForumAccess_AccessMask' and parent_obj=object_id('yaf_ForumAccess') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_ForumAccess add constraint FK_ForumAccess_AccessMask foreign key (AccessMaskID) references yaf_AccessMask (AccessMaskID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserForum_User' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserForum_User' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserForum add constraint FK_UserForum_User foreign key (UserID) references yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserForum_Forum' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserForum_Forum' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserForum add constraint FK_UserForum_Forum foreign key (ForumID) references yaf_Forum (ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserForum_AccessMask' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserForum_AccessMask' and parent_obj=object_id('yaf_UserForum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserForum add constraint FK_UserForum_AccessMask foreign key (AccessMaskID) references yaf_AccessMask (AccessMaskID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Category_Board' and parent_obj=object_id('yaf_Category') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Category_Board' and parent_obj=object_id('yaf_Category') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Category add constraint FK_Category_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_AccessMask_Board' and parent_obj=object_id('yaf_AccessMask') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_AccessMask_Board' and parent_obj=object_id('yaf_AccessMask') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_AccessMask add constraint FK_AccessMask_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Active_Board' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Active_Board' and parent_obj=object_id('yaf_Active') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Active add constraint FK_Active_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_BannedIP_Board' and parent_obj=object_id('yaf_BannedIP') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_BannedIP_Board' and parent_obj=object_id('yaf_BannedIP') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_BannedIP add constraint FK_BannedIP_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Group_Board' and parent_obj=object_id('yaf_Group') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Group_Board' and parent_obj=object_id('yaf_Group') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Group add constraint FK_Group_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_NntpServer_Board' and parent_obj=object_id('yaf_NntpServer') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_NntpServer_Board' and parent_obj=object_id('yaf_NntpServer') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_NntpServer add constraint FK_NntpServer_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Rank_Board' and parent_obj=object_id('yaf_Rank') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Rank_Board' and parent_obj=object_id('yaf_Rank') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Rank add constraint FK_Rank_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Smiley_Board' and parent_obj=object_id('yaf_Smiley') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Smiley_Board' and parent_obj=object_id('yaf_Smiley') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Smiley add constraint FK_Smiley_Board foreign key(BoardID) references yaf_Board (BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_User add constraint FK_User_Rank foreign key(RankID) references yaf_Rank(RankID)
 GO
 
-if not exists(select * from sysobjects where name='FK_User_Board' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_User_Board' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_User add constraint FK_User_Board foreign key(BoardID) references yaf_Board(BoardID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Forum_Forum' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Forum_Forum' and parent_obj=object_id('yaf_Forum') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Forum add constraint FK_Forum_Forum foreign key(ParentID) references yaf_Forum(ForumID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Message_Message' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Message_Message' and parent_obj=object_id('yaf_Message') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Message add constraint FK_Message_Message foreign key(ReplyTo) references yaf_Message(MessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserPMessage_User' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserPMessage_User' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserPMessage add constraint FK_UserPMessage_User foreign key (UserID) references yaf_User (UserID)
 GO
 
-if not exists(select * from sysobjects where name='FK_UserPMessage_PMessage' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_UserPMessage_PMessage' and parent_obj=object_id('yaf_UserPMessage') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_UserPMessage add constraint FK_UserPMessage_PMessage foreign key (PMessageID) references yaf_PMessage (PMessageID)
 GO
 
-if not exists(select * from sysobjects where name='FK_Registry_Board' and parent_obj=object_id('yaf_Registry') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_Registry_Board' and parent_obj=object_id('yaf_Registry') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_Registry add constraint FK_Registry_Board foreign key(BoardID) references yaf_Board(BoardID) on delete cascade
 go
 
-if not exists(select * from sysobjects where name='FK_yaf_PollVote_yaf_Poll' and parent_obj=object_id('yaf_PollVote') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_yaf_PollVote_yaf_Poll' and parent_obj=object_id('yaf_PollVote') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_PollVote add constraint FK_yaf_PollVote_yaf_Poll foreign key(PollID) references yaf_Poll(PollID) on delete cascade
 go
 
@@ -1219,7 +1233,7 @@ GO
 */
 
 -- yaf_pmessage_info
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_info
 GO
 
@@ -1234,7 +1248,7 @@ GO
 
 -- yaf_pmessage_prune
 
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_prune
 GO
 
@@ -1254,7 +1268,7 @@ end
 GO
 
 -- yaf_message_getReplies
-if exists (select * from sysobjects where id = object_id(N'yaf_message_getReplies') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_getReplies') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_getReplies
 GO
 
@@ -1265,7 +1279,7 @@ end
 GO
 
 -- yaf_pmessage_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_delete
 GO
 
@@ -1276,7 +1290,7 @@ end
 GO
 
 -- yaf_userpmessage_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_userpmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_userpmessage_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_userpmessage_delete
 GO
 
@@ -1287,7 +1301,7 @@ end
 GO
 
 -- yaf_pmessage_list
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_list
 GO
 
@@ -1340,7 +1354,7 @@ end
 GO
 
 -- yaf_userpmessage_list
-if exists (select * from sysobjects where id = object_id(N'yaf_userpmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_userpmessage_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_userpmessage_list
 GO
 
@@ -1367,7 +1381,7 @@ end
 GO
 
 -- yaf_forum_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_delete
 GO
 
@@ -1425,7 +1439,7 @@ end
 GO
 
 -- yaf_user_list
-if exists (select * from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_list
 GO
 
@@ -1491,7 +1505,7 @@ end
 GO
 
 -- yaf_forum_listallmymoderated ABOT NEW 16.04.04
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listallmymoderated') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listallmymoderated') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listallmymoderated
 GO
 
@@ -1556,7 +1570,7 @@ GO
 -- END ABOT NEW 16.04.04
 
 -- yaf_forum_listall
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listall') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listall') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listall
 GO
 
@@ -1634,7 +1648,7 @@ end
 GO
 
 -- yaf_poll_save
-if exists (select * from sysobjects where id = object_id(N'yaf_poll_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_poll_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_poll_save
 GO
 
@@ -1687,7 +1701,7 @@ end
 GO
 
 -- yaf_mail_createwatch
-if exists (select * from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_mail_createwatch') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_mail_createwatch
 GO
 
@@ -1738,7 +1752,7 @@ end
 GO
 
 -- yaf_checkemail_save
-if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_checkemail_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_checkemail_save
 GO
 
@@ -1750,7 +1764,7 @@ end
 GO
 
 -- yaf_checkemail_update
-if exists (select * from sysobjects where id = object_id(N'yaf_checkemail_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_checkemail_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_checkemail_update
 GO
 
@@ -1780,12 +1794,12 @@ end
 GO
 
 -- yaf_message_searchphrase
-if exists (select * from sysobjects where id = object_id(N'yaf_message_searchphrase') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_searchphrase') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_searchphrase
 GO
 
 -- yaf_user_changepassword
-if exists (select * from sysobjects where id = object_id(N'yaf_user_changepassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_changepassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_changepassword
 GO
 
@@ -1803,7 +1817,7 @@ end
 GO
 
 -- yaf_user_recoverpassword
-if exists (select * from sysobjects where id = object_id(N'yaf_user_recoverpassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_recoverpassword') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_recoverpassword
 GO
 
@@ -1826,7 +1840,7 @@ end
 GO
 
 -- yaf_message_approve
-if exists (select * from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_approve
 GO
 
@@ -1884,7 +1898,7 @@ end
 GO
 
 -- yaf_user_approve
-if exists (select * from sysobjects where id = object_id(N'yaf_user_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_approve') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_approve
 GO
 
@@ -1909,7 +1923,7 @@ end
 GO
 
 -- yaf_attachment_save
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_attachment_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_attachment_save
 GO
 
@@ -1919,7 +1933,7 @@ end
 GO
 
 -- yaf_category_save
-if exists (select * from sysobjects where id = object_id(N'yaf_category_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_category_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_save
 GO
 
@@ -1937,7 +1951,7 @@ end
 GO
 
 -- yaf_accessmask_save
-if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_accessmask_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_save
 GO
 
@@ -1983,7 +1997,7 @@ end
 GO
 
 -- yaf_group_save
-if exists (select * from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_group_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_save
 GO
 
@@ -2024,7 +2038,7 @@ end
 GO
 
 -- yaf_bannedip_save
-if exists (select * from sysobjects where id = object_id(N'yaf_bannedip_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_bannedip_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_bannedip_save
 GO
 
@@ -2040,7 +2054,7 @@ end
 GO
 
 -- yaf_nntpserver_save
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpserver_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpserver_save
 GO
 
@@ -2068,7 +2082,7 @@ end
 GO
 
 -- yaf_smiley_save
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_smiley_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_save
 GO
 
@@ -2087,7 +2101,7 @@ end
 GO
 
 -- yaf_user_adminsave
-if exists (select * from sysobjects where id = object_id(N'yaf_user_adminsave') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_adminsave') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_adminsave
 GO
 
@@ -2108,7 +2122,7 @@ end
 GO
 
 -- yaf_board_save
-if exists (select * from sysobjects where id = object_id(N'yaf_board_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_save
 GO
 
@@ -2122,7 +2136,7 @@ end
 GO
 
 -- yaf_rank_save
-if exists (select * from sysobjects where id = object_id(N'yaf_rank_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_rank_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_save
 GO
 
@@ -2161,7 +2175,7 @@ end
 GO
 
 -- yaf_message_save
-if exists (select * from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_save
 GO
 
@@ -2234,7 +2248,7 @@ end
 GO
 
 -- yaf_topic_save
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_save
 GO
 
@@ -2266,7 +2280,7 @@ end
 GO
 
 -- yaf_user_login
-if exists (select * from sysobjects where id = object_id(N'yaf_user_login') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_login') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_login
 GO
 
@@ -2292,7 +2306,7 @@ end
 GO
 
 -- yaf_user_save
-if exists (select * from sysobjects where id = object_id(N'yaf_user_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_save
 GO
 
@@ -2381,7 +2395,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
 GO
 
@@ -2391,7 +2405,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_edit') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_replace_words_edit') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_edit
 GO
 
@@ -2401,7 +2415,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_replace_words_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_replace_words_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_list
 GO
 
@@ -2410,7 +2424,7 @@ create procedure dbo.yaf_replace_words_list as begin
 end
 GO
 -- Added WTilton 6/27/2005
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_latest') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_latest') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_latest
 GO
 
@@ -2508,7 +2522,7 @@ GO
 
 
 -- yaf_message_list
-if exists (select * from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_list
 GO
 
@@ -2539,7 +2553,7 @@ GO
 -- registry implementation by Jaben Cargman
 
 -- yaf_registry_list
-if exists (select * from sysobjects where id = object_id(N'yaf_registry_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_registry_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_registry_list
 GO
 
@@ -2568,7 +2582,7 @@ END
 GO
 
 -- yaf_registry_save
-if exists (select * from sysobjects where id = object_id(N'yaf_registry_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_registry_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_registry_save
 GO
 
@@ -2599,7 +2613,7 @@ END
 GO
 
 -- yaf_system_initialize
-if exists (select * from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_system_initialize') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_initialize
 GO
 
@@ -2629,7 +2643,7 @@ end
 GO
 
 -- yaf_system_updateversion
-if exists (select * from sysobjects where id = object_id(N'yaf_system_updateversion') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_system_updateversion') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_updateversion
 GO
 
@@ -2643,16 +2657,16 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_system_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_system_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_list
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_system_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_save
 GO
 
 -- yaf_board_list
-if exists (select * from sysobjects where id = object_id(N'yaf_board_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_list
 GO
 
@@ -2669,7 +2683,7 @@ end
 GO
 
 -- yaf_board_create
-if exists (select * from sysobjects where id = object_id(N'yaf_board_create') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_create') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_create
 GO
 
@@ -2873,11 +2887,11 @@ end
 GO
 
 -- and upgrade procedure
-if exists (select * from sysobjects where id = object_id(N'yaf_system_upgrade_to_registry') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_system_upgrade_to_registry') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_system_upgrade_to_registry
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchtopic_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_check
 GO
 
@@ -2887,7 +2901,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchforum_check') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchforum_check
 GO
 
@@ -2898,7 +2912,7 @@ end
 GO
 
 -- yaf_post_list
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_post_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_list
 GO
 
@@ -2957,7 +2971,7 @@ end
 GO
 
 -- yaf_user_savesignature
-if exists (select * from sysobjects where id = object_id(N'yaf_user_savesignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_savesignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_savesignature
 GO
 
@@ -2968,7 +2982,7 @@ end
 GO
 
 -- yaf_nntpforum_update
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpforum_update') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpforum_update
 GO
 
@@ -2994,7 +3008,7 @@ end
 GO
 
 -- yaf_nntptopic_savemessage
-if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_savemessage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntptopic_savemessage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntptopic_savemessage
 GO
 
@@ -3060,7 +3074,7 @@ end
 GO
 
 -- yaf_forum_save
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_save
 GO
 
@@ -3116,7 +3130,7 @@ end
 GO
 
 -- yaf_message_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_delete
 GO
 
@@ -3162,7 +3176,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_updatelastpost
 GO
 
@@ -3203,7 +3217,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_updatelastpost') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_updatelastpost
 GO
 
@@ -3220,7 +3234,7 @@ end
 GO
 
 -- yaf_topic_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_delete
 GO
 
@@ -3270,7 +3284,7 @@ GO
 
 -- yaf_topic_listmessages
 --ABOT NEW 16.04.04
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_listmessages
 GO
 
@@ -3283,7 +3297,7 @@ GO
 --END ABOT NEW 16.04.04
 
 -- yaf_nntpforum_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpforum_delete
 GO
 
@@ -3296,7 +3310,7 @@ GO
 
 --ABOT NEW 16.04.04
 -- yaf_forum_listSubForums
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listSubForums') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listSubForums') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listSubForums
 GO
 
@@ -3309,7 +3323,7 @@ GO
 --ABOT NEW 16.04.04
 
 -- yaf_forum_listtopics
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listtopics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listtopics') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listtopics
 GO
 
@@ -3405,7 +3419,7 @@ end
 go
 
 -- yaf_forum_listread
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listread
 GO
 
@@ -3446,12 +3460,12 @@ end
 GO
 
 -- yaf_user_access
-if exists (select * from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_access') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_access
 GO
 
 -- yaf_nntpforum_list
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpforum_list
 GO
 
@@ -3485,7 +3499,7 @@ end
 GO
 
 -- yaf_nntpforum_save
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpforum_save
 GO
 
@@ -3504,7 +3518,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_bannedip_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_bannedip_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_bannedip_delete
 GO
 
@@ -3514,7 +3528,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_choice_vote') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_choice_vote') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_choice_vote
 GO
 
@@ -3563,7 +3577,7 @@ CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@Rem
 GO
 
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_group') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forumaccess_group') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_group
 GO
 
@@ -3587,7 +3601,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forumaccess_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_list
 GO
 
@@ -3605,7 +3619,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_mail_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_mail_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_mail_delete
 GO
 
@@ -3615,7 +3629,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_mail_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_mail_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_mail_list
 GO
 
@@ -3625,7 +3639,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findnext
 GO
 
@@ -3638,7 +3652,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_findprev') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_findprev') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_findprev
 GO
 
@@ -3651,7 +3665,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_info
 GO
 
@@ -3665,7 +3679,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_lock') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_lock') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_lock
 GO
 
@@ -3678,7 +3692,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_getsignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_getsignature') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_getsignature
 GO
 
@@ -3688,7 +3702,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_add') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchforum_add') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchforum_add
 GO
 
@@ -3700,7 +3714,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchforum_delete
 GO
 
@@ -3710,7 +3724,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchtopic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_delete
 GO
 
@@ -3720,7 +3734,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchtopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_list
 GO
 
@@ -3744,7 +3758,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_poll_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_poll_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_poll_stats
 GO
 
@@ -3768,7 +3782,7 @@ END
 GO
 
 
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_smiley_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_delete
 GO
 
@@ -3780,7 +3794,7 @@ create procedure dbo.yaf_smiley_delete(@SmileyID int=null) as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_avatarimage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_avatarimage') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_avatarimage
 GO
 
@@ -3789,7 +3803,7 @@ create procedure dbo.yaf_user_avatarimage(@UserID int) as begin
 end
 GO
 
-if exists(select * from sysobjects where name='FK_User_Avatar' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if exists(select 1 from sysobjects where name='FK_User_Avatar' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table yaf_User drop constraint FK_User_Avatar
 GO
 
@@ -3797,11 +3811,11 @@ if exists(select * from syscolumns where id=object_id('yaf_User') and name='Avat
 	alter table yaf_User drop column AvatarID
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_Avatar') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_Avatar') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	drop table yaf_Avatar
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_rank_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_rank_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_delete
 GO
 
@@ -3814,11 +3828,11 @@ if not exists(select * from syscolumns where id=object_id('yaf_User') and name='
 	alter table yaf_User add RankID int not null default(1)
 GO
 
-if not exists(select * from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+if not exists(select 1 from sysobjects where name='FK_User_Rank' and parent_obj=object_id('yaf_User') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	update yaf_User set RankID = (select RankID from yaf_Rank where (Flags & 2)<>0)
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_upgrade') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_upgrade') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_upgrade
 GO
 
@@ -3872,7 +3886,7 @@ if exists(select * from syscolumns where id=object_id('yaf_Group') and name='Ran
 	alter table yaf_Group drop column RankImage
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchtopic_add') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchtopic_add') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchtopic_add
 GO
 
@@ -3884,7 +3898,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderatelist') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_moderatelist') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_moderatelist
 GO
 
@@ -3918,7 +3932,7 @@ create procedure dbo.yaf_forum_moderatelist as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_deleteavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_deleteavatar
 GO
 
@@ -3927,7 +3941,7 @@ create procedure dbo.yaf_user_deleteavatar(@UserID int) as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_activity_rank') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_activity_rank') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_activity_rank
 GO
 
@@ -3944,7 +3958,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_post_list_reverse10') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_list_reverse10
 GO
 
@@ -3974,7 +3988,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_message_unapproved') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_unapproved') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_unapproved
 GO
 
@@ -3999,7 +4013,7 @@ create procedure dbo.yaf_message_unapproved(@ForumID int) as begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_group_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_group_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_delete
 GO
 
@@ -4011,7 +4025,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_nntptopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntptopic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntptopic_list
 GO
 
@@ -4026,7 +4040,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpserver_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpserver_delete
 GO
 
@@ -4044,7 +4058,7 @@ if not exists(select * from syscolumns where id=object_id('yaf_User') and name='
 	alter table yaf_User add Suspended datetime null
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_suspend') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_suspend') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_suspend
 GO
 
@@ -4054,7 +4068,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_watchforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_watchforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_watchforum_list
 GO
 
@@ -4079,7 +4093,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_attachment_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_attachment_delete
 GO
 
@@ -4088,7 +4102,7 @@ create procedure dbo.yaf_attachment_delete(@AttachmentID int) as begin
 end
 go
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_guest') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_guest') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_guest
 GO
 
@@ -4107,7 +4121,7 @@ begin
 end
 go
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_prune') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_prune
 GO
 
@@ -4156,7 +4170,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_updatestats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_updatestats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_updatestats
 GO
 
@@ -4169,7 +4183,7 @@ begin
 end
 go
 
-if exists (select * from sysobjects where id = object_id(N'yaf_category_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_category_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_delete
 GO
 
@@ -4190,7 +4204,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_active_listforum') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_active_listforum') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_active_listforum
 GO
 
@@ -4211,7 +4225,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_moderators') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_moderators') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_moderators
 GO
 
@@ -4232,7 +4246,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_accessmask_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_delete
 GO
 
@@ -4250,7 +4264,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_forumaccess_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forumaccess_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forumaccess_save
 GO
 
@@ -4268,7 +4282,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_userforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_userforum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_userforum_list
 GO
 
@@ -4290,7 +4304,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_userforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_userforum_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_userforum_delete
 GO
 
@@ -4300,7 +4314,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_userforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_userforum_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_userforum_save
 GO
 
@@ -4313,7 +4327,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_active_listtopic') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_active_listtopic') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_active_listtopic
 GO
 
@@ -4335,7 +4349,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_list
 GO
 
@@ -4397,7 +4411,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_move
 GO
 
@@ -4423,7 +4437,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_download') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_attachment_download') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_attachment_download
 GO
 
@@ -4433,7 +4447,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_user_saveavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_saveavatar') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_saveavatar
 GO
 
@@ -4443,7 +4457,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_message_findunread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_message_findunread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_message_findunread
 GO
 
@@ -4456,7 +4470,7 @@ end
 go
 
 -- yaf_category_list
-if exists (select * from sysobjects where id = object_id(N'yaf_category_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_category_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_list
 GO
 
@@ -4470,7 +4484,7 @@ end
 GO
 
 -- yaf_forum_list
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_list
 GO
 
@@ -4485,13 +4499,13 @@ end
 GO
 
 -- yaf_forum_stats
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_stats
 GO
 
 -- yaf_board_stats
 -- yaf_accessmask_list
-if exists (select * from sysobjects where id = object_id(N'yaf_accessmask_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_accessmask_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_accessmask_list
 GO
 
@@ -4520,7 +4534,7 @@ end
 GO
 
 -- yaf_active_list
-if exists (select * from sysobjects where id = object_id(N'yaf_active_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_active_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_active_list
 GO
 
@@ -4584,7 +4598,7 @@ end
 GO
 
 -- yaf_active_stats
-if exists (select * from sysobjects where id = object_id(N'yaf_active_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_active_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_active_stats
 GO
 
@@ -4598,7 +4612,7 @@ end
 GO
 
 -- yaf_group_list
-if exists (select * from sysobjects where id = object_id(N'yaf_group_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_group_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_list
 GO
 
@@ -4612,7 +4626,7 @@ end
 GO
 
 -- yaf_group_member
-if exists (select * from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_group_member') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_group_member
 GO
 
@@ -4632,7 +4646,7 @@ end
 GO
 
 -- yaf_bannedip_list
-if exists (select * from sysobjects where id = object_id(N'yaf_bannedip_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_bannedip_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_bannedip_list
 GO
 
@@ -4646,7 +4660,7 @@ end
 GO
 
 -- yaf_user_emails
-if exists (select * from sysobjects where id = object_id(N'yaf_user_emails') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_emails') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_emails
 GO
 
@@ -4676,7 +4690,7 @@ end
 GO
 
 -- yaf_smiley_listunique
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_smiley_listunique') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_listunique
 GO
 
@@ -4699,7 +4713,7 @@ end
 GO
 
 -- yaf_smiley_list
-if exists (select * from sysobjects where id = object_id(N'yaf_smiley_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_smiley_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_smiley_list
 GO
 
@@ -4713,7 +4727,7 @@ end
 GO
 
 -- yaf_post_last10user
-if exists (select * from sysobjects where id = object_id(N'yaf_post_last10user') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_post_last10user') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_post_last10user
 GO
 
@@ -4750,7 +4764,7 @@ end
 GO
 
 -- yaf_topic_active
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_active') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_active') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_active
 GO
 
@@ -4798,7 +4812,7 @@ end
 GO
 
 -- yaf_user_accessmasks
-if exists (select * from sysobjects where id = object_id(N'yaf_user_accessmasks') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_accessmasks') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_accessmasks
 GO
 
@@ -4853,7 +4867,7 @@ end
 GO
 
 -- yaf_usergroup_list
-if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_usergroup_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_usergroup_list
 GO
 
@@ -4872,7 +4886,7 @@ end
 GO
 
 -- yaf_forum_listpath
-if exists (select * from sysobjects where id = object_id(N'yaf_forum_listpath') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_forum_listpath') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_forum_listpath
 GO
 
@@ -4934,7 +4948,7 @@ end
 GO
 
 -- yaf_category_listread
-if exists (select * from sysobjects where id = object_id(N'yaf_category_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_category_listread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_category_listread
 GO
 
@@ -4963,7 +4977,7 @@ end
 GO
 
 -- yaf_rank_list
-if exists (select * from sysobjects where id = object_id(N'yaf_rank_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_rank_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_rank_list
 GO
 
@@ -4988,7 +5002,7 @@ end
 GO
 
 -- yaf_topic_info
-if exists (select * from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_topic_info
 GO
 
@@ -5002,7 +5016,7 @@ begin
 end
 GO
 
-if exists (select * from sysobjects where id = object_id(N'yaf_usergroup_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_usergroup_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_usergroup_save
 GO
 
@@ -5018,7 +5032,7 @@ end
 GO
 
 -- yaf_pmessage_save
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_save
 GO
 
@@ -5060,7 +5074,7 @@ end
 GO
 
 -- yaf_pageload
-if exists (select * from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pageload') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pageload
 GO
 
@@ -5218,7 +5232,7 @@ end
 GO
 
 -- yaf_user_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_delete
 GO
 
@@ -5273,7 +5287,7 @@ end
 GO
 
 -- yaf_user_find
-if exists (select * from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_find') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_find
 GO
 
@@ -5309,7 +5323,7 @@ end
 GO
 
 -- yaf_pmessage_markread
-if exists (select * from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_pmessage_markread') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_pmessage_markread
 GO
 
@@ -5319,7 +5333,7 @@ end
 GO
 
 -- yaf_attachment_list
-if exists (select * from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_attachment_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_attachment_list
 GO
 
@@ -5356,7 +5370,7 @@ end
 GO
 
 -- yaf_nntpserver_list
-if exists (select * from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_nntpserver_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_nntpserver_list
 GO
 
@@ -5370,7 +5384,7 @@ end
 GO
 
 -- yaf_board_delete
-if exists (select * from sysobjects where id = object_id(N'yaf_board_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_delete
 GO
 
@@ -5407,7 +5421,7 @@ end
 GO
 
 -- yaf_user_nntp
-if exists (select * from sysobjects where id = object_id(N'yaf_user_nntp') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_nntp') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_nntp
 go
 
@@ -5437,7 +5451,7 @@ end
 go
 
 -- yaf_user_deleteold
-if exists (select * from sysobjects where id = object_id(N'yaf_user_deleteold') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_user_deleteold') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_user_deleteold
 GO
 
@@ -5454,7 +5468,7 @@ end
 GO
 
 -- yaf_board_stats
-if exists (select * from sysobjects where id = object_id(N'yaf_board_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_stats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_stats
 GO
 
@@ -5468,7 +5482,7 @@ end
 GO
 
 -- yaf_board_poststats
-if exists (select * from sysobjects where id = object_id(N'yaf_board_poststats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+if exists (select 1 from sysobjects where id = object_id(N'yaf_board_poststats') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_board_poststats
 GO
 
@@ -5516,3 +5530,48 @@ begin
 end
 GO
 
+-- yaf_eventlog_create
+if exists (select 1 from sysobjects where id = object_id(N'yaf_eventlog_create') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_eventlog_create
+GO
+
+create procedure dbo.yaf_eventlog_create(@UserID int,@Source nvarchar(50),@Description ntext) as
+begin
+	insert into dbo.yaf_EventLog(UserID,Source,Description)
+	values(@UserID,@Source,@Description)
+
+	-- delete entries older than 10 days
+	delete from dbo.yaf_EventLog where EventTime+10<getdate()
+end
+GO
+
+-- yaf_eventlog_delete
+if exists (select 1 from sysobjects where id = object_id(N'yaf_eventlog_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_eventlog_delete
+GO
+
+create procedure dbo.yaf_eventlog_delete(@EventLogID int) as
+begin
+	delete from dbo.yaf_EventLog where EventLogID=@EventLogID
+end
+GO
+
+-- yaf_eventlog_list
+if exists (select 1 from sysobjects where id = object_id(N'yaf_eventlog_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+	drop procedure yaf_eventlog_list
+GO
+
+create procedure dbo.yaf_eventlog_list(@BoardID int) as
+begin
+	select
+		a.*,
+		b.Name
+	from
+		dbo.yaf_EventLog a
+		join dbo.yaf_User b on b.UserID=a.UserID
+	where
+		b.BoardID = @BoardID
+	order by
+		a.EventLogID desc
+end
+GO

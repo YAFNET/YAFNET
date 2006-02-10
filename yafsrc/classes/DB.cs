@@ -979,6 +979,47 @@ namespace yaf
 		}
 		#endregion
 
+		#region yaf_EventLog
+		static public void eventlog_create(object userID,object source,object description) 
+		{
+			try
+			{
+				using(SqlCommand cmd = new SqlCommand("yaf_eventlog_create")) 
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add("@UserID",userID);
+					cmd.Parameters.Add("@Source",source.GetType().ToString());
+					cmd.Parameters.Add("@Description",description.ToString());
+					ExecuteNonQuery(cmd);
+				}
+			}
+			catch
+			{
+				// Ignore any errors in this method
+			}
+		}
+
+		static public void eventlog_delete(object eventLogID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_eventlog_delete")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@EventLogID",eventLogID);
+				ExecuteNonQuery(cmd);
+			}
+		}
+
+		static public DataTable eventlog_list(object boardID) 
+		{
+			using(SqlCommand cmd = new SqlCommand("yaf_eventlog_list")) 
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.Add("@BoardID",boardID);
+				return GetData(cmd);
+			}
+		}
+		#endregion yaf_EventLog
+
 		#region yaf_PollVote
 		/// <summary>
 		/// Checks for a vote in the database

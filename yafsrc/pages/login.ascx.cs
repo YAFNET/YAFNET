@@ -110,6 +110,7 @@ namespace yaf.pages
 			}
 			catch(Exception x) 
 			{
+				DB.eventlog_create(PageUserID,this,x);
 				Utils.LogToMail(x);
 				AddLoadMessage(GetText("RECOVER_ERROR"));
 			}

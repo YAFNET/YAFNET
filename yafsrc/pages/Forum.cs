@@ -53,6 +53,7 @@ namespace yaf
 		admin_prune,
 		admin_pm,
 		admin_attachments,
+		admin_eventlog,
 		admin_nntpservers,
 		admin_nntpforums,
 		admin_nntpretrieve,
