@@ -2168,16 +2168,6 @@ namespace yaf
 				ExecuteNonQuery(cmd);
 			}
 		}
-		static public void user_previousvisit(object userID,DateTime previousVisit) 
-		{
-			using(SqlCommand cmd = new SqlCommand("yaf_user_previousvisit")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.Add("@UserID",userID);
-				cmd.Parameters.Add("@PreviousVisit",previousVisit);
-				ExecuteNonQuery(cmd);
-			}
-		}
 		static public void user_approve(object UserID) 
 		{
 			using(SqlCommand cmd = new SqlCommand("yaf_user_approve")) 

@@ -602,12 +602,6 @@ begin
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='PreviousVisit')
-begin
-	alter table dbo.yaf_User add PreviousVisit datetime
-end
-GO
-
 if not exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='Flags')
 begin
 	alter table dbo.yaf_Rank add Flags int not null constraint DF_yaf_Rank_Flags default (0)
@@ -5254,6 +5248,7 @@ begin
 	declare @UserBoardID	int
 	declare @IsGuest		tinyint
 	declare @rowcount		int
+	declare @PreviousVisit	datetime
 	
 	set implicit_transactions off
 
@@ -5287,6 +5282,11 @@ begin
 	-- Check valid TopicID
 	if @TopicID is not null and not exists(select 1 from yaf_Topic where TopicID=@TopicID) begin
 		set @TopicID = null
+	end
+	
+	-- get previous visit
+	if @IsGuest=0 begin
+		select @PreviousVisit = LastVisit from dbo.yaf_User where UserID = @UserID
 	end
 	
 	-- update last visit
@@ -5370,7 +5370,7 @@ begin
 		ThemeFile			= a.ThemeFile,
 		LanguageFile		= a.LanguageFile,
 		TimeZoneUser		= a.TimeZone,
-		PreviousVisit		= a.PreviousVisit,
+		PreviousVisit		= @PreviousVisit,
 		x.*,
 		CategoryID			= @CategoryID,
 		CategoryName		= (select Name from yaf_Category where CategoryID = @CategoryID),
@@ -5732,16 +5732,5 @@ begin
 		b.BoardID = @BoardID
 	order by
 		a.EventLogID desc
-end
-GO
-
--- yaf_user_previousvisit
-if exists (select 1 from sysobjects where id = object_id(N'yaf_user_previousvisit') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_previousvisit
-GO
-
-create procedure dbo.yaf_user_previousvisit(@UserID int,@PreviousVisit datetime) as
-begin
-	update dbo.yaf_User set PreviousVisit = @PreviousVisit where UserID = @UserID
 end
 GO

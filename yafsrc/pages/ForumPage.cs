@@ -271,31 +271,11 @@ namespace yaf.pages
 
 				if((int)m_pageinfo["Incoming"]>0) 
 					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
-
-				// BH 2006-02-11: Convert cookie to db - could be removed
-				if(!IsGuest && m_pageinfo["PreviousVisit"]==DBNull.Value && HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null)
-				{
-					try
-					{
-						DB.user_previousvisit(PageUserID,DateTime.Parse(HttpContext.Current.Request.Cookies["yaf"]["lastvisit"]));
-					}
-					catch
-					{
-					}
-				}
 			}
 
 			if(!IsGuest && Mession.LastVisit == DateTime.MinValue && m_pageinfo["PreviousVisit"]!=DBNull.Value) 
 			{
-				try 
-				{
-					Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
-				}
-				catch(Exception) 
-				{
-					Mession.LastVisit = DateTime.Now;
-				}
-				DB.user_previousvisit(PageUserID,DateTime.Now);
+				Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
 			}
 			else if(Mession.LastVisit == DateTime.MinValue) 
 			{
@@ -304,16 +284,9 @@ namespace yaf.pages
 
 			if(!IsGuest) 
 			{
-				if(m_pageinfo["PreviousVisit"]!=DBNull.Value) 
+				if(Mession.LastVisit < DateTime.Now.AddMinutes(-5)) 
 				{
-					if((DateTime)m_pageinfo["PreviousVisit"] < DateTime.Now.AddMinutes(-5)) 
-					{
-						DB.user_previousvisit(PageUserID,DateTime.Now);
-					}
-				}
-				else 
-				{
-					DB.user_previousvisit(PageUserID,DateTime.Now);
+					Mession.LastVisit = DateTime.Now;
 				}
 			}
 
