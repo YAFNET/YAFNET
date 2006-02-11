@@ -703,7 +703,152 @@ BEGIN
 		END
 	END
 END
-go
+GO
+
+if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_update') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_Group_update
+GO
+
+create trigger yaf_Group_update on dbo.yaf_Group for update as
+begin
+	declare @BoardID int
+	declare @GroupID int
+	declare @Flags int
+	
+	declare inserted_cursor cursor for
+		select BoardID,GroupID,Flags from inserted
+	
+	open inserted_cursor
+	fetch next from inserted_cursor into @BoardID,@GroupID,@Flags
+	while @@FETCH_STATUS = 0
+	begin
+		if (@Flags & 2)<>0
+		begin
+			-- This is the guest group. Check for other guest groups
+			if exists(select 1 from dbo.yaf_Group where BoardID=@BoardID and GroupID<>@GroupID and (Flags & 2)<>0) 
+			begin
+				raiserror('There are already other groups marked as guest groups',16,1)
+			end
+		end else
+		begin
+			-- This is not the guest group. Check for other guest groups
+			if not exists(select 1 from dbo.yaf_Group where BoardID=@BoardID and (Flags & 2)<>0) 
+			begin
+				raiserror('There are no other groups marked as guest groups',16,1)
+			end
+		end
+	
+		fetch next from inserted_cursor into @BoardID,@GroupID,@Flags
+	end
+	close inserted_cursor
+	deallocate inserted_cursor
+end
+GO
+
+if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_insert') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_Group_insert
+GO
+
+create trigger yaf_Group_insert on dbo.yaf_Group for update as
+begin
+	declare @BoardID int
+	declare @GroupID int
+	declare @Flags int
+	
+	declare inserted_cursor cursor for
+		select BoardID,GroupID,Flags from inserted
+	
+	open inserted_cursor
+	fetch next from inserted_cursor into @BoardID,@GroupID,@Flags
+	while @@FETCH_STATUS = 0
+	begin
+		if (@Flags & 2)<>0
+		begin
+			-- This is the guest group. Check for other guest groups
+			if exists(select 1 from dbo.yaf_Group where BoardID=@BoardID and GroupID<>@GroupID and (Flags & 2)<>0) 
+			begin
+				raiserror('There are already other groups marked as guest groups',16,1)
+			end
+		end else
+		begin
+			-- This is not the guest group. Check for other guest groups
+			if not exists(select 1 from dbo.yaf_Group where BoardID=@BoardID and (Flags & 2)<>0) 
+			begin
+				raiserror('There are no other groups marked as guest groups',16,1)
+			end
+		end
+	
+		fetch next from inserted_cursor into @BoardID,@GroupID,@Flags
+	end
+	close inserted_cursor
+	deallocate inserted_cursor
+end
+GO
+
+if exists(select 1 from sysobjects where id=object_id(N'yaf_UserGroup_insert') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_UserGroup_insert
+GO
+
+create trigger yaf_UserGroup_insert on dbo.yaf_UserGroup for insert as
+begin
+	declare @UserID int
+	declare @BoardID int
+	declare @GroupID int
+	declare @Flags int
+	
+	declare inserted_cursor cursor for
+	select a.UserID,b.BoardID,b.GroupID,b.Flags from inserted a join dbo.yaf_Group b on b.GroupID=a.GroupID
+	
+	open inserted_cursor
+	fetch next from inserted_cursor into @UserID,@BoardID,@GroupID,@Flags
+	while @@FETCH_STATUS = 0
+	begin
+		if (@Flags & 2)<>0
+		begin
+			-- This is the guest group. Check for guest users
+			if exists(select 1 from dbo.yaf_UserGroup where GroupID=@GroupID and UserID<>@UserID) 
+			begin
+				raiserror('There is already a user in the guest group',16,1)
+			end
+		end
+	
+		fetch next from inserted_cursor into @UserID,@BoardID,@GroupID,@Flags
+	end
+	close inserted_cursor
+	deallocate inserted_cursor
+end
+GO
+
+if exists(select 1 from sysobjects where id=object_id(N'yaf_UserGroup_delete') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger yaf_UserGroup_delete
+GO
+
+create trigger yaf_UserGroup_delete on dbo.yaf_UserGroup for delete as
+begin
+	declare @UserID int
+	declare @BoardID int
+	declare @GroupID int
+	declare @Flags int
+	
+	declare deleted_cursor cursor for
+	select a.UserID,b.BoardID,b.GroupID,b.Flags from deleted a join dbo.yaf_Group b on b.GroupID=a.GroupID
+	
+	open deleted_cursor
+	fetch next from deleted_cursor into @UserID,@BoardID,@GroupID,@Flags
+	while @@FETCH_STATUS = 0
+	begin
+		if (@Flags & 2)<>0
+		begin
+			-- This is the guest group. We can't remove users from the guest group.
+			raiserror('Users can not be removed from the guest group',16,1)
+		end
+	
+		fetch next from deleted_cursor into @UserID,@BoardID,@GroupID,@Flags
+	end
+	close deleted_cursor
+	deallocate deleted_cursor
+end
+GO
 
 /*
 ** Views
