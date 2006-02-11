@@ -282,14 +282,6 @@ namespace yaf.pages
 				Mession.LastVisit = DateTime.Now;
 			}
 
-			if(!IsGuest) 
-			{
-				if(Mession.LastVisit < DateTime.Now.AddMinutes(-5)) 
-				{
-					Mession.LastVisit = DateTime.Now;
-				}
-			}
-
 			// Check if pending mails, and send 10 of them if possible
 			if((int)m_pageinfo["MailsPending"]>0) 
 			{
