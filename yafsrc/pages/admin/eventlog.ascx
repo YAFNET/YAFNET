@@ -20,7 +20,7 @@
 		</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
-		<tr class=post>
+		<tr class=postheader>
 			<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "EventTime") %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "Source") %></td>
@@ -30,7 +30,7 @@
 				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "EventLogID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
-		<tr class="postfooter" runat="server" visible="false" id="details">
+		<tr class="post" runat="server" visible="false" id="details">
 			<td colspan="4"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
 		</tr>
 	</ItemTemplate>
