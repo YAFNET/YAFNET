@@ -16,19 +16,22 @@
 			<td>User</td>
 			<td>Time</td>
 			<td>Source</td>
-			<td>Description</td>
 			<td>&nbsp;</td>
 		</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=post>
-			<td valign="top"><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-			<td valign="top"><%# DataBinder.Eval(Container.DataItem, "EventTime") %></td>
-			<td valign="top"><%# DataBinder.Eval(Container.DataItem, "Source") %></td>
-			<td valign="top"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
-			<td valign="top">
+			<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
+			<td><%# DataBinder.Eval(Container.DataItem, "EventTime") %></td>
+			<td><%# DataBinder.Eval(Container.DataItem, "Source") %></td>
+			<td>
+				<asp:linkbutton runat="server" id="showbutton" commandname="show">Show</asp:linkbutton>
+				|
 				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "EventLogID") %>'>Delete</asp:linkbutton>
 			</td>
+		</tr>
+		<tr class="postfooter" runat="server" visible="false" id="details">
+			<td colspan="4"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
 		</tr>
 	</ItemTemplate>
 </asp:repeater>

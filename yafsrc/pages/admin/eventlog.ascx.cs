@@ -50,6 +50,14 @@ namespace yaf.pages.admin
 					DB.eventlog_delete(e.CommandArgument);
 					BindData();
 					break;
+				case "show":
+					Control ctl = e.Item.FindControl("details");
+					LinkButton showbutton = e.Item.FindControl("showbutton") as LinkButton;
+					if(ctl.Visible = !ctl.Visible)
+						showbutton.Text = "Hide";
+					else
+						showbutton.Text = "Show";
+					break;
 			}
 		}
 
