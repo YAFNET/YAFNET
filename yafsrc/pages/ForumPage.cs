@@ -262,12 +262,6 @@ namespace yaf.pages
 				Forum.Redirect(Pages.info,"i=2");
 			}
 
-			if(HttpContext.Current.Request.Cookies["yaf"]!=null) 
-			{
-				HttpContext.Current.Response.Cookies.Add(HttpContext.Current.Request.Cookies["yaf"]);
-				HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
-			}
-
 			// This happens when user logs in
 			if(Mession.LastVisit == DateTime.MinValue)
 			{
@@ -277,46 +271,50 @@ namespace yaf.pages
 
 				if((int)m_pageinfo["Incoming"]>0) 
 					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
+
+				// BH 2006-02-11: Convert cookie to db - could be removed
+				if(!IsGuest && m_pageinfo["PreviousVisit"]==DBNull.Value && HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null)
+				{
+					try
+					{
+						DB.user_previousvisit(PageUserID,DateTime.Parse(HttpContext.Current.Request.Cookies["yaf"]["lastvisit"]));
+					}
+					catch
+					{
+					}
+				}
 			}
 
-			if(Mession.LastVisit == DateTime.MinValue && HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null) 
+			if(!IsGuest && Mession.LastVisit == DateTime.MinValue && m_pageinfo["PreviousVisit"]!=DBNull.Value) 
 			{
 				try 
 				{
-					Mession.LastVisit = DateTime.Parse(HttpContext.Current.Request.Cookies["yaf"]["lastvisit"]);
+					Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
 				}
 				catch(Exception) 
 				{
 					Mession.LastVisit = DateTime.Now;
 				}
-				HttpContext.Current.Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-				HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
+				DB.user_previousvisit(PageUserID,DateTime.Now);
 			}
 			else if(Mession.LastVisit == DateTime.MinValue) 
 			{
 				Mession.LastVisit = DateTime.Now;
 			}
 
-			if(HttpContext.Current.Request.Cookies["yaf"] != null && HttpContext.Current.Request.Cookies["yaf"]["lastvisit"] != null) 
+			if(!IsGuest) 
 			{
-				try 
+				if(m_pageinfo["PreviousVisit"]!=DBNull.Value) 
 				{
-					if(DateTime.Parse(HttpContext.Current.Request.Cookies["yaf"]["lastvisit"]) < DateTime.Now - TimeSpan.FromMinutes(5)) 
+					if((DateTime)m_pageinfo["PreviousVisit"] < DateTime.Now.AddMinutes(-5)) 
 					{
-						HttpContext.Current.Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-						HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
+						DB.user_previousvisit(PageUserID,DateTime.Now);
 					}
 				}
-				catch(Exception) 
+				else 
 				{
-					HttpContext.Current.Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-					HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
+					DB.user_previousvisit(PageUserID,DateTime.Now);
 				}
-			}
-			else 
-			{
-				HttpContext.Current.Response.Cookies["yaf"]["lastvisit"] = DateTime.Now.ToString();
-				HttpContext.Current.Response.Cookies["yaf"].Expires = DateTime.Now.AddYears(1);
 			}
 
 			// Check if pending mails, and send 10 of them if possible
