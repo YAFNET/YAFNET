@@ -1458,5 +1458,10 @@ namespace yaf.pages
 			return ThemeDir + filename;
 		}
 		#endregion
+
+		protected string HtmlEncode(object data)
+		{
+			return Server.HtmlEncode(data.ToString());
+		}
 	}
 }

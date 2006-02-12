@@ -102,7 +102,7 @@ namespace yaf.pages
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText(IsSentItems ? "sentitems" : "title"),Utils.GetSafeRawUrl());
 
-				SubjectLink.Text = GetText("subject");
+				SubjectLink.Text = Server.HtmlEncode(GetText("subject"));
 				FromLink.Text = GetText(IsSentItems ? "to" : "from");
 				DateLink.Text = GetText("date");
 			}

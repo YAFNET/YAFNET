@@ -15,7 +15,7 @@
 </SeparatorTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=header1 colspan=2><%# DataBinder.Eval(Container.DataItem,"Subject") %></td>
+		<td class=header1 colspan=2><%# HtmlEncode(DataBinder.Eval(Container.DataItem,"Subject")) %></td>
 	</tr>
 	<tr>
 		<td class=postheader><%# DataBinder.Eval(Container.DataItem,"FromUser") %></td>
