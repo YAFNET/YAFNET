@@ -9,7 +9,7 @@ using System.ComponentModel;
 using System.Threading;
 
 namespace yaf.classes {
-	internal class HiPerfTimer {
+	public class HiPerfTimer {
 		[DllImport("Kernel32.dll")]
 		private static extern bool QueryPerformanceCounter(out long lpPerformanceCount);
 

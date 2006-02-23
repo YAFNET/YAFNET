@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="lastposts.ascx.cs" Inherits="yaf.pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="lastposts.ascx.cs" Inherits="yaf.pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <asp:repeater id="repLastPosts" runat="server" visible="true">
 <HeaderTemplate>

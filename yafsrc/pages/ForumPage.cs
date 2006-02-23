@@ -186,6 +186,9 @@ namespace yaf.pages
 				case AuthType.Windows:
 					typeUser = "yaf.WindowsUser,yaf";
 					break;
+				case AuthType.Portal:
+					typeUser = "Portal.ForumUser,Portal";
+					break;
 				default:
 					typeUser = "yaf.FormsUser,yaf";
 					break;

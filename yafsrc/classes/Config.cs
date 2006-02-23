@@ -55,6 +55,14 @@ namespace yaf
 			}
 		}
 
+		static public bool IsPortal
+		{
+			get
+			{
+				return HttpContext.Current.Session["YetAnotherPortal.net"]!=null;
+			}
+		}
+
 		static public IUrlBuilder UrlBuilder
 		{
 			get
@@ -70,6 +78,10 @@ namespace yaf
 					else if (IsDotNetNuke)
 					{
 						urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
+					}
+					else if(IsPortal)
+					{
+						urlAssembly = "Portal.UrlBuilder,Portal";
 					}
 					else
 					{

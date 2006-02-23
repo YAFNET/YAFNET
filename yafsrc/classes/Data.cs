@@ -30,7 +30,8 @@ namespace yaf
 		Windows,
 		Rainbow,
 		DotNetNuke,
-		DotNetNuke3
+		DotNetNuke3,
+		Portal
 	};
 
 	public enum SEARCH_FIELD
@@ -106,6 +107,7 @@ namespace yaf
 				try
 				{
 					string path = HttpContext.Current.Request.ApplicationPath;
+					if (!path.EndsWith("/")) path += "/";
 
 					if (Config.ConfigSection["root"] != null)
 					{	
@@ -117,6 +119,10 @@ namespace yaf
 					else if (Config.IsDotNetNuke || Config.IsRainbow)
 					{
 						path += "DesktopModules/YetAnotherForumDotNet/";
+					}
+					else if(Config.IsPortal)
+					{
+						path += "Modules/Forum/";
 					}
 
 					if (!path.EndsWith("/")) path += "/";
@@ -141,6 +147,10 @@ namespace yaf
 				else if(Config.IsRainbow)
 				{
 					return AuthType.Rainbow;
+				}
+				else if(Config.IsPortal)
+				{
+					return AuthType.Portal;
 				}
 
 				Type secType = System.Web.HttpContext.Current.User.Identity.GetType();
