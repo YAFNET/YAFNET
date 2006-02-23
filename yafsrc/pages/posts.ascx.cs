@@ -101,8 +101,11 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				if(ForumControl.LockedForum==0) 
+				{
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				}
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(Utils.BadWordReplace(PageTopicName),"");
 

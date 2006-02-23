@@ -127,8 +127,11 @@ namespace yaf.pages
 				PriorityRow.Visible = ForumPriorityAccess;
 				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				if(ForumControl.LockedForum==0)
+				{
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				}
 				PageLinks.AddForumLinks(PageForumID);
 
 				if(Request.QueryString["t"] != null) 
@@ -140,7 +143,7 @@ namespace yaf.pages
 					SubjectRow.Visible = false;
 					Title.Text = GetText("reply");
 
-					if (Config.IsDotNetNuke || Config.IsRainbow)
+					if (Config.IsDotNetNuke || Config.IsRainbow || Config.IsPortal)
 					{
 						// can't use the last post iframe
 						LastPosts.Visible = true;

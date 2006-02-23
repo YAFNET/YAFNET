@@ -119,6 +119,11 @@ namespace yaf
 				page = Pages.forum;
 			}
 
+			if(!ValidPage(page))
+			{
+				Forum.Redirect(Pages.topics,"f={0}",LockedForum);
+			}
+
 			string src = string.Format("{0}pages/{1}.ascx",m_baseDir,page);
 			if(src.IndexOf("/moderate_")>=0)
 				src = src.Replace("/moderate_","/moderate/");
@@ -226,6 +231,31 @@ namespace yaf
 			{
 				m_categoryID = value;
 			}
+		}
+
+		private int mLockedForum = 0;
+
+		public int LockedForum
+		{
+			set
+			{
+				mLockedForum = value;
+			}
+			get
+			{
+				return mLockedForum;
+			}
+		}
+
+		private bool ValidPage(Pages page)
+		{
+			if(LockedForum==0)
+				return true;
+
+			if(page==Pages.forum)
+				return false;
+
+			return true;
 		}
 	}
 }
