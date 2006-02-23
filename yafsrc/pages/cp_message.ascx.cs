@@ -83,14 +83,27 @@ namespace yaf.pages
 			return FormatMsg.FormatMessage(this,row["Body"].ToString(),Convert.ToInt32(row["Flags"]));
 		}
 
-		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
-			if(e.CommandName == "delete") {
+		private void Inbox_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		{
+			if(e.CommandName == "delete") 
+			{
 				DB.userpmessage_delete(e.CommandArgument);
 				BindData();
 				AddLoadMessage(GetText("msg_deleted"));
-			} else if(e.CommandName == "reply") {
-				Forum.Redirect(Pages.pmessage,"p={0}",e.CommandArgument);
 			}
+			else if(e.CommandName == "reply") 
+			{
+				Forum.Redirect(Pages.pmessage,"p={0}&q=0",e.CommandArgument);
+			}
+			else if(e.CommandName=="quote")
+			{
+				Forum.Redirect(Pages.pmessage,"p={0}&q=1",e.CommandArgument);
+			}
+		}
+
+		protected void DeleteMessage_Load(object sender, System.EventArgs e) 
+		{
+			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_deletemessage"));
 		}
 
 		#region Web Form Designer generated code

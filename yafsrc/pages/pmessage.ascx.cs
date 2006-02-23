@@ -90,6 +90,27 @@ namespace yaf.pages
 					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"]))
 					{
 						DataRow row = dt.Rows[0];
+						Subject.Text = (string)row["Subject"];
+
+						if(Subject.Text.Length<4 || Subject.Text.Substring(0,4) != "Re: ")
+							Subject.Text = "Re: " + Subject.Text;
+
+						ToUserID = (int)row["FromUserID"];
+					}
+				}
+
+
+				if(Request.QueryString["p"] != null)
+				{
+					using(DataTable dt = DB.userpmessage_list(Request.QueryString["p"]))
+					{
+						// default is quote
+						bool bQuote = true;
+						
+						if (Request.QueryString["q"] != null && Request.QueryString["q"] == "0")
+							bQuote = false;
+
+						DataRow row = dt.Rows[0];
 						
 						if ((int)row["ToUserID"]!=PageUserID && (int)row["FromUserID"]!=PageUserID)
 							Data.AccessDenied();	
@@ -101,23 +122,25 @@ namespace yaf.pages
 
 						ToUserID = (int)row["FromUserID"];
 
-						string body = row["Body"].ToString();
-						bool isHtml = body.IndexOf('<')>=0;
-
-						if (BoardSettings.RemoveNestedQuotes)
+						if (bQuote)
 						{
-							RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-							Regex	quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]",m_options);
-							// remove quotes from old messages
-							body = quote.Replace(body,"");
+							string body = row["Body"].ToString();
+							bool isHtml = body.IndexOf('<')>=0;
+
+							if (BoardSettings.RemoveNestedQuotes)
+							{
+								RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+								Regex	quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]",m_options);
+								// remove quotes from old messages
+								body = quote.Replace(body,"");
+							}
+							if (isHtml) body = FormatMsg.HtmlToForumCode(body);							
+							body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
+							Editor.Text = body;
 						}
-
-						if (isHtml) body = FormatMsg.HtmlToForumCode(body);
-						body = String.Format("[QUOTE={0}]{1}[/QUOTE]",row["FromUser"],body);
-
-						Editor.Text = body;
 					}
 				} 
+
 				if(Request.QueryString["u"] != null)
 					ToUserID = int.Parse(Request.QueryString["u"].ToString());
 
@@ -131,7 +154,8 @@ namespace yaf.pages
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
 		}
 
 		#region Web Form Designer generated code
@@ -162,7 +186,8 @@ namespace yaf.pages
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e) {
+		private void Save_Click(object sender, System.EventArgs e)
+		{
 			if(To.Text.Length<=0) {
 				AddLoadMessage(GetText("need_to"));
 				return;
