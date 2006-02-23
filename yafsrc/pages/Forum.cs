@@ -252,7 +252,13 @@ namespace yaf
 			if(LockedForum==0)
 				return true;
 
-			if(page==Pages.forum)
+			if(page==Pages.forum || page==Pages.active || page==Pages.activeusers)
+				return false;
+
+			if(page==Pages.cp_editprofile || page==Pages.cp_inbox || page==Pages.cp_message || page==Pages.cp_profile || page==Pages.cp_signature || page==Pages.cp_subscriptions)
+				return false;
+
+			if(page==Pages.pmessage)
 				return false;
 
 			return true;

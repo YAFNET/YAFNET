@@ -52,8 +52,11 @@ namespace yaf.pages
 						if((int)dt.Rows[0]["UserID"] != PageUserID) 
 							Data.AccessDenied(/*"You didn't post this message."*/);
 		
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				if(ForumControl.LockedForum==0)
+				{
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+				}
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
 				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());

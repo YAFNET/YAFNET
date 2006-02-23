@@ -72,11 +72,14 @@ namespace yaf.pages
 						UnreadMsgs.Text = String.Format(GetText("unread0"),UnreadPrivate);
 				}
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				if(PageCategoryID!=0) 
+				if(ForumControl.LockedForum==0)
 				{
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
-					Welcome.Visible = false;
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+					if(PageCategoryID!=0) 
+					{
+						PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+						Welcome.Visible = false;
+					}
 				}
 
 				BindData();

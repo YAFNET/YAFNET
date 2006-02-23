@@ -111,7 +111,7 @@ namespace yaf.pages
 
 				TopicTitle.Text = Utils.BadWordReplace((string)topic["Topic"]);
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
-				ForumJumpLine.Visible = BoardSettings.ShowForumJump;
+				ForumJumpLine.Visible = BoardSettings.ShowForumJump && ForumControl.LockedForum==0;
 
 				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
 				RssTopic.Visible = BoardSettings.ShowRSSLink;

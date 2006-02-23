@@ -137,7 +137,7 @@ namespace yaf.pages
  			RssFeed.Text = GetText("RSSFEED");
 			RssFeed.Visible = BoardSettings.ShowRSSLink;
 			RSSLinkSpacer.Visible = BoardSettings.ShowRSSLink;
-			ForumJumpLine.Visible = BoardSettings.ShowForumJump;
+			ForumJumpLine.Visible = BoardSettings.ShowForumJump && ForumControl.LockedForum==0;
 
 			if(!IsPostBack) 
 			{

@@ -486,7 +486,7 @@ namespace yaf.pages
 #endif
 
 				// BEGIN HEADER
-				if(m_headerInfo!=null)
+				if(m_headerInfo!=null && ForumControl.LockedForum==0)
 					writer.Write(m_headerInfo);
 				// END HEADER
 
@@ -505,20 +505,20 @@ namespace yaf.pages
 				if(Config.IsDotNetNuke) 
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved.");
 				} 
 				else if(Config.IsRainbow)
 				{
 					footer.AppendFormat("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.",Data.AppVersionName);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved.");
 				}
-				else 
+				else if(ForumControl.LockedForum==0)
 				{
 					footer.AppendFormat(GetText("COMMON","POWERED_BY"),
 						String.Format("<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>"),
 						String.Format("{0} - {1}",Data.AppVersionName,FormatDateShort(Data.AppVersionDate))
 						);
-					footer.AppendFormat("<br/>Copyright &copy; 2003-2005 Yet Another Forum.net. All rights reserved.");
+					footer.AppendFormat("<br/>Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved.");
 					footer.AppendFormat("<br/>");
 					footer.AppendFormat(this.m_adminMessage); // Append a error message for an admin to see (but not nag)
 					hiTimer.Stop();
@@ -529,10 +529,13 @@ namespace yaf.pages
 				footer.AppendFormat("<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}",QueryCounter.Count,QueryCounter.Duration,100 * QueryCounter.Duration/hiTimer.Duration,QueryCounter.Commands);
 #endif
 				footer.AppendFormat("</p>");
-				if(ForumControl.Footer!=null)
-					ForumControl.Footer.Info = footer.ToString();
-				else
-					writer.Write(footer.ToString());
+				if(ForumControl.LockedForum==0) 
+				{
+					if(ForumControl.Footer!=null)
+						ForumControl.Footer.Info = footer.ToString();
+					else
+						writer.Write(footer.ToString());
+				}
 				// END FOOTER
 
 				writer.WriteLine(script);
@@ -878,6 +881,10 @@ namespace yaf.pages
 		{
 			get 
 			{
+				int nLockedForum = ForumControl.LockedForum;
+				if(nLockedForum!=0)
+					return nLockedForum;
+
 				if(m_pageinfo!=null && !m_pageinfo.IsNull("ForumID"))
 					return (int)m_pageinfo["ForumID"];
 				else
