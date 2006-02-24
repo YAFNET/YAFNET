@@ -40,7 +40,10 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if (HttpContext.Current.Request.Cookies["yaf"] != null)
+			// Cookies aren't there any more...
+			//if (HttpContext.Current.Request.Cookies["yaf"] != null)
+
+			if(HttpContext.Current.Session["lastvisit"]!=null)
 			{
 				if(Request.QueryString["u"]!=null) 
 				{
