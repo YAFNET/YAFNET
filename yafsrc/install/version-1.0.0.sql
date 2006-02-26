@@ -367,8 +367,7 @@ begin
 		UserID		int not null,
 		Source		nvarchar(50) not null,
 		Description	ntext not null,
-		constraint PK_EventLog primary key(EventLogID),
-		constraint FK_EventLog_User foreign key(UserID) references dbo.yaf_User(UserID)
+		constraint PK_EventLog primary key(EventLogID)
 	)
 end
 GO
@@ -1347,6 +1346,10 @@ go
 
 if not exists(select 1 from sysobjects where name='FK_yaf_PollVote_yaf_Poll' and parent_obj=object_id('yaf_PollVote') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
 	alter table dbo.yaf_PollVote add constraint FK_yaf_PollVote_yaf_Poll foreign key(PollID) references yaf_Poll(PollID) on delete cascade
+go
+
+if not exists(select 1 from sysobjects where name='FK_EventLog_User' and parent_obj=object_id('yaf_EventLog') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table dbo.yaf_EventLog add constraint FK_EventLog_User foreign key(UserID) references dbo.yaf_User(UserID)
 go
 
 /*
@@ -2439,6 +2442,13 @@ GO
 create procedure dbo.yaf_user_login(@BoardID int,@Name nvarchar(50),@Password nvarchar(32)) as
 begin
 	declare @UserID int
+
+	-- Try correct board first
+	if exists(select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID)
+	begin
+		select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID
+		return
+	end
 
 	if not exists(select UserID from yaf_User where Name=@Name and Password=@Password and (BoardID=@BoardID or (Flags & 3)=3))
 		set @UserID=null
