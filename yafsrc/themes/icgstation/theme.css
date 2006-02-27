@@ -59,6 +59,9 @@ height: 25px; color: #444444; border-color: #A9B8C2; border-style: solid; font-s
 .post {
 	background-color: #F7F7F7; padding: 4px; font-family: Verdana, Helvetica, sans-serif; font-size: 10px; border-color: #FFFFFF; border-style: solid; border-width: 1px 1px 1px 1px; 
 }
+.post_alt {
+	background-color: #eaeaea;
+}
 .post_priority {
 	FONT-WEIGHT: bold
 }
