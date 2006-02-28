@@ -581,7 +581,11 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "install\version-1.0.0.sql"
+                    RelPath = "install\version-1.0.1.sql"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "install\version-1.0.2.sql"
                     BuildAction = "Content"
                 />
                 <File
@@ -1817,6 +1821,10 @@
                     BuildAction = "Content"
                 />
                 <File
+                    RelPath = "themes\flatearth.xml"
+                    BuildAction = "Content"
+                />
+                <File
                     RelPath = "themes\purple1.xml"
                     BuildAction = "Content"
                 />
@@ -1826,6 +1834,10 @@
                 />
                 <File
                     RelPath = "themes\purple3.xml"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean.xml"
                     BuildAction = "Content"
                 />
                 <File
@@ -2814,6 +2826,178 @@
                 />
                 <File
                     RelPath = "themes\purple\ButtonPack3\topic_moderate.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_attachments.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_delete_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_delete_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_edit_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_lock_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_move_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_post_reply.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_post_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_quote_post.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_reply_pm.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\b_unlock_topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\bg_header1.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\folder_stats.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\folder_who.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\icon_file.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\icon_latest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\icon_newest_reply.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_aim.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_blog.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_email.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_icq.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_msn.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_pm.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_www.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\p_yim.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\sort_down.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\sort_up.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\theme.css"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\Thumbs.db"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "themes\soclean\topic.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_announce.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_announce_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_lock.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_lock_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_moderate.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_moved.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_poll.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_poll_new.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\topic_sticky.png"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\vote_lcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\vote_rcap.gif"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "themes\soclean\voting_bar.gif"
                     BuildAction = "Content"
                 />
                 <File
