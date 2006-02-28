@@ -40,9 +40,6 @@ namespace yaf
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			// Cookies aren't there any more...
-			//if (HttpContext.Current.Request.Cookies["yaf"] != null)
-
 			if(HttpContext.Current.Session["lastvisit"]!=null)
 			{
 				if(Request.QueryString["u"]!=null) 
@@ -122,35 +119,44 @@ namespace yaf
 				} 
 				else if(Request.QueryString["a"]!=null) 
 				{
-					// AttachmentID
-					using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"],null)) 
+					try
 					{
-						foreach(DataRow row in dt.Rows) 
+						// AttachmentID
+						using(DataTable dt = DB.attachment_list(null,Request.QueryString["a"],null)) 
 						{
-							byte[] data = null;
-							Response.ContentType = HttpUtility.UrlEncode(row["ContentType"].ToString());
-							Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+","%20")));
+							foreach(DataRow row in dt.Rows) 
+							{
+								byte[] data = null;
 
-							if(row.IsNull("FileData")) 
-							{
-								string sUpDir = Config.ConfigSection["uploaddir"];
-								string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
-								using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
+								if(row.IsNull("FileData")) 
 								{
-									data = new byte[input.Length];
-									input.Read(data,0,data.Length);
-									input.Close();
+									string sUpDir = Config.ConfigSection["uploaddir"];
+									string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
+									using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
+									{
+										data = new byte[input.Length];
+										input.Read(data,0,data.Length);
+										input.Close();
+									}
+								} 
+								else 
+								{
+									data = (byte[])row["FileData"];
 								}
-							} 
-							else 
-							{
-								data = (byte[])row["FileData"];
+
+								Response.ContentType = HttpUtility.UrlEncode(row["ContentType"].ToString());
+								Response.AppendHeader("Content-Disposition",String.Format("attachment; filename={0}",HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+","%20")));
+								Response.OutputStream.Write(data,0,data.Length);
+								DB.attachment_download(Request.QueryString["a"]);
+								Response.End();
+								break;
 							}
-							Response.OutputStream.Write(data,0,data.Length);
-							DB.attachment_download(Request.QueryString["a"]);
-							Response.End();
-							break;
 						}
+					}
+					catch (Exception x)
+					{
+						DB.eventlog_create(null,this.GetType().ToString(),x,1);
+						Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
 					}
 				}
 			}
