@@ -980,23 +980,30 @@ namespace yaf
 		#endregion
 
 		#region yaf_EventLog
-		static public void eventlog_create(object userID,object source,object description) 
+		static public void eventlog_create(object userID,object source,object description, object type) 
 		{
 			try
 			{
+				if (userID == null) userID = DBNull.Value;
 				using(SqlCommand cmd = new SqlCommand("yaf_eventlog_create")) 
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.Add("@UserID",userID);
-					cmd.Parameters.Add("@Source",source.GetType().ToString());
-					cmd.Parameters.Add("@Description",description.ToString());
+					cmd.Parameters.Add("@Type",(object)type);
+					cmd.Parameters.Add("@UserID",(object)userID);
+					cmd.Parameters.Add("@Source",(object)source.ToString());
+					cmd.Parameters.Add("@Description",(object)description.ToString());
 					ExecuteNonQuery(cmd);
 				}
 			}
 			catch
 			{
 				// Ignore any errors in this method
-			}
+			}			
+		}
+
+		static public void eventlog_create(object userID,object source,object description) 
+		{
+			eventlog_create(userID,(object)source.GetType().ToString(),description,(object)0);
 		}
 
 		static public void eventlog_delete(object eventLogID) 
@@ -2416,7 +2423,8 @@ namespace yaf
 					catch(Exception x) 
 					{
 						trans.Rollback();
-						page.AddLoadMessage(x.Message);
+						DB.eventlog_create(null,"user_register in DB.cs",x,EventLogTypes.Error);
+						//page.AddLoadMessage(x.Message);
 						return false;
 					}
 				}

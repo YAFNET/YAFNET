@@ -95,6 +95,13 @@ namespace yaf
 		IsLadder		= 2
 	}
 
+	public enum EventLogTypes : int
+	{
+		Error				= 0,
+		Warning			= 1,
+		Information = 2
+	}
+
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>
@@ -326,21 +333,21 @@ namespace yaf
 		{
 			get 
 			{
-				return 17;
+				return 19;
 			}
 		}
 		static public long AppVersionCode 
 		{
 			get 
 			{
-				return 0x01000000;
+				return 0x01000200;
 			}
 		}
 		static public DateTime AppVersionDate 
 		{
 			get 
 			{
-				return new DateTime(2006,02,22);
+				return new DateTime(2006,02,27);
 			}
 		}
 		#endregion

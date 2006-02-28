@@ -309,7 +309,6 @@ namespace yaf
 			}
 			foreach(DataRow rwords in dt.Rows)  
 			{
-				// jaben : added "try...catch" due to problems if the regex expressions was not correctly formatted
 				try
 				{
 					strReturn = Regex.Replace(strReturn,Convert.ToString(rwords["badword"]),Convert.ToString(rwords["goodword"]),options);
@@ -320,8 +319,9 @@ namespace yaf
 					throw new Exception("Regular Expression Failed: " + e.Message);
 				}
 #else
-				catch (Exception)
+				catch (Exception x)
 				{
+					DB.eventlog_create(null,"BadWordReplace",x,EventLogTypes.Warning);
 				}
 #endif						
 			}

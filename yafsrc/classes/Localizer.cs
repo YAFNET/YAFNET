@@ -97,10 +97,14 @@ namespace yaf
 			}
 
 			if( el != null )
+			{
 				return el.InnerText;
+			}
 			else
-				//throw new Exception(String.Format("Missing language item {0}",text));
+			{
+				//DB.eventlog_create(null,"Localizer: GetText",String.Format("Missing Language Item \"{0}\"",text),EventLogTypes.Warning);
 				return null;
+			}
 		}
 
 		public string GetText( string page, string text )
