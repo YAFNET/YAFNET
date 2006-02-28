@@ -243,11 +243,12 @@ namespace yaf.editor
 			{
 				typEditor = Type.GetType(ClassBinStr,true);
 			}
-			catch (Exception)
+			catch (Exception x)
 			{
 #if DEBUG
 				throw new Exception("Unable to load editor class/dll: " + ClassBinStr);
 #endif
+				DB.eventlog_create(null,this.GetType().ToString(),x,EventLogTypes.Error);
 			}
 		}
 
