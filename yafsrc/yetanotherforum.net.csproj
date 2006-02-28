@@ -1821,10 +1821,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "themes\flatearth.xml"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "themes\purple1.xml"
                     BuildAction = "Content"
                 />

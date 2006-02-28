@@ -6,7 +6,7 @@
 
 if not exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and name=N'Type')
 begin
-	alter table yaf_EventLog add Type int not null default (0)
+	alter table yaf_EventLog add Type int not null constraint DF_EventLog_Type default (0)
 	exec('update yaf_EventLog set Type = 0')
 end
 GO
@@ -57,3 +57,4 @@ begin
 		a.EventLogID desc
 end
 GO
+
