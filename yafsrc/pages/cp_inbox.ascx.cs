@@ -100,7 +100,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText(IsSentItems ? "sentitems" : "title"),Utils.GetSafeRawUrl());
+				PageLinks.AddLink(GetText(IsSentItems ? "sentitems" : "title"),"");
 
 				SubjectLink.Text = Server.HtmlEncode(GetText("subject"));
 				FromLink.Text = GetText(IsSentItems ? "to" : "from");

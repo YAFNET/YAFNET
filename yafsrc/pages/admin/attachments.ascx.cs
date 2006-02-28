@@ -25,7 +25,7 @@ namespace yaf.pages.admin
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Attachments",Forum.GetLink(Pages.admin_attachments));
+				PageLinks.AddLink("Attachments","");
 
 				BindData();
 			}

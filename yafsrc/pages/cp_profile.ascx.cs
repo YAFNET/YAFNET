@@ -64,7 +64,7 @@ namespace yaf.pages
 				BindData();
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,Utils.GetSafeRawUrl());
+				PageLinks.AddLink(PageUserName,"");
 			}
 		}
 

@@ -55,7 +55,7 @@ namespace yaf.pages
 					{
 						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_yim,"u={0}",row["UserID"]));
+						PageLinks.AddLink(GetText("TITLE"),"");
 						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);
 						Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg",row["YIM"]);
 						break;

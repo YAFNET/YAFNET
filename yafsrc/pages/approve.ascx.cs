@@ -48,7 +48,8 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
+				PageLinks.AddLink(GetText("TITLE"),"");
+
 				ValidateKey.Text = GetText("validate");
 				if(Request.QueryString["k"]!=null)
 				{

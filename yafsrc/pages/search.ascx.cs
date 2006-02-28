@@ -139,7 +139,7 @@ namespace yaf.pages
 				// 20050909 CHP : END
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.search));
+				PageLinks.AddLink(GetText("TITLE"),"");
 				btnSearch.Text = GetText("btnsearch");
 
 				// Load result dropdown

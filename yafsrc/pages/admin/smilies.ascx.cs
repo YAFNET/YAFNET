@@ -24,7 +24,7 @@ namespace yaf.pages.admin
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Smilies",Forum.GetLink(Pages.admin_smilies));
+				PageLinks.AddLink("Smilies","");
 
 				BindData();
 			}

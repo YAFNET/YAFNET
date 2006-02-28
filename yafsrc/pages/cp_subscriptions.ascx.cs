@@ -60,7 +60,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
+				PageLinks.AddLink(GetText("TITLE"),"");
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
 				UnsubscribeTopics.Text = GetText("unsubscribe");

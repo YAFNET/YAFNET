@@ -48,7 +48,7 @@ namespace yaf.pages.admin {
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Board Settings",Forum.GetLink(Pages.admin_boardsettings));
+				PageLinks.AddLink("Board Settings","");
 
 				// create list boxes by populating datasources from Data class
 				Theme.DataSource = Data.Themes();

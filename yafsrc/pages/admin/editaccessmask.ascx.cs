@@ -43,7 +43,7 @@ namespace yaf.pages.admin
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Access Masks",Forum.GetLink(Pages.admin_accessmasks));
+				PageLinks.AddLink("Access Masks","");
 
 				BindData();
 				if(Request.QueryString["i"] != null) {

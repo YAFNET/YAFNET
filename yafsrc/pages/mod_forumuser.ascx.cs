@@ -60,7 +60,7 @@ namespace yaf.pages
 					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
+				PageLinks.AddLink(GetText("TITLE"),"");
 			
 				BindData();
 				if(Request.QueryString["u"]!=null) 

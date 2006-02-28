@@ -86,7 +86,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.cp_editprofile));
+				PageLinks.AddLink(GetText("TITLE"),"");
 
 				DeleteAvatar.Text = GetText("delete_avatar");
 				UpdateProfile.Text = GetText("Save");

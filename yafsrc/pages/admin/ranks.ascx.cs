@@ -44,7 +44,7 @@ namespace yaf.pages.admin
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Ranks",Forum.GetLink(Pages.admin_ranks));
+				PageLinks.AddLink("Ranks","");
 
 				BindData();
 			}

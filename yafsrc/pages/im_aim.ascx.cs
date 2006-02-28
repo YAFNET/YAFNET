@@ -53,7 +53,7 @@ namespace yaf.pages
 					{
 						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_aim,"u={0}",row["UserID"]));
+						PageLinks.AddLink(GetText("TITLE"),"");
 
 						Msg.NavigateUrl = string.Format("aim:goim?screenname={0}&message=Hi.+Are+you+there?",row["AIM"]);
 						Buddy.NavigateUrl = string.Format("aim:addbuddy?screenname={0}",row["AIM"]);

@@ -55,7 +55,7 @@ namespace yaf.pages
 					{
 						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.im_email,"u={0}",row["UserID"]));
+						PageLinks.AddLink(GetText("TITLE"),"");
 						break;
 					}
 				}

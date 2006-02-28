@@ -48,7 +48,7 @@ namespace yaf.pages.admin
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Users",Forum.GetLink(Pages.admin_users));
+				PageLinks.AddLink("Users","");
 
 				using(DataTable dt=DB.group_list(PageBoardID,null)) 
 				{

@@ -31,7 +31,7 @@ namespace yaf.pages.moderate
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),Forum.GetLink(Pages.moderate_index));
+				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),"");
 				BindData();
 			}
 		}

@@ -45,7 +45,7 @@ namespace yaf.pages.admin
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("NNTP Retrieve",Forum.GetLink(Pages.admin_nntpretrieve));
+				PageLinks.AddLink("NNTP Retrieve","");
 
 				BindData();
 			}

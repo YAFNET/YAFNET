@@ -74,7 +74,7 @@ namespace yaf.pages
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.members));
+				PageLinks.AddLink(GetText("TITLE"),"");
 
 				SetSort("Name",true);
 

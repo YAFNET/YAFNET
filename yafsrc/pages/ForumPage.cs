@@ -437,7 +437,7 @@ namespace yaf.pages
 					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.cp_profile),GetText("TOOLBAR","MYPROFILE")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
 				if(User.CanLogin)
-					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
+					header.AppendFormat(String.Format(" | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
 			} 
 			else 
 			{
@@ -1279,8 +1279,11 @@ namespace yaf.pages
 				select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(),tag.ToUpper());
 				node = doc.SelectSingleNode(select);
 			}
-			if(node==null)
-				throw new Exception(String.Format("Missing theme item: {0}.{1}",page.ToUpper(),tag.ToUpper()));
+			if (node == null)
+			{
+				DB.eventlog_create(PageUserID,page.ToLower() + ".ascx",String.Format("Missing Theme Item: {0}.{1}",page.ToUpper(),tag.ToUpper()),EventLogTypes.Error);
+				return String.Format("[{0}.{1}]",page.ToUpper(),tag.ToUpper());
+			}
 
 			string contents = node.InnerText;
 			contents = contents.Replace("~",String.Format("{0}themes/{1}",Data.ForumRoot,themeDir));
@@ -1395,7 +1398,8 @@ namespace yaf.pages
 
 				HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-				throw new Exception(String.Format("Missing translation for {1}.{0}",text.ToUpper(),page.ToUpper()));
+				DB.eventlog_create(PageUserID,page.ToLower() + ".ascx",String.Format("Missing Translation For {1}.{0}",text.ToUpper(),page.ToUpper()),EventLogTypes.Error);
+				return String.Format("[{1}.{0}]",text.ToUpper(),page.ToUpper());;
 			}
 			str = str.Replace("[b]","<b>");
 			str = str.Replace("[/b]","</b>");

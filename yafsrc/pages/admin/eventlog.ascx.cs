@@ -25,7 +25,7 @@ namespace yaf.pages.admin
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Event Log",Forum.GetLink(Pages.admin_eventlog));
+				PageLinks.AddLink("Event Log","");
 
 				BindData();
 			}
@@ -59,6 +59,27 @@ namespace yaf.pages.admin
 						showbutton.Text = "Show";
 					break;
 			}
+		}
+
+		protected string EventImageCode(object o)
+		{
+			DataRowView row = (DataRowView)o;
+			string imageName = "eventError.gif";
+			string imageType = "Error";
+
+			switch ((int)row["Type"])
+			{
+				case 1: 
+					imageName = "eventWarning.gif";	
+					imageType = "Warning";
+					break;
+				case 2:
+					imageName = "eventInfo.gif";
+					imageType = "Information";
+					break;
+			}		
+
+			return "<img src=\"images/" + imageName + "\" width=\"16\" height=\"16\" alt=\"" + imageType + "\" title=\"" + imageType + "\">";
 		}
 
 		#region Web Form Designer generated code

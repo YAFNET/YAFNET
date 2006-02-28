@@ -69,7 +69,7 @@ namespace yaf.pages
 						PageLinks.AddLink(GetText("INBOX"),Forum.GetLink(Pages.cp_inbox));
 					else 
 						PageLinks.AddLink(GetText("SENTITEMS"),Forum.GetLink(Pages.cp_inbox,"sent=1"));
-					PageLinks.AddLink(HtmlEncode(row["Subject"]),Utils.GetSafeRawUrl());
+					PageLinks.AddLink(HtmlEncode(row["Subject"]),"");
 				}
 				Inbox.DataSource = dt;
 			}

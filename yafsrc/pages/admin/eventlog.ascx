@@ -13,6 +13,7 @@
 <asp:repeater runat="server" id="List">
 	<HeaderTemplate>
 		<tr class="header2">
+			<td width="1%">Type</td>
 			<td>User</td>
 			<td>Time</td>
 			<td>Source</td>
@@ -21,6 +22,7 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=postheader>
+			<td align="center"><%# EventImageCode(Container.DataItem) %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "EventTime") %></td>
 			<td><%# DataBinder.Eval(Container.DataItem, "Source") %></td>
@@ -31,7 +33,7 @@
 			</td>
 		</tr>
 		<tr class="post" runat="server" visible="false" id="details">
-			<td colspan="4"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
+			<td colspan="5"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
 		</tr>
 	</ItemTemplate>
 </asp:repeater>

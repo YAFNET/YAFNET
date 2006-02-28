@@ -64,7 +64,7 @@ namespace yaf.pages
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("EDITPROFILE"),Forum.GetLink(Pages.cp_editprofile));
-				PageLinks.AddLink(GetText("TITLE"),Forum.GetLink(Pages.avatar));
+				PageLinks.AddLink(GetText("TITLE"),"");
 
 				pager.PageSize = 20;
 				bind_data();

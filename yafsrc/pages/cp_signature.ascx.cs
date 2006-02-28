@@ -62,7 +62,7 @@ namespace yaf.pages
 
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),Utils.GetSafeRawUrl());
+				PageLinks.AddLink(GetText("TITLE"),"");
 
 				save.Text = GetText("Save");
 				cancel.Text = GetText("Cancel");
