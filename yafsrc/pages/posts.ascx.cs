@@ -113,7 +113,7 @@ namespace yaf.pages
 				ViewOptions.Visible = BoardSettings.AllowThreaded;
 				ForumJumpLine.Visible = BoardSettings.ShowForumJump && ForumControl.LockedForum==0;
 
-				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&t={1}",Request.QueryString["g"],PageTopicID);
+				RssTopic.NavigateUrl = Forum.GetLink(Pages.rsstopic,"pg={0}&amp;t={1}",Request.QueryString["g"],PageTopicID);
 				RssTopic.Visible = BoardSettings.ShowRSSLink;
 
 				if(!ForumPostAccess) 
@@ -251,7 +251,7 @@ namespace yaf.pages
 
 			Pager.PageSize = BoardSettings.PostsPerPage;
 
-			if(topic==null)
+			if ( topic == null )
 				Forum.Redirect(Pages.topics,"f={0}",PageForumID);
 
 			PagedDataSource pds = new PagedDataSource();
