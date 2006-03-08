@@ -81,7 +81,7 @@
 		<tr>
 			<td class="post" valign="top">
 				<asp:Repeater runat="server" id="LatestPosts">
-					<ItemTemplate>&nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic")) %></a> <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>"><img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0"></a><br/></ItemTemplate>
+					<ItemTemplate>&nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# yaf.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a> <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>"><img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0"></a><br/></ItemTemplate>
 				</asp:Repeater>
 			</td>
 		</tr>
