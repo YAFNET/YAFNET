@@ -2444,9 +2444,9 @@ begin
 	declare @UserID int
 
 	-- Try correct board first
-	if exists(select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID)
+	if exists(select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID and (Flags & 2)=2)
 	begin
-		select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID
+		select UserID from yaf_User where Name=@Name and Password=@Password and BoardID=@BoardID and (Flags & 2)=2
 		return
 	end
 
