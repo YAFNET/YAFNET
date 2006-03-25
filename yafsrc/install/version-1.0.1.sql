@@ -5441,6 +5441,7 @@ begin
 	update yaf_Topic set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 	update yaf_Forum set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 
+	delete from yaf_EventLog where UserID=@UserID
 	delete from yaf_PMessage where FromUserID=@UserID
 	delete from yaf_UserPMessage where UserID=@UserID
 	delete from yaf_CheckEmail where UserID = @UserID
@@ -5630,6 +5631,7 @@ begin
 	
 	set @Since = getdate()
 
+	delete from yaf_EventLog  where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
 	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
 	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
 	delete from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2
