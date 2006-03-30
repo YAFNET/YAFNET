@@ -276,9 +276,10 @@ namespace yaf.pages
 					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
 			}
 
-			if(!IsGuest && Mession.LastVisit == DateTime.MinValue && m_pageinfo["PreviousVisit"]!=DBNull.Value) 
+			if(!IsGuest && m_pageinfo["PreviousVisit"]!=DBNull.Value) 
 			{
-				Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
+				if(Mession.LastVisit == DateTime.MinValue || (DateTime)m_pageinfo["PreviousVisit"]<Mession.LastVisit)
+					Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
 			}
 			else if(Mession.LastVisit == DateTime.MinValue) 
 			{
