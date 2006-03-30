@@ -24,6 +24,21 @@ namespace yaf
 			}
 		}
 
+		static public bool HasLastVisit
+		{
+			get
+			{
+				if(HttpContext.Current.Session["haslastvisit"]!=null)
+					return (bool)HttpContext.Current.Session["haslastvisit"];
+				else
+					return false;
+			}
+			set
+			{
+				HttpContext.Current.Session["haslastvisit"] = value;
+			}
+		}
+
 		static public DateTime LastPost
 		{
 			get
