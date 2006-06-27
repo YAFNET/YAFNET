@@ -140,11 +140,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "DotNetNukeTextProvider.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "DotNetNukeUrlBuilder.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
