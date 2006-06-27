@@ -1,7 +1,7 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
-<%@ Control language="c#" Inherits="yaf_dnn.DotNetNukeModuleEdit" CodeBehind="DotNetNukeModuleEdit.ascx.cs" AutoEventWireup="false" %>
+<%@ Control language="c#" Inherits="DotNetNuke.Modules.YAF.DotNetNukeModuleEdit" CodeBehind="DotNetNukeModuleEdit.ascx.cs" AutoEventWireup="false" %>
 
-<table width="100%" cellspacing="0" cellpadding="2">
+<table width="100%" cellspacing="0" cellpadding="2" summary="importantmessagesdev edit design table">
 <tr>
 	<td width="50%" class="SubHead">Select Board to use in this module.</td>
 	<td width="50%"><asp:dropdownlist autopostback="true" cssclass="NormalTextBox" runat="server" id="BoardID"/></td>

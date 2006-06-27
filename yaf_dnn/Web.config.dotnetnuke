@@ -76,12 +76,12 @@
         <publisher assembly="DotNetNuke" type="DotNetNuke.XMLExceptionPublisher" fileName="Exceptions.xml.resources" include="*" exceptionFormat="xml" />
     </exceptionManagement>
 	<yafnet>
-		<connstr>data source=SERVER;initial catalog=DATABASE;user id=USER;password=PASSWORD;</connstr>
-		<root>DesktopModules/YetAnotherForumDotNet/</root>
+		<dataprovider>yaf.MsSql,yaf</dataprovider>
+		<connstr>user id=yaf;password=yafpass;data source=(local);initial catalog=yafnet;timeout=90</connstr>
+		<root>/DotNetNuke/DesktopModules/YetAnotherForumDotNet/</root>
 		<language>english.xml</language>
-		<theme>yafvision.xml</theme>
-		<uploaddir>/DesktopModules/YetAnotherForumDotNet/Upload/</uploaddir>
-    <boardid>1</boardid>
-		<logtomail>email=EMAIL;server=SERVER;user=;pass=;</logtomail>
+		<theme>standard.xml</theme>
+		<uploaddir>/DotNetNuke/DesktopModules/YetAnotherForumDotNet/upload/</uploaddir>
+		<!--logtomail>email=;server=;user=;pass=;</logtomail-->
 	</yafnet>
 </configuration>

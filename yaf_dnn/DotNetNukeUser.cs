@@ -1,10 +1,8 @@
 using System; 
 using System.Web; 
-using DotNetNuke.Entities.Users;
-using DotNetNuke.Entities.Portals;
 using yaf; 
 
-namespace yaf_dnn 
+namespace DotNetNuke.Modules.YAF
 { 
 	public class DotNetNukeUser : yaf.IForumUser 
 	{ 
@@ -19,18 +17,18 @@ namespace yaf_dnn
 
 		public DotNetNukeUser() 
 		{
+			m_isAuthenticated = false; 
+			m_isSuperAdmin = false;
+			m_userName = "";
+
 			try 
 			{ 
-				m_isAuthenticated = false; 
-				m_isSuperAdmin = false;
-				m_userName = "";
-
 				if(HttpContext.Current.User.Identity.IsAuthenticated) 
 				{ 
-					UserController userController = new UserController(); 
-					UserInfo userInfo; 
-					PortalSettings _portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
-					userInfo = userController.GetUserByUsername(_portalSettings.PortalId, HttpContext.Current.User.Identity.Name); 
+					DotNetNuke.Entities.Users.UserController userController = new DotNetNuke.Entities.Users.UserController(); 
+					DotNetNuke.Entities.Users.UserInfo userInfo; 
+					DotNetNuke.Entities.Portals.PortalSettings _portalSettings = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
+					userInfo = userController.GetUserByUsername(_portalSettings.PortalId,HttpContext.Current.User.Identity.Name,false);
 
 					m_userID = userInfo.UserID; 
 					m_userName = userInfo.Username; 
@@ -40,19 +38,12 @@ namespace yaf_dnn
 					m_location = userInfo.Profile.Country; 
 					m_isSuperAdmin = userInfo.IsSuperUser;
 					m_isAuthenticated = true;
-
-					return; 
 				} 
 			} 
 			catch(Exception x) 
-			{ 
-				m_isAuthenticated = false; 
-				m_userName = "";
+			{
 				throw new Exception("Failed to find user info from DotNetNuke.",x); 
-			} 
-
-			m_isAuthenticated = false; 
-			m_userName = "";
+			}
 		} 
 		
 		public string Name 

@@ -1,6 +1,6 @@
 <VisualStudioProject>
     <CSHARP
-        ProjectType = "Web"
+        ProjectType = "Local"
         ProductVersion = "7.10.3077"
         SchemaVersion = "2.0"
         ProjectGuid = "{FF2B878F-D5C1-4578-B7AC-72517749E5EB}"
@@ -9,7 +9,7 @@
             <Settings
                 ApplicationIcon = ""
                 AssemblyKeyContainerName = ""
-                AssemblyName = "yaf_dnn"
+                AssemblyName = "DotNetNuke.Modules.YAF"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
                 DefaultHTMLPageLayout = "Grid"
@@ -18,7 +18,7 @@
                 OutputType = "Library"
                 PreBuildEvent = ""
                 PostBuildEvent = ""
-                RootNamespace = "yaf_dnn"
+                RootNamespace = "DotNetNuke.Modules.YAF"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""
             >
@@ -90,16 +90,20 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "DotNetNuke"
-                    AssemblyName = "DotNetNuke"
-                    HintPath = "..\..\..\www\DotNetNuke\bin\DotNetNuke.dll"
-                    Private = "False"
-                />
-                <Reference
                     Name = "yaf"
                     AssemblyName = "yaf"
                     HintPath = "..\yafsrc\bin\yaf.dll"
                     Private = "False"
+                />
+                <Reference
+                    Name = "DotNetNuke"
+                    AssemblyName = "DotNetNuke"
+                    HintPath = "C:\Inetpub\wwwroot\DNN\bin\DotNetNuke.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
                 />
             </References>
         </Build>
@@ -134,6 +138,11 @@
                     RelPath = "DotNetNukeModuleEdit.ascx.resx"
                     DependentUpon = "DotNetNukeModuleEdit.ascx.cs"
                     BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DotNetNukeTextProvider.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
                 />
                 <File
                     RelPath = "DotNetNukeUrlBuilder.cs"

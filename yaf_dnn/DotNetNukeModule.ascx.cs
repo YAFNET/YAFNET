@@ -1,4 +1,4 @@
-namespace yaf_dnn
+namespace DotNetNuke.Modules.YAF
 {
 	using System;
 	using System.Data;
@@ -11,17 +11,14 @@ namespace yaf_dnn
 	using DotNetNuke.Services.Search;
 	using DotNetNuke.Entities.Modules;
 	using DotNetNuke.Entities.Modules.Actions;
-	using DotNetNuke.Entities.Users;
-	using DotNetNuke.Entities.Portals;
 	using DotNetNuke.Services.Localization;
 	using DotNetNuke.Services.Exceptions;
 	using yaf;
 
-
 	/// <summary>
 	///		Summary description for DotNetNukeModule.
 	/// </summary>
-	public class DotNetNukeModule : PortalModuleBase, IActionable
+	public class DotNetNukeModule : DotNetNuke.Entities.Modules.PortalModuleBase, IActionable
 	{
 		private int m_userID; 
 		private string m_userName; 
@@ -34,7 +31,7 @@ namespace yaf_dnn
 		protected yaf.Forum Forum1;
 
 		protected System.Web.UI.WebControls.Panel pnlModuleContent;
-	
+
 		private void DotNetNukeModule_Load(object sender, System.EventArgs e)
 		{
 			try 
@@ -53,10 +50,10 @@ namespace yaf_dnn
 			// Put user code to initialize the page here
 			if(HttpContext.Current.User.Identity.IsAuthenticated)
 			{
-				UserController userController = new UserController(); 
-				UserInfo userInfo; 
+				DotNetNuke.Entities.Users.UserController userController = new DotNetNuke.Entities.Users.UserController(); 
+				DotNetNuke.Entities.Users.UserInfo userInfo; 
 
-				PortalSettings _portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
+				DotNetNuke.Entities.Portals.PortalSettings _portalSettings = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
 
 				userInfo = userController.GetUser(_portalSettings.PortalId, this.UserId); 
 
@@ -98,7 +95,7 @@ namespace yaf_dnn
 			Load += new EventHandler(DotNetNukeModule_Load);
 			base.OnInit(e);
 		}
-
+		#region IActionable Members
 
 		public ModuleActionCollection ModuleActions
 		{
@@ -109,5 +106,7 @@ namespace yaf_dnn
 				return actions;
 			}
 		}
+
+		#endregion
 	}
 }

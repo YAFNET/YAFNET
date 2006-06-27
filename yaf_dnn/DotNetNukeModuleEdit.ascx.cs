@@ -1,4 +1,4 @@
-namespace yaf_dnn
+namespace DotNetNuke.Modules.YAF
 {
 	using System;
 	using System.Data;
@@ -19,7 +19,7 @@ namespace yaf_dnn
 	/// <summary>
 	///		Summary description for DotNetNukeModule.
 	/// </summary>
-	public class DotNetNukeModuleEdit : PortalModuleBase
+	public class DotNetNukeModuleEdit : DotNetNuke.Entities.Modules.PortalModuleBase
 	{
 		protected DropDownList	BoardID, CategoryID;
 		protected LinkButton	update, cancel, create;
@@ -30,8 +30,8 @@ namespace yaf_dnn
 			cancel.Text = "Cancel";
 			create.Text = "Create New Board";
 
-			//update.Visible = base.IsEditable;
-			//create.Visible = base.IsEditable;
+			update.Visible = base.IsEditable;
+			create.Visible = base.IsEditable;
 
 			if(!IsPostBack) 
 			{
@@ -64,8 +64,10 @@ namespace yaf_dnn
 		private void update_Click(object sender, EventArgs e)
 		{
 			ModuleController objModules = new ModuleController();
+
 			objModules.UpdateModuleSetting(ModuleId,"forumboardid",BoardID.SelectedValue);
 			objModules.UpdateModuleSetting(ModuleId,"forumcategoryid",CategoryID.SelectedValue);
+
 			yaf.Forum.Redirect(Pages.forum);
 		}
 
@@ -103,6 +105,7 @@ namespace yaf_dnn
 				CategoryID.DataTextField = "Name";
 				CategoryID.DataValueField = "CategoryID";
 				CategoryID.DataBind();
+
 				if(Settings["forumcategoryid"]!=null) 
 				{
 					ListItem item = CategoryID.Items.FindByValue(Settings["forumcategoryid"].ToString());
