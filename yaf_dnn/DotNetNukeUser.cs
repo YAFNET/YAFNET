@@ -1,5 +1,7 @@
 using System; 
 using System.Web; 
+using DotNetNuke.Entities.Users;
+using DotNetNuke.Entities.Portals;
 using yaf; 
 
 namespace yaf_dnn 
@@ -13,26 +15,32 @@ namespace yaf_dnn
 		private string m_lastName; 
 		private string m_location; 
 		private bool m_isAuthenticated;
+		private bool m_isSuperAdmin;
 
 		public DotNetNukeUser() 
 		{
 			try 
 			{ 
+				m_isAuthenticated = false; 
+				m_isSuperAdmin = false;
+				m_userName = "";
+
 				if(HttpContext.Current.User.Identity.IsAuthenticated) 
 				{ 
-					DotNetNuke.UserController userController = new DotNetNuke.UserController(); 
-					DotNetNuke.UserInfo userInfo; 
-					DotNetNuke.PortalSettings _portalSettings = (DotNetNuke.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
-					userInfo = userController.GetUser(_portalSettings.PortalId, int.Parse(HttpContext.Current.User.Identity.Name)); 
+					UserController userController = new UserController(); 
+					UserInfo userInfo; 
+					PortalSettings _portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
+					userInfo = userController.GetUserByUsername(_portalSettings.PortalId, HttpContext.Current.User.Identity.Name); 
 
 					m_userID = userInfo.UserID; 
 					m_userName = userInfo.Username; 
-					m_email = userInfo.Email; 
+					m_email = userInfo.Membership.Email; 
 					m_firstName = userInfo.FirstName; 
 					m_lastName = userInfo.LastName; 
-					m_location = userInfo.Country; 
+					m_location = userInfo.Profile.Country; 
+					m_isSuperAdmin = userInfo.IsSuperUser;
+					m_isAuthenticated = true;
 
-					m_isAuthenticated = true; 
 					return; 
 				} 
 			} 
@@ -98,6 +106,13 @@ namespace yaf_dnn
 			{ 
 				cmd.CommandText = string.Format("update yaf_User set Email='{0}' where UserID={1}",m_email,userID); 
 				DB.ExecuteNonQuery(cmd); 
+
+				// if this user is super admin (host user) -- make sure they have permissions...
+				if (m_isSuperAdmin)
+				{
+					cmd.CommandText = string.Format("update yaf_User set Flags = Flags | 3 where UserID={0}",userID);
+					DB.ExecuteNonQuery(cmd);
+				}
 			} 
 		} 
 	} 

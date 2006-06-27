@@ -1,6 +1,6 @@
-Instructions for installing Yet Another Forum.net as a module for DotNetNuke 2.0
+Instructions for installing Yet Another Forum.net as a module for DotNetNuke 3.x
 
-1. Unzip yafdnn-0.9.8.zip to your DotNetNuke directory.
+1. Unzip yafdnn3-v10RC1.zip to your DotNetNuke directory.
 2. Modify "Web.config.dotnetnuke" to point to the yafnet database, and "merge" it
    with "DotNetNuke/Web.config".
 3. Go to your DotNetNuke site and add Yet Another Forum.net as a new module definition

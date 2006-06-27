@@ -7,13 +7,21 @@ namespace yaf_dnn
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 	using DotNetNuke;
+	using DotNetNuke.Common;
+	using DotNetNuke.Services.Search;
+	using DotNetNuke.Entities.Modules;
+	using DotNetNuke.Entities.Modules.Actions;
+	using DotNetNuke.Entities.Users;
+	using DotNetNuke.Entities.Portals;
+	using DotNetNuke.Services.Localization;
+	using DotNetNuke.Services.Exceptions;
 	using yaf;
 
 
 	/// <summary>
 	///		Summary description for DotNetNukeModule.
 	/// </summary>
-	public class DotNetNukeModule : PortalModuleControl
+	public class DotNetNukeModule : PortalModuleBase, IActionable
 	{
 		private int m_userID; 
 		private string m_userName; 
@@ -45,21 +53,17 @@ namespace yaf_dnn
 			// Put user code to initialize the page here
 			if(HttpContext.Current.User.Identity.IsAuthenticated)
 			{
-				DotNetNuke.UserController userController = new DotNetNuke.UserController(); 
-				DotNetNuke.UserInfo userInfo; 
+				UserController userController = new UserController(); 
+				UserInfo userInfo; 
 
-				DotNetNuke.PortalSettings _portalSettings = (DotNetNuke.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
+				PortalSettings _portalSettings = (PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
 
 				userInfo = userController.GetUser(_portalSettings.PortalId, this.UserId); 
 
 				m_userID = userInfo.UserID; 
 				m_userName = userInfo.Username; 
-				m_email = userInfo.Email; 
+				m_email = userInfo.Membership.Email;
 
-				//See if the host is the user
-				if (m_userID == _portalSettings.SuperUserId)
-				{
-				}
 				if(m_userID == _portalSettings.AdministratorId)
 				{
 					/*
@@ -93,6 +97,17 @@ namespace yaf_dnn
 		{
 			Load += new EventHandler(DotNetNukeModule_Load);
 			base.OnInit(e);
+		}
+
+
+		public ModuleActionCollection ModuleActions
+		{
+			get
+			{
+				ModuleActionCollection actions = new ModuleActionCollection();
+				actions.Add(GetNextActionID(), "Edit YAF Settings", ModuleActionType.AddContent, String.Empty, String.Empty, EditUrl(), false, DotNetNuke.Security.SecurityAccessLevel.Edit, true, false);
+				return actions;
+			}
 		}
 	}
 }

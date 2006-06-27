@@ -7,13 +7,19 @@ namespace yaf_dnn
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 	using DotNetNuke;
+	using DotNetNuke.Common;
+	using DotNetNuke.Services.Search;
+	using DotNetNuke.Entities.Modules;
+	using DotNetNuke.Entities.Modules.Actions;
+	using DotNetNuke.Services.Localization;
+	using DotNetNuke.Services.Exceptions;
 	using yaf;
 
 
 	/// <summary>
 	///		Summary description for DotNetNukeModule.
 	/// </summary>
-	public class DotNetNukeModuleEdit : PortalModuleControl
+	public class DotNetNukeModuleEdit : PortalModuleBase
 	{
 		protected DropDownList	BoardID, CategoryID;
 		protected LinkButton	update, cancel, create;
@@ -57,7 +63,7 @@ namespace yaf_dnn
 
 		private void update_Click(object sender, EventArgs e)
 		{
-			DotNetNuke.ModuleController objModules = new DotNetNuke.ModuleController();
+			ModuleController objModules = new ModuleController();
 			objModules.UpdateModuleSetting(ModuleId,"forumboardid",BoardID.SelectedValue);
 			objModules.UpdateModuleSetting(ModuleId,"forumcategoryid",CategoryID.SelectedValue);
 			yaf.Forum.Redirect(Pages.forum);
