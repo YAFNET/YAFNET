@@ -15,11 +15,11 @@
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="header2">
-			<td colspan="2"><%# DataBinder.Eval(Container.DataItem,"Topic") %></td>
+			<td colspan="2"><%# Eval("Topic") %></td>
 		</tr>
 		<tr class="postheader">
-			<td><%# DataBinder.Eval(Container.DataItem,"UserName") %></td>
-			<td><b>Posted:</b> <%# DataBinder.Eval(Container.DataItem,"Posted") %></td>
+			<td><%# Eval("UserName") %></td>
+			<td><b>Posted:</b> <%# Eval("Posted") %></td>
 		</tr>
 		<tr class="post">
 			<td valign="top" width="140">&nbsp;</td>
@@ -32,8 +32,8 @@
 				<a href="javascript:scroll(0,0)"><%# GetText("MODERATE_FORUM","TOP") %></a>
 			</td>
 			<td class="postfooter">
-				<asp:linkbutton runat="server" text='<%# GetText("MODERATE_FORUM","APPROVE") %>' commandname="Approve" commandargument='<%# DataBinder.Eval(Container.DataItem,"MessageID") %>'/>&nbsp;
-				<asp:linkbutton runat="server" text='<%# GetText("MODERATE_FORUM","DELETE") %>' commandname="Delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"MessageID") %>' onload="Delete_Load"/>&nbsp;
+				<asp:linkbutton runat="server" text='<%# GetText("MODERATE_FORUM","APPROVE") %>' commandname="Approve" commandargument='<%# Eval("MessageID") %>'/>&nbsp;
+				<asp:linkbutton runat="server" text='<%# GetText("MODERATE_FORUM","DELETE") %>' commandname="Delete" commandargument='<%# Eval("MessageID") %>' onload="Delete_Load"/>&nbsp;
 			</td>
 		</tr>
 </ItemTemplate>

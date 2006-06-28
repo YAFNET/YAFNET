@@ -32,9 +32,8 @@ namespace yaf.pages.help
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class recover : ForumPage
+	public partial class recover : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
 
 		public recover() : base(null)
 		{

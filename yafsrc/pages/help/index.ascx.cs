@@ -32,11 +32,8 @@ namespace yaf.pages.help
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class index : ForumPage
+	public partial class index : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
-		protected TextBox search;
-		protected Button DoSearch;
 
 		public index() : base(null)
 		{

@@ -19,10 +19,10 @@
 		<tr class="post">
 			<td><img src='<%# GetThemeContents("ICONS","FORUM") %>'/></td>
 			<td>
-				<b><a href='<%# yaf.Forum.GetLink(yaf.Pages.moderate_forum,"f={0}",DataBinder.Eval(Container.DataItem,"ForumID")) %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></b><br/>
-				<%# GetText("MODERATE_DEFAULT","CATEGORY") %>: <%# DataBinder.Eval(Container.DataItem,"CategoryName") %>
+				<b><a href='<%# yaf.Forum.GetLink(yaf.Pages.moderate_forum,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></b><br/>
+				<%# GetText("MODERATE_DEFAULT","CATEGORY") %>: <%# Eval("CategoryName") %>
 			</td>
-			<td align="center"><%# DataBinder.Eval(Container.DataItem,"MessageCount") %></td>
+			<td align="center"><%# Eval("MessageCount") %></td>
 		</tr>
 </ItemTemplate>
 </asp:repeater>
