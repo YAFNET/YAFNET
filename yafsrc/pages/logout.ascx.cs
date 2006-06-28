@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for logout.
 	/// </summary>
-	public class logout : ForumPage
+	public partial class logout : ForumPage
 	{
 		public logout() : base("LOGOUT")
 		{
@@ -43,7 +43,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.CanLogin)
+			if(!CanLogin)
 				Data.AccessDenied();
 			
 			FormsAuthentication.SignOut();

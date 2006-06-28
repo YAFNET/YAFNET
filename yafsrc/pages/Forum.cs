@@ -26,6 +26,7 @@ namespace yaf
 		cp_signature,
 		cp_subscriptions,
 		cp_message,
+        cp_changepassword,
 		login,
 		approve,
 		info,
@@ -83,7 +84,8 @@ namespace yaf
 		rsstopic,
 		help_index,
 		help_recover,
-		lastposts
+		lastposts,
+        recoverpassword
 	}
 
 	/// <summary>
@@ -97,7 +99,7 @@ namespace yaf
 			this.Load += new EventHandler(Forum_Load);
 			try 
 			{
-				m_boardID = int.Parse(Config.ConfigSection["boardid"]);
+                m_boardID = int.Parse(Config.BoardID);
 			}
 			catch(Exception)
 			{
@@ -219,7 +221,7 @@ namespace yaf
 			}
 		}
 
-		private object m_categoryID = Config.ConfigSection["categoryid"];
+		private object m_categoryID = Config.CategoryID;
 
 		public object CategoryID
 		{

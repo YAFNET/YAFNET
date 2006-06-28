@@ -32,12 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public class prune : AdminPage
+	public partial class prune : AdminPage
 	{
-		protected DropDownList forumlist;
-		protected TextBox days;
-		protected Button commit;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

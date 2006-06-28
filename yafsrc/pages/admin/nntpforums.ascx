@@ -23,21 +23,21 @@
 	<ItemTemplate>
 		<tr>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Name") %>
+				<%# Eval( "Name") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "GroupName") %>
+				<%# Eval( "GroupName") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "ForumName") %>
+				<%# Eval( "ForumName") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Active") %>
+				<%# Eval( "Active") %>
 			</td>
 			<td class=post>
-				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "NntpForumID") %>'>Edit</asp:linkbutton>
+				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval( "NntpForumID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "NntpForumID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "NntpForumID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

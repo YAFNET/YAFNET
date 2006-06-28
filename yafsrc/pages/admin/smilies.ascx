@@ -20,13 +20,13 @@
 </HeaderTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=post><%# DataBinder.Eval(Container.DataItem,"Code") %></td>
-		<td class=post align="center"><img src='<%# yaf.Data.ForumRoot %>images/emoticons/<%# DataBinder.Eval(Container.DataItem,"Icon") %>'/></td>		
-		<td class=post><%# DataBinder.Eval(Container.DataItem,"Emoticon") %></td>
+		<td class=post><%# Eval("Code") %></td>
+		<td class=post align="center"><img src='<%# yaf.Data.ForumRoot %>images/emoticons/<%# Eval("Icon") %>'/></td>		
+		<td class=post><%# Eval("Emoticon") %></td>
 		<td class=post>
-			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Edit"/>
+			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval("SmileyID") %>' text="Edit"/>
 			|
-			<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"SmileyID") %>' text="Delete"/>
+			<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval("SmileyID") %>' text="Delete"/>
 		</td>
 	</tr>
 </ItemTemplate>

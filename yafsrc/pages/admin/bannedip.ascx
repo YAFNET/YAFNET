@@ -19,11 +19,11 @@
 </HeaderTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=post><%# DataBinder.Eval(Container.DataItem,"Mask") %></td>
-		<td class=post><%# FormatDateTime(DataBinder.Eval(Container.DataItem,"Since")) %></td>
+		<td class=post><%# Eval("Mask") %></td>
+		<td class=post><%# FormatDateTime(Eval("Since")) %></td>
 		<td class=post>
-			<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'></asp:linkbutton>
-			| <asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem,"ID") %>'></asp:linkbutton>
+			<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# Eval("ID") %>'></asp:linkbutton>
+			| <asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# Eval("ID") %>'></asp:linkbutton>
 		</td>
 	</tr>
 </ItemTemplate>

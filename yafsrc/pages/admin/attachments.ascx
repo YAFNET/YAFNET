@@ -25,15 +25,15 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=post>
-			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",DataBinder.Eval(Container.DataItem,"ForumID")) %>'><%# DataBinder.Eval(Container.DataItem,"ForumName") %></a></td>
-			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'><%# DataBinder.Eval(Container.DataItem,"TopicName") %></a></td>
-			<td><%# FormatDateTimeShort(DataBinder.Eval(Container.DataItem, "Posted")) %></td>
-			<td><%# DataBinder.Eval(Container.DataItem, "FileName") %></td>
-			<td align="right"><%# DataBinder.Eval(Container.DataItem, "Downloads") %></td>
-			<td><%# DataBinder.Eval(Container.DataItem, "ContentType") %></td>
-			<td align="right"><%# DataBinder.Eval(Container.DataItem, "Bytes") %></td>
+			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></td>
+			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",Eval("TopicID")) %>'><%# Eval("TopicName") %></a></td>
+			<td><%# FormatDateTimeShort(Eval( "Posted")) %></td>
+			<td><%# Eval( "FileName") %></td>
+			<td align="right"><%# Eval( "Downloads") %></td>
+			<td><%# Eval( "ContentType") %></td>
+			<td align="right"><%# Eval( "Bytes") %></td>
 			<td>
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "AttachmentID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "AttachmentID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

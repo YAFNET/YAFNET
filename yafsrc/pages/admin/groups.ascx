@@ -7,7 +7,7 @@
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
-	<td class=header1 colspan=6>Groups</td>
+	<td class=header1 colspan="5">Groups</td>
 </tr>
 
 <asp:repeater id=GroupList runat="server">
@@ -15,7 +15,6 @@
 		<tr>
 			<td class=header2>Name</td>
 			<td class=header2>Is Admin</td>
-			<td class=header2>Is Guest</td>
 			<td class=header2>Is Start</td>
 			<td class=header2>Is Forum Moderator</td>
 			<td class=header2>Command</td>
@@ -24,31 +23,28 @@
 	<ItemTemplate>
 		<tr>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Name") %>
+				<%# Eval( "Name") %>
 			</td>
 			<td class=post>
-				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),1) %>
+				<%# BitSet(Eval( "Flags"),1) %>
 			</td>
 			<td class=post>
-				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),2) %>
+				<%# BitSet(Eval( "Flags"),4) %>
 			</td>
 			<td class=post>
-				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),4) %>
+				<%# BitSet(Eval( "Flags"),8) %>
 			</td>
 			<td class=post>
-				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),8) %>
-			</td>
-			<td class=post>
-				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>Edit</asp:linkbutton>
+				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval( "GroupID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "GroupID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>
 </asp:repeater>
 
 <tr>
-	<td class=footer1 colspan=6><asp:linkbutton id=NewGroup runat="server">New Group</asp:linkbutton></td>
+	<td class=footer1 colspan="5"><asp:linkbutton id=NewGroup runat="server">New Group</asp:linkbutton></td>
 </tr>
 </table>
 

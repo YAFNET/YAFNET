@@ -18,11 +18,11 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"IP") %></td>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"Location") %></td>
-				<td class="post"><%# FormatForumLink(DataBinder.Eval(Container.DataItem,"ForumID"),DataBinder.Eval(Container.DataItem,"ForumName")) %></td>
-				<td class="post"><%# FormatTopicLink(DataBinder.Eval(Container.DataItem,"TopicID"),DataBinder.Eval(Container.DataItem,"TopicName")) %></td>
+				<td class="post"><%# Eval("Name") %></td>
+				<td class="post"><%# Eval("IP") %></td>
+				<td class="post"><%# Eval("Location") %></td>
+				<td class="post"><%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %></td>
+				<td class="post"><%# FormatTopicLink(Eval("TopicID"),Eval("TopicName")) %></td>
 			</tr>
 		</ItemTemplate>
 		<FooterTemplate>
@@ -46,14 +46,14 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"Email") %></td>
-				<td class="post"><%# DataBinder.Eval(Container.DataItem,"Location") %></td>
-				<td class="post"><%# FormatDateTime(DataBinder.Eval(Container.DataItem,"Joined")) %></td>
+				<td class="post"><%# Eval("Name") %></td>
+				<td class="post"><%# Eval("Email") %></td>
+				<td class="post"><%# Eval("Location") %></td>
+				<td class="post"><%# FormatDateTime(Eval("Joined")) %></td>
 				<td class="post">
-					<asp:linkbutton onload="Approve_Load" runat="server" commandname="approve" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>' text="Approve"/>
+					<asp:linkbutton onload="Approve_Load" runat="server" commandname="approve" commandargument='<%# Eval("UserID") %>' text="Approve"/>
 					|
-					<asp:linkbutton onload="Delete_Load" runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>' text="Delete"/>
+					<asp:linkbutton onload="Delete_Load" runat="server" commandname="delete" commandargument='<%# Eval("UserID") %>' text="Delete"/>
 				</td>
 			</tr>
 		</ItemTemplate>

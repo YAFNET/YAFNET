@@ -10,9 +10,8 @@ namespace yaf.pages
 	/// <summary>
 	///		Summary description for LastPosts.
 	/// </summary>
-	public class lastposts : ForumPage
+	public partial class lastposts : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater repLastPosts;
 
 		public lastposts() : base("POSTMESSAGE")
 		{

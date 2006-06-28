@@ -32,12 +32,7 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editboard : AdminPage {
-		protected TextBox Name, UserName, UserEmail, UserPass1, UserPass2;
-		protected Button Save, Cancel;
-		protected CheckBox AllowThreaded;
-		protected PlaceHolder AdminInfo;
-		protected controls.PageLinks PageLinks;
+	public partial class editboard : AdminPage {
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{
@@ -59,7 +54,7 @@ namespace yaf.pages.admin
 				}
 				else
 				{
-					UserName.Text = User.Name;
+					UserName.Text = User.UserName;
 					UserEmail.Text = User.Email;
 				}
 			}

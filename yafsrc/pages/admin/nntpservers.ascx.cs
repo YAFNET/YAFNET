@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpservers : AdminPage
+	public partial class nntpservers : AdminPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewServer;
-		protected System.Web.UI.WebControls.Repeater RankList;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -32,10 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for activeusers.
 	/// </summary>
-	public class activeusers : ForumPage
+	public partial class activeusers : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater UserList;
-		protected controls.PageLinks PageLinks;
 
 		public activeusers() : base("ACTIVEUSERS")
 		{

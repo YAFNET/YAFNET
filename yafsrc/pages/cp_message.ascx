@@ -15,19 +15,19 @@
 </SeparatorTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=header1 colspan=2><%# HtmlEncode(DataBinder.Eval(Container.DataItem,"Subject")) %></td>
+		<td class=header1 colspan=2><%# HtmlEncode(Eval("Subject")) %></td>
 	</tr>
 	<tr>
-		<td class=postheader><%# DataBinder.Eval(Container.DataItem,"FromUser") %></td>
+		<td class=postheader><%# Eval("FromUser") %></td>
 		<td class=postheader>
 			<table cellspacing=0 cellpadding=0 width=100%><tr>
 			<td>
 				<b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 			</td>
 			<td align=right>
-				<asp:linkbutton id="DeleteMessage" onload="DeleteMessage_Load" tooltip="Delete this message" runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem,"UserPMessageID") %>'><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
-				<asp:linkbutton id="ReplyMessage" tooltip="Reply to this message" runat=server commandname=reply commandargument='<%# DataBinder.Eval(Container.DataItem,"UserPMessageID") %>'><%# GetThemeContents("BUTTONS","REPLYPM") %></asp:linkbutton>
-				<asp:LinkButton id="QuoteMessage" tooltip="Reply with quote" Runat=server CommandName=quote CommandArgument='<%# DataBinder.Eval(Container.DataItem,"UserPMessageID") %>'><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:LinkButton>
+				<asp:linkbutton id="DeleteMessage" onload="DeleteMessage_Load" tooltip="Delete this message" runat=server commandname=delete commandargument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>
+				<asp:linkbutton id="ReplyMessage" tooltip="Reply to this message" runat=server commandname=reply commandargument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","REPLYPM") %></asp:linkbutton>
+				<asp:LinkButton id="QuoteMessage" tooltip="Reply with quote" Runat=server CommandName=quote CommandArgument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:LinkButton>
 			</td>
 			</tr></table>
 		</td>

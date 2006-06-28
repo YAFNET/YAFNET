@@ -32,13 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public class mail : AdminPage
+	public partial class mail : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.DropDownList ToList;
-		protected System.Web.UI.WebControls.Button Send;
-		protected System.Web.UI.WebControls.TextBox Body;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -32,14 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public class admin : AdminPage
+	public partial class admin : AdminPage
 	{
-		protected System.Web.UI.WebControls.Repeater ActiveList, UserList;
-		protected Label NumPosts,NumTopics,NumUsers,BoardStart,DayPosts,DayTopics,DayUsers,DBSize;
-		protected HtmlGenericControl UpgradeNotice;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SmartScroller SmartScroller1;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -48,7 +42,7 @@ namespace yaf.pages.admin
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink("Administration","");
 				BindData();
-				UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+				//TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
 			}
 		}
 

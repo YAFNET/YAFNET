@@ -34,7 +34,7 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for rss.
 	/// </summary>
-	public class rsstopic : ForumPage
+	public partial class rsstopic : ForumPage
 	{
 		public rsstopic() : base("RSSTOPIC")
 		{

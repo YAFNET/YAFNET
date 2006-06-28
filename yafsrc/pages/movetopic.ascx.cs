@@ -32,11 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for movetopic.
 	/// </summary>
-	public class movetopic : ForumPage
+	public partial class movetopic : ForumPage
 	{
-		protected System.Web.UI.WebControls.Button Move;
-		protected System.Web.UI.WebControls.DropDownList ForumList;
-		protected controls.PageLinks PageLinks;
 	
 		public movetopic() : base("MOVETOPIC")
 		{

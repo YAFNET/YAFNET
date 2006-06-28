@@ -33,50 +33,10 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
-	public class postmessage : ForumPage
+	public partial class postmessage : ForumPage
 	{
 		protected yaf.editor.ForumEditor Message;
-		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.Button PostReply;
-		protected System.Web.UI.WebControls.Label Title;
-		protected System.Web.UI.HtmlControls.HtmlTableRow SubjectRow;
-		protected System.Web.UI.WebControls.Button Preview;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PriorityRow;
-		protected System.Web.UI.WebControls.DropDownList Priority;
-		protected System.Web.UI.HtmlControls.HtmlTableRow CreatePollRow;
-		protected System.Web.UI.WebControls.LinkButton CreatePoll;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow1;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow2;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow3;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow4;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow5;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow6;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow7;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow8;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow9;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRow10;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PollRowExpire;
-		protected System.Web.UI.WebControls.TextBox PollChoice1;
-		protected System.Web.UI.WebControls.TextBox PollChoice2;
-		protected System.Web.UI.WebControls.TextBox PollChoice3;
-		protected System.Web.UI.WebControls.TextBox PollChoice4;
-		protected System.Web.UI.WebControls.TextBox PollChoice5;
-		protected System.Web.UI.WebControls.TextBox PollChoice6;
-		protected System.Web.UI.WebControls.TextBox PollChoice7;
-		protected System.Web.UI.WebControls.TextBox PollChoice8;
-		protected System.Web.UI.WebControls.TextBox PollChoice9;
-		protected System.Web.UI.WebControls.TextBox PollExpire;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.TextBox Question;
-		protected System.Web.UI.WebControls.TextBox From;
-		protected System.Web.UI.HtmlControls.HtmlTableRow FromRow;
-		protected System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
-		protected System.Web.UI.HtmlControls.HtmlTableCell PreviewCell;
-		protected System.Web.UI.WebControls.Repeater LastPosts;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
-		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl LastPostsIFrame;
-		protected controls.PageLinks PageLinks;
 
 		public postmessage() : base("POSTMESSAGE")
 		{
@@ -209,7 +169,7 @@ namespace yaf.pages
 				}
 
 				From.Text = PageUserName;
-				if(User.IsAuthenticated)
+				if(User!=null)
 					FromRow.Visible = false;
 			}
 		}
@@ -305,7 +265,7 @@ namespace yaf.pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				if(!DB.message_save(TopicID,PageUserID,msg,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,replyTo,tFlags.BitValue,ref nMessageID))
+				if(!DB.message_save(TopicID,PageUserID,msg,User!=null ? null : From.Text,Request.UserHostAddress,null,replyTo,tFlags.BitValue,ref nMessageID))
 					TopicID = 0;
 			} 
 			else if(Request.QueryString["m"] != null)
@@ -373,7 +333,7 @@ namespace yaf.pages
 				tFlags.IsBBCode = Message.UsesBBCode;
 
 				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User.IsAuthenticated ? null : From.Text,Request.UserHostAddress,null,tFlags.BitValue,ref nMessageID);
+				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User!=null ? null : From.Text,Request.UserHostAddress,null,tFlags.BitValue,ref nMessageID);
 			}
 
 			// Check if message is approved

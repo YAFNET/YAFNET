@@ -23,17 +23,17 @@
 	<ItemTemplate>
 		<tr class=postheader>
 			<td align="center"><%# EventImageCode(Container.DataItem) %></td>
-			<td><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-			<td><%# DataBinder.Eval(Container.DataItem, "EventTime") %></td>
-			<td><%# DataBinder.Eval(Container.DataItem, "Source") %></td>
+			<td><%# Eval( "Name") %></td>
+			<td><%# Eval( "EventTime") %></td>
+			<td><%# Eval( "Source") %></td>
 			<td>
 				<asp:linkbutton runat="server" id="showbutton" commandname="show">Show</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "EventLogID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "EventLogID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 		<tr class="post" runat="server" visible="false" id="details">
-			<td colspan="5"><pre style="overflow:scroll"><%# DataBinder.Eval(Container.DataItem, "Description") %></pre></td>
+			<td colspan="5"><pre style="overflow:scroll"><%# Eval( "Description") %></pre></td>
 		</tr>
 	</ItemTemplate>
 </asp:repeater>

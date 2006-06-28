@@ -45,15 +45,15 @@
 		<asp:repeater id="UserList" runat="server">
 			<ItemTemplate>
 				<tr>
-					<td class="post"><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
-					<td class="post"><%# DataBinder.Eval(Container.DataItem,"RankName") %></td>
-					<td class="post" align="center"><%# DataBinder.Eval(Container.DataItem, "NumPosts") %></td>
-					<td class="post" align="center"><%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),2) %></td>
+					<td class="post"><%# Eval( "Name") %></td>
+					<td class="post"><%# Eval("RankName") %></td>
+					<td class="post" align="center"><%# Eval( "NumPosts") %></td>
+					<td class="post" align="center"><%# BitSet(Eval( "Flags"),2) %></td>
 					<td class="post"><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %></td>
 					<td class="post" align="center">
-						<asp:linkbutton runat=server commandname=edit commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'>Edit</asp:linkbutton>
+						<asp:linkbutton runat=server commandname=edit commandargument='<%# Eval( "UserID") %>'>Edit</asp:linkbutton>
 						|
-						<asp:linkbutton onload="Delete_Load" runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'>Delete</asp:linkbutton>
+						<asp:linkbutton onload="Delete_Load" runat=server commandname=delete commandargument='<%# Eval( "UserID") %>'>Delete</asp:linkbutton>
 					</td>
 				</tr>
 			</ItemTemplate>

@@ -22,18 +22,18 @@
 	<ItemTemplate>
 		<tr>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Name") %>
+				<%# Eval( "Name") %>
 			</td>
 			<td class=post>
-				<%# BitSet(DataBinder.Eval(Container.DataItem, "Flags"),1) %>
+				<%# BitSet(Eval( "Flags"),1) %>
 			</td>
 			<td class=post>
 				<%# LadderInfo(Container.DataItem) %>
 			</td>
 			<td class=post>
-				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Edit</asp:linkbutton>
+				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval( "RankID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "RankID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "RankID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

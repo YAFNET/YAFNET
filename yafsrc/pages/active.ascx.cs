@@ -32,14 +32,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public class active : ForumPage
+	public partial class active : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater TopicList;
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
-		protected System.Web.UI.WebControls.DropDownList Since;
-		protected System.Web.UI.WebControls.HyperLink RssFeed;
-		protected controls.PageLinks PageLinks;
-		protected controls.Pager Pager;
 		protected string LastForumName = "";
 
 		public active() : base("ACTIVE")
@@ -49,9 +44,9 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// 20050909 CHP : BEGIN
-			if (IsPrivate && !User.IsAuthenticated)
+			if (IsPrivate && User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 				else
 					Forum.Redirect(Pages.forum);

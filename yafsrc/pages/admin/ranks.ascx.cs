@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class ranks : AdminPage
+	public partial class ranks : AdminPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewRank;
-		protected System.Web.UI.WebControls.Repeater RankList;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -107,7 +104,7 @@ namespace yaf.pages.admin
 			DataRowView dr = (DataRowView)_o;
 
 			///object IsLadder,object MinPosts
-			///DataBinder.Eval(Container.DataItem, "IsLadder"),DataBinder.Eval(Container.DataItem, "MinPosts")
+			///Eval( "IsLadder"),Eval( "MinPosts")
 			
 			bool isLadder = ((int)dr["Flags"] & (int)RankFlags.IsLadder) == (int)RankFlags.IsLadder;
 			

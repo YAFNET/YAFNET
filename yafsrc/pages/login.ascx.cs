@@ -33,19 +33,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public class login : ForumPage
+	public partial class login : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox UserName;
-		protected System.Web.UI.WebControls.TextBox Password;
-		protected System.Web.UI.WebControls.CheckBox AutoLogin;
-		protected System.Web.UI.WebControls.Button ForumLogin;
-		protected System.Web.UI.HtmlControls.HtmlTable LoginView;
-		protected System.Web.UI.HtmlControls.HtmlTable RecoverView;
-		protected System.Web.UI.WebControls.Button LostPassword;
-		protected System.Web.UI.WebControls.TextBox LostUserName;
-		protected System.Web.UI.WebControls.TextBox LostEmail;
-		protected System.Web.UI.WebControls.Button Recover;
-		protected controls.PageLinks PageLinks;
 	
 		public login() : base("LOGIN")
 		{
@@ -53,112 +42,38 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.CanLogin)
+			if(!CanLogin)
 				Forum.Redirect(Pages.forum);
-
-			LostPassword.Click += new System.EventHandler(LostPassword_Click);
-			Recover.Click += new System.EventHandler(Recover_Click);
 
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				ForumLogin.Text = GetText("forum_login");
-				LostPassword.Text = GetText("lostpassword");
-				Recover.Text = GetText("sendpassword");
+                Login1.CreateUserText = "Sign up for a new account.";
+                Login1.CreateUserUrl = Forum.GetLink(Pages.register);
+                Login1.PasswordRecoveryText = "Forgot your password?";
+                Login1.PasswordRecoveryUrl = Forum.GetLink(Pages.recoverpassword);
 
 				// set the focus using Damien McGivern client-side focus class
-				McGiv.Web.UI.ClientSideFocus.setFocus(UserName);
+				//TODO McGiv.Web.UI.ClientSideFocus.setFocus(UserName);
 			}
 		}
 
-		private void LostPassword_Click(object sender,EventArgs e) {
-			LoginView.Visible = false;
-			RecoverView.Visible = true;
-		}
-
-		private void Recover_Click(object sender,EventArgs e) {
-			try
-			{
-				if(LostEmail.Text.Length==0 || LostUserName.Text.Length==0) 
-				{
-					AddLoadMessage(GetText("both_username_email"));
-					return;
-				}
-
-				/// Generate the new password
-				string newpw = pages.register.CreatePassword(8);
-
-				/// Update password in db
-				object userID = DB.user_recoverpassword(PageBoardID,LostUserName.Text,LostEmail.Text);
-				if(userID==DBNull.Value) 
-				{
-					AddLoadMessage(GetText("wrong_username_email"));
-				}
-				else
-				{
-					/// Email generated password to user
-					System.Text.StringBuilder msg = new System.Text.StringBuilder();
-					msg.AppendFormat("Hello {0}.\r\n\r\n",LostUserName.Text);
-					msg.AppendFormat("Here is your new password: {0}\r\n\r\n",newpw);
-					msg.AppendFormat("Visit {0} at {1}",BoardSettings.Name,ForumURL);
-			
-					Utils.SendMail(this,BoardSettings.ForumEmail,LostEmail.Text,"New password",msg.ToString());
-
-					DB.user_savepassword(userID,newpw);
-
-					LoginView.Visible = true;
-					RecoverView.Visible = false;
-					AddLoadMessage(GetText("email_sent_password"));
-				}
-			}
-			catch(Exception x) 
-			{
-				DB.eventlog_create(PageUserID,this,x);
-				Utils.LogToMail(x);
-				AddLoadMessage(GetText("RECOVER_ERROR"));
-			}
-		}
-
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
-			InitializeComponent();
-			base.OnInit(e);
+            Login1.LoggedIn += new EventHandler(Login1_LoggedIn);
+            this.Load += new System.EventHandler(this.Page_Load);
+            base.OnInit(e);
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.ForumLogin.Click += new System.EventHandler(this.ForumLogin_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
-		}
-		#endregion
-
-		private void ForumLogin_Click(object sender, System.EventArgs e)
-		{
-			string sPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(Password.Text,"md5");
-			object userID = DB.user_login(PageBoardID,UserName.Text,sPassword);
-			if(userID!=DBNull.Value) {
-				string idName = string.Format("{0};{1};{2}",userID,PageBoardID,UserName.Text);
-				if(Request.QueryString["ReturnUrl"]!=null) 
-				{
-					FormsAuthentication.RedirectFromLoginPage(idName, AutoLogin.Checked);
-				}
-				else 
-				{
-					FormsAuthentication.SetAuthCookie(idName, AutoLogin.Checked);
-					Forum.Redirect(Pages.forum);
-				}
-			} else {
-				AddLoadMessage(GetText("password_error"));
-			}
-		}
+        void Login1_LoggedIn(object sender, EventArgs e)
+        {
+            if (Request.QueryString["ReturnUrl"] != null)
+                Response.Redirect(Request.QueryString["ReturnUrl"]);
+            else
+                Forum.Redirect(Pages.forum);
+        }
 	}
 }

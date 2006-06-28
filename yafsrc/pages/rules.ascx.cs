@@ -33,12 +33,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for rules.
 	/// </summary>
-	public class rules : ForumPage
+	public partial class rules : ForumPage
 	{
-		protected System.Web.UI.WebControls.Label ForumRules;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.Button Accept;
-		protected controls.PageLinks PageLinks;
 	
 		public rules() : base("RULES")
 		{

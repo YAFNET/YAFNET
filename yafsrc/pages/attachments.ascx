@@ -19,13 +19,13 @@
 	<ItemTemplate>
 		<tr>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "FileName") %>
+				<%# Eval( "FileName") %>
 			</td>
 			<td class=post align="right">
-				<%# DataBinder.Eval(Container.DataItem, "Bytes") %>
+				<%# Eval( "Bytes") %>
 			</td>
 			<td class=post>
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "AttachmentID") %>'><%# GetText("DELETE") %></asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "AttachmentID") %>'><%# GetText("DELETE") %></asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

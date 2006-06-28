@@ -37,7 +37,7 @@
 		<td><%= GetText("groups") %></td>
 		<td>
 			<asp:repeater id="Groups" runat="server">
-				<ItemTemplate><%# DataBinder.Eval(Container.DataItem,"Name") %></ItemTemplate>
+				<ItemTemplate><%# Eval("Name") %></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
 			</asp:repeater>
 		</td>

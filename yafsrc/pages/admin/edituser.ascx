@@ -26,6 +26,10 @@
 		<td class="post"><asp:checkbox runat="server" id="IsHostAdminX"/></td>
 	</tr>
 	<tr>
+		<td class="postheader">Is Guest:</td>
+		<td class="post"><asp:checkbox runat="server" id="IsGuestX"/></td>
+	</tr>
+	<tr>
 		<td class="postheader">Joined:</td>
 		<td class=post><asp:TextBox id=Joined runat="server" Enabled="False"/></td>
 	</tr>
@@ -46,9 +50,9 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr>
-			<td class=post><asp:checkbox runat="server" id=GroupMember checked='<%# IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/></td>
-			<td class=post><asp:label id=GroupID visible=false runat="server" text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:label>
-				<b><%# DataBinder.Eval(Container.DataItem, "Name") %></b>
+			<td class=post><asp:checkbox runat="server" id=GroupMember checked='<%# IsMember(Eval("Member")) %>'/></td>
+			<td class=post><asp:label id=GroupID visible=false runat="server" text='<%# Eval( "GroupID") %>'></asp:label>
+				<b><%# Eval( "Name") %></b>
 			</td>
 		</tr>
 	</ItemTemplate>

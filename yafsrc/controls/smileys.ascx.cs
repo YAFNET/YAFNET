@@ -28,11 +28,8 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for smileys.
 	/// </summary>
-	public abstract class smileys : BaseUserControl
+	public partial  class smileys : BaseUserControl
 	{
-		protected System.Web.UI.WebControls.Literal SmileyResults;
-		protected System.Web.UI.HtmlControls.HtmlTableCell AddSmiley;
-		protected controls.Pager pager;
 		protected DataTable dtSmileys;
 		private string _onclick;
 			

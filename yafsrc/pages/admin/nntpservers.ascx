@@ -22,18 +22,18 @@
 	<ItemTemplate>
 		<tr>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Name") %>
+				<%# Eval( "Name") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "Address") %>
+				<%# Eval( "Address") %>
 			</td>
 			<td class=post>
-				<%# DataBinder.Eval(Container.DataItem, "UserName") %>
+				<%# Eval( "UserName") %>
 			</td>
 			<td class=post>
-				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "NntpServerID") %>'>Edit</asp:linkbutton>
+				<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval( "NntpServerID") %>'>Edit</asp:linkbutton>
 				|
-				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "NntpServerID") %>'>Delete</asp:linkbutton>
+				<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval( "NntpServerID") %>'>Delete</asp:linkbutton>
 			</td>
 		</tr>
 	</ItemTemplate>

@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for groups.
 	/// </summary>
-	public class groups : AdminPage
+	public partial class groups : AdminPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewGroup;
-		protected System.Web.UI.WebControls.Repeater GroupList;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -92,8 +89,15 @@ namespace yaf.pages.admin
 					Forum.Redirect(Pages.admin_editgroup,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
+                    string roleName = string.Empty;
+                    using (DataTable dt = DB.group_list(PageBoardID, e.CommandArgument))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                            roleName = (string)row["Name"];
+                    }
 					DB.group_delete(e.CommandArgument);
 					BindData();
+                    System.Web.Security.Roles.DeleteRole(roleName,false);
 					break;
 			}
 		}

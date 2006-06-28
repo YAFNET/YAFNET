@@ -32,17 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editrank : AdminPage
+	public partial class editrank : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.CheckBox IsStart;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.CheckBox IsLadder;
-		protected System.Web.UI.WebControls.TextBox MinPosts;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected DropDownList RankImage;
-		protected HtmlImage Preview;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for bannedip_edit.
 	/// </summary>
-	public class bannedip_edit : AdminPage
+	public partial class bannedip_edit : AdminPage
 	{
-		protected TextBox mask;
-		protected Button save, cancel;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

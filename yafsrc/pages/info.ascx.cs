@@ -14,10 +14,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for info.
 	/// </summary>
-	public class info : ForumPage
+	public partial class info : ForumPage
 	{
-		protected Label Info, Title;
-		protected HyperLink Continue;
 
 		public info() : base("INFO")
 		{

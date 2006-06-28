@@ -32,18 +32,9 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class users : AdminPage
-	{
-		protected System.Web.UI.WebControls.Repeater UserList;
-		protected controls.PageLinks PageLinks;
-		protected LinkButton NewUser;
-		protected DropDownList group, rank;
-		protected Button search;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SmartScroller SmartScroller1;
-		protected TextBox name;
-
-		private void Page_Load(object sender, System.EventArgs e)
+	public partial class users : AdminPage
+    {
+        private void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -123,12 +114,26 @@ namespace yaf.pages.admin
 						AddLoadMessage("You can't delete yourself.");
 						return;
 					}
-					if(e.CommandArgument.ToString()=="1")
-					{
-						AddLoadMessage("You can't delete the Admin.");
-						return;
-					}
+                    string userName = string.Empty;
+                    using (DataTable dt = DB.user_list(PageBoardID, e.CommandArgument, DBNull.Value))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            userName = (string)row["Name"];
+                            if ((int)row["IsGuest"] > 0)
+                            {
+                                AddLoadMessage("You can't delete the Guest.");
+                                return;
+                            }
+                            if ((int)row["IsAdmin"] > 0 || (int)row["IsHostAdmin"] > 0)
+                            {
+                                AddLoadMessage("You can't delete the Admin.");
+                                return;
+                            }
+                        }
+                    }
 					DB.user_delete(e.CommandArgument);
+                    System.Web.Security.Membership.DeleteUser(userName, true);
 					BindData();
 					break;
 			}

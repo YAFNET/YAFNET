@@ -16,13 +16,13 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"badword"))) %></td>
-				<td class="post"><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem,"goodword"))) %></td>
+				<td class="post"><%# Server.HtmlEncode(Convert.ToString(Eval("badword"))) %></td>
+				<td class="post"><%# Server.HtmlEncode(Convert.ToString(Eval("goodword"))) %></td>
 				<td class="post">
-					<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# DataBinder.Eval(Container.DataItem,"ID") %>' ID="Linkbutton1">
+					<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# Eval("ID") %>' ID="Linkbutton1">
 					</asp:linkbutton>
 					|
-					<asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# DataBinder.Eval(Container.DataItem,"ID") %>' ID="Linkbutton2">
+					<asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# Eval("ID") %>' ID="Linkbutton2">
 					</asp:linkbutton>
 				</td>
 			</tr>

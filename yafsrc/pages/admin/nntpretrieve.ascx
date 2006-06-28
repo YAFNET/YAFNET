@@ -20,9 +20,9 @@
 </HeaderTemplate>
 <ItemTemplate>
 <tr class="post">
-	<td><%# DataBinder.Eval(Container.DataItem,"GroupName") %></td>
+	<td><%# Eval("GroupName") %></td>
 	<td align="right"><%# LastMessageNo(Container.DataItem) %></td>
-	<td><%# FormatDateTime(DataBinder.Eval(Container.DataItem,"LastUpdate")) %></td>
+	<td><%# FormatDateTime(Eval("LastUpdate")) %></td>
 </tr>
 </ItemTemplate>
 </asp:repeater>

@@ -14,10 +14,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public class eventlog : AdminPage
+	public partial class eventlog : AdminPage
 	{
-		protected Repeater List;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

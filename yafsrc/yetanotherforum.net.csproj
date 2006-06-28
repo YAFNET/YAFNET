@@ -1,3399 +1,1398 @@
-<VisualStudioProject>
-    <CSHARP
-        ProjectType = "Web"
-        ProductVersion = "7.10.3077"
-        SchemaVersion = "2.0"
-        ProjectGuid = "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
-    >
-        <Build>
-            <Settings
-                ApplicationIcon = ""
-                AssemblyKeyContainerName = ""
-                AssemblyName = "yaf"
-                AssemblyOriginatorKeyFile = ""
-                DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Flow"
-                DefaultTargetSchema = "IE50"
-                DelaySign = "false"
-                OutputType = "Library"
-                PreBuildEvent = ""
-                PostBuildEvent = ""
-                RootNamespace = "yaf"
-                RunPostBuildEvent = "OnBuildSuccess"
-                StartupObject = ""
-            >
-                <Config
-                    Name = "Debug"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "DEBUG;TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "true"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "true"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "false"
-                    OutputPath = "bin\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-                <Config
-                    Name = "Release"
-                    AllowUnsafeBlocks = "false"
-                    BaseAddress = "285212672"
-                    CheckForOverflowUnderflow = "false"
-                    ConfigurationOverrideFile = ""
-                    DefineConstants = "TRACE"
-                    DocumentationFile = ""
-                    DebugSymbols = "false"
-                    FileAlignment = "4096"
-                    IncrementalBuild = "false"
-                    NoStdLib = "false"
-                    NoWarn = ""
-                    Optimize = "true"
-                    OutputPath = "bin\"
-                    RegisterForComInterop = "false"
-                    RemoveIntegerChecks = "false"
-                    TreatWarningsAsErrors = "false"
-                    WarningLevel = "4"
-                />
-            </Settings>
-            <References>
-                <Reference
-                    Name = "System"
-                    AssemblyName = "System"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.dll"
-                />
-                <Reference
-                    Name = "System.Data"
-                    AssemblyName = "System.Data"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Data.dll"
-                />
-                <Reference
-                    Name = "System.XML"
-                    AssemblyName = "System.Xml"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.XML.dll"
-                />
-                <Reference
-                    Name = "System.Web"
-                    AssemblyName = "System.Web"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Web.dll"
-                />
-                <Reference
-                    Name = "System.Drawing"
-                    AssemblyName = "System.Drawing"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.0.3705\System.Drawing.dll"
-                />
-                <Reference
-                    Name = "System.Web.Services"
-                    AssemblyName = "System.Web.Services"
-                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.Services.dll"
-                />
-            </References>
-        </Build>
-        <Files>
-            <Include>
-                <File
-                    RelPath = "alt.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "AssemblyInfo.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "COPYING"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "default.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "error.aspx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "error.aspx.cs"
-                    DependentUpon = "error.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "error.aspx.resx"
-                    DependentUpon = "error.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "forum.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "framehelper.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "image.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "image.aspx.cs"
-                    DependentUpon = "image.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "image.aspx.resx"
-                    DependentUpon = "image.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "install.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "TODO.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "web.config"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "WhatsNew.html"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "yaf.js"
-                    BuildAction = "Content"
-                />
-                <Folder RelPath = "bin\" />
-                <File
-                    RelPath = "classes\AdminPage.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\BaseControl.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\BaseUserControl.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\BBCode.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\BoardSettings.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\ClientSideFocus.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Config.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Data.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\DB.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\FormatMsg.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\HighLighter.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\HiPerfTimer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\IForumUser.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Localizer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\MySession.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Nntp.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\RssFeed.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\SectionHandler.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\UrlBuilder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "classes\Utils.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\AdminMenu.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\DisplayPost.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "controls\DisplayPost.ascx.cs"
-                    DependentUpon = "DisplayPost.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\DisplayPost.ascx.resx"
-                    DependentUpon = "DisplayPost.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "controls\Footer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\ForumJump.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\ForumList.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "controls\ForumList.ascx.cs"
-                    DependentUpon = "ForumList.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\ForumList.ascx.resx"
-                    DependentUpon = "ForumList.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "controls\ForumUsers.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\Header.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\HelpMenu.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\IconLegend.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\MyLinkButton.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\PageAccess.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\PageLinks.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\Pager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\PopMenu.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\ProfileMenu.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\SmartScroller.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\smileys.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "controls\smileys.ascx.cs"
-                    DependentUpon = "smileys.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "controls\smileys.ascx.resx"
-                    DependentUpon = "smileys.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "controls\TopicLine.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "defs\asm.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\asp.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\bas.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\c.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\cpp.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\cs.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\DefFiles.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\frm.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\htm.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\java.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\sql.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "defs\vb.def"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\ForumEditor.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "editors\yafEditor\backcolor.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\bold.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\code.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\forecolor.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\image.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\indent.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\italic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\justifycenter.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\justifyleft.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\justifyright.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\link.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\orderedlist.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\outdent.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\quote.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\smiley.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\spellcheck.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\underline.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\unorderedlist.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "editors\yafEditor\yafEditor.js"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\delete_icon.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\folder.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\forum_locked_icon.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\forum_unlock_icon.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\rss.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\spacer.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\yaf.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "images\YAFLogo.jpg"
-                    BuildAction = "Content"
-                />
-                <Folder RelPath = "images\avatars\" />
-                <Folder RelPath = "images\emoticons\" />
-                <Folder RelPath = "images\ranks\" />
-                <File
-                    RelPath = "install\default.aspx"
-                    SubType = "Form"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "install\default.aspx.cs"
-                    DependentUpon = "default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "install\default.aspx.resx"
-                    DependentUpon = "default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "install\version-1.0.1.sql"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "install\version-1.0.2.sql"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\china.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\danish.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\dutch.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\english.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\english.xsx"
-                    DependentUpon = "english.xml"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "languages\french.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\german-du.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\norwegian.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\polish.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\romanian.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\russian.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\spanish.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "languages\turkish.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\active.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\active.ascx.cs"
-                    DependentUpon = "active.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\active.ascx.resx"
-                    DependentUpon = "active.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\activeusers.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\activeusers.ascx.cs"
-                    DependentUpon = "activeusers.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\activeusers.ascx.resx"
-                    DependentUpon = "activeusers.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\approve.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\approve.ascx.cs"
-                    DependentUpon = "approve.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\approve.ascx.resx"
-                    DependentUpon = "approve.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\attachments.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\attachments.ascx.cs"
-                    DependentUpon = "attachments.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\attachments.ascx.resx"
-                    DependentUpon = "attachments.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\avatar.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\avatar.ascx.cs"
-                    DependentUpon = "avatar.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\avatar.ascx.resx"
-                    DependentUpon = "avatar.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_editprofile.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_editprofile.ascx.cs"
-                    DependentUpon = "cp_editprofile.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_editprofile.ascx.resx"
-                    DependentUpon = "cp_editprofile.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_inbox.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_inbox.ascx.cs"
-                    DependentUpon = "cp_inbox.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_inbox.ascx.resx"
-                    DependentUpon = "cp_inbox.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_message.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_message.ascx.cs"
-                    DependentUpon = "cp_message.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_message.ascx.resx"
-                    DependentUpon = "cp_message.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_profile.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_profile.ascx.cs"
-                    DependentUpon = "cp_profile.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_profile.ascx.resx"
-                    DependentUpon = "cp_profile.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_signature.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_signature.ascx.cs"
-                    DependentUpon = "cp_signature.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_signature.ascx.resx"
-                    DependentUpon = "cp_signature.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\cp_subscriptions.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\cp_subscriptions.ascx.cs"
-                    DependentUpon = "cp_subscriptions.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\cp_subscriptions.ascx.resx"
-                    DependentUpon = "cp_subscriptions.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\emailtopic.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\emailtopic.ascx.cs"
-                    DependentUpon = "emailtopic.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\emailtopic.ascx.resx"
-                    DependentUpon = "emailtopic.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\error.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\error.ascx.cs"
-                    DependentUpon = "error.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\error.ascx.resx"
-                    DependentUpon = "error.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\forum.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\forum.ascx.cs"
-                    DependentUpon = "forum.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\forum.ascx.resx"
-                    DependentUpon = "forum.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\Forum.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\ForumPage.cs"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\im_aim.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\im_aim.ascx.cs"
-                    DependentUpon = "im_aim.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\im_aim.ascx.resx"
-                    DependentUpon = "im_aim.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\im_email.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\im_email.ascx.cs"
-                    DependentUpon = "im_email.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\im_email.ascx.resx"
-                    DependentUpon = "im_email.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\im_icq.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\im_icq.ascx.cs"
-                    DependentUpon = "im_icq.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\im_icq.ascx.resx"
-                    DependentUpon = "im_icq.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\im_yim.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\im_yim.ascx.cs"
-                    DependentUpon = "im_yim.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\im_yim.ascx.resx"
-                    DependentUpon = "im_yim.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\info.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\info.ascx.cs"
-                    DependentUpon = "info.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\info.ascx.resx"
-                    DependentUpon = "info.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\lastposts.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\lastposts.ascx.cs"
-                    DependentUpon = "lastposts.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\lastposts.ascx.resx"
-                    DependentUpon = "lastposts.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\login.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\login.ascx.cs"
-                    DependentUpon = "login.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\login.ascx.resx"
-                    DependentUpon = "login.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\logout.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\logout.ascx.cs"
-                    DependentUpon = "logout.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\logout.ascx.resx"
-                    DependentUpon = "logout.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\members.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\members.ascx.cs"
-                    DependentUpon = "members.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\members.ascx.resx"
-                    DependentUpon = "members.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\mod_forumuser.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\mod_forumuser.ascx.cs"
-                    DependentUpon = "mod_forumuser.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\mod_forumuser.ascx.resx"
-                    DependentUpon = "mod_forumuser.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\moderate.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\moderate.ascx.cs"
-                    DependentUpon = "moderate.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\moderate.ascx.resx"
-                    DependentUpon = "moderate.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\movetopic.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\movetopic.ascx.cs"
-                    DependentUpon = "movetopic.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\movetopic.ascx.resx"
-                    DependentUpon = "movetopic.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\pmessage.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\pmessage.ascx.cs"
-                    DependentUpon = "pmessage.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\pmessage.ascx.resx"
-                    DependentUpon = "pmessage.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\postmessage.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\postmessage.ascx.cs"
-                    DependentUpon = "postmessage.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\postmessage.ascx.resx"
-                    DependentUpon = "postmessage.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\posts.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\posts.ascx.cs"
-                    DependentUpon = "posts.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\posts.ascx.resx"
-                    DependentUpon = "posts.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\printtopic.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\printtopic.ascx.cs"
-                    DependentUpon = "printtopic.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\printtopic.ascx.resx"
-                    DependentUpon = "printtopic.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\profile.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\profile.ascx.cs"
-                    DependentUpon = "profile.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\profile.ascx.resx"
-                    DependentUpon = "profile.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\register.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\register.ascx.cs"
-                    DependentUpon = "register.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\register.ascx.resx"
-                    DependentUpon = "register.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\rsstopic.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\rsstopic.ascx.cs"
-                    DependentUpon = "rsstopic.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\rsstopic.ascx.resx"
-                    DependentUpon = "rsstopic.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\rules.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\rules.ascx.cs"
-                    DependentUpon = "rules.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\rules.ascx.resx"
-                    DependentUpon = "rules.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\search.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\search.ascx.cs"
-                    DependentUpon = "search.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\search.ascx.resx"
-                    DependentUpon = "search.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\topics.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\topics.ascx.cs"
-                    DependentUpon = "topics.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\topics.ascx.resx"
-                    DependentUpon = "topics.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\accessmasks.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\accessmasks.ascx.cs"
-                    DependentUpon = "accessmasks.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\accessmasks.ascx.resx"
-                    DependentUpon = "accessmasks.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\admin.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\admin.ascx.cs"
-                    DependentUpon = "admin.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\admin.ascx.resx"
-                    DependentUpon = "admin.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\attachments.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\attachments.ascx.cs"
-                    DependentUpon = "attachments.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\attachments.ascx.resx"
-                    DependentUpon = "attachments.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip.ascx.cs"
-                    DependentUpon = "bannedip.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip.ascx.resx"
-                    DependentUpon = "bannedip.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip_edit.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip_edit.ascx.cs"
-                    DependentUpon = "bannedip_edit.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\bannedip_edit.ascx.resx"
-                    DependentUpon = "bannedip_edit.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\boards.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\boards.ascx.cs"
-                    DependentUpon = "boards.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\boards.ascx.resx"
-                    DependentUpon = "boards.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\boardsettings.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\boardsettings.ascx.cs"
-                    DependentUpon = "boardsettings.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\boardsettings.ascx.resx"
-                    DependentUpon = "boardsettings.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editaccessmask.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editaccessmask.ascx.cs"
-                    DependentUpon = "editaccessmask.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editaccessmask.ascx.resx"
-                    DependentUpon = "editaccessmask.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editboard.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editboard.ascx.cs"
-                    DependentUpon = "editboard.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editboard.ascx.resx"
-                    DependentUpon = "editboard.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editcategory.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editcategory.ascx.cs"
-                    DependentUpon = "editcategory.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editcategory.ascx.resx"
-                    DependentUpon = "editcategory.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editforum.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editforum.ascx.cs"
-                    DependentUpon = "editforum.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editforum.ascx.resx"
-                    DependentUpon = "editforum.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editgroup.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editgroup.ascx.cs"
-                    DependentUpon = "editgroup.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editgroup.ascx.resx"
-                    DependentUpon = "editgroup.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpforum.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpforum.ascx.cs"
-                    DependentUpon = "editnntpforum.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpforum.ascx.resx"
-                    DependentUpon = "editnntpforum.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpserver.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpserver.ascx.cs"
-                    DependentUpon = "editnntpserver.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editnntpserver.ascx.resx"
-                    DependentUpon = "editnntpserver.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\editrank.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\editrank.ascx.cs"
-                    DependentUpon = "editrank.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\editrank.ascx.resx"
-                    DependentUpon = "editrank.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\edituser.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\edituser.ascx.cs"
-                    DependentUpon = "edituser.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\edituser.ascx.resx"
-                    DependentUpon = "edituser.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\eventlog.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\eventlog.ascx.cs"
-                    DependentUpon = "eventlog.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\eventlog.ascx.resx"
-                    DependentUpon = "eventlog.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\forums.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\forums.ascx.cs"
-                    DependentUpon = "forums.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\forums.ascx.resx"
-                    DependentUpon = "forums.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\groups.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\groups.ascx.cs"
-                    DependentUpon = "groups.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\groups.ascx.resx"
-                    DependentUpon = "groups.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\hostsettings.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\hostsettings.ascx.cs"
-                    DependentUpon = "hostsettings.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\hostsettings.ascx.resx"
-                    DependentUpon = "hostsettings.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\mail.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\mail.ascx.cs"
-                    DependentUpon = "mail.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\mail.ascx.resx"
-                    DependentUpon = "mail.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\nntpforums.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\nntpforums.ascx.cs"
-                    DependentUpon = "nntpforums.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\nntpforums.ascx.resx"
-                    DependentUpon = "nntpforums.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\nntpretrieve.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\nntpretrieve.ascx.cs"
-                    DependentUpon = "nntpretrieve.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\nntpretrieve.ascx.resx"
-                    DependentUpon = "nntpretrieve.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\nntpservers.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\nntpservers.ascx.cs"
-                    DependentUpon = "nntpservers.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\nntpservers.ascx.resx"
-                    DependentUpon = "nntpservers.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\pm.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\pm.ascx.cs"
-                    DependentUpon = "pm.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\pm.ascx.resx"
-                    DependentUpon = "pm.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\prune.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\prune.ascx.cs"
-                    DependentUpon = "prune.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\prune.ascx.resx"
-                    DependentUpon = "prune.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\ranks.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\ranks.ascx.cs"
-                    DependentUpon = "ranks.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\ranks.ascx.resx"
-                    DependentUpon = "ranks.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\reguser.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\reguser.ascx.cs"
-                    DependentUpon = "reguser.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\reguser.ascx.resx"
-                    DependentUpon = "reguser.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords.ascx.cs"
-                    DependentUpon = "replacewords.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords.ascx.resx"
-                    DependentUpon = "replacewords.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords_edit.ascx"
-                    SubType = "UserControl"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords_edit.ascx.cs"
-                    DependentUpon = "replacewords_edit.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\replacewords_edit.ascx.resx"
-                    DependentUpon = "replacewords_edit.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\smilies.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\smilies.ascx.cs"
-                    DependentUpon = "smilies.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\smilies.ascx.resx"
-                    DependentUpon = "smilies.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_edit.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_edit.ascx.cs"
-                    DependentUpon = "smilies_edit.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_edit.ascx.resx"
-                    DependentUpon = "smilies_edit.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_import.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_import.ascx.cs"
-                    DependentUpon = "smilies_import.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\smilies_import.ascx.resx"
-                    DependentUpon = "smilies_import.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\users.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\users.ascx.cs"
-                    DependentUpon = "users.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\users.ascx.resx"
-                    DependentUpon = "users.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\admin\version.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\admin\version.ascx.cs"
-                    DependentUpon = "version.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\admin\version.ascx.resx"
-                    DependentUpon = "version.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\help\index.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\help\index.ascx.cs"
-                    DependentUpon = "index.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\help\index.ascx.resx"
-                    DependentUpon = "index.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\help\recover.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\help\recover.ascx.cs"
-                    DependentUpon = "recover.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\help\recover.ascx.resx"
-                    DependentUpon = "recover.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\moderate\forum.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\moderate\forum.ascx.cs"
-                    DependentUpon = "forum.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\moderate\forum.ascx.resx"
-                    DependentUpon = "forum.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "pages\moderate\index.ascx"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "pages\moderate\index.ascx.cs"
-                    DependentUpon = "index.ascx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "pages\moderate\index.ascx.resx"
-                    DependentUpon = "index.ascx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "templates\changeemail.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "templates\emailtopic.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "templates\topicpost.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "templates\verifyemail.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNet.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1.txt"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple1.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple2.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple3.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision.xml"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_button_attach.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_delete_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_editpost.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_moderate.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_movetopic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_new_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\b_post_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\forum_private.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\forum_status.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\forum_status_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\forum_status_poll.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\forum_status_poll_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\icon_stats.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_weblog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\p_yim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\post_button_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\post_button_locked.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\post_button_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\post_button_stats.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\post_button_unlocked.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\quote.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic_moved.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic_notread.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-announce.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-announce_notread.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-locked.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-locked_notread.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-pinned.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\topic-pinned_notread.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\users_icon.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\ASPNET\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_attachments.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_delete_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_delete_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_edit_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_lock_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_move_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_post_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_post_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_quote_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\b_unlock_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\folder_stats.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\folder_who.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\p_yim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_announce_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_moderate.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_poll.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\user_rank1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\user_rank2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\user_rank3.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\camo1\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\bg_footer1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\folder_stats.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\folder_who.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\p_yahoo.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\chrome\voting_bar.psd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_attachments.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_delete_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_delete_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_edit_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_lock_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_mod.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_move_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_post_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_post_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_quote_post.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\b_unlock_topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\bg_footer1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\bg_header2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\bgh1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\folder_stats.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\folder_who.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\hdbg1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_ann.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_ann_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_locked.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_moved.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_new_locked.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_poll.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_poll_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\m_sticky.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\p_yim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_announce_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_lock.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_new.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_poll.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_poll_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\user_rank1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\user_rank2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\user_rank3.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\djrm1\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\bg_footer1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\folder_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\folder_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\folder_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\folder_stats.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\folder_who.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\p_yahoo.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\voting_bar.psd"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack1\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack2\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\purple\ButtonPack3\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_attachments.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_reply_pm.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\folder_stats.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\folder_who.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\icon_file.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_aim.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_blog.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_email.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_icq.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_msn.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_pm.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_www.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\p_yim.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\Thumbs.db"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "themes\soclean\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_announce_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_poll.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_poll_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\soclean\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_attachments.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\bg_footer1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder_stats.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\folder_who.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\icon_file.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\p_yim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_announce_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_poll.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\user_rank1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\user_rank2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\user_rank3.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\standard\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_attachments.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_delete_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_delete_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_edit_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_lock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_move_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_post_reply.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_post_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_quote_post.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\b_unlock_topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\bg_footer1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\bg_header1.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\bg_header2.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\folder_stats.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\folder_who.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\icon_file.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\icon_latest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\icon_newest_reply.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_aim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_blog.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_email.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_icq.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_msn.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_pm.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_www.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\p_yim.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\sort_down.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\sort_up.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\theme.css"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_announce.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_announce_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_lock.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_lock_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_moderate.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_moved.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_poll.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_poll_new.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\topic_sticky.png"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\user_rank1.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\user_rank2.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\user_rank3.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\vote_lcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\vote_rcap.gif"
-                    BuildAction = "Content"
-                />
-                <File
-                    RelPath = "themes\yafvision\voting_bar.gif"
-                    BuildAction = "Content"
-                />
-                <Folder RelPath = "upload\" />
-                <File
-                    RelPath = "Web References\RegisterForum\Reference.map"
-                    BuildAction = "None"
-                    Generator = "MSDiscoCodeGenerator"
-                    LastGenOutput = "Reference.cs"
-                />
-                <File
-                    RelPath = "Web References\RegisterForum\Reference.cs"
-                    DependentUpon = "Reference.map"
-                    SubType = "code"
-                    BuildAction = "Compile"
-                    DesignTime = "True"
-                    AutoGen = "True"
-                />
-                <File
-                    RelPath = "Web References\RegisterForum\Register.disco"
-                    BuildAction = "None"
-                />
-                <File
-                    RelPath = "Web References\RegisterForum\Register.wsdl"
-                    BuildAction = "None"
-                />
-                <Folder
-                    RelPath = "Web References\RegisterForum\"
-                    WebReferenceUrl = "http://www.yetanotherforum.net/Register.asmx?op=RegisterForum"
-                    UrlBehavior = "Static"
-                />
-                <Folder
-                    RelPath = "Web References\"
-                    WebReferences = "TRUE"
-                />
-            </Include>
-        </Files>
-    </CSHARP>
-</VisualStudioProject>
-
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{555357E5-A150-4C4D-BC81-97F4AE19086A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>yaf</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Flow</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>yaf</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <WebReference_EnableProperties>true</WebReference_EnableProperties>
+    <WebReference_EnableSQLTypes>false</WebReference_EnableSQLTypes>
+    <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Name>System.Web.Services</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="alt.aspx" />
+    <Content Include="App_Themes\Default\bg_footer1.png" />
+    <Content Include="App_Themes\Default\bg_header1.png" />
+    <Content Include="App_Themes\Default\bg_header2.png" />
+    <Content Include="App_Themes\Default\Default.css" />
+    <Content Include="controls\DisplayPost.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="controls\ForumList.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="controls\smileys.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="default.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="defs\asm.def" />
+    <Content Include="defs\asp.def" />
+    <Content Include="defs\bas.def" />
+    <Content Include="defs\c.def" />
+    <Content Include="defs\cpp.def" />
+    <Content Include="defs\cs.def" />
+    <Content Include="defs\DefFiles.txt" />
+    <Content Include="defs\frm.def" />
+    <Content Include="defs\htm.def" />
+    <Content Include="defs\java.def" />
+    <Content Include="defs\sql.def" />
+    <Content Include="defs\vb.def" />
+    <Content Include="editors\yafEditor\backcolor.gif" />
+    <Content Include="editors\yafEditor\bold.gif" />
+    <Content Include="editors\yafEditor\code.gif" />
+    <Content Include="editors\yafEditor\forecolor.gif" />
+    <Content Include="editors\yafEditor\image.gif" />
+    <Content Include="editors\yafEditor\indent.gif" />
+    <Content Include="editors\yafEditor\italic.gif" />
+    <Content Include="editors\yafEditor\justifycenter.gif" />
+    <Content Include="editors\yafEditor\justifyleft.gif" />
+    <Content Include="editors\yafEditor\justifyright.gif" />
+    <Content Include="editors\yafEditor\link.gif" />
+    <Content Include="editors\yafEditor\orderedlist.gif" />
+    <Content Include="editors\yafEditor\outdent.gif" />
+    <Content Include="editors\yafEditor\quote.gif" />
+    <Content Include="editors\yafEditor\smiley.gif" />
+    <Content Include="editors\yafEditor\spellcheck.gif" />
+    <Content Include="editors\yafEditor\underline.gif" />
+    <Content Include="editors\yafEditor\unorderedlist.gif" />
+    <Content Include="editors\yafEditor\yafEditor.js" />
+    <Content Include="error.aspx" />
+    <Content Include="forum.css" />
+    <Content Include="framehelper.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="image.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="images\delete_icon.gif" />
+    <Content Include="images\folder.gif" />
+    <Content Include="images\forum_locked_icon.gif" />
+    <Content Include="images\forum_unlock_icon.gif" />
+    <Content Include="images\rss.gif" />
+    <Content Include="images\spacer.gif" />
+    <Content Include="images\yaf.png" />
+    <Content Include="images\YAFLogo.jpg" />
+    <Content Include="install.txt" />
+    <None Include="App_Themes\Default\Default.skin" />
+    <None Include="install\constraints.sql" />
+    <Content Include="install\default.aspx">
+      <SubType>Form</SubType>
+    </Content>
+    <Content Include="install\tables.sql" />
+    <Content Include="languages\china.xml" />
+    <Content Include="languages\danish.xml" />
+    <Content Include="languages\dutch.xml" />
+    <Content Include="languages\english.xml" />
+    <Content Include="languages\french.xml" />
+    <Content Include="languages\german-du.xml" />
+    <Content Include="languages\norwegian.xml" />
+    <Content Include="languages\polish.xml" />
+    <Content Include="languages\romanian.xml" />
+    <Content Include="languages\russian.xml" />
+    <Content Include="languages\spanish.xml" />
+    <Content Include="languages\turkish.xml" />
+    <Content Include="pages\active.ascx" />
+    <Content Include="pages\activeusers.ascx" />
+    <Content Include="pages\admin\accessmasks.ascx" />
+    <Content Include="pages\admin\admin.ascx" />
+    <Content Include="pages\admin\attachments.ascx" />
+    <Content Include="pages\admin\bannedip.ascx" />
+    <Content Include="pages\admin\bannedip_edit.ascx" />
+    <Content Include="pages\admin\boards.ascx" />
+    <Content Include="pages\admin\boardsettings.ascx" />
+    <Content Include="pages\admin\editaccessmask.ascx" />
+    <Content Include="pages\admin\editboard.ascx" />
+    <Content Include="pages\admin\editcategory.ascx" />
+    <Content Include="pages\admin\editforum.ascx" />
+    <Content Include="pages\admin\editgroup.ascx" />
+    <Content Include="pages\admin\editnntpforum.ascx" />
+    <Content Include="pages\admin\editnntpserver.ascx" />
+    <Content Include="pages\admin\editrank.ascx" />
+    <Content Include="pages\admin\edituser.ascx" />
+    <Content Include="pages\admin\eventlog.ascx" />
+    <Content Include="pages\admin\forums.ascx" />
+    <Content Include="pages\admin\groups.ascx" />
+    <Content Include="pages\admin\hostsettings.ascx" />
+    <Content Include="pages\admin\mail.ascx" />
+    <Content Include="pages\admin\nntpforums.ascx" />
+    <Content Include="pages\admin\nntpretrieve.ascx" />
+    <Content Include="pages\admin\nntpservers.ascx" />
+    <Content Include="pages\admin\pm.ascx" />
+    <Content Include="pages\admin\prune.ascx" />
+    <Content Include="pages\admin\ranks.ascx" />
+    <Content Include="pages\admin\reguser.ascx" />
+    <Content Include="pages\admin\replacewords.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="pages\admin\replacewords_edit.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="pages\admin\smilies.ascx" />
+    <Content Include="pages\admin\smilies_edit.ascx" />
+    <Content Include="pages\admin\smilies_import.ascx" />
+    <Content Include="pages\admin\users.ascx" />
+    <Content Include="pages\admin\version.ascx" />
+    <Content Include="pages\approve.ascx" />
+    <Content Include="pages\attachments.ascx" />
+    <Content Include="pages\avatar.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="pages\cp_changepassword.ascx" />
+    <Content Include="pages\cp_editprofile.ascx" />
+    <Content Include="pages\cp_inbox.ascx" />
+    <Content Include="pages\cp_message.ascx" />
+    <Content Include="pages\cp_profile.ascx" />
+    <Content Include="pages\cp_signature.ascx" />
+    <Content Include="pages\cp_subscriptions.ascx" />
+    <Content Include="pages\emailtopic.ascx" />
+    <Content Include="pages\error.ascx" />
+    <Content Include="pages\forum.ascx" />
+    <Content Include="pages\help\index.ascx" />
+    <Content Include="pages\help\recover.ascx" />
+    <Content Include="pages\im_aim.ascx" />
+    <Content Include="pages\im_email.ascx" />
+    <Content Include="pages\im_icq.ascx" />
+    <Content Include="pages\im_yim.ascx" />
+    <Content Include="pages\info.ascx" />
+    <Content Include="pages\lastposts.ascx">
+      <SubType>UserControl</SubType>
+    </Content>
+    <Content Include="pages\login.ascx" />
+    <Content Include="pages\logout.ascx" />
+    <Content Include="pages\members.ascx" />
+    <Content Include="pages\moderate.ascx" />
+    <Content Include="pages\moderate\forum.ascx" />
+    <Content Include="pages\moderate\index.ascx" />
+    <Content Include="pages\mod_forumuser.ascx" />
+    <Content Include="pages\movetopic.ascx" />
+    <Content Include="pages\pmessage.ascx" />
+    <Content Include="pages\postmessage.ascx" />
+    <Content Include="pages\posts.ascx" />
+    <Content Include="pages\printtopic.ascx" />
+    <Content Include="pages\profile.ascx" />
+    <Content Include="pages\recoverpassword.ascx" />
+    <Content Include="pages\register.ascx" />
+    <Content Include="pages\rsstopic.ascx" />
+    <Content Include="pages\rules.ascx" />
+    <Content Include="pages\search.ascx" />
+    <Content Include="pages\topics.ascx" />
+    <Content Include="templates\changeemail.txt" />
+    <Content Include="templates\emailtopic.txt" />
+    <Content Include="templates\topicpost.txt" />
+    <Content Include="templates\verifyemail.txt" />
+    <Content Include="themes\ASPNET.txt" />
+    <Content Include="themes\ASPNet.xml" />
+    <Content Include="themes\ASPNET\b_button_attach.gif" />
+    <Content Include="themes\ASPNET\b_delete_post.gif" />
+    <Content Include="themes\ASPNET\b_editpost.gif" />
+    <Content Include="themes\ASPNET\b_moderate.gif" />
+    <Content Include="themes\ASPNET\b_movetopic.gif" />
+    <Content Include="themes\ASPNET\b_new_topic.gif" />
+    <Content Include="themes\ASPNET\b_post_reply.gif" />
+    <Content Include="themes\ASPNET\forum_private.gif" />
+    <Content Include="themes\ASPNET\forum_status.gif" />
+    <Content Include="themes\ASPNET\forum_status_new.gif" />
+    <Content Include="themes\ASPNET\forum_status_poll.gif" />
+    <Content Include="themes\ASPNET\forum_status_poll_new.gif" />
+    <Content Include="themes\ASPNET\icon_latest_reply.gif" />
+    <Content Include="themes\ASPNET\icon_newest_reply.gif" />
+    <Content Include="themes\ASPNET\icon_stats.gif" />
+    <Content Include="themes\ASPNET\post_button_email.gif" />
+    <Content Include="themes\ASPNET\post_button_locked.gif" />
+    <Content Include="themes\ASPNET\post_button_pm.gif" />
+    <Content Include="themes\ASPNET\post_button_stats.gif" />
+    <Content Include="themes\ASPNET\post_button_unlocked.gif" />
+    <Content Include="themes\ASPNET\p_aim.gif" />
+    <Content Include="themes\ASPNET\p_email.gif" />
+    <Content Include="themes\ASPNET\p_icq.gif" />
+    <Content Include="themes\ASPNET\p_msn.gif" />
+    <Content Include="themes\ASPNET\p_pm.gif" />
+    <Content Include="themes\ASPNET\p_weblog.gif" />
+    <Content Include="themes\ASPNET\p_www.gif" />
+    <Content Include="themes\ASPNET\p_yim.gif" />
+    <Content Include="themes\ASPNET\quote.gif" />
+    <Content Include="themes\ASPNET\sort_down.gif" />
+    <Content Include="themes\ASPNET\sort_up.gif" />
+    <Content Include="themes\ASPNET\theme.css" />
+    <Content Include="themes\ASPNET\topic-announce.gif" />
+    <Content Include="themes\ASPNET\topic-announce_notread.gif" />
+    <Content Include="themes\ASPNET\topic-locked.gif" />
+    <Content Include="themes\ASPNET\topic-locked_notread.gif" />
+    <Content Include="themes\ASPNET\topic-pinned.gif" />
+    <Content Include="themes\ASPNET\topic-pinned_notread.gif" />
+    <Content Include="themes\ASPNET\topic.gif" />
+    <Content Include="themes\ASPNET\topic_moved.gif" />
+    <Content Include="themes\ASPNET\topic_notread.gif" />
+    <Content Include="themes\ASPNET\users_icon.gif" />
+    <Content Include="themes\ASPNET\vote_lcap.gif" />
+    <Content Include="themes\ASPNET\vote_rcap.gif" />
+    <Content Include="themes\ASPNET\voting_bar.gif" />
+    <Content Include="themes\camo1.xml" />
+    <Content Include="themes\camo1\b_attachments.gif" />
+    <Content Include="themes\camo1\b_delete_post.gif" />
+    <Content Include="themes\camo1\b_delete_topic.gif" />
+    <Content Include="themes\camo1\b_edit_post.gif" />
+    <Content Include="themes\camo1\b_lock_topic.gif" />
+    <Content Include="themes\camo1\b_move_topic.gif" />
+    <Content Include="themes\camo1\b_post_reply.gif" />
+    <Content Include="themes\camo1\b_post_topic.gif" />
+    <Content Include="themes\camo1\b_quote_post.gif" />
+    <Content Include="themes\camo1\b_unlock_topic.gif" />
+    <Content Include="themes\camo1\folder_stats.gif" />
+    <Content Include="themes\camo1\folder_who.gif" />
+    <Content Include="themes\camo1\icon_latest_reply.gif" />
+    <Content Include="themes\camo1\icon_newest_reply.gif" />
+    <Content Include="themes\camo1\p_aim.gif" />
+    <Content Include="themes\camo1\p_blog.gif" />
+    <Content Include="themes\camo1\p_email.gif" />
+    <Content Include="themes\camo1\p_icq.gif" />
+    <Content Include="themes\camo1\p_msn.gif" />
+    <Content Include="themes\camo1\p_pm.gif" />
+    <Content Include="themes\camo1\p_www.gif" />
+    <Content Include="themes\camo1\p_yim.gif" />
+    <Content Include="themes\camo1\sort_down.gif" />
+    <Content Include="themes\camo1\sort_up.gif" />
+    <Content Include="themes\camo1\theme.css" />
+    <Content Include="themes\camo1\topic.png" />
+    <Content Include="themes\camo1\topic_announce.png" />
+    <Content Include="themes\camo1\topic_announce_new.png" />
+    <Content Include="themes\camo1\topic_lock.png" />
+    <Content Include="themes\camo1\topic_lock_new.png" />
+    <Content Include="themes\camo1\topic_moderate.gif" />
+    <Content Include="themes\camo1\topic_moved.png" />
+    <Content Include="themes\camo1\topic_new.png" />
+    <Content Include="themes\camo1\topic_poll.png" />
+    <Content Include="themes\camo1\topic_sticky.png" />
+    <Content Include="themes\camo1\user_rank1.gif" />
+    <Content Include="themes\camo1\user_rank2.gif" />
+    <Content Include="themes\camo1\user_rank3.gif" />
+    <Content Include="themes\camo1\vote_lcap.gif" />
+    <Content Include="themes\camo1\vote_rcap.gif" />
+    <Content Include="themes\camo1\voting_bar.gif" />
+    <Content Include="themes\chrome.xml" />
+    <Content Include="themes\chrome\bg_footer1.png" />
+    <Content Include="themes\chrome\bg_header1.png" />
+    <Content Include="themes\chrome\bg_header2.png" />
+    <Content Include="themes\chrome\b_delete_post.png" />
+    <Content Include="themes\chrome\b_delete_topic.png" />
+    <Content Include="themes\chrome\b_edit_post.png" />
+    <Content Include="themes\chrome\b_lock_topic.png" />
+    <Content Include="themes\chrome\b_move_topic.png" />
+    <Content Include="themes\chrome\b_post_reply.png" />
+    <Content Include="themes\chrome\b_post_topic.png" />
+    <Content Include="themes\chrome\b_quote_post.png" />
+    <Content Include="themes\chrome\b_unlock_topic.png" />
+    <Content Include="themes\chrome\folder_stats.png" />
+    <Content Include="themes\chrome\folder_who.png" />
+    <Content Include="themes\chrome\icon_latest_reply.gif" />
+    <Content Include="themes\chrome\icon_newest_reply.gif" />
+    <Content Include="themes\chrome\p_aim.gif" />
+    <Content Include="themes\chrome\p_blog.gif" />
+    <Content Include="themes\chrome\p_email.gif" />
+    <Content Include="themes\chrome\p_icq.gif" />
+    <Content Include="themes\chrome\p_msn.gif" />
+    <Content Include="themes\chrome\p_pm.gif" />
+    <Content Include="themes\chrome\p_www.gif" />
+    <Content Include="themes\chrome\p_yahoo.gif" />
+    <Content Include="themes\chrome\theme.css" />
+    <Content Include="themes\chrome\topic.png" />
+    <Content Include="themes\chrome\topic_announce.png" />
+    <Content Include="themes\chrome\topic_lock.png" />
+    <Content Include="themes\chrome\topic_lock_new.png" />
+    <Content Include="themes\chrome\topic_moderate.png" />
+    <Content Include="themes\chrome\topic_moved.png" />
+    <Content Include="themes\chrome\topic_new.png" />
+    <Content Include="themes\chrome\topic_sticky.png" />
+    <Content Include="themes\chrome\vote_lcap.gif" />
+    <Content Include="themes\chrome\vote_rcap.gif" />
+    <Content Include="themes\chrome\voting_bar.gif" />
+    <Content Include="themes\Empty.xml" />
+    <Content Include="themes\djrm1.txt" />
+    <Content Include="themes\djrm1.xml" />
+    <Content Include="themes\djrm1\bgh1.gif" />
+    <Content Include="themes\djrm1\bg_footer1.png" />
+    <Content Include="themes\djrm1\bg_header1.png" />
+    <Content Include="themes\djrm1\bg_header2.gif" />
+    <Content Include="themes\djrm1\bg_header2.png" />
+    <Content Include="themes\djrm1\b_attachments.gif" />
+    <Content Include="themes\djrm1\b_delete_post.gif" />
+    <Content Include="themes\djrm1\b_delete_topic.gif" />
+    <Content Include="themes\djrm1\b_edit_post.gif" />
+    <Content Include="themes\djrm1\b_lock_topic.gif" />
+    <Content Include="themes\djrm1\b_mod.gif" />
+    <Content Include="themes\djrm1\b_move_topic.gif" />
+    <Content Include="themes\djrm1\b_post_reply.gif" />
+    <Content Include="themes\djrm1\b_post_topic.gif" />
+    <Content Include="themes\djrm1\b_quote_post.gif" />
+    <Content Include="themes\djrm1\b_unlock_topic.gif" />
+    <Content Include="themes\djrm1\folder_stats.gif" />
+    <Content Include="themes\djrm1\folder_who.gif" />
+    <Content Include="themes\djrm1\hdbg1.gif" />
+    <Content Include="themes\djrm1\icon_latest_reply.gif" />
+    <Content Include="themes\djrm1\icon_newest_reply.gif" />
+    <Content Include="themes\djrm1\m.gif" />
+    <Content Include="themes\djrm1\m_ann.gif" />
+    <Content Include="themes\djrm1\m_ann_new.gif" />
+    <Content Include="themes\djrm1\m_locked.gif" />
+    <Content Include="themes\djrm1\m_moved.gif" />
+    <Content Include="themes\djrm1\m_new.gif" />
+    <Content Include="themes\djrm1\m_new_locked.gif" />
+    <Content Include="themes\djrm1\m_poll.gif" />
+    <Content Include="themes\djrm1\m_poll_new.gif" />
+    <Content Include="themes\djrm1\m_sticky.gif" />
+    <Content Include="themes\djrm1\p_aim.gif" />
+    <Content Include="themes\djrm1\p_blog.gif" />
+    <Content Include="themes\djrm1\p_email.gif" />
+    <Content Include="themes\djrm1\p_icq.gif" />
+    <Content Include="themes\djrm1\p_msn.gif" />
+    <Content Include="themes\djrm1\p_pm.gif" />
+    <Content Include="themes\djrm1\p_www.gif" />
+    <Content Include="themes\djrm1\p_yim.gif" />
+    <Content Include="themes\djrm1\sort_down.gif" />
+    <Content Include="themes\djrm1\sort_up.gif" />
+    <Content Include="themes\djrm1\theme.css" />
+    <Content Include="themes\djrm1\topic.gif" />
+    <Content Include="themes\djrm1\topic.png" />
+    <Content Include="themes\djrm1\topic_announce.png" />
+    <Content Include="themes\djrm1\topic_announce_new.png" />
+    <Content Include="themes\djrm1\topic_lock.gif" />
+    <Content Include="themes\djrm1\topic_lock.png" />
+    <Content Include="themes\djrm1\topic_lock_new.png" />
+    <Content Include="themes\djrm1\topic_moderate.png" />
+    <Content Include="themes\djrm1\topic_moved.png" />
+    <Content Include="themes\djrm1\topic_new.gif" />
+    <Content Include="themes\djrm1\topic_new.png" />
+    <Content Include="themes\djrm1\topic_poll.png" />
+    <Content Include="themes\djrm1\topic_poll_new.png" />
+    <Content Include="themes\djrm1\topic_sticky.png" />
+    <Content Include="themes\djrm1\user_rank1.gif" />
+    <Content Include="themes\djrm1\user_rank2.gif" />
+    <Content Include="themes\djrm1\user_rank3.gif" />
+    <Content Include="themes\djrm1\vote_lcap.gif" />
+    <Content Include="themes\djrm1\vote_rcap.gif" />
+    <Content Include="themes\djrm1\voting_bar.gif" />
+    <Content Include="themes\Empty\Empty.css" />
+    <Content Include="themes\purple1.xml" />
+    <Content Include="themes\purple2.xml" />
+    <Content Include="themes\purple3.xml" />
+    <Content Include="themes\purple\bg_footer1.png" />
+    <Content Include="themes\purple\bg_header1.png" />
+    <Content Include="themes\purple\bg_header2.png" />
+    <Content Include="themes\purple\ButtonPack1\b_delete_post.png" />
+    <Content Include="themes\purple\ButtonPack1\b_delete_topic.png" />
+    <Content Include="themes\purple\ButtonPack1\b_edit_post.png" />
+    <Content Include="themes\purple\ButtonPack1\b_lock_topic.png" />
+    <Content Include="themes\purple\ButtonPack1\b_move_topic.png" />
+    <Content Include="themes\purple\ButtonPack1\b_post_reply.png" />
+    <Content Include="themes\purple\ButtonPack1\b_post_topic.png" />
+    <Content Include="themes\purple\ButtonPack1\b_quote_post.png" />
+    <Content Include="themes\purple\ButtonPack1\b_unlock_topic.png" />
+    <Content Include="themes\purple\ButtonPack1\topic_moderate.png" />
+    <Content Include="themes\purple\ButtonPack2\b_delete_post.png" />
+    <Content Include="themes\purple\ButtonPack2\b_delete_topic.png" />
+    <Content Include="themes\purple\ButtonPack2\b_edit_post.png" />
+    <Content Include="themes\purple\ButtonPack2\b_lock_topic.png" />
+    <Content Include="themes\purple\ButtonPack2\b_move_topic.png" />
+    <Content Include="themes\purple\ButtonPack2\b_post_reply.png" />
+    <Content Include="themes\purple\ButtonPack2\b_post_topic.png" />
+    <Content Include="themes\purple\ButtonPack2\b_quote_post.png" />
+    <Content Include="themes\purple\ButtonPack2\b_unlock_topic.png" />
+    <Content Include="themes\purple\ButtonPack2\topic_moderate.png" />
+    <Content Include="themes\purple\ButtonPack3\b_delete_post.png" />
+    <Content Include="themes\purple\ButtonPack3\b_delete_topic.png" />
+    <Content Include="themes\purple\ButtonPack3\b_edit_post.png" />
+    <Content Include="themes\purple\ButtonPack3\b_lock_topic.png" />
+    <Content Include="themes\purple\ButtonPack3\b_move_topic.png" />
+    <Content Include="themes\purple\ButtonPack3\b_post_reply.png" />
+    <Content Include="themes\purple\ButtonPack3\b_post_topic.png" />
+    <Content Include="themes\purple\ButtonPack3\b_quote_post.png" />
+    <Content Include="themes\purple\ButtonPack3\b_unlock_topic.png" />
+    <Content Include="themes\purple\ButtonPack3\topic_moderate.png" />
+    <Content Include="themes\purple\folder_lock.png" />
+    <Content Include="themes\purple\folder_lock_new.png" />
+    <Content Include="themes\purple\folder_new.png" />
+    <Content Include="themes\purple\folder_stats.png" />
+    <Content Include="themes\purple\folder_who.png" />
+    <Content Include="themes\purple\icon_latest_reply.gif" />
+    <Content Include="themes\purple\icon_newest_reply.gif" />
+    <Content Include="themes\purple\p_aim.gif" />
+    <Content Include="themes\purple\p_blog.gif" />
+    <Content Include="themes\purple\p_email.gif" />
+    <Content Include="themes\purple\p_icq.gif" />
+    <Content Include="themes\purple\p_msn.gif" />
+    <Content Include="themes\purple\p_pm.gif" />
+    <Content Include="themes\purple\p_www.gif" />
+    <Content Include="themes\purple\p_yahoo.gif" />
+    <Content Include="themes\purple\theme.css" />
+    <Content Include="themes\purple\topic.png" />
+    <Content Include="themes\purple\topic_announce.png" />
+    <Content Include="themes\purple\topic_lock.png" />
+    <Content Include="themes\purple\topic_lock_new.png" />
+    <Content Include="themes\purple\topic_moved.png" />
+    <Content Include="themes\purple\topic_new.png" />
+    <Content Include="themes\purple\topic_sticky.png" />
+    <Content Include="themes\purple\vote_lcap.gif" />
+    <Content Include="themes\purple\vote_rcap.gif" />
+    <Content Include="themes\purple\voting_bar.gif" />
+    <Content Include="themes\soclean.xml" />
+    <Content Include="themes\soclean\bg_header1.png" />
+    <Content Include="themes\soclean\b_attachments.png" />
+    <Content Include="themes\soclean\b_delete_post.png" />
+    <Content Include="themes\soclean\b_delete_topic.png" />
+    <Content Include="themes\soclean\b_edit_post.png" />
+    <Content Include="themes\soclean\b_lock_topic.png" />
+    <Content Include="themes\soclean\b_move_topic.png" />
+    <Content Include="themes\soclean\b_post_reply.png" />
+    <Content Include="themes\soclean\b_post_topic.png" />
+    <Content Include="themes\soclean\b_quote_post.png" />
+    <Content Include="themes\soclean\b_reply_pm.png" />
+    <Content Include="themes\soclean\b_unlock_topic.png" />
+    <Content Include="themes\soclean\folder_stats.png" />
+    <Content Include="themes\soclean\folder_who.png" />
+    <Content Include="themes\soclean\icon_file.gif" />
+    <Content Include="themes\soclean\icon_latest_reply.gif" />
+    <Content Include="themes\soclean\icon_newest_reply.gif" />
+    <Content Include="themes\soclean\p_aim.png" />
+    <Content Include="themes\soclean\p_blog.png" />
+    <Content Include="themes\soclean\p_email.png" />
+    <Content Include="themes\soclean\p_icq.png" />
+    <Content Include="themes\soclean\p_msn.png" />
+    <Content Include="themes\soclean\p_pm.png" />
+    <Content Include="themes\soclean\p_www.png" />
+    <Content Include="themes\soclean\p_yim.png" />
+    <Content Include="themes\soclean\sort_down.gif" />
+    <Content Include="themes\soclean\sort_up.gif" />
+    <Content Include="themes\soclean\theme.css" />
+    <Content Include="themes\soclean\topic.png" />
+    <Content Include="themes\soclean\topic_announce.png" />
+    <Content Include="themes\soclean\topic_announce_new.png" />
+    <Content Include="themes\soclean\topic_lock.png" />
+    <Content Include="themes\soclean\topic_lock_new.png" />
+    <Content Include="themes\soclean\topic_moderate.png" />
+    <Content Include="themes\soclean\topic_moved.png" />
+    <Content Include="themes\soclean\topic_new.png" />
+    <Content Include="themes\soclean\topic_poll.png" />
+    <Content Include="themes\soclean\topic_poll_new.png" />
+    <Content Include="themes\soclean\topic_sticky.png" />
+    <Content Include="themes\soclean\vote_lcap.gif" />
+    <Content Include="themes\soclean\vote_rcap.gif" />
+    <Content Include="themes\soclean\voting_bar.gif" />
+    <Content Include="themes\standard.xml" />
+    <Content Include="themes\standard\bg_footer1.png" />
+    <Content Include="themes\standard\bg_header1.png" />
+    <Content Include="themes\standard\bg_header2.png" />
+    <Content Include="themes\standard\b_attachments.png" />
+    <Content Include="themes\standard\b_delete_post.png" />
+    <Content Include="themes\standard\b_delete_topic.png" />
+    <Content Include="themes\standard\b_edit_post.png" />
+    <Content Include="themes\standard\b_lock_topic.png" />
+    <Content Include="themes\standard\b_move_topic.png" />
+    <Content Include="themes\standard\b_post_reply.png" />
+    <Content Include="themes\standard\b_post_topic.png" />
+    <Content Include="themes\standard\b_quote_post.png" />
+    <Content Include="themes\standard\b_unlock_topic.png" />
+    <Content Include="themes\standard\folder_stats.png" />
+    <Content Include="themes\standard\folder_who.png" />
+    <Content Include="themes\standard\icon_file.gif" />
+    <Content Include="themes\standard\icon_latest_reply.gif" />
+    <Content Include="themes\standard\icon_newest_reply.gif" />
+    <Content Include="themes\standard\p_aim.gif" />
+    <Content Include="themes\standard\p_blog.gif" />
+    <Content Include="themes\standard\p_email.gif" />
+    <Content Include="themes\standard\p_icq.gif" />
+    <Content Include="themes\standard\p_msn.gif" />
+    <Content Include="themes\standard\p_pm.gif" />
+    <Content Include="themes\standard\p_www.gif" />
+    <Content Include="themes\standard\p_yim.gif" />
+    <Content Include="themes\standard\sort_down.gif" />
+    <Content Include="themes\standard\sort_up.gif" />
+    <Content Include="themes\standard\theme.css" />
+    <Content Include="themes\standard\topic.png" />
+    <Content Include="themes\standard\topic_announce.png" />
+    <Content Include="themes\standard\topic_announce_new.png" />
+    <Content Include="themes\standard\topic_lock.png" />
+    <Content Include="themes\standard\topic_lock_new.png" />
+    <Content Include="themes\standard\topic_moderate.png" />
+    <Content Include="themes\standard\topic_moved.png" />
+    <Content Include="themes\standard\topic_new.png" />
+    <Content Include="themes\standard\topic_poll.png" />
+    <Content Include="themes\standard\topic_sticky.png" />
+    <Content Include="themes\standard\user_rank1.gif" />
+    <Content Include="themes\standard\user_rank2.gif" />
+    <Content Include="themes\standard\user_rank3.gif" />
+    <Content Include="themes\standard\vote_lcap.gif" />
+    <Content Include="themes\standard\vote_rcap.gif" />
+    <Content Include="themes\standard\voting_bar.gif" />
+    <Content Include="themes\yafvision.xml" />
+    <Content Include="themes\yafvision\bg_footer1.png" />
+    <Content Include="themes\yafvision\bg_header1.png" />
+    <Content Include="themes\yafvision\bg_header2.png" />
+    <Content Include="themes\yafvision\b_attachments.png" />
+    <Content Include="themes\yafvision\b_delete_post.png" />
+    <Content Include="themes\yafvision\b_delete_topic.png" />
+    <Content Include="themes\yafvision\b_edit_post.png" />
+    <Content Include="themes\yafvision\b_lock_topic.png" />
+    <Content Include="themes\yafvision\b_move_topic.png" />
+    <Content Include="themes\yafvision\b_post_reply.png" />
+    <Content Include="themes\yafvision\b_post_topic.png" />
+    <Content Include="themes\yafvision\b_quote_post.png" />
+    <Content Include="themes\yafvision\b_unlock_topic.png" />
+    <Content Include="themes\yafvision\folder_stats.png" />
+    <Content Include="themes\yafvision\folder_who.png" />
+    <Content Include="themes\yafvision\icon_file.gif" />
+    <Content Include="themes\yafvision\icon_latest_reply.gif" />
+    <Content Include="themes\yafvision\icon_newest_reply.gif" />
+    <Content Include="themes\yafvision\p_aim.gif" />
+    <Content Include="themes\yafvision\p_blog.gif" />
+    <Content Include="themes\yafvision\p_email.gif" />
+    <Content Include="themes\yafvision\p_icq.gif" />
+    <Content Include="themes\yafvision\p_msn.gif" />
+    <Content Include="themes\yafvision\p_pm.gif" />
+    <Content Include="themes\yafvision\p_www.gif" />
+    <Content Include="themes\yafvision\p_yim.gif" />
+    <Content Include="themes\yafvision\sort_down.gif" />
+    <Content Include="themes\yafvision\sort_up.gif" />
+    <Content Include="themes\yafvision\theme.css" />
+    <Content Include="themes\yafvision\topic.png" />
+    <Content Include="themes\yafvision\topic_announce.png" />
+    <Content Include="themes\yafvision\topic_announce_new.png" />
+    <Content Include="themes\yafvision\topic_lock.png" />
+    <Content Include="themes\yafvision\topic_lock_new.png" />
+    <Content Include="themes\yafvision\topic_moderate.png" />
+    <Content Include="themes\yafvision\topic_moved.png" />
+    <Content Include="themes\yafvision\topic_new.png" />
+    <Content Include="themes\yafvision\topic_poll.png" />
+    <Content Include="themes\yafvision\topic_poll_new.png" />
+    <Content Include="themes\yafvision\topic_sticky.png" />
+    <Content Include="themes\yafvision\user_rank1.gif" />
+    <Content Include="themes\yafvision\user_rank2.gif" />
+    <Content Include="themes\yafvision\user_rank3.gif" />
+    <Content Include="themes\yafvision\vote_lcap.gif" />
+    <Content Include="themes\yafvision\vote_rcap.gif" />
+    <Content Include="themes\yafvision\voting_bar.gif" />
+    <Content Include="TODO.txt" />
+    <Content Include="WhatsNew.html" />
+    <Content Include="yaf.js" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\AdminPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="classes\BaseControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="classes\BBCode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\BoardSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\ClientSideFocus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Config.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Data.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\DB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\FormatMsg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\HighLighter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\HiPerfTimer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Localizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\MySession.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Nntp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\RssFeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Security.cs" />
+    <Compile Include="classes\UrlBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Utils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\AdminMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\DisplayPost.ascx.cs">
+      <DependentUpon>DisplayPost.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DisplayPost.ascx.designer.cs">
+      <DependentUpon>DisplayPost.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\Footer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\ForumJump.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\ForumList.ascx.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ForumList.ascx.designer.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ForumUsers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\Header.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\HelpMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\IconLegend.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\MyLinkButton.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\PageAccess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\PageLinks.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\Pager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\PopMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\ProfileMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\SmartScroller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="controls\smileys.ascx.cs">
+      <DependentUpon>smileys.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\smileys.ascx.designer.cs">
+      <DependentUpon>smileys.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\TopicLine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="editors\ForumEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="error.aspx.cs">
+      <DependentUpon>error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="error.aspx.designer.cs">
+      <DependentUpon>error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="image.aspx.cs">
+      <DependentUpon>image.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="image.aspx.designer.cs">
+      <DependentUpon>image.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="install\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="install\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\active.ascx.cs">
+      <DependentUpon>active.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\active.ascx.designer.cs">
+      <DependentUpon>active.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\activeusers.ascx.cs">
+      <DependentUpon>activeusers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\activeusers.ascx.designer.cs">
+      <DependentUpon>activeusers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\accessmasks.ascx.cs">
+      <DependentUpon>accessmasks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\accessmasks.ascx.designer.cs">
+      <DependentUpon>accessmasks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\admin.ascx.cs">
+      <DependentUpon>admin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\admin.ascx.designer.cs">
+      <DependentUpon>admin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\attachments.ascx.cs">
+      <DependentUpon>attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\attachments.ascx.designer.cs">
+      <DependentUpon>attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedip.ascx.cs">
+      <DependentUpon>bannedip.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\bannedip.ascx.designer.cs">
+      <DependentUpon>bannedip.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\bannedip_edit.ascx.cs">
+      <DependentUpon>bannedip_edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\bannedip_edit.ascx.designer.cs">
+      <DependentUpon>bannedip_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\boards.ascx.cs">
+      <DependentUpon>boards.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\boards.ascx.designer.cs">
+      <DependentUpon>boards.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\boardsettings.ascx.cs">
+      <DependentUpon>boardsettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\boardsettings.ascx.designer.cs">
+      <DependentUpon>boardsettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editaccessmask.ascx.cs">
+      <DependentUpon>editaccessmask.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editaccessmask.ascx.designer.cs">
+      <DependentUpon>editaccessmask.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editboard.ascx.cs">
+      <DependentUpon>editboard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editboard.ascx.designer.cs">
+      <DependentUpon>editboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editcategory.ascx.cs">
+      <DependentUpon>editcategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editcategory.ascx.designer.cs">
+      <DependentUpon>editcategory.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editforum.ascx.cs">
+      <DependentUpon>editforum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editforum.ascx.designer.cs">
+      <DependentUpon>editforum.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editgroup.ascx.cs">
+      <DependentUpon>editgroup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editgroup.ascx.designer.cs">
+      <DependentUpon>editgroup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editnntpforum.ascx.cs">
+      <DependentUpon>editnntpforum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editnntpforum.ascx.designer.cs">
+      <DependentUpon>editnntpforum.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editnntpserver.ascx.cs">
+      <DependentUpon>editnntpserver.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editnntpserver.ascx.designer.cs">
+      <DependentUpon>editnntpserver.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\editrank.ascx.cs">
+      <DependentUpon>editrank.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\editrank.ascx.designer.cs">
+      <DependentUpon>editrank.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\edituser.ascx.cs">
+      <DependentUpon>edituser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\edituser.ascx.designer.cs">
+      <DependentUpon>edituser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\eventlog.ascx.cs">
+      <DependentUpon>eventlog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\eventlog.ascx.designer.cs">
+      <DependentUpon>eventlog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\forums.ascx.cs">
+      <DependentUpon>forums.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\forums.ascx.designer.cs">
+      <DependentUpon>forums.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\groups.ascx.cs">
+      <DependentUpon>groups.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\groups.ascx.designer.cs">
+      <DependentUpon>groups.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\hostsettings.ascx.cs">
+      <DependentUpon>hostsettings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\hostsettings.ascx.designer.cs">
+      <DependentUpon>hostsettings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\mail.ascx.cs">
+      <DependentUpon>mail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\mail.ascx.designer.cs">
+      <DependentUpon>mail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\nntpforums.ascx.cs">
+      <DependentUpon>nntpforums.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\nntpforums.ascx.designer.cs">
+      <DependentUpon>nntpforums.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\nntpretrieve.ascx.cs">
+      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\nntpretrieve.ascx.designer.cs">
+      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\nntpservers.ascx.cs">
+      <DependentUpon>nntpservers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\nntpservers.ascx.designer.cs">
+      <DependentUpon>nntpservers.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\pm.ascx.cs">
+      <DependentUpon>pm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\pm.ascx.designer.cs">
+      <DependentUpon>pm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\prune.ascx.cs">
+      <DependentUpon>prune.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\prune.ascx.designer.cs">
+      <DependentUpon>prune.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\ranks.ascx.cs">
+      <DependentUpon>ranks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\ranks.ascx.designer.cs">
+      <DependentUpon>ranks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\reguser.ascx.cs">
+      <DependentUpon>reguser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\reguser.ascx.designer.cs">
+      <DependentUpon>reguser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\replacewords.ascx.cs">
+      <DependentUpon>replacewords.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\replacewords.ascx.designer.cs">
+      <DependentUpon>replacewords.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\replacewords_edit.ascx.cs">
+      <DependentUpon>replacewords_edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\replacewords_edit.ascx.designer.cs">
+      <DependentUpon>replacewords_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\smilies.ascx.cs">
+      <DependentUpon>smilies.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\smilies.ascx.designer.cs">
+      <DependentUpon>smilies.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\smilies_edit.ascx.cs">
+      <DependentUpon>smilies_edit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\smilies_edit.ascx.designer.cs">
+      <DependentUpon>smilies_edit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\smilies_import.ascx.cs">
+      <DependentUpon>smilies_import.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\smilies_import.ascx.designer.cs">
+      <DependentUpon>smilies_import.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\users.ascx.cs">
+      <DependentUpon>users.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\users.ascx.designer.cs">
+      <DependentUpon>users.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\admin\version.ascx.cs">
+      <DependentUpon>version.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\admin\version.ascx.designer.cs">
+      <DependentUpon>version.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\approve.ascx.cs">
+      <DependentUpon>approve.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\approve.ascx.designer.cs">
+      <DependentUpon>approve.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\attachments.ascx.cs">
+      <DependentUpon>attachments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\attachments.ascx.designer.cs">
+      <DependentUpon>attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\avatar.ascx.cs">
+      <DependentUpon>avatar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\avatar.ascx.designer.cs">
+      <DependentUpon>avatar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_changepassword.ascx.cs">
+      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_changepassword.ascx.designer.cs">
+      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_editprofile.ascx.cs">
+      <DependentUpon>cp_editprofile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_editprofile.ascx.designer.cs">
+      <DependentUpon>cp_editprofile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_inbox.ascx.cs">
+      <DependentUpon>cp_inbox.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_inbox.ascx.designer.cs">
+      <DependentUpon>cp_inbox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_message.ascx.cs">
+      <DependentUpon>cp_message.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_message.ascx.designer.cs">
+      <DependentUpon>cp_message.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_profile.ascx.cs">
+      <DependentUpon>cp_profile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_profile.ascx.designer.cs">
+      <DependentUpon>cp_profile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_signature.ascx.cs">
+      <DependentUpon>cp_signature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_signature.ascx.designer.cs">
+      <DependentUpon>cp_signature.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_subscriptions.ascx.cs">
+      <DependentUpon>cp_subscriptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_subscriptions.ascx.designer.cs">
+      <DependentUpon>cp_subscriptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\emailtopic.ascx.cs">
+      <DependentUpon>emailtopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\emailtopic.ascx.designer.cs">
+      <DependentUpon>emailtopic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\error.ascx.cs">
+      <DependentUpon>error.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\error.ascx.designer.cs">
+      <DependentUpon>error.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\forum.ascx.cs">
+      <DependentUpon>forum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\forum.ascx.designer.cs">
+      <DependentUpon>forum.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Forum.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\ForumPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\help\index.ascx.cs">
+      <DependentUpon>index.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\help\index.ascx.designer.cs">
+      <DependentUpon>index.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\help\recover.ascx.cs">
+      <DependentUpon>recover.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\help\recover.ascx.designer.cs">
+      <DependentUpon>recover.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\im_aim.ascx.cs">
+      <DependentUpon>im_aim.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\im_aim.ascx.designer.cs">
+      <DependentUpon>im_aim.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\im_email.ascx.cs">
+      <DependentUpon>im_email.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\im_email.ascx.designer.cs">
+      <DependentUpon>im_email.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\im_icq.ascx.cs">
+      <DependentUpon>im_icq.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\im_icq.ascx.designer.cs">
+      <DependentUpon>im_icq.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\im_yim.ascx.cs">
+      <DependentUpon>im_yim.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\im_yim.ascx.designer.cs">
+      <DependentUpon>im_yim.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\info.ascx.cs">
+      <DependentUpon>info.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\info.ascx.designer.cs">
+      <DependentUpon>info.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\lastposts.ascx.cs">
+      <DependentUpon>lastposts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\lastposts.ascx.designer.cs">
+      <DependentUpon>lastposts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\login.ascx.cs">
+      <DependentUpon>login.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\login.ascx.designer.cs">
+      <DependentUpon>login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\logout.ascx.cs">
+      <DependentUpon>logout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\logout.ascx.designer.cs">
+      <DependentUpon>logout.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\members.ascx.cs">
+      <DependentUpon>members.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\members.ascx.designer.cs">
+      <DependentUpon>members.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\moderate.ascx.cs">
+      <DependentUpon>moderate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\moderate.ascx.designer.cs">
+      <DependentUpon>moderate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\moderate\forum.ascx.cs">
+      <DependentUpon>forum.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\moderate\index.ascx.cs">
+      <DependentUpon>index.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mod_forumuser.ascx.cs">
+      <DependentUpon>mod_forumuser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\mod_forumuser.ascx.designer.cs">
+      <DependentUpon>mod_forumuser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\movetopic.ascx.cs">
+      <DependentUpon>movetopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\movetopic.ascx.designer.cs">
+      <DependentUpon>movetopic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\pmessage.ascx.cs">
+      <DependentUpon>pmessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\pmessage.ascx.designer.cs">
+      <DependentUpon>pmessage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\postmessage.ascx.cs">
+      <DependentUpon>postmessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\postmessage.ascx.designer.cs">
+      <DependentUpon>postmessage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\posts.ascx.cs">
+      <DependentUpon>posts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\posts.ascx.designer.cs">
+      <DependentUpon>posts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\printtopic.ascx.cs">
+      <DependentUpon>printtopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\printtopic.ascx.designer.cs">
+      <DependentUpon>printtopic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\profile.ascx.cs">
+      <DependentUpon>profile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\profile.ascx.designer.cs">
+      <DependentUpon>profile.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\recoverpassword.ascx.cs">
+      <DependentUpon>recoverpassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\recoverpassword.ascx.designer.cs">
+      <DependentUpon>recoverpassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\register.ascx.cs">
+      <DependentUpon>register.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\register.ascx.designer.cs">
+      <DependentUpon>register.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\rsstopic.ascx.cs">
+      <DependentUpon>rsstopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\rsstopic.ascx.designer.cs">
+      <DependentUpon>rsstopic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\rules.ascx.cs">
+      <DependentUpon>rules.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\rules.ascx.designer.cs">
+      <DependentUpon>rules.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\search.ascx.cs">
+      <DependentUpon>search.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\search.ascx.designer.cs">
+      <DependentUpon>search.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\topics.ascx.cs">
+      <DependentUpon>topics.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\topics.ascx.designer.cs">
+      <DependentUpon>topics.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\RegisterForum\Reference.cs">
+      <DependentUpon>Reference.map</DependentUpon>
+      <SubType>code</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <None Include="COPYING" />
+    <None Include="install\indexes.sql" />
+    <None Include="install\procedures.sql" />
+    <None Include="install\triggers.sql" />
+    <None Include="install\views.sql" />
+    <None Include="languages\english.xsx">
+      <DependentUpon>english.xml</DependentUpon>
+    </None>
+    <None Include="themes\chrome\voting_bar.psd" />
+    <None Include="themes\purple\voting_bar.psd" />
+    <None Include="themes\soclean\Thumbs.db" />
+    <None Include="Web References\RegisterForum\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\RegisterForum\Register.disco" />
+    <None Include="Web References\RegisterForum\Register.wsdl" />
+    <None Include="Default.config" />
+    <None Include="web.config" />
+    <WebReferenceUrl Include="http://www.yetanotherforum.net/Register.asmx%3fop=RegisterForum">
+      <RelPath>Web References\RegisterForum\</RelPath>
+      <UrlBehavior>Static</UrlBehavior>
+    </WebReferenceUrl>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\avatars\" />
+    <Folder Include="images\emoticons\" />
+    <Folder Include="images\ranks\" />
+    <Folder Include="upload\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

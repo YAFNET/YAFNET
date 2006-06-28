@@ -24,6 +24,7 @@ using System.Collections;
 using System.Data;
 using System.Xml;
 using System.Web;
+using System.Web.Security;
 using System.Threading;
 using System.Globalization;
 using yaf.classes;
@@ -62,13 +63,8 @@ namespace yaf.pages
 			TransPage = transPage;
 
 			this.Load += new System.EventHandler(this.ForumPage_Load);
-			this.Unload += new EventHandler(ForumPage_Unload);
 			this.Error += new System.EventHandler(this.ForumPage_Error);
 			this.PreRender += new EventHandler(ForumPage_PreRender);			
-		}
-
-		private void ForumPage_Unload(object sender,EventArgs e)
-		{
 		}
 
 		private void ForumPage_Error(object sender, System.EventArgs e) 
@@ -143,13 +139,6 @@ namespace yaf.pages
 			}
 #endif
 
-			//Response.Expires = -1000;
-			/*
-			HttpContext.Current.Response.AddHeader("Cache-control", "private, no-cache, must-revalidate");
-			HttpContext.Current.Response.AddHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT"); // Past date
-			HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
-			*/
-
 			try 
 			{
 				string key = string.Format("BannedIP.{0}",PageBoardID);
@@ -170,31 +159,12 @@ namespace yaf.pages
 			}
 
 			// Find user name
-			AuthType authType = Data.GetAuthType;
-			string typeUser;
-			switch(authType)
-			{
-				case AuthType.Guest:
-					typeUser = "yaf.GuestUser,yaf";
-					break;
-				case AuthType.Rainbow:
-					typeUser = "yaf_rainbow.RainbowUser,yaf_rainbow";
-					break;
-				case AuthType.DotNetNuke:
-					typeUser = "yaf_dnn.DotNetNukeUser,yaf_dnn";
-					break;
-				case AuthType.Windows:
-					typeUser = "yaf.WindowsUser,yaf";
-					break;
-				case AuthType.Portal:
-					typeUser = "Portal.ForumUser,Portal";
-					break;
-				default:
-					typeUser = "yaf.FormsUser,yaf";
-					break;
-			}
-
-			m_forumUser = (IForumUser)Activator.CreateInstance(Type.GetType(typeUser));
+            MembershipUser user = Membership.GetUser();
+            if (user!=null && Session["UserUpdated"]==null)
+            {
+                Security.UpdateForumUser(PageBoardID, user);
+                Session["UserUpdated"] = true;
+            }
 
 			string browser = String.Format("{0} {1}",HttpContext.Current.Request.Browser.Browser,HttpContext.Current.Request.Browser.Version);
 			string platform = HttpContext.Current.Request.Browser.Platform;
@@ -213,47 +183,43 @@ namespace yaf.pages
 			if(ForumControl.CategoryID!=null)
 				categoryID = ForumControl.CategoryID;
 
-			m_pageinfo = DB.pageload(
-				HttpContext.Current.Session.SessionID,
-				PageBoardID,
-				User.Name,
-				HttpContext.Current.Request.UserHostAddress,
-				HttpContext.Current.Request.FilePath,
-				browser,
-				platform,
-				categoryID,
-				forumID,
-				topicID,
-				messageID);
+            object userKey = DBNull.Value;
+            if (user != null)
+                userKey = user.ProviderUserKey;
+
+            do
+            {
+                m_pageinfo = DB.pageload(
+                    HttpContext.Current.Session.SessionID,
+                    PageBoardID,
+                    userKey,
+                    HttpContext.Current.Request.UserHostAddress,
+                    HttpContext.Current.Request.FilePath,
+                    browser,
+                    platform,
+                    categoryID,
+                    forumID,
+                    topicID,
+                    messageID);
+
+                if (user != null && m_pageinfo == null)
+                {
+                    if(!Security.CreateForumUser(user,this))
+                        throw new ApplicationException("Failed to use new user.");
+                }
+            } while (m_pageinfo == null && user != null);
 
 
-			// If user wasn't found and we have foreign 
-			// authorization, try to register the user.
-			if(m_pageinfo==null && authType!=AuthType.Forms && User.IsAuthenticated) 
-			{
-				if(!DB.user_register(this,PageBoardID,User.Name,"ext",User.Email,User.Location,User.HomePage,0,false))
-					throw new ApplicationException("User registration failed.");
-
-				m_pageinfo = DB.pageload(
-					HttpContext.Current.Session.SessionID,
-					PageBoardID,
-					User.Name,
-					HttpContext.Current.Request.UserHostAddress,
-					HttpContext.Current.Request.FilePath,
-					HttpContext.Current.Request.Browser.Browser,
-					HttpContext.Current.Request.Browser.Platform,
-					HttpContext.Current.Request.QueryString["c"],
-					HttpContext.Current.Request.QueryString["f"],
-					HttpContext.Current.Request.QueryString["t"],
-					HttpContext.Current.Request.QueryString["m"]);
-			}
 			if(m_pageinfo==null) 
 			{
-				if(User.IsAuthenticated) 
-					throw new ApplicationException(string.Format("User '{0}' isn't registered.",User.Name));
+				if(user!=null) 
+					throw new ApplicationException(string.Format("User '{0}' isn't registered.",user.UserName));
 				else
 					throw new ApplicationException("Failed to find guest user.");
 			}
+
+            //if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
+            //    throw new ApplicationException("User not migrated to ASP.NET 2.0");
 
 			if(m_checkSuspended && IsSuspended) 
 			{
@@ -268,19 +234,13 @@ namespace yaf.pages
 			// This happens when user logs in
 			if(Mession.LastVisit == DateTime.MinValue)
 			{
-				// Only important for portals like Rainbow or DotNetNuke
-				if(User.IsAuthenticated)
-					User.UpdateUserInfo(PageUserID);
-
 				if((int)m_pageinfo["Incoming"]>0) 
 					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
 			}
 
-			if(!IsGuest && m_pageinfo["PreviousVisit"]!=DBNull.Value && !Mession.HasLastVisit) 
+			if(!IsGuest && Mession.LastVisit == DateTime.MinValue && m_pageinfo["PreviousVisit"]!=DBNull.Value) 
 			{
-				//if(Mession.LastVisit == DateTime.MinValue || (DateTime)m_pageinfo["PreviousVisit"]<Mession.LastVisit)
 				Mession.LastVisit = (DateTime)m_pageinfo["PreviousVisit"];
-				Mession.HasLastVisit = true;
 			}
 			else if(Mession.LastVisit == DateTime.MinValue) 
 			{
@@ -403,8 +363,8 @@ namespace yaf.pages
 
 		private void ForumPage_PreRender(object sender,EventArgs e)
 		{
-			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
-			ctl = (System.Web.UI.HtmlControls.HtmlGenericControl)Page.FindControl("ForumTitle");
+            System.Web.UI.HtmlControls.HtmlTitle ctl;
+			ctl = (System.Web.UI.HtmlControls.HtmlTitle)Page.FindControl("ForumTitle");
 
 			if(ctl!=null)
 			{
@@ -414,14 +374,17 @@ namespace yaf.pages
 				if(this.PageForumName != string.Empty)
 					title.AppendFormat("{0} - ",Server.HtmlEncode(this.PageForumName)); // Tack on the forum we're viewing
 				title.Append(Server.HtmlEncode(BoardSettings.Name)); // and lastly, tack on the board's name
-				ctl.InnerHtml = title.ToString();				
+				//ctl.InnerHtml = title.ToString();
+                ctl.Text = title.ToString();
 			}
 
 			// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
 			header.AppendFormat("<table width=100% cellspacing=0 class=content cellpadding=0><tr>");
 
-			if(User!=null && User.IsAuthenticated) 
+            MembershipUser user = Membership.GetUser();
+
+			if(user!=null) 
 			{
 				header.AppendFormat("<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>",String.Format(GetText("TOOLBAR","LOGGED_IN_AS") + " ",Server.HtmlEncode(PageUserName)));
 				header.AppendFormat("<td style=\"padding:5px\" align=right valign=middle class=post>");
@@ -438,7 +401,7 @@ namespace yaf.pages
 				if(!IsGuest)
 					header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.cp_profile),GetText("TOOLBAR","MYPROFILE")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-				if(User.CanLogin)
+				if(CanLogin)
 					header.AppendFormat(String.Format(" | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>",Forum.GetLink(Pages.logout),GetText("TOOLBAR","LOGOUT")));
 			} 
 			else 
@@ -449,7 +412,7 @@ namespace yaf.pages
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.search),GetText("TOOLBAR","SEARCH")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a> | ",Forum.GetLink(Pages.active),GetText("TOOLBAR","ACTIVETOPICS")));
 				header.AppendFormat(String.Format("	<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.members),GetText("TOOLBAR","MEMBERS")));
-				if(User!=null && User.CanLogin) 
+				if(CanLogin) 
 				{
 					header.AppendFormat(String.Format(" | <a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.login,"ReturnUrl={0}",Server.UrlEncode(Utils.GetSafeRawUrl())),GetText("TOOLBAR","LOGIN")));
 					if(!BoardSettings.DisableRegistrations)
@@ -662,16 +625,36 @@ namespace yaf.pages
 
 		#region PageInfo class
 		private DataRow		m_pageinfo			= null;
-		private IForumUser	m_forumUser			= null;
+        private MembershipUser mUser = null;
 		private string		m_strLoadMessage	= "";
 
-		public IForumUser User
+#if false
+        private object User
+        {
+            get
+            {
+                return null;
+            }
+        }
+#else
+        public bool CanLogin
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public MembershipUser User
 		{
 			get
 			{
-				return m_forumUser;
+                if (mUser == null)
+                    mUser = Membership.GetUser();
+				return mUser;
 			}
 		}
+#endif
 
 		public string LoadMessage
 		{
@@ -997,7 +980,7 @@ namespace yaf.pages
 				if (IsHostAdmin)
 					return true;
 
-				if(m_pageinfo!=null)
+				if(m_pageinfo!=null && m_pageinfo["IsAdmin"]!=DBNull.Value)
 					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
 				else
 					return false;
@@ -1010,7 +993,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				if(m_pageinfo!=null)
+				if(m_pageinfo!=null && m_pageinfo["IsGuest"]!=DBNull.Value)
 					return long.Parse(m_pageinfo["IsGuest"].ToString())!=0;
 				else
 					return false;
@@ -1023,7 +1006,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				if(m_pageinfo!=null)
+				if(m_pageinfo!=null && m_pageinfo["IsForumModerator"]!=DBNull.Value)
 					return long.Parse(m_pageinfo["IsForumModerator"].ToString())!=0;
 				else
 					return false;
@@ -1036,7 +1019,7 @@ namespace yaf.pages
 		{
 			get 
 			{
-				if(m_pageinfo!=null)
+				if(m_pageinfo!=null && m_pageinfo["IsModerator"]!=DBNull.Value)
 					return long.Parse(m_pageinfo["IsModerator"].ToString())!=0;
 				else
 					return false;

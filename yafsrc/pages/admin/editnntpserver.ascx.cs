@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editnntpserver : AdminPage
+	public partial class editnntpserver : AdminPage
 	{
-		protected TextBox Name, Address, Port, UserName, UserPass;
-		protected Button Save, Cancel;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

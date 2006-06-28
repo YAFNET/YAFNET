@@ -16,12 +16,12 @@
 </tr>
 <asp:repeater id=ForumList runat=server>
 	<itemtemplate>
-		<asp:label id=tfid runat=server text='<%# DataBinder.Eval(Container.DataItem,"WatchForumID") %>' visible="false"/>
+		<asp:label id=tfid runat=server text='<%# Eval("WatchForumID") %>' visible="false"/>
 
 
 		<tr>
-			<td class=post><%# DataBinder.Eval(Container.DataItem,"ForumName") %></td>
-			<td class=post align=center><%# DataBinder.Eval(Container.DataItem,"Topics") %></td>
+			<td class=post><%# Eval("ForumName") %></td>
+			<td class=post align=center><%# Eval("Topics") %></td>
 			<td class=post align=center><%# FormatForumReplies(Container.DataItem) %></td>
 			<td class=post><%# FormatLastPosted(Container.DataItem) %></td>
 			<td class=post align=center><asp:checkbox id=unsubf runat="server"/></td>
@@ -48,11 +48,11 @@
 </tr>
 <asp:repeater id=TopicList runat=server>
 	<itemtemplate>
-		<asp:label id=ttid runat=server text='<%# DataBinder.Eval(Container.DataItem,"WatchTopicID") %>' visible="false"/>
+		<asp:label id=ttid runat=server text='<%# Eval("WatchTopicID") %>' visible="false"/>
 		<tr>
-			<td class=post><%# DataBinder.Eval(Container.DataItem,"TopicName") %></td>
-			<td class=post align=center><%# DataBinder.Eval(Container.DataItem,"Replies") %></td>
-			<td class=post align=center><%# DataBinder.Eval(Container.DataItem,"Views") %></td>
+			<td class=post><%# Eval("TopicName") %></td>
+			<td class=post align=center><%# Eval("Replies") %></td>
+			<td class=post align=center><%# Eval("Views") %></td>
 			<td class=post><%# FormatLastPosted(Container.DataItem) %></td>
 			<td class=post align=center><asp:checkbox id=unsubx runat="server"/></td>
 		</tr>

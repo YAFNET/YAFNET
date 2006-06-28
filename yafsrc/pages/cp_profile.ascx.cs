@@ -34,16 +34,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for editprofile.
 	/// </summary>
-	public class cp_profile : ForumPage
+	public partial class cp_profile : ForumPage
 	{
-		protected System.Web.UI.WebControls.Label TitleUserName;
-		protected System.Web.UI.WebControls.Label NumPosts;
-		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.Label AccountEmail;
-		protected Repeater Groups;
-		protected HtmlImage AvatarImage;
-		protected controls.PageLinks PageLinks;
 
 		public cp_profile() : base("CP_PROFILE")
 		{
@@ -51,9 +43,10 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+            //throw new ApplicationException(User.ToString());
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

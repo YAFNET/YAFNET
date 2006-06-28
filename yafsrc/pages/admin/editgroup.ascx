@@ -18,10 +18,6 @@
 	<td class=post><asp:checkbox id=IsAdminX runat="server"></asp:checkbox></td>
 </tr>
 <tr>
-	<td class=postheader><b>Is Guest:</b><br/>Means that users in this group are guests (anonymous). Only one group should have this checked.</td>
-	<td class=post><asp:checkbox id=IsGuestGroup runat="server"></asp:checkbox></td>
-</tr>
-<tr>
 	<td class=postheader><b>Is Start:</b><br/>If this is checked, all new users will be a member of this group.</td>
 	<td class=post><asp:checkbox id=IsStart runat="server"></asp:checkbox></td>
 </tr>
@@ -47,12 +43,12 @@
 <ItemTemplate>
 	<tr>
 		<td class="postheader">
-			<asp:label id=ForumID visible=false runat="server" text='<%# DataBinder.Eval(Container.DataItem, "ForumID") %>'></asp:label>
-			<b><%# DataBinder.Eval(Container.DataItem, "ForumName") %></b><br>
-			Category: <%# DataBinder.Eval(Container.DataItem, "CategoryName") %>
+			<asp:label id=ForumID visible=false runat="server" text='<%# Eval( "ForumID") %>'></asp:label>
+			<b><%# Eval( "ForumName") %></b><br>
+			Category: <%# Eval( "CategoryName") %>
 		</td>
 		<td class="post">
-			<asp:dropdownlist runat="server" id="AccessMaskID" ondatabinding="BindData_AccessMaskID" onprerender="SetDropDownIndex" value='<%# DataBinder.Eval(Container.DataItem,"AccessMaskID") %>'/>
+			<asp:dropdownlist runat="server" id="AccessMaskID" ondatabinding="BindData_AccessMaskID" onprerender="SetDropDownIndex" value='<%# Eval("AccessMaskID") %>'/>
 			...
 		</td>
 	</tr>

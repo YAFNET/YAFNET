@@ -25,11 +25,11 @@
 <ItemTemplate>
 	<tr class=post>
 		<td align="center"><img src='<%# GetImage(Container.DataItem) %>'/></td>
-		<td><a href='<%# yaf.Forum.GetLink(yaf.Pages.cp_message,"pm={0}",DataBinder.Eval(Container.DataItem,"UserPMessageID")) %>'><%# HtmlEncode(DataBinder.Eval(Container.DataItem,"Subject")) %></a></td>
-		<td><%# DataBinder.Eval(Container.DataItem,IsSentItems ? "ToUser" : "FromUser") %></td>
+		<td><a href='<%# yaf.Forum.GetLink(yaf.Pages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
+		<td><%# Eval(IsSentItems ? "ToUser" : "FromUser") %></td>
 		<td><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %></td>
 		<td align="center"><asp:checkbox runat="server" id="ItemCheck" /></td>
-		<asp:label runat="server" id="UserPMessageID" visible="false" text='<%# DataBinder.Eval(Container.DataItem,"UserPMessageID") %>'/>
+		<asp:label runat="server" id="UserPMessageID" visible="false" text='<%# Eval("UserPMessageID") %>'/>
 	</tr>
 </ItemTemplate>
 </asp:repeater>

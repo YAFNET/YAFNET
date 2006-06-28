@@ -28,7 +28,8 @@ namespace yaf.controls
 			html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_editprofile),ForumPage.GetText("EDIT_PROFILE"));
 			if (ForumPage.BoardSettings.AllowSignatures) html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_signature),ForumPage.GetText("SIGNATURE"));
 			html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_subscriptions),ForumPage.GetText("SUBSCRIPTIONS"));
-			html.AppendFormat("</td></tr>");
+            html.AppendFormat("<li><a href='{0}'>{1}</a></li>", Forum.GetLink(Pages.cp_changepassword), "Change Password"/*ForumPage.GetText("CHANGE_PASSWORD")*/);
+            html.AppendFormat("</td></tr>");
 			html.Append("</table>");
 
 			writer.Write(html.ToString());

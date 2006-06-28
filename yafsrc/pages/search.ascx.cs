@@ -33,54 +33,44 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public class search : ForumPage
+	public partial class search : ForumPage
 	{
 		/// <summary>
 		/// Search Button.
 		/// </summary>
-		protected System.Web.UI.WebControls.Button btnSearch;
 
 		/// <summary>
 		/// Forum List Box.
 		/// </summary>
-		protected System.Web.UI.WebControls.DropDownList listForum;
 
 		/// <summary>
 		/// Text box for search string.
 		/// </summary>
-		protected System.Web.UI.WebControls.TextBox txtSearchString;
 
 		/// <summary>
 		/// A dropdown list.
 		/// </summary>
-		protected System.Web.UI.WebControls.DropDownList listResInPage;
 
 		/// <summary>
 		/// A dropdown list.
 		/// </summary>
-		protected System.Web.UI.WebControls.DropDownList listSearchWath;
 
 		/// <summary>
 		/// A list box.
 		/// </summary>
-		protected System.Web.UI.WebControls.DropDownList listSearchWhere;
 
 		/// <summary>
 		/// The repeater control.
 		/// </summary>
-		protected System.Web.UI.WebControls.Repeater SearchRes;
 
 		/// <summary>
 		/// Page links control.
 		/// </summary>
-		protected controls.PageLinks PageLinks;
 
 		/// <summary>
 		/// Pager control.
 		/// </summary>
-		protected controls.Pager Pager;
     
-		protected System.Web.UI.WebControls.PlaceHolder NoResults;
 	
 		/// <summary>
 		/// The search page constructor.
@@ -129,9 +119,9 @@ namespace yaf.pages
 			if(!IsPostBack)
 			{
 				// 20050909 CHP : BEGIN
-				if (IsPrivate && !User.IsAuthenticated)
+				if (IsPrivate && User==null)
 				{
-					if(User.CanLogin)
+					if(CanLogin)
 						Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 					else
 						Forum.Redirect(Pages.forum);

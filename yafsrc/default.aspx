@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" Theme="Default" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
 <%@ Register TagPrefix="yc" Namespace="yaf.controls" Assembly="yaf" %>
 
@@ -12,7 +12,7 @@ public void Page_Error(object sender,System.EventArgs e)
 </script>
 
 <html>
-<head>
+<head runat="server">
 <meta name="Description" content="A bulletin board system written in ASP.NET">
 <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource">
 <!-- If you don't want the forum to set the page title, you can remove runat and id -->

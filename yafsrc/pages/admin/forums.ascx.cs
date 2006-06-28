@@ -32,12 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public class forums : AdminPage
+	public partial class forums : AdminPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewForum;
-		protected System.Web.UI.WebControls.LinkButton NewCategory;
-		protected System.Web.UI.WebControls.Repeater CategoryList;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{

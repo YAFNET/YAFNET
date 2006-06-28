@@ -32,25 +32,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for profile.
 	/// </summary>
-	public class profile : ForumPage
+	public partial class profile : ForumPage
 	{
-		protected System.Web.UI.WebControls.Label Name;
-		protected System.Web.UI.WebControls.Label Joined;
-		protected System.Web.UI.WebControls.Label LastVisit;
-		protected System.Web.UI.WebControls.Label UserName;
-		protected Repeater Groups, LastPosts;
-		protected Label Rank, Location;
-		protected PlaceHolder ModeratorInfo;
-		protected HtmlTableRow SuspendedRow, userGroupsRow;
-		protected DropDownList SuspendUnit;
-		protected TextBox SuspendCount, UserSignature;
-		protected Button RemoveSuspension, Suspend, EditSignature;
-		protected HtmlTableCell Stats, RealName, Occupation, Interests, Gender;
-		protected HyperLink Yim, Aim, Icq, Pm, Home, Blog, Msn, Email;
-		protected Image Avatar;
-		protected controls.PageLinks PageLinks;
 		protected Repeater ForumAccess;
-		protected Literal AccessMaskRow;
 	
 		public profile() : base("PROFILE")
 		{
@@ -59,9 +43,9 @@ namespace yaf.pages
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// 20050909 CHP : BEGIN
-			if (IsPrivate && !User.IsAuthenticated)
+			if (IsPrivate && User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
 				else
 					Forum.Redirect(Pages.forum);
@@ -126,11 +110,11 @@ namespace yaf.pages
 					);
 
 				// private messages
-				Pm.Visible			= User.IsAuthenticated && BoardSettings.AllowPrivateMessages;
-				Pm.Text					= GetThemeContents("BUTTONS","PM");
+				Pm.Visible			= User!=null && BoardSettings.AllowPrivateMessages;
+				Pm.Text				= GetThemeContents("BUTTONS","PM");
 				Pm.NavigateUrl	= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
 				// email link
-				Email.Visible		= User.IsAuthenticated && BoardSettings.AllowEmailSending;
+				Email.Visible		= User!=null && BoardSettings.AllowEmailSending;
 				Email.Text			= GetThemeContents("BUTTONS","EMAIL");
 				Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
 				if(IsAdmin) Email.ToolTip = user["Email"].ToString();
@@ -140,16 +124,16 @@ namespace yaf.pages
 				Blog.Visible		= user["Weblog"]!=DBNull.Value;
 				Blog.NavigateUrl	= user["Weblog"].ToString();
 				Blog.Text			= GetThemeContents("BUTTONS","WEBLOG");
-				Msn.Visible			= User.IsAuthenticated && user["MSN"]!=DBNull.Value;
+				Msn.Visible			= User!=null && user["MSN"]!=DBNull.Value;
 				Msn.Text			= GetThemeContents("BUTTONS","MSN");
 				Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
-				Yim.Visible			= User.IsAuthenticated && user["YIM"]!=DBNull.Value;
+				Yim.Visible			= User!=null && user["YIM"]!=DBNull.Value;
 				Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",user["UserID"]);
 				Yim.Text			= GetThemeContents("BUTTONS","YAHOO");
-				Aim.Visible			= User.IsAuthenticated && user["AIM"]!=DBNull.Value;
+				Aim.Visible			= User!=null && user["AIM"]!=DBNull.Value;
 				Aim.Text			= GetThemeContents("BUTTONS","AIM");
 				Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",user["UserID"]);
-				Icq.Visible			= User.IsAuthenticated && user["ICQ"]!=DBNull.Value;
+				Icq.Visible			= User!=null && user["ICQ"]!=DBNull.Value;
 				Icq.Text			= GetThemeContents("BUTTONS","ICQ");
 				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",user["UserID"]);
 

@@ -32,13 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editnntpforum : AdminPage
+	public partial class editnntpforum : AdminPage
 	{
-		protected DropDownList NntpServerID, ForumID;
-		protected TextBox GroupName;
-		protected Button Save, Cancel;
-		protected CheckBox Active;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

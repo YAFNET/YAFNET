@@ -32,13 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_subscriptions.
 	/// </summary>
-	public class cp_subscriptions : ForumPage
+	public partial class cp_subscriptions : ForumPage
 	{
-		protected System.Web.UI.WebControls.Button UnsubscribeForums;
-		protected System.Web.UI.WebControls.Repeater ForumList;
-		protected System.Web.UI.WebControls.Button UnsubscribeTopics;
-		protected System.Web.UI.WebControls.Repeater TopicList;
-		protected controls.PageLinks PageLinks;
 
 		public cp_subscriptions() : base("CP_SUBSCRIPTIONS")
 		{
@@ -46,9 +41,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

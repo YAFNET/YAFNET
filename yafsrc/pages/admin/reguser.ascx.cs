@@ -28,23 +28,9 @@ namespace yaf.pages.admin
 	/// <summary>
 	///		Summary description for reguser.
 	/// </summary>
-	public class reguser : AdminPage
+	public partial class reguser : AdminPage
 	{
-    protected yaf.controls.AdminMenu Adminmenu1;
-    protected yaf.controls.PageLinks PageLinks;
     
-    protected System.Web.UI.WebControls.TextBox UserName;
-    protected System.Web.UI.WebControls.TextBox Password;
-    protected System.Web.UI.WebControls.TextBox Email;
-    protected System.Web.UI.WebControls.Button ForumRegister;
-    protected System.Web.UI.WebControls.TextBox Location;
-    protected System.Web.UI.WebControls.TextBox HomePage;
-    protected System.Web.UI.WebControls.DropDownList TimeZones;
-    protected System.Web.UI.WebControls.TextBox Password2;
-    protected System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator1;
-    protected System.Web.UI.WebControls.RequiredFieldValidator Requiredfieldvalidator2;
-    protected System.Web.UI.WebControls.CompareValidator Comparevalidator1;
-    protected Button cancel;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -104,7 +90,7 @@ namespace yaf.pages.admin
           return;
         }
 
-				if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification))
+				if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification,DBNull.Value))
 				{
 					// success
 					Forum.Redirect(Pages.admin_reguser);

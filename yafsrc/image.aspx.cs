@@ -36,7 +36,7 @@ namespace yaf
 	/// <summary>
 	/// Summary description for image.
 	/// </summary>
-    public class image : System.Web.UI.Page
+    public partial class image : System.Web.UI.Page
 	{
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -130,7 +130,7 @@ namespace yaf
 
 								if(row.IsNull("FileData")) 
 								{
-									string sUpDir = Config.ConfigSection["uploaddir"];
+									string sUpDir = Config.UploadDir;
 									string fileName = Server.MapPath(String.Format("{0}{1}.{2}",sUpDir,row["MessageID"],row["FileName"]));
 									using(System.IO.FileStream input = new System.IO.FileStream(fileName,System.IO.FileMode.Open)) 
 									{

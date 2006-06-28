@@ -32,13 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for emailtopic.
 	/// </summary>
-	public class emailtopic : ForumPage
+	public partial class emailtopic : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox EmailAddress;
-		protected System.Web.UI.WebControls.TextBox Subject;
-		protected System.Web.UI.WebControls.TextBox Message;
-		protected System.Web.UI.WebControls.Button SendEmail;
-		protected controls.PageLinks PageLinks;
 
 		public emailtopic() : base("EMAILTOPIC")
 		{

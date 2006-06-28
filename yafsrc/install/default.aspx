@@ -4,205 +4,146 @@
 <html>
 <head>
 <title>Yet Another Forum.net Installation</title>
-<link type="text/css" rel="stylesheet" href="../forum.css">
-<link type="text/css" rel="stylesheet" href="../themes/standard/theme.css">
+<!--link type="text/css" rel="stylesheet" href="../forum.css">
+<link type="text/css" rel="stylesheet" href="../themes/standard/theme.css"-->
+<style>
+input, select
+{
+    font-family: tahoma, verdana;
+    font-size: 8pt;
+}
+</style>
 </head>
 <body>
 
 
 <form runat=server>
+<div align="center">
+    <asp:Wizard ID="Wizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB" BorderColor="#B5C7DE"
+        BorderWidth="1px" Font-Names="Verdana" Font-Size="Small"
+        Width="480px" CellPadding="8" DisplaySideBar="False">
+        <StepStyle Font-Size="0.8em" ForeColor="#333333" />
+        <SideBarStyle BackColor="#507CD1" Font-Size="0.9em" VerticalAlign="Top" />
+        <NavigationButtonStyle BackColor="White" BorderColor="#507CD1" BorderStyle="Solid"
+            BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" />
+        <WizardSteps>
+            <asp:WizardStep runat="server" StepType="Start" Title="Create Configuration Password">
+                <strong>Create Configuration Password</strong><br />
+                <br />
+                Since this is the first time you install or upgrade this version of the forum, you
+                need to create a configuration password. This password is stored in your web.config
+                file and needs to be entered every time you want to upgrade the forum.<br />
+                <br />
+                Configuration Password:<br />
+                <asp:TextBox ID="TextBox1" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
+                <br />
+                <br />
+                Verify Password:<br />
+                <asp:TextBox ID="TextBox2" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
+            </asp:WizardStep>
+            <asp:WizardStep runat="server" StepType="Start" Title="Enter Configuration Password">
+                <strong>Enter Configuration Password</strong><br />
+                <br />
+                You need to enter the configuration password to upgrade the forum. This is the configuration
+                password you created when the forum was first installed, not the admin user password.<br />
+                <br />
+                Password:<br />
+                <asp:TextBox ID="TextBox3" runat="server" TextMode="Password" Width="100%"></asp:TextBox>
+            </asp:WizardStep>
+            <asp:WizardStep runat="server" StepType="Start" Title="Upgrade Database">
+                <strong>Upgrade Database</strong><br />
+                <br />
+                Clicking next will upgrade your database to the latest version.</asp:WizardStep>
+            
+            <asp:WizardStep runat="server" StepType="Start" Title="Create Forum">
+                <strong>Create Forum</strong><br />
+                
+                <p>
+                    Forum Name:<br />
+	                <asp:TextBox id="TheForumName" runat="server"/>
+	                The name of your forum.
+	            </p>
 
-<table class=content width=100% cellspacing=1 cellpadding=0>
-<tr>
-	<td class=header1>Yet Another Forum.net Installation</td>
-</tr>
+                <p>
+                    Time Zone:<br />
+				    <asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"/>
+                </p>
 
-<tr><td class=post>
+                <p>
+                    Forum Email:<br />
+				    <asp:TextBox id=ForumEmailAddress runat="server"/>
+				    The official forum email address.
+                </p>
 
-	<table cellspacing=1 cellpadding=0 width=100% runat=server id=stepWelcome>
-	<tr>
-		<td class=header2 colspan=2>Welcome</td>
-	</tr>
-	<tr>
-		<td colspan=2>
-		<p>
-			This installation wizard that will guide you through the
-			installation of Yet Another Forum.net.
-		</p>
-		<p>
-			Before you begin you should make sure you have setup your MS SQL server
-			correctly. You can use an existing database, or you can create a new one.
-		</p>
-		<p>
-			To begin the installation, click next.
-		</p>
-		</td>
-	</tr>
-	</table>
+	            <p>
+		            SMTP Server:<br/>
+		            <asp:TextBox id=SmptServerAddress runat="server"/>
+		            The name of a smtp server used to send emails.
+	            </p>
 
-	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepConfig>
-	<tr>
-		<td class=header2 colspan=2>Step 0: Configuration setup</td>
-	</tr>
-	<tr>
-		<td colspan=2>
-		<p>
-			This step will try to verify your Web.config file. You might need
-			to modify "<%= Server.MapPath("../Web.config") %>".
-		</p>
-		
-		<asp:placeholder runat="server" id="ConfigSample" visible="False">
-		<p>
-			Here is an example &lt;yafnet&gt; section:
-		</p>
-		
-		<pre>
-&lt;configuration&gt;
-	&lt;configSections&gt;
-		&lt;section name="yafnet" type="yaf.SectionHandler,yaf" /&gt;
-	&lt;/configSections&gt;
-	&lt;yafnet&gt;
-		&lt;connstr&gt;user id=yaf;password=yafpass;data source=(local);initial catalog=yetanotherforum.net&lt;/connstr&gt;
-		&lt;language&gt;english.xml&lt;/language&gt;
-		&lt;theme&gt;standard.xml&lt;/theme&gt;
-		&lt;uploaddir&gt;/yetanotherforum.net/upload/&lt;/uploaddir&gt;
-	&lt;/yafnet&gt;
-&lt;/configuration&gt;
-		</pre>
-		</asp:placeholder>
+	            <p>
+		            Admin User Name:<br/>
+		            <asp:TextBox id=UserName runat="server"/>
+		            The name of the admin user.
+	            </p>
 
-		<p>
-			Click next to verify the configuration.
-		</p>
-		
-		</td>
-	</tr>
-	</table>
+	            <p>
+		            Admin E-mail:<br/>
+		            <asp:TextBox id="AdminEmail" runat="server"/>
+		            The administrators email address.
+	            </p>
 
+	            <p>
+		            Admin Password:<br/>
+		            <asp:TextBox id=Password1 runat="server" TextMode="Password"/>
+		            The password of the admin user.
+	            </p>
 
-	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepConnect>
-	<tr>
-		<td class=header2 colspan=2>Step 1: Connect to database</td>
-	</tr>
-	<tr>
-		<td colspan=2>
-		<p>
-			You will have to manually modify the connection string found in
-			"<%= Server.MapPath("../Web.config") %>" to point to your database.
-		</p>
-		<p>
-			When you have entered the correct connection string, click next
-			to continue with the installation.
-		</p>
-		</td>
-	</tr>
-	</table>
+	            <p>
+		            Confirm Password:<br/>
+		            <asp:TextBox id="Password2" runat="server" TextMode="Password"/>
+		            Verify the password.
+	            </p>
 
-	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepDatabase>
-	<tr>
-		<td class=header2>Step 2: Initialize database</td>
-	</tr>
-	<tr>
-		<td>
-		<p>
-			Your database will now be initialized. In a fresh install this means
-			creating all tables and stored procedures. If this is an update to an
-			already existing version, your database will be updated to the latest
-			version.
-		</p>
-		<p>
-			Click next to setup your database.
-		</p>
-		</td>
-	</tr>
-	</table>
+                <p>
+                    Security Question:<br />
+                    <asp:TextBox runat="server" ID="SecurityQuestion" />
+                    The question you will be asked when you need to retrieve your lost password.
+                </p>
+                
+                <p>
+                    Security Answer:<br />
+                    <asp:TextBox runat="server" ID="SecurityAnswer" />
+                    The answer to the security question.
+                </p>
+            </asp:WizardStep>
+            
+            <asp:WizardStep runat="server" StepType="Start" Title="Migrate Users">
+                <strong>Migrate Roles and Users</strong><br />
+                <br />
+                Clicking next will migrate all roles and users from Yet Another Forum.net to ASP.NET. This means that
+                all of the users in your forum database will be converted to users in the ASP.NET DB with new passwords
+                mailed to their e-mail address.<br />
+                <br />
+                If you don't want to migrate any existing users to the ASP.NET DB you can abort the installation
+                at this point.<br />
+                <br />
+            </asp:WizardStep>
 
-
-	<table width=100% cellspacing=1 cellpadding=0 runat=server visible=false id=stepForum>
-		<tr>
-			<td colspan=2 class=header2>Step 3: Create Forum</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Forum Name:</b><br>The name of your forum.</td>
-			<td class=post>
-				<asp:TextBox id=TheForumName runat="server"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Time Zone:</b><br></td>
-			<td class=post>
-				<asp:DropDownList id=TimeZones runat="server" DataTextField="Name" DataValueField="Value"></asp:DropDownList>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Forum Email:</b><br>The official forum email address.</td>
-			<td class=post>
-				<asp:TextBox id=ForumEmailAddress runat="server"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>SMTP Server:</b><br>The name of a smtp server used to send emails.</td>
-			<td class=post>
-				<asp:TextBox id=SmptServerAddress runat="server"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Admin User Name:</b><br>The name of the admin user.</td>
-			<td class=post>
-				<asp:TextBox id=UserName runat="server"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Admin Email:</b><br>The administrators email address.</td>
-			<td class=post>
-				<asp:TextBox id="AdminEmail" runat="server"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Admin Password:</b><br>The password of the admin user.</td>
-			<td class=post>
-				<asp:TextBox id=Password1 runat="server" TextMode="Password"></asp:TextBox>
-			</td>
-		</tr>
-		<tr>
-			<td class=postheader><b>Re-type Password:</b><br>Verify the password.</td>
-			<td class=post>
-				<asp:TextBox id="Password2" runat="server" TextMode="Password"></asp:TextBox>
-			</td>
-		</tr>
-	</table>
+            <asp:WizardStep runat="server" StepType="Finish" Title="Finished">
+                <strong>Upgrade Finished</strong><br />
+                <br />
+                Your forum has now been upgraded to the latest version.
+            </asp:WizardStep>
+        </WizardSteps>
+        <SideBarButtonStyle BackColor="#507CD1" Font-Names="Verdana" ForeColor="White" />
+        <HeaderStyle BackColor="#284E98" BorderColor="#EFF3FB" BorderStyle="Solid" BorderWidth="2px"
+            Font-Bold="True" Font-Size="0.9em" ForeColor="White" HorizontalAlign="Center" />
+    </asp:Wizard>
+</div>
 
 
-	<table cellspacing=1 cellpadding=0 width=100% runat=server visible=false id=stepFinished>
-	<tr>
-		<td class=header2>Finished</td>
-	</tr>
-	<tr>
-		<td>
-		<p>
-			Your forum is now ready to use. If this was a fresh install you will need to
-			enter the admin section of the forum to setup categories and forums.
-		</p>
-		</td>
-	</tr>
-	</table>
-
-
-</td></tr>
-
-<tr>
-	<td class=footer1 align=center>
-		<asp:button id=back text=Back runat=server enabled=false></asp:button>
-		<asp:button id=next text=Next runat=server></asp:button>
-		<asp:button id=finish text=Finish runat=server enabled=false></asp:button>
-		<asp:label id=cursteplabel runat=server visible=false></asp:label>
-	</td>
-</tr>
-
-</table>
-
-
-<yaf:smartscroller runat="server"/>
+<yaf:smartscroller runat="server" ID="scroller"/>
 </form>
 
 </body>

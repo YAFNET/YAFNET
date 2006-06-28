@@ -32,12 +32,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_signature.
 	/// </summary>
-	public class cp_signature : ForumPage
+	public partial class cp_signature : ForumPage
 	{
-		protected Button save, cancel;
 		protected yaf.editor.ForumEditor sig;
-		protected controls.PageLinks PageLinks;
-		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
 
 		public cp_signature() : base("CP_SIGNATURE")
 		{
@@ -48,9 +45,9 @@ namespace yaf.pages
 			sig.BaseDir = Data.ForumRoot + "editors";
 			sig.StyleSheet = this.ThemeFile("theme.css");
 
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

@@ -32,14 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public class members : ForumPage
+	public partial class members : ForumPage
 	{
-		protected Repeater MemberList;
-		protected LinkButton UserName,Joined,Posts, Rank;
-		protected HtmlImage SortUserName, SortRank, SortJoined, SortPosts;
-		protected controls.PageLinks PageLinks;
-		protected controls.Pager Pager;
-		protected HtmlTableRow LetterRow;
 
 		public members() : base("MEMBERS")
 		{
@@ -63,9 +57,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

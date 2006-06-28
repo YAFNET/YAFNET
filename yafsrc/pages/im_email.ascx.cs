@@ -32,11 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public class im_email : ForumPage
+	public partial class im_email : ForumPage
 	{
-		protected controls.PageLinks PageLinks;
-		protected Button Send;
-		protected TextBox Subject, Body;
 
 		public im_email() : base("IM_EMAIL")
 		{
@@ -44,7 +41,7 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 				Data.AccessDenied();
 
 			if(!IsPostBack) 

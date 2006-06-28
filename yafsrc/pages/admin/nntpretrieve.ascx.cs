@@ -32,12 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public class nntpretrieve : AdminPage
+	public partial class nntpretrieve : AdminPage
 	{
-		protected Repeater List;
-		protected TextBox Seconds;
-		protected Button Retrieve;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

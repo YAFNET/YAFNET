@@ -14,13 +14,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public class attachments : ForumPage
+	public partial class attachments : ForumPage
 	{
 		private DataRow forum, topic;
-		protected Repeater List;
-		protected Button Back, Upload;
-		protected HtmlInputFile File;
-		protected controls.PageLinks PageLinks;
 
 		public attachments() : base("ATTACHMENTS")
 		{
@@ -150,7 +146,7 @@ namespace yaf.pages
 			if(file.PostedFile==null || file.PostedFile.FileName.Trim().Length==0 || file.PostedFile.ContentLength==0)
 				return;
 
-			string sUpDir = Request.MapPath(Config.ConfigSection["uploaddir"]);
+			string sUpDir = Request.MapPath(Config.UploadDir);
 			string filename = file.PostedFile.FileName;
 
 			int pos = filename.LastIndexOfAny(new char[]{'/','\\'});

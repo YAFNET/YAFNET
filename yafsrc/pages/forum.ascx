@@ -29,7 +29,7 @@
 </HeaderTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=header2 colspan=5><a href='<%# yaf.Forum.GetLink(yaf.Pages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'><%# DataBinder.Eval(Container.DataItem, "Name") %></a></td>
+		<td class=header2 colspan=5><a href='<%# yaf.Forum.GetLink(yaf.Pages.forum,"c={0}",Eval( "CategoryID")) %>'><%# Eval( "Name") %></a></td>
 	</tr>
 	<yaf:forumlist runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'/>
 </ItemTemplate>
@@ -55,7 +55,7 @@
 			<td class=post>
 				<asp:label runat="server" id="activeinfo"/><br/>
 				<asp:repeater runat="server" id="ActiveList">
-					<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'><%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %></a></ItemTemplate>
+					<ItemTemplate><a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval( "UserID"))%>'><%# Server.HtmlEncode(Convert.ToString(Eval( "Name"))) %></a></ItemTemplate>
 					<SeparatorTemplate>, </SeparatorTemplate>
 				</asp:repeater>
 			</td>
@@ -81,7 +81,7 @@
 		<tr>
 			<td class="post" valign="top">
 				<asp:Repeater runat="server" id="LatestPosts">
-					<ItemTemplate>&nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# yaf.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a> <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>"><img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0"></a><br/></ItemTemplate>
+					<ItemTemplate>&nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",Eval( "LastMessageID"))%>'><%# Convert.ToString(Eval( "Topic")) %></a> <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",Eval( "LastMessageID"))%>"><img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0"></a><br/></ItemTemplate>
 				</asp:Repeater>
 			</td>
 		</tr>

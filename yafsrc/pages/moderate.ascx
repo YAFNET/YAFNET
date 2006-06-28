@@ -17,13 +17,13 @@
 <asp:repeater runat="server" id="UserList">
 <ItemTemplate>
 <tr class="post">
-	<td><%# DataBinder.Eval(Container.DataItem,"Name") %></td>
-	<td align="center"><%# DataBinder.Eval(Container.DataItem,"Accepted") %></td>
-	<td><%# DataBinder.Eval(Container.DataItem,"Access") %></td>
+	<td><%# Eval("Name") %></td>
+	<td align="center"><%# Eval("Accepted") %></td>
+	<td><%# Eval("Access") %></td>
 	<td>
-		<asp:linkbutton runat="server" text='<%#GetText("EDIT")%>' commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+		<asp:linkbutton runat="server" text='<%#GetText("EDIT")%>' commandname="edit" commandargument='<%# Eval("UserID") %>'/>
 		|
-		<asp:linkbutton runat="server" text='<%#GetText("REMOVE")%>' onload="DeleteUser_Load" commandname="remove" commandargument='<%# DataBinder.Eval(Container.DataItem,"UserID") %>'/>
+		<asp:linkbutton runat="server" text='<%#GetText("REMOVE")%>' onload="DeleteUser_Load" commandname="remove" commandargument='<%# Eval("UserID") %>'/>
 	</td>
 </tr>
 </ItemTemplate>
@@ -53,7 +53,7 @@
 <itemtemplate>
 	<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>>
 		<td class="postheader" align="center">
-			<asp:linkbutton runat=server onload="Delete_Load" commandargument='<%# DataBinder.Eval(Container.DataItem, "TopicID") %>' commandname='delete'><%# GetThemeContents("BUTTONS","DELETETOPIC") %></asp:linkbutton>
+			<asp:linkbutton runat=server onload="Delete_Load" commandargument='<%# Eval( "TopicID") %>' commandname='delete'><%# GetThemeContents("BUTTONS","DELETETOPIC") %></asp:linkbutton>
 		</td>
 	</yaf:TopicLine>
 </itemtemplate>

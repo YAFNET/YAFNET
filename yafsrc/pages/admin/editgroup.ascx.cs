@@ -32,19 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public class editgroup : AdminPage
+	public partial class editgroup : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.CheckBox IsGuestGroup;
-		protected System.Web.UI.WebControls.CheckBox IsStart;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Repeater AccessList;
-		protected System.Web.UI.WebControls.CheckBox IsAdminX;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected CheckBox IsModeratorX;
-		protected HtmlTableRow NewGroupRow;
-		protected DropDownList AccessMaskID;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -63,7 +52,6 @@ namespace yaf.pages.admin
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
 						IsAdminX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsAdmin)==(int)GroupFlags.IsAdmin;
-						IsGuestGroup.Checked = ((int)row["Flags"] & (int)GroupFlags.IsGuest)==(int)GroupFlags.IsGuest;
 						IsStart.Checked = ((int)row["Flags"] & (int)GroupFlags.IsStart)==(int)GroupFlags.IsStart;
 						IsModeratorX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsModerator)==(int)GroupFlags.IsModerator;
 					}
@@ -137,7 +125,7 @@ namespace yaf.pages.admin
 			long GroupID = 0;
 			if(Request.QueryString["i"] != null) GroupID = long.Parse(Request.QueryString["i"]);
 				
-			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsGuestGroup.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
+			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
 			if(Request.QueryString["i"] != null) 

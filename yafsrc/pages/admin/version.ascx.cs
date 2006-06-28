@@ -14,12 +14,10 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public class version : AdminPage
+	public partial class version : AdminPage
 	{
-		protected	HtmlGenericControl	Upgrade;
 		private		long				m_lastVersion;
 		private		DateTime			m_lastVersionDate;
-		protected controls.PageLinks PageLinks;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{

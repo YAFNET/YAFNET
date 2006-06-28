@@ -33,9 +33,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public class error : ForumPage
+	public partial class error : ForumPage
 	{
-		protected System.Web.UI.HtmlControls.HtmlTableCell errormsg;
 
 		public error() : base("ERROR") {
 			NoDataBase = true;

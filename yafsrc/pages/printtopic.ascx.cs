@@ -32,10 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for printtopic.
 	/// </summary>
-	public class printtopic : ForumPage
+	public partial class printtopic : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater Posts;
-		protected controls.PageLinks PageLinks;
 
 		public printtopic() : base("PRINTTOPIC")
 		{

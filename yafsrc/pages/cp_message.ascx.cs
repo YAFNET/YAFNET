@@ -32,10 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public class cp_message : ForumPage
+	public partial class cp_message : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater Inbox;
-		protected controls.PageLinks PageLinks;
 
 		public cp_message() : base("CP_MESSAGE")
 		{
@@ -43,9 +41,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

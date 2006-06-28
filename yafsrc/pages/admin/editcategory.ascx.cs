@@ -32,14 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for editcategory.
 	/// </summary>
-	public class editcategory : AdminPage
+	public partial class editcategory : AdminPage
 	{
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.TextBox SortOrder;
-		protected System.Web.UI.WebControls.Label CategoryNameTitle;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{

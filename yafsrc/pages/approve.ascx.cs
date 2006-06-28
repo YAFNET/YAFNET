@@ -32,13 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for approve.
 	/// </summary>
-	public class approve : ForumPage
+	public partial class approve : ForumPage
 	{
-		protected System.Web.UI.HtmlControls.HtmlTable approved;
-		protected System.Web.UI.HtmlControls.HtmlTable error;
-		protected System.Web.UI.WebControls.TextBox key;
-		protected System.Web.UI.WebControls.Button ValidateKey;
-		protected controls.PageLinks PageLinks;
 		
 		public approve() : base("APPROVE")
 		{

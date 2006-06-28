@@ -26,25 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 namespace yaf.pages.admin
 {
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public class edituser : AdminPage
+	public partial class edituser : AdminPage
 	{
-		protected System.Web.UI.WebControls.TextBox Name;
-		protected System.Web.UI.WebControls.TextBox Email;
-		protected System.Web.UI.WebControls.TextBox Joined;
-		protected System.Web.UI.WebControls.TextBox LastVisit;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected Repeater UserGroups;
-		protected CheckBox IsHostAdminX;
-		protected DropDownList RankID;
-		protected HtmlTableRow IsHostAdminRow;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -62,7 +52,8 @@ namespace yaf.pages.admin
 					Name.Text = (string)row["Name"];
 					Email.Text = row["Email"].ToString();
 					IsHostAdminX.Checked = ((int)row["Flags"] & (int)UserFlags.IsHostAdmin) == (int)UserFlags.IsHostAdmin;
-					Joined.Text = row["Joined"].ToString();
+                    IsGuestX.Checked = ((int)row["Flags"] & (int)UserFlags.IsGuest) == (int)UserFlags.IsGuest;
+                    Joined.Text = row["Joined"].ToString();
 					LastVisit.Text = row["LastVisit"].ToString();
 					ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
 					if(item!=null)
@@ -112,13 +103,26 @@ namespace yaf.pages.admin
 		}
 
 		private void Save_Click(object sender, System.EventArgs e) {
-			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,RankID.SelectedValue);
+			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,IsGuestX.Checked,RankID.SelectedValue);
 			for(int i=0;i<UserGroups.Items.Count;i++) 
 			{
 				RepeaterItem item = UserGroups.Items[i];
 				int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-				DB.usergroup_save(Request.QueryString["u"],GroupID,((CheckBox)item.FindControl("GroupMember")).Checked);
-			}
+
+                string roleName = string.Empty;
+                using (DataTable dt = DB.group_list(PageBoardID, GroupID))
+                {
+                    foreach (DataRow row in dt.Rows)
+                        roleName = (string)row["Name"];
+                }
+
+                bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+                DB.usergroup_save(Request.QueryString["u"],GroupID,isChecked);
+                if (isChecked && !Roles.IsUserInRole(User.UserName,roleName))
+                    Roles.AddUserToRole(User.UserName, roleName);
+                else if (!isChecked && Roles.IsUserInRole(User.UserName, roleName))
+                    Roles.RemoveUserFromRole(User.UserName, roleName);
+            }
 
 			Forum.Redirect(Pages.admin_users);
 		}

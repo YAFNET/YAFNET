@@ -32,12 +32,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public class cp_inbox : ForumPage
+	public partial class cp_inbox : ForumPage
 	{
-		protected System.Web.UI.WebControls.Repeater Inbox;
-		protected LinkButton FromLink, DateLink, SubjectLink;
-		protected HtmlImage SortSubject, SortFrom, SortDate;
-		protected controls.PageLinks PageLinks;
 
 		public cp_inbox() : base("CP_INBOX")
 		{
@@ -84,9 +80,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);

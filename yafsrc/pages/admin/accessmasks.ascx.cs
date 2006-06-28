@@ -32,11 +32,8 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public class accessmasks : AdminPage
+	public partial class accessmasks : AdminPage
 	{
-		protected LinkButton New;
-		protected Repeater List;
-		protected controls.PageLinks PageLinks;
 	
 		private void Page_Load(object sender, System.EventArgs e)
 		{

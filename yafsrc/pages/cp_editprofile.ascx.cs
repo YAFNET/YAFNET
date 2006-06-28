@@ -34,29 +34,8 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for cp_editprofile.
 	/// </summary>
-	public class cp_editprofile : ForumPage
+	public partial class cp_editprofile : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox Location;
-		protected System.Web.UI.WebControls.TextBox HomePage;
-		protected System.Web.UI.WebControls.DropDownList TimeZones;
-		protected System.Web.UI.WebControls.TextBox Avatar;
-		protected System.Web.UI.WebControls.TextBox OldPassword;
-		protected System.Web.UI.WebControls.TextBox NewPassword1;
-		protected System.Web.UI.WebControls.TextBox NewPassword2;
-		protected System.Web.UI.WebControls.Button UpdateProfile;
-		protected System.Web.UI.WebControls.TextBox Email;
-		protected System.Web.UI.HtmlControls.HtmlInputFile File;
-		protected HtmlTableRow AvatarRow, AvatarUploadRow, AvatarDeleteRow, AvatarRemoteRow;
-		protected Button DeleteAvatar;
-		protected DropDownList Theme, Language;
-		protected PlaceHolder ForumSettingsRows;
-		protected HtmlTableRow UserThemeRow, UserLanguageRow;
-		protected controls.PageLinks PageLinks;
-		protected TextBox Realname, Occupation, Interests, Weblog, MSN, YIM, AIM, ICQ;
-		protected DropDownList Gender;
-		protected HyperLink OurAvatar;
-		protected Image AvatarImg;
-		protected PlaceHolder LoginInfo;
 
 		public cp_editprofile() : base("CP_EDITPROFILE")
 		{
@@ -64,9 +43,9 @@ namespace yaf.pages
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);
@@ -74,7 +53,7 @@ namespace yaf.pages
 			
 			if(!IsPostBack) 
 			{
-				LoginInfo.Visible = User.CanLogin;
+				LoginInfo.Visible = CanLogin;
 
 				// Begin Modifications for enhanced profile
 				Gender.Items.Add(GetText("gender0"));

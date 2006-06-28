@@ -87,12 +87,12 @@
 			<ItemTemplate>
 				<tr>
 					<td class="postheader">
-						<asp:label id=GroupID visible=false runat="server" text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'>
+						<asp:label id=GroupID visible=false runat="server" text='<%# Eval( "GroupID") %>'>
 						</asp:label>
-						<%# DataBinder.Eval(Container.DataItem, "GroupName") %>
+						<%# Eval( "GroupName") %>
 					</td>
 					<td class="post">
-						<asp:dropdownlist runat="server" id="AccessMaskID" ondatabinding="BindData_AccessMaskID" onprerender="SetDropDownIndex" value='<%# DataBinder.Eval(Container.DataItem,"AccessMaskID") %>'/>
+						<asp:dropdownlist runat="server" id="AccessMaskID" ondatabinding="BindData_AccessMaskID" onprerender="SetDropDownIndex" value='<%# Eval("AccessMaskID") %>'/>
 						...
 					</td>
 				</tr>

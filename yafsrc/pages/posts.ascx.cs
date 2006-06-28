@@ -33,41 +33,13 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for posts.
 	/// </summary>
-	public class posts : ForumPage
+	public partial class posts : ForumPage
 	{
-		protected System.Web.UI.WebControls.LinkButton NewTopic1;
-		protected System.Web.UI.WebControls.Repeater MessageList;
-		protected System.Web.UI.WebControls.LinkButton PostReplyLink1;
-		protected System.Web.UI.WebControls.Repeater Poll;
-		protected controls.PageLinks PageLinks;
-		protected controls.Pager Pager;
 
 		private DataRow forum, topic;
-		protected System.Web.UI.WebControls.LinkButton PrevTopic;
-		protected System.Web.UI.WebControls.LinkButton NextTopic;
-		protected System.Web.UI.WebControls.LinkButton PrintTopic;
-		protected System.Web.UI.WebControls.LinkButton EmailTopic;
-		protected System.Web.UI.WebControls.LinkButton DeleteTopic1;
-		protected System.Web.UI.WebControls.LinkButton LockTopic1;
-		protected System.Web.UI.WebControls.LinkButton UnlockTopic1;
-		protected System.Web.UI.WebControls.Label TopicTitle;
 		private DataTable dtPoll;
-		protected System.Web.UI.WebControls.LinkButton PostReplyLink2;
-		protected System.Web.UI.WebControls.LinkButton NewTopic2;
-		protected System.Web.UI.WebControls.LinkButton DeleteTopic2;
-		protected System.Web.UI.WebControls.LinkButton LockTopic2;
-		protected System.Web.UI.WebControls.LinkButton UnlockTopic2;
-		protected System.Web.UI.WebControls.LinkButton TrackTopic;
-		protected System.Web.UI.WebControls.LinkButton MoveTopic1;
-		protected System.Web.UI.WebControls.LinkButton MoveTopic2;
-		protected System.Web.UI.WebControls.HyperLink RssTopic;
-		protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
-		protected System.Web.UI.HtmlControls.HtmlGenericControl WatchTopicID;
 		private bool m_bDataBound = false;
 		private bool m_bIgnoreQueryString = false;
-		protected controls.PopMenu	MyTestMenu, ViewMenu;
-		protected PlaceHolder ViewOptions;
-		protected HyperLink MyTest, View;
 
 		public posts() : base("POSTS")
 		{
@@ -590,7 +562,7 @@ namespace yaf.pages
 			}
 		}
 		private void EmailTopic_Click(object sender, System.EventArgs e) {
-			if(!User.IsAuthenticated) {
+			if(User==null) {
 				AddLoadMessage(GetText("WARN_EMAILLOGIN"));
 				return;
 			}

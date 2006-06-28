@@ -10,14 +10,8 @@ namespace yaf.controls
 	/// <summary>
 	///		Summary description for DisplayPost.
 	/// </summary>
-	public class DisplayPost : BaseUserControl
+	public partial class DisplayPost : BaseUserControl
 	{
-		protected HyperLink		Attach, Edit, Quote;
-		protected LinkButton	Delete;
-		protected HyperLink		Pm, Home, Yim, Aim, Icq, Email, Msn, Blog;
-		protected HtmlTableCell	NameCell, AdminInfo;
-		protected controls.PopMenu	PopMenu1;
-		protected HyperLink UserName;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -53,11 +47,11 @@ namespace yaf.controls
 			Quote.NavigateUrl	= Forum.GetLink(Pages.postmessage,"t={0}&f={1}&q={2}",ForumPage.PageTopicID,ForumPage.PageForumID,DataRow["MessageID"]);
 
 			// private messages
-			Pm.Visible			= ForumPage.User.IsAuthenticated && ForumPage.BoardSettings.AllowPrivateMessages;
+			Pm.Visible			= ForumPage.User!=null && ForumPage.BoardSettings.AllowPrivateMessages;
 			Pm.Text				= ForumPage.GetThemeContents("BUTTONS","PM");
 			Pm.NavigateUrl		= Forum.GetLink(Pages.pmessage,"u={0}",DataRow["UserID"]);
 			// emailing
-			Email.Visible		= ForumPage.User.IsAuthenticated && ForumPage.BoardSettings.AllowEmailSending;
+			Email.Visible		= ForumPage.User!=null && ForumPage.BoardSettings.AllowEmailSending;
 			Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
 			Email.Text			= ForumPage.GetThemeContents("BUTTONS","EMAIL");
 			Home.Visible		= DataRow["HomePage"]!=DBNull.Value;
@@ -66,16 +60,16 @@ namespace yaf.controls
 			Blog.Visible		= DataRow["Weblog"]!=DBNull.Value;
 			Blog.NavigateUrl	= DataRow["Weblog"].ToString();
 			Blog.Text			= ForumPage.GetThemeContents("BUTTONS","WEBLOG");
-			Msn.Visible			= ForumPage.User.IsAuthenticated && DataRow["MSN"]!=DBNull.Value;
+			Msn.Visible			= ForumPage.User!=null && DataRow["MSN"]!=DBNull.Value;
 			Msn.Text			= ForumPage.GetThemeContents("BUTTONS","MSN");
 			Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",DataRow["UserID"]);
-			Yim.Visible			= ForumPage.User.IsAuthenticated && DataRow["YIM"]!=DBNull.Value;
+			Yim.Visible			= ForumPage.User!=null && DataRow["YIM"]!=DBNull.Value;
 			Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",DataRow["UserID"]);
 			Yim.Text			= ForumPage.GetThemeContents("BUTTONS","YAHOO");
-			Aim.Visible			= ForumPage.User.IsAuthenticated && DataRow["AIM"]!=DBNull.Value;
+			Aim.Visible			= ForumPage.User!=null && DataRow["AIM"]!=DBNull.Value;
 			Aim.Text			= ForumPage.GetThemeContents("BUTTONS","AIM");
 			Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",DataRow["UserID"]);
-			Icq.Visible			= ForumPage.User.IsAuthenticated && DataRow["ICQ"]!=DBNull.Value;
+			Icq.Visible			= ForumPage.User!=null && DataRow["ICQ"]!=DBNull.Value;
 			Icq.Text			= ForumPage.GetThemeContents("BUTTONS","ICQ");
 			Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",DataRow["UserID"]);
 

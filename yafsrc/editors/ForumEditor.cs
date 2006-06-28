@@ -245,10 +245,10 @@ namespace yaf.editor
 			}
 			catch (Exception x)
 			{
+                DB.eventlog_create(null, this.GetType().ToString(), x, EventLogTypes.Error);
 #if DEBUG
 				throw new Exception("Unable to load editor class/dll: " + ClassBinStr);
 #endif
-				DB.eventlog_create(null,this.GetType().ToString(),x,EventLogTypes.Error);
 			}
 		}
 

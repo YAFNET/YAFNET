@@ -32,11 +32,7 @@ namespace yaf.pages.admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public class editaccessmask : AdminPage {
-		protected TextBox Name;
-		protected Button Save, Cancel;
-		protected CheckBox ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess,UploadAccess;
-		protected controls.PageLinks PageLinks;
+	public partial class editaccessmask : AdminPage {
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{

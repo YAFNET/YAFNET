@@ -32,15 +32,8 @@ namespace yaf.pages.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class boardsettings : AdminPage
+	public partial class boardsettings : AdminPage
 	{
-		protected Button Save;
-		protected TextBox Name;
-		protected CheckBox AllowThreaded;
-		protected controls.PageLinks PageLinks;
-		protected DropDownList Theme, Language, ShowTopic;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected yaf.controls.SmartScroller SmartScroller1;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{

@@ -18,12 +18,12 @@
 <asp:repeater id=List runat=server>
 <ItemTemplate>
 	<tr>
-		<td class=post><%# DataBinder.Eval(Container.DataItem, "BoardID") %></td>
-		<td class=post><%# DataBinder.Eval(Container.DataItem, "Name") %></td>
+		<td class=post><%# Eval( "BoardID") %></td>
+		<td class=post><%# Eval( "Name") %></td>
 		<td class=post align="center">
-			<asp:linkbutton runat=server commandname=edit commandargument='<%# DataBinder.Eval(Container.DataItem, "BoardID") %>'>Edit</asp:linkbutton>
+			<asp:linkbutton runat=server commandname=edit commandargument='<%# Eval( "BoardID") %>'>Edit</asp:linkbutton>
 			|
-			<asp:linkbutton onload="Delete_Load" runat=server commandname=delete commandargument='<%# DataBinder.Eval(Container.DataItem, "BoardID") %>'>Delete</asp:linkbutton>
+			<asp:linkbutton onload="Delete_Load" runat=server commandname=delete commandargument='<%# Eval( "BoardID") %>'>Delete</asp:linkbutton>
 		</td>
 	</tr>
 </ItemTemplate>

@@ -32,23 +32,11 @@ namespace yaf.pages.admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public class hostsettings : AdminPage
+	public partial class hostsettings : AdminPage
 	{
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.WebControls.Label SQLVersion;
-		protected System.Web.UI.WebControls.DropDownList TimeZones, ForumEditorList;
-		protected System.Web.UI.WebControls.TextBox ForumSmtpServer, ForumSmtpUserName, ForumSmtpUserPass;
-		protected System.Web.UI.WebControls.TextBox ForumEmailEdit, PostFloodDelay;
-		protected System.Web.UI.WebControls.TextBox AvatarWidth, AvatarHeight, SmiliesColumns, SmiliesPerRow, PostsPerPage, TopicsPerPage;
-		protected System.Web.UI.WebControls.TextBox AvatarSize, MaxFileSize, AcceptedHTML;
-		protected System.Web.UI.WebControls.CheckBox EmailVerification, ShowMoved, BlankLinks, PollVoteTiedToIPX;
-		protected System.Web.UI.WebControls.CheckBox AvatarUpload, AvatarRemote, ShowGroupsX, AllowRichEditX, AllowUserThemeX, AllowUserLanguageX, UseFileTableX;
-		protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX, ShowForumJumpX, AllowPrivateMessagesX, AllowEmailSendingX, AllowSignaturesX, RemoveNestedQuotesX, DateFormatFromLanguage;
-		protected yaf.controls.AdminMenu Adminmenu1;
-		protected controls.PageLinks PageLinks;
+		protected System.Web.UI.WebControls.CheckBox    AllowRichEditX   ;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
-		protected CheckBox AllowHTMLX, DisableRegistrations, CreateNntpUsers, ShowGroupsProfile;
-		protected TextBox LockPosts;
+		protected CheckBox AllowHTMLX   ;
 	
 		private void Page_Load(object sender, System.EventArgs e) 
 		{

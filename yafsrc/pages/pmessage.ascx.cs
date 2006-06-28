@@ -33,19 +33,9 @@ namespace yaf.pages
 	/// <summary>
 	/// Summary description for pmessage.
 	/// </summary>
-	public class pmessage : ForumPage
+	public partial class pmessage : ForumPage
 	{
-		protected System.Web.UI.WebControls.TextBox Subject;
 		protected yaf.editor.ForumEditor Editor;
-		protected System.Web.UI.WebControls.TextBox To;
-		protected System.Web.UI.HtmlControls.HtmlTableRow ToRow;
-		protected System.Web.UI.WebControls.Button Cancel;
-		protected System.Web.UI.WebControls.Button Save;
-		protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
-		protected DropDownList ToList;
-		protected Button FindUsers;
-		protected Button AllUsers;
-		protected controls.PageLinks PageLinks;
 	
 		public pmessage() : base("PMESSAGE")
 		{
@@ -56,9 +46,9 @@ namespace yaf.pages
 			Editor.BaseDir = Data.ForumRoot + "editors";
 			Editor.StyleSheet = this.ThemeFile("theme.css");
 
-			if(!User.IsAuthenticated)
+			if(User==null)
 			{
-				if(User.CanLogin)
+				if(CanLogin)
 					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
 					Forum.Redirect(Pages.forum);
