@@ -1,8 +1,8 @@
 using System; 
 using System.Web; 
-using yaf; 
+using yaf;
 
-namespace DotNetNuke.Modules.YAF
+namespace yaf_dnn
 { 
 	public class DotNetNukeUser : yaf.IForumUser 
 	{ 

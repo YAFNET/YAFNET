@@ -1,7 +1,7 @@
 using System;
 using System.Web;
 
-namespace DotNetNuke.Modules.YAF
+namespace yaf_dnn
 {
 	public class DotNetNukeUrlBuilder : yaf.IUrlBuilder
 	{

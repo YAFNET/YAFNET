@@ -1,4 +1,4 @@
-namespace DotNetNuke.Modules.YAF
+namespace yaf_dnn
 {
 	using System;
 	using System.Data;

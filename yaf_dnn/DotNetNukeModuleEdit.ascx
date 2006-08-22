@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
-<%@ Control language="c#" Inherits="DotNetNuke.Modules.YAF.DotNetNukeModuleEdit" CodeBehind="DotNetNukeModuleEdit.ascx.cs" AutoEventWireup="false" %>
+<%@ Control language="c#" Inherits="yaf_dnn.DotNetNukeModuleEdit" CodeBehind="DotNetNukeModuleEdit.ascx.cs" AutoEventWireup="false" %>
 
 <table width="100%" cellspacing="0" cellpadding="2" summary="importantmessagesdev edit design table">
 <tr>
