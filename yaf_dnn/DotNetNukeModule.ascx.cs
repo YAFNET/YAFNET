@@ -50,12 +50,9 @@ namespace DotNetNuke.Modules.YAF
 			// Put user code to initialize the page here
 			if(HttpContext.Current.User.Identity.IsAuthenticated)
 			{
-				DotNetNuke.Entities.Users.UserController userController = new DotNetNuke.Entities.Users.UserController(); 
 				DotNetNuke.Entities.Users.UserInfo userInfo; 
-
 				DotNetNuke.Entities.Portals.PortalSettings _portalSettings = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
-
-				userInfo = userController.GetUser(_portalSettings.PortalId, this.UserId); 
+				userInfo = DotNetNuke.Entities.Users.UserController.GetUser(_portalSettings.PortalId, this.UserId, false);
 
 				m_userID = userInfo.UserID; 
 				m_userName = userInfo.Username; 

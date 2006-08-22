@@ -25,10 +25,9 @@ namespace DotNetNuke.Modules.YAF
 			{ 
 				if(HttpContext.Current.User.Identity.IsAuthenticated) 
 				{ 
-					DotNetNuke.Entities.Users.UserController userController = new DotNetNuke.Entities.Users.UserController(); 
 					DotNetNuke.Entities.Users.UserInfo userInfo; 
-					DotNetNuke.Entities.Portals.PortalSettings _portalSettings = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"]; 
-					userInfo = userController.GetUserByUsername(_portalSettings.PortalId,HttpContext.Current.User.Identity.Name,false);
+					DotNetNuke.Entities.Portals.PortalSettings _portalSettings = (DotNetNuke.Entities.Portals.PortalSettings)HttpContext.Current.Items["PortalSettings"];
+					userInfo = DotNetNuke.Entities.Users.UserController.GetUserByName( _portalSettings.PortalId, HttpContext.Current.User.Identity.Name, false );
 
 					m_userID = userInfo.UserID; 
 					m_userName = userInfo.Username; 
