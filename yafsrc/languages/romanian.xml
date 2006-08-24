@@ -22,7 +22,10 @@
 		<Resource tag="REGMAIL_SENT">Un email a fost trimis. Verifica emailul si urmareste legatura.</Resource>
 		<Resource tag="UNREAD_MSG">Ai  {0} mesaj(e) necitit(e) </Resource>
 		<Resource tag="REGMAIL_WILL_BE_SEND">Un email va fi trimis la inregitrare. Ca sa te loghezi trebuie sa verifici emailul si sa faci click pe legatura.</Resource>
-	</page>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+  </page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">Cauta</Resource>
@@ -124,9 +127,18 @@
 		<Resource tag="MARKREAD">Marcheaza forumul ca fiind  citit</Resource>
 		<Resource tag="SUBFORUMS">Sub forumuri</Resource>
  		<Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="VIEW">View</Resource>
 		<Resource tag="QUESTION">Chestionar intrebare</Resource>
 		<Resource tag="CHOICE">Alegere</Resource>
 		<Resource tag="VOTES">Voturi</Resource>
@@ -167,6 +179,7 @@
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
 		<Resource tag="TITLE">Teme active</Resource>
 		<Resource tag="SINCE">Din</Resource>
 		<Resource tag="LAST_VISIT">ultim vizita la {0}</Resource>
@@ -323,7 +336,15 @@
 		<Resource tag="CONTINUE">Continua...</Resource>
 		<Resource tag="MODERATED">Avand in vedere ca acest forum este moderat, un moderator al forumului treuie sa aprobe ceea ce ai postat	inainte sa fie vizibil.</Resource>
 		<Resource tag="SUSPENDED">Contul tau a fost temporar suspendat. Acesta suspendare va fi pina{0}.</Resource>
-	</page>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+  </page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">Intrare</Resource>

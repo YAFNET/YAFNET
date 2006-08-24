@@ -21,7 +21,10 @@
 		<Resource tag="CANNOT_VOTE">Вы [b]не можете[/b] голосовать в этом форуме.</Resource>
 		<Resource tag="MAX_ONLINE">Больше всего пользователей ({0}) было {1}.</Resource>
 		<Resource tag="UNREAD_MSG">У Вас {0} непрочитанных личных сообщений</Resource>
-	</page>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+  </page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">Поиск</Resource>
@@ -66,6 +69,7 @@
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
 		<Resource tag="FORUM">Форум</Resource>
 		<Resource tag="TOPICS">Тем</Resource>
 		<Resource tag="POSTS">Сообщений</Resource>
@@ -132,6 +136,9 @@
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="VIEW">View</Resource>
 		<Resource tag="QUESTION">Варианты ответов</Resource>
 		<Resource tag="CHOICE">Вариант</Resource>
 		<Resource tag="VOTES">Голосов</Resource>
@@ -170,9 +177,16 @@
 		<Resource tag="THREADED">В виде списка</Resource>
 		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} присоединил одну или несколько картинок:</Resource>
 		<Resource tag="RSSTOPIC">RSS сборка</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
 		<Resource tag="TITLE">Активные темы</Resource>
 		<Resource tag="SINCE">с </Resource>
 		<Resource tag="LAST_VISIT">прошлого визита от {0}</Resource>
@@ -329,6 +343,14 @@
 		<Resource tag="CONTINUE">Продолжить...</Resource>
 		<Resource tag="MODERATED">В связи с тем, что форум является модерируемым, Ваше сообщение перед размещением должно быть проверено модератором.</Resource>
 		<Resource tag="SUSPENDED">Ваша учетная запись деактивирована до {0}.</Resource>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
 	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->

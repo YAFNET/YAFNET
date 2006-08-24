@@ -36,6 +36,9 @@
     <Resource tag="FORMAT_DATE_SHORT">d</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="MAX_ONLINE">Meeste gebruikers ooit online was {0}, {1}.</Resource>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
   </page>
   <page name="TOOLBAR">
     <!-- "Toolbar" at top of most pages -->
@@ -70,6 +73,7 @@
   </page>
   <page name="DEFAULT">
     <!-- default.aspx -->
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="TOPICS">Onderwerpen</Resource>
     <Resource tag="POSTS">Berichten</Resource>
@@ -131,6 +135,9 @@
   </page>
   <page name="POSTS">
     <!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="VIEW">View</Resource>
     <Resource tag="QUESTION">Poll vraag</Resource>
     <Resource tag="CHOICE">Keuze</Resource>
     <Resource tag="VOTES">Stemmen</Resource>
@@ -166,9 +173,16 @@
     <Resource tag="WARN_TOPIC_LOCKED">Het onderwerp is gesloten.</Resource>
     <Resource tag="WARN_WATCHLOGIN">Je moet geregistreerd zijn om onderwerpen te kunnen opvolgen.</Resource>
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
   </page>
   <page name="ACTIVE">
     <!-- active.aspx -->
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
     <Resource tag="TITLE">Actieve onderwerpen</Resource>
     <Resource tag="SINCE">Sinds</Resource>
     <Resource tag="LAST_VISIT">laatste bezoek op {0}</Resource>
@@ -323,6 +337,14 @@
     <Resource tag="CONTINUE">Ga verder...</Resource>
     <Resource tag="MODERATED">Omdat je in een gemodereerd forum gepost hebt, zal je bericht pas verschijnen na goedkeuring door een moderator.</Resource>
     <Resource tag="SUSPENDED">Je account is tijdelijk vergrendeld en zal weer actief worden op {0}.</Resource>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
   </page>
   <page name="LOGIN">
     <!-- login.aspx -->

@@ -23,7 +23,10 @@
 		<Resource tag="REGMAIL_SENT">En e-mail er blevet sendt. Åben din indbakke og klik på linket i e-mailen.</Resource>
 		<Resource tag="UNREAD_MSG">Du har {0} ulæste besked(er) i din indbakke</Resource>
 		<Resource tag="REGMAIL_WILL_BE_SEND">En e-mail bliver afsendt når du tilmelder dig. For at logge ind skal du tjekke din indbakke og klikke på linket i e-mailen.</Resource>
-	</page>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+  </page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">Søg</Resource>
@@ -67,6 +70,7 @@
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
 		<Resource tag="FORUM">Forum</Resource>
 		<Resource tag="TOPICS">Emner</Resource>
 		<Resource tag="POSTS">Indlæg</Resource>
@@ -126,6 +130,9 @@
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="VIEW">View</Resource>
 		<Resource tag="QUESTION">Afstemingsspørgsmål</Resource>
 		<Resource tag="CHOICE">Vælg</Resource>
 		<Resource tag="VOTES">Stemmer</Resource>
@@ -162,10 +169,17 @@
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="THREADED">Tråd</Resource>
 		<Resource tag="FORUM_JUMP">Hop til Forum</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
-		<Resource tag="TITLE">Aktive emner</Resource>
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+    <Resource tag="TITLE">Aktive emner</Resource>
 		<Resource tag="SINCE">Siden</Resource>
 		<Resource tag="LAST_VISIT">sidste besøg {0}</Resource>
 		<Resource tag="LAST_HOUR">sidste time</Resource>
@@ -317,9 +331,17 @@
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">Forsæt...</Resource>
-		<Resource tag="MODERATED">Da dit indlæg er i et modereret forum, skal forum moderatoren godkende dit indlæg før det bliver synligt.</Resource>
-		<Resource tag="SUSPENDED">Din konto er blev midlertidigt suspenderet. Kontoen bliver åbnet igen den {0}.</Resource>
-	</page>
+    <Resource tag="MODERATED">Da dit indlæg er i et modereret forum, skal forum moderatoren godkende dit indlæg før det bliver synligt.</Resource>
+    <Resource tag="SUSPENDED">Din konto er blev midlertidigt suspenderet. Kontoen bliver åbnet igen den {0}.</Resource>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+  </page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">Log ind</Resource>

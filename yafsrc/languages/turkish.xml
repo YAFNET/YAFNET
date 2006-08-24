@@ -23,7 +23,10 @@
 		<Resource tag="REGMAIL_SENT">e-Posta Gönderildi. Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz.</Resource>
 		<Resource tag="UNREAD_MSG">Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır.</Resource>
 		<Resource tag="REGMAIL_WILL_BE_SEND">Kayıt Olduğunuda Belirttiğiniz e-Posta Adresine bir e-Posta Gönderilecektir. Foruma Girebilmeniz İçin Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz.</Resource>
-	</page>
+    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BBCODE_CODE">Code:</Resource>
+  </page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
 		<Resource tag="SEARCH">Arama</Resource>
@@ -67,6 +70,7 @@
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
 		<Resource tag="FORUM">Forum</Resource>
 		<Resource tag="TOPICS">Konular</Resource>
 		<Resource tag="POSTS">Mesajlar</Resource>
@@ -128,6 +132,9 @@
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">Quick Reply</Resource>
+    <Resource tag="OPTIONS">Options</Resource>
+    <Resource tag="VIEW">View</Resource>
 		<Resource tag="QUESTION">Oylama Sorusu</Resource>
 		<Resource tag="CHOICE">Seçenek</Resource>
 		<Resource tag="VOTES">Oylar</Resource>
@@ -165,9 +172,16 @@
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="THREADED">Threaded</Resource>
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
+    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
 		<Resource tag="TITLE">Aktif Konular</Resource>
 		<Resource tag="SINCE">den Beri</Resource>
 		<Resource tag="LAST_VISIT">En Son Ziyaret {0}</Resource>
@@ -323,7 +337,15 @@
 		<Resource tag="CONTINUE">Devam...</Resource>
 		<Resource tag="MODERATED">Denetlenen bir foruma posta gönderdiğiniz için, e-postanızın yayınlanmadan önce bir forum denetleyicisi tarafından onaylanması gerekmektedir.</Resource>
 		<Resource tag="SUSPENDED">Hesabınız bir süre için askıya alınmıştır. bu süre {0} tarihinde sona erecektir.</Resource>
-	</page>
+    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+    <Resource tag="EXCEPTION">You are logged in as</Resource>
+    <Resource tag="TITLE_MODERATED">Information</Resource>
+    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+  </page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">Oturum</Resource>

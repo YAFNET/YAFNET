@@ -1,34 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><!-- Deutsche Übersetzung von Mark Aslan Kuschel (www.mark-kuschel.de), überarbeitet von maikah-->
 <Resources language="German">
     <page name="COMMON">
-        <!-- common... -->
-        <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
-        <Resource tag="GENERATED">Diese Seite wurde in {0:N3} Sekunden generiert.</Resource>
-        <Resource tag="SAVE">Speichern</Resource>
-        <Resource tag="CANCEL">Abbrechen</Resource>
-        <Resource tag="FORUM_JUMP">Gehe zu:</Resource>
-        <Resource tag="CAN_POST">Du [b]kannst[/b] neue Themen in diesem Forum eröffnen.</Resource>
-        <Resource tag="CAN_REPLY">Du [b]kannst[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
-        <Resource tag="CAN_DELETE">Du [b]kannst[/b] deine Beiträge in diesem Forum löschen.</Resource>
-        <Resource tag="CAN_EDIT">Du [b]kannst[/b] deine Beiträge in diesem Forum editieren.</Resource>
-        <Resource tag="CAN_POLL">Du [b]kannst[/b] Umfragen in diesem Forum erstellen.</Resource>
-        <Resource tag="CAN_VOTE">Du [b]kannst[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
-        <Resource tag="CANNOT_POST">Du [b]kannst nicht[/b] neue Themen in diesem Forum eröffnen.</Resource>
-        <Resource tag="CANNOT_REPLY">Du [b]kannst nicht[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
-        <Resource tag="CANNOT_DELETE">Du [b]kannst nicht[/b] deine Beiträge in diesem Forum löschen.</Resource>
-        <Resource tag="CANNOT_EDIT">Du [b]kannst nicht[/b] deine Beiträge in diesem Forum editieren.</Resource>
-        <Resource tag="CANNOT_POLL">Du [b]kannst nicht[/b] Umfragen in diesem Forum erstellen.</Resource>
-        <Resource tag="CANNOT_VOTE">Du [b]kannst nicht[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
-        <Resource tag="REGMAIL_SENT">Eine Nachricht wurde verschickt. Klicke auf den in der Nachricht enthaltenen Link um fortzufahren</Resource>
-	    <Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachrichten in Deinem Posteingang</Resource>
-		<Resource tag="REGMAIL_WILL_BE_SEND">Eine Email wird gesendet nach der registrierung. Zum einloggen den in der Nachricht aufgeführten link anklicken.</Resource>
-		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
-		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
-		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
-		<Resource tag="FORMAT_DATE_LONG">D</Resource>
-		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
-		<Resource tag="FORMAT_TIME">T</Resource>
-		<Resource tag="MAX_ONLINE">Maximale Anzahl Benutzer gleichzeitig online {0}, {1}.</Resource>
+      <!-- common... -->
+      <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+      <Resource tag="GENERATED">Diese Seite wurde in {0:N3} Sekunden generiert.</Resource>
+      <Resource tag="SAVE">Speichern</Resource>
+      <Resource tag="CANCEL">Abbrechen</Resource>
+      <Resource tag="FORUM_JUMP">Gehe zu:</Resource>
+      <Resource tag="CAN_POST">Du [b]kannst[/b] neue Themen in diesem Forum eröffnen.</Resource>
+      <Resource tag="CAN_REPLY">Du [b]kannst[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
+      <Resource tag="CAN_DELETE">Du [b]kannst[/b] deine Beiträge in diesem Forum löschen.</Resource>
+      <Resource tag="CAN_EDIT">Du [b]kannst[/b] deine Beiträge in diesem Forum editieren.</Resource>
+      <Resource tag="CAN_POLL">Du [b]kannst[/b] Umfragen in diesem Forum erstellen.</Resource>
+      <Resource tag="CAN_VOTE">Du [b]kannst[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
+      <Resource tag="CANNOT_POST">Du [b]kannst nicht[/b] neue Themen in diesem Forum eröffnen.</Resource>
+      <Resource tag="CANNOT_REPLY">Du [b]kannst nicht[/b] Antworten zu Themen in diesem Forum erstellen.</Resource>
+      <Resource tag="CANNOT_DELETE">Du [b]kannst nicht[/b] deine Beiträge in diesem Forum löschen.</Resource>
+      <Resource tag="CANNOT_EDIT">Du [b]kannst nicht[/b] deine Beiträge in diesem Forum editieren.</Resource>
+      <Resource tag="CANNOT_POLL">Du [b]kannst nicht[/b] Umfragen in diesem Forum erstellen.</Resource>
+      <Resource tag="CANNOT_VOTE">Du [b]kannst nicht[/b] bei Umfragen in diesem Forum abstimmen.</Resource>
+      <Resource tag="REGMAIL_SENT">Eine Nachricht wurde verschickt. Klicke auf den in der Nachricht enthaltenen Link um fortzufahren</Resource>
+      <Resource tag="UNREAD_MSG">Du hast {0} ungelesene Nachrichten in Deinem Posteingang</Resource>
+	    <Resource tag="REGMAIL_WILL_BE_SEND">Eine Email wird gesendet nach der registrierung. Zum einloggen den in der Nachricht aufgeführten link anklicken.</Resource>
+	    <!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+	    <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+	    <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+	    <Resource tag="FORMAT_DATE_LONG">D</Resource>
+	    <Resource tag="FORMAT_DATE_SHORT">d</Resource>
+	    <Resource tag="FORMAT_TIME">T</Resource>
+	    <Resource tag="MAX_ONLINE">Maximale Anzahl Benutzer gleichzeitig online {0}, {1}.</Resource>
+      <Resource tag="BBCODE_QUOTE">Quote:</Resource>
+      <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+      <Resource tag="BBCODE_CODE">Code:</Resource>
     </page>
     <page name="TOOLBAR">
         <!-- "Toolbar" at top of most pages -->
@@ -74,6 +77,7 @@
     </page>
     <page name="DEFAULT">
         <!-- default.aspx -->
+      <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
         <Resource tag="FORUM">Forum</Resource>
         <Resource tag="TOPICS">Themen</Resource>
         <Resource tag="POSTS">Beiträge</Resource>
@@ -142,6 +146,9 @@
     </page>
     <page name="POSTS">
         <!-- posts.aspx -->
+        <Resource tag="QUICKREPLY">Quick Reply</Resource>
+        <Resource tag="OPTIONS">Options</Resource>
+        <Resource tag="VIEW">View</Resource>
         <Resource tag="QUESTION">Frage</Resource>
         <Resource tag="CHOICE">Antwort</Resource>
         <Resource tag="VOTES">Stimmen</Resource>
@@ -184,6 +191,12 @@
 		<Resource tag="NORMAL">Normal</Resource>
 		<Resource tag="THREADED">Threaded</Resource>
 		<Resource tag="FORUM_JUMP">Forum-Wechsel</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
     </page>
     <page name="ACTIVE">
         <!-- active.aspx -->
@@ -339,10 +352,18 @@
         <Resource tag="FAILED">Das Verschicken der Email ist fehlgeschlagen.\n\n{0}</Resource>
     </page>
     <page name="INFO">
-        <!-- info.aspx -->
-        <Resource tag="CONTINUE">Fortfahren...</Resource>
-        <Resource tag="MODERATED">Da du in einem moderierten Forum geposted hast muss ein Moderator deinen Beitrag bestätigen damit dieser sichtbar wird.</Resource>
-		<Resource tag="SUSPENDED">Dein Benutzerkonto wurde temporär gesperrt. Die Sperrung wird zu folgendem Zeitpunkt enden: {0}.</Resource>
+      <!-- info.aspx -->
+      <Resource tag="CONTINUE">Fortfahren...</Resource>
+      <Resource tag="MODERATED">Da du in einem moderierten Forum geposted hast muss ein Moderator deinen Beitrag bestätigen damit dieser sichtbar wird.</Resource>
+      <Resource tag="SUSPENDED">Dein Benutzerkonto wurde temporär gesperrt. Die Sperrung wird zu folgendem Zeitpunkt enden: {0}.</Resource>
+      <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+      <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+      <Resource tag="EXCEPTION">You are logged in as</Resource>
+      <Resource tag="TITLE_MODERATED">Information</Resource>
+      <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+      <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+      <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+      <Resource tag="TITLE_EXCEPTION">Information</Resource>
     </page>
     <page name="LOGIN">
         <!-- login.aspx -->
