@@ -39,7 +39,7 @@ namespace yaf.pages.help
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -56,7 +56,6 @@ namespace yaf.pages.help
 
 		override protected void OnInit(EventArgs e)
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
 			DoSearch.Click += new EventHandler(DoSearch_Click);
 			base.OnInit(e);
 		}

@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.moderate.forum" %>
+<%@ Control language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.moderate.forum" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

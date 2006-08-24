@@ -1,5 +1,5 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="recover.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.help.recover" %>
+<%@ Control language="c#" Codebehind="recover.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.help.recover" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:helpmenu runat="server">
 
