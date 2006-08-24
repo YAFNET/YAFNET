@@ -32,6 +32,7 @@ namespace yaf
 			*/
 
 			writer.WriteRaw("<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + en);
+            writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"rss.xsl\" media=\"screen\"?>");
 			writer.WriteRaw("<rss version=\"2.0\">" + en);
 			writer.WriteRaw("\t<channel>" + en);
 			writer.WriteRaw("\t\t<title>RSS Feed for " + page.ServerURL + "</title>" + en);

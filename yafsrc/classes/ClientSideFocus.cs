@@ -55,7 +55,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace McGiv.Web.UI
+namespace yaf
 {
 	/// <summary>
 	/// Helper class that sets that generates and registers a client side script that
@@ -128,7 +128,7 @@ namespace McGiv.Web.UI
 
 
 
-			page.RegisterStartupScript("focus", javascript);
+			page.ClientScript.RegisterStartupScript(page.GetType(),"focus", javascript);
 
 		}// end setFocus
 

@@ -38,7 +38,7 @@ namespace yaf
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Format</param>
 		/// <returns>Formatted Message</returns>
-		static public string ForumCodeToHtml(yaf.pages.ForumPage basePage,string Message) 
+		static public string ForumCodeToHtml( yaf.pages.ForumPage basePage, string Message )
 		{
 #if true
 			return Message;
@@ -60,40 +60,40 @@ namespace yaf
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Convert</param>
 		/// <returns>Converted Message Text</returns>
-		static protected string iConvertForumCode(yaf.pages.ForumPage basePage,string Message)
+		static protected string iConvertForumCode( yaf.pages.ForumPage basePage, string Message )
 		{
 			string tmp = "";
 			bool bInCode = false;
-			for(int i=0;i<Message.Length;i++) 
+			for ( int i = 0; i < Message.Length; i++ )
 			{
-				if(Message[i]=='[') 
+				if ( Message [i] == '[' )
 				{
-					int e1 = Message.IndexOf(']',i);
-					int e2 = Message.IndexOf('=',i);
-					if(e1>0) 
+					int e1 = Message.IndexOf( ']', i );
+					int e2 = Message.IndexOf( '=', i );
+					if ( e1 > 0 )
 					{
 						bool bNone = false;
 						string cmd, arg = null;
-						if(e2<0 || e2>e1) 
+						if ( e2 < 0 || e2 > e1 )
 						{
-							cmd = Message.Substring(i+1,e1-i-1);
+							cmd = Message.Substring( i + 1, e1 - i - 1 );
 							arg = null;
-						} 
-						else 
+						}
+						else
 						{
-							cmd = Message.Substring(i+1,e2-i-1);
-							arg = Message.Substring(e2+1,e1-e2-1);
+							cmd = Message.Substring( i + 1, e2 - i - 1 );
+							arg = Message.Substring( e2 + 1, e1 - e2 - 1 );
 
 							arg = arg.Trim();
-							arg = basePage.Server.HtmlDecode(arg);
-							if(arg.Length>2 && arg[0]=='"' && arg[arg.Length-1]=='"')
-								arg = arg.Substring(1,arg.Length-2);
+							arg = basePage.Server.HtmlDecode( arg );
+							if ( arg.Length > 2 && arg [0] == '"' && arg [arg.Length - 1] == '"' )
+								arg = arg.Substring( 1, arg.Length - 2 );
 						}
 
 						cmd = cmd.ToLower();
-						if(!bInCode || cmd=="/code") 
+						if ( !bInCode || cmd == "/code" )
 						{
-							switch(cmd) 
+							switch ( cmd )
 							{
 								case "b":
 									tmp += "<b>";
@@ -114,12 +114,12 @@ namespace yaf
 									tmp += "</u>";
 									break;
 								case "url":
-									if(arg!=null) 
+									if ( arg != null )
 									{
-										if(basePage.BoardSettings.BlankLinks)
-											tmp += String.Format("<a target=\"_blank\" href=\"{0}\">",arg);
+										if ( basePage.BoardSettings.BlankLinks )
+											tmp += String.Format( "<a target=\"_blank\" href=\"{0}\">", arg );
 										else
-											tmp += String.Format("<a target=\"_top\" href=\"{0}\">",arg);
+											tmp += String.Format( "<a target=\"_top\" href=\"{0}\">", arg );
 									}
 									else
 										tmp += "<a>";
@@ -134,8 +134,8 @@ namespace yaf
 									tmp += "\"/>";
 									break;
 								case "color":
-									if(arg!=null)
-										tmp += String.Format("<span style=\"color:{0}\">",arg);
+									if ( arg != null )
+										tmp += String.Format( "<span style=\"color:{0}\">", arg );
 									else
 										tmp += "<span>";
 									break;
@@ -155,18 +155,18 @@ namespace yaf
 									break;
 							}
 						}
-						else 
+						else
 						{
 							bNone = true;
 						}
-						if(!bNone) 
+						if ( !bNone )
 						{
 							i = e1;
 							continue;
 						}
 					}
 				}
-				tmp += Message[i];
+				tmp += Message [i];
 			}
 
 			return tmp;
@@ -178,26 +178,26 @@ namespace yaf
 		/// <param name="basePagee">Forum base page</param>
 		/// <param name="Message">Text to add smiles to.</param>
 		/// <returns>Processed text with smiles added.</returns>
-		static public string iAddSmiles(yaf.pages.ForumPage basePage,string Message)
+		static public string iAddSmiles( yaf.pages.ForumPage basePage, string Message )
 		{
-			DataTable dtSmileys = GetSmilies(basePage);
+			DataTable dtSmileys = GetSmilies( basePage );
 			string strTemp = Message;
 
-			foreach(DataRow row in dtSmileys.Rows) 
+			foreach ( DataRow row in dtSmileys.Rows )
 			{
-				string code = row["Code"].ToString();
+				string code = row ["Code"].ToString();
 
-				code = code.Replace("&","&amp;");
-				code = code.Replace("\"","&quot;");			
+				code = code.Replace( "&", "&amp;" );
+				code = code.Replace( "\"", "&quot;" );
 
-				strTemp = strTemp.Replace(code.ToLower(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
-				strTemp = strTemp.Replace(code.ToUpper(),String.Format("<img src=\"{0}\" alt=\"{1}\">",basePage.Smiley(Convert.ToString(row["Icon"])),basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
+				strTemp = strTemp.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley( Convert.ToString( row ["Icon"] ) ), basePage.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				strTemp = strTemp.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley( Convert.ToString( row ["Icon"] ) ), basePage.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
 			}
 
 			return strTemp;
 		}
-	
-		static public string HtmlToForumCode(string html) 
+
+		static public string HtmlToForumCode( string html )
 		{
 #if true
 			return html;
@@ -213,8 +213,8 @@ namespace yaf
 			html = Regex.Replace(html,"<a href=\"(.*)\">(.*)</a>","[url=\"$1\"]$2[/url]",options);
 			html = Regex.Replace(html,"<img src=\"(.*)\">","[img]$1[/img]",options);
 			html = Regex.Replace(html,"<p(.*?)>","",options);
-			html = Regex.Replace(html,"</p>","<br><br>",options);
-			html = Regex.Replace(html,"<br>","\n",options);
+			html = Regex.Replace(html,"</p>","<br /><br />",options);
+			html = Regex.Replace(html,"<br />","\n",options);
 			html = Regex.Replace(html,"<b>","[b]",options);
 			html = Regex.Replace(html,"</b>","[/b]",options);
 			html = Regex.Replace(html,"<strong>","[b]",options);
@@ -237,21 +237,21 @@ namespace yaf
 #endif
 		}
 
-		static public DataTable GetSmilies(yaf.pages.ForumPage basePage) 
+		static public DataTable GetSmilies( yaf.pages.ForumPage basePage )
 		{
-			DataTable dt = (DataTable)System.Web.HttpContext.Current.Cache["Smilies"];
-			if(dt==null) 
+			DataTable dt = ( DataTable ) System.Web.HttpContext.Current.Cache ["Smilies"];
+			if ( dt == null )
 			{
-				dt = DB.smiley_list(basePage.PageBoardID,null);
-				System.Web.HttpContext.Current.Cache.Insert("Smilies",dt,null,DateTime.Now.AddMinutes(60),TimeSpan.Zero);
+				dt = DB.smiley_list( basePage.PageBoardID, null );
+				System.Web.HttpContext.Current.Cache.Insert( "Smilies", dt, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
 			return dt;
 		}
 
-		static public string FormatMessage(yaf.pages.ForumPage basePage,string Message,MessageFlags mFlags) 
+		static public string FormatMessage( yaf.pages.ForumPage basePage, string Message, MessageFlags mFlags )
 		{
 			// do html damage control
-			Message = RepairHtml(basePage,Message,mFlags.IsHTML);
+			Message = RepairHtml( basePage, Message, mFlags.IsHTML );
 
 			// convert spaces if bbcode (causes too many problems)
 			/*if (mFlags.IsBBCode)
@@ -260,69 +260,69 @@ namespace yaf
 			}*/
 
 			// do BBCode and Smilies...
-			Message = BBCode.MakeHtml(basePage,Message,mFlags.IsBBCode);
+			Message = BBCode.MakeHtml( basePage, Message, mFlags.IsBBCode );
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			Message = Regex.Replace(Message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options);
+			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace(Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a href=\"${url}\">${url}</a>", options);
+			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a href=\"${url}\">${url}</a>", options );
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace(Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a href=\"http://${url}\">${url}</a>", options);
+			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a href=\"http://${url}\">${url}</a>", options );
 
 			// jaben : moved word replace to reusable function in class utils
-			Message = Utils.BadWordReplace(Message);
+			Message = Utils.BadWordReplace( Message );
 
 			return Message;
 		}
 
-		static private bool IsValidTag(string tag,string[] AllowedTags) 
+		static private bool IsValidTag( string tag, string [] AllowedTags )
 		{
-			if (tag.IndexOf("javascript") >= 0) return false;
-			if (tag.IndexOf("vbscript") >= 0) return false;
-			if (tag.IndexOf("onclick") >= 0)	return false;
+			if ( tag.IndexOf( "javascript" ) >= 0 ) return false;
+			if ( tag.IndexOf( "vbscript" ) >= 0 ) return false;
+			if ( tag.IndexOf( "onclick" ) >= 0 ) return false;
 
-			char[] endchars = new char[]{' ','>','/','\t'};
-			
-			int pos = tag.IndexOfAny(endchars,1);
-			if (pos > 0) tag = tag.Substring(0,pos);
-			if (tag[0] == '/') tag = tag.Substring(1);
+			char [] endchars = new char [] { ' ', '>', '/', '\t' };
+
+			int pos = tag.IndexOfAny( endchars, 1 );
+			if ( pos > 0 ) tag = tag.Substring( 0, pos );
+			if ( tag [0] == '/' ) tag = tag.Substring( 1 );
 
 			// check if it's a valid tag
-			foreach (string aTag in AllowedTags)
+			foreach ( string aTag in AllowedTags )
 			{
-				if (tag == aTag) return true;
+				if ( tag == aTag ) return true;
 			}
 
 			return false;
 		}
 
-		static public string RepairHtml(yaf.pages.ForumPage basePage,string html,bool bAllowHtml) 
+		static public string RepairHtml( yaf.pages.ForumPage basePage, string html, bool bAllowHtml )
 		{
-			if(!bAllowHtml) 
+			if ( !bAllowHtml )
 			{
-				html = BBCode.EncodeHTML(html);
-			} 
-			else 
+				html = BBCode.EncodeHTML( html );
+			}
+			else
 			{
 				// get allowable html tags
 				string tStr = basePage.BoardSettings.AcceptedHTML;
-				string[] AllowedTags = tStr.Split(',');
+				string [] AllowedTags = tStr.Split( ',' );
 
 				RegexOptions options = RegexOptions.IgnoreCase;
 
-				MatchCollection m = Regex.Matches(html,"<.*?>",options);
+				MatchCollection m = Regex.Matches( html, "<.*?>", options );
 
-				for(int i=m.Count-1;i>=0;i--) 
+				for ( int i = m.Count - 1; i >= 0; i-- )
 				{
-					string tag = html.Substring(m[i].Index+1,m[i].Length-1).Trim().ToLower();
+					string tag = html.Substring( m [i].Index + 1, m [i].Length - 1 ).Trim().ToLower();
 
-					if (!IsValidTag(tag,AllowedTags)) 
+					if ( !IsValidTag( tag, AllowedTags ) )
 					{
-						html = html.Remove(m[i].Index,m[i].Length);
+						html = html.Remove( m [i].Index, m [i].Length );
 						// just don't show this tag for now
 
 						//string tmp = System.Web.HttpContext.Current.Server.HtmlEncode(html.Substring(m[i].Index,m[i].Length));
@@ -338,28 +338,29 @@ namespace yaf
 	{
 		int FBitValue;
 
-		public MessageFlags() : this(23)
+		public MessageFlags()
+			: this( 23 )
 		{
 
 		}
 
-		public MessageFlags(int bitValue)
+		public MessageFlags( int bitValue )
 		{
 			FBitValue = bitValue;
 		}
 
-		static public bool GetBitAsBool(int bitValue,int bitShift)
+		static public bool GetBitAsBool( int bitValue, int bitShift )
 		{
-			if (bitShift > 31) bitShift %= 31;
-			if (((bitValue >> bitShift) & 0x00000001) == 1) return true;
+			if ( bitShift > 31 ) bitShift %= 31;
+			if ( ( ( bitValue >> bitShift ) & 0x00000001 ) == 1 ) return true;
 			return false;
 		}
 
-		static public int SetBitFromBool(int bitValue,int bitShift,bool bValue)
+		static public int SetBitFromBool( int bitValue, int bitShift, bool bValue )
 		{
-			if (bitShift > 31) bitShift %= 31;
+			if ( bitShift > 31 ) bitShift %= 31;
 
-			if (GetBitAsBool(bitValue,bitShift) != bValue)
+			if ( GetBitAsBool( bitValue, bitShift ) != bValue )
 			{
 				// toggle that value using XOR
 				int tV = 0x00000001 << bitShift;
@@ -368,9 +369,9 @@ namespace yaf
 			return bitValue;
 		}
 
-		public static implicit operator	MessageFlags(int newBitValue)
+		public static implicit operator MessageFlags( int newBitValue )
 		{
-			MessageFlags mf = new MessageFlags(newBitValue);
+			MessageFlags mf = new MessageFlags( newBitValue );
 			return mf;
 		}
 
@@ -380,41 +381,41 @@ namespace yaf
 			set { FBitValue = value; }
 		}
 
-		public bool this[int index]
+		public bool this [int index]
 		{
-			get { return GetBitAsBool(FBitValue,index); }
-			set { FBitValue = SetBitFromBool(FBitValue,index,value); }
+			get { return GetBitAsBool( FBitValue, index ); }
+			set { FBitValue = SetBitFromBool( FBitValue, index, value ); }
 		}
 
 		// actual flags here -- can be a total of 31
 		public bool IsHTML
 		{
-			get { return GetBitAsBool(FBitValue,0); }
-			set { FBitValue = SetBitFromBool(FBitValue,0,value); }
+			get { return GetBitAsBool( FBitValue, 0 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 0, value ); }
 		}
 
 		public bool IsBBCode
 		{
-			get { return GetBitAsBool(FBitValue,1); }
-			set { FBitValue = SetBitFromBool(FBitValue,1,value); }
+			get { return GetBitAsBool( FBitValue, 1 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 1, value ); }
 		}
 
 		public bool IsSmilies
 		{
-			get { return GetBitAsBool(FBitValue,2); }
-			set { FBitValue = SetBitFromBool(FBitValue,2,value); }
+			get { return GetBitAsBool( FBitValue, 2 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 2, value ); }
 		}
 
 		public bool IsDeleted
 		{
-			get { return GetBitAsBool(FBitValue,3); }
-			set { FBitValue = SetBitFromBool(FBitValue,3,value); }
+			get { return GetBitAsBool( FBitValue, 3 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 3, value ); }
 		}
 
 		public bool IsApproved
 		{
-			get { return GetBitAsBool(FBitValue,4); }
-			set { FBitValue = SetBitFromBool(FBitValue,4,value); }
+			get { return GetBitAsBool( FBitValue, 4 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 4, value ); }
 		}
 	}
 }

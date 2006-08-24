@@ -1,41 +1,62 @@
 using System;
+using System.Configuration;
 using System.Web;
+using System.Web.Configuration;
+using System.Web.Management;
 using System.Reflection;
 using yaf.pages;
 
 namespace yaf
 {
-	public class Config
+	public static class Config
 	{
-		private	System.Xml.XmlNode m_section;
+        static public string BoardID
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["boardid"];
+            }
+        }
 
-		public Config(System.Xml.XmlNode node)
-		{
-			m_section = node;
-		}
+        static public string CategoryID
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["categoryid"];
+            }
+        }
 
-		public string this[string key]
-		{
-			get
-			{
-				System.Xml.XmlNode node = m_section.SelectSingleNode(key);
-				if(node!=null)
-					return node.InnerText;
-				else
-					return null;
-			}
-		}
+        static public string UploadDir
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["uploaddir"];
+            }
+        }
 
-		static public Config ConfigSection
-		{
-			get
-			{
-				Config config = (Config)System.Configuration.ConfigurationSettings.GetConfig("yafnet");
-				if(config==null)
-					throw new ApplicationException("Failed to get configuration from Web.config");
-				return config;
-			}
-		}
+        static public string Root
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["root"];
+            }
+        }
+
+        static public string LogToMail
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["logtomail"];
+            }
+        }
+
+        static public string ConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["yafnet"].ConnectionString;
+            }
+        }
 
 		static public bool IsDotNetNuke
 		{

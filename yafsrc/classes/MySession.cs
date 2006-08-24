@@ -9,18 +9,27 @@ namespace yaf
 	/// </summary>
 	public class Mession
 	{
+
+		static public PanelSessionState PanelState
+		{
+			get
+			{
+				return new PanelSessionState();
+			}
+		}
+
 		static public DateTime LastVisit
 		{
 			get
 			{
-				if(HttpContext.Current.Session["lastvisit"]!=null)
-					return (DateTime)HttpContext.Current.Session["lastvisit"];
+				if ( HttpContext.Current.Session ["lastvisit"] != null )
+					return ( DateTime ) HttpContext.Current.Session ["lastvisit"];
 				else
 					return DateTime.MinValue;
 			}
 			set
 			{
-				HttpContext.Current.Session["lastvisit"] = value;
+				HttpContext.Current.Session ["lastvisit"] = value;
 			}
 		}
 
@@ -28,14 +37,14 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["haslastvisit"]!=null)
-					return (bool)HttpContext.Current.Session["haslastvisit"];
+				if ( HttpContext.Current.Session ["haslastvisit"] != null )
+					return ( bool ) HttpContext.Current.Session ["haslastvisit"];
 				else
 					return false;
 			}
 			set
 			{
-				HttpContext.Current.Session["haslastvisit"] = value;
+				HttpContext.Current.Session ["haslastvisit"] = value;
 			}
 		}
 
@@ -43,14 +52,14 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["lastpost"]!=null)
-					return (DateTime)HttpContext.Current.Session["lastpost"];
+				if ( HttpContext.Current.Session ["lastpost"] != null )
+					return ( DateTime ) HttpContext.Current.Session ["lastpost"];
 				else
 					return DateTime.MinValue;
 			}
 			set
 			{
-				HttpContext.Current.Session["lastpost"] = value;
+				HttpContext.Current.Session ["lastpost"] = value;
 			}
 		}
 
@@ -58,14 +67,14 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["topicread"]!=null)
-					return (Hashtable)HttpContext.Current.Session["topicread"];
+				if ( HttpContext.Current.Session ["topicread"] != null )
+					return ( Hashtable ) HttpContext.Current.Session ["topicread"];
 				else
 					return null;
 			}
 			set
 			{
-				HttpContext.Current.Session["topicread"] = value;
+				HttpContext.Current.Session ["topicread"] = value;
 			}
 		}
 
@@ -73,14 +82,14 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["forumread"]!=null)
-					return (Hashtable)HttpContext.Current.Session["forumread"];
+				if ( HttpContext.Current.Session ["forumread"] != null )
+					return ( Hashtable ) HttpContext.Current.Session ["forumread"];
 				else
 					return null;
 			}
 			set
 			{
-				HttpContext.Current.Session["forumread"] = value;
+				HttpContext.Current.Session ["forumread"] = value;
 			}
 		}
 
@@ -88,9 +97,9 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["showlist"] != null)
+				if ( HttpContext.Current.Session ["showlist"] != null )
 				{
-					return (int)HttpContext.Current.Session["showlist"];
+					return ( int ) HttpContext.Current.Session ["showlist"];
 				}
 				else
 				{
@@ -100,7 +109,7 @@ namespace yaf
 			}
 			set
 			{
-				HttpContext.Current.Session["showlist"] = value;
+				HttpContext.Current.Session ["showlist"] = value;
 			}
 		}
 
@@ -108,29 +117,81 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Session["unreadtopics"]!=null)
-					return (int)HttpContext.Current.Session["unreadtopics"];
+				if ( HttpContext.Current.Session ["unreadtopics"] != null )
+					return ( int ) HttpContext.Current.Session ["unreadtopics"];
 				else
 					return 0;
 			}
 			set
 			{
-				HttpContext.Current.Session["unreadtopics"] = value;
+				HttpContext.Current.Session ["unreadtopics"] = value;
 			}
 		}
 
-		static public IEnumerable SearchData
+		static public System.Data.DataTable SearchData
 		{
 			get
 			{
-				if(HttpContext.Current.Session["searchds"]!=null)
-					return (IEnumerable)HttpContext.Current.Session["searchds"];
+				if ( HttpContext.Current.Session ["SearchDataTable"] != null )
+				{
+					return ( System.Data.DataTable ) HttpContext.Current.Session ["SearchDataTable"];
+				}
 				else
 					return null;
 			}
 			set
 			{
-				HttpContext.Current.Session["searchds"] = value;
+				HttpContext.Current.Session ["SearchDataTable"] = value;
+			}
+		}
+	}
+
+	public class PanelSessionState	
+	{
+		public enum CollapsiblePanelState
+		{
+			None = -1,
+			Expanded = 0,
+			Collapsed = 1
+		}
+
+		/// <summary>
+		/// Gets panel session state.
+		/// </summary>
+		/// <param name="panelID">panelID</param>
+		/// <returns></returns>
+		public CollapsiblePanelState this [string panelID]
+		{
+			get
+			{
+				string sessionPanelID = "panelstate_" + panelID;
+
+				if ( HttpContext.Current.Session [sessionPanelID] != null )
+					return ( CollapsiblePanelState ) HttpContext.Current.Session [sessionPanelID];
+				else
+					return CollapsiblePanelState.None;
+			}
+			set
+			{
+				string sessionPanelID = "panelstate_" + panelID;
+
+				HttpContext.Current.Session [sessionPanelID] = value;
+			}
+		}
+
+		public void TogglePanelState( string panelID, CollapsiblePanelState defaultState )
+		{
+			CollapsiblePanelState currentState = this [panelID];
+
+			if ( currentState == CollapsiblePanelState.None ) currentState = defaultState;
+
+			if ( currentState == CollapsiblePanelState.Collapsed )
+			{
+				this [panelID] = CollapsiblePanelState.Expanded;
+			}
+			else if ( currentState == CollapsiblePanelState.Expanded )
+			{
+				this [panelID] = CollapsiblePanelState.Collapsed;
 			}
 		}
 	}
