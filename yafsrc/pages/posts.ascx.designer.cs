@@ -31,6 +31,10 @@ namespace yaf.pages {
         protected System.Web.UI.WebControls.LinkButton PrintTopic;
         protected System.Web.UI.WebControls.HyperLink RssTopic;
         protected System.Web.UI.WebControls.Repeater MessageList;
+        protected System.Web.UI.WebControls.PlaceHolder QuickReplyPlaceHolder;
+        protected yaf.controls.DataPanel DataPanel1;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl QuickReplyLine;
+        protected System.Web.UI.WebControls.Button QuickReply;
         protected System.Web.UI.WebControls.LinkButton PostReplyLink2;
         protected System.Web.UI.WebControls.LinkButton NewTopic2;
         protected System.Web.UI.WebControls.LinkButton DeleteTopic2;
@@ -38,6 +42,8 @@ namespace yaf.pages {
         protected System.Web.UI.WebControls.LinkButton UnlockTopic2;
         protected System.Web.UI.WebControls.LinkButton MoveTopic2;
         protected System.Web.UI.HtmlControls.HtmlTableRow ForumJumpLine;
+        protected yaf.controls.ForumJump ForumJump1;
+        protected yaf.controls.PageAccess PageAccess1;
         protected yaf.controls.SmartScroller SmartScroller1;
         protected yaf.controls.PopMenu MyTestMenu;
         protected yaf.controls.PopMenu ViewMenu;

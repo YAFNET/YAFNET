@@ -37,27 +37,27 @@ namespace yaf.pages
 	public partial class cp_profile : ForumPage
 	{
 
-		public cp_profile() : base("CP_PROFILE")
+		public cp_profile()
+			: base( "CP_PROFILE" )
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-            //throw new ApplicationException(User.ToString());
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( Pages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( Pages.forum );
 			}
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
 				BindData();
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,"");
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( PageUserName, "" );
 			}
 		}
 
@@ -65,32 +65,33 @@ namespace yaf.pages
 		{
 			DataRow row;
 
-			Groups.DataSource = DB.usergroup_list(PageUserID);
+			Groups.DataSource = DB.usergroup_list( PageUserID );
 
 			// Bind			
 			DataBind();
-			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) {
-				row = dt.Rows[0];
+			using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
+			{
+				row = dt.Rows [0];
 			}
 
-			TitleUserName.Text = Server.HtmlEncode((string)row["Name"]);
-			AccountEmail.Text = row["Email"].ToString();
-			Name.Text = Server.HtmlEncode((string)row["Name"]);
-			Joined.Text = FormatDateTime((DateTime)row["Joined"]);
-			NumPosts.Text = String.Format("{0:N0}",row["NumPosts"]);
+			TitleUserName.Text = Server.HtmlEncode( ( string ) row ["Name"] );
+			AccountEmail.Text = row ["Email"].ToString();
+			Name.Text = Server.HtmlEncode( ( string ) row ["Name"] );
+			Joined.Text = FormatDateTime( ( DateTime ) row ["Joined"] );
+			NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
 
-			if (BoardSettings.AvatarUpload && row["HasAvatarImage"]!=null && long.Parse(row["HasAvatarImage"].ToString())>0) 
+			if ( BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				AvatarImage.Src = String.Format("{0}image.aspx?u={1}",Data.ForumRoot,PageUserID);
-			} 
-			else if(row["Avatar"].ToString().Length > 0) // Took out BoardSettings.AvatarRemote
+				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", Data.ForumRoot, PageUserID );
+			}
+			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out BoardSettings.AvatarRemote
 			{
-				AvatarImage.Src = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
-					Server.UrlEncode(row["Avatar"].ToString()),
+				AvatarImage.Src = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+					Server.UrlEncode( row ["Avatar"].ToString() ),
 					BoardSettings.AvatarWidth,
 					BoardSettings.AvatarHeight,
-					Data.ForumRoot);
-			} 
+					Data.ForumRoot );
+			}
 			else
 			{
 				AvatarImage.Visible = false;
@@ -98,22 +99,21 @@ namespace yaf.pages
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
+		{
 
 		}
 		#endregion

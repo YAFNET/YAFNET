@@ -40,7 +40,7 @@ namespace yaf.pages
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -68,19 +68,16 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Accept.Click += new System.EventHandler(this.Accept_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.forum);
 		}
 
-		private void Accept_Click(object sender, System.EventArgs e)
+		protected void Accept_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.register);
 		}

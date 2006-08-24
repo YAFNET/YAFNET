@@ -4,7 +4,7 @@ using System.Web.UI;
 
 namespace yaf
 {
-	public enum Pages 
+	public enum Pages
 	{
 		forum,
 		topics,
@@ -91,64 +91,64 @@ namespace yaf
 	/// <summary>
 	/// Summary description for Forum.
 	/// </summary>
-	[ToolboxData("<{0}:Forum runat=\"server\"></{0}:Forum>")]
+	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
 	public class Forum : System.Web.UI.UserControl
 	{
 		public Forum()
 		{
-			this.Load += new EventHandler(Forum_Load);
-			try 
+			this.Load += new EventHandler( Forum_Load );
+			try
 			{
                 m_boardID = int.Parse(Config.BoardID);
 			}
-			catch(Exception)
+			catch ( Exception )
 			{
 				m_boardID = 1;
 			}
 		}
 
-		private void Forum_Load(object sender,EventArgs e) 
+		private void Forum_Load( object sender, EventArgs e )
 		{
 			Pages page;
 			string m_baseDir = Data.ForumRoot;
 
 			try
 			{
-				page = (Pages)System.Enum.Parse(typeof(Pages),Request.QueryString["g"],true);
+				page = ( Pages ) System.Enum.Parse( typeof( Pages ), Request.QueryString ["g"], true );
 			}
-			catch(Exception) 
+			catch ( Exception )
 			{
 				page = Pages.forum;
 			}
 
-			if(!ValidPage(page))
+			if ( !ValidPage( page ) )
 			{
-				Forum.Redirect(Pages.topics,"f={0}",LockedForum);
+				Forum.Redirect( Pages.topics, "f={0}", LockedForum );
 			}
 
-			string src = string.Format("{0}pages/{1}.ascx",m_baseDir,page);
-			if(src.IndexOf("/moderate_")>=0)
-				src = src.Replace("/moderate_","/moderate/");
-			if(src.IndexOf("/admin_")>=0)
-				src = src.Replace("/admin_","/admin/");
-			if(src.IndexOf("/help_")>=0)
-				src = src.Replace("/help_","/help/");
+			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, page );
+			if ( src.IndexOf( "/moderate_" ) >= 0 )
+				src = src.Replace( "/moderate_", "/moderate/" );
+			if ( src.IndexOf( "/admin_" ) >= 0 )
+				src = src.Replace( "/admin_", "/admin/" );
+			if ( src.IndexOf( "/help_" ) >= 0 )
+				src = src.Replace( "/help_", "/help/" );
 
 			try
 			{
-				pages.ForumPage ctl = (pages.ForumPage)LoadControl(src);
+				pages.ForumPage ctl = ( pages.ForumPage ) LoadControl( src );
 				ctl.ForumControl = this;
 
-				this.Controls.Add(ctl);
+				this.Controls.Add( ctl );
 			}
-			catch(System.IO.FileNotFoundException)
+			catch ( System.IO.FileNotFoundException )
 			{
-				throw new ApplicationException("Failed to load " + src + ".");
+				throw new ApplicationException( "Failed to load " + src + "." );
 			}
 		}
 
-		private	yaf.Header	m_header	= null;
-		private yaf.Footer	m_footer	= null;
+		private yaf.Header m_header = null;
+		private yaf.Footer m_footer = null;
 
 		public yaf.Header Header
 		{
@@ -174,28 +174,28 @@ namespace yaf
 			}
 		}
 
-		static public string GetLink(Pages page)
+		static public string GetLink( Pages page )
 		{
-			return Config.UrlBuilder.BuildUrl(string.Format("g={0}",page));
+			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}", page ) );
 		}
 
-		static public string GetLink(Pages page,string format,params object[] args)
+		static public string GetLink( Pages page, string format, params object [] args )
 		{
-			return Config.UrlBuilder.BuildUrl(string.Format("g={0}&{1}",page,string.Format(format,args)));
+			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) );
 		}
 
-		static public void Redirect(Pages page)
+		static public void Redirect( Pages page )
 		{
-			System.Web.HttpContext.Current.Response.Redirect(GetLink(page));
+			System.Web.HttpContext.Current.Response.Redirect( GetLink( page ) );
 		}
 
-		static public void Redirect(Pages page,string format,params object[] args)
+		static public void Redirect( Pages page, string format, params object [] args )
 		{
-			System.Web.HttpContext.Current.Response.Redirect(GetLink(page,format,args));
+			System.Web.HttpContext.Current.Response.Redirect( GetLink( page, format, args ) );
 		}
 
 		private int m_boardID;
-		
+
 		public int BoardID
 		{
 			get
@@ -212,16 +212,16 @@ namespace yaf
 		{
 			get
 			{
-				foreach(Control c in Controls)
+				foreach ( Control c in Controls )
 				{
-					if(c is pages.ForumPage)
-						return (c as pages.ForumPage).PageUserID;
+					if ( c is pages.ForumPage )
+						return ( c as pages.ForumPage ).PageUserID;
 				}
 				return 0;
 			}
 		}
 
-		private object m_categoryID = Config.CategoryID;
+		private object m_categoryID = Config.ConfigSection ["categoryid"];
 
 		public object CategoryID
 		{
@@ -249,18 +249,18 @@ namespace yaf
 			}
 		}
 
-		private bool ValidPage(Pages page)
+		private bool ValidPage( Pages page )
 		{
-			if(LockedForum==0)
+			if ( LockedForum == 0 )
 				return true;
 
-			if(page==Pages.forum || page==Pages.active || page==Pages.activeusers)
+			if ( page == Pages.forum || page == Pages.active || page == Pages.activeusers )
 				return false;
 
-			if(page==Pages.cp_editprofile || page==Pages.cp_inbox || page==Pages.cp_message || page==Pages.cp_profile || page==Pages.cp_signature || page==Pages.cp_subscriptions)
+			if ( page == Pages.cp_editprofile || page == Pages.cp_inbox || page == Pages.cp_message || page == Pages.cp_profile || page == Pages.cp_signature || page == Pages.cp_subscriptions )
 				return false;
 
-			if(page==Pages.pmessage)
+			if ( page == Pages.pmessage )
 				return false;
 
 			return true;

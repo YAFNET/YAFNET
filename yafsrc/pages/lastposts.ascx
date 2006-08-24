@@ -1,10 +1,10 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="lastposts.ascx.cs" Inherits="yaf.pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="lastposts.ascx.cs" Inherits="yaf.pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <asp:repeater id="repLastPosts" runat="server" visible="true">
 <HeaderTemplate>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">
 		<tr>
-			<td class=header2 align=middle colSpan=2><%# GetText("last10") %></td>
+			<td class=header2 align=middle colspan="2"><%# GetText("last10") %></td>
 		</tr>
 </HeaderTemplate>
 <FooterTemplate>

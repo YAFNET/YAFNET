@@ -12,9 +12,7 @@ namespace yaf.pages {
     
     public partial class cp_signature {
         protected yaf.controls.PageLinks PageLinks;
-        protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
-        protected System.Web.UI.WebControls.Button save;
-        protected System.Web.UI.WebControls.Button cancel;
+        protected yaf.controls.EditUsersSignature SignatureEditor;
         protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

@@ -35,167 +35,174 @@ namespace yaf.pages
 	public partial class profile : ForumPage
 	{
 		protected Repeater ForumAccess;
-	
-		public profile() : base("PROFILE")
+
+		public profile()
+			: base( "PROFILE" )
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// 20050909 CHP : BEGIN
 			if (IsPrivate && User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					Forum.Redirect( Pages.login, "ReturnUrl={0}", Request.RawUrl );
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( Pages.forum );
 			}
 			// 20050909 CHP : END
 
-			if(Request.QueryString["u"] == null)
+			if ( Request.QueryString ["u"] == null )
 				Data.AccessDenied();
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
 				userGroupsRow.Visible = BoardSettings.ShowGroupsProfile || IsAdmin;
-				SuspendUnit.Items.Add(new ListItem(GetText("DAYS"),"1"));
-				SuspendUnit.Items.Add(new ListItem(GetText("HOURS"),"2"));
-				SuspendUnit.Items.Add(new ListItem(GetText("MINUTES"),"3"));
-				SuspendUnit.Items.FindByValue("2").Selected = true;
+				SuspendUnit.Items.Add( new ListItem( GetText( "DAYS" ), "1" ) );
+				SuspendUnit.Items.Add( new ListItem( GetText( "HOURS" ), "2" ) );
+				SuspendUnit.Items.Add( new ListItem( GetText( "MINUTES" ), "3" ) );
+				SuspendUnit.Items.FindByValue( "2" ).Selected = true;
 				SuspendCount.Text = "2";
+
+				UpdateLast10Panel();
 
 				BindData();
 			}
 		}
 
-		private void BindData() 
+		private void BindData()
 		{
-			using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],true)) 
+			using ( DataTable dt = DB.user_list( PageBoardID, Request.QueryString ["u"], true ) )
 			{
-				if(dt.Rows.Count<1)
+				if ( dt.Rows.Count < 1 )
 					Data.AccessDenied(/*No such user exists*/);
-				DataRow user = dt.Rows[0];
+				DataRow user = dt.Rows [0];
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("MEMBERS"),Forum.GetLink(Pages.members));
-				PageLinks.AddLink(Server.HtmlEncode(user["Name"].ToString()),"");
-	
 				// populate user information controls...
-				UserName.Text					=	Server.HtmlEncode(user["Name"].ToString());
-				Name.Text							=	Server.HtmlEncode(user["Name"].ToString());
-				Joined.Text						=	String.Format("{0}",FormatDateLong((DateTime)user["Joined"]));
-				LastVisit.Text				= FormatDateTime((DateTime)user["LastVisit"]);
-				Rank.Text							=	user["RankName"].ToString();
-				Location.Text					=	Server.HtmlEncode(Utils.BadWordReplace(user["Location"].ToString()));				
-				RealName.InnerHtml		= Server.HtmlEncode(Utils.BadWordReplace(user["RealName"].ToString()));
-				Interests.InnerHtml		= Server.HtmlEncode(Utils.BadWordReplace(user["Interests"].ToString()));
-				Occupation.InnerHtml	= Server.HtmlEncode(Utils.BadWordReplace(user["Occupation"].ToString()));
-				Gender.InnerText			= GetText("GENDER" + user["Gender"].ToString());
-				
-				if(IsAdmin || IsForumModerator)
-				{
-					EditSignature.CommandArgument = user["UserID"].ToString();
-					// when you set the TextBox using .Text it automatically encodes HTML
-					UserSignature.Text = user["Signature"].ToString();
-				}
-				
-				double dAllPosts = 0.0;
-				if((int)user["NumPostsForum"]>0) 
-					dAllPosts = 100.0 * (int)user["NumPosts"] / (int)user["NumPostsForum"];
+				UserName.Text = Server.HtmlEncode( user ["Name"].ToString() );
+				Name.Text = Server.HtmlEncode( user ["Name"].ToString() );
+				Joined.Text = String.Format( "{0}", FormatDateLong( ( DateTime ) user ["Joined"] ) );
+				LastVisit.Text = FormatDateTime( ( DateTime ) user ["LastVisit"] );
+				Rank.Text = user ["RankName"].ToString();
+				Location.Text = Server.HtmlEncode( Utils.BadWordReplace( user ["Location"].ToString() ) );
+				RealName.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["RealName"].ToString() ) );
+				Interests.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["Interests"].ToString() ) );
+				Occupation.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["Occupation"].ToString() ) );
+				Gender.InnerText = GetText( "GENDER" + user ["Gender"].ToString() );
 
-				Stats.InnerHtml = String.Format("{0:N0}<br/>[{1} / {2}]",
-					user["NumPosts"],
-					String.Format(GetText("NUMALL"),dAllPosts),
-					String.Format(GetText("NUMDAY"),(double)(int)user["NumPosts"] / (int)user["NumDays"])
+				PageLinks.Clear();
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( GetText( "MEMBERS" ), Forum.GetLink( Pages.members ) );
+				PageLinks.AddLink( Server.HtmlEncode( user ["Name"].ToString() ), "" );
+
+				if ( IsAdmin || IsForumModerator )
+				{
+					EditSignature.CommandArgument = user ["UserID"].ToString();
+					// when you set the TextBox using .Text it automatically encodes HTML
+					UserSignature.Text = user ["Signature"].ToString();
+				}
+
+				double dAllPosts = 0.0;
+				if ( ( int ) user ["NumPostsForum"] > 0 )
+					dAllPosts = 100.0 * ( int ) user ["NumPosts"] / ( int ) user ["NumPostsForum"];
+
+				Stats.InnerHtml = String.Format( "{0:N0}<br/>[{1} / {2}]",
+					user ["NumPosts"],
+					String.Format( GetText( "NUMALL" ), dAllPosts ),
+					String.Format( GetText( "NUMDAY" ), ( double ) ( int ) user ["NumPosts"] / ( int ) user ["NumDays"] )
 					);
 
 				// private messages
 				Pm.Visible			= User!=null && BoardSettings.AllowPrivateMessages;
-				Pm.Text				= GetThemeContents("BUTTONS","PM");
-				Pm.NavigateUrl	= Forum.GetLink(Pages.pmessage,"u={0}",user["UserID"]);
+				Pm.Text = GetThemeContents( "BUTTONS", "PM" );
+				Pm.NavigateUrl = Forum.GetLink( Pages.pmessage, "u={0}", user ["UserID"] );
 				// email link
 				Email.Visible		= User!=null && BoardSettings.AllowEmailSending;
-				Email.Text			= GetThemeContents("BUTTONS","EMAIL");
-				Email.NavigateUrl	= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
-				if(IsAdmin) Email.ToolTip = user["Email"].ToString();
-				Home.Visible		= user["HomePage"]!=DBNull.Value;
-				Home.NavigateUrl	= user["HomePage"].ToString();
-				Home.Text			= GetThemeContents("BUTTONS","WWW");
-				Blog.Visible		= user["Weblog"]!=DBNull.Value;
-				Blog.NavigateUrl	= user["Weblog"].ToString();
-				Blog.Text			= GetThemeContents("BUTTONS","WEBLOG");
+				Email.Text = GetThemeContents( "BUTTONS", "EMAIL" );
+				Email.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", user ["UserID"] );
+				if ( IsAdmin ) Email.ToolTip = user ["Email"].ToString();
+				Home.Visible = user ["HomePage"] != DBNull.Value;
+				Home.NavigateUrl = user ["HomePage"].ToString();
+				Home.Text = GetThemeContents( "BUTTONS", "WWW" );
+				Blog.Visible = user ["Weblog"] != DBNull.Value;
+				Blog.NavigateUrl = user ["Weblog"].ToString();
+				Blog.Text = GetThemeContents( "BUTTONS", "WEBLOG" );
 				Msn.Visible			= User!=null && user["MSN"]!=DBNull.Value;
-				Msn.Text			= GetThemeContents("BUTTONS","MSN");
-				Msn.NavigateUrl		= Forum.GetLink(Pages.im_email,"u={0}",user["UserID"]);
+				Msn.Text = GetThemeContents( "BUTTONS", "MSN" );
+				Msn.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", user ["UserID"] );
 				Yim.Visible			= User!=null && user["YIM"]!=DBNull.Value;
-				Yim.NavigateUrl		= Forum.GetLink(Pages.im_yim,"u={0}",user["UserID"]);
-				Yim.Text			= GetThemeContents("BUTTONS","YAHOO");
+				Yim.NavigateUrl = Forum.GetLink( Pages.im_yim, "u={0}", user ["UserID"] );
+				Yim.Text = GetThemeContents( "BUTTONS", "YAHOO" );
 				Aim.Visible			= User!=null && user["AIM"]!=DBNull.Value;
-				Aim.Text			= GetThemeContents("BUTTONS","AIM");
-				Aim.NavigateUrl		= Forum.GetLink(Pages.im_aim,"u={0}",user["UserID"]);
+				Aim.Text = GetThemeContents( "BUTTONS", "AIM" );
+				Aim.NavigateUrl = Forum.GetLink( Pages.im_aim, "u={0}", user ["UserID"] );
 				Icq.Visible			= User!=null && user["ICQ"]!=DBNull.Value;
-				Icq.Text			= GetThemeContents("BUTTONS","ICQ");
-				Icq.NavigateUrl		= Forum.GetLink(Pages.im_icq,"u={0}",user["UserID"]);
+				Icq.Text = GetThemeContents( "BUTTONS", "ICQ" );
+				Icq.NavigateUrl = Forum.GetLink( Pages.im_icq, "u={0}", user ["UserID"] );
 
-				if(BoardSettings.AvatarUpload && user["HasAvatarImage"]!=null && long.Parse(user["HasAvatarImage"].ToString())>0) 
+				if ( BoardSettings.AvatarUpload && user ["HasAvatarImage"] != null && long.Parse( user ["HasAvatarImage"].ToString() ) > 0 )
 				{
-					Avatar.ImageUrl = Data.ForumRoot + "image.aspx?u=" + (Request.QueryString["u"]);
-				} 
-				else if(user["Avatar"].ToString().Length>0) // Took out BoardSettings.AvatarRemote
+					Avatar.ImageUrl = Data.ForumRoot + "resource.ashx?u=" + ( Request.QueryString ["u"] );
+				}
+				else if ( user ["Avatar"].ToString().Length > 0 ) // Took out BoardSettings.AvatarRemote
 				{
-					Avatar.ImageUrl = String.Format("{3}image.aspx?url={0}&width={1}&height={2}",
-						Server.UrlEncode(user["Avatar"].ToString()),
+					Avatar.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+						Server.UrlEncode( user ["Avatar"].ToString() ),
 						BoardSettings.AvatarWidth,
 						BoardSettings.AvatarHeight,
-						Data.ForumRoot);
-				} 
-				else 
+						Data.ForumRoot );
+				}
+				else
 				{
 					Avatar.Visible = false;
 				}
 
-				Groups.DataSource = DB.usergroup_list(Request.QueryString["u"]);
+				Groups.DataSource = DB.usergroup_list( Request.QueryString ["u"] );
 
 				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
-				SuspendedRow.Visible = !user.IsNull("Suspended");
-				if(!user.IsNull("Suspended"))
-					ViewState["SuspendedTo"] = FormatDateTime(user["Suspended"]);
+				SuspendedRow.Visible = !user.IsNull( "Suspended" );
+				if ( !user.IsNull( "Suspended" ) )
+					ViewState ["SuspendedTo"] = FormatDateTime( user ["Suspended"] );
 
-				RemoveSuspension.Text = GetText("REMOVESUSPENSION");
-				Suspend.Text = GetText("SUSPEND");
-				EditSignature.Text = GetText("EDIT_SIGNATURE");
+				RemoveSuspension.Text = GetText( "REMOVESUSPENSION" );
+				Suspend.Text = GetText( "SUSPEND" );
+				EditSignature.Text = GetText( "EDIT_SIGNATURE" );
 
-				if(IsAdmin || IsForumModerator)
+				if ( IsAdmin || IsForumModerator )
 				{
-					using(DataTable dt2 = DB.user_accessmasks(PageBoardID,Request.QueryString["u"]))
+					using ( DataTable dt2 = DB.user_accessmasks( PageBoardID, Request.QueryString ["u"] ) )
 					{
 						System.Text.StringBuilder html = new System.Text.StringBuilder();
 						int nLastForumID = 0;
-						foreach(DataRow row in dt2.Rows)
+						foreach ( DataRow row in dt2.Rows )
 						{
-							if(nLastForumID!=(int)row["ForumID"])
+							if ( nLastForumID != ( int ) row ["ForumID"] )
 							{
-								if(nLastForumID!=0)
-									html.AppendFormat("</td></tr>");
-								html.AppendFormat("<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>",row["ForumName"]);
-								nLastForumID = (int)row["ForumID"];
+								if ( nLastForumID != 0 )
+									html.AppendFormat( "</td></tr>" );
+								html.AppendFormat( "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", row ["ForumName"] );
+								nLastForumID = ( int ) row ["ForumID"];
 							}
 							else
 							{
-								html.AppendFormat(", ");
+								html.AppendFormat( ", " );
 							}
-							html.AppendFormat("{0}",row["AccessMaskName"]);
+							html.AppendFormat( "{0}", row ["AccessMaskName"] );
 						}
-						if(nLastForumID!=0)
-							html.AppendFormat("</td></tr>");
+						if ( nLastForumID != 0 )
+							html.AppendFormat( "</td></tr>" );
 						AccessMaskRow.Text = html.ToString();
 					}
 				}
 			}
 
-			LastPosts.DataSource = DB.post_last10user(PageBoardID,Request.QueryString["u"],PageUserID);
-			
+			if ( LastPosts.Visible )
+			{
+				LastPosts.DataSource = DB.post_last10user( PageBoardID, Request.QueryString ["u"], PageUserID );
+			}
+
 			DataBind();
 		}
 
@@ -204,16 +211,16 @@ namespace yaf.pages
 		/// </summary>
 		/// <param name="sender">The object sender inherit from Page.</param>
 		/// <param name="e">The System.EventArgs inherit from Page.</param>
-		protected void EditSignature_Command(object sender, CommandEventArgs e)
+		protected void EditSignature_Command( object sender, CommandEventArgs e )
 		{
 			string body = UserSignature.Text;
-			body = FormatMsg.RepairHtml(this,body,false);
+			body = FormatMsg.RepairHtml( this, body, false );
 
-			if(UserSignature.Text.Length>0)
-				DB.user_savesignature(e.CommandArgument,body);
+			if ( UserSignature.Text.Length > 0 )
+				DB.user_savesignature( e.CommandArgument, body );
 			else
-				DB.user_savesignature(e.CommandArgument,DBNull.Value);
-			
+				DB.user_savesignature( e.CommandArgument, DBNull.Value );
+
 		}
 
 		/// <summary>
@@ -221,99 +228,114 @@ namespace yaf.pages
 		/// </summary>
 		/// <param name="sender">The object sender inherit from Page.</param>
 		/// <param name="e">The System.EventArgs inherit from Page.</param>
-		private void Suspend_Click(object sender, System.EventArgs e) 
+		private void Suspend_Click( object sender, System.EventArgs e )
 		{
 			// Admins can suspend anyone not admins
 			// Forum Moderators can suspend anyone not admin or forum moderator
-			using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+			using ( DataTable dt = DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
 			{
-				foreach(DataRow row in dt.Rows) 
+				foreach ( DataRow row in dt.Rows )
 				{
-					if(int.Parse(row["IsAdmin"].ToString())>0) 
+					if ( int.Parse( row ["IsAdmin"].ToString() ) > 0 )
 					{
-						AddLoadMessage(GetText("ERROR_ADMINISTRATORS"));
+						AddLoadMessage( GetText( "ERROR_ADMINISTRATORS" ) );
 						return;
-					} 
-					if(!IsAdmin && int.Parse(row["IsForumModerator"].ToString())>0) 
+					}
+					if ( !IsAdmin && int.Parse( row ["IsForumModerator"].ToString() ) > 0 )
 					{
-						AddLoadMessage(GetText("ERROR_FORUMMODERATORS"));
+						AddLoadMessage( GetText( "ERROR_FORUMMODERATORS" ) );
 						return;
 					}
 				}
 			}
 
 			DateTime suspend = DateTime.Now;
-			int count = int.Parse(SuspendCount.Text);
-			switch(SuspendUnit.SelectedValue) 
+			int count = int.Parse( SuspendCount.Text );
+			switch ( SuspendUnit.SelectedValue )
 			{
 				case "1":
-					suspend += new TimeSpan(count,0,0,0);
+					suspend += new TimeSpan( count, 0, 0, 0 );
 					break;
 				case "2":
-					suspend += new TimeSpan(0,count,0,0);
+					suspend += new TimeSpan( 0, count, 0, 0 );
 					break;
 				case "3":
-					suspend += new TimeSpan(0,0,count,0);
+					suspend += new TimeSpan( 0, 0, count, 0 );
 					break;
 			}
 
-			DB.user_suspend(Request.QueryString["u"],suspend);
+			DB.user_suspend( Request.QueryString ["u"], suspend );
 			BindData();
 		}
 
-		private void RemoveSuspension_Click(object sender, System.EventArgs e) 
+		private void RemoveSuspension_Click( object sender, System.EventArgs e )
 		{
-			DB.user_suspend(Request.QueryString["u"],null);
+			DB.user_suspend( Request.QueryString ["u"], null );
 			BindData();
 		}
 
-		protected string GetSuspendedTo() 
+		protected string GetSuspendedTo()
 		{
-			if(ViewState["SuspendedTo"]!=null)
-				return (string)ViewState["SuspendedTo"];
+			if ( ViewState ["SuspendedTo"] != null )
+				return ( string ) ViewState ["SuspendedTo"];
 			else
 				return "";
 		}
 
-		protected string FormatBody(object o) 
+		protected string FormatBody( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
+			DataRowView row = ( DataRowView ) o;
+			string html = FormatMsg.FormatMessage( this, row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
 
-			if(row["Signature"].ToString().Length>0) 
+			if ( row ["Signature"].ToString().Length > 0 )
 			{
-				string sig = row["Signature"].ToString();
-				
+				string sig = row ["Signature"].ToString();
+
 				// don't allow any HTML on signatures
 				MessageFlags tFlags = new MessageFlags();
 				tFlags.IsHTML = false;
 
-				sig = FormatMsg.FormatMessage(this,sig,tFlags);
+				sig = FormatMsg.FormatMessage( this, sig, tFlags );
 				html += "<br/><hr noshade/>" + sig;
 			}
 
 			return html;
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		private void UpdateLast10Panel()
 		{
-			RemoveSuspension.Click += new EventHandler(RemoveSuspension_Click);
-			Suspend.Click += new EventHandler(Suspend_Click);
+			expandLast10.ImageUrl = GetCollapsiblePanelImageURL( "ProfileLast10Posts", PanelSessionState.CollapsiblePanelState.Collapsed );
+			LastPosts.Visible = ( Mession.PanelState ["ProfileLast10Posts"] == PanelSessionState.CollapsiblePanelState.Expanded );
+		}
+
+		protected void expandLast10_Click( object sender, ImageClickEventArgs e )
+		{
+			// toggle the panel visability state...
+			Mession.PanelState.TogglePanelState( "ProfileLast10Posts", PanelSessionState.CollapsiblePanelState.Collapsed );
+
+			UpdateLast10Panel();
+
+			BindData();
+		}
+
+		#region Web Form Designer generated code
+		override protected void OnInit( EventArgs e )
+		{
+			RemoveSuspension.Click += new EventHandler( RemoveSuspension_Click );
+			Suspend.Click += new EventHandler( Suspend_Click );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
+		{
 
 		}
 		#endregion

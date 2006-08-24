@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="cp_profile.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_profile" %>
+<%@ Control language="c#" Codebehind="cp_profile.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_profile" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -6,7 +6,7 @@
 <table width="100%" cellspacing=1 cellpadding=0 class=content >
   <TBODY>
 	<tr>
-		<td colspan=2 class=header1><%= GetText("control_panel") %>: <asp:label id="TitleUserName" runat="server"/></td>
+		<td colspan="2" class=header1><%= GetText("control_panel") %>: <asp:label id="TitleUserName" runat="server"/></td>
 	</tr>
 	<tr>
 		<td valign=top class=post width=150>
@@ -55,6 +55,6 @@
 <tr>
 	<td class="footer1" colspan="2">&nbsp;</td>
 </tr>
-</tbody></TABLE>
+</tbody></table>
 
 <yaf:SmartScroller id="SmartScroller1" runat = "server" />

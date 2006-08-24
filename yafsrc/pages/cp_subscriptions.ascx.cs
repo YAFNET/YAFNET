@@ -39,7 +39,7 @@ namespace yaf.pages
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(User==null)
 			{
@@ -96,7 +96,7 @@ namespace yaf.pages
 			return html;
 		}
 
-		private void UnsubscribeTopics_Click(object sender, System.EventArgs e) {
+		protected void UnsubscribeTopics_Click(object sender, System.EventArgs e) {
 			bool NoneChecked = true;
 			for(int i=0;i<TopicList.Items.Count;i++) {
 				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
@@ -112,7 +112,7 @@ namespace yaf.pages
 				BindData();
 		}
 
-		private void UnsubscribeForums_Click(object sender, System.EventArgs e) {
+		protected void UnsubscribeForums_Click(object sender, System.EventArgs e) {
 			bool NoneChecked = true;
 			for(int i=0;i<ForumList.Items.Count;i++) {
 				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
@@ -144,9 +144,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.UnsubscribeForums.Click += new System.EventHandler(this.UnsubscribeForums_Click);
-			this.UnsubscribeTopics.Click += new System.EventHandler(this.UnsubscribeTopics_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

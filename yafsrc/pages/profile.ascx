@@ -1,12 +1,12 @@
-<%@ Control language="c#" Codebehind="profile.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.profile" %>
+<%@ Control language="c#" Codebehind="profile.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.profile" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class="content" align=center width="100%" cellspacing=1 cellpadding=0>
+<table class="content" align="center" width="100%" cellspacing="1" cellpadding="0">
 <tr>
-	<td class="header1" colspan=2>
-		<%= GetText("profile") %> <asp:Label id=UserName runat="server"/> 
+	<td class="header1" colspan="2">
+		<%= GetText("profile") %> <asp:Label id="UserName" runat="server"/> 
 	</td>
 </tr>
 				<tr class="post"><td colspan="2">
@@ -105,7 +105,7 @@
 <tr class="post"><td valign="top">
 	<table width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header2" colspan=2><%= GetText("admin") %></td>
+		<td class="header2" colspan="2"><%= GetText("admin") %></td>
 	</tr>
 	<tr runat="server" id="SuspendedRow">
 		<td class=postheader><%= GetText("ENDS") %></td>
@@ -136,31 +136,28 @@
 </td></tr>
 </asp:placeholder>
 
-<tr class="post"><td colspan="2">
-	<asp:repeater id="LastPosts" runat="server">
-	<HeaderTemplate>
+<tr class="post">
+    <td colspan="2">
 		<table width="100%" cellspacing="1" cellpadding="0">
 		<tr>
-			<td class=header2 colSpan=2><%= GetText("last10") %></td>
-		</tr>
-	</HeaderTemplate>
-	<FooterTemplate>
-		</table>
-	</FooterTemplate>
-	<ItemTemplate>
-		<tr class=postheader>
-			<td class=small align=left colspan="2">
-				<b><%= GetText("topic") %></b> <a href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",Eval("TopicID")) %>'><%# yaf.Utils.BadWordReplace(Convert.ToString(Eval("Subject"))) %></a><br/>
-				<b><%= GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
-			</td>
-		</tr>
-		<tr class=post>
-			<td valign=top class="message" colspan="2">
-				<%# FormatBody(Container.DataItem) %>
-			</td>
-		</tr>
-	</ItemTemplate>
-	</asp:repeater>
+			<td class="header2" colspan="2"><asp:ImageButton runat="server" ID="expandLast10" BorderWidth="0" ImageAlign="Baseline" OnClick="expandLast10_Click" />&nbsp;&nbsp;<%= GetText("last10") %></td>
+		</tr>    
+	    <asp:repeater id="LastPosts" runat="server">
+	        <ItemTemplate>
+		        <tr class="postheader">
+			        <td class="small" align="left" colspan="2">
+				        <b><%= GetText("topic") %></b> <a href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'><%# yaf.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %></a><br/>
+				        <b><%= GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+			        </td>
+		        </tr>
+		        <tr class="post">
+			        <td valign="top" class="message" colspan="2">
+				        <%# FormatBody(Container.DataItem) %>
+			        </td>
+		        </tr>
+	        </ItemTemplate>
+        </asp:repeater>
+        </table>
 
 </td></tr>
 </table>

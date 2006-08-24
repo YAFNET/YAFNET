@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="rules.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.rules" %>
+<%@ Control language="c#" Codebehind="rules.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.rules" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -12,8 +12,8 @@
 	</tr>
 	<tr>
 		<td align="middle">
-			<asp:Button id=Accept runat="server" Text="Accept"/>
-			<asp:Button id=Cancel runat="server" Text="Cancel"/>
+			<asp:Button id=Accept runat="server" Text="Accept" onclick="Accept_Click" />
+			<asp:Button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click" />
 		</td>
 	</tr>
 </table>

@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.topics" %>
+<%@ Control language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.topics" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Register TagPrefix="yaf" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 
@@ -67,7 +67,7 @@
 					</nobr>
 				</td>
 				<td align="right">
-				<asp:linkbutton id="WatchForum" runat="server"/><span id="WatchForumID" runat="server" visible="false"/></span>
+				<asp:linkbutton id="WatchForum" runat="server"/><span id="WatchForumID" runat="server" visible="false"/>
 				|
 				<asp:linkbutton runat="server" id="MarkRead"/>
 				<span id="RSSLinkSpacer" runat="server">|</span>

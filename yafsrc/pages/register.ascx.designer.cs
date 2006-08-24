@@ -12,7 +12,15 @@ namespace yaf.pages {
     
     public partial class register {
         protected yaf.controls.PageLinks PageLinks;
-        protected System.Web.UI.WebControls.CreateUserWizard CreateUserWizard1;
+        protected System.Web.UI.WebControls.TextBox UserName;
+        protected System.Web.UI.WebControls.TextBox Password;
+        protected System.Web.UI.WebControls.TextBox Password2;
+        protected System.Web.UI.WebControls.TextBox Email;
+        protected System.Web.UI.WebControls.TextBox Location;
+        protected System.Web.UI.WebControls.TextBox HomePage;
+        protected System.Web.UI.WebControls.DropDownList TimeZones;
+        protected System.Web.UI.WebControls.Button ForumRegister;
+        protected System.Web.UI.WebControls.Button cancel;
         protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

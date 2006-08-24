@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="pmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.pmessage" %>
+<%@ Control language="c#" Codebehind="pmessage.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.pmessage" %>
 <%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
@@ -32,11 +32,11 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="postfooter" colspan=2 align=middle>
-			<asp:Button id=Save cssclass="pbutton" runat="server"/>
-			<asp:Button id=Cancel cssclass="pbutton" runat="server"/>
+		<td class="postfooter" colspan="2" align="center">
+			<asp:Button id="Save" cssclass="pbutton" runat="server"/>
+			<asp:Button id="Cancel" cssclass="pbutton" runat="server"/>
 		</td>
 	</tr>
 </table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<yaf:SmartScroller id="SmartScroller1" runat="server" />

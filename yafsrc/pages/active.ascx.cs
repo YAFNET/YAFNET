@@ -41,7 +41,7 @@ namespace yaf.pages
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// 20050909 CHP : BEGIN
 			if (IsPrivate && User==null)
@@ -104,8 +104,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Since.SelectedIndexChanged += new System.EventHandler(this.Since_SelectedIndexChanged);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -151,7 +149,7 @@ namespace yaf.pages
 			return html;
 		}
 
-		private void Since_SelectedIndexChanged(object sender, System.EventArgs e) {
+		protected void Since_SelectedIndexChanged(object sender, System.EventArgs e) {
 			BindData();
 		}
 	}

@@ -17,9 +17,13 @@ namespace yaf.pages {
         protected System.Web.UI.WebControls.Label TimeLastVisit;
         protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
         protected System.Web.UI.WebControls.Repeater CategoryList;
+        protected System.Web.UI.WebControls.ImageButton expandInformation;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl InformationTBody;
         protected System.Web.UI.WebControls.Label activeinfo;
         protected System.Web.UI.WebControls.Repeater ActiveList;
         protected System.Web.UI.WebControls.Label Stats;
+        protected System.Web.UI.WebControls.ImageButton expandActiveDiscussions;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl ActiveDiscussionTBody;
         protected System.Web.UI.WebControls.Repeater LatestPosts;
         protected System.Web.UI.WebControls.LinkButton MarkAll;
         protected yaf.controls.SmartScroller SmartScroller1;

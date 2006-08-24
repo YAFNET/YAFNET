@@ -35,139 +35,93 @@ namespace yaf.pages
 	/// </summary>
 	public partial class search : ForumPage
 	{
-		/// <summary>
-		/// Search Button.
-		/// </summary>
 
-		/// <summary>
-		/// Forum List Box.
-		/// </summary>
-
-		/// <summary>
-		/// Text box for search string.
-		/// </summary>
-
-		/// <summary>
-		/// A dropdown list.
-		/// </summary>
-
-		/// <summary>
-		/// A dropdown list.
-		/// </summary>
-
-		/// <summary>
-		/// A list box.
-		/// </summary>
-
-		/// <summary>
-		/// The repeater control.
-		/// </summary>
-
-		/// <summary>
-		/// Page links control.
-		/// </summary>
-
-		/// <summary>
-		/// Pager control.
-		/// </summary>
-    
-	
 		/// <summary>
 		/// The search page constructor.
 		/// </summary>
-		public search() : base("SEARCH")
+		public search()
+			: base( "SEARCH" )
 		{
 		}
 
-		private HtmlForm GetServerForm(ControlCollection parent)
+		private HtmlForm GetServerForm( ControlCollection parent )
 		{
 			HtmlForm tmpHtmlForm = null;
-            
-			foreach (Control child in parent)
-			{                                
+
+			foreach ( Control child in parent )
+			{
 				Type t = child.GetType();
-				if (t == typeof(System.Web.UI.HtmlControls.HtmlForm))
-					return (HtmlForm)child;
-                
-				if (child.HasControls())    
+				if ( t == typeof( System.Web.UI.HtmlControls.HtmlForm ) )
+					return ( HtmlForm ) child;
+
+				if ( child.HasControls() )
 				{
-					tmpHtmlForm = GetServerForm(child.Controls);
-					if (tmpHtmlForm != null && tmpHtmlForm.ClientID != null)
+					tmpHtmlForm = GetServerForm( child.Controls );
+					if ( tmpHtmlForm != null && tmpHtmlForm.ClientID != null )
 						return tmpHtmlForm;
 				}
 			}
-        
+
 			return null;
 		}
 
-		public string test()
-		{
-			HtmlForm theForm;
-			if (Page.Parent != null)
-				theForm = GetServerForm(Page.Parent.Controls);
-			else
-				theForm = GetServerForm(Page.Controls);
-
-			return theForm.ClientID + "." + btnSearch.ClientID;
-		}
-
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			//Page.Reg
 			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
 
-			if(!IsPostBack)
+			if ( !IsPostBack )
 			{
 				// 20050909 CHP : BEGIN
 				if (IsPrivate && User==null)
 				{
 					if(CanLogin)
-						Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+						Forum.Redirect( Pages.login, "ReturnUrl={0}", Request.RawUrl );
 					else
-						Forum.Redirect(Pages.forum);
+						Forum.Redirect( Pages.forum );
 				}
 				// 20050909 CHP : END
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(GetText("TITLE"),"");
-				btnSearch.Text = GetText("btnsearch");
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+				btnSearch.Text = GetText( "btnsearch" );
 
 				// Load result dropdown
-				listResInPage.Items.Add(new ListItem(GetText("result5"),"5"));
-				listResInPage.Items.Add(new ListItem(GetText("result10"),"10"));
-				listResInPage.Items.Add(new ListItem(GetText("result25"),"25"));
-				listResInPage.Items.Add(new ListItem(GetText("result50"),"50"));
+				listResInPage.Items.Add( new ListItem( GetText( "result5" ), "5" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result10" ), "10" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result25" ), "25" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result50" ), "50" ) );
 
 				// Load searchwhere dropdown
-				listSearchWhere.Items.Add(new ListItem(GetText("posts"),"0"));
-				listSearchWhere.Items.Add(new ListItem(GetText("postedby"),"1"));
+				listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
+				listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
 
 				// Load listSearchWath dropdown
-				listSearchWath.Items.Add(new ListItem(GetText("match_all"),"0"));
-				listSearchWath.Items.Add(new ListItem(GetText("match_any"),"1"));
-				listSearchWath.Items.Add(new ListItem(GetText("match_exact"),"2"));
+				listSearchWath.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
+				listSearchWath.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
+				listSearchWath.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
 
 				// Load forum's combo
-				listForum.Items.Add(new ListItem(GetText("allforums"),"-1"));
-				DataTable dt = DB.forum_listread(PageBoardID,PageUserID,null,null);
+				listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
+				DataTable dt = DB.forum_listread( PageBoardID, PageUserID, null, null );
 
 				int nOldCat = 0;
-				for(int i=0;i<dt.Rows.Count;i++) 
+				for ( int i = 0; i < dt.Rows.Count; i++ )
 				{
-					DataRow row = dt.Rows[i];
-					if((int)row["CategoryID"] != nOldCat) 
+					DataRow row = dt.Rows [i];
+					if ( ( int ) row ["CategoryID"] != nOldCat )
 					{
-						nOldCat = (int)row["CategoryID"];
-						listForum.Items.Add(new ListItem((string)row["Category"],"-1"));
+						nOldCat = ( int ) row ["CategoryID"];
+						listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
 					}
-					listForum.Items.Add(new ListItem(" - " + (string)row["Forum"],row["ForumID"].ToString()));
+					listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
 				}
 			}
 		}
 
-		private void Pager_PageChange(object sender,EventArgs e)
+		private void Pager_PageChange( object sender, EventArgs e )
 		{
-			BindData(false);
+			BindData( false );
 		}
 
 		#region Web Form Designer generated code
@@ -175,25 +129,23 @@ namespace yaf.pages
 		/// The initialization script for the search page.
 		/// </summary>
 		/// <param name="e">The EventArg object for the search page.</param>
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			Pager.PageChange += new EventHandler(Pager_PageChange);
+			Pager.PageChange += new EventHandler( Pager_PageChange );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
-			this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-			this.SearchRes.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler(this.SearchRes_ItemDataBound);
-			this.Load += new System.EventHandler(this.Page_Load);
+		{
+			this.SearchRes.ItemDataBound += new System.Web.UI.WebControls.RepeaterItemEventHandler( this.SearchRes_ItemDataBound );
 
 		}
 		#endregion
@@ -202,19 +154,19 @@ namespace yaf.pages
 		{
 			try
 			{
-				if( newSearch )
+				if ( newSearch )
 				{
-					SEARCH_FIELD sf = (SEARCH_FIELD)System.Enum.Parse( typeof( SEARCH_FIELD ), listSearchWhere.SelectedValue );
-					SEARCH_WHAT sw = (SEARCH_WHAT)System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
+					SEARCH_FIELD sf = ( SEARCH_FIELD ) System.Enum.Parse( typeof( SEARCH_FIELD ), listSearchWhere.SelectedValue );
+					SEARCH_WHAT sw = ( SEARCH_WHAT ) System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
 					DataView dv = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
 					Pager.CurrentPageIndex = 0;
-					Pager.PageSize = int.Parse(listResInPage.SelectedValue);
+					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = dv.Count;
 					Mession.SearchData = dv;
 
-					bool bResults = (dv.Count > 0) ? true : false;
+					bool bResults = ( dv.Count > 0 ) ? true : false;
 
 					SearchRes.Visible = bResults;
 					NoResults.Visible = !bResults;
@@ -229,23 +181,23 @@ namespace yaf.pages
 				SearchRes.DataSource = pds;
 				DataBind();
 			}
-			catch(System.Data.SqlClient.SqlException x)
+			catch ( System.Data.SqlClient.SqlException x )
 			{
-				DB.eventlog_create(PageUserID,this,x);
-				Utils.LogToMail(x);
-				if(IsAdmin)
-					AddLoadMessage(string.Format("{0}",x));
+				DB.eventlog_create( PageUserID, this, x );
+				Utils.LogToMail( x );
+				if ( IsAdmin )
+					AddLoadMessage( string.Format( "{0}", x ) );
 				else
-					AddLoadMessage("An error occurred in the database.");
+					AddLoadMessage( "An error occurred in the database." );
 			}
-			catch(Exception x) 
+			catch ( Exception x )
 			{
-				DB.eventlog_create(PageUserID,this,x);
-				Utils.LogToMail(x);
-				if(IsAdmin)
-					AddLoadMessage(string.Format("{0}",x));
+				DB.eventlog_create( PageUserID, this, x );
+				Utils.LogToMail( x );
+				if ( IsAdmin )
+					AddLoadMessage( string.Format( "{0}", x ) );
 				else
-					AddLoadMessage("An error occured while searching.");
+					AddLoadMessage( "An error occured while searching." );
 			}
 		}
 
@@ -256,23 +208,23 @@ namespace yaf.pages
 		/// <returns>Returns the convertted string.</returns>
 		public string FormatMessage( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			return FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
+			DataRowView row = ( DataRowView ) o;
+			return FormatMsg.FormatMessage( this, row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
 		}
 
-		private void btnSearch_Click(object sender, System.EventArgs e)
+		protected void btnSearch_Click( object sender, System.EventArgs e )
 		{
-			BindData(true);
+			BindData( true );
 		}
 
-		private void SearchRes_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
+		private void SearchRes_ItemDataBound( object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e )
 		{
-			HtmlTableCell cell = (HtmlTableCell)e.Item.FindControl("CounterCol");
-			if(cell!=null)
+			HtmlTableCell cell = ( HtmlTableCell ) e.Item.FindControl( "CounterCol" );
+			if ( cell != null )
 			{
 				string messageID = cell.InnerText;
-				int rowCount = e.Item.ItemIndex + 1 + (Pager.CurrentPageIndex * Pager.PageSize);
-				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, Forum.GetLink(Pages.posts,"m={0}#{0}",messageID));
+				int rowCount = e.Item.ItemIndex + 1 + ( Pager.CurrentPageIndex * Pager.PageSize );
+				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, Forum.GetLink( Pages.posts, "m={0}#{0}", messageID ) );
 			}
 		}
 	}

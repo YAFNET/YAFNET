@@ -38,121 +38,140 @@ namespace yaf.pages
 		protected yaf.editor.ForumEditor Message;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
 
-		public postmessage() : base("POSTMESSAGE")
+		public postmessage()
+			: base( "POSTMESSAGE" )
 		{
 
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		override protected void OnInit( System.EventArgs e )
 		{
-			DataRow msg = null;
-			
-			if(Request.QueryString["q"] != null)
-				using(DataTable dt = DB.message_list(Request.QueryString["q"]))
-					msg = dt.Rows[0];
-			else if(Request.QueryString["m"] != null) {
-				using(DataTable dt = DB.message_list(Request.QueryString["m"]))
-					msg = dt.Rows[0];
-			
-				if(!ForumModeratorAccess && PageUserID != (int)msg["UserID"])
+			// get the forum editor based on the settings
+			Message = yaf.editor.EditorHelper.CreateEditorFromType( BoardSettings.ForumEditor );
+			EditorLine.Controls.Add( Message );
+
+			base.OnInit( e );
+		}
+
+		protected void Page_Load( object sender, System.EventArgs e )
+		{
+			DataRow currentRow = null;
+
+			if ( Request.QueryString ["q"] != null )
+			{
+				using ( DataTable dt = DB.message_list( Request.QueryString ["q"] ) )
+					currentRow = dt.Rows [0];
+
+				if ( Convert.ToInt32( currentRow ["TopicID"] ) != PageTopicID )
+					Data.AccessDenied();
+
+				if ( !CanQuotePostCheck( currentRow ) )
 					Data.AccessDenied();
 			}
-	
-			if(PageForumID == 0)
+			else if ( Request.QueryString ["m"] != null )
+			{
+				using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
+					currentRow = dt.Rows [0];
+
+				if ( !CanEditPostCheck( currentRow ) )
+					Data.AccessDenied();
+			}
+
+			if ( PageForumID == 0 )
 				Data.AccessDenied();
-			if(Request["t"]==null && !ForumPostAccess)
+			if ( Request ["t"] == null && !ForumPostAccess )
 				Data.AccessDenied();
-			if(Request["t"]!=null && !ForumReplyAccess)
+			if ( Request ["t"] != null && !ForumReplyAccess )
 				Data.AccessDenied();
 
 			//Message.EnableRTE = BoardSettings.AllowRichEdit;
-			Message.StyleSheet = this.ThemeFile("theme.css");
+			Message.StyleSheet = this.ThemeFile( "theme.css" );
 			Message.BaseDir = Data.ForumRoot + "editors";
 
-			Title.Text = GetText("NEWTOPIC");
-			PollExpire.Attributes.Add("style","width:50px");
-						
-			if(!IsPostBack) 
+			Title.Text = GetText( "NEWTOPIC" );
+			PollExpire.Attributes.Add( "style", "width:50px" );
+
+			if ( !IsPostBack )
 			{
-				Priority.Items.Add(new ListItem(GetText("normal"),"0"));
-				Priority.Items.Add(new ListItem(GetText("sticky"),"1"));
-				Priority.Items.Add(new ListItem(GetText("announcement"),"2"));
+				Priority.Items.Add( new ListItem( GetText( "normal" ), "0" ) );
+				Priority.Items.Add( new ListItem( GetText( "sticky" ), "1" ) );
+				Priority.Items.Add( new ListItem( GetText( "announcement" ), "2" ) );
 				Priority.SelectedIndex = 0;
 
-				Preview.Text = GetText("preview");
-				PostReply.Text = GetText("Save");
-				Cancel.Text = GetText("Cancel");
-				CreatePoll.Text = GetText("createpoll");
+				Preview.Text = GetText( "preview" );
+				PostReply.Text = GetText( "Save" );
+				Cancel.Text = GetText( "Cancel" );
+				CreatePoll.Text = GetText( "createpoll" );
 
 				PriorityRow.Visible = ForumPriorityAccess;
-				CreatePollRow.Visible = Request.QueryString["t"]==null && ForumPollAccess;
+				CreatePollRow.Visible = Request.QueryString ["t"] == null && ForumPollAccess;
 
-				if(ForumControl.LockedForum==0)
+				if ( ForumControl.LockedForum == 0 )
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+					PageLinks.AddLink( PageCategoryName, Forum.GetLink( Pages.forum, "c={0}", PageCategoryID ) );
 				}
-				PageLinks.AddForumLinks(PageForumID);
+				PageLinks.AddForumLinks( PageForumID );
 
-				if(Request.QueryString["t"] != null) 
+				if ( Request.QueryString ["t"] != null )
 				{
 					// new post...
-					DataRow topic = DB.topic_info(Request.QueryString["t"]);
-					if(((int)topic["Flags"] & (int)TopicFlags.Locked)==(int)TopicFlags.Locked)
-						Response.Redirect(Request.UrlReferrer.ToString());
+					DataRow topic = DB.topic_info( Request.QueryString ["t"] );
+					if ( ( ( int ) topic ["Flags"] & ( int ) TopicFlags.Locked ) == ( int ) TopicFlags.Locked )
+						Response.Redirect( Request.UrlReferrer.ToString() );
 					SubjectRow.Visible = false;
-					Title.Text = GetText("reply");
+					Title.Text = GetText( "reply" );
 
-					if (Config.IsDotNetNuke || Config.IsRainbow || Config.IsPortal)
+					if ( Config.IsDotNetNuke || Config.IsRainbow || Config.IsPortal )
 					{
 						// can't use the last post iframe
 						LastPosts.Visible = true;
-						LastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
+						LastPosts.DataSource = DB.post_list_reverse10( Request.QueryString ["t"] );
 						LastPosts.DataBind();
 					}
 					else
 					{
 						LastPostsIFrame.Visible = true;
-						LastPostsIFrame.Attributes.Add("src","framehelper.aspx?g=lastposts&t=" + Request.QueryString["t"]);
+						LastPostsIFrame.Attributes.Add( "src", "framehelper.aspx?g=lastposts&t=" + Request.QueryString ["t"] );
 					}
 				}
 
-				if(Request.QueryString["q"] != null)
+				if ( Request.QueryString ["q"] != null )
 				{
 					// reply to post...
-					bool isHtml = msg["Message"].ToString().IndexOf('<')>=0;
+					bool isHtml = currentRow ["Message"].ToString().IndexOf( '<' ) >= 0;
 
-					string tmpMessage = msg["Message"].ToString();
+					string tmpMessage = currentRow ["Message"].ToString();
 
-					if (BoardSettings.RemoveNestedQuotes)
+					if ( BoardSettings.RemoveNestedQuotes )
 					{
 						RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-						Regex	quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]",m_options);
+						Regex quote = new Regex( @"\[quote(\=.*)?\](.*?)\[/quote\]", m_options );
 						// remove quotes from old messages
-						tmpMessage = quote.Replace(tmpMessage,"");
+						tmpMessage = quote.Replace( tmpMessage, "" );
 					}
 
-					if(isHtml)
-						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],FormatMsg.HtmlToForumCode(tmpMessage));
+					if ( isHtml )
+						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], FormatMsg.HtmlToForumCode( tmpMessage ) );
 					else
-						Message.Text = String.Format("[quote={0}]{1}[/quote]",msg["username"],tmpMessage);
+						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], tmpMessage );
 				}
-				else if(Request.QueryString["m"] != null)
+				else if ( Request.QueryString ["m"] != null )
 				{
 					// edit message...
-					string body = msg["message"].ToString();
-					bool isHtml = body.IndexOf('<')>=0;
-					if(isHtml) 
+					string body = currentRow ["message"].ToString();
+					bool isHtml = body.IndexOf( '<' ) >= 0;
+					if ( isHtml )
 					{
 						//throw new Exception("TODO: Convert this html message to forumcodes");
-						body = FormatMsg.HtmlToForumCode(body);
+						body = FormatMsg.HtmlToForumCode( body );
 					}
 					Message.Text = body;
-					Title.Text = GetText("EDIT");
+					Title.Text = GetText( "EDIT" );
 
-					Subject.Text = Server.HtmlDecode(Convert.ToString(msg["Topic"]));
+					Subject.Text = Server.HtmlDecode( Convert.ToString( currentRow ["Topic"] ) );
 
-					if ((Convert.ToInt32(msg["TopicOwnerID"]) == Convert.ToInt32(msg["UserID"])) || ForumModeratorAccess)
+					if ( ( Convert.ToInt32( currentRow ["TopicOwnerID"] ) == Convert.ToInt32( currentRow ["UserID"] ) ) || ForumModeratorAccess )
 					{
 						// allow editing of the topic subject
 						Subject.Enabled = true;
@@ -161,11 +180,11 @@ namespace yaf.pages
 					{
 						// disable the subject
 						Subject.Enabled = false;
-					}					
-					
+					}
+
 					CreatePollRow.Visible = false;
 					Priority.SelectedItem.Selected = false;
-					Priority.Items.FindByValue(msg["Priority"].ToString()).Selected = true;
+					Priority.Items.FindByValue( currentRow ["Priority"].ToString() ).Selected = true;
 				}
 
 				From.Text = PageUserName;
@@ -174,67 +193,73 @@ namespace yaf.pages
 			}
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		private bool CanEditPostCheck( DataRow message )
 		{
-			// get the forum editor based on the settings
-			Message = yaf.editor.EditorHelper.CreateEditorFromType(BoardSettings.ForumEditor);
-			EditorLine.Controls.Add(Message);
+			bool postLocked = false;
 
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			if ( !IsAdmin && BoardSettings.LockPosts > 0 )
+			{
+				DateTime edited = ( DateTime ) message ["Edited"];
+
+				if ( edited.AddDays( BoardSettings.LockPosts ) < DateTime.Now )
+					postLocked = true;
+			}
+
+			DataRow forumInfo, topicInfo;
+
+			// get topic and forum information
+			topicInfo = DB.topic_info( PageTopicID );
+			using ( DataTable dt = DB.forum_list( PageBoardID, PageForumID ) )
+				forumInfo = dt.Rows [0];
+
+			return !postLocked && ( ( int ) forumInfo ["Flags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ( ( int ) message ["UserID"] == PageUserID || ForumModeratorAccess ) && ForumEditAccess;
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.CreatePoll.Click += new System.EventHandler(this.CreatePoll_Click);
-			this.Preview.Click += new System.EventHandler(this.Preview_Click);
-			this.PostReply.Click += new System.EventHandler(this.PostReply_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
-		}
-		#endregion
-
-		private void PostReply_Click(object sender, System.EventArgs e)
+		private bool CanQuotePostCheck( DataRow message )
 		{
-			if(SubjectRow.Visible && Subject.Text.Length<=0) {
-				AddLoadMessage(GetText("need_subject"));
+			DataRow forumInfo, topicInfo;
+
+			// get topic and forum information
+			topicInfo = DB.topic_info( PageTopicID );
+			using ( DataTable dt = DB.forum_list( PageBoardID, PageForumID ) )
+				forumInfo = dt.Rows [0];
+
+			return ( ( int ) forumInfo ["Flags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ForumReplyAccess;
+		}
+
+		protected void PostReply_Click( object sender, System.EventArgs e )
+		{
+			if ( SubjectRow.Visible && Subject.Text.Length <= 0 )
+			{
+				AddLoadMessage( GetText( "need_subject" ) );
 				return;
 			}
 
-			if(PollRow1.Visible) 
+			if ( PollRow1.Visible )
 			{
-				if(Question.Text.Trim().Length==0) 
+				if ( Question.Text.Trim().Length == 0 )
 				{
-					AddLoadMessage(GetText("NEED_QUESTION"));
+					AddLoadMessage( GetText( "NEED_QUESTION" ) );
 					return;
 				}
 
 				string p1 = PollChoice1.Text.Trim();
 				string p2 = PollChoice2.Text.Trim();
-				if(p1.Length==0 || p2.Length==0) 
+				if ( p1.Length == 0 || p2.Length == 0 )
 				{
-					AddLoadMessage(GetText("NEED_CHOICES"));
+					AddLoadMessage( GetText( "NEED_CHOICES" ) );
 					return;
 				}
 			}
 
 
 			// see if there is a post delay
-			if (!(IsAdmin || IsModerator) && BoardSettings.PostFloodDelay > 0)
+			if ( !( IsAdmin || IsModerator ) && BoardSettings.PostFloodDelay > 0 )
 			{
 				// see if they've past that delay point
-				if (Mession.LastPost > DateTime.Now.AddSeconds(-BoardSettings.PostFloodDelay) && Request.QueryString["m"] == null) 
+				if ( Mession.LastPost > DateTime.Now.AddSeconds( -BoardSettings.PostFloodDelay ) && Request.QueryString ["m"] == null )
 				{
-					AddLoadMessage(String.Format(GetText("wait"),(Mession.LastPost - DateTime.Now.AddSeconds(-BoardSettings.PostFloodDelay)).Seconds));
+					AddLoadMessage( String.Format( GetText( "wait" ), ( Mession.LastPost - DateTime.Now.AddSeconds( -BoardSettings.PostFloodDelay ) ).Seconds ) );
 					return;
 				}
 			}
@@ -243,8 +268,8 @@ namespace yaf.pages
 			long nMessageID = 0;
 			object replyTo = null;
 
-			if(Request.QueryString["q"]!=null)
-				replyTo = int.Parse(Request.QueryString["q"]);
+			if ( Request.QueryString ["q"] != null )
+				replyTo = int.Parse( Request.QueryString ["q"] );
 			else
 				// Let save procedure find first post
 				replyTo = -1;
@@ -252,29 +277,29 @@ namespace yaf.pages
 			string msg = Message.Text;
 
 			Mession.LastPost = DateTime.Now;
-			
-			if(Request.QueryString["t"] != null)
+
+			if ( Request.QueryString ["t"] != null )
 			{
-				if(!ForumReplyAccess)
+				if ( !ForumReplyAccess )
 					Data.AccessDenied();
 
-				TopicID = long.Parse(Request.QueryString["t"]);
+				TopicID = long.Parse( Request.QueryString ["t"] );
 				// make message flags
 				MessageFlags tFlags = new MessageFlags();
 
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				if(!DB.message_save(TopicID,PageUserID,msg,User!=null ? null : From.Text,Request.UserHostAddress,null,replyTo,tFlags.BitValue,ref nMessageID))
+				if ( !DB.message_save( TopicID, PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
 					TopicID = 0;
-			} 
-			else if(Request.QueryString["m"] != null)
+			}
+			else if ( Request.QueryString ["m"] != null )
 			{
-				if(!ForumEditAccess)
+				if ( !ForumEditAccess )
 					Data.AccessDenied();
 
 				string SubjectSave = "";
-				if (Subject.Enabled) SubjectSave = Server.HtmlEncode(Subject.Text);
+				if ( Subject.Enabled ) SubjectSave = Server.HtmlEncode( Subject.Text );
 
 				// make message flags
 				MessageFlags tFlags = new MessageFlags();
@@ -282,18 +307,18 @@ namespace yaf.pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				DB.message_update(Request.QueryString["m"],Priority.SelectedValue,msg,SubjectSave,tFlags.BitValue);
+				DB.message_update( Request.QueryString ["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue );
 				TopicID = PageTopicID;
-				nMessageID = long.Parse(Request.QueryString["m"]);
-			} 
+				nMessageID = long.Parse( Request.QueryString ["m"] );
+			}
 			else
 			{
-				if(!ForumPostAccess)
+				if ( !ForumPostAccess )
 					Data.AccessDenied();
 
 				object PollID = null;
-				
-				if (PollRow1.Visible)
+
+				if ( PollRow1.Visible )
 				{
 
 					int daysPollExpire = 0;
@@ -301,19 +326,19 @@ namespace yaf.pages
 
 					try
 					{
-						daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
+						daysPollExpire = Convert.ToInt32( PollExpire.Text.Trim() );
 					}
 					catch
 					{
 
 					}
 
-					if (daysPollExpire > 0)
+					if ( daysPollExpire > 0 )
 					{
-						datePollExpire = DateTime.Now.AddDays(daysPollExpire);
+						datePollExpire = DateTime.Now.AddDays( daysPollExpire );
 					}
 
-					PollID = DB.poll_save(Question.Text,
+					PollID = DB.poll_save( Question.Text,
 						PollChoice1.Text,
 						PollChoice2.Text,
 						PollChoice3.Text,
@@ -323,7 +348,7 @@ namespace yaf.pages
 						PollChoice7.Text,
 						PollChoice8.Text,
 						PollChoice9.Text,
-						datePollExpire);
+						datePollExpire );
 				}
 
 				// make message flags
@@ -332,35 +357,36 @@ namespace yaf.pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				string subject = Server.HtmlEncode(Subject.Text);
-				TopicID = DB.topic_save(PageForumID,subject,msg,PageUserID,Priority.SelectedValue,PollID,User!=null ? null : From.Text,Request.UserHostAddress,null,tFlags.BitValue,ref nMessageID);
+				string subject = Server.HtmlEncode( Subject.Text );
+				TopicID = DB.topic_save( PageForumID, subject, msg, PageUserID, Priority.SelectedValue, PollID, User!=null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID );
 			}
 
 			// Check if message is approved
 			bool bApproved = false;
-			using(DataTable dt = DB.message_list(nMessageID)) 
-				foreach(DataRow row in dt.Rows) 
-					bApproved = ((int)row["Flags"] & 16)==16;
+			using ( DataTable dt = DB.message_list( nMessageID ) )
+				foreach ( DataRow row in dt.Rows )
+					bApproved = ( ( int ) row ["Flags"] & 16 ) == 16;
 
 			// Create notification emails
-			if(bApproved) 
+			if ( bApproved )
 			{
-				Utils.CreateWatchEmail(this,nMessageID);
-				Forum.Redirect(Pages.posts,"m={0}&#{0}",nMessageID);
-			} 
-			else 
+				Utils.CreateWatchEmail( this, nMessageID );
+				Forum.Redirect( Pages.posts, "m={0}&#{0}", nMessageID );
+			}
+			else
 			{
 				// Tell user that his message will have to be approved by a moderator
 				//AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-				string url = Forum.GetLink(Pages.topics,"f={0}",PageForumID);
-				if(Config.IsRainbow)
-					Forum.Redirect(Pages.info,"i=1");
+				string url = Forum.GetLink( Pages.topics, "f={0}", PageForumID );
+				if ( Config.IsRainbow )
+					Forum.Redirect( Pages.info, "i=1" );
 				else
-					Forum.Redirect(Pages.info,"i=1&url={0}",Server.UrlEncode(url));
+					Forum.Redirect( Pages.info, "i=1&url={0}", Server.UrlEncode( url ) );
 			}
 		}
 
-		private void CreatePoll_Click(object sender, System.EventArgs e) {
+		protected void CreatePoll_Click( object sender, System.EventArgs e )
+		{
 			CreatePollRow.Visible = false;
 			PollRow1.Visible = true;
 			PollRow2.Visible = true;
@@ -375,50 +401,51 @@ namespace yaf.pages
 			PollRowExpire.Visible = true;
 		}
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			if (Request.QueryString["t"] != null || Request.QueryString["m"] != null)
+			if ( Request.QueryString ["t"] != null || Request.QueryString ["m"] != null )
 			{
 				// reply to existing topic or editing of existing topic
-				Forum.Redirect(Pages.posts,"t={0}",PageTopicID);
+				Forum.Redirect( Pages.posts, "t={0}", PageTopicID );
 			}
 			else
 			{
 				// new topic -- cancel back to forum
-				Forum.Redirect(Pages.topics,"f={0}",PageForumID);				
+				Forum.Redirect( Pages.topics, "f={0}", PageForumID );
 			}
 		}
 
-		private void Preview_Click(object sender, System.EventArgs e) {
+		protected void Preview_Click( object sender, System.EventArgs e )
+		{
 			PreviewRow.Visible = true;
 
 			MessageFlags tFlags = new MessageFlags();
 			tFlags.IsHTML = Message.UsesHTML;
 			tFlags.IsBBCode = Message.UsesBBCode;
 
-			string body = FormatMsg.FormatMessage(this,Message.Text,tFlags);
+			string body = FormatMsg.FormatMessage( this, Message.Text, tFlags );
 
-			using(DataTable dt = DB.user_list(PageBoardID,PageUserID,true)) 
+			using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
 			{
-				if(!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage(this,dt.Rows[0]["Signature"].ToString(),new MessageFlags());
+				if ( !dt.Rows [0].IsNull( "Signature" ) )
+					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage( this, dt.Rows [0] ["Signature"].ToString(), new MessageFlags() );
 			}
-			
+
 			PreviewCell.InnerHtml = body;
 		}
 
-		protected string FormatBody(object o) 
+		protected string FormatBody( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
+			DataRowView row = ( DataRowView ) o;
+			string html = FormatMsg.FormatMessage( this, row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
 
-			string messageSignature = row["Signature"].ToString();
+			string messageSignature = row ["Signature"].ToString();
 
-			if (messageSignature != string.Empty) 
+			if ( messageSignature != string.Empty )
 			{
 				MessageFlags flags = new MessageFlags();
 				flags.IsHTML = false;
-				messageSignature = FormatMsg.FormatMessage(this,messageSignature,flags);
+				messageSignature = FormatMsg.FormatMessage( this, messageSignature, flags );
 				html += "<br/><hr noshade/>" + messageSignature;
 			}
 

@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="im_icq.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.im_icq" %>
+<%@ Control language="c#" Codebehind="im_icq.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.im_icq" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

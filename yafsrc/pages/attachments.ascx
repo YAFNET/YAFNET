@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="attachments.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.attachments" %>
+<%@ Control language="c#" Codebehind="attachments.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.attachments" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -38,7 +38,7 @@
 </tr>
 <tr>
 	<td class=postheader><%= GetText("SELECT_FILE") %></td>
-	<td class=post><input type="file" id="File" cssclass="pbutton" runat="server"/></td>
+	<td class=post><input type="file" id="File" class="pbutton" runat="server"/></td>
 	<td class=post><asp:button runat="server" cssclass="pbutton" id="Upload"/></td>
 </tr>
 

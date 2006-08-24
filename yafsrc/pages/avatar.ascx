@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="avatar.ascx.cs" Inherits="yaf.pages.avatar" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="avatar.ascx.cs" Inherits="yaf.pages.avatar" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

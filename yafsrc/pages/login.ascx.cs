@@ -35,26 +35,32 @@ namespace yaf.pages
 	/// </summary>
 	public partial class login : ForumPage
 	{
-	
-		public login() : base("LOGIN")
+
+		public login()
+			: base( "LOGIN" )
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if(!CanLogin)
-				Forum.Redirect(Pages.forum);
+				Forum.Redirect( Pages.forum );
 
-			if(!IsPostBack) 
+
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-                Login1.CreateUserText = "Sign up for a new account.";
+PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );               
+Login1.CreateUserText = "Sign up for a new account.";
                 Login1.CreateUserUrl = Forum.GetLink(Pages.register);
-                Login1.PasswordRecoveryText = "Forgot your password?";
+                Login1.PasswordRecoveryText = GetText( "lostpassword" );
                 Login1.PasswordRecoveryUrl = Forum.GetLink(Pages.recoverpassword);
 
+				//ForumLogin.Text = GetText( "forum_login" );
+				//LostPassword.Text = GetText( "lostpassword" );
+				//Recover.Text = GetText( "sendpassword" );
+
 				// set the focus using Damien McGivern client-side focus class
-				//TODO McGiv.Web.UI.ClientSideFocus.setFocus(UserName);
+				ClientSideFocus.setFocus( UserName );
 			}
 		}
 
@@ -65,7 +71,7 @@ namespace yaf.pages
 			//
             Login1.LoggedIn += new EventHandler(Login1_LoggedIn);
             this.Load += new System.EventHandler(this.Page_Load);
-            base.OnInit(e);
+            base.OnInit(e);			
 		}
 
         void Login1_LoggedIn(object sender, EventArgs e)

@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="cp_subscriptions.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_subscriptions" %>
+<%@ Control language="c#" Codebehind="cp_subscriptions.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_subscriptions" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -29,7 +29,7 @@
 	</itemtemplate>
 </asp:repeater>
 <tr>
-	<td class=footer1 colspan=5 align=center><asp:button id=UnsubscribeForums runat="server"/></td>
+	<td class=footer1 colspan=5 align=center><asp:button id=UnsubscribeForums runat="server" onclick="UnsubscribeForums_Click" /></td>
 </tr>
 </table>
 
@@ -59,7 +59,7 @@
 	</itemtemplate>
 </asp:repeater>
 <tr>
-	<td class=footer1 colspan=5 align=middle><asp:button id=UnsubscribeTopics runat="server"/></td>
+	<td class=footer1 colspan=5 align=middle><asp:button id=UnsubscribeTopics runat="server" onclick="UnsubscribeTopics_Click" /></td>
 </tr>
 </table>
 

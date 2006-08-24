@@ -12,7 +12,6 @@ namespace yaf.pages {
     
     public partial class topics {
         protected yaf.controls.PageLinks PageLinks;
-        protected System.Web.UI.WebControls.PlaceHolder SubForums;
         protected yaf.controls.ForumList ForumList;
         protected yaf.controls.Pager Pager;
         protected System.Web.UI.WebControls.LinkButton moderate1;

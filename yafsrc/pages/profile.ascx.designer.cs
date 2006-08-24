@@ -43,6 +43,7 @@ namespace yaf.pages {
         protected System.Web.UI.WebControls.TextBox UserSignature;
         protected System.Web.UI.WebControls.Button EditSignature;
         protected System.Web.UI.WebControls.Literal AccessMaskRow;
+        protected System.Web.UI.WebControls.ImageButton expandLast10;
         protected System.Web.UI.WebControls.Repeater LastPosts;
         protected yaf.controls.SmartScroller SmartScroller1;
     }

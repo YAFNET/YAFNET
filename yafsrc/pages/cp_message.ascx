@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="cp_message.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_message" %>
+<%@ Control language="c#" Codebehind="cp_message.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_message" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -15,7 +15,7 @@
 </SeparatorTemplate>
 <ItemTemplate>
 	<tr>
-		<td class=header1 colspan=2><%# HtmlEncode(Eval("Subject")) %></td>
+		<td class=header1 colspan="2"><%# HtmlEncode(DataBinder.Eval(Container.DataItem,"Subject")) %></td>
 	</tr>
 	<tr>
 		<td class=postheader><%# Eval("FromUser") %></td>

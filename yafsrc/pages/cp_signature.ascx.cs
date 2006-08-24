@@ -34,16 +34,14 @@ namespace yaf.pages
 	/// </summary>
 	public partial class cp_signature : ForumPage
 	{
-		protected yaf.editor.ForumEditor sig;
+		
 
 		public cp_signature() : base("CP_SIGNATURE")
 		{
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			sig.BaseDir = Data.ForumRoot + "editors";
-			sig.StyleSheet = this.ThemeFile("theme.css");
 
 			if(User==null)
 			{
@@ -55,42 +53,16 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				sig.Text = DB.user_getsignature(PageUserID);
-
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),"");
-
-				save.Text = GetText("Save");
-				cancel.Text = GetText("Cancel");
 			}
 		}
 
-		private void save_Click(object sender,EventArgs e) 
-		{
-			string body = sig.Text;
-			//body = FormatMsg.RepairHtml(this,body,false);
-
-			if(sig.Text.Length>0)
-				DB.user_savesignature(PageUserID,body);
-			else
-				DB.user_savesignature(PageUserID,DBNull.Value);
-			Forum.Redirect(Pages.cp_profile);
-		}
-
-		private void cancel_Click(object sender,EventArgs e) {
-			Forum.Redirect(Pages.cp_profile);
-		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			// since signatures are so small only allow BBCode in them...
-			sig = new yaf.editor.BBCodeEditor();
-			EditorLine.Controls.Add(sig);
-
-			save.Click += new EventHandler(save_Click);
-			cancel.Click += new EventHandler(cancel_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
@@ -104,7 +76,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

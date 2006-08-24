@@ -41,7 +41,7 @@ namespace yaf.pages
 			CheckSuspended = false;
 		}
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!CanLogin)
 				Data.AccessDenied();
@@ -67,7 +67,6 @@ namespace yaf.pages
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
 	}

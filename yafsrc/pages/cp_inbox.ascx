@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="cp_inbox.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_inbox" %>
+<%@ Control language="c#" Codebehind="cp_inbox.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_inbox" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

@@ -1,17 +1,7 @@
-<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.search" %>
+<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.search" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
-<script language="javascript">
-function doSearch() {
-	if (window.event.keyCode == 13) {
-		<%=test()%>.click();
-		return false;
-	}
-	return true;
-}
-</script>
-
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2"><%= GetText("title") %></td>
@@ -26,8 +16,8 @@ function doSearch() {
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2" align="center">
-				<asp:textbox id="txtSearchString" runat="server" Width="350px" onkeypress="return doSearch()"/>
-				<asp:button id="btnSearch" cssclass="pbutton" runat="server"/>
+				<asp:textbox id="txtSearchString" runat="server" Width="350px"/>
+				<asp:button id="btnSearch" cssclass="pbutton" runat="server" onclick="btnSearch_Click" />
 			</td>
 		</tr>
 	</table><br/>

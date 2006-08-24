@@ -1,13 +1,13 @@
-<%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.postmessage" %>
+<%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<table class="content" cellSpacing="1" cellPadding="4" width="100%" align="center">
+<table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
 	<tr>
-		<td class="header1" align="middle" colSpan="2"><asp:label id="Title" runat="server"/></td>
+		<td class="header1" align="center" colspan="2"><asp:label id="Title" runat="server"/></td>
 	</tr>
 
 	<tr id="PreviewRow" runat="server" visible="false">
@@ -15,22 +15,22 @@
 		<td class="post" valign="top" id="PreviewCell" runat="server"></td>
 	</tr>
 
-	<tr id=SubjectRow runat="server">
+	<tr id="SubjectRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("subject") %></td>
-		<td class="post" width="80%"><asp:textbox id=Subject runat="server" cssclass="edit"/></td>
+		<td class="post" width="80%"><asp:textbox id="Subject" runat="server" cssclass="edit"/></td>
 	</tr>
-	<tr id=FromRow runat="server">
+	<tr id="FromRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("from") %></td>
 		<td class="post" width="80%"><asp:textbox id="From" runat="server" cssclass="edit"/></td>
 	</tr>
-	<tr id=PriorityRow runat="server">
+	<tr id="PriorityRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("priority") %></td>
 		<td class="post" width="80%">
-			<asp:dropdownlist id=Priority runat="server"/>
+			<asp:dropdownlist id="Priority" runat="server"/>
 		</td>
 	</tr>
 	<tr id=CreatePollRow runat="server">
-		<td class="postformheader" width="20%"><asp:linkbutton id=CreatePoll runat="server"/></td>
+		<td class="postformheader" width="20%"><asp:linkbutton id=CreatePoll runat="server" onclick="CreatePoll_Click" /></td>
 		<td class="post" width="80%">&nbsp;</td>
 	</tr>
 	<tr id=PollRow1 runat="server" visible="false">
@@ -78,7 +78,7 @@
 		<td class="post" width="80%"><asp:TextBox maxlength="10" id="PollExpire" runat="server" cssclass="edit"/> <%= GetText("poll_expire_explain") %></td>
 	</tr>	
 	<tr>
-		<td class="postformheader" width="20%" vAlign="top"><%= GetText("message") %>
+		<td class="postformheader" width="20%" valign="top"><%= GetText("message") %>
 			<br/>
 			<uc1:smileys runat="server" onclick="insertsmiley"/>
 		</td>
@@ -99,10 +99,10 @@
 		</td>
 	</tr-->
 	<tr>
-		<td align=middle colSpan=2 class=footer1>
-			<asp:Button id=Preview cssclass="pbutton" runat="server"/>
-			<asp:button id=PostReply cssclass="pbutton" runat="server"/>
-			<asp:Button id=Cancel cssclass="pbutton" runat="server"/>
+		<td align="center" colspan="2" class="footer1">
+			<asp:Button id=Preview cssclass="pbutton" runat="server" onclick="Preview_Click" />
+			<asp:button id=PostReply cssclass="pbutton" runat="server" onclick="PostReply_Click" />
+			<asp:Button id=Cancel cssclass="pbutton" runat="server" onclick="Cancel_Click" />
 		</td>
 	</tr>
 </table>
@@ -111,10 +111,12 @@
 
 <asp:repeater id="LastPosts" runat="server" visible="false">
 <HeaderTemplate>
-	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">
-		<tr>
-			<td class=header2 align=middle colSpan=2><%# GetText("last10") %></td>
-		</tr>
+    <table class="content" cellspacing="1" cellpadding="0" width="100%" align="center">
+        <tr>
+            <td class="header2" align="center" colSpan="2">
+                <%# GetText("last10") %>
+            </td>
+        </tr>
 </HeaderTemplate>
 <FooterTemplate>
 	</table>
@@ -147,6 +149,6 @@
 </AlternatingItemTemplate>
 </asp:repeater>
 
-<iframe runat="server" Visible="false" id="LastPostsIFrame" name="lastposts" width="100%" height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
+<iframe runat="server" visible="false" id="LastPostsIFrame" name="lastposts" width="100%" height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
 
 <yaf:SmartScroller id="SmartScroller1" runat = "server" />
