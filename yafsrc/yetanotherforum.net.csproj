@@ -174,6 +174,7 @@
     <Content Include="languages\danish.xml" />
     <Content Include="languages\dutch.xml" />
     <Content Include="languages\english.xml" />
+    <Content Include="languages\finnish.xml" />
     <Content Include="languages\french.xml" />
     <Content Include="languages\german-du.xml" />
     <Content Include="languages\norwegian.xml" />
@@ -181,6 +182,7 @@
     <Content Include="languages\romanian.xml" />
     <Content Include="languages\russian.xml" />
     <Content Include="languages\spanish.xml" />
+    <Content Include="languages\swedish.xml" />
     <Content Include="languages\turkish.xml" />
     <Content Include="pages\active.ascx" />
     <Content Include="pages\activeusers.ascx" />
@@ -228,6 +230,7 @@
     <Content Include="pages\avatar.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="pages\cp_changepassword.ascx" />
     <Content Include="pages\cp_editprofile.ascx" />
     <Content Include="pages\cp_inbox.ascx" />
     <Content Include="pages\cp_message.ascx" />
@@ -260,6 +263,7 @@
     <Content Include="pages\posts.ascx" />
     <Content Include="pages\printtopic.ascx" />
     <Content Include="pages\profile.ascx" />
+    <Content Include="pages\recoverpassword.ascx" />
     <Content Include="pages\register.ascx" />
     <Content Include="pages\rsstopic.ascx" />
     <Content Include="pages\rules.ascx" />
@@ -463,6 +467,8 @@
     <Content Include="themes\djrm1\vote_lcap.gif" />
     <Content Include="themes\djrm1\vote_rcap.gif" />
     <Content Include="themes\djrm1\voting_bar.gif" />
+    <Content Include="themes\Empty.xml" />
+    <Content Include="themes\Empty\Empty.css" />
     <Content Include="themes\flatearth.xml" />
     <Content Include="themes\FlatEarth\bg_header2.png" />
     <Content Include="themes\FlatEarth\bg_header5.png" />
@@ -821,9 +827,6 @@
     <Compile Include="classes\HiPerfTimer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\IForumUser.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="classes\Localizer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -836,9 +839,7 @@
     <Compile Include="classes\RssFeed.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\SectionHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="classes\Security.cs" />
     <Compile Include="classes\UrlBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1237,6 +1238,13 @@
     <Compile Include="pages\avatar.ascx.designer.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\cp_changepassword.ascx.cs">
+      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_changepassword.ascx.designer.cs">
+      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\cp_editprofile.ascx.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1453,6 +1461,13 @@
     <Compile Include="pages\profile.ascx.designer.cs">
       <DependentUpon>profile.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\recoverpassword.ascx.cs">
+      <DependentUpon>recoverpassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\recoverpassword.ascx.designer.cs">
+      <DependentUpon>recoverpassword.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\register.ascx.cs">
       <DependentUpon>register.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1500,6 +1515,12 @@
     <None Include="COPYING" />
     <Content Include="resource.ashx" />
     <Content Include="default.config" />
+    <None Include="install\constraints.sql" />
+    <None Include="install\indexes.sql" />
+    <None Include="install\procedures.sql" />
+    <None Include="install\tables.sql" />
+    <None Include="install\triggers.sql" />
+    <None Include="install\views.sql" />
     <None Include="themes\chrome\voting_bar.psd" />
     <None Include="themes\icgstation\folder.psd" />
     <None Include="themes\icgstation\folderYAF.psd" />
