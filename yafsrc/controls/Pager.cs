@@ -39,18 +39,18 @@ namespace yaf.controls
 			if(iEnd>PageCount) iEnd = PageCount;
 
 			if(iStart>0)
-				output.WriteLine("<a href=\"{0}\">First</a> ...",Page.GetPostBackClientHyperlink(this,"0"));
+				output.WriteLine("<a href=\"{0}\">First</a> ...",Page.ClientScript.GetPostBackClientHyperlink(this,"0"));
 
 			for(int i=iStart;i<iEnd;i++)
 			{
 				if(i==CurrentPageIndex)
 					output.WriteLine("[{0}]",i+1);
 				else
-					output.WriteLine("<a href=\"{0}\">{1}</a>",Page.GetPostBackClientHyperlink(this,i.ToString()),i+1);
+					output.WriteLine( "<a href=\"{0}\">{1}</a>", Page.ClientScript.GetPostBackClientHyperlink( this, i.ToString() ), i + 1 );
 			}
 
-			if(iEnd<PageCount) 
-				output.WriteLine("... <a href=\"{0}\">Last</a>",Page.GetPostBackClientHyperlink(this,(PageCount-1).ToString()));
+			if(iEnd<PageCount)
+				output.WriteLine( "... <a href=\"{0}\">Last</a>", Page.ClientScript.GetPostBackClientHyperlink( this, ( PageCount - 1 ).ToString() ) );
 
 			output.WriteLine("</span>");
 		}

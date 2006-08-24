@@ -65,42 +65,29 @@ namespace yaf.controls
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
-			DataTable dt;
-			string cachename = String.Format("forumjump_{0}_{1}",ForumPage.User!=null ? ForumPage.User.UserName : "Guest",ForumPage.User!=null);
-			if(Page.Cache[cachename] != null) 
-			{
-				dt = (DataTable)Page.Cache[cachename];
-			} 
-			else 
-			{
-				//dt = DB.forum_listread(ForumPage.PageBoardID,ForumPage.PageUserID,null,null);
-				dt = DB.forum_listall(ForumPage.PageBoardID,ForumPage.PageUserID);
-				Page.Cache[cachename] = dt;
-			}
+            DataTable dt;
+            string cachename = String.Format("forumjump_{0}_{1}", ForumPage.User!=null ? ForumPage.User.UserName : "Guest",ForumPage.User!=null);
+            if (Page.Cache[cachename] != null)
+            {
+                dt = (DataTable)Page.Cache[cachename];
+            }
+            else
+            {
+                dt = DB.forum_listall_nice(ForumPage.PageBoardID, ForumPage.PageUserID);
+                Page.Cache[cachename] = dt;
+            }
 
-			writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">",this.UniqueID,Page.GetPostBackEventReference(this)));
+            writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, Page.GetPostBackEventReference(this)));
 
-			int nForumID = ForumPage.PageForumID;
-			if(nForumID<=0)
-				writer.WriteLine("<option/>");
-			int nOldCat = 0;
-			for(int i=0;i<dt.Rows.Count;i++) 
-			{
-				DataRow row = dt.Rows[i];
-				if(ForumPage.ForumControl.CategoryID!=null && row["CategoryID"].ToString()!=ForumPage.ForumControl.CategoryID.ToString())
-					continue;
-
-				if((int)row["CategoryID"] != nOldCat) 
-				{
-					nOldCat = (int)row["CategoryID"];
-					writer.WriteLine(String.Format("<option style='font-weight:bold' value='{0}'>{1}</option>",-(int)row["CategoryID"],row["Category"]));
-				}
-				string sIndent = "";
-				for(int j=0;j<(int)row["Indent"];j++)
-					sIndent += "--";
-				writer.WriteLine(String.Format("<option {2}value='{0}'> -{3} {1}</option>",row["ForumID"],row["Forum"],(int)row["ForumID"]==nForumID ? "selected=\"selected\" " : "",sIndent));
-			}
-			writer.WriteLine("</select>");
+            int nForumID = ForumPage.PageForumID;
+            if (nForumID <= 0)
+                writer.WriteLine("<option/>");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow row = dt.Rows[i];
+                writer.WriteLine(string.Format("<option {2}value='{0}'>{1}</option>", row["ForumID"], row["Title"], (string)row["ForumID"] == nForumID.ToString() ? "selected=\"selected\" " : ""));
+            }
+            writer.WriteLine("</select>");
 		}
 	}
 }

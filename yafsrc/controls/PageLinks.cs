@@ -11,7 +11,7 @@ namespace yaf.controls
 		public void AddLink(string title,string url) 
 		{
 			DataTable dt = (DataTable)ViewState["data"];
-			if(dt==null) 
+			if ( dt == null ) 
 			{
 				dt = new DataTable();
 				dt.Columns.Add("Title",typeof(string));
@@ -21,7 +21,19 @@ namespace yaf.controls
 			DataRow dr = dt.NewRow();
 			dr["Title"] = title;
 			dr["URL"] = url;
-			dt.Rows.Add(dr);
+			dt.Rows.Add(dr);			
+		}
+
+		/// <summary>
+		/// Clear all Links
+		/// </summary>
+		public void Clear()
+		{
+			DataTable dt = (DataTable)ViewState["data"];
+			if ( dt != null )
+			{
+				ViewState ["data"] = null;
+			}
 		}
 
 		public void AddForumLinks(int forumID)

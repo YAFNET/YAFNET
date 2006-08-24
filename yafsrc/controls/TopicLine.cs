@@ -199,7 +199,7 @@ namespace yaf.controls
 			
 			if (row["LastMessageID"].ToString().Length>0) 
 			{
-				string strMiniPost = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > Mession.LastVisit) ? "ICON_NEWEST" : "ICON_LATEST");
+				string strMiniPost = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > ForumPage.GetTopicRead((int)m_row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
 
 				string strBy =
 					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",

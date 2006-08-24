@@ -123,7 +123,7 @@ namespace yaf.controls
 <!-- End yaf.controls.SmartScroller ASP.NET Generated Code -->";
 
 	
-			Page.RegisterStartupScript("SmartScroller", scriptString);
+			Page.ClientScript.RegisterStartupScript(Page.GetType(),"SmartScroller", scriptString);
 		}
 
 		protected override void Render(HtmlTextWriter writer)

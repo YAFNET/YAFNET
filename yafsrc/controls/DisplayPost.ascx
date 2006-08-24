@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <tr class="postheader">
@@ -24,7 +24,7 @@
 		</table>
 	</td>
 </tr>
-<tr class=<%#GetPostClass()%>>
+<tr class="<%#GetPostClass()%>">
 	<td valign="top" height="100" class="UserBox" colspan='<%#GetIndentSpan()%>'>
 		<%# FormatUserBox() %>
 	</td>
