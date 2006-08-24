@@ -30,11 +30,11 @@ using System.Web.UI.HtmlControls;
 namespace yaf.pages.admin
 {
 	/// <summary>
-	/// Summary description for WebForm1.
+	/// Administrative Page for the editting of forum properties.
 	/// </summary>
 	public partial class editforum : AdminPage {
 	
-		private void Page_Load(object sender, System.EventArgs e) 
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -54,10 +54,14 @@ namespace yaf.pages.admin
 						IsTest.Checked = ((int)row["Flags"] & (int)ForumFlags.IsTest) == (int)ForumFlags.IsTest;
 						ForumNameTitle.Text = Name.Text;
 						Moderated.Checked = ((int)row["Flags"] & (int)ForumFlags.Moderated) == (int)ForumFlags.Moderated;
-						CategoryList.Items.FindByValue(row["CategoryID"].ToString()).Selected = true;
-						if(!row.IsNull("ParentID"))
-							ParentList.Items.FindByValue(row["ParentID"].ToString()).Selected = true;
-						remoteurl.Text = row["RemoteURL"].ToString();
+                        
+                        CategoryList.SelectedValue = row["CategoryID"].ToString();
+                        if (!row.IsNull("ParentID"))
+                            ParentList.SelectedValue = row["ParentID"].ToString();
+                        if (!row.IsNull("ThemeURL"))
+                            ThemeList.SelectedValue = row["ThemeURL"].ToString();
+
+                        remoteurl.Text = row["RemoteURL"].ToString();
 					}
 					NewGroupRow.Visible = false;
 				}
@@ -68,26 +72,46 @@ namespace yaf.pages.admin
 		{
 			int ForumID = 0;
 			CategoryList.DataSource = DB.category_list(PageBoardID,null);
+            CategoryList.DataBind();
 
 			if (Request.QueryString["f"] != null)
 			{
 				ForumID = Convert.ToInt32(Request.QueryString["f"]);
 				AccessList.DataSource = DB.forumaccess_list(ForumID);
+                AccessList.DataBind();
 			}
 
-			//ParentList.DataSource = DB.forum_list(PageBoardID,null);
-			//ParentList.DataValueField = "ForumID";
-			//ParentList.DataTextField = "Name";
 			// Load forum's combo
-			ParentList.DataSource = DB.forum_listall_nice(PageBoardID,PageUserID,new string[]{ForumID.ToString()});
-			ParentList.DataValueField = "ForumID";
-			ParentList.DataTextField = "Title";
+            ParentList.DataSource = DB.forum_listall_fromCat(PageBoardID, CategoryList.SelectedValue);
+            ParentList.DataValueField = "ForumID";
+            ParentList.DataTextField = "Title";
+            ParentList.DataBind();
 
-			DataBind();
+            // Load forum's themes
+            ListItem listheader = new ListItem();
+            listheader.Text = "Choose a theme";
+            listheader.Value = "";
+
+            AccessMaskID.DataBind();
+
+            ThemeList.DataSource = Data.Themes();
+            ThemeList.DataTextField = "Theme";
+            ThemeList.DataValueField = "FileName";
+            ThemeList.DataBind();
+            ThemeList.Items.Insert(0, listheader);        
 		}
+
+        public void Category_Change(object sender, System.EventArgs e)
+        {
+            ParentList.DataSource = DB.forum_listall_fromCat(PageBoardID, CategoryList.SelectedValue);
+            ParentList.DataValueField = "ForumID";
+            ParentList.DataTextField = "Title";
+            ParentList.DataBind();
+        }
 
 		override protected void OnInit(EventArgs e)
 		{
+            this.CategoryList.AutoPostBack = true;
 			this.Save.Click += new System.EventHandler(this.Save_Click);
 			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
 			this.Load += new System.EventHandler(this.Page_Load);
@@ -132,7 +156,12 @@ namespace yaf.pages.admin
 			object parentID = null;
 			if(ParentList.SelectedValue.Length>0)
 				parentID = ParentList.SelectedValue;
-			ForumID = DB.forum_save(ForumID,CategoryList.SelectedValue,parentID,Name.Text,Description.Text,SortOrder.Text,Locked.Checked,HideNoAccess.Checked,IsTest.Checked,Moderated.Checked,AccessMaskID.SelectedValue,IsNull(remoteurl.Text),false);
+
+            object themeURL = null;
+            if (ThemeList.SelectedValue.Length > 0)
+                themeURL = ThemeList.SelectedValue;
+
+            ForumID = DB.forum_save(ForumID, CategoryList.SelectedValue, parentID, Name.Text, Description.Text, SortOrder.Text, Locked.Checked, HideNoAccess.Checked, IsTest.Checked, Moderated.Checked, AccessMaskID.SelectedValue, IsNull(remoteurl.Text), themeURL, false);
 
 			// Access
 			if(Request.QueryString["f"] != null) 

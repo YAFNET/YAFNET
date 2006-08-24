@@ -38,7 +38,7 @@ namespace yaf.pages.admin {
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
 		protected CheckBox AllowHTMLX   ;
 	
-		private void Page_Load(object sender, System.EventArgs e) 
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsHostAdmin)
 				Data.AccessDenied();
@@ -108,7 +108,8 @@ namespace yaf.pages.admin {
 			ShowGroupsProfile.Checked = BoardSettings.ShowGroupsProfile;
 			PostFloodDelay.Text = BoardSettings.PostFloodDelay.ToString();
 			PollVoteTiedToIPX.Checked = BoardSettings.PollVoteTiedToIP;
-
+			AllowPMNotifications.Checked = BoardSettings.AllowPMEmailNotification;
+			ShowPageGenerationTime.Checked = BoardSettings.ShowPageGenerationTime;
 		}
 
 		#region Web Form Designer generated code
@@ -127,13 +128,11 @@ namespace yaf.pages.admin {
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			string sUserName = ForumSmtpUserName.Text.Trim();
 			string sUserPass = ForumSmtpUserPass.Text.Trim();
@@ -179,6 +178,8 @@ namespace yaf.pages.admin {
 			BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
 			BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
 			BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
+			BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
+			BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

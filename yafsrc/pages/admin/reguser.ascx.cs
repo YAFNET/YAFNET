@@ -32,7 +32,7 @@ namespace yaf.pages.admin
 	{
     
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
       if(!IsPostBack) 
       {
@@ -62,19 +62,16 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.ForumRegister.Click += new System.EventHandler(this.ForumRegister_Click);
-			this.cancel.Click += new System.EventHandler(this.cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 		
-    private void cancel_Click(object sender,EventArgs e) 
+    protected void cancel_Click(object sender,EventArgs e) 
     {
       Forum.Redirect(Pages.admin_users);
     }
 		
-    private void ForumRegister_Click(object sender, System.EventArgs e)
+    protected void ForumRegister_Click(object sender, System.EventArgs e)
     {
       if(Page.IsValid) 
       {
@@ -90,7 +87,7 @@ namespace yaf.pages.admin
           return;
         }
 
-				if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification,DBNull.Value))
+        if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification))
 				{
 					// success
 					Forum.Redirect(Pages.admin_reguser);

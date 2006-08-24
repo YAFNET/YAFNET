@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="nntpservers.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.nntpservers" %>
+<%@ Control language="c#" Codebehind="nntpservers.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.nntpservers" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -40,7 +40,7 @@
 </asp:repeater>
 
 <tr>
-	<td class=footer1 colspan=5><asp:linkbutton id=NewServer runat="server" text="New Server"/></td>
+	<td class=footer1 colspan=5><asp:linkbutton id=NewServer runat="server" text="New Server" onclick="NewServer_Click" /></td>
 </tr>
 </table>
 

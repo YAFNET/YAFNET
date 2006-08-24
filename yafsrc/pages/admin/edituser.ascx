@@ -1,72 +1,45 @@
-<%@ Control language="c#" Codebehind="edituser.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.edituser" %>
+<%@ Control language="c#" Codebehind="edituser.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.edituser" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="uc1" TagName="QuickEdit" Src="../../controls/EditUsersInfo.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="GroupsEdit" Src="../../controls/EditUsersGroups.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../../controls/EditUsersSignature.ascx" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
 <yaf:adminmenu runat="server">
 
-<table class=content width="100%" cellspacing=1 cellpadding=0>
+<table width="100%" cellspacing="1" cellpadding="0" class="content" >
+  <tbody>
 	<tr>
-		<td class=header1 colspan=2>Edit User</td>
-	</tr>
-	<tr>
-		<td class="postheader">Name:</td>
-		<td class=post><asp:TextBox style="width:300px" id=Name runat="server"/></td>
+		<td colspan="2" class="header1">Edit User: <asp:label id="TitleUserName" runat="server"/></td>
 	</tr>
 	<tr>
-		<td class="postheader">E-mail:</td>
-		<td class=post><asp:TextBox style="width:300px" id=Email runat="server"/></td>
-	</tr>
-	<tr>
-		<td class="postheader">Rank:</td>
-		<td class=post><asp:dropdownlist id=RankID runat="server"/></td>
-	</tr>
-	<tr runat="server" id="IsHostAdminRow">
-		<td class="postheader">Is Host Admin:</td>
-		<td class="post"><asp:checkbox runat="server" id="IsHostAdminX"/></td>
-	</tr>
-	<tr>
-		<td class="postheader">Is Guest:</td>
-		<td class="post"><asp:checkbox runat="server" id="IsGuestX"/></td>
-	</tr>
-	<tr>
-		<td class="postheader">Joined:</td>
-		<td class=post><asp:TextBox id=Joined runat="server" Enabled="False"/></td>
-	</tr>
-	<tr>
-		<td class="postheader">Last Visit:</td>
-		<td class=post><asp:TextBox id=LastVisit runat="server" Enabled="False"/></td>
-	</tr>
-	
-    <asp:repeater id=UserGroups runat="server">
-	<HeaderTemplate>
-		<tr>
-			<td class=header1 colspan=2>User Groups</td>
-		</tr>
-		<tr>
-			<td class=header2>Member</td>
-			<td class=header2>Group</td>
-		</tr>
-	</HeaderTemplate>
-	<ItemTemplate>
-		<tr>
-			<td class=post><asp:checkbox runat="server" id=GroupMember checked='<%# IsMember(Eval("Member")) %>'/></td>
-			<td class=post><asp:label id=GroupID visible=false runat="server" text='<%# Eval( "GroupID") %>'></asp:label>
-				<b><%# Eval( "Name") %></b>
-			</td>
-		</tr>
-	</ItemTemplate>
-</asp:repeater>
-	
-	<tr>
-		<td class=postfooter colspan=2 align=middle>
-			<asp:Button id=Save runat="server" Text="Save"/>
-			<asp:Button id=Cancel runat="server" Text="Cancel"/>
-		</td>
-	</tr>
-
+		<td valign="top" class="post" width="150">
+		    <asp:LinkButton runat="server" id="BasicEditLink" onclick="Edit1_Click" /> <br />
+		    <asp:LinkButton runat="server" id="GroupLink" onclick="Edit2_Click" /> <br />
+		    <asp:LinkButton runat="server" id="ProfileLink" onclick="Edit3_Click" /> <br />
+		    <asp:LinkButton runat="server" id="SignatureLink" onclick="Edit4_Click" /> <br />
+    </td>
+    <td valign="top" class="post">
+        <asp:MultiView ID="UserAdminMultiView" runat="server" ActiveViewIndex="0">
+            <asp:View ID="QuickEditView" runat="server">
+               <uc1:QuickEdit id="QuickEditControl" runat="server"></uc1:QuickEdit>
+            </asp:View>
+            <asp:View ID="GroupsEditView" runat="server">
+                <uc1:GroupsEdit id="GroupEditControl" runat="server"></uc1:GroupsEdit>
+            </asp:View>
+            <asp:View ID="ProfileEditView" runat="server">
+                <uc1:ProfileEdit id="ProfileEditControl" runat="server"></uc1:ProfileEdit>
+            </asp:View>
+            <asp:View ID="SignatureEditView" runat="server">
+                <uc1:SignatureEdit id="SignatureEditControl" runat="server"></uc1:SignatureEdit>
+            </asp:View>
+        </asp:MultiView>
+     </td>
+  </tr>
+  </tbody>
 </table>
-
 </yaf:adminmenu>
 
 <yaf:SmartScroller id="SmartScroller1" runat = "server" />

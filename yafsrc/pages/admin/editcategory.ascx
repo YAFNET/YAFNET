@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="editcategory.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editcategory" %>
+<%@ Control language="c#" Codebehind="editcategory.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.editcategory" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -7,7 +7,7 @@
 
 <table class=content cellspacing=1 cellpadding=0 width="100%">
 	<tr>
-		<td class=header1 colspan=2>Edit Category: <asp:label id=CategoryNameTitle runat=server></asp:label></td>
+		<td class=header1 colspan="2">Edit Category: <asp:label id=CategoryNameTitle runat=server></asp:label></td>
 	</tr>
 	<tr>
 		<td class=post>Name:</td>
@@ -20,9 +20,9 @@
 <asp:TextBox id=SortOrder runat="server"></asp:TextBox></td>
 	</tr>
 	<tr>
-		<td class=postfooter colspan=2 align=middle>
-<asp:Button id=Save runat="server" Text="Save"></asp:Button>&nbsp;
-<asp:Button id=Cancel runat="server" Text="Cancel"></asp:Button></td>
+		<td class=postfooter colspan="2" align=middle>
+<asp:Button id=Save runat="server" Text="Save" onclick="Save_Click"></asp:Button>&nbsp;
+<asp:Button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click"></asp:Button></td>
 	</tr>
 </table>
 

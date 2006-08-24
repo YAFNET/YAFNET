@@ -35,96 +35,76 @@ namespace yaf.pages.admin
 	/// </summary>
 	public partial class edituser : AdminPage
 	{
-	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			IsHostAdminRow.Visible = IsHostAdmin;
+			if ( !IsPostBack )
+			{
+				if ( Request.QueryString ["u"] != null )
+					if ( !IsHostAdmin && IsUserHostAdmin( Convert.ToInt32( Request.QueryString ["u"] ) ) )
+					{
+						Data.AccessDenied();
+					}
 
-			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Users","");
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( "Administration", Forum.GetLink( Pages.admin_admin ) );
+				PageLinks.AddLink( "Users", Forum.GetLink( Pages.admin_users ) );
+				PageLinks.AddLink( "Edit", "" );
 
-				BindData();
-				using(DataTable dt = DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
-				{
-					DataRow row = dt.Rows[0];
-					Name.Text = (string)row["Name"];
-					Email.Text = row["Email"].ToString();
-					IsHostAdminX.Checked = ((int)row["Flags"] & (int)UserFlags.IsHostAdmin) == (int)UserFlags.IsHostAdmin;
-                    IsGuestX.Checked = ((int)row["Flags"] & (int)UserFlags.IsGuest) == (int)UserFlags.IsGuest;
-                    Joined.Text = row["Joined"].ToString();
-					LastVisit.Text = row["LastVisit"].ToString();
-					ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
-					if(item!=null)
-						item.Selected = true;
-				}
+				BasicEditLink.Text = "User Details";
+				BasicEditLink.CommandArgument = "QuickEditView";
+
+				GroupLink.Text = "User's Groups";
+				GroupLink.CommandArgument = "GroupEditControl";
+
+				SignatureLink.Text = "Signature Edit";
+				SignatureLink.CommandArgument = "SignatureEditControl";
+
+				ProfileLink.Text = "Profile Edit";
+				ProfileLink.CommandArgument = "ProfileEditControl";
 			}
+
+			// we're in the admin section...
+			ProfileEditControl.InAdminPages = true;
+			SignatureEditControl.InAdminPages = true;
+		}
+
+		protected void Edit1_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( QuickEditView );
+		}
+		protected void Edit2_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( GroupsEditView );
+		}
+		protected void Edit3_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( ProfileEditView );
+		}
+		protected void Edit4_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( SignatureEditView );
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
+		{
 
 		}
 		#endregion
 
-		private void BindData() {
-			UserGroups.DataSource = DB.group_member(PageBoardID,Request.QueryString["u"]);
-			RankID.DataSource = DB.rank_list(PageBoardID,null);
-			RankID.DataValueField = "RankID";
-			RankID.DataTextField = "Name";
-			DataBind();
-		}
 
-		protected bool IsMember(object o) 
-		{
-			return long.Parse(o.ToString()) > 0;
-		}
-
-		private void Cancel_Click(object sender, System.EventArgs e) {
-			Forum.Redirect(Pages.admin_users);
-		}
-
-		private void Save_Click(object sender, System.EventArgs e) {
-			DB.user_adminsave(PageBoardID,Request.QueryString["u"],Name.Text,Email.Text,IsHostAdminX.Checked,IsGuestX.Checked,RankID.SelectedValue);
-			for(int i=0;i<UserGroups.Items.Count;i++) 
-			{
-				RepeaterItem item = UserGroups.Items[i];
-				int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-
-                string roleName = string.Empty;
-                using (DataTable dt = DB.group_list(PageBoardID, GroupID))
-                {
-                    foreach (DataRow row in dt.Rows)
-                        roleName = (string)row["Name"];
-                }
-
-                bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
-                DB.usergroup_save(Request.QueryString["u"],GroupID,isChecked);
-                if (isChecked && !Roles.IsUserInRole(User.UserName,roleName))
-                    Roles.AddUserToRole(User.UserName, roleName);
-                else if (!isChecked && Roles.IsUserInRole(User.UserName, roleName))
-                    Roles.RemoveUserFromRole(User.UserName, roleName);
-            }
-
-			Forum.Redirect(Pages.admin_users);
-		}
 	}
 }

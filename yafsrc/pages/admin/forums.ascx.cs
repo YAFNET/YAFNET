@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class forums : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -81,9 +81,6 @@ namespace yaf.pages.admin
 		private void InitializeComponent()
 		{    
 			this.CategoryList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.CategoryList_ItemCommand);
-			this.NewCategory.Click += new System.EventHandler(this.NewCategory_Click);
-			this.NewForum.Click += new System.EventHandler(this.NewForum_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -102,7 +99,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void NewForum_Click(object sender, System.EventArgs e)
+		protected void NewForum_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_editforum);
 		}
@@ -123,7 +120,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void NewCategory_Click(object sender, System.EventArgs e)
+		protected void NewCategory_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_editcategory);
 		}

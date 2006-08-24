@@ -23,6 +23,7 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.CheckBox ShowGroupsProfile;
         protected System.Web.UI.WebControls.CheckBox UseFileTableX;
         protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX;
+        protected System.Web.UI.WebControls.CheckBox ShowPageGenerationTime;
         protected System.Web.UI.WebControls.CheckBox ShowForumJumpX;
         protected System.Web.UI.WebControls.CheckBox RemoveNestedQuotesX;
         protected System.Web.UI.WebControls.CheckBox PollVoteTiedToIPX;
@@ -40,6 +41,7 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.CheckBox AllowUserThemeX;
         protected System.Web.UI.WebControls.CheckBox AllowUserLanguageX;
         protected System.Web.UI.WebControls.CheckBox AllowPrivateMessagesX;
+        protected System.Web.UI.WebControls.CheckBox AllowPMNotifications;
         protected System.Web.UI.WebControls.CheckBox AllowEmailSendingX;
         protected System.Web.UI.WebControls.CheckBox AllowSignaturesX;
         protected System.Web.UI.WebControls.CheckBox DisableRegistrations;

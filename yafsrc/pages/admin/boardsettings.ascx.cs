@@ -35,7 +35,7 @@ namespace yaf.pages.admin {
 	public partial class boardsettings : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e) 
+		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack)
 			{
@@ -61,6 +61,7 @@ namespace yaf.pages.admin {
 				Theme.Items.FindByValue(BoardSettings.Theme).Selected = true;
 				Language.Items.FindByValue(BoardSettings.Language).Selected = true;
 				ShowTopic.Items.FindByValue(BoardSettings.ShowTopicsDefault.ToString()).Selected = true;
+                AllowThemedLogo.Checked = BoardSettings.AllowThemedLogo;
 			}
 		}
 
@@ -91,20 +92,18 @@ namespace yaf.pages.admin {
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
-			DB.board_save(PageBoardID,Name.Text,AllowThreaded.Checked);
+            DB.board_save(PageBoardID, Name.Text, AllowThreaded.Checked);
 
 			BoardSettings.Theme = Theme.SelectedValue;
 			BoardSettings.Language = Language.SelectedValue;
 			BoardSettings.ShowTopicsDefault = Convert.ToInt32(ShowTopic.SelectedValue);
-
+            BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
 			/// save the settings to the database
 			BoardSettings.SaveRegistry();
 

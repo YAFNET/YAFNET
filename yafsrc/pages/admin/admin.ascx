@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.admin" %>
+<%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.admin" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
@@ -66,7 +66,7 @@
 			</table>
 		</FooterTemplate>
 	</asp:repeater>
-	<BR>
+	<br />
 	<TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<TR>
 			<TD class="header1" colSpan="4">Statistics</TD>

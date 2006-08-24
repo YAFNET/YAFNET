@@ -12,17 +12,20 @@ namespace yaf.pages.admin {
     
     public partial class edituser {
         protected yaf.controls.PageLinks PageLinks;
-        protected System.Web.UI.WebControls.TextBox Name;
-        protected System.Web.UI.WebControls.TextBox Email;
-        protected System.Web.UI.WebControls.DropDownList RankID;
-        protected System.Web.UI.HtmlControls.HtmlTableRow IsHostAdminRow;
-        protected System.Web.UI.WebControls.CheckBox IsHostAdminX;
-        protected System.Web.UI.WebControls.CheckBox IsGuestX;
-        protected System.Web.UI.WebControls.TextBox Joined;
-        protected System.Web.UI.WebControls.TextBox LastVisit;
-        protected System.Web.UI.WebControls.Repeater UserGroups;
-        protected System.Web.UI.WebControls.Button Save;
-        protected System.Web.UI.WebControls.Button Cancel;
+        protected System.Web.UI.WebControls.Label TitleUserName;
+        protected System.Web.UI.WebControls.LinkButton BasicEditLink;
+        protected System.Web.UI.WebControls.LinkButton GroupLink;
+        protected System.Web.UI.WebControls.LinkButton ProfileLink;
+        protected System.Web.UI.WebControls.LinkButton SignatureLink;
+        protected System.Web.UI.WebControls.MultiView UserAdminMultiView;
+        protected System.Web.UI.WebControls.View QuickEditView;
+        protected yaf.controls.EditUsersInfo QuickEditControl;
+        protected System.Web.UI.WebControls.View GroupsEditView;
+        protected yaf.controls.EditUsersGroups GroupEditControl;
+        protected System.Web.UI.WebControls.View ProfileEditView;
+        protected yaf.controls.EditUsersProfile ProfileEditControl;
+        protected System.Web.UI.WebControls.View SignatureEditView;
+        protected yaf.controls.EditUsersSignature SignatureEditControl;
         protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

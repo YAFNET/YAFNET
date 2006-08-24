@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="eventlog.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.eventlog" %>
+<%@ Control language="c#" Codebehind="eventlog.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.eventlog" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

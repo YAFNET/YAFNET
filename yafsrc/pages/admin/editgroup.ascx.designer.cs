@@ -14,6 +14,7 @@ namespace yaf.pages.admin {
         protected yaf.controls.PageLinks PageLinks;
         protected System.Web.UI.WebControls.TextBox Name;
         protected System.Web.UI.WebControls.CheckBox IsAdminX;
+        protected System.Web.UI.WebControls.CheckBox IsGuestGroup;
         protected System.Web.UI.WebControls.CheckBox IsStart;
         protected System.Web.UI.WebControls.CheckBox IsModeratorX;
         protected System.Web.UI.HtmlControls.HtmlTableRow NewGroupRow;

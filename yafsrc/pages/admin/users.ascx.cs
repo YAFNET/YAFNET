@@ -33,8 +33,9 @@ namespace yaf.pages.admin
 	/// Summary description for members.
 	/// </summary>
 	public partial class users : AdminPage
-    {
-        private void Page_Load(object sender, System.EventArgs e)
+	{
+
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
@@ -72,7 +73,6 @@ namespace yaf.pages.admin
 		override protected void OnInit(EventArgs e)
 		{
 			this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
-			this.Load += new System.EventHandler(this.Page_Load);
 			// Added BAI 07.01.2003
 			this.NewUser.Click += new System.EventHandler(this.NewUser_Click);
 			// END Added BAI 07.01.2003    

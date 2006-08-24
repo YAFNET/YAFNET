@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class editcategory : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -63,14 +63,11 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Save.Click += new System.EventHandler(this.Save_Click);
-			this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_forums);
 		}
@@ -89,7 +86,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);

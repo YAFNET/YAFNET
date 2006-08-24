@@ -1,47 +1,47 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="users.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.users" %>
+<%@ Control language="c#" Codebehind="users.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.users" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">
-	<TABLE class="content" cellSpacing="0" cellPadding="0" width="100%">
-		<TR>
-			<TD class="post" vAlign="top">
-				<TABLE cellSpacing="0" cellPadding="0" width="100%">
-					<TR>
-						<TD class="header2" noWrap colSpan="4"><B>Filter</B></TD>
-					</TR>
-					<TR class="post">
-						<TD>Group:</TD>
-						<TD>Rank:</TD>
-						<TD>Name Contains:</TD>
-						<TD width="99%">&nbsp;</TD>
-					</TR>
-					<TR class="post">
-						<TD>
-							<asp:dropdownlist id="group" runat="server"></asp:dropdownlist></TD>
-						<TD>
-							<asp:dropdownlist id="rank" runat="server"></asp:dropdownlist></TD>
-						<TD>
-							<asp:textbox id="name" runat="server"></asp:textbox></TD>
-						<TD align="right">
-							<asp:button id="search" runat="server" text="Search"></asp:button></TD>
-					</TR>
-				</TABLE>
-			</TD>
-		</TR>
-	</TABLE>
+	<table class="content" cellSpacing="0" cellPadding="0" width="100%">
+		<tr>
+			<td class="post" vAlign="top">
+				<table cellSpacing="0" cellPadding="0" width="100%">
+					<tr>
+						<td class="header2" noWrap colSpan="4"><B>Filter</B></td>
+					</tr>
+					<tr class="post">
+						<td>Group:</td>
+						<td>Rank:</td>
+						<td>Name Contains:</td>
+						<td width="99%">&nbsp;</td>
+					</tr>
+					<tr class="post">
+						<td>
+							<asp:dropdownlist id="group" runat="server"></asp:dropdownlist></td>
+						<td>
+							<asp:dropdownlist id="rank" runat="server"></asp:dropdownlist></td>
+						<td>
+							<asp:textbox id="name" runat="server"></asp:textbox></td>
+						<td align="right">
+							<asp:button id="search" runat="server" text="Search"></asp:button></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
 	<BR>
-	<TABLE class="content" cellSpacing="1" cellPadding="0" width="100%">
-		<TR>
-			<TD class="header1" colSpan="6">Users</TD>
-		</TR>
-		<TR>
-			<TD class="header2">Name</TD>
-			<TD class="header2">Rank</TD>
-			<TD class="header2" align="center">Posts</TD>
-			<TD class="header2" align="center">Approved</TD>
-			<TD class="header2">Last Visit</TD>
-			<TD class="header2">&nbsp;</TD>
-		</TR>
+	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
+		<tr>
+			<td class="header1" colSpan="6">Users</td>
+		</tr>
+		<tr>
+			<td class="header2">Name</td>
+			<td class="header2">Rank</td>
+			<td class="header2" align="center">Posts</td>
+			<td class="header2" align="center">Approved</td>
+			<td class="header2">Last Visit</td>
+			<td class="header2">&nbsp;</td>
+		</tr>
 		<asp:repeater id="UserList" runat="server">
 			<ItemTemplate>
 				<tr>
@@ -58,9 +58,9 @@
 				</tr>
 			</ItemTemplate>
 		</asp:repeater><!--- Added BAI 07.01.2003 -->
-		<TR>
-			<TD class="footer1" colSpan="6">
-				<asp:linkbutton id="NewUser" runat="server">New User</asp:linkbutton></TD>
-		</TR> <!--- Added BAI 07.01.2003 --></TABLE>
+		<tr>
+			<td class="footer1" colSpan="6">
+				<asp:linkbutton id="NewUser" runat="server">New User</asp:linkbutton></td>
+		</tr> <!--- Added BAI 07.01.2003 --></table>
 </yaf:adminmenu>
 <yaf:SmartScroller id="SmartScroller1" runat="server" />

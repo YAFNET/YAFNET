@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class boards : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsHostAdmin)
 				Data.AccessDenied();
@@ -54,7 +54,6 @@ namespace yaf.pages.admin
 		override protected void OnInit(EventArgs e)
 		{
 			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
-			this.Load += new System.EventHandler(this.Page_Load);
 			this.New.Click += new EventHandler(New_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.

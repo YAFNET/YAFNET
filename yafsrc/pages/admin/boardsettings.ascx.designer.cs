@@ -16,6 +16,7 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.TextBox Name;
         protected System.Web.UI.WebControls.CheckBox AllowThreaded;
         protected System.Web.UI.WebControls.DropDownList Theme;
+        protected System.Web.UI.WebControls.CheckBox AllowThemedLogo;
         protected System.Web.UI.WebControls.DropDownList Language;
         protected System.Web.UI.WebControls.DropDownList ShowTopic;
         protected System.Web.UI.WebControls.Button Save;

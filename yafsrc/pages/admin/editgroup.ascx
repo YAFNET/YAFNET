@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="editgroup.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.editgroup" %>
+<%@ Control language="c#" Codebehind="editgroup.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.editgroup" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -55,8 +55,8 @@
 </ItemTemplate>
 </asp:repeater>
   <tr>
-    <td class=postfooter align=middle colspan=11><asp:button id=Save runat="server" Text="Save"></asp:button>&nbsp; 
-<asp:button id=Cancel runat="server" Text="Cancel"></asp:button></td></tr></table>
+    <td class=postfooter align=middle colspan=11><asp:button id=Save runat="server" Text="Save" onclick="Save_Click"></asp:button>&nbsp; 
+<asp:button id=Cancel runat="server" Text="Cancel" onclick="Cancel_Click"></asp:button></td></tr></table>
 
 </yaf:adminmenu>
 

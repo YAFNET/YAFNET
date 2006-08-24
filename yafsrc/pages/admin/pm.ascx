@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="pm.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.pm" %>
+<%@ Control language="c#" Codebehind="pm.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.pm" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -7,7 +7,7 @@
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
-	<td class=header1 colspan=2>Private messages</td>
+	<td class=header1 colspan="2">Private messages</td>
 </tr>
 <tr>
 	<td class="postheader" width="50%">Number of private messages:</td>
@@ -23,7 +23,7 @@
 </td>
 
 <tr>
-	<td class=footer1 colspan=2 align=center>
+	<td class=footer1 colspan="2" align=center>
 		<asp:button id=commit runat=server text="Delete"/>
 	</td>
 </tr>

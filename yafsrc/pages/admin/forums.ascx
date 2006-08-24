@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="forums.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.forums" %>
+<%@ Control language="c#" Codebehind="forums.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.forums" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -26,8 +26,8 @@
 		<asp:Repeater id=ForumList OnItemCommand="ForumList_ItemCommand" runat="server" datasource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
 			<ItemTemplate>
 				<tr class=post>
-					<td align=left><b><%# Eval( "[\"Name\"]") %></b><br><%# Eval( "[\"Description\"]") %></td>
-					<td align=center><%# Eval( "[\"SortOrder\"]") %></td>
+					<td align=left><b><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></b><br /><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></td>
+					<td align=center><%# DataBinder.Eval(Container.DataItem, "[\"SortOrder\"]") %></td>
 					<td>
 						<asp:linkbutton runat='server' commandname='edit' commandargument='<%# Eval( "[\"ForumID\"]") %>'>Edit</asp:linkbutton>
 						|
@@ -40,9 +40,9 @@
 </ItemTemplate>
 </asp:repeater>
   <tr>
-    <td class=footer1 colSpan=3><asp:linkbutton id=NewCategory runat="server">New Category</asp:linkbutton>
+    <td class=footer1 colSpan=3><asp:linkbutton id=NewCategory runat="server" onclick="NewCategory_Click">New Category</asp:linkbutton>
 		|
-		<asp:LinkButton id=NewForum runat="server">New Forum</asp:LinkButton></TD></TR></TABLE>
+		<asp:LinkButton id=NewForum runat="server" onclick="NewForum_Click">New Forum</asp:LinkButton></td></tr></table>
 		
 </yaf:adminmenu>
 

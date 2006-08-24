@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class mail : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -71,13 +71,11 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Send.Click += new System.EventHandler(this.Send_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void Send_Click(object sender, System.EventArgs e) {
+		protected void Send_Click(object sender, System.EventArgs e) {
 			object GroupID = null;
 			if(ToList.SelectedItem.Value!="0")
 				GroupID = ToList.SelectedValue;

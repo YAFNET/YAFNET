@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="groups.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.groups" %>
+<%@ Control language="c#" Codebehind="groups.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.groups" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
@@ -44,7 +44,7 @@
 </asp:repeater>
 
 <tr>
-	<td class=footer1 colspan="5"><asp:linkbutton id=NewGroup runat="server">New Group</asp:linkbutton></td>
+	<td class=footer1 colspan=6><asp:linkbutton id=NewGroup runat="server" onclick="NewGroup_Click">New Group</asp:linkbutton></td>
 </tr>
 </table>
 

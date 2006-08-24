@@ -19,6 +19,7 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.TextBox Name;
         protected System.Web.UI.WebControls.TextBox Description;
         protected System.Web.UI.WebControls.TextBox remoteurl;
+        protected System.Web.UI.WebControls.DropDownList ThemeList;
         protected System.Web.UI.WebControls.TextBox SortOrder;
         protected System.Web.UI.WebControls.CheckBox HideNoAccess;
         protected System.Web.UI.WebControls.CheckBox Locked;

@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class groups : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -64,8 +64,6 @@ namespace yaf.pages.admin
 		private void InitializeComponent()
 		{    
 			this.GroupList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.GroupList_ItemCommand);
-			this.NewGroup.Click += new System.EventHandler(this.NewGroup_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -102,7 +100,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void NewGroup_Click(object sender, System.EventArgs e)
+		protected void NewGroup_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_editgroup);
 		}

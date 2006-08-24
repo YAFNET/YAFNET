@@ -1,4 +1,4 @@
-<%@ Control language="c#" Codebehind="nntpretrieve.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.nntpretrieve" %>
+<%@ Control language="c#" Codebehind="nntpretrieve.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.nntpretrieve" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <yaf:PageLinks runat="server" id="PageLinks"/>

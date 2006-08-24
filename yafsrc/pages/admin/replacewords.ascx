@@ -1,4 +1,4 @@
-<%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.admin.replacewords" %>
+<%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.replacewords" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 <yaf:PageLinks runat="server" id="PageLinks" />
 <yaf:adminmenu runat="server" id="Adminmenu1">

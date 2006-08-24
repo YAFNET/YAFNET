@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class accessmasks : AdminPage
 	{
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
@@ -74,8 +74,6 @@ namespace yaf.pages.admin
 		private void InitializeComponent()
 		{    
 			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
-			this.New.Click += new System.EventHandler(this.New_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
@@ -96,7 +94,7 @@ namespace yaf.pages.admin
 			}
 		}
 
-		private void New_Click(object sender, System.EventArgs e)
+		protected void New_Click(object sender, System.EventArgs e)
 		{
 			Forum.Redirect(Pages.admin_editaccessmask);
 		}

@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 	public partial class replacewords_edit : AdminPage
 	{
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			string strAddEdit = (Request.QueryString["i"] == null) ? "Add" : "Edit";
 
@@ -91,7 +91,6 @@ namespace yaf.pages.admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
