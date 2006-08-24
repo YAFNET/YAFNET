@@ -123,7 +123,7 @@ namespace yaf
 		/// <returns>Returns SqlConnection</returns>
 		public static SqlConnection GetConnection()
 		{
-			SqlConnection conn = new SqlConnection(Config.ConnectionString );
+			SqlConnection conn = new SqlConnection( Config.ConnectionString );
 			conn.Open();
 			return conn;
 		}
@@ -1280,7 +1280,7 @@ namespace yaf
 		{
 			DataRow newRow;
 
-			foreach (DataRow row in listSource.Rows)
+			foreach ( DataRow row in listSource.Rows )
 			{
 				// see if this is a root-forum
 				if ( row ["ParentID"] == DBNull.Value )
@@ -1294,7 +1294,7 @@ namespace yaf
 
 						newRow = listDestination.NewRow();
 						newRow ["ForumID"] = string.Empty;
-						newRow ["Title"] = string.Format("{0}",row ["Category"].ToString());
+						newRow ["Title"] = string.Format( "{0}", row ["Category"].ToString() );
 						listDestination.Rows.Add( newRow );
 					}
 
@@ -1308,7 +1308,7 @@ namespace yaf
 
 					newRow ["ForumID"] = row ["ForumID"];
 					newRow ["Title"] = string.Format( " -{0} {1}", sIndent, row ["Forum"] );
-					
+
 					listDestination.Rows.Add( newRow );
 
 					// recurse through the list...
@@ -1321,8 +1321,8 @@ namespace yaf
 		{
 			DataTable listDestination = new DataTable();
 
-			listDestination.Columns.Add( "ForumID", typeof(String) );
-			listDestination.Columns.Add( "Title", typeof(String) );
+			listDestination.Columns.Add( "ForumID", typeof( String ) );
+			listDestination.Columns.Add( "Title", typeof( String ) );
 
 			DataRow blankRow = listDestination.NewRow();
 			blankRow ["ForumID"] = string.Empty;
@@ -1362,9 +1362,9 @@ namespace yaf
 		static public DataTable forum_listall_sorted( object boardID, object userID, int [] forumidExclusions )
 		{
 			using ( DataTable dt = forum_listall( boardID, userID ) )
-      {
+			{
 				return forum_sort_list( dt, 0, 0, 0, forumidExclusions );
-      }
+			}
 		}
 		#endregion
 
@@ -1411,17 +1411,7 @@ namespace yaf
 				return GetData( cmd );
 			}
 		}
-        static public DataTable group_list(object boardID, object GroupID)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_group_list"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@BoardID", boardID);
-                cmd.Parameters.AddWithValue("@GroupID", GroupID);
-                return GetData(cmd);
-            }
-        }
-        static public void group_delete(object GroupID) 
+		static public void group_delete( object GroupID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_group_delete" ) )
 			{
@@ -1489,19 +1479,19 @@ namespace yaf
 				ExecuteNonQuery( cmd );
 			}
 		}
-        static public void mail_create(object from, object to, object subject, object body)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_mail_create"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@From", from);
-                cmd.Parameters.AddWithValue("@To", to);
-                cmd.Parameters.AddWithValue("@Subject", subject);
-                cmd.Parameters.AddWithValue("@Body", body);
-                ExecuteNonQuery(cmd);
-            }
-        }
-        #endregion
+		static public void mail_create( object from, object to, object subject, object body )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_mail_create" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@From", from );
+				cmd.Parameters.AddWithValue( "@To", to );
+				cmd.Parameters.AddWithValue( "@Subject", subject );
+				cmd.Parameters.AddWithValue( "@Body", body );
+				ExecuteNonQuery( cmd );
+			}
+		}
+		#endregion
 
 		#region yaf_Message
 		static public DataTable post_list( object topicID, object updateViewCount )
@@ -2278,40 +2268,40 @@ namespace yaf
 				ExecuteNonQuery( cmd );
 			}
 		}
-        static public void user_setrole(int nBoardID,object providerUserKey,object role)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_setrole"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@BoardID", nBoardID);
-                cmd.Parameters.AddWithValue("@ProviderUserKey", providerUserKey);
-                cmd.Parameters.AddWithValue("@Role", role);
-                ExecuteNonQuery(cmd);
-            }
-        }
-        static public void user_setinfo(int nBoardID, System.Web.Security.MembershipUser user)
-        {
-            using (SqlCommand cmd = new SqlCommand("update dbo.yaf_User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey"))
-            {
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@UserName", user.UserName);
-                cmd.Parameters.AddWithValue("@Email", user.Email);
-                cmd.Parameters.AddWithValue("@BoardID", nBoardID);
-                cmd.Parameters.AddWithValue("@ProviderUserKey", user.ProviderUserKey);
-                ExecuteNonQuery(cmd);
-            }
-        }
-        static public void user_migrate(object UserID, object providerUserKey)
-        {
-            using (SqlCommand cmd = new SqlCommand("update dbo.yaf_User set ProviderUserKey=@ProviderUserKey where UserID=@UserID"))
-            {
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@ProviderUserKey", providerUserKey);
-                cmd.Parameters.AddWithValue("@UserID", UserID);
-                ExecuteNonQuery(cmd);
-            }
-        }
-        static public void user_deleteold(object boardID) 
+		static public void user_setrole( int nBoardID, object providerUserKey, object role )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_setrole" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
+				cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+				cmd.Parameters.AddWithValue( "@Role", role );
+				ExecuteNonQuery( cmd );
+			}
+		}
+		static public void user_setinfo( int nBoardID, System.Web.Security.MembershipUser user )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "update dbo.yaf_User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey" ) )
+			{
+				cmd.CommandType = CommandType.Text;
+				cmd.Parameters.AddWithValue( "@UserName", user.UserName );
+				cmd.Parameters.AddWithValue( "@Email", user.Email );
+				cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
+				cmd.Parameters.AddWithValue( "@ProviderUserKey", user.ProviderUserKey );
+				ExecuteNonQuery( cmd );
+			}
+		}
+		static public void user_migrate( object UserID, object providerUserKey )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "update dbo.yaf_User set ProviderUserKey=@ProviderUserKey where UserID=@UserID" ) )
+			{
+				cmd.CommandType = CommandType.Text;
+				cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+				cmd.Parameters.AddWithValue( "@UserID", UserID );
+				ExecuteNonQuery( cmd );
+			}
+		}
+		static public void user_deleteold( object boardID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_deleteold" ) )
 			{
@@ -2463,17 +2453,17 @@ namespace yaf
 				return GetData( cmd );
 			}
 		}
-        static public int user_get(int nBoardID,object providerUserKey)
-        {
-            using (SqlCommand cmd = new SqlCommand("select UserID from dbo.yaf_User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey"))
-            {
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("@BoardID", nBoardID);
-                cmd.Parameters.AddWithValue("@ProviderUserKey", providerUserKey);
-                return (int)ExecuteScalar(cmd);
-            }
-        }
-        static public DataTable user_find(object boardID, bool filter, object userName, object email) 
+		static public int user_get( int nBoardID, object providerUserKey )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "select UserID from dbo.yaf_User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey" ) )
+			{
+				cmd.CommandType = CommandType.Text;
+				cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
+				cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+				return ( int ) ExecuteScalar( cmd );
+			}
+		}
+		static public DataTable user_find( object boardID, bool filter, object userName, object email )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_find" ) )
 			{
@@ -2555,8 +2545,8 @@ namespace yaf
 							cmd.Parameters.AddWithValue( "@HomePage", homePage );
 							cmd.Parameters.AddWithValue( "@TimeZone", timeZone );
 							cmd.Parameters.AddWithValue( "@Approved", !emailVerification );
-                            cmd.Parameters.AddWithValue("@PMNotification", 1);
-                            cmd.ExecuteNonQuery();
+							cmd.Parameters.AddWithValue( "@PMNotification", 1 );
+							cmd.ExecuteNonQuery();
 						}
 
 						if ( emailVerification )
@@ -2590,28 +2580,28 @@ namespace yaf
 			}
 			return true;
 		}
-        static public int user_aspnet(int nBoardID, string sUserName, string sEmail, object providerUserKey)
-        {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("yaf_user_aspnet"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
+		static public int user_aspnet( int nBoardID, string sUserName, string sEmail, object providerUserKey )
+		{
+			try
+			{
+				using ( SqlCommand cmd = new SqlCommand( "yaf_user_aspnet" ) )
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@BoardID", nBoardID);
-                    cmd.Parameters.AddWithValue("@UserName", sUserName);
-                    cmd.Parameters.AddWithValue("@Email", sEmail);
-                    cmd.Parameters.AddWithValue("@ProviderUserKey", providerUserKey);
-                    return (int)ExecuteScalar(cmd);
-                }
-            }
-            catch (Exception x)
-            {
-                DB.eventlog_create(null, "user_aspnet in DB.cs", x, EventLogTypes.Error);
-                return 0;
-            }
-        }
-        static public int user_guest() 
+					cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
+					cmd.Parameters.AddWithValue( "@UserName", sUserName );
+					cmd.Parameters.AddWithValue( "@Email", sEmail );
+					cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+					return ( int ) ExecuteScalar( cmd );
+				}
+			}
+			catch ( Exception x )
+			{
+				DB.eventlog_create( null, "user_aspnet in DB.cs", x, EventLogTypes.Error );
+				return 0;
+			}
+		}
+		static public int user_guest()
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_guest" ) )
 			{
@@ -2642,61 +2632,61 @@ namespace yaf
 				cmd.Parameters.AddWithValue( "@Email", email );
 				return ( int ) ExecuteScalar( cmd );
 			}
-        }
+		}
 
-        static public void user_addpoints(object userID, object points)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_addpoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserID", userID);
-                cmd.Parameters.AddWithValue("@Points", points);
-                ExecuteNonQuery(cmd);
-            }
-        }
+		static public void user_addpoints( object userID, object points )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_addpoints" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@UserID", userID );
+				cmd.Parameters.AddWithValue( "@Points", points );
+				ExecuteNonQuery( cmd );
+			}
+		}
 
-        static public void user_removepointsByTopicID(object topicID, object points)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_removepointsbytopicid"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@TopicID", topicID);
-                cmd.Parameters.AddWithValue("@Points", points);
-                ExecuteNonQuery(cmd);
-            }
-        }
+		static public void user_removepointsByTopicID( object topicID, object points )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_removepointsbytopicid" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@TopicID", topicID );
+				cmd.Parameters.AddWithValue( "@Points", points );
+				ExecuteNonQuery( cmd );
+			}
+		}
 
-        static public void user_removepoints(object userID, object points)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_removepoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserID", userID);
-                cmd.Parameters.AddWithValue("@Points", points);
-                ExecuteNonQuery(cmd);
-            }
-        }
+		static public void user_removepoints( object userID, object points )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_removepoints" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@UserID", userID );
+				cmd.Parameters.AddWithValue( "@Points", points );
+				ExecuteNonQuery( cmd );
+			}
+		}
 
-        static public void user_setpoints(object userID, object points)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_setpoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserID", userID);
-                cmd.Parameters.AddWithValue("@Points", points);
-                ExecuteNonQuery(cmd);
-            }
-        }
+		static public void user_setpoints( object userID, object points )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_setpoints" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@UserID", userID );
+				cmd.Parameters.AddWithValue( "@Points", points );
+				ExecuteNonQuery( cmd );
+			}
+		}
 
-        static public int user_getpoints(object userID)
-        {
-            using (SqlCommand cmd = new SqlCommand("yaf_user_getpoints"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserID", userID);
-                return (int)ExecuteScalar(cmd);
-            }
-        }
+		static public int user_getpoints( object userID )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_getpoints" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@UserID", userID );
+				return ( int ) ExecuteScalar( cmd );
+			}
+		}
 		#endregion
 
 		#region yaf_UserForum
