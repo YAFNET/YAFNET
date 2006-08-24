@@ -57,7 +57,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Choice') and 
 GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'yaf_PollVote') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yaf_PollVote] (
+	CREATE table [dbo].[yaf_PollVote] (
 		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
 		[PollID] [int] NOT NULL ,
 		[UserID] [int] NULL ,
@@ -210,6 +210,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 		Interests		nvarchar (100) NULL ,
 		Gender			tinyint NOT NULL ,
 		Weblog			nvarchar (100) NULL,
+		PMNotification  bit NOT NULL CONSTRAINT DF_yaf_User_PMNotification  DEFAULT (1),
 		Flags			int not null constraint DF_yaf_User_Flags default (0)
 )
 GO
@@ -2467,96 +2468,6 @@ begin
 end
 GO
 
--- yaf_user_save
-if exists (select 1 from sysobjects where id = object_id(N'yaf_user_save') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_user_save
-GO
-
-create procedure dbo.yaf_user_save(
-	@UserID			int,
-	@BoardID		int,
-	@UserName		nvarchar(50) = null,
-	@Password		nvarchar(32) = null,
-	@Email			nvarchar(50) = null,
-	@Hash			nvarchar(32) = null,
-	@Location		nvarchar(50) = null,
-	@HomePage		nvarchar(50) = null,
-	@TimeZone		int,
-	@Avatar			nvarchar(255) = null,
-	@LanguageFile	nvarchar(50) = null,
-	@ThemeFile		nvarchar(50) = null,
-	@Approved		bit = null,
-	@MSN			nvarchar(50) = null,
-	@YIM			nvarchar(30) = null,
-	@AIM			nvarchar(30) = null,
-	@ICQ			int = null,
-	@RealName		nvarchar(50) = null,
-	@Occupation		nvarchar(50) = null,
-	@Interests		nvarchar(100) = null,
-	@Gender			tinyint = 0,
-	@Weblog			nvarchar(100) = null
-) as
-begin
-	declare @RankID int
-	declare @Flags int
-	
-	set @Flags = 0
-	if @Approved<>0 set @Flags = @Flags | 2
-	
-	if @Location is not null and @Location = '' set @Location = null
-	if @HomePage is not null and @HomePage = '' set @HomePage = null
-	if @Avatar is not null and @Avatar = '' set @Avatar = null
-	if @MSN is not null and @MSN = '' set @MSN = null
-	if @YIM is not null and @YIM = '' set @YIM = null
-	if @AIM is not null and @AIM = '' set @AIM = null
-	if @ICQ is not null and @ICQ = 0 set @ICQ = null
-	if @RealName is not null and @RealName = '' set @RealName = null
-	if @Occupation is not null and @Occupation = '' set @Occupation = null
-	if @Interests is not null and @Interests = '' set @Interests = null
-	if @Weblog is not null and @Weblog = '' set @Weblog = null
-
-	if @UserID is null or @UserID<1 begin
-		if @Email = '' set @Email = null
-		
-		select @RankID = RankID from yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
-		
-		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags) 
-		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags)
-	
-		set @UserID = @@IDENTITY
-
-		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
-		
-		if @Hash is not null and @Hash <> '' and @Approved=0 begin
-			insert into yaf_CheckEmail(UserID,Email,Created,Hash)
-			values(@UserID,@Email,getdate(),@Hash)	
-		end
-	end
-	else begin
-		update yaf_User set
-			Location = @Location,
-			HomePage = @HomePage,
-			TimeZone = @TimeZone,
-			Avatar = @Avatar,
-			LanguageFile = @LanguageFile,
-			ThemeFile = @ThemeFile,
-			MSN = @MSN,
-			YIM = @YIM,
-			AIM = @AIM,
-			ICQ = @ICQ,
-			RealName = @RealName,
-			Occupation = @Occupation,
-			Interests = @Interests,
-			Gender = @Gender,
-			Weblog = @Weblog
-		where UserID = @UserID
-		
-		if @Email is not null
-			update yaf_User set Email = @Email where UserID = @UserID
-	end
-end
-GO
-
 if exists (select 1 from sysobjects where id = object_id(N'yaf_replace_words_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 	drop procedure yaf_replace_words_delete
 GO
@@ -2678,37 +2589,6 @@ begin
 	
 	-- If forum is moderated, make sure last post pointers are correct
 	if (@ForumFlags & 8)<>0 exec yaf_topic_updatelastpost
-end
-GO
-
-
-
--- yaf_message_list
-if exists (select 1 from sysobjects where id = object_id(N'yaf_message_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_message_list
-GO
-
-create procedure dbo.yaf_message_list(@MessageID int) as
-begin
-	select
-		a.MessageID,
-		a.UserID,
-		UserName = b.Name,
-		a.Message,
-		c.TopicID,
-		c.ForumID,
-		c.Topic,
-		c.Priority,
-		a.Flags,
-		c.UserID as TopicOwnerID
-	from
-		yaf_Message a,
-		yaf_User b,
-		yaf_Topic c
-	where
-		a.MessageID = @MessageID and
-		b.UserID = a.UserID and
-		c.TopicID = a.TopicID
 end
 GO
 
@@ -3395,55 +3275,6 @@ begin
 end
 GO
 
--- yaf_topic_delete
-if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_delete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_delete
-GO
-
-create procedure dbo.yaf_topic_delete (@TopicID int,@UpdateLastPost bit=1) 
-as
-begin
-	SET NOCOUNT ON
-
-	declare @ForumID int
-	declare @pollID int
-	
-	select @ForumID=ForumID from yaf_Topic where TopicID=@TopicID
-
-	update yaf_Topic set LastMessageID = null where TopicID = @TopicID
-	update yaf_Forum set 
-		LastTopicID = null,
-		LastMessageID = null,
-		LastUserID = null,
-		LastUserName = null,
-		LastPosted = null
-	where LastMessageID in (select MessageID from yaf_Message where TopicID = @TopicID)
-	update yaf_Active set TopicID = null where TopicID = @TopicID
-	
-	--remove polls	
-	select @pollID = pollID from yaf_topic where TopicID = @TopicID
-	if (@pollID is not null)
-	begin
-		delete from yaf_choice where PollID = @PollID
-		update yaf_topic set PollID = null where TopicID = @TopicID
-		delete from yaf_poll where PollID = @PollID	
-	end	
-	
-	--delete messages and topics
-	delete from yaf_nntptopic where TopicID = @TopicID
-	delete from yaf_message where TopicID = @TopicID
-	delete from yaf_topic where TopicMovedID = @TopicID
-	delete from yaf_topic where TopicID = @TopicID
-	
-	--commit
-	if @UpdateLastPost<>0
-		exec yaf_forum_updatelastpost @ForumID
-	
-	if @ForumID is not null
-		exec yaf_forum_updatestats @ForumID
-end
-GO
-
 -- yaf_topic_listmessages
 --ABOT NEW 16.04.04
 if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_listmessages') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
@@ -3798,46 +3629,6 @@ GO
 create procedure dbo.yaf_mail_list as
 begin
 	select top 10 * from yaf_Mail order by Created
-end
-GO
-
-if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_findnext') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_findnext
-GO
-
-create procedure dbo.yaf_topic_findnext(@TopicID int) as
-begin
-	declare @LastPosted datetime
-	declare @ForumID int
-	select @LastPosted = LastPosted, @ForumID = ForumID from yaf_Topic where TopicID = @TopicID
-	select top 1 TopicID from yaf_Topic where LastPosted>@LastPosted and ForumID = @ForumID order by LastPosted asc
-end
-GO
-
-if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_findprev') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_findprev
-GO
-
-create procedure dbo.yaf_topic_findprev(@TopicID int) as 
-begin
-	declare @LastPosted datetime
-	declare @ForumID int
-	select @LastPosted = LastPosted, @ForumID = ForumID from yaf_Topic where TopicID = @TopicID
-	select top 1 TopicID from yaf_Topic where LastPosted<@LastPosted and ForumID = @ForumID order by LastPosted desc
-end
-GO
-
-if exists (select 1 from sysobjects where id = object_id(N'yaf_topic_info') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-	drop procedure yaf_topic_info
-GO
-
-create procedure dbo.yaf_topic_info(@TopicID int=null) as
-begin
-	if @TopicID = 0 set @TopicID = null
-	if @TopicID is null
-		select * from yaf_Topic
-	else
-		select * from yaf_Topic where TopicID = @TopicID
 end
 GO
 
