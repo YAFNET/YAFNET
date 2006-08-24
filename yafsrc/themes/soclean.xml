@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="So Fresh, So Clean" dir="soclean">
+  <page name="THEME">
+    <Resource tag="CREDIT">SoClean Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+  </page>
+  <page name="FORUM">
+    <Resource tag="BANNER">~/forum_banner.jpg</Resource>
+  </page>
 	<page name="BUTTONS">
 		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/topic_moderate.png'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.png'/&gt;</Resource>
@@ -41,6 +47,8 @@
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
 		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

@@ -22,21 +22,21 @@ public void Page_Error(object sender,System.EventArgs e)
 </head>
 <body>
 
-<img src="/yetanotherforum.net/images/yaf.png" />
+<img src="images/yaflogo.png" runat="server" id="imgBanner" />
 <br />
 
 <form runat="server" enctype="multipart/form-data">
 
 <table border=0 width=100%>
 <tr>
-	<td colspan=2><yaf:header runat="server" id="yafHeader"/></td>
+	<td colspan="2"><yaf:header runat="server" id="yafHeader"/></td>
 </tr>
 <tr>
 	<td width="160px" valign="top"><yaf:test runat="server"/></td>
 	<td valign="top"><yaf:forum runat="server" id="yafForum"/></td>
 </tr>
 <tr>
-	<td colspan=2><hr/><yaf:footer runat="server" id="yafFooter"/></td>
+	<td colspan="2"><hr/><yaf:footer runat="server" id="yafFooter"/></td>
 </tr>
 </table>
 

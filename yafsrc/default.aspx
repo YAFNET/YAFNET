@@ -20,11 +20,11 @@ public void Page_Error(object sender,System.EventArgs e)
 </head>
 <body>
 
-<img src="images/yaflogo.jpg" width="400" height="50"/>
+<img src="images/yaflogo.jpg" runat="server" id="imgBanner" />
 <br />
 
 <form runat="server" enctype="multipart/form-data">
-	<yaf:forum runat="server" id="forum"/>
+	<yaf:forum runat="server" id="forum" />
 </form>
 
 </body>

@@ -9,8 +9,14 @@ input{font:8pt Verdana,Arial,Helvetica,sans-serif}
 
 select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
 
-textarea{background:#ffffff;border:1px solid #404040;
-font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
+textarea
+{
+	background:#ffffff;
+	border:1px solid #404040;
+	font:8pt Verdana,Arial,Helvetica,sans-serif;
+	padding-bottom:2px;
+	padding-left:2px
+}
 
 form{display:inline}
 

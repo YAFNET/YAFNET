@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="Camo1" dir="camo1">
-	<page name="BUTTONS">
+  <page name="FORUM">
+    <Resource tag="BANNER">images/YAFLogo.jpg</Resource>
+  </page>
+  <page name="BUTTONS">
 		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/topic_moderate.gif'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.gif'/&gt;</Resource>
 		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.gif'/&gt;</Resource>

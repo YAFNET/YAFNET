@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="Purple (Button Pack 2)" dir="purple">
+  <page name="FORUM">
+    <Resource tag="BANNER">images/YAFLogo.jpg</Resource>
+  </page>
 	<page name="BUTTONS">
 		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/ButtonPack2/topic_moderate.png'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/ButtonPack2/b_post_topic.png'/&gt;</Resource>
@@ -38,6 +41,8 @@
 		<Resource tag="FORUM_USERS">~/folder_who.png</Resource>
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>		
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

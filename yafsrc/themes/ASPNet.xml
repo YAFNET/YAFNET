@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="ASPNet" dir="ASPNET">
-	<page name="BUTTONS">
+  <page name="THEME">
+    <Resource tag="CREDIT">ASPNET Theme created by &lt;a href='http://boskone.hmc.gotdns.org/'&gt;Boskone (Dan Ferguson)&lt;/a&gt;</Resource>
+  </page>  
+  <page name="FORUM">
+    <Resource tag="BANNER">images/YAFLogo.jpg</Resource>
+  </page>
+  <page name="BUTTONS">
 		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/b_moderate.gif'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_new_topic.gif'/&gt;</Resource>
 		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.gif'/&gt;</Resource>
@@ -40,7 +46,9 @@
 		<Resource tag="FORUM_USERS">~/users_icon.gif</Resource>
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
-		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>		
+		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>	
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>			
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>

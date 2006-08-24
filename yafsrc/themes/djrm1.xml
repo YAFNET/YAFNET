@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="djrm1" dir="djrm1">
-	<page name="BUTTONS">
+  <page name="THEME">
+    <Resource tag="CREDIT">Theme by Rico83.</Resource>
+  </page>
+  <page name="FORUM">
+    <Resource tag="BANNER">images/YAFLogo.jpg</Resource>
+  </page>
+  <page name="BUTTONS">
 		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/b_mod.gif'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.gif'/&gt;</Resource>
 		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.gif'/&gt;</Resource>

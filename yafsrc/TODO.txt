@@ -1,16 +1,10 @@
-** TODO List Updated by Jaben Cargman 4/18/2005
+** TODO List Updated by Jaben Cargman 6/1/2006
 **
-
-- Auto-refreshing "last 10 posts" IFRAME in the post page serves to functions:
-	1. allows users to view the current context of the conversion
-	2. keeps the session from timing out
 
 - Approved users don't have to be moderated
 
 - Add message / header specific to groups or topics. e.g.: display 
   a message to all Guests encouraging them to register on the site.
-
-- Popup notification for Personal Messages and an option in the Profile to disable it.
 
 - Tooltips for user profile links (View profile).
 
@@ -21,19 +15,8 @@
 - Improve admin user editor: user stats, edit profile, edit password, edit banned/suspended status,
   and view IP access history.
 
-- Language strings: tooltips for buttons (reply, quote, ...)
-
 - Limit sigs to 5 lines or X characters. (Configurable in the backend.)
 
 - Link correctly back to forum from install.
 
 - Anonymous login (?)
-
-- In the list of topics of a forum, can be showed a different image for topics with most activity
-  then other (more than 10 or configurable numbers of posts).
-
-- A fast response text box (only simple text with post button) at the bottom of 
-  an open topic if the user can reply. So if I read a topic and want to reply 
-  "on the fly" I can do it immediatly.
-
-- Fix problems deleting posts with attachments.

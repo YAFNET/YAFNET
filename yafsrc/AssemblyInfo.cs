@@ -26,12 +26,12 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("YetAnotherForum.net")]
+[assembly: AssemblyTitle( "YetAnotherForum.NET" )]
 [assembly: AssemblyDescription("ASP.NET Forum Application")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Bjørnar Henden")]
+[assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("http://www.yetanotherforum.net/")]
-[assembly: AssemblyCopyright("Copyright (c) 2003-2006 by Bjørnar Henden. All Rights Reserved.")]
+[assembly: AssemblyCopyright("Copyright (c) 2003-2006 by Bjørnar Henden and Jaben Cargman. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
@@ -46,4 +46,4 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.9.3.0")]

@@ -1,15 +1,15 @@
 If you are upgrading from an earlier version, make sure you have a
 backup of your existing database and files. At the minimum make sure
 you don't overwrite your Web.config file. The existing Web.config
-should work, but you might want to compare it with the new one and
-see what has been added (or removed). After upgrading you should
+should work, but you might want to compare it with the new default.config to
+see what has been added or removed. After upgrading you should
 open install/default.aspx and your database should be automatically
 updated.
 
 1. Unzip to a folder available from your web server.
 
-2. Modify the Web.config file you just unzipped. You must modify
-   connstr to valid values. The database pointed 
+2. Modify the "Default.config" file and rename it to "Web.Config".
+   You must modify connstr to valid values. The database pointed 
    to by <connstr> can be an already existing database, or you can 
    create a new database to install to.
 

@@ -19,12 +19,35 @@ a:visited{color:#8080FF}
 
 <p><a href="http://sourceforge.net/project/showfiles.php?group_id=90539">Download</a></p>
 
-<h2>Version x ()</h2>
+<h2>Version 1.9.0 RC1 (July 25th, 2006)</h2>
 <ul>
-	<li>Admins can filter users by group, rank, and user name.</li>
-	<li>Back button in browser should work.</li>
-	<li>Removed the root element from Web.config</li>
-	<li>Removed theme and language from Web.config to board settings.</li>
+	<li>First compiled in NET Framework v2.0.</li>
+	<li>Topics, messages and attachements are no longer deleted from the database -- just marked as deleted  -- need to add system to make the deleted topics viewable by admin/moderators if desired. </li>
+    <li>Update hundreds of "obsolete" functions for NET v2.0</li>
+    <li>Fixed security issues related to BBCode and postmessage.aspx</li>
+    <li>Fixed search.aspx javascript bug.</li>
+    <li>Added resource.ashx HTTPHandler and removed image.aspx.</li>
+		<li>Themes per forums now implemented.</li>
+		<li>Enhanced user admin system implemented.</li>
+    <li>Board Settings now includes the ability to change the forum graphic (standalone
+        only) per theme.</li>
+    <li>Fixes to the Sort Method and Indentation to the Admin Forums List.</li>
+    <li>Fixes to the Sort Method and Indentation to the Forum Jump List.</li>
+    <li>Parent forum drop down now only displays the forums in the category list and is
+        also now indented correctly.&nbsp;</li>
+    <li>Fixes to the hardcoded text as posted by Neven.</li>
+    <li>Added collapsible categories and information/active discussion panels on the forums page. Also added collapsiable Last 10 posts in profile.</li>
+    <li>Internalized a few javascript resources. Now they are accessed via resource.ashx.</li>
+    <li>Added PM e-mail notification system including templates and user/host settings options.</li>
+    <li>Added optional &quot;theme information&quot; line to themes. </li>
+    <li>Added &quot;Quick Reply&quot; system with javascript expandable panel.</li>
+    <li>Added &quot;DataPanel&quot; control to YAF project (Thanks to <a href="http://www.bw-a-tects.com/">Businessware Architects</a>)</li>
+    <li>Added FlatEarth theme to project.</li>
+    <li>Reformatted much of the C# code.</li>
+    <li>Lots of misc HTML coding changes.</li>
+    <li>Lots of misc bug fixes. </li>
+</ul>
+	
 </ul>
 
 <h2>Version 0.9.9 (November 10th, 2004)</h2>
