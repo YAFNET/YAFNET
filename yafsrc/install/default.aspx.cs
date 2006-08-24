@@ -39,8 +39,8 @@ namespace yaf.install
 	/// </summary>
 	public partial class _default : System.Web.UI.Page
 	{
-		private	string	m_loadMessage	= "";
-		private string[] m_scripts = new string[]
+		private string m_loadMessage = "";
+		private string [] m_scripts = new string []
 		{
 			"tables.sql",
             "indexes.sql",
@@ -183,17 +183,15 @@ namespace yaf.install
         }
         #endregion
 
-        #region method AddLoadMessage
-        void AddLoadMessage(string msg)
+		void AddLoadMessage( string msg )
 		{
-			msg = msg.Replace("\\","\\\\");
-			msg = msg.Replace("'","\\'");
-			msg = msg.Replace("\r\n","\\r\\n");
-			msg = msg.Replace("\n","\\n");
-			msg = msg.Replace("\"","\\\"");
+			msg = msg.Replace( "\\", "\\\\" );
+			msg = msg.Replace( "'", "\\'" );
+			msg = msg.Replace( "\r\n", "\\r\\n" );
+			msg = msg.Replace( "\n", "\\n" );
+			msg = msg.Replace( "\"", "\\\"" );
 			m_loadMessage += msg + "\\n\\n";
-        }
-        #endregion
+		}
 
         #region property IsInstalled
         private bool IsInstalled
@@ -359,41 +357,41 @@ namespace yaf.install
         private void ExecuteScript(string sScriptFile) 
 		{
 			string sScript = null;
-			try 
+			try
 			{
-				using(System.IO.StreamReader file = new System.IO.StreamReader(Request.MapPath(sScriptFile))) 
+				using ( System.IO.StreamReader file = new System.IO.StreamReader( Request.MapPath( sScriptFile ) ) )
 				{
 					sScript = file.ReadToEnd() + "\r\n";
 					file.Close();
 				}
 			}
-			catch(System.IO.FileNotFoundException) 
+			catch ( System.IO.FileNotFoundException )
 			{
 				return;
 			}
-			catch(Exception x) 
+			catch ( Exception x )
 			{
-				throw new Exception("Failed to read "+sScriptFile,x);
+				throw new Exception( "Failed to read " + sScriptFile, x );
 			}
 
-			string[] statements = System.Text.RegularExpressions.Regex.Split(sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+			string [] statements = System.Text.RegularExpressions.Regex.Split( sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
-			using(SqlConnection conn = DB.GetConnection()) 
+			using ( SqlConnection conn = DB.GetConnection() )
 			{
-				using(SqlTransaction trans = conn.BeginTransaction(DB.IsolationLevel)) 
+				using ( SqlTransaction trans = conn.BeginTransaction( DB.IsolationLevel ) )
 				{
-					foreach(string sql0 in statements) 
+					foreach ( string sql0 in statements )
 					{
 						string sql = sql0.Trim();
 
-						try 
+						try
 						{
-							if(sql.ToLower().IndexOf("setuser")>=0)
+							if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
 								continue;
 
-							if(sql.Length>0) 
+							if ( sql.Length > 0 )
 							{
-								using(SqlCommand cmd = new SqlCommand()) 
+								using ( SqlCommand cmd = new SqlCommand() )
 								{
 									cmd.Transaction = trans;
 									cmd.Connection = conn;
@@ -403,10 +401,10 @@ namespace yaf.install
 								}
 							}
 						}
-						catch(Exception x) 
+						catch ( Exception x )
 						{
 							trans.Rollback();
-							throw new Exception(String.Format("FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}",sScriptFile,sql,x.Message));
+							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", sScriptFile, sql, x.Message ) );
 						}
 					}
 					trans.Commit();
@@ -418,64 +416,64 @@ namespace yaf.install
         #region method FixAccess
         private void FixAccess(bool bGrant) 
 		{
-			using(SqlConnection conn = DB.GetConnection()) 
+			using ( SqlConnection conn = DB.GetConnection() )
 			{
-				using(SqlTransaction trans=conn.BeginTransaction(DB.IsolationLevel)) 
+				using ( SqlTransaction trans = conn.BeginTransaction( DB.IsolationLevel ) )
 				{
-					using(SqlDataAdapter da=new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'",conn)) 
+					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'", conn ) )
 					{
 						da.SelectCommand.Transaction = trans;
-						using(DataTable dt=new DataTable("sysobjects")) 
+						using ( DataTable dt = new DataTable( "sysobjects" ) )
 						{
-							da.Fill(dt);
-							using(SqlCommand cmd=conn.CreateCommand()) 
+							da.Fill( dt );
+							using ( SqlCommand cmd = conn.CreateCommand() )
 							{
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
 								cmd.CommandText = "select current_user";
-								string userName = (string)cmd.ExecuteScalar();
+								string userName = ( string ) cmd.ExecuteScalar();
 
-								if(bGrant) 
+								if ( bGrant )
 								{
 									cmd.CommandType = CommandType.Text;
-									foreach(DataRow row in dt.Select("IsProcedure=1 or IsScalarFunction=1")) 
+									foreach ( DataRow row in dt.Select( "IsProcedure=1 or IsScalarFunction=1" ) )
 									{
-										cmd.CommandText = string.Format("grant execute on \"{0}\" to \"{1}\"",row["Name"],userName);
+										cmd.CommandText = string.Format( "grant execute on \"{0}\" to \"{1}\"", row ["Name"], userName );
 										cmd.ExecuteNonQuery();
 									}
-									foreach(DataRow row in dt.Select("IsUserTable=1 or IsView=1")) 
+									foreach ( DataRow row in dt.Select( "IsUserTable=1 or IsView=1" ) )
 									{
-										cmd.CommandText = string.Format("grant select,update on \"{0}\" to \"{1}\"",row["Name"],userName);
+										cmd.CommandText = string.Format( "grant select,update on \"{0}\" to \"{1}\"", row ["Name"], userName );
 										cmd.ExecuteNonQuery();
 									}
-								} 
-								else 
+								}
+								else
 								{
 									cmd.CommandText = "sp_changeobjectowner";
 									cmd.CommandType = CommandType.StoredProcedure;
-									foreach(DataRow row in dt.Select("IsUserTable=1")) 
+									foreach ( DataRow row in dt.Select( "IsUserTable=1" ) )
 									{
 										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue("@objname",row["Name"]);
-										cmd.Parameters.AddWithValue("@newowner","dbo");
+										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
 										try
 										{
 											cmd.ExecuteNonQuery();
 										}
-										catch(SqlException)
+										catch ( SqlException )
 										{
 										}
 									}
-									foreach(DataRow row in dt.Select("IsView=1")) 
+									foreach ( DataRow row in dt.Select( "IsView=1" ) )
 									{
 										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue("@objname",row["Name"]);
-										cmd.Parameters.AddWithValue("@newowner","dbo");
+										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
 										try
 										{
 											cmd.ExecuteNonQuery();
 										}
-										catch(SqlException)
+										catch ( SqlException )
 										{
 										}
 									}

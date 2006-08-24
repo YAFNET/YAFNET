@@ -1,18 +1,11 @@
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="false" Inherits="yaf.install._default" %>
+<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="True" Inherits="yaf.install._default" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <html>
 <head>
 <title>Yet Another Forum.net Installation</title>
-<!--link type="text/css" rel="stylesheet" href="../forum.css">
-<link type="text/css" rel="stylesheet" href="../themes/standard/theme.css"-->
-<style>
-input, select
-{
-    font-family: tahoma, verdana;
-    font-size: 8pt;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="../forum.css">
+<link type="text/css" rel="stylesheet" href="../themes/FlatEarth/theme.css">
 </head>
 <body>
 

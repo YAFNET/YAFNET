@@ -11,10 +11,12 @@
 namespace yaf.install {
     
     public partial class _default {
-        protected System.Web.UI.WebControls.Wizard Wizard;
-        protected System.Web.UI.WebControls.TextBox TextBox1;
-        protected System.Web.UI.WebControls.TextBox TextBox2;
-        protected System.Web.UI.WebControls.TextBox TextBox3;
+        protected System.Web.UI.HtmlControls.HtmlTable stepWelcome;
+        protected System.Web.UI.HtmlControls.HtmlTable stepConfig;
+        protected System.Web.UI.WebControls.PlaceHolder ConfigSample;
+        protected System.Web.UI.HtmlControls.HtmlTable stepConnect;
+        protected System.Web.UI.HtmlControls.HtmlTable stepDatabase;
+        protected System.Web.UI.HtmlControls.HtmlTable stepForum;
         protected System.Web.UI.WebControls.TextBox TheForumName;
         protected System.Web.UI.WebControls.DropDownList TimeZones;
         protected System.Web.UI.WebControls.TextBox ForumEmailAddress;
@@ -23,8 +25,10 @@ namespace yaf.install {
         protected System.Web.UI.WebControls.TextBox AdminEmail;
         protected System.Web.UI.WebControls.TextBox Password1;
         protected System.Web.UI.WebControls.TextBox Password2;
-        protected System.Web.UI.WebControls.TextBox SecurityQuestion;
-        protected System.Web.UI.WebControls.TextBox SecurityAnswer;
-        protected yaf.controls.SmartScroller scroller;
+        protected System.Web.UI.HtmlControls.HtmlTable stepFinished;
+        protected System.Web.UI.WebControls.Button back;
+        protected System.Web.UI.WebControls.Button next;
+        protected System.Web.UI.WebControls.Button finish;
+        protected System.Web.UI.WebControls.Label cursteplabel;
     }
 }
