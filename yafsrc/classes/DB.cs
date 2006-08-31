@@ -704,7 +704,7 @@ namespace yaf
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@AttachmentID", attachmentID );
 					DataTable tbAttachments = GetData( cmd );
-					string sUpDir = HttpContext.Current.Server.MapPath( Config.ConfigSection ["uploaddir"] );
+					string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
 						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
 				}
@@ -1430,7 +1430,13 @@ namespace yaf
 				return GetData( cmd );
 			}
 		}
-		static public long group_save( object GroupID, object boardID, object Name, object IsAdmin, object IsGuest, object IsStart, object isModerator, object accessMaskID )
+		public static long group_save( object GroupID, object boardID, object Name, object IsAdmin, object IsStart, object isModerator, object accessMaskID )
+		{
+			object lIsGuest = null;
+			return group_save( GroupID, boardID, Name, IsAdmin, lIsGuest, IsStart, isModerator, accessMaskID );
+		}
+
+    static public long group_save( object GroupID, object boardID, object Name, object IsAdmin, object IsGuest, object IsStart, object isModerator, object accessMaskID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_group_save" ) )
 			{
@@ -1552,7 +1558,7 @@ namespace yaf
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@MessageID", messageID );
 					DataTable tbAttachments = GetData( cmd );
-					string sUpDir = HttpContext.Current.Server.MapPath( Config.ConfigSection ["uploaddir"] );
+					string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
 						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row ["FileName"] ) );
 				}

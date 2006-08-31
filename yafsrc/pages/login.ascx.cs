@@ -43,43 +43,43 @@ namespace yaf.pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!CanLogin)
+			if ( !CanLogin )
 				Forum.Redirect( Pages.forum );
 
 
 			if ( !IsPostBack )
 			{
-PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );               
-Login1.CreateUserText = "Sign up for a new account.";
-                Login1.CreateUserUrl = Forum.GetLink(Pages.register);
-                Login1.PasswordRecoveryText = GetText( "lostpassword" );
-                Login1.PasswordRecoveryUrl = Forum.GetLink(Pages.recoverpassword);
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				Login1.CreateUserText = "Sign up for a new account.";
+				Login1.CreateUserUrl = Forum.GetLink( Pages.register );
+				Login1.PasswordRecoveryText = GetText( "lostpassword" );
+				Login1.PasswordRecoveryUrl = Forum.GetLink( Pages.recoverpassword );
 
 				//ForumLogin.Text = GetText( "forum_login" );
 				//LostPassword.Text = GetText( "lostpassword" );
 				//Recover.Text = GetText( "sendpassword" );
 
 				// set the focus using Damien McGivern client-side focus class
-				ClientSideFocus.setFocus( UserName );
+				//ClientSideFocus.setFocus( UserName );
 			}
 		}
 
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
-            Login1.LoggedIn += new EventHandler(Login1_LoggedIn);
-            this.Load += new System.EventHandler(this.Page_Load);
-            base.OnInit(e);			
+			Login1.LoggedIn += new EventHandler( Login1_LoggedIn );
+			this.Load += new System.EventHandler( this.Page_Load );
+			base.OnInit( e );
 		}
 
-        void Login1_LoggedIn(object sender, EventArgs e)
-        {
-            if (Request.QueryString["ReturnUrl"] != null)
-                Response.Redirect(Request.QueryString["ReturnUrl"]);
-            else
-                Forum.Redirect(Pages.forum);
-        }
+		void Login1_LoggedIn( object sender, EventArgs e )
+		{
+			if ( Request.QueryString ["ReturnUrl"] != null )
+				Response.Redirect( Request.QueryString ["ReturnUrl"] );
+			else
+				Forum.Redirect( Pages.forum );
+		}
 	}
 }

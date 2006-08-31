@@ -10,60 +10,60 @@ namespace yaf
 {
 	public static class Config
 	{
-        static public string BoardID
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["boardid"];
-            }
-        }
+		static public string BoardID
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["boardid"];
+			}
+		}
 
-        static public string CategoryID
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["categoryid"];
-            }
-        }
+		static public string CategoryID
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["categoryid"];
+			}
+		}
 
-        static public string UploadDir
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["uploaddir"];
-            }
-        }
+		static public string UploadDir
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["uploaddir"];
+			}
+		}
 
-        static public string Root
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["root"];
-            }
-        }
+		static public string Root
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["root"];
+			}
+		}
 
-        static public string LogToMail
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["logtomail"];
-            }
-        }
+		static public string LogToMail
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["logtomail"];
+			}
+		}
 
-        static public string ConnectionString
-        {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings["yafnet"].ConnectionString;
-            }
-        }
+		static public string ConnectionString
+		{
+			get
+			{
+				return ConfigurationManager.ConnectionStrings ["yafnet"].ConnectionString;
+			}
+		}
 
 		static public bool IsDotNetNuke
 		{
 			get
 			{
-				object obj = HttpContext.Current.Items["PortalSettings"];
-				return obj!=null && obj.GetType().ToString().ToLower().IndexOf("dotnetnuke")>=0;
+				object obj = HttpContext.Current.Items ["PortalSettings"];
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "dotnetnuke" ) >= 0;
 			}
 		}
 
@@ -71,8 +71,8 @@ namespace yaf
 		{
 			get
 			{
-				object obj = HttpContext.Current.Items["PortalSettings"];
-				return obj!=null && obj.GetType().ToString().ToLower().IndexOf("rainbow")>=0;
+				object obj = HttpContext.Current.Items ["PortalSettings"];
+				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "rainbow" ) >= 0;
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace yaf
 		{
 			get
 			{
-				return HttpContext.Current.Session["YetAnotherPortal.net"]!=null;
+				return HttpContext.Current.Session ["YetAnotherPortal.net"] != null;
 			}
 		}
 
@@ -88,19 +88,19 @@ namespace yaf
 		{
 			get
 			{
-				if(HttpContext.Current.Application["yaf_UrlBuilder"]==null)
+				if ( HttpContext.Current.Application ["yaf_UrlBuilder"] == null )
 				{
 					string urlAssembly;
 
-					if(IsRainbow)
+					if ( IsRainbow )
 					{
 						urlAssembly = "yaf_rainbow.RainbowUrlBuilder,yaf_rainbow";
 					}
-					else if (IsDotNetNuke)
+					else if ( IsDotNetNuke )
 					{
 						urlAssembly = "yaf_dnn.DotNetNukeUrlBuilder,yaf_dnn";
 					}
-					else if(IsPortal)
+					else if ( IsPortal )
 					{
 						urlAssembly = "Portal.UrlBuilder,Portal";
 					}
@@ -108,11 +108,11 @@ namespace yaf
 					{
 						urlAssembly = "yaf.UrlBuilder,yaf";
 					}
-					
-					HttpContext.Current.Application["yaf_UrlBuilder"] = Activator.CreateInstance(Type.GetType(urlAssembly));
+
+					HttpContext.Current.Application ["yaf_UrlBuilder"] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
 				}
 
-				return (IUrlBuilder)HttpContext.Current.Application["yaf_UrlBuilder"];
+				return ( IUrlBuilder ) HttpContext.Current.Application ["yaf_UrlBuilder"];
 			}
 		}
 	}

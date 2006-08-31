@@ -56,7 +56,7 @@ namespace yaf.pages
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = DB.forum_listall_nice(PageBoardID,PageUserID);
+				ForumList.DataSource = DB.forum_listall_sorted( PageBoardID, PageUserID );
 				
 				DataBind();
 				

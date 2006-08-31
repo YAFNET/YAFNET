@@ -50,138 +50,138 @@ namespace yaf.install
             "procedures.sql"
 	    };
 
-        #region events
-        private void Page_Load(object sender, System.EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                if (IsInstalled)
-                    Wizard.ActiveStepIndex = 1;
-                else
-                    Wizard.ActiveStepIndex = 0;
+		#region events
+		private void Page_Load( object sender, System.EventArgs e )
+		{
+			if ( !IsPostBack )
+			{
+				if ( IsInstalled )
+					Wizard.ActiveStepIndex = 1;
+				else
+					Wizard.ActiveStepIndex = 0;
 
-                TimeZones.DataSource = Data.TimeZones();
-                DataBind();
-                TimeZones.Items.FindByValue("0").Selected = true;
-            }
-        }
+				TimeZones.DataSource = Data.TimeZones();
+				DataBind();
+				TimeZones.Items.FindByValue( "0" ).Selected = true;
+			}
+		}
 
-        void Wizard_FinishButtonClick(object sender, WizardNavigationEventArgs e)
-        {
-            if (Config.IsDotNetNuke)
-            {
-                //Redirect back to the portal main page.
-                string rPath = Data.ForumRoot;
-                int pos = rPath.IndexOf("/", 2);
-                rPath = rPath.Substring(0, pos);
-                Response.Redirect(rPath);
-            }
-            else
-                Response.Redirect("~/");
-        }
+		void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			if ( Config.IsDotNetNuke )
+			{
+				//Redirect back to the portal main page.
+				string rPath = Data.ForumRoot;
+				int pos = rPath.IndexOf( "/", 2 );
+				rPath = rPath.Substring( 0, pos );
+				Response.Redirect( rPath );
+			}
+			else
+				Response.Redirect( "~/" );
+		}
 
-        void Wizard_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
-        {
-            e.Cancel = true;
-        }
+		void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			e.Cancel = true;
+		}
 
-        void Wizard_ActiveStepChanged(object sender, EventArgs e)
-        {
-            if (Wizard.ActiveStepIndex == 1 && !IsInstalled)
-                Wizard.ActiveStepIndex++;
-            else if (Wizard.ActiveStepIndex == 3 && IsForumInstalled)
-                Wizard.ActiveStepIndex++;
-        }
+		void Wizard_ActiveStepChanged( object sender, EventArgs e )
+		{
+			if ( Wizard.ActiveStepIndex == 1 && !IsInstalled )
+				Wizard.ActiveStepIndex++;
+			else if ( Wizard.ActiveStepIndex == 3 && IsForumInstalled )
+				Wizard.ActiveStepIndex++;
+		}
 
-        void Wizard_NextButtonClick(object sender, WizardNavigationEventArgs e)
-        {
-            e.Cancel = true;
-            try
-            {
-                switch (e.CurrentStepIndex)
-                {
-                    case 0:
-                        if (TextBox1.Text == string.Empty)
-                        {
-                            AddLoadMessage("Missing configuration password.");
-                            return;
-                        }
-                        else if (TextBox2.Text != TextBox1.Text)
-                        {
-                            AddLoadMessage("Password not verified.");
-                            return;
-                        }
+		void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			e.Cancel = true;
+			try
+			{
+				switch ( e.CurrentStepIndex )
+				{
+					case 0:
+						if ( TextBox1.Text == string.Empty )
+						{
+							AddLoadMessage( "Missing configuration password." );
+							return;
+						}
+						else if ( TextBox2.Text != TextBox1.Text )
+						{
+							AddLoadMessage( "Password not verified." );
+							return;
+						}
 
-                        try
-                        {
-                            Configuration config = WebConfigurationManager.OpenWebConfiguration("~/");
-                            AppSettingsSection appSettings = config.GetSection("appSettings") as AppSettingsSection;
+						try
+						{
+							Configuration config = WebConfigurationManager.OpenWebConfiguration( "~/" );
+							AppSettingsSection appSettings = config.GetSection( "appSettings" ) as AppSettingsSection;
 
-                            if (appSettings.Settings["configPassword"] == null)
-                                appSettings.Settings.Remove("configPassword");
+							if ( appSettings.Settings ["configPassword"] == null )
+								appSettings.Settings.Remove( "configPassword" );
 
-                            appSettings.Settings.Add("configPassword", System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox1.Text, "md5"));
-                            config.Save(ConfigurationSaveMode.Modified);
-                            e.Cancel = false;
-                        }
-                        catch
-                        {
-                        }
-                        break;
-                    case 1:
-                        if (ConfigurationManager.AppSettings["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox3.Text, "md5"))
-                            e.Cancel = false;
-                        else
-                            AddLoadMessage("Wrong password!");
-                        break;
-                    case 2:
-                        if (UpgradeDatabase())
-                            e.Cancel = false;
-                        break;
-                    case 3:
-                        if (CreateForum())
-                            e.Cancel = false;
-                        break;
-                    case 4:
-                        Security.SyncRoles(PageBoardID);
-                        Security.SyncUsers(PageBoardID);
-                        e.Cancel = false;
-                        break;
-                    default:
-                        throw new ApplicationException(e.CurrentStepIndex.ToString());
-                }
-            }
-            catch (Exception x)
-            {
-                AddLoadMessage(x.Message);
-            }
-        }
-        #endregion
+							appSettings.Settings.Add( "configPassword", System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox1.Text, "md5" ) );
+							config.Save( ConfigurationSaveMode.Modified );
+							e.Cancel = false;
+						}
+						catch
+						{
+						}
+						break;
+					case 1:
+						if ( ConfigurationManager.AppSettings ["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) )
+							e.Cancel = false;
+						else
+							AddLoadMessage( "Wrong password!" );
+						break;
+					case 2:
+						if ( UpgradeDatabase() )
+							e.Cancel = false;
+						break;
+					case 3:
+						if ( CreateForum() )
+							e.Cancel = false;
+						break;
+					case 4:
+						Security.SyncRoles( PageBoardID );
+						Security.SyncUsers( PageBoardID );
+						e.Cancel = false;
+						break;
+					default:
+						throw new ApplicationException( e.CurrentStepIndex.ToString() );
+				}
+			}
+			catch ( Exception x )
+			{
+				AddLoadMessage( x.Message );
+			}
+		}
+		#endregion
 
-        #region overrides
-        override protected void OnInit(EventArgs e)
-        {
-            this.Load += new System.EventHandler(this.Page_Load);
-            Wizard.NextButtonClick += new WizardNavigationEventHandler(Wizard_NextButtonClick);
-            Wizard.PreviousButtonClick += new WizardNavigationEventHandler(Wizard_PreviousButtonClick);
-            Wizard.ActiveStepChanged += new EventHandler(Wizard_ActiveStepChanged);
-            Wizard.FinishButtonClick += new WizardNavigationEventHandler(Wizard_FinishButtonClick);
-            base.OnInit(e);
-        }
+		#region overrides
+		override protected void OnInit( EventArgs e )
+		{
+			this.Load += new System.EventHandler( this.Page_Load );
+			Wizard.NextButtonClick += new WizardNavigationEventHandler( Wizard_NextButtonClick );
+			Wizard.PreviousButtonClick += new WizardNavigationEventHandler( Wizard_PreviousButtonClick );
+			Wizard.ActiveStepChanged += new EventHandler( Wizard_ActiveStepChanged );
+			Wizard.FinishButtonClick += new WizardNavigationEventHandler( Wizard_FinishButtonClick );
+			base.OnInit( e );
+		}
 
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
-        {
-            base.Render(writer);
-            if (m_loadMessage != "")
-            {
-                writer.WriteLine("<script language='javascript'>");
-                writer.WriteLine("onload = function() {");
-                writer.WriteLine("	alert('{0}');", m_loadMessage);
-                writer.WriteLine("}");
-                writer.WriteLine("</script>");
-            }
-        }
-        #endregion
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
+		{
+			base.Render( writer );
+			if ( m_loadMessage != "" )
+			{
+				writer.WriteLine( "<script language='javascript'>" );
+				writer.WriteLine( "onload = function() {" );
+				writer.WriteLine( "	alert('{0}');", m_loadMessage );
+				writer.WriteLine( "}" );
+				writer.WriteLine( "</script>" );
+			}
+		}
+		#endregion
 
 		void AddLoadMessage( string msg )
 		{
@@ -193,168 +193,168 @@ namespace yaf.install
 			m_loadMessage += msg + "\\n\\n";
 		}
 
-        #region property IsInstalled
-        private bool IsInstalled
-        {
-            get
-            {
-                return System.Configuration.ConfigurationManager.AppSettings["configPassword"]!=null;
-            }
-        }
-        #endregion
-
-        #region method UpgradeDatabase
-        bool UpgradeDatabase()
-        {
-            try
-            {
-                FixAccess(false);
-
-                foreach (string script in m_scripts)
-                    ExecuteScript(script);
-
-                FixAccess(true);
-
-                using (SqlCommand cmd = new SqlCommand("yaf_system_updateversion"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Version", Data.AppVersion);
-                    cmd.Parameters.AddWithValue("@VersionName", Data.AppVersionName);
-                    DB.ExecuteNonQuery(cmd);
-                }
-            }
-            catch (Exception x)
-            {
-                AddLoadMessage(x.Message);
-                return false;
-            }
-            return true;
-        }
-        #endregion
-
-        #region property IsForumInstalled
-        static bool IsForumInstalled
+		#region property IsInstalled
+		private bool IsInstalled
 		{
-            get
-            {
-                try
-                {
-                    using (DataTable dt = DB.board_list(DBNull.Value))
-                    {
-                        return dt.Rows.Count > 0;
-                    }
-                }
-                catch
-                {
-                }
-                return false;
-            }
-        }
-        #endregion
+			get
+			{
+				return System.Configuration.ConfigurationManager.AppSettings ["configPassword"] != null;
+			}
+		}
+		#endregion
 
-        #region method CreateForum
-        private bool CreateForum()
-        {
-            if (IsForumInstalled)
-            {
-                AddLoadMessage("Forum is already installed.");
-                return false;
-            }
-            if (TheForumName.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter a forum name.");
-                return false;
-            }
-            if (ForumEmailAddress.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter a forum email address.");
-                return false;
-            }
-            if (SmptServerAddress.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter a smtp server.");
-                return false;
-            }
-            if (UserName.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter the admin user name,");
-                return false;
-            }
-            if (AdminEmail.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter the administrators email address.");
-                return false;
-            }
-            if (Password1.Text.Length == 0)
-            {
-                AddLoadMessage("You must enter a password.");
-                return false;
-            }
-            if (Password1.Text != Password2.Text)
-            {
-                AddLoadMessage("The passwords must match.");
-                return false;
-            }
-            try
-            {
-                MembershipCreateStatus status;
-                MembershipUser user = Membership.CreateUser(UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status);
-                if (status != MembershipCreateStatus.Success)
-                    throw new ApplicationException(string.Format("Failed to create user. Error status: {0}",status));
+		#region method UpgradeDatabase
+		bool UpgradeDatabase()
+		{
+			try
+			{
+				FixAccess( false );
 
-                Roles.CreateRole("Forum Administrators");
-                Roles.CreateRole("Registered Forum Users");
-                Roles.AddUserToRole(user.UserName, "Forum Administrators");
+				foreach ( string script in m_scripts )
+					ExecuteScript( script );
 
-                using (SqlCommand cmd = new SqlCommand("yaf_system_initialize"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Name", TheForumName.Text);
-                    cmd.Parameters.AddWithValue("@TimeZone", TimeZones.SelectedItem.Value);
-                    cmd.Parameters.AddWithValue("@ForumEmail", ForumEmailAddress.Text);
-                    cmd.Parameters.AddWithValue("@SmtpServer", SmptServerAddress.Text);
-                    cmd.Parameters.AddWithValue("@User", UserName.Text);
-                    cmd.Parameters.AddWithValue("@UserEmail", AdminEmail.Text);
-                    cmd.Parameters.AddWithValue("@Password", "-");
-                    DB.ExecuteNonQuery(cmd);
-                }
+				FixAccess( true );
 
-                using (SqlCommand cmd = new SqlCommand("yaf_system_updateversion"))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Version", Data.AppVersion);
-                    cmd.Parameters.AddWithValue("@VersionName", Data.AppVersionName);
-                    DB.ExecuteNonQuery(cmd);
-                }
-            }
-            catch (Exception x)
-            {
-                AddLoadMessage(x.Message);
-                return false;
-            }
-            return true;
-        }
-        #endregion
+				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue( "@Version", Data.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", Data.AppVersionName );
+					DB.ExecuteNonQuery( cmd );
+				}
+			}
+			catch ( Exception x )
+			{
+				AddLoadMessage( x.Message );
+				return false;
+			}
+			return true;
+		}
+		#endregion
 
-        #region property PageBoardID
-        private int PageBoardID
-        {
-            get
-            {
-                try
-                {
-                    return int.Parse(Config.BoardID);
-                }
-                catch
-                {
-                    return 1;
-                }
-            }
-        }
-        #endregion
+		#region property IsForumInstalled
+		static bool IsForumInstalled
+		{
+			get
+			{
+				try
+				{
+					using ( DataTable dt = DB.board_list( DBNull.Value ) )
+					{
+						return dt.Rows.Count > 0;
+					}
+				}
+				catch
+				{
+				}
+				return false;
+			}
+		}
+		#endregion
 
-        #region method ExecuteScript
-        private void ExecuteScript(string sScriptFile) 
+		#region method CreateForum
+		private bool CreateForum()
+		{
+			if ( IsForumInstalled )
+			{
+				AddLoadMessage( "Forum is already installed." );
+				return false;
+			}
+			if ( TheForumName.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter a forum name." );
+				return false;
+			}
+			if ( ForumEmailAddress.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter a forum email address." );
+				return false;
+			}
+			if ( SmptServerAddress.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter a smtp server." );
+				return false;
+			}
+			if ( UserName.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter the admin user name," );
+				return false;
+			}
+			if ( AdminEmail.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter the administrators email address." );
+				return false;
+			}
+			if ( Password1.Text.Length == 0 )
+			{
+				AddLoadMessage( "You must enter a password." );
+				return false;
+			}
+			if ( Password1.Text != Password2.Text )
+			{
+				AddLoadMessage( "The passwords must match." );
+				return false;
+			}
+			try
+			{
+				MembershipCreateStatus status;
+				MembershipUser user = Membership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status );
+				if ( status != MembershipCreateStatus.Success )
+					throw new ApplicationException( string.Format( "Failed to create user. Error status: {0}", status ) );
+
+				Roles.CreateRole( "Forum Administrators" );
+				Roles.CreateRole( "Registered Forum Users" );
+				Roles.AddUserToRole( user.UserName, "Forum Administrators" );
+
+				using ( SqlCommand cmd = new SqlCommand( "yaf_system_initialize" ) )
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue( "@Name", TheForumName.Text );
+					cmd.Parameters.AddWithValue( "@TimeZone", TimeZones.SelectedItem.Value );
+					cmd.Parameters.AddWithValue( "@ForumEmail", ForumEmailAddress.Text );
+					cmd.Parameters.AddWithValue( "@SmtpServer", SmptServerAddress.Text );
+					cmd.Parameters.AddWithValue( "@User", UserName.Text );
+					cmd.Parameters.AddWithValue( "@UserEmail", AdminEmail.Text );
+					cmd.Parameters.AddWithValue( "@Password", "-" );
+					DB.ExecuteNonQuery( cmd );
+				}
+
+				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue( "@Version", Data.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", Data.AppVersionName );
+					DB.ExecuteNonQuery( cmd );
+				}
+			}
+			catch ( Exception x )
+			{
+				AddLoadMessage( x.Message );
+				return false;
+			}
+			return true;
+		}
+		#endregion
+
+		#region property PageBoardID
+		private int PageBoardID
+		{
+			get
+			{
+				try
+				{
+					return int.Parse( Config.BoardID );
+				}
+				catch
+				{
+					return 1;
+				}
+			}
+		}
+		#endregion
+
+		#region method ExecuteScript
+		private void ExecuteScript( string sScriptFile )
 		{
 			string sScript = null;
 			try
@@ -410,11 +410,11 @@ namespace yaf.install
 					trans.Commit();
 				}
 			}
-        }
-        #endregion
+		}
+		#endregion
 
-        #region method FixAccess
-        private void FixAccess(bool bGrant) 
+		#region method FixAccess
+		private void FixAccess( bool bGrant )
 		{
 			using ( SqlConnection conn = DB.GetConnection() )
 			{
@@ -484,7 +484,7 @@ namespace yaf.install
 					trans.Commit();
 				}
 			}
-        }
-        #endregion
-    }
+		}
+		#endregion
+	}
 }

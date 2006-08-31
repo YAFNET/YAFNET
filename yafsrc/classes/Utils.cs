@@ -172,7 +172,7 @@ namespace yaf
 		{
 			try
 			{
-				string config = Config.ConfigSection ["logtomail"];
+				string config = Config.LogToMail;
 				if ( config == null )
 					return;
 

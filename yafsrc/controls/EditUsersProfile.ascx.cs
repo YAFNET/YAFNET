@@ -39,7 +39,7 @@ namespace yaf.controls
 				}
 				else
 				{
-					LoginInfo.Visible = ForumPage.User.CanLogin;
+					LoginInfo.Visible = ForumPage.CanLogin ;
 				}
 
 				// Begin Modifications for enhanced profile

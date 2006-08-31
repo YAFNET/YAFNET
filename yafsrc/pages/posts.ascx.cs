@@ -289,6 +289,36 @@ namespace yaf.pages
 
 			using ( DataTable dt0 = DB.post_list( PageTopicID, IsPostBack ? 0 : 1 ) )
 			{
+				bool ShowAds = true;
+				if ( User != null )
+					ShowAds = BoardSettings.ShowAdsToSignedInUsers;
+
+				if ( BoardSettings.AdPost != null && BoardSettings.AdPost.Length > 0 && ShowAds )
+				{
+					dt0.ImportRow( dt0.Rows [0] );
+					dt0.Rows [dt0.Rows.Count - 1] ["UserName"] = GetText( "AD_USERNAME" );
+					dt0.Rows [dt0.Rows.Count - 1] ["UserID"] = 1;
+					dt0.Rows [dt0.Rows.Count - 1] ["Points"] = 2000;
+					dt0.Rows [dt0.Rows.Count - 1] ["Message"] = BoardSettings.AdPost;
+					dt0.Rows [dt0.Rows.Count - 1] ["HasAvatarImage"] = false;
+					dt0.Rows [dt0.Rows.Count - 1] ["HasAttachments"] = false;
+					dt0.Rows [dt0.Rows.Count - 1] ["RankName"] = GetText( "AD_RANKNAME" );
+					dt0.Rows [dt0.Rows.Count - 1] ["ICQ"] = DBNull.Value;
+					dt0.Rows [dt0.Rows.Count - 1] ["AIM"] = null;
+					dt0.Rows [dt0.Rows.Count - 1] ["YIM"] = null;
+					dt0.Rows [dt0.Rows.Count - 1] ["MSN"] = null;
+					dt0.Rows [dt0.Rows.Count - 1] ["Weblog"] = null;
+					dt0.Rows [dt0.Rows.Count - 1] ["Homepage"] = null;
+					dt0.Rows [dt0.Rows.Count - 1] ["Avatar"] = "";
+					dt0.Rows [dt0.Rows.Count - 1] ["Signature"] = GetText( "AD_SIGNATURE" );
+					dt0.Rows [dt0.Rows.Count - 1] ["Joined"] = "1/1/2000";
+					dt0.Rows [dt0.Rows.Count - 1] ["Posts"] = 2000;
+					dt0.Rows [dt0.Rows.Count - 1] ["Signature"] = "";
+					dt0.Rows [dt0.Rows.Count - 1] ["Location"] = GetText( "AD_LOCATION" );
+					dt0.Rows [dt0.Rows.Count - 1] ["IP"] = "";
+					dt0.Rows [dt0.Rows.Count - 1] ["Edited"] = dt0.Rows [dt0.Rows.Count - 1] ["Posted"];
+				}
+
 				DataView dt = dt0.DefaultView;
 
 				if ( IsThreaded )
@@ -408,6 +438,8 @@ namespace yaf.pages
 			if ( !ForumModeratorAccess )
 				Data.AccessDenied(/*"You don't have access to delete topics."*/);
 
+			// Take away 150 points once!
+			DB.user_removepointsByTopicID( PageTopicID, 150 );
 			DB.topic_delete( PageTopicID );
 			Forum.Redirect( Pages.topics, "f={0}", PageForumID );
 		}
@@ -637,7 +669,7 @@ namespace yaf.pages
 
 		protected void EmailTopic_Click( object sender, System.EventArgs e )
 		{
-			if ( !User.IsAuthenticated )
+			if ( User != null )
 			{
 				AddLoadMessage( GetText( "WARN_EMAILLOGIN" ) );
 				return;

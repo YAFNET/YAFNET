@@ -160,13 +160,13 @@ namespace yaf.pages
 					SEARCH_WHAT sw = ( SEARCH_WHAT ) System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
-					DataView dv = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID ).DefaultView;
+					DataTable searchDataTable = DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID );
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
-					Pager.Count = dv.Count;
-					Mession.SearchData = dv;
+					Pager.Count = searchDataTable.DefaultView.Count;
+					Mession.SearchData = searchDataTable;
 
-					bool bResults = ( dv.Count > 0 ) ? true : false;
+					bool bResults = ( searchDataTable.DefaultView.Count > 0 ) ? true : false;
 
 					SearchRes.Visible = bResults;
 					NoResults.Visible = !bResults;
@@ -174,7 +174,7 @@ namespace yaf.pages
 
 				PagedDataSource pds = new PagedDataSource();
 				pds.AllowPaging = true;
-				pds.DataSource = Mession.SearchData;
+				pds.DataSource = Mession.SearchData.DefaultView;
 				pds.PageSize = Pager.PageSize;
 				pds.CurrentPageIndex = Pager.CurrentPageIndex;
 

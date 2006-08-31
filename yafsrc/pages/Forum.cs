@@ -221,7 +221,7 @@ namespace yaf
 			}
 		}
 
-		private object m_categoryID = Config.ConfigSection ["categoryid"];
+		private object m_categoryID = Config.CategoryID;
 
 		public object CategoryID
 		{

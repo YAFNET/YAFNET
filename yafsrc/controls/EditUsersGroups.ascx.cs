@@ -30,56 +30,58 @@ using System.Web.UI.HtmlControls;
 
 namespace yaf.controls
 {
-    public partial class EditUsersGroups : BaseUserControl
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                BindData();
-            }
-        }
+	public partial class EditUsersGroups : BaseUserControl
+	{
+		protected void Page_Load( object sender, EventArgs e )
+		{
+			if ( !IsPostBack )
+			{
+				BindData();
+			}
+		}
 
-        private void BindData()
-        {
-            UserGroups.DataSource = DB.group_member(ForumPage.PageBoardID, Request.QueryString["u"]);
-            DataBind();
-        }
-        
-        protected bool IsMember(object o)
-        {
-            return long.Parse(o.ToString()) > 0;
-        }
+		private void BindData()
+		{
+			UserGroups.DataSource = DB.group_member( ForumPage.PageBoardID, Request.QueryString ["u"] );
+			DataBind();
+		}
 
-        protected void Cancel_Click(object sender, System.EventArgs e)
-        {
-            Forum.Redirect(Pages.admin_users);
-        }
+		protected bool IsMember( object o )
+		{
+			return long.Parse( o.ToString() ) > 0;
+		}
 
-        protected void Save_Click(object sender, System.EventArgs e)
-        {
-            for (int i = 0; i < UserGroups.Items.Count; i++)
-            {
-                RepeaterItem item = UserGroups.Items[i];
-                int GroupID = int.Parse(((Label)item.FindControl("GroupID")).Text);
-                
-                string roleName = string.Empty;
-                using (DataTable dt = DB.group_list(PageBoardID, GroupID))
-                {
-                    foreach (DataRow row in dt.Rows)
-                        roleName = (string)row["Name"];
-                }                
-                
-                DB.usergroup_save(Request.QueryString["u"], GroupID, ((CheckBox)item.FindControl("GroupMember")).Checked);
-                
-                if (isChecked && !Roles.IsUserInRole(User.UserName,roleName))
-                    Roles.AddUserToRole(User.UserName, roleName);
-                else if (!isChecked && Roles.IsUserInRole(User.UserName, roleName))
-                    Roles.RemoveUserFromRole(User.UserName, roleName);                
-            }
+		protected void Cancel_Click( object sender, System.EventArgs e )
+		{
+			Forum.Redirect( Pages.admin_users );
+		}
 
-            Forum.Redirect(Pages.admin_users);
-        }
+		protected void Save_Click( object sender, System.EventArgs e )
+		{
+			for ( int i = 0; i < UserGroups.Items.Count; i++ )
+			{
+				RepeaterItem item = UserGroups.Items [i];
+				int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 
-    }
+				string roleName = string.Empty;
+				using ( DataTable dt = DB.group_list( ForumPage.PageBoardID, GroupID ) )
+				{
+					foreach ( DataRow row in dt.Rows )
+						roleName = ( string ) row ["Name"];
+				}
+
+				bool isChecked = ( ( CheckBox ) item.FindControl( "GroupMember" ) ).Checked;
+
+				DB.usergroup_save( Request.QueryString ["u"], GroupID, isChecked );
+
+				if ( isChecked && !Roles.IsUserInRole( ForumPage.User.UserName, roleName ) )
+					Roles.AddUserToRole( ForumPage.User.UserName, roleName );
+				else if ( !isChecked && Roles.IsUserInRole( ForumPage.User.UserName, roleName ) )
+					Roles.RemoveUserFromRole( ForumPage.User.UserName, roleName );
+			}
+
+			Forum.Redirect( Pages.admin_users );
+		}
+
+	}
 }
