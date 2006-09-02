@@ -81,7 +81,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Forum') and O
 		NumTopics		int NOT NULL,
 		NumPosts		int NOT NULL,
 		RemoteURL		nvarchar(100) null,
-		Flags			int not null constraint DF_yaf_Forum_Flags default (0)
+		Flags			int not null constraint DF_yaf_Forum_Flags default (0),
+		ThemeURL		nvarchar(50) NULL
 	)
 GO
 
@@ -210,7 +211,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 		Interests		nvarchar (100) NULL ,
 		Gender			tinyint NOT NULL ,
 		Weblog			nvarchar (100) NULL,
-		Flags			int not null constraint DF_yaf_User_Flags default (0),
+		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1),
+		[Flags] [int] NOT NULL CONSTRAINT [DF_yaf_User_Flags] DEFAULT (0),
+		[Points] [int] NOT NULL CONSTRAINT [DF_yaf_User_Points] DEFAULT (0),		
 		ProviderUserKey	uniqueidentifier
 )
 GO
@@ -377,58 +380,66 @@ GO
 ** Added columns
 */
 
+-- yaf_User
+
 if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_User') and name=N'Signature' and xtype<>99)
 	alter table yaf_User alter column Signature ntext null
 go
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Flags')
+begin
+	alter table dbo.yaf_User add Flags int not null constraint DF_yaf_User_Flags default (0)
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='IsHostAdmin')
+begin
+	grant update on yaf_User to public
+	exec('update yaf_User set Flags = Flags | 1 where IsHostAdmin<>0')
+	revoke update on yaf_User from public
+	alter table dbo.yaf_User drop column IsHostAdmin
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Approved')
+begin
+	grant update on yaf_User to public
+	exec('update yaf_User set Flags = Flags | 2 where Approved<>0')
+	revoke update on yaf_User from public
+	alter table dbo.yaf_User drop column Approved
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='ProviderUserKey')
+begin
+	alter table dbo.yaf_User add ProviderUserKey uniqueidentifier
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='PMNotification')
+begin
+	alter table dbo.yaf_User add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Points')
+begin
+	alter table dbo.yaf_User add [Points] [int] NOT NULL CONSTRAINT [DF_yaf_User_Points] DEFAULT (0)
+end
+GO
+
+-- yaf_Forum
 
 if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='RemoteURL')
 	alter table yaf_Forum add RemoteURL nvarchar(100) null
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_NntpForum') and name='Active')
-begin
-	alter table yaf_NntpForum add Active bit null
-	exec('update yaf_NntpForum set Active=1 where Active is null')
-	alter table yaf_NntpForum alter column Active bit not null
-end
-GO
-
-if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='badword' and prec < 255)
- 	alter table yaf_Replace_Words alter column badword nvarchar(255) NULL
-GO
-
-if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='goodword' and prec < 255)
-	alter table yaf_Replace_Words alter column goodword nvarchar(255) NULL
-GO	
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
-	alter table yaf_Registry add BoardID int
-GO
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
-begin
-	alter table dbo.yaf_PMessage add Flags int not null constraint DF_yaf_Message_Flags default (23)
-end
-GO
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='Flags')
-begin
-	alter table dbo.yaf_Topic add Flags int not null constraint DF_yaf_Topic_Flags default (0)
-	update yaf_Message set Flags = Flags & 7
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='Approved')
-begin
-	exec('update yaf_Message set Flags = Flags | 16 where Approved<>0')
-	alter table dbo.yaf_Message drop column Approved
-end
-GO
-
 if not exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Flags')
-begin
-	alter table dbo.yaf_Forum add Flags int not null constraint DF_yaf_Forum_Flags default (0)
-end
+	alter table yaf_Forum add Flags int not null constraint DF_yaf_Forum_Flags default (0)
+GO
+
+if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='ThemeURL')
+	alter table yaf_Forum add ThemeURL nvarchar(50) NULL
 GO
 
 if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Locked')
@@ -458,6 +469,8 @@ begin
 	alter table dbo.yaf_Forum drop column Moderated
 end
 GO
+
+-- yaf_Group
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='Flags')
 begin
@@ -492,6 +505,14 @@ begin
 	alter table dbo.yaf_Group drop column IsModerator
 end
 GO
+
+if exists(select 1 from dbo.yaf_Group where (Flags & 2)=2)
+begin
+	update dbo.yaf_User set Flags = Flags | 4 where UserID in(select distinct UserID from dbo.yaf_UserGroup a join dbo.yaf_Group b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
+end
+GO
+
+-- yaf_AccessMask
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='Flags')
 begin
@@ -569,36 +590,54 @@ begin
 end
 GO
 
+-- yaf_NntpForum
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_NntpForum') and name='Active')
+begin
+	alter table yaf_NntpForum add Active bit null
+	exec('update yaf_NntpForum set Active=1 where Active is null')
+	alter table yaf_NntpForum alter column Active bit not null
+end
+GO
+
+if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='badword' and prec < 255)
+ 	alter table yaf_Replace_Words alter column badword nvarchar(255) NULL
+GO
+
+if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='goodword' and prec < 255)
+	alter table yaf_Replace_Words alter column goodword nvarchar(255) NULL
+GO	
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
+	alter table yaf_Registry add BoardID int
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
+begin
+	alter table dbo.yaf_PMessage add Flags int not null constraint DF_yaf_Message_Flags default (23)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='Flags')
+begin
+	alter table dbo.yaf_Topic add Flags int not null constraint DF_yaf_Topic_Flags default (0)
+	update yaf_Message set Flags = Flags & 7
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='Approved')
+begin
+	exec('update yaf_Message set Flags = Flags | 16 where Approved<>0')
+	alter table dbo.yaf_Message drop column Approved
+end
+GO
+
 if exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='IsLocked')
 begin
 	grant update on yaf_Topic to public
 	exec('update yaf_Topic set Flags = Flags | 1 where IsLocked<>0')
 	revoke update on yaf_Topic from public
 	alter table dbo.yaf_Topic drop column IsLocked
-end
-GO
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Flags')
-begin
-	alter table dbo.yaf_User add Flags int not null constraint DF_yaf_User_Flags default (0)
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='IsHostAdmin')
-begin
-	grant update on yaf_User to public
-	exec('update yaf_User set Flags = Flags | 1 where IsHostAdmin<>0')
-	revoke update on yaf_User from public
-	alter table dbo.yaf_User drop column IsHostAdmin
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Approved')
-begin
-	grant update on yaf_User to public
-	exec('update yaf_User set Flags = Flags | 2 where Approved<>0')
-	revoke update on yaf_User from public
-	alter table dbo.yaf_User drop column Approved
 end
 GO
 
@@ -642,15 +681,3 @@ GO
 if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and name=N'UserID' and isnullable=0)
 	alter table yaf_EventLog alter column UserID int null
 GO
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='ProviderUserKey')
-begin
-	alter table dbo.yaf_User add ProviderUserKey uniqueidentifier
-end
-GO
-
-if exists(select 1 from dbo.yaf_Group where (Flags & 2)=2)
-begin
-	update dbo.yaf_User set Flags = Flags | 4 where UserID in(select distinct UserID from dbo.yaf_UserGroup a join dbo.yaf_Group b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
-end
-go
