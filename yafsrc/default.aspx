@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Theme="Default" %>
+<%@ Page Language="C#" %>
 <%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
 <%@ Register TagPrefix="yc" Namespace="yaf.controls" Assembly="yaf" %>
 

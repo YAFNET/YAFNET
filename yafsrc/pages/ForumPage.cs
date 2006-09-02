@@ -163,12 +163,12 @@ namespace yaf.pages
 			}
 
 			// Find user name
-            MembershipUser user = Membership.GetUser();
-            if (user!=null && Session["UserUpdated"]==null)
-            {
-                Security.UpdateForumUser(PageBoardID, user);
-                Session["UserUpdated"] = true;
-            }
+			MembershipUser user = Membership.GetUser();
+			if ( user != null && Session ["UserUpdated"] == null )
+			{
+				Security.UpdateForumUser( PageBoardID, user );
+				Session ["UserUpdated"] = true;
+			}
 
 			string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
 			string platform = HttpContext.Current.Request.Browser.Platform;
@@ -187,45 +187,45 @@ namespace yaf.pages
 			if ( ForumControl.CategoryID != null )
 				categoryID = ForumControl.CategoryID;
 
-            object userKey = DBNull.Value;
-            if (user != null)
-                userKey = user.ProviderUserKey;
+			object userKey = DBNull.Value;
+			if ( user != null )
+				userKey = user.ProviderUserKey;
 
-            do
-            {
-                m_pageinfo = DB.pageload(
-                    HttpContext.Current.Session.SessionID,
-                    PageBoardID,
-                    userKey,
-                    HttpContext.Current.Request.UserHostAddress,
-                    HttpContext.Current.Request.FilePath,
-                    browser,
-                    platform,
-                    categoryID,
-                    forumID,
-                    topicID,
-                    messageID);
-
-                if (user != null && m_pageinfo == null)
-                {
-                    if(!Security.CreateForumUser(user,this))
-                        throw new ApplicationException("Failed to use new user.");
-                }
-            } while (m_pageinfo == null && user != null);
-
-
-			if(m_pageinfo==null) 
+			do
 			{
-				if(user!=null) 
-					throw new ApplicationException(string.Format("User '{0}' isn't registered.",user.UserName));
+				m_pageinfo = DB.pageload(
+						HttpContext.Current.Session.SessionID,
+						PageBoardID,
+						userKey,
+						HttpContext.Current.Request.UserHostAddress,
+						HttpContext.Current.Request.FilePath,
+						browser,
+						platform,
+						categoryID,
+						forumID,
+						topicID,
+						messageID );
+
+				if ( user != null && m_pageinfo == null )
+				{
+					if ( !Security.CreateForumUser( user, this ) )
+						throw new ApplicationException( "Failed to use new user." );
+				}
+			} while ( m_pageinfo == null && user != null );
+
+
+			if ( m_pageinfo == null )
+			{
+				if ( user != null )
+					throw new ApplicationException( string.Format( "User '{0}' isn't registered.", user.UserName ) );
 				else
 					throw new ApplicationException( "Failed to find guest user." );
 			}
 
-            //if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
-            //    throw new ApplicationException("User not migrated to ASP.NET 2.0");
+			//if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
+			//    throw new ApplicationException("User not migrated to ASP.NET 2.0");
 
-			if(m_checkSuspended && IsSuspended) 
+			if ( m_checkSuspended && IsSuspended )
 			{
 				if ( SuspendedTo < DateTime.Now )
 				{
@@ -238,8 +238,8 @@ namespace yaf.pages
 			// This happens when user logs in
 			if ( Mession.LastVisit == DateTime.MinValue )
 			{
-				if((int)m_pageinfo["Incoming"]>0) 
-					AddLoadMessage(String.Format(GetText("UNREAD_MSG"),m_pageinfo["Incoming"]));
+				if ( ( int ) m_pageinfo ["Incoming"] > 0 )
+					AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), m_pageinfo ["Incoming"] ) );
 			}
 
 			if ( !IsGuest && m_pageinfo ["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
@@ -379,8 +379,8 @@ namespace yaf.pages
 				}
 			}
 
-			System.Web.UI.HtmlControls.HtmlGenericControl ctl;
-			ctl = ( System.Web.UI.HtmlControls.HtmlGenericControl ) Page.FindControl( "ForumTitle" );
+			System.Web.UI.HtmlControls.HtmlTitle ctl;
+			ctl = ( System.Web.UI.HtmlControls.HtmlTitle ) Page.FindControl( "ForumTitle" );
 
 			if ( ctl != null )
 			{
@@ -390,16 +390,16 @@ namespace yaf.pages
 				if ( this.PageForumName != string.Empty )
 					title.AppendFormat( "{0} - ", Server.HtmlEncode( this.PageForumName ) ); // Tack on the forum we're viewing
 				title.Append( Server.HtmlEncode( BoardSettings.Name ) ); // and lastly, tack on the board's name
-				ctl.InnerHtml = title.ToString();
+				ctl.Text = title.ToString();
 			}
 
 			// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
 			header.AppendFormat( "<table width=100% cellspacing=0 class=content cellpadding=0><tr>" );
 
-            MembershipUser user = Membership.GetUser();
+			MembershipUser user = Membership.GetUser();
 
-			if(user!=null) 
+			if ( user != null )
 			{
 				header.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", Server.HtmlEncode( PageUserName ) ) );
 				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
@@ -431,7 +431,7 @@ namespace yaf.pages
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
-				if(CanLogin) 
+				if ( CanLogin )
 				{
 					header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.login, "ReturnUrl={0}", Server.UrlEncode( Utils.GetSafeRawUrl() ) ), GetText( "TOOLBAR", "LOGIN" ) ) );
 					if ( !BoardSettings.DisableRegistrations )
@@ -473,7 +473,7 @@ namespace yaf.pages
 					writer.Write( m_headerInfo );
 				// END HEADER
 
-				RenderBody( writer ); 
+				RenderBody( writer );
 
 				// BEGIN FOOTER
 				StringBuilder footer = new StringBuilder();
@@ -487,17 +487,17 @@ namespace yaf.pages
 
 				// get the theme credit info from the theme file
 				// it's not really an error if it doesn't exist
-				string themeCredit = GetThemeContents("THEME","CREDIT",null,true);
+				string themeCredit = GetThemeContents( "THEME", "CREDIT", null, true );
 
 				if ( themeCredit != null && themeCredit.Length > 0 )
 				{
-					themeCredit = @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />"; 
-				} 
+					themeCredit = @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />";
+				}
 
 				if ( Config.IsDotNetNuke )
 				{
 					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.", Data.AppVersionName );					
+					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.", Data.AppVersionName );
 					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 				}
 				else if ( Config.IsRainbow )
@@ -513,12 +513,12 @@ namespace yaf.pages
 						String.Format( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>" ),
 						String.Format( "{0} (NET v{2}.{3}) - {1}", Data.AppVersionName, FormatDateShort( Data.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
 						);
-					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );					
+					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 					footer.AppendFormat( "<br/>" );
 					footer.AppendFormat( this.m_adminMessage ); // Append a error message for an admin to see (but not nag)
 					hiTimer.Stop();
 
-					if (BoardSettings.ShowPageGenerationTime)
+					if ( BoardSettings.ShowPageGenerationTime )
 						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), hiTimer.Duration );
 				}
 
@@ -658,7 +658,7 @@ namespace yaf.pages
 
 		#region PageInfo class
 		private DataRow m_pageinfo = null;
-        private MembershipUser mUser = null;
+		private MembershipUser mUser = null;
 		private string m_strLoadMessage = "";
 
 #if false
@@ -670,20 +670,20 @@ namespace yaf.pages
             }
         }
 #else
-        public bool CanLogin
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        public MembershipUser User
+		public bool CanLogin
 		{
 			get
 			{
-                if (mUser == null)
-                    mUser = Membership.GetUser();
+				return true;
+			}
+		}
+
+		public MembershipUser User
+		{
+			get
+			{
+				if ( mUser == null )
+					mUser = Membership.GetUser();
 				return mUser;
 			}
 		}
@@ -986,13 +986,13 @@ namespace yaf.pages
 			}
 		}
 
-    public bool IsUserHostAdmin(object UserID)
-    {
-        if (Convert.ToInt32(UserID) == 2)
-            return true;
-        else
-            return false;
-    }
+		public bool IsUserHostAdmin( object UserID )
+		{
+			if ( Convert.ToInt32( UserID ) == 2 )
+				return true;
+			else
+				return false;
+		}
 
 		public BoardSettings BoardSettings
 		{
@@ -1021,8 +1021,8 @@ namespace yaf.pages
 				if ( IsHostAdmin )
 					return true;
 
-				if(m_pageinfo!=null && m_pageinfo["IsAdmin"]!=DBNull.Value)
-					return long.Parse(m_pageinfo["IsAdmin"].ToString())!=0;
+				if ( m_pageinfo != null && m_pageinfo ["IsAdmin"] != DBNull.Value )
+					return long.Parse( m_pageinfo ["IsAdmin"].ToString() ) != 0;
 				else
 					return false;
 			}
@@ -1034,8 +1034,8 @@ namespace yaf.pages
 		{
 			get
 			{
-				if(m_pageinfo!=null && m_pageinfo["IsGuest"]!=DBNull.Value)
-					return long.Parse(m_pageinfo["IsGuest"].ToString())!=0;
+				if ( m_pageinfo != null && m_pageinfo ["IsGuest"] != DBNull.Value )
+					return long.Parse( m_pageinfo ["IsGuest"].ToString() ) != 0;
 				else
 					return false;
 			}
@@ -1047,8 +1047,8 @@ namespace yaf.pages
 		{
 			get
 			{
-				if(m_pageinfo!=null && m_pageinfo["IsForumModerator"]!=DBNull.Value)
-					return long.Parse(m_pageinfo["IsForumModerator"].ToString())!=0;
+				if ( m_pageinfo != null && m_pageinfo ["IsForumModerator"] != DBNull.Value )
+					return long.Parse( m_pageinfo ["IsForumModerator"].ToString() ) != 0;
 				else
 					return false;
 			}
@@ -1060,8 +1060,8 @@ namespace yaf.pages
 		{
 			get
 			{
-				if(m_pageinfo!=null && m_pageinfo["IsModerator"]!=DBNull.Value)
-					return long.Parse(m_pageinfo["IsModerator"].ToString())!=0;
+				if ( m_pageinfo != null && m_pageinfo ["IsModerator"] != DBNull.Value )
+					return long.Parse( m_pageinfo ["IsModerator"].ToString() ) != 0;
 				else
 					return false;
 			}
@@ -1337,7 +1337,7 @@ namespace yaf.pages
 			}
 			if ( node == null )
 			{
-				if (!dontLogMissing) DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), EventLogTypes.Error );
+				if ( !dontLogMissing ) DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), EventLogTypes.Error );
 				return defaultValue;
 			}
 

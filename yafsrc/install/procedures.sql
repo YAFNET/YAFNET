@@ -4015,7 +4015,8 @@ begin
 		TopicID				= @TopicID,
 		TopicName			= (select Topic from yaf_Topic where TopicID = @TopicID),
 		MailsPending		= (select count(1) from yaf_Mail),
-		Incoming			= (select count(1) from yaf_UserPMessage where UserID=a.UserID and IsRead=0)
+		Incoming			= (select count(1) from yaf_UserPMessage where UserID=a.UserID and IsRead=0),
+		ForumTheme			= (select ThemeURL from yaf_Forum where ForumID = @ForumID)
 	from
 		yaf_User a
 		left join yaf_vaccess x on x.UserID=a.UserID and x.ForumID=IsNull(@ForumID,0)

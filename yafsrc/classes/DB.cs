@@ -292,7 +292,7 @@ namespace yaf
 
 		#region Forum
 
-		static public DataRow pageload( object SessionID, object boardID, object User, object IP, object Location, object Browser,
+		static public DataRow pageload( object SessionID, object boardID, object UserKey, object IP, object Location, object Browser,
 			object Platform, object CategoryID, object ForumID, object TopicID, object MessageID )
 		{
 			int nTries = 0;
@@ -305,7 +305,7 @@ namespace yaf
 						cmd.CommandType = CommandType.StoredProcedure;
 						cmd.Parameters.AddWithValue( "@SessionID", SessionID );
 						cmd.Parameters.AddWithValue( "@BoardID", boardID );
-						cmd.Parameters.AddWithValue( "@User", User );
+						cmd.Parameters.AddWithValue( "@UserKey", UserKey );
 						cmd.Parameters.AddWithValue( "@IP", IP );
 						cmd.Parameters.AddWithValue( "@Location", Location );
 						cmd.Parameters.AddWithValue( "@Browser", Browser );
