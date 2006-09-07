@@ -29,9 +29,6 @@ using System.Threading;
 using System.Globalization;
 using yaf.classes;
 
-// Grønn: #25C110
-// Brown: #D0BF8C
-
 namespace yaf.pages
 {
 	/// <summary>
@@ -40,7 +37,7 @@ namespace yaf.pages
 	public class ForumPage : System.Web.UI.UserControl
 	{
 		#region Variables
-		private HiPerfTimer hiTimer = new HiPerfTimer( true );
+		private System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
 		private string m_strRefreshURL = null;
 		private int m_nRefreshTime = 2;
 		private bool m_bNoDataBase = false;
@@ -106,42 +103,8 @@ namespace yaf.pages
 			QueryCounter.Reset();
 #endif
 
-			// Set the culture and UI culture to the browser's accept language
-			try
-			{
-				string sCulture = "";
-				string [] sTmp = HttpContext.Current.Request.UserLanguages;
-				if ( sTmp != null )
-				{
-					sCulture = sTmp [0];
-					if ( sCulture.IndexOf( ';' ) >= 0 )
-					{
-						sCulture = sCulture.Substring( 0, sCulture.IndexOf( ';' ) ).Replace( '_', '-' );
-					}
-				}
-				else
-				{
-					sCulture = "en-US";
-				}
-
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( sCulture );
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo( sCulture );
-
-			}
-#if DEBUG
-			catch ( Exception ex )
-			{
-				DB.eventlog_create( PageUserID, this, ex );
-				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
-			}
-#else
-			catch(Exception)
-			{
-				// set to default...
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
-			}
-#endif
+			// setup the culture based on the browser...
+			InitCulture();
 
 			try
 			{
@@ -284,6 +247,48 @@ namespace yaf.pages
 		}
 
 		/// <summary>
+		/// Set the culture and UI culture to the browser's accept language
+		/// </summary>
+		private void InitCulture()
+		{			
+			try
+			{
+				string sCulture = "";
+				string [] sTmp = HttpContext.Current.Request.UserLanguages;
+				if ( sTmp != null )
+				{
+					sCulture = sTmp [0];
+					if ( sCulture.IndexOf( ';' ) >= 0 )
+					{
+						sCulture = sCulture.Substring( 0, sCulture.IndexOf( ';' ) ).Replace( '_', '-' );
+					}
+				}
+				else
+				{
+					sCulture = "en-US";
+				}
+
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( sCulture );
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo( sCulture );
+
+			}
+#if DEBUG
+			catch ( Exception ex )
+			{
+				DB.eventlog_create( PageUserID, this, ex );
+				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
+			}
+#else
+			catch(Exception)
+			{
+				// set to default...
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
+			}
+#endif
+		}
+
+		/// <summary>
 		/// Gets the last time the forum was read.
 		/// </summary>
 		/// <param name="forumID">This is the ID of the forum you wish to get the last read date from.</param>
@@ -369,6 +374,8 @@ namespace yaf.pages
 
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
+			stopWatch.Start();
+
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
 			if ( BoardSettings.AllowThemedLogo & !Config.IsDotNetNuke & !Config.IsPortal & !Config.IsRainbow )
 			{
@@ -516,14 +523,14 @@ namespace yaf.pages
 					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 					footer.AppendFormat( "<br/>" );
 					footer.AppendFormat( this.m_adminMessage ); // Append a error message for an admin to see (but not nag)
-					hiTimer.Stop();
+					stopWatch.Stop();
 
 					if ( BoardSettings.ShowPageGenerationTime )
-						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), hiTimer.Duration );
+						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), ( double ) stopWatch.ElapsedMilliseconds / 1000.0 );
 				}
 
 #if DEBUG
-				footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, 100 * QueryCounter.Duration / hiTimer.Duration, QueryCounter.Commands );
+				footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, 100 * QueryCounter.Duration / ( stopWatch.ElapsedMilliseconds / 1000.0 ), QueryCounter.Commands );
 #endif
 				footer.AppendFormat( "</p>" );
 				if ( ForumControl.LockedForum == 0 )
