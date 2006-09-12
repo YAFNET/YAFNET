@@ -257,8 +257,11 @@ namespace yaf.controls
 			// Joined
 			html += String.Format( "{0}: {1}<br />", ForumPage.GetText( "joined" ), ForumPage.FormatDateShort( ( DateTime ) row ["Joined"] ) );
 
-			// Posts
-			html += String.Format( "{0}: {1:N0}<br />", ForumPage.GetText( "posts" ), row ["Posts"] );
+            // Posts
+            html += String.Format("{0}: {1:N0}<br />", ForumPage.GetText("posts"), row["Posts"]);
+
+            // Points
+            html += String.Format("{0}: {1:N0}<br />", ForumPage.GetText("points"), row["Points"]);
 
 			// Location
 			if ( row ["Location"].ToString().Length > 0 )
@@ -270,8 +273,17 @@ namespace yaf.controls
 		{
 			DataRowView messageRow = DataRow;
 
-			string html2 = FormatMsg.FormatMessage( ForumPage, messageRow ["Message"].ToString(), new MessageFlags( Convert.ToInt32( messageRow ["Flags"] ) ) );
-
+            string html2 = string.Empty;
+            
+            if (messageRow["UserName"].ToString() == "Sponsor" && messageRow["Points"].ToString() == "2000")
+            {
+                html2 = messageRow["Message"].ToString();
+            }
+            else
+            {
+                html2 = FormatMsg.FormatMessage(ForumPage, messageRow["Message"].ToString(), new MessageFlags(Convert.ToInt32(messageRow["Flags"])));
+            }
+			
 			// define valid image extensions
 			string [] aImageExtensions = { "jpg", "gif", "png" };
 
@@ -361,6 +373,10 @@ namespace yaf.controls
 			object tmpMessageID = DataRow ["MessageID"];
 			object tmpForumID = DataRow ["ForumID"];
 			object tmpTopicID = DataRow ["TopicID"];
+            object tmpUserID = DataRow["UserID"];
+
+            // Take away 100 points once!
+            DB.user_removepoints(tmpUserID, 100);
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
 			DB.message_delete( tmpMessageID );
