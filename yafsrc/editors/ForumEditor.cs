@@ -97,20 +97,25 @@ namespace yaf.editor
 			{
 				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "yafeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "yafEditor/yafEditor.js" ) ) );
 
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
-					"<script language='javascript'>\n" +
-					"function insertsmiley(code) {\n" +
-					"	" + SafeID + ".InsertSmiley(code);\n" +
-					"}\n" +
-					"</script>\n" );
-
 				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "createyafeditor",
 					"\n<script language='javascript'>\n" +
 					"var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
 					"function setStyle(style,option) {\n" +
 					"	" + SafeID + ".FormatText(style,option);\n" +
 					"}\n" + "</script>" );
+
+				RegisterSmilieyScript();
 			}
+		}
+
+		protected virtual void RegisterSmilieyScript()
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+				"<script language='javascript'>\n" +
+				"function insertsmiley(code) {\n" +
+				"	" + SafeID + ".InsertSmiley(code);\n" +
+				"}\n" +
+				"</script>\n" );
 		}
 
 		public override string Text
@@ -391,14 +396,19 @@ namespace yaf.editor
 
 				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "fckeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "FCKEditorV2/FCKEditor.js" ) ) );
 
-				// insert smiliey code -- can't get this working with FireFox!
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
-					"<script language='javascript'>\n" +
-					"function insertsmiley(code) {\n" +
-					"	window.frames['" + SafeID + "___Frame'].FCK.InsertHtml(code);\n" +
-					"}\n" +
-					"</script>\n" );
+				RegisterSmilieyScript();
 			}
+		}
+
+		protected virtual void RegisterSmilieyScript()
+		{
+			// insert smiliey code -- can't get this working with FireFox!
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+				"<script language='javascript'>\n" +
+				"function insertsmiley(code) {\n" +
+				"	window.frames['" + SafeID + "___Frame'].FCK.InsertHtml(code);\n" +
+				"}\n" +
+				"</script>\n" );
 		}
 
 		#region Properties
@@ -521,13 +531,18 @@ namespace yaf.editor
 				//pInfo = typEditor.GetProperty("EnableHtmlMode");
 				//pInfo.SetValue(objEditor,false,null);
 
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
-					"<script language='javascript'>\n" +
-					"function insertsmiley(code){" +
-					"FTB_InsertText('" + SafeID + "',code);" +
-					"}\n" +
-					"</script>\n" );
+				RegisterSmilieyScript();
 			}
+		}
+
+		protected virtual void RegisterSmilieyScript()
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+				"<script language='javascript'>\n" +
+				"function insertsmiley(code){" +
+				"FTB_InsertText('" + SafeID + "',code);" +
+				"}\n" +
+				"</script>\n" );
 		}
 
 		#region Properties
@@ -554,6 +569,24 @@ namespace yaf.editor
 		#endregion
 	}
 
+	public class FreeTextBoxEditorv3 : FreeTextBoxEditor
+	{
+		public FreeTextBoxEditorv3()
+			: base( )
+		{
+		}
+
+		protected override void RegisterSmilieyScript()
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+				"<script language='javascript'>\n" +
+				"function insertsmiley(code){" +
+				"FTB_API['" + SafeID + "'].InsertHtml(code);" +
+				"}\n" +
+				"</script>\n" );
+		}
+	}
+
 	/// <summary>
 	/// This class provides a way to
 	/// get information on the editors. All 
@@ -568,10 +601,11 @@ namespace yaf.editor
 			etFCKv2 = 2,
 			etFreeTextBox = 3,
 			etFCKv1 = 4,
-			etBasicBBCode = 5
+			etBasicBBCode = 5,
+			etFreeTextBoxv3 = 6
 		}
 
-		public static int EditorCount = 6;
+		public static int EditorCount = 7;
 
 		public static string [] EditorTypeText =
 		{
@@ -580,7 +614,8 @@ namespace yaf.editor
 			"FCK Editor v2 (HTML)",
 			"FreeTextBox v2 (HTML)",
 			"FCK Editor v1.6 (HTML)",
-			"Basic BBCode Editor"
+			"Basic BBCode Editor",
+			"FreeTextBox v3 (HTML)"
 		};
 
 		public static ForumEditor CreateEditorFromType( int Value )
@@ -602,6 +637,7 @@ namespace yaf.editor
 				case EditorType.etFreeTextBox: return new FreeTextBoxEditor();
 				case EditorType.etFCKv1: return new FCKEditorV1();
 				case EditorType.etBasicBBCode: return new BasicBBCodeEditor();
+				case EditorType.etFreeTextBoxv3: return new FreeTextBoxEditorv3();
 			}
 
 			return null;
