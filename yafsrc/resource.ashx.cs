@@ -94,8 +94,6 @@ namespace yaf
 					DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
 					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
 				}
-
-				context.Response.End();
 			}
 		}
 
@@ -110,7 +108,6 @@ namespace yaf
 					context.Response.Clear();
 					//Response.ContentType = "image/jpg";
 					context.Response.OutputStream.Write( data, 0, data.Length );
-					context.Response.End();
 					break;
 				}
 			}
@@ -207,7 +204,6 @@ namespace yaf
 						context.Response.AppendHeader( "Content-Disposition", String.Format( "attachment; filename={0}", HttpUtility.UrlEncode( row ["FileName"].ToString() ).Replace( "+", "%20" ) ) );
 						context.Response.OutputStream.Write( data, 0, data.Length );
 						DB.attachment_download( context.Request.QueryString ["a"] );
-						context.Response.End();
 						break;
 					}
 				}
