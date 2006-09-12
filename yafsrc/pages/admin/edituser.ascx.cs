@@ -61,6 +61,12 @@ namespace yaf.pages.admin
 
 				ProfileLink.Text = "Profile Edit";
 				ProfileLink.CommandArgument = "ProfileEditControl";
+
+                SuspendUserLink.Text = "Suspend User";
+                SuspendUserLink.CommandArgument = "SuspendUserControl";
+
+                EditUserPointsLink.Text = "Edit User's Points";
+                EditUserPointsLink.CommandArgument = "EditUserPointsControl";
 			}
 
 			// we're in the admin section...
@@ -79,11 +85,19 @@ namespace yaf.pages.admin
 		protected void Edit3_Click( object sender, System.EventArgs e )
 		{
 			UserAdminMultiView.SetActiveView( ProfileEditView );
-		}
-		protected void Edit4_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( SignatureEditView );
-		}
+        }
+        protected void Edit4_Click(object sender, System.EventArgs e)
+        {
+            UserAdminMultiView.SetActiveView(SignatureEditView);
+        }
+        protected void Edit5_Click(object sender, System.EventArgs e)
+        {
+            UserAdminMultiView.SetActiveView(SuspendUserView);
+        }
+        protected void Edit6_Click(object sender, System.EventArgs e)
+        {
+            UserAdminMultiView.SetActiveView(EditUserPointsView);
+        }
 
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )

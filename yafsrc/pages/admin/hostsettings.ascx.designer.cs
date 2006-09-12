@@ -25,6 +25,7 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX;
         protected System.Web.UI.WebControls.CheckBox ShowPageGenerationTime;
         protected System.Web.UI.WebControls.CheckBox ShowForumJumpX;
+        protected System.Web.UI.WebControls.CheckBox DisplayPoints;
         protected System.Web.UI.WebControls.CheckBox RemoveNestedQuotesX;
         protected System.Web.UI.WebControls.CheckBox PollVoteTiedToIPX;
         protected System.Web.UI.WebControls.TextBox MaxFileSize;
@@ -36,6 +37,8 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.TextBox PostFloodDelay;
         protected System.Web.UI.WebControls.CheckBox DateFormatFromLanguage;
         protected System.Web.UI.WebControls.CheckBox CreateNntpUsers;
+        protected System.Web.UI.WebControls.TextBox AdPost;
+        protected System.Web.UI.WebControls.CheckBox ShowAdsToSignedInUsers;
         protected System.Web.UI.WebControls.DropDownList ForumEditorList;
         protected System.Web.UI.WebControls.TextBox AcceptedHTML;
         protected System.Web.UI.WebControls.CheckBox AllowUserThemeX;

@@ -17,6 +17,8 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.LinkButton GroupLink;
         protected System.Web.UI.WebControls.LinkButton ProfileLink;
         protected System.Web.UI.WebControls.LinkButton SignatureLink;
+        protected System.Web.UI.WebControls.LinkButton SuspendUserLink;
+        protected System.Web.UI.WebControls.LinkButton EditUserPointsLink;
         protected System.Web.UI.WebControls.MultiView UserAdminMultiView;
         protected System.Web.UI.WebControls.View QuickEditView;
         protected yaf.controls.EditUsersInfo QuickEditControl;
@@ -26,6 +28,10 @@ namespace yaf.pages.admin {
         protected yaf.controls.EditUsersProfile ProfileEditControl;
         protected System.Web.UI.WebControls.View SignatureEditView;
         protected yaf.controls.EditUsersSignature SignatureEditControl;
+        protected System.Web.UI.WebControls.View SuspendUserView;
+        protected yaf.controls.EditSuspendUser SuspendUserControl;
+        protected System.Web.UI.WebControls.View EditUserPointsView;
+        protected yaf.controls.EditUserPoints EditUserPointsControl;
         protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

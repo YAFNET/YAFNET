@@ -110,6 +110,9 @@ namespace yaf.pages.admin {
 			PollVoteTiedToIPX.Checked = BoardSettings.PollVoteTiedToIP;
 			AllowPMNotifications.Checked = BoardSettings.AllowPMEmailNotification;
 			ShowPageGenerationTime.Checked = BoardSettings.ShowPageGenerationTime;
+      AdPost.Text = BoardSettings.AdPost;
+      ShowAdsToSignedInUsers.Checked = BoardSettings.ShowAdsToSignedInUsers;
+			DisplayPoints.Checked = BoardSettings.DisplayPoints;
 		}
 
 		#region Web Form Designer generated code
@@ -180,6 +183,9 @@ namespace yaf.pages.admin {
 			BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
 			BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
 			BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
+      BoardSettings.AdPost = AdPost.Text;
+      BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
+			BoardSettings.DisplayPoints = DisplayPoints.Checked;
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

@@ -83,6 +83,12 @@
 				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
+			<td class="postheader"><B>Display Points System:</B><BR>
+				If checked, points for posting will be displayed for each user.</td>
+			<td class="post">
+				<asp:checkbox id="DisplayPoints" runat="server"></asp:checkbox></td>
+		</tr>		
+		<tr>
 			<td class="postheader"><B>Remove Nested Quotes:</B><BR>
 				Automatically remove nested [quote] tags from replies.</td>
 			<td class="post">
@@ -150,6 +156,29 @@
 			<td class="post">
 				<asp:checkbox id="CreateNntpUsers" runat="server"></asp:checkbox></td>
 		</tr>
+		<tr>
+      <td class="header2" align="center" colspan="2">
+        Forum Ads</td>
+    </tr>
+    <tr>
+      <td class="postheader">
+        <b>2nd post ad:</b><br />
+        Place the code that you wish to be displayed in each thread after the 1st post.
+        If you do not want an ad to be displayed, don't put anything in the box.
+      </td>
+      <td class="post">
+        <asp:TextBox TextMode="MultiLine" runat="server" ID="AdPost" />
+      </td>
+    </tr>
+    <tr>
+      <td class="postheader">
+        <b>Show ad from above to signed in users:</b><br />
+        If checked, signed in users will see ads.
+      </td>
+      <td class="post">
+        <asp:CheckBox runat="server" ID="ShowAdsToSignedInUsers" />
+      </td>
+    </tr>
 		<tr>
 			<td class="header2" align="center" colSpan="2">Editing/Formatting Settings</td>
 		</tr>
