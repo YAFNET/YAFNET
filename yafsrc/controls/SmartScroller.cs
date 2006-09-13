@@ -10,7 +10,10 @@ namespace yaf.controls
 	/// </summary>
 	public class SmartScroller : System.Web.UI.Control
 	{
-		private HtmlForm m_theForm = null;		
+		private HtmlForm m_theForm = null;
+
+		private HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
+		private HtmlInputHidden hidScrollTop = new HtmlInputHidden();
 		
 		public SmartScroller()
 		{
@@ -51,10 +54,7 @@ namespace yaf.controls
 				tFormID = m_theForm.ClientID;
 			}
 										
-			HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
 			hidScrollLeft.ID = "scrollLeft";
-	
-			HtmlInputHidden hidScrollTop = new HtmlInputHidden();
 			hidScrollTop.ID = "scrollTop";
 	
 			this.Controls.Add(hidScrollLeft);
@@ -130,6 +130,12 @@ namespace yaf.controls
 		{
 			Page.VerifyRenderingInServerForm(this);
 			base.Render(writer);
+		}
+
+		public void Reset()
+		{
+			hidScrollLeft.Value = "0";
+			hidScrollTop.Value = "0";
 		}
 	}
 }

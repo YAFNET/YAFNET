@@ -174,6 +174,7 @@
     <Resource tag="GROUPS">Groups</Resource>
     <Resource tag="JOINED">Joined</Resource>
     <Resource tag="POSTS">Posts</Resource>
+    <Resource tag="POINTS">Points</Resource>
     <Resource tag="LOCATION">Location</Resource>
     <Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
     <Resource tag="INFO_TOPIC_LOCKED">Topic was locked.</Resource>
@@ -202,6 +203,10 @@
     <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
     <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
     <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
+    <Resource tag="AD_RANKNAME">Sponsor Message</Resource>
+    <Resource tag="AD_USERNAME">Sponsor</Resource>
+    <Resource tag="AD_SIGNATURE"></Resource>
+    <Resource tag="AD_LOCATION">Server</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

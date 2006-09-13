@@ -27,6 +27,7 @@ namespace yaf.controls
 			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( "<script language='javascript' src='{0}'></script>", ForumPage.GetURLToResource("yaf.js" ) ) );
 			NameCell.ColSpan = int.Parse( GetIndentSpan() );
 		}
+
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
 			// TODO localize tooltips
@@ -109,6 +110,14 @@ namespace yaf.controls
 			}
 		}
 
+		private yaf.MessageFlags PostMessageFlags
+		{
+			get
+			{
+				return new MessageFlags( Convert.ToInt32( DataRow ["Flags"] ) );
+			}
+		}
+
 		protected bool CanEditPost
 		{
 			get
@@ -121,6 +130,8 @@ namespace yaf.controls
 		{
 			get
 			{
+				if ( PostMessageFlags.IsLocked ) return true;
+
 				if ( !ForumPage.IsAdmin && ForumPage.BoardSettings.LockPosts > 0 )
 				{
 					DateTime edited = ( DateTime ) DataRow ["Edited"];
@@ -150,7 +161,7 @@ namespace yaf.controls
 		{
 			get
 			{
-				return ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ForumPage.ForumReplyAccess;
+				return !PostMessageFlags.IsLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ForumPage.ForumReplyAccess;
 			}
 		}
 
@@ -185,6 +196,7 @@ namespace yaf.controls
 			else
 				return "";
 		}
+
 		protected string GetIndentSpan()
 		{
 			if ( !IsThreaded || ( int ) DataRow ["Indent"] == 0 )
@@ -192,6 +204,7 @@ namespace yaf.controls
 			else
 				return "1";
 		}
+
 		protected string GetPostClass()
 		{
 			if ( this.IsAlt )
@@ -202,19 +215,17 @@ namespace yaf.controls
 
 		protected string FormatUserBox()
 		{
-			System.Data.DataRowView row = DataRow;
-			string html = "";
+			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
 
 			// Avatar
-			if ( ForumPage.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
+			if ( ForumPage.BoardSettings.AvatarUpload && DataRow ["HasAvatarImage"] != null && long.Parse( DataRow ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				html += String.Format( "<img src='{1}resource.ashx?u={0}' /><br clear=\"all\" />", row ["UserID"], Data.ForumRoot );
+				userboxOutput.AppendFormat( "<img src='{1}resource.ashx?u={0}' /><br clear=\"all\" />", DataRow ["UserID"], Data.ForumRoot );
 			}
-			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out ForumPage.BoardSettings.AvatarRemote
+			else if ( DataRow ["Avatar"].ToString().Length > 0 ) // Took out ForumPage.BoardSettings.AvatarRemote
 			{
-				//html += String.Format("<img src='{0}'><br clear=\"all\"/>",row["Avatar"]);
-				html += String.Format( "<img src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
-					Server.UrlEncode( row ["Avatar"].ToString() ),
+				userboxOutput.AppendFormat( "<img src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
+					Server.UrlEncode( DataRow ["Avatar"].ToString() ),
 					ForumPage.BoardSettings.AvatarWidth,
 					ForumPage.BoardSettings.AvatarHeight,
 					Data.ForumRoot
@@ -222,79 +233,100 @@ namespace yaf.controls
 			}
 
 			// Rank Image
-			if ( row ["RankImage"].ToString().Length > 0 )
-				html += String.Format( "<img align=left src=\"{0}images/ranks/{1}\" /><br clear=\"all\" />", Data.ForumRoot, row ["RankImage"] );
+			if ( DataRow ["RankImage"].ToString().Length > 0 )
+				userboxOutput.AppendFormat( "<img align=left src=\"{0}images/ranks/{1}\" /><br clear=\"all\" />", Data.ForumRoot, DataRow ["RankImage"] );
 
 			// Rank
-			html += String.Format( "{0}: {1}<br clear=\"all\" />", ForumPage.GetText( "rank" ), row ["RankName"] );
+			userboxOutput.AppendFormat( "{0}: {1}<br clear=\"all\" />", ForumPage.GetText( "rank" ), DataRow ["RankName"] );
 
 			// Groups
 			if ( ForumPage.BoardSettings.ShowGroups )
 			{
-				using ( DataTable dt = DB.usergroup_list( row ["UserID"] ) )
+				using ( DataTable dt = DB.usergroup_list( DataRow ["UserID"] ) )
 				{
-					html += String.Format( "{0}: ", ForumPage.GetText( "groups" ) );
+					userboxOutput.AppendFormat( "{0}: ", ForumPage.GetText( "groups" ) );
+					
 					bool bFirst = true;
+
 					foreach ( DataRow grp in dt.Rows )
 					{
 						if ( bFirst )
 						{
-							html += grp ["Name"].ToString();
+							userboxOutput.AppendLine( grp ["Name"].ToString() );
 							bFirst = false;
 						}
 						else
 						{
-							html += String.Format( ", {0}", grp ["Name"] );
+							userboxOutput.AppendFormat( ", {0}", grp ["Name"] );
 						}
 					}
-					html += "<br/>";
+					userboxOutput.AppendLine( "<br/>" );
 				}
 			}
 
 			// Extra row
-			html += "<br/>";
+			userboxOutput.AppendLine( "<br/>" );
 
 			// Joined
-			html += String.Format( "{0}: {1}<br />", ForumPage.GetText( "joined" ), ForumPage.FormatDateShort( ( DateTime ) row ["Joined"] ) );
+			userboxOutput.AppendFormat( "{0}: {1}<br />", ForumPage.GetText( "joined" ), ForumPage.FormatDateShort( ( DateTime ) DataRow ["Joined"] ) );
 
-            // Posts
-            html += String.Format("{0}: {1:N0}<br />", ForumPage.GetText("posts"), row["Posts"]);
+			// Posts
+			userboxOutput.AppendFormat( "{0}: {1:N0}<br />", ForumPage.GetText( "posts" ), DataRow ["Posts"] );
 
-            // Points
-            html += String.Format("{0}: {1:N0}<br />", ForumPage.GetText("points"), row["Points"]);
+
+			// Points
+			if ( ForumPage.BoardSettings.DisplayPoints )
+			{
+				userboxOutput.AppendFormat( "{0}: {1:N0}<br />", ForumPage.GetText( "points" ), DataRow ["Points"] );
+			}
 
 			// Location
-			if ( row ["Location"].ToString().Length > 0 )
-				html += String.Format( "{0}: {1}<br />", ForumPage.GetText( "location" ), FormatMsg.RepairHtml( ForumPage, row ["Location"].ToString(), false ) );
+			if ( DataRow ["Location"].ToString().Length > 0 )
+				userboxOutput.AppendFormat( "{0}: {1}<br />", ForumPage.GetText( "location" ), FormatMsg.RepairHtml( ForumPage, DataRow ["Location"].ToString(), false ) );
 
-			return html;
+			return userboxOutput.ToString();
 		}
+
 		protected string FormatBody()
 		{
-			DataRowView messageRow = DataRow;
+			System.Text.StringBuilder messageOutput = new System.Text.StringBuilder( 2000 );
 
-            string html2 = string.Empty;
-            
-            if (messageRow["UserName"].ToString() == "Sponsor" && messageRow["Points"].ToString() == "2000")
-            {
-                html2 = messageRow["Message"].ToString();
-            }
-            else
-            {
-                html2 = FormatMsg.FormatMessage(ForumPage, messageRow["Message"].ToString(), new MessageFlags(Convert.ToInt32(messageRow["Flags"])));
-            }
-			
+			if ( PostMessageFlags.NotFormatted )
+			{
+				messageOutput.Append( DataRow ["Message"].ToString() );
+			}
+			else
+			{
+				messageOutput.Append( FormatMsg.FormatMessage( ForumPage, DataRow ["Message"].ToString(), PostMessageFlags ) );
+			}
+
+			AddAttachedFiles( ref messageOutput );
+
+			if ( DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures )
+			{
+				// don't allow any HTML on signatures
+				MessageFlags tFlags = new MessageFlags();
+				tFlags.IsHTML = false;
+
+				messageOutput.Append( "<br/><hr noshade />" + FormatMsg.FormatMessage( ForumPage, DataRow ["Signature"].ToString(), tFlags ) );
+			}
+
+			return messageOutput.ToString();
+		}
+
+		private void AddAttachedFiles( ref System.Text.StringBuilder messageOutput )
+		{
 			// define valid image extensions
 			string [] aImageExtensions = { "jpg", "gif", "png" };
 
-			if ( long.Parse( messageRow ["HasAttachments"].ToString() ) > 0 )
+			if ( long.Parse( DataRow ["HasAttachments"].ToString() ) > 0 )
 			{
 				string stats = ForumPage.GetText( "ATTACHMENTINFO" );
 				string strFileIcon = ForumPage.GetThemeContents( "ICONS", "ATTACHED_FILE" );
 
-				html2 += "<p>";
+				messageOutput.Append( "<p>" );
 
-				using ( DataTable dt = DB.attachment_list( messageRow ["MessageID"], null, null ) )
+				using ( DataTable dt = DB.attachment_list( DataRow ["MessageID"], null, null ) )
 				{
 					// show file then image attachments...
 					int tmpDisplaySort = 0;
@@ -326,42 +358,31 @@ namespace yaf.controls
 							{
 								if ( bFirstItem )
 								{
-									html2 += @"<i class=""smallfont"">";
-									html2 += String.Format( ForumPage.GetText( "IMAGE_ATTACHMENT_TEXT" ), Convert.ToString( messageRow ["UserName"] ) );
-									html2 += @"</i><br />";
+									messageOutput.AppendLine( @"<i class=""smallfont"">" );
+									messageOutput.AppendFormat( ForumPage.GetText( "IMAGE_ATTACHMENT_TEXT" ), Convert.ToString( DataRow ["UserName"] ) );
+									messageOutput.AppendLine( @"</i><br />" );
 									bFirstItem = false;
 								}
-								html2 += String.Format( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", Data.ForumRoot, dr ["AttachmentID"], Server.HtmlEncode( Convert.ToString( dr ["FileName"] ) ) );
+								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", Data.ForumRoot, dr ["AttachmentID"], Server.HtmlEncode( Convert.ToString( dr ["FileName"] ) ) );
 							}
 							else if ( !bShowImage && tmpDisplaySort == 0 )
 							{
 								if ( bFirstItem )
 								{
-									html2 += String.Format( @"<b class=""smallfont"">{0}</b><br />", ForumPage.GetText( "ATTACHMENTS" ) );
+									messageOutput.AppendFormat( @"<b class=""smallfont"">{0}</b><br />", ForumPage.GetText( "ATTACHMENTS" ) );
 									bFirstItem = false;
 								}
 								// regular file attachment
 								int kb = ( 1023 + ( int ) dr ["Bytes"] ) / 1024;
-								html2 += String.Format( @"<img border=""0"" alt="""" src=""{0}"" /> <b><a href=""{1}resource.ashx?a={2}"">{3}</a></b> <span class=""smallfont"">{4}</span><br />", strFileIcon, Data.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
+								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <b><a href=""{1}resource.ashx?a={2}"">{3}</a></b> <span class=""smallfont"">{4}</span><br />", strFileIcon, Data.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
 							}
 						}
 						// now show images
 						tmpDisplaySort++;
-						html2 += "<br />";
+						messageOutput.AppendLine( "<br />" );
 					}
 				}
 			}
-
-			if ( messageRow ["Signature"] != DBNull.Value && messageRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures )
-			{
-				// don't allow any HTML on signatures
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = false;
-
-				html2 += "<br/><hr noshade />" + FormatMsg.FormatMessage( ForumPage, messageRow ["Signature"].ToString(), tFlags );
-			}
-
-			return html2;
 		}
 
 		private void Delete_Click( object sender, EventArgs e )
@@ -373,10 +394,10 @@ namespace yaf.controls
 			object tmpMessageID = DataRow ["MessageID"];
 			object tmpForumID = DataRow ["ForumID"];
 			object tmpTopicID = DataRow ["TopicID"];
-            object tmpUserID = DataRow["UserID"];
+			object tmpUserID = DataRow ["UserID"];
 
-            // Take away 100 points once!
-            DB.user_removepoints(tmpUserID, 100);
+			// Take away 100 points once!
+			DB.user_removepoints( tmpUserID, 100 );
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
 			DB.message_delete( tmpMessageID );

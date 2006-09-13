@@ -204,17 +204,17 @@ namespace yaf.pages
 			Mession.LastPost = DateTime.Now;
 
 			// post message...
-			
+
 			long TopicID;
-			long nMessageID = 0;			
+			long nMessageID = 0;
 			object replyTo = -1;
 			string msg = QuickReplyEditor.Text;
 			TopicID = PageTopicID;
 
 			MessageFlags tFlags = new MessageFlags();
-			
+
 			tFlags.IsHTML = QuickReplyEditor.UsesHTML;
-			tFlags.IsBBCode = QuickReplyEditor.UsesBBCode;			
+			tFlags.IsBBCode = QuickReplyEditor.UsesBBCode;
 
 			if ( !DB.message_save( TopicID, PageUserID, msg, null, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
 				TopicID = 0;
@@ -295,6 +295,7 @@ namespace yaf.pages
 
 				if ( BoardSettings.AdPost != null && BoardSettings.AdPost.Length > 0 && ShowAds )
 				{
+					// create row for "sponsered" message
 					dt0.ImportRow( dt0.Rows [0] );
 					dt0.Rows [dt0.Rows.Count - 1] ["UserName"] = GetText( "AD_USERNAME" );
 					dt0.Rows [dt0.Rows.Count - 1] ["UserID"] = 1;
@@ -317,6 +318,14 @@ namespace yaf.pages
 					dt0.Rows [dt0.Rows.Count - 1] ["Location"] = GetText( "AD_LOCATION" );
 					dt0.Rows [dt0.Rows.Count - 1] ["IP"] = "";
 					dt0.Rows [dt0.Rows.Count - 1] ["Edited"] = dt0.Rows [dt0.Rows.Count - 1] ["Posted"];
+          
+					yaf.MessageFlags sponserMessageFlags = new MessageFlags(0);
+
+					// message is not editable and doesn't need formatting...
+					sponserMessageFlags.NotFormatted = true;
+					sponserMessageFlags.IsLocked = true;
+
+					dt0.Rows [dt0.Rows.Count - 1] ["Flags"] = sponserMessageFlags.BitValue;
 				}
 
 				DataView dt = dt0.DefaultView;

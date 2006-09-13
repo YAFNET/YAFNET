@@ -824,9 +824,6 @@
     <Compile Include="classes\HighLighter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\HiPerfTimer.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="classes\Localizer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -843,6 +840,19 @@
     <Compile Include="classes\UrlBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\URLRewriter\RedirectModeOption.cs" />
+    <Compile Include="classes\URLRewriter\RedirectOption.cs" />
+    <Compile Include="classes\URLRewriter\RegExRewriteRule.cs" />
+    <Compile Include="classes\URLRewriter\RegExUrlRewritingProvider.cs" />
+    <Compile Include="classes\URLRewriter\RewriteOption.cs" />
+    <Compile Include="classes\URLRewriter\RewriteRule.cs" />
+    <Compile Include="classes\URLRewriter\RewriteRuleCollection.cs" />
+    <Compile Include="classes\URLRewriter\RewriteUrlParameterOption.cs" />
+    <Compile Include="classes\URLRewriter\UrlHelper.cs" />
+    <Compile Include="classes\URLRewriter\UrlRewriteModule.cs" />
+    <Compile Include="classes\URLRewriter\UrlRewriting.cs" />
+    <Compile Include="classes\URLRewriter\UrlRewritingProvider.cs" />
+    <Compile Include="classes\URLRewriter\UrlRewritingProviderCollection.cs" />
     <Compile Include="classes\Utils.cs">
       <SubType>Code</SubType>
     </Compile>

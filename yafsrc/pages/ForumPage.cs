@@ -59,6 +59,7 @@ namespace yaf.pages
 		public ForumPage( string transPage )
 		{
 			TransPage = transPage;
+			stopWatch.Start();
 
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Error += new System.EventHandler( this.ForumPage_Error );
@@ -374,8 +375,6 @@ namespace yaf.pages
 
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
-			stopWatch.Start();
-
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
 			if ( BoardSettings.AllowThemedLogo & !Config.IsDotNetNuke & !Config.IsPortal & !Config.IsRainbow )
 			{
@@ -478,7 +477,7 @@ namespace yaf.pages
 				// BEGIN HEADER
 				if ( m_headerInfo != null && ForumControl.LockedForum == 0 )
 					writer.Write( m_headerInfo );
-				// END HEADER
+				// END HEADER				
 
 				RenderBody( writer );
 
@@ -500,6 +499,9 @@ namespace yaf.pages
 				{
 					themeCredit = @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />";
 				}
+
+				stopWatch.Stop();
+				double duration = ( double ) stopWatch.ElapsedMilliseconds / 1000.0;
 
 				if ( Config.IsDotNetNuke )
 				{
@@ -523,14 +525,13 @@ namespace yaf.pages
 					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 					footer.AppendFormat( "<br/>" );
 					footer.AppendFormat( this.m_adminMessage ); // Append a error message for an admin to see (but not nag)
-					stopWatch.Stop();
 
 					if ( BoardSettings.ShowPageGenerationTime )
-						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), ( double ) stopWatch.ElapsedMilliseconds / 1000.0 );
+						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), duration );
 				}
 
 #if DEBUG
-				footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, 100 * QueryCounter.Duration / ( stopWatch.ElapsedMilliseconds / 1000.0 ), QueryCounter.Commands );
+				footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, (100 * QueryCounter.Duration) / duration, QueryCounter.Commands );
 #endif
 				footer.AppendFormat( "</p>" );
 				if ( ForumControl.LockedForum == 0 )

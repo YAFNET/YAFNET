@@ -301,6 +301,11 @@ namespace yaf
 			get { return m_reg.GetValueBool( "ShowAdsToSignedInUsers", true ); }
 			set { m_reg.SetValueBool( "ShowAdsToSignedInUsers", value ); }
 		}
+		public bool DisplayPoints
+		{
+			get { return m_reg.GetValueBool( "DisplayPoints", true ); }
+			set { m_reg.SetValueBool( "DisplayPoints", value ); }
+		}
 
 		// string settings
 		public string ForumEmail

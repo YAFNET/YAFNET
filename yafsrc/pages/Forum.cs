@@ -221,9 +221,9 @@ namespace yaf
 			}
 		}
 
-		private object m_categoryID = Config.CategoryID;
+		private int m_categoryID = Config.CategoryID;
 
-		public object CategoryID
+		public int CategoryID
 		{
 			get
 			{

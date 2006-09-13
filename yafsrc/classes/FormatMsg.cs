@@ -197,6 +197,13 @@ namespace yaf
 			return strTemp;
 		}
 
+		/// <summary>
+		/// Supposed to convert HTML to BBCode -- Doesn't function
+		/// </summary>
+		/// <param name="html"></param>
+		/// <returns></returns>
+		[Obsolete( "Doesn't work" )]
+		[EditorBrowsable( EditorBrowsableState.Never )]
 		static public string HtmlToForumCode( string html )
 		{
 #if true
@@ -416,6 +423,24 @@ namespace yaf
 		{
 			get { return GetBitAsBool( FBitValue, 4 ); }
 			set { FBitValue = SetBitFromBool( FBitValue, 4, value ); }
+		}
+
+		/// <summary>
+		/// This post is locked -- nothing can be done to it
+		/// </summary>
+		public bool IsLocked
+		{
+			get { return GetBitAsBool( FBitValue, 5 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 5, value ); }
+		}
+
+		/// <summary>
+		/// Setting so that the message isn't formatted at all
+		/// </summary>
+		public bool NotFormatted
+		{
+			get { return GetBitAsBool( FBitValue, 6 ); }
+			set { FBitValue = SetBitFromBool( FBitValue, 6, value ); }
 		}
 	}
 }

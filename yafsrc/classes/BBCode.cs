@@ -55,13 +55,13 @@ namespace yaf
 		static private Regex r_code2 = new Regex( @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", m_options );
 		static private Regex r_code1 = new Regex( @"\[code\](?<inner>(.*?))\[/code\]", m_options );
 		static private Regex r_size = new Regex( @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]", m_options );
-		static private Regex r_bold = new Regex( @"\[B[^\]]*\](?<inner>(.*?))\[/B\]", m_options );
-		static private Regex r_strike = new Regex( @"\[S[^\]]*\](?<inner>(.*?))\[/S\]", m_options );
-		static private Regex r_italic = new Regex( @"\[I[^\]]*\](?<inner>(.*?))\[/I\]", m_options );
-		static private Regex r_underline = new Regex( @"\[U[^\]]*\](?<inner>(.*?))\[/U\]", m_options );
+		static private Regex r_bold = new Regex( @"\[B\](?<inner>(.*?))\[/B\]", m_options );
+		static private Regex r_strike = new Regex( @"\[S\](?<inner>(.*?))\[/S\]", m_options );
+		static private Regex r_italic = new Regex( @"\[I\](?<inner>(.*?))\[/I\]", m_options );
+		static private Regex r_underline = new Regex( @"\[U\](?<inner>(.*?))\[/U\]", m_options );
 		static private Regex r_email2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", m_options );
 		static private Regex r_email1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", m_options );
-		static private Regex r_url1 = new Regex( @"\[url[^\]]*\](?<http>(http://)|(https://)|(ftp://))?(?<inner>(.*?))\[/url\]", m_options );
+		static private Regex r_url1 = new Regex( @"\[url\](?<http>(http://)|(https://)|(ftp://))?(?<inner>(.*?))\[/url\]", m_options );
 		static private Regex r_url2 = new Regex( @"\[url=(?<http>(http://)|(https://)|(ftp://))?(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]", m_options );
 		static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
 		static private Regex r_color = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", m_options );
