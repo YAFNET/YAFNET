@@ -121,6 +121,7 @@ namespace yaf.pages
 
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
+			SmartScroller1.Reset();
 			BindData( false );
 		}
 

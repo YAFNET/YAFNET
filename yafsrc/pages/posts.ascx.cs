@@ -242,6 +242,7 @@ namespace yaf.pages
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
 			m_bIgnoreQueryString = true;
+			SmartScroller1.Reset();
 			BindData();
 		}
 
