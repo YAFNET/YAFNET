@@ -203,7 +203,6 @@ namespace yaf
 		/// <param name="html"></param>
 		/// <returns></returns>
 		[Obsolete( "Doesn't work" )]
-		[EditorBrowsable( EditorBrowsableState.Never )]
 		static public string HtmlToForumCode( string html )
 		{
 #if true

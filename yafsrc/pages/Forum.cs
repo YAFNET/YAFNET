@@ -221,7 +221,7 @@ namespace yaf
 			}
 		}
 
-		private int m_categoryID = Config.CategoryID;
+		private int m_categoryID = Convert.ToInt32(Config.CategoryID);
 
 		public int CategoryID
 		{

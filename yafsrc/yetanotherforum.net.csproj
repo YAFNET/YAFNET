@@ -104,6 +104,8 @@
     <Content Include="controls\DisplayPost.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="controls\EditSuspendUser.ascx" />
+    <Content Include="controls\EditUserPoints.ascx" />
     <Content Include="controls\EditUsersGroups.ascx" />
     <Content Include="controls\EditUsersInfo.ascx" />
     <Content Include="controls\EditUsersProfile.ascx" />
@@ -840,19 +842,6 @@
     <Compile Include="classes\UrlBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\URLRewriter\RedirectModeOption.cs" />
-    <Compile Include="classes\URLRewriter\RedirectOption.cs" />
-    <Compile Include="classes\URLRewriter\RegExRewriteRule.cs" />
-    <Compile Include="classes\URLRewriter\RegExUrlRewritingProvider.cs" />
-    <Compile Include="classes\URLRewriter\RewriteOption.cs" />
-    <Compile Include="classes\URLRewriter\RewriteRule.cs" />
-    <Compile Include="classes\URLRewriter\RewriteRuleCollection.cs" />
-    <Compile Include="classes\URLRewriter\RewriteUrlParameterOption.cs" />
-    <Compile Include="classes\URLRewriter\UrlHelper.cs" />
-    <Compile Include="classes\URLRewriter\UrlRewriteModule.cs" />
-    <Compile Include="classes\URLRewriter\UrlRewriting.cs" />
-    <Compile Include="classes\URLRewriter\UrlRewritingProvider.cs" />
-    <Compile Include="classes\URLRewriter\UrlRewritingProviderCollection.cs" />
     <Compile Include="classes\Utils.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -866,6 +855,20 @@
     </Compile>
     <Compile Include="controls\DisplayPost.ascx.designer.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\EditSuspendUser.ascx.cs">
+      <DependentUpon>EditSuspendUser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditSuspendUser.ascx.designer.cs">
+      <DependentUpon>EditSuspendUser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\EditUserPoints.ascx.cs">
+      <DependentUpon>EditUserPoints.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditUserPoints.ascx.designer.cs">
+      <DependentUpon>EditUserPoints.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersGroups.ascx.cs">
       <DependentUpon>EditUsersGroups.ascx</DependentUpon>
