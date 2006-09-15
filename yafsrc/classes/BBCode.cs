@@ -156,13 +156,13 @@ namespace yaf
 				// urls
 				if ( basePage.BoardSettings.BlankLinks )
 				{
-					NestedReplace( ref bbcode, r_url2, "<a target=\"_blank\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, r_url1, "<a target=\"_blank\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
+					NestedReplace( ref bbcode, r_url2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
+					NestedReplace( ref bbcode, r_url1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
 				}
 				else
 				{
-					NestedReplace( ref bbcode, r_url2, "<a href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, r_url1, "<a href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
+					NestedReplace( ref bbcode, r_url2, "<a rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
+					NestedReplace( ref bbcode, r_url1, "<a rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
 				}
 				// font
 				NestedReplace( ref bbcode, r_font, "<span style=\"font-family:${font}\">${inner}</span>", new string [] { "font" } );
