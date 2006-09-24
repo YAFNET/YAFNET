@@ -37,11 +37,12 @@ namespace yaf.pages
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected string LastForumName = "";
 
-		public active() : base("ACTIVE")
+		public active()
+			: base( "ACTIVE" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// 20050909 CHP : BEGIN
 			if (IsPrivate && User==null)
@@ -127,7 +128,11 @@ namespace yaf.pages
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
 
-			DataView dv = DB.topic_active(PageBoardID,PageUserID,SinceDate,ForumControl.CategoryID).DefaultView;
+			object categoryIDObject = null;
+
+			if ( ForumControl.CategoryID != 0 ) categoryIDObject = ForumControl.CategoryID;
+
+			DataView dv = DB.topic_active( PageBoardID, PageUserID, SinceDate, categoryIDObject ).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;

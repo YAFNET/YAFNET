@@ -9,7 +9,7 @@ public void Page_Error(object sender,System.EventArgs e)
 </script>
 
 <html>
-<head>
+<head runat="server">
 <meta http-equiv="refresh" content="600">
 </head>
 <body>
