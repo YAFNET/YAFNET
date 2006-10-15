@@ -16,9 +16,10 @@ namespace yaf.pages.admin {
         protected System.Web.UI.WebControls.LinkButton BasicEditLink;
         protected System.Web.UI.WebControls.LinkButton GroupLink;
         protected System.Web.UI.WebControls.LinkButton ProfileLink;
+        protected System.Web.UI.WebControls.LinkButton AvatarLink;
         protected System.Web.UI.WebControls.LinkButton SignatureLink;
-        protected System.Web.UI.WebControls.LinkButton SuspendUserLink;
-        protected System.Web.UI.WebControls.LinkButton EditUserPointsLink;
+        protected System.Web.UI.WebControls.LinkButton SuspendLink;
+        protected System.Web.UI.WebControls.LinkButton PointsLink;
         protected System.Web.UI.WebControls.MultiView UserAdminMultiView;
         protected System.Web.UI.WebControls.View QuickEditView;
         protected yaf.controls.EditUsersInfo QuickEditControl;
@@ -26,12 +27,14 @@ namespace yaf.pages.admin {
         protected yaf.controls.EditUsersGroups GroupEditControl;
         protected System.Web.UI.WebControls.View ProfileEditView;
         protected yaf.controls.EditUsersProfile ProfileEditControl;
+        protected System.Web.UI.WebControls.View AvatarEditView;
+        protected yaf.controls.EditUsersAvatar AvatarEditControl;
         protected System.Web.UI.WebControls.View SignatureEditView;
         protected yaf.controls.EditUsersSignature SignatureEditControl;
         protected System.Web.UI.WebControls.View SuspendUserView;
-        protected yaf.controls.EditSuspendUser SuspendUserControl;
-        protected System.Web.UI.WebControls.View EditUserPointsView;
-        protected yaf.controls.EditUserPoints EditUserPointsControl;
+        protected yaf.controls.EditUsersSuspend SuspendUserControl;
+        protected System.Web.UI.WebControls.View UserPointsView;
+        protected yaf.controls.EditUsersPoints UserPointsControl;
         protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

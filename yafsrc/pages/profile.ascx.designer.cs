@@ -35,13 +35,9 @@ namespace yaf.pages {
         protected System.Web.UI.HtmlControls.HtmlTableCell Stats;
         protected System.Web.UI.WebControls.Image Avatar;
         protected System.Web.UI.WebControls.PlaceHolder ModeratorInfo;
-        protected System.Web.UI.HtmlControls.HtmlTableRow SuspendedRow;
-        protected System.Web.UI.WebControls.Button RemoveSuspension;
-        protected System.Web.UI.WebControls.TextBox SuspendCount;
-        protected System.Web.UI.WebControls.DropDownList SuspendUnit;
-        protected System.Web.UI.WebControls.Button Suspend;
-        protected System.Web.UI.WebControls.TextBox UserSignature;
-        protected System.Web.UI.WebControls.Button EditSignature;
+        protected yaf.controls.EditUsersSuspend SuspendUserControl;
+        protected yaf.controls.EditUsersSignature SignatureEditControl;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl AdminUser;
         protected System.Web.UI.WebControls.Literal AccessMaskRow;
         protected System.Web.UI.WebControls.ImageButton expandLast10;
         protected System.Web.UI.WebControls.Repeater LastPosts;

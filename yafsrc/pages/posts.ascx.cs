@@ -298,35 +298,8 @@ namespace yaf.pages
 				{
 					// create row for "sponsered" message
 					dt0.ImportRow( dt0.Rows [0] );
-					dt0.Rows [dt0.Rows.Count - 1] ["UserName"] = GetText( "AD_USERNAME" );
-					dt0.Rows [dt0.Rows.Count - 1] ["UserID"] = 1;
-					dt0.Rows [dt0.Rows.Count - 1] ["Points"] = 2000;
-					dt0.Rows [dt0.Rows.Count - 1] ["Message"] = BoardSettings.AdPost;
-					dt0.Rows [dt0.Rows.Count - 1] ["HasAvatarImage"] = false;
-					dt0.Rows [dt0.Rows.Count - 1] ["HasAttachments"] = false;
-					dt0.Rows [dt0.Rows.Count - 1] ["RankName"] = GetText( "AD_RANKNAME" );
-					dt0.Rows [dt0.Rows.Count - 1] ["ICQ"] = DBNull.Value;
-					dt0.Rows [dt0.Rows.Count - 1] ["AIM"] = null;
-					dt0.Rows [dt0.Rows.Count - 1] ["YIM"] = null;
-					dt0.Rows [dt0.Rows.Count - 1] ["MSN"] = null;
-					dt0.Rows [dt0.Rows.Count - 1] ["Weblog"] = null;
-					dt0.Rows [dt0.Rows.Count - 1] ["Homepage"] = null;
-					dt0.Rows [dt0.Rows.Count - 1] ["Avatar"] = "";
-					dt0.Rows [dt0.Rows.Count - 1] ["Signature"] = GetText( "AD_SIGNATURE" );
-					dt0.Rows [dt0.Rows.Count - 1] ["Joined"] = "1/1/2000";
-					dt0.Rows [dt0.Rows.Count - 1] ["Posts"] = 2000;
-					dt0.Rows [dt0.Rows.Count - 1] ["Signature"] = "";
-					dt0.Rows [dt0.Rows.Count - 1] ["Location"] = GetText( "AD_LOCATION" );
-					dt0.Rows [dt0.Rows.Count - 1] ["IP"] = "";
-					dt0.Rows [dt0.Rows.Count - 1] ["Edited"] = dt0.Rows [dt0.Rows.Count - 1] ["Posted"];
-          
-					yaf.MessageFlags sponserMessageFlags = new MessageFlags(0);
-
-					// message is not editable and doesn't need formatting...
-					sponserMessageFlags.NotFormatted = true;
-					sponserMessageFlags.IsLocked = true;
-
-					dt0.Rows [dt0.Rows.Count - 1] ["Flags"] = sponserMessageFlags.BitValue;
+					DataRow sponserRow = dt0.Rows [dt0.Rows.Count - 1];
+					populateSponserRow( ref sponserRow );					
 				}
 
 				DataView dt = dt0.DefaultView;
@@ -415,6 +388,32 @@ namespace yaf.pages
 			}
 
 			DataBind();
+		}
+
+		private void populateSponserRow( ref DataRow sponserRow )
+		{
+			sponserRow ["UserName"] = GetText( "AD_USERNAME" );
+			sponserRow ["UserID"] = 1;
+			sponserRow ["Message"] = BoardSettings.AdPost;
+			sponserRow ["HasAvatarImage"] = false;
+			sponserRow ["HasAttachments"] = false;
+			sponserRow ["ICQ"] = DBNull.Value;
+			sponserRow ["AIM"] = DBNull.Value;
+			sponserRow ["YIM"] = DBNull.Value;
+			sponserRow ["MSN"] = DBNull.Value;
+			sponserRow ["Weblog"] = DBNull.Value;
+			sponserRow ["Homepage"] = DBNull.Value;
+			sponserRow ["Signature"] = GetText( "AD_SIGNATURE" );
+			sponserRow ["IP"] = "none";
+			sponserRow ["Edited"] = sponserRow ["Posted"];
+
+			yaf.MessageFlags sponserMessageFlags = new MessageFlags( 0 );
+
+			// message is not editable and doesn't need formatting...
+			sponserMessageFlags.NotFormatted = true;
+			sponserMessageFlags.IsLocked = true;
+
+			sponserRow ["Flags"] = sponserMessageFlags.BitValue;
 		}
 
 		private bool HandleWatchTopic()

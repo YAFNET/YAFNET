@@ -30,16 +30,6 @@ namespace yaf.controls {
         protected System.Web.UI.WebControls.DropDownList Language;
         protected System.Web.UI.HtmlControls.HtmlTableRow PMNotificationRow;
         protected System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
-        protected System.Web.UI.HtmlControls.HtmlTableRow AvatarRow;
-        protected System.Web.UI.HtmlControls.HtmlTableRow AvatarUploadRow;
-        protected System.Web.UI.HtmlControls.HtmlInputFile File;
-        protected System.Web.UI.HtmlControls.HtmlTableRow AvatarDeleteRow;
-        protected System.Web.UI.WebControls.Button DeleteAvatar;
-        protected System.Web.UI.HtmlControls.HtmlTableRow AvatarOurs;
-        protected System.Web.UI.WebControls.Image AvatarImg;
-        protected System.Web.UI.WebControls.HyperLink OurAvatar;
-        protected System.Web.UI.HtmlControls.HtmlTableRow AvatarRemoteRow;
-        protected System.Web.UI.WebControls.TextBox Avatar;
         protected System.Web.UI.WebControls.PlaceHolder LoginInfo;
         protected System.Web.UI.WebControls.PlaceHolder ShowOldPassword;
         protected System.Web.UI.WebControls.TextBox OldPassword;
@@ -47,5 +37,6 @@ namespace yaf.controls {
         protected System.Web.UI.WebControls.TextBox NewPassword2;
         protected System.Web.UI.WebControls.TextBox Email;
         protected System.Web.UI.WebControls.Button UpdateProfile;
+        protected System.Web.UI.WebControls.Button Cancel;
     }
 }

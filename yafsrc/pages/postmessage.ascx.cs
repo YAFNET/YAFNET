@@ -79,7 +79,7 @@ namespace yaf.pages
 
 			if ( PageForumID == 0 )
 				Data.AccessDenied();
-			if ( Request ["t"] == null && !ForumPostAccess )
+			if ( Request ["t"] != null && !ForumPostAccess )
 				Data.AccessDenied();
 			if ( Request ["t"] != null && !ForumReplyAccess )
 				Data.AccessDenied();
@@ -151,21 +151,12 @@ namespace yaf.pages
 						tmpMessage = quote.Replace( tmpMessage, "" );
 					}
 
-					if ( isHtml )
-						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], FormatMsg.HtmlToForumCode( tmpMessage ) );
-					else
 						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], tmpMessage );
 				}
 				else if ( Request.QueryString ["m"] != null )
 				{
 					// edit message...
 					string body = currentRow ["message"].ToString();
-					bool isHtml = body.IndexOf( '<' ) >= 0;
-					if ( isHtml )
-					{
-						//throw new Exception("TODO: Convert this html message to forumcodes");
-						body = FormatMsg.HtmlToForumCode( body );
-					}
 					Message.Text = body;
 					Title.Text = GetText( "EDIT" );
 

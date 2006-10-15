@@ -19,6 +19,48 @@ a:visited{color:#8080FF}
 
 <p><a href="http://sourceforge.net/project/showfiles.php?group_id=90539">Download</a></p>
 
+<h2>Version 1.9.0 FINAL (September 24th, 2006)</h2>
+<ul>    
+    <li>Fixed issues with Swedish language file.</li>
+    <li>Fixed error with "Active Discussions" no showing anything</li>
+    <li>Modified default.config to use new uploaddir "upload/" instead of "/upload/"</li>
+    <li>Modified Config class to look more like v1.9.3 for easier merging. (Code is more readable)</li>
+    <li>Fixed issue deleting Forums. Now a forum delete wipes the database of all topics, messages and attachments associated with that
+        forum.</li>
+    <li>Fixed issue with BBCode editor and FireFox -- inserting BBCode make the editor jump to the top.</li>
+    <li>Fixed XSS Security issue with the IMG BBCode.</li>
+    <li>ASPNET theme modified by Boskone</li>
+    <li>Added scrollable "overflow" CSS setting for posts. Only works on FireFox.</li>
+    <li>Adjusted Sponsorship post layout and removed all "personal" information. No more PM or Email links.</li>
+    <li>Fixed issue with points not being added for posts.</li>
+    <li>Fixed issue with PM e-mail links not working if you need to login.</li>
+    <li>Fixed issue selecting avatar</li>
+    <li>Added avatar editing page (removed avatar stuff from edit profile) with simplified functionality.</li>
+    <li>Modified Points Implementation slightly</li>
+    <li>Updated Admin User editor to support new Avatar editor with improvements (select avatar didn't work before)</li>
+</ul>
+    
+<h2>Version 1.9.0 RC2 (September 12th, 2006)</h2>
+<ul>    
+    <li>Added "Points" System for each post and deletion (Willie)</li>
+    <li>Added "Sponsor" post option (Willie)</li>
+    <li>Added admin user editing features</li>
+    <li>Added support for FreeTextBox v3</li>
+    <li>Added reset function for smartscroller so that it no longer keeps the scroll location if it's not desired (such as on pagination).</li>
+    <li>Added rel="nofollow" to user-supplied URLs throughout the board.</li>
+    <li>Fixed issue with posts not being removed from "Moderate" list</li>
+    <li>Fixed: Inserting smilies in FCK v2 -- current solution doesn't work with FireFox though</li>
+    <li>Fixed bug with smilies cache not getting flushed on update</li>
+    <li>Fixed bug related to BBCode handling of underline and url.</li>
+    <li>Fixed bug assocated with resource.ashx (Thread exceptions)</li>
+    <li>Fixed bug related to search page storing a non-serializable object in the session state</li>
+    <li>Cleaned up DisplayPost a bit</li>
+    <li>Fixed issue with delete topic in moderate (it works now)</li>
+    <li>Changed the code for sorting forums slightly. Functionality hasn't been modified.</li>
+    <li>Fixed bug related to move topic</li>
+    <li>Removed high-performance timer class and switched to using NET v2.0 StopWatch class instead.</li>
+</ul>
+
 <h2>Version 1.9.0 RC1 (July 25th, 2006)</h2>
 <ul>
 	<li>First compiled in NET Framework v2.0.</li>
@@ -48,8 +90,6 @@ a:visited{color:#8080FF}
     <li>Lots of misc bug fixes. </li>
 </ul>
 	
-</ul>
-
 <h2>Version 0.9.9 (November 10th, 2004)</h2>
 <ul>
 	<li>Lots and lots of bug fixes.</li>

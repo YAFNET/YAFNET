@@ -49,11 +49,11 @@ namespace yaf.controls
 			Quote.NavigateUrl = Forum.GetLink( Pages.postmessage, "t={0}&f={1}&q={2}", ForumPage.PageTopicID, ForumPage.PageForumID, DataRow ["MessageID"] );
 
 			// private messages
-			Pm.Visible			= ForumPage.User!=null && ForumPage.BoardSettings.AllowPrivateMessages;
+			Pm.Visible			= ForumPage.User!=null && ForumPage.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = ForumPage.GetThemeContents( "BUTTONS", "PM" );
 			Pm.NavigateUrl = Forum.GetLink( Pages.pmessage, "u={0}", DataRow ["UserID"] );
 			// emailing
-			Email.Visible		= ForumPage.User!=null && ForumPage.BoardSettings.AllowEmailSending;
+			Email.Visible		= ForumPage.User!=null && ForumPage.BoardSettings.AllowEmailSending && !IsSponserMessage;
 			Email.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = ForumPage.GetThemeContents( "BUTTONS", "EMAIL" );
 			Home.Visible = DataRow ["HomePage"] != DBNull.Value;
@@ -115,6 +115,14 @@ namespace yaf.controls
 			get
 			{
 				return new MessageFlags( Convert.ToInt32( DataRow ["Flags"] ) );
+			}
+		}
+
+		protected bool IsSponserMessage
+		{
+			get
+			{
+				return (DataRow["IP"].ToString() == "none");
 			}
 		}
 
@@ -215,6 +223,8 @@ namespace yaf.controls
 
 		protected string FormatUserBox()
 		{
+			if ( IsSponserMessage ) return "";
+
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
 
 			// Avatar
@@ -302,7 +312,7 @@ namespace yaf.controls
 
 			AddAttachedFiles( ref messageOutput );
 
-			if ( DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && ForumPage.BoardSettings.AllowSignatures )
+			if ( ForumPage.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
 			{
 				// don't allow any HTML on signatures
 				MessageFlags tFlags = new MessageFlags();

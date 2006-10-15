@@ -30,6 +30,8 @@ namespace yaf.pages
 		public int pagenum = 0;
 		public int pagesize = 20;
 
+		private int returnUserID = 0;
+
 		string filepath = "";
 
 		public avatar() : base("AVATAR")
@@ -53,11 +55,25 @@ namespace yaf.pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			if ( Request.QueryString ["u"] != null )
+		{
+				returnUserID = Convert.ToInt32( Request.QueryString ["u"] );
+			}
+
 			if(!IsPostBack)
 			{
 				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+
+				if ( returnUserID > 0 )
+				{
+					PageLinks.AddLink( "Administration", Forum.GetLink( Pages.admin_admin ) );
+					PageLinks.AddLink( "Users", Forum.GetLink( Pages.admin_users ) );
+				}
+				else
+				{				
 				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-				PageLinks.AddLink(GetText("EDITPROFILE"),Forum.GetLink(Pages.cp_editprofile));
+					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), Forum.GetLink( Pages.cp_editavatar ) );
+				}				
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				pager.PageSize = 20;
@@ -118,9 +134,18 @@ namespace yaf.pages
 
 				if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
 				{
-					fname.Text += "<p align=\"center\"><a href=\"" + Forum.GetLink(Pages.cp_editprofile, "av=" + CurrentDir + "/" + finfo.Name) + "\"><img src=\"" + strDirectory + "/" + finfo.Name + "\" alt=\"" + finfo.Name + "\" class=\"borderless\" /></a><br /><small>";
-					fname.Text += finfo.Name;
-					fname.Text += "</small></p>" + Environment.NewLine;
+					string link;
+
+					if ( returnUserID > 0 )
+					{
+						link = Forum.GetLink( Pages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
+					}
+					else
+				{
+						link = Forum.GetLink( Pages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
+					}
+
+					fname.Text = string.Format( @"<p align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></p>{3}", link, ( strDirectory + "/" + finfo.Name ), finfo.Name, Environment.NewLine );
 				} 
 			}
 			

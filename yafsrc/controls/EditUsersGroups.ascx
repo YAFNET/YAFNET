@@ -2,9 +2,6 @@
 <%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<tr>
-		<td class="header1" colspan="2">Edit User</td>
-	</tr>
 	<asp:repeater id="UserGroups" runat="server">
 	    <HeaderTemplate>
 		    <tr>

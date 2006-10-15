@@ -298,7 +298,7 @@ namespace yaf
 		{
 			get
 			{
-				return 20;
+				return 22;
 			}
 		}
 		static public long AppVersionCode

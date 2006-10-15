@@ -2500,16 +2500,22 @@ namespace yaf
 				ExecuteNonQuery( cmd );
 			}
 		}
-		static public void user_saveavatar( object userID, System.IO.Stream stream )
+		static public void user_saveavatar( object userID, object Avatar, System.IO.Stream stream )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_saveavatar" ) )
 			{
-				byte [] data = new byte [stream.Length];
+				byte [] data = null;
+
+				if ( stream != null )
+			{
+					data = new byte [stream.Length];
 				stream.Seek( 0, System.IO.SeekOrigin.Begin );
 				stream.Read( data, 0, ( int ) stream.Length );
+				}
 
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@UserID", userID );
+				cmd.Parameters.AddWithValue( "@Avatar", Avatar );
 				cmd.Parameters.AddWithValue( "@AvatarImage", data );
 				ExecuteNonQuery( cmd );
 			}

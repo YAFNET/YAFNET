@@ -126,7 +126,6 @@ namespace yaf.pages
 								// remove quotes from old messages
 								body = quote.Replace( body, "" );
 							}
-							if ( isHtml ) body = FormatMsg.HtmlToForumCode( body );
 							body = String.Format( "[QUOTE={0}]{1}[/QUOTE]", row ["FromUser"], body );
 							Editor.Text = body;
 						}

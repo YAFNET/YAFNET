@@ -401,6 +401,15 @@ namespace yaf.pages
 
 			// BEGIN HEADER
 			StringBuilder header = new StringBuilder();
+
+			// get the theme header -- usually used for javascript
+			string themeHeader = GetThemeContents( "THEME", "HEADER", null, true );
+
+			if ( themeHeader != null && themeHeader.Length > 0 )
+			{
+				header.Append(themeHeader);
+			} 
+
 			header.AppendFormat( "<table width=100% cellspacing=0 class=content cellpadding=0><tr>" );
 
 			MembershipUser user = Membership.GetUser();

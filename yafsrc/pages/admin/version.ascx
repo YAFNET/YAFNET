@@ -3,7 +3,7 @@
 
 <yaf:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<yaf:adminmenu id="adminmenu1" runat="server">
 
 <table width=100% cellspacing=0 cellpadding=0 class=content>
 <tr>

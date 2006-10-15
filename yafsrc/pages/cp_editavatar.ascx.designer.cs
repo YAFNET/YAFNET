@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.pages.admin {
+namespace yaf.pages {
     
-    public partial class version {
+    public partial class cp_editavatar {
         protected yaf.controls.PageLinks PageLinks;
-        protected yaf.controls.AdminMenu adminmenu1;
-        protected System.Web.UI.HtmlControls.HtmlGenericControl Upgrade;
+        protected yaf.controls.EditUsersAvatar ProfileEditor;
+        protected yaf.controls.SmartScroller SmartScroller1;
     }
 }

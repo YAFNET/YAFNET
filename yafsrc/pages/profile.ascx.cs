@@ -59,11 +59,6 @@ namespace yaf.pages
 			if ( !IsPostBack )
 			{
 				userGroupsRow.Visible = BoardSettings.ShowGroupsProfile || IsAdmin;
-				SuspendUnit.Items.Add( new ListItem( GetText( "DAYS" ), "1" ) );
-				SuspendUnit.Items.Add( new ListItem( GetText( "HOURS" ), "2" ) );
-				SuspendUnit.Items.Add( new ListItem( GetText( "MINUTES" ), "3" ) );
-				SuspendUnit.Items.FindByValue( "2" ).Selected = true;
-				SuspendCount.Text = "2";
 
 				UpdateLast10Panel();
 
@@ -95,13 +90,6 @@ namespace yaf.pages
 				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
 				PageLinks.AddLink( GetText( "MEMBERS" ), Forum.GetLink( Pages.members ) );
 				PageLinks.AddLink( Server.HtmlEncode( user ["Name"].ToString() ), "" );
-
-				if ( IsAdmin || IsForumModerator )
-				{
-					EditSignature.CommandArgument = user ["UserID"].ToString();
-					// when you set the TextBox using .Text it automatically encodes HTML
-					UserSignature.Text = user ["Signature"].ToString();
-				}
 
 				double dAllPosts = 0.0;
 				if ( ( int ) user ["NumPostsForum"] > 0 )
@@ -162,13 +150,12 @@ namespace yaf.pages
 
 				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
-				SuspendedRow.Visible = !user.IsNull( "Suspended" );
-				if ( !user.IsNull( "Suspended" ) )
-					ViewState ["SuspendedTo"] = FormatDateTime( user ["Suspended"] );
+                AdminUser.Visible = IsAdmin;
 
-				RemoveSuspension.Text = GetText( "REMOVESUSPENSION" );
-				Suspend.Text = GetText( "SUSPEND" );
-				EditSignature.Text = GetText( "EDIT_SIGNATURE" );
+                if (IsAdmin)
+                {
+                    SignatureEditControl.InAdminPages = true;
+                }
 
 				if ( IsAdmin || IsForumModerator )
 				{
@@ -204,82 +191,6 @@ namespace yaf.pages
 			}
 
 			DataBind();
-		}
-
-		/// <summary>
-		/// Edits the user's signature when clicked
-		/// </summary>
-		/// <param name="sender">The object sender inherit from Page.</param>
-		/// <param name="e">The System.EventArgs inherit from Page.</param>
-		protected void EditSignature_Command( object sender, CommandEventArgs e )
-		{
-			string body = UserSignature.Text;
-			body = FormatMsg.RepairHtml( this, body, false );
-
-			if ( UserSignature.Text.Length > 0 )
-				DB.user_savesignature( e.CommandArgument, body );
-			else
-				DB.user_savesignature( e.CommandArgument, DBNull.Value );
-
-		}
-
-		/// <summary>
-		/// Suspends a user when clicked.
-		/// </summary>
-		/// <param name="sender">The object sender inherit from Page.</param>
-		/// <param name="e">The System.EventArgs inherit from Page.</param>
-		private void Suspend_Click( object sender, System.EventArgs e )
-		{
-			// Admins can suspend anyone not admins
-			// Forum Moderators can suspend anyone not admin or forum moderator
-			using ( DataTable dt = DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
-			{
-				foreach ( DataRow row in dt.Rows )
-				{
-					if ( int.Parse( row ["IsAdmin"].ToString() ) > 0 )
-					{
-						AddLoadMessage( GetText( "ERROR_ADMINISTRATORS" ) );
-						return;
-					}
-					if ( !IsAdmin && int.Parse( row ["IsForumModerator"].ToString() ) > 0 )
-					{
-						AddLoadMessage( GetText( "ERROR_FORUMMODERATORS" ) );
-						return;
-					}
-				}
-			}
-
-			DateTime suspend = DateTime.Now;
-			int count = int.Parse( SuspendCount.Text );
-			switch ( SuspendUnit.SelectedValue )
-			{
-				case "1":
-					suspend += new TimeSpan( count, 0, 0, 0 );
-					break;
-				case "2":
-					suspend += new TimeSpan( 0, count, 0, 0 );
-					break;
-				case "3":
-					suspend += new TimeSpan( 0, 0, count, 0 );
-					break;
-			}
-
-			DB.user_suspend( Request.QueryString ["u"], suspend );
-			BindData();
-		}
-
-		private void RemoveSuspension_Click( object sender, System.EventArgs e )
-		{
-			DB.user_suspend( Request.QueryString ["u"], null );
-			BindData();
-		}
-
-		protected string GetSuspendedTo()
-		{
-			if ( ViewState ["SuspendedTo"] != null )
-				return ( string ) ViewState ["SuspendedTo"];
-			else
-				return "";
 		}
 
 		protected string FormatBody( object o )
@@ -321,8 +232,6 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )
 		{
-			RemoveSuspension.Click += new EventHandler( RemoveSuspension_Click );
-			Suspend.Click += new EventHandler( Suspend_Click );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

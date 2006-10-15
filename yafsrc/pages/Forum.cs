@@ -23,6 +23,7 @@ namespace yaf
 		cp_inbox,
 		cp_profile,
 		cp_editprofile,
+		cp_editavatar,
 		cp_signature,
 		cp_subscriptions,
 		cp_message,
@@ -101,7 +102,7 @@ namespace yaf
 			{
                 m_boardID = int.Parse(Config.BoardID);
 			}
-			catch ( Exception )
+			catch
 			{
 				m_boardID = 1;
 			}

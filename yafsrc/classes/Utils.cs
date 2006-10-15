@@ -80,6 +80,7 @@ namespace yaf
 			tProcessedRaw = tProcessedRaw.Replace( "\"", string.Empty );
 			tProcessedRaw = tProcessedRaw.Replace( "<", "%3C" );
 			tProcessedRaw = tProcessedRaw.Replace( ">", "%3E" );
+			tProcessedRaw = tProcessedRaw.Replace( "&", "%26" );
 			return tProcessedRaw.Replace( "'", string.Empty );
 		}
 

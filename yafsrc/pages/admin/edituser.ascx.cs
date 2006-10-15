@@ -37,6 +37,11 @@ namespace yaf.pages.admin
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			// we're in the admin section...
+			ProfileEditControl.InAdminPages = true;
+			SignatureEditControl.InAdminPages = true;
+			AvatarEditControl.InAdminPages = true;
+
 			if ( !IsPostBack )
 			{
 				if ( Request.QueryString ["u"] != null )
@@ -53,7 +58,7 @@ namespace yaf.pages.admin
 				BasicEditLink.Text = "User Details";
 				BasicEditLink.CommandArgument = "QuickEditView";
 
-				GroupLink.Text = "User's Groups";
+				GroupLink.Text = "User Groups";
 				GroupLink.CommandArgument = "GroupEditControl";
 
 				SignatureLink.Text = "Signature Edit";
@@ -62,16 +67,21 @@ namespace yaf.pages.admin
 				ProfileLink.Text = "Profile Edit";
 				ProfileLink.CommandArgument = "ProfileEditControl";
 
-                SuspendUserLink.Text = "Suspend User";
-                SuspendUserLink.CommandArgument = "SuspendUserControl";
+				SuspendLink.Text = "Suspend User";
+				SuspendLink.CommandArgument = "SuspendUserControl";
 
-                EditUserPointsLink.Text = "Edit User's Points";
-                EditUserPointsLink.CommandArgument = "EditUserPointsControl";
+				PointsLink.Text = "User Points";
+				PointsLink.CommandArgument = "UserPointsView";
+
+				AvatarLink.Text = "Avatar Edit";
+				AvatarLink.CommandArgument = "AvatarEditView";
+
+				if ( Request.QueryString ["av"] != null )
+				{
+					// show the avatar section...
+					UserAdminMultiView.SetActiveView( AvatarEditView );
+				}
 			}
-
-			// we're in the admin section...
-			ProfileEditControl.InAdminPages = true;
-			SignatureEditControl.InAdminPages = true;
 		}
 
 		protected void Edit1_Click( object sender, System.EventArgs e )
@@ -96,7 +106,11 @@ namespace yaf.pages.admin
         }
         protected void Edit6_Click(object sender, System.EventArgs e)
         {
-            UserAdminMultiView.SetActiveView(EditUserPointsView);
+			UserAdminMultiView.SetActiveView( UserPointsView );
+		}
+		protected void Edit7_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( AvatarEditView );
         }
 
 		#region Web Form Designer generated code

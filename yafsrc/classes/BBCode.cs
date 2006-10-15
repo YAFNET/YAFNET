@@ -61,8 +61,8 @@ namespace yaf
 		static private Regex r_underline = new Regex( @"\[U\](?<inner>(.*?))\[/U\]", m_options );
 		static private Regex r_email2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", m_options );
 		static private Regex r_email1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", m_options );
-		static private Regex r_url1 = new Regex( @"\[url\](?<http>(http://)|(https://)|(ftp://))?(?<inner>(.*?))\[/url\]", m_options );
-		static private Regex r_url2 = new Regex( @"\[url=(?<http>(http://)|(https://)|(ftp://))?(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]", m_options );
+		static private Regex r_url1 = new Regex( @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", m_options );
+		static private Regex r_url2 = new Regex( @"\[url=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]", m_options );
 		static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
 		static private Regex r_color = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", m_options );
 		static private Regex r_bullet = new Regex( @"\[\*\]", m_options );
@@ -79,7 +79,7 @@ namespace yaf
 		static private Regex r_br = new Regex( "[\r]?\n", m_options );
 		static private Regex r_post = new Regex( @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]", m_options );
 		static private Regex r_topic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", m_options );
-		static private Regex r_img = new Regex( @"\[img[^\]]*\](?<inner>(.*?))\[/img\]", m_options );
+		static private Regex r_img = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", m_options );
 
 		static public string MakeHtml( yaf.pages.ForumPage basePage, string bbcode, bool DoFormatting )
 		{
@@ -178,7 +178,7 @@ namespace yaf
 				NestedReplace( ref bbcode, r_left, "<div align=\"left\">${inner}</div>" );
 				NestedReplace( ref bbcode, r_right, "<div align=\"right\">${inner}</div>" );
 				// image
-				NestedReplace( ref bbcode, r_img, "<img src=\"${inner}\"/>" );
+				NestedReplace( ref bbcode, r_img, "<img src=\"${http}${inner}\"/>", new string [] { "http" }, new string [] { "http://" } );
 
 				bbcode = r_hr.Replace( bbcode, "<hr noshade/>" );
 				bbcode = r_br.Replace( bbcode, "<br/>" );

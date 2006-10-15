@@ -32,32 +32,32 @@ namespace yaf.controls
 
 			// Icon
 			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);
-			html.AppendFormat("<td><img title='{1}' src='{0}'></td>",img,imgTitle);
+			html.AppendFormat( @"<td><img title=""{1}"" src=""{0}""></td>", img, imgTitle );
 			// Topic
-			html.AppendFormat("<td><span class='post_priority'>{0}</span>",GetPriorityMessage(m_row));
+			html.AppendFormat( @"<td><span class=""post_priority"">{0}</span>", GetPriorityMessage( m_row ) );
 			if(FindUnread)
-				html.AppendFormat("<a href='{0}' class='post_link'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}&find=unread",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( Pages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 			else
-				html.AppendFormat("<a href='{0}' class='post_link'>{1}</a>",Forum.GetLink(Pages.posts,"t={0}",m_row["LinkTopicID"]),Utils.BadWordReplace(Convert.ToString(m_row["Subject"])));
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( Pages.posts, "t={0}", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 
 			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,ForumPage.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
 			if (tPager != String.Empty)
 			{
 				// more then one page to show
-				html.AppendFormat("<br/><span class='smallfont'>{0}</span>",String.Format(ForumPage.GetText("GOTO_POST_PAGER"),tPager));
+				html.AppendFormat( @"<br/><span class=""smallfont"">{0}</span>", String.Format( ForumPage.GetText( "GOTO_POST_PAGER" ), tPager ) );
 			}
 
 			//html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
 			
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat("<td><a href='{0}'>{1}</a></td>",Forum.GetLink(Pages.profile,"u={0}",m_row["UserID"]),BBCode.EncodeHTML(m_row["Starter"].ToString()));
+			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", Forum.GetLink( Pages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
 			// Replies
-			html.AppendFormat("<td align=center>{0}</td>",FormatReplies());
+			html.AppendFormat( @"<td align=""center"">{0}</td>", FormatReplies() );
 			// Views
-			html.AppendFormat("<td align=center>{0:N0}</td>",m_row["Views"]);
+			html.AppendFormat( @"<td align=""center"">{0:N0}</td>", m_row ["Views"] );
 			// Last Post
-			html.AppendFormat("<td align=center class=smallfont>{0}</td>",FormatLastPost());
+			html.AppendFormat( @"<td align=""center"" class=""smallfont"">{0}</td>", FormatLastPost() );
 			writer.Write(html.ToString());
 
 			base.RenderChildren(writer);

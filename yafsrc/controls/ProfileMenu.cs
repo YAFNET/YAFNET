@@ -26,6 +26,7 @@ namespace yaf.controls
 			html.AppendFormat("<tr class='header2'><td>{0}</td></tr>",ForumPage.GetText("PERSONAL_PROFILE"));
 			html.AppendFormat("<tr><td>");
 			html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_editprofile),ForumPage.GetText("EDIT_PROFILE"));
+			html.AppendFormat( "<li><a href='{0}'>{1}</a></li>", Forum.GetLink( Pages.cp_editavatar ), ForumPage.GetText( "EDIT_AVATAR" ) );
 			if (ForumPage.BoardSettings.AllowSignatures) html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_signature),ForumPage.GetText("SIGNATURE"));
 			html.AppendFormat("<li><a href='{0}'>{1}</a></li>",Forum.GetLink(Pages.cp_subscriptions),ForumPage.GetText("SUBSCRIPTIONS"));
             html.AppendFormat("<li><a href='{0}'>{1}</a></li>", Forum.GetLink(Pages.cp_changepassword), "Change Password"/*ForumPage.GetText("CHANGE_PASSWORD")*/);

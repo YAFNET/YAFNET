@@ -29,7 +29,9 @@
 		<%# FormatUserBox() %>
 	</td>
 	<td valign="top" class="message">
+	    <div class="postdiv">
 		<%# FormatBody() %>
+		</div>
 	</td>
 </tr>
 <tr class="postfooter">

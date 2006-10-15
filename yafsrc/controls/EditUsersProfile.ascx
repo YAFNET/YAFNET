@@ -90,27 +90,6 @@
 	    <td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","PM_EMAIL_NOTIFICATION") %></td>
 	    <td class="post"><asp:CheckBox id="PMNotificationEnabled" runat="server"/></td>
 	</tr>
-
-	<tr runat="server" id="AvatarRow">
-		<td class="header2" colspan="2"><%= ForumPage.GetText("CP_EDITPROFILE","avatar") %></td>
-	</tr>
-	<tr runat="server" id="AvatarUploadRow">
-		<td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","avatarupload") %></td>
-		<td class="post"><input type="file" id="File" runat="server"/></td>
-	</tr>
-	<tr runat="server" id="AvatarDeleteRow">
-		<td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","avatardelete") %></td>
-		<td class="post"><asp:button runat="server" id="DeleteAvatar" OnClick="DeleteAvatar_Click"/></td>
-	</tr>
-	<tr runat="server" id="AvatarOurs">
-		<td class="postheader" valign="top"><%= ForumPage.GetText("CP_EDITPROFILE","ouravatar") %></td>
-		<td class="post"><asp:image id="AvatarImg" runat="server" visible="false"/><br /><asp:hyperlink id="OurAvatar" runat="server" /></td>
-	</tr>
-	<tr runat="server" id="AvatarRemoteRow">
-		<td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","avatarremote") %></td>
-		<td class="post"><asp:textbox cssclass="edit" id="Avatar" runat="server"/></td>
-	</tr>
-
 	<asp:placeholder runat="server" id="LoginInfo" visible="false">
 	<tr>
 		<td class="header2" colspan="2"><%= ForumPage.GetText("CP_EDITPROFILE","change_password") %></td>
@@ -141,7 +120,9 @@
 
 	<tr>
 		<td class="footer1" colspan="2" align="center">
-			<asp:Button id="UpdateProfile" cssclass="pbutton" runat="server" onclick="UpdateProfile_Click" />
+            <asp:Button ID="UpdateProfile" CssClass="pbutton" runat="server" OnClick="UpdateProfile_Click" />
+            |
+            <asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />            
 		</td>
 	</tr>
 </table>

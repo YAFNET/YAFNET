@@ -48,29 +48,13 @@ namespace yaf.controls
 				Gender.Items.Add( ForumPage.GetText( "PROFILE", "gender2" ) );
 				// End Modifications for enhanced profile				
 
-				DeleteAvatar.Text = ForumPage.GetText( "PROFILE", "delete_avatar" );
-				UpdateProfile.Text = ForumPage.GetText( "PROFILE", "Save" );
-				OurAvatar.NavigateUrl = Forum.GetLink( Pages.avatar );
-				OurAvatar.Text = ForumPage.GetText( "PROFILE", "OURAVATAR_SELECT" );
+				UpdateProfile.Text = ForumPage.GetText( "COMMON", "SAVE" );
+				Cancel.Text = ForumPage.GetText( "COMMON", "CANCEL" );
 
 				ForumSettingsRows.Visible = ForumPage.BoardSettings.AllowUserTheme || ForumPage.BoardSettings.AllowUserLanguage || ForumPage.BoardSettings.AllowPMEmailNotification;
 				UserThemeRow.Visible = ForumPage.BoardSettings.AllowUserTheme;
 				UserLanguageRow.Visible = ForumPage.BoardSettings.AllowUserLanguage;
 				PMNotificationRow.Visible = ForumPage.BoardSettings.AllowPMEmailNotification;
-
-				if ( Request.QueryString ["av"] != null )
-				{
-					AvatarImg.ImageUrl = string.Format( "{2}{0}images/avatars/{1}", Data.ForumRoot, Request.QueryString ["av"], ForumPage.ServerURL );
-					AvatarImg.Visible = true;
-					Avatar.Text = AvatarImg.ImageUrl;
-					// OurAvatar.Visible = false;
-				}
-
-				if ( DeleteAvatar.Visible == true )
-				{
-					AvatarImg.Visible = false;
-					Avatar.Text = "";
-				}		
 		
 				BindData();
 			}
@@ -96,7 +80,6 @@ namespace yaf.controls
 			Location.Text = row ["Location"].ToString();
 			HomePage.Text = row ["HomePage"].ToString();
 			TimeZones.Items.FindByValue( row ["TimeZone"].ToString() ).Selected = true;
-			Avatar.Text = row ["Avatar"].ToString();
 			Email.Text = row ["Email"].ToString();
 			Realname.Text = row ["RealName"].ToString();
 			Occupation.Text = row ["Occupation"].ToString();
@@ -123,21 +106,6 @@ namespace yaf.controls
 				if ( !row.IsNull( "LanguageFile" ) ) languageFile = Convert.ToString( row ["LanguageFile"] );					
 				Language.Items.FindByValue( languageFile ).Selected = true;
 			}
-
-			AvatarDeleteRow.Visible = row ["AvatarImage"].ToString().Length > 0;
-			AvatarImg.Visible = row ["Avatar"].ToString().Length > 0;
-			AvatarImg.ImageUrl = row ["Avatar"].ToString();
-
-			AvatarUploadRow.Visible = ForumPage.BoardSettings.AvatarUpload;
-			AvatarRemoteRow.Visible = ForumPage.BoardSettings.AvatarRemote;
-
-			AvatarRow.Visible = AvatarOurs.Visible || AvatarUploadRow.Visible || AvatarRemoteRow.Visible || AvatarDeleteRow.Visible;
-		}
-
-		protected void DeleteAvatar_Click( object sender, System.EventArgs e )
-		{
-			DB.user_deleteavatar( CurrentUserID );
-			BindData();
 		}
 
 		protected void UpdateProfile_Click( object sender, System.EventArgs e )
@@ -163,57 +131,8 @@ namespace yaf.controls
 			if ( ICQ.Text.Length > 0 && !Utils.IsValidInt( ICQ.Text ) )
 			{
 				ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_ICQ" ) );
-				return;
-			}
-
-			if ( File.PostedFile != null && File.PostedFile.FileName.Trim().Length > 0 && File.PostedFile.ContentLength > 0 )
-			{
-				long x = ForumPage.BoardSettings.AvatarWidth;
-				long y = ForumPage.BoardSettings.AvatarHeight;
-				int nAvatarSize = ForumPage.BoardSettings.AvatarSize;
-
-				System.IO.Stream resized = null;
-
-				using ( System.Drawing.Image img = System.Drawing.Image.FromStream( File.PostedFile.InputStream ) )
-				{
-					if ( img.Width > x || img.Height > y )
-					{
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "WARN_TOOBIG" ), x, y ) );
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "WARN_SIZE" ), img.Width, img.Height ) );
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "WARN_RESIZED" ) );
-
-						double newWidth = img.Width;
-						double newHeight = img.Height;
-						if ( newWidth > x )
-						{
-							newHeight = newHeight * x / newWidth;
-							newWidth = x;
-						}
-						if ( newHeight > y )
-						{
-							newWidth = newWidth * y / newHeight;
-							newHeight = y;
-						}
-
-						using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( ( int ) newWidth, ( int ) newHeight ) ) )
-						{
-							resized = new System.IO.MemoryStream();
-							bitmap.Save( resized, System.Drawing.Imaging.ImageFormat.Jpeg );
-						}
-					}
-					if ( nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null )
-					{
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "WARN_BIGFILE" ), nAvatarSize ) );
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
 						return;
 					}
-
-					if ( resized == null )
-						DB.user_saveavatar( CurrentUserID, File.PostedFile.InputStream );
-					else
-						DB.user_saveavatar( CurrentUserID, resized );
-				}
-			}
 
 			if ( UpdateEmailFlag )
 			{
@@ -267,7 +186,6 @@ namespace yaf.controls
 			}
 			else
 			{
-
 				if ( OldPassword.Text.Length > 0 )
 				{
 					if ( NewPassword1.Text.Length == 0 || NewPassword2.Text.Length == 0 )
@@ -295,9 +213,17 @@ namespace yaf.controls
 			if ( !ForumPage.BoardSettings.EmailVerification )
 				email = Email.Text;
 
-			DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, Avatar.Text, Language.SelectedValue, Theme.SelectedValue, null,
+			DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue, null,
 					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, PMNotificationEnabled.Checked );
 
+			if ( AdminEditMode )
+				Forum.Redirect( Pages.admin_users );
+			else
+				Forum.Redirect( Pages.cp_profile );
+		}
+
+		protected void Cancel_Click( object sender, System.EventArgs e )		
+		{
 			if ( AdminEditMode )
 				Forum.Redirect( Pages.admin_users );
 			else

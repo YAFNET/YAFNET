@@ -107,7 +107,7 @@ namespace yaf.pages
 		{
 			if(UserName.Text.Length<=0) 
 			{
-				//TODO AddLoadMessage(GetText("need_to"));
+				AddLoadMessage( GetText( "NO_SUCH_USER" ) );
 				return;
 			}
 			if(ToList.Visible)

@@ -82,11 +82,12 @@ namespace yaf.controls
 			int nForumID = ForumPage.PageForumID;
 			if ( nForumID <= 0 )
 				writer.WriteLine( "<option/>" );
-			for ( int i = 0; i < dt.Rows.Count; i++ )
+
+			foreach ( DataRow row in dt.Rows )
 			{
-				DataRow row = dt.Rows [i];
-				writer.WriteLine( string.Format( "<option {2}value='{0}'>{1}</option>", row ["ForumID"], row ["Title"], ( string ) row ["ForumID"] == nForumID.ToString() ? "selected=\"selected\" " : "" ) );
+				writer.WriteLine( string.Format( "<option {2}value='{0}'>{1}</option>", row ["ForumID"], row ["Title"], Convert.ToString( row ["ForumID"] ) == nForumID.ToString() ? "selected=\"selected\" " : "" ) );
 			}
+
 			writer.WriteLine( "</select>" );
 		}
 	}

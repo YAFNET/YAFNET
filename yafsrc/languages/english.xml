@@ -34,6 +34,8 @@
     <Resource tag="BBCODE_CODE">Code:</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
     <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
+    <Resource tag="BACK">Back</Resource>
+    <Resource tag="UPDATE">Update</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
@@ -66,7 +68,6 @@
 	</page>
 	<page name="ATTACHMENTS">
 		<Resource tag="TITLE">Attachments</Resource>
-		<Resource tag="BACK">Back</Resource>
 		<Resource tag="UPLOAD">Upload</Resource>
 		<Resource tag="SELECT_FILE">Select the file you want to upload.</Resource>
 		<Resource tag="UPLOAD_TITLE">Upload File</Resource>
@@ -203,10 +204,8 @@
     <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
     <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
     <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
-    <Resource tag="AD_RANKNAME">Sponsor Message</Resource>
     <Resource tag="AD_USERNAME">Sponsor</Resource>
     <Resource tag="AD_SIGNATURE"></Resource>
-    <Resource tag="AD_LOCATION">Server</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -249,6 +248,24 @@
 		<Resource tag="ENTER_KEY">Enter validation key</Resource>
 		<Resource tag="VALIDATE">Validate</Resource>
 	</page>
+  <page name="CP_EDITAVATAR">
+    <Resource tag="TITLE">Modify Avatar</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="AVATARCURRENT">Current Avatar</Resource>
+    <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
+    <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
+    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
+    <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
+    <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+    <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
+    <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
+    <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
+    <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
+    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>    
+	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
 		<Resource tag="TITLE">Edit Profile</Resource>
@@ -258,11 +275,6 @@
 		<Resource tag="HOMEPAGE2">Your home page:</Resource>
 		<Resource tag="TIMEZONE">Time Zone</Resource>
 		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
-		<Resource tag="AVATAR">Avatar</Resource>
-		<Resource tag="AVATARUPLOAD">Upload avatar from your computer.</Resource>
-		<Resource tag="AVATARDELETE">Delete uploaded avatar.</Resource>
-		<Resource tag="DELETE_AVATAR">Delete Avatar</Resource>
-		<Resource tag="AVATARREMOTE">Enter the url of an avatar that will be displayed next to your posts.</Resource>
 		<Resource tag="CHANGE_PASSWORD">Change Password</Resource>
 		<Resource tag="OLDPASSWORD">Old Password:</Resource>
 		<Resource tag="NEWPASSWORD">New Password:</Resource>
@@ -280,13 +292,6 @@
 		<Resource tag="MESSENGER">Instant messaging services</Resource>
 		<Resource tag="ABOUTYOU">About You</Resource>
 		<Resource tag="REALNAME2">What's your real name?</Resource>
-		<Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
-		<Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
-		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
-		<Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
-		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
-		<Resource tag="OURAVATAR">Our avatar collection.</Resource>
-		<Resource tag="OURAVATAR_SELECT">Select from our collection of avatars.</Resource>
 		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
 		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
 		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
@@ -323,6 +328,7 @@
 		<Resource tag="INBOX">Inbox</Resource>
 		<Resource tag="SENTITEMS">Sent Items</Resource>
 		<Resource tag="EDIT_PROFILE">Edit Profile</Resource>
+    <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
 		<Resource tag="SIGNATURE">Signature</Resource>
 		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
 		<Resource tag="YOUR_ACCOUNT">Your Account</Resource>
@@ -612,7 +618,7 @@
 	</page>
 	<page name="AVATAR">
 		<Resource tag="TITLE">Avatars</Resource>
-		<Resource tag="EDITPROFILE">Edit Profile</Resource>
+		<Resource tag="EDITPROFILE">Change Avatar</Resource>
 	</page>
 	<page name="IM_YIM">
 		<Resource tag="TITLE">Yahoo! Messenger</Resource>

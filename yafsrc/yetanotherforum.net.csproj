@@ -104,12 +104,13 @@
     <Content Include="controls\DisplayPost.ascx">
       <SubType>UserControl</SubType>
     </Content>
-    <Content Include="controls\EditSuspendUser.ascx" />
-    <Content Include="controls\EditUserPoints.ascx" />
+    <Content Include="controls\EditUsersAvatar.ascx" />
     <Content Include="controls\EditUsersGroups.ascx" />
     <Content Include="controls\EditUsersInfo.ascx" />
+    <Content Include="controls\EditUsersPoints.ascx" />
     <Content Include="controls\EditUsersProfile.ascx" />
     <Content Include="controls\EditUsersSignature.ascx" />
+    <Content Include="controls\EditUsersSuspend.ascx" />
     <Content Include="controls\ForumList.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -162,6 +163,7 @@
     <Content Include="images\folder.gif" />
     <Content Include="images\forum_locked_icon.gif" />
     <Content Include="images\forum_unlock_icon.gif" />
+    <Content Include="images\noavatar.gif" />
     <Content Include="images\rss.gif" />
     <Content Include="images\spacer.gif" />
     <Content Include="images\yaf.png" />
@@ -233,6 +235,7 @@
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="pages\cp_changepassword.ascx" />
+    <Content Include="pages\cp_editavatar.ascx" />
     <Content Include="pages\cp_editprofile.ascx" />
     <Content Include="pages\cp_inbox.ascx" />
     <Content Include="pages\cp_message.ascx" />
@@ -292,6 +295,7 @@
     <Content Include="themes\ASPNET\forum_status_new.gif" />
     <Content Include="themes\ASPNET\forum_status_poll.gif" />
     <Content Include="themes\ASPNET\forum_status_poll_new.gif" />
+    <Content Include="themes\ASPNET\icon_file.gif" />
     <Content Include="themes\ASPNET\icon_latest_reply.gif" />
     <Content Include="themes\ASPNET\icon_newest_reply.gif" />
     <Content Include="themes\ASPNET\icon_stats.gif" />
@@ -336,8 +340,11 @@
     <Content Include="themes\camo1\b_post_topic.gif" />
     <Content Include="themes\camo1\b_quote_post.gif" />
     <Content Include="themes\camo1\b_unlock_topic.gif" />
+    <Content Include="themes\camo1\collapse.gif" />
+    <Content Include="themes\camo1\expand.gif" />
     <Content Include="themes\camo1\folder_stats.gif" />
     <Content Include="themes\camo1\folder_who.gif" />
+    <Content Include="themes\camo1\icon_file.gif" />
     <Content Include="themes\camo1\icon_latest_reply.gif" />
     <Content Include="themes\camo1\icon_newest_reply.gif" />
     <Content Include="themes\camo1\p_aim.gif" />
@@ -371,6 +378,7 @@
     <Content Include="themes\chrome\bg_footer1.png" />
     <Content Include="themes\chrome\bg_header1.png" />
     <Content Include="themes\chrome\bg_header2.png" />
+    <Content Include="themes\chrome\b_attachments.png" />
     <Content Include="themes\chrome\b_delete_post.png" />
     <Content Include="themes\chrome\b_delete_topic.png" />
     <Content Include="themes\chrome\b_edit_post.png" />
@@ -380,6 +388,8 @@
     <Content Include="themes\chrome\b_post_topic.png" />
     <Content Include="themes\chrome\b_quote_post.png" />
     <Content Include="themes\chrome\b_unlock_topic.png" />
+    <Content Include="themes\chrome\collapse.gif" />
+    <Content Include="themes\chrome\expand.gif" />
     <Content Include="themes\chrome\folder_stats.png" />
     <Content Include="themes\chrome\folder_who.png" />
     <Content Include="themes\chrome\icon_file.gif" />
@@ -856,19 +866,12 @@
     <Compile Include="controls\DisplayPost.ascx.designer.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\EditSuspendUser.ascx.cs">
-      <DependentUpon>EditSuspendUser.ascx</DependentUpon>
+    <Compile Include="controls\EditUsersAvatar.ascx.cs">
+      <DependentUpon>EditUsersAvatar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\EditSuspendUser.ascx.designer.cs">
-      <DependentUpon>EditSuspendUser.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="controls\EditUserPoints.ascx.cs">
-      <DependentUpon>EditUserPoints.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\EditUserPoints.ascx.designer.cs">
-      <DependentUpon>EditUserPoints.ascx</DependentUpon>
+    <Compile Include="controls\EditUsersAvatar.ascx.designer.cs">
+      <DependentUpon>EditUsersAvatar.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersGroups.ascx.cs">
       <DependentUpon>EditUsersGroups.ascx</DependentUpon>
@@ -884,6 +887,13 @@
     <Compile Include="controls\EditUsersInfo.ascx.designer.cs">
       <DependentUpon>EditUsersInfo.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\EditUsersPoints.ascx.cs">
+      <DependentUpon>EditUsersPoints.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\EditUsersPoints.ascx.designer.cs">
+      <DependentUpon>EditUsersPoints.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\EditUsersProfile.ascx.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -897,6 +907,13 @@
     </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.designer.cs">
       <DependentUpon>EditUsersSignature.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\EditUsersSuspend.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\EditUsersSuspend.ascx.designer.cs">
+      <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\Footer.cs">
       <SubType>Code</SubType>
@@ -1257,6 +1274,13 @@
     </Compile>
     <Compile Include="pages\cp_changepassword.ascx.designer.cs">
       <DependentUpon>cp_changepassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_editavatar.ascx.cs">
+      <DependentUpon>cp_editavatar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_editavatar.ascx.designer.cs">
+      <DependentUpon>cp_editavatar.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_editprofile.ascx.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
