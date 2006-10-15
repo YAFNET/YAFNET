@@ -25,11 +25,11 @@ INPUT.pbutton {
 IMG {
 	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
 }
-a,a:link,a:active,a:visited { text-decoration: none; color : #445588; }
-a:hover	{ text-decoration: none; color : #224466; }
+a,a:link,a:active,a:visited { text-decoration: none; color : navy; }
+a:hover	{ text-decoration: none; color : #000000; }
 
 .header1 {
-	FONT-WEIGHT: bold; font-size: 11px; border:0px #006699 solid; HEIGHT: 28px; background-color: #81B4E8; 
+	FONT-WEIGHT: bold; font-size: 12px; COLOR: #ffffff; border:0px #006699 solid; HEIGHT: 28px; background-color: #81B4E8; 
 }
 TR.header1 A {
 	COLOR: #FFFFFF;; TEXT-DECORATION: none; 
@@ -38,7 +38,7 @@ TR.header1 A:hover {
 	COLOR: #c0c0ff; TEXT-DECORATION: none
 }
 .header2 {
-height: 28px; color: #444444; border-color: #A9B8C2; border-style: solid; font-size: 12px; background-color: #CECDCE; white-space: nowrap; border-width: 0px 0px 0px 0px; font-weight: bold;
+height: 28px; color: #333333; border-color: #A9B8C2; border-style: solid; font-size: 12px; background-color: #CECDCE; white-space: nowrap; border-width: 0px 0px 0px 0px; font-weight: bold;
 }
 .footer1 {
 	FONT-SIZE: 7pt; COLOR: #ffffff; HEIGHT: 22px;
@@ -76,7 +76,7 @@ height: 28px; color: #444444; border-color: #A9B8C2; border-style: solid; font-s
 	height: 1px;  
 }
 .content {
-	BORDER: #a9b8c2 1px solid; PADDING: 0px; FONT-SIZE: 8pt; COLOR: #000000; PADDING-TOP: 0px; FONT-FAMILY: verdana,Arial,Helvetica,sans-serif; background-color: #A9B8C2; 
+	BORDER: #a9b8c2 1px solid; PADDING: 0px; FONT-SIZE: 8pt; COLOR: #000000; PADDING-TOP: 0px; FONT-FAMILY: verdana,Arial,Helvetica,sans-serif; background-color: #E6ECF7; 
 }
 .content TD {
 	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px
@@ -133,7 +133,9 @@ TABLE.command {
 .printbody {
 	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; COLOR: #000000; PADDING-TOP: 4px; BACKGROUND-COLOR: #ffffff
 }
-
+.message {
+	
+}
 /*.post TR{
 border: 10px #00ff00 solid;
 }*/

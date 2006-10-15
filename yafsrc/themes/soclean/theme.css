@@ -296,3 +296,15 @@ table.command
 	color: #000000;
 	padding: 4px;
 }
+
+/*
+Use this to setup overflow feature for your site.
+On IE that would mean specifying a width so that the overflow will work properly.
+This CSS already works on FireFox.
+*/
+div.postdiv
+{
+	width: 100%;
+	min-height: 100px;
+	overflow: auto;	
+}

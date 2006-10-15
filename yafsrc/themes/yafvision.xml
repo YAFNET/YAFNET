@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="YAFVision" dir="yafvision">
+  <page name="THEME">
+    <Resource tag="CREDIT">YAFVision Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+  </page>
   <page name="FORUM">
     <Resource tag="BANNER">~/forum_banner.jpg</Resource>
   </page>
