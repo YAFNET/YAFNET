@@ -77,7 +77,7 @@ namespace yaf.controls
 				Page.Cache [cachename] = dt;
 			}
 
-			writer.WriteLine( String.Format( "<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, Page.GetPostBackEventReference( this ) ) );
+			writer.WriteLine( String.Format( "<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, Page.ClientScript.GetPostBackEventReference( this, this.UniqueID ) ) );
 
 			int nForumID = ForumPage.PageForumID;
 			if ( nForumID <= 0 )
