@@ -31,7 +31,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tiny Gecko")]
 [assembly: AssemblyProduct("http://www.yetanotherforum.net/")]
-[assembly: AssemblyCopyright("Copyright (c) 2003-2006 by Bjørnar Henden and Jaben Cargman. All Rights Reserved.")]
+[assembly: AssemblyCopyright("Copyright (c) 2003-2006 by Jaben Cargman and Bjørnar Henden. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
