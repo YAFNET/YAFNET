@@ -1,7 +1,8 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="editforum.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.editforum" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:adminmenu runat="server" id="Adminmenu1">
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Control language="c#" Codebehind="editforum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editforum" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:adminmenu runat="server" id="Adminmenu1">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2">Edit Forum:
@@ -110,5 +111,5 @@
 				<asp:Button id="Cancel" runat="server" Text="Cancel"></asp:Button></td>
 		</tr>
 	</table>
-</yaf:adminmenu>
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+</YAF:adminmenu>
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

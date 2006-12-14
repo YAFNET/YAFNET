@@ -18,7 +18,7 @@ using System.Web.UI.HtmlControls;
 //using jwendl.Pager;
 
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for avatar.
@@ -62,23 +62,24 @@ namespace yaf.pages
 
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 
 				if ( returnUserID > 0 )
 				{
-					PageLinks.AddLink( "Administration", Forum.GetLink( Pages.admin_admin ) );
-					PageLinks.AddLink( "Users", Forum.GetLink( Pages.admin_users ) );
+					PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
+					PageLinks.AddLink( "Users", Forum.GetLink( ForumPages.admin_users ) );
 				}
 				else
 				{				
-				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
-					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), Forum.GetLink( Pages.cp_editavatar ) );
+				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
+					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), Forum.GetLink( ForumPages.cp_editavatar ) );
 				}				
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				pager.PageSize = 20;
 				bind_data();
 			}
+
 		}
 
 		#region Web Form Designer generated code
@@ -138,11 +139,11 @@ namespace yaf.pages
 
 					if ( returnUserID > 0 )
 					{
-						link = Forum.GetLink( Pages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
+						link = Forum.GetLink( ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
 					}
 					else
 				{
-						link = Forum.GetLink( Pages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
+						link = Forum.GetLink( ForumPages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
 					}
 
 					fname.Text = string.Format( @"<p align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></p>{3}", link, ( strDirectory + "/" + finfo.Name ), finfo.Name, Environment.NewLine );
@@ -159,14 +160,44 @@ namespace yaf.pages
 			*/
 		}
 
+		protected override void Render( HtmlTextWriter writer )
+		{
+			/*
+			foreach ( DataListItem item in directories.Items )
+			{
+				HyperLink dname = ( HyperLink ) item.FindControl( "dname" );
+				Page.ClientScript.RegisterForEventValidation( dname.UniqueID );				
+				Trace.Write( dname.ID );
+			}
+
+			LinkButton dimage = ( LinkButton ) this.FindControl( "GoDir" );
+			Page.ClientScript.RegisterForEventValidation( dimage.UniqueID );
+			
+			/*
+			foreach ( GridViewRow r in GridView1.Rows )
+			{
+				if ( r.RowType == DataControlRowType.DataRow )
+				{
+					Page.ClientScript.RegisterForEventValidation( r.UniqueID + "$ctl00" );
+					Page.ClientScript.RegisterForEventValidation( r.UniqueID + "$ctl01" );
+				}
+			}
+			 */
+
+			base.Render( writer );
+		}
+
 		public void directories_bind(object sender, DataListItemEventArgs e)
 		{
 			string strDirectory = Data.ForumRoot + "images/avatars/";
 	
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
-				HyperLink dname = (HyperLink)e.Item.FindControl("dname");
-				dname.NavigateUrl = Page.ClientScript.GetPostBackClientHyperlink(GoDir, filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+				HyperLink dname = (HyperLink)e.Item.FindControl("dname");				
+
+				Trace.Write(dname.UniqueID);
+
+				dname.NavigateUrl = Page.ClientScript.GetPostBackClientHyperlink(GoDir, filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")),true);
 				dname.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", Data.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
 			}
 		}

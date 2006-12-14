@@ -1,7 +1,8 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="boardsettings.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.boardsettings" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:adminmenu runat="server" id="Adminmenu1">
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Control language="c#" Codebehind="boardsettings.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boardsettings" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:adminmenu runat="server" id="Adminmenu1">
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<tr>
 			<td class="header1" colSpan="2">Forum Settings</td>
@@ -50,5 +51,5 @@
 				<asp:Button id="Save" runat="server" Text="Save" onclick="Save_Click"></asp:Button></td>
 		</tr>
 	</table>
-</yaf:adminmenu>
-<yaf:SmartScroller id="SmartScroller1" runat="server" />
+</YAF:adminmenu>
+<YAF:SmartScroller id="SmartScroller1" runat="server" />

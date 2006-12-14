@@ -1,5 +1,5 @@
 <%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="True" Inherits="yaf.install._default" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="yaf" Namespace="YAF.Controls" Assembly="yaf" %>
 
 <html>
 <head>
@@ -20,22 +20,22 @@
         <NavigationButtonStyle BackColor="White" BorderColor="#507CD1" BorderStyle="Solid"
             BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284E98" />
         <WizardSteps>
-            <asp:WizardStep runat="server" StepType="Start" Title="Create Configuration Password">
-                <strong>Create Configuration Password</strong><br />
+            <asp:WizardStep runat="server" StepType="Start" Title="Create Config Password">
+                <strong>Create Config Password</strong><br />
                 <br />
                 Since this is the first time you install or upgrade this version of the forum, you
                 need to create a configuration password. This password is stored in your web.config
                 file and needs to be entered every time you want to upgrade the forum.<br />
                 <br />
-                Configuration Password:<br />
+                Config Password:<br />
                 <asp:TextBox ID="TextBox1" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
                 <br />
                 <br />
                 Verify Password:<br />
                 <asp:TextBox ID="TextBox2" runat="server" Width="100%" TextMode="Password"></asp:TextBox>
             </asp:WizardStep>
-            <asp:WizardStep runat="server" StepType="Start" Title="Enter Configuration Password">
-                <strong>Enter Configuration Password</strong><br />
+            <asp:WizardStep runat="server" StepType="Start" Title="Enter Config Password">
+                <strong>Enter Config Password</strong><br />
                 <br />
                 You need to enter the configuration password to upgrade the forum. This is the configuration
                 password you created when the forum was first installed, not the admin user password.<br />

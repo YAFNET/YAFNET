@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.install {
+namespace YAF.Install {
     
     public partial class _default {
 			protected System.Web.UI.WebControls.Wizard Wizard;
@@ -25,6 +25,6 @@ namespace yaf.install {
 			protected System.Web.UI.WebControls.TextBox Password2;
 			protected System.Web.UI.WebControls.TextBox SecurityQuestion;
 			protected System.Web.UI.WebControls.TextBox SecurityAnswer;
-			protected yaf.controls.SmartScroller scroller;
+			protected YAF.Classes.UI.SmartScroller scroller;
     }
 }

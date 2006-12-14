@@ -1,7 +1,8 @@
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Control language="c#" Codebehind="recover.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.help.recover" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:helpmenu runat="server">
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Control language="c#" Codebehind="recover.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.recover" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:helpmenu runat="server">
 
 <table class="content" width="100%" cellspacing="0" cellpadding="0">
 <tr><td class="post" valign="top">
@@ -17,5 +18,5 @@
 </table>
 
 
-</yaf:helpmenu>
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+</YAF:helpmenu>
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for emailtopic.
@@ -49,17 +49,17 @@ namespace yaf.pages
 			{
 				if ( ForumControl.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( Pages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageForumID );
-				PageLinks.AddLink( PageTopicName, Forum.GetLink( Pages.posts, "t={0}", PageTopicID ) );
+				PageLinks.AddLink( PageTopicName, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) );
 
 				SendEmail.Text = GetText( "send" );
 
 				Subject.Text = PageTopicName;
 				string msg = Utils.ReadTemplate( "emailtopic.txt" );
-				msg = msg.Replace( "{link}", String.Format( "{0}{1}", ServerURL, Forum.GetLink( Pages.posts, "t={0}", PageTopicID ) ) );
+				msg = msg.Replace( "{link}", String.Format( "{0}{1}", ServerURL, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) ) );
 				msg = msg.Replace( "{user}", PageUserName );
 				Message.Text = msg;
 			}
@@ -95,16 +95,16 @@ namespace yaf.pages
 			try
 			{
 				string senderemail;
-				using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
 					senderemail = ( string ) dt.Rows [0] ["Email"];
 
 				//  Build a MailMessage
 				Utils.SendMail( this, senderemail, EmailAddress.Text, Subject.Text, Message.Text );
-				Forum.Redirect( Pages.posts, "t={0}", PageTopicID );
+				Forum.Redirect( ForumPages.posts, "t={0}", PageTopicID );
 			}
 			catch ( Exception x )
 			{
-				DB.eventlog_create( PageUserID, this, x );
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
 				AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
 			}
 		}

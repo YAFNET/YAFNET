@@ -1,9 +1,10 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="avatar.ascx.cs" Inherits="yaf.pages.avatar" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="avatar.ascx.cs" Inherits="YAF.Pages.avatar" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<p class="navlinks"><yaf:pager runat="server" id="pager"/></p>
+<p class="navlinks"><YAF:pager runat="server" id="pager"/></p>
 		<asp:hyperLink id="goup" runat="server" /><br />
 		<h2><%= GetText("TITLE") %></h2>
 		<asp:datalist runat="server" id="directories" width="100%"
@@ -35,6 +36,6 @@
 			</ItemTemplate>
 		</asp:datalist>
 
-<p class="navlinks"><yaf:pager runat="server" linkedpager="pager"/></p>
+<p class="navlinks"><YAF:pager runat="server" linkedpager="pager"/></p>
 
 <asp:linkbutton runat="server" id="GoDir" visible="false"/>

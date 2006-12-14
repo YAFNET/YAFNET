@@ -28,7 +28,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for rules.
@@ -44,12 +44,12 @@ namespace yaf.pages
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 			
 				ForumRules.Text = "TODO:";
 			}
 			//TODO: Write license info and stuff...
-			Forum.Redirect(Pages.register);
+			Forum.Redirect( ForumPages.register);
 		}
 
 		#region Web Form Designer generated code
@@ -74,12 +74,12 @@ namespace yaf.pages
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.forum);
+			Forum.Redirect( ForumPages.forum);
 		}
 
 		protected void Accept_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.register);
+			Forum.Redirect( ForumPages.register);
 		}
 
 	}

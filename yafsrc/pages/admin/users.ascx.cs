@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for members.
@@ -38,11 +38,11 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Users","");
 
-				using(DataTable dt=DB.group_list(PageBoardID,null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.group_list(PageBoardID,null)) 
 				{
 					DataRow newRow = dt.NewRow();
 					newRow["Name"] = string.Empty;
@@ -55,7 +55,7 @@ namespace yaf.pages.admin
 					group.DataBind();
 				}
 
-				using(DataTable dt=DB.rank_list(PageBoardID,null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.rank_list(PageBoardID,null)) 
 				{
 					DataRow newRow = dt.NewRow();
 					newRow["Name"] = string.Empty;
@@ -88,7 +88,7 @@ namespace yaf.pages.admin
 		private void BindData() 
 		{
 			using(DataTable dt=
-					  DB.user_list(PageBoardID,null,null,
+					  YAF.Classes.Data.DB.user_list(PageBoardID,null,null,
 					  group.SelectedIndex<=0 ? null : group.SelectedValue,
 					  rank.SelectedIndex<=0 ? null : rank.SelectedValue
 					  )) 
@@ -106,7 +106,7 @@ namespace yaf.pages.admin
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "edit":
-					Forum.Redirect(Pages.admin_edituser,"u={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
 					if(PageUserID==int.Parse(e.CommandArgument.ToString()))
@@ -115,7 +115,7 @@ namespace yaf.pages.admin
 						return;
 					}
                     string userName = string.Empty;
-                    using (DataTable dt = DB.user_list(PageBoardID, e.CommandArgument, DBNull.Value))
+                    using (DataTable dt = YAF.Classes.Data.DB.user_list(PageBoardID, e.CommandArgument, DBNull.Value))
                     {
                         foreach (DataRow row in dt.Rows)
                         {
@@ -132,7 +132,7 @@ namespace yaf.pages.admin
                             }
                         }
                     }
-					DB.user_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.user_delete(e.CommandArgument);
                     System.Web.Security.Membership.DeleteUser(userName, true);
 					BindData();
 					break;
@@ -141,7 +141,7 @@ namespace yaf.pages.admin
 		// Added BAI 07.01.2003
 		private void NewUser_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_reguser);
+			Forum.Redirect( ForumPages.admin_reguser);
 		}
 		// END Added BAI 07.01.2003
 

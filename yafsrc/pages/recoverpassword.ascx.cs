@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
     public partial class recoverpassword : ForumPage
     {
@@ -21,11 +21,11 @@ namespace yaf.pages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!CanLogin)
-                Forum.Redirect(Pages.forum);
+                Forum.Redirect( ForumPages.forum);
 
             if (!IsPostBack)
             {
-                PageLinks.AddLink(BoardSettings.Name, Forum.GetLink(Pages.forum));
+                PageLinks.AddLink(BoardSettings.Name, Forum.GetLink( ForumPages.forum));
             }
         }
     }

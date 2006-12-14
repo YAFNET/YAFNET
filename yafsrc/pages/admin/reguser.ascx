@@ -1,7 +1,8 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="reguser.ascx.cs" Inherits="yaf.pages.admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:adminmenu runat="server" id="Adminmenu1">
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="reguser.ascx.cs" Inherits="YAF.Pages.Admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:adminmenu runat="server" id="Adminmenu1">
   <table class="content" cellSpacing="1" cellPadding="0" width="100%">
     <tr>
       <td class="header1" colSpan="2">New User</td>
@@ -62,5 +63,5 @@
         <asp:button id="cancel" runat="server" text="Cancel" onclick="cancel_Click"></asp:button></td>
     </tr>
   </table>
-</yaf:adminmenu>
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+</YAF:adminmenu>
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

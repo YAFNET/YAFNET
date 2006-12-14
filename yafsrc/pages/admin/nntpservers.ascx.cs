@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for ranks.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Servers","");
 				
 				BindData();
@@ -75,7 +75,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			RankList.DataSource = DB.nntpserver_list(PageBoardID,null);
+			RankList.DataSource = YAF.Classes.Data.DB.nntpserver_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -84,10 +84,10 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editnntpserver,"s={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editnntpserver,"s={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.nntpserver_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.nntpserver_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
@@ -95,7 +95,7 @@ namespace yaf.pages.admin
 
 		protected void NewServer_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_editnntpserver);
+			Forum.Redirect( ForumPages.admin_editnntpserver);
 		}
 	}
 }

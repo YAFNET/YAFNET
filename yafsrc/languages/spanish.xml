@@ -245,7 +245,7 @@
 		<Resource tag="NO_PASSWORD_MATCH">Contraseña nueva no concuerda.</Resource>
 		<Resource tag="OLD_PASSWORD_WRONG">Contraseña anterior equivocada.</Resource>
 		<Resource tag="MAIL_SENT">Se ha enviado un correo a {0}.\n\nDebes verificar tu nuevo correo electrónico\nabriendo el link en el correo para persistir el cambio.</Resource>
-		<Resource tag="FORUM_SETTINGS">Configuración del foro</Resource>
+		<Resource tag="FORUM_SETTINGS">Utilsuración del foro</Resource>
 		<Resource tag="SELECT_THEME">Estilo preferido:</Resource>
 		<Resource tag="SELECT_LANGUAGE">Idioma preferido:</Resource>
 		<Resource tag="WEBLOG2">Tu blog:</Resource>

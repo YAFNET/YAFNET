@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.postmessage" %>
+<%@ Control language="c#" Codebehind="postmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="editor" Namespace="YAF.editor" Assembly="YAF" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class="content" cellspacing="1" cellpadding="4" width="100%" align="center">
 	<tr>
@@ -123,7 +124,7 @@
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
 			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
@@ -136,7 +137,7 @@
 </ItemTemplate>
 <AlternatingItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
 			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
@@ -151,4 +152,4 @@
 
 <iframe runat="server" visible="false" id="LastPostsIFrame" name="lastposts" width="100%" height="300" frameborder="0" marginheight="2" marginwidth="2" scrolling="yes"></iframe>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

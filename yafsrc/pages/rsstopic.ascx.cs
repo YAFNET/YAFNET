@@ -29,7 +29,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for rss.
@@ -61,26 +61,26 @@ namespace yaf.pages
 
 					if ( Request.QueryString ["t"] != null )
 					{
-						using ( DataTable dt = DB.post_list( PageTopicID, 1 ) )
+						using ( DataTable dt = YAF.Classes.Data.DB.post_list( PageTopicID, 1 ) )
 						{
 							foreach ( DataRow row in dt.Rows )
-								rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( Pages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 						}
 					}
 
 					break;
 				case "forum":
-					using ( DataTable dt = DB.forum_listread( PageBoardID, PageUserID, null, null ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.forum_listread( PageBoardID, PageUserID, null, null ) )
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
 							if ( row ["LastTopicID"] != DBNull.Value )
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( Pages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 							else
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( Pages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 						}
 					}
@@ -92,22 +92,22 @@ namespace yaf.pages
 					if ( Request.QueryString ["f"] != null )
 					{
 						string tSQL = "select Topic = a.Topic, TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from yaf_Topic a, yaf_Forum b where a.ForumID=" + Request.QueryString ["f"] + " and b.ForumID = a.ForumID";
-						using ( DataTable dt = DB.GetData( tSQL ) )
+						using ( DataTable dt = YAF.Classes.Data.DB.GetData( tSQL ) )
 						{
 							foreach ( DataRow row in dt.Rows )
 							{
-								rf.AddRSSItem( writer, row ["Topic"].ToString(), ServerURL + Forum.GetLink( Pages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Topic"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 							}
 						}
 					}
 
 					break;
 				case "active":
-					using ( DataTable dt = DB.topic_active( PageBoardID, PageUserID, DateTime.Now + TimeSpan.FromHours( -24 ), ForumControl.CategoryID ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.topic_active( PageBoardID, PageUserID, DateTime.Now + TimeSpan.FromHours( -24 ), ForumControl.CategoryID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( Pages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
 						}
 					}
 					break;

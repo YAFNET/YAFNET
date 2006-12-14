@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="cp_inbox.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_inbox" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="cp_inbox.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.cp_inbox" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
@@ -25,7 +26,7 @@
 <ItemTemplate>
 	<tr class=post>
 		<td align="center"><img src='<%# GetImage(Container.DataItem) %>'/></td>
-		<td><a href='<%# yaf.Forum.GetLink(yaf.Pages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
+		<td><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
 		<td><%# Eval(IsSentItems ? "ToUser" : "FromUser") %></td>
 		<td><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %></td>
 		<td align="center"><asp:checkbox runat="server" id="ItemCheck" /></td>
@@ -34,4 +35,4 @@
 </ItemTemplate>
 </asp:repeater>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

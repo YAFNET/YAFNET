@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for register.
@@ -23,8 +23,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Version Check","");
 			}
 

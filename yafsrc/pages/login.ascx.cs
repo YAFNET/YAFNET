@@ -28,7 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for login.
@@ -44,16 +44,16 @@ namespace yaf.pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !CanLogin )
-				Forum.Redirect( Pages.forum );
+				Forum.Redirect( ForumPages.forum );
 
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
 				Login1.CreateUserText = "Sign up for a new account.";
-				Login1.CreateUserUrl = Forum.GetLink( Pages.register );
+				Login1.CreateUserUrl = Forum.GetLink( ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
-				Login1.PasswordRecoveryUrl = Forum.GetLink( Pages.recoverpassword );
+				Login1.PasswordRecoveryUrl = Forum.GetLink( ForumPages.recoverpassword );
 
 				//ForumLogin.Text = GetText( "forum_login" );
 				//LostPassword.Text = GetText( "lostpassword" );
@@ -79,7 +79,7 @@ namespace yaf.pages
 			if ( Request.QueryString ["ReturnUrl"] != null )
 				Response.Redirect( Request.QueryString ["ReturnUrl"] );
 			else
-				Forum.Redirect( Pages.forum );
+				Forum.Redirect( ForumPages.forum );
 		}
 	}
 }

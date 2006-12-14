@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for attachments.
@@ -25,9 +25,9 @@ namespace yaf.pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			using ( DataTable dt = DB.forum_list( PageBoardID, PageForumID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, PageForumID ) )
 				forum = dt.Rows [0];
-			topic = DB.topic_info( PageTopicID );
+			topic = YAF.Classes.Data.DB.topic_info( PageTopicID );
 
 			if ( !IsPostBack )
 			{
@@ -37,25 +37,25 @@ namespace yaf.pages
 				if ( !ForumReadAccess )
 					Data.AccessDenied();
 
-				if ( ( ( int ) topic ["Flags"] & ( int ) TopicFlags.Locked ) == ( int ) TopicFlags.Locked )
+				if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 					Data.AccessDenied(/*"The topic is closed."*/);
 
-				if ( ( ( int ) forum ["Flags"] & ( int ) ForumFlags.Locked ) == ( int ) ForumFlags.Locked )
+				if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
 					Data.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written
 				if ( !ForumModeratorAccess )
-					using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
 						if ( ( int ) dt.Rows [0] ["UserID"] != PageUserID )
 							Data.AccessDenied(/*"You didn't post this message."*/);
 
 				if ( ForumControl.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( Pages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageForumID );
-				PageLinks.AddLink( PageTopicName, Forum.GetLink( Pages.posts, "t={0}", PageTopicID ) );
+				PageLinks.AddLink( PageTopicName, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Back.Text = GetText( "BACK" );
@@ -67,7 +67,7 @@ namespace yaf.pages
 
 		private void BindData()
 		{
-			DataTable dt = DB.attachment_list( Request.QueryString ["m"], null, null );
+			DataTable dt = YAF.Classes.Data.DB.attachment_list( Request.QueryString ["m"], null, null );
 			List.DataSource = dt;
 
 			List.Visible = ( dt.Rows.Count > 0 ) ? true : false;
@@ -82,7 +82,7 @@ namespace yaf.pages
 
 		private void Back_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( Pages.posts, "m={0}#{0}", Request.QueryString ["m"] );
+			Forum.Redirect( ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
 		}
 
 		private void List_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
@@ -90,7 +90,7 @@ namespace yaf.pages
 			switch ( e.CommandName )
 			{
 				case "delete":
-					DB.attachment_delete( e.CommandArgument );
+					YAF.Classes.Data.DB.attachment_delete( e.CommandArgument );
 					BindData();
 					break;
 			}
@@ -106,7 +106,7 @@ namespace yaf.pages
 			}
 			catch ( Exception x )
 			{
-				DB.eventlog_create( PageUserID, this, x );
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
 				AddLoadMessage( x.Message );
 				return;
 			}
@@ -147,7 +147,7 @@ namespace yaf.pages
 			if ( file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0 )
 				return;
 
-			string sUpDir = Request.MapPath(Config.UploadDir);
+			string sUpDir = Request.MapPath( YAF.Classes.Utils.Config.UploadDir );
 			string filename = file.PostedFile.FileName;
 
 			int pos = filename.LastIndexOfAny( new char [] { '/', '\\' } );
@@ -159,12 +159,12 @@ namespace yaf.pages
 
 			if ( BoardSettings.UseFileTable )
 			{
-				DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, file.PostedFile.InputStream );
+				YAF.Classes.Data.DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, file.PostedFile.InputStream );
 			}
 			else
 			{
 				file.PostedFile.SaveAs( String.Format( "{0}{1}.{2}", sUpDir, messageID, filename ) );
-				DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null );
+				YAF.Classes.Data.DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null );
 			}
 		}
 

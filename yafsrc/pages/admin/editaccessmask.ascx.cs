@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for WebForm1.
@@ -37,26 +37,26 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Access Masks","");
 
 				BindData();
 				if(Request.QueryString["i"] != null) {
-					using(DataTable dt = DB.accessmask_list(PageBoardID,Request.QueryString["i"])) 
+					using(DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text				= (string)row["Name"];
-						ReadAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.ReadAccess);
-						PostAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.PostAccess);
-						ReplyAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.ReplyAccess);
-						PriorityAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.PriorityAccess);
-						PollAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.PollAccess);
-						VoteAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.VoteAccess);
-						ModeratorAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.ModeratorAccess);
-						EditAccess.Checked		= BitSet(row["Flags"],(int)AccessFlags.EditAccess);
-						DeleteAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.DeleteAccess);
-						UploadAccess.Checked	= BitSet(row["Flags"],(int)AccessFlags.UploadAccess);
+						ReadAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ReadAccess);
+						PostAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PostAccess);
+						ReplyAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ReplyAccess);
+						PriorityAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PriorityAccess);
+						PollAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PollAccess);
+						VoteAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.VoteAccess);
+						ModeratorAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ModeratorAccess);
+						EditAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.EditAccess);
+						DeleteAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.DeleteAccess);
+						UploadAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.UploadAccess);
 					}
 				}
 			}
@@ -93,7 +93,7 @@ namespace yaf.pages.admin
 			if(Request.QueryString["i"]!=null)
 				accessMaskID = Request.QueryString["i"];
 
-			DB.accessmask_save(accessMaskID,
+			YAF.Classes.Data.DB.accessmask_save(accessMaskID,
 				PageBoardID,
 				Name.Text,
 				ReadAccess.Checked,
@@ -106,12 +106,12 @@ namespace yaf.pages.admin
 				EditAccess.Checked,
 				DeleteAccess.Checked,
 				UploadAccess.Checked);
-			Forum.Redirect(Pages.admin_accessmasks);
+			Forum.Redirect( ForumPages.admin_accessmasks);
 		}
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_accessmasks);
+			Forum.Redirect( ForumPages.admin_accessmasks);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

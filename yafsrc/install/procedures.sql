@@ -1975,12 +1975,12 @@ CREATE procedure [dbo].[yaf_message_save](
 )
 AS
 BEGIN
-	DECLARE @ForumID INT, @ForumFlags INT, @Position INT, @Indent INT
+	DECLARE @ForumID INT, @YAF.Classes.Data.ForumFlags INT, @Position INT, @Indent INT
 
 	IF @Posted IS NULL
 		SET @Posted = GETDATE()
 
-	SELECT @ForumID = x.ForumID, @ForumFlags = y.Flags
+	SELECT @ForumID = x.ForumID, @YAF.Classes.Data.ForumFlags = y.Flags
 	FROM yaf_Topic x,yaf_Forum y
 	WHERE x.TopicID = @TopicID AND y.ForumID=x.ForumID
 
@@ -2031,7 +2031,7 @@ BEGIN
 
 	SET @MessageID = SCOPE_IDENTITY()
 
-	IF (@ForumFlags & 8) = 0
+	IF (@YAF.Classes.Data.ForumFlags & 8) = 0
 		EXEC yaf_message_approve @MessageID
 END
 	
@@ -2064,13 +2064,13 @@ GO
 CREATE procedure [dbo].[yaf_message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext) as
 begin
 	declare @TopicID	int
-	declare	@ForumFlags	int
+	declare	@YAF.Classes.Data.ForumFlags	int
 
 	set @Flags = @Flags & ~16	
 	
 	select 
 		@TopicID	= a.TopicID,
-		@ForumFlags	= c.Flags
+		@YAF.Classes.Data.ForumFlags	= c.Flags
 	from 
 		yaf_Message a,
 		yaf_Topic b,
@@ -2080,7 +2080,7 @@ begin
 		b.TopicID = a.TopicID and
 		c.ForumID = b.ForumID
 
-	if (@ForumFlags & 8)=0 set @Flags = @Flags | 16
+	if (@YAF.Classes.Data.ForumFlags & 8)=0 set @Flags = @Flags | 16
 
 	update yaf_Message set
 		Message = @Message,
@@ -2104,7 +2104,7 @@ begin
 	end 
 	
 	-- If forum is moderated, make sure last post pointers are correct
-	if (@ForumFlags & 8)<>0 exec yaf_topic_updatelastpost
+	if (@YAF.Classes.Data.ForumFlags & 8)<>0 exec yaf_topic_updatelastpost
 end
 GO
 
@@ -2697,8 +2697,8 @@ begin
 
 	select
 		d.TopicID,
-		TopicFlags	= d.Flags,
-		ForumFlags	= g.Flags,
+		YAF.Classes.Data.TopicFlags	= d.Flags,
+		YAF.Classes.Data.ForumFlags	= g.Flags,
 		a.MessageID,
 		a.Posted,
 		Subject = d.Topic,
@@ -3007,12 +3007,12 @@ begin
 		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastTopicID = c.TopicID,
-		TopicFlags = c.Flags,
+		YAF.Classes.Data.TopicFlags = c.Flags,
 		c.Priority,
 		c.PollID,
 		ForumName = d.Name,
 		c.TopicMovedID,
-		ForumFlags = d.Flags
+		YAF.Classes.Data.ForumFlags = d.Flags
 	from
 		yaf_Topic c
 		join yaf_User b on b.UserID=c.UserID
@@ -3196,10 +3196,10 @@ begin
 		LastUserName = IsNull(c.LastUserName,(select Name from yaf_User x where x.UserID=c.LastUserID)),
 		LastMessageID = c.LastMessageID,
 		LastTopicID = c.TopicID,
-		TopicFlags = c.Flags,
+		YAF.Classes.Data.TopicFlags = c.Flags,
 		c.Priority,
 		c.PollID,
-		ForumFlags = d.Flags
+		YAF.Classes.Data.ForumFlags = d.Flags
 	from
 		yaf_Topic c 
 		join yaf_User b on b.UserID=c.UserID 

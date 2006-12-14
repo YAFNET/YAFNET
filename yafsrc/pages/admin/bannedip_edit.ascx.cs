@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip_edit.
@@ -38,9 +38,9 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
-				PageLinks.AddLink("Banned IP Addresses",Forum.GetLink(Pages.admin_bannedip));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink("Banned IP Addresses",Forum.GetLink( ForumPages.admin_bannedip));
 
 				BindData();
 			}
@@ -48,7 +48,7 @@ namespace yaf.pages.admin
 
 		private void BindData() {
 			if(Request.QueryString["i"] != null) {
-				DataRow row = DB.bannedip_list(PageBoardID,Request.QueryString["i"]).Rows[0];
+				DataRow row = YAF.Classes.Data.DB.bannedip_list(PageBoardID,Request.QueryString["i"]).Rows[0];
 				mask.Text = (string)row["Mask"];
 			}
 		}
@@ -59,13 +59,13 @@ namespace yaf.pages.admin
 				AddLoadMessage("Invalid ip address.");
 				return;
 			}
-			DB.bannedip_save(Request.QueryString["i"],PageBoardID,mask.Text);
+			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageBoardID,mask.Text);
 			Cache.Remove("bannedip");
-			Forum.Redirect(Pages.admin_bannedip);
+			Forum.Redirect( ForumPages.admin_bannedip);
 		}
 
 		private void cancel_Click(object sender,EventArgs e) {
-			Forum.Redirect(Pages.admin_bannedip);
+			Forum.Redirect( ForumPages.admin_bannedip);
 		}
 
 		#region Web Form Designer generated code

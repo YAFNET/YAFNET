@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="editaccessmask.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.editaccessmask" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="editaccessmask.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editaccessmask" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<YAF:adminmenu runat="server">
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
 <tr class="header1">
@@ -62,6 +63,6 @@
 </tr>
 </table>
 
-</yaf:adminmenu>
+</YAF:adminmenu>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

@@ -1,13 +1,14 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
-<%@ Register TagPrefix="yc" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Data" Assembly="YAF.Classes.Data" %>
+<%@ Register TagPrefix="yc" Namespace="YAF.Controls" Assembly="YAF" %>
 
 <script runat="server">
 public void Page_Error(object sender,System.EventArgs e)
 {
 	Exception x = Server.GetLastError();
-	yaf.DB.eventlog_create(forum.PageUserID,this,x);
-	yaf.Utils.LogToMail(x);
+    DB.eventlog_create( forum.PageUserID, this, x );
+	YAF.Utils.LogToMail(x);
 }
 </script>
 
@@ -24,7 +25,7 @@ public void Page_Error(object sender,System.EventArgs e)
 <br />
 
 <form runat="server" enctype="multipart/form-data">
-	<yaf:forum runat="server" id="forum" />
+	<YAF:forum runat="server" id="forum" />
 </form>
 
 </body>

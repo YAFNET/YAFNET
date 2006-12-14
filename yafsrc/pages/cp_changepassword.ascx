@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="cp_changepassword.ascx.cs" AutoEventWireup="false" Inherits="yaf.pages.cp_changepassword" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="cp_changepassword.ascx.cs" AutoEventWireup="false" Inherits="YAF.Pages.cp_changepassword" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <asp:ChangePassword ID="ChangePassword1" runat="server">
 </asp:ChangePassword>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

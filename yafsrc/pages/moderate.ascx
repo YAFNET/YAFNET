@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="moderate.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.moderate0" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="moderate.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.moderate0" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content cellspacing=1 cellpadding=0 width=100%>
 <tr>
@@ -51,11 +52,11 @@
 
 <asp:repeater id=topiclist runat=server>
 <itemtemplate>
-	<yaf:TopicLine runat="server" DataRow=<%# Container.DataItem %>>
+	<YAF:TopicLine runat="server" DataRow=<%# Container.DataItem %>>
 		<td class="postheader" align="center">
 			<asp:linkbutton runat=server onload="Delete_Load" commandargument='<%# Eval( "TopicID") %>' commandname='delete'><%# GetThemeContents("BUTTONS","DELETETOPIC") %></asp:linkbutton>
 		</td>
-	</yaf:TopicLine>
+	</YAF:TopicLine>
 </itemtemplate>
 </asp:repeater>
 
@@ -64,4 +65,4 @@
 </tr>
 </table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

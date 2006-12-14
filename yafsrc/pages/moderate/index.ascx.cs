@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.moderate
+namespace YAF.Pages.moderate
 {
 	/// <summary>
 	/// Summary description for _default.
@@ -28,7 +28,7 @@ namespace yaf.pages.moderate
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),"");
 				BindData();
 			}
@@ -36,7 +36,7 @@ namespace yaf.pages.moderate
 
 		private void BindData() 
 		{
-			List.DataSource = DB.forum_moderatelist();
+			List.DataSource = YAF.Classes.Data.DB.forum_moderatelist();
 			DataBind();
 		}
 

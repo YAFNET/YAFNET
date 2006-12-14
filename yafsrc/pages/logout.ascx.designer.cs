@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.pages {
+namespace YAF.Pages {
     
     public partial class logout {
     }

@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="im_aim.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.im_aim" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="im_aim.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_aim" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <!-- Begin AIM Remote -->
 	 
@@ -13,4 +14,4 @@
 </table>
 
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

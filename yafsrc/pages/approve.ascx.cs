@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for approve.
@@ -42,7 +42,7 @@ namespace yaf.pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				ValidateKey.Text = GetText("validate");
@@ -61,7 +61,7 @@ namespace yaf.pages
 
 		private void ValidateKey_Click(object sender, System.EventArgs e)
 		{
-			approved.Visible = DB.checkemail_update(key.Text);
+			approved.Visible = YAF.Classes.Data.DB.checkemail_update(key.Text);
 			error.Visible = !approved.Visible;
 			AddLoadMessage(GetText("EMAIL_VERIFIED"));
 			Response.Redirect("default.aspx?g=login");

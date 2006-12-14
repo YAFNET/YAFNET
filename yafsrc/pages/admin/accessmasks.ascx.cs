@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for forums.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Access Masks","");
 				BindData();
 			}
@@ -53,7 +53,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.accessmask_list(PageBoardID,null);
+			List.DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -83,10 +83,10 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editaccessmask,"i={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(DB.accessmask_delete(e.CommandArgument))
+					if(YAF.Classes.Data.DB.accessmask_delete(e.CommandArgument))
 						BindData();
 					else
 						AddLoadMessage("You cannot delete this access mask because it is in use.");
@@ -96,7 +96,7 @@ namespace yaf.pages.admin
 
 		protected void New_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_editaccessmask);
+			Forum.Redirect( ForumPages.admin_editaccessmask);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

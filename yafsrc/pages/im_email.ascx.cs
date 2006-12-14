@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
@@ -35,73 +35,72 @@ namespace yaf.pages
 	public partial class im_email : ForumPage
 	{
 
-		public im_email() : base("IM_EMAIL")
+		public im_email()
+			: base( "IM_EMAIL" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(User==null)
+			if ( User == null )
 				Data.AccessDenied();
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
 				{
-					foreach(DataRow row in dt.Rows) 
+					foreach ( DataRow row in dt.Rows )
 					{
-						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),"");
+						PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+						PageLinks.AddLink( row ["Name"].ToString(), Forum.GetLink( ForumPages.profile, "u={0}", row ["UserID"] ) );
+						PageLinks.AddLink( GetText( "TITLE" ), "" );
 						break;
 					}
 				}
-				Send.Text = GetText("SEND");
+				Send.Text = GetText( "SEND" );
 			}
 		}
 
-		private void Send_Click(object sender,EventArgs e)
+		private void Send_Click( object sender, EventArgs e )
 		{
 			try
 			{
- 				string from = string.Empty, to = string.Empty;
- 				string fromName = string.Empty, toName = string.Empty;
-				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				string from = string.Empty, to = string.Empty;
+				string fromName = string.Empty, toName = string.Empty;
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
 				{
-					foreach(DataRow row in dt.Rows) 
+					foreach ( DataRow row in dt.Rows )
 					{
- 						to = row["Email"].ToString();
- 						toName = row["Name"].ToString();
+						to = row ["Email"].ToString();
+						toName = row ["Name"].ToString();
 						break;
 					}
 				}
-				using(DataTable dt=DB.user_list(PageBoardID,PageUserID,null)) 
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, null ) )
 				{
-					foreach(DataRow row in dt.Rows) 
+					foreach ( DataRow row in dt.Rows )
 					{
- 						from = row["Email"].ToString();
- 						fromName = row["Name"].ToString();
+						from = row ["Email"].ToString();
+						fromName = row ["Name"].ToString();
 						break;
 					}
 				}
- 				Utils.SendMail(this, from, fromName, to, toName, Subject.Text, Body.Text);
-				Forum.Redirect(Pages.profile,"u={0}",Request.QueryString["u"]);
+				Utils.SendMail( this, from, fromName, to, toName, Subject.Text, Body.Text );
+				Forum.Redirect( ForumPages.profile, "u={0}", Request.QueryString ["u"] );
 			}
-			catch(Exception x) 
+			catch ( Exception x )
 			{
-				DB.eventlog_create(PageUserID,this,x);
-				if(IsAdmin)
-					AddLoadMessage(x.Message);
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
+				if ( IsAdmin )
+					AddLoadMessage( x.Message );
 				else
-					AddLoadMessage(GetText("ERROR"));
+					AddLoadMessage( GetText( "ERROR" ) );
 			}
 		}
 
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			this.Send.Click += new EventHandler(Send_Click);
-			base.OnInit(e);
+			base.OnInit( e );
 		}
 	}
 }

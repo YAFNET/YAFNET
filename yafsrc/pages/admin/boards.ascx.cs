@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for members.
@@ -42,8 +42,8 @@ namespace yaf.pages.admin
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Boards","");
 
 				BindData();
@@ -69,22 +69,22 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.board_list(null);
+			List.DataSource = YAF.Classes.Data.DB.board_list(null);
 			DataBind();
 		}
 
 		private void New_Click(object sender,EventArgs e) 
 		{
-			Forum.Redirect(Pages.admin_editboard);
+			Forum.Redirect( ForumPages.admin_editboard);
 		}
 
 		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "edit":
-					Forum.Redirect(Pages.admin_editboard,"b={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editboard,"b={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.board_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.board_delete(e.CommandArgument);
 					BindData();
 					break;
 			}

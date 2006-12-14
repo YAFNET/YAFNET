@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.help
+namespace YAF.Pages.help
 {
 	/// <summary>
 	/// Summary description for main.
@@ -43,8 +43,8 @@ namespace yaf.pages.help
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Help",Forum.GetLink(Pages.help_index));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Help",Forum.GetLink( ForumPages.help_index));
 				BindData();
 			}
 		}

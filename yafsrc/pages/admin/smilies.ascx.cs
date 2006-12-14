@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies.
@@ -20,8 +20,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
@@ -35,7 +35,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.smiley_list(PageBoardID,null);
+			List.DataSource = YAF.Classes.Data.DB.smiley_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -44,17 +44,17 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "add":
-					Forum.Redirect(Pages.admin_smilies_edit);
+					Forum.Redirect( ForumPages.admin_smilies_edit);
 					break;
 				case "edit":
-					Forum.Redirect(Pages.admin_smilies_edit,"s={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_smilies_edit,"s={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.smiley_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.smiley_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "import":
-					Forum.Redirect(Pages.admin_smilies_import);
+					Forum.Redirect( ForumPages.admin_smilies_import);
 					break;
 			}
 		}

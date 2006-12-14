@@ -29,7 +29,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for register.
@@ -47,7 +47,7 @@ namespace yaf.pages
 				Data.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 			}
 		}
 

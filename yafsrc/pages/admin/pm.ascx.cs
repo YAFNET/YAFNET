@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for prune.
@@ -38,8 +38,8 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("PM Maintenance","");
 
 				Days1.Text = "60";
@@ -49,12 +49,12 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			using(DataTable dt = DB.pmessage_info()) 
+			using(DataTable dt = YAF.Classes.Data.DB.pmessage_info()) 
 				Count.Text = dt.Rows[0]["NumTotal"].ToString();
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			DB.pmessage_prune(Days1.Text,Days2.Text);
+			YAF.Classes.Data.DB.pmessage_prune(Days1.Text,Days2.Text);
 			BindData();
 		}
 

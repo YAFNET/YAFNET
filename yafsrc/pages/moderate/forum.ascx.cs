@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.moderate
+namespace YAF.Pages.moderate
 {
 	/// <summary>
 	/// Summary description for _default.
@@ -27,7 +27,7 @@ namespace yaf.pages.moderate
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),"");
 				PageLinks.AddForumLinks(PageForumID);
 				BindData();
@@ -41,7 +41,7 @@ namespace yaf.pages.moderate
 
 		private void BindData() 
 		{
-			List.DataSource = DB.message_unapproved(PageForumID);
+			List.DataSource = YAF.Classes.Data.DB.message_unapproved(PageForumID);
 			DataBind();
 		}
 
@@ -60,13 +60,13 @@ namespace yaf.pages.moderate
 			switch(e.CommandName.ToLower()) 
 			{
 				case "approve":
-					DB.message_approve(e.CommandArgument);
+					YAF.Classes.Data.DB.message_approve(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","APPROVED"));
 					Utils.CreateWatchEmail(this,e.CommandArgument);
 					break;
 				case "delete":
-					DB.message_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.message_delete(e.CommandArgument);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","DELETED"));
 					break;

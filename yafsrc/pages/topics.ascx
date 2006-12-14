@@ -1,7 +1,8 @@
-<%@ Control Language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.topics" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="yaf" TagName="ForumList" Src="../controls/ForumList.ascx" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
+<%@ Control Language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr class="header1">
@@ -25,13 +26,13 @@
                 <%# GetText("lastpost") %>
             </td>
         </tr>
-        <yaf:ForumList runat="server" ID="ForumList" />
+        <YAF:ForumList runat="server" ID="ForumList" />
     </table>
 </asp:PlaceHolder>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td class="navlinks" align="left">
-            <yaf:Pager runat="server" ID="Pager" />
+            <YAF:Pager runat="server" ID="Pager" />
         </td>
         <td align="right">
             <asp:LinkButton ID="moderate1" runat="server" CssClass="imagelink" />
@@ -65,18 +66,18 @@
     </tr>
     <asp:Repeater ID="Announcements" runat="server">
         <ItemTemplate>
-            <yaf:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
     </asp:Repeater>
     <asp:Repeater ID="TopicList" runat="server">
         <ItemTemplate>
-            <yaf:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" />
         </ItemTemplate>
         <AlternatingItemTemplate>
-            <yaf:TopicLine runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
+            <YAF:TopicLine runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
-    <yaf:ForumUsers runat="server" />
+    <YAF.Forum.sers runat="server" />
     <tr>
         <td align="middle" colspan="6" class="footer1">
             <table cellspacing="0" cellpadding="0" width="100%">
@@ -101,7 +102,7 @@
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td align="left" class="navlinks">
-            <yaf:Pager runat="server" LinkedPager="Pager" />
+            <YAF:Pager runat="server" LinkedPager="Pager" />
         </td>
         <td align="right">
             <asp:LinkButton ID="moderate2" runat="server" CssClass="imagelink" />
@@ -113,22 +114,22 @@
     <tr id="ForumJumpLine" runat="Server">
         <td align="right" colspan="2">
             <%# GetText("Forum_Jump") %>
-            <yaf:ForumJump runat="server" />
+            <YAF.Forum.ump runat="server" />
         </td>
     </tr>
     <tr>
         <td valign="top">
-            <yaf:IconLegend runat="server" />
+            <YAF:IconLegend runat="server" />
         </td>
         <td align="right">
             <table cellspacing="1" cellpadding="1">
                 <tr>
                     <td align="right" valign="top" class="smallfont">
-                        <yaf:PageAccess runat="server" />
+                        <YAF:PageAccess runat="server" />
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
 </table>
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

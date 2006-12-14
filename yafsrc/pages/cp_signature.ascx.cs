@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_signature.
@@ -46,15 +46,15 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),"");
 			}
 		}

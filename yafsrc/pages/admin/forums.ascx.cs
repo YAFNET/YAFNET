@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for forums.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");
 
 				BindData();
@@ -59,7 +59,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			using(DataSet ds = DB.ds_forumadmin(PageBoardID))
+			using(DataSet ds = YAF.Classes.Data.DB.ds_forumadmin(PageBoardID))
 				CategoryList.DataSource = ds.Tables["yaf_Category"];
 			DataBind();
 		}
@@ -90,10 +90,10 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editforum,"f={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editforum,"f={0}",e.CommandArgument);
 					break;
 				case "delete":
-					DB.forum_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.forum_delete(e.CommandArgument);
 					BindData();
 					break;
 			}
@@ -101,7 +101,7 @@ namespace yaf.pages.admin
 
 		protected void NewForum_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_editforum);
+			Forum.Redirect( ForumPages.admin_editforum);
 		}
 
 		private void CategoryList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
@@ -109,10 +109,10 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editcategory,"c={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editcategory,"c={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(DB.category_delete(e.CommandArgument))
+					if(YAF.Classes.Data.DB.category_delete(e.CommandArgument))
 						BindData();
 					else
 						AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
@@ -122,7 +122,7 @@ namespace yaf.pages.admin
 
 		protected void NewCategory_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_editcategory);
+			Forum.Redirect( ForumPages.admin_editcategory);
 		}
 	}
 }

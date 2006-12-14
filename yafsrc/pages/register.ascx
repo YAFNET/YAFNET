@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="register.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.register" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="register.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.register" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <asp:CreateUserWizard ID="CreateUserWizard1" runat="server">
     <WizardSteps>
@@ -12,4 +13,4 @@
     </WizardSteps>
 </asp:CreateUserWizard>
 
-<yaf:SmartScroller id="SmartScroller1" runat="server" />
+<YAF:SmartScroller id="SmartScroller1" runat="server" />

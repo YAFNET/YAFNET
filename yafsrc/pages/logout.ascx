@@ -1,1 +1,1 @@
-<%@ Control language="c#" Codebehind="logout.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.logout" %>
+<%@ Control language="c#" Codebehind="logout.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.logout" %>

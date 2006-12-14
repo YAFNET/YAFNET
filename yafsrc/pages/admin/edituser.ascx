@@ -1,5 +1,6 @@
-<%@ Control Language="c#" Codebehind="edituser.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.edituser" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="c#" Codebehind="edituser.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.edituser" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="uc1" TagName="QuickEdit" Src="../../controls/EditUsersInfo.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="GroupsEdit" Src="../../controls/EditUsersGroups.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>
@@ -7,8 +8,8 @@
 <%@ Register TagPrefix="uc1" TagName="SuspendEdit" Src="../../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
-<yaf:AdminMenu runat="server">
+<YAF:PageLinks runat="server" ID="PageLinks" />
+<YAF:AdminMenu runat="server">
     <table width="100%" cellspacing="1" cellpadding="0" class="content">
         <tbody>
             <tr>
@@ -56,5 +57,5 @@
             </tr>
         </tbody>
     </table>
-</yaf:AdminMenu>
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+</YAF:AdminMenu>
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

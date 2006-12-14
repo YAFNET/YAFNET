@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip.
@@ -38,8 +38,8 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Banned IP Addresses","");
 
 				BindData();
@@ -47,17 +47,17 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			list.DataSource = DB.bannedip_list(PageBoardID,null);
+			list.DataSource = YAF.Classes.Data.DB.bannedip_list(PageBoardID,null);
 			DataBind();
 		}
 
 		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) {
 			if(e.CommandName == "add")
-				Forum.Redirect(Pages.admin_bannedip_edit);
+				Forum.Redirect( ForumPages.admin_bannedip_edit);
 			else if(e.CommandName == "edit")
-				Forum.Redirect(Pages.admin_bannedip_edit,"i={0}",e.CommandArgument);
+				Forum.Redirect( ForumPages.admin_bannedip_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") {
-				DB.bannedip_delete(e.CommandArgument);
+				YAF.Classes.Data.DB.bannedip_delete(e.CommandArgument);
 				Cache.Remove("bannedip");
 				BindData();
 				AddLoadMessage("Removed IP address ban.");

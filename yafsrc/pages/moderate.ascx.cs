@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for moderate.
@@ -50,8 +50,8 @@ namespace yaf.pages
 
 				if(ForumControl.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),"");
@@ -61,7 +61,7 @@ namespace yaf.pages
 
 		private void AddUser_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.mod_forumuser,"f={0}",PageForumID);
+			Forum.Redirect( ForumPages.mod_forumuser,"f={0}",PageForumID);
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
@@ -76,14 +76,14 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			topiclist.DataSource = DB.topic_list(PageForumID,-1,null,0,999999);
-			UserList.DataSource = DB.userforum_list(null,PageForumID);
+			topiclist.DataSource = YAF.Classes.Data.DB.topic_list(PageForumID,-1,null,0,999999);
+			UserList.DataSource = YAF.Classes.Data.DB.userforum_list(null,PageForumID);
 			DataBind();
 		}
 
 		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
 			if(e.CommandName=="delete") {
-				DB.topic_delete(e.CommandArgument);
+				YAF.Classes.Data.DB.topic_delete(e.CommandArgument);
 				AddLoadMessage(GetText("deleted"));
 				BindData();
 			}
@@ -94,10 +94,10 @@ namespace yaf.pages
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.mod_forumuser,"f={0}&u={1}",PageForumID,e.CommandArgument);
+					Forum.Redirect( ForumPages.mod_forumuser,"f={0}&u={1}",PageForumID,e.CommandArgument);
 					break;
 				case "remove":
-					DB.userforum_delete(e.CommandArgument,PageForumID);
+					YAF.Classes.Data.DB.userforum_delete(e.CommandArgument,PageForumID);
 					BindData();
 					break;
 			}

@@ -29,14 +29,14 @@ using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for pmessage.
 	/// </summary>
 	public partial class pmessage : ForumPage
 	{
-		protected yaf.editor.ForumEditor Editor;
+		protected YAF.Editor.ForumEditor Editor;
 
 		public pmessage()
 			: base( "PMESSAGE" )
@@ -51,16 +51,16 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( Pages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
 				else
-					Forum.Redirect( Pages.forum );
+					Forum.Redirect( ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
 			{
 
 				BindData();
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
 				Save.Text = GetText( "Save" );
 				Cancel.Text = GetText( "Cancel" );
 				FindUsers.Text = GetText( "FINDUSERS" );
@@ -79,7 +79,7 @@ namespace yaf.pages
 
 				if ( Request.QueryString ["p"] != null )
 				{
-					using ( DataTable dt = DB.userpmessage_list( Request.QueryString ["p"] ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["p"] ) )
 					{
 						DataRow row = dt.Rows [0];
 						Subject.Text = ( string ) row ["Subject"];
@@ -94,7 +94,7 @@ namespace yaf.pages
 
 				if ( Request.QueryString ["p"] != null )
 				{
-					using ( DataTable dt = DB.userpmessage_list( Request.QueryString ["p"] ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["p"] ) )
 					{
 						// default is quote
 						bool bQuote = true;
@@ -137,7 +137,7 @@ namespace yaf.pages
 
 				if ( ToUserID != 0 )
 				{
-					using ( DataTable dt = DB.user_list( PageBoardID, ToUserID, true ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, ToUserID, true ) )
 					{
 						To.Text = ( string ) dt.Rows [0] ["Name"];
 						To.Enabled = false;
@@ -153,7 +153,7 @@ namespace yaf.pages
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )
 		{
-			Editor = yaf.editor.EditorHelper.CreateEditorFromType( BoardSettings.ForumEditor );
+			Editor = YAF.Editor.EditorHelper.CreateEditorFromType( BoardSettings.ForumEditor );
 			EditorLine.Controls.Add( Editor );
 
 			this.Save.Click += new System.EventHandler( this.Save_Click );
@@ -194,12 +194,12 @@ namespace yaf.pages
 				MessageFlags tFlags = new MessageFlags();
 				tFlags.IsHTML = Editor.UsesHTML;
 				tFlags.IsBBCode = Editor.UsesBBCode;
-				DB.pmessage_save( PageUserID, 0, Subject.Text, body, tFlags.BitValue );
-				Forum.Redirect( Pages.cp_profile );
+				YAF.Classes.Data.DB.pmessage_save( PageUserID, 0, Subject.Text, body, tFlags.BitValue );
+				Forum.Redirect( ForumPages.cp_profile );
 			}
 			else
 			{
-				using ( DataTable dt = DB.user_find( PageBoardID, false, To.Text, null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_find( PageBoardID, false, To.Text, null ) )
 				{
 					if ( dt.Rows.Count != 1 )
 					{
@@ -229,12 +229,12 @@ namespace yaf.pages
 					tFlags.IsHTML = Editor.UsesHTML;
 					tFlags.IsBBCode = Editor.UsesBBCode;
 
-					DB.pmessage_save( PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, tFlags.BitValue );
+					YAF.Classes.Data.DB.pmessage_save( PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, tFlags.BitValue );
 
 					if ( BoardSettings.AllowPMEmailNotification )
 						SendPMNotification( Convert.ToInt32(dt.Rows [0] ["UserID"]), Subject.Text );
 
-					Forum.Redirect( Pages.cp_profile );
+					Forum.Redirect( ForumPages.cp_profile );
 				}
 			}
 		}
@@ -246,7 +246,7 @@ namespace yaf.pages
 				bool pmNotificationAllowed;
 				string toEMail;
 
-				using ( DataTable dt = DB.user_list( PageBoardID, toUserID, true ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, toUserID, true ) )
 				{
 					pmNotificationAllowed = ( bool ) dt.Rows [0] ["PMNotification"];
 					toEMail = ( string ) dt.Rows [0] ["EMail"];
@@ -258,18 +258,18 @@ namespace yaf.pages
 					//string senderEmail;
 
 					// get the PM ID
-					using ( DataTable dt = DB.pmessage_list( toUserID, PageBoardID, null ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.pmessage_list( toUserID, PageBoardID, null ) )
 						userPMessageID = ( int ) dt.Rows [0] ["UserPMessageID"];
 
 					// get the sender e-mail -- DISABLED: too much information...
-					//using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
+					//using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
 					//	senderEmail = ( string ) dt.Rows [0] ["Email"];
 
 					// send this user a PM notification e-mail
 					StringDictionary emailParameters = new StringDictionary();
 
 					emailParameters ["{fromuser}"] = PageUserName;
-					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", Forum.GetLink( Pages.cp_message, "pm={0}", userPMessageID ), ServerURL );
+					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", Forum.GetLink( ForumPages.cp_message, "pm={0}", userPMessageID ), ServerURL );
 					emailParameters ["{forumname}"] = BoardSettings.Name;
 					emailParameters ["{subject}"] = subject;
 
@@ -283,21 +283,21 @@ namespace yaf.pages
 			}
 			catch ( Exception x )
 			{
-				DB.eventlog_create( PageUserID, this, x );
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
 				AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
 			}
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( Pages.cp_profile );
+			Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		private void FindUsers_Click( object sender, System.EventArgs e )
 		{
 			if ( To.Text.Length < 2 ) return;
 
-			using ( DataTable dt = DB.user_find( PageBoardID, true, To.Text, null ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_find( PageBoardID, true, To.Text, null ) )
 			{
 				if ( dt.Rows.Count > 0 )
 				{

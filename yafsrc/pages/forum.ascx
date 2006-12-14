@@ -1,7 +1,8 @@
-<%@ Control Language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.forum" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="yaf" TagName="ForumList" Src="../controls/ForumList.ascx" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
+<%@ Control Language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.forum" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
 <div id="Welcome" runat="server">
     <div id="divTimeNow">
         <asp:Label ID="TimeNow" runat="server" /></div>
@@ -36,12 +37,12 @@
             <td class="header2" colspan="5">
                 <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline" CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
                 </asp:ImageButton>
-                &nbsp;&nbsp; <a href='<%# yaf.Forum.GetLink(yaf.Pages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
+                &nbsp;&nbsp; <a href='<%# YAF.Forum.GetLink(YAF.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
                     <%# DataBinder.Eval(Container.DataItem, "Name") %>
                 </a>
             </td>
         </tr>
-        <yaf:ForumList runat="server" Visible="true" ID="forumList" DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>' />
+        <YAF:ForumList runat="server" Visible="true" ID="forumList" DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>' />
     </ItemTemplate>
     <FooterTemplate>
         </table>
@@ -69,7 +70,7 @@
                             <asp:Label runat="server" ID="activeinfo" /><br />
                             <asp:Repeater runat="server" ID="ActiveList">
                                 <ItemTemplate>
-                                    <a href='<%#yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
+                                    <a href='<%#YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
                                         <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
                                     </a>
                                 </ItemTemplate>
@@ -111,8 +112,8 @@
                         <td class="post" valign="top">
                             <asp:Repeater runat="server" ID="LatestPosts">
                                 <ItemTemplate>
-                                    &nbsp;<a href='<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# yaf.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
-                                    <a href="<%#yaf.Forum.GetLink(yaf.Pages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
+                                    &nbsp;<a href='<%#YAF.Forum.GetLink(YAF.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# YAF.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
+                                    <a href="<%#YAF.Forum.GetLink(YAF.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
                                         <img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0" alt=""></a><br />
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -137,4 +138,4 @@
             <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" /></td>
     </tr>
 </table>
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

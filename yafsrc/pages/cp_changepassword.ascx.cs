@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_subscriptions.
@@ -44,23 +44,23 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 
             if (!IsPostBack)
             {
-                PageLinks.AddLink(BoardSettings.Name, Forum.GetLink(Pages.forum));
-                PageLinks.AddLink(PageUserName, Forum.GetLink(Pages.cp_profile));
+                PageLinks.AddLink(BoardSettings.Name, Forum.GetLink( ForumPages.forum));
+                PageLinks.AddLink(PageUserName, Forum.GetLink( ForumPages.cp_profile));
                 //TODO PageLinks.AddLink(GetText("TITLE"), "dd");
-                PageLinks.AddLink("Change Password", Forum.GetLink(Pages.cp_changepassword));
+                PageLinks.AddLink("Change Password", Forum.GetLink( ForumPages.cp_changepassword));
             }
         }
 
         void ChangePassword1_CancelButtonClick(object sender, EventArgs e)
         {
-            Forum.Redirect(Pages.cp_profile);
+            Forum.Redirect( ForumPages.cp_profile);
         }
 
 		override protected void OnInit(EventArgs e)
@@ -73,7 +73,7 @@ namespace yaf.pages
 
         void ChangePassword1_ChangedPassword(object sender, EventArgs e)
         {
-            Forum.Redirect(Pages.cp_profile);
+            Forum.Redirect( ForumPages.cp_profile);
         }
 	}
 }

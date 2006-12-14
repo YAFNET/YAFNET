@@ -27,9 +27,11 @@ using System.Web;
 using System.Web.Security;
 using System.Threading;
 using System.Globalization;
-using yaf.classes;
+using YAF.Classes;
+using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for BasePage.
@@ -70,7 +72,7 @@ namespace yaf.pages
 		{
 			// This doesn't seem to work...
 			Exception x = Server.GetLastError();
-			DB.eventlog_create( PageUserID, this, x );
+			YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
 			if ( !Data.IsLocal )
 				Utils.LogToMail( Server.GetLastError() );
 		}
@@ -113,7 +115,7 @@ namespace yaf.pages
 				DataTable banip = ( DataTable ) HttpContext.Current.Cache [key];
 				if ( banip == null )
 				{
-					banip = DB.bannedip_list( PageBoardID, null );
+					banip = YAF.Classes.Data.DB.bannedip_list( PageBoardID, null );
 					HttpContext.Current.Cache [key] = banip;
 				}
 				foreach ( DataRow row in banip.Rows )
@@ -157,7 +159,7 @@ namespace yaf.pages
 
 			do
 			{
-				m_pageinfo = DB.pageload(
+				m_pageinfo = YAF.Classes.Data.DB.pageload(
 						HttpContext.Current.Session.SessionID,
 						PageBoardID,
 						userKey,
@@ -193,10 +195,10 @@ namespace yaf.pages
 			{
 				if ( SuspendedTo < DateTime.Now )
 				{
-					DB.user_suspend( PageUserID, null );
+					YAF.Classes.Data.DB.user_suspend( PageUserID, null );
 					HttpContext.Current.Response.Redirect( Utils.GetSafeRawUrl() );
 				}
-				Forum.Redirect( Pages.info, "i=2" );
+				Forum.Redirect( ForumPages.info, "i=2" );
 			}
 
 			// This happens when user logs in
@@ -222,7 +224,7 @@ namespace yaf.pages
 			{
 				try
 				{
-					using ( DataTable dt = DB.mail_list() )
+					using ( DataTable dt = YAF.Classes.Data.DB.mail_list() )
 					{
 						for ( int i = 0; i < dt.Rows.Count; i++ )
 						{
@@ -231,14 +233,14 @@ namespace yaf.pages
 							{
 								Utils.SendMail( this, BoardSettings.ForumEmail, ( string ) dt.Rows [i] ["ToUser"], ( string ) dt.Rows [i] ["Subject"], ( string ) dt.Rows [i] ["Body"] );
 							}
-							DB.mail_delete( dt.Rows [i] ["MailID"] );
+							YAF.Classes.Data.DB.mail_delete( dt.Rows [i] ["MailID"] );
 						}
 						if ( IsAdmin ) this.AddAdminMessage( "Sent Mail", String.Format( "Sent {0} mails.", dt.Rows.Count ) );
 					}
 				}
 				catch ( Exception x )
 				{
-					DB.eventlog_create( PageUserID, this, x );
+					YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
 					if ( IsAdmin )
 					{
 						this.AddAdminMessage( "Error sending emails to users", x.ToString() );
@@ -276,7 +278,7 @@ namespace yaf.pages
 #if DEBUG
 			catch ( Exception ex )
 			{
-				DB.eventlog_create( PageUserID, this, ex );
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, ex );
 				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
 			}
 #else
@@ -351,7 +353,7 @@ namespace yaf.pages
 		#endregion
 		#region Render Functions
 		private Forum m_forumControl = null;
-		public yaf.Forum ForumControl
+		public YAF.Forum ForumControl
 		{
 			get
 			{
@@ -359,10 +361,10 @@ namespace yaf.pages
 					return m_forumControl;
 
 				System.Web.UI.Control ctl = Parent;
-				while ( ctl.GetType() != typeof( yaf.Forum ) )
+				while ( ctl.GetType() != typeof( YAF.Forum ) )
 					ctl = ctl.Parent;
 
-				m_forumControl = ( yaf.Forum ) ctl;
+				m_forumControl = ( YAF.Forum ) ctl;
 				return m_forumControl;
 			}
 			set
@@ -376,7 +378,7 @@ namespace yaf.pages
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
-			if ( BoardSettings.AllowThemedLogo & !Config.IsDotNetNuke & !Config.IsPortal & !Config.IsRainbow )
+			if ( BoardSettings.AllowThemedLogo & !YAF.Classes.Utils.Config.IsDotNetNuke & !YAF.Classes.Utils.Config.IsPortal & !YAF.Classes.Utils.Config.IsRainbow )
 			{
 				graphctl = ( System.Web.UI.HtmlControls.HtmlImage ) Page.FindControl( "imgBanner" );
 				if ( graphctl != null )
@@ -419,38 +421,38 @@ namespace yaf.pages
 				header.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", Server.HtmlEncode( PageUserName ) ) );
 				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
 				if ( !IsGuest )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.cp_inbox ), GetText( "CP_INBOX", "TITLE" ) ) );
+					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.cp_inbox ), GetText( "CP_INBOX", "TITLE" ) ) );
 
 				/* TODO: help is currently useless...
 				if ( IsAdmin )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
+					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
 				*/
 
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
 				if ( IsAdmin )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.admin_admin ), GetText( "TOOLBAR", "ADMIN" ) ) );
+					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.admin_admin ), GetText( "TOOLBAR", "ADMIN" ) ) );
 				if ( IsModerator || IsForumModerator )
-					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.moderate_index ), GetText( "TOOLBAR", "MODERATE" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
+					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.moderate_index ), GetText( "TOOLBAR", "MODERATE" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
 				if ( !IsGuest )
-					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.cp_profile ), GetText( "TOOLBAR", "MYPROFILE" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
+					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.cp_profile ), GetText( "TOOLBAR", "MYPROFILE" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
 				if ( CanLogin )
-					header.AppendFormat( String.Format( " | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>", Forum.GetLink( Pages.logout ), GetText( "TOOLBAR", "LOGOUT" ) ) );
+					header.AppendFormat( String.Format( " | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>", Forum.GetLink( ForumPages.logout ), GetText( "TOOLBAR", "LOGOUT" ) ) );
 			}
 			else
 			{
 				header.AppendFormat( String.Format( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", GetText( "TOOLBAR", "WELCOME_GUEST" ) ) );
 
 				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( Pages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", Forum.GetLink( ForumPages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
+				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
 				if ( CanLogin )
 				{
-					header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.login, "ReturnUrl={0}", Server.UrlEncode( Utils.GetSafeRawUrl() ) ), GetText( "TOOLBAR", "LOGIN" ) ) );
+					header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.login, "ReturnUrl={0}", Server.UrlEncode( Utils.GetSafeRawUrl() ) ), GetText( "TOOLBAR", "LOGIN" ) ) );
 					if ( !BoardSettings.DisableRegistrations )
-						header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.rules ), GetText( "TOOLBAR", "REGISTER" ) ) );
+						header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.rules ), GetText( "TOOLBAR", "REGISTER" ) ) );
 				}
 			}
 			header.AppendFormat( "</td></tr></table>" );
@@ -496,7 +498,7 @@ namespace yaf.pages
 
 				if ( BoardSettings.ShowRSSLink )
 				{
-					footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Forum.GetLink( Pages.rsstopic, "pg=forum" ), Data.ForumRoot, GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
+					footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Forum.GetLink( ForumPages.rsstopic, "pg=forum" ), Data.ForumRoot, GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
 					// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
 				}
 
@@ -512,13 +514,13 @@ namespace yaf.pages
 				stopWatch.Stop();
 				double duration = ( double ) stopWatch.ElapsedMilliseconds / 1000.0;
 
-				if ( Config.IsDotNetNuke )
+				if ( YAF.Classes.Utils.Config.IsDotNetNuke )
 				{
 					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
 					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.", Data.AppVersionName );
 					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 				}
-				else if ( Config.IsRainbow )
+				else if ( YAF.Classes.Utils.Config.IsRainbow )
 				{
 					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
 					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.", Data.AppVersionName );
@@ -1095,7 +1097,7 @@ namespace yaf.pages
 				try
 				{
 					return
-						int.Parse(Config.ConfigSection[string.Format("isprivate{0}", PageBoardID)])!=0;
+						int.Parse(Utils.UtilsSection[string.Format("isprivate{0}", PageBoardID)])!=0;
 				}
 				catch
 				{
@@ -1354,7 +1356,7 @@ namespace yaf.pages
 			}
 			if ( node == null )
 			{
-				if ( !dontLogMissing ) DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), EventLogTypes.Error );
+				if ( !dontLogMissing ) YAF.Classes.Data.DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), EventLogTypes.Error );
 				return defaultValue;
 			}
 
@@ -1497,7 +1499,7 @@ namespace yaf.pages
 
 				HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-				DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", text.ToUpper(), page.ToUpper() ), EventLogTypes.Error );
+				YAF.Classes.Data.DB.eventlog_create( PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", text.ToUpper(), page.ToUpper() ), EventLogTypes.Error );
 				return String.Format( "[{1}.{0}]", text.ToUpper(), page.ToUpper() ); ;
 			}
 			str = str.Replace( "[b]", "<b>" );
@@ -1537,7 +1539,7 @@ namespace yaf.pages
 		{
 			get
 			{
-				return string.Format( "{0}{1}", ServerURL, Forum.GetLink( Pages.forum ) );
+				return string.Format( "{0}{1}", ServerURL, Forum.GetLink( ForumPages.forum ) );
 			}
 		}
 		public string ServerURL

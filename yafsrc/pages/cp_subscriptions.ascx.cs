@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_subscriptions.
@@ -44,17 +44,17 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 			
 			if(!IsPostBack) 
 			{
 				BindData();
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
@@ -63,8 +63,8 @@ namespace yaf.pages
 		}
 
 		private void BindData() {
-			ForumList.DataSource = DB.watchforum_list(PageUserID);
-			TopicList.DataSource = DB.watchtopic_list(PageUserID);
+			ForumList.DataSource = YAF.Classes.Data.DB.watchforum_list(PageUserID);
+			TopicList.DataSource = YAF.Classes.Data.DB.watchtopic_list(PageUserID);
 			DataBind();
 		}
 
@@ -81,7 +81,7 @@ namespace yaf.pages
 				return "&nbsp;";
 
 			string link = String.Format("<a href=\"{0}\">{1}</a>",
-				Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]),
+				Forum.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]),
 				row["LastUserName"]
 			);
 			string by = String.Format(GetText("lastpostlink"),
@@ -90,7 +90,7 @@ namespace yaf.pages
 
 			string html = String.Format("{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
 				by,
-				Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"]),
+				Forum.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
 				GetThemeContents("ICONS","ICON_LATEST")
 				);
 			return html;
@@ -102,7 +102,7 @@ namespace yaf.pages
 				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
 				Label lbl = (Label)TopicList.Items[i].FindControl("ttid");
 				if(ctrl.Checked) {
-					DB.watchtopic_delete(lbl.Text);
+					YAF.Classes.Data.DB.watchtopic_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}
@@ -118,7 +118,7 @@ namespace yaf.pages
 				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
 				Label lbl = (Label)ForumList.Items[i].FindControl("tfid");
 				if(ctrl.Checked) {
-					DB.watchforum_delete(lbl.Text);
+					YAF.Classes.Data.DB.watchforum_delete(lbl.Text);
 					NoneChecked = false;
 				}
 			}

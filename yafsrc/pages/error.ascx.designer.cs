@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.pages {
+namespace YAF.Pages {
     
     public partial class error {
         protected System.Web.UI.HtmlControls.HtmlTableCell errormsg;

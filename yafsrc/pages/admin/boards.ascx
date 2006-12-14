@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="boards.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.boards" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="boards.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.boards" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<YAF:adminmenu runat="server">
 
 <table cellspacing=1 cellpadding=0 width="100%" class=content>
 <tr>
@@ -34,6 +35,6 @@
 </tr>
 </table>
 
-</yaf:adminmenu>
+</YAF:adminmenu>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

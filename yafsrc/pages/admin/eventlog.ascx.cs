@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for attachments.
@@ -21,8 +21,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Event Log","");
 
 				BindData();
@@ -31,7 +31,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			List.DataSource = DB.eventlog_list(PageBoardID);
+			List.DataSource = YAF.Classes.Data.DB.eventlog_list(PageBoardID);
 			DataBind();
 		}
 
@@ -45,7 +45,7 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "delete":
-					DB.eventlog_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.eventlog_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "show":

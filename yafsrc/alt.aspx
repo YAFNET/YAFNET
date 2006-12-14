@@ -1,5 +1,6 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf" Assembly="yaf" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Data" Assembly="YAF.Classes.Data" %>
 <script runat="server">
 void Page_Load(object sender,System.EventArgs e)
 {
@@ -9,8 +10,8 @@ void Page_Load(object sender,System.EventArgs e)
 public void Page_Error(object sender,System.EventArgs e)
 {
 	Exception x = Server.GetLastError();
-	yaf.DB.eventlog_create(yafForum.PageUserID,this,x);
-	yaf.Utils.LogToMail(x);
+	YAF.DB.eventlog_create(yafForum.PageUserID,this,x);
+	YAF.Utils.LogToMail(x);
 }
 </script>
 

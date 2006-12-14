@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for inbox.
@@ -83,9 +83,9 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 			
 			if(!IsPostBack) 
@@ -94,8 +94,8 @@ namespace yaf.pages
 				IsSentItems = Request.QueryString["sent"]!=null;
 				BindData();
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink(PageUserName,Forum.GetLink(Pages.cp_profile));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
 				PageLinks.AddLink(GetText(IsSentItems ? "sentitems" : "title"),"");
 
 				SubjectLink.Text = Server.HtmlEncode(GetText("subject"));
@@ -123,7 +123,7 @@ namespace yaf.pages
 				fromUserID = PageUserID;
 			else
 				toUserID = PageUserID;
-			using(DataView dv = DB.pmessage_list(toUserID,fromUserID,null).DefaultView) 
+			using(DataView dv = YAF.Classes.Data.DB.pmessage_list(toUserID,fromUserID,null).DefaultView) 
 			{
 				dv.Sort = String.Format("{0} {1}",ViewState["SortField"],(bool)ViewState["SortAsc"] ? "asc" : "desc");
 				Inbox.DataSource = dv;
@@ -152,12 +152,12 @@ namespace yaf.pages
 				{
 					if(((CheckBox)item.FindControl("ItemCheck")).Checked) 
 					{
-						DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
+						YAF.Classes.Data.DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
 						nItemCount++;
 					}
 				}
 
-				//TODO DB.pmessage_delete(e.CommandArgument);
+				//TODO YAF.Classes.Data.DB.pmessage_delete(e.CommandArgument);
 				BindData();
 				if(nItemCount==1)
 					AddLoadMessage(GetText("msgdeleted1"));

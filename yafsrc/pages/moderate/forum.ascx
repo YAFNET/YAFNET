@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.moderate.forum" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="forum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.moderate.forum" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <asp:repeater id="List" runat="server">
 <HeaderTemplate>
@@ -42,4 +43,4 @@
 </SeparatorTemplate>
 </asp:repeater>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

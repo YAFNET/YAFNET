@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editcategory.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");
 
 				BindData();
@@ -69,14 +69,14 @@ namespace yaf.pages.admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_forums);
+			Forum.Redirect( ForumPages.admin_forums);
 		}
 
 		private void BindData() 
 		{
 			if(Request.QueryString["c"] != null) 
 			{
-				using(DataTable dt = DB.category_list(PageBoardID,Request.QueryString["c"]))
+				using(DataTable dt = YAF.Classes.Data.DB.category_list(PageBoardID,Request.QueryString["c"]))
 				{
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
@@ -91,8 +91,8 @@ namespace yaf.pages.admin
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
-			DB.category_save(PageBoardID,CategoryID,Name.Text,SortOrder.Text);
-			Forum.Redirect(Pages.admin_forums);
+			YAF.Classes.Data.DB.category_save(PageBoardID,CategoryID,Name.Text,SortOrder.Text);
+			Forum.Redirect( ForumPages.admin_forums);
 		}
 	}
 }

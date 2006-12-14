@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	///		Summary description for LastPosts.
@@ -25,7 +25,7 @@ namespace yaf.pages
 
 			if (Request.QueryString["t"] != null)
 			{
-				repLastPosts.DataSource = DB.post_list_reverse10(Request.QueryString["t"]);
+				repLastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10(Request.QueryString["t"]);
 				repLastPosts.DataBind();
 			}
 		}

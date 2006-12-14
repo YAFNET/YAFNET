@@ -3,7 +3,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI;
 
-namespace yaf.controls
+namespace YAF.Classes.UI
 {
 	/// <summary>
 	/// Summary description for SmartScroller.
@@ -61,7 +61,7 @@ namespace yaf.controls
 			this.Controls.Add(hidScrollTop);						
 	
 			string scriptString = @"
-<!-- yaf.controls.SmartScroller ASP.NET Generated Code -->
+<!-- YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->
 <script language = ""javascript"">
 <!--
 
@@ -120,7 +120,7 @@ namespace yaf.controls
   window.onkeypress = yaf_SmartScroller_GetCoords;
 // -->
 </script>
-<!-- End yaf.controls.SmartScroller ASP.NET Generated Code -->";
+<!-- End YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->";
 
 	
 			Page.ClientScript.RegisterStartupScript(Page.GetType(),"SmartScroller", scriptString);

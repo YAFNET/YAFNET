@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Replace Words","");
 
 				BindData();
@@ -49,19 +49,19 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			list.DataSource = DB.replace_words_list();
+			list.DataSource = YAF.Classes.Data.DB.replace_words_list();
 			DataBind();
 		}
 
 		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) 
 		{
 			if(e.CommandName == "add")
-				Forum.Redirect(Pages.admin_replacewords_edit);
+				Forum.Redirect( ForumPages.admin_replacewords_edit);
 			else if(e.CommandName == "edit")
-				Forum.Redirect(Pages.admin_replacewords_edit,"i={0}",e.CommandArgument);
+				Forum.Redirect( ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") 
 			{
-				DB.replace_words_delete(e.CommandArgument);
+				YAF.Classes.Data.DB.replace_words_delete(e.CommandArgument);
 				Cache.Remove("replacewords");
 				BindData();
 				AddLoadMessage("Removed word filter.");

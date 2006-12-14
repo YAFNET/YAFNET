@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="mail.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.mail" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="mail.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.mail" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<YAF:adminmenu runat="server">
 
 <table class=content cellSpacing=1 cellPadding=0 width=100%>
   <tr>
@@ -20,6 +21,6 @@
   <tr>
     <td class=postfooter align=middle colspan="2"><asp:button id=Send runat="server" Text="Send" onclick="Send_Click"></asp:button></td></tr></table>
 
-</yaf:adminmenu>
+</YAF:adminmenu>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

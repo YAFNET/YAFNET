@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for WebForm1.
@@ -37,15 +37,15 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Boards","");
 
 				BindData();
 				if(Request.QueryString["b"] != null) 
 				{
 					AdminInfo.Visible = false;
-					using(DataTable dt = DB.board_list(Request.QueryString["b"])) 
+					using(DataTable dt = YAF.Classes.Data.DB.board_list(Request.QueryString["b"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -117,26 +117,26 @@ namespace yaf.pages.admin
 
 			if(Request.QueryString["b"] != null) 
 			{
-				DB.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
+				YAF.Classes.Data.DB.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
 			} 
 			else
 			{
-				DB.board_create(Name.Text,AllowThreaded.Checked,UserName.Text,UserEmail.Text,System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UserPass1.Text,"md5"));
+				YAF.Classes.Data.DB.board_create(Name.Text,AllowThreaded.Checked,UserName.Text,UserEmail.Text,System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UserPass1.Text,"md5"));
 			}
 
 			// Done
 			BoardSettings = null;
-			Forum.Redirect(Pages.admin_boards);
+			Forum.Redirect( ForumPages.admin_boards);
 		}
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_boards);
+			Forum.Redirect( ForumPages.admin_boards);
 		}
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

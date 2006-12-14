@@ -1,13 +1,14 @@
-<%@ Control language="c#" Codebehind="members.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.members" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="members.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.members" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 <tr runat="server" id="LetterRow"/>
 </table>
 
-<table class=command><tr><td class="navlinks"><yaf:pager runat="server" id="Pager"/></td></tr></table>
+<table class=command><tr><td class="navlinks"><YAF:pager runat="server" id="Pager"/></td></tr></table>
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 	<tr>
@@ -23,7 +24,7 @@
 	<asp:repeater id=MemberList runat=server>
 		<ItemTemplate>
 			<tr>
-				<td class=post><a href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval("UserID")) %>'><%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %></a></td>
+				<td class=post><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval("UserID")) %>'><%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %></a></td>
 				<td class=post><%# Eval("RankName") %></td>
 				<td class=post><%# FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %></td>
 				<td class=post align=center><%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %></td>
@@ -32,6 +33,6 @@
 	</asp:repeater>
 </table>
 
-<table class=command><tr><td class=navlinks><yaf:pager runat="server" linkedpager="Pager"/></td></tr></table>
+<table class=command><tr><td class=navlinks><YAF:pager runat="server" linkedpager="Pager"/></td></tr></table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

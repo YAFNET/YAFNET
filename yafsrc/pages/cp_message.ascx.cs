@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for inbox.
@@ -45,9 +45,9 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( Pages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
 				else
-					Forum.Redirect( Pages.forum );
+					Forum.Redirect( ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
@@ -62,25 +62,25 @@ namespace yaf.pages
 				return;
 			}
 
-			using ( DataTable dt = DB.userpmessage_list( Request.QueryString ["pm"] ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["pm"] ) )
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
 					if ( ( int ) row ["ToUserID"] != PageUserID && ( int ) row ["FromUserID"] != PageUserID )
 						Data.AccessDenied();
 
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-					PageLinks.AddLink( PageUserName, Forum.GetLink( Pages.cp_profile ) );
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageUserName, Forum.GetLink( ForumPages.cp_profile ) );
 					if ( ( int ) row ["ToUserID"] == PageUserID )
-						PageLinks.AddLink( GetText( "INBOX" ), Forum.GetLink( Pages.cp_inbox ) );
+						PageLinks.AddLink( GetText( "INBOX" ), Forum.GetLink( ForumPages.cp_inbox ) );
 					else
-						PageLinks.AddLink( GetText( "SENTITEMS" ), Forum.GetLink( Pages.cp_inbox, "sent=1" ) );
+						PageLinks.AddLink( GetText( "SENTITEMS" ), Forum.GetLink( ForumPages.cp_inbox, "sent=1" ) );
 					PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 				}
 				Inbox.DataSource = dt;
 			}
 			DataBind();
-			DB.pmessage_markread( Request.QueryString ["pm"] );
+			YAF.Classes.Data.DB.pmessage_markread( Request.QueryString ["pm"] );
 		}
 
 		protected string FormatBody( object o )
@@ -93,17 +93,17 @@ namespace yaf.pages
 		{
 			if ( e.CommandName == "delete" )
 			{
-				DB.userpmessage_delete( e.CommandArgument );
+				YAF.Classes.Data.DB.userpmessage_delete( e.CommandArgument );
 				BindData();
 				AddLoadMessage( GetText( "msg_deleted" ) );
 			}
 			else if ( e.CommandName == "reply" )
 			{
-				Forum.Redirect( Pages.pmessage, "p={0}&q=0", e.CommandArgument );
+				Forum.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
 			}
 			else if ( e.CommandName == "quote" )
 			{
-				Forum.Redirect( Pages.pmessage, "p={0}&q=1", e.CommandArgument );
+				Forum.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
 			}
 		}
 

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.editor
+namespace YAF.Editor
 {
 	/// <summary>
 	/// Summary description for ForumEditorBase.
@@ -289,7 +289,7 @@ namespace yaf.editor
 #if DEBUG
 				throw new Exception( "Unable to load editor class/dll: " + ClassBinStr );
 #endif
-				DB.eventlog_create( null, this.GetType().ToString(), x, EventLogTypes.Error );
+				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, YAF.Classes.Data.EventLogTypes.Error );
 			}
 		}
 

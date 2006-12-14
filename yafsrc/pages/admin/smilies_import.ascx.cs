@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies_import.
@@ -20,8 +20,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies Import","");
 
 				BindData();
@@ -72,7 +72,7 @@ namespace yaf.pages.admin
 			{
 				// Delete existing smilies?
 				if(DeleteExisting.Checked) 
-					DB.smiley_delete(null);
+					YAF.Classes.Data.DB.smiley_delete(null);
 
 				do 
 				{
@@ -82,16 +82,16 @@ namespace yaf.pages.admin
 
 					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
 					if(split.Length==3) 
-						DB.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
+						YAF.Classes.Data.DB.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
 				} while(true);
 				file.Close();
 			}
-			Forum.Redirect(Pages.admin_smilies);
+			Forum.Redirect( ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect(Pages.admin_smilies);
+			Forum.Redirect( ForumPages.admin_smilies);
 		}
 
 

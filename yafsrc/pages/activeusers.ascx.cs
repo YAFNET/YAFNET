@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for activeusers.
@@ -42,10 +42,10 @@ namespace yaf.pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
-				UserList.DataSource = DB.active_list(PageBoardID,true);
+				UserList.DataSource = YAF.Classes.Data.DB.active_list(PageBoardID,true);
 				DataBind();
 			}
 		}

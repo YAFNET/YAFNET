@@ -1,8 +1,9 @@
-<%@ Control language="c#" Codebehind="posts.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.posts" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="yaf" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
+<%@ Control language="c#" Codebehind="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <a name="top"></a>
 
@@ -21,7 +22,7 @@
 <ItemTemplate>
 	<tr>
 		<td class="post">
-		<yaf:mylinkbutton runat="server" enabled="<%#CanVote%>" commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>'/></td>
+		<YAF:mylinkbutton runat="server" enabled="<%#CanVote%>" commandname=vote commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>'/></td>
 		<td class="post" align="center"><%# DataBinder.Eval(Container.DataItem, "Votes") %></td>
 		<td class="post"><nobr><img src="<%# GetThemeContents("VOTE","LCAP") %>"><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# VoteWidth(Container.DataItem) %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
 	</tr>
@@ -32,7 +33,7 @@
 </asp:repeater>
 <table class='command' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
-	<td align="left" class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
+	<td align="left" class="navlinks"><YAF:pager runat="server" id="Pager"/></td>
 	<td align="right">
 		<asp:linkbutton id="PostReplyLink1" runat="server" cssclass="imagelink" ToolTip="Post Reply" onclick="PostReplyLink_Click" />
 		<asp:linkbutton id="NewTopic1" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
@@ -81,29 +82,29 @@
 <asp:repeater id="MessageList" runat="server">
 <ItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
-	<yaf:displaypost runat="server" datarow="<%# Container.DataItem %>" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
+	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
 </ItemTemplate>
 <AlternatingItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
-	<yaf:displaypost runat="server" datarow="<%# Container.DataItem %>" IsAlt="True" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
+	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" IsAlt="True" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
 </AlternatingItemTemplate>
 </asp:repeater>
 
     <asp:PlaceHolder id="QuickReplyPlaceHolder" runat="server">
     <tr>
         <td colspan="3" class="post" style="padding:0px;">
-            <yaf:DataPanel runat="server" id="DataPanel1"  AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2" TitleStyle-Font-Bold="true" Collapsed="true">
+            <YAF:DataPanel runat="server" id="DataPanel1"  AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2" TitleStyle-Font-Bold="true" Collapsed="true">
                 <div class="post" id="QuickReplyLine" runat="server" style="margin-top:10px;margin-left:20px;margin-right:20px;padding:2px;height:100px">
                 </div>                
                 <div align="center" style="margin:7px;">
                     <asp:button id="QuickReply" cssclass="pbutton" runat="server"/>
                 </div>                
-            </yaf:DataPanel>
+            </YAF:DataPanel>
         </td>
     </tr>
     </asp:PlaceHolder>        
 
-<yaf:ForumUsers runat="server"/>
+<YAF.Forum.sers runat="server"/>
 
 </table>
 
@@ -111,7 +112,7 @@
 
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
   <tr>
-    <td align="left" class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
+    <td align="left" class="navlinks"><YAF:pager runat="server" linkedpager="Pager"/></td>
     <td align="right">
 		<asp:linkbutton id="PostReplyLink2" runat="server" cssclass="imagelink" onclick="PostReplyLink_Click" />
 		<asp:linkbutton id="NewTopic2" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
@@ -125,16 +126,16 @@
 <br />
 <table cellspacing="0" cellpadding="0" width="100%">
 <tr id="ForumJumpLine" runat="Server">
-	<td align="right"><%= GetText("FORUM_JUMP") %> <yaf:forumjump id="ForumJump1" runat="server"/></td>
+	<td align="right"><%= GetText("FORUM_JUMP") %> <YAF:forumjump id="ForumJump1" runat="server"/></td>
 </tr>
 <tr>
-	<td align="right" valign="top" class="smallfont"><yaf:PageAccess id="PageAccess1" runat="server"/></td>
+	<td align="right" valign="top" class="smallfont"><YAF:PageAccess id="PageAccess1" runat="server"/></td>
 </tr>
 </table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />
 
-<yaf:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
-<yaf:PopMenu runat="server" id="ViewMenu" control="View"/>
+<YAF:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
+<YAF:PopMenu runat="server" id="ViewMenu" control="View"/>
 
 <span id="WatchTopicID" runat="server" visible="false"></span>

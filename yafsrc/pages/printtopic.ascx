@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="printtopic.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.printtopic" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="printtopic.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.printtopic" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <asp:repeater id=Posts runat=server>
 <ItemTemplate>

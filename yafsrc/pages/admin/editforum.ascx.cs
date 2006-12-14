@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Administrative Page for the editting of forum properties.
@@ -39,24 +39,24 @@ namespace yaf.pages.admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-				PageLinks.AddLink( "Administration", Forum.GetLink( Pages.admin_admin ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Forums", "" );
 
 				BindData();
 				if ( Request.QueryString ["f"] != null )
 				{
-					using ( DataTable dt = DB.forum_list( PageBoardID, Request.QueryString ["f"] ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, Request.QueryString ["f"] ) )
 					{
 						DataRow row = dt.Rows [0];
 						Name.Text = ( string ) row ["Name"];
 						Description.Text = ( string ) row ["Description"];
 						SortOrder.Text = row ["SortOrder"].ToString();
-						HideNoAccess.Checked = ( ( int ) row ["Flags"] & ( int ) ForumFlags.Hidden ) == ( int ) ForumFlags.Hidden;
-						Locked.Checked = ( ( int ) row ["Flags"] & ( int ) ForumFlags.Locked ) == ( int ) ForumFlags.Locked;
-						IsTest.Checked = ( ( int ) row ["Flags"] & ( int ) ForumFlags.IsTest ) == ( int ) ForumFlags.IsTest;
+						HideNoAccess.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Hidden ) == ( int ) YAF.Classes.Data.ForumFlags.Hidden;
+						Locked.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked;
+						IsTest.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.IsTest ) == ( int ) YAF.Classes.Data.ForumFlags.IsTest;
 						ForumNameTitle.Text = Name.Text;
-						Moderated.Checked = ( ( int ) row ["Flags"] & ( int ) ForumFlags.Moderated ) == ( int ) ForumFlags.Moderated;
+						Moderated.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Moderated ) == ( int ) YAF.Classes.Data.ForumFlags.Moderated;
 
 						CategoryList.SelectedValue = row ["CategoryID"].ToString();
 						if ( !row.IsNull( "ParentID" ) )
@@ -74,18 +74,18 @@ namespace yaf.pages.admin
 		private void BindData()
 		{
 			int ForumID = 0;
-			CategoryList.DataSource = DB.category_list( PageBoardID, null );
+			CategoryList.DataSource = YAF.Classes.Data.DB.category_list( PageBoardID, null );
 			CategoryList.DataBind();
 
 			if ( Request.QueryString ["f"] != null )
 			{
 				ForumID = Convert.ToInt32( Request.QueryString ["f"] );
-				AccessList.DataSource = DB.forumaccess_list( ForumID );
+				AccessList.DataSource = YAF.Classes.Data.DB.forumaccess_list( ForumID );
 				AccessList.DataBind();
 			}
 
 			// Load forum's combo
-			ParentList.DataSource = DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
+			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
 			ParentList.DataValueField = "ForumID";
 			ParentList.DataTextField = "Title";
 			ParentList.DataBind();
@@ -106,7 +106,7 @@ namespace yaf.pages.admin
 
 		public void Category_Change( object sender, System.EventArgs e )
 		{
-			ParentList.DataSource = DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
+			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
 			ParentList.DataValueField = "ForumID";
 			ParentList.DataTextField = "Title";
 			ParentList.DataBind();
@@ -163,7 +163,7 @@ namespace yaf.pages.admin
 			if ( ThemeList.SelectedValue.Length > 0 )
 				themeURL = ThemeList.SelectedValue;
 
-			ForumID = DB.forum_save( ForumID, CategoryList.SelectedValue, parentID, Name.Text, Description.Text, SortOrder.Text, Locked.Checked, HideNoAccess.Checked, IsTest.Checked, Moderated.Checked, AccessMaskID.SelectedValue, IsNull( remoteurl.Text ), themeURL, false );
+			ForumID = YAF.Classes.Data.DB.forum_save( ForumID, CategoryList.SelectedValue, parentID, Name.Text, Description.Text, SortOrder.Text, Locked.Checked, HideNoAccess.Checked, IsTest.Checked, Moderated.Checked, AccessMaskID.SelectedValue, IsNull( remoteurl.Text ), themeURL, false );
 
 			// Access
 			if ( Request.QueryString ["f"] != null )
@@ -172,23 +172,23 @@ namespace yaf.pages.admin
 				{
 					RepeaterItem item = AccessList.Items [i];
 					int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
-					DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
+					YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
 				}
-				Forum.Redirect( Pages.admin_forums );
+				Forum.Redirect( ForumPages.admin_forums );
 			}
 
 			// Done
-			Forum.Redirect( Pages.admin_editforum, "f={0}", ForumID );
+			Forum.Redirect( ForumPages.admin_editforum, "f={0}", ForumID );
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( Pages.admin_forums );
+			Forum.Redirect( ForumPages.admin_forums );
 		}
 
 		protected void BindData_AccessMaskID( object sender, System.EventArgs e )
 		{
-			( ( DropDownList ) sender ).DataSource = DB.accessmask_list( PageBoardID, null );
+			( ( DropDownList ) sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageBoardID, null );
 			( ( DropDownList ) sender ).DataValueField = "AccessMaskID";
 			( ( DropDownList ) sender ).DataTextField = "Name";
 		}

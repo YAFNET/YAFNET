@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies_edit.
@@ -20,8 +20,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
@@ -66,7 +66,7 @@ namespace yaf.pages.admin
 
 			if(Request["s"]!=null) 
 			{
-				using(DataTable dt = DB.smiley_list(PageBoardID,Request.QueryString["s"])) 
+				using(DataTable dt = YAF.Classes.Data.DB.smiley_list(PageBoardID,Request.QueryString["s"])) 
 				{
 					if(dt.Rows.Count>0) 
 					{
@@ -109,13 +109,13 @@ namespace yaf.pages.admin
 				AddLoadMessage("Please select an icon to use for this emotion.");
 				return;
 			}
-			DB.smiley_save(Request.QueryString["s"],PageBoardID,sCode,sIcon,sEmotion,0);
-			Forum.Redirect(Pages.admin_smilies);
+			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"],PageBoardID,sCode,sIcon,sEmotion,0);
+			Forum.Redirect( ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect(Pages.admin_smilies);
+			Forum.Redirect( ForumPages.admin_smilies);
 		}
 
 

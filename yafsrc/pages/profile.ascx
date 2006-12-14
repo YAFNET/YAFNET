@@ -1,8 +1,10 @@
-<%@ Control Language="c#" Codebehind="profile.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.profile" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="c#" Codebehind="profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.profile" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
+<YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" align="center" width="100%" cellspacing="1" cellpadding="0">
 <tr>
 	<td class="header1" colspan="2">
@@ -146,7 +148,7 @@
                 <uc1:SuspendUser runat="server" ID="SuspendUserControl" />
                 <uc1:SignatureEdit runat="server" ID="SignatureEditControl" />
                 <div id="AdminUser" runat="server">
-                    <a href='<%# yaf.Forum.GetLink(yaf.Pages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
+                    <a href='<%# YAF.Forum.GetLink(YAF.ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
                 </div>
 		</td>	
             <td valign="top">
@@ -173,8 +175,8 @@
 			        <td class="small" align="left" colspan="2">
                                 <b>
                                     <%= GetText("topic") %>
-                                </b><a href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
-                                    <%# yaf.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
+                                </b><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
+                                    <%# YAF.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
                                 </a>
                                 <br />
                                 <b>
@@ -194,4 +196,4 @@
         </td>
     </tr>
 </table>
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for prune.
@@ -38,8 +38,8 @@ namespace yaf.pages.admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Prune","");
 
 				days.Text = "60";
@@ -48,7 +48,7 @@ namespace yaf.pages.admin
 		}
 
 		private void BindData() {
-			forumlist.DataSource = DB.forum_listread(PageBoardID,PageUserID,null,null);
+			forumlist.DataSource = YAF.Classes.Data.DB.forum_listread(PageBoardID,PageUserID,null,null);
 			forumlist.DataValueField = "ForumID";
 			forumlist.DataTextField = "Forum";
 			DataBind();
@@ -56,7 +56,7 @@ namespace yaf.pages.admin
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			int Count = DB.topic_prune(forumlist.SelectedValue,days.Text);
+			int Count = YAF.Classes.Data.DB.topic_prune(forumlist.SelectedValue,days.Text);
 			AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 

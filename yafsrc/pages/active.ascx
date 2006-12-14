@@ -1,11 +1,12 @@
-<%@ Control language="c#" Codebehind="active.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.active" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="active.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.active" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
-		<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
+		<td class="navlinks"><YAF:pager runat="server" id="Pager"/></td>
 		<td align="right"><%= GetText("since") %> <asp:DropDownList id="Since" runat="server" AutoPostBack="True" onselectedindexchanged="Since_SelectedIndexChanged" /></td>
 	</tr>
 </table>
@@ -25,7 +26,7 @@
 <asp:repeater id="TopicList" runat="server">
 <ItemTemplate>
 	<%# PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-	<yaf:TopicLine runat="server" findunread="true" DataRow="<%# Container.DataItem %>"/>
+	<YAF:TopicLine runat="server" findunread="true" DataRow="<%# Container.DataItem %>"/>
 </ItemTemplate>
 </asp:repeater>
 <tr>
@@ -35,19 +36,19 @@
 
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-	<td class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
+	<td class="navlinks"><YAF:pager runat="server" linkedpager="Pager"/></td>
 </tr>
 </table>
 
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
 	<td align="right" colspan="2">
-		<%= GetText("Forum_Jump") %> <yaf:forumjump runat="server"/>
+		<%= GetText("Forum_Jump") %> <YAF:forumjump runat="server"/>
 	</td>
 </tr>
 <tr>
-	<td valign="top"><yaf:IconLegend runat="server"/></td>
+	<td valign="top"><YAF:IconLegend runat="server"/></td>
 </tr>
 </table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

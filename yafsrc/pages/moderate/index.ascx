@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="index.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.moderate.index" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="index.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.moderate.index" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <asp:repeater id="List" runat="server">
 <HeaderTemplate>
@@ -19,7 +20,7 @@
 		<tr class="post">
 			<td><img src='<%# GetThemeContents("ICONS","FORUM") %>'/></td>
 			<td>
-				<b><a href='<%# yaf.Forum.GetLink(yaf.Pages.moderate_forum,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></b><br/>
+				<b><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.moderate_forum,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></b><br/>
 				<%# GetText("MODERATE_DEFAULT","CATEGORY") %>: <%# Eval("CategoryName") %>
 			</td>
 			<td align="center"><%# Eval("MessageCount") %></td>
@@ -27,4 +28,4 @@
 </ItemTemplate>
 </asp:repeater>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

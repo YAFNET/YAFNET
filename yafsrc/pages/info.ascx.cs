@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for info.
@@ -51,13 +51,13 @@ namespace yaf.pages
 							Title.Text = GetText( "title_registration" );
 							Info.Text = GetText( "registration" );
 							RefreshTime = 10;
-							RefreshURL = Forum.GetLink( Pages.login );
+							RefreshURL = Forum.GetLink( ForumPages.login );
 							break;
 						case 4: /// Access Denied
 							Title.Text = GetText( "title_accessdenied" );
 							Info.Text = GetText( "accessdenied" );
 							RefreshTime = 10;
-							RefreshURL = Forum.GetLink( Pages.forum );
+							RefreshURL = Forum.GetLink( ForumPages.forum );
 							break;
 					}
 				}
@@ -66,7 +66,7 @@ namespace yaf.pages
 					Title.Text = GetText( "title_exception" );
 					Info.Text = string.Format( "{1} <b>{0}</b>.", PageUserName, GetText( "exception" ) );
 					RefreshTime = 2;
-					RefreshURL = Forum.GetLink( Pages.forum );
+					RefreshURL = Forum.GetLink( ForumPages.forum );
 				}
 				Continue.NavigateUrl = RefreshURL;
 				Continue.Visible = RefreshURL != null;

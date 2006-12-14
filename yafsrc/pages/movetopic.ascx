@@ -1,6 +1,7 @@
-<%@ Control Language="c#" Codebehind="movetopic.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.movetopic" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
+<%@ Control Language="c#" Codebehind="movetopic.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 <tr>
         <td class="header1" colspan="2">
@@ -21,4 +22,4 @@
 	</td>
 </tr>
 </table>
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

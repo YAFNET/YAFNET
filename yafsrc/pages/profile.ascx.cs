@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for profile.
@@ -47,9 +47,9 @@ namespace yaf.pages
 			if (IsPrivate && User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( Pages.login, "ReturnUrl={0}", Request.RawUrl );
+					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				else
-					Forum.Redirect( Pages.forum );
+					Forum.Redirect( ForumPages.forum );
 			}
 			// 20050909 CHP : END
 
@@ -68,7 +68,7 @@ namespace yaf.pages
 
 		private void BindData()
 		{
-			using ( DataTable dt = DB.user_list( PageBoardID, Request.QueryString ["u"], true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], true ) )
 			{
 				if ( dt.Rows.Count < 1 )
 					Data.AccessDenied(/*No such user exists*/);
@@ -87,8 +87,8 @@ namespace yaf.pages
 				Gender.InnerText = GetText( "GENDER" + user ["Gender"].ToString() );
 
 				PageLinks.Clear();
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-				PageLinks.AddLink( GetText( "MEMBERS" ), Forum.GetLink( Pages.members ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "MEMBERS" ), Forum.GetLink( ForumPages.members ) );
 				PageLinks.AddLink( Server.HtmlEncode( user ["Name"].ToString() ), "" );
 
 				double dAllPosts = 0.0;
@@ -104,11 +104,11 @@ namespace yaf.pages
 				// private messages
 				Pm.Visible			= User!=null && BoardSettings.AllowPrivateMessages;
 				Pm.Text = GetThemeContents( "BUTTONS", "PM" );
-				Pm.NavigateUrl = Forum.GetLink( Pages.pmessage, "u={0}", user ["UserID"] );
+				Pm.NavigateUrl = Forum.GetLink( ForumPages.pmessage, "u={0}", user ["UserID"] );
 				// email link
 				Email.Visible		= User!=null && BoardSettings.AllowEmailSending;
 				Email.Text = GetThemeContents( "BUTTONS", "EMAIL" );
-				Email.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", user ["UserID"] );
+				Email.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", user ["UserID"] );
 				if ( IsAdmin ) Email.ToolTip = user ["Email"].ToString();
 				Home.Visible = user ["HomePage"] != DBNull.Value;
 				Home.NavigateUrl = user ["HomePage"].ToString();
@@ -118,16 +118,16 @@ namespace yaf.pages
 				Blog.Text = GetThemeContents( "BUTTONS", "WEBLOG" );
 				Msn.Visible			= User!=null && user["MSN"]!=DBNull.Value;
 				Msn.Text = GetThemeContents( "BUTTONS", "MSN" );
-				Msn.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", user ["UserID"] );
+				Msn.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", user ["UserID"] );
 				Yim.Visible			= User!=null && user["YIM"]!=DBNull.Value;
-				Yim.NavigateUrl = Forum.GetLink( Pages.im_yim, "u={0}", user ["UserID"] );
+				Yim.NavigateUrl = Forum.GetLink( ForumPages.im_yim, "u={0}", user ["UserID"] );
 				Yim.Text = GetThemeContents( "BUTTONS", "YAHOO" );
 				Aim.Visible			= User!=null && user["AIM"]!=DBNull.Value;
 				Aim.Text = GetThemeContents( "BUTTONS", "AIM" );
-				Aim.NavigateUrl = Forum.GetLink( Pages.im_aim, "u={0}", user ["UserID"] );
+				Aim.NavigateUrl = Forum.GetLink( ForumPages.im_aim, "u={0}", user ["UserID"] );
 				Icq.Visible			= User!=null && user["ICQ"]!=DBNull.Value;
 				Icq.Text = GetThemeContents( "BUTTONS", "ICQ" );
-				Icq.NavigateUrl = Forum.GetLink( Pages.im_icq, "u={0}", user ["UserID"] );
+				Icq.NavigateUrl = Forum.GetLink( ForumPages.im_icq, "u={0}", user ["UserID"] );
 
 				if ( BoardSettings.AvatarUpload && user ["HasAvatarImage"] != null && long.Parse( user ["HasAvatarImage"].ToString() ) > 0 )
 				{
@@ -146,7 +146,7 @@ namespace yaf.pages
 					Avatar.Visible = false;
 				}
 
-				Groups.DataSource = DB.usergroup_list( Request.QueryString ["u"] );
+				Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( Request.QueryString ["u"] );
 
 				//EmailRow.Visible = IsAdmin;
 				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
@@ -159,7 +159,7 @@ namespace yaf.pages
 
 				if ( IsAdmin || IsForumModerator )
 				{
-					using ( DataTable dt2 = DB.user_accessmasks( PageBoardID, Request.QueryString ["u"] ) )
+					using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageBoardID, Request.QueryString ["u"] ) )
 					{
 						System.Text.StringBuilder html = new System.Text.StringBuilder();
 						int nLastForumID = 0;
@@ -187,7 +187,7 @@ namespace yaf.pages
 
 			if ( LastPosts.Visible )
 			{
-				LastPosts.DataSource = DB.post_last10user( PageBoardID, Request.QueryString ["u"], PageUserID );
+				LastPosts.DataSource = YAF.Classes.Data.DB.post_last10user( PageBoardID, Request.QueryString ["u"], PageUserID );
 			}
 
 			DataBind();

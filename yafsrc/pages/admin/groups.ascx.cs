@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for groups.
@@ -39,8 +39,8 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Groups","");
 
 				BindData();
@@ -75,7 +75,7 @@ namespace yaf.pages.admin
 
 		private void BindData() 
 		{
-			GroupList.DataSource = DB.group_list(PageBoardID,null);
+			GroupList.DataSource = YAF.Classes.Data.DB.group_list(PageBoardID,null);
 			DataBind();
 		}
 
@@ -84,16 +84,16 @@ namespace yaf.pages.admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect(Pages.admin_editgroup,"i={0}",e.CommandArgument);
+					Forum.Redirect( ForumPages.admin_editgroup,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
                     string roleName = string.Empty;
-                    using (DataTable dt = DB.group_list(PageBoardID, e.CommandArgument))
+                    using (DataTable dt = YAF.Classes.Data.DB.group_list(PageBoardID, e.CommandArgument))
                     {
                         foreach (DataRow row in dt.Rows)
                             roleName = (string)row["Name"];
                     }
-					DB.group_delete(e.CommandArgument);
+					YAF.Classes.Data.DB.group_delete(e.CommandArgument);
 					BindData();
                     System.Web.Security.Roles.DeleteRole(roleName,false);
 					break;
@@ -102,7 +102,7 @@ namespace yaf.pages.admin
 
 		protected void NewGroup_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_editgroup);
+			Forum.Redirect( ForumPages.admin_editgroup);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

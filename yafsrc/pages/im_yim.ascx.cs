@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
@@ -46,12 +46,12 @@ namespace yaf.pages
 
 			if(!IsPostBack) 
 			{
-				using(DataTable dt=DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink(Pages.profile,"u={0}",row["UserID"]));
+						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink( ForumPages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),"");
 						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);
 						Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg",row["YIM"]);

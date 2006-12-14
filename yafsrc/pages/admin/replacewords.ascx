@@ -1,7 +1,8 @@
-<%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.replacewords" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:adminmenu runat="server" id="Adminmenu1">
+<%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.replacewords" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="list" runat="server">
 		<HeaderTemplate>
 			<table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -35,5 +36,5 @@
 			</table>
 		</FooterTemplate>
 	</asp:repeater>
-</yaf:adminmenu>
-<yaf:SmartScroller id="SmartScroller1" runat="server" />
+</YAF:adminmenu>
+<YAF:SmartScroller id="SmartScroller1" runat="server" />

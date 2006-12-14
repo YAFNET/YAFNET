@@ -29,7 +29,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for logout.
@@ -48,7 +48,7 @@ namespace yaf.pages
 			
 			FormsAuthentication.SignOut();
 			Session.Abandon();
-			Forum.Redirect(Pages.forum);
+			Forum.Redirect( ForumPages.forum );
 		}
 
 		#region Web Form Designer generated code

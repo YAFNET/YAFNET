@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for movetopic.
@@ -48,15 +48,15 @@ namespace yaf.pages
 			{
 				if(ForumControl.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
+				PageLinks.AddLink(PageTopicName,Forum.GetLink( ForumPages.posts,"t={0}",PageTopicID));
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = DB.forum_listall_sorted( PageBoardID, PageUserID );
+				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageBoardID, PageUserID );
 				
 				DataBind();
 				
@@ -90,9 +90,9 @@ namespace yaf.pages
 			// only move if it's a destination is a different forum.
 			if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)
 			{
-				DB.topic_move(PageTopicID,ForumList.SelectedValue,BoardSettings.ShowMoved);
+				YAF.Classes.Data.DB.topic_move(PageTopicID,ForumList.SelectedValue,BoardSettings.ShowMoved);
 			}
-			Forum.Redirect(Pages.topics,"f={0}",PageForumID);
+			Forum.Redirect( ForumPages.topics,"f={0}",PageForumID);
 		}
 	}
 }

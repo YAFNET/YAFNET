@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.admin" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<yaf:PageLinks runat="server" id="PageLinks" />
-<yaf:adminmenu runat="server" id="Adminmenu1">
+<%@ Control language="c#" Codebehind="admin.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="ActiveList" runat="server">
 		<HeaderTemplate>
 			<table width="100%" cellspacing="1" cellpadding="0" class="content">
@@ -112,5 +113,5 @@
 		Another Forum.net and the version of your database does not match. You should 
 		go to <A href="install/" target='_"top"'>install</A> and update your database.
 	</P>
-</yaf:adminmenu>
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+</YAF:adminmenu>
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

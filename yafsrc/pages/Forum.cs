@@ -2,9 +2,9 @@ using System;
 using System.Web;
 using System.Web.UI;
 
-namespace yaf
+namespace YAF
 {
-	public enum Pages
+	public enum ForumPages
 	{
 		forum,
 		topics,
@@ -100,7 +100,7 @@ namespace yaf
 			this.Load += new EventHandler( Forum_Load );
 			try
 			{
-                m_boardID = int.Parse(Config.BoardID);
+				m_boardID = int.Parse( YAF.Classes.Utils.Config.BoardID );
 			}
 			catch
 			{
@@ -110,24 +110,24 @@ namespace yaf
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			Pages page;
+			ForumPages Page;
 			string m_baseDir = Data.ForumRoot;
 
 			try
 			{
-				page = ( Pages ) System.Enum.Parse( typeof( Pages ), Request.QueryString ["g"], true );
+				Page = ( ForumPages ) System.Enum.Parse( typeof( ForumPages ), Request.QueryString ["g"], true );
 			}
 			catch ( Exception )
 			{
-				page = Pages.forum;
+				Page = ForumPages.forum;
 			}
 
-			if ( !ValidPage( page ) )
+			if ( !ValidPage( Page ) )
 			{
-				Forum.Redirect( Pages.topics, "f={0}", LockedForum );
+				Forum.Redirect( ForumPages.topics, "f={0}", LockedForum );
 			}
 
-			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, page );
+			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, Page );
 			if ( src.IndexOf( "/moderate_" ) >= 0 )
 				src = src.Replace( "/moderate_", "/moderate/" );
 			if ( src.IndexOf( "/admin_" ) >= 0 )
@@ -137,7 +137,7 @@ namespace yaf
 
 			try
 			{
-				pages.ForumPage ctl = ( pages.ForumPage ) LoadControl( src );
+				Pages.ForumPage ctl = ( Pages.ForumPage ) LoadControl( src );
 				ctl.ForumControl = this;
 
 				this.Controls.Add( ctl );
@@ -148,10 +148,10 @@ namespace yaf
 			}
 		}
 
-		private yaf.Header m_header = null;
-		private yaf.Footer m_footer = null;
+		private YAF.Controls.Header m_header = null;
+		private YAF.Controls.Footer m_footer = null;
 
-		public yaf.Header Header
+		public YAF.Controls.Header Header
 		{
 			set
 			{
@@ -163,7 +163,7 @@ namespace yaf
 			}
 		}
 
-		public yaf.Footer Footer
+		public YAF.Controls.Footer Footer
 		{
 			set
 			{
@@ -175,24 +175,24 @@ namespace yaf
 			}
 		}
 
-		static public string GetLink( Pages page )
+		static public string GetLink( ForumPages Page )
 		{
-			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}", page ) );
+			return YAF.Classes.Utils.Config.UrlBuilder.BuildUrl( string.Format( "g={0}", Page ) );
 		}
 
-		static public string GetLink( Pages page, string format, params object [] args )
+		static public string GetLink( ForumPages Page, string format, params object [] args )
 		{
-			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) );
+			return YAF.Classes.Utils.Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", Page, string.Format( format, args ) ) );
 		}
 
-		static public void Redirect( Pages page )
+		static public void Redirect( ForumPages Page )
 		{
-			System.Web.HttpContext.Current.Response.Redirect( GetLink( page ) );
+			System.Web.HttpContext.Current.Response.Redirect( GetLink( Page ) );
 		}
 
-		static public void Redirect( Pages page, string format, params object [] args )
+		static public void Redirect( ForumPages Page, string format, params object [] args )
 		{
-			System.Web.HttpContext.Current.Response.Redirect( GetLink( page, format, args ) );
+			System.Web.HttpContext.Current.Response.Redirect( GetLink( Page, format, args ) );
 		}
 
 		private int m_boardID;
@@ -215,14 +215,14 @@ namespace yaf
 			{
 				foreach ( Control c in Controls )
 				{
-					if ( c is pages.ForumPage )
-						return ( c as pages.ForumPage ).PageUserID;
+					if ( c is YAF.Pages.ForumPage )
+						return ( c as YAF.Pages.ForumPage ).PageUserID;
 				}
 				return 0;
 			}
 		}
 
-		private int m_categoryID = Convert.ToInt32(Config.CategoryID);
+		private int m_categoryID = Convert.ToInt32( YAF.Classes.Utils.Config.CategoryID );
 
 		public int CategoryID
 		{
@@ -250,18 +250,18 @@ namespace yaf
 			}
 		}
 
-		private bool ValidPage( Pages page )
+		private bool ValidPage( ForumPages Page )
 		{
 			if ( LockedForum == 0 )
 				return true;
 
-			if ( page == Pages.forum || page == Pages.active || page == Pages.activeusers )
+			if ( Page == ForumPages.forum || Page == ForumPages.active || Page == ForumPages.activeusers )
 				return false;
 
-			if ( page == Pages.cp_editprofile || page == Pages.cp_inbox || page == Pages.cp_message || page == Pages.cp_profile || page == Pages.cp_signature || page == Pages.cp_subscriptions )
+			if ( Page == ForumPages.cp_editprofile || Page == ForumPages.cp_inbox || Page == ForumPages.cp_message || Page == ForumPages.cp_profile || Page == ForumPages.cp_signature || Page == ForumPages.cp_subscriptions )
 				return false;
 
-			if ( page == Pages.pmessage )
+			if ( Page == ForumPages.pmessage )
 				return false;
 
 			return true;

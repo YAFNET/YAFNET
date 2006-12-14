@@ -91,7 +91,7 @@ namespace yaf
 				}
 				catch
 				{
-					DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
+					YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), "Attempting to access invalid resource: " + resourceName, 1 );
 					context.Response.Write( "Error: Invalid forum resource. Please contact the forum admin." );
 				}
 			}
@@ -99,7 +99,7 @@ namespace yaf
 
 		private void GetResponseLocalAvatar( HttpContext context )
 		{
-			using ( DataTable dt = DB.user_avatarimage( context.Request.QueryString ["u"] ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_avatarimage( context.Request.QueryString ["u"] ) )
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
@@ -178,7 +178,7 @@ namespace yaf
 			try
 			{
 				// AttachmentID
-				using ( DataTable dt = DB.attachment_list( null, context.Request.QueryString ["a"], null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( null, context.Request.QueryString ["a"], null ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
@@ -186,7 +186,7 @@ namespace yaf
 
 						if ( row.IsNull( "FileData" ) )
 						{
-							string sUpDir = Config.UploadDir;
+							string sUpDir = YAF.Classes.Utils.Config.UploadDir;
 							string fileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
 							using ( System.IO.FileStream input = new System.IO.FileStream( fileName, System.IO.FileMode.Open ) )
 							{
@@ -203,14 +203,14 @@ namespace yaf
 						context.Response.ContentType = row ["ContentType"].ToString();
 						context.Response.AppendHeader( "Content-Disposition", String.Format( "attachment; filename={0}", HttpUtility.UrlEncode( row ["FileName"].ToString() ).Replace( "+", "%20" ) ) );
 						context.Response.OutputStream.Write( data, 0, data.Length );
-						DB.attachment_download( context.Request.QueryString ["a"] );
+						YAF.Classes.Data.DB.attachment_download( context.Request.QueryString ["a"] );
 						break;
 					}
 				}
 			}
 			catch ( Exception x )
 			{
-				DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
+				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
 				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
 			}
 		}

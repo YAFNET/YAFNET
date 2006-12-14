@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="activeusers.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.activeusers" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="activeusers.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>
@@ -19,7 +20,7 @@
 <asp:repeater id=UserList runat=server>
 <ItemTemplate>
 <tr>
-	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval("UserID")) %>' Text='<%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %>' runat="server" /></td>
+	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval("UserID")) %>' Text='<%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %>' runat="server" /></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
 	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
 	<td class=post><%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>
@@ -31,4 +32,4 @@
 
 </table>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

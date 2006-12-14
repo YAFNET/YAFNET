@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="cp_editprofile.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.cp_editprofile" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="yaf" TagName="ProfileEdit" Src="../controls/EditUsersProfile.ascx" %>
+<%@ Control language="c#" Codebehind="cp_editprofile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.cp_editprofile" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" TagName="ProfileEdit" Src="../controls/EditUsersProfile.ascx" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:ProfileEdit runat="server" id="ProfileEditor" />
+<YAF:ProfileEdit runat="server" id="ProfileEditor" />
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

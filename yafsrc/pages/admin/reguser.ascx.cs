@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	using System;
 	using System.Data;
 	using System.Drawing;
 	using System.Web;
+	using System.Web.Security;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
 
@@ -36,8 +37,8 @@ namespace yaf.pages.admin
 		{
       if(!IsPostBack) 
       {
-        PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-        PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+        PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+        PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
         PageLinks.AddLink("Users","");
 
         TimeZones.DataSource = Data.TimeZones();
@@ -68,7 +69,7 @@ namespace yaf.pages.admin
 		
     protected void cancel_Click(object sender,EventArgs e) 
     {
-      Forum.Redirect(Pages.admin_users);
+      Forum.Redirect( ForumPages.admin_users);
     }
 		
     protected void ForumRegister_Click(object sender, System.EventArgs e)
@@ -81,16 +82,32 @@ namespace yaf.pages.admin
           return;
         }
 
-        if(DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
+        if(YAF.Classes.Data.DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
         {
           AddLoadMessage("Username or email are already registered.");
           return;
         }
 
-        if (DB.user_register(this,PageBoardID,UserName.Text,Password.Text,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,BoardSettings.EmailVerification))
+				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword( 20 );
+				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
+
+        if (YAF.Classes.Data.DB.user_register(PageBoardID,UserName.Text,Password.Text,hash,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,!BoardSettings.EmailVerification))
 				{
+
+					if ( BoardSettings.EmailVerification )
+					{
+						//  Build a MailMessage
+						string body = Utils.ReadTemplate( "verifyemail.txt" );
+						body = body.Replace( "{link}", String.Format( "{1}{0}", Forum.GetLink( ForumPages.approve, "k={0}", hash ), ServerURL ) );
+						body = body.Replace( "{key}", hash );
+						body = body.Replace( "{forumname}", BoardSettings.Name );
+						body = body.Replace( "{forumlink}", String.Format( "{0}", ForumURL ) );
+
+						Utils.SendMail( this, BoardSettings.ForumEmail, Email.Text, String.Format( "{0} email verification", BoardSettings.Name ), body );
+					}
+
 					// success
-					Forum.Redirect(Pages.admin_reguser);
+					Forum.Redirect( ForumPages.admin_reguser);
 				}
       }
     }

@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for members.
@@ -60,14 +60,14 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				SetSort("Name",true);
@@ -127,7 +127,7 @@ namespace yaf.pages
 		{
 			Pager.PageSize = 20;
 
-			DataView dv = DB.user_list(PageBoardID,null,true).DefaultView;
+			DataView dv = YAF.Classes.Data.DB.user_list(PageBoardID,null,true).DefaultView;
 			
 			if(QLetter!=null) {
 				if(QLetter.ToString()=="#") 
@@ -193,7 +193,7 @@ namespace yaf.pages
 	
 				HyperLink btn = new HyperLink();
 				btn.Text = letter.ToString();
-				btn.NavigateUrl = Forum.GetLink(Pages.members,"letter={0}",letter=='#'?'_':letter);
+				btn.NavigateUrl = Forum.GetLink( ForumPages.members,"letter={0}",letter=='#'?'_':letter);
 				cell.Controls.Add(btn);
 
 				LetterRow.Cells.Add(cell);

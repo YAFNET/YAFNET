@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="smilies.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.smilies" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<YAF:adminmenu runat="server">
 
 <asp:repeater runat=server id=List>
 <HeaderTemplate>
@@ -21,7 +22,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post><%# Eval("Code") %></td>
-		<td class=post align="center"><img src='<%# yaf.Data.ForumRoot %>images/emoticons/<%# Eval("Icon") %>'/></td>		
+		<td class=post align="center"><img src='<%# YAF.Data.ForumRoot %>images/emoticons/<%# Eval("Icon") %>'/></td>		
 		<td class=post><%# Eval("Emoticon") %></td>
 		<td class=post>
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval("SmileyID") %>' text="Edit"/>
@@ -42,6 +43,6 @@
 </FooterTemplate>
 </asp:repeater>
 
-</yaf:adminmenu>
+</YAF:adminmenu>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

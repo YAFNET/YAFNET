@@ -28,7 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
 
-namespace yaf.pages.admin {
+namespace YAF.Pages.Admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
@@ -39,8 +39,8 @@ namespace yaf.pages.admin {
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Board Settings","");
 
 				// create list boxes by populating datasources from Data class
@@ -68,7 +68,7 @@ namespace yaf.pages.admin {
 		private void BindData()
 		{
 			DataRow row;
-			using(DataTable dt = DB.board_list(PageBoardID))
+			using(DataTable dt = YAF.Classes.Data.DB.board_list(PageBoardID))
 				row = dt.Rows[0];
 
 			DataBind();
@@ -98,7 +98,7 @@ namespace yaf.pages.admin {
 
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
-            DB.board_save(PageBoardID, Name.Text, AllowThreaded.Checked);
+            YAF.Classes.Data.DB.board_save(PageBoardID, Name.Text, AllowThreaded.Checked);
 
 			BoardSettings.Theme = Theme.SelectedValue;
 			BoardSettings.Language = Language.SelectedValue;
@@ -110,7 +110,7 @@ namespace yaf.pages.admin {
 			/// Reload forum settings
 			BoardSettings = null;
 
-			Forum.Redirect(Pages.admin_admin);
+			Forum.Redirect( ForumPages.admin_admin);
 		}
 	}
 }

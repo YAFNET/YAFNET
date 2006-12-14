@@ -1,9 +1,10 @@
-<%@ Control language="c#" Codebehind="attachments.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.admin.attachments" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="attachments.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.attachments" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 
-<yaf:adminmenu runat="server">
+<YAF:adminmenu runat="server">
 
 <table class=content width="100%" cellspacing=1 cellpadding=0>
 <tr>
@@ -25,8 +26,8 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=post>
-			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.topics,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></td>
-			<td><a target="_top" href='<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",Eval("TopicID")) %>'><%# Eval("TopicName") %></a></td>
+			<td><a target="_top" href='<%# YAF.Forum.GetLink(YAF.ForumPages.topics,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></td>
+			<td><a target="_top" href='<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",Eval("TopicID")) %>'><%# Eval("TopicName") %></a></td>
 			<td><%# FormatDateTimeShort(Eval( "Posted")) %></td>
 			<td><%# Eval( "FileName") %></td>
 			<td align="right"><%# Eval( "Downloads") %></td>
@@ -41,6 +42,6 @@
 
 </table>
 
-</yaf:adminmenu>
+</YAF:adminmenu>
 
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

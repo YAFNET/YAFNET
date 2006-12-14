@@ -15,7 +15,7 @@
 - Improve admin user editor: user stats, edit profile, edit password, edit banned/suspended status,
   and view IP access history.
 
-- Limit sigs to 5 lines or X characters. (Configurable in the backend.)
+- Limit sigs to 5 lines or X characters. (Utilsurable in the backend.)
 
 - Link correctly back to forum from install.
 

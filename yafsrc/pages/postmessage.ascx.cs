@@ -28,14 +28,14 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for postmessage.
 	/// </summary>
 	public partial class postmessage : ForumPage
 	{
-		protected yaf.editor.ForumEditor Message;
+		protected YAF.Editor.ForumEditor Message;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
 
 		public postmessage()
@@ -47,7 +47,7 @@ namespace yaf.pages
 		override protected void OnInit( System.EventArgs e )
 		{
 			// get the forum editor based on the settings
-			Message = yaf.editor.EditorHelper.CreateEditorFromType( BoardSettings.ForumEditor );
+			Message = YAF.Editor.EditorHelper.CreateEditorFromType( BoardSettings.ForumEditor );
 			EditorLine.Controls.Add( Message );
 
 			base.OnInit( e );
@@ -59,7 +59,7 @@ namespace yaf.pages
 
 			if ( Request.QueryString ["q"] != null )
 			{
-				using ( DataTable dt = DB.message_list( Request.QueryString ["q"] ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["q"] ) )
 					currentRow = dt.Rows [0];
 
 				if ( Convert.ToInt32( currentRow ["TopicID"] ) != PageTopicID )
@@ -70,7 +70,7 @@ namespace yaf.pages
 			}
 			else if ( Request.QueryString ["m"] != null )
 			{
-				using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
 					currentRow = dt.Rows [0];
 
 				if ( !CanEditPostCheck( currentRow ) )
@@ -108,25 +108,25 @@ namespace yaf.pages
 
 				if ( ForumControl.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( Pages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageForumID );
 
 				if ( Request.QueryString ["t"] != null )
 				{
 					// new post...
-					DataRow topic = DB.topic_info( Request.QueryString ["t"] );
-					if ( ( ( int ) topic ["Flags"] & ( int ) TopicFlags.Locked ) == ( int ) TopicFlags.Locked )
+					DataRow topic = YAF.Classes.Data.DB.topic_info( Request.QueryString ["t"] );
+					if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 						Response.Redirect( Request.UrlReferrer.ToString() );
 					SubjectRow.Visible = false;
 					Title.Text = GetText( "reply" );
 
-					if ( Config.IsDotNetNuke || Config.IsRainbow || Config.IsPortal )
+					if ( YAF.Classes.Utils.Config.IsDotNetNuke || YAF.Classes.Utils.Config.IsRainbow || YAF.Classes.Utils.Config.IsPortal )
 					{
 						// can't use the last post iframe
 						LastPosts.Visible = true;
-						LastPosts.DataSource = DB.post_list_reverse10( Request.QueryString ["t"] );
+						LastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10( Request.QueryString ["t"] );
 						LastPosts.DataBind();
 					}
 					else
@@ -199,11 +199,11 @@ namespace yaf.pages
 			DataRow forumInfo, topicInfo;
 
 			// get topic and forum information
-			topicInfo = DB.topic_info( PageTopicID );
-			using ( DataTable dt = DB.forum_list( PageBoardID, PageForumID ) )
+			topicInfo = YAF.Classes.Data.DB.topic_info( PageTopicID );
+			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, PageForumID ) )
 				forumInfo = dt.Rows [0];
 
-			return !postLocked && ( ( int ) forumInfo ["Flags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ( ( int ) message ["UserID"] == PageUserID || ForumModeratorAccess ) && ForumEditAccess;
+			return !postLocked && ( ( int ) forumInfo ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) message ["UserID"] == PageUserID || ForumModeratorAccess ) && ForumEditAccess;
 		}
 
 		private bool CanQuotePostCheck( DataRow message )
@@ -211,11 +211,11 @@ namespace yaf.pages
 			DataRow forumInfo, topicInfo;
 
 			// get topic and forum information
-			topicInfo = DB.topic_info( PageTopicID );
-			using ( DataTable dt = DB.forum_list( PageBoardID, PageForumID ) )
+			topicInfo = YAF.Classes.Data.DB.topic_info( PageTopicID );
+			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, PageForumID ) )
 				forumInfo = dt.Rows [0];
 
-			return ( ( int ) forumInfo ["Flags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ForumReplyAccess;
+			return ( ( int ) forumInfo ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ForumReplyAccess;
 		}
 
 		protected void PostReply_Click( object sender, System.EventArgs e )
@@ -281,7 +281,7 @@ namespace yaf.pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				if ( !DB.message_save( TopicID, PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
+				if ( !YAF.Classes.Data.DB.message_save( TopicID, PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
 					TopicID = 0;
 			}
 			else if ( Request.QueryString ["m"] != null )
@@ -298,7 +298,7 @@ namespace yaf.pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				DB.message_update( Request.QueryString ["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue );
+				YAF.Classes.Data.DB.message_update( Request.QueryString ["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue );
 				TopicID = PageTopicID;
 				nMessageID = long.Parse( Request.QueryString ["m"] );
 			}
@@ -329,7 +329,7 @@ namespace yaf.pages
 						datePollExpire = DateTime.Now.AddDays( daysPollExpire );
 					}
 
-					PollID = DB.poll_save( Question.Text,
+					PollID = YAF.Classes.Data.DB.poll_save( Question.Text,
 						PollChoice1.Text,
 						PollChoice2.Text,
 						PollChoice3.Text,
@@ -349,12 +349,12 @@ namespace yaf.pages
 				tFlags.IsBBCode = Message.UsesBBCode;
 
 				string subject = Server.HtmlEncode( Subject.Text );
-				TopicID = DB.topic_save( PageForumID, subject, msg, PageUserID, Priority.SelectedValue, PollID, User!=null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID );
+				TopicID = YAF.Classes.Data.DB.topic_save( PageForumID, subject, msg, PageUserID, Priority.SelectedValue, PollID, User!=null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID );
 			}
 
 			// Check if message is approved
 			bool bApproved = false;
-			using ( DataTable dt = DB.message_list( nMessageID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.message_list( nMessageID ) )
 				foreach ( DataRow row in dt.Rows )
 					bApproved = ( ( int ) row ["Flags"] & 16 ) == 16;
 
@@ -362,17 +362,17 @@ namespace yaf.pages
 			if ( bApproved )
 			{
 				Utils.CreateWatchEmail( this, nMessageID );
-				Forum.Redirect( Pages.posts, "m={0}&#{0}", nMessageID );
+				Forum.Redirect( ForumPages.posts, "m={0}&#{0}", nMessageID );
 			}
 			else
 			{
 				// Tell user that his message will have to be approved by a moderator
 				//AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-				string url = Forum.GetLink( Pages.topics, "f={0}", PageForumID );
-				if ( Config.IsRainbow )
-					Forum.Redirect( Pages.info, "i=1" );
+				string url = Forum.GetLink( ForumPages.topics, "f={0}", PageForumID );
+				if ( YAF.Classes.Utils.Config.IsRainbow )
+					Forum.Redirect( ForumPages.info, "i=1" );
 				else
-					Forum.Redirect( Pages.info, "i=1&url={0}", Server.UrlEncode( url ) );
+					Forum.Redirect( ForumPages.info, "i=1&url={0}", Server.UrlEncode( url ) );
 			}
 		}
 
@@ -397,12 +397,12 @@ namespace yaf.pages
 			if ( Request.QueryString ["t"] != null || Request.QueryString ["m"] != null )
 			{
 				// reply to existing topic or editing of existing topic
-				Forum.Redirect( Pages.posts, "t={0}", PageTopicID );
+				Forum.Redirect( ForumPages.posts, "t={0}", PageTopicID );
 			}
 			else
 			{
 				// new topic -- cancel back to forum
-				Forum.Redirect( Pages.topics, "f={0}", PageForumID );
+				Forum.Redirect( ForumPages.topics, "f={0}", PageForumID );
 			}
 		}
 
@@ -416,7 +416,7 @@ namespace yaf.pages
 
 			string body = FormatMsg.FormatMessage( this, Message.Text, tFlags );
 
-			using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
 			{
 				if ( !dt.Rows [0].IsNull( "Signature" ) )
 					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage( this, dt.Rows [0] ["Signature"].ToString(), new MessageFlags() );

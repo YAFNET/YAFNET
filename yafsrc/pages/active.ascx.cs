@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
@@ -48,16 +48,16 @@ namespace yaf.pages
 			if (IsPrivate && User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect(Pages.login,"ReturnUrl={0}",Request.RawUrl);
+					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
 				else
-					Forum.Redirect(Pages.forum);
+					Forum.Redirect( ForumPages.forum);
 			}
 			// 20050909 CHP : END
 
  			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", Data.ForumRoot);
 			if (BoardSettings.ShowRSSLink)
 			{
-				RssFeed.NavigateUrl = Forum.GetLink(Pages.rsstopic, "pg=active");
+				RssFeed.NavigateUrl = Forum.GetLink( ForumPages.rsstopic, "pg=active");
 				RssFeed.Text = GetText("RSSFEED");
 				RssFeed.Visible = true;
 			}
@@ -68,7 +68,7 @@ namespace yaf.pages
 
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));
@@ -132,7 +132,7 @@ namespace yaf.pages
 
 			if ( ForumControl.CategoryID != 0 ) categoryIDObject = ForumControl.CategoryID;
 
-			DataView dv = DB.topic_active( PageBoardID, PageUserID, SinceDate, categoryIDObject ).DefaultView;
+			DataView dv = YAF.Classes.Data.DB.topic_active( PageBoardID, PageUserID, SinceDate, categoryIDObject ).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;
@@ -148,7 +148,7 @@ namespace yaf.pages
 			string ForumName = (string)row["ForumName"];
 			string html = "";
 			if(ForumName!=LastForumName) {
-				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
+				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,Forum.GetLink( ForumPages.topics,"f={0}",row["ForumID"]));
 				LastForumName = ForumName;
 			}
 			return html;

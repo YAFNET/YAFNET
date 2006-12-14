@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
@@ -39,19 +39,19 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Ranks","");
 
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{
-					using(DataTable dt = DB.rank_list(PageBoardID,Request.QueryString["r"]))
+					using(DataTable dt = YAF.Classes.Data.DB.rank_list(PageBoardID,Request.QueryString["r"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
-						IsStart.Checked = ((int)row["Flags"] & (int)RankFlags.IsStart) == (int)RankFlags.IsStart;
-						IsLadder.Checked = ((int)row["Flags"] & (int)RankFlags.IsLadder) == (int)RankFlags.IsLadder;
+						IsStart.Checked = ((int)row["Flags"] & (int)YAF.Classes.Data.RankFlags.IsStart) == (int)YAF.Classes.Data.RankFlags.IsStart;
+						IsLadder.Checked = ((int)row["Flags"] & (int)YAF.Classes.Data.RankFlags.IsLadder) == (int)YAF.Classes.Data.RankFlags.IsLadder;
 						MinPosts.Text = row["MinPosts"].ToString();
 						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
 						if(item!=null) 
@@ -134,7 +134,7 @@ namespace yaf.pages.admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_ranks);
+			Forum.Redirect( ForumPages.admin_ranks);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -146,9 +146,9 @@ namespace yaf.pages.admin
 			object rankImage = null;
 			if(RankImage.SelectedIndex>0)
 				rankImage = RankImage.SelectedValue;
-			DB.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
+			YAF.Classes.Data.DB.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
-			Forum.Redirect(Pages.admin_ranks);
+			Forum.Redirect( ForumPages.admin_ranks);
 		}
 	}
 }

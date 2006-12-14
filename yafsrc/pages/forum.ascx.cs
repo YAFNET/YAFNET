@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for _default.
@@ -46,7 +46,7 @@ namespace yaf.pages
 			{
 				if (IsPrivate && User==null)
 				{
-					Forum.Redirect( Pages.login, "ReturnUrl={0}", Request.RawUrl );
+					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				}
 
 				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), FormatTime( DateTime.Now ) );
@@ -56,7 +56,7 @@ namespace yaf.pages
 				if ( UnreadPrivate > 0 )
 				{
 					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = Forum.GetLink( Pages.cp_inbox );
+					UnreadMsgs.NavigateUrl = Forum.GetLink( ForumPages.cp_inbox );
 					if ( UnreadPrivate == 1 )
 						UnreadMsgs.Text = String.Format( GetText( "unread1" ), UnreadPrivate );
 					else
@@ -65,10 +65,10 @@ namespace yaf.pages
 
 				if ( ForumControl.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
 					if ( PageCategoryID != 0 )
 					{
-						PageLinks.AddLink( PageCategoryName, Forum.GetLink( Pages.forum, "c={0}", PageCategoryID ) );
+						PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
 						Welcome.Visible = false;
 					}
 				}
@@ -86,23 +86,23 @@ namespace yaf.pages
 
 		private void BindData()
 		{
-			DataSet ds = DB.board_layout( PageBoardID, PageUserID, PageCategoryID, null );
+			DataSet ds = YAF.Classes.Data.DB.board_layout( PageBoardID, PageUserID, PageCategoryID, null );
 			CategoryList.DataSource = ds.Tables ["yaf_Category"];
 
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = DB.active_list( PageBoardID, null );
+			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageBoardID, null );
 
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
-			LatestPosts.DataSource = DB.topic_latest( PageBoardID, 7, PageUserID );
+			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageBoardID, 7, PageUserID );
 
 			// Forum statistics
 			string key = string.Format( "BoardStats.{0}", PageBoardID );
 			DataRow stats = ( DataRow ) Cache [key];
 			if ( stats == null )
 			{
-				stats = DB.board_poststats( PageBoardID );
+				stats = YAF.Classes.Data.DB.board_poststats( PageBoardID );
 				Cache.Insert( key, stats, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
 			}
 
@@ -113,7 +113,7 @@ namespace yaf.pages
 			{
 				Stats.Text += String.Format( GetText( "stats_lastpost" ),
 					FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
+					String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
 				);
 				Stats.Text += "<br/>";
 			}
@@ -122,16 +122,16 @@ namespace yaf.pages
 			Stats.Text += "<br/>";
 
 			Stats.Text += String.Format( GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
+				String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
 				);
 			Stats.Text += "<br/>";
 
-			DataRow activeStats = DB.active_stats( PageBoardID );
+			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageBoardID );
 			activeinfo.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
 				String.Format( GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
-				Forum.GetLink( Pages.activeusers )
+				Forum.GetLink( ForumPages.activeusers )
 				);
 
 			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), BoardSettings.MaxUsers, FormatDateTimeTopic( BoardSettings.MaxUsersWhen ) );
@@ -154,11 +154,11 @@ namespace yaf.pages
 
 				return String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
 					FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
-					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
-					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
+					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
+					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
 					minipost,
 					GetText( "GO_LAST_POST" ),
-					Forum.GetLink( Pages.posts, "m={0}#{0}", row ["LastMessageID"] )
+					Forum.GetLink( ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 					);
 			}
 			else
@@ -248,7 +248,7 @@ namespace yaf.pages
 			if ( (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem) && e.CommandName == "panel" )
 			{
 				ImageButton tmpImage = ( ImageButton ) e.Item.FindControl( "expandCategory" );
-				yaf.controls.ForumList tmpForumList = ( yaf.controls.ForumList ) e.Item.FindControl( "forumList" );
+				YAF.Controls.ForumList tmpForumList = ( YAF.Controls.ForumList ) e.Item.FindControl( "forumList" );
 
 				Mession.PanelState.TogglePanelState( "categoryPanel" + e.CommandArgument, PanelSessionState.CollapsiblePanelState.Expanded );
 
@@ -261,7 +261,7 @@ namespace yaf.pages
 			if ( ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem ) )
 			{
 				ImageButton tmpImage = ( ImageButton ) e.Item.FindControl( "expandCategory" );
-				yaf.controls.ForumList tmpForumList = ( yaf.controls.ForumList ) e.Item.FindControl( "forumList" );
+				YAF.Controls.ForumList tmpForumList = ( YAF.Controls.ForumList ) e.Item.FindControl( "forumList" );
 
 				tmpImage.ImageUrl = GetCollapsiblePanelImageURL( "categoryPanel" + tmpImage.CommandArgument, PanelSessionState.CollapsiblePanelState.Expanded );
 				tmpForumList.Visible = tmpForumList.Visible = ( Mession.PanelState ["categoryPanel" + tmpImage.CommandArgument] == PanelSessionState.CollapsiblePanelState.Expanded );

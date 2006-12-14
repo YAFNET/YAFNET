@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for printtopic.
@@ -49,13 +49,13 @@ namespace yaf.pages
 			if(!IsPostBack) {
 				if(ForumControl.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(PageTopicName,Forum.GetLink(Pages.posts,"t={0}",PageTopicID));
+				PageLinks.AddLink(PageTopicName,Forum.GetLink( ForumPages.posts,"t={0}",PageTopicID));
 
-				Posts.DataSource = DB.post_list(PageTopicID,1);
+				Posts.DataSource = YAF.Classes.Data.DB.post_list(PageTopicID,1);
 				DataBind();
 			}
 		}

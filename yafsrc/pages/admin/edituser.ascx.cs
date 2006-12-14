@@ -28,7 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for edituser.
@@ -50,9 +50,9 @@ namespace yaf.pages.admin
 						Data.AccessDenied();
 					}
 
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
-				PageLinks.AddLink( "Administration", Forum.GetLink( Pages.admin_admin ) );
-				PageLinks.AddLink( "Users", Forum.GetLink( Pages.admin_users ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Users", Forum.GetLink( ForumPages.admin_users ) );
 				PageLinks.AddLink( "Edit", "" );
 
 				BasicEditLink.Text = "User Details";

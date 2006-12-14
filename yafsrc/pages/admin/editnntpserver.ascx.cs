@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
@@ -39,14 +39,14 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Servers","");
 
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = DB.nntpserver_list(PageBoardID,Request.QueryString["s"]))
+					using(DataTable dt = YAF.Classes.Data.DB.nntpserver_list(PageBoardID,Request.QueryString["s"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text		= row["Name"].ToString();
@@ -89,7 +89,7 @@ namespace yaf.pages.admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_nntpservers);
+			Forum.Redirect( ForumPages.admin_nntpservers);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -107,8 +107,8 @@ namespace yaf.pages.admin
 
 			object nntpServerID = null;
 			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
-			DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
-			Forum.Redirect(Pages.admin_nntpservers);
+			YAF.Classes.Data.DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
+			Forum.Redirect( ForumPages.admin_nntpservers);
 		}
 	}
 }

@@ -1,7 +1,8 @@
-<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="True" Inherits="yaf.pages.search" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
-<yaf:PageLinks runat="server" id="PageLinks"/>
+<YAF:PageLinks runat="server" id="PageLinks"/>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="2"><%= GetText("title") %></td>
@@ -24,7 +25,7 @@
 	
 	<table class="command" cellspacing="0" cellpadding="0" width="100%">
 		<tr>
-			<td class="navlinks"><yaf:pager runat="server" id="Pager"/></td>
+			<td class="navlinks"><YAF:pager runat="server" id="Pager"/></td>
 		</tr>
 	</table>	
 	
@@ -36,11 +37,11 @@
 				</tr>
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr class="header2"><td colspan="2"><b><%= GetText("topic") %></b> <a href="<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",Eval( "TopicID")) %>"><%# Eval( "Topic") %></a></td></tr>
+				<tr class="header2"><td colspan="2"><b><%= GetText("topic") %></b> <a href="<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",Eval( "TopicID")) %>"><%# Eval( "Topic") %></a></td></tr>
 				<tr class="postheader">
 					<td width="140px" id="NameCell" valign="top">
 						<a name="<%# Eval( "MessageID") %>"/>
-						<b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval( "UserID")) %>"><%# Server.HtmlEncode(Convert.ToString(Eval( "Name"))) %></a></b>						
+						<b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Server.HtmlEncode(Convert.ToString(Eval( "Name"))) %></a></b>						
 					</td>
 					<td width="80%" class="postheader">
 						<b><%# GetText("POSTED") %></b> 
@@ -55,11 +56,11 @@
 				</tr>
 			</ItemTemplate>	
 			<AlternatingItemTemplate>
-				<tr class="header2"><td colspan="2"><b><%= GetText("topic") %></b> <a href="<%# yaf.Forum.GetLink(yaf.Pages.posts,"t={0}",Eval( "TopicID")) %>"><%# Eval( "Topic") %></a></td></tr>
+				<tr class="header2"><td colspan="2"><b><%= GetText("topic") %></b> <a href="<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",Eval( "TopicID")) %>"><%# Eval( "Topic") %></a></td></tr>
 				<tr class="postheader">
 					<td width="140px" id="NameCell" valign="top">
 						<a name="<%# Eval( "MessageID") %>"/>
-						<b><a href="<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",Eval( "UserID")) %>"><%# Server.HtmlEncode(Convert.ToString(Eval( "Name"))) %></a></b>						
+						<b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Server.HtmlEncode(Convert.ToString(Eval( "Name"))) %></a></b>						
 					</td>
 					<td width="80%" class="postheader">
 						<b><%# GetText("POSTED") %></b> 
@@ -93,8 +94,8 @@
 	</table>
 	<table class="command" width="100%" cellspacing="0" cellpadding="0">
 		<tr>
-			<td class="navlinks"><yaf:pager runat="server" linkedpager="Pager"/></td>
+			<td class="navlinks"><YAF:pager runat="server" linkedpager="Pager"/></td>
 		</tr>
 	</table>
 	
-<yaf:SmartScroller id="SmartScroller1" runat = "server" />
+<YAF:SmartScroller id="SmartScroller1" runat = "server" />

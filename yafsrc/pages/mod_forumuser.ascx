@@ -1,7 +1,8 @@
 <%@ Control Language="c#" Codebehind="mod_forumuser.ascx.cs" AutoEventWireup="True"
-    Inherits="yaf.pages.mod_forumuser" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<yaf:PageLinks runat="server" ID="PageLinks" />
+    Inherits="YAF.Pages.mod_forumuser" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
 
 <table class="content" cellspacing="1" cellpadding="0" width="100%" >
     <tr>
@@ -33,4 +34,4 @@
     </tr>
 </table>
 
-<yaf:SmartScroller ID="SmartScroller1" runat="server" />
+<YAF:SmartScroller ID="SmartScroller1" runat="server" />

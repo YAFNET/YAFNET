@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for moderate.
@@ -52,8 +52,8 @@ namespace yaf.pages
 
 				if(ForumControl.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink(Pages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),"");
@@ -61,7 +61,7 @@ namespace yaf.pages
 				BindData();
 				if(Request.QueryString["u"]!=null) 
 				{
-					using(DataTable dt = DB.userforum_list(Request.QueryString["u"],PageForumID)) 
+					using(DataTable dt = YAF.Classes.Data.DB.userforum_list(Request.QueryString["u"],PageForumID)) 
 					{
 						foreach(DataRow row in dt.Rows) 
 						{
@@ -77,7 +77,7 @@ namespace yaf.pages
 
 		private void BindData() 
 		{
-			AccessMaskID.DataSource = DB.accessmask_list(PageBoardID,null);
+			AccessMaskID.DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
 			AccessMaskID.DataValueField = "AccessMaskID";
 			AccessMaskID.DataTextField = "Name";
 			DataBind();
@@ -87,7 +87,7 @@ namespace yaf.pages
 		{
 			if(UserName.Text.Length<2) return;
 
-			using(DataTable dt = DB.user_find(PageBoardID,true,UserName.Text,null)) 
+			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageBoardID,true,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count>0) 
 				{
@@ -113,7 +113,7 @@ namespace yaf.pages
 			if(ToList.Visible)
 				UserName.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = DB.user_find(PageBoardID,false,UserName.Text,null)) 
+			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageBoardID,false,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count!=1) 
 				{
@@ -126,14 +126,14 @@ namespace yaf.pages
 					return;	
 				}
 
-				DB.userforum_save(dt.Rows[0]["UserID"],PageForumID,AccessMaskID.SelectedValue);
-				Forum.Redirect(Pages.moderate,"f={0}",PageForumID);
+				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"],PageForumID,AccessMaskID.SelectedValue);
+				Forum.Redirect( ForumPages.moderate,"f={0}",PageForumID);
 			}
 		}
 		
 		private void Cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect(Pages.moderate,"f={0}",PageForumID);
+			Forum.Redirect( ForumPages.moderate,"f={0}",PageForumID);
 		}
 
 		#region Web Form Designer generated code

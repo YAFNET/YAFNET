@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip_edit.
@@ -41,8 +41,8 @@ namespace yaf.pages.admin
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink(strAddEdit + " Word Replace","");
 
 				BindData();
@@ -55,7 +55,7 @@ namespace yaf.pages.admin
 		{
 			if(Request.QueryString["i"] != null) 
 			{
-				DataRow row = DB.replace_words_edit(Request.QueryString["i"]).Rows[0];
+				DataRow row = YAF.Classes.Data.DB.replace_words_edit(Request.QueryString["i"]).Rows[0];
 				badword.Text = (string)row["badword"];
 				goodword.Text = (string)row["goodword"];
 			}
@@ -63,14 +63,14 @@ namespace yaf.pages.admin
 
 		private void add_Click(object sender,EventArgs e) 
 		{
-			DB.replace_words_save(Request.QueryString["i"],badword.Text,goodword.Text);
+			YAF.Classes.Data.DB.replace_words_save(Request.QueryString["i"],badword.Text,goodword.Text);
 			Cache.Remove("replacewords");
-			Forum.Redirect(Pages.admin_replacewords);
+			Forum.Redirect( ForumPages.admin_replacewords);
 		}
 
 		private void cancel_Click(object sender,EventArgs e) 
 		{
-			Forum.Redirect(Pages.admin_replacewords);
+			Forum.Redirect( ForumPages.admin_replacewords);
 		}
 
 		#region Web Form Designer generated code

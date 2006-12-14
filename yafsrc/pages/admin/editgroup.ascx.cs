@@ -27,7 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.pages.admin
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
@@ -39,21 +39,21 @@ namespace yaf.pages.admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				PageLinks.AddLink("Groups","");
 				
 				BindData();
 				if(Request.QueryString["i"] != null) 
 				{
 					NewGroupRow.Visible = false;
-					using(DataTable dt = DB.group_list(PageBoardID,Request.QueryString["i"])) 
+					using(DataTable dt = YAF.Classes.Data.DB.group_list(PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
-						IsAdminX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsAdmin)==(int)GroupFlags.IsAdmin;
-						IsStart.Checked = ((int)row["Flags"] & (int)GroupFlags.IsStart)==(int)GroupFlags.IsStart;
-						IsModeratorX.Checked = ((int)row["Flags"] & (int)GroupFlags.IsModerator)==(int)GroupFlags.IsModerator;
+						IsAdminX.Checked = ((int)row["Flags"] & (int)YAF.Classes.Data.GroupFlags.IsAdmin)==(int)YAF.Classes.Data.GroupFlags.IsAdmin;
+						IsStart.Checked = ((int)row["Flags"] & (int)YAF.Classes.Data.GroupFlags.IsStart)==(int)YAF.Classes.Data.GroupFlags.IsStart;
+						IsModeratorX.Checked = ((int)row["Flags"] & (int)YAF.Classes.Data.GroupFlags.IsModerator)==(int)YAF.Classes.Data.GroupFlags.IsModerator;
 					}
 				} 
 			}
@@ -106,14 +106,14 @@ namespace yaf.pages.admin
 			}
 
 			if(Request.QueryString["i"] != null) 
-				AccessList.DataSource = DB.forumaccess_group(Request.QueryString["i"]);
+				AccessList.DataSource = YAF.Classes.Data.DB.forumaccess_group(Request.QueryString["i"]);
 
 			DataBind();
 		}
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect(Pages.admin_groups);
+			Forum.Redirect( ForumPages.admin_groups);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -122,7 +122,7 @@ namespace yaf.pages.admin
 			long GroupID = 0;
 			if(Request.QueryString["i"] != null) GroupID = long.Parse(Request.QueryString["i"]);
 				
-			GroupID = DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
+			GroupID = YAF.Classes.Data.DB.group_save(GroupID,PageBoardID,Name.Text,IsAdminX.Checked,IsStart.Checked,IsModeratorX.Checked,AccessMaskID.SelectedValue);
 
 			// Access
 			if(Request.QueryString["i"] != null) 
@@ -131,18 +131,18 @@ namespace yaf.pages.admin
 				{
 					RepeaterItem item = AccessList.Items[i];
 					int ForumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
-					DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
+					YAF.Classes.Data.DB.forumaccess_save(ForumID,GroupID,((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
 				}
-				Forum.Redirect(Pages.admin_groups);
+				Forum.Redirect( ForumPages.admin_groups);
 			}
 
 			// Done
-			Forum.Redirect(Pages.admin_editgroup,"i={0}",GroupID);
+			Forum.Redirect( ForumPages.admin_editgroup,"i={0}",GroupID);
 		}
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = DB.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

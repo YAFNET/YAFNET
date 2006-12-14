@@ -29,7 +29,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
 
-namespace yaf.pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for editprofile.
@@ -47,16 +47,16 @@ namespace yaf.pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( Pages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
 				else
-					Forum.Redirect( Pages.forum );
+					Forum.Redirect( ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
 			{
 				BindData();
 
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( Pages.forum ) );
+				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
 				PageLinks.AddLink( PageUserName, "" );
 			}
 		}
@@ -65,11 +65,11 @@ namespace yaf.pages
 		{
 			DataRow row;
 
-			Groups.DataSource = DB.usergroup_list( PageUserID );
+			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageUserID );
 
 			// Bind			
 			DataBind();
-			using ( DataTable dt = DB.user_list( PageBoardID, PageUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
