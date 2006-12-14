@@ -1,9 +1,9 @@
 using System;
 using System.Data;
 using System.Collections;
-using yaf.pages;
+using YAF.Pages;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for ForumJump.

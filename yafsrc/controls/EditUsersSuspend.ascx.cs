@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
     public partial class EditUsersSuspend : BaseUserControl
     {
@@ -28,7 +28,7 @@ namespace yaf.controls
 
         private void BindData()
         {
-            using (DataTable dt = DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], true))
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], true))
             {
                 if (dt.Rows.Count < 1)
                     Data.AccessDenied(/*No such user exists*/);
@@ -53,7 +53,7 @@ namespace yaf.controls
         {
             // Admins can suspend anyone not admins
             // Forum Moderators can suspend anyone not admin or forum moderator
-            using (DataTable dt = DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -85,13 +85,13 @@ namespace yaf.controls
                     break;
             }
 
-            DB.user_suspend(Request.QueryString["u"], suspend);
+            YAF.Classes.Data.DB.user_suspend(Request.QueryString["u"], suspend);
             BindData();
         }
 
         private void RemoveSuspension_Click(object sender, System.EventArgs e)
         {
-            DB.user_suspend(Request.QueryString["u"], null);
+            YAF.Classes.Data.DB.user_suspend(Request.QueryString["u"], null);
             BindData();
         }
 

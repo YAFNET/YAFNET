@@ -5,7 +5,7 @@ using System.Text;
 using System.Security;
 using System.Web.Security;
 
-namespace yaf
+namespace YAF
 {
     static public class Security
     {
@@ -16,7 +16,7 @@ namespace yaf
             string ForumEmail = "forumemail";
             string ForumName = "forumname";
 
-            using (DataTable dt = DB.user_list(PageBoardID, DBNull.Value, true))
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(PageBoardID, DBNull.Value, true))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -52,13 +52,13 @@ namespace yaf
                             msg.AppendFormat("Here is your new password: {0}\r\n\r\n", password);
                             msg.AppendFormat("Visit {0} at {1}", ForumName, ForumURL);
 
-                            DB.mail_create(ForumEmail, user.Email, "Forum Upgrade", msg.ToString());
+                            YAF.Classes.Data.DB.mail_create(ForumEmail, user.Email, "Forum Upgrade", msg.ToString());
                         }
                     }
-                    DB.user_migrate(row["UserID"], user.ProviderUserKey);
+                    YAF.Classes.Data.DB.user_migrate(row["UserID"], user.ProviderUserKey);
 
 
-                    using (DataTable dtGroups = DB.usergroup_list(row["UserID"]))
+                    using (DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list(row["UserID"]))
                     {
                         foreach (DataRow rowGroup in dtGroups.Rows)
                         {
@@ -73,7 +73,7 @@ namespace yaf
         #region method SyncRoles
         static public void SyncRoles(int PageBoardID)
         {
-            using (DataTable dt = DB.group_list(PageBoardID, DBNull.Value))
+            using (DataTable dt = YAF.Classes.Data.DB.group_list(PageBoardID, DBNull.Value))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -91,7 +91,7 @@ namespace yaf
                     string filter = string.Format("Name='{0}'", role);
                     DataRow[] rows = dt.Select(filter);
                     if (rows.Length == 0)
-                        nGroupID = (int)DB.group_save(DBNull.Value, PageBoardID, role, false,false, false, 1); // TODO - select default access mask id
+                        nGroupID = (int)YAF.Classes.Data.DB.group_save(DBNull.Value, PageBoardID, role, false,false, false, 1); // TODO - select default access mask id
                     else
                         nGroupID = (int)rows[0]["GroupID"];
                 }
@@ -100,22 +100,22 @@ namespace yaf
         #endregion
 
         #region method CreateForumUser
-        public static bool CreateForumUser(MembershipUser user,pages.ForumPage page)
+        public static bool CreateForumUser(MembershipUser user,YAF.Pages.ForumPage page)
         {
             try
             {
                 SyncRoles(page.PageBoardID);
 
-                int nUserID = DB.user_aspnet(page.PageBoardID, user.UserName, user.Email, user.ProviderUserKey);
+                int nUserID = YAF.Classes.Data.DB.user_aspnet(page.PageBoardID, user.UserName, user.Email, user.ProviderUserKey);
                 foreach(string role in Roles.GetRolesForUser(user.UserName))
-                    DB.user_setrole(page.PageBoardID, user.ProviderUserKey, role);
+                    YAF.Classes.Data.DB.user_setrole(page.PageBoardID, user.ProviderUserKey, role);
 
-                DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}",user.UserName));
+                YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}",user.UserName));
                 return true;
             }
             catch (Exception x)
             {
-                DB.eventlog_create(DBNull.Value, page, x);
+                YAF.Classes.Data.DB.eventlog_create(DBNull.Value, page, x);
                 return false;
             }
         }
@@ -124,11 +124,11 @@ namespace yaf
         #region method UpdateForumUser
         public static void UpdateForumUser(int nBoardID, MembershipUser user)
         {
-            //DB.user_setinfo(nBoardID, user);
-            int nUserID = DB.user_aspnet(nBoardID, user.UserName, user.Email, user.ProviderUserKey);
-            DB.user_setrole(nBoardID, user.ProviderUserKey, DBNull.Value);
+            //YAF.Classes.Data.DB.user_setinfo(nBoardID, user);
+            int nUserID = YAF.Classes.Data.DB.user_aspnet(nBoardID, user.UserName, user.Email, user.ProviderUserKey);
+            YAF.Classes.Data.DB.user_setrole(nBoardID, user.ProviderUserKey, DBNull.Value);
             foreach (string role in Roles.GetRolesForUser(user.UserName))
-                DB.user_setrole(nBoardID, user.ProviderUserKey, role);
+                YAF.Classes.Data.DB.user_setrole(nBoardID, user.ProviderUserKey, role);
         }
         #endregion
     }

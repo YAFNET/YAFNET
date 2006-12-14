@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// Summary description for BBCode.
@@ -81,7 +81,7 @@ namespace yaf
 		static private Regex r_topic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", m_options );
 		static private Regex r_img = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", m_options );
 
-		static public string MakeHtml( yaf.pages.ForumPage basePage, string bbcode, bool DoFormatting )
+		static public string MakeHtml( YAF.Pages.ForumPage basePage, string bbcode, bool DoFormatting )
 		{
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
@@ -201,7 +201,7 @@ namespace yaf
 			m = r_post.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = Forum.GetLink( Pages.posts, "m={0}#{0}", m.Groups ["post"] );
+				string link = Forum.GetLink( ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
 				if ( basePage.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
@@ -212,7 +212,7 @@ namespace yaf
 			m = r_topic.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = Forum.GetLink( Pages.posts, "t={0}", m.Groups ["topic"] );
+				string link = Forum.GetLink( ForumPages.posts, "t={0}", m.Groups ["topic"] );
 				if ( basePage.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else

@@ -7,7 +7,7 @@
 //		http://creativecommons.org/licenses/by-nc-sa/2.0/
 //
 //****************************************************
-namespace yaf
+namespace YAF
 {
 	using System;
 	using System.IO;

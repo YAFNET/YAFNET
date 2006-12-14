@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.controls {
+namespace YAF.Controls {
     
     public partial class EditUsersPoints {
         protected System.Web.UI.WebControls.Literal ltrCurrentPoints;

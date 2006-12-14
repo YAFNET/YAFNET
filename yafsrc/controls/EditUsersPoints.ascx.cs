@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	public partial class EditUsersPoints : BaseUserControl
 	{
@@ -23,14 +23,14 @@ namespace yaf.controls
 
 		private void BindData()
 		{
-			ltrCurrentPoints.Text = yaf.DB.user_getpoints( Request.QueryString.Get( "u" ) ).ToString();
+			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints( Request.QueryString.Get( "u" ) ).ToString();
 		}
 
 		protected void AddPoints_Click( object sender, EventArgs e )
 		{
 			if ( Page.IsValid )
 			{
-				DB.user_addpoints( Request.QueryString.Get( "u" ), txtAddPoints.Text );
+				YAF.Classes.Data.DB.user_addpoints( Request.QueryString.Get( "u" ), txtAddPoints.Text );
 				BindData();
 			}
 		}
@@ -39,7 +39,7 @@ namespace yaf.controls
 		{
 			if ( Page.IsValid )
 			{
-				DB.user_removepoints( Request.QueryString.Get( "u" ), txtRemovePoints.Text );
+				YAF.Classes.Data.DB.user_removepoints( Request.QueryString.Get( "u" ), txtRemovePoints.Text );
 				BindData();
 			}
 		}
@@ -48,7 +48,7 @@ namespace yaf.controls
 		{
 			if ( Page.IsValid )
 			{
-				DB.user_setpoints( Request.QueryString.Get( "u" ), txtUserPoints.Text );
+				YAF.Classes.Data.DB.user_setpoints( Request.QueryString.Get( "u" ), txtUserPoints.Text );
 				BindData();
 			}
 		}

@@ -22,7 +22,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// Summary description for FormatMsg.
@@ -38,7 +38,7 @@ namespace yaf
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Format</param>
 		/// <returns>Formatted Message</returns>
-		static public string ForumCodeToHtml( yaf.pages.ForumPage basePage, string Message )
+		static public string ForumCodeToHtml( YAF.Pages.ForumPage basePage, string Message )
 		{
 #if true
 			return Message;
@@ -60,7 +60,7 @@ namespace yaf
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Convert</param>
 		/// <returns>Converted Message Text</returns>
-		static protected string iConvertForumCode( yaf.pages.ForumPage basePage, string Message )
+		static protected string iConvertForumCode( YAF.Pages.ForumPage basePage, string Message )
 		{
 			string tmp = "";
 			bool bInCode = false;
@@ -178,7 +178,7 @@ namespace yaf
 		/// <param name="basePagee">Forum base page</param>
 		/// <param name="Message">Text to add smiles to.</param>
 		/// <returns>Processed text with smiles added.</returns>
-		static public string iAddSmiles( yaf.pages.ForumPage basePage, string Message )
+		static public string iAddSmiles( YAF.Pages.ForumPage basePage, string Message )
 		{
 			DataTable dtSmileys = GetSmilies( basePage );
 			string strTemp = Message;
@@ -243,18 +243,18 @@ namespace yaf
 #endif
 		}
 
-		static public DataTable GetSmilies( yaf.pages.ForumPage basePage )
+		static public DataTable GetSmilies( YAF.Pages.ForumPage basePage )
 		{
 			DataTable dt = ( DataTable ) System.Web.HttpContext.Current.Cache ["Smilies"];
 			if ( dt == null )
 			{
-				dt = DB.smiley_list( basePage.PageBoardID, null );
+				dt = YAF.Classes.Data.DB.smiley_list( basePage.PageBoardID, null );
 				System.Web.HttpContext.Current.Cache.Insert( "Smilies", dt, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
 			return dt;
 		}
 
-		static public string FormatMessage( yaf.pages.ForumPage basePage, string Message, MessageFlags mFlags )
+		static public string FormatMessage( YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags )
 		{
 			// do html damage control
 			Message = RepairHtml( basePage, Message, mFlags.IsHTML );
@@ -306,7 +306,7 @@ namespace yaf
 			return false;
 		}
 
-		static public string RepairHtml( yaf.pages.ForumPage basePage, string html, bool bAllowHtml )
+		static public string RepairHtml( YAF.Pages.ForumPage basePage, string html, bool bAllowHtml )
 		{
 			if ( !bAllowHtml )
 			{

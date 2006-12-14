@@ -28,11 +28,11 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	public partial class EditUsersSignature : BaseUserControl
 	{
-		protected yaf.editor.ForumEditor sig;
+		protected YAF.Editor.ForumEditor sig;
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
 
@@ -52,7 +52,7 @@ namespace yaf.controls
 
 			if ( !IsPostBack )
 			{
-				sig.Text = DB.user_getsignature( CurrentUserID );
+				sig.Text = YAF.Classes.Data.DB.user_getsignature( CurrentUserID );
 
 				save.Text = ForumPage.GetText( "COMMON", "Save" );
 				cancel.Text = ForumPage.GetText( "COMMON", "Cancel" );
@@ -65,29 +65,29 @@ namespace yaf.controls
 			//body = FormatMsg.RepairHtml(this,body,false);
 
 			if ( sig.Text.Length > 0 )
-				DB.user_savesignature( CurrentUserID, body );
+				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, body );
 			else
-				DB.user_savesignature( CurrentUserID, DBNull.Value );
+				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 
 			if ( AdminEditMode )
-				Forum.Redirect( Pages.admin_users );
+				Forum.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( Pages.cp_profile );
+				Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		private void cancel_Click( object sender, EventArgs e )
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( Pages.admin_users );
+				Forum.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( Pages.cp_profile );
+				Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )
 		{
 			// since signatures are so small only allow BBCode in them...
-			sig = new yaf.editor.BBCodeEditor();
+			sig = new YAF.Editor.BBCodeEditor();
 			EditorLine.Controls.Add( sig );
 
 			save.Click += new EventHandler( save_Click );

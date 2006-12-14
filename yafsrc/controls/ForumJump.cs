@@ -1,8 +1,8 @@
 using System;
 using System.Data;
-using yaf.pages;
+using YAF.Pages;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for ForumJump.
@@ -55,10 +55,10 @@ namespace yaf.controls
 		public virtual void RaisePostDataChangedEvent()
 		{
 			if ( ForumID > 0 )
-				Forum.Redirect( Pages.topics, "f={0}", ForumID );
+				Forum.Redirect( ForumPages.topics, "f={0}", ForumID );
 #if TODO
 			else
-				Forum.Redirect(Pages.forum,"c={0}",-ForumID);
+				Forum.Redirect( ForumPages.forum,"c={0}",-ForumID);
 #endif
 		}
 		#endregion
@@ -73,7 +73,7 @@ namespace yaf.controls
 			}
 			else
 			{
-				dt = DB.forum_listall_sorted( ForumPage.PageBoardID, ForumPage.PageUserID );
+				dt = YAF.Classes.Data.DB.forum_listall_sorted( ForumPage.PageBoardID, ForumPage.PageUserID );
 				Page.Cache [cachename] = dt;
 			}
 

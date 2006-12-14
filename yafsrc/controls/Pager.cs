@@ -2,7 +2,7 @@ using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for Pager.

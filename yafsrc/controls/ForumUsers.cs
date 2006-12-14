@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for ForumUsers.
@@ -17,9 +17,9 @@ namespace yaf.controls
 				if(dt==null) 
 				{
 					if(bTopic)
-						dt = DB.active_listtopic(ForumPage.PageTopicID);
+						dt = YAF.Classes.Data.DB.active_listtopic(ForumPage.PageTopicID);
 					else
-						dt = DB.active_listforum(ForumPage.PageForumID);
+						dt = YAF.Classes.Data.DB.active_listforum(ForumPage.PageForumID);
 					ViewState["data"] = dt;
 				}
 	
@@ -51,7 +51,7 @@ namespace yaf.controls
 					{
 						bFirst = false;
 					}
-					writer.Write(String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink(Pages.profile,"u={0}",dr["UserID"]),BBCode.EncodeHTML(dr["UserName"].ToString())));
+					writer.Write(String.Format("<a href=\"{0}\">{1}</a>",Forum.GetLink( ForumPages.profile,"u={0}",dr["UserID"]),BBCode.EncodeHTML(dr["UserName"].ToString())));
 				}
 				writer.WriteLine("</td>");
 				writer.WriteLine("</tr>");

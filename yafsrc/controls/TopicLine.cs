@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Web.UI;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	[ParseChildren(false)]
 	public class TopicLine : BaseControl
@@ -36,9 +36,9 @@ namespace yaf.controls
 			// Topic
 			html.AppendFormat( @"<td><span class=""post_priority"">{0}</span>", GetPriorityMessage( m_row ) );
 			if(FindUnread)
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( Pages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 			else
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( Pages.posts, "t={0}", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 
 			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,ForumPage.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
 			if (tPager != String.Empty)
@@ -51,7 +51,7 @@ namespace yaf.controls
 			
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", Forum.GetLink( Pages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
+			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", Forum.GetLink( ForumPages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
 			// Replies
 			html.AppendFormat( @"<td align=""center"">{0}</td>", FormatReplies() );
 			// Views
@@ -69,13 +69,13 @@ namespace yaf.controls
 		{
 			DataRowView	row			= (DataRowView)o;
 			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000,1,1);
-			bool		isLocked	= ((int)row["TopicFlags"] & (int)TopicFlags.Locked) == (int)TopicFlags.Locked;
+			bool		isLocked	= ((int)row["TopicFlags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked;
 			
 			imgTitle = "???";
 
 			try 
 			{
-				bool bIsLocked = isLocked || ((int)row["ForumFlags"] & (int)ForumFlags.Locked)==(int)ForumFlags.Locked;
+				bool bIsLocked = isLocked || ((int)row["ForumFlags"] & (int)YAF.Classes.Data.ForumFlags.Locked)==(int)YAF.Classes.Data.ForumFlags.Locked;
 
 				if(row["TopicMovedID"].ToString().Length>0)
 				{
@@ -203,10 +203,10 @@ namespace yaf.controls
 
 				string strBy =
 					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
-					Forum.GetLink(Pages.profile,"u={0}",row["LastUserID"]), 
+					Forum.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]), 
 					BBCode.EncodeHTML(row["LastUserName"].ToString()), 
 					strMiniPost, 
-					Forum.GetLink(Pages.posts,"m={0}#{0}",row["LastMessageID"]),
+					Forum.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
 					ForumPage.GetText("GO_LAST_POST")
 					));
 
@@ -234,7 +234,7 @@ namespace yaf.controls
 			{
 				if (PageCount > NumToDisplay)
 				{
-					strReturn += MakeLink("1",Forum.GetLink(Pages.posts,"t={0}",TopicID));
+					strReturn += MakeLink("1",Forum.GetLink( ForumPages.posts,"t={0}",TopicID));
 					strReturn += " ... ";
 					bool bFirst = true;
 
@@ -246,7 +246,7 @@ namespace yaf.controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 
-						strReturn += MakeLink(iPost.ToString(),Forum.GetLink(Pages.posts,"t={0}&p={1}",TopicID,iPost));
+						strReturn += MakeLink(iPost.ToString(),Forum.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
 					}
 				}
 				else
@@ -259,7 +259,7 @@ namespace yaf.controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 						
-            strReturn += MakeLink(iPost.ToString(),Forum.GetLink(Pages.posts,"t={0}&p={1}",TopicID,iPost));
+            strReturn += MakeLink(iPost.ToString(),Forum.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
 					}
 				}
 			}

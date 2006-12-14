@@ -1,11 +1,12 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="DisplayPost.ascx.cs" Inherits="yaf.controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
 <tr class="postheader">
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
 		<a name="<%# DataRow["MessageID"] %>"/>
-		<b><asp:hyperlink id="UserName" runat="server" href='<%# yaf.Forum.GetLink(yaf.Pages.profile,"u={0}",DataRow["UserID"]) %>'><%# Server.HtmlEncode(DataRow["UserName"].ToString()) %></asp:hyperlink></b>
+		<b><asp:hyperlink id="UserName" runat="server" href='<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# Server.HtmlEncode(DataRow["UserName"].ToString()) %></asp:hyperlink></b>
 	</td>
 	<td width="80%">
 		<table cellspacing="0" cellpadding="0" width="100%">
@@ -58,4 +59,4 @@
 </tr>
 <tr class="postsep"><td colspan="3" style="height:5px"></td></tr>
 
-<yaf:PopMenu runat="server" id="PopMenu1" control="UserName"/>
+<YAF:PopMenu runat="server" id="PopMenu1" control="UserName"/>

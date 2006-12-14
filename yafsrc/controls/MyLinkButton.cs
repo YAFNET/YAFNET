@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Inherited from LinkButton. Shows only plain text when disabled

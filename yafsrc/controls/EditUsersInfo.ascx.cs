@@ -28,7 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
     public partial class EditUsersInfo : BaseUserControl
     {
@@ -39,12 +39,12 @@ namespace yaf.controls
             if (!IsPostBack)
             {
                 BindData();
-                using (DataTable dt = DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
+                using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
                 {
                     DataRow row = dt.Rows[0];
                     Name.Text = (string)row["Name"];
                     Email.Text = row["Email"].ToString();
-                    IsHostAdminX.Checked = ((int)row["Flags"] & (int)UserFlags.IsHostAdmin) == (int)UserFlags.IsHostAdmin;
+										IsHostAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin ) == ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin;
                     Joined.Text = row["Joined"].ToString();
                     LastVisit.Text = row["LastVisit"].ToString();
                     ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
@@ -56,7 +56,7 @@ namespace yaf.controls
 
         private void BindData()
         {
-            RankID.DataSource = DB.rank_list(ForumPage.PageBoardID, null);
+            RankID.DataSource = YAF.Classes.Data.DB.rank_list(ForumPage.PageBoardID, null);
             RankID.DataValueField = "RankID";
             RankID.DataTextField = "Name";
             DataBind();
@@ -64,13 +64,13 @@ namespace yaf.controls
 
         protected void Cancel_Click(object sender, System.EventArgs e)
         {
-            Forum.Redirect(Pages.admin_users);
+            Forum.Redirect( ForumPages.admin_users);
         }
 
         protected void Save_Click(object sender, System.EventArgs e)
         {
-            DB.user_adminsave(ForumPage.PageBoardID, Request.QueryString["u"], Name.Text, Email.Text, IsHostAdminX.Checked, RankID.SelectedValue);
-            Forum.Redirect(Pages.admin_users);
+            YAF.Classes.Data.DB.user_adminsave(ForumPage.PageBoardID, Request.QueryString["u"], Name.Text, Email.Text, IsHostAdminX.Checked, RankID.SelectedValue);
+            Forum.Redirect( ForumPages.admin_users);
         }
 
         #region Web Form Designer generated code

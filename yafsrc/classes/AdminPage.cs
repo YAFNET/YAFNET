@@ -1,11 +1,11 @@
 using System;
 
-namespace yaf
+namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for AdminPage.
 	/// </summary>
-	public class AdminPage : pages.ForumPage
+	public class AdminPage : YAF.Pages.ForumPage
 	{
 		/// <summary>
 		/// Creates the Administration page.
@@ -24,8 +24,8 @@ namespace yaf
 			if(!IsPostBack)
 			{
 				controls.PageLinks ctl = new controls.PageLinks();
-				ctl.AddLink(BoardSettings.Name,Forum.GetLink(Pages.forum));
-				ctl.AddLink("Administration",Forum.GetLink(Pages.admin_admin));
+				ctl.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				ctl.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
 				Controls.AddAt(0,ctl);
 			}
 #endif

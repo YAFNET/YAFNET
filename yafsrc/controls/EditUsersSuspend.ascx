@@ -1,5 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersSuspend.ascx.cs" Inherits="yaf.controls.EditUsersSuspend" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersSuspend.ascx.cs" Inherits="YAF.Controls.EditUsersSuspend" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>

@@ -1,6 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersAvatar.ascx.cs" Inherits="yaf.controls.EditUsersAvatar" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
-<%@ Register TagPrefix="editor" Namespace="yaf.editor" Assembly="yaf" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersAvatar.ascx.cs" Inherits="YAF.Controls.EditUsersAvatar" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %><%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="editor" Namespace="YAF.editor" Assembly="YAF" %>
 
 <table width="100%" class="content" cellspacing="1" cellpadding="4">
     <tr>

@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// Summary description for Localizer.
@@ -102,7 +102,7 @@ namespace yaf
 			}
 			else
 			{
-				//DB.eventlog_create(null,"Localizer: GetText",String.Format("Missing Language Item \"{0}\"",text),EventLogTypes.Warning);
+				//YAF.Classes.Data.YAF.Classes.Data.DB.eventlog_create(null,"Localizer: GetText",String.Format("Missing Language Item \"{0}\"",text),EventLogTypes.Warning);
 				return null;
 			}
 		}

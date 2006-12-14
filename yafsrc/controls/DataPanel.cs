@@ -8,10 +8,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.ComponentModel;
-using yaf;
+using YAF;
 #endregion References
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	#region DataPanel Class
 	/// <summary>
@@ -52,19 +52,19 @@ namespace yaf.controls
 			}
 		}
 
-		public yaf.pages.ForumPage ForumPage
+		public YAF.Pages.ForumPage ForumPage
 		{
 			get
 			{
 				System.Web.UI.Control ctl = Parent;
 				System.Web.UI.Control thePage = this;
-				while ( ctl.GetType() != typeof( yaf.Forum ) )
+				while ( ctl.GetType() != typeof( YAF.Forum ) )
 				{
 					thePage = ctl;
 					ctl = ctl.Parent;
 				}
 
-				return ( yaf.pages.ForumPage ) thePage;
+				return ( YAF.Pages.ForumPage ) thePage;
 			}
 		}
 		#endregion Scripts

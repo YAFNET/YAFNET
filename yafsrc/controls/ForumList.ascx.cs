@@ -1,4 +1,4 @@
-namespace yaf.controls
+namespace YAF.Controls
 {
 	using System;
 	using System.Data;
@@ -39,7 +39,7 @@ namespace yaf.controls
 		protected string GetForumIcon( object o )
 		{
 			DataRow row = ( DataRow ) o;
-			bool locked = ( ( int ) row ["Flags"] & ( int ) ForumFlags.Locked ) == ( int ) ForumFlags.Locked;
+			bool locked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked;
 			DateTime lastRead = ForumPage.GetForumRead( ( int ) row ["ForumID"] );
 			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
 
@@ -96,7 +96,7 @@ namespace yaf.controls
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
 				strReturn = String.Format( "<a href=\"{0}\">{1}</a>",
-					Forum.GetLink( yaf.Pages.topics, "f={0}", ForumID ),
+					Forum.GetLink( ForumPages.topics, "f={0}", ForumID ),
 					strReturn
 					);
 			}
@@ -132,11 +132,11 @@ namespace yaf.controls
 				{
 					strTemp = String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
 							ForumPage.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
-							String.Format( ForumPage.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.posts, "t={0}", row ["LastTopicID"] ), Truncate( Utils.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
-							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
+							String.Format( ForumPage.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", row ["LastTopicID"] ), Truncate( Utils.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
+							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
 							strTemp,
 							ForumPage.GetText( "GO_LAST_POST" ),
-							Forum.GetLink( Pages.posts, "m={0}#{0}", row ["LastMessageID"] )
+							Forum.GetLink( ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 						);
 				}
 				else
@@ -145,7 +145,7 @@ namespace yaf.controls
 					strTemp = String.Format( "{0}<br/>{1}<br/>{2}",
 							ForumPage.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
 							String.Format( ForumPage.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
-							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( Pages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
+							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
 						);
 				}
 			}
@@ -220,7 +220,7 @@ namespace yaf.controls
 		protected bool GetModerated( object _o )
 		{
 			DataRow row = ( DataRow ) _o;
-			return ( ( int ) row ["Flags"] & ( int ) ForumFlags.Moderated ) == ( int ) ForumFlags.Moderated;
+			return ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Moderated ) == ( int ) YAF.Classes.Data.ForumFlags.Moderated;
 		}
 	}
 }

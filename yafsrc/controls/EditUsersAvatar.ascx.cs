@@ -10,9 +10,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
-using yaf.pages;
+using YAF.Pages;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	public partial class EditUsersAvatar : BaseUserControl
 	{
@@ -36,7 +36,7 @@ namespace yaf.controls
 				if ( Request.QueryString ["av"] != null )
 				{
 					// save the avatar right now...
-					DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", Data.ForumRoot, Request.QueryString ["av"], ForumPage.ServerURL ), null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", Data.ForumRoot, Request.QueryString ["av"], ForumPage.ServerURL ), null );
 				}
 
 				UpdateRemote.Text = ForumPage.GetText( "COMMON", "UPDATE" );
@@ -51,7 +51,7 @@ namespace yaf.controls
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
-				OurAvatar.NavigateUrl = Forum.GetLink( Pages.avatar, addAdminParam );
+				OurAvatar.NavigateUrl = Forum.GetLink( ForumPages.avatar, addAdminParam );
 				OurAvatar.Text = ForumPage.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
 			}
 
@@ -62,7 +62,7 @@ namespace yaf.controls
 		{
 			DataRow row;
 
-			using ( DataTable dt = DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
@@ -108,16 +108,16 @@ namespace yaf.controls
 
 		protected void DeleteAvatar_Click( object sender, System.EventArgs e )
 		{
-			DB.user_deleteavatar( CurrentUserID );
+			YAF.Classes.Data.DB.user_deleteavatar( CurrentUserID );
 			BindData();
 		}
 
 		protected void Back_Click( object sender, System.EventArgs e )
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( Pages.admin_users );
+				Forum.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( Pages.cp_profile );
+				Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		protected void RemoteUpdate_Click( object sender, System.EventArgs e )
@@ -126,7 +126,7 @@ namespace yaf.controls
 				Avatar.Text = "http://" + Avatar.Text;
 		
 			// update
-			DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null );
+			YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null );
 
 			// clear the URL out...
 			Avatar.Text = "";
@@ -179,9 +179,9 @@ namespace yaf.controls
 					}
 
 					if ( resized == null )
-						DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream );
+						YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream );
 					else
-						DB.user_saveavatar( CurrentUserID, null, resized );
+						YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized );
 				}
 
 				BindData();

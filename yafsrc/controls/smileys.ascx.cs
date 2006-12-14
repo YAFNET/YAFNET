@@ -17,7 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	using System;
 	using System.Data;
@@ -47,7 +47,7 @@ namespace yaf.controls
 			AddSmiley.Attributes.Add( "colspan", perrow.ToString() );
 			AddSmiley.InnerHtml = ForumPage.GetText( "SMILIES_HEADER" );
 
-			dtSmileys = DB.smiley_listunique( base.ForumPage.PageBoardID );
+			dtSmileys = YAF.Classes.Data.DB.smiley_listunique( base.ForumPage.PageBoardID );
 
 			pager.PageSize = pagesize;
 			CreateSmileys();

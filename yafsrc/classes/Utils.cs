@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Collections.Specialized;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// Summary description for Utils.
@@ -121,17 +121,17 @@ namespace yaf
 			return email;
 		}
 
-		static public void SendMail( pages.ForumPage basePage, string fromEmail, string toEmail, string subject, string body )
+		static public void SendMail( YAF.Pages.ForumPage basePage, string fromEmail, string toEmail, string subject, string body )
 		{
 			SendMail( basePage, new System.Net.Mail.MailAddress( fromEmail ), new System.Net.Mail.MailAddress( toEmail ), subject, body );
 		}
 
-		static public void SendMail( pages.ForumPage basePage, string fromEmail, string fromName, string toEmail, string toName, string subject, string body )
+		static public void SendMail( YAF.Pages.ForumPage basePage, string fromEmail, string fromName, string toEmail, string toName, string subject, string body )
 		{
 			SendMail( basePage, new System.Net.Mail.MailAddress( fromEmail, fromName ), new System.Net.Mail.MailAddress( toEmail, toName ), subject, body );
 		}
 
-		static public void SendMail( pages.ForumPage basePage, System.Net.Mail.MailAddress fromAddress, System.Net.Mail.MailAddress toAddress, string subject, string body )
+		static public void SendMail( YAF.Pages.ForumPage basePage, System.Net.Mail.MailAddress fromAddress, System.Net.Mail.MailAddress toAddress, string subject, string body )
 		{
 			System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient( basePage.BoardSettings.SmtpServer );
 
@@ -173,7 +173,7 @@ namespace yaf
 		{
 			try
 			{
-				string config = Config.LogToMail;
+				string config = YAF.Classes.Utils.Config.LogToMail;
 				if ( config == null )
 					return;
 
@@ -279,9 +279,9 @@ namespace yaf
 			{
 			}
 		}
-		static public void CreateWatchEmail( pages.ForumPage basePage, object messageID )
+		static public void CreateWatchEmail( YAF.Pages.ForumPage basePage, object messageID )
 		{
-			using ( DataTable dt = DB.message_list( messageID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.message_list( messageID ) )
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
@@ -292,11 +292,11 @@ namespace yaf
 
 					emailParams["{forumname}"] = basePage.BoardSettings.Name;
 					emailParams["{topic}"] = row ["Topic"].ToString();
-					emailParams["{link}"] = String.Format( "{0}{1}", basePage.ServerURL, Forum.GetLink( Pages.posts, "m={0}#{0}", messageID ) );
+					emailParams["{link}"] = String.Format( "{0}{1}", basePage.ServerURL, Forum.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
 
 					string body = Utils.CreateEmailFromTemplate( "topicpost.txt", ref emailParams );
 
-					DB.mail_createwatch( row ["TopicID"], basePage.BoardSettings.ForumEmail, subject, body, row ["UserID"] );
+					YAF.Classes.Data.DB.mail_createwatch( row ["TopicID"], basePage.BoardSettings.ForumEmail, subject, body, row ["UserID"] );
 				}
 			}
 		}
@@ -326,7 +326,7 @@ namespace yaf
 			DataTable dt = ( DataTable ) HttpContext.Current.Cache ["replacewords"];
 			if ( dt == null )
 			{
-				dt = DB.replace_words_list();
+				dt = YAF.Classes.Data.DB.replace_words_list();
 				HttpContext.Current.Cache.Insert( "replacewords", dt, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
 			}
 			foreach ( DataRow rwords in dt.Rows )
@@ -343,7 +343,7 @@ namespace yaf
 #else
 				catch (Exception x)
 				{
-					DB.eventlog_create(null,"BadWordReplace",x,EventLogTypes.Warning);
+					YAF.Classes.Data.DB.eventlog_create(null,"BadWordReplace",x,EventLogTypes.Warning);
 				}
 #endif
 			}

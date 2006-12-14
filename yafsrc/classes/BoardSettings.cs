@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Collections;
 
-namespace yaf
+namespace YAF
 {
 	public class BoardSettings
 	{
@@ -15,14 +15,14 @@ namespace yaf
 			m_boardID = boardID;
 			DataTable dt;
 			// get the board table
-			dt = DB.board_list( boardID );
+			dt = YAF.Classes.Data.DB.board_list( boardID );
 			m_board = dt.Rows [0];
 
 			m_reg = new RegistryHash();
 			m_regBoard = new RegistryHash();
 
 			// get all the registry values for the forum
-			using ( dt = DB.registry_list() )
+			using ( dt = YAF.Classes.Data.DB.registry_list() )
 			{
 				// get all the registry settings into our hash table
 				foreach ( DataRow dr in dt.Rows )
@@ -37,7 +37,7 @@ namespace yaf
 					}
 				}
 			}
-			using ( dt = DB.registry_list( null, boardID ) )
+			using ( dt = YAF.Classes.Data.DB.registry_list( null, boardID ) )
 			{
 				// get all the registry settings into our hash table
 				foreach ( DataRow dr in dt.Rows )
@@ -62,11 +62,11 @@ namespace yaf
 			// loop through all values and commit them to the DB
 			foreach ( DictionaryEntry objItem in m_reg )
 			{
-				DB.registry_save( objItem.Key, objItem.Value );
+				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value );
 			}
 			foreach ( DictionaryEntry objItem in m_regBoard )
 			{
-				DB.registry_save( objItem.Key, objItem.Value, m_boardID );
+				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value, m_boardID );
 			}
 		}
 

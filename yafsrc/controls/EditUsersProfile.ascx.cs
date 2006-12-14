@@ -10,9 +10,9 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
-using yaf.pages;
+using YAF.Pages;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	public partial class EditUsersProfile : BaseUserControl
 	{
@@ -72,7 +72,7 @@ namespace yaf.controls
 
 			DataBind();
 
-			using ( DataTable dt = DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
@@ -151,7 +151,7 @@ namespace yaf.controls
 					StringDictionary emailParameters = new StringDictionary();
 
 					emailParameters ["{user}"] = ForumPage.PageUserName;
-					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", Forum.GetLink( Pages.approve, "k={0}", hash ), ForumPage.ServerURL );
+					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", Forum.GetLink( ForumPages.approve, "k={0}", hash ), ForumPage.ServerURL );
 					emailParameters ["{newemail}"] = Email.Text;
 					emailParameters ["{key}"] = hash;
 					emailParameters ["{forumname}"] = ForumPage.BoardSettings.Name;
@@ -159,7 +159,7 @@ namespace yaf.controls
 
 					string message = Utils.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
 
-					DB.checkemail_save( CurrentUserID, hash, Email.Text );
+					YAF.Classes.Data.DB.checkemail_save( CurrentUserID, hash, Email.Text );
 					//  Build a MailMessage
 					Utils.SendMail( ForumPage, ForumPage.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
 					ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
@@ -181,7 +181,7 @@ namespace yaf.controls
 					}
 					// No need to hash string as its hashed by procedure.
 					string newpw = NewPassword1.Text;
-					DB.user_savepassword( CurrentUserID, newpw );
+					YAF.Classes.Data.DB.user_savepassword( CurrentUserID, newpw );
 				}
 			}
 			else
@@ -202,7 +202,7 @@ namespace yaf.controls
 					string oldpw = FormsAuthentication.HashPasswordForStoringInConfigFile( OldPassword.Text, "md5" );
 					string newpw = FormsAuthentication.HashPasswordForStoringInConfigFile( NewPassword1.Text, "md5" );
 
-					if ( !DB.user_changepassword( CurrentUserID, oldpw, newpw ) )
+					if ( !YAF.Classes.Data.DB.user_changepassword( CurrentUserID, oldpw, newpw ) )
 					{
 						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "old_password_wrong" ) );
 					}
@@ -213,21 +213,21 @@ namespace yaf.controls
 			if ( !ForumPage.BoardSettings.EmailVerification )
 				email = Email.Text;
 
-			DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue, null,
+			YAF.Classes.Data.DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue, null,
 					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, PMNotificationEnabled.Checked );
 
 			if ( AdminEditMode )
-				Forum.Redirect( Pages.admin_users );
+				Forum.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( Pages.cp_profile );
+				Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		protected void Cancel_Click( object sender, System.EventArgs e )		
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( Pages.admin_users );
+				Forum.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( Pages.cp_profile );
+				Forum.Redirect( ForumPages.cp_profile );
 		}
 
 		protected void Email_TextChanged( object sender, System.EventArgs e )

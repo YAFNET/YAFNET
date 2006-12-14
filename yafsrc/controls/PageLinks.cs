@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for PageLinks.
@@ -43,14 +43,14 @@ namespace yaf.controls
 
 		public void AddForumLinks(int forumID, bool noForumLink)
 		{
-			using(DataTable dtLinks=DB.forum_listpath(forumID))
+			using(DataTable dtLinks=YAF.Classes.Data.DB.forum_listpath(forumID))
 			{
 				foreach(DataRow row in dtLinks.Rows)				
 				{
 					if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
 						AddLink(row["Name"].ToString(),"");
 					else
-						AddLink(row["Name"].ToString(),Forum.GetLink(Pages.topics,"f={0}",row["ForumID"]));
+						AddLink(row["Name"].ToString(),Forum.GetLink( ForumPages.topics,"f={0}",row["ForumID"]));
 				}
 			}
 		}

@@ -20,78 +20,10 @@
 using System;
 using System.Data;
 using System.Web;
+using YAF.Classes.Data;
 
-namespace yaf
+namespace YAF
 {
-	public enum SEARCH_FIELD
-	{
-		sfMESSAGE = 0,
-		sfUSER_NAME = 1
-	}
-
-	public enum SEARCH_WHAT
-	{
-		sfALL_WORDS = 0,
-		sfANY_WORDS = 1,
-		sfEXACT = 2
-	}
-
-	public enum ForumFlags : int
-	{
-		Locked = 1,
-		Hidden = 2,
-		IsTest = 4,
-		Moderated = 8
-	}
-
-	public enum GroupFlags : int
-	{
-		IsAdmin = 1,
-		/*IsGuest = 2,*/
-		IsStart = 4,
-		IsModerator = 8
-	}
-
-	public enum AccessFlags : int
-	{
-		ReadAccess = 1,
-		PostAccess = 2,
-		ReplyAccess = 4,
-		PriorityAccess = 8,
-		PollAccess = 16,
-		VoteAccess = 32,
-		ModeratorAccess = 64,
-		EditAccess = 128,
-		DeleteAccess = 256,
-		UploadAccess = 512
-	}
-
-	public enum TopicFlags : int
-	{
-		Locked = 1,
-		Deleted = 8
-	}
-
-	public enum UserFlags : int
-	{
-		IsHostAdmin		= 1,
-		Approved		= 2,
-        IsGuest         = 4
-	}
-
-	public enum RankFlags : int
-	{
-		IsStart = 1,
-		IsLadder = 2
-	}
-
-	public enum EventLogTypes : int
-	{
-		Error = 0,
-		Warning = 1,
-		Information = 2
-	}
-
 	/// <summary>
 	/// Summary description for Data.
 	/// </summary>
@@ -106,25 +38,25 @@ namespace yaf
 					string path = HttpContext.Current.Request.ApplicationPath;
 					if ( !path.EndsWith( "/" ) ) path += "/";
 
-					if (Config.Root != null)
-					{	
+					if ( YAF.Classes.Utils.Config.Root != null )
+					{
 						// use specified root
-						path = Config.Root;
-						if (path[0] != '/') path = path.Insert(0,"/");
-						
+						path = YAF.Classes.Utils.Config.Root;
+						if ( path [0] != '/' ) path = path.Insert( 0, "/" );
+
 					}
-					else if ( Config.IsDotNetNuke )
+					else if ( YAF.Classes.Utils.Config.IsDotNetNuke )
 					{
 						path += "DesktopModules/YetAnotherForumDotNet/";
 					}
-                    else if (Config.IsRainbow)
-                    {
-                        path += "DesktopModules/Forum/";
-                    }
-                    else if (Config.IsPortal)
-                    {
-                        path += "Modules/Forum/";
-                    }
+					else if ( YAF.Classes.Utils.Config.IsRainbow )
+					{
+						path += "DesktopModules/Forum/";
+					}
+					else if ( YAF.Classes.Utils.Config.IsPortal )
+					{
+						path += "Modules/Forum/";
+					}
 
 					if ( !path.EndsWith( "/" ) ) path += "/";
 
@@ -139,7 +71,7 @@ namespace yaf
 
 		public static void AccessDenied()
 		{
-			Forum.Redirect( Pages.info, "i=4" );
+			Forum.Redirect( ForumPages.info, "i=4" );
 		}
 
 		public static DataTable TimeZones()
@@ -245,7 +177,7 @@ namespace yaf
 			return TopicTimes( null );
 		}
 
-		static public DataTable TopicTimes( yaf.pages.ForumPage basePage )
+		static public DataTable TopicTimes( YAF.Pages.ForumPage basePage )
 		{
 			using ( DataTable dt = new DataTable( "TopicTimes" ) )
 			{

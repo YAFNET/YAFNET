@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for PageLinks.

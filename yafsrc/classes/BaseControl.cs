@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 
-namespace yaf
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for ForumUsers.
@@ -12,19 +12,19 @@ namespace yaf
 		{
 		}
 
-		public yaf.pages.ForumPage ForumPage
+		public YAF.Pages.ForumPage ForumPage
 		{
 			get 
 			{
 				System.Web.UI.Control ctl = Parent;
 				System.Web.UI.Control thePage = this;
-				while(ctl.GetType()!=typeof(yaf.Forum))
+				while(ctl.GetType()!=typeof(YAF.Forum))
 				{
 					thePage = ctl;
 					ctl = ctl.Parent;
 				}
 
-				return (yaf.pages.ForumPage)thePage;
+				return (YAF.Pages.ForumPage)thePage;
 			}
 		}
 	}

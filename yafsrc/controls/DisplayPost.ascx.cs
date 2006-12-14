@@ -1,4 +1,4 @@
-namespace yaf.controls
+namespace YAF.Controls
 {
 	using System;
 	using System.Data;
@@ -34,11 +34,11 @@ namespace yaf.controls
 			Attach.Visible = CanAttach;
 			Attach.Text = ForumPage.GetThemeContents( "BUTTONS", "ATTACHMENTS" );
 			Attach.ToolTip = "Attachments";
-			Attach.NavigateUrl = Forum.GetLink( Pages.attachments, "m={0}", DataRow ["MessageID"] );
+			Attach.NavigateUrl = Forum.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
 			Edit.Visible = CanEditPost;
 			Edit.Text = ForumPage.GetThemeContents( "BUTTONS", "EDITPOST" );
 			Edit.ToolTip = "Edit this post";
-			Edit.NavigateUrl = Forum.GetLink( Pages.postmessage, "m={0}", DataRow ["MessageID"] );
+			Edit.NavigateUrl = Forum.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
 			Delete.Visible = CanDeletePost;
 			Delete.Text = ForumPage.GetThemeContents( "BUTTONS", "DELETEPOST" );
 			Delete.ToolTip = "Delete this post";
@@ -46,15 +46,15 @@ namespace yaf.controls
 			Quote.Visible = CanReply;
 			Quote.Text = ForumPage.GetThemeContents( "BUTTONS", "QUOTEPOST" );
 			Quote.ToolTip = "Reply with quote";
-			Quote.NavigateUrl = Forum.GetLink( Pages.postmessage, "t={0}&f={1}&q={2}", ForumPage.PageTopicID, ForumPage.PageForumID, DataRow ["MessageID"] );
+			Quote.NavigateUrl = Forum.GetLink( ForumPages.postmessage, "t={0}&f={1}&q={2}", ForumPage.PageTopicID, ForumPage.PageForumID, DataRow ["MessageID"] );
 
 			// private messages
 			Pm.Visible			= ForumPage.User!=null && ForumPage.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = ForumPage.GetThemeContents( "BUTTONS", "PM" );
-			Pm.NavigateUrl = Forum.GetLink( Pages.pmessage, "u={0}", DataRow ["UserID"] );
+			Pm.NavigateUrl = Forum.GetLink( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
 			// emailing
 			Email.Visible		= ForumPage.User!=null && ForumPage.BoardSettings.AllowEmailSending && !IsSponserMessage;
-			Email.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", DataRow ["UserID"] );
+			Email.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = ForumPage.GetThemeContents( "BUTTONS", "EMAIL" );
 			Home.Visible = DataRow ["HomePage"] != DBNull.Value;
 			Home.NavigateUrl = DataRow ["HomePage"].ToString();
@@ -64,16 +64,16 @@ namespace yaf.controls
 			Blog.Text = ForumPage.GetThemeContents( "BUTTONS", "WEBLOG" );
 			Msn.Visible			= ForumPage.User!=null && DataRow["MSN"]!=DBNull.Value;
 			Msn.Text = ForumPage.GetThemeContents( "BUTTONS", "MSN" );
-			Msn.NavigateUrl = Forum.GetLink( Pages.im_email, "u={0}", DataRow ["UserID"] );
+			Msn.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Yim.Visible			= ForumPage.User!=null && DataRow["YIM"]!=DBNull.Value;
-			Yim.NavigateUrl = Forum.GetLink( Pages.im_yim, "u={0}", DataRow ["UserID"] );
+			Yim.NavigateUrl = Forum.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
 			Yim.Text = ForumPage.GetThemeContents( "BUTTONS", "YAHOO" );
 			Aim.Visible			= ForumPage.User!=null && DataRow["AIM"]!=DBNull.Value;
 			Aim.Text = ForumPage.GetThemeContents( "BUTTONS", "AIM" );
-			Aim.NavigateUrl = Forum.GetLink( Pages.im_aim, "u={0}", DataRow ["UserID"] );
+			Aim.NavigateUrl = Forum.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
 			Icq.Visible			= ForumPage.User!=null && DataRow["ICQ"]!=DBNull.Value;
 			Icq.Text = ForumPage.GetThemeContents( "BUTTONS", "ICQ" );
-			Icq.NavigateUrl = Forum.GetLink( Pages.im_icq, "u={0}", DataRow ["UserID"] );
+			Icq.NavigateUrl = Forum.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
 
 			// display admin only info
 			if ( ForumPage.IsAdmin )
@@ -110,7 +110,7 @@ namespace yaf.controls
 			}
 		}
 
-		private yaf.MessageFlags PostMessageFlags
+		private YAF.MessageFlags PostMessageFlags
 		{
 			get
 			{
@@ -130,7 +130,7 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumEditAccess;
+				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumEditAccess;
 			}
 		}
 
@@ -154,7 +154,7 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumUploadAccess;
+				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumUploadAccess;
 			}
 		}
 
@@ -162,14 +162,14 @@ namespace yaf.controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumDeleteAccess;
+				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumDeleteAccess;
 			}
 		}
 		protected bool CanReply
 		{
 			get
 			{
-				return !PostMessageFlags.IsLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) ForumFlags.Locked ) != ( int ) ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) TopicFlags.Locked ) != ( int ) TopicFlags.Locked && ForumPage.ForumReplyAccess;
+				return !PostMessageFlags.IsLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ForumPage.ForumReplyAccess;
 			}
 		}
 
@@ -252,7 +252,7 @@ namespace yaf.controls
 			// Groups
 			if ( ForumPage.BoardSettings.ShowGroups )
 			{
-				using ( DataTable dt = DB.usergroup_list( DataRow ["UserID"] ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.usergroup_list( DataRow ["UserID"] ) )
 				{
 					userboxOutput.AppendFormat( "{0}: ", ForumPage.GetText( "groups" ) );
 					
@@ -336,7 +336,7 @@ namespace yaf.controls
 
 				messageOutput.Append( "<p>" );
 
-				using ( DataTable dt = DB.attachment_list( DataRow ["MessageID"], null, null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( DataRow ["MessageID"], null, null ) )
 				{
 					// show file then image attachments...
 					int tmpDisplaySort = 0;
@@ -407,16 +407,16 @@ namespace yaf.controls
 			object tmpUserID = DataRow ["UserID"];
 
 			// Take away 100 points once!
-			DB.user_removepoints( tmpUserID, 100 );
+			YAF.Classes.Data.DB.user_removepoints( tmpUserID, 100 );
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
-			DB.message_delete( tmpMessageID );
+			YAF.Classes.Data.DB.message_delete( tmpMessageID );
 
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
-			if ( DB.topic_info( tmpTopicID ) == null )
-				Forum.Redirect( Pages.topics, "f={0}", tmpForumID );
+			if ( YAF.Classes.Data.DB.topic_info( tmpTopicID ) == null )
+				Forum.Redirect( ForumPages.topics, "f={0}", tmpForumID );
 			else
-				Forum.Redirect( Pages.posts, "t={0}", tmpTopicID );
+				Forum.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
 		}
 
 		private void PopMenu1_ItemClick( object sender, PopEventArgs e )
@@ -424,10 +424,10 @@ namespace yaf.controls
 			switch ( e.Item )
 			{
 				case "userprofile":
-					Forum.Redirect( Pages.profile, "u={0}", DataRow ["UserID"] );
+					Forum.Redirect( ForumPages.profile, "u={0}", DataRow ["UserID"] );
 					break;
 				case "edituser":
-					Forum.Redirect( Pages.admin_edituser, "u={0}", DataRow ["UserID"] );
+					Forum.Redirect( ForumPages.admin_edituser, "u={0}", DataRow ["UserID"] );
 					break;
 			}
 		}

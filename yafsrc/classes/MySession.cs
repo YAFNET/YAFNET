@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Web;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// All references to session should go into this class

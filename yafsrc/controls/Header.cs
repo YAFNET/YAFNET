@@ -1,6 +1,6 @@
 using System;
 
-namespace yaf
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for Header.
@@ -59,7 +59,7 @@ namespace yaf
 			//act_rank += "<tr class=header2><td colspan=\"2\">User</td>";
 			//act_rank += "<td align=\"center\">Posts</td></tr>";
 
-			System.Data.DataTable rank = DB.user_activity_rank();
+			System.Data.DataTable rank = YAF.Classes.Data.DB.user_activity_rank();
 			int i = 1;
 
 			act_rank += "<tr><td class=post><table cellspacing=0 cellpadding=0 align=center>";
@@ -76,7 +76,7 @@ namespace yaf
 				act_rank += string.Format( "<td align=\"center\">{0}</td>", img );
 
 				// Nome autore
-				act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r ["Name"], Forum.GetLink( Pages.profile, "u={0}", r ["ID"] ) );
+				act_rank += string.Format( "<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r ["Name"], Forum.GetLink( ForumPages.profile, "u={0}", r ["ID"] ) );
 
 				// Numero post
 				act_rank += string.Format( "<td align=\"center\">{0}</td></tr>", r ["NumOfPosts"] );

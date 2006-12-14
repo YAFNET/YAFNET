@@ -1,5 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="smileys.ascx.cs" Inherits="yaf.controls.smileys" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
-<%@ Register TagPrefix="yaf" Namespace="yaf.controls" Assembly="yaf" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="smileys.ascx.cs" Inherits="YAF.Controls.smileys" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <br /><br />
 
 <table class="content" align="center" cellspacing="0" cellpadding="9">
@@ -9,4 +10,4 @@
 	<asp:Literal id="SmileyResults" Runat="server" />
 </table>
 
-<p class="navlinks" align="center"><yaf:pager runat="server" id="pager"/></p>
+<p class="navlinks" align="center"><YAF:pager runat="server" id="pager"/></p>

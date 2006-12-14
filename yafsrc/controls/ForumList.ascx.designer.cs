@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace yaf.controls {
+namespace YAF.Controls {
     
     public partial class ForumList {
         protected System.Web.UI.WebControls.Repeater forumList;

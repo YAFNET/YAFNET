@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="ForumList.ascx.cs" Inherits="yaf.controls.ForumList" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="ForumList.ascx.cs" Inherits="YAF.Controls.ForumList" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 
 <asp:Repeater id="forumList" runat="server">
 <ItemTemplate>
@@ -18,7 +18,7 @@
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
 		<td align="center"><%# Posts(Container.DataItem) %></td>
-		<td align="center" class="smallfont" nowrap="nowrap"><%# yaf.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
+		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
 	</tr>
 </ItemTemplate>
 <AlternatingItemTemplate>
@@ -38,7 +38,7 @@
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
 		<td align="center"><%# Posts(Container.DataItem) %></td>
-		<td align="center" class="smallfont" nowrap="nowrap"><%# yaf.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
+		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
 	</tr>
 </AlternatingItemTemplate>
 </asp:Repeater>

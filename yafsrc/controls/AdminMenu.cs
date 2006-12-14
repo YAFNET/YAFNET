@@ -1,6 +1,6 @@
 using System;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for AdminMenu.
@@ -27,8 +27,8 @@ namespace yaf.controls
 				// host admin -- create host admin menu...
 				string [,] hostAdminLinks =
 				{
-					{"Host Settings",Forum.GetLink(Pages.admin_hostsettings)},
-					{"Boards",Forum.GetLink(Pages.admin_boards)}
+					{"Host Settings",Forum.GetLink( ForumPages.admin_hostsettings)},
+					{"Boards",Forum.GetLink( ForumPages.admin_boards)}
 				};
 
 				writer.Write( createMenu( "Host Admin", "header2", "post", ref hostAdminLinks ) );
@@ -37,12 +37,12 @@ namespace yaf.controls
 			// create the admin menu...
 			string [,] adminLinks =
 			{
-				{"Admin Index",Forum.GetLink(Pages.admin_admin)},
-				{"Board Settings",Forum.GetLink(Pages.admin_boardsettings)},
-				{"Forums",Forum.GetLink(Pages.admin_forums)},
-				{"Banned IP",Forum.GetLink(Pages.admin_bannedip)},
-				{"Smilies",Forum.GetLink(Pages.admin_smilies)},
-				{"Replace Words",Forum.GetLink(Pages.admin_replacewords)}
+				{"Admin Index",Forum.GetLink( ForumPages.admin_admin)},
+				{"Board Settings",Forum.GetLink( ForumPages.admin_boardsettings)},
+				{"Forums",Forum.GetLink( ForumPages.admin_forums)},
+				{"Banned IP",Forum.GetLink( ForumPages.admin_bannedip)},
+				{"Smilies",Forum.GetLink( ForumPages.admin_smilies)},
+				{"Replace Words",Forum.GetLink( ForumPages.admin_replacewords)}
 			};
 
 			writer.Write(createMenu( "Admin", "header2", "post", ref adminLinks ));
@@ -50,11 +50,11 @@ namespace yaf.controls
 			// create the groups and users menu...
 			string [,] groupsAndUsersLinks =
 			{
-				{"Access Masks",Forum.GetLink(Pages.admin_accessmasks)},
-				{"Groups (Roles)",Forum.GetLink(Pages.admin_groups)},
-				{"Users",Forum.GetLink(Pages.admin_users)},
-				{"Ranks",Forum.GetLink(Pages.admin_ranks)},
-				{"Mail",Forum.GetLink(Pages.admin_mail)}
+				{"Access Masks",Forum.GetLink( ForumPages.admin_accessmasks)},
+				{"Groups (Roles)",Forum.GetLink( ForumPages.admin_groups)},
+				{"Users",Forum.GetLink( ForumPages.admin_users)},
+				{"Ranks",Forum.GetLink( ForumPages.admin_ranks)},
+				{"Mail",Forum.GetLink( ForumPages.admin_mail)}
 			};
 
 			writer.Write(createMenu( "Groups and Users", "header2", "post", ref groupsAndUsersLinks ));
@@ -62,10 +62,10 @@ namespace yaf.controls
 			// create maintenance menu...
 			string [,] maintenanceLinks =
 			{
-				{"Prune Topics",Forum.GetLink(Pages.admin_prune)},
-				{"Private Messages",Forum.GetLink(Pages.admin_pm)},
-				{"Attachments",Forum.GetLink(Pages.admin_attachments)},
-				{"Event Log",Forum.GetLink(Pages.admin_eventlog)}
+				{"Prune Topics",Forum.GetLink( ForumPages.admin_prune)},
+				{"Private Messages",Forum.GetLink( ForumPages.admin_pm)},
+				{"Attachments",Forum.GetLink( ForumPages.admin_attachments)},
+				{"Event Log",Forum.GetLink( ForumPages.admin_eventlog)}
 			};
 
 			writer.Write( createMenu( "Maintenance", "header2", "post", ref maintenanceLinks ) );
@@ -73,9 +73,9 @@ namespace yaf.controls
 			// create NNTP menu...
 			string [,] nntpMenu =
 			{
-				{"NNTP Servers",Forum.GetLink(Pages.admin_nntpservers)},
-				{"NNTP Forums",Forum.GetLink(Pages.admin_nntpforums)},
-				{"Retrieve Articles",Forum.GetLink(Pages.admin_nntpretrieve)}
+				{"NNTP Servers",Forum.GetLink( ForumPages.admin_nntpservers)},
+				{"NNTP Forums",Forum.GetLink( ForumPages.admin_nntpforums)},
+				{"Retrieve Articles",Forum.GetLink( ForumPages.admin_nntpretrieve)}
 			};
 
 			writer.Write( createMenu( "NNTP", "header2", "post", ref nntpMenu ) );
@@ -83,7 +83,7 @@ namespace yaf.controls
 			// create NNTP menu...
 			string [,] upgradeMenu =
 			{
-				{"Version Check",Forum.GetLink(Pages.admin_version)},
+				{"Version Check",Forum.GetLink( ForumPages.admin_version)},
 				{"Install",Data.ForumRoot + "install/"}
 			};
 

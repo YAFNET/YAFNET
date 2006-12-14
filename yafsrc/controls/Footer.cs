@@ -1,6 +1,6 @@
 using System;
 
-namespace yaf
+namespace YAF.Controls
 {
 	/// <summary>
 	/// Summary description for Footer.

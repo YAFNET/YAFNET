@@ -28,7 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-namespace yaf.controls
+namespace YAF.Controls
 {
 	public partial class EditUsersGroups : BaseUserControl
 	{
@@ -42,7 +42,7 @@ namespace yaf.controls
 
 		private void BindData()
 		{
-			UserGroups.DataSource = DB.group_member( ForumPage.PageBoardID, Request.QueryString ["u"] );
+			UserGroups.DataSource = YAF.Classes.Data.DB.group_member( ForumPage.PageBoardID, Request.QueryString ["u"] );
 			DataBind();
 		}
 
@@ -53,7 +53,7 @@ namespace yaf.controls
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( Pages.admin_users );
+			Forum.Redirect( ForumPages.admin_users );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -64,7 +64,7 @@ namespace yaf.controls
 				int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 
 				string roleName = string.Empty;
-				using ( DataTable dt = DB.group_list( ForumPage.PageBoardID, GroupID ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.group_list( ForumPage.PageBoardID, GroupID ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 						roleName = ( string ) row ["Name"];
@@ -72,7 +72,7 @@ namespace yaf.controls
 
 				bool isChecked = ( ( CheckBox ) item.FindControl( "GroupMember" ) ).Checked;
 
-				DB.usergroup_save( Request.QueryString ["u"], GroupID, isChecked );
+				YAF.Classes.Data.DB.usergroup_save( Request.QueryString ["u"], GroupID, isChecked );
 
 				if ( isChecked && !Roles.IsUserInRole( ForumPage.User.UserName, roleName ) )
 					Roles.AddUserToRole( ForumPage.User.UserName, roleName );
@@ -80,7 +80,7 @@ namespace yaf.controls
 					Roles.RemoveUserFromRole( ForumPage.User.UserName, roleName );
 			}
 
-			Forum.Redirect( Pages.admin_users );
+			Forum.Redirect( ForumPages.admin_users );
 		}
 
 	}

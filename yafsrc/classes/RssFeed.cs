@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 
-namespace yaf
+namespace YAF
 {
 	/// <summary>
 	/// Summary description for RssFeed.
@@ -18,7 +18,7 @@ namespace yaf
 
 		}
 
-		public XmlTextWriter WriteRSSPrologue(XmlTextWriter writer, pages.ForumPage page)
+		public XmlTextWriter WriteRSSPrologue(XmlTextWriter writer, YAF.Pages.ForumPage page)
 		{
 			/*
 				writer.WriteStartDocument();
