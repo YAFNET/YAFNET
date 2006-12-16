@@ -1,5 +1,5 @@
 <%@ Control language="c#" Codebehind="pmessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.pmessage" %>
-<%@ Register TagPrefix="editor" Namespace="YAF.editor" Assembly="YAF" %>
+<%@ Register TagPrefix="editor" Namespace="YAF.Editor" Assembly="YAF" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
