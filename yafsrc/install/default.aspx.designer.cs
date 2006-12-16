@@ -11,20 +11,20 @@
 namespace YAF.Install {
     
     public partial class _default {
-			protected System.Web.UI.WebControls.Wizard Wizard;
-			protected System.Web.UI.WebControls.TextBox TextBox1;
-			protected System.Web.UI.WebControls.TextBox TextBox2;
-			protected System.Web.UI.WebControls.TextBox TextBox3;
-			protected System.Web.UI.WebControls.TextBox TheForumName;
-			protected System.Web.UI.WebControls.DropDownList TimeZones;
-			protected System.Web.UI.WebControls.TextBox ForumEmailAddress;
-			protected System.Web.UI.WebControls.TextBox SmptServerAddress;
-			protected System.Web.UI.WebControls.TextBox UserName;
-			protected System.Web.UI.WebControls.TextBox AdminEmail;
-			protected System.Web.UI.WebControls.TextBox Password1;
-			protected System.Web.UI.WebControls.TextBox Password2;
-			protected System.Web.UI.WebControls.TextBox SecurityQuestion;
-			protected System.Web.UI.WebControls.TextBox SecurityAnswer;
-			protected YAF.Classes.UI.SmartScroller scroller;
+        protected System.Web.UI.WebControls.Wizard InstallWizard;
+        protected System.Web.UI.WebControls.TextBox TextBox1;
+        protected System.Web.UI.WebControls.TextBox TextBox2;
+        protected System.Web.UI.WebControls.TextBox TextBox3;
+        protected System.Web.UI.WebControls.TextBox TheForumName;
+        protected System.Web.UI.WebControls.DropDownList TimeZones;
+        protected System.Web.UI.WebControls.TextBox ForumEmailAddress;
+        protected System.Web.UI.WebControls.TextBox SmptServerAddress;
+        protected System.Web.UI.WebControls.TextBox UserName;
+        protected System.Web.UI.WebControls.TextBox AdminEmail;
+        protected System.Web.UI.WebControls.TextBox Password1;
+        protected System.Web.UI.WebControls.TextBox Password2;
+        protected System.Web.UI.WebControls.TextBox SecurityQuestion;
+        protected System.Web.UI.WebControls.TextBox SecurityAnswer;
+        protected YAF.Classes.UI.SmartScroller scroller;
     }
 }

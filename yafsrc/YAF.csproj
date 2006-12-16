@@ -117,9 +117,7 @@
     <Content Include="controls\smileys.ascx">
       <SubType>UserControl</SubType>
     </Content>
-    <Content Include="default.aspx">
-      <SubType>Form</SubType>
-    </Content>
+    <Content Include="default.aspx" />
     <Content Include="defs\asm.def" />
     <Content Include="defs\asp.def" />
     <Content Include="defs\bas.def" />
@@ -955,6 +953,13 @@
     </Compile>
     <Compile Include="controls\TopicLine.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="default.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="editors\ForumEditor.cs">
       <SubType>Code</SubType>

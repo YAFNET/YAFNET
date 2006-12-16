@@ -1,5 +1,5 @@
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="True" Inherits="yaf.install._default" %>
-<%@ Register TagPrefix="yaf" Namespace="YAF.Controls" Assembly="yaf" %>
+<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="True" Inherits="YAF.Install._default" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 
 <html>
 <head>
@@ -12,7 +12,7 @@
 
 <form runat=server>
 <div align="center">
-    <asp:Wizard ID="Wizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB" BorderColor="#B5C7DE"
+    <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB" BorderColor="#B5C7DE"
         BorderWidth="1px" Font-Names="Verdana" Font-Size="Small"
         Width="480px" CellPadding="8" DisplaySideBar="False">
         <StepStyle Font-Size="0.8em" ForeColor="#333333" />
@@ -70,13 +70,13 @@
 
 	            <p>
 		            SMTP Server:<br/>
-		            <asp:TextBox id=SmptServerAddress runat="server"/>
+		            <asp:TextBox id="SmptServerAddress" runat="server"/>
 		            The name of a smtp server used to send emails.
 	            </p>
 
 	            <p>
 		            Admin User Name:<br/>
-		            <asp:TextBox id=UserName runat="server"/>
+		            <asp:TextBox id="UserName" runat="server"/>
 		            The name of the admin user.
 	            </p>
 
@@ -88,7 +88,7 @@
 
 	            <p>
 		            Admin Password:<br/>
-		            <asp:TextBox id=Password1 runat="server" TextMode="Password"/>
+		            <asp:TextBox id="Password1" runat="server" TextMode="Password"/>
 		            The password of the admin user.
 	            </p>
 
@@ -136,7 +136,7 @@
 </div>
 
 
-<yaf:smartscroller runat="server" ID="scroller"/>
+<YAF:SmartScroller runat="server" ID="scroller"/>
 </form>
 
 </body>
