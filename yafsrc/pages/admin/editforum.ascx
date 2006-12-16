@@ -94,7 +94,7 @@
 			<ItemTemplate>
 				<tr>
 					<td class="postheader">
-						<asp:label id="GroupID" visible="false" runat="server" text='<%# <%# Eval( "GroupID") %> %>'>
+						<asp:label id="GroupID" visible="false" runat="server" text='<%# Eval( "GroupID") %>'>
 						</asp:label>
 						<%# Eval( "GroupName") %>
 					</td>

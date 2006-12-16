@@ -141,10 +141,11 @@ namespace YAF.Controls
 				}
 				else
 				{
-					// no access to this forum... disable links
-					strTemp = String.Format( "{0}<br/>{1}<br/>{2}",
+					// no access to this forum... disable links and hide topic
+					strTemp = String.Format( "{0}<br/>{1}",
 							ForumPage.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
-							String.Format( ForumPage.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
+							// Removed by Mek(16 December 2006) to stop non access people viewing the topic title
+                            // String.Format( ForumPage.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
 							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
 						);
 				}
