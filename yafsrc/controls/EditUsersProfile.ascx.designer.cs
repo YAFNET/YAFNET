@@ -26,6 +26,8 @@ namespace YAF.Controls {
         protected System.Web.UI.HtmlControls.HtmlTableRow ForumSettingsRows;
         protected System.Web.UI.HtmlControls.HtmlTableRow UserThemeRow;
         protected System.Web.UI.WebControls.DropDownList Theme;
+        protected System.Web.UI.HtmlControls.HtmlTableRow OverrideForumThemeRow;
+        protected System.Web.UI.WebControls.CheckBox OverrideDefaultThemes;
         protected System.Web.UI.HtmlControls.HtmlTableRow UserLanguageRow;
         protected System.Web.UI.WebControls.DropDownList Language;
         protected System.Web.UI.HtmlControls.HtmlTableRow PMNotificationRow;

@@ -98,6 +98,9 @@ namespace YAF.Controls
 				string themeFile = ForumPage.BoardSettings.Theme;
 				if ( !row.IsNull( "ThemeFile" ) ) themeFile = Convert.ToString( row ["ThemeFile"] );
 				Theme.Items.FindByValue( themeFile ).Selected = true;
+                // Allows to use different per-forum themes,
+                // While "Allow User Change Theme" option in hostsettings is true
+                OverrideDefaultThemes.Checked = Convert.ToBoolean(row["OverrideDefaultThemes"]);
 			}
 
 			if ( ForumPage.BoardSettings.AllowUserLanguage )
@@ -213,7 +216,7 @@ namespace YAF.Controls
 			if ( !ForumPage.BoardSettings.EmailVerification )
 				email = Email.Text;
 
-			YAF.Classes.Data.DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue, null,
+			YAF.Classes.Data.DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue,OverrideDefaultThemes.Checked, null,
 					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, PMNotificationEnabled.Checked );
 
 			if ( AdminEditMode )

@@ -1,5 +1,21 @@
 <?xml version="1.0"?>
 <Resources language="English" code="en">
+  <page name="MOVEMESSAGE">
+    <Resource tag="MOVE"/>
+  </page>
+  <page name="DELETEMESSAGE">
+    <!-- deletemessage.aspx -->
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+  </page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>

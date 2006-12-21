@@ -414,33 +414,70 @@ namespace YAF.Classes.Data
 		/// <param name="fid"></param>
 		/// <param name="UserID">ID of user</param>
 		/// <returns>Results</returns>
-		static public DataTable GetSearchResult( string ToSearch, SEARCH_FIELD sf, SEARCH_WHAT sw, int fid, int UserID )
-		{
-			if ( ToSearch.Length == 0 )
-				return new DataTable();
+		static public DataTable GetSearchResult(string ToSearchWhat, string ToSearchFromWho, SEARCH_WHAT SearchFromWhoMethod, SEARCH_WHAT SearchWhatMethod, int ForumIDToStartAt, int UserID, int BoardId ) 
+        {
+			// if ( ToSearch.Length == 0 )
+			//	return new DataTable();
 
-			if ( ToSearch == "*" )
-				ToSearch = "";
+            if (ToSearchWhat == "*")
+                ToSearchWhat = "";
+            string forumIDs =  ""; 
 
-			ToSearch = ToSearch.Replace( "'", "''" );
+            if (ForumIDToStartAt != 0) 
+                {  
+	            DataTable dt =  forum_listall_sorted(BoardId, UserID,null, false, ForumIDToStartAt);  
+    	        foreach (DataRow dr in dt.Rows)  
+		            forumIDs =  forumIDs  + Convert. ToString(Convert.ToInt32(dr["ForumId"]))  + ",";
+		        forumIDs = forumIDs.Substring(0, forumIDs.Length - 1);  
+                } 
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, a.TopicMovedID, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
-			sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID join yaf_vaccess x on x.ForumID=a.ForumID ";
+            ToSearchWhat = ToSearchWhat.Replace("'", "''");
 
-			sql += String.Format( "where  (a.Flags & 8) = 0 and x.ReadAccess<>0 and a.TopicMovedID IS NULL and x.UserID={0} ", UserID );
+            string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
+            sql += "from yaf_topic a left join yaf_message c on a.TopicID = c.TopicID left join yaf_user b on c.UserID = b.UserID join yaf_vaccess x on x.ForumID=a.ForumID ";
+            sql += String.Format("where x.ReadAccess<>0 and x.UserID={0} and (c.Flags & 24) = 16 ", UserID);
 
-			if ( sf == SEARCH_FIELD.sfUSER_NAME )
+			// if ( sf == SEARCH_FIELD.sfUSER_NAME )
 			{
-				sql += string.Format( "and b.Name like '%{0}%' ", ToSearch );
+                string[] words;
+                sql += "and ( ";
+                switch (SearchFromWhoMethod)
+                {
+                    case SEARCH_WHAT.sfALL_WORDS:
+                        words = ToSearchFromWho.Split(' ');
+                        foreach (string word in words)
+                        {
+                            sql += string.Format(" b.Name like '%{0}%' and ", word);
+
+                        }
+                        // remove last OR in sql query
+                        sql = sql.Substring(0, sql.Length - 5);
+                        break;
+                    case SEARCH_WHAT.sfANY_WORDS:
+                        words = ToSearchFromWho.Split(' ');
+                        foreach (string word in words)
+                        {
+                            sql += string.Format(" b.Name like '%{0}%' or ", word);
+
+                        }
+                        // remove last OR in sql query
+                        sql = sql.Substring(0, sql.Length - 4);
+                        break;
+                    case SEARCH_WHAT.sfEXACT:
+                        sql += string.Format("b.Name like '%{0}%' or ", ToSearchFromWho);
+
+                        break;
+                }
+                sql += " ) ";
 			}
-			else
+			// else
 			{
 				string [] words;
 				sql += "and ( ";
-				switch ( sw )
+				switch ( SearchWhatMethod )
 				{
 					case SEARCH_WHAT.sfALL_WORDS:
-						words = ToSearch.Split( ' ' );
+						words = ToSearchWhat.Split( ' ' );
 						foreach ( string word in words )
 						{
 							sql += string.Format( "(c.Message like '%{0}%' or a.Topic like '%{0}%' ) and ", word );
@@ -449,7 +486,7 @@ namespace YAF.Classes.Data
 						sql = sql.Substring( 0, sql.Length - 5 );
 						break;
 					case SEARCH_WHAT.sfANY_WORDS:
-						words = ToSearch.Split( ' ' );
+                        words = ToSearchWhat.Split(' ');
 						foreach ( string word in words )
 						{
 							sql += string.Format( "c.Message like '%{0}%' or a.Topic like '%{0}%' or ", word );
@@ -458,15 +495,15 @@ namespace YAF.Classes.Data
 						sql = sql.Substring( 0, sql.Length - 4 );
 						break;
 					case SEARCH_WHAT.sfEXACT:
-						sql += string.Format( "c.Message like '%{0}%' or a.Topic like '%{0}%' ", ToSearch );
+                        sql += string.Format("c.Message like '%{0}%' or a.Topic like '%{0}%' ", ToSearchWhat);
 						break;
 				}
 				sql += " ) ";
 			}
 
-			if ( fid >= 0 )
+            if (ForumIDToStartAt >= 0)
 			{
-				sql += string.Format( "and a.ForumID = {0}", fid );
+                sql += string.Format("and a.ForumID in {0}", forumIDs);
 			}
 
 			sql += " order by c.Posted desc";
@@ -1210,6 +1247,7 @@ namespace YAF.Classes.Data
 				return GetData( cmd );
 			}
 		}
+
 		/// <summary>
 		/// Listes all forums accessible to a user
 		/// </summary>
@@ -1218,14 +1256,28 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable of all accessible forums</returns>
 		static public DataTable forum_listall( object boardID, object userID )
 		{
+            return forum_listall(boardID, userID, 0);
+        }
+
+        /// <summary>
+        /// Lists all forums accessible to a user
+        /// </summary>
+        /// <param name="boardID">BoardID</param>
+        /// <param name="userID">ID of user</param>
+        /// <param name="startAt">startAt ID</param>
+        /// <returns>DataTable of all accessible forums</returns>
+        static public DataTable forum_listall(object boardID, object userID, object startAt)
+        {
 			using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listall" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@BoardID", boardID );
 				cmd.Parameters.AddWithValue( "@UserID", userID );
+                cmd.Parameters.AddWithValue("@Root", startAt);
 				return GetData( cmd );
 			}
 		}
+
 		/// <summary>
 		/// Lists all forums within a given subcategory
 		/// </summary>
@@ -1234,6 +1286,18 @@ namespace YAF.Classes.Data
 		/// <returns>DataTable with list</returns>
 		static public DataTable forum_listall_fromCat( object boardID, object CategoryID )
 		{
+            return forum_listall_fromCat(boardID, CategoryID, true);
+        }
+
+        /// <summary>
+        /// Lists all forums within a given subcategory
+        /// </summary>
+        /// <param name="boardID">BoardID</param>
+        /// <param name="CategoryID">CategoryID</param>
+        /// <param name="EmptyFirstRow">EmptyFirstRow</param>
+        /// <returns>DataTable with list</returns>
+        static public DataTable forum_listall_fromCat(object boardID, object CategoryID, bool EmptyFirstRow)
+        {
 			using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listall_fromCat" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -1244,7 +1308,7 @@ namespace YAF.Classes.Data
 
 				using ( DataTable dt = GetData( cmd ) )
 				{
-					return forum_sort_list( dt, 0, intCategoryID, 0, null );
+                    return forum_sort_list(dt, 0, intCategoryID, 0, null, EmptyFirstRow);
 				}
 			}
 		}
@@ -1363,7 +1427,7 @@ namespace YAF.Classes.Data
 						categoryID = ( int ) row ["CategoryID"];
 
 						newRow = listDestination.NewRow();
-						newRow ["ForumID"] = string.Empty;
+                        newRow["ForumID"] = "-" + row["categoryID"].ToString();
 						newRow ["Title"] = string.Format( "{0}", row ["Category"].ToString() );
 						listDestination.Rows.Add( newRow );
 					}
@@ -1389,16 +1453,23 @@ namespace YAF.Classes.Data
 
 		static protected DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int [] forumidExclusions )
 		{
+            return forum_sort_list(listSource, parentID, categoryID, startingIndent, forumidExclusions, true);
+        }
+
+        static protected DataTable forum_sort_list(DataTable listSource, int parentID, int categoryID, int startingIndent, int[] forumidExclusions,bool emptyFirstRow)
+        {
 			DataTable listDestination = new DataTable();
 
 			listDestination.Columns.Add( "ForumID", typeof( String ) );
 			listDestination.Columns.Add( "Title", typeof( String ) );
 
-			DataRow blankRow = listDestination.NewRow();
-			blankRow ["ForumID"] = string.Empty;
-			blankRow ["Title"] = string.Empty;
-			listDestination.Rows.Add( blankRow );
-
+            if (emptyFirstRow)
+            {
+			    DataRow blankRow = listDestination.NewRow();
+			    blankRow ["ForumID"] = string.Empty;
+			    blankRow ["Title"] = string.Empty;
+			    listDestination.Rows.Add( blankRow );
+            }
 			// filter the forum list -- not sure if this code actually works
 			DataView dv = listSource.DefaultView;
 
@@ -1424,19 +1495,25 @@ namespace YAF.Classes.Data
 			return listDestination;
 		}
 
-		static public DataTable forum_listall_sorted( object boardID, object userID )
-		{
-			return forum_listall_sorted( boardID, userID, null );
-		}
+        static public DataTable forum_listall_sorted(object boardID, object userID)
+        {
+            return forum_listall_sorted(boardID, userID, null, false, 0);
+        }
 
-		static public DataTable forum_listall_sorted( object boardID, object userID, int [] forumidExclusions )
-		{
-			using ( DataTable dt = forum_listall( boardID, userID ) )
-			{
-				return forum_sort_list( dt, 0, 0, 0, forumidExclusions );
-			}
-		}
-		#endregion
+        static public DataTable forum_listall_sorted(object boardID, object userID, int[] forumidExclusions)
+        {
+            return forum_listall_sorted(boardID, userID, null, false, 0);
+        }
+
+        static public DataTable forum_listall_sorted(object boardID, object userID, int[] forumidExclusions, bool EmptyFirstRow, int StartAt)
+        {
+            using (DataTable dt = forum_listall(boardID, userID, StartAt))
+            {
+                return forum_sort_list(dt, 0, 0, 0, forumidExclusions, EmptyFirstRow);
+            }
+        }
+		
+        #endregion
 
 		#region yaf_ForumAccess
 		static public DataTable forumaccess_list( object ForumID )
@@ -1465,7 +1542,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@GroupID", GroupID );
-				return GetData( cmd );
+                return userforumaccess_sort_list(GetData(cmd), 0, 0, 0);
 			}
 		}
 		#endregion
@@ -1570,13 +1647,14 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region yaf_Message
-		static public DataTable post_list( object topicID, object updateViewCount )
+        static public DataTable post_list(object topicID, object updateViewCount, bool showDeleted)
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_post_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@TopicID", topicID );
 				cmd.Parameters.AddWithValue( "@UpdateViewCount", updateViewCount );
+                cmd.Parameters.AddWithValue( "@ShowDeleted", showDeleted);
 				return GetData( cmd );
 			}
 		}
@@ -1600,72 +1678,155 @@ namespace YAF.Classes.Data
 				return GetData( cmd );
 			}
 		}
+
+        // gets list of replies to message
+        static public DataTable message_getRepliesList(object messageID)
+        {
+            DataTable list = new DataTable();
+            list.Columns.Add("Posted", typeof(DateTime));
+            list.Columns.Add("Subject", typeof(string));
+            list.Columns.Add("Message", typeof(string));
+            list.Columns.Add("UserID", typeof(int));
+            list.Columns.Add("Flags", typeof(int));
+            list.Columns.Add("UserName", typeof(string));
+            list.Columns.Add("Signature", typeof(string));
+
+            using (SqlCommand cmd = new SqlCommand("yaf_message_reply_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", messageID);
+                DataTable dtr = GetData(cmd);
+
+                for (int i = 0; i < dtr.Rows.Count; i++)
+                {
+                    DataRow newRow = list.NewRow();
+                    DataRow row = dtr.Rows[i];
+                    newRow = list.NewRow();
+                    newRow["Posted"] = row["Posted"];
+                    newRow["Subject"] = row["Subject"];
+                    newRow["Message"] = row["Message"];
+                    newRow["UserID"] = row["UserID"];
+                    newRow["Flags"] = row["Flags"];
+                    newRow["UserName"] = row["UserName"];
+                    newRow["Signature"] = row["Signature"];
+                    list.Rows.Add(newRow);
+                    message_getRepliesList_populate(dtr, list, (int)row["MessageId"]);
+                }
+                return list;
+            }
+        }
+
+        // gets list of nested replies to message
+        static private void message_getRepliesList_populate(DataTable listsource, DataTable list, int MsgID)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_message_reply_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", MsgID);
+                DataTable dtr = GetData(cmd);
+
+                for (int i = 0; i < dtr.Rows.Count; i++)
+                {
+                    DataRow newRow = list.NewRow();
+                    DataRow row = dtr.Rows[i];
+                    newRow = list.NewRow();
+                    newRow["Posted"] = row["Posted"];
+                    newRow["Subject"] = row["Subject"];
+                    newRow["Message"] = row["Message"];
+                    newRow["UserID"] = row["UserID"];
+                    newRow["Flags"] = row["Flags"];
+                    newRow["UserName"] = row["UserName"];
+                    newRow["Signature"] = row["Signature"];
+                    list.Rows.Add(newRow);
+                    message_getRepliesList_populate(dtr, list, (int)row["MessageId"]);
+                }
+            }
+
+        }
+
+        //creates new topic, using some parameters from message itself
+        static public long topic_create_by_message(object MessageID, object ForumId, object newTopicSubj)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_topic_create_by_message"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", MessageID);
+                cmd.Parameters.AddWithValue("@ForumID", ForumId);
+                cmd.Parameters.AddWithValue("@Subject", newTopicSubj);
+                DataTable dt = GetData(cmd);
+                return long.Parse(dt.Rows[0]["TopicID"].ToString());
+            }
+        }
+
+        static public DataTable message_list(object messageID)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_message_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", messageID);
+                return GetData(cmd);
+            }
+        }
+
+        static public void message_delete(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked)
+        {
+            message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false);
+        }
+
+
 		//BAI ADDED 30.01.2004
-		static private void message_deleteRecursively( object messageID )
-		{
-			bool UseFileTable = false;
+        static private void message_deleteRecursively(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked)
+        {
+            bool UseFileTable = false;
 
-			using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "UseFileTable" ) )
-				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr ["Value"] ) );
+            using (DataTable dt = DB.registry_list("UseFileTable"))
+                foreach (DataRow dr in dt.Rows)
+                    UseFileTable = Convert.ToBoolean(Convert.ToInt32(dr["Value"]));
 
-			//Delete replies
-			using ( SqlCommand cmd = new SqlCommand( "yaf_message_getReplies" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "@MessageID", messageID );
-				DataTable tbReplies = GetData( cmd );
-				foreach ( DataRow row in tbReplies.Rows )
-					message_deleteRecursively( row ["MessageID"] );
-			}
 
-			//ABOT CHANGED 16.01.04: Delete files from hard disk
-			//If the files are actually saved in the Hard Drive
-			if ( !UseFileTable )
-			{
-				using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_list" ) )
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@MessageID", messageID );
-					DataTable tbAttachments = GetData( cmd );
-					string sUpDir = HttpContext.Current.Server.MapPath( YAF.Classes.Utils.Config.UploadDir );
-					foreach ( DataRow row in tbAttachments.Rows )
-						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row ["FileName"] ) );
-				}
+            if (DeleteLinked)
+                //Delete replies
+                using (SqlCommand cmd = new SqlCommand("yaf_message_getReplies"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MessageID", messageID);
+                    DataTable tbReplies = GetData(cmd);
 
-			}
-			//END ABOT CHANGE 16.04.04
+                    foreach (DataRow row in tbReplies.Rows)
+                        message_deleteRecursively(row["MessageID"], isModeratorChanged, isLinked ? deleteReason : deleteReason + " + удалено, т.к. является ответом на удаленное сообщение", isDeleteAction, DeleteLinked, true);
+                }
 
-			//Delete Message
-			using ( SqlCommand cmd = new SqlCommand( "yaf_message_delete" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "@MessageID", messageID );
-				ExecuteNonQuery( cmd );
-			}
-		}
-		static public DataTable message_list( object messageID )
-		{
-			using ( SqlCommand cmd = new SqlCommand( "yaf_message_list" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "@MessageID", messageID );
-				return GetData( cmd );
-			}
-		}
-		static public void message_delete( object messageID )
-		{
-			message_deleteRecursively( messageID );
-			/*
-			using(SqlCommand cmd = new SqlCommand("yaf_message_delete")) 
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@MessageID",messageID);
-				ExecuteNonQuery(cmd);
-			}
-			*/
-		}
-		static public void message_approve( object messageID )
+            //ABOT CHANGED 16.01.04: Delete files from hard disk
+            //If the files are actually saved in the Hard Drive
+            if (!UseFileTable)
+            {
+                using (SqlCommand cmd = new SqlCommand("yaf_attachment_list"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MessageID", messageID);
+                    DataTable tbAttachments = GetData(cmd);
+                    string sUpDir = HttpContext.Current.Server.MapPath(Config.UploadDir);
+                    foreach (DataRow row in tbAttachments.Rows)
+                        System.IO.File.Delete(String.Format("{0}{1}.{2}", sUpDir, messageID, row["FileName"]));
+                }
+
+            }
+            //END ABOT CHANGE 16.04.04
+
+            //Delete Message
+            // undelete function added
+            using (SqlCommand cmd = new SqlCommand("yaf_message_deleteundelete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", messageID);
+                cmd.Parameters.AddWithValue("@isModeratorChanged", isModeratorChanged);
+                cmd.Parameters.AddWithValue("@DeleteReason", deleteReason);
+                cmd.Parameters.AddWithValue("@isDeleteAction", isDeleteAction);
+                ExecuteNonQuery(cmd);
+            }
+        }
+        
+        static public void message_approve( object messageID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_message_approve" ) )
 			{
@@ -1674,7 +1835,7 @@ namespace YAF.Classes.Data
 				ExecuteNonQuery( cmd );
 			}
 		}
-		static public void message_update( object messageID, object priority, object message, object subject, object flags )
+		static public void message_update( object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_message_update" ) )
 			{
@@ -1684,6 +1845,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Message", message );
 				cmd.Parameters.AddWithValue( "@Subject", subject );
 				cmd.Parameters.AddWithValue( "@Flags", flags );
+                cmd.Parameters.AddWithValue( "@Reason", reasonOfEdit);
+                cmd.Parameters.AddWithValue( "@IsModeratorChanged", isModeratorChanged);
 				ExecuteNonQuery( cmd );
 			}
 		}
@@ -1728,6 +1891,65 @@ namespace YAF.Classes.Data
 				return GetData( cmd );
 			}
 		}
+
+        // message movind function
+        static public void message_move(object messageID, object moveToTopic, bool moveAll)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_message_move"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", messageID);
+                cmd.Parameters.AddWithValue("@MoveToTopic", moveToTopic);
+                ExecuteNonQuery(cmd);
+            }
+            //moveAll=true anyway
+            // it's in charge of moving answers of moved post
+            if (moveAll)
+            {
+                using (SqlCommand cmd = new SqlCommand("yaf_message_getReplies"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MessageID", messageID);
+                    DataTable tbReplies = GetData(cmd);
+                    foreach (DataRow row in tbReplies.Rows)
+                    {
+                        message_moveRecursively(row["MessageID"], moveToTopic);
+                    }
+
+                }
+            }
+        }
+
+        //moves answers of moved post
+        static private void message_moveRecursively(object messageID, object moveToTopic)
+        {
+            bool UseFileTable = false;
+
+            using (DataTable dt = DB.registry_list("UseFileTable"))
+                foreach (DataRow dr in dt.Rows)
+                    UseFileTable = Convert.ToBoolean(Convert.ToInt32(dr["Value"]));
+
+            //Delete replies
+            using (SqlCommand cmd = new SqlCommand("yaf_message_getReplies"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MessageID", messageID);
+                DataTable tbReplies = GetData(cmd);
+                foreach (DataRow row in tbReplies.Rows)
+                {
+                    message_moveRecursively(row["messageID"], moveToTopic);
+                }
+                using (SqlCommand innercmd = new SqlCommand("yaf_message_move"))
+                {
+                    innercmd.CommandType = CommandType.StoredProcedure;
+                    innercmd.Parameters.AddWithValue("@MessageID", messageID);
+                    innercmd.Parameters.AddWithValue("@MoveToTopic", moveToTopic);
+                    ExecuteNonQuery(innercmd);
+                }
+            }
+        }
+
+	    
 		#endregion
 
 		#region yaf_NntpForum
@@ -2172,7 +2394,7 @@ namespace YAF.Classes.Data
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						message_deleteRecursively( row ["MessageID"] );
+						message_deleteRecursively( row ["MessageID"], true, "", 0, true, false );
 					}
 				}
 			}
@@ -2418,7 +2640,7 @@ namespace YAF.Classes.Data
 		}
 		static public void user_save( object UserID, object boardID, object UserName, object Password, object Email, object Hash,
 			object Location, object HomePage, object TimeZone, object Avatar,
-			object languageFile, object themeFile, object Approved,
+			object languageFile, object themeFile, object overrideDefaultThemes, object Approved,
 			object msn, object yim, object aim, object icq,
 			object realName, object occupation, object interests, object gender, object weblog,
 			object PMNotification )
@@ -2438,6 +2660,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Avatar", Avatar );
 				cmd.Parameters.AddWithValue( "@LanguageFile", languageFile );
 				cmd.Parameters.AddWithValue( "@ThemeFile", themeFile );
+                cmd.Parameters.AddWithValue( "@OverrideDefaultThemes", overrideDefaultThemes);
 				cmd.Parameters.AddWithValue( "@Approved", Approved );
 				cmd.Parameters.AddWithValue( "@MSN", msn );
 				cmd.Parameters.AddWithValue( "@YIM", yim );
@@ -2485,9 +2708,71 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@BoardID", boardID );
 				cmd.Parameters.AddWithValue( "@UserID", userID );
 
-				return GetData( cmd );
+                return userforumaccess_sort_list(GetData(cmd), 0, 0, 0);
 			}
 		}
+
+        //adds some convenience while editing group's access rights (indent forums)
+        static protected DataTable userforumaccess_sort_list(DataTable listSource, int parentID, int categoryID, int startingIndent)
+        {
+
+            DataTable listDestination = new DataTable();
+
+            listDestination.Columns.Add("ForumID", typeof(String));
+            listDestination.Columns.Add("ForumName", typeof(String));
+            //it is uset in two different procedures with different tables, 
+            //so, we must add correct columns
+            if (listSource.Columns.IndexOf("AccessMaskName") >= 0)
+                listDestination.Columns.Add("AccessMaskName", typeof(String));
+            else
+            {
+                listDestination.Columns.Add("CategoryName", typeof(String));
+                listDestination.Columns.Add("AccessMaskId", typeof(Int32));
+            }
+            DataView dv = listSource.DefaultView;
+            userforumaccess_sort_list_recursive(dv.ToTable(), listDestination, parentID, categoryID, startingIndent);
+            return listDestination;
+        }
+
+        static private void userforumaccess_sort_list_recursive(DataTable listSource, DataTable listDestination, int parentID, int categoryID, int currentIndent)
+        {
+            DataRow newRow;
+
+            foreach (DataRow row in listSource.Rows)
+            {
+                // see if this is a root-forum
+                if (row["ParentID"] == DBNull.Value)
+                    row["ParentID"] = 0;
+
+                if ((int)row["ParentID"] == parentID)
+                {
+                    string sIndent = "";
+
+                    for (int j = 0; j < currentIndent; j++)
+                        sIndent += "--";
+
+                    // import the row into the destination
+                    newRow = listDestination.NewRow();
+
+                    newRow["ForumID"] = row["ForumID"];
+                    newRow["ForumName"] = string.Format("{0} {1}", sIndent, row["ForumName"]);
+                    if (listDestination.Columns.IndexOf("AccessMaskName") >= 0)
+                        newRow["AccessMaskName"] = row["AccessMaskName"];
+                    else
+                    {
+                        newRow["CategoryName"] = row["CategoryName"];
+                        newRow["AccessMaskId"] = row["AccessMaskId"];
+                    }
+
+
+                    listDestination.Rows.Add(newRow);
+
+                    // recurse through the list...
+                    userforumaccess_sort_list_recursive(listSource, listDestination, (int)row["ForumID"], categoryID, currentIndent + 1);
+                }
+            }
+        }
+
 		static public object user_recoverpassword( object boardID, object userName, object email )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_recoverpassword" ) )

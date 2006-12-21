@@ -86,7 +86,9 @@ namespace YAF
 		help_index,
 		help_recover,
 		lastposts,
-        recoverpassword
+        recoverpassword,
+        deletemessage,
+        movemessage
 	}
 
 	/// <summary>

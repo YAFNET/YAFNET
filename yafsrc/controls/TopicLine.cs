@@ -55,7 +55,7 @@ namespace YAF.Controls
 			// Replies
 			html.AppendFormat( @"<td align=""center"">{0}</td>", FormatReplies() );
 			// Views
-			html.AppendFormat( @"<td align=""center"">{0:N0}</td>", m_row ["Views"] );
+            html.AppendFormat(@"<td align=""center"">{0:N0}</td>", FormatViews());
 			// Last Post
 			html.AppendFormat( @"<td align=""center"" class=""smallfont"">{0}</td>", FormatLastPost() );
 			writer.Write(html.ToString());
@@ -64,6 +64,12 @@ namespace YAF.Controls
 
 			writer.Write("</tr>");
 		}
+
+        private string FormatViews()
+        {
+            int nViews = Convert.ToInt32(m_row["Views"]);
+            return ((m_row["TopicMovedID"].ToString().Length > 0)) ? "&nbsp;" : String.Format("{0:N0}", nViews);
+        }
 
 		protected string GetTopicImage(object o,ref string imgTitle) 
 		{

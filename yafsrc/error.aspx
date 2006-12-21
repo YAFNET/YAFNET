@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="error.aspx.cs" AutoEventWireup="True" Inherits="yaf.error" %>
+<%@ Page language="c#" Codebehind="error.aspx.cs" AutoEventWireup="True" Inherits="YAF.error" %>
 
 <table class=content width=100% cellspacing=1 cellpadding=0>
 <tr>

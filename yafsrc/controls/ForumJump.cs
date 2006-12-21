@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using YAF.Pages;
+using System.Web.UI;
 
 namespace YAF.Controls
 {
@@ -56,10 +57,9 @@ namespace YAF.Controls
 		{
 			if ( ForumID > 0 )
 				Forum.Redirect( ForumPages.topics, "f={0}", ForumID );
-#if TODO
 			else
+                // Category Jumping
 				Forum.Redirect( ForumPages.forum,"c={0}",-ForumID);
-#endif
 		}
 		#endregion
 
@@ -77,7 +77,9 @@ namespace YAF.Controls
 				Page.Cache [cachename] = dt;
 			}
 
-			writer.WriteLine( String.Format( "<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, Page.ClientScript.GetPostBackEventReference( this, this.UniqueID ) ) );
+            //VS 2005 likes this more
+            ClientScriptManager cs = Page.ClientScript;
+            writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, cs.GetPostBackEventReference(this, this.ID)));
 
 			int nForumID = ForumPage.PageForumID;
 			if ( nForumID <= 0 )

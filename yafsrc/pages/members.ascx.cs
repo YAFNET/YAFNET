@@ -76,10 +76,17 @@ namespace YAF.Pages
 				Rank.Text = GetText("rank");
 				Joined.Text = GetText("joined");
 				Posts.Text = GetText("posts");
+                Location.Text = GetText("location");
 
 				BindData();
 			}
 		}
+
+        //protects from script in "location" field	    
+        protected string GetStringSafely(object svalue)
+        {
+            return YAF.FormatMsg.RepairHtml(this, svalue.ToString(), true);
+        }
 
 		private void SetSort(string field,bool asc) 
 		{
@@ -117,6 +124,12 @@ namespace YAF.Pages
 			SetSort("RankName",true);
 			BindData();
 		}
+        
+        private void Location_Click(object sender, System.EventArgs e)
+        {
+            SetSort("Location", true);
+            BindData();
+        }
 
 		private void Pager_PageChange(object sender, EventArgs e)
 		{
@@ -133,7 +146,7 @@ namespace YAF.Pages
 				if(QLetter.ToString()=="#") 
 				{
 					string filter = string.Empty;
-					foreach(char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
+                    foreach (char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ¿¡¬√ƒ≈®∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ€›ﬁﬂ") 
 					{
 						if(filter==string.Empty)
 							filter = string.Format("Name not like '{0}%'",letter);
@@ -166,6 +179,8 @@ namespace YAF.Pages
 			SortJoined.Src = SortUserName.Src;
 			SortPosts.Visible = (string)ViewState["SortField"] == "NumPosts";
 			SortPosts.Src = SortUserName.Src;
+            SortLocation.Visible = (string)ViewState["SortField"] == "Location";
+            SortLocation.Src = SortUserName.Src;
 		}
 
 		#region Web Form Designer generated code
@@ -176,6 +191,7 @@ namespace YAF.Pages
 			this.Posts.Click += new EventHandler(this.Posts_Click);
 			this.Rank.Click += new EventHandler(this.Rank_Click);
 			this.Pager.PageChange += new EventHandler(Pager_PageChange);
+            this.Location.Click += new EventHandler(this.Location_Click);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

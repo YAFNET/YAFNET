@@ -33,10 +33,23 @@ namespace YAF.Pages.Admin
 			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this smiley?')";
 		}
 
+        private void Pager_PageChange(object sender, EventArgs e)
+        {
+            BindData();
+        }
+
 		private void BindData() 
 		{
-			List.DataSource = YAF.Classes.Data.DB.smiley_list(PageBoardID,null);
-			DataBind();
+            Pager.PageSize = 15;
+            DataView dv = YAF.Classes.Data.DB.smiley_list(PageBoardID, null).DefaultView;
+            Pager.Count = dv.Count;
+            PagedDataSource pds = new PagedDataSource();
+            pds.DataSource = dv;
+            pds.AllowPaging = true;
+            pds.CurrentPageIndex = Pager.CurrentPageIndex;
+            pds.PageSize = Pager.PageSize;
+            List.DataSource = pds;
+            DataBind();
 		}
 
 		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
@@ -62,7 +75,8 @@ namespace YAF.Pages.Admin
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
-			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
+            this.Pager.PageChange += new EventHandler(Pager_PageChange);
+            this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

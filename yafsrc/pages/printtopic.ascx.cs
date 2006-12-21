@@ -55,7 +55,7 @@ namespace YAF.Pages
 				PageLinks.AddForumLinks(PageForumID);
 				PageLinks.AddLink(PageTopicName,Forum.GetLink( ForumPages.posts,"t={0}",PageTopicID));
 
-				Posts.DataSource = YAF.Classes.Data.DB.post_list(PageTopicID,1);
+                Posts.DataSource = YAF.Classes.Data.DB.post_list(PageTopicID, 1, BoardSettings.ShowDeletedMessages);
 				DataBind();
 			}
 		}

@@ -82,6 +82,13 @@
 		<td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","SELECT_THEME") %></td>
 		<td class="post"><asp:dropdownlist runat="server" id="Theme"/></td>
 	</tr>
+	<tr runat="server" id="OverrideForumThemeRow">
+        <td class="postheader">
+            <%= ForumPage.GetText("CP_EDITPROFILE","OVERRIDE_DEFAULT_THEMES") %>
+        </td>
+        <td class="post">
+            <asp:CheckBox ID="OverrideDefaultThemes" runat="server" /></td>
+    </tr>
 	<tr runat="server" id="UserLanguageRow">
 		<td class="postheader"><%= ForumPage.GetText("CP_EDITPROFILE","SELECT_LANGUAGE") %></td>
 		<td class="post"><asp:dropdownlist runat="server" id="Language"/></td>

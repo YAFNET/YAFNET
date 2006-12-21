@@ -95,10 +95,10 @@ namespace YAF.Pages.Admin
 			{
 				using(DataView dv=dt.DefaultView) 
 				{
-					if(name.Text.Trim().Length>0)
-						dv.RowFilter = string.Format("Name like '%{0}%'",name.Text.Trim());
-					UserList.DataSource = dv;
-					UserList.DataBind();
+                    if (name.Text.Trim().Length > 0 || (Email.Text.Trim().Length > 0))
+                        dv.RowFilter = string.Format("Name like '%{0}%' and Email like '%{1}%'", name.Text.Trim(), Email.Text.Trim());
+                    UserList.DataSource = dv;
+                    UserList.DataBind();
 				}
 			}
 		}

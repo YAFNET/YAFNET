@@ -87,12 +87,17 @@ namespace YAF.Pages
 
 		protected void Move_Click(object sender, System.EventArgs e)
 		{
-			// only move if it's a destination is a different forum.
-			if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)
-			{
-				YAF.Classes.Data.DB.topic_move(PageTopicID,ForumList.SelectedValue,BoardSettings.ShowMoved);
-			}
-			Forum.Redirect( ForumPages.topics,"f={0}",PageForumID);
+            if (Convert.ToInt32(ForumList.SelectedValue) <= 0)
+            {
+                AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
+                return;
+            }
+            // only move if it's a destination is a different forum.
+            if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)
+            {
+                YAF.Classes.Data.DB.topic_move(PageTopicID, ForumList.SelectedValue, BoardSettings.ShowMoved);
+            }
+            Forum.Redirect(ForumPages.topics, "f={0}", PageForumID);
 		}
 	}
 }

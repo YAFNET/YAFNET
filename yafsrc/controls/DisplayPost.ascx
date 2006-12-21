@@ -12,13 +12,15 @@
 		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 			<td class="postheader">
-				<b><%# ForumPage.GetText("POSTED") %>:</b> 
-				<%# ForumPage.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+			    <b><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"m={0}#{0}",DataRow["MessageID"]) %>'> #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a> <%# ForumPage.GetText("POSTED") %>:</b> 
+			    <%# ForumPage.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 			</td>
 			<td class="postheader" align="right">
 				<asp:hyperlink runat="server" id="Attach"/>
 				<asp:hyperlink runat="server" id="Edit"/>
-				<asp:linkbutton runat="server" id="Delete"/>
+				<asp:hyperlink runat="server" id="MovePost"/>
+				<asp:hyperlink runat="server" id="Delete"/>
+				<asp:hyperlink runat="server" id="UnDelete"/>
 				<asp:hyperlink runat="server" id="Quote"/>
 			</td>
 		</tr>
@@ -26,7 +28,7 @@
 	</td>
 </tr>
 <tr class="<%#GetPostClass()%>">
-	<td valign="top" height="100" class="UserBox" colspan='<%#GetIndentSpan()%>'>
+	<td valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
 		<%# FormatUserBox() %>
 	</td>
 	<td valign="top" class="message">

@@ -42,6 +42,12 @@
 				<asp:checkbox id="ShowMoved" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
+			<td class="postheader"><B>Show Deleted Messages:</B><BR>
+				If this is checked, messsages that are deleted will leave with some notes</td>
+			<td class="post">
+				<asp:checkbox id="ShowDeletedMessages" runat="server"></asp:checkbox></td>
+		</tr>
+		<tr>
 			<td class="postheader"><B>Links in New Window:</B><BR>
 				If this is checked, links in messages will open in a new window.</td>
 			<td class="post">
@@ -135,6 +141,13 @@
 			<td class="post">
 				<asp:textbox id="LockPosts" runat="server"></asp:textbox></td>
 		</tr>
+		<tr>
+            <td class=postheader><B>Post editing timeout:</B><BR>
+            Number of seconds while post may be 
+            modified without showing that to other users</td>
+            <td class=post>
+                <asp:TextBox id=EditTimeOut runat="server"></asp:TextBox></td>
+        </tr>
 		<tr>
 			<td class="postheader"><B>Post Flood Delay:</B><BR>
 				Number of seconds before another post can be entered. (Does not apply to admins or mods.)</td>
@@ -244,6 +257,12 @@
 			<td class="post">
 				<asp:checkbox id="DisableRegistrations" runat="server"></asp:checkbox></td>
 		</tr>
+		<tr>
+            <td class="postheader"><B>Allow Quick Answer:</B><BR>Enable or disable 
+                display of the Quick Reply Box at the bottom of the Posts page</td>
+            <td class="post">
+                <asp:checkbox id="ShowQuickAnswerX" runat="server"></asp:checkbox></td>
+        </tr>
 		<tr>
 			<td class="header2" align="center" colSpan="2">SMTP Server Settings</td>
 		</tr>

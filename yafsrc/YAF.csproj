@@ -240,6 +240,7 @@
     <Content Include="pages\cp_profile.ascx" />
     <Content Include="pages\cp_signature.ascx" />
     <Content Include="pages\cp_subscriptions.ascx" />
+    <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
     <Content Include="pages\error.ascx" />
     <Content Include="pages\forum.ascx" />
@@ -260,6 +261,7 @@
     <Content Include="pages\moderate\forum.ascx" />
     <Content Include="pages\moderate\index.ascx" />
     <Content Include="pages\mod_forumuser.ascx" />
+    <Content Include="pages\movemessage.ascx" />
     <Content Include="pages\movetopic.ascx" />
     <Content Include="pages\pmessage.ascx" />
     <Content Include="pages\postmessage.ascx" />
@@ -1314,6 +1316,13 @@
     <Compile Include="pages\cp_subscriptions.ascx.designer.cs">
       <DependentUpon>cp_subscriptions.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\deletemessage.ascx.cs">
+      <DependentUpon>deletemessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\deletemessage.ascx.designer.cs">
+      <DependentUpon>deletemessage.ascx</DependentUpon>
+    </Compile>
     <Compile Include="pages\emailtopic.ascx.cs">
       <DependentUpon>emailtopic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1445,6 +1454,13 @@
     </Compile>
     <Compile Include="pages\mod_forumuser.ascx.designer.cs">
       <DependentUpon>mod_forumuser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\movemessage.ascx.cs">
+      <DependentUpon>movemessage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\movemessage.ascx.designer.cs">
+      <DependentUpon>movemessage.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\movetopic.ascx.cs">
       <DependentUpon>movetopic.ascx</DependentUpon>

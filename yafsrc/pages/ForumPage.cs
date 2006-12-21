@@ -1287,7 +1287,7 @@ namespace YAF.Pages
 		{
 			if ( themefile == null )
 			{
-				if ( m_pageinfo != null && !m_pageinfo.IsNull( "ThemeFile" ) && BoardSettings.AllowUserTheme )
+				if ( m_pageinfo != null && !m_pageinfo.IsNull( "ThemeFile" )  && (Convert.ToBoolean(m_pageinfo["OverrideDefaultThemes"]))  && BoardSettings.AllowUserTheme )
 				{
 					// use user-selected themem
 					themefile = ( string ) m_pageinfo ["ThemeFile"];

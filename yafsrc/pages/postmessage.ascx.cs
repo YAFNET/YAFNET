@@ -37,6 +37,7 @@ namespace YAF.Pages
 	{
 		protected YAF.Editor.ForumEditor Message;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
+        protected int OwnerUserId;
 
 		public postmessage()
 			: base( "POSTMESSAGE" )
@@ -72,7 +73,7 @@ namespace YAF.Pages
 			{
 				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
 					currentRow = dt.Rows [0];
-
+                OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
 				if ( !CanEditPostCheck( currentRow ) )
 					Data.AccessDenied();
 			}
@@ -98,6 +99,7 @@ namespace YAF.Pages
 				Priority.Items.Add( new ListItem( GetText( "announcement" ), "2" ) );
 				Priority.SelectedIndex = 0;
 
+                EditReasonRow.Visible = false;
 				Preview.Text = GetText( "preview" );
 				PostReply.Text = GetText( "Save" );
 				Cancel.Text = GetText( "Cancel" );
@@ -176,6 +178,8 @@ namespace YAF.Pages
 					CreatePollRow.Visible = false;
 					Priority.SelectedItem.Selected = false;
 					Priority.Items.FindByValue( currentRow ["Priority"].ToString() ).Selected = true;
+                    EditReasonRow.Visible = true;
+                    ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
 				}
 
 				From.Text = PageUserName;
@@ -298,7 +302,8 @@ namespace YAF.Pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				YAF.Classes.Data.DB.message_update( Request.QueryString ["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue );
+                bool isModeratorChanged = (PageUserID != OwnerUserId);
+                YAF.Classes.Data.DB.message_update(Request.QueryString["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue, ReasonEditor.Text, isModeratorChanged);
 				TopicID = PageTopicID;
 				nMessageID = long.Parse( Request.QueryString ["m"] );
 			}

@@ -1,6 +1,7 @@
+<%@ Control Language="c#" Codebehind="users.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Control Language="c#" Codebehind="users.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
     <table class="content" cellspacing="0" cellpadding="0" width="100%">
@@ -8,7 +9,7 @@
             <td class="post" valign="top">
                 <table cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td class="header2" nowrap colspan="4">
+                        <td class="header2" nowrap colspan="5">
                             <b>Filter</b></td>
                     </tr>
                     <tr class="post">
@@ -18,6 +19,8 @@
                             Rank:</td>
                         <td>
                             Name Contains:</td>
+                        <td>
+                            Email Contains:</td>
                         <td width="99%">
                             &nbsp;</td>
                     </tr>
@@ -30,6 +33,8 @@
                             </asp:DropDownList></td>
                         <td>
                             <asp:TextBox ID="name" runat="server"></asp:TextBox></td>
+                        <td>
+							<asp:TextBox id="Email" runat="server"></asp:textbox></td>
                         <td align="right">
                             <asp:Button ID="search" runat="server" Text="Search"></asp:Button></td>
                     </tr>
@@ -40,12 +45,14 @@
     <br>
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr>
-            <td class="header1" colspan="6">
+            <td class="header1" colspan="7">
                 Users</td>
         </tr>
         <tr>
             <td class="header2">
                 Name</td>
+            <td class="header2">
+                Email</td>
             <td class="header2">
                 Rank</td>
             <td class="header2" align="center">
@@ -54,14 +61,18 @@
                 Approved</td>
             <td class="header2">
                 Last Visit</td>
-            <td class="header2">
-                &nbsp;</td>
         </tr>
         <asp:Repeater ID="UserList" runat="server">
             <ItemTemplate>
                 <tr>
                     <td class="post">
                         <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>' Text='<%# Eval("Name") %>' /></td>
+                    <td class="post"><%# DataBinder.Eval(Container.DataItem,"Email") %></td>
+					<td class="post" align="center">
+						<asp:linkbutton runat="server" commandname="edit" commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' ID="Linkbutton1" name="Linkbutton1">Edit</asp:linkbutton>
+						|
+						<asp:linkbutton onload="Delete_Load" runat="server" commandname="delete" commandargument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' ID="Linkbutton2" name="Linkbutton2">Delete</asp:linkbutton>
+					</td>
                     <td class="post">
                         <%# Eval("RankName") %>
                     </td>
@@ -74,16 +85,11 @@
                     <td class="post">
                         <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
                     </td>
-                    <td class="post" align="center">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "UserID") %>'>Edit</asp:LinkButton>
-                        |
-                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval( "UserID") %>'>Delete</asp:LinkButton>
-                    </td>
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="6">
+            <td class="footer1" colspan="7">
                 <asp:LinkButton ID="NewUser" runat="server">New User</asp:LinkButton></td>
         </tr>
     </table>

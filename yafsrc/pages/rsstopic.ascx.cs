@@ -61,7 +61,7 @@ namespace YAF.Pages
 
 					if ( Request.QueryString ["t"] != null )
 					{
-						using ( DataTable dt = YAF.Classes.Data.DB.post_list( PageTopicID, 1 ) )
+                        using (DataTable dt = YAF.Classes.Data.DB.post_list(PageTopicID, 1, BoardSettings.ShowDeletedMessages))
 						{
 							foreach ( DataRow row in dt.Rows )
 								rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );

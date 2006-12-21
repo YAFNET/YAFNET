@@ -104,7 +104,7 @@
     </tr>
     </asp:PlaceHolder>        
 
-<YAF.Forum.sers runat="server"/>
+<YAF:ForumUsers ID="ForumUsers1" runat="server"/>
 
 </table>
 

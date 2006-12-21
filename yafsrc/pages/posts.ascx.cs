@@ -288,7 +288,7 @@ namespace YAF.Pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-			using ( DataTable dt0 = YAF.Classes.Data.DB.post_list( PageTopicID, IsPostBack ? 0 : 1 ) )
+            using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageTopicID, IsPostBack ? 0 : 1, BoardSettings.ShowDeletedMessages))
 			{
 				bool ShowAds = true;
 				if ( User != null )

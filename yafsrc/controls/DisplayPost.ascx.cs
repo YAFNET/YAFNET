@@ -31,69 +31,112 @@ namespace YAF.Controls
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
 			// TODO localize tooltips
-			Attach.Visible = CanAttach;
+			Attach.Visible = !PostDeleted && CanAttach;
 			Attach.Text = ForumPage.GetThemeContents( "BUTTONS", "ATTACHMENTS" );
 			Attach.ToolTip = "Attachments";
 			Attach.NavigateUrl = Forum.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
-			Edit.Visible = CanEditPost;
+            Edit.Visible = !PostDeleted && CanEditPost;
 			Edit.Text = ForumPage.GetThemeContents( "BUTTONS", "EDITPOST" );
 			Edit.ToolTip = "Edit this post";
 			Edit.NavigateUrl = Forum.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
-			Delete.Visible = CanDeletePost;
+            MovePost.Visible = ForumPage.ForumModeratorAccess;
+            MovePost.Text = ForumPage.GetThemeContents("BUTTONS", "MOVEPOST");
+            MovePost.ToolTip = "Move this post";
+            MovePost.NavigateUrl = Forum.GetLink(ForumPages.movemessage, "m={0}", DataRow["MessageID"]);
+            Delete.Visible = !PostDeleted && CanDeletePost;
 			Delete.Text = ForumPage.GetThemeContents( "BUTTONS", "DELETEPOST" );
-			Delete.ToolTip = "Delete this post";
-			Delete.Attributes ["onclick"] = string.Format( "return confirm('{0}')", ForumPage.GetText( "confirm_deletemessage" ) );
-			Quote.Visible = CanReply;
+            Delete.ToolTip = "Delete this post";
+            Delete.NavigateUrl = Forum.GetLink(ForumPages.deletemessage, "m={0}&action=delete", DataRow["MessageID"]);
+            UnDelete.Visible = CanUnDeletePost;
+            UnDelete.Text = ForumPage.GetThemeContents("BUTTONS", "UNDELETEPOST");
+            UnDelete.ToolTip = "UnDelete this post";
+            UnDelete.NavigateUrl = Forum.GetLink(ForumPages.deletemessage, "m={0}&action=undelete", DataRow["MessageID"]);
+            Quote.Visible = !PostDeleted && CanReply;
 			Quote.Text = ForumPage.GetThemeContents( "BUTTONS", "QUOTEPOST" );
 			Quote.ToolTip = "Reply with quote";
 			Quote.NavigateUrl = Forum.GetLink( ForumPages.postmessage, "t={0}&f={1}&q={2}", ForumPage.PageTopicID, ForumPage.PageForumID, DataRow ["MessageID"] );
 
 			// private messages
-			Pm.Visible			= ForumPage.User!=null && ForumPage.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
+            Pm.Visible = !PostDeleted && ForumPage.User != null && ForumPage.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = ForumPage.GetThemeContents( "BUTTONS", "PM" );
 			Pm.NavigateUrl = Forum.GetLink( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
 			// emailing
-			Email.Visible		= ForumPage.User!=null && ForumPage.BoardSettings.AllowEmailSending && !IsSponserMessage;
+            Email.Visible = !PostDeleted && ForumPage.User != null && ForumPage.BoardSettings.AllowEmailSending && !IsSponserMessage;
 			Email.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = ForumPage.GetThemeContents( "BUTTONS", "EMAIL" );
-			Home.Visible = DataRow ["HomePage"] != DBNull.Value;
+            // home page
+            Home.Visible = !PostDeleted && DataRow["HomePage"] != DBNull.Value;
 			Home.NavigateUrl = DataRow ["HomePage"].ToString();
 			Home.Text = ForumPage.GetThemeContents( "BUTTONS", "WWW" );
-			Blog.Visible = DataRow ["Weblog"] != DBNull.Value;
+            // blog page
+            Blog.Visible = !PostDeleted && DataRow["Weblog"] != DBNull.Value;
 			Blog.NavigateUrl = DataRow ["Weblog"].ToString();
 			Blog.Text = ForumPage.GetThemeContents( "BUTTONS", "WEBLOG" );
-			Msn.Visible			= ForumPage.User!=null && DataRow["MSN"]!=DBNull.Value;
+            // MSN
+            Msn.Visible = !PostDeleted && ForumPage.User != null && DataRow["MSN"] != DBNull.Value;
 			Msn.Text = ForumPage.GetThemeContents( "BUTTONS", "MSN" );
 			Msn.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
-			Yim.Visible			= ForumPage.User!=null && DataRow["YIM"]!=DBNull.Value;
+            // Yahoo IM
+            Yim.Visible = !PostDeleted && ForumPage.User != null && DataRow["YIM"] != DBNull.Value;
 			Yim.NavigateUrl = Forum.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
 			Yim.Text = ForumPage.GetThemeContents( "BUTTONS", "YAHOO" );
-			Aim.Visible			= ForumPage.User!=null && DataRow["AIM"]!=DBNull.Value;
+            // AOL IM
+            Aim.Visible = !PostDeleted && ForumPage.User != null && DataRow["AIM"] != DBNull.Value;
 			Aim.Text = ForumPage.GetThemeContents( "BUTTONS", "AIM" );
 			Aim.NavigateUrl = Forum.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
-			Icq.Visible			= ForumPage.User!=null && DataRow["ICQ"]!=DBNull.Value;
+            // ICQ
+            Icq.Visible = !PostDeleted && ForumPage.User != null && DataRow["ICQ"] != DBNull.Value;
 			Icq.Text = ForumPage.GetThemeContents( "BUTTONS", "ICQ" );
 			Icq.NavigateUrl = Forum.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
 
-			// display admin only info
-			if ( ForumPage.IsAdmin )
-			{
-				AdminInfo.InnerHtml = @"<span class=""smallfont"">";
-				if ( Convert.ToDateTime( DataRow ["Edited"] ) != Convert.ToDateTime( DataRow ["Posted"] ) )
-				{
-					// message has been edited
-					AdminInfo.InnerHtml += String.Format( "<b>Edited:</b> {0}", ForumPage.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
-				}
-				AdminInfo.InnerHtml += String.Format( " <b>IP:</b> {0}", DataRow ["IP"].ToString() );
-				AdminInfo.InnerHtml += "</span>";
-			}
+            if (!PostDeleted)
+            {
+                AdminInfo.InnerHtml = "<span class='smallfont'>";
+                if (Convert.ToDateTime(DataRow["Edited"]) > Convert.ToDateTime(DataRow["Posted"]).AddSeconds(ForumPage.BoardSettings.EditTimeOut))
+                {
+                    // message has been edited
+                    // show, why the post was edited or deleted?
+                    string whoChanged = (Convert.ToBoolean(DataRow["IsModeratorChanged"])) ? "by moderator" : "by user";
+                    AdminInfo.InnerHtml += String.Format("|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, ForumPage.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
+                    if (Server.HtmlDecode(Convert.ToString(DataRow["EditReason"])) != "")
+                    {
+                        // reason was specified
+                        AdminInfo.InnerHtml += String.Format(" |<b> {0}:</b> {1}", "Reason", YAF.FormatMsg.RepairHtml(ForumPage, (string)DataRow["EditReason"], true));
+                    }
+                    else
+                    {
+                        //reason was not specified
+                        AdminInfo.InnerHtml += String.Format(" |<b> {0}:</b> {1}", "Reason", "Not specified");
+                    }
+                }
+            }
+            else
+            {
+                AdminInfo.InnerHtml = "<span class='smallfont'>";
+                if (Server.HtmlDecode(Convert.ToString(DataRow["DeleteReason"])) != String.Empty)
+                {
+                    // reason was specified
+                    AdminInfo.InnerHtml += String.Format(" |<b> {0}:</b> {1}", "Reason", YAF.FormatMsg.RepairHtml(ForumPage, (string)DataRow["DeleteReason"], true));
+                }
+                else
+                {
+                    //reason was not specified
+                    AdminInfo.InnerHtml += String.Format(" |<b> {0}:</b> {1}", "Reason", "Not specified");
+                }
+            }
+
+            // display admin only info
+            if (ForumPage.IsAdmin)
+            {
+                AdminInfo.InnerHtml += String.Format(" |<b> IP:</b> {0}", DataRow["IP"].ToString());
+            }
+            AdminInfo.InnerHtml += "</span>";
 		}
 
 
 		override protected void OnInit( EventArgs e )
 		{
 			this.PreRender += new EventHandler( DisplayPost_PreRender );
-			Delete.Click += new EventHandler( Delete_Click );
 			base.OnInit( e );
 		}
 
@@ -150,6 +193,18 @@ namespace YAF.Controls
 			}
 		}
 
+        private bool PostDeleted
+        {
+            get
+            {
+
+                int deleted = (int)DataRow["Flags"] & 8;
+                if (deleted == 8)
+                    return true;
+                return false;
+            }
+        }
+
 		protected bool CanAttach
 		{
 			get
@@ -165,6 +220,15 @@ namespace YAF.Controls
 				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == ForumPage.PageUserID || ForumPage.ForumModeratorAccess ) && ForumPage.ForumDeleteAccess;
 			}
 		}
+
+        public bool CanUnDeletePost
+        {
+            get
+            {
+                return PostDeleted && CanDeletePost;
+            }
+        }
+
 		protected bool CanReply
 		{
 			get
@@ -221,26 +285,36 @@ namespace YAF.Controls
 				return "post";
 		}
 
+        // Prevents a high user box when displaying a deleted post.
+        protected string GetUserBoxHeight()
+        {
+            if (PostDeleted)
+                return "0";
+            return "100";
+        }
+
 		protected string FormatUserBox()
 		{
 			if ( IsSponserMessage ) return "";
 
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
-
-			// Avatar
-			if ( ForumPage.BoardSettings.AvatarUpload && DataRow ["HasAvatarImage"] != null && long.Parse( DataRow ["HasAvatarImage"].ToString() ) > 0 )
-			{
-				userboxOutput.AppendFormat( "<img src='{1}resource.ashx?u={0}' /><br clear=\"all\" />", DataRow ["UserID"], Data.ForumRoot );
-			}
-			else if ( DataRow ["Avatar"].ToString().Length > 0 ) // Took out ForumPage.BoardSettings.AvatarRemote
-			{
-				userboxOutput.AppendFormat( "<img src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
-					Server.UrlEncode( DataRow ["Avatar"].ToString() ),
-					ForumPage.BoardSettings.AvatarWidth,
-					ForumPage.BoardSettings.AvatarHeight,
-					Data.ForumRoot
-					);
-			}
+            if (!PostDeleted)
+            {
+                // Avatar
+                if (ForumPage.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0)
+                {
+                    userboxOutput.AppendFormat("<img src='{1}resource.ashx?u={0}' /><br clear=\"all\" />", DataRow["UserID"], Data.ForumRoot);
+                }
+                else if (DataRow["Avatar"].ToString().Length > 0) // Took out ForumPage.BoardSettings.AvatarRemote
+                {
+                    userboxOutput.AppendFormat("<img src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
+                        Server.UrlEncode(DataRow["Avatar"].ToString()),
+                        ForumPage.BoardSettings.AvatarWidth,
+                        ForumPage.BoardSettings.AvatarHeight,
+                        Data.ForumRoot
+                        );
+                }
+            }
 
 			// Rank Image
 			if ( DataRow ["RankImage"].ToString().Length > 0 )
@@ -273,27 +347,28 @@ namespace YAF.Controls
 					userboxOutput.AppendLine( "<br/>" );
 				}
 			}
+            if (!PostDeleted)
+            {
+                // Extra row
+                userboxOutput.AppendLine("<br/>");
 
-			// Extra row
-			userboxOutput.AppendLine( "<br/>" );
+                // Joined
+                userboxOutput.AppendFormat("{0}: {1}<br />", ForumPage.GetText("joined"), ForumPage.FormatDateShort((DateTime)DataRow["Joined"]));
 
-			// Joined
-			userboxOutput.AppendFormat( "{0}: {1}<br />", ForumPage.GetText( "joined" ), ForumPage.FormatDateShort( ( DateTime ) DataRow ["Joined"] ) );
-
-			// Posts
-			userboxOutput.AppendFormat( "{0}: {1:N0}<br />", ForumPage.GetText( "posts" ), DataRow ["Posts"] );
+                // Posts
+                userboxOutput.AppendFormat("{0}: {1:N0}<br />", ForumPage.GetText("posts"), DataRow["Posts"]);
 
 
-			// Points
-			if ( ForumPage.BoardSettings.DisplayPoints )
-			{
-				userboxOutput.AppendFormat( "{0}: {1:N0}<br />", ForumPage.GetText( "points" ), DataRow ["Points"] );
-			}
+                // Points
+                if (ForumPage.BoardSettings.DisplayPoints)
+                {
+                    userboxOutput.AppendFormat("{0}: {1:N0}<br />", ForumPage.GetText("points"), DataRow["Points"]);
+                }
 
-			// Location
-			if ( DataRow ["Location"].ToString().Length > 0 )
-				userboxOutput.AppendFormat( "{0}: {1}<br />", ForumPage.GetText( "location" ), FormatMsg.RepairHtml( ForumPage, DataRow ["Location"].ToString(), false ) );
-
+                // Location
+                if (DataRow["Location"].ToString().Length > 0)
+                    userboxOutput.AppendFormat("{0}: {1}<br />", ForumPage.GetText("location"), FormatMsg.RepairHtml(ForumPage, DataRow["Location"].ToString(), false));
+            }
 			return userboxOutput.ToString();
 		}
 
@@ -307,27 +382,30 @@ namespace YAF.Controls
 			}
 			else
 			{
-				messageOutput.Append( FormatMsg.FormatMessage( ForumPage, DataRow ["Message"].ToString(), PostMessageFlags ) );
+                messageOutput.Append(FormatMsg.FormatMessage(ForumPage, DataRow["Message"].ToString(), PostMessageFlags, Convert.ToBoolean(DataRow["IsModeratorChanged"])));
 			}
 
-			AddAttachedFiles( ref messageOutput );
+            if (!PostDeleted)
+            {
 
-			if ( ForumPage.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
-			{
-				// don't allow any HTML on signatures
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = false;
+                AddAttachedFiles(ref messageOutput);
 
-				messageOutput.Append( "<br/><hr noshade />" + FormatMsg.FormatMessage( ForumPage, DataRow ["Signature"].ToString(), tFlags ) );
-			}
+                if (ForumPage.BoardSettings.AllowSignatures && DataRow["Signature"] != DBNull.Value && DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow["Signature"].ToString().Trim().Length > 0)
+                {
+                    // don't allow any HTML on signatures
+                    MessageFlags tFlags = new MessageFlags();
+                    tFlags.IsHTML = false;
 
+                    messageOutput.Append("<br/><hr noshade />" + FormatMsg.FormatMessage(ForumPage, DataRow["Signature"].ToString(), tFlags));
+                }
+            }
 			return messageOutput.ToString();
 		}
 
 		private void AddAttachedFiles( ref System.Text.StringBuilder messageOutput )
 		{
 			// define valid image extensions
-			string [] aImageExtensions = { "jpg", "gif", "png" };
+			string [] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
 			if ( long.Parse( DataRow ["HasAttachments"].ToString() ) > 0 )
 			{
@@ -356,7 +434,7 @@ namespace YAF.Controls
 								// is it an image file?
 								for ( int i = 0; i < aImageExtensions.Length; i++ )
 								{
-									if ( strFilename.EndsWith( aImageExtensions [i] ) )
+									if ( strFilename.ToLower().EndsWith( aImageExtensions [i] ) )
 									{
 										bShowImage = true;
 										break;
@@ -393,30 +471,6 @@ namespace YAF.Controls
 					}
 				}
 			}
-		}
-
-		private void Delete_Click( object sender, EventArgs e )
-		{
-			if ( !CanDeletePost )
-				return;
-
-			//Create objects for easy access
-			object tmpMessageID = DataRow ["MessageID"];
-			object tmpForumID = DataRow ["ForumID"];
-			object tmpTopicID = DataRow ["TopicID"];
-			object tmpUserID = DataRow ["UserID"];
-
-			// Take away 100 points once!
-			YAF.Classes.Data.DB.user_removepoints( tmpUserID, 100 );
-
-			// Delete message. If it is the last message of the topic, the topic is also deleted
-			YAF.Classes.Data.DB.message_delete( tmpMessageID );
-
-			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
-			if ( YAF.Classes.Data.DB.topic_info( tmpTopicID ) == null )
-				Forum.Redirect( ForumPages.topics, "f={0}", tmpForumID );
-			else
-				Forum.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
 		}
 
 		private void PopMenu1_ItemClick( object sender, PopEventArgs e )

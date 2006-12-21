@@ -127,7 +127,10 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Message') and
 		Message			ntext NOT NULL ,
 		IP				nvarchar (15) NOT NULL ,
 		Edited			datetime NULL ,
-		Flags			int NOT NULL constraint DF_yaf_Message_Flags default (23)
+		Flags			int NOT NULL constraint DF_yaf_Message_Flags default (23),
+		EditReason      nvarchar (100) NULL ,
+		IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_yaf_Message_IsModeratorChanged] DEFAULT (0),
+	    DeleteReason    nvarchar (100)  NULL
 	)
 GO
 
@@ -202,6 +205,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 		Suspended		datetime NULL,
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
+		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_yaf_User_OverrideDefaultThemes] DEFAULT (0),
 		MSN				nvarchar (50) NULL ,
 		YIM				nvarchar (30) NULL ,
 		AIM				nvarchar (30) NULL ,
@@ -242,7 +246,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Attachment') 
 	create table dbo.yaf_Attachment(
 		AttachmentID	int identity not null,
 		MessageID		int not null,
-		FileName		nvarchar(250) not null,
+		FileName		nvarchar(255) not null,
 		Bytes			int not null,
 		FileID			int null,
 		ContentType		nvarchar(50) null,
@@ -419,6 +423,12 @@ GO
 if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='PMNotification')
 begin
 	alter table dbo.yaf_User add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='OverrideDefaultThemes')
+begin
+alter table dbo.yaf_User add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_yaf_User_OverrideDefaultThemes] DEFAULT (0)
 end
 GO
 
@@ -630,6 +640,18 @@ begin
 	exec('update yaf_Message set Flags = Flags | 16 where Approved<>0')
 	alter table dbo.yaf_Message drop column Approved
 end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='EditReason')
+	alter table yaf_Message add EditReason nvarchar (100) NULL
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='IsModeratorChanged')
+	alter table yaf_Message add 	IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_yaf_Message_IsModeratorChanged] DEFAULT (0)
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='DeleteReason')
+	alter table yaf_Message add DeleteReason            nvarchar (100)  NULL
 GO
 
 if exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='IsLocked')

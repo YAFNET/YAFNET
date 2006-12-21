@@ -189,10 +189,23 @@ namespace YAF
 
 				code = code.Replace( "&", "&amp;" );
 				code = code.Replace( "\"", "&quot;" );
+                // some symbols in html source becomes smylies
+                // so prevent this
+                strTemp = strTemp.Replace("&amp;", "&amp%3B");
+                strTemp = strTemp.Replace("&quot;", "&quot%3B");
+                strTemp = strTemp.Replace("mailto:", "mailto%3A");
+                strTemp = strTemp.Replace("color:", "color%3A");
 
-				strTemp = strTemp.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley( Convert.ToString( row ["Icon"] ) ), basePage.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-				strTemp = strTemp.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley( Convert.ToString( row ["Icon"] ) ), basePage.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-			}
+                strTemp = strTemp.Replace(code.ToLower(), String.Format("<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley(Convert.ToString(row["Icon"])), basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
+                strTemp = strTemp.Replace(code.ToUpper(), String.Format("<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley(Convert.ToString(row["Icon"])), basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
+            
+                // restore html source
+
+                strTemp = strTemp.Replace("&amp%3B", "&amp;");
+                strTemp = strTemp.Replace("&quot%3B", "&quot;");
+                strTemp = strTemp.Replace("mailto%3A", "mailto:");
+                strTemp = strTemp.Replace("color%3A", "color:");
+            }
 
 			return strTemp;
 		}
@@ -254,8 +267,21 @@ namespace YAF
 			return dt;
 		}
 
-		static public string FormatMessage( YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags )
-		{
+        static public string FormatMessage(YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags)
+        {
+            return FormatMessage(basePage, Message, mFlags, true);
+        }
+
+        //if message was deleted then write that instead of real body
+        static public string FormatMessage(YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags, bool isModeratorChanged)
+        {
+            if (mFlags.IsDeleted)
+            {
+                Message = "Message was deleted";
+                if (isModeratorChanged) { Message += " by moderator."; } else { Message += " by user."; };
+                return Message;
+            };
+
 			// do html damage control
 			Message = RepairHtml( basePage, Message, mFlags.IsHTML );
 
@@ -275,6 +301,10 @@ namespace YAF
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
+
+            // Demonixed : addition
+            Message = Regex.Replace(Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
+			
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options );

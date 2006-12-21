@@ -61,9 +61,9 @@ namespace YAF
 		static private Regex r_underline = new Regex( @"\[U\](?<inner>(.*?))\[/U\]", m_options );
 		static private Regex r_email2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", m_options );
 		static private Regex r_email1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", m_options );
-		static private Regex r_url1 = new Regex( @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", m_options );
-		static private Regex r_url2 = new Regex( @"\[url=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>[^\]]*)\](?<inner>(.*?))\[/url\]", m_options );
-		static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
+		static private Regex r_url1 = new Regex( @"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]",   m_options) ;
+        static private Regex r_url2 = new Regex(@"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]", m_options);   
+        static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
 		static private Regex r_color = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", m_options );
 		static private Regex r_bullet = new Regex( @"\[\*\]", m_options );
 		static private Regex r_list4 = new Regex( @"\[list=i\](?<inner>(.*?))\[/list\]", m_options );

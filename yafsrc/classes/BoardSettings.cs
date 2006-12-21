@@ -185,6 +185,12 @@ namespace YAF
 			set { m_reg.SetValueInt( "PostFloodDelay", value ); }
 		}
 
+        public int EditTimeOut  
+        {  
+            get { return m_reg.GetValueInt("EditTimeOut", 30 ); }  
+            set { m_reg.SetValueInt("EditTimeOut", value); }  
+        }  
+
 		// boolean settings
 		public bool EmailVerification
 		{
@@ -296,17 +302,31 @@ namespace YAF
 			get { return m_reg.GetValueBool( "PollVoteTiedToIP", true ); }
 			set { m_reg.SetValueBool( "PollVoteTiedToIP", value ); }
 		}
+
 		public bool ShowAdsToSignedInUsers
 		{
 			get { return m_reg.GetValueBool( "ShowAdsToSignedInUsers", true ); }
 			set { m_reg.SetValueBool( "ShowAdsToSignedInUsers", value ); }
 		}
+
 		public bool DisplayPoints
 		{
 			get { return m_reg.GetValueBool( "DisplayPoints", true ); }
 			set { m_reg.SetValueBool( "DisplayPoints", value ); }
 		}
 
+        public bool ShowQuickAnswer  
+        {  
+            get { return m_reg.GetValueBool("ShowQuickAnswer", true  ); }  
+            set { m_reg.SetValueBool("ShowQuick Answer", value ); }  
+        }  
+        
+        public bool ShowDeletedMessages  
+        {  
+            get { return m_reg.GetValueBool("ShowDeletedMessages", true); }  
+            set { m_reg.SetValueBool("ShowDeletedMessages", value); }  
+        }  
+        
 		// string settings
 		public string ForumEmail
 		{

@@ -66,7 +66,7 @@ namespace YAF.Pages.moderate
 					Utils.CreateWatchEmail(this,e.CommandArgument);
 					break;
 				case "delete":
-					YAF.Classes.Data.DB.message_delete(e.CommandArgument);
+                    YAF.Classes.Data.DB.message_delete(e.CommandArgument, true, "", 1, true);
 					BindData();
 					AddLoadMessage(GetText("MODERATE_FORUM","DELETED"));
 					break;

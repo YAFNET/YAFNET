@@ -46,6 +46,8 @@ namespace YAF.Pages {
         protected System.Web.UI.HtmlControls.HtmlTableRow PollRowExpire;
         protected System.Web.UI.WebControls.TextBox PollExpire;
         protected System.Web.UI.HtmlControls.HtmlTableCell EditorLine;
+        protected System.Web.UI.HtmlControls.HtmlTableRow EditReasonRow;
+        protected System.Web.UI.WebControls.TextBox ReasonEditor;
         protected System.Web.UI.WebControls.Button Preview;
         protected System.Web.UI.WebControls.Button PostReply;
         protected System.Web.UI.WebControls.Button Cancel;

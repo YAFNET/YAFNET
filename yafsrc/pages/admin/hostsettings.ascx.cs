@@ -110,9 +110,12 @@ namespace YAF.Pages.Admin {
 			PollVoteTiedToIPX.Checked = BoardSettings.PollVoteTiedToIP;
 			AllowPMNotifications.Checked = BoardSettings.AllowPMEmailNotification;
 			ShowPageGenerationTime.Checked = BoardSettings.ShowPageGenerationTime;
-      AdPost.Text = BoardSettings.AdPost;
-      ShowAdsToSignedInUsers.Checked = BoardSettings.ShowAdsToSignedInUsers;
+            AdPost.Text = BoardSettings.AdPost;
+            ShowAdsToSignedInUsers.Checked = BoardSettings.ShowAdsToSignedInUsers;
 			DisplayPoints.Checked = BoardSettings.DisplayPoints;
+            ShowQuickAnswerX.Checked = BoardSettings.ShowQuickAnswer;
+            ShowDeletedMessages.Checked = BoardSettings.ShowDeletedMessages;
+            EditTimeOut.Text = BoardSettings.EditTimeOut.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -183,9 +186,12 @@ namespace YAF.Pages.Admin {
 			BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
 			BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
 			BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
-      BoardSettings.AdPost = AdPost.Text;
-      BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
+            BoardSettings.AdPost = AdPost.Text;
+            BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
 			BoardSettings.DisplayPoints = DisplayPoints.Checked;
+            BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
+            BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
+            BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
 
 			// save the settings to the database
 			BoardSettings.SaveRegistry();

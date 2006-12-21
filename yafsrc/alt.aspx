@@ -33,7 +33,7 @@ public void Page_Error(object sender,System.EventArgs e)
 	<td colspan="2"><YAF:Header runat="server" id="yafHeader"/></td>
 </tr>
 <tr>
-	<td width="160px" valign="top"><yaf:test runat="server"/></td>
+	<td width="160px" valign="top"><YAF:test runat="server"/></td>
 	<td valign="top"><YAF:Forum runat="server" id="yafForum"/></td>
 </tr>
 <tr>

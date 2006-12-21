@@ -165,12 +165,12 @@ namespace YAF.Pages
 						int nLastForumID = 0;
 						foreach ( DataRow row in dt2.Rows )
 						{
-							if ( nLastForumID != ( int ) row ["ForumID"] )
+                            if (nLastForumID != Convert.ToInt32(row["ForumID"]))
 							{
 								if ( nLastForumID != 0 )
 									html.AppendFormat( "</td></tr>" );
 								html.AppendFormat( "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", row ["ForumName"] );
-								nLastForumID = ( int ) row ["ForumID"];
+                                nLastForumID = Convert.ToInt32(row["ForumID"]);
 							}
 							else
 							{

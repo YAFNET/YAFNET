@@ -642,6 +642,23 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watch
 DROP PROCEDURE [dbo].[yaf_watchtopic_list]
 GO
 
+IF EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yaf_message_reply_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_reply_list]
+GO
+
+IF EXISTS (SELECT 1 FROM sysobjects WHERE id = object_id(N'yaf_message_deleteundelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_deleteundelete]
+GO
+
+IF EXISTS (SELECT 1 FROM sysobjects WHERE id = object_id(N'yaf_topic_create_by_message') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_topic_create_by_message]
+GO
+
+IF EXISTS (SELECT 1 FROM sysobjects where id = object_id(N'yaf_message_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_move]
+GO
+
+
 
 create procedure [dbo].[yaf_accessmask_delete](@AccessMaskID int) as
 begin
@@ -868,7 +885,7 @@ create procedure [dbo].[yaf_attachment_list](@MessageID int=null,@AttachmentID i
 end
 GO
 
-create procedure [dbo].[yaf_attachment_save](@MessageID int,@FileName nvarchar(50),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
+create procedure [dbo].[yaf_attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
 	insert into yaf_Attachment(MessageID,FileName,Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
@@ -1325,26 +1342,82 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_listall](@BoardID int,@UserID int) as
-BEGIN
-    SELECT
+CREATE procedure [dbo].[yaf_forum_listall] (@BoardID int,@UserID int,@root int = 0) as
+begin
+if @root = 0
+begin
+    select
         b.CategoryID,
         Category = b.Name,
         a.ForumID,
         Forum = a.Name,
+        Indent = 0,
         a.ParentID
-    FROM
+    from
         yaf_Forum a
-        JOIN yaf_Category b ON b.CategoryID=a.CategoryID
-        JOIN yaf_vaccess c ON c.ForumID=a.ForumID
-    WHERE
-        c.UserID=@UserID AND
-        b.BoardID=@BoardID AND
+        join yaf_Category b on b.CategoryID=a.CategoryID
+        join yaf_vaccess c on c.ForumID=a.ForumID
+    where
+        c.UserID=@UserID and
+        b.BoardID=@BoardID and
         c.ReadAccess>0
-    ORDER BY
+    order by
         b.SortOrder,
-        a.SortOrder
-END
+        a.SortOrder,
+        b.categoryid,
+        a.forumid
+end
+else if  @root > 0
+begin
+    select
+        b.CategoryID,
+        Category = b.Name,
+        a.ForumID,
+        Forum = a.Name,
+        Indent = 0,
+        a.ParentID
+    from
+        yaf_Forum a
+        join yaf_Category b on b.CategoryID=a.CategoryID
+        join yaf_vaccess c on c.ForumID=a.ForumID
+    where
+        c.UserID=@UserID and
+        b.BoardID=@BoardID and
+        c.ReadAccess>0 and
+        a.ForumID = @root
+
+    order by
+        b.SortOrder,
+        a.SortOrder,
+        b.categoryid,
+        a.forumid
+end
+else
+begin
+    select
+        b.CategoryID,
+        Category = b.Name,
+        a.ForumID,
+        Forum = a.Name,
+        Indent = 0,
+        a.ParentID
+    from
+        yaf_Forum a
+        join yaf_Category b on b.CategoryID=a.CategoryID
+        join yaf_vaccess c on c.ForumID=a.ForumID
+    where
+        c.UserID=@UserID and
+        b.BoardID=@BoardID and
+        c.ReadAccess>0 and
+        b.categoryID = -@root
+
+    order by
+        b.SortOrder,
+        a.SortOrder,
+        b.categoryid,
+        a.forumid
+end
+end
 GO
 
 CREATE PROCEDURE [dbo].[yaf_forum_listall_fromcat](@BoardID int,@CategoryID int) AS
@@ -1649,12 +1722,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forumaccess_group](@GroupID int) as
+CREATE procedure [dbo].[yaf_forumaccess_group](@GroupID int) as
 begin
 	select 
 		a.*,
 		ForumName = b.Name,
-		CategoryName = c.Name 
+		CategoryName = c.Name ,
+		CategoryId = b.CategoryID,
+		ParentID = b.ParentID 
 	from 
 		yaf_ForumAccess a, 
 		yaf_Forum b, 
@@ -1931,10 +2006,10 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_message_getReplies](@MessageID int) as
-begin
-	select MessageID from yaf_Message where ReplyTo = @MessageID
-end
+CREATE PROCEDURE [dbo].[yaf_message_getReplies](@MessageID int) as
+BEGIN
+	SELECT MessageID FROM yaf_Message WHERE ReplyTo = @MessageID
+END
 GO
 
 CREATE PROCEDURE [dbo].[yaf_message_list](@MessageID int) AS
@@ -1950,17 +2025,28 @@ BEGIN
 		c.Priority,
 		a.Flags,
 		c.UserID AS TopicOwnerID,
-		Edited = IsNull(a.Edited,a.Posted)
+		Edited = IsNull(a.Edited,a.Posted),
+		TopicFlags = c.Flags,
+		ForumFlags = d.Flags,
+		a.EditReason,
+		a.Position,
+		a.IsModeratorChanged,
+		a.DeleteReason,
+		c.PollID,
+                a.IP
 	FROM
 		yaf_Message a,
 		yaf_User b,
-		yaf_Topic c
+		yaf_Topic c,
+		yaf_Forum d
 	WHERE
 		a.MessageID = @MessageID AND
 		b.UserID = a.UserID AND
-		c.TopicID = a.TopicID
+		c.TopicID = a.TopicID AND
+		c.ForumID = d.ForumID
 END
 GO
+
 
 CREATE procedure [dbo].[yaf_message_save](
 	@TopicID	int,
@@ -2061,7 +2147,7 @@ end
 
 GO
 
-CREATE procedure [dbo].[yaf_message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext) as
+CREATE procedure [dbo].[yaf_message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit) as
 begin
 	declare @TopicID	int
 	declare	@ForumFlags	int
@@ -2085,7 +2171,9 @@ begin
 	update yaf_Message set
 		Message = @Message,
 		Edited = getdate(),
-		Flags = @Flags
+		Flags = @Flags,
+		IsModeratorChanged  = @IsModeratorChanged,
+                EditReason = @Reason
 	where
 		MessageID = @MessageID
 
@@ -2688,13 +2776,11 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_post_list](@TopicID int,@UpdateViewCount smallint=1) as
+create procedure [dbo].[yaf_post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1) as
 begin
 	set nocount on
-
 	if @UpdateViewCount>0
 		update yaf_Topic set Views = Views + 1 where TopicID = @TopicID
-
 	select
 		d.TopicID,
 		TopicFlags	= d.Flags,
@@ -2708,6 +2794,9 @@ begin
 		a.Indent,
 		a.IP,
 		a.Flags,
+		a.EditReason,
+                a.IsModeratorChanged,
+		a.DeleteReason,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
@@ -2737,7 +2826,7 @@ begin
 		join yaf_Rank c on c.RankID=b.RankID
 	where
 		a.TopicID = @TopicID and
-		(a.Flags & 24)=16
+		((a.Flags & 24)=16 or ((a.Flags & 24)=24  and @showdeleted =1))
 	order by
 		a.Posted asc
 end
@@ -3247,6 +3336,11 @@ begin
     -- update last posts
     exec yaf_forum_updatelastpost @OldForumID
     exec yaf_forum_updatelastpost @ForumID
+    
+    -- update stats
+    exec yaf_forum_updatestats @OldForumID
+    exec yaf_forum_updatestats @ForumID
+    
 end
 GO
 
@@ -3353,7 +3447,9 @@ begin
 			AccessMaskID	= e.AccessMaskID,
 			AccessMaskName	= e.Name,
 			ForumID			= f.ForumID,
-			ForumName		= f.Name
+			ForumName		= f.Name,
+			CategoryID		= f.CategoryID,
+			ParentID		= f.ParentID
 		from
 			yaf_User a 
 			join yaf_UserGroup b on b.UserID=a.UserID
@@ -3368,6 +3464,8 @@ begin
 			e.AccessMaskID,
 			e.Name,
 			f.ForumID,
+			f.ParentID,
+			f.CategoryID,
 			f.Name
 		
 		union
@@ -3376,7 +3474,9 @@ begin
 			AccessMaskID	= c.AccessMaskID,
 			AccessMaskName	= c.Name,
 			ForumID			= d.ForumID,
-			ForumName		= d.Name
+			ForumName		= d.Name,
+			CategoryID		= d.CategoryID,
+			ParentID		= d.ParentID
 		from
 			yaf_User a 
 			join yaf_UserForum b on b.UserID=a.UserID
@@ -3389,6 +3489,8 @@ begin
 			c.AccessMaskID,
 			c.Name,
 			d.ForumID,
+			d.ParentID,
+			d.CategoryID,
 			d.Name
 	) as x
 	order by
@@ -3396,7 +3498,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_activity_rank](@StartDate as datetime) AS
+CREATE procedure [dbo].[yaf_user_activity_rank](@StartDate as datetime) AS
 begin
 	select top 3  ID, Name, NumOfPosts from yaf_User u inner join
 	(
@@ -3767,7 +3869,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec yaf_user_save 0,@BoardID,@UserName,'-',@Email,null,'Usenet',null,0,null,null,null,1,null,null,null,null,null,null,null,0,null
+		exec yaf_user_save 0,@BoardID,@UserName,'-',@Email,null,'Usenet',null,0,null,null,null,0,1,null,null,null,null,null,null,null,0,null
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from yaf_User
 	end
@@ -3823,6 +3925,7 @@ create procedure [dbo].[yaf_user_save](
 	@Avatar				nvarchar(255) = null,
 	@LanguageFile		nvarchar(50) = null,
 	@ThemeFile			nvarchar(50) = null,
+	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
 	@MSN				nvarchar(50) = null,
 	@YIM				nvarchar(30) = null,
@@ -3855,6 +3958,7 @@ begin
 	if @Interests is not null and @Interests = '' set @Interests = null
 	if @Weblog is not null and @Weblog = '' set @Weblog = null
 	if @PMNotification is null SET @PMNotification = 1
+	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
 	if @UserID is null or @UserID<1 begin
 		if @Email = '' set @Email = null
@@ -3881,6 +3985,7 @@ begin
 			Avatar = @Avatar,
 			LanguageFile = @LanguageFile,
 			ThemeFile = @ThemeFile,
+			OverrideDefaultThemes = @OverrideDefaultTheme,
 			MSN = @MSN,
 			YIM = @YIM,
 			AIM = @AIM,
@@ -4270,5 +4375,202 @@ begin
 
 	return @NumTopics
 end
+GO
+
+
+CREATE procedure dbo.yaf_message_reply_list(@MessageID int) as
+begin
+	set nocount on
+	select
+                a.MessageID,
+		a.Posted,
+		Subject = c.Topic,
+		a.Message,
+		a.UserID,
+		a.Flags,
+		UserName = IsNull(a.UserName,b.Name),
+		b.Signature
+	from
+		yaf_Message a,
+		yaf_User b,
+		yaf_Topic c
+	where
+		(a.Flags & 16)=16 and
+		b.UserID = a.UserID and
+		c.TopicID = a.TopicID and
+		a.ReplyTo = @MessageID
+
+
+
+end
+GO
+
+
+CREATE procedure dbo.yaf_message_deleteundelete(@MessageID int, @isModeratorChanged bit, @DeleteReason nvarchar(100), @isDeleteAction int) as
+begin
+	declare @TopicID		int
+	declare @ForumID		int
+	declare @MessageCount	int
+	declare @LastMessageID	int
+
+	-- Find TopicID and ForumID
+	select @TopicID=b.TopicID,@ForumID=b.ForumID from yaf_Message a,yaf_Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
+
+	-- Update LastMessageID in Topic and Forum
+	update yaf_Topic set
+		LastPosted = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+
+	update yaf_Forum set
+		LastPosted = null,
+		LastTopicID = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+
+	-- "Delete" message
+
+        update yaf_Message set isModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+        update yaf_Message set DeleteReason = @DeleteReason where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+        update yaf_Message set Flags = Flags ^ 8 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+
+	-- Delete topic if there are no more messages
+	select @MessageCount = count(1) from yaf_Message where TopicID = @TopicID and (Flags & 8)=0
+	if @MessageCount=0 exec yaf_topic_delete @TopicID
+	-- update lastpost
+	exec yaf_topic_updatelastpost @ForumID,@TopicID
+	exec yaf_forum_updatestats @ForumID
+	-- update topic numposts
+	update yaf_Topic set
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
+	where TopicID = @TopicID
+end
+GO
+
+create procedure [dbo].[yaf_topic_create_by_message] (
+	@MessageID int,
+	@ForumID	int,
+	@Subject	nvarchar(100)
+) as
+begin
+
+
+declare		@UserID		int
+declare		@Posted		datetime
+
+set @UserID = (select userid from yaf_message where messageid =  @MessageID)
+set  @Posted  = (select  posted from yaf_message where messageid =  @MessageID)
+
+
+	declare @TopicID int
+	--declare @MessageID int
+
+	if @Posted is null set @Posted = getdate()
+
+	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
+	values(@ForumID,@Subject,@UserID,@Posted,0,0,null,null,0)
+
+	set @TopicID = @@IDENTITY
+--	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@Flags,@MessageID output
+	select TopicID = @TopicID, MessageID = @MessageID
+END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_message_move] (@MessageID int, @MoveToTopic int) AS
+BEGIN
+DECLARE
+	@Position int,
+	@ReplyToID int,
+	@OldTopicID int,
+	@OldForumID int
+
+	
+	declare @NewForumID		int
+	declare @MessageCount	int
+	declare @LastMessageID	int
+
+	-- Find TopicID and ForumID
+--	select @OldTopicID=b.TopicID,@ForumID=b.ForumID from yaf_Message a,yaf_Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
+
+SET 	@NewForumID = (SELECT     ForumId
+				FROM         yaf_Topic
+				WHERE     (TopicId = @MoveToTopic))
+
+
+SET 	@OldTopicID = 	(SELECT     TopicID
+				FROM         yaf_Message
+				WHERE     (MessageID = @MessageID))
+
+SET 	@OldForumID = (SELECT     ForumId
+				FROM         yaf_Topic
+				WHERE     (TopicId = @OldTopicID))
+
+SET	@ReplyToID = (SELECT     MessageID
+			FROM         yaf_Message
+			WHERE     ([Position] = 0) AND (TopicID = @MoveToTopic))
+
+SET	@Position = 	(SELECT     MAX([Position]) + 1 AS Expr1
+			FROM         yaf_Message
+			WHERE     (TopicID = @MoveToTopic) and posted < (select posted from yaf_Message where messageid = @MessageID ) )
+
+if @Position is null  set @Position = 0
+
+update yaf_Message set
+		Position = Position+1
+	 WHERE     (TopicID = @MoveToTopic) and posted > (select posted from yaf_Message where messageid = @MessageID)
+
+update yaf_Message set
+		Position = Position-1
+	 WHERE     (TopicID = @OldTopicID) and posted > (select posted from yaf_Message where messageid = @MessageID)
+
+	-- Update LastMessageID in Topic and Forum
+	update yaf_Topic set
+		LastPosted = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+
+	update yaf_Forum set
+		LastPosted = null,
+		LastTopicID = null,
+		LastMessageID = null,
+		LastUserID = null,
+		LastUserName = null
+	where LastMessageID = @MessageID
+
+
+UPDATE yaf_Message SET
+ 	TopicID = @MoveToTopic,
+	ReplyTo = @ReplyToID,
+	[Position] = @Position
+WHERE  MessageID = @MessageID
+
+	-- Delete topic if there are no more messages
+	select @MessageCount = count(1) from yaf_Message where TopicID = @OldTopicID and (Flags & 8)=0
+	if @MessageCount=0 exec yaf_topic_delete @OldTopicID
+
+	-- update lastpost
+	exec yaf_topic_updatelastpost @OldForumID,@OldTopicID
+	exec yaf_topic_updatelastpost @NewForumID,@MoveToTopic
+
+	-- update topic numposts
+	update yaf_Topic set
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
+	where TopicID = @OldTopicID
+	update yaf_Topic set
+		NumPosts = (select count(1) from yaf_Message x where x.TopicID=yaf_Topic.TopicID and (x.Flags & 24)=16)
+	where TopicID = @MoveToTopic
+
+	exec yaf_forum_updatelastpost @NewForumID
+	exec yaf_forum_updatestats @NewForumID
+	exec yaf_forum_updatelastpost @OldForumID
+	exec yaf_forum_updatestats @OldForumID
+
+END
 GO
 

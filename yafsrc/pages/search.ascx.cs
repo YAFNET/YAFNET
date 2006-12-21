@@ -94,29 +94,40 @@ namespace YAF.Pages
 				listResInPage.Items.Add( new ListItem( GetText( "result50" ), "50" ) );
 
 				// Load searchwhere dropdown
-				listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
-				listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
+				// listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
+				// listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
 
-				// Load listSearchWath dropdown
-				listSearchWath.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
-				listSearchWath.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
-				listSearchWath.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
+                //Load listSearchFromWho dropdown
+                listSearchFromWho.Items.Add(new ListItem(GetText("match_all"), "0"));
+                listSearchFromWho.Items.Add(new ListItem(GetText("match_any"), "1"));
+                listSearchFromWho.Items.Add(new ListItem(GetText("match_exact"), "2"));
 
-				// Load forum's combo
-				listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
-				DataTable dt = YAF.Classes.Data.DB.forum_listread( PageBoardID, PageUserID, null, null );
+				// Load listSearchWhat dropdown
+                listSearchWhat.Items.Add(new ListItem(GetText("match_all"), "0"));
+                listSearchWhat.Items.Add(new ListItem(GetText("match_any"), "1"));
+                listSearchWhat.Items.Add(new ListItem(GetText("match_exact"), "2")); ;
 
-				int nOldCat = 0;
-				for ( int i = 0; i < dt.Rows.Count; i++ )
-				{
-					DataRow row = dt.Rows [i];
-					if ( ( int ) row ["CategoryID"] != nOldCat )
-					{
-						nOldCat = ( int ) row ["CategoryID"];
-						listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
-					}
-					listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
-				}
+				//Load forum's combo
+				//listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
+                //DataTable dt = YAF.Classes.Data.DB.forum_listread( PageBoardID, PageUserID, null, null );
+
+                //int nOldCat = 0;
+                //for ( int i = 0; i < dt.Rows.Count; i++ )
+                //{
+                //    DataRow row = dt.Rows [i];
+                //    if ( ( int ) row ["CategoryID"] != nOldCat )
+                //    {
+                //        nOldCat = ( int ) row ["CategoryID"];
+                //        listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
+                //    }
+                //    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
+                //}
+
+                listForum.DataSource = DB.forum_listall_sorted(PageBoardID, PageUserID);
+                listForum.DataValueField = "ForumID";
+                listForum.DataTextField = "Title";
+                DataBind();
+                listForum.Items.Insert(0, new ListItem(GetText("allforums"), "0"));
 			}
 		}
 
@@ -158,11 +169,11 @@ namespace YAF.Pages
 			{
 				if ( newSearch )
 				{
-					SEARCH_FIELD sf = ( SEARCH_FIELD ) System.Enum.Parse( typeof( SEARCH_FIELD ), listSearchWhere.SelectedValue );
-					SEARCH_WHAT sw = ( SEARCH_WHAT ) System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWath.SelectedValue );
+					SEARCH_WHAT sw = ( SEARCH_WHAT ) System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWhat.SelectedValue );
+                    SEARCH_WHAT sfw = (SEARCH_WHAT)System.Enum.Parse(typeof(SEARCH_WHAT), listSearchFromWho.SelectedValue);
 					int forumID = int.Parse( listForum.SelectedValue );
 
-					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchString.Text, sf, sw, forumID, PageUserID );
+                    DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult(txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageUserID, PageBoardID);
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = searchDataTable.DefaultView.Count;
