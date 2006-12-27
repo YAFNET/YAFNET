@@ -56,13 +56,13 @@ namespace YAF.Controls
 		{
 			get
 			{
-				System.Web.UI.Control ctl = Parent;
-				System.Web.UI.Control thePage = this;
-				while ( ctl.GetType() != typeof( YAF.Forum ) )
-				{
-					thePage = ctl;
-					ctl = ctl.Parent;
-				}
+                System.Web.UI.Control ctl = Parent;
+                System.Web.UI.Control thePage = this;
+                while (ctl.GetType() != typeof(YAF.Forum))
+                {
+                    thePage = ctl;
+                    ctl = ctl.Parent;
+                }
 
 				return ( YAF.Pages.ForumPage ) thePage;
 			}

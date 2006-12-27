@@ -2954,7 +2954,7 @@ namespace YAF.Classes.Data
 				return ( int ) ExecuteScalar( cmd );
 			}
 		}
-		static public DataTable user_activity_rank()
+		static public DataTable user_activity_rank(object displayNumber)
 		{
 			// This define the date since the posts are counted (can pass as parameter??)
 			TimeSpan tsRange = new TimeSpan( 30, 0, 0, 0 );
@@ -2964,6 +2964,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@StartDate", StartDate );
+                cmd.Parameters.AddWithValue( "@DisplayNumber", displayNumber);
 				return GetData( cmd );
 			}
 		}

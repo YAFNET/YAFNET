@@ -953,6 +953,7 @@
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\Statistics\MostActiveUser.cs" />
     <Compile Include="controls\TopicLine.cs">
       <SubType>Code</SubType>
     </Compile>
