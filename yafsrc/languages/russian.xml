@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0"?>
 <Resources language="Русский">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
   <page name="MOVEMESSAGE">
     <!-- movemessage.aspx -->
     <Resource tag="TITLE">Перемещение темы</Resource>

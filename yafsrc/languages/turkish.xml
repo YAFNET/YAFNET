@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0"?>
 <!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Ugur KARATAS (Databul) -->
 <Resources language="English" code="en">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>

@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><!-- Deutsche Übersetzung von Mark Aslan Kuschel (www.mark-kuschel.de), überarbeitet von maikah-->
 <Resources language="German">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
     <page name="COMMON">
       <!-- common... -->
       <Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>

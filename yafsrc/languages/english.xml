@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <Resources language="English" code="en">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
   <page name="MOVEMESSAGE">
     <Resource tag="MOVE"/>
   </page>

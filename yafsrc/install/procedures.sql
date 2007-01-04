@@ -426,6 +426,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic
 DROP PROCEDURE [dbo].[yaf_topic_info]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_announcements]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_topic_announcements]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_latest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yaf_topic_latest]
 GO
@@ -3217,6 +3221,29 @@ BEGIN
 	END
 END
 GO
+
+
+CREATE PROCEDURE [dbo].[yaf_topic_announcements]
+(
+	@BoardID int,
+	@NumPosts int,
+	@UserID int
+)
+AS
+BEGIN
+
+	DECLARE @SQL nvarchar(500)
+
+	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
+	SET @SQL = @SQL + ' yaf_Topic t INNER JOIN yaf_Category c INNER JOIN yaf_Forum f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
+	SET @SQL = @SQL + ' join yaf_vaccess v on v.ForumID=f.ForumID'
+	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 AND (t.Priority = 2) ORDER BY t.LastPosted DESC'
+
+	EXEC(@SQL)	
+
+END
+GO
+
 
 CREATE PROCEDURE [dbo].[yaf_topic_latest]
 (

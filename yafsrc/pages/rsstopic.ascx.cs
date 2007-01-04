@@ -55,6 +55,24 @@ namespace YAF.Pages
 
 			switch ( Request.QueryString ["pg"] )
 			{
+				case "latestposts":
+                    if (!ForumReadAccess)
+                        Data.AccessDenied();
+                    using (DataTable dt = YAF.Classes.Data.DB.topic_latest(PageBoardID, 7, PageUserID))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                            rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
+                    }
+                    break;
+                case "latestannouncements":
+                    if (!ForumReadAccess)
+                        Data.AccessDenied();
+                    using (DataTable dt = YAF.Classes.Data.DB.topic_announcements(PageBoardID,7,PageUserID))
+                    {
+                        foreach (DataRow  row in dt.Rows)
+                            rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
+                    }
+                    break;
 				case "posts":
 					if ( !ForumReadAccess )
 						Data.AccessDenied();

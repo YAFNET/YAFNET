@@ -2336,6 +2336,7 @@ namespace YAF.Classes.Data
 				return ( int ) ExecuteScalar( cmd );
 			}
 		}
+
 		static public DataTable topic_list( object ForumID, object Announcement, object Date, object offset, object count )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_topic_list" ) )
@@ -2360,6 +2361,19 @@ namespace YAF.Classes.Data
 				ExecuteNonQuery( cmd );
 			}
 		}
+
+        static public DataTable topic_announcements(object boardID, object numOfPostsToRetrieve, object userID)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_topic_announcements"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BoardID", boardID);
+                cmd.Parameters.AddWithValue("@NumPosts", numOfPostsToRetrieve);
+                cmd.Parameters.AddWithValue("@UserID", userID);
+                return GetData(cmd);
+            }
+        }
+
 		static public DataTable topic_latest( object boardID, object numOfPostsToRetrieve, object userID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_topic_latest" ) )

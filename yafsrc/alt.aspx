@@ -36,9 +36,6 @@ public void Page_Error(object sender,System.EventArgs e)
 </tr>
 <tr>
 	<td width="160px" valign="top">
-	<YAF:DataPanel ID="MAUPanel" runat="server" AllowTitleExpandCollapse="true" TitleStyle-Font-Bold="true" Collapsed="true">
-	    
-	</YAF:DataPanel>
 	<YAFStats:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="5"/>
 	</td>
 	<td valign="top"><YAF:Forum runat="server" id="yafForum"/></td>

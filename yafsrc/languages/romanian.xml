@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <Resources language="Romanian" code="ro">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Sustinut de {0} versiunea {1}</Resource>

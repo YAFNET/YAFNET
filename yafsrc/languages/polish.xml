@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Resources language="Polish" code="pl">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
 	<page name="COMMON">
 		<Resource tag="POWERED_BY">Powered by {0} wersja {1}</Resource>
 		<Resource tag="GENERATED">Ta strona została wygenerowana w {0:N3} sekund.</Resource>

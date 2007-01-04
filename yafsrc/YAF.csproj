@@ -1857,7 +1857,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1476</DevelopmentServerPort>
+          <DevelopmentServerPort>2446</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/yetanotherforum.net</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

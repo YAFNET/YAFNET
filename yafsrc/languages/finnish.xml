@@ -5,6 +5,9 @@
 		http://reedspit.com
 		Modify freely
 	-->
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Keskustelualueen voiman takaa {0} versiolla {1}</Resource>

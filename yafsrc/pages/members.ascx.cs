@@ -146,7 +146,7 @@ namespace YAF.Pages
 				if(QLetter.ToString()=="#") 
 				{
 					string filter = string.Empty;
-                    foreach (char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ¿¡¬√ƒ≈®∆«»… ÀÃÕŒœ–—“”‘’÷◊ÿŸ€›ﬁﬂ") 
+                    foreach (char letter in GetText("LANGUAGE", "CHARSET")) 
 					{
 						if(filter==string.Empty)
 							filter = string.Format("Name not like '{0}%'",letter);
@@ -198,7 +198,7 @@ namespace YAF.Pages
 			InitializeComponent();
 			base.OnInit(e);
 		
-			foreach(char letter in "#ABCDEFGHIJKLMNOPQRSTUVWXYZ") 
+			foreach(char letter in GetText("LANGUAGE","CHARSET")) 
 			{
 				HtmlTableCell cell = new HtmlTableCell();
 				cell.Align = "center";

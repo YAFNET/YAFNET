@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <Resources language="French" code="fr">
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>

@@ -77,7 +77,7 @@
             <YAF:TopicLine runat="server" IsAlt="True" DataRow="<%# Container.DataItem %>" />
         </AlternatingItemTemplate>
     </asp:Repeater>
-    <YAF.Forum.sers runat="server" />
+    <YAF:Forumusers runat="server" />
     <tr>
         <td align="middle" colspan="6" class="footer1">
             <table cellspacing="0" cellpadding="0" width="100%">
@@ -114,7 +114,7 @@
     <tr id="ForumJumpLine" runat="Server">
         <td align="right" colspan="2">
             <%# GetText("Forum_Jump") %>
-            <YAF.Forum.ump runat="server" />
+            <YAF:ForumJump runat="server" />
         </td>
     </tr>
     <tr>

@@ -6,6 +6,9 @@
     // Last revision: 5 Jan 2006
     // Send comments to: frederic@orion-productions.com
   -->
+  <page name="LANGUAGE">
+    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+  </page>
   <page name="COMMON">
     <!-- common... -->
     <Resource tag="POWERED_BY">Powered by {0} versie {1}</Resource>
