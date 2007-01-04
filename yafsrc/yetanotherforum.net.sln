@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UI", "YAF.Class
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Data", "YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj", "{9A454596-56DC-4834-A043-F3C1443F859B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Providers", "YAF.Providers\YAF.Providers.csproj", "{95A44CD9-4399-4DB9-823F-1A264083A390}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{9A454596-56DC-4834-A043-F3C1443F859B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A454596-56DC-4834-A043-F3C1443F859B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A454596-56DC-4834-A043-F3C1443F859B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
