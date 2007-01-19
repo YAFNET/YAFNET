@@ -10,7 +10,7 @@
 			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="ModeratorList" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-				<HeaderTemplate><span class="smallfont"><%# ForumPage.GetText("moderators") %>: </HeaderTemplate>
+				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
 				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
 				<FooterTemplate></span></FooterTemplate>
@@ -18,7 +18,7 @@
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
 		<td align="center"><%# Posts(Container.DataItem) %></td>
-		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
+		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Classes.Utils.General.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
 	</tr>
 </ItemTemplate>
 <AlternatingItemTemplate>
@@ -30,7 +30,7 @@
 			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="Repeater1" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-				<HeaderTemplate><span class="smallfont"><%# ForumPage.GetText("moderators") %>: </HeaderTemplate>
+				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
 				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
 				<FooterTemplate></span></FooterTemplate>
@@ -38,7 +38,7 @@
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
 		<td align="center"><%# Posts(Container.DataItem) %></td>
-		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Utils.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
+		<td align="center" class="smallfont" nowrap="nowrap"><%# YAF.Classes.Utils.General.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %></td>
 	</tr>
 </AlternatingItemTemplate>
 </asp:Repeater>

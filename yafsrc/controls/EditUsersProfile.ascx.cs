@@ -11,23 +11,24 @@ using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
 using YAF.Pages;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersProfile : BaseUserControl
+	public partial class EditUsersProfile : YAF.Classes.Base.BaseUserControl
 	{
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( AdminEditMode && ForumPage.IsAdmin && Request.QueryString ["u"] != null )
+			if ( AdminEditMode && PageContext.IsAdmin && Request.QueryString ["u"] != null )
 			{
 				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
 			}
 			else
 			{
-				CurrentUserID = ForumPage.PageUserID;
+				CurrentUserID = PageContext.PageUserID;
 			}
 
 			if ( !IsPostBack )
@@ -39,22 +40,22 @@ namespace YAF.Controls
 				}
 				else
 				{
-					LoginInfo.Visible = ForumPage.CanLogin ;
+					LoginInfo.Visible = true;
 				}
 
 				// Begin Modifications for enhanced profile
-				Gender.Items.Add( ForumPage.GetText( "PROFILE", "gender0" ) );
-				Gender.Items.Add( ForumPage.GetText( "PROFILE", "gender1" ) );
-				Gender.Items.Add( ForumPage.GetText( "PROFILE", "gender2" ) );
+				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender0" ) );
+				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender1" ) );
+				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender2" ) );
 				// End Modifications for enhanced profile				
 
-				UpdateProfile.Text = ForumPage.GetText( "COMMON", "SAVE" );
-				Cancel.Text = ForumPage.GetText( "COMMON", "CANCEL" );
+				UpdateProfile.Text = PageContext.Localization.GetText( "COMMON", "SAVE" );
+				Cancel.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
 
-				ForumSettingsRows.Visible = ForumPage.BoardSettings.AllowUserTheme || ForumPage.BoardSettings.AllowUserLanguage || ForumPage.BoardSettings.AllowPMEmailNotification;
-				UserThemeRow.Visible = ForumPage.BoardSettings.AllowUserTheme;
-				UserLanguageRow.Visible = ForumPage.BoardSettings.AllowUserLanguage;
-				PMNotificationRow.Visible = ForumPage.BoardSettings.AllowPMEmailNotification;
+				ForumSettingsRows.Visible = PageContext.BoardSettings.AllowUserTheme || PageContext.BoardSettings.AllowUserLanguage || PageContext.BoardSettings.AllowPMEmailNotification;
+				UserThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
+				UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
+				PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
 		
 				BindData();
 			}
@@ -62,17 +63,17 @@ namespace YAF.Controls
 		private void BindData()
 		{
 			DataRow row;
-			TimeZones.DataSource = Data.TimeZones();
-			Theme.DataSource = Data.Themes();
+			TimeZones.DataSource = yaf_StaticData.TimeZones();
+			Theme.DataSource = yaf_StaticData.Themes();
 			Theme.DataTextField = "Theme";
 			Theme.DataValueField = "FileName";
-			Language.DataSource = Data.Languages();
+			Language.DataSource = yaf_StaticData.Languages();
 			Language.DataTextField = "Language";
 			Language.DataValueField = "FileName";
 
 			DataBind();
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
@@ -93,9 +94,9 @@ namespace YAF.Controls
 
 			Gender.SelectedIndex = Convert.ToInt32( row ["Gender"] );
 
-			if ( ForumPage.BoardSettings.AllowUserTheme )  
+			if ( PageContext.BoardSettings.AllowUserTheme )  
 			{
-				string themeFile = ForumPage.BoardSettings.Theme;
+				string themeFile = PageContext.BoardSettings.Theme;
 				if ( !row.IsNull( "ThemeFile" ) ) themeFile = Convert.ToString( row ["ThemeFile"] );
 				Theme.Items.FindByValue( themeFile ).Selected = true;
                 // Allows to use different per-forum themes,
@@ -103,9 +104,9 @@ namespace YAF.Controls
                 OverrideDefaultThemes.Checked = Convert.ToBoolean(row["OverrideDefaultThemes"]);
 			}
 
-			if ( ForumPage.BoardSettings.AllowUserLanguage )
+			if ( PageContext.BoardSettings.AllowUserLanguage )
 			{
-				string languageFile = ForumPage.BoardSettings.Language;
+				string languageFile = PageContext.BoardSettings.Language;
 				if ( !row.IsNull( "LanguageFile" ) ) languageFile = Convert.ToString( row ["LanguageFile"] );					
 				Language.Items.FindByValue( languageFile ).Selected = true;
 			}
@@ -116,36 +117,36 @@ namespace YAF.Controls
 			if ( HomePage.Text.Length > 0 && !HomePage.Text.StartsWith( "http://" ) )
 				HomePage.Text = "http://" + HomePage.Text;
 
-			if ( MSN.Text.Length > 0 && !Utils.IsValidEmail( MSN.Text ) )
+			if ( MSN.Text.Length > 0 && !General.IsValidEmail( MSN.Text ) )
 			{
-				ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_MSN" ) );
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_MSN" ) );
 				return;
 			}
-			if ( HomePage.Text.Length > 0 && !Utils.IsValidURL( HomePage.Text ) )
+			if ( HomePage.Text.Length > 0 && !General.IsValidURL( HomePage.Text ) )
 			{
-				ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_HOME" ) );
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_HOME" ) );
 				return;
 			}
-			if ( Weblog.Text.Length > 0 && !Utils.IsValidURL( Weblog.Text ) )
+			if ( Weblog.Text.Length > 0 && !General.IsValidURL( Weblog.Text ) )
 			{
-				ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_WEBLOG" ) );
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_WEBLOG" ) );
 				return;
 			}
-			if ( ICQ.Text.Length > 0 && !Utils.IsValidInt( ICQ.Text ) )
+			if ( ICQ.Text.Length > 0 && !General.IsValidInt( ICQ.Text ) )
 			{
-				ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_ICQ" ) );
+				PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_ICQ" ) );
 						return;
 					}
 
 			if ( UpdateEmailFlag )
 			{
-				if ( !Utils.IsValidEmail( Email.Text ) )
+				if ( !General.IsValidEmail( Email.Text ) )
 				{
-					ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "BAD_EMAIL" ) );
+					PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_EMAIL" ) );
 					return;
 				}
 
-				if ( ForumPage.BoardSettings.EmailVerification )
+				if ( PageContext.BoardSettings.EmailVerification )
 				{
 					string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword( 20 );
 					string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
@@ -153,19 +154,19 @@ namespace YAF.Controls
 					// Email Body
 					StringDictionary emailParameters = new StringDictionary();
 
-					emailParameters ["{user}"] = ForumPage.PageUserName;
-					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", Forum.GetLink( ForumPages.approve, "k={0}", hash ), ForumPage.ServerURL );
+					emailParameters ["{user}"] = PageContext.PageUserName;
+					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL );
 					emailParameters ["{newemail}"] = Email.Text;
 					emailParameters ["{key}"] = hash;
-					emailParameters ["{forumname}"] = ForumPage.BoardSettings.Name;
-					emailParameters ["{forumlink}"] = ForumPage.ForumURL;
+					emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
+					emailParameters ["{forumlink}"] = yaf_ForumInfo.ForumURL;
 
-					string message = Utils.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
+					string message = General.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
 
 					YAF.Classes.Data.DB.checkemail_save( CurrentUserID, hash, Email.Text );
 					//  Build a MailMessage
-					Utils.SendMail( ForumPage, ForumPage.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
-					ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
+					General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
+					PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
 				}
 			}
 			if ( AdminEditMode )
@@ -174,12 +175,12 @@ namespace YAF.Controls
 				{
 					if ( NewPassword1.Text.Length == 0 || NewPassword2.Text.Length == 0 )
 					{
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "no_empty_password" ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "no_empty_password" ) );
 						return;
 					}
 					if ( NewPassword1.Text != NewPassword2.Text )
 					{
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "no_password_match" ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "no_password_match" ) );
 						return;
 					}
 					// No need to hash string as its hashed by procedure.
@@ -193,12 +194,12 @@ namespace YAF.Controls
 				{
 					if ( NewPassword1.Text.Length == 0 || NewPassword2.Text.Length == 0 )
 					{
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "no_empty_password" ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "no_empty_password" ) );
 						return;
 					}
 					if ( NewPassword1.Text != NewPassword2.Text )
 					{
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "no_password_match" ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "no_password_match" ) );
 						return;
 					}
 
@@ -207,30 +208,30 @@ namespace YAF.Controls
 
 					if ( !YAF.Classes.Data.DB.user_changepassword( CurrentUserID, oldpw, newpw ) )
 					{
-						ForumPage.AddLoadMessage( ForumPage.GetText( "PROFILE", "old_password_wrong" ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "old_password_wrong" ) );
 					}
 				}
 			}
 
 			object email = null;
-			if ( !ForumPage.BoardSettings.EmailVerification )
+			if ( !PageContext.BoardSettings.EmailVerification )
 				email = Email.Text;
 
-			YAF.Classes.Data.DB.user_save( CurrentUserID, ForumPage.PageBoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue,OverrideDefaultThemes.Checked, null,
+			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.Settings.BoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue,OverrideDefaultThemes.Checked, null,
 					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, PMNotificationEnabled.Checked );
 
 			if ( AdminEditMode )
-				Forum.Redirect( ForumPages.admin_users );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 			else
-				Forum.Redirect( ForumPages.cp_profile );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
 		}
 
 		protected void Cancel_Click( object sender, System.EventArgs e )		
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( ForumPages.admin_users );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 			else
-				Forum.Redirect( ForumPages.cp_profile );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
 		}
 
 		protected void Email_TextChanged( object sender, System.EventArgs e )

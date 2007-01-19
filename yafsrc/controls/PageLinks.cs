@@ -6,7 +6,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for PageLinks.
 	/// </summary>
-	public class PageLinks : BaseControl
+	public class PageLinks : YAF.Classes.Base.BaseControl
 	{
 		public void AddLink(string title,string url) 
 		{
@@ -50,7 +50,7 @@ namespace YAF.Controls
 					if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
 						AddLink(row["Name"].ToString(),"");
 					else
-						AddLink(row["Name"].ToString(),Forum.GetLink( ForumPages.topics,"f={0}",row["ForumID"]));
+						AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
 				}
 			}
 		}

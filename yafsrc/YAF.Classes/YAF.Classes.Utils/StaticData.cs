@@ -26,7 +26,7 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Summary description for StaticData.
 	/// </summary>
-	public class GenerateData
+	public class yaf_StaticData
 	{
 		public static DataTable TimeZones()
 		{

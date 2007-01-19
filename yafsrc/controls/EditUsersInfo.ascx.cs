@@ -30,16 +30,16 @@ using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
-    public partial class EditUsersInfo : BaseUserControl
+    public partial class EditUsersInfo : YAF.Classes.Base.BaseUserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            IsHostAdminRow.Visible = ForumPage.IsHostAdmin;
+            IsHostAdminRow.Visible = PageContext.IsHostAdmin;
 
             if (!IsPostBack)
             {
                 BindData();
-                using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
+                using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
                 {
                     DataRow row = dt.Rows[0];
                     Name.Text = (string)row["Name"];
@@ -56,7 +56,7 @@ namespace YAF.Controls
 
         private void BindData()
         {
-            RankID.DataSource = YAF.Classes.Data.DB.rank_list(ForumPage.PageBoardID, null);
+            RankID.DataSource = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID, null);
             RankID.DataValueField = "RankID";
             RankID.DataTextField = "Name";
             DataBind();
@@ -64,13 +64,13 @@ namespace YAF.Controls
 
         protected void Cancel_Click(object sender, System.EventArgs e)
         {
-            Forum.Redirect( ForumPages.admin_users);
+            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
         }
 
         protected void Save_Click(object sender, System.EventArgs e)
         {
-            YAF.Classes.Data.DB.user_adminsave(ForumPage.PageBoardID, Request.QueryString["u"], Name.Text, Email.Text, IsHostAdminX.Checked, RankID.SelectedValue);
-            Forum.Redirect( ForumPages.admin_users);
+            YAF.Classes.Data.DB.user_adminsave(PageContext.PageBoardID, Request.QueryString["u"], Name.Text, Email.Text, IsHostAdminX.Checked, RankID.SelectedValue);
+            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
         }
 
         #region Web Form Designer generated code

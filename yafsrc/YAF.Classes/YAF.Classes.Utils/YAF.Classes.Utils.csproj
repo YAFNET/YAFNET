@@ -38,7 +38,7 @@
     <Compile Include="Config\BoardSettings.cs" />
     <Compile Include="Config\ForumPages.cs" />
     <Compile Include="DateTime.cs" />
-    <Compile Include="GenerateData.cs" />
+    <Compile Include="StaticData.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Localization\Localization.cs" />
     <Compile Include="Localization\Localizer.cs" />

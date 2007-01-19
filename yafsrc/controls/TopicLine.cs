@@ -1,11 +1,12 @@
 using System;
 using System.Data;
 using System.Web.UI;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
 	[ParseChildren(false)]
-	public class TopicLine : BaseControl
+	public class TopicLine : YAF.Classes.Base.BaseControl
 	{
 		private DataRowView	m_row = null;
 		private bool m_isAlt;
@@ -36,22 +37,22 @@ namespace YAF.Controls
 			// Topic
 			html.AppendFormat( @"<td><span class=""post_priority"">{0}</span>", GetPriorityMessage( m_row ) );
 			if(FindUnread)
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", yaf_BuildLink.GetLink( ForumPages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 			else
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", m_row ["LinkTopicID"] ), Utils.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", m_row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
 
-			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,ForumPage.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
+			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,PageContext.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
 			if (tPager != String.Empty)
 			{
 				// more then one page to show
-				html.AppendFormat( @"<br/><span class=""smallfont"">{0}</span>", String.Format( ForumPage.GetText( "GOTO_POST_PAGER" ), tPager ) );
+				html.AppendFormat( @"<br/><span class=""smallfont"">{0}</span>", String.Format( PageContext.Localization.GetText( "GOTO_POST_PAGER" ), tPager ) );
 			}
 
-			//html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",ForumPage.GetText("TOPICS","CREATED"),ForumPage.FormatDateShort(m_row["Posted"]));
+			//html.AppendFormat("<br/><span class='smallfont'>{0}: {1}</span>",PageContext.Localization.GetText("TOPICS","CREATED"),PageContext.FormatDateShort(m_row["Posted"]));
 			
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", Forum.GetLink( ForumPages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
+			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", yaf_BuildLink.GetLink( ForumPages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
 			// Replies
 			html.AppendFormat( @"<td align=""center"">{0}</td>", FormatReplies() );
 			// Views
@@ -85,12 +86,12 @@ namespace YAF.Controls
 
 				if(row["TopicMovedID"].ToString().Length>0)
 				{
-					imgTitle = ForumPage.GetText("MOVED");
-					return ForumPage.GetThemeContents("ICONS","TOPIC_MOVED");
+					imgTitle = PageContext.Localization.GetText( "MOVED" );
+					return PageContext.Theme.GetItem( "ICONS", "TOPIC_MOVED" );
 				}
 
-				DateTime lastRead = ForumPage.GetTopicRead((int)row["TopicID"]);
-				DateTime lastReadForum = ForumPage.GetForumRead((int)row["ForumID"]);
+				DateTime lastRead = Mession.GetTopicRead((int)row["TopicID"]);
+				DateTime lastReadForum = Mession.GetForumRead( ( int ) row ["ForumID"] );
 				if(lastReadForum>lastRead) lastRead = lastReadForum;
 
 				if(lastPosted > lastRead) 
@@ -99,62 +100,62 @@ namespace YAF.Controls
 
 					if(row["PollID"]!=DBNull.Value) 
 					{
-						imgTitle = ForumPage.GetText("POLL_NEW");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_POLL_NEW");
+						imgTitle = PageContext.Localization.GetText("POLL_NEW");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_POLL_NEW");
 					}
 					else if(row["Priority"].ToString() == "1")
 					{
-						imgTitle = ForumPage.GetText("STICKY");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_STICKY");
+						imgTitle = PageContext.Localization.GetText("STICKY");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_STICKY");
 					}
 					else if(row["Priority"].ToString() == "2")
 					{
-						imgTitle = ForumPage.GetText("ANNOUNCEMENT");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT_NEW");
+						imgTitle = PageContext.Localization.GetText("ANNOUNCEMENT");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_ANNOUNCEMENT_NEW");
 					}
 					else if(bIsLocked)
 					{
-						imgTitle = ForumPage.GetText("NEW_POSTS_LOCKED");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_NEW_LOCKED");
+						imgTitle = PageContext.Localization.GetText("NEW_POSTS_LOCKED");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_NEW_LOCKED");
 					}
 					else
 					{
-						imgTitle = ForumPage.GetText("NEW_POSTS");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_NEW");
+						imgTitle = PageContext.Localization.GetText("NEW_POSTS");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_NEW");
 					}
 				}
 				else 
 				{
 					if(row["PollID"]!=DBNull.Value)
 					{
-						imgTitle = ForumPage.GetText("POLL");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_POLL");
+						imgTitle = PageContext.Localization.GetText("POLL");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_POLL");
 					}
 					else if(row["Priority"].ToString() == "1")
 					{
-						imgTitle = ForumPage.GetText("STICKY");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_STICKY");
+						imgTitle = PageContext.Localization.GetText("STICKY");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_STICKY");
 					}
 					else if(row["Priority"].ToString() == "2")
 					{
-						imgTitle = ForumPage.GetText("ANNOUNCEMENT");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_ANNOUNCEMENT");
+						imgTitle = PageContext.Localization.GetText("ANNOUNCEMENT");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_ANNOUNCEMENT");
 					}
 					else if(bIsLocked)
 					{
-						imgTitle = ForumPage.GetText("NO_NEW_POSTS_LOCKED");
-						return ForumPage.GetThemeContents("ICONS","TOPIC_LOCKED");
+						imgTitle = PageContext.Localization.GetText("NO_NEW_POSTS_LOCKED");
+						return PageContext.Theme.GetItem("ICONS","TOPIC_LOCKED");
 					}
 					else
 					{
-						imgTitle = ForumPage.GetText("NO_NEW_POSTS");
-						return ForumPage.GetThemeContents("ICONS","TOPIC");
+						imgTitle = PageContext.Localization.GetText("NO_NEW_POSTS");
+						return PageContext.Theme.GetItem("ICONS","TOPIC");
 					}
 				}
 			}
 			catch(Exception) 
 			{
-				return ForumPage.GetThemeContents("ICONS","TOPIC");
+				return PageContext.Theme.GetItem("ICONS","TOPIC");
 			}
 		}
 		/// <summary>
@@ -168,16 +169,16 @@ namespace YAF.Controls
 
 			if (row["TopicMovedID"].ToString().Length > 0)
 			{
-				strReturn = ForumPage.GetText("MOVED");
+				strReturn = PageContext.Localization.GetText("MOVED");
 			}
 			else if (row["PollID"].ToString() != "")
 			{
-				strReturn = ForumPage.GetText("POLL");
+				strReturn = PageContext.Localization.GetText("POLL");
 			}
 			else switch(int.Parse(row["Priority"].ToString())) 
 					 {
-						 case 1: strReturn = ForumPage.GetText("STICKY"); break;
-						 case 2: strReturn = ForumPage.GetText("ANNOUNCEMENT"); break;
+						 case 1: strReturn = PageContext.Localization.GetText("STICKY"); break;
+						 case 2: strReturn = PageContext.Localization.GetText("ANNOUNCEMENT"); break;
 					 }
 
 			if (strReturn.Length > 0) strReturn = String.Format("[ {0} ] ",strReturn);
@@ -200,25 +201,25 @@ namespace YAF.Controls
 		/// <returns>Formatted Last Post Text</returns>
 		protected string FormatLastPost() 
 		{
-			string strReturn = ForumPage.GetText("no_posts");
+			string strReturn = PageContext.Localization.GetText("no_posts");
 			DataRowView row = m_row;
 			
 			if (row["LastMessageID"].ToString().Length>0) 
 			{
-				string strMiniPost = ForumPage.GetThemeContents("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > ForumPage.GetTopicRead((int)m_row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
+				string strMiniPost = PageContext.Theme.GetItem("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)m_row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
 
 				string strBy =
-					String.Format(ForumPage.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
-					Forum.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]), 
+					String.Format(PageContext.Localization.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
+					yaf_BuildLink.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]), 
 					BBCode.EncodeHTML(row["LastUserName"].ToString()), 
 					strMiniPost, 
-					Forum.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
-					ForumPage.GetText("GO_LAST_POST")
+					yaf_BuildLink.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
+					PageContext.Localization.GetText("GO_LAST_POST")
 					));
 
 				strReturn =
 					String.Format("{0}<br />{1}", 
-					ForumPage.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
+					yaf_DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
 					strBy);
 			} 
 
@@ -240,7 +241,7 @@ namespace YAF.Controls
 			{
 				if (PageCount > NumToDisplay)
 				{
-					strReturn += MakeLink("1",Forum.GetLink( ForumPages.posts,"t={0}",TopicID));
+					strReturn += MakeLink("1",yaf_BuildLink.GetLink( ForumPages.posts,"t={0}",TopicID));
 					strReturn += " ... ";
 					bool bFirst = true;
 
@@ -252,7 +253,7 @@ namespace YAF.Controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 
-						strReturn += MakeLink(iPost.ToString(),Forum.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
+						strReturn += MakeLink(iPost.ToString(),yaf_BuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
 					}
 				}
 				else
@@ -265,7 +266,7 @@ namespace YAF.Controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 						
-            strReturn += MakeLink(iPost.ToString(),Forum.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
+            strReturn += MakeLink(iPost.ToString(),yaf_BuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
 					}
 				}
 			}

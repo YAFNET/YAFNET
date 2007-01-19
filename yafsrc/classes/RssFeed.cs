@@ -1,5 +1,6 @@
 using System;
 using System.Xml;
+using YAF.Classes.Utils;
 
 namespace YAF
 {
@@ -9,7 +10,7 @@ namespace YAF
 	public class RssFeed
 	{
 		public string en = Environment.NewLine;
-		
+
 		public RssFeed()
 		{
 			//
@@ -18,7 +19,7 @@ namespace YAF
 
 		}
 
-		public XmlTextWriter WriteRSSPrologue(XmlTextWriter writer, YAF.Pages.ForumPage page)
+		public XmlTextWriter WriteRSSPrologue( XmlTextWriter writer )
 		{
 			/*
 				writer.WriteStartDocument();
@@ -31,24 +32,24 @@ namespace YAF
 				writer.WriteElementString("copyright", "Copyright 2002-2004 Bjørnar Henden");
 			*/
 
-			writer.WriteRaw("<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + en);
-            writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"rss.xsl\" media=\"screen\"?>");
-			writer.WriteRaw("<rss version=\"2.0\">" + en);
-			writer.WriteRaw("\t<channel>" + en);
-			writer.WriteRaw("\t\t<title>RSS Feed for " + page.ServerURL + "</title>" + en);
-			writer.WriteRaw("\t\t<link>" + Encode(page.ForumURL) + "</link>" + en);
-			writer.WriteRaw("\t\t<description>Yet Another Forum Web Application RSS Feed</description>" + en);
-			writer.WriteRaw("\t\t<copyright>Copyright 2002 - 2005 Bjørnar Henden</copyright>" + en);
+			writer.WriteRaw( "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" + en );
+			writer.WriteRaw( "<?xml-stylesheet type=\"text/xsl\" href=\"rss.xsl\" media=\"screen\"?>" );
+			writer.WriteRaw( "<rss version=\"2.0\">" + en );
+			writer.WriteRaw( "\t<channel>" + en );
+			writer.WriteRaw( "\t\t<title>RSS Feed for " + yaf_ForumInfo.ServerURL + "</title>" + en );
+			writer.WriteRaw( "\t\t<link>" + Encode( yaf_ForumInfo.ForumURL ) + "</link>" + en );
+			writer.WriteRaw( "\t\t<description>Yet Another Forum Web Application RSS Feed</description>" + en );
+			writer.WriteRaw( "\t\t<copyright>Copyright 2002 - 2005 Bjørnar Henden</copyright>" + en );
 
 			return writer;
 		}
 
-		public XmlTextWriter AddRSSItem(XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription)
+		public XmlTextWriter AddRSSItem( XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription )
 		{
-			return this.AddRSSItem(writer,sItemTitle,sItemLink,sItemDescription,DateTime.Now.ToString("r"));
+			return this.AddRSSItem( writer, sItemTitle, sItemLink, sItemDescription, DateTime.Now.ToString( "r" ) );
 		}
 
-		public XmlTextWriter AddRSSItem(XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription, string sPubDate)
+		public XmlTextWriter AddRSSItem( XmlTextWriter writer, string sItemTitle, string sItemLink, string sItemDescription, string sPubDate )
 		{
 			/*
 				writer.WriteStartElement("item");
@@ -59,17 +60,17 @@ namespace YAF
 				writer.WriteEndElement();
 			*/
 
-			writer.WriteRaw("\t\t<item>" + en);
-			writer.WriteRaw("\t\t\t<title>" + Encode(sItemTitle) + "</title>" + en);
-			writer.WriteRaw("\t\t\t<link>" + Encode(sItemLink) + "</link>" + en);
-			writer.WriteRaw("\t\t\t<description><![CDATA[" + sItemDescription + "]]></description>" + en);
-			writer.WriteRaw("\t\t\t<pubDate>" + sPubDate + "</pubDate>" + en);
-			writer.WriteRaw("\t\t</item>" + en);
+			writer.WriteRaw( "\t\t<item>" + en );
+			writer.WriteRaw( "\t\t\t<title>" + Encode( sItemTitle ) + "</title>" + en );
+			writer.WriteRaw( "\t\t\t<link>" + Encode( sItemLink ) + "</link>" + en );
+			writer.WriteRaw( "\t\t\t<description><![CDATA[" + sItemDescription + "]]></description>" + en );
+			writer.WriteRaw( "\t\t\t<pubDate>" + sPubDate + "</pubDate>" + en );
+			writer.WriteRaw( "\t\t</item>" + en );
 
 			return writer;
 		}
 
-		public XmlTextWriter WriteRSSClosing(XmlTextWriter writer)
+		public XmlTextWriter WriteRSSClosing( XmlTextWriter writer )
 		{
 			/*
 				writer.WriteEndElement();
@@ -77,16 +78,16 @@ namespace YAF
 				writer.WriteEndDocument();
 			*/
 
-			writer.WriteRaw("\t</channel>" + en);
-			writer.WriteRaw("</rss>");
+			writer.WriteRaw( "\t</channel>" + en );
+			writer.WriteRaw( "</rss>" );
 
 			return writer;
 		}
 
-		private string Encode(string input)
+		private string Encode( string input )
 		{
 			string output = input;
-			output = output.Replace("&", "&amp;");
+			output = output.Replace( "&", "&amp;" );
 			return output;
 		}
 	}

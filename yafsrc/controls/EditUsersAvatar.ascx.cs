@@ -11,23 +11,24 @@ using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
 using YAF.Pages;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersAvatar : BaseUserControl
+	public partial class EditUsersAvatar : YAF.Classes.Base.BaseUserControl
 	{
 		private int CurrentUserID;
 		private bool AdminEditMode = false;
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( AdminEditMode && ForumPage.IsAdmin && Request.QueryString ["u"] != null )
+			if ( AdminEditMode && PageContext.IsAdmin && Request.QueryString ["u"] != null )
 			{
 				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
 			}
 			else
 			{
-				CurrentUserID = ForumPage.PageUserID;
+				CurrentUserID = PageContext.PageUserID;
 			}
 
 			if ( !IsPostBack )
@@ -36,23 +37,23 @@ namespace YAF.Controls
 				if ( Request.QueryString ["av"] != null )
 				{
 					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", Data.ForumRoot, Request.QueryString ["av"], ForumPage.ServerURL ), null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", yaf_ForumInfo.ForumRoot, Request.QueryString ["av"], yaf_ForumInfo.ServerURL ), null );
 				}
 
-				UpdateRemote.Text = ForumPage.GetText( "COMMON", "UPDATE" );
-				UpdateUpload.Text = ForumPage.GetText( "COMMON", "UPDATE" );
-				Back.Text = ForumPage.GetText( "COMMON", "BACK" );
+				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
+				UpdateUpload.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
+				Back.Text = PageContext.Localization.GetText( "COMMON", "BACK" );
 
-				NoAvatar.Text = ForumPage.GetText( "CP_EDITAVATAR", "NOAVATAR" );
+				NoAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "NOAVATAR" );
 
-				DeleteAvatar.Text = ForumPage.GetText( "CP_EDITAVATAR", "AVATARDELETE" );
-				DeleteAvatar.Attributes ["onclick"] = string.Format( "return confirm('{0}?')", ForumPage.GetText( "CP_EDITAVATAR", "AVATARDELETE" ) );
+				DeleteAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" );
+				DeleteAvatar.Attributes ["onclick"] = string.Format( "return confirm('{0}?')", PageContext.Localization.GetText( "CP_EDITAVATAR", "AVATARDELETE" ) );
 
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
-				OurAvatar.NavigateUrl = Forum.GetLink( ForumPages.avatar, addAdminParam );
-				OurAvatar.Text = ForumPage.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
+				OurAvatar.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
+				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
 			}
 
 			BindData();
@@ -62,7 +63,7 @@ namespace YAF.Controls
 		{
 			DataRow row;
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( ForumPage.PageBoardID, CurrentUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
@@ -72,19 +73,19 @@ namespace YAF.Controls
 			DeleteAvatar.Visible = false;
 			NoAvatar.Visible = false;
 
-			if ( ForumPage.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
+			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", Data.ForumRoot, CurrentUserID );
+				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", yaf_ForumInfo.ForumRoot, CurrentUserID );
 				Avatar.Text = "";
 				DeleteAvatar.Visible = true;
 			}
-			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out BoardSettings.AvatarRemote
+			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				AvatarImg.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
 					Server.UrlEncode( row ["Avatar"].ToString() ),
-					ForumPage.BoardSettings.AvatarWidth,
-					ForumPage.BoardSettings.AvatarHeight,
-					Data.ForumRoot );
+					PageContext.BoardSettings.AvatarWidth,
+					PageContext.BoardSettings.AvatarHeight,
+					yaf_ForumInfo.ForumRoot );
 
 				Avatar.Text = row ["Avatar"].ToString();
 				DeleteAvatar.Visible = true;
@@ -97,11 +98,11 @@ namespace YAF.Controls
 
 			int rowSpan = 2;
 
-			AvatarUploadRow.Visible = (AdminEditMode ? true : ForumPage.BoardSettings.AvatarUpload);
-			AvatarRemoteRow.Visible = (AdminEditMode ? true : ForumPage.BoardSettings.AvatarRemote);
+			AvatarUploadRow.Visible = (AdminEditMode ? true : PageContext.BoardSettings.AvatarUpload);
+			AvatarRemoteRow.Visible = (AdminEditMode ? true : PageContext.BoardSettings.AvatarRemote);
 
-			if ( AdminEditMode || ForumPage.BoardSettings.AvatarUpload ) rowSpan++;
-			if ( AdminEditMode || ForumPage.BoardSettings.AvatarRemote ) rowSpan++;
+			if ( AdminEditMode || PageContext.BoardSettings.AvatarUpload ) rowSpan++;
+			if ( AdminEditMode || PageContext.BoardSettings.AvatarRemote ) rowSpan++;
 
 			avatarImageTD.RowSpan = rowSpan;
 		}
@@ -115,9 +116,9 @@ namespace YAF.Controls
 		protected void Back_Click( object sender, System.EventArgs e )
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( ForumPages.admin_users );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 			else
-				Forum.Redirect( ForumPages.cp_profile );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
 		}
 
 		protected void RemoteUpdate_Click( object sender, System.EventArgs e )
@@ -138,9 +139,9 @@ namespace YAF.Controls
 		{
 			if ( File.PostedFile != null && File.PostedFile.FileName.Trim().Length > 0 && File.PostedFile.ContentLength > 0 )
 			{
-				long x = ForumPage.BoardSettings.AvatarWidth;
-				long y = ForumPage.BoardSettings.AvatarHeight;
-				int nAvatarSize = ForumPage.BoardSettings.AvatarSize;
+				long x = PageContext.BoardSettings.AvatarWidth;
+				long y = PageContext.BoardSettings.AvatarHeight;
+				int nAvatarSize = PageContext.BoardSettings.AvatarSize;
 
 				System.IO.Stream resized = null;
 
@@ -148,9 +149,9 @@ namespace YAF.Controls
 				{
 					if ( img.Width > x || img.Height > y )
 					{
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "CP_EDITAVATAR", "WARN_TOOBIG" ), x, y ) );
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "CP_EDITAVATAR", "WARN_SIZE" ), img.Width, img.Height ) );
-						ForumPage.AddLoadMessage( ForumPage.GetText( "CP_EDITAVATAR", "WARN_RESIZED" ) );
+						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_TOOBIG" ), x, y ) );
+						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_SIZE" ), img.Width, img.Height ) );
+						PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_RESIZED" ) );
 
 						double newWidth = img.Width;
 						double newHeight = img.Height;
@@ -173,8 +174,8 @@ namespace YAF.Controls
 					}
 					if ( nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null )
 					{
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "CP_EDITAVATAR", "WARN_BIGFILE" ), nAvatarSize ) );
-						ForumPage.AddLoadMessage( String.Format( ForumPage.GetText( "CP_EDITAVATAR", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
+						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_BIGFILE" ), nAvatarSize ) );
+						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
 						return;
 					}
 

@@ -45,7 +45,6 @@ namespace YAF.Classes.Base
 		private bool m_bNoDataBase = false;
 		private bool m_bShowToolBar = true;
 		private bool m_checkSuspended = true;
-		private string m_adminMessage = string.Empty;
 		private string m_transPage = string.Empty;
 
 		#endregion
@@ -74,7 +73,7 @@ namespace YAF.Classes.Base
 		{
 			// This doesn't seem to work...
 			Exception x = Server.GetLastError();
-			YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
+			YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
 			if ( !yaf_ForumInfo.IsLocal )
 				General.LogToMail( Server.GetLastError() );
 		}
@@ -129,11 +128,11 @@ namespace YAF.Classes.Base
 			//if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
 			//    throw new ApplicationException("User not migrated to ASP.NET 2.0");
 
-			if ( m_checkSuspended && IsSuspended )
+			if ( m_checkSuspended && PageContext.IsSuspended )
 			{
-				if ( SuspendedTo < DateTime.Now )
+				if ( PageContext.SuspendedUntil < DateTime.Now )
 				{
-					YAF.Classes.Data.DB.user_suspend( PageUserID, null );
+					YAF.Classes.Data.DB.user_suspend( PageContext.PageUserID, null );
 					HttpContext.Current.Response.Redirect( General.GetSafeRawUrl() );
 				}
 				yaf_BuildLink.Redirect( ForumPages.info, "i=2" );
@@ -143,10 +142,10 @@ namespace YAF.Classes.Base
 			if ( Mession.LastVisit == DateTime.MinValue )
 			{
 				if ( PageContext.Page.Incoming > 0 )
-					AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.Page.Incoming ) );
+					PageContext.AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.Page.Incoming ) );
 			}
 
-			if ( !IsGuest && !PageContext.Page.IsPreviousVisitNull() && !Mession.HasLastVisit )
+			if ( !PageContext.IsGuest && !PageContext.Page.IsPreviousVisitNull() && !Mession.HasLastVisit )
 			{
 				Mession.LastVisit = ( DateTime ) PageContext.Page.PreviousVisit;
 				Mession.HasLastVisit = true;
@@ -168,19 +167,19 @@ namespace YAF.Classes.Base
 							// Build a MailMessage
 							if ( dt.Rows [i] ["ToUser"].ToString().Trim() != String.Empty )
 							{
-								General.SendMail( BoardSettings.ForumEmail, ( string ) dt.Rows [i] ["ToUser"], ( string ) dt.Rows [i] ["Subject"], ( string ) dt.Rows [i] ["Body"] );
+								General.SendMail( PageContext.BoardSettings.ForumEmail, ( string ) dt.Rows [i] ["ToUser"], ( string ) dt.Rows [i] ["Subject"], ( string ) dt.Rows [i] ["Body"] );
 							}
 							YAF.Classes.Data.DB.mail_delete( dt.Rows [i] ["MailID"] );
 						}
-						if ( IsAdmin ) this.AddAdminMessage( "Sent Mail", String.Format( "Sent {0} mails.", dt.Rows.Count ) );
+						if ( PageContext.IsAdmin ) PageContext.AddAdminMessage( "Sent Mail", String.Format( "Sent {0} mails.", dt.Rows.Count ) );
 					}
 				}
 				catch ( Exception x )
 				{
-					YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-					if ( IsAdmin )
+					YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+					if ( PageContext.IsAdmin )
 					{
-						this.AddAdminMessage( "Error sending emails to users", x.ToString() );
+						PageContext.AddAdminMessage( "Error sending emails to users", x.ToString() );
 					}
 				}
 			}
@@ -203,7 +202,7 @@ namespace YAF.Classes.Base
 					Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
 				}
 			}
-			catch ( Exception )
+			catch ( Exception ex )
 			{
 				// If the above fails chances are that this is a new install
 				Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
@@ -214,8 +213,8 @@ namespace YAF.Classes.Base
 		/// Look for banned IPs and handle
 		/// </summary>
 		private void CheckBannedIPs()
-		{		
-			string key = string.Format( "BannedIP.{0}", PageBoardID );			
+		{
+			string key = string.Format( "BannedIP.{0}", PageContext.PageBoardID );			
 			
 			// load the banned IP table...
 			YAFDB.yaf_BannedIPDataTable bannedIPs = ( YAFDB.yaf_BannedIPDataTable ) HttpContext.Current.Cache [key];
@@ -223,7 +222,7 @@ namespace YAF.Classes.Base
 			{
 				// load the table and cache it...
 				YAF.Classes.Data.YAFDBTableAdapters.yaf_BannedIPTableAdapter adapter = new YAF.Classes.Data.YAFDBTableAdapters.yaf_BannedIPTableAdapter();
-				bannedIPs = adapter.GetData( PageBoardID, null );
+				bannedIPs = adapter.GetData( PageContext.PageBoardID, null );
 				HttpContext.Current.Cache [key] = bannedIPs;
 			}
 
@@ -264,7 +263,7 @@ namespace YAF.Classes.Base
 #if DEBUG
 			catch ( Exception ex )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, ex );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, ex );
 				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
 			}
 #else
@@ -289,7 +288,7 @@ namespace YAF.Classes.Base
 			MembershipUser user = Membership.GetUser();
 			if ( user != null && Session ["UserUpdated"] == null )
 			{
-				Security.UpdateForumUser( PageBoardID, user );
+				Security.UpdateForumUser( PageContext.PageBoardID, user );
 				Session ["UserUpdated"] = true;
 			}
 
@@ -302,24 +301,24 @@ namespace YAF.Classes.Base
 					platform = "Win2003";
 			}
 
-			int categoryID = ValidInt( HttpContext.Current.Request.QueryString ["c"] );
-			int forumID = ValidInt( HttpContext.Current.Request.QueryString ["f"] );
-			int topicID = ValidInt( HttpContext.Current.Request.QueryString ["t"] );
-			int messageID = ValidInt( HttpContext.Current.Request.QueryString ["m"] );
+			int? categoryID = ValidInt( HttpContext.Current.Request.QueryString ["c"] );
+			int? forumID = ValidInt( HttpContext.Current.Request.QueryString ["f"] );
+			int? topicID = ValidInt( HttpContext.Current.Request.QueryString ["t"] );
+			int? messageID = ValidInt( HttpContext.Current.Request.QueryString ["m"] );
 
-			if ( PageContext.Settings.CategoryID != null )
+			if ( PageContext.Settings.CategoryID != 0 )
 				categoryID = PageContext.Settings.CategoryID;
 
-			System.Guid userKey = System.Guid.Empty;
+			object userKey = null;
 			if ( user != null )
-				userKey = (System.Guid)user.ProviderUserKey;
+				userKey = user.ProviderUserKey;
 
 			do
 			{
 				pageLoad = taPageLoad.GetData(
 						HttpContext.Current.Session.SessionID,
-						PageBoardID,
-						userKey,
+						PageContext.PageBoardID,
+						(System.Guid?)userKey,
 						HttpContext.Current.Request.UserHostAddress,
 						HttpContext.Current.Request.FilePath,
 						browser,
@@ -333,7 +332,7 @@ namespace YAF.Classes.Base
 				if ( user != null && pageLoad.Count == 0 )
 				{
 					// create the user...
-					if ( !Security.CreateForumUser( user, this.PageBoardID ) )
+					if ( !Security.CreateForumUser( user, PageContext.PageBoardID ) )
 						throw new ApplicationException( "Failed to use new user." );
 				}
 
@@ -399,7 +398,7 @@ namespace YAF.Classes.Base
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
-			if ( BoardSettings.AllowThemedLogo & !YAF.Classes.Config.IsDotNetNuke & !YAF.Classes.Config.IsPortal & !YAF.Classes.Config.IsRainbow )
+			if ( PageContext.BoardSettings.AllowThemedLogo & !YAF.Classes.Config.IsDotNetNuke & !YAF.Classes.Config.IsPortal & !YAF.Classes.Config.IsRainbow )
 			{
 				graphctl = ( System.Web.UI.HtmlControls.HtmlImage ) Page.FindControl( "imgBanner" );
 				if ( graphctl != null )
@@ -414,11 +413,11 @@ namespace YAF.Classes.Base
 			if ( ctl != null )
 			{
 				System.Text.StringBuilder title = new StringBuilder();
-				if ( this.PageTopicID != 0 )
-					title.AppendFormat( "{0} - ", General.BadWordReplace( this.PageTopicName ) ); // Tack on the topic we're viewing
-				if ( this.PageForumName != string.Empty )
-					title.AppendFormat( "{0} - ", Server.HtmlEncode( this.PageForumName ) ); // Tack on the forum we're viewing
-				title.Append( Server.HtmlEncode( BoardSettings.Name ) ); // and lastly, tack on the board's name
+				if ( PageContext.PageTopicID != 0 )
+					title.AppendFormat( "{0} - ", General.BadWordReplace( PageContext.PageTopicName ) ); // Tack on the topic we're viewing
+				if ( PageContext.PageForumName != string.Empty )
+					title.AppendFormat( "{0} - ", Server.HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
+				title.Append( Server.HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
 				ctl.Text = title.ToString();
 			}
 
@@ -439,9 +438,9 @@ namespace YAF.Classes.Base
 
 			if ( user != null )
 			{
-				header.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", Server.HtmlEncode( PageUserName ) ) );
+				header.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", Server.HtmlEncode( PageContext.PageUserName ) ) );
 				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
-				if ( !IsGuest )
+				if ( !PageContext.IsGuest )
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_inbox ), GetText( "CP_INBOX", "TITLE" ) ) );
 
 				/* TODO: help is currently useless...
@@ -450,12 +449,12 @@ namespace YAF.Classes.Base
 				*/
 
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
-				if ( IsAdmin )
+				if ( PageContext.IsAdmin )
 					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.admin_admin ), GetText( "TOOLBAR", "ADMIN" ) ) );
-				if ( IsModerator || IsForumModerator )
+				if ( PageContext.IsModerator || PageContext.IsForumModerator )
 					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.moderate_index ), GetText( "TOOLBAR", "MODERATE" ) ) );
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
-				if ( !IsGuest )
+				if ( !PageContext.IsGuest )
 					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_profile ), GetText( "TOOLBAR", "MYPROFILE" ) ) );
 				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
 				if ( CanLogin )
@@ -472,7 +471,7 @@ namespace YAF.Classes.Base
 				if ( CanLogin )
 				{
 					header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", Server.UrlEncode( General.GetSafeRawUrl() ) ), GetText( "TOOLBAR", "LOGIN" ) ) );
-					if ( !BoardSettings.DisableRegistrations )
+					if ( !PageContext.BoardSettings.DisableRegistrations )
 						header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.rules ), GetText( "TOOLBAR", "REGISTER" ) ) );
 				}
 			}
@@ -498,7 +497,7 @@ namespace YAF.Classes.Base
 			if ( m_bShowToolBar )
 			{
 				writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}forum.css"" />", yaf_ForumInfo.ForumRoot );
-				writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}"" />", PageContext.Theme.ThemeDir + "theme.css" );
+				writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}"" />", yaf_BuildLink.ThemeFile( "theme.css" ));
 				string script = "";
 				if ( LoadMessage.Length > 0 )
 					script = String.Format( "<script language='javascript'>\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", LoadMessage, '{', '}' );
@@ -523,7 +522,7 @@ namespace YAF.Classes.Base
 				StringBuilder footer = new StringBuilder();
 				footer.AppendFormat( "<p style=\"text-align:center;font-size:7pt\">" );
 
-				if ( BoardSettings.ShowRSSLink )
+				if ( PageContext.BoardSettings.ShowRSSLink )
 				{
 					footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", yaf_BuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), yaf_ForumInfo.ForumRoot, GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
 					// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
@@ -558,13 +557,13 @@ namespace YAF.Classes.Base
 					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
 					footer.AppendFormat( GetText( "COMMON", "POWERED_BY" ),
 						String.Format( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>" ),
-						String.Format( "{0} (NET v{2}.{3}) - {1}", yaf_ForumInfo.AppVersionName, FormatDateShort( yaf_ForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
+						String.Format( "{0} (NET v{2}.{3}) - {1}", yaf_ForumInfo.AppVersionName, yaf_DateTime.FormatDateShort( yaf_ForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
 						);
 					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
 					footer.AppendFormat( "<br/>" );
-					footer.AppendFormat( this.m_adminMessage ); // Append a error message for an admin to see (but not nag)
+					footer.AppendFormat( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
 
-					if ( BoardSettings.ShowPageGenerationTime )
+					if ( PageContext.BoardSettings.ShowPageGenerationTime )
 						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), duration );
 				}
 
@@ -590,8 +589,8 @@ namespace YAF.Classes.Base
 				writer.WriteLine( "<html>" );
 				writer.WriteLine( "<head>" );
 				writer.WriteLine( String.Format( @"<link rel=""stylesheet"" type=""text/css"" href=""{0}forum.css"">", yaf_ForumInfo.ForumRoot ) );
-				writer.WriteLine( String.Format( @"<link rel=""stylesheet"" type=""text/css"" href=""{0}"">", PageContext.Theme.ThemeDir + "theme.css" ) );
-				writer.WriteLine( String.Format( @"<title>{0}</title>", BoardSettings.Name ) );
+				writer.WriteLine( String.Format( @"<link rel=""stylesheet"" type=""text/css"" href=""{0}"">", yaf_BuildLink.ThemeFile("theme.css") ) );
+				writer.WriteLine( String.Format( @"<title>{0}</title>", PageContext.BoardSettings.Name ) );
 				if ( m_strRefreshURL != null )
 					writer.WriteLine( String.Format( "<meta http-equiv=\"Refresh\" content=\"10;{0}\">", m_strRefreshURL ) );
 				writer.WriteLine( "</head>" );
@@ -647,16 +646,6 @@ namespace YAF.Classes.Base
 
 		#region Other
 		/// <summary>
-		/// Find the path of a smiley icon
-		/// </summary>
-		/// <param name="icon">The file name of the icon you want</param>
-		/// <returns>The path to the image file</returns>
-		public string Smiley( string icon )
-		{
-			return String.Format( "{0}images/emoticons/{1}", yaf_ForumInfo.ForumRoot, icon );
-		}
-
-		/// <summary>
 		/// Adds a message that is displayed to the user when the page is loaded.
 		/// </summary>
 		/// <param name="msg">The message to display</param>
@@ -708,7 +697,6 @@ namespace YAF.Classes.Base
 		}
 
 		#region PageInfo class
-		private string m_strLoadMessage = "";
 
 #if false
         private object User
@@ -740,580 +728,9 @@ namespace YAF.Classes.Base
 		{
 			get
 			{
-				return m_strLoadMessage;
+				return PageContext.LoadString;
 			}
 		}
-
-		/// <summary>
-		/// AddLoadMessage creates a message that will be returned on the next page load.
-		/// </summary>
-		/// <param name="msg">The message you wish to display.</param>
-		public void AddLoadMessage( string msg )
-		{
-			msg = msg.Replace( "\\", "\\\\" );
-			msg = msg.Replace( "'", "\\'" );
-			msg = msg.Replace( "\r\n", "\\r\\n" );
-			msg = msg.Replace( "\n", "\\n" );
-			msg = msg.Replace( "\"", "\\\"" );
-			m_strLoadMessage += msg + "\\n\\n";
-		}
-
-		/// <summary>
-		/// Instead of showing error messages in a pop-up javascript window every time
-		/// the page loads (in some cases) provide a error message towards the bottom 
-		/// of the page.
-		/// </summary>
-		/// <param name="msg"></param>
-		public void AddAdminMessage( string errorType, string errorMessage )
-		{
-			this.m_adminMessage = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
-		}
-
-		#region Forum Access
-		/// <summary>
-		/// True if current user has post access in the current forum
-		/// </summary>
-		public bool ForumPostAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsPostAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.PostAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user has reply access in the current forum
-		/// </summary>
-		public bool ForumReplyAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsReplyAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.ReplyAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user has read access in the current forum
-		/// </summary>
-		public bool ForumReadAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsReadAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.ReadAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create priority topics in the current forum
-		/// </summary>
-		public bool ForumPriorityAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsPriorityAccessNull() )
-					return false;
-				else
-					return (PageContext.Page.PriorityAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to create polls in the current forum.
-		/// </summary>
-		public bool ForumPollAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsPollAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.PollAccess > 0 ); 
-			}
-		}
-		/// <summary>
-		/// True if the current user has access to vote on polls in the current forum
-		/// </summary>
-		public bool ForumVoteAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsVoteAccessNull() )
-					return false;
-				else
-					return PageContext.Page.VoteAccess > 0; 
-			}
-		}
-		/// <summary>
-		/// True if the current user is a moderator of the current forum
-		/// </summary>
-		public bool ForumModeratorAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsModeratorAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.ModeratorAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user can delete own messages in the current forum
-		/// </summary>
-		public bool ForumDeleteAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsDeleteAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.DeleteAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user can edit own messages in the current forum
-		/// </summary>
-		public bool ForumEditAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsEditAccessNull() )
-					return false;
-				else
-					return (PageContext.Page.EditAccess > 0 );
-			}
-		}
-		/// <summary>
-		/// True if the current user can upload attachments
-		/// </summary>
-		public bool ForumUploadAccess
-		{
-			get
-			{
-				if ( PageContext.Page.IsUploadAccessNull() )
-					return false;
-				else
-					return ( PageContext.Page.UploadAccess > 0 );
-			}
-		}
-
-		public int PageBoardID
-		{
-			get
-			{
-				try
-				{
-					return PageContext.Settings.BoardID;
-				}
-				catch ( Exception )
-				{
-					return 1;
-				}
-			}
-		}
-		/// <summary>
-		/// The UserID of the current user.
-		/// </summary>
-		public int PageUserID
-		{
-			get
-			{
-				return ( PageContext.Page == null ) ? 0 : PageContext.Page.UserID;
-			}
-		}
-		public string PageUserName
-		{
-			get
-			{
-				return ( PageContext.Page == null ) ? "" : PageContext.Page.UserName;
-			}
-		}
-		/// <summary>
-		/// ForumID for the current page, or 0 if not in any forum
-		/// </summary>
-		public int PageForumID
-		{
-			get
-			{
-				int nLockedForum = PageContext.Settings.LockedForum;
-				if ( nLockedForum != 0 )
-					return nLockedForum;
-
-				if ( PageContext.Page != null && !PageContext.Page.IsForumIDNull() )
-					return PageContext.Page.ForumID;
-				
-				return 0;
-			}
-		}
-		/// <summary>
-		/// Name of forum for the current page, or an empty string if not in any forum
-		/// </summary>
-		public string PageForumName
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsForumNameNull() )
-					return ( string ) PageContext.Page.ForumName;
-				
-				return "";
-			}
-		}
-		/// <summary>
-		/// CategoryID for the current page, or 0 if not in any category
-		/// </summary>
-		public int PageCategoryID
-		{
-			get
-			{
-				if ( PageContext.Settings.CategoryID != null )
-					return PageContext.Settings.CategoryID;
-				else if ( PageContext.Page != null && !PageContext.Page.IsCategoryIDNull() )
-					return PageContext.Page.CategoryID;
-
-				return 0;
-			}
-		}
-		/// <summary>
-		/// Name of category for the current page, or an empty string if not in any category
-		/// </summary>
-		public string PageCategoryName
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsCategoryNameNull() )
-					return PageContext.Page.CategoryName;
-				
-				return "";
-			}
-		}
-		/// <summary>
-		/// The TopicID of the current page, or 0 if not in any topic
-		/// </summary>
-		public int PageTopicID
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsTopicIDNull() )
-					return PageContext.Page.TopicID; 
-	
-				return 0;
-			}
-		}
-		/// <summary>
-		/// Name of topic for the current page, or an empty string if not in any topic
-		/// </summary>
-		public string PageTopicName
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsTopicNameNull() )
-					return PageContext.Page.TopicName;
-
-				return "";
-			}
-		}
-
-		/// <summary>
-		/// Is the current user host admin?
-		/// </summary>
-		public bool IsHostAdmin
-		{
-			get
-			{
-				bool isHostAdmin = false;
-
-				if ( PageContext.Page != null )
-				{
-					if ( ( PageContext.Page.UserFlags & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
-						isHostAdmin = true;
-				}
-
-				return isHostAdmin;
-			}
-		}
-
-		/// <summary>
-		/// This function needs to actually work...
-		/// </summary>
-		/// <param name="UserID"></param>
-		/// <returns></returns>
-		public bool IsUserHostAdmin( object UserID )
-		{
-			// TODO: Make this function functional...
-			if ( Convert.ToInt32( UserID ) == 2 )
-				return true;
-			else
-				return false;
-		}
-
-		public yaf_BoardSettings BoardSettings
-		{
-			get
-			{
-				return PageContext.BoardSettings;
-			}
-			set
-			{
-				PageContext.BoardSettings = null;
-			}
-		}
-
-		/// <summary>
-		/// True if current user is an administrator
-		/// </summary>
-		public bool IsAdmin
-		{
-			get
-			{
-				if ( IsHostAdmin )
-					return true;
-
-				if ( PageContext.Page != null && !PageContext.Page.IsIsAdminNull() )
-					return PageContext.Page.IsAdmin != 0;
-
-				return false;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a guest
-		/// </summary>
-		public bool IsGuest
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsIsGuestNull() )
-					return PageContext.Page.IsGuest != 0;
-
-				return false;
-			}
-		}
-		/// <summary>
-		/// True if the current user is a forum moderator (mini-admin)
-		/// </summary>
-		public bool IsForumModerator
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsIsForumModeratorNull() )
-					return PageContext.Page.IsForumModerator != 0;
-
-				return false;
-			}
-		}
-		/// <summary>
-		/// True if current user is a modeator for at least one forum
-		/// </summary>
-		public bool IsModerator
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsIsModeratorNull() )
-					return PageContext.Page.IsModerator != 0;
-
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// True if board is private (20050909 CHP)
-		/// </summary>
-		public bool IsPrivate
-		{
-			get
-			{
-#if TODO
-				try
-				{
-					return
-						int.Parse(Utils.UtilsSection[string.Format("isprivate{0}", PageBoardID)])!=0;
-				}
-				catch
-				{
-					return false;
-				}
-#else
-				return false;
-#endif
-			}
-		}
-		#endregion
-
-		#region Date and time functions
-		/// <summary>
-		/// Returns the user timezone offset from GMT
-		/// </summary>
-		public TimeSpan TimeZoneOffsetUser
-		{
-			get
-			{
-				if ( PageContext.Page != null )
-				{
-					int min = PageContext.Page.TimeZoneUser;
-					return new TimeSpan( min / 60, min % 60, 0 );
-				}
-				else
-					return new TimeSpan( 0 );
-			}
-		}
-		/// <summary>
-		/// Returns the time zone offset for the current user compared to the forum time zone.
-		/// </summary>
-		public TimeSpan TimeOffset
-		{
-			get
-			{
-				return TimeZoneOffsetUser - BoardSettings.TimeZone;
-			}
-		}
-		/// <summary>
-		/// Formats a datetime value into 07.03.2003 22:32:34
-		/// </summary>
-		/// <param name="o">The date to be formatted</param>
-		/// <returns>Formatted string of the formatted DateTime Object.</returns>
-		public string FormatDateTime( object o )
-		{
-			DateTime dt = ( DateTime ) o + TimeOffset;
-			string strDateFormat;
-
-			strDateFormat = String.Format( "{0:F}", dt );
-
-			try
-			{
-				if ( BoardSettings.DateFormatFromLanguage )
-					strDateFormat = dt.ToString( GetText( "FORMAT_DATE_TIME_LONG" ) );
-			}
-			catch ( Exception )
-			{
-
-			}
-
-			return strDateFormat;
-		}
-
-		/// <summary>
-		/// Formats a datatime value into 07.03.2003 00:00:00 except if 
-		/// the date is yesterday or today -- in which case it says that.
-		/// </summary>
-		/// <param name="o">The datetime to be formatted</param>
-		/// <returns>Formatted string of DateTime object</returns>
-		public string FormatDateTimeTopic( object o )
-		{
-			string strDateFormat;
-			DateTime dt = Convert.ToDateTime( o ) + TimeOffset;
-			DateTime nt = DateTime.Now + TimeOffset;
-
-			try
-			{
-				if ( dt.Date == nt.Date )
-				{
-					// today
-					strDateFormat = String.Format( GetText( "TodayAt" ), dt );
-				}
-				else if ( dt.Date == nt.AddDays( -1 ).Date )
-				{
-					// yesterday
-					strDateFormat = String.Format( GetText( "YesterdayAt" ), dt );
-				}
-				else if ( BoardSettings.DateFormatFromLanguage )
-				{
-					strDateFormat = dt.ToString( GetText( "FORMAT_DATE_TIME_SHORT" ) );
-				}
-				else
-				{
-					strDateFormat = String.Format( "{0:f}", dt );
-				}
-				return strDateFormat;
-			}
-			catch ( Exception )
-			{
-				return dt.ToString( "f" );
-			}
-		}
-		/// <summary>
-		/// This formats a DateTime into a short string
-		/// </summary>
-		/// <param name="o">The DateTime like object you wish to make a formatted string.</param>
-		/// <returns>The formatted string created from the DateTime object.</returns>
-		public string FormatDateTimeShort( object o )
-		{
-			DateTime dt = ( DateTime ) o + TimeOffset;
-			try
-			{
-				if ( BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( GetText( "FORMAT_DATE_TIME_SHORT" ) );
-				else
-					return String.Format( "{0:f}", dt );
-			}
-			catch ( Exception )
-			{
-				return dt.ToString( "f" );
-			}
-		}
-		/// <summary>
-		/// Formats a datetime value into 7. february 2003
-		/// </summary>
-		/// <param name="dt">The date to be formatted</param>
-		/// <returns></returns>
-		public string FormatDateLong( DateTime dt )
-		{
-			dt += TimeOffset;
-			try
-			{
-				if ( BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( GetText( "FORMAT_DATE_LONG" ) );
-				else
-					return String.Format( "{0:D}", dt );
-			}
-			catch ( Exception )
-			{
-				return dt.ToString( "D" );
-			}
-		}
-		/// <summary>
-		/// Formats a datetime value into 07.03.2003
-		/// </summary>
-		/// <param name="o">This formats the date.</param>
-		/// <returns>Short formatted date.</returns>
-		public string FormatDateShort( object o )
-		{
-			DateTime dt = ( DateTime ) o + TimeOffset;
-			try
-			{
-				if ( BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( GetText( "FORMAT_DATE_SHORT" ) );
-				else
-					return String.Format( "{0:d}", dt );
-			}
-			catch ( Exception )
-			{
-				return dt.ToString( "d" );
-			}
-		}
-		/// <summary>
-		/// Formats a datetime value into 22:32:34
-		/// </summary>
-		/// <param name="dt">The date to be formatted</param>
-		/// <returns></returns>
-		public string FormatTime( DateTime dt )
-		{
-			dt += TimeOffset;
-			try
-			{
-				if ( BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( GetText( "FORMAT_TIME" ) );
-				else
-					return String.Format( "{0:T}", dt );
-			}
-			catch ( Exception )
-			{
-				return dt.ToString( "T" );
-			}
-		}
-		#endregion
 
 		#region Theme Helper Functions
 		/// <summary>
@@ -1374,17 +791,6 @@ namespace YAF.Classes.Base
 
 		#endregion
 
-		public bool IsSuspended
-		{
-			get
-			{
-				if ( PageContext.Page != null && !PageContext.Page.IsSuspendedNull() )
-					return true;
-
-				return false;
-			}
-		}
-
 		/// <summary>
 		/// Gets the current forum Context (helper reference)
 		/// </summary>
@@ -1393,25 +799,6 @@ namespace YAF.Classes.Base
 			get
 			{
 				return YAF.Classes.Utils.yaf_Context.Current;
-			}
-		}
-
-		public DateTime SuspendedTo
-		{
-			get
-			{
-				if ( PageContext.Page == null || PageContext.Page.IsSuspendedNull() )
-					return DateTime.Now;
-				else
-					return PageContext.Page.Suspended ;
-			}
-		}
-
-		public int UnreadPrivate
-		{
-			get
-			{
-				return PageContext.Page.Incoming;
 			}
 		}
 

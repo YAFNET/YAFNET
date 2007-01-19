@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.ComponentModel;
 using YAF;
+using YAF.Classes.Utils;
 #endregion References
 
 namespace YAF.Controls
@@ -48,25 +49,10 @@ namespace YAF.Controls
 		{
 			if( ! Page.ClientScript.IsClientScriptBlockRegistered(_dataPanelScript)) 
 			{
-				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( "<script language='javascript' src='{0}'></script>", ForumPage.GetURLToResource( "DataPanel.js" ) ) );
+				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( "<script language='javascript' src='{0}'></script>", yaf_Context.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
 			}
 		}
 
-		public YAF.Pages.ForumPage ForumPage
-		{
-			get
-			{
-                System.Web.UI.Control ctl = Parent;
-                System.Web.UI.Control thePage = this;
-                while (ctl.GetType() != typeof(YAF.Forum))
-                {
-                    thePage = ctl;
-                    ctl = ctl.Parent;
-                }
-
-				return ( YAF.Pages.ForumPage ) thePage;
-			}
-		}
 		#endregion Scripts
 		#region Controls
 		/// <summary>

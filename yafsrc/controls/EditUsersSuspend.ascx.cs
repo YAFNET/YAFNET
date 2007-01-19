@@ -8,18 +8,19 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-    public partial class EditUsersSuspend : BaseUserControl
+    public partial class EditUsersSuspend : YAF.Classes.Base.BaseUserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                SuspendUnit.Items.Add(new ListItem(ForumPage.GetText("PROFILE", "DAYS"), "1"));
-                SuspendUnit.Items.Add(new ListItem(ForumPage.GetText("PROFILE", "HOURS"), "2"));
-                SuspendUnit.Items.Add(new ListItem(ForumPage.GetText("PROFILE", "MINUTES"), "3"));
+                SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "DAYS"), "1"));
+                SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "HOURS"), "2"));
+                SuspendUnit.Items.Add(new ListItem(PageContext.Localization.GetText("PROFILE", "MINUTES"), "3"));
                 SuspendUnit.SelectedIndex = 1;
                 SuspendCount.Text = "2";
                 this.BindData();
@@ -28,18 +29,18 @@ namespace YAF.Controls
 
         private void BindData()
         {
-            using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], true))
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], true))
             {
                 if (dt.Rows.Count < 1)
-                    Data.AccessDenied(/*No such user exists*/);
+                    yaf_BuildLink.AccessDenied(/*No such user exists*/);
                 DataRow user = dt.Rows[0];
 
                 SuspendedRow.Visible = !user.IsNull("Suspended");
                 if (!user.IsNull("Suspended"))
-                    ViewState["SuspendedTo"] = ForumPage.FormatDateTime(user["Suspended"]);
+                    ViewState["PageContext.SuspendedUntil"] = yaf_DateTime.FormatDateTime(user["Suspended"]);
 
-                RemoveSuspension.Text = ForumPage.GetText("PROFILE", "REMOVESUSPENSION");
-                Suspend.Text = ForumPage.GetText("PROFILE", "SUSPEND");
+                RemoveSuspension.Text = PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");
+                Suspend.Text = PageContext.Localization.GetText("PROFILE", "SUSPEND");
             }        
         }
 
@@ -53,18 +54,18 @@ namespace YAF.Controls
         {
             // Admins can suspend anyone not admins
             // Forum Moderators can suspend anyone not admin or forum moderator
-            using (DataTable dt = YAF.Classes.Data.DB.user_list(ForumPage.PageBoardID, Request.QueryString["u"], null))
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    if (int.Parse(row["IsAdmin"].ToString()) > 0)
+                    if (int.Parse(row["PageContext.IsAdmin"].ToString()) > 0)
                     {
-                        ForumPage.AddLoadMessage(ForumPage.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
+                        PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_ADMINISTRATORS"));
                         return;
                     }
-                    if (!ForumPage.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
+                    if (!PageContext.IsAdmin && int.Parse(row["PageContext.IsForumModerator"].ToString()) > 0)
                     {
-                        ForumPage.AddLoadMessage(ForumPage.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
+                        PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_FORUMMODERATORS"));
                         return;
                     }
                 }
@@ -97,8 +98,8 @@ namespace YAF.Controls
 
         protected string GetSuspendedTo()
         {
-            if (ViewState["SuspendedTo"] != null)
-                return (string)ViewState["SuspendedTo"];
+            if (ViewState["PageContext.SuspendedUntil"] != null)
+                return (string)ViewState["PageContext.SuspendedUntil"];
             else
                 return "";
         }

@@ -30,7 +30,7 @@ using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersGroups : BaseUserControl
+	public partial class EditUsersGroups : YAF.Classes.Base.BaseUserControl
 	{
 		protected void Page_Load( object sender, EventArgs e )
 		{
@@ -42,7 +42,7 @@ namespace YAF.Controls
 
 		private void BindData()
 		{
-			UserGroups.DataSource = YAF.Classes.Data.DB.group_member( ForumPage.PageBoardID, Request.QueryString ["u"] );
+			UserGroups.DataSource = YAF.Classes.Data.DB.group_member( PageContext.PageBoardID, Request.QueryString ["u"] );
 			DataBind();
 		}
 
@@ -53,7 +53,7 @@ namespace YAF.Controls
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( ForumPages.admin_users );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -64,7 +64,7 @@ namespace YAF.Controls
 				int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 
 				string roleName = string.Empty;
-				using ( DataTable dt = YAF.Classes.Data.DB.group_list( ForumPage.PageBoardID, GroupID ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, GroupID ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 						roleName = ( string ) row ["Name"];
@@ -74,13 +74,13 @@ namespace YAF.Controls
 
 				YAF.Classes.Data.DB.usergroup_save( Request.QueryString ["u"], GroupID, isChecked );
 
-				if ( isChecked && !Roles.IsUserInRole( ForumPage.User.UserName, roleName ) )
-					Roles.AddUserToRole( ForumPage.User.UserName, roleName );
-				else if ( !isChecked && Roles.IsUserInRole( ForumPage.User.UserName, roleName ) )
-					Roles.RemoveUserFromRole( ForumPage.User.UserName, roleName );
+				if ( isChecked && !Roles.IsUserInRole( PageContext.User.UserName, roleName ) )
+					Roles.AddUserToRole( PageContext.User.UserName, roleName );
+				else if ( !isChecked && Roles.IsUserInRole( PageContext.User.UserName, roleName ) )
+					Roles.RemoveUserFromRole( PageContext.User.UserName, roleName );
 			}
 
-			Forum.Redirect( ForumPages.admin_users );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 		}
 
 	}

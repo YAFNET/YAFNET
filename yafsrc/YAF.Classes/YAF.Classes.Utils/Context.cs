@@ -36,6 +36,49 @@ namespace YAF.Classes.Utils
 		private YAF.Classes.Utils.yaf_Theme theme = null;
 		private YAF.Classes.Utils.yaf_Localization localization = null;
 		private System.Web.Security.MembershipUser user = null;
+		private string loadString = "";
+		private string adminLoadString = "";
+
+		public string LoadString
+		{
+			get
+			{
+				return loadString;
+			}
+		}
+
+		public string AdminLoadString
+		{
+			get
+			{
+				return adminLoadString;
+			}
+		}
+
+		/// <summary>
+		/// AddLoadMessage creates a message that will be returned on the next page load.
+		/// </summary>
+		/// <param name="msg">The message you wish to display.</param>
+		public void AddLoadMessage( string msg )
+		{
+			msg = msg.Replace( "\\", "\\\\" );
+			msg = msg.Replace( "'", "\\'" );
+			msg = msg.Replace( "\r\n", "\\r\\n" );
+			msg = msg.Replace( "\n", "\\n" );
+			msg = msg.Replace( "\"", "\\\"" );
+			loadString += msg + "\\n\\n";
+		}
+
+		/// <summary>
+		/// Instead of showing error messages in a pop-up javascript window every time
+		/// the page loads (in some cases) provide a error message towards the bottom 
+		/// of the page.
+		/// </summary>
+		/// <param name="msg"></param>
+		public void AddAdminMessage( string errorType, string errorMessage )
+		{
+			adminLoadString = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
+		}		
 
 		public static yaf_Context Current
 		{
@@ -105,7 +148,7 @@ namespace YAF.Classes.Utils
 			{
 				user = value;
 			}
-		}
+		}	
 
 		public yaf_BoardSettings BoardSettings
 		{
@@ -128,6 +171,392 @@ namespace YAF.Classes.Utils
 				HttpContext.Current.Application.Remove( key );
 			}
 		}
+
+		#region Forum and Page Helper Properties
+		/// <summary>
+		/// True if current user has post access in the current forum
+		/// </summary>
+		public bool ForumPostAccess
+		{
+			get
+			{
+				if ( Page.IsPostAccessNull() )
+					return false;
+				else
+					return ( Page.PostAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user has reply access in the current forum
+		/// </summary>
+		public bool ForumReplyAccess
+		{
+			get
+			{
+				if ( Page.IsReplyAccessNull() )
+					return false;
+				else
+					return ( Page.ReplyAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user has read access in the current forum
+		/// </summary>
+		public bool ForumReadAccess
+		{
+			get
+			{
+				if ( Page.IsReadAccessNull() )
+					return false;
+				else
+					return ( Page.ReadAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to create priority topics in the current forum
+		/// </summary>
+		public bool ForumPriorityAccess
+		{
+			get
+			{
+				if ( Page.IsPriorityAccessNull() )
+					return false;
+				else
+					return ( Page.PriorityAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to create polls in the current forum.
+		/// </summary>
+		public bool ForumPollAccess
+		{
+			get
+			{
+				if ( Page.IsPollAccessNull() )
+					return false;
+				else
+					return ( Page.PollAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user has access to vote on polls in the current forum
+		/// </summary>
+		public bool ForumVoteAccess
+		{
+			get
+			{
+				if ( Page.IsVoteAccessNull() )
+					return false;
+				else
+					return Page.VoteAccess > 0;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a moderator of the current forum
+		/// </summary>
+		public bool ForumModeratorAccess
+		{
+			get
+			{
+				if ( Page.IsModeratorAccessNull() )
+					return false;
+				else
+					return ( Page.ModeratorAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user can delete own messages in the current forum
+		/// </summary>
+		public bool ForumDeleteAccess
+		{
+			get
+			{
+				if ( Page.IsDeleteAccessNull() )
+					return false;
+				else
+					return ( Page.DeleteAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user can edit own messages in the current forum
+		/// </summary>
+		public bool ForumEditAccess
+		{
+			get
+			{
+				if ( Page.IsEditAccessNull() )
+					return false;
+				else
+					return ( Page.EditAccess > 0 );
+			}
+		}
+		/// <summary>
+		/// True if the current user can upload attachments
+		/// </summary>
+		public bool ForumUploadAccess
+		{
+			get
+			{
+				if ( Page.IsUploadAccessNull() )
+					return false;
+				else
+					return ( Page.UploadAccess > 0 );
+			}
+		}
+
+		public int PageBoardID
+		{
+			get
+			{
+				try
+				{
+					return Settings.BoardID;
+				}
+				catch ( Exception )
+				{
+					return 1;
+				}
+			}
+		}
+		/// <summary>
+		/// The UserID of the current user.
+		/// </summary>
+		public int PageUserID
+		{
+			get
+			{
+				return ( Page == null ) ? 0 : Page.UserID;
+			}
+		}
+		public string PageUserName
+		{
+			get
+			{
+				return ( Page == null ) ? "" : Page.UserName;
+			}
+		}
+		/// <summary>
+		/// ForumID for the current page, or 0 if not in any forum
+		/// </summary>
+		public int PageForumID
+		{
+			get
+			{
+				int nLockedForum = Settings.LockedForum;
+				if ( nLockedForum != 0 )
+					return nLockedForum;
+
+				if ( Page != null && !Page.IsForumIDNull() )
+					return Page.ForumID;
+
+				return 0;
+			}
+		}
+		/// <summary>
+		/// Name of forum for the current page, or an empty string if not in any forum
+		/// </summary>
+		public string PageForumName
+		{
+			get
+			{
+				if ( Page != null && !Page.IsForumNameNull() )
+					return ( string ) Page.ForumName;
+
+				return "";
+			}
+		}
+		/// <summary>
+		/// CategoryID for the current page, or 0 if not in any category
+		/// </summary>
+		public int PageCategoryID
+		{
+			get
+			{
+				if ( Settings.CategoryID != 0 )
+					return Settings.CategoryID;
+				else if ( Page != null && !Page.IsCategoryIDNull() )
+					return Page.CategoryID;
+
+				return 0;
+			}
+		}
+		/// <summary>
+		/// Name of category for the current page, or an empty string if not in any category
+		/// </summary>
+		public string PageCategoryName
+		{
+			get
+			{
+				if ( Page != null && !Page.IsCategoryNameNull() )
+					return Page.CategoryName;
+
+				return "";
+			}
+		}
+		/// <summary>
+		/// The TopicID of the current page, or 0 if not in any topic
+		/// </summary>
+		public int PageTopicID
+		{
+			get
+			{
+				if ( Page != null && !Page.IsTopicIDNull() )
+					return Page.TopicID;
+
+				return 0;
+			}
+		}
+		/// <summary>
+		/// Name of topic for the current page, or an empty string if not in any topic
+		/// </summary>
+		public string PageTopicName
+		{
+			get
+			{
+				if ( Page != null && !Page.IsTopicNameNull() )
+					return Page.TopicName;
+
+				return "";
+			}
+		}
+
+		/// <summary>
+		/// Is the current user host admin?
+		/// </summary>
+		public bool IsHostAdmin
+		{
+			get
+			{
+				bool isHostAdmin = false;
+
+				if ( Page != null )
+				{
+					if ( ( Page.UserFlags & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
+						isHostAdmin = true;
+				}
+
+				return isHostAdmin;
+			}
+		}
+
+		/// <summary>
+		/// True if current user is an administrator
+		/// </summary>
+		public bool IsAdmin
+		{
+			get
+			{
+				if ( IsHostAdmin )
+					return true;
+
+				if ( Page != null && !Page.IsIsAdminNull() )
+					return Page.IsAdmin != 0;
+
+				return false;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a guest
+		/// </summary>
+		public bool IsGuest
+		{
+			get
+			{
+				if ( Page != null && !Page.IsIsGuestNull() )
+					return Page.IsGuest != 0;
+
+				return false;
+			}
+		}
+		/// <summary>
+		/// True if the current user is a forum moderator (mini-admin)
+		/// </summary>
+		public bool IsForumModerator
+		{
+			get
+			{
+				if ( Page != null && !Page.IsIsForumModeratorNull() )
+					return Page.IsForumModerator != 0;
+
+				return false;
+			}
+		}
+		/// <summary>
+		/// True if current user is a modeator for at least one forum
+		/// </summary>
+		public bool IsModerator
+		{
+			get
+			{
+				if ( Page != null && !Page.IsIsModeratorNull() )
+					return Page.IsModerator != 0;
+
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// True if the current user is suspended
+		/// </summary>
+		public bool IsSuspended
+		{
+			get
+			{
+				if ( Page != null && !Page.IsSuspendedNull() )
+					return true;
+
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// When the user is suspended until
+		/// </summary>
+		public DateTime SuspendedUntil
+		{
+			get
+			{
+				if ( Page == null || Page.IsSuspendedNull() )
+					return DateTime.Now;
+				else
+					return Page.Suspended;
+			}
+		}
+
+		/// <summary>
+		/// The number of private messages that are unread
+		/// </summary>
+		public int UnreadPrivate
+		{
+			get
+			{
+				return Page.Incoming;
+			}
+		}
+
+		/// <summary>
+		/// True if board is private (20050909 CHP)
+		/// </summary>
+		public bool IsPrivate
+		{
+			get
+			{
+#if TODO
+				try
+				{
+					return
+						int.Parse(Utils.UtilsSection[string.Format("isprivate{0}", PageBoardID)])!=0;
+				}
+				catch
+				{
+					return false;
+				}
+#else
+				return false;
+#endif
+			}
+		}
+		#endregion
 	}
 
 	/// <summary>
@@ -266,6 +695,14 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		static public string ForumURL
+		{
+			get
+			{
+				return string.Format( "{0}{1}", yaf_ForumInfo.ServerURL, yaf_BuildLink.GetLink( ForumPages.forum ) );
+			}
+		}
+
 		static public bool IsLocal
 		{
 			get
@@ -343,10 +780,19 @@ namespace YAF.Classes.Utils
 			HttpContext.Current.Response.Redirect( GetLink( Page, format, args ) );
 		}
 
-		public static void AccessDenied()
+		static public void AccessDenied()
 		{
 			Redirect( ForumPages.info, "i=4" );
 		}
 
+		static public string ThemeFile( string filename )
+		{
+			return yaf_Context.Current.Theme.ThemeDir + filename;
+		}
+
+		static public string Smiley( string icon )
+		{
+			return String.Format( "{0}images/emoticons/{1}", yaf_ForumInfo.ForumRoot, icon );
+		}
 	}
 }

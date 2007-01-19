@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersPoints : BaseUserControl
+	public partial class EditUsersPoints : YAF.Classes.Base.BaseUserControl
 	{
 		protected void Page_Load( object sender, EventArgs e )
 		{

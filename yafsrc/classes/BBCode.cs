@@ -1,5 +1,7 @@
 using System;
+using System.Web;
 using System.Text.RegularExpressions;
+using YAF.Classes.Utils;
 
 namespace YAF
 {
@@ -61,9 +63,9 @@ namespace YAF
 		static private Regex r_underline = new Regex( @"\[U\](?<inner>(.*?))\[/U\]", m_options );
 		static private Regex r_email2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", m_options );
 		static private Regex r_email1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", m_options );
-		static private Regex r_url1 = new Regex( @"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]",   m_options) ;
-        static private Regex r_url2 = new Regex(@"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]", m_options);   
-        static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
+		static private Regex r_url1 = new Regex( @"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]", m_options );
+		static private Regex r_url2 = new Regex( @"\[url\]( ?<http>( skype:)|( http://)|( https://)| (ftp://)|( ftps://))? (?<inner>( .*?))\[/ur l\]", m_options );
+		static private Regex r_font = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", m_options );
 		static private Regex r_color = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", m_options );
 		static private Regex r_bullet = new Regex( @"\[\*\]", m_options );
 		static private Regex r_list4 = new Regex( @"\[list=i\](?<inner>(.*?))\[/list\]", m_options );
@@ -81,14 +83,14 @@ namespace YAF
 		static private Regex r_topic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", m_options );
 		static private Regex r_img = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", m_options );
 
-		static public string MakeHtml( YAF.Pages.ForumPage basePage, string bbcode, bool DoFormatting )
+		static public string MakeHtml( string bbcode, bool DoFormatting )
 		{
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
 
-			string localQuoteStr = basePage.GetText( "COMMON", "BBCODE_QUOTE" );
-			string localCodeStr = basePage.GetText( "COMMON", "BBCODE_CODE" );
-			string localQuoteWroteStr = basePage.GetText( "COMMON", "BBCODE_QUOTEWROTE" );
+			string localQuoteStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_QUOTE" );
+			string localCodeStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
+			string localQuoteWroteStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_QUOTEWROTE" );
 
 			Match m = r_code2.Match( bbcode );
 			int nCodes = 0;
@@ -102,12 +104,12 @@ namespace YAF
 				{
 					HighLighter hl = new HighLighter();
 					hl.ReplaceEnter = true;
-					after_replace = hl.colorText( after_replace, System.Web.HttpContext.Current.Server.MapPath( Data.ForumRoot + "defs/" ), m.Groups ["language"].Value );
+					after_replace = hl.colorText( after_replace, HttpContext.Current.Server.MapPath( yaf_ForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
 				}
 				catch ( Exception x )
 				{
-					if ( basePage.IsAdmin )
-						basePage.AddLoadMessage( x.Message );
+					if ( yaf_Context.Current.IsAdmin )
+						yaf_Context.Current.AddLoadMessage( x.Message );
 					after_replace = FixCode( after_replace );
 				}
 
@@ -154,7 +156,7 @@ namespace YAF
 				NestedReplace( ref bbcode, r_email2, "<a href=\"mailto:${email}\">${inner}</a>", new string [] { "email" } );
 				NestedReplace( ref bbcode, r_email1, "<a href=\"mailto:${inner}\">${inner}</a>" );
 				// urls
-				if ( basePage.BoardSettings.BlankLinks )
+				if ( yaf_Context.Current.BoardSettings.BlankLinks )
 				{
 					NestedReplace( ref bbcode, r_url2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
 					NestedReplace( ref bbcode, r_url1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
@@ -184,7 +186,7 @@ namespace YAF
 				bbcode = r_br.Replace( bbcode, "<br/>" );
 			}
 
-			bbcode = FormatMsg.iAddSmiles( basePage, bbcode );
+			bbcode = FormatMsg.iAddSmiles( bbcode );
 
 			string tmpReplaceStr;
 
@@ -201,8 +203,8 @@ namespace YAF
 			m = r_post.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = Forum.GetLink( ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
-				if ( basePage.BoardSettings.BlankLinks )
+				string link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
+				if ( yaf_Context.Current.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
@@ -212,8 +214,8 @@ namespace YAF
 			m = r_topic.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = Forum.GetLink( ForumPages.posts, "t={0}", m.Groups ["topic"] );
-				if ( basePage.BoardSettings.BlankLinks )
+				string link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", m.Groups ["topic"] );
+				if ( yaf_Context.Current.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );

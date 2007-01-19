@@ -8,7 +8,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for ForumJump.
 	/// </summary>
-	public class PopMenu : BaseControl, System.Web.UI.IPostBackEventHandler
+	public class PopMenu : YAF.Classes.Base.BaseControl, System.Web.UI.IPostBackEventHandler
 	{
 		private string m_control = string.Empty;
 		private Hashtable m_items = new Hashtable();

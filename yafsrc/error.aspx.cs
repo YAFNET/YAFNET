@@ -37,7 +37,7 @@ namespace YAF
 	{
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			//Forum.Redirect( ForumPages.error,Request.QueryString.ToString());
+			//YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.error,Request.QueryString.ToString());
 		}
 
 		override protected void OnInit(EventArgs e)

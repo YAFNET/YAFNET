@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
+using YAF.Classes.Utils;
 
 namespace YAF.Classes
 {
@@ -333,7 +334,7 @@ namespace YAF.Classes
 						name = name.Substring( 0, pos1 - 1 ).Trim();
 						return name;
 					}
-					if ( YAF.Utils.IsValidEmail( name ) )
+					if ( General.IsValidEmail( name ) )
 						return name;
 
 					//throw new ApplicationException(string.Format("Wrong name format '{0}'",name));

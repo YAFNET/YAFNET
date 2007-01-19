@@ -4,11 +4,11 @@
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
-		<td class="header1" colspan="2"><%= ForumPage.GetText("TOOLBAR", "admin")%></td>
+		<td class="header1" colspan="2"><%= PageContext.Localization.GetText("TOOLBAR", "admin")%></td>
 	</tr>
 	<tr runat="server" id="SuspendedRow">
 		<td class="postheader">
-      <%= ForumPage.GetText("PROFILE", "ENDS") %>
+      <%= PageContext.Localization.GetText("PROFILE", "ENDS") %>
     </td>
     <td class="post">
       <%= GetSuspendedTo() %>

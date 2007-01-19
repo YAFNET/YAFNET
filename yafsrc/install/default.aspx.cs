@@ -31,6 +31,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Install
 {
@@ -60,7 +62,7 @@ namespace YAF.Install
 				else
                     InstallWizard.ActiveStepIndex = 0;
 
-				TimeZones.DataSource = Data.TimeZones();
+				TimeZones.DataSource = yaf_StaticData.TimeZones();
 				DataBind();
 				TimeZones.Items.FindByValue( "0" ).Selected = true;
 			}
@@ -68,10 +70,10 @@ namespace YAF.Install
 
 		void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
 		{
-			if ( YAF.Classes.Utils.Config.IsDotNetNuke )
+			if ( YAF.Classes.Config.IsDotNetNuke )
 			{
 				//Redirect back to the portal main page.
-				string rPath = Data.ForumRoot;
+				string rPath = yaf_ForumInfo.ForumRoot;
 				int pos = rPath.IndexOf( "/", 2 );
 				rPath = rPath.Substring( 0, pos );
 				Response.Redirect( rPath );
@@ -219,8 +221,8 @@ namespace YAF.Install
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", Data.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", Data.AppVersionName );
+					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
 					YAF.Classes.Data.DB.ExecuteNonQuery( cmd );
 				}
 			}
@@ -323,8 +325,8 @@ namespace YAF.Install
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", Data.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", Data.AppVersionName );
+					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
 					YAF.Classes.Data.DB.ExecuteNonQuery( cmd );
 				}
 			}
@@ -380,7 +382,7 @@ namespace YAF.Install
 			{
 				try
 				{
-					return int.Parse( YAF.Classes.Utils.Config.BoardID );
+					return int.Parse( YAF.Classes.Config.BoardID );
 				}
 				catch
 				{

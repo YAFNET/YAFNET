@@ -6,11 +6,12 @@ namespace YAF.Controls
 	using System.Web;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using YAF.Classes.Utils;
 
 	/// <summary>
 	///		Summary description for ForumList.
 	/// </summary>
-	public partial class ForumList : BaseUserControl
+	public partial class ForumList : YAF.Classes.Base.BaseUserControl
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
@@ -40,7 +41,7 @@ namespace YAF.Controls
 		{
 			DataRow row = ( DataRow ) o;
 			bool locked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked;
-			DateTime lastRead = ForumPage.GetForumRead( ( int ) row ["ForumID"] );
+			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
 			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
 
 			string img, imgTitle;
@@ -49,24 +50,24 @@ namespace YAF.Controls
 			{
 				if ( locked )
 				{
-					img = ForumPage.GetThemeContents( "ICONS", "FORUM_LOCKED" );
-					imgTitle = ForumPage.GetText( "ICONLEGEND", "Forum_Locked" );
+					img = PageContext.Theme.GetItem( "ICONS", "FORUM_LOCKED" );
+					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "Forum_Locked" );
 				}
 				else if ( lastPosted > lastRead )
 				{
-					img = ForumPage.GetThemeContents( "ICONS", "FORUM_NEW" );
-					imgTitle = ForumPage.GetText( "ICONLEGEND", "New_Posts" );
+					img = PageContext.Theme.GetItem( "ICONS", "FORUM_NEW" );
+					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "New_Posts" );
 				}
 				else
 				{
-					img = ForumPage.GetThemeContents( "ICONS", "FORUM" );
-					imgTitle = ForumPage.GetText( "ICONLEGEND", "No_New_Posts" );
+					img = PageContext.Theme.GetItem( "ICONS", "FORUM" );
+					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
 				}
 			}
 			catch ( Exception )
 			{
-				img = ForumPage.GetThemeContents( "ICONS", "FORUM" );
-				imgTitle = ForumPage.GetText( "ICONLEGEND", "No_New_Posts" );
+				img = PageContext.Theme.GetItem( "ICONS", "FORUM" );
+				imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
 			}
 
 			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
@@ -74,7 +75,7 @@ namespace YAF.Controls
 
 		protected void ModeratorList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
 		{
-			//AddLoadMessage("TODO: Fix this");
+			//PageContext.AddLoadMessage("TODO: Fix this");
 			//TODO: Show moderators
 		}
 
@@ -96,14 +97,14 @@ namespace YAF.Controls
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
 				strReturn = String.Format( "<a href=\"{0}\">{1}</a>",
-					Forum.GetLink( ForumPages.topics, "f={0}", ForumID ),
+					YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ),
 					strReturn
 					);
 			}
 			else
 			{
 				// no access to this forum
-				strReturn = String.Format( "{0} {1}", strReturn, ForumPage.GetText( "NO_FORUM_ACCESS" ) );
+				strReturn = String.Format( "{0} {1}", strReturn, PageContext.Localization.GetText( "NO_FORUM_ACCESS" ) );
 			}
 
 			return strReturn;
@@ -122,31 +123,31 @@ namespace YAF.Controls
 
 			int ForumID = Convert.ToInt32( row ["ForumID"] );
 			// defaults to "no posts" text
-			string strTemp = ForumPage.GetText( "NO_POSTS" );
+			string strTemp = PageContext.Localization.GetText( "NO_POSTS" );
 
 			if ( !row.IsNull( "LastPosted" ) )
 			{
-				strTemp = ForumPage.GetThemeContents( "ICONS", ( DateTime.Parse( Convert.ToString( row ["LastPosted"] ) ) > Mession.LastVisit ) ? "ICON_NEWEST" : "ICON_LATEST" );
+				strTemp = PageContext.Theme.GetItem( "ICONS", ( DateTime.Parse( Convert.ToString( row ["LastPosted"] ) ) > Mession.LastVisit ) ? "ICON_NEWEST" : "ICON_LATEST" );
 
 				if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 				{
 					strTemp = String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
-							ForumPage.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
-							String.Format( ForumPage.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", row ["LastTopicID"] ), Truncate( Utils.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
-							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
+							yaf_DateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
+							String.Format( PageContext.Localization.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), Truncate( General.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
+							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
 							strTemp,
-							ForumPage.GetText( "GO_LAST_POST" ),
-							Forum.GetLink( ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
+							PageContext.Localization.GetText( "GO_LAST_POST" ),
+							YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 						);
 				}
 				else
 				{
 					// no access to this forum... disable links and hide topic
 					strTemp = String.Format( "{0}<br/>{1}",
-							ForumPage.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
+							yaf_DateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
 							// Removed by Mek(16 December 2006) to stop non access people viewing the topic title
-                            // String.Format( ForumPage.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
-							String.Format( ForumPage.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
+                            // String.Format( PageContext.Localization.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
+							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
 						);
 				}
 			}
@@ -174,7 +175,7 @@ namespace YAF.Controls
 			DataRow row = ( DataRow ) o;
 			int nViewing = ( int ) row ["Viewing"];
 			if ( nViewing > 0 )
-				return "&nbsp;" + String.Format( ForumPage.GetText( "VIEWING" ), nViewing );
+				return "&nbsp;" + String.Format( PageContext.Localization.GetText( "VIEWING" ), nViewing );
 			else
 				return "";
 		}

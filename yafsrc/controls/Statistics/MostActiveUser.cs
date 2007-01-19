@@ -7,11 +7,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
 {
     [ToolboxData("<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>")]
-    public class MostActiveUsers : BaseControl
+    public class MostActiveUsers : YAF.Classes.Base.BaseControl
     {
         private int _displayNumber = 10;
         /// <summary>
@@ -59,7 +60,7 @@ namespace YAF.Controls.Statistics
                 // act_rank += string.Format("<td align=\"center\">{0}</td>", img);
 
                 // Nome autore
-                act_rank += string.Format("<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], Forum.GetLink(ForumPages.profile, "u={0}", r["ID"]));
+                act_rank += string.Format("<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], yaf_BuildLink.GetLink(ForumPages.profile, "u={0}", r["ID"]));
 
                 // Numero post
                 act_rank += string.Format("<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);

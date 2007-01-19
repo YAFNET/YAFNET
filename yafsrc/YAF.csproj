@@ -803,15 +803,6 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\AdminPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="classes\BaseControl.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="classes\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="classes\BBCode.cs">
       <SubType>Code</SubType>
     </Compile>

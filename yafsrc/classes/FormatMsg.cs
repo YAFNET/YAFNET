@@ -21,6 +21,8 @@ using System;
 using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Web;
+using YAF.Classes.Utils;
 
 namespace YAF
 {
@@ -30,37 +32,12 @@ namespace YAF
 	public class FormatMsg
 	{
 		/// <summary>
-		/// Formats a message to HTML by:
-		/// 1. Converting "Forum Code" to HTML
-		/// 2. Converting carriage returns to &lt;br/&gt;
-		/// 3. Converting smiles code to img tags 
-		/// </summary>
-		/// <param name="basePage">Forum Page</param>
-		/// <param name="Message">Message to Format</param>
-		/// <returns>Formatted Message</returns>
-		static public string ForumCodeToHtml( YAF.Pages.ForumPage basePage, string Message )
-		{
-#if true
-			return Message;
-#else
-			string strReturn = iConvertForumCode(basePage,Message);
-
-			strReturn = strReturn.Replace("\n","<br />");
-			strReturn = strReturn.Replace("\r","");
-
-			strReturn = iAddSmiles(basePage,strReturn);
-
-			return strReturn;
-#endif
-		}
-
-		/// <summary>
 		/// Formats message by converting "Forum Code" to HTML.
 		/// </summary>
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Convert</param>
 		/// <returns>Converted Message Text</returns>
-		static protected string iConvertForumCode( YAF.Pages.ForumPage basePage, string Message )
+		static protected string iConvertForumCode( string Message )
 		{
 			string tmp = "";
 			bool bInCode = false;
@@ -85,7 +62,8 @@ namespace YAF
 							arg = Message.Substring( e2 + 1, e1 - e2 - 1 );
 
 							arg = arg.Trim();
-							arg = basePage.Server.HtmlDecode( arg );
+
+							arg = HttpContext.Current.Server.HtmlDecode( arg );
 							if ( arg.Length > 2 && arg [0] == '"' && arg [arg.Length - 1] == '"' )
 								arg = arg.Substring( 1, arg.Length - 2 );
 						}
@@ -116,7 +94,7 @@ namespace YAF
 								case "url":
 									if ( arg != null )
 									{
-										if ( basePage.BoardSettings.BlankLinks )
+										if ( yaf_Context.Current.BoardSettings.BlankLinks )
 											tmp += String.Format( "<a target=\"_blank\" href=\"{0}\">", arg );
 										else
 											tmp += String.Format( "<a target=\"_top\" href=\"{0}\">", arg );
@@ -178,9 +156,9 @@ namespace YAF
 		/// <param name="basePagee">Forum base page</param>
 		/// <param name="Message">Text to add smiles to.</param>
 		/// <returns>Processed text with smiles added.</returns>
-		static public string iAddSmiles( YAF.Pages.ForumPage basePage, string Message )
+		static public string iAddSmiles( string Message )
 		{
-			DataTable dtSmileys = GetSmilies( basePage );
+			DataTable dtSmileys = GetSmilies();
 			string strTemp = Message;
 
 			foreach ( DataRow row in dtSmileys.Rows )
@@ -189,23 +167,23 @@ namespace YAF
 
 				code = code.Replace( "&", "&amp;" );
 				code = code.Replace( "\"", "&quot;" );
-                // some symbols in html source becomes smylies
-                // so prevent this
-                strTemp = strTemp.Replace("&amp;", "&amp%3B");
-                strTemp = strTemp.Replace("&quot;", "&quot%3B");
-                strTemp = strTemp.Replace("mailto:", "mailto%3A");
-                strTemp = strTemp.Replace("color:", "color%3A");
+				// some symbols in html source becomes smylies
+				// so prevent this
+				strTemp = strTemp.Replace( "&amp;", "&amp%3B" );
+				strTemp = strTemp.Replace( "&quot;", "&quot%3B" );
+				strTemp = strTemp.Replace( "mailto:", "mailto%3A" );
+				strTemp = strTemp.Replace( "color:", "color%3A" );
 
-                strTemp = strTemp.Replace(code.ToLower(), String.Format("<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley(Convert.ToString(row["Icon"])), basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
-                strTemp = strTemp.Replace(code.ToUpper(), String.Format("<img src=\"{0}\" alt=\"{1}\">", basePage.Smiley(Convert.ToString(row["Icon"])), basePage.Server.HtmlEncode(row["Emoticon"].ToString())));
-            
-                // restore html source
+				strTemp = strTemp.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				strTemp = strTemp.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
 
-                strTemp = strTemp.Replace("&amp%3B", "&amp;");
-                strTemp = strTemp.Replace("&quot%3B", "&quot;");
-                strTemp = strTemp.Replace("mailto%3A", "mailto:");
-                strTemp = strTemp.Replace("color%3A", "color:");
-            }
+				// restore html source
+
+				strTemp = strTemp.Replace( "&amp%3B", "&amp;" );
+				strTemp = strTemp.Replace( "&quot%3B", "&quot;" );
+				strTemp = strTemp.Replace( "mailto%3A", "mailto:" );
+				strTemp = strTemp.Replace( "color%3A", "color:" );
+			}
 
 			return strTemp;
 		}
@@ -256,34 +234,34 @@ namespace YAF
 #endif
 		}
 
-		static public DataTable GetSmilies( YAF.Pages.ForumPage basePage )
+		static public DataTable GetSmilies()
 		{
 			DataTable dt = ( DataTable ) System.Web.HttpContext.Current.Cache ["Smilies"];
 			if ( dt == null )
 			{
-				dt = YAF.Classes.Data.DB.smiley_list( basePage.PageBoardID, null );
+				dt = YAF.Classes.Data.DB.smiley_list( yaf_Context.Current.PageBoardID, null );
 				System.Web.HttpContext.Current.Cache.Insert( "Smilies", dt, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
 			return dt;
 		}
 
-        static public string FormatMessage(YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags)
-        {
-            return FormatMessage(basePage, Message, mFlags, true);
-        }
+		static public string FormatMessage( string Message, MessageFlags mFlags )
+		{
+			return FormatMessage( Message, mFlags, true );
+		}
 
-        //if message was deleted then write that instead of real body
-        static public string FormatMessage(YAF.Pages.ForumPage basePage, string Message, MessageFlags mFlags, bool isModeratorChanged)
-        {
-            if (mFlags.IsDeleted)
-            {
-                Message = "Message was deleted";
-                if (isModeratorChanged) { Message += " by moderator."; } else { Message += " by user."; };
-                return Message;
-            };
+		//if message was deleted then write that instead of real body
+		static public string FormatMessage( string Message, MessageFlags mFlags, bool isModeratorChanged )
+		{
+			if ( mFlags.IsDeleted )
+			{
+				Message = "Message was deleted";
+				if ( isModeratorChanged ) { Message += " by moderator."; } else { Message += " by user."; };
+				return Message;
+			}
 
 			// do html damage control
-			Message = RepairHtml( basePage, Message, mFlags.IsHTML );
+			Message = RepairHtml( Message, mFlags.IsHTML );
 
 			// convert spaces if bbcode (causes too many problems)
 			/*if (mFlags.IsBBCode)
@@ -292,7 +270,7 @@ namespace YAF
 			}*/
 
 			// do BBCode and Smilies...
-			Message = BBCode.MakeHtml( basePage, Message, mFlags.IsBBCode );
+			Message = BBCode.MakeHtml( Message, mFlags.IsBBCode );
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
@@ -302,15 +280,15 @@ namespace YAF
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
 
-            // Demonixed : addition
-            Message = Regex.Replace(Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
-			
+			// Demonixed : addition
+			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
+
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options );
 
 			// jaben : moved word replace to reusable function in class utils
-			Message = Utils.BadWordReplace( Message );
+			Message = General.BadWordReplace( Message );
 
 			return Message;
 		}
@@ -336,7 +314,7 @@ namespace YAF
 			return false;
 		}
 
-		static public string RepairHtml( YAF.Pages.ForumPage basePage, string html, bool bAllowHtml )
+		static public string RepairHtml( string html, bool bAllowHtml )
 		{
 			if ( !bAllowHtml )
 			{
@@ -345,7 +323,7 @@ namespace YAF
 			else
 			{
 				// get allowable html tags
-				string tStr = basePage.BoardSettings.AcceptedHTML;
+				string tStr = yaf_Context.Current.BoardSettings.AcceptedHTML;
 				string [] AllowedTags = tStr.Split( ',' );
 
 				RegexOptions options = RegexOptions.IgnoreCase;

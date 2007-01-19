@@ -5,10 +5,10 @@
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 <tr>
-	<td class="header1" colspan="2"><%= ForumPage.GetText("CP_SIGNATURE","title")%></td>
+	<td class="header1" colspan="2"><%= PageContext.Localization.GetText("CP_SIGNATURE","title")%></td>
 </tr>
 <tr>
-	<td class="postformheader" valign="top"><%= ForumPage.GetText("CP_SIGNATURE","signature")%></td>
+	<td class="postformheader" valign="top"><%= PageContext.Localization.GetText("CP_SIGNATURE","signature")%></td>
 	<td class="post" id="EditorLine" runat="server">
 		<!-- editor goes here -->
 	</td>

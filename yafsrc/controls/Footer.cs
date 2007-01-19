@@ -5,7 +5,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for Footer.
 	/// </summary>
-	public class Footer : BaseControl
+	public class Footer : YAF.Classes.Base.BaseControl
 	{
 		private string	m_html		= "";
 		private bool	m_rendered	= false;

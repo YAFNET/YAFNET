@@ -8,12 +8,12 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for ForumJump.
 	/// </summary>
-	public class ForumJump : BaseControl, System.Web.UI.IPostBackDataHandler
+	public class ForumJump : YAF.Classes.Base.BaseControl, System.Web.UI.IPostBackDataHandler
 	{
 		private void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !Page.IsPostBack )
-				ForumID = ForumPage.PageForumID;
+				ForumID = PageContext.PageForumID;
 		}
 
 		override protected void OnInit( EventArgs e )
@@ -56,24 +56,25 @@ namespace YAF.Controls
 		public virtual void RaisePostDataChangedEvent()
 		{
 			if ( ForumID > 0 )
-				Forum.Redirect( ForumPages.topics, "f={0}", ForumID );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
+#if TODO
 			else
-                // Category Jumping
-				Forum.Redirect( ForumPages.forum,"c={0}",-ForumID);
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum,"c={0}",-ForumID);
+#endif
 		}
 		#endregion
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			DataTable dt;
-			string cachename = String.Format( "forumjump_{0}_{1}", ForumPage.User != null ? ForumPage.User.UserName : "Guest", ForumPage.User != null );
+			string cachename = String.Format( "forumjump_{0}_{1}", PageContext.User != null ? PageContext.User.UserName : "Guest", PageContext.User != null );
 			if ( Page.Cache [cachename] != null )
 			{
 				dt = ( DataTable ) Page.Cache [cachename];
 			}
 			else
 			{
-				dt = YAF.Classes.Data.DB.forum_listall_sorted( ForumPage.PageBoardID, ForumPage.PageUserID );
+				dt = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				Page.Cache [cachename] = dt;
 			}
 
@@ -81,7 +82,7 @@ namespace YAF.Controls
             ClientScriptManager cs = Page.ClientScript;
             writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, cs.GetPostBackEventReference(this, this.ID)));
 
-			int nForumID = ForumPage.PageForumID;
+			int nForumID = PageContext.PageForumID;
 			if ( nForumID <= 0 )
 				writer.WriteLine( "<option/>" );
 

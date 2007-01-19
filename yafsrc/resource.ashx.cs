@@ -186,7 +186,7 @@ namespace yaf
 
 						if ( row.IsNull( "FileData" ) )
 						{
-							string sUpDir = YAF.Classes.Utils.Config.UploadDir;
+							string sUpDir = YAF.Classes.Config.UploadDir;
 							string fileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
 							using ( System.IO.FileStream input = new System.IO.FileStream( fileName, System.IO.FileMode.Open ) )
 							{

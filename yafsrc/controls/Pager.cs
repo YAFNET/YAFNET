@@ -7,7 +7,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for Pager.
 	/// </summary>
-	public class Pager : BaseControl, System.Web.UI.IPostBackEventHandler
+	public class Pager : YAF.Classes.Base.BaseControl, System.Web.UI.IPostBackEventHandler
 	{
 		public Pager()
 		{

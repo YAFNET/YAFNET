@@ -5,7 +5,7 @@ namespace YAF.Controls
 	/// <summary>
 	/// Summary description for AdminMenu.
 	/// </summary>
-	public class HelpMenu : BaseControl
+	public class HelpMenu : YAF.Classes.Base.BaseControl
 	{
 		public HelpMenu()
 		{
@@ -22,29 +22,29 @@ namespace YAF.Controls
 			writer.WriteLine("<table class=\"content\" width=\"100%\" cellspacing=0 cellpadding=0><tr><td class=\"post\" valign='top'>");
 			writer.WriteLine("<table width=\"100%\" cellspacing=0 cellpadding=0>");
 			
-			if(ForumPage.IsHostAdmin) 
+			if(PageContext.IsHostAdmin) 
 			{
 				/*
 				writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Host Admin</b></td></tr>");
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Host Settings</a></td></tr>",Forum.GetLink( ForumPages.admin_hostsettings));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Boards</a></td></tr>",Forum.GetLink( ForumPages.admin_boards));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Host Settings</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_hostsettings));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Boards</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_boards));
 				*/
 			}
-			if(ForumPage.IsAdmin) 
+			if(PageContext.IsAdmin) 
 			{
 				/*
 				writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Admin</b></td></tr>");
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Admin Index</a></td></tr>",Forum.GetLink( ForumPages.admin_admin));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Board Settings</a></td></tr>",Forum.GetLink( ForumPages.admin_boardsettings));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Forums</a></td></tr>",Forum.GetLink( ForumPages.admin_forums));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Banned IP</a></td></tr>",Forum.GetLink( ForumPages.admin_bannedip));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Smilies</a></td></tr>",Forum.GetLink( ForumPages.admin_smilies));
-				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Replace Words</a></td></tr>",Forum.GetLink( ForumPages.admin_replacewords));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Admin Index</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Board Settings</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_PageContext.BoardSettings));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Forums</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_forums));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Banned IP</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Smilies</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_smilies));
+				writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Replace Words</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_replacewords));
 				*/
 			}
 
 			writer.WriteLine("<tr><td nowrap class=\"header2\"><b>Topics</b></td></tr>");
-			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Recover lost passwords</a></td></tr>",Forum.GetLink( ForumPages.help_recover));
+			writer.WriteLine("<tr><td nowrap class=post><a href=\"{0}\">Recover lost passwords</a></td></tr>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.help_recover));
 
 			writer.WriteLine("</table>");
 			writer.WriteLine("</td></tr></table>");

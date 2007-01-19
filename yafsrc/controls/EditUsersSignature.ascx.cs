@@ -27,10 +27,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class EditUsersSignature : BaseUserControl
+	public partial class EditUsersSignature : YAF.Classes.Base.BaseUserControl
 	{
 		protected YAF.Editor.ForumEditor sig;
 		private int CurrentUserID;
@@ -38,24 +39,24 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( AdminEditMode && ForumPage.IsAdmin && Request.QueryString ["u"] != null )
+			if ( AdminEditMode && PageContext.IsAdmin && Request.QueryString ["u"] != null )
 			{
 				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
 			}
 			else
 			{
-				CurrentUserID = ForumPage.PageUserID;
+				CurrentUserID = PageContext.PageUserID;
 			}
 
-			sig.BaseDir = Data.ForumRoot + "editors";
-			sig.StyleSheet = ForumPage.ThemeFile( "theme.css" );
+			sig.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
+			sig.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
 
 			if ( !IsPostBack )
 			{
 				sig.Text = YAF.Classes.Data.DB.user_getsignature( CurrentUserID );
 
-				save.Text = ForumPage.GetText( "COMMON", "Save" );
-				cancel.Text = ForumPage.GetText( "COMMON", "Cancel" );
+				save.Text = PageContext.Localization.GetText( "COMMON", "Save" );
+				cancel.Text = PageContext.Localization.GetText( "COMMON", "Cancel" );
 			}
 		}
 
@@ -70,17 +71,17 @@ namespace YAF.Controls
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 
 			if ( AdminEditMode )
-				Forum.Redirect( ForumPages.admin_users );
+				yaf_BuildLink.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( ForumPages.cp_profile );
+				yaf_BuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		private void cancel_Click( object sender, EventArgs e )
 		{
 			if ( AdminEditMode )
-				Forum.Redirect( ForumPages.admin_users );
+				yaf_BuildLink.Redirect( ForumPages.admin_users );
 			else
-				Forum.Redirect( ForumPages.cp_profile );
+				yaf_BuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		#region Web Form Designer generated code
