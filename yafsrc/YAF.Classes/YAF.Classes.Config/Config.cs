@@ -127,7 +127,7 @@ namespace YAF.Classes
 					}
 					else
 					{
-						urlAssembly = "YAF.Classes.Utils.UrlBuilder,YAF.Classes.Utils";
+						urlAssembly = "YAF.Classes.UrlBuilder,YAF.Classes.Config";
 					}
 
 					HttpContext.Current.Application ["yaf_UrlBuilder"] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
