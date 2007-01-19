@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for inbox.
 	/// </summary>
-	public partial class cp_message : ForumPage
+	public partial class cp_message : YAF.Classes.Base.ForumPage
 	{
 
 		public cp_message()
@@ -45,9 +47,9 @@ namespace YAF.Pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 				else
-					Forum.Redirect( ForumPages.forum );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
@@ -58,7 +60,7 @@ namespace YAF.Pages
 		{
 			if ( Request.QueryString ["pm"] == null )
 			{
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 				return;
 			}
 
@@ -66,15 +68,15 @@ namespace YAF.Pages
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
-					if ( ( int ) row ["ToUserID"] != PageUserID && ( int ) row ["FromUserID"] != PageUserID )
-						Data.AccessDenied();
+					if ( ( int ) row ["ToUserID"] != PageContext.PageUserID && ( int ) row ["FromUserID"] != PageContext.PageUserID )
+						yaf_BuildLink.AccessDenied();
 
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageUserName, Forum.GetLink( ForumPages.cp_profile ) );
-					if ( ( int ) row ["ToUserID"] == PageUserID )
-						PageLinks.AddLink( GetText( "INBOX" ), Forum.GetLink( ForumPages.cp_inbox ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+					if ( ( int ) row ["ToUserID"] == PageContext.PageUserID )
+						PageLinks.AddLink( GetText( "INBOX" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox ) );
 					else
-						PageLinks.AddLink( GetText( "SENTITEMS" ), Forum.GetLink( ForumPages.cp_inbox, "sent=1" ) );
+						PageLinks.AddLink( GetText( "SENTITEMS" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox, "sent=1" ) );
 					PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 				}
 				Inbox.DataSource = dt;
@@ -86,7 +88,7 @@ namespace YAF.Pages
 		protected string FormatBody( object o )
 		{
 			DataRowView row = ( DataRowView ) o;
-			return FormatMsg.FormatMessage( this, row ["Body"].ToString(), Convert.ToInt32( row ["Flags"] ) );
+			return FormatMsg.FormatMessage( row ["Body"].ToString(), Convert.ToInt32( row ["Flags"] ) );
 		}
 
 		private void Inbox_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
@@ -95,15 +97,15 @@ namespace YAF.Pages
 			{
 				YAF.Classes.Data.DB.userpmessage_delete( e.CommandArgument );
 				BindData();
-				AddLoadMessage( GetText( "msg_deleted" ) );
+				PageContext.AddLoadMessage( GetText( "msg_deleted" ) );
 			}
 			else if ( e.CommandName == "reply" )
 			{
-				Forum.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
 			}
 			else if ( e.CommandName == "quote" )
 			{
-				Forum.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
 			}
 		}
 

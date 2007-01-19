@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_subscriptions.
 	/// </summary>
-	public partial class cp_subscriptions : ForumPage
+	public partial class cp_subscriptions : YAF.Classes.Base.ForumPage
 	{
 
 		public cp_subscriptions() : base("CP_SUBSCRIPTIONS")
@@ -44,17 +46,17 @@ namespace YAF.Pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
 				else
-					Forum.Redirect( ForumPages.forum);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 			}
 			
 			if(!IsPostBack) 
 			{
 				BindData();
 
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
@@ -63,8 +65,8 @@ namespace YAF.Pages
 		}
 
 		private void BindData() {
-			ForumList.DataSource = YAF.Classes.Data.DB.watchforum_list(PageUserID);
-			TopicList.DataSource = YAF.Classes.Data.DB.watchtopic_list(PageUserID);
+			ForumList.DataSource = YAF.Classes.Data.DB.watchforum_list(PageContext.PageUserID);
+			TopicList.DataSource = YAF.Classes.Data.DB.watchtopic_list(PageContext.PageUserID);
 			DataBind();
 		}
 
@@ -81,16 +83,16 @@ namespace YAF.Pages
 				return "&nbsp;";
 
 			string link = String.Format("<a href=\"{0}\">{1}</a>",
-				Forum.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]),
+				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["LastUserID"]),
 				row["LastUserName"]
 			);
 			string by = String.Format(GetText("lastpostlink"),
-				FormatDateTime((DateTime)row["LastPosted"]),
+				yaf_DateTime.FormatDateTime((DateTime)row["LastPosted"]),
 				link);
 
 			string html = String.Format("{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
 				by,
-				Forum.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
+				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
 				GetThemeContents("ICONS","ICON_LATEST")
 				);
 			return html;
@@ -107,7 +109,7 @@ namespace YAF.Pages
 				}
 			}
 			if(NoneChecked)
-				AddLoadMessage(GetText("WARN_SELECTTOPICS"));
+				PageContext.AddLoadMessage(GetText("WARN_SELECTTOPICS"));
 			else
 				BindData();
 		}
@@ -123,7 +125,7 @@ namespace YAF.Pages
 				}
 			}
 			if(NoneChecked)
-				AddLoadMessage(GetText("WARN_SELECTFORUMS"));
+				PageContext.AddLoadMessage(GetText("WARN_SELECTFORUMS"));
 			else
 				BindData();
 		}

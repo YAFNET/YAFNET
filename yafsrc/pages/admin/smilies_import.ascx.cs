@@ -7,21 +7,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies_import.
 	/// </summary>
-	public partial class smilies_import : AdminPage
+	public partial class smilies_import : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies Import","");
 
 				BindData();
@@ -39,7 +41,7 @@ namespace YAF.Pages.Admin
 				dr["FileName"] = "Select File (*.pak)";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",Data.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",yaf_ForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.pak");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -61,11 +63,11 @@ namespace YAF.Pages.Admin
 		{
 			if(long.Parse(File.SelectedValue)<1) 
 			{
-				AddLoadMessage("You must select a .pak file to import.");
+				PageContext.AddLoadMessage("You must select a .pak file to import.");
 				return;
 			}
 
-			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",Data.ForumRoot,File.SelectedItem.Text));
+			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",yaf_ForumInfo.ForumRoot,File.SelectedItem.Text));
 			string sSplit = System.Text.RegularExpressions.Regex.Escape("=+:");
 
 			using(System.IO.StreamReader file = new System.IO.StreamReader(sFileName)) 
@@ -82,16 +84,16 @@ namespace YAF.Pages.Admin
 
 					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
 					if(split.Length==3) 
-						YAF.Classes.Data.DB.smiley_save(null,PageBoardID,split[2],split[0],split[1],0);
+						YAF.Classes.Data.DB.smiley_save(null,PageContext.PageBoardID,split[2],split[0],split[1],0);
 				} while(true);
 				file.Close();
 			}
-			Forum.Redirect( ForumPages.admin_smilies);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect( ForumPages.admin_smilies);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 

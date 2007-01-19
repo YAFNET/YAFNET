@@ -8,13 +8,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.moderate
 {
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class index : ForumPage
+	public partial class index : YAF.Classes.Base.ForumPage
 	{
 
 		public index() : base("MODERATE_DEFAULT")
@@ -23,12 +25,12 @@ namespace YAF.Pages.moderate
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!IsModerator) 
-				Data.AccessDenied();
+			if(!PageContext.IsModerator) 
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),"");
 				BindData();
 			}

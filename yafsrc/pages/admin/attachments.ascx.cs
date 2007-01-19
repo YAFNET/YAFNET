@@ -8,21 +8,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public partial class attachments : AdminPage
+	public partial class attachments : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Attachments","");
 
 				BindData();
@@ -31,7 +33,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
-			List.DataSource = YAF.Classes.Data.DB.attachment_list(null,null,PageBoardID);
+			List.DataSource = YAF.Classes.Data.DB.attachment_list(null,null,PageContext.PageBoardID);
 			DataBind();
 		}
 

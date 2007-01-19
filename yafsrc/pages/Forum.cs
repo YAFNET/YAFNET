@@ -1,132 +1,63 @@
+/* YetAnotherForum.NET
+ * Copyright (C) 2006-2007 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 using System;
 using System.Web;
 using System.Web.UI;
+using YAF.Classes.Utils;
+using YAF.Classes.Base;
 
 namespace YAF
 {
-	public enum ForumPages
-	{
-		forum,
-		topics,
-		posts,
-		profile,
-		activeusers,
-		moderate,
-		postmessage,
-		mod_forumuser,
-		attachments,
-		pmessage,
-		movetopic,
-		emailtopic,
-		printtopic,
-		members,
-		cp_inbox,
-		cp_profile,
-		cp_editprofile,
-		cp_editavatar,
-		cp_signature,
-		cp_subscriptions,
-		cp_message,
-        cp_changepassword,
-		login,
-		approve,
-		info,
-		rules,
-		register,
-		search,
-		active,
-		logout,
-		moderate_index,
-		moderate_forum,
-		error,
-		avatar,
-		admin_admin,
-		admin_hostsettings,
-		admin_boards,
-		admin_boardsettings,
-		admin_forums,
-		admin_bannedip,
-		admin_smilies,
-		admin_accessmasks,
-		admin_groups,
-		admin_users,
-		admin_ranks,
-		admin_mail,
-		admin_prune,
-		admin_pm,
-		admin_attachments,
-		admin_eventlog,
-		admin_nntpservers,
-		admin_nntpforums,
-		admin_nntpretrieve,
-		admin_version,
-		admin_bannedip_edit,
-		admin_editaccessmask,
-		admin_editboard,
-		admin_editcategory,
-		admin_editforum,
-		admin_editgroup,
-		admin_editnntpforum,
-		admin_editnntpserver,
-		admin_editrank,
-		admin_edituser,
-		// Added BAI 07.01.2004		 
-		admin_reguser,
-		// Added BAI 07.01.2004
-		admin_smilies_edit,
-		admin_smilies_import,
-		// Added Rico83
-		admin_replacewords,
-		admin_replacewords_edit,
-		im_yim,
-		im_aim,
-		im_icq,
-		im_email,
-		rsstopic,
-		help_index,
-		help_recover,
-		lastposts,
-        recoverpassword,
-        deletemessage,
-        movemessage
-	}
-
 	/// <summary>
 	/// Summary description for Forum.
 	/// </summary>
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
 	public class Forum : System.Web.UI.UserControl
 	{
+		yaf_ControlSettings forumSettings = new yaf_ControlSettings();
+		private YAF.Controls.Header m_header = null;
+		private YAF.Controls.Footer m_footer = null;
+
 		public Forum()
 		{
+			YAF.Classes.Utils.yaf_Context.Current.Settings = forumSettings;
 			this.Load += new EventHandler( Forum_Load );
-			try
-			{
-				m_boardID = int.Parse( YAF.Classes.Utils.Config.BoardID );
-			}
-			catch
-			{
-				m_boardID = 1;
-			}
 		}
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			ForumPages Page;
-			string m_baseDir = Data.ForumRoot;
+			YAF.Classes.Utils.ForumPages Page;
+			string m_baseDir = yaf_ForumInfo.ForumRoot;
 
 			try
 			{
-				Page = ( ForumPages ) System.Enum.Parse( typeof( ForumPages ), Request.QueryString ["g"], true );
+				Page = ( YAF.Classes.Utils.ForumPages ) System.Enum.Parse( typeof( YAF.Classes.Utils.ForumPages ), Request.QueryString ["g"], true );
 			}
 			catch ( Exception )
 			{
-				Page = ForumPages.forum;
+				Page = YAF.Classes.Utils.ForumPages.forum;
 			}
 
 			if ( !ValidPage( Page ) )
 			{
-				Forum.Redirect( ForumPages.topics, "f={0}", LockedForum );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", LockedForum );
 			}
 
 			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, Page );
@@ -139,9 +70,7 @@ namespace YAF
 
 			try
 			{
-				Pages.ForumPage ctl = ( Pages.ForumPage ) LoadControl( src );
-				ctl.ForumControl = this;
-
+				YAF.Classes.Base.ForumPage ctl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
 				this.Controls.Add( ctl );
 			}
 			catch ( System.IO.FileNotFoundException )
@@ -149,9 +78,6 @@ namespace YAF
 				throw new ApplicationException( "Failed to load " + src + "." );
 			}
 		}
-
-		private YAF.Controls.Header m_header = null;
-		private YAF.Controls.Footer m_footer = null;
 
 		public YAF.Controls.Header Header
 		{
@@ -177,96 +103,65 @@ namespace YAF
 			}
 		}
 
-		static public string GetLink( ForumPages Page )
+		private bool ValidPage( ForumPages Page )
 		{
-			return YAF.Classes.Utils.Config.UrlBuilder.BuildUrl( string.Format( "g={0}", Page ) );
-		}
+			if ( LockedForum == 0 )
+				return true;
 
-		static public string GetLink( ForumPages Page, string format, params object [] args )
-		{
-			return YAF.Classes.Utils.Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", Page, string.Format( format, args ) ) );
-		}
+			if ( Page == YAF.Classes.Utils.ForumPages.forum || Page == YAF.Classes.Utils.ForumPages.active || Page == YAF.Classes.Utils.ForumPages.activeusers )
+				return false;
 
-		static public void Redirect( ForumPages Page )
-		{
-			System.Web.HttpContext.Current.Response.Redirect( GetLink( Page ) );
-		}
+			if ( Page == YAF.Classes.Utils.ForumPages.cp_editprofile || Page == YAF.Classes.Utils.ForumPages.cp_inbox || Page == YAF.Classes.Utils.ForumPages.cp_message || Page == YAF.Classes.Utils.ForumPages.cp_profile || Page == YAF.Classes.Utils.ForumPages.cp_signature || Page == YAF.Classes.Utils.ForumPages.cp_subscriptions )
+				return false;
 
-		static public void Redirect( ForumPages Page, string format, params object [] args )
-		{
-			System.Web.HttpContext.Current.Response.Redirect( GetLink( Page, format, args ) );
-		}
+			if ( Page == YAF.Classes.Utils.ForumPages.pmessage )
+				return false;
 
-		private int m_boardID;
-
-		public int BoardID
-		{
-			get
-			{
-				return m_boardID;
-			}
-			set
-			{
-				m_boardID = value;
-			}
+			return true;
 		}
 
 		public int PageUserID
 		{
 			get
 			{
-				foreach ( Control c in Controls )
-				{
-					if ( c is YAF.Pages.ForumPage )
-						return ( c as YAF.Pages.ForumPage ).PageUserID;
-				}
-				return 0;
+				return yaf_Context.Current.PageUserID;
 			}
 		}
 
-		private int m_categoryID = Convert.ToInt32( YAF.Classes.Utils.Config.CategoryID );
+		public int BoardID
+		{
+			get
+			{
+				return forumSettings.BoardID;
+			}
+			set
+			{
+				forumSettings.BoardID = value;
+			}
+		}
 
 		public int CategoryID
 		{
 			get
 			{
-				return m_categoryID;
+				return forumSettings.CategoryID;
 			}
 			set
 			{
-				m_categoryID = value;
+				forumSettings.CategoryID = value;
 			}
 		}
-
-		private int mLockedForum = 0;
 
 		public int LockedForum
 		{
-			set
-			{
-				mLockedForum = value;
-			}
 			get
 			{
-				return mLockedForum;
+				return forumSettings.LockedForum;
 			}
-		}
-
-		private bool ValidPage( ForumPages Page )
-		{
-			if ( LockedForum == 0 )
-				return true;
-
-			if ( Page == ForumPages.forum || Page == ForumPages.active || Page == ForumPages.activeusers )
-				return false;
-
-			if ( Page == ForumPages.cp_editprofile || Page == ForumPages.cp_inbox || Page == ForumPages.cp_message || Page == ForumPages.cp_profile || Page == ForumPages.cp_signature || Page == ForumPages.cp_subscriptions )
-				return false;
-
-			if ( Page == ForumPages.pmessage )
-				return false;
-
-			return true;
+			set
+			{
+				forumSettings.LockedForum = value;
+			}
 		}
 	}
 }

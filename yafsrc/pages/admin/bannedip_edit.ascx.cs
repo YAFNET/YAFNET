@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip_edit.
 	/// </summary>
-	public partial class bannedip_edit : AdminPage
+	public partial class bannedip_edit : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
-				PageLinks.AddLink("Banned IP Addresses",Forum.GetLink( ForumPages.admin_bannedip));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink("Banned IP Addresses",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip));
 
 				BindData();
 			}
@@ -48,7 +50,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData() {
 			if(Request.QueryString["i"] != null) {
-				DataRow row = YAF.Classes.Data.DB.bannedip_list(PageBoardID,Request.QueryString["i"]).Rows[0];
+				DataRow row = YAF.Classes.Data.DB.bannedip_list(PageContext.PageBoardID,Request.QueryString["i"]).Rows[0];
 				mask.Text = (string)row["Mask"];
 			}
 		}
@@ -56,16 +58,16 @@ namespace YAF.Pages.Admin
 		private void save_Click(object sender,EventArgs e) {
 			String[] ip = mask.Text.Split('.');
 			if(ip.Length!=4) {
-				AddLoadMessage("Invalid ip address.");
+				PageContext.AddLoadMessage("Invalid ip address.");
 				return;
 			}
-			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageBoardID,mask.Text);
+			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageContext.PageBoardID,mask.Text);
 			Cache.Remove("bannedip");
-			Forum.Redirect( ForumPages.admin_bannedip);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
 		}
 
 		private void cancel_Click(object sender,EventArgs e) {
-			Forum.Redirect( ForumPages.admin_bannedip);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
 		}
 
 		#region Web Form Designer generated code

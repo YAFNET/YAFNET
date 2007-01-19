@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for approve.
 	/// </summary>
-	public partial class approve : ForumPage
+	public partial class approve : YAF.Classes.Base.ForumPage
 	{
 		
 		public approve() : base("APPROVE")
@@ -42,7 +44,7 @@ namespace YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				ValidateKey.Text = GetText("validate");
@@ -63,7 +65,7 @@ namespace YAF.Pages
 		{
 			approved.Visible = YAF.Classes.Data.DB.checkemail_update(key.Text);
 			error.Visible = !approved.Visible;
-			AddLoadMessage(GetText("EMAIL_VERIFIED"));
+			PageContext.AddLoadMessage(GetText("EMAIL_VERIFIED"));
 			Response.Redirect("default.aspx?g=login");
 		}
 

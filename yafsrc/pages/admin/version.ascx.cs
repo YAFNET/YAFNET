@@ -8,13 +8,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public partial class version : AdminPage
+	public partial class version : YAF.Classes.Base.AdminPage
 	{
 		private		long				m_lastVersion;
 		private		DateTime			m_lastVersionDate;
@@ -23,8 +25,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Version Check","");
 			}
 
@@ -40,14 +42,14 @@ namespace YAF.Pages.Admin
 			{
 				m_lastVersion = 0;
 			}
-			Upgrade.Visible = m_lastVersion > Data.AppVersionCode;
+			Upgrade.Visible = m_lastVersion > yaf_ForumInfo.AppVersionCode;
 		}
 
 		protected string LastVersion 
 		{
 			get 
 			{
-				return Data.AppVersionNameFromCode(m_lastVersion);
+				return yaf_ForumInfo.AppVersionNameFromCode( m_lastVersion );
 			}
 		}
 		protected string LastVersionDate

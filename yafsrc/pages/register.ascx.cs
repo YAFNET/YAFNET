@@ -28,13 +28,15 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for register.
 	/// </summary>
-	public partial class register : ForumPage
+	public partial class register : YAF.Classes.Base.ForumPage
 	{
 	
 		public register() : base("REGISTER")
@@ -43,11 +45,11 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!CanLogin || BoardSettings.DisableRegistrations)
-				Data.AccessDenied();
+			if(!CanLogin || PageContext.BoardSettings.DisableRegistrations)
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 			}
 		}
 

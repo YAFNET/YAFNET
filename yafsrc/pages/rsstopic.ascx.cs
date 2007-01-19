@@ -28,13 +28,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for rss.
 	/// </summary>
-	public partial class rsstopic : ForumPage
+	public partial class rsstopic : YAF.Classes.Base.ForumPage
 	{
 		public rsstopic()
 			: base( "RSSTOPIC" )
@@ -49,63 +51,63 @@ namespace YAF.Pages
 			XmlTextWriter writer = new XmlTextWriter( Response.OutputStream, System.Text.Encoding.UTF8 );
 
 			writer.Formatting = Formatting.Indented;
-			rf.WriteRSSPrologue( writer, this );
+			rf.WriteRSSPrologue( writer );
 
 			// Usage rf.AddRSSItem(writer, "Item Title", "http://test.com", "This is a test item");
 
 			switch ( Request.QueryString ["pg"] )
 			{
 				case "latestposts":
-                    if (!ForumReadAccess)
-                        Data.AccessDenied();
-                    using (DataTable dt = YAF.Classes.Data.DB.topic_latest(PageBoardID, 7, PageUserID))
-                    {
-                        foreach (DataRow row in dt.Rows)
-                            rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
-                    }
-                    break;
-                case "latestannouncements":
-                    if (!ForumReadAccess)
-                        Data.AccessDenied();
-                    using (DataTable dt = YAF.Classes.Data.DB.topic_announcements(PageBoardID,7,PageUserID))
-                    {
-                        foreach (DataRow  row in dt.Rows)
-                            rf.AddRSSItem(writer, row["Subject"].ToString(), ServerURL + Forum.GetLink(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
-                    }
-                    break;
+					if ( !PageContext.ForumReadAccess )
+						yaf_BuildLink.AccessDenied();
+					using ( DataTable dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
+					{
+						foreach ( DataRow row in dt.Rows )
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+					}
+					break;
+				case "latestannouncements":
+					if ( !PageContext.ForumReadAccess )
+						yaf_BuildLink.AccessDenied();
+					using ( DataTable dt = YAF.Classes.Data.DB.topic_announcements( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
+					{
+						foreach ( DataRow row in dt.Rows )
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+					}
+					break;
 				case "posts":
-					if ( !ForumReadAccess )
-						Data.AccessDenied();
+					if ( !PageContext.ForumReadAccess )
+						yaf_BuildLink.AccessDenied();
 
 					if ( Request.QueryString ["t"] != null )
 					{
-                        using (DataTable dt = YAF.Classes.Data.DB.post_list(PageTopicID, 1, BoardSettings.ShowDeletedMessages))
+						using ( DataTable dt = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages ) )
 						{
 							foreach ( DataRow row in dt.Rows )
-								rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 						}
 					}
 
 					break;
 				case "forum":
-					using ( DataTable dt = YAF.Classes.Data.DB.forum_listread( PageBoardID, PageUserID, null, null ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null ) )
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
 							if ( row ["LastTopicID"] != DBNull.Value )
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 							else
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), ServerURL + Forum.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 						}
 					}
 					break;
 				case "topics":
-					if ( !ForumReadAccess )
-						Data.AccessDenied();
+					if ( !PageContext.ForumReadAccess )
+						yaf_BuildLink.AccessDenied();
 
 					if ( Request.QueryString ["f"] != null )
 					{
@@ -114,18 +116,18 @@ namespace YAF.Pages
 						{
 							foreach ( DataRow row in dt.Rows )
 							{
-								rf.AddRSSItem( writer, row ["Topic"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Topic"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 							}
 						}
 					}
 
 					break;
 				case "active":
-					using ( DataTable dt = YAF.Classes.Data.DB.topic_active( PageBoardID, PageUserID, DateTime.Now + TimeSpan.FromHours( -24 ), ForumControl.CategoryID ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, DateTime.Now + TimeSpan.FromHours( -24 ), PageContext.Settings.CategoryID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), ServerURL + Forum.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
 						}
 					}
 					break;

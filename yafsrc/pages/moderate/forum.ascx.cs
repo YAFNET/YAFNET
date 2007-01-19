@@ -7,89 +7,92 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.moderate
 {
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class forum : ForumPage
+	public partial class forum : YAF.Classes.Base.ForumPage
 	{
 
-		public forum() : base("MODERATE_FORUM")
+		public forum()
+			: base( "MODERATE_FORUM" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsModerator || !ForumModeratorAccess) 
-				Data.AccessDenied();
+			if ( !PageContext.IsModerator || !PageContext.ForumModeratorAccess )
+				yaf_BuildLink.AccessDenied();
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink(GetText("MODERATE_DEFAULT","TITLE"),"");
-				PageLinks.AddForumLinks(PageForumID);
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "MODERATE_DEFAULT", "TITLE" ), "" );
+				PageLinks.AddForumLinks( PageContext.PageForumID );
 				BindData();
 			}
 		}
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
+		protected void Delete_Load( object sender, System.EventArgs e )
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("MODERATE_FORUM","ASK_DELETE"));
+			( ( LinkButton ) sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "MODERATE_FORUM", "ASK_DELETE" ) );
 		}
 
-		private void BindData() 
+		private void BindData()
 		{
-			List.DataSource = YAF.Classes.Data.DB.message_unapproved(PageForumID);
+			List.DataSource = YAF.Classes.Data.DB.message_unapproved( PageContext.PageForumID );
 			DataBind();
 		}
 
-		protected string FormatMessage(DataRowView row) 
+		protected string FormatMessage( DataRowView row )
 		{
-			string msg = row["Message"].ToString();
-			
-			if(msg.IndexOf('<')>=0)
+			string msg = row ["Message"].ToString();
+
+			if ( msg.IndexOf( '<' ) >= 0 )
 				return msg;
 
-			return FormatMsg.ForumCodeToHtml(this,row["Message"].ToString());
+			return row ["Message"].ToString();
 		}
 
-		private void List_ItemCommand(object sender,RepeaterCommandEventArgs e) 
+		private void List_ItemCommand( object sender, RepeaterCommandEventArgs e )
 		{
-			switch(e.CommandName.ToLower()) 
+			switch ( e.CommandName.ToLower() )
 			{
 				case "approve":
-					YAF.Classes.Data.DB.message_approve(e.CommandArgument);
+					YAF.Classes.Data.DB.message_approve( e.CommandArgument );
 					BindData();
-					AddLoadMessage(GetText("MODERATE_FORUM","APPROVED"));
-					Utils.CreateWatchEmail(this,e.CommandArgument);
+					PageContext.AddLoadMessage( GetText( "MODERATE_FORUM", "APPROVED" ) );
+					General.CreateWatchEmail( e.CommandArgument );
 					break;
 				case "delete":
-                    YAF.Classes.Data.DB.message_delete(e.CommandArgument, true, "", 1, true);
+					YAF.Classes.Data.DB.message_delete( e.CommandArgument, true, "", 1, true );
 					BindData();
-					AddLoadMessage(GetText("MODERATE_FORUM","DELETED"));
+					PageContext.AddLoadMessage( GetText( "MODERATE_FORUM", "DELETED" ) );
 					break;
 			}
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			List.ItemCommand += new RepeaterCommandEventHandler(List_ItemCommand);
+			List.ItemCommand += new RepeaterCommandEventHandler( List_ItemCommand );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 		}
 		#endregion
 	}

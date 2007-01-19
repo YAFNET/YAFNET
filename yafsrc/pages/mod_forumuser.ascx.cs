@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public partial class mod_forumuser : ForumPage
+	public partial class mod_forumuser : YAF.Classes.Base.ForumPage
 	{
 
 		public mod_forumuser() : base("MOD_FORUMUSER")
@@ -41,8 +43,8 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!ForumModeratorAccess)
-				Data.AccessDenied();
+			if(!PageContext.ForumModeratorAccess)
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -50,18 +52,18 @@ namespace YAF.Pages
 				Update.Text = GetText("UPDATE");
 				Cancel.Text = GetText("CANCEL");
 
-				if(ForumControl.LockedForum==0)
+				if(PageContext.Settings.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
 				}
-				PageLinks.AddForumLinks(PageForumID);
+				PageLinks.AddForumLinks(PageContext.PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),"");
 			
 				BindData();
 				if(Request.QueryString["u"]!=null) 
 				{
-					using(DataTable dt = YAF.Classes.Data.DB.userforum_list(Request.QueryString["u"],PageForumID)) 
+					using(DataTable dt = YAF.Classes.Data.DB.userforum_list(Request.QueryString["u"],PageContext.PageForumID)) 
 					{
 						foreach(DataRow row in dt.Rows) 
 						{
@@ -77,7 +79,7 @@ namespace YAF.Pages
 
 		private void BindData() 
 		{
-			AccessMaskID.DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
+			AccessMaskID.DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
 			AccessMaskID.DataValueField = "AccessMaskID";
 			AccessMaskID.DataTextField = "Name";
 			DataBind();
@@ -87,7 +89,7 @@ namespace YAF.Pages
 		{
 			if(UserName.Text.Length<2) return;
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageBoardID,true,UserName.Text,null)) 
+			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID,true,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count>0) 
 				{
@@ -107,33 +109,33 @@ namespace YAF.Pages
 		{
 			if(UserName.Text.Length<=0) 
 			{
-				AddLoadMessage( GetText( "NO_SUCH_USER" ) );
+				PageContext.AddLoadMessage( GetText( "NO_SUCH_USER" ) );
 				return;
 			}
 			if(ToList.Visible)
 				UserName.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageBoardID,false,UserName.Text,null)) 
+			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID,false,UserName.Text,null)) 
 			{
 				if(dt.Rows.Count!=1) 
 				{
-					AddLoadMessage(GetText("NO_SUCH_USER"));
+					PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
 					return;
 				} 
-				else if((int)dt.Rows[0]["IsGuest"]>0) 
+				else if((int)dt.Rows[0]["PageContext.IsGuest"]>0) 
 				{
-					AddLoadMessage(GetText("NOT_GUEST"));
+					PageContext.AddLoadMessage(GetText("NOT_GUEST"));
 					return;	
 				}
 
-				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"],PageForumID,AccessMaskID.SelectedValue);
-				Forum.Redirect( ForumPages.moderate,"f={0}",PageForumID);
+				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"],PageContext.PageForumID,AccessMaskID.SelectedValue);
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate,"f={0}",PageContext.PageForumID);
 			}
 		}
 		
 		private void Cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect( ForumPages.moderate,"f={0}",PageForumID);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate,"f={0}",PageContext.PageForumID);
 		}
 
 		#region Web Form Designer generated code

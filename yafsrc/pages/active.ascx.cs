@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class active : ForumPage
+	public partial class active : YAF.Classes.Base.ForumPage
 	{
 		protected System.Web.UI.WebControls.DropDownList ForumJump;
 		protected string LastForumName = "";
@@ -45,19 +47,19 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// 20050909 CHP : BEGIN
-			if (IsPrivate && User==null)
+			if (PageContext.IsPrivate && User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
 				else
-					Forum.Redirect( ForumPages.forum);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 			}
 			// 20050909 CHP : END
 
- 			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", Data.ForumRoot);
-			if (BoardSettings.ShowRSSLink)
+ 			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", yaf_ForumInfo.ForumRoot);
+			if (PageContext.BoardSettings.ShowRSSLink)
 			{
-				RssFeed.NavigateUrl = Forum.GetLink( ForumPages.rsstopic, "pg=active");
+				RssFeed.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active");
 				RssFeed.Text = GetText("RSSFEED");
 				RssFeed.Visible = true;
 			}
@@ -68,10 +70,10 @@ namespace YAF.Pages
 
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
-				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),FormatDateTime(Mession.LastVisit)),"0"));
+				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),yaf_DateTime.FormatDateTime(Mession.LastVisit)),"0"));
 				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));
 				Since.Items.Add(new ListItem(GetText("last_two_hours"),"-2"));
 				Since.Items.Add(new ListItem(GetText("last_day"),"1"));
@@ -130,9 +132,9 @@ namespace YAF.Pages
 
 			object categoryIDObject = null;
 
-			if ( ForumControl.CategoryID != 0 ) categoryIDObject = ForumControl.CategoryID;
+			if ( PageContext.Settings.CategoryID != 0 ) categoryIDObject = PageContext.Settings.CategoryID;
 
-			DataView dv = YAF.Classes.Data.DB.topic_active( PageBoardID, PageUserID, SinceDate, categoryIDObject ).DefaultView;
+			DataView dv = YAF.Classes.Data.DB.topic_active( PageContext.PageBoardID, PageContext.PageUserID, SinceDate, categoryIDObject ).DefaultView;
 			pds.DataSource = dv;
 			Pager.Count = dv.Count;
 			Pager.PageSize = 15;
@@ -148,7 +150,7 @@ namespace YAF.Pages
 			string ForumName = (string)row["ForumName"];
 			string html = "";
 			if(ForumName!=LastForumName) {
-				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,Forum.GetLink( ForumPages.topics,"f={0}",row["ForumID"]));
+				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
 				LastForumName = ForumName;
 			}
 			return html;

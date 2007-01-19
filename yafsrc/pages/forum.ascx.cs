@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for _default.
 	/// </summary>
-	public partial class forum : ForumPage
+	public partial class forum : YAF.Classes.Base.ForumPage
 	{
 
 		public forum()
@@ -44,31 +46,31 @@ namespace YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				if (IsPrivate && User==null)
+				if (PageContext.IsPrivate && User==null)
 				{
-					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				}
 
-				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), FormatTime( DateTime.Now ) );
-				TimeLastVisit.Text = String.Format( GetText( "last_visit" ), FormatDateTime( Mession.LastVisit ) );
+				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), yaf_DateTime.FormatTime( DateTime.Now ) );
+				TimeLastVisit.Text = String.Format( GetText( "last_visit" ), yaf_DateTime.FormatDateTime( Mession.LastVisit ) );
 				MarkAll.Text = GetText( "MARKALL" );
 
-				if ( UnreadPrivate > 0 )
+				if ( PageContext.UnreadPrivate > 0 )
 				{
 					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = Forum.GetLink( ForumPages.cp_inbox );
-					if ( UnreadPrivate == 1 )
-						UnreadMsgs.Text = String.Format( GetText( "unread1" ), UnreadPrivate );
+					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox );
+					if ( PageContext.UnreadPrivate == 1 )
+						UnreadMsgs.Text = String.Format( GetText( "unread1" ), PageContext.UnreadPrivate );
 					else
-						UnreadMsgs.Text = String.Format( GetText( "unread0" ), UnreadPrivate );
+						UnreadMsgs.Text = String.Format( GetText( "unread0" ), PageContext.UnreadPrivate );
 				}
 
-				if ( ForumControl.LockedForum == 0 )
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-					if ( PageCategoryID != 0 )
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					if ( PageContext.PageCategoryID != 0 )
 					{
-						PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
+						PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 						Welcome.Visible = false;
 					}
 				}
@@ -86,23 +88,23 @@ namespace YAF.Pages
 
 		private void BindData()
 		{
-			DataSet ds = YAF.Classes.Data.DB.board_layout( PageBoardID, PageUserID, PageCategoryID, null );
+			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
 			CategoryList.DataSource = ds.Tables ["yaf_Category"];
 
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageBoardID, null );
+			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
 
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
-			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageBoardID, 7, PageUserID );
+			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID );
 
 			// Forum statistics
-			string key = string.Format( "BoardStats.{0}", PageBoardID );
+			string key = string.Format( "BoardStats.{0}", PageContext.PageBoardID );
 			DataRow stats = ( DataRow ) Cache [key];
 			if ( stats == null )
 			{
-				stats = YAF.Classes.Data.DB.board_poststats( PageBoardID );
+				stats = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
 				Cache.Insert( key, stats, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
 			}
 
@@ -112,8 +114,8 @@ namespace YAF.Pages
 			if ( !stats.IsNull( "LastPost" ) )
 			{
 				Stats.Text += String.Format( GetText( "stats_lastpost" ),
-					FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
+					yaf_DateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
+					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
 				);
 				Stats.Text += "<br/>";
 			}
@@ -122,19 +124,19 @@ namespace YAF.Pages
 			Stats.Text += "<br/>";
 
 			Stats.Text += String.Format( GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
+				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
 				);
 			Stats.Text += "<br/>";
 
-			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageBoardID );
+			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
 			activeinfo.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
 				String.Format( GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
-				Forum.GetLink( ForumPages.activeusers )
+				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
 				);
 
-			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), BoardSettings.MaxUsers, FormatDateTimeTopic( BoardSettings.MaxUsersWhen ) );
+			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, yaf_DateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
 
 			UpdateActiveDiscussionsPanel();
 			UpdateInformationPanel();
@@ -153,12 +155,12 @@ namespace YAF.Pages
 					minipost = GetThemeContents( "ICONS", "ICON_LATEST" );
 
 				return String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
-					FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
-					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
-					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", Forum.GetLink( ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
+					yaf_DateTime.FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
+					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
+					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
 					minipost,
 					GetText( "GO_LAST_POST" ),
-					Forum.GetLink( ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
+					YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 					);
 			}
 			else
@@ -179,7 +181,7 @@ namespace YAF.Pages
 		{
 			DataRow row = ( DataRow ) o;
 			bool locked = ( bool ) row ["Locked"];
-			DateTime lastRead = GetForumRead( ( int ) row ["ForumID"] );
+			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
 			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
 
 			string img, imgTitle;
@@ -213,7 +215,7 @@ namespace YAF.Pages
 
 		protected void ModeratorList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
 		{
-			//AddLoadMessage("TODO: Fix this");
+			//PageContext.AddLoadMessage("TODO: Fix this");
 			//TODO: Show moderators
 		}
 

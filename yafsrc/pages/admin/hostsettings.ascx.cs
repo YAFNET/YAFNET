@@ -27,12 +27,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public partial class hostsettings : AdminPage
+	public partial class hostsettings : YAF.Classes.Base.AdminPage
 	{
 		protected System.Web.UI.WebControls.CheckBox    AllowRichEditX   ;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
@@ -40,13 +42,13 @@ namespace YAF.Pages.Admin {
 	
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
-			if(!IsHostAdmin)
-				Data.AccessDenied();
+			if(!PageContext.IsHostAdmin)
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Host Settings","");
 
 				BindData();
@@ -64,58 +66,58 @@ namespace YAF.Pages.Admin {
 
 		private void BindData()
 		{
-			TimeZones.DataSource = Data.TimeZones();
+			TimeZones.DataSource = yaf_StaticData.TimeZones();
 			ForumEditorList.DataSource = YAF.Editor.EditorHelper.GetEditorsTable();
 
 			DataBind();
 
 			// grab all the settings form the current board settings class
-			SQLVersion.Text = BoardSettings.SQLVersion;
-			TimeZones.Items.FindByValue(BoardSettings.TimeZoneRaw.ToString()).Selected = true;
-			ForumEditorList.Items.FindByValue(BoardSettings.ForumEditor.ToString()).Selected = true;
-			ForumSmtpServer.Text = BoardSettings.SmtpServer;
-			ForumSmtpUserName.Text = BoardSettings.SmtpUserName;
-			ForumSmtpUserPass.Text = BoardSettings.SmtpUserPass;
-			ForumEmailEdit.Text = BoardSettings.ForumEmail;
-			EmailVerification.Checked = BoardSettings.EmailVerification;
-			ShowMoved.Checked = BoardSettings.ShowMoved;
-			BlankLinks.Checked = BoardSettings.BlankLinks;
-			ShowGroupsX.Checked = BoardSettings.ShowGroups;
-			AvatarWidth.Text = BoardSettings.AvatarWidth.ToString();
-			AvatarHeight.Text = BoardSettings.AvatarHeight.ToString();
-			AvatarUpload.Checked = BoardSettings.AvatarUpload;
-			AvatarRemote.Checked = BoardSettings.AvatarRemote;
-			AvatarSize.Text = (BoardSettings.AvatarSize != 0) ? BoardSettings.AvatarSize.ToString() : "";
-			AllowUserThemeX.Checked = BoardSettings.AllowUserTheme;
-			AllowUserLanguageX.Checked = BoardSettings.AllowUserLanguage;
-			UseFileTableX.Checked = BoardSettings.UseFileTable;
-			ShowRSSLinkX.Checked = BoardSettings.ShowRSSLink;
-			ShowForumJumpX.Checked = BoardSettings.ShowForumJump;
-			AllowPrivateMessagesX.Checked = BoardSettings.AllowPrivateMessages;
-			AllowEmailSendingX.Checked = BoardSettings.AllowEmailSending;
-			AllowSignaturesX.Checked = BoardSettings.AllowSignatures;
-			RemoveNestedQuotesX.Checked = BoardSettings.RemoveNestedQuotes;
-			MaxFileSize.Text = (BoardSettings.MaxFileSize != 0) ? BoardSettings.MaxFileSize.ToString() : "";
-			SmiliesColumns.Text = BoardSettings.SmiliesColumns.ToString();
-			SmiliesPerRow.Text = BoardSettings.SmiliesPerRow.ToString();
-			LockPosts.Text = BoardSettings.LockPosts.ToString();
-			PostsPerPage.Text = BoardSettings.PostsPerPage.ToString();
-			TopicsPerPage.Text = BoardSettings.TopicsPerPage.ToString();
-			DateFormatFromLanguage.Checked = BoardSettings.DateFormatFromLanguage;
-			AcceptedHTML.Text = BoardSettings.AcceptedHTML;
-			DisableRegistrations.Checked = BoardSettings.DisableRegistrations;
-			CreateNntpUsers.Checked = BoardSettings.CreateNntpUsers;
-			ShowGroupsProfile.Checked = BoardSettings.ShowGroupsProfile;
-			PostFloodDelay.Text = BoardSettings.PostFloodDelay.ToString();
-			PollVoteTiedToIPX.Checked = BoardSettings.PollVoteTiedToIP;
-			AllowPMNotifications.Checked = BoardSettings.AllowPMEmailNotification;
-			ShowPageGenerationTime.Checked = BoardSettings.ShowPageGenerationTime;
-            AdPost.Text = BoardSettings.AdPost;
-            ShowAdsToSignedInUsers.Checked = BoardSettings.ShowAdsToSignedInUsers;
-			DisplayPoints.Checked = BoardSettings.DisplayPoints;
-            ShowQuickAnswerX.Checked = BoardSettings.ShowQuickAnswer;
-            ShowDeletedMessages.Checked = BoardSettings.ShowDeletedMessages;
-            EditTimeOut.Text = BoardSettings.EditTimeOut.ToString();
+			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
+			TimeZones.Items.FindByValue(PageContext.BoardSettings.TimeZoneRaw.ToString()).Selected = true;
+			ForumEditorList.Items.FindByValue(PageContext.BoardSettings.ForumEditor.ToString()).Selected = true;
+			ForumSmtpServer.Text = PageContext.BoardSettings.SmtpServer;
+			ForumSmtpUserName.Text = PageContext.BoardSettings.SmtpUserName;
+			ForumSmtpUserPass.Text = PageContext.BoardSettings.SmtpUserPass;
+			ForumEmailEdit.Text = PageContext.BoardSettings.ForumEmail;
+			EmailVerification.Checked = PageContext.BoardSettings.EmailVerification;
+			ShowMoved.Checked = PageContext.BoardSettings.ShowMoved;
+			BlankLinks.Checked = PageContext.BoardSettings.BlankLinks;
+			ShowGroupsX.Checked = PageContext.BoardSettings.ShowGroups;
+			AvatarWidth.Text = PageContext.BoardSettings.AvatarWidth.ToString();
+			AvatarHeight.Text = PageContext.BoardSettings.AvatarHeight.ToString();
+			AvatarUpload.Checked = PageContext.BoardSettings.AvatarUpload;
+			AvatarRemote.Checked = PageContext.BoardSettings.AvatarRemote;
+			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
+			AllowUserThemeX.Checked = PageContext.BoardSettings.AllowUserTheme;
+			AllowUserLanguageX.Checked = PageContext.BoardSettings.AllowUserLanguage;
+			UseFileTableX.Checked = PageContext.BoardSettings.UseFileTable;
+			ShowRSSLinkX.Checked = PageContext.BoardSettings.ShowRSSLink;
+			ShowForumJumpX.Checked = PageContext.BoardSettings.ShowForumJump;
+			AllowPrivateMessagesX.Checked = PageContext.BoardSettings.AllowPrivateMessages;
+			AllowEmailSendingX.Checked = PageContext.BoardSettings.AllowEmailSending;
+			AllowSignaturesX.Checked = PageContext.BoardSettings.AllowSignatures;
+			RemoveNestedQuotesX.Checked = PageContext.BoardSettings.RemoveNestedQuotes;
+			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
+			SmiliesColumns.Text = PageContext.BoardSettings.SmiliesColumns.ToString();
+			SmiliesPerRow.Text = PageContext.BoardSettings.SmiliesPerRow.ToString();
+			LockPosts.Text = PageContext.BoardSettings.LockPosts.ToString();
+			PostsPerPage.Text = PageContext.BoardSettings.PostsPerPage.ToString();
+			TopicsPerPage.Text = PageContext.BoardSettings.TopicsPerPage.ToString();
+			DateFormatFromLanguage.Checked = PageContext.BoardSettings.DateFormatFromLanguage;
+			AcceptedHTML.Text = PageContext.BoardSettings.AcceptedHTML;
+			DisableRegistrations.Checked = PageContext.BoardSettings.DisableRegistrations;
+			CreateNntpUsers.Checked = PageContext.BoardSettings.CreateNntpUsers;
+			ShowGroupsProfile.Checked = PageContext.BoardSettings.ShowGroupsProfile;
+			PostFloodDelay.Text = PageContext.BoardSettings.PostFloodDelay.ToString();
+			PollVoteTiedToIPX.Checked = PageContext.BoardSettings.PollVoteTiedToIP;
+			AllowPMNotifications.Checked = PageContext.BoardSettings.AllowPMEmailNotification;
+			ShowPageGenerationTime.Checked = PageContext.BoardSettings.ShowPageGenerationTime;
+            AdPost.Text = PageContext.BoardSettings.AdPost;
+            ShowAdsToSignedInUsers.Checked = PageContext.BoardSettings.ShowAdsToSignedInUsers;
+			DisplayPoints.Checked = PageContext.BoardSettings.DisplayPoints;
+            ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
+            ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
+            EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
 		}
 
 		#region Web Form Designer generated code
@@ -147,59 +149,59 @@ namespace YAF.Pages.Admin {
 			if (sUserPass.Length == 0) sUserPass = null;
 
 			// write all the settings back to the settings class
-			BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
-			BoardSettings.ForumEditor = Convert.ToInt32(ForumEditorList.SelectedItem.Value);
-			BoardSettings.SmtpServer = ForumSmtpServer.Text;
-			BoardSettings.SmtpUserName = sUserName;
-			BoardSettings.SmtpUserPass = sUserPass;
-			BoardSettings.ForumEmail = ForumEmailEdit.Text;
-			BoardSettings.EmailVerification = EmailVerification.Checked;
-			BoardSettings.ShowMoved = ShowMoved.Checked;
-			BoardSettings.BlankLinks = BlankLinks.Checked;
-			BoardSettings.ShowGroups = ShowGroupsX.Checked;
-			BoardSettings.AvatarWidth = Convert.ToInt32(AvatarWidth.Text);
-			BoardSettings.AvatarHeight = Convert.ToInt32(AvatarHeight.Text);
-			BoardSettings.AvatarUpload = AvatarUpload.Checked;
-			BoardSettings.AvatarRemote = AvatarRemote.Checked;
-			BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32(AvatarSize.Text) : 0;
-			BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
-			BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
-			BoardSettings.UseFileTable = UseFileTableX.Checked;
-			BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
-			BoardSettings.ShowForumJump = ShowForumJumpX.Checked;
-			BoardSettings.AllowPrivateMessages = AllowPrivateMessagesX.Checked;
-			BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
-			BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
-			BoardSettings.RemoveNestedQuotes = RemoveNestedQuotesX.Checked;
-			BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
-			BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
-			BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
-			BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
-			BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
-			BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
-			BoardSettings.PostFloodDelay = Convert.ToInt32(PostFloodDelay.Text.Trim());
-			BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
-			BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
-			BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
-			BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
-			BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
-			BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
-			BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
-			BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
-            BoardSettings.AdPost = AdPost.Text;
-            BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
-			BoardSettings.DisplayPoints = DisplayPoints.Checked;
-            BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
-            BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
-            BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
+			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
+			PageContext.BoardSettings.ForumEditor = Convert.ToInt32(ForumEditorList.SelectedItem.Value);
+			PageContext.BoardSettings.SmtpServer = ForumSmtpServer.Text;
+			PageContext.BoardSettings.SmtpUserName = sUserName;
+			PageContext.BoardSettings.SmtpUserPass = sUserPass;
+			PageContext.BoardSettings.ForumEmail = ForumEmailEdit.Text;
+			PageContext.BoardSettings.EmailVerification = EmailVerification.Checked;
+			PageContext.BoardSettings.ShowMoved = ShowMoved.Checked;
+			PageContext.BoardSettings.BlankLinks = BlankLinks.Checked;
+			PageContext.BoardSettings.ShowGroups = ShowGroupsX.Checked;
+			PageContext.BoardSettings.AvatarWidth = Convert.ToInt32(AvatarWidth.Text);
+			PageContext.BoardSettings.AvatarHeight = Convert.ToInt32(AvatarHeight.Text);
+			PageContext.BoardSettings.AvatarUpload = AvatarUpload.Checked;
+			PageContext.BoardSettings.AvatarRemote = AvatarRemote.Checked;
+			PageContext.BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32(AvatarSize.Text) : 0;
+			PageContext.BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
+			PageContext.BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
+			PageContext.BoardSettings.UseFileTable = UseFileTableX.Checked;
+			PageContext.BoardSettings.ShowRSSLink = ShowRSSLinkX.Checked;
+			PageContext.BoardSettings.ShowForumJump = ShowForumJumpX.Checked;
+			PageContext.BoardSettings.AllowPrivateMessages = AllowPrivateMessagesX.Checked;
+			PageContext.BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
+			PageContext.BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
+			PageContext.BoardSettings.RemoveNestedQuotes = RemoveNestedQuotesX.Checked;
+			PageContext.BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
+			PageContext.BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
+			PageContext.BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
+			PageContext.BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
+			PageContext.BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
+			PageContext.BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
+			PageContext.BoardSettings.PostFloodDelay = Convert.ToInt32(PostFloodDelay.Text.Trim());
+			PageContext.BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
+			PageContext.BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
+			PageContext.BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
+			PageContext.BoardSettings.CreateNntpUsers = CreateNntpUsers.Checked;
+			PageContext.BoardSettings.ShowGroupsProfile = ShowGroupsProfile.Checked;
+			PageContext.BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
+			PageContext.BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
+			PageContext.BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
+            PageContext.BoardSettings.AdPost = AdPost.Text;
+            PageContext.BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
+			PageContext.BoardSettings.DisplayPoints = DisplayPoints.Checked;
+            PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
+            PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
+            PageContext.BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
 
 			// save the settings to the database
-			BoardSettings.SaveRegistry();
+			PageContext.BoardSettings.SaveRegistry();
 
 			// reload all settings from the DB
-			BoardSettings = null;
+			PageContext.BoardSettings = null;
 
-			Forum.Redirect( ForumPages.admin_admin);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin);
 		}
 	}
 }

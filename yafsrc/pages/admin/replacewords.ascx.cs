@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for bannedip.
 	/// </summary>
-	public partial class replacewords : AdminPage
+	public partial class replacewords : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Replace Words","");
 
 				BindData();
@@ -56,15 +58,15 @@ namespace YAF.Pages.Admin
 		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) 
 		{
 			if(e.CommandName == "add")
-				Forum.Redirect( ForumPages.admin_replacewords_edit);
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit);
 			else if(e.CommandName == "edit")
-				Forum.Redirect( ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") 
 			{
 				YAF.Classes.Data.DB.replace_words_delete(e.CommandArgument);
 				Cache.Remove("replacewords");
 				BindData();
-				AddLoadMessage("Removed word filter.");
+				PageContext.AddLoadMessage("Removed word filter.");
 			}
 		}
 

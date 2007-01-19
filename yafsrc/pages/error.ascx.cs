@@ -27,13 +27,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for error.
 	/// </summary>
-	public partial class error : ForumPage
+	public partial class error : YAF.Classes.Base.ForumPage
 	{
 
 		public error() : base("ERROR") {

@@ -28,13 +28,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Data;
+using YAF.Classes.Utils;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public partial class search : ForumPage
+	public partial class search : YAF.Classes.Base.ForumPage
 	{
 
 		/// <summary>
@@ -74,16 +75,16 @@ namespace YAF.Pages
 			if ( !IsPostBack )
 			{
 				// 20050909 CHP : BEGIN
-				if (IsPrivate && User==null)
+				if (PageContext.IsPrivate && User==null)
 				{
 					if(CanLogin)
-						Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+						YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 					else
-						Forum.Redirect( ForumPages.forum );
+						YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 				}
 				// 20050909 CHP : END
 
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 				btnSearch.Text = GetText( "btnsearch" );
 
@@ -109,7 +110,7 @@ namespace YAF.Pages
 
 				//Load forum's combo
 				//listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
-                //DataTable dt = YAF.Classes.Data.DB.forum_listread( PageBoardID, PageUserID, null, null );
+                //DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
 
                 //int nOldCat = 0;
                 //for ( int i = 0; i < dt.Rows.Count; i++ )
@@ -123,7 +124,7 @@ namespace YAF.Pages
                 //    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
                 //}
 
-                listForum.DataSource = DB.forum_listall_sorted(PageBoardID, PageUserID);
+                listForum.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
                 listForum.DataValueField = "ForumID";
                 listForum.DataTextField = "Title";
                 DataBind();
@@ -173,7 +174,7 @@ namespace YAF.Pages
                     SEARCH_WHAT sfw = (SEARCH_WHAT)System.Enum.Parse(typeof(SEARCH_WHAT), listSearchFromWho.SelectedValue);
 					int forumID = int.Parse( listForum.SelectedValue );
 
-                    DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult(txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageUserID, PageBoardID);
+                    DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult(txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID);
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = searchDataTable.DefaultView.Count;
@@ -196,21 +197,21 @@ namespace YAF.Pages
 			}
 			catch ( System.Data.SqlClient.SqlException x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-				Utils.LogToMail( x );
-				if ( IsAdmin )
-					AddLoadMessage( string.Format( "{0}", x ) );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				General.LogToMail( x );
+				if ( PageContext.IsAdmin )
+					PageContext.AddLoadMessage( string.Format( "{0}", x ) );
 				else
-					AddLoadMessage( "An error occurred in the database." );
+					PageContext.AddLoadMessage( "An error occurred in the database." );
 			}
 			catch ( Exception x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-				Utils.LogToMail( x );
-				if ( IsAdmin )
-					AddLoadMessage( string.Format( "{0}", x ) );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				General.LogToMail( x );
+				if ( PageContext.IsAdmin )
+					PageContext.AddLoadMessage( string.Format( "{0}", x ) );
 				else
-					AddLoadMessage( "An error occured while searching." );
+					PageContext.AddLoadMessage( "An error occured while searching." );
 			}
 		}
 
@@ -222,7 +223,7 @@ namespace YAF.Pages
 		public string FormatMessage( object o )
 		{
 			DataRowView row = ( DataRowView ) o;
-			return FormatMsg.FormatMessage( this, row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
+			return FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
 		}
 
 		protected void btnSearch_Click( object sender, System.EventArgs e )
@@ -237,7 +238,7 @@ namespace YAF.Pages
 			{
 				string messageID = cell.InnerText;
 				int rowCount = e.Item.ItemIndex + 1 + ( Pager.CurrentPageIndex * Pager.PageSize );
-				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, Forum.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
+				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", messageID ) );
 			}
 		}
 	}

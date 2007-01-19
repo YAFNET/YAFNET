@@ -26,73 +26,77 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for printtopic.
 	/// </summary>
-	public partial class printtopic : ForumPage
+	public partial class printtopic : YAF.Classes.Base.ForumPage
 	{
 
-		public printtopic() : base("PRINTTOPIC")
+		public printtopic()
+			: base( "PRINTTOPIC" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(Request.QueryString["t"] == null || !ForumReadAccess)
-				Data.AccessDenied();
+			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess )
+				yaf_BuildLink.AccessDenied();
 
 			ShowToolBar = false;
 
-			if(!IsPostBack) {
-				if(ForumControl.LockedForum==0)
+			if ( !IsPostBack )
+			{
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
-				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(PageTopicName,Forum.GetLink( ForumPages.posts,"t={0}",PageTopicID));
+				PageLinks.AddForumLinks( PageContext.PageForumID );
+				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
-                Posts.DataSource = YAF.Classes.Data.DB.post_list(PageTopicID, 1, BoardSettings.ShowDeletedMessages);
+				Posts.DataSource = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages );
 				DataBind();
 			}
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 		}
 		#endregion
 
-		protected string GetPrintHeader(object o)
+		protected string GetPrintHeader( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			return String.Format("<b>{2}: {0}</b> - {1}",row["UserName"],FormatDateTime((DateTime)row["Posted"]),GetText("postedby"));
+			DataRowView row = ( DataRowView ) o;
+			return String.Format( "<b>{2}: {0}</b> - {1}", row ["UserName"], yaf_DateTime.FormatDateTime( ( DateTime ) row ["Posted"] ), GetText( "postedby" ) );
 		}
 
-		protected string GetPrintBody(object o)
+		protected string GetPrintBody( object o )
 		{
-			DataRowView row = (DataRowView)o;
-		
-			string message = row["Message"].ToString();
+			DataRowView row = ( DataRowView ) o;
 
-			message = FormatMsg.FormatMessage(this,message,new MessageFlags(Convert.ToInt32(row["Flags"])));
-			
+			string message = row ["Message"].ToString();
+
+			message = FormatMsg.FormatMessage( message, new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
+
 			return message;
 		}
 	}

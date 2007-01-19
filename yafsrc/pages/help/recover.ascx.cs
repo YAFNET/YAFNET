@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.help
 {
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public partial class recover : ForumPage
+	public partial class recover : YAF.Classes.Base.ForumPage
 	{
 
 		public recover() : base(null)
@@ -43,9 +45,9 @@ namespace YAF.Pages.help
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Help",Forum.GetLink( ForumPages.help_index));
-				PageLinks.AddLink("Recover lost passwords",Forum.GetLink( ForumPages.help_recover));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Help",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.help_index));
+				PageLinks.AddLink("Recover lost passwords",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.help_recover));
 				BindData();
 			}
 		}

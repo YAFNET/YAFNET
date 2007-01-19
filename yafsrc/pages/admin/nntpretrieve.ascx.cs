@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for ranks.
 	/// </summary>
-	public partial class nntpretrieve : AdminPage
+	public partial class nntpretrieve : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Retrieve","");
 
 				BindData();
@@ -49,7 +51,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-			List.DataSource = YAF.Classes.Data.DB.nntpforum_list(PageBoardID,10,null,true);
+			List.DataSource = YAF.Classes.Data.DB.nntpforum_list(PageContext.PageBoardID,10,null,true);
 			DataBind();
 		}
 
@@ -77,8 +79,8 @@ namespace YAF.Pages.Admin
 		{
 			int nSeconds = int.Parse(Seconds.Text);
 			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = Classes.Nntp.ReadArticles(PageBoardID,10,nSeconds,BoardSettings.CreateNntpUsers);
-			AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
+			int nArticleCount = Classes.Nntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
+			PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}
 

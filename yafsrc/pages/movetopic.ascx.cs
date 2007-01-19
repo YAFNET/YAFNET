@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for movetopic.
 	/// </summary>
-	public partial class movetopic : ForumPage
+	public partial class movetopic : YAF.Classes.Base.ForumPage
 	{
 	
 		public movetopic() : base("MOVETOPIC")
@@ -41,26 +43,26 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(Request.QueryString["t"] == null || !ForumModeratorAccess)
-				Data.AccessDenied();
+			if(Request.QueryString["t"] == null || !PageContext.ForumModeratorAccess)
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack)
 			{
-				if(ForumControl.LockedForum==0)
+				if(PageContext.Settings.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
 				}
-				PageLinks.AddForumLinks(PageForumID);
-				PageLinks.AddLink(PageTopicName,Forum.GetLink( ForumPages.posts,"t={0}",PageTopicID));
+				PageLinks.AddForumLinks(PageContext.PageForumID);
+				PageLinks.AddLink(PageContext.PageTopicName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"t={0}",PageContext.PageTopicID));
 
 				Move.Text = GetText("move");
 
-				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageBoardID, PageUserID );
+				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				
 				DataBind();
 				
-				System.Web.UI.WebControls.ListItem pageItem = ForumList.Items.FindByValue(PageForumID.ToString());
+				System.Web.UI.WebControls.ListItem pageItem = ForumList.Items.FindByValue(PageContext.PageForumID.ToString());
 				if (pageItem != null) pageItem.Selected = true;
 			}
 		}
@@ -89,15 +91,15 @@ namespace YAF.Pages
 		{
             if (Convert.ToInt32(ForumList.SelectedValue) <= 0)
             {
-                AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
+                PageContext.AddLoadMessage(GetText("CANNOT_MOVE_TO_CATEGORY"));
                 return;
             }
             // only move if it's a destination is a different forum.
-            if (Convert.ToInt32(ForumList.SelectedValue) != PageForumID)
+            if (Convert.ToInt32(ForumList.SelectedValue) != PageContext.PageForumID)
             {
-                YAF.Classes.Data.DB.topic_move(PageTopicID, ForumList.SelectedValue, BoardSettings.ShowMoved);
+                YAF.Classes.Data.DB.topic_move(PageContext.PageTopicID, ForumList.SelectedValue, PageContext.BoardSettings.ShowMoved);
             }
-            Forum.Redirect(ForumPages.topics, "f={0}", PageForumID);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics,"f={0}",PageContext.PageForumID);
 		}
 	}
 }

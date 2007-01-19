@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for moderate.
 	/// </summary>
-	public partial class moderate0 : ForumPage
+	public partial class moderate0 : YAF.Classes.Base.ForumPage
 	{
 
 		public moderate0() : base("MODERATE")
@@ -41,19 +43,19 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!ForumModeratorAccess)
-				Data.AccessDenied();
+			if(!PageContext.ForumModeratorAccess)
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
 				AddUser.Text = GetText("INVITE");
 
-				if(ForumControl.LockedForum==0)
+				if(PageContext.Settings.LockedForum==0)
 				{
-					PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-					PageLinks.AddLink(PageCategoryName,Forum.GetLink( ForumPages.forum,"c={0}",PageCategoryID));
+					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
 				}
-				PageLinks.AddForumLinks(PageForumID);
+				PageLinks.AddForumLinks(PageContext.PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),"");
 			}
 			BindData();
@@ -61,7 +63,7 @@ namespace YAF.Pages
 
 		private void AddUser_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.mod_forumuser,"f={0}",PageForumID);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}",PageContext.PageForumID);
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
@@ -76,15 +78,15 @@ namespace YAF.Pages
 
 		private void BindData() 
 		{
-			topiclist.DataSource = YAF.Classes.Data.DB.topic_list(PageForumID,-1,null,0,999999);
-			UserList.DataSource = YAF.Classes.Data.DB.userforum_list(null,PageForumID);
+			topiclist.DataSource = YAF.Classes.Data.DB.topic_list(PageContext.PageForumID,-1,null,0,999999);
+			UserList.DataSource = YAF.Classes.Data.DB.userforum_list(null,PageContext.PageForumID);
 			DataBind();
 		}
 
 		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
 			if(e.CommandName=="delete") {
 				YAF.Classes.Data.DB.topic_delete(e.CommandArgument);
-				AddLoadMessage(GetText("deleted"));
+				PageContext.AddLoadMessage(GetText("deleted"));
 				BindData();
 			}
 		}
@@ -94,10 +96,10 @@ namespace YAF.Pages
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.mod_forumuser,"f={0}&u={1}",PageForumID,e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}&u={1}",PageContext.PageForumID,e.CommandArgument);
 					break;
 				case "remove":
-					YAF.Classes.Data.DB.userforum_delete(e.CommandArgument,PageForumID);
+					YAF.Classes.Data.DB.userforum_delete(e.CommandArgument,PageContext.PageForumID);
 					BindData();
 					break;
 			}

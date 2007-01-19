@@ -27,48 +27,50 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin {
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
-	public partial class boardsettings : AdminPage
+	public partial class boardsettings : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Board Settings","");
 
 				// create list boxes by populating datasources from Data class
-				Theme.DataSource = Data.Themes();
+				Theme.DataSource = yaf_StaticData.Themes();
 				Theme.DataTextField = "Theme";
 				Theme.DataValueField = "FileName";
 
-				Language.DataSource = Data.Languages();
+				Language.DataSource = yaf_StaticData.Languages();
 				Language.DataTextField = "Language";
 				Language.DataValueField = "FileName";
 
-				ShowTopic.DataSource = Data.TopicTimes();
+				ShowTopic.DataSource = yaf_StaticData.TopicTimes();
 				ShowTopic.DataTextField = "TopicText";
 				ShowTopic.DataValueField = "TopicValue";
 
 				BindData();
 				
-				Theme.Items.FindByValue(BoardSettings.Theme).Selected = true;
-				Language.Items.FindByValue(BoardSettings.Language).Selected = true;
-				ShowTopic.Items.FindByValue(BoardSettings.ShowTopicsDefault.ToString()).Selected = true;
-                AllowThemedLogo.Checked = BoardSettings.AllowThemedLogo;
+				Theme.Items.FindByValue(PageContext.BoardSettings.Theme).Selected = true;
+				Language.Items.FindByValue(PageContext.BoardSettings.Language).Selected = true;
+				ShowTopic.Items.FindByValue(PageContext.BoardSettings.ShowTopicsDefault.ToString()).Selected = true;
+                AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
 			}
 		}
 
 		private void BindData()
 		{
 			DataRow row;
-			using(DataTable dt = YAF.Classes.Data.DB.board_list(PageBoardID))
+			using(DataTable dt = YAF.Classes.Data.DB.board_list(PageContext.PageBoardID))
 				row = dt.Rows[0];
 
 			DataBind();
@@ -98,19 +100,19 @@ namespace YAF.Pages.Admin {
 
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
-            YAF.Classes.Data.DB.board_save(PageBoardID, Name.Text, AllowThreaded.Checked);
+            YAF.Classes.Data.DB.board_save(PageContext.PageBoardID, Name.Text, AllowThreaded.Checked);
 
-			BoardSettings.Theme = Theme.SelectedValue;
-			BoardSettings.Language = Language.SelectedValue;
-			BoardSettings.ShowTopicsDefault = Convert.ToInt32(ShowTopic.SelectedValue);
-            BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
+			PageContext.BoardSettings.Theme = Theme.SelectedValue;
+			PageContext.BoardSettings.Language = Language.SelectedValue;
+			PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32(ShowTopic.SelectedValue);
+            PageContext.BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
 			/// save the settings to the database
-			BoardSettings.SaveRegistry();
+			PageContext.BoardSettings.SaveRegistry();
 
 			/// Reload forum settings
-			BoardSettings = null;
+			PageContext.BoardSettings = null;
 
-			Forum.Redirect( ForumPages.admin_admin);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin);
 		}
 	}
 }

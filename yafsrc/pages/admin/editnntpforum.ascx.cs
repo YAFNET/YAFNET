@@ -26,27 +26,29 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editnntpforum : AdminPage
+	public partial class editnntpforum : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "NNTP Forums", "" );
 
 				BindData();
 				if ( Request.QueryString ["s"] != null )
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.nntpforum_list( PageBoardID, null, Request.QueryString ["s"], DBNull.Value ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.nntpforum_list( PageContext.PageBoardID, null, Request.QueryString ["s"], DBNull.Value ) )
 					{
 						DataRow row = dt.Rows [0];
 						NntpServerID.Items.FindByValue( row ["NntpServerID"].ToString() ).Selected = true;
@@ -80,10 +82,10 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-			NntpServerID.DataSource = YAF.Classes.Data.DB.nntpserver_list( PageBoardID, null );
+			NntpServerID.DataSource = YAF.Classes.Data.DB.nntpserver_list( PageContext.PageBoardID, null );
 			NntpServerID.DataValueField = "NntpServerID";
 			NntpServerID.DataTextField = "Name";
-			ForumID.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageBoardID, PageUserID );
+			ForumID.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 			ForumID.DataValueField = "ForumID";
 			ForumID.DataTextField = "Title";
 			DataBind();
@@ -91,7 +93,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( ForumPages.admin_nntpforums );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -99,7 +101,7 @@ namespace YAF.Pages.Admin
 			object nntpForumID = null;
 			if ( Request.QueryString ["s"] != null ) nntpForumID = Request.QueryString ["s"];
 			YAF.Classes.Data.DB.nntpforum_save( nntpForumID, NntpServerID.SelectedValue, GroupName.Text, ForumID.SelectedValue, Active.Checked );
-			Forum.Redirect( ForumPages.admin_nntpforums );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
 		}
 	}
 }

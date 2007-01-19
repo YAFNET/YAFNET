@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_subscriptions.
 	/// </summary>
-    public partial class cp_changepassword : ForumPage
+    public partial class cp_changepassword : YAF.Classes.Base.ForumPage
 	{
 
 		public cp_changepassword() : base("CP_CHANGEPASSWORD")
@@ -44,23 +46,23 @@ namespace YAF.Pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login,"ReturnUrl={0}",Utils.GetSafeRawUrl());
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
 				else
-					Forum.Redirect( ForumPages.forum);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 			}
 
             if (!IsPostBack)
             {
-                PageLinks.AddLink(BoardSettings.Name, Forum.GetLink( ForumPages.forum));
-                PageLinks.AddLink(PageUserName, Forum.GetLink( ForumPages.cp_profile));
+                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+                PageLinks.AddLink(PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
                 //TODO PageLinks.AddLink(GetText("TITLE"), "dd");
-                PageLinks.AddLink("Change Password", Forum.GetLink( ForumPages.cp_changepassword));
+                PageLinks.AddLink("Change Password", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_changepassword));
             }
         }
 
         void ChangePassword1_CancelButtonClick(object sender, EventArgs e)
         {
-            Forum.Redirect( ForumPages.cp_profile);
+            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile);
         }
 
 		override protected void OnInit(EventArgs e)
@@ -73,7 +75,7 @@ namespace YAF.Pages
 
         void ChangePassword1_ChangedPassword(object sender, EventArgs e)
         {
-            Forum.Redirect( ForumPages.cp_profile);
+            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile);
         }
 	}
 }

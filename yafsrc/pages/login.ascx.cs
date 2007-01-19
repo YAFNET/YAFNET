@@ -27,13 +27,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for login.
 	/// </summary>
-	public partial class login : ForumPage
+	public partial class login : YAF.Classes.Base.ForumPage
 	{
 
 		public login()
@@ -44,16 +46,16 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !CanLogin )
-				Forum.Redirect( ForumPages.forum );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				Login1.CreateUserText = "Sign up for a new account.";
-				Login1.CreateUserUrl = Forum.GetLink( ForumPages.register );
+				Login1.CreateUserUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
-				Login1.PasswordRecoveryUrl = Forum.GetLink( ForumPages.recoverpassword );
+				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 
 				//ForumLogin.Text = GetText( "forum_login" );
 				//LostPassword.Text = GetText( "lostpassword" );
@@ -79,7 +81,7 @@ namespace YAF.Pages
 			if ( Request.QueryString ["ReturnUrl"] != null )
 				Response.Redirect( Request.QueryString ["ReturnUrl"] );
 			else
-				Forum.Redirect( ForumPages.forum );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 		}
 	}
 }

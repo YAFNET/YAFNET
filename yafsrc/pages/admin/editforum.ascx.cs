@@ -26,27 +26,29 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Administrative Page for the editting of forum properties.
 	/// </summary>
-	public partial class editforum : AdminPage
+	public partial class editforum : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Forums", "" );
 
 				BindData();
 				if ( Request.QueryString ["f"] != null )
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, Request.QueryString ["f"] ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, Request.QueryString ["f"] ) )
 					{
 						DataRow row = dt.Rows [0];
 						Name.Text = ( string ) row ["Name"];
@@ -74,7 +76,7 @@ namespace YAF.Pages.Admin
 		private void BindData()
 		{
 			int ForumID = 0;
-			CategoryList.DataSource = YAF.Classes.Data.DB.category_list( PageBoardID, null );
+			CategoryList.DataSource = YAF.Classes.Data.DB.category_list( PageContext.PageBoardID, null );
 			CategoryList.DataBind();
 
 			if ( Request.QueryString ["f"] != null )
@@ -85,7 +87,7 @@ namespace YAF.Pages.Admin
 			}
 
 			// Load forum's combo
-			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
+			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageContext.PageBoardID, CategoryList.SelectedValue );
 			ParentList.DataValueField = "ForumID";
 			ParentList.DataTextField = "Title";
 			ParentList.DataBind();
@@ -97,7 +99,7 @@ namespace YAF.Pages.Admin
 
 			AccessMaskID.DataBind();
 
-			ThemeList.DataSource = Data.Themes();
+			ThemeList.DataSource = yaf_StaticData.Themes();
 			ThemeList.DataTextField = "Theme";
 			ThemeList.DataValueField = "FileName";
 			ThemeList.DataBind();
@@ -106,7 +108,7 @@ namespace YAF.Pages.Admin
 
 		public void Category_Change( object sender, System.EventArgs e )
 		{
-			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageBoardID, CategoryList.SelectedValue );
+			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageContext.PageBoardID, CategoryList.SelectedValue );
 			ParentList.DataValueField = "ForumID";
 			ParentList.DataTextField = "Title";
 			ParentList.DataBind();
@@ -124,22 +126,22 @@ namespace YAF.Pages.Admin
 		{
 			if ( CategoryList.SelectedValue.Trim().Length == 0 )
 			{
-				AddLoadMessage( "You must select a category for the forum." );
+				PageContext.AddLoadMessage( "You must select a category for the forum." );
 				return;
 			}
 			if ( Name.Text.Trim().Length == 0 )
 			{
-				AddLoadMessage( "You must enter a name for the forum." );
+				PageContext.AddLoadMessage( "You must enter a name for the forum." );
 				return;
 			}
 			if ( Description.Text.Trim().Length == 0 )
 			{
-				AddLoadMessage( "You must enter a description for the forum." );
+				PageContext.AddLoadMessage( "You must enter a description for the forum." );
 				return;
 			}
 			if ( SortOrder.Text.Trim().Length == 0 )
 			{
-				AddLoadMessage( "You must enter a value for sort order." );
+				PageContext.AddLoadMessage( "You must enter a value for sort order." );
 				return;
 			}
 
@@ -151,7 +153,7 @@ namespace YAF.Pages.Admin
 			}
 			else if ( AccessMaskID.SelectedValue.Length == 0 )
 			{
-				AddLoadMessage( "You must select an initial access mask for the forum." );
+				PageContext.AddLoadMessage( "You must select an initial access mask for the forum." );
 				return;
 			}
 
@@ -174,21 +176,21 @@ namespace YAF.Pages.Admin
 					int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 					YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
 				}
-				Forum.Redirect( ForumPages.admin_forums );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 			}
 
 			// Done
-			Forum.Redirect( ForumPages.admin_editforum, "f={0}", ForumID );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum, "f={0}", ForumID );
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( ForumPages.admin_forums );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 		}
 
 		protected void BindData_AccessMaskID( object sender, System.EventArgs e )
 		{
-			( ( DropDownList ) sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageBoardID, null );
+			( ( DropDownList ) sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageContext.PageBoardID, null );
 			( ( DropDownList ) sender ).DataValueField = "AccessMaskID";
 			( ( DropDownList ) sender ).DataTextField = "Name";
 		}

@@ -17,13 +17,15 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 //using jwendl.Pager;
 
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for avatar.
 	/// </summary>
-	public partial class avatar : ForumPage
+	public partial class avatar : YAF.Classes.Base.ForumPage
 	{
 		protected System.Web.UI.WebControls.Label title;
 	
@@ -62,17 +64,17 @@ namespace YAF.Pages
 
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 
 				if ( returnUserID > 0 )
 				{
-					PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
-					PageLinks.AddLink( "Users", Forum.GetLink( ForumPages.admin_users ) );
+					PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+					PageLinks.AddLink( "Users", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 				}
 				else
 				{				
-				PageLinks.AddLink(PageUserName,Forum.GetLink( ForumPages.cp_profile));
-					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), Forum.GetLink( ForumPages.cp_editavatar ) );
+				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
+					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar ) );
 				}				
 				PageLinks.AddLink(GetText("TITLE"),"");
 
@@ -116,7 +118,7 @@ namespace YAF.Pages
 
 		public void files_bind(object sender, DataListItemEventArgs e)
 		{
-			string strDirectory = Data.ForumRoot + "images/avatars/" + CurrentDir;
+			string strDirectory = yaf_ForumInfo.ForumRoot + "images/avatars/" + CurrentDir;
 
 			/*
 			string pdir = "";
@@ -139,11 +141,11 @@ namespace YAF.Pages
 
 					if ( returnUserID > 0 )
 					{
-						link = Forum.GetLink( ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
+						link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
 					}
 					else
 				{
-						link = Forum.GetLink( ForumPages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
+						link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
 					}
 
 					fname.Text = string.Format( @"<p align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></p>{3}", link, ( strDirectory + "/" + finfo.Name ), finfo.Name, Environment.NewLine );
@@ -155,7 +157,7 @@ namespace YAF.Pages
 			{
 				HyperLink dhead = (HyperLink)e.Item.FindControl("dhead");
 				dhead.NavigateUrl = Page.GetPostBackClientHyperlink(GoDir, pdir);
-				dhead.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />UP</a></p>", Data.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+				dhead.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />UP</a></p>", yaf_ForumInfo.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
 			}
 			*/
 		}
@@ -189,7 +191,7 @@ namespace YAF.Pages
 
 		public void directories_bind(object sender, DataListItemEventArgs e)
 		{
-			string strDirectory = Data.ForumRoot + "images/avatars/";
+			string strDirectory = yaf_ForumInfo.ForumRoot + "images/avatars/";
 	
 			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
 			{
@@ -198,13 +200,13 @@ namespace YAF.Pages
 				Trace.Write(dname.UniqueID);
 
 				dname.NavigateUrl = Page.ClientScript.GetPostBackClientHyperlink(GoDir, filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")),true);
-				dname.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", Data.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+				dname.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", yaf_ForumInfo.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
 			}
 		}
 		
 		private void bind_data()
 		{
-			string strDirectory = Data.ForumRoot + "images/avatars/" + CurrentDir;
+			string strDirectory = yaf_ForumInfo.ForumRoot + "images/avatars/" + CurrentDir;
 
 			DirectoryInfo dirinfo = new DirectoryInfo(Server.MapPath(strDirectory));
 

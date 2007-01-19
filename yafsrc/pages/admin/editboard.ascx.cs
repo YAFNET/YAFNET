@@ -26,19 +26,21 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public partial class editboard : AdminPage {
+	public partial class editboard : YAF.Classes.Base.AdminPage {
 	
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Boards","");
 
 				BindData();
@@ -88,29 +90,29 @@ namespace YAF.Pages.Admin
 		{
 			if(Name.Text.Trim().Length==0) 
 			{
-				AddLoadMessage("You must enter a name for the board.");
+				PageContext.AddLoadMessage("You must enter a name for the board.");
 				return;
 			}
 			if(Request.QueryString["b"] == null) 
 			{
 				if(UserName.Text.Trim().Length==0)
 				{
-					AddLoadMessage("You must enter the name of a administrator user.");
+					PageContext.AddLoadMessage("You must enter the name of a administrator user.");
 					return;
 				}
 				if(UserEmail.Text.Trim().Length==0) 
 				{
-					AddLoadMessage("You must enter the email address of the administrator user.");
+					PageContext.AddLoadMessage("You must enter the email address of the administrator user.");
 					return;
 				}
 				if(UserPass1.Text.Trim().Length==0)
 				{
-					AddLoadMessage("You must enter a password for the administrator user.");
+					PageContext.AddLoadMessage("You must enter a password for the administrator user.");
 					return;
 				}
 				if(UserPass1.Text!=UserPass2.Text)
 				{
-					AddLoadMessage("The passwords don't match.");
+					PageContext.AddLoadMessage("The passwords don't match.");
 					return;
 				}
 			}
@@ -125,18 +127,18 @@ namespace YAF.Pages.Admin
 			}
 
 			// Done
-			BoardSettings = null;
-			Forum.Redirect( ForumPages.admin_boards);
+			PageContext.BoardSettings = null;
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards);
 		}
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_boards);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards);
 		}
 
 		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
 		{
-			((DropDownList)sender).DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
+			((DropDownList)sender).DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
 			((DropDownList)sender).DataValueField = "AccessMaskID";
 			((DropDownList)sender).DataTextField = "Name";
 		}

@@ -26,20 +26,22 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for main.
 	/// </summary>
-	public partial class admin : AdminPage
+	public partial class admin : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink("Administration","");
 				BindData();
 				//TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
@@ -58,8 +60,8 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
-			ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageBoardID,true);
-			UserList.DataSource = YAF.Classes.Data.DB.user_list(PageBoardID,null,false);
+			ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID,true);
+			UserList.DataSource = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,null,false);
 			DataBind();
 
 			DataRow row = YAF.Classes.Data.DB.board_stats();
@@ -85,7 +87,7 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.admin_edituser,"u={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.user_delete(e.CommandArgument);
@@ -96,7 +98,7 @@ namespace YAF.Pages.Admin
 					BindData();
 					break;
 				case "deleteall":
-					YAF.Classes.Data.DB.user_deleteold(PageBoardID);
+					YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID);
 					BindData();
 					break;
 			}
@@ -107,14 +109,14 @@ namespace YAF.Pages.Admin
 			if(ForumID.ToString()=="" || ForumName.ToString()=="")
 				return "";
 
-			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",Forum.GetLink( ForumPages.topics,"f={0}",ForumID),ForumName);
+			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",ForumID),ForumName);
 		}
 
 		protected string FormatTopicLink(object TopicID,object TopicName) {
 			if(TopicID.ToString()=="" || TopicName.ToString()=="")
 				return "";
 
-			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",Forum.GetLink( ForumPages.posts,"t={0}",TopicID),TopicName);
+			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"t={0}",TopicID),TopicName);
 		}
 
 		#region Web Form Designer generated code

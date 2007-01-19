@@ -28,13 +28,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Globalization;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for editprofile.
 	/// </summary>
-	public partial class cp_profile : ForumPage
+	public partial class cp_profile : YAF.Classes.Base.ForumPage
 	{
 
 		public cp_profile()
@@ -47,17 +49,17 @@ namespace YAF.Pages
 			if(User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 				else
-					Forum.Redirect( ForumPages.forum );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
 			{
 				BindData();
 
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageUserName, "" );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.PageUserName, "" );
 			}
 		}
 
@@ -65,11 +67,11 @@ namespace YAF.Pages
 		{
 			DataRow row;
 
-			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageUserID );
+			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageContext.PageUserID );
 
 			// Bind			
 			DataBind();
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
 			{
 				row = dt.Rows [0];
 			}
@@ -77,20 +79,20 @@ namespace YAF.Pages
 			TitleUserName.Text = Server.HtmlEncode( ( string ) row ["Name"] );
 			AccountEmail.Text = row ["Email"].ToString();
 			Name.Text = Server.HtmlEncode( ( string ) row ["Name"] );
-			Joined.Text = FormatDateTime( ( DateTime ) row ["Joined"] );
+			Joined.Text = yaf_DateTime.FormatDateTime( ( DateTime ) row ["Joined"] );
 			NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
 
-			if ( BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
+			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", Data.ForumRoot, PageUserID );
+				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", yaf_ForumInfo.ForumRoot, PageContext.PageUserID );
 			}
-			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out BoardSettings.AvatarRemote
+			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				AvatarImage.Src = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
 					Server.UrlEncode( row ["Avatar"].ToString() ),
-					BoardSettings.AvatarWidth,
-					BoardSettings.AvatarHeight,
-					Data.ForumRoot );
+					PageContext.BoardSettings.AvatarWidth,
+					PageContext.BoardSettings.AvatarHeight,
+					yaf_ForumInfo.ForumRoot );
 			}
 			else
 			{

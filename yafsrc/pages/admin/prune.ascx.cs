@@ -26,20 +26,22 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for prune.
 	/// </summary>
-	public partial class prune : AdminPage
+	public partial class prune : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Prune","");
 
 				days.Text = "60";
@@ -48,7 +50,7 @@ namespace YAF.Pages.Admin
 		}
 
 		private void BindData() {
-			forumlist.DataSource = YAF.Classes.Data.DB.forum_listread(PageBoardID,PageUserID,null,null);
+			forumlist.DataSource = YAF.Classes.Data.DB.forum_listread(PageContext.PageBoardID,PageContext.PageUserID,null,null);
 			forumlist.DataValueField = "ForumID";
 			forumlist.DataTextField = "Forum";
 			DataBind();
@@ -57,7 +59,7 @@ namespace YAF.Pages.Admin
 
 		private void commit_Click(object sender,EventArgs e) {
 			int Count = YAF.Classes.Data.DB.topic_prune(forumlist.SelectedValue,days.Text);
-			AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
+			PageContext.AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 
 		#region Web Form Designer generated code

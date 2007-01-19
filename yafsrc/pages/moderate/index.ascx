@@ -20,7 +20,7 @@
 		<tr class="post">
 			<td><img src='<%# GetThemeContents("ICONS","FORUM") %>'/></td>
 			<td>
-				<b><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.moderate_forum,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></b><br/>
+				<b><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.moderate_forum,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></b><br/>
 				<%# GetText("MODERATE_DEFAULT","CATEGORY") %>: <%# Eval("CategoryName") %>
 			</td>
 			<td align="center"><%# Eval("MessageCount") %></td>

@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for groups.
 	/// </summary>
-	public partial class groups : AdminPage
+	public partial class groups : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Groups","");
 
 				BindData();
@@ -75,7 +77,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
-			GroupList.DataSource = YAF.Classes.Data.DB.group_list(PageBoardID,null);
+			GroupList.DataSource = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID,null);
 			DataBind();
 		}
 
@@ -84,11 +86,11 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.admin_editgroup,"i={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
                     string roleName = string.Empty;
-                    using (DataTable dt = YAF.Classes.Data.DB.group_list(PageBoardID, e.CommandArgument))
+                    using (DataTable dt = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID, e.CommandArgument))
                     {
                         foreach (DataRow row in dt.Rows)
                             roleName = (string)row["Name"];
@@ -102,7 +104,7 @@ namespace YAF.Pages.Admin
 
 		protected void NewGroup_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_editgroup);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

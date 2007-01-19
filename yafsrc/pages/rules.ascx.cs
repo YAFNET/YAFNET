@@ -27,13 +27,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for rules.
 	/// </summary>
-	public partial class rules : ForumPage
+	public partial class rules : YAF.Classes.Base.ForumPage
 	{
 	
 		public rules() : base("RULES")
@@ -44,12 +46,12 @@ namespace YAF.Pages
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 			
 				ForumRules.Text = "TODO:";
 			}
 			//TODO: Write license info and stuff...
-			Forum.Redirect( ForumPages.register);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
 
 		#region Web Form Designer generated code
@@ -74,12 +76,12 @@ namespace YAF.Pages
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.forum);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 		}
 
 		protected void Accept_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.register);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
 
 	}

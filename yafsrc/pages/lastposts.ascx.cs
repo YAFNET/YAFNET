@@ -4,13 +4,15 @@ using System.Drawing;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	///		Summary description for LastPosts.
 	/// </summary>
-	public partial class lastposts : ForumPage
+	public partial class lastposts : YAF.Classes.Base.ForumPage
 	{
 
 		public lastposts() : base("POSTMESSAGE")
@@ -20,8 +22,8 @@ namespace YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!ForumReadAccess)
-				Data.AccessDenied();
+			if(!PageContext.ForumReadAccess)
+				yaf_BuildLink.AccessDenied();
 
 			if (Request.QueryString["t"] != null)
 			{
@@ -52,7 +54,7 @@ namespace YAF.Pages
 		protected string FormatBody(object o) 
 		{
 			DataRowView row = (DataRowView)o;
-			string html = FormatMsg.FormatMessage(this,row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
+			string html = FormatMsg.FormatMessage(row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
 
 			string messageSignature = row["Signature"].ToString();
 			if (messageSignature != string.Empty) 
@@ -60,7 +62,7 @@ namespace YAF.Pages
 				MessageFlags flags = new MessageFlags();
 				flags.IsHTML = false;
 
-				messageSignature = FormatMsg.FormatMessage(this,messageSignature,flags);
+				messageSignature = FormatMsg.FormatMessage(messageSignature,flags);
 				html += "<br/><hr noshade/>" + messageSignature;
 			}
 

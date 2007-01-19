@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class im_email : ForumPage
+	public partial class im_email : YAF.Classes.Base.ForumPage
 	{
 
 		public im_email()
@@ -43,16 +45,16 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( User == null )
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-						PageLinks.AddLink( row ["Name"].ToString(), Forum.GetLink( ForumPages.profile, "u={0}", row ["UserID"] ) );
+						PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+						PageLinks.AddLink( row ["Name"].ToString(), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["UserID"] ) );
 						PageLinks.AddLink( GetText( "TITLE" ), "" );
 						break;
 					}
@@ -67,7 +69,7 @@ namespace YAF.Pages
 			{
 				string from = string.Empty, to = string.Empty;
 				string fromName = string.Empty, toName = string.Empty;
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
@@ -76,7 +78,7 @@ namespace YAF.Pages
 						break;
 					}
 				}
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, null ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, null ) )
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
@@ -85,16 +87,16 @@ namespace YAF.Pages
 						break;
 					}
 				}
-				Utils.SendMail( this, from, fromName, to, toName, Subject.Text, Body.Text );
-				Forum.Redirect( ForumPages.profile, "u={0}", Request.QueryString ["u"] );
+				General.SendMail( from, fromName, to, toName, Subject.Text, Body.Text );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", Request.QueryString ["u"] );
 			}
 			catch ( Exception x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-				if ( IsAdmin )
-					AddLoadMessage( x.Message );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				if ( PageContext.IsAdmin )
+					PageContext.AddLoadMessage( x.Message );
 				else
-					AddLoadMessage( GetText( "ERROR" ) );
+					PageContext.AddLoadMessage( GetText( "ERROR" ) );
 			}
 		}
 

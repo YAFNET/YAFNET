@@ -61,14 +61,14 @@
                 <td colspan="2">
                     <b>
                         <%= GetText("topic") %>
-                    </b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
+                    </b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
                         <%# DataBinder.Eval(Container.DataItem, "Topic") %>
                     </a>
                 </td>
             </tr>
             <tr class="postheader">
                 <td width="140px" id="NameCell" valign="top">
-                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
+                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
                         <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
                     </a></b>
                 </td>

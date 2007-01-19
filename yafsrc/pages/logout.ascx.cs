@@ -28,13 +28,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for logout.
 	/// </summary>
-	public partial class logout : ForumPage
+	public partial class logout : YAF.Classes.Base.ForumPage
 	{
 		public logout() : base("LOGOUT")
 		{
@@ -44,11 +46,11 @@ namespace YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!CanLogin)
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 			
 			FormsAuthentication.SignOut();
 			Session.Abandon();
-			Forum.Redirect( ForumPages.forum );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 		}
 
 		#region Web Form Designer generated code

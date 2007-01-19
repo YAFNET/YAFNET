@@ -148,7 +148,7 @@
                 <uc1:SuspendUser runat="server" ID="SuspendUserControl" />
                 <uc1:SignatureEdit runat="server" ID="SignatureEditControl" />
                 <div id="AdminUser" runat="server">
-                    <a href='<%# YAF.Forum.GetLink(YAF.ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
+                    <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
                 </div>
 		</td>	
             <td valign="top">
@@ -175,8 +175,8 @@
 			        <td class="small" align="left" colspan="2">
                                 <b>
                                     <%= GetText("topic") %>
-                                </b><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
-                                    <%# YAF.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
+                                </b><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
+                                    <%# YAF.Classes.Utils.General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
                                 </a>
                                 <br />
                                 <b>

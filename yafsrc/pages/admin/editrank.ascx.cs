@@ -26,27 +26,29 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editrank : AdminPage
+	public partial class editrank : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Ranks","");
 
 				BindData();
 				if(Request.QueryString["r"] != null) 
 				{
-					using(DataTable dt = YAF.Classes.Data.DB.rank_list(PageBoardID,Request.QueryString["r"]))
+					using(DataTable dt = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID,Request.QueryString["r"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text = (string)row["Name"];
@@ -57,22 +59,22 @@ namespace YAF.Pages.Admin
 						if(item!=null) 
 						{
 							item.Selected = true;
-							Preview.Src = String.Format("{0}images/ranks/{1}", Data.ForumRoot, row["RankImage"]); //path corrected
+							Preview.Src = String.Format("{0}images/ranks/{1}", yaf_ForumInfo.ForumRoot, row["RankImage"]); //path corrected
 						}
 						else
 						{
-							Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+							Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
 						}
 					}
 				}
 				else
 				{
-					Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+					Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
 				}
 			}
 			RankImage.Attributes["onchange"] = String.Format(
 				"getElementById('{1}__ctl0_Preview').src='{0}images/ranks/' + this.value",
-				Data.ForumRoot,
+				yaf_ForumInfo.ForumRoot,
 				this.Parent.ID
 				);
 		}
@@ -109,7 +111,7 @@ namespace YAF.Pages.Admin
 				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",Data.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",yaf_ForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.*");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -134,7 +136,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_ranks);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -146,9 +148,9 @@ namespace YAF.Pages.Admin
 			object rankImage = null;
 			if(RankImage.SelectedIndex>0)
 				rankImage = RankImage.SelectedValue;
-			YAF.Classes.Data.DB.rank_save(RankID,PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
+			YAF.Classes.Data.DB.rank_save(RankID,PageContext.PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
-			Forum.Redirect( ForumPages.admin_ranks);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
 		}
 	}
 }

@@ -26,23 +26,25 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for members.
 	/// </summary>
-	public partial class users : AdminPage
+	public partial class users : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Users","");
 
-				using(DataTable dt=YAF.Classes.Data.DB.group_list(PageBoardID,null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.group_list(PageContext.PageBoardID,null)) 
 				{
 					DataRow newRow = dt.NewRow();
 					newRow["Name"] = string.Empty;
@@ -55,7 +57,7 @@ namespace YAF.Pages.Admin
 					group.DataBind();
 				}
 
-				using(DataTable dt=YAF.Classes.Data.DB.rank_list(PageBoardID,null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID,null)) 
 				{
 					DataRow newRow = dt.NewRow();
 					newRow["Name"] = string.Empty;
@@ -88,7 +90,7 @@ namespace YAF.Pages.Admin
 		private void BindData() 
 		{
 			using(DataTable dt=
-					  YAF.Classes.Data.DB.user_list(PageBoardID,null,null,
+					  YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,null,null,
 					  group.SelectedIndex<=0 ? null : group.SelectedValue,
 					  rank.SelectedIndex<=0 ? null : rank.SelectedValue
 					  )) 
@@ -106,28 +108,28 @@ namespace YAF.Pages.Admin
 		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "edit":
-					Forum.Redirect( ForumPages.admin_edituser,"u={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser,"u={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(PageUserID==int.Parse(e.CommandArgument.ToString()))
+					if(PageContext.PageUserID==int.Parse(e.CommandArgument.ToString()))
 					{
-						AddLoadMessage("You can't delete yourself.");
+						PageContext.AddLoadMessage("You can't delete yourself.");
 						return;
 					}
                     string userName = string.Empty;
-                    using (DataTable dt = YAF.Classes.Data.DB.user_list(PageBoardID, e.CommandArgument, DBNull.Value))
+                    using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, e.CommandArgument, DBNull.Value))
                     {
                         foreach (DataRow row in dt.Rows)
                         {
                             userName = (string)row["Name"];
-                            if ((int)row["IsGuest"] > 0)
+                            if ((int)row["PageContext.IsGuest"] > 0)
                             {
-                                AddLoadMessage("You can't delete the Guest.");
+                                PageContext.AddLoadMessage("You can't delete the Guest.");
                                 return;
                             }
-                            if ((int)row["IsAdmin"] > 0 || (int)row["IsHostAdmin"] > 0)
+                            if ((int)row["PageContext.IsAdmin"] > 0 || (int)row["PageContext.IsHostAdmin"] > 0)
                             {
-                                AddLoadMessage("You can't delete the Admin.");
+                                PageContext.AddLoadMessage("You can't delete the Admin.");
                                 return;
                             }
                         }
@@ -141,7 +143,7 @@ namespace YAF.Pages.Admin
 		// Added BAI 07.01.2003
 		private void NewUser_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_reguser);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser);
 		}
 		// END Added BAI 07.01.2003
 

@@ -26,7 +26,7 @@
 <ItemTemplate>
 	<tr class=post>
 		<td align="center"><img src='<%# GetImage(Container.DataItem) %>'/></td>
-		<td><a href='<%# YAF.Forum.GetLink(YAF.ForumPages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
+		<td><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
 		<td><%# Eval(IsSentItems ? "ToUser" : "FromUser") %></td>
 		<td><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %></td>
 		<td align="center"><asp:checkbox runat="server" id="ItemCheck" /></td>

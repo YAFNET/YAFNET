@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for emailtopic.
 	/// </summary>
-	public partial class emailtopic : ForumPage
+	public partial class emailtopic : YAF.Classes.Base.ForumPage
 	{
 
 		public emailtopic()
@@ -42,25 +44,25 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( Request.QueryString ["t"] == null || !ForumReadAccess )
-				Data.AccessDenied();
+			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess )
+				yaf_BuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
-				if ( ForumControl.LockedForum == 0 )
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
-				PageLinks.AddForumLinks( PageForumID );
-				PageLinks.AddLink( PageTopicName, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) );
+				PageLinks.AddForumLinks( PageContext.PageForumID );
+				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				SendEmail.Text = GetText( "send" );
 
-				Subject.Text = PageTopicName;
-				string msg = Utils.ReadTemplate( "emailtopic.txt" );
-				msg = msg.Replace( "{link}", String.Format( "{0}{1}", ServerURL, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) ) );
-				msg = msg.Replace( "{user}", PageUserName );
+				Subject.Text = PageContext.PageTopicName;
+				string msg = General.ReadTemplate( "emailtopic.txt" );
+				msg = msg.Replace( "{link}", String.Format( "{0}{1}", YAF.Classes.Utils.yaf_ForumInfo.ServerURL, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) ) );
+				msg = msg.Replace( "{user}", PageContext.PageUserName );
 				Message.Text = msg;
 			}
 		}
@@ -88,24 +90,24 @@ namespace YAF.Pages
 		{
 			if ( EmailAddress.Text.Length == 0 )
 			{
-				AddLoadMessage( GetText( "need_email" ) );
+				PageContext.AddLoadMessage( GetText( "need_email" ) );
 				return;
 			}
 
 			try
 			{
 				string senderemail;
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, PageUserID, true ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
 					senderemail = ( string ) dt.Rows [0] ["Email"];
 
 				//  Build a MailMessage
-				Utils.SendMail( this, senderemail, EmailAddress.Text, Subject.Text, Message.Text );
-				Forum.Redirect( ForumPages.posts, "t={0}", PageTopicID );
+				General.SendMail( senderemail, EmailAddress.Text, Subject.Text, Message.Text );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			catch ( Exception x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-				AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				PageContext.AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
 			}
 		}
 	}

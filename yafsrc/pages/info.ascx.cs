@@ -8,13 +8,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for info.
 	/// </summary>
-	public partial class info : ForumPage
+	public partial class info : YAF.Classes.Base.ForumPage
 	{
 
 		public info()
@@ -45,28 +47,28 @@ namespace YAF.Pages
 							break;
 						case 2: /// Suspended
 							Title.Text = GetText( "title_suspended" );
-							Info.Text = String.Format( GetText( "suspended" ), FormatDateTime( SuspendedTo ) );
+							Info.Text = String.Format( GetText( "suspended" ), yaf_DateTime.FormatDateTime( PageContext.SuspendedUntil ) );
 							break;
 						case 3: /// Registration email
 							Title.Text = GetText( "title_registration" );
 							Info.Text = GetText( "registration" );
 							RefreshTime = 10;
-							RefreshURL = Forum.GetLink( ForumPages.login );
+							RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.login );
 							break;
 						case 4: /// Access Denied
 							Title.Text = GetText( "title_accessdenied" );
 							Info.Text = GetText( "accessdenied" );
 							RefreshTime = 10;
-							RefreshURL = Forum.GetLink( ForumPages.forum );
+							RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
 							break;
 					}
 				}
 				catch ( Exception )
 				{
 					Title.Text = GetText( "title_exception" );
-					Info.Text = string.Format( "{1} <b>{0}</b>.", PageUserName, GetText( "exception" ) );
+					Info.Text = string.Format( "{1} <b>{0}</b>.", PageContext.PageUserName, GetText( "exception" ) );
 					RefreshTime = 2;
-					RefreshURL = Forum.GetLink( ForumPages.forum );
+					RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
 				}
 				Continue.NavigateUrl = RefreshURL;
 				Continue.Visible = RefreshURL != null;

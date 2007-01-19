@@ -37,7 +37,7 @@
             <td class="header2" colspan="5">
                 <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline" CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
                 </asp:ImageButton>
-                &nbsp;&nbsp; <a href='<%# YAF.Forum.GetLink(YAF.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
+                &nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
                     <%# DataBinder.Eval(Container.DataItem, "Name") %>
                 </a>
             </td>
@@ -70,7 +70,7 @@
                             <asp:Label runat="server" ID="activeinfo" /><br />
                             <asp:Repeater runat="server" ID="ActiveList">
                                 <ItemTemplate>
-                                    <a href='<%#YAF.Forum.GetLink(YAF.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
+                                    <a href='<%#YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
                                         <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
                                     </a>
                                 </ItemTemplate>
@@ -112,8 +112,8 @@
                         <td class="post" valign="top">
                             <asp:Repeater runat="server" ID="LatestPosts">
                                 <ItemTemplate>
-                                    &nbsp;<a href='<%#YAF.Forum.GetLink(YAF.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# YAF.Utils.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
-                                    <a href="<%#YAF.Forum.GetLink(YAF.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
+                                    &nbsp;<a href='<%#YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# YAF.Classes.Utils.General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
+                                    <a href="<%#YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
                                         <img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0" alt=""></a><br />
                                 </ItemTemplate>
                             </asp:Repeater>

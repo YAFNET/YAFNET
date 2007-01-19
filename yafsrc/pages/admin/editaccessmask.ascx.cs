@@ -26,24 +26,26 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public partial class editaccessmask : AdminPage {
+	public partial class editaccessmask : YAF.Classes.Base.AdminPage {
 	
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Access Masks","");
 
 				BindData();
 				if(Request.QueryString["i"] != null) {
-					using(DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageBoardID,Request.QueryString["i"])) 
+					using(DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,Request.QueryString["i"])) 
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text				= (string)row["Name"];
@@ -94,7 +96,7 @@ namespace YAF.Pages.Admin
 				accessMaskID = Request.QueryString["i"];
 
 			YAF.Classes.Data.DB.accessmask_save(accessMaskID,
-				PageBoardID,
+				PageContext.PageBoardID,
 				Name.Text,
 				ReadAccess.Checked,
 				PostAccess.Checked,
@@ -106,12 +108,12 @@ namespace YAF.Pages.Admin
 				EditAccess.Checked,
 				DeleteAccess.Checked,
 				UploadAccess.Checked);
-			Forum.Redirect( ForumPages.admin_accessmasks);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_accessmasks);
 		}
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_accessmasks);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_accessmasks);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

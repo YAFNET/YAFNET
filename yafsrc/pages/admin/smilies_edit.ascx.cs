@@ -7,21 +7,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies_edit.
 	/// </summary>
-	public partial class smilies_edit : AdminPage
+	public partial class smilies_edit : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
@@ -42,7 +44,7 @@ namespace YAF.Pages.Admin
 				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",Data.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",yaf_ForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.*");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -66,24 +68,24 @@ namespace YAF.Pages.Admin
 
 			if(Request["s"]!=null) 
 			{
-				using(DataTable dt = YAF.Classes.Data.DB.smiley_list(PageBoardID,Request.QueryString["s"])) 
+				using(DataTable dt = YAF.Classes.Data.DB.smiley_list(PageContext.PageBoardID,Request.QueryString["s"])) 
 				{
 					if(dt.Rows.Count>0) 
 					{
 						Code.Text = dt.Rows[0]["Code"].ToString();
 						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
 						if (Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()) != null) Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
-						Preview.Src = String.Format("{0}images/emoticons/{1}",Data.ForumRoot,dt.Rows[0]["Icon"]);
+						Preview.Src = String.Format("{0}images/emoticons/{1}",yaf_ForumInfo.ForumRoot,dt.Rows[0]["Icon"]);
 					}
 				}
 			}
 			else
 			{
-				Preview.Src = String.Format("{0}images/spacer.gif", Data.ForumRoot);
+				Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
 			}
 			Icon.Attributes["onchange"] = String.Format(
 				"getElementById('{1}__ctl0_Preview').src='{0}images/emoticons/' + this.value",
-				Data.ForumRoot,
+				yaf_ForumInfo.ForumRoot,
 				this.Parent.ID
 				);
 		}
@@ -96,26 +98,26 @@ namespace YAF.Pages.Admin
 
 			if(sCode.Length==0) 
 			{
-				AddLoadMessage("Please enter the code to use for this emotion.");
+				PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
 				return;
 			}
 			if(sEmotion.Length==0) 
 			{
-				AddLoadMessage("Please enter the emotion for this icon.");
+				PageContext.AddLoadMessage("Please enter the emotion for this icon.");
 				return;
 			}
 			if(Icon.SelectedIndex<1) 
 			{
-				AddLoadMessage("Please select an icon to use for this emotion.");
+				PageContext.AddLoadMessage("Please select an icon to use for this emotion.");
 				return;
 			}
-			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"],PageBoardID,sCode,sIcon,sEmotion,0);
-			Forum.Redirect( ForumPages.admin_smilies);
+			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"],PageContext.PageBoardID,sCode,sIcon,sEmotion,0);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			Forum.Redirect( ForumPages.admin_smilies);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 

@@ -7,21 +7,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for smilies.
 	/// </summary>
-	public partial class smilies : AdminPage
+	public partial class smilies : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
@@ -41,7 +43,7 @@ namespace YAF.Pages.Admin
 		private void BindData() 
 		{
             Pager.PageSize = 15;
-            DataView dv = YAF.Classes.Data.DB.smiley_list(PageBoardID, null).DefaultView;
+            DataView dv = YAF.Classes.Data.DB.smiley_list(PageContext.PageBoardID, null).DefaultView;
             Pager.Count = dv.Count;
             PagedDataSource pds = new PagedDataSource();
             pds.DataSource = dv;
@@ -57,17 +59,17 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "add":
-					Forum.Redirect( ForumPages.admin_smilies_edit);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_edit);
 					break;
 				case "edit":
-					Forum.Redirect( ForumPages.admin_smilies_edit,"s={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_edit,"s={0}",e.CommandArgument);
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.smiley_delete(e.CommandArgument);
 					BindData();
 					break;
 				case "import":
-					Forum.Redirect( ForumPages.admin_smilies_import);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_import);
 					break;
 			}
 		}

@@ -27,13 +27,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for edituser.
 	/// </summary>
-	public partial class edituser : AdminPage
+	public partial class edituser : YAF.Classes.Base.AdminPage
 	{
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
@@ -45,14 +47,15 @@ namespace YAF.Pages.Admin
 			if ( !IsPostBack )
 			{
 				if ( Request.QueryString ["u"] != null )
-					if ( !IsHostAdmin && IsUserHostAdmin( Convert.ToInt32( Request.QueryString ["u"] ) ) )
+					// TODO: write the IsUserHostAdmin function
+					if ( !PageContext.IsHostAdmin ) // && IsUserHostAdmin( Convert.ToInt32( Request.QueryString ["u"] ) ) ) 
 					{
-						Data.AccessDenied();
+						yaf_BuildLink.AccessDenied();
 					}
 
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", Forum.GetLink( ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Users", Forum.GetLink( ForumPages.admin_users ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Users", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 				PageLinks.AddLink( "Edit", "" );
 
 				BasicEditLink.Text = "User Details";
@@ -95,23 +98,23 @@ namespace YAF.Pages.Admin
 		protected void Edit3_Click( object sender, System.EventArgs e )
 		{
 			UserAdminMultiView.SetActiveView( ProfileEditView );
-        }
-        protected void Edit4_Click(object sender, System.EventArgs e)
-        {
-            UserAdminMultiView.SetActiveView(SignatureEditView);
-        }
-        protected void Edit5_Click(object sender, System.EventArgs e)
-        {
-            UserAdminMultiView.SetActiveView(SuspendUserView);
-        }
-        protected void Edit6_Click(object sender, System.EventArgs e)
-        {
+		}
+		protected void Edit4_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( SignatureEditView );
+		}
+		protected void Edit5_Click( object sender, System.EventArgs e )
+		{
+			UserAdminMultiView.SetActiveView( SuspendUserView );
+		}
+		protected void Edit6_Click( object sender, System.EventArgs e )
+		{
 			UserAdminMultiView.SetActiveView( UserPointsView );
 		}
 		protected void Edit7_Click( object sender, System.EventArgs e )
 		{
 			UserAdminMultiView.SetActiveView( AvatarEditView );
-        }
+		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )

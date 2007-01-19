@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for active.
 	/// </summary>
-	public partial class im_yim : ForumPage
+	public partial class im_yim : YAF.Classes.Base.ForumPage
 	{
 
 		public im_yim() : base("IM_YIM")
@@ -42,16 +44,16 @@ namespace YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(User==null)
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
-				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageBoardID,Request.QueryString["u"],null)) 
+				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,Request.QueryString["u"],null)) 
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),Forum.GetLink( ForumPages.profile,"u={0}",row["UserID"]));
+						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),"");
 						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);
 						Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg",row["YIM"]);

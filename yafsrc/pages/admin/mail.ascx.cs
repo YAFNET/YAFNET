@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for mail.
 	/// </summary>
-	public partial class mail : AdminPage
+	public partial class mail : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Mail","");
 
 				BindData();
@@ -48,7 +50,7 @@ namespace YAF.Pages.Admin
 		}
 
 		private void BindData() {
-			ToList.DataSource = YAF.Classes.Data.DB.group_list(PageBoardID,null);
+			ToList.DataSource = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID,null);
 			DataBind();
 
 			ListItem item = new ListItem("All Users","0");
@@ -80,15 +82,15 @@ namespace YAF.Pages.Admin
 			if(ToList.SelectedItem.Value!="0")
 				GroupID = ToList.SelectedValue;
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_emails(PageBoardID,GroupID)) 
+			using(DataTable dt = YAF.Classes.Data.DB.user_emails(PageContext.PageBoardID,GroupID)) 
 			{
 				foreach(DataRow row in dt.Rows)
 					//  Build a MailMessage
-					Utils.SendMail(this,BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
+					General.SendMail(PageContext.BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
 			}
 			Subject.Text = "";
 			Body.Text = "";
-			AddLoadMessage("Mails sent.");
+			PageContext.AddLoadMessage("Mails sent.");
 		}
 	}
 }

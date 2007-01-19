@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for topics.
 	/// </summary>
-	public partial class topics : ForumPage
+	public partial class topics : YAF.Classes.Base.ForumPage
 	{
 		/// <summary>
 		/// FIXME: I have no clue what this is.
@@ -52,29 +54,29 @@ namespace YAF.Pages
 		private void topics_Unload( object sender, System.EventArgs e )
 		{
 			if ( Mession.UnreadTopics == 0 )
-				SetForumRead( PageForumID, DateTime.Now );
+				Mession.SetForumRead( PageContext.PageForumID, DateTime.Now );
 		}
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			Mession.UnreadTopics = 0;
-			RssFeed.NavigateUrl = Forum.GetLink( ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString ["f"] );
+			RssFeed.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString ["f"] );
 			RssFeed.Text = GetText( "RSSFEED" );
-			RssFeed.Visible = BoardSettings.ShowRSSLink;
-			RSSLinkSpacer.Visible = BoardSettings.ShowRSSLink;
-			ForumJumpLine.Visible = BoardSettings.ShowForumJump && ForumControl.LockedForum == 0;
+			RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
+			RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;
+			ForumJumpLine.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
 			if ( !IsPostBack )
 			{
 				//PageLinks.Clear();
 
-				if ( ForumControl.LockedForum == 0 )
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 
-				PageLinks.AddForumLinks( PageForumID, true );
+				PageLinks.AddForumLinks( PageContext.PageForumID, true );
 
 				moderate1.Text = GetThemeContents( "BUTTONS", "MODERATE" );
 				moderate1.ToolTip = "Moderate this forum";
@@ -87,21 +89,21 @@ namespace YAF.Pages
 				NewTopic2.Text = NewTopic1.Text;
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
-				ShowList.DataSource = Data.TopicTimes( this );
+				ShowList.DataSource = yaf_StaticData.TopicTimes( );
 				ShowList.DataTextField = "TopicText";
 				ShowList.DataValueField = "TopicValue";
-				ShowTopicListSelected = ( Mession.ShowList == -1 ) ? BoardSettings.ShowTopicsDefault : Mession.ShowList;
+				ShowTopicListSelected = ( Mession.ShowList == -1 ) ? PageContext.BoardSettings.ShowTopicsDefault : Mession.ShowList;
 
 				HandleWatchForum();
 			}
 
 			if ( Request.QueryString ["f"] == null )
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 
-			if ( !ForumReadAccess )
-				Data.AccessDenied();
+			if ( !PageContext.ForumReadAccess )
+				yaf_BuildLink.AccessDenied();
 
-			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, PageForumID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
 				forum = dt.Rows [0];
 
 			if ( forum ["RemoteURL"] != DBNull.Value )
@@ -114,13 +116,13 @@ namespace YAF.Pages
 
 			BindData();	// Always because of yaf:TopicLine
 
-			if ( !ForumPostAccess )
+			if ( !PageContext.ForumPostAccess )
 			{
 				NewTopic1.Visible = false;
 				NewTopic2.Visible = false;
 			}
 
-			if ( !ForumModeratorAccess )
+			if ( !PageContext.ForumModeratorAccess )
 			{
 				moderate1.Visible = false;
 				moderate2.Visible = false;
@@ -152,9 +154,9 @@ namespace YAF.Pages
 
 		private void HandleWatchForum()
 		{
-			if ( IsGuest || !ForumReadAccess ) return;
+			if ( PageContext.IsGuest || !PageContext.ForumReadAccess ) return;
 			// check if this forum is being watched by this user
-			using ( DataTable dt = YAF.Classes.Data.DB.watchforum_check( PageUserID, PageForumID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.watchforum_check( PageContext.PageUserID, PageContext.PageForumID ) )
 			{
 				if ( dt.Rows.Count > 0 )
 				{
@@ -177,7 +179,7 @@ namespace YAF.Pages
 
 		private void MarkRead_Click( object sender, System.EventArgs e )
 		{
-			SetForumRead( PageForumID, DateTime.Now );
+			Mession.SetForumRead( PageContext.PageForumID, DateTime.Now );
 			BindData();
 		}
 
@@ -190,8 +192,8 @@ namespace YAF.Pages
 		private void moderate_Click( object sender, EventArgs e )
 		{
 
-			if ( ForumModeratorAccess )
-				Forum.Redirect( ForumPages.moderate, "f={0}", PageForumID );
+			if ( PageContext.ForumModeratorAccess )
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID );
 		}
 
 		private void ShowList_SelectedIndexChanged( object sender, System.EventArgs e )
@@ -202,16 +204,16 @@ namespace YAF.Pages
 
 		private void BindData()
 		{
-			DataSet ds = YAF.Classes.Data.DB.board_layout( PageBoardID, PageUserID, PageCategoryID, PageForumID );
+			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID );
 			if ( ds.Tables ["yaf_Forum"].Rows.Count > 0 )
 			{
 				ForumList.DataSource = ds.Tables ["yaf_Forum"].Rows;
 				SubForums.Visible = true;
 			}
 
-			Pager.PageSize = BoardSettings.TopicsPerPage;
+			Pager.PageSize = PageContext.BoardSettings.TopicsPerPage;
 
-			DataTable dt = YAF.Classes.Data.DB.topic_list( PageForumID, 1, null, 0, 10 );
+			DataTable dt = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 1, null, 0, 10 );
 			int nPageSize = System.Math.Max( 5, Pager.PageSize - dt.Rows.Count );
 			Announcements.DataSource = dt;
 
@@ -220,7 +222,7 @@ namespace YAF.Pages
 			DataTable dtTopics;
 			if ( ShowTopicListSelected == 0 )
 			{
-				dtTopics = YAF.Classes.Data.DB.topic_list( PageForumID, 0, null, nCurrentPageIndex * nPageSize, nPageSize );
+				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 0, null, nCurrentPageIndex * nPageSize, nPageSize );
 			}
 			else
 			{
@@ -252,7 +254,7 @@ namespace YAF.Pages
 						date -= TimeSpan.FromDays( 365 );
 						break;
 				}
-				dtTopics = YAF.Classes.Data.DB.topic_list( PageForumID, 0, date, nCurrentPageIndex * nPageSize, nPageSize );
+				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 0, date, nCurrentPageIndex * nPageSize, nPageSize );
 			}
 			int nRowCount = 0;
 			if ( dtTopics.Rows.Count > 0 ) nRowCount = ( int ) dtTopics.Rows [0] ["RowCount"];
@@ -273,37 +275,37 @@ namespace YAF.Pages
 		{
 			if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
 			{
-				AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
+				PageContext.AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
 				return;
 			}
 
-			if ( !ForumPostAccess )
-				Data.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
+			if ( !PageContext.ForumPostAccess )
+				yaf_BuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
 
-			Forum.Redirect( ForumPages.postmessage, "f={0}", PageForumID );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "f={0}", PageContext.PageForumID );
 		}
 
 		private void WatchForum_Click( object sender, System.EventArgs e )
 		{
-			if ( !ForumReadAccess )
+			if ( !PageContext.ForumReadAccess )
 				return;
 
-			if ( IsGuest )
+			if ( PageContext.IsGuest )
 			{
-				AddLoadMessage( GetText( "WARN_LOGIN_FORUMWATCH" ) );
+				PageContext.AddLoadMessage( GetText( "WARN_LOGIN_FORUMWATCH" ) );
 				return;
 			}
 
 			if ( WatchForumID.InnerText == "" )
 			{
-				YAF.Classes.Data.DB.watchforum_add( PageUserID, PageForumID );
-				AddLoadMessage( GetText( "INFO_WATCH_FORUM" ) );
+				YAF.Classes.Data.DB.watchforum_add( PageContext.PageUserID, PageContext.PageForumID );
+				PageContext.AddLoadMessage( GetText( "INFO_WATCH_FORUM" ) );
 			}
 			else
 			{
 				int tmpID = Convert.ToInt32( WatchForumID.InnerText );
 				YAF.Classes.Data.DB.watchforum_delete( tmpID );
-				AddLoadMessage( GetText( "INFO_UNWATCH_FORUM" ) );
+				PageContext.AddLoadMessage( GetText( "INFO_UNWATCH_FORUM" ) );
 			}
 
 			HandleWatchForum();
@@ -311,7 +313,7 @@ namespace YAF.Pages
 
 		protected string GetSubForumTitle()
 		{
-			return string.Format( GetText( "SUBFORUMS" ), PageForumName );
+			return string.Format( GetText( "SUBFORUMS" ), PageContext.PageForumName );
 		}
 	}
 }

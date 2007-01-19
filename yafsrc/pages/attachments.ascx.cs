@@ -8,13 +8,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for attachments.
 	/// </summary>
-	public partial class attachments : ForumPage
+	public partial class attachments : YAF.Classes.Base.ForumPage
 	{
 		private DataRow forum, topic;
 
@@ -25,37 +27,37 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageBoardID, PageForumID ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
 				forum = dt.Rows [0];
-			topic = YAF.Classes.Data.DB.topic_info( PageTopicID );
+			topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
 
 			if ( !IsPostBack )
 			{
-				if ( !ForumModeratorAccess && !ForumUploadAccess )
-					Data.AccessDenied();
+				if ( !PageContext.ForumModeratorAccess && !PageContext.ForumUploadAccess )
+					yaf_BuildLink.AccessDenied();
 
-				if ( !ForumReadAccess )
-					Data.AccessDenied();
+				if ( !PageContext.ForumReadAccess )
+					yaf_BuildLink.AccessDenied();
 
 				if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
-					Data.AccessDenied(/*"The topic is closed."*/);
+					yaf_BuildLink.AccessDenied(/*"The topic is closed."*/);
 
 				if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
-					Data.AccessDenied(/*"The forum is closed."*/);
+					yaf_BuildLink.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written
-				if ( !ForumModeratorAccess )
+				if ( !PageContext.ForumModeratorAccess )
 					using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
-						if ( ( int ) dt.Rows [0] ["UserID"] != PageUserID )
-							Data.AccessDenied(/*"You didn't post this message."*/);
+						if ( ( int ) dt.Rows [0] ["UserID"] != PageContext.PageUserID )
+							yaf_BuildLink.AccessDenied(/*"You didn't post this message."*/);
 
-				if ( ForumControl.LockedForum == 0 )
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageCategoryName, Forum.GetLink( ForumPages.forum, "c={0}", PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
-				PageLinks.AddForumLinks( PageForumID );
-				PageLinks.AddLink( PageTopicName, Forum.GetLink( ForumPages.posts, "t={0}", PageTopicID ) );
+				PageLinks.AddForumLinks( PageContext.PageForumID );
+				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Back.Text = GetText( "BACK" );
@@ -82,7 +84,7 @@ namespace YAF.Pages
 
 		private void Back_Click( object sender, System.EventArgs e )
 		{
-			Forum.Redirect( ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
 		}
 
 		private void List_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
@@ -106,8 +108,8 @@ namespace YAF.Pages
 			}
 			catch ( Exception x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageUserID, this, x );
-				AddLoadMessage( x.Message );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				PageContext.AddLoadMessage( x.Message );
 				return;
 			}
 		}
@@ -147,17 +149,17 @@ namespace YAF.Pages
 			if ( file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0 )
 				return;
 
-			string sUpDir = Request.MapPath( YAF.Classes.Utils.Config.UploadDir );
+			string sUpDir = Request.MapPath( YAF.Classes.Config.UploadDir );
 			string filename = file.PostedFile.FileName;
 
 			int pos = filename.LastIndexOfAny( new char [] { '/', '\\' } );
 			if ( pos >= 0 ) filename = filename.Substring( pos + 1 );
 
 			// verify the size of the attachment
-			if ( BoardSettings.MaxFileSize > 0 && file.PostedFile.ContentLength > BoardSettings.MaxFileSize )
+			if ( PageContext.BoardSettings.MaxFileSize > 0 && file.PostedFile.ContentLength > PageContext.BoardSettings.MaxFileSize )
 				throw new Exception( GetText( "ERROR_TOOBIG" ) );
 
-			if ( BoardSettings.UseFileTable )
+			if ( PageContext.BoardSettings.UseFileTable )
 			{
 				YAF.Classes.Data.DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, file.PostedFile.InputStream );
 			}

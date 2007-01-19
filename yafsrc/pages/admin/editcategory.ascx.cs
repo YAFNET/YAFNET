@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editcategory.
 	/// </summary>
-	public partial class editcategory : AdminPage
+	public partial class editcategory : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");
 
 				BindData();
@@ -69,14 +71,14 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_forums);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
 		}
 
 		private void BindData() 
 		{
 			if(Request.QueryString["c"] != null) 
 			{
-				using(DataTable dt = YAF.Classes.Data.DB.category_list(PageBoardID,Request.QueryString["c"]))
+				using(DataTable dt = YAF.Classes.Data.DB.category_list(PageContext.PageBoardID,Request.QueryString["c"]))
 				{
 					DataRow row = dt.Rows[0];
 					Name.Text = (string)row["Name"];
@@ -91,8 +93,8 @@ namespace YAF.Pages.Admin
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
-			YAF.Classes.Data.DB.category_save(PageBoardID,CategoryID,Name.Text,SortOrder.Text);
-			Forum.Redirect( ForumPages.admin_forums);
+			YAF.Classes.Data.DB.category_save(PageContext.PageBoardID,CategoryID,Name.Text,SortOrder.Text);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
 		}
 	}
 }

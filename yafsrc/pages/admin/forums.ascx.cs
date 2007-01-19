@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public partial class forums : AdminPage
+	public partial class forums : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");
 
 				BindData();
@@ -59,7 +61,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
-			using(DataSet ds = YAF.Classes.Data.DB.ds_forumadmin(PageBoardID))
+			using(DataSet ds = YAF.Classes.Data.DB.ds_forumadmin(PageContext.PageBoardID))
 				CategoryList.DataSource = ds.Tables["yaf_Category"];
 			DataBind();
 		}
@@ -90,7 +92,7 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.admin_editforum,"f={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum,"f={0}",e.CommandArgument);
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.forum_delete(e.CommandArgument);
@@ -101,7 +103,7 @@ namespace YAF.Pages.Admin
 
 		protected void NewForum_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_editforum);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum);
 		}
 
 		private void CategoryList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
@@ -109,20 +111,20 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.admin_editcategory,"c={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editcategory,"c={0}",e.CommandArgument);
 					break;
 				case "delete":
 					if(YAF.Classes.Data.DB.category_delete(e.CommandArgument))
 						BindData();
 					else
-						AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
+						PageContext.AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
 					break;
 			}
 		}
 
 		protected void NewCategory_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_editcategory);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editcategory);
 		}
 	}
 }

@@ -26,21 +26,23 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for forums.
 	/// </summary>
-	public partial class accessmasks : AdminPage
+	public partial class accessmasks : YAF.Classes.Base.AdminPage
 	{
 	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Access Masks","");
 				BindData();
 			}
@@ -53,7 +55,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
-			List.DataSource = YAF.Classes.Data.DB.accessmask_list(PageBoardID,null);
+			List.DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
 			DataBind();
 		}
 
@@ -83,20 +85,20 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					Forum.Redirect( ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
 					if(YAF.Classes.Data.DB.accessmask_delete(e.CommandArgument))
 						BindData();
 					else
-						AddLoadMessage("You cannot delete this access mask because it is in use.");
+						PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
 					break;
 			}
 		}
 
 		protected void New_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_editaccessmask);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editaccessmask);
 		}
 
 		protected bool BitSet(object _o,int bitmask) 

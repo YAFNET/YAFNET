@@ -26,13 +26,15 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
 	/// Summary description for profile.
 	/// </summary>
-	public partial class profile : ForumPage
+	public partial class profile : YAF.Classes.Base.ForumPage
 	{
 		protected Repeater ForumAccess;
 
@@ -44,21 +46,21 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// 20050909 CHP : BEGIN
-			if (IsPrivate && User==null)
+			if (PageContext.IsPrivate && User==null)
 			{
 				if(CanLogin)
-					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				else
-					Forum.Redirect( ForumPages.forum );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 			// 20050909 CHP : END
 
 			if ( Request.QueryString ["u"] == null )
-				Data.AccessDenied();
+				yaf_BuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
-				userGroupsRow.Visible = BoardSettings.ShowGroupsProfile || IsAdmin;
+				userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
 
 				UpdateLast10Panel();
 
@@ -68,27 +70,27 @@ namespace YAF.Pages
 
 		private void BindData()
 		{
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, Request.QueryString ["u"], true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], true ) )
 			{
 				if ( dt.Rows.Count < 1 )
-					Data.AccessDenied(/*No such user exists*/);
+					yaf_BuildLink.AccessDenied(/*No such user exists*/);
 				DataRow user = dt.Rows [0];
 
 				// populate user information controls...
 				UserName.Text = Server.HtmlEncode( user ["Name"].ToString() );
 				Name.Text = Server.HtmlEncode( user ["Name"].ToString() );
-				Joined.Text = String.Format( "{0}", FormatDateLong( ( DateTime ) user ["Joined"] ) );
-				LastVisit.Text = FormatDateTime( ( DateTime ) user ["LastVisit"] );
+				Joined.Text = String.Format( "{0}", yaf_DateTime.FormatDateLong( ( DateTime ) user ["Joined"] ) );
+				LastVisit.Text = yaf_DateTime.FormatDateTime( ( DateTime ) user ["LastVisit"] );
 				Rank.Text = user ["RankName"].ToString();
-				Location.Text = Server.HtmlEncode( Utils.BadWordReplace( user ["Location"].ToString() ) );
-				RealName.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["RealName"].ToString() ) );
-				Interests.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["Interests"].ToString() ) );
-				Occupation.InnerHtml = Server.HtmlEncode( Utils.BadWordReplace( user ["Occupation"].ToString() ) );
+				Location.Text = Server.HtmlEncode( General.BadWordReplace( user ["Location"].ToString() ) );
+				RealName.InnerHtml = Server.HtmlEncode( General.BadWordReplace( user ["RealName"].ToString() ) );
+				Interests.InnerHtml = Server.HtmlEncode( General.BadWordReplace( user ["Interests"].ToString() ) );
+				Occupation.InnerHtml = Server.HtmlEncode( General.BadWordReplace( user ["Occupation"].ToString() ) );
 				Gender.InnerText = GetText( "GENDER" + user ["Gender"].ToString() );
 
 				PageLinks.Clear();
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "MEMBERS" ), Forum.GetLink( ForumPages.members ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "MEMBERS" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.members ) );
 				PageLinks.AddLink( Server.HtmlEncode( user ["Name"].ToString() ), "" );
 
 				double dAllPosts = 0.0;
@@ -102,14 +104,14 @@ namespace YAF.Pages
 					);
 
 				// private messages
-				Pm.Visible			= User!=null && BoardSettings.AllowPrivateMessages;
+				Pm.Visible			= User!=null && PageContext.BoardSettings.AllowPrivateMessages;
 				Pm.Text = GetThemeContents( "BUTTONS", "PM" );
-				Pm.NavigateUrl = Forum.GetLink( ForumPages.pmessage, "u={0}", user ["UserID"] );
+				Pm.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.pmessage, "u={0}", user ["UserID"] );
 				// email link
-				Email.Visible		= User!=null && BoardSettings.AllowEmailSending;
+				Email.Visible		= User!=null && PageContext.BoardSettings.AllowEmailSending;
 				Email.Text = GetThemeContents( "BUTTONS", "EMAIL" );
-				Email.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", user ["UserID"] );
-				if ( IsAdmin ) Email.ToolTip = user ["Email"].ToString();
+				Email.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", user ["UserID"] );
+				if ( PageContext.IsAdmin ) Email.ToolTip = user ["Email"].ToString();
 				Home.Visible = user ["HomePage"] != DBNull.Value;
 				Home.NavigateUrl = user ["HomePage"].ToString();
 				Home.Text = GetThemeContents( "BUTTONS", "WWW" );
@@ -118,28 +120,28 @@ namespace YAF.Pages
 				Blog.Text = GetThemeContents( "BUTTONS", "WEBLOG" );
 				Msn.Visible			= User!=null && user["MSN"]!=DBNull.Value;
 				Msn.Text = GetThemeContents( "BUTTONS", "MSN" );
-				Msn.NavigateUrl = Forum.GetLink( ForumPages.im_email, "u={0}", user ["UserID"] );
+				Msn.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", user ["UserID"] );
 				Yim.Visible			= User!=null && user["YIM"]!=DBNull.Value;
-				Yim.NavigateUrl = Forum.GetLink( ForumPages.im_yim, "u={0}", user ["UserID"] );
+				Yim.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_yim, "u={0}", user ["UserID"] );
 				Yim.Text = GetThemeContents( "BUTTONS", "YAHOO" );
 				Aim.Visible			= User!=null && user["AIM"]!=DBNull.Value;
 				Aim.Text = GetThemeContents( "BUTTONS", "AIM" );
-				Aim.NavigateUrl = Forum.GetLink( ForumPages.im_aim, "u={0}", user ["UserID"] );
+				Aim.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_aim, "u={0}", user ["UserID"] );
 				Icq.Visible			= User!=null && user["ICQ"]!=DBNull.Value;
 				Icq.Text = GetThemeContents( "BUTTONS", "ICQ" );
-				Icq.NavigateUrl = Forum.GetLink( ForumPages.im_icq, "u={0}", user ["UserID"] );
+				Icq.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_icq, "u={0}", user ["UserID"] );
 
-				if ( BoardSettings.AvatarUpload && user ["HasAvatarImage"] != null && long.Parse( user ["HasAvatarImage"].ToString() ) > 0 )
+				if ( PageContext.BoardSettings.AvatarUpload && user ["HasAvatarImage"] != null && long.Parse( user ["HasAvatarImage"].ToString() ) > 0 )
 				{
-					Avatar.ImageUrl = Data.ForumRoot + "resource.ashx?u=" + ( Request.QueryString ["u"] );
+					Avatar.ImageUrl = yaf_ForumInfo.ForumRoot + "resource.ashx?u=" + ( Request.QueryString ["u"] );
 				}
-				else if ( user ["Avatar"].ToString().Length > 0 ) // Took out BoardSettings.AvatarRemote
+				else if ( user ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 				{
 					Avatar.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
 						Server.UrlEncode( user ["Avatar"].ToString() ),
-						BoardSettings.AvatarWidth,
-						BoardSettings.AvatarHeight,
-						Data.ForumRoot );
+						PageContext.BoardSettings.AvatarWidth,
+						PageContext.BoardSettings.AvatarHeight,
+						yaf_ForumInfo.ForumRoot );
 				}
 				else
 				{
@@ -148,18 +150,18 @@ namespace YAF.Pages
 
 				Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( Request.QueryString ["u"] );
 
-				//EmailRow.Visible = IsAdmin;
-				ModeratorInfo.Visible = IsAdmin || IsForumModerator;
-                AdminUser.Visible = IsAdmin;
+				//EmailRow.Visible = PageContext.IsAdmin;
+				ModeratorInfo.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
+                AdminUser.Visible = PageContext.IsAdmin;
 
-                if (IsAdmin)
+                if (PageContext.IsAdmin)
                 {
                     SignatureEditControl.InAdminPages = true;
                 }
 
-				if ( IsAdmin || IsForumModerator )
+				if ( PageContext.IsAdmin || PageContext.IsForumModerator )
 				{
-					using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageBoardID, Request.QueryString ["u"] ) )
+					using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageContext.PageBoardID, Request.QueryString ["u"] ) )
 					{
 						System.Text.StringBuilder html = new System.Text.StringBuilder();
 						int nLastForumID = 0;
@@ -187,7 +189,7 @@ namespace YAF.Pages
 
 			if ( LastPosts.Visible )
 			{
-				LastPosts.DataSource = YAF.Classes.Data.DB.post_last10user( PageBoardID, Request.QueryString ["u"], PageUserID );
+				LastPosts.DataSource = YAF.Classes.Data.DB.post_last10user( PageContext.PageBoardID, Request.QueryString ["u"], PageContext.PageUserID );
 			}
 
 			DataBind();
@@ -196,7 +198,7 @@ namespace YAF.Pages
 		protected string FormatBody( object o )
 		{
 			DataRowView row = ( DataRowView ) o;
-			string html = FormatMsg.FormatMessage( this, row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
+			string html = FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
 
 			if ( row ["Signature"].ToString().Length > 0 )
 			{
@@ -206,7 +208,7 @@ namespace YAF.Pages
 				MessageFlags tFlags = new MessageFlags();
 				tFlags.IsHTML = false;
 
-				sig = FormatMsg.FormatMessage( this, sig, tFlags );
+				sig = FormatMsg.FormatMessage( sig, tFlags );
 				html += "<br/><hr noshade/>" + sig;
 			}
 

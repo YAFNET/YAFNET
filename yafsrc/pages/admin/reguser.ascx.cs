@@ -25,11 +25,12 @@ namespace YAF.Pages.Admin
 	using System.Web.Security;
 	using System.Web.UI.WebControls;
 	using System.Web.UI.HtmlControls;
+	using YAF.Classes.Utils;
 
 	/// <summary>
 	///		Summary description for reguser.
 	/// </summary>
-	public partial class reguser : AdminPage
+	public partial class reguser : YAF.Classes.Base.AdminPage
 	{
     
 
@@ -37,11 +38,11 @@ namespace YAF.Pages.Admin
 		{
       if(!IsPostBack) 
       {
-        PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-        PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+        PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+        PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
         PageLinks.AddLink("Users","");
 
-        TimeZones.DataSource = Data.TimeZones();
+        TimeZones.DataSource = yaf_StaticData.TimeZones();
         DataBind();
         TimeZones.Items.FindByValue("0").Selected = true;
       }
@@ -69,45 +70,45 @@ namespace YAF.Pages.Admin
 		
     protected void cancel_Click(object sender,EventArgs e) 
     {
-      Forum.Redirect( ForumPages.admin_users);
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
     }
 		
     protected void ForumRegister_Click(object sender, System.EventArgs e)
     {
       if(Page.IsValid) 
       {
-        if(!Utils.IsValidEmail(Email.Text))
+        if(!General.IsValidEmail(Email.Text))
         {
-          AddLoadMessage("You have entered an illegal e-mail address.");
+          PageContext.AddLoadMessage("You have entered an illegal e-mail address.");
           return;
         }
 
-        if(YAF.Classes.Data.DB.user_find(PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
+        if(YAF.Classes.Data.DB.user_find(PageContext.PageBoardID,false,UserName.Text,Email.Text).Rows.Count>0) 
         {
-          AddLoadMessage("Username or email are already registered.");
+          PageContext.AddLoadMessage("Username or email are already registered.");
           return;
         }
 
 				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword( 20 );
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
-        if (YAF.Classes.Data.DB.user_register(PageBoardID,UserName.Text,Password.Text,hash,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,!BoardSettings.EmailVerification))
+        if (YAF.Classes.Data.DB.user_register(PageContext.PageBoardID,UserName.Text,Password.Text,hash,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,!PageContext.BoardSettings.EmailVerification))
 				{
 
-					if ( BoardSettings.EmailVerification )
+					if ( PageContext.BoardSettings.EmailVerification )
 					{
 						//  Build a MailMessage
-						string body = Utils.ReadTemplate( "verifyemail.txt" );
-						body = body.Replace( "{link}", String.Format( "{1}{0}", Forum.GetLink( ForumPages.approve, "k={0}", hash ), ServerURL ) );
+						string body = General.ReadTemplate( "verifyemail.txt" );
+						body = body.Replace( "{link}", String.Format( "{1}{0}", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.yaf_ForumInfo.ServerURL ) );
 						body = body.Replace( "{key}", hash );
-						body = body.Replace( "{forumname}", BoardSettings.Name );
+						body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
 						body = body.Replace( "{forumlink}", String.Format( "{0}", ForumURL ) );
 
-						Utils.SendMail( this, BoardSettings.ForumEmail, Email.Text, String.Format( "{0} email verification", BoardSettings.Name ), body );
+						General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, String.Format( "{0} email verification", PageContext.BoardSettings.Name ), body );
 					}
 
 					// success
-					Forum.Redirect( ForumPages.admin_reguser);
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser);
 				}
       }
     }

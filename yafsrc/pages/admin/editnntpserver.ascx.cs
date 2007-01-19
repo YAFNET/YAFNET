@@ -26,27 +26,29 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
 	/// <summary>
 	/// Summary description for editgroup.
 	/// </summary>
-	public partial class editnntpserver : AdminPage
+	public partial class editnntpserver : YAF.Classes.Base.AdminPage
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(BoardSettings.Name,Forum.GetLink( ForumPages.forum));
-				PageLinks.AddLink("Administration",Forum.GetLink( ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("NNTP Servers","");
 
 				BindData();
 				if(Request.QueryString["s"] != null) 
 				{
-					using(DataTable dt = YAF.Classes.Data.DB.nntpserver_list(PageBoardID,Request.QueryString["s"]))
+					using(DataTable dt = YAF.Classes.Data.DB.nntpserver_list(PageContext.PageBoardID,Request.QueryString["s"]))
 					{
 						DataRow row = dt.Rows[0];
 						Name.Text		= row["Name"].ToString();
@@ -89,26 +91,26 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			Forum.Redirect( ForumPages.admin_nntpservers);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpservers);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
 			if(Name.Text.Trim().Length==0) 
 			{
-				AddLoadMessage("Missing server name.");
+				PageContext.AddLoadMessage("Missing server name.");
 				return;
 			}
 			if(Address.Text.Trim().Length==0) 
 			{
-				AddLoadMessage("Missing server address.");
+				PageContext.AddLoadMessage("Missing server address.");
 				return;
 			}
 
 			object nntpServerID = null;
 			if(Request.QueryString["s"]!=null) nntpServerID = Request.QueryString["s"];
-			YAF.Classes.Data.DB.nntpserver_save(nntpServerID,PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
-			Forum.Redirect( ForumPages.admin_nntpservers);
+			YAF.Classes.Data.DB.nntpserver_save(nntpServerID,PageContext.PageBoardID,Name.Text,Address.Text,Port.Text.Length>0 ? Port.Text : null,UserName.Text.Length>0 ? UserName.Text : null,UserPass.Text.Length>0 ? UserPass.Text : null);
+			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpservers);
 		}
 	}
 }

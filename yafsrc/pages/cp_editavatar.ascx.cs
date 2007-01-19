@@ -26,10 +26,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
-namespace YAF.Pages
+namespace YAF.Pages // YAF.Pages
 {
-	public partial class cp_editavatar : ForumPage
+	public partial class cp_editavatar : YAF.Classes.Base.ForumPage
 	{
 		public cp_editavatar()
 			: base( "CP_EDITAVATAR" )
@@ -41,15 +43,15 @@ namespace YAF.Pages
 			if ( User == null )
 			{
 				if ( CanLogin )
-					Forum.Redirect( ForumPages.login, "ReturnUrl={0}", Utils.GetSafeRawUrl() );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 				else
-					Forum.Redirect( ForumPages.forum );
+					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( BoardSettings.Name, Forum.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageUserName, Forum.GetLink( ForumPages.cp_profile ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 			}
 		}

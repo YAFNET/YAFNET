@@ -26,8 +26,8 @@
 	</HeaderTemplate>
 	<ItemTemplate>
 		<tr class=post>
-			<td><a target="_top" href='<%# YAF.Forum.GetLink(YAF.ForumPages.topics,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></td>
-			<td><a target="_top" href='<%# YAF.Forum.GetLink(YAF.ForumPages.posts,"t={0}",Eval("TopicID")) %>'><%# Eval("TopicName") %></a></td>
+			<td><a target="_top" href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.topics,"f={0}",Eval("ForumID")) %>'><%# Eval("ForumName") %></a></td>
+			<td><a target="_top" href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",Eval("TopicID")) %>'><%# Eval("TopicName") %></a></td>
 			<td><%# FormatDateTimeShort(Eval( "Posted")) %></td>
 			<td><%# Eval( "FileName") %></td>
 			<td align="right"><%# Eval( "Downloads") %></td>
