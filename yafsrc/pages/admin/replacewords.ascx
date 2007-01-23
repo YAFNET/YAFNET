@@ -1,6 +1,7 @@
 <%@ Control language="c#" Debug="true" Codebehind="replacewords.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.replacewords" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="list" runat="server">

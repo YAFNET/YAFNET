@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="reguser.ascx.cs" Inherits="YAF.Pages.Admin.reguser" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
   <table class="content" cellSpacing="1" cellPadding="0" width="100%">

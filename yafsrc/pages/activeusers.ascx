@@ -1,6 +1,7 @@
 <%@ Control language="c#" Codebehind="activeusers.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -21,8 +22,8 @@
 <ItemTemplate>
 <tr>
 	<td class=post><asp:HyperLink id="Name" NavigateUrl='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>' Text='<%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %>' runat="server" /></td>
-	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
-	<td class=post><%# FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
+	<td class=post><%# yaf_DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %></td>
+	<td class=post><%# yaf_DateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %></td>
 	<td class=post><%# String.Format(GetText("minutes"),((System.Data.DataRowView)Container.DataItem)["Active"]) %></td>
 	<td class=post><%# Eval("Browser") %></td>
 	<td class=post><%# Eval("Platform") %></td>

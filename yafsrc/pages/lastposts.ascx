@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="lastposts.ascx.cs" Inherits="YAF.Pages.lastposts" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <asp:repeater id="repLastPosts" runat="server" visible="true">
 <HeaderTemplate>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">

@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -182,7 +183,7 @@
                                 <b>
                                     <%= GetText("posted") %>
                                 </b>
-                                <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+                                <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
 			        </td>
 		        </tr>
 		        <tr class="post">

@@ -1,5 +1,6 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Control language="c#" Codebehind="index.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.index" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:helpmenu runat="server">

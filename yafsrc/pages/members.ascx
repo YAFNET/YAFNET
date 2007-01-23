@@ -1,6 +1,7 @@
 <%@ Control language="c#" Codebehind="members.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.members" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -28,7 +29,7 @@
 			<tr>
 				<td class="post"><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>'><%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %></a></td>
 				<td class="post"><%# Eval("RankName") %></td>
-				<td class="post"><%# FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %></td>
+				<td class="post"><%# yaf_DateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %></td>
 				<td class="post" align="center"><%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %></td>
 			    <td class="post"><%# GetStringSafely(DataBinder.Eval(Container.DataItem,"Location")) %> </td>
 			</tr>

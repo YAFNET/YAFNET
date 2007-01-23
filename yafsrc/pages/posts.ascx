@@ -1,6 +1,7 @@
 <%@ Control language="c#" Codebehind="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Register TagPrefix="YAF" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
