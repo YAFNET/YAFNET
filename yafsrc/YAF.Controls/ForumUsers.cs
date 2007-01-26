@@ -1,0 +1,66 @@
+using System;
+using System.Data;
+using YAF.Classes.UI;
+
+namespace YAF.Controls
+{
+	/// <summary>
+	/// Summary description for ForumUsers.
+	/// </summary>
+	public class ForumUsers : BaseControl
+	{
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
+		{
+			DataTable dt = ( DataTable ) ViewState ["data"];
+			bool bTopic = PageContext.PageTopicID > 0;
+			try
+			{
+				if ( dt == null )
+				{
+					if ( bTopic )
+						dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
+					else
+						dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
+					ViewState ["data"] = dt;
+				}
+
+				if ( bTopic )
+				{
+					writer.WriteLine( "<tr class=\"header2\">" );
+					writer.WriteLine( String.Format( "<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText( "TOPICBROWSERS" ) ) );
+					writer.WriteLine( "</tr>" );
+					writer.WriteLine( "<tr class=\"post\">" );
+					writer.WriteLine( "<td colspan=\"3\">" );
+				}
+				else
+				{
+					writer.WriteLine( "<tr class=\"header2\">" );
+					writer.WriteLine( String.Format( "<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText( "FORUMUSERS" ) ) );
+					writer.WriteLine( "</tr>" );
+					writer.WriteLine( "<tr class=\"post\">" );
+					writer.WriteLine( "<td colspan=\"6\">" );
+				}
+
+				bool bFirst = true;
+				foreach ( DataRow dr in dt.Rows )
+				{
+					if ( !bFirst )
+					{
+						writer.WriteLine( "," );
+					}
+					else
+					{
+						bFirst = false;
+					}
+					writer.Write( String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", dr ["UserID"] ), BBCode.EncodeHTML( dr ["UserName"].ToString() ) ) );
+				}
+				writer.WriteLine( "</td>" );
+				writer.WriteLine( "</tr>" );
+			}
+			finally
+			{
+				if ( dt != null ) dt.Dispose();
+			}
+		}
+	}
+}
