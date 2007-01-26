@@ -28,6 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Classes.UI;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -88,7 +89,7 @@ namespace YAF.Pages // YAF.Pages
 		//protects from script in "location" field	    
 		protected string GetStringSafely( object svalue )
 		{
-			return YAF.FormatMsg.RepairHtml( svalue.ToString(), true );
+			return FormatMsg.RepairHtml( svalue.ToString(), true );
 		}
 
 		private void SetSort( string field, bool asc )

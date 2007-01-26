@@ -112,7 +112,7 @@ namespace YAF.Pages // YAF.Pages
 					if ( Request.QueryString ["f"] != null )
 					{
 						string tSQL = "select Topic = a.Topic, TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from yaf_Topic a, yaf_Forum b where a.ForumID=" + Request.QueryString ["f"] + " and b.ForumID = a.ForumID";
-						using ( DataTable dt = YAF.Classes.Data.DB.GetData( tSQL ) )
+						using ( DataTable dt = YAF.Classes.Data.DBAccess.GetData( tSQL ) )
 						{
 							foreach ( DataRow row in dt.Rows )
 							{

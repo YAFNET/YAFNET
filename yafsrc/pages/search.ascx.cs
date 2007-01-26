@@ -29,6 +29,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
+using YAF.Classes.UI;
 
 namespace YAF.Pages // YAF.Pages
 {

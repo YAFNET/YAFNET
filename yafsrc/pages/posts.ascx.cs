@@ -29,6 +29,7 @@ using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Classes.UI;
 
 namespace YAF.Pages // YAF.Pages
 {
