@@ -223,7 +223,7 @@ namespace YAF.Install
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
 					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
-					YAF.Classes.Data.DB.ExecuteNonQuery( cmd );
+					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
 			catch ( Exception x )
@@ -319,7 +319,7 @@ namespace YAF.Install
 					cmd.Parameters.AddWithValue( "@User", UserName.Text );
 					cmd.Parameters.AddWithValue( "@UserEmail", AdminEmail.Text );
 					cmd.Parameters.AddWithValue( "@Password", "-" );
-					YAF.Classes.Data.DB.ExecuteNonQuery( cmd );
+					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
@@ -327,7 +327,7 @@ namespace YAF.Install
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
 					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
-					YAF.Classes.Data.DB.ExecuteNonQuery( cmd );
+					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
 			catch ( Exception x )
@@ -415,9 +415,9 @@ namespace YAF.Install
 
 			string [] statements = System.Text.RegularExpressions.Regex.Split( sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
-			using ( SqlConnection conn = YAF.Classes.Data.DB.GetConnection() )
+			using ( SqlConnection conn = YAF.Classes.Data.DBAccess.GetConnection() )
 			{
-				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DB.IsolationLevel ) )
+				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
 					foreach ( string sql0 in statements )
 					{
@@ -455,9 +455,9 @@ namespace YAF.Install
 		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-			using ( SqlConnection conn = YAF.Classes.Data.DB.GetConnection() )
+			using ( SqlConnection conn = YAF.Classes.Data.DBAccess.GetConnection() )
 			{
-				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DB.IsolationLevel ) )
+				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
 					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'", conn ) )
 					{
