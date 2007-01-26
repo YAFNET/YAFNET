@@ -1,19 +1,20 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 
 <tr class="postheader">
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
 		<a name="<%# DataRow["MessageID"] %>"/>
-		<b><asp:hyperlink id="UserName" runat="server" href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# Server.HtmlEncode(DataRow["UserName"].ToString()) %></asp:hyperlink></b>
+		<b><asp:hyperlink id="UserName" runat="server" href='<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# Server.HtmlEncode(DataRow["UserName"].ToString()) %></asp:hyperlink></b>
 	</td>
 	<td width="80%">
 		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 			<td class="postheader">
 			    <b><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataRow["MessageID"]) %>'> #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a> <%# PageContext.Localization.GetText("POSTED") %>:</b> 
-			    <%# ForumPage.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+			    <%# yaf_DateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 			</td>
 			<td class="postheader" align="right">
 				<asp:hyperlink runat="server" id="Attach"/>

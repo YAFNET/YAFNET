@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="smileys.ascx.cs" Inherits="YAF.Controls.smileys" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <br /><br />
 
 <table class="content" align="center" cellspacing="0" cellpadding="9">

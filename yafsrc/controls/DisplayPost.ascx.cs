@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
+using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
@@ -102,7 +103,7 @@ namespace YAF.Controls
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified
-						AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", YAF.FormatMsg.RepairHtml( ( string ) DataRow ["EditReason"], true ) );
+						AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["EditReason"], true ) );
 					}
 					else
 					{
@@ -117,7 +118,7 @@ namespace YAF.Controls
 				if ( Server.HtmlDecode( Convert.ToString( DataRow ["DeleteReason"] ) ) != String.Empty )
 				{
 					// reason was specified
-					AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", YAF.FormatMsg.RepairHtml( ( string ) DataRow ["DeleteReason"], true ) );
+					AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["DeleteReason"], true ) );
 				}
 				else
 				{
@@ -154,7 +155,7 @@ namespace YAF.Controls
 			}
 		}
 
-		private YAF.MessageFlags PostMessageFlags
+		private MessageFlags PostMessageFlags
 		{
 			get
 			{

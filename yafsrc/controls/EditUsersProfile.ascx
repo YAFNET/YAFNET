@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersProfile.ascx.cs" Inherits="YAF.Controls.EditUsersProfile" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Register TagPrefix="editor" Namespace="YAF.Editor" Assembly="YAF" %>
 
 <table width="100%" class="content" cellspacing="1" cellpadding="4">

@@ -1,13 +1,14 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.UI;
+
 namespace YAF.Controls
 {
-	using System;
-	using System.Data;
-	using System.Drawing;
-	using System.Web;
-	using System.Web.UI.WebControls;
-	using System.Web.UI.HtmlControls;
-	using YAF.Classes.Utils;
-
 	/// <summary>
 	///		Summary description for ForumList.
 	/// </summary>
