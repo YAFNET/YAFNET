@@ -1,4 +1,5 @@
-/* YetAnotherForum.NET
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
@@ -170,6 +171,16 @@ namespace YAF.Classes.Utils
 
 				HttpContext.Current.Application.Remove( key );
 			}
+		}
+
+		/// <summary>
+		/// Helper function to see if the Page variable is populated
+		/// </summary>
+		public bool PageIsNull()
+		{
+			if ( Page == null ) return true;
+
+			return false;
 		}
 
 		#region Forum and Page Helper Properties

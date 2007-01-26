@@ -34,9 +34,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BBCode.cs" />
     <Compile Include="ClientSide\ClientSideFocus.cs" />
     <Compile Include="ClientSide\SmartScroller.cs" />
+    <Compile Include="FormatMsg.cs" />
+    <Compile Include="HighLighter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YAF.Classes.Data\YAF.Classes.Data.csproj">
+      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
+      <Name>YAF.Classes.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
+      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
+      <Name>YAF.Classes.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
