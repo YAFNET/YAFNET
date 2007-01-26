@@ -803,25 +803,9 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="classes\BBCode.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="classes\FormatMsg.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="classes\HighLighter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="classes\Nntp.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="classes\RssFeed.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="controls\AdminMenu.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\DataPanel.cs" />
     <Compile Include="controls\DisplayPost.ascx.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -878,12 +862,6 @@
     <Compile Include="controls\EditUsersSuspend.ascx.designer.cs">
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\Footer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\ForumJump.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="controls\ForumList.ascx.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -891,47 +869,12 @@
     <Compile Include="controls\ForumList.ascx.designer.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\ForumUsers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\Header.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\HelpMenu.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\IconLegend.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\MyLinkButton.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\PageAccess.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\PageLinks.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\Pager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\PopMenu.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="controls\ProfileMenu.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="controls\Statistics\ActiveDiscussions.cs" />
-    <Compile Include="controls\Statistics\MostActiveUser.cs" />
-    <Compile Include="controls\TopicLine.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="default.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -1815,6 +1758,10 @@
     <ProjectReference Include="YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
       <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
       <Name>YAF.Classes.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="YAF.Controls\YAF.Controls.csproj">
+      <Project>{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}</Project>
+      <Name>YAF.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
