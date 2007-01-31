@@ -37,12 +37,19 @@
     <Compile Include="AdminPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="ForumPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.csproj">
+      <Project>{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}</Project>
+      <Name>YAF.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
       <Name>YAF.Classes.Config</Name>

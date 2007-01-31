@@ -39,14 +39,37 @@ namespace YAF.Classes.Base
 	public class ForumPage : System.Web.UI.UserControl
 	{
 		#region Variables
-
-		private System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
-		private string m_strRefreshURL = null;
-		private int m_nRefreshTime = 2;
+		
 		private bool m_bNoDataBase = false;
 		private bool m_bShowToolBar = true;
 		private bool m_checkSuspended = true;
 		private string m_transPage = string.Empty;
+
+		private YAF.Controls.Header _header = null;
+		private YAF.Controls.Footer _footer = null;
+
+		public YAF.Controls.Header ForumHeader
+		{
+			get
+			{
+				return _header;
+			}
+			set
+			{
+				_header = value;
+			}
+		}
+		public YAF.Controls.Footer ForumFooter
+		{
+			get
+			{
+				return _footer;
+			}
+			set
+			{
+				_footer = value;
+			}
+		}
 
 		#endregion
 
@@ -62,10 +85,10 @@ namespace YAF.Classes.Base
 
 		public ForumPage( string transPage )
 		{
-			m_transPage = transPage;
-			stopWatch.Start();
+			m_transPage = transPage;		
 
 			this.Load += new System.EventHandler( this.ForumPage_Load );
+			this.Unload += new System.EventHandler( this.ForumPage_Unload );
 			this.Error += new System.EventHandler( this.ForumPage_Error );
 			this.PreRender += new EventHandler( ForumPage_PreRender );
 		}
@@ -107,6 +130,8 @@ namespace YAF.Classes.Base
 #if DEBUG
 			QueryCounter.Reset();
 #endif
+
+			if ( ForumFooter != null ) ForumFooter.StopWatch.Start();
 
 			// setup the culture based on the browser...
 			InitCulture();
@@ -184,6 +209,19 @@ namespace YAF.Classes.Base
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Called when the page is unloaded
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ForumPage_Unload( object sender, System.EventArgs e )
+		{
+			// reset stuff...
+			PageContext.ResetLoadStrings();
+			if ( ForumHeader != null ) ForumHeader.Reset();
+			if ( ForumFooter != null ) ForumFooter.Reset();
 		}
 
 		/// <summary>
@@ -394,8 +432,6 @@ namespace YAF.Classes.Base
 
 		#region Render Functions
 
-		private string m_headerInfo = null;
-
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
@@ -422,71 +458,9 @@ namespace YAF.Classes.Base
 				ctl.Text = title.ToString();
 			}
 
-			// BEGIN HEADER
-			StringBuilder header = new StringBuilder();
-
-			// get the theme header -- usually used for javascript
-			string themeHeader = GetThemeContents( "THEME", "HEADER", null );
-
-			if ( themeHeader != null && themeHeader.Length > 0 )
-			{
-				header.Append(themeHeader);
-			} 
-
-			header.AppendFormat( "<table width=100% cellspacing=0 class=content cellpadding=0><tr>" );
-
-			MembershipUser user = Membership.GetUser();
-
-			if ( user != null )
-			{
-				header.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", Server.HtmlEncode( PageContext.PageUserName ) ) );
-				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
-				if ( !PageContext.IsGuest )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_inbox ), GetText( "CP_INBOX", "TITLE" ) ) );
-
-				/* TODO: help is currently useless...
-				if ( IsAdmin )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.help_index ), GetText( "TOOLBAR", "HELP" ) ) );
-				*/
-
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
-				if ( PageContext.IsAdmin )
-					header.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.admin_admin ), GetText( "TOOLBAR", "ADMIN" ) ) );
-				if ( PageContext.IsModerator || PageContext.IsForumModerator )
-					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.moderate_index ), GetText( "TOOLBAR", "MODERATE" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
-				if ( !PageContext.IsGuest )
-					header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_profile ), GetText( "TOOLBAR", "MYPROFILE" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
-				if ( CanLogin )
-					header.AppendFormat( String.Format( " | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.logout ), GetText( "TOOLBAR", "LOGOUT" ) ) );
-			}
-			else
-			{
-				header.AppendFormat( String.Format( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", GetText( "TOOLBAR", "WELCOME_GUEST" ) ) );
-
-				header.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.search ), GetText( "TOOLBAR", "SEARCH" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.active ), GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
-				header.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.members ), GetText( "TOOLBAR", "MEMBERS" ) ) );
-				if ( CanLogin )
-				{
-					header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", Server.UrlEncode( General.GetSafeRawUrl() ) ), GetText( "TOOLBAR", "LOGIN" ) ) );
-					if ( !PageContext.BoardSettings.DisableRegistrations )
-						header.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.rules ), GetText( "TOOLBAR", "REGISTER" ) ) );
-				}
-			}
-			header.AppendFormat( "</td></tr></table>" );
-			header.AppendFormat( "<br />" );
-
-			/*
-			if ( ForumControl.Header != null )
-				ForumControl.Header.Info = header.ToString();
-			else
-				m_headerInfo = header.ToString();
-			*/
-
-			// END HEADER
+			// setup the forum control header properties
+			ForumHeader.SimpleRender = !m_bShowToolBar;
+			ForumFooter.SimpleRender = !m_bShowToolBar;	
 		}
 
 		/// <summary>
@@ -495,121 +469,7 @@ namespace YAF.Classes.Base
 		/// <param name="writer"></param>
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			if ( m_bShowToolBar )
-			{
-				writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}forum.css"" />", yaf_ForumInfo.ForumRoot );
-				writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}"" />", yaf_BuildLink.ThemeFile( "theme.css" ));
-				string script = "";
-				if ( LoadMessage.Length > 0 )
-					script = String.Format( "<script language='javascript'>\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", LoadMessage, '{', '}' );
-
-#if TODO
-				if(m_strRefreshURL!=null) 
-					script = script.Insert(0,String.Format("<meta http-equiv=\"Refresh\" content=\"10;{0}\">\n",m_strRefreshURL));
-#else
-				if ( m_strRefreshURL != null && m_nRefreshTime >= 0 )
-					script = script.Insert( 0, String.Format( "<meta http-equiv=\"Refresh\" content=\"{1};url={0}\">\n", m_strRefreshURL, m_nRefreshTime ) );
-#endif
-
-				/* BEGIN HEADER
-				if ( m_headerInfo != null && ForumControl.LockedForum == 0 )
-					writer.Write( m_headerInfo );
-				// END HEADER				
-				 */
-
-				RenderBody( writer );
-
-				// BEGIN FOOTER
-				StringBuilder footer = new StringBuilder();
-				footer.AppendFormat( "<p style=\"text-align:center;font-size:7pt\">" );
-
-				if ( PageContext.BoardSettings.ShowRSSLink )
-				{
-					footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", yaf_BuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), yaf_ForumInfo.ForumRoot, GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
-					// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
-				}
-
-				// get the theme credit info from the theme file
-				// it's not really an error if it doesn't exist
-				string themeCredit = GetThemeContents( "THEME", "CREDIT", null );
-
-				if ( themeCredit != null && themeCredit.Length > 0 )
-				{
-					themeCredit = @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />";
-				}
-
-				stopWatch.Stop();
-				double duration = ( double ) stopWatch.ElapsedMilliseconds / 1000.0;
-
-				if ( YAF.Classes.Config.IsDotNetNuke )
-				{
-					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.", yaf_ForumInfo.AppVersionName );
-					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
-				}
-				else if ( YAF.Classes.Config.IsRainbow )
-				{
-					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-					footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.", yaf_ForumInfo.AppVersionName );
-					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
-				}
-				else if ( PageContext.Settings.LockedForum == 0 )
-				{
-					if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-					footer.AppendFormat( GetText( "COMMON", "POWERED_BY" ),
-						String.Format( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>" ),
-						String.Format( "{0} (NET v{2}.{3}) - {1}", yaf_ForumInfo.AppVersionName, yaf_DateTime.FormatDateShort( yaf_ForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
-						);
-					footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
-					footer.AppendFormat( "<br/>" );
-					footer.AppendFormat( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
-
-					if ( PageContext.BoardSettings.ShowPageGenerationTime )
-						footer.AppendFormat( GetText( "COMMON", "GENERATED" ), duration );
-				}
-
-#if DEBUG
-				footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, (100 * QueryCounter.Duration) / duration, QueryCounter.Commands );
-#endif
-				footer.AppendFormat( "</p>" );
-				if ( PageContext.Settings.LockedForum == 0 )
-				{
-					/*
-					if ( ForumControl.Footer != null )
-						ForumControl.Footer.Info = footer.ToString();
-					else
-						writer.Write( footer.ToString() );
-					 */
-				}
-				// END FOOTER
-
-				writer.WriteLine( script );
-			}
-			else
-			{
-				writer.WriteLine( "<html>" );
-				writer.WriteLine( "<head>" );
-				writer.WriteLine( String.Format( @"<link rel=""stylesheet"" type=""text/css"" href=""{0}forum.css"">", yaf_ForumInfo.ForumRoot ) );
-				writer.WriteLine( String.Format( @"<link rel=""stylesheet"" type=""text/css"" href=""{0}"">", yaf_BuildLink.ThemeFile("theme.css") ) );
-				writer.WriteLine( String.Format( @"<title>{0}</title>", PageContext.BoardSettings.Name ) );
-				if ( m_strRefreshURL != null )
-					writer.WriteLine( String.Format( "<meta http-equiv=\"Refresh\" content=\"10;{0}\">", m_strRefreshURL ) );
-				writer.WriteLine( "</head>" );
-				writer.WriteLine( "<body onload='yaf_onload()'>" );
-
-				RenderBody( writer );
-
-				writer.WriteLine( @"<script type=""text/javascript"">" );
-				writer.WriteLine( "function yaf_onload() {" );
-				if ( LoadMessage.Length > 0 )
-					writer.WriteLine( String.Format( "	alert(\"{0}\");", LoadMessage ) );
-				writer.WriteLine( "}" );
-				writer.WriteLine( "yaf_onload();" );
-				writer.WriteLine( "</script>" );
-
-				writer.WriteLine( "</body>" );
-				writer.WriteLine( "</html>" );
-			}
+			RenderBody( writer );
 		}
 
 		/// <summary>
@@ -654,16 +514,25 @@ namespace YAF.Classes.Base
 		{
 			set
 			{
-				m_strRefreshURL = value;
+				if ( ForumHeader != null ) ForumHeader.RefreshURL = value;
 			}
 			get
 			{
-				return m_strRefreshURL;
+				if ( ForumHeader != null ) return ForumHeader.RefreshURL;
+				return null;
 			}
 		}
 		public int RefreshTime
 		{
-			set { m_nRefreshTime = value; }
+			set
+			{
+				if ( ForumHeader != null ) ForumHeader.RefreshTime = value;
+			}
+			get
+			{
+				if ( ForumHeader != null ) return ForumHeader.RefreshTime;
+				return 0;
+			}
 		}
 
 		#endregion
@@ -699,15 +568,7 @@ namespace YAF.Classes.Base
 
 		#region PageInfo class
 
-#if false
-        private object User
-        {
-            get
-            {
-                return null;
-            }
-        }
-#else
+		[Obsolete( "Useless property that always returns true. Do not use anymore." )]
 		public bool CanLogin
 		{
 			get
@@ -723,7 +584,6 @@ namespace YAF.Classes.Base
 				return PageContext.User;
 			}
 		}
-#endif
 
 		public string LoadMessage
 		{
