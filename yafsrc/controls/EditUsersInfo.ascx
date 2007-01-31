@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
