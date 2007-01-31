@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:adminmenu runat="server" id="Adminmenu1">
 	<asp:repeater id="ActiveList" runat="server">
@@ -51,7 +52,7 @@
 				<td class="post"><%# Eval("Name") %></td>
 				<td class="post"><%# Eval("Email") %></td>
 				<td class="post"><%# Eval("Location") %></td>
-				<td class="post"><%# FormatDateTime(Eval("Joined")) %></td>
+				<td class="post"><%# yaf_DateTime.FormatDateTime(Eval("Joined")) %></td>
 				<td class="post">
 					<asp:linkbutton onload="Approve_Load" runat="server" commandname="approve" commandargument='<%# Eval("UserID") %>' text="Approve"/>
 					|

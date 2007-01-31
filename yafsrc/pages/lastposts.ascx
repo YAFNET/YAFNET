@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <asp:repeater id="repLastPosts" runat="server" visible="true">
 <HeaderTemplate>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">
@@ -16,7 +17,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -29,7 +30,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

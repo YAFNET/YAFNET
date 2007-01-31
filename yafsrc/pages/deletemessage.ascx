@@ -1,7 +1,8 @@
 <%@ Control language="c#" Codebehind="deletemessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.deletemessage" %>
 <%@ Register TagPrefix="editor" Namespace="YAF.Editor" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 
 <YAF:PageLinks runat="server" id="PageLinks" />
@@ -38,7 +39,9 @@
 <HeaderTemplate>
 	<table class="content" cellSpacing="1" cellPadding="0" width="100%" align="center">
 		<tr>
-			<td class="header2"  align="center" colSpan="1"><asp:checkbox id="DeleteAllPosts" onCheckedChanged="DeleteAllPosts_CheckedChanged1" AutoPostBack="True"  runat="server" /> Delete All Posts?</td>
+			<td class="header2"  align="center" colSpan="1">
+			<asp:CheckBox id="DeleteAllPosts" onCheckedChanged="DeleteAllPosts_CheckedChanged1" AutoPostBack="True"  runat="server" />
+			 Delete All Posts?</td>
 			<td class="header2"  align="center" colSpan="1"><%# GetActionText() %></td>
 			
 		</tr>
@@ -48,9 +51,9 @@
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# YAF.Forum.GetLink(YAF.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			<td width="140"><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -61,9 +64,9 @@
 </ItemTemplate>
 <AlternatingItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# YAF.Forum.GetLink(YAF.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			<td width="140"><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

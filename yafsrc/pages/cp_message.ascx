@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -24,7 +25,7 @@
 		<td class=postheader>
 			<table cellspacing=0 cellpadding=0 width=100%><tr>
 			<td>
-				<b><%# GetText("posted") %></b> <%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+				<b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 			</td>
 			<td align=right>
 				<asp:linkbutton id="DeleteMessage" onload="DeleteMessage_Load" tooltip="Delete this message" runat=server commandname=delete commandargument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:linkbutton>

@@ -1,7 +1,7 @@
 <%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -62,14 +62,14 @@
                 <td colspan="2">
                     <b>
                         <%= GetText("topic") %>
-                    </b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
+                    </b><a href="<%# yaf_BuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
                         <%# DataBinder.Eval(Container.DataItem, "Topic") %>
                     </a>
                 </td>
             </tr>
             <tr class="postheader">
                 <td width="140px" id="NameCell" valign="top">
-                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
+                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
                         <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
                     </a></b>
                 </td>
@@ -77,7 +77,7 @@
                     <b>
                         <%# GetText("POSTED") %>
                     </b>
-                    <%# FormatDateTime((System.DateTime)DataBinder.Eval(Container.DataItem, "Posted")) %>
+                    <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
                 </td>
             </tr>
             <tr class="post">
@@ -93,14 +93,14 @@
                 <td colspan="2">
                     <b>
                         <%= GetText("topic") %>
-                    </b><a href="<%# YAF.Forum.GetLink(YAF.Pages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
+                    </b><a href="<%# yaf_BuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
                         <%# DataBinder.Eval(Container.DataItem, "Topic") %>
                     </a>
                 </td>
             </tr>
             <tr class="postheader">
                 <td width="140px" id="NameCell" valign="top">
-                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# YAF.Forum.GetLink(YAF.Pages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
+                    <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>">
                         <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
                     </a></b>
                 </td>
@@ -108,7 +108,7 @@
                     <b>
                         <%# GetText("POSTED") %>
                     </b>
-                    <%# FormatDateTime((System.DateTime)DataBinder.Eval(Container.DataItem, "Posted")) %>
+                    <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
                 </td>
             </tr>
             <tr class="post_alt">

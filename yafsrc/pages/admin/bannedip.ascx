@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -22,7 +23,7 @@
 <ItemTemplate>
 	<tr>
 		<td class=post><%# Eval("Mask") %></td>
-		<td class=post><%# FormatDateTime(Eval("Since")) %></td>
+		<td class=post><%# yaf_DateTime.FormatDateTime(Eval("Since")) %></td>
 		<td class=post>
 			<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# Eval("ID") %>'></asp:linkbutton>
 			| <asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# Eval("ID") %>'></asp:linkbutton>

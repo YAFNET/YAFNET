@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -149,7 +150,7 @@
                 <uc1:SuspendUser runat="server" ID="SuspendUserControl" />
                 <uc1:SignatureEdit runat="server" ID="SignatureEditControl" />
                 <div id="AdminUser" runat="server">
-                    <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
+                    <a href='<%# yaf_BuildLink.GetLink(ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
                 </div>
 		</td>	
             <td valign="top">
@@ -176,8 +177,8 @@
 			        <td class="small" align="left" colspan="2">
                                 <b>
                                     <%= GetText("topic") %>
-                                </b><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
-                                    <%# YAF.Classes.Utils.General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
+                                </b><a href='<%# yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
+                                    <%# General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
                                 </a>
                                 <br />
                                 <b>

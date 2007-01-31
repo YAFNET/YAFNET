@@ -32,8 +32,8 @@ namespace YAF
 	public class Forum : System.Web.UI.UserControl
 	{
 		yaf_ControlSettings forumSettings = new yaf_ControlSettings();
-		private YAF.Controls.Header m_header = null;
-		private YAF.Controls.Footer m_footer = null;
+		private YAF.Controls.Header m_header = new YAF.Controls.Header();
+		private YAF.Controls.Footer m_footer = new YAF.Controls.Footer();
 
 		public Forum()
 		{
@@ -71,7 +71,18 @@ namespace YAF
 			try
 			{
 				YAF.Classes.Base.ForumPage ctl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
+				ctl.ForumFooter = m_footer;
+				ctl.ForumHeader = m_header;
+
+				// add the header control before the page rendering...
+				if ( yaf_Context.Current.Settings.LockedForum == 0 )
+					this.Controls.AddAt( 0, m_header );
+
 				this.Controls.Add( ctl );
+
+				// add the footer control after the page...
+				if ( yaf_Context.Current.Settings.LockedForum == 0 )
+					this.Controls.Add( m_footer );
 			}
 			catch ( System.IO.FileNotFoundException )
 			{

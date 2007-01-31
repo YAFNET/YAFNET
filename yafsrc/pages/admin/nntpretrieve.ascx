@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -24,7 +25,7 @@
 <tr class="post">
 	<td><%# Eval("GroupName") %></td>
 	<td align="right"><%# LastMessageNo(Container.DataItem) %></td>
-	<td><%# FormatDateTime(Eval("LastUpdate")) %></td>
+	<td><%# yaf_DateTime.FormatDateTime(Eval("LastUpdate")) %></td>
 </tr>
 </ItemTemplate>
 </asp:repeater>

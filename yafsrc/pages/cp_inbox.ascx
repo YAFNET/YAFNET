@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
+<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
@@ -29,7 +30,7 @@
 		<td align="center"><img src='<%# GetImage(Container.DataItem) %>'/></td>
 		<td><a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'><%# HtmlEncode(Eval("Subject")) %></a></td>
 		<td><%# Eval(IsSentItems ? "ToUser" : "FromUser") %></td>
-		<td><%# FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %></td>
+		<td><%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Created"] )%></td>
 		<td align="center"><asp:checkbox runat="server" id="ItemCheck" /></td>
 		<asp:label runat="server" id="UserPMessageID" visible="false" text='<%# Eval("UserPMessageID") %>'/>
 	</tr>
