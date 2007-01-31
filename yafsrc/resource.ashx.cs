@@ -55,7 +55,7 @@ namespace yaf
 
 		private void GetResource( HttpContext context )
 		{
-			string resourceName = "yaf.App_GlobalResources." + context.Request.QueryString ["r"];
+			string resourceName = "YAF.App_GlobalResources." + context.Request.QueryString ["r"];
 			int lastIndex = resourceName.LastIndexOf( '.' );
 			string extension = resourceName.Substring( lastIndex, resourceName.Length - lastIndex ).ToLower();
 

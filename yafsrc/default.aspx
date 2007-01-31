@@ -22,7 +22,7 @@
     <title runat="server" id="ForumTitle">This title is overwritten</title>
 </head>
 <body>
-    <img src="/images/YAFLogo.jpg" runat="server" id="imgBanner" />
+    <img src="images/YAFLogo.jpg" runat="server" id="imgBanner" />
     <br />
     <form id="form1" runat="server" enctype="multipart/form-data">
         <YAF:Forum runat="server" ID="forum"></YAF:Forum>
