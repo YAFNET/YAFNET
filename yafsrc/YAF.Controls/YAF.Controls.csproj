@@ -37,9 +37,6 @@
   <ItemGroup>
     <Compile Include="AdminMenu.cs" />
     <Compile Include="Base\BaseControl.cs" />
-    <Compile Include="Base\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="DataPanel.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
