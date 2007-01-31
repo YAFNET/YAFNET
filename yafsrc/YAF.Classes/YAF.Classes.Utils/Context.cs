@@ -81,6 +81,12 @@ namespace YAF.Classes.Utils
 			adminLoadString = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
 		}		
 
+		public void ResetLoadStrings( )
+		{
+			loadString = "";
+			adminLoadString = "";
+		}
+
 		public static yaf_Context Current
 		{
 			get
