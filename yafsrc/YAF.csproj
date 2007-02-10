@@ -808,70 +808,60 @@
     </Compile>
     <Compile Include="controls\DisplayPost.ascx.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DisplayPost.ascx.designer.cs">
       <DependentUpon>DisplayPost.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersAvatar.ascx.cs">
       <DependentUpon>EditUsersAvatar.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersAvatar.ascx.designer.cs">
       <DependentUpon>EditUsersAvatar.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersGroups.ascx.cs">
       <DependentUpon>EditUsersGroups.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersGroups.ascx.designer.cs">
       <DependentUpon>EditUsersGroups.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersInfo.ascx.cs">
       <DependentUpon>EditUsersInfo.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersInfo.ascx.designer.cs">
       <DependentUpon>EditUsersInfo.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersPoints.ascx.cs">
       <DependentUpon>EditUsersPoints.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersPoints.ascx.designer.cs">
       <DependentUpon>EditUsersPoints.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersProfile.ascx.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersProfile.ascx.designer.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.cs">
       <DependentUpon>EditUsersSignature.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.designer.cs">
       <DependentUpon>EditUsersSignature.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\EditUsersSuspend.ascx.cs">
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersSuspend.ascx.designer.cs">
       <DependentUpon>EditUsersSuspend.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ForumList.ascx.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ForumList.ascx.designer.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\smileys.ascx.designer.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
