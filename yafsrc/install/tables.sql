@@ -360,7 +360,7 @@ begin
 	create table dbo.yaf_Registry(
 		RegistryID		int IDENTITY(1, 1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		Value			nvarchar(400),
+		Value			ntext,
 		BoardID			int,
 		CONSTRAINT PK_Registry PRIMARY KEY (RegistryID)
 	)
@@ -620,6 +620,10 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
 	alter table yaf_Registry add BoardID int
+GO
+
+if not exists(select 1 from syscolumns where id=object_id(N'yaf_Registry') and name=N'Value' and xtype<>99)
+	alter table yaf_Registry alter column Value ntext null
 GO
 
 if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')

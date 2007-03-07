@@ -1,5 +1,5 @@
 /*
-  YAF SQL Stored Procedures File Created 10/19/06
+  YAF SQL Stored Procedures File Created 03/01/06
 	
 
   Remove Comments RegEx: \/\*(.*)\*\/
@@ -2947,7 +2947,7 @@ GO
 
 create procedure [dbo].[yaf_registry_save](
 	@Name nvarchar(50),
-	@Value nvarchar(400) = NULL,
+	@Value ntext = NULL,
 	@BoardID int = null
 ) AS
 BEGIN
