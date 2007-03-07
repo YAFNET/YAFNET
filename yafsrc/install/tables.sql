@@ -622,7 +622,7 @@ if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and na
 	alter table yaf_Registry add BoardID int
 GO
 
-if not exists(select 1 from syscolumns where id=object_id(N'yaf_Registry') and name=N'Value' and xtype<>99)
+if exists(select 1 from syscolumns where id=object_id(N'yaf_Registry') and name=N'Value' and xtype<>99)
 	alter table yaf_Registry alter column Value ntext null
 GO
 
