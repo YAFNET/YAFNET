@@ -58,9 +58,9 @@ namespace YAF.Install
 			if ( !IsPostBack )
 			{
 				if ( IsInstalled )
-                    InstallWizard.ActiveStepIndex = 1;
+					InstallWizard.ActiveStepIndex = 1;
 				else
-                    InstallWizard.ActiveStepIndex = 0;
+					InstallWizard.ActiveStepIndex = 0;
 
 				TimeZones.DataSource = yaf_StaticData.TimeZones();
 				DataBind();
@@ -89,10 +89,10 @@ namespace YAF.Install
 
 		void Wizard_ActiveStepChanged( object sender, EventArgs e )
 		{
-            if (InstallWizard.ActiveStepIndex == 1 && !IsInstalled)
-                InstallWizard.ActiveStepIndex++;
-            else if (InstallWizard.ActiveStepIndex == 3 && IsForumInstalled)
-                InstallWizard.ActiveStepIndex++;
+			if ( InstallWizard.ActiveStepIndex == 1 && !IsInstalled )
+				InstallWizard.ActiveStepIndex++;
+			else if ( InstallWizard.ActiveStepIndex == 3 && IsForumInstalled )
+				InstallWizard.ActiveStepIndex++;
 		}
 
 		void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
@@ -165,10 +165,10 @@ namespace YAF.Install
 		override protected void OnInit( EventArgs e )
 		{
 			this.Load += new System.EventHandler( this.Page_Load );
-            InstallWizard.NextButtonClick += new WizardNavigationEventHandler(Wizard_NextButtonClick);
-            InstallWizard.PreviousButtonClick += new WizardNavigationEventHandler(Wizard_PreviousButtonClick);
-            InstallWizard.ActiveStepChanged += new EventHandler(Wizard_ActiveStepChanged);
-            InstallWizard.FinishButtonClick += new WizardNavigationEventHandler(Wizard_FinishButtonClick);
+			InstallWizard.NextButtonClick += new WizardNavigationEventHandler( Wizard_NextButtonClick );
+			InstallWizard.PreviousButtonClick += new WizardNavigationEventHandler( Wizard_PreviousButtonClick );
+			InstallWizard.ActiveStepChanged += new EventHandler( Wizard_ActiveStepChanged );
+			InstallWizard.FinishButtonClick += new WizardNavigationEventHandler( Wizard_FinishButtonClick );
 			base.OnInit( e );
 		}
 

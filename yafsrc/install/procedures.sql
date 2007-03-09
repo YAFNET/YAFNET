@@ -950,8 +950,8 @@ begin
 	declare	@ForumID				int
 	declare @UserFlags				int
 
-	SET @TimeZone = (SELECT CAST(Value as int) FROM yaf_Registry WHERE LOWER(Name) = LOWER('TimeZone'))
-	SET @ForumEmail = (SELECT Value FROM yaf_Registry WHERE LOWER(Name) = LOWER('ForumEmail'))
+	SET @TimeZone = (SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM yaf_Registry WHERE LOWER([Name]) = LOWER('TimeZone'))
+	SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM yaf_Registry WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
 	-- yaf_Board
 	insert into yaf_Board(Name,AllowThreaded) values(@BoardName,@AllowThreaded)
@@ -3073,14 +3073,20 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_system_updateversion](
+CREATE PROCEDURE [dbo].[yaf_system_updateversion]
+(
 	@Version		int,
 	@VersionName	nvarchar(50)
-) as
-begin
-	EXEC yaf_registry_save 'Version', @Version
+) 
+AS
+BEGIN
+
+	DECLARE @tmpValue AS nvarchar(100)
+	SET @tmpValue = CAST(@Version AS nvarchar(100))
+	EXEC yaf_registry_save 'Version', @tmpValue
 	EXEC yaf_registry_save 'VersionName',@VersionName
-end
+
+END
 GO
 
 create procedure [dbo].[yaf_topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
