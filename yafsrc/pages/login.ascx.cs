@@ -40,7 +40,7 @@ namespace YAF.Pages // YAF.Pages
 
 		public login()
 			: base( "LOGIN" )
-		{
+		{ 
 		}
 
 		protected void Page_Load( object sender, System.EventArgs e )
@@ -48,40 +48,47 @@ namespace YAF.Pages // YAF.Pages
 			if ( !CanLogin )
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
-
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "title" ) );
+
 				Login1.CreateUserText = "Sign up for a new account.";
-				Login1.CreateUserUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
+				//Login1.CreateUserUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
 				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+				Login1.FailureText = GetText( "password_error" );
 
-				//ForumLogin.Text = GetText( "forum_login" );
-				//LostPassword.Text = GetText( "lostpassword" );
-				//Recover.Text = GetText( "sendpassword" );
+				// localize controls
+				CheckBox rememberMe = ( CheckBox )Login1.FindControl( "RememberMe" );
+				TextBox userName = ( TextBox ) Login1.FindControl( "UserName" );
+				Button forumLogin = ( Button ) Login1.FindControl( "LoginButton" );
+				HyperLink passwordRecovery = ( HyperLink ) Login1.FindControl( "PasswordRecovery" );
+
+				rememberMe.Text = GetText( "auto" );
+				forumLogin.Text = GetText( "forum_login" );
+				passwordRecovery.Text = GetText( "lostpassword" );
+				passwordRecovery.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 
 				// set the focus using Damien McGivern client-side focus class
-				//ClientSideFocus.setFocus( UserName );
+				YAF.Classes.UI.ClientSideFocus.setFocus( userName );
+
+				DataBind();
 			}
 		}
 
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			Login1.LoggedIn += new EventHandler( Login1_LoggedIn );
-			this.Load += new System.EventHandler( this.Page_Load );
-			base.OnInit( e );
-		}
-
-		void Login1_LoggedIn( object sender, EventArgs e )
+		protected void Login1_LoggedIn( object sender, EventArgs e )
 		{
 			if ( Request.QueryString ["ReturnUrl"] != null )
 				Response.Redirect( Request.QueryString ["ReturnUrl"] );
 			else
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+		}
+
+		protected void Login1_LoginError( object sender, EventArgs e )
+		{
+			//Display the failure message in a client-side alert box
+			Page.ClientScript.RegisterStartupScript( Page.GetType(), "LoginError", String.Format( "alert('{0}');", Login1.FailureText.Replace( "'", "\'" ) ), true );
 		}
 	}
 }

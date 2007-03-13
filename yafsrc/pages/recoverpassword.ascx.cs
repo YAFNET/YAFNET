@@ -13,14 +13,14 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
-    public partial class recoverpassword : YAF.Classes.Base.ForumPage
-    {
-        public recoverpassword()
-            : base("RECOVERPASSWORD")
-        {
-        }
+	public partial class recoverpassword : YAF.Classes.Base.ForumPage
+	{
+		public recoverpassword()
+			: base( "RECOVERPASSWORD" )
+		{
+		}
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load( object sender, EventArgs e )
         {
             if (!CanLogin)
                 YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
@@ -28,7 +28,8 @@ namespace YAF.Pages // YAF.Pages
             if (!IsPostBack)
             {
                 PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+								PageLinks.AddLink( GetText( "title" ) );
             }
         }
-    }
+	}
 }

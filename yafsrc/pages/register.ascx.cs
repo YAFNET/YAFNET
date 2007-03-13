@@ -38,34 +38,42 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class register : YAF.Classes.Base.ForumPage
 	{
-	
-		public register() : base("REGISTER")
+
+		public register()
+			: base( "REGISTER" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!CanLogin || PageContext.BoardSettings.DisableRegistrations)
+			if ( !CanLogin || PageContext.BoardSettings.DisableRegistrations )
 				yaf_BuildLink.AccessDenied();
 
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText("TITLE") );
+
+				DataBind();				
 			}
 		}
 
-		override protected void OnInit(EventArgs e)
+		static public string CreatePassword( int length )
 		{
-            this.Load += new System.EventHandler(this.Page_Load);
-            base.OnInit(e);
-		}
-
-		static public string CreatePassword(int length) {
 			string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
 			string res = "";
 			Random rnd = new Random();
-			while(0<length--)
-				res += valid[rnd.Next(valid.Length)];
+			while ( 0 < length-- )
+				res += valid [rnd.Next( valid.Length )];
 			return res;
+		}
+
+		protected void CreateUserWizard1_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			if ( e.CurrentStepIndex == 0 )
+			{
+				yaf_BuildLink.Redirect( ForumPages.forum );
+			}
 		}
 	}
 }
