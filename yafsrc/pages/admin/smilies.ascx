@@ -29,7 +29,7 @@
 <ItemTemplate>
 	<tr>
 		<td class="post"><%# Eval("Code") %></td>
-		<td class="post" align="center"><img src='<%# YAF.Data.ForumRoot %>images/emoticons/<%# Eval("Icon") %>'/></td>		
+		<td class="post" align="center"><img src="<%# yaf_ForumInfo.ForumRoot %>images/emoticons/<%# Eval("Icon") %>"/></td>		
 		<td class="post"><%# Eval("Emoticon") %></td>
 		<td class="post">
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval("SmileyID") %>' text="Edit"/>
