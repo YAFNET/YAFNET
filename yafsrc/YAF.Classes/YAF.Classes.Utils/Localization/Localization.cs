@@ -37,7 +37,7 @@ namespace YAF.Classes.Utils
 
 		}
 
-		public yaf_Localization( string transPage )
+		public yaf_Localization( string transPage ) : this()
 		{
 			TransPage = transPage;
 		}
@@ -49,10 +49,10 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( m_transPage != null )
-					return m_transPage;
+				//if ( m_transPage != null )
+				return m_transPage;
 
-				throw new ApplicationException( string.Format( "Missing TransPage property for {0}", GetType() ) );
+				//throw new ApplicationException( string.Format( "Missing TransPage property for {0}", GetType() ) );
 			}
 			set
 			{

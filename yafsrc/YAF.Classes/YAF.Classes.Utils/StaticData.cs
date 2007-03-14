@@ -140,7 +140,7 @@ namespace YAF.Classes.Utils
 				for ( int i = 0; i < 8; i++ )
 				{
 					DataRow dr = dt.NewRow();
-					dr ["TopicText"] = ( yaf_Context.Current.Localization == null ) ? tTextArrayProp [i] : yaf_Context.Current.Localization.GetText( tTextArray [i] );
+					dr ["TopicText"] = ( yaf_Context.Current.Localization.TransPage == null ) ? tTextArrayProp [i] : yaf_Context.Current.Localization.GetText( tTextArray [i] );
 					dr ["TopicValue"] = i;
 					dt.Rows.Add( dr );
 				}

@@ -647,7 +647,7 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class yaf_ForumInfo
 	{
-		public static string ForumRoot
+		static public string ForumRoot
 		{
 			get
 			{
