@@ -96,7 +96,7 @@ namespace YAF.Pages // YAF.Pages
 					ToList.DataSource = dt;
 					ToList.DataValueField = "UserID";
 					ToList.DataTextField = "Name";
-					ToList.SelectedIndex = 0;
+					//ToList.SelectedIndex = 0;
 					ToList.Visible = true;
 					UserName.Visible = false;
 					FindUsers.Visible = false;
