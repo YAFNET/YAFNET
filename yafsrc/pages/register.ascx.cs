@@ -54,6 +54,24 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText("TITLE") );
 
+				Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
+
+				CompareValidator passwordNoMatch = ( CompareValidator ) createUserTemplateRef.FindControl( "PasswordCompare" );
+				RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "UserNameRequired" );
+				RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "PasswordRequired" );
+				RequiredFieldValidator confirmPasswordRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "ConfirmPasswordRequired" );
+				RequiredFieldValidator emailRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "EmailRequired" );
+				RequiredFieldValidator questionRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "QuestionRequired" );
+				RequiredFieldValidator answerRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "AnswerRequired" );
+
+				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "NEED_USERNAME" );
+				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "NEED_PASSWORD" );
+				confirmPasswordRequired.ToolTip = confirmPasswordRequired.ErrorMessage = GetText( "RETYPE_PASSWORD" );
+				passwordNoMatch.ToolTip = passwordNoMatch.ErrorMessage = GetText( "NEED_MATCH" );
+				emailRequired.ToolTip = emailRequired.ErrorMessage = GetText( "NEED_EMAIL" );
+				questionRequired.ToolTip = questionRequired.ErrorMessage = GetText( "NEED_QUESTION" );
+				answerRequired.ToolTip = answerRequired.ErrorMessage = GetText( "NEED_ANSWER" );
+
 				DataBind();				
 			}
 		}
@@ -70,10 +88,56 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
+			// if they clicked declined, redirect to the main page
 			if ( e.CurrentStepIndex == 0 )
 			{
 				yaf_BuildLink.Redirect( ForumPages.forum );
 			}
+		}
+
+		protected void CreateUserWizard1_CreateUserError( object sender, CreateUserErrorEventArgs e )
+		{
+			string createUserError = "";
+			// find the type of error
+			switch ( e.CreateUserError )
+			{
+				case MembershipCreateStatus.DuplicateEmail:
+					createUserError = GetText( "ALREADY_REGISTERED" );
+					break;
+				case MembershipCreateStatus.DuplicateUserName:
+					createUserError = GetText( "ALREADY_REGISTERED" );
+					break;
+				case MembershipCreateStatus.InvalidEmail:
+					createUserError = GetText( "BAD_EMAIL" );
+					break;
+				case MembershipCreateStatus.InvalidPassword:
+					createUserError = GetText( "BAD_PASSWORD" );
+					break;
+				case MembershipCreateStatus.InvalidQuestion:
+					createUserError = GetText( "INVALID_QUESTION" );
+					break;
+				case MembershipCreateStatus.InvalidUserName:
+					createUserError = GetText( "INVALID_USERNAME" );
+					break;
+				case MembershipCreateStatus.InvalidAnswer:
+					createUserError = GetText( "INVALID_ANSWER" );
+					break;
+				case MembershipCreateStatus.InvalidProviderUserKey:
+					createUserError = "Invalid provider user key.";
+					break;
+				case MembershipCreateStatus.DuplicateProviderUserKey:
+					createUserError = "Duplicate provider user key.";
+					break;
+				case MembershipCreateStatus.ProviderError:
+					createUserError = "Provider Error";
+					break;
+				case MembershipCreateStatus.UserRejected:
+					createUserError = "User creation failed: Reason is defined by the provider.";
+					break;
+			}
+			//Display the failure message in a client-side alert box
+			Page.ClientScript.RegisterStartupScript( Page.GetType(), "CreateUserError", String.Format( "alert('{0}');", createUserError.Replace( "'", "\'" ) ), true );
+
 		}
 	}
 }

@@ -6,7 +6,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" LoginCreatedUser="False" StartNextButtonText="Agree" StartNextButtonType="Link"
-        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick">
+        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError">
         <WizardSteps>
             <asp:TemplatedWizardStep runat="server" StepType="Start" Title="Agreement" AllowReturn="False">
                 <ContentTemplate>
@@ -56,7 +56,7 @@
                             <td align="center" class="header1" colspan="2"><%# GetText("TITLE") %></td>
                         </tr>
                         <tr>
-                            <td align="center" class="post" colspan="2"><asp:Literal ID="ErrorMessage" runat="server" EnableViewState="False"/>
+                            <td align="center" class="post" colspan="2">
                             <asp:CompareValidator ID="PasswordCompare" runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword" Display="Dynamic"
                                     ErrorMessage="The Password and Confirmation Password must match." ValidationGroup="CreateUserWizard1"></asp:CompareValidator>
                             </td>

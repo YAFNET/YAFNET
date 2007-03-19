@@ -64,6 +64,11 @@ namespace YAF.Pages // YAF.Pages
 				TextBox userName = ( TextBox ) Login1.FindControl( "UserName" );
 				Button forumLogin = ( Button ) Login1.FindControl( "LoginButton" );
 				HyperLink passwordRecovery = ( HyperLink ) Login1.FindControl( "PasswordRecovery" );
+				RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) Login1.FindControl( "UsernameRequired" );
+				RequiredFieldValidator passwordRequired = ( RequiredFieldValidator ) Login1.FindControl( "PasswordRequired" );
+
+				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
+				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "REGISTER", "NEED_PASSWORD" );
 
 				rememberMe.Text = GetText( "auto" );
 				forumLogin.Text = GetText( "forum_login" );
