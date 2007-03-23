@@ -36,22 +36,24 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class approve : YAF.Classes.Base.ForumPage
 	{
-		
-		public approve() : base("APPROVE")
+
+		public approve()
+			: base( "APPROVE" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"),"");
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				ValidateKey.Text = GetText("validate");
-				if(Request.QueryString["k"]!=null)
+				ValidateKey.Text = GetText( "validate" );
+				if ( Request.QueryString ["k"] != null )
 				{
-					key.Text = Request.QueryString["k"];
-					ValidateKey_Click(sender,e);
+					key.Text = Request.QueryString ["k"];
+					ValidateKey_Click( sender, e );
 				}
 				else
 				{
@@ -61,33 +63,18 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void ValidateKey_Click(object sender, System.EventArgs e)
+		public void ValidateKey_Click( object sender, System.EventArgs e )
 		{
-			approved.Visible = YAF.Classes.Data.DB.checkemail_update(key.Text);
-			error.Visible = !approved.Visible;
-			PageContext.AddLoadMessage(GetText("EMAIL_VERIFIED"));
-			Response.Redirect("default.aspx?g=login");
-		}
+			bool keyVerified = YAF.Classes.Data.DB.checkemail_update( key.Text );
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			ValidateKey.Click += new EventHandler(ValidateKey_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
+			approved.Visible = keyVerified;
+			error.Visible = !keyVerified;
 
+			if ( keyVerified )
+			{
+				PageContext.AddLoadMessage( GetText( "EMAIL_VERIFIED" ) );
+				Response.Redirect( "default.aspx?g=login" );
+			}
 		}
-		#endregion
 	}
 }

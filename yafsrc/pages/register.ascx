@@ -5,14 +5,14 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
-    <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" LoginCreatedUser="False" StartNextButtonText="Agree" StartNextButtonType="Link"
-        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError">
+    <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree" StartNextButtonType="Link"
+        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnCreatingUser="CreateUserWizard1_CreatingUser" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser">
         <WizardSteps>
-            <asp:TemplatedWizardStep runat="server" StepType="Start" Title="Agreement" AllowReturn="False">
+            <asp:TemplatedWizardStep runat="server" Title="Agreement" AllowReturn="False" ID="agreement">
                 <ContentTemplate>
                     <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
                         <tr>
-                            <td class="header1" colspan="2">
+                            <td class="header1" colspan="2" style="height: 19px">
                                 Terms and Conditions:</td>
                         </tr>
                         <tr>
@@ -41,13 +41,16 @@
                                     By clicking "Agree" below you will to be bound by the terms and conditions for using this forum</p>
                                  
                                 <p align="center">
-                                <asp:LinkButton ID="StartNextButton" runat="server" CommandName="MoveNext">I Agree to these Terms and Conditions</asp:LinkButton><br /><br />
-                                <asp:LinkButton ID="StartDisagreeButton" runat="server" CommandName="MovePrevious">I DO NOT Agree to these Terms and Conditions</asp:LinkButton>
+                                <asp:LinkButton ID="AgreeLink" runat="server" Text="Agree" CommandName="MoveNext"/><br /><br />
+                                <asp:LinkButton ID="DisagreeLink" runat="server" Text="Disagree" CommandName="MovePrevious"/>
                                 </p>
                             </td>
                         </tr>
                         </table>
                 </ContentTemplate>
+                <CustomNavigationTemplate>
+                <!-- in the content template -->
+                </CustomNavigationTemplate>
             </asp:TemplatedWizardStep>
             <asp:CreateUserWizardStep runat="server">
                 <ContentTemplate>
@@ -63,7 +66,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label></td>
+                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"><%# GetText("USERNAME") %>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required."
@@ -72,7 +75,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label></td>
+                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"><%# GetText("PASSWORD") %>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required."
@@ -81,7 +84,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">Confirm Password:</asp:Label></td>
+                                <asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword"><%# GetText( "CONFIRM_PASSWORD" )%>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="ConfirmPassword" runat="server" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="ConfirmPasswordRequired" runat="server" ControlToValidate="ConfirmPassword" ErrorMessage="Confirm Password is required."
@@ -90,7 +93,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">E-mail:</asp:Label></td>
+                                <asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email"><%# GetText( "EMAIL" )%>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="Email" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email" ErrorMessage="E-mail is required." ToolTip="E-mail is required."
@@ -99,7 +102,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question">Security Question:</asp:Label></td>
+                                <asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question"><%# GetText( "SECURITY_QUESTION" )%>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="Question" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="QuestionRequired" runat="server" ControlToValidate="Question" ErrorMessage="Security question is required."
@@ -108,7 +111,7 @@
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer">Security Answer:</asp:Label></td>
+                                <asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer"><%# GetText( "SECURITY_ANSWER" )%>:</asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="Answer" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="AnswerRequired" runat="server" ControlToValidate="Answer" ErrorMessage="Security answer is required."
@@ -124,22 +127,66 @@
                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ValidationGroup="CreateUserWizard1" ShowSummary="False" />
                 </ContentTemplate>
                 <CustomNavigationTemplate>
-                    <!-- moved nav to Content Template -->
+                    <!-- in the Content Template -->    
                 </CustomNavigationTemplate>
             </asp:CreateUserWizardStep>
+            <asp:TemplatedWizardStep runat="server" Title="Profile Information" ID="profile">
+                <ContentTemplate>
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+                        <tr>
+                            <td align="center" class="header1" colspan="2"><%# GetText( "PROFILE" )%></td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="postheader">
+                                <asp:Label ID="LocationLabel" runat="server" AssociatedControlID="Location"><%# GetText( "LOCATION" )%>:</asp:Label></td>
+                            <td class="post">
+                                <asp:TextBox ID="Location" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" class="postheader">
+                                <asp:Label ID="HomepageLabel" runat="server" AssociatedControlID="Homepage"><%# GetText( "HOMEPAGE" )%>:</asp:Label></td>
+                            <td class="post">
+                                <asp:TextBox ID="Homepage" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+	                    <tr>
+		                    <td class="header2" colspan="2" align="center"><%# GetText("PREFERENCES") %></td>
+	                    </tr>
+	                    <tr>
+		                    <td class="postheader"><%# GetText("TIMEZONE") %>:</td>
+		                    <td class="post"><asp:DropDownList id="TimeZones" runat="server" DataTextField="Name" DataValueField="Value"/></td>
+	                    </tr>
+                        <tr align="right">
+                            <td align="center" colspan="2" class="postfooter">
+                                <asp:Button ID="ProfileNextButton" runat="server" CommandName="MoveNext" Text="Next" />
+                            </td>
+                        </tr>                    
+                    </table>
+                </ContentTemplate>
+                <CustomNavigationTemplate>
+                    <!-- in the Content Template -->
+                </CustomNavigationTemplate>
+            </asp:TemplatedWizardStep>
             <asp:CompleteWizardStep runat="server">
+                <ContentTemplate>
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+                        <tr>
+                            <td align="center" class="header1" colspan="2"><%# GetText("TITLE") %></td>
+                        </tr>                
+                        <tr>
+                            <td align="center" colspan="2" class="post">
+                                Your account has been successfully created.</td>
+                        </tr>
+                        <tr>
+                            <td align="right" colspan="2" class="postfooter">
+                                <asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Finish" Text="Continue" ValidationGroup="CreateUserWizard1" />
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
             </asp:CompleteWizardStep>
         </WizardSteps>
-        <StepNavigationTemplate>
-            <asp:Button ID="StepPreviousButton" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Previous" />
-            <asp:Button ID="StepNextButton" runat="server" CommandName="MoveNext" Text="Next" />
-        </StepNavigationTemplate>
-        <StartNavigationTemplate>
-        </StartNavigationTemplate>
-        <FinishNavigationTemplate>
-            <asp:Button ID="FinishPreviousButton" runat="server" CausesValidation="False" CommandName="MovePrevious" Text="Previous" />
-            <asp:Button ID="FinishButton" runat="server" CommandName="MoveComplete" Text="Finish" />
-        </FinishNavigationTemplate>
     </asp:CreateUserWizard>
 </div>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

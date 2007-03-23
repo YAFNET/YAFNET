@@ -13,6 +13,8 @@ namespace YAF.Pages {
     public partial class register {
         protected YAF.Controls.PageLinks PageLinks;
         protected System.Web.UI.WebControls.CreateUserWizard CreateUserWizard1;
+        protected System.Web.UI.WebControls.TemplatedWizardStep agreement;
+        protected System.Web.UI.WebControls.TemplatedWizardStep profile;
         protected YAF.Classes.UI.SmartScroller SmartScroller1;
     }
 }

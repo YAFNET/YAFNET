@@ -52,8 +52,9 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( GetText("TITLE") );
+				PageLinks.AddLink( GetText( "TITLE" ) );
 
+				// handle the CreateUser Step localization
 				Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
 
 				CompareValidator passwordNoMatch = ( CompareValidator ) createUserTemplateRef.FindControl( "PasswordCompare" );
@@ -63,6 +64,7 @@ namespace YAF.Pages // YAF.Pages
 				RequiredFieldValidator emailRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "EmailRequired" );
 				RequiredFieldValidator questionRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "QuestionRequired" );
 				RequiredFieldValidator answerRequired = ( RequiredFieldValidator ) createUserTemplateRef.FindControl( "AnswerRequired" );
+				Button createUser = ( Button ) createUserTemplateRef.FindControl( "StepNextButton" );			
 
 				usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "NEED_USERNAME" );
 				passwordRequired.ToolTip = passwordRequired.ErrorMessage = GetText( "NEED_PASSWORD" );
@@ -71,8 +73,33 @@ namespace YAF.Pages // YAF.Pages
 				emailRequired.ToolTip = emailRequired.ErrorMessage = GetText( "NEED_EMAIL" );
 				questionRequired.ToolTip = questionRequired.ErrorMessage = GetText( "NEED_QUESTION" );
 				answerRequired.ToolTip = answerRequired.ErrorMessage = GetText( "NEED_ANSWER" );
+				createUser.ToolTip = createUser.Text = GetText( "CREATE_USER" );
 
-				DataBind();				
+				// handle other steps localization
+				( ( LinkButton ) FindWizardControl( "AgreeLink" ) ).Text = GetText( "TERMSANDCONDITIONS_AGREE" );
+				( ( LinkButton ) FindWizardControl( "DisagreeLink" ) ).Text = GetText( "TERMSANDCONDITIONS_DISAGREE" );
+				( ( Button ) FindWizardControl( "ProfileNextButton" ) ).Text = GetText( "SAVE" );
+				// get the time zone data source
+				DropDownList timeZones = ( ( DropDownList ) FindWizardControl( "TimeZones" ) );
+				timeZones.DataSource = yaf_StaticData.TimeZones();
+
+				if ( !PageContext.BoardSettings.EmailVerification )
+				{
+					// automatically log in created users
+					CreateUserWizard1.LoginCreatedUser = true;
+					CreateUserWizard1.DisableCreatedUser = false;
+				}
+				else
+				{
+					CreateUserWizard1.LoginCreatedUser = false;
+					CreateUserWizard1.DisableCreatedUser = true;
+				}
+
+				CreateUserWizard1.FinishDestinationPageUrl = yaf_ForumInfo.ForumURL;
+
+				DataBind();
+
+				timeZones.Items.FindByValue( "0" ).Selected = true;
 			}
 		}
 
@@ -86,12 +113,77 @@ namespace YAF.Pages // YAF.Pages
 			return res;
 		}
 
+		/// <summary>
+		/// Find Wizard Control - Find a control in a wizard
+		/// </summary>
+		/// <param name="id">ID of target control</param>
+		/// <returns>A control reference, if found, null, if not</returns>
+		protected Control FindWizardControl( string id )
+		{
+			Control ctrlRtn = null;
+
+			for ( int i = 0; i < CreateUserWizard1.WizardSteps.Count; i++ )
+			{
+				for ( int j = 0; j <
+				CreateUserWizard1.WizardSteps [i].Controls.Count; j++ )
+				{
+					ctrlRtn =
+					FindWizardControl(
+
+					( Control ) CreateUserWizard1.WizardSteps [i].Controls [j], id );
+					if ( ctrlRtn != null ) break;
+				}
+				if ( ctrlRtn != null ) break;
+			}
+
+			return ctrlRtn;
+
+		} // end protected Control FindWizardControl(string id)
+
+		/// <summary>
+		/// Find Wizard Control - Find a control in a wizard, is recursive
+		/// </summary>
+		/// <param name="srcCtrl">Source/Root Control</param>
+		/// <param name="id">ID of target control</param>
+		/// <returns>A Control, if found; null, if not</returns>
+		protected Control FindWizardControl( Control srcCtrl, string id )
+		{
+			Control ctrlRtn = srcCtrl.FindControl( id );
+
+			if ( ctrlRtn == null )
+			{
+				if ( srcCtrl.HasControls() )
+				{
+					int nbrCtrls = srcCtrl.Controls.Count;
+					for ( int i = 0; i < nbrCtrls; i++ )
+					{
+						// Check all child controls of srcCtrl
+						ctrlRtn = FindWizardControl( srcCtrl.Controls [i], id );
+						if ( ctrlRtn != null ) break;
+					} // endfor (int i=0; i < nbrCtrls; i++)
+				} // endif (HasControls)
+
+			} // endif (ctrlRtn == null)
+
+			return ctrlRtn;
+		} // end protected Control FindWizardControl(Control srcCtrl, string id)
+
 		protected void CreateUserWizard1_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			// if they clicked declined, redirect to the main page
 			if ( e.CurrentStepIndex == 0 )
 			{
 				yaf_BuildLink.Redirect( ForumPages.forum );
+			}
+		}
+
+		protected void CreateUserWizard1_NextButtonClick( object sender, WizardNavigationEventArgs e )
+		{
+			Trace.Write( "Next Button Click" );
+			// if they clicked declined, redirect to the main page
+			if ( e.CurrentStepIndex == 2 )
+			{
+				
 			}
 		}
 
@@ -137,7 +229,39 @@ namespace YAF.Pages // YAF.Pages
 			}
 			//Display the failure message in a client-side alert box
 			Page.ClientScript.RegisterStartupScript( Page.GetType(), "CreateUserError", String.Format( "alert('{0}');", createUserError.Replace( "'", "\'" ) ), true );
+		}
 
+		protected void CreateUserWizard1_CreatingUser( object sender, LoginCancelEventArgs e )
+		{
+			Trace.Write( "Creating User" );
+			if ( PageContext.BoardSettings.EmailVerification )
+			{
+				// get the user email
+				TextBox emailTextBox = ( TextBox ) CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl( "Email" );
+				string email = emailTextBox.Text.Trim();
+
+				string hashinput = DateTime.Now.ToString() + email + CreatePassword( 20 );
+				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
+
+				string body = General.ReadTemplate( "verifyemail.txt" );
+				string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+
+				body = body.Replace( "{link}", String.Format( "{1}{0}", yaf_BuildLink.GetLink( ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL ) );
+				body = body.Replace( "{key}", hash );
+				body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
+				body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
+
+				General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
+			}
+		}
+
+		protected void CreateUserWizard1_CreatedUser( object sender, EventArgs e )
+		{
+			Trace.Write( "*Created User" );
+
+			MembershipUser user = Membership.GetUser();
+
+			if ( user != null ) Trace.Write( "User = " + user.UserName );
 		}
 	}
 }
