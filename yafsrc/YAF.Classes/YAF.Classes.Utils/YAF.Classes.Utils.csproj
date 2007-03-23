@@ -40,6 +40,7 @@
     <Compile Include="DateTime.cs" />
     <Compile Include="MessageFlags.cs" />
     <Compile Include="Nntp.cs" />
+    <Compile Include="SendMail.cs" />
     <Compile Include="StaticData.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Localization\Localization.cs" />
