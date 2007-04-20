@@ -8,6 +8,11 @@ namespace YAF.Controls
 	/// </summary>
 	public class PageLinks : BaseControl
 	{
+		public void AddLink( string title )
+		{
+			AddLink( title, "" );
+		}
+
 		public void AddLink(string title,string url) 
 		{
 			DataTable dt = (DataTable)ViewState["data"];
@@ -53,16 +58,6 @@ namespace YAF.Controls
 						AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
 				}
 			}
-		}
-
-		private void Page_Load(object sender, System.EventArgs e) 
-		{
-		}
-
-		override protected void OnInit(EventArgs e)
-		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			base.OnInit(e);
 		}
 
 		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
