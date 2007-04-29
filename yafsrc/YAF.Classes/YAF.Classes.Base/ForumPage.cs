@@ -167,13 +167,13 @@ namespace YAF.Classes.Base
 			// This happens when user logs in
 			if ( Mession.LastVisit == DateTime.MinValue )
 			{
-				if ( PageContext.Page.Incoming > 0 )
-					PageContext.AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.Page.Incoming ) );
+				if ( PageContext.UnreadPrivate > 0 )
+					PageContext.AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.UnreadPrivate ) );
 			}
 
-			if ( !PageContext.IsGuest && !PageContext.Page.IsPreviousVisitNull() && !Mession.HasLastVisit )
+			if ( !PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
 			{
-				Mession.LastVisit = ( DateTime ) PageContext.Page.PreviousVisit;
+				Mession.LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
 				Mession.HasLastVisit = true;
 			}
 			else if ( Mession.LastVisit == DateTime.MinValue )
@@ -182,7 +182,7 @@ namespace YAF.Classes.Base
 			}
 
 			// Check if pending mails, and send 10 of them if possible
-			if ( PageContext.Page.MailsPending > 0 )
+			if ( Convert.ToInt32(PageContext.Page["MailsPending"]) > 0 )
 			{
 				try
 				{
@@ -232,11 +232,10 @@ namespace YAF.Classes.Base
 			try
 			{
 				// validate the version of the database (also check for connectivity)...
-				YAF.Classes.Data.YAFDBTableAdapters.yaf_RegistryTableAdapter adapter = new YAF.Classes.Data.YAFDBTableAdapters.yaf_RegistryTableAdapter();
-				YAFDB.yaf_RegistryDataTable registry = adapter.GetData( "Version", null );
+				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
 
-				if ( (registry.Count == 0) || (Convert.ToInt32( registry [0].Value ) < yaf_ForumInfo.AppVersion) )
-				{
+				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < yaf_ForumInfo.AppVersion ) )
+				{				
 					// needs upgrading...
 					Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
 				}
@@ -320,8 +319,7 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitUserAndPage()
 		{
-			YAFDB.yaf_PageLoadDataTable pageLoad;
-			YAF.Classes.Data.YAFDBTableAdapters.yaf_PageLoadTableAdapter taPageLoad = new YAF.Classes.Data.YAFDBTableAdapters.yaf_PageLoadTableAdapter();
+			System.Data.DataRow pageRow;
 
 			// Find user name
 			MembershipUser user = Membership.GetUser();
@@ -348,16 +346,17 @@ namespace YAF.Classes.Base
 			if ( PageContext.Settings.CategoryID != 0 )
 				categoryID = PageContext.Settings.CategoryID;
 
-			object userKey = null;
+			object userKey = DBNull.Value;
+			
 			if ( user != null )
 				userKey = user.ProviderUserKey;
 
 			do
 			{
-				pageLoad = taPageLoad.GetData(
+				pageRow = DB.pageload(
 						HttpContext.Current.Session.SessionID,
 						PageContext.PageBoardID,
-						(System.Guid?)userKey,
+						userKey,
 						HttpContext.Current.Request.UserHostAddress,
 						HttpContext.Current.Request.FilePath,
 						browser,
@@ -368,7 +367,7 @@ namespace YAF.Classes.Base
 						messageID );
 
 				// if the user doesn't exist...
-				if ( user != null && pageLoad.Count == 0 )
+				if ( user != null && pageRow == null )
 				{
 					// create the user...
 					if ( !Security.CreateForumUser( user, PageContext.PageBoardID ) )
@@ -376,10 +375,10 @@ namespace YAF.Classes.Base
 				}
 
 				// only continue if either the page has been loaded or the user has been found...
-			} while ( pageLoad.Count == 0 && user != null );
+			} while ( pageRow == null && user != null );
 
 			// page still hasn't been loaded...
-			if ( pageLoad.Count == 0 )
+			if ( pageRow == null )
 			{
 				if ( user != null )
 					throw new ApplicationException( string.Format( "User '{0}' isn't registered.", user.UserName ) );
@@ -388,7 +387,7 @@ namespace YAF.Classes.Base
 			}
 
 			// save this page data to the context...
-			PageContext.Page = pageLoad [0];
+			PageContext.Page = pageRow;
 		}
 
 		/// <summary>
@@ -398,14 +397,14 @@ namespace YAF.Classes.Base
 		{
 			string themeFile = null;
 
-			if ( PageContext.Page != null && !PageContext.Page.IsThemeFileNull() && PageContext.BoardSettings.AllowUserTheme )
+			if ( PageContext.Page != null && PageContext.Page["ThemeFile"] != DBNull.Value && PageContext.BoardSettings.AllowUserTheme )
 			{
 				// use user-selected themem
-				themeFile = PageContext.Page.ThemeFile;
+				themeFile = PageContext.Page ["ThemeFile"].ToString();
 			}
-			else if ( PageContext.Page != null && !PageContext.Page.IsForumThemeNull() )
+			else if ( PageContext.Page != null && PageContext.Page["ForumTheme"] != DBNull.Value )
 			{
-				themeFile = PageContext.Page.ForumTheme;
+				themeFile = PageContext.Page ["ForumTheme"].ToString();
 			}
 			else
 			{
