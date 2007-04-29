@@ -83,13 +83,13 @@ namespace YAF.Classes.Utils
 
 			string filename = null;
 
-			if ( yaf_Context.Current.PageIsNull() || yaf_Context.Current.Page.IsLanguageFileNull() || !yaf_Context.Current.BoardSettings.AllowUserLanguage )
+			if ( yaf_Context.Current.PageIsNull() || yaf_Context.Current.Page["LanguageFile"] == DBNull.Value || !yaf_Context.Current.BoardSettings.AllowUserLanguage )
 			{
 				filename = yaf_Context.Current.BoardSettings.Language;
 			}
 			else
 			{
-				filename = yaf_Context.Current.Page.LanguageFile;
+				filename = yaf_Context.Current.LanguageFile;
 			}
 
 			if ( filename == null ) filename = "english.xml";
@@ -154,7 +154,7 @@ namespace YAF.Classes.Utils
 
 				HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-				YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.Page.UserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", text.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+				YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", text.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
 				return String.Format( "[{1}.{0}]", text.ToUpper(), page.ToUpper() ); ;
 			}
 

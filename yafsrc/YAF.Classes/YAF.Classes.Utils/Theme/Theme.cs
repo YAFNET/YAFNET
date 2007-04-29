@@ -120,7 +120,7 @@ namespace YAF.Classes.Utils
 
 				if ( node == null )
 				{
-					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.Page.UserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
 					return defaultValue;
 				}
 
