@@ -56,7 +56,7 @@ namespace YAF.Controls
 			Quote.Visible = !PostDeleted && CanReply;
 			Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
 			Quote.ToolTip = "Reply with quote";
-			Quote.NavigateUrl = yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.Page.TopicID, PageContext.PageForumID, DataRow ["MessageID"] );
+			Quote.NavigateUrl = yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
