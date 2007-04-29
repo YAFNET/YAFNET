@@ -32,7 +32,7 @@ namespace YAF.Classes.Utils
 	public class yaf_Context
 	{
 		private static yaf_Context currentInstance = new yaf_Context();
-		private YAF.Classes.Data.YAFDB.yaf_PageLoadRow page = null;
+		private System.Data.DataRow page = null;
 		private YAF.Classes.Utils.yaf_ControlSettings settings = null;
 		private YAF.Classes.Utils.yaf_Theme theme = null;
 		private YAF.Classes.Utils.yaf_Localization localization = null;
@@ -95,7 +95,7 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Data.YAFDB.yaf_PageLoadRow Page
+		public System.Data.DataRow Page
 		{
 			get
 			{
@@ -189,6 +189,57 @@ namespace YAF.Classes.Utils
 			return false;
 		}
 
+		/// <summary>
+		/// Helper function used for redundant "access" fields internally
+		/// </summary>
+		/// <param name="field"></param>
+		/// <returns></returns>
+		private bool AccessNotNull( string field )
+		{
+			if ( Page [field] == DBNull.Value ) return false;
+			return ( Convert.ToInt32( Page [field] ) > 0 );			
+		}
+
+		/// <summary>
+		/// Internal helper function used for redundant page variable access (bool)
+		/// </summary>
+		/// <param name="field"></param>
+		/// <returns></returns>
+		private bool PageValueAsBool( string field )
+		{
+			if ( Page != null && Page [field] != DBNull.Value )
+				return Convert.ToInt32(Page[field]) != 0;
+
+			return false;
+		}
+
+		/// <summary>
+		/// Internal helper function used for redundant page variable access (int)
+		/// </summary>
+		/// <param name="field"></param>
+		/// <returns></returns>
+		private int PageValueAsInt( string field )
+		{
+			if ( Page != null && Page [field] != DBNull.Value )
+				return Convert.ToInt32( Page [field] );
+
+			return 0;
+		}
+
+		/// <summary>
+		/// Internal helper function used for redudant page variable access (string)
+		/// </summary>
+		/// <param name="field"></param>
+		/// <returns></returns>
+		private string PageValueAsString( string field )
+		{
+			if ( Page != null && Page [field] != DBNull.Value )
+				return Page [field].ToString() ;
+
+			return "";
+		}
+
+
 		#region Forum and Page Helper Properties
 		/// <summary>
 		/// True if current user has post access in the current forum
@@ -197,10 +248,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsPostAccessNull() )
-					return false;
-				else
-					return ( Page.PostAccess > 0 );
+				return AccessNotNull("PostAccess");
 			}
 		}
 		/// <summary>
@@ -210,10 +258,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsReplyAccessNull() )
-					return false;
-				else
-					return ( Page.ReplyAccess > 0 );
+				return AccessNotNull( "ReplyAccess" );
 			}
 		}
 		/// <summary>
@@ -223,10 +268,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsReadAccessNull() )
-					return false;
-				else
-					return ( Page.ReadAccess > 0 );
+				return AccessNotNull( "ReadAccess" );
 			}
 		}
 		/// <summary>
@@ -236,10 +278,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsPriorityAccessNull() )
-					return false;
-				else
-					return ( Page.PriorityAccess > 0 );
+				return AccessNotNull( "PriorityAccess" );
 			}
 		}
 		/// <summary>
@@ -249,10 +288,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsPollAccessNull() )
-					return false;
-				else
-					return ( Page.PollAccess > 0 );
+				return AccessNotNull( "PollAccess" );
 			}
 		}
 		/// <summary>
@@ -262,10 +298,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsVoteAccessNull() )
-					return false;
-				else
-					return Page.VoteAccess > 0;
+				return AccessNotNull( "VoteAccess" );
 			}
 		}
 		/// <summary>
@@ -275,10 +308,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsModeratorAccessNull() )
-					return false;
-				else
-					return ( Page.ModeratorAccess > 0 );
+				return AccessNotNull( "ModeratorAccess" );
 			}
 		}
 		/// <summary>
@@ -288,10 +318,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsDeleteAccessNull() )
-					return false;
-				else
-					return ( Page.DeleteAccess > 0 );
+				return AccessNotNull( "DeleteAccess" );
 			}
 		}
 		/// <summary>
@@ -301,10 +328,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsEditAccessNull() )
-					return false;
-				else
-					return ( Page.EditAccess > 0 );
+				return AccessNotNull( "EditAccess" );
 			}
 		}
 		/// <summary>
@@ -314,10 +338,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page.IsUploadAccessNull() )
-					return false;
-				else
-					return ( Page.UploadAccess > 0 );
+				return AccessNotNull( "UploadAccess" );
 			}
 		}
 
@@ -342,14 +363,14 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return ( Page == null ) ? 0 : Page.UserID;
+				return PageValueAsInt( "UserID" );
 			}
 		}
 		public string PageUserName
 		{
 			get
 			{
-				return ( Page == null ) ? "" : Page.UserName;
+				return PageValueAsString( "UserName" );
 			}
 		}
 		/// <summary>
@@ -363,10 +384,7 @@ namespace YAF.Classes.Utils
 				if ( nLockedForum != 0 )
 					return nLockedForum;
 
-				if ( Page != null && !Page.IsForumIDNull() )
-					return Page.ForumID;
-
-				return 0;
+				return PageValueAsInt( "ForumID" );
 			}
 		}
 		/// <summary>
@@ -376,10 +394,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsForumNameNull() )
-					return ( string ) Page.ForumName;
-
-				return "";
+				return PageValueAsString( "ForumName" );
 			}
 		}
 		/// <summary>
@@ -390,11 +405,11 @@ namespace YAF.Classes.Utils
 			get
 			{
 				if ( Settings.CategoryID != 0 )
+				{
 					return Settings.CategoryID;
-				else if ( Page != null && !Page.IsCategoryIDNull() )
-					return Page.CategoryID;
+				}
 
-				return 0;
+				return PageValueAsInt( "CategoryID" );
 			}
 		}
 		/// <summary>
@@ -404,10 +419,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsCategoryNameNull() )
-					return Page.CategoryName;
-
-				return "";
+				return PageValueAsString( "CategoryName" );
 			}
 		}
 		/// <summary>
@@ -417,10 +429,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsTopicIDNull() )
-					return Page.TopicID;
-
-				return 0;
+				return PageValueAsInt( "TopicID" );
 			}
 		}
 		/// <summary>
@@ -430,10 +439,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsTopicNameNull() )
-					return Page.TopicName;
-
-				return "";
+				return PageValueAsString( "TopicName" );
 			}
 		}
 
@@ -448,7 +454,7 @@ namespace YAF.Classes.Utils
 
 				if ( Page != null )
 				{
-					if ( ( Page.UserFlags & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
+					if ( ( Convert.ToInt32(Page["UserFlags"]) & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
 						isHostAdmin = true;
 				}
 
@@ -466,10 +472,7 @@ namespace YAF.Classes.Utils
 				if ( IsHostAdmin )
 					return true;
 
-				if ( Page != null && !Page.IsIsAdminNull() )
-					return Page.IsAdmin != 0;
-
-				return false;
+				return PageValueAsBool( "IsAdmin" ); 
 			}
 		}
 		/// <summary>
@@ -479,10 +482,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsIsGuestNull() )
-					return Page.IsGuest != 0;
-
-				return false;
+				return PageValueAsBool( "IsGuest" );
 			}
 		}
 		/// <summary>
@@ -492,10 +492,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsIsForumModeratorNull() )
-					return Page.IsForumModerator != 0;
-
-				return false;
+				return PageValueAsBool( "IsForumModerator" );
 			}
 		}
 		/// <summary>
@@ -505,10 +502,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsIsModeratorNull() )
-					return Page.IsModerator != 0;
-
-				return false;
+				return PageValueAsBool( "IsModerator" );
 			}
 		}
 
@@ -519,7 +513,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page != null && !Page.IsSuspendedNull() )
+				if ( Page != null && Page ["Suspended"] != DBNull.Value )
 					return true;
 
 				return false;
@@ -533,10 +527,10 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( Page == null || Page.IsSuspendedNull() )
+				if ( Page == null || Page ["Suspended"] == DBNull.Value )
 					return DateTime.Now;
 				else
-					return Page.Suspended;
+					return Convert.ToDateTime( Page ["Suspended"] );
 			}
 		}
 
@@ -547,7 +541,29 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return Page.Incoming;
+				return Convert.ToInt32(Page["Incoming"]);
+			}
+		}
+
+		/// <summary>
+		/// The time zone offset for the user
+		/// </summary>
+		public int TimeZoneUser
+		{
+			get
+			{
+				return Convert.ToInt32( Page ["TimeZoneUser"] );
+			}
+		}
+
+		/// <summary>
+		/// The language file for the user
+		/// </summary>
+		public string LanguageFile
+		{
+			get
+			{
+				return PageValueAsString( "LanguageFile" );
 			}
 		}
 

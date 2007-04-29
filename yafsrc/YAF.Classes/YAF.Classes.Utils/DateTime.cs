@@ -33,7 +33,7 @@ namespace YAF.Classes.Utils
 			{
 				if ( yaf_Context.Current.Page != null )
 				{
-					int min = yaf_Context.Current.Page.TimeZoneUser;
+					int min = yaf_Context.Current.TimeZoneUser;
 					return new TimeSpan( min / 60, min % 60, 0 );
 				}
 				else
