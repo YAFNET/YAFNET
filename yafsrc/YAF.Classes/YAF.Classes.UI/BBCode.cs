@@ -102,6 +102,7 @@ namespace YAF.Classes.UI
 		static private Regex r_post = new Regex( @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]", m_options );
 		static private Regex r_topic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", m_options );
 		static private Regex r_img = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", m_options );
+		static private Regex r_youtube = new Regex( @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]", m_options);
 
 		static public string MakeHtml( string bbcode, bool DoFormatting )
 		{
@@ -201,6 +202,8 @@ namespace YAF.Classes.UI
 				NestedReplace( ref bbcode, r_right, "<div align=\"right\">${inner}</div>" );
 				// image
 				NestedReplace( ref bbcode, r_img, "<img src=\"${http}${inner}\"/>", new string [] { "http" }, new string [] { "http://" } );
+				// youtube
+				NestedReplace( ref bbcode, r_youtube, @"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->", new string [] { "id" } );
 
 				bbcode = r_hr.Replace( bbcode, "<hr noshade/>" );
 				bbcode = r_br.Replace( bbcode, "<br/>" );
