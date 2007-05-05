@@ -255,19 +255,19 @@ namespace YAF.Classes.Base
 			string key = string.Format( "BannedIP.{0}", PageContext.PageBoardID );			
 			
 			// load the banned IP table...
-			YAFDB.yaf_BannedIPDataTable bannedIPs = ( YAFDB.yaf_BannedIPDataTable ) HttpContext.Current.Cache [key];
+			DataTable bannedIPs = ( DataTable ) HttpContext.Current.Cache [key];
+
 			if ( bannedIPs == null )
 			{
 				// load the table and cache it...
-				YAF.Classes.Data.YAFDBTableAdapters.yaf_BannedIPTableAdapter adapter = new YAF.Classes.Data.YAFDBTableAdapters.yaf_BannedIPTableAdapter();
-				bannedIPs = adapter.GetData( PageContext.PageBoardID, null );
+				bannedIPs = DB.bannedip_list( PageContext.PageBoardID, null );
 				HttpContext.Current.Cache [key] = bannedIPs;
 			}
 
 			// check for this user in the list...
-			foreach ( YAFDB.yaf_BannedIPRow row in bannedIPs )
+			foreach ( DataRow row in bannedIPs.Rows )
 			{
-				if ( General.IsBanned( ( string ) row.Mask, HttpContext.Current.Request.ServerVariables ["REMOTE_ADDR"] ) )
+				if ( General.IsBanned( ( string ) row["Mask"], HttpContext.Current.Request.ServerVariables ["REMOTE_ADDR"] ) )
 					HttpContext.Current.Response.End();
 			}
 		}
