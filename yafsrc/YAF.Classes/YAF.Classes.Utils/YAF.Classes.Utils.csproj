@@ -50,6 +50,7 @@
     <Compile Include="Security.cs" />
     <Compile Include="Theme\Theme.cs" />
     <Compile Include="General.cs" />
+    <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">

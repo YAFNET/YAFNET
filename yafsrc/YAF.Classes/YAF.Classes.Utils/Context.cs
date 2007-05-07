@@ -107,6 +107,14 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		public YAF.Classes.Utils.YAF_UserProfile Profile
+		{
+			get
+			{
+				return ( YAF_UserProfile ) HttpContext.Current.Profile;
+			}
+		}
+
 		public YAF.Classes.Utils.yaf_ControlSettings Settings
 		{
 			get
