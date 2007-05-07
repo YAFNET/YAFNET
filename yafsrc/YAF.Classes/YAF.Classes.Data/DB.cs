@@ -2423,7 +2423,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Avatar", Avatar );
 				cmd.Parameters.AddWithValue( "@LanguageFile", languageFile );
 				cmd.Parameters.AddWithValue( "@ThemeFile", themeFile );
-				cmd.Parameters.AddWithValue( "@OverrideDefaultThemes", overrideDefaultThemes );
+				cmd.Parameters.AddWithValue( "@OverrideDefaultTheme", overrideDefaultThemes );
 				cmd.Parameters.AddWithValue( "@Approved", Approved );
 				cmd.Parameters.AddWithValue( "@MSN", msn );
 				cmd.Parameters.AddWithValue( "@YIM", yim );
