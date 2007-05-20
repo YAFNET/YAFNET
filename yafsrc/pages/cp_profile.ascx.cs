@@ -31,7 +31,7 @@ using System.Globalization;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for editprofile.
@@ -48,10 +48,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if(User==null)
 			{
-				if(CanLogin)
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-				else
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 			}
 
 			if ( !IsPostBack )
