@@ -22,6 +22,10 @@
 		<td class="postformheader" width="20%"><%= GetText("subject") %></td>
 		<td class="post" width="80%"><asp:textbox id="Subject" runat="server" cssclass="edit"/></td>
 	</tr>
+	<tr id="BlogRow" runat="server">
+		<td class="postformheader" width="20%">Post to blog?</td>
+		<td class="post" width="80%"><asp:CheckBox id="PostToBlog" runat="server" cssclass="edit"/></td>
+	</tr>
 	<tr id="FromRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("from") %></td>
 		<td class="post" width="80%"><asp:textbox id="From" runat="server" cssclass="edit"/></td>

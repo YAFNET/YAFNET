@@ -145,6 +145,27 @@ namespace YAF.Classes.Utils
 			set { base ["Blog"] = value; }
 		}
 
+		[SettingsAllowAnonymous(false)]
+		public string BlogServiceUrl
+		{
+			get { return base["BlogServiceUrl"] as string; }
+			set { base["BlogServiceUrl"] = value; }
+		}
+
+		[SettingsAllowAnonymous(false)]
+		public string BlogServiceUsername
+		{
+			get { return base["BlogServiceUsername"] as string; }
+			set { base["BlogServiceUsername"] = value; }
+		}
+
+		[SettingsAllowAnonymous(false)]
+		public string BlogServicePassword
+		{
+			get { return base["BlogServicePassword"] as string; }
+			set { base["BlogServicePassword"] = value; }
+		}
+
 		[SettingsAllowAnonymous( false )]
 		public string RealName
 		{

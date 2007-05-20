@@ -48,6 +48,24 @@
 			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %></td>
 			<td class="post"><asp:TextBox runat="server" id="Weblog" cssclass="edit" /></td>
 		</tr>
+		<%-- TODO: Probably need to come up with Localization strings for each of these...please help --%>
+		<tr>
+			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> MetaWeblog API Url</td>
+			<td class="post"><asp:TextBox runat="server" id="WeblogUrl" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> ID</td>
+			<td class="post"><asp:TextBox runat="server" id="WeblogID" cssclass="edit" /> May be needed for some blogs (SubText does not need it).  If you don't know yours try with out it first.</td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> Username </td>
+			<td class="post"><asp:TextBox runat="server" id="WeblogUsername" cssclass="edit" /></td>
+		</tr>
+		<tr>
+			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> Password</td>
+			<td class="post"><asp:TextBox runat="server" TextMode="Password" id="WeblogPassword" cssclass="edit" /></td>
+		</tr>
+		
 		<tr>
 			<td colspan="2" class="header2"><b><%= PageContext.Localization.GetText("CP_EDITPROFILE","messenger") %></b></td>
 		</tr>

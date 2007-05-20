@@ -31,7 +31,7 @@ using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for postmessage.
@@ -61,9 +61,9 @@ namespace YAF.Pages // YAF.Pages
 		{
 			DataRow currentRow = null;
 
-			if ( Request.QueryString ["q"] != null )
+			if ( QuotedTopicID != null )
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["q"] ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.message_list( QuotedTopicID ) )
 					currentRow = dt.Rows [0];
 
 				if ( Convert.ToInt32( currentRow ["TopicID"] ) != PageContext.PageTopicID )
@@ -72,9 +72,9 @@ namespace YAF.Pages // YAF.Pages
 				if ( !CanQuotePostCheck( currentRow ) )
 					yaf_BuildLink.AccessDenied();
 			}
-			else if ( Request.QueryString ["m"] != null )
+			else if ( EditTopicID != null )
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.message_list( EditTopicID ) )
 					currentRow = dt.Rows [0];
                 OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
 				if ( !CanEditPostCheck( currentRow ) )
@@ -109,7 +109,7 @@ namespace YAF.Pages // YAF.Pages
 				CreatePoll.Text = GetText( "createpoll" );
 
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
-				CreatePollRow.Visible = Request.QueryString ["t"] == null && PageContext.ForumPollAccess;
+				CreatePollRow.Visible = TopicID == null && PageContext.ForumPollAccess;
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
@@ -118,10 +118,10 @@ namespace YAF.Pages // YAF.Pages
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 
-				if ( Request.QueryString ["t"] != null )
+				if ( TopicID != null )
 				{
 					// new post...
-					DataRow topic = YAF.Classes.Data.DB.topic_info( Request.QueryString ["t"] );
+					DataRow topic = YAF.Classes.Data.DB.topic_info( TopicID );
 					if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 						Response.Redirect( Request.UrlReferrer.ToString() );
 					SubjectRow.Visible = false;
@@ -131,17 +131,17 @@ namespace YAF.Pages // YAF.Pages
 					{
 						// can't use the last post iframe
 						LastPosts.Visible = true;
-						LastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10( Request.QueryString ["t"] );
+						LastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10( TopicID );
 						LastPosts.DataBind();
 					}
 					else
 					{
 						LastPostsIFrame.Visible = true;
-						LastPostsIFrame.Attributes.Add( "src", "framehelper.aspx?g=lastposts&t=" + Request.QueryString ["t"] );
+						LastPostsIFrame.Attributes.Add( "src", "framehelper.aspx?g=lastposts&t=" + TopicID );
 					}
 				}
 
-				if ( Request.QueryString ["q"] != null )
+				if ( QuotedTopicID != null )
 				{
 					// reply to post...
 					bool isHtml = currentRow ["Message"].ToString().IndexOf( '<' ) >= 0;
@@ -158,7 +158,7 @@ namespace YAF.Pages // YAF.Pages
 
 						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], tmpMessage );
 				}
-				else if ( Request.QueryString ["m"] != null )
+				else if ( EditTopicID != null )
 				{
 					// edit message...
 					string body = currentRow ["message"].ToString();
@@ -255,19 +255,18 @@ namespace YAF.Pages // YAF.Pages
 			if ( !( PageContext.IsAdmin || PageContext.IsModerator ) && PageContext.BoardSettings.PostFloodDelay > 0 )
 			{
 				// see if they've past that delay point
-				if ( Mession.LastPost > DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) && Request.QueryString ["m"] == null )
+				if ( Mession.LastPost > DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) && EditTopicID == null )
 				{
 					PageContext.AddLoadMessage( String.Format( GetText( "wait" ), ( Mession.LastPost - DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) ).Seconds ) );
 					return;
 				}
 			}
 
-			long TopicID;
-			long nMessageID = 0;
+			long topicID, nMessageID = 0;
 			object replyTo = null;
 
-			if ( Request.QueryString ["q"] != null )
-				replyTo = int.Parse( Request.QueryString ["q"] );
+			if ( QuotedTopicID != null )
+				replyTo = int.Parse( QuotedTopicID );
 			else
 				// Let save procedure find first post
 				replyTo = -1;
@@ -276,22 +275,22 @@ namespace YAF.Pages // YAF.Pages
 
 			Mession.LastPost = DateTime.Now;
 
-			if ( Request.QueryString ["t"] != null )
+			if ( TopicID != null ) // Reply to topic
 			{
 				if ( !PageContext.ForumReplyAccess )
 					yaf_BuildLink.AccessDenied();
 
-				TopicID = long.Parse( Request.QueryString ["t"] );
+				topicID = long.Parse( TopicID );
 				// make message flags
 				MessageFlags tFlags = new MessageFlags();
 
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				if ( !YAF.Classes.Data.DB.message_save( TopicID, PageContext.PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
-					TopicID = 0;
+				if ( !YAF.Classes.Data.DB.message_save( topicID, PageContext.PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
+					topicID = 0;
 			}
-			else if ( Request.QueryString ["m"] != null )
+			else if ( EditTopicID != null ) // Edit existing post
 			{
 				if ( !PageContext.ForumEditAccess )
 					yaf_BuildLink.AccessDenied();
@@ -307,48 +306,13 @@ namespace YAF.Pages // YAF.Pages
 
                 bool isModeratorChanged = (PageContext.PageUserID != OwnerUserId);
                 YAF.Classes.Data.DB.message_update(Request.QueryString["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue, ReasonEditor.Text, isModeratorChanged);
-				TopicID = PageContext.PageTopicID;
-				nMessageID = long.Parse( Request.QueryString ["m"] );
+				topicID = PageContext.PageTopicID;
+				nMessageID = long.Parse( EditTopicID );
 			}
-			else
+			else // New post
 			{
 				if ( !PageContext.ForumPostAccess )
 					yaf_BuildLink.AccessDenied();
-
-				object PollID = null;
-
-				if ( PollRow1.Visible )
-				{
-
-					int daysPollExpire = 0;
-					object datePollExpire = null;
-
-					try
-					{
-						daysPollExpire = Convert.ToInt32( PollExpire.Text.Trim() );
-					}
-					catch
-					{
-
-					}
-
-					if ( daysPollExpire > 0 )
-					{
-						datePollExpire = DateTime.Now.AddDays( daysPollExpire );
-					}
-
-					PollID = YAF.Classes.Data.DB.poll_save( Question.Text,
-						PollChoice1.Text,
-						PollChoice2.Text,
-						PollChoice3.Text,
-						PollChoice4.Text,
-						PollChoice5.Text,
-						PollChoice6.Text,
-						PollChoice7.Text,
-						PollChoice8.Text,
-						PollChoice9.Text,
-						datePollExpire );
-				}
 
 				// make message flags
 				MessageFlags tFlags = new MessageFlags();
@@ -357,7 +321,32 @@ namespace YAF.Pages // YAF.Pages
 				tFlags.IsBBCode = Message.UsesBBCode;
 
 				string subject = Server.HtmlEncode( Subject.Text );
-				TopicID = YAF.Classes.Data.DB.topic_save( PageContext.PageForumID, subject, msg, PageContext.PageUserID, Priority.SelectedValue, PollID, User!=null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID );
+				topicID = YAF.Classes.Data.DB.topic_save(PageContext.PageForumID, subject, msg, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID);
+
+				if (PostToBlog.Checked) // Does user wish to post this to their blog?
+				{
+					try
+					{
+						DataRow row;
+						using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
+						{
+							row = dt.Rows[0];
+						}
+
+						string url = row["WeblogUrl"].ToString();
+						string blogid = row["WeblogID"].ToString(); // Not always required, many blog engines just need the username and password
+						string username = row["WeblogUsername"].ToString();
+						string password = row["WeblogPassword"].ToString();
+
+						// Post to blog
+						MetaWeblog blog = new MetaWeblog(url);
+						blog.newPost(blogid, username, password, subject, msg);
+					}
+					catch
+					{
+						// TODO: Show a message saying that the post didn't go to the blog.
+					}
+				}
 			}
 
 			// Check if message is approved
@@ -400,9 +389,46 @@ namespace YAF.Pages // YAF.Pages
 			PollRowExpire.Visible = true;
 		}
 
+		private object GetPollID()
+		{
+			if (PollRow1.Visible) // User wishes to create a poll
+			{
+
+				int daysPollExpire = 0;
+				object datePollExpire = null;
+
+				try
+				{
+					daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
+				}
+				catch
+				{
+
+				}
+
+				if (daysPollExpire > 0)
+				{
+					datePollExpire = DateTime.Now.AddDays(daysPollExpire);
+				}
+
+				return YAF.Classes.Data.DB.poll_save(Question.Text,
+					PollChoice1.Text,
+					PollChoice2.Text,
+					PollChoice3.Text,
+					PollChoice4.Text,
+					PollChoice5.Text,
+					PollChoice6.Text,
+					PollChoice7.Text,
+					PollChoice8.Text,
+					PollChoice9.Text,
+					datePollExpire);
+			}
+			return null; // A poll was not created on this post
+		}
+
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			if ( Request.QueryString ["t"] != null || Request.QueryString ["m"] != null )
+			if ( TopicID != null || EditTopicID != null )
 			{
 				// reply to existing topic or editing of existing topic
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
@@ -450,5 +476,22 @@ namespace YAF.Pages // YAF.Pages
 
 			return html;
 		}
+
+		#region Querystring Values
+		protected string TopicID
+		{
+			get { return Request.QueryString["t"]; }
+		}
+
+		protected string EditTopicID
+		{
+			get { return Request.QueryString["m"]; }
+		}
+
+		protected string QuotedTopicID
+		{
+			get { return Request.QueryString["q"]; }
+		}
+		#endregion
 	}
 }

@@ -10,35 +10,310 @@
 
 namespace YAF.Controls {
     
+    
+    /// <summary>
+    /// EditUsersProfile class.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated class.
+    /// </remarks>
     public partial class EditUsersProfile {
-        protected System.Web.UI.WebControls.TextBox Realname;
-        protected System.Web.UI.WebControls.TextBox Occupation;
-        protected System.Web.UI.WebControls.TextBox Interests;
-        protected System.Web.UI.WebControls.DropDownList Gender;
-        protected System.Web.UI.WebControls.TextBox Location;
-        protected System.Web.UI.WebControls.TextBox HomePage;
-        protected System.Web.UI.WebControls.TextBox Weblog;
-        protected System.Web.UI.WebControls.TextBox MSN;
-        protected System.Web.UI.WebControls.TextBox YIM;
-        protected System.Web.UI.WebControls.TextBox AIM;
-        protected System.Web.UI.WebControls.TextBox ICQ;
-        protected System.Web.UI.WebControls.DropDownList TimeZones;
-        protected System.Web.UI.HtmlControls.HtmlTableRow ForumSettingsRows;
-        protected System.Web.UI.HtmlControls.HtmlTableRow UserThemeRow;
-        protected System.Web.UI.WebControls.DropDownList Theme;
-        protected System.Web.UI.HtmlControls.HtmlTableRow OverrideForumThemeRow;
-        protected System.Web.UI.WebControls.CheckBox OverrideDefaultThemes;
-        protected System.Web.UI.HtmlControls.HtmlTableRow UserLanguageRow;
-        protected System.Web.UI.WebControls.DropDownList Language;
-        protected System.Web.UI.HtmlControls.HtmlTableRow PMNotificationRow;
-        protected System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
-        protected System.Web.UI.WebControls.PlaceHolder LoginInfo;
-        protected System.Web.UI.WebControls.PlaceHolder ShowOldPassword;
-        protected System.Web.UI.WebControls.TextBox OldPassword;
-        protected System.Web.UI.WebControls.TextBox NewPassword1;
-        protected System.Web.UI.WebControls.TextBox NewPassword2;
-        protected System.Web.UI.WebControls.TextBox Email;
-        protected System.Web.UI.WebControls.Button UpdateProfile;
-        protected System.Web.UI.WebControls.Button Cancel;
+        
+        /// <summary>
+        /// Realname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Realname;
+        
+        /// <summary>
+        /// Occupation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Occupation;
+        
+        /// <summary>
+        /// Interests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Interests;
+        
+        /// <summary>
+        /// Gender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Gender;
+        
+        /// <summary>
+        /// Location control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Location;
+        
+        /// <summary>
+        /// HomePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox HomePage;
+        
+        /// <summary>
+        /// Weblog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Weblog;
+        
+        /// <summary>
+        /// WeblogUrl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox WeblogUrl;
+        
+        /// <summary>
+        /// WeblogID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox WeblogID;
+        
+        /// <summary>
+        /// WeblogUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox WeblogUsername;
+        
+        /// <summary>
+        /// WeblogPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox WeblogPassword;
+        
+        /// <summary>
+        /// MSN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MSN;
+        
+        /// <summary>
+        /// YIM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox YIM;
+        
+        /// <summary>
+        /// AIM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AIM;
+        
+        /// <summary>
+        /// ICQ control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ICQ;
+        
+        /// <summary>
+        /// TimeZones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
+        
+        /// <summary>
+        /// ForumSettingsRows control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow ForumSettingsRows;
+        
+        /// <summary>
+        /// UserThemeRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow UserThemeRow;
+        
+        /// <summary>
+        /// Theme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Theme;
+        
+        /// <summary>
+        /// OverrideForumThemeRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow OverrideForumThemeRow;
+        
+        /// <summary>
+        /// OverrideDefaultThemes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox OverrideDefaultThemes;
+        
+        /// <summary>
+        /// UserLanguageRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow UserLanguageRow;
+        
+        /// <summary>
+        /// Language control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Language;
+        
+        /// <summary>
+        /// PMNotificationRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow PMNotificationRow;
+        
+        /// <summary>
+        /// PMNotificationEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
+        
+        /// <summary>
+        /// LoginInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder LoginInfo;
+        
+        /// <summary>
+        /// ShowOldPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ShowOldPassword;
+        
+        /// <summary>
+        /// OldPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox OldPassword;
+        
+        /// <summary>
+        /// NewPassword1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewPassword1;
+        
+        /// <summary>
+        /// NewPassword2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewPassword2;
+        
+        /// <summary>
+        /// Email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Email;
+        
+        /// <summary>
+        /// UpdateProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UpdateProfile;
+        
+        /// <summary>
+        /// Cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Cancel;
     }
 }

@@ -39,6 +39,9 @@ updated.
 
 5. Follow the directions and log in with the administration account
    you created during the setup.
+   
+6. Give the ASPNET/Network Service account write access to the Upload
+   folder.
 
 If you have any questions, I'll be happy to help.
 support@yetanotherforum.net

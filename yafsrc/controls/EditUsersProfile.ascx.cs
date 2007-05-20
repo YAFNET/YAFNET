@@ -85,7 +85,11 @@ namespace YAF.Controls
 			Realname.Text = row ["RealName"].ToString();
 			Occupation.Text = row ["Occupation"].ToString();
 			Interests.Text = row ["Interests"].ToString();
-			Weblog.Text = row ["Weblog"].ToString();
+			Weblog.Text = row["Weblog"].ToString();
+			WeblogUrl.Text = row["WeblogUrl"].ToString();
+			WeblogID.Text = row["WeblogID"].ToString();
+			WeblogUsername.Text = row["WeblogUsername"].ToString();
+			WeblogPassword.Text = row["WeblogPassword"].ToString();
 			MSN.Text = row ["MSN"].ToString();
 			YIM.Text = row ["YIM"].ToString();
 			AIM.Text = row ["AIM"].ToString();
@@ -218,7 +222,7 @@ namespace YAF.Controls
 				email = Email.Text;
 
 			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.Settings.BoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue,OverrideDefaultThemes.Checked, null,
-					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, PMNotificationEnabled.Checked );
+					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, WeblogUrl.Text, WeblogUsername.Text, WeblogPassword.Text, WeblogID.Text, PMNotificationEnabled.Checked );
 
 			if ( AdminEditMode )
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );

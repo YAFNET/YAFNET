@@ -45,9 +45,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!CanLogin)
-				yaf_BuildLink.AccessDenied();
-			
 			FormsAuthentication.SignOut();
 			Session.Abandon();
 			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );

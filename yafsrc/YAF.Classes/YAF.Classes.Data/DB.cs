@@ -2405,8 +2405,7 @@ namespace YAF.Classes.Data
 			object Location, object HomePage, object TimeZone, object Avatar,
 			object languageFile, object themeFile, object overrideDefaultThemes, object Approved,
 			object msn, object yim, object aim, object icq,
-			object realName, object occupation, object interests, object gender, object weblog,
-			object PMNotification )
+			object realName, object occupation, object interests, object gender, object weblog, object weblogurl, object weblogusername, object weblogpassword, object weblogid, object PMNotification )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_save" ) )
 			{
@@ -2434,7 +2433,11 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Interests", interests );
 				cmd.Parameters.AddWithValue( "@Gender", gender );
 				cmd.Parameters.AddWithValue( "@Weblog", weblog );
-				cmd.Parameters.AddWithValue( "@PMNotification", PMNotification );
+				cmd.Parameters.AddWithValue("@PMNotification", PMNotification);
+				cmd.Parameters.AddWithValue("@WeblogUrl", weblogurl);
+				cmd.Parameters.AddWithValue("@WeblogUsername", weblogusername);
+				cmd.Parameters.AddWithValue("@WeblogPassword", weblogpassword);
+				cmd.Parameters.AddWithValue("@WeblogID", weblogid);
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
