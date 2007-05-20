@@ -1481,7 +1481,6 @@
     </Compile>
     <None Include="COPYING" />
     <Content Include="resource.ashx" />
-    <Content Include="default.config" />
     <None Include="install\constraints.sql" />
     <None Include="install\indexes.sql" />
     <None Include="install\procedures.sql" />
@@ -1499,6 +1498,7 @@
     </None>
     <None Include="Web References\RegisterForum\Register.disco" />
     <None Include="Web References\RegisterForum\Register.wsdl" />
+    <Content Include="web.config" />
     <EmbeddedResource Include="controls\DisplayPost.ascx.resx">
       <DependentUpon>DisplayPost.ascx.cs</DependentUpon>
     </EmbeddedResource>
@@ -1510,6 +1510,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="error.aspx.resx">
       <DependentUpon>error.aspx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="install\default.aspx.resx">
       <DependentUpon>default.aspx.cs</DependentUpon>
