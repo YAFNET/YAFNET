@@ -2203,7 +2203,7 @@ namespace YAF.Classes.Data
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public long topic_save( object ForumID, object Subject, object Message, object UserID, object Priority, object PollID, object UserName, object IP, object posted, object flags, ref long nMessageID )
+		static public long topic_save( object ForumID, object Subject, object Message, object UserID, object Priority, object PollID, object UserName, object IP, object posted, object blogPostID, object flags, ref long nMessageID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_topic_save" ) )
 			{
@@ -2215,8 +2215,9 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@Priority", Priority );
 				cmd.Parameters.AddWithValue( "@UserName", UserName );
 				cmd.Parameters.AddWithValue( "@IP", IP );
-				cmd.Parameters.AddWithValue( "@PollID", PollID );
-				cmd.Parameters.AddWithValue( "@Posted", posted );
+				cmd.Parameters.AddWithValue("@PollID", PollID);
+				cmd.Parameters.AddWithValue("@Posted", posted);
+				cmd.Parameters.AddWithValue("@BlogPostID", blogPostID);
 				cmd.Parameters.AddWithValue( "@Flags", flags );
 
 				DataTable dt = DBAccess.GetData( cmd );
@@ -2405,7 +2406,7 @@ namespace YAF.Classes.Data
 			object Location, object HomePage, object TimeZone, object Avatar,
 			object languageFile, object themeFile, object overrideDefaultThemes, object Approved,
 			object msn, object yim, object aim, object icq,
-			object realName, object occupation, object interests, object gender, object weblog, object weblogurl, object weblogusername, object weblogpassword, object weblogid, object PMNotification )
+			object realName, object occupation, object interests, object gender, object weblog, object weblogurl, object weblogusername, object weblogid, object PMNotification )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_user_save" ) )
 			{
@@ -2436,7 +2437,6 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("@PMNotification", PMNotification);
 				cmd.Parameters.AddWithValue("@WeblogUrl", weblogurl);
 				cmd.Parameters.AddWithValue("@WeblogUsername", weblogusername);
-				cmd.Parameters.AddWithValue("@WeblogPassword", weblogpassword);
 				cmd.Parameters.AddWithValue("@WeblogID", weblogid);
 				DBAccess.ExecuteNonQuery( cmd );
 			}

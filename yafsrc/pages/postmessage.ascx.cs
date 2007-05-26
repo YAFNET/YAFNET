@@ -139,6 +139,13 @@ namespace YAF.Pages
 						LastPostsIFrame.Visible = true;
 						LastPostsIFrame.Attributes.Add( "src", "framehelper.aspx?g=lastposts&t=" + TopicID );
 					}
+
+				}
+
+				if(TopicID == null && QuotedTopicID== null && EditTopicID == null)
+				{
+					// Show post to blog option only to a new post
+					BlogRow.Visible = true;
 				}
 
 				if ( QuotedTopicID != null )
@@ -164,6 +171,14 @@ namespace YAF.Pages
 					string body = currentRow ["message"].ToString();
 					Message.Text = body;
 					Title.Text = GetText( "EDIT" );
+
+					string blogPostID = currentRow["blogpostid"].ToString();
+					if (blogPostID != string.Empty) // The user used this post to blog
+					{
+						BlogPostID.Value = blogPostID;
+						PostToBlog.Checked = true;
+						BlogRow.Visible = true;
+					}
 
 					Subject.Text = Server.HtmlDecode( Convert.ToString( currentRow ["Topic"] ) );
 
@@ -308,6 +323,31 @@ namespace YAF.Pages
                 YAF.Classes.Data.DB.message_update(Request.QueryString["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue, ReasonEditor.Text, isModeratorChanged);
 				topicID = PageContext.PageTopicID;
 				nMessageID = long.Parse( EditTopicID );
+
+				if (PostToBlog.Checked) // Does user wish to edit their blog entry?
+				{
+					try
+					{
+						DataRow row;
+						using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
+						{
+							row = dt.Rows[0];
+						}
+
+						string url = row["WeblogUrl"].ToString();
+						string blogid = row["WeblogID"].ToString(); // Don't think this is needed, but just in case
+						string username = row["WeblogUsername"].ToString();
+						//string password = row["WeblogPassword"].ToString(); // Don't want to store the password internally
+
+						// Edit blog post
+						MetaWeblog blog = new MetaWeblog(url);
+						blog.editPost(BlogPostID.Value, username, BlogPassword.Text, SubjectSave, msg);
+					}
+					catch
+					{
+						// TODO: Show a message popup saying that the post didn't go to the blog.
+					}
+				}
 			}
 			else // New post
 			{
@@ -320,9 +360,9 @@ namespace YAF.Pages
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
 
-				string subject = Server.HtmlEncode( Subject.Text );
-				topicID = YAF.Classes.Data.DB.topic_save(PageContext.PageForumID, subject, msg, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, tFlags.BitValue, ref nMessageID);
-
+				string subject = Server.HtmlEncode( Subject.Text ),
+					blogPostID = string.Empty;
+				
 				if (PostToBlog.Checked) // Does user wish to post this to their blog?
 				{
 					try
@@ -334,19 +374,22 @@ namespace YAF.Pages
 						}
 
 						string url = row["WeblogUrl"].ToString();
-						string blogid = row["WeblogID"].ToString(); // Not always required, many blog engines just need the username and password
+						string blogid = row["WeblogID"].ToString(); // Don't think this is needed, but just in case
 						string username = row["WeblogUsername"].ToString();
-						string password = row["WeblogPassword"].ToString();
+						//string password = row["WeblogPassword"].ToString(); // Don't want to store the password internally
 
 						// Post to blog
 						MetaWeblog blog = new MetaWeblog(url);
-						blog.newPost(blogid, username, password, subject, msg);
+						blogPostID = blog.newPost(blogid, username, BlogPassword.Text, subject, msg);
 					}
 					catch
 					{
-						// TODO: Show a message saying that the post didn't go to the blog.
+						// TODO: Show a message popup saying that the post didn't go to the blog.
 					}
 				}
+
+				// Save to Db
+				topicID = YAF.Classes.Data.DB.topic_save(PageContext.PageForumID, subject, msg, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
 			}
 
 			// Check if message is approved

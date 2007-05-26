@@ -22,9 +22,9 @@
 		<td class="postformheader" width="20%"><%= GetText("subject") %></td>
 		<td class="post" width="80%"><asp:textbox id="Subject" runat="server" cssclass="edit"/></td>
 	</tr>
-	<tr id="BlogRow" runat="server">
+	<tr id="BlogRow" visible="false" runat="server">
 		<td class="postformheader" width="20%">Post to blog?</td>
-		<td class="post" width="80%"><asp:CheckBox id="PostToBlog" runat="server" cssclass="edit"/></td>
+		<td class="post" width="80%"><asp:CheckBox id="PostToBlog" runat="server"/> Blog Password: <asp:TextBox ID="BlogPassword" runat="server" TextMode="Password" /><asp:HiddenField ID="BlogPostID" runat="server" /></td>
 	</tr>
 	<tr id="FromRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("from") %></td>

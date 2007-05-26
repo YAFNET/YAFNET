@@ -61,10 +61,6 @@
 			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> Username </td>
 			<td class="post"><asp:TextBox runat="server" id="WeblogUsername" cssclass="edit" /></td>
 		</tr>
-		<tr>
-			<td class="postheader"><%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %> Password</td>
-			<td class="post"><asp:TextBox runat="server" TextMode="Password" id="WeblogPassword" cssclass="edit" /></td>
-		</tr>
 		
 		<tr>
 			<td colspan="2" class="header2"><b><%= PageContext.Localization.GetText("CP_EDITPROFILE","messenger") %></b></td>

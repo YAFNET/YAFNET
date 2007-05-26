@@ -32,7 +32,7 @@ using System.Collections.Specialized;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for cp_editprofile.

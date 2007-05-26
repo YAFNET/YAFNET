@@ -1781,7 +1781,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
     <Folder Include="images\avatars\" />
     <Folder Include="images\emoticons\" />
     <Folder Include="images\ranks\" />
@@ -1801,7 +1800,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2446</DevelopmentServerPort>
+          <DevelopmentServerPort>2441</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/yetanotherforum.net</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>

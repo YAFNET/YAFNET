@@ -11,7 +11,6 @@ namespace YAF.Classes.Data
 		{
 			this.Url = metaWeblogServiceUrl;
 		}
-
 		/// <summary>
 		/// Posts a new entry to a blog.
 		/// </summary>
@@ -35,20 +34,19 @@ namespace YAF.Classes.Data
 		/// <param name="blogid">The blogid, not sure if this is needed.  I know subtext doesn't need it, but not sure of others.</param>
 		/// <param name="username">The name the user uses to login</param>
 		/// <param name="password">The user’s password.</param>
-		/// <param name="title">The title.</param>
-		/// <param name="description">The description.</param>
+		/// <param name="title">The subject of the post.</param>
+		/// <param name="description">The post message.</param>
 		/// <returns>The postid of the newly-created post.</returns>
 		[XmlRpcMethod("metaWeblog.newPost")]
-		public string newPost(string blogid, string username, string password, string title, string description)
+		public string newPost(string blogid, string username, string password, string subject, string message)
 		{
 			Post post = new Post();
-			post.title = title;
-			post.description = description;
+			post.title = subject;
+			post.description = message;
 			post.dateCreated = DateTime.Now;
 			return this.newPost(blogid, username, password, post, true);
 		}
 
-		#region Only implement these when we collect the blog's PostID within the YAF system
 		/// <summary> 
 		/// Edits an existing entry on a blog. 
 		/// </summary> 
@@ -61,10 +59,39 @@ namespace YAF.Classes.Data
 		[XmlRpcMethod("metaWeblog.editPost")]
 		public bool editPost(string postid, string username, string password, Post content, bool publish)
 		{
-			throw new Exception("Not yet implemented");
-			//return (bool)this.Invoke("editPost", new object[] { postid, username, password, content, publish });
+			return (bool)this.Invoke("editPost", new object[] { postid, username, password, content, publish });
 		}
 
+		/// <summary> 
+		/// Edits an existing entry on a blog. 
+		/// </summary> 
+		/// <param name="postid">The ID of the post to update.</param> 
+		/// <param name="username">Username to login to the blog</param> 
+		/// <param name="password">Password to login to the blog</param> 
+		/// <param name="title">The subject of the post.</param>
+		/// <param name="description">The post message.</param>
+		public void editPost(string postid, string username, string password, string subject, string message)
+		{
+			Post post = this.getPost(postid, username, password);
+			post.title = subject;
+			post.description = message;
+			this.editPost(postid, username, password, post, true);
+		}
+
+		/// <summary> 
+		/// Get a specific entry from the blog. 
+		/// </summary> 
+		/// <param name="postid"> The ID of the post to get. </param> 
+		/// <param name="username">Username to login to the blog</param> 
+		/// <param name="password">Password to login to the blog</param> 
+		/// <returns>Returns a specific entry from a blog.</returns> 
+		[XmlRpcMethod("metaWeblog.getPost")]
+		public Post getPost(string postid, string username, string password)
+		{
+			return (Post)this.Invoke("getPost", new object[] { postid, username, password });
+		}
+
+		#region Don't think we'll need this, but what the Heck
 		/// <summary> 
 		/// Deletes a post from the blog. 
 		/// </summary> 
@@ -98,8 +125,6 @@ namespace YAF.Classes.Data
 		[XmlRpcMissingMapping(MappingAction.Ignore)]
 		public struct Post
 		{
-			[XmlRpcMissingMapping(MappingAction.Error)]
-			[XmlRpcMember(Description = "Required when posting.")]
 			public DateTime dateCreated;
 			[XmlRpcMissingMapping(MappingAction.Error)]
 			[XmlRpcMember(Description = "Required when posting.")]
