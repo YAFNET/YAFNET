@@ -79,11 +79,11 @@
   <ItemGroup>
     <Reference Include="AjaxControlToolkit, Version=1.0.10301.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependancies\AjaxControlToolkit.dll</HintPath>
+      <HintPath>Dependencies\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2, Version=2.1.0.3, Culture=neutral, PublicKeyToken=a7d6e17aa302004d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dependancies\CookComputing.XmlRpcV2.dll</HintPath>
+      <HintPath>Dependencies\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
