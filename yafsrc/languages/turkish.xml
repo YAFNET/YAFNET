@@ -403,6 +403,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Özel mesaj gönder</Resource>
+		<Resource tag="PREVIEWTITLE">Görüntüle:</Resource>
 		<Resource tag="TO">Kime:</Resource>
 		<Resource tag="SUBJECT">Konu:</Resource>
 		<Resource tag="MESSAGE">Mesaj:</Resource>

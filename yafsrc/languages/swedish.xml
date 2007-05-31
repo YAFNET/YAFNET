@@ -398,6 +398,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Skicka ett privat meddelande</Resource>
+		<Resource tag="PREVIEWTITLE">Förhandsgranska:</Resource>
 		<Resource tag="TO">Till:</Resource>
 		<Resource tag="SUBJECT">Ärende:</Resource>
 		<Resource tag="MESSAGE">Meddelande:</Resource>

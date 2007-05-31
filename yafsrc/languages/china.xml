@@ -426,6 +426,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">馔写悄悄话</Resource>
+		<Resource tag="PREVIEWTITLE">预览:</Resource>
 		<Resource tag="TO">收件人:</Resource>
 		<Resource tag="SUBJECT">标题:</Resource>
 		<Resource tag="MESSAGE">信息:</Resource>

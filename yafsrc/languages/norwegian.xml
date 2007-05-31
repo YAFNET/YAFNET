@@ -403,6 +403,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Skriv en privat melding</Resource>
+		<Resource tag="PREVIEWTITLE">Forhåndsvis:</Resource>
 		<Resource tag="TO">Til:</Resource>
 		<Resource tag="SUBJECT">Emne:</Resource>
 		<Resource tag="MESSAGE">Melding:</Resource>

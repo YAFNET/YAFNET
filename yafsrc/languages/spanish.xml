@@ -405,6 +405,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Enviar mensaje privado</Resource>
+		<Resource tag="PREVIEWTITLE">Vista previa:</Resource>
 		<Resource tag="TO">Para:</Resource>
 		<Resource tag="SUBJECT">Asunto:</Resource>
 		<Resource tag="MESSAGE">Mensaje:</Resource>

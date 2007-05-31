@@ -402,6 +402,7 @@
   <page name="PMESSAGE">
     <!-- pmessage.aspx -->
     <Resource tag="TITLE">Stuur een privébericht</Resource>
+	<Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
     <Resource tag="TO">Aan:</Resource>
     <Resource tag="SUBJECT">Onderwerp:</Resource>
     <Resource tag="MESSAGE">Bericht:</Resource>

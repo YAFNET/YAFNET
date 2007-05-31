@@ -378,6 +378,7 @@
 	</page>
 	<page name="PMESSAGE">
 		<Resource tag="TITLE">Wyślij Prywatną Wiadomość</Resource>
+		<Resource tag="PREVIEWTITLE">Podgląd:</Resource>
 		<Resource tag="TO">Do:</Resource>
 		<Resource tag="SUBJECT">Temat:</Resource>
 		<Resource tag="MESSAGE">Wiadomość:</Resource>

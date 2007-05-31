@@ -399,6 +399,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Skriv en Privat Besked</Resource>
+		<Resource tag="PREVIEWTITLE">Gennemse:</Resource>
 		<Resource tag="TO">Til:</Resource>
 		<Resource tag="SUBJECT">Emne:</Resource>
 		<Resource tag="MESSAGE">Besked:</Resource>

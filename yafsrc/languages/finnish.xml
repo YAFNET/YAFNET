@@ -413,6 +413,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Lähetä yksityisviesti</Resource>
+		<Resource tag="PREVIEWTITLE">Esikatselu:</Resource>
 		<Resource tag="TO">Vastaanottaja:</Resource>
 		<Resource tag="SUBJECT">Aihe:</Resource>
 		<Resource tag="MESSAGE">Viesti:</Resource>

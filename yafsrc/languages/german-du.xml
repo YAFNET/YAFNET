@@ -423,6 +423,7 @@
     <page name="PMESSAGE">
         <!-- pmessage.aspx -->
         <Resource tag="TITLE">Schreibe eine private Nachricht (PN)</Resource>
+		<Resource tag="PREVIEWTITLE">Vorschau:</Resource>
         <Resource tag="TO">An:</Resource>
         <Resource tag="SUBJECT">Betreff:</Resource>
         <Resource tag="MESSAGE">Nachricht:</Resource>

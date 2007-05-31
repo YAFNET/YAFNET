@@ -405,12 +405,13 @@
 	<page name="MOVETOPIC">
 		<!-- movesujet.aspx -->
 		<Resource tag="TITLE">Déplacer le Sujet</Resource>
-		<Resource tag="SELECT_FORUM"><![CDATA[Sélectionner le forum vers lequel doit aller ce message :])></Resource>
+		<Resource tag="SELECT_FORUM"><![CDATA[Sélectionner le forum vers lequel doit aller ce message :]]></Resource>
 		<Resource tag="MOVE">Déplacer le Sujet</Resource>
 	</page>
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Envoyer un Message Privé</Resource>
+		<Resource tag="PREVIEWTITLE"><![CDATA[Aperçu&nbsp;:]]></Resource>
 		<Resource tag="TO"><![CDATA[À&nbsp;:]]></Resource>
 		<Resource tag="SUBJECT"><![CDATA[Sujet&nbsp;:]]></Resource>
 		<Resource tag="MESSAGE"><![CDATA[Message&nbsp;:]]></Resource>

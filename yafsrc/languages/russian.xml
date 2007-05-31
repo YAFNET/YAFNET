@@ -430,6 +430,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Отправить приватное сообщение</Resource>
+		<Resource tag="PREVIEWTITLE">Просмотр:</Resource>
 		<Resource tag="TO">Кому:</Resource>
 		<Resource tag="SUBJECT">Тема:</Resource>
 		<Resource tag="MESSAGE">Сообщение:</Resource>

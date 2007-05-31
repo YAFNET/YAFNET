@@ -402,6 +402,7 @@
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Scrie un mesaj privat</Resource>
+		<Resource tag="PREVIEWTITLE">Previzualizare:</Resource>
 		<Resource tag="TO">Pentru:</Resource>
 		<Resource tag="SUBJECT">Subiect:</Resource>
 		<Resource tag="MESSAGE">Mesaj:</Resource>
