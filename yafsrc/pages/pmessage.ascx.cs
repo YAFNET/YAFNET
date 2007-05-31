@@ -30,8 +30,9 @@ using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Classes.UI;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
 	/// <summary>
 	/// Summary description for pmessage.
@@ -45,28 +46,37 @@ namespace YAF.Pages // YAF.Pages
 		{
 		}
 
+        protected void Page_Init(object sender, System.EventArgs e)
+        {
+            Editor = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+            EditorLine.Controls.Add(Editor);
+        }
+
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			Editor.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
 			Editor.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
-
-			if(User==null)
+            
+			if (User==null)
 			{
-				if(CanLogin)
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-				else
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+                //CanLogin obsolete... removed.
+				//if(CanLogin)
+				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				//else
+				//	YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 
-			if ( !IsPostBack )
+			if (!IsPostBack)
 			{
 
 				BindData();
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				Save.Text = GetText( "Save" );
+                Preview.Text = GetText("Preview");
 				Cancel.Text = GetText( "Cancel" );
 				FindUsers.Text = GetText( "FINDUSERS" );
 				AllUsers.Text = GetText( "ALLUSERS" );
+                Clear.Text = GetText("CLEAR");
 
 				if ( PageContext.IsAdmin )
 				{
@@ -143,6 +153,8 @@ namespace YAF.Pages // YAF.Pages
 					{
 						To.Text = ( string ) dt.Rows [0] ["Name"];
 						To.Enabled = false;
+                        FindUsers.Enabled = false; 
+                        AllUsers.Enabled = false;
 					}
 				}
 			}
@@ -152,34 +164,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			Editor = YAF.Editor.EditorHelper.CreateEditorFromType( PageContext.BoardSettings.ForumEditor );
-			EditorLine.Controls.Add( Editor );
-
-			this.Save.Click += new System.EventHandler( this.Save_Click );
-			this.Cancel.Click += new System.EventHandler( this.Cancel_Click );
-			this.FindUsers.Click += new System.EventHandler( this.FindUsers_Click );
-			this.AllUsers.Click += new System.EventHandler( this.AllUsers_Click );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
-
-		private void Save_Click( object sender, System.EventArgs e )
+        protected void Save_Click(object sender, System.EventArgs e)
 		{
 			if ( To.Text.Length <= 0 )
 			{
@@ -208,7 +193,7 @@ namespace YAF.Pages // YAF.Pages
 						PageContext.AddLoadMessage( GetText( "NO_SUCH_USER" ) );
 						return;
 					}
-					else if ( ( int ) dt.Rows [0] ["PageContext.IsGuest"] > 0 )
+					else if ( ( int ) dt.Rows [0] ["IsGuest"] > 0 )
 					{
 						PageContext.AddLoadMessage( GetText( "NOT_GUEST" ) );
 						return;
@@ -290,14 +275,37 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void Cancel_Click( object sender, System.EventArgs e )
+        protected void Preview_Click(object sender, System.EventArgs e)
+        {
+            PreviewRow.Visible = true;
+
+            MessageFlags tFlags = new MessageFlags();
+            tFlags.IsHTML = Editor.UsesHTML;
+            tFlags.IsBBCode = Editor.UsesBBCode;
+
+            string body = FormatMsg.FormatMessage(Editor.Text, tFlags);
+
+            using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
+            {
+                if (!dt.Rows[0].IsNull("Signature"))
+                    body += "<br/><hr noshade/>" + FormatMsg.FormatMessage(dt.Rows[0]["Signature"].ToString(), new MessageFlags());
+            }
+
+            PreviewCell.InnerHtml = body;
+        }
+
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
 		}
 
-		private void FindUsers_Click( object sender, System.EventArgs e )
+        protected void FindUsers_Click(object sender, System.EventArgs e)
 		{
-			if ( To.Text.Length < 2 ) return;
+            if (To.Text.Length < 2)
+            {
+                PageContext.AddLoadMessage(GetText("NEED_MORE_LETTERS"));
+                return;
+            }
 
 			using ( DataTable dt = YAF.Classes.Data.DB.user_find( PageContext.PageBoardID, true, To.Text, null ) )
 			{
@@ -311,11 +319,12 @@ namespace YAF.Pages // YAF.Pages
 					ToList.Visible = true;
 					To.Visible = false;
 					FindUsers.Visible = false;
+                    Clear.Visible = true;
 				}
 				DataBind();
 			}
 		}
-		private void AllUsers_Click( object sender, System.EventArgs e )
+		protected void AllUsers_Click(object sender, EventArgs e)
 		{
 			ListItem li = new ListItem( "All Users", "0" );
 			ToList.Items.Add( li );
@@ -324,6 +333,17 @@ namespace YAF.Pages // YAF.Pages
 			To.Visible = false;
 			FindUsers.Visible = false;
 			AllUsers.Visible = false;
+            Clear.Visible = true;
 		}
+        protected void Clear_Click(object sender, EventArgs e)
+        {
+            ToList.Items.Clear();
+            ToList.Visible = false;
+            To.Text = "";
+            To.Visible = true;
+            FindUsers.Visible = true;
+            AllUsers.Visible = true;
+            Clear.Visible = false;
+        }
 	}
 }

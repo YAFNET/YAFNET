@@ -468,8 +468,10 @@
 		<Resource tag="SAVE">Post</Resource>
 		<Resource tag="NO_SUCH_USER">No such user exists.</Resource>
 		<Resource tag="NOT_GUEST">You can't send private messages to guest.</Resource>
-		<Resource tag="FINDUSERS">Find Users</Resource>
+    <Resource tag="NEED_MORE_LETTERS">In order to find users, you must enter in at least the first two letters of the user name.</Resource>
+		<Resource tag="FINDUSERS">Find Users...</Resource>
 		<Resource tag="ALLUSERS">All Users</Resource>
+    <Resource tag="CLEAR">Clear</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
