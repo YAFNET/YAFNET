@@ -112,9 +112,9 @@
 			
 	<tr>
 		<td align="center" colspan="2" class="footer1">
-			<asp:Button id=Preview cssclass="pbutton" runat="server" onclick="Preview_Click" />
-			<asp:button id=PostReply cssclass="pbutton" runat="server" onclick="PostReply_Click" />
-			<asp:Button id=Cancel cssclass="pbutton" runat="server" onclick="Cancel_Click" />
+			<asp:Button id="Preview" cssclass="pbutton" runat="server" onclick="Preview_Click" />
+			<asp:button id="PostReply" cssclass="pbutton" runat="server" onclick="PostReply_Click" />
+			<asp:Button id="Cancel" cssclass="pbutton" runat="server" onclick="Cancel_Click" />
 		</td>
 	</tr>
 </table>
