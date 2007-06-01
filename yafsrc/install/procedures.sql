@@ -4228,37 +4228,6 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_userpmessage_delete](@UserPMessageID int, @FromOutbox bit = 0) as
-begin
-	if @FromOutbox=0
-		delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
-	else
-		update yaf_UserPMessage SET [IsInOutBox]=0 where UserPMessageID=@UserPMessageID
-end
-GO
-
-create procedure [dbo].[yaf_userpmessage_list](@UserPMessageID int) as
-begin
-	select
-		a.*,
-		FromUser = b.Name,
-		ToUserID = c.UserID,
-		ToUser = c.Name,
-		d.IsRead,
-		d.UserPMessageID
-	from
-		yaf_PMessage a,
-		yaf_User b,
-		yaf_User c,
-		yaf_UserPMessage d
-	where
-		b.UserID = a.FromUserID and
-		c.UserID = d.UserID and
-		d.PMessageID = a.PMessageID and
-		d.UserPMessageID = @UserPMessageID
-end
-GO
-
 create procedure [dbo].[yaf_watchforum_add](@UserID int,@ForumID int) as
 begin
 	insert into yaf_WatchForum(ForumID,UserID,Created)

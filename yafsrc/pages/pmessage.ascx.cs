@@ -91,7 +91,7 @@ namespace YAF.Pages
 
 				if ( Request.QueryString ["p"] != null )
 				{
-                    DataTable dt = YAF.Classes.Data.DB.userpmessage_list(Request.QueryString["p"]);
+                    DataTable dt = YAF.Classes.Data.DB.pmessage_list(Request.QueryString["p"]);
                     if (dt.Rows.Count > 0)
                     {
                         DataRow row = dt.Rows[0];
@@ -108,7 +108,7 @@ namespace YAF.Pages
 
 				if ( Request.QueryString ["p"] != null )
 				{
-					DataTable dt = YAF.Classes.Data.DB.userpmessage_list(Request.QueryString["p"]);
+					DataTable dt = YAF.Classes.Data.DB.pmessage_list(Request.QueryString["p"]);
                     if (dt.Rows.Count > 0)
                     {
                         DataRow row = dt.Rows[0];

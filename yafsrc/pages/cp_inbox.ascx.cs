@@ -63,7 +63,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void FromLink_Click( object sender, System.EventArgs e )
 		{
-			if ( IsSentItems )
+			if ( IsOutbox )
 				SetSort( "ToUser", true );
 			else
 				SetSort( "FromUser", true );
@@ -91,49 +91,49 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				SetSort( "Created", false );
-				IsSentItems = Request.QueryString ["sent"] != null;
+				IsOutbox = Request.QueryString ["sent"] != null;
 				BindData();
 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
-				PageLinks.AddLink( GetText( IsSentItems ? "sentitems" : "title" ), "" );
+				PageLinks.AddLink( GetText( IsOutbox ? "sentitems" : "title" ), "" );
 
 				SubjectLink.Text = Server.HtmlEncode( GetText( "subject" ) );
-				FromLink.Text = GetText( IsSentItems ? "to" : "from" );
+				FromLink.Text = GetText( IsOutbox ? "to" : "from" );
 				DateLink.Text = GetText( "date" );
 			}
 		}
 
-		protected bool IsSentItems
+		protected bool IsOutbox
 		{
 			get 
             {
-                if (ViewState["IsSentItems"] == null)
+                if (ViewState["IsOutbox"] == null)
                     return false;
                 else
-                    return (bool)ViewState["IsSentItems"]; 
+                    return (bool)ViewState["IsOutbox"]; 
             }
-			set { ViewState ["IsSentItems"] = value; }
+			set { ViewState ["IsOutbox"] = value; }
 		}
 
 		private void BindData()
 		{
 			object toUserID = null;
 			object fromUserID = null;
-			if ( IsSentItems )
+			if ( IsOutbox )
 				fromUserID = PageContext.PageUserID;
 			else
 				toUserID = PageContext.PageUserID;
 			using ( DataView dv = YAF.Classes.Data.DB.pmessage_list( toUserID, fromUserID, null ).DefaultView )
 			{
-                if (IsSentItems)
+                if (IsOutbox)
                     dv.RowFilter = "IsInOutbox = True";
 
 				dv.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAsc"] ? "asc" : "desc" );
 				Inbox.DataSource = dv;
 				DataBind();
 			}
-			if ( IsSentItems )
+			if ( IsOutbox )
 				SortFrom.Visible = ( string ) ViewState ["SortField"] == "ToUser";
 			else
 				SortFrom.Visible = ( string ) ViewState ["SortField"] == "FromUser";
@@ -159,10 +159,10 @@ namespace YAF.Pages // YAF.Pages
 				{
                     if (((CheckBox)item.FindControl("ItemCheck")).Checked)
 					{
-                        if (IsSentItems)
-                            YAF.Classes.Data.DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text, true);
+                        if (IsOutbox)
+                            YAF.Classes.Data.DB.pmessage_delete(((Label)item.FindControl("UserPMessageID")).Text, true);
                         else
-                            YAF.Classes.Data.DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
+                            YAF.Classes.Data.DB.pmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
 						nItemCount++;
 					}
 				}
