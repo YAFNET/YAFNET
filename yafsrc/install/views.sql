@@ -6,6 +6,10 @@ if exists (select 1 from sysobjects where id = object_id(N'yaf_vaccess') and OBJ
 	drop view yaf_vaccess
 GO
 
+if exists (select 1 from sysobjects where id = object_id(N'yaf_PMessageView') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view yaf_PMessageView
+GO
+
 create view dbo.yaf_vaccess as
 	select
 		UserID				= a.UserID,
@@ -82,4 +86,18 @@ create view dbo.yaf_vaccess as
 		join dbo.yaf_UserGroup a on a.UserID=x.UserID
 		join dbo.yaf_Group b on b.GroupID=a.GroupID
 	group by a.UserID,x.ForumID
+GO
+
+-- yaf_PMessageView
+
+CREATE VIEW [dbo].[yaf_PMessageView]
+AS
+SELECT     dbo.yaf_PMessage.PMessageID, dbo.yaf_UserPMessage.UserPMessageID, dbo.yaf_PMessage.FromUserID, yaf_User_1.Name AS FromUser, 
+                      dbo.yaf_UserPMessage.UserID AS ToUserId, dbo.yaf_User.Name AS ToUser, dbo.yaf_PMessage.Created, dbo.yaf_PMessage.Subject, 
+                      dbo.yaf_PMessage.Body, dbo.yaf_PMessage.Flags, dbo.yaf_UserPMessage.IsRead, dbo.yaf_UserPMessage.IsInOutbox
+FROM         dbo.yaf_PMessage INNER JOIN
+                      dbo.yaf_UserPMessage ON dbo.yaf_PMessage.PMessageID = dbo.yaf_UserPMessage.PMessageID INNER JOIN
+                      dbo.yaf_User ON dbo.yaf_UserPMessage.UserID = dbo.yaf_User.UserID INNER JOIN
+                      dbo.yaf_User AS yaf_User_1 ON dbo.yaf_PMessage.FromUserID = yaf_User_1.UserID
+
 GO

@@ -1815,7 +1815,17 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region yaf_PMessage
-		static public DataTable pmessage_list( object toUserID, object fromUserID, object pMessageID )
+		/// <summary>
+		/// Returns a list of private messages based on the arguments specified.
+        /// If pMessageID != null, returns the PM of id pMessageId.
+        /// If toUserID != null, returns the list of PMs sent to the user with the given ID.
+        /// If fromUserID != null, returns the list of PMs sent by the user of the given ID.
+		/// </summary>
+		/// <param name="toUserID"></param>
+		/// <param name="fromUserID"></param>
+		/// <param name="pMessageID"></param>
+		/// <returns></returns>
+        static public DataTable pmessage_list( object toUserID, object fromUserID, object pMessageID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_list" ) )
 			{
@@ -2859,22 +2869,38 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region yaf_UserPMessage
-		static public void userpmessage_delete( object userPMessageID )
-		{
-			using ( SqlCommand cmd = new SqlCommand( "yaf_userpmessage_delete" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "@UserPMessageID", userPMessageID );
-				DBAccess.ExecuteNonQuery( cmd );
-			}
-		}
+        /// <summary>
+        /// Deletes the private message from the database as per the given parameter.  If <paramref name="fromOutbox"/> is true,
+        /// the message is only removed from the user's outbox.  Otherwise, it is completely delete from the database.
+        /// </summary>
+        /// <param name="userPMessageID"></param>
+        /// <param name="fromOutbox">If true, removes the message from the outbox.  Otherwise deletes the message completely.</param>
+        static public void userpmessage_delete(object userPMessageID, bool fromOutbox)
+        {
+            using (SqlCommand cmd = new SqlCommand("yaf_userpmessage_delete"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserPMessageID", userPMessageID);
+                cmd.Parameters.AddWithValue("@FromOutbox", fromOutbox);
+                DBAccess.ExecuteNonQuery(cmd);
+            }
+        }
+        /// <summary>
+        /// Deletes the private message from the database as per the given parameter.  If fromOutbox is true,
+        /// the message is only deleted from the user's outbox.  Otherwise, it is completely delete from the database.
+        /// </summary>
+        /// <param name="userPMessageID"></param>
+        static public void userpmessage_delete(object userPMessageID)
+        {
+            userpmessage_delete(userPMessageID, false);
+        }
 		static public DataTable userpmessage_list( object userPMessageID )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_userpmessage_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "@UserPMessageID", userPMessageID );
-				return DBAccess.GetData( cmd );
+                return DBAccess.GetData( cmd );
 			}
 		}
 		#endregion

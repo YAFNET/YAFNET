@@ -54,6 +54,18 @@ namespace YAF.Pages // YAF.Pages
 				BindData();
 		}
 
+        protected bool IsSentItems
+        {
+            get
+            {
+                if (ViewState["IsSentItems"] == null)
+                    return false;
+                else
+                    return (bool)ViewState["IsSentItems"];
+            }
+            set { ViewState["IsSentItems"] = value; }
+        }
+
 		private void BindData()
 		{
 			if ( Request.QueryString ["pm"] == null )
@@ -64,19 +76,27 @@ namespace YAF.Pages // YAF.Pages
 
 			using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["pm"] ) )
 			{
-				foreach ( DataRow row in dt.Rows )
-				{
-					if ( ( int ) row ["ToUserID"] != PageContext.PageUserID && ( int ) row ["FromUserID"] != PageContext.PageUserID )
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+
+                    if ( ( int ) row ["ToUserID"] != PageContext.PageUserID && ( int ) row ["FromUserID"] != PageContext.PageUserID )
 						yaf_BuildLink.AccessDenied();
+                    IsSentItems = (int)row["FromUserID"] == PageContext.PageUserID;
+
+                    if (IsSentItems && !(bool)row["IsInOutbox"])
+                        yaf_BuildLink.Redirect(ForumPages.pmessage);
 
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 					PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
-					if ( ( int ) row ["ToUserID"] == PageContext.PageUserID )
-						PageLinks.AddLink( GetText( "INBOX" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox ) );
+					if (IsSentItems)
+                        PageLinks.AddLink(GetText("SENTITEMS"), YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.cp_inbox, "sent=1"));
 					else
-						PageLinks.AddLink( GetText( "SENTITEMS" ), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox, "sent=1" ) );
+						PageLinks.AddLink(GetText("INBOX"), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox));
 					PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 				}
+                else
+                    yaf_BuildLink.Redirect(ForumPages.pmessage);
 				Inbox.DataSource = dt;
 			}
 			DataBind();
@@ -93,7 +113,11 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( e.CommandName == "delete" )
 			{
-				YAF.Classes.Data.DB.userpmessage_delete( e.CommandArgument );
+                if (IsSentItems)
+                    YAF.Classes.Data.DB.userpmessage_delete(e.CommandArgument, true);
+                else
+                    YAF.Classes.Data.DB.userpmessage_delete(e.CommandArgument);
+
 				BindData();
 				PageContext.AddLoadMessage( GetText( "msg_deleted" ) );
 			}

@@ -2545,9 +2545,12 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_delete](@PMessageID int) as
+create procedure [dbo].[yaf_pmessage_delete](@PMessageID int, @FromOutbox bit = 0) as
 begin
-	delete from yaf_PMessage where PMessageID=@PMessageID
+	if @FromOutbox=1
+		update [yaf_UserPMessage] set [IsInOutbox] = 0 where [PMessageID]=@PMessageID
+	else
+		delete from [yaf_PMessage] where [PMessageID]=@PMessageID
 end
 GO
 
@@ -2560,15 +2563,24 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) as
-begin
-	if @PMessageID is null begin
+CREATE PROCEDURE [dbo].[yaf_pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) AS
+BEGIN
+	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox
+		FROM yaf_PMessageView
+		WHERE	((@PMessageId IS NOT NULL AND PMessageID=@PMessageId) OR 
+				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
+				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
+		ORDER BY Created DESC
+END
+-- Old SPOC - modified by MicScoTho 01 June 2007
+/*	if @PMessageID is null begin
 		select
 			a.*,
 			FromUser = b.Name,
 			ToUserID = c.UserID,
 			ToUser = c.Name,
 			d.IsRead,
+			d.IsInOutbox,
 			d.UserPMessageID
 		from
 			yaf_PMessage a,
@@ -2605,7 +2617,7 @@ begin
 		order by
 			Created desc
 	end
-end
+*/
 GO
 
 create procedure [dbo].[yaf_pmessage_markread](@UserPMessageID int=null) as begin
@@ -2645,9 +2657,9 @@ begin
 	set @PMessageID = SCOPE_IDENTITY()
 	if (@ToUserID = 0)
 	begin
-		insert into yaf_UserPMessage(UserID,PMessageID,IsRead)
+		insert into yaf_UserPMessage(UserID,PMessageID,IsRead,IsInOutbox)
 		select
-				a.UserID,@PMessageID,0
+				a.UserID,@PMessageID,0,1
 		from
 				yaf_User a
 				join yaf_UserGroup b on b.UserID=a.UserID
@@ -2659,7 +2671,7 @@ begin
 	end
 	else
 	begin
-		insert into yaf_UserPMessage(UserID,PMessageID,IsRead) values(@ToUserID,@PMessageID,0)
+		insert into yaf_UserPMessage(UserID,PMessageID,IsRead,IsInOutbox) values(@ToUserID,@PMessageID,0,1)
 	end
 end
 GO
@@ -4216,9 +4228,12 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_userpmessage_delete](@UserPMessageID int) as
+create procedure [dbo].[yaf_userpmessage_delete](@UserPMessageID int, @FromOutbox bit = 0) as
 begin
-	delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
+	if @FromOutbox=0
+		delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
+	else
+		update yaf_UserPMessage SET [IsInOutBox]=0 where UserPMessageID=@UserPMessageID
 end
 GO
 

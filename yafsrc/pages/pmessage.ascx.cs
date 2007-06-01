@@ -91,57 +91,61 @@ namespace YAF.Pages
 
 				if ( Request.QueryString ["p"] != null )
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["p"] ) )
-					{
-						DataRow row = dt.Rows [0];
-						Subject.Text = ( string ) row ["Subject"];
+                    DataTable dt = YAF.Classes.Data.DB.userpmessage_list(Request.QueryString["p"]);
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow row = dt.Rows[0];
 
-						if ( Subject.Text.Length < 4 || Subject.Text.Substring( 0, 4 ) != "Re: " )
-							Subject.Text = "Re: " + Subject.Text;
+                        Subject.Text = (string)row["Subject"];
 
-						ToUserID = ( int ) row ["FromUserID"];
-					}
+                        if (Subject.Text.Length < 4 || Subject.Text.Substring(0, 4) != "Re: ")
+                            Subject.Text = "Re: " + Subject.Text;
+
+                        ToUserID = (int)row["FromUserID"];
+                    }
 				}
 
 
 				if ( Request.QueryString ["p"] != null )
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.userpmessage_list( Request.QueryString ["p"] ) )
-					{
-						// default is quote
-						bool bQuote = true;
+					DataTable dt = YAF.Classes.Data.DB.userpmessage_list(Request.QueryString["p"]);
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow row = dt.Rows[0];
 
-						if ( Request.QueryString ["q"] != null && Request.QueryString ["q"] == "0" )
-							bQuote = false;
+                        // default is quote
+                        bool bQuote = true;
 
-						DataRow row = dt.Rows [0];
+                        if (Request.QueryString["q"] != null && Request.QueryString["q"] == "0")
+                            bQuote = false;
 
-						if ( ( int ) row ["ToUserID"] != PageContext.PageUserID && ( int ) row ["FromUserID"] != PageContext.PageUserID )
-							yaf_BuildLink.AccessDenied();
+                        if ((int)row["ToUserID"] != PageContext.PageUserID && (int)row["FromUserID"] != PageContext.PageUserID)
+                            yaf_BuildLink.AccessDenied();
 
-						Subject.Text = ( string ) row ["Subject"];
+                        Subject.Text = (string)row["Subject"];
 
-						if ( Subject.Text.Length < 4 || Subject.Text.Substring( 0, 4 ) != "Re: " )
-							Subject.Text = "Re: " + Subject.Text;
+                        if (Subject.Text.Length < 4 || Subject.Text.Substring(0, 4) != "Re: ")
+                            Subject.Text = "Re: " + Subject.Text;
 
-						ToUserID = ( int ) row ["FromUserID"];
+                        ToUserID = (int)row["FromUserID"];
 
-						if ( bQuote )
-						{
-							string body = row ["Body"].ToString();
-							bool isHtml = body.IndexOf( '<' ) >= 0;
+                        if (bQuote)
+                        {
+                            string body = row["Body"].ToString();
+                            bool isHtml = body.IndexOf('<') >= 0;
 
-							if ( PageContext.BoardSettings.RemoveNestedQuotes )
-							{
-								RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-								Regex quote = new Regex( @"\[quote(\=.*)?\](.*?)\[/quote\]", m_options );
-								// remove quotes from old messages
-								body = quote.Replace( body, "" );
-							}
-							body = String.Format( "[QUOTE={0}]{1}[/QUOTE]", row ["FromUser"], body );
-							Editor.Text = body;
-						}
-					}
+                            if (PageContext.BoardSettings.RemoveNestedQuotes)
+                            {
+                                RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+                                Regex quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]", m_options);
+                                // remove quotes from old messages
+                                body = quote.Replace(body, "");
+                            }
+                            body = String.Format("[QUOTE={0}]{1}[/QUOTE]", row["FromUser"], body);
+                            Editor.Text = body;
+                        }
+                    }
+				
 				}
 
 				if ( Request.QueryString ["u"] != null )

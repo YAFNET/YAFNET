@@ -341,18 +341,21 @@ begin
 		UserPMessageID	int identity not null,
 		UserID			int not null,
 		PMessageID		int not null,
-		IsRead			bit not null
+		IsRead			bit not null,
+		IsInOutbox		bit not null
 	)
 end
 GO
 
 if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_Words') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
 	create table dbo.yaf_Replace_Words(
 		id				int IDENTITY (1, 1) NOT NULL ,
 		badword			nvarchar (255) NULL ,
 		goodword		nvarchar (255) NULL ,
 		constraint PK_Replace_Words primary key(id)
 	)
+end
 GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'yaf_Registry') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -383,6 +386,15 @@ GO
 /*
 ** Added columns
 */
+
+-- yaf_UserPMessage
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('yaf_UserPMessage') and name='IsInOutbox')
+begin
+	alter table dbo.yaf_UserPMessage add IsInOutbox	bit not null default (1)
+end
+GO
+
 
 -- yaf_User
 
@@ -707,3 +719,4 @@ GO
 if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and name=N'UserID' and isnullable=0)
 	alter table yaf_EventLog alter column UserID int null
 GO
+

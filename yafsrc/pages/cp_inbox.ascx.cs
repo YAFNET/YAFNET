@@ -106,14 +106,14 @@ namespace YAF.Pages // YAF.Pages
 
 		protected bool IsSentItems
 		{
-			get
-			{
-				return ( bool ) ViewState ["IsSentItems"];
-			}
-			set
-			{
-				ViewState ["IsSentItems"] = value;
-			}
+			get 
+            {
+                if (ViewState["IsSentItems"] == null)
+                    return false;
+                else
+                    return (bool)ViewState["IsSentItems"]; 
+            }
+			set { ViewState ["IsSentItems"] = value; }
 		}
 
 		private void BindData()
@@ -126,6 +126,9 @@ namespace YAF.Pages // YAF.Pages
 				toUserID = PageContext.PageUserID;
 			using ( DataView dv = YAF.Classes.Data.DB.pmessage_list( toUserID, fromUserID, null ).DefaultView )
 			{
+                if (IsSentItems)
+                    dv.RowFilter = "IsInOutbox = True";
+
 				dv.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAsc"] ? "asc" : "desc" );
 				Inbox.DataSource = dv;
 				DataBind();
@@ -154,9 +157,12 @@ namespace YAF.Pages // YAF.Pages
 				long nItemCount = 0;
 				foreach ( RepeaterItem item in Inbox.Items )
 				{
-					if ( ( ( CheckBox ) item.FindControl( "ItemCheck" ) ).Checked )
+                    if (((CheckBox)item.FindControl("ItemCheck")).Checked)
 					{
-						YAF.Classes.Data.DB.userpmessage_delete( ( ( Label ) item.FindControl( "UserPMessageID" ) ).Text );
+                        if (IsSentItems)
+                            YAF.Classes.Data.DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text, true);
+                        else
+                            YAF.Classes.Data.DB.userpmessage_delete(((Label)item.FindControl("UserPMessageID")).Text);
 						nItemCount++;
 					}
 				}
