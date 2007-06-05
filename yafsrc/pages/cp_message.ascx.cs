@@ -88,7 +88,7 @@ namespace YAF.Pages // YAF.Pages
                     // that they have removed from their outbox (either manually or because
                     // they have *just* deleted it by pressing the Delete button while 
                     // viewing it)
-                    yaf_BuildLink.Redirect(ForumPages.cp_inbox, "sent=1");
+                    yaf_BuildLink.Redirect(ForumPages.cp_inbox, "v=out");
                 else
                     // If the PM was sent by the current user to himself but was deleted from the outbox,
                     // switch the view to be in Inbox mode
@@ -113,7 +113,7 @@ namespace YAF.Pages // YAF.Pages
                     PageLinks.AddLink(PageContext.BoardSettings.Name, yaf_BuildLink.GetLink(ForumPages.forum));
                     PageLinks.AddLink(PageContext.PageUserName, yaf_BuildLink.GetLink(ForumPages.cp_profile));
                     if (IsOutbox)
-                        PageLinks.AddLink(GetText("SENTITEMS"), yaf_BuildLink.GetLink(ForumPages.cp_inbox, "sent=1"));
+                        PageLinks.AddLink(GetText("SENTITEMS"), yaf_BuildLink.GetLink(ForumPages.cp_inbox, "v=out"));
                     else
                         PageLinks.AddLink(GetText("INBOX"), yaf_BuildLink.GetLink(ForumPages.cp_inbox));
                     PageLinks.AddLink(HtmlEncode(row["Subject"]), "");

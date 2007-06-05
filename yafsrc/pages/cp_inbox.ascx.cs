@@ -27,7 +27,7 @@ using System.Web.UI.WebControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
     /// <summary>
     /// Summary description for inbox.
@@ -87,7 +87,7 @@ namespace YAF.Pages // YAF.Pages
             if (!IsPostBack)
             {
                 SetSort("Created", false);
-                IsOutbox = Request.QueryString["sent"] != null;
+                IsOutbox = Request.QueryString["v"] == "out";
                 BindData();
 
                 PageLinks.AddLink(PageContext.BoardSettings.Name, yaf_BuildLink.GetLink(ForumPages.forum));
