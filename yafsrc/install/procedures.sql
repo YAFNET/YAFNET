@@ -2551,8 +2551,8 @@ begin
 		update [yaf_UserPMessage] set [IsInOutbox] = 0 where [PMessageID]=@PMessageID
 	else
 	BEGIN
-		delete from [yaf_PMessage] where [PMessageID]=@PMessageID
 		delete from [yaf_UserPMessage] where [PMessageID]=@PMessageID
+		delete from [yaf_PMessage] where [PMessageID]=@PMessageID
 	END
 end
 GO
