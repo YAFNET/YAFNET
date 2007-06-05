@@ -41,6 +41,7 @@
     <Compile Include="DB.cs" />
     <Compile Include="DBAccess.cs" />
     <Compile Include="MetaWeblog.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
