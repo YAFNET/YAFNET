@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<asp:Repeater ID="Inbox" runat="server">
+<asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
     </HeaderTemplate>
@@ -21,7 +21,7 @@
     <ItemTemplate>
         <tr>
             <td class="header1" colspan="2">
-                <%# HtmlEncode(DataBinder.Eval(Container.DataItem,"Subject")) %>
+                <%# HtmlEncode(Eval("Subject")) %>
             </td>
         </tr>
         <tr>
@@ -53,7 +53,7 @@
             <td class="post">
                 &nbsp;</td>
             <td class="post" valign="top">
-                <%# FormatBody(Container.DataItem) %>
+                <%# FormatMsg.FormatMessage(Eval("Body") as string, Convert.ToInt32(Eval("Flags"))) %>
             </td>
         </tr>
     </ItemTemplate>

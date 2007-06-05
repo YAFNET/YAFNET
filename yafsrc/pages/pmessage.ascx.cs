@@ -18,14 +18,8 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using System.Collections.Specialized;
 using YAF.Classes.Utils;
@@ -34,103 +28,69 @@ using YAF.Classes.UI;
 
 namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for pmessage.
-	/// </summary>
-	public partial class pmessage : YAF.Classes.Base.ForumPage
-	{
-		protected YAF.Editor.ForumEditor Editor;
+    /// <summary>
+    /// Summary description for pmessage.
+    /// </summary>
+    public partial class pmessage : Classes.Base.ForumPage
+    {
+        protected Editor.ForumEditor Editor;
 
-		public pmessage()
-			: base( "PMESSAGE" )
-		{
-		}
+        public pmessage()
+            : base("PMESSAGE")
+        {
+        }
 
-        protected void Page_Init(object sender, System.EventArgs e)
+        protected void Page_Init(object sender, EventArgs e)
         {
             Editor = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
             EditorLine.Controls.Add(Editor);
         }
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			Editor.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
-			Editor.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
-            
-			if (User==null)
-			{
-                //CanLogin obsolete... removed.
-				//if(CanLogin)
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-				//else
-				//	YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
-			}
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Editor.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
+            Editor.StyleSheet = yaf_BuildLink.ThemeFile("theme.css");
 
-			if (!IsPostBack)
-			{
+            if (User == null)
+                yaf_BuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
 
-				BindData();
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				Save.Text = GetText( "Save" );
+            if (!IsPostBack)
+            {
+                PageLinks.AddLink(PageContext.BoardSettings.Name, yaf_BuildLink.GetLink(ForumPages.forum));
+                Save.Text = GetText("Save");
                 Preview.Text = GetText("Preview");
-				Cancel.Text = GetText( "Cancel" );
-				FindUsers.Text = GetText( "FINDUSERS" );
-				AllUsers.Text = GetText( "ALLUSERS" );
+                Cancel.Text = GetText("Cancel");
+                FindUsers.Text = GetText("FINDUSERS");
+                AllUsers.Text = GetText("ALLUSERS");
                 Clear.Text = GetText("CLEAR");
 
-				if ( PageContext.IsAdmin )
-				{
-					AllUsers.Visible = true;
-				}
-				else
-				{
-					AllUsers.Visible = false;
-				}
+                AllUsers.Visible = PageContext.IsAdmin;
 
-				int ToUserID = 0;
+                if (!String.IsNullOrEmpty(Request.QueryString["p"]))
+                {
+                    // PM is a reply or quoted reply (isQuoting)
+                    // to the given message id "p"
+                    bool isQuoting = Request.QueryString["q"] == "1";
 
-				if ( Request.QueryString ["p"] != null )
-				{
-                    DataTable dt = YAF.Classes.Data.DB.pmessage_list(Request.QueryString["p"]);
+                    DataTable dt = DB.pmessage_list(Request.QueryString["p"]);
                     if (dt.Rows.Count > 0)
                     {
                         DataRow row = dt.Rows[0];
-
-                        Subject.Text = (string)row["Subject"];
-
-                        if (Subject.Text.Length < 4 || Subject.Text.Substring(0, 4) != "Re: ")
-                            Subject.Text = "Re: " + Subject.Text;
-
-                        ToUserID = (int)row["FromUserID"];
-                    }
-				}
-
-
-				if ( Request.QueryString ["p"] != null )
-				{
-					DataTable dt = YAF.Classes.Data.DB.pmessage_list(Request.QueryString["p"]);
-                    if (dt.Rows.Count > 0)
-                    {
-                        DataRow row = dt.Rows[0];
-
-                        // default is quote
-                        bool bQuote = true;
-
-                        if (Request.QueryString["q"] != null && Request.QueryString["q"] == "0")
-                            bQuote = false;
-
-                        if ((int)row["ToUserID"] != PageContext.PageUserID && (int)row["FromUserID"] != PageContext.PageUserID)
+                        int toUserId = (int) row["ToUserID"];
+                        int fromUserId = (int) row["FromUserID"];
+                        string subject = (string)row["Subject"];
+                        if (!subject.StartsWith("Re: "))
+                            subject = "Re: " + subject;
+                        
+                        if (toUserId != PageContext.PageUserID && 
+                            fromUserId != PageContext.PageUserID)
                             yaf_BuildLink.AccessDenied();
 
-                        Subject.Text = (string)row["Subject"];
+                        Subject.Text = subject;
 
-                        if (Subject.Text.Length < 4 || Subject.Text.Substring(0, 4) != "Re: ")
-                            Subject.Text = "Re: " + Subject.Text;
-
-                        ToUserID = (int)row["FromUserID"];
-
-                        if (bQuote)
+                        if (isQuoting)
                         {
+                            // PM is a quoted reply
                             string body = row["Body"].ToString();
                             bool isHtml = body.IndexOf('<') >= 0;
 
@@ -138,6 +98,7 @@ namespace YAF.Pages
                             {
                                 RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
                                 Regex quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]", m_options);
+                                
                                 // remove quotes from old messages
                                 body = quote.Replace(body, "");
                             }
@@ -145,141 +106,141 @@ namespace YAF.Pages
                             Editor.Text = body;
                         }
                     }
-				
-				}
+                }
+                else if (!String.IsNullOrEmpty(Request.QueryString["u"]))
+                {
+                    // PM is being sent to a user
+                    int toUserId;
+                    if (Int32.TryParse(Request.QueryString["u"], out toUserId))
+                    {
+                        using (DataTable dt = DB.user_list(PageContext.PageBoardID, toUserId, true))
+                        {
+                            To.Text = dt.Rows[0]["Name"] as string;
+                            To.Enabled = false;
+                            FindUsers.Enabled = false;
+                            AllUsers.Enabled = false;
+                        }
+                    }
+                }
+                else
+                {
+                    // Blank PM
+                }
+            }
+        }
 
-				if ( Request.QueryString ["u"] != null )
-					ToUserID = int.Parse( Request.QueryString ["u"].ToString() );
-
-				if ( ToUserID != 0 )
-				{
-					using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, ToUserID, true ) )
-					{
-						To.Text = ( string ) dt.Rows [0] ["Name"];
-						To.Enabled = false;
-                        FindUsers.Enabled = false; 
-                        AllUsers.Enabled = false;
-					}
-				}
-			}
-		}
-
-		private void BindData()
-		{
-		}
-
-        protected void Save_Click(object sender, System.EventArgs e)
-		{
-			if ( To.Text.Length <= 0 )
-			{
-				PageContext.AddLoadMessage( GetText( "need_to" ) );
-				return;
-			}
-			if ( ToList.Visible )
-				To.Text = ToList.SelectedItem.Text;
+        protected void Save_Click(object sender, EventArgs e)
+        {
+            if (To.Text.Length <= 0)
+            {
+                PageContext.AddLoadMessage(GetText("need_to"));
+                return;
+            }
+            if (ToList.Visible)
+                To.Text = ToList.SelectedItem.Text;
 
 
-			if ( ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
-			{
-				string body = Editor.Text;
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = Editor.UsesHTML;
-				tFlags.IsBBCode = Editor.UsesBBCode;
-				YAF.Classes.Data.DB.pmessage_save( PageContext.PageUserID, 0, Subject.Text, body, tFlags.BitValue );
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
-			}
-			else
-			{
-				using ( DataTable dt = YAF.Classes.Data.DB.user_find( PageContext.PageBoardID, false, To.Text, null ) )
-				{
-					if ( dt.Rows.Count != 1 )
-					{
-						PageContext.AddLoadMessage( GetText( "NO_SUCH_USER" ) );
-						return;
-					}
-					else if ( ( int ) dt.Rows [0] ["IsGuest"] > 0 )
-					{
-						PageContext.AddLoadMessage( GetText( "NOT_GUEST" ) );
-						return;
-					}
+            if (ToList.SelectedItem != null && ToList.SelectedItem.Value == "0")
+            {
+                string body = Editor.Text;
+                MessageFlags tFlags = new MessageFlags();
+                tFlags.IsHTML = Editor.UsesHTML;
+                tFlags.IsBBCode = Editor.UsesBBCode;
+                DB.pmessage_save(PageContext.PageUserID, 0, Subject.Text, body, tFlags.BitValue);
+                yaf_BuildLink.Redirect(ForumPages.cp_profile);
+            }
+            else
+            {
+                using (DataTable dt = DB.user_find(PageContext.PageBoardID, false, To.Text, null))
+                {
+                    if (dt.Rows.Count != 1)
+                    {
+                        PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
+                        return;
+                    }
+                    else if ((int)dt.Rows[0]["IsGuest"] > 0)
+                    {
+                        PageContext.AddLoadMessage(GetText("NOT_GUEST"));
+                        return;
+                    }
 
-					if ( Subject.Text.Length <= 0 )
-					{
-						PageContext.AddLoadMessage( GetText( "need_subject" ) );
-						return;
-					}
-					if ( Editor.Text.Length <= 0 )
-					{
-						PageContext.AddLoadMessage( GetText( "need_message" ) );
-						return;
-					}
+                    if (Subject.Text.Length <= 0)
+                    {
+                        PageContext.AddLoadMessage(GetText("need_subject"));
+                        return;
+                    }
+                    if (Editor.Text.Length <= 0)
+                    {
+                        PageContext.AddLoadMessage(GetText("need_message"));
+                        return;
+                    }
 
-					string body = Editor.Text;
+                    string body = Editor.Text;
 
-					MessageFlags tFlags = new MessageFlags();
-					tFlags.IsHTML = Editor.UsesHTML;
-					tFlags.IsBBCode = Editor.UsesBBCode;
+                    MessageFlags tFlags = new MessageFlags();
+                    tFlags.IsHTML = Editor.UsesHTML;
+                    tFlags.IsBBCode = Editor.UsesBBCode;
 
-					YAF.Classes.Data.DB.pmessage_save( PageContext.PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, tFlags.BitValue );
+                    DB.pmessage_save(PageContext.PageUserID, dt.Rows[0]["UserID"], Subject.Text, body, tFlags.BitValue);
 
-					if ( PageContext.BoardSettings.AllowPMEmailNotification )
-						SendPMNotification( Convert.ToInt32(dt.Rows [0] ["UserID"]), Subject.Text );
+                    if (PageContext.BoardSettings.AllowPMEmailNotification)
+                        SendPMNotification(Convert.ToInt32(dt.Rows[0]["UserID"]), Subject.Text);
 
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
-				}
-			}
-		}
+                    yaf_BuildLink.Redirect(ForumPages.cp_profile);
+                }
+            }
+        }
 
-		private void SendPMNotification(int toUserID, string subject)
-		{
-			try
-			{
-				bool pmNotificationAllowed;
-				string toEMail;
+        private void SendPMNotification(int toUserID, string subject)
+        {
+            try
+            {
+                bool pmNotificationAllowed;
+                string toEMail;
 
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, toUserID, true ) )
-				{
-					pmNotificationAllowed = ( bool ) dt.Rows [0] ["PMNotification"];
-					toEMail = ( string ) dt.Rows [0] ["EMail"];
-				}
+                using (DataTable dt = DB.user_list(PageContext.PageBoardID, toUserID, true))
+                {
+                    pmNotificationAllowed = (bool)dt.Rows[0]["PMNotification"];
+                    toEMail = (string)dt.Rows[0]["EMail"];
+                }
 
-				if ( pmNotificationAllowed )
-				{
-					int userPMessageID;
-					//string senderEmail;
+                if (pmNotificationAllowed)
+                {
+                    int userPMessageID;
+                    //string senderEmail;
 
-					// get the PM ID
-					using ( DataTable dt = YAF.Classes.Data.DB.pmessage_list( toUserID, PageContext.PageBoardID, null ) )
-						userPMessageID = ( int ) dt.Rows [0] ["UserPMessageID"];
+                    // get the PM ID
+                    using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
+                        userPMessageID = (int)dt.Rows[0]["UserPMessageID"];
 
-					// get the sender e-mail -- DISABLED: too much information...
-					//using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
-					//	senderEmail = ( string ) dt.Rows [0] ["Email"];
+                    // get the sender e-mail -- DISABLED: too much information...
+                    //using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+                    //	senderEmail = ( string ) dt.Rows [0] ["Email"];
 
-					// send this user a PM notification e-mail
-					StringDictionary emailParameters = new StringDictionary();
+                    // send this user a PM notification e-mail
+                    StringDictionary emailParameters = new StringDictionary();
 
-					emailParameters ["{fromuser}"] = PageContext.PageUserName;
-					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_message, "pm={0}", userPMessageID ), YAF.Classes.Utils.yaf_ForumInfo.ServerURL );
-					emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
-					emailParameters ["{subject}"] = subject;
+                    emailParameters["{fromuser}"] = PageContext.PageUserName;
+                    emailParameters["{link}"] = String.Format("{1}{0}\r\n\r\n", yaf_BuildLink.GetLink(ForumPages.cp_message, "pm={0}", userPMessageID), yaf_ForumInfo.ServerURL);
+                    emailParameters["{forumname}"] = PageContext.BoardSettings.Name;
+                    emailParameters["{subject}"] = subject;
 
-					string message = General.CreateEmailFromTemplate( "pmnotification.txt", ref emailParameters );
+                    string message = General.CreateEmailFromTemplate("pmnotification.txt", ref emailParameters);
 
-					string emailSubject = string.Format(GetText("COMMON","PM_NOTIFICATION_SUBJECT" ),PageContext.PageUserName,PageContext.BoardSettings.Name,subject);
+                    string emailSubject = string.Format(GetText("COMMON", "PM_NOTIFICATION_SUBJECT"), PageContext.PageUserName, PageContext.BoardSettings.Name, subject);
 
-					//  Build a MailMessage
-					General.SendMail( PageContext.BoardSettings.ForumEmail, toEMail, emailSubject, message );
-				}
-			}
-			catch ( Exception x )
-			{
-				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-				PageContext.AddLoadMessage( String.Format( GetText( "failed" ), x.Message ) );
-			}
-		}
+                    //  Build a MailMessage
+                    General.SendMail(PageContext.BoardSettings.ForumEmail, toEMail, emailSubject, message);
+                }
+            }
+            catch (Exception x)
+            {
+                DB.eventlog_create(PageContext.PageUserID, this, x);
+                PageContext.AddLoadMessage(String.Format(GetText("failed"), x.Message));
+            }
+        }
 
-        protected void Preview_Click(object sender, System.EventArgs e)
+        protected void Preview_Click(object sender, EventArgs e)
         {
             PreviewRow.Visible = true;
 
@@ -289,7 +250,7 @@ namespace YAF.Pages
 
             string body = FormatMsg.FormatMessage(Editor.Text, tFlags);
 
-            using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
+            using (DataTable dt = DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
             {
                 if (!dt.Rows[0].IsNull("Signature"))
                     body += "<br/><hr noshade/>" + FormatMsg.FormatMessage(dt.Rows[0]["Signature"].ToString(), new MessageFlags());
@@ -298,47 +259,47 @@ namespace YAF.Pages
             PreviewCell.InnerHtml = body;
         }
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
-		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
-		}
+        protected void Cancel_Click(object sender, EventArgs e)
+        {
+            yaf_BuildLink.Redirect(ForumPages.cp_profile);
+        }
 
-        protected void FindUsers_Click(object sender, System.EventArgs e)
-		{
+        protected void FindUsers_Click(object sender, EventArgs e)
+        {
             if (To.Text.Length < 2)
             {
                 PageContext.AddLoadMessage(GetText("NEED_MORE_LETTERS"));
                 return;
             }
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_find( PageContext.PageBoardID, true, To.Text, null ) )
-			{
-				if ( dt.Rows.Count > 0 )
-				{
-					ToList.DataSource = dt;
-					ToList.DataValueField = "UserID";
-					ToList.DataTextField = "Name";
+            using (DataTable dt = DB.user_find(PageContext.PageBoardID, true, To.Text, null))
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    ToList.DataSource = dt;
+                    ToList.DataValueField = "UserID";
+                    ToList.DataTextField = "Name";
                     ToList.DataBind();
-					//ToList.SelectedIndex = 0;
-					ToList.Visible = true;
-					To.Visible = false;
-					FindUsers.Visible = false;
+                    //ToList.SelectedIndex = 0;
+                    ToList.Visible = true;
+                    To.Visible = false;
+                    FindUsers.Visible = false;
                     Clear.Visible = true;
-				}
-				DataBind();
-			}
-		}
-		protected void AllUsers_Click(object sender, EventArgs e)
-		{
-			ListItem li = new ListItem( "All Users", "0" );
-			ToList.Items.Add( li );
-			ToList.Visible = true;
-			To.Text = "All Users";
-			To.Visible = false;
-			FindUsers.Visible = false;
-			AllUsers.Visible = false;
+                }
+                DataBind();
+            }
+        }
+        protected void AllUsers_Click(object sender, EventArgs e)
+        {
+            ListItem li = new ListItem("All Users", "0");
+            ToList.Items.Add(li);
+            ToList.Visible = true;
+            To.Text = "All Users";
+            To.Visible = false;
+            FindUsers.Visible = false;
+            AllUsers.Visible = false;
             Clear.Visible = true;
-		}
+        }
         protected void Clear_Click(object sender, EventArgs e)
         {
             ToList.Items.Clear();
@@ -349,5 +310,5 @@ namespace YAF.Pages
             AllUsers.Visible = true;
             Clear.Visible = false;
         }
-	}
+    }
 }

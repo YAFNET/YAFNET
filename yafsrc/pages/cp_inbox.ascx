@@ -14,18 +14,17 @@
         <td>
             &nbsp;</td>
         <td>
-            <img runat="server" id="SortSubject" align="absmiddle" />
-            <asp:LinkButton runat="server" ID="SubjectLink" /></td>
+            <img runat="server" id="SortSubject" align="absmiddle" alt="" />
+            <asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" /></td>
         <td>
-            <img runat="server" id="SortFrom" align="absmiddle" />
-            <asp:LinkButton runat="server" ID="FromLink" /></td>
+            <img runat="server" id="SortFrom" align="absmiddle" alt="" />
+            <asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" /></td>
         <td>
-            <img runat="server" id="SortDate" align="absmiddle" />
-            <asp:LinkButton runat="server" ID="DateLink" /></td>
-        <td>
-            &nbsp;</td>
+            <img runat="server" id="SortDate" align="absmiddle" alt="" />
+            <asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" /></td>
+        <td>&nbsp;</td>
     </tr>
-    <asp:Repeater ID="Inbox" runat="server">
+    <asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
         <FooterTemplate>
             <tr class="footer1">
                 <td colspan="6" align="right">
@@ -35,9 +34,9 @@
         <ItemTemplate>
             <tr class="post">
                 <td align="center">
-                    <img src='<%# GetImage(Container.DataItem) %>' /></td>
+                    <img src="<%# GetImage(Container.DataItem) %>" alt="" /></td>
                 <td>
-                    <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.cp_message,"pm={0}",Eval("UserPMessageID")) %>'>
+                    <a href='<%# yaf_BuildLink.GetLink(ForumPages.cp_message,"pm={0}&v={1}", Eval("UserPMessageID"), IsOutbox ? "out" : "in") %>'>
                         <%# HtmlEncode(Eval("Subject")) %>
                     </a>
                 </td>
@@ -45,7 +44,7 @@
                     <%# Eval(IsOutbox ? "ToUser" : "FromUser") %>
                 </td>
                 <td>
-                    <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Created"] )%>
+                    <%# yaf_DateTime.FormatDateTime((DateTime)Eval("Created"))%>
                 </td>
                 <td align="center">
                     <asp:CheckBox runat="server" ID="ItemCheck" /></td>
