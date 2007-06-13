@@ -13,12 +13,11 @@
         General.LogToMail( x );
     }
 </script>
-
 <html>
-<head id="Head1" runat="server">
+<head id="HeadTag" runat="server">
     <meta name="Description" content="A bulletin board system written in ASP.NET">
     <meta name="Keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource">
-    <!-- If you don't want the forum to set the page title, you can remove runat and id -->
+    <%-- If you don't want the forum to set the page title, you can remove runat and id --%>
     <title runat="server" id="ForumTitle">This title is overwritten</title>
 </head>
 <body>

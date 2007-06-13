@@ -23,6 +23,7 @@ using System.IO;
 using System.Text;
 using System.Collections;
 using System.Data;
+using System.Web.UI.HtmlControls;
 using System.Xml;
 using System.Web;
 using System.Web.Security;
@@ -676,5 +677,21 @@ namespace YAF.Classes.Base
 		{
 			return Server.HtmlEncode( data.ToString() );
 		}
+
+        /// <summary>
+        /// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
+        /// </summary>
+        /// <param name="cssContents">The contents of the text/css style block</param>
+        public void RegisterClientCssBlock(string cssContents)
+        {
+            HtmlHead header = Page.FindControl("HeadTag") as HtmlHead;
+            if (header == null)
+                return;
+	        HtmlGenericControl style = new HtmlGenericControl();
+            style.TagName = "style";
+            style.Attributes.Add("type", "text/css");
+            style.InnerText = cssContents;
+	        header.Controls.AddAt(header.Controls.Count, style); // Add to the end of the controls collection
+        }
 	}
 }

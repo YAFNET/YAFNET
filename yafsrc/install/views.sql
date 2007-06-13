@@ -92,12 +92,12 @@ GO
 
 CREATE VIEW [dbo].[yaf_PMessageView]
 AS
-SELECT     dbo.yaf_PMessage.PMessageID, dbo.yaf_UserPMessage.UserPMessageID, dbo.yaf_PMessage.FromUserID, yaf_User_1.Name AS FromUser, 
+SELECT     dbo.yaf_PMessage.PMessageID, dbo.yaf_UserPMessage.UserPMessageID, dbo.yaf_PMessage.FromUserID, yaf_User_From.Name AS FromUser, 
                       dbo.yaf_UserPMessage.UserID AS ToUserId, dbo.yaf_User.Name AS ToUser, dbo.yaf_PMessage.Created, dbo.yaf_PMessage.Subject, 
-                      dbo.yaf_PMessage.Body, dbo.yaf_PMessage.Flags, dbo.yaf_UserPMessage.IsRead, dbo.yaf_UserPMessage.IsInOutbox
+                      dbo.yaf_PMessage.Body, dbo.yaf_PMessage.Flags, dbo.yaf_UserPMessage.IsRead, dbo.yaf_UserPMessage.IsInOutbox, dbo.yaf_UserPMessage.IsArchived
 FROM         dbo.yaf_PMessage INNER JOIN
                       dbo.yaf_UserPMessage ON dbo.yaf_PMessage.PMessageID = dbo.yaf_UserPMessage.PMessageID INNER JOIN
                       dbo.yaf_User ON dbo.yaf_UserPMessage.UserID = dbo.yaf_User.UserID INNER JOIN
-                      dbo.yaf_User AS yaf_User_1 ON dbo.yaf_PMessage.FromUserID = yaf_User_1.UserID
+                      dbo.yaf_User AS yaf_User_From ON dbo.yaf_PMessage.FromUserID = yaf_User_From.UserID
 
 GO

@@ -322,6 +322,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmess
 DROP PROCEDURE [dbo].[yaf_pmessage_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_archive]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_pmessage_archive]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_poll_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yaf_poll_save]
 GO
@@ -2568,7 +2572,7 @@ GO
 
 CREATE PROCEDURE [dbo].[yaf_pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) AS
 BEGIN
-	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox
+	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived
 		FROM yaf_PMessageView
 		WHERE	((@PMessageId IS NOT NULL AND PMessageID=@PMessageId) OR 
 				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
@@ -2677,6 +2681,13 @@ begin
 		insert into yaf_UserPMessage(UserID,PMessageID,IsRead,IsInOutbox) values(@ToUserID,@PMessageID,0,1)
 	end
 end
+GO
+
+
+CREATE PROCEDURE [dbo].[yaf_pmessage_archive](@PMessageID int = NULL) AS
+BEGIN
+	UPDATE yaf_UserPMessage SET IsArchived=1 WHERE UserPMessageID=@PMessageID
+END
 GO
 
 CREATE procedure [dbo].[yaf_poll_save](

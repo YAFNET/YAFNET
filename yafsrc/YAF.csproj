@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -77,7 +77,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.10601.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=1.0.10606.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\AjaxControlToolkit.dll</HintPath>
     </Reference>
@@ -123,6 +123,7 @@
     <Content Include="controls\ForumList.ascx">
       <SubType>UserControl</SubType>
     </Content>
+    <Content Include="controls\PMList.ascx" />
     <Content Include="controls\smileys.ascx">
       <SubType>UserControl</SubType>
     </Content>
@@ -271,6 +272,7 @@
     <Content Include="pages\mod_forumuser.ascx" />
     <Content Include="pages\movemessage.ascx" />
     <Content Include="pages\movetopic.ascx" />
+    <Content Include="pages\pm.ascx" />
     <Content Include="pages\pmessage.ascx" />
     <Content Include="pages\postmessage.ascx" />
     <Content Include="pages\posts.ascx" />
@@ -877,6 +879,13 @@
     <Compile Include="controls\ForumList.ascx.designer.cs">
       <DependentUpon>ForumList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\PMList.ascx.cs">
+      <DependentUpon>PMList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PMList.ascx.designer.cs">
+      <DependentUpon>PMList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\smileys.ascx.cs">
       <DependentUpon>smileys.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1396,6 +1405,13 @@
     </Compile>
     <Compile Include="pages\movetopic.ascx.designer.cs">
       <DependentUpon>movetopic.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\pm.ascx.cs">
+      <DependentUpon>pm.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\pm.ascx.designer.cs">
+      <DependentUpon>pm.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\pmessage.ascx.cs">
       <DependentUpon>pmessage.ascx</DependentUpon>

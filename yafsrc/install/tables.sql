@@ -342,7 +342,8 @@ begin
 		UserID			int not null,
 		PMessageID		int not null,
 		IsRead			bit not null,
-		IsInOutbox		bit not null
+		IsInOutbox		bit not null default (1),
+		IsArchived		bit not null default (0)
 	)
 end
 GO
@@ -392,6 +393,12 @@ GO
 if not exists (select 1 from dbo.syscolumns where id = object_id('yaf_UserPMessage') and name='IsInOutbox')
 begin
 	alter table dbo.yaf_UserPMessage add IsInOutbox	bit not null default (1)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('yaf_UserPMessage') and name='IsArchived')
+begin
+	alter table dbo.yaf_UserPMessage add IsArchived	bit not null default (0)
 end
 GO
 

@@ -267,6 +267,28 @@
 		<Resource tag="ENTER_KEY">Enter validation key</Resource>
 		<Resource tag="VALIDATE">Validate</Resource>
 	</page>
+  <page name="PM">
+    <!-- pm.ascx -->
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="TO">To</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+  </page>
   <page name="CP_EDITAVATAR">
     <Resource tag="TITLE">Modify Avatar</Resource>
     <Resource tag="AVATAR">Avatar</Resource>

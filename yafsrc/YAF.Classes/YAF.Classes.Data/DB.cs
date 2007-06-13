@@ -1876,6 +1876,20 @@ namespace YAF.Classes.Data
             pmessage_delete(userPMessageID, false);
         }
 
+        /// <summary>
+        /// Archives the private message of the given id.  Archiving moves the message from the user's inbox to his message archive.
+        /// </summary>
+        /// <param name="pMessageID">The ID of the private message</param>
+        public static void pmessage_archive(object pMessageID)
+        {
+            using (SqlCommand sqlCommand = new SqlCommand("yaf_pmessage_archive"))
+            {
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@PMessageID", pMessageID);
+                DBAccess.ExecuteNonQuery(sqlCommand);
+            }
+        }
+
 		static public void pmessage_save( object fromUserID, object toUserID, object subject, object body, object Flags )
 		{
 			using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_save" ) )

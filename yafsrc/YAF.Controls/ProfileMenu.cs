@@ -18,8 +18,8 @@ namespace YAF.Controls
 			{
 				html.AppendFormat("<tr class='header2'><td>{0}</td></tr>",PageContext.Localization.GetText("MESSENGER"));
 				html.AppendFormat("<tr><td>");
-				html.AppendFormat("<li><a href='{0}'>{1}</a></li>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox),PageContext.Localization.GetText("INBOX"));
-				html.AppendFormat("<li><a href='{0}'>{1}</a></li>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox,"v=out"),PageContext.Localization.GetText("SENTITEMS"));
+				html.AppendFormat("<li><a href='{0}'>{1}</a></li>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.pm, "v=in"),PageContext.Localization.GetText("INBOX"));
+				html.AppendFormat("<li><a href='{0}'>{1}</a></li>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.pm, "v=out"),PageContext.Localization.GetText("SENTITEMS"));
 				html.AppendFormat("<li><a href='{0}'>{1}</a></li>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.pmessage),PageContext.Localization.GetText("NEW_MESSAGE"));
 				html.AppendFormat("</td></tr>");
 				html.AppendFormat("<tr><td>&nbsp;</td></tr>");

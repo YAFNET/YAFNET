@@ -57,6 +57,11 @@ namespace YAF.Pages
             if (!IsPostBack)
             {
                 PageLinks.AddLink(PageContext.BoardSettings.Name, yaf_BuildLink.GetLink(ForumPages.forum));
+                PageLinks.AddLink(PageContext.PageUserName, yaf_BuildLink.GetLink(ForumPages.cp_profile));
+                PageLinks.AddLink(PageContext.Localization.GetText(ForumPages.pm.ToString(), "TITLE"),
+                    yaf_BuildLink.GetLink(ForumPages.pm));
+                PageLinks.AddLink(GetText("TITLE"));
+
                 Save.Text = GetText("Save");
                 Preview.Text = GetText("Preview");
                 Cancel.Text = GetText("Cancel");
@@ -261,7 +266,7 @@ namespace YAF.Pages
 
         protected void Cancel_Click(object sender, EventArgs e)
         {
-            yaf_BuildLink.Redirect(ForumPages.cp_profile);
+            yaf_BuildLink.Redirect(ForumPages.pm);
         }
 
         protected void FindUsers_Click(object sender, EventArgs e)
