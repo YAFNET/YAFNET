@@ -442,11 +442,11 @@ namespace YAF.Classes.Utils
 		public T GetValue<T>(string name, T defaultValue)
 		{
 			if (this[name.ToLower()] == null) return defaultValue;
-			return (T)Convert.ChangeType(this[name.ToLower()], typeof(defaultValue));
+			return (T)Convert.ChangeType(this[name.ToLower()], typeof(T));
 		}
 		public void SetValue<T>(string name, T value)
 		{
-			this[name.ToLower()] = typeof(value);
+			this[name.ToLower()] = typeof(T);
 		}
 		/* 6/16/2007 */
 	}
