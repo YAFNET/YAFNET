@@ -18,12 +18,12 @@ namespace YAF.Pages {
         protected System.Web.UI.WebControls.HyperLink UnreadMsgs;
         protected System.Web.UI.WebControls.Repeater CategoryList;
         protected System.Web.UI.WebControls.ImageButton expandInformation;
-        protected System.Web.UI.HtmlControls.HtmlTableBodySection InformationTBody;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl InformationTBody;
         protected System.Web.UI.WebControls.Label activeinfo;
         protected System.Web.UI.WebControls.Repeater ActiveList;
         protected System.Web.UI.WebControls.Label Stats;
         protected System.Web.UI.WebControls.ImageButton expandActiveDiscussions;
-        protected System.Web.UI.HtmlControls.HtmlTableBodySection ActiveDiscussionTBody;
+        protected System.Web.UI.HtmlControls.HtmlGenericControl ActiveDiscussionTBody;
         protected System.Web.UI.WebControls.Repeater LatestPosts;
         protected System.Web.UI.WebControls.LinkButton MarkAll;
         protected YAF.Classes.UI.SmartScroller SmartScroller1;
