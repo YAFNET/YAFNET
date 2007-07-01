@@ -300,6 +300,7 @@ namespace YAF.Controls
 			if ( IsSponserMessage ) return "";
 
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
+			
 			if ( !PostDeleted )
 			{
 				// Avatar
@@ -354,8 +355,24 @@ namespace YAF.Controls
 				// Extra row
 				userboxOutput.AppendLine( "<br/>" );
 
+				// Ederon : 02/24/2007
 				// Joined
-				userboxOutput.AppendFormat( "{0}: {1}<br />", PageContext.Localization.GetText( "joined" ), yaf_DateTime.FormatDateShort( ( DateTime ) DataRow ["Joined"] ) );
+				if (PageContext.BoardSettings.DisplayJoinDate)
+				{
+					/*userboxOutput.Replace("[[JOINDATE]]",
+						String.Format(
+							ForumPage.BoardSettings.UserBoxJoinDate,*/
+					userboxOutput.AppendFormat(
+							"{0}: {1}<br />",
+							PageContext.Localization.GetText("joined"),
+							yaf_DateTime.FormatDateShort( ( DateTime ) DataRow ["Joined"] )
+							);
+					/*	);*/
+				}
+				/*else
+				{
+					userboxOutput.Replace("[[JOINDATE]]", "");
+				}*/
 
 				// Posts
 				userboxOutput.AppendFormat( "{0}: {1:N0}<br />", PageContext.Localization.GetText( "posts" ), DataRow ["Posts"] );

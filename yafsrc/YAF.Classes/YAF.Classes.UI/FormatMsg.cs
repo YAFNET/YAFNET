@@ -32,35 +32,40 @@ namespace YAF.Classes.UI
 	/// </summary>
 	public class FormatMsg
 	{
+		/* Ederon : 6/16/2007 - conventions */
+
 		/// <summary>
 		/// Formats message by converting "Forum Code" to HTML.
 		/// </summary>
 		/// <param name="basePage">Forum Page</param>
 		/// <param name="Message">Message to Convert</param>
 		/// <returns>Converted Message Text</returns>
-		static protected string iConvertForumCode( string Message )
+		static protected string ConvertForumCode( string message )
 		{
 			string tmp = "";
-			bool bInCode = false;
-			for ( int i = 0; i < Message.Length; i++ )
+			bool inCode = false;
+
+			for ( int i = 0; i < message.Length; i++ )
 			{
-				if ( Message [i] == '[' )
+				if ( message [i] == '[' )
 				{
-					int e1 = Message.IndexOf( ']', i );
-					int e2 = Message.IndexOf( '=', i );
+					int e1 = message.IndexOf( ']', i );
+					int e2 = message.IndexOf( '=', i );
+
 					if ( e1 > 0 )
 					{
-						bool bNone = false;
+						bool none = false;
 						string cmd, arg = null;
+
 						if ( e2 < 0 || e2 > e1 )
 						{
-							cmd = Message.Substring( i + 1, e1 - i - 1 );
+							cmd = message.Substring( i + 1, e1 - i - 1 );
 							arg = null;
 						}
 						else
 						{
-							cmd = Message.Substring( i + 1, e2 - i - 1 );
-							arg = Message.Substring( e2 + 1, e1 - e2 - 1 );
+							cmd = message.Substring( i + 1, e2 - i - 1 );
+							arg = message.Substring( e2 + 1, e1 - e2 - 1 );
 
 							arg = arg.Trim();
 
@@ -70,7 +75,7 @@ namespace YAF.Classes.UI
 						}
 
 						cmd = cmd.ToLower();
-						if ( !bInCode || cmd == "/code" )
+						if ( !inCode || cmd == "/code" )
 						{
 							switch ( cmd )
 							{
@@ -123,44 +128,49 @@ namespace YAF.Classes.UI
 									break;
 								case "code":
 									tmp += "<pre>";
-									bInCode = true;
+									inCode = true;
 									break;
 								case "/code":
 									tmp += "</pre>";
-									bInCode = false;
+									inCode = false;
 									break;
 								default:
-									bNone = true;
+									none = true;
 									break;
 							}
 						}
 						else
 						{
-							bNone = true;
+							none = true;
 						}
-						if ( !bNone )
+						if ( !none )
 						{
 							i = e1;
 							continue;
 						}
 					}
 				}
-				tmp += Message [i];
+				tmp += message [i];
 			}
 
 			return tmp;
 		}
 
+		// Ederon : 6/16/2007 - renamed from iAddSmilies to AddSmilies
 		/// <summary>
 		/// Adds smiles into the code.
 		/// </summary>
 		/// <param name="basePagee">Forum base page</param>
 		/// <param name="Message">Text to add smiles to.</param>
 		/// <returns>Processed text with smiles added.</returns>
-		static public string iAddSmiles( string Message )
+		static public string AddSmiles( string message )
 		{
 			DataTable dtSmileys = GetSmilies();
-			string strTemp = Message;
+			/* Ederon : 6/16/2007
+			 * no need to do another copy of string, it is new instance already, so we can change it
+			 * replaced all 'strTemp' in this method to 'message' 
+			 */ 
+			// string strTemp = message;
 
 			foreach ( DataRow row in dtSmileys.Rows )
 			{
@@ -170,23 +180,23 @@ namespace YAF.Classes.UI
 				code = code.Replace( "\"", "&quot;" );
 				// some symbols in html source becomes smylies
 				// so prevent this
-				strTemp = strTemp.Replace( "&amp;", "&amp%3B" );
-				strTemp = strTemp.Replace( "&quot;", "&quot%3B" );
-				strTemp = strTemp.Replace( "mailto:", "mailto%3A" );
-				strTemp = strTemp.Replace( "color:", "color%3A" );
+				message = message.Replace( "&amp;", "&amp%3B" );
+				message = message.Replace( "&quot;", "&quot%3B" );
+				message = message.Replace( "mailto:", "mailto%3A" );
+				message = message.Replace( "color:", "color%3A" );
 
-				strTemp = strTemp.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-				strTemp = strTemp.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				message = message.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				message = message.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
 
 				// restore html source
 
-				strTemp = strTemp.Replace( "&amp%3B", "&amp;" );
-				strTemp = strTemp.Replace( "&quot%3B", "&quot;" );
-				strTemp = strTemp.Replace( "mailto%3A", "mailto:" );
-				strTemp = strTemp.Replace( "color%3A", "color:" );
+				message = message.Replace( "&amp%3B", "&amp;" );
+				message = message.Replace( "&quot%3B", "&quot;" );
+				message = message.Replace( "mailto%3A", "mailto:" );
+				message = message.Replace( "color%3A", "color:" );
 			}
 
-			return strTemp;
+			return message;
 		}
 
 		/// <summary>
@@ -246,55 +256,55 @@ namespace YAF.Classes.UI
 			return dt;
 		}
 
-		static public string FormatMessage( string Message, MessageFlags mFlags )
+		static public string FormatMessage( string message, MessageFlags messageFlags )
 		{
-			return FormatMessage( Message, mFlags, true );
+			return FormatMessage( message, messageFlags, true );
 		}
 
 		//if message was deleted then write that instead of real body
-		static public string FormatMessage( string Message, MessageFlags mFlags, bool isModeratorChanged )
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged )
 		{
-			if ( mFlags.IsDeleted )
+			if ( messageFlags.IsDeleted )
 			{
-				Message = "Message was deleted";
-				if ( isModeratorChanged ) { Message += " by moderator."; } else { Message += " by user."; };
-				return Message;
+				message = "Message was deleted";
+				if ( isModeratorChanged ) { message += " by moderator."; } else { message += " by user."; };
+				return message;
 			}
 
 			// do html damage control
-			Message = RepairHtml( Message, mFlags.IsHTML );
+			message = RepairHtml( message, messageFlags.IsHTML );
 
 			// convert spaces if bbcode (causes too many problems)
-			/*if (mFlags.IsBBCode)
+			/*if (messageFlags.IsBBCode)
 			{
-				Message = Message.Replace(" ","&nbsp;");
+				message = message.Replace(" ","&nbsp;");
 			}*/
 
 			// do BBCode and Smilies...
-			Message = BBCode.MakeHtml( Message, mFlags.IsBBCode );
+			message = BBCode.MakeHtml( message, messageFlags.IsBBCode );
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			//Email -- RegEx VS.NET
-			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
+			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
 
 			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
+			message = Regex.Replace( message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
 
 			// Demonixed : addition
-			Message = Regex.Replace( Message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
+			message = Regex.Replace( message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
 
 
 			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			Message = Regex.Replace( Message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options );
+			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options );
 
 			// jaben : moved word replace to reusable function in class utils
-			Message = General.BadWordReplace( Message );
+			message = General.BadWordReplace( message );
 
-			return Message;
+			return message;
 		}
 
-		static private bool IsValidTag( string tag, string [] AllowedTags )
+		static private bool IsValidTag( string tag, string [] allowedTags )
 		{
 			if ( tag.IndexOf( "javascript" ) >= 0 ) return false;
 			if ( tag.IndexOf( "vbscript" ) >= 0 ) return false;
@@ -307,7 +317,7 @@ namespace YAF.Classes.UI
 			if ( tag [0] == '/' ) tag = tag.Substring( 1 );
 
 			// check if it's a valid tag
-			foreach ( string aTag in AllowedTags )
+			foreach ( string aTag in allowedTags )
 			{
 				if ( tag == aTag ) return true;
 			}
@@ -315,9 +325,9 @@ namespace YAF.Classes.UI
 			return false;
 		}
 
-		static public string RepairHtml( string html, bool bAllowHtml )
+		static public string RepairHtml( string html, bool allowHtml )
 		{
-			if ( !bAllowHtml )
+			if ( !allowHtml )
 			{
 				html = BBCode.EncodeHTML( html );
 			}
@@ -325,7 +335,7 @@ namespace YAF.Classes.UI
 			{
 				// get allowable html tags
 				string tStr = yaf_Context.Current.BoardSettings.AcceptedHTML;
-				string [] AllowedTags = tStr.Split( ',' );
+				string [] allowedTags = tStr.Split( ',' );
 
 				RegexOptions options = RegexOptions.IgnoreCase;
 
@@ -335,7 +345,7 @@ namespace YAF.Classes.UI
 				{
 					string tag = html.Substring( m [i].Index + 1, m [i].Length - 1 ).Trim().ToLower();
 
-					if ( !IsValidTag( tag, AllowedTags ) )
+					if ( !IsValidTag( tag, allowedTags ) )
 					{
 						html = html.Remove( m [i].Index, m [i].Length );
 						// just don't show this tag for now

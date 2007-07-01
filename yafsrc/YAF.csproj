@@ -1499,14 +1499,17 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Content Include="app.config" />
     <None Include="COPYING" />
     <Content Include="resource.ashx" />
+    <Content Include="db.config" />
     <None Include="install\constraints.sql" />
     <None Include="install\indexes.sql" />
     <None Include="install\procedures.sql" />
     <None Include="install\tables.sql" />
     <None Include="install\triggers.sql" />
     <None Include="install\views.sql" />
+    <Content Include="mail.config" />
     <None Include="themes\chrome\voting_bar.psd" />
     <None Include="themes\icgstation\folder.psd" />
     <None Include="themes\icgstation\folderYAF.psd" />

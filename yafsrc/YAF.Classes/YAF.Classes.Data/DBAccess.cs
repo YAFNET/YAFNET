@@ -29,13 +29,15 @@ namespace YAF.Classes.Data
 {
 	public static class DBAccess
 	{
-		private static IsolationLevel m_isoLevel = IsolationLevel.ReadUncommitted;
+		/* Ederon : 6/16/2007 - conventions */
+
+		private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 
 		static public IsolationLevel IsolationLevel
 		{
 			get
 			{
-				return m_isoLevel;
+				return _isolationLevel;
 			}
 		}
 
@@ -46,6 +48,13 @@ namespace YAF.Classes.Data
 		public static SqlConnection GetConnection()
 		{
 			SqlConnection conn = new SqlConnection( YAF.Classes.Config.ConnectionString );
+			
+			/* 
+			 * REVIEW : do we want to open connection yet before we use it?
+			 *		  : I'd left this on client code, to both open and close connections 
+			 * Ederon	
+			 */
+ 
 			conn.Open();
 			return conn;
 		}
@@ -57,6 +66,7 @@ namespace YAF.Classes.Data
 		static public DataTable GetData( SqlCommand cmd )
 		{
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
+
 			try
 			{
 				if ( cmd.Connection != null )
@@ -75,7 +85,7 @@ namespace YAF.Classes.Data
 				{
 					using ( SqlConnection conn = GetConnection() )
 					{
-						using ( SqlTransaction trans = conn.BeginTransaction( m_isoLevel ) )
+						using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
 						{
 							try
 							{
@@ -107,16 +117,16 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets data out of database using a plain text string command
 		/// </summary>
-		/// <param name="sql">string command to be executed</param>
+		/// <param name="commandText">command text to be executed</param>
 		/// <returns>DataTable with results</returns>
-		static public DataTable GetData( string sql )
+		static public DataTable GetData( string commandText )
 		{
-			QueryCounter qc = new QueryCounter( sql );
+			QueryCounter qc = new QueryCounter( commandText );
 			try
 			{
 				using ( SqlConnection conn = GetConnection() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( m_isoLevel ) )
+					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
 					{
 						try
 						{
@@ -124,7 +134,7 @@ namespace YAF.Classes.Data
 							{
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
-								cmd.CommandText = sql;
+								cmd.CommandText = commandText;
 								using ( DataSet ds = new DataSet() )
 								{
 									using ( SqlDataAdapter da = new SqlDataAdapter() )
@@ -160,7 +170,7 @@ namespace YAF.Classes.Data
 			{
 				using ( SqlConnection conn = GetConnection() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( m_isoLevel ) )
+					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
 					{
 						cmd.Connection = conn;
 						cmd.Transaction = trans;
@@ -183,13 +193,13 @@ namespace YAF.Classes.Data
 			{
 				using ( SqlConnection conn = GetConnection() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( m_isoLevel ) )
+					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
 					{
 						cmd.Connection = conn;
 						cmd.Transaction = trans;
-						object res = cmd.ExecuteScalar();
+						object results = cmd.ExecuteScalar();
 						trans.Commit();
-						return res;
+						return results;
 					}
 				}
 			}

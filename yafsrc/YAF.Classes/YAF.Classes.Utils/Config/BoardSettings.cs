@@ -27,20 +27,22 @@ namespace YAF.Classes.Utils
 {
 	public class yaf_BoardSettings
 	{
-		private DataRow m_board;
-		private RegistryHash m_reg, m_regBoard;
-		private object m_boardID;
+		/* Ederon : 6/16/2007 - conventions */
+
+		private DataRow _board;
+		private RegistryHash _reg, _regBoard;
+		private object _boardID;
 
 		public yaf_BoardSettings( object boardID )
 		{
-			m_boardID = boardID;
+			_boardID = boardID;
 			DataTable dt;
 			// get the board table
 			dt = YAF.Classes.Data.DB.board_list( boardID );
-			m_board = dt.Rows [0];
+			_board = dt.Rows [0];
 
-			m_reg = new RegistryHash();
-			m_regBoard = new RegistryHash();
+			_reg = new RegistryHash();
+			_regBoard = new RegistryHash();
 
 			// get all the registry values for the forum
 			using ( dt = YAF.Classes.Data.DB.registry_list() )
@@ -50,11 +52,11 @@ namespace YAF.Classes.Utils
 				{
 					if ( dr ["Value"] == DBNull.Value )
 					{
-						m_reg.Add( dr ["Name"].ToString().ToLower(), null );
+						_reg.Add( dr ["Name"].ToString().ToLower(), null );
 					}
 					else
 					{
-						m_reg.Add( dr ["Name"].ToString().ToLower(), dr ["Value"] );
+						_reg.Add( dr ["Name"].ToString().ToLower(), dr ["Value"] );
 					}
 				}
 			}
@@ -65,11 +67,11 @@ namespace YAF.Classes.Utils
 				{
 					if ( dr ["Value"] == DBNull.Value )
 					{
-						m_regBoard.Add( dr ["Name"].ToString().ToLower(), null );
+						_regBoard.Add( dr ["Name"].ToString().ToLower(), null );
 					}
 					else
 					{
-						m_regBoard.Add( dr ["Name"].ToString().ToLower(), dr ["Value"] );
+						_regBoard.Add( dr ["Name"].ToString().ToLower(), dr ["Value"] );
 					}
 				}
 			}
@@ -81,58 +83,58 @@ namespace YAF.Classes.Utils
 		public void SaveRegistry()
 		{
 			// loop through all values and commit them to the DB
-			foreach ( DictionaryEntry objItem in m_reg )
+			foreach ( DictionaryEntry objItem in _reg )
 			{
 				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value );
 			}
-			foreach ( DictionaryEntry objItem in m_regBoard )
+			foreach ( DictionaryEntry objItem in _regBoard )
 			{
-				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value, m_boardID );
+				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value, _boardID );
 			}
 		}
 
 		// individual board settings
 		public string Name
 		{
-			get { return m_board ["Name"].ToString(); }
+			get { return _board ["Name"].ToString(); }
 		}
 		public bool AllowThreaded
 		{
-			get { return Convert.ToBoolean( m_board ["AllowThreaded"].ToString() ); }
+			get { return Convert.ToBoolean( _board ["AllowThreaded"].ToString() ); }
 		}
 		public bool AllowThemedLogo
 		{
-			get { return m_reg.GetValueBool( "AllowThemedLogo", false ); }
-			set { m_reg.SetValueBool( "AllowThemedLogo", value ); }
+			get { return _reg.GetValueBool( "AllowThemedLogo", false ); }
+			set { _reg.SetValueBool( "AllowThemedLogo", value ); }
 		}
 		public int MaxUsers
 		{
-			get { return m_regBoard.GetValueInt( "MaxUsers", 1 ); }
+			get { return _regBoard.GetValueInt( "MaxUsers", 1 ); }
 		}
 		public DateTime MaxUsersWhen
 		{
-			get { return DateTime.Parse( m_regBoard.GetValueString( "MaxUsersWhen", DateTime.Now.ToString() ) ); }
+			get { return DateTime.Parse( _regBoard.GetValueString( "MaxUsersWhen", DateTime.Now.ToString() ) ); }
 		}
 		public string Theme
 		{
-			get { return m_regBoard.GetValueString( "Theme", "soclean.xml" ); }
-			set { m_regBoard.SetValueString( "Theme", value ); }
+			get { return _regBoard.GetValueString( "Theme", "soclean.xml" ); }
+			set { _regBoard.SetValueString( "Theme", value ); }
 		}
 		public string Language
 		{
-			get { return m_regBoard.GetValueString( "Language", "english.xml" ); }
-			set { m_regBoard.SetValueString( "Language", value ); }
+			get { return _regBoard.GetValueString( "Language", "english.xml" ); }
+			set { _regBoard.SetValueString( "Language", value ); }
 		}
 		public int ShowTopicsDefault
 		{
-			get { return m_regBoard.GetValueInt( "ShowTopicsDefault", 5 ); }
-			set { m_regBoard.SetValueInt( "ShowTopicsDefault", value ); }
+			get { return _regBoard.GetValueInt( "ShowTopicsDefault", 5 ); }
+			set { _regBoard.SetValueInt( "ShowTopicsDefault", value ); }
 		}
 
 		// didn't know where else to put this :)
 		public string SQLVersion
 		{
-			get { return Convert.ToString( m_board ["SQLVersion"] ); }
+			get { return Convert.ToString( _board ["SQLVersion"] ); }
 		}
 
 		// global forum settings from registry
@@ -147,270 +149,306 @@ namespace YAF.Classes.Utils
 		// int settings
 		public int TimeZoneRaw
 		{
-			get { return m_reg.GetValueInt( "TimeZone", 0 ); }
-			set { m_reg.SetValueInt( "TimeZone", value ); }
+			get { return _reg.GetValueInt( "TimeZone", 0 ); }
+			set { _reg.SetValueInt( "TimeZone", value ); }
 		}
 		public int AvatarWidth
 		{
-			get { return m_reg.GetValueInt( "AvatarWidth", 50 ); }
-			set { m_reg.SetValueInt( "AvatarWidth", value ); }
+			get { return _reg.GetValueInt( "AvatarWidth", 50 ); }
+			set { _reg.SetValueInt( "AvatarWidth", value ); }
 		}
 		public int AvatarHeight
 		{
-			get { return m_reg.GetValueInt( "AvatarHeight", 80 ); }
-			set { m_reg.SetValueInt( "AvatarHeight", value ); }
+			get { return _reg.GetValueInt( "AvatarHeight", 80 ); }
+			set { _reg.SetValueInt( "AvatarHeight", value ); }
 		}
 		public int AvatarSize
 		{
-			get { return m_reg.GetValueInt( "AvatarSize", 50000 ); }
-			set { m_reg.SetValueInt( "AvatarSize", value ); }
+			get { return _reg.GetValueInt( "AvatarSize", 50000 ); }
+			set { _reg.SetValueInt( "AvatarSize", value ); }
 		}
 		public int MaxFileSize
 		{
-			get { return m_reg.GetValueInt( "MaxFileSize", 0 ); }
-			set { m_reg.SetValueInt( "MaxFileSize", value ); }
+			get { return _reg.GetValueInt( "MaxFileSize", 0 ); }
+			set { _reg.SetValueInt( "MaxFileSize", value ); }
 		}
 		public int SmiliesColumns
 		{
-			get { return m_reg.GetValueInt( "SmiliesColumns", 3 ); }
-			set { m_reg.SetValueInt( "SmiliesColumns", value ); }
+			get { return _reg.GetValueInt( "SmiliesColumns", 3 ); }
+			set { _reg.SetValueInt( "SmiliesColumns", value ); }
 		}
 		public int SmiliesPerRow
 		{
-			get { return m_reg.GetValueInt( "SmiliesPerRow", 6 ); }
-			set { m_reg.SetValueInt( "SmiliesPerRow", value ); }
+			get { return _reg.GetValueInt( "SmiliesPerRow", 6 ); }
+			set { _reg.SetValueInt( "SmiliesPerRow", value ); }
 		}
 		public int LockPosts
 		{
-			get { return m_reg.GetValueInt( "LockPosts", 0 ); }
-			set { m_reg.SetValueInt( "LockPosts", value ); }
+			get { return _reg.GetValueInt( "LockPosts", 0 ); }
+			set { _reg.SetValueInt( "LockPosts", value ); }
 		}
 		public int PostsPerPage
 		{
-			get { return m_reg.GetValueInt( "PostsPerPage", 20 ); }
-			set { m_reg.SetValueInt( "PostsPerPage", value ); }
+			get { return _reg.GetValueInt( "PostsPerPage", 20 ); }
+			set { _reg.SetValueInt( "PostsPerPage", value ); }
 		}
 		public int TopicsPerPage
 		{
-			get { return m_reg.GetValueInt( "TopicsPerPage", 15 ); }
-			set { m_reg.SetValueInt( "TopicsPerPage", value ); }
+			get { return _reg.GetValueInt( "TopicsPerPage", 15 ); }
+			set { _reg.SetValueInt( "TopicsPerPage", value ); }
 		}
 		public int ForumEditor
 		{
-			get { return m_reg.GetValueInt( "ForumEditor", 1 ); }
-			set { m_reg.SetValueInt( "ForumEditor", value ); }
+			get { return _reg.GetValueInt( "ForumEditor", 1 ); }
+			set { _reg.SetValueInt( "ForumEditor", value ); }
 		}
 		public int PostFloodDelay
 		{
-			get { return m_reg.GetValueInt( "PostFloodDelay", 30 ); }
-			set { m_reg.SetValueInt( "PostFloodDelay", value ); }
+			get { return _reg.GetValueInt( "PostFloodDelay", 30 ); }
+			set { _reg.SetValueInt( "PostFloodDelay", value ); }
 		}
 
         public int EditTimeOut  
         {  
-            get { return m_reg.GetValueInt("EditTimeOut", 30 ); }  
-            set { m_reg.SetValueInt("EditTimeOut", value); }  
+            get { return _reg.GetValueInt("EditTimeOut", 30 ); }  
+            set { _reg.SetValueInt("EditTimeOut", value); }  
         }  
 
 		// boolean settings
 		public bool EmailVerification
 		{
-			get { return m_reg.GetValueBool( "EmailVerification", false ); }
-			set { m_reg.SetValueBool( "EmailVerification", value ); }
+			get { return _reg.GetValueBool( "EmailVerification", false ); }
+			set { _reg.SetValueBool( "EmailVerification", value ); }
 		}
 		public bool ShowMoved
 		{
-			get { return m_reg.GetValueBool( "ShowMoved", true ); }
-			set { m_reg.SetValueBool( "ShowMoved", value ); }
+			get { return _reg.GetValueBool( "ShowMoved", true ); }
+			set { _reg.SetValueBool( "ShowMoved", value ); }
 		}
 		public bool ShowGroups
 		{
-			get { return m_reg.GetValueBool( "ShowGroups", true ); }
-			set { m_reg.SetValueBool( "ShowGroups", value ); }
+			get { return _reg.GetValueBool( "ShowGroups", true ); }
+			set { _reg.SetValueBool( "ShowGroups", value ); }
 		}
 		public bool BlankLinks
 		{
-			get { return m_reg.GetValueBool( "BlankLinks", false ); }
-			set { m_reg.SetValueBool( "BlankLinks", value ); }
+			get { return _reg.GetValueBool( "BlankLinks", false ); }
+			set { _reg.SetValueBool( "BlankLinks", value ); }
 		}
 		public bool AllowUserTheme
 		{
-			get { return m_reg.GetValueBool( "AllowUserTheme", false ); }
-			set { m_reg.SetValueBool( "AllowUserTheme", value ); }
+			get { return _reg.GetValueBool( "AllowUserTheme", false ); }
+			set { _reg.SetValueBool( "AllowUserTheme", value ); }
 		}
 		public bool AllowUserLanguage
 		{
-			get { return m_reg.GetValueBool( "AllowUserLanguage", false ); }
-			set { m_reg.SetValueBool( "AllowUserLanguage", value ); }
+			get { return _reg.GetValueBool( "AllowUserLanguage", false ); }
+			set { _reg.SetValueBool( "AllowUserLanguage", value ); }
 		}
 		public bool AllowPMEmailNotification
 		{
-			get { return m_reg.GetValueBool( "AllowPMEmailNotification", true ); }
-			set { m_reg.SetValueBool( "AllowPMEmailNotification", value ); }
+			get { return _reg.GetValueBool( "AllowPMEmailNotification", true ); }
+			set { _reg.SetValueBool( "AllowPMEmailNotification", value ); }
 		}
 		public bool AvatarUpload
 		{
-			get { return m_reg.GetValueBool( "AvatarUpload", false ); }
-			set { m_reg.SetValueBool( "AvatarUpload", value ); }
+			get { return _reg.GetValueBool( "AvatarUpload", false ); }
+			set { _reg.SetValueBool( "AvatarUpload", value ); }
 		}
 		public bool AvatarRemote
 		{
-			get { return m_reg.GetValueBool( "AvatarRemote", false ); }
-			set { m_reg.SetValueBool( "AvatarRemote", value ); }
+			get { return _reg.GetValueBool( "AvatarRemote", false ); }
+			set { _reg.SetValueBool( "AvatarRemote", value ); }
 		}
 		public bool UseFileTable
 		{
-			get { return m_reg.GetValueBool( "UseFileTable", false ); }
-			set { m_reg.SetValueBool( "UseFileTable", value ); }
+			get { return _reg.GetValueBool( "UseFileTable", false ); }
+			set { _reg.SetValueBool( "UseFileTable", value ); }
 		}
 		public bool ShowRSSLink
 		{
-			get { return m_reg.GetValueBool( "ShowRSSLink", true ); }
-			set { m_reg.SetValueBool( "ShowRSSLink", value ); }
+			get { return _reg.GetValueBool( "ShowRSSLink", true ); }
+			set { _reg.SetValueBool( "ShowRSSLink", value ); }
 		}
 		public bool ShowPageGenerationTime
 		{
-			get { return m_reg.GetValueBool( "ShowPageGenerationTime", true ); }
-			set { m_reg.SetValueBool( "ShowPageGenerationTime", value ); }
+			get { return _reg.GetValueBool( "ShowPageGenerationTime", true ); }
+			set { _reg.SetValueBool( "ShowPageGenerationTime", value ); }
 		}
 		public bool ShowForumJump
 		{
-			get { return m_reg.GetValueBool( "ShowForumJump", true ); }
-			set { m_reg.SetValueBool( "ShowForumJump", value ); }
+			get { return _reg.GetValueBool( "ShowForumJump", true ); }
+			set { _reg.SetValueBool( "ShowForumJump", value ); }
 		}
 		public bool AllowPrivateMessages
 		{
-			get { return m_reg.GetValueBool( "AllowPrivateMessages", true ); }
-			set { m_reg.SetValueBool( "AllowPrivateMessages", value ); }
+			get { return _reg.GetValueBool( "AllowPrivateMessages", true ); }
+			set { _reg.SetValueBool( "AllowPrivateMessages", value ); }
 		}
 		public bool AllowEmailSending
 		{
-			get { return m_reg.GetValueBool( "AllowEmailSending", true ); }
-			set { m_reg.SetValueBool( "AllowEmailSending", value ); }
+			get { return _reg.GetValueBool( "AllowEmailSending", true ); }
+			set { _reg.SetValueBool( "AllowEmailSending", value ); }
 		}
 		public bool AllowSignatures
 		{
-			get { return m_reg.GetValueBool( "AllowSignatures", true ); }
-			set { m_reg.SetValueBool( "AllowSignatures", value ); }
+			get { return _reg.GetValueBool( "AllowSignatures", true ); }
+			set { _reg.SetValueBool( "AllowSignatures", value ); }
 		}
 		public bool RemoveNestedQuotes
 		{
-			get { return m_reg.GetValueBool( "RemoveNestedQuotes", false ); }
-			set { m_reg.SetValueBool( "RemoveNestedQuotes", value ); }
+			get { return _reg.GetValueBool( "RemoveNestedQuotes", false ); }
+			set { _reg.SetValueBool( "RemoveNestedQuotes", value ); }
 		}
 		public bool DateFormatFromLanguage
 		{
-			get { return m_reg.GetValueBool( "DateFormatFromLanguage", false ); }
-			set { m_reg.SetValueBool( "DateFormatFromLanguage", value ); }
+			get { return _reg.GetValueBool( "DateFormatFromLanguage", false ); }
+			set { _reg.SetValueBool( "DateFormatFromLanguage", value ); }
 		}
 		public bool DisableRegistrations
 		{
-			get { return m_reg.GetValueBool( "DisableRegistrations", false ); }
-			set { m_reg.SetValueBool( "DisableRegistrations", value ); }
+			get { return _reg.GetValueBool( "DisableRegistrations", false ); }
+			set { _reg.SetValueBool( "DisableRegistrations", value ); }
 		}
 		public bool CreateNntpUsers
 		{
-			get { return m_reg.GetValueBool( "CreateNntpUsers", false ); }
-			set { m_reg.SetValueBool( "CreateNntpUsers", value ); }
+			get { return _reg.GetValueBool( "CreateNntpUsers", false ); }
+			set { _reg.SetValueBool( "CreateNntpUsers", value ); }
 		}
 		public bool ShowGroupsProfile
 		{
-			get { return m_reg.GetValueBool( "ShowGroupsProfile", false ); }
-			set { m_reg.SetValueBool( "ShowGroupsProfile", value ); }
+			get { return _reg.GetValueBool( "ShowGroupsProfile", false ); }
+			set { _reg.SetValueBool( "ShowGroupsProfile", value ); }
 		}
 		public bool PollVoteTiedToIP
 		{
-			get { return m_reg.GetValueBool( "PollVoteTiedToIP", true ); }
-			set { m_reg.SetValueBool( "PollVoteTiedToIP", value ); }
+			get { return _reg.GetValueBool( "PollVoteTiedToIP", true ); }
+			set { _reg.SetValueBool( "PollVoteTiedToIP", value ); }
 		}
 
 		public bool ShowAdsToSignedInUsers
 		{
-			get { return m_reg.GetValueBool( "ShowAdsToSignedInUsers", true ); }
-			set { m_reg.SetValueBool( "ShowAdsToSignedInUsers", value ); }
+			get { return _reg.GetValueBool( "ShowAdsToSignedInUsers", true ); }
+			set { _reg.SetValueBool( "ShowAdsToSignedInUsers", value ); }
 		}
 
 		public bool DisplayPoints
 		{
-			get { return m_reg.GetValueBool( "DisplayPoints", true ); }
-			set { m_reg.SetValueBool( "DisplayPoints", value ); }
+			get { return _reg.GetValueBool( "DisplayPoints", true ); }
+			set { _reg.SetValueBool( "DisplayPoints", value ); }
 		}
 
         public bool ShowQuickAnswer  
         {  
-            get { return m_reg.GetValueBool("ShowQuickAnswer", true  ); }  
-            set { m_reg.SetValueBool("ShowQuick Answer", value ); }  
+            get { return _reg.GetValueBool("ShowQuickAnswer", true  ); }  
+            set { _reg.SetValueBool("ShowQuick Answer", value ); }  
         }  
         
         public bool ShowDeletedMessages  
         {  
-            get { return m_reg.GetValueBool("ShowDeletedMessages", true); }  
-            set { m_reg.SetValueBool("ShowDeletedMessages", value); }  
+            get { return _reg.GetValueBool("ShowDeletedMessages", true); }  
+            set { _reg.SetValueBool("ShowDeletedMessages", value); }  
 		}
 
 		// string settings
 		public string ForumEmail
 		{
-			get { return m_reg.GetValueString( "ForumEmail", "" ); }
-			set { m_reg.SetValueString( "ForumEmail", value ); }
+			get { return _reg.GetValueString( "ForumEmail", "" ); }
+			set { _reg.SetValueString( "ForumEmail", value ); }
 		}
 		public string SmtpServer
 		{
-			get { return m_reg.GetValueString( "SmtpServer", null ); }
-			set { m_reg.SetValueString( "SmtpServer", value ); }
+			get { return _reg.GetValueString( "SmtpServer", null ); }
+			set { _reg.SetValueString( "SmtpServer", value ); }
 		}
 		public string SmtpUserName
 		{
-			get { return m_reg.GetValueString( "SmtpUserName", null ); }
-			set { m_reg.SetValueString( "SmtpUserName", value ); }
+			get { return _reg.GetValueString( "SmtpUserName", null ); }
+			set { _reg.SetValueString( "SmtpUserName", value ); }
 		}
 		public string SmtpUserPass
 		{
-			get { return m_reg.GetValueString( "SmtpUserPass", null ); }
-			set { m_reg.SetValueString( "SmtpUserPass", value ); }
+			get { return _reg.GetValueString( "SmtpUserPass", null ); }
+			set { _reg.SetValueString( "SmtpUserPass", value ); }
 		}
 		public string AcceptedHTML
 		{
-			get { return m_reg.GetValueString( "AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address" ); }
-			set { m_reg.SetValueString( "AcceptedHTML", value.ToLower() ); }
+			get { return _reg.GetValueString( "AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address" ); }
+			set { _reg.SetValueString( "AcceptedHTML", value.ToLower() ); }
 		}
 		public string AdPost
 		{
-			get { return m_reg.GetValueString( "AdPost", null ); }
-			set { m_reg.SetValueString( "AdPost", value ); }
+			get { return _reg.GetValueString( "AdPost", null ); }
+			set { _reg.SetValueString( "AdPost", value ); }
 		}
+		/* Ederon : 6/16/2007 */
+		public bool DisplayJoinDate
+		{
+			get { return _reg.GetValue<bool>("DisplayJoinDate", true); }
+			set { _reg.SetValue<bool>("DisplayJoinDate", value); }
+		}
+		public bool ShowBrowsingUsers
+		{
+			get { return _reg.GetValue<bool>("ShowBrowsingUsers", true); }
+			set { _reg.SetValue<bool>("ShowBrowsingUsers", value); }
+		}
+		public bool ShowBadges
+		{
+			get { return _reg.GetValue<bool>("ShowBadges", true); }
+			set { _reg.SetValue<bool>("ShowBadges", value); }
+		}
+		public bool AllowPostToBlog
+		{
+			get { return _reg.GetValue<bool>("AllowPostToBlog", true); }
+			set { _reg.SetValue<bool>("AllowPostToBlog", value); }
+		}
+		/* 6/16/2007 */
 	}
 
 	public class RegistryHash : System.Collections.Hashtable
 	{
+		/* Ederon : 6/16/2007 - conventions */
+
 		// helper class functions
-		public int GetValueInt( string Name, int Default )
+		public int GetValueInt( string name, int defaultValue )
 		{
-			if ( this [Name.ToLower()] == null ) return Default;
-			return Convert.ToInt32( this [Name.ToLower()] );
+			if ( this [name.ToLower()] == null ) return defaultValue;
+			return Convert.ToInt32( this [name.ToLower()] );
 		}
-		public void SetValueInt( string Name, int Value )
+		public void SetValueInt( string name, int value )
 		{
-			this [Name.ToLower()] = Convert.ToString( Value );
+			this [name.ToLower()] = Convert.ToString( value );
 		}
-		public bool GetValueBool( string Name, bool Default )
+		public bool GetValueBool( string name, bool defaultValue )
 		{
-			if ( this [Name.ToLower()] == null ) return Default;
-			return Convert.ToBoolean( Convert.ToInt32( this [Name.ToLower()] ) );
+			if (this[name.ToLower()] == null) return defaultValue;
+			return Convert.ToBoolean( Convert.ToInt32( this [name.ToLower()] ) );
 		}
-		public void SetValueBool( string Name, bool Value )
+		public void SetValueBool( string name, bool value )
 		{
-			this [Name.ToLower()] = Convert.ToString( Convert.ToInt32( Value ) );
+			this [name.ToLower()] = Convert.ToString( Convert.ToInt32( value ) );
 		}
-		public string GetValueString( string Name, string Default )
+		public string GetValueString(string name, string defaultValue)
 		{
-			if ( this [Name.ToLower()] == null ) return Default;
-			return Convert.ToString( this [Name.ToLower()] );
+			if (this[name.ToLower()] == null) return defaultValue;
+			return Convert.ToString( this [name.ToLower()] );
 		}
-		public void SetValueString( string Name, string Value )
+		public void SetValueString( string name, string value )
 		{
-			this [Name.ToLower()] = Value;
+			this [name.ToLower()] = value;
 		}
+
+		/* Ederon : 6/16/2007 */
+		public T GetValue<T>(string name, T defaultValue)
+		{
+			if (this[name.ToLower()] == null) return defaultValue;
+			return (T)Convert.ChangeType(this[name.ToLower()], typeof(defaultValue));
+		}
+		public void SetValue<T>(string name, T value)
+		{
+			this[name.ToLower()] = typeof(value);
+		}
+		/* 6/16/2007 */
 	}
 
 }

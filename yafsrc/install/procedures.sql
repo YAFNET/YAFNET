@@ -2057,15 +2057,16 @@ GO
 
 
 CREATE procedure [dbo].[yaf_message_save](
-	@TopicID	int,
-	@UserID	int,
-	@Message	ntext,
-	@UserName	nvarchar(50)=null,
-	@IP		nvarchar(15),
-	@Posted	datetime=null,
-	@ReplyTo	int,
-	@Flags		int,
-	@MessageID	int output
+	@TopicID		int,
+	@UserID			int,
+	@Message		ntext,
+	@UserName		nvarchar(50)=null,
+	@IP				nvarchar(15),
+	@Posted			datetime=null,
+	@ReplyTo		int,
+	@BlogPostID		nvarchar(50) = null,
+	@Flags			int,
+	@MessageID		int output
 )
 AS
 BEGIN
@@ -2120,8 +2121,8 @@ BEGIN
 	-- Add points to Users total points
 	UPDATE yaf_User SET Points = Points + 3 WHERE UserID = @UserID
 
-	INSERT yaf_Message ( UserID, Message, TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags)
-	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16)
+	INSERT yaf_Message ( UserID, Message, TopicID, Posted, UserName, IP, ReplyTo, Position, Indent, Flags, BlogPostID)
+	VALUES ( @UserID, @Message, @TopicID, @Posted, @UserName, @IP, @ReplyTo, @Position, @Indent, @Flags & ~16, @BlogPostID)
 
 	SET @MessageID = SCOPE_IDENTITY()
 
@@ -3458,6 +3459,7 @@ create procedure [dbo].[yaf_topic_save](
 	@IP			nvarchar(15),
 	@PollID		int=null,
 	@Posted		datetime=null,
+	@BlogPostID	nvarchar(50),
 	@Flags		int
 ) as
 begin
@@ -3466,10 +3468,15 @@ begin
 
 	if @Posted is null set @Posted = getdate()
 
+	-- create the topic
 	insert into yaf_Topic(ForumID,Topic,UserID,Posted,Views,Priority,PollID,UserName,NumPosts)
 	values(@ForumID,@Subject,@UserID,@Posted,0,@Priority,@PollID,@UserName,0)
+
+	-- get its id
 	set @TopicID = SCOPE_IDENTITY()
-	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@Flags,@MessageID output
+	
+	-- add message to the topic
+	exec yaf_message_save @TopicID,@UserID,@Message,@UserName,@IP,@Posted,null,@BlogPostID,@Flags,@MessageID output
 
 	select TopicID = @TopicID, MessageID = @MessageID
 end
@@ -3996,8 +4003,10 @@ create procedure [dbo].[yaf_user_save](
 	@Gender				tinyint = 0,
 	@Weblog				nvarchar(100) = null,
 	@PMNotification		bit = null,
-	@ProviderUserKey	uniqueidentifier = null
-) as
+	@ProviderUserKey	uniqueidentifier = null,
+    @WeblogUrl			nvarchar(256) = null,
+    @WeblogUsername		nvarchar (256) = null,
+    @WeblogID			nvarchar (50) = null) as
 begin
 	declare @RankID int
 	declare @Flags int
@@ -4016,6 +4025,8 @@ begin
 	if @Occupation is not null and @Occupation = '' set @Occupation = null
 	if @Interests is not null and @Interests = '' set @Interests = null
 	if @Weblog is not null and @Weblog = '' set @Weblog = null
+	if @WeblogUsername is not null and @WeblogUsername = '' set @WeblogUsername = null
+	if @WeblogID is not null and @WeblogID = '' set @WeblogID = null	
 	if @PMNotification is null SET @PMNotification = 1
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
@@ -4023,9 +4034,9 @@ begin
 		if @Email = '' set @Email = null
 		
 		select @RankID = RankID from yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
-		
-		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags,PMNotification,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags,@PMNotification,@ProviderUserKey)
+
+		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags,PMNotification,ProviderUserKey,WeblogUrl,WeblogUsername,WeblogID) 
+		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags,@PMNotification,@ProviderUserKey,@WeblogUrl,@WeblogUsername,@WeblogID)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -4054,7 +4065,10 @@ begin
 			Interests = @Interests,
 			Gender = @Gender,
 			Weblog = @Weblog,
-			PMNotification = @PMNotification
+			PMNotification = @PMNotification,
+			WeblogUrl = @WeblogUrl,
+			WeblogID = @WeblogID,
+			WeblogUsername = @WeblogUsername
 		where UserID = @UserID
 		
 		if @Email is not null
@@ -4239,6 +4253,34 @@ begin
 		insert into yaf_UserGroup(UserID,GroupID)
 		select @UserID,@GroupID
 		where not exists(select 1 from yaf_UserGroup where UserID=@UserID and GroupID=@GroupID)
+end
+GO
+
+create procedure [dbo].[yaf_userpmessage_delete](@UserPMessageID int) as
+begin
+	delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
+end
+GO
+
+create procedure [dbo].[yaf_userpmessage_list](@UserPMessageID int) as
+begin
+	select
+		a.*,
+		FromUser = b.Name,
+		ToUserID = c.UserID,
+		ToUser = c.Name,
+		d.IsRead,
+		d.UserPMessageID
+	from
+		yaf_PMessage a,
+		yaf_User b,
+		yaf_User c,
+		yaf_UserPMessage d
+	where
+		b.UserID = a.FromUserID and
+		c.UserID = d.UserID and
+		d.PMessageID = a.PMessageID and
+		d.UserPMessageID = @UserPMessageID
 end
 GO
 

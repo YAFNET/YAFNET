@@ -10,14 +10,14 @@ namespace YAF.Classes.UI
 	/// </summary>
 	public class SmartScroller : System.Web.UI.Control
 	{
-		private HtmlForm m_theForm = null;
+		/* Ederon : 6/16/2007 - conventions */
+
+		private HtmlForm _theForm = null;
 
 		private HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
 		private HtmlInputHidden hidScrollTop = new HtmlInputHidden();
 		
-		public SmartScroller()
-		{
-		}
+		public SmartScroller() {}
 		
 		private HtmlForm GetServerForm(ControlCollection parent)
 		{
@@ -42,16 +42,16 @@ namespace YAF.Classes.UI
 
 		protected override void OnInit(EventArgs e)
 		{			
-			string tFormID = "Form";
+			string formID = "Form";
 
 			if (Page.Parent != null)
-				m_theForm = GetServerForm(Page.Parent.Controls);
+				_theForm = GetServerForm(Page.Parent.Controls);
 			else
-				m_theForm = GetServerForm(Page.Controls);
+				_theForm = GetServerForm(Page.Controls);
 
-			if (m_theForm != null && m_theForm.ClientID != null)
+			if (_theForm != null && _theForm.ClientID != null)
 			{
-				tFormID = m_theForm.ClientID;
+				formID = _theForm.ClientID;
 			}
 										
 			hidScrollLeft.ID = "scrollLeft";
@@ -70,10 +70,10 @@ namespace YAF.Classes.UI
     var theform;
     if (window.navigator.appName.toLowerCase().indexOf(""microsoft"") > -1)
     {
-	  theform = document." + tFormID + @";
+	  theform = document." + formID + @";
 	}
 	else {
-	  theform = document.forms[""" + tFormID + @"""];
+	  theform = document.forms[""" + formID + @"""];
     }
     return theform;
   }

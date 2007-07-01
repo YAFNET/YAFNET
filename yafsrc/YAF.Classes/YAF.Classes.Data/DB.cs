@@ -26,75 +26,6 @@ using System.Web.Security;
 
 namespace YAF.Classes.Data
 {
-	public enum SEARCH_FIELD
-	{
-		sfMESSAGE = 0,
-		sfUSER_NAME = 1
-	}
-
-	public enum SEARCH_WHAT
-	{
-		sfALL_WORDS = 0,
-		sfANY_WORDS = 1,
-		sfEXACT = 2
-	}
-
-	public enum ForumFlags : int
-	{
-		Locked = 1,
-		Hidden = 2,
-		IsTest = 4,
-		Moderated = 8
-	}
-
-	public enum GroupFlags : int
-	{
-		IsAdmin = 1,
-		/*IsGuest = 2,*/
-		IsStart = 4,
-		IsModerator = 8
-	}
-
-	public enum AccessFlags : int
-	{
-		ReadAccess = 1,
-		PostAccess = 2,
-		ReplyAccess = 4,
-		PriorityAccess = 8,
-		PollAccess = 16,
-		VoteAccess = 32,
-		ModeratorAccess = 64,
-		EditAccess = 128,
-		DeleteAccess = 256,
-		UploadAccess = 512
-	}
-
-	public enum TopicFlags : int
-	{
-		Locked = 1,
-		Deleted = 8
-	}
-
-	public enum UserFlags : int
-	{
-		IsHostAdmin = 1,
-		Approved = 2,
-		IsGuest = 4
-	}
-
-	public enum RankFlags : int
-	{
-		IsStart = 1,
-		IsLadder = 2
-	}
-
-	public enum EventLogTypes : int
-	{
-		Error = 0,
-		Warning = 1,
-		Information = 2
-	}
-
 	public static class DB
 	{
 		/// <summary>
@@ -251,7 +182,8 @@ namespace YAF.Classes.Data
 				sql += " ) ";
 			}
 
-			if ( ForumIDToStartAt >= 0 )
+			// Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
+			if ( ForumIDToStartAt > 0 )
 			{
 				sql += string.Format( "and a.ForumID in {0}", forumIDs );
 			}
@@ -1614,6 +1546,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "@IP", IP );
 				cmd.Parameters.AddWithValue( "@Posted", posted );
 				cmd.Parameters.AddWithValue( "@ReplyTo", replyTo );
+				cmd.Parameters.AddWithValue( "@BlogPostID", null);		// Ederon : 6/16/2007
 				cmd.Parameters.AddWithValue( "@Flags", Flags );
 				cmd.Parameters.Add( paramMessageID );
 				DBAccess.ExecuteNonQuery( cmd );

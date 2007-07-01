@@ -16,21 +16,23 @@ namespace YAF.Classes.UI
 {
 	public class HighLighter
 	{
+		/* Ederon : 6/16/2007 - conventions */
+
 		// To Replace Enter with <br />
-		private bool replaceEnter;
+		private bool _replaceEnter;
 		public bool ReplaceEnter
 		{
-			get { return replaceEnter; }
-			set { replaceEnter = value; }
+			get { return _replaceEnter; }
+			set { _replaceEnter = value; }
 		}
 
 		// Default Constructor
 		public HighLighter()
 		{
-			replaceEnter = false;
+			_replaceEnter = false;
 		}
 
-		public string colorText( string tmpCode, string pathToDefFile, string language )
+		public string ColorText( string tmpCode, string pathToDefFile, string language )
 		{
 			language = language.ToLower();
 			if ( language == "c#" || language == "csharp" )
@@ -138,15 +140,15 @@ namespace YAF.Classes.UI
 				}
 
 				// Replace KeyWords
-				string [] KeyWords = new String [alKeyWords.Count];
-				alKeyWords.CopyTo( KeyWords );
-				string tmpKeyWords = "(?<replacethis>" + String.Join( "|", KeyWords ) + ")";
+				string [] keyWords = new String [alKeyWords.Count];
+				alKeyWords.CopyTo( keyWords );
+				string tmpKeyWords = "(?<replacethis>" + String.Join( "|", keyWords ) + ")";
 				tmpCode = Regex.Replace( tmpCode, "\\b" + tmpKeyWords + "\\b(?<!//.*)", "<span class=\"keyword\">${replacethis}</span>" );
 
 				// Replace KeyTypes
-				string [] KeyTypes = new String [alKeyTypes.Count];
-				alKeyTypes.CopyTo( KeyTypes );
-				string tmpKeyTypes = "(?<replacethis>" + String.Join( "|", KeyTypes ) + ")";
+				string [] keyTypes = new String [alKeyTypes.Count];
+				alKeyTypes.CopyTo( keyTypes );
+				string tmpKeyTypes = "(?<replacethis>" + String.Join( "|", keyTypes ) + ")";
 				tmpCode = Regex.Replace( tmpCode, "\\b" + tmpKeyTypes + "\\b(?<!//.*)", "<span class=\"keytype\">${replacethis}</span>" );
 
 				lineNum = 0;
@@ -170,7 +172,7 @@ namespace YAF.Classes.UI
 				// Replace Numerics
 				tmpCode = Regex.Replace( tmpCode, "(\\d{1,12}\\.\\d{1,12}|\\d{1,12})", "<span class=\"integer\">$1</span>" );
 
-				if ( replaceEnter == true )
+				if ( _replaceEnter == true )
 				{
 					tmpCode = Regex.Replace( tmpCode, "\r", "" );
 					tmpCode = Regex.Replace( tmpCode, "\n", "<br />" + Environment.NewLine );

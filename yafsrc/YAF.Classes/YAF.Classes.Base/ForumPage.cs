@@ -39,12 +39,14 @@ namespace YAF.Classes.Base
 	/// </summary>
 	public class ForumPage : System.Web.UI.UserControl
 	{
+		/* Ederon : 6/16/2007 - conventions */
+
 		#region Variables
 		
-		private bool m_bNoDataBase = false;
-		private bool m_bShowToolBar = true;
-		private bool m_checkSuspended = true;
-		private string m_transPage = string.Empty;
+		private bool _noDataBase = false;
+		private bool _showToolBar = true;
+		private bool _checkSuspended = true;
+		private string _transPage = string.Empty;
 
 		private YAF.Controls.Header _header = null;
 		private YAF.Controls.Footer _footer = null;
@@ -78,15 +80,10 @@ namespace YAF.Classes.Base
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public ForumPage()
-			: this( "" )
-		{
-
-		}
-
+		public ForumPage() : this( "" ) {}
 		public ForumPage( string transPage )
 		{
-			m_transPage = transPage;		
+			_transPage = transPage;		
 
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Unload += new System.EventHandler( this.ForumPage_Unload );
@@ -103,14 +100,14 @@ namespace YAF.Classes.Base
 				General.LogToMail( Server.GetLastError() );
 		}
 
-		static public int ValidInt( object o )
+		static public int ValidInt( object expression )
 		{
 			try
 			{
-				if ( o == null )
+				if (expression == null)
 					return 0;
 
-				return int.Parse( o.ToString() );
+				return int.Parse(expression.ToString());
 			}
 			catch ( Exception )
 			{
@@ -125,7 +122,7 @@ namespace YAF.Classes.Base
 		/// <param name="e"></param>
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
-			if ( m_bNoDataBase )
+			if ( _noDataBase )
 				return;
 
 #if DEBUG
@@ -155,7 +152,7 @@ namespace YAF.Classes.Base
 			//if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
 			//    throw new ApplicationException("User not migrated to ASP.NET 2.0");
 
-			if ( m_checkSuspended && PageContext.IsSuspended )
+			if ( _checkSuspended && PageContext.IsSuspended )
 			{
 				if ( PageContext.SuspendedUntil < DateTime.Now )
 				{
@@ -280,23 +277,23 @@ namespace YAF.Classes.Base
 		{			
 			try
 			{
-				string sCulture = "";
-				string [] sTmp = HttpContext.Current.Request.UserLanguages;
-				if ( sTmp != null )
+				string cultureCode = "";
+				string [] tmp = HttpContext.Current.Request.UserLanguages;
+				if ( tmp != null )
 				{
-					sCulture = sTmp [0];
-					if ( sCulture.IndexOf( ';' ) >= 0 )
+					cultureCode = tmp [0];
+					if ( cultureCode.IndexOf( ';' ) >= 0 )
 					{
-						sCulture = sCulture.Substring( 0, sCulture.IndexOf( ';' ) ).Replace( '_', '-' );
+						cultureCode = cultureCode.Substring( 0, cultureCode.IndexOf( ';' ) ).Replace( '_', '-' );
 					}
 				}
 				else
 				{
-					sCulture = "en-US";
+					cultureCode = "en-US";
 				}
 
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( sCulture );
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo( sCulture );
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( cultureCode );
+				Thread.CurrentThread.CurrentUICulture = new CultureInfo( cultureCode );
 
 			}
 #if DEBUG
@@ -426,7 +423,7 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitLocalization()
 		{
-			PageContext.Localization = new YAF.Classes.Utils.yaf_Localization(m_transPage);
+			PageContext.Localization = new YAF.Classes.Utils.yaf_Localization(_transPage);
 		}
 		#endregion
 
@@ -459,8 +456,8 @@ namespace YAF.Classes.Base
 			}
 
 			// setup the forum control header properties
-			ForumHeader.SimpleRender = !m_bShowToolBar;
-			ForumFooter.SimpleRender = !m_bShowToolBar;	
+			ForumHeader.SimpleRender = !_showToolBar;
+			ForumFooter.SimpleRender = !_showToolBar;	
 		}
 
 		/// <summary>
@@ -500,7 +497,7 @@ namespace YAF.Classes.Base
 		{
 			set
 			{
-				m_bNoDataBase = value;
+				_noDataBase = value;
 			}
 		}
 		#endregion
@@ -545,7 +542,7 @@ namespace YAF.Classes.Base
 		{
 			set
 			{
-				m_bShowToolBar = value;
+				_showToolBar = value;
 			}
 		}
 		#endregion
@@ -554,7 +551,7 @@ namespace YAF.Classes.Base
 		{
 			set
 			{
-				m_checkSuspended = value;
+				_checkSuspended = value;
 			}
 		}
 

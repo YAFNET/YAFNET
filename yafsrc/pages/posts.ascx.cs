@@ -766,7 +766,7 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( brief.Length > 42 )
 				brief = brief.Substring( 0, 40 ) + "...";
-			brief = FormatMsg.iAddSmiles( brief );
+			brief = FormatMsg.AddSmiles( brief );
 
 			html.AppendFormat( "<tr class='post'><td colspan='3' nowrap>" );
 			html.AppendFormat( GetIndentImage( row ["Indent"] ) );

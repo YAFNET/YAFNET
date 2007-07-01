@@ -457,6 +457,41 @@ begin
 end
 GO
 
+/* post to blog start */ 
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUrl')
+begin
+	alter table dbo.yaf_User add WeblogUrl nvarchar(256)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUsername')
+begin
+	alter table dbo.yaf_User add WeblogUsername nvarchar(256)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogID')
+begin
+	alter table dbo.yaf_User add WeblogID nvarchar(50)
+end
+GO
+
+/* post to blog end */ 
+
+
+-- yaf_Mesaage
+
+/* post to blog start */ 
+
+if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='BlogPostID')
+begin
+	alter table dbo.yaf_Message add BlogPostID nvarchar(50)
+end
+GO
+
+/* post to blog end */ 
+
 -- yaf_Forum
 
 if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='RemoteURL')

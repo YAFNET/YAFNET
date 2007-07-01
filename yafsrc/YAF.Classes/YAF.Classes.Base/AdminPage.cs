@@ -37,7 +37,7 @@ namespace YAF.Classes.Base
 			this.Load += new EventHandler(AdminPage_Load);
 		}
 
-		private void AdminPage_Load(object sender,EventArgs e)
+		private void AdminPage_Load(object sender, EventArgs e)
 		{
 			if ( !PageContext.IsAdmin )
 				yaf_BuildLink.AccessDenied();

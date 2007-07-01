@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="DB.cs" />
     <Compile Include="DBAccess.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="MetaWeblog.cs">
       <SubType>Component</SubType>
     </Compile>

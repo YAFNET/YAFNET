@@ -31,20 +31,23 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public class yaf_Context
 	{
-		private static yaf_Context currentInstance = new yaf_Context();
-		private System.Data.DataRow page = null;
-		private YAF.Classes.Utils.yaf_ControlSettings settings = null;
-		private YAF.Classes.Utils.yaf_Theme theme = null;
-		private YAF.Classes.Utils.yaf_Localization localization = null;
-		private System.Web.Security.MembershipUser user = null;
-		private string loadString = "";
-		private string adminLoadString = "";
+		/* Ederon : 6/16/2007 - conventions */
+
+		private static yaf_Context _currentInstance = new yaf_Context();
+		private System.Data.DataRow _page = null;
+		private YAF.Classes.Utils.yaf_ControlSettings _settings = null;
+		private YAF.Classes.Utils.yaf_Theme _theme = null;
+		private YAF.Classes.Utils.yaf_Localization _localization = null;
+		private System.Web.Security.MembershipUser _user = null;
+		private string _loadString = "";
+		private string _adminLoadString = "";
+
 
 		public string LoadString
 		{
 			get
 			{
-				return loadString;
+				return _loadString;
 			}
 		}
 
@@ -52,22 +55,22 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return adminLoadString;
+				return _adminLoadString;
 			}
 		}
 
 		/// <summary>
 		/// AddLoadMessage creates a message that will be returned on the next page load.
 		/// </summary>
-		/// <param name="msg">The message you wish to display.</param>
-		public void AddLoadMessage( string msg )
+		/// <param name="message">The message you wish to display.</param>
+		public void AddLoadMessage( string message )
 		{
-			msg = msg.Replace( "\\", "\\\\" );
-			msg = msg.Replace( "'", "\\'" );
-			msg = msg.Replace( "\r\n", "\\r\\n" );
-			msg = msg.Replace( "\n", "\\n" );
-			msg = msg.Replace( "\"", "\\\"" );
-			loadString += msg + "\\n\\n";
+			message = message.Replace("\\", "\\\\");
+			message = message.Replace( "'", "\\'" );
+			message = message.Replace( "\r\n", "\\r\\n" );
+			message = message.Replace( "\n", "\\n" );
+			message = message.Replace( "\"", "\\\"" );
+			_loadString += message + "\\n\\n";
 		}
 
 		/// <summary>
@@ -75,23 +78,22 @@ namespace YAF.Classes.Utils
 		/// the page loads (in some cases) provide a error message towards the bottom 
 		/// of the page.
 		/// </summary>
-		/// <param name="msg"></param>
 		public void AddAdminMessage( string errorType, string errorMessage )
 		{
-			adminLoadString = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
+			_adminLoadString = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
 		}		
 
 		public void ResetLoadStrings( )
 		{
-			loadString = "";
-			adminLoadString = "";
+			_loadString = "";
+			_adminLoadString = "";
 		}
 
 		public static yaf_Context Current
 		{
 			get
 			{
-				return currentInstance;
+				return _currentInstance;
 			}
 		}
 
@@ -99,11 +101,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return page;
+				return _page;
 			}
 			set
 			{
-				page = value;
+				_page = value;
 			}
 		}
 
@@ -119,11 +121,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return settings;
+				return _settings;
 			}
 			set
 			{
-				settings = value;
+				_settings = value;
 			}
 		}
 
@@ -131,11 +133,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return theme;
+				return _theme;
 			}
 			set
 			{
-				theme = value;
+				_theme = value;
 			}
 		}
 
@@ -143,11 +145,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return localization;
+				return _localization;
 			}
 			set
 			{
-				localization = value;
+				_localization = value;
 			}
 		}
 
@@ -155,13 +157,13 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( user == null )
-					user = System.Web.Security.Membership.GetUser();
-				return user;
+				if ( _user == null )
+					_user = System.Web.Security.Membership.GetUser();
+				return _user;
 			}
 			set
 			{
-				user = value;
+				_user = value;
 			}
 		}	
 
@@ -605,27 +607,31 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public class yaf_ControlSettings
 	{
-		private int m_boardID;
-		private int m_categoryID;
-		private int mLockedForum = 0;
+		/* Ederon : 6/16/2007 - conventions */
+
+		private int _boardID;
+		private int _categoryID;
+		private int _lockedForum = 0;
 
 		public yaf_ControlSettings()
 		{
 			try
 			{
-				m_categoryID = int.Parse( Config.CategoryID );
+				_categoryID = int.Parse( Config.CategoryID );
 			}
 			catch
 			{
-				m_categoryID = 1;
+				// Ederon : 6/16/2007 - changed from 1 to 0
+				_categoryID = 0;
 			}
+
 			try
 			{
-				m_boardID = int.Parse( Config.BoardID );
+				_boardID = int.Parse( Config.BoardID );
 			}
 			catch
 			{
-				m_boardID = 1;
+				_boardID = 1;
 			}
 		}
 
@@ -633,11 +639,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return m_boardID;
+				return _boardID;
 			}
 			set
 			{
-				m_boardID = value;
+				_boardID = value;
 			}
 		}
 
@@ -645,11 +651,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return m_categoryID;
+				return _categoryID;
 			}
 			set
 			{
-				m_categoryID = value;
+				_categoryID = value;
 			}
 		}
 
@@ -657,11 +663,11 @@ namespace YAF.Classes.Utils
 		{
 			set
 			{
-				mLockedForum = value;
+				_lockedForum = value;
 			}
 			get
 			{
-				return mLockedForum;
+				return _lockedForum;
 			}
 		}
 	}
@@ -801,24 +807,26 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class yaf_BuildLink
 	{
-		static public string GetLink( ForumPages Page )
+		/* Ederon : 6/16/2007 - conventions */
+
+		static public string GetLink( ForumPages page )
 		{
-			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}", Page ) );
+			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}", page ) );
 		}
 
-		static public string GetLink( ForumPages Page, string format, params object [] args )
+		static public string GetLink( ForumPages page, string format, params object [] args )
 		{
-			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", Page, string.Format( format, args ) ) );
+			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) );
 		}
 
-		static public void Redirect( ForumPages Page )
+		static public void Redirect( ForumPages page )
 		{
-			HttpContext.Current.Response.Redirect( GetLink( Page ) );
+			HttpContext.Current.Response.Redirect( GetLink( page ) );
 		}
 
-		static public void Redirect( ForumPages Page, string format, params object [] args )
+		static public void Redirect( ForumPages page, string format, params object [] args )
 		{
-			HttpContext.Current.Response.Redirect( GetLink( Page, format, args ) );
+			HttpContext.Current.Response.Redirect( GetLink( page, format, args ) );
 		}
 
 		static public void AccessDenied()
