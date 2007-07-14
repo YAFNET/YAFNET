@@ -403,6 +403,58 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValue<bool>("AllowPostToBlog", value); }
 		}
 		/* 6/16/2007 */
+		/* Ederon : 7/14/2007 */
+		public string UserBox
+		{
+			get { return _reg.GetValue<string>("UserBox", Constants.UserBox.DisplayTemplateDefault); }
+			set { _reg.SetValue<string>("UserBox", value); }
+		}
+		public string UserBoxAvatar
+		{
+			get { return _reg.GetValue<string>("UserBoxAvatar", "{0}<br clear=\"all\" />"); }
+			set { _reg.SetValue<string>("UserBoxAvatar", value); }
+		}
+		public string UserBoxBadges
+		{
+			get { return _reg.GetValue<string>("UserBoxBadges", "{0}<br clear=\"all\" />"); }
+			set { _reg.SetValue<string>("UserBoxBadges", value); }
+		}
+		public string UserBoxRankImage
+		{
+			get { return _reg.GetValue<string>("UserBoxRankImage", "{0}<br clear=\"all\" />"); }
+			set { _reg.SetValue<string>("UserBoxRankImage", value); }
+		}
+		public string UserBoxRank
+		{
+			get { return _reg.GetValue<string>("UserBoxRank", "{0}: {1}<br clear=\"all\" />"); }
+			set { _reg.SetValue<string>("UserBoxRank", value); }
+		}
+		public string UserBoxGroups
+		{
+			get { return _reg.GetValue<string>("UserBoxGroups", "{0}: {1}<br clear=\"all\" />"); }
+			set { _reg.SetValue<string>("UserBoxGroups", value); }
+		}
+		public string UserBoxJoinDate
+		{
+			get { return _reg.GetValue<string>("UserBoxJoinDate", "{0}: {1}<br />"); }
+			set { _reg.SetValue<string>("UserBoxJoinDate", value); }
+		}
+		public string UserBoxPosts
+		{
+			get { return _reg.GetValue<string>("UserBoxPosts", "{0}: {1:N0}<br />"); }
+			set { _reg.SetValue<string>("UserBoxPosts", value); }
+		}
+		public string UserBoxPoints
+		{
+			get { return _reg.GetValue<string>("UserBoxPoints", "{0}: {1:N0}<br />"); }
+			set { _reg.SetValue<string>("UserBoxPoints", value); }
+		}
+		public string UserBoxLocation
+		{
+			get { return _reg.GetValue<string>("UserBoxLocation", "{0}: {1}<br />"); }
+			set { _reg.SetValue<string>("UserBoxLocation", value); }
+		}
+		/* 7/14/2007 */
 	}
 
 	public class RegistryHash : System.Collections.Hashtable

@@ -57,6 +57,8 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink(PageContext.PageTopicName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"t={0}",PageContext.PageTopicID));
 
 				Move.Text = GetText("move");
+				// Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
+				LeavePointer.Checked = PageContext.BoardSettings.ShowMoved;
 
 				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				
@@ -97,7 +99,8 @@ namespace YAF.Pages // YAF.Pages
             // only move if it's a destination is a different forum.
             if (Convert.ToInt32(ForumList.SelectedValue) != PageContext.PageForumID)
             {
-                YAF.Classes.Data.DB.topic_move(PageContext.PageTopicID, ForumList.SelectedValue, PageContext.BoardSettings.ShowMoved);
+				// Ederon : 7/14/2007
+                YAF.Classes.Data.DB.topic_move(PageContext.PageTopicID, ForumList.SelectedValue, LeavePointer.Checked);
             }
 			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics,"f={0}",PageContext.PageForumID);
 		}

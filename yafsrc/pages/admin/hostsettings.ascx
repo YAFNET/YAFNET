@@ -311,6 +311,69 @@
 				<asp:TextBox id="ForumSmtpUserPass" runat="server"></asp:TextBox></td>
 		</tr>
 		<tr>
+			<td class="header2" align="center" colSpan="2">User Box Settings</td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>User box template:</B><BR>
+				Template for rendering user box by user's posts.</td>
+			<td class="post">
+				<asp:textbox id="UserBox" TextMode="MultiLine" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Avatar template:</B><BR>
+				Template for rendering avatar.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxAvatar" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Badges template:</B><BR>
+				Template for rendering user's badges.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxBadges" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Rank image template:</B><BR>
+				Template for rendering rank image.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxRankImage" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Rank template:</B><BR>
+				Template for rendering user's rank.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxRank" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Groups template:</B><BR>
+				Template for rendering user's groups.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxGroups" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Join date template:</B><BR>
+				Template for rendering user's joine date.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxJoinDate" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Posts template:</B><BR>
+				Template for rendering user's posts.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxPosts" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Points template:</B><BR>
+				Template for rendering user's points.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxPoints" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Location template:</B><BR>
+				Template for rendering user's location.</td>
+			<td class="post">
+				<asp:textbox id="UserBoxLocation" runat="server"></asp:textbox></td>
+		</tr>
+		<tr>
 			<td class="header2" align="center" colSpan="2">Avatar Settings</td>
 		</tr>
 		<tr>

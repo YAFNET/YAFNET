@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Config\BoardSettings.cs" />
     <Compile Include="Config\ForumPages.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DateTime.cs" />
     <Compile Include="MessageFlags.cs" />
     <Compile Include="Nntp.cs" />

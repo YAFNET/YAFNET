@@ -63,6 +63,18 @@ namespace YAF.Pages.Admin {
 			General.AddStyleAttributeWidth(ForumSmtpUserName, "200px");
 			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
 			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
+
+			// Ederon : 7/14/2007
+			General.AddStyleAttributeSize(UserBox, "350px", "100px");
+			General.AddStyleAttributeWidth(UserBoxAvatar, "200px");
+			General.AddStyleAttributeWidth(UserBoxBadges, "200px");
+			General.AddStyleAttributeWidth(UserBoxGroups, "200px");
+			General.AddStyleAttributeWidth(UserBoxJoinDate, "200px");
+			General.AddStyleAttributeWidth(UserBoxLocation, "200px");
+			General.AddStyleAttributeWidth(UserBoxPosts, "200px");
+			General.AddStyleAttributeWidth(UserBoxPoints, "200px");
+			General.AddStyleAttributeWidth(UserBoxRank, "200px");
+			General.AddStyleAttributeWidth(UserBoxRankImage, "200px");
 		}
 
 		private void BindData()
@@ -119,11 +131,24 @@ namespace YAF.Pages.Admin {
             ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
             ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
             EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
+			
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
 			DisplayJoinDate.Checked = PageContext.BoardSettings.DisplayJoinDate;
 			ShowBadges.Checked = PageContext.BoardSettings.ShowBadges;
 			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
+
+			// Ederon : 7/14/2007 added
+			UserBox.Text = PageContext.BoardSettings.UserBox;
+			UserBoxAvatar.Text = PageContext.BoardSettings.UserBoxAvatar;
+			UserBoxBadges.Text = PageContext.BoardSettings.UserBoxBadges;
+			UserBoxGroups.Text = PageContext.BoardSettings.UserBoxGroups;
+			UserBoxJoinDate.Text = PageContext.BoardSettings.UserBoxJoinDate;
+			UserBoxLocation.Text = PageContext.BoardSettings.UserBoxLocation;
+			UserBoxPoints.Text = PageContext.BoardSettings.UserBoxPoints;
+			UserBoxPosts.Text = PageContext.BoardSettings.UserBoxPosts;
+			UserBoxRank.Text = PageContext.BoardSettings.UserBoxRank;
+			UserBoxRankImage.Text = PageContext.BoardSettings.UserBoxRankImage;
 		}
 
 		#region Web Form Designer generated code
@@ -200,11 +225,24 @@ namespace YAF.Pages.Admin {
             PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
             PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
             PageContext.BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
-			// Ederon 7/1/2007 added
+			
+			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
 			PageContext.BoardSettings.ShowBadges = ShowBadges.Checked;
 			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
 			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
+
+			// Ederon : 7/14/2007 added
+			PageContext.BoardSettings.UserBox = UserBox.Text;
+			PageContext.BoardSettings.UserBoxAvatar = UserBoxAvatar.Text;
+			PageContext.BoardSettings.UserBoxBadges = UserBoxBadges.Text;
+			PageContext.BoardSettings.UserBoxGroups = UserBoxGroups.Text;
+			PageContext.BoardSettings.UserBoxJoinDate = UserBoxJoinDate.Text;
+			PageContext.BoardSettings.UserBoxLocation = UserBoxLocation.Text;
+			PageContext.BoardSettings.UserBoxPoints = UserBoxPoints.Text;
+			PageContext.BoardSettings.UserBoxPosts = UserBoxPosts.Text;
+			PageContext.BoardSettings.UserBoxRank = UserBoxRank.Text;
+			PageContext.BoardSettings.UserBoxRankImage = UserBoxRankImage.Text;
 
 
 			// save the settings to the database

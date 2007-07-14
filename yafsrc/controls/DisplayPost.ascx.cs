@@ -295,29 +295,56 @@ namespace YAF.Controls
 			return "100";
 		}
 
+		// Ederon : 7/14/2007 - implemented user box template for formatting
 		protected string FormatUserBox()
 		{
 			if ( IsSponserMessage ) return "";
 
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
-			
-			if ( !PostDeleted )
+
+			// load output buffer with user box template
+			userboxOutput.Append(PageContext.BoardSettings.UserBox);
+
+
+			// Avatar
+			if (!PostDeleted &&
+				(PageContext.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0))
 			{
-				// Avatar
-				if ( PageContext.BoardSettings.AvatarUpload && DataRow ["HasAvatarImage"] != null && long.Parse( DataRow ["HasAvatarImage"].ToString() ) > 0 )
-				{
-					userboxOutput.AppendFormat( "<img src='{1}resource.ashx?u={0}' /><br clear=\"all\" />", DataRow ["UserID"], yaf_ForumInfo.ForumRoot );
-				}
-				else if ( DataRow ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
-				{
-					userboxOutput.AppendFormat( "<img src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
-							Server.UrlEncode( DataRow ["Avatar"].ToString() ),
+				userboxOutput.Replace(
+					Constants.UserBox.Avatar,
+					String.Format(
+						PageContext.BoardSettings.UserBoxAvatar,
+						String.Format(
+							"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />", 
+							DataRow["UserID"], 
+							yaf_ForumInfo.ForumRoot
+							)
+						)
+					);
+			}
+			else if (!PostDeleted && 
+				DataRow["Avatar"].ToString().Length > 0) // Took out PageContext.BoardSettings.AvatarRemote
+			{
+				userboxOutput.Replace(
+					Constants.UserBox.Avatar,
+					String.Format(
+						PageContext.BoardSettings.UserBoxAvatar,
+						String.Format(
+							"<img class=\"avatarimage\" src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
+							Server.UrlEncode(DataRow["Avatar"].ToString()),
 							PageContext.BoardSettings.AvatarWidth,
 							PageContext.BoardSettings.AvatarHeight,
 							yaf_ForumInfo.ForumRoot
-							);
-				}
+							)
+						)
+					);
 			}
+			else
+			{
+
+				userboxOutput.Replace(Constants.UserBox.Avatar, "");
+			}
+
 
 			// Ederon : 7/14/2007 - prepared for implementation of user badges
 			// User Badges
@@ -330,75 +357,153 @@ namespace YAF.Controls
 			}
 			*/
 
+
 			// Rank Image
-			if ( DataRow ["RankImage"].ToString().Length > 0 )
-				userboxOutput.AppendFormat( "<img align=left src=\"{0}images/ranks/{1}\" /><br clear=\"all\" />", yaf_ForumInfo.ForumRoot, DataRow ["RankImage"] );
+			if (DataRow["RankImage"].ToString().Length > 0)
+			{
+				userboxOutput.Replace(
+					Constants.UserBox.RankImage,
+					String.Format(
+						PageContext.BoardSettings.UserBoxRankImage,
+						String.Format(
+							"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
+							yaf_ForumInfo.ForumRoot, 
+							DataRow["RankImage"]
+							)
+						)
+					);
+			}
+			else
+			{
+				userboxOutput.Replace(Constants.UserBox.RankImage, "");
+			}
+
 
 			// Rank
-			userboxOutput.AppendFormat( "{0}: {1}<br clear=\"all\" />", PageContext.Localization.GetText( "rank" ), DataRow ["RankName"] );
+			userboxOutput.Replace(
+				Constants.UserBox.Rank,
+				String.Format(
+					PageContext.BoardSettings.UserBoxRank,
+					PageContext.Localization.GetText("rank"),
+					DataRow["RankName"]
+					)
+				);
+
 
 			// Groups
-			if ( PageContext.BoardSettings.ShowGroups )
+			if (PageContext.BoardSettings.ShowGroups)
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.usergroup_list( DataRow ["UserID"] ) )
+				System.Text.StringBuilder groupsText = new System.Text.StringBuilder(150);
+
+				using (DataTable dt = YAF.Classes.Data.DB.usergroup_list(DataRow["UserID"]))
 				{
-					userboxOutput.AppendFormat( "{0}: ", PageContext.Localization.GetText( "groups" ) );
+					userboxOutput.AppendFormat("{0}: ", PageContext.Localization.GetText("groups"));
 
 					bool bFirst = true;
 
-					foreach ( DataRow grp in dt.Rows )
+					foreach (DataRow grp in dt.Rows)
 					{
-						if ( bFirst )
+						if (bFirst)
 						{
-							userboxOutput.AppendLine( grp ["Name"].ToString() );
+							groupsText.AppendLine(grp["Name"].ToString());
 							bFirst = false;
 						}
 						else
 						{
-							userboxOutput.AppendFormat( ", {0}", grp ["Name"] );
+							groupsText.AppendFormat(", {0}", grp["Name"]);
 						}
 					}
-					userboxOutput.AppendLine( "<br/>" );
 				}
-			}
-			if ( !PostDeleted )
-			{
-				// Extra row
-				userboxOutput.AppendLine( "<br/>" );
 
+				userboxOutput.Replace(
+					Constants.UserBox.Groups,
+					String.Format(
+						PageContext.BoardSettings.UserBoxGroups,
+						PageContext.Localization.GetText("groups"),
+						groupsText.ToString()
+						)
+					);
+			}
+			else
+			{
+				userboxOutput.Replace(Constants.UserBox.Groups, "");
+			}
+
+
+			if (!PostDeleted)
+			{
 				// Ederon : 02/24/2007
-				// Joined
+				// Joined Date
 				if (PageContext.BoardSettings.DisplayJoinDate)
 				{
-					/*userboxOutput.Replace("[[JOINDATE]]",
+					userboxOutput.Replace(
+						Constants.UserBox.JoinDate,
 						String.Format(
-							ForumPage.BoardSettings.UserBoxJoinDate,*/
-					userboxOutput.AppendFormat(
-							"{0}: {1}<br />",
+							PageContext.BoardSettings.UserBoxJoinDate,
 							PageContext.Localization.GetText("joined"),
-							yaf_DateTime.FormatDateShort( ( DateTime ) DataRow ["Joined"] )
-							);
-					/*	);*/
+							yaf_DateTime.FormatDateShort((DateTime)DataRow["Joined"])
+							)
+						);
 				}
-				/*else
+				else
 				{
-					userboxOutput.Replace("[[JOINDATE]]", "");
-				}*/
+					userboxOutput.Replace(Constants.UserBox.JoinDate, "");
+				}
+
 
 				// Posts
-				userboxOutput.AppendFormat( "{0}: {1:N0}<br />", PageContext.Localization.GetText( "posts" ), DataRow ["Posts"] );
+				userboxOutput.Replace(
+					Constants.UserBox.Posts,
+					String.Format(
+						PageContext.BoardSettings.UserBoxPosts,
+						PageContext.Localization.GetText("posts"),
+						DataRow["Posts"]
+						)
+					);
 
 
 				// Points
-				if ( PageContext.BoardSettings.DisplayPoints )
+				if (PageContext.BoardSettings.DisplayPoints)
 				{
-					userboxOutput.AppendFormat( "{0}: {1:N0}<br />", PageContext.Localization.GetText( "points" ), DataRow ["Points"] );
+					userboxOutput.Replace(
+						Constants.UserBox.Points,
+						String.Format(
+							PageContext.BoardSettings.UserBoxPoints,
+							PageContext.Localization.GetText("points"),
+							DataRow["Points"]
+							)
+						);
+				}
+				else
+				{
+					userboxOutput.Replace(Constants.UserBox.Points, "");
 				}
 
 				// Location
-				if ( DataRow ["Location"].ToString().Length > 0 )
-					userboxOutput.AppendFormat( "{0}: {1}<br />", PageContext.Localization.GetText( "location" ), FormatMsg.RepairHtml( DataRow ["Location"].ToString(), false ) );
+				if (DataRow["Location"].ToString().Length > 0)
+				{
+					userboxOutput.Replace(
+						Constants.UserBox.Location,
+						String.Format(
+							PageContext.BoardSettings.UserBoxLocation,
+							PageContext.Localization.GetText("location"),
+							FormatMsg.RepairHtml(DataRow["Location"].ToString(), false)
+							)
+						);
+				}
+				else
+				{
+					userboxOutput.Replace(Constants.UserBox.Location, "");
+				}
 			}
+			else
+			{
+				userboxOutput.Replace(Constants.UserBox.Groups, "");
+				userboxOutput.Replace(Constants.UserBox.Posts, "");
+				userboxOutput.Replace(Constants.UserBox.Points, "");
+				userboxOutput.Replace(Constants.UserBox.Location, "");
+			}
+
 			return userboxOutput.ToString();
 		}
 

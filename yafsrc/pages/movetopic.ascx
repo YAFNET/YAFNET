@@ -17,6 +17,14 @@
         <td class="post" width="50%">
             <asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" />
 	</td>
+    <tr>
+        <td class="postheader" width="50%">
+           <%= GetText("LEAVE_POINTER")%>
+        </td>
+        <td class="post" width="50%">
+            <asp:CheckBox ID="LeavePointer" runat="server" />
+        </td>
+    </tr>
 </tr>
 <tr>
         <td class="footer1" colspan="2" align="center">
