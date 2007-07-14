@@ -68,6 +68,12 @@
 				<asp:checkbox id="ShowGroupsProfile" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
+			<td class="postheader"><B>Show Badges:</B><BR>
+				Should the badges of a user be visible on the posts page.</td>
+			<td class="post">
+				<asp:checkbox id="ShowBadges" runat="server"></asp:checkbox></td>
+		</tr>
+		<tr>
 			<td class="postheader"><B>Use File Table:</B><BR>
 				Uploaded files will be saved in the database instead of the file system.</td>
 			<td class="post">
@@ -78,6 +84,12 @@
 				Enable or disable display of RSS links throughout the forum.</td>
 			<td class="post">
 				<asp:checkbox id="ShowRSSLinkX" runat="server"></asp:checkbox></td>
+		</tr>
+		<tr>
+			<td class="postheader"><B>Show Users Browsing:</B><BR>
+				Should users currently browsing forums/topics be displayed at the bottom.</td>
+			<td class="post">
+				<asp:checkbox id="ShowBrowsingUsers" runat="server"></asp:checkbox></td>
 		</tr>
 		<tr>
 			<td class="postheader"><B>Show Page Generated Time:</B><BR>
@@ -91,6 +103,12 @@
 			<td class="post">
 				<asp:checkbox id="ShowForumJumpX" runat="server"></asp:checkbox></td>
 		</tr>
+		<tr>
+			<td class="postheader"><B>Display Join Date:</B><BR>
+				If checked, join date will be displayed for each user.</td>
+			<td class="post">
+				<asp:checkbox id="DisplayJoinDate" runat="server"></asp:checkbox></td>
+		</tr>		
 		<tr>
 			<td class="postheader"><B>Display Points System:</B><BR>
 				If checked, points for posting will be displayed for each user.</td>
@@ -163,6 +181,12 @@
 			<td class="post">
 				<asp:checkbox id="DateFormatFromLanguage" runat="server"></asp:checkbox></td>
 		</tr>
+		<tr>
+			<td class="postheader"><B>Allow Post to Blog:</B><BR>
+				If checked, post to blog featrue is enabled.</td>
+			<td class="post">
+				<asp:checkbox id="AllowPostToBlog" runat="server"></asp:checkbox></td>
+		</tr>		
 		<tr>
 			<td class="postheader"><B>Create NNTP user names:</B><BR>
 				Check to allow users to automatically be created when downloading usenet 

@@ -83,13 +83,13 @@ namespace YAF.Classes.Utils
 		public void SaveRegistry()
 		{
 			// loop through all values and commit them to the DB
-			foreach ( DictionaryEntry objItem in _reg )
+			foreach (DictionaryEntry entry in _reg)
 			{
-				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value );
+				YAF.Classes.Data.DB.registry_save(entry.Key, entry.Value);
 			}
-			foreach ( DictionaryEntry objItem in _regBoard )
+			foreach (DictionaryEntry entry in _regBoard)
 			{
-				YAF.Classes.Data.DB.registry_save( objItem.Key, objItem.Value, _boardID );
+				YAF.Classes.Data.DB.registry_save(entry.Key, entry.Value, _boardID);
 			}
 		}
 
@@ -446,7 +446,7 @@ namespace YAF.Classes.Utils
 		}
 		public void SetValue<T>(string name, T value)
 		{
-			this[name.ToLower()] = typeof(T);
+			this[name.ToLower()] = Convert.ToString(value);
 		}
 		/* 6/16/2007 */
 	}

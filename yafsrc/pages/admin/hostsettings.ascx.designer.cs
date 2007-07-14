@@ -10,56 +10,499 @@
 
 namespace YAF.Pages.Admin {
     
+    
+    /// <summary>
+    /// hostsettings class.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated class.
+    /// </remarks>
     public partial class hostsettings {
-        protected YAF.Controls.PageLinks PageLinks;
-        protected YAF.Controls.AdminMenu Adminmenu1;
-        protected System.Web.UI.WebControls.Label SQLVersion;
-        protected System.Web.UI.WebControls.DropDownList TimeZones;
-        protected System.Web.UI.WebControls.TextBox ForumEmailEdit;
-        protected System.Web.UI.WebControls.CheckBox EmailVerification;
-        protected System.Web.UI.WebControls.CheckBox ShowMoved;
-        protected System.Web.UI.WebControls.CheckBox ShowDeletedMessages;
-        protected System.Web.UI.WebControls.CheckBox BlankLinks;
-        protected System.Web.UI.WebControls.CheckBox ShowGroupsX;
-        protected System.Web.UI.WebControls.CheckBox ShowGroupsProfile;
-        protected System.Web.UI.WebControls.CheckBox UseFileTableX;
-        protected System.Web.UI.WebControls.CheckBox ShowRSSLinkX;
-        protected System.Web.UI.WebControls.CheckBox ShowPageGenerationTime;
-        protected System.Web.UI.WebControls.CheckBox ShowForumJumpX;
-        protected System.Web.UI.WebControls.CheckBox DisplayPoints;
-        protected System.Web.UI.WebControls.CheckBox RemoveNestedQuotesX;
-        protected System.Web.UI.WebControls.CheckBox PollVoteTiedToIPX;
-        protected System.Web.UI.WebControls.TextBox MaxFileSize;
-        protected System.Web.UI.WebControls.TextBox SmiliesPerRow;
-        protected System.Web.UI.WebControls.TextBox SmiliesColumns;
-        protected System.Web.UI.WebControls.TextBox PostsPerPage;
-        protected System.Web.UI.WebControls.TextBox TopicsPerPage;
-        protected System.Web.UI.WebControls.TextBox LockPosts;
-        protected System.Web.UI.WebControls.TextBox EditTimeOut;
-        protected System.Web.UI.WebControls.TextBox PostFloodDelay;
-        protected System.Web.UI.WebControls.CheckBox DateFormatFromLanguage;
-        protected System.Web.UI.WebControls.CheckBox CreateNntpUsers;
-        protected System.Web.UI.WebControls.TextBox AdPost;
-        protected System.Web.UI.WebControls.CheckBox ShowAdsToSignedInUsers;
-        protected System.Web.UI.WebControls.DropDownList ForumEditorList;
-        protected System.Web.UI.WebControls.TextBox AcceptedHTML;
-        protected System.Web.UI.WebControls.CheckBox AllowUserThemeX;
-        protected System.Web.UI.WebControls.CheckBox AllowUserLanguageX;
-        protected System.Web.UI.WebControls.CheckBox AllowPrivateMessagesX;
-        protected System.Web.UI.WebControls.CheckBox AllowPMNotifications;
-        protected System.Web.UI.WebControls.CheckBox AllowEmailSendingX;
-        protected System.Web.UI.WebControls.CheckBox AllowSignaturesX;
-        protected System.Web.UI.WebControls.CheckBox DisableRegistrations;
-        protected System.Web.UI.WebControls.CheckBox ShowQuickAnswerX;
-        protected System.Web.UI.WebControls.TextBox ForumSmtpServer;
-        protected System.Web.UI.WebControls.TextBox ForumSmtpUserName;
-        protected System.Web.UI.WebControls.TextBox ForumSmtpUserPass;
-        protected System.Web.UI.WebControls.CheckBox AvatarRemote;
-        protected System.Web.UI.WebControls.CheckBox AvatarUpload;
-        protected System.Web.UI.WebControls.TextBox AvatarWidth;
-        protected System.Web.UI.WebControls.TextBox AvatarHeight;
-        protected System.Web.UI.WebControls.TextBox AvatarSize;
-        protected System.Web.UI.WebControls.Button Save;
-        protected YAF.Classes.UI.SmartScroller SmartScroller1;
+        
+        /// <summary>
+        /// PageLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.PageLinks PageLinks;
+        
+        /// <summary>
+        /// Adminmenu1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.AdminMenu Adminmenu1;
+        
+        /// <summary>
+        /// SQLVersion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SQLVersion;
+        
+        /// <summary>
+        /// TimeZones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TimeZones;
+        
+        /// <summary>
+        /// ForumEmailEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ForumEmailEdit;
+        
+        /// <summary>
+        /// EmailVerification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox EmailVerification;
+        
+        /// <summary>
+        /// ShowMoved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowMoved;
+        
+        /// <summary>
+        /// ShowDeletedMessages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowDeletedMessages;
+        
+        /// <summary>
+        /// BlankLinks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox BlankLinks;
+        
+        /// <summary>
+        /// ShowGroupsX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowGroupsX;
+        
+        /// <summary>
+        /// ShowGroupsProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowGroupsProfile;
+        
+        /// <summary>
+        /// ShowBadges control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowBadges;
+        
+        /// <summary>
+        /// UseFileTableX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox UseFileTableX;
+        
+        /// <summary>
+        /// ShowRSSLinkX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowRSSLinkX;
+        
+        /// <summary>
+        /// ShowBrowsingUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowBrowsingUsers;
+        
+        /// <summary>
+        /// ShowPageGenerationTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowPageGenerationTime;
+        
+        /// <summary>
+        /// ShowForumJumpX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowForumJumpX;
+        
+        /// <summary>
+        /// DisplayJoinDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DisplayJoinDate;
+        
+        /// <summary>
+        /// DisplayPoints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DisplayPoints;
+        
+        /// <summary>
+        /// RemoveNestedQuotesX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox RemoveNestedQuotesX;
+        
+        /// <summary>
+        /// PollVoteTiedToIPX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox PollVoteTiedToIPX;
+        
+        /// <summary>
+        /// MaxFileSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MaxFileSize;
+        
+        /// <summary>
+        /// SmiliesPerRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SmiliesPerRow;
+        
+        /// <summary>
+        /// SmiliesColumns control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SmiliesColumns;
+        
+        /// <summary>
+        /// PostsPerPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PostsPerPage;
+        
+        /// <summary>
+        /// TopicsPerPage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TopicsPerPage;
+        
+        /// <summary>
+        /// LockPosts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox LockPosts;
+        
+        /// <summary>
+        /// EditTimeOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox EditTimeOut;
+        
+        /// <summary>
+        /// PostFloodDelay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PostFloodDelay;
+        
+        /// <summary>
+        /// DateFormatFromLanguage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DateFormatFromLanguage;
+        
+        /// <summary>
+        /// AllowPostToBlog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPostToBlog;
+        
+        /// <summary>
+        /// CreateNntpUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CreateNntpUsers;
+        
+        /// <summary>
+        /// AdPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AdPost;
+        
+        /// <summary>
+        /// ShowAdsToSignedInUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowAdsToSignedInUsers;
+        
+        /// <summary>
+        /// ForumEditorList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ForumEditorList;
+        
+        /// <summary>
+        /// AcceptedHTML control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AcceptedHTML;
+        
+        /// <summary>
+        /// AllowUserThemeX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowUserThemeX;
+        
+        /// <summary>
+        /// AllowUserLanguageX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowUserLanguageX;
+        
+        /// <summary>
+        /// AllowPrivateMessagesX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPrivateMessagesX;
+        
+        /// <summary>
+        /// AllowPMNotifications control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowPMNotifications;
+        
+        /// <summary>
+        /// AllowEmailSendingX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowEmailSendingX;
+        
+        /// <summary>
+        /// AllowSignaturesX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AllowSignaturesX;
+        
+        /// <summary>
+        /// DisableRegistrations control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DisableRegistrations;
+        
+        /// <summary>
+        /// ShowQuickAnswerX control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowQuickAnswerX;
+        
+        /// <summary>
+        /// ForumSmtpServer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ForumSmtpServer;
+        
+        /// <summary>
+        /// ForumSmtpUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ForumSmtpUserName;
+        
+        /// <summary>
+        /// ForumSmtpUserPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ForumSmtpUserPass;
+        
+        /// <summary>
+        /// AvatarRemote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AvatarRemote;
+        
+        /// <summary>
+        /// AvatarUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox AvatarUpload;
+        
+        /// <summary>
+        /// AvatarWidth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AvatarWidth;
+        
+        /// <summary>
+        /// AvatarHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AvatarHeight;
+        
+        /// <summary>
+        /// AvatarSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AvatarSize;
+        
+        /// <summary>
+        /// Save control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Save;
+        
+        /// <summary>
+        /// SmartScroller1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Classes.UI.SmartScroller SmartScroller1;
     }
 }

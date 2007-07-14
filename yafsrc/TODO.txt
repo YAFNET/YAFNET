@@ -20,3 +20,5 @@
 - Link correctly back to forum from install.
 
 - Anonymous login (?)
+
+- add rank related actions (add to group, remove from group)

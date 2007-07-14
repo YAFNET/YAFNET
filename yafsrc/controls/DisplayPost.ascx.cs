@@ -319,6 +319,17 @@ namespace YAF.Controls
 				}
 			}
 
+			// Ederon : 7/14/2007 - prepared for implementation of user badges
+			// User Badges
+			/*
+			if (PageContext.BoardSettings.ShowBadges)
+			{
+			}
+			else
+			{
+			}
+			*/
+
 			// Rank Image
 			if ( DataRow ["RankImage"].ToString().Length > 0 )
 				userboxOutput.AppendFormat( "<img align=left src=\"{0}images/ranks/{1}\" /><br clear=\"all\" />", yaf_ForumInfo.ForumRoot, DataRow ["RankImage"] );

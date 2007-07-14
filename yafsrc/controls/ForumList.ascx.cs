@@ -128,7 +128,9 @@ namespace YAF.Controls
 
 			if ( !row.IsNull( "LastPosted" ) )
 			{
-				strTemp = PageContext.Theme.GetItem( "ICONS", ( DateTime.Parse( Convert.ToString( row ["LastPosted"] ) ) > Mession.LastVisit ) ? "ICON_NEWEST" : "ICON_LATEST" );
+				// Ederon : 7/14/2007
+				strTemp = PageContext.Theme.GetItem("ICONS", (DateTime.Parse(Convert.ToString(row["LastPosted"])) > Mession.GetTopicRead((int)row["LastTopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
+				//strTemp = PageContext.Theme.GetItem("ICONS", (DateTime.Parse(Convert.ToString(row["LastPosted"])) > Mession.LastVisit) ? "ICON_NEWEST" : "ICON_LATEST");
 
 				if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 				{

@@ -11,6 +11,9 @@ namespace YAF.Controls
 	{
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
+			// Ederon : 07/14/2007
+			if (!PageContext.BoardSettings.ShowBrowsingUsers) return;
+
 			DataTable dt = ( DataTable ) ViewState ["data"];
 			bool bTopic = PageContext.PageTopicID > 0;
 			try

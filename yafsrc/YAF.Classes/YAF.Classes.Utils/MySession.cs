@@ -222,20 +222,47 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public CollapsiblePanelState this [string panelID]
 		{
+			// Ederon : 7/14/2007
 			get
 			{
 				string sessionPanelID = "panelstate_" + panelID;
 
-				if ( HttpContext.Current.Session [sessionPanelID] != null )
-					return ( CollapsiblePanelState ) HttpContext.Current.Session [sessionPanelID];
+				// try to get panel state from session state first
+				if (HttpContext.Current.Session[sessionPanelID] != null)
+				{
+					return (CollapsiblePanelState)HttpContext.Current.Session[sessionPanelID];
+				}
+				// if no panel state info is in session state, try cookie
+				else if (HttpContext.Current.Request.Cookies[sessionPanelID] != null)
+				{
+					try
+					{
+						// we must convert string to int, better get is safe
+						return (CollapsiblePanelState)int.Parse(HttpContext.Current.Request.Cookies[sessionPanelID].Value);
+					}
+					catch
+					{
+						// in case cookie has wrong value
+						HttpContext.Current.Request.Cookies.Remove(sessionPanelID);	// scrap wrong cookie
+						return CollapsiblePanelState.None;
+					}
+				}
 				else
+				{
 					return CollapsiblePanelState.None;
+				}
 			}
+			// Ederon : 7/14/2007
 			set
 			{
 				string sessionPanelID = "panelstate_" + panelID;
 
 				HttpContext.Current.Session [sessionPanelID] = value;
+
+				// create persistent cookie with visibility setting for panel
+				HttpCookie c = new HttpCookie(sessionPanelID, ((int)value).ToString());
+				c.Expires = DateTime.Now.AddYears(1);
+				HttpContext.Current.Response.SetCookie(c);
 			}
 		}
 

@@ -142,7 +142,10 @@ namespace YAF.Pages
 
 				}
 
-				if(TopicID == null && QuotedTopicID== null && EditTopicID == null)
+				// Ederon : 7/14/2007 - added condition set by board admin
+				// POST TO BLOG
+				if (PageContext.BoardSettings.AllowPostToBlog &&
+					TopicID == null && QuotedTopicID== null && EditTopicID == null)
 				{
 					// Show post to blog option only to a new post
 					BlogRow.Visible = true;
@@ -363,7 +366,9 @@ namespace YAF.Pages
 				string subject = Server.HtmlEncode( Subject.Text ),
 					blogPostID = string.Empty;
 				
-				if (PostToBlog.Checked) // Does user wish to post this to their blog?
+				// Ederon : 7/14/2007 - added condition (boardsettings)
+				// POST TO BLOG
+				if (PageContext.BoardSettings.AllowPostToBlog && PostToBlog.Checked)	// Does user wish to post this to their blog?
 				{
 					try
 					{

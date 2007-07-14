@@ -54,14 +54,15 @@ namespace YAF.Pages.Admin {
 				BindData();
 			}
 
+			// Ederon : 7/1/2007
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
-			SmiliesPerRow.Attributes.Add("style","width:25px");
-			SmiliesColumns.Attributes.Add("style","width:25px");
-			ForumEmailEdit.Attributes.Add("style","width:200px");
-			ForumSmtpServer.Attributes.Add("style","width:200px");
-			ForumSmtpUserName.Attributes.Add("style","width:200px");
-			ForumSmtpUserPass.Attributes.Add("style","width:200px");
-			AcceptedHTML.Attributes.Add("style","width:200px");			
+			General.AddStyleAttributeWidth(SmiliesPerRow, "25px");
+			General.AddStyleAttributeWidth(SmiliesColumns, "25px");
+			General.AddStyleAttributeWidth(ForumEmailEdit, "200px");
+			General.AddStyleAttributeWidth(ForumSmtpServer, "200px");
+			General.AddStyleAttributeWidth(ForumSmtpUserName, "200px");
+			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
+			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
 		}
 
 		private void BindData()
@@ -118,6 +119,11 @@ namespace YAF.Pages.Admin {
             ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
             ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
             EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
+			// Ederon : 7/1/2007 added
+			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
+			DisplayJoinDate.Checked = PageContext.BoardSettings.DisplayJoinDate;
+			ShowBadges.Checked = PageContext.BoardSettings.ShowBadges;
+			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
 		}
 
 		#region Web Form Designer generated code
@@ -194,6 +200,12 @@ namespace YAF.Pages.Admin {
             PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
             PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
             PageContext.BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
+			// Ederon 7/1/2007 added
+			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
+			PageContext.BoardSettings.ShowBadges = ShowBadges.Checked;
+			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
+			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
+
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();
