@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Resources language="Czech" code="cz">
+	<page name="COMMON">
+		<!-- common... -->
+		<Resource tag="POWERED_BY">Powered by {0} verze {1}</Resource>
+		<Resource tag="GENERATED">Tato stránka byla vytvořena v {0:N3} sekundách.</Resource>
+		<Resource tag="SAVE">Uložit</Resource>
+		<Resource tag="CANCEL">Storno</Resource>
+		<Resource tag="FORUM_JUMP">Výběr fóra</Resource>
+		<Resource tag="CAN_POST">V tomto fóru [b]můžete[/b] iniciovat nová témata.</Resource>
+		<Resource tag="CAN_REPLY">V tomto fóru [b]můžete[/b] na témata odpovídat.</Resource>
+		<Resource tag="CAN_DELETE">V tomto fóru [b]můžete[/b] své zprávy mazat.</Resource>
+		<Resource tag="CAN_EDIT">V tomto fóru [b]můžete[/b] své zprávy editovat.</Resource>
+		<Resource tag="CAN_POLL">V tomto fóru [b]můžete[/b] iniciovat průzkumy mínění.</Resource>
+		<Resource tag="CAN_VOTE">V tomto fóru [b]můžete[/b] hlasovat v průzkumech mínění.</Resource>
+		<Resource tag="CANNOT_POST">V tomto fóru [b]nemůžete[/b] iniciovat nová témata.</Resource>
+		<Resource tag="CANNOT_REPLY">V tomto fóru [b]nemůžete[/b] na témata odpovídat.</Resource>
+		<Resource tag="CANNOT_DELETE">V tomto fóru [b]nemůžete[/b] své zprávy mazat.</Resource>
+		<Resource tag="CANNOT_EDIT">V tomto fóru [b]nemůžete[/b] své zprávy editovat.</Resource>
+		<Resource tag="CANNOT_POLL">V tomto fóru [b]nemůžete[/b] iniciovat průzkumy mínění.</Resource>
+		<Resource tag="CANNOT_VOTE">V tomto fóru [b]nemůžete[/b] hlasovat v průzkumech mínění.</Resource>
+		<Resource tag="REGMAIL_SENT">Byla vám odeslána e-mailová zpráva. Podívejte se do své schránky a klikněte na odkaz, který je ve zprávě uveden.</Resource>
+		<Resource tag="UNREAD_MSG">Ve schránce máte {0} nečtených zpráv.</Resource>
+		<Resource tag="REGMAIL_WILL_BE_SEND">Po zaregistrování vám bude zaslána e-mailová zpráva. Abyste se mohli přihlásit, podívejte se do své poštovní schránky a klikněte na odkaz, který je ve zprávě uveden.</Resource>
+		<!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+		<Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+		<Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+		<Resource tag="FORMAT_DATE_LONG">D</Resource>
+		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
+		<Resource tag="FORMAT_TIME">T</Resource>
+		<Resource tag="MAX_ONLINE">Nejvíce uživatelů online bylo {0}, {1}.</Resource>
+	</page>
+	<page name="TOOLBAR">
+		<!-- "Toolbar" at top of most pages -->
+		<Resource tag="SEARCH">Hledání</Resource>
+		<Resource tag="ADMIN">Admin</Resource>
+		<Resource tag="MODERATE">Moderovat</Resource>
+		<Resource tag="ACTIVETOPICS">Aktivní témata</Resource>
+		<Resource tag="MYPROFILE">Můj profil</Resource>
+		<Resource tag="MEMBERS">Členové</Resource>
+		<Resource tag="LOGOUT">Odhlásit se</Resource>
+		<Resource tag="LOGIN">Přihlásit se</Resource>
+		<Resource tag="REGISTER">Zaregistrovat se</Resource>
+		<Resource tag="LOGGED_IN_AS">Jste přihlášen jako: {0}</Resource>
+		<Resource tag="WELCOME_GUEST">Vítáme nového hosta</Resource>
+		<Resource tag="HELP">Nápověda</Resource>
+	</page>
+	<page name="ICONLEGEND">
+		<!-- Common icon texts -->
+		<Resource tag="NEW_POSTS">Nové zprávy</Resource>
+		<Resource tag="NO_NEW_POSTS">Žádné nové zprávy</Resource>
+		<Resource tag="ANNOUNCEMENT">Oznámení</Resource>
+		<Resource tag="ANNOUNCEMENT_NEW">Oznámení (nové zprávy)</Resource>
+		<Resource tag="NEW_POSTS_LOCKED">Nové zprávy (uzamčeno)</Resource>
+		<Resource tag="NO_NEW_POSTS_LOCKED">Žádné nové zprávy (uzamčeno)</Resource>
+		<Resource tag="FORUM_LOCKED">Fórum je uzamčeno</Resource>
+		<Resource tag="MOVED">Přesunuto</Resource>
+		<Resource tag="POLL">Průzkum mínění</Resource>
+		<Resource tag="POLL_NEW">Průzkum mínění (nové zprávy)</Resource>
+		<Resource tag="STICKY">Ukotvit</Resource>
+	</page>
+	<page name="ATTACHMENTS">
+		<Resource tag="TITLE">Přílohy</Resource>
+		<Resource tag="BACK">Zpět</Resource>
+		<Resource tag="UPLOAD">Nahrát</Resource>
+		<Resource tag="SELECT_FILE">Zvolte soubor, který chcete nahrát.</Resource>
+		<Resource tag="UPLOAD_TITLE">Nahrát soubor</Resource>
+		<Resource tag="FILENAME">Jméno souboru</Resource>
+		<Resource tag="SIZE">Velikost</Resource>
+		<Resource tag="DELETE">Smazat</Resource>
+		<Resource tag="FILEERROR">'{0}' není platný soubor pro nahrání.</Resource>
+		<Resource tag="ASK_DELETE">Smazat tuto přílohu?</Resource>
+		<Resource tag="ERROR_TOOBIG">Takto veliké soubory nelze přiložit.</Resource>
+	</page>
+	<page name="DEFAULT">
+		<!-- default.aspx -->
+		<Resource tag="FORUM">Fórum</Resource>
+		<Resource tag="TOPICS">Témata</Resource>
+		<Resource tag="POSTS">Zprávy</Resource>
+		<Resource tag="LASTPOST">Poslední zpráva</Resource>
+		<Resource tag="MODERATORS">Moderátoři</Resource>
+		<Resource tag="CURRENT_TIME">Teď máme přesně {0}.</Resource>
+		<Resource tag="LAST_VISIT">Naposledy jste zde byl {0}.</Resource>
+		<Resource tag="STATS_POSTS">Počet fór: {2:N0}; počet témat: {1:N0}; počet zpráv: {0:N0}.</Resource>
+		<Resource tag="STATS_LASTPOST">Poslední zprávu {0} poslal {1}.</Resource>
+		<Resource tag="STATS_MEMBERS">Máme {0:N0} registrovaných členů.</Resource>
+		<Resource tag="STATS_LASTMEMBER">Nejnovějším členem je {0}.</Resource>
+		<Resource tag="IN">v {0}</Resource>
+		<Resource tag="BY">od {0}</Resource>
+		<Resource tag="NO_POSTS">Žádné zprávy</Resource>
+		<Resource tag="UNREAD1">Ve své schránce máte {0} nepřečtených zpráv.</Resource>
+		<Resource tag="UNREAD0">Ve své schránce máte {0} nepřečtených zpráv.</Resource>
+		<Resource tag="INFORMATION">Informace</Resource>
+		<Resource tag="STATS">Statistika</Resource>
+		<Resource tag="ACTIVE_USERS">Aktivní uživatelé</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktivních uživatelů</Resource>
+		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktivních uživatelů</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} členů</Resource>
+		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} členů</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} host</Resource>
+		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} hostů</Resource>
+		<Resource tag="VIEWING">({0} se právě dívá)</Resource>
+		<Resource tag="NO_FORUM_ACCESS">(Přístup odepřen)</Resource>
+		<Resource tag="MARKALL">Označit všechna fóra jako přečtená</Resource>
+		<Resource tag="GO_LAST_POST">Přejít k nejnovější zprávě</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">Aktivní diskuse</Resource>
+		<Resource tag="LATEST_POSTS">Poslední zprávy</Resource>
+	</page>
+	<page name="TOPICS">
+		<!-- topics.aspx -->
+		<Resource tag="TOPICS">Témata</Resource>
+		<Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
+		<Resource tag="REPLIES">Odpovědí</Resource>
+		<Resource tag="VIEWS">Zobrazení</Resource>
+		<Resource tag="LASTPOST">Poslední zpráva</Resource>
+		<Resource tag="NO_POSTS">Žádné zprávy</Resource>
+		<Resource tag="WATCHFORUM">Sledovat fórum</Resource>
+		<Resource tag="UNWATCHFORUM">Ukončit sledování fóra</Resource>
+		<Resource tag="SHOWTOPICS">Ukázat témata</Resource>
+		<Resource tag="ALL">Všechno</Resource>
+		<Resource tag="LAST_DAY">z posledního dne</Resource>
+		<Resource tag="LAST_TWO_DAYS">za poslední dva dny</Resource>
+		<Resource tag="LAST_WEEK">za poslední týden</Resource>
+		<Resource tag="LAST_TWO_WEEKS">za posledních 14 dnů</Resource>
+		<Resource tag="LAST_MONTH">za poslední měsíc</Resource>
+		<Resource tag="LAST_TWO_MONTHS">za poslední dva měsíce</Resource>
+		<Resource tag="LAST_SIX_MONTHS">za uplynulý půlrok</Resource>
+		<Resource tag="LAST_YEAR">za minulý rok</Resource>
+		<Resource tag="BY">od {0}</Resource>
+		<Resource tag="FORUMUSERS">Uživatelé, kteří si prohlížejí toto fórum</Resource>
+		<Resource tag="CREATED">Vytvořeno</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Fórum je uzavřeno.</Resource>
+		<Resource tag="WARN_LOGIN_FORUMWATCH">Abyste mohli sledovat jednotlivá fóra, musíte se zaregistrovat.</Resource>
+		<Resource tag="INFO_WATCH_FORUM">Jakmile se v tomto fóru objeví nová zpráva, budeme vás ihned informovat.</Resource>
+		<Resource tag="INFO_UNWATCH_FORUM">Nadále již nebudete dostávat informace o nových zprávách, které se v tomto fóru objeví.</Resource>
+		<Resource tag="MARKREAD">Označit toto fórum jako přečtené</Resource>
+		<Resource tag="SUBFORUMS">{0} fór druhé úrovně</Resource>
+ 		<Resource tag="RSSFEED">Rss Feed</Resource>
+ 		<Resource tag="TODAYAT">[b]Dnes[/b] v {0:T}</Resource>
+ 		<Resource tag="YESTERDAYAT">[b]Včera[/b] v {0:T}</Resource>
+ 		<Resource tag="GOTO_POST_PAGER">[ Jdi na stránku: {0} ]</Resource>
+	</page>
+	<page name="POSTS">
+		<!-- posts.aspx -->
+		<Resource tag="QUESTION">Otázka pro průzkum mínění</Resource>
+		<Resource tag="CHOICE">Výběr</Resource>
+		<Resource tag="VOTES">Hlasy</Resource>
+		<Resource tag="STATISTICS">Statistika</Resource>
+		<Resource tag="PREVTOPIC">Předchozí téma</Resource>
+		<Resource tag="NEXTTOPIC">Další téma</Resource>
+		<Resource tag="WATCHTOPIC">Sledovat toto téma</Resource>
+		<Resource tag="UNWATCHTOPIC">Ukončit sledování tohoto tématu</Resource>
+		<Resource tag="EMAILTOPIC">Poslat toto téma e-mailem</Resource>
+		<Resource tag="PRINTTOPIC">Vytisknout toto téma</Resource>
+ 		<Resource tag="RSSTOPIC">RSS Feed</Resource>
+		<Resource tag="POSTED">Odesláno</Resource>
+		<Resource tag="TOP">Zpět nahoru</Resource>
+		<Resource tag="PM">PM</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">Chcete smazat tuto zprávu?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Chcete smazat toto téma?</Resource>
+		<Resource tag="RANK">Kategorie</Resource>
+		<Resource tag="GROUPS">Skupiny</Resource>
+		<Resource tag="JOINED">Členem od</Resource>
+		<Resource tag="POSTS">Zpráv</Resource>
+		<Resource tag="LOCATION">Bydliště</Resource>
+		<Resource tag="TOPICBROWSERS">Uživatelé, kteří si prohlížejí toto téma</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">Téma je uzamčeno.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">Téma je odemčeno.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">Téma je uzavřeno.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">Fórum je uzavřeno.</Resource>
+		<Resource tag="WARN_PMLOGIN">Chcete-li posílat soukromé zprávy, musíte se zaregistrovat.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">Už jste hlasoval.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">Průzkum je uzavřen.</Resource>
+		<Resource tag="POLL_CLOSED">(Průzkum je uzavřen)</Resource>
+		<Resource tag="INFO_VOTED">Děkujeme vám za hlasování!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">Abyste mohli témata sledovat, musíte se zaregistrovat.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">Jakmile se v tomto tématu objeví nová zpráva, budeme vás ihned informovat.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">Nadále již nebudete dostávat informace o nových zprávách, které se v tomto tématu objeví.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">V tomto fóru již žádná další témata nejsou.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">Chcete-li odesílat e-maily, musíte se zaregistrovat.</Resource>
+		<Resource tag="ATTACHMENTS">Přiložený soubor(y):</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} přiložen následující obrázek(obrázky):</Resource>
+		<Resource tag="ATTACHMENTINFO">({0:N0}kb) staženo [b]{1:N0}[/b]krát.</Resource>
+		<Resource tag="NORMAL">Normální</Resource>
+		<Resource tag="THREADED">Propojený</Resource>
+		<Resource tag="FORUM_JUMP">Změnit fórum</Resource>
+	</page>
+	<page name="ACTIVE">
+		<!-- active.aspx -->
+		<Resource tag="TITLE">Aktivní témata</Resource>
+		<Resource tag="SINCE">Za období</Resource>
+		<Resource tag="LAST_VISIT">od poslední návštěvy {0}</Resource>
+		<Resource tag="LAST_HOUR">za poslední hodinu</Resource>
+		<Resource tag="LAST_TWO_HOURS">za poslední dvě hodiny</Resource>
+		<Resource tag="LAST_DAY">za minulý den</Resource>
+		<Resource tag="LAST_TWO_DAYS">za minulé dva dny</Resource>
+		<Resource tag="LAST_WEEK">za minulý týden</Resource>
+		<Resource tag="LAST_TWO_WEEKS">za posledních 14 dní</Resource>
+		<Resource tag="LAST_MONTH">za poslední měsíc</Resource>
+		<Resource tag="TOPICS">Témata</Resource>
+		<Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
+		<Resource tag="REPLIES">Odpovědí</Resource>
+ 		<Resource tag="RSSFEED">Rss Feed</Resource>
+		<Resource tag="VIEWS">Zhlédnutí</Resource>
+		<Resource tag="LASTPOST">Poslední zpráva</Resource>
+		<Resource tag="BY">od {0}</Resource>
+		<Resource tag="NO_POSTS">Žádné zprávy</Resource>
+	</page>
+	<page name="ACTIVEUSERS">
+		<!-- activeusers.aspx -->
+		<Resource tag="TITLE">Aktivních uživatelů</Resource>
+		<Resource tag="USERNAME">Uživatelské jméno</Resource>
+		<Resource tag="LOGGED_IN">Přihlášen</Resource>
+		<Resource tag="LAST_ACTIVE">Naposledy aktivní</Resource>
+		<Resource tag="ACTIVE">Aktivní</Resource>
+		<Resource tag="BROWSER">Prohlížeč</Resource>
+		<Resource tag="PLATFORM">Platforma</Resource>
+		<Resource tag="MINUTES">{0:N0} minut</Resource>
+	</page>
+	<page name="APPROVE">
+		<!-- approve.aspx -->
+		<Resource tag="TITLE">Ověření e-mailové adresy</Resource>
+		<Resource tag="EMAIL_VERIFIED">Vaše e-mailová adresa byla ověřena.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Vaši e-mailovou adresu se nepodařilo ověřit.</Resource>
+		<Resource tag="ENTER_KEY">Zadejte ověřovací kód</Resource>
+		<Resource tag="VALIDATE">Ověřit</Resource>
+	</page>
+	<page name="CP_EDITPROFILE">
+		<!-- cp_editprofile.aspx -->
+		<Resource tag="TITLE">Úprava profilu</Resource>
+		<Resource tag="LOCATION">Bydliště</Resource>
+		<Resource tag="WHERE">Město</Resource>
+		<Resource tag="HOMEPAGE">Domovská stránka</Resource>
+		<Resource tag="HOMEPAGE2">Vaše domovská stránka:</Resource>
+		<Resource tag="TIMEZONE">Časová zóna</Resource>
+		<Resource tag="TIMEZONE2">Abychom mohli uvádět čas a datum ve vašem místním čase, musíme znát vaši časovou zónu.</Resource>
+		<Resource tag="AVATAR">Personifikace</Resource>
+		<Resource tag="AVATARUPLOAD">Nahrát obrázek z vašeho počítače.</Resource>
+		<Resource tag="AVATARDELETE">Smazat nahraný obrázek.</Resource>
+		<Resource tag="DELETE_AVATAR">Smazat personifikaci</Resource>
+		<Resource tag="AVATARREMOTE">Zadejte webovou adresu (URL) obrázku, který se bude objevovat vedle vašich zpráv.</Resource>
+		<Resource tag="CHANGE_PASSWORD">Změnit heslo</Resource>
+		<Resource tag="OLDPASSWORD">Staré heslo:</Resource>
+		<Resource tag="NEWPASSWORD">Nové heslo:</Resource>
+		<Resource tag="CONFIRMPASSWORD">Zadejte nové heslo ještě jednou:</Resource>
+		<Resource tag="CHANGE_EMAIL">Změnit e-mailovou adresu</Resource>
+		<Resource tag="EMAIL">Platná e-mailová adresa je nutná.</Resource>
+		<Resource tag="NO_EMPTY_PASSWORD">Heslo nemůže zůstat prázdné.</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">Nová hesla nesouhlasí.</Resource>
+		<Resource tag="OLD_PASSWORD_WRONG">Staré heslo je špatné.</Resource>
+		<Resource tag="MAIL_SENT">Na adresu {0} byla odeslána e-mailová zpráva.\n\nBude třeba, abyste novou e-mailovou adresu ověřili\nkliknutím na odkaz v tomto e-mailu; teprve pak bude vaše adresa změněna.</Resource>
+		<Resource tag="FORUM_SETTINGS">Nastavení fóra</Resource>
+		<Resource tag="SELECT_THEME">Vyberte si oblíbené téma:</Resource>
+		<Resource tag="SELECT_LANGUAGE">Jaký jazyk chcete používat:</Resource>
+		<Resource tag="WEBLOG2">Váš weblog:</Resource>
+		<Resource tag="MESSENGER">Služba Instant messaging</Resource>
+		<Resource tag="ABOUTYOU">O vás</Resource>
+		<Resource tag="REALNAME2">Jméno a příjmení</Resource>
+		<Resource tag="WARN_TOOBIG">Obrázek nemůže být větší než {0}x{1} pixelů.</Resource>
+		<Resource tag="WARN_SIZE">Váš obrázek měřil {0}x{1} pixelů.</Resource>
+		<Resource tag="WARN_RESIZED">Velikost obrázku byla upravena.</Resource>
+		<Resource tag="WARN_BIGFILE">Obrázek nemůže mít více než {0} bytů.</Resource>
+		<Resource tag="WARN_FILESIZE">Váš obrázek měl {0} bytů.</Resource>
+		<Resource tag="OURAVATAR"></Resource>
+		<Resource tag="OURAVATAR_SELECT"></Resource>
+		<Resource tag="BAD_EMAIL">Zadal jste neplatnou e-mailovou adresu.</Resource>
+		<Resource tag="BAD_MSN">Zadal jste neplatnou e-mailovou adresu při vašem účtu MSN.</Resource>
+		<Resource tag="BAD_HOME">Zadal jste neplatnou adresu vaší domovské stránky.</Resource>
+		<Resource tag="BAD_WEBLOG">Zadal jste neplatnou adresu svého weblogu.</Resource>
+		<Resource tag="BAD_ICQ">Zadal jste neplatnou hodnotu svého čísla ICQ.</Resource>
+	</page>
+	<page name="CP_INBOX">
+		<!-- cp_inbox.aspx -->
+		<Resource tag="TITLE">Schránka</Resource>
+		<Resource tag="SENTITEMS">Odeslané</Resource>
+		<Resource tag="DELETESELECTED">Odstranit vybrané položky</Resource>
+		<Resource tag="SUBJECT">Předmět</Resource>
+		<Resource tag="FROM">Od</Resource>
+		<Resource tag="TO">Komu</Resource>
+		<Resource tag="DATE">Datum</Resource>
+		<Resource tag="MSGDELETED1">1 zpráva byla odstraněna.</Resource>
+		<Resource tag="MSGDELETED2">{0} zpráv bylo odstraněno.</Resource>
+		<Resource tag="CONFIRM_DELETE">Odstranit všechny vybrané zprávy?</Resource>
+	</page>
+	<page name="CP_MESSAGE">
+		<!-- cp_message.aspx -->
+		<Resource tag="INBOX">Schránka</Resource>
+		<Resource tag="SENTITEMS">Odeslané</Resource>
+		<Resource tag="MSG_DELETED">Zpráva byla odstraněna.</Resource>
+		<Resource tag="POSTED">Odesláno:</Resource>
+	</page>
+	<page name="CP_PROFILE">
+		<!-- cp_profile.aspx -->
+		<Resource tag="NEW_MESSAGE">Nový vzkaz</Resource>
+		<Resource tag="CONTROL_PANEL">Hlavní panel</Resource>
+		<Resource tag="MESSENGER">Osobní vzkazy:</Resource>
+		<Resource tag="PERSONAL_PROFILE">Osobní profil:</Resource>
+		<Resource tag="INBOX">Schránka</Resource>
+		<Resource tag="SENTITEMS">Odeslané</Resource>
+		<Resource tag="EDIT_PROFILE">Upravit profil</Resource>
+		<Resource tag="SIGNATURE">Podpis</Resource>
+		<Resource tag="SUBSCRIPTIONS">Přihlásit</Resource>
+		<Resource tag="YOUR_ACCOUNT">Váš účet</Resource>
+		<Resource tag="YOUR_USERNAME">Vaše uživatelské jméno:</Resource>
+		<Resource tag="YOUR_EMAIL">Vaše e-mailová adresa:</Resource>
+		<Resource tag="NUMPOSTS">Počet zpráv:</Resource>
+		<Resource tag="GROUPS">Jste členem těchto skupin:</Resource>
+		<Resource tag="JOINED">Jste členem od:</Resource>
+		<Resource tag="EDIT_SIGNATURE">Upravit podpis</Resource>
+	</page>
+	<page name="CP_SIGNATURE">
+		<!-- cp_signature.aspx -->
+		<Resource tag="TITLE">Upravit podpis</Resource>
+		<Resource tag="SIGNATURE">Podpis:</Resource>
+	</page>
+	<page name="CP_SUBSCRIPTIONS">
+		<!-- cp_subscriptions.aspx -->
+		<Resource tag="TITLE">Přihlášen</Resource>
+		<Resource tag="FORUMS">Fóra</Resource>
+		<Resource tag="FORUM">Fórum</Resource>
+		<Resource tag="TOPICS">Témata</Resource>
+		<Resource tag="REPLIES">Odpovědi</Resource>
+		<Resource tag="LASTPOST">Poslední zpráva</Resource>
+		<Resource tag="TOPIC">Téma</Resource>
+		<Resource tag="VIEWS">Zhlédnuto</Resource>
+		<Resource tag="UNSUBSCRIBE">Odhlásit</Resource>
+		<Resource tag="LASTPOSTLINK">{0} od {1}</Resource>
+		<Resource tag="WARN_SELECTTOPICS">Nejprve prosím vyberte téma, ze kterého se chcete odhlásit.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">Nejprve prosím vyberte fórum, ze kterého se chcete odhlásit.</Resource>
+	</page>
+	<page name="EMAILTOPIC">
+		<!-- emailtopic.aspx -->
+		<Resource tag="TITLE">Odeslat stránku příteli</Resource>
+		<Resource tag="TO">Poslat na (e-mailová adresa):</Resource>
+		<Resource tag="SUBJECT">Předmět:</Resource>
+		<Resource tag="MESSAGE">Zpráva:</Resource>
+		<Resource tag="SEND">Odeslat e-mail</Resource>
+		<Resource tag="NEED_EMAIL">Musíte zadat e-mailovou adresu.</Resource>
+		<Resource tag="FAILED">E-mail se nepodařilo odeslat.\n\n{0}</Resource>
+	</page>
+	<page name="INFO">
+		<!-- info.aspx -->
+		<Resource tag="CONTINUE">Pokračovat...</Resource>
+		<Resource tag="MODERATED">Zaslal jste zprávu do moderovaného fóra; předtím, než se ve fóru objeví, ji musí moderátor schválit.</Resource>
+		<Resource tag="SUSPENDED">Váš účet byl dočasně uzavřen. Znovu by měl být otevřen {0}.</Resource>
+	</page>
+	<page name="LOGIN">
+		<!-- login.aspx -->
+		<Resource tag="TITLE">Přihlásit</Resource>
+		<Resource tag="USERNAME">Uživatelské jméno:</Resource>
+		<Resource tag="PASSWORD">Heslo:</Resource>
+		<Resource tag="AUTO">Automatické přihlášení:</Resource>
+		<Resource tag="LOSTPASSWORD">Ztracené heslo</Resource>
+		<Resource tag="FORUM_LOGIN">Přihlásit do fóra</Resource>
+		<Resource tag="EMAIL">E-mailová adresa</Resource>
+		<Resource tag="PASSWORD_ERROR">Zadané uživatelské jméno nebo heslo není správné. Zkuste to prosím znovu.</Resource>
+		<Resource tag="RECOVER">Obnovit heslo</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">Špatné uživatelské jméno nebo e-mailová adresa.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">Byl vám odeslán e-mail s novým heslem.</Resource>
+		<Resource tag="SENDPASSWORD">Poslat heslo</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">Musíte zadat jak uživatelské jméno, tak i e-mailovou adresu.</Resource>
+		<Resource tag="RECOVER_ERROR">Při vytváření vašeho nového hesla došlo k chybě.</Resource>
+	</page>
+	<page name="MEMBERS">
+		<!-- members.aspx -->
+		<Resource tag="TITLE">Členové</Resource>
+		<Resource tag="USERNAME">Uživatelské jméno</Resource>
+		<Resource tag="RANK">Kategorie</Resource>
+		<Resource tag="JOINED">Členem od</Resource>
+		<Resource tag="POSTS">Zpráv</Resource>
+		<Resource tag="PAGES">{0} stránek:</Resource>
+	</page>
+	<page name="MODERATE">
+		<!-- moderate.aspx -->
+		<Resource tag="TITLE">Moderovat</Resource>
+		<Resource tag="TOPICS">Témata</Resource>
+		<Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
+		<Resource tag="REPLIES">Odpovědí</Resource>
+		<Resource tag="VIEWS">Zhlédnutí</Resource>
+		<Resource tag="LASTPOST">Poslední zpráva</Resource>
+		<Resource tag="CONFIRM_DELETE">Odstranit toto téma?</Resource>
+		<Resource tag="BY">od {0}</Resource>
+		<Resource tag="DELETED">Téma bylo odstraněno.</Resource>
+		<Resource tag="NO_POSTS">Žádné zprávy</Resource>
+		<Resource tag="MEMBERS">Členové</Resource>
+		<Resource tag="USER">Uživatel</Resource>
+		<Resource tag="ACCEPTED">Přijato</Resource>
+		<Resource tag="ACCESSMASK">Přístupová maska</Resource>
+		<Resource tag="EDIT">Upravit</Resource>
+		<Resource tag="REMOVE">Odstranit</Resource>
+		<Resource tag="INVITE">Přizvat dalšího uživatele</Resource>
+	</page>
+	<page name="MOVETOPIC">
+		<!-- movetopic.aspx -->
+		<Resource tag="TITLE">Přesunout téma</Resource>
+		<Resource tag="SELECT_FORUM">Zvolte fórum, do kterého chcete zprávu přesunout:</Resource>
+		<Resource tag="MOVE">Přesunout téma</Resource>
+	</page>
+
+	<page name="PMESSAGE">
+		<!-- pmessage.aspx -->
+		<Resource tag="TITLE">Odeslat osobní vzkaz</Resource>
+		<Resource tag="TO">Komu:</Resource>
+		<Resource tag="SUBJECT">Předmět:</Resource>
+		<Resource tag="MESSAGE">Vzkaz:</Resource>
+		<Resource tag="NEED_TO">Nezadal jste příjemce vzkazu.</Resource>
+		<Resource tag="NEED_SUBJECT">Musíte zadat předmět.</Resource>
+		<Resource tag="NEED_MESSAGE">Vzkaz neobsahuje žádný text.</Resource>
+		<Resource tag="SAVE">Odeslat</Resource>
+		<Resource tag="NO_SUCH_USER">Takový uživatel neexistuje.</Resource>
+		<Resource tag="NOT_GUEST">Soukromé vzkazy nelze odesílat pro kategorii „Host”.</Resource>
+		<Resource tag="FINDUSERS">Najít uživatele</Resource>
+		<Resource tag="ALLUSERS">Všichni uživatelé</Resource>
+	</page>
+	<page name="POSTMESSAGE">
+		<!-- postmessage.aspx -->
+		<Resource tag="NEWTOPIC">Zahájit nové téma</Resource>
+		<Resource tag="REPLY">Odpověď</Resource>
+		<Resource tag="EDIT">Upravit zprávu</Resource>
+		<Resource tag="PREVIEW">Náhled</Resource>
+		<Resource tag="PREVIEWTITLE">Náhled:</Resource>
+		<Resource tag="SUBJECT">Předmět:</Resource>
+		<Resource tag="FROM">Od:</Resource>
+		<Resource tag="PRIORITY">Priorita:</Resource>
+		<Resource tag="MESSAGE">Zpráva:</Resource>
+		<Resource tag="LAST10">Posledních 10 zpráv (v obráceném pořadí)</Resource>
+		<Resource tag="NORMAL">Normální</Resource>
+		<Resource tag="STICKY">Ukotvit</Resource>
+		<Resource tag="ANNOUNCEMENT">Oznámení</Resource>
+		<Resource tag="CREATEPOLL">Vytvořit průzkum mínění</Resource>
+		<Resource tag="POLLQUESTION">Otázka:</Resource>
+		<Resource tag="CHOICE1">Volba 1:</Resource>
+		<Resource tag="CHOICE2">Volba 2:</Resource>
+		<Resource tag="CHOICE3">Volba 3:</Resource>
+		<Resource tag="CHOICE4">Volba 4:</Resource>
+		<Resource tag="CHOICE5">Volba 5:</Resource>
+		<Resource tag="CHOICE6">Volba 6:</Resource>
+		<Resource tag="CHOICE7">Volba 7:</Resource>
+		<Resource tag="CHOICE8">Volba 8:</Resource>
+		<Resource tag="CHOICE9">Volba 9:</Resource>
+		<Resource tag="POLL_EXPIRE">Průzkum ponechat:</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Dní[/b] [ Pro trvalý průzkum ponechte toto pole prázdné ]</Resource>		
+		<Resource tag="NEED_SUBJECT">Zadejte prosím název tématu.</Resource>
+		<Resource tag="WAIT">Následujících {0:N0} vteřin nebudete moci odeslat další zprávu.</Resource>
+		<Resource tag="POSTED">Odesláno:</Resource>
+		<Resource tag="SAVE">Odeslat</Resource>
+		<Resource tag="NEED_QUESTION">Musíte zadat otázku.</Resource>
+		<Resource tag="NEED_CHOICES">Průzkum vyžaduje alespoň dvě volby.</Resource>
+		<Resource tag="SMILIES_HEADER">[b]Emotikony[/b]</Resource>
+	</page>
+	<page name="PRINTTOPIC">
+		<!-- printtopic.aspx -->
+		<Resource tag="POSTEDBY">Odeslal</Resource>
+	</page>
+	<page name="PROFILE">
+		<!-- profile.aspx -->
+		<Resource tag="MEMBERS">Členové</Resource>
+		<Resource tag="PROFILE">Profil:</Resource>
+		<Resource tag="ABOUT">Informace o členovi</Resource>
+		<Resource tag="USERNAME">Uživatelské jméno:</Resource>
+		<Resource tag="GROUPS">Skupiny:</Resource>
+		<Resource tag="RANK">Kategorie ve fóru:</Resource>
+		<Resource tag="JOINED">Členem od:</Resource>
+		<Resource tag="EMAIL">E-mail:</Resource>
+		<Resource tag="LASTVISIT">Poslední návštěva:</Resource>
+		<Resource tag="STATISTICS">Statistika</Resource>
+		<Resource tag="NUMPOSTS">Počet zpráv:</Resource>
+		<Resource tag="LAST10">Posledních 10 zpráv</Resource>
+		<Resource tag="TOPIC">Téma:</Resource>
+		<Resource tag="POSTED">Odesláno:</Resource>
+		<Resource tag="ENDS">Členství přerušeno do:</Resource>
+		<Resource tag="REMOVESUSPENSION">Zrušit přerušení členství</Resource>
+		<Resource tag="SUSPEND">Přerušit členství</Resource>
+		<Resource tag="DAYS">dní</Resource>
+		<Resource tag="HOURS">hodin</Resource>
+		<Resource tag="MINUTES">minut</Resource>
+		<Resource tag="AVATAR">Personifikace</Resource>
+		<Resource tag="CONTACT">Kontakt</Resource>
+		<Resource tag="PM">Soukromý vzkaz:</Resource>
+		<Resource tag="MSN">MSN Messenger:</Resource>
+		<Resource tag="YIM">Yahoo Messenger:</Resource>
+		<Resource tag="AIM">Jméno AIM:</Resource>
+		<Resource tag="ICQ">Číslo ICQ:</Resource>
+		<Resource tag="REALNAME">Skutečné jméno:</Resource>
+		<Resource tag="WEBSITE">Domovská stránka:</Resource>
+		<Resource tag="WEBLOG">Weblog:</Resource>
+		<Resource tag="OCCUPATION">Povolání:</Resource>
+		<Resource tag="INTERESTS">Zájmy:</Resource>
+		<Resource tag="GENDER">Pohlaví:</Resource>
+		<Resource tag="GENDER0">Nezadáno</Resource>
+		<Resource tag="GENDER1">Muž</Resource>
+		<Resource tag="GENDER2">Žena</Resource>
+		<Resource tag="NUMALL">{0:N2}% všech zpráv</Resource>
+		<Resource tag="NUMDAY">{0:N2} zpráv denně</Resource>
+		<Resource tag="ERROR_ADMINISTRATORS">Administrátorům nelze přerušit členství.</Resource>
+		<Resource tag="ERROR_FORUMMODERATORS">Moderátorům fóra nelze přerušit členství.</Resource>
+		<Resource tag="ERROR_GUESTACCOUNT">Účtu kategorie "Host" nelze přerušit členství.</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">Registrace nového uživatele</Resource>
+		<Resource tag="DETAILS">Podrobnosti registrace</Resource>
+		<Resource tag="USERNAME">Uživatelské jméno</Resource>
+		<Resource tag="NEED_USERNAME">Uživatelské jméno je nezbytné.</Resource>
+		<Resource tag="PASSWORD">Heslo</Resource>
+		<Resource tag="NEED_PASSWORD">Heslo je nezbytné.</Resource>
+		<Resource tag="RETYPE_PASSWORD">Napište heslo ještě jednou</Resource>
+		<Resource tag="NEED_MATCH">Hesla nesouhlasí.</Resource>
+		<Resource tag="EMAIL">E-mailová adresa</Resource>
+		<Resource tag="PROFILE">Osobní profil</Resource>
+		<Resource tag="LOCATION">Bydliště</Resource>
+		<Resource tag="HOMEPAGE">Domovská stránka</Resource>
+		<Resource tag="PREFERENCES">Předvolby</Resource>
+		<Resource tag="TIMEZONE">Časová zóna</Resource>
+		<Resource tag="ALREADY_REGISTERED">Vaše uživatelské jméno nebo e-mailová adresa již byla použita.</Resource>
+		<Resource tag="REGISTER">Zaregistrovat</Resource>
+		<Resource tag="BAD_EMAIL">Vaše e-mailová adresa je neplatná.</Resource>
+	</page>
+	<page name="SEARCH">
+		<!-- search.aspx -->
+		<Resource tag="TITLE">Hledání</Resource>
+		<Resource tag="BTNSEARCH">Hledat</Resource>
+		<Resource tag="RESULTS">Výsledky</Resource>
+		<Resource tag="TOPIC">Téma:</Resource>
+		<Resource tag="POSTED">Odesláno:</Resource>
+		<Resource tag="ALLFORUMS">Ve všech fórech</Resource>
+		<Resource tag="RESULT5">5 záznamů na stránce</Resource>
+		<Resource tag="RESULT10">10 záznamů na stránce</Resource>
+		<Resource tag="RESULT25">25 záznamů na stránce</Resource>
+		<Resource tag="RESULT50">50 záznamů na stránce</Resource>
+		<Resource tag="POSTS">Zprávy</Resource>
+		<Resource tag="POSTEDBY">Odesilatelé</Resource>
+		<Resource tag="MATCH_ALL">Všechna slova musí souhlasit</Resource>
+		<Resource tag="MATCH_ANY">Kterékoli slovo musí souhlasit</Resource>
+		<Resource tag="MATCH_EXACT">Souhlasit musí celá věta</Resource>
+		<Resource tag="NO_SEARCH_RESULTS">[b]Hledání nic nenalezlo.[/b]</Resource>
+		<Resource tag="BY">od</Resource>
+	</page>
+	<page name="MODERATE_DEFAULT">
+		<Resource tag="TITLE">Moderování</Resource>
+		<Resource tag="FORUM">Fórum</Resource>
+		<Resource tag="UNAPPROVED">Neschválené zprávy</Resource>
+		<Resource tag="CATEGORY">Kategorie</Resource>
+	</page>
+	<page name="MODERATE_FORUM">
+		<Resource tag="UNAPPROVED">Neschválené zprávy</Resource>
+		<Resource tag="TOP">Zpátky nahoru</Resource>
+		<Resource tag="APPROVE">Schválit zprávu</Resource>
+		<Resource tag="DELETE">Smazat zprávu</Resource>
+		<Resource tag="ASK_DELETE">Odstranit tuto zprávu?</Resource>
+		<Resource tag="APPROVED">Zpráva schválena.</Resource>
+		<Resource tag="DELETED">Zpráva byla odstraněna.</Resource>
+	</page>
+	<page name="MOD_FORUMUSER">
+		<Resource tag="TITLE">Uživatel fóra</Resource>
+		<Resource tag="USER">Uživatel:</Resource>
+		<Resource tag="FIND">Hledat uživatele</Resource>
+		<Resource tag="ACCESSMASK">Přístupová maska:</Resource>
+		<Resource tag="UPDATE">Aktualizovat</Resource>
+		<Resource tag="CANCEL">Storno</Resource>
+	</page>
+	<page name="RTE">
+		<Resource tag="BOLD">Tučně</Resource>
+		<Resource tag="ITALIC">Kurzíva</Resource>
+		<Resource tag="UNDERLINE">Podtrhnout</Resource>
+		<Resource tag="LEFT">Zarazit vlevo</Resource>
+		<Resource tag="CENTER">Na střed</Resource>
+		<Resource tag="RIGHT">Zarazit vpravo</Resource>
+		<Resource tag="ORDERED">Seřazený seznam</Resource>
+		<Resource tag="UNORDERED">Neřazený seznam</Resource>
+		<Resource tag="OUTDENT">Předsadit</Resource>
+		<Resource tag="INDENT">Odsadit</Resource>
+		<Resource tag="LINK">Vložit odkaz</Resource>
+		<Resource tag="IMAGE">Přidat obrázek</Resource>
+		<Resource tag="SPELL">Kontrola pravopisu (jen v angličtině)</Resource>
+		<Resource tag="NORMAL">Normální</Resource>
+		<Resource tag="CLEAR">Odstranit formátování</Resource>
+		<Resource tag="FORMATTED">Naformátováno</Resource>
+	</page>
+	<page name="AVATAR">
+		<Resource tag="TITLE">Personalizace</Resource>
+		<Resource tag="EDITPROFILE">Upravit profil</Resource>
+	</page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+		<Resource tag="TITLE">ICQ</Resource>
+		<Resource tag="NAME">Vaše jméno:</Resource>
+		<Resource tag="EMAIL">Váš e-mail:</Resource>
+		<Resource tag="SEND">Poslat zprávu</Resource>
+		<Resource tag="BODY">Zde napište text zprávy:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+		<Resource tag="TITLE">E-mail</Resource>
+		<Resource tag="SEND">Poslat e-mail</Resource>
+		<Resource tag="SUBJECT">Předmět:</Resource>
+		<Resource tag="BODY">Zde napište text zprávy:</Resource>
+		<Resource tag="ERROR">Při odesílání zprávy došlo k chybě.</Resource>
+	</page>
+</Resources>
