@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <Resources language="English" code="en">
-  <page name="LANGUAGE">
-    <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
-  </page>
-  <page name="MOVEMESSAGE">
-    <Resource tag="MOVE"/>
-  </page>
-  <page name="DELETEMESSAGE">
-    <!-- deletemessage.aspx -->
-    <Resource tag="PREVIEWTITLE">Message:</Resource>
-    <Resource tag="SUBJECT">Subject:</Resource>
-    <Resource tag="FROM">From:</Resource>
-    <Resource tag="PRIORITY">Priority:</Resource>
-    <Resource tag="MESSAGE">Message:</Resource>
-    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
-    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
-    <Resource tag="POSTED">Posted:</Resource>
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="DELETE_REASON">Delete reason</Resource>
-  </page>
+	<page name="LANGUAGE">
+		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+	</page>
+	<page name="MOVEMESSAGE">
+		<Resource tag="MOVE"/>
+	</page>
+	<page name="DELETEMESSAGE">
+		<!-- deletemessage.aspx -->
+		<Resource tag="PREVIEWTITLE">Message:</Resource>
+		<Resource tag="SUBJECT">Subject:</Resource>
+		<Resource tag="FROM">From:</Resource>
+		<Resource tag="PRIORITY">Priority:</Resource>
+		<Resource tag="MESSAGE">Message:</Resource>
+		<Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+		<Resource tag="DELETE">Delete</Resource>
+		<Resource tag="DELETE_REASON">Delete reason</Resource>
+	</page>
 	<page name="COMMON">
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
@@ -48,13 +48,13 @@
 		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
 		<Resource tag="FORMAT_TIME">T</Resource>
 		<Resource tag="MAX_ONLINE">Most users ever online was {0}, {1}.</Resource>
-    <Resource tag="BBCODE_QUOTE">Quote:</Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
-    <Resource tag="BBCODE_CODE">Code:</Resource>
-    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
-    <Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
-    <Resource tag="BACK">Back</Resource>
-    <Resource tag="UPDATE">Update</Resource>
+		<Resource tag="BBCODE_QUOTE">Quote:</Resource>
+		<Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+		<Resource tag="BBCODE_CODE">Code:</Resource>
+		<Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
+		<Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
+		<Resource tag="BACK">Back</Resource>
+		<Resource tag="UPDATE">Update</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
@@ -99,7 +99,7 @@
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
-    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+		<Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
 		<Resource tag="FORUM">Forum</Resource>
 		<Resource tag="TOPICS">Topics</Resource>
 		<Resource tag="POSTS">Posts</Resource>
@@ -161,74 +161,74 @@
 		<Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
 		<Resource tag="MARKREAD">Mark this forum as read</Resource>
 		<Resource tag="SUBFORUMS">{0} Subforums</Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
- 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
- 		<Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
+		<Resource tag="RSSFEED">Rss Feed</Resource>
+		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
+		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>
+		<Resource tag="GOTO_POST_PAGER">[ Goto Page: {0} ]</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
-    <Resource tag="QUICKREPLY">Quick Reply</Resource>
-    <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
-    <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
-    <Resource tag="OPTIONS">Options</Resource>
-    <Resource tag="VIEW">View</Resource>
-    <Resource tag="POST_REPLY">Post Reply</Resource>
-    <Resource tag="QUESTION">Poll Question</Resource>
-    <Resource tag="CHOICE">Choice</Resource>
-    <Resource tag="VOTES">Votes</Resource>
-    <Resource tag="STATISTICS">Statistics</Resource>
-    <Resource tag="PREVTOPIC">Previous Topic</Resource>
-    <Resource tag="NEXTTOPIC">Next Topic</Resource>
-    <Resource tag="WATCHTOPIC">Watch this topic</Resource>
-    <Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
-    <Resource tag="EMAILTOPIC">Email this topic</Resource>
-    <Resource tag="PRINTTOPIC">Print this topic</Resource>
-    <Resource tag="RSSTOPIC">RSS Feed</Resource>
-    <Resource tag="POSTED">Posted</Resource>
-    <Resource tag="TOP">Back to top</Resource>
-    <Resource tag="PM">PM</Resource>
-    <Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
-    <Resource tag="RANK">Rank</Resource>
-    <Resource tag="GROUPS">Groups</Resource>
-    <Resource tag="JOINED">Joined</Resource>
-    <Resource tag="POSTS">Posts</Resource>
-    <Resource tag="POINTS">Points</Resource>
-    <Resource tag="LOCATION">Location</Resource>
-    <Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">Topic was locked.</Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">Topic was unlocked.</Resource>
-    <Resource tag="WARN_TOPIC_LOCKED">The topic is closed.</Resource>
-    <Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
-    <Resource tag="WARN_PMLOGIN">You must be logged in to send private messages.</Resource>
-    <Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
-    <Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
-    <Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
-    <Resource tag="INFO_VOTED">Thank you for your vote!</Resource>
-    <Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts are made in this topic.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">You will no longer be notified when new posts are made in this topic.</Resource>
-    <Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
-    <Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
-    <Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
-    <Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
-    <Resource tag="NORMAL">Normal</Resource>
-    <Resource tag="THREADED">Threaded</Resource>
-    <Resource tag="FORUM_JUMP">Forum Jump</Resource>
-    <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
-    <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
-    <Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
-    <Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
-    <Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
-    <Resource tag="AD_USERNAME">Sponsor</Resource>
-    <Resource tag="AD_SIGNATURE"></Resource>
+		<Resource tag="QUICKREPLY">Quick Reply</Resource>
+		<Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
+		<Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
+		<Resource tag="OPTIONS">Options</Resource>
+		<Resource tag="VIEW">View</Resource>
+		<Resource tag="POST_REPLY">Post Reply</Resource>
+		<Resource tag="QUESTION">Poll Question</Resource>
+		<Resource tag="CHOICE">Choice</Resource>
+		<Resource tag="VOTES">Votes</Resource>
+		<Resource tag="STATISTICS">Statistics</Resource>
+		<Resource tag="PREVTOPIC">Previous Topic</Resource>
+		<Resource tag="NEXTTOPIC">Next Topic</Resource>
+		<Resource tag="WATCHTOPIC">Watch this topic</Resource>
+		<Resource tag="UNWATCHTOPIC">Unwatch this topic</Resource>
+		<Resource tag="EMAILTOPIC">Email this topic</Resource>
+		<Resource tag="PRINTTOPIC">Print this topic</Resource>
+		<Resource tag="RSSTOPIC">RSS Feed</Resource>
+		<Resource tag="POSTED">Posted</Resource>
+		<Resource tag="TOP">Back to top</Resource>
+		<Resource tag="PM">PM</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
+		<Resource tag="RANK">Rank</Resource>
+		<Resource tag="GROUPS">Groups</Resource>
+		<Resource tag="JOINED">Joined</Resource>
+		<Resource tag="POSTS">Posts</Resource>
+		<Resource tag="POINTS">Points</Resource>
+		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">Topic was locked.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">Topic was unlocked.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">The topic is closed.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">The forum is closed.</Resource>
+		<Resource tag="WARN_PMLOGIN">You must be logged in to send private messages.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">You have already voted.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">Poll is closed.</Resource>
+		<Resource tag="POLL_CLOSED">(Poll is closed)</Resource>
+		<Resource tag="INFO_VOTED">Thank you for your vote!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">You must be registered to watch topics.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">You will now be notified when new posts are made in this topic.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">You will no longer be notified when new posts are made in this topic.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">No more topics in this forum.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">You must be registered to send emails.</Resource>
+		<Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+		<Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
+		<Resource tag="NORMAL">Normal</Resource>
+		<Resource tag="THREADED">Threaded</Resource>
+		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
+		<Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
+		<Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
+		<Resource tag="TIP_DELETE_TOPIC">Delete this topic</Resource>
+		<Resource tag="TIP_LOCK_TOPIC">Lock this topic</Resource>
+		<Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
+		<Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
+		<Resource tag="AD_USERNAME">Sponsor</Resource>
+		<Resource tag="AD_SIGNATURE"></Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
-    <Resource tag="LAST_24">( Last 24 Hours )</Resource>
+		<Resource tag="LAST_24">( Last 24 Hours )</Resource>
 		<Resource tag="TITLE">Active Topics</Resource>
 		<Resource tag="SINCE">Since</Resource>
 		<Resource tag="LAST_VISIT">last visit at {0}</Resource>
@@ -242,7 +242,7 @@
 		<Resource tag="TOPICS">Topics</Resource>
 		<Resource tag="TOPIC_STARTER">Topic Starter</Resource>
 		<Resource tag="REPLIES">Replies</Resource>
- 		<Resource tag="RSSFEED">Rss Feed</Resource>
+		<Resource tag="RSSFEED">Rss Feed</Resource>
 		<Resource tag="VIEWS">Views</Resource>
 		<Resource tag="LASTPOST">Last Post</Resource>
 		<Resource tag="BY">by {0}</Resource>
@@ -267,45 +267,45 @@
 		<Resource tag="ENTER_KEY">Enter validation key</Resource>
 		<Resource tag="VALIDATE">Validate</Resource>
 	</page>
-  <page name="PM">
-    <!-- pm.ascx -->
-    <Resource tag="TITLE">Private Messages</Resource>
-    <Resource tag="NEW_MESSAGE">New Message</Resource>
-    <Resource tag="INBOX">Inbox</Resource>
-    <Resource tag="SENTITEMS">Sent Items</Resource>
-    <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
-    <Resource tag="DELETESELECTED">Delete Selected</Resource>
-    <Resource tag="SUBJECT">Subject</Resource>
-    <Resource tag="FROM">From</Resource>
-    <Resource tag="TO">To</Resource>
-    <Resource tag="DATE">Date</Resource>
-    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
-    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
-    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
-    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
-    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
-    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
-    <Resource tag="POSTED">Posted:</Resource>
-  </page>
-  <page name="CP_EDITAVATAR">
-    <Resource tag="TITLE">Modify Avatar</Resource>
-    <Resource tag="AVATAR">Avatar</Resource>
-    <Resource tag="AVATARCURRENT">Current Avatar</Resource>
-    <Resource tag="AVATARNEW">Choose a New Avatar</Resource>
-    <Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
-    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
-    <Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
-    <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
-    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
-    <Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
-    <Resource tag="NOAVATAR">[ No Avatar ]</Resource>
-    <Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
-    <Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
-    <Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
-    <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
-    <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>    
+	<page name="PM">
+		<!-- pm.ascx -->
+		<Resource tag="TITLE">Private Messages</Resource>
+		<Resource tag="NEW_MESSAGE">New Message</Resource>
+		<Resource tag="INBOX">Inbox</Resource>
+		<Resource tag="SENTITEMS">Sent Items</Resource>
+		<Resource tag="ARCHIVE">Archive</Resource>
+		<Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+		<Resource tag="DELETESELECTED">Delete Selected</Resource>
+		<Resource tag="SUBJECT">Subject</Resource>
+		<Resource tag="FROM">From</Resource>
+		<Resource tag="TO">To</Resource>
+		<Resource tag="DATE">Date</Resource>
+		<Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+		<Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+		<Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+		<Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+		<Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+		<Resource tag="MSG_DELETED">Message was deleted.</Resource>
+		<Resource tag="NO_MESSAGES">No messages were found.</Resource>
+		<Resource tag="POSTED">Posted:</Resource>
+	</page>
+	<page name="CP_EDITAVATAR">
+		<Resource tag="TITLE">Modify Avatar</Resource>
+		<Resource tag="AVATAR">Avatar</Resource>
+		<Resource tag="AVATARCURRENT">Current Avatar</Resource>
+		<Resource tag="AVATARNEW">Choose a New Avatar</Resource>
+		<Resource tag="AVATARUPLOAD">Upload Avatar from Your Computer:</Resource>
+		<Resource tag="AVATARDELETE">Clear Avatar</Resource>
+		<Resource tag="AVATARREMOTE">Enter URL of Avatar on Remote Server to Use:</Resource>
+		<Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
+		<Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+		<Resource tag="AVATARTEXT">Avatar Explaination Text</Resource>
+		<Resource tag="NOAVATAR">[ No Avatar ]</Resource>
+		<Resource tag="WARN_TOOBIG">Image size can't be larger than {0}x{1} pixels.</Resource>
+		<Resource tag="WARN_SIZE">The size of your image was {0}x{1} pixels.</Resource>
+		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
+		<Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
+		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
 	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
@@ -338,7 +338,7 @@
 		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
 		<Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
 		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
+		<Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -369,7 +369,7 @@
 		<Resource tag="INBOX">Inbox</Resource>
 		<Resource tag="SENTITEMS">Sent Items</Resource>
 		<Resource tag="EDIT_PROFILE">Edit Profile</Resource>
-    <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
+		<Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
 		<Resource tag="SIGNATURE">Signature</Resource>
 		<Resource tag="SUBSCRIPTIONS">Subscriptions</Resource>
 		<Resource tag="YOUR_ACCOUNT">Your Account</Resource>
@@ -413,17 +413,17 @@
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">Continue...</Resource>
-    <Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
-    <Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
-    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
-    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
-    <Resource tag="EXCEPTION">You are logged in as</Resource>
-    <Resource tag="TITLE_MODERATED">Information</Resource>
-    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
-    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
-    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
-    <Resource tag="TITLE_EXCEPTION">Information</Resource>
-  </page>
+		<Resource tag="MODERATED">Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
+		<Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
+		<Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
+		<Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+		<Resource tag="EXCEPTION">You are logged in as</Resource>
+		<Resource tag="TITLE_MODERATED">Information</Resource>
+		<Resource tag="TITLE_SUSPENDED">Suspended</Resource>
+		<Resource tag="TITLE_REGISTRATION">Thanks</Resource>
+		<Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
+		<Resource tag="TITLE_EXCEPTION">Information</Resource>
+	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">Login</Resource>
@@ -476,7 +476,6 @@
 		<Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>
 		<Resource tag="MOVE">Move Topic</Resource>
 	</page>
-
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">Post a Private Message</Resource>
@@ -490,10 +489,10 @@
 		<Resource tag="SAVE">Post</Resource>
 		<Resource tag="NO_SUCH_USER">No such user exists.</Resource>
 		<Resource tag="NOT_GUEST">You can't send private messages to guest.</Resource>
-    <Resource tag="NEED_MORE_LETTERS">In order to find users, you must enter in at least the first two letters of the user name.</Resource>
+		<Resource tag="NEED_MORE_LETTERS">In order to find users, you must enter in at least the first two letters of the user name.</Resource>
 		<Resource tag="FINDUSERS">Find Users...</Resource>
 		<Resource tag="ALLUSERS">All Users</Resource>
-    <Resource tag="CLEAR">Clear</Resource>
+		<Resource tag="CLEAR">Clear</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
@@ -522,7 +521,7 @@
 		<Resource tag="CHOICE8">Choice 8:</Resource>
 		<Resource tag="CHOICE9">Choice 9:</Resource>
 		<Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank for a never ending poll ]</Resource>		
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank for a never ending poll ]</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
