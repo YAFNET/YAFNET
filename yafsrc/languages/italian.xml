@@ -194,10 +194,10 @@
     <Resource tag="INFO_UNWATCH_TOPIC">Non ti verrà più notificato quando nuovi Messaggi vengono scritti per questo Argomento.</Resource>
     <Resource tag="INFO_NOMOREArgomentoS">Nessun Argomento in questo Forum.</Resource>
     <Resource tag="WARN_EMAILLOGIN">Devi essere registrato per inviare Email.</Resource>
-    <Resource tag="ATTACHMENTS">File Attachment(s):</Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
+    <Resource tag="ATTACHMENTS">File Allegato/i:</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} allegati la seguente immagine/i:</Resource>
     <Resource tag="ATTACHMENTINFO">({0:N0}kb) downloaded [b]{1:N0}[/b] time(s).</Resource>
-    <Resource tag="NORMAL">Normal</Resource>
+    <Resource tag="NORMAL">Normale</Resource>
     <Resource tag="THREADED">Threaded</Resource>
     <Resource tag="FORUM_JUMP">Forum Jump</Resource>
     <Resource tag="TIP_REPLY_TOPIC">Scrivi Risposta</Resource>
@@ -237,7 +237,7 @@
 		<Resource tag="USERNAME">Nome Utente</Resource>
 		<Resource tag="LOGGED_IN">Logged In</Resource>
 		<Resource tag="LAST_ACTIVE">Ultima volta</Resource>
-		<Resource tag="ACTIVE">Acttivo</Resource>
+		<Resource tag="ACTIVE">Attivo</Resource>
 		<Resource tag="BROWSER">Browser</Resource>
 		<Resource tag="PLATFORM">Platform</Resource>
 		<Resource tag="MINUTES">{0:N0} minuti</Resource>
@@ -246,7 +246,7 @@
 		<!-- approve.aspx -->
 		<Resource tag="TITLE">Indirizzo Email Valido</Resource>
 		<Resource tag="EMAIL_VERIFIED">Il tuo indirizzo di email è stato verificato.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">Failed to verify email address.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">Verifica dell'indirizzo di e-mail fallita.</Resource>
 		<Resource tag="ENTER_KEY">Inserire validation key</Resource>
 		<Resource tag="VALIDATE">Valido</Resource>
 	</page>
@@ -270,13 +270,13 @@
 	  </page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
-		<Resource tag="TITLE">Modifica Profile</Resource>
+		<Resource tag="TITLE">Modifica Profilo</Resource>
 		<Resource tag="LOCATION">Località</Resource>
 		<Resource tag="WHERE">Dove vivi?</Resource>
 		<Resource tag="HOMEPAGE">Home Page</Resource>
 		<Resource tag="HOMEPAGE2">La tua home page:</Resource>
 		<Resource tag="TIMEZONE">Time Zone</Resource>
-		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
+		<Resource tag="TIMEZONE2">Per poterti dare la corretta data e ora locale, ci serve conoscere la tua Time Zone.</Resource>
 		<Resource tag="CHANGE_PASSWORD">Modifica Password</Resource>
 		<Resource tag="OLDPASSWORD">Vecchia Password:</Resource>
 		<Resource tag="NEWPASSWORD">Nuova Password:</Resource>
@@ -289,17 +289,17 @@
 		<Resource tag="MAIL_SENT">Una mail è stata inviata a {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
 		<Resource tag="FORUM_SETTINGS">Cofigurazione Forum</Resource>
 		<Resource tag="SELECT_THEME">Scegli il tuo theme preferito:</Resource>
-		<Resource tag="SELECT_LANGUAGE">Quale linguaggiovuoi usare:</Resource>
-		<Resource tag="WEBLOG2">Your Weblog:</Resource>
-		<Resource tag="MESSENGER">Instant messaging services</Resource>
-		<Resource tag="ABOUTYOU">About You</Resource>
-		<Resource tag="REALNAME2">What's your real name?</Resource>
-		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
-		<Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
-		<Resource tag="BAD_HOME">You have entered a invalid address for your home page.</Resource>
-		<Resource tag="BAD_WEBLOG">You have entered a invalid address for your weblog.</Resource>
-		<Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new Messaggi Privati?</Resource>
+		<Resource tag="SELECT_LANGUAGE">Quale linguaggio vuoi usare:</Resource>
+		<Resource tag="WEBLOG2">Il tuo Weblog:</Resource>
+		<Resource tag="MESSENGER">Servizio di Instant messaging</Resource>
+		<Resource tag="ABOUTYOU">Sul tuo conto</Resource>
+		<Resource tag="REALNAME2">Qual'e' il tuo vero nome?</Resource>
+		<Resource tag="BAD_EMAIL">Hai inserito un indirizzo di e-mail non valido.</Resource>
+		<Resource tag="BAD_MSN">Hai inserito un indirizzo di e-mail per il tuo account MSN non valido.</Resource>
+		<Resource tag="BAD_HOME">Hai inserito un indirizzo per la tua home page non valido.</Resource>
+		<Resource tag="BAD_WEBLOG">Hai inserito un indirizzo per il tuo weblog non valido.</Resource>
+		<Resource tag="BAD_ICQ">Hai inserito un valore non valido per il tuo indirizzo ICQ.</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Vuoi che ti venga notificato via e-mail quando ricevi nuovi Messaggi Privati?</Resource>
 	</page>
 	<page name="CP_INBOX">
 		<!-- cp_inbox.aspx -->
@@ -374,16 +374,16 @@
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">Continua...</Resource>
-    <Resource tag="MODERATED">Since you Inviato to a moderated forum, a forum moderator must approve your post before it will become visible.</Resource>
-    <Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
-    <Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
-    <Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
-    <Resource tag="EXCEPTION">You are logged in as</Resource>
-    <Resource tag="TITLE_MODERATED">Information</Resource>
-    <Resource tag="TITLE_SUSPENDED">Suspended</Resource>
-    <Resource tag="TITLE_REGISTRATION">Thanks</Resource>
-    <Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
-    <Resource tag="TITLE_EXCEPTION">Information</Resource>
+    <Resource tag="MODERATED">Il Moderatore del forum deve approvare il tuo post prima che diventi visibile.</Resource>
+    <Resource tag="SUSPENDED">Il tuo Account è stato temporaneamente sospeso. La sospensione terminerà il {0}.</Resource>
+    <Resource tag="REGISTRATION">Una e-mail ti è stata inviata. Per favore, leggi le istruzioni prima di effettuare il log in.</Resource>
+    <Resource tag="ACCESSDENIED">Stai tentando di accedere ad un'area non consentita per il tuo account.</Resource>
+    <Resource tag="EXCEPTION">Si collegato come </Resource>
+    <Resource tag="TITLE_MODERATED">Informazioni</Resource>
+    <Resource tag="TITLE_SUSPENDED">Sospeso</Resource>
+    <Resource tag="TITLE_REGISTRATION">Grazie</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">Accesso Negato</Resource>
+    <Resource tag="TITLE_EXCEPTION">Informatione</Resource>
   </page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
@@ -522,7 +522,7 @@
 		<Resource tag="YIM">Yahoo Messenger:</Resource>
 		<Resource tag="AIM">AIM-Name:</Resource>
 		<Resource tag="ICQ">ICQ-Number:</Resource>
-		<Resource tag="REALNAME">Real Name:</Resource>
+		<Resource tag="REALNAME">Nome Reale:</Resource>
 		<Resource tag="WEBSITE">Home Page:</Resource>
 		<Resource tag="WEBLOG">Weblog:</Resource>
 		<Resource tag="OCCUPATION">Occupazione:</Resource>
