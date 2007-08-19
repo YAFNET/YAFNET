@@ -144,9 +144,10 @@ namespace YAF.Pages
 				}
 
 				// Ederon : 7/14/2007 - added condition set by board admin
+                // Mek : 08/19/2007 - added condition to stop displaying post to blog for Guest User.
 				// POST TO BLOG
 				if (PageContext.BoardSettings.AllowPostToBlog &&
-					TopicID == null && QuotedTopicID== null && EditTopicID == null)
+                    TopicID == null && QuotedTopicID == null && EditTopicID == null && !PageContext.IsGuest)
 				{
 					// Show post to blog option only to a new post
 					BlogRow.Visible = true;
