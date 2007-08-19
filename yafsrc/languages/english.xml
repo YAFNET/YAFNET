@@ -225,6 +225,9 @@
 		<Resource tag="TIP_MOVE_TOPIC">Move this topic</Resource>
 		<Resource tag="AD_USERNAME">Sponsor</Resource>
 		<Resource tag="AD_SIGNATURE"></Resource>
+		<Resource tag="REPORTPOST">Report as abusive</Resource>
+		<Resource tag="REPORTSPAM">Report as spam</Resource>
+		<Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -622,6 +625,8 @@
 		<Resource tag="TITLE">Moderate</Resource>
 		<Resource tag="FORUM">Forum</Resource>
 		<Resource tag="UNAPPROVED">Unapproved Posts</Resource>
+		<Resource tag="REPORTED">Reported as Abuse Posts</Resource>
+		<Resource tag="REPORTEDSPAM">Reported as Spam Posts</Resource>
 		<Resource tag="CATEGORY">Category</Resource>
 	</page>
 	<page name="MODERATE_FORUM">
@@ -632,6 +637,12 @@
 		<Resource tag="ASK_DELETE">Delete this post?</Resource>
 		<Resource tag="APPROVED">Post approved.</Resource>
 		<Resource tag="DELETED">Post deleted.</Resource>
+		<Resource tag="MODIFIED">Post has been changed!</Resource>
+		<Resource tag="RESOLVE">Resolve Post Copies</Resource>
+		<Resource tag="NUMBERREPORTED">Number of times reported :</Resource>
+		<Resource tag="COPYOVER">Update message text</Resource>
+		<Resource tag="RESOLVED">Mark as resolved</Resource>
+		<Resource tag="RESOLVEDFEEDBACK">Message has been marked as resolved.</Resource>
 	</page>
 	<page name="MOD_FORUMUSER">
 		<Resource tag="TITLE">Forum User</Resource>

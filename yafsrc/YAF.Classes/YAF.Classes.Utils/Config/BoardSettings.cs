@@ -402,6 +402,18 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>("AllowPostToBlog", true); }
 			set { _reg.SetValue<bool>("AllowPostToBlog", value); }
 		}
+        /* Mek : 8/18/2007 */
+        public bool AllowReportAbuse
+        {
+            get { return _reg.GetValue<bool>("AllowReportAbuse", true); }
+            set { _reg.SetValue<bool>("AllowReportAbuse", value); }
+        }
+        public bool AllowReportSpam
+        {
+            get { return _reg.GetValue<bool>("AllowReportSpam", true); }
+            set { _reg.SetValue<bool>("AllowReportSpam", value); }
+        }
+
 		/* 6/16/2007 */
 		/* Ederon : 7/14/2007 */
 		public string UserBox

@@ -1,3 +1,23 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2007 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 using System;
 using System.Data;
 using System.Drawing;
@@ -58,6 +78,14 @@ namespace YAF.Controls
 			Quote.ToolTip = "Reply with quote";
 			Quote.NavigateUrl = yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
+            // report posts
+            ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse; // Mek Addition 08/18/2007
+            ReportButton.Text = PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
+
+            // report spam
+            ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam; // Mek Addition 08/18/2007
+            ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
+
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = PageContext.Theme.GetItem( "BUTTONS", "PM" );
@@ -93,51 +121,53 @@ namespace YAF.Controls
 
 			if ( !PostDeleted )
 			{
-				AdminInfo.InnerHtml = "<span class='smallfont'>";
+				AdminInformation.InnerHtml = "<span class='smallfont'>";
 				if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ).AddSeconds( PageContext.BoardSettings.EditTimeOut ) )
 				{
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = ( Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) ? "by moderator" : "by user";
-					AdminInfo.InnerHtml += String.Format( "|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, yaf_DateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
+					AdminInformation.InnerHtml += String.Format( "|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, yaf_DateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified
-						AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["EditReason"], true ) );
+						AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["EditReason"], true ) );
 					}
 					else
 					{
 						//reason was not specified
-						AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
+						AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
 					}
 				}
 			}
 			else
 			{
-				AdminInfo.InnerHtml = "<span class='smallfont'>";
+				AdminInformation.InnerHtml = "<span class='smallfont'>";
 				if ( Server.HtmlDecode( Convert.ToString( DataRow ["DeleteReason"] ) ) != String.Empty )
 				{
 					// reason was specified
-					AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["DeleteReason"], true ) );
+					AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["DeleteReason"], true ) );
 				}
 				else
 				{
 					//reason was not specified
-					AdminInfo.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
+					AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
 				}
 			}
 
 			// display admin only info
 			if ( PageContext.IsAdmin )
 			{
-				AdminInfo.InnerHtml += String.Format( " |<b> IP:</b> {0}", DataRow ["IP"].ToString() );
+				AdminInformation.InnerHtml += String.Format( " |<b> IP:</b> {0}", DataRow ["IP"].ToString() );
 			}
-			AdminInfo.InnerHtml += "</span>";
+			AdminInformation.InnerHtml += "</span>";
 		}
 
 
 		override protected void OnInit( EventArgs e )
 		{
+            ReportButton.Command += new CommandEventHandler(Report_Command);
+            ReportSpamButton.Command += new CommandEventHandler(Report_Command);
 			this.PreRender += new EventHandler( DisplayPost_PreRender );
 			base.OnInit( e );
 		}
@@ -620,5 +650,22 @@ namespace YAF.Controls
 					break;
 			}
 		}
+
+        // <Summary> Command Button - Report post as Abusive/Spam </Summary>
+        protected void Report_Command(object sender, CommandEventArgs e)
+        {
+            int ReportFlag = 0;
+            switch (e.CommandName)
+            {
+                case "ReportAbuse":
+                    ReportFlag = 7;
+                    break;
+                case "ReportSpam":
+                    ReportFlag = 8;
+                    break;
+            }
+            YAF.Classes.Data.DB.message_report(ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today);
+            PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
+        }
 	}
 }

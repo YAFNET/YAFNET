@@ -130,6 +130,7 @@ namespace YAF.Install
 						{
 							throw new Exception( "No write access to web.config to save configPassword. Please add write access to web.config for ASPNET user." );
 						}
+
 						break;
 					case 1:
 						if ( ConfigurationManager.AppSettings ["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) )

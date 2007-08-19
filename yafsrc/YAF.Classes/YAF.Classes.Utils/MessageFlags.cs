@@ -124,5 +124,24 @@ namespace YAF.Classes.Utils
 			get { return GetBitAsBool( FBitValue, 6 ); }
 			set { FBitValue = SetBitFromBool( FBitValue, 6, value ); }
 		}
+
+        /// <summary>
+        /// This post has been reported as abusive
+        /// </summary>
+        public bool IsReported
+        {
+            get { return GetBitAsBool(FBitValue, 7); }
+            set { FBitValue = SetBitFromBool(FBitValue, 7, value); }
+        }
+
+        /// <summary>
+        /// This post has been reported as spam
+        /// </summary>
+        public bool IsReportedSpam
+        {
+            get { return GetBitAsBool(FBitValue, 8); }
+            set { FBitValue = SetBitFromBool(FBitValue, 8, value); }
+        }
+
 	}
 }

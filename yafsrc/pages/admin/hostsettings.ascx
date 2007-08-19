@@ -7,10 +7,10 @@
 <YAF:adminmenu runat="server" id="Adminmenu1">
 	<table class="content" cellSpacing="1" cellPadding="0" align="center">
 		<tr>
-			<td class="header1" colSpan="2">Forum Settings</td>
+			<td class="header1" colSpan="2">Host Settings</td>
 		</tr>
 		<tr>
-			<td class="header2" align="center" colSpan="2">Forum Setup</td>
+			<td class="header2" align="center" colSpan="2">Host Setup</td>
 		</tr>
 		<tr>
 			<td class="postheader" width="50%"><B>MS SQL Server Version:</B><BR>
@@ -183,10 +183,22 @@
 		</tr>
 		<tr>
 			<td class="postheader"><B>Allow Post to Blog:</B><BR>
-				If checked, post to blog featrue is enabled.</td>
+				If checked, post to blog feature is enabled.</td>
 			<td class="post">
 				<asp:checkbox id="AllowPostToBlog" runat="server"></asp:checkbox></td>
-		</tr>		
+		</tr>
+		<tr>
+			<td class="postheader"><B>Allow "Report Abuse" post:</B><BR>
+				If checked, report feature is enabled.</td>
+			<td class="post">
+				<asp:checkbox id="AllowReportAbuse" runat="server"></asp:checkbox></td>
+		</tr>	
+		<tr>
+			<td class="postheader"><B>Allow "Report Spam" post:</B><BR>
+				If checked, report feature is enabled.</td>
+			<td class="post">
+				<asp:checkbox id="AllowReportSpam" runat="server"></asp:checkbox></td>
+		</tr>					
 		<tr>
 			<td class="postheader"><B>Create NNTP user names:</B><BR>
 				Check to allow users to automatically be created when downloading usenet 

@@ -134,6 +134,26 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Message') and
 	)
 GO
 
+IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReported') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yaf_MessageReported](
+		[MessageID] [int] NOT NULL,
+		[Message] [ntext] NULL,
+		[Resolved] [bit] NULL,
+		[ResolvedBy] [int] NULL,
+		[ResolvedDate] [datetime] NULL
+	)
+GO
+
+IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReportedAudit') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yaf_MessageReportedAudit](
+		[LogID] [int] IDENTITY(1,1) NOT NULL,
+		[UserID] [int] NULL,
+		[MessageID] [int] NULL,
+		[Reported] [datetime] NULL
+		)
+GO
+
+
 if not exists (select 1 from sysobjects where id = object_id(N'yaf_PMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table dbo.yaf_PMessage(
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,

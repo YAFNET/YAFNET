@@ -138,6 +138,10 @@ namespace YAF.Pages.Admin {
 			ShowBadges.Checked = PageContext.BoardSettings.ShowBadges;
 			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
 
+            // Mek : 08/18/2007 Added
+            AllowReportAbuse.Checked = PageContext.BoardSettings.AllowReportAbuse;
+            AllowReportSpam.Checked = PageContext.BoardSettings.AllowReportSpam;
+
 			// Ederon : 7/14/2007 added
 			UserBox.Text = PageContext.BoardSettings.UserBox;
 			UserBoxAvatar.Text = PageContext.BoardSettings.UserBoxAvatar;
@@ -231,6 +235,10 @@ namespace YAF.Pages.Admin {
 			PageContext.BoardSettings.ShowBadges = ShowBadges.Checked;
 			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
 			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
+
+            // Mek : 8/18/2007 added
+            PageContext.BoardSettings.AllowReportAbuse = AllowReportAbuse.Checked;
+            PageContext.BoardSettings.AllowReportSpam = AllowReportSpam.Checked;
 
 			// Ederon : 7/14/2007 added
 			PageContext.BoardSettings.UserBox = UserBox.Text;

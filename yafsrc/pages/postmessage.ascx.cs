@@ -1,5 +1,6 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -209,6 +210,7 @@ namespace YAF.Pages
 			}
 		}
 
+
 		private bool CanEditPostCheck( DataRow message )
 		{
 			bool postLocked = false;
@@ -316,15 +318,15 @@ namespace YAF.Pages
 				string SubjectSave = "";
 				if ( Subject.Enabled ) SubjectSave = Server.HtmlEncode( Subject.Text );
 
+                // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
 				// make message flags
 				MessageFlags tFlags = new MessageFlags();
-
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
-
                 bool isModeratorChanged = (PageContext.PageUserID != OwnerUserId);
                 YAF.Classes.Data.DB.message_update(Request.QueryString["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue, ReasonEditor.Text, isModeratorChanged);
-				topicID = PageContext.PageTopicID;
+
+                topicID = PageContext.PageTopicID;
 				nMessageID = long.Parse( EditTopicID );
 
 				if (PostToBlog.Checked) // Does user wish to edit their blog entry?
@@ -362,6 +364,8 @@ namespace YAF.Pages
 
 				tFlags.IsHTML = Message.UsesHTML;
 				tFlags.IsBBCode = Message.UsesBBCode;
+                // Bypass Approval if Admin or Moderator.
+                tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
 				string subject = Server.HtmlEncode( Subject.Text ),
 					blogPostID = string.Empty;

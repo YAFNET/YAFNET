@@ -106,6 +106,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <Reference Include="YAF, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Reedy\AppData\Local\Microsoft\VisualStudio\8.0\ProjectAssemblies\djkhh23g01\YAF.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="alt.aspx" />
@@ -267,8 +271,10 @@
     <Content Include="pages\logout.ascx" />
     <Content Include="pages\members.ascx" />
     <Content Include="pages\moderate.ascx" />
-    <Content Include="pages\moderate\forum.ascx" />
+    <Content Include="pages\moderate\reportedspam.ascx" />
     <Content Include="pages\moderate\index.ascx" />
+    <Content Include="pages\moderate\reportedposts.ascx" />
+    <Content Include="pages\moderate\unapprovedposts.ascx" />
     <Content Include="pages\mod_forumuser.ascx" />
     <Content Include="pages\movemessage.ascx" />
     <Content Include="pages\movetopic.ascx" />
@@ -1371,12 +1377,12 @@
     <Compile Include="pages\moderate.ascx.designer.cs">
       <DependentUpon>moderate.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\moderate\forum.ascx.cs">
-      <DependentUpon>forum.ascx</DependentUpon>
+    <Compile Include="pages\moderate\reportedspam.ascx.cs">
+      <DependentUpon>reportedspam.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\moderate\forum.ascx.designer.cs">
-      <DependentUpon>forum.ascx</DependentUpon>
+    <Compile Include="pages\moderate\reportedspam.ascx.designer.cs">
+      <DependentUpon>reportedspam.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\moderate\index.ascx.cs">
       <DependentUpon>index.ascx</DependentUpon>
@@ -1384,6 +1390,20 @@
     </Compile>
     <Compile Include="pages\moderate\index.ascx.designer.cs">
       <DependentUpon>index.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\moderate\reportedposts.ascx.cs">
+      <DependentUpon>reportedposts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\moderate\reportedposts.ascx.designer.cs">
+      <DependentUpon>reportedposts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\moderate\unapprovedposts.ascx.cs">
+      <DependentUpon>unapprovedposts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\moderate\unapprovedposts.ascx.designer.cs">
+      <DependentUpon>unapprovedposts.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\mod_forumuser.ascx.cs">
       <DependentUpon>mod_forumuser.ascx</DependentUpon>
@@ -1720,9 +1740,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pages\moderate.ascx.resx">
       <DependentUpon>moderate.ascx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="pages\moderate\forum.ascx.resx">
-      <DependentUpon>forum.ascx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pages\moderate\index.ascx.resx">
       <DependentUpon>index.ascx.cs</DependentUpon>

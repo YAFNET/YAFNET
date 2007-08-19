@@ -246,6 +246,25 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_messa
 DROP PROCEDURE [dbo].[yaf_message_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_listreported]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_listreported]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_report]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_report]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_reportcopyover]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_reportcopyover]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_reportresolve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_reportresolve]
+GO
+
+
+
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yaf_message_save]
 GO
@@ -1607,36 +1626,41 @@ Where ForumID = @ForumID
 end
 GO
 
-create procedure [dbo].[yaf_forum_moderatelist] as begin
-	select
-		CategoryID	= a.CategoryID,
-		CategoryName	= a.Name,
-		ForumID		= b.ForumID,
-		ForumName	= b.Name,
-		MessageCount	= count(d.MessageID)
-	from
-		yaf_Category a,
-		yaf_Forum b,
-		yaf_Topic c,
-		yaf_Message d
-	where
-		b.CategoryID = a.CategoryID and
-		c.ForumID = b.ForumID and
-		d.TopicID = c.TopicID and
-		(d.Flags & 16)=0 and
-		(c.Flags & 8)=0 and
-		(d.Flags & 8)=0
-	group by
-		a.CategoryID,
-		a.Name,
+CREATE PROCEDURE [dbo].[yaf_forum_moderatelist](@BoardID int,@UserID int) AS
+BEGIN
+
+SELECT
+		b.*,
+		MessageCount  = 
+		(SELECT     count(yaf_Message.MessageID)
+		FROM         yaf_Message INNER JOIN
+							  yaf_Topic ON yaf_Message.TopicID = yaf_Topic.TopicID
+		WHERE ((yaf_Message.Flags & 16)=0) and ((yaf_Message.Flags & 8)=0) and ((yaf_Topic.Flags & 8) = 0) AND (yaf_Topic.ForumID=b.ForumID)),
+		ReportCount	= 
+		(SELECT     count(yaf_Message.MessageID)
+		FROM         yaf_Message INNER JOIN
+							  yaf_Topic ON yaf_Message.TopicID = yaf_Topic.TopicID
+		WHERE ((yaf_Message.Flags & 128)=128) and ((yaf_Message.Flags & 8)=0) and ((yaf_Topic.Flags & 8) = 0) AND (yaf_Topic.ForumID=b.ForumID)),
+		SpamCount	= 
+		(SELECT     count(yaf_Message.MessageID)
+		FROM         yaf_Message INNER JOIN
+							  yaf_Topic ON yaf_Message.TopicID = yaf_Topic.TopicID
+		WHERE ((yaf_Message.Flags & 256)=256) and ((yaf_Message.Flags & 8)=0) and ((yaf_Topic.Flags & 8) = 0) AND (yaf_Topic.ForumID=b.ForumID))
+		
+	FROM
+		yaf_Category a
+
+	JOIN yaf_Forum b ON b.CategoryID=a.CategoryID
+	JOIN yaf_vaccess c ON c.ForumID=b.ForumID
+
+	WHERE
+		a.BoardID=@BoardID AND
+		c.ModeratorAccess>0 AND
+		c.UserID=@UserID
+	ORDER BY
 		a.SortOrder,
-		b.ForumID,
-		b.Name,
 		b.SortOrder
-	order by
-		a.SortOrder,
-		b.SortOrder
-end
+END
 GO
 
 create procedure [dbo].[yaf_forum_moderators] as
@@ -2040,8 +2064,9 @@ BEGIN
 		a.Position,
 		a.IsModeratorChanged,
 		a.DeleteReason,
+		a.BlogPostID,
 		c.PollID,
-                a.IP
+        a.IP
 	FROM
 		yaf_Message a,
 		yaf_User b,
@@ -2055,6 +2080,80 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[yaf_message_listreported](@MessageFlag int, @ForumID int) AS
+BEGIN
+	SELECT
+		a.*,
+		OriginalMessage = b.Message,
+		UserName	= IsNull(b.UserName,d.Name),
+		UserID = b.UserID,
+		Posted		= b.Posted,
+		Topic		= c.Topic,
+		NumberOfReports = (SELECT count(LogID) FROM yaf_MessageReportedAudit WHERE yaf_MessageReportedAudit.MessageID = a.MessageID)
+	FROM
+		yaf_MessageReported a
+	INNER JOIN
+		yaf_Message b ON a.MessageID = b.MessageID
+	INNER JOIN
+		yaf_Topic c ON b.TopicID = c.TopicID
+	INNER JOIN
+		yaf_User d ON b.UserID = d.UserID
+	WHERE
+		c.ForumID = @ForumID and
+		(c.Flags & 16)=0 and
+		(b.Flags & 8)=0 and
+		(c.Flags & 8)=0 and
+		(b.Flags & POWER(2,@MessageFlag))=POWER(2,@MessageFlag)
+	ORDER BY
+		b.TopicID DESC, b.Posted DESC
+END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
+BEGIN
+	
+	IF NOT exists(SELECT MessageID from yaf_MessageReportedAudit WHERE MessageID=@MessageID AND UserID=@ReporterID)
+		INSERT INTO yaf_MessageReportedAudit(MessageID,UserID,Reported) VALUES (@MessageID,@ReporterID,@ReportedDate)
+
+	IF NOT exists(SELECT MessageID FROM yaf_MessageReported WHERE MessageID=@MessageID)
+	BEGIN
+		INSERT INTO yaf_MessageReported(MessageID, [Message])
+		SELECT 
+			a.MessageID,
+			a.Message
+		FROM
+			yaf_Message a
+		WHERE
+			a.MessageID = @MessageID
+	END
+
+	-- update yaf_Message
+	UPDATE yaf_Message SET Flags = Flags | POWER(2, @ReportFlag) WHERE MessageID = @MessageID
+
+END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_message_reportresolve](@MessageFlag int, @MessageID int, @UserID int) AS
+BEGIN
+	UPDATE yaf_MessageReported 
+	SET Resolved = 1, ResolvedBy = @UserID, ResolvedDate = GETDATE()
+	WHERE MessageID = @MessageID;
+	
+	/* Remove Flag */
+	UPDATE yaf_Message
+	SET Flags = Flags & (~POWER(2, @MessageFlag))
+	WHERE MessageID = @MessageID;
+END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_message_reportcopyover](@MessageID int) AS
+BEGIN
+	UPDATE yaf_MessageReported 
+	SET yaf_MessageReported.Message = (SELECT Message FROM yaf_Message WHERE yaf_Message.MessageID=@MessageID)
+	WHERE MessageID = @MessageID;
+
+END
+GO
 
 CREATE procedure [dbo].[yaf_message_save](
 	@TopicID		int,
@@ -2126,7 +2225,7 @@ BEGIN
 
 	SET @MessageID = SCOPE_IDENTITY()
 
-	IF (@ForumFlags & 8) = 0
+	IF ((@ForumFlags & 8) = 0) OR ((@Flags & 16) = 16)
 		EXEC yaf_message_approve @MessageID
 END
 	
