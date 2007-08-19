@@ -3385,15 +3385,16 @@ CREATE PROCEDURE [dbo].[yaf_topic_latest]
 )
 AS
 BEGIN
-
-	DECLARE @SQL nvarchar(500)
-
-	SET @SQL = 'SELECT DISTINCT TOP ' + convert(varchar, @NumPosts) + ' t.Topic, t.LastPosted, t.TopicID, t.LastMessageID FROM'
-	SET @SQL = @SQL + ' yaf_Topic t INNER JOIN yaf_Category c INNER JOIN yaf_Forum f ON c.CategoryID = f.CategoryID ON t.ForumID = f.ForumID'
-	SET @SQL = @SQL + ' join yaf_vaccess v on v.ForumID=f.ForumID'
-	SET @SQL = @SQL + ' WHERE c.BoardID = ' + convert(varchar, @BoardID) + ' AND v.UserID=' + convert(varchar,@UserID) + ' AND (v.ReadAccess <> 0 or (f.Flags & 2) = 0) AND (t.Flags & 8) != 8 ORDER BY t.LastPosted DESC'
-
-	EXEC(@SQL)	
+	SET ROWCOUNT @NumPosts
+	
+	SELECT t.LastPosted, t.TopicID, t.LastMessageID FROM yaf_Topic t
+	INNER JOIN yaf_Category c
+	INNER JOIN yaf_Forum f
+	ON c.CategoryID = f.CategoryID
+	ON t.ForumID = f.ForumID
+	JOIN yaf_vaccess v
+	ON v.ForumID=f.ForumID
+	WHERE c.BoardID = @BoardID AND v.UserID=@UserID AND (v.ReadAccess <> 0) AND (t.Flags & 8) = 0 ORDER BY t.LastPosted DESC;
 
 END
 GO
