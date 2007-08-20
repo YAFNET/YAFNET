@@ -106,10 +106,6 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <Reference Include="YAF, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Reedy\AppData\Local\Microsoft\VisualStudio\8.0\ProjectAssemblies\djkhh23g01\YAF.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="alt.aspx" />
