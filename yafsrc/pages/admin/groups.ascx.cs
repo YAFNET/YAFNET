@@ -31,86 +31,89 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for groups.
-	/// </summary>
-	public partial class groups : YAF.Classes.Base.AdminPage
-	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Groups","");
+  /// <summary>
+  /// Summary description for groups.
+  /// </summary>
+  public partial class groups : YAF.Classes.Base.AdminPage
+  {
 
-				BindData();
-			}
-		}
+    protected void Page_Load( object sender, System.EventArgs e )
+    {
+      if ( !IsPostBack )
+      {
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+        PageLinks.AddLink( "Roles", "" );
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.GroupList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.GroupList_ItemCommand);
+        // sync roles just in case...
+        YAF.Classes.Utils.Security.SyncRoles( YAF.Classes.Utils.yaf_Context.Current.PageBoardID );
 
-		}
-		#endregion
+        BindData();
+      }
+    }
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this group?')";
-		}
+    #region Web Form Designer generated code
+    override protected void OnInit( EventArgs e )
+    {
+      //
+      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+      //
+      InitializeComponent();
+      base.OnInit( e );
+    }
 
-		private void BindData() 
-		{
-			GroupList.DataSource = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID,null);
-			DataBind();
-		}
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
+    {
+      this.GroupList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler( this.GroupList_ItemCommand );
 
-		private void GroupList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-		{
-			switch(e.CommandName) 
-			{
-				case "edit":
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup,"i={0}",e.CommandArgument);
-					break;
-				case "delete":
-                    string roleName = string.Empty;
-                    using (DataTable dt = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID, e.CommandArgument))
-                    {
-                        foreach (DataRow row in dt.Rows)
-                            roleName = (string)row["Name"];
-                    }
-					YAF.Classes.Data.DB.group_delete(e.CommandArgument);
-					BindData();
-                    System.Web.Security.Roles.DeleteRole(roleName,false);
-					break;
-			}
-		}
+    }
+    #endregion
 
-		protected void NewGroup_Click(object sender, System.EventArgs e)
-		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup);
-		}
+    protected void Delete_Load( object sender, System.EventArgs e )
+    {
+      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this Role?')";
+    }
 
-		protected bool BitSet(object _o,int bitmask) 
-		{
-			int i = (int)_o;
-			return (i & bitmask)!=0;
-		}
-	}
+    private void BindData()
+    {
+      GroupList.DataSource = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null );
+      DataBind();
+    }
+
+    private void GroupList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+    {
+      switch ( e.CommandName )
+      {
+        case "edit":
+          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", e.CommandArgument );
+          break;
+        case "delete":
+          string roleName = string.Empty;
+          using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, e.CommandArgument ) )
+          {
+            foreach ( DataRow row in dt.Rows )
+              roleName = ( string ) row ["Name"];
+          }
+          YAF.Classes.Data.DB.group_delete( e.CommandArgument );
+          BindData();
+          System.Web.Security.Roles.DeleteRole( roleName, false );
+          break;
+      }
+    }
+
+    protected void NewGroup_Click( object sender, System.EventArgs e )
+    {
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup );
+    }
+
+    protected bool BitSet( object _o, int bitmask )
+    {
+      int i = ( int ) _o;
+      return ( i & bitmask ) != 0;
+    }
+  }
 }
