@@ -22,8 +22,6 @@
           <td class="header2">
             Is Moderator</td>
           <td class="header2">
-            Is Anonymous</td>
-          <td class="header2">
             &nbsp;</td>
         </tr>
       </HeaderTemplate>
@@ -41,9 +39,6 @@
           <td class="post">
             <%# BitSet(Eval( "Flags"),8) %>
           </td>
-         <td class="post">
-            <%# BitSet(Eval( "Flags"),16) %>
-          </td>          
           <td class="post">
             <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
             |
