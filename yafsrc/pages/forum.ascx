@@ -4,7 +4,9 @@
 <%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
+
 <div id="Welcome" runat="server">
     <div id="divTimeNow">
         <asp:Label ID="TimeNow" runat="server" /></div>
@@ -14,7 +16,8 @@
         <asp:HyperLink runat="server" ID="UnreadMsgs" Visible="false" /></div>
 </div>
 <br />
-<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand" OnItemDataBound="CategoryList_ItemDataBound">
+<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand"
+    OnItemDataBound="CategoryList_ItemDataBound">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
             <tr>
@@ -37,7 +40,8 @@
     <ItemTemplate>
         <tr>
             <td class="header2" colspan="5">
-                <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline" CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
+                <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline"
+                    CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
                 </asp:ImageButton>
                 &nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
                     <%# DataBinder.Eval(Container.DataItem, "Name") %>
@@ -57,7 +61,8 @@
             <table class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
                     <td class="header1" colspan="2">
-                        <asp:ImageButton runat="server" ID="expandInformation" BorderWidth="0" ImageAlign="Baseline" OnClick="expandInformation_Click" />&nbsp;&nbsp;<%= GetText("INFORMATION") %></td>
+                        <asp:ImageButton runat="server" ID="expandInformation" BorderWidth="0" ImageAlign="Baseline"
+                            OnClick="expandInformation_Click" />&nbsp;&nbsp;<%= GetText("INFORMATION") %></td>
                 </tr>
                 <tbody id="InformationTBody" runat="server">
                     <tr>
@@ -102,7 +107,8 @@
             <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
                     <td class="header1" colspan="2">
-                        <asp:ImageButton runat="server" ID="expandActiveDiscussions" BorderWidth="0" ImageAlign="Baseline" OnClick="expandActiveDiscussions_Click" />&nbsp;&nbsp;<%= GetText("ACTIVE_DISCUSSIONS") %></td>
+                        <asp:ImageButton runat="server" ID="expandActiveDiscussions" BorderWidth="0" ImageAlign="Baseline"
+                            OnClick="expandActiveDiscussions_Click" />&nbsp;&nbsp;<%= GetText("ACTIVE_DISCUSSIONS") %></td>
                 </tr>
                 <tbody id="ActiveDiscussionTBody" runat="server">
                     <tr>

@@ -8,9 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    public partial class forum {
+namespace YAF.Pages
+{
+
+    public partial class forum
+    {
         protected YAF.Controls.PageLinks PageLinks;
         protected System.Web.UI.HtmlControls.HtmlGenericControl Welcome;
         protected System.Web.UI.WebControls.Label TimeNow;
