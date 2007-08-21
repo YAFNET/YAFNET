@@ -288,6 +288,7 @@
     <Content Include="pages\topics.ascx" />
     <Content Include="templates\changeemail.txt" />
     <Content Include="templates\emailtopic.txt" />
+    <Content Include="templates\passwordretrieval.txt" />
     <Content Include="templates\pmnotification.txt" />
     <Content Include="templates\topicpost.txt" />
     <Content Include="templates\verifyemail.txt" />
