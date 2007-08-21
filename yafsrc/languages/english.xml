@@ -55,6 +55,7 @@
 		<Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
 		<Resource tag="BACK">Back</Resource>
 		<Resource tag="UPDATE">Update</Resource>
+		<Resource tag="SUBMIT">Submit</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
@@ -432,7 +433,7 @@
 		<Resource tag="TITLE">Login</Resource>
 		<Resource tag="USERNAME">User Name:</Resource>
 		<Resource tag="PASSWORD">Password:</Resource>
-		<Resource tag="AUTO">Auto Login:</Resource>
+		<Resource tag="AUTO">Remember Me</Resource>
 		<Resource tag="LOSTPASSWORD">Lost Password</Resource>
 		<Resource tag="FORUM_LOGIN">Forum Login</Resource>
 		<Resource tag="EMAIL">Email Address</Resource>
@@ -444,6 +445,67 @@
 		<Resource tag="BOTH_USERNAME_EMAIL">Both user name and email address must be entered.</Resource>
 		<Resource tag="RECOVER_ERROR">There was an error when creating your new password.</Resource>
 	</page>
+	<page name="RECOVER_PASSWORD">
+		<Resource tag="TITLE">Lost Password</Resource>
+		<Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
+		<Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
+		<Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
+		<Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+		<Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+		<Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+		<Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
+		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">Register New User</Resource>
+		<Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+		<Resource tag="DETAILS">Registration Details</Resource>
+		<Resource tag="USERNAME">User Name</Resource>
+		<Resource tag="NEED_USERNAME">User Name is required.</Resource>
+		<Resource tag="PASSWORD">Password</Resource>
+		<Resource tag="NEED_PASSWORD">Password is required.</Resource>
+		<Resource tag="NEED_QUESTION">Security question is required.</Resource>
+		<Resource tag="NEED_ANSWER">Security answer is required.</Resource>
+		<Resource tag="RETYPE_PASSWORD">Confirmed password is required.</Resource>
+		<Resource tag="NEED_EMAIL">E-mail is required.</Resource>
+		<Resource tag="NEED_MATCH">Passwords didn't match.</Resource>
+		<Resource tag="EMAIL">Email Address</Resource>
+		<Resource tag="PROFILE">Profile Information</Resource>
+		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="HOMEPAGE">Home Page</Resource>
+		<Resource tag="PREFERENCES">Forum Preferences</Resource>
+		<Resource tag="TIMEZONE">Time Zone</Resource>
+		<Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
+		<Resource tag="BAD_PASSWORD">Please pick a more complex password that includes puncuation (!?) or numbers.</Resource>
+		<Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
+		<Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
+		<Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
+		<Resource tag="REGISTER">Register</Resource>
+		<Resource tag="CONFIRM_PASSWORD">Confirm Password</Resource>
+		<Resource tag="SECURITY_QUESTION">Security Question</Resource>
+		<Resource tag="SECURITY_ANSWER">Security Answer</Resource>
+		<Resource tag="CREATE_USER">Create User</Resource>
+		<Resource tag="CONTINUE">Continue</Resource>
+		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
+		<Resource tag="TERMSANDCONDITIONS_AGREE">I agree to these Terms and Conditions</Resource>
+		<Resource tag="TERMSANDCONDITIONS_DISAGREE">I do not agree to these Terms and Conditions</Resource>
+		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
+		<Resource tag="TERMS_AND_CONDITIONS" bbcode="true">[size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+
+			You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+			You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+			This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+			You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+			[center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+		</Resource>
+		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]Your account has been successfully created.[/center]</Resource>
+		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+	</page>	
 	<page name="MEMBERS">
 		<!-- members.aspx -->
 		<Resource tag="TITLE">Members</Resource>
@@ -580,26 +642,6 @@
 		<Resource tag="ERROR_ADMINISTRATORS">You can not suspend administrators.</Resource>
 		<Resource tag="ERROR_FORUMMODERATORS">You can not suspend forum moderators.</Resource>
 		<Resource tag="ERROR_GUESTACCOUNT">You can not suspend the guest account.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">Register New User</Resource>
-		<Resource tag="DETAILS">Registration Details</Resource>
-		<Resource tag="USERNAME">User Name</Resource>
-		<Resource tag="NEED_USERNAME">User Name is required.</Resource>
-		<Resource tag="PASSWORD">Password</Resource>
-		<Resource tag="NEED_PASSWORD">Password is required.</Resource>
-		<Resource tag="RETYPE_PASSWORD">Retype Password</Resource>
-		<Resource tag="NEED_MATCH">Passwords didn't match.</Resource>
-		<Resource tag="EMAIL">Email Address</Resource>
-		<Resource tag="PROFILE">Profile Information</Resource>
-		<Resource tag="LOCATION">Location</Resource>
-		<Resource tag="HOMEPAGE">Home Page</Resource>
-		<Resource tag="PREFERENCES">Forum Preferences</Resource>
-		<Resource tag="TIMEZONE">Time Zone</Resource>
-		<Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
-		<Resource tag="REGISTER">Register</Resource>
-		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
 	</page>
 	<page name="SEARCH">
 		<!-- search.aspx -->
