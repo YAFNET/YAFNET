@@ -126,20 +126,23 @@ namespace YAF.Classes.Utils
 			return m_localizer.LanguageCode;
 		}
 
-		public string GetText( string page, string text )
+		public string GetText( string page, string tag )
 		{
 			LoadTranslation();
+      string localizedText;
 
-			string str = m_localizer.GetText( page, text );
+      m_localizer.SetPage( page );
+			m_localizer.GetText( tag, out localizedText );
 
 			// If not default language, try to use that instead
-			if ( str == null && m_defaultLocale != null )
+			if ( localizedText == null && m_defaultLocale != null )
 			{
-				str = m_defaultLocale.GetText( page, text );
-				if ( str != null ) str = '[' + str + ']';
+        m_defaultLocale.SetPage( page );
+        m_defaultLocale.GetText( tag, out localizedText );
+				if ( localizedText != null ) localizedText = '[' + localizedText + ']';
 			}
 
-			if ( str == null )
+			if ( localizedText == null )
 			{
 #if !DEBUG
 				string filename = null;
@@ -154,13 +157,13 @@ namespace YAF.Classes.Utils
 
 				HttpContext.Current.Cache.Remove("Localizer." + filename);
 #endif
-				YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", text.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
-				return String.Format( "[{1}.{0}]", text.ToUpper(), page.ToUpper() ); ;
+				YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+				return String.Format( "[{1}.{0}]", tag.ToUpper(), page.ToUpper() ); ;
 			}
 
-			str = str.Replace( "[b]", "<b>" );
-			str = str.Replace( "[/b]", "</b>" );
-			return str;
+			localizedText = localizedText.Replace( "[b]", "<b>" );
+			localizedText = localizedText.Replace( "[/b]", "</b>" );
+			return localizedText;
 		}
 	}
 }

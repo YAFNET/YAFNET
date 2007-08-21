@@ -92,46 +92,52 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public string GetText( string text )
+		public void GetText( string tag, out string localizedText )
 		{
-			text = text.ToUpper(new System.Globalization.CultureInfo("en"));
-			if( _doc == null )
-				return "";
+      // default the out parameters
+      localizedText = "";
+      XmlNode el = null;
 
-			XmlNode el = null;
+      // verify that a document is loaded
+      if ( _doc == null )
+        return;
+
+      tag = tag.ToUpper(new System.Globalization.CultureInfo("en"));			
 
 #if DEBUG
 			if( _pagePointer == null )
-				throw new Exception("Missing page pointer: " + text);
+				throw new Exception("Missing page pointer: " + tag);
 #endif
 
 			if( _pagePointer != null )
 			{
-				el = _pagePointer.SelectSingleNode( string.Format("Resource[@tag='{0}']", text ) );
+				el = _pagePointer.SelectSingleNode( string.Format("Resource[@tag='{0}']", tag ) );
 				// if in page subnode the text doesn't exist, try in whole file
 				if( el == null )
-					el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", text ) );
+					el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", tag ) );
 			}
 			else
 			{
-				el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", text ) );
+				el = _doc.SelectSingleNode( string.Format("//Resource[@tag='{0}']", tag ) );
 			}
 
 			if( el != null )
 			{
-				return el.InnerText;
+        localizedText = el.InnerText;
 			}
 			else
 			{
 				//YAF.Classes.Data.YAF.Classes.Data.DB.eventlog_create(null,"Localizer: GetText",String.Format("Missing Language Item \"{0}\"",text),EventLogTypes.Warning);
-				return null;
+        localizedText = null;
 			}
 		}
 
-		public string GetText( string page, string text )
+		public string GetText( string page, string tag )
 		{
 			SetPage( page );
-			return GetText( text );
+      string text;
+		  GetText( tag, out text );
+      return text;
 		}
 
 		public string LanguageCode 

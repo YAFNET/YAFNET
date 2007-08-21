@@ -81,9 +81,9 @@ namespace YAF.Classes.Utils
 		public void AddAdminMessage( string errorType, string errorMessage )
 		{
 			_adminLoadString = string.Format( "<div style=\"margin: 2%; padding: 7px; border: 3px Solid Red; background-color: #ccc;\"><h1>{0}</h1>{1}</div>", errorType, errorMessage );
-		}		
+		}
 
-		public void ResetLoadStrings( )
+		public void ResetLoadStrings()
 		{
 			_loadString = "";
 			_adminLoadString = "";
@@ -165,7 +165,7 @@ namespace YAF.Classes.Utils
 			{
 				_user = value;
 			}
-		}	
+		}
 
 		public yaf_BoardSettings BoardSettings
 		{
@@ -190,6 +190,33 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Helper function to get a profile from the system
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <returns></returns>
+		public YAF_UserProfile GetProfile( string userName )
+		{
+			//string key = "userProfileCache--" + userName;
+			// see if it's cached already
+      System.Web.Profile.ProfileInfoCollection collection = System.Web.Profile.ProfileManager.FindProfilesByUserName(System.Web.Profile.ProfileAuthenticationOption.Authenticated, userName);
+      YAF_UserProfile profile = null;
+
+      if (collection.Count > 0)
+      {
+        profile = ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
+      }
+
+      //if ( profile == null )
+      //{
+      //  // doesn't exist...
+      //  profile = ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
+      //  HttpContext.Current.Cache.Add(key,profile,null,DateTime.Now.AddMinutes(30),TimeSpan.Zero,System.Web.Caching.CacheItemPriority.Default,null);
+      //}
+
+			return profile;
+		}
+
+		/// <summary>
 		/// Helper function to see if the Page variable is populated
 		/// </summary>
 		public bool PageIsNull()
@@ -207,7 +234,7 @@ namespace YAF.Classes.Utils
 		private bool AccessNotNull( string field )
 		{
 			if ( Page [field] == DBNull.Value ) return false;
-			return ( Convert.ToInt32( Page [field] ) > 0 );			
+			return ( Convert.ToInt32( Page [field] ) > 0 );
 		}
 
 		/// <summary>
@@ -218,7 +245,7 @@ namespace YAF.Classes.Utils
 		private bool PageValueAsBool( string field )
 		{
 			if ( Page != null && Page [field] != DBNull.Value )
-				return Convert.ToInt32(Page[field]) != 0;
+				return Convert.ToInt32( Page [field] ) != 0;
 
 			return false;
 		}
@@ -244,7 +271,7 @@ namespace YAF.Classes.Utils
 		private string PageValueAsString( string field )
 		{
 			if ( Page != null && Page [field] != DBNull.Value )
-				return Page [field].ToString() ;
+				return Page [field].ToString();
 
 			return "";
 		}
@@ -258,7 +285,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return AccessNotNull("PostAccess");
+				return AccessNotNull( "PostAccess" );
 			}
 		}
 		/// <summary>
@@ -464,7 +491,7 @@ namespace YAF.Classes.Utils
 
 				if ( Page != null )
 				{
-					if ( ( Convert.ToInt32(Page["UserFlags"]) & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
+					if ( ( Convert.ToInt32( Page ["UserFlags"] ) & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
 						isHostAdmin = true;
 				}
 
@@ -482,7 +509,7 @@ namespace YAF.Classes.Utils
 				if ( IsHostAdmin )
 					return true;
 
-				return PageValueAsBool( "IsAdmin" ); 
+				return PageValueAsBool( "IsAdmin" );
 			}
 		}
 		/// <summary>
@@ -551,7 +578,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return Convert.ToInt32(Page["Incoming"]);
+				return Convert.ToInt32( Page ["Incoming"] );
 			}
 		}
 

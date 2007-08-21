@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching.cs" />
     <Compile Include="Config\BoardSettings.cs" />
     <Compile Include="Config\ForumPages.cs" />
     <Compile Include="Constants.cs" />
