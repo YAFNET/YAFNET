@@ -14,7 +14,19 @@ namespace YAF
 
 		protected void Application_Start( object sender, EventArgs e )
 		{
-			// TODO: start e-mailing thread...
+      int boardID;
+
+      try
+      {
+        boardID = int.Parse( YAF.Classes.Config.BoardID );
+      }
+      catch
+      {
+        boardID = 1;
+      }
+
+			// start by syncing roles to groups
+      YAF.Classes.Utils.Security.SyncRoles( boardID );
 		}
 
 		protected void Application_End( object sender, EventArgs e )
