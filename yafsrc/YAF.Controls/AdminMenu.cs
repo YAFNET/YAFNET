@@ -50,13 +50,13 @@ namespace YAF.Controls
 			string [,] groupsAndUsersLinks =
 			{
 				{"Access Masks",yaf_BuildLink.GetLink( ForumPages.admin_accessmasks)},
-				{"Groups (Roles)",yaf_BuildLink.GetLink( ForumPages.admin_groups)},
+				{"Roles",yaf_BuildLink.GetLink( ForumPages.admin_groups)},
 				{"Users",yaf_BuildLink.GetLink( ForumPages.admin_users)},
 				{"Ranks",yaf_BuildLink.GetLink( ForumPages.admin_ranks)},
 				{"Mail",yaf_BuildLink.GetLink( ForumPages.admin_mail)}
 			};
 
-			writer.Write(createMenu( "Groups and Users", "header2", "post", ref groupsAndUsersLinks ));
+			writer.Write(createMenu( "Users and Roles", "header2", "post", ref groupsAndUsersLinks ));
 
 			// create maintenance menu...
 			string [,] maintenanceLinks =
