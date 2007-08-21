@@ -13,23 +13,79 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages // YAF.Pages
 {
-	public partial class recoverpassword : YAF.Classes.Base.ForumPage
-	{
-		public recoverpassword()
-			: base( "RECOVERPASSWORD" )
-		{
-		}
+  public partial class recoverpassword : YAF.Classes.Base.ForumPage
+  {
+    public recoverpassword()
+      : base( "RECOVER_PASSWORD" )
+    {
+    }
 
-		protected void Page_Load( object sender, EventArgs e )
-        {
-            if (!CanLogin)
-                YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
+    protected void Page_Load( object sender, EventArgs e )
+    {
+      if ( !CanLogin )
+        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
-            if (!IsPostBack)
-            {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-								PageLinks.AddLink( GetText( "title" ) );
-            }
-        }
-	}
+      if ( !IsPostBack )
+      {
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( GetText( "TITLE" ) );
+
+        // handle localization
+        RequiredFieldValidator usernameRequired = ( RequiredFieldValidator ) PasswordRecovery1.UserNameTemplateContainer.FindControl( "UserNameRequired" );
+        RequiredFieldValidator answerRequired = ( RequiredFieldValidator ) PasswordRecovery1.QuestionTemplateContainer.FindControl( "AnswerRequired" );
+
+        usernameRequired.ToolTip = usernameRequired.ErrorMessage = GetText( "REGISTER", "NEED_USERNAME" );
+        answerRequired.ToolTip = answerRequired.ErrorMessage = GetText( "REGISTER", "NEED_ANSWER" );
+
+        ( ( Button ) PasswordRecovery1.UserNameTemplateContainer.FindControl( "SubmitButton" ) ).Text = GetText( "SUBMIT" );
+        ( ( Button ) PasswordRecovery1.QuestionTemplateContainer.FindControl( "SubmitButton" ) ).Text = GetText( "SUBMIT" );
+        ( ( Button ) PasswordRecovery1.SuccessTemplateContainer.FindControl( "SubmitButton" ) ).Text = GetText( "BACK" );
+
+        PasswordRecovery1.UserNameFailureText = GetText( "USERNAME_FAILURE" );
+        PasswordRecovery1.GeneralFailureText = GetText( "GENERAL_FAILURE" );
+        PasswordRecovery1.QuestionFailureText = GetText( "QUESTION_FAILURE" );
+
+        DataBind();
+      }
+    }
+
+    protected void SubmitButton_Click( object sender, EventArgs e )
+    {
+      yaf_BuildLink.Redirect( ForumPages.login );
+    }
+
+    protected void PasswordRecovery1_SendingMail( object sender, MailMessageEventArgs e )
+    {
+      // we are going to handle the sending of this e-mail
+      e.Cancel = true;
+
+      // get the username and password from the body
+      string body = e.Message.Body;
+
+      // remove first line...
+      body = body.Remove( 0, body.IndexOf( '\n' ) + 1 );
+      // remove "Username: "
+      body = body.Remove( 0, body.IndexOf( ": " ) + 2 );
+      // get first line which is the username
+      string userName = body.Substring( 0, body.IndexOf( '\n' ) );
+      // delete that same line...
+      body = body.Remove( 0, body.IndexOf( '\n' ) + 1 );
+      // remove the "Password: " part
+      body = body.Remove( 0, body.IndexOf( ": " ) + 2 );
+      // the rest is the password...
+      string password = body.Substring( 0, body.IndexOf( '\n' ) );
+      
+      // get the e-mail ready from the real template.
+      body = General.ReadTemplate( "passwordretrieval.txt" );
+      string subject = String.Format( GetText( "PASSWORDRETRIEVAL_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+
+      body = body.Replace( "{username}", userName );
+      body = body.Replace( "{password}", password );
+      body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
+      body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
+
+      General.SendMail( new System.Net.Mail.MailAddress( PageContext.BoardSettings.ForumEmail, PageContext.BoardSettings.Name ),
+                        e.Message.To[0], subject, body );
+    }
+  }
 }

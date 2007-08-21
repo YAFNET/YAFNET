@@ -6,43 +6,20 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree" StartNextButtonType="Link"
-        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnCreatingUser="CreateUserWizard1_CreatingUser" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser">
+        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnCreatingUser="CreateUserWizard1_CreatingUser" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick">
         <WizardSteps>
             <asp:TemplatedWizardStep runat="server" Title="Agreement" AllowReturn="False" ID="agreement">
                 <ContentTemplate>
-                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
                         <tr>
-                            <td class="header1" colspan="2" style="height: 19px">
-                                Terms and Conditions:</td>
+                            <td class="header1" colspan="2" align="center">
+                                <%# GetText("TERMS_AND_CONDITIONS_TITLE") %></td>
                         </tr>
                         <tr>
-                            <td class="post" colspan="2">
-                                <p>
-                                    It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum.
-                                    Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that
-                                    a posted message is questionable, is encouraged to notify an administrator of this forum immediately.</p>                            
-                                <p>
-                                    You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material
-                                    that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum.
-                                    Note that all IP address are logged and may aid in enforcing these conditions.</p>
-                                <p>
-                                    You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic
-                                    at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While
-                                    this information will not be disclosed to any third party without your consent the owners and operators cannot
-                                    be held responsible for any hacking attempt that may lead to the data being compromised.</p>
-                                <p>
-                                    This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information
-                                    you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your
-                                    registration details and password (and for sending new passwords should you forget your current one).</p>
-                                <p>
-                                    You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule
-                                    you would be granting us permission to repeatedly query your web server.</p>
-                                <p>
-                                    By clicking "Agree" below you will to be bound by the terms and conditions for using this forum</p>
-                                 
+                            <td class="post" colspan="2"><asp:Literal ID="TermsAndConditions" runat="server" Text="" />
                                 <p align="center">
-                                <asp:LinkButton ID="AgreeLink" runat="server" Text="Agree" CommandName="MoveNext"/><br /><br />
-                                <asp:LinkButton ID="DisagreeLink" runat="server" Text="Disagree" CommandName="MovePrevious"/>
+                                  <asp:LinkButton ID="AgreeLink" runat="server" Text="Agree" CommandName="MoveNext"/><br /><br />
+                                  <asp:LinkButton ID="DisagreeLink" runat="server" Text="Disagree" CommandName="MovePrevious"/>
                                 </p>
                             </td>
                         </tr>
@@ -54,7 +31,7 @@
             </asp:TemplatedWizardStep>
             <asp:CreateUserWizardStep runat="server">
                 <ContentTemplate>
-                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
                         <tr>
                             <td align="center" class="header1" colspan="2"><%# GetText("TITLE") %></td>
                         </tr>
@@ -132,9 +109,9 @@
             </asp:CreateUserWizardStep>
             <asp:TemplatedWizardStep runat="server" Title="Profile Information" ID="profile">
                 <ContentTemplate>
-                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
                         <tr>
-                            <td align="center" class="header1" colspan="2"><%# GetText( "PROFILE" )%></td>
+                            <td align="center" class="header1" colspan="2"><%# GetText( "TITLE" )%></td>
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
@@ -169,22 +146,22 @@
                 </CustomNavigationTemplate>
             </asp:TemplatedWizardStep>
             <asp:CompleteWizardStep runat="server">
-                <ContentTemplate>
-                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+              <ContentTemplate>
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
                         <tr>
-                            <td align="center" class="header1" colspan="2"><%# GetText("TITLE") %></td>
-                        </tr>                
-                        <tr>
-                            <td align="center" colspan="2" class="post">
-                                Your account has been successfully created.</td>
+                            <td align="center" class="header1" colspan="2"><%# GetText( "PROFILE" )%></td>
                         </tr>
-                        <tr>
-                            <td align="right" colspan="2" class="postfooter">
-                                <asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Finish" Text="Continue" ValidationGroup="CreateUserWizard1" />
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
+                    <tr>
+                      <td class="post"><asp:Literal ID="AccountCreated" runat="server" Text="" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right" class="postfooter">
+                        <asp:Button ID="ContinueButton" runat="server" CausesValidation="False" CommandName="Continue"
+                          Text="Continue" ValidationGroup="CreateUserWizard1" />
+                      </td>
+                    </tr>
+                  </table>
+              </ContentTemplate>
             </asp:CompleteWizardStep>
         </WizardSteps>
     </asp:CreateUserWizard>

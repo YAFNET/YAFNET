@@ -79,6 +79,11 @@ namespace YAF.Pages // YAF.Pages
 				( ( LinkButton ) FindWizardControl( "AgreeLink" ) ).Text = GetText( "TERMSANDCONDITIONS_AGREE" );
 				( ( LinkButton ) FindWizardControl( "DisagreeLink" ) ).Text = GetText( "TERMSANDCONDITIONS_DISAGREE" );
 				( ( Button ) FindWizardControl( "ProfileNextButton" ) ).Text = GetText( "SAVE" );
+        ( ( Button ) FindWizardControl( "ContinueButton" ) ).Text = GetText( "CONTINUE" );
+
+        // agreement terms and conditions
+        ( ( Literal ) FindWizardControl( "TermsAndConditions" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "TERMS_AND_CONDITIONS" ), true );
+
 				// get the time zone data source
 				DropDownList timeZones = ( ( DropDownList ) FindWizardControl( "TimeZones" ) );
 				timeZones.DataSource = yaf_StaticData.TimeZones();
@@ -88,11 +93,15 @@ namespace YAF.Pages // YAF.Pages
 					// automatically log in created users
 					CreateUserWizard1.LoginCreatedUser = true;
 					CreateUserWizard1.DisableCreatedUser = false;
+          // success notification localization
+          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED" ), true );
 				}
 				else
 				{
 					CreateUserWizard1.LoginCreatedUser = false;
 					CreateUserWizard1.DisableCreatedUser = true;
+          // success notification localization
+          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED_VERIFICATION" ), true );
 				}
 
 				CreateUserWizard1.FinishDestinationPageUrl = yaf_ForumInfo.ForumURL;
@@ -127,10 +136,7 @@ namespace YAF.Pages // YAF.Pages
 				for ( int j = 0; j <
 				CreateUserWizard1.WizardSteps [i].Controls.Count; j++ )
 				{
-					ctrlRtn =
-					FindWizardControl(
-
-					( Control ) CreateUserWizard1.WizardSteps [i].Controls [j], id );
+					ctrlRtn =	FindWizardControl( ( Control ) CreateUserWizard1.WizardSteps [i].Controls [j], id );
 					if ( ctrlRtn != null ) break;
 				}
 				if ( ctrlRtn != null ) break;
@@ -179,13 +185,18 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_NextButtonClick( object sender, WizardNavigationEventArgs e )
 		{
-			Trace.Write( "Next Button Click" );
 			// if they clicked declined, redirect to the main page
 			if ( e.CurrentStepIndex == 2 )
 			{
-				
+
 			}
 		}
+
+    protected void CreateUserWizard1_ContinueButtonClick( object sender, EventArgs e )
+    {
+      // redirect to the main forum URL
+      yaf_BuildLink.Redirect( ForumPages.forum );
+    }
 
 		protected void CreateUserWizard1_CreateUserError( object sender, CreateUserErrorEventArgs e )
 		{
@@ -233,7 +244,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_CreatingUser( object sender, LoginCancelEventArgs e )
 		{
-			Trace.Write( "Creating User" );
 			if ( PageContext.BoardSettings.EmailVerification )
 			{
 				// get the user email
@@ -257,11 +267,8 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_CreatedUser( object sender, EventArgs e )
 		{
-			Trace.Write( "*Created User" );
-
-			MembershipUser user = Membership.GetUser();
-
-			if ( user != null ) Trace.Write( "User = " + user.UserName );
+      // setup new user roles for this user
+      YAF.Classes.Utils.Security.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
 		}
 	}
 }

@@ -7,23 +7,23 @@
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
 <div align="center">
-<asp:PasswordRecovery ID="PasswordRecovery1" runat="server">
+<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail">
     <UserNameTemplate>
         <table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse">
             <tr>
                 <td>
                     <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
                         <tr>
-                            <td align="center" colspan="2" class="header1">
-                                Forgot Your Password?</td>
+                            <td colspan="2" align="center" class="header1">
+                                <%# GetText("TITLE") %></td>
                         </tr>
                         <tr>
                             <td align="center" colspan="2" class="post">
-                                Enter your User Name to receive your password.</td>
+                                <%# GetText("PAGE1_INSTRUCTIONS") %></td>
                         </tr>
                         <tr>
                             <td align="right" class="postheader">
-                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label></td>
+                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"><%# GetText("LOGIN","USERNAME") %></asp:Label></td>
                             <td class="post">
                                 <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required."
@@ -41,6 +41,7 @@
                             </td>
                         </tr>
                     </table>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ValidationGroup="PasswordRecovery1" ShowSummary="False" />
                 </td>
             </tr>
         </table>
@@ -49,36 +50,36 @@
         <table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse">
             <tr>
                 <td>
-                    <table border="0" cellpadding="0">
+                    <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
                         <tr>
-                            <td align="center" colspan="2">
-                                Identity Confirmation</td>
+                            <td colspan="2" align="center" class="header1">
+                                <%# GetText( "IDENTITY_CONFIRMATION_TITLE" )%></td>
                         </tr>
                         <tr>
-                            <td align="center" colspan="2">
-                                Answer the following question to receive your password.</td>
+                            <td align="center" colspan="2"  class="post">
+                                <%# GetText("PAGE2_INSTRUCTIONS") %></td>
                         </tr>
                         <tr>
-                            <td align="right">
-                                User Name:</td>
-                            <td>
+                            <td align="right" class="postheader">
+                                <%# GetText("LOGIN","USERNAME") %></td>
+                            <td class="post">
                                 <asp:Literal ID="UserName" runat="server"></asp:Literal>
                             </td>
                         </tr>
                         <tr>
-                            <td align="right">
-                                Question:</td>
-                            <td>
+                            <td align="right" class="postheader">
+                                <%# GetText("REGISTER","SECURITY_QUESTION") %></td>
+                            <td class="post">
                                 <asp:Literal ID="Question" runat="server"></asp:Literal>
                             </td>
                         </tr>
                         <tr>
-                            <td align="right">
-                                <asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer">Answer:</asp:Label></td>
-                            <td>
+                            <td align="right" class="postheader">
+                                <asp:Label ID="AnswerLabel" runat="server" AssociatedControlID="Answer"><%# GetText("REGISTER","SECURITY_ANSWER") %></asp:Label></td>
+                            <td class="post">
                                 <asp:TextBox ID="Answer" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="AnswerRequired" runat="server" ControlToValidate="Answer" ErrorMessage="Answer is required." ToolTip="Answer is required."
-                                    ValidationGroup="ctl00$PasswordRecovery1">*</asp:RequiredFieldValidator>
+                                    ValidationGroup="PasswordRecovery2">*</asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -87,15 +88,39 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="right" colspan="2">
-                                <asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Submit" ValidationGroup="ctl00$PasswordRecovery1" />
+                            <td align="right" colspan="2" class="postfooter">
+                                <asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Submit" ValidationGroup="PasswordRecovery2" />
                             </td>
                         </tr>
                     </table>
+                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True" ValidationGroup="PasswordRecovery2" ShowSummary="False" />
                 </td>
             </tr>
         </table>
     </QuestionTemplate>
+  <SuccessTemplate>
+    <table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse;">
+      <tr>
+        <td>
+           <table class="content" cellspacing="1" cellpadding="0" border="0" width="600">
+            <tr>
+                <td colspan="2" align="center" class="header1">
+                    <%# GetText( "TITLE" )%></td>
+            </tr>           
+            <tr>
+              <td class="post">
+                <%# GetText( "PASSWORD_SENT" )%></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="2" class="postfooter">
+                    <asp:Button ID="SubmitButton" runat="server" CommandName="Submit" Text="Continue" OnClick="SubmitButton_Click" />
+                </td>
+            </tr>            
+          </table>
+        </td>
+      </tr>
+    </table>
+  </SuccessTemplate>
 </asp:PasswordRecovery>
 </div>
 
