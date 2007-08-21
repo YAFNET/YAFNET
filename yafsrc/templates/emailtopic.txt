@@ -1,6 +1,5 @@
-You might be interested in reading this:
+Hello!
+
+{user} thought you might be interested in reading this:
+
 {link}
-
-From,
-
-{user}

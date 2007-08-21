@@ -2,7 +2,7 @@ You have requested to join {forumname}, but before you can join your email addre
 
 To verify your email address open the following link in your web browser:
 
-<{link}>
+{link}
 
 Your approval key is: 
 {key}

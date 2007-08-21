@@ -1,5 +1,6 @@
 A new message has been posted in the thread {topic} at {forumname}.
 
 To read the message, open the following link in your browser:
-<{link}>
+
+{link}
 
