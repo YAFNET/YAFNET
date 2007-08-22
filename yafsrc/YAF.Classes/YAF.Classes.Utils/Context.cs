@@ -809,7 +809,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 23;
+				return 24;
 			}
 		}
 		static public long AppVersionCode
@@ -823,7 +823,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return new DateTime( 2006, 09, 19 );
+				return new DateTime( 2007, 08, 20 );
 			}
 		}
 		#endregion
