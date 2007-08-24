@@ -118,8 +118,8 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( PageContext.Localization.GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", HttpContext.Current.Server.HtmlEncode( PageContext.PageUserName ) ) );
 				buildHeader.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
 
-				if ( !PageContext.IsGuest )
-					buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.pm ), PageContext.Localization.GetText( "CP_INBOX", "TITLE" ) ) );
+        if ( !PageContext.IsGuest && PageContext.BoardSettings.AllowPrivateMessages )
+          buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.pm ), PageContext.Localization.GetText( "PM", "INBOX" ) ) );
 
 				/* TODO: help is currently useless...
 				if ( IsAdmin )
