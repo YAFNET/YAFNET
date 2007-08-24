@@ -3387,7 +3387,7 @@ AS
 BEGIN
 	SET ROWCOUNT @NumPosts
 	
-	SELECT t.LastPosted, t.TopicID, t.LastMessageID FROM yaf_Topic t
+	SELECT t.LastPosted, t.Topic, t.TopicID, t.LastMessageID FROM yaf_Topic t
 	INNER JOIN yaf_Category c
 	INNER JOIN yaf_Forum f
 	ON c.CategoryID = f.CategoryID
