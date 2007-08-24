@@ -2,33 +2,35 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PMList.ascx.cs" Inherits="YAF.Controls.PMList" EnableTheming="true" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 
-<table class="content" cellspacing="1" cellpadding="0" style="width:98%;">
-    <tr>
-        <td class="header1">
-            <%= GetTitle() %>
-        </td>
-    </tr>
-    <tr>
-        <td>
-<asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated" DataKeyNames="UserPMessageID" Width="100%" ShowFooter="true" 
- AutoGenerateColumns="false" CellPadding="0" CellSpacing="1" EmptyDataText='<%#GetLocalizedText("NO_MESSAGES") %>'>
+<asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated" DataKeyNames="UserPMessageID" Width="99%" GridLines="None" Cellspacing="1" ShowFooter="true" 
+ AutoGenerateColumns="false" CssClass="content"  EmptyDataText='<%#GetLocalizedText("NO_MESSAGES") %>' EmptyDataRowStyle-CssClass="post">
     <HeaderStyle CssClass="header2" />
     <RowStyle CssClass="post" />
+    <AlternatingRowStyle CssClass="post_alt" />
+    <FooterStyle CssClass="footer1" />
     <Columns>
         <asp:TemplateField>
-            <HeaderTemplate></HeaderTemplate>
-            <HeaderStyle CssClass="largefont" />
+            <HeaderTemplate>&nbsp;</HeaderTemplate>
             <ItemTemplate>
                 <img src="<%# GetImage(Container.DataItem) %>" alt="" />
             </ItemTemplate>
-            <ItemStyle HorizontalAlign="center" />
+            <ItemStyle HorizontalAlign="Center" />
         </asp:TemplateField>
+        <asp:TemplateField>
+            <HeaderTemplate>
+                <asp:Image runat="server" ID="SortFrom" />
+                <asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#GetMessageUserHeader() %>' />
+            </HeaderTemplate>
+            <ItemTemplate>
+                <%# GetMessageUser(Container.DataItem)%>
+            </ItemTemplate>
+        </asp:TemplateField>        
         <asp:TemplateField>
             <HeaderTemplate>
                 <asp:Image runat="server" ID="SortSubject" />
                 <asp:LinkButton runat="server" ID="SubjectLink" OnClick="SubjectLink_Click" Text='<%#GetLocalizedText("SUBJECT") %>' />
             </HeaderTemplate>
-            <HeaderStyle CssClass="largefont" />
+            <HeaderStyle width="40%" />
             <ItemTemplate>
                 <a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
                     <%# Server.HtmlEncode(Eval("Subject").ToString()) %>
@@ -37,40 +39,26 @@
         </asp:TemplateField>
         <asp:TemplateField>
             <HeaderTemplate>
-                <asp:Image runat="server" ID="SortFrom" />
-                <asp:LinkButton runat="server" ID="FromLink" OnClick="FromLink_Click" Text='<%#GetMessageUserHeader() %>' />
-            </HeaderTemplate>
-            <HeaderStyle CssClass="largefont" />
-            <ItemTemplate>
-                <%# GetMessageUser(Container.DataItem)%>
-            </ItemTemplate>
-        </asp:TemplateField>
-        <asp:TemplateField>
-            <HeaderTemplate>
                 <asp:Image runat="server" ID="SortDate" />
                 <asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE") %>' />
             </HeaderTemplate>
-            <HeaderStyle CssClass="largefont" />
             <ItemTemplate>
                 <%# yaf_DateTime.FormatDateTime((DateTime)Eval("Created"))%>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
-            <HeaderTemplate></HeaderTemplate>
-            <HeaderStyle CssClass="largefont" />
+            <HeaderTemplate>&nbsp;</HeaderTemplate>
             <ItemTemplate><asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
             <FooterTemplate>
-                <span style="line-height:0.5em;"><asp:Button runat="server" ID="ArchiveSelected" Text='<%# GetArchiveSelectedText() %>' OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" /><br /><br /><asp:Button runat="server" ID="DeleteSelected" OnLoad="DeleteSelected_Load" Text='<%# GetDeleteSelectedText() %>' OnClick="DeleteSelected_Click" /></span>
+                <asp:Button runat="server" ID="ArchiveSelected" Text='<%# GetArchiveSelectedText() %>' OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
+                <asp:Button runat="server" ID="DeleteSelected" OnLoad="DeleteSelected_Load" Text='<%# GetDeleteSelectedText() %>' OnClick="DeleteSelected_Click" />
             </FooterTemplate>
-            <HeaderStyle Width="150px" />
-            <ItemStyle Width="150px" HorizontalAlign="Center" />
-            <FooterStyle Width="150px" HorizontalAlign="Center" />
-        </asp:TemplateField>
+            <HeaderStyle Width="125px" />
+            <ItemStyle Width="125px" HorizontalAlign="Center" />
+            <FooterStyle Width="125px" HorizontalAlign="Center" />
+        </asp:TemplateField>          
     </Columns>
 </asp:GridView>
-        </td>
-    </tr>
-</table>
     <%--
 <asp:Repeater ID="MessagesView" runat="server" OnItemCommand="MessagesView_ItemCommand" OnItemCreated="MessagesView_ItemCreated">
     <HeaderTemplate>
