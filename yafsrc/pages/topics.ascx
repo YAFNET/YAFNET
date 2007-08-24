@@ -34,7 +34,7 @@
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td class="navlinks" align="left">
-            <YAF:Pager runat="server" ID="Pager" />
+            <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
         </td>
         <td align="right">
             <asp:LinkButton ID="moderate1" runat="server" CssClass="imagelink" />
@@ -104,7 +104,7 @@
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
     <tr>
         <td align="left" class="navlinks">
-            <YAF:Pager runat="server" LinkedPager="Pager" />
+            <YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="False" />
         </td>
         <td align="right">
             <asp:LinkButton ID="moderate2" runat="server" CssClass="imagelink" />

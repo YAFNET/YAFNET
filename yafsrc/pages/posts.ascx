@@ -35,7 +35,7 @@
 </asp:repeater>
 <table class='command' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
-	<td align="left" class="navlinks"><YAF:pager runat="server" id="Pager"/></td>
+	<td align="left" class="navlinks"><YAF:pager runat="server" id="Pager" UsePostBack="False" /></td>
 	<td align="right">
 		<asp:linkbutton id="PostReplyLink1" runat="server" cssclass="imagelink" ToolTip="Post Reply" onclick="PostReplyLink_Click" />
 		<asp:linkbutton id="NewTopic1" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
@@ -114,7 +114,7 @@
 
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
   <tr>
-    <td align="left" class="navlinks"><YAF:pager runat="server" linkedpager="Pager"/></td>
+    <td align="left" class="navlinks"><YAF:pager runat="server" linkedpager="Pager" UsePostBack="false" /></td>
     <td align="right">
 		<asp:linkbutton id="PostReplyLink2" runat="server" cssclass="imagelink" onclick="PostReplyLink_Click" />
 		<asp:linkbutton id="NewTopic2" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
