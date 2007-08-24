@@ -46,7 +46,7 @@ namespace YAF.Pages.Admin
         PageLinks.AddLink( "Roles", "" );
 
         // sync roles just in case...
-        YAF.Classes.Utils.Security.SyncRoles( YAF.Classes.Utils.yaf_Context.Current.PageBoardID );
+        YAF.Classes.Utils.MembershipHelper.SyncRoles( YAF.Classes.Utils.yaf_Context.Current.PageBoardID );
 
         BindData();
       }
