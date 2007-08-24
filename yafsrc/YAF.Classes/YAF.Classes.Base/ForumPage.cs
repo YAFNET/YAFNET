@@ -140,13 +140,13 @@ namespace YAF.Classes.Base
 			// deal with banned users...
 			CheckBannedIPs();
 
-			// initalize the user and current page data...
+			// initialize the user and current page data...
 			InitUserAndPage();
 
-			// initalize theme
+			// initialize theme
 			InitTheme();
 
-			// initalize localization
+			// initialize localization
 			InitLocalization();
 
 			//if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
@@ -313,7 +313,7 @@ namespace YAF.Classes.Base
 		}
 
 		/// <summary>
-		/// Initalize the user data and page data...
+		/// Initialize the user data and page data...
 		/// </summary>
 		private void InitUserAndPage()
 		{
@@ -323,7 +323,7 @@ namespace YAF.Classes.Base
 			MembershipUser user = Membership.GetUser();
 			if ( user != null && Session ["UserUpdated"] == null )
 			{
-				Security.UpdateForumUser( PageContext.PageBoardID, user );
+				MembershipHelper.UpdateForumUser( PageContext.PageBoardID, user );
 				Session ["UserUpdated"] = true;
 			}
 
@@ -345,9 +345,11 @@ namespace YAF.Classes.Base
 				categoryID = PageContext.Settings.CategoryID;
 
 			object userKey = DBNull.Value;
-			
-			if ( user != null )
-				userKey = user.ProviderUserKey;
+
+      if (user != null)
+      {
+        userKey = user.ProviderUserKey;
+      }
 
 			do
 			{
@@ -368,7 +370,7 @@ namespace YAF.Classes.Base
 				if ( user != null && pageRow == null )
 				{
 					// create the user...
-					if ( !Security.CreateForumUser( user, PageContext.PageBoardID ) )
+          if ( !MembershipHelper.CreateForumUser( user, PageContext.PageBoardID ) )
 						throw new ApplicationException( "Failed to use new user." );
 				}
 
@@ -397,7 +399,7 @@ namespace YAF.Classes.Base
 
 			if ( PageContext.Page != null && PageContext.Page["ThemeFile"] != DBNull.Value && PageContext.BoardSettings.AllowUserTheme )
 			{
-				// use user-selected themem
+				// use user-selected theme
 				themeFile = PageContext.Page ["ThemeFile"].ToString();
 			}
 			else if ( PageContext.Page != null && PageContext.Page["ForumTheme"] != DBNull.Value )
