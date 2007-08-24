@@ -6,7 +6,7 @@ body
 	color: #3B3E39;
 }
 
-td
+td, th
 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -62,17 +62,17 @@ tr.header2 {
 	font-weight: bold;
 }
 
-td.header2 {
+td.header2,th.header2 {
 	background-color: #E3E2DA;
 	color: #55a055;
 	font-weight: bold;
 }
 
-td.header2 a { color: #579000; text-decoration: none; }
-td.header2 a:link { color: #7F7D6C; text-decoration: none; }
-td.header2 a:visited { color: #7F7D6C; text-decoration: none; }
-td.header2 a:active { color: #7F7D6C; text-decoration: none; }
-td.header2 a:hover { color: #7F7D6C; text-decoration: underline; }
+td.header2,th.header2 a { color: #579000; text-decoration: none; }
+td.header2,th.header2 a:link { color: #7F7D6C; text-decoration: none; }
+td.header2,th.header2 a:visited { color: #7F7D6C; text-decoration: none; }
+td.header2,th.header2 a:active { color: #7F7D6C; text-decoration: none; }
+td.header2,th.header2 a:hover { color: #7F7D6C; text-decoration: underline; }
 
 td.infoTable {
 	background-color: #FAFAFA;
