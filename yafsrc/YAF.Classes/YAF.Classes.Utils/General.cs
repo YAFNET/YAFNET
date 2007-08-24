@@ -393,4 +393,128 @@ namespace YAF.Classes.Utils
 
 		/* Ederon - 7/1/2007 end */
 	}
+
+  /// <summary>
+  /// Helps parse URLs
+  /// </summary>
+  public class SimpleURLParameterParser
+  {
+    private string _urlParameters = "";
+    private string _urlAnchor = "";
+    private NameValueCollection _nameValues = new NameValueCollection();
+
+    public SimpleURLParameterParser( string urlParameters )
+    {
+      _urlParameters = urlParameters;
+      ParseURLParameters();
+    }
+
+    private void ParseURLParameters()
+    {
+      string urlTemp = _urlParameters;
+      int index;
+
+      // get the url end anchor (#blah) if there is one...
+      _urlAnchor = "";
+      index = urlTemp.LastIndexOf( '#' );
+
+      if ( index > 0 )
+      {
+        // there's an anchor
+        _urlAnchor = urlTemp.Substring( index + 1 );
+        // remove the anchor from the url...
+        urlTemp = urlTemp.Remove( index );
+      }
+
+      _nameValues.Clear();
+      string [] arrayPairs = urlTemp.Split( new char [] { '&' } );
+
+      foreach ( string tValue in arrayPairs )
+      {
+        if ( tValue.Trim().Length > 0 )
+        {
+          // parse...
+          string [] nvalue = tValue.Trim().Split( new char [] { '=' } );
+          _nameValues.Add( nvalue [0], nvalue [1] );
+        }
+      }
+    }
+
+    public string CreateQueryString( string [] excludeValues )
+    {
+      string queryString = "";
+      bool bFirst = true;
+
+      for ( int i = 0; i < _nameValues.Count; i++ )
+      {
+        string key = _nameValues.Keys [i].ToLower();
+        string value = _nameValues [i];
+        if ( !KeyInsideArray( excludeValues, key ) )
+        {
+          if ( bFirst ) bFirst = false;
+          else queryString += "&";
+          queryString += key + "=" + value;
+        }
+      }
+
+      return queryString;
+    }
+
+    private bool KeyInsideArray( string [] array, string key )
+    {
+      foreach ( string tmp in array )
+      {
+        if ( tmp.Equals( key ) ) return true;
+      }
+      return false;
+    }
+
+    public string Anchor
+    {
+      get
+      {
+        return _urlAnchor;
+      }
+    }
+
+    public bool HasAnchor
+    {
+      get
+      {
+        return ( _urlAnchor != "" );
+      }
+    }
+
+    public NameValueCollection Parameters
+    {
+      get
+      {
+        return _nameValues;
+      }
+    }
+
+    public int Count
+    {
+      get
+      {
+        return _nameValues.Count;
+      }
+    }
+
+    public string this [string name]
+    {
+      get
+      {
+        return _nameValues [name];
+      }
+    }
+
+    public string this [int index]
+    {
+      get
+      {
+        return _nameValues [index];
+      }
+    }
+  }
 }
