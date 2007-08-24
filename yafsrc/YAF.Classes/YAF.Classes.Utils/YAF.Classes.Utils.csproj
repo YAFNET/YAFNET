@@ -40,6 +40,7 @@
     <Compile Include="Config\ForumPages.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DateTime.cs" />
+    <Compile Include="MembershipHelper.cs" />
     <Compile Include="MessageFlags.cs" />
     <Compile Include="Nntp.cs" />
     <Compile Include="SendMail.cs" />
