@@ -119,7 +119,7 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
 
 				if ( !PageContext.IsGuest )
-					buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_inbox ), PageContext.Localization.GetText( "CP_INBOX", "TITLE" ) ) );
+					buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.pm ), PageContext.Localization.GetText( "CP_INBOX", "TITLE" ) ) );
 
 				/* TODO: help is currently useless...
 				if ( IsAdmin )
