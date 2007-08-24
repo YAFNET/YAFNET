@@ -421,7 +421,10 @@
 		<Resource tag="SUSPENDED">Your account has been temporarily suspended. This suspension is due to end on {0}.</Resource>
 		<Resource tag="REGISTRATION">An email has been sent to the email address you supplied. Please read the instructions in the email to log in.</Resource>
 		<Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
+		<Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
+		<Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
 		<Resource tag="EXCEPTION">You are logged in as</Resource>
+		<Resource tag="TITLE_INVALID">Invalid</Resource>
 		<Resource tag="TITLE_MODERATED">Information</Resource>
 		<Resource tag="TITLE_SUSPENDED">Suspended</Resource>
 		<Resource tag="TITLE_REGISTRATION">Thanks</Resource>
