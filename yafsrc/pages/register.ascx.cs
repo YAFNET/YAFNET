@@ -268,7 +268,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void CreateUserWizard1_CreatedUser( object sender, EventArgs e )
 		{
       // setup new user roles for this user
-      YAF.Classes.Utils.Security.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
+      MembershipHelper.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
 		}
 	}
 }
