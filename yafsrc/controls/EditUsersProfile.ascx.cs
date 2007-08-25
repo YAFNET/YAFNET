@@ -33,15 +33,7 @@ namespace YAF.Controls
 
 			if ( !IsPostBack )
 			{
-				if ( AdminEditMode )
-				{
-					ShowOldPassword.Visible = !AdminEditMode;
-					LoginInfo.Visible = AdminEditMode;
-				}
-				else
-				{
-					LoginInfo.Visible = true;
-				}
+				LoginInfo.Visible = true;
 
 				// Begin Modifications for enhanced profile
 				Gender.Items.Add( PageContext.Localization.GetText( "PROFILE", "gender0" ) );
@@ -97,15 +89,17 @@ namespace YAF.Controls
 
 			Gender.SelectedIndex = Convert.ToInt32( row ["Gender"] );
 
-			if ( PageContext.BoardSettings.AllowUserTheme )  
-			{
-				string themeFile = PageContext.BoardSettings.Theme;
-				if ( !row.IsNull( "ThemeFile" ) ) themeFile = Convert.ToString( row ["ThemeFile"] );
-				Theme.Items.FindByValue( themeFile ).Selected = true;
-                // Allows to use different per-forum themes,
-                // While "Allow User Change Theme" option in hostsettings is true
-                OverrideDefaultThemes.Checked = Convert.ToBoolean(row["OverrideDefaultThemes"]);
-			}
+      OverrideForumThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
+
+      if ( PageContext.BoardSettings.AllowUserTheme )
+      {
+        // Allows to use different per-forum themes,
+        // While "Allow User Change Theme" option in hostsettings is true
+        string themeFile = PageContext.BoardSettings.Theme;
+        if ( !row.IsNull( "ThemeFile" ) ) themeFile = Convert.ToString( row ["ThemeFile"] );
+        Theme.Items.FindByValue( themeFile ).Selected = true;
+        OverrideDefaultThemes.Checked = Convert.ToBoolean( row ["OverrideDefaultThemes"] );
+      }
 
 			if ( PageContext.BoardSettings.AllowUserLanguage )
 			{
@@ -172,6 +166,8 @@ namespace YAF.Controls
 					PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
 				}
 			}
+
+      /* No Longer Password Modification in Edit Profile
 			if ( AdminEditMode )
 			{
 				if ( ( NewPassword1.Text.Length > 0 ) )
@@ -215,6 +211,7 @@ namespace YAF.Controls
 					}
 				}
 			}
+      */
 
 			object email = null;
 			if ( !PageContext.BoardSettings.EmailVerification )
@@ -222,6 +219,23 @@ namespace YAF.Controls
 
 			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.Settings.BoardID, null, null, email, null, Location.Text, HomePage.Text, TimeZones.SelectedValue, null, Language.SelectedValue, Theme.SelectedValue,OverrideDefaultThemes.Checked, null,
 					MSN.Text, YIM.Text, AIM.Text, ICQ.Text, Realname.Text, Occupation.Text, Interests.Text, Gender.SelectedIndex, Weblog.Text, WeblogUrl.Text, WeblogUsername.Text, WeblogID.Text, PMNotificationEnabled.Checked );
+
+			PageContext.Profile.Location = Location.Text;
+			PageContext.Profile.Homepage = HomePage.Text;
+			PageContext.Profile.TimeZone = Convert.ToInt32(TimeZones.SelectedValue);
+			PageContext.Profile.LanguageFile = Language.SelectedValue;
+			PageContext.Profile.ThemeFile = Theme.SelectedValue;
+			PageContext.Profile.OverrideDefaultThemes = OverrideDefaultThemes.Checked;
+			PageContext.Profile.MSN = MSN.Text;
+			PageContext.Profile.YIM = YIM.Text;
+			PageContext.Profile.AIM = AIM.Text;
+			PageContext.Profile.ICQ = ICQ.Text;
+			PageContext.Profile.RealName = Realname.Text;
+			PageContext.Profile.Occupation = Occupation.Text;
+			PageContext.Profile.Interests = Interests.Text;
+			PageContext.Profile.Gender = Convert.ToInt32( Gender.SelectedIndex );
+			PageContext.Profile.Blog = Weblog.Text;
+			PageContext.Profile.PMNotification = PMNotificationEnabled.Checked;
 
 			if ( AdminEditMode )
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
