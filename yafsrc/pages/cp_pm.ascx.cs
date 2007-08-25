@@ -41,12 +41,12 @@ namespace YAF.Pages
   // discussion: http://forums.asp.net/p/1068120/1579184.aspx
 
 
-  public partial class pm : Classes.Base.ForumPage
+  public partial class cp_pm : YAF.Classes.Base.ForumPage
   {
     private PMView _View;
 
-    public pm()
-      : base( "PM" )
+    public cp_pm()
+      : base( "CP_PM" )
     { }
 
     protected void Page_Load( object sender, EventArgs e )

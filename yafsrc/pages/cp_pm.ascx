@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Codebehind="pm.ascx.cs" Inherits="YAF.Pages.pm" %>
+<%@ Control Language="C#" AutoEventWireup="true" Codebehind="cp_pm.ascx.cs" Inherits="YAF.Pages.cp_pm" %>
 <%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
