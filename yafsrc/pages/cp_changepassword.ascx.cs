@@ -29,53 +29,71 @@ using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
-namespace YAF.Pages // YAF.Pages
+namespace YAF.Pages
 {
-	/// <summary>
-	/// Summary description for cp_subscriptions.
-	/// </summary>
-    public partial class cp_changepassword : YAF.Classes.Base.ForumPage
-	{
+  /// <summary>
+  /// Summary description for cp_subscriptions.
+  /// </summary>
+  public partial class cp_changepassword : YAF.Classes.Base.ForumPage
+  {
 
-		public cp_changepassword() : base("CP_CHANGEPASSWORD")
-		{
-		}
+    public cp_changepassword()
+      : base( "CP_CHANGEPASSWORD" )
+    {
+    }
 
-		private void Page_Load(object sender, System.EventArgs e)
-		{
-			if(User==null)
-			{
-				if(CanLogin)
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
-				else
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
-			}
+    private void Page_Load( object sender, System.EventArgs e )
+    {
+      if ( User == null )
+      {
+        if ( CanLogin )
+          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+        else
+          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+      }
 
-            if (!IsPostBack)
-            {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-                PageLinks.AddLink(PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
-                //TODO PageLinks.AddLink(GetText("TITLE"), "dd");
-                PageLinks.AddLink("Change Password", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_changepassword));
-            }
-        }
+      if ( !IsPostBack )
+      {
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+        PageLinks.AddLink( GetText( "TITLE" ) );
 
-        void ChangePassword1_CancelButtonClick(object sender, EventArgs e)
-        {
-            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile);
-        }
+        RequiredFieldValidator oldPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "CurrentPasswordRequired" );
+        RequiredFieldValidator newPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "NewPasswordRequired" );
+        RequiredFieldValidator confirmNewPasswordRequired = ( RequiredFieldValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "ConfirmNewPasswordRequired" );
+        CompareValidator passwordsEqual = ( CompareValidator ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "NewPasswordCompare" );
 
-		override protected void OnInit(EventArgs e)
-		{
-            this.Load += new System.EventHandler(this.Page_Load);
-            ChangePassword1.CancelButtonClick += new EventHandler(ChangePassword1_CancelButtonClick);
-            ChangePassword1.ChangedPassword += new EventHandler(ChangePassword1_ChangedPassword);
-            base.OnInit(e);
-		}
+        oldPasswordRequired.ToolTip = oldPasswordRequired.ErrorMessage = GetText( "NEED_OLD_PASSWORD" );
+        newPasswordRequired.ToolTip = newPasswordRequired.ErrorMessage = GetText( "NEED_NEW_PASSWORD" );
+        confirmNewPasswordRequired.ToolTip = confirmNewPasswordRequired.ErrorMessage = GetText( "NEED_NEW_CONFIRM_PASSWORD" );
+        passwordsEqual.ToolTip = passwordsEqual.ErrorMessage = GetText( "NO_PASSWORD_MATCH" );
 
-        void ChangePassword1_ChangedPassword(object sender, EventArgs e)
-        {
-            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile);
-        }
-	}
+        ( ( Button ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "ChangePasswordPushButton" ) ).Text = GetText( "CHANGE_BUTTON" );
+        ( ( Button ) ChangePassword1.ChangePasswordTemplateContainer.FindControl( "CancelPushButton" ) ).Text = GetText( "CANCEL" );
+        ( ( Button ) ChangePassword1.SuccessTemplateContainer.FindControl( "ContinuePushButton" ) ).Text = GetText( "CONTINUE" );
+
+        // make failure text...
+        // 1. Password incorrect or New Password invalid.
+        // 2. New Password length minimum: {0}.
+        // 3. Non-alphanumeric characters required: {1}.
+        string failureText = GetText( "PASSWORD_INCORRECT" );
+        failureText += "<br/>" + GetText( "PASSWORD_BAD_LENGTH" );
+        failureText += "<br/>" + GetText( "PASSWORD_NOT_COMPLEX" );
+
+        ChangePassword1.ChangePasswordFailureText = failureText;
+
+        DataBind();
+      }
+    }
+
+    protected void CancelPushButton_Click( object sender, EventArgs e )
+    {
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+    }
+
+    protected void ContinuePushButton_Click( object sender, EventArgs e )
+    {
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+    }
+  }
 }
