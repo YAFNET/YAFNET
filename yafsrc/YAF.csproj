@@ -244,7 +244,6 @@
     <Content Include="pages\cp_changepassword.ascx" />
     <Content Include="pages\cp_editavatar.ascx" />
     <Content Include="pages\cp_editprofile.ascx" />
-    <Content Include="pages\cp_inbox.ascx" />
     <Content Include="pages\cp_message.ascx" />
     <Content Include="pages\cp_profile.ascx" />
     <Content Include="pages\cp_signature.ascx" />
@@ -274,7 +273,7 @@
     <Content Include="pages\mod_forumuser.ascx" />
     <Content Include="pages\movemessage.ascx" />
     <Content Include="pages\movetopic.ascx" />
-    <Content Include="pages\pm.ascx" />
+    <Content Include="pages\cp_pm.ascx" />
     <Content Include="pages\pmessage.ascx" />
     <Content Include="pages\postmessage.ascx" />
     <Content Include="pages\posts.ascx" />
@@ -760,6 +759,56 @@
     <Content Include="themes\standard\vote_lcap.gif" />
     <Content Include="themes\standard\vote_rcap.gif" />
     <Content Include="themes\standard\voting_bar.gif" />
+    <Content Include="themes\yafpro.xml" />
+    <Content Include="themes\yafpro\b_attachments.png" />
+    <Content Include="themes\yafpro\b_delete_post.png" />
+    <Content Include="themes\yafpro\b_delete_topic.png" />
+    <Content Include="themes\yafpro\b_edit_post.png" />
+    <Content Include="themes\yafpro\b_lock_topic.png" />
+    <Content Include="themes\yafpro\b_move_topic.png" />
+    <Content Include="themes\yafpro\b_post_reply.png" />
+    <Content Include="themes\yafpro\b_post_topic.png" />
+    <Content Include="themes\yafpro\b_quote_post.png" />
+    <Content Include="themes\yafpro\b_reply_pm.png" />
+    <Content Include="themes\yafpro\b_unlock_topic.png" />
+    <Content Include="themes\yafpro\collapse.gif" />
+    <Content Include="themes\yafpro\expand.gif" />
+    <Content Include="themes\yafpro\folder_stats.gif" />
+    <Content Include="themes\yafpro\folder_stats.png" />
+    <Content Include="themes\yafpro\folder_who.gif" />
+    <Content Include="themes\yafpro\folder_who.png" />
+    <Content Include="themes\yafpro\icon_file.gif" />
+    <Content Include="themes\yafpro\icon_latest_reply.gif" />
+    <Content Include="themes\yafpro\icon_newest_reply.gif" />
+    <Content Include="themes\yafpro\p_aim.gif" />
+    <Content Include="themes\yafpro\p_blog.gif" />
+    <Content Include="themes\yafpro\p_email.gif" />
+    <Content Include="themes\yafpro\p_icq.gif" />
+    <Content Include="themes\yafpro\p_msn.gif" />
+    <Content Include="themes\yafpro\p_pm.gif" />
+    <Content Include="themes\yafpro\p_www.gif" />
+    <Content Include="themes\yafpro\p_yahoo.gif" />
+    <Content Include="themes\yafpro\sort_down.gif" />
+    <Content Include="themes\yafpro\sort_up.gif" />
+    <Content Include="themes\yafpro\theme.css" />
+    <Content Include="themes\yafpro\titleBack.gif" />
+    <Content Include="themes\yafpro\topic.gif" />
+    <Content Include="themes\yafpro\topic_announce.gif" />
+    <Content Include="themes\yafpro\topic_announce_new.gif" />
+    <Content Include="themes\yafpro\topic_lock.gif" />
+    <Content Include="themes\yafpro\topic_lock_new.gif" />
+    <Content Include="themes\yafpro\topic_moderate.png" />
+    <Content Include="themes\yafpro\topic_moved.gif" />
+    <Content Include="themes\yafpro\topic_new.gif" />
+    <Content Include="themes\yafpro\topic_poll.gif" />
+    <Content Include="themes\yafpro\topic_poll_new.gif" />
+    <Content Include="themes\yafpro\topic_sticky.gif" />
+    <Content Include="themes\yafpro\user_rank1.gif" />
+    <Content Include="themes\yafpro\user_rank2.gif" />
+    <Content Include="themes\yafpro\user_rank3.gif" />
+    <Content Include="themes\yafpro\vote_lcap.gif" />
+    <Content Include="themes\yafpro\vote_rcap.gif" />
+    <Content Include="themes\yafpro\voting_bar.gif" />
     <Content Include="themes\yafvision.xml" />
     <Content Include="themes\yafvision\bg_footer1.png" />
     <Content Include="themes\yafvision\bg_header1.png" />
@@ -1224,13 +1273,6 @@
     <Compile Include="pages\cp_editprofile.ascx.designer.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_inbox.ascx.cs">
-      <DependentUpon>cp_inbox.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\cp_inbox.ascx.designer.cs">
-      <DependentUpon>cp_inbox.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\cp_message.ascx.cs">
       <DependentUpon>cp_message.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1423,12 +1465,12 @@
     <Compile Include="pages\movetopic.ascx.designer.cs">
       <DependentUpon>movetopic.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\pm.ascx.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="pages\cp_pm.ascx.cs">
+      <DependentUpon>cp_pm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\pm.ascx.designer.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="pages\cp_pm.ascx.designer.cs">
+      <DependentUpon>cp_pm.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\pmessage.ascx.cs">
       <DependentUpon>pmessage.ascx</DependentUpon>
@@ -1677,9 +1719,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pages\cp_editprofile.ascx.resx">
       <DependentUpon>cp_editprofile.ascx.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="pages\cp_inbox.ascx.resx">
-      <DependentUpon>cp_inbox.ascx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pages\cp_message.ascx.resx">
       <DependentUpon>cp_message.ascx.cs</DependentUpon>
