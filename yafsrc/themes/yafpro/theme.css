@@ -1,0 +1,304 @@
+body
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #3B3b3b;
+}
+
+td
+{
+	font-family: sans-serif, Helvetica, Arial;
+	font-size: 11px;
+	color: #3b3b3b;
+}
+
+input, select
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #3b3b3b;	
+	background-color: #FFFFFF;
+	border: 1px solid #E3E3E3;	
+}
+
+/*  */
+img {
+	border: 0;
+}
+
+/* Header 1 - Main header */
+tr.header1 
+{	
+	background-image: url('titleBack.gif');
+	color: #ffffff;
+	font-weight: bold;
+	padding-left: 10px;
+	font-size: 11pt;
+}
+
+tr.header1 a { color: #ffffff;	text-decoration: none; }
+tr.header1 a:hover { color: #eeffee; text-decoration: underline; }	
+
+td.header1 
+{
+	background-image: url('titleBack.gif');
+	/*background-color: #66a262;*/
+	color: #ffffff;
+	font-weight: bold;
+	padding-left: 10px;
+	height: 40px;
+	font-size: 11pt;
+}	
+
+.header1Title
+{
+	background-image: url('titleBack.gif');
+	color: #ffffff;
+	font-weight: bold;
+	padding-left: 10px;	
+	height: 40px;
+	font-size: 11pt;
+}
+
+/* Header 2 - Sub header */
+tr.header2 {
+	background-color: #e3e3e3;
+	color: #55a055;
+	font-weight: bold;
+}
+
+td.header2 {
+	background-color: #e3e3e3;
+	color: #5555a0;
+	font-weight: bold;
+}
+
+td.header2 a { color: #000090; text-decoration: none; }
+td.header2 a:link { color: #7f7f7f; text-decoration: none; }
+td.header2 a:visited { color: #7f7f7f; text-decoration: none; }
+td.header2 a:active { color: #7f7f7f; text-decoration: none; }
+td.header2 a:hover { color: #7f7f7f; text-decoration: underline; }
+
+td.infoTable {
+	background-color: #FAFAFA;
+	padding: 10px;
+	border: 1px solid #F2F2F2;
+}
+
+/* all links */
+.content a			{ color: #001090; text-decoration: none; }
+.content a:hover	{ color: #001090; text-decoration: underline; }
+
+/* Footer1 - Bottom of tables */
+.footer1 {
+	font-size: 7pt;
+	height: 28px;
+	background-color: #f4f4f4;
+}
+
+.footer1 select, .footer1 td {
+	font-size: 10px;
+}
+
+.forumheading
+{
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+a.post_link
+{
+	font-size: 9pt;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Header of posts */
+.postheader
+{
+	background-color: #f0f0f0;
+}
+
+.postheader a 
+{
+	font-size: 11pt;
+	color: Black;	
+}
+
+
+/* User info and post/article */
+.post
+{
+	background-color: #F5F5F5;
+}
+
+.post_alt
+{
+	background-color: #FaFaFa;
+}
+
+tr.post:hover
+{
+	background-color: #FFFFFF;	
+}
+
+tr.post_alt:hover
+{
+	background-color: #FFFFFF;	
+}
+
+/* Footer of posts */
+.postfooter
+{
+	background-color: #cdcdcd;
+}
+
+/* Area between posts */
+.postsep
+{
+	background-color: #3a3b5a;
+}
+
+/* most tables are class 'content' */
+.content
+{
+	border: solid 1px #777777;
+	padding: 0px;
+	margin: 0px;
+	color: #000000;
+}
+
+.postformheader 
+{
+	background-color: #EEEEEE;
+	font-weight:bold;
+}
+
+table.content td {
+	padding: 5px;
+}
+
+/* used for quoting messages */
+.quote {
+	padding-left: 16px;
+	margin: 5px;
+}
+
+.innerquote
+{
+	padding: 4px;
+	background-color: #fefefe;
+	border: 1px dashed #808080;
+}
+
+/* used for code */
+.code
+{
+	padding-left: 16px;	
+	margin: 5px;
+}
+
+.innercode
+{
+	padding: 4px;
+	background-color: #efefef;
+	border: solid 1px #808080;
+	color: #000000;
+	font-size:8pt;
+	font-family:Courier New,Courier;
+}
+
+/* font sizes */
+.smallfont	{ font-size: 10px; }
+.largefont	{ font-size: 11px; }
+
+/* Image Links */
+a.imagelink {
+	font-weight: bold;
+	color: #000000;
+}
+a:hover.imagelink {
+	text-decoration: none;
+	/*background-color: #D0D0D0;*/
+}
+
+/* Used for editor textarea */
+.posteditor {
+	width: 100%;
+	height: 200px;
+}
+
+/* Table just above and below tables */
+table.command {
+	padding: 3px;
+}
+
+/* p-tag at the top of pages with navigation links */
+.navlinks { font-weight: bold; color: #000000; }
+.navlinks a { color: #000000; text-decoration: none }
+.navlinks a:hover {color: #666666;
+}
+
+/* for printing */
+table.print {
+	border: solid 1px #C0C0C0;
+}
+.printheader {
+	background-color: #DDDDDD;
+	color: #000000;
+	padding: 4px;
+}
+.printbody {
+	background-color: #FFFFFF;
+	color: #000000;
+	padding: 4px;
+}
+
+.pbutton {
+	background-color: #3B3B3B;
+	font-size: 10px;
+	color: #FFFFFF;
+	border: none;
+	font-weight: bold;
+}
+ 
+.textfield {
+	background-color: #FFFFFF;
+	border: 1px solid #3B3b3b;
+	width: 100%;
+}
+
+.ButtonOut
+{
+	border: #669966 1px solid;
+}
+.ButtonOver
+{
+	border: #000000 1px solid;
+	background-color: #ffffff;
+}
+.ButtonChecked
+{
+	border: #000000 1px solid;
+}
+.ButtonOff
+{
+	border: #669966 1px solid;
+}
+
+#bbcodeFeatures
+{
+	border: #eeffee 1px solid;
+}
+
+/*
+Use this to setup overflow feature for your site.
+On IE that would mean specifying a width so that the overflow will work properly.
+This CSS already works on FireFox.
+*/
+div.postdiv
+{
+	width: 100%;
+	min-height: 100px;
+	overflow: auto;	
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resources theme="YAF Pro" dir="yafpro">
+  <page name="THEME">
+    <Resource tag="CREDIT">YAFPro Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+  </page>
+	<page name="BUTTONS">
+		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/topic_moderate.png'/&gt;</Resource>
+		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.png'/&gt;</Resource>
+		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/b_post_reply.png'/&gt;</Resource>
+		<Resource tag="DELETETOPIC">&lt;img align='absmiddle' src='~/b_delete_topic.png'/&gt;</Resource>
+		<Resource tag="LOCKTOPIC">&lt;img align='absmiddle' src='~/b_lock_topic.png'/&gt;</Resource>
+		<Resource tag="UNLOCKTOPIC">&lt;img align='absmiddle' src='~/b_unlock_topic.png'/&gt;</Resource>
+		<Resource tag="MOVETOPIC">&lt;img align='absmiddle' src='~/b_move_topic.png'/&gt;</Resource>
+		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/b_edit_post.png'/&gt;</Resource>
+		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.png'/&gt;</Resource>
+		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/b_quote_post.png'/&gt;</Resource>
+		<Resource tag="REPLYPM">&lt;img align='absmiddle' src='~/b_reply_pm.png'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="PM">&lt;img align='absmiddle' src='~/p_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img align='absmiddle' src='~/p_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img align='absmiddle' src='~/p_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img align='absmiddle' src='~/p_msn.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img align='absmiddle' src='~/p_yim.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img align='absmiddle' src='~/p_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img align='absmiddle' src='~/p_icq.gif'/&gt;</Resource>
+	</page>
+	<page name="ICONS">
+		<Resource tag="TOPIC_NEW">~/topic_new.gif</Resource>
+		<Resource tag="TOPIC">~/topic.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.gif</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.gif</Resource>
+		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.gif</Resource>
+		<Resource tag="TOPIC_LOCKED">~/topic_lock.gif</Resource>
+		<Resource tag="TOPIC_STICKY">~/topic_sticky.gif</Resource>
+		<Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
+		<Resource tag="TOPIC_POLL">~/topic_poll.gif</Resource>
+		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.gif</Resource>
+		<Resource tag="FORUM">~/topic.gif</Resource>
+		<Resource tag="FORUM_NEW">~/topic_new.gif</Resource>
+		<Resource tag="FORUM_LOCKED">~/topic_lock.gif</Resource>
+		<Resource tag="FORUM_STATS">~/folder_stats.gif</Resource>
+		<Resource tag="FORUM_USERS">~/folder_who.gif</Resource>
+		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
+		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
+		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>		
+	</page>
+	<page name="SORT">
+		<Resource tag="ASCENDING">~/sort_up.gif</Resource>
+		<Resource tag="DESCENDING">~/sort_down.gif</Resource>
+	</page>
+	<page name="VOTE">
+		<Resource tag="LCAP">~/vote_lcap.gif</Resource>
+		<Resource tag="RCAP">~/vote_rcap.gif</Resource>
+		<Resource tag="BAR">~/voting_bar.gif</Resource>
+	</page>
+</Resources>
