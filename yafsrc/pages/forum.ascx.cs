@@ -58,7 +58,7 @@ namespace YAF.Pages
 				if ( PageContext.UnreadPrivate > 0 )
 				{
 					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_inbox );
+					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
 					if ( PageContext.UnreadPrivate == 1 )
 						UnreadMsgs.Text = String.Format( GetText( "unread1" ), PageContext.UnreadPrivate );
 					else

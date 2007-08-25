@@ -99,8 +99,9 @@ namespace YAF.Pages // YAF.Pages
         IsOutbox = Request.QueryString ["v"] == "out";
         IsArchived = Request.QueryString ["v"] == "arch";  
      
-        if ( IsOutbox && !messageIsInOutbox ) yaf_BuildLink.Redirect( ForumPages.pm, "v=out" );
-        else if (IsArchived && !messageIsArchived ) yaf_BuildLink.Redirect( ForumPages.pm, "v=arch" );
+        // see if the message got deleted, if so, redirect to their outbox/archive
+        if ( IsOutbox && !messageIsInOutbox ) yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=out" );
+        else if (IsArchived && !messageIsArchived ) yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=arch" );
       }
       else if (isCurrentUserFrom)
       {
@@ -108,7 +109,7 @@ namespace YAF.Pages // YAF.Pages
         if (!messageIsInOutbox)
         {
           // deleted for this user, redirect...
-          yaf_BuildLink.Redirect( ForumPages.pm, "v=out" );
+          yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=out" );
         }
         else
         {
@@ -144,18 +145,18 @@ namespace YAF.Pages // YAF.Pages
           
           // get the return link to the pm listing
           if ( IsOutbox )
-            PageLinks.AddLink( GetText( "SENTITEMS" ), yaf_BuildLink.GetLink( ForumPages.pm, "v=out" ) );
+            PageLinks.AddLink( GetText( "SENTITEMS" ), yaf_BuildLink.GetLink( ForumPages.cp_pm, "v=out" ) );
           else if ( IsArchived )
-            PageLinks.AddLink( GetText( "ARCHIVE" ), yaf_BuildLink.GetLink( ForumPages.pm, "v=arch" ) );
+            PageLinks.AddLink( GetText( "ARCHIVE" ), yaf_BuildLink.GetLink( ForumPages.cp_pm, "v=arch" ) );
           else
-            PageLinks.AddLink( GetText( "INBOX" ), yaf_BuildLink.GetLink( ForumPages.pm ) );
+            PageLinks.AddLink( GetText( "INBOX" ), yaf_BuildLink.GetLink( ForumPages.cp_pm ) );
 
           PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 
           Inbox.DataSource = dt;
         }
         else
-          yaf_BuildLink.Redirect( ForumPages.pm );
+          yaf_BuildLink.Redirect( ForumPages.cp_pm );
       }
 
       DataBind();
