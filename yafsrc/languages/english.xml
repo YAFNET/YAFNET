@@ -4,7 +4,14 @@
 		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
 	</page>
 	<page name="MOVEMESSAGE">
+		<!-- movemessage.aspx -->
 		<Resource tag="MOVE"/>
+		<Resource tag="SELECT_FORUM_MOVETO">Select Forum to move to:</Resource>
+		<Resource tag="SELECT_TOPIC_MOVETO">Select Topic to move to:</Resource>
+		<Resource tag="MOVE_MESSAGE">Move Message</Resource>
+		<Resource tag="NEW_TOPIC">Create Topic to move to:</Resource>
+		<Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
+		<Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
 	</page>
 	<page name="DELETEMESSAGE">
 		<!-- deletemessage.aspx -->

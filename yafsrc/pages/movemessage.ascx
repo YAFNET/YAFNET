@@ -16,7 +16,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="postheader" width="50%"><%= GetText("select_theme_moveto")%></td>
+		<td class="postheader" width="50%"><%= GetText("select_topic_moveto")%></td>
 		<td class="post" width="50%">
 			<asp:DropDownList id="TopicsList" runat="server" onselectedindexchanged="TopicsList_SelectedIndexChanged" />
 		</td>
@@ -27,9 +27,9 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="postheader" width="50%"><%= GetText("new_theme") %></td>
+		<td class="postheader" width="50%"><%= GetText("new_topic") %></td>
 		<td class="post" width="50%">
-			<asp:textbox id="ThemeSubject" runat="server" cssclass="edit" />
+			<asp:textbox id="TopicSubject" runat="server" cssclass="edit" />
 		</td>
 	</tr>
 	<tr>

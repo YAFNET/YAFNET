@@ -55,7 +55,7 @@ namespace YAF.Pages
 				PageLinks.AddLink( PageContext.PageTopicName, yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				Move.Text = GetText( "MOVE_MESSAGE" );
-				CreateAndMove.Text = GetText( "CREATE_MOVE" );
+				CreateAndMove.Text = GetText( "CREATE_TOPIC" );
 
 				ForumList.DataSource = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				ForumList.DataTextField = "Title";
@@ -116,15 +116,15 @@ namespace YAF.Pages
 
 		protected void CreateAndMove_Click( object sender, System.EventArgs e )
 		{
-			if ( ThemeSubject.Text != "" )
+			if ( TopicSubject.Text != "" )
 			{
 				long nTopicId =
-						YAF.Classes.Data.DB.topic_create_by_message( Request.QueryString ["m"], ForumList.SelectedValue, ThemeSubject.Text );
+						YAF.Classes.Data.DB.topic_create_by_message( Request.QueryString ["m"], ForumList.SelectedValue, TopicSubject.Text );
 				YAF.Classes.Data.DB.message_move( Request.QueryString ["m"], nTopicId, true );
 				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 			}
 			else
-				PageContext.AddLoadMessage( GetText( "EmptyTheme" ) );
+				PageContext.AddLoadMessage( GetText( "EmptyTopic" ) );
 		}
 	}
 }
