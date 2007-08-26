@@ -27,6 +27,85 @@ using System.Data.SqlClient;
 
 namespace YAF.Classes.Data
 {
+  /// <summary>
+  /// Provides open/close management for DB Connections
+  /// </summary>
+  public class yaf_DBConnManager : IDisposable
+  {
+    private SqlConnection _connection = null;
+
+    public yaf_DBConnManager()
+    {
+      // just initalize it (not open)
+      InitConnection();
+    }
+
+    public void InitConnection()
+    {
+      if ( _connection == null )
+      {
+        // create the connection
+        _connection = new SqlConnection();
+        _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
+      }
+      else if ( _connection.State != ConnectionState.Open )
+      {
+        // verify the connection string is in there...
+        _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
+      }
+    }
+
+    public void CloseConnection()
+    {
+      if ( _connection != null && _connection.State != ConnectionState.Closed )
+      {
+        _connection.Close();
+      }
+    }
+
+    /// <summary>
+    /// Gets the current DB Connection in any state.
+    /// </summary>
+    public SqlConnection DBConnection
+    {
+      get
+      {
+        InitConnection();
+        return _connection;
+      }
+    }
+
+    /// <summary>
+    /// Gets an open connection to the DB. Can be called any number of times.
+    /// </summary>
+    public SqlConnection OpenDBConnection
+    {
+      get
+      {
+        InitConnection();
+
+        if ( _connection.State != ConnectionState.Open )
+        {
+          // open it up...
+          _connection.Open();
+        }
+
+        return _connection;
+      }
+    }
+
+    #region IDisposable Members
+
+    public void Dispose()
+    {
+      // close and delete connection
+      CloseConnection();
+      _connection = null;
+    }
+
+    #endregion
+  }
+
 	public static class DBAccess
 	{
 		/* Ederon : 6/16/2007 - conventions */
@@ -41,23 +120,6 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		/// <summary>
-		/// Gets Connection out of Web.config
-		/// </summary>
-		/// <returns>Returns SqlConnection</returns>
-		public static SqlConnection GetConnection()
-		{
-			SqlConnection conn = new SqlConnection( YAF.Classes.Config.ConnectionString );
-			
-			/* 
-			 * REVIEW : do we want to open connection yet before we use it?
-			 *		  : I'd left this on client code, to both open and close connections 
-			 * Ederon	
-			 */
- 
-			conn.Open();
-			return conn;
-		}
 		/// <summary>
 		/// Gets data out of the database
 		/// </summary>
@@ -83,9 +145,9 @@ namespace YAF.Classes.Data
 				}
 				else
 				{
-					using ( SqlConnection conn = GetConnection() )
+          using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
 					{
-						using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
+            using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 						{
 							try
 							{
@@ -95,7 +157,7 @@ namespace YAF.Classes.Data
 									using ( SqlDataAdapter da = new SqlDataAdapter() )
 									{
 										da.SelectCommand = cmd;
-										da.SelectCommand.Connection = conn;
+                    da.SelectCommand.Connection = connMan.DBConnection;
 										da.Fill( ds );
 										return ds.Tables [0];
 									}
@@ -124,13 +186,13 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( commandText );
 			try
 			{
-				using ( SqlConnection conn = GetConnection() )
+        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
+          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{
 						try
 						{
-							using ( SqlCommand cmd = conn.CreateCommand() )
+              using ( SqlCommand cmd = connMan.DBConnection.CreateCommand() )
 							{
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
@@ -140,7 +202,7 @@ namespace YAF.Classes.Data
 									using ( SqlDataAdapter da = new SqlDataAdapter() )
 									{
 										da.SelectCommand = cmd;
-										da.SelectCommand.Connection = conn;
+                    da.SelectCommand.Connection = connMan.DBConnection;
 										da.Fill( ds );
 										return ds.Tables [0];
 									}
@@ -168,11 +230,11 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-				using ( SqlConnection conn = GetConnection() )
+        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
+          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{
-						cmd.Connection = conn;
+            cmd.Connection = connMan.DBConnection;
 						cmd.Transaction = trans;
 						cmd.ExecuteNonQuery();
 						trans.Commit();
@@ -191,11 +253,11 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-				using ( SqlConnection conn = GetConnection() )
+        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
 				{
-					using ( SqlTransaction trans = conn.BeginTransaction( _isolationLevel ) )
+          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{
-						cmd.Connection = conn;
+            cmd.Connection = connMan.DBConnection;
 						cmd.Transaction = trans;
 						object results = cmd.ExecuteScalar();
 						trans.Commit();
