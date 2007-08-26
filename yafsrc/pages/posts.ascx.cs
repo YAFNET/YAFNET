@@ -230,7 +230,11 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( bApproved )
 			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID );
+				// Ederon : 7/26/2007
+				// send new post notification to users watching this topic/forum
+				General.CreateWatchEmail(nMessageID);
+				// redirect to newly posted message
+				YAF.Classes.Utils.yaf_BuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID);
 			}
 			else
 			{

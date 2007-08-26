@@ -320,7 +320,7 @@
 			<td class="postheader"><B>SMTP Password:</B><BR>
 				If you need to be authorized to send email.</td>
 			<td class="post">
-				<asp:TextBox id="ForumSmtpUserPass" runat="server"></asp:TextBox></td>
+				<asp:TextBox id="ForumSmtpUserPass" runat="server" TextMode="Password"></asp:TextBox></td>
 		</tr>
 		<tr>
 			<td class="header2" align="center" colSpan="2">User Box Settings</td>

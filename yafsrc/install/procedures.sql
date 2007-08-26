@@ -994,17 +994,19 @@ begin
 
 	-- yaf_AccessMask
 	insert into yaf_AccessMask(BoardID,Name,Flags)
-	values(@BoardID,'Admin Access Mask',1023)
+	values(@BoardID,'Admin Access',1023)
 	set @AccessMaskIDAdmin = SCOPE_IDENTITY()
 	insert into yaf_AccessMask(BoardID,Name,Flags)
-	values(@BoardID,'Moderator Access Mask',487)
+	values(@BoardID,'Moderator Access',487)
 	set @AccessMaskIDModerator = SCOPE_IDENTITY()
 	insert into yaf_AccessMask(BoardID,Name,Flags)
-	values(@BoardID,'Member Access Mask',423)
+	values(@BoardID,'Member Access',423)
 	set @AccessMaskIDMember = SCOPE_IDENTITY()
 	insert into yaf_AccessMask(BoardID,Name,Flags)
-	values(@BoardID,'Read Only Access Mask',1)
+	values(@BoardID,'Read Only Access',1)
 	set @AccessMaskIDReadOnly = SCOPE_IDENTITY()
+	insert into yaf_AccessMask(BoardID,Name,Flags)
+	values(@BoardID,'No Access',0)
 
 	-- yaf_Group
 	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Forum Administrators',1)
