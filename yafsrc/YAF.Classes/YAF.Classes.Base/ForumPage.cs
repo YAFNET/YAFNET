@@ -227,22 +227,43 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitDB()
 		{
-			try
-			{
-				// validate the version of the database (also check for connectivity)...
-				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
+      // 1st test if for DB connectivity...
+      try
+      {
+        using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
+        {
+          // just attempt to open the connection to test if a DB is available.
+          System.Data.SqlClient.SqlConnection getConn = connMan.OpenDBConnection;
+        }
+      }
+      catch ( System.Data.SqlClient.SqlException ex )
+      {
+#if !DEBUG
+        // unable to connect to the DB...
+        Session ["StartupException"] = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number.ToString() + ")";
+        Response.Redirect( yaf_ForumInfo.ForumRoot + "error.aspx" );
+#else
+        // re-throw since we are debugging...
+        throw;
+#endif
+      }
 
-				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < yaf_ForumInfo.AppVersion ) )
-				{				
-					// needs upgrading...
-					Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
-				}
-			}
-			catch ( Exception ex )
-			{
-				// If the above fails chances are that this is a new install
-				Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
-			}
+      // step 2: validate the database version...
+      try
+      {        
+        DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
+
+        if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < yaf_ForumInfo.AppVersion ) )
+        {
+          // needs upgrading...
+          Response.Redirect( yaf_ForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
+        }
+      }
+      catch ( System.Data.SqlClient.SqlException )
+      {
+        // needs to be setup...
+        Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
+      }
 		}
 
 		/// <summary>

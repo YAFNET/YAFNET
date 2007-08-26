@@ -44,6 +44,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YAFInitModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.csproj">
