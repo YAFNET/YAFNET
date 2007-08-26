@@ -38,12 +38,19 @@ namespace YAF
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			//YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.error,Request.QueryString.ToString());
-		}
+      if ( !IsPostBack )
+      {
+        string errorMessage = @"There has been a serious error loading the forum. No futher information is available.";
 
-		override protected void OnInit(EventArgs e)
-		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			base.OnInit(e);
+        // show error message if one was provided...
+        if ( Session[ "StartupException" ] != null )
+        {
+          errorMessage = "Startup Error: " + Session ["StartupException"].ToString();
+          Session ["StartupException"] = null;
+        }
+
+        ErrorMsg.Text = errorMessage + "<br/><br/>" + "Please contact the administrator if this message persists.";
+      }
 		}
 	}
 }

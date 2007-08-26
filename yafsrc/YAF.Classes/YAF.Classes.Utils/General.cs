@@ -344,7 +344,7 @@ namespace YAF.Classes.Utils
 #else
 				catch (Exception x)
 				{
-					YAF.Classes.Data.DB.eventlog_create(null,"BadWordReplace",x,EventLogTypes.Warning);
+          YAF.Classes.Data.DB.eventlog_create( null, "BadWordReplace", x, YAF.Classes.Data.EventLogTypes.Warning );
 				}
 #endif
 			}

@@ -93,23 +93,23 @@ namespace YAF.Controls
 			if ( YAF.Classes.Config.IsDotNetNuke )
 			{
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-				footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under DotNetNuke.", yaf_ForumInfo.AppVersionName );
-				footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
+        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under DotNetNuke.", yaf_ForumInfo.AppVersionName );
+        footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 			}
 			else if ( YAF.Classes.Config.IsRainbow )
 			{
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-				footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a> version {0} running under Rainbow.", yaf_ForumInfo.AppVersionName );
-				footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
+        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under Rainbow.", yaf_ForumInfo.AppVersionName );
+        footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 			}
 			else if ( PageContext.Settings.LockedForum == 0 )
 			{
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
 				footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ),
-					String.Format( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.net</a>" ),
+					String.Format( "<a target=\"_top\" title=\"Yet Another Forum.NET Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a>" ),
 					String.Format( "{0} (NET v{2}.{3}) - {1}", yaf_ForumInfo.AppVersionName, yaf_DateTime.FormatDateShort( yaf_ForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
 					);
-				footer.AppendFormat( "<br />Copyright &copy; 2003-2006 Yet Another Forum.net. All rights reserved." );
+				footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 				footer.AppendFormat( "<br/>" );
 				footer.AppendFormat( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
 
@@ -117,10 +117,12 @@ namespace YAF.Controls
 					footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "GENERATED" ), duration );
 			}
 
-#if DEBUG
-			footer.AppendFormat( "<br/>{0} queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
+#if DEBUG      
+      footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:center;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
+			footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
+      footer.Append( "</div>" );
 #endif
-			footer.AppendFormat( "</p>" );
+      footer.AppendFormat( "</p>" );
 			// END FOOTER
 
 			// write CSS, Refresh, then header...

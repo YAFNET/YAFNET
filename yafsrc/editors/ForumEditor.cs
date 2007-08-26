@@ -287,7 +287,7 @@ namespace YAF.Editor
 			catch ( Exception x )
 			{
 #if DEBUG
-				throw new Exception( "Unable to load editor class/dll: " + ClassBinStr );
+				throw new Exception( "Unable to load editor class/dll: " + ClassBinStr + " Exception: " + x.Message );
 #else
 				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, YAF.Classes.Data.EventLogTypes.Error );
 #endif
