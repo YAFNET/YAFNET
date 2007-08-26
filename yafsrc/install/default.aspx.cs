@@ -416,9 +416,9 @@ namespace YAF.Install
 
 			string [] statements = System.Text.RegularExpressions.Regex.Split( sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
-			using ( SqlConnection conn = YAF.Classes.Data.DBAccess.GetConnection() )
+      using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
 			{
-				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+        using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
 					foreach ( string sql0 in statements )
 					{
@@ -434,7 +434,7 @@ namespace YAF.Install
 								using ( SqlCommand cmd = new SqlCommand() )
 								{
 									cmd.Transaction = trans;
-									cmd.Connection = conn;
+                  cmd.Connection = connMan.DBConnection;
 									cmd.CommandType = CommandType.Text;
 									cmd.CommandText = sql.Trim();
 									cmd.ExecuteNonQuery();
@@ -456,17 +456,17 @@ namespace YAF.Install
 		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-			using ( SqlConnection conn = YAF.Classes.Data.DBAccess.GetConnection() )
+      using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
 			{
-				using ( SqlTransaction trans = conn.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+        using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
-					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'", conn ) )
+					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'", connMan.OpenDBConnection ) )
 					{
 						da.SelectCommand.Transaction = trans;
 						using ( DataTable dt = new DataTable( "sysobjects" ) )
 						{
 							da.Fill( dt );
-							using ( SqlCommand cmd = conn.CreateCommand() )
+							using ( SqlCommand cmd = connMan.DBConnection.CreateCommand() )
 							{
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
