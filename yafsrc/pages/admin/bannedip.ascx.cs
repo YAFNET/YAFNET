@@ -60,7 +60,10 @@ namespace YAF.Pages.Admin
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") {
 				YAF.Classes.Data.DB.bannedip_delete(e.CommandArgument);
-				Cache.Remove("bannedip");
+				
+				// clear cache of banned IPs for this board
+				yaf_Cache.Current.Remove(yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP));
+
 				BindData();
 				PageContext.AddLoadMessage("Removed IP address ban.");
 			}

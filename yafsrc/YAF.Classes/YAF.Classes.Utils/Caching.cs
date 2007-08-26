@@ -8,27 +8,148 @@ namespace YAF.Classes.Utils
 {
 	public class yaf_Cache
 	{
-		private static yaf_Cache currentInstance = new yaf_Cache();
+		#region Static Members
+
+		private static yaf_Cache _currentInstance;
+
+		static yaf_Cache()
+		{
+			_currentInstance = new yaf_Cache();
+		}
 
 		public static yaf_Cache Current
 		{
 			get
 			{
-				return currentInstance;
+				return _currentInstance;
 			}
 		}
 
-		public object this [string index]
+		public static string GetBoardCacheKey(string key)
+		{
+			return GetBoardCacheKey(key, yaf_Context.Current);
+		}
+		public static string GetBoardCacheKey(string key, yaf_Context context)
+		{
+			return GetBoardCacheKey(key, context.PageBoardID);
+		}
+		public static string GetBoardCacheKey(string key, int boardID)
+		{
+			return String.Format("{0}.{1}", key, boardID);
+		}
+
+		#endregion
+
+
+		#region Instantious Members
+
+		private Cache _cache;
+		private CacheKeyCreationMethod _keyCreationMethod;
+
+		public yaf_Cache() : this(HttpContext.Current.Cache) { }
+		public yaf_Cache(Cache cache)
+		{
+			_cache = cache;
+			_keyCreationMethod = CacheKeyCreationMethod.Straight;
+		}
+
+		public object this [string key]
 		{
 			get
 			{
-				return HttpContext.Current.Cache [index];
+				return _cache[CreateKey(key)];
+			}
+			set
+			{
+				_cache[CreateKey(key)] = value;
 			}
 		}
+
+		public CacheKeyCreationMethod KeyCreationMethod
+		{
+			get
+			{
+				return _keyCreationMethod;
+			}
+			/*set
+			{
+				_keyCreationMethod = value;
+			}*/
+		}
+
+		public string CreateKey(string key)
+		{
+			switch (_keyCreationMethod)
+			{
+				case CacheKeyCreationMethod.BoardSpecific:
+					return GetBoardCacheKey(key);
+				case CacheKeyCreationMethod.Straight:
+				default:
+					return key;
+			}
+		}
+
+		public object Add(string key, object value, CacheDependency dependencies,
+			DateTime absoluteExpiration, TimeSpan slidingExpiration,
+			CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback)
+		{
+			return _cache.Add(
+				CreateKey(key), 
+				value, 
+				dependencies, 
+				absoluteExpiration,
+				slidingExpiration, 
+				priority, 
+				onRemoveCallback
+				);
+		}
+
+
+		public void Insert(string key, object value)
+		{
+			_cache.Insert(CreateKey(key), value);
+		}
+		public void Insert(string key, object value, CacheDependency dependencies)
+		{
+			_cache.Insert(CreateKey(key), value, dependencies);
+		}
+		public void Insert(string key, object value, CacheDependency dependencies, 
+			DateTime absoluteExpiration, TimeSpan slidingExpiration)
+		{
+			_cache.Insert(CreateKey(key), value, dependencies, absoluteExpiration, slidingExpiration);
+		}
+		public void Insert(string key, object value, CacheDependency dependencies,
+			DateTime absoluteExpiration, TimeSpan slidingExpiration,
+			CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback)
+		{
+			_cache.Insert(
+				CreateKey(key), 
+				value, 
+				dependencies, 
+				absoluteExpiration, 
+				slidingExpiration, 
+				priority, 
+				onRemoveCallback
+				);
+		}
+
+
+		public object Remove(string key)
+		{
+			return _cache.Remove(CreateKey(key));
+		}
+
+		#endregion
 	}
 
 	public class yaf_CacheEntryInfo
 	{
-		private DateTime itemExpire;
+		private DateTime _itemExpire;
+	}
+
+	public enum CacheKeyCreationMethod
+	{
+		Straight,
+		BoardSpecific
 	}
 }

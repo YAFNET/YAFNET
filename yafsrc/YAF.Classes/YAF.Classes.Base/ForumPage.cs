@@ -271,16 +271,16 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void CheckBannedIPs()
 		{
-			string key = string.Format( "BannedIP.{0}", PageContext.PageBoardID );			
-			
+			string key = yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP);
+
 			// load the banned IP table...
-			DataTable bannedIPs = ( DataTable ) HttpContext.Current.Cache [key];
+			DataTable bannedIPs = (DataTable)yaf_Cache.Current[key];
 
 			if ( bannedIPs == null )
 			{
 				// load the table and cache it...
 				bannedIPs = DB.bannedip_list( PageContext.PageBoardID, null );
-				HttpContext.Current.Cache [key] = bannedIPs;
+				yaf_Cache.Current[key] = bannedIPs;
 			}
 
 			// check for this user in the list...

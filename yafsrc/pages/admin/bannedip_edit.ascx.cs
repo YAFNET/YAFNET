@@ -62,7 +62,11 @@ namespace YAF.Pages.Admin
 				return;
 			}
 			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageContext.PageBoardID,mask.Text);
-			Cache.Remove("bannedip");
+
+			// clear cache of banned IPs for this board
+			yaf_Cache.Current.Remove(yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP));
+
+			// go back to banned IP's administration page
 			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
 		}
 

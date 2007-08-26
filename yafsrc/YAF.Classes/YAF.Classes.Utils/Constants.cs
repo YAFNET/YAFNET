@@ -29,6 +29,9 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class Constants
 	{
+		/// <summary>
+		/// Constants for UserBox templating
+		/// </summary>
 		public struct UserBox
 		{
 			public const string DisplayTemplateDefault = "<yaf:avatar /><yaf:badges /><yaf:rankimage /><yaf:rank /><yaf:groups /><br /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:location />";
@@ -42,6 +45,14 @@ namespace YAF.Classes.Utils
 			public const string Posts = "<yaf:posts />";
 			public const string Points = "<yaf:points />";
 			public const string Location = "<yaf:location />";
+		}
+
+		/// <summary>
+		/// Cache key constants
+		/// </summary>
+		public struct Cache
+		{
+			public const string BannedIP = "BannedIP";
 		}
 	}
 }
