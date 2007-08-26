@@ -164,7 +164,6 @@
     <Content Include="framehelper.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="Global.asax" />
     <Content Include="images\delete_icon.gif" />
     <Content Include="images\eventError.gif" />
     <Content Include="images\eventInfo.gif" />
@@ -961,9 +960,6 @@
     </Compile>
     <Compile Include="error.aspx.designer.cs">
       <DependentUpon>error.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="install\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
