@@ -19,7 +19,7 @@
 		<td class="post" valign="top" id="PreviewCell" runat="server"></td>
 	</tr>
 	<tr id="DeleteReasonRow" runat="server">
-		<td class="postformheader" width="20%"><%= GetText("delete_reason") %>
+		<td class="postformheader" width="20%"><% = GetReasonText() %>
 		</td>
 		<td class="post" width="80%"><asp:textbox id="ReasonEditor" runat="server" cssclass="edit" /></td>
 	</tr>

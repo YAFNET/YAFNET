@@ -1304,7 +1304,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue( "@BoardID", boardID );
         cmd.Parameters.AddWithValue( "@Name", Name );
         cmd.Parameters.AddWithValue( "@IsAdmin", IsAdmin );
-        cmd.Parameters.AddWithValue( "@IsGuest", IsGuest );
+        /*cmd.Parameters.AddWithValue( "@IsGuest", IsGuest );*/			// obsolette flag ?
         cmd.Parameters.AddWithValue( "@IsStart", IsStart );
         cmd.Parameters.AddWithValue( "@IsModerator", isModerator );
         cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );

@@ -155,6 +155,9 @@ namespace YAF.Pages // YAF.Pages
 			int pos = filename.LastIndexOfAny( new char [] { '/', '\\' } );
 			if ( pos >= 0 ) filename = filename.Substring( pos + 1 );
 
+			// filename can be only 255 characters long (due to table column)
+			if (filename.Length > 255) filename = filename.Substring(filename.Length - 255);
+
 			// verify the size of the attachment
 			if ( PageContext.BoardSettings.MaxFileSize > 0 && file.PostedFile.ContentLength > PageContext.BoardSettings.MaxFileSize )
 				throw new Exception( GetText( "ERROR_TOOBIG" ) );

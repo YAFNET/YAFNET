@@ -168,6 +168,7 @@ namespace YAF.Classes.Utils
     #endregion
 
     #region method UpdateForumUser
+
     public static void UpdateForumUser( int nBoardID, MembershipUser user )
     {
       //YAF.Classes.Data.DB.user_setinfo(nBoardID, user);

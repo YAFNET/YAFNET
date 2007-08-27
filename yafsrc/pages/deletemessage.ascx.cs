@@ -52,9 +52,9 @@ namespace YAF.Pages
 		{
 			if ( e.Item.ItemType == ListItemType.Header )
 			{
-				DeleteAllPosts = ( CheckBox ) e.Item.FindControl( "DeleteAllPosts" );
-				DeleteAllPosts.Checked = DeleteAllPosts.Enabled = DeleteAllPosts.Checked = PageContext.ForumModeratorAccess || PageContext.IsAdmin;
-				ViewState ["delAll"] = DeleteAllPosts.Checked;
+				CheckBox deleteAllPosts = ( CheckBox ) e.Item.FindControl( "DeleteAllPosts" );
+				deleteAllPosts.Checked = deleteAllPosts.Enabled = PageContext.ForumModeratorAccess || PageContext.IsAdmin;
+				ViewState["delAll"] = deleteAllPosts.Checked;
 			}
 		}
 
@@ -118,12 +118,12 @@ namespace YAF.Pages
 					if ( Request.QueryString ["action"].ToLower() == "delete" )
 					{
 						Title.Text = GetText( "EDIT" ); //GetText("EDIT");
-						Delete.Text = GetText( "SAVE" ); // "GetText("Save");
+						Delete.Text = GetText( "DELETE" ); // "GetText("Save");
 					}
 					else
 					{
 						Title.Text = GetText( "EDIT" );
-						Delete.Text = GetText( "SAVE" ); // "GetText("Save");
+						Delete.Text = GetText( "UNDELETE" ); // "GetText("Save");
 					}
 
 					Subject.InnerHtml = Server.HtmlDecode( Convert.ToString( msg ["Topic"] ) );
@@ -279,15 +279,28 @@ namespace YAF.Pages
 				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 			}
 		}
+
 		protected string GetActionText()
 		{
 			if ( Request.QueryString ["action"].ToLower() == "delete" )
 			{
-				return GetText( "SAVE" );
+				return GetText( "DELETE" );
 			}
 			else
 			{
-				return GetText( "SAVE" );
+				return GetText( "UNDELETE" );
+			}
+		}
+
+		protected string GetReasonText()
+		{
+			if (Request.QueryString["action"].ToLower() == "delete")
+			{
+				return GetText("DELETE_REASON");
+			}
+			else
+			{
+				return GetText("UNDELETE_REASON");
 			}
 		}
 

@@ -101,13 +101,13 @@ namespace YAF.Pages
                             if (PageContext.BoardSettings.RemoveNestedQuotes)
                             {
                                 RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-                                Regex quote = new Regex(@"\[quote(\=.*)?\](.*?)\[/quote\]", m_options);
+								Regex quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", m_options);
                                 
                                 // remove quotes from old messages
                                 body = quote.Replace(body, "");
                             }
                             body = String.Format("[QUOTE={0}]{1}[/QUOTE]", row["FromUser"], body);
-                            Editor.Text = body;
+                            Editor.Text = body.TrimStart();
                         }
                     }
                 }

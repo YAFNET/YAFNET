@@ -61,6 +61,9 @@ namespace YAF.Pages.Admin
 						Moderated.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Moderated ) == ( int ) YAF.Classes.Data.ForumFlags.Moderated;
 
 						CategoryList.SelectedValue = row ["CategoryID"].ToString();
+						// populate parent forums list with forums according to selected category
+						BindParentList();
+
 						if ( !row.IsNull( "ParentID" ) )
 							ParentList.SelectedValue = row ["ParentID"].ToString();
 						if ( !row.IsNull( "ThemeURL" ) )
@@ -87,10 +90,7 @@ namespace YAF.Pages.Admin
 			}
 
 			// Load forum's combo
-			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageContext.PageBoardID, CategoryList.SelectedValue );
-			ParentList.DataValueField = "ForumID";
-			ParentList.DataTextField = "Title";
-			ParentList.DataBind();
+			BindParentList();
 
 			// Load forum's themes
 			ListItem listheader = new ListItem();
@@ -106,12 +106,17 @@ namespace YAF.Pages.Admin
 			ThemeList.Items.Insert( 0, listheader );
 		}
 
-		public void Category_Change( object sender, System.EventArgs e )
+		private void BindParentList()
 		{
-			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat( PageContext.PageBoardID, CategoryList.SelectedValue );
+			ParentList.DataSource = YAF.Classes.Data.DB.forum_listall_fromCat(PageContext.PageBoardID, CategoryList.SelectedValue);
 			ParentList.DataValueField = "ForumID";
 			ParentList.DataTextField = "Title";
 			ParentList.DataBind();
+		}
+
+		public void Category_Change( object sender, System.EventArgs e )
+		{
+			BindParentList();
 		}
 
 		override protected void OnInit( EventArgs e )
@@ -160,6 +165,12 @@ namespace YAF.Pages.Admin
 			object parentID = null;
 			if ( ParentList.SelectedValue.Length > 0 )
 				parentID = ParentList.SelectedValue;
+
+			if (parentID.ToString() == Request.QueryString["f"])
+			{
+				PageContext.AddLoadMessage("Forum cannot be parent of self.");
+				return;
+			}
 
 			object themeURL = null;
 			if ( ThemeList.SelectedValue.Length > 0 )

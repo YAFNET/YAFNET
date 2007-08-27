@@ -84,7 +84,7 @@ namespace YAF.Pages
 
 			if ( PageContext.PageForumID == 0 )
 				yaf_BuildLink.AccessDenied();
-			if ( Request ["t"] != null && !PageContext.ForumPostAccess )
+			if (Request["t"] == null && Request["m"] == null && !PageContext.ForumPostAccess)
 				yaf_BuildLink.AccessDenied();
 			if ( Request ["t"] != null && !PageContext.ForumReplyAccess )
 				yaf_BuildLink.AccessDenied();
@@ -163,12 +163,12 @@ namespace YAF.Pages
 					if ( PageContext.BoardSettings.RemoveNestedQuotes )
 					{
 						RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-						Regex quote = new Regex( @"\[quote(\=.*)?\](.*?)\[/quote\]", m_options );
+						Regex quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", m_options);
 						// remove quotes from old messages
 						tmpMessage = quote.Replace( tmpMessage, "" );
 					}
 
-						Message.Text = String.Format( "[quote={0}]{1}[/quote]", currentRow ["username"], tmpMessage );
+						Message.Text = String.Format( "[quote={0}]{1}[/quote]\n", currentRow ["username"], tmpMessage ).TrimStart();
 				}
 				else if ( EditTopicID != null )
 				{

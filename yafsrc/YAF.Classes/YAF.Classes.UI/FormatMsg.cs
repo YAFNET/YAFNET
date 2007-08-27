@@ -288,15 +288,25 @@ namespace YAF.Classes.UI
 			//Email -- RegEx VS.NET
 			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
 
-			//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			message = Regex.Replace( message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
-
-			// Demonixed : addition
-			message = Regex.Replace( message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options );
-
-
-			//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options );
+			// URLs
+			if (yaf_Context.Current.BoardSettings.BlankLinks)
+			{
+				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
+				// Demonixed : addition
+				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
+				//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+				message = Regex.Replace(message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options);
+			}
+			else
+			{
+				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
+				// Demonixed : addition
+				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
+				//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
+				message = Regex.Replace(message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options);
+			}
 
 			// jaben : moved word replace to reusable function in class utils
 			message = General.BadWordReplace( message );

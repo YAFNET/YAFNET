@@ -14,7 +14,7 @@
 </tr>
 <tr>
 	<td class="postheader" width="50%"><b>Name:</b><br/>Name of this access mask.</td>
-	<td class="post" width="50%"><asp:textbox runat="server" id="Name" cssclass="edit"/></td>
+	<td class="post" width="50%"><asp:textbox runat="server" id="Name" cssclass="edit"/><asp:RequiredFieldValidator runat="server" Text="<br />Enter name please!" ControlToValidate="Name" Display="Dynamic" /></td>
 </tr>
 <tr>
 	<td class="postheader"><b>Read Access:</b></td>

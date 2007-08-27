@@ -40,10 +40,10 @@ namespace YAF.Pages // YAF.Pages
 	{
 		protected YAF.Editor.ForumEditor QuickReplyEditor;
 
-		private DataRow forum, topic;
-		private DataTable dtPoll;
-		private bool m_bDataBound = false;
-		private bool m_bIgnoreQueryString = false;
+		private DataRow _forum, _topic;
+		private DataTable _dtPoll;
+		private bool _dataBound = false;
+		private bool _ignoreQueryString = false;
 
 		public posts()
 			: base( "POSTS" )
@@ -52,9 +52,9 @@ namespace YAF.Pages // YAF.Pages
 
 		private void posts_PreRender( object sender, EventArgs e )
 		{
-			bool bWatched = HandleWatchTopic();
+			bool isWatched = HandleWatchTopic();
 
-			MyTestMenu.AddItem( "watch", bWatched ? GetText( "unwatchtopic" ) : GetText( "watchtopic" ) );
+			MyTestMenu.AddItem( "watch", isWatched ? GetText( "unwatchtopic" ) : GetText( "watchtopic" ) );
 			MyTestMenu.AddItem( "email", GetText( "emailtopic" ) );
 			MyTestMenu.AddItem( "print", GetText( "printtopic" ) );
 			if ( PageContext.BoardSettings.ShowRSSLink ) MyTestMenu.AddItem( "rssfeed", GetText( "rsstopic" ) );
@@ -63,7 +63,7 @@ namespace YAF.Pages // YAF.Pages
 			MyTestMenu.Attach( MyTest );
 			ViewMenu.Attach( View );
 
-			if ( !m_bDataBound )
+			if ( !_dataBound )
 				BindData();
 		}
 
@@ -72,9 +72,14 @@ namespace YAF.Pages // YAF.Pages
 			QuickReplyEditor.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
 			QuickReplyEditor.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
 
-			topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
+			_topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
+
+			// in case topic is deleted or not existant
+			if (_topic == null)
+				yaf_BuildLink.Redirect(ForumPages.info, "i=6");	// invalid argument message
+
 			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
-				forum = dt.Rows [0];
+				_forum = dt.Rows [0];
 
 			if ( !PageContext.ForumReadAccess )
 				yaf_BuildLink.AccessDenied();
@@ -95,7 +100,7 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( General.BadWordReplace( PageContext.PageTopicName ), "" );
 
-				TopicTitle.Text = General.BadWordReplace( ( string ) topic ["Topic"] );
+				TopicTitle.Text = General.BadWordReplace( ( string ) _topic ["Topic"] );
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
 				ForumJumpLine.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
@@ -108,7 +113,7 @@ namespace YAF.Pages // YAF.Pages
 					NewTopic2.Visible = false;
 				}
 
-				if ( !PageContext.ForumReplyAccess || ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+				if ( !PageContext.ForumReplyAccess || ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 				{
 					PostReplyLink1.Visible = false;
 					PostReplyLink2.Visible = false;
@@ -162,7 +167,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 				else
 				{
-					LockTopic1.Visible = ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked;
+					LockTopic1.Visible = ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked;
 					UnlockTopic1.Visible = !LockTopic1.Visible;
 					LockTopic2.Visible = LockTopic1.Visible;
 					UnlockTopic2.Visible = !LockTopic2.Visible;
@@ -187,7 +192,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void QuickReply_Click( object sender, EventArgs e )
 		{
-			if ( !PageContext.ForumReplyAccess || ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+			if ( !PageContext.ForumReplyAccess || ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 				yaf_BuildLink.AccessDenied();
 
 			if ( QuickReplyEditor.Text.Length <= 0 )
@@ -248,7 +253,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
-			m_bIgnoreQueryString = true;
+			_ignoreQueryString = true;
 			SmartScroller1.Reset();
 			BindData();
 		}
@@ -284,11 +289,11 @@ namespace YAF.Pages // YAF.Pages
 
 		private void BindData()
 		{
-			m_bDataBound = true;
+			_dataBound = true;
 
 			Pager.PageSize = PageContext.BoardSettings.PostsPerPage;
 
-			if ( topic == null )
+			if ( _topic == null )
 				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
 
 			PagedDataSource pds = new PagedDataSource();
@@ -321,7 +326,7 @@ namespace YAF.Pages // YAF.Pages
 				int nFindMessage = 0;
 				try
 				{
-					if ( m_bIgnoreQueryString )
+					if ( _ignoreQueryString )
 					{
 					}
 					else if ( Request.QueryString ["p"] != null )
@@ -387,11 +392,11 @@ namespace YAF.Pages // YAF.Pages
 
 			MessageList.DataSource = pds;
 
-			if ( topic ["PollID"] != DBNull.Value )
+			if ( _topic ["PollID"] != DBNull.Value )
 			{
 				Poll.Visible = true;
-				dtPoll = YAF.Classes.Data.DB.poll_stats( topic ["PollID"] );
-				Poll.DataSource = dtPoll;
+				_dtPoll = YAF.Classes.Data.DB.poll_stats( _topic ["PollID"] );
+				Poll.DataSource = _dtPoll;
 			}
 
 			DataBind();
@@ -499,7 +504,7 @@ namespace YAF.Pages // YAF.Pages
 				if ( IsPollClosed() ) return false;
 
 				// check for voting cookie
-				string cookieName = String.Format( "poll#{0}", topic ["PollID"] );
+				string cookieName = String.Format( "poll#{0}", _topic ["PollID"] );
 				if ( Request.Cookies [cookieName] != null ) return false;
 
 				object UserID = null;
@@ -513,7 +518,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 
 				// check for a record of a vote
-				using ( DataTable dt = YAF.Classes.Data.DB.pollvote_check( topic ["PollID"], UserID, RemoteIP ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.pollvote_check( _topic ["PollID"], UserID, RemoteIP ) )
 				{
 					if ( dt.Rows.Count == 0 )
 					{
@@ -536,7 +541,7 @@ namespace YAF.Pages // YAF.Pages
 					return;
 				}
 
-				if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+				if ( ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 				{
 					PageContext.AddLoadMessage( GetText( "WARN_TOPIC_LOCKED" ) );
 					return;
@@ -574,9 +579,9 @@ namespace YAF.Pages // YAF.Pages
 		{
 			bool bIsClosed = false;
 
-			if ( dtPoll.Rows [0] ["Closes"] != DBNull.Value )
+			if ( _dtPoll.Rows [0] ["Closes"] != DBNull.Value )
 			{
-				DateTime tCloses = Convert.ToDateTime( dtPoll.Rows [0] ["Closes"] );
+				DateTime tCloses = Convert.ToDateTime( _dtPoll.Rows [0] ["Closes"] );
 				if ( tCloses < DateTime.Now )
 				{
 					bIsClosed = true;
@@ -594,18 +599,18 @@ namespace YAF.Pages // YAF.Pages
 
 		protected string GetPollQuestion()
 		{
-			return ( string ) dtPoll.Rows [0] ["Question"];
+			return ( string ) _dtPoll.Rows [0] ["Question"];
 		}
 
 		protected void PostReplyLink_Click( object sender, System.EventArgs e )
 		{
-			if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+			if ( ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
 			{
 				PageContext.AddLoadMessage( GetText( "WARN_TOPIC_LOCKED" ) );
 				return;
 			}
 
-			if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
+			if ( ( ( int ) _forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
 			{
 				PageContext.AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
 				return;
@@ -616,7 +621,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void NewTopic_Click( object sender, System.EventArgs e )
 		{
-			if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
+			if ( ( ( int ) _forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
 			{
 				PageContext.AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
 				return;

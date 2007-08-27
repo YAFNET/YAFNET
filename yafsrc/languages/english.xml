@@ -25,6 +25,8 @@
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="DELETE">Delete</Resource>
 		<Resource tag="DELETE_REASON">Delete reason</Resource>
+		<Resource tag="UNDELETE">Undelete</Resource>
+		<Resource tag="UNDELETE_REASON">Undelete reason</Resource>
 	</page>
 	<page name="COMMON">
 		<!-- common... -->
@@ -608,6 +610,7 @@
 		<Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
 		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
 		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
+		<Resource tag="EDITREASON">Reason for edit:</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
