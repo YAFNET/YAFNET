@@ -54,17 +54,17 @@ namespace YAF.Classes.Data
           using ( SqlCommand cmd = new SqlCommand( "yaf_pageload" ) )
           {
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue( "@SessionID", SessionID );
-            cmd.Parameters.AddWithValue( "@BoardID", boardID );
-            cmd.Parameters.AddWithValue( "@UserKey", UserKey );
-            cmd.Parameters.AddWithValue( "@IP", IP );
-            cmd.Parameters.AddWithValue( "@Location", Location );
-            cmd.Parameters.AddWithValue( "@Browser", Browser );
-            cmd.Parameters.AddWithValue( "@Platform", Platform );
-            cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
-            cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-            cmd.Parameters.AddWithValue( "@TopicID", TopicID );
-            cmd.Parameters.AddWithValue( "@MessageID", MessageID );
+            cmd.Parameters.AddWithValue( "SessionID", SessionID );
+            cmd.Parameters.AddWithValue( "BoardID", boardID );
+            cmd.Parameters.AddWithValue( "UserKey", UserKey );
+            cmd.Parameters.AddWithValue( "IP", IP );
+            cmd.Parameters.AddWithValue( "Location", Location );
+            cmd.Parameters.AddWithValue( "Browser", Browser );
+            cmd.Parameters.AddWithValue( "Platform", Platform );
+            cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
+            cmd.Parameters.AddWithValue( "ForumID", ForumID );
+            cmd.Parameters.AddWithValue( "TopicID", TopicID );
+            cmd.Parameters.AddWithValue( "MessageID", MessageID );
             using ( DataTable dt = DBAccess.GetData( cmd ) )
             {
               if ( dt.Rows.Count > 0 )
@@ -230,19 +230,19 @@ namespace YAF.Classes.Data
             {
               da.SelectCommand.CommandType = CommandType.StoredProcedure;
               da.SelectCommand.Transaction = trans;
-              da.SelectCommand.Parameters.AddWithValue( "@BoardID", boardID );
-              da.SelectCommand.Parameters.AddWithValue( "@UserID", UserID );
-              da.SelectCommand.Parameters.AddWithValue( "@CategoryID", CategoryID );
+              da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
+              da.SelectCommand.Parameters.AddWithValue( "UserID", UserID );
+              da.SelectCommand.Parameters.AddWithValue( "CategoryID", CategoryID );
               da.Fill( ds, "yaf_Category" );
             }
             using ( SqlDataAdapter da = new SqlDataAdapter( "yaf_forum_listread", connMan.DBConnection ) )
             {
               da.SelectCommand.CommandType = CommandType.StoredProcedure;
               da.SelectCommand.Transaction = trans;
-              da.SelectCommand.Parameters.AddWithValue( "@BoardID", boardID );
-              da.SelectCommand.Parameters.AddWithValue( "@UserID", UserID );
-              da.SelectCommand.Parameters.AddWithValue( "@CategoryID", CategoryID );
-              da.SelectCommand.Parameters.AddWithValue( "@ParentID", parentID );
+              da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
+              da.SelectCommand.Parameters.AddWithValue( "UserID", UserID );
+              da.SelectCommand.Parameters.AddWithValue( "CategoryID", CategoryID );
+              da.SelectCommand.Parameters.AddWithValue( "ParentID", parentID );
               da.Fill( ds, "yaf_Forum" );
             }
             ds.Relations.Add( "FK_Forum_Category", ds.Tables ["yaf_Category"].Columns ["CategoryID"], ds.Tables ["yaf_Forum"].Columns ["CategoryID"] );
@@ -270,7 +270,7 @@ namespace YAF.Classes.Data
             using ( SqlDataAdapter da = new SqlDataAdapter( "yaf_category_list", connMan.DBConnection ) )
             {
               da.SelectCommand.Transaction = trans;
-              da.SelectCommand.Parameters.AddWithValue( "@BoardID", boardID );
+              da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
               da.SelectCommand.CommandType = CommandType.StoredProcedure;
               da.Fill( ds, "yaf_Category" );
               da.SelectCommand.CommandText = "yaf_forum_list";
@@ -305,8 +305,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_accessmask_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -320,7 +320,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_accessmask_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         return ( int ) DBAccess.ExecuteScalar( cmd ) != 0;
       }
     }
@@ -345,19 +345,19 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_accessmask_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", name );
-        cmd.Parameters.AddWithValue( "@ReadAccess", readAccess );
-        cmd.Parameters.AddWithValue( "@PostAccess", postAccess );
-        cmd.Parameters.AddWithValue( "@ReplyAccess", replyAccess );
-        cmd.Parameters.AddWithValue( "@PriorityAccess", priorityAccess );
-        cmd.Parameters.AddWithValue( "@PollAccess", pollAccess );
-        cmd.Parameters.AddWithValue( "@VoteAccess", voteAccess );
-        cmd.Parameters.AddWithValue( "@ModeratorAccess", moderatorAccess );
-        cmd.Parameters.AddWithValue( "@EditAccess", editAccess );
-        cmd.Parameters.AddWithValue( "@DeleteAccess", deleteAccess );
-        cmd.Parameters.AddWithValue( "@UploadAccess", uploadAccess );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", name );
+        cmd.Parameters.AddWithValue( "ReadAccess", readAccess );
+        cmd.Parameters.AddWithValue( "PostAccess", postAccess );
+        cmd.Parameters.AddWithValue( "ReplyAccess", replyAccess );
+        cmd.Parameters.AddWithValue( "PriorityAccess", priorityAccess );
+        cmd.Parameters.AddWithValue( "PollAccess", pollAccess );
+        cmd.Parameters.AddWithValue( "VoteAccess", voteAccess );
+        cmd.Parameters.AddWithValue( "ModeratorAccess", moderatorAccess );
+        cmd.Parameters.AddWithValue( "EditAccess", editAccess );
+        cmd.Parameters.AddWithValue( "DeleteAccess", deleteAccess );
+        cmd.Parameters.AddWithValue( "UploadAccess", uploadAccess );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -375,8 +375,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_active_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Guests", Guests );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Guests", Guests );
         return DBAccess.GetData( cmd );
       }
     }
@@ -391,7 +391,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_active_listforum" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -405,7 +405,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_active_listtopic" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -420,7 +420,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_active_stats" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         using ( DataTable dt = DBAccess.GetData( cmd ) )
         {
           return dt.Rows [0];
@@ -442,9 +442,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@AttachmentID", attachmentID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -468,11 +468,11 @@ namespace YAF.Classes.Data
           stream.Read( fileData, 0, ( int ) stream.Length );
         }
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@FileName", fileName );
-        cmd.Parameters.AddWithValue( "@Bytes", bytes );
-        cmd.Parameters.AddWithValue( "@ContentType", contentType );
-        cmd.Parameters.AddWithValue( "@FileData", fileData );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "FileName", fileName );
+        cmd.Parameters.AddWithValue( "Bytes", bytes );
+        cmd.Parameters.AddWithValue( "ContentType", contentType );
+        cmd.Parameters.AddWithValue( "FileData", fileData );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -495,7 +495,7 @@ namespace YAF.Classes.Data
         using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_list" ) )
         {
           cmd.CommandType = CommandType.StoredProcedure;
-          cmd.Parameters.AddWithValue( "@AttachmentID", attachmentID );
+          cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
           DataTable tbAttachments = DBAccess.GetData( cmd );
           string sUpDir = HttpContext.Current.Server.MapPath( YAF.Classes.Config.UploadDir );
           foreach ( DataRow row in tbAttachments.Rows )
@@ -506,7 +506,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@AttachmentID", attachmentID );
+        cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
         DBAccess.ExecuteNonQuery( cmd );
       }
       //End ABOT CHANGE 16.04.04
@@ -522,7 +522,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_download" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@AttachmentID", attachmentID );
+        cmd.Parameters.AddWithValue( "AttachmentID", attachmentID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -540,8 +540,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_bannedip_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@ID", ID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "ID", ID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -556,9 +556,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_bannedip_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ID", ID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Mask", Mask );
+        cmd.Parameters.AddWithValue( "ID", ID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Mask", Mask );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -571,7 +571,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_bannedip_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ID", ID );
+        cmd.Parameters.AddWithValue( "ID", ID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -588,7 +588,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_board_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -602,7 +602,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_board_poststats" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         using ( DataTable dt = DBAccess.GetData( cmd ) )
         {
           return dt.Rows [0];
@@ -635,9 +635,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_board_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", name );
-        cmd.Parameters.AddWithValue( "@AllowThreaded", allowThreaded );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", name );
+        cmd.Parameters.AddWithValue( "AllowThreaded", allowThreaded );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -654,12 +654,12 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_board_create" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardName", name );
-        cmd.Parameters.AddWithValue( "@AllowThreaded", allowThreaded );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@UserEmail", userEmail );
-        cmd.Parameters.AddWithValue( "@UserPass", userPass );
-        cmd.Parameters.AddWithValue( "@IsHostAdmin", false );
+        cmd.Parameters.AddWithValue( "BoardName", name );
+        cmd.Parameters.AddWithValue( "AllowThreaded", allowThreaded );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "UserEmail", userEmail );
+        cmd.Parameters.AddWithValue( "UserPass", userPass );
+        cmd.Parameters.AddWithValue( "IsHostAdmin", false );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -672,7 +672,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_board_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -689,7 +689,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_category_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
+        cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
         return ( int ) DBAccess.ExecuteScalar( cmd ) != 0;
       }
     }
@@ -704,8 +704,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_category_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@CategoryID", categoryID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "CategoryID", categoryID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -722,10 +722,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_category_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@SortOrder", SortOrder );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "SortOrder", SortOrder );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -743,9 +743,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_checkemail_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Hash", Hash );
-        cmd.Parameters.AddWithValue( "@Email", Email );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Hash", Hash );
+        cmd.Parameters.AddWithValue( "Email", Email );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -759,7 +759,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_checkemail_update" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Hash", hash );
+        cmd.Parameters.AddWithValue( "Hash", hash );
         return ( bool ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -775,9 +775,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_choice_vote" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ChoiceID", choiceID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@RemoteIP", remoteIP );
+        cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "RemoteIP", remoteIP );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -792,10 +792,10 @@ namespace YAF.Classes.Data
         using ( SqlCommand cmd = new SqlCommand( "yaf_eventlog_create" ) )
         {
           cmd.CommandType = CommandType.StoredProcedure;
-          cmd.Parameters.AddWithValue( "@Type", ( object ) type );
-          cmd.Parameters.AddWithValue( "@UserID", ( object ) userID );
-          cmd.Parameters.AddWithValue( "@Source", ( object ) source.ToString() );
-          cmd.Parameters.AddWithValue( "@Description", ( object ) description.ToString() );
+          cmd.Parameters.AddWithValue( "Type", ( object ) type );
+          cmd.Parameters.AddWithValue( "UserID", ( object ) userID );
+          cmd.Parameters.AddWithValue( "Source", ( object ) source.ToString() );
+          cmd.Parameters.AddWithValue( "Description", ( object ) description.ToString() );
           DBAccess.ExecuteNonQuery( cmd );
         }
       }
@@ -815,7 +815,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_eventlog_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@EventLogID", eventLogID );
+        cmd.Parameters.AddWithValue( "EventLogID", eventLogID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -825,7 +825,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_eventlog_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -841,9 +841,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pollvote_check" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@PollID", pollid );
-        cmd.Parameters.AddWithValue( "@UserID", userid );
-        cmd.Parameters.AddWithValue( "@RemoteIP", remoteip );
+        cmd.Parameters.AddWithValue( "PollID", pollid );
+        cmd.Parameters.AddWithValue( "UserID", userid );
+        cmd.Parameters.AddWithValue( "RemoteIP", remoteip );
         return DBAccess.GetData( cmd );
       }
     }
@@ -860,7 +860,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listtopics" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
         using ( DataTable dt = DBAccess.GetData( cmd ) )
         {
           foreach ( DataRow row in dt.Rows )
@@ -882,14 +882,14 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listSubForums" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
         if ( DBAccess.ExecuteScalar( cmd ) is DBNull )
         {
           forum_deleteAttachments( ForumID );
           using ( SqlCommand cmd_new = new SqlCommand( "yaf_forum_delete" ) )
           {
             cmd_new.CommandType = CommandType.StoredProcedure;
-            cmd_new.Parameters.AddWithValue( "@ForumID", ForumID );
+            cmd_new.Parameters.AddWithValue( "ForumID", ForumID );
             DBAccess.ExecuteNonQuery( cmd_new );
           }
           return true;
@@ -911,8 +911,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listallmymoderated" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -928,8 +928,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -957,9 +957,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listall" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Root", startAt );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Root", startAt );
         return DBAccess.GetData( cmd );
       }
     }
@@ -986,8 +986,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listall_fromCat" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
 
         int intCategoryID = Convert.ToInt32( CategoryID.ToString() );
 
@@ -1007,7 +1007,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listpath" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1024,10 +1024,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_listread" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
-        cmd.Parameters.AddWithValue( "@ParentID", parentID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
+        cmd.Parameters.AddWithValue( "ParentID", parentID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1049,11 +1049,11 @@ namespace YAF.Classes.Data
             using ( SqlTransaction trans = da.SelectCommand.Connection.BeginTransaction( DBAccess.IsolationLevel ) )
             {
               da.SelectCommand.Transaction = trans;
-              da.SelectCommand.Parameters.AddWithValue( "@BoardID", boardID );
+              da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
               da.SelectCommand.CommandType = CommandType.StoredProcedure;
               da.Fill( ds, "yaf_Category" );
               da.SelectCommand.CommandText = "yaf_forum_moderatelist";
-              da.SelectCommand.Parameters.AddWithValue( "@UserID", userID );
+              da.SelectCommand.Parameters.AddWithValue( "UserID", userID );
               da.Fill( ds, "yaf_ForumUnsorted" );
               DataTable dtForumListSorted = ds.Tables ["yaf_ForumUnsorted"].Clone();
               dtForumListSorted.TableName = "yaf_Forum";
@@ -1085,19 +1085,19 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forum_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@CategoryID", CategoryID );
-        cmd.Parameters.AddWithValue( "@ParentID", parentID );
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@Description", Description );
-        cmd.Parameters.AddWithValue( "@SortOrder", SortOrder );
-        cmd.Parameters.AddWithValue( "@Locked", Locked );
-        cmd.Parameters.AddWithValue( "@Hidden", Hidden );
-        cmd.Parameters.AddWithValue( "@IsTest", IsTest );
-        cmd.Parameters.AddWithValue( "@Moderated", moderated );
-        cmd.Parameters.AddWithValue( "@RemoteURL", remoteURL );
-        cmd.Parameters.AddWithValue( "@ThemeURL", themeURL );
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
+        cmd.Parameters.AddWithValue( "ParentID", parentID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "Description", Description );
+        cmd.Parameters.AddWithValue( "SortOrder", SortOrder );
+        cmd.Parameters.AddWithValue( "Locked", Locked );
+        cmd.Parameters.AddWithValue( "Hidden", Hidden );
+        cmd.Parameters.AddWithValue( "IsTest", IsTest );
+        cmd.Parameters.AddWithValue( "Moderated", moderated );
+        cmd.Parameters.AddWithValue( "RemoteURL", remoteURL );
+        cmd.Parameters.AddWithValue( "ThemeURL", themeURL );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         return long.Parse( DBAccess.ExecuteScalar( cmd ).ToString() );
       }
     }
@@ -1233,7 +1233,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forumaccess_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1242,9 +1242,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forumaccess_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1253,7 +1253,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_forumaccess_group" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
         return userforumaccess_sort_list( DBAccess.GetData( cmd ), 0, 0, 0 );
       }
     }
@@ -1265,8 +1265,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_group_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1275,7 +1275,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_group_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1284,8 +1284,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_group_member" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1300,14 +1300,14 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_group_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@IsAdmin", IsAdmin );
-        /*cmd.Parameters.AddWithValue( "@IsGuest", IsGuest );*/			// obsolette flag ?
-        cmd.Parameters.AddWithValue( "@IsStart", IsStart );
-        cmd.Parameters.AddWithValue( "@IsModerator", isModerator );
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "IsAdmin", IsAdmin );
+        /*cmd.Parameters.AddWithValue( "IsGuest", IsGuest );*/			// obsolette flag ?
+        cmd.Parameters.AddWithValue( "IsStart", IsStart );
+        cmd.Parameters.AddWithValue( "IsModerator", isModerator );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         return long.Parse( DBAccess.ExecuteScalar( cmd ).ToString() );
       }
     }
@@ -1319,7 +1319,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_mail_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MailID", MailID );
+        cmd.Parameters.AddWithValue( "MailID", MailID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1336,11 +1336,11 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_mail_createwatch" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
-        cmd.Parameters.AddWithValue( "@From", from );
-        cmd.Parameters.AddWithValue( "@Subject", subject );
-        cmd.Parameters.AddWithValue( "@Body", body );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
+        cmd.Parameters.AddWithValue( "From", from );
+        cmd.Parameters.AddWithValue( "Subject", subject );
+        cmd.Parameters.AddWithValue( "Body", body );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1349,10 +1349,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_mail_create" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@From", from );
-        cmd.Parameters.AddWithValue( "@To", to );
-        cmd.Parameters.AddWithValue( "@Subject", subject );
-        cmd.Parameters.AddWithValue( "@Body", body );
+        cmd.Parameters.AddWithValue( "From", from );
+        cmd.Parameters.AddWithValue( "To", to );
+        cmd.Parameters.AddWithValue( "Subject", subject );
+        cmd.Parameters.AddWithValue( "Body", body );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1364,9 +1364,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_post_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
-        cmd.Parameters.AddWithValue( "@UpdateViewCount", updateViewCount );
-        cmd.Parameters.AddWithValue( "@ShowDeleted", showDeleted );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
+        cmd.Parameters.AddWithValue( "UpdateViewCount", updateViewCount );
+        cmd.Parameters.AddWithValue( "ShowDeleted", showDeleted );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1375,7 +1375,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_post_list_reverse10" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1384,9 +1384,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_post_last10user" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@PageUserID", pageUserID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "PageUserID", pageUserID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1406,7 +1406,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_reply_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
         DataTable dtr = DBAccess.GetData( cmd );
 
         for ( int i = 0; i < dtr.Rows.Count; i++ )
@@ -1434,7 +1434,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_reply_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", MsgID );
+        cmd.Parameters.AddWithValue( "MessageID", MsgID );
         DataTable dtr = DBAccess.GetData( cmd );
 
         for ( int i = 0; i < dtr.Rows.Count; i++ )
@@ -1462,9 +1462,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_create_by_message" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", MessageID );
-        cmd.Parameters.AddWithValue( "@ForumID", ForumId );
-        cmd.Parameters.AddWithValue( "@Subject", newTopicSubj );
+        cmd.Parameters.AddWithValue( "MessageID", MessageID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumId );
+        cmd.Parameters.AddWithValue( "Subject", newTopicSubj );
         DataTable dt = DBAccess.GetData( cmd );
         return long.Parse( dt.Rows [0] ["TopicID"].ToString() );
       }
@@ -1475,7 +1475,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1491,8 +1491,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_listreported" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
-        cmd.Parameters.AddWithValue( "@MessageFlag", messageFlag );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
+        cmd.Parameters.AddWithValue( "MessageFlag", messageFlag );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1503,10 +1503,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_report" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ReportFlag", reportFlag );
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@ReporterID", userID );
-        cmd.Parameters.AddWithValue( "@ReportedDate", reportedDateTime );
+        cmd.Parameters.AddWithValue( "ReportFlag", reportFlag );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "ReporterID", userID );
+        cmd.Parameters.AddWithValue( "ReportedDate", reportedDateTime );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1517,7 +1517,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_reportcopyover" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1528,9 +1528,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_reportresolve" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageFlag", messageFlag );
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "MessageFlag", messageFlag );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1551,7 +1551,7 @@ namespace YAF.Classes.Data
         using ( SqlCommand cmd = new SqlCommand( "yaf_message_getReplies" ) )
         {
           cmd.CommandType = CommandType.StoredProcedure;
-          cmd.Parameters.AddWithValue( "@MessageID", messageID );
+          cmd.Parameters.AddWithValue( "MessageID", messageID );
           DataTable tbReplies = DBAccess.GetData( cmd );
 
           foreach ( DataRow row in tbReplies.Rows )
@@ -1565,7 +1565,7 @@ namespace YAF.Classes.Data
         using ( SqlCommand cmd = new SqlCommand( "yaf_attachment_list" ) )
         {
           cmd.CommandType = CommandType.StoredProcedure;
-          cmd.Parameters.AddWithValue( "@MessageID", messageID );
+          cmd.Parameters.AddWithValue( "MessageID", messageID );
           DataTable tbAttachments = DBAccess.GetData( cmd );
           string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
           foreach ( DataRow row in tbAttachments.Rows )
@@ -1580,10 +1580,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_deleteundelete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@isModeratorChanged", isModeratorChanged );
-        cmd.Parameters.AddWithValue( "@DeleteReason", deleteReason );
-        cmd.Parameters.AddWithValue( "@isDeleteAction", isDeleteAction );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "isModeratorChanged", isModeratorChanged );
+        cmd.Parameters.AddWithValue( "DeleteReason", deleteReason );
+        cmd.Parameters.AddWithValue( "isDeleteAction", isDeleteAction );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1594,7 +1594,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_approve" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1605,13 +1605,13 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_update" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@Priority", priority );
-        cmd.Parameters.AddWithValue( "@Message", message );
-        cmd.Parameters.AddWithValue( "@Subject", subject );
-        cmd.Parameters.AddWithValue( "@Flags", flags );
-        cmd.Parameters.AddWithValue( "@Reason", reasonOfEdit );
-        cmd.Parameters.AddWithValue( "@IsModeratorChanged", isModeratorChanged );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "Priority", priority );
+        cmd.Parameters.AddWithValue( "Message", message );
+        cmd.Parameters.AddWithValue( "Subject", subject );
+        cmd.Parameters.AddWithValue( "Flags", flags );
+        cmd.Parameters.AddWithValue( "Reason", reasonOfEdit );
+        cmd.Parameters.AddWithValue( "IsModeratorChanged", isModeratorChanged );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1620,19 +1620,19 @@ namespace YAF.Classes.Data
     {
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_save" ) )
       {
-        SqlParameter paramMessageID = new SqlParameter( "@MessageID", nMessageID );
+        SqlParameter paramMessageID = new SqlParameter( "MessageID", nMessageID );
         paramMessageID.Direction = ParameterDirection.Output;
 
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", TopicID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Message", Message );
-        cmd.Parameters.AddWithValue( "@UserName", UserName );
-        cmd.Parameters.AddWithValue( "@IP", IP );
-        cmd.Parameters.AddWithValue( "@Posted", posted );
-        cmd.Parameters.AddWithValue( "@ReplyTo", replyTo );
-        cmd.Parameters.AddWithValue( "@BlogPostID", null );		// Ederon : 6/16/2007
-        cmd.Parameters.AddWithValue( "@Flags", Flags );
+        cmd.Parameters.AddWithValue( "TopicID", TopicID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Message", Message );
+        cmd.Parameters.AddWithValue( "UserName", UserName );
+        cmd.Parameters.AddWithValue( "IP", IP );
+        cmd.Parameters.AddWithValue( "Posted", posted );
+        cmd.Parameters.AddWithValue( "ReplyTo", replyTo );
+        cmd.Parameters.AddWithValue( "BlogPostID", null );		// Ederon : 6/16/2007
+        cmd.Parameters.AddWithValue( "Flags", Flags );
         cmd.Parameters.Add( paramMessageID );
         DBAccess.ExecuteNonQuery( cmd );
         nMessageID = ( long ) paramMessageID.Value;
@@ -1644,7 +1644,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_unapproved" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1653,8 +1653,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_findunread" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
-        cmd.Parameters.AddWithValue( "@LastRead", lastRead );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
+        cmd.Parameters.AddWithValue( "LastRead", lastRead );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1665,8 +1665,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_move" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
-        cmd.Parameters.AddWithValue( "@MoveToTopic", moveToTopic );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MoveToTopic", moveToTopic );
         DBAccess.ExecuteNonQuery( cmd );
       }
       //moveAll=true anyway
@@ -1676,7 +1676,7 @@ namespace YAF.Classes.Data
         using ( SqlCommand cmd = new SqlCommand( "yaf_message_getReplies" ) )
         {
           cmd.CommandType = CommandType.StoredProcedure;
-          cmd.Parameters.AddWithValue( "@MessageID", messageID );
+          cmd.Parameters.AddWithValue( "MessageID", messageID );
           DataTable tbReplies = DBAccess.GetData( cmd );
           foreach ( DataRow row in tbReplies.Rows )
           {
@@ -1700,7 +1700,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_message_getReplies" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@MessageID", messageID );
+        cmd.Parameters.AddWithValue( "MessageID", messageID );
         DataTable tbReplies = DBAccess.GetData( cmd );
         foreach ( DataRow row in tbReplies.Rows )
         {
@@ -1709,8 +1709,8 @@ namespace YAF.Classes.Data
         using ( SqlCommand innercmd = new SqlCommand( "yaf_message_move" ) )
         {
           innercmd.CommandType = CommandType.StoredProcedure;
-          innercmd.Parameters.AddWithValue( "@MessageID", messageID );
-          innercmd.Parameters.AddWithValue( "@MoveToTopic", moveToTopic );
+          innercmd.Parameters.AddWithValue( "MessageID", messageID );
+          innercmd.Parameters.AddWithValue( "MoveToTopic", moveToTopic );
           DBAccess.ExecuteNonQuery( innercmd );
         }
       }
@@ -1725,10 +1725,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpforum_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Minutes", minutes );
-        cmd.Parameters.AddWithValue( "@NntpForumID", nntpForumID );
-        cmd.Parameters.AddWithValue( "@Active", active );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Minutes", minutes );
+        cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
+        cmd.Parameters.AddWithValue( "Active", active );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1737,9 +1737,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpforum_update" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpForumID", nntpForumID );
-        cmd.Parameters.AddWithValue( "@LastMessageNo", lastMessageNo );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
+        cmd.Parameters.AddWithValue( "LastMessageNo", lastMessageNo );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1748,11 +1748,11 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpforum_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpForumID", nntpForumID );
-        cmd.Parameters.AddWithValue( "@NntpServerID", nntpServerID );
-        cmd.Parameters.AddWithValue( "@GroupName", groupName );
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
-        cmd.Parameters.AddWithValue( "@Active", active );
+        cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
+        cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
+        cmd.Parameters.AddWithValue( "GroupName", groupName );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
+        cmd.Parameters.AddWithValue( "Active", active );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1761,7 +1761,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpforum_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpForumID", nntpForumID );
+        cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1773,8 +1773,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpserver_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@NntpServerID", nntpServerID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1783,13 +1783,13 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpserver_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpServerID", nntpServerID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", name );
-        cmd.Parameters.AddWithValue( "@Address", address );
-        cmd.Parameters.AddWithValue( "@Port", port );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@UserPass", userPass );
+        cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", name );
+        cmd.Parameters.AddWithValue( "Address", address );
+        cmd.Parameters.AddWithValue( "Port", port );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "UserPass", userPass );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1798,7 +1798,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntpserver_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpServerID", nntpServerID );
+        cmd.Parameters.AddWithValue( "NntpServerID", nntpServerID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1810,7 +1810,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntptopic_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Thread", thread );
+        cmd.Parameters.AddWithValue( "Thread", thread );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1819,14 +1819,14 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_nntptopic_savemessage" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@NntpForumID", nntpForumID );
-        cmd.Parameters.AddWithValue( "@Topic", topic );
-        cmd.Parameters.AddWithValue( "@Body", body );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@IP", ip );
-        cmd.Parameters.AddWithValue( "@Posted", posted );
-        cmd.Parameters.AddWithValue( "@Thread", thread );
+        cmd.Parameters.AddWithValue( "NntpForumID", nntpForumID );
+        cmd.Parameters.AddWithValue( "Topic", topic );
+        cmd.Parameters.AddWithValue( "Body", body );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "IP", ip );
+        cmd.Parameters.AddWithValue( "Posted", posted );
+        cmd.Parameters.AddWithValue( "Thread", thread );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1848,9 +1848,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ToUserID", toUserID );
-        cmd.Parameters.AddWithValue( "@FromUserID", fromUserID );
-        cmd.Parameters.AddWithValue( "@PMessageID", pMessageID );
+        cmd.Parameters.AddWithValue( "ToUserID", toUserID );
+        cmd.Parameters.AddWithValue( "FromUserID", fromUserID );
+        cmd.Parameters.AddWithValue( "PMessageID", pMessageID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1879,8 +1879,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@PMessageID", pMessageID );
-        cmd.Parameters.AddWithValue( "@FromOutbox", fromOutbox );
+        cmd.Parameters.AddWithValue( "PMessageID", pMessageID );
+        cmd.Parameters.AddWithValue( "FromOutbox", fromOutbox );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1903,7 +1903,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand sqlCommand = new SqlCommand( "yaf_pmessage_archive" ) )
       {
         sqlCommand.CommandType = CommandType.StoredProcedure;
-        sqlCommand.Parameters.AddWithValue( "@PMessageID", pMessageID );
+        sqlCommand.Parameters.AddWithValue( "PMessageID", pMessageID );
         DBAccess.ExecuteNonQuery( sqlCommand );
       }
     }
@@ -1913,11 +1913,11 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@FromUserID", fromUserID );
-        cmd.Parameters.AddWithValue( "@ToUserID", toUserID );
-        cmd.Parameters.AddWithValue( "@Subject", subject );
-        cmd.Parameters.AddWithValue( "@Body", body );
-        cmd.Parameters.AddWithValue( "@Flags", Flags );
+        cmd.Parameters.AddWithValue( "FromUserID", fromUserID );
+        cmd.Parameters.AddWithValue( "ToUserID", toUserID );
+        cmd.Parameters.AddWithValue( "Subject", subject );
+        cmd.Parameters.AddWithValue( "Body", body );
+        cmd.Parameters.AddWithValue( "Flags", Flags );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1926,7 +1926,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_markread" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserPMessageID", userPMessageID );
+        cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1943,8 +1943,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_pmessage_prune" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@DaysRead", daysRead );
-        cmd.Parameters.AddWithValue( "@DaysUnread", daysUnread );
+        cmd.Parameters.AddWithValue( "DaysRead", daysRead );
+        cmd.Parameters.AddWithValue( "DaysUnread", daysUnread );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -1956,7 +1956,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_poll_stats" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@PollID", pollID );
+        cmd.Parameters.AddWithValue( "PollID", pollID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1965,17 +1965,17 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_poll_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Question", question );
-        cmd.Parameters.AddWithValue( "@Choice1", c1 );
-        cmd.Parameters.AddWithValue( "@Choice2", c2 );
-        cmd.Parameters.AddWithValue( "@Choice3", c3 );
-        cmd.Parameters.AddWithValue( "@Choice4", c4 );
-        cmd.Parameters.AddWithValue( "@Choice5", c5 );
-        cmd.Parameters.AddWithValue( "@Choice6", c6 );
-        cmd.Parameters.AddWithValue( "@Choice7", c7 );
-        cmd.Parameters.AddWithValue( "@Choice8", c8 );
-        cmd.Parameters.AddWithValue( "@Choice9", c9 );
-        cmd.Parameters.AddWithValue( "@Closes", c10 );
+        cmd.Parameters.AddWithValue( "Question", question );
+        cmd.Parameters.AddWithValue( "Choice1", c1 );
+        cmd.Parameters.AddWithValue( "Choice2", c2 );
+        cmd.Parameters.AddWithValue( "Choice3", c3 );
+        cmd.Parameters.AddWithValue( "Choice4", c4 );
+        cmd.Parameters.AddWithValue( "Choice5", c5 );
+        cmd.Parameters.AddWithValue( "Choice6", c6 );
+        cmd.Parameters.AddWithValue( "Choice7", c7 );
+        cmd.Parameters.AddWithValue( "Choice8", c8 );
+        cmd.Parameters.AddWithValue( "Choice9", c9 );
+        cmd.Parameters.AddWithValue( "Closes", c10 );
         return ( int ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -1987,8 +1987,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_rank_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@RankID", rankID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "RankID", rankID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -1997,13 +1997,13 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_rank_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@RankID", RankID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@IsStart", IsStart );
-        cmd.Parameters.AddWithValue( "@IsLadder", IsLadder );
-        cmd.Parameters.AddWithValue( "@MinPosts", MinPosts );
-        cmd.Parameters.AddWithValue( "@RankImage", RankImage );
+        cmd.Parameters.AddWithValue( "RankID", RankID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "IsStart", IsStart );
+        cmd.Parameters.AddWithValue( "IsLadder", IsLadder );
+        cmd.Parameters.AddWithValue( "MinPosts", MinPosts );
+        cmd.Parameters.AddWithValue( "RankImage", RankImage );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2012,7 +2012,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_rank_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@RankID", RankID );
+        cmd.Parameters.AddWithValue( "RankID", RankID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2024,8 +2024,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_smiley_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@SmileyID", SmileyID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "SmileyID", SmileyID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2034,7 +2034,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_smiley_listunique" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2043,7 +2043,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_smiley_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@SmileyID", SmileyID );
+        cmd.Parameters.AddWithValue( "SmileyID", SmileyID );
         DBAccess.ExecuteNonQuery( cmd );
         System.Web.HttpContext.Current.Cache.Remove( "Smilies" );
       }
@@ -2053,12 +2053,12 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_smiley_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@SmileyID", SmileyID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Code", Code );
-        cmd.Parameters.AddWithValue( "@Icon", Icon );
-        cmd.Parameters.AddWithValue( "@Emoticon", Emoticon );
-        cmd.Parameters.AddWithValue( "@Replace", Replace );
+        cmd.Parameters.AddWithValue( "SmileyID", SmileyID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Code", Code );
+        cmd.Parameters.AddWithValue( "Icon", Icon );
+        cmd.Parameters.AddWithValue( "Emoticon", Emoticon );
+        cmd.Parameters.AddWithValue( "Replace", Replace );
         DBAccess.ExecuteNonQuery( cmd );
         System.Web.HttpContext.Current.Cache.Remove( "Smilies" );
       }
@@ -2076,8 +2076,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_registry_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2108,8 +2108,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_registry_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@Value", Value );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "Value", Value );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2124,9 +2124,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_registry_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@Value", Value );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "Value", Value );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2153,8 +2153,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_prune" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@Days", Days );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "Days", Days );
         return ( int ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2164,11 +2164,11 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@Announcement", Announcement );
-        cmd.Parameters.AddWithValue( "@Date", Date );
-        cmd.Parameters.AddWithValue( "@Offset", offset );
-        cmd.Parameters.AddWithValue( "@Count", count );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "Announcement", Announcement );
+        cmd.Parameters.AddWithValue( "Date", Date );
+        cmd.Parameters.AddWithValue( "Offset", offset );
+        cmd.Parameters.AddWithValue( "Count", count );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2177,9 +2177,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_move" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", TopicID );
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@ShowMoved", ShowMoved );
+        cmd.Parameters.AddWithValue( "TopicID", TopicID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "ShowMoved", ShowMoved );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2189,9 +2189,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_announcements" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@NumPosts", numOfPostsToRetrieve );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "NumPosts", numOfPostsToRetrieve );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2201,9 +2201,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_latest" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@NumPosts", numOfPostsToRetrieve );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "NumPosts", numOfPostsToRetrieve );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2212,10 +2212,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_active" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Since", Since );
-        cmd.Parameters.AddWithValue( "@CategoryID", categoryID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Since", Since );
+        cmd.Parameters.AddWithValue( "CategoryID", categoryID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2225,7 +2225,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_listmessages" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", TopicID );
+        cmd.Parameters.AddWithValue( "TopicID", TopicID );
         using ( DataTable dt = DBAccess.GetData( cmd ) )
         {
           foreach ( DataRow row in dt.Rows )
@@ -2244,7 +2244,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", TopicID );
+        cmd.Parameters.AddWithValue( "TopicID", TopicID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2253,7 +2253,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_findprev" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2262,7 +2262,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_findnext" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2271,8 +2271,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_lock" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
-        cmd.Parameters.AddWithValue( "@Locked", locked );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
+        cmd.Parameters.AddWithValue( "Locked", locked );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2281,17 +2281,17 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
-        cmd.Parameters.AddWithValue( "@Subject", Subject );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Message", Message );
-        cmd.Parameters.AddWithValue( "@Priority", Priority );
-        cmd.Parameters.AddWithValue( "@UserName", UserName );
-        cmd.Parameters.AddWithValue( "@IP", IP );
-        cmd.Parameters.AddWithValue( "@PollID", PollID );
-        cmd.Parameters.AddWithValue( "@Posted", posted );
-        cmd.Parameters.AddWithValue( "@BlogPostID", blogPostID );
-        cmd.Parameters.AddWithValue( "@Flags", flags );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "Subject", Subject );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Message", Message );
+        cmd.Parameters.AddWithValue( "Priority", Priority );
+        cmd.Parameters.AddWithValue( "UserName", UserName );
+        cmd.Parameters.AddWithValue( "IP", IP );
+        cmd.Parameters.AddWithValue( "PollID", PollID );
+        cmd.Parameters.AddWithValue( "Posted", posted );
+        cmd.Parameters.AddWithValue( "BlogPostID", blogPostID );
+        cmd.Parameters.AddWithValue( "Flags", flags );
 
         DataTable dt = DBAccess.GetData( cmd );
         nMessageID = long.Parse( dt.Rows [0] ["MessageID"].ToString() );
@@ -2303,7 +2303,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_topic_info" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         using ( DataTable dt = DBAccess.GetData( cmd ) )
         {
           if ( dt.Rows.Count > 0 )
@@ -2340,9 +2340,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_replace_words_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ID", ID );
-        cmd.Parameters.AddWithValue( "@badword", badword );
-        cmd.Parameters.AddWithValue( "@goodword", goodword );
+        cmd.Parameters.AddWithValue( "ID", ID );
+        cmd.Parameters.AddWithValue( "badword", badword );
+        cmd.Parameters.AddWithValue( "goodword", goodword );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2355,7 +2355,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_replace_words_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ID", ID );
+        cmd.Parameters.AddWithValue( "ID", ID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2369,7 +2369,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_replace_words_edit" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@ID", ID );
+        cmd.Parameters.AddWithValue( "ID", ID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2386,11 +2386,11 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Approved", Approved );
-        cmd.Parameters.AddWithValue( "@GroupID", groupID );
-        cmd.Parameters.AddWithValue( "@RankID", rankID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Approved", Approved );
+        cmd.Parameters.AddWithValue( "GroupID", groupID );
+        cmd.Parameters.AddWithValue( "RankID", rankID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2399,7 +2399,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2408,9 +2408,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_setrole" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
-        cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
-        cmd.Parameters.AddWithValue( "@Role", role );
+        cmd.Parameters.AddWithValue( "BoardID", nBoardID );
+        cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
+        cmd.Parameters.AddWithValue( "Role", role );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2419,10 +2419,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "update dbo.yaf_User set Name=@UserName,Email=@Email where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey" ) )
       {
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.AddWithValue( "@UserName", user.UserName );
-        cmd.Parameters.AddWithValue( "@Email", user.Email );
-        cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
-        cmd.Parameters.AddWithValue( "@ProviderUserKey", user.ProviderUserKey );
+        cmd.Parameters.AddWithValue( "UserName", user.UserName );
+        cmd.Parameters.AddWithValue( "Email", user.Email );
+        cmd.Parameters.AddWithValue( "BoardID", nBoardID );
+        cmd.Parameters.AddWithValue( "ProviderUserKey", user.ProviderUserKey );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2431,8 +2431,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "update dbo.yaf_User set ProviderUserKey=@ProviderUserKey where UserID=@UserID" ) )
       {
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
+        cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2441,7 +2441,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_deleteold" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2450,7 +2450,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_approve" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2459,8 +2459,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_suspend" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Suspend", suspend );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Suspend", suspend );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2469,9 +2469,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_changepassword" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@OldPassword", oldpw );
-        cmd.Parameters.AddWithValue( "@NewPassword", newpw );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "OldPassword", oldpw );
+        cmd.Parameters.AddWithValue( "NewPassword", newpw );
         return ( bool ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2484,33 +2484,33 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserName", UserName );
-        cmd.Parameters.AddWithValue( "@Password", Password );
-        cmd.Parameters.AddWithValue( "@Email", Email );
-        cmd.Parameters.AddWithValue( "@Hash", Hash );
-        cmd.Parameters.AddWithValue( "@Location", Location );
-        cmd.Parameters.AddWithValue( "@HomePage", HomePage );
-        cmd.Parameters.AddWithValue( "@TimeZone", TimeZone );
-        cmd.Parameters.AddWithValue( "@Avatar", Avatar );
-        cmd.Parameters.AddWithValue( "@LanguageFile", languageFile );
-        cmd.Parameters.AddWithValue( "@ThemeFile", themeFile );
-        cmd.Parameters.AddWithValue( "@OverrideDefaultTheme", overrideDefaultThemes );
-        cmd.Parameters.AddWithValue( "@Approved", Approved );
-        cmd.Parameters.AddWithValue( "@MSN", msn );
-        cmd.Parameters.AddWithValue( "@YIM", yim );
-        cmd.Parameters.AddWithValue( "@AIM", aim );
-        cmd.Parameters.AddWithValue( "@ICQ", icq );
-        cmd.Parameters.AddWithValue( "@RealName", realName );
-        cmd.Parameters.AddWithValue( "@Occupation", occupation );
-        cmd.Parameters.AddWithValue( "@Interests", interests );
-        cmd.Parameters.AddWithValue( "@Gender", gender );
-        cmd.Parameters.AddWithValue( "@Weblog", weblog );
-        cmd.Parameters.AddWithValue( "@PMNotification", PMNotification );
-        cmd.Parameters.AddWithValue( "@WeblogUrl", weblogurl );
-        cmd.Parameters.AddWithValue( "@WeblogUsername", weblogusername );
-        cmd.Parameters.AddWithValue( "@WeblogID", weblogid );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserName", UserName );
+        cmd.Parameters.AddWithValue( "Password", Password );
+        cmd.Parameters.AddWithValue( "Email", Email );
+        cmd.Parameters.AddWithValue( "Hash", Hash );
+        cmd.Parameters.AddWithValue( "Location", Location );
+        cmd.Parameters.AddWithValue( "HomePage", HomePage );
+        cmd.Parameters.AddWithValue( "TimeZone", TimeZone );
+        cmd.Parameters.AddWithValue( "Avatar", Avatar );
+        cmd.Parameters.AddWithValue( "LanguageFile", languageFile );
+        cmd.Parameters.AddWithValue( "ThemeFile", themeFile );
+        cmd.Parameters.AddWithValue( "OverrideDefaultTheme", overrideDefaultThemes );
+        cmd.Parameters.AddWithValue( "Approved", Approved );
+        cmd.Parameters.AddWithValue( "MSN", msn );
+        cmd.Parameters.AddWithValue( "YIM", yim );
+        cmd.Parameters.AddWithValue( "AIM", aim );
+        cmd.Parameters.AddWithValue( "ICQ", icq );
+        cmd.Parameters.AddWithValue( "RealName", realName );
+        cmd.Parameters.AddWithValue( "Occupation", occupation );
+        cmd.Parameters.AddWithValue( "Interests", interests );
+        cmd.Parameters.AddWithValue( "Gender", gender );
+        cmd.Parameters.AddWithValue( "Weblog", weblog );
+        cmd.Parameters.AddWithValue( "PMNotification", PMNotification );
+        cmd.Parameters.AddWithValue( "WeblogUrl", weblogurl );
+        cmd.Parameters.AddWithValue( "WeblogUsername", weblogusername );
+        cmd.Parameters.AddWithValue( "WeblogID", weblogid );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2519,12 +2519,12 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_adminsave" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@Name", Name );
-        cmd.Parameters.AddWithValue( "@Email", email );
-        cmd.Parameters.AddWithValue( "@IsHostAdmin", isHostAdmin );
-        cmd.Parameters.AddWithValue( "@RankID", RankID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "Name", Name );
+        cmd.Parameters.AddWithValue( "Email", email );
+        cmd.Parameters.AddWithValue( "IsHostAdmin", isHostAdmin );
+        cmd.Parameters.AddWithValue( "RankID", RankID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2533,8 +2533,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_emails" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
 
         return DBAccess.GetData( cmd );
       }
@@ -2544,8 +2544,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_accessmasks" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
 
         return userforumaccess_sort_list( DBAccess.GetData( cmd ), 0, 0, 0 );
       }
@@ -2617,9 +2617,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_recoverpassword" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@Email", email );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "Email", email );
         return DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2628,8 +2628,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_savepassword" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Password", FormsAuthentication.HashPasswordForStoringInConfigFile( password.ToString(), "md5" ) );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Password", FormsAuthentication.HashPasswordForStoringInConfigFile( password.ToString(), "md5" ) );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2638,9 +2638,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_login" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Name", name );
-        cmd.Parameters.AddWithValue( "@Password", password );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Name", name );
+        cmd.Parameters.AddWithValue( "Password", password );
         return DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2649,7 +2649,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_avatarimage" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2658,8 +2658,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "select UserID from dbo.yaf_User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey" ) )
       {
         cmd.CommandType = CommandType.Text;
-        cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
-        cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+        cmd.Parameters.AddWithValue( "BoardID", nBoardID );
+        cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
         return ( int ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2668,10 +2668,10 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_find" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@Filter", filter );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@Email", email );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "Filter", filter );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "Email", email );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2680,7 +2680,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_getsignature" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.ExecuteScalar( cmd ).ToString();
       }
     }
@@ -2689,8 +2689,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_savesignature" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Signature", signature );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Signature", signature );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2708,9 +2708,9 @@ namespace YAF.Classes.Data
         }
 
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Avatar", Avatar );
-        cmd.Parameters.AddWithValue( "@AvatarImage", data );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Avatar", Avatar );
+        cmd.Parameters.AddWithValue( "AvatarImage", data );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2719,7 +2719,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_deleteavatar" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2737,17 +2737,17 @@ namespace YAF.Classes.Data
               cmd.Transaction = trans;
               cmd.CommandType = CommandType.StoredProcedure;
               int UserID = 0;
-              cmd.Parameters.AddWithValue( "@UserID", UserID );
-              cmd.Parameters.AddWithValue( "@BoardID", boardID );
-              cmd.Parameters.AddWithValue( "@UserName", userName );
-              cmd.Parameters.AddWithValue( "@Password", FormsAuthentication.HashPasswordForStoringInConfigFile( password.ToString(), "md5" ) );
-              cmd.Parameters.AddWithValue( "@Email", email );
-              cmd.Parameters.AddWithValue( "@Hash", hash );
-              cmd.Parameters.AddWithValue( "@Location", location );
-              cmd.Parameters.AddWithValue( "@HomePage", homePage );
-              cmd.Parameters.AddWithValue( "@TimeZone", timeZone );
-              cmd.Parameters.AddWithValue( "@Approved", approved );
-              cmd.Parameters.AddWithValue( "@PMNotification", 1 );
+              cmd.Parameters.AddWithValue( "UserID", UserID );
+              cmd.Parameters.AddWithValue( "BoardID", boardID );
+              cmd.Parameters.AddWithValue( "UserName", userName );
+              cmd.Parameters.AddWithValue( "Password", FormsAuthentication.HashPasswordForStoringInConfigFile( password.ToString(), "md5" ) );
+              cmd.Parameters.AddWithValue( "Email", email );
+              cmd.Parameters.AddWithValue( "Hash", hash );
+              cmd.Parameters.AddWithValue( "Location", location );
+              cmd.Parameters.AddWithValue( "HomePage", homePage );
+              cmd.Parameters.AddWithValue( "TimeZone", timeZone );
+              cmd.Parameters.AddWithValue( "Approved", approved );
+              cmd.Parameters.AddWithValue( "PMNotification", 1 );
               cmd.ExecuteNonQuery();
             }
 
@@ -2772,10 +2772,10 @@ namespace YAF.Classes.Data
         {
           cmd.CommandType = CommandType.StoredProcedure;
 
-          cmd.Parameters.AddWithValue( "@BoardID", nBoardID );
-          cmd.Parameters.AddWithValue( "@UserName", sUserName );
-          cmd.Parameters.AddWithValue( "@Email", sEmail );
-          cmd.Parameters.AddWithValue( "@ProviderUserKey", providerUserKey );
+          cmd.Parameters.AddWithValue( "BoardID", nBoardID );
+          cmd.Parameters.AddWithValue( "UserName", sUserName );
+          cmd.Parameters.AddWithValue( "Email", sEmail );
+          cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
           return ( int ) DBAccess.ExecuteScalar( cmd );
         }
       }
@@ -2802,8 +2802,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_activity_rank" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@StartDate", StartDate );
-        cmd.Parameters.AddWithValue( "@DisplayNumber", displayNumber );
+        cmd.Parameters.AddWithValue( "StartDate", StartDate );
+        cmd.Parameters.AddWithValue( "DisplayNumber", displayNumber );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2812,9 +2812,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_nntp" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@BoardID", boardID );
-        cmd.Parameters.AddWithValue( "@UserName", userName );
-        cmd.Parameters.AddWithValue( "@Email", email );
+        cmd.Parameters.AddWithValue( "BoardID", boardID );
+        cmd.Parameters.AddWithValue( "UserName", userName );
+        cmd.Parameters.AddWithValue( "Email", email );
         return ( int ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2824,8 +2824,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_addpoints" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Points", points );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Points", points );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2835,8 +2835,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_removepointsbytopicid" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
-        cmd.Parameters.AddWithValue( "@Points", points );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
+        cmd.Parameters.AddWithValue( "Points", points );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2846,8 +2846,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_removepoints" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Points", points );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Points", points );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2857,8 +2857,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_setpoints" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@Points", points );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "Points", points );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2868,7 +2868,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_getpoints" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return ( int ) DBAccess.ExecuteScalar( cmd );
       }
     }
@@ -2880,8 +2880,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_userforum_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2890,8 +2890,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_userforum_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2900,9 +2900,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_userforum_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
-        cmd.Parameters.AddWithValue( "@AccessMaskID", accessMaskID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
+        cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2914,7 +2914,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_usergroup_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2923,9 +2923,9 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_usergroup_save" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@GroupID", GroupID );
-        cmd.Parameters.AddWithValue( "@Member", Member );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "GroupID", GroupID );
+        cmd.Parameters.AddWithValue( "Member", Member );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2937,8 +2937,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchforum_add" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", UserID );
-        cmd.Parameters.AddWithValue( "@ForumID", ForumID );
+        cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "ForumID", ForumID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2947,7 +2947,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchforum_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2956,8 +2956,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchforum_check" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@ForumID", forumID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "ForumID", forumID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2966,7 +2966,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchforum_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@WatchForumID", watchForumID );
+        cmd.Parameters.AddWithValue( "WatchForumID", watchForumID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -2978,7 +2978,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchtopic_list" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2987,8 +2987,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchtopic_check" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         return DBAccess.GetData( cmd );
       }
     }
@@ -2997,7 +2997,7 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchtopic_delete" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@WatchTopicID", watchTopicID );
+        cmd.Parameters.AddWithValue( "WatchTopicID", watchTopicID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
@@ -3006,8 +3006,8 @@ namespace YAF.Classes.Data
       using ( SqlCommand cmd = new SqlCommand( "yaf_watchtopic_add" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue( "@UserID", userID );
-        cmd.Parameters.AddWithValue( "@TopicID", topicID );
+        cmd.Parameters.AddWithValue( "UserID", userID );
+        cmd.Parameters.AddWithValue( "TopicID", topicID );
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
