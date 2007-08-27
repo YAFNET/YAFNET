@@ -34,6 +34,8 @@
 		<Resource tag="TOPIC_STICKY">~/topic_sticky.png</Resource>
 		<Resource tag="TOPIC_MOVED">~/topic_moved.png</Resource>
 		<Resource tag="TOPIC_POLL">~/topic.png</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/topic.png</Resource>
 		<Resource tag="FORUM_NEW">~/topic_new.png</Resource>
 		<Resource tag="FORUM_LOCKED">~/topic_lock.png</Resource>

@@ -36,12 +36,16 @@
 		<Resource tag="TOPIC_NEW_LOCKED">~/topic-locked_notread.gif</Resource>
 		<Resource tag="TOPIC_LOCKED">~/topic-locked.gif</Resource>
 		<Resource tag="TOPIC_STICKY">~/topic-pinned.gif</Resource>
+		<Resource tag="TOPIC_STICKY_NEW">~/topic-pinned.gif</Resource>
 		<Resource tag="TOPIC_MOVED">~/topic_moved.gif</Resource>
 		<Resource tag="TOPIC_POLL">~/forum_status_poll.gif</Resource>
 		<Resource tag="TOPIC_POLL_NEW">~/forum_status_poll_new.gif</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/forum_status.gif</Resource>
 		<Resource tag="FORUM_NEW">~/forum_status_new.gif</Resource>
 		<Resource tag="FORUM_LOCKED">~/forum_private.gif</Resource>
+		<Resource tag="FORUM_LOCKED_NEW">~/forum_private.gif</Resource>
 		<Resource tag="FORUM_STATS">~/icon_stats.gif</Resource>
 		<Resource tag="FORUM_USERS">~/users_icon.gif</Resource>
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>

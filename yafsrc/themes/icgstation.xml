@@ -33,6 +33,8 @@
 		<Resource tag="TOPIC_MOVED">~/topic_move.gif</Resource>
 		<Resource tag="TOPIC_POLL">~/topic_poll.gif</Resource>
 		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.gif</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/folder_big.gif</Resource>
 		<Resource tag="FORUM_NEW">~/folder_new_big.gif</Resource>
 		<Resource tag="FORUM_LOCKED">~/folder_locked_big.gif</Resource>

@@ -170,7 +170,7 @@
 		<Resource tag="INFO_WATCH_FORUM">You will now be notified when new posts are made in this forum.</Resource>
 		<Resource tag="INFO_UNWATCH_FORUM">You will no longer be notified when new posts are made in this forum.</Resource>
 		<Resource tag="MARKREAD">Mark this forum as read</Resource>
-		<Resource tag="SUBFORUMS">{0} Subforums</Resource>
+		<Resource tag="SUBFORUMS">Sub-forums</Resource>
 		<Resource tag="RSSFEED">Rss Feed</Resource>
 		<Resource tag="TODAYAT">[b]Today[/b] at {0:T}</Resource>
 		<Resource tag="YESTERDAYAT">[b]Yesterday[/b] at {0:T}</Resource>

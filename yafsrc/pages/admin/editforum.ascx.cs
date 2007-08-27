@@ -166,7 +166,7 @@ namespace YAF.Pages.Admin
 			if ( ParentList.SelectedValue.Length > 0 )
 				parentID = ParentList.SelectedValue;
 
-			if (parentID.ToString() == Request.QueryString["f"])
+			if (parentID !=null && parentID.ToString() == Request.QueryString["f"])
 			{
 				PageContext.AddLoadMessage("Forum cannot be parent of self.");
 				return;

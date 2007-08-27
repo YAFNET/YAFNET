@@ -65,6 +65,8 @@ function fixPNG(myImage)
 		<Resource tag="TOPIC_MOVED">~/topic_moved.png" onload="javascript:fixPNG(this)</Resource>
 		<Resource tag="TOPIC_POLL">~/topic_poll.png" onload="javascript:fixPNG(this)</Resource>
 		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.png" onload="javascript:fixPNG(this)</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/topic.png" onload="javascript:fixPNG(this)</Resource>
 		<Resource tag="FORUM_NEW">~/topic_new.png" onload="javascript:fixPNG(this)</Resource>
 		<Resource tag="FORUM_LOCKED">~/topic_lock.png" onload="javascript:fixPNG(this)</Resource>

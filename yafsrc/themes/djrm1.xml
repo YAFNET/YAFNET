@@ -39,6 +39,8 @@
 		<Resource tag="TOPIC_MOVED">~/m_moved.gif</Resource>
 		<Resource tag="TOPIC_POLL">~/m_poll_new.gif</Resource>
 		<Resource tag="TOPIC_POLL_NEW">~/m_poll.gif</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
 		<Resource tag="FORUM">~/topic.gif</Resource>
 		<Resource tag="FORUM_NEW">~/topic_new.gif</Resource>
 		<Resource tag="FORUM_LOCKED">~/topic_lock.gif</Resource>

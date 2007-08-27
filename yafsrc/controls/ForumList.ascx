@@ -9,6 +9,12 @@
 			<span class="forumviewing"><%# GetViewing(Container.DataItem) %></span><br />
 			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
+			<asp:Repeater ID="SubforumList" Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' runat="server">
+			  <HeaderTemplate><span class="smallfont subforumlink"><b><%# PageContext.Localization.GetText("SUBFORUMS")%></b>: </HeaderTemplate>			  
+			  <ItemTemplate><%# GetSubForumIcon(Container.DataItem) %> <%# GetForumLink((System.Data.DataRow)Container.DataItem) %></ItemTemplate>
+			  <SeparatorTemplate>, </SeparatorTemplate>
+			  <FooterTemplate></span></FooterTemplate>
+			</asp:Repeater>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="ModeratorList" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
 				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
@@ -29,6 +35,12 @@
 			<span class="forumviewing"><%# GetViewing(Container.DataItem) %></span><br />
 			<span class="subforumheading"><%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %></span>
 			<br/>
+			<asp:Repeater ID="SubforumList" Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>' DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' runat="server">
+			  <HeaderTemplate><span class="smallfont subforumlink"><b><%# PageContext.Localization.GetText("SUBFORUMS")%></b>: </HeaderTemplate>			  
+			  <ItemTemplate><%# GetSubForumIcon(Container.DataItem) %> <%# GetForumLink((System.Data.DataRow)Container.DataItem) %></ItemTemplate>
+			  <SeparatorTemplate>, </SeparatorTemplate>
+			  <FooterTemplate></span></FooterTemplate>
+			</asp:Repeater>
 			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="Repeater1" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
 				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
