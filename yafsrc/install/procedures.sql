@@ -1589,6 +1589,7 @@ begin
 		Description,
 		Topics			= dbo.yaf_forum_topics(b.ForumID),
 		Posts			= dbo.yaf_forum_posts(b.ForumID),
+		Subforums		= dbo.yaf_forum_subforums(b.ForumID, @UserID),
 		LastPosted		= b.LastPosted,
 		LastMessageID	= b.LastMessageID,
 		LastUserID		= b.LastUserID,
@@ -4481,6 +4482,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum
 DROP FUNCTION [dbo].[yaf_forum_topics]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_forum_subforums]
+GO
+
 create function [dbo].[yaf_bitset](@Flags int,@Mask int) returns bit as
 begin
 	declare @bool bit
@@ -4551,6 +4556,25 @@ begin
 	return @NumTopics
 end
 GO
+
+CREATE function [dbo].[yaf_forum_subforums](@ForumID int, @UserID int) returns int as
+begin
+	declare @NumSubforums int
+
+	select 
+		@NumSubforums=COUNT(*)	
+	from 
+		yaf_Forum a 
+		join yaf_vaccess x on x.ForumID = a.ForumID 
+	where 
+		((a.Flags & 2)=0 or x.ReadAccess<>0) and 
+		(a.ParentID=@ForumID) and	
+		(x.UserID = @UserID)
+
+	return @NumSubforums
+end
+GO
+
 
 
 CREATE procedure dbo.yaf_message_reply_list(@MessageID int) as
