@@ -1,9 +1,9 @@
-<%@ Control Language="c#" Codebehind="mod_forumuser.ascx.cs" AutoEventWireup="True"
+<%@ Control Language="c#" CodeFile="mod_forumuser.ascx.cs" AutoEventWireup="True"
     Inherits="YAF.Pages.mod_forumuser" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+
+
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <table class="content" cellspacing="1" cellpadding="0" width="100%" >

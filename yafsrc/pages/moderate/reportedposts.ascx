@@ -1,9 +1,9 @@
-<%@ Control Language="C#" AutoEventWireup="true" Codebehind="reportedposts.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="reportedposts.ascx.cs"
     Inherits="YAF.Pages.moderate.reportedposts" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+
+
+
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True" />
 <yaf:pagelinks runat="server" id="PageLinks" />

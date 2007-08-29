@@ -1,7 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" Codebehind="cp_pm.ascx.cs" Inherits="YAF.Pages.cp_pm" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="cp_pm.ascx.cs" Inherits="YAF.Pages.cp_pm" %>
+
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../controls/PMList.ascx" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True" />
 <YAF:PageLinks runat="server" ID="PageLinks" />

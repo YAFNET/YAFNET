@@ -1,8 +1,8 @@
-<%@ Control language="c#" Codebehind="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control language="c#" CodeFile="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
+
+
+
+
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 

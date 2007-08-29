@@ -1,8 +1,8 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="unapprovedposts.ascx.cs" Inherits="YAF.Pages.moderate.unapprovedposts" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="unapprovedposts.ascx.cs" Inherits="YAF.Pages.moderate.unapprovedposts" %>
+
+
+
+
 
 <YAF:PageLinks runat="server" id="PageLinks" />
 <asp:Repeater ID="List" runat="server">

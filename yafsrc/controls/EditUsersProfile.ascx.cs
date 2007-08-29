@@ -10,7 +10,6 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
-using YAF.Pages;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -146,7 +145,7 @@ namespace YAF.Controls
 
 				if ( PageContext.BoardSettings.EmailVerification )
 				{
-					string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword( 20 );
+					string hashinput = DateTime.Now.ToString() + Email.Text + Security.CreatePassword( 20 );
 					string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
 					// Email Body

@@ -89,7 +89,7 @@ namespace YAF.Pages.Admin
           return;
         }
 
-				string hashinput = DateTime.Now.ToString() + Email.Text + register.CreatePassword( 20 );
+				string hashinput = DateTime.Now.ToString() + Email.Text + Security.CreatePassword( 20 );
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
         if (YAF.Classes.Data.DB.user_register(PageContext.PageBoardID,UserName.Text,Password.Text,hash,Email.Text,Location.Text,HomePage.Text,TimeZones.SelectedItem.Value,!PageContext.BoardSettings.EmailVerification))

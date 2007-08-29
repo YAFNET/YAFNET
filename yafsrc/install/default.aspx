@@ -1,5 +1,4 @@
-<%@ Page language="c#" Codebehind="default.aspx.cs" AutoEventWireup="True" Inherits="YAF.Install._default" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
+<%@ Page language="c#" CodeFile="default.aspx.cs" AutoEventWireup="True" Inherits="YAF.Install._default" %>
 
 <html>
 <head>
@@ -8,7 +7,6 @@
 <link type="text/css" rel="stylesheet" href="../themes/FlatEarth/theme.css">
 </head>
 <body>
-
 
 <form runat=server>
 <div align="center">

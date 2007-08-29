@@ -1,8 +1,8 @@
-<%@ Control Language="c#" Codebehind="version.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="c#" CodeFile="version.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.version" %>
+
+
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu ID="adminmenu1" runat="server">
   <table width="100%" cellspacing="0" cellpadding="0" class="content">

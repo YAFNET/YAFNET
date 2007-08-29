@@ -36,10 +36,6 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class topics : YAF.Classes.Base.ForumPage
 	{
-		/// <summary>
-		/// FIXME: I have no clue what this is.
-		/// </summary>
-		protected PlaceHolder SubForums;
 		private DataRow forum;
 		protected int ShowTopicListSelected;
 

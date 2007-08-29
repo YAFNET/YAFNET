@@ -1,8 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditUsersGroups.ascx.cs" Inherits="YAF.Controls.EditUsersGroups" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersGroups.ascx.cs" Inherits="YAF.Controls.EditUsersGroups" %>
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<asp:repeater id="UserGroups" runat="server">

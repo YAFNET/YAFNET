@@ -1,8 +1,8 @@
-<%@ Control Language="c#" Codebehind="approve.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.approve" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="c#" CodeFile="approve.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.approve" %>
+
+
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <table class="content" width="600" cellspacing="1" cellpadding="0" id="approved" runat="server" visible="false">

@@ -1,4 +1,4 @@
-<%@ Page Language="c#" Codebehind="error.aspx.cs" AutoEventWireup="True" Inherits="YAF.error" %>
+<%@ Page Language="c#" CodeFile="error.aspx.cs" AutoEventWireup="True" Inherits="YAF.error" %>
 <html>
 <head>
 <title>Forum Error</title>

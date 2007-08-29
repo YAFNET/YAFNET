@@ -10,7 +10,6 @@ using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using System.Globalization;
 using System.Collections.Specialized;
-using YAF.Pages;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls

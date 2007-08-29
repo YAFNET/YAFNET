@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Codebehind="EditUsersPoints.ascx.cs" Inherits="YAF.Controls.EditUsersPoints" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersPoints.ascx.cs" Inherits="YAF.Controls.EditUsersPoints" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1" colspan="2">

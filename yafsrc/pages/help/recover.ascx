@@ -1,8 +1,8 @@
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
-<%@ Control language="c#" Codebehind="recover.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.recover" %>
+
+
+
+
+<%@ Control language="c#" CodeFile="recover.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.help.recover" %>
 <YAF:PageLinks runat="server" id="PageLinks" />
 <YAF:helpmenu runat="server">
 

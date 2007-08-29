@@ -1,8 +1,5 @@
-<%@ Control Language="c#" Codebehind="topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="c#" CodeFile="topics.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.topics" %>
+
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">

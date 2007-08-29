@@ -1,8 +1,5 @@
-<%@ Control language="c#" Codebehind="deletemessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.deletemessage" %>
-<%@ Register TagPrefix="editor" Namespace="YAF.Editor" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control language="c#" CodeFile="deletemessage.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.deletemessage" %>
+
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 
 <YAF:PageLinks runat="server" id="PageLinks" />

@@ -1,8 +1,8 @@
-<%@ Control language="c#" Codebehind="im_yim.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_yim" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control language="c#" CodeFile="im_yim.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_yim" %>
+
+
+
+
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 

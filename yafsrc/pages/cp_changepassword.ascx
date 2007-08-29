@@ -1,9 +1,9 @@
-<%@ Control Language="c#" Codebehind="cp_changepassword.ascx.cs"
+<%@ Control Language="c#" CodeFile="cp_changepassword.ascx.cs"
   Inherits="YAF.Pages.cp_changepassword" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+
+
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
   <asp:ChangePassword ID="ChangePassword1" runat="server">

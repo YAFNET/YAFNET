@@ -1,8 +1,4 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Data" Assembly="YAF.Classes.Data" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YC" Namespace="YAF.Controls" Assembly="YAF" %>
 
 <script runat="server">
 public void Page_Error(object sender,System.EventArgs e)

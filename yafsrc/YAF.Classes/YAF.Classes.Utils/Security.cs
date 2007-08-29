@@ -51,5 +51,15 @@ namespace YAF.Classes.Utils
 
       return value;
     }
+
+    public static string CreatePassword( int length )
+    {
+      string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
+      string res = "";
+      Random rnd = new Random();
+      while ( 0 < length-- )
+        res += valid [rnd.Next( valid.Length )];
+      return res;
+    }
   }
 }

@@ -1,9 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" Codebehind="default.aspx.cs" Inherits="YAF._default" %>
-
-<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Data" Assembly="YAF.Classes.Data" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YC" Namespace="YAF.Controls" Assembly="YAF" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="YAF._default" %>
 
 <script runat="server">
     public void Page_Error( object sender, System.EventArgs e )

@@ -112,16 +112,6 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		static public string CreatePassword( int length )
-		{
-			string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
-			string res = "";
-			Random rnd = new Random();
-			while ( 0 < length-- )
-				res += valid [rnd.Next( valid.Length )];
-			return res;
-		}
-
 		/// <summary>
 		/// Find Wizard Control - Find a control in a wizard
 		/// </summary>
@@ -250,7 +240,7 @@ namespace YAF.Pages // YAF.Pages
 				TextBox emailTextBox = ( TextBox ) CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl( "Email" );
 				string email = emailTextBox.Text.Trim();
 
-				string hashinput = DateTime.Now.ToString() + email + CreatePassword( 20 );
+				string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword( 20 );
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
 				string body = General.ReadTemplate( "verifyemail.txt" );

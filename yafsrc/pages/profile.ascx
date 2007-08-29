@@ -1,9 +1,9 @@
-<%@ Control Language="c#" Codebehind="profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.profile" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="c#" CodeFile="profile.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.profile" %>
+
+
+
+
+
 <%@ Register TagPrefix="uc1" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />

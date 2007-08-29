@@ -1,6 +1,6 @@
 <%@ Import namespace="YAF.Classes.Utils"%>
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PMList.ascx.cs" Inherits="YAF.Controls.PMList" EnableTheming="true" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PMList.ascx.cs" Inherits="YAF.Controls.PMList" EnableTheming="true" %>
+
 
 <asp:GridView ID="MessagesView" runat="server" OnRowCreated="MessagesView_RowCreated" DataKeyNames="UserPMessageID" Width="99%" GridLines="None" Cellspacing="1" ShowFooter="true" 
  AutoGenerateColumns="false" CssClass="content"  EmptyDataText='<%#GetLocalizedText("NO_MESSAGES") %>' EmptyDataRowStyle-CssClass="post">

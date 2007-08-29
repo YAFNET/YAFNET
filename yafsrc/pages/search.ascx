@@ -1,7 +1,7 @@
-<%@ Control language="c#" Codebehind="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
+
+
+
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 <table class="content" cellspacing="1" cellpadding="0" width="100%">

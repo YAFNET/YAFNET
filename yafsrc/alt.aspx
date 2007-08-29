@@ -1,8 +1,4 @@
 <%@ Page Language="C#" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAFStats" Namespace="YAF.Controls.Statistics" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Data" Assembly="YAF.Classes.Data" %>
 <script runat="server">
 void Page_Load(object sender,System.EventArgs e)
 {
@@ -13,7 +9,7 @@ public void Page_Error(object sender,System.EventArgs e)
 {
 	Exception x = Server.GetLastError();
 	YAF.Classes.Data.DB.eventlog_create(yafForum.PageUserID,this,x);
-	YAF.Utils.LogToMail(x);
+	YAF.Classes.Utils.General.LogToMail(x);
 }
 </script>
 
@@ -36,7 +32,7 @@ public void Page_Error(object sender,System.EventArgs e)
 </tr>
 <tr>
 	<td width="160px" valign="top">
-	<YAFStats:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="5"/>
+	<YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="5"/>
 	</td>
 	<td valign="top"><YAF:Forum runat="server" id="yafForum"/></td>
 </tr>
