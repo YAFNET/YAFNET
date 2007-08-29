@@ -775,7 +775,7 @@ begin
 		select
 			a.UserID,
 			a.Name,
-			a.IP,
+			c.IP,
 			c.SessionID,
 			c.ForumID,
 			c.TopicID,
