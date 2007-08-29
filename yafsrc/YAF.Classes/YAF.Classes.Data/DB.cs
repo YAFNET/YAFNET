@@ -2454,7 +2454,16 @@ namespace YAF.Classes.Data
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
-    static public void user_suspend( object userID, object suspend )
+	  static public void user_approveall(object boardID)
+	{
+		using (SqlCommand cmd = new SqlCommand("yaf_user_approveall"))
+		{
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("BoardID", boardID);
+			DBAccess.ExecuteNonQuery(cmd);
+		}
+	}
+	static public void user_suspend(object userID, object suspend)
     {
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_suspend" ) )
       {

@@ -505,6 +505,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_
 DROP PROCEDURE [dbo].[yaf_user_approve]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_approveall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_user_approveall]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_aspnet]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yaf_user_aspnet]
 GO
@@ -3725,6 +3729,31 @@ begin
 	update yaf_User set Email = @Email, Flags = Flags | 2 where UserID = @UserID
 	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
 	select convert(bit,1)
+end
+GO
+
+CREATE procedure [dbo].[yaf_user_approveall](@BoardID int) as
+begin
+
+	DECLARE userslist CURSOR FOR 
+		SELECT UserID FROM yaf_User WHERE BoardID=@BoardID AND (Flags & 2)=0
+		FOR READ ONLY
+
+
+	OPEN userslist
+
+	DECLARE @UserID int
+
+	FETCH userslist INTO @UserID
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		EXEC yaf_user_approve @UserID
+		FETCH userslist INTO @UserID		
+	END
+
+	CLOSE userslist
+
 end
 GO
 

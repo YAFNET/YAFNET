@@ -101,6 +101,10 @@ namespace YAF.Pages.Admin
 					YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID);
 					BindData();
 					break;
+				case "approveall":
+					YAF.Classes.Data.DB.user_approveall(PageContext.PageBoardID);
+					BindData();
+					break;
 			}
 		}
 
