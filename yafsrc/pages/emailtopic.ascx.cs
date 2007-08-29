@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess )
+			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess || !PageContext.BoardSettings.AllowEmailTopic )
 				yaf_BuildLink.AccessDenied();
 
 			if ( !IsPostBack )

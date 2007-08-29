@@ -142,6 +142,9 @@ namespace YAF.Pages.Admin {
             AllowReportAbuse.Checked = PageContext.BoardSettings.AllowReportAbuse;
             AllowReportSpam.Checked = PageContext.BoardSettings.AllowReportSpam;
 
+			// Ederon : 8/29/2007 added
+			AllowEmailTopic.Checked = PageContext.BoardSettings.AllowEmailTopic;
+
 			// Ederon : 7/14/2007 added
 			UserBox.Text = PageContext.BoardSettings.UserBox;
 			UserBoxAvatar.Text = PageContext.BoardSettings.UserBoxAvatar;
@@ -239,6 +242,9 @@ namespace YAF.Pages.Admin {
             // Mek : 8/18/2007 added
             PageContext.BoardSettings.AllowReportAbuse = AllowReportAbuse.Checked;
             PageContext.BoardSettings.AllowReportSpam = AllowReportSpam.Checked;
+
+			// Ederon : 8/29/2007 added
+			PageContext.BoardSettings.AllowEmailTopic = AllowEmailTopic.Checked;
 
 			// Ederon : 7/14/2007 added
 			PageContext.BoardSettings.UserBox = UserBox.Text;

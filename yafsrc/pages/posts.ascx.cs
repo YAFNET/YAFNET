@@ -55,7 +55,7 @@ namespace YAF.Pages // YAF.Pages
 			bool isWatched = HandleWatchTopic();
 
 			MyTestMenu.AddItem( "watch", isWatched ? GetText( "unwatchtopic" ) : GetText( "watchtopic" ) );
-			MyTestMenu.AddItem( "email", GetText( "emailtopic" ) );
+			if (PageContext.BoardSettings.AllowEmailTopic) MyTestMenu.AddItem("email", GetText("emailtopic"));
 			MyTestMenu.AddItem( "print", GetText( "printtopic" ) );
 			if ( PageContext.BoardSettings.ShowRSSLink ) MyTestMenu.AddItem( "rssfeed", GetText( "rsstopic" ) );
 			ViewMenu.AddItem( "normal", GetText( "NORMAL" ) );
@@ -690,7 +690,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void EmailTopic_Click( object sender, System.EventArgs e )
 		{
-			if ( User != null )
+			if ( User == null )
 			{
 				PageContext.AddLoadMessage( GetText( "WARN_EMAILLOGIN" ) );
 				return;

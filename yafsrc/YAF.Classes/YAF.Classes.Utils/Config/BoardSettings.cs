@@ -413,6 +413,13 @@ namespace YAF.Classes.Utils
             get { return _reg.GetValue<bool>("AllowReportSpam", true); }
             set { _reg.SetValue<bool>("AllowReportSpam", value); }
         }
+		/* Ederon : 8/29/2007 */
+		public bool AllowEmailTopic
+		{
+			get { return _reg.GetValue<bool>("AllowEmailTopic", true); }
+			set { _reg.SetValue<bool>("AllowEmailTopic", value); }
+		}
+
 
 		/* 6/16/2007 */
 		/* Ederon : 7/14/2007 */

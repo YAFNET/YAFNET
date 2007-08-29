@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( User == null )
+			if ( User == null || !PageContext.BoardSettings.AllowEmailSending )
 				yaf_BuildLink.AccessDenied();
 
 			if ( !IsPostBack )

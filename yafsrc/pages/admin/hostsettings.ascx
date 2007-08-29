@@ -200,6 +200,12 @@
 				<asp:checkbox id="AllowReportSpam" runat="server"></asp:checkbox></td>
 		</tr>					
 		<tr>
+			<td class="postheader"><B>Allow Email Topic:</B><BR>
+				If checked, users will be allowed to email topics.</td>
+			<td class="post">
+				<asp:checkbox id="AllowEmailTopic" runat="server"></asp:checkbox></td>
+		</tr>
+		<tr>
 			<td class="postheader"><B>Create NNTP user names:</B><BR>
 				Check to allow users to automatically be created when downloading usenet 
 				messages. Only enable this in a test environment, and <EM>NEVER</EM> in a 
