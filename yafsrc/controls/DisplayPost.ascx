@@ -1,8 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.UI" Assembly="YAF.Classes.UI" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Classes.Utils" Assembly="YAF.Classes.Utils" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" Assembly="YAF.Controls" %>
+<%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 
 <tr class="postheader">
 	<%#GetIndentCell()%>
