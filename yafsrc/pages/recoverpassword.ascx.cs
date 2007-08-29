@@ -10,6 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
