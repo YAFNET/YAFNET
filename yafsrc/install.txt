@@ -43,5 +43,10 @@ updated.
 6. Give the ASPNET/Network Service account write access to the Upload
    folder.
 
+7. When running in production environment, make sure to disable debugging
+   in web.config and turn custom error on. You can just rename release.config
+   to web.config to achieve this effect. Similarly, use development.config file
+   to disable custom errors and enable debugging.
+
 If you have any questions, I'll be happy to help.
 support@yetanotherforum.net
