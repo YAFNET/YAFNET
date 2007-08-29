@@ -28,16 +28,13 @@ namespace YAF.Classes.Data
 {
 	public sealed class QueryCounter : System.IDisposable
 	{
-		/* Ederon : 6/16/2007 - conventions */
+		/* Jaben : 8/28/2007 - this code is used even when it's not in DEBUG */
 
-#if DEBUG
 		private System.Diagnostics.Stopwatch _stopWatch = new System.Diagnostics.Stopwatch();
 		private string _cmd;
-#endif
 
 		public QueryCounter( string sql )
 		{
-#if DEBUG
 			_cmd = sql;
 
 			if ( HttpContext.Current.Items ["NumQueries"] == null )
@@ -46,12 +43,10 @@ namespace YAF.Classes.Data
 				HttpContext.Current.Items ["NumQueries"] = 1 + ( int ) HttpContext.Current.Items ["NumQueries"];
 
 			_stopWatch.Start();
-#endif
 		}
 
 		public void Dispose()
 		{
-#if DEBUG
 			_stopWatch.Stop();
 
 			double duration = ( double ) _stopWatch.ElapsedMilliseconds / 1000.0;
@@ -67,10 +62,8 @@ namespace YAF.Classes.Data
 				HttpContext.Current.Items ["CmdQueries"] = _cmd;
 			else
 				HttpContext.Current.Items ["CmdQueries"] += "<br/>" + _cmd;
-#endif
 		}
 
-#if DEBUG
 		static public void Reset()
 		{
 			HttpContext.Current.Items ["NumQueries"] = 0;
@@ -99,6 +92,5 @@ namespace YAF.Classes.Data
 				return ( string ) HttpContext.Current.Items ["CmdQueries"];
 			}
 		}
-#endif
 	}
 }
