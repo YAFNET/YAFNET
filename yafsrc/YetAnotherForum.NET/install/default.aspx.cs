@@ -306,9 +306,9 @@ namespace YAF.Install
 				if ( status != MembershipCreateStatus.Success )
 					throw new ApplicationException( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( status ) ) );
 
-				Roles.CreateRole( "Forum Administrators" );
-				Roles.CreateRole( "Registered Forum Users" );
-				Roles.AddUserToRole( user.UserName, "Forum Administrators" );
+				Roles.CreateRole( "Administrators" );
+				Roles.CreateRole( "Registered" );
+				Roles.AddUserToRole( user.UserName, "Administrators" );
 
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_initialize" ) )
 				{
