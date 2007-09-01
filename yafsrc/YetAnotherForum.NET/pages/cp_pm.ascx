@@ -7,7 +7,7 @@
 <div align="right" style="float:right;"><asp:HyperLink runat="server" ID="NewMessageLink" CssClass="largetext"></asp:HyperLink></div>
 <asp:UpdatePanel runat="server" ID="PMUpdatePanel">
     <ContentTemplate>
-    <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
+    <ajaxToolkit:TabContainer runat="server" ID="PMTabs" AutoPostBack="true">
         <ajaxToolkit:TabPanel runat="server" ID="InboxTab">
             <ContentTemplate>
                 <YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />

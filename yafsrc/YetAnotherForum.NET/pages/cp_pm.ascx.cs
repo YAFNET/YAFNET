@@ -82,7 +82,7 @@ namespace YAF.Pages
         // DOCTYPE COMPATIBILITY ISSUE
         // Adding this css style block to the page's output fixes rendering of
         // tabs in Internet Explorer quirks mode.
-        // If the page's DOCTYPE were set to XHTML 1.0 Transition, this call would not be needed.
+        // If the page's DOCTYPE were set to XHTML 1.0 Transitional, this call would not be needed.
         // This must be attached to the PreRenderComplete event handler so that the css block
         // is registered *after* the ASP.NET AJAX Control Toolkit adds in it's HTML link reference to
         // its default CSS styles.  This is necessary in order for the styles defined below to override the
