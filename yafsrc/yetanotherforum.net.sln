@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Control
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\..\yafsrc\", ".\", "{D0F30149-18CD-4741-833A-D16120BAF344}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E:\...\yafsrc\", ".", "{D0F30149-18CD-4741-833A-D16120BAF344}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.VirtualPath = "/yetanotherforum.net"
 		Debug.AspNetCompiler.PhysicalPath = ".\"
@@ -59,7 +59,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\..\yafsrc\", ".\", "{D0F
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\yafsrc\"
+		VWDPort = "51969"
 	EndProjectSection
 EndProject
 Global
