@@ -947,7 +947,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_create](
+CREATE procedure [dbo].[yaf_board_create](
 	@BoardName 		nvarchar(50),
 	@AllowThreaded	bit,
 	@UserName		nvarchar(50),
@@ -1013,11 +1013,11 @@ begin
 	values(@BoardID,'No Access',0)
 
 	-- yaf_Group
-	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Forum Administrators',1)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Administrators',1)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Guest',2)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Guests',2)
 	set @GroupIDGuest = SCOPE_IDENTITY()
-	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Registered Forum Users',4)
+	insert into yaf_Group(BoardID,Name,Flags) values(@BoardID,'Registered',4)
 	set @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- yaf_User
@@ -1228,12 +1228,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_checkemail_update](@Hash nvarchar(32)) as
+CREATE procedure [dbo].[yaf_checkemail_update](@Hash nvarchar(32)) as
 begin
 	declare @UserID int
 	declare @CheckEmailID int
 	declare @Email nvarchar(50)
+
 	set @UserID = null
+
 	select 
 		@CheckEmailID = CheckEmailID,
 		@UserID = UserID,
@@ -1242,14 +1244,19 @@ begin
 		yaf_CheckEmail
 	where
 		Hash = @Hash
-	if @UserID is null begin
-		select convert(bit,0)
+
+	if @UserID is null
+	begin
+		select convert(uniqueidentifier,NULL) as ProviderUserKey, convert(nvarchar(255),NULL) as Email
 		return
 	end
+
 	-- Update new user email
 	update yaf_User set Email = @Email, Flags = Flags | 2 where UserID = @UserID
 	delete yaf_CheckEmail where CheckEmailID = @CheckEmailID
-	select convert(bit,1)
+
+	-- return the UserProviderKey
+	SELECT ProviderUserKey, Email FROM yaf_User WHERE UserID = @UserID
 end
 GO
 
@@ -1843,13 +1850,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_group_save](
+CREATE procedure [dbo].[yaf_group_save](
 	@GroupID		int,
 	@BoardID		int,
 	@Name			nvarchar(50),
 	@IsAdmin		bit,
 	@IsStart		bit,
 	@IsModerator	bit,
+	@IsGuest		bit,
 	@AccessMaskID	int=null
 ) as
 begin
@@ -1857,6 +1865,7 @@ begin
 	
 	set @Flags = 0
 	if @IsAdmin<>0 set @Flags = @Flags | 1
+	if @IsGuest<>0 set @Flags = @Flags | 2
 	if @IsStart<>0 set @Flags = @Flags | 4
 	if @IsModerator<>0 set @Flags = @Flags | 8
 
@@ -3757,9 +3766,12 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey uniqueidentifier) as
+CREATE procedure [dbo].[yaf_user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey uniqueidentifier,@IsApproved bit) as
 begin
-	declare @UserID int, @RankID int
+	declare @UserID int, @RankID int, @approvedFlag int
+
+	SET @approvedFlag = 0;
+	IF (@IsApproved = 1) SET @approvedFlag = 2;	
 	
 	if exists(select 1 from dbo.yaf_User where BoardID=@BoardID and [Name]=@UserName)
 	begin
@@ -3767,7 +3779,8 @@ begin
 		update dbo.yaf_User set 
 			[Name] = @UserName,
 			Email = @Email,
-			ProviderUserKey=@ProviderUserKey
+			ProviderUserKey = @ProviderUserKey,
+			Flags = Flags | @approvedFlag
 		where
 			UserID = @UserID
 	end else
@@ -3775,12 +3788,13 @@ begin
 		select @RankID = RankID from dbo.yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 
 		insert into dbo.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Gender,Flags,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,0,2,@ProviderUserKey)
+		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,0,@approvedFlag,@ProviderUserKey)
 	
-		set @UserID = SCOPE_IDENTITY()
-
-		insert into dbo.yaf_UserGroup(UserID,GroupID) 
-		select @UserID,GroupID from dbo.yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
+		-- now does this in Membership
+		--set @UserID = SCOPE_IDENTITY()
+		--insert into dbo.yaf_UserGroup(UserID,GroupID) 
+		--select @UserID,GroupID from dbo.yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
+		
 	end
 	
 	select UserID=@UserID

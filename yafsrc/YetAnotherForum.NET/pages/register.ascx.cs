@@ -232,33 +232,45 @@ namespace YAF.Pages // YAF.Pages
 			Page.ClientScript.RegisterStartupScript( Page.GetType(), "CreateUserError", String.Format( "alert('{0}');", createUserError.Replace( "'", "\'" ) ), true );
 		}
 
-		protected void CreateUserWizard1_CreatingUser( object sender, LoginCancelEventArgs e )
-		{
-			if ( PageContext.BoardSettings.EmailVerification )
-			{
-				// get the user email
-				TextBox emailTextBox = ( TextBox ) CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl( "Email" );
-				string email = emailTextBox.Text.Trim();
-
-				string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword( 20 );
-				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
-
-				string body = General.ReadTemplate( "verifyemail.txt" );
-				string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
-
-				body = body.Replace( "{link}", String.Format( "{1}{0}", yaf_BuildLink.GetLink( ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL ) );
-				body = body.Replace( "{key}", hash );
-				body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
-				body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
-
-				General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
-			}
-		}
-
 		protected void CreateUserWizard1_CreatedUser( object sender, EventArgs e )
 		{
-      // setup new user roles for this user
+      MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );      
+
+      // setup inital roles (if any) for this user
       MembershipHelper.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
+
+      // create the user in the YAF DB as well as sync roles...
+      int? userID = MembershipHelper.CreateForumUser( user, yaf_Context.Current.PageBoardID );
+
+      if (userID == null)
+      {
+        // something is seriously wrong here -- redirect to failure...
+        yaf_BuildLink.Redirect(ForumPages.info,"i=7");
+      }
+
+      // handle e-mail verification if needed
+      if ( PageContext.BoardSettings.EmailVerification )
+      {
+        // get the user email
+        TextBox emailTextBox = ( TextBox ) CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl( "Email" );
+        string email = emailTextBox.Text.Trim();
+
+        string hashinput = DateTime.Now.ToString() + email + Security.CreatePassword( 20 );
+        string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
+        
+        // save verification record...
+        YAF.Classes.Data.DB.checkemail_save( userID, hash, user.Email );
+
+        string body = General.ReadTemplate( "verifyemail.txt" );
+        string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+
+        body = body.Replace( "{link}", String.Format( "{1}{0}", yaf_BuildLink.GetLink( ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL ) );
+        body = body.Replace( "{key}", hash );
+        body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
+        body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
+
+        General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
+      }
 		}
 	}
 }

@@ -65,13 +65,24 @@ namespace YAF.Pages // YAF.Pages
 
 		public void ValidateKey_Click( object sender, System.EventArgs e )
 		{
-			bool keyVerified = YAF.Classes.Data.DB.checkemail_update( key.Text );
+      DataTable dt = YAF.Classes.Data.DB.checkemail_update( key.Text );
+      DataRow row = dt.Rows [0];
 
-			approved.Visible = keyVerified;
+      bool keyVerified = ( row["ProviderUserKey"] == DBNull.Value ) ? false : true;
+
+ 			approved.Visible = keyVerified;
 			error.Visible = !keyVerified;
 
 			if ( keyVerified )
 			{
+        // approve and update e-mail in the membership as well...
+        System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser( row ["ProviderUserKey"] );
+        if (!user.IsApproved) user.IsApproved = true;
+        // update the email too...
+        user.Email = row ["Email"].ToString();
+        // tell the provider to update...
+        System.Web.Security.Membership.UpdateUser( user );
+        // now redirect to login...
 				PageContext.AddLoadMessage( GetText( "EMAIL_VERIFIED" ) );
 				Response.Redirect( "default.aspx?g=login" );
 			}

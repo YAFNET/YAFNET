@@ -48,7 +48,7 @@ namespace YAF.Classes.Data
 	public enum GroupFlags : int
 	{
 		IsAdmin = 1,
-		/*IsGuest = 2,*/
+		IsGuest = 2,
 		IsStart = 4,
 		IsModerator = 8
 	}

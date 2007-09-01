@@ -20,7 +20,8 @@ namespace YAF.Pages // YAF.Pages
     RegistrationEmail = 3,
     AccessDenied = 4,
     Disabled = 5,
-    Invalid = 6
+    Invalid = 6,
+    Failure = 7
   }
   /// <summary>
   /// Summary description for info.
@@ -79,6 +80,12 @@ namespace YAF.Pages // YAF.Pages
             case InfoMessage.Invalid: /// Invalid argument!
               Title.Text = GetText( "TITLE_INVALID" );
               Info.Text = GetText( "INVALID" );
+              RefreshTime = 10;
+              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+              break;
+            case InfoMessage.Failure: // some sort of failure
+              Title.Text = GetText( "TITLE_FAILURE" );
+              Info.Text = GetText( "FAILURE" );
               RefreshTime = 10;
               RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
               break;

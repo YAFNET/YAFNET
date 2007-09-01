@@ -16,11 +16,13 @@
           <td class="header2">
             Name</td>
           <td class="header2">
+            Is Guest</td>            
+          <td class="header2">
             Is Start</td>
           <td class="header2">
-            Is Admin</td>
+            Is Moderator</td>            
           <td class="header2">
-            Is Moderator</td>
+            Is Admin</td>
           <td class="header2">
             &nbsp;</td>
         </tr>
@@ -31,18 +33,21 @@
             <%# Eval( "Name") %>
           </td>
           <td class="post">
-            <%# BitSet(Eval( "Flags"),4) %>
+            <%# BitSet(Eval( "Flags" ),2) %>
+          </td>          
+          <td class="post">
+            <%# BitSet(Eval( "Flags" ),4) %>
           </td>
           <td class="post">
-            <%# BitSet(Eval( "Flags"),1) %>
+            <%# BitSet(Eval( "Flags" ),1) %>
           </td>
           <td class="post">
-            <%# BitSet(Eval( "Flags"),8) %>
+            <%# BitSet(Eval( "Flags" ),8) %>
           </td>
           <td class="post">
-            <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
+            <asp:LinkButton runat="server" CommandName="edit" Visible='<%#(BitSet(Eval( "Flags" ),2) == true ? false : true)%>' CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
             |
-            <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>Delete</asp:LinkButton>
+            <asp:LinkButton runat="server" OnLoad="Delete_Load" Visible='<%#(BitSet(Eval( "Flags" ),2) == true ? false : true)%>' CommandName="delete" CommandArgument='<%# Eval( "GroupID") %>'>Delete</asp:LinkButton>
           </td>
         </tr>
       </ItemTemplate>

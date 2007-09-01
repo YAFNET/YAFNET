@@ -30,7 +30,6 @@ namespace YAF.Classes.Utils
 {
   public class MembershipHelper
   {
-    #region method SyncUsers
     public static void SyncUsers( int PageBoardID )
     {
       string ForumURL = "forumurl";
@@ -89,94 +88,132 @@ namespace YAF.Classes.Utils
         }
       }
     }
-    #endregion
 
-    #region method SetupUserRoles
     static private bool BitSet( object _o, int bitmask )
     {
       int i = ( int ) _o;
       return ( i & bitmask ) != 0;
     }
 
-    static public void SetupUserRoles( int PageBoardID, string userName )
+    /// <summary>
+    /// Sets up the user roles from the "start" settings for a given group/role
+    /// </summary>
+    /// <param name="PageBoardID">Current BoardID</param>
+    /// <param name="userName"></param>
+    static public void SetupUserRoles( int pageBoardID, string userName )
     {
-      using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageBoardID, DBNull.Value ) )
+      using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )
       {
         foreach ( DataRow row in dt.Rows )
         {
-          // see if the "Is Start" flag is set for this group
-          if ( BitSet( row ["Flags"], 4 ) )
+          // see if the "Is Start" flag is set for this group and NOT the "Is Guest" flag (those roles aren't synced)
+          if ( BitSet( row ["Flags"], 4 ) && !BitSet( row["Flags"], 2) )
           {
-            // add the user to this role...
+            // add the user to this role in membership
             string roleName = row ["Name"].ToString();
             Roles.AddUserToRole( userName, roleName );
           }
         }
       }
     }
-    #endregion
 
-    #region method SyncRoles
+    /// <summary>
+    /// Syncs the ASP.NET roles with YAF groups bi-directionally.
+    /// </summary>
+    /// <param name="PageBoardID"></param>
     static public void SyncRoles( int PageBoardID )
     {
+      // get all the groups in YAF DB and create them if they do not exist as a role in membership
       using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageBoardID, DBNull.Value ) )
       {
         foreach ( DataRow row in dt.Rows )
         {
           string name = ( string ) row ["Name"];
 
-          if ( !Roles.RoleExists( name ) )
+          // bitset is testing if this role is a "Guest" role...
+          // if it is, we aren't syncing it.
+          if ( !BitSet(row["Flags"], 2) && !Roles.RoleExists( name ) )
           {
             Roles.CreateRole( name );
           }
         }
 
+        // get all the roles and create them in the YAF DB if they do not exist
         foreach ( string role in Roles.GetAllRoles() )
         {
           int nGroupID = 0;
           string filter = string.Format( "Name='{0}'", role );
           DataRow [] rows = dt.Select( filter );
+
           if ( rows.Length == 0 )
-            nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, PageBoardID, role, false, false, false, 1 ); // TODO - select default access mask id
+          {
+            // sets new roles to default "Read Only" access
+            nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, PageBoardID, role, false, false, false, false, 1 );
+          }
           else
+          {
             nGroupID = ( int ) rows [0] ["GroupID"];
+          }
         }
       }
     }
-    #endregion
 
-    #region method CreateForumUser
-    public static bool CreateForumUser( MembershipUser user, int PageBoardID )
+    /// <summary>
+    /// Creates the user in the YAF DB from the ASP.NET Membership user information.
+    /// Also copies the Roles as groups into YAF DB for the current user
+    /// </summary>
+    /// <param name="user">Current Membership User</param>
+    /// <param name="pageBoardID">Current BoardID</param>
+    /// <returns>Returns the UserID of the user if everything was successful. Otherwise, null.</returns>
+    public static int? CreateForumUser( MembershipUser user, int pageBoardID )
     {
+      int? userID = null;
+
       try
       {
-        //SyncRoles( yaf_Context.Current.Settings.BoardID );
+        userID = YAF.Classes.Data.DB.user_aspnet( pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved );
 
-        int nUserID = YAF.Classes.Data.DB.user_aspnet( PageBoardID, user.UserName, user.Email, user.ProviderUserKey );
         foreach ( string role in Roles.GetRolesForUser( user.UserName ) )
-          YAF.Classes.Data.DB.user_setrole( PageBoardID, user.ProviderUserKey, role );
+        {
+          YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
+        }
 
         YAF.Classes.Data.DB.eventlog_create( DBNull.Value, user, string.Format( "Created forum user {0}", user.UserName ) );
-        return true;
       }
       catch ( Exception x )
       {
         YAF.Classes.Data.DB.eventlog_create( DBNull.Value, "CreateForumUser", x );
-        return false;
+      }
+
+      return userID;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="user"></param>
+    /// <param name="pageBoardID"></param>
+    /// <returns></returns>
+    public static bool DidCreateForumUser( MembershipUser user, int pageBoardID )
+    {
+      int? userID = CreateForumUser( user, pageBoardID );
+      return ( userID == null ) ? false : true;
+    }
+
+    /// <summary>
+    /// Updates the information in the YAF DB from the ASP.NET Membership user information.
+    /// Called once per session for a user to sync up the data
+    /// </summary>
+    /// <param name="user">Current Membership User</param>
+    /// <param name="pageBoardID">Current BoardID</param>
+    public static void UpdateForumUser( MembershipUser user, int pageBoardID )
+    {
+      int nUserID = YAF.Classes.Data.DB.user_aspnet( pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved );
+      YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, DBNull.Value );
+      foreach ( string role in Roles.GetRolesForUser( user.UserName ) )
+      {
+        YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
       }
     }
-    #endregion
-
-    #region method UpdateForumUser
-
-    public static void UpdateForumUser( int nBoardID, MembershipUser user )
-    {
-      //YAF.Classes.Data.DB.user_setinfo(nBoardID, user);
-      int nUserID = YAF.Classes.Data.DB.user_aspnet( nBoardID, user.UserName, user.Email, user.ProviderUserKey );
-      YAF.Classes.Data.DB.user_setrole( nBoardID, user.ProviderUserKey, DBNull.Value );
-      foreach ( string role in Roles.GetRolesForUser( user.UserName ) )
-        YAF.Classes.Data.DB.user_setrole( nBoardID, user.ProviderUserKey, role );
-    }
-    #endregion
   }
 }

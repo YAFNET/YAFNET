@@ -753,14 +753,14 @@ namespace YAF.Classes.Data
     /// Updates a hash
     /// </summary>
     /// <param name="hash">New hash</param>
-    /// <returns>bool value to indicate a update</returns>
-    static public bool checkemail_update( object hash )
+    /// <returns>DataTable with user information</returns>
+    static public DataTable checkemail_update( object hash )
     {
       using ( SqlCommand cmd = new SqlCommand( "yaf_checkemail_update" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue( "Hash", hash );
-        return ( bool ) DBAccess.ExecuteScalar( cmd );
+        return DBAccess.GetData( cmd );
       }
     }
     #endregion
@@ -1289,12 +1289,6 @@ namespace YAF.Classes.Data
         return DBAccess.GetData( cmd );
       }
     }
-    public static long group_save( object GroupID, object boardID, object Name, object IsAdmin, object IsStart, object isModerator, object accessMaskID )
-    {
-      object lIsGuest = null;
-      return group_save( GroupID, boardID, Name, IsAdmin, lIsGuest, IsStart, isModerator, accessMaskID );
-    }
-
     static public long group_save( object GroupID, object boardID, object Name, object IsAdmin, object IsGuest, object IsStart, object isModerator, object accessMaskID )
     {
       using ( SqlCommand cmd = new SqlCommand( "yaf_group_save" ) )
@@ -1304,7 +1298,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue( "BoardID", boardID );
         cmd.Parameters.AddWithValue( "Name", Name );
         cmd.Parameters.AddWithValue( "IsAdmin", IsAdmin );
-        /*cmd.Parameters.AddWithValue( "IsGuest", IsGuest );*/			// obsolette flag ?
+        cmd.Parameters.AddWithValue( "IsGuest", IsGuest );
         cmd.Parameters.AddWithValue( "IsStart", IsStart );
         cmd.Parameters.AddWithValue( "IsModerator", isModerator );
         cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
@@ -2773,7 +2767,7 @@ namespace YAF.Classes.Data
 
       return true;
     }
-    static public int user_aspnet( int nBoardID, string sUserName, string sEmail, object providerUserKey )
+    static public int user_aspnet( int nBoardID, string sUserName, string sEmail, object providerUserKey, object isApproved )
     {
       try
       {
@@ -2785,6 +2779,7 @@ namespace YAF.Classes.Data
           cmd.Parameters.AddWithValue( "UserName", sUserName );
           cmd.Parameters.AddWithValue( "Email", sEmail );
           cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
+          cmd.Parameters.AddWithValue( "IsApproved", isApproved );
           return ( int ) DBAccess.ExecuteScalar( cmd );
         }
       }

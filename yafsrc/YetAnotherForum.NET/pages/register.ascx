@@ -6,7 +6,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree" StartNextButtonType="Link"
-        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnCreatingUser="CreateUserWizard1_CreatingUser" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick">
+        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick">
         <WizardSteps>
             <asp:TemplatedWizardStep runat="server" Title="Agreement" AllowReturn="False" ID="agreement">
                 <ContentTemplate>

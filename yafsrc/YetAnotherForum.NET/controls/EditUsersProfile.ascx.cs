@@ -161,6 +161,7 @@ namespace YAF.Controls
 					string message = General.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
 
 					YAF.Classes.Data.DB.checkemail_save( CurrentUserID, hash, Email.Text );
+
 					//  Build a MailMessage
 					General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
 					PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "PROFILE", "mail_sent" ), Email.Text ) );

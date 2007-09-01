@@ -53,9 +53,13 @@ namespace YAF.Pages.Admin
           {
             DataRow row = dt.Rows [0];
             Name.Text = ( string ) row ["Name"];
+            IsGuestX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsGuest ) == ( int ) YAF.Classes.Data.GroupFlags.IsGuest;
             IsAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsAdmin ) == ( int ) YAF.Classes.Data.GroupFlags.IsAdmin;
-            IsStart.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsStart ) == ( int ) YAF.Classes.Data.GroupFlags.IsStart;
+            IsStartX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsStart ) == ( int ) YAF.Classes.Data.GroupFlags.IsStart;
             IsModeratorX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsModerator ) == ( int ) YAF.Classes.Data.GroupFlags.IsModerator;
+
+            // only if this IsGuest can they edit this flag
+            if ( IsGuestX.Checked ) IsGuestTR.Visible = true;
           }
         }
       }
@@ -140,11 +144,11 @@ namespace YAF.Pages.Admin
         }
       }
 
-      GroupID = YAF.Classes.Data.DB.group_save( GroupID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsStart.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue );
+      GroupID = YAF.Classes.Data.DB.group_save( GroupID, PageContext.PageBoardID, roleName, IsAdminX.Checked, IsGuestX.Checked, IsStartX.Checked, IsModeratorX.Checked, AccessMaskID.SelectedValue );
 
       if ( !System.Web.Security.Roles.RoleExists( roleName ) )
       {
-        if ( oldRoleName != string.Empty )
+        if ( oldRoleName != string.Empty || IsGuestX.Checked )
         {
           // delete and re-sync...
           System.Web.Security.Roles.DeleteRole( oldRoleName, false );

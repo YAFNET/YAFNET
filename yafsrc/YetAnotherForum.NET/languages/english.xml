@@ -436,6 +436,7 @@
 		<Resource tag="ACCESSDENIED">You tried to enter a area where you didn't have access.</Resource>
 		<Resource tag="DISABLED">The administrator of this forum has disabled this feature.</Resource>
 		<Resource tag="INVALID">You've passed an invalid value to the forum.</Resource>
+		<Resource tag="FAILURE">There's been a system error processing your request. Please contact the forum admin explaining what you were doing when it happened.</Resource>
 		<Resource tag="EXCEPTION">You are logged in as</Resource>
 		<Resource tag="TITLE_INVALID">Invalid</Resource>
 		<Resource tag="TITLE_MODERATED">Information</Resource>
@@ -443,6 +444,7 @@
 		<Resource tag="TITLE_REGISTRATION">Thanks</Resource>
 		<Resource tag="TITLE_ACCESSDENIED">Access Denied</Resource>
 		<Resource tag="TITLE_EXCEPTION">Information</Resource>
+		<Resource tag="TITLE_FAILURE">Failure</Resource>
 	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->

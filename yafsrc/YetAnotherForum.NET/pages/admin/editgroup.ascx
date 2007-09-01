@@ -19,18 +19,11 @@
     </tr>
     <tr>
       <td class="postheader">
-        <b>Is Admin:</b><br />
-        Means that users in this group are admins.</td>
-      <td class="post">
-        <asp:CheckBox ID="IsAdminX" runat="server"></asp:CheckBox></td>
-    </tr>
-    <tr>
-      <td class="postheader">
         <b>Is Start:</b><br />
         If this is checked, all new users will be a member of this group.</td>
       <td class="post">
-        <asp:CheckBox ID="IsStart" runat="server"></asp:CheckBox></td>
-    </tr>
+        <asp:CheckBox ID="IsStartX" runat="server"></asp:CheckBox></td>
+    </tr>    
     <tr>
       <td class="postheader">
         <b>Is Forum Moderator:</b><br />
@@ -38,6 +31,22 @@
       <td class="post">
         <asp:CheckBox ID="IsModeratorX" runat="server"></asp:CheckBox></td>
     </tr>
+    <tr>
+      <td class="postheader">
+        <b>Is Admin:</b><br />
+        Means that users in this group are admins.</td>
+      <td class="post">
+        <asp:CheckBox ID="IsAdminX" runat="server"></asp:CheckBox></td>
+    </tr>    
+    <tr runat="server" visible="false" id="IsGuestTR">
+      <td class="postheader">
+        <b>Is Guest:</b><br />
+        This flag is internal and makes the role unavailable to .NET membership. Never assign this role to any users except the (1) guest user.
+        If you do flag this role as IsGuest, the guest user must a member of it.
+        Never use this flag in conjunction with any other flags.</td>
+      <td class="post">
+        <asp:CheckBox ID="IsGuestX" runat="server"></asp:CheckBox></td>
+    </tr>       
     <tr runat="server" id="NewGroupRow">
       <td class="postheader">
         <b>Initial Access Mask:</b><br />
