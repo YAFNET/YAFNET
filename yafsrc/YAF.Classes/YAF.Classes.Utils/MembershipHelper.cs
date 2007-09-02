@@ -216,4 +216,159 @@ namespace YAF.Classes.Utils
       }
     }
   }
+
+  /// <summary>
+  /// This is a stop-gap class to help with syncing operations
+  /// with users/membership.
+  /// </summary>
+  public class UserMembershipHelper
+  {
+    /// <summary>
+    /// Gets the user provider key from the UserID for a user
+    /// </summary>
+    /// <param name="UserID"></param>
+    /// <returns></returns>
+    public static object GetProviderUserKeyFromID( int userID )
+    {
+      object providerUserKey = null;
+
+      DataTable dt = YAF.Classes.Data.DB.user_list( yaf_Context.Current.PageBoardID, userID, DBNull.Value );
+      if ( dt.Rows.Count == 1 )
+      {
+        DataRow row = dt.Rows [0];
+        if ( row ["ProviderUserKey"] != DBNull.Value )
+          providerUserKey = row ["ProviderUserKey"];
+      }
+
+      return providerUserKey;    
+    }
+
+    /// <summary>
+    /// Gets the user name from the UesrID
+    /// </summary>
+    /// <param name="UserID"></param>
+    /// <returns></returns>
+    public static string GetUserNameFromID( int userID )
+    {
+      string userName = string.Empty;
+
+      DataTable dt = YAF.Classes.Data.DB.user_list( yaf_Context.Current.PageBoardID, userID, DBNull.Value );
+      if ( dt.Rows.Count == 1 )
+      {
+        DataRow row = dt.Rows [0];
+        if ( row ["Name"] != DBNull.Value )
+          userName = row ["Name"].ToString();
+      }
+
+      return userName;
+    }
+
+    /// <summary>
+    /// Get the UserID from the ProviderUserKey
+    /// </summary>
+    /// <param name="providerUserKey"></param>
+    /// <returns></returns>
+    public static int GetUserIDFromProviderUserKey( object providerUserKey )
+    {
+      int userID = DB.user_get( yaf_Context.Current.PageBoardID, providerUserKey );
+      return userID;
+    }
+
+    /// <summary>
+    /// get the membership user from the providerUserKey
+    /// </summary>
+    /// <param name="providerUserKey"></param>
+    /// <returns></returns>
+    public static MembershipUser GetMembershipUser( object providerUserKey )
+    {
+      return Membership.GetUser( providerUserKey );
+    }
+
+    /// <summary>
+    /// get the membership user from the userID
+    /// </summary>
+    /// <param name="userID"></param>
+    /// <returns></returns>
+    public static MembershipUser GetMembershipUser( int userID )
+    {
+      return GetMembershipUser( GetProviderUserKeyFromID( userID ) );
+    }
+
+    /// <summary>
+    /// get the membership user from the userName
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <returns></returns>
+    public static MembershipUser GetMembershipUser( string userName )
+    {
+      return Membership.GetUser( userName );
+    }
+
+    public static bool DeleteUser( int userID )
+    {
+      string userName = GetUserNameFromID( userID );
+
+      if ( userName != string.Empty )
+      {
+        DB.user_delete( userID );
+        Membership.DeleteUser( userName, true );
+
+        return true;
+      }
+
+      return false;
+    }
+
+    public static bool ApproveUser( int userID )
+    {
+      object providerUserKey = GetProviderUserKeyFromID( userID );
+
+      if ( providerUserKey != null )
+      {
+        MembershipUser user = Membership.GetUser( providerUserKey );
+        if ( !user.IsApproved ) user.IsApproved = true;
+        Membership.UpdateUser( user );        
+        DB.user_approve( userID );
+
+        return true;
+      }
+
+      return false;
+    }
+
+    public static void DeleteAllUnapproved()
+    {
+      // get all users...
+      MembershipUserCollection allUsers = Membership.GetAllUsers();
+
+      // iterate through each one...
+      foreach (MembershipUser user in allUsers)
+      {
+        if ( !user.IsApproved )
+        {
+          // delete this user...
+          DB.user_delete( GetUserIDFromProviderUserKey( user.ProviderUserKey ) );
+          Membership.DeleteUser( user.UserName, true );
+        }
+      }      
+    }
+
+    public static void ApproveAll()
+    {
+      // get all users...
+      MembershipUserCollection allUsers = Membership.GetAllUsers();
+
+      // iterate through each one...
+      foreach (MembershipUser user in allUsers)
+      {
+        if ( !user.IsApproved )
+        {
+          // approve this user...
+          user.IsApproved = true;
+          Membership.UpdateUser( user );        
+          DB.user_approve( GetUserIDFromProviderUserKey( user.ProviderUserKey ) );
+        }
+      }      
+    }
+  }
 }

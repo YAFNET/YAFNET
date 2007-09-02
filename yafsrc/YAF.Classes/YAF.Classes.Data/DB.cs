@@ -2517,13 +2517,14 @@ namespace YAF.Classes.Data
         DBAccess.ExecuteNonQuery( cmd );
       }
     }
-    static public void user_adminsave( object boardID, object UserID, object Name, object email, object isHostAdmin, object RankID )
+    static public void user_adminsave( object boardID, object UserID, object Name, object email, object isHostAdmin, object isGuest, object RankID )
     {
       using ( SqlCommand cmd = new SqlCommand( "yaf_user_adminsave" ) )
       {
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue( "BoardID", boardID );
         cmd.Parameters.AddWithValue( "UserID", UserID );
+        cmd.Parameters.AddWithValue( "IsGuest", isGuest );
         cmd.Parameters.AddWithValue( "Name", Name );
         cmd.Parameters.AddWithValue( "Email", email );
         cmd.Parameters.AddWithValue( "IsHostAdmin", isHostAdmin );
