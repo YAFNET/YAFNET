@@ -1114,7 +1114,7 @@ begin
 			from 
 				yaf_User 
 			where 
-				dbo.yaf_bitset(Flags,2)=1 and 
+				(Flags & 2) = 2 and
 				BoardID=@BoardID 
 			order by 
 				Joined desc
@@ -1153,7 +1153,7 @@ create procedure [dbo].[yaf_board_stats] as begin
 	select
 		NumPosts	= (select count(1) from yaf_Message where (Flags & 24)=16),
 		NumTopics	= (select count(1) from yaf_Topic),
-		NumUsers	= (select count(1) from yaf_User where dbo.yaf_bitset(Flags,2)<>0),
+		NumUsers	= (select count(1) from yaf_User where (Flags & 2) = 2),
 		BoardStart	= (select min(Joined) from yaf_User)
 end
 GO
@@ -4511,115 +4511,6 @@ begin
 end
 GO
 
--- scalar functions
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bitset]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_bitset]
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_posts]
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_topics]
-GO
-
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_subforums]
-GO
-
-create function [dbo].[yaf_bitset](@Flags int,@Mask int) returns bit as
-begin
-	declare @bool bit
-
-	if (@Flags & @Mask) = @Mask
-		set @bool = 1
-	else
-		set @bool = 0
-		
-	return @bool
-end
-GO
-
-create function [dbo].[yaf_forum_posts](@ForumID int) returns int as
-begin
-	declare @NumPosts int
-	declare @tmp int
-
-	select @NumPosts=NumPosts from dbo.yaf_Forum where ForumID=@ForumID
-
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
-	begin
-		declare c cursor for
-		select ForumID from dbo.yaf_Forum
-		where ParentID = @ForumID
-		
-		open c
-		
-		fetch next from c into @tmp
-		while @@FETCH_STATUS = 0
-		begin
-			set @NumPosts=@NumPosts+dbo.yaf_forum_posts(@tmp)
-			fetch next from c into @tmp
-		end
-		close c
-		deallocate c
-	end
-
-	return @NumPosts
-end
-GO
-
-create function [dbo].[yaf_forum_topics](@ForumID int) returns int as
-begin
-	declare @NumTopics int
-	declare @tmp int
-
-	select @NumTopics=NumTopics from dbo.yaf_Forum where ForumID=@ForumID
-
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
-	begin
-		declare c cursor for
-		select ForumID from dbo.yaf_Forum
-		where ParentID = @ForumID
-		
-		open c
-		
-		fetch next from c into @tmp
-		while @@FETCH_STATUS = 0
-		begin
-			set @NumTopics=@NumTopics+dbo.yaf_forum_topics(@tmp)
-			fetch next from c into @tmp
-		end
-		close c
-		deallocate c
-	end
-
-	return @NumTopics
-end
-GO
-
-CREATE function [dbo].[yaf_forum_subforums](@ForumID int, @UserID int) returns int as
-begin
-	declare @NumSubforums int
-
-	select 
-		@NumSubforums=COUNT(*)	
-	from 
-		yaf_Forum a 
-		join yaf_vaccess x on x.ForumID = a.ForumID 
-	where 
-		((a.Flags & 2)=0 or x.ReadAccess<>0) and 
-		(a.ParentID=@ForumID) and	
-		(x.UserID = @UserID)
-
-	return @NumSubforums
-end
-GO
-
-
-
 CREATE procedure dbo.yaf_message_reply_list(@MessageID int) as
 begin
 	set nocount on
@@ -4816,3 +4707,109 @@ WHERE  MessageID = @MessageID
 END
 GO
 
+-- scalar functions
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bitset]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_bitset]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_forum_posts]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_forum_topics]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_forum_subforums]
+GO
+
+create function [dbo].[yaf_bitset](@Flags int,@Mask int) returns bit as
+begin
+	declare @bool bit
+
+	if (@Flags & @Mask) = @Mask
+		set @bool = 1
+	else
+		set @bool = 0
+		
+	return @bool
+end
+GO
+
+create function [dbo].[yaf_forum_posts](@ForumID int) returns int as
+begin
+	declare @NumPosts int
+	declare @tmp int
+
+	select @NumPosts=NumPosts from dbo.yaf_Forum where ForumID=@ForumID
+
+	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+		select ForumID from dbo.yaf_Forum
+		where ParentID = @ForumID
+		
+		open c
+		
+		fetch next from c into @tmp
+		while @@FETCH_STATUS = 0
+		begin
+			set @NumPosts=@NumPosts+dbo.yaf_forum_posts(@tmp)
+			fetch next from c into @tmp
+		end
+		close c
+		deallocate c
+	end
+
+	return @NumPosts
+end
+GO
+
+create function [dbo].[yaf_forum_topics](@ForumID int) returns int as
+begin
+	declare @NumTopics int
+	declare @tmp int
+
+	select @NumTopics=NumTopics from dbo.yaf_Forum where ForumID=@ForumID
+
+	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+		select ForumID from dbo.yaf_Forum
+		where ParentID = @ForumID
+		
+		open c
+		
+		fetch next from c into @tmp
+		while @@FETCH_STATUS = 0
+		begin
+			set @NumTopics=@NumTopics+dbo.yaf_forum_topics(@tmp)
+			fetch next from c into @tmp
+		end
+		close c
+		deallocate c
+	end
+
+	return @NumTopics
+end
+GO
+
+CREATE function [dbo].[yaf_forum_subforums](@ForumID int, @UserID int) returns int as
+begin
+	declare @NumSubforums int
+
+	select 
+		@NumSubforums=COUNT(*)	
+	from 
+		yaf_Forum a 
+		join yaf_vaccess x on x.ForumID = a.ForumID 
+	where 
+		((a.Flags & 2)=0 or x.ReadAccess<>0) and 
+		(a.ParentID=@ForumID) and	
+		(x.UserID = @UserID)
+
+	return @NumSubforums
+end
+GO
