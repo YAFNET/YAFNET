@@ -54,7 +54,6 @@ namespace YAF.Controls
     }
     private void BindData()
     {
-      DataRow row;
       TimeZones.DataSource = yaf_StaticData.TimeZones();
       Theme.DataSource = yaf_StaticData.Themes();
       Theme.DataTextField = "Theme";
@@ -65,23 +64,26 @@ namespace YAF.Controls
 
       DataBind();
 
-      // alpha PROFILE code
-      Location.Text = PageContext.Profile.Location;
-      HomePage.Text = PageContext.Profile.Homepage;
-      TimeZones.Items.FindByValue( PageContext.Profile.TimeZone.ToString() ).Selected = true;
-      Email.Text = PageContext.User.Email;
-      Realname.Text = PageContext.Profile.RealName;
-      Occupation.Text = PageContext.Profile.Occupation;
-      Interests.Text = PageContext.Profile.Interests;
-      Weblog.Text = PageContext.Profile.Blog ;
-      WeblogUrl.Text = PageContext.Profile.BlogServiceUrl;
-      WeblogID.Text = PageContext.Profile.BlogServicePassword;
-      WeblogUsername.Text = PageContext.Profile.BlogServiceUsername;
-      MSN.Text = PageContext.Profile.MSN;
-      YIM.Text = PageContext.Profile.YIM;
-      AIM.Text = PageContext.Profile.AIM;
-      ICQ.Text = PageContext.Profile.ICQ;
-      PMNotificationEnabled.Checked = PageContext.Profile.PMNotification;
+      // made the same mistake...
+      Membership user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
+      YAF_UserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
+
+      Location.Text = userProfile.Location;
+      HomePage.Text = userProfile.Homepage;
+      TimeZones.Items.FindByValue( userProfile.TimeZone.ToString() ).Selected = true;
+      Email.Text = user.Email;
+      Realname.Text = userProfile.RealName;
+      Occupation.Text = userProfile.Occupation;
+      Interests.Text = userProfile.Interests;
+      Weblog.Text = userProfile.Blog;
+      WeblogUrl.Text = userProfile.BlogServiceUrl;
+      WeblogID.Text = userProfile.BlogServicePassword;
+      WeblogUsername.Text = userProfile.BlogServiceUsername;
+      MSN.Text = userProfile.MSN;
+      YIM.Text = userProfile.YIM;
+      AIM.Text = userProfile.AIM;
+      ICQ.Text = userProfile.ICQ;
+      PMNotificationEnabled.Checked = userProfile.PMNotification;
 
       /*
 
@@ -195,7 +197,7 @@ namespace YAF.Controls
         UserMembershipHelper.UpdateEmail( CurrentUserID, Email.Text.Trim() );
       }
 
-      YAF_UserProfile userProfile = PageContext.GetProfile( PageContext.User.UserName );
+      YAF_UserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
 
       userProfile.Location = Location.Text.Trim();
       userProfile.Homepage = HomePage.Text.Trim();
