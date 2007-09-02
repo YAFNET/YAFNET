@@ -3790,11 +3790,8 @@ begin
 		insert into dbo.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Gender,Flags,ProviderUserKey) 
 		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,0,@approvedFlag,@ProviderUserKey)
 	
-		-- now does this in Membership
-		--set @UserID = SCOPE_IDENTITY()
-		--insert into dbo.yaf_UserGroup(UserID,GroupID) 
-		--select @UserID,GroupID from dbo.yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
-		
+		set @UserID = SCOPE_IDENTITY()
+	
 	end
 	
 	select UserID=@UserID
