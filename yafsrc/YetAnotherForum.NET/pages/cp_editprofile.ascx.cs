@@ -45,38 +45,22 @@ namespace YAF.Pages
 		{
 		}
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if(User==null)
-			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-			}
+    protected void Page_Load( object sender, System.EventArgs e )
+    {
+      if ( User == null )
+      {
+        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+      }
 
-			if ( !IsPostBack )
-			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
-				PageLinks.AddLink( GetText( "TITLE" ), "" );
-			}
-		}
+      // validate the UserID included here...
+      long userID = Security.StringToLongOrRedirect( Request.QueryString ["u"] );
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
+      if ( !IsPostBack )
+      {
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.PageUserName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+        PageLinks.AddLink( GetText( "TITLE" ), "" );
+      }
+    }
 	}
 }

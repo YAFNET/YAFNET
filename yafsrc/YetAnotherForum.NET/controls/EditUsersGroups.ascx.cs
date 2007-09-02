@@ -40,9 +40,17 @@ namespace YAF.Controls
 			}
 		}
 
+    protected int ThisUserID
+    {
+      get
+      {
+        return int.Parse( Request.QueryString ["u"] );
+      }
+    }
+
 		private void BindData()
 		{
-			UserGroups.DataSource = YAF.Classes.Data.DB.group_member( PageContext.PageBoardID, Request.QueryString ["u"] );
+      UserGroups.DataSource = YAF.Classes.Data.DB.group_member( PageContext.PageBoardID, ThisUserID );
 			DataBind();
 		}
 
@@ -72,12 +80,15 @@ namespace YAF.Controls
 
 				bool isChecked = ( ( CheckBox ) item.FindControl( "GroupMember" ) ).Checked;
 
-				YAF.Classes.Data.DB.usergroup_save( Request.QueryString ["u"], GroupID, isChecked );
+				YAF.Classes.Data.DB.usergroup_save( ThisUserID, GroupID, isChecked );
 
-				if ( isChecked && !Roles.IsUserInRole( PageContext.User.UserName, roleName ) )
-					Roles.AddUserToRole( PageContext.User.UserName, roleName );
-				else if ( !isChecked && Roles.IsUserInRole( PageContext.User.UserName, roleName ) )
-					Roles.RemoveUserFromRole( PageContext.User.UserName, roleName );
+        // get this username
+        string userName = YAF.Classes.Utils.UserMembershipHelper.GetUserNameFromID( ThisUserID );
+
+        if ( isChecked && !Roles.IsUserInRole( userName, roleName ) )
+          Roles.AddUserToRole( userName, roleName );
+        else if ( !isChecked && Roles.IsUserInRole( userName, roleName ) )
+          Roles.RemoveUserFromRole( userName, roleName );
 			}
 
 			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
