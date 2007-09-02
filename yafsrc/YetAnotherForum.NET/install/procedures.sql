@@ -3855,9 +3855,11 @@ begin
 	update yaf_Topic set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 	update yaf_Forum set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 
-	delete from yaf_EventLog where UserID=@UserID
-	delete from yaf_PMessage where FromUserID=@UserID
+	delete from yaf_EventLog where UserID=@UserID	
 	delete from yaf_UserPMessage where UserID=@UserID
+	delete from yaf_PMessage where FromUserID=@UserID AND PMessageID NOT IN (select PMessageID FROM yaf_PMessage)
+	-- set messages as from guest so the User can be deleted
+	update yaf_PMessage SET FromUserID = @GuestUserID WHERE FromUserID = @UserID
 	delete from yaf_CheckEmail where UserID = @UserID
 	delete from yaf_WatchTopic where UserID = @UserID
 	delete from yaf_WatchForum where UserID = @UserID
