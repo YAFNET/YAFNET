@@ -65,7 +65,7 @@ namespace YAF.Controls
       DataBind();
 
       // made the same mistake...
-      Membership user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
+      MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
       YAF_UserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
 
       Location.Text = userProfile.Location;
