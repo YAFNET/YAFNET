@@ -2478,7 +2478,8 @@ namespace YAF.Classes.Data
         return ( bool ) DBAccess.ExecuteScalar( cmd );
       }
     }
-    static public void user_save( object UserID, object boardID, object UserName, object Password, object Email, object Hash,
+
+    static public void user_save( object UserID, object boardID, object UserName, object Email,
         object Location, object HomePage, object TimeZone, object Avatar,
         object languageFile, object themeFile, object overrideDefaultThemes, object Approved,
         object msn, object yim, object aim, object icq,
@@ -2490,9 +2491,7 @@ namespace YAF.Classes.Data
         cmd.Parameters.AddWithValue( "UserID", UserID );
         cmd.Parameters.AddWithValue( "BoardID", boardID );
         cmd.Parameters.AddWithValue( "UserName", UserName );
-        cmd.Parameters.AddWithValue( "Password", Password );
         cmd.Parameters.AddWithValue( "Email", Email );
-        cmd.Parameters.AddWithValue( "Hash", Hash );
         cmd.Parameters.AddWithValue( "Location", Location );
         cmd.Parameters.AddWithValue( "HomePage", HomePage );
         cmd.Parameters.AddWithValue( "TimeZone", TimeZone );

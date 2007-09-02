@@ -28,7 +28,7 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
-  public class MembershipHelper
+  public class RoleMembershipHelper
   {
     public static void SyncUsers( int PageBoardID )
     {
@@ -302,6 +302,22 @@ namespace YAF.Classes.Utils
     public static MembershipUser GetMembershipUser( string userName )
     {
       return Membership.GetUser( userName );
+    }
+
+    public static bool UpdateEmail( int userID, string newEmail )
+    {
+      object providerUserKey = GetProviderUserKeyFromID( userID );
+
+      if ( providerUserKey != null )
+      {
+        MembershipUser user = Membership.GetUser( providerUserKey );
+        user.Email = newEmail;
+        Membership.UpdateUser( user );
+        DB.user_aspnet( yaf_Context.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved );
+        return true;
+      }
+
+      return false;
     }
 
     public static bool DeleteUser( int userID )

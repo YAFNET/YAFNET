@@ -83,9 +83,10 @@ namespace YAF.Pages // YAF.Pages
         if (user.Email != dbEmail && dbEmail != "" ) user.Email = dbEmail;
         // tell the provider to update...
         System.Web.Security.Membership.UpdateUser( user );
+
         // now redirect to login...
 				PageContext.AddLoadMessage( GetText( "EMAIL_VERIFIED" ) );
-				Response.Redirect( "default.aspx?g=login" );
+        yaf_BuildLink.Redirect( ForumPages.login );
 			}
 		}
 	}

@@ -147,8 +147,8 @@ namespace YAF.Install
 							e.Cancel = false;
 						break;
 					case 4:
-            MembershipHelper.SyncRoles( PageBoardID );
-            MembershipHelper.SyncUsers( PageBoardID );
+            RoleMembershipHelper.SyncRoles( PageBoardID );
+            RoleMembershipHelper.SyncUsers( PageBoardID );
 						e.Cancel = false;
 						break;
 					default:

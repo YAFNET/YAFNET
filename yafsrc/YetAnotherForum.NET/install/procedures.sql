@@ -4080,7 +4080,7 @@ begin
 
 	if @@ROWCOUNT<1
 	begin
-		exec yaf_user_save 0,@BoardID,@UserName,'-',@Email,null,'Usenet',null,0,null,null,null,0,1,null,null,null,null,null,null,null,0,null
+		exec yaf_user_save 0,@BoardID,@UserName,@Email,null,'Usenet',0,null,null,null,0,1,null,null,null,null,null,null,null,0,null,null,null,null,null
 		-- The next one is not safe, but this procedure is only used for testing
 		select @UserID=max(UserID) from yaf_User
 	end
@@ -4123,13 +4123,11 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_user_save](
+CREATE procedure [dbo].[yaf_user_save](
 	@UserID				int,
 	@BoardID			int,
 	@UserName			nvarchar(50) = null,
-	@Password			nvarchar(32) = null,
 	@Email				nvarchar(50) = null,
-	@Hash				nvarchar(32) = null,
 	@Location			nvarchar(50) = null,
 	@HomePage			nvarchar(50) = null,
 	@TimeZone			int,
@@ -4181,16 +4179,11 @@ begin
 		select @RankID = RankID from yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 
 		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags,PMNotification,ProviderUserKey,WeblogUrl,WeblogUsername,WeblogID) 
-		values(@BoardID,@RankID,@UserName,@Password,@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags,@PMNotification,@ProviderUserKey,@WeblogUrl,@WeblogUsername,@WeblogID)		
+		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags,@PMNotification,@ProviderUserKey,@WeblogUrl,@WeblogUsername,@WeblogID)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
 		insert into yaf_UserGroup(UserID,GroupID) select @UserID,GroupID from yaf_Group where BoardID=@BoardID and (Flags & 4)<>0
-		
-		if @Hash is not null and @Hash <> '' and @Approved=0 begin
-			insert into yaf_CheckEmail(UserID,Email,Created,Hash)
-			values(@UserID,@Email,getdate(),@Hash)	
-		end
 	end
 	else begin
 		update yaf_User set
@@ -4220,7 +4213,6 @@ begin
 			update yaf_User set Email = @Email where UserID = @UserID
 	end
 end
-GO
 
 CREATE procedure [dbo].[yaf_user_saveavatar]
 (

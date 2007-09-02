@@ -34,7 +34,7 @@ namespace YAF.Classes.Base
       try
       {
         // attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
-        YAF.Classes.Utils.MembershipHelper.SyncRoles( BoardID );
+        YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( BoardID );
       }
       catch
       {

@@ -175,10 +175,23 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_NextButtonClick( object sender, WizardNavigationEventArgs e )
 		{
-			// if they clicked declined, redirect to the main page
 			if ( e.CurrentStepIndex == 2 )
 			{
+        // this is the "Profile Information" step. Save the data to their profile (+ defaults).
+        DropDownList timeZones = ( ( DropDownList ) FindWizardControl( "TimeZones" ) );
+        TextBox locationTextBox = ( ( TextBox ) FindWizardControl( "Location" ) );
+        TextBox homepageTextBox = ( ( TextBox ) FindWizardControl( "Homepage" ) );
 
+        MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );
+
+        // setup/save the profile
+        YAF_UserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
+
+        userProfile.TimeZone = Convert.ToInt32( timeZones.SelectedValue );
+        userProfile.Location = locationTextBox.Text.Trim();
+        userProfile.Homepage = homepageTextBox.Text.Trim();
+
+        userProfile.Save();
 			}
 		}
 
@@ -234,13 +247,17 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_CreatedUser( object sender, EventArgs e )
 		{
-      MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );      
+      MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );  
 
       // setup inital roles (if any) for this user
-      MembershipHelper.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
+      RoleMembershipHelper.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
 
       // create the user in the YAF DB as well as sync roles...
-      int? userID = MembershipHelper.CreateForumUser( user, yaf_Context.Current.PageBoardID );
+      int? userID = RoleMembershipHelper.CreateForumUser( user, yaf_Context.Current.PageBoardID );
+      
+      // create empty profile just they have one
+      YAF_UserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
+      userProfile.Save();
 
       if (userID == null)
       {
@@ -272,5 +289,5 @@ namespace YAF.Pages // YAF.Pages
         General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
       }
 		}
-	}
+  }
 }

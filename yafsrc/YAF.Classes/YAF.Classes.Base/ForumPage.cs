@@ -344,7 +344,7 @@ namespace YAF.Classes.Base
 			MembershipUser user = Membership.GetUser();
 			if ( user != null && Session ["UserUpdated"] == null )
 			{
-        MembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
+        RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
 				Session ["UserUpdated"] = true;
 			}
 
@@ -391,7 +391,7 @@ namespace YAF.Classes.Base
 				if ( user != null && pageRow == null )
 				{
 					// create the user...
-          if ( !MembershipHelper.DidCreateForumUser( user, PageContext.PageBoardID ) )
+          if ( !RoleMembershipHelper.DidCreateForumUser( user, PageContext.PageBoardID ) )
 						throw new ApplicationException( "Failed to use new user." );
 				}
 

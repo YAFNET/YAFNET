@@ -195,16 +195,6 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public YAF_UserProfile GetProfile( string userName )
 		{
-			//string key = "userProfileCache--" + userName;
-			// see if it's cached already
-      System.Web.Profile.ProfileInfoCollection collection = System.Web.Profile.ProfileManager.FindProfilesByUserName(System.Web.Profile.ProfileAuthenticationOption.Authenticated, userName);
-      YAF_UserProfile profile = null;
-
-      if (collection.Count > 0)
-      {
-        profile = ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
-      }
-
       //if ( profile == null )
       //{
       //  // doesn't exist...
@@ -212,7 +202,8 @@ namespace YAF.Classes.Utils
       //  HttpContext.Current.Cache.Add(key,profile,null,DateTime.Now.AddMinutes(30),TimeSpan.Zero,System.Web.Caching.CacheItemPriority.Default,null);
       //}
 
-			return profile;
+
+      return ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
 		}
 
 		/// <summary>
