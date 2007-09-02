@@ -52,9 +52,6 @@ namespace YAF.Pages
         YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
       }
 
-      // validate the UserID included here...
-      long userID = Security.StringToLongOrRedirect( Request.QueryString ["u"] );
-
       if ( !IsPostBack )
       {
         PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
