@@ -353,8 +353,14 @@ namespace YAF.Classes.Base
 
 			if ( HttpContext.Current.Request.UserAgent != null )
 			{
-				if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
-					platform = "Win2003";
+        if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
+        {
+          platform = "Win2003";
+        }
+        else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
+        {
+          platform = "Vista";
+        }
 			}
 
 			int? categoryID = ValidInt( HttpContext.Current.Request.QueryString ["c"] );
