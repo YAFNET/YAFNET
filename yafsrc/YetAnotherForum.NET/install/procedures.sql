@@ -4213,6 +4213,7 @@ begin
 			update yaf_User set Email = @Email where UserID = @UserID
 	end
 end
+GO
 
 CREATE procedure [dbo].[yaf_user_saveavatar]
 (
