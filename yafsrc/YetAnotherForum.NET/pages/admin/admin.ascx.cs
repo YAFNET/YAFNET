@@ -31,117 +31,99 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	/// <summary>
-	/// Summary description for main.
-	/// </summary>
-	public partial class admin : YAF.Classes.Base.AdminPage
-	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(!IsPostBack) 
-			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration","");
-				BindData();
-				//TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
-			}
-		}
+  /// <summary>
+  /// Summary description for main.
+  /// </summary>
+  public partial class admin : YAF.Classes.Base.AdminPage
+  {
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this user?')";
-		}
+    protected void Page_Load( object sender, System.EventArgs e )
+    {
+      if ( !IsPostBack )
+      {
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( "Administration", "" );
+        BindData();
+        //TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
+      }
+    }
 
-		protected void Approve_Load(object sender, System.EventArgs e) 
-		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this user?')";
-		}
+    protected void Delete_Load( object sender, System.EventArgs e )
+    {
+      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this user?')";
+    }
 
-		private void BindData() 
-		{
-			ActiveList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID,true);
-			UserList.DataSource = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,null,false);
-			DataBind();
+    protected void Approve_Load( object sender, System.EventArgs e )
+    {
+      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Approve this user?')";
+    }
 
-			DataRow row = YAF.Classes.Data.DB.board_stats();
-			NumPosts.Text	= String.Format("{0:N0}",row["NumPosts"]);
-			NumTopics.Text	= String.Format("{0:N0}",row["NumTopics"]);
-			NumUsers.Text	= String.Format("{0:N0}",row["NumUsers"]);
+    private void BindData()
+    {
+      ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );
+      UserList.DataSource = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, false );
+      DataBind();
 
-			TimeSpan span = DateTime.Now - (DateTime)row["BoardStart"];
-			double days = span.Days;
+      DataRow row = YAF.Classes.Data.DB.board_stats();
+      NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
+      NumTopics.Text = String.Format( "{0:N0}", row ["NumTopics"] );
+      NumUsers.Text = String.Format( "{0:N0}", row ["NumUsers"] );
 
-			BoardStart.Text	= String.Format("{0:d} ({1:N0} days ago)",row["BoardStart"],days);
+      TimeSpan span = DateTime.Now - ( DateTime ) row ["BoardStart"];
+      double days = span.Days;
 
-			if(days<1) days = 1;
-			DayPosts.Text = String.Format("{0:N2}",(int)row["NumPosts"] / days);
-			DayTopics.Text = String.Format("{0:N2}",(int)row["NumTopics"] / days);
-			DayUsers.Text = String.Format("{0:N2}",(int)row["NumUsers"] / days);
+      BoardStart.Text = String.Format( "{0:d} ({1:N0} days ago)", row ["BoardStart"], days );
 
-			DBSize.Text = String.Format("{0} MB",YAF.Classes.Data.DB.DBSize());
-		}
+      if ( days < 1 ) days = 1;
+      DayPosts.Text = String.Format( "{0:N2}", ( int ) row ["NumPosts"] / days );
+      DayTopics.Text = String.Format( "{0:N2}", ( int ) row ["NumTopics"] / days );
+      DayUsers.Text = String.Format( "{0:N2}", ( int ) row ["NumUsers"] / days );
 
-		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) 
-		{
-			switch(e.CommandName) 
-			{
-				case "edit":
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser,"u={0}",e.CommandArgument);
-					break;
-				case "delete":
-					YAF.Classes.Data.DB.user_delete(e.CommandArgument);
-					BindData();
-					break;
-				case "approve":
-					YAF.Classes.Data.DB.user_approve(e.CommandArgument);
-					BindData();
-					break;
-				case "deleteall":
-					YAF.Classes.Data.DB.user_deleteold(PageContext.PageBoardID);
-					BindData();
-					break;
-				case "approveall":
-					YAF.Classes.Data.DB.user_approveall(PageContext.PageBoardID);
-					BindData();
-					break;
-			}
-		}
+      DBSize.Text = String.Format( "{0} MB", YAF.Classes.Data.DB.DBSize() );
+    }
 
-		protected string FormatForumLink(object ForumID,object ForumName) 
-		{
-			if(ForumID.ToString()=="" || ForumName.ToString()=="")
-				return "";
+    public void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+    {
+      switch ( e.CommandName )
+      {
+        case "edit":
+          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", e.CommandArgument );
+          break;
+        case "delete":
+          UserMembershipHelper.DeleteUser( Convert.ToInt32( e.CommandArgument ));
+          BindData();
+          break;
+        case "approve":
+          UserMembershipHelper.ApproveUser( Convert.ToInt32( e.CommandArgument ));
+          BindData();
+          break;
+        case "deleteall":
+          UserMembershipHelper.DeleteAllUnapproved();
+          //YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID );
+          BindData();
+          break;
+        case "approveall":
+          UserMembershipHelper.ApproveAll();
+          //YAF.Classes.Data.DB.user_approveall( PageContext.PageBoardID );
+          BindData();
+          break;
+      }
+    }
 
-			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",ForumID),ForumName);
-		}
+    protected string FormatForumLink( object ForumID, object ForumName )
+    {
+      if ( ForumID.ToString() == "" || ForumName.ToString() == "" )
+        return "";
 
-		protected string FormatTopicLink(object TopicID,object TopicName) {
-			if(TopicID.ToString()=="" || TopicName.ToString()=="")
-				return "";
+      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ), ForumName );
+    }
 
-			return String.Format("<a target=\"_top\" href=\"{0}\">{1}</a>",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"t={0}",TopicID),TopicName);
-		}
+    protected string FormatTopicLink( object TopicID, object TopicName )
+    {
+      if ( TopicID.ToString() == "" || TopicName.ToString() == "" )
+        return "";
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-	}
+      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ), TopicName );
+    }
+  }
 }

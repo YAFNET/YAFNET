@@ -10,7 +10,7 @@
 	</tr>
 	<tr>
 		<td class="postheader">Name:</td>
-		<td class="post"><asp:TextBox style="width:300px" id="Name" runat="server" /></td>
+		<td class="post"><asp:TextBox style="width:300px" id="Name" runat="server" Enabled="false" /></td>
 	</tr>
 	<tr>
 		<td class="postheader">E-mail:</td>
@@ -24,6 +24,11 @@
 		<td class="postheader">Is Host Admin:</td>
 		<td class="post"><asp:checkbox runat="server" id="IsHostAdminX"/></td>
 	</tr>
+	<!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->	     
+	<tr runat="server" id="IsGuestRow" visible="false">
+	  <td class="postheader">Is Guest:</td>
+	  <td class="post"><asp:checkbox runat="server" id="IsGuestX"/></td>
+  </tr>
 	<tr>
 		<td class="postheader">Joined:</td>
 		<td class="post"><asp:TextBox id="Joined" runat="server" Enabled="False"/></td>

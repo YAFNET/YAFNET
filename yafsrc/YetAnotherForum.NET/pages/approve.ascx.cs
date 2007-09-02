@@ -67,6 +67,7 @@ namespace YAF.Pages // YAF.Pages
 		{
       DataTable dt = YAF.Classes.Data.DB.checkemail_update( key.Text );
       DataRow row = dt.Rows [0];
+      string dbEmail = row ["Email"].ToString();
 
       bool keyVerified = ( row["ProviderUserKey"] == DBNull.Value ) ? false : true;
 
@@ -76,10 +77,10 @@ namespace YAF.Pages // YAF.Pages
 			if ( keyVerified )
 			{
         // approve and update e-mail in the membership as well...
-        System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser( row ["ProviderUserKey"] );
+        System.Web.Security.MembershipUser user = UserMembershipHelper.GetMembershipUser( row ["ProviderUserKey"] );
         if (!user.IsApproved) user.IsApproved = true;
-        // update the email too...
-        user.Email = row ["Email"].ToString();
+        // update the email if anything was returned...
+        if (user.Email != dbEmail && dbEmail != "" ) user.Email = dbEmail;
         // tell the provider to update...
         System.Web.Security.Membership.UpdateUser( user );
         // now redirect to login...

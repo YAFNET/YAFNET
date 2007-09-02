@@ -1,8 +1,4 @@
 <%@ Control Language="c#" CodeFile="users.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.users" %>
-
-
-
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server" ID="Adminmenu1">
   <table class="content" cellspacing="0" cellpadding="0" width="100%">
@@ -15,7 +11,7 @@
           </tr>
           <tr class="post">
             <td>
-              Group:</td>
+              Role:</td>
             <td>
               Rank:</td>
             <td>
@@ -37,13 +33,13 @@
             <td>
               <asp:TextBox ID="Email" runat="server"></asp:TextBox></td>
             <td align="right">
-              <asp:Button ID="search" runat="server" Text="Search"></asp:Button></td>
+              <asp:Button ID="search" runat="server" OnClick="search_Click" Text="Search"></asp:Button></td>
           </tr>
         </table>
       </td>
     </tr>
   </table>
-  <br>
+  <br/>
   <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
       <td class="header1" colspan="7">
@@ -62,9 +58,10 @@
         Approved</td>
       <td class="header2">
         Last Visit</td>
-      <td class="header2">&nbsp;</td> 
+      <td class="header2">
+        &nbsp;</td>
     </tr>
-    <asp:Repeater ID="UserList" runat="server">
+    <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
       <ItemTemplate>
         <tr>
           <td class="post">
@@ -91,13 +88,13 @@
             |
             <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
               ID="Linkbutton4" name="Linkbutton2">Delete</asp:LinkButton>
-          </td>                
+          </td>
         </tr>
       </ItemTemplate>
     </asp:Repeater>
     <tr>
       <td class="footer1" colspan="7">
-        <asp:LinkButton ID="NewUser" runat="server">New User</asp:LinkButton></td>
+        <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></td>
     </tr>
   </table>
 </YAF:AdminMenu>

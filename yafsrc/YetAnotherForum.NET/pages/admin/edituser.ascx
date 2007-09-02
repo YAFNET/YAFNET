@@ -1,8 +1,4 @@
 <%@ Control Language="c#" CodeFile="edituser.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.edituser" %>
-
-
-
-
 <%@ Register TagPrefix="uc1" TagName="QuickEdit" Src="../../controls/EditUsersInfo.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="GroupsEdit" Src="../../controls/EditUsersGroups.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>

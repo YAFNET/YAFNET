@@ -73,21 +73,6 @@ namespace YAF.Pages.Admin
       }
     }
 
-    override protected void OnInit( EventArgs e )
-    {
-      this.UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler( this.UserList_ItemCommand );
-      // Added BAI 07.01.2003
-      this.NewUser.Click += new System.EventHandler( this.NewUser_Click );
-      // END Added BAI 07.01.2003    
-      search.Click += new EventHandler( search_Click );
-      base.OnInit( e );
-    }
-
-    protected void Delete_Load( object sender, System.EventArgs e )
-    {
-      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this user?')";
-    }
-
     private void BindData()
     {
       using ( DataTable dt =
@@ -106,7 +91,12 @@ namespace YAF.Pages.Admin
       }
     }
 
-    private void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+    public void Delete_Load( object sender, System.EventArgs e )
+    {
+      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this user?')";
+    }
+
+    public void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
     {
       switch ( e.CommandName )
       {
@@ -137,27 +127,21 @@ namespace YAF.Pages.Admin
               }
             }
           }
-          YAF.Classes.Data.DB.user_delete( e.CommandArgument );
-          System.Web.Security.Membership.DeleteUser( userName, true );
+          UserMembershipHelper.DeleteUser( Convert.ToInt32(e.CommandArgument) );
           BindData();
           break;
       }
     }
-    // Added BAI 07.01.2003
-    private void NewUser_Click( object sender, System.EventArgs e )
+
+    public void NewUser_Click( object sender, System.EventArgs e )
     {
       YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser );
     }
-    // END Added BAI 07.01.2003
 
-    private void search_Click( object sender, EventArgs e )
+
+    public void search_Click( object sender, EventArgs e )
     {
       BindData();
-    }
-
-    private void InitializeComponent()
-    {
-
     }
 
     protected bool BitSet( object _o, int bitmask )

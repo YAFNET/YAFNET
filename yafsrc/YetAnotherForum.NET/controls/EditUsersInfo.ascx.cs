@@ -30,67 +30,65 @@ using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
-    public partial class EditUsersInfo : YAF.Classes.Base.BaseUserControl
+  public partial class EditUsersInfo : YAF.Classes.Base.BaseUserControl
+  {
+    protected void Page_Load( object sender, EventArgs e )
     {
-        protected void Page_Load(object sender, EventArgs e)
+      IsHostAdminRow.Visible = PageContext.IsHostAdmin;
+
+      if ( !IsPostBack )
+      {
+        BindData();
+        using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
         {
-            IsHostAdminRow.Visible = PageContext.IsHostAdmin;
+          DataRow row = dt.Rows [0];
+          Name.Text = ( string ) row ["Name"];
+          Email.Text = row ["Email"].ToString();
+          
+          IsHostAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin ) == ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin;
+          IsGuestX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsGuest ) == ( int ) YAF.Classes.Data.UserFlags.IsGuest;
+          Joined.Text = row ["Joined"].ToString();
 
-            if (!IsPostBack)
-            {
-                BindData();
-                using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
-                {
-                    DataRow row = dt.Rows[0];
-                    Name.Text = (string)row["Name"];
-                    Email.Text = row["Email"].ToString();
-										IsHostAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin ) == ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin;
-                    Joined.Text = row["Joined"].ToString();
-                    LastVisit.Text = row["LastVisit"].ToString();
-                    ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
-                    if (item != null)
-                        item.Selected = true;
-                }
-            }
+          LastVisit.Text = row ["LastVisit"].ToString();
+
+          ListItem item = RankID.Items.FindByValue( row ["RankID"].ToString() );
+
+          if ( item != null )
+            item.Selected = true;
         }
-
-        private void BindData()
-        {
-            RankID.DataSource = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID, null);
-            RankID.DataValueField = "RankID";
-            RankID.DataTextField = "Name";
-            DataBind();
-        }
-
-        protected void Cancel_Click(object sender, System.EventArgs e)
-        {
-            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
-        }
-
-        protected void Save_Click(object sender, System.EventArgs e)
-        {
-            YAF.Classes.Data.DB.user_adminsave(PageContext.PageBoardID, Request.QueryString["u"], Name.Text, Email.Text, IsHostAdminX.Checked, RankID.SelectedValue);
-            YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
-        }
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-
-        }
-        #endregion
+      }
     }
+
+    private void BindData()
+    {
+      RankID.DataSource = YAF.Classes.Data.DB.rank_list( PageContext.PageBoardID, null );
+      RankID.DataValueField = "RankID";
+      RankID.DataTextField = "Name";
+      DataBind();
+    }
+
+    protected void Cancel_Click( object sender, System.EventArgs e )
+    {
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+    }
+
+    protected void Save_Click( object sender, System.EventArgs e )
+    {
+      // update the membership too...
+      if ( !IsGuestX.Checked )
+      {
+        MembershipUser user = Membership.GetUser( Name.Text );
+
+        if ( Email.Text.Trim() != user.Email )
+        {
+          // update the e-mail here too...
+          user.Email = Email.Text.Trim();
+          System.Web.Security.Membership.UpdateUser( user );
+        }
+      }
+
+      YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, Request.QueryString ["u"], Name.Text, Email.Text, IsHostAdminX.Checked, IsGuestX.Checked, RankID.SelectedValue );
+      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+    }
+  }
 }
