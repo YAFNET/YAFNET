@@ -41,7 +41,7 @@ namespace YAF.Pages
 	{
 		protected YAF.Editor.ForumEditor Message;
 		protected System.Web.UI.WebControls.Label NoEditSubject;
-        protected int OwnerUserId;
+    protected int OwnerUserId;
 
 		public postmessage()
 			: base( "POSTMESSAGE" )
@@ -77,7 +77,7 @@ namespace YAF.Pages
 			{
 				using ( DataTable dt = YAF.Classes.Data.DB.message_list( EditTopicID ) )
 					currentRow = dt.Rows [0];
-                OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
+        OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
 				if ( !CanEditPostCheck( currentRow ) )
 					yaf_BuildLink.AccessDenied();
 			}
@@ -103,7 +103,7 @@ namespace YAF.Pages
 				Priority.Items.Add( new ListItem( GetText( "announcement" ), "2" ) );
 				Priority.SelectedIndex = 0;
 
-                EditReasonRow.Visible = false;
+        EditReasonRow.Visible = false;
 				Preview.Text = GetText( "preview" );
 				PostReply.Text = GetText( "Save" );
 				Cancel.Text = GetText( "Cancel" );
@@ -138,7 +138,7 @@ namespace YAF.Pages
 					else
 					{
 						LastPostsIFrame.Visible = true;
-						LastPostsIFrame.Attributes.Add( "src", "framehelper.aspx?g=lastposts&t=" + TopicID );
+            LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", yaf_ForumInfo.ForumRoot, TopicID ) );
 					}
 
 				}
@@ -246,160 +246,177 @@ namespace YAF.Pages
 			return ( ( int ) forumInfo ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) topicInfo ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && PageContext.ForumReplyAccess;
 		}
 
+    /// <summary>
+    /// Handles verification of the PostReply. Adds javascript message if there is a problem.
+    /// </summary>
+    /// <returns>true if everything is verified</returns>
+    protected bool IsPostReplyVerified()
+    {
+      if ( SubjectRow.Visible && Subject.Text.Length <= 0 )
+      {
+        PageContext.AddLoadMessage( GetText( "NEED_SUBJECT" ) );
+        return false;
+      }
+
+      if ( PollRow1.Visible )
+      {
+        if ( Question.Text.Trim().Length == 0 )
+        {
+          PageContext.AddLoadMessage( GetText( "NEED_QUESTION" ) );
+          return false;
+        }
+
+        string p1 = PollChoice1.Text.Trim();
+        string p2 = PollChoice2.Text.Trim();
+        if ( p1.Length == 0 || p2.Length == 0 )
+        {
+          PageContext.AddLoadMessage( GetText( "NEED_CHOICES" ) );
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    /// <summary>
+    /// Verifies the user isn't posting too quickly, if so, tells them to wait.
+    /// </summary>
+    /// <returns>True if there is a delay in effect.</returns>
+    protected bool IsPostReplyDelay()
+    {
+      // see if there is a post delay
+      if ( !( PageContext.IsAdmin || PageContext.IsModerator ) && PageContext.BoardSettings.PostFloodDelay > 0 )
+      {
+        // see if they've past that delay point
+        if ( Mession.LastPost > DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) && EditTopicID == null )
+        {
+          PageContext.AddLoadMessage( String.Format( GetText( "wait" ), ( Mession.LastPost - DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) ).Seconds ) );
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    protected long PostReplyHandleReplyToTopic()
+    {
+      long nMessageID = 0;
+
+      if ( !PageContext.ForumReplyAccess )
+        yaf_BuildLink.AccessDenied();
+
+      object replyTo = ( QuotedTopicID != null ) ? int.Parse( QuotedTopicID ) : -1;
+
+      // make message flags
+      MessageFlags tFlags = new MessageFlags();
+
+      tFlags.IsHTML = Message.UsesHTML;
+      tFlags.IsBBCode = Message.UsesBBCode;
+
+      YAF.Classes.Data.DB.message_save( long.Parse( TopicID ), PageContext.PageUserID, Message.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID );
+
+      return nMessageID;
+    }
+
+    protected long PostReplyHandleEditPost()
+    {
+      long nMessageID = 0;
+
+      if ( !PageContext.ForumEditAccess )
+        yaf_BuildLink.AccessDenied();
+
+      string SubjectSave = "";
+
+      if ( Subject.Enabled ) SubjectSave = Server.HtmlEncode( Subject.Text );
+
+      // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
+      // make message flags
+      MessageFlags tFlags = new MessageFlags();
+      tFlags.IsHTML = Message.UsesHTML;
+      tFlags.IsBBCode = Message.UsesBBCode;
+
+      bool isModeratorChanged = ( PageContext.PageUserID != OwnerUserId );
+      YAF.Classes.Data.DB.message_update( Request.QueryString ["m"], Priority.SelectedValue, Message.Text, SubjectSave, tFlags.BitValue, Server.HtmlEncode(ReasonEditor.Text), isModeratorChanged );
+
+      nMessageID = long.Parse( EditTopicID );
+
+      HandlePostToBlog( Message.Text, Subject.Text );
+
+      return nMessageID;
+    }
+
+    protected long PostReplyHandleNewPost()
+    {
+      long nMessageID = 0;
+
+      if ( !PageContext.ForumPostAccess )
+        yaf_BuildLink.AccessDenied();      
+
+      // make message flags
+      MessageFlags tFlags = new MessageFlags();
+
+      tFlags.IsHTML = Message.UsesHTML;
+      tFlags.IsBBCode = Message.UsesBBCode;
+
+      // Bypass Approval if Admin or Moderator.
+      tFlags.IsApproved = ( PageContext.IsAdmin || PageContext.IsModerator );
+
+      string blogPostID = HandlePostToBlog( Message.Text, Subject.Text );
+
+      // Save to Db
+      YAF.Classes.Data.DB.topic_save( PageContext.PageForumID, Server.HtmlEncode( Subject.Text ), Message.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID );
+
+      return nMessageID;
+    }
+
+    protected string HandlePostToBlog( string message, string subject )
+    {
+      string blogPostID = string.Empty;
+
+      // Does user wish to post this to their blog?
+      if ( PageContext.BoardSettings.AllowPostToBlog && PostToBlog.Checked )
+      {
+        try
+        {
+          // Post to blog
+          MetaWeblog blog = new MetaWeblog( PageContext.Profile.BlogServiceUrl );
+          blogPostID = blog.newPost( PageContext.Profile.BlogServicePassword, PageContext.Profile.BlogServiceUsername, BlogPassword.Text, subject, message );
+        }
+        catch
+        {
+          PageContext.AddLoadMessage( GetText( "POSTTOBLOG_FAILED" ) );
+        }
+      }
+
+      return blogPostID;
+    }
+
+    /// <summary>
+    /// Handles the PostReply click including: Replying, Editing and New post.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
 		protected void PostReply_Click( object sender, System.EventArgs e )
 		{
-			if ( SubjectRow.Visible && Subject.Text.Length <= 0 )
-			{
-				PageContext.AddLoadMessage( GetText( "need_subject" ) );
-				return;
-			}
+      if ( !IsPostReplyVerified() ) return;
+      if ( IsPostReplyDelay() ) return;
 
-			if ( PollRow1.Visible )
-			{
-				if ( Question.Text.Trim().Length == 0 )
-				{
-					PageContext.AddLoadMessage( GetText( "NEED_QUESTION" ) );
-					return;
-				}
+      // update the last post time...
+      Mession.LastPost = DateTime.Now;
 
-				string p1 = PollChoice1.Text.Trim();
-				string p2 = PollChoice2.Text.Trim();
-				if ( p1.Length == 0 || p2.Length == 0 )
-				{
-					PageContext.AddLoadMessage( GetText( "NEED_CHOICES" ) );
-					return;
-				}
-			}
-
-
-			// see if there is a post delay
-			if ( !( PageContext.IsAdmin || PageContext.IsModerator ) && PageContext.BoardSettings.PostFloodDelay > 0 )
-			{
-				// see if they've past that delay point
-				if ( Mession.LastPost > DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) && EditTopicID == null )
-				{
-					PageContext.AddLoadMessage( String.Format( GetText( "wait" ), ( Mession.LastPost - DateTime.Now.AddSeconds( -PageContext.BoardSettings.PostFloodDelay ) ).Seconds ) );
-					return;
-				}
-			}
-
-			long topicID, nMessageID = 0;
-			object replyTo = null;
-
-			if ( QuotedTopicID != null )
-				replyTo = int.Parse( QuotedTopicID );
-			else
-				// Let save procedure find first post
-				replyTo = -1;
-
-			string msg = Message.Text;
-
-			Mession.LastPost = DateTime.Now;
+      long nMessageID = 0;
 
 			if ( TopicID != null ) // Reply to topic
 			{
-				if ( !PageContext.ForumReplyAccess )
-					yaf_BuildLink.AccessDenied();
-
-				topicID = long.Parse( TopicID );
-				// make message flags
-				MessageFlags tFlags = new MessageFlags();
-
-				tFlags.IsHTML = Message.UsesHTML;
-				tFlags.IsBBCode = Message.UsesBBCode;
-
-				if ( !YAF.Classes.Data.DB.message_save( topicID, PageContext.PageUserID, msg, User!=null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
-					topicID = 0;
+        nMessageID = PostReplyHandleReplyToTopic();
 			}
 			else if ( EditTopicID != null ) // Edit existing post
 			{
-				if ( !PageContext.ForumEditAccess )
-					yaf_BuildLink.AccessDenied();
-
-				string SubjectSave = "";
-				if ( Subject.Enabled ) SubjectSave = Server.HtmlEncode( Subject.Text );
-
-                // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
-				// make message flags
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = Message.UsesHTML;
-				tFlags.IsBBCode = Message.UsesBBCode;
-                bool isModeratorChanged = (PageContext.PageUserID != OwnerUserId);
-                YAF.Classes.Data.DB.message_update(Request.QueryString["m"], Priority.SelectedValue, msg, SubjectSave, tFlags.BitValue, ReasonEditor.Text, isModeratorChanged);
-
-                topicID = PageContext.PageTopicID;
-				nMessageID = long.Parse( EditTopicID );
-
-				if (PostToBlog.Checked) // Does user wish to edit their blog entry?
-				{
-					try
-					{
-						DataRow row;
-						using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
-						{
-							row = dt.Rows[0];
-						}
-
-						string url = row["WeblogUrl"].ToString();
-						string blogid = row["WeblogID"].ToString(); // Don't think this is needed, but just in case
-						string username = row["WeblogUsername"].ToString();
-						//string password = row["WeblogPassword"].ToString(); // Don't want to store the password internally
-
-						// Edit blog post
-						MetaWeblog blog = new MetaWeblog(url);
-						blog.editPost(BlogPostID.Value, username, BlogPassword.Text, SubjectSave, msg);
-					}
-					catch
-					{
-						// TODO: Show a message popup saying that the post didn't go to the blog.
-					}
-				}
+        nMessageID = PostReplyHandleEditPost();
 			}
 			else // New post
 			{
-				if ( !PageContext.ForumPostAccess )
-					yaf_BuildLink.AccessDenied();
-
-				// make message flags
-				MessageFlags tFlags = new MessageFlags();
-
-				tFlags.IsHTML = Message.UsesHTML;
-				tFlags.IsBBCode = Message.UsesBBCode;
-                // Bypass Approval if Admin or Moderator.
-                tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
-
-				string subject = Server.HtmlEncode( Subject.Text ),
-					blogPostID = string.Empty;
-				
-				// Ederon : 7/14/2007 - added condition (boardsettings)
-				// POST TO BLOG
-				if (PageContext.BoardSettings.AllowPostToBlog && PostToBlog.Checked)	// Does user wish to post this to their blog?
-				{
-					try
-					{
-						DataRow row;
-						using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
-						{
-							row = dt.Rows[0];
-						}
-
-						string url = row["WeblogUrl"].ToString();
-						string blogid = row["WeblogID"].ToString(); // Don't think this is needed, but just in case
-						string username = row["WeblogUsername"].ToString();
-						//string password = row["WeblogPassword"].ToString(); // Don't want to store the password internally
-
-						// Post to blog
-						MetaWeblog blog = new MetaWeblog(url);
-						blogPostID = blog.newPost(blogid, username, BlogPassword.Text, subject, msg);
-					}
-					catch
-					{
-						// TODO: Show a message popup saying that the post didn't go to the blog.
-					}
-				}
-
-				// Save to Db
-				topicID = YAF.Classes.Data.DB.topic_save(PageContext.PageForumID, subject, msg, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+        nMessageID = PostReplyHandleNewPost();
 			}
 
 			// Check if message is approved
@@ -419,6 +436,7 @@ namespace YAF.Pages
 				// Tell user that his message will have to be approved by a moderator
 				//PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
 				string url = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+
 				if ( YAF.Classes.Config.IsRainbow )
 					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1" );
 				else

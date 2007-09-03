@@ -141,7 +141,8 @@ namespace YAF.Classes.Utils
 
 		public string GetURLToResource( string resourceName )
 		{
-			return string.Format( "{1}resource.ashx?r={0}", resourceName, yaf_ForumInfo.ForumRoot );
+      return string.Format( "{1}resources/{0}", resourceName, yaf_ForumInfo.ForumRoot );
+			//return string.Format( "{1}resource.ashx?r={0}", resourceName, yaf_ForumInfo.ForumRoot );
 		}
 	}
 }

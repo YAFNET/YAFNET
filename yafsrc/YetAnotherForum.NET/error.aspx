@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Forum Error</title>
-<link type="text/css" rel="stylesheet" href="/forum.css" />
+<link type="text/css" rel="stylesheet" href="resources/forum.css" />
 <link type="text/css" rel="stylesheet" href="themes/standard/theme.css" />
 </head>
 <body>

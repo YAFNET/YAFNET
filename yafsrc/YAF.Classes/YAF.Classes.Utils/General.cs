@@ -49,6 +49,9 @@ namespace YAF.Classes.Utils
 
 		static public ulong IPStrToLong( string IPAddress )
 		{
+      // not sure why it gives me this for local users on firefox--but it does...
+      if ( IPAddress == "::1" ) IPAddress = "127.0.0.1";
+
 			string [] ip = IPAddress.Split( '.' );
 			return Str2IP( ip );
 		}

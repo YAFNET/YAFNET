@@ -50,12 +50,18 @@ namespace YAF.Controls
 
 			dtSmileys = YAF.Classes.Data.DB.smiley_listunique( base.PageContext.PageBoardID );
 
-			pager.PageSize = pagesize;
-			CreateSmileys();
-
+      if ( dtSmileys.Rows.Count == 0 )
+      {
+        SmiliesPlaceholder.Visible = false;
+      }
+      else
+      {
+        pager.PageSize = pagesize;
+        CreateSmileys();
+      }
 		}
 
-		private void pager_PageChange( object sender, EventArgs e )
+		protected void pager_PageChange( object sender, EventArgs e )
 		{
 			CreateSmileys();
 		}
@@ -102,25 +108,6 @@ namespace YAF.Controls
 
 			SmileyResults.Text = html.ToString();
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		///		Required method for Designer support - do not modify
-		///		the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-			pager.PageChange += new EventHandler( pager_PageChange );
-		}
-		#endregion
 
 		public string onclick
 		{

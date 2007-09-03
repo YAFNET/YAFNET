@@ -255,7 +255,7 @@ namespace YAF.Pages // YAF.Pages
       // create the user in the YAF DB as well as sync roles...
       int? userID = RoleMembershipHelper.CreateForumUser( user, yaf_Context.Current.PageBoardID );
       
-      // create empty profile just they have one
+      // create empty profile just so they have one
       YAF_UserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
       userProfile.Save();
 

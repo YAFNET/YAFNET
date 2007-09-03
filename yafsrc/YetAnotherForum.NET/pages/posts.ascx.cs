@@ -510,7 +510,7 @@ namespace YAF.Pages // YAF.Pages
 				object UserID = null;
 				object RemoteIP = null;
 
-				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.ServerVariables ["REMOTE_ADDR"] ).ToString();
+				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.UserHostAddress ).ToString();
 
 				if ( !PageContext.IsGuest )
 				{

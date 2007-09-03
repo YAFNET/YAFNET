@@ -109,14 +109,14 @@ namespace YAF.Controls
 				buildHeader.Append( themeHeader );
 			}
 
-			buildHeader.AppendFormat( "<table width=100% cellspacing=0 class=content cellpadding=0><tr>" );
+			buildHeader.AppendFormat( @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0""><tr>" );
 
 			MembershipUser user = Membership.GetUser();
 
 			if ( user != null )
 			{
-				buildHeader.AppendFormat( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", String.Format( PageContext.Localization.GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", HttpContext.Current.Server.HtmlEncode( PageContext.PageUserName ) ) );
-				buildHeader.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
+				buildHeader.AppendFormat( @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", String.Format( PageContext.Localization.GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", HttpContext.Current.Server.HtmlEncode( PageContext.PageUserName ) ) );
+				buildHeader.AppendFormat( @"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">" );
 
         if ( !PageContext.IsGuest && PageContext.BoardSettings.AllowPrivateMessages )
           buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ) ) );
@@ -135,13 +135,13 @@ namespace YAF.Controls
 				if ( !PageContext.IsGuest )
 					buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.cp_profile ), PageContext.Localization.GetText( "TOOLBAR", "MYPROFILE" ) ) );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );
-				buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\" onclick=\"return confirm('Are you sure you want to logout?');\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.logout ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT" ) ) );
+				buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\" onclick=\"return confirm('{2}');\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.logout ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT" ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT_QUESTION" ) ) );
 			}
 			else
 			{
-				buildHeader.AppendFormat( String.Format( "<td style=\"padding:5px\" class=post align=left><b>{0}</b></td>", PageContext.Localization.GetText( "TOOLBAR", "WELCOME_GUEST" ) ) );
+				buildHeader.AppendFormat( String.Format( @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", PageContext.Localization.GetText( "TOOLBAR", "WELCOME_GUEST" ) ) );
 
-				buildHeader.AppendFormat( "<td style=\"padding:5px\" align=right valign=middle class=post>" );
+				buildHeader.AppendFormat( @"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">" );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.search ), PageContext.Localization.GetText( "TOOLBAR", "SEARCH" ) ) );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", yaf_BuildLink.GetLink( ForumPages.active ), PageContext.Localization.GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", yaf_BuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );

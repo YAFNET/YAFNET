@@ -79,6 +79,7 @@
 		<Resource tag="REGISTER">Register</Resource>
 		<Resource tag="LOGGED_IN_AS">Logged in as: {0}</Resource>
 		<Resource tag="WELCOME_GUEST">Welcome Guest</Resource>
+		<Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
 		<Resource tag="HELP">Help</Resource>
 	</page>
 	<page name="ICONLEGEND">
@@ -604,13 +605,14 @@
 		<Resource tag="CHOICE8">Choice 8:</Resource>
 		<Resource tag="CHOICE9">Choice 9:</Resource>
 		<Resource tag="POLL_EXPIRE">Run Poll For:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank for a never ending poll ]</Resource>
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ Leave blank to never expire ]</Resource>
 		<Resource tag="NEED_SUBJECT">Please enter a subject for the topic.</Resource>
 		<Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="SAVE">Post</Resource>
 		<Resource tag="NEED_QUESTION">You must enter a poll question.</Resource>
 		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
+		<Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
 		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
 	</page>
