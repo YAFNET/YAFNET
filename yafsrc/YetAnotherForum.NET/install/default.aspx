@@ -10,7 +10,7 @@
 
 <form runat=server>
 <div align="center">
-    <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB" BorderColor="#B5C7DE"
+    <asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="4" BackColor="#EFF3FB" BorderColor="#B5C7DE"
         BorderWidth="1px" Font-Names="Verdana" Font-Size="Small"
         Width="480px" CellPadding="8" DisplaySideBar="False">
         <StepStyle Font-Size="0.8em" ForeColor="#333333" />
@@ -116,9 +116,10 @@
                 all of the users in your forum database will be converted to users in the ASP.NET DB with new passwords
                 mailed to their e-mail address.<br />
                 <br />
-                If you don't want to migrate any existing users to the ASP.NET DB you can abort the installation
-                at this point.<br />
-                <br />
+                If you don't want to migrate any existing users to the ASP.NET DB you can skip this
+							step.<br />
+							&nbsp;<br />
+							<asp:CheckBox ID="skipMigration" runat="server" Text=" Skip Migration"  />
             </asp:WizardStep>
 
             <asp:WizardStep runat="server" StepType="Finish" Title="Finished">

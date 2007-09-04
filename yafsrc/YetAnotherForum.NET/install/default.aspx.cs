@@ -41,8 +41,8 @@ namespace YAF.Install
 	/// </summary>
 	public partial class _default : System.Web.UI.Page
 	{
-		private string m_loadMessage = "";
-		private string [] m_scripts = new string []
+		private string _loadMessage = "";
+		private string [] _scripts = new string []
 		{
 			"tables.sql",
             "indexes.sql",
@@ -84,7 +84,12 @@ namespace YAF.Install
 
 		void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
-			e.Cancel = true;
+			// go back only from last step (to user/roles migration)
+			if (e.CurrentStepIndex == (InstallWizard.WizardSteps.Count - 1))
+				InstallWizard.MoveTo(InstallWizard.WizardSteps[e.CurrentStepIndex - 1]);
+			else
+				// othwerise cancel action
+				e.Cancel = true;
 		}
 
 		void Wizard_ActiveStepChanged( object sender, EventArgs e )
@@ -147,8 +152,12 @@ namespace YAF.Install
 							e.Cancel = false;
 						break;
 					case 4:
-            RoleMembershipHelper.SyncRoles( PageBoardID );
-            RoleMembershipHelper.SyncUsers( PageBoardID );
+						// migrate users/roles only if user does not want to skip
+						if (!skipMigration.Checked)
+						{
+							RoleMembershipHelper.SyncRoles(PageBoardID);
+							RoleMembershipHelper.SyncUsers(PageBoardID);
+						}
 						e.Cancel = false;
 						break;
 					default:
@@ -176,11 +185,11 @@ namespace YAF.Install
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
-			if ( m_loadMessage != "" )
+			if ( _loadMessage != "" )
 			{
 				writer.WriteLine( "<script language='javascript'>" );
 				writer.WriteLine( "onload = function() {" );
-				writer.WriteLine( "	alert('{0}');", m_loadMessage );
+				writer.WriteLine( "	alert('{0}');", _loadMessage );
 				writer.WriteLine( "}" );
 				writer.WriteLine( "</script>" );
 			}
@@ -194,7 +203,7 @@ namespace YAF.Install
 			msg = msg.Replace( "\r\n", "\\r\\n" );
 			msg = msg.Replace( "\n", "\\n" );
 			msg = msg.Replace( "\"", "\\\"" );
-			m_loadMessage += msg + "\\n\\n";
+			_loadMessage += msg + "\\n\\n";
 		}
 
 		#region property IsInstalled
@@ -214,7 +223,7 @@ namespace YAF.Install
 			{
 				FixAccess( false );
 
-				foreach ( string script in m_scripts )
+				foreach ( string script in _scripts )
 					ExecuteScript( script );
 
 				FixAccess( true );
