@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Replace Words","");
 
 				BindData();
@@ -58,9 +58,9 @@ namespace YAF.Pages.Admin
 		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) 
 		{
 			if(e.CommandName == "add")
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit);
 			else if(e.CommandName == "edit")
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") 
 			{
 				YAF.Classes.Data.DB.replace_words_delete(e.CommandArgument);

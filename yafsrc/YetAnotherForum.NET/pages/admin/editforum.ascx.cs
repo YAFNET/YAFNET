@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Forums", "" );
 
 				BindData();
@@ -99,7 +99,7 @@ namespace YAF.Pages.Admin
 
 			AccessMaskID.DataBind();
 
-			ThemeList.DataSource = yaf_StaticData.Themes();
+			ThemeList.DataSource = YafStaticData.Themes();
 			ThemeList.DataTextField = "Theme";
 			ThemeList.DataValueField = "FileName";
 			ThemeList.DataBind();
@@ -187,16 +187,16 @@ namespace YAF.Pages.Admin
 					int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 					YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
 				}
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 			}
 
 			// Done
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum, "f={0}", ForumID );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum, "f={0}", ForumID );
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 		}
 
 		protected void BindData_AccessMaskID( object sender, System.EventArgs e )

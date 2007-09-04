@@ -57,37 +57,37 @@ namespace YAF.Pages // YAF.Pages
               break;
             case InfoMessage.Suspended: /// Suspended
               Title.Text = GetText( "title_suspended" );
-              Info.Text = String.Format( GetText( "suspended" ), yaf_DateTime.FormatDateTime( PageContext.SuspendedUntil ) );
+              Info.Text = String.Format( GetText( "suspended" ), YafDateTime.FormatDateTime( PageContext.SuspendedUntil ) );
               break;
             case InfoMessage.RegistrationEmail: /// Registration email
               Title.Text = GetText( "title_registration" );
               Info.Text = GetText( "registration" );
               RefreshTime = 10;
-              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.login );
+              RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.login );
               break;
             case InfoMessage.AccessDenied: /// Access Denied
               Title.Text = GetText( "title_accessdenied" );
               Info.Text = GetText( "accessdenied" );
               RefreshTime = 10;
-              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+              RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
               break;
             case InfoMessage.Disabled: /// Disabled feature
               Title.Text = GetText( "TITLE_ACCESSDENIED" );
               Info.Text = GetText( "DISABLED" );
               RefreshTime = 10;
-              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+              RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
               break;
             case InfoMessage.Invalid: /// Invalid argument!
               Title.Text = GetText( "TITLE_INVALID" );
               Info.Text = GetText( "INVALID" );
               RefreshTime = 10;
-              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+              RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
               break;
             case InfoMessage.Failure: // some sort of failure
               Title.Text = GetText( "TITLE_FAILURE" );
               Info.Text = GetText( "FAILURE" );
               RefreshTime = 10;
-              RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+              RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
               break;
           }
         }
@@ -96,7 +96,7 @@ namespace YAF.Pages // YAF.Pages
           Title.Text = GetText( "title_exception" );
           Info.Text = string.Format( "{1} <b>{0}</b>.", PageContext.PageUserName, GetText( "exception" ) );
           RefreshTime = 2;
-          RefreshURL = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+          RefreshURL = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
         }
         Continue.NavigateUrl = RefreshURL;
         Continue.Visible = RefreshURL != null;

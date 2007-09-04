@@ -46,7 +46,7 @@ namespace YAF.Classes.Utils
       catch
       {
         // it's an invalid request. Redirect to the info page on invalid requests.
-        yaf_BuildLink.Redirect( ForumPages.info, "i=6" );
+        YafBuildLink.Redirect( ForumPages.info, "i=6" );
       }
 
       return value;

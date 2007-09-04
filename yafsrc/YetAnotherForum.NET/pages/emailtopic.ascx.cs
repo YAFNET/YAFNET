@@ -45,23 +45,23 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( Request.QueryString ["t"] == null || !PageContext.ForumReadAccess || !PageContext.BoardSettings.AllowEmailTopic )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				SendEmail.Text = GetText( "send" );
 
 				Subject.Text = PageContext.PageTopicName;
 				string msg = General.ReadTemplate( "emailtopic.txt" );
-				msg = msg.Replace( "{link}", String.Format( "{0}{1}", YAF.Classes.Utils.yaf_ForumInfo.ServerURL, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) ) );
+				msg = msg.Replace( "{link}", String.Format( "{0}{1}", YAF.Classes.Utils.YafForumInfo.ServerURL, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) ) );
 				msg = msg.Replace( "{user}", PageContext.PageUserName );
 				Message.Text = msg;
 			}
@@ -102,7 +102,7 @@ namespace YAF.Pages // YAF.Pages
 
 				//  Build a MailMessage
 				General.SendMail( senderemail, EmailAddress.Text, Subject.Text, Message.Text );
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			catch ( Exception x )
 			{

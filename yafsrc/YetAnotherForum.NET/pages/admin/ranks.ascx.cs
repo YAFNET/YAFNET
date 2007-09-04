@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Ranks","");
 
 				BindData();
@@ -86,7 +86,7 @@ namespace YAF.Pages.Admin
 			switch(e.CommandName) 
 			{
 				case "edit":
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editrank,"r={0}",e.CommandArgument);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editrank,"r={0}",e.CommandArgument);
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.rank_delete(e.CommandArgument);
@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
 
 		protected void NewRank_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editrank);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editrank);
 		}
 
 		protected string LadderInfo(object _o) {

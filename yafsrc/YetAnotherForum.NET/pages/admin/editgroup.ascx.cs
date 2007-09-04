@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
     {
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
         PageLinks.AddLink( "Groups", "" );
 
         BindData();
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
         dr ["FileName"] = "Select Rank Image";
         dt.Rows.Add( dr );
 
-        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/ranks", yaf_ForumInfo.ForumRoot ) ) );
+        System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/ranks", YafForumInfo.ForumRoot ) ) );
         System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
         long nFileID = 1;
         foreach ( System.IO.FileInfo file in files )
@@ -120,7 +120,7 @@ namespace YAF.Pages.Admin
 
     protected void Cancel_Click( object sender, System.EventArgs e )
     {
-      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_groups );
+      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_groups );
     }
 
     protected void Save_Click( object sender, System.EventArgs e )
@@ -135,7 +135,7 @@ namespace YAF.Pages.Admin
       if ( GroupID != 0 )
       {
         // get the current group name in the DB
-        using ( DataTable dt = YAF.Classes.Data.DB.group_list( yaf_Context.Current.PageBoardID, GroupID ) )
+        using ( DataTable dt = YAF.Classes.Data.DB.group_list( YafContext.Current.PageBoardID, GroupID ) )
         {
           foreach ( DataRow row in dt.Rows )
           {
@@ -169,11 +169,11 @@ namespace YAF.Pages.Admin
           int ForumID = int.Parse( ( ( Label ) item.FindControl( "ForumID" ) ).Text );
           YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
         }
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_groups );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_groups );
       }
 
       // Done
-      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", GroupID );
+      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", GroupID );
     }
 
     protected void BindData_AccessMaskID( object sender, System.EventArgs e )

@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Forums","");
 
 				BindData();
@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
 		}
 
 		private void BindData() 
@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
 			YAF.Classes.Data.DB.category_save(PageContext.PageBoardID,CategoryID,Name.Text,SortOrder.Text);
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
 		}
 	}
 }

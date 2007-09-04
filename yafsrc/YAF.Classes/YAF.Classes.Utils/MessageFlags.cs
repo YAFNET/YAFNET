@@ -25,7 +25,7 @@ namespace YAF.Classes.Utils
 {
 	public class MessageFlags
 	{
-		int FBitValue;
+		private int _bitValue;
 
 		public MessageFlags()
 			: this( 23 )
@@ -35,7 +35,7 @@ namespace YAF.Classes.Utils
 
 		public MessageFlags( int bitValue )
 		{
-			FBitValue = bitValue;
+			_bitValue = bitValue;
 		}
 
 		static public bool GetBitAsBool( int bitValue, int bitShift )
@@ -45,11 +45,11 @@ namespace YAF.Classes.Utils
 			return false;
 		}
 
-		static public int SetBitFromBool( int bitValue, int bitShift, bool bValue )
+		static public int SetBitFromBool( int bitValue, int bitShift, bool value )
 		{
 			if ( bitShift > 31 ) bitShift %= 31;
 
-			if ( GetBitAsBool( bitValue, bitShift ) != bValue )
+			if ( GetBitAsBool( bitValue, bitShift ) != value )
 			{
 				// toggle that value using XOR
 				int tV = 0x00000001 << bitShift;
@@ -66,45 +66,45 @@ namespace YAF.Classes.Utils
 
 		public int BitValue
 		{
-			get { return FBitValue; }
-			set { FBitValue = value; }
+			get { return _bitValue; }
+			set { _bitValue = value; }
 		}
 
 		public bool this [int index]
 		{
-			get { return GetBitAsBool( FBitValue, index ); }
-			set { FBitValue = SetBitFromBool( FBitValue, index, value ); }
+			get { return GetBitAsBool( _bitValue, index ); }
+			set { _bitValue = SetBitFromBool( _bitValue, index, value ); }
 		}
 
 		// actual flags here -- can be a total of 31
 		public bool IsHTML
 		{
-			get { return GetBitAsBool( FBitValue, 0 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 0, value ); }
+			get { return GetBitAsBool( _bitValue, 0 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 0, value ); }
 		}
 
 		public bool IsBBCode
 		{
-			get { return GetBitAsBool( FBitValue, 1 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 1, value ); }
+			get { return GetBitAsBool( _bitValue, 1 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 1, value ); }
 		}
 
 		public bool IsSmilies
 		{
-			get { return GetBitAsBool( FBitValue, 2 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 2, value ); }
+			get { return GetBitAsBool( _bitValue, 2 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 2, value ); }
 		}
 
 		public bool IsDeleted
 		{
-			get { return GetBitAsBool( FBitValue, 3 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 3, value ); }
+			get { return GetBitAsBool( _bitValue, 3 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 3, value ); }
 		}
 
 		public bool IsApproved
 		{
-			get { return GetBitAsBool( FBitValue, 4 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 4, value ); }
+			get { return GetBitAsBool( _bitValue, 4 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 4, value ); }
 		}
 
 		/// <summary>
@@ -112,8 +112,8 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		public bool IsLocked
 		{
-			get { return GetBitAsBool( FBitValue, 5 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 5, value ); }
+			get { return GetBitAsBool( _bitValue, 5 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 5, value ); }
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		public bool NotFormatted
 		{
-			get { return GetBitAsBool( FBitValue, 6 ); }
-			set { FBitValue = SetBitFromBool( FBitValue, 6, value ); }
+			get { return GetBitAsBool( _bitValue, 6 ); }
+			set { _bitValue = SetBitFromBool( _bitValue, 6, value ); }
 		}
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace YAF.Classes.Utils
         /// </summary>
         public bool IsReported
         {
-            get { return GetBitAsBool(FBitValue, 7); }
-            set { FBitValue = SetBitFromBool(FBitValue, 7, value); }
+            get { return GetBitAsBool(_bitValue, 7); }
+            set { _bitValue = SetBitFromBool(_bitValue, 7, value); }
         }
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace YAF.Classes.Utils
         /// </summary>
         public bool IsReportedSpam
         {
-            get { return GetBitAsBool(FBitValue, 8); }
-            set { FBitValue = SetBitFromBool(FBitValue, 8, value); }
+            get { return GetBitAsBool(_bitValue, 8); }
+            set { _bitValue = SetBitFromBool(_bitValue, 8, value); }
         }
 
 	}

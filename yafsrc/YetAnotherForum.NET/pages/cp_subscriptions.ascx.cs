@@ -45,15 +45,15 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if(User==null)
 			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
 			}
 			
 			if(!IsPostBack) 
 			{
 				BindData();
 
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				UnsubscribeForums.Text = GetText("unsubscribe");
@@ -80,16 +80,16 @@ namespace YAF.Pages // YAF.Pages
 				return "&nbsp;";
 
 			string link = String.Format("<a href=\"{0}\">{1}</a>",
-				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["LastUserID"]),
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["LastUserID"]),
 				row["LastUserName"]
 			);
 			string by = String.Format(GetText("lastpostlink"),
-				yaf_DateTime.FormatDateTime((DateTime)row["LastPosted"]),
+				YafDateTime.FormatDateTime((DateTime)row["LastPosted"]),
 				link);
 
 			string html = String.Format("{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
 				by,
-				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
 				GetThemeContents("ICONS","ICON_LATEST")
 				);
 			return html;

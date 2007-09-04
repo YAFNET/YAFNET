@@ -50,16 +50,16 @@ namespace YAF.Pages // YAF.Pages
 			if (PageContext.IsPrivate && User==null)
 			{
 				if(CanLogin)
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
 				else
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 			}
 			// 20050909 CHP : END
 
- 			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", yaf_ForumInfo.ForumRoot);
+ 			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", YafForumInfo.ForumRoot);
 			if (PageContext.BoardSettings.ShowRSSLink)
 			{
-				RssFeed.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active");
+				RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active");
 				RssFeed.Text = GetText("RSSFEED");
 				RssFeed.Visible = true;
 			}
@@ -70,10 +70,10 @@ namespace YAF.Pages // YAF.Pages
 
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
-				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),yaf_DateTime.FormatDateTime(Mession.LastVisit)),"0"));
+				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),YafDateTime.FormatDateTime(Mession.LastVisit)),"0"));
 				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));
 				Since.Items.Add(new ListItem(GetText("last_two_hours"),"-2"));
 				Since.Items.Add(new ListItem(GetText("last_day"),"1"));
@@ -150,7 +150,7 @@ namespace YAF.Pages // YAF.Pages
 			string ForumName = (string)row["ForumName"];
 			string html = "";
 			if(ForumName!=LastForumName) {
-				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
+				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
 				LastForumName = ForumName;
 			}
 			return html;

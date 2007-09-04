@@ -50,12 +50,12 @@ namespace YAF.Pages.Admin
 					// TODO: write the IsUserHostAdmin function
 					if ( !PageContext.IsHostAdmin ) // && IsUserHostAdmin( Convert.ToInt32( Request.QueryString ["u"] ) ) ) 
 					{
-						yaf_BuildLink.AccessDenied();
+						YafBuildLink.AccessDenied();
 					}
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Users", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 				PageLinks.AddLink( "Edit", "" );
 
 				BasicEditLink.Text = "User Details";

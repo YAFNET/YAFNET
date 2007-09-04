@@ -25,7 +25,7 @@
 <tr class="post">
 	<td><%# Eval("GroupName") %></td>
 	<td align="right"><%# LastMessageNo(Container.DataItem) %></td>
-	<td><%# yaf_DateTime.FormatDateTime(Eval("LastUpdate")) %></td>
+	<td><%# YafDateTime.FormatDateTime(Eval("LastUpdate")) %></td>
 </tr>
 </ItemTemplate>
 </asp:repeater>

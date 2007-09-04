@@ -24,11 +24,11 @@ namespace YAF.Pages // YAF.Pages
     protected void Page_Load( object sender, EventArgs e )
     {
       if ( !CanLogin )
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
         // handle localization
@@ -52,7 +52,7 @@ namespace YAF.Pages // YAF.Pages
 
     protected void SubmitButton_Click( object sender, EventArgs e )
     {
-      yaf_BuildLink.Redirect( ForumPages.login );
+      YafBuildLink.Redirect( ForumPages.login );
     }
 
     protected void PasswordRecovery1_SendingMail( object sender, MailMessageEventArgs e )
@@ -83,7 +83,7 @@ namespace YAF.Pages // YAF.Pages
       body = body.Replace( "{username}", userName );
       body = body.Replace( "{password}", password );
       body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
-      body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
+      body = body.Replace( "{forumlink}", String.Format( "{0}", YafForumInfo.ForumURL ) );
 
       General.SendMail( new System.Net.Mail.MailAddress( PageContext.BoardSettings.ForumEmail, PageContext.BoardSettings.Name ),
                         e.Message.To[0], subject, body );

@@ -43,7 +43,7 @@
                 <asp:LinkButton runat="server" ID="DateLink" OnClick="DateLink_Click" Text='<%#GetLocalizedText("DATE") %>' />
             </HeaderTemplate>
             <ItemTemplate>
-                <%# yaf_DateTime.FormatDateTime((DateTime)Eval("Created"))%>
+                <%# YafDateTime.FormatDateTime((DateTime)Eval("Created"))%>
             </ItemTemplate>
         </asp:TemplateField>
         <asp:TemplateField>
@@ -95,7 +95,7 @@
                 <%# GetMessageUser(Container.DataItem)%>
             </td>
             <td>
-                <%# yaf_DateTime.FormatDateTime((DateTime)Eval("Created"))%>
+                <%# YafDateTime.FormatDateTime((DateTime)Eval("Created"))%>
             </td>
             <td align="center"><asp:CheckBox runat="server" ID="ItemCheck" /></td>
             <%--<asp:Label runat="server" ID="UserPMessageID" Visible="false" Text='<%# Eval("UserPMessageID") %>' />

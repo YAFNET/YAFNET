@@ -30,11 +30,11 @@ namespace YAF.Classes.Data
   /// <summary>
   /// Provides open/close management for DB Connections
   /// </summary>
-  public class yaf_DBConnManager : IDisposable
+  public class YafDBConnManager : IDisposable
   {
     private SqlConnection _connection = null;
 
-    public yaf_DBConnManager()
+    public YafDBConnManager()
     {
       // just initalize it (not open)
       InitConnection();
@@ -145,7 +145,7 @@ namespace YAF.Classes.Data
 				}
 				else
 				{
-          using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
+          using ( YafDBConnManager connMan = new YafDBConnManager() )
 					{
             using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 						{
@@ -186,7 +186,7 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( commandText );
 			try
 			{
-        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
+        using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
           using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{
@@ -230,7 +230,7 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
+        using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
           using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{
@@ -253,7 +253,7 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-        using ( yaf_DBConnManager connMan = new yaf_DBConnManager() )
+        using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
           using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 					{

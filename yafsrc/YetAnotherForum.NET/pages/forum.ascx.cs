@@ -48,17 +48,17 @@ namespace YAF.Pages
 			{
 				if (PageContext.IsPrivate && User==null)
 				{
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				}
 
-				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), yaf_DateTime.FormatTime( DateTime.Now ) );
-				TimeLastVisit.Text = String.Format( GetText( "last_visit" ), yaf_DateTime.FormatDateTime( Mession.LastVisit ) );
+				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), YafDateTime.FormatTime( DateTime.Now ) );
+				TimeLastVisit.Text = String.Format( GetText( "last_visit" ), YafDateTime.FormatDateTime( Mession.LastVisit ) );
 				MarkAll.Text = GetText( "MARKALL" );
 
 				if ( PageContext.UnreadPrivate > 0 )
 				{
 					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
+					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
 					if ( PageContext.UnreadPrivate == 1 )
 						UnreadMsgs.Text = String.Format( GetText( "unread1" ), PageContext.UnreadPrivate );
 					else
@@ -67,10 +67,10 @@ namespace YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 					if ( PageContext.PageCategoryID != 0 )
 					{
-						PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+						PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 						Welcome.Visible = false;
 					}
 				}
@@ -114,8 +114,8 @@ namespace YAF.Pages
 			if ( !stats.IsNull( "LastPost" ) )
 			{
 				Stats.Text += String.Format( GetText( "stats_lastpost" ),
-					yaf_DateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
+					YafDateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
+					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
 				);
 				Stats.Text += "<br/>";
 			}
@@ -124,7 +124,7 @@ namespace YAF.Pages
 			Stats.Text += "<br/>";
 
 			Stats.Text += String.Format( GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
+				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
 				);
 			Stats.Text += "<br/>";
 
@@ -133,10 +133,10 @@ namespace YAF.Pages
 				String.Format( GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
 				String.Format( GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
-				YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
 				);
 
-			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, yaf_DateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
+			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, YafDateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
 
 			UpdateActiveDiscussionsPanel();
 			UpdateInformationPanel();
@@ -155,12 +155,12 @@ namespace YAF.Pages
 					minipost = GetThemeContents( "ICONS", "ICON_LATEST" );
 
 				return String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
-					yaf_DateTime.FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
-					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
-					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
+					YafDateTime.FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
+					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
+					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
 					minipost,
 					GetText( "GO_LAST_POST" ),
-					YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
+					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 					);
 			}
 			else

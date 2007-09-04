@@ -31,20 +31,20 @@ namespace YAF
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
 	public class Forum : System.Web.UI.UserControl
 	{
-		yaf_ControlSettings forumSettings = new yaf_ControlSettings();
+		YafControlSettings forumSettings = new YafControlSettings();
 		private YAF.Controls.Header m_header = new YAF.Controls.Header();
 		private YAF.Controls.Footer m_footer = new YAF.Controls.Footer();
 
 		public Forum()
 		{
-			YAF.Classes.Utils.yaf_Context.Current.Settings = forumSettings;
+			YAF.Classes.Utils.YafContext.Current.Settings = forumSettings;
 			this.Load += new EventHandler( Forum_Load );
 		}
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
 			YAF.Classes.Utils.ForumPages Page;
-			string m_baseDir = yaf_ForumInfo.ForumRoot;
+			string m_baseDir = YafForumInfo.ForumRoot;
 
 			try
 			{
@@ -57,7 +57,7 @@ namespace YAF
 
 			if ( !ValidPage( Page ) )
 			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", LockedForum );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", LockedForum );
 			}
 
 			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, Page );
@@ -75,13 +75,13 @@ namespace YAF
 				ctl.ForumHeader = m_header;
 
 				// add the header control before the page rendering...
-				if ( yaf_Context.Current.Settings.LockedForum == 0 )
+				if ( YafContext.Current.Settings.LockedForum == 0 )
 					this.Controls.AddAt( 0, m_header );
 
 				this.Controls.Add( ctl );
 
 				// add the footer control after the page...
-				if ( yaf_Context.Current.Settings.LockedForum == 0 )
+				if ( YafContext.Current.Settings.LockedForum == 0 )
 					this.Controls.Add( m_footer );
 			}
 			catch ( System.IO.FileNotFoundException )
@@ -135,7 +135,7 @@ namespace YAF
 		{
 			get
 			{
-				return yaf_Context.Current.PageUserID;
+				return YafContext.Current.PageUserID;
 			}
 		}
 

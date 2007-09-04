@@ -26,9 +26,9 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
-  public class YAF_UserProfile : ProfileBase
+  public class YafUserProfile : ProfileBase
   {
-    public YAF_UserProfile()
+    public YafUserProfile()
       : base()
     {
 

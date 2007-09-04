@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "NNTP Forums", "" );
 
 				BindData();
@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
 			object nntpForumID = null;
 			if ( Request.QueryString ["s"] != null ) nntpForumID = Request.QueryString ["s"];
 			YAF.Classes.Data.DB.nntpforum_save( nntpForumID, NntpServerID.SelectedValue, GroupName.Text, ForumID.SelectedValue, Active.Checked );
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_nntpforums );
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace YAF.Controls
 		{
 			if( ! Page.ClientScript.IsClientScriptBlockRegistered(_dataPanelScript)) 
 			{
-				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( "<script language='javascript' src='{0}'></script>", yaf_Context.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
+				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( "<script language='javascript' src='{0}'></script>", YafContext.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
 			}
 		}
 
@@ -503,10 +503,10 @@ namespace YAF.Controls
 		/// The <see cref="Color"/> object to convert.
 		/// </param>
 		/// <returns>The HTML colour string.</returns>
-		private string HtmlColorString(Color StyleColor)
+		private string HtmlColorString(Color styleColor)
 		{
 			// Format ARGB
-			return "#" + (StyleColor.ToArgb() & 0x00FFFFFF).ToString("X6");
+			return "#" + (styleColor.ToArgb() & 0x00FFFFFF).ToString("X6");
 		}
 		/// <summary>
 		/// Applies a <see cref="Style"/> object to an
@@ -521,60 +521,60 @@ namespace YAF.Controls
 		/// The <see cref="Style"/> properties are converted
 		/// to the <see cref="HtmlTableCell"/> object 
 		/// <see cref="CssStyleCollection"/> attributes.
-		private void ApplyStyle(HtmlTableCell Cell, Style ControlStyle)
+		private void ApplyStyle(HtmlTableCell cell, Style controlStyle)
 		{
 			string fontNames = "";
 			string textDecorations = "";
 			// Background colour.
-			if(ControlStyle.BackColor.IsEmpty == false)
+			if(controlStyle.BackColor.IsEmpty == false)
 			{
-				Cell.Style.Add("background-color", 
-					HtmlColorString(ControlStyle.BackColor));
+				cell.Style.Add("background-color", 
+					HtmlColorString(controlStyle.BackColor));
 			}
 			// Border colour.
-			if(ControlStyle.BorderColor.IsEmpty == false)
+			if(controlStyle.BorderColor.IsEmpty == false)
 			{
-				Cell.Style.Add("border-color", 
-					HtmlColorString(ControlStyle.BorderColor));
+				cell.Style.Add("border-color", 
+					HtmlColorString(controlStyle.BorderColor));
 			}
 			// Border style.
-			if( (ControlStyle.BorderStyle.ToString() != "") &&
-				(ControlStyle.BorderStyle.ToString().ToLower() != "notset") )
+			if( (controlStyle.BorderStyle.ToString() != "") &&
+				(controlStyle.BorderStyle.ToString().ToLower() != "notset") )
 			{
-				Cell.Style.Add("border-style", 
-					ControlStyle.BorderStyle.ToString());
+				cell.Style.Add("border-style", 
+					controlStyle.BorderStyle.ToString());
 			}
 			// Border width.
-			if(ControlStyle.BorderWidth.IsEmpty == false)
+			if(controlStyle.BorderWidth.IsEmpty == false)
 			{
-				Cell.Style.Add("border-width", 
-					ControlStyle.BorderWidth.ToString());
+				cell.Style.Add("border-width", 
+					controlStyle.BorderWidth.ToString());
 			}
 			// Class.
-			if(ControlStyle.CssClass != "")
+			if(controlStyle.CssClass != "")
 			{
-				Cell.Attributes.Add("class", ControlStyle.CssClass); 
+				cell.Attributes.Add("class", controlStyle.CssClass); 
 			}
 			// Font bold.
-			if(ControlStyle.Font.Bold == true)
+			if(controlStyle.Font.Bold == true)
 			{
-				Cell.Style.Add("font-weight", "bold"); 
+				cell.Style.Add("font-weight", "bold"); 
 			}
 			// Font italic.
-			if(ControlStyle.Font.Italic == true)
+			if(controlStyle.Font.Italic == true)
 			{
-				Cell.Style.Add("font-style", "italic"); 
+				cell.Style.Add("font-style", "italic"); 
 			}
 			// Font name.
-			if(ControlStyle.Font.Name != "")
+			if(controlStyle.Font.Name != "")
 			{
-				fontNames = ControlStyle.Font.Name;
-				Cell.Style.Add("font-family", fontNames);
+				fontNames = controlStyle.Font.Name;
+				cell.Style.Add("font-family", fontNames);
 			}
 			// Font names.
-			if(ControlStyle.Font.Names.Length > 0)
+			if(controlStyle.Font.Names.Length > 0)
 			{
-				foreach(string s in ControlStyle.Font.Names)
+				foreach(string s in controlStyle.Font.Names)
 				{
 					if(fontNames.IndexOf(s) == -1)
 					{
@@ -584,30 +584,30 @@ namespace YAF.Controls
 			}
 			if(fontNames != "")
 			{
-				Cell.Style.Add("font-names", fontNames);
+				cell.Style.Add("font-names", fontNames);
 			}
 			// Font size.
-			if(ControlStyle.Font.Size.IsEmpty == false)
+			if(controlStyle.Font.Size.IsEmpty == false)
 			{
-				Cell.Style.Add("font-size", 
-					ControlStyle.Font.Size.ToString());
+				cell.Style.Add("font-size", 
+					controlStyle.Font.Size.ToString());
 			}
 			// Font overline.
-			if(ControlStyle.Font.Overline == true)
+			if(controlStyle.Font.Overline == true)
 			{
 				if(textDecorations != "") 
 					textDecorations += " ";
 				textDecorations += "overline";
 			}
 			// Font strikeout.
-			if(ControlStyle.Font.Strikeout == true)
+			if(controlStyle.Font.Strikeout == true)
 			{
 				if(textDecorations != "") 
 					textDecorations += " ";
 				textDecorations += "line-through";
 			}
 			// Font underline.
-			if(ControlStyle.Font.Underline == true)
+			if(controlStyle.Font.Underline == true)
 			{
 				if(textDecorations != "") 
 					textDecorations += " ";
@@ -616,22 +616,22 @@ namespace YAF.Controls
 			// Font decorations.
 			if(textDecorations != "")
 			{
-				Cell.Style.Add("text-decoration", textDecorations);
+				cell.Style.Add("text-decoration", textDecorations);
 			}
 			// Font fore colour.
-			if(ControlStyle.ForeColor.IsEmpty == false)
+			if(controlStyle.ForeColor.IsEmpty == false)
 			{
-				Cell.Style.Add("color", HtmlColorString(ControlStyle.ForeColor));
+				cell.Style.Add("color", HtmlColorString(controlStyle.ForeColor));
 			}
 			// Height.
-			if(ControlStyle.Height.IsEmpty == false)
+			if(controlStyle.Height.IsEmpty == false)
 			{
-				Cell.Style.Add("height", ControlStyle.Height.ToString());
+				cell.Style.Add("height", controlStyle.Height.ToString());
 			}
 			// Width.
-			if(ControlStyle.Width.IsEmpty == false)
+			if(controlStyle.Width.IsEmpty == false)
 			{
-				Cell.Style.Add("width", ControlStyle.Height.ToString());
+				cell.Style.Add("width", controlStyle.Height.ToString());
 			}
 		}
 		/// <summary>
@@ -648,11 +648,11 @@ namespace YAF.Controls
 		/// <returns>
 		/// The hyper-link as a string.
 		/// </returns>
-		private string PanelUrl(bool UseImages, bool TitleIsLink)
+		private string PanelUrl(bool useImages, bool titleIsLink)
 		{
-			string titleLink = (TitleIsLink == true) ? 
+			string titleLink = (titleIsLink == true) ? 
 				this.ID + "_TitleLink" : "";
-			if(UseImages == false)
+			if(useImages == false)
 			{
 				return
 					"javascript:DataPanel_ExpandCollapse('" +
@@ -859,9 +859,9 @@ namespace YAF.Controls
 		/// method. This method renders all the child controls added to 
 		/// the DataPanel control during design time.
 		/// </remarks>
-		private void RenderPanelContent(HtmlTextWriter Writer, Control Ctl) 
+		private void RenderPanelContent(HtmlTextWriter writer, Control ctl) 
 		{
-			this.RenderContents(Writer);
+			this.RenderContents(writer);
 		}
 		/// <summary>
 		/// Sets the parent/child control relationships for all child

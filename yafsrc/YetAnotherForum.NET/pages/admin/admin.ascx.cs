@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
     {
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
         PageLinks.AddLink( "Administration", "" );
         BindData();
         //TODO UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
@@ -87,7 +87,7 @@ namespace YAF.Pages.Admin
       switch ( e.CommandName )
       {
         case "edit":
-          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", e.CommandArgument );
+          YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", e.CommandArgument );
           break;
         case "delete":
           UserMembershipHelper.DeleteUser( Convert.ToInt32( e.CommandArgument ));
@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
       if ( ForumID.ToString() == "" || ForumName.ToString() == "" )
         return "";
 
-      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ), ForumName );
+      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ), ForumName );
     }
 
     protected string FormatTopicLink( object TopicID, object TopicName )
@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
       if ( TopicID.ToString() == "" || TopicName.ToString() == "" )
         return "";
 
-      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ), TopicName );
+      return String.Format( "<a target=\"_top\" href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ), TopicName );
     }
   }
 }

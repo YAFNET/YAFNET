@@ -46,7 +46,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				ValidateKey.Text = GetText( "validate" );
@@ -86,7 +86,7 @@ namespace YAF.Pages // YAF.Pages
 
         // now redirect to login...
 				PageContext.AddLoadMessage( GetText( "EMAIL_VERIFIED" ) );
-        yaf_BuildLink.Redirect( ForumPages.login );
+        YafBuildLink.Redirect( ForumPages.login );
 			}
 		}
 	}

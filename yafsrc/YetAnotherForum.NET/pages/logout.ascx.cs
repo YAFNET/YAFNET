@@ -47,7 +47,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			FormsAuthentication.SignOut();
 			Session.Abandon();
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 		}
 
 		#region Web Form Designer generated code

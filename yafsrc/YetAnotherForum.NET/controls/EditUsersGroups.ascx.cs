@@ -61,7 +61,7 @@ namespace YAF.Controls
 
 		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -91,7 +91,7 @@ namespace YAF.Controls
           Roles.RemoveUserFromRole( userName, roleName );
 			}
 
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 		}
 
 	}

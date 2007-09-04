@@ -40,14 +40,14 @@ namespace YAF.Classes.Base
 		private void AdminPage_Load(object sender, EventArgs e)
 		{
 			if ( !PageContext.IsAdmin )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 #if false
 			if(!IsPostBack)
 			{
 				controls.PageLinks ctl = new controls.PageLinks();
-				ctl.AddLink(BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				ctl.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				ctl.AddLink(BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				ctl.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				Controls.AddAt(0,ctl);
 			}
 #endif

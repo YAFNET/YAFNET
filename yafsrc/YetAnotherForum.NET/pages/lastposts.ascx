@@ -15,9 +15,9 @@
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -28,9 +28,9 @@
 </ItemTemplate>
 <AlternatingItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval( "UserID")) %>"><%# Eval( "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

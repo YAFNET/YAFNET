@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(User==null)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -52,8 +52,8 @@ namespace YAF.Pages // YAF.Pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
+						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),"");
 						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);
 						Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg",row["YIM"]);

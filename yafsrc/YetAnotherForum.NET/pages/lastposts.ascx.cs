@@ -24,7 +24,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!PageContext.ForumReadAccess)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if (Request.QueryString["t"] != null)
 			{

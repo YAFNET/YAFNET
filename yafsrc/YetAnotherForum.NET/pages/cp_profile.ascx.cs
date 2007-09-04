@@ -48,14 +48,14 @@ namespace YAF.Pages
 		{
 			if(User==null)
 			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 			}
 
 			if ( !IsPostBack )
 			{
 				BindData();
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( PageContext.PageUserName, "" );
 			}
 		}
@@ -76,12 +76,12 @@ namespace YAF.Pages
 			TitleUserName.Text = Server.HtmlEncode( ( string ) row ["Name"] );
 			AccountEmail.Text = row ["Email"].ToString();
 			Name.Text = Server.HtmlEncode( ( string ) row ["Name"] );
-			Joined.Text = yaf_DateTime.FormatDateTime( ( DateTime ) row ["Joined"] );
+			Joined.Text = YafDateTime.FormatDateTime( ( DateTime ) row ["Joined"] );
 			NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
 
 			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", yaf_ForumInfo.ForumRoot, PageContext.PageUserID );
+				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
 			}
 			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
@@ -89,7 +89,7 @@ namespace YAF.Pages
 					Server.UrlEncode( row ["Avatar"].ToString() ),
 					PageContext.BoardSettings.AvatarWidth,
 					PageContext.BoardSettings.AvatarHeight,
-					yaf_ForumInfo.ForumRoot );
+					YafForumInfo.ForumRoot );
 			}
 			else
 			{

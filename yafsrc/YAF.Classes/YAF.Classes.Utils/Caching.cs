@@ -6,18 +6,18 @@ using System.Web;
 
 namespace YAF.Classes.Utils
 {
-	public class yaf_Cache
+	public class YafCache
 	{
 		#region Static Members
 
-		private static yaf_Cache _currentInstance;
+		private static YafCache _currentInstance;
 
-		static yaf_Cache()
+		static YafCache()
 		{
-			_currentInstance = new yaf_Cache();
+			_currentInstance = new YafCache();
 		}
 
-		public static yaf_Cache Current
+		public static YafCache Current
 		{
 			get
 			{
@@ -27,9 +27,9 @@ namespace YAF.Classes.Utils
 
 		public static string GetBoardCacheKey(string key)
 		{
-			return GetBoardCacheKey(key, yaf_Context.Current);
+			return GetBoardCacheKey(key, YafContext.Current);
 		}
-		public static string GetBoardCacheKey(string key, yaf_Context context)
+		public static string GetBoardCacheKey(string key, YafContext context)
 		{
 			return GetBoardCacheKey(key, context.PageBoardID);
 		}
@@ -46,8 +46,8 @@ namespace YAF.Classes.Utils
 		private Cache _cache;
 		private CacheKeyCreationMethod _keyCreationMethod;
 
-		public yaf_Cache() : this(HttpContext.Current.Cache) { }
-		public yaf_Cache(Cache cache)
+		public YafCache() : this(HttpContext.Current.Cache) { }
+		public YafCache(Cache cache)
 		{
 			_cache = cache;
 			_keyCreationMethod = CacheKeyCreationMethod.Straight;
@@ -142,7 +142,7 @@ namespace YAF.Classes.Utils
 		#endregion
 	}
 
-	public class yaf_CacheEntryInfo
+	public class YafCacheEntryInfo
 	{
 		private DateTime _itemExpire;
 	}

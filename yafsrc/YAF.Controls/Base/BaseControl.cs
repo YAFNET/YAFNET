@@ -34,11 +34,11 @@ namespace YAF.Controls
 		{
 		}
 
-		public yaf_Context PageContext
+		public YafContext PageContext
 		{
 			get 
 			{
-				return yaf_Context.Current;
+				return YafContext.Current;
 			}
 		}
 	}

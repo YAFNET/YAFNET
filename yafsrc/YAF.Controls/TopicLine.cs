@@ -9,20 +9,20 @@ namespace YAF.Controls
 	[ParseChildren(false)]
 	public class TopicLine : BaseControl
 	{
-		private DataRowView	m_row = null;
-		private bool m_isAlt;
+		private DataRowView	_row = null;
+		private bool _isAlt;
 		
 		public bool IsAlt
 		{
-			get { return this.m_isAlt; }
-			set { this.m_isAlt = value; }
+			get { return this._isAlt; }
+			set { this._isAlt = value; }
 		}		
 
 		public object DataRow
 		{
 			set 
 			{
-				m_row = (DataRowView)value;
+				_row = (DataRowView)value;
 			}
 		}
 
@@ -33,16 +33,16 @@ namespace YAF.Controls
 			html.AppendFormat("<tr class=\"{0}\">",(IsAlt ? "post_alt" : "post"));
 
 			// Icon
-			string imgTitle = "", img = GetTopicImage(m_row,ref imgTitle);
+			string imgTitle = "", img = GetTopicImage(_row,ref imgTitle);
 			html.AppendFormat( @"<td><img title=""{1}"" src=""{0}""></td>", img, imgTitle );
 			// Topic
-			html.AppendFormat( @"<td><span class=""post_priority"">{0}</span>", GetPriorityMessage( m_row ) );
+			html.AppendFormat( @"<td><span class=""post_priority"">{0}</span>", GetPriorityMessage( _row ) );
 			if(FindUnread)
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", yaf_BuildLink.GetLink( ForumPages.posts, "t={0}&find=unread", m_row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", YafBuildLink.GetLink( ForumPages.posts, "t={0}&find=unread", _row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
 			else
-				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", m_row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( m_row ["Subject"] ) ) );
+				html.AppendFormat( @"<a href=""{0}"" class=""post_link"">{1}</a>", YafBuildLink.GetLink( ForumPages.posts, "t={0}", _row ["LinkTopicID"] ), General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
 
-			string tPager = CreatePostPager(Convert.ToInt32(m_row["Replies"])+1,PageContext.BoardSettings.PostsPerPage,Convert.ToInt32(m_row["LinkTopicID"]));
+			string tPager = CreatePostPager(Convert.ToInt32(_row["Replies"])+1,PageContext.BoardSettings.PostsPerPage,Convert.ToInt32(_row["LinkTopicID"]));
 			if (tPager != String.Empty)
 			{
 				// more then one page to show
@@ -53,7 +53,7 @@ namespace YAF.Controls
 			
 			html.Append("</td>");
 			// Topic Starter
-			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", yaf_BuildLink.GetLink( ForumPages.profile, "u={0}", m_row ["UserID"] ), BBCode.EncodeHTML( m_row ["Starter"].ToString() ) );
+			html.AppendFormat( @"<td><a href=""{0}"">{1}</a></td>", YafBuildLink.GetLink( ForumPages.profile, "u={0}", _row ["UserID"] ), BBCode.EncodeHTML( _row ["Starter"].ToString() ) );
 			// Replies
 			html.AppendFormat( @"<td align=""center"">{0}</td>", FormatReplies() );
 			// Views
@@ -69,8 +69,8 @@ namespace YAF.Controls
 
         private string FormatViews()
         {
-            int nViews = Convert.ToInt32(m_row["Views"]);
-            return ((m_row["TopicMovedID"].ToString().Length > 0)) ? "&nbsp;" : String.Format("{0:N0}", nViews);
+            int nViews = Convert.ToInt32(_row["Views"]);
+            return ((_row["TopicMovedID"].ToString().Length > 0)) ? "&nbsp;" : String.Format("{0:N0}", nViews);
         }
 
 		protected string GetTopicImage(object o,ref string imgTitle) 
@@ -192,7 +192,7 @@ namespace YAF.Controls
 		/// <returns>"&nbsp;" if no replies or the number of replies.</returns>
 		protected string FormatReplies() 
 		{
-			int nReplies = Convert.ToInt32(m_row["Replies"]);
+			int nReplies = Convert.ToInt32(_row["Replies"]);
 			return (nReplies < 0) ? "&nbsp;" : String.Format("{0:N0}",nReplies);
 		}
 
@@ -203,24 +203,24 @@ namespace YAF.Controls
 		protected string FormatLastPost() 
 		{
 			string strReturn = PageContext.Localization.GetText("no_posts");
-			DataRowView row = m_row;
+			DataRowView row = _row;
 			
 			if (row["LastMessageID"].ToString().Length>0) 
 			{
-				string strMiniPost = PageContext.Theme.GetItem("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)m_row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
+				string strMiniPost = PageContext.Theme.GetItem("ICONS",(DateTime.Parse(row["LastPosted"].ToString()) > Mession.GetTopicRead((int)_row["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST");
 
 				string strBy =
 					String.Format(PageContext.Localization.GetText("by"),String.Format("<a href=\"{0}\">{1}</a>&nbsp;<a title=\"{4}\" href=\"{3}\"><img border=0 src='{2}'></a>",
-					yaf_BuildLink.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]), 
+					YafBuildLink.GetLink( ForumPages.profile,"u={0}",row["LastUserID"]), 
 					BBCode.EncodeHTML(row["LastUserName"].ToString()), 
 					strMiniPost, 
-					yaf_BuildLink.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
+					YafBuildLink.GetLink( ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
 					PageContext.Localization.GetText("GO_LAST_POST")
 					));
 
 				strReturn =
 					String.Format("{0}<br />{1}", 
-					yaf_DateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
+					YafDateTime.FormatDateTimeTopic(Convert.ToDateTime(row["LastPosted"])),
 					strBy);
 			} 
 
@@ -231,18 +231,18 @@ namespace YAF.Controls
 		/// Create pager for post.
 		/// </summary>
 		/// 
-		protected string CreatePostPager(int Count,int PageSize,int TopicID)
+		protected string CreatePostPager(int count,int pageSize,int topicID)
 		{
 			string strReturn = "";
 
 			int NumToDisplay = 4;
-			int PageCount = (int)Math.Ceiling((double)Count/PageSize);
+			int PageCount = (int)Math.Ceiling((double)count/pageSize);
 
 			if (PageCount > 1)
 			{
 				if (PageCount > NumToDisplay)
 				{
-					strReturn += MakeLink("1",yaf_BuildLink.GetLink( ForumPages.posts,"t={0}",TopicID));
+					strReturn += MakeLink("1",YafBuildLink.GetLink( ForumPages.posts,"t={0}",topicID));
 					strReturn += " ... ";
 					bool bFirst = true;
 
@@ -254,7 +254,7 @@ namespace YAF.Controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 
-						strReturn += MakeLink(iPost.ToString(),yaf_BuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
+						strReturn += MakeLink(iPost.ToString(),YafBuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",topicID,iPost));
 					}
 				}
 				else
@@ -267,16 +267,16 @@ namespace YAF.Controls
 						if (bFirst) bFirst = false;
 						else strReturn += ", ";
 						
-            strReturn += MakeLink(iPost.ToString(),yaf_BuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",TopicID,iPost));
+            strReturn += MakeLink(iPost.ToString(),YafBuildLink.GetLink( ForumPages.posts,"t={0}&p={1}",topicID,iPost));
 					}
 				}
 			}
 			return strReturn;
 		}
 
-		private string MakeLink(string Text,string Link)
+		private string MakeLink(string text,string link)
 		{
-			return String.Format("<a href=\"{0}\">{1}</a>",Link,Text); 
+			return String.Format("<a href=\"{0}\">{1}</a>",link,text); 
 		}
 
 		public bool FindUnread

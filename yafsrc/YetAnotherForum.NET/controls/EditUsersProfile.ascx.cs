@@ -54,11 +54,11 @@ namespace YAF.Controls
     }
     private void BindData()
     {
-      TimeZones.DataSource = yaf_StaticData.TimeZones();
-      Theme.DataSource = yaf_StaticData.Themes();
+      TimeZones.DataSource = YafStaticData.TimeZones();
+      Theme.DataSource = YafStaticData.Themes();
       Theme.DataTextField = "Theme";
       Theme.DataValueField = "FileName";
-      Language.DataSource = yaf_StaticData.Languages();
+      Language.DataSource = YafStaticData.Languages();
       Language.DataTextField = "Language";
       Language.DataValueField = "FileName";
 
@@ -66,7 +66,7 @@ namespace YAF.Controls
 
       // made the same mistake...
       MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
-      YAF_UserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
+      YafUserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
 
       Location.Text = userProfile.Location;
       HomePage.Text = userProfile.Homepage;
@@ -176,11 +176,11 @@ namespace YAF.Controls
           StringDictionary emailParameters = new StringDictionary();
 
           emailParameters ["{user}"] = PageContext.PageUserName;
-          emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL );
+          emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
           emailParameters ["{newemail}"] = Email.Text;
           emailParameters ["{key}"] = hash;
           emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
-          emailParameters ["{forumlink}"] = yaf_ForumInfo.ForumURL;
+          emailParameters ["{forumlink}"] = YafForumInfo.ForumURL;
 
           string message = General.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
 
@@ -197,7 +197,7 @@ namespace YAF.Controls
         UserMembershipHelper.UpdateEmail( CurrentUserID, Email.Text.Trim() );
       }
 
-      YAF_UserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
+      YafUserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
 
       userProfile.Location = Location.Text.Trim();
       userProfile.Homepage = HomePage.Text.Trim();
@@ -222,17 +222,17 @@ namespace YAF.Controls
       userProfile.Save();
 
       if ( AdminEditMode )
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
       else
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
     }
 
     protected void Cancel_Click( object sender, System.EventArgs e )
     {
       if ( AdminEditMode )
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
       else
-        YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
     }
 
     protected void Email_TextChanged( object sender, System.EventArgs e )

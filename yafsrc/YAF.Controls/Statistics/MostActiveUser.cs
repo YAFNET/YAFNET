@@ -60,7 +60,7 @@ namespace YAF.Controls.Statistics
                 // act_rank += string.Format("<td align=\"center\">{0}</td>", img);
 
                 // Nome autore
-                act_rank += string.Format("<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], yaf_BuildLink.GetLink(ForumPages.profile, "u={0}", r["ID"]));
+                act_rank += string.Format("<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", r["ID"]));
 
                 // Numero post
                 act_rank += string.Format("<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);

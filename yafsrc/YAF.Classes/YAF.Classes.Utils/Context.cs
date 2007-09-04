@@ -28,15 +28,15 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Context class that accessable with the same instance from all locations
 	/// </summary>
-	public class yaf_Context
+	public class YafContext
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
-		private static yaf_Context _currentInstance = new yaf_Context();
+		private static YafContext _currentInstance = new YafContext();
 		private System.Data.DataRow _page = null;
-		private YAF.Classes.Utils.yaf_ControlSettings _settings = null;
-		private YAF.Classes.Utils.yaf_Theme _theme = null;
-		private YAF.Classes.Utils.yaf_Localization _localization = null;
+		private YAF.Classes.Utils.YafControlSettings _settings = null;
+		private YAF.Classes.Utils.YafTheme _theme = null;
+		private YAF.Classes.Utils.YafLocalization _localization = null;
 		private System.Web.Security.MembershipUser _user = null;
 		private string _loadString = "";
 		private string _adminLoadString = "";
@@ -88,7 +88,7 @@ namespace YAF.Classes.Utils
 			_adminLoadString = "";
 		}
 
-		public static yaf_Context Current
+		public static YafContext Current
 		{
 			get
 			{
@@ -108,15 +108,15 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Utils.YAF_UserProfile Profile
+		public YAF.Classes.Utils.YafUserProfile Profile
 		{
 			get
 			{
-				return ( YAF_UserProfile ) HttpContext.Current.Profile;
+				return ( YafUserProfile ) HttpContext.Current.Profile;
 			}
 		}
 
-		public YAF.Classes.Utils.yaf_ControlSettings Settings
+		public YAF.Classes.Utils.YafControlSettings Settings
 		{
 			get
 			{
@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Utils.yaf_Theme Theme
+		public YAF.Classes.Utils.YafTheme Theme
 		{
 			get
 			{
@@ -140,7 +140,7 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Utils.yaf_Localization Localization
+		public YAF.Classes.Utils.YafLocalization Localization
 		{
 			get
 			{
@@ -166,23 +166,23 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public yaf_BoardSettings BoardSettings
+		public YafBoardSettings BoardSettings
 		{
 			get
 			{
 				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
-				string key = string.Format( "yaf_BoardSettings.{0}", PageBoardID );
+				string key = string.Format( "YafBoardSettings.{0}", PageBoardID );
 
 				if ( HttpContext.Current.Application [key] == null )
-					HttpContext.Current.Application [key] = new yaf_BoardSettings( PageBoardID );
+					HttpContext.Current.Application [key] = new YafBoardSettings( PageBoardID );
 
-				return ( yaf_BoardSettings ) HttpContext.Current.Application [key];
+				return ( YafBoardSettings ) HttpContext.Current.Application [key];
 
 			}
 			set
 			{
 				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
-				string key = string.Format( "yaf_BoardSettings.{0}", PageBoardID );
+				string key = string.Format( "YafBoardSettings.{0}", PageBoardID );
 
 				HttpContext.Current.Application.Remove( key );
 			}
@@ -193,17 +193,17 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userName"></param>
 		/// <returns></returns>
-		public YAF_UserProfile GetProfile( string userName )
+		public YafUserProfile GetProfile( string userName )
 		{
       //if ( profile == null )
       //{
       //  // doesn't exist...
-      //  profile = ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
+      //  profile = ( YafUserProfile ) System.Web.Profile.ProfileBase.Create( userName );
       //  HttpContext.Current.Cache.Add(key,profile,null,DateTime.Now.AddMinutes(30),TimeSpan.Zero,System.Web.Caching.CacheItemPriority.Default,null);
       //}
 
 
-      return ( YAF_UserProfile ) System.Web.Profile.ProfileBase.Create( userName );
+      return ( YafUserProfile ) System.Web.Profile.ProfileBase.Create( userName );
 		}
 
 		/// <summary>
@@ -622,7 +622,7 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Class provides glue/settings transfer between YAF forum control and base classes
 	/// </summary>
-	public class yaf_ControlSettings
+	public class YafControlSettings
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
@@ -630,7 +630,7 @@ namespace YAF.Classes.Utils
 		private int _categoryID;
 		private int _lockedForum = 0;
 
-		public yaf_ControlSettings()
+		public YafControlSettings()
 		{
 			try
 			{
@@ -692,7 +692,7 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Class provides misc helper functions and forum version information
 	/// </summary>
-	public static class yaf_ForumInfo
+	public static class YafForumInfo
 	{
 		static public string ForumRoot
 		{
@@ -763,7 +763,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return string.Format( "{0}{1}", yaf_ForumInfo.ServerURL, yaf_BuildLink.GetLink( ForumPages.forum ) );
+				return string.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.forum ) );
 			}
 		}
 
@@ -822,7 +822,7 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Static class with link building functions
 	/// </summary>
-	public static class yaf_BuildLink
+	public static class YafBuildLink
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
@@ -853,12 +853,12 @@ namespace YAF.Classes.Utils
 
 		static public string ThemeFile( string filename )
 		{
-			return yaf_Context.Current.Theme.ThemeDir + filename;
+			return YafContext.Current.Theme.ThemeDir + filename;
 		}
 
 		static public string Smiley( string icon )
 		{
-			return String.Format( "{0}images/emoticons/{1}", yaf_ForumInfo.ForumRoot, icon );
+			return String.Format( "{0}images/emoticons/{1}", YafForumInfo.ForumRoot, icon );
 		}
 	}
 }

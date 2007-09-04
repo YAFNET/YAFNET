@@ -26,18 +26,18 @@ using System.Xml;
 
 namespace YAF.Classes.Utils
 {
-	public class yaf_Theme
+	public class YafTheme
 	{
-		private string themeFile = null;
-		private XmlDocument themeXMLDoc = null;
-		private bool logMissingThemeItem = false;
+		private string _themeFile = null;
+		private XmlDocument _themeXmlDoc = null;
+		private bool _logMissingThemeItem = false;
 
-		public yaf_Theme()
+		public YafTheme()
 		{
 
 		}
 
-		public yaf_Theme( string newThemeFile )
+		public YafTheme( string newThemeFile )
 		{
 			ThemeFile = newThemeFile;
 		}
@@ -49,14 +49,14 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return themeFile;
+				return _themeFile;
 			}
 			set
 			{
-				if (themeFile != value)
+				if (_themeFile != value)
 				{
-					themeFile = value;
-					themeXMLDoc = null;
+					_themeFile = value;
+					_themeXmlDoc = null;
 				}
 			}
 		}
@@ -65,11 +65,11 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return logMissingThemeItem;
+				return _logMissingThemeItem;
 			}
 			set
 			{
-				logMissingThemeItem = value;
+				_logMissingThemeItem = value;
 			}
 		}
 
@@ -78,17 +78,17 @@ namespace YAF.Classes.Utils
 			if (ThemeFile != null)
 			{
 #if !DEBUG
-				if (themeXMLDoc == null)
+				if (_themeXmlDoc == null)
 				{
-					themeXMLDoc = (XmlDocument)System.Web.HttpContext.Current.Cache[ThemeFile];
+					_themeXmlDoc = (XmlDocument)System.Web.HttpContext.Current.Cache[ThemeFile];
 				}
 #endif
-				if ( themeXMLDoc == null )
+				if ( _themeXmlDoc == null )
 				{
-					themeXMLDoc = new XmlDocument();
-					themeXMLDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", yaf_ForumInfo.ForumRoot, ThemeFile ) ) );
+					_themeXmlDoc = new XmlDocument();
+					_themeXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, ThemeFile ) ) );
 #if !DEBUG
-					System.Web.HttpContext.Current.Cache[ThemeFile] = themeXMLDoc;
+					System.Web.HttpContext.Current.Cache[ThemeFile] = _themeXmlDoc;
 #endif
 				}
 			}
@@ -105,26 +105,26 @@ namespace YAF.Classes.Utils
 
 			LoadThemeFile();
 
-			if (themeXMLDoc != null)
+			if (_themeXmlDoc != null)
 			{
-				string themeDir = themeXMLDoc.DocumentElement.Attributes ["dir"].Value;
-				string langCode = yaf_Context.Current.Localization.LanguageCode.ToUpper();
+				string themeDir = _themeXmlDoc.DocumentElement.Attributes ["dir"].Value;
+				string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
 				string select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}' and @language='{2}']", page.ToUpper(), tag.ToUpper(), langCode );
 
-				XmlNode node = themeXMLDoc.SelectSingleNode( select );
+				XmlNode node = _themeXmlDoc.SelectSingleNode( select );
 				if ( node == null )
 				{
 					select = string.Format( "//page[@name='{0}']/Resource[@tag='{1}']", page.ToUpper(), tag.ToUpper() );
-					node = themeXMLDoc.SelectSingleNode( select );
+					node = _themeXmlDoc.SelectSingleNode( select );
 				}
 
 				if ( node == null )
 				{
-					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+					if ( LogMissingThemeItem ) YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Theme Item: {0}.{1}", page.ToUpper(), tag.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
 					return defaultValue;
 				}
 
-				item = node.InnerText.Replace( "~", String.Format( "{0}themes/{1}", yaf_ForumInfo.ForumRoot, themeDir ) );
+				item = node.InnerText.Replace( "~", String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeDir ) );
 			}
 
 			return item;
@@ -135,14 +135,14 @@ namespace YAF.Classes.Utils
 			get
 			{
 				LoadThemeFile();
-				return String.Format( "{0}themes/{1}/", yaf_ForumInfo.ForumRoot, themeXMLDoc.DocumentElement.Attributes ["dir"].Value );
+				return String.Format( "{0}themes/{1}/", YafForumInfo.ForumRoot, _themeXmlDoc.DocumentElement.Attributes ["dir"].Value );
 			}
 		}
 
 		public string GetURLToResource( string resourceName )
 		{
-      return string.Format( "{1}resources/{0}", resourceName, yaf_ForumInfo.ForumRoot );
-			//return string.Format( "{1}resource.ashx?r={0}", resourceName, yaf_ForumInfo.ForumRoot );
+      return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
+			//return string.Format( "{1}resource.ashx?r={0}", resourceName, YafForumInfo.ForumRoot );
 		}
 	}
 }

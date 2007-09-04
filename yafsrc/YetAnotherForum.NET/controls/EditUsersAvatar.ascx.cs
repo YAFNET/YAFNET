@@ -36,7 +36,7 @@ namespace YAF.Controls
 				if ( Request.QueryString ["av"] != null )
 				{
 					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", yaf_ForumInfo.ForumRoot, Request.QueryString ["av"], yaf_ForumInfo.ServerURL ), null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", YafForumInfo.ForumRoot, Request.QueryString ["av"], YafForumInfo.ServerURL ), null );
 				}
 
 				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
@@ -51,7 +51,7 @@ namespace YAF.Controls
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
-				OurAvatar.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
+				OurAvatar.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
 				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
 			}
 
@@ -74,7 +74,7 @@ namespace YAF.Controls
 
 			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
 			{
-				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", yaf_ForumInfo.ForumRoot, CurrentUserID );
+				AvatarImg.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, CurrentUserID );
 				Avatar.Text = "";
 				DeleteAvatar.Visible = true;
 			}
@@ -84,7 +84,7 @@ namespace YAF.Controls
 					Server.UrlEncode( row ["Avatar"].ToString() ),
 					PageContext.BoardSettings.AvatarWidth,
 					PageContext.BoardSettings.AvatarHeight,
-					yaf_ForumInfo.ForumRoot );
+					YafForumInfo.ForumRoot );
 
 				Avatar.Text = row ["Avatar"].ToString();
 				DeleteAvatar.Visible = true;
@@ -115,9 +115,9 @@ namespace YAF.Controls
 		protected void Back_Click( object sender, System.EventArgs e )
 		{
 			if ( AdminEditMode )
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
 			else
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.cp_profile );
 		}
 
 		protected void RemoteUpdate_Click( object sender, System.EventArgs e )

@@ -58,7 +58,7 @@ namespace YAF.Controls.Statistics
 
 				htmlOutput += "<td width=\"75%\">";
 				//Output Topic Link
-				htmlOutput += string.Format( "&nbsp;<a href=\"{1}\">{0}</a></td>", General.BadWordReplace( Convert.ToString( r ["Topic"] ) ), yaf_BuildLink.GetLink( ForumPages.posts, "m={0}#{0}", r ["LastMessageID"] ) );
+				htmlOutput += string.Format( "&nbsp;<a href=\"{1}\">{0}</a></td>", General.BadWordReplace( Convert.ToString( r ["Topic"] ) ), YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", r ["LastMessageID"] ) );
 				//Output Message Icon
 				htmlOutput += "<img src=\"" + PageContext.Theme.GetItem( "ICONS", "ICON_LATEST" ) + "\" border=\"0\" alt=\"\"></a>";
 				htmlOutput += "</td></tr>";

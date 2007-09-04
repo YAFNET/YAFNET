@@ -48,17 +48,17 @@ namespace YAF.Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Editor.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
-            Editor.StyleSheet = yaf_BuildLink.ThemeFile("theme.css");
+            Editor.BaseDir = YafForumInfo.ForumRoot + "editors";
+            Editor.StyleSheet = YafBuildLink.ThemeFile("theme.css");
 
             if (User == null)
-                yaf_BuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+                YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
 
             if (!IsPostBack)
             {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, yaf_BuildLink.GetLink(ForumPages.forum));
-                PageLinks.AddLink(PageContext.PageUserName, yaf_BuildLink.GetLink(ForumPages.cp_profile));
-                PageLinks.AddLink(PageContext.Localization.GetText(ForumPages.cp_pm.ToString(), "TITLE"),yaf_BuildLink.GetLink(ForumPages.cp_pm));
+                PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                PageLinks.AddLink(PageContext.PageUserName, YafBuildLink.GetLink(ForumPages.cp_profile));
+                PageLinks.AddLink(PageContext.Localization.GetText(ForumPages.cp_pm.ToString(), "TITLE"),YafBuildLink.GetLink(ForumPages.cp_pm));
                 PageLinks.AddLink(GetText("TITLE"));
 
                 Save.Text = GetText("Save");
@@ -88,7 +88,7 @@ namespace YAF.Pages
                         
                         if (toUserId != PageContext.PageUserID && 
                             fromUserId != PageContext.PageUserID)
-                            yaf_BuildLink.AccessDenied();
+                            YafBuildLink.AccessDenied();
 
                         Subject.Text = subject;
 
@@ -151,7 +151,7 @@ namespace YAF.Pages
                 tFlags.IsHTML = Editor.UsesHTML;
                 tFlags.IsBBCode = Editor.UsesBBCode;
                 DB.pmessage_save(PageContext.PageUserID, 0, Subject.Text, body, tFlags.BitValue);
-                yaf_BuildLink.Redirect(ForumPages.cp_profile);
+                YafBuildLink.Redirect(ForumPages.cp_profile);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace YAF.Pages
                     if (PageContext.BoardSettings.AllowPMEmailNotification)
                         SendPMNotification(Convert.ToInt32(dt.Rows[0]["UserID"]), Subject.Text);
 
-                    yaf_BuildLink.Redirect(ForumPages.cp_profile);
+                    YafBuildLink.Redirect(ForumPages.cp_profile);
                 }
             }
         }
@@ -225,7 +225,7 @@ namespace YAF.Pages
                     StringDictionary emailParameters = new StringDictionary();
 
                     emailParameters["{fromuser}"] = PageContext.PageUserName;
-                    emailParameters["{link}"] = String.Format("{1}{0}\r\n\r\n", yaf_BuildLink.GetLink(ForumPages.cp_message, "pm={0}", userPMessageID), yaf_ForumInfo.ServerURL);
+                    emailParameters["{link}"] = String.Format("{1}{0}\r\n\r\n", YafBuildLink.GetLink(ForumPages.cp_message, "pm={0}", userPMessageID), YafForumInfo.ServerURL);
                     emailParameters["{forumname}"] = PageContext.BoardSettings.Name;
                     emailParameters["{subject}"] = subject;
 
@@ -265,7 +265,7 @@ namespace YAF.Pages
 
         protected void Cancel_Click(object sender, EventArgs e)
         {
-            yaf_BuildLink.Redirect(ForumPages.cp_pm);
+            YafBuildLink.Redirect(ForumPages.cp_pm);
         }
 
         protected void FindUsers_Click(object sender, EventArgs e)

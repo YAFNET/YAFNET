@@ -55,7 +55,7 @@ namespace YAF.Controls
 					if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
 						AddLink(row["Name"].ToString(),"");
 					else
-						AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
+						AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
 				}
 			}
 		}

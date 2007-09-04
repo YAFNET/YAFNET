@@ -48,9 +48,9 @@
 </FooterTemplate>
 <ItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -61,9 +61,9 @@
 </ItemTemplate>
 <AlternatingItemTemplate>
 		<tr class="postheader">
-			<td width="140"><b><a href="<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
+			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# yaf_DateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

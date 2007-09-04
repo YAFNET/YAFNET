@@ -46,12 +46,12 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 			
 				ForumRules.Text = "TODO:";
 			}
 			//TODO: Write license info and stuff...
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
 
 		#region Web Form Designer generated code
@@ -76,12 +76,12 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
 		}
 
 		protected void Accept_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
 
 	}

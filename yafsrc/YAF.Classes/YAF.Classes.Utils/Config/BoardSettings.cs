@@ -25,7 +25,7 @@ using System.Collections;
 
 namespace YAF.Classes.Utils
 {
-	public class yaf_BoardSettings
+	public class YafBoardSettings
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
@@ -33,7 +33,7 @@ namespace YAF.Classes.Utils
 		private RegistryHash _reg, _regBoard;
 		private object _boardID;
 
-		public yaf_BoardSettings( object boardID )
+		public YafBoardSettings( object boardID )
 		{
 			_boardID = boardID;
 			DataTable dt;

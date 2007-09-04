@@ -45,14 +45,14 @@ namespace YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( Request.QueryString ["m"] == null || !PageContext.ForumModeratorAccess )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, yaf_BuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageCategoryName, yaf_BuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				PageLinks.AddLink( PageContext.PageTopicName, YafBuildLink.GetLink( ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				Move.Text = GetText( "MOVE_MESSAGE" );
 				CreateAndMove.Text = GetText( "CREATE_TOPIC" );
@@ -93,7 +93,7 @@ namespace YAF.Pages
 			{
 				YAF.Classes.Data.DB.message_move( Request.QueryString ["m"], TopicsList.SelectedValue, true );
 			}
-			yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
+			YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 		}
 
 		protected void ForumList_SelectedIndexChanged( object sender, System.EventArgs e )
@@ -121,7 +121,7 @@ namespace YAF.Pages
 				long nTopicId =
 						YAF.Classes.Data.DB.topic_create_by_message( Request.QueryString ["m"], ForumList.SelectedValue, TopicSubject.Text );
 				YAF.Classes.Data.DB.message_move( Request.QueryString ["m"], nTopicId, true );
-				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 			}
 			else
 				PageContext.AddLoadMessage( GetText( "EmptyTopic" ) );

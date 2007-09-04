@@ -46,11 +46,11 @@ namespace YAF.Pages.moderate
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!PageContext.IsModerator)
-                yaf_BuildLink.AccessDenied();
+                YafBuildLink.AccessDenied();
 
             if (!IsPostBack)
             {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
                 PageLinks.AddLink(GetText("MODERATE_DEFAULT", "TITLE"), "");
                 BindData();
             }
@@ -68,13 +68,13 @@ namespace YAF.Pages.moderate
             switch (e.CommandName)
             {
                 case "viewunapprovedposts":
-                    YAF.Classes.Utils.yaf_BuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
                     break;
                 case "viewreportedposts":
-                    YAF.Classes.Utils.yaf_BuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
                     break;
                 case "viewreportedspam":
-                    YAF.Classes.Utils.yaf_BuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
+                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
                     break;
             }
         }

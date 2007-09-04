@@ -32,12 +32,12 @@ namespace YAF.Controls
             using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], true))
             {
                 if (dt.Rows.Count < 1)
-                    yaf_BuildLink.AccessDenied(/*No such user exists*/);
+                    YafBuildLink.AccessDenied(/*No such user exists*/);
                 DataRow user = dt.Rows[0];
 
                 SuspendedRow.Visible = !user.IsNull("Suspended");
                 if (!user.IsNull("Suspended"))
-                    ViewState["PageContext.SuspendedUntil"] = yaf_DateTime.FormatDateTime(user["Suspended"]);
+                    ViewState["PageContext.SuspendedUntil"] = YafDateTime.FormatDateTime(user["Suspended"]);
 
                 RemoveSuspension.Text = PageContext.Localization.GetText("PROFILE", "REMOVESUSPENSION");
                 Suspend.Text = PageContext.Localization.GetText("PROFILE", "SUSPEND");

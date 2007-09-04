@@ -35,7 +35,7 @@
                             <b>
                                 <%# GetText("posted") %>
                             </b>
-                            <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
+                            <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="DeleteMessage" OnLoad="DeleteMessage_Load" ToolTip="Delete this message"

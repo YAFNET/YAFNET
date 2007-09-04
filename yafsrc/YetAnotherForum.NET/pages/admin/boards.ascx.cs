@@ -40,12 +40,12 @@ namespace YAF.Pages.Admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!PageContext.IsHostAdmin)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Boards","");
 
 				BindData();
@@ -77,13 +77,13 @@ namespace YAF.Pages.Admin
 
 		private void New_Click(object sender,EventArgs e) 
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editboard);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editboard);
 		}
 
 		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e) {
 			switch(e.CommandName) {
 				case "edit":
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editboard,"b={0}",e.CommandArgument);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editboard,"b={0}",e.CommandArgument);
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.board_delete(e.CommandArgument);

@@ -48,8 +48,8 @@ namespace YAF.Controls
 				CurrentUserID = PageContext.PageUserID;
 			}
 
-			sig.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
-			sig.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
+			sig.BaseDir = YafForumInfo.ForumRoot + "editors";
+			sig.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
 
 			if ( !IsPostBack )
 			{
@@ -71,17 +71,17 @@ namespace YAF.Controls
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 
 			if ( AdminEditMode )
-				yaf_BuildLink.Redirect( ForumPages.admin_users );
+				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
-				yaf_BuildLink.Redirect( ForumPages.cp_profile );
+				YafBuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		private void cancel_Click( object sender, EventArgs e )
 		{
 			if ( AdminEditMode )
-				yaf_BuildLink.Redirect( ForumPages.admin_users );
+				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
-				yaf_BuildLink.Redirect( ForumPages.cp_profile );
+				YafBuildLink.Redirect( ForumPages.cp_profile );
 		}
 
 		#region Web Form Designer generated code

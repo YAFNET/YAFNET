@@ -47,12 +47,12 @@ namespace YAF.Classes.Utils
 			return num;
 		}
 
-		static public ulong IPStrToLong( string IPAddress )
+		static public ulong IPStrToLong( string ipAddress )
 		{
       // not sure why it gives me this for local users on firefox--but it does...
-      if ( IPAddress == "::1" ) IPAddress = "127.0.0.1";
+      if ( ipAddress == "::1" ) ipAddress = "127.0.0.1";
 
-			string [] ip = IPAddress.Split( '.' );
+			string [] ip = ipAddress.Split( '.' );
 			return Str2IP( ip );
 		}
 
@@ -103,7 +103,7 @@ namespace YAF.Classes.Utils
 			}
 			else
 			{
-				string templatefile = HttpContext.Current.Server.MapPath( String.Format( "{0}templates/{1}", yaf_ForumInfo.ForumRoot, name ) );
+				string templatefile = HttpContext.Current.Server.MapPath( String.Format( "{0}templates/{1}", YafForumInfo.ForumRoot, name ) );
 				StreamReader sr = new StreamReader( templatefile, Encoding.ASCII );
 				file = sr.ReadToEnd();
 				sr.Close();
@@ -137,11 +137,11 @@ namespace YAF.Classes.Utils
 
 		static public void SendMail( System.Net.Mail.MailAddress fromAddress, System.Net.Mail.MailAddress toAddress, string subject, string body )
 		{
-			System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient( yaf_Context.Current.BoardSettings.SmtpServer );
+			System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient( YafContext.Current.BoardSettings.SmtpServer );
 
-			if ( yaf_Context.Current.BoardSettings.SmtpUserName != null && yaf_Context.Current.BoardSettings.SmtpUserPass != null )
+			if ( YafContext.Current.BoardSettings.SmtpUserName != null && YafContext.Current.BoardSettings.SmtpUserPass != null )
 			{
-				smtpSend.Credentials = new System.Net.NetworkCredential( yaf_Context.Current.BoardSettings.SmtpUserName, yaf_Context.Current.BoardSettings.SmtpUserPass );
+				smtpSend.Credentials = new System.Net.NetworkCredential( YafContext.Current.BoardSettings.SmtpUserName, YafContext.Current.BoardSettings.SmtpUserPass );
 			}
 
 			using ( System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage() )
@@ -290,17 +290,17 @@ namespace YAF.Classes.Utils
 				foreach ( DataRow row in dt.Rows )
 				{
 					// Send track mails
-					string subject = String.Format( yaf_Context.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), yaf_Context.Current.BoardSettings.Name );
+					string subject = String.Format( YafContext.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), YafContext.Current.BoardSettings.Name );
 
 					StringDictionary emailParams = new StringDictionary();
 
-					emailParams["{forumname}"] = yaf_Context.Current.BoardSettings.Name;
+					emailParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
 					emailParams["{topic}"] = row ["Topic"].ToString();
-					emailParams ["{link}"] = String.Format( "{0}{1}", yaf_ForumInfo.ServerURL, yaf_BuildLink.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
+					emailParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
 
 					string body = General.CreateEmailFromTemplate( "topicpost.txt", ref emailParams );
 
-					YAF.Classes.Data.DB.mail_createwatch( row ["TopicID"], yaf_Context.Current.BoardSettings.ForumEmail, subject, body, row ["UserID"] );
+					YAF.Classes.Data.DB.mail_createwatch( row ["TopicID"], YafContext.Current.BoardSettings.ForumEmail, subject, body, row ["UserID"] );
 				}
 			}
 		}
@@ -321,9 +321,9 @@ namespace YAF.Classes.Utils
 		/// as defined in the database.
 		/// </summary>
 		/// <param name="SearchText">The string to search through.</param>
-		static public string BadWordReplace( string SearchText )
+		static public string BadWordReplace( string searchText )
 		{
-			string strReturn = SearchText;
+			string strReturn = searchText;
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			// rico : run word replacement from database table names yaf_replacewords

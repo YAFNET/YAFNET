@@ -43,8 +43,8 @@ namespace YAF.Pages.Admin
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink(strAddEdit + " Word Replace","");
 
 				BindData();
@@ -67,12 +67,12 @@ namespace YAF.Pages.Admin
 		{
 			YAF.Classes.Data.DB.replace_words_save(Request.QueryString["i"],badword.Text,goodword.Text);
 			Cache.Remove("replacewords");
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords);
 		}
 
 		private void cancel_Click(object sender,EventArgs e) 
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords);
 		}
 
 		#region Web Form Designer generated code

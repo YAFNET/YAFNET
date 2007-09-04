@@ -24,17 +24,17 @@ using System.Text;
 
 namespace YAF.Classes.Data
 {
-	public enum SEARCH_FIELD
+	public enum SearchFieldFlags
 	{
-		sfMESSAGE = 0,
-		sfUSER_NAME = 1
+		Message = 0,
+		UserName = 1
 	}
 
-	public enum SEARCH_WHAT
+	public enum SearchWhatFlags
 	{
-		sfALL_WORDS = 0,
-		sfANY_WORDS = 1,
-		sfEXACT = 2
+		AllWords = 0,
+		AnyWords = 1,
+		ExactMatch = 2
 	}
 
 	public enum ForumFlags : int

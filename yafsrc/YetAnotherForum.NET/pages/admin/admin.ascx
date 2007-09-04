@@ -77,7 +77,7 @@
           <%# Eval("Location") %>
         </td>
         <td class="post">
-          <%# yaf_DateTime.FormatDateTime(Eval("Joined")) %>
+          <%# YafDateTime.FormatDateTime(Eval("Joined")) %>
         </td>
         <td class="post">
           <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'

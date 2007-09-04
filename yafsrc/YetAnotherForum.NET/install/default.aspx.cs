@@ -62,7 +62,7 @@ namespace YAF.Install
 				else
 					InstallWizard.ActiveStepIndex = 0;
 
-				TimeZones.DataSource = yaf_StaticData.TimeZones();
+				TimeZones.DataSource = YafStaticData.TimeZones();
 				DataBind();
 				TimeZones.Items.FindByValue( "0" ).Selected = true;
 			}
@@ -73,7 +73,7 @@ namespace YAF.Install
 			if ( YAF.Classes.Config.IsDotNetNuke )
 			{
 				//Redirect back to the portal main page.
-				string rPath = yaf_ForumInfo.ForumRoot;
+				string rPath = YafForumInfo.ForumRoot;
 				int pos = rPath.IndexOf( "/", 2 );
 				rPath = rPath.Substring( 0, pos );
 				Response.Redirect( rPath );
@@ -222,8 +222,8 @@ namespace YAF.Install
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
+					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
@@ -326,8 +326,8 @@ namespace YAF.Install
 				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", yaf_ForumInfo.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", yaf_ForumInfo.AppVersionName );
+					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
@@ -416,7 +416,7 @@ namespace YAF.Install
 
 			string [] statements = System.Text.RegularExpressions.Regex.Split( sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
-      using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
+      using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
         using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
@@ -456,7 +456,7 @@ namespace YAF.Install
 		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-      using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
+      using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
         using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{

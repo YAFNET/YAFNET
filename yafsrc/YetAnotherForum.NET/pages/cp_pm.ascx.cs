@@ -52,11 +52,11 @@ namespace YAF.Pages
     protected void Page_Load( object sender, EventArgs e )
     {
       if ( User == null || PageContext.IsGuest )
-        yaf_BuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+        YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 
       // check if this feature is disabled
       if ( !PageContext.BoardSettings.AllowPrivateMessages )
-        yaf_BuildLink.Redirect( ForumPages.info, "i=5" );
+        YafBuildLink.Redirect( ForumPages.info, "i=5" );
 
       if ( !IsPostBack )
       {
@@ -68,15 +68,15 @@ namespace YAF.Pages
         else if ( _View == PMView.Archive )
           this.PMTabs.ActiveTab = this.ArchiveTab;
 
-        PageLinks.AddLink( PageContext.BoardSettings.Name, yaf_BuildLink.GetLink( ForumPages.forum ) );
-        PageLinks.AddLink( PageContext.PageUserName, yaf_BuildLink.GetLink( ForumPages.cp_profile ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
         InboxTab.HeaderText = GetText( "INBOX" );
         OutboxTab.HeaderText = GetText( "SENTITEMS" );
         ArchiveTab.HeaderText = GetText( "ARCHIVE" );
 
-        NewMessageLink.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.pmessage );
+        NewMessageLink.NavigateUrl = YafBuildLink.GetLink( ForumPages.pmessage );
         NewMessageLink.Text = GetText( "NEW_MESSAGE" );
 
         // DOCTYPE COMPATIBILITY ISSUE

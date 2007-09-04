@@ -100,7 +100,7 @@ namespace YAF.Classes.UI
 								case "url":
 									if ( arg != null )
 									{
-										if ( yaf_Context.Current.BoardSettings.BlankLinks )
+										if ( YafContext.Current.BoardSettings.BlankLinks )
 											tmp += String.Format( "<a target=\"_blank\" href=\"{0}\">", arg );
 										else
 											tmp += String.Format( "<a target=\"_top\" href=\"{0}\">", arg );
@@ -185,8 +185,8 @@ namespace YAF.Classes.UI
 				message = message.Replace( "mailto:", "mailto%3A" );
 				message = message.Replace( "color:", "color%3A" );
 
-				message = message.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-				message = message.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", yaf_BuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				message = message.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
+				message = message.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
 
 				// restore html source
 
@@ -250,7 +250,7 @@ namespace YAF.Classes.UI
 			DataTable dt = ( DataTable ) System.Web.HttpContext.Current.Cache ["Smilies"];
 			if ( dt == null )
 			{
-				dt = YAF.Classes.Data.DB.smiley_list( yaf_Context.Current.PageBoardID, null );
+				dt = YAF.Classes.Data.DB.smiley_list( YafContext.Current.PageBoardID, null );
 				System.Web.HttpContext.Current.Cache.Insert( "Smilies", dt, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
 			return dt;
@@ -289,7 +289,7 @@ namespace YAF.Classes.UI
 			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
 
 			// URLs
-			if (yaf_Context.Current.BoardSettings.BlankLinks)
+			if (YafContext.Current.BoardSettings.BlankLinks)
 			{
 				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
@@ -344,7 +344,7 @@ namespace YAF.Classes.UI
 			else
 			{
 				// get allowable html tags
-				string tStr = yaf_Context.Current.BoardSettings.AcceptedHTML;
+				string tStr = YafContext.Current.BoardSettings.AcceptedHTML;
 				string [] allowedTags = tStr.Split( ',' );
 
 				RegexOptions options = RegexOptions.IgnoreCase;

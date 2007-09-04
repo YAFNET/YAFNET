@@ -25,8 +25,8 @@ namespace YAF.Pages.Admin
     {
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
         PageLinks.AddLink( "Version Check", "" );
       }
 
@@ -42,14 +42,14 @@ namespace YAF.Pages.Admin
       {
         m_lastVersion = 0;        
       }
-      Upgrade.Visible = m_lastVersion > yaf_ForumInfo.AppVersionCode;
+      Upgrade.Visible = m_lastVersion > YafForumInfo.AppVersionCode;
     }
 
     protected string LastVersion
     {
       get
       {
-        return yaf_ForumInfo.AppVersionNameFromCode( m_lastVersion );
+        return YafForumInfo.AppVersionNameFromCode( m_lastVersion );
       }
     }
     protected string LastVersionDate

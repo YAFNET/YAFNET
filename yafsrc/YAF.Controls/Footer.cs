@@ -74,7 +74,7 @@ namespace YAF.Controls
 
 			if ( PageContext.BoardSettings.ShowRSSLink )
 			{
-				footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", yaf_BuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), yaf_ForumInfo.ForumRoot, PageContext.Localization.GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
+				footer.AppendFormat( "{2} : <a href=\"{0}\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", YafBuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), YafForumInfo.ForumRoot, PageContext.Localization.GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
 				// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
 			}
 
@@ -93,13 +93,13 @@ namespace YAF.Controls
 			if ( YAF.Classes.Config.IsDotNetNuke )
 			{
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under DotNetNuke.", yaf_ForumInfo.AppVersionName );
+        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under DotNetNuke.", YafForumInfo.AppVersionName );
         footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 			}
 			else if ( YAF.Classes.Config.IsRainbow )
 			{
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under Rainbow.", yaf_ForumInfo.AppVersionName );
+        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under Rainbow.", YafForumInfo.AppVersionName );
         footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 			}
 			else if ( PageContext.Settings.LockedForum == 0 )
@@ -107,7 +107,7 @@ namespace YAF.Controls
 				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
 				footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ),
 					String.Format( "<a target=\"_top\" title=\"Yet Another Forum.NET Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a>" ),
-					String.Format( "{0} (NET v{2}.{3}) - {1}", yaf_ForumInfo.AppVersionName, yaf_DateTime.FormatDateShort( yaf_ForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
+					String.Format( "{0} (NET v{2}.{3}) - {1}", YafForumInfo.AppVersionName, YafDateTime.FormatDateShort( YafForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
 					);
 				footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
 				footer.AppendFormat( "<br/>" );

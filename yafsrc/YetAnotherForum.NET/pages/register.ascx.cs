@@ -47,11 +47,11 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !CanLogin || PageContext.BoardSettings.DisableRegistrations )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ) );
 
 				// handle the CreateUser Step localization
@@ -86,7 +86,7 @@ namespace YAF.Pages // YAF.Pages
 
 				// get the time zone data source
 				DropDownList timeZones = ( ( DropDownList ) FindWizardControl( "TimeZones" ) );
-				timeZones.DataSource = yaf_StaticData.TimeZones();
+				timeZones.DataSource = YafStaticData.TimeZones();
 
 				if ( !PageContext.BoardSettings.EmailVerification )
 				{
@@ -104,7 +104,7 @@ namespace YAF.Pages // YAF.Pages
           ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED_VERIFICATION" ), true );
 				}
 
-				CreateUserWizard1.FinishDestinationPageUrl = yaf_ForumInfo.ForumURL;
+				CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
 				DataBind();
 
@@ -169,7 +169,7 @@ namespace YAF.Pages // YAF.Pages
 			// if they clicked declined, redirect to the main page
 			if ( e.CurrentStepIndex == 0 )
 			{
-				yaf_BuildLink.Redirect( ForumPages.forum );
+				YafBuildLink.Redirect( ForumPages.forum );
 			}
 		}
 
@@ -185,7 +185,7 @@ namespace YAF.Pages // YAF.Pages
         MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );
 
         // setup/save the profile
-        YAF_UserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
+        YafUserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
 
         userProfile.TimeZone = Convert.ToInt32( timeZones.SelectedValue );
         userProfile.Location = locationTextBox.Text.Trim();
@@ -198,7 +198,7 @@ namespace YAF.Pages // YAF.Pages
     protected void CreateUserWizard1_ContinueButtonClick( object sender, EventArgs e )
     {
       // redirect to the main forum URL
-      yaf_BuildLink.Redirect( ForumPages.forum );
+      YafBuildLink.Redirect( ForumPages.forum );
     }
 
 		protected void CreateUserWizard1_CreateUserError( object sender, CreateUserErrorEventArgs e )
@@ -250,19 +250,19 @@ namespace YAF.Pages // YAF.Pages
       MembershipUser user = Membership.GetUser( CreateUserWizard1.UserName );  
 
       // setup inital roles (if any) for this user
-      RoleMembershipHelper.SetupUserRoles( yaf_Context.Current.PageBoardID, CreateUserWizard1.UserName );
+      RoleMembershipHelper.SetupUserRoles( YafContext.Current.PageBoardID, CreateUserWizard1.UserName );
 
       // create the user in the YAF DB as well as sync roles...
-      int? userID = RoleMembershipHelper.CreateForumUser( user, yaf_Context.Current.PageBoardID );
+      int? userID = RoleMembershipHelper.CreateForumUser( user, YafContext.Current.PageBoardID );
       
       // create empty profile just so they have one
-      YAF_UserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
+      YafUserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
       userProfile.Save();
 
       if (userID == null)
       {
         // something is seriously wrong here -- redirect to failure...
-        yaf_BuildLink.Redirect(ForumPages.info,"i=7");
+        YafBuildLink.Redirect(ForumPages.info,"i=7");
       }
 
       // handle e-mail verification if needed
@@ -281,10 +281,10 @@ namespace YAF.Pages // YAF.Pages
         string body = General.ReadTemplate( "verifyemail.txt" );
         string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
 
-        body = body.Replace( "{link}", String.Format( "{1}{0}", yaf_BuildLink.GetLink( ForumPages.approve, "k={0}", hash ), yaf_ForumInfo.ServerURL ) );
+        body = body.Replace( "{link}", String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL ) );
         body = body.Replace( "{key}", hash );
         body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
-        body = body.Replace( "{forumlink}", String.Format( "{0}", yaf_ForumInfo.ForumURL ) );
+        body = body.Replace( "{forumlink}", String.Format( "{0}", YafForumInfo.ForumURL ) );
 
         General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
       }

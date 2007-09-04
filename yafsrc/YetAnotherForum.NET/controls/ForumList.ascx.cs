@@ -109,7 +109,7 @@ namespace YAF.Controls
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
 				strReturn = String.Format( "<a href=\"{0}\">{1}</a>",
-					YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ),
+					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ),
 					strReturn
 					);
 			}
@@ -146,22 +146,22 @@ namespace YAF.Controls
 				if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 				{
 					strTemp = String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src=\"{3}\"></a>",
-							yaf_DateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
-							String.Format( PageContext.Localization.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), Truncate( General.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
-							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
+							YafDateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
+							String.Format( PageContext.Localization.GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), Truncate( General.BadWordReplace( row ["LastTopicName"].ToString() ), 50 ) ) ),
+							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), BBCode.EncodeHTML( row ["LastUser"].ToString() ) ) ),
 							strTemp,
 							PageContext.Localization.GetText( "GO_LAST_POST" ),
-							YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
+							YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
 						);
 				}
 				else
 				{
 					// no access to this forum... disable links and hide topic
 					strTemp = String.Format( "{0}<br/>{1}",
-							yaf_DateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
+							YafDateTime.FormatDateTimeTopic( ( DateTime ) row ["LastPosted"] ),
 							// Removed by Mek(16 December 2006) to stop non access people viewing the topic title
                             // String.Format( PageContext.Localization.GetText( "in" ), String.Format( "{0}", Truncate( row ["LastTopicName"].ToString(), 50 ) ) ),
-							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
+							String.Format( PageContext.Localization.GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) )
 						);
 				}
 			}

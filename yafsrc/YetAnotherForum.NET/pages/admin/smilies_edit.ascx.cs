@@ -22,8 +22,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
@@ -44,7 +44,7 @@ namespace YAF.Pages.Admin
 				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",yaf_ForumInfo.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",YafForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.*");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -75,17 +75,17 @@ namespace YAF.Pages.Admin
 						Code.Text = dt.Rows[0]["Code"].ToString();
 						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
 						if (Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()) != null) Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
-						Preview.Src = String.Format("{0}images/emoticons/{1}",yaf_ForumInfo.ForumRoot,dt.Rows[0]["Icon"]);
+						Preview.Src = String.Format("{0}images/emoticons/{1}",YafForumInfo.ForumRoot,dt.Rows[0]["Icon"]);
 					}
 				}
 			}
 			else
 			{
-				Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
+				Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 			}
 			Icon.Attributes["onchange"] = String.Format(
 				"getElementById('{1}__ctl0_Preview').src='{0}images/emoticons/' + this.value",
-				yaf_ForumInfo.ForumRoot,
+				YafForumInfo.ForumRoot,
 				this.Parent.ID
 				);
 		}
@@ -112,12 +112,12 @@ namespace YAF.Pages.Admin
 				return;
 			}
 			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"],PageContext.PageBoardID,sCode,sIcon,sEmotion,0);
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 

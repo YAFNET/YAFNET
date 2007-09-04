@@ -40,8 +40,8 @@ namespace YAF.Pages.Admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Banned IP Addresses","");
 
 				BindData();
@@ -55,14 +55,14 @@ namespace YAF.Pages.Admin
 
 		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) {
 			if(e.CommandName == "add")
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit);
 			else if(e.CommandName == "edit")
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit,"i={0}",e.CommandArgument);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit,"i={0}",e.CommandArgument);
 			else if(e.CommandName == "delete") {
 				YAF.Classes.Data.DB.bannedip_delete(e.CommandArgument);
 				
 				// clear cache of banned IPs for this board
-				yaf_Cache.Current.Remove(yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP));
+				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
 				BindData();
 				PageContext.AddLoadMessage("Removed IP address ban.");

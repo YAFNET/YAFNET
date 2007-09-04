@@ -109,9 +109,9 @@ namespace YAF.Classes.UI
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
 
-			string localQuoteStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_QUOTE" );
-			string localCodeStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
-			string localQuoteWroteStr = yaf_Context.Current.Localization.GetText( "COMMON", "BBCODE_QUOTEWROTE" );
+			string localQuoteStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_QUOTE" );
+			string localCodeStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
+			string localQuoteWroteStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_QUOTEWROTE" );
 
 			Match m = _rgxCode2.Match( bbcode );
 			int nCodes = 0;
@@ -125,12 +125,12 @@ namespace YAF.Classes.UI
 				{
 					HighLighter hl = new HighLighter();
 					hl.ReplaceEnter = true;
-					after_replace = hl.ColorText( after_replace, HttpContext.Current.Server.MapPath( yaf_ForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
+					after_replace = hl.ColorText( after_replace, HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
 				}
 				catch ( Exception x )
 				{
-					if ( yaf_Context.Current.IsAdmin )
-						yaf_Context.Current.AddLoadMessage( x.Message );
+					if ( YafContext.Current.IsAdmin )
+						YafContext.Current.AddLoadMessage( x.Message );
 					after_replace = FixCode( after_replace );
 				}
 
@@ -177,7 +177,7 @@ namespace YAF.Classes.UI
 				NestedReplace( ref bbcode, _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", new string [] { "email" } );
 				NestedReplace( ref bbcode, _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>" );
 				// urls
-				if ( yaf_Context.Current.BoardSettings.BlankLinks )
+				if ( YafContext.Current.BoardSettings.BlankLinks )
 				{
 					NestedReplace( ref bbcode, _rgxUrl2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
 					NestedReplace( ref bbcode, _rgxUrl1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
@@ -226,8 +226,8 @@ namespace YAF.Classes.UI
 			m = _rgxPost.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
-				if ( yaf_Context.Current.BoardSettings.BlankLinks )
+				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
+				if ( YafContext.Current.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
@@ -237,8 +237,8 @@ namespace YAF.Classes.UI
 			m = _rgxTopic.Match( bbcode );
 			while ( m.Success )
 			{
-				string link = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", m.Groups ["topic"] );
-				if ( yaf_Context.Current.BoardSettings.BlankLinks )
+				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", m.Groups ["topic"] );
+				if ( YafContext.Current.BoardSettings.BlankLinks )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );

@@ -46,17 +46,17 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( !CanLogin )
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "title" ) );
 
 				Login1.CreateUserText = "Sign up for a new account.";
-				//Login1.CreateUserUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
+				//Login1.CreateUserUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
-				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 				Login1.FailureText = GetText( "password_error" );
 
 				// localize controls
@@ -73,7 +73,7 @@ namespace YAF.Pages // YAF.Pages
 				rememberMe.Text = GetText( "auto" );
 				forumLogin.Text = GetText( "forum_login" );
 				passwordRecovery.Text = GetText( "lostpassword" );
-				passwordRecovery.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+				passwordRecovery.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 
 				// set the focus using Damien McGivern client-side focus class
 				YAF.Classes.UI.ClientSideFocus.setFocus( userName );
@@ -87,7 +87,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( Request.QueryString ["ReturnUrl"] != null )
 				Response.Redirect( Request.QueryString ["ReturnUrl"] );
 			else
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 		}
 
 		protected void Login1_LoginError( object sender, EventArgs e )

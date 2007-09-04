@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink(GetText("TITLE"),"");
 
 				UserList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID,true);

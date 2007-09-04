@@ -36,8 +36,8 @@ namespace YAF
 			writer.WriteRaw( "<?xml-stylesheet type=\"text/xsl\" href=\"rss.xsl\" media=\"screen\"?>" );
 			writer.WriteRaw( "<rss version=\"2.0\">" + en );
 			writer.WriteRaw( "\t<channel>" + en );
-			writer.WriteRaw( "\t\t<title>RSS Feed for " + yaf_ForumInfo.ServerURL + "</title>" + en );
-			writer.WriteRaw( "\t\t<link>" + Encode( yaf_ForumInfo.ForumURL ) + "</link>" + en );
+			writer.WriteRaw( "\t\t<title>RSS Feed for " + YafForumInfo.ServerURL + "</title>" + en );
+			writer.WriteRaw( "\t\t<link>" + Encode( YafForumInfo.ForumURL ) + "</link>" + en );
 			writer.WriteRaw( "\t\t<description>Yet Another Forum Web Application RSS Feed</description>" + en );
 			writer.WriteRaw( "\t\t<copyright>Copyright 2002 - 2005 Bjørnar Henden</copyright>" + en );
 

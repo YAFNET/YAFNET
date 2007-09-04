@@ -150,7 +150,7 @@
                 <uc1:SuspendUser runat="server" ID="SuspendUserControl" />
                 <uc1:SignatureEdit runat="server" ID="SignatureEditControl" />
                 <div id="AdminUser" runat="server">
-                    <a href='<%# yaf_BuildLink.GetLink(ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
+                    <a href='<%# YafBuildLink.GetLink(ForumPages.admin_edituser,"u={0}", Request.QueryString.Get("u")) %>'>Administer User</a>
                 </div>
 		</td>	
             <td valign="top">
@@ -177,14 +177,14 @@
 			        <td class="small" align="left" colspan="2">
                                 <b>
                                     <%= GetText("topic") %>
-                                </b><a href='<%# yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
+                                </b><a href='<%# YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
                                     <%# General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
                                 </a>
                                 <br />
                                 <b>
                                     <%= GetText("posted") %>
                                 </b>
-                                <%# yaf_DateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
+                                <%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
 			        </td>
 		        </tr>
 		        <tr class="post">

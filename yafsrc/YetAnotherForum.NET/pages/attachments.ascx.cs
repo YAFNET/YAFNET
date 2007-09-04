@@ -34,30 +34,30 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				if ( !PageContext.ForumModeratorAccess && !PageContext.ForumUploadAccess )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 
 				if ( !PageContext.ForumReadAccess )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 
 				if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
-					yaf_BuildLink.AccessDenied(/*"The topic is closed."*/);
+					YafBuildLink.AccessDenied(/*"The topic is closed."*/);
 
 				if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
-					yaf_BuildLink.AccessDenied(/*"The forum is closed."*/);
+					YafBuildLink.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written
 				if ( !PageContext.ForumModeratorAccess )
 					using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
 						if ( ( int ) dt.Rows [0] ["UserID"] != PageContext.PageUserID )
-							yaf_BuildLink.AccessDenied(/*"You didn't post this message."*/);
+							YafBuildLink.AccessDenied(/*"You didn't post this message."*/);
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				Back.Text = GetText( "BACK" );
@@ -84,7 +84,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void Back_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", Request.QueryString ["m"] );
 		}
 
 		private void List_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )

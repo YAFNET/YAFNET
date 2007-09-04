@@ -30,13 +30,13 @@ namespace YAF.Classes.Utils
 {
   public class RoleMembershipHelper
   {
-    public static void SyncUsers( int PageBoardID )
+    public static void SyncUsers( int pageBoardID )
     {
       string ForumURL = "forumurl";
       string ForumEmail = "forumemail";
       string ForumName = "forumname";
 
-      using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageBoardID, DBNull.Value, true ) )
+      using ( DataTable dt = YAF.Classes.Data.DB.user_list( pageBoardID, DBNull.Value, true ) )
       {
         foreach ( DataRow row in dt.Rows )
         {
@@ -89,9 +89,9 @@ namespace YAF.Classes.Utils
       }
     }
 
-    static private bool BitSet( object _o, int bitmask )
+    static private bool BitSet( object o, int bitmask )
     {
-      int i = ( int ) _o;
+      int i = ( int ) o;
       return ( i & bitmask ) != 0;
     }
 
@@ -121,10 +121,10 @@ namespace YAF.Classes.Utils
     /// Syncs the ASP.NET roles with YAF groups bi-directionally.
     /// </summary>
     /// <param name="PageBoardID"></param>
-    static public void SyncRoles( int PageBoardID )
+    static public void SyncRoles( int pageBoardID )
     {
       // get all the groups in YAF DB and create them if they do not exist as a role in membership
-      using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageBoardID, DBNull.Value ) )
+      using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )
       {
         foreach ( DataRow row in dt.Rows )
         {
@@ -148,7 +148,7 @@ namespace YAF.Classes.Utils
           if ( rows.Length == 0 )
           {
             // sets new roles to default "Read Only" access
-            nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, PageBoardID, role, false, false, false, false, 1 );
+            nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, pageBoardID, role, false, false, false, false, 1 );
           }
           else
           {
@@ -232,7 +232,7 @@ namespace YAF.Classes.Utils
     {
       object providerUserKey = null;
 
-      DataTable dt = YAF.Classes.Data.DB.user_list( yaf_Context.Current.PageBoardID, userID, DBNull.Value );
+      DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
       if ( dt.Rows.Count == 1 )
       {
         DataRow row = dt.Rows [0];
@@ -252,7 +252,7 @@ namespace YAF.Classes.Utils
     {
       string userName = string.Empty;
 
-      DataTable dt = YAF.Classes.Data.DB.user_list( yaf_Context.Current.PageBoardID, userID, DBNull.Value );
+      DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
       if ( dt.Rows.Count == 1 )
       {
         DataRow row = dt.Rows [0];
@@ -270,7 +270,7 @@ namespace YAF.Classes.Utils
     /// <returns></returns>
     public static int GetUserIDFromProviderUserKey( object providerUserKey )
     {
-      int userID = DB.user_get( yaf_Context.Current.PageBoardID, providerUserKey );
+      int userID = DB.user_get( YafContext.Current.PageBoardID, providerUserKey );
       return userID;
     }
 
@@ -313,7 +313,7 @@ namespace YAF.Classes.Utils
         MembershipUser user = Membership.GetUser( providerUserKey );
         user.Email = newEmail;
         Membership.UpdateUser( user );
-        DB.user_aspnet( yaf_Context.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved );
+        DB.user_aspnet( YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved );
         return true;
       }
 

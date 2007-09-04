@@ -68,10 +68,10 @@ namespace YAF.Pages
 					currentRow = dt.Rows [0];
 
 				if ( Convert.ToInt32( currentRow ["TopicID"] ) != PageContext.PageTopicID )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 
 				if ( !CanQuotePostCheck( currentRow ) )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 			}
 			else if ( EditTopicID != null )
 			{
@@ -79,19 +79,19 @@ namespace YAF.Pages
 					currentRow = dt.Rows [0];
         OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
 				if ( !CanEditPostCheck( currentRow ) )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 			}
 
 			if ( PageContext.PageForumID == 0 )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 			if (Request["t"] == null && Request["m"] == null && !PageContext.ForumPostAccess)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 			if ( Request ["t"] != null && !PageContext.ForumReplyAccess )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			//Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-			Message.StyleSheet = yaf_BuildLink.ThemeFile( "theme.css" );
-			Message.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
+			Message.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			Message.BaseDir = YafForumInfo.ForumRoot + "editors";
 
 			Title.Text = GetText( "NEWTOPIC" );
 			PollExpire.Attributes.Add( "style", "width:50px" );
@@ -114,8 +114,8 @@ namespace YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 
@@ -138,7 +138,7 @@ namespace YAF.Pages
 					else
 					{
 						LastPostsIFrame.Visible = true;
-            LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", yaf_ForumInfo.ForumRoot, TopicID ) );
+            LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
 					}
 
 				}
@@ -303,7 +303,7 @@ namespace YAF.Pages
       long nMessageID = 0;
 
       if ( !PageContext.ForumReplyAccess )
-        yaf_BuildLink.AccessDenied();
+        YafBuildLink.AccessDenied();
 
       object replyTo = ( QuotedTopicID != null ) ? int.Parse( QuotedTopicID ) : -1;
 
@@ -323,7 +323,7 @@ namespace YAF.Pages
       long nMessageID = 0;
 
       if ( !PageContext.ForumEditAccess )
-        yaf_BuildLink.AccessDenied();
+        YafBuildLink.AccessDenied();
 
       string SubjectSave = "";
 
@@ -350,7 +350,7 @@ namespace YAF.Pages
       long nMessageID = 0;
 
       if ( !PageContext.ForumPostAccess )
-        yaf_BuildLink.AccessDenied();      
+        YafBuildLink.AccessDenied();      
 
       // make message flags
       MessageFlags tFlags = new MessageFlags();
@@ -429,18 +429,18 @@ namespace YAF.Pages
 			if ( bApproved )
 			{
 				General.CreateWatchEmail( nMessageID );
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID );
 			}
 			else
 			{
 				// Tell user that his message will have to be approved by a moderator
 				//PageContext.AddLoadMessage("Since you posted to a moderated forum, a forum moderator must approve your post before it will become visible.");
-				string url = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+				string url = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
 
 				if ( YAF.Classes.Config.IsRainbow )
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1" );
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1" );
 				else
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1&url={0}", Server.UrlEncode( url ) );
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.info, "i=1&url={0}", Server.UrlEncode( url ) );
 			}
 		}
 
@@ -502,12 +502,12 @@ namespace YAF.Pages
 			if ( TopicID != null || EditTopicID != null )
 			{
 				// reply to existing topic or editing of existing topic
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			else
 			{
 				// new topic -- cancel back to forum
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
 			}
 		}
 

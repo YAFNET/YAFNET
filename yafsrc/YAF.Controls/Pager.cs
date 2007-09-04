@@ -10,7 +10,7 @@ namespace YAF.Controls
 	/// </summary>
 	public class Pager : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
-		private bool usePostBack = true;
+		private bool _usePostBack = true;
 
 		public Pager()
 		{
@@ -101,7 +101,7 @@ namespace YAF.Controls
 			{
 				// must be converted to by topic...
 				parser.Parameters.Remove( "m" );
-				parser.Parameters.Add( "t", yaf_Context.Current.PageTopicID.ToString() );
+				parser.Parameters.Add( "t", YafContext.Current.PageTopicID.ToString() );
 			}
 
 			if ( page > 1 )
@@ -111,11 +111,11 @@ namespace YAF.Controls
 
 				tmp += "p={0}";
 
-				url = yaf_BuildLink.GetLink( currentPage, tmp, page );
+				url = YafBuildLink.GetLink( currentPage, tmp, page );
 			}
 			else
 			{
-        url = yaf_BuildLink.GetLink( currentPage, parser.CreateQueryString( new string [] { "g", "p" } ) );
+        url = YafBuildLink.GetLink( currentPage, parser.CreateQueryString( new string [] { "g", "p" } ) );
 			}
 
 			return url;
@@ -125,11 +125,11 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return usePostBack;
+				return _usePostBack;
 			}
 			set
 			{
-				usePostBack = value;
+				_usePostBack = value;
 			}
 		}
 

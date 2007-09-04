@@ -17,7 +17,7 @@
             <td>
               <p>
                 You are running YetAnotherForum.NET version
-                <%=yaf_ForumInfo.AppVersionName%>.</p>
+                <%=YafForumInfo.AppVersionName%>.</p>
               <p>
                 The latest available version is
                 <%=LastVersion%>

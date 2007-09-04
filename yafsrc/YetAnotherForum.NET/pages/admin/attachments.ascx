@@ -34,17 +34,17 @@
             <ItemTemplate>
                 <tr class="post">
                     <td>
-                        <a target="_top" href='<%# yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.topics,"f={0}",Eval("ForumID")) %>'>
+                        <a target="_top" href='<%# YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.topics,"f={0}",Eval("ForumID")) %>'>
                             <%# Eval("ForumName") %>
                         </a>
                     </td>
                     <td>
-                        <a target="_top" href='<%# yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",Eval("TopicID")) %>'>
+                        <a target="_top" href='<%# YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",Eval("TopicID")) %>'>
                             <%# Eval("TopicName") %>
                         </a>
                     </td>
                     <td>
-                        <%# yaf_DateTime.FormatDateTimeShort(Eval( "Posted")) %>
+                        <%# YafDateTime.FormatDateTimeShort(Eval( "Posted")) %>
                     </td>
                     <td>
                         <%# Eval( "FileName") %>

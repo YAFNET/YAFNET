@@ -221,18 +221,18 @@ namespace YAF.Classes.Utils
 		public class GroupInfo
 		{
 			#region Internals
-			private string m_sName;
-			private int m_nNum;
-			private int m_nLow;
-			private int m_nHi;
+			private string _name;
+			private int _num;
+			private int _low;
+			private int _hi;
 
 			public GroupInfo( string response )
 			{
 				string [] buffer = response.Split();
-				m_nNum = int.Parse( buffer [1] );
-				m_nLow = int.Parse( buffer [2] );
-				m_nHi = int.Parse( buffer [3] );
-				m_sName = buffer [4];
+				_num = int.Parse( buffer [1] );
+				_low = int.Parse( buffer [2] );
+				_hi = int.Parse( buffer [3] );
+				_name = buffer [4];
 			}
 			#endregion
 
@@ -241,28 +241,28 @@ namespace YAF.Classes.Utils
 			{
 				get
 				{
-					return m_sName;
+					return _name;
 				}
 			}
 			public int Count
 			{
 				get
 				{
-					return m_nNum;
+					return _num;
 				}
 			}
 			public int First
 			{
 				get
 				{
-					return m_nLow;
+					return _low;
 				}
 			}
 			public int Last
 			{
 				get
 				{
-					return m_nHi;
+					return _hi;
 				}
 			}
 			#endregion
@@ -271,8 +271,8 @@ namespace YAF.Classes.Utils
 		public class ArticleInfo
 		{
 			#region Internals
-			private string m_sHeader, m_sBody;
-			private string m_sFrom, m_sSubject, m_sThread, m_sDate;
+			private string _header, _body;
+			private string _from, _subject, _thread, _date;
 
 			public ArticleInfo( string body )
 			{
@@ -280,18 +280,18 @@ namespace YAF.Classes.Utils
 				if ( pos < 0 )
 					throw new Exception( "Header and body not separated." );
 
-				m_sHeader = body.Substring( 0, pos + 2 );
-				m_sBody = body.Substring( pos + 4 );
-				m_sFrom = GetHeader( m_sHeader, "From:" );
-				m_sSubject = GetHeader( m_sHeader, "Subject:" );
-				m_sDate = GetHeader( m_sHeader, "Date:" );
-				m_sThread = GetHeader( m_sHeader, "References:" );
-				if ( m_sThread == null )
-					m_sThread = GetHeader( m_sHeader, "Message-ID:" );
+				_header = body.Substring( 0, pos + 2 );
+				_body = body.Substring( pos + 4 );
+				_from = GetHeader( _header, "From:" );
+				_subject = GetHeader( _header, "Subject:" );
+				_date = GetHeader( _header, "Date:" );
+				_thread = GetHeader( _header, "References:" );
+				if ( _thread == null )
+					_thread = GetHeader( _header, "Message-ID:" );
 
-				pos = m_sThread.IndexOf( '>' );
-				m_sThread = m_sThread.Substring( 0, pos + 1 ).Trim().ToLower();
-				m_sThread = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( m_sThread, "md5" );
+				pos = _thread.IndexOf( '>' );
+				_thread = _thread.Substring( 0, pos + 1 ).Trim().ToLower();
+				_thread = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( _thread, "md5" );
 			}
 			#endregion
 
@@ -300,14 +300,14 @@ namespace YAF.Classes.Utils
 			{
 				get
 				{
-					return m_sFrom;
+					return _from;
 				}
 			}
 			public string FromName
 			{
 				get
 				{
-					string name = m_sFrom;
+					string name = _from;
 					int pos1, pos2;
 					// Name <email>
 					pos1 = name.IndexOf( '<' );
@@ -335,7 +335,7 @@ namespace YAF.Classes.Utils
 			{
 				get
 				{
-					string name = m_sFrom.Trim();
+					string name = _from.Trim();
 					int pos1, pos2;
 					// Name <email>
 					pos1 = name.IndexOf( '<' );
@@ -364,28 +364,28 @@ namespace YAF.Classes.Utils
 			{
 				get
 				{
-					return m_sSubject;
+					return _subject;
 				}
 			}
 			public string Body
 			{
 				get
 				{
-					return m_sBody;
+					return _body;
 				}
 			}
 			public string Thread
 			{
 				get
 				{
-					return m_sThread;
+					return _thread;
 				}
 			}
 			public string DateString
 			{
 				get
 				{
-					return m_sDate;
+					return _date;
 				}
 			}
 			public DateTime Date

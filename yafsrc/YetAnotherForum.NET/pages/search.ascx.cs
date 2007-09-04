@@ -79,13 +79,13 @@ namespace YAF.Pages // YAF.Pages
 				if (PageContext.IsPrivate && User==null)
 				{
 					if(CanLogin)
-						YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+						YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 					else
-						YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+						YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 				}
 				// 20050909 CHP : END
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 				btnSearch.Text = GetText( "btnsearch" );
 
@@ -171,8 +171,8 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if ( newSearch )
 				{
-					SEARCH_WHAT sw = ( SEARCH_WHAT ) System.Enum.Parse( typeof( SEARCH_WHAT ), listSearchWhat.SelectedValue );
-                    SEARCH_WHAT sfw = (SEARCH_WHAT)System.Enum.Parse(typeof(SEARCH_WHAT), listSearchFromWho.SelectedValue);
+					SearchWhatFlags sw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchWhat.SelectedValue );
+                    SearchWhatFlags sfw = (SearchWhatFlags)System.Enum.Parse(typeof(SearchWhatFlags), listSearchFromWho.SelectedValue);
 					int forumID = int.Parse( listForum.SelectedValue );
 
                     DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult(txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID);
@@ -239,7 +239,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				string messageID = cell.InnerText;
 				int rowCount = e.Item.ItemIndex + 1 + ( Pager.CurrentPageIndex * Pager.PageSize );
-				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", messageID ) );
+				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", messageID ) );
 			}
 		}
 	}

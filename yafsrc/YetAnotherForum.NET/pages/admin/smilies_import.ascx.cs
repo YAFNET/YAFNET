@@ -22,8 +22,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack)
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Smilies Import","");
 
 				BindData();
@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
 				dr["FileName"] = "Select File (*.pak)";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",yaf_ForumInfo.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",YafForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.pak");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -67,7 +67,7 @@ namespace YAF.Pages.Admin
 				return;
 			}
 
-			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",yaf_ForumInfo.ForumRoot,File.SelectedItem.Text));
+			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",YafForumInfo.ForumRoot,File.SelectedItem.Text));
 			string sSplit = System.Text.RegularExpressions.Regex.Escape("=+:");
 
 			using(System.IO.StreamReader file = new System.IO.StreamReader(sFileName)) 
@@ -88,12 +88,12 @@ namespace YAF.Pages.Admin
 				} while(true);
 				file.Close();
 			}
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 		private void cancel_Click(object sender, System.EventArgs e) 
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 
 

@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(User==null)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -54,8 +54,8 @@ namespace YAF.Pages // YAF.Pages
 				{
 					foreach(DataRow row in dt.Rows) 
 					{
-						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
+						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
 						PageLinks.AddLink(GetText("TITLE"),"");
 						ViewState["to"] = (int)row["ICQ"];
 						Status.Src = string.Format("http://web.icq.com/whitepages/online?icq={0}&img=5",row["ICQ"]);

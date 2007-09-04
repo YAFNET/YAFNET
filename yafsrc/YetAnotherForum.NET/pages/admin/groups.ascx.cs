@@ -41,12 +41,12 @@ namespace YAF.Pages.Admin
     {
       if ( !IsPostBack )
       {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+        PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
         PageLinks.AddLink( "Roles", "" );
 
         // sync roles just in case...
-        YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( YAF.Classes.Utils.yaf_Context.Current.PageBoardID );
+        YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( YAF.Classes.Utils.YafContext.Current.PageBoardID );
 
         BindData();
       }
@@ -89,7 +89,7 @@ namespace YAF.Pages.Admin
       switch ( e.CommandName )
       {
         case "edit":
-          YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", e.CommandArgument );
+          YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", e.CommandArgument );
           break;
         case "delete":
           string roleName = string.Empty;
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
 
     protected void NewGroup_Click( object sender, System.EventArgs e )
     {
-      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup );
+      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup );
     }
 
     protected bool BitSet( object _o, int bitmask )

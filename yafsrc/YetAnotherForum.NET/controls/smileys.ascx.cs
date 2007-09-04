@@ -40,7 +40,7 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			yaf_BoardSettings bs = PageContext.BoardSettings;
+			YafBoardSettings bs = PageContext.BoardSettings;
 			pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
 			perrow = bs.SmiliesPerRow;
 
@@ -93,13 +93,13 @@ namespace YAF.Controls
 						strCode = strCode.Replace( "&", "&amp;" );
 						strCode = strCode.Replace( "\"", "&quot;" );
 						strCode = strCode.Replace( "'", "\\'" );
-						evt = String.Format( "javascript:{0}('{1} ','{3}images/emoticons/{2}')", _onclick, strCode, row ["Icon"], yaf_ForumInfo.ForumRoot );
+						evt = String.Format( "javascript:{0}('{1} ','{3}images/emoticons/{2}')", _onclick, strCode, row ["Icon"], YafForumInfo.ForumRoot );
 					}
 					else
 					{
 						evt = "javascript:void()";
 					}
-					html.AppendFormat( "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n", yaf_BuildLink.Smiley( ( string ) row ["Icon"] ), row ["Emoticon"], evt );
+					html.AppendFormat( "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n", YafBuildLink.Smiley( ( string ) row ["Icon"] ), row ["Emoticon"], evt );
 					rowcells++;
 				}
 			}

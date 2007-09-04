@@ -56,27 +56,27 @@ namespace YAF.Controls
 			Attach.Visible = !PostDeleted && CanAttach;
 			Attach.Text = PageContext.Theme.GetItem( "BUTTONS", "ATTACHMENTS" );
 			Attach.ToolTip = "Attachments";
-			Attach.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
+			Attach.NavigateUrl = YafBuildLink.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
 			Edit.Visible = !PostDeleted && CanEditPost;
 			Edit.Text = PageContext.Theme.GetItem( "BUTTONS", "EDITPOST" );
 			Edit.ToolTip = "Edit this post";
-			Edit.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
+			Edit.NavigateUrl = YafBuildLink.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
 			MovePost.Visible = PageContext.ForumModeratorAccess;
 			MovePost.Text = PageContext.Theme.GetItem( "BUTTONS", "MOVEPOST" );
 			MovePost.ToolTip = "Move this post";
-			MovePost.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
+			MovePost.NavigateUrl = YafBuildLink.GetLink( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
 			Delete.Visible = !PostDeleted && CanDeletePost;
 			Delete.Text = PageContext.Theme.GetItem( "BUTTONS", "DELETEPOST" );
 			Delete.ToolTip = "Delete this post";
-			Delete.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
+			Delete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
 			UnDelete.Visible = CanUnDeletePost;
 			UnDelete.Text = PageContext.Theme.GetItem( "BUTTONS", "UNDELETEPOST" );
 			UnDelete.ToolTip = "UnDelete this post";
-			UnDelete.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
+			UnDelete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
 			Quote.Visible = !PostDeleted && CanReply;
 			Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
 			Quote.ToolTip = "Reply with quote";
-			Quote.NavigateUrl = yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
+			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
             // report posts
             ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse; // Mek Addition 08/18/2007
@@ -89,10 +89,10 @@ namespace YAF.Controls
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = PageContext.Theme.GetItem( "BUTTONS", "PM" );
-			Pm.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
+			Pm.NavigateUrl = YafBuildLink.GetLink( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
 			// emailing
 			Email.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
-			Email.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Email.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = PageContext.Theme.GetItem( "BUTTONS", "EMAIL" );
 			// home page
 			Home.Visible = !PostDeleted && DataRow ["HomePage"] != DBNull.Value;
@@ -105,19 +105,19 @@ namespace YAF.Controls
 			// MSN
 			Msn.Visible = !PostDeleted && PageContext.User != null && DataRow ["MSN"] != DBNull.Value;
 			Msn.Text = PageContext.Theme.GetItem( "BUTTONS", "MSN" );
-			Msn.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Msn.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			// Yahoo IM
 			Yim.Visible = !PostDeleted && PageContext.User != null && DataRow ["YIM"] != DBNull.Value;
-			Yim.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
+			Yim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
 			Yim.Text = PageContext.Theme.GetItem( "BUTTONS", "YAHOO" );
 			// AOL IM
 			Aim.Visible = !PostDeleted && PageContext.User != null && DataRow ["AIM"] != DBNull.Value;
 			Aim.Text = PageContext.Theme.GetItem( "BUTTONS", "AIM" );
-			Aim.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
+			Aim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
 			// ICQ
 			Icq.Visible = !PostDeleted && PageContext.User != null && DataRow ["ICQ"] != DBNull.Value;
 			Icq.Text = PageContext.Theme.GetItem( "BUTTONS", "ICQ" );
-			Icq.NavigateUrl = yaf_BuildLink.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
+			Icq.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
 
 			if ( !PostDeleted )
 			{
@@ -127,7 +127,7 @@ namespace YAF.Controls
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = ( Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) ? "by moderator" : "by user";
-					AdminInformation.InnerHtml += String.Format( "|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, yaf_DateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
+					AdminInformation.InnerHtml += String.Format( "|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, YafDateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified
@@ -296,7 +296,7 @@ namespace YAF.Controls
 
 			int iIndent = ( int ) DataRow ["Indent"];
 			if ( iIndent > 0 )
-				return string.Format( "<td rowspan='3' width='1%'><img src='{1}images/spacer.gif' width='{0}' height='2'/></td>", iIndent * 32, yaf_ForumInfo.ForumRoot );
+				return string.Format( "<td rowspan='3' width='1%'><img src='{1}images/spacer.gif' width='{0}' height='2'/></td>", iIndent * 32, YafForumInfo.ForumRoot );
 			else
 				return "";
 		}
@@ -347,7 +347,7 @@ namespace YAF.Controls
 						String.Format(
 							"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />", 
 							DataRow["UserID"], 
-							yaf_ForumInfo.ForumRoot
+							YafForumInfo.ForumRoot
 							)
 						)
 					);
@@ -364,7 +364,7 @@ namespace YAF.Controls
 							Server.UrlEncode(DataRow["Avatar"].ToString()),
 							PageContext.BoardSettings.AvatarWidth,
 							PageContext.BoardSettings.AvatarHeight,
-							yaf_ForumInfo.ForumRoot
+							YafForumInfo.ForumRoot
 							)
 						)
 					);
@@ -397,7 +397,7 @@ namespace YAF.Controls
 						PageContext.BoardSettings.UserBoxRankImage,
 						String.Format(
 							"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
-							yaf_ForumInfo.ForumRoot, 
+							YafForumInfo.ForumRoot, 
 							DataRow["RankImage"]
 							)
 						)
@@ -471,7 +471,7 @@ namespace YAF.Controls
 						String.Format(
 							PageContext.BoardSettings.UserBoxJoinDate,
 							PageContext.Localization.GetText("joined"),
-							yaf_DateTime.FormatDateShort((DateTime)DataRow["Joined"])
+							YafDateTime.FormatDateShort((DateTime)DataRow["Joined"])
 							)
 						);
 				}
@@ -616,7 +616,7 @@ namespace YAF.Controls
 									messageOutput.AppendLine( @"</i><br />" );
 									bFirstItem = false;
 								}
-								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", yaf_ForumInfo.ForumRoot, dr ["AttachmentID"], Server.HtmlEncode( Convert.ToString( dr ["FileName"] ) ) );
+								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", YafForumInfo.ForumRoot, dr ["AttachmentID"], Server.HtmlEncode( Convert.ToString( dr ["FileName"] ) ) );
 							}
 							else if ( !bShowImage && tmpDisplaySort == 0 )
 							{
@@ -627,7 +627,7 @@ namespace YAF.Controls
 								}
 								// regular file attachment
 								int kb = ( 1023 + ( int ) dr ["Bytes"] ) / 1024;
-								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <b><a href=""{1}resource.ashx?a={2}"">{3}</a></b> <span class=""smallfont"">{4}</span><br />", strFileIcon, yaf_ForumInfo.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
+								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <b><a href=""{1}resource.ashx?a={2}"">{3}</a></b> <span class=""smallfont"">{4}</span><br />", strFileIcon, YafForumInfo.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
 							}
 						}
 						// now show images
@@ -643,10 +643,10 @@ namespace YAF.Controls
 			switch ( e.Item )
 			{
 				case "userprofile":
-					yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", DataRow ["UserID"] );
+					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", DataRow ["UserID"] );
 					break;
 				case "edituser":
-					yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", DataRow ["UserID"] );
+					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", DataRow ["UserID"] );
 					break;
 			}
 		}

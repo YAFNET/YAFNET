@@ -7,7 +7,7 @@ namespace YAF.Classes.Base
   /// <summary>
   /// Runs 
   /// </summary>
-  public class YAFInitModule : System.Web.IHttpModule 
+  public class YafInitModule : System.Web.IHttpModule 
   {
     protected int BoardID
     {

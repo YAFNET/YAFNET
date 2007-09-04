@@ -45,7 +45,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( User == null || !PageContext.BoardSettings.AllowEmailSending )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if ( !IsPostBack )
 			{
@@ -53,8 +53,8 @@ namespace YAF.Pages // YAF.Pages
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-						PageLinks.AddLink( row ["Name"].ToString(), YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["UserID"] ) );
+						PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+						PageLinks.AddLink( row ["Name"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["UserID"] ) );
 						PageLinks.AddLink( GetText( "TITLE" ), "" );
 						break;
 					}
@@ -88,7 +88,7 @@ namespace YAF.Pages // YAF.Pages
 					}
 				}
 				General.SendMail( from, fromName, to, toName, Subject.Text, Body.Text );
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", Request.QueryString ["u"] );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", Request.QueryString ["u"] );
 			}
 			catch ( Exception x )
 			{

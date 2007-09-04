@@ -9,11 +9,11 @@ namespace YAF.Classes.Base
 	/// </summary>
 	public class BaseUserControl : System.Web.UI.UserControl
 	{
-		public yaf_Context PageContext
+		public YafContext PageContext
 		{
 			get
 			{
-				return yaf_Context.Current;
+				return YafContext.Current;
 			}
 		}
 	}

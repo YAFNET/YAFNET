@@ -29,13 +29,13 @@
         </tr>
         <tr class="postheader">
             <td>
-                <asp:HyperLink ID="UserName" runat="server" href='<%# yaf_BuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "[\"UserID\"]")) %>'> <%# Eval("UserName") %> </asp:HyperLink></b>
+                <asp:HyperLink ID="UserName" runat="server" href='<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "[\"UserID\"]")) %>'> <%# Eval("UserName") %> </asp:HyperLink></b>
             </td>
             <td>
                 <b>
                     <%# PageContext.Localization.GetText("POSTED") %>
                 </b>
-                <%# yaf_DateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
+                <%# YafDateTime.FormatDateTime((System.DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
                 <b>
                     <%# PageContext.Localization.GetText("NUMBERREPORTED")%>
                 </b>

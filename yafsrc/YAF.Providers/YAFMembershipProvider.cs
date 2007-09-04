@@ -33,7 +33,7 @@ namespace YAF.Providers
 	/// </devdoc>
 	// Remove CAS from sample: [AspNetHostingPermission(SecurityAction.LinkDemand, Level=AspNetHostingPermissionLevel.Minimal)]
 	// Remove CAS from sample: [AspNetHostingPermission(SecurityAction.InheritanceDemand, Level=AspNetHostingPermissionLevel.Minimal)]
-	public class YAFMembershipProvider : MembershipProvider
+	public class YafMembershipProvider : MembershipProvider
 	{
 
 		public override bool EnablePasswordRetrieval { get { return _EnablePasswordRetrieval; } }

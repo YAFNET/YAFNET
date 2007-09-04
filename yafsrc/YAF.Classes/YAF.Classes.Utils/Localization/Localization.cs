@@ -26,18 +26,18 @@ using System.Web;
 
 namespace YAF.Classes.Utils
 {
-  public class yaf_Localization
+  public class YafLocalization
   {
-    private Localizer m_localizer = null;
-    private Localizer m_defaultLocale = null;
-    private string m_transPage = null;
+    private Localizer _localizer = null;
+    private Localizer _defaultLocale = null;
+    private string _transPage = null;
 
-    public yaf_Localization()
+    public YafLocalization()
     {
 
     }
 
-    public yaf_Localization( string transPage )
+    public YafLocalization( string transPage )
       : this()
     {
       TransPage = transPage;
@@ -51,13 +51,13 @@ namespace YAF.Classes.Utils
       get
       {
         //if ( m_transPage != null )
-        return m_transPage;
+        return _transPage;
 
         //throw new ApplicationException( string.Format( "Missing TransPage property for {0}", GetType() ) );
       }
       set
       {
-        m_transPage = value;
+        _transPage = value;
       }
     }
 
@@ -65,8 +65,8 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if ( m_localizer != null )
-          return m_localizer.LanguageCode;
+        if ( _localizer != null )
+          return _localizer.LanguageCode;
 
         return LoadTranslation();
       }
@@ -79,52 +79,52 @@ namespace YAF.Classes.Utils
 
     private string LoadTranslation()
     {
-      if ( m_localizer != null )
-        return m_localizer.LanguageCode;
+      if ( _localizer != null )
+        return _localizer.LanguageCode;
 
       string filename = null;
 
-      if ( yaf_Context.Current.PageIsNull() || yaf_Context.Current.Page ["LanguageFile"] == DBNull.Value || !yaf_Context.Current.BoardSettings.AllowUserLanguage )
+      if ( YafContext.Current.PageIsNull() || YafContext.Current.Page ["LanguageFile"] == DBNull.Value || !YafContext.Current.BoardSettings.AllowUserLanguage )
       {
-        filename = yaf_Context.Current.BoardSettings.Language;
+        filename = YafContext.Current.BoardSettings.Language;
       }
       else
       {
-        filename = yaf_Context.Current.LanguageFile;
+        filename = YafContext.Current.LanguageFile;
       }
 
       if ( filename == null ) filename = "english.xml";
 
 #if !DEBUG
-      if ( m_localizer == null && HttpContext.Current.Cache ["Localizer." + filename] != null )
-        m_localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + filename];
+      if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + filename] != null )
+        _localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + filename];
 #endif
-      if ( m_localizer == null )
+      if ( _localizer == null )
       {
 
-        m_localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", yaf_ForumInfo.ForumRoot, filename ) ) );
+        _localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", YafForumInfo.ForumRoot, filename ) ) );
 #if !DEBUG
-        HttpContext.Current.Cache ["Localizer." + filename] = m_localizer;
+        HttpContext.Current.Cache ["Localizer." + filename] = _localizer;
 #endif
       }
       // If not using default language load that too
       if ( filename.ToLower() != "english.xml" )
       {
 #if !DEBUG
-        if ( m_defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
-          m_defaultLocale = ( Localizer ) HttpContext.Current.Cache ["DefaultLocale"];
+        if ( _defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
+          _defaultLocale = ( Localizer ) HttpContext.Current.Cache ["DefaultLocale"];
 #endif
 
-        if ( m_defaultLocale == null )
+        if ( _defaultLocale == null )
         {
-          m_defaultLocale = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/english.xml", yaf_ForumInfo.ForumRoot ) ) );
+          _defaultLocale = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/english.xml", YafForumInfo.ForumRoot ) ) );
 #if !DEBUG
-          HttpContext.Current.Cache ["DefaultLocale"] = m_defaultLocale;
+          HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
 #endif
         }
       }
 
-      return m_localizer.LanguageCode;
+      return _localizer.LanguageCode;
     }
 
     public string GetText( string page, string tag )
@@ -132,14 +132,14 @@ namespace YAF.Classes.Utils
       LoadTranslation();
       string localizedText;
 
-      m_localizer.SetPage( page );
-      m_localizer.GetText( tag, out localizedText );
+      _localizer.SetPage( page );
+      _localizer.GetText( tag, out localizedText );
 
       // If not default language, try to use that instead
-      if ( localizedText == null && m_defaultLocale != null )
+      if ( localizedText == null && _defaultLocale != null )
       {
-        m_defaultLocale.SetPage( page );
-        m_defaultLocale.GetText( tag, out localizedText );
+        _defaultLocale.SetPage( page );
+        _defaultLocale.GetText( tag, out localizedText );
         if ( localizedText != null ) localizedText = '[' + localizedText + ']';
       }
 
@@ -148,22 +148,22 @@ namespace YAF.Classes.Utils
 #if !DEBUG
         string filename = string.Empty;
 
-        if ( yaf_Context.Current.PageIsNull() ||
-             yaf_Context.Current.LanguageFile == string.Empty ||
-             !yaf_Context.Current.BoardSettings.AllowUserLanguage )
+        if ( YafContext.Current.PageIsNull() ||
+             YafContext.Current.LanguageFile == string.Empty ||
+             !YafContext.Current.BoardSettings.AllowUserLanguage )
         {
-          filename = yaf_Context.Current.BoardSettings.Language;
+          filename = YafContext.Current.BoardSettings.Language;
         }
         else
         {
-          filename = yaf_Context.Current.LanguageFile;
+          filename = YafContext.Current.LanguageFile;
         }
 
         if ( filename == string.Empty ) filename = "english.xml";
 
         HttpContext.Current.Cache.Remove( "Localizer." + filename );
 #endif
-        YAF.Classes.Data.DB.eventlog_create( yaf_Context.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
+        YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
         return String.Format( "[{1}.{0}]", tag.ToUpper(), page.ToUpper() ); ;
       }
 

@@ -55,10 +55,10 @@ namespace YAF.Controls
 		public virtual void RaisePostDataChangedEvent()
 		{
 			if ( ForumID > 0 )
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
 #if TODO
 			else
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum,"c={0}",-ForumID);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum,"c={0}",-ForumID);
 #endif
 		}
 		#endregion

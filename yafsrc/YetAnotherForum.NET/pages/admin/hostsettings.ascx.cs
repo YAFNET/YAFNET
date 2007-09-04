@@ -43,12 +43,12 @@ namespace YAF.Pages.Admin {
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!PageContext.IsHostAdmin)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Host Settings","");
 
 				BindData();
@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin {
 
 		private void BindData()
 		{
-			TimeZones.DataSource = yaf_StaticData.TimeZones();
+			TimeZones.DataSource = YafStaticData.TimeZones();
 			ForumEditorList.DataSource = YAF.Editor.EditorHelper.GetEditorsTable();
 
 			DataBind();
@@ -265,7 +265,7 @@ namespace YAF.Pages.Admin {
 			// reload all settings from the DB
 			PageContext.BoardSettings = null;
 
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin);
 		}
 	}
 }

@@ -63,12 +63,12 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( User == null )
 			{
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 			}
 
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				SetSort( "Name", true );
@@ -211,7 +211,7 @@ namespace YAF.Pages // YAF.Pages
 
 				HyperLink btn = new HyperLink();
 				btn.Text = letter.ToString();
-				btn.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
+				btn.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
 				cell.Controls.Add( btn );
 
 				LetterRow.Cells.Add( cell );

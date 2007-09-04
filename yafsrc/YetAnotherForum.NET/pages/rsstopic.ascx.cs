@@ -59,32 +59,32 @@ namespace YAF.Pages // YAF.Pages
 			{
 				case "latestposts":
 					if ( !PageContext.ForumReadAccess )
-						yaf_BuildLink.AccessDenied();
+						YafBuildLink.AccessDenied();
 					using ( DataTable dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 					}
 					break;
 				case "latestannouncements":
 					if ( !PageContext.ForumReadAccess )
-						yaf_BuildLink.AccessDenied();
+						YafBuildLink.AccessDenied();
 					using ( DataTable dt = YAF.Classes.Data.DB.topic_announcements( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 					}
 					break;
 				case "posts":
 					if ( !PageContext.ForumReadAccess )
-						yaf_BuildLink.AccessDenied();
+						YafBuildLink.AccessDenied();
 
 					if ( Request.QueryString ["t"] != null )
 					{
 						using ( DataTable dt = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages ) )
 						{
 							foreach ( DataRow row in dt.Rows )
-								rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 						}
 					}
 
@@ -96,18 +96,18 @@ namespace YAF.Pages // YAF.Pages
 						{
 							if ( row ["LastTopicID"] != DBNull.Value )
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 							else
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem( writer, row ["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
 							}
 						}
 					}
 					break;
 				case "topics":
 					if ( !PageContext.ForumReadAccess )
-						yaf_BuildLink.AccessDenied();
+						YafBuildLink.AccessDenied();
 
 					if ( Request.QueryString ["f"] != null )
 					{
@@ -116,7 +116,7 @@ namespace YAF.Pages // YAF.Pages
 						{
 							foreach ( DataRow row in dt.Rows )
 							{
-								rf.AddRSSItem( writer, row ["Topic"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem( writer, row ["Topic"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
 							}
 						}
 					}
@@ -127,7 +127,7 @@ namespace YAF.Pages // YAF.Pages
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), yaf_ForumInfo.ServerURL + yaf_BuildLink.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
+							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
 						}
 					}
 					break;

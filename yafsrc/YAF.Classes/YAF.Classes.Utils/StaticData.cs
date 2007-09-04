@@ -27,7 +27,7 @@ namespace YAF.Classes.Utils
 	/// <summary>
 	/// Summary description for StaticData.
 	/// </summary>
-	public class yaf_StaticData
+	public class YafStaticData
 	{
 		public static DataTable TimeZones()
 		{
@@ -77,7 +77,7 @@ namespace YAF.Classes.Utils
 				dt.Columns.Add( "Theme", typeof( string ) );
 				dt.Columns.Add( "FileName", typeof( string ) );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}themes", yaf_ForumInfo.ForumRoot ) ) );
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}themes", YafForumInfo.ForumRoot ) ) );
 				System.IO.FileInfo [] files = dir.GetFiles( "*.xml" );
 				foreach ( System.IO.FileInfo file in files )
 				{
@@ -106,7 +106,7 @@ namespace YAF.Classes.Utils
 				dt.Columns.Add( "Language", typeof( string ) );
 				dt.Columns.Add( "FileName", typeof( string ) );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}languages", yaf_ForumInfo.ForumRoot ) ) );
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}languages", YafForumInfo.ForumRoot ) ) );
 				System.IO.FileInfo [] files = dir.GetFiles( "*.xml" );
 				foreach ( System.IO.FileInfo file in files )
 				{
@@ -140,7 +140,7 @@ namespace YAF.Classes.Utils
 				for ( int i = 0; i < 8; i++ )
 				{
 					DataRow dr = dt.NewRow();
-					dr ["TopicText"] = ( yaf_Context.Current.Localization.TransPage == null ) ? tTextArrayProp [i] : yaf_Context.Current.Localization.GetText( tTextArray [i] );
+					dr ["TopicText"] = ( YafContext.Current.Localization.TransPage == null ) ? tTextArrayProp [i] : YafContext.Current.Localization.GetText( tTextArray [i] );
 					dr ["TopicValue"] = i;
 					dt.Rows.Add( dr );
 				}

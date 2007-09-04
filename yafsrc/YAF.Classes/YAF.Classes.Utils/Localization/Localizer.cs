@@ -42,9 +42,9 @@ namespace YAF.Classes.Utils
 			//
 		}
 
-		public Localizer( string FileName )
+		public Localizer( string fileName )
 		{
-			_fileName = FileName;
+			_fileName = fileName;
 			LoadFile();
 		}
 
@@ -71,9 +71,9 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public void LoadFile( string FileName )
+		public void LoadFile( string fileName )
 		{
-			_fileName = FileName;
+			_fileName = fileName;
 			LoadFile();
 		}
 

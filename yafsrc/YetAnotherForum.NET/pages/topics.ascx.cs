@@ -56,7 +56,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			Mession.UnreadTopics = 0;
-			RssFeed.NavigateUrl = YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString ["f"] );
+			RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString ["f"] );
 			RssFeed.Text = GetText( "RSSFEED" );
 			RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
 			RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;
@@ -68,8 +68,8 @@ namespace YAF.Pages // YAF.Pages
 
 				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
 
 				PageLinks.AddForumLinks( PageContext.PageForumID, true );
@@ -85,7 +85,7 @@ namespace YAF.Pages // YAF.Pages
 				NewTopic2.Text = NewTopic1.Text;
 				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
-				ShowList.DataSource = yaf_StaticData.TopicTimes( );
+				ShowList.DataSource = YafStaticData.TopicTimes( );
 				ShowList.DataTextField = "TopicText";
 				ShowList.DataValueField = "TopicValue";
 				ShowTopicListSelected = ( Mession.ShowList == -1 ) ? PageContext.BoardSettings.ShowTopicsDefault : Mession.ShowList;
@@ -94,10 +94,10 @@ namespace YAF.Pages // YAF.Pages
 			}
 
 			if ( Request.QueryString ["f"] == null )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if ( !PageContext.ForumReadAccess )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
 				forum = dt.Rows [0];
@@ -189,7 +189,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 
 			if ( PageContext.ForumModeratorAccess )
-				YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID );
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID );
 		}
 
 		private void ShowList_SelectedIndexChanged( object sender, System.EventArgs e )
@@ -276,9 +276,9 @@ namespace YAF.Pages // YAF.Pages
 			}
 
 			if ( !PageContext.ForumPostAccess )
-				yaf_BuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
+				YafBuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
 
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "f={0}", PageContext.PageForumID );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "f={0}", PageContext.PageForumID );
 		}
 
 		private void WatchForum_Click( object sender, System.EventArgs e )

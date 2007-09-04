@@ -41,16 +41,16 @@ namespace YAF.Pages // YAF.Pages
     protected void Page_Load( object sender, EventArgs e )
     {
       if ( User == null )
-        yaf_BuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+        YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 
       // check if this feature is disabled
       if ( !PageContext.BoardSettings.AllowPrivateMessages )
-        yaf_BuildLink.Redirect( ForumPages.info, "i=5" );
+        YafBuildLink.Redirect( ForumPages.info, "i=5" );
 
       if ( !IsPostBack )
       {
         if ( String.IsNullOrEmpty( Request.QueryString ["pm"] ) )
-          yaf_BuildLink.AccessDenied();
+          YafBuildLink.AccessDenied();
         else
           BindData();
       }
@@ -100,8 +100,8 @@ namespace YAF.Pages // YAF.Pages
         IsArchived = Request.QueryString ["v"] == "arch";  
      
         // see if the message got deleted, if so, redirect to their outbox/archive
-        if ( IsOutbox && !messageIsInOutbox ) yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=out" );
-        else if (IsArchived && !messageIsArchived ) yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=arch" );
+        if ( IsOutbox && !messageIsInOutbox ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
+        else if (IsArchived && !messageIsArchived ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=arch" );
       }
       else if (isCurrentUserFrom)
       {
@@ -109,7 +109,7 @@ namespace YAF.Pages // YAF.Pages
         if (!messageIsInOutbox)
         {
           // deleted for this user, redirect...
-          yaf_BuildLink.Redirect( ForumPages.cp_pm, "v=out" );
+          YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
         }
         else
         {
@@ -136,27 +136,27 @@ namespace YAF.Pages // YAF.Pages
           // if the pm isn't from or two the current user--then it's access denied
           if ( ( int ) row ["ToUserID"] != PageContext.PageUserID &&
               ( int ) row ["FromUserID"] != PageContext.PageUserID )
-            yaf_BuildLink.AccessDenied();
+            YafBuildLink.AccessDenied();
 
           SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
 
-          PageLinks.AddLink( PageContext.BoardSettings.Name, yaf_BuildLink.GetLink( ForumPages.forum ) );
-          PageLinks.AddLink( PageContext.PageUserName, yaf_BuildLink.GetLink( ForumPages.cp_profile ) );
+          PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+          PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
           
           // get the return link to the pm listing
           if ( IsOutbox )
-            PageLinks.AddLink( GetText( "SENTITEMS" ), yaf_BuildLink.GetLink( ForumPages.cp_pm, "v=out" ) );
+            PageLinks.AddLink( GetText( "SENTITEMS" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=out" ) );
           else if ( IsArchived )
-            PageLinks.AddLink( GetText( "ARCHIVE" ), yaf_BuildLink.GetLink( ForumPages.cp_pm, "v=arch" ) );
+            PageLinks.AddLink( GetText( "ARCHIVE" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=arch" ) );
           else
-            PageLinks.AddLink( GetText( "INBOX" ), yaf_BuildLink.GetLink( ForumPages.cp_pm ) );
+            PageLinks.AddLink( GetText( "INBOX" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
 
           PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 
           Inbox.DataSource = dt;
         }
         else
-          yaf_BuildLink.Redirect( ForumPages.cp_pm );
+          YafBuildLink.Redirect( ForumPages.cp_pm );
       }
 
       DataBind();
@@ -179,11 +179,11 @@ namespace YAF.Pages // YAF.Pages
       }
       else if ( e.CommandName == "reply" )
       {
-        yaf_BuildLink.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
+        YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
       }
       else if ( e.CommandName == "quote" )
       {
-        yaf_BuildLink.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
+        YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
       }
     }
 

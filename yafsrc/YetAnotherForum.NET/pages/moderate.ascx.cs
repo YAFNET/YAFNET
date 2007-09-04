@@ -44,7 +44,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!PageContext.ForumModeratorAccess)
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			if(!IsPostBack) 
 			{
@@ -52,8 +52,8 @@ namespace YAF.Pages // YAF.Pages
 
 				if(PageContext.Settings.LockedForum==0)
 				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
+					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 				PageLinks.AddLink(GetText("TITLE"),"");
@@ -63,7 +63,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void AddUser_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}",PageContext.PageForumID);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}",PageContext.PageForumID);
 		}
 
 		protected void Delete_Load(object sender, System.EventArgs e) 
@@ -96,7 +96,7 @@ namespace YAF.Pages // YAF.Pages
 			switch(e.CommandName) 
 			{
 				case "edit":
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}&u={1}",PageContext.PageForumID,e.CommandArgument);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}&u={1}",PageContext.PageForumID,e.CommandArgument);
 					break;
 				case "remove":
 					YAF.Classes.Data.DB.userforum_delete(e.CommandArgument,PageContext.PageForumID);

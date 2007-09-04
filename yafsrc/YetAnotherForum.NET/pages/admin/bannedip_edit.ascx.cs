@@ -40,9 +40,9 @@ namespace YAF.Pages.Admin
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Banned IP Addresses",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink("Banned IP Addresses",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip));
 
 				BindData();
 			}
@@ -64,14 +64,14 @@ namespace YAF.Pages.Admin
 			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageContext.PageBoardID,mask.Text);
 
 			// clear cache of banned IPs for this board
-			yaf_Cache.Current.Remove(yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP));
+			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
 
 			// go back to banned IP's administration page
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
 		}
 
 		private void cancel_Click(object sender,EventArgs e) {
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
 		}
 
 		#region Web Form Designer generated code

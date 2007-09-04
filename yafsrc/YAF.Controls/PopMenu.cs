@@ -9,18 +9,18 @@ namespace YAF.Controls
 	/// </summary>
 	public class PopMenu : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
-		private string m_control = string.Empty;
-		private Hashtable m_items = new Hashtable();
+		private string _control = string.Empty;
+		private Hashtable _items = new Hashtable();
 
 		public string Control
 		{
 			set
 			{
-				m_control = value;
+				_control = value;
 			}
 			get
 			{
-				return m_control;
+				return _control;
 			}
 		}
 
@@ -28,13 +28,13 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return string.Format( "{0}_{1}", Parent.ClientID, m_control );
+				return string.Format( "{0}_{1}", Parent.ClientID, _control );
 			}
 		}
 
 		public void AddItem( string title, string script )
 		{
-			m_items.Add( title, script );
+			_items.Add( title, script );
 		}
 
 		public void Attach( System.Web.UI.WebControls.WebControl ctl )
@@ -71,9 +71,9 @@ namespace YAF.Controls
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
 			sb.AppendFormat( "<table width='1%' class='content' border=\"0\" cellspacing=\"0\" cellpadding=\"4\" id=\"{0}\" style=\"position:absolute;z-index:100;left:0;top:0;visibility:hidden;padding:0px;border:1px solid #FFFFFF;background-color:#FFFFFF\">", UniqueID );
-			foreach ( string key in m_items.Keys )
+			foreach ( string key in _items.Keys )
 			{
-				sb.AppendFormat( "<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"{1}\"><nobr>{0}</nobr></td></tr>\n", m_items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
+				sb.AppendFormat( "<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"{1}\"><nobr>{0}</nobr></td></tr>\n", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
 			}
 			sb.AppendFormat( "</table>" );
 
@@ -95,18 +95,18 @@ namespace YAF.Controls
 
 	public class PopEventArgs : EventArgs
 	{
-		private string m_item;
+		private string _item;
 
 		public PopEventArgs( string eventArgument )
 		{
-			m_item = eventArgument;
+			_item = eventArgument;
 		}
 
 		public string Item
 		{
 			get
 			{
-				return m_item;
+				return _item;
 			}
 		}
 	}

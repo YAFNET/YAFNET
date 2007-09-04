@@ -37,7 +37,7 @@ namespace YAF
 	{
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			//YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.error,Request.QueryString.ToString());
+			//YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.error,Request.QueryString.ToString());
       if ( !IsPostBack )
       {
         string errorMessage = @"There has been a serious error loading the forum. No futher information is available.";

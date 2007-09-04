@@ -22,7 +22,7 @@ using System.Text;
 
 namespace YAF.Classes.Utils
 {
-	public static class yaf_DateTime
+	public static class YafDateTime
 	{
 		/// <summary>
 		/// Returns the user timezone offset from GMT
@@ -31,9 +31,9 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( yaf_Context.Current.Page != null )
+				if ( YafContext.Current.Page != null )
 				{
-					int min = yaf_Context.Current.TimeZoneUser;
+					int min = YafContext.Current.TimeZoneUser;
 					return new TimeSpan( min / 60, min % 60, 0 );
 				}
 				else
@@ -47,7 +47,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return TimeZoneOffsetUser - yaf_Context.Current.BoardSettings.TimeZone;
+				return TimeZoneOffsetUser - YafContext.Current.BoardSettings.TimeZone;
 			}
 		}
 		/// <summary>
@@ -64,8 +64,8 @@ namespace YAF.Classes.Utils
 
 			try
 			{
-				if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
-					strDateFormat = dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_DATE_TIME_LONG" ) );
+				if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
+					strDateFormat = dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_DATE_TIME_LONG" ) );
 			}
 			catch ( Exception )
 			{
@@ -92,16 +92,16 @@ namespace YAF.Classes.Utils
 				if ( dt.Date == nt.Date )
 				{
 					// today
-					strDateFormat = String.Format( yaf_Context.Current.Localization.GetText( "TodayAt" ), dt );
+					strDateFormat = String.Format( YafContext.Current.Localization.GetText( "TodayAt" ), dt );
 				}
 				else if ( dt.Date == nt.AddDays( -1 ).Date )
 				{
 					// yesterday
-					strDateFormat = String.Format( yaf_Context.Current.Localization.GetText( "YesterdayAt" ), dt );
+					strDateFormat = String.Format( YafContext.Current.Localization.GetText( "YesterdayAt" ), dt );
 				}
-				else if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
+				else if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
 				{
-					strDateFormat = dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_DATE_TIME_SHORT" ) );
+					strDateFormat = dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_DATE_TIME_SHORT" ) );
 				}
 				else
 				{
@@ -124,8 +124,8 @@ namespace YAF.Classes.Utils
 			DateTime dt = ( DateTime ) o + TimeOffset;
 			try
 			{
-				if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_DATE_TIME_SHORT" ) );
+				if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
+					return dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_DATE_TIME_SHORT" ) );
 				else
 					return String.Format( "{0:f}", dt );
 			}
@@ -144,8 +144,8 @@ namespace YAF.Classes.Utils
 			dt += TimeOffset;
 			try
 			{
-				if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_DATE_LONG" ) );
+				if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
+					return dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_DATE_LONG" ) );
 				else
 					return String.Format( "{0:D}", dt );
 			}
@@ -164,8 +164,8 @@ namespace YAF.Classes.Utils
 			DateTime dt = ( DateTime ) o + TimeOffset;
 			try
 			{
-				if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_DATE_SHORT" ) );
+				if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
+					return dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_DATE_SHORT" ) );
 				else
 					return String.Format( "{0:d}", dt );
 			}
@@ -184,8 +184,8 @@ namespace YAF.Classes.Utils
 			dt += TimeOffset;
 			try
 			{
-				if ( yaf_Context.Current.BoardSettings.DateFormatFromLanguage )
-					return dt.ToString( yaf_Context.Current.Localization.GetText( "FORMAT_TIME" ) );
+				if ( YafContext.Current.BoardSettings.DateFormatFromLanguage )
+					return dt.ToString( YafContext.Current.Localization.GetText( "FORMAT_TIME" ) );
 				else
 					return String.Format( "{0:T}", dt );
 			}

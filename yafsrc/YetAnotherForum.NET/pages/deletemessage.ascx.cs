@@ -69,30 +69,30 @@ namespace YAF.Pages
 				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
 					msg = dt.Rows [0];
 				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int ) msg ["UserID"] )
-					yaf_BuildLink.AccessDenied();
+					YafBuildLink.AccessDenied();
 			}
 
 			OwnerUserId = ( int ) msg ["UserID"];
 			isModeratorChanged = ( PageContext.PageUserID != OwnerUserId );
 
 			if ( PageContext.PageForumID == 0 )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 			if ( Request ["t"] == null && !PageContext.ForumPostAccess )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 			if ( Request ["t"] != null && !PageContext.ForumReplyAccess )
-				yaf_BuildLink.AccessDenied();
+				YafBuildLink.AccessDenied();
 
 			//Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
 
-			//Message.BaseDir = yaf_ForumInfo.ForumRoot + "editors";
+			//Message.BaseDir = YafForumInfo.ForumRoot + "editors";
 			if ( !IsPostBack )
 			{
 				ViewState ["delAll"] = false;
 				DeleteReasonRow.Visible = false;
 				LinkedPosts.Visible = false;
 				Cancel.Text = GetText( "Cancel" );
-				PageLinks.AddLink( PageContext.BoardSettings.Name, yaf_BuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageCategoryName, yaf_BuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.PageCategoryName, YafBuildLink.GetLink( ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				if ( Request.QueryString ["m"] != null )
 				{
@@ -228,9 +228,9 @@ namespace YAF.Pages
 
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
 			if ( topic == null )
-				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", tmpForumID );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", tmpForumID );
 			else
-				yaf_BuildLink.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
 
 			// END CHANGED BAI 30.01.2004
 		}
@@ -258,9 +258,9 @@ namespace YAF.Pages
 
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
 			if ( topic == null )
-				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", tmpForumID );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", tmpForumID );
 			else
-				yaf_BuildLink.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", tmpTopicID );
 
 			// END CHANGED BAI 30.01.2004
 		}
@@ -271,12 +271,12 @@ namespace YAF.Pages
 			if ( Request.QueryString ["t"] != null || Request.QueryString ["m"] != null )
 			{
 				// reply to existing topic or editing of existing topic
-				yaf_BuildLink.Redirect( ForumPages.posts, "t={0}", PageContext.PageTopicID );
+				YafBuildLink.Redirect( ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			else
 			{
 				// new topic -- cancel back to forum
-				yaf_BuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", PageContext.PageForumID );
 			}
 		}
 

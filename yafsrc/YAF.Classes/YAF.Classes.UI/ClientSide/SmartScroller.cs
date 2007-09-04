@@ -14,8 +14,8 @@ namespace YAF.Classes.UI
 
 		private HtmlForm _theForm = null;
 
-		private HtmlInputHidden hidScrollLeft = new HtmlInputHidden();
-		private HtmlInputHidden hidScrollTop = new HtmlInputHidden();
+		private HtmlInputHidden _hidScrollLeft = new HtmlInputHidden();
+		private HtmlInputHidden _hidScrollTop = new HtmlInputHidden();
 		
 		public SmartScroller() {}
 		
@@ -54,11 +54,11 @@ namespace YAF.Classes.UI
 				formID = _theForm.ClientID;
 			}
 										
-			hidScrollLeft.ID = "scrollLeft";
-			hidScrollTop.ID = "scrollTop";
+			_hidScrollLeft.ID = "scrollLeft";
+			_hidScrollTop.ID = "scrollTop";
 	
-			this.Controls.Add(hidScrollLeft);
-			this.Controls.Add(hidScrollTop);						
+			this.Controls.Add(_hidScrollLeft);
+			this.Controls.Add(_hidScrollTop);						
 	
 			string scriptString = @"
 <!-- YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->
@@ -99,15 +99,15 @@ namespace YAF.Classes.UI
       scrollY = window.pageYOffset;
     }
 	var cForm = yaf_GetForm();
-    cForm." + hidScrollLeft.ClientID + @".value = scrollX;
-    cForm." + hidScrollTop.ClientID + @".value = scrollY;
+    cForm." + _hidScrollLeft.ClientID + @".value = scrollX;
+    cForm." + _hidScrollTop.ClientID + @".value = scrollY;
   }
 
   function yaf_SmartScroller_Scroll()
   {
     var cForm = yaf_GetForm();
-    var x = cForm." + hidScrollLeft.ClientID + @".value;
-    var y = cForm." + hidScrollTop.ClientID + @".value;
+    var x = cForm." + _hidScrollLeft.ClientID + @".value;
+    var y = cForm." + _hidScrollTop.ClientID + @".value;
 		if (x || y) window.scrollTo(x, y);
 		if (oldOnLoad != null) oldOnLoad();
   }
@@ -134,8 +134,8 @@ namespace YAF.Classes.UI
 
 		public void Reset()
 		{
-			hidScrollLeft.Value = "0";
-			hidScrollTop.Value = "0";
+			_hidScrollLeft.Value = "0";
+			_hidScrollTop.Value = "0";
 		}
 	}
 }

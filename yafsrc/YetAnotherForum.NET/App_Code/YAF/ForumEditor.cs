@@ -14,12 +14,12 @@ namespace YAF.Editor
 	/// </summary>
 	public class ForumEditor : Control
 	{
-		protected string m_baseDir = string.Empty;
+		protected string _baseDir = string.Empty;
 
 		public new string ResolveUrl( string relativeUrl )
 		{
-			if ( m_baseDir != string.Empty )
-				return m_baseDir + relativeUrl;
+			if ( _baseDir != string.Empty )
+				return _baseDir + relativeUrl;
 			else
 				return base.ResolveUrl( relativeUrl );
 		}
@@ -42,9 +42,9 @@ namespace YAF.Editor
 		{
 			set
 			{
-				m_baseDir = value;
-				if ( !m_baseDir.EndsWith( "/" ) )
-					m_baseDir += "/";
+				_baseDir = value;
+				if ( !_baseDir.EndsWith( "/" ) )
+					_baseDir += "/";
 			}
 		}
 		public virtual string StyleSheet
@@ -66,18 +66,18 @@ namespace YAF.Editor
 
 	public class TextEditor : ForumEditor
 	{
-		protected System.Web.UI.HtmlControls.HtmlTextArea m_textCtl;
+		protected System.Web.UI.HtmlControls.HtmlTextArea _textCtl;
 
 		protected override void OnInit( EventArgs e )
 		{
 			Load += new EventHandler( Editor_Load );
 
-			m_textCtl = new HtmlTextArea();
+			_textCtl = new HtmlTextArea();
 
-			m_textCtl.ID = "edit";
-            m_textCtl.Attributes.Add("style", "width:100%;height:100%");
-            m_textCtl.Rows = 25;
-			Controls.Add( m_textCtl );
+			_textCtl.ID = "edit";
+            _textCtl.Attributes.Add("style", "width:100%;height:100%");
+            _textCtl.Rows = 25;
+			Controls.Add( _textCtl );
 
 			/*
 			m_textCtl = new TextBox();
@@ -122,17 +122,17 @@ namespace YAF.Editor
 		{
 			get
 			{
-				return m_textCtl.InnerText;
+				return _textCtl.InnerText;
 			}
 			set
 			{
-				m_textCtl.InnerText = value;
+				_textCtl.InnerText = value;
 			}
 		}
 
 		protected string SafeID
 		{
-			get { return m_textCtl.ClientID.Replace( "$", "_" ); }
+			get { return _textCtl.ClientID.Replace( "$", "_" ); }
 		}
 
 		public override bool UsesHTML
@@ -261,28 +261,28 @@ namespace YAF.Editor
 
 	public class RichClassEditor : ForumEditor
 	{
-		protected bool bInit;
-		protected Type typEditor;
-		protected System.Web.UI.Control objEditor;
-		protected string FStyleSheet;
+		protected bool _init;
+		protected Type _typEditor;
+		protected System.Web.UI.Control _editor;
+		protected string _styleSheet;
 
 		public RichClassEditor()
 		{
-			bInit = false;
-			FStyleSheet = string.Empty;
-			objEditor = null;
-			typEditor = null;
+			_init = false;
+			_styleSheet = string.Empty;
+			_editor = null;
+			_typEditor = null;
 		}
 
 		public RichClassEditor( string ClassBinStr )
 		{
-			bInit = false;
-			FStyleSheet = string.Empty;
-			objEditor = null;
+			_init = false;
+			_styleSheet = string.Empty;
+			_editor = null;
 
 			try
 			{
-				typEditor = Type.GetType( ClassBinStr, true );
+				_typEditor = Type.GetType( ClassBinStr, true );
 			}
 			catch ( Exception x )
 			{
@@ -298,11 +298,11 @@ namespace YAF.Editor
 		{
 			try
 			{
-				if ( !bInit && typEditor != null )
+				if ( !_init && _typEditor != null )
 				{
 					// create instance of main class
-					objEditor = ( System.Web.UI.Control ) Activator.CreateInstance( typEditor );
-					bInit = true;
+					_editor = ( System.Web.UI.Control ) Activator.CreateInstance( _typEditor );
+					_init = true;
 				}
 			}
 			catch ( Exception )
@@ -333,9 +333,9 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					return objEditor.ClientID.Replace( "$", "_" );
+					return _editor.ClientID.Replace( "$", "_" );
 				}
 				return string.Empty;
 			}
@@ -343,13 +343,13 @@ namespace YAF.Editor
 
 		public bool IsInitialized
 		{
-			get { return bInit; }
+			get { return _init; }
 		}
 
 		public override string StyleSheet
 		{
-			get { return FStyleSheet; }
-			set { FStyleSheet = value; }
+			get { return _styleSheet; }
+			set { _styleSheet = value; }
 		}
 
 		public override bool UsesHTML
@@ -374,26 +374,26 @@ namespace YAF.Editor
 
 		protected override void OnInit( EventArgs e )
 		{
-			if ( bInit )
+			if ( _init )
 			{
 				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = typEditor.GetProperty( "ID" );
-				pInfo.SetValue( objEditor, "edit", null );
-				Controls.Add( objEditor );
+				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
+				pInfo.SetValue( _editor, "edit", null );
+				Controls.Add( _editor );
 			}
 			base.OnInit( e );
 		}
 
 		protected virtual void Editor_Load( object sender, EventArgs e )
 		{
-			if ( bInit && objEditor.Visible )
+			if ( _init && _editor.Visible )
 			{
 				PropertyInfo pInfo;
-				pInfo = typEditor.GetProperty( "BasePath" );
-				pInfo.SetValue( objEditor, ResolveUrl( "FCKEditorV2/" ), null );
+				pInfo = _typEditor.GetProperty( "BasePath" );
+				pInfo.SetValue( _editor, ResolveUrl( "FCKEditorV2/" ), null );
 
-				pInfo = typEditor.GetProperty( "Height" );
-				pInfo.SetValue( objEditor, Unit.Pixel( 300 ), null );
+				pInfo = _typEditor.GetProperty( "Height" );
+				pInfo.SetValue( _editor, Unit.Pixel( 300 ), null );
 
 				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "fckeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "FCKEditorV2/FCKEditor.js" ) ) );
 
@@ -417,19 +417,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Value" );
-					return Convert.ToString( pInfo.GetValue( objEditor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
+					return Convert.ToString( pInfo.GetValue( _editor, null ) );
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Value" );
-					pInfo.SetValue( objEditor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
+					pInfo.SetValue( _editor, value, null );
 				}
 			}
 		}
@@ -447,23 +447,23 @@ namespace YAF.Editor
 
 		protected override void OnInit( EventArgs e )
 		{
-			if ( bInit )
+			if ( _init )
 			{
 				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = typEditor.GetProperty( "ID" );
-				pInfo.SetValue( objEditor, "edit", null );
-				Controls.Add( objEditor );
+				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
+				pInfo.SetValue( _editor, "edit", null );
+				Controls.Add( _editor );
 			}
 			base.OnInit( e );
 		}
 
 		protected virtual void Editor_Load( object sender, EventArgs e )
 		{
-			if ( bInit && objEditor.Visible )
+			if ( _init && _editor.Visible )
 			{
 				PropertyInfo pInfo;
-				pInfo = typEditor.GetProperty( "BasePath" );
-				pInfo.SetValue( objEditor, ResolveUrl( "FCKEditorV1/" ), null );
+				pInfo = _typEditor.GetProperty( "BasePath" );
+				pInfo.SetValue( _editor, ResolveUrl( "FCKEditorV1/" ), null );
 
 				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "fckeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "FCKEditorV1/FCKEditor.js" ) ) );
 			}
@@ -474,19 +474,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Value" );
-					return Convert.ToString( pInfo.GetValue( objEditor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
+					return Convert.ToString( pInfo.GetValue( _editor, null ) );
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Value" );
-					pInfo.SetValue( objEditor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
+					pInfo.SetValue( _editor, value, null );
 				}
 			}
 		}
@@ -504,31 +504,31 @@ namespace YAF.Editor
 
 		protected override void OnInit( EventArgs e )
 		{
-			if ( bInit )
+			if ( _init )
 			{
 				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = typEditor.GetProperty( "ID" );
-				pInfo.SetValue( objEditor, "edit", null );
-				pInfo = typEditor.GetProperty( "AutoGenerateToolbarsFromString" );
-				pInfo.SetValue( objEditor, true, null );
-				pInfo = typEditor.GetProperty( "ToolbarLayout" );
-				pInfo.SetValue( objEditor, "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", null );
-				Controls.Add( objEditor );
+				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
+				pInfo.SetValue( _editor, "edit", null );
+				pInfo = _typEditor.GetProperty( "AutoGenerateToolbarsFromString" );
+				pInfo.SetValue( _editor, true, null );
+				pInfo = _typEditor.GetProperty( "ToolbarLayout" );
+				pInfo.SetValue( _editor, "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", null );
+				Controls.Add( _editor );
 			}
 			base.OnInit( e );
 		}
 
 		protected virtual void Editor_Load( object sender, EventArgs e )
 		{
-			if ( bInit && objEditor.Visible )
+			if ( _init && _editor.Visible )
 			{
 				PropertyInfo pInfo;
-				pInfo = typEditor.GetProperty( "SupportFolder" );
-				pInfo.SetValue( objEditor, ResolveUrl( "FreeTextBox/" ), null );
-				pInfo = typEditor.GetProperty( "Width" );
-				pInfo.SetValue( objEditor, Unit.Percentage( 100 ), null );
-				pInfo = typEditor.GetProperty( "DesignModeCss" );
-				pInfo.SetValue( objEditor, StyleSheet, null );
+				pInfo = _typEditor.GetProperty( "SupportFolder" );
+				pInfo.SetValue( _editor, ResolveUrl( "FreeTextBox/" ), null );
+				pInfo = _typEditor.GetProperty( "Width" );
+				pInfo.SetValue( _editor, Unit.Percentage( 100 ), null );
+				pInfo = _typEditor.GetProperty( "DesignModeCss" );
+				pInfo.SetValue( _editor, StyleSheet, null );
 				//pInfo = typEditor.GetProperty("EnableHtmlMode");
 				//pInfo.SetValue(objEditor,false,null);
 
@@ -551,19 +551,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Text" );
-					return Convert.ToString( pInfo.GetValue( objEditor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Text" );
+					return Convert.ToString( pInfo.GetValue( _editor, null ) );
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( bInit )
+				if ( _init )
 				{
-					PropertyInfo pInfo = typEditor.GetProperty( "Text" );
-					pInfo.SetValue( objEditor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty( "Text" );
+					pInfo.SetValue( _editor, value, null );
 				}
 			}
 		}
@@ -597,13 +597,13 @@ namespace YAF.Editor
 	{
 		public enum EditorType
 		{
-			etText = 0,
-			etBBCode = 1,
-			etFCKv2 = 2,
-			etFreeTextBox = 3,
-			etFCKv1 = 4,
-			etBasicBBCode = 5,
-			etFreeTextBoxv3 = 6
+			Text = 0,
+			BBCode = 1,
+			FCKv2 = 2,
+			FreeTextBox = 3,
+			FCKv1 = 4,
+			BasicBBCode = 5,
+			FreeTextBoxv3 = 6
 		}
 
 		public static int EditorCount = 7;
@@ -632,13 +632,13 @@ namespace YAF.Editor
 		{
 			switch ( etValue )
 			{
-				case EditorType.etText: return new TextEditor();
-				case EditorType.etBBCode: return new BBCodeEditor();
-				case EditorType.etFCKv2: return new FCKEditorV2();
-				case EditorType.etFreeTextBox: return new FreeTextBoxEditor();
-				case EditorType.etFCKv1: return new FCKEditorV1();
-				case EditorType.etBasicBBCode: return new BasicBBCodeEditor();
-				case EditorType.etFreeTextBoxv3: return new FreeTextBoxEditorv3();
+				case EditorType.Text: return new TextEditor();
+				case EditorType.BBCode: return new BBCodeEditor();
+				case EditorType.FCKv2: return new FCKEditorV2();
+				case EditorType.FreeTextBox: return new FreeTextBoxEditor();
+				case EditorType.FCKv1: return new FCKEditorV1();
+				case EditorType.BasicBBCode: return new BasicBBCodeEditor();
+				case EditorType.FreeTextBoxv3: return new FreeTextBoxEditorv3();
 			}
 
 			return null;

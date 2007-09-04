@@ -42,7 +42,7 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <a href='<%# YAF.Classes.Utils.yaf_BuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>'>
+          <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>'>
             <%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %>
           </a>
         </td>
@@ -50,7 +50,7 @@
           <%# Eval("RankName") %>
         </td>
         <td class="post">
-          <%# yaf_DateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
+          <%# YafDateTime.FormatDateLong((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
         </td>
         <td class="post" align="center">
           <%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>

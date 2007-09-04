@@ -42,20 +42,20 @@ namespace YAF.Pages.Admin
 		{
 			if ( !IsPostBack )
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Board Settings", "" );
 
 				// create list boxes by populating datasources from Data class
-				Theme.DataSource = yaf_StaticData.Themes();
+				Theme.DataSource = YafStaticData.Themes();
 				Theme.DataTextField = "Theme";
 				Theme.DataValueField = "FileName";
 
-				Language.DataSource = yaf_StaticData.Languages();
+				Language.DataSource = YafStaticData.Languages();
 				Language.DataTextField = "Language";
 				Language.DataValueField = "FileName";
 
-				ShowTopic.DataSource = yaf_StaticData.TopicTimes();
+				ShowTopic.DataSource = YafStaticData.TopicTimes();
 				ShowTopic.DataTextField = "TopicText";
 				ShowTopic.DataValueField = "TopicValue";
 
@@ -113,7 +113,7 @@ namespace YAF.Pages.Admin
 			/// Reload forum settings
 			PageContext.BoardSettings = null;
 
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
 		}
 	}
 }

@@ -85,7 +85,7 @@ namespace YAF.Controls
 
     protected string GetMessageLink( object messageId )
     {
-      return yaf_BuildLink.GetLink( ForumPages.cp_message, "pm={0}&v={1}", messageId,
+      return YafBuildLink.GetLink( ForumPages.cp_message, "pm={0}&v={1}", messageId,
                                    View.ToQueryStringParam() );
     }
 

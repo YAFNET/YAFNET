@@ -41,8 +41,8 @@ namespace YAF.Pages.Admin
 		{
 			if(!IsPostBack) 
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Ranks","");
 
 				BindData();
@@ -59,22 +59,22 @@ namespace YAF.Pages.Admin
 						if(item!=null) 
 						{
 							item.Selected = true;
-							Preview.Src = String.Format("{0}images/ranks/{1}", yaf_ForumInfo.ForumRoot, row["RankImage"]); //path corrected
+							Preview.Src = String.Format("{0}images/ranks/{1}", YafForumInfo.ForumRoot, row["RankImage"]); //path corrected
 						}
 						else
 						{
-							Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
+							Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 						}
 					}
 				}
 				else
 				{
-					Preview.Src = String.Format("{0}images/spacer.gif", yaf_ForumInfo.ForumRoot);
+					Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 				}
 			}
 			RankImage.Attributes["onchange"] = String.Format(
 				"getElementById('{1}__ctl0_Preview').src='{0}images/ranks/' + this.value",
-				yaf_ForumInfo.ForumRoot,
+				YafForumInfo.ForumRoot,
 				this.Parent.ID
 				);
 		}
@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
 				dr["Description"] = "Select Rank Image";
 				dt.Rows.Add(dr);
 				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",yaf_ForumInfo.ForumRoot)));
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",YafForumInfo.ForumRoot)));
 				System.IO.FileInfo[] files = dir.GetFiles("*.*");
 				long nFileID = 1;
 				foreach(System.IO.FileInfo file in files) 
@@ -136,7 +136,7 @@ namespace YAF.Pages.Admin
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
 		}
 
 		protected void Save_Click(object sender, System.EventArgs e)
@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
 				rankImage = RankImage.SelectedValue;
 			YAF.Classes.Data.DB.rank_save(RankID,PageContext.PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
 				
-			YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
 		}
 	}
 }

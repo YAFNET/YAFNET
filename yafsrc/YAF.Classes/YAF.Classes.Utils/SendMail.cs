@@ -45,7 +45,7 @@ namespace YAF.Classes.Utils
 					currentThread = new Thread( new ThreadStart( SendMailThreaded ) );
 					currentThread.Priority = ThreadPriority.BelowNormal;
 					HttpContext.Current.Application ["sendMailThread"] = currentThread;
-					HttpContext.Current.Application ["sendMailForumEmail"] = yaf_Context.Current.BoardSettings.ForumEmail;
+					HttpContext.Current.Application ["sendMailForumEmail"] = YafContext.Current.BoardSettings.ForumEmail;
 					currentThread.Start();
 				}
 			}
@@ -54,7 +54,7 @@ namespace YAF.Classes.Utils
 				HttpContext.Current.Application.UnLock();
 			}
 
-			/*HttpContext.Current.Application ["sendMailForumEmail"] = yaf_Context.Current.BoardSettings.ForumEmail;
+			/*HttpContext.Current.Application ["sendMailForumEmail"] = YafContext.Current.BoardSettings.ForumEmail;
 			SendMailThreaded();
 			*/
 		}

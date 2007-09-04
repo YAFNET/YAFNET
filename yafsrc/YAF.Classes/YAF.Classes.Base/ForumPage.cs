@@ -96,7 +96,7 @@ namespace YAF.Classes.Base
 			// This doesn't seem to work...
 			Exception x = Server.GetLastError();
 			YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-			if ( !yaf_ForumInfo.IsLocal )
+			if ( !YafForumInfo.IsLocal )
 				General.LogToMail( Server.GetLastError() );
 		}
 
@@ -159,7 +159,7 @@ namespace YAF.Classes.Base
 					YAF.Classes.Data.DB.user_suspend( PageContext.PageUserID, null );
 					HttpContext.Current.Response.Redirect( General.GetSafeRawUrl() );
 				}
-				yaf_BuildLink.Redirect( ForumPages.info, "i=2" );
+				YafBuildLink.Redirect( ForumPages.info, "i=2" );
 			}
 
 			// This happens when user logs in
@@ -230,7 +230,7 @@ namespace YAF.Classes.Base
       // 1st test if for DB connectivity...
       try
       {
-        using ( YAF.Classes.Data.yaf_DBConnManager connMan = new yaf_DBConnManager() )
+        using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
         {
           // just attempt to open the connection to test if a DB is available.
           System.Data.SqlClient.SqlConnection getConn = connMan.OpenDBConnection;
@@ -241,7 +241,7 @@ namespace YAF.Classes.Base
 #if !DEBUG
         // unable to connect to the DB...
         Session ["StartupException"] = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number.ToString() + ")";
-        Response.Redirect( yaf_ForumInfo.ForumRoot + "error.aspx" );
+        Response.Redirect( YafForumInfo.ForumRoot + "error.aspx" );
 #else
         // re-throw since we are debugging...
         throw;
@@ -253,16 +253,16 @@ namespace YAF.Classes.Base
       {        
         DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
 
-        if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < yaf_ForumInfo.AppVersion ) )
+        if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < YafForumInfo.AppVersion ) )
         {
           // needs upgrading...
-          Response.Redirect( yaf_ForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
+          Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
         }
       }
       catch ( System.Data.SqlClient.SqlException )
       {
         // needs to be setup...
-        Response.Redirect( yaf_ForumInfo.ForumRoot + "install/" );
+        Response.Redirect( YafForumInfo.ForumRoot + "install/" );
       }
 		}
 
@@ -271,16 +271,16 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void CheckBannedIPs()
 		{
-			string key = yaf_Cache.GetBoardCacheKey(Constants.Cache.BannedIP);
+			string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
 
 			// load the banned IP table...
-			DataTable bannedIPs = (DataTable)yaf_Cache.Current[key];
+			DataTable bannedIPs = (DataTable)YafCache.Current[key];
 
 			if ( bannedIPs == null )
 			{
 				// load the table and cache it...
 				bannedIPs = DB.bannedip_list( PageContext.PageBoardID, null );
-				yaf_Cache.Current[key] = bannedIPs;
+				YafCache.Current[key] = bannedIPs;
 			}
 
 			// check for this user in the list...
@@ -444,7 +444,7 @@ namespace YAF.Classes.Base
 			}		
 
 			// create the theme class
-			PageContext.Theme = new YAF.Classes.Utils.yaf_Theme( themeFile );
+			PageContext.Theme = new YAF.Classes.Utils.YafTheme( themeFile );
 		}
 
 		/// <summary>
@@ -452,7 +452,7 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitLocalization()
 		{
-			PageContext.Localization = new YAF.Classes.Utils.yaf_Localization(_transPage);
+			PageContext.Localization = new YAF.Classes.Utils.YafLocalization(_transPage);
 		}
 		#endregion
 
@@ -681,11 +681,11 @@ namespace YAF.Classes.Base
 		/// <summary>
 		/// Gets the current forum Context (helper reference)
 		/// </summary>
-		public YAF.Classes.Utils.yaf_Context PageContext
+		public YAF.Classes.Utils.YafContext PageContext
 		{
 			get
 			{
-				return YAF.Classes.Utils.yaf_Context.Current;
+				return YAF.Classes.Utils.YafContext.Current;
 			}
 		}
 
@@ -693,7 +693,7 @@ namespace YAF.Classes.Base
 		{
 			get
 			{
-				return string.Format( "{0}{1}", yaf_ForumInfo.ServerURL, yaf_BuildLink.GetLink( ForumPages.forum ) );
+				return string.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.forum ) );
 			}
 		}
 

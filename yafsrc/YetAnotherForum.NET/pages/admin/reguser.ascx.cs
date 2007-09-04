@@ -38,11 +38,11 @@ namespace YAF.Pages.Admin
 		{
       if(!IsPostBack) 
       {
-        PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-        PageLinks.AddLink("Administration",YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
+        PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+        PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
         PageLinks.AddLink("Users","");
 
-        TimeZones.DataSource = yaf_StaticData.TimeZones();
+        TimeZones.DataSource = YafStaticData.TimeZones();
         DataBind();
         TimeZones.Items.FindByValue("0").Selected = true;
       }
@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
 		
     protected void cancel_Click(object sender,EventArgs e) 
     {
-      YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
+      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users);
     }
 		
     protected void ForumRegister_Click(object sender, System.EventArgs e)
@@ -99,7 +99,7 @@ namespace YAF.Pages.Admin
 					{
 						//  Build a MailMessage
 						string body = General.ReadTemplate( "verifyemail.txt" );
-						body = body.Replace( "{link}", String.Format( "{1}{0}", YAF.Classes.Utils.yaf_BuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.yaf_ForumInfo.ServerURL ) );
+						body = body.Replace( "{link}", String.Format( "{1}{0}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.YafForumInfo.ServerURL ) );
 						body = body.Replace( "{key}", hash );
 						body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
 						body = body.Replace( "{forumlink}", String.Format( "{0}", ForumURL ) );
@@ -108,7 +108,7 @@ namespace YAF.Pages.Admin
 					}
 
 					// success
-					YAF.Classes.Utils.yaf_BuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_reguser);
 				}
       }
     }
