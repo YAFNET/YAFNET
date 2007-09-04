@@ -64,6 +64,14 @@ namespace YAF.Pages.Admin
 				case "edit":
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_edit,"s={0}",e.CommandArgument);
 					break;
+				case "moveup":
+					YAF.Classes.Data.DB.smiley_resort(PageContext.PageBoardID, e.CommandArgument, -1);
+					BindData();
+					break;
+				case "movedown":
+					YAF.Classes.Data.DB.smiley_resort(PageContext.PageBoardID, e.CommandArgument, 1);
+					BindData();
+					break;
 				case "delete":
 					YAF.Classes.Data.DB.smiley_delete(e.CommandArgument);
 					BindData();

@@ -27,7 +27,7 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink("Smilies","");
 
 				BindData();
-			}
+			}			
 		}
 
 		private void BindData() 
@@ -41,7 +41,7 @@ namespace YAF.Pages.Admin
 				DataRow dr = dt.NewRow();
 				dr["FileID"] = 0;
 				dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-				dr["Description"] = "Select Rank Image";
+				dr["Description"] = "Select Smiley Image";
 				dt.Rows.Add(dr);
 				
 				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/emoticons",YafForumInfo.ForumRoot)));
@@ -76,6 +76,7 @@ namespace YAF.Pages.Admin
 						Emotion.Text = dt.Rows[0]["Emoticon"].ToString();
 						if (Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()) != null) Icon.Items.FindByText(dt.Rows[0]["Icon"].ToString()).Selected = true;
 						Preview.Src = String.Format("{0}images/emoticons/{1}",YafForumInfo.ForumRoot,dt.Rows[0]["Icon"]);
+						SortOrder.Text = dt.Rows[0]["SortOrder"].ToString();		// Ederon : 9/4/2007
 					}
 				}
 			}
@@ -92,16 +93,17 @@ namespace YAF.Pages.Admin
 
 		private void save_Click(object sender, System.EventArgs e) 
 		{
-			string	sCode		= Code.Text.Trim();
-			string	sEmotion	= Emotion.Text.Trim();
-			string	sIcon		= Icon.SelectedItem.Text.Trim();
+			string code		= Code.Text.Trim();
+			string emotion	= Emotion.Text.Trim();
+			string icon		= Icon.SelectedItem.Text.Trim();
+			int sortOrder;
 
-			if(sCode.Length==0) 
+			if(code.Length==0) 
 			{
 				PageContext.AddLoadMessage("Please enter the code to use for this emotion.");
 				return;
 			}
-			if(sEmotion.Length==0) 
+			if(emotion.Length==0) 
 			{
 				PageContext.AddLoadMessage("Please enter the emotion for this icon.");
 				return;
@@ -111,7 +113,13 @@ namespace YAF.Pages.Admin
 				PageContext.AddLoadMessage("Please select an icon to use for this emotion.");
 				return;
 			}
-			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"],PageContext.PageBoardID,sCode,sIcon,sEmotion,0);
+			// Ederon 9/4/2007
+			if (!int.TryParse(SortOrder.Text, out sortOrder) || sortOrder < 0 || sortOrder > 255)
+			{
+				PageContext.AddLoadMessage("Sort order must be number between 0 and 255.");
+				return;
+			}
+			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"], PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}
 

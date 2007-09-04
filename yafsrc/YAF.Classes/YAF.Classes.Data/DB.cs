@@ -1145,7 +1145,7 @@ namespace YAF.Classes.Data
 						categoryID = (int)row["CategoryID"];
 
 						newRow = listDestination.NewRow();
-						newRow["ForumID"] = "-" + row["categoryID"].ToString();
+						newRow["ForumID"] = -categoryID;		// Ederon : 9/4/2007
 						newRow["Title"] = string.Format("{0}", row["Category"].ToString());
 						listDestination.Rows.Add(newRow);
 					}
@@ -2045,10 +2045,11 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue("SmileyID", smileyID);
 				DBAccess.ExecuteNonQuery(cmd);
+				// todo : move this away to non-static code
 				System.Web.HttpContext.Current.Cache.Remove("Smilies");
 			}
 		}
-		static public void smiley_save(object smileyID, object boardID, object code, object icon, object emoticon, object replace)
+		static public void smiley_save(object smileyID, object boardID, object code, object icon, object emoticon, object sortOrder, object replace)
 		{
 			using (SqlCommand cmd = new SqlCommand("yaf_smiley_save"))
 			{
@@ -2058,9 +2059,22 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("Code", code);
 				cmd.Parameters.AddWithValue("Icon", icon);
 				cmd.Parameters.AddWithValue("Emoticon", emoticon);
+				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
 				cmd.Parameters.AddWithValue("Replace", replace);
 				DBAccess.ExecuteNonQuery(cmd);
+				// todo : move this away to non-static code
 				System.Web.HttpContext.Current.Cache.Remove("Smilies");
+			}
+		}
+		static public void smiley_resort(object boardID, object smileyID, int move)
+		{
+			using (SqlCommand cmd = new SqlCommand("yaf_smiley_resort"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("SmileyID", smileyID);
+				cmd.Parameters.AddWithValue("Move", move);
+				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}
 		#endregion

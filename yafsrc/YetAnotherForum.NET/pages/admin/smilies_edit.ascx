@@ -28,6 +28,10 @@
 	<td class=post width=50%><asp:textbox id=Emotion runat="server"/></td>
 </tr>
 <tr>
+	<td class=postheader width=50%><b>Sort Order:</b></td>
+	<td class=post width=50%><asp:textbox id=SortOrder runat="server" Text="0" MaxLength="3" /></td>
+</tr>
+<tr>
 	<td class=footer1 colspan="2" align=center>
 		<asp:button id=save runat=server text="Save"/>
 		<asp:button id=cancel runat=server text="Cancel"/>

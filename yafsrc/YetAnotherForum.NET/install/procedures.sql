@@ -421,6 +421,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smile
 DROP PROCEDURE [dbo].[yaf_smiley_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_resort]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_smiley_resort]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_system_initialize]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yaf_system_initialize]
 GO
@@ -3175,9 +3179,9 @@ GO
 create procedure [dbo].[yaf_smiley_list](@BoardID int,@SmileyID int=null) as
 begin
 	if @SmileyID is null
-		select * from yaf_Smiley where BoardID=@BoardID order by LEN(Code) desc
+		select * from yaf_Smiley where BoardID=@BoardID order by SortOrder, LEN(Code) desc
 	else
-		select * from yaf_Smiley where SmileyID=@SmileyID
+		select * from yaf_Smiley where SmileyID=@SmileyID order by SortOrder
 end
 GO
 
@@ -3186,7 +3190,8 @@ begin
 	select 
 		Icon, 
 		Emoticon,
-		Code = (select top 1 Code from yaf_Smiley x where x.Icon=yaf_Smiley.Icon)
+		Code = (select top 1 Code from yaf_Smiley x where x.Icon=yaf_Smiley.Icon),
+		SortOrder = (select top 1 SortOrder from yaf_Smiley x where x.Icon=yaf_Smiley.Icon order by x.SortOrder asc)
 	from 
 		yaf_Smiley
 	where
@@ -3195,21 +3200,57 @@ begin
 		Icon,
 		Emoticon
 	order by
+		SortOrder,
 		Code
 end
 GO
 
-create procedure [dbo].[yaf_smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@Replace smallint=0) as begin
+create procedure [dbo].[yaf_smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@SortOrder tinyint,@Replace smallint=0) as begin
 	if @SmileyID is not null begin
-		update yaf_Smiley set Code = @Code, Icon = @Icon, Emoticon = @Emoticon where SmileyID = @SmileyID
+		update yaf_Smiley set Code = @Code, Icon = @Icon, Emoticon = @Emoticon, SortOrder = @SortOrder where SmileyID = @SmileyID
 	end
 	else begin
 		if @Replace>0
 			delete from yaf_Smiley where Code=@Code
 
 		if not exists(select 1 from yaf_Smiley where BoardID=@BoardID and Code=@Code)
-			insert into yaf_Smiley(BoardID,Code,Icon,Emoticon) values(@BoardID,@Code,@Icon,@Emoticon)
+			insert into yaf_Smiley(BoardID,Code,Icon,Emoticon,SortOrder) values(@BoardID,@Code,@Icon,@Emoticon,@SortOrder)
 	end
+end
+GO
+
+create procedure [dbo].[yaf_smiley_resort](@BoardID int,@SmileyID int,@Move int) as
+begin
+	declare @Position int
+
+	SELECT @Position=SortOrder FROM yaf_Smiley WHERE BoardID=@BoardID and SmileyID=@SmileyID
+
+	if (@Position is null) return
+
+	if (@Move > 0) begin
+		update yaf_Smiley
+			set SortOrder=SortOrder-1
+			where BoardID=@BoardID and 
+				SortOrder between @Position and (@Position + @Move) and
+				SortOrder between 1 and 255
+	end
+	else if (@Move < 0) begin
+		update yaf_Smiley
+			set SortOrder=SortOrder+1
+			where BoardID=@BoardID and 
+				SortOrder between (@Position+@Move) and @Position and
+				SortOrder between 0 and 254
+	end
+
+	SET @Position = @Position + @Move
+
+	if (@Position>255) SET @Position = 255
+	else if (@Position<0) SET @Position = 0
+
+	update yaf_Smiley
+		set SortOrder=@Position
+		where BoardID=@BoardID and 
+			SmileyID=@SmileyID
 end
 GO
 

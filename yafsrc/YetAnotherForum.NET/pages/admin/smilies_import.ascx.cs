@@ -67,10 +67,10 @@ namespace YAF.Pages.Admin
 				return;
 			}
 
-			string sFileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",YafForumInfo.ForumRoot,File.SelectedItem.Text));
-			string sSplit = System.Text.RegularExpressions.Regex.Escape("=+:");
+			string fileName = Request.MapPath(String.Format("{0}images/emoticons/{1}",YafForumInfo.ForumRoot,File.SelectedItem.Text));
+			string split = System.Text.RegularExpressions.Regex.Escape("=+:");
 
-			using(System.IO.StreamReader file = new System.IO.StreamReader(sFileName)) 
+			using(System.IO.StreamReader file = new System.IO.StreamReader(fileName)) 
 			{
 				// Delete existing smilies?
 				if(DeleteExisting.Checked) 
@@ -78,13 +78,13 @@ namespace YAF.Pages.Admin
 
 				do 
 				{
-					string sLine = file.ReadLine();
-					if(sLine==null)
+					string line = file.ReadLine();
+					if(line==null)
 						break;
 
-					string[] split = System.Text.RegularExpressions.Regex.Split(sLine, sSplit, System.Text.RegularExpressions.RegexOptions.None);
-					if(split.Length==3) 
-						YAF.Classes.Data.DB.smiley_save(null,PageContext.PageBoardID,split[2],split[0],split[1],0);
+					string[] lineSplit = System.Text.RegularExpressions.Regex.Split(line, split, System.Text.RegularExpressions.RegexOptions.None);
+					if(lineSplit.Length==3) 
+						YAF.Classes.Data.DB.smiley_save(null,PageContext.PageBoardID,lineSplit[2],lineSplit[0],lineSplit[1],0,0);
 				} while(true);
 				file.Close();
 			}

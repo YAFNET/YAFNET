@@ -1,4 +1,4 @@
-<%@ Control language="c#" CodeFile="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
+﻿<%@ Control language="c#" CodeFile="smilies.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.Admin.smilies" %>
 
 
 
@@ -20,6 +20,7 @@
 		<td class="header1" colspan="5">Smilies</td>
 	</tr>
 	<tr>
+		<td class="header2">Order</td>
 		<td class="header2">Code</td>
 		<td class="header2" align="center">Smile</td>
 		<td class="header2">Emotion</td>
@@ -28,11 +29,14 @@
 </HeaderTemplate>
 <ItemTemplate>
 	<tr>
+		<td class="post"><%# Eval("SortOrder") %></td>
 		<td class="post"><%# Eval("Code") %></td>
 		<td class="post" align="center"><img src="<%# YafForumInfo.ForumRoot %>images/emoticons/<%# Eval("Icon") %>"/></td>		
 		<td class="post"><%# Eval("Emoticon") %></td>
 		<td class="post">
 			<asp:linkbutton runat="server" commandname="edit" commandargument='<%# Eval("SmileyID") %>' text="Edit"/>
+			|
+			<asp:linkbutton ID="MoveUp" runat="server" commandname="moveup" commandargument='<%# Eval("SmileyID") %>' text="▲"/> <asp:linkbutton ID="MoveDown" runat="server" commandname="movedown" commandargument='<%# Eval("SmileyID") %>' text="▼"/>
 			|
 			<asp:linkbutton runat="server" onload="Delete_Load" commandname="delete" commandargument='<%# Eval("SmileyID") %>' text="Delete"/>
 		</td>
@@ -40,7 +44,7 @@
 </ItemTemplate>
 <FooterTemplate>
 	<tr>
-		<td class="footer1" colSpan="4">
+		<td class="footer1" colSpan="5">
 			<asp:Linkbutton runat="server" commandname="add">Add Smiley</asp:linkbutton>
 			|
 			<asp:LinkButton runat="server" commandname="import">Import Smiley Pack</asp:LinkButton>

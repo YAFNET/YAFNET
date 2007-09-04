@@ -179,7 +179,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Smiley') and 
 		BoardID			int NOT NULL ,
 		Code			nvarchar (10) NOT NULL ,
 		Icon			nvarchar (50) NOT NULL ,
-		Emoticon		nvarchar (50) NULL 
+		Emoticon		nvarchar (50) NULL ,
+		SortOrder		tinyint	NOT NULL DEFAULT 0
 	)
 GO
 
@@ -782,3 +783,9 @@ if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and
 	alter table yaf_EventLog alter column UserID int null
 GO
 
+-- yaf_Smiley
+if not exists(select 1 from syscolumns where id=object_id('yaf_Smiley') and name='SortOrder')
+begin
+	alter table dbo.yaf_Smiley add SortOrder tinyint NOT NULL DEFAULT 0
+end
+GO

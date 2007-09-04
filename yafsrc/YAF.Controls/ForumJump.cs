@@ -54,12 +54,11 @@ namespace YAF.Controls
 
 		public virtual void RaisePostDataChangedEvent()
 		{
-			if ( ForumID > 0 )
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
-#if TODO
+			// Ederon : 9/4/2007
+			if (ForumID > 0)
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID);
 			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum,"c={0}",-ForumID);
-#endif
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.forum, "c={0}", -ForumID);
 		}
 		#endregion
 
@@ -81,13 +80,13 @@ namespace YAF.Controls
             ClientScriptManager cs = Page.ClientScript;
             writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, cs.GetPostBackEventReference(this, this.ID)));
 
-			int nForumID = PageContext.PageForumID;
-			if ( nForumID <= 0 )
+			int forumID = PageContext.PageForumID;
+			if ( forumID <= 0 )
 				writer.WriteLine( "<option/>" );
 
 			foreach ( DataRow row in dt.Rows )
 			{
-				writer.WriteLine( string.Format( "<option {2}value='{0}'>{1}</option>", row ["ForumID"], row ["Title"], Convert.ToString( row ["ForumID"] ) == nForumID.ToString() ? "selected=\"selected\" " : "" ) );
+				writer.WriteLine( string.Format( "<option {2}value='{0}'>{1}</option>", row ["ForumID"], row ["Title"], Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? "selected=\"selected\" " : "" ) );
 			}
 
 			writer.WriteLine( "</select>" );
