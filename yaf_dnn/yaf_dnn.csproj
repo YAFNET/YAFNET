@@ -74,7 +74,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetNuke, Version=4.3.1.40461, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DotNetNuke, Version=4.3.1.40461, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -93,10 +95,13 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <Reference Include="yaf, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="yaf, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DotNetNukeModule.ascx" />
+    <Content Include="DotNetNukeModule.ascx">
+    </Content>
     <Content Include="DotNetNukeModuleEdit.ascx" />
     <Content Include="Install.txt" />
     <Compile Include="DotNetNukeModule.ascx.cs">
@@ -115,11 +120,12 @@
     </Compile>
     <EmbeddedResource Include="DotNetNukeModule.ascx.resx">
       <DependentUpon>DotNetNukeModule.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DotNetNukeModuleEdit.ascx.resx">
       <DependentUpon>DotNetNukeModuleEdit.ascx.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Web.config.dotnetnuke" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

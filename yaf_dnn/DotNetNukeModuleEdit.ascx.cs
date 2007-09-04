@@ -78,7 +78,7 @@ namespace yaf_dnn
 
 		override protected void Render(System.Web.UI.HtmlTextWriter writer) 
 		{
-			writer.WriteLine("<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>",Config.ConfigSection["root"]);
+			writer.WriteLine("<link rel='stylesheet' type='text/css' href='{0}themes/standard/theme.css'/>",Config.Root);
 			base.Render(writer);
 		}
 

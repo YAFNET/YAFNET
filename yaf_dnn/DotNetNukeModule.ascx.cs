@@ -29,7 +29,6 @@ namespace yaf_dnn
 		//private bool m_isAuthenticated;
 
 		protected yaf.Forum Forum1;
-
 		protected System.Web.UI.WebControls.Panel pnlModuleContent;
 
 		private void DotNetNukeModule_Load(object sender, System.EventArgs e)
@@ -82,16 +81,26 @@ namespace yaf_dnn
 			}			
 		}
 
-		private void InitializeComponent()
-		{
-		
-		}
-	
+    void Forum1_PageTitleSet( object sender, yaf.pages.ForumPageArgs e )
+    {
+      BasePage.Title = e.Title + " - " + BasePage.Title;
+    }
+
 		override protected void OnInit(EventArgs e)
 		{
 			Load += new EventHandler(DotNetNukeModule_Load);
+      Forum1.PageTitleSet += new EventHandler<yaf.pages.ForumPageArgs>( Forum1_PageTitleSet );
 			base.OnInit(e);
 		}
+
+    public DotNetNuke.Framework.CDefault BasePage
+    {
+      get
+      {
+        return ( DotNetNuke.Framework.CDefault ) this.Page;
+      }
+    }
+
 		#region IActionable Members
 
 		public ModuleActionCollection ModuleActions
