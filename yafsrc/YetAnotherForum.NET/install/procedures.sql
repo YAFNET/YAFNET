@@ -1149,12 +1149,35 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_stats] as begin
-	select
-		NumPosts	= (select count(1) from yaf_Message where (Flags & 24)=16),
-		NumTopics	= (select count(1) from yaf_Topic),
-		NumUsers	= (select count(1) from yaf_User where (Flags & 2) = 2),
-		BoardStart	= (select min(Joined) from yaf_User)
+create procedure [dbo].[yaf_board_stats]
+	@BoardID	int = null
+as 
+begin
+	if (@BoardID is null) begin
+		select
+			NumPosts	= (select count(1) from yaf_Message	where (Flags & 24)=16),
+			NumTopics	= (select count(1) from yaf_Topic),
+			NumUsers	= (select count(1) from yaf_User where (Flags & 2) = 2),
+			BoardStart	= (select min(Joined) from yaf_User)
+	end
+	else begin
+		select
+			NumPosts	= (select count(1)	
+								from yaf_Message a
+								join yaf_Topic b ON a.TopicID=b.TopicID
+								join yaf_Forum c ON b.ForumID=c.ForumID
+								join yaf_Category d ON c.CategoryID=d.CategoryID
+								where (a.Flags & 24)=16 and d.BoardID=@BoardID
+							),
+			NumTopics	= (select count(1) 
+								from yaf_Topic a
+								join yaf_Forum b ON a.ForumID=b.ForumID
+								join yaf_Category c ON b.CategoryID=c.CategoryID
+								where c.BoardID=@BoardID
+							),
+			NumUsers	= (select count(1) from yaf_User where (Flags & 2) = 2 and BoardID=@BoardID),
+			BoardStart	= (select min(Joined) from yaf_User where BoardID=@BoardID)
+	end
 end
 GO
 

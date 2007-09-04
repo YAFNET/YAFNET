@@ -102,7 +102,7 @@
   <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
       <td class="header1" colspan="4">
-        Statistics</td>
+        Statistics<span runat="server" id="boardSelector" Visible='<%# this.PageContext.IsHostAdmin %>' > for <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID" OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" /></span></td>
     </tr>
     <tr>
       <td class="postheader" width="25%">
