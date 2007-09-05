@@ -88,6 +88,7 @@ tr.header1 a:hover	{color:#404040;text-decoration:none}
 	font-weight: bold;
 	height: 28px;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 
 td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}

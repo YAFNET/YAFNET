@@ -72,6 +72,7 @@ tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
 	font-weight: bold;
 	height: 28px;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 
 /* Footer1 - Bottom of tables */
 .footer1 {

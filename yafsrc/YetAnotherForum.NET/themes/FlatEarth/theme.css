@@ -67,6 +67,7 @@ td.header2 {
 	color: #55a055;
 	font-weight: bold;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 
 td.header2 a { color: #579000; text-decoration: none; }
 td.header2 a:link { color: #7F7D6C; text-decoration: none; }

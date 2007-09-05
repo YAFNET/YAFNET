@@ -40,6 +40,7 @@ TR.header1 A:hover {
 .header2 {
 height: 28px; color: #333333; border-color: #A9B8C2; border-style: solid; font-size: 12px; background-color: #CECDCE; white-space: nowrap; border-width: 0px 0px 0px 0px; font-weight: bold;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 .footer1 {
 	FONT-SIZE: 7pt; COLOR: #ffffff; HEIGHT: 22px;
 }

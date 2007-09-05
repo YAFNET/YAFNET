@@ -145,6 +145,7 @@ tr.header1 a:hover	{color:#CCCCCC;text-decoration:none}
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 .header2 a:
 {
 color: #0099CC

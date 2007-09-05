@@ -72,6 +72,7 @@ td.header2 {
 	color: #5555a0;
 	font-weight: bold;
 }
+a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 
 td.header2 a { color: #000090; text-decoration: none; }
 td.header2 a:link { color: #7f7f7f; text-decoration: none; }

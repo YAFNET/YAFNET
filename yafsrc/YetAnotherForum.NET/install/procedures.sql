@@ -3045,6 +3045,7 @@ create procedure [dbo].[yaf_rank_list](@BoardID int,@RankID int=null) as begin
 		where
 			a.BoardID=@BoardID
 		order by
+			a.MinPosts,
 			a.Name
 	else
 		select
