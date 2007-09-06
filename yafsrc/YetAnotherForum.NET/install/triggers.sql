@@ -35,6 +35,7 @@ if exists(select 1 from sysobjects where id=object_id(N'yaf_Forum_update') and o
 	drop trigger yaf_Forum_update
 go
 
+/*
 CREATE TRIGGER yaf_Forum_update ON dbo.yaf_Forum FOR UPDATE AS
 BEGIN
 	IF UPDATE(LastTopicID) OR UPDATE(LastMessageID)
@@ -62,6 +63,7 @@ BEGIN
 	END
 END
 GO
+*/
 
 if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_update') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger yaf_Group_update
