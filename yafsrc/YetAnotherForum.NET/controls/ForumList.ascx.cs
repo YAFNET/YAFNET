@@ -85,11 +85,35 @@ namespace YAF.Controls
 			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
 		}
 
-		protected void ModeratorList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+		public string GetModeratorLink(System.Data.DataRow row)
 		{
-			//PageContext.AddLoadMessage("TODO: Fix this");
-			//TODO: Show moderators
+			string output;
+
+			if (row["IsGroup"].ToString() == "0")
+			{
+				output = String.Format(
+					"<a href=\"{0}\">{1}</a>",
+					YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]),
+					row["ModeratorName"]
+					);
+			}
+			else
+			{
+				// TODO : group link should point to group info page (yet unavailable)
+				/*output = String.Format(
+					"<b><a href=\"{0}\">{1}</a></b>",
+					YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
+					row["ModeratorName"]
+					);*/
+				output = String.Format(
+					"<b>{0}</b>",
+					row["ModeratorName"]
+					);
+			}
+
+			return output;
 		}
+		
 
 		/// <summary>
 		/// Provides the "Forum Link Text" for the ForumList control.
@@ -100,26 +124,26 @@ namespace YAF.Controls
 		/// <returns>Forum link text</returns>
 		public string GetForumLink( System.Data.DataRow row )
 		{
-			string strReturn = "";
-			int ForumID = Convert.ToInt32( row ["ForumID"] );
+			string output = "";
+			int forumID = Convert.ToInt32( row ["ForumID"] );
 
 			// get the Forum Description
-			strReturn = Convert.ToString( row ["Forum"] );
+			output = Convert.ToString( row ["Forum"] );
 
 			if ( int.Parse( row ["ReadAccess"].ToString() ) > 0 )
 			{
-				strReturn = String.Format( "<a href=\"{0}\">{1}</a>",
-					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID ),
-					strReturn
+				output = String.Format( "<a href=\"{0}\">{1}</a>",
+					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", forumID ),
+					output
 					);
 			}
 			else
 			{
 				// no access to this forum
-				strReturn = String.Format( "{0} {1}", strReturn, PageContext.Localization.GetText( "NO_FORUM_ACCESS" ) );
+				output = String.Format( "{0} {1}", output, PageContext.Localization.GetText( "NO_FORUM_ACCESS" ) );
 			}
 
-			return strReturn;
+			return output;
 		}
 
 		/// <summary>

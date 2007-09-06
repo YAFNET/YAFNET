@@ -15,11 +15,11 @@
 			  <SeparatorTemplate>, </SeparatorTemplate>
 			  <FooterTemplate></span></FooterTemplate>
 			</asp:Repeater>
-			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="ModeratorList" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
-				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
+		</td>
+		<td align="center" class="smallfont subforumlink">
+			<asp:repeater id="ModeratorList" runat="server" datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
+				<ItemTemplate><%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
-				<FooterTemplate></span></FooterTemplate>
 			</asp:repeater>
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
@@ -41,11 +41,11 @@
 			  <SeparatorTemplate>, </SeparatorTemplate>
 			  <FooterTemplate></span></FooterTemplate>
 			</asp:Repeater>
-			<asp:repeater visible='<%# GetModerated(Container.DataItem) %>' id="Repeater1" runat="server" onitemcommand='ModeratorList_ItemCommand' datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-				<HeaderTemplate><span class="smallfont"><%# PageContext.Localization.GetText("moderators") %>: </HeaderTemplate>
-				<ItemTemplate><%# Eval( "[\"GroupName\"]") %></ItemTemplate>
+		</td>
+		<td align="center" class="smallfont subforumlink">
+			<asp:repeater id="ModeratorList" runat="server" datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
+				<ItemTemplate><%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
-				<FooterTemplate></span></FooterTemplate>
 			</asp:repeater>
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>

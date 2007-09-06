@@ -1708,17 +1708,30 @@ GO
 create procedure [dbo].[yaf_forum_moderators] as
 begin
 	select
-		a.ForumID, 
-		a.GroupID, 
-		GroupName = b.Name
+		ForumID = a.ForumID, 
+		ModeratorID = a.GroupID, 
+		ModeratorName = b.Name,
+		IsGroup=1
 	from
-		yaf_ForumAccess a,
-		yaf_Group b,
-		yaf_AccessMask c
+		yaf_ForumAccess a
+		JOIN yaf_Group b ON b.GroupID = a.GroupID
+		JOIN yaf_AccessMask c ON c.AccessMaskID = a.AccessMaskID
 	where
-		(c.Flags & 64)<>0 and
-		b.GroupID = a.GroupID and
-		c.AccessMaskID = a.AccessMaskID
+		(c.Flags & 64)<>0
+	union
+	select 
+		ForumID = x.ForumID, 
+		ModeratorID = a.UserID, 
+		ModeratorName = a.Name,
+		IsGroup=0
+	from
+		yaf_User a
+		JOIN yaf_vaccess x ON a.UserID=x.UserID
+	where
+		x.ModeratorAccess<>0
+	order by
+		IsGroup desc,
+		ModeratorName asc
 end
 GO
 

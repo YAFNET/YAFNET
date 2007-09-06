@@ -22,10 +22,13 @@
                 <td class="header1" align="left">
                     <%# GetText("FORUM") %>
                 </td>
-                <td class="header1" align="center" width="7%">
+                <td class="header1" align="center" width="10%">
+                    <%# GetText("moderators") %>
+                </td>
+                <td class="header1" align="center" width="5%">
                     <%# GetText("topics") %>
                 </td>
-                <td class="header1" align="center" width="7%">
+                <td class="header1" align="center" width="5%">
                     <%# GetText("posts") %>
                 </td>
                 <td class="header1" align="center" width="25%">
@@ -35,7 +38,7 @@
     </HeaderTemplate>
     <ItemTemplate>
         <tr>
-            <td class="header2" colspan="5">
+            <td class="header2" colspan="6">
                 <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline"
                     CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
                 </asp:ImageButton>
@@ -118,7 +121,7 @@
                                 <ItemTemplate>
                                     &nbsp;<a href='<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# YAF.Classes.Utils.General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
                                     <a href="<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
-                                        <img src="<%# GetThemeContents("ICONS","ICON_LATEST") %>" border="0" alt=""></a><br />
+                                        <img src="<%# GetThemeContents("ICONS",(DateTime.Parse(Convert.ToString(DataBinder.Eval(Container.DataItem, "LastPosted"))) > YAF.Classes.Utils.Mession.GetTopicRead((int)DataBinder.Eval(Container.DataItem, "TopicID"))) ? "ICON_NEWEST" : "ICON_LATEST") %>" border="0" alt=""></a><br />
                                 </ItemTemplate>
                             </asp:Repeater>
                         </td>

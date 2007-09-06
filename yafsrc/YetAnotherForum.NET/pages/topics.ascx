@@ -5,7 +5,7 @@
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">
     <table class="content" cellspacing="1" cellpadding="0" width="100%">
         <tr class="header1">
-            <td colspan="5">
+            <td colspan="6">
                 <%=GetSubForumTitle()%>
             </td>
         </tr>
@@ -15,10 +15,13 @@
             <td align="left">
                 <%# GetText("FORUM") %>
             </td>
-            <td align="center" width="7%">
+            <td align="center" width="10%">
+                <%# GetText("moderators") %>
+            </td>
+            <td align="center" width="0%">
                 <%# GetText("topics") %>
             </td>
-            <td align="center" width="7%">
+            <td align="center" width="0%">
                 <%# GetText("posts") %>
             </td>
             <td align="center" width="25%">
