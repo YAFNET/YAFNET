@@ -100,8 +100,8 @@ namespace YAF.Pages
 			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID );
 
 			// Forum statistics
-			string key = string.Format( "BoardStats.{0}", PageContext.PageBoardID );
-			DataRow stats = ( DataRow ) Cache [key];
+			string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
+			DataRow stats = (DataRow)Cache[key];
 			if ( stats == null )
 			{
 				stats = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );

@@ -1628,12 +1628,12 @@ begin
 		Topics			= dbo.yaf_forum_topics(b.ForumID),
 		Posts			= dbo.yaf_forum_posts(b.ForumID),
 		Subforums		= dbo.yaf_forum_subforums(b.ForumID, @UserID),
-		LastPosted		= b.LastPosted,
-		LastMessageID	= b.LastMessageID,
-		LastUserID		= b.LastUserID,
-		LastUser		= IsNull(b.LastUserName,(select Name from yaf_User x where x.UserID=b.LastUserID)),
-		LastTopicID		= b.LastTopicID,
-		LastTopicName	= (select x.Topic from yaf_Topic x where x.TopicID=b.LastTopicID),
+		LastPosted		= t.LastPosted,
+		LastMessageID	= t.LastMessageID,
+		LastUserID		= t.LastUserID,
+		LastUser		= IsNull(t.LastUserName,(select Name from yaf_User x where x.UserID=t.LastUserID)),
+		LastTopicID		= t.TopicID,
+		LastTopicName	= t.Topic,
 		b.Flags,
 		Viewing			= (select count(1) from yaf_Active x where x.ForumID=b.ForumID),
 		b.RemoteURL,
@@ -1642,6 +1642,7 @@ begin
 		yaf_Category a
 		join yaf_Forum b on b.CategoryID=a.CategoryID
 		join yaf_vaccess x on x.ForumID=b.ForumID
+		left outer join yaf_Topic t ON t.TopicID = dbo.yaf_forum_lasttopic(b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
 	where 
 		a.BoardID = @BoardID and
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -4782,6 +4783,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum
 DROP FUNCTION [dbo].[yaf_forum_subforums]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_lasttopic]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [dbo].[yaf_forum_lasttopic]
+GO
+
 create function [dbo].[yaf_bitset](@Flags int,@Mask int) returns bit as
 begin
 	declare @bool bit
@@ -4858,7 +4863,7 @@ begin
 	declare @NumSubforums int
 
 	select 
-		@NumSubforums=COUNT(*)	
+		@NumSubforums=COUNT(1)	
 	from 
 		yaf_Forum a 
 		join yaf_vaccess x on x.ForumID = a.ForumID 
@@ -4870,3 +4875,172 @@ begin
 	return @NumSubforums
 end
 GO
+
+CREATE FUNCTION [dbo].[yaf_forum_lasttopic] 
+(	
+	@ForumID int,
+	@UserID int = null,
+	@LastTopicID int = null,
+	@LastPosted datetime = null
+) RETURNS int AS
+BEGIN
+	-- local variables for temporary values
+	declare @SubforumID int
+	declare @TopicID int
+	declare @Posted datetime
+
+	-- try to retrieve last direct topic posed in forums if not supplied as argument 
+	if (@LastTopicID is null or @LastPosted is null) begin
+		SELECT 
+			@LastTopicID=a.LastTopicID,
+			@LastPosted=a.LastPosted
+		FROM
+			yaf_Forum a
+			JOIN yaf_vaccess x ON a.ForumID=x.ForumID
+		WHERE
+			a.ForumID=@ForumID and
+			(
+				(@UserID is null and (a.Flags & 2)=0) or 
+				(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+			)
+	end
+
+	-- look for newer topic/message in subforums
+	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+			SELECT 
+				a.ForumID,
+				a.LastTopicID,
+				a.LastPosted
+			FROM
+				yaf_Forum a
+				JOIN yaf_vaccess x ON a.ForumID=x.ForumID
+			WHERE
+				a.ParentID=@ForumID and
+				(
+					(@UserID is null and (a.Flags & 2)=0) or 
+					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+				)
+			
+		open c
+		
+		-- cycle through subforums
+		fetch next from c into @SubforumID, @TopicID, @Posted
+		while @@FETCH_STATUS = 0
+		begin
+			-- get last topic/message info for subforum
+			SELECT 
+				@TopicID = LastTopicID,
+				@Posted = LastPosted
+			FROM
+				dbo.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
+
+			-- if subforum has newer topic/message, make it last for parent forum
+			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
+				SET @LastTopicID = @TopicID
+				SET @LastPosted = @Posted
+			end
+
+			fetch next from c into @SubforumID, @TopicID, @Posted
+		end
+		close c
+		deallocate c
+	end
+
+	-- return id of topic with last message in this forum or its subforums
+	RETURN @LastTopicID
+END
+GO
+
+-- table-valued functions
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_lastposted]') AND xtype in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+DROP FUNCTION [dbo].[yaf_forum_lastposted]
+GO
+
+CREATE FUNCTION [dbo].[yaf_forum_lastposted] 
+(	
+	@ForumID int,
+	@UserID int = null,
+	@LastTopicID int = null,
+	@LastPosted datetime = null
+)
+RETURNS @LastPostInForum TABLE 
+(
+	LastTopicID int,
+	LastPosted datetime
+)
+AS
+BEGIN
+	-- local variables for temporary values
+	declare @SubforumID int
+	declare @TopicID int
+	declare @Posted datetime
+
+	-- try to retrieve last direct topic posed in forums if not supplied as argument 
+	if (@LastTopicID is null or @LastPosted is null) begin
+		SELECT 
+			@LastTopicID=a.LastTopicID,
+			@LastPosted=a.LastPosted
+		FROM
+			yaf_Forum a
+			JOIN yaf_vaccess x ON a.ForumID=x.ForumID
+		WHERE
+			a.ForumID=@ForumID and
+			(
+				(@UserID is null and (a.Flags & 2)=0) or 
+				(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+			)
+	end
+
+	-- look for newer topic/message in subforums
+	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	begin
+		declare c cursor for
+			SELECT 
+				a.ForumID,
+				a.LastTopicID,
+				a.LastPosted
+			FROM
+				yaf_Forum a
+				JOIN yaf_vaccess x ON a.ForumID=x.ForumID
+			WHERE
+				a.ParentID=@ForumID and
+				(
+					(@UserID is null and (a.Flags & 2)=0) or 
+					(x.UserID=@UserID and ((a.Flags & 2)=0 or x.ReadAccess<>0))
+				)
+			
+		open c
+		
+		-- cycle through subforums
+		fetch next from c into @SubforumID, @TopicID, @Posted
+		while @@FETCH_STATUS = 0
+		begin
+			-- get last topic/message info for subforum
+			SELECT 
+				@TopicID = LastTopicID,
+				@Posted = LastPosted
+			FROM
+				dbo.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
+
+			-- if subforum has newer topic/message, make it last for parent forum
+			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
+				SET @LastTopicID = @TopicID
+				SET @LastPosted = @Posted
+			end
+
+			fetch next from c into @SubforumID, @TopicID, @Posted
+		end
+		close c
+		deallocate c
+	end
+
+	-- return vector
+	INSERT @LastPostInForum
+	SELECT 
+		@LastTopicID,
+		@LastPosted
+	RETURN
+END;

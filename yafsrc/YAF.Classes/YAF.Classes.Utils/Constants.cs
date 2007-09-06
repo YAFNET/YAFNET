@@ -53,6 +53,7 @@ namespace YAF.Classes.Utils
 		public struct Cache
 		{
 			public const string BannedIP = "BannedIP";
+			public const string BoardStats = "BoardStats";
 		}
 	}
 }
