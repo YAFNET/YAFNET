@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin
 
 				// set datasource
 				BoardStatsSelect.DataSource = dt;
-				DataBind();
+				BoardStatsSelect.DataBind();
 
 				// select current board as default
 				BoardStatsSelect.SelectedIndex = 

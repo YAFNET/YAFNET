@@ -329,7 +329,7 @@
 		<Resource tag="HOMEPAGE">Home Page</Resource>
 		<Resource tag="HOMEPAGE2">Your Web Site (public):</Resource>
 		<Resource tag="TIMEZONE">Time Zone</Resource>
-		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>		
+		<Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
 		<Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
 		<Resource tag="EMAIL">You must always have a valid email address.</Resource>
 		<Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
@@ -510,7 +510,8 @@
 		<Resource tag="TERMSANDCONDITIONS_AGREE">I agree to these Terms and Conditions</Resource>
 		<Resource tag="TERMSANDCONDITIONS_DISAGREE">I do not agree to these Terms and Conditions</Resource>
 		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
-		<Resource tag="TERMS_AND_CONDITIONS" bbcode="true">[size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+		<Resource tag="TERMS_AND_CONDITIONS" bbcode="true">
+			[size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
 
 			You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
 
@@ -524,7 +525,7 @@
 		</Resource>
 		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]Your account has been successfully created.[/center]</Resource>
 		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
-	</page>	
+	</page>
 	<page name="MEMBERS">
 		<!-- members.aspx -->
 		<Resource tag="TITLE">Members</Resource>
@@ -614,7 +615,16 @@
 		<Resource tag="NEED_CHOICES">A poll needs at least two choices.</Resource>
 		<Resource tag="POSTTOBLOG_FAILED">An error occured posting to your blog. The authentication might have failed.</Resource>
 		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
+		<Resource tag="SMILIES_MORE">More Smilies...</Resource>
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
+	</page>
+	<page name="SHOWSMILIES">
+		<!-- showsmilies.ascx -->
+		<Resource tag="TITLE">Available Smilies</Resource>
+		<Resource tag="HEADER_CODE">Code</Resource>
+		<Resource tag="HEADER_SMILE">Smile</Resource>
+		<Resource tag="HEADER_MEANING">Meaning</Resource>
+		<Resource tag="CLOSE_WINDOW">Close Window</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->

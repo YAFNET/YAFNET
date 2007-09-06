@@ -75,6 +75,7 @@ namespace YAF.Classes.Utils
         help_recover,
         lastposts,
         recoverpassword,
+		showsmilies,
         admin_admin,
         admin_hostsettings,
         admin_boards,

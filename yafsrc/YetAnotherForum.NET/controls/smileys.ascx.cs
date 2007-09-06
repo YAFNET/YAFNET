@@ -31,85 +31,92 @@ namespace YAF.Controls
 	/// </summary>
 	public partial class smileys : YAF.Classes.Base.BaseUserControl
 	{
-		protected DataTable dtSmileys;
+		protected DataTable _dtSmileys;
 		private string _onclick;
 
-		public int pagenum = 0;
-		public int pagesize = 18;
-		public int perrow = 6;
+		//public int pagenum = 0;
+		private int _pagesize = 18;
+		private int _perrow = 6;
 
-		protected void Page_Load( object sender, System.EventArgs e )
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			if (!IsPostBack)
+			{
+				MoreSmilies.Text = PageContext.Localization.GetText("SMILIES_MORE");
+				MoreSmilies.NavigateUrl = YafBuildLink.GetLink(ForumPages.showsmilies);
+				MoreSmilies.Target = "yafShowSmilies";
+				MoreSmilies.Attributes.Add("onclick",
+					String.Format("window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');return false;",
+						MoreSmilies.NavigateUrl,
+						MoreSmilies.Target,
+						550,
+						300));
+			}
+
 			YafBoardSettings bs = PageContext.BoardSettings;
-			pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
-			perrow = bs.SmiliesPerRow;
+			_pagesize = bs.SmiliesColumns * bs.SmiliesPerRow;
+			_perrow = bs.SmiliesPerRow;
 
 			// setup the header
-			AddSmiley.Attributes.Add( "colspan", perrow.ToString() );
-			AddSmiley.InnerHtml = PageContext.Localization.GetText( "SMILIES_HEADER" );
+			AddSmiley.Attributes.Add("colspan", _perrow.ToString());
+			AddSmiley.InnerHtml = PageContext.Localization.GetText("SMILIES_HEADER");
+			// setup footer
+			MoreSmiliesCell.Attributes.Add("colspan", _perrow.ToString());
 
-			dtSmileys = YAF.Classes.Data.DB.smiley_listunique( base.PageContext.PageBoardID );
+			_dtSmileys = YAF.Classes.Data.DB.smiley_listunique(base.PageContext.PageBoardID);
 
-      if ( dtSmileys.Rows.Count == 0 )
-      {
-        SmiliesPlaceholder.Visible = false;
-      }
-      else
-      {
-        pager.PageSize = pagesize;
-        CreateSmileys();
-      }
-		}
-
-		protected void pager_PageChange( object sender, EventArgs e )
-		{
-			CreateSmileys();
+			if (_dtSmileys.Rows.Count == 0)
+			{
+				SmiliesPlaceholder.Visible = false;
+			}
+			else
+			{
+				MoreSmiliesCell.Visible = (_dtSmileys.Rows.Count > _pagesize);
+					
+				CreateSmileys();
+			}
 		}
 
 		private void CreateSmileys()
 		{
-			int pgnum = pager.CurrentPageIndex;
-			pager.Count = dtSmileys.Rows.Count;
-			int intpg = pgnum * pagesize;
-
 			System.Text.StringBuilder html = new System.Text.StringBuilder();
-			html.AppendFormat( "<tr class='post'>" );
+			html.AppendFormat("<tr class='post'>");
 			int rowcells = 0;
 
-			for ( int i = intpg; i < intpg + pagesize; i++ )
+			for (int i = 0; i < _pagesize; i++)
 			{
-				if ( i < dtSmileys.Rows.Count )
+				if (i < _dtSmileys.Rows.Count)
 				{
-					DataRow row = dtSmileys.Rows [i];
-					if ( i % perrow == 0 && i > 0 && i < dtSmileys.Rows.Count )
+					DataRow row = _dtSmileys.Rows[i];
+					if (i % _perrow == 0 && i > 0 && i < _dtSmileys.Rows.Count)
 					{
-						html.Append( "</tr><tr class='post'>\n" );
+						html.Append("</tr><tr class='post'>\n");
 						rowcells = 0;
 					}
 					string evt = "";
-					if ( _onclick.Length > 0 )
+					if (_onclick.Length > 0)
 					{
-						string strCode = Convert.ToString( row ["Code"] ).ToLower();
-						strCode = strCode.Replace( "&", "&amp;" );
-						strCode = strCode.Replace( "\"", "&quot;" );
-						strCode = strCode.Replace( "'", "\\'" );
-						evt = String.Format( "javascript:{0}('{1} ','{3}images/emoticons/{2}')", _onclick, strCode, row ["Icon"], YafForumInfo.ForumRoot );
+						string strCode = Convert.ToString(row["Code"]).ToLower();
+						strCode = strCode.Replace("&", "&amp;");
+						strCode = strCode.Replace("\"", "&quot;");
+						strCode = strCode.Replace("'", "\\'");
+						evt = String.Format("javascript:{0}('{1} ','{3}images/emoticons/{2}')", _onclick, strCode, row["Icon"], YafForumInfo.ForumRoot);
 					}
 					else
 					{
 						evt = "javascript:void()";
 					}
-					html.AppendFormat( "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n", YafBuildLink.Smiley( ( string ) row ["Icon"] ), row ["Emoticon"], evt );
+					html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n", YafBuildLink.Smiley((string)row["Icon"]), row["Emoticon"], evt);
 					rowcells++;
 				}
 			}
-			while ( rowcells++ < perrow ) html.AppendFormat( "<td>&nbsp;</td>" );
-			html.AppendFormat( "</tr>" );
+			while (rowcells++ < _perrow) html.AppendFormat("<td>&nbsp;</td>");
+			html.AppendFormat("</tr>");
 
 			SmileyResults.Text = html.ToString();
 		}
 
-		public string onclick
+		public string OnClick
 		{
 			set
 			{

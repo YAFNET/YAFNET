@@ -16,18 +16,18 @@ namespace YAF.Editor
 	{
 		protected string _baseDir = string.Empty;
 
-		public new string ResolveUrl( string relativeUrl )
+		public new string ResolveUrl(string relativeUrl)
 		{
-			if ( _baseDir != string.Empty )
+			if (_baseDir != string.Empty)
 				return _baseDir + relativeUrl;
 			else
-				return base.ResolveUrl( relativeUrl );
+				return base.ResolveUrl(relativeUrl);
 		}
 
-		protected virtual string Replace( string txt, string match, string replacement )
+		protected virtual string Replace(string txt, string match, string replacement)
 		{
 			RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-			while ( Regex.IsMatch( txt, match, options ) ) txt = Regex.Replace( txt, match, replacement, options );
+			while (Regex.IsMatch(txt, match, options)) txt = Regex.Replace(txt, match, replacement, options);
 			return txt;
 		}
 
@@ -43,7 +43,7 @@ namespace YAF.Editor
 			set
 			{
 				_baseDir = value;
-				if ( !_baseDir.EndsWith( "/" ) )
+				if (!_baseDir.EndsWith("/"))
 					_baseDir += "/";
 			}
 		}
@@ -68,16 +68,16 @@ namespace YAF.Editor
 	{
 		protected System.Web.UI.HtmlControls.HtmlTextArea _textCtl;
 
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
-			Load += new EventHandler( Editor_Load );
+			Load += new EventHandler(Editor_Load);
 
 			_textCtl = new HtmlTextArea();
 
 			_textCtl.ID = "edit";
-            _textCtl.Attributes.Add("style", "width:100%;height:100%");
-            _textCtl.Rows = 25;
-			Controls.Add( _textCtl );
+			_textCtl.Attributes.Add("style", "width:100%;height:100%");
+			_textCtl.Rows = 25;
+			Controls.Add(_textCtl);
 
 			/*
 			m_textCtl = new TextBox();
@@ -88,34 +88,35 @@ namespace YAF.Editor
 			Controls.Add( m_textCtl );
 			 */
 
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
+		protected virtual void Editor_Load(object sender, EventArgs e)
 		{
-			if ( this.Visible )
-			{
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "yafeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "yafEditor/yafEditor.js" ) ) );
+			// Ederon : 9/6/2007
+			/*if (this.Visible || this.)
+			{*/
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "yafeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("yafEditor/yafEditor.js")));
 
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "createyafeditor",
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "createyafeditor",
 					"\n<script language='javascript'>\n" +
 					"var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
 					"function setStyle(style,option) {\n" +
 					"	" + SafeID + ".FormatText(style,option);\n" +
-					"}\n" + "</script>" );
+					"}\n" + "</script>");
 
 				RegisterSmilieyScript();
-			}
+			/*}*/
 		}
 
 		protected virtual void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
 				"function insertsmiley(code) {\n" +
 				"	" + SafeID + ".InsertSmiley(code);\n" +
 				"}\n" +
-				"</script>\n" );
+				"</script>\n");
 		}
 
 		public override string Text
@@ -132,7 +133,7 @@ namespace YAF.Editor
 
 		protected string SafeID
 		{
-			get { return _textCtl.ClientID.Replace( "$", "_" ); }
+			get { return _textCtl.ClientID.Replace("$", "_"); }
 		}
 
 		public override bool UsesHTML
@@ -151,14 +152,14 @@ namespace YAF.Editor
 	/// </summary>
 	public class BasicBBCodeEditor : TextEditor
 	{
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected override void Editor_Load( object sender, EventArgs e )
+		protected override void Editor_Load(object sender, EventArgs e)
 		{
-			base.Editor_Load( sender, e );
+			base.Editor_Load(sender, e);
 		}
 
 		#region Properties
@@ -172,81 +173,81 @@ namespace YAF.Editor
 
 	public class BBCodeEditor : TextEditor
 	{
-		private void RenderButton( HtmlTextWriter writer, string id, string cmd, string title, string image )
+		private void RenderButton(HtmlTextWriter writer, string id, string cmd, string title, string image)
 		{
 			//writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
-			writer.WriteLine( "<img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"setStyle('{4}','')\">", ResolveUrl( image ), SafeID, title, cmd, id );
+			writer.WriteLine("<img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"setStyle('{4}','')\">", ResolveUrl(image), SafeID, title, cmd, id);
 		}
 
-		protected override void Render( HtmlTextWriter writer )
+		protected override void Render(HtmlTextWriter writer)
 		{
-			writer.WriteLine( "<table border='0' cellpadding='0' cellspacing='2' width='100%' height='300'>" );
-			writer.WriteLine( "<tr><td valign='top'>" );
-			writer.WriteLine( "	<table border='0' cellpadding='1' cellspacing='2' id='bbcodeFeatures'>" );
-			writer.WriteLine( "	<tr><td valign='middle'>" );
+			writer.WriteLine("<table border='0' cellpadding='0' cellspacing='2' width='100%' height='300'>");
+			writer.WriteLine("<tr><td valign='top'>");
+			writer.WriteLine("	<table border='0' cellpadding='1' cellspacing='2' id='bbcodeFeatures'>");
+			writer.WriteLine("	<tr><td valign='middle'>");
 
-			RenderButton( writer, "bold", "FormatText('bold','')", "Bold", "yafEditor/bold.gif" );
-			RenderButton( writer, "italic", "FormatText('italic','')", "Italic", "yafEditor/italic.gif" );
-			RenderButton( writer, "underline", "FormatText('underline','')", "Underline", "yafEditor/underline.gif" );
+			RenderButton(writer, "bold", "FormatText('bold','')", "Bold", "yafEditor/bold.gif");
+			RenderButton(writer, "italic", "FormatText('italic','')", "Italic", "yafEditor/italic.gif");
+			RenderButton(writer, "underline", "FormatText('underline','')", "Underline", "yafEditor/underline.gif");
 
-			writer.WriteLine( "&nbsp;" );
+			writer.WriteLine("&nbsp;");
 
-			RenderButton( writer, "quote", "FormatText('quote','')", "Quote", "yafEditor/quote.gif" );
-			RenderButton( writer, "code", "FormatText('code','')", "Code", "yafEditor/code.gif" );
-			RenderButton( writer, "img", "FormatText('img','')", "Image", "yafEditor/image.gif" );
-			RenderButton( writer, "createlink", "FormatText('createlink','')", "Create Link", "yafEditor/link.gif" );
+			RenderButton(writer, "quote", "FormatText('quote','')", "Quote", "yafEditor/quote.gif");
+			RenderButton(writer, "code", "FormatText('code','')", "Code", "yafEditor/code.gif");
+			RenderButton(writer, "img", "FormatText('img','')", "Image", "yafEditor/image.gif");
+			RenderButton(writer, "createlink", "FormatText('createlink','')", "Create Link", "yafEditor/link.gif");
 
-			writer.WriteLine( "&nbsp;" );
+			writer.WriteLine("&nbsp;");
 
-			RenderButton( writer, "justifyleft", "FormatText('justifyleft','')", "Left", "yafEditor/justifyleft.gif" );
-			RenderButton( writer, "justifycenter", "FormatText('justifycenter','')", "Center", "yafEditor/justifycenter.gif" );
-			RenderButton( writer, "justifyright", "FormatText('justifyright','')", "Right", "yafEditor/justifyright.gif" );
+			RenderButton(writer, "justifyleft", "FormatText('justifyleft','')", "Left", "yafEditor/justifyleft.gif");
+			RenderButton(writer, "justifycenter", "FormatText('justifycenter','')", "Center", "yafEditor/justifycenter.gif");
+			RenderButton(writer, "justifyright", "FormatText('justifyright','')", "Right", "yafEditor/justifyright.gif");
 
-			writer.WriteLine( "	</td></tr>" );
-			writer.WriteLine( "	<tr><td valign='middle'>" );
+			writer.WriteLine("	</td></tr>");
+			writer.WriteLine("	<tr><td valign='middle'>");
 
-			writer.WriteLine( "Font color:" );
-			writer.WriteLine( "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", SafeID );
-			writer.WriteLine( "<option value=\"\">Default</option>" );
+			writer.WriteLine("Font color:");
+			writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", SafeID);
+			writer.WriteLine("<option value=\"\">Default</option>");
 
-			string [] Colors = { "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo", "Violet", "White", "Black" };
-			foreach ( string color in Colors )
+			string[] Colors = { "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo", "Violet", "White", "Black" };
+			foreach (string color in Colors)
 			{
-				string tValue = color.Replace( " ", "" ).ToLower();
-				writer.WriteLine( string.Format( "<option style=\"color:{0}\" value=\"{0}\">{1}</option>", tValue, color ) );
+				string tValue = color.Replace(" ", "").ToLower();
+				writer.WriteLine(string.Format("<option style=\"color:{0}\" value=\"{0}\">{1}</option>", tValue, color));
 			}
 
-			writer.WriteLine( "</select>" );
+			writer.WriteLine("</select>");
 
-			writer.WriteLine( "Font size:" );
-			writer.WriteLine( "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", SafeID );
-			writer.WriteLine( "<option value=\"1\">1</option>" );
-			writer.WriteLine( "<option value=\"2\">2</option>" );
-			writer.WriteLine( "<option value=\"3\">3</option>" );
-			writer.WriteLine( "<option value=\"4\">4</option>" );
-			writer.WriteLine( "<option selected=\"selected\" value=\"5\">Default</option>" );
-			writer.WriteLine( "<option value=\"6\">6</option>" );
-			writer.WriteLine( "<option value=\"7\">7</option>" );
-			writer.WriteLine( "<option value=\"8\">8</option>" );
-			writer.WriteLine( "<option value=\"9\">9</option>" );
-			writer.WriteLine( "</select>" );
+			writer.WriteLine("Font size:");
+			writer.WriteLine("<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", SafeID);
+			writer.WriteLine("<option value=\"1\">1</option>");
+			writer.WriteLine("<option value=\"2\">2</option>");
+			writer.WriteLine("<option value=\"3\">3</option>");
+			writer.WriteLine("<option value=\"4\">4</option>");
+			writer.WriteLine("<option selected=\"selected\" value=\"5\">Default</option>");
+			writer.WriteLine("<option value=\"6\">6</option>");
+			writer.WriteLine("<option value=\"7\">7</option>");
+			writer.WriteLine("<option value=\"8\">8</option>");
+			writer.WriteLine("<option value=\"9\">9</option>");
+			writer.WriteLine("</select>");
 
-			writer.WriteLine( "	</td></tr>" );
-			writer.WriteLine( "	</table>" );
-			writer.WriteLine( "</td></tr><tr><td height='99%'>" );
-			base.Render( writer );
-			writer.WriteLine( "</td></tr></table>" );
+			writer.WriteLine("	</td></tr>");
+			writer.WriteLine("	</table>");
+			writer.WriteLine("</td></tr><tr><td height='99%'>");
+			base.Render(writer);
+			writer.WriteLine("</td></tr></table>");
 		}
 
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
 
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected override void Editor_Load( object sender, EventArgs e )
+		protected override void Editor_Load(object sender, EventArgs e)
 		{
-			base.Editor_Load( sender, e );
+			base.Editor_Load(sender, e);
 		}
 
 		#region Properties
@@ -274,7 +275,7 @@ namespace YAF.Editor
 			_typEditor = null;
 		}
 
-		public RichClassEditor( string ClassBinStr )
+		public RichClassEditor(string ClassBinStr)
 		{
 			_init = false;
 			_styleSheet = string.Empty;
@@ -282,14 +283,14 @@ namespace YAF.Editor
 
 			try
 			{
-				_typEditor = Type.GetType( ClassBinStr, true );
+				_typEditor = Type.GetType(ClassBinStr, true);
 			}
-			catch ( Exception x )
+			catch (Exception x)
 			{
 #if DEBUG
 				throw new Exception( "Unable to load editor class/dll: " + ClassBinStr + " Exception: " + x.Message );
 #else
-				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, YAF.Classes.Data.EventLogTypes.Error );
+				YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, YAF.Classes.Data.EventLogTypes.Error);
 #endif
 			}
 		}
@@ -298,14 +299,14 @@ namespace YAF.Editor
 		{
 			try
 			{
-				if ( !_init && _typEditor != null )
+				if (!_init && _typEditor != null)
 				{
 					// create instance of main class
-					_editor = ( System.Web.UI.Control ) Activator.CreateInstance( _typEditor );
+					_editor = (System.Web.UI.Control)Activator.CreateInstance(_typEditor);
 					_init = true;
 				}
 			}
-			catch ( Exception )
+			catch (Exception)
 			{
 				// dll is not accessible
 				return false;
@@ -313,13 +314,13 @@ namespace YAF.Editor
 			return true;
 		}
 
-		protected Type GetInterfaceInAssembly( Assembly cAssembly, string ClassName )
+		protected Type GetInterfaceInAssembly(Assembly cAssembly, string ClassName)
 		{
-			Type [] types = cAssembly.GetTypes();
-			foreach ( Type typ in types )
+			Type[] types = cAssembly.GetTypes();
+			foreach (Type typ in types)
 			{
 				// dynamically create or activate(if exist) object
-				if ( typ.FullName == ClassName )
+				if (typ.FullName == ClassName)
 				{
 					return typ;
 				}
@@ -333,9 +334,9 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( _init )
+				if (_init)
 				{
-					return _editor.ClientID.Replace( "$", "_" );
+					return _editor.ClientID.Replace("$", "_");
 				}
 				return string.Empty;
 			}
@@ -367,35 +368,35 @@ namespace YAF.Editor
 	public class FCKEditorV2 : RichClassEditor
 	{
 		public FCKEditorV2()
-			: base( "FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2" )
+			: base("FredCK.FCKeditorV2.FCKeditor,FredCK.FCKeditorV2")
 		{
 			InitEditorObject();
 		}
 
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
-			if ( _init )
+			if (_init)
 			{
-				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
-				pInfo.SetValue( _editor, "edit", null );
-				Controls.Add( _editor );
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = _typEditor.GetProperty("ID");
+				pInfo.SetValue(_editor, "edit", null);
+				Controls.Add(_editor);
 			}
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
+		protected virtual void Editor_Load(object sender, EventArgs e)
 		{
-			if ( _init && _editor.Visible )
+			if (_init && _editor.Visible)
 			{
 				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty( "BasePath" );
-				pInfo.SetValue( _editor, ResolveUrl( "FCKEditorV2/" ), null );
+				pInfo = _typEditor.GetProperty("BasePath");
+				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV2/"), null);
 
-				pInfo = _typEditor.GetProperty( "Height" );
-				pInfo.SetValue( _editor, Unit.Pixel( 300 ), null );
+				pInfo = _typEditor.GetProperty("Height");
+				pInfo.SetValue(_editor, Unit.Pixel(300), null);
 
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "fckeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "FCKEditorV2/FCKEditor.js" ) ) );
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("FCKEditorV2/FCKEditor.js")));
 
 				RegisterSmilieyScript();
 			}
@@ -404,12 +405,12 @@ namespace YAF.Editor
 		protected virtual void RegisterSmilieyScript()
 		{
 			// insert smiliey code -- can't get this working with FireFox!
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
 				"function insertsmiley(code) {\n" +
 				"	window.frames['" + SafeID + "___Frame'].FCK.InsertHtml(code);\n" +
 				"}\n" +
-				"</script>\n" );
+				"</script>\n");
 		}
 
 		#region Properties
@@ -417,19 +418,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
-					return Convert.ToString( pInfo.GetValue( _editor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty("Value");
+					return Convert.ToString(pInfo.GetValue(_editor, null));
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
-					pInfo.SetValue( _editor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty("Value");
+					pInfo.SetValue(_editor, value, null);
 				}
 			}
 		}
@@ -440,32 +441,32 @@ namespace YAF.Editor
 	public class FCKEditorV1 : RichClassEditor
 	{
 		public FCKEditorV1()
-			: base( "FredCK.FCKeditor,FredCK.FCKeditor" )
+			: base("FredCK.FCKeditor,FredCK.FCKeditor")
 		{
 			InitEditorObject();
 		}
 
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
-			if ( _init )
+			if (_init)
 			{
-				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
-				pInfo.SetValue( _editor, "edit", null );
-				Controls.Add( _editor );
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = _typEditor.GetProperty("ID");
+				pInfo.SetValue(_editor, "edit", null);
+				Controls.Add(_editor);
 			}
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
+		protected virtual void Editor_Load(object sender, EventArgs e)
 		{
-			if ( _init && _editor.Visible )
+			if (_init && _editor.Visible)
 			{
 				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty( "BasePath" );
-				pInfo.SetValue( _editor, ResolveUrl( "FCKEditorV1/" ), null );
+				pInfo = _typEditor.GetProperty("BasePath");
+				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV1/"), null);
 
-				Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "fckeditorjs", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "FCKEditorV1/FCKEditor.js" ) ) );
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("FCKEditorV1/FCKEditor.js")));
 			}
 		}
 
@@ -474,19 +475,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
-					return Convert.ToString( pInfo.GetValue( _editor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty("Value");
+					return Convert.ToString(pInfo.GetValue(_editor, null));
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Value" );
-					pInfo.SetValue( _editor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty("Value");
+					pInfo.SetValue(_editor, value, null);
 				}
 			}
 		}
@@ -497,38 +498,38 @@ namespace YAF.Editor
 	public class FreeTextBoxEditor : RichClassEditor
 	{
 		public FreeTextBoxEditor()
-			: base( "FreeTextBoxControls.FreeTextBox,FreeTextBox" )
+			: base("FreeTextBoxControls.FreeTextBox,FreeTextBox")
 		{
 			InitEditorObject();
 		}
 
-		protected override void OnInit( EventArgs e )
+		protected override void OnInit(EventArgs e)
 		{
-			if ( _init )
+			if (_init)
 			{
-				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
-				pInfo.SetValue( _editor, "edit", null );
-				pInfo = _typEditor.GetProperty( "AutoGenerateToolbarsFromString" );
-				pInfo.SetValue( _editor, true, null );
-				pInfo = _typEditor.GetProperty( "ToolbarLayout" );
-				pInfo.SetValue( _editor, "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", null );
-				Controls.Add( _editor );
+				Load += new EventHandler(Editor_Load);
+				PropertyInfo pInfo = _typEditor.GetProperty("ID");
+				pInfo.SetValue(_editor, "edit", null);
+				pInfo = _typEditor.GetProperty("AutoGenerateToolbarsFromString");
+				pInfo.SetValue(_editor, true, null);
+				pInfo = _typEditor.GetProperty("ToolbarLayout");
+				pInfo.SetValue(_editor, "FontFacesMenu,FontSizesMenu,FontForeColorsMenu;Bold,Italic,Underline|Cut,Copy,Paste,Delete,Undo,Redo|CreateLink,Unlink|JustifyLeft,JustifyRight,JustifyCenter,JustifyFull;BulletedList,NumberedList,Indent,Outdent", null);
+				Controls.Add(_editor);
 			}
-			base.OnInit( e );
+			base.OnInit(e);
 		}
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
+		protected virtual void Editor_Load(object sender, EventArgs e)
 		{
-			if ( _init && _editor.Visible )
+			if (_init && _editor.Visible)
 			{
 				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty( "SupportFolder" );
-				pInfo.SetValue( _editor, ResolveUrl( "FreeTextBox/" ), null );
-				pInfo = _typEditor.GetProperty( "Width" );
-				pInfo.SetValue( _editor, Unit.Percentage( 100 ), null );
-				pInfo = _typEditor.GetProperty( "DesignModeCss" );
-				pInfo.SetValue( _editor, StyleSheet, null );
+				pInfo = _typEditor.GetProperty("SupportFolder");
+				pInfo.SetValue(_editor, ResolveUrl("FreeTextBox/"), null);
+				pInfo = _typEditor.GetProperty("Width");
+				pInfo.SetValue(_editor, Unit.Percentage(100), null);
+				pInfo = _typEditor.GetProperty("DesignModeCss");
+				pInfo.SetValue(_editor, StyleSheet, null);
 				//pInfo = typEditor.GetProperty("EnableHtmlMode");
 				//pInfo.SetValue(objEditor,false,null);
 
@@ -538,12 +539,12 @@ namespace YAF.Editor
 
 		protected virtual void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
 				"function insertsmiley(code){" +
 				"FTB_InsertText('" + SafeID + "',code);" +
 				"}\n" +
-				"</script>\n" );
+				"</script>\n");
 		}
 
 		#region Properties
@@ -551,19 +552,19 @@ namespace YAF.Editor
 		{
 			get
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Text" );
-					return Convert.ToString( pInfo.GetValue( _editor, null ) );
+					PropertyInfo pInfo = _typEditor.GetProperty("Text");
+					return Convert.ToString(pInfo.GetValue(_editor, null));
 				}
 				else return string.Empty;
 			}
 			set
 			{
-				if ( _init )
+				if (_init)
 				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Text" );
-					pInfo.SetValue( _editor, value, null );
+					PropertyInfo pInfo = _typEditor.GetProperty("Text");
+					pInfo.SetValue(_editor, value, null);
 				}
 			}
 		}
@@ -573,18 +574,18 @@ namespace YAF.Editor
 	public class FreeTextBoxEditorv3 : FreeTextBoxEditor
 	{
 		public FreeTextBoxEditorv3()
-			: base( )
+			: base()
 		{
 		}
 
 		protected override void RegisterSmilieyScript()
 		{
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
 				"function insertsmiley(code){" +
 				"FTB_API['" + SafeID + "'].InsertHtml(code);" +
 				"}\n" +
-				"</script>\n" );
+				"</script>\n");
 		}
 	}
 
@@ -608,7 +609,7 @@ namespace YAF.Editor
 
 		public static int EditorCount = 7;
 
-		public static string [] EditorTypeText =
+		public static string[] EditorTypeText =
 		{
 			"Text Editor",
 			"BBCode Editor",
@@ -619,18 +620,18 @@ namespace YAF.Editor
 			"FreeTextBox v3 (HTML)"
 		};
 
-		public static ForumEditor CreateEditorFromType( int Value )
+		public static ForumEditor CreateEditorFromType(int Value)
 		{
-			if ( Value < EditorCount )
+			if (Value < EditorCount)
 			{
-				return CreateEditorFromType( ( EditorType ) Value );
+				return CreateEditorFromType((EditorType)Value);
 			}
 			return null;
 		}
 
-		public static ForumEditor CreateEditorFromType( EditorType etValue )
+		public static ForumEditor CreateEditorFromType(EditorType etValue)
 		{
-			switch ( etValue )
+			switch (etValue)
 			{
 				case EditorType.Text: return new TextEditor();
 				case EditorType.BBCode: return new BBCodeEditor();
@@ -646,14 +647,14 @@ namespace YAF.Editor
 
 		public static DataTable GetEditorsTable()
 		{
-			using ( DataTable dt = new DataTable( "TimeZone" ) )
+			using (DataTable dt = new DataTable("TimeZone"))
 			{
-				dt.Columns.Add( "Value", Type.GetType( "System.Int32" ) );
-				dt.Columns.Add( "Name", Type.GetType( "System.String" ) );
+				dt.Columns.Add("Value", Type.GetType("System.Int32"));
+				dt.Columns.Add("Name", Type.GetType("System.String"));
 
-				for ( int i = 0; i < EditorCount; i++ )
+				for (int i = 0; i < EditorCount; i++)
 				{
-					dt.Rows.Add( new object [] { i, EditorTypeText [i] } );
+					dt.Rows.Add(new object[] { i, EditorTypeText[i] });
 				}
 				return dt;
 			}
