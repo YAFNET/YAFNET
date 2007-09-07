@@ -22,13 +22,13 @@
                 <td class="header1" align="left">
                     <%# GetText("FORUM") %>
                 </td>
-                <td class="header1" align="center" width="10%">
+                <td class="header1" align="center" width="15%">
                     <%# GetText("moderators") %>
                 </td>
-                <td class="header1" align="center" width="5%">
+                <td class="header1" align="center" width="4%">
                     <%# GetText("topics") %>
                 </td>
-                <td class="header1" align="center" width="5%">
+                <td class="header1" align="center" width="4%">
                     <%# GetText("posts") %>
                 </td>
                 <td class="header1" align="center" width="25%">

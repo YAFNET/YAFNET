@@ -610,6 +610,26 @@ namespace YAF.Classes.Data
 			}
 		}
 		/// <summary>
+		/// Recalculates topic and post numbers and updates last post for all forums in all boards
+		/// </summary>
+		static public void board_resync()
+		{
+			board_resync(null);
+		}
+		/// <summary>
+		/// Recalculates topic and post numbers and updates last post for specified board
+		/// </summary>
+		/// <param name="boardID">BoardID of board to do re-sync for, if null, all boards are re-synced</param>
+		static public void board_resync(object boardID)
+		{
+			using (SqlCommand cmd = new SqlCommand("yaf_board_resync"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+		/// <summary>
 		/// Gets statistica about number of posts etc.
 		/// </summary>
 		/// <returns>DataRow</returns>
@@ -1083,6 +1103,30 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				return DBAccess.GetData(cmd);
+			}
+		}
+
+		/// <summary>
+		/// Updates topic and post count and last topic for all forums in specified board
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		static public void forum_resync(object boardID)
+		{
+			forum_resync(boardID, null);
+		}
+		/// <summary>
+		/// Updates topic and post count and last topic for specified forum
+		/// </summary>
+		/// <param name="boardID">BoardID</param>
+		/// <param name="forumID">If null, all forums in board are updated</param>
+		static public void forum_resync(object boardID, object forumID)
+		{
+			using (SqlCommand cmd = new SqlCommand("yaf_forum_resync"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("ForumID", forumID);
+				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}
 

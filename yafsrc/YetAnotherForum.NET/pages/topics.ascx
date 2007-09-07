@@ -15,13 +15,13 @@
             <td align="left">
                 <%# GetText("FORUM") %>
             </td>
-            <td align="center" width="10%">
+            <td align="center" width="15%">
                 <%# GetText("moderators") %>
             </td>
-            <td align="center" width="0%">
+            <td align="center" width="4%">
                 <%# GetText("topics") %>
             </td>
-            <td align="center" width="0%">
+            <td align="center" width="4%">
                 <%# GetText("posts") %>
             </td>
             <td align="center" width="25%">

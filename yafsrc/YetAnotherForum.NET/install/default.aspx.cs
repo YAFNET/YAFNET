@@ -49,7 +49,8 @@ namespace YAF.Install
             "constraints.sql",
             "triggers.sql",
             "views.sql",
-            "procedures.sql"
+            "procedures.sql",
+			"functions.sql"
 	    };
 
 		#region events
@@ -221,24 +222,28 @@ namespace YAF.Install
 		{
 			try
 			{
-				FixAccess( false );
+				FixAccess(false);
 
-				foreach ( string script in _scripts )
-					ExecuteScript( script );
+				foreach (string script in _scripts)
+					ExecuteScript(script);
 
-				FixAccess( true );
+				FixAccess(true);
 
-				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
+				using (SqlCommand cmd = new SqlCommand("yaf_system_updateversion"))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
-					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+					cmd.Parameters.AddWithValue("@Version", YafForumInfo.AppVersion);
+					cmd.Parameters.AddWithValue("@VersionName", YafForumInfo.AppVersionName);
+					YAF.Classes.Data.DBAccess.ExecuteNonQuery(cmd);
 				}
+
+				// Ederon : 9/7/2007
+				// resync all boards - necessary for propr last post bubbling
+				YAF.Classes.Data.DB.board_resync();
 			}
-			catch ( Exception x )
+			catch (Exception x)
 			{
-				AddLoadMessage( x.Message );
+				AddLoadMessage(x.Message);
 				return false;
 			}
 			return true;
