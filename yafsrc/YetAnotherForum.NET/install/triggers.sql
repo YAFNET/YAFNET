@@ -62,8 +62,8 @@ BEGIN
 		END
 	END
 END
-GO
 */
+GO
 
 if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_update') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger yaf_Group_update
