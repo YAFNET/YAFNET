@@ -1725,6 +1725,7 @@ begin
 		JOIN yaf_Group b ON b.GroupID = a.GroupID
 		JOIN yaf_AccessMask c ON c.AccessMaskID = a.AccessMaskID
 	where
+		(b.Flags & 1)=0 and
 		(c.Flags & 64)<>0
 	union
 	select 
@@ -1734,7 +1735,7 @@ begin
 		IsGroup=0
 	from
 		yaf_User a
-		JOIN yaf_vaccess x ON a.UserID=x.UserID
+		JOIN yaf_vmaccess x ON a.UserID=x.UserID
 	where
 		x.ModeratorAccess<>0
 	order by
