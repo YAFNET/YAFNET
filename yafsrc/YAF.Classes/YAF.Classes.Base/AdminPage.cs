@@ -37,6 +37,13 @@ namespace YAF.Classes.Base
 			this.Load += new EventHandler(AdminPage_Load);
 		}
 
+        public AdminPage(string transPage)
+            : base(transPage)
+        {
+            this.Load += new EventHandler(AdminPage_Load);
+        }
+
+
 		private void AdminPage_Load(object sender, EventArgs e)
 		{
 			if ( !PageContext.IsAdmin )

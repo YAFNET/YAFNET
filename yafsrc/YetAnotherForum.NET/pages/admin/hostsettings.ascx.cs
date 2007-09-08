@@ -39,7 +39,12 @@ namespace YAF.Pages.Admin {
 		protected System.Web.UI.WebControls.CheckBox    AllowRichEditX   ;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
 		protected CheckBox AllowHTMLX   ;
-	
+
+        public hostsettings()
+			: base( "ADMIN_HOSTSETTINGS" )
+		{
+		}
+
 		protected void Page_Load(object sender, System.EventArgs e) 
 		{
 			if(!PageContext.IsHostAdmin)
@@ -50,6 +55,17 @@ namespace YAF.Pages.Admin {
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
 				PageLinks.AddLink("Host Settings","");
+
+                // Set Tab Localised Text
+                this.SettingsTab.HeaderText = GetText("SETTINGSTAB");
+                this.FeaturesTab.HeaderText = GetText("FEATURESTAB");
+                this.DisplayTab.HeaderText = GetText("DISPLAYTAB");
+                this.AdvertsTab.HeaderText = GetText("ADVERTSTAB");
+                this.EditorTab.HeaderText = GetText("EDITORTAB");
+                this.PermissionTab.HeaderText = GetText("PERMSTAB");
+                this.SMPTTab.HeaderText = GetText("SMPTTAB");
+                this.TemplatesTab.HeaderText = GetText("TEMPLATETAB");
+                this.AvatarsTab.HeaderText = GetText("AVATARTAB");
 
 				BindData();
 			}
