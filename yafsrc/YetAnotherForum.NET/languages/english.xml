@@ -768,7 +768,7 @@
 		<Resource tag="ERROR">There was an error sending your e-mail.</Resource>
 	</page>
 	<page name="ADMIN_HOSTSETTINGS">
-		<Resource tag="HOSTSETTINGSTAB">Host Settings</Resource>
+		<Resource tag="SETTINGSTAB">Host Settings</Resource>
 		<Resource tag="FEATURESTAB">Features</Resource>
 		<Resource tag="DISPLAYTAB">Show/Display Items</Resource>
 		<Resource tag="ADVERTSTAB">Adverts</Resource>

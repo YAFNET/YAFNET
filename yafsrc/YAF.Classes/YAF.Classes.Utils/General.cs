@@ -144,6 +144,15 @@ namespace YAF.Classes.Utils
 				smtpSend.Credentials = new System.Net.NetworkCredential( YafContext.Current.BoardSettings.SmtpUserName, YafContext.Current.BoardSettings.SmtpUserPass );
 			}
 
+			// Ederon : 9/9/2007 - added port setting
+			if (YafContext.Current.BoardSettings.SmtpServerPort != null && IsValidInt(YafContext.Current.BoardSettings.SmtpServerPort))
+			{
+				smtpSend.Port = int.Parse(YafContext.Current.BoardSettings.SmtpServerPort);
+			}
+
+			// Ederon : 9/9/2007 - added SSL support through setting
+			smtpSend.EnableSsl = YafContext.Current.BoardSettings.SmtpServerSsl;
+
 			using ( System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage() )
 			{
 				emailMessage.To.Add( toAddress );
@@ -395,6 +404,23 @@ namespace YAF.Classes.Utils
 		}
 
 		/* Ederon - 7/1/2007 end */
+
+		/* Ederon - 9/9/2007 */
+		static public string ProcessText(string text)
+		{
+			return ProcessText(text, true);
+		}
+		static public string ProcessText(string text, bool nullify)
+		{
+			return ProcessText(text, nullify, true);
+		}
+		static public string ProcessText(string text, bool nullify, bool trim)
+		{
+			if (trim) text = text.Trim();
+			if (nullify && text.Trim().Length == 0) text = null;
+
+			return text;
+		}
 	}
 
   /// <summary>

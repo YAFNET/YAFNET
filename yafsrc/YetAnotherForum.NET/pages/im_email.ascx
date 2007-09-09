@@ -22,7 +22,7 @@
 	</tr>
 	<tr class="postfooter">
 		<td colspan="2" align="center">
-			<asp:button runat="server" id="Send"/>
+			<asp:button runat="server" id="Send" OnClick="Send_Click" />
 		</td>
 	</tr>
 	</table>

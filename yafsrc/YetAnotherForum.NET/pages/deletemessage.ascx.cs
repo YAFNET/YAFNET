@@ -66,7 +66,7 @@ namespace YAF.Pages
 
 			if ( Request.QueryString ["m"] != null )
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.message_list( Request.QueryString ["m"] ) )
+				using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
 					msg = dt.Rows [0];
 				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int ) msg ["UserID"] )
 					YafBuildLink.AccessDenied();
@@ -99,7 +99,7 @@ namespace YAF.Pages
 					// delete message...
 					PreviewRow.Visible = true;
 
-					DataTable tempdb = YAF.Classes.Data.DB.message_getRepliesList( Request.QueryString ["m"] );
+					DataTable tempdb = DB.message_getRepliesList( Request.QueryString ["m"] );
 
 					if ( tempdb.Rows.Count != 0 )
 					{
@@ -195,7 +195,12 @@ namespace YAF.Pages
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) msg ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) msg ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) msg ["UserID"] == PageContext.PageUserID || PageContext.ForumModeratorAccess ) && PageContext.ForumDeleteAccess;
+				// Ederon : 9/9/2007 - moderators can delete in locked topics
+				return ((!PostLocked &&
+					((int)msg["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
+					((int)msg["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked &&
+					 (int)msg["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
+					 PageContext.ForumDeleteAccess;
 			}
 		}
 
@@ -221,10 +226,10 @@ namespace YAF.Pages
 			object tmpTopicID = msg ["TopicID"];
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
-			YAF.Classes.Data.DB.message_delete( tmpMessageID, isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"] );
+			DB.message_delete( tmpMessageID, isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"] );
 
 			// retrieve topic information.
-			DataRow topic = YAF.Classes.Data.DB.topic_info( tmpTopicID );
+			DataRow topic = DB.topic_info( tmpTopicID );
 
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
 			if ( topic == null )
@@ -254,7 +259,7 @@ namespace YAF.Pages
 			//DB.message_delete(tmpMessageID, isModeratorChanged);
 
 			// retrieve topic information.
-			DataRow topic = YAF.Classes.Data.DB.topic_info( tmpTopicID );
+			DataRow topic = DB.topic_info( tmpTopicID );
 
 			//If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
 			if ( topic == null )

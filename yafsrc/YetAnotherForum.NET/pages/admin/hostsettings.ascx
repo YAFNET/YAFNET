@@ -412,6 +412,20 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>SMTP Server Port:</b><br>
+                                    Leave blank to use default SMTP port.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="ForumSmtpServerPort" runat="server"></asp:TextBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Use SSL:</b><br>
+                                    Determines whether conntection with SMTP server is done over SSL encrypted connection.</td>
+                                <td class="post">
+																		<asp:CheckBox ID="ForumSmtpServerSsl" runat="server" />
+                            </tr>
+                            <tr>
+                                <td class="postheader">
                                     <b>SMTP User Name:</b><br>
                                     If you need to be authorized to send email.</td>
                                 <td class="post">

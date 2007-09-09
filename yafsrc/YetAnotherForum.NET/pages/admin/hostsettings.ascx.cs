@@ -91,6 +91,9 @@ namespace YAF.Pages.Admin {
 			General.AddStyleAttributeWidth(UserBoxPoints, "200px");
 			General.AddStyleAttributeWidth(UserBoxRank, "200px");
 			General.AddStyleAttributeWidth(UserBoxRankImage, "200px");
+
+			// Ederon : 9/9/2007
+			General.AddStyleAttributeWidth(ForumSmtpServerPort, "30px");
 		}
 
 		private void BindData()
@@ -172,6 +175,10 @@ namespace YAF.Pages.Admin {
 			UserBoxPosts.Text = PageContext.BoardSettings.UserBoxPosts;
 			UserBoxRank.Text = PageContext.BoardSettings.UserBoxRank;
 			UserBoxRankImage.Text = PageContext.BoardSettings.UserBoxRankImage;
+
+			// Ederon : 9/9/2007 added
+			ForumSmtpServerPort.Text = PageContext.BoardSettings.SmtpServerPort;
+			ForumSmtpServerSsl.Checked = PageContext.BoardSettings.SmtpServerSsl;
 		}
 
 		#region Web Form Designer generated code
@@ -196,18 +203,12 @@ namespace YAF.Pages.Admin {
 
 		protected void Save_Click(object sender, System.EventArgs e)
 		{
-			string sUserName = ForumSmtpUserName.Text.Trim();
-			string sUserPass = ForumSmtpUserPass.Text.Trim();
-
-			if (sUserName.Length == 0) sUserName = null;			
-			if (sUserPass.Length == 0) sUserPass = null;
-
 			// write all the settings back to the settings class
 			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
 			PageContext.BoardSettings.ForumEditor = Convert.ToInt32(ForumEditorList.SelectedItem.Value);
 			PageContext.BoardSettings.SmtpServer = ForumSmtpServer.Text;
-			PageContext.BoardSettings.SmtpUserName = sUserName;
-			PageContext.BoardSettings.SmtpUserPass = sUserPass;
+			PageContext.BoardSettings.SmtpUserName = General.ProcessText(ForumSmtpUserName.Text);
+			PageContext.BoardSettings.SmtpUserPass = General.ProcessText(ForumSmtpUserPass.Text);
 			PageContext.BoardSettings.ForumEmail = ForumEmailEdit.Text;
 			PageContext.BoardSettings.EmailVerification = EmailVerification.Checked;
 			PageContext.BoardSettings.ShowMoved = ShowMoved.Checked;
@@ -274,6 +275,9 @@ namespace YAF.Pages.Admin {
 			PageContext.BoardSettings.UserBoxRank = UserBoxRank.Text;
 			PageContext.BoardSettings.UserBoxRankImage = UserBoxRankImage.Text;
 
+			// Ederon : 9/9/2007 added
+			PageContext.BoardSettings.SmtpServerPort = General.ProcessText(ForumSmtpServerPort.Text);
+			PageContext.BoardSettings.SmtpServerSsl = ForumSmtpServerSsl.Checked;
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();

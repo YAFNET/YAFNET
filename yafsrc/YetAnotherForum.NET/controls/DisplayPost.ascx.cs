@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
 
@@ -205,7 +206,12 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == PageContext.PageUserID || PageContext.ForumModeratorAccess ) && PageContext.ForumEditAccess;
+				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
+				return ((!PostLocked && 
+					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked && 
+					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+					PageContext.ForumEditAccess;
 			}
 		}
 
@@ -241,7 +247,12 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == PageContext.PageUserID || PageContext.ForumModeratorAccess ) && PageContext.ForumUploadAccess;
+				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
+				return ((!PostLocked && 
+					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
+					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+					PageContext.ForumUploadAccess;
 			}
 		}
 
@@ -249,7 +260,12 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return !PostLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && ( ( int ) DataRow ["UserID"] == PageContext.PageUserID || PageContext.ForumModeratorAccess ) && PageContext.ForumDeleteAccess;
+				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
+				return ((!PostLocked && 
+					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked && 
+					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+					PageContext.ForumDeleteAccess;
 			}
 		}
 
@@ -265,7 +281,11 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return !PostMessageFlags.IsLocked && ( ( int ) DataRow ["ForumFlags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) != ( int ) YAF.Classes.Data.ForumFlags.Locked && ( ( int ) DataRow ["TopicFlags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) != ( int ) YAF.Classes.Data.TopicFlags.Locked && PageContext.ForumReplyAccess;
+				// Ederon : 9/9/2007 - moderaotrs can reply in locked posts
+				return ((!PostMessageFlags.IsLocked &&
+					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
+					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked) ||
+					PageContext.ForumModeratorAccess) && PageContext.ForumReplyAccess;
 			}
 		}
 

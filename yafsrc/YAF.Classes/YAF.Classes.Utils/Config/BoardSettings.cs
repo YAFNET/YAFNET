@@ -207,12 +207,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "PostFloodDelay", 30 ); }
 			set { _reg.SetValueInt( "PostFloodDelay", value ); }
 		}
-
         public int EditTimeOut  
         {  
             get { return _reg.GetValueInt("EditTimeOut", 30 ); }  
             set { _reg.SetValueInt("EditTimeOut", value); }  
-        }  
+        }
 
 		// boolean settings
 		public bool EmailVerification
@@ -381,6 +380,14 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueString( "AdPost", null ); }
 			set { _reg.SetValueString( "AdPost", value ); }
 		}
+		/* Ederon : 9/9/2007 */
+		public string SmtpServerPort
+		{
+			get { return _reg.GetValue<string>("SmtpServerPort", null); }
+			set { _reg.SetValue<string>("SmtpServerPort", value); }
+		}
+
+
 		/* Ederon : 6/16/2007 */
 		public bool DisplayJoinDate
 		{
@@ -418,6 +425,12 @@ namespace YAF.Classes.Utils
 		{
 			get { return _reg.GetValue<bool>("AllowEmailTopic", true); }
 			set { _reg.SetValue<bool>("AllowEmailTopic", value); }
+		}
+		/* Ederon : 9/9/2007 */
+		public bool SmtpServerSsl
+		{
+			get { return _reg.GetValue<bool>("SmtpServerSsl", false); }
+			set { _reg.SetValue<bool>("SmtpServerSsl", value); }
 		}
 
 

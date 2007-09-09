@@ -85,7 +85,17 @@ namespace YAF.Controls
 			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
 		}
 
-		public string GetModeratorLink(System.Data.DataRow row)
+		// Suppress rendering of footer if there is one or more 
+		protected string GetModeratorsFooter(Repeater sender)
+		{
+			if (sender.DataSource != null && sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
+			{
+				return "-";
+			}
+			else return "";
+		}
+
+		protected string GetModeratorLink(System.Data.DataRow row)
 		{
 			string output;
 

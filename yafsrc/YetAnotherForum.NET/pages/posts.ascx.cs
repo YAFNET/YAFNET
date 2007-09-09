@@ -113,7 +113,10 @@ namespace YAF.Pages // YAF.Pages
 					NewTopic2.Visible = false;
 				}
 
-				if ( !PageContext.ForumReplyAccess || ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+				// Ederon : 9/9/2007 - moderators can relpy in locked topics
+				if (!PageContext.ForumReplyAccess ||
+					(((int)_topic["Flags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked &&
+					!PageContext.ForumModeratorAccess))
 				{
 					PostReplyLink1.Visible = false;
 					PostReplyLink2.Visible = false;
@@ -604,16 +607,20 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void PostReplyLink_Click( object sender, System.EventArgs e )
 		{
-			if ( ( ( int ) _topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+			// Ederon : 9/9/2007 - moderator can reply in locked posts
+			if (!PageContext.ForumModeratorAccess)
 			{
-				PageContext.AddLoadMessage( GetText( "WARN_TOPIC_LOCKED" ) );
-				return;
-			}
+				if (((int)_topic["Flags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked)
+				{
+					PageContext.AddLoadMessage(GetText("WARN_TOPIC_LOCKED"));
+					return;
+				}
 
-			if ( ( ( int ) _forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
-			{
-				PageContext.AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
-				return;
+				if (((int)_forum["Flags"] & (int)YAF.Classes.Data.ForumFlags.Locked) == (int)YAF.Classes.Data.ForumFlags.Locked)
+				{
+					PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
+					return;
+				}
 			}
 
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}", PageContext.PageTopicID, PageContext.PageForumID );

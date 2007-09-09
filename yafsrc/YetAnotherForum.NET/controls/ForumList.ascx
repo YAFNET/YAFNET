@@ -17,9 +17,10 @@
 			</asp:Repeater>
 		</td>
 		<td align="center" class="smallfont subforumlink">
-			<asp:repeater id="ModeratorList" runat="server" datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
+			<asp:repeater id="ModeratorList" runat="server"  datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<ItemTemplate><%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
+				<FooterTemplate><%# GetModeratorsFooter((Repeater)Container.Parent) %></FooterTemplate>
 			</asp:repeater>
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>
@@ -46,6 +47,7 @@
 			<asp:repeater id="ModeratorList" runat="server" datasource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
 				<ItemTemplate><%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%></ItemTemplate>
 				<SeparatorTemplate>, </SeparatorTemplate>
+				<FooterTemplate><%# GetModeratorsFooter((Repeater)Container.Parent)%></FooterTemplate>
 			</asp:repeater>
 		</td>
 		<td align="center"><%# Topics(Container.DataItem) %></td>

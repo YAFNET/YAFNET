@@ -39,7 +39,9 @@ namespace YAF.Pages // YAF.Pages
 				if ( !PageContext.ForumReadAccess )
 					YafBuildLink.AccessDenied();
 
-				if ( ( ( int ) topic ["Flags"] & ( int ) YAF.Classes.Data.TopicFlags.Locked ) == ( int ) YAF.Classes.Data.TopicFlags.Locked )
+				// Ederon : 9/9/2007 - moderaotrs can attach in locked posts
+				if (((int)topic["Flags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked &&
+					!PageContext.ForumModeratorAccess)
 					YafBuildLink.AccessDenied(/*"The topic is closed."*/);
 
 				if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
