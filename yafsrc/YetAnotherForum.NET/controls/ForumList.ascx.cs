@@ -97,29 +97,29 @@ namespace YAF.Controls
 
 		protected string GetModeratorLink(System.Data.DataRow row)
 		{
-			string output;
+            string output;
 
-			if (row["IsGroup"].ToString() == "0")
-			{
-				output = String.Format(
-					"<a href=\"{0}\">{1}</a>",
-					YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]),
-					row["ModeratorName"]
-					);
-			}
-			else
-			{
-				// TODO : group link should point to group info page (yet unavailable)
-				/*output = String.Format(
-					"<b><a href=\"{0}\">{1}</a></b>",
-					YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
-					row["ModeratorName"]
-					);*/
-				output = String.Format(
-					"<b>{0}</b>",
-					row["ModeratorName"]
-					);
-			}
+            if ((int)row["IsGroup"] == 0)
+            {
+                output = String.Format(
+                    "<a href=\"{0}\">{1}</a>",
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}", row["ModeratorID"]),
+                    row["ModeratorName"]
+                    );
+            }
+            else
+            {
+                // TODO : group link should point to group info page (yet unavailable)
+                /*output = String.Format(
+                    "<b><a href=\"{0}\">{1}</a></b>",
+                    YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
+                    row["ModeratorName"]
+                    );*/
+                output = String.Format(
+                    "<b>{0}</b>",
+                    row["ModeratorName"]
+                    );
+            }
 
 			return output;
 		}
