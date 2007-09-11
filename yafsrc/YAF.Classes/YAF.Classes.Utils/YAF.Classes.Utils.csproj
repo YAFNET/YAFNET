@@ -61,6 +61,7 @@
     <Compile Include="Security.cs" />
     <Compile Include="Theme\Theme.cs" />
     <Compile Include="General.cs" />
+    <Compile Include="URLBuilder\URLBuilderRewrite.cs" />
     <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>

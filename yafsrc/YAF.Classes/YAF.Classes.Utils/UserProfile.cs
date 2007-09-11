@@ -42,24 +42,10 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-    public string Name
-    {
-      get { return base["Name"] as string; }
-      set { base["Name"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
     public DateTime Joined
     {
       get { return (DateTime)base["Joined"]; }
       set { base["Joined"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public int NumberOfPosts
-    {
-      get { return (int)base["NumberOfPosts"]; }
-      set { base["NumberOfPosts"] = value; }
     }
 
     [SettingsAllowAnonymous( false )]
@@ -95,13 +81,6 @@ namespace YAF.Classes.Utils
     {
       get { return base["Signature"] as string; }
       set { base["Signature"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public DateTime Suspended
-    {
-      get { return (DateTime)base["Suspended"]; }
-      set { base["Suspended"] = value; }
     }
 
     [SettingsAllowAnonymous( false )]
