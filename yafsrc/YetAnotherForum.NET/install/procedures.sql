@@ -701,6 +701,40 @@ IF EXISTS (SELECT 1 FROM sysobjects where id = object_id(N'yaf_message_move') an
 DROP PROCEDURE [dbo].[yaf_message_move]
 GO
 
+IF EXISTS (SELECT *
+           FROM   dbo.sysobjects
+           WHERE  id = Object_id(N'[dbo].[yaf_category_simplelist]')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_category_simplelist] 
+GO
+
+IF EXISTS (SELECT *
+           FROM   dbo.sysobjects
+           WHERE  id = Object_id(N'[dbo].[yaf_forum_simplelist]')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_forum_simplelist] 
+GO
+
+IF EXISTS (SELECT *
+           FROM   dbo.sysobjects
+           WHERE  id = Object_id(N'[dbo].[yaf_message_simplelist]')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_message_simplelist] 
+GO
+
+IF EXISTS (SELECT *
+           FROM   dbo.sysobjects
+           WHERE  id = Object_id(N'[dbo].[yaf_topic_simplelist]')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_topic_simplelist] 
+GO
+
+IF EXISTS (SELECT *
+           FROM   dbo.sysobjects
+           WHERE  id = Object_id(N'[dbo].[yaf_user_simplelist]')
+           AND Objectproperty(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yaf_user_simplelist] 
+GO
 
 
 create procedure [dbo].[yaf_accessmask_delete](@AccessMaskID int) as
@@ -4855,4 +4889,85 @@ begin
 		exec dbo.yaf_forum_resync @BoardID
 	end
 end
+GO
+
+CREATE PROCEDURE [dbo].[yaf_category_simplelist](
+                @StartID INT  = 0,
+                @Limit   INT  = 500)
+AS
+    BEGIN
+        SET ROWCOUNT  @Limit
+        SELECT   c.[CategoryID],
+                 c.[Name]
+        FROM     yaf_Category c
+        WHERE    c.[CategoryID] >= @StartID
+        AND c.[CategoryID] < (@StartID + @Limit)
+        ORDER BY c.[CategoryID]
+        SET ROWCOUNT  0
+    END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_forum_simplelist](
+                @StartID INT  = 0,
+                @Limit   INT  = 500)
+AS
+    BEGIN
+        SET ROWCOUNT  @Limit
+        SELECT   f.[ForumID],
+                 f.[Name]
+        FROM     yaf_Forum f
+        WHERE    f.[ForumID] >= @StartID
+        AND f.[ForumID] < (@StartID + @Limit)
+        ORDER BY f.[ForumID]
+        SET ROWCOUNT  0
+    END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_message_simplelist](
+                @StartID INT  = 0,
+                @Limit   INT  = 1000)
+AS
+    BEGIN
+        SET ROWCOUNT  @Limit
+        SELECT   m.[MessageID],
+                 m.[TopicID]
+        FROM     yaf_Message m
+        WHERE    m.[MessageID] >= @StartID
+        AND m.[MessageID] < (@StartID + @Limit)
+        AND m.[TopicID] IS NOT NULL
+        ORDER BY m.[MessageID]
+        SET ROWCOUNT  0
+    END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_topic_simplelist](
+                @StartID INT  = 0,
+                @Limit   INT  = 500)
+AS
+    BEGIN
+        SET ROWCOUNT  @Limit
+        SELECT   t.[TopicID],
+                 t.[Topic]
+        FROM     yaf_Topic t
+        WHERE    t.[TopicID] >= @StartID
+        AND t.[TopicID] < (@StartID + @Limit)
+        ORDER BY t.[TopicID]
+        SET ROWCOUNT  0
+    END
+GO
+
+CREATE PROCEDURE [dbo].[yaf_user_simplelist](
+                @StartID INT  = 0,
+                @Limit   INT  = 500)
+AS
+    BEGIN
+        SET ROWCOUNT  @Limit
+        SELECT   a.[UserID],
+                 a.[Name]
+        FROM     yaf_User a
+        WHERE    a.[UserID] >= @StartID
+        AND a.[UserID] < (@StartID + @Limit)
+        ORDER BY a.[UserID]
+        SET ROWCOUNT  0
+    END
 GO
