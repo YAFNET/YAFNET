@@ -735,7 +735,22 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData(cmd);
 			}
 		}
-
+		/// <summary>
+		/// Lists categories very simply (for URL rewriting)
+		/// </summary>
+		/// <param name="StartID"></param>
+		/// <param name="Limit"></param>
+		/// <returns></returns>
+		static public DataTable category_simplelist( int StartID, int Limit )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_category_simplelist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "StartID", StartID );
+				cmd.Parameters.AddWithValue( "Limit", Limit );
+				return DBAccess.GetData( cmd );
+			}
+		}
 		/// <summary>
 		/// Saves changes to a category
 		/// </summary>
@@ -999,7 +1014,22 @@ namespace YAF.Classes.Data
 		{
 			return forum_listall_fromCat(boardID, categoryID, true);
 		}
-
+		/// <summary>
+		/// Lists forums very simply (for URL rewriting)
+		/// </summary>
+		/// <param name="StartID"></param>
+		/// <param name="Limit"></param>
+		/// <returns></returns>
+		static public DataTable forum_simplelist( int StartID, int Limit )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_forum_simplelist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "StartID", StartID );
+				cmd.Parameters.AddWithValue( "Limit", Limit );
+				return DBAccess.GetData( cmd );
+			}
+		}
 		/// <summary>
 		/// Lists all forums within a given subcategory
 		/// </summary>
@@ -1642,6 +1672,22 @@ namespace YAF.Classes.Data
 				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}
+		/// <summary>
+		/// Get message topic IDs (for URL rewriting)
+		/// </summary>
+		/// <param name="StartID"></param>
+		/// <param name="Limit"></param>
+		/// <returns></returns>
+		static public DataTable message_simplelist( int StartID, int Limit )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_message_simplelist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "StartID", StartID );
+				cmd.Parameters.AddWithValue( "Limit", Limit );
+				return DBAccess.GetData( cmd );
+			}
+		}
 
 		// <summary> Update message to DB. </summary>
 		static public void message_update(object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged)
@@ -2230,6 +2276,22 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData(cmd);
 			}
 		}
+		/// <summary>
+		/// Lists topics very simply (for URL rewriting)
+		/// </summary>
+		/// <param name="StartID"></param>
+		/// <param name="Limit"></param>
+		/// <returns></returns>
+		static public DataTable topic_simplelist( int StartID, int Limit )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_topic_simplelist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "StartID", StartID );
+				cmd.Parameters.AddWithValue( "Limit", Limit );
+				return DBAccess.GetData( cmd );
+			}
+		}
 		static public void topic_move(object topicID, object forumID, object showMoved)
 		{
 			using (SqlCommand cmd = new SqlCommand("yaf_topic_move"))
@@ -2450,6 +2512,22 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("GroupID", groupID);
 				cmd.Parameters.AddWithValue("RankID", rankID);
 				return DBAccess.GetData(cmd);
+			}
+		}
+		/// <summary>
+		/// For URL Rewriting
+		/// </summary>
+		/// <param name="StartID"></param>
+		/// <param name="Limit"></param>
+		/// <returns></returns>
+		static public DataTable user_simplelist( int StartID, int Limit )
+		{
+			using ( SqlCommand cmd = new SqlCommand( "yaf_user_simplelist" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "StartID", StartID );
+				cmd.Parameters.AddWithValue( "Limit", Limit );
+				return DBAccess.GetData( cmd );
 			}
 		}
 		static public void user_delete(object userID)
