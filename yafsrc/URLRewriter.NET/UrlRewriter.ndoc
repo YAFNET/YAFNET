@@ -1,0 +1,56 @@
+<project SchemaVersion="1.3">
+    <assemblies>
+        <assembly location="..\..\bin\Debug\Intelligencia.UrlRewriter.dll" documentation="" />
+    </assemblies>
+    <documenters>
+        <documenter name="JavaDoc">
+            <property name="OutputDirectory" value=".\doc\" />
+        </documenter>
+        <documenter name="LaTeX">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="TextFileFullName" value="Documentation.tex" />
+            <property name="TexFileBaseName" value="Documentation" />
+            <property name="LatexCompiler" value="latex" />
+            <property name="TexFileFullPath" value=".\doc\Documentation.tex" />
+        </documenter>
+        <documenter name="LinearHtml">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="Title" value="An NDoc Documented Class Library" />
+        </documenter>
+        <documenter name="MSDN">
+            <property name="OutputDirectory" value="..\..\doc\" />
+            <property name="HtmlHelpName" value="UrlRewriter-API-Documentation" />
+            <property name="Title" value="Intelligencia UrlRewriter" />
+            <property name="ShowVisualBasic" value="True" />
+            <property name="SdkLinksOnWeb" value="True" />
+            <property name="FooterHtml" value="&lt;p&gt;Copyright (C)2006 Seth Yates&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://urlrewriter.net/&quot;&gt;asp .net url rewriter&lt;/a&gt;&lt;/p&gt;&lt;script type=&quot;text/javascript&quot;&gt;google_ad_client = &quot;pub-8647031000532118&quot;;google_ad_width = 728;google_ad_height = 90;google_ad_format = &quot;728x90_as&quot;;google_ad_type = &quot;text_image&quot;;google_ad_channel =&quot;&quot;;google_color_border = &quot;FFFFFF&quot;;google_color_bg = &quot;FFFFFF&quot;;google_color_link = &quot;1E90FF&quot;;google_color_url = &quot;1E90FF&quot;;google_color_text = &quot;000000&quot;;&lt;/script&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;http://pagead2.googlesyndication.com/pagead/show_ads.js&quot;&gt;&lt;/script&gt;" />
+            <property name="ShowMissingParams" value="True" />
+            <property name="ShowMissingReturns" value="True" />
+            <property name="ShowMissingValues" value="True" />
+            <property name="CopyrightText" value="Copyright (C)2006 Seth Yates" />
+            <property name="AutoPropertyBackerSummaries" value="True" />
+            <property name="Preliminary" value="True" />
+            <property name="CleanIntermediates" value="True" />
+        </documenter>
+        <documenter name="MSDN 2003">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="Title" value="An NDoc Documented Class Library" />
+        </documenter>
+        <documenter name="VS.NET 2003">
+            <property name="OutputDirectory" value=".\doc\" />
+            <property name="HtmlHelpName" value="UrlRewriter-API-Documentation" />
+            <property name="Title" value="Intelligencia.UrlRewriter" />
+            <property name="RegisterTitleAsCollection" value="True" />
+            <property name="ShowMissingSummaries" value="True" />
+            <property name="ShowMissingParams" value="True" />
+            <property name="ShowMissingReturns" value="True" />
+            <property name="ShowMissingValues" value="True" />
+            <property name="CopyrightText" value="Copyright &amp;copr;2006 Intelligencia Limited" />
+            <property name="FeedbackEmailAddress" value="help@urlrewriter.net" />
+            <property name="Preliminary" value="True" />
+        </documenter>
+        <documenter name="XML">
+            <property name="OutputFile" value=".\doc\doc.xml" />
+        </documenter>
+    </documenters>
+</project>

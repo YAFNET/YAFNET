@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="ResMimeType">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="Version">
+		<value>1.0.0.0</value>
+	</resheader>
+	<resheader name="Reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="Writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="MappedValuesNotAllowed">
+		<value>Mapped values are not allowed if a mapper type is specified.</value>
+	</data>
+	<data name="ElementNotAllowed">
+		<value>The element '{0}' is not allowed.</value>
+	</data>
+	<data name="ValueOfProcessingAttribute">
+		<value>The value '{0}' of the processing attribute is invalid.  It must be either '{1}', '{2}' or '{3}'.</value>
+	</data>
+	<data name="AttributeNotAllowed">
+		<value>The attribute '{0}' is not allowed.</value>
+	</data>
+	<data name="ElementNoAttributes">
+		<value>The '{0}' element does not allow attributes.</value>
+	</data>
+	<data name="ElementNoElements">
+		<value>The '{0}' element does not allow nested elements.</value>
+	</data>
+	<data name="AttributeRequired">
+		<value>The attribute '{0}' is required.</value>
+	</data>
+	<data name="TypeNameRequired">
+		<value>Type name is required.</value>
+	</data>
+	<data name="InvalidTypeSpecified">
+		<value>Type is specified does not support the required interface.</value>
+	</data>
+	<data name="AssemblyNameRequired">
+		<value>Assembly name is required.</value>
+	</data>
+	<data name="FullTypeNameRequiresAssemblyName">
+		<value>Full type name must include assembly name.</value>
+	</data>
+	<data name="MapAlreadyDefined">
+		<value>Map '{0}' has already been defined.</value>
+	</data>
+	<data name="InputIsNotHex">
+		<value>The input is not hex.</value>
+	</data>
+	<data name="AddressesNotOfSameType">
+		<value>Addresses are not of the same type.</value>
+	</data>
+	<data name="ProductName">
+		<value>UrlRewriter.NET {0}</value>
+	</data>
+	<data name="StoppingBecauseOfRule">
+		<value>Stopping because of rule.</value>
+	</data>
+	<data name="RestartingBecauseOfRule">
+		<value>Restarting because of rule.</value>
+	</data>
+	<data name="ResultNotFound">
+		<value>Result '{0}' not found.</value>
+	</data>
+	<data name="CallingErrorHandler">
+		<value>Calling error handler.</value>
+	</data>
+	<data name="RewritingXtoY">
+		<value>Rewriting '{0}' to '{1}'.</value>
+	</data>
+	<data name="RedirectingXtoY">
+		<value>Redirecting '{0}' to '{1}'.</value>
+	</data>
+	<data name="TooManyRestarts">
+		<value>As configured, the rules caused too many restarts.  Please review your rewriting rules and ensure there are no infinite loops.</value>
+	</data>
+</root>
