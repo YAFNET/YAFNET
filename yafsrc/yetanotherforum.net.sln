@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Control
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\YetAnotherForum.NET\", "YetAnotherForum.NET\", "{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E:\...\YetAnotherForum.NET\", "YetAnotherForum.NET\", "{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.VirtualPath = "/YetAnotherForum.NET"
 		Debug.AspNetCompiler.PhysicalPath = "YetAnotherForum.NET\"
@@ -60,6 +60,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\YetAnotherForum.NET\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "4173"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter", "URLRewriter.NET\Intelligencia.UrlRewriter.csproj", "{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
 Global
@@ -166,6 +172,16 @@ Global
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Release|Any CPU.ActiveCfg = Debug|.NET
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|.NET.ActiveCfg = Release|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
