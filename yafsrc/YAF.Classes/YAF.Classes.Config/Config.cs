@@ -49,6 +49,14 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string EnableURLRewriting
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings ["enableurlrewriting"];
+			}
+		}
+
 		static public string UploadDir
 		{
 			get
@@ -126,6 +134,10 @@ namespace YAF.Classes
 					else if ( IsPortal )
 					{
 						urlAssembly = "Portal.UrlBuilder,Portal";
+					}
+					else if ( EnableURLRewriting == "true" )
+					{
+						urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
 					}
 					else
 					{

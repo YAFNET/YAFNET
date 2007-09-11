@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
 using System;
 using System.Web;
 
@@ -26,14 +24,14 @@ namespace YAF.Classes
 {
 	public interface IUrlBuilder
 	{
-		string BuildUrl(string url);
+		string BuildUrl( string url );
 	}
 
 	public class UrlBuilder : IUrlBuilder
 	{
-		public string BuildUrl(string url)
+		public string BuildUrl( string url )
 		{
-			return string.Format("{0}?{1}",HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"],url);
+			return string.Format( "{0}?{1}", HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"], url );
 		}
 	}
 }
