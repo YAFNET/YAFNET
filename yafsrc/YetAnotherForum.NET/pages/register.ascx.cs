@@ -257,6 +257,9 @@ namespace YAF.Pages // YAF.Pages
       
       // create empty profile just so they have one
       YafUserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
+			// setup their inital profile information
+			userProfile.Joined = DateTime.Now;
+			userProfile.Points = 0;
       userProfile.Save();
 
       if (userID == null)
