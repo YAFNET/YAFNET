@@ -36,8 +36,8 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class topics : YAF.Classes.Base.ForumPage
 	{
-		private DataRow forum;
-		protected int ShowTopicListSelected;
+		private DataRow _forum;
+		protected int _showTopicListSelected;
 
 		/// <summary>
 		/// Overloads the topics page.
@@ -88,7 +88,7 @@ namespace YAF.Pages // YAF.Pages
 				ShowList.DataSource = YafStaticData.TopicTimes( );
 				ShowList.DataTextField = "TopicText";
 				ShowList.DataValueField = "TopicValue";
-				ShowTopicListSelected = ( Mession.ShowList == -1 ) ? PageContext.BoardSettings.ShowTopicsDefault : Mession.ShowList;
+				_showTopicListSelected = ( Mession.ShowList == -1 ) ? PageContext.BoardSettings.ShowTopicsDefault : Mession.ShowList;
 
 				HandleWatchForum();
 			}
@@ -100,15 +100,15 @@ namespace YAF.Pages // YAF.Pages
 				YafBuildLink.AccessDenied();
 
 			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
-				forum = dt.Rows [0];
+				_forum = dt.Rows [0];
 
-			if ( forum ["RemoteURL"] != DBNull.Value )
+			if ( _forum ["RemoteURL"] != DBNull.Value )
 			{
 				Response.Clear();
-				Response.Redirect( ( string ) forum ["RemoteURL"] );
+				Response.Redirect( ( string ) _forum ["RemoteURL"] );
 			}
 
-			PageTitle.Text = ( string ) forum ["Name"];
+			PageTitle.Text = ( string ) _forum ["Name"];
 
 			BindData();	// Always because of yaf:TopicLine
 
@@ -194,7 +194,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void ShowList_SelectedIndexChanged( object sender, System.EventArgs e )
 		{
-			ShowTopicListSelected = ShowList.SelectedIndex;
+			_showTopicListSelected = ShowList.SelectedIndex;
 			BindData();
 		}
 
@@ -216,14 +216,14 @@ namespace YAF.Pages // YAF.Pages
 			int nCurrentPageIndex = Pager.CurrentPageIndex;
 
 			DataTable dtTopics;
-			if ( ShowTopicListSelected == 0 )
+			if ( _showTopicListSelected == 0 )
 			{
 				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 0, null, nCurrentPageIndex * nPageSize, nPageSize );
 			}
 			else
 			{
 				DateTime date = DateTime.Now;
-				switch ( ShowTopicListSelected )
+				switch ( _showTopicListSelected )
 				{
 					case 1:
 						date -= TimeSpan.FromDays( 1 );
@@ -261,17 +261,17 @@ namespace YAF.Pages // YAF.Pages
 			DataBind();
 
 			// setup the show topic list selection after data binding
-			ShowList.SelectedIndex = ShowTopicListSelected;
-			Mession.ShowList = ShowTopicListSelected;
+			ShowList.SelectedIndex = _showTopicListSelected;
+			Mession.ShowList = _showTopicListSelected;
 
 			Pager.Count = nRowCount;
 		}
 
 		private void NewTopic_Click( object sender, System.EventArgs e )
 		{
-			if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
+			if (General.BinaryAnd(_forum["Flags"], ForumFlags.Locked))
 			{
-				PageContext.AddLoadMessage( GetText( "WARN_FORUM_LOCKED" ) );
+				PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;
 			}
 

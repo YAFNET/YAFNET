@@ -617,6 +617,8 @@
 		<Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
 		<Resource tag="SMILIES_MORE">More Smilies...</Resource>
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
+		<Resource tag="PERSISTENCY">Persistent:</Resource>
+		<Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
 	</page>
 	<page name="SHOWSMILIES">
 		<!-- showsmilies.ascx -->

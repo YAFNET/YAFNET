@@ -421,6 +421,16 @@ namespace YAF.Classes.Utils
 
 			return text;
 		}
+
+		/* Ederon : 9/12/2007 */
+		static public bool BinaryAnd(object value, object checkAgainst)
+		{
+			return BinaryAnd((int)value, (int)checkAgainst);
+		}
+		static public bool BinaryAnd(int value, int checkAgainst)
+		{
+			return (value & checkAgainst) == checkAgainst;
+		}
 	}
 
   /// <summary>

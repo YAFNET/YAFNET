@@ -53,10 +53,10 @@ namespace YAF.Pages.Admin
           {
             DataRow row = dt.Rows [0];
             Name.Text = ( string ) row ["Name"];
-            IsGuestX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsGuest ) == ( int ) YAF.Classes.Data.GroupFlags.IsGuest;
-            IsAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsAdmin ) == ( int ) YAF.Classes.Data.GroupFlags.IsAdmin;
-            IsStartX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsStart ) == ( int ) YAF.Classes.Data.GroupFlags.IsStart;
-            IsModeratorX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.GroupFlags.IsModerator ) == ( int ) YAF.Classes.Data.GroupFlags.IsModerator;
+			IsGuestX.Checked = General.BinaryAnd(row["Flags"], GroupFlags.IsGuest);
+			IsAdminX.Checked = General.BinaryAnd(row["Flags"], GroupFlags.IsAdmin);
+			IsStartX.Checked = General.BinaryAnd(row["Flags"], GroupFlags.IsStart);
+			IsModeratorX.Checked = General.BinaryAnd(row["Flags"], GroupFlags.IsModerator);
 
             // only if this IsGuest can they edit this flag
             if ( IsGuestX.Checked ) IsGuestTR.Visible = true;

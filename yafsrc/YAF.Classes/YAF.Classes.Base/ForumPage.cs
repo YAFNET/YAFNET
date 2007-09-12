@@ -122,6 +122,9 @@ namespace YAF.Classes.Base
 		/// <param name="e"></param>
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
+			// Ederon : 9/12/2007
+			Security.CheckRequestValidity(Request);
+
 			if ( _noDataBase )
 				return;
 

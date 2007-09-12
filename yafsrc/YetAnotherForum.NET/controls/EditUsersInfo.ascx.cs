@@ -27,6 +27,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
@@ -44,9 +46,9 @@ namespace YAF.Controls
           DataRow row = dt.Rows [0];
           Name.Text = ( string ) row ["Name"];
           Email.Text = row ["Email"].ToString();
-          
-          IsHostAdminX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin ) == ( int ) YAF.Classes.Data.UserFlags.IsHostAdmin;
-          IsGuestX.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.UserFlags.IsGuest ) == ( int ) YAF.Classes.Data.UserFlags.IsGuest;
+
+		  IsHostAdminX.Checked = General.BinaryAnd(row["Flags"], UserFlags.IsHostAdmin);
+		  IsGuestX.Checked = General.BinaryAnd(row["Flags"], UserFlags.IsGuest);
           Joined.Text = row ["Joined"].ToString();
 
           LastVisit.Text = row ["LastVisit"].ToString();

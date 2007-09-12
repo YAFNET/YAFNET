@@ -207,10 +207,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
-				return ((!PostLocked && 
-					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked && 
-					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+				return ((!PostLocked &&
+					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
+					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumEditAccess;
 			}
 		}
@@ -236,10 +236,7 @@ namespace YAF.Controls
 			get
 			{
 
-				int deleted = ( int ) DataRow ["Flags"] & 8;
-				if ( deleted == 8 )
-					return true;
-				return false;
+				return General.BinaryAnd(DataRow["Flags"], TopicFlags.Deleted);
 			}
 		}
 
@@ -248,10 +245,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
-				return ((!PostLocked && 
-					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
-					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+				return ((!PostLocked &&
+					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
+					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumUploadAccess;
 			}
 		}
@@ -261,10 +258,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
-				return ((!PostLocked && 
-					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked && 
-					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) && 
+				return ((!PostLocked &&
+					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
+					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
+					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 					PageContext.ForumDeleteAccess;
 			}
 		}
@@ -283,9 +280,9 @@ namespace YAF.Controls
 			{
 				// Ederon : 9/9/2007 - moderaotrs can reply in locked posts
 				return ((!PostMessageFlags.IsLocked &&
-					((int)DataRow["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
-					((int)DataRow["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked) ||
-					PageContext.ForumModeratorAccess) && PageContext.ForumReplyAccess;
+					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
+					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked)) || PageContext.ForumModeratorAccess) &&
+					PageContext.ForumReplyAccess;
 			}
 		}
 

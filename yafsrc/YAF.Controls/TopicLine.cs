@@ -3,6 +3,7 @@ using System.Data;
 using System.Web.UI;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
+using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
@@ -77,13 +78,13 @@ namespace YAF.Controls
 		{
 			DataRowView	row			= (DataRowView)o;
 			DateTime	lastPosted	= row["LastPosted"]!=DBNull.Value ? (DateTime)row["LastPosted"] : new DateTime(2000,1,1);
-			bool		isLocked	= ((int)row["TopicFlags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked;
+			bool		isLocked	= General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
 			
 			imgTitle = "???";
 
 			try 
 			{
-				bool bIsLocked = isLocked || ((int)row["ForumFlags"] & (int)YAF.Classes.Data.ForumFlags.Locked)==(int)YAF.Classes.Data.ForumFlags.Locked;
+				bool bIsLocked = isLocked || General.BinaryAnd(row["ForumFlags"], ForumFlags.Locked);
 
 				if(row["TopicMovedID"].ToString().Length>0)
 				{

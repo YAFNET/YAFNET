@@ -38,9 +38,9 @@ namespace YAF.Pages
 	/// </summary>
 	public partial class deletemessage : YAF.Classes.Base.ForumPage
 	{
-		protected int OwnerUserId;
-		protected DataRow msg;
-		protected bool isModeratorChanged;
+		protected int _ownerUserId;
+		protected DataRow _msg;
+		protected bool _isModeratorChanged;
 
 		public deletemessage()
 			: base( "DELETEMESSAGE" )
@@ -61,19 +61,19 @@ namespace YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			msg = null;
+			_msg = null;
 
 
 			if ( Request.QueryString ["m"] != null )
 			{
 				using ( DataTable dt = DB.message_list( Request.QueryString ["m"] ) )
-					msg = dt.Rows [0];
-				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int ) msg ["UserID"] )
+					_msg = dt.Rows [0];
+				if ( !PageContext.ForumModeratorAccess && PageContext.PageUserID != ( int ) _msg ["UserID"] )
 					YafBuildLink.AccessDenied();
 			}
 
-			OwnerUserId = ( int ) msg ["UserID"];
-			isModeratorChanged = ( PageContext.PageUserID != OwnerUserId );
+			_ownerUserId = ( int ) _msg ["UserID"];
+			_isModeratorChanged = ( PageContext.PageUserID != _ownerUserId );
 
 			if ( PageContext.PageForumID == 0 )
 				YafBuildLink.AccessDenied();
@@ -107,7 +107,7 @@ namespace YAF.Pages
 						LinkedPosts.DataSource = tempdb;
 						LinkedPosts.DataBind();
 					}
-					string body = msg ["message"].ToString();
+					string body = _msg ["message"].ToString();
 					/*	bool isHtml = body.IndexOf('<')>=0;
 							if(isHtml) 
 							{
@@ -126,9 +126,9 @@ namespace YAF.Pages
 						Delete.Text = GetText( "UNDELETE" ); // "GetText("Save");
 					}
 
-					Subject.InnerHtml = Server.HtmlDecode( Convert.ToString( msg ["Topic"] ) );
+					Subject.InnerHtml = Server.HtmlDecode( Convert.ToString( _msg ["Topic"] ) );
 					DeleteReasonRow.Visible = true;
-					ReasonEditor.Text = Server.HtmlDecode( Convert.ToString( msg ["DeleteReason"] ) );
+					ReasonEditor.Text = Server.HtmlDecode( Convert.ToString( _msg ["DeleteReason"] ) );
 					MessageFlags tFlags = new MessageFlags();
 					//tFlags.IsHTML = Message.UsesHTML;
 					//tFlags.IsBBCode = Message.UsesBBCode;
@@ -171,7 +171,7 @@ namespace YAF.Pages
 			{
 				if ( !PageContext.IsAdmin && PageContext.BoardSettings.LockPosts > 0 )
 				{
-					DateTime edited = ( DateTime ) msg ["Edited"];
+					DateTime edited = ( DateTime ) _msg ["Edited"];
 					if ( edited.AddDays( PageContext.BoardSettings.LockPosts ) < DateTime.Now )
 						return true;
 				}
@@ -184,7 +184,7 @@ namespace YAF.Pages
 			get
 			{
 
-				int deleted = ( int ) msg ["Flags"] & 8;
+				int deleted = ( int ) _msg ["Flags"] & 8;
 				if ( deleted == 8 )
 					return true;
 				return false;
@@ -197,10 +197,10 @@ namespace YAF.Pages
 			{
 				// Ederon : 9/9/2007 - moderators can delete in locked topics
 				return ((!PostLocked &&
-					((int)msg["ForumFlags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
-					((int)msg["TopicFlags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked &&
-					 (int)msg["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
-					 PageContext.ForumDeleteAccess;
+						!General.BinaryAnd(_msg["ForumFlags"], ForumFlags.Locked) &&
+						!General.BinaryAnd(_msg["TopicFlags"], TopicFlags.Locked) &&
+						(int)_msg["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
+						PageContext.ForumDeleteAccess;
 			}
 		}
 
@@ -221,12 +221,12 @@ namespace YAF.Pages
 			// CHANGED BAI 30.01.2004
 
 			//Create objects for easy access
-			object tmpMessageID = msg ["MessageID"];
-			object tmpForumID = msg ["ForumID"];
-			object tmpTopicID = msg ["TopicID"];
+			object tmpMessageID = _msg ["MessageID"];
+			object tmpForumID = _msg ["ForumID"];
+			object tmpTopicID = _msg ["TopicID"];
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
-			DB.message_delete( tmpMessageID, isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"] );
+			DB.message_delete( tmpMessageID, _isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"] );
 
 			// retrieve topic information.
 			DataRow topic = DB.topic_info( tmpTopicID );
@@ -250,9 +250,9 @@ namespace YAF.Pages
 			// CHANGED BAI 30.01.2004
 
 			//Create objects for easy access
-			object tmpMessageID = msg ["MessageID"];
-			object tmpForumID = msg ["ForumID"];
-			object tmpTopicID = msg ["TopicID"];
+			object tmpMessageID = _msg ["MessageID"];
+			object tmpForumID = _msg ["ForumID"];
+			object tmpTopicID = _msg ["TopicID"];
 
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted

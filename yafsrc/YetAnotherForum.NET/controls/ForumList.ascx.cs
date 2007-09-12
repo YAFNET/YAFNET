@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
+using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
@@ -52,7 +53,7 @@ namespace YAF.Controls
 		protected string GetForumIcon( object o )
 		{
 			DataRow row = ( DataRow ) o;
-			bool locked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked;
+			bool locked = General.BinaryAnd(row["Flags"], ForumFlags.Locked);
 			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
 			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
 
@@ -267,10 +268,9 @@ namespace YAF.Controls
 			return output;
 		}
 
-		protected bool GetModerated( object _o )
+		protected bool GetModerated( object o )
 		{
-			DataRow row = ( DataRow ) _o;
-			return ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Moderated ) == ( int ) YAF.Classes.Data.ForumFlags.Moderated;
+			return General.BinaryAnd(((DataRow)o)["Flags"], ForumFlags.Moderated);
 		}
 
 		// Ederon : 08/27/2007

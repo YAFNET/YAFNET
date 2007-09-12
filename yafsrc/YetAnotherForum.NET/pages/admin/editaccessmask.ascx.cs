@@ -45,20 +45,20 @@ namespace YAF.Pages.Admin
 
 				BindData();
 				if(Request.QueryString["i"] != null) {
-					using(DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,Request.QueryString["i"])) 
+					using (DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, Request.QueryString["i"]))
 					{
 						DataRow row = dt.Rows[0];
-						Name.Text				= (string)row["Name"];
-						ReadAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ReadAccess);
-						PostAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PostAccess);
-						ReplyAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ReplyAccess);
-						PriorityAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PriorityAccess);
-						PollAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.PollAccess);
-						VoteAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.VoteAccess);
-						ModeratorAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.ModeratorAccess);
-						EditAccess.Checked		= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.EditAccess);
-						DeleteAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.DeleteAccess);
-						UploadAccess.Checked	= BitSet(row["Flags"],(int)YAF.Classes.Data.AccessFlags.UploadAccess);
+						Name.Text = (string)row["Name"];
+						ReadAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.ReadAccess);
+						PostAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.PostAccess);
+						ReplyAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.ReplyAccess);
+						PriorityAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.PriorityAccess);
+						PollAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.PollAccess);
+						VoteAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.VoteAccess);
+						ModeratorAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.ModeratorAccess);
+						EditAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.EditAccess);
+						DeleteAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.DeleteAccess);
+						UploadAccess.Checked = General.BinaryAnd(row["Flags"], AccessFlags.UploadAccess);
 					}
 				}
 			}
@@ -114,12 +114,6 @@ namespace YAF.Pages.Admin
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_accessmasks);
-		}
-
-		protected bool BitSet(object _o,int bitmask) 
-		{
-			int i = (int)_o;
-			return (i & bitmask)!=0;
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class attachments : YAF.Classes.Base.ForumPage
 	{
-		private DataRow forum, topic;
+		private DataRow _forum, _topic;
 
 		public attachments()
 			: base( "ATTACHMENTS" )
@@ -28,8 +28,8 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, PageContext.PageForumID ) )
-				forum = dt.Rows [0];
-			topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
+				_forum = dt.Rows [0];
+			_topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
 
 			if ( !IsPostBack )
 			{
@@ -40,11 +40,10 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.AccessDenied();
 
 				// Ederon : 9/9/2007 - moderaotrs can attach in locked posts
-				if (((int)topic["Flags"] & (int)YAF.Classes.Data.TopicFlags.Locked) == (int)YAF.Classes.Data.TopicFlags.Locked &&
-					!PageContext.ForumModeratorAccess)
+				if (General.BinaryAnd(_topic["Flags"], TopicFlags.Locked) && !PageContext.ForumModeratorAccess)
 					YafBuildLink.AccessDenied(/*"The topic is closed."*/);
 
-				if ( ( ( int ) forum ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked )
+				if (General.BinaryAnd(_forum["Flags"], ForumFlags.Locked))
 					YafBuildLink.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written

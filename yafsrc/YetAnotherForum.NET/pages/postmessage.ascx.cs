@@ -39,9 +39,9 @@ namespace YAF.Pages
 	/// </summary>
 	public partial class postmessage : YAF.Classes.Base.ForumPage
 	{
-		protected YAF.Editor.ForumEditor Message;
-		protected System.Web.UI.WebControls.Label NoEditSubject;
-		protected int OwnerUserId;
+		protected YAF.Editor.ForumEditor uxMessage;
+		protected System.Web.UI.WebControls.Label uxNoEditSubject;
+		protected int _ownerUserId;
 
 		public postmessage()
 			: base("POSTMESSAGE")
@@ -52,8 +52,8 @@ namespace YAF.Pages
 		override protected void OnInit(System.EventArgs e)
 		{
 			// get the forum editor based on the settings
-			Message = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
-			EditorLine.Controls.Add(Message);
+			uxMessage = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+			EditorLine.Controls.Add(uxMessage);
 
 			base.OnInit(e);
 		}
@@ -77,7 +77,7 @@ namespace YAF.Pages
 			{
 				using (DataTable dt = DB.message_list(EditTopicID))
 					currentRow = dt.Rows[0];
-				OwnerUserId = Convert.ToInt32(currentRow["UserId"]);
+				_ownerUserId = Convert.ToInt32(currentRow["UserId"]);
 				if (!CanEditPostCheck(currentRow))
 					YafBuildLink.AccessDenied();
 			}
@@ -90,8 +90,8 @@ namespace YAF.Pages
 				YafBuildLink.AccessDenied();
 
 			//Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-			Message.StyleSheet = YafBuildLink.ThemeFile("theme.css");
-			Message.BaseDir = YafForumInfo.ForumRoot + "editors";
+			uxMessage.StyleSheet = YafBuildLink.ThemeFile("theme.css");
+			uxMessage.BaseDir = YafForumInfo.ForumRoot + "editors";
 
 			Title.Text = GetText("NEWTOPIC");
 			PollExpire.Attributes.Add("style", "width:50px");
@@ -109,6 +109,7 @@ namespace YAF.Pages
 				Cancel.Text = GetText("Cancel");
 				CreatePoll.Text = GetText("createpoll");
 
+				PersistencyRow.Visible = PageContext.ForumPriorityAccess;
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
 				CreatePollRow.Visible = TopicID == null && PageContext.ForumPollAccess;
 
@@ -124,7 +125,7 @@ namespace YAF.Pages
 					// new post...
 					DataRow topic = DB.topic_info(TopicID);
 					// Ederon : 9/9/2007 - moderators can reply in locked topics
-					if (((int)topic["Flags"] & (int)TopicFlags.Locked) == (int)TopicFlags.Locked && !PageContext.ForumModeratorAccess)
+					if (General.BinaryAnd(topic["Flags"], TopicFlags.Locked) && !PageContext.ForumModeratorAccess)
 						Response.Redirect(Request.UrlReferrer.ToString());
 					SubjectRow.Visible = false;
 					Title.Text = GetText("reply");
@@ -169,13 +170,13 @@ namespace YAF.Pages
 						tmpMessage = quote.Replace(tmpMessage, "");
 					}
 
-					Message.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], tmpMessage).TrimStart();
+					uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], tmpMessage).TrimStart();
 				}
 				else if (EditTopicID != null)
 				{
 					// edit message...
 					string body = currentRow["message"].ToString();
-					Message.Text = body;
+					uxMessage.Text = body;
 					Title.Text = GetText("EDIT");
 
 					string blogPostID = currentRow["blogpostid"].ToString();
@@ -204,6 +205,7 @@ namespace YAF.Pages
 					Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
 					EditReasonRow.Visible = true;
 					ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
+					Persistency.Checked = General.BinaryAnd(currentRow["Flags"], TopicFlags.Persistent);
 				}
 
 				From.Text = PageContext.PageUserName;
@@ -233,10 +235,10 @@ namespace YAF.Pages
 				forumInfo = dt.Rows[0];
 
 			// Ederon : 9/9/2007 - moderator can edit in locked topics
-			return ((!postLocked && 
-				((int)forumInfo["Flags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked && 
-				((int)topicInfo["Flags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked && 
-				((int)message["UserID"] == PageContext.PageUserID)) || PageContext.ForumModeratorAccess) && 
+			return ((!postLocked &&
+				!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Locked) &&
+				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Locked) &&
+				((int)message["UserID"] == PageContext.PageUserID)) || PageContext.ForumModeratorAccess) &&
 				PageContext.ForumEditAccess;
 		}
 
@@ -250,8 +252,8 @@ namespace YAF.Pages
 				forumInfo = dt.Rows[0];
 
 			// Ederon : 9/9/2007 - moderator can reply to locked topics
-			return ((((int)forumInfo["Flags"] & (int)ForumFlags.Locked) != (int)ForumFlags.Locked &&
-				((int)topicInfo["Flags"] & (int)TopicFlags.Locked) != (int)TopicFlags.Locked) || PageContext.ForumModeratorAccess) &&
+			return (!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Locked) &&
+				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Locked) || PageContext.ForumModeratorAccess) &&
 				PageContext.ForumReplyAccess;
 		}
 
@@ -319,10 +321,10 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHTML = Message.UsesHTML;
-			tFlags.IsBBCode = Message.UsesBBCode;
+			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsBBCode = uxMessage.UsesBBCode;
 
-			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, Message.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
+			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, uxMessage.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
 
 			return nMessageID;
 		}
@@ -341,15 +343,16 @@ namespace YAF.Pages
 			// Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHTML = Message.UsesHTML;
-			tFlags.IsBBCode = Message.UsesBBCode;
+			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			
 
-			bool isModeratorChanged = (PageContext.PageUserID != OwnerUserId);
-			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, Message.Text, SubjectSave, tFlags.BitValue, Server.HtmlEncode(ReasonEditor.Text), isModeratorChanged);
+			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
+			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, tFlags.BitValue, Server.HtmlEncode(ReasonEditor.Text), isModeratorChanged);
 
 			nMessageID = long.Parse(EditTopicID);
 
-			HandlePostToBlog(Message.Text, Subject.Text);
+			HandlePostToBlog(uxMessage.Text, Subject.Text);
 
 			return nMessageID;
 		}
@@ -364,16 +367,17 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHTML = Message.UsesHTML;
-			tFlags.IsBBCode = Message.UsesBBCode;
+			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			tFlags.IsPersistent = Persistency.Checked;
 
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
-			string blogPostID = HandlePostToBlog(Message.Text, Subject.Text);
+			string blogPostID = HandlePostToBlog(uxMessage.Text, Subject.Text);
 
 			// Save to Db
-			DB.topic_save(PageContext.PageForumID, Server.HtmlEncode(Subject.Text), Message.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+			DB.topic_save(PageContext.PageForumID, Server.HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
 
 			return nMessageID;
 		}
@@ -525,10 +529,10 @@ namespace YAF.Pages
 			PreviewRow.Visible = true;
 
 			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHTML = Message.UsesHTML;
-			tFlags.IsBBCode = Message.UsesBBCode;
+			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsBBCode = uxMessage.UsesBBCode;
 
-			string body = FormatMsg.FormatMessage(Message.Text, tFlags);
+			string body = FormatMsg.FormatMessage(uxMessage.Text, tFlags);
 
 			using (DataTable dt = DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
 			{

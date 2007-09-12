@@ -105,8 +105,8 @@ namespace YAF.Pages.Admin
 
 			///object IsLadder,object MinPosts
 			///Eval( "IsLadder"),Eval( "MinPosts")
-			
-			bool isLadder = ((int)dr["Flags"] & (int)YAF.Classes.Data.RankFlags.IsLadder) == (int)YAF.Classes.Data.RankFlags.IsLadder;
+
+			bool isLadder = General.BinaryAnd(dr["Flags"], RankFlags.IsLadder);
 			
 			string tmp = String.Format("{0}",isLadder);
 			if(isLadder) {

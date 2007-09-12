@@ -77,31 +77,31 @@ namespace YAF.Classes.Utils
 		}
 
 		// actual flags here -- can be a total of 31
-		public bool IsHTML
+		public bool IsHTML // int value 1
 		{
 			get { return GetBitAsBool( _bitValue, 0 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 0, value ); }
 		}
 
-		public bool IsBBCode
+		public bool IsBBCode // int value 2
 		{
 			get { return GetBitAsBool( _bitValue, 1 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 1, value ); }
 		}
 
-		public bool IsSmilies
+		public bool IsSmilies // int value 4
 		{
 			get { return GetBitAsBool( _bitValue, 2 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 2, value ); }
 		}
 
-		public bool IsDeleted
+		public bool IsDeleted // int value 8
 		{
 			get { return GetBitAsBool( _bitValue, 3 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 3, value ); }
 		}
 
-		public bool IsApproved
+		public bool IsApproved // int value 16
 		{
 			get { return GetBitAsBool( _bitValue, 4 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 4, value ); }
@@ -110,7 +110,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// This post is locked -- nothing can be done to it
 		/// </summary>
-		public bool IsLocked
+		public bool IsLocked // int value 32
 		{
 			get { return GetBitAsBool( _bitValue, 5 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 5, value ); }
@@ -119,7 +119,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Setting so that the message isn't formatted at all
 		/// </summary>
-		public bool NotFormatted
+		public bool NotFormatted // int value 64
 		{
 			get { return GetBitAsBool( _bitValue, 6 ); }
 			set { _bitValue = SetBitFromBool( _bitValue, 6, value ); }
@@ -128,7 +128,7 @@ namespace YAF.Classes.Utils
         /// <summary>
         /// This post has been reported as abusive
         /// </summary>
-        public bool IsReported
+		public bool IsReported // int value 128
         {
             get { return GetBitAsBool(_bitValue, 7); }
             set { _bitValue = SetBitFromBool(_bitValue, 7, value); }
@@ -137,11 +137,19 @@ namespace YAF.Classes.Utils
         /// <summary>
         /// This post has been reported as spam
         /// </summary>
-        public bool IsReportedSpam
+		public bool IsReportedSpam // int value 256
         {
             get { return GetBitAsBool(_bitValue, 8); }
             set { _bitValue = SetBitFromBool(_bitValue, 8, value); }
         }
 
+		/// <summary>
+		/// This post is persustennt -- it cannot be purged
+		/// </summary>
+		public bool IsPersistent // int value 512
+		{
+			get { return GetBitAsBool(_bitValue, 9); }
+			set { _bitValue = SetBitFromBool(_bitValue, 9, value); }
+		}
 	}
 }

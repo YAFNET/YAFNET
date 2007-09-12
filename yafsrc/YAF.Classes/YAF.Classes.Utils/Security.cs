@@ -23,43 +23,58 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Security;
+using System.Web;
 using System.Web.Security;
 
 namespace YAF.Classes.Utils
 {
-  static public class Security
-  {
-    /// <summary>
-    /// Function that verifies a string is an integer value or it redirects to invalid "info" page.
-    /// Used as a security feature against invalid values submitted to the page.
-    /// </summary>
-    /// <param name="longValue">The string value to test</param>
-    /// <returns>The converted long value</returns>
-    public static long StringToLongOrRedirect(string longValue)
-    {
-      long value = 0;
+	static public class Security
+	{
+		/// <summary>
+		/// Function that verifies a string is an integer value or it redirects to invalid "info" page.
+		/// Used as a security feature against invalid values submitted to the page.
+		/// </summary>
+		/// <param name="longValue">The string value to test</param>
+		/// <returns>The converted long value</returns>
+		public static long StringToLongOrRedirect(string longValue)
+		{
+			long value = 0;
 
-      try
-      {
-        value = long.Parse( longValue );
-      }
-      catch
-      {
-        // it's an invalid request. Redirect to the info page on invalid requests.
-        YafBuildLink.Redirect( ForumPages.info, "i=6" );
-      }
+			try
+			{
+				value = long.Parse(longValue);
+			}
+			catch
+			{
+				// it's an invalid request. Redirect to the info page on invalid requests.
+				YafBuildLink.Redirect(ForumPages.info, "i=6");
+			}
 
-      return value;
-    }
+			return value;
+		}
 
-    public static string CreatePassword( int length )
-    {
-      string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
-      string res = "";
-      Random rnd = new Random();
-      while ( 0 < length-- )
-        res += valid [rnd.Next( valid.Length )];
-      return res;
-    }
-  }
+		public static string CreatePassword(int length)
+		{
+			string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
+			string res = "";
+			Random rnd = new Random();
+			while (0 < length--)
+				res += valid[rnd.Next(valid.Length)];
+			return res;
+		}
+
+		/// <summary>
+		/// This method validates request whether it comes from same server in case it's HTTP POST.
+		/// </summary>
+		/// <param name="request">Request to validate.</param>
+		public static void CheckRequestValidity(HttpRequest request)
+		{
+			// ip with 
+			// deny access if POST request comes from other server
+			if (request.HttpMethod == "POST" && !request.IsLocal && request.UrlReferrer.Host != request.Url.Host)
+			{
+				YafBuildLink.AccessDenied();
+			}
+		}
+	}
 }

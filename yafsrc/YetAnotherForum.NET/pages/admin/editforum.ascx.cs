@@ -54,11 +54,11 @@ namespace YAF.Pages.Admin
 						Name.Text = ( string ) row ["Name"];
 						Description.Text = ( string ) row ["Description"];
 						SortOrder.Text = row ["SortOrder"].ToString();
-						HideNoAccess.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Hidden ) == ( int ) YAF.Classes.Data.ForumFlags.Hidden;
-						Locked.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Locked ) == ( int ) YAF.Classes.Data.ForumFlags.Locked;
-						IsTest.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.IsTest ) == ( int ) YAF.Classes.Data.ForumFlags.IsTest;
+						HideNoAccess.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Hidden);
+						Locked.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Locked);
+						IsTest.Checked = General.BinaryAnd(row["Flags"], ForumFlags.IsTest);
 						ForumNameTitle.Text = Name.Text;
-						Moderated.Checked = ( ( int ) row ["Flags"] & ( int ) YAF.Classes.Data.ForumFlags.Moderated ) == ( int ) YAF.Classes.Data.ForumFlags.Moderated;
+						Moderated.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Moderated);
 
 						CategoryList.SelectedValue = row ["CategoryID"].ToString();
 						// populate parent forums list with forums according to selected category

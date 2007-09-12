@@ -3658,6 +3658,7 @@ begin
 		where 
 			ForumID = @ForumID and
 			Priority = 0 and
+			(Flags & 512) = 0 and					/* not flagged as persistent */
 			datediff(dd,LastPosted,getdate())>@Days
 	end
 	else begin
@@ -3668,6 +3669,7 @@ begin
 			yaf_Topic
 		where 
 			Priority = 0 and
+			(Flags & 512) = 0 and					/* not flagged as persistent */
 			datediff(dd,LastPosted,getdate())>@Days
 	end
 	open @c

@@ -45,6 +45,14 @@
       <asp:DropDownList ID="Priority" runat="server" />
     </td>
   </tr>
+  <tr id="PersistencyRow" runat="server">
+    <td class="postformheader" width="20%">
+      <%= GetText("PERSISTENCY")%>
+    </td>
+    <td class="post" width="80%">
+      <asp:CheckBox ID="Persistency" runat="server" /> (<%= GetText("PERSISTENCY_INFO") %>)
+    </td>
+  </tr>
   <tr id="CreatePollRow" runat="server">
     <td class="postformheader" width="20%">
       <asp:LinkButton ID="CreatePoll" runat="server" OnClick="CreatePoll_Click" /></td>

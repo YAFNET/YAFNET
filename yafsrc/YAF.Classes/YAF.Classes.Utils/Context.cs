@@ -481,7 +481,7 @@ namespace YAF.Classes.Utils
 
 				if ( Page != null )
 				{
-					if ( ( Convert.ToInt32( Page ["UserFlags"] ) & ( int ) UserFlags.IsHostAdmin ) == ( int ) UserFlags.IsHostAdmin )
+					if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
 						isHostAdmin = true;
 				}
 
