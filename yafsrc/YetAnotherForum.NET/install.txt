@@ -30,7 +30,8 @@ updated.
    is copied to /bin on your web server. Also you'll need to add the
    <root> element to the web.config to point to the correct URL.
    Example: If you have install the forum in the directory "/forum/yaf/"
-   you will need to add <root>/forum/yaf/</root> to web.config.
+   you will need to add key with name "root" and value "/forum/yaf/" 
+   to app.config.
 
 4. Open the file <YAFroot>install/default.aspx on your web site. If you
    are testing on your local computer, under a directory called
