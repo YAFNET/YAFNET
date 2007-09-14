@@ -34,6 +34,7 @@ namespace YAF
 		YafControlSettings forumSettings = new YafControlSettings();
 		private YAF.Controls.Header m_header = new YAF.Controls.Header();
 		private YAF.Controls.Footer m_footer = new YAF.Controls.Footer();
+		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
 
 		public Forum()
 		{
@@ -70,15 +71,16 @@ namespace YAF
 
 			try
 			{
-				YAF.Classes.Base.ForumPage ctl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
-				ctl.ForumFooter = m_footer;
-				ctl.ForumHeader = m_header;
-
+				YAF.Classes.Base.ForumPage forumControl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
+				forumControl.ForumFooter = m_footer;
+				forumControl.ForumHeader = m_header;
+				forumControl.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>( forumControl_PageTitleSet );
+				
 				// add the header control before the page rendering...
 				if ( YafContext.Current.Settings.LockedForum == 0 )
 					this.Controls.AddAt( 0, m_header );
 
-				this.Controls.Add( ctl );
+				this.Controls.Add( forumControl );
 
 				// add the footer control after the page...
 				if ( YafContext.Current.Settings.LockedForum == 0 )
@@ -89,6 +91,11 @@ namespace YAF
 				throw new ApplicationException( "Failed to load " + src + "." );
 			}
 		}
+		
+    void forumControl_PageTitleSet( object sender, YAF.Classes.Base.ForumPageArgs e )
+    {
+      if ( PageTitleSet != null ) PageTitleSet( this, e );
+    }		
 
 		public YAF.Controls.Header Header
 		{
