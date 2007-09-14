@@ -106,7 +106,7 @@ namespace YAF.Controls
 
 			if ( page > 1 )
 			{
-				string tmp = parser.CreateQueryString( new string [] { "g", "p" } );
+        string tmp = parser.CreateQueryString( new string [] { "g", "p", "tabid" } );
 				if (tmp.Length > 0) tmp += "&";
 
 				tmp += "p={0}";
@@ -115,7 +115,7 @@ namespace YAF.Controls
 			}
 			else
 			{
-        url = YafBuildLink.GetLink( currentPage, parser.CreateQueryString( new string [] { "g", "p" } ) );
+        url = YafBuildLink.GetLink( currentPage, parser.CreateQueryString( new string [] { "g", "p", "tabid" } ) );
 			}
 
 			return url;
