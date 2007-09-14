@@ -40,10 +40,13 @@ namespace YAF.Classes.Data
 #if DEBUG
 			_cmd = sql;
 
-			if ( HttpContext.Current.Items ["NumQueries"] == null )
-				HttpContext.Current.Items ["NumQueries"] = ( int ) 1;
-			else
-				HttpContext.Current.Items ["NumQueries"] = 1 + ( int ) HttpContext.Current.Items ["NumQueries"];
+			if ( HttpContext.Current != null )
+			{
+				if ( HttpContext.Current.Items ["NumQueries"] == null )
+					HttpContext.Current.Items ["NumQueries"] = ( int ) 1;
+				else
+					HttpContext.Current.Items ["NumQueries"] = 1 + ( int ) HttpContext.Current.Items ["NumQueries"];
+			}
 
 			_stopWatch.Start();
 #endif
@@ -58,45 +61,51 @@ namespace YAF.Classes.Data
 
 			_cmd = String.Format( "{0}: {1:N3}", _cmd, duration );
 
-			if ( HttpContext.Current.Items ["TimeQueries"] == null )
-				HttpContext.Current.Items ["TimeQueries"] = duration;
-			else
-				HttpContext.Current.Items ["TimeQueries"] = duration + ( double ) HttpContext.Current.Items ["TimeQueries"];
+			if ( HttpContext.Current != null )
+			{
+				if ( HttpContext.Current.Items ["TimeQueries"] == null )
+					HttpContext.Current.Items ["TimeQueries"] = duration;
+				else
+					HttpContext.Current.Items ["TimeQueries"] = duration + ( double ) HttpContext.Current.Items ["TimeQueries"];
 
-			if ( HttpContext.Current.Items ["CmdQueries"] == null )
-				HttpContext.Current.Items ["CmdQueries"] = _cmd;
-			else
-				HttpContext.Current.Items ["CmdQueries"] += "<br/>" + _cmd;
+				if ( HttpContext.Current.Items ["CmdQueries"] == null )
+					HttpContext.Current.Items ["CmdQueries"] = _cmd;
+				else
+					HttpContext.Current.Items ["CmdQueries"] += "<br/>" + _cmd;
+			}
 #endif
 		}
 
 #if DEBUG
 		static public void Reset()
 		{
-			HttpContext.Current.Items ["NumQueries"] = 0;
-			HttpContext.Current.Items ["TimeQueries"] = ( double ) 0;
-			HttpContext.Current.Items ["CmdQueries"] = "";
+			if ( HttpContext.Current != null )
+			{
+				HttpContext.Current.Items ["NumQueries"] = 0;
+				HttpContext.Current.Items ["TimeQueries"] = ( double ) 0;
+				HttpContext.Current.Items ["CmdQueries"] = "";
+			}
 		}
 
 		static public int Count
 		{
 			get
 			{
-				return ( int ) HttpContext.Current.Items ["NumQueries"];
+				return ( int ) ((HttpContext.Current == null) ? 0 : HttpContext.Current.Items ["NumQueries"]);
 			}
 		}
 		static public double Duration
 		{
 			get
 			{
-				return ( double ) HttpContext.Current.Items ["TimeQueries"];
+				return ( double ) (( HttpContext.Current == null ) ? 0.0 : HttpContext.Current.Items ["TimeQueries"]);
 			}
 		}
 		static public string Commands
 		{
 			get
 			{
-				return ( string ) HttpContext.Current.Items ["CmdQueries"];
+				return ( string ) (( HttpContext.Current == null ) ? "" : HttpContext.Current.Items ["CmdQueries"]);
 			}
 		}
 #endif

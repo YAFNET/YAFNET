@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace YAF.Classes.Base
 {
@@ -22,24 +23,31 @@ namespace YAF.Classes.Base
       }
     }
 
+		private YAF.Classes.Utils.SendMailThread _sendMailThread = null;
+
     #region IHttpModule Members
 
     void System.Web.IHttpModule.Dispose()
     {
-
+			if ( _sendMailThread != null )
+				_sendMailThread.StopThread();
     }
 
     void System.Web.IHttpModule.Init( System.Web.HttpApplication context )
-    {      
-      try
-      {
+    {
+			try
+			{
         // attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
         YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( BoardID );
-      }
-      catch
-      {
-        // do nothing here--upgrading/DB connectivity issues will be handled in ForumPage.cs
-      }
+				// start the mail sending thread...
+				YAF.Classes.Utils.SendMailThread _sendMailThread = new YAF.Classes.Utils.SendMailThread( context );
+				// run it for the lifetime of the application... (it checks and sends new e-mail every 10 seconds)
+				_sendMailThread.StartThread();
+			}
+			catch
+			{
+			  // do nothing here--upgrading/DB connectivity issues will be handled in ForumPage.cs
+			}
     }
 
     #endregion

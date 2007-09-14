@@ -29,63 +29,80 @@ using System.Threading;
 
 namespace YAF.Classes.Utils
 {
+	/// <summary>
+	/// This class needs a little tweaking, but it works.
+	/// No sure how it works when the DB isn't availabe.
+	/// </summary>
 	public class SendMailThread
 	{
-		public SendMailThread()
+		Thread _mailThread = null;
+		string _forumEmail = string.Empty;
+		System.Web.HttpApplication _appContext;
+
+		public SendMailThread( System.Web.HttpApplication context )
 		{
-			Thread currentThread = null;
-
-			try
+			if ( _mailThread == null )
 			{
-				HttpContext.Current.Application.Lock();
-				currentThread = (Thread)HttpContext.Current.Application ["sendMailThread"];
-
-				if ( currentThread == null || !currentThread.IsAlive)
-				{
-					currentThread = new Thread( new ThreadStart( SendMailThreaded ) );
-					currentThread.Priority = ThreadPriority.BelowNormal;
-					HttpContext.Current.Application ["sendMailThread"] = currentThread;
-					HttpContext.Current.Application ["sendMailForumEmail"] = YafContext.Current.BoardSettings.ForumEmail;
-					currentThread.Start();
-				}
-			}
-			finally
-			{
-				HttpContext.Current.Application.UnLock();
+				_mailThread = new Thread( new ThreadStart( SendMailThreaded ) );
+				_mailThread.Priority = ThreadPriority.BelowNormal;
+				_forumEmail = YafContext.Current.BoardSettings.ForumEmail;
 			}
 
-			/*HttpContext.Current.Application ["sendMailForumEmail"] = YafContext.Current.BoardSettings.ForumEmail;
-			SendMailThreaded();
-			*/
+			_appContext = context;
 		}
 
-		static protected void SendMailThreaded()
+		public void StartThread()
 		{
-			try
+			if ( _mailThread != null && !_mailThread.IsAlive )
 			{
-				using ( DataTable dt = YAF.Classes.Data.DB.mail_list() )
-				{
-					string forumEmail = HttpContext.Current.Application ["sendMailForumEmail"].ToString();
-
-					for ( int i = 0; i < dt.Rows.Count; i++ )
-					{
-						// Build a MailMessage
-						if ( dt.Rows [i] ["ToUser"].ToString().Trim() != String.Empty )
-						{
-							General.SendMail( forumEmail, ( string ) dt.Rows [i] ["ToUser"], ( string ) dt.Rows [i] ["Subject"], ( string ) dt.Rows [i] ["Body"] );
-						}
-						YAF.Classes.Data.DB.mail_delete( dt.Rows [i] ["MailID"] );
-					}
-					//if ( PageContext.IsAdmin ) PageContext.AddAdminMessage( "Sent Mail", String.Format( "Sent {0} mails.", dt.Rows.Count ) );
-				}
+				_mailThread.Start();
 			}
-			catch ( Exception x )
+		}
+
+		public void StopThread()
+		{
+			if ( _mailThread != null && _mailThread.IsAlive )
 			{
-				YAF.Classes.Data.DB.eventlog_create( 1, "SendMailThread", x );
-				/*if ( PageContext.IsAdmin )
+				_mailThread.Abort();
+			}
+		}
+
+		protected void SendMailThreaded()
+		{
+			HttpContext.Current = _appContext.Context;
+
+			while ( Thread.CurrentThread.ThreadState != ThreadState.Aborted )
+			{
+				// wait 10 seconds and start the e-mailing thread again...
+				Thread.Sleep( 10000 );
+
+				if ( Thread.CurrentThread.ThreadState == ThreadState.Aborted ) break;
+
+				try
 				{
-					PageContext.AddAdminMessage( "Error sending emails to users", x.ToString() );
-				}*/
+					using ( DataTable dt = YAF.Classes.Data.DB.mail_list() )
+					{
+						for ( int i = 0; i < dt.Rows.Count; i++ )
+						{
+							// Build a MailMessage
+							if ( dt.Rows [i] ["ToUser"].ToString().Trim() != String.Empty )
+							{
+								System.Net.Mail.MailAddress fromEmailAddress;
+								
+								if (dt.Rows [i] ["FromUser"].ToString().Trim() != String.Empty) fromEmailAddress = new System.Net.Mail.MailAddress( dt.Rows [i] ["FromUser"].ToString().Trim() );
+								else fromEmailAddress = new System.Net.Mail.MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name );
+
+								General.SendMail( fromEmailAddress, new System.Net.Mail.MailAddress( dt.Rows [i] ["ToUser"].ToString() ), dt.Rows [i] ["Subject"].ToString(), dt.Rows [i] ["Body"].ToString() );
+							}
+							YAF.Classes.Data.DB.mail_delete( dt.Rows [i] ["MailID"] );
+						}
+					}
+				}
+				catch ( Exception x )
+				{
+					// log the error...
+					YAF.Classes.Data.DB.eventlog_create( 1, "SendMailThread", x );
+				}
 			}
 		}
 	}

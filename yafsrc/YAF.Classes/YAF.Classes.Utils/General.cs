@@ -58,8 +58,11 @@ namespace YAF.Classes.Utils
 
 		static public bool IsBanned( string ban, string chk )
 		{
-			String [] ipmask = ban.Split( '.' );
-			String [] ip = ban.Split( '.' );
+			string bannedIP = ban.Trim();
+
+			String [] ipmask = bannedIP.Split( '.' );
+			String [] ip = bannedIP.Split( '.' );
+
 			for ( int i = 0; i < ipmask.Length; i++ )
 			{
 				if ( ipmask [i] == "*" )
@@ -163,7 +166,7 @@ namespace YAF.Classes.Utils
 				if ( !Regex.IsMatch( emailMessage.Body, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
 						!Regex.IsMatch( emailMessage.Subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
 				{
-					emailMessage.BodyEncoding = Encoding.UTF8;
+					emailMessage.BodyEncoding = Encoding.Unicode;
 				}
 
 				smtpSend.Send( emailMessage );

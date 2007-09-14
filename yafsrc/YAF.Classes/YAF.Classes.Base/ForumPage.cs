@@ -35,6 +35,24 @@ using YAF.Classes.Utils;
 namespace YAF.Classes.Base
 {
 	/// <summary>
+	/// EventArgs class for the PageTitleSet event
+	/// </summary>
+	public class ForumPageArgs : EventArgs
+	{
+		private string _title;
+
+		public ForumPageArgs( string title )
+		{
+			_title = title;
+		}
+
+		public string Title
+		{
+			get { return _title; }
+		}
+	}
+
+	/// <summary>
 	/// Summary description for BasePage.
 	/// </summary>
 	public class ForumPage : System.Web.UI.UserControl
@@ -42,11 +60,12 @@ namespace YAF.Classes.Base
 		/* Ederon : 6/16/2007 - conventions */
 
 		#region Variables
-		
+
 		private bool _noDataBase = false;
 		private bool _showToolBar = true;
 		private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
+		protected string _forumPageTitle = null;	
 
 		private YAF.Controls.Header _header = null;
 		private YAF.Controls.Footer _footer = null;
@@ -77,13 +96,19 @@ namespace YAF.Classes.Base
 		#endregion
 
 		#region Constructor and events
+
+		/// <summary>
+		/// Fires OnPageLoad when a pageTitle has been generated.
+		/// </summary>
+		public event EventHandler<ForumPageArgs> PageTitleSet;
+
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public ForumPage() : this( "" ) {}
+		public ForumPage() : this( "" ) { }
 		public ForumPage( string transPage )
 		{
-			_transPage = transPage;		
+			_transPage = transPage;
 
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Unload += new System.EventHandler( this.ForumPage_Unload );
@@ -104,10 +129,10 @@ namespace YAF.Classes.Base
 		{
 			try
 			{
-				if (expression == null)
+				if ( expression == null )
 					return 0;
 
-				return int.Parse(expression.ToString());
+				return int.Parse( expression.ToString() );
 			}
 			catch ( Exception )
 			{
@@ -123,7 +148,7 @@ namespace YAF.Classes.Base
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
 			// Ederon : 9/12/2007
-			Security.CheckRequestValidity(Request);
+			Security.CheckRequestValidity( Request );
 
 			if ( _noDataBase )
 				return;
@@ -172,9 +197,9 @@ namespace YAF.Classes.Base
 					PageContext.AddLoadMessage( String.Format( GetText( "UNREAD_MSG" ), PageContext.UnreadPrivate ) );
 			}
 
-			if ( !PageContext.IsGuest && PageContext.Page["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
+			if ( !PageContext.IsGuest && PageContext.Page ["PreviousVisit"] != DBNull.Value && !Mession.HasLastVisit )
 			{
-				Mession.LastVisit = Convert.ToDateTime(PageContext.Page["PreviousVisit"]);
+				Mession.LastVisit = Convert.ToDateTime( PageContext.Page ["PreviousVisit"] );
 				Mession.HasLastVisit = true;
 			}
 			else if ( Mession.LastVisit == DateTime.MinValue )
@@ -182,34 +207,25 @@ namespace YAF.Classes.Base
 				Mession.LastVisit = DateTime.Now;
 			}
 
-			// Check if pending mails, and send 10 of them if possible
-			if ( Convert.ToInt32(PageContext.Page["MailsPending"]) > 0 )
-			{
-				try
-				{
-					using ( DataTable dt = YAF.Classes.Data.DB.mail_list() )
-					{
-						for ( int i = 0; i < dt.Rows.Count; i++ )
-						{
-							// Build a MailMessage
-							if ( dt.Rows [i] ["ToUser"].ToString().Trim() != String.Empty )
-							{
-								General.SendMail( PageContext.BoardSettings.ForumEmail, ( string ) dt.Rows [i] ["ToUser"], ( string ) dt.Rows [i] ["Subject"], ( string ) dt.Rows [i] ["Body"] );
-							}
-							YAF.Classes.Data.DB.mail_delete( dt.Rows [i] ["MailID"] );
-						}
-						if ( PageContext.IsAdmin ) PageContext.AddAdminMessage( "Sent Mail", String.Format( "Sent {0} mails.", dt.Rows.Count ) );
-					}
-				}
-				catch ( Exception x )
-				{
-					YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-					if ( PageContext.IsAdmin )
-					{
-						PageContext.AddAdminMessage( "Error sending emails to users", x.ToString() );
-					}
-				}
-			}
+			GeneratePageTitle();
+		}
+
+		/// <summary>
+		/// Creates this pages title and fires a PageTitleSet event if one is set
+		/// </summary>
+		private void GeneratePageTitle()
+		{
+			// compute page title..
+			System.Text.StringBuilder title = new StringBuilder();
+
+			if ( PageContext.PageTopicID != 0 )
+				title.AppendFormat( "{0} - ", General.BadWordReplace( PageContext.PageTopicName ) ); // Tack on the topic we're viewing
+			if ( PageContext.PageForumName != string.Empty )
+				title.AppendFormat( "{0} - ", Server.HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
+			title.Append( Server.HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
+			_forumPageTitle = title.ToString();
+
+			if ( PageTitleSet != null ) PageTitleSet( this, new ForumPageArgs( _forumPageTitle ) );
 		}
 
 		/// <summary>
@@ -230,43 +246,43 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitDB()
 		{
-      // 1st test if for DB connectivity...
-      try
-      {
-        using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
-        {
-          // just attempt to open the connection to test if a DB is available.
-          System.Data.SqlClient.SqlConnection getConn = connMan.OpenDBConnection;
-        }
-      }
-      catch ( System.Data.SqlClient.SqlException ex )
-      {
+			// 1st test if for DB connectivity...
+			try
+			{
+				using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+				{
+					// just attempt to open the connection to test if a DB is available.
+					System.Data.SqlClient.SqlConnection getConn = connMan.OpenDBConnection;
+				}
+			}
+			catch ( System.Data.SqlClient.SqlException ex )
+			{
 #if !DEBUG
         // unable to connect to the DB...
         Session ["StartupException"] = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number.ToString() + ")";
         Response.Redirect( YafForumInfo.ForumRoot + "error.aspx" );
 #else
-        // re-throw since we are debugging...
-        throw;
+				// re-throw since we are debugging...
+				throw;
 #endif
-      }
+			}
 
-      // step 2: validate the database version...
-      try
-      {        
-        DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
+			// step 2: validate the database version...
+			try
+			{
+				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
 
-        if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < YafForumInfo.AppVersion ) )
-        {
-          // needs upgrading...
-          Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
-        }
-      }
-      catch ( System.Data.SqlClient.SqlException )
-      {
-        // needs to be setup...
-        Response.Redirect( YafForumInfo.ForumRoot + "install/" );
-      }
+				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < YafForumInfo.AppVersion ) )
+				{
+					// needs upgrading...
+					Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
+				}
+			}
+			catch ( System.Data.SqlClient.SqlException )
+			{
+				// needs to be setup...
+				Response.Redirect( YafForumInfo.ForumRoot + "install/" );
+			}
 		}
 
 		/// <summary>
@@ -274,22 +290,22 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void CheckBannedIPs()
 		{
-			string key = YafCache.GetBoardCacheKey(Constants.Cache.BannedIP);
+			string key = YafCache.GetBoardCacheKey( Constants.Cache.BannedIP );
 
 			// load the banned IP table...
-			DataTable bannedIPs = (DataTable)YafCache.Current[key];
+			DataTable bannedIPs = ( DataTable ) YafCache.Current [key];
 
 			if ( bannedIPs == null )
 			{
 				// load the table and cache it...
 				bannedIPs = DB.bannedip_list( PageContext.PageBoardID, null );
-				YafCache.Current[key] = bannedIPs;
+				YafCache.Current [key] = bannedIPs;
 			}
 
 			// check for this user in the list...
 			foreach ( DataRow row in bannedIPs.Rows )
 			{
-				if ( General.IsBanned( ( string ) row["Mask"], HttpContext.Current.Request.ServerVariables ["REMOTE_ADDR"] ) )
+				if ( General.IsBanned( ( string ) row ["Mask"], HttpContext.Current.Request.ServerVariables ["REMOTE_ADDR"] ) )
 					HttpContext.Current.Response.End();
 			}
 		}
@@ -298,7 +314,7 @@ namespace YAF.Classes.Base
 		/// Set the culture and UI culture to the browser's accept language
 		/// </summary>
 		private void InitCulture()
-		{			
+		{
 			try
 			{
 				string cultureCode = "";
@@ -347,7 +363,7 @@ namespace YAF.Classes.Base
 			MembershipUser user = Membership.GetUser();
 			if ( user != null && Session ["UserUpdated"] == null )
 			{
-        RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
+				RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
 				Session ["UserUpdated"] = true;
 			}
 
@@ -356,14 +372,14 @@ namespace YAF.Classes.Base
 
 			if ( HttpContext.Current.Request.UserAgent != null )
 			{
-        if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
-        {
-          platform = "Win2003";
-        }
-        else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
-        {
-          platform = "Vista";
-        }
+				if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
+				{
+					platform = "Win2003";
+				}
+				else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
+				{
+					platform = "Vista";
+				}
 			}
 
 			int? categoryID = ValidInt( HttpContext.Current.Request.QueryString ["c"] );
@@ -376,10 +392,10 @@ namespace YAF.Classes.Base
 
 			object userKey = DBNull.Value;
 
-      if (user != null)
-      {
-        userKey = user.ProviderUserKey;
-      }
+			if ( user != null )
+			{
+				userKey = user.ProviderUserKey;
+			}
 
 			do
 			{
@@ -400,7 +416,7 @@ namespace YAF.Classes.Base
 				if ( user != null && pageRow == null )
 				{
 					// create the user...
-          if ( !RoleMembershipHelper.DidCreateForumUser( user, PageContext.PageBoardID ) )
+					if ( !RoleMembershipHelper.DidCreateForumUser( user, PageContext.PageBoardID ) )
 						throw new ApplicationException( "Failed to use new user." );
 				}
 
@@ -427,12 +443,12 @@ namespace YAF.Classes.Base
 		{
 			string themeFile = null;
 
-			if ( PageContext.Page != null && PageContext.Page["ThemeFile"] != DBNull.Value && PageContext.BoardSettings.AllowUserTheme )
+			if ( PageContext.Page != null && PageContext.Page ["ThemeFile"] != DBNull.Value && PageContext.BoardSettings.AllowUserTheme )
 			{
 				// use user-selected theme
 				themeFile = PageContext.Page ["ThemeFile"].ToString();
 			}
-			else if ( PageContext.Page != null && PageContext.Page["ForumTheme"] != DBNull.Value )
+			else if ( PageContext.Page != null && PageContext.Page ["ForumTheme"] != DBNull.Value )
 			{
 				themeFile = PageContext.Page ["ForumTheme"].ToString();
 			}
@@ -444,7 +460,7 @@ namespace YAF.Classes.Base
 			if ( themeFile == null )
 			{
 				themeFile = "standard.xml";
-			}		
+			}
 
 			// create the theme class
 			PageContext.Theme = new YAF.Classes.Utils.YafTheme( themeFile );
@@ -455,7 +471,7 @@ namespace YAF.Classes.Base
 		/// </summary>
 		private void InitLocalization()
 		{
-			PageContext.Localization = new YAF.Classes.Utils.YafLocalization(_transPage);
+			PageContext.Localization = new YAF.Classes.Utils.YafLocalization( _transPage );
 		}
 		#endregion
 
@@ -478,18 +494,13 @@ namespace YAF.Classes.Base
 
 			if ( ctl != null )
 			{
-				System.Text.StringBuilder title = new StringBuilder();
-				if ( PageContext.PageTopicID != 0 )
-					title.AppendFormat( "{0} - ", General.BadWordReplace( PageContext.PageTopicName ) ); // Tack on the topic we're viewing
-				if ( PageContext.PageForumName != string.Empty )
-					title.AppendFormat( "{0} - ", Server.HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
-				title.Append( Server.HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
-				ctl.Text = title.ToString();
+				// set the page forum title -- from GeneratePageTitle function
+				ctl.Text = _forumPageTitle;
 			}
 
 			// setup the forum control header properties
 			ForumHeader.SimpleRender = !_showToolBar;
-			ForumFooter.SimpleRender = !_showToolBar;	
+			ForumFooter.SimpleRender = !_showToolBar;
 		}
 
 		/// <summary>
@@ -665,7 +676,7 @@ namespace YAF.Classes.Base
 
 			return GetThemeContents( "ICONS", ( stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND" ) );
 		}
-		#endregion		
+		#endregion
 
 		#region Localization Helper Functions
 
@@ -707,20 +718,20 @@ namespace YAF.Classes.Base
 			return Server.HtmlEncode( data.ToString() );
 		}
 
-        /// <summary>
-        /// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
-        /// </summary>
-        /// <param name="cssContents">The contents of the text/css style block</param>
-        public void RegisterClientCssBlock(string cssContents)
-        {
-            HtmlHead header = Page.FindControl("HeadTag") as HtmlHead;
-            if (header == null)
-                return;
-	        HtmlGenericControl style = new HtmlGenericControl();
-            style.TagName = "style";
-            style.Attributes.Add("type", "text/css");
-            style.InnerText = cssContents;
-	        header.Controls.AddAt(header.Controls.Count, style); // Add to the end of the controls collection
-        }
+		/// <summary>
+		/// Adds the given CSS to the page header within a <![CDATA[<style>]]> tag
+		/// </summary>
+		/// <param name="cssContents">The contents of the text/css style block</param>
+		public void RegisterClientCssBlock( string cssContents )
+		{
+			HtmlHead header = Page.FindControl( "HeadTag" ) as HtmlHead;
+			if ( header == null )
+				return;
+			HtmlGenericControl style = new HtmlGenericControl();
+			style.TagName = "style";
+			style.Attributes.Add( "type", "text/css" );
+			style.InnerText = cssContents;
+			header.Controls.AddAt( header.Controls.Count, style ); // Add to the end of the controls collection
+		}
 	}
 }
