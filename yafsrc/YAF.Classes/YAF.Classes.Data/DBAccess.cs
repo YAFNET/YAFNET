@@ -296,6 +296,12 @@ namespace YAF.Classes.Data
 			return Convert.ToBoolean( _dbRow [columnName] );
 		}
 
+		public DateTime? AsDateTime( string columnName )
+		{
+			if ( _dbRow [columnName] == DBNull.Value ) return null;
+			return Convert.ToDateTime( _dbRow [columnName] );
+		}
+
 		public int? AsInt32( string columnName )
 		{
 			if ( _dbRow [columnName] == DBNull.Value ) return null;

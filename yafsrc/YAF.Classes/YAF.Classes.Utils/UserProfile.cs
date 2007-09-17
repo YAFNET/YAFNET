@@ -260,6 +260,14 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		public string RankName
+		{
+			get
+			{
+				return _rowConvert.AsString( "RankName" );
+			}
+		}
+
 		public int? NumPosts
 		{
 			get
@@ -297,6 +305,37 @@ namespace YAF.Classes.Utils
 			get
 			{
 				return _rowConvert.AsBool( "PMNotification" );
+			}
+		}
+
+		public DateTime? Joined
+		{
+			get
+			{
+				return _rowConvert.AsDateTime( "Joined" );
+			}
+		}
+
+		public DateTime? LastVisit
+		{
+			get
+			{
+				return _rowConvert.AsDateTime( "LastVisit" );
+			}
+		}
+
+		public bool HasAvatarImage
+		{
+			get
+			{
+				bool hasImage = false;
+
+				if (DBRow ["HasAvatarImage"] != null && DBRow["HasAvatarImage"] != DBNull.Value)
+				{
+					hasImage = _rowConvert.AsInt64( "HasAvatarImage" ) > 0;
+				}
+
+				return hasImage;
 			}
 		}
 	}
