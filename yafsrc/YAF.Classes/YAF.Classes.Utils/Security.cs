@@ -71,7 +71,7 @@ namespace YAF.Classes.Utils
 		{
 			// ip with 
 			// deny access if POST request comes from other server
-			if (request.HttpMethod == "POST" && (!request.IsLocal || request.UrlReferrer.Host != request.Url.Host))
+			if (request.HttpMethod == "POST" && request.UrlReferrer.Host != request.Url.Host)
 			{
 				YafBuildLink.AccessDenied();
 			}
