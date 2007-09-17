@@ -271,4 +271,41 @@ namespace YAF.Classes.Data
 			}
 		}
 	}
+
+	/// <summary>
+	/// Helper class to do basic data conversion for a DataRow.	
+	/// </summary>
+	public class DataRowConvert
+	{
+		private DataRow _dbRow;
+
+		public DataRowConvert( DataRow dbRow )
+		{
+			_dbRow = dbRow;
+		}
+
+		public string AsString( string columnName )
+		{
+			if ( _dbRow [columnName] == DBNull.Value ) return null;
+			return _dbRow [columnName].ToString();
+		}
+
+		public bool AsBool( string columnName )
+		{
+			if ( _dbRow [columnName] == DBNull.Value ) return false;
+			return Convert.ToBoolean( _dbRow [columnName] );
+		}
+
+		public int? AsInt32( string columnName )
+		{
+			if ( _dbRow [columnName] == DBNull.Value ) return null;
+			return Convert.ToInt32( _dbRow [columnName] );
+		}
+
+		public long? AsInt64( string columnName )
+		{
+			if ( _dbRow [columnName] == DBNull.Value ) return null;
+			return Convert.ToInt64( _dbRow [columnName] );
+		}
+	}
 }

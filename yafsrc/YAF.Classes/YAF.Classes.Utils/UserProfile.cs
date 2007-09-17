@@ -19,6 +19,7 @@
  */
 using System;
 using System.Text;
+using System.Data;
 using System.Web.Profile;
 using System.Web.Security;
 using System.Collections.Generic;
@@ -35,74 +36,18 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-    public string IP
-    {
-      get { return base["IP"] as string; }
-      set { base["IP"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public DateTime Joined
-    {
-      get { return (DateTime)base["Joined"]; }
-      set { base["Joined"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
     public string Location
     {
       get { return base["Location"] as string; }
       set { base["Location"] = value; }
     }
 
-    [SettingsAllowAnonymous( false )]
-    public string Homepage
-    {
-      get { return base["Homepage"] as string; }
-      set { base["Homepage"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public int TimeZone
-    {
-      get { return (int)base["TimeZone"]; }
-      set { base["TimeZone"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public string Avatar
-    {
-      get { return base["Avatar"] as string; }
-      set { base["Avatar"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public string Signature
-    {
-      get { return base["Signature"] as string; }
-      set { base["Signature"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public string LanguageFile
-    {
-      get { return base["LanguageFile"] as string; }
-      set { base["LanguageFile"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public string ThemeFile
-    {
-      get { return base["ThemeFile"] as string; }
-      set { base["ThemeFile"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public bool OverrideDefaultThemes
-    {
-      get { return (bool)base["OverrideDefaultThemes"]; }
-      set { base["OverrideDefaultThemes"] = value; }
-    }
+		[SettingsAllowAnonymous( false )]
+		public string Homepage
+		{
+			get { return base ["Homepage"] as string; }
+			set { base ["Homepage"] = value; }
+		}
 
     [SettingsAllowAnonymous( false )]
     public string MSN
@@ -138,6 +83,13 @@ namespace YAF.Classes.Utils
       get { return base["GoogleTalk"] as string; }
       set { base["GoogleTalk"] = value; }
     }
+
+		[SettingsAllowAnonymous( false )]
+		public string Skype
+		{
+			get { return base ["Skype"] as string; }
+			set { base ["Skype"] = value; }
+		}
 
     [SettingsAllowAnonymous( false )]
     public string Blog
@@ -189,20 +141,6 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-    public bool PMNotification
-    {
-      get { return (bool)base["PMNotification"]; }
-      set { base["PMNotification"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
-    public int Points
-    {
-      get { return (int)base["Points"]; }
-      set { base["Points"] = value; }
-    }
-
-    [SettingsAllowAnonymous( false )]
     public int Gender
     {
       get { return (int)base["Gender"]; }
@@ -216,4 +154,150 @@ namespace YAF.Classes.Utils
       set { base["Birthday"] = value; }
     }
   }
+
+	/// <summary>
+	/// Helps get a complete user profile from various locations
+	/// </summary>
+	public class YafCombinedUserData
+	{
+		private MembershipUser _membershipUser = null;
+		private YafUserProfile _userProfile = null;
+		private DataRow _userDBRow = null;
+		private DataRowConvert _rowConvert = null;
+		private int? _userID = null;
+
+		public YafCombinedUserData( MembershipUser membershipUser )
+		{
+			_membershipUser = membershipUser;
+			InitUserData();
+		}
+
+		public YafCombinedUserData( MembershipUser membershipUser, int userID )
+			: this( membershipUser )
+		{
+			_userID = userID;
+		}
+
+		private void InitUserData()
+		{
+			_userProfile = YafContext.Current.GetProfile( _membershipUser.UserName );
+			if ( _userID == null )
+			{
+				// get the user id
+				_userID = UserMembershipHelper.GetUserIDFromProviderUserKey( _membershipUser.ProviderUserKey );
+			}
+			// get the data for this user from the DB...
+			DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
+			if ( dt.Rows.Count > 0 )
+				_userDBRow = dt.Rows [0];
+
+			_rowConvert = new DataRowConvert( _userDBRow );
+		}
+
+		public int UserID
+		{
+			get
+			{
+				if ( _userID != null ) return (int)_userID;
+				
+				return 0;
+			}
+		}
+
+		public MembershipUser Membership
+		{
+			get
+			{
+				return _membershipUser;
+			}
+		}
+
+		public YafUserProfile Profile
+		{
+			get
+			{
+				return _userProfile;
+			}
+		}
+
+		public DataRow DBRow
+		{
+			get
+			{
+				return _userDBRow;
+			}
+		}
+
+		public string ThemeFile
+		{
+			get
+			{
+				return _rowConvert.AsString( "ThemeFile" );
+			}
+		}
+
+		public string LanguageFile
+		{
+			get
+			{
+				return _rowConvert.AsString( "LanguageFile" );
+			}
+		}
+
+		public string Signature
+		{
+			get
+			{
+				return _rowConvert.AsString( "Signature" );
+			}
+		}
+
+		public string Avatar
+		{
+			get
+			{
+				return _rowConvert.AsString( "Avatar" );
+			}
+		}
+
+		public int? NumPosts
+		{
+			get
+			{
+				return _rowConvert.AsInt32( "NumPosts" );
+			}
+		}
+
+		public int? TimeZone
+		{
+			get
+			{
+				return _rowConvert.AsInt32( "TimeZone" );
+			}
+		}
+
+		public int? Points
+		{
+			get
+			{
+				return _rowConvert.AsInt32( "Points" );
+			}
+		}
+
+		public bool OverrideDefaultThemes
+		{
+			get
+			{
+				return _rowConvert.AsBool( "OverrideDefaultThemes" );
+			}
+		}
+
+		public bool PMNotification
+		{
+			get
+			{
+				return _rowConvert.AsBool( "PMNotification" );
+			}
+		}
+	}
 }
