@@ -221,8 +221,8 @@ namespace YAF.Classes.Base
 			if ( PageContext.PageTopicID != 0 )
 				title.AppendFormat( "{0} - ", General.BadWordReplace( PageContext.PageTopicName ) ); // Tack on the topic we're viewing
 			if ( PageContext.PageForumName != string.Empty )
-				title.AppendFormat( "{0} - ", Server.HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
-			title.Append( Server.HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
+				title.AppendFormat( "{0} - ", HtmlEncode( PageContext.PageForumName ) ); // Tack on the forum we're viewing
+			title.Append( HtmlEncode( PageContext.BoardSettings.Name ) ); // and lastly, tack on the board's name
 			_forumPageTitle = title.ToString();
 
 			if ( PageTitleSet != null ) PageTitleSet( this, new ForumPageArgs( _forumPageTitle ) );

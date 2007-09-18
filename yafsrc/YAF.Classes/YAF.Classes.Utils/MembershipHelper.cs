@@ -28,7 +28,7 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
-  public class RoleMembershipHelper
+  public static class RoleMembershipHelper
   {
     public static void SyncUsers( int pageBoardID )
     {
@@ -221,7 +221,7 @@ namespace YAF.Classes.Utils
   /// This is a stop-gap class to help with syncing operations
   /// with users/membership.
   /// </summary>
-  public class UserMembershipHelper
+  public static class UserMembershipHelper
   {
     /// <summary>
     /// Gets the user provider key from the UserID for a user
@@ -386,5 +386,27 @@ namespace YAF.Classes.Utils
         }
       }      
     }
+
+		public static bool UserExists( string userName, string email )
+		{
+			bool bExists = false;
+
+			if ( userName != null )
+			{
+				if ( Membership.FindUsersByName( userName ).Count > 0 )
+				{
+					bExists = true;
+				}
+			}
+			else if ( email != null )
+			{
+				if ( Membership.FindUsersByEmail( email ).Count > 0 )
+				{
+					bExists = true;
+				}
+			}
+
+			return bExists;
+		}
   }
 }

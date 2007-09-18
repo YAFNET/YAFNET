@@ -178,6 +178,12 @@ namespace YAF.Classes.Utils
 			_userID = userID;
 		}
 
+		public YafCombinedUserData( int userID )
+			: this( UserMembershipHelper.GetMembershipUser( userID ) )
+		{
+			_userID = userID;
+		}
+
 		private void InitUserData()
 		{
 			_userProfile = YafContext.Current.GetProfile( _membershipUser.UserName );

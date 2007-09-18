@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Web;
 using YAF.Classes.Utils;
 
 namespace YAF.Classes.Base
@@ -15,6 +16,11 @@ namespace YAF.Classes.Base
 			{
 				return YafContext.Current;
 			}
+		}
+
+		public string HtmlEncode( object data )
+		{
+			return HttpContext.Current.Server.HtmlEncode( data.ToString() );
 		}
 	}
 }

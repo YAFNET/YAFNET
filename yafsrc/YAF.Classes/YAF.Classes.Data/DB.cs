@@ -2622,10 +2622,8 @@ namespace YAF.Classes.Data
 		}
 
 		static public void user_save(object userID, object boardID, object userName, object email,
-			object location, object homePage, object timeZone, object avatar,
-			object languageFile, object themeFile, object overrideDefaultThemes, object approved,
-			object msn, object yim, object aim, object icq,
-			object realName, object occupation, object interests, object gender, object weblog, object weblogurl, object weblogusername, object weblogid, object pmNotification)
+			object timeZone, object languageFile, object themeFile, object overrideDefaultThemes, object approved,
+			object pmNotification)
 		{
 			using (SqlCommand cmd = new SqlCommand("yaf_user_save"))
 			{
@@ -2634,27 +2632,12 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("BoardID", boardID);
 				cmd.Parameters.AddWithValue("UserName", userName);
 				cmd.Parameters.AddWithValue("Email", email);
-				cmd.Parameters.AddWithValue("Location", location);
-				cmd.Parameters.AddWithValue("HomePage", homePage);
 				cmd.Parameters.AddWithValue("TimeZone", timeZone);
-				cmd.Parameters.AddWithValue("Avatar", avatar);
 				cmd.Parameters.AddWithValue("LanguageFile", languageFile);
 				cmd.Parameters.AddWithValue("ThemeFile", themeFile);
 				cmd.Parameters.AddWithValue("OverrideDefaultTheme", overrideDefaultThemes);
 				cmd.Parameters.AddWithValue("Approved", approved);
-				cmd.Parameters.AddWithValue("MSN", msn);
-				cmd.Parameters.AddWithValue("YIM", yim);
-				cmd.Parameters.AddWithValue("AIM", aim);
-				cmd.Parameters.AddWithValue("ICQ", icq);
-				cmd.Parameters.AddWithValue("RealName", realName);
-				cmd.Parameters.AddWithValue("Occupation", occupation);
-				cmd.Parameters.AddWithValue("Interests", interests);
-				cmd.Parameters.AddWithValue("Gender", gender);
-				cmd.Parameters.AddWithValue("Weblog", weblog);
 				cmd.Parameters.AddWithValue("PMNotification", pmNotification);
-				cmd.Parameters.AddWithValue("WeblogUrl", weblogurl);
-				cmd.Parameters.AddWithValue("WeblogUsername", weblogusername);
-				cmd.Parameters.AddWithValue("WeblogID", weblogid);
 				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}

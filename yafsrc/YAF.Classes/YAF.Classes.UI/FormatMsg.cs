@@ -314,6 +314,15 @@ namespace YAF.Classes.UI
 			return message;
 		}
 
+		static public string RemoveNestedQuotes( string body )
+		{
+			RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+			Regex quote = new Regex( @"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", m_options );
+
+			// remove quotes from old messages
+			return quote.Replace( body, "" );
+		}
+
 		static private bool IsValidTag( string tag, string [] allowedTags )
 		{
 			if ( tag.IndexOf( "javascript" ) >= 0 ) return false;
