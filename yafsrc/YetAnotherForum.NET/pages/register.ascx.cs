@@ -186,12 +186,14 @@ namespace YAF.Pages // YAF.Pages
 
         // setup/save the profile
         YafUserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
-
-        userProfile.TimeZone = Convert.ToInt32( timeZones.SelectedValue );
+        
         userProfile.Location = locationTextBox.Text.Trim();
         userProfile.Homepage = homepageTextBox.Text.Trim();
 
         userProfile.Save();
+
+				// save the time zone...
+				YAF.Classes.Data.DB.user_save( UserMembershipHelper.GetUserIDFromProviderUserKey( user.ProviderUserKey ), PageContext.PageBoardID, null, null, Convert.ToInt32( timeZones.SelectedValue ), null, null, null, null, null );
 			}
 		}
 
@@ -258,8 +260,6 @@ namespace YAF.Pages // YAF.Pages
       // create empty profile just so they have one
       YafUserProfile userProfile = PageContext.GetProfile( CreateUserWizard1.UserName );
 			// setup their inital profile information
-			userProfile.Joined = DateTime.Now;
-			userProfile.Points = 0;
       userProfile.Save();
 
       if (userID == null)

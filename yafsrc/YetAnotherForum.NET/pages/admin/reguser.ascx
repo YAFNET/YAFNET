@@ -16,28 +16,44 @@
       <td class="postheader" width="50%">User Name:</td>
       <td class="post">
         <asp:TextBox id="UserName" runat="server"></asp:TextBox>
-        <asp:RequiredFieldValidator id="Requiredfieldvalidator1" runat="server" NAME="Requiredfieldvalidator1" EnableClientScript="False"
+        <asp:RequiredFieldValidator id="Requiredfieldvalidator1" runat="server" EnableClientScript="False"
           ControlToValidate="UserName" ErrorMessage="User Name is required."></asp:RequiredFieldValidator></td>
     </tr>
+    <tr>
+      <td class="postheader">Email Address:</td>
+      <td class="post">
+        <asp:TextBox id="Email" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator id="Requiredfieldvalidator5" runat="server" EnableClientScript="False"
+          ControlToValidate="Email" ErrorMessage="Email address is required."></asp:RequiredFieldValidator></td>
+    </tr>    
     <tr>
       <td class="postheader">Password:</td>
       <td class="post">
         <asp:TextBox id="Password" runat="server" TextMode="Password"></asp:TextBox>
-        <asp:RequiredFieldValidator id="Requiredfieldvalidator2" runat="server" NAME="Requiredfieldvalidator2" EnableClientScript="False"
+        <asp:RequiredFieldValidator id="Requiredfieldvalidator2" runat="server" EnableClientScript="False"
           ControlToValidate="Password" ErrorMessage="Password is required."></asp:RequiredFieldValidator></td>
     </tr>
     <tr>
-      <td class="postheader">Retype Password:</td>
+      <td class="postheader">Confirm Password:</td>
       <td class="post">
         <asp:TextBox id="Password2" runat="server" TextMode="Password"></asp:TextBox>
         <asp:CompareValidator id="Comparevalidator1" runat="server" NAME="Comparevalidator1" EnableClientScript="False"
           ControlToValidate="Password2" ErrorMessage="Passwords didnt match." ControlToCompare="Password"></asp:CompareValidator></td>
     </tr>
     <tr>
-      <td class="postheader">Email Address:</td>
+      <td class="postheader">Password Question:</td>
       <td class="post">
-        <asp:TextBox id="Email" runat="server"></asp:TextBox></td>
-    </tr>
+        <asp:TextBox id="Question" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator id="Requiredfieldvalidator3" runat="server" EnableClientScript="False"
+          ControlToValidate="Question" ErrorMessage="Password Question is Required."></asp:RequiredFieldValidator></td>
+    </tr>    
+    <tr>
+      <td class="postheader">Password Answer:</td>
+      <td class="post">
+        <asp:TextBox id="Answer" runat="server"></asp:TextBox>
+        <asp:RequiredFieldValidator id="Requiredfieldvalidator4" runat="server" EnableClientScript="False"
+          ControlToValidate="Answer" ErrorMessage="Password Answer is Required."></asp:RequiredFieldValidator></td>
+    </tr>    
     <tr>
       <td class="header2" align="center" colSpan="2">Profile Information</td>
     </tr>

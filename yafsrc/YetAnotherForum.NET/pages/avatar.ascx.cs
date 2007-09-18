@@ -28,7 +28,7 @@ namespace YAF.Pages // YAF.Pages
 	public partial class avatar : YAF.Classes.Base.ForumPage
 	{
 		protected System.Web.UI.WebControls.Label title;
-	
+
 		public int pagenum = 0;
 		public int pagesize = 20;
 
@@ -36,7 +36,8 @@ namespace YAF.Pages // YAF.Pages
 
 		string filepath = "";
 
-		public avatar() : base("AVATAR")
+		public avatar()
+			: base( "AVATAR" )
 		{
 		}
 
@@ -44,27 +45,27 @@ namespace YAF.Pages // YAF.Pages
 		{
 			get
 			{
-				if(ViewState["CurrentDir"]!=null)
-					return (string)ViewState["CurrentDir"];
+				if ( ViewState ["CurrentDir"] != null )
+					return ( string ) ViewState ["CurrentDir"];
 				else
 					return "";
 			}
 			set
 			{
-				ViewState["CurrentDir"] = value;
+				ViewState ["CurrentDir"] = value;
 			}
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( Request.QueryString ["u"] != null )
-		{
+			{
 				returnUserID = Convert.ToInt32( Request.QueryString ["u"] );
 			}
 
-			if(!IsPostBack)
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 
 				if ( returnUserID > 0 )
 				{
@@ -72,11 +73,11 @@ namespace YAF.Pages // YAF.Pages
 					PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 				}
 				else
-				{				
-				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
+				{
+					PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
 					PageLinks.AddLink( GetText( "CP_EDITAVATAR", "TITLE" ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar ) );
-				}				
-				PageLinks.AddLink(GetText("TITLE"),"");
+				}
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
 				pager.PageSize = 20;
 				bind_data();
@@ -84,39 +85,18 @@ namespace YAF.Pages // YAF.Pages
 
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			pager.PageChange += new EventHandler(pager_PageChange);
-			GoDir.Click += new EventHandler(GoDir_Click);
-		}
-		#endregion
-
-		private void pager_PageChange(object sender,EventArgs e)
+		private void pager_PageChange( object sender, EventArgs e )
 		{
 			bind_data();
 		}
 
-		private void GoDir_Click(object sender, EventArgs e)
+		private void GoDir_Click( object sender, EventArgs e )
 		{
-			CurrentDir = Request.Form["__EVENTARGUMENT"];
+			CurrentDir = Request.Form ["__EVENTARGUMENT"];
 			bind_data();
 		}
 
-		public void files_bind(object sender, DataListItemEventArgs e)
+		public void files_bind( object sender, DataListItemEventArgs e )
 		{
 			string strDirectory = YafForumInfo.ForumRoot + "images/avatars/" + CurrentDir;
 
@@ -127,31 +107,31 @@ namespace YAF.Pages // YAF.Pages
 				pdir += pardir[i] + "/";
 			if(pdir.Length>0) pdir = pdir.Substring(0,pdir.Length-1);
 			*/
-			
-			Literal fname = (Literal)e.Item.FindControl("fname");
-	
-			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+
+			Literal fname = ( Literal ) e.Item.FindControl( "fname" );
+
+			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
 			{
-				FileInfo finfo = new FileInfo(Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
+				FileInfo finfo = new FileInfo( Server.MapPath( Convert.ToString( DataBinder.Eval( e.Item.DataItem, "name" ) ) ) );
 				string tmpExt = finfo.Extension.ToLower();
 
-				if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
+				if ( tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp" )
 				{
 					string link;
 
 					if ( returnUserID > 0 )
 					{
-						link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, (CurrentDir + "/" + finfo.Name) );
+						link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}&av={1}", returnUserID, ( CurrentDir + "/" + finfo.Name ) );
 					}
 					else
-				{
+					{
 						link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar, "av=" + CurrentDir + "/" + finfo.Name );
 					}
 
 					fname.Text = string.Format( @"<p align=""center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></p>{3}", link, ( strDirectory + "/" + finfo.Name ), finfo.Name, Environment.NewLine );
-				} 
+				}
 			}
-			
+
 			/*
 			if (e.Item.ItemType == ListItemType.Header) 
 			{
@@ -189,28 +169,28 @@ namespace YAF.Pages // YAF.Pages
 			base.Render( writer );
 		}
 
-		public void directories_bind(object sender, DataListItemEventArgs e)
+		public void directories_bind( object sender, DataListItemEventArgs e )
 		{
 			string strDirectory = YafForumInfo.ForumRoot + "images/avatars/";
-	
-			if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+
+			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
 			{
-				HyperLink dname = (HyperLink)e.Item.FindControl("dname");				
+				HyperLink dname = ( HyperLink ) e.Item.FindControl( "dname" );
 
-				Trace.Write(dname.UniqueID);
+				Trace.Write( dname.UniqueID );
 
-				dname.NavigateUrl = Page.ClientScript.GetPostBackClientHyperlink(GoDir, filepath + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")),true);
-				dname.Text = String.Format("<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", YafForumInfo.ForumRoot + "images/folder.gif", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+				dname.NavigateUrl = Page.ClientScript.GetPostBackClientHyperlink( GoDir, filepath + Convert.ToString( DataBinder.Eval( e.Item.DataItem, "name" ) ), true );
+				dname.Text = String.Format( "<p align=\"center\"><img src=\"{0}\" alt=\"{1}\" /><br />{1}</p>", YafForumInfo.ForumRoot + "images/folder.gif", Convert.ToString( DataBinder.Eval( e.Item.DataItem, "name" ) ) );
 			}
 		}
-		
+
 		private void bind_data()
 		{
 			string strDirectory = YafForumInfo.ForumRoot + "images/avatars/" + CurrentDir;
 
-			DirectoryInfo dirinfo = new DirectoryInfo(Server.MapPath(strDirectory));
+			DirectoryInfo dirinfo = new DirectoryInfo( Server.MapPath( strDirectory ) );
 
-			if (CurrentDir == "") 
+			if ( CurrentDir == "" )
 			{
 				files.Visible = false;
 				directories.Visible = true;
@@ -221,7 +201,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				files.Visible = true;
 				directories.Visible = false;
-				files.DataSource = dirinfo.GetFiles("*.*");
+				files.DataSource = dirinfo.GetFiles( "*.*" );
 				files.DataBind();
 			}
 		}

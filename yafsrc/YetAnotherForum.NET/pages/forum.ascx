@@ -77,7 +77,7 @@
                             <asp:Repeater runat="server" ID="ActiveList">
                                 <ItemTemplate>
                                     <a href='<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
-                                        <%# Server.HtmlEncode(Convert.ToString(DataBinder.Eval(Container.DataItem, "Name"))) %>
+                                        <%# HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
                                     </a>
                                 </ItemTemplate>
                                 <SeparatorTemplate>

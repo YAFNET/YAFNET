@@ -37,113 +37,103 @@ namespace YAF.Pages // YAF.Pages
 	public partial class cp_subscriptions : YAF.Classes.Base.ForumPage
 	{
 
-		public cp_subscriptions() : base("CP_SUBSCRIPTIONS")
+		public cp_subscriptions()
+			: base( "CP_SUBSCRIPTIONS" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(User==null)
+			if ( User == null )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",General.GetSafeRawUrl());
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 			}
-			
-			if(!IsPostBack) 
+
+			if ( !IsPostBack )
 			{
 				BindData();
 
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(PageContext.PageUserName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile));
-				PageLinks.AddLink(GetText("TITLE"),"");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_profile ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				UnsubscribeForums.Text = GetText("unsubscribe");
-				UnsubscribeTopics.Text = GetText("unsubscribe");
+				UnsubscribeForums.Text = GetText( "unsubscribe" );
+				UnsubscribeTopics.Text = GetText( "unsubscribe" );
 			}
 		}
 
-		private void BindData() {
-			ForumList.DataSource = YAF.Classes.Data.DB.watchforum_list(PageContext.PageUserID);
-			TopicList.DataSource = YAF.Classes.Data.DB.watchtopic_list(PageContext.PageUserID);
+		private void BindData()
+		{
+			ForumList.DataSource = YAF.Classes.Data.DB.watchforum_list( PageContext.PageUserID );
+			TopicList.DataSource = YAF.Classes.Data.DB.watchtopic_list( PageContext.PageUserID );
 			DataBind();
 		}
 
-		protected string FormatForumReplies(object o) 
+		protected string FormatForumReplies( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			return String.Format("{0}",(int)row["Messages"] - (int)row["Topics"]);
+			DataRowView row = ( DataRowView ) o;
+			return String.Format( "{0}", ( int ) row ["Messages"] - ( int ) row ["Topics"] );
 		}
 
-		protected string FormatLastPosted(object o) {
-			DataRowView row = (DataRowView)o;
+		protected string FormatLastPosted( object o )
+		{
+			DataRowView row = ( DataRowView ) o;
 
-			if(row["LastPosted"].ToString().Length==0)
+			if ( row ["LastPosted"].ToString().Length == 0 )
 				return "&nbsp;";
 
-			string link = String.Format("<a href=\"{0}\">{1}</a>",
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["LastUserID"]),
-				row["LastUserName"]
+			string link = String.Format( "<a href=\"{0}\">{1}</a>",
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ),
+				row ["LastUserName"]
 			);
-			string by = String.Format(GetText("lastpostlink"),
-				YafDateTime.FormatDateTime((DateTime)row["LastPosted"]),
-				link);
+			string by = String.Format( GetText( "lastpostlink" ),
+				YafDateTime.FormatDateTime( ( DateTime ) row ["LastPosted"] ),
+				link );
 
-			string html = String.Format("{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
+			string html = String.Format( "{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
 				by,
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",row["LastMessageID"]),
-				GetThemeContents("ICONS","ICON_LATEST")
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] ),
+				GetThemeContents( "ICONS", "ICON_LATEST" )
 				);
 			return html;
 		}
 
-		protected void UnsubscribeTopics_Click(object sender, System.EventArgs e) {
-			bool NoneChecked = true;
-			for(int i=0;i<TopicList.Items.Count;i++) {
-				CheckBox ctrl = (CheckBox)TopicList.Items[i].FindControl("unsubx");
-				Label lbl = (Label)TopicList.Items[i].FindControl("ttid");
-				if(ctrl.Checked) {
-					YAF.Classes.Data.DB.watchtopic_delete(lbl.Text);
-					NoneChecked = false;
-				}
-			}
-			if(NoneChecked)
-				PageContext.AddLoadMessage(GetText("WARN_SELECTTOPICS"));
-			else
-				BindData();
-		}
-
-		protected void UnsubscribeForums_Click(object sender, System.EventArgs e) {
-			bool NoneChecked = true;
-			for(int i=0;i<ForumList.Items.Count;i++) {
-				CheckBox ctrl = (CheckBox)ForumList.Items[i].FindControl("unsubf");
-				Label lbl = (Label)ForumList.Items[i].FindControl("tfid");
-				if(ctrl.Checked) {
-					YAF.Classes.Data.DB.watchforum_delete(lbl.Text);
-					NoneChecked = false;
-				}
-			}
-			if(NoneChecked)
-				PageContext.AddLoadMessage(GetText("WARN_SELECTFORUMS"));
-			else
-				BindData();
-		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected void UnsubscribeTopics_Click( object sender, System.EventArgs e )
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			bool NoneChecked = true;
+			for ( int i = 0; i < TopicList.Items.Count; i++ )
+			{
+				CheckBox ctrl = ( CheckBox ) TopicList.Items [i].FindControl( "unsubx" );
+				Label lbl = ( Label ) TopicList.Items [i].FindControl( "ttid" );
+				if ( ctrl.Checked )
+				{
+					YAF.Classes.Data.DB.watchtopic_delete( lbl.Text );
+					NoneChecked = false;
+				}
+			}
+			if ( NoneChecked )
+				PageContext.AddLoadMessage( GetText( "WARN_SELECTTOPICS" ) );
+			else
+				BindData();
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
+
+		protected void UnsubscribeForums_Click( object sender, System.EventArgs e )
+		{
+			bool NoneChecked = true;
+			for ( int i = 0; i < ForumList.Items.Count; i++ )
+			{
+				CheckBox ctrl = ( CheckBox ) ForumList.Items [i].FindControl( "unsubf" );
+				Label lbl = ( Label ) ForumList.Items [i].FindControl( "tfid" );
+				if ( ctrl.Checked )
+				{
+					YAF.Classes.Data.DB.watchforum_delete( lbl.Text );
+					NoneChecked = false;
+				}
+			}
+			if ( NoneChecked )
+				PageContext.AddLoadMessage( GetText( "WARN_SELECTFORUMS" ) );
+			else
+				BindData();
 		}
-		#endregion
 	}
 }

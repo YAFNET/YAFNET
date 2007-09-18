@@ -35,15 +35,14 @@
       <img runat="server" id="SortPosts" align="absmiddle" />
       <asp:LinkButton runat="server" ID="Posts" /></td>
     <td class="header2">
-      <img runat="server" id="SortLocation" align="absmiddle" />
-      <asp:LinkButton runat="server" ID="Location" /></td>
+      <asp:Label runat="server" ID="Location" /></td>
   </tr>
   <asp:Repeater ID="MemberList" runat="server">
     <ItemTemplate>
       <tr>
         <td class="post">
           <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>'>
-            <%# Server.HtmlEncode(Convert.ToString(Eval("Name"))) %>
+            <%# HtmlEncode(Eval("Name")) %>
           </a>
         </td>
         <td class="post">
@@ -56,7 +55,7 @@
           <%# String.Format("{0:N0}",((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
         </td>
         <td class="post">
-          <%# GetStringSafely(DataBinder.Eval(Container.DataItem,"Location")) %>
+          <%# GetStringSafely(PageContext.GetProfile(DataBinder.Eval(Container.DataItem,"Name").ToString()).Location) %>
         </td>
       </tr>
     </ItemTemplate>

@@ -24,13 +24,13 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# Eval("Name") %>
+          <%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>
         </td>
         <td class="post">
           <%# Eval("IP") %>
         </td>
         <td class="post">
-          <%# Eval("Location") %>
+          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval("Name").ToString() ).Location ) %>
         </td>
         <td class="post">
           <%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %>
@@ -68,13 +68,13 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# Eval("Name") %>
+          <%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>
         </td>
         <td class="post">
           <%# Eval("Email") %>
         </td>
         <td class="post">
-          <%# Eval("Location") %>
+          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval( "Name" ).ToString() ).Location )%>
         </td>
         <td class="post">
           <%# YafDateTime.FormatDateTime(Eval("Joined")) %>

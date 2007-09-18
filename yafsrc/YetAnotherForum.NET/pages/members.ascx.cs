@@ -126,12 +126,6 @@ namespace YAF.Pages // YAF.Pages
 			BindData();
 		}
 
-		private void Location_Click( object sender, System.EventArgs e )
-		{
-			SetSort( "Location", true );
-			BindData();
-		}
-
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
 			BindData();
@@ -181,8 +175,6 @@ namespace YAF.Pages // YAF.Pages
 			SortJoined.Src = SortUserName.Src;
 			SortPosts.Visible = ( string ) ViewState ["SortField"] == "NumPosts";
 			SortPosts.Src = SortUserName.Src;
-			SortLocation.Visible = ( string ) ViewState ["SortField"] == "Location";
-			SortLocation.Src = SortUserName.Src;
 		}
 
 		#region Web Form Designer generated code
@@ -193,7 +185,6 @@ namespace YAF.Pages // YAF.Pages
 			this.Posts.Click += new EventHandler( this.Posts_Click );
 			this.Rank.Click += new EventHandler( this.Rank_Click );
 			this.Pager.PageChange += new EventHandler( Pager_PageChange );
-			this.Location.Click += new EventHandler( this.Location_Click );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//

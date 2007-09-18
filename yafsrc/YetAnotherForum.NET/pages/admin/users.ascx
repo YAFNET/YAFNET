@@ -66,7 +66,7 @@
         <tr>
           <td class="post">
             <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'
-              Text='<%# Eval("Name") %>' /></td>
+              Text='<%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>' /></td>
           <td class="post">
             <%# DataBinder.Eval(Container.DataItem,"Email") %>
           </td>

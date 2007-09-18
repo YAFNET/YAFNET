@@ -164,10 +164,7 @@ namespace YAF.Pages
 
 					if (PageContext.BoardSettings.RemoveNestedQuotes)
 					{
-						RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-						Regex quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", m_options);
-						// remove quotes from old messages
-						tmpMessage = quote.Replace(tmpMessage, "");
+						tmpMessage = FormatMsg.RemoveNestedQuotes( tmpMessage );
 					}
 
 					uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], tmpMessage).TrimStart();
@@ -338,7 +335,7 @@ namespace YAF.Pages
 
 			string SubjectSave = "";
 
-			if (Subject.Enabled) SubjectSave = Server.HtmlEncode(Subject.Text);
+			if (Subject.Enabled) SubjectSave = HtmlEncode(Subject.Text);
 
 			// Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
 			// make message flags
@@ -348,7 +345,7 @@ namespace YAF.Pages
 			
 
 			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
-			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, tFlags.BitValue, Server.HtmlEncode(ReasonEditor.Text), isModeratorChanged);
+			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, tFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged);
 
 			nMessageID = long.Parse(EditTopicID);
 
@@ -377,7 +374,7 @@ namespace YAF.Pages
 			string blogPostID = HandlePostToBlog(uxMessage.Text, Subject.Text);
 
 			// Save to Db
-			DB.topic_save(PageContext.PageForumID, Server.HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+			DB.topic_save(PageContext.PageForumID, HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
 
 			return nMessageID;
 		}

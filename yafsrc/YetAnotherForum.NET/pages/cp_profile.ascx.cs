@@ -56,37 +56,33 @@ namespace YAF.Pages
 				BindData();
 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( PageContext.PageUserName, "" );
+				PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), "" );
 			}
 		}
 
 		private void BindData()
 		{
-			DataRow row;
-
 			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageContext.PageUserID );
 
 			// Bind			
 			DataBind();
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
-			{
-				row = dt.Rows [0];
-			}
 
-			TitleUserName.Text = Server.HtmlEncode( ( string ) row ["Name"] );
-			AccountEmail.Text = row ["Email"].ToString();
-			Name.Text = Server.HtmlEncode( ( string ) row ["Name"] );
-			Joined.Text = YafDateTime.FormatDateTime( ( DateTime ) row ["Joined"] );
-			NumPosts.Text = String.Format( "{0:N0}", row ["NumPosts"] );
+			YafCombinedUserData userData = new YafCombinedUserData( PageContext.PageUserID );
 
-			if ( PageContext.BoardSettings.AvatarUpload && row ["HasAvatarImage"] != null && long.Parse( row ["HasAvatarImage"].ToString() ) > 0 )
+			TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
+			AccountEmail.Text = userData.Membership.Email;
+			Name.Text = HtmlEncode( userData.Membership.UserName );
+			Joined.Text = YafDateTime.FormatDateTime( userData.Joined );
+			NumPosts.Text = String.Format( "{0:N0}", userData.NumPosts );
+
+			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
 			{
 				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
 			}
-			else if ( row ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
+			else if ( userData.Avatar != null && userData.Avatar.Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				AvatarImage.Src = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-					Server.UrlEncode( row ["Avatar"].ToString() ),
+					Server.UrlEncode( userData.Avatar ),
 					PageContext.BoardSettings.AvatarWidth,
 					PageContext.BoardSettings.AvatarHeight,
 					YafForumInfo.ForumRoot );
@@ -96,25 +92,5 @@ namespace YAF.Pages
 				AvatarImage.Visible = false;
 			}
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
 	}
 }

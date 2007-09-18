@@ -115,7 +115,7 @@ namespace YAF.Pages
 			{
 				Stats.Text += String.Format( GetText( "stats_lastpost" ),
 					YafDateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), Server.HtmlEncode( stats ["LastUser"].ToString() ) )
+					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), HtmlEncode( stats ["LastUser"] ) )
 				);
 				Stats.Text += "<br/>";
 			}
@@ -124,8 +124,8 @@ namespace YAF.Pages
 			Stats.Text += "<br/>";
 
 			Stats.Text += String.Format( GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), Server.HtmlEncode( stats ["LastMember"].ToString() ) )
-				);
+				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), HtmlEncode( stats ["LastMember"] ) )
+			);
 			Stats.Text += "<br/>";
 
 			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );

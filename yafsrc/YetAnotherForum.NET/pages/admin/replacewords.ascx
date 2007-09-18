@@ -19,8 +19,8 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# Server.HtmlEncode(Convert.ToString(Eval("badword"))) %></td>
-				<td class="post"><%# Server.HtmlEncode(Convert.ToString(Eval("goodword"))) %></td>
+				<td class="post"><%# HtmlEncode(Eval("badword")) %></td>
+				<td class="post"><%# HtmlEncode(Eval("goodword")) %></td>
 				<td class="post">
 					<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# Eval("ID") %>' ID="Linkbutton1">
 					</asp:linkbutton>

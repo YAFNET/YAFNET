@@ -34,24 +34,26 @@ namespace YAF.Pages.Admin
 	/// <summary>
 	/// Summary description for WebForm1.
 	/// </summary>
-	public partial class editboard : YAF.Classes.Base.AdminPage {
-	
-		protected void Page_Load(object sender, System.EventArgs e) 
+	public partial class editboard : YAF.Classes.Base.AdminPage
+	{
+
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Boards","");
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Boards", "" );
 
 				BindData();
-				if(Request.QueryString["b"] != null) 
+				if ( Request.QueryString ["b"] != null )
 				{
 					AdminInfo.Visible = false;
-					using(DataTable dt = YAF.Classes.Data.DB.board_list(Request.QueryString["b"])) 
+					using ( DataTable dt = YAF.Classes.Data.DB.board_list( Request.QueryString ["b"] ) )
 					{
-						DataRow row = dt.Rows[0];
-						Name.Text = (string)row["Name"];
-						AllowThreaded.Checked = (bool)row["AllowThreaded"];
+						DataRow row = dt.Rows [0];
+						Name.Text = ( string ) row ["Name"];
+						AllowThreaded.Checked = ( bool ) row ["AllowThreaded"];
 					}
 				}
 				else
@@ -62,95 +64,76 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		private void BindData() {
+		private void BindData()
+		{
 			DataBind();
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected void Save_Click( object sender, System.EventArgs e )
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-
-		protected void Save_Click(object sender, System.EventArgs e)
-		{
-			if(Name.Text.Trim().Length==0) 
+			if ( Name.Text.Trim().Length == 0 )
 			{
-				PageContext.AddLoadMessage("You must enter a name for the board.");
+				PageContext.AddLoadMessage( "You must enter a name for the board." );
 				return;
 			}
-			if(Request.QueryString["b"] == null) 
+			if ( Request.QueryString ["b"] == null )
 			{
-				if(UserName.Text.Trim().Length==0)
+				if ( UserName.Text.Trim().Length == 0 )
 				{
-					PageContext.AddLoadMessage("You must enter the name of a administrator user.");
+					PageContext.AddLoadMessage( "You must enter the name of a administrator user." );
 					return;
 				}
-				if(UserEmail.Text.Trim().Length==0) 
+				if ( UserEmail.Text.Trim().Length == 0 )
 				{
-					PageContext.AddLoadMessage("You must enter the email address of the administrator user.");
+					PageContext.AddLoadMessage( "You must enter the email address of the administrator user." );
 					return;
 				}
-				if(UserPass1.Text.Trim().Length==0)
+				if ( UserPass1.Text.Trim().Length == 0 )
 				{
-					PageContext.AddLoadMessage("You must enter a password for the administrator user.");
+					PageContext.AddLoadMessage( "You must enter a password for the administrator user." );
 					return;
 				}
-				if(UserPass1.Text!=UserPass2.Text)
+				if ( UserPass1.Text != UserPass2.Text )
 				{
-					PageContext.AddLoadMessage("The passwords don't match.");
+					PageContext.AddLoadMessage( "The passwords don't match." );
 					return;
 				}
 			}
 
-			if(Request.QueryString["b"] != null) 
+			if ( Request.QueryString ["b"] != null )
 			{
-				YAF.Classes.Data.DB.board_save(Request.QueryString["b"],Name.Text,AllowThreaded.Checked);
-			} 
+				YAF.Classes.Data.DB.board_save( Request.QueryString ["b"], Name.Text, AllowThreaded.Checked );
+			}
 			else
 			{
-				YAF.Classes.Data.DB.board_create(Name.Text,AllowThreaded.Checked,UserName.Text,UserEmail.Text,System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(UserPass1.Text,"md5"));
+				YAF.Classes.Data.DB.board_create( Name.Text, AllowThreaded.Checked, UserName.Text, UserEmail.Text, System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( UserPass1.Text, "md5" ) );
 			}
 
 			// Done
 			PageContext.BoardSettings = null;
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards );
 		}
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_boards );
 		}
 
-		protected void BindData_AccessMaskID(object sender, System.EventArgs e) 
+		protected void BindData_AccessMaskID( object sender, System.EventArgs e )
 		{
-			((DropDownList)sender).DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
-			((DropDownList)sender).DataValueField = "AccessMaskID";
-			((DropDownList)sender).DataTextField = "Name";
+			( ( DropDownList ) sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageContext.PageBoardID, null );
+			( ( DropDownList ) sender ).DataValueField = "AccessMaskID";
+			( ( DropDownList ) sender ).DataTextField = "Name";
 		}
 
-		protected void SetDropDownIndex(object sender, System.EventArgs e) 
+		protected void SetDropDownIndex( object sender, System.EventArgs e )
 		{
 			try
 			{
-				DropDownList list = (DropDownList)sender;
-				list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+				DropDownList list = ( DropDownList ) sender;
+				list.Items.FindByValue( list.Attributes ["value"] ).Selected = true;
 			}
-			catch(Exception)
+			catch ( Exception )
 			{
 			}
 		}

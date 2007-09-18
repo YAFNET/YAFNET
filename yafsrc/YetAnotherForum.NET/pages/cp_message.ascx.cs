@@ -28,169 +28,169 @@ using YAF.Classes.Utils;
 
 namespace YAF.Pages // YAF.Pages
 {
-  /// <summary>
-  /// Summary description for inbox.
-  /// </summary>
-  public partial class cp_message : ForumPage
-  {
-    public cp_message()
-      : base( "CP_MESSAGE" )
-    {
-    }
+	/// <summary>
+	/// Summary description for inbox.
+	/// </summary>
+	public partial class cp_message : ForumPage
+	{
+		public cp_message()
+			: base( "CP_MESSAGE" )
+		{
+		}
 
-    protected void Page_Load( object sender, EventArgs e )
-    {
-      if ( User == null )
-        YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+		protected void Page_Load( object sender, EventArgs e )
+		{
+			if ( User == null )
+				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 
-      // check if this feature is disabled
-      if ( !PageContext.BoardSettings.AllowPrivateMessages )
-        YafBuildLink.Redirect( ForumPages.info, "i=5" );
+			// check if this feature is disabled
+			if ( !PageContext.BoardSettings.AllowPrivateMessages )
+				YafBuildLink.Redirect( ForumPages.info, "i=5" );
 
-      if ( !IsPostBack )
-      {
-        if ( String.IsNullOrEmpty( Request.QueryString ["pm"] ) )
-          YafBuildLink.AccessDenied();
-        else
-          BindData();
-      }
-    }
+			if ( !IsPostBack )
+			{
+				if ( String.IsNullOrEmpty( Request.QueryString ["pm"] ) )
+					YafBuildLink.AccessDenied();
+				else
+					BindData();
+			}
+		}
 
-    protected bool IsOutbox
-    {
-      get
-      {
-        if ( ViewState ["IsOutbox"] == null )
-          return false;
-        else
-          return ( bool ) ViewState ["IsOutbox"];
-      }
-      set { ViewState ["IsOutbox"] = value; }
-    }
+		protected bool IsOutbox
+		{
+			get
+			{
+				if ( ViewState ["IsOutbox"] == null )
+					return false;
+				else
+					return ( bool ) ViewState ["IsOutbox"];
+			}
+			set { ViewState ["IsOutbox"] = value; }
+		}
 
-    protected bool IsArchived
-    {
-      get
-      {
-        if ( ViewState ["IsArchived"] == null )
-          return false;
-        else
-          return ( bool ) ViewState ["IsArchived"];
-      }
-      set { ViewState ["IsArchived"] = value; }
-    }
+		protected bool IsArchived
+		{
+			get
+			{
+				if ( ViewState ["IsArchived"] == null )
+					return false;
+				else
+					return ( bool ) ViewState ["IsArchived"];
+			}
+			set { ViewState ["IsArchived"] = value; }
+		}
 
-    /// <summary>
-    /// Sets the IsOutbox property as appropriate for this private message.
-    /// </summary>
-    /// <remarks>User id parameters are downcast to object to allow for potential future use of non-integer user id's</remarks>
-    /// <param name="fromUserId">User id of the message sender</param>
-    /// <param name="toUserId">User id of the message receiver</param>
-    /// <param name="messageIsInOutbox">Bool indicating whether the message is in the sender's outbox</param>
-    private void SetMessageView( object fromUserID, object toUserID, bool messageIsInOutbox, bool messageIsArchived )
-    {
-      bool isCurrentUserFrom = fromUserID.Equals( PageContext.PageUserID );
-      bool isCurrentUserTo = toUserID.Equals( PageContext.PageUserID );
+		/// <summary>
+		/// Sets the IsOutbox property as appropriate for this private message.
+		/// </summary>
+		/// <remarks>User id parameters are downcast to object to allow for potential future use of non-integer user id's</remarks>
+		/// <param name="fromUserId">User id of the message sender</param>
+		/// <param name="toUserId">User id of the message receiver</param>
+		/// <param name="messageIsInOutbox">Bool indicating whether the message is in the sender's outbox</param>
+		private void SetMessageView( object fromUserID, object toUserID, bool messageIsInOutbox, bool messageIsArchived )
+		{
+			bool isCurrentUserFrom = fromUserID.Equals( PageContext.PageUserID );
+			bool isCurrentUserTo = toUserID.Equals( PageContext.PageUserID );
 
-      // check if it's the same user...
-      if (isCurrentUserFrom && isCurrentUserTo)
-      {
-        // it is... handle the view based on the query string passed
-        IsOutbox = Request.QueryString ["v"] == "out";
-        IsArchived = Request.QueryString ["v"] == "arch";  
-     
-        // see if the message got deleted, if so, redirect to their outbox/archive
-        if ( IsOutbox && !messageIsInOutbox ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
-        else if (IsArchived && !messageIsArchived ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=arch" );
-      }
-      else if (isCurrentUserFrom)
-      {
-        // see if it's been deleted by the from user...
-        if (!messageIsInOutbox)
-        {
-          // deleted for this user, redirect...
-          YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
-        }
-        else
-        {
-          // nope
-          IsOutbox = true;
-        }
-      }
-      else if (isCurrentUserTo)
-      {
-        // get the status for the receiver
-        IsArchived = messageIsArchived;
-        IsOutbox = false;
-      }
-    }
+			// check if it's the same user...
+			if ( isCurrentUserFrom && isCurrentUserTo )
+			{
+				// it is... handle the view based on the query string passed
+				IsOutbox = Request.QueryString ["v"] == "out";
+				IsArchived = Request.QueryString ["v"] == "arch";
 
-    private void BindData()
-    {
-      using ( DataTable dt = DB.pmessage_list( Security.StringToLongOrRedirect(Request.QueryString ["pm"]) ) )
-      {
-        if ( dt.Rows.Count > 0 )
-        {
-          DataRow row = dt.Rows [0];
+				// see if the message got deleted, if so, redirect to their outbox/archive
+				if ( IsOutbox && !messageIsInOutbox ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
+				else if ( IsArchived && !messageIsArchived ) YafBuildLink.Redirect( ForumPages.cp_pm, "v=arch" );
+			}
+			else if ( isCurrentUserFrom )
+			{
+				// see if it's been deleted by the from user...
+				if ( !messageIsInOutbox )
+				{
+					// deleted for this user, redirect...
+					YafBuildLink.Redirect( ForumPages.cp_pm, "v=out" );
+				}
+				else
+				{
+					// nope
+					IsOutbox = true;
+				}
+			}
+			else if ( isCurrentUserTo )
+			{
+				// get the status for the receiver
+				IsArchived = messageIsArchived;
+				IsOutbox = false;
+			}
+		}
 
-          // if the pm isn't from or two the current user--then it's access denied
-          if ( ( int ) row ["ToUserID"] != PageContext.PageUserID &&
-              ( int ) row ["FromUserID"] != PageContext.PageUserID )
-            YafBuildLink.AccessDenied();
+		private void BindData()
+		{
+			using ( DataTable dt = DB.pmessage_list( Security.StringToLongOrRedirect( Request.QueryString ["pm"] ) ) )
+			{
+				if ( dt.Rows.Count > 0 )
+				{
+					DataRow row = dt.Rows [0];
 
-          SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
+					// if the pm isn't from or two the current user--then it's access denied
+					if ( ( int ) row ["ToUserID"] != PageContext.PageUserID &&
+							( int ) row ["FromUserID"] != PageContext.PageUserID )
+						YafBuildLink.AccessDenied();
 
-          PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-          PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
-          
-          // get the return link to the pm listing
-          if ( IsOutbox )
-            PageLinks.AddLink( GetText( "SENTITEMS" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=out" ) );
-          else if ( IsArchived )
-            PageLinks.AddLink( GetText( "ARCHIVE" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=arch" ) );
-          else
-            PageLinks.AddLink( GetText( "INBOX" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
+					SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
 
-          PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+					PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YafBuildLink.GetLink( ForumPages.cp_profile ) );
 
-          Inbox.DataSource = dt;
-        }
-        else
-          YafBuildLink.Redirect( ForumPages.cp_pm );
-      }
+					// get the return link to the pm listing
+					if ( IsOutbox )
+						PageLinks.AddLink( GetText( "SENTITEMS" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=out" ) );
+					else if ( IsArchived )
+						PageLinks.AddLink( GetText( "ARCHIVE" ), YafBuildLink.GetLink( ForumPages.cp_pm, "v=arch" ) );
+					else
+						PageLinks.AddLink( GetText( "INBOX" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
 
-      DataBind();
+					PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
 
-      if ( !IsOutbox )
-        DB.pmessage_markread( Request.QueryString ["pm"] );
-    }
+					Inbox.DataSource = dt;
+				}
+				else
+					YafBuildLink.Redirect( ForumPages.cp_pm );
+			}
 
-    protected void Inbox_ItemCommand( object source, RepeaterCommandEventArgs e )
-    {
-      if ( e.CommandName == "delete" )
-      {
-        if ( IsOutbox )
-          DB.pmessage_delete( e.CommandArgument, true );
-        else
-          DB.pmessage_delete( e.CommandArgument );
+			DataBind();
 
-        BindData();
-        PageContext.AddLoadMessage( GetText( "msg_deleted" ) );
-      }
-      else if ( e.CommandName == "reply" )
-      {
-        YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
-      }
-      else if ( e.CommandName == "quote" )
-      {
-        YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
-      }
-    }
+			if ( !IsOutbox )
+				DB.pmessage_markread( Request.QueryString ["pm"] );
+		}
 
-    protected void DeleteMessage_Load( object sender, EventArgs e )
-    {
-      ( ( LinkButton ) sender ).Attributes ["onclick"] =
-          String.Format( "return confirm('{0}')", GetText( "confirm_deletemessage" ) );
-    }
-  }
+		protected void Inbox_ItemCommand( object source, RepeaterCommandEventArgs e )
+		{
+			if ( e.CommandName == "delete" )
+			{
+				if ( IsOutbox )
+					DB.pmessage_delete( e.CommandArgument, true );
+				else
+					DB.pmessage_delete( e.CommandArgument );
+
+				BindData();
+				PageContext.AddLoadMessage( GetText( "msg_deleted" ) );
+			}
+			else if ( e.CommandName == "reply" )
+			{
+				YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=0", e.CommandArgument );
+			}
+			else if ( e.CommandName == "quote" )
+			{
+				YafBuildLink.Redirect( ForumPages.pmessage, "p={0}&q=1", e.CommandArgument );
+			}
+		}
+
+		protected void DeleteMessage_Load( object sender, EventArgs e )
+		{
+			( ( LinkButton ) sender ).Attributes ["onclick"] =
+					String.Format( "return confirm('{0}')", GetText( "confirm_deletemessage" ) );
+		}
+	}
 }
