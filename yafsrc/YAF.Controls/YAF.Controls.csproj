@@ -54,6 +54,7 @@
     <Compile Include="Statistics\ActiveDiscussions.cs" />
     <Compile Include="Statistics\MostActiveUser.cs" />
     <Compile Include="TopicLine.cs" />
+    <Compile Include="UserLink.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
