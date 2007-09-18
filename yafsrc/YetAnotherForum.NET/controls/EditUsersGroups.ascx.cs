@@ -27,6 +27,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
@@ -82,13 +83,16 @@ namespace YAF.Controls
 
 				YAF.Classes.Data.DB.usergroup_save( ThisUserID, GroupID, isChecked );
 
-        // get this username
-        string userName = YAF.Classes.Utils.UserMembershipHelper.GetUserNameFromID( ThisUserID );
+        // update roles if this user isn't the guest
+				if ( !UserMembershipHelper.IsGuestUser( ThisUserID ) )
+				{
+					string userName = YAF.Classes.Utils.UserMembershipHelper.GetUserNameFromID( ThisUserID );
 
-        if ( isChecked && !Roles.IsUserInRole( userName, roleName ) )
-          Roles.AddUserToRole( userName, roleName );
-        else if ( !isChecked && Roles.IsUserInRole( userName, roleName ) )
-          Roles.RemoveUserFromRole( userName, roleName );
+					if ( isChecked && !Roles.IsUserInRole( userName, roleName ) )
+						Roles.AddUserToRole( userName, roleName );
+					else if ( !isChecked && Roles.IsUserInRole( userName, roleName ) )
+						Roles.RemoveUserFromRole( userName, roleName );
+				}
 			}
 
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );

@@ -38,7 +38,7 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			PopMenu1.Visible = PageContext.IsAdmin;
+			PopMenu1.Visible = PageContext.IsAdmin && !IsGuest;
 			if ( PopMenu1.Visible )
 			{
 				PopMenu1.ItemClick += new PopEventHandler( PopMenu1_ItemClick );
@@ -183,6 +183,15 @@ namespace YAF.Controls
 			set
 			{
 				m_row = value;
+			}
+		}
+
+		// have to pull this directly from the DB
+		public bool IsGuest
+		{
+			get
+			{
+				return UserMembershipHelper.IsGuestUser( Convert.ToInt32( DataRow ["UserID"] ) );
 			}
 		}
 

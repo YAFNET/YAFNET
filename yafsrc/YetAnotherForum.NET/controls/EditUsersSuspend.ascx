@@ -19,7 +19,7 @@
   </tr>
   <tr id="Tr1" runat="server">
     <td class="postheader">
-      Suspend User:</td>
+      <%= PageContext.Localization.GetText("PROFILE", "SUSPEND_USER") %></td>
     <td class="post">
       <asp:TextBox runat="server" ID="SuspendCount" Style="width: 60px" />&nbsp;<asp:DropDownList
         runat="server" ID="SuspendUnit" />&nbsp;<asp:Button runat="server" ID="Suspend" />

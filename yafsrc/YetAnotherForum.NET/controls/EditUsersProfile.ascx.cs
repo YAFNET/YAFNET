@@ -70,7 +70,7 @@ namespace YAF.Controls
       Location.Text = userData.Profile.Location;
       HomePage.Text = userData.Profile.Homepage;
       TimeZones.Items.FindByValue( userData.TimeZone.ToString() ).Selected = true;
-      Email.Text = userData.Membership.Email;
+      Email.Text = userData.Email;
       Realname.Text = userData.Profile.RealName;
       Occupation.Text = userData.Profile.Occupation;
       Interests.Text = userData.Profile.Interests;

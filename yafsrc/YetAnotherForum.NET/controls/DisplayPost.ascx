@@ -3,8 +3,11 @@
 <tr class="postheader">
 	<%#GetIndentCell()%>
 	<td width="140px" id="NameCell" runat="server">
-		<a name="<%# DataRow["MessageID"] %>" /><b>
-			<asp:HyperLink ID="UserName" runat="server" href='<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# HtmlEncode(DataRow["UserName"]) %></asp:HyperLink></b>
+		<a name="<%# DataRow["MessageID"] %>" />
+		<b>
+		<asp:HyperLink ID="UserName" runat="server" Visible="<%# !IsGuest %>" href='<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# HtmlEncode(DataRow["UserName"]) %></asp:HyperLink>
+		<asp:Label ID="UserNameGuest" runat="server" Visible="<%# IsGuest %>"><%# HtmlEncode(DataRow["UserName"]) %></asp:Label>
+		</b>
 	</td>
 	<td width="80%">
 		<table cellspacing="0" cellpadding="0" width="100%">
