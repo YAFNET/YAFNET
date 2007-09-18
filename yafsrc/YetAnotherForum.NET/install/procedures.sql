@@ -1067,15 +1067,15 @@ begin
 	set @GroupIDMember = SCOPE_IDENTITY()	
 	
 	-- yaf_User
-	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
-	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,0,6)
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
+	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
 	set @UserIDGuest = SCOPE_IDENTITY()	
 	
 	SET @UserFlags = 2
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
-	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Gender,Flags)
-	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,0,@UserFlags)
+	insert into yaf_User(BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
+	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,@UserFlags)
 	set @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- yaf_UserGroup
@@ -3025,19 +3025,12 @@ begin
 		a.IP,
 		a.Flags,
 		a.EditReason,
-                a.IsModeratorChanged,
+    a.IsModeratorChanged,
 		a.DeleteReason,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
 		b.Avatar,
-		b.Location,
 		b.Signature,
-		b.HomePage,
-		b.Weblog,
-		b.MSN,
-		b.YIM,
-		b.AIM,
-		b.ICQ,
 		Posts		= b.NumPosts,
 		b.Points,
 		d.Views,
@@ -3911,8 +3904,8 @@ begin
 	begin
 		select @RankID = RankID from dbo.yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into dbo.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Gender,Flags,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,0,@approvedFlag,@ProviderUserKey)
+		insert into dbo.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
+		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
 	
 		set @UserID = SCOPE_IDENTITY()
 	
@@ -4252,28 +4245,14 @@ CREATE procedure [dbo].[yaf_user_save](
 	@BoardID			int,
 	@UserName			nvarchar(50) = null,
 	@Email				nvarchar(50) = null,
-	@Location			nvarchar(50) = null,
-	@HomePage			nvarchar(50) = null,
 	@TimeZone			int,
-	@Avatar				nvarchar(255) = null,
 	@LanguageFile		nvarchar(50) = null,
 	@ThemeFile			nvarchar(50) = null,
 	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
-	@MSN				nvarchar(50) = null,
-	@YIM				nvarchar(30) = null,
-	@AIM				nvarchar(30) = null,
-	@ICQ				int = null,
-	@RealName			nvarchar(50) = null,
-	@Occupation			nvarchar(50) = null,
-	@Interests			nvarchar(100) = null,
-	@Gender				tinyint = 0,
-	@Weblog				nvarchar(100) = null,
 	@PMNotification		bit = null,
-	@ProviderUserKey	uniqueidentifier = null,
-    @WeblogUrl			nvarchar(256) = null,
-    @WeblogUsername		nvarchar (256) = null,
-    @WeblogID			nvarchar (50) = null) as
+	@ProviderUserKey	uniqueidentifier = null)
+AS
 begin
 	declare @RankID int
 	declare @Flags int
@@ -4281,19 +4260,6 @@ begin
 	set @Flags = 0
 	if @Approved<>0 set @Flags = @Flags | 2
 	
-	if @Location is not null and @Location = '' set @Location = null
-	if @HomePage is not null and @HomePage = '' set @HomePage = null
-	if @Avatar is not null and @Avatar = '' set @Avatar = null
-	if @MSN is not null and @MSN = '' set @MSN = null
-	if @YIM is not null and @YIM = '' set @YIM = null
-	if @AIM is not null and @AIM = '' set @AIM = null
-	if @ICQ is not null and @ICQ = 0 set @ICQ = null
-	if @RealName is not null and @RealName = '' set @RealName = null
-	if @Occupation is not null and @Occupation = '' set @Occupation = null
-	if @Interests is not null and @Interests = '' set @Interests = null
-	if @Weblog is not null and @Weblog = '' set @Weblog = null
-	if @WeblogUsername is not null and @WeblogUsername = '' set @WeblogUsername = null
-	if @WeblogID is not null and @WeblogID = '' set @WeblogID = null	
 	if @PMNotification is null SET @PMNotification = 1
 	if @OverrideDefaultTheme is null SET @OverrideDefaultTheme=0
 
@@ -4302,8 +4268,8 @@ begin
 		
 		select @RankID = RankID from yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,Location,HomePage,TimeZone,Avatar,Gender,Flags,PMNotification,ProviderUserKey,WeblogUrl,WeblogUsername,WeblogID) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@Location,@HomePage,@TimeZone,@Avatar,@Gender,@Flags,@PMNotification,@ProviderUserKey,@WeblogUrl,@WeblogUsername,@WeblogID)		
+		insert into yaf_User(BoardID,RankID,Name,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,ProviderUserKey) 
+		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,@TimeZone,@Flags,@PMNotification,@ProviderUserKey)		
 	
 		set @UserID = SCOPE_IDENTITY()
 
@@ -4311,26 +4277,11 @@ begin
 	end
 	else begin
 		update yaf_User set
-			Location = @Location,
-			HomePage = @HomePage,
 			TimeZone = @TimeZone,
-			Avatar = @Avatar,
 			LanguageFile = @LanguageFile,
 			ThemeFile = @ThemeFile,
 			OverrideDefaultThemes = @OverrideDefaultTheme,
-			MSN = @MSN,
-			YIM = @YIM,
-			AIM = @AIM,
-			ICQ = @ICQ,
-			RealName = @RealName,
-			Occupation = @Occupation,
-			Interests = @Interests,
-			Gender = @Gender,
-			Weblog = @Weblog,
-			PMNotification = @PMNotification,
-			WeblogUrl = @WeblogUrl,
-			WeblogID = @WeblogID,
-			WeblogUsername = @WeblogUsername
+			PMNotification = @PMNotification
 		where UserID = @UserID
 		
 		if @Email is not null
