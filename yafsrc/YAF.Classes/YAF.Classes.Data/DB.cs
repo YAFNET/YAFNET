@@ -2914,11 +2914,12 @@ namespace YAF.Classes.Data
 				return 0;
 			}
 		}
-		static public int user_guest()
+		static public int user_guest(object boardID)
 		{
 			using (SqlCommand cmd = new SqlCommand("yaf_user_guest"))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				return (int)DBAccess.ExecuteScalar(cmd);
 			}
 		}

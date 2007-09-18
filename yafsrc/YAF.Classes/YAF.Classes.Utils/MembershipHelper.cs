@@ -291,7 +291,11 @@ namespace YAF.Classes.Utils
     /// <returns></returns>
     public static MembershipUser GetMembershipUser( int userID )
     {
-      return GetMembershipUser( GetProviderUserKeyFromID( userID ) );
+			object providerUserKey = GetProviderUserKeyFromID( userID );
+			if (providerUserKey != null)
+				return GetMembershipUser( providerUserKey );
+
+			return null;		
     }
 
     /// <summary>
@@ -407,6 +411,24 @@ namespace YAF.Classes.Utils
 			}
 
 			return bExists;
+		}
+
+		public static bool IsGuestUser( int userID )
+		{
+			int guestUserID = -1;
+
+			if (YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] == null)
+			{
+				// get the guest user for this board...
+				guestUserID = DB.user_guest( YafContext.Current.PageBoardID );
+				YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] = guestUserID;
+			}
+			else
+			{
+				guestUserID = Convert.ToInt32( YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] );
+			}
+
+			return ( userID == guestUserID );
 		}
   }
 }

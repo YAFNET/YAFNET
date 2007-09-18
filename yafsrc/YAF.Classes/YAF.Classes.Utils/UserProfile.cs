@@ -166,38 +166,56 @@ namespace YAF.Classes.Utils
 		private DataRowConvert _rowConvert = null;
 		private int? _userID = null;
 
-		public YafCombinedUserData( MembershipUser membershipUser )
+		public YafCombinedUserData( MembershipUser membershipUser, int userID )
 		{
+			_userID = userID;
 			_membershipUser = membershipUser;
 			InitUserData();
 		}
 
-		public YafCombinedUserData( MembershipUser membershipUser, int userID )
-			: this( membershipUser )
+		public YafCombinedUserData( MembershipUser membershipUser )
+			: this( membershipUser, UserMembershipHelper.GetUserIDFromProviderUserKey( membershipUser.ProviderUserKey ) )
 		{
-			_userID = userID;
 		}
 
 		public YafCombinedUserData( int userID )
-			: this( UserMembershipHelper.GetMembershipUser( userID ) )
+			: this( UserMembershipHelper.GetMembershipUser( userID ), userID )
 		{
-			_userID = userID;
 		}
 
 		private void InitUserData()
 		{
-			_userProfile = YafContext.Current.GetProfile( _membershipUser.UserName );
-			if ( _userID == null )
+			if ( _membershipUser != null )
 			{
-				// get the user id
-				_userID = UserMembershipHelper.GetUserIDFromProviderUserKey( _membershipUser.ProviderUserKey );
+				if ( _userID == null )
+				{
+					// get the user id
+					_userID = UserMembershipHelper.GetUserIDFromProviderUserKey( _membershipUser.ProviderUserKey );
+				}
+				_userProfile = YafContext.Current.GetProfile( _membershipUser.UserName );
+				// get the data for this user from the DB...
+				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
+				if ( dt.Rows.Count > 0 )
+				{
+					_userDBRow = dt.Rows [0];
+					_rowConvert = new DataRowConvert( _userDBRow );
+				}				
 			}
-			// get the data for this user from the DB...
-			DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
-			if ( dt.Rows.Count > 0 )
-				_userDBRow = dt.Rows [0];
-
-			_rowConvert = new DataRowConvert( _userDBRow );
+			else if ( _userID != null )
+			{
+				// see if this is the guest user
+				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
+				if ( dt.Rows.Count > 0 )
+				{
+					_userDBRow = dt.Rows [0];
+					_userProfile = YafContext.Current.GetProfile( _userDBRow ["Name"].ToString() );
+					_rowConvert = new DataRowConvert( _userDBRow );
+				}
+			}
+			else
+			{
+				throw new Exception( "Cannot locate user information." );
+			}
 		}
 
 		public int UserID
@@ -207,6 +225,19 @@ namespace YAF.Classes.Utils
 				if ( _userID != null ) return (int)_userID;
 				
 				return 0;
+			}
+		}
+
+		public bool IsGuest
+		{
+			get
+			{
+				if ( _userDBRow != null )
+				{
+					if ( Convert.ToInt32( _userDBRow ["IsGuest"] ) > 0 ) return true;
+				}
+
+				return false;
 			}
 		}
 
@@ -231,6 +262,19 @@ namespace YAF.Classes.Utils
 			get
 			{
 				return _userDBRow;
+			}
+		}
+
+		public string Email
+		{
+			get
+			{
+				if ( IsGuest )
+				{
+					return _rowConvert.AsString( "Email" );
+				}
+
+				return Membership.Email;
 			}
 		}
 

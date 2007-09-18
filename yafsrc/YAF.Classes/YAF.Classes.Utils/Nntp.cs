@@ -551,9 +551,9 @@ namespace YAF.Classes.Utils
 			return new ArticleInfo( ReadArticle() );
 		}
 
-		static public int ReadArticles( object boardID, int nLastUpdate,int nTimeToRun,bool bCreateUsers )
+		static public int ReadArticles( object boardID, int nLastUpdate, int nTimeToRun, bool bCreateUsers )
 		{
-			int nUserID = YAF.Classes.Data.DB.user_guest();	// Use guests user-id
+			int nUserID = YAF.Classes.Data.DB.user_guest(boardID);	// Use guests user-id
 			string sHostAddress = System.Web.HttpContext.Current.Request.UserHostAddress;
 			DataTable dtSystem = YAF.Classes.Data.DB.registry_list( "TimeZone" );
 			TimeSpan tsLocal = new TimeSpan( 0, Convert.ToInt32( dtSystem.Rows [0] ["Value"] ), 0 );

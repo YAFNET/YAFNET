@@ -142,11 +142,6 @@ namespace YAF.Classes.Utils
 		#endregion
 	}
 
-	public class YafCacheEntryInfo
-	{
-		private DateTime _itemExpire;
-	}
-
 	public enum CacheKeyCreationMethod
 	{
 		Straight,
