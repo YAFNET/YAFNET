@@ -58,7 +58,7 @@ namespace YAF.Controls
 
     protected string GetLocalizedText( string text )
     {
-      return Server.HtmlEncode( PageContext.Localization.GetText( text ) );
+      return HtmlEncode( PageContext.Localization.GetText( text ) );
     }
 
     protected string GetArchiveSelectedText()
@@ -78,9 +78,9 @@ namespace YAF.Controls
     protected string GetMessageUser( object dataItem )
     {
       if ( View == PMView.Outbox )
-        return Server.HtmlEncode( DataBinder.Eval( dataItem, "ToUser" ).ToString() );
+        return HtmlEncode( DataBinder.Eval( dataItem, "ToUser" ) );
       else
-        return Server.HtmlEncode( DataBinder.Eval( dataItem, "FromUser" ).ToString() );
+        return HtmlEncode( DataBinder.Eval( dataItem, "FromUser" ) );
     }
 
     protected string GetMessageLink( object messageId )

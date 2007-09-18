@@ -33,7 +33,7 @@
             <HeaderStyle width="40%" />
             <ItemTemplate>
                 <a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
-                    <%# Server.HtmlEncode(Eval("Subject").ToString()) %>
+                    <%# HtmlEncode(Eval("Subject")) %>
                 </a>
             </ItemTemplate>
         </asp:TemplateField>
@@ -88,7 +88,7 @@
                 <img src="<%# GetImage(Container.DataItem) %>" alt="" /></td>
             <td>
                 <a href='<%# GetMessageLink(Eval("UserPMessageID")) %>'>
-                    <%# Server.HtmlEncode(Eval("Subject").ToString()) %>
+                    <%# HtmlEncode(Eval("Subject")) %>
                 </a>
             </td>
             <td>

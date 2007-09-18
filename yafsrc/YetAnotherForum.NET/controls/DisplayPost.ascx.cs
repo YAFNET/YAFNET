@@ -79,13 +79,13 @@ namespace YAF.Controls
 			Quote.ToolTip = "Reply with quote";
 			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
-            // report posts
-            ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse; // Mek Addition 08/18/2007
-            ReportButton.Text = PageContext.Localization.GetText("REPORTPOST"); // Mek Addition 08/18/2007
+			// report posts
+			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse; // Mek Addition 08/18/2007
+			ReportButton.Text = PageContext.Localization.GetText( "REPORTPOST" ); // Mek Addition 08/18/2007
 
-            // report spam
-            ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam; // Mek Addition 08/18/2007
-            ReportSpamButton.Text = PageContext.Localization.GetText("REPORTSPAM"); // Mek Addition 08/18/2007
+			// report spam
+			ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam; // Mek Addition 08/18/2007
+			ReportSpamButton.Text = PageContext.Localization.GetText( "REPORTSPAM" ); // Mek Addition 08/18/2007
 
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
@@ -96,27 +96,27 @@ namespace YAF.Controls
 			Email.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = PageContext.Theme.GetItem( "BUTTONS", "EMAIL" );
 			// home page
-			Home.Visible = !PostDeleted && DataRow ["HomePage"] != DBNull.Value;
-			Home.NavigateUrl = DataRow ["HomePage"].ToString();
+			Home.Visible = !PostDeleted && UserProfile.Homepage != string.Empty;
+			Home.NavigateUrl = UserProfile.Homepage;
 			Home.Text = PageContext.Theme.GetItem( "BUTTONS", "WWW" );
 			// blog page
-			Blog.Visible = !PostDeleted && DataRow ["Weblog"] != DBNull.Value;
-			Blog.NavigateUrl = DataRow ["Weblog"].ToString();
+			Blog.Visible = !PostDeleted && UserProfile.Blog != string.Empty;
+			Blog.NavigateUrl = UserProfile.Blog;
 			Blog.Text = PageContext.Theme.GetItem( "BUTTONS", "WEBLOG" );
 			// MSN
-			Msn.Visible = !PostDeleted && PageContext.User != null && DataRow ["MSN"] != DBNull.Value;
+			Msn.Visible = !PostDeleted && PageContext.User != null && UserProfile.MSN != string.Empty;
 			Msn.Text = PageContext.Theme.GetItem( "BUTTONS", "MSN" );
 			Msn.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			// Yahoo IM
-			Yim.Visible = !PostDeleted && PageContext.User != null && DataRow ["YIM"] != DBNull.Value;
+			Yim.Visible = !PostDeleted && PageContext.User != null && UserProfile.YIM != string.Empty;
 			Yim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
 			Yim.Text = PageContext.Theme.GetItem( "BUTTONS", "YAHOO" );
 			// AOL IM
-			Aim.Visible = !PostDeleted && PageContext.User != null && DataRow ["AIM"] != DBNull.Value;
+			Aim.Visible = !PostDeleted && PageContext.User != null && UserProfile.AIM != string.Empty;
 			Aim.Text = PageContext.Theme.GetItem( "BUTTONS", "AIM" );
 			Aim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
 			// ICQ
-			Icq.Visible = !PostDeleted && PageContext.User != null && DataRow ["ICQ"] != DBNull.Value;
+			Icq.Visible = !PostDeleted && PageContext.User != null && UserProfile.ICQ != string.Empty;
 			Icq.Text = PageContext.Theme.GetItem( "BUTTONS", "ICQ" );
 			Icq.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
 
@@ -167,8 +167,8 @@ namespace YAF.Controls
 
 		override protected void OnInit( EventArgs e )
 		{
-            ReportButton.Command += new CommandEventHandler(Report_Command);
-            ReportSpamButton.Command += new CommandEventHandler(Report_Command);
+			ReportButton.Command += new CommandEventHandler( Report_Command );
+			ReportSpamButton.Command += new CommandEventHandler( Report_Command );
 			this.PreRender += new EventHandler( DisplayPost_PreRender );
 			base.OnInit( e );
 		}
@@ -183,6 +183,21 @@ namespace YAF.Controls
 			set
 			{
 				m_row = value;
+			}
+		}
+
+		private YafUserProfile _userProfile = null;
+		public YafUserProfile UserProfile
+		{
+			get
+			{
+				if ( _userProfile == null )
+				{
+					// setup instance of the user profile...
+					_userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( Convert.ToInt32( DataRow ["UserID"] ) ) );
+				}
+
+				return _userProfile;
 			}
 		}
 
@@ -207,10 +222,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
-				return ((!PostLocked &&
-					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
-					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
+				return ( ( !PostLocked &&
+					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
+					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumEditAccess;
 			}
 		}
@@ -236,7 +251,7 @@ namespace YAF.Controls
 			get
 			{
 
-				return General.BinaryAnd(DataRow["Flags"], TopicFlags.Deleted);
+				return General.BinaryAnd( DataRow ["Flags"], TopicFlags.Deleted );
 			}
 		}
 
@@ -245,10 +260,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
-				return ((!PostLocked &&
-					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
-					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
+				return ( ( !PostLocked &&
+					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
+					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumUploadAccess;
 			}
 		}
@@ -258,10 +273,10 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
-				return ((!PostLocked &&
-					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
-					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked) &&
-					(int)DataRow["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
+				return ( ( !PostLocked &&
+					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
+					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumDeleteAccess;
 			}
 		}
@@ -279,9 +294,9 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can reply in locked posts
-				return ((!PostMessageFlags.IsLocked &&
-					!General.BinaryAnd(DataRow["ForumFlags"], ForumFlags.Locked) &&
-					!General.BinaryAnd(DataRow["TopicFlags"], TopicFlags.Locked)) || PageContext.ForumModeratorAccess) &&
+				return ( ( !PostMessageFlags.IsLocked &&
+					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
+					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumReplyAccess;
 			}
 		}
@@ -350,27 +365,27 @@ namespace YAF.Controls
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
 
 			// load output buffer with user box template
-			userboxOutput.Append(PageContext.BoardSettings.UserBox);
+			userboxOutput.Append( PageContext.BoardSettings.UserBox );
 
 
 			// Avatar
-			if (!PostDeleted &&
-				(PageContext.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0))
+			if ( !PostDeleted &&
+				( PageContext.BoardSettings.AvatarUpload && DataRow ["HasAvatarImage"] != null && long.Parse( DataRow ["HasAvatarImage"].ToString() ) > 0 ) )
 			{
 				userboxOutput.Replace(
 					Constants.UserBox.Avatar,
 					String.Format(
 						PageContext.BoardSettings.UserBoxAvatar,
 						String.Format(
-							"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />", 
-							DataRow["UserID"], 
+							"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />",
+							DataRow ["UserID"],
 							YafForumInfo.ForumRoot
 							)
 						)
 					);
 			}
-			else if (!PostDeleted && 
-				DataRow["Avatar"].ToString().Length > 0) // Took out PageContext.BoardSettings.AvatarRemote
+			else if ( !PostDeleted &&
+				DataRow ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				userboxOutput.Replace(
 					Constants.UserBox.Avatar,
@@ -378,7 +393,7 @@ namespace YAF.Controls
 						PageContext.BoardSettings.UserBoxAvatar,
 						String.Format(
 							"<img class=\"avatarimage\" src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
-							Server.UrlEncode(DataRow["Avatar"].ToString()),
+							Server.UrlEncode( DataRow ["Avatar"].ToString() ),
 							PageContext.BoardSettings.AvatarWidth,
 							PageContext.BoardSettings.AvatarHeight,
 							YafForumInfo.ForumRoot
@@ -389,7 +404,7 @@ namespace YAF.Controls
 			else
 			{
 
-				userboxOutput.Replace(Constants.UserBox.Avatar, "");
+				userboxOutput.Replace( Constants.UserBox.Avatar, "" );
 			}
 
 
@@ -406,7 +421,7 @@ namespace YAF.Controls
 
 
 			// Rank Image
-			if (DataRow["RankImage"].ToString().Length > 0)
+			if ( DataRow ["RankImage"].ToString().Length > 0 )
 			{
 				userboxOutput.Replace(
 					Constants.UserBox.RankImage,
@@ -414,15 +429,15 @@ namespace YAF.Controls
 						PageContext.BoardSettings.UserBoxRankImage,
 						String.Format(
 							"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
-							YafForumInfo.ForumRoot, 
-							DataRow["RankImage"]
+							YafForumInfo.ForumRoot,
+							DataRow ["RankImage"]
 							)
 						)
 					);
 			}
 			else
 			{
-				userboxOutput.Replace(Constants.UserBox.RankImage, "");
+				userboxOutput.Replace( Constants.UserBox.RankImage, "" );
 			}
 
 
@@ -431,34 +446,30 @@ namespace YAF.Controls
 				Constants.UserBox.Rank,
 				String.Format(
 					PageContext.BoardSettings.UserBoxRank,
-					PageContext.Localization.GetText("rank"),
-					DataRow["RankName"]
+					PageContext.Localization.GetText( "rank" ),
+					DataRow ["RankName"]
 					)
 				);
 
 
 			// Groups
-			if (PageContext.BoardSettings.ShowGroups)
+			if ( PageContext.BoardSettings.ShowGroups )
 			{
-				System.Text.StringBuilder groupsText = new System.Text.StringBuilder(150);
+				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
 
-				using (DataTable dt = YAF.Classes.Data.DB.usergroup_list(DataRow["UserID"]))
+				userboxOutput.AppendFormat( "{0}: ", PageContext.Localization.GetText( "groups" ) );
+				bool bFirst = true;
+
+				foreach ( string role in System.Web.Security.Roles.GetRolesForUser( DataRow ["UserName"].ToString() ) )
 				{
-					userboxOutput.AppendFormat("{0}: ", PageContext.Localization.GetText("groups"));
-
-					bool bFirst = true;
-
-					foreach (DataRow grp in dt.Rows)
+					if ( bFirst )
 					{
-						if (bFirst)
-						{
-							groupsText.AppendLine(grp["Name"].ToString());
-							bFirst = false;
-						}
-						else
-						{
-							groupsText.AppendFormat(", {0}", grp["Name"]);
-						}
+						groupsText.AppendLine( role );
+						bFirst = false;
+					}
+					else
+					{
+						groupsText.AppendFormat( ", {0}", role );
 					}
 				}
 
@@ -466,35 +477,35 @@ namespace YAF.Controls
 					Constants.UserBox.Groups,
 					String.Format(
 						PageContext.BoardSettings.UserBoxGroups,
-						PageContext.Localization.GetText("groups"),
+						PageContext.Localization.GetText( "groups" ),
 						groupsText.ToString()
 						)
 					);
 			}
 			else
 			{
-				userboxOutput.Replace(Constants.UserBox.Groups, "");
+				userboxOutput.Replace( Constants.UserBox.Groups, "" );
 			}
 
 
-			if (!PostDeleted)
+			if ( !PostDeleted )
 			{
 				// Ederon : 02/24/2007
 				// Joined Date
-				if (PageContext.BoardSettings.DisplayJoinDate)
+				if ( PageContext.BoardSettings.DisplayJoinDate )
 				{
 					userboxOutput.Replace(
 						Constants.UserBox.JoinDate,
 						String.Format(
 							PageContext.BoardSettings.UserBoxJoinDate,
-							PageContext.Localization.GetText("joined"),
-							YafDateTime.FormatDateShort((DateTime)DataRow["Joined"])
+							PageContext.Localization.GetText( "joined" ),
+							YafDateTime.FormatDateShort( ( DateTime ) DataRow ["Joined"] )
 							)
 						);
 				}
 				else
 				{
-					userboxOutput.Replace(Constants.UserBox.JoinDate, "");
+					userboxOutput.Replace( Constants.UserBox.JoinDate, "" );
 				}
 
 
@@ -503,52 +514,52 @@ namespace YAF.Controls
 					Constants.UserBox.Posts,
 					String.Format(
 						PageContext.BoardSettings.UserBoxPosts,
-						PageContext.Localization.GetText("posts"),
-						DataRow["Posts"]
+						PageContext.Localization.GetText( "posts" ),
+						DataRow ["Posts"]
 						)
 					);
 
 
 				// Points
-				if (PageContext.BoardSettings.DisplayPoints)
+				if ( PageContext.BoardSettings.DisplayPoints )
 				{
 					userboxOutput.Replace(
 						Constants.UserBox.Points,
 						String.Format(
 							PageContext.BoardSettings.UserBoxPoints,
-							PageContext.Localization.GetText("points"),
-							DataRow["Points"]
+							PageContext.Localization.GetText( "points" ),
+							DataRow ["Points"]
 							)
 						);
 				}
 				else
 				{
-					userboxOutput.Replace(Constants.UserBox.Points, "");
+					userboxOutput.Replace( Constants.UserBox.Points, "" );
 				}
 
 				// Location
-				if (DataRow["Location"].ToString().Length > 0)
+				if ( UserProfile.Location != string.Empty )
 				{
 					userboxOutput.Replace(
 						Constants.UserBox.Location,
 						String.Format(
 							PageContext.BoardSettings.UserBoxLocation,
-							PageContext.Localization.GetText("location"),
-							FormatMsg.RepairHtml(DataRow["Location"].ToString(), false)
+							PageContext.Localization.GetText( "location" ),
+							FormatMsg.RepairHtml( UserProfile.Location, false )
 							)
 						);
 				}
 				else
 				{
-					userboxOutput.Replace(Constants.UserBox.Location, "");
+					userboxOutput.Replace( Constants.UserBox.Location, "" );
 				}
 			}
 			else
 			{
-				userboxOutput.Replace(Constants.UserBox.Groups, "");
-				userboxOutput.Replace(Constants.UserBox.Posts, "");
-				userboxOutput.Replace(Constants.UserBox.Points, "");
-				userboxOutput.Replace(Constants.UserBox.Location, "");
+				userboxOutput.Replace( Constants.UserBox.Groups, "" );
+				userboxOutput.Replace( Constants.UserBox.Posts, "" );
+				userboxOutput.Replace( Constants.UserBox.Points, "" );
+				userboxOutput.Replace( Constants.UserBox.Location, "" );
 			}
 
 			return userboxOutput.ToString();
@@ -633,7 +644,7 @@ namespace YAF.Controls
 									messageOutput.AppendLine( @"</i><br />" );
 									bFirstItem = false;
 								}
-								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", YafForumInfo.ForumRoot, dr ["AttachmentID"], Server.HtmlEncode( Convert.ToString( dr ["FileName"] ) ) );
+								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", YafForumInfo.ForumRoot, dr ["AttachmentID"], HtmlEncode( dr ["FileName"] ) );
 							}
 							else if ( !bShowImage && tmpDisplaySort == 0 )
 							{
@@ -668,21 +679,21 @@ namespace YAF.Controls
 			}
 		}
 
-        // <Summary> Command Button - Report post as Abusive/Spam </Summary>
-        protected void Report_Command(object sender, CommandEventArgs e)
-        {
-            int ReportFlag = 0;
-            switch (e.CommandName)
-            {
-                case "ReportAbuse":
-                    ReportFlag = 7;
-                    break;
-                case "ReportSpam":
-                    ReportFlag = 8;
-                    break;
-            }
-            YAF.Classes.Data.DB.message_report(ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today);
-            PageContext.AddLoadMessage(PageContext.Localization.GetText("REPORTEDFEEDBACK"));
-        }
+		// <Summary> Command Button - Report post as Abusive/Spam </Summary>
+		protected void Report_Command( object sender, CommandEventArgs e )
+		{
+			int ReportFlag = 0;
+			switch ( e.CommandName )
+			{
+				case "ReportAbuse":
+					ReportFlag = 7;
+					break;
+				case "ReportSpam":
+					ReportFlag = 8;
+					break;
+			}
+			YAF.Classes.Data.DB.message_report( ReportFlag, e.CommandArgument.ToString(), PageContext.PageUserID, DateTime.Today );
+			PageContext.AddLoadMessage( PageContext.Localization.GetText( "REPORTEDFEEDBACK" ) );
+		}
 	}
 }

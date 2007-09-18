@@ -64,54 +64,26 @@ namespace YAF.Controls
 
       DataBind();
 
-      // made the same mistake...
-      MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
-      YafUserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
+			// get an instance of the combined user data class.
+			YafCombinedUserData userData = new YafCombinedUserData( CurrentUserID );
 
-      Location.Text = userProfile.Location;
-      HomePage.Text = userProfile.Homepage;
-      TimeZones.Items.FindByValue( userProfile.TimeZone.ToString() ).Selected = true;
-      Email.Text = user.Email;
-      Realname.Text = userProfile.RealName;
-      Occupation.Text = userProfile.Occupation;
-      Interests.Text = userProfile.Interests;
-      Weblog.Text = userProfile.Blog;
-      WeblogUrl.Text = userProfile.BlogServiceUrl;
-      WeblogID.Text = userProfile.BlogServicePassword;
-      WeblogUsername.Text = userProfile.BlogServiceUsername;
-      MSN.Text = userProfile.MSN;
-      YIM.Text = userProfile.YIM;
-      AIM.Text = userProfile.AIM;
-      ICQ.Text = userProfile.ICQ;
-      PMNotificationEnabled.Checked = userProfile.PMNotification;
-
-      /*
-
-      using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, true ) )
-      {
-        row = dt.Rows [0];
-      }
-
-      Location.Text = row ["Location"].ToString();
-      HomePage.Text = row ["HomePage"].ToString();
-      TimeZones.Items.FindByValue( row ["TimeZone"].ToString() ).Selected = true;
-      Email.Text = row ["Email"].ToString();
-      Realname.Text = row ["RealName"].ToString();
-      Occupation.Text = row ["Occupation"].ToString();
-      Interests.Text = row ["Interests"].ToString();
-      Weblog.Text = row ["Weblog"].ToString();
-      WeblogUrl.Text = row ["WeblogUrl"].ToString();
-      WeblogID.Text = row ["WeblogID"].ToString();
-      WeblogUsername.Text = row ["WeblogUsername"].ToString();
-      MSN.Text = row ["MSN"].ToString();
-      YIM.Text = row ["YIM"].ToString();
-      AIM.Text = row ["AIM"].ToString();
-      ICQ.Text = row ["ICQ"].ToString();
-      PMNotificationEnabled.Checked = Convert.ToBoolean( row ["PMNotification"] );
-      */
-      
-
-      Gender.SelectedIndex = PageContext.Profile.Gender;
+      Location.Text = userData.Profile.Location;
+      HomePage.Text = userData.Profile.Homepage;
+      TimeZones.Items.FindByValue( userData.TimeZone.ToString() ).Selected = true;
+      Email.Text = userData.Membership.Email;
+      Realname.Text = userData.Profile.RealName;
+      Occupation.Text = userData.Profile.Occupation;
+      Interests.Text = userData.Profile.Interests;
+      Weblog.Text = userData.Profile.Blog;
+      WeblogUrl.Text = userData.Profile.BlogServiceUrl;
+      WeblogID.Text = userData.Profile.BlogServicePassword;
+      WeblogUsername.Text = userData.Profile.BlogServiceUsername;
+      MSN.Text = userData.Profile.MSN;
+      YIM.Text = userData.Profile.YIM;
+      AIM.Text = userData.Profile.AIM;
+      ICQ.Text = userData.Profile.ICQ;
+			PMNotificationEnabled.Checked = userData.PMNotification;
+			Gender.SelectedIndex = userData.Profile.Gender;
 
       OverrideForumThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
 
@@ -120,15 +92,15 @@ namespace YAF.Controls
         // Allows to use different per-forum themes,
         // While "Allow User Change Theme" option in hostsettings is true
         string themeFile = PageContext.BoardSettings.Theme;
-        if ( PageContext.Profile.ThemeFile != string.Empty ) themeFile = PageContext.Profile.ThemeFile;
+				if ( userData.ThemeFile != null ) themeFile = userData.ThemeFile;
         Theme.Items.FindByValue( themeFile ).Selected = true;
-        OverrideDefaultThemes.Checked = PageContext.Profile.OverrideDefaultThemes;
+        OverrideDefaultThemes.Checked = userData.OverrideDefaultThemes;
       }
 
       if ( PageContext.BoardSettings.AllowUserLanguage )
       {
         string languageFile = PageContext.BoardSettings.Language;
-        if ( PageContext.Profile.LanguageFile != string.Empty ) languageFile = PageContext.Profile.LanguageFile;
+				if ( userData.LanguageFile != string.Empty ) languageFile = userData.LanguageFile;
         Language.Items.FindByValue( languageFile ).Selected = true;
       }
     }
@@ -197,14 +169,12 @@ namespace YAF.Controls
         UserMembershipHelper.UpdateEmail( CurrentUserID, Email.Text.Trim() );
       }
 
-      YafUserProfile userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( CurrentUserID ) );
+			string userName = UserMembershipHelper.GetUserNameFromID( CurrentUserID );
+
+      YafUserProfile userProfile = PageContext.GetProfile( userName );
 
       userProfile.Location = Location.Text.Trim();
       userProfile.Homepage = HomePage.Text.Trim();
-      userProfile.TimeZone = Convert.ToInt32( TimeZones.SelectedValue );
-      userProfile.LanguageFile = Language.SelectedValue;
-      userProfile.ThemeFile = Theme.SelectedValue;
-      userProfile.OverrideDefaultThemes = OverrideDefaultThemes.Checked;
       userProfile.MSN = MSN.Text.Trim();
       userProfile.YIM = YIM.Text.Trim();
       userProfile.AIM = AIM.Text.Trim();
@@ -217,9 +187,12 @@ namespace YAF.Controls
       userProfile.BlogServiceUrl = WeblogUrl.Text.Trim();
       userProfile.BlogServiceUsername = WeblogUsername.Text.Trim();
       userProfile.BlogServicePassword = WeblogID.Text.Trim();
-      userProfile.PMNotification = PMNotificationEnabled.Checked;
 
-      userProfile.Save();
+			userProfile.Save();
+
+			// save remaining settings to the DB
+			YAF.Classes.Data.DB.user_save( CurrentUserID, PageContext.PageBoardID, null, null,
+				Convert.ToInt32( TimeZones.SelectedValue ), Language.SelectedValue, Theme.SelectedValue, OverrideDefaultThemes.Checked, null, PMNotificationEnabled.Checked );
 
       if ( AdminEditMode )
         YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
