@@ -648,7 +648,8 @@
 		<Resource tag="LAST10">Last 10 Posts</Resource>
 		<Resource tag="TOPIC">Topic:</Resource>
 		<Resource tag="POSTED">Posted:</Resource>
-		<Resource tag="ENDS">User suspension ends:</Resource>
+		<Resource tag="ENDS">User Suspension Ends:</Resource>
+		<Resource tag="SUSPEND_USER">Suspend User:</Resource>
 		<Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
 		<Resource tag="SUSPEND">Suspend</Resource>
 		<Resource tag="DAYS">days</Resource>
