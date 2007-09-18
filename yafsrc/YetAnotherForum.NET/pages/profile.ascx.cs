@@ -139,9 +139,9 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
 			{
-				Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + ( Request.QueryString ["u"] );
+				Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + ( userID );
 			}
-			else if ( userData.Avatar != null ) // Took out PageContext.BoardSettings.AvatarRemote
+			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
 				Avatar.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
 					Server.UrlEncode( userData.Avatar ),
@@ -154,7 +154,7 @@ namespace YAF.Pages // YAF.Pages
 				Avatar.Visible = false;
 			}
 
-			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( Request.QueryString ["u"] );
+			Groups.DataSource = Roles.GetRolesForUser( UserMembershipHelper.GetUserNameFromID( userID ) );
 
 			//EmailRow.Visible = PageContext.IsAdmin;
 			ModeratorInfo.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
@@ -165,7 +165,7 @@ namespace YAF.Pages // YAF.Pages
 				// Ederon : 9/6/2007
 				SignatureEditControl.InAdminPages = true;
 
-				using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageContext.PageBoardID, Request.QueryString ["u"] ) )
+				using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageContext.PageBoardID, userID ) )
 				{
 					System.Text.StringBuilder html = new System.Text.StringBuilder();
 					int nLastForumID = 0;

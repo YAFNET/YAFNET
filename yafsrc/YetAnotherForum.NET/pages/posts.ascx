@@ -84,11 +84,11 @@
 <asp:repeater id="MessageList" runat="server">
 <ItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
-	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
+	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>" />
 </ItemTemplate>
 <AlternatingItemTemplate>
 	<%# GetThreadedRow(Container.DataItem) %>
-	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" IsAlt="True" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>"/>
+	<YAF:displaypost runat="server" datarow="<%# Container.DataItem %>" IsAlt="True" visible="<%#IsCurrentMessage(Container.DataItem)%>" isthreaded="<%#IsThreaded%>" />
 </AlternatingItemTemplate>
 </asp:repeater>
 
