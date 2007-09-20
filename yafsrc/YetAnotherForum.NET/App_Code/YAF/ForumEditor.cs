@@ -439,7 +439,6 @@ namespace YAF.Editor
 		#endregion
 	}
 
-
 	public class FCKEditorV1 : RichClassEditor
 	{
 		public FCKEditorV1()
@@ -495,7 +494,6 @@ namespace YAF.Editor
 		}
 		#endregion
 	}
-
 
 	public class FreeTextBoxEditor : RichClassEditor
 	{
@@ -591,6 +589,61 @@ namespace YAF.Editor
 		}
 	}
 
+	public class TinyMCEEditor : TextEditor
+	{
+		protected override void OnInit( EventArgs e )
+		{
+			Load += new EventHandler( Editor_Load );
+
+			base.OnInit( e );
+		}
+
+		protected virtual void Editor_Load( object sender, EventArgs e )
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymce", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "tiny_mce/tiny_mce.js" ) ) );
+			// this init JS script has to be created by you...
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymceinit", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "tiny_mce/tiny_mce_init.js" ) ) );
+
+			RegisterSmilieyScript();
+		}
+
+		protected virtual void RegisterSmilieyScript()
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+				"<script language='javascript'>\n" +
+				"function insertsmiley(code) {\n" +
+				"	tinyMCE.execCommand('mceInsertContent',false,code);\n" + 
+				"}\n" +
+				"</script>\n" );
+		}
+
+		public override string Text
+		{
+			get
+			{
+				return _textCtl.InnerText;
+			}
+			set
+			{
+				_textCtl.InnerText = value;
+			}
+		}
+
+		protected string SafeID
+		{
+			get { return _textCtl.ClientID.Replace( "$", "_" ); }
+		}
+
+		public override bool UsesHTML
+		{
+			get { return true; }
+		}
+		public override bool UsesBBCode
+		{
+			get { return false; }
+		}
+	}
+
 	/// <summary>
 	/// This class provides a way to
 	/// get information on the editors. All 
@@ -606,10 +659,11 @@ namespace YAF.Editor
 			FreeTextBox = 3,
 			FCKv1 = 4,
 			BasicBBCode = 5,
-			FreeTextBoxv3 = 6
+			FreeTextBoxv3 = 6,
+			TinyMCE = 7
 		}
 
-		public static int EditorCount = 7;
+		public static int EditorCount = 8;
 
 		public static string[] EditorTypeText =
 		{
@@ -619,7 +673,8 @@ namespace YAF.Editor
 			"FreeTextBox v2 (HTML)",
 			"FCK Editor v1.6 (HTML)",
 			"Basic BBCode Editor",
-			"FreeTextBox v3 (HTML)"
+			"FreeTextBox v3 (HTML)",
+			"TinyMCE (HTML)"
 		};
 
 		public static ForumEditor CreateEditorFromType(int Value)
@@ -642,6 +697,7 @@ namespace YAF.Editor
 				case EditorType.FCKv1: return new FCKEditorV1();
 				case EditorType.BasicBBCode: return new BasicBBCodeEditor();
 				case EditorType.FreeTextBoxv3: return new FreeTextBoxEditorv3();
+				case EditorType.TinyMCE: return new TinyMCEEditor();
 			}
 
 			return null;
