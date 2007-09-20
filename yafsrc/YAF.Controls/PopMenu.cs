@@ -61,6 +61,12 @@ namespace YAF.Controls
 			ctl.Attributes ["onmouseover"] = string.Format( "yaf_mouseover('{0}')", this.UniqueID );
 		}
 
+		public void Attach( UserLink userLinkControl )
+		{
+			userLinkControl.OnClick = string.Format( "yaf_popit('{0}')", this.UniqueID );
+			userLinkControl.OnMouseOver = string.Format( "yaf_mouseover('{0}')", this.UniqueID );
+		}
+
 		private void Page_Load( object sender, System.EventArgs e )
 		{
 			/*

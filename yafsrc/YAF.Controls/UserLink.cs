@@ -23,7 +23,7 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	class UserLink : BaseControl
+	public class UserLink : BaseControl
 	{
 		public UserLink()
 		{
@@ -36,7 +36,83 @@ namespace YAF.Controls
 
 		protected override void Render( HtmlTextWriter output )
 		{
+			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ))
+			{
+				bool isGuest = YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( _userID );
 
+				output.BeginRender();
+
+				if (!isGuest)
+				{					
+					output.WriteBeginTag( "a" );
+					output.WriteAttribute( "href", YafBuildLink.GetLink(ForumPages.profile,"u={0}",_userID));
+					output.WriteAttribute( "title", HtmlEncode( _userName ));
+					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "OnClick", _onclick );
+					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "OnMouseOver", _onmouseover );
+					output.Write(HtmlTextWriter.TagRightChar);
+				}
+
+				output.WriteEncodedText( _userName );
+
+				if (!isGuest)
+				{
+					output.WriteEndTag( "a" );
+				}
+
+				output.EndRender();
+			}
+		}
+
+		private string _onclick = string.Empty;
+		public string OnClick
+		{
+			get
+			{
+				return _onclick;
+			}
+			set
+			{
+				_onclick = value;
+			}
+		}
+
+		private string _onmouseover = string.Empty;
+		public string OnMouseOver
+		{
+			get
+			{
+				return _onmouseover;
+			}
+			set
+			{
+				_onmouseover = value;
+			}
+		}
+
+		private string _userName = string.Empty;
+		public string UserName
+		{
+			get
+			{
+				return _userName;
+			}
+			set
+			{
+				_userName = value;
+			}
+		}
+
+		private int _userID = -1;
+		public int UserID
+		{
+			get
+			{
+				return _userID;
+			}
+			set
+			{
+				_userID = value;
+			}
 		}
 	}
 }
