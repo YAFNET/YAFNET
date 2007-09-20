@@ -151,6 +151,10 @@ table.content td {
 	padding: 5px;
 }
 
+.content td table td table td {
+	padding: 0px;	
+}
+
 /* links inside content table*/
 .content a			{ color: #579000; text-decoration: underline; }
 .content a:hover	{ color: #579000; text-decoration: none; }

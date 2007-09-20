@@ -146,6 +146,10 @@ a.header2 { height: auto; background-color: Transparent; border-style: none; bac
 	padding: 3px;
 }
 
+.content td table td table td {
+	padding: 0px;	
+}
+
 #RichEdit td 
 {
 	padding: 0px;
