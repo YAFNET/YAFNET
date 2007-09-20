@@ -259,7 +259,6 @@ namespace YAF.Editor
 		#endregion
 	}
 
-
 	public class RichClassEditor : ForumEditor
 	{
 		protected bool _init;
@@ -408,7 +407,10 @@ namespace YAF.Editor
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
 				"function insertsmiley(code) {\n" +
-				"	window.frames['" + SafeID + "___Frame'].FCK.InsertHtml(code);\n" +
+				"var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
+				"if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" + 
+				"oEditor.InsertHtml( code ); }\n" +
+				"else alert( 'You must be on WYSIWYG mode!' );\n" +
 				"}\n" +
 				"</script>\n");
 		}
