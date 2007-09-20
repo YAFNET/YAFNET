@@ -5,8 +5,7 @@
 	<td width="140px" id="NameCell" runat="server">
 		<a name="<%# DataRow["MessageID"] %>" />
 		<b>
-		<asp:HyperLink ID="UserName" runat="server" Visible="<%# !IsGuest %>" href='<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataRow["UserID"]) %>'><%# HtmlEncode(DataRow["UserName"]) %></asp:HyperLink>
-		<asp:Label ID="UserNameGuest" runat="server" Visible="<%# IsGuest %>"><%# HtmlEncode(DataRow["UserName"]) %></asp:Label>
+		<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' UserName='<%#DataRow["UserName"]%>' />
 		</b>
 	</td>
 	<td width="80%">

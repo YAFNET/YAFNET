@@ -44,7 +44,7 @@ namespace YAF.Controls
 				PopMenu1.ItemClick += new PopEventHandler( PopMenu1_ItemClick );
 				PopMenu1.AddItem( "userprofile", "User Profile" );
 				PopMenu1.AddItem( "edituser", "Edit User (Admin)" );
-				PopMenu1.Attach( UserName );
+				PopMenu1.Attach( UserProfileLink );
 			}
 
 			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( "<script language='javascript' src='{0}'></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
