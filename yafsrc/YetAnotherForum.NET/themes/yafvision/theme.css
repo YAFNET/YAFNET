@@ -152,6 +152,10 @@ td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 	padding: 3px;
 }
 
+.content td table td table td {
+	padding: 0px;	
+}
+
 #RichEdit td 
 {
 	padding: 0px;

@@ -179,6 +179,10 @@ table.content td {
 	padding: 5px;
 }
 
+.content td table td table td {
+	padding: 0px;	
+}
+
 /* used for quoting messages */
 .quote {
 	padding-left: 16px;
