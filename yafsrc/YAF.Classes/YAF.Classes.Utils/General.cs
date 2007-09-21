@@ -78,12 +78,17 @@ namespace YAF.Classes.Utils
 			ulong banchk = Str2IP( ipmask );
 			ulong ipchk = Str2IP( chk.Split( '.' ) );
 
-			return ( ipchk & banchk ) == banmask;
+			return ( ipchk & banchk ) == banmask;		
 		}
 
 		static public string GetSafeRawUrl()
 		{
-			string tProcessedRaw = System.Web.HttpContext.Current.Request.RawUrl;
+			return GetSafeRawUrl( System.Web.HttpContext.Current.Request.RawUrl );
+		}
+
+		static public string GetSafeRawUrl( string url )
+		{
+			string tProcessedRaw = url;
 			tProcessedRaw = tProcessedRaw.Replace( "\"", string.Empty );
 			tProcessedRaw = tProcessedRaw.Replace( "<", "%3C" );
 			tProcessedRaw = tProcessedRaw.Replace( ">", "%3E" );
