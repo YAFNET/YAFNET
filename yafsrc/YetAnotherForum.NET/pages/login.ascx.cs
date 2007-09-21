@@ -53,11 +53,20 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "title" ) );
 
-				Login1.CreateUserText = "Sign up for a new account.";
+				//Login1.CreateUserText = "Sign up for a new account.";
 				//Login1.CreateUserUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.register );
 				Login1.PasswordRecoveryText = GetText( "lostpassword" );
 				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 				Login1.FailureText = GetText( "password_error" );
+
+				if ( Request.QueryString ["ReturnUrl"] != null )
+				{
+					Login1.DestinationPageUrl = Server.UrlDecode( Request.QueryString ["ReturnUrl"] );
+				}
+				else
+				{
+					Login1.DestinationPageUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum );
+				}			
 
 				// localize controls
 				CheckBox rememberMe = ( CheckBox )Login1.FindControl( "RememberMe" );
@@ -80,20 +89,6 @@ namespace YAF.Pages // YAF.Pages
 
 				DataBind();
 			}
-		}
-
-		protected void Login1_LoggedIn( object sender, EventArgs e )
-		{
-			if ( Request.QueryString ["ReturnUrl"] != null )
-				Response.Redirect( Request.QueryString ["ReturnUrl"] );
-			else
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
-		}
-
-		protected void Login1_LoginError( object sender, EventArgs e )
-		{
-			//Display the failure message in a client-side alert box
-			Page.ClientScript.RegisterStartupScript( Page.GetType(), "LoginError", String.Format( "alert('{0}');", Login1.FailureText.Replace( "'", "\'" ) ), true );
 		}
 	}
 }

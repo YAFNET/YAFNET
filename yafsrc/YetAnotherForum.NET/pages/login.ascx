@@ -1,13 +1,9 @@
 <%@ Control language="c#" CodeFile="login.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.login" %>
 
-
-
-
-
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
 <div align="center">
-    <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoggedIn="Login1_LoggedIn" OnLoginError="Login1_LoginError">
+    <asp:Login ID="Login1" runat="server" RememberMeSet="True">
         <LayoutTemplate>
             <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
                 <tr>
@@ -41,7 +37,7 @@
                             </tr>
                             <tr>
                                 <td align="center" colspan="2" class="postfooter" style="height: 24px">   
-                                    <asp:HyperLink ID="PasswordRecovery" runat="server" /> |                                 
+                                    <asp:HyperLink ID="PasswordRecovery" runat="server" /> |                              
                                     <asp:Button ID="LoginButton" runat="server" CommandName="Login" ValidationGroup="Login1" />
                                 </td>
                             </tr>
