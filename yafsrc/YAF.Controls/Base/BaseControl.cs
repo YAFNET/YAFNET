@@ -22,6 +22,7 @@
 using System;
 using System.Data;
 using System.Web;
+using System.Web.UI;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -46,6 +47,37 @@ namespace YAF.Controls
 		public string HtmlEncode( object data )
 		{
 			return HttpContext.Current.Server.HtmlEncode( data.ToString() );
+		}
+
+		public void RenderAnchor( HtmlTextWriter writer, string href, string cssClass, string innerText )
+		{
+			writer.WriteBeginTag( "a" );
+			writer.WriteAttribute( "href", href );
+			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
+			writer.Write( HtmlTextWriter.TagRightChar );
+			writer.Write( innerText );
+			writer.WriteEndTag( "a" );
+		}
+
+		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass )
+		{
+			writer.WriteBeginTag( "a" );
+			writer.WriteAttribute( "href", href );
+			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
+			writer.Write( HtmlTextWriter.TagRightChar );
+		}
+
+		public void RenderImgTag( HtmlTextWriter writer, string src, string alt, string title )
+		{
+			//this will output the start of the img element - <img
+			writer.WriteBeginTag( "img" );
+
+			writer.WriteAttribute( "src", src );
+			writer.WriteAttribute( "alt", alt );
+
+			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", title );
+
+			writer.Write( HtmlTextWriter.SelfClosingTagEnd );
 		}
 	}
 }
