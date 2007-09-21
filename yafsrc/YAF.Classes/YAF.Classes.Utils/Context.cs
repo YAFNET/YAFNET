@@ -46,6 +46,13 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
+				if ( HttpContext.Current.Session ["LoadMessage"] != null )
+				{
+					// get this as the current "loadstring"
+					_loadString = HttpContext.Current.Session ["LoadMessage"].ToString();
+					// session load string no longer needed
+					HttpContext.Current.Session ["LoadMessage"] = null;
+				}
 				return _loadString;
 			}
 		}
@@ -70,6 +77,21 @@ namespace YAF.Classes.Utils
 			message = message.Replace( "\n", "\\n" );
 			message = message.Replace( "\"", "\\\"" );
 			_loadString += message + "\\n\\n";
+		}
+
+		/// <summary>
+		/// AddLoadMessageSession creates a message that will be returned on the next page.
+		/// </summary>
+		/// <param name="message">The message you wish to display.</param>
+		public void AddLoadMessageSession( string message )
+		{
+			message = message.Replace( "\\", "\\\\" );
+			message = message.Replace( "'", "\\'" );
+			message = message.Replace( "\r\n", "\\r\\n" );
+			message = message.Replace( "\n", "\\n" );
+			message = message.Replace( "\"", "\\\"" );
+
+			HttpContext.Current.Session["LoadMessage"] = message + "\\n\\n";
 		}
 
 		/// <summary>

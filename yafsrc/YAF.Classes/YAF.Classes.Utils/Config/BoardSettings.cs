@@ -83,13 +83,13 @@ namespace YAF.Classes.Utils
 		public void SaveRegistry()
 		{
 			// loop through all values and commit them to the DB
-			foreach (DictionaryEntry entry in _reg)
+			foreach ( DictionaryEntry entry in _reg )
 			{
-				YAF.Classes.Data.DB.registry_save(entry.Key, entry.Value);
+				YAF.Classes.Data.DB.registry_save( entry.Key, entry.Value );
 			}
-			foreach (DictionaryEntry entry in _regBoard)
+			foreach ( DictionaryEntry entry in _regBoard )
 			{
-				YAF.Classes.Data.DB.registry_save(entry.Key, entry.Value, _boardID);
+				YAF.Classes.Data.DB.registry_save( entry.Key, entry.Value, _boardID );
 			}
 		}
 
@@ -207,11 +207,16 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "PostFloodDelay", 30 ); }
 			set { _reg.SetValueInt( "PostFloodDelay", value ); }
 		}
-        public int EditTimeOut  
-        {  
-            get { return _reg.GetValueInt("EditTimeOut", 30 ); }  
-            set { _reg.SetValueInt("EditTimeOut", value); }  
-        }
+		public int EditTimeOut
+		{
+			get { return _reg.GetValueInt( "EditTimeOut", 30 ); }
+			set { _reg.SetValueInt( "EditTimeOut", value ); }
+		}
+		public int CaptchaSize
+		{
+			get { return _reg.GetValueInt( "CaptchaSize", 5 ); }
+			set { _reg.SetValueInt( "CaptchaSize", value ); }
+		}
 
 		// boolean settings
 		public bool EmailVerification
@@ -337,16 +342,22 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueBool( "DisplayPoints", value ); }
 		}
 
-        public bool ShowQuickAnswer  
-        {  
-            get { return _reg.GetValueBool("ShowQuickAnswer", true  ); }  
-            set { _reg.SetValueBool("ShowQuick Answer", value ); }  
-        }  
-        
-        public bool ShowDeletedMessages  
-        {  
-            get { return _reg.GetValueBool("ShowDeletedMessages", true); }  
-            set { _reg.SetValueBool("ShowDeletedMessages", value); }  
+		public bool ShowQuickAnswer
+		{
+			get { return _reg.GetValueBool( "ShowQuickAnswer", true ); }
+			set { _reg.SetValueBool( "ShowQuick Answer", value ); }
+		}
+
+		public bool ShowDeletedMessages
+		{
+			get { return _reg.GetValueBool( "ShowDeletedMessages", true ); }
+			set { _reg.SetValueBool( "ShowDeletedMessages", value ); }
+		}
+
+		public bool EnableCaptchaForPostMessage
+		{
+			get { return _reg.GetValueBool( "EnableCaptchaForPostMessage", false ); }
+			set { _reg.SetValueBool( "EnableCaptchaForPostMessage", value ); }
 		}
 
 		// string settings
@@ -383,54 +394,54 @@ namespace YAF.Classes.Utils
 		/* Ederon : 9/9/2007 */
 		public string SmtpServerPort
 		{
-			get { return _reg.GetValue<string>("SmtpServerPort", null); }
-			set { _reg.SetValue<string>("SmtpServerPort", value); }
+			get { return _reg.GetValue<string>( "SmtpServerPort", null ); }
+			set { _reg.SetValue<string>( "SmtpServerPort", value ); }
 		}
 
 
 		/* Ederon : 6/16/2007 */
 		public bool DisplayJoinDate
 		{
-			get { return _reg.GetValue<bool>("DisplayJoinDate", true); }
-			set { _reg.SetValue<bool>("DisplayJoinDate", value); }
+			get { return _reg.GetValue<bool>( "DisplayJoinDate", true ); }
+			set { _reg.SetValue<bool>( "DisplayJoinDate", value ); }
 		}
 		public bool ShowBrowsingUsers
 		{
-			get { return _reg.GetValue<bool>("ShowBrowsingUsers", true); }
-			set { _reg.SetValue<bool>("ShowBrowsingUsers", value); }
+			get { return _reg.GetValue<bool>( "ShowBrowsingUsers", true ); }
+			set { _reg.SetValue<bool>( "ShowBrowsingUsers", value ); }
 		}
 		public bool ShowBadges
 		{
-			get { return _reg.GetValue<bool>("ShowBadges", true); }
-			set { _reg.SetValue<bool>("ShowBadges", value); }
+			get { return _reg.GetValue<bool>( "ShowBadges", true ); }
+			set { _reg.SetValue<bool>( "ShowBadges", value ); }
 		}
 		public bool AllowPostToBlog
 		{
-			get { return _reg.GetValue<bool>("AllowPostToBlog", true); }
-			set { _reg.SetValue<bool>("AllowPostToBlog", value); }
+			get { return _reg.GetValue<bool>( "AllowPostToBlog", true ); }
+			set { _reg.SetValue<bool>( "AllowPostToBlog", value ); }
 		}
-        /* Mek : 8/18/2007 */
-        public bool AllowReportAbuse
-        {
-            get { return _reg.GetValue<bool>("AllowReportAbuse", true); }
-            set { _reg.SetValue<bool>("AllowReportAbuse", value); }
-        }
-        public bool AllowReportSpam
-        {
-            get { return _reg.GetValue<bool>("AllowReportSpam", true); }
-            set { _reg.SetValue<bool>("AllowReportSpam", value); }
-        }
+		/* Mek : 8/18/2007 */
+		public bool AllowReportAbuse
+		{
+			get { return _reg.GetValue<bool>( "AllowReportAbuse", true ); }
+			set { _reg.SetValue<bool>( "AllowReportAbuse", value ); }
+		}
+		public bool AllowReportSpam
+		{
+			get { return _reg.GetValue<bool>( "AllowReportSpam", true ); }
+			set { _reg.SetValue<bool>( "AllowReportSpam", value ); }
+		}
 		/* Ederon : 8/29/2007 */
 		public bool AllowEmailTopic
 		{
-			get { return _reg.GetValue<bool>("AllowEmailTopic", true); }
-			set { _reg.SetValue<bool>("AllowEmailTopic", value); }
+			get { return _reg.GetValue<bool>( "AllowEmailTopic", true ); }
+			set { _reg.SetValue<bool>( "AllowEmailTopic", value ); }
 		}
 		/* Ederon : 9/9/2007 */
 		public bool SmtpServerSsl
 		{
-			get { return _reg.GetValue<bool>("SmtpServerSsl", false); }
-			set { _reg.SetValue<bool>("SmtpServerSsl", value); }
+			get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
+			set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
 		}
 
 
@@ -438,53 +449,53 @@ namespace YAF.Classes.Utils
 		/* Ederon : 7/14/2007 */
 		public string UserBox
 		{
-			get { return _reg.GetValue<string>("UserBox", Constants.UserBox.DisplayTemplateDefault); }
-			set { _reg.SetValue<string>("UserBox", value); }
+			get { return _reg.GetValue<string>( "UserBox", Constants.UserBox.DisplayTemplateDefault ); }
+			set { _reg.SetValue<string>( "UserBox", value ); }
 		}
 		public string UserBoxAvatar
 		{
-			get { return _reg.GetValue<string>("UserBoxAvatar", "{0}<br clear=\"all\" />"); }
-			set { _reg.SetValue<string>("UserBoxAvatar", value); }
+			get { return _reg.GetValue<string>( "UserBoxAvatar", "{0}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxAvatar", value ); }
 		}
 		public string UserBoxBadges
 		{
-			get { return _reg.GetValue<string>("UserBoxBadges", "{0}<br clear=\"all\" />"); }
-			set { _reg.SetValue<string>("UserBoxBadges", value); }
+			get { return _reg.GetValue<string>( "UserBoxBadges", "{0}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxBadges", value ); }
 		}
 		public string UserBoxRankImage
 		{
-			get { return _reg.GetValue<string>("UserBoxRankImage", "{0}<br clear=\"all\" />"); }
-			set { _reg.SetValue<string>("UserBoxRankImage", value); }
+			get { return _reg.GetValue<string>( "UserBoxRankImage", "{0}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxRankImage", value ); }
 		}
 		public string UserBoxRank
 		{
-			get { return _reg.GetValue<string>("UserBoxRank", "{0}: {1}<br clear=\"all\" />"); }
-			set { _reg.SetValue<string>("UserBoxRank", value); }
+			get { return _reg.GetValue<string>( "UserBoxRank", "{0}: {1}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxRank", value ); }
 		}
 		public string UserBoxGroups
 		{
-			get { return _reg.GetValue<string>("UserBoxGroups", "{0}: {1}<br clear=\"all\" />"); }
-			set { _reg.SetValue<string>("UserBoxGroups", value); }
+			get { return _reg.GetValue<string>( "UserBoxGroups", "{0}: {1}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxGroups", value ); }
 		}
 		public string UserBoxJoinDate
 		{
-			get { return _reg.GetValue<string>("UserBoxJoinDate", "{0}: {1}<br />"); }
-			set { _reg.SetValue<string>("UserBoxJoinDate", value); }
+			get { return _reg.GetValue<string>( "UserBoxJoinDate", "{0}: {1}<br />" ); }
+			set { _reg.SetValue<string>( "UserBoxJoinDate", value ); }
 		}
 		public string UserBoxPosts
 		{
-			get { return _reg.GetValue<string>("UserBoxPosts", "{0}: {1:N0}<br />"); }
-			set { _reg.SetValue<string>("UserBoxPosts", value); }
+			get { return _reg.GetValue<string>( "UserBoxPosts", "{0}: {1:N0}<br />" ); }
+			set { _reg.SetValue<string>( "UserBoxPosts", value ); }
 		}
 		public string UserBoxPoints
 		{
-			get { return _reg.GetValue<string>("UserBoxPoints", "{0}: {1:N0}<br />"); }
-			set { _reg.SetValue<string>("UserBoxPoints", value); }
+			get { return _reg.GetValue<string>( "UserBoxPoints", "{0}: {1:N0}<br />" ); }
+			set { _reg.SetValue<string>( "UserBoxPoints", value ); }
 		}
 		public string UserBoxLocation
 		{
-			get { return _reg.GetValue<string>("UserBoxLocation", "{0}: {1}<br />"); }
-			set { _reg.SetValue<string>("UserBoxLocation", value); }
+			get { return _reg.GetValue<string>( "UserBoxLocation", "{0}: {1}<br />" ); }
+			set { _reg.SetValue<string>( "UserBoxLocation", value ); }
 		}
 		/* 7/14/2007 */
 	}
@@ -505,16 +516,16 @@ namespace YAF.Classes.Utils
 		}
 		public bool GetValueBool( string name, bool defaultValue )
 		{
-			if (this[name.ToLower()] == null) return defaultValue;
+			if ( this [name.ToLower()] == null ) return defaultValue;
 			return Convert.ToBoolean( Convert.ToInt32( this [name.ToLower()] ) );
 		}
 		public void SetValueBool( string name, bool value )
 		{
 			this [name.ToLower()] = Convert.ToString( Convert.ToInt32( value ) );
 		}
-		public string GetValueString(string name, string defaultValue)
+		public string GetValueString( string name, string defaultValue )
 		{
-			if (this[name.ToLower()] == null) return defaultValue;
+			if ( this [name.ToLower()] == null ) return defaultValue;
 			return Convert.ToString( this [name.ToLower()] );
 		}
 		public void SetValueString( string name, string value )
@@ -523,14 +534,14 @@ namespace YAF.Classes.Utils
 		}
 
 		/* Ederon : 6/16/2007 */
-		public T GetValue<T>(string name, T defaultValue)
+		public T GetValue<T>( string name, T defaultValue )
 		{
-			if (this[name.ToLower()] == null) return defaultValue;
-			return (T)Convert.ChangeType(this[name.ToLower()], typeof(T));
+			if ( this [name.ToLower()] == null ) return defaultValue;
+			return ( T ) Convert.ChangeType( this [name.ToLower()], typeof( T ) );
 		}
-		public void SetValue<T>(string name, T value)
+		public void SetValue<T>( string name, T value )
 		{
-			this[name.ToLower()] = Convert.ToString(value);
+			this [name.ToLower()] = Convert.ToString( value );
 		}
 		/* 6/16/2007 */
 	}

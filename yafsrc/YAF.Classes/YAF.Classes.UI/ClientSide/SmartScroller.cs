@@ -62,7 +62,7 @@ namespace YAF.Classes.UI
 	
 			string scriptString = @"
 <!-- YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->
-<script language = ""javascript"">
+<script language = ""javascript"" type=""text/javascript"">
 <!--
 
   function yaf_GetForm()

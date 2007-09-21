@@ -92,6 +92,25 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Returns a "random" alpha-numeric string of specified length.
+		/// </summary>
+		/// <returns></returns>
+		public static string GenerateRandomString(int length)
+		{
+			Random r = new Random();
+			string pickfrom = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+			string result = "";
+			int picklen = pickfrom.Length - 1;
+			int index = 0;
+			for ( int i = 0; i < length; i++ )
+			{
+				index = r.Next( picklen );
+				result = result + pickfrom.Substring( index, 1 );
+			}
+			return result;
+		}
+
+		/// <summary>
 		/// Reads a template from the templates directory
 		/// </summary>
 		/// <param name="name">Name of template (not including path)</param>

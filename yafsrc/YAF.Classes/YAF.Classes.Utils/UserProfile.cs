@@ -194,20 +194,20 @@ namespace YAF.Classes.Utils
 				}
 				_userProfile = YafContext.Current.GetProfile( _membershipUser.UserName );
 				// get the data for this user from the DB...
-				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
-				if ( dt.Rows.Count > 0 )
+				DataRow userRow = UserMembershipHelper.GetUserRowForID( (int)_userID, false );
+				if ( userRow != null )
 				{
-					_userDBRow = dt.Rows [0];
+					_userDBRow = userRow;
 					_rowConvert = new DataRowConvert( _userDBRow );
 				}				
 			}
 			else if ( _userID != null )
 			{
 				// see if this is the guest user
-				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, _userID, true );
-				if ( dt.Rows.Count > 0 )
+				DataRow userRow = UserMembershipHelper.GetUserRowForID( (int)_userID, false );
+				if ( userRow != null )
 				{
-					_userDBRow = dt.Rows [0];
+					_userDBRow = userRow;
 					_userProfile = YafContext.Current.GetProfile( _userDBRow ["Name"].ToString() );
 					_rowConvert = new DataRowConvert( _userDBRow );
 				}

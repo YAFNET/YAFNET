@@ -118,7 +118,7 @@ namespace YAF.Classes.Utils
     }
 
     /// <summary>
-    /// Syncs the ASP.NET roles with YAF groups bi-directionally.
+    /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
     /// </summary>
     /// <param name="PageBoardID"></param>
     static public void SyncRoles( int pageBoardID )
@@ -138,7 +138,7 @@ namespace YAF.Classes.Utils
           }
         }
 
-        // get all the roles and create them in the YAF DB if they do not exist
+        /* get all the roles and create them in the YAF DB if they do not exist
         foreach ( string role in Roles.GetAllRoles() )
         {
           int nGroupID = 0;
@@ -155,6 +155,7 @@ namespace YAF.Classes.Utils
             nGroupID = ( int ) rows [0] ["GroupID"];
           }
         }
+				*/
       }
     }
 
@@ -223,7 +224,45 @@ namespace YAF.Classes.Utils
   /// </summary>
   public static class UserMembershipHelper
   {
-    /// <summary>
+		/// <summary>
+		/// Helper function that gets user data from the DB (or cache)
+		/// </summary>
+		/// <param name="usserID"></param>
+		/// <returns></returns>
+		public static DataRow GetUserRowForID( int userID, bool allowCached )
+		{
+			DataRow userRow = null;
+			string cacheKey = string.Format( "UserListForID{0}", userID );
+
+			if ( YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] == null || !allowCached )
+			{
+				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
+				if ( dt.Rows.Count == 1 )
+				{
+					userRow = dt.Rows [0];
+					// cache it
+					YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] = userRow;
+				}
+			}
+			else
+			{
+				userRow = ( ( DataRow ) YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] );
+			}
+
+			return userRow;
+		}
+
+		/// <summary>
+		/// Default allows the user row to be cached (mostly used for Provider key and UserID which never change)
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static DataRow GetUserRowForID( int userID )
+		{
+			return GetUserRowForID( userID, true );
+		}
+
+		/// <summary>
     /// Gets the user provider key from the UserID for a user
     /// </summary>
     /// <param name="UserID"></param>
@@ -231,14 +270,13 @@ namespace YAF.Classes.Utils
     public static object GetProviderUserKeyFromID( int userID )
     {
       object providerUserKey = null;
+			DataRow row = GetUserRowForID( userID );
 
-      DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
-      if ( dt.Rows.Count == 1 )
-      {
-        DataRow row = dt.Rows [0];
-        if ( row ["ProviderUserKey"] != DBNull.Value )
-          providerUserKey = row ["ProviderUserKey"];
-      }
+			if ( row != null )
+			{
+				if ( row ["ProviderUserKey"] != DBNull.Value )
+					providerUserKey = row ["ProviderUserKey"];
+			}
 
       return providerUserKey;    
     }
@@ -252,13 +290,13 @@ namespace YAF.Classes.Utils
     {
       string userName = string.Empty;
 
-      DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
-      if ( dt.Rows.Count == 1 )
-      {
-        DataRow row = dt.Rows [0];
-        if ( row ["Name"] != DBNull.Value )
-          userName = row ["Name"].ToString();
-      }
+			DataRow row = GetUserRowForID( userID );
+
+			if ( row != null )
+			{
+				if ( row ["Name"] != DBNull.Value )
+					userName = row ["Name"].ToString();
+			}
 
       return userName;
     }
