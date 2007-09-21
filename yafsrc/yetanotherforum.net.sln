@@ -37,12 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Providers", "YAF.Provid
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E:\...\YetAnotherForum.NET\", "YetAnotherForum.NET\", "{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.VirtualPath = "/YetAnotherForum.NET"
@@ -150,18 +144,6 @@ Global
 		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|.NET.Build.0 = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|.NET.ActiveCfg = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|.NET.Build.0 = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Debug|.NET.ActiveCfg = Debug|.NET
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Debug|.NET.Build.0 = Debug|.NET
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Debug|Any CPU.ActiveCfg = Debug|.NET
