@@ -770,15 +770,4 @@
 		<Resource tag="BODY">Type your message here:</Resource>
 		<Resource tag="ERROR">There was an error sending your e-mail.</Resource>
 	</page>
-	<page name="ADMIN_HOSTSETTINGS">
-		<Resource tag="SETTINGSTAB">Host Settings</Resource>
-		<Resource tag="FEATURESTAB">Features</Resource>
-		<Resource tag="DISPLAYTAB">Show/Display Items</Resource>
-		<Resource tag="ADVERTSTAB">Adverts</Resource>
-		<Resource tag="EDITORTAB">Editors</Resource>
-		<Resource tag="PERMSTAB">Permissions</Resource>
-		<Resource tag="SMPTTAB">SMTP</Resource>
-		<Resource tag="TEMPLATETAB">Templates</Resource>
-		<Resource tag="AVATARTAB">Avatars</Resource>
-	</page>
 </Resources>
