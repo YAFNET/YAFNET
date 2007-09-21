@@ -26,6 +26,7 @@ namespace YAF
 	{
 		public void ProcessRequest( HttpContext context )
 		{
+			// resource no longer works with dynamic compile...
 			if ( context.Request.QueryString ["r"] != null )
 			{
 				// resource request
@@ -45,6 +46,15 @@ namespace YAF
 				else if ( context.Request.QueryString ["a"] != null )
 				{
 					GetResponseAttachment( context );
+				}
+				else if ( context.Request.QueryString ["c"] != null && context.Session ["CaptchaImageText"] != null )
+				{
+					// captcha					
+					GetResponseCaptcha( context );
+				}
+				else
+				{
+					context.Response.Write( "Purgatory! CaptchaImageText = " + context.Session ["CaptchaImageText"] );
 				}
 			}
 			else
@@ -219,6 +229,22 @@ namespace YAF
 				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
 			}
 		}
+
+		private void GetResponseCaptcha( HttpContext context )
+		{
+			try
+			{
+				YAF.Classes.UI.CaptchaImage captchaImage = new YAF.Classes.UI.CaptchaImage( context.Session ["CaptchaImageText"].ToString(), 200, 50, "Century Schoolbook" );
+				context.Response.Clear();
+				context.Response.ContentType = "image/jpeg";
+				captchaImage.Image.Save( context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg );
+			}
+			catch ( Exception x )
+			{
+				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
+				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
+			}
+		}		
 
 		public bool IsReusable
 		{
