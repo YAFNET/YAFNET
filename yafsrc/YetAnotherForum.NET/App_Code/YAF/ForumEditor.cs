@@ -598,7 +598,7 @@ namespace YAF.Editor
 			base.OnInit( e );
 		}
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
+		protected override void Editor_Load( object sender, EventArgs e )
 		{
 			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymce", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "tiny_mce/tiny_mce.js" ) ) );
 			// this init JS script has to be created by you...
@@ -607,7 +607,7 @@ namespace YAF.Editor
 			RegisterSmilieyScript();
 		}
 
-		protected virtual void RegisterSmilieyScript()
+		protected override void RegisterSmilieyScript()
 		{
 			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
 				"<script language='javascript'>\n" +
@@ -629,7 +629,7 @@ namespace YAF.Editor
 			}
 		}
 
-		protected string SafeID
+		new protected string SafeID
 		{
 			get { return _textCtl.ClientID.Replace( "$", "_" ); }
 		}
