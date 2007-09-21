@@ -30,70 +30,66 @@ using System.Globalization;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
-namespace YAF.Pages.Admin {
+namespace YAF.Pages.Admin
+{
 	/// <summary>
 	/// Summary description for settings.
 	/// </summary>
 	public partial class hostsettings : YAF.Classes.Base.AdminPage
 	{
-		protected System.Web.UI.WebControls.CheckBox    AllowRichEditX   ;
+		protected System.Web.UI.WebControls.CheckBox AllowRichEditX;
 		protected System.Web.UI.HtmlControls.HtmlTableRow Tr1;
-		protected CheckBox AllowHTMLX   ;
+		protected CheckBox AllowHTMLX;
 
-        public hostsettings()
-			: base( "ADMIN_HOSTSETTINGS" )
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-		}
-
-		protected void Page_Load(object sender, System.EventArgs e) 
-		{
-			if(!PageContext.IsHostAdmin)
+			if ( !PageContext.IsHostAdmin )
 				YafBuildLink.AccessDenied();
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Host Settings","");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Host Settings", "" );
 
-                // Set Tab Localised Text
-                this.SettingsTab.HeaderText = GetText("SETTINGSTAB");
-                this.FeaturesTab.HeaderText = GetText("FEATURESTAB");
-                this.DisplayTab.HeaderText = GetText("DISPLAYTAB");
-                this.AdvertsTab.HeaderText = GetText("ADVERTSTAB");
-                this.EditorTab.HeaderText = GetText("EDITORTAB");
-                this.PermissionTab.HeaderText = GetText("PERMSTAB");
-                this.SMPTTab.HeaderText = GetText("SMPTTAB");
-                this.TemplatesTab.HeaderText = GetText("TEMPLATETAB");
-                this.AvatarsTab.HeaderText = GetText("AVATARTAB");
+				// Jaben 9/21: Removed localization. Admin isn't localized.
+				this.SettingsTab.HeaderText = "Host Settings";
+				this.FeaturesTab.HeaderText = "Features";
+				this.DisplayTab.HeaderText = "Show/Display Items";
+				this.AdvertsTab.HeaderText = "Adverts";
+				this.EditorTab.HeaderText = "Editors";
+				this.PermissionTab.HeaderText = "Permission & Security";
+				this.SMPTTab.HeaderText = "SMTP";
+				this.TemplatesTab.HeaderText = "Templates";
+				this.AvatarsTab.HeaderText = "Avatars";
 
 				BindData();
 			}
 
 			// Ederon : 7/1/2007
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
-			General.AddStyleAttributeWidth(SmiliesPerRow, "25px");
-			General.AddStyleAttributeWidth(SmiliesColumns, "25px");
-			General.AddStyleAttributeWidth(ForumEmailEdit, "200px");
-			General.AddStyleAttributeWidth(ForumSmtpServer, "200px");
-			General.AddStyleAttributeWidth(ForumSmtpUserName, "200px");
-			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
-			General.AddStyleAttributeWidth(AcceptedHTML, "200px");
+			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
+			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );
+			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
+			General.AddStyleAttributeWidth( ForumSmtpServer, "200px" );
+			General.AddStyleAttributeWidth( ForumSmtpUserName, "200px" );
+			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
+			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 
 			// Ederon : 7/14/2007
-			General.AddStyleAttributeSize(UserBox, "350px", "100px");
-			General.AddStyleAttributeWidth(UserBoxAvatar, "200px");
-			General.AddStyleAttributeWidth(UserBoxBadges, "200px");
-			General.AddStyleAttributeWidth(UserBoxGroups, "200px");
-			General.AddStyleAttributeWidth(UserBoxJoinDate, "200px");
-			General.AddStyleAttributeWidth(UserBoxLocation, "200px");
-			General.AddStyleAttributeWidth(UserBoxPosts, "200px");
-			General.AddStyleAttributeWidth(UserBoxPoints, "200px");
-			General.AddStyleAttributeWidth(UserBoxRank, "200px");
-			General.AddStyleAttributeWidth(UserBoxRankImage, "200px");
+			General.AddStyleAttributeSize( UserBox, "350px", "100px" );
+			General.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
+			General.AddStyleAttributeWidth( UserBoxBadges, "200px" );
+			General.AddStyleAttributeWidth( UserBoxGroups, "200px" );
+			General.AddStyleAttributeWidth( UserBoxJoinDate, "200px" );
+			General.AddStyleAttributeWidth( UserBoxLocation, "200px" );
+			General.AddStyleAttributeWidth( UserBoxPosts, "200px" );
+			General.AddStyleAttributeWidth( UserBoxPoints, "200px" );
+			General.AddStyleAttributeWidth( UserBoxRank, "200px" );
+			General.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
 
 			// Ederon : 9/9/2007
-			General.AddStyleAttributeWidth(ForumSmtpServerPort, "30px");
+			General.AddStyleAttributeWidth( ForumSmtpServerPort, "30px" );
 		}
 
 		private void BindData()
@@ -105,8 +101,8 @@ namespace YAF.Pages.Admin {
 
 			// grab all the settings form the current board settings class
 			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
-			TimeZones.Items.FindByValue(PageContext.BoardSettings.TimeZoneRaw.ToString()).Selected = true;
-			ForumEditorList.Items.FindByValue(PageContext.BoardSettings.ForumEditor.ToString()).Selected = true;
+			TimeZones.Items.FindByValue( PageContext.BoardSettings.TimeZoneRaw.ToString() ).Selected = true;
+			ForumEditorList.Items.FindByValue( PageContext.BoardSettings.ForumEditor.ToString() ).Selected = true;
 			ForumSmtpServer.Text = PageContext.BoardSettings.SmtpServer;
 			ForumSmtpUserName.Text = PageContext.BoardSettings.SmtpUserName;
 			ForumSmtpUserPass.Text = PageContext.BoardSettings.SmtpUserPass;
@@ -119,7 +115,7 @@ namespace YAF.Pages.Admin {
 			AvatarHeight.Text = PageContext.BoardSettings.AvatarHeight.ToString();
 			AvatarUpload.Checked = PageContext.BoardSettings.AvatarUpload;
 			AvatarRemote.Checked = PageContext.BoardSettings.AvatarRemote;
-			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
+			AvatarSize.Text = ( PageContext.BoardSettings.AvatarSize != 0 ) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
 			AllowUserThemeX.Checked = PageContext.BoardSettings.AllowUserTheme;
 			AllowUserLanguageX.Checked = PageContext.BoardSettings.AllowUserLanguage;
 			UseFileTableX.Checked = PageContext.BoardSettings.UseFileTable;
@@ -129,7 +125,7 @@ namespace YAF.Pages.Admin {
 			AllowEmailSendingX.Checked = PageContext.BoardSettings.AllowEmailSending;
 			AllowSignaturesX.Checked = PageContext.BoardSettings.AllowSignatures;
 			RemoveNestedQuotesX.Checked = PageContext.BoardSettings.RemoveNestedQuotes;
-			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
+			MaxFileSize.Text = ( PageContext.BoardSettings.MaxFileSize != 0 ) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
 			SmiliesColumns.Text = PageContext.BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = PageContext.BoardSettings.SmiliesPerRow.ToString();
 			LockPosts.Text = PageContext.BoardSettings.LockPosts.ToString();
@@ -144,22 +140,22 @@ namespace YAF.Pages.Admin {
 			PollVoteTiedToIPX.Checked = PageContext.BoardSettings.PollVoteTiedToIP;
 			AllowPMNotifications.Checked = PageContext.BoardSettings.AllowPMEmailNotification;
 			ShowPageGenerationTime.Checked = PageContext.BoardSettings.ShowPageGenerationTime;
-            AdPost.Text = PageContext.BoardSettings.AdPost;
-            ShowAdsToSignedInUsers.Checked = PageContext.BoardSettings.ShowAdsToSignedInUsers;
+			AdPost.Text = PageContext.BoardSettings.AdPost;
+			ShowAdsToSignedInUsers.Checked = PageContext.BoardSettings.ShowAdsToSignedInUsers;
 			DisplayPoints.Checked = PageContext.BoardSettings.DisplayPoints;
-            ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
-            ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
-            EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
-			
+			ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
+			ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
+			EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
+
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
 			DisplayJoinDate.Checked = PageContext.BoardSettings.DisplayJoinDate;
 			ShowBadges.Checked = PageContext.BoardSettings.ShowBadges;
 			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
 
-            // Mek : 08/18/2007 Added
-            AllowReportAbuse.Checked = PageContext.BoardSettings.AllowReportAbuse;
-            AllowReportSpam.Checked = PageContext.BoardSettings.AllowReportSpam;
+			// Mek : 08/18/2007 Added
+			AllowReportAbuse.Checked = PageContext.BoardSettings.AllowReportAbuse;
+			AllowReportSpam.Checked = PageContext.BoardSettings.AllowReportSpam;
 
 			// Ederon : 8/29/2007 added
 			AllowEmailTopic.Checked = PageContext.BoardSettings.AllowEmailTopic;
@@ -179,46 +175,30 @@ namespace YAF.Pages.Admin {
 			// Ederon : 9/9/2007 added
 			ForumSmtpServerPort.Text = PageContext.BoardSettings.SmtpServerPort;
 			ForumSmtpServerSsl.Checked = PageContext.BoardSettings.SmtpServerSsl;
+
+			// Captcha Settings
+			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
+			EnableCaptchaForPostMessage.Checked = PageContext.BoardSettings.EnableCaptchaForPostMessage;
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-
-		protected void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click( object sender, System.EventArgs e )
 		{
 			// write all the settings back to the settings class
-			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32(TimeZones.SelectedItem.Value);
-			PageContext.BoardSettings.ForumEditor = Convert.ToInt32(ForumEditorList.SelectedItem.Value);
+			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32( TimeZones.SelectedItem.Value );
+			PageContext.BoardSettings.ForumEditor = Convert.ToInt32( ForumEditorList.SelectedItem.Value );
 			PageContext.BoardSettings.SmtpServer = ForumSmtpServer.Text;
-			PageContext.BoardSettings.SmtpUserName = General.ProcessText(ForumSmtpUserName.Text);
-			PageContext.BoardSettings.SmtpUserPass = General.ProcessText(ForumSmtpUserPass.Text);
+			PageContext.BoardSettings.SmtpUserName = General.ProcessText( ForumSmtpUserName.Text );
+			PageContext.BoardSettings.SmtpUserPass = General.ProcessText( ForumSmtpUserPass.Text );
 			PageContext.BoardSettings.ForumEmail = ForumEmailEdit.Text;
 			PageContext.BoardSettings.EmailVerification = EmailVerification.Checked;
 			PageContext.BoardSettings.ShowMoved = ShowMoved.Checked;
 			PageContext.BoardSettings.BlankLinks = BlankLinks.Checked;
 			PageContext.BoardSettings.ShowGroups = ShowGroupsX.Checked;
-			PageContext.BoardSettings.AvatarWidth = Convert.ToInt32(AvatarWidth.Text);
-			PageContext.BoardSettings.AvatarHeight = Convert.ToInt32(AvatarHeight.Text);
+			PageContext.BoardSettings.AvatarWidth = Convert.ToInt32( AvatarWidth.Text );
+			PageContext.BoardSettings.AvatarHeight = Convert.ToInt32( AvatarHeight.Text );
 			PageContext.BoardSettings.AvatarUpload = AvatarUpload.Checked;
 			PageContext.BoardSettings.AvatarRemote = AvatarRemote.Checked;
-			PageContext.BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32(AvatarSize.Text) : 0;
+			PageContext.BoardSettings.AvatarSize = ( AvatarSize.Text.Trim().Length > 0 ) ? Convert.ToInt32( AvatarSize.Text ) : 0;
 			PageContext.BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
 			PageContext.BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
 			PageContext.BoardSettings.UseFileTable = UseFileTableX.Checked;
@@ -228,13 +208,13 @@ namespace YAF.Pages.Admin {
 			PageContext.BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
 			PageContext.BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
 			PageContext.BoardSettings.RemoveNestedQuotes = RemoveNestedQuotesX.Checked;
-			PageContext.BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32(MaxFileSize.Text.Trim()) : 0;
-			PageContext.BoardSettings.SmiliesColumns = Convert.ToInt32(SmiliesColumns.Text.Trim());
-			PageContext.BoardSettings.SmiliesPerRow = Convert.ToInt32(SmiliesPerRow.Text.Trim());
-			PageContext.BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32(LockPosts.Text.Trim());
-			PageContext.BoardSettings.PostsPerPage = Convert.ToInt32(PostsPerPage.Text.Trim());
-			PageContext.BoardSettings.TopicsPerPage = Convert.ToInt32(TopicsPerPage.Text.Trim());
-			PageContext.BoardSettings.PostFloodDelay = Convert.ToInt32(PostFloodDelay.Text.Trim());
+			PageContext.BoardSettings.MaxFileSize = ( MaxFileSize.Text.Trim().Length > 0 ) ? Convert.ToInt32( MaxFileSize.Text.Trim() ) : 0;
+			PageContext.BoardSettings.SmiliesColumns = Convert.ToInt32( SmiliesColumns.Text.Trim() );
+			PageContext.BoardSettings.SmiliesPerRow = Convert.ToInt32( SmiliesPerRow.Text.Trim() );
+			PageContext.BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32( LockPosts.Text.Trim() );
+			PageContext.BoardSettings.PostsPerPage = Convert.ToInt32( PostsPerPage.Text.Trim() );
+			PageContext.BoardSettings.TopicsPerPage = Convert.ToInt32( TopicsPerPage.Text.Trim() );
+			PageContext.BoardSettings.PostFloodDelay = Convert.ToInt32( PostFloodDelay.Text.Trim() );
 			PageContext.BoardSettings.DateFormatFromLanguage = DateFormatFromLanguage.Checked;
 			PageContext.BoardSettings.AcceptedHTML = AcceptedHTML.Text.Trim();
 			PageContext.BoardSettings.DisableRegistrations = DisableRegistrations.Checked;
@@ -243,22 +223,22 @@ namespace YAF.Pages.Admin {
 			PageContext.BoardSettings.PollVoteTiedToIP = PollVoteTiedToIPX.Checked;
 			PageContext.BoardSettings.AllowPMEmailNotification = AllowPMNotifications.Checked;
 			PageContext.BoardSettings.ShowPageGenerationTime = ShowPageGenerationTime.Checked;
-            PageContext.BoardSettings.AdPost = AdPost.Text;
-            PageContext.BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
+			PageContext.BoardSettings.AdPost = AdPost.Text;
+			PageContext.BoardSettings.ShowAdsToSignedInUsers = ShowAdsToSignedInUsers.Checked;
 			PageContext.BoardSettings.DisplayPoints = DisplayPoints.Checked;
-            PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
-            PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
-            PageContext.BoardSettings.EditTimeOut = Convert.ToInt32(EditTimeOut.Text);
-			
+			PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
+			PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
+			PageContext.BoardSettings.EditTimeOut = Convert.ToInt32( EditTimeOut.Text );
+
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
 			PageContext.BoardSettings.ShowBadges = ShowBadges.Checked;
 			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
 			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
 
-            // Mek : 8/18/2007 added
-            PageContext.BoardSettings.AllowReportAbuse = AllowReportAbuse.Checked;
-            PageContext.BoardSettings.AllowReportSpam = AllowReportSpam.Checked;
+			// Mek : 8/18/2007 added
+			PageContext.BoardSettings.AllowReportAbuse = AllowReportAbuse.Checked;
+			PageContext.BoardSettings.AllowReportSpam = AllowReportSpam.Checked;
 
 			// Ederon : 8/29/2007 added
 			PageContext.BoardSettings.AllowEmailTopic = AllowEmailTopic.Checked;
@@ -276,8 +256,12 @@ namespace YAF.Pages.Admin {
 			PageContext.BoardSettings.UserBoxRankImage = UserBoxRankImage.Text;
 
 			// Ederon : 9/9/2007 added
-			PageContext.BoardSettings.SmtpServerPort = General.ProcessText(ForumSmtpServerPort.Text);
+			PageContext.BoardSettings.SmtpServerPort = General.ProcessText( ForumSmtpServerPort.Text );
 			PageContext.BoardSettings.SmtpServerSsl = ForumSmtpServerSsl.Checked;
+
+			// CAPTCHA stuff
+			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
+			PageContext.BoardSettings.EnableCaptchaForPostMessage = EnableCaptchaForPostMessage.Checked;
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();
@@ -285,7 +269,7 @@ namespace YAF.Pages.Admin {
 			// reload all settings from the DB
 			PageContext.BoardSettings = null;
 
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
 		}
 	}
 }

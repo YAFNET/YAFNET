@@ -113,6 +113,13 @@ namespace YAF.Pages
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
 				CreatePollRow.Visible = TopicID == null && PageContext.ForumPollAccess;
 
+				if ( PageContext.BoardSettings.EnableCaptchaForPostMessage )
+				{
+					Session ["CaptchaImageText"] = General.GenerateRandomString( PageContext.BoardSettings.CaptchaSize );
+					tr_captcha1.Visible = true;
+					tr_captcha2.Visible = true;
+				}
+
 				if (PageContext.Settings.LockedForum == 0)
 				{
 					PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));

@@ -170,18 +170,22 @@
       <!-- editor goes here -->
     </td>
   </tr>
-  <!--tr>
-		<td class=postheader>&nbsp;</td>
-		<td class=post>
-			<input type=button value=" B " style="font-weight:bold" onclick="makebold()">
-			<input type=button value=" I " style="font-weight:bold;font-style:italic" onclick="makeitalic()">
-			<input type=button value=" U " style="font-weight:bold;text-decoration:underline" onclick="makeunderline()">
-			<input type=button value=" URL " onclick="makeurl()">
-			<input type=button value=" QUOTE " onclick="makequote()">
-			<input type=button value=" IMG " onclick="makeimg()">
-			<input type=button value=" CODE " onclick="makecode()">
-		</td>
-	</tr-->
+  <tr runat="server" id="tr_captcha1" visible="false">
+      <td class="postformheader" valign="top">
+          <%= GetText("Captcha_Image") %>
+          <br />
+          <%= GetText("Captcha_Image1") %>
+      </td>
+      <td class="post"><asp:Image ID="imgCaptcha" runat="server" /></td>
+  </tr>
+  <tr runat="server" id="tr_captcha2" visible="false">
+      <td class="postformheader" valign="top">
+          <%= GetText("Captcha_Enter") %>
+      </td>
+      <td class="post">
+          <asp:TextBox ID="tbCaptcha" runat="server" />
+      </td>
+  </tr>  
   <tr id="EditReasonRow" runat="server">
     <td class="postformheader" width="20%">
       <%= GetText("EditReason") %>

@@ -85,7 +85,8 @@ namespace YAF.Pages // YAF.Pages
         System.Web.Security.Membership.UpdateUser( user );
 
         // now redirect to login...
-				PageContext.AddLoadMessage( GetText( "EMAIL_VERIFIED" ) );
+				PageContext.AddLoadMessageSession( GetText( "EMAIL_VERIFIED" ) );
+
         YafBuildLink.Redirect( ForumPages.login );
 			}
 		}

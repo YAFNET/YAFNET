@@ -114,7 +114,7 @@
                         <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
                             <tr>
                                 <td class="header1" colspan="2">
-                                    Host Settings</td>
+                                    Features</td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -180,6 +180,24 @@
                                 <td class="post">
                                     <asp:CheckBox ID="ShowQuickAnswerX" runat="server"></asp:CheckBox></td>
                             </tr>
+                            <tr>
+                                <td class="header1" colspan="2">
+                                    CAPTCHA Settings</td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
+                                    <b>CAPTCHA Size:</b><br>
+                                    Size (length) of the CAPTCHA random alphanumeric string</td>
+                                <td class="post">
+                                    <asp:TextBox ID="CaptchaSize" runat="server"></asp:TextBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Enable CAPTCHA for Post Message:</b><br/>
+                                    Require users enter the CAPTCHA when they post a forum message.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="EnableCaptchaForPostMessage" runat="server"></asp:CheckBox></td>
+                            </tr>                                                     
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
@@ -349,7 +367,7 @@
                         <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
                             <tr>
                                 <td class="header1" colspan="2">
-                                    Permission Settings</td>
+                                    Permission</td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -567,10 +585,10 @@
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
             </ajaxToolkit:TabContainer>
-            <table class="content" cellspacing="1" cellpadding="0" align="center">
+            <table class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
-                    <td class="postfooter" align="center" colspan="2">
-                        <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button></td>
+                    <td class="postfooter" align="center">
+                        <asp:Button ID="Save" runat="server" Text="Save Settings" OnClick="Save_Click"></asp:Button></td>
                 </tr>
             </table>
         </YAF:AdminMenu>

@@ -79,26 +79,6 @@ namespace YAF.Pages.Admin
 			AllowThreaded.Checked = ( bool ) row ["AllowThreaded"];
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
-
 		protected void Save_Click( object sender, System.EventArgs e )
 		{
 			YAF.Classes.Data.DB.board_save( PageContext.PageBoardID, Name.Text, AllowThreaded.Checked );
