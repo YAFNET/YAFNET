@@ -4072,7 +4072,11 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_guest] as
+create procedure [dbo].[yaf_user_guest]
+(
+	@BoardID int
+)
+as
 begin
 	select top 1
 		a.UserID
@@ -4083,6 +4087,7 @@ begin
 	where
 		b.UserID = a.UserID and
 		b.GroupID = c.GroupID and
+		a.BoardID = @BoardID and
 		(c.Flags & 2)<>0
 end
 GO
