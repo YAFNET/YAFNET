@@ -173,8 +173,6 @@
   <tr runat="server" id="tr_captcha1" visible="false">
       <td class="postformheader" valign="top">
           <%= GetText("Captcha_Image") %>
-          <br />
-          <%= GetText("Captcha_Image1") %>
       </td>
       <td class="post"><asp:Image ID="imgCaptcha" runat="server" /></td>
   </tr>

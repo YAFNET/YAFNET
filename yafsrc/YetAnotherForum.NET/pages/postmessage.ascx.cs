@@ -116,6 +116,7 @@ namespace YAF.Pages
 				if ( PageContext.BoardSettings.EnableCaptchaForPostMessage )
 				{
 					Session ["CaptchaImageText"] = General.GenerateRandomString( PageContext.BoardSettings.CaptchaSize );
+					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
 					tr_captcha1.Visible = true;
 					tr_captcha2.Visible = true;
 				}
@@ -288,6 +289,12 @@ namespace YAF.Pages
 					PageContext.AddLoadMessage(GetText("NEED_CHOICES"));
 					return false;
 				}
+			}
+
+			if ( PageContext.BoardSettings.EnableCaptchaForPostMessage && Session ["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim() )
+			{
+				PageContext.AddLoadMessage( GetText( "BAD_CAPTCHA" ) );
+				return false;
 			}
 
 			return true;

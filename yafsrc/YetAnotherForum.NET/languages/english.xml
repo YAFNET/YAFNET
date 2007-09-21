@@ -65,6 +65,9 @@
 		<Resource tag="BACK">Back</Resource>
 		<Resource tag="UPDATE">Update</Resource>
 		<Resource tag="SUBMIT">Submit</Resource>
+		<Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+		<Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
+		<Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>		
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
