@@ -115,7 +115,7 @@ namespace YAF.Pages
 
 				if ( PageContext.BoardSettings.EnableCaptchaForPostMessage )
 				{
-					Session ["CaptchaImageText"] = General.GenerateRandomString( PageContext.BoardSettings.CaptchaSize );
+					Session ["CaptchaImageText"] = General.GetCaptchaString();
 					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
 					tr_captcha1.Visible = true;
 					tr_captcha2.Visible = true;
