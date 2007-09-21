@@ -216,8 +216,6 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 		LastVisit		datetime NOT NULL ,
 		IP				nvarchar (15) NULL ,
 		NumPosts		int NOT NULL ,
-		Location		nvarchar (50) NULL ,
-		HomePage		nvarchar (50) NULL ,
 		TimeZone		int NOT NULL ,
 		Avatar			nvarchar (255) NULL ,
 		Signature		ntext NULL ,
@@ -227,15 +225,6 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_yaf_User_OverrideDefaultThemes] DEFAULT (0),
-		MSN				nvarchar (50) NULL ,
-		YIM				nvarchar (30) NULL ,
-		AIM				nvarchar (30) NULL ,
-		ICQ				int NULL ,
-		RealName		nvarchar (50) NULL ,
-		Occupation		nvarchar (50) NULL ,
-		Interests		nvarchar (100) NULL ,
-		Gender			tinyint NOT NULL ,
-		Weblog			nvarchar (100) NULL,
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1),
 		[Flags] [int] NOT NULL CONSTRAINT [DF_yaf_User_Flags] DEFAULT (0),
 		[Points] [int] NOT NULL CONSTRAINT [DF_yaf_User_Points] DEFAULT (0),		
@@ -478,28 +467,80 @@ begin
 end
 GO
 
-/* post to blog start */ 
-
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUrl')
+-- remove columns that got moved to Profile
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Gender')
 begin
-	alter table dbo.yaf_User add WeblogUrl nvarchar(256)
+	alter table dbo.yaf_User drop column Gender
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUsername')
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Location')
 begin
-	alter table dbo.yaf_User add WeblogUsername nvarchar(256)
+	alter table dbo.yaf_User drop column Location
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogID')
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='HomePage')
 begin
-	alter table dbo.yaf_User add WeblogID nvarchar(50)
+	alter table dbo.yaf_User drop column HomePage
 end
 GO
 
-/* post to blog end */ 
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='MSN')
+begin
+	alter table dbo.yaf_User drop column MSN
+end
+GO
 
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='YIM')
+begin
+	alter table dbo.yaf_User drop column YIM
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='AIM')
+begin
+	alter table dbo.yaf_User drop column AIM
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='ICQ')
+begin
+	alter table dbo.yaf_User drop column ICQ
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='RealName')
+begin
+	alter table dbo.yaf_User drop column RealName
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Occupation')
+begin
+	alter table dbo.yaf_User drop column Occupation
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Interests')
+begin
+	alter table dbo.yaf_User drop column Interests
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Weblog')
+begin
+	alter table dbo.yaf_User drop column Weblog
+end
+GO
+
+if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUrl')
+begin
+	alter table dbo.yaf_User drop column WeblogUrl
+	alter table dbo.yaf_User drop column WeblogUsername
+	alter table dbo.yaf_User drop column WeblogID
+end
+GO
 
 -- yaf_Mesaage
 
