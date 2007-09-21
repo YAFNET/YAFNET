@@ -1,0 +1,85 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YAF.Controls</RootNamespace>
+    <AssemblyName>YAF.Controls</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\YetAnotherForum.NET\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Base\BaseControl.cs" />
+    <Compile Include="DataPanel.cs" />
+    <Compile Include="Footer.cs" />
+    <Compile Include="ForumJump.cs" />
+    <Compile Include="ForumUsers.cs" />
+    <Compile Include="Header.cs" />
+    <Compile Include="HelpMenu.cs" />
+    <Compile Include="IconLegend.cs" />
+    <Compile Include="MyLinkButton.cs" />
+    <Compile Include="PageAccess.cs" />
+    <Compile Include="PageLinks.cs" />
+    <Compile Include="Pager.cs" />
+    <Compile Include="PopMenu.cs" />
+    <Compile Include="ProfileMenu.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statistics\ActiveDiscussions.cs" />
+    <Compile Include="Statistics\MostActiveUser.cs" />
+    <Compile Include="TopicLine.cs" />
+    <Compile Include="UserLink.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
+      <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
+      <Name>YAF.Classes.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
+      <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
+      <Name>YAF.Classes.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.UI\YAF.Classes.UI.csproj">
+      <Project>{FD44387B-48BF-41CD-AF62-4C37ABC18403}</Project>
+      <Name>YAF.Classes.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
+      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
+      <Name>YAF.Classes.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
