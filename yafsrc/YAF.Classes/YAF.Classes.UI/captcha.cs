@@ -166,9 +166,9 @@ namespace YAF.Classes.UI
 			path.Warp( points, rect, matrix, WarpMode.Perspective, 0F );
 
 			// Draw the text.
-			hatchBrush = new HatchBrush( HatchStyle.LargeConfetti, Color.LightGray, Color.DarkGray );
+			hatchBrush = new HatchBrush( HatchStyle.LargeConfetti, Color.LightSkyBlue, Color.DarkGray );
 			g.FillPath( hatchBrush, path );
-
+			
 			// Add some random noise.
 			int m = Math.Max( rect.Width, rect.Height );
 			for ( int i = 0; i < ( int ) ( rect.Width * rect.Height / 30F ); i++ )

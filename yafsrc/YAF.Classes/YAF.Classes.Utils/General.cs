@@ -97,13 +97,12 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
-		/// Returns a "random" alpha-numeric string of specified length.
+		/// Returns a "random" alpha-numeric string of specified length and characters.
 		/// </summary>
 		/// <returns></returns>
-		public static string GenerateRandomString(int length)
+		public static string GenerateRandomString(int length, string pickfrom)
 		{
 			Random r = new Random();
-			string pickfrom = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 			string result = "";
 			int picklen = pickfrom.Length - 1;
 			int index = 0;
@@ -113,6 +112,15 @@ namespace YAF.Classes.Utils
 				result = result + pickfrom.Substring( index, 1 );
 			}
 			return result;
+		}
+		
+		/// <summary>
+		/// Gets the CaptchaString
+		/// </summary>
+		/// <returns></returns>
+		public static string GetCaptchaString()
+		{
+			return GenerateRandomString( YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789" );
 		}
 
 		/// <summary>
