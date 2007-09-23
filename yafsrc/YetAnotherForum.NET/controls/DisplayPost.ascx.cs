@@ -80,11 +80,11 @@ namespace YAF.Controls
 			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
 			// report posts
-			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse; // Mek Addition 08/18/2007
+			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
 			ReportButton.Text = PageContext.Localization.GetText( "REPORTPOST" ); // Mek Addition 08/18/2007
 
 			// report spam
-			ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam; // Mek Addition 08/18/2007
+			ReportSpamButton.Visible = PageContext.BoardSettings.AllowReportSpam && !IsGuest; // Mek Addition 08/18/2007
 			ReportSpamButton.Text = PageContext.Localization.GetText( "REPORTSPAM" ); // Mek Addition 08/18/2007
 
 			// private messages
