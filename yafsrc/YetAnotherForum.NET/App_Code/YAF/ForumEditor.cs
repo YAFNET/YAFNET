@@ -96,10 +96,10 @@ namespace YAF.Editor
 			// Ederon : 9/6/2007
 			/*if (this.Visible || this.)
 			{*/
-				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "yafeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("yafEditor/yafEditor.js")));
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "yafeditorjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl("yafEditor/yafEditor.js")));
 
 				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "createyafeditor",
-					"\n<script language='javascript'>\n" +
+					@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 					"var " + SafeID + "=new yafEditor('" + SafeID + "');\n" +
 					"function setStyle(style,option) {\n" +
 					"	" + SafeID + ".FormatText(style,option);\n" +
@@ -112,7 +112,7 @@ namespace YAF.Editor
 		protected virtual void RegisterSmilieyScript()
 		{
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				"<script language='javascript'>\n" +
+				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 				"function insertsmiley(code) {\n" +
 				"	" + SafeID + ".InsertSmiley(code);\n" +
 				"}\n" +
@@ -395,7 +395,7 @@ namespace YAF.Editor
 				pInfo = _typEditor.GetProperty("Height");
 				pInfo.SetValue(_editor, Unit.Pixel(300), null);
 
-				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("FCKEditorV2/FCKEditor.js")));
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl("FCKEditorV2/FCKEditor.js")));
 
 				RegisterSmilieyScript();
 			}
@@ -405,7 +405,7 @@ namespace YAF.Editor
 		{
 			// insert smiliey code -- can't get this working with FireFox!
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				"<script language='javascript'>\n" +
+				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 				"function insertsmiley(code) {\n" +
 				"var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
 				"if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" + 
@@ -467,7 +467,7 @@ namespace YAF.Editor
 				pInfo = _typEditor.GetProperty("BasePath");
 				pInfo.SetValue(_editor, ResolveUrl("FCKEditorV1/"), null);
 
-				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format("<script language='javascript' src='{0}'></script>", ResolveUrl("FCKEditorV1/FCKEditor.js")));
+				Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "fckeditorjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl("FCKEditorV1/FCKEditor.js")));
 			}
 		}
 
@@ -540,7 +540,7 @@ namespace YAF.Editor
 		protected virtual void RegisterSmilieyScript()
 		{
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				"<script language='javascript'>\n" +
+				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 				"function insertsmiley(code){" +
 				"FTB_InsertText('" + SafeID + "',code);" +
 				"}\n" +
@@ -581,7 +581,7 @@ namespace YAF.Editor
 		protected override void RegisterSmilieyScript()
 		{
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
-				"<script language='javascript'>\n" +
+				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 				"function insertsmiley(code){" +
 				"FTB_API['" + SafeID + "'].InsertHtml(code);" +
 				"}\n" +
@@ -600,9 +600,9 @@ namespace YAF.Editor
 
 		protected override void Editor_Load( object sender, EventArgs e )
 		{
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymce", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "tiny_mce/tiny_mce.js" ) ) );
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymce", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl( "tiny_mce/tiny_mce.js" ) ) );
 			// this init JS script has to be created by you...
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymceinit", string.Format( "<script language='javascript' src='{0}'></script>", ResolveUrl( "tiny_mce/tiny_mce_init.js" ) ) );
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "tinymceinit", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", ResolveUrl( "tiny_mce/tiny_mce_init.js" ) ) );
 
 			RegisterSmilieyScript();
 		}
@@ -610,7 +610,7 @@ namespace YAF.Editor
 		protected override void RegisterSmilieyScript()
 		{
 			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
-				"<script language='javascript'>\n" +
+				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
 				"function insertsmiley(code) {\n" +
 				"	tinyMCE.execCommand('mceInsertContent',false,code);\n" + 
 				"}\n" +
