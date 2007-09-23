@@ -22,6 +22,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -36,6 +37,7 @@ namespace YAF.Pages.Admin
   /// </summary>
   public partial class groups : YAF.Classes.Base.AdminPage
   {
+		private System.Collections.Specialized.StringCollection _availableRoles = new System.Collections.Specialized.StringCollection();
 
     protected void Page_Load( object sender, System.EventArgs e )
     {
@@ -52,27 +54,6 @@ namespace YAF.Pages.Admin
       }
     }
 
-    #region Web Form Designer generated code
-    override protected void OnInit( EventArgs e )
-    {
-      //
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      //
-      InitializeComponent();
-      base.OnInit( e );
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-      this.GroupList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler( this.GroupList_ItemCommand );
-
-    }
-    #endregion
-
     protected void Delete_Load( object sender, System.EventArgs e )
     {
       ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this Role?')";
@@ -80,11 +61,36 @@ namespace YAF.Pages.Admin
 
     private void BindData()
     {
-      GroupList.DataSource = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null );
+			DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null );
+			RoleListYaf.DataSource = dt;			
+
+			_availableRoles.Clear();
+
+			foreach ( string role in Roles.GetAllRoles() )
+			{
+				string filter = string.Format( "Name='{0}'", role );
+				DataRow [] rows = dt.Select( filter );
+
+				if ( rows.Length == 0 )
+				{
+					// doesn't exist in the Yaf Groups
+					_availableRoles.Add( role );
+				}
+			}
+
+			if ( _availableRoles.Count > 0 )
+			{
+				RoleListNet.DataSource = _availableRoles;
+			}
+			else
+			{
+				RoleListNet.DataSource = null;
+			}
+
       DataBind();
     }
 
-    private void GroupList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+    protected void RoleListYaf_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
     {
       switch ( e.CommandName )
       {
@@ -92,18 +98,36 @@ namespace YAF.Pages.Admin
           YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", e.CommandArgument );
           break;
         case "delete":
-          string roleName = string.Empty;
-          using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, e.CommandArgument ) )
-          {
-            foreach ( DataRow row in dt.Rows )
-              roleName = ( string ) row ["Name"];
-          }
           YAF.Classes.Data.DB.group_delete( e.CommandArgument );
           BindData();
-          System.Web.Security.Roles.DeleteRole( roleName, false );
           break;
       }
     }
+
+		protected void RoleListNet_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+		{
+			switch ( e.CommandName )
+			{
+				case "add":
+					long groupID = YAF.Classes.Data.DB.group_save( DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1 );
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", groupID );
+					break;
+				case "delete":
+					System.Web.Security.Roles.DeleteRole( e.CommandArgument.ToString(), false );
+					BindData();
+					break;
+			}
+		}
+
+		protected string GetLinkedStatus( System.Data.DataRowView currentRow )
+		{
+			if ( BitSet( currentRow ["Flags"], 2 ) == true )
+			{
+				return "Unlinkable";
+			}
+
+			return "Linked";
+		}
 
     protected void NewGroup_Click( object sender, System.EventArgs e )
     {
