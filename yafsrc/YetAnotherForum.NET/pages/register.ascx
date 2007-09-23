@@ -6,7 +6,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
     <asp:CreateUserWizard ID="CreateUserWizard1" runat="server" StartNextButtonText="Agree" StartNextButtonType="Link"
-        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick">
+        OnPreviousButtonClick="CreateUserWizard1_PreviousButtonClick" OnCreateUserError="CreateUserWizard1_CreateUserError" OnNextButtonClick="CreateUserWizard1_NextButtonClick" OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick" OnCreatingUser="CreateUserWizard1_CreatingUser">
         <WizardSteps>
             <asp:TemplatedWizardStep runat="server" Title="Agreement" AllowReturn="False" ID="agreement">
                 <ContentTemplate>
@@ -95,6 +95,20 @@
                                     ToolTip="Security answer is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
                             </td>
                         </tr>
+												<tr runat="server" id="tr_captcha1" visible="false">
+														<td align="right" class="postheader" valign="top">
+																<%= GetText("Captcha_Image") %>
+														</td>
+														<td class="post"><asp:Image ID="imgCaptcha" runat="server" /></td>
+												</tr>
+												<tr runat="server" id="tr_captcha2" visible="false">
+														<td align="right" class="postheader" valign="top">
+																<%= GetText("Captcha_Enter") %>
+														</td>
+														<td class="post">
+																<asp:TextBox ID="tbCaptcha" runat="server" />
+														</td>
+												</tr>                          
                         <tr align="right">
                             <td align="center" colspan="2" class="postfooter">
                                 <asp:Button ID="StepNextButton" runat="server" CommandName="MoveNext" Text="Create User" ValidationGroup="CreateUserWizard1" />

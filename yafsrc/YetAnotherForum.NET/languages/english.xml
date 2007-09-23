@@ -242,6 +242,7 @@
 		<Resource tag="REPORTPOST">Report as abusive</Resource>
 		<Resource tag="REPORTSPAM">Report as spam</Resource>
 		<Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
+		<Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

@@ -58,7 +58,7 @@ namespace YAF.Pages.Admin
 				this.DisplayTab.HeaderText = "Show/Display Items";
 				this.AdvertsTab.HeaderText = "Adverts";
 				this.EditorTab.HeaderText = "Editors";
-				this.PermissionTab.HeaderText = "Permission & Security";
+				this.PermissionTab.HeaderText = "Permission";
 				this.SMPTTab.HeaderText = "SMTP";
 				this.TemplatesTab.HeaderText = "Templates";
 				this.AvatarsTab.HeaderText = "Avatars";
@@ -178,7 +178,8 @@ namespace YAF.Pages.Admin
 
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
-			EnableCaptchaForPostMessage.Checked = PageContext.BoardSettings.EnableCaptchaForPostMessage;
+			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
+			EnableCaptchaForRegister.Checked = PageContext.BoardSettings.EnableCaptchaForRegister;
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -261,7 +262,8 @@ namespace YAF.Pages.Admin
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
-			PageContext.BoardSettings.EnableCaptchaForPostMessage = EnableCaptchaForPostMessage.Checked;
+			PageContext.BoardSettings.EnableCaptchaForPost = EnableCaptchaForPost.Checked;
+			PageContext.BoardSettings.EnableCaptchaForRegister = EnableCaptchaForRegister.Checked;
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();

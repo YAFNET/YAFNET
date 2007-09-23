@@ -133,11 +133,11 @@
 <table style="padding: 2px; margin: 2px" width="100%">
 	<tr>
 		<td>
-			<img align="center" src="<% =GetThemeContents("ICONS","FORUM_NEW") %>" alt="" />
+			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM_NEW") %>" alt="" />
 			<%# GetText("ICONLEGEND","New_Posts") %>
-			<img align="center" src="<% =GetThemeContents("ICONS","FORUM") %>" alt="" />
+			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM") %>" alt="" />
 			<%# GetText("ICONLEGEND","No_New_Posts") %>
-			<img align="center" src="<% =GetThemeContents("ICONS","FORUM_LOCKED") %>" alt="" />
+			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM_LOCKED") %>" alt="" />
 			<%# GetText("ICONLEGEND","Forum_Locked") %>
 		</td>
 		<td align="right">

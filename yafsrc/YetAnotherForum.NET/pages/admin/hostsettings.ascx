@@ -193,11 +193,18 @@
                             </tr>     
                             <tr>
                                 <td class="postheader">
-                                    <b>Enable CAPTCHA for Post Message:</b><br/>
-                                    Require users enter the CAPTCHA when they post a forum message.</td>
+                                    <b>Enable CAPTCHA for Post a Message:</b><br/>
+                                    Require users enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="EnableCaptchaForPostMessage" runat="server"></asp:CheckBox></td>
-                            </tr>                                                     
+                                    <asp:CheckBox ID="EnableCaptchaForPost" runat="server"></asp:CheckBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Enable CAPTCHA for Register:</b><br/>
+                                    Require users enter the CAPTCHA when they register for the forum.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="EnableCaptchaForRegister" runat="server"></asp:CheckBox></td>
+                            </tr>                                                                              
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>

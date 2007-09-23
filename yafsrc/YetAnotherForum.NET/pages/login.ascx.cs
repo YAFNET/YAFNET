@@ -59,7 +59,7 @@ namespace YAF.Pages // YAF.Pages
 				Login1.PasswordRecoveryUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 				Login1.FailureText = GetText( "password_error" );
 
-				if ( Request.QueryString ["ReturnUrl"] != null )
+				if ( !String.IsNullOrEmpty( Request.QueryString ["ReturnUrl"] ) )
 				{
 					Login1.DestinationPageUrl = Server.UrlDecode( Request.QueryString ["ReturnUrl"] );
 				}
@@ -89,6 +89,11 @@ namespace YAF.Pages // YAF.Pages
 
 				DataBind();
 			}
+		}
+
+		protected void Login1_LoginError( object sender, EventArgs e )
+		{
+			PageContext.AddLoadMessage( Login1.FailureText );
 		}
 	}
 }

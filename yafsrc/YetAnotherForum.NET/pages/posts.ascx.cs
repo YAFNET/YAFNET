@@ -107,6 +107,13 @@ namespace YAF.Pages // YAF.Pages
 				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&amp;t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
+				if ( PageContext.BoardSettings.EnableCaptchaForPost )
+				{
+					Session ["CaptchaImageText"] = General.GetCaptchaString();
+					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
+					CaptchaDiv.Visible = true;
+				}
+
 				if ( !PageContext.ForumPostAccess )
 				{
 					NewTopic1.Visible = false;
@@ -200,7 +207,13 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( QuickReplyEditor.Text.Length <= 0 )
 			{
-				PageContext.AddLoadMessage( "You can't post empty message" );
+				PageContext.AddLoadMessage( GetText( "EMPTY_MESSAGE") );
+				return;
+			}
+
+			if ( PageContext.BoardSettings.EnableCaptchaForPost && Session ["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim() )
+			{
+				PageContext.AddLoadMessage( GetText( "BAD_CAPTCHA" ) );
 				return;
 			}
 

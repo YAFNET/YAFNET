@@ -104,6 +104,18 @@ namespace YAF.Pages // YAF.Pages
           ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED_VERIFICATION" ), true );
 				}
 
+				if ( PageContext.BoardSettings.EnableCaptchaForRegister )
+				{
+					Session ["CaptchaImageText"] = General.GetCaptchaString();
+					Image imgCaptcha = ( Image ) createUserTemplateRef.FindControl( "imgCaptcha" );
+					HtmlTableRow tr_captcha1 = ( HtmlTableRow ) createUserTemplateRef.FindControl( "tr_captcha1" );
+					HtmlTableRow tr_captcha2 = ( HtmlTableRow ) createUserTemplateRef.FindControl( "tr_captcha2" );
+
+					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
+					tr_captcha1.Visible = true;
+					tr_captcha2.Visible = true;
+				}
+
 				CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
 				DataBind();
@@ -292,5 +304,18 @@ namespace YAF.Pages // YAF.Pages
         General.SendMail( PageContext.BoardSettings.ForumEmail, email, subject, body );
       }
 		}
-  }
+
+		protected void CreateUserWizard1_CreatingUser( object sender, LoginCancelEventArgs e )
+		{
+			Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
+			TextBox tbCaptcha = ( TextBox ) createUserTemplateRef.FindControl( "tbCaptcha" );
+
+			// verify captcha if enabled
+			if ( PageContext.BoardSettings.EnableCaptchaForRegister && Session ["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim() )
+			{
+				PageContext.AddLoadMessage( GetText( "BAD_CAPTCHA" ) );
+				e.Cancel = true;
+			}
+		}
+}
 }
