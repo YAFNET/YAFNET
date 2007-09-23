@@ -57,9 +57,11 @@ namespace YAF.Classes
 			string scriptname = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
 			string newURL = string.Format( "{0}?{1}", scriptname, url );
 
-			if ( scriptname.EndsWith("default.aspx") ) 
+			string scriptfile = "default.aspx"; //System.IO.Path.GetFileName( System.Web.HttpContext.Current.Request.Url.AbsolutePath );
+
+			if ( scriptname.EndsWith( scriptfile ) ) 
 			{
-				string before = scriptname.Remove( scriptname.LastIndexOf( "default.aspx" ) );
+				string before = scriptname.Remove( scriptname.LastIndexOf( scriptfile ) );
 
 				SimpleURLParameterParser parser = new SimpleURLParameterParser( url );
 
@@ -81,12 +83,12 @@ namespace YAF.Classes
 						handlePage = true;
 						break;
 					case "posts":
-						if ( parser ["t"] != null )
+						if ( !String.IsNullOrEmpty( parser ["t"] ) )
 						{
 							useKey = "t"; pageName += "t";
 							description = GetTopicName( Convert.ToInt32( parser [useKey] ) );
 						}
-						else if ( parser ["m"] != null )
+						else if ( !String.IsNullOrEmpty( parser ["m"] ) )
 						{
 							useKey = "m"; pageName += "m";
 							description = GetTopicNameFromMessage( Convert.ToInt32( parser [useKey] ) );
@@ -98,7 +100,7 @@ namespace YAF.Classes
 						//description = GetProfileName( Convert.ToInt32( parser [useKey] ) );
 						break;
 					case "forum":
-						if ( parser ["c"] != null )
+						if ( !String.IsNullOrEmpty( parser ["c"] ) )
 						{
 							useKey = "c";
 							description = GetCategoryName( Convert.ToInt32( parser [useKey] ) );

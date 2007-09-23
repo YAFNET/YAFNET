@@ -75,7 +75,7 @@ namespace YAF.Classes.UI
 		{
 
 			string javascript = string.Format( @"
-<script language=""javascript"">
+<script language=""javascript"" type=""text/javascript"">
 
 	var called = false;
 

@@ -275,7 +275,7 @@ namespace YAF.Classes.Base
 				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < YafForumInfo.AppVersion ) )
 				{
 					// needs upgrading...
-					Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=1" );
+					Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows [0] ["Value"] ) );
 				}
 			}
 			catch ( System.Data.SqlClient.SqlException )
@@ -477,6 +477,49 @@ namespace YAF.Classes.Base
 
 		#region Render Functions
 
+		protected System.Web.UI.Control FindControlRecursive( System.Web.UI.Control currentControl, string id )
+		{
+			System.Web.UI.Control foundControl = currentControl.FindControl( id );
+
+			if ( foundControl != null )
+			{
+				return foundControl;
+			}
+			else if ( foundControl == null && currentControl.Parent != null )
+			{
+				return this.FindControlRecursive( currentControl.Parent, id );
+			}
+			return null;
+		}
+
+		protected void SetupHeadControl( ref System.Web.UI.HtmlControls.HtmlHead head )
+		{
+			head.Title = _forumPageTitle;
+
+			// make the style sheet link controls.
+			head.Controls.Add( MakeStyleSheetControl( String.Format( "{0}forum.css", YafForumInfo.ForumRoot ) ) );
+			head.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
+
+			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )
+			{
+				HtmlMeta refresh = new HtmlMeta();
+				refresh.HttpEquiv = "Refresh";
+				refresh.Content = String.Format( "{1};url={0}", ForumHeader.RefreshURL, ForumHeader.RefreshTime );
+
+				head.Controls.Add( refresh );
+			}
+		}
+
+		protected HtmlLink MakeStyleSheetControl( string href )
+		{
+			HtmlLink stylesheet = new HtmlLink();
+			stylesheet.Href = href;
+			stylesheet.Attributes.Add( "rel", "stylesheet" );
+			stylesheet.Attributes.Add( "type", "text/css" );
+
+			return stylesheet;
+		}
+
 		private void ForumPage_PreRender( object sender, EventArgs e )
 		{
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
@@ -489,13 +532,24 @@ namespace YAF.Classes.Base
 				}
 			}
 
-			System.Web.UI.HtmlControls.HtmlTitle ctl;
-			ctl = ( System.Web.UI.HtmlControls.HtmlTitle ) Page.FindControl( "ForumTitle" );
+			HtmlHead head = (HtmlHead)this.FindControlRecursive( this, "YafHead" );
 
-			if ( ctl != null )
+			if ( head != null )
 			{
-				// set the page forum title -- from GeneratePageTitle function
-				ctl.Text = _forumPageTitle;
+				SetupHeadControl( ref head );
+				// tell the forum header not to put the CSS/Meta inside the body
+				ForumHeader.RenderHead = false;
+			}
+			else
+			{
+				// old style
+				System.Web.UI.HtmlControls.HtmlTitle title = ( System.Web.UI.HtmlControls.HtmlTitle ) Page.FindControl( "ForumTitle" );
+				if ( title != null )
+				{
+					title.Text = _forumPageTitle;
+				}
+				// tell the forum header to render "head" (CSS/Meta) inside the body
+				ForumHeader.RenderHead = true;
 			}
 
 			// setup the forum control header properties
