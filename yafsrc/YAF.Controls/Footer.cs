@@ -72,7 +72,7 @@ namespace YAF.Controls
 		{
 			if ( PageContext.LoadString.Length > 0 )
 			{
-				writer.WriteLine( String.Format( "<script language='javascript'>\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadString, '{', '}' ) );
+				writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadString, '{', '}' ) );
 			}
 		}
 

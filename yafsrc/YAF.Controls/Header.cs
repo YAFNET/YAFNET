@@ -178,7 +178,11 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.search ), PageContext.Localization.GetText( "TOOLBAR", "SEARCH" ) ) );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.active ), PageContext.Localization.GetText( "TOOLBAR", "ACTIVETOPICS" ) ) );
 				buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );
-				buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", HttpContext.Current.Server.UrlEncode( General.GetSafeRawUrl() ) ), PageContext.Localization.GetText( "TOOLBAR", "LOGIN" ) ) );
+
+				string returnUrl = GetReturnUrl();
+
+				buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", ( returnUrl == string.Empty ) ? YafBuildLink.GetLink( ForumPages.login ) : YafBuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", returnUrl ), PageContext.Localization.GetText( "TOOLBAR", "LOGIN" ) ) );
+
 				if ( !PageContext.BoardSettings.DisableRegistrations )
 					buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", YafBuildLink.GetLink( ForumPages.rules ), PageContext.Localization.GetText( "TOOLBAR", "REGISTER" ) ) );
 			}
@@ -195,6 +199,26 @@ namespace YAF.Controls
 			}
 
 			writer.Write( buildHeader );
+		}
+
+		protected string GetReturnUrl()
+		{
+			string returnUrl = string.Empty;
+
+			if ( PageContext.ForumPageType != ForumPages.login )
+			{
+				returnUrl = HttpContext.Current.Server.UrlEncode( General.GetSafeRawUrl() );
+			}
+			else
+			{
+				// see if there is already one since we are on the login page
+				if ( !String.IsNullOrEmpty( HttpContext.Current.Request.QueryString ["ReturnUrl"] ) )
+				{
+					returnUrl = HttpContext.Current.Server.UrlEncode( General.GetSafeRawUrl( HttpContext.Current.Request.QueryString ["ReturnUrl"] ) );
+				}
+			}
+
+			return returnUrl;
 		}
 	}
 
