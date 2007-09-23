@@ -8,8 +8,9 @@ public void Page_Error(object sender,System.EventArgs e)
 </script>
 
 <html>
-<head runat="server">
-<meta http-equiv="refresh" content="600">
+<head id="YafHead" runat="server">
+	<meta http-equiv="refresh" content="600">
+	<title>This title is overwritten</title>
 </head>
 <body>
 <form runat="server" enctype="multipart/form-data" ID="Form1">
