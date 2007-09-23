@@ -18,9 +18,9 @@
 	<td class="header1" width="1%">&nbsp;</td>
 	<td class="header1" align="left"><%= GetText("topics") %></td>
 	<td class="header1" align="left" width="20%"><%= GetText("topic_starter") %></td>
-	<td class="header1" align="middle" width="7%"><%= GetText("replies") %></td>
-	<td class="header1" align="middle" width="7%"><%= GetText("views") %></td>
-	<td class="header1" align="middle" width="20%"><%= GetText("lastpost") %></td>
+	<td class="header1" align="center" width="7%"><%= GetText("replies") %></td>
+	<td class="header1" align="center" width="7%"><%= GetText("views") %></td>
+	<td class="header1" align="center" width="20%"><%= GetText("lastpost") %></td>
 </tr>
 <tr>
 	<td class="header1" align="right" width="100%" colspan="6"><asp:hyperlink id="RssFeed" runat="server" /> <%= GetText("last_24") %></td>
@@ -32,7 +32,7 @@
 </ItemTemplate>
 </asp:repeater>
 <tr>
-	<td align="middle" colspan="6" class="footer1">&nbsp;</td>
+	<td align="center" colspan="6" class="footer1">&nbsp;</td>
 </tr>
 </table>
 

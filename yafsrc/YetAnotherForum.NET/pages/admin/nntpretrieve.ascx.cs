@@ -55,31 +55,11 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			Retrieve.Click += new EventHandler(Retrieve_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
-
-		private void Retrieve_Click(object sender, System.EventArgs e)
+		protected void Retrieve_Click(object sender, System.EventArgs e)
 		{
 			int nSeconds = int.Parse(Seconds.Text);
 			if(nSeconds<1) nSeconds = 1;
-			int nArticleCount = Nntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
+			int nArticleCount = YAF.Classes.Utils.Nntp.YafNntp.ReadArticles(PageContext.PageBoardID,10,nSeconds,PageContext.BoardSettings.CreateNntpUsers);
 			PageContext.AddLoadMessage(String.Format("Retrieved {0} articles. {1:N2} articles per second.",nArticleCount,(double)nArticleCount/nSeconds));
 			BindData();
 		}

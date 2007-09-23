@@ -87,7 +87,7 @@
       </ItemTemplate>
     </asp:Repeater>
     <tr>
-      <td class="postfooter" align="middle" colspan="11">
+      <td class="postfooter" align="center" colspan="11">
         <asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click"></asp:Button>&nbsp;
         <asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click"></asp:Button></td>
     </tr>

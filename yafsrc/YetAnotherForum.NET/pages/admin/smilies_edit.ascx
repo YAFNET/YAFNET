@@ -20,7 +20,7 @@
 	<td class=postheader width=50%><b>Icon:</b></td>
 	<td class=post width=50%>
 		<asp:dropdownlist id=Icon runat="server"/>
-		<img align="absmiddle" runat=server id=Preview/>
+		<img style="vertical-align:middle" runat=server id=Preview/>
 	</td>
 </tr>
 <tr>

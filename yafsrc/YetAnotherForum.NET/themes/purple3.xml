@@ -4,26 +4,26 @@
     <Resource tag="BANNER">images/YAFLogo.jpg</Resource>
   </page>
 	<page name="BUTTONS">
-		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/ButtonPack3/topic_moderate.png'/&gt;</Resource>
+		<Resource tag="MODERATE">&lt;img style="vertical-align:middle" src='~/ButtonPack3/topic_moderate.png'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/ButtonPack3/b_post_topic.png'/&gt;</Resource>
-		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/ButtonPack3/b_post_reply.png'/&gt;</Resource>
-		<Resource tag="DELETETOPIC">&lt;img align='absmiddle' src='~/ButtonPack3/b_delete_topic.png'/&gt;</Resource>
-		<Resource tag="LOCKTOPIC">&lt;img align='absmiddle' src='~/ButtonPack3/b_lock_topic.png'/&gt;</Resource>
-		<Resource tag="UNLOCKTOPIC">&lt;img align='absmiddle' src='~/ButtonPack3/b_unlock_topic.png'/&gt;</Resource>
-		<Resource tag="MOVETOPIC">&lt;img align='absmiddle' src='~/ButtonPack3/b_move_topic.png'/&gt;</Resource>
-		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/ButtonPack3/b_edit_post.png'/&gt;</Resource>
-		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/ButtonPack3/b_delete_post.png'/&gt;</Resource>
-		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/ButtonPack3/b_quote_post.png'/&gt;</Resource>
-		<Resource tag="REPLYPM">&lt;img align='absmiddle' src='~/ButtonPack3/b_post_reply.png'/&gt;</Resource>
-		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.png'/&gt;</Resource>
-		<Resource tag="PM">&lt;img align='absmiddle' src='~/p_pm.gif'/&gt;</Resource>
-		<Resource tag="WWW">&lt;img align='absmiddle' src='~/p_www.gif'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/p_blog.gif'/&gt;</Resource>
-		<Resource tag="EMAIL">&lt;img align='absmiddle' src='~/p_email.gif'/&gt;</Resource>
-		<Resource tag="MSN">&lt;img align='absmiddle' src='~/p_msn.gif'/&gt;</Resource>
-		<Resource tag="YAHOO">&lt;img align='absmiddle' src='~/p_yahoo.gif'/&gt;</Resource>
-		<Resource tag="AIM">&lt;img align='absmiddle' src='~/p_aim.gif'/&gt;</Resource>
-		<Resource tag="ICQ">&lt;img align='absmiddle' src='~/p_icq.gif'/&gt;</Resource>
+		<Resource tag="POSTREPLY">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_post_reply.png'/&gt;</Resource>
+		<Resource tag="DELETETOPIC">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_delete_topic.png'/&gt;</Resource>
+		<Resource tag="LOCKTOPIC">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_lock_topic.png'/&gt;</Resource>
+		<Resource tag="UNLOCKTOPIC">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_unlock_topic.png'/&gt;</Resource>
+		<Resource tag="MOVETOPIC">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_move_topic.png'/&gt;</Resource>
+		<Resource tag="EDITPOST">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_edit_post.png'/&gt;</Resource>
+		<Resource tag="DELETEPOST">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_delete_post.png'/&gt;</Resource>
+		<Resource tag="QUOTEPOST">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_quote_post.png'/&gt;</Resource>
+		<Resource tag="REPLYPM">&lt;img style="vertical-align:middle" src='~/ButtonPack3/b_post_reply.png'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="PM">&lt;img style="vertical-align:middle" src='~/p_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img style="vertical-align:middle" src='~/p_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" src='~/p_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img style="vertical-align:middle" src='~/p_msn.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" src='~/p_yahoo.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img style="vertical-align:middle" src='~/p_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img style="vertical-align:middle" src='~/p_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>

@@ -8,7 +8,7 @@
 
 	<table class="content" width="400px" border="0" cellpadding="0" cellspacing="1" align="center">
 	<tr class="header2">
-		<td colspan="2"><img runat="server" id="Status" align="absmiddle"/><%=GetText("TITLE")%></td>
+		<td colspan="2"><img runat="server" id="Status" style="vertical-align:middle"/><%=GetText("TITLE")%></td>
 	</tr>
 	<tr>
 		<td class="postheader"><%=GetText("NAME")%></td>

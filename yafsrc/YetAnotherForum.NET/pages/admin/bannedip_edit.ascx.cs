@@ -37,62 +37,47 @@ namespace YAF.Pages.Admin
 	public partial class bannedip_edit : YAF.Classes.Base.AdminPage
 	{
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Banned IP Addresses",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip));
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Banned IP Addresses", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_bannedip ) );
 
 				BindData();
 			}
 		}
 
-		private void BindData() {
-			if(Request.QueryString["i"] != null) {
-				DataRow row = YAF.Classes.Data.DB.bannedip_list(PageContext.PageBoardID,Request.QueryString["i"]).Rows[0];
-				mask.Text = (string)row["Mask"];
+		private void BindData()
+		{
+			if ( Request.QueryString ["i"] != null )
+			{
+				DataRow row = YAF.Classes.Data.DB.bannedip_list( PageContext.PageBoardID, Request.QueryString ["i"] ).Rows [0];
+				mask.Text = ( string ) row ["Mask"];
 			}
 		}
 
-		private void save_Click(object sender,EventArgs e) {
-			String[] ip = mask.Text.Split('.');
-			if(ip.Length!=4) {
-				PageContext.AddLoadMessage("Invalid ip address.");
+		protected void save_Click( object sender, EventArgs e )
+		{
+			String [] ip = mask.Text.Trim().Split( '.' );
+			if ( ip.Length != 4 )
+			{
+				PageContext.AddLoadMessage( "Invalid ip address." );
 				return;
 			}
-			YAF.Classes.Data.DB.bannedip_save(Request.QueryString["i"],PageContext.PageBoardID,mask.Text);
+			YAF.Classes.Data.DB.bannedip_save( Request.QueryString ["i"], PageContext.PageBoardID, mask.Text.Trim() );
 
 			// clear cache of banned IPs for this board
-			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
 
 			// go back to banned IP's administration page
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip );
 		}
 
-		private void cancel_Click(object sender,EventArgs e) {
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip);
-		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected void cancel_Click( object sender, EventArgs e )
 		{
-			save.Click += new EventHandler(save_Click);
-			cancel.Click += new EventHandler(cancel_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip );
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
 	}
 }

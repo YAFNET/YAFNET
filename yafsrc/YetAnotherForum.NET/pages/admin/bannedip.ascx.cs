@@ -37,56 +37,40 @@ namespace YAF.Pages.Admin
 	public partial class bannedip : YAF.Classes.Base.AdminPage
 	{
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Banned IP Addresses","");
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Banned IP Addresses", "" );
 
 				BindData();
 			}
 		}
 
-		private void BindData() {
-			list.DataSource = YAF.Classes.Data.DB.bannedip_list(PageContext.PageBoardID,null);
+		private void BindData()
+		{
+			list.DataSource = YAF.Classes.Data.DB.bannedip_list( PageContext.PageBoardID, null );
 			DataBind();
 		}
 
-		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) {
-			if(e.CommandName == "add")
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit);
-			else if(e.CommandName == "edit")
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit,"i={0}",e.CommandArgument);
-			else if(e.CommandName == "delete") {
-				YAF.Classes.Data.DB.bannedip_delete(e.CommandArgument);
-				
+		protected void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
+		{
+			if ( e.CommandName == "add" )
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit );
+			else if ( e.CommandName == "edit" )
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bannedip_edit, "i={0}", e.CommandArgument );
+			else if ( e.CommandName == "delete" )
+			{
+				YAF.Classes.Data.DB.bannedip_delete( e.CommandArgument );
+
 				// clear cache of banned IPs for this board
-				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.BannedIP));
+				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.BannedIP ) );
 
 				BindData();
-				PageContext.AddLoadMessage("Removed IP address ban.");
+				PageContext.AddLoadMessage( "Removed IP address ban." );
 			}
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			list.ItemCommand += new RepeaterCommandEventHandler(list_ItemCommand);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
-		#endregion
 	}
 }

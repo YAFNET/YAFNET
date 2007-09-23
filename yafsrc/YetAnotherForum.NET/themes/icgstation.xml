@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="iCGstation (phpBB port)" dir="icgstation">
 	<page name="BUTTONS">
-		<Resource tag="MODERATE">&lt;img align='absmiddle' src='~/topic_moderate.gif'/&gt;</Resource>
+		<Resource tag="MODERATE">&lt;img style="vertical-align:middle" src='~/topic_moderate.gif'/&gt;</Resource>
 		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/msg_newpost.gif'/&gt;</Resource>
-		<Resource tag="POSTREPLY">&lt;img align='absmiddle' src='~/reply.gif'/&gt;</Resource>
-		<Resource tag="DELETETOPIC">&lt;img align='absmiddle' src='~/topic_delete.gif'/&gt;</Resource>
-		<Resource tag="LOCKTOPIC">&lt;img align='absmiddle' src='~/reply-locked.gif'/&gt;</Resource>
-		<Resource tag="UNLOCKTOPIC">&lt;img align='absmiddle' src='~/topic-unlock.gif'/&gt;</Resource>
-		<Resource tag="MOVETOPIC">&lt;img align='absmiddle' src='~/b_move_topic.gif'/&gt;</Resource>
-		<Resource tag="EDITPOST">&lt;img align='absmiddle' src='~/icone_edit.gif'/&gt;</Resource>
-		<Resource tag="DELETEPOST">&lt;img align='absmiddle' src='~/b_delete_post.gif'/&gt;</Resource>
-		<Resource tag="QUOTEPOST">&lt;img align='absmiddle' src='~/icon_quote.gif'/&gt;</Resource>
-		<Resource tag="REPLYPM">&lt;img align='absmiddle' src='~/reply.gif'/&gt;</Resource>
-		<Resource tag="ATTACHMENTS">&lt;img align='absmiddle' src='~/b_attachments.gif'/&gt;</Resource>
-		<Resource tag="PM">&lt;img align='absmiddle' src='~/icon_pm.gif'/&gt;</Resource>
-		<Resource tag="WWW">&lt;img align='absmiddle' src='~/icon_www.gif'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img align='absmiddle' src='~/icon_blog.gif'/&gt;</Resource>
-		<Resource tag="EMAIL">&lt;img align='absmiddle' src='~/icon_email.gif'/&gt;</Resource>
-		<Resource tag="MSN">&lt;img align='absmiddle' src='~/icon_msnm.gif'/&gt;</Resource>
-		<Resource tag="YAHOO">&lt;img align='absmiddle' src='~/icon_yim.gif'/&gt;</Resource>
-		<Resource tag="AIM">&lt;img align='absmiddle' src='~/icon_aim.gif'/&gt;</Resource>
-		<Resource tag="ICQ">&lt;img align='absmiddle' src='~/icon_icq.gif'/&gt;</Resource>
+		<Resource tag="POSTREPLY">&lt;img style="vertical-align:middle" src='~/reply.gif'/&gt;</Resource>
+		<Resource tag="DELETETOPIC">&lt;img style="vertical-align:middle" src='~/topic_delete.gif'/&gt;</Resource>
+		<Resource tag="LOCKTOPIC">&lt;img style="vertical-align:middle" src='~/reply-locked.gif'/&gt;</Resource>
+		<Resource tag="UNLOCKTOPIC">&lt;img style="vertical-align:middle" src='~/topic-unlock.gif'/&gt;</Resource>
+		<Resource tag="MOVETOPIC">&lt;img style="vertical-align:middle" src='~/b_move_topic.gif'/&gt;</Resource>
+		<Resource tag="EDITPOST">&lt;img style="vertical-align:middle" src='~/icone_edit.gif'/&gt;</Resource>
+		<Resource tag="DELETEPOST">&lt;img style="vertical-align:middle" src='~/b_delete_post.gif'/&gt;</Resource>
+		<Resource tag="QUOTEPOST">&lt;img style="vertical-align:middle" src='~/icon_quote.gif'/&gt;</Resource>
+		<Resource tag="REPLYPM">&lt;img style="vertical-align:middle" src='~/reply.gif'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" src='~/b_attachments.gif'/&gt;</Resource>
+		<Resource tag="PM">&lt;img style="vertical-align:middle" src='~/icon_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img style="vertical-align:middle" src='~/icon_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" src='~/icon_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" src='~/icon_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img style="vertical-align:middle" src='~/icon_msnm.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" src='~/icon_yim.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img style="vertical-align:middle" src='~/icon_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img style="vertical-align:middle" src='~/icon_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/folder_new.gif</Resource>

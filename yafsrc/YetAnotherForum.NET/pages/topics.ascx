@@ -56,13 +56,13 @@
         <td class="header2" align="left" width="20%">
             <%# GetText("topic_starter") %>
         </td>
-        <td class="header2" align="middle" width="7%">
+        <td class="header2" align="center" width="7%">
             <%# GetText("replies") %>
         </td>
-        <td class="header2" align="middle" width="7%">
+        <td class="header2" align="center" width="7%">
             <%# GetText("views") %>
         </td>
-        <td class="header2" align="middle" width="25%">
+        <td class="header2" align="center" width="25%">
             <%# GetText("lastpost") %>
         </td>
     </tr>
@@ -81,7 +81,7 @@
     </asp:Repeater>
     <YAF:Forumusers runat="server" />
     <tr>
-        <td align="middle" colspan="6" class="footer1">
+        <td align="center" colspan="6" class="footer1">
             <table cellspacing="0" cellpadding="0" width="100%">
                 <tr>
                     <td width="1%">

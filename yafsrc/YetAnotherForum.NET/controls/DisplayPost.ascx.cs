@@ -47,7 +47,7 @@ namespace YAF.Controls
 				PopMenu1.Attach( UserProfileLink );
 			}
 
-			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( "<script language='javascript' src='{0}'></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
+			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
 			NameCell.ColSpan = int.Parse( GetIndentSpan() );
 		}
 

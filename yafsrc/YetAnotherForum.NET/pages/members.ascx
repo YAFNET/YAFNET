@@ -23,16 +23,16 @@
   </tr>
   <tr>
     <td class="header2">
-      <img runat="server" id="SortUserName" align="absmiddle" />
+      <img runat="server" id="SortUserName" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="UserName" /></td>
     <td class="header2">
-      <img runat="server" id="SortRank" align="absmiddle" />
+      <img runat="server" id="SortRank" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Rank" /></td>
     <td class="header2">
-      <img runat="server" id="SortJoined" align="absmiddle" />
+      <img runat="server" id="SortJoined" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Joined" /></td>
     <td class="header2" align="center">
-      <img runat="server" id="SortPosts" align="absmiddle" />
+      <img runat="server" id="SortPosts" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Posts" /></td>
     <td class="header2">
       <asp:Label runat="server" ID="Location" /></td>
