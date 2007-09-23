@@ -49,7 +49,7 @@ namespace YAF.Controls
 		{
 			if( ! Page.ClientScript.IsClientScriptBlockRegistered(_dataPanelScript)) 
 			{
-				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( "<script language='javascript' src='{0}'></script>", YafContext.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
+				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", YafContext.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
 			}
 		}
 

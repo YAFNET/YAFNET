@@ -20,6 +20,8 @@ using System;
 using System.Text;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -32,6 +34,7 @@ namespace YAF.Controls
 		private bool _simpleRender = false;
 		private string _refreshURL = null;
 		private int _refreshTime = 10;
+		private bool _renderHead = true;
 
 		/// <summary>
 		/// SimpleRender is used for for admin pages
@@ -69,6 +72,18 @@ namespace YAF.Controls
 			set
 			{
 				_refreshTime = value;
+			}
+		}
+
+		public bool RenderHead
+		{
+			get
+			{
+				return _renderHead;
+			}
+			set
+			{
+				_renderHead = value;
 			}
 		}
 
@@ -172,9 +187,13 @@ namespace YAF.Controls
 
 			// END HEADER
 
-			// write CSS, Refresh, then header...
-			WriteCSS( ref writer );
-			WriteRefresh( ref writer );
+			if ( _renderHead )
+			{
+				// write CSS, Refresh, then header...
+				WriteCSS( ref writer );
+				WriteRefresh( ref writer );
+			}
+
 			writer.Write( buildHeader );
 		}
 	}
