@@ -354,10 +354,16 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueBool( "ShowDeletedMessages", value ); }
 		}
 
-		public bool EnableCaptchaForPostMessage
+		public bool EnableCaptchaForPost
 		{
-			get { return _reg.GetValueBool( "EnableCaptchaForPostMessage", false ); }
-			set { _reg.SetValueBool( "EnableCaptchaForPostMessage", value ); }
+			get { return _reg.GetValueBool( "EnableCaptchaForPost", false ); }
+			set { _reg.SetValueBool( "EnableCaptchaForPost", value ); }
+		}
+
+		public bool EnableCaptchaForRegister
+		{
+			get { return _reg.GetValueBool( "EnableCaptchaForRegister", false ); }
+			set { _reg.SetValueBool( "EnableCaptchaForRegister", value ); }
 		}
 
 		// string settings

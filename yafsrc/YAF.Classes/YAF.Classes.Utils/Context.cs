@@ -229,6 +229,26 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Get the current page as the forumPage Enum (for comparison)
+		/// </summary>
+		public YAF.Classes.Utils.ForumPages ForumPageType
+		{
+			get
+			{
+				ForumPages currentPage = ForumPages.forum;
+				try
+				{
+					currentPage = ( ForumPages ) System.Enum.Parse( typeof( ForumPages ), HttpContext.Current.Request.QueryString ["g"], true );
+				}
+				catch ( Exception )
+				{
+					currentPage = ForumPages.forum;
+				}
+				return currentPage;
+			}
+		}
+
+		/// <summary>
 		/// Helper function to see if the Page variable is populated
 		/// </summary>
 		public bool PageIsNull()
