@@ -1,11 +1,17 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="showsmilies.ascx.cs" Inherits="YAF.Pages.showsmilies" %>
 
-<script language="javascript">
+<script type="text/javascript" language="javascript">
 <!--
+	// set close timer so this window doesn't stay open forever
+	var timeOutID = setTimeout(self.close, 20000);	
+
   function insertsmiley(code,icon)
   {
     window.opener.insertsmiley(code, icon);
     window.opener.focus();
+    // clear and set the close timer for another 20 seconds
+    clearTimeout( timeOutID );
+    timeOutID = setTimeout(self.close, 20000);
   }
 -->
 </script>
