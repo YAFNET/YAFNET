@@ -346,6 +346,13 @@ namespace YAF.Classes.Utils
       return Membership.GetUser( userName );
     }
 
+		/// <summary>
+		/// Helper function to update a user's email address.
+		/// Syncs with both the YAF DB and Membership Provider.
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <param name="newEmail"></param>
+		/// <returns></returns>
     public static bool UpdateEmail( int userID, string newEmail )
     {
       object providerUserKey = GetProviderUserKeyFromID( userID );
@@ -394,6 +401,7 @@ namespace YAF.Classes.Utils
       return false;
     }
 
+
     public static void DeleteAllUnapproved()
     {
       // get all users...
@@ -411,6 +419,10 @@ namespace YAF.Classes.Utils
       }      
     }
 
+		/// <summary>
+		/// For the admin fuction: approve all users. Approves all
+		/// users waiting for approval 
+		/// </summary>
     public static void ApproveAll()
     {
       // get all users...
@@ -429,6 +441,13 @@ namespace YAF.Classes.Utils
       }      
     }
 
+		/// <summary>
+		/// Checks Membership Provider to see if a user
+		/// with the username and email passed exists.
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <param name="email"></param>
+		/// <returns>true if they exist</returns>
 		public static bool UserExists( string userName, string email )
 		{
 			bool bExists = false;
@@ -451,6 +470,12 @@ namespace YAF.Classes.Utils
 			return bExists;
 		}
 
+		/// <summary>
+		/// Simply tells you if the userID passed is the Guest user
+		/// for the current board
+		/// </summary>
+		/// <param name="userID">ID of user to lookup</param>
+		/// <returns>true if the userid is a guest user</returns>
 		public static bool IsGuestUser( int userID )
 		{
 			int guestUserID = -1;
