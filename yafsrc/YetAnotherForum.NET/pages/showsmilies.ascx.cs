@@ -48,7 +48,7 @@ namespace YAF.Pages
 			code = code.Replace("\"", "&quot;");
 			code = code.Replace("'", "\\'");
 
-			return String.Format("javascript:{0}('{1} ','{3}images/emoticons/{2}');", "insertsmiley", code, icon, YAF.Classes.Config.Root);
+			return String.Format( "javascript:{0}('{1} ','{3}images/emoticons/{2}');", "insertsmiley", code, icon, YAF.Classes.Utils.YafForumInfo.ForumRoot );
 		}
 	}
 }

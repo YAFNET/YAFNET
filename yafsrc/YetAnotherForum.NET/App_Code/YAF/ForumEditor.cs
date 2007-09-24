@@ -329,7 +329,7 @@ namespace YAF.Editor
 
 		#region Properties
 
-		protected string SafeID
+		virtual protected string SafeID
 		{
 			get
 			{
@@ -406,10 +406,10 @@ namespace YAF.Editor
 			// insert smiliey code -- can't get this working with FireFox!
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code) {\n" +
+				"function insertsmiley(code,img) {\n" +
 				"var oEditor = FCKeditorAPI.GetInstance('" + SafeID + "');\n" +
-				"if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" + 
-				"oEditor.InsertHtml( code ); }\n" +
+				"if ( oEditor.EditMode == FCK_EDITMODE_WYSIWYG ) {\n" +
+				"oEditor.InsertHtml( '<img src=\"' + img + '\" alt=\"\" />' ); }\n" +
 				"else alert( 'You must be on WYSIWYG mode!' );\n" +
 				"}\n" +
 				"</script>\n");
@@ -582,8 +582,8 @@ namespace YAF.Editor
 		{
 			Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
 				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code){" +
-				"FTB_API['" + SafeID + "'].InsertHtml(code);" +
+				"function insertsmiley(code,img){" +
+				"FTB_API['" + SafeID + "'].InsertHtml('<img src=\"' + img + '\" alt=\"\" />');" +
 				"}\n" +
 				"</script>\n");
 		}
@@ -611,8 +611,8 @@ namespace YAF.Editor
 		{
 			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
 				@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-				"function insertsmiley(code) {\n" +
-				"	tinyMCE.execCommand('mceInsertContent',false,code);\n" + 
+				"function insertsmiley(code,img) {\n" +
+				"	tinyMCE.execCommand('mceInsertContent',false,'<img src=\"' + img + '\" alt=\"\" />');\n" + 
 				"}\n" +
 				"</script>\n" );
 		}
@@ -644,6 +644,94 @@ namespace YAF.Editor
 		}
 	}
 
+	// Telerik RAD Editor
+	public class RadEditor : RichClassEditor
+	{
+		public RadEditor()
+			: base( "Telerik.WebControls.RadEditor,RadEditor.Net2" )
+		{
+			InitEditorObject();
+		}
+
+		protected override void OnInit( EventArgs e )
+		{
+			if ( _init )
+			{
+				Load += new EventHandler( Editor_Load );
+				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
+				pInfo.SetValue( _editor, "edit", null );
+				Controls.Add( _editor );
+			}
+			base.OnInit( e );
+		}
+
+		protected virtual void Editor_Load( object sender, EventArgs e )
+		{
+			if ( _init && _editor.Visible )
+			{
+				PropertyInfo pInfo;
+				pInfo = _typEditor.GetProperty( "RadControlsDir" );
+				pInfo.SetValue( _editor, ResolveUrl( "RadControls/" ), null );
+
+				pInfo = _typEditor.GetProperty( "Height" );
+				pInfo.SetValue( _editor, Unit.Pixel( 400 ), null );
+
+				pInfo = _typEditor.GetProperty( "Width" );
+				pInfo.SetValue( _editor, Unit.Percentage( 100 ), null );
+
+				pInfo = _typEditor.GetProperty( "ShowSubmitCancelButtons" );
+				pInfo.SetValue( _editor, false, null );
+
+				RegisterSmilieyScript();
+			}
+		}
+
+		protected virtual void RegisterSmilieyScript()
+		{
+			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
+					@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
+					"function insertsmiley(code, img){\n" +
+					 SafeID + ".PasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
+					"}\n" +
+					"</script>\n" );
+		}
+
+		#region Properties
+		public override string Text
+		{
+			get
+			{
+				if ( _init )
+				{
+					PropertyInfo pInfo = _typEditor.GetProperty( "Html" );
+					return Convert.ToString( pInfo.GetValue( _editor, null ) );
+				}
+				else return string.Empty;
+			}
+			set
+			{
+				if ( _init )
+				{
+					PropertyInfo pInfo = _typEditor.GetProperty( "Html" );
+					pInfo.SetValue( _editor, value, null );
+				}
+			}
+		}
+
+		protected override string SafeID
+		{
+			get
+			{
+				if ( _init )
+				{
+					return _editor.ClientID;
+				}
+				return string.Empty;
+			}
+		}
+		#endregion
+	}
+
 	/// <summary>
 	/// This class provides a way to
 	/// get information on the editors. All 
@@ -660,10 +748,11 @@ namespace YAF.Editor
 			FCKv1 = 4,
 			BasicBBCode = 5,
 			FreeTextBoxv3 = 6,
-			TinyMCE = 7
+			TinyMCE = 7,
+			RadEditor = 8
 		}
 
-		public static int EditorCount = 8;
+		public static int EditorCount = 9;
 
 		public static string[] EditorTypeText =
 		{
@@ -674,7 +763,8 @@ namespace YAF.Editor
 			"FCK Editor v1.6 (HTML)",
 			"Basic BBCode Editor",
 			"FreeTextBox v3 (HTML)",
-			"TinyMCE (HTML)"
+			"TinyMCE (HTML)",
+			"Telerik RAD Editor (HTML)"
 		};
 
 		public static ForumEditor CreateEditorFromType(int Value)
@@ -698,6 +788,7 @@ namespace YAF.Editor
 				case EditorType.BasicBBCode: return new BasicBBCodeEditor();
 				case EditorType.FreeTextBoxv3: return new FreeTextBoxEditorv3();
 				case EditorType.TinyMCE: return new TinyMCEEditor();
+				case EditorType.RadEditor: return new RadEditor();
 			}
 
 			return null;

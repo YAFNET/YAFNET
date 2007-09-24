@@ -46,7 +46,7 @@ namespace YAF.Controls
 				MoreSmilies.NavigateUrl = YafBuildLink.GetLink(ForumPages.showsmilies);
 				MoreSmilies.Target = "yafShowSmilies";
 				MoreSmilies.Attributes.Add("onclick",
-					String.Format("window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');return false;",
+					String.Format( "var smiliesWin = window.open('{0}', '{1}', 'height={2},width={3},scrollbars=yes,resizable=yes');smiliesWin.focus();return false;",
 						MoreSmilies.NavigateUrl,
 						MoreSmilies.Target,
 						550,
