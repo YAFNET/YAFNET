@@ -92,11 +92,19 @@ namespace YAF
 			}
 		}
 		
+		/// <summary>
+		/// Called when the forum control sets it's Page Title
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
     void forumControl_PageTitleSet( object sender, YAF.Classes.Base.ForumPageArgs e )
     {
       if ( PageTitleSet != null ) PageTitleSet( this, e );
     }		
 
+		/// <summary>
+		/// The forum header control
+		/// </summary>
 		public YAF.Controls.Header Header
 		{
 			set
@@ -109,6 +117,9 @@ namespace YAF
 			}
 		}
 
+		/// <summary>
+		/// The forum footer control
+		/// </summary>
 		public YAF.Controls.Footer Footer
 		{
 			set
@@ -138,6 +149,9 @@ namespace YAF
 			return true;
 		}
 
+		/// <summary>
+		/// UserID for the current User (Read Only)
+		/// </summary>
 		public int PageUserID
 		{
 			get
@@ -146,6 +160,9 @@ namespace YAF
 			}
 		}
 
+		/// <summary>
+		/// Get or sets the Board ID for this instance of the forum control
+		/// </summary>
 		public int BoardID
 		{
 			get
@@ -158,6 +175,9 @@ namespace YAF
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the CategoryID for this instance of the forum control
+		/// </summary>
 		public int CategoryID
 		{
 			get
