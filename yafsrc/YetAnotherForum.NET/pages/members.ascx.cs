@@ -59,6 +59,11 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
+		/// <summary>
+		/// Called when the page loads
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			if ( User == null )
@@ -83,12 +88,21 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		//protects from script in "location" field	    
+		/// <summary>
+		/// protects from script in "location" field	    
+		/// </summary>
+		/// <param name="svalue"></param>
+		/// <returns></returns>
 		protected string GetStringSafely( object svalue )
 		{
-			return FormatMsg.RepairHtml( svalue.ToString(), true );
+			return HtmlEncode( svalue.ToString() );
 		}
 
+		/// <summary>
+		/// Helper function for setting up the current sort on the memberlist view
+		/// </summary>
+		/// <param name="field"></param>
+		/// <param name="asc"></param>
 		private void SetSort( string field, bool asc )
 		{
 			if ( ViewState ["SortField"] != null && ( string ) ViewState ["SortField"] == field )
@@ -135,8 +149,26 @@ namespace YAF.Pages // YAF.Pages
 		{
 			Pager.PageSize = 20;
 
-			DataView dv = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, true ).DefaultView;
+			// get the user list
+			DataTable userListDataTable = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, true );
+ 
+			// select only the guest user (if one exists)
+			DataRow [] guestRows = userListDataTable.Select( "IsGuest > 0" );
 
+			if ( guestRows.Length > 0 )
+			{
+				foreach ( DataRow row in guestRows )
+				{
+					row.Delete();
+				}
+				// commits the deletes to the table
+				userListDataTable.AcceptChanges();
+			}
+
+			// get the view from the datatable
+			DataView userListDataView = userListDataTable.DefaultView;
+
+			// handle dataview filtering
 			if ( QLetter != null )
 			{
 				if ( QLetter.ToString() == "#" )
@@ -149,17 +181,18 @@ namespace YAF.Pages // YAF.Pages
 						else
 							filter += string.Format( "and Name not like '{0}%'", letter );
 					}
-					dv.RowFilter = filter;
+					userListDataView.RowFilter = filter;
 				}
 				else
-					dv.RowFilter = string.Format( "Name like '{0}%'", QLetter );
+					userListDataView.RowFilter = string.Format( "Name like '{0}%'", QLetter );
 			}
 
-			Pager.Count = dv.Count;
+			Pager.Count = userListDataView.Count;
 
-			dv.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAscending"] ? "asc" : "desc" );
+			// create paged data source for the memberlist
+			userListDataView.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAscending"] ? "asc" : "desc" );
 			PagedDataSource pds = new PagedDataSource();
-			pds.DataSource = dv;
+			pds.DataSource = userListDataView;
 			pds.AllowPaging = true;
 			pds.CurrentPageIndex = Pager.CurrentPageIndex;
 			pds.PageSize = Pager.PageSize;
@@ -167,6 +200,8 @@ namespace YAF.Pages // YAF.Pages
 			MemberList.DataSource = pds;
 			DataBind();
 
+			// handle the sort fields at the top
+			// TODO: make these "sorts" into controls
 			SortUserName.Visible = ( string ) ViewState ["SortField"] == "Name";
 			SortUserName.Src = GetThemeContents( "SORT", ( bool ) ViewState ["SortAscending"] ? "ASCENDING" : "DESCENDING" );
 			SortRank.Visible = ( string ) ViewState ["SortField"] == "RankName";

@@ -23,27 +23,25 @@
   </tr>
   <tr>
     <td class="header2">
-      <img runat="server" id="SortUserName" style="vertical-align:middle" />
+      <img runat="server" id="SortUserName" alt="" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="UserName" /></td>
     <td class="header2">
-      <img runat="server" id="SortRank" style="vertical-align:middle" />
+      <img runat="server" id="SortRank" alt="" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Rank" /></td>
     <td class="header2">
-      <img runat="server" id="SortJoined" style="vertical-align:middle" />
+      <img runat="server" id="SortJoined" alt="" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Joined" /></td>
     <td class="header2" align="center">
-      <img runat="server" id="SortPosts" style="vertical-align:middle" />
+      <img runat="server" id="SortPosts" alt="" style="vertical-align:middle" />
       <asp:LinkButton runat="server" ID="Posts" /></td>
     <td class="header2">
-      <asp:Label runat="server" ID="Location" /></td>
+      <asp:Label runat="server" id="Location" /></td>
   </tr>
   <asp:Repeater ID="MemberList" runat="server">
     <ItemTemplate>
       <tr>
         <td class="post">
-          <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",Eval("UserID")) %>'>
-            <%# HtmlEncode(Eval("Name")) %>
-          </a>
+					<YAF:UserLink id="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' UserName='<%# Eval("Name") %>' />
         </td>
         <td class="post">
           <%# Eval("RankName") %>
