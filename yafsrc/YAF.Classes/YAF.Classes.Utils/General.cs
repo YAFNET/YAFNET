@@ -33,6 +33,11 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class General
 	{
+		/// <summary>
+		/// Converts an array of strings into a ulong representing a 4 byte IP address
+		/// </summary>
+		/// <param name="ip">string array of numbers</param>
+		/// <returns>ulong represending an encoding IP address</returns>
 		static public ulong Str2IP( String [] ip )
 		{
 			if ( ip.Length != 4 )
@@ -56,6 +61,12 @@ namespace YAF.Classes.Utils
 			return Str2IP( ip );
 		}
 
+		/// <summary>
+		/// Verifies that an ip and mask aren't banned
+		/// </summary>
+		/// <param name="ban">Banned IP</param>
+		/// <param name="chk">IP to Check</param>
+		/// <returns>true if it's banned</returns>
 		static public bool IsBanned( string ban, string chk )
 		{
 			string bannedIP = ban.Trim();
@@ -86,6 +97,11 @@ namespace YAF.Classes.Utils
 			return GetSafeRawUrl( System.Web.HttpContext.Current.Request.RawUrl );
 		}
 
+		/// <summary>
+		/// Cleans up a URL so that it doesn't contain any problem characters.
+		/// </summary>
+		/// <param name="url"></param>
+		/// <returns></returns>
 		static public string GetSafeRawUrl( string url )
 		{
 			string tProcessedRaw = url;
@@ -99,6 +115,8 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Returns a "random" alpha-numeric string of specified length and characters.
 		/// </summary>
+		/// <param name="length">the length of the random string</param>
+		/// <param name="pickfrom">the string of characters to pick randomly from</param>
 		/// <returns></returns>
 		public static string GenerateRandomString(int length, string pickfrom)
 		{
@@ -115,12 +133,48 @@ namespace YAF.Classes.Utils
 		}
 		
 		/// <summary>
-		/// Gets the CaptchaString
+		/// Gets the CaptchaString using the BoardSettings
 		/// </summary>
 		/// <returns></returns>
 		public static string GetCaptchaString()
 		{
 			return GenerateRandomString( YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789" );
+		}
+
+		/// <summary>
+		/// Truncates a string with the specified limits and adds (...) to the end if truncated
+		/// </summary>
+		/// <param name="input">input string</param>
+		/// <param name="limit">max size of string</param>
+		/// <returns>truncated string</returns>
+		public static string Truncate( string input, int limit )
+		{
+			string output = input;
+
+			// Check if the string is longer than the allowed amount
+			// otherwise do nothing
+			if ( output.Length > limit && limit > 0 )
+			{
+				// cut the string down to the maximum number of characters
+				output = output.Substring( 0, limit );
+
+				// Check if the space right after the truncate point 
+				// was a space. if not, we are in the middle of a word and 
+				// need to cut out the rest of it
+				if ( input.Substring( output.Length, 1 ) != " " )
+				{
+					int LastSpace = output.LastIndexOf( " " );
+
+					// if we found a space then, cut back to that space
+					if ( LastSpace != -1 )
+					{
+						output = output.Substring( 0, LastSpace );
+					}
+				}
+				// Finally, add the "..."
+				output += "...";
+			}
+			return output;
 		}
 
 		/// <summary>
