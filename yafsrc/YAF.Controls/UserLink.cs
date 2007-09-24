@@ -23,6 +23,9 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
+	/// <summary>
+	/// Provides a basic "profile link" for a YAF User
+	/// </summary>
 	public class UserLink : BaseControl
 	{
 		public UserLink()
@@ -38,6 +41,7 @@ namespace YAF.Controls
 		{
 			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ))
 			{
+				// is this the guest user? If so, guest's don't have a profile.
 				bool isGuest = YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( _userID );
 
 				output.BeginRender();
@@ -63,6 +67,9 @@ namespace YAF.Controls
 			}
 		}
 
+		/// <summary>
+		/// The onclick value for the profile link
+		/// </summary>
 		private string _onclick = string.Empty;
 		public string OnClick
 		{
@@ -75,7 +82,10 @@ namespace YAF.Controls
 				_onclick = value;
 			}
 		}
-
+		
+		/// <summary>
+		/// The onmouseover value for the profile link
+		/// </summary>
 		private string _onmouseover = string.Empty;
 		public string OnMouseOver
 		{
@@ -89,6 +99,9 @@ namespace YAF.Controls
 			}
 		}
 
+		/// <summary>
+		/// The name of the user for this profile link
+		/// </summary>
 		private string _userName = string.Empty;
 		public string UserName
 		{
@@ -102,6 +115,9 @@ namespace YAF.Controls
 			}
 		}
 
+		/// <summary>
+		/// The userid of this user for the link
+		/// </summary>
 		private int _userID = -1;
 		public int UserID
 		{
