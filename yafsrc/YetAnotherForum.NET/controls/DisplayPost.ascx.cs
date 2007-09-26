@@ -375,6 +375,8 @@ namespace YAF.Controls
 		// Ederon : 7/14/2007 - implemented user box template for formatting
 		protected string FormatUserBox()
 		{
+			/// TODO: Add userbox caching
+
 			if ( IsSponserMessage ) return "";
 
 			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
@@ -430,8 +432,9 @@ namespace YAF.Controls
 			{
 			}
 			else
-			{
-			}
+			{*/
+				userboxOutput.Replace(Constants.UserBox.Badges, "");
+			/*}
 			*/
 
 
@@ -472,7 +475,6 @@ namespace YAF.Controls
 			{
 				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
 
-				userboxOutput.AppendFormat( "{0}: ", PageContext.Localization.GetText( "groups" ) );
 				bool bFirst = true;
 
 				foreach ( string role in System.Web.Security.Roles.GetRolesForUser( DataRow ["UserName"].ToString() ) )
