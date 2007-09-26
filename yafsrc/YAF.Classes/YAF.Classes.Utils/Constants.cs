@@ -54,6 +54,7 @@ namespace YAF.Classes.Utils
 		{
 			public const string BannedIP = "BannedIP";
 			public const string BoardStats = "BoardStats";
+			public const string GuestUserID = "GuestUserID";
 		}
 	}
 }

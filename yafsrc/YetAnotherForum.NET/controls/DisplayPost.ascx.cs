@@ -35,20 +35,29 @@ namespace YAF.Controls
 	/// </summary>
 	public partial class DisplayPost : YAF.Classes.Base.BaseUserControl
 	{
+		#region Data Members
 
-		protected void Page_Load( object sender, System.EventArgs e )
+		private DataRowView _row = null;
+		private YafUserProfile _userProfile = null;
+		private bool _isAlt = false;
+		private bool _isThreaded = false;
+
+		#endregion
+
+
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			PopMenu1.Visible = PageContext.IsAdmin && !IsGuest;
-			if ( PopMenu1.Visible )
+			if (PopMenu1.Visible)
 			{
-				PopMenu1.ItemClick += new PopEventHandler( PopMenu1_ItemClick );
-				PopMenu1.AddItem( "userprofile", "User Profile" );
-				PopMenu1.AddItem( "edituser", "Edit User (Admin)" );
-				PopMenu1.Attach( UserProfileLink );
+				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
+				PopMenu1.AddItem("userprofile", "User Profile");
+				PopMenu1.AddItem("edituser", "Edit User (Admin)");
+				PopMenu1.Attach(UserProfileLink);
 			}
 
-			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
-			NameCell.ColSpan = int.Parse( GetIndentSpan() );
+			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "yafjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource("yaf.js")));
+			NameCell.ColSpan = int.Parse(GetIndentSpan());
 		}
 
 		private void DisplayPost_PreRender( object sender, EventArgs e )
@@ -173,16 +182,15 @@ namespace YAF.Controls
 			base.OnInit( e );
 		}
 
-		private DataRowView m_row = null;
 		public DataRowView DataRow
 		{
 			get
 			{
-				return m_row;
+				return _row;
 			}
 			set
 			{
-				m_row = value;
+				_row = value;
 			}
 		}
 
@@ -191,11 +199,11 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return UserMembershipHelper.IsGuestUser( Convert.ToInt32( DataRow ["UserID"] ) );
+				if (DataRow != null) return UserMembershipHelper.IsGuestUser(DataRow["UserID"]);
+				else return true;
 			}
 		}
 
-		private YafUserProfile _userProfile = null;
 		public YafUserProfile UserProfile
 		{
 			get
@@ -310,23 +318,21 @@ namespace YAF.Controls
 			}
 		}
 
-		private bool m_isAlt = false;
 		public bool IsAlt
 		{
-			get { return this.m_isAlt; }
-			set { this.m_isAlt = value; }
+			get { return this._isAlt; }
+			set { this._isAlt = value; }
 		}
 
-		private bool m_isThreaded = false;
 		public bool IsThreaded
 		{
 			get
 			{
-				return m_isThreaded;
+				return _isThreaded;
 			}
 			set
 			{
-				m_isThreaded = value;
+				_isThreaded = value;
 			}
 		}
 

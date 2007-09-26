@@ -28,225 +28,225 @@ using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
-  public static class RoleMembershipHelper
-  {
-    public static void SyncUsers( int pageBoardID )
-    {
-      string ForumURL = "forumurl";
-      string ForumEmail = "forumemail";
-      string ForumName = "forumname";
+	public static class RoleMembershipHelper
+	{
+		public static void SyncUsers(int pageBoardID)
+		{
+			string ForumURL = "forumurl";
+			string ForumEmail = "forumemail";
+			string ForumName = "forumname";
 
-      using ( DataTable dt = YAF.Classes.Data.DB.user_list( pageBoardID, DBNull.Value, true ) )
-      {
-        foreach ( DataRow row in dt.Rows )
-        {
-          if ( ( int ) row ["IsGuest"] > 0 )
-            continue;
+			using (DataTable dt = YAF.Classes.Data.DB.user_list(pageBoardID, DBNull.Value, true))
+			{
+				foreach (DataRow row in dt.Rows)
+				{
+					if ((int)row["IsGuest"] > 0)
+						continue;
 
-          string name = ( string ) row ["Name"];
+					string name = (string)row["Name"];
 
-          MembershipUser user = Membership.GetUser( name );
-          if ( user == null )
-          {
-            string password;
-            MembershipCreateStatus status;
-            int retry = 0;
-            do
-            {
-              password = Membership.GeneratePassword( 7 + retry, 1 + retry );
-              user = Membership.CreateUser( name, password, ( string ) row ["Email"], "-", ( string ) row ["Password"], true, out status );
-            } while ( status == MembershipCreateStatus.InvalidPassword && ++retry < 10 );
+					MembershipUser user = Membership.GetUser(name);
+					if (user == null)
+					{
+						string password;
+						MembershipCreateStatus status;
+						int retry = 0;
+						do
+						{
+							password = Membership.GeneratePassword(7 + retry, 1 + retry);
+							user = Membership.CreateUser(name, password, (string)row["Email"], "-", (string)row["Password"], true, out status);
+						} while (status == MembershipCreateStatus.InvalidPassword && ++retry < 10);
 
-            if ( status != MembershipCreateStatus.Success )
-            {
-              throw new ApplicationException( string.Format( "Failed to create user {0}: {1}", name, status ) );
-            }
-            else
-            {
-              user.Comment = "Copied from Yet Another Forum.net";
-              Membership.UpdateUser( user );
+						if (status != MembershipCreateStatus.Success)
+						{
+							throw new ApplicationException(string.Format("Failed to create user {0}: {1}", name, status));
+						}
+						else
+						{
+							user.Comment = "Copied from Yet Another Forum.net";
+							Membership.UpdateUser(user);
 
-              /// Email generated password to user
-              System.Text.StringBuilder msg = new System.Text.StringBuilder();
-              msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
-              msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
-              msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
+							/// Email generated password to user
+							System.Text.StringBuilder msg = new System.Text.StringBuilder();
+							msg.AppendFormat("Hello {0}.\r\n\r\n", name);
+							msg.AppendFormat("Here is your new password: {0}\r\n\r\n", password);
+							msg.AppendFormat("Visit {0} at {1}", ForumName, ForumURL);
 
-              YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
-            }
-          }
-          YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey );
+							YAF.Classes.Data.DB.mail_create(ForumEmail, user.Email, "Forum Upgrade", msg.ToString());
+						}
+					}
+					YAF.Classes.Data.DB.user_migrate(row["UserID"], user.ProviderUserKey);
 
 
-          using ( DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list( row ["UserID"] ) )
-          {
-            foreach ( DataRow rowGroup in dtGroups.Rows )
-            {
-              Roles.AddUserToRole( user.UserName, rowGroup ["Name"].ToString() );
-            }
-          }
-        }
-      }
-    }
+					using (DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list(row["UserID"]))
+					{
+						foreach (DataRow rowGroup in dtGroups.Rows)
+						{
+							Roles.AddUserToRole(user.UserName, rowGroup["Name"].ToString());
+						}
+					}
+				}
+			}
+		}
 
-    static private bool BitSet( object o, int bitmask )
-    {
-      int i = ( int ) o;
-      return ( i & bitmask ) != 0;
-    }
+		static private bool BitSet(object o, int bitmask)
+		{
+			int i = (int)o;
+			return (i & bitmask) != 0;
+		}
 
-    /// <summary>
-    /// Sets up the user roles from the "start" settings for a given group/role
-    /// </summary>
-    /// <param name="PageBoardID">Current BoardID</param>
-    /// <param name="userName"></param>
-    static public void SetupUserRoles( int pageBoardID, string userName )
-    {
-      using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )
-      {
-        foreach ( DataRow row in dt.Rows )
-        {
-          // see if the "Is Start" flag is set for this group and NOT the "Is Guest" flag (those roles aren't synced)
-          if ( BitSet( row ["Flags"], 4 ) && !BitSet( row["Flags"], 2) )
-          {
-            // add the user to this role in membership
-            string roleName = row ["Name"].ToString();
-            Roles.AddUserToRole( userName, roleName );
-          }
-        }
-      }
-    }
+		/// <summary>
+		/// Sets up the user roles from the "start" settings for a given group/role
+		/// </summary>
+		/// <param name="PageBoardID">Current BoardID</param>
+		/// <param name="userName"></param>
+		static public void SetupUserRoles(int pageBoardID, string userName)
+		{
+			using (DataTable dt = YAF.Classes.Data.DB.group_list(pageBoardID, DBNull.Value))
+			{
+				foreach (DataRow row in dt.Rows)
+				{
+					// see if the "Is Start" flag is set for this group and NOT the "Is Guest" flag (those roles aren't synced)
+					if (BitSet(row["Flags"], 4) && !BitSet(row["Flags"], 2))
+					{
+						// add the user to this role in membership
+						string roleName = row["Name"].ToString();
+						Roles.AddUserToRole(userName, roleName);
+					}
+				}
+			}
+		}
 
-    /// <summary>
-    /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
-    /// </summary>
-    /// <param name="PageBoardID"></param>
-    static public void SyncRoles( int pageBoardID )
-    {
-      // get all the groups in YAF DB and create them if they do not exist as a role in membership
-      using ( DataTable dt = YAF.Classes.Data.DB.group_list( pageBoardID, DBNull.Value ) )
-      {
-        foreach ( DataRow row in dt.Rows )
-        {
-          string name = ( string ) row ["Name"];
+		/// <summary>
+		/// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
+		/// </summary>
+		/// <param name="PageBoardID"></param>
+		static public void SyncRoles(int pageBoardID)
+		{
+			// get all the groups in YAF DB and create them if they do not exist as a role in membership
+			using (DataTable dt = YAF.Classes.Data.DB.group_list(pageBoardID, DBNull.Value))
+			{
+				foreach (DataRow row in dt.Rows)
+				{
+					string name = (string)row["Name"];
 
-          // bitset is testing if this role is a "Guest" role...
-          // if it is, we aren't syncing it.
-          if ( !BitSet(row["Flags"], 2) && !Roles.RoleExists( name ) )
-          {
-            Roles.CreateRole( name );
-          }
-        }
+					// bitset is testing if this role is a "Guest" role...
+					// if it is, we aren't syncing it.
+					if (!BitSet(row["Flags"], 2) && !Roles.RoleExists(name))
+					{
+						Roles.CreateRole(name);
+					}
+				}
 
-        /* get all the roles and create them in the YAF DB if they do not exist
-        foreach ( string role in Roles.GetAllRoles() )
-        {
-          int nGroupID = 0;
-          string filter = string.Format( "Name='{0}'", role );
-          DataRow [] rows = dt.Select( filter );
+				/* get all the roles and create them in the YAF DB if they do not exist
+				foreach ( string role in Roles.GetAllRoles() )
+				{
+				  int nGroupID = 0;
+				  string filter = string.Format( "Name='{0}'", role );
+				  DataRow [] rows = dt.Select( filter );
 
-          if ( rows.Length == 0 )
-          {
-            // sets new roles to default "Read Only" access
-            nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, pageBoardID, role, false, false, false, false, 1 );
-          }
-          else
-          {
-            nGroupID = ( int ) rows [0] ["GroupID"];
-          }
-        }
-				*/
-      }
-    }
+				  if ( rows.Length == 0 )
+				  {
+					// sets new roles to default "Read Only" access
+					nGroupID = ( int ) YAF.Classes.Data.DB.group_save( DBNull.Value, pageBoardID, role, false, false, false, false, 1 );
+				  }
+				  else
+				  {
+					nGroupID = ( int ) rows [0] ["GroupID"];
+				  }
+				}
+						*/
+			}
+		}
 
-    /// <summary>
-    /// Creates the user in the YAF DB from the ASP.NET Membership user information.
-    /// Also copies the Roles as groups into YAF DB for the current user
-    /// </summary>
-    /// <param name="user">Current Membership User</param>
-    /// <param name="pageBoardID">Current BoardID</param>
-    /// <returns>Returns the UserID of the user if everything was successful. Otherwise, null.</returns>
-    public static int? CreateForumUser( MembershipUser user, int pageBoardID )
-    {
-      int? userID = null;
+		/// <summary>
+		/// Creates the user in the YAF DB from the ASP.NET Membership user information.
+		/// Also copies the Roles as groups into YAF DB for the current user
+		/// </summary>
+		/// <param name="user">Current Membership User</param>
+		/// <param name="pageBoardID">Current BoardID</param>
+		/// <returns>Returns the UserID of the user if everything was successful. Otherwise, null.</returns>
+		public static int? CreateForumUser(MembershipUser user, int pageBoardID)
+		{
+			int? userID = null;
 
-      try
-      {
-        userID = YAF.Classes.Data.DB.user_aspnet( pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved );
+			try
+			{
+				userID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
 
-        foreach ( string role in Roles.GetRolesForUser( user.UserName ) )
-        {
-          YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
-        }
+				foreach (string role in Roles.GetRolesForUser(user.UserName))
+				{
+					YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+				}
 
-        YAF.Classes.Data.DB.eventlog_create( DBNull.Value, user, string.Format( "Created forum user {0}", user.UserName ) );
-      }
-      catch ( Exception x )
-      {
-        YAF.Classes.Data.DB.eventlog_create( DBNull.Value, "CreateForumUser", x );
-      }
+				YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
+			}
+			catch (Exception x)
+			{
+				YAF.Classes.Data.DB.eventlog_create(DBNull.Value, "CreateForumUser", x);
+			}
 
-      return userID;
-    }
+			return userID;
+		}
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="user"></param>
-    /// <param name="pageBoardID"></param>
-    /// <returns></returns>
-    public static bool DidCreateForumUser( MembershipUser user, int pageBoardID )
-    {
-      int? userID = CreateForumUser( user, pageBoardID );
-      return ( userID == null ) ? false : true;
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="user"></param>
+		/// <param name="pageBoardID"></param>
+		/// <returns></returns>
+		public static bool DidCreateForumUser(MembershipUser user, int pageBoardID)
+		{
+			int? userID = CreateForumUser(user, pageBoardID);
+			return (userID == null) ? false : true;
+		}
 
-    /// <summary>
-    /// Updates the information in the YAF DB from the ASP.NET Membership user information.
-    /// Called once per session for a user to sync up the data
-    /// </summary>
-    /// <param name="user">Current Membership User</param>
-    /// <param name="pageBoardID">Current BoardID</param>
-    public static void UpdateForumUser( MembershipUser user, int pageBoardID )
-    {
-      int nUserID = YAF.Classes.Data.DB.user_aspnet( pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved );
-      YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, DBNull.Value );
-      foreach ( string role in Roles.GetRolesForUser( user.UserName ) )
-      {
-        YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
-      }
-    }
-  }
+		/// <summary>
+		/// Updates the information in the YAF DB from the ASP.NET Membership user information.
+		/// Called once per session for a user to sync up the data
+		/// </summary>
+		/// <param name="user">Current Membership User</param>
+		/// <param name="pageBoardID">Current BoardID</param>
+		public static void UpdateForumUser(MembershipUser user, int pageBoardID)
+		{
+			int nUserID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
+			YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, DBNull.Value);
+			foreach (string role in Roles.GetRolesForUser(user.UserName))
+			{
+				YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+			}
+		}
+	}
 
-  /// <summary>
-  /// This is a stop-gap class to help with syncing operations
-  /// with users/membership.
-  /// </summary>
-  public static class UserMembershipHelper
-  {
+	/// <summary>
+	/// This is a stop-gap class to help with syncing operations
+	/// with users/membership.
+	/// </summary>
+	public static class UserMembershipHelper
+	{
 		/// <summary>
 		/// Helper function that gets user data from the DB (or cache)
 		/// </summary>
 		/// <param name="usserID"></param>
 		/// <returns></returns>
-		public static DataRow GetUserRowForID( int userID, bool allowCached )
+		public static DataRow GetUserRowForID(int userID, bool allowCached)
 		{
 			DataRow userRow = null;
-			string cacheKey = string.Format( "UserListForID{0}", userID );
+			string cacheKey = string.Format("UserListForID{0}", userID);
 
-			if ( YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] == null || !allowCached )
+			if (YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)] == null || !allowCached)
 			{
-				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
-				if ( dt.Rows.Count == 1 )
+				DataTable dt = YAF.Classes.Data.DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value);
+				if (dt.Rows.Count == 1)
 				{
-					userRow = dt.Rows [0];
+					userRow = dt.Rows[0];
 					// cache it
-					YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] = userRow;
+					YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)] = userRow;
 				}
 			}
 			else
 			{
-				userRow = ( ( DataRow ) YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] );
+				userRow = ((DataRow)YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)]);
 			}
 
 			return userRow;
@@ -257,94 +257,94 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static DataRow GetUserRowForID( int userID )
+		public static DataRow GetUserRowForID(int userID)
 		{
-			return GetUserRowForID( userID, true );
+			return GetUserRowForID(userID, true);
 		}
 
 		/// <summary>
-    /// Gets the user provider key from the UserID for a user
-    /// </summary>
-    /// <param name="UserID"></param>
-    /// <returns></returns>
-    public static object GetProviderUserKeyFromID( int userID )
-    {
-      object providerUserKey = null;
-			DataRow row = GetUserRowForID( userID );
+		/// Gets the user provider key from the UserID for a user
+		/// </summary>
+		/// <param name="UserID"></param>
+		/// <returns></returns>
+		public static object GetProviderUserKeyFromID(int userID)
+		{
+			object providerUserKey = null;
+			DataRow row = GetUserRowForID(userID);
 
-			if ( row != null )
+			if (row != null)
 			{
-				if ( row ["ProviderUserKey"] != DBNull.Value )
-					providerUserKey = row ["ProviderUserKey"];
+				if (row["ProviderUserKey"] != DBNull.Value)
+					providerUserKey = row["ProviderUserKey"];
 			}
 
-      return providerUserKey;    
-    }
+			return providerUserKey;
+		}
 
-    /// <summary>
-    /// Gets the user name from the UesrID
-    /// </summary>
-    /// <param name="UserID"></param>
-    /// <returns></returns>
-    public static string GetUserNameFromID( int userID )
-    {
-      string userName = string.Empty;
+		/// <summary>
+		/// Gets the user name from the UesrID
+		/// </summary>
+		/// <param name="UserID"></param>
+		/// <returns></returns>
+		public static string GetUserNameFromID(int userID)
+		{
+			string userName = string.Empty;
 
-			DataRow row = GetUserRowForID( userID );
+			DataRow row = GetUserRowForID(userID);
 
-			if ( row != null )
+			if (row != null)
 			{
-				if ( row ["Name"] != DBNull.Value )
-					userName = row ["Name"].ToString();
+				if (row["Name"] != DBNull.Value)
+					userName = row["Name"].ToString();
 			}
 
-      return userName;
-    }
+			return userName;
+		}
 
-    /// <summary>
-    /// Get the UserID from the ProviderUserKey
-    /// </summary>
-    /// <param name="providerUserKey"></param>
-    /// <returns></returns>
-    public static int GetUserIDFromProviderUserKey( object providerUserKey )
-    {
-      int userID = DB.user_get( YafContext.Current.PageBoardID, providerUserKey );
-      return userID;
-    }
+		/// <summary>
+		/// Get the UserID from the ProviderUserKey
+		/// </summary>
+		/// <param name="providerUserKey"></param>
+		/// <returns></returns>
+		public static int GetUserIDFromProviderUserKey(object providerUserKey)
+		{
+			int userID = DB.user_get(YafContext.Current.PageBoardID, providerUserKey);
+			return userID;
+		}
 
-    /// <summary>
-    /// get the membership user from the providerUserKey
-    /// </summary>
-    /// <param name="providerUserKey"></param>
-    /// <returns></returns>
-    public static MembershipUser GetMembershipUser( object providerUserKey )
-    {
-      return Membership.GetUser( providerUserKey );
-    }
+		/// <summary>
+		/// get the membership user from the providerUserKey
+		/// </summary>
+		/// <param name="providerUserKey"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUser(object providerUserKey)
+		{
+			return Membership.GetUser(providerUserKey);
+		}
 
-    /// <summary>
-    /// get the membership user from the userID
-    /// </summary>
-    /// <param name="userID"></param>
-    /// <returns></returns>
-    public static MembershipUser GetMembershipUser( int userID )
-    {
-			object providerUserKey = GetProviderUserKeyFromID( userID );
+		/// <summary>
+		/// get the membership user from the userID
+		/// </summary>
+		/// <param name="userID"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUser(int userID)
+		{
+			object providerUserKey = GetProviderUserKeyFromID(userID);
 			if (providerUserKey != null)
-				return GetMembershipUser( providerUserKey );
+				return GetMembershipUser(providerUserKey);
 
-			return null;		
-    }
+			return null;
+		}
 
-    /// <summary>
-    /// get the membership user from the userName
-    /// </summary>
-    /// <param name="userName"></param>
-    /// <returns></returns>
-    public static MembershipUser GetMembershipUser( string userName )
-    {
-      return Membership.GetUser( userName );
-    }
+		/// <summary>
+		/// get the membership user from the userName
+		/// </summary>
+		/// <param name="userName"></param>
+		/// <returns></returns>
+		public static MembershipUser GetMembershipUser(string userName)
+		{
+			return Membership.GetUser(userName);
+		}
 
 		/// <summary>
 		/// Helper function to update a user's email address.
@@ -353,93 +353,93 @@ namespace YAF.Classes.Utils
 		/// <param name="userID"></param>
 		/// <param name="newEmail"></param>
 		/// <returns></returns>
-    public static bool UpdateEmail( int userID, string newEmail )
-    {
-      object providerUserKey = GetProviderUserKeyFromID( userID );
+		public static bool UpdateEmail(int userID, string newEmail)
+		{
+			object providerUserKey = GetProviderUserKeyFromID(userID);
 
-      if ( providerUserKey != null )
-      {
-        MembershipUser user = Membership.GetUser( providerUserKey );
-        user.Email = newEmail;
-        Membership.UpdateUser( user );
-        DB.user_aspnet( YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved );
-        return true;
-      }
+			if (providerUserKey != null)
+			{
+				MembershipUser user = Membership.GetUser(providerUserKey);
+				user.Email = newEmail;
+				Membership.UpdateUser(user);
+				DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved);
+				return true;
+			}
 
-      return false;
-    }
+			return false;
+		}
 
-    public static bool DeleteUser( int userID )
-    {
-      string userName = GetUserNameFromID( userID );
+		public static bool DeleteUser(int userID)
+		{
+			string userName = GetUserNameFromID(userID);
 
-      if ( userName != string.Empty )
-      {
-        DB.user_delete( userID );
-        Membership.DeleteUser( userName, true );
+			if (userName != string.Empty)
+			{
+				DB.user_delete(userID);
+				Membership.DeleteUser(userName, true);
 
-        return true;
-      }
+				return true;
+			}
 
-      return false;
-    }
+			return false;
+		}
 
-    public static bool ApproveUser( int userID )
-    {
-      object providerUserKey = GetProviderUserKeyFromID( userID );
+		public static bool ApproveUser(int userID)
+		{
+			object providerUserKey = GetProviderUserKeyFromID(userID);
 
-      if ( providerUserKey != null )
-      {
-        MembershipUser user = Membership.GetUser( providerUserKey );
-        if ( !user.IsApproved ) user.IsApproved = true;
-        Membership.UpdateUser( user );        
-        DB.user_approve( userID );
+			if (providerUserKey != null)
+			{
+				MembershipUser user = Membership.GetUser(providerUserKey);
+				if (!user.IsApproved) user.IsApproved = true;
+				Membership.UpdateUser(user);
+				DB.user_approve(userID);
 
-        return true;
-      }
+				return true;
+			}
 
-      return false;
-    }
+			return false;
+		}
 
 
-    public static void DeleteAllUnapproved()
-    {
-      // get all users...
-      MembershipUserCollection allUsers = Membership.GetAllUsers();
+		public static void DeleteAllUnapproved()
+		{
+			// get all users...
+			MembershipUserCollection allUsers = Membership.GetAllUsers();
 
-      // iterate through each one...
-      foreach (MembershipUser user in allUsers)
-      {
-        if ( !user.IsApproved )
-        {
-          // delete this user...
-          DB.user_delete( GetUserIDFromProviderUserKey( user.ProviderUserKey ) );
-          Membership.DeleteUser( user.UserName, true );
-        }
-      }      
-    }
+			// iterate through each one...
+			foreach (MembershipUser user in allUsers)
+			{
+				if (!user.IsApproved)
+				{
+					// delete this user...
+					DB.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+					Membership.DeleteUser(user.UserName, true);
+				}
+			}
+		}
 
 		/// <summary>
 		/// For the admin fuction: approve all users. Approves all
 		/// users waiting for approval 
 		/// </summary>
-    public static void ApproveAll()
-    {
-      // get all users...
-      MembershipUserCollection allUsers = Membership.GetAllUsers();
+		public static void ApproveAll()
+		{
+			// get all users...
+			MembershipUserCollection allUsers = Membership.GetAllUsers();
 
-      // iterate through each one...
-      foreach (MembershipUser user in allUsers)
-      {
-        if ( !user.IsApproved )
-        {
-          // approve this user...
-          user.IsApproved = true;
-          Membership.UpdateUser( user );        
-          DB.user_approve( GetUserIDFromProviderUserKey( user.ProviderUserKey ) );
-        }
-      }      
-    }
+			// iterate through each one...
+			foreach (MembershipUser user in allUsers)
+			{
+				if (!user.IsApproved)
+				{
+					// approve this user...
+					user.IsApproved = true;
+					Membership.UpdateUser(user);
+					DB.user_approve(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+				}
+			}
+		}
 
 		/// <summary>
 		/// Checks Membership Provider to see if a user
@@ -448,27 +448,28 @@ namespace YAF.Classes.Utils
 		/// <param name="userName"></param>
 		/// <param name="email"></param>
 		/// <returns>true if they exist</returns>
-		public static bool UserExists( string userName, string email )
+		public static bool UserExists(string userName, string email)
 		{
-			bool bExists = false;
+			bool exists = false;
 
-			if ( userName != null )
+			if (userName != null)
 			{
-				if ( Membership.FindUsersByName( userName ).Count > 0 )
+				if (Membership.FindUsersByName(userName).Count > 0)
 				{
-					bExists = true;
+					exists = true;
 				}
 			}
-			else if ( email != null )
+			else if (email != null)
 			{
-				if ( Membership.FindUsersByEmail( email ).Count > 0 )
+				if (Membership.FindUsersByEmail(email).Count > 0)
 				{
-					bExists = true;
+					exists = true;
 				}
 			}
 
-			return bExists;
+			return exists;
 		}
+
 
 		/// <summary>
 		/// Simply tells you if the userID passed is the Guest user
@@ -476,22 +477,47 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID">ID of user to lookup</param>
 		/// <returns>true if the userid is a guest user</returns>
-		public static bool IsGuestUser( int userID )
+		public static bool IsGuestUser(object userID)
 		{
-			int guestUserID = -1;
-
-			if (YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] == null)
+			if (userID == null || userID is DBNull)
 			{
-				// get the guest user for this board...
-				guestUserID = DB.user_guest( YafContext.Current.PageBoardID );
-				YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] = guestUserID;
+				// if supplied userID is null,user is guest
+				return true;
 			}
 			else
 			{
-				guestUserID = Convert.ToInt32( YafCache.Current[YafCache.GetBoardCacheKey("GuestUserID")] );
+				// otherwise evaluate him
+				return IsGuestUser((int)userID);
+			}
+		}
+		/// <summary>
+		/// Simply tells you if the userID passed is the Guest user
+		/// for the current board
+		/// </summary>
+		/// <param name="userID">ID of user to lookup</param>
+		/// <returns>true if the userid is a guest user</returns>
+		public static bool IsGuestUser(int userID)
+		{
+			int guestUserID = -1;
+			// obtain board specific cache key
+			string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.GuestUserID);
+
+			// check if there is value cached
+			if (YafCache.Current[cacheKey] == null)
+			{
+				// get the guest user for this board...
+				guestUserID = DB.user_guest(YafContext.Current.PageBoardID);
+				// cache it
+				YafCache.Current[cacheKey] = guestUserID;
+			}
+			else
+			{
+				// retrieve guest user id from cache
+				guestUserID = Convert.ToInt32(YafCache.Current[cacheKey]);
 			}
 
-			return ( userID == guestUserID );
+			// compare user id from parameter with guest user id
+			return (userID == guestUserID);
 		}
-  }
+	}
 }

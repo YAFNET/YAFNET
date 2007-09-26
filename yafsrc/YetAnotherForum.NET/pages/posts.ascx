@@ -1,8 +1,4 @@
 <%@ Control language="c#" CodeFile="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
-
-
-
-
 <%@ Register TagPrefix="YAF" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
 
 <YAF:PageLinks runat="server" id="PageLinks"/>

@@ -124,8 +124,7 @@ namespace YAF.Pages // YAF.Pages
 				if (!PageContext.ForumReplyAccess || 
 					(General.BinaryAnd(_topic["Flags"], TopicFlags.Locked) && !PageContext.ForumModeratorAccess))
 				{
-					PostReplyLink1.Visible = false;
-					PostReplyLink2.Visible = false;
+					PostReplyLink1.Visible = PostReplyLink2.Visible = false;
 					QuickReplyPlaceHolder.Visible = false;
 				}
 
@@ -176,7 +175,7 @@ namespace YAF.Pages // YAF.Pages
 				}
 				else
 				{
-					LockTopic1.Visible = General.BinaryAnd(_topic["Flags"], TopicFlags.Locked);
+					LockTopic1.Visible = !General.BinaryAnd(_topic["Flags"], TopicFlags.Locked);
 					UnlockTopic1.Visible = !LockTopic1.Visible;
 					LockTopic2.Visible = LockTopic1.Visible;
 					UnlockTopic2.Visible = !LockTopic2.Visible;
@@ -490,8 +489,8 @@ namespace YAF.Pages // YAF.Pages
 			UnlockTopic1.Visible = !UnlockTopic1.Visible;
 			LockTopic2.Visible = LockTopic1.Visible;
 			UnlockTopic2.Visible = UnlockTopic1.Visible;
-			PostReplyLink1.Visible = false;
-			PostReplyLink2.Visible = false;
+			/*PostReplyLink1.Visible = false;
+			PostReplyLink2.Visible = false;*/
 		}
 
 		protected void UnlockTopic_Click( object sender, System.EventArgs e )
