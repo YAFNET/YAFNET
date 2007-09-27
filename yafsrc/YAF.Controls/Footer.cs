@@ -90,11 +90,12 @@ namespace YAF.Controls
 			StringBuilder footer = new StringBuilder();
 			footer.AppendFormat( "<p style=\"text-align:center;font-size:7pt\">" );
 
+			/* Commented out by Jaben on 9/27/2007: No longer needed with the RSS feed on the main forum.	 
 			if ( PageContext.BoardSettings.ShowRSSLink )
 			{
 				footer.AppendFormat( "{2} : <a href=\"{0}\"><img style=\"vertical-align: middle\" src=\"{1}images/RssFeed.png\" alt=\"RSS Feed\" /></a><br /><br />", YafBuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ), YafForumInfo.ForumRoot, PageContext.Localization.GetText( "DEFAULT", "MAIN_FORUM_RSS" ) );
 				// footer.AppendFormat("Main Forum Rss Feed : <a href=\"{0}rsstopic.aspx?pg=forum\"><img valign=\"absmiddle\" src=\"{1}images/rss.gif\" alt=\"RSS\" /></a><br /><br />", Data.ForumRoot, Data.ForumRoot);
-			}
+			}*/
 
 			// get the theme credit info from the theme file
 			// it's not really an error if it doesn't exist
