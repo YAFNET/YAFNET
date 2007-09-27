@@ -201,7 +201,7 @@ namespace YAF.Controls
 			{
 				if ( DataRow != null && DataRow ["UserID"] != DBNull.Value )
 				{
-					return UserMembershipHelper.IsGuestUser();
+					return UserMembershipHelper.IsGuestUser( Convert.ToInt32(DataRow ["UserID"]) );
 				}
 				else return true;
 			}
