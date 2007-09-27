@@ -161,6 +161,18 @@ namespace YAF
 		}
 
 		/// <summary>
+		/// UserName for the current User (Read Only)
+		/// </summary>
+		public string PageUserName
+		{
+			get
+			{
+				if ( YafContext.Current.User == null ) return "Guest";				
+				return YafContext.Current.User.UserName;
+			}
+		}
+
+		/// <summary>
 		/// Get or sets the Board ID for this instance of the forum control
 		/// </summary>
 		public int BoardID
