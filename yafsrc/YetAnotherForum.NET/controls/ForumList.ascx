@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeFile="ForumList.ascx.cs" Inherits="YAF.Controls.ForumList"
-	EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+<%@ Control Language="c#" AutoEventWireup="True" CodeFile="ForumList.ascx.cs" Inherits="YAF.Controls.ForumList"	EnableViewState="false" %>
+<%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>	
 <asp:Repeater ID="forumList" runat="server">
 	<ItemTemplate>
 		<tr class="post">
@@ -55,7 +55,7 @@
 				<%# Posts(Container.DataItem) %>
 			</td>
 			<td align="center" class="smallfont" nowrap="nowrap">
-				<%# YAF.Classes.Utils.General.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %>
+				<YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>' ID="lastPost" runat="server" />
 			</td>
 		</tr>
 	</ItemTemplate>
@@ -113,7 +113,7 @@
 				<%# Posts(Container.DataItem) %>
 			</td>
 			<td align="center" class="smallfont" nowrap="nowrap">
-				<%# YAF.Classes.Utils.General.BadWordReplace(FormatLastPost((System.Data.DataRow)Container.DataItem)) %>
+				<YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>' ID="lastPost" runat="server" />
 			</td>
 		</tr>
 	</AlternatingItemTemplate>
