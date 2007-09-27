@@ -199,7 +199,10 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if (DataRow != null) return UserMembershipHelper.IsGuestUser(DataRow["UserID"]);
+				if ( DataRow != null && DataRow ["UserID"] != DBNull.Value )
+				{
+					return UserMembershipHelper.IsGuestUser();
+				}
 				else return true;
 			}
 		}
