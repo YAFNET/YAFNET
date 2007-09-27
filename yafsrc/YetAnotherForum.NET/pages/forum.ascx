@@ -1,14 +1,10 @@
 <%@ Control Language="c#" CodeFile="forum.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.forum" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div id="Welcome" runat="server">
-	<div id="divTimeNow">
-		<asp:Label ID="TimeNow" runat="server" /></div>
-	<div id="divTimeLastVisit">
-		<asp:Label ID="TimeLastVisit" runat="server" /></div>
-	<div id="divUnreadMsgs">
-		<asp:HyperLink runat="server" ID="UnreadMsgs" Visible="false" /></div>
-</div>
+<YAF:ForumWelcome runat="server" ID="Welcome" />
 <br />
 <asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand"
 	OnItemDataBound="CategoryList_ItemDataBound">
@@ -48,6 +44,11 @@
 		<YAF:ForumList runat="server" Visible="true" ID="forumList" DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>' />
 	</ItemTemplate>
 	<FooterTemplate>
+		<tr><td colspan="6" align="right" class="footer1">
+			<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# GetText("MARKALL") %>' />
+			<span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>|</span>
+      <asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ) %>' visible='<%# PageContext.BoardSettings.ShowRSSLink %>'><%# GetText( "RSSFEED" ) %></asp:HyperLink>
+		</td></tr>
 		</table>
 	</FooterTemplate>
 </asp:Repeater>
@@ -130,18 +131,6 @@
 		</td>
 	</tr>
 </table>
-<table style="padding: 2px; margin: 2px" width="100%">
-	<tr>
-		<td>
-			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM_NEW") %>" alt="" />
-			<%# GetText("ICONLEGEND","New_Posts") %>
-			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM") %>" alt="" />
-			<%# GetText("ICONLEGEND","No_New_Posts") %>
-			<img style="vertical-align: middle" src="<% =GetThemeContents("ICONS","FORUM_LOCKED") %>" alt="" />
-			<%# GetText("ICONLEGEND","Forum_Locked") %>
-		</td>
-		<td align="right">
-			<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" /></td>
-	</tr>
-</table>
+<YAF:ForumIconLegend ID="IconLegend" runat="server" />
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

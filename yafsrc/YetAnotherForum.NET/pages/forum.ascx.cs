@@ -46,23 +46,9 @@ namespace YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
-				if (PageContext.IsPrivate && User==null)
+				if ( PageContext.IsPrivate && User == null )
 				{
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
-				}
-
-				TimeNow.Text = String.Format( GetText( "CURRENT_TIME" ), YafDateTime.FormatTime( DateTime.Now ) );
-				TimeLastVisit.Text = String.Format( GetText( "last_visit" ), YafDateTime.FormatDateTime( Mession.LastVisit ) );
-				MarkAll.Text = GetText( "MARKALL" );
-
-				if ( PageContext.UnreadPrivate > 0 )
-				{
-					UnreadMsgs.Visible = true;
-					UnreadMsgs.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
-					if ( PageContext.UnreadPrivate == 1 )
-						UnreadMsgs.Text = String.Format( GetText( "unread1" ), PageContext.UnreadPrivate );
-					else
-						UnreadMsgs.Text = String.Format( GetText( "unread0" ), PageContext.UnreadPrivate );
 				}
 
 				if ( PageContext.Settings.LockedForum == 0 )
@@ -77,8 +63,8 @@ namespace YAF.Pages
 
 				BindData();
 			}
-
 		}
+
 
 		protected void MarkAll_Click( object sender, System.EventArgs e )
 		{
