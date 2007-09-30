@@ -18,36 +18,92 @@ namespace YAF.Providers.Membership
 {
     public class DB
     {
-        public static void ChangePassword(string appName, string username, string oldPassword, string newPassword)
+        public static void ChangePassword(string appName, string username, string newPassword)
         {
-            throw new Exception("The method or operation is not implemented.");
+            using (SqlCommand cmd = new SqlCommand("yafmp_changepassword"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Password", newPassword);
+                DBAccess.ExecuteNonQuery(cmd);
+            }
         }
 
         public static void ChangePasswordQuestionAndAnswer(string appName, string username, string passwordQuestion, string passwordAnswer)
         {
-            throw new Exception("The method or operation is not implemented.");
+            using (SqlCommand cmd = new SqlCommand("yafmp_changepasswordquestionandanswer"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
+                cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
+                DBAccess.ExecuteNonQuery(cmd);
+            }
         }
 
-        public static void CreateUser(string appName, string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
+        public static void CreateUser(string appName, string username, string password, string passwordSalt, int passwordFormat, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
         {
-            throw new Exception("The method or operation is not implemented.");
+            using (SqlCommand cmd = new SqlCommand("yafmp_createuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
+                cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
+                cmd.Parameters.AddWithValue("@EmailAddress", email);
+                cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
+                cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
+                cmd.Parameters.AddWithValue("@IsApproved", isApproved);
+                cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
+                DBAccess.ExecuteNonQuery(cmd);
+            }
         }
 
         public static void DeleteUser(string appName, string username, bool deleteAllRelatedData)
         {
-            throw new Exception("The method or operation is not implemented.");
+            using (SqlCommand cmd = new SqlCommand("yafmp_deleteuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@DeleteAllRelated", deleteAllRelatedData);
+                DBAccess.ExecuteNonQuery(cmd);
+            }
         }
 
         public static DataTable FindUsersByEmail(string appName, string emailToMatch, int pageIndex, int pageSize)
         {
-            throw new Exception("The method or operation is not implemented.");
-
+            using (SqlCommand cmd = new SqlCommand("yafmp_findusersbyemail"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@EmailAddress", emailToMatch);
+                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                return DBAccess.GetData(cmd);
+            }
         }
 
         public static DataTable FindUsersByName(string appName, string usernameToMatch, int pageIndex, int pageSize)
         {
-
-            throw new Exception("The method or operation is not implemented.");
+            using (SqlCommand cmd = new SqlCommand("yafmp_findusersbyname"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", usernameToMatch);
+                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                return DBAccess.GetData(cmd);
+            }
         }
 
         public static DataTable GetAllUsers(string appName, int pageIndex, int pageSize)
@@ -57,8 +113,8 @@ namespace YAF.Providers.Membership
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@pageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("@pageIndex", pageSize);
+                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
+                cmd.Parameters.AddWithValue("@PageSize", pageSize);
                 return DBAccess.GetData(cmd);
             }
         }

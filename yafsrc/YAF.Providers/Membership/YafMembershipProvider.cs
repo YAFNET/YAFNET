@@ -275,7 +275,7 @@ namespace YAF.Providers.Membership
                 return false;
 
             // Call SQL Password  Change
-            DB.ChangePassword(this.ApplicationName, username, oldPassword, newPassword);
+            DB.ChangePassword(this.ApplicationName, username, newPassword);
 
             // Return True
             return true;
@@ -348,7 +348,7 @@ namespace YAF.Providers.Membership
             string encodedPasswordAnswer = YafMembershipProvider.EncryptString(passwordAnswer.ToLower(CultureInfo.InvariantCulture), this.PasswordFormat, salt);
 
             // Process database user creation request
-            DB.CreateUser(this.ApplicationName, username, pass, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey);
+            DB.CreateUser(this.ApplicationName, username, pass,salt,(int) this.PasswordFormat, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey);
 
             status = MembershipCreateStatus.Success;
 
