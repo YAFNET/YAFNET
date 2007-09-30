@@ -1,8 +1,9 @@
-/* Version 0.0.1 */
+-- =============================================
+-- Author:		Mek
+-- Create date: 30 September 2007
+-- Description:	MembershipProvider Tables
+-- =============================================
 
-/*
-** Yet Another Forum Custom Providers - Membership Tables
-*/
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafp_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafp_Members](
 		[UserID] [uniqueidentifier] NOT NULL,
