@@ -18,7 +18,7 @@ namespace YAF.Providers.Membership
 {
     public class DB
     {
-        public static void ChangePassword(string appName, string username, string newPassword)
+        public static void ChangePassword(string appName, string username, string newPassword, string newSalt, string passwordFormat, string newPasswordAnswer)
         {
             using (SqlCommand cmd = new SqlCommand("yafp_changepassword"))
             {
@@ -27,6 +27,10 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@Username", username);
                 cmd.Parameters.AddWithValue("@Password", newPassword);
+                cmd.Parameters.AddWithValue("@PasswordSalt", newSalt);
+                cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
+                cmd.Parameters.AddWithValue("@PasswordAnswer", newPasswordAnswer);
+
                 DBAccess.ExecuteNonQuery(cmd);
             }
         }
