@@ -211,8 +211,10 @@ namespace YAF.Providers.Membership
                 _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"]);
 
             // Application Name
-            if (config["appName"] != null)
-                _appName = config["appName"];
+						_appName = config ["applicationName"];
+						if ( string.IsNullOrEmpty( _AppName ) )
+							_appName = "YetAnotherForum";
+
             if (config["passwordStrengthRegularExpression"] != null)
                 _passwordStrengthRegularExpression = config["passwordStrengthRegularExpression"];
 
