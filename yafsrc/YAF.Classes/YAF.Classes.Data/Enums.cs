@@ -37,6 +37,7 @@ namespace YAF.Classes.Data
 		ExactMatch = 2
 	}
 
+	
 	public enum ForumFlags : int
 	{
 		Locked = 1,						// users can't post/edit/delete topics in such forum
@@ -93,4 +94,5 @@ namespace YAF.Classes.Data
 		Warning = 1,
 		Information = 2
 	}
+	
 }

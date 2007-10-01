@@ -229,7 +229,7 @@ namespace YAF.Install
 
 				FixAccess(true);
 
-				using (SqlCommand cmd = new SqlCommand("yaf_system_updateversion"))
+				using (SqlCommand cmd = DBAccess.GetCommand("system_updateversion"))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue("@Version", YafForumInfo.AppVersion);
@@ -324,7 +324,7 @@ namespace YAF.Install
 				Roles.CreateRole( "Registered" );
 				Roles.AddUserToRole( user.UserName, "Administrators" );
 
-				using ( SqlCommand cmd = new SqlCommand( "yaf_system_initialize" ) )
+				using (SqlCommand cmd = DBAccess.GetCommand("system_initialize"))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Name", TheForumName.Text );
@@ -337,7 +337,7 @@ namespace YAF.Install
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 
-				using ( SqlCommand cmd = new SqlCommand( "yaf_system_updateversion" ) )
+				using (SqlCommand cmd = DBAccess.GetCommand("system_updateversion"))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
@@ -410,12 +410,13 @@ namespace YAF.Install
 		#region method ExecuteScript
 		private void ExecuteScript( string sScriptFile, string dbOwner )
 		{
-			string sScript = null;
+			string script = null;
 			try
 			{
 				using ( System.IO.StreamReader file = new System.IO.StreamReader( Request.MapPath( sScriptFile ) ) )
 				{
-					sScript = file.ReadToEnd() + "\r\n";
+					script = file.ReadToEnd() + "\r\n";
+
 					file.Close();
 				}
 			}
@@ -428,7 +429,12 @@ namespace YAF.Install
 				throw new Exception( "Failed to read " + sScriptFile, x );
 			}
 
-			string [] statements = System.Text.RegularExpressions.Regex.Split( sScript, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
+			// apply database owner
+			script = script.Replace("{databaseOwner}", DBAccess.DatabaseOwner);
+			// apply object qualifier
+			script = script.Replace("{objectQualifier}", DBAccess.ObjectQualifier);
+
+			string [] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
       using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
@@ -477,7 +483,8 @@ namespace YAF.Install
 			{
         using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
-					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like 'yaf_%'", connMan.OpenDBConnection ) )
+					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
+					using (SqlDataAdapter da = new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection))
 					{
 						da.SelectCommand.Transaction = trans;
 						using ( DataTable dt = new DataTable( "sysobjects" ) )

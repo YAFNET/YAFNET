@@ -199,9 +199,9 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( DataRow != null && DataRow ["UserID"] != DBNull.Value )
+				if ( DataRow != null )
 				{
-					return UserMembershipHelper.IsGuestUser( Convert.ToInt32(DataRow ["UserID"]) );
+					return UserMembershipHelper.IsGuestUser( DataRow ["UserID"] );
 				}
 				else return true;
 			}

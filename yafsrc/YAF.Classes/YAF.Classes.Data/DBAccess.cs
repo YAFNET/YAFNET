@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
@@ -111,6 +112,8 @@ namespace YAF.Classes.Data
 		/* Ederon : 6/16/2007 - conventions */
 
 		private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
+		private static string _dbOwner;
+		private static string _objectQualifier;
 
 		static public IsolationLevel IsolationLevel
 		{
@@ -118,6 +121,111 @@ namespace YAF.Classes.Data
 			{
 				return _isolationLevel;
 			}
+		}
+
+		static public string DatabaseOwner
+		{
+			get
+			{
+				if (_dbOwner == null)
+				{
+					_dbOwner = ConfigurationManager.AppSettings["databaseOwner"];
+				}
+
+				return _dbOwner;
+			}
+		}
+
+		static public string ObjectQualifier
+		{
+			get
+			{
+				if (_objectQualifier == null)
+				{
+					_objectQualifier = ConfigurationManager.AppSettings["databaseObjectQualifier"];
+				}
+
+				return _objectQualifier;
+			}
+		}
+
+
+		/// <summary>
+		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
+		/// </summary>
+		/// <param name="commandText">Command text to qualify.</param>
+		/// <param name="isText">Determines whether command text is text or stored procedure.</param>
+		/// <returns>New SqlCommand</returns>
+		static public SqlCommand GetCommand(string commandText, bool isText)
+		{
+			return GetCommand(commandText, isText, null);
+		}
+		/// <summary>
+		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
+		/// </summary>
+		/// <param name="commandText">Command text to qualify.</param>
+		/// <param name="isText">Determines whether command text is text or stored procedure.</param>
+		/// <param name="connection">Connection to use with command.</param>
+		/// <returns>New SqlCommand</returns>
+		static public SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
+		{
+			if (isText)
+			{
+				commandText = commandText.Replace("{databaseOwner}", DatabaseOwner);
+				commandText = commandText.Replace("{objectQualifier}", ObjectQualifier);
+
+				SqlCommand cmd = new SqlCommand();
+
+				cmd.CommandType = CommandType.Text;
+				cmd.CommandText = commandText;
+				cmd.Connection = connection;
+
+				return cmd;
+			}
+			else
+			{
+				return GetCommand(commandText);
+			}
+		}
+		/// <summary>
+		/// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+		/// </summary>
+		/// <param name="storedProcedure">Base of stored procedure name.</param>
+		/// <returns>New SqlCommand</returns>
+		static public SqlCommand GetCommand(string storedProcedure)
+		{
+			return GetCommand(storedProcedure, null);
+		}
+		/// <summary>
+		/// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
+		/// </summary>
+		/// <param name="storedProcedure">Base of stored procedure name.</param>
+		/// <param name="connection">Connection to use with command.</param>
+		/// <returns>New SqlCommand</returns>
+		static public SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
+		{
+			SqlCommand cmd = new SqlCommand();
+
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = GetObjectName(storedProcedure);
+			cmd.Connection = connection;
+
+			return cmd;
+		}
+
+		/// <summary>
+		/// Gets qualified object name
+		/// </summary>
+		/// <param name="name">Base name of an object</param>
+		/// <returns>Returns qualified object name of format {databaseOwner}.{objectQualifier}name</returns>
+		static public string GetObjectName(string name)
+		{
+			return String.Format(
+							"{0}.{1}{2}",
+							DatabaseOwner,
+							ObjectQualifier,
+							name
+							);
 		}
 
 		/// <summary>

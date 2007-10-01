@@ -59,7 +59,7 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             using (DataSet ds = YAF.Classes.Data.DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
-                CategoryList.DataSource = ds.Tables["yaf_Category"];
+                CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
             DataBind();
         }
 

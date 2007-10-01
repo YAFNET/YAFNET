@@ -1359,7 +1359,7 @@ namespace YAF.Providers
 					cmd.CommandTimeout = CommandTimeout;
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add( CreateInputParam( "@ApplicationName", SqlDbType.NVarChar, ApplicationName ) );
-					cmd.Parameters.Add( CreateInputParam( "@MinutesSinceLastInActive", SqlDbType.Int, Membership.UserIsOnlineTimeWindow ) );
+					cmd.Parameters.Add( CreateInputParam( "@MinutesSinceLastInActive", SqlDbType.Int, Membership.User) );
 					cmd.Parameters.Add( CreateInputParam( "@CurrentTimeUtc", SqlDbType.DateTime, DateTime.UtcNow ) );
 					p.Direction = ParameterDirection.ReturnValue;
 					cmd.Parameters.Add( p );
@@ -1863,7 +1863,7 @@ namespace YAF.Providers
 
 		public virtual string GeneratePassword()
 		{
-			return Membership.GeneratePassword(
+			return System.Web.Security.Membership.GeneratePassword(
 								MinRequiredPasswordLength < PASSWORD_SIZE ? PASSWORD_SIZE : MinRequiredPasswordLength,
 								MinRequiredNonAlphanumericCharacters );
 		}
@@ -1970,13 +1970,13 @@ namespace YAF.Providers
 			Buffer.BlockCopy( bIn, 0, bAll, bSalt.Length, bIn.Length );
 			if ( passwordFormat == 1 )
 			{ // MembershipPasswordFormat.Hashed
-				if ( Membership.HashAlgorithmType.ToLower() == "md5unsalted" )
+				if (System.Web.Security.Membership.HashAlgorithmType.ToLower() == "md5unsalted")
 				{
 					return FormsAuthentication.HashPasswordForStoringInConfigFile( pass, "MD5" );
 				}
 				else
 				{
-					HashAlgorithm s = HashAlgorithm.Create( Membership.HashAlgorithmType );
+					HashAlgorithm s = HashAlgorithm.Create(System.Web.Security.Membership.HashAlgorithmType);
 					bRet = s.ComputeHash( bAll );
 				}
 			}

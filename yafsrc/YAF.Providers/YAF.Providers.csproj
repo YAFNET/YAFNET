@@ -51,9 +51,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>

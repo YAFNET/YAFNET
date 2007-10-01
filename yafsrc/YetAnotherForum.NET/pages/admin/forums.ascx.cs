@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
 		private void BindData() 
 		{
 			using(DataSet ds = YAF.Classes.Data.DB.ds_forumadmin(PageContext.PageBoardID))
-				CategoryList.DataSource = ds.Tables["yaf_Category"];
+				CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
 			DataBind();
 		}
 

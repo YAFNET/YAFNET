@@ -212,7 +212,7 @@ namespace YAF.Providers.Membership
 
             // Application Name
 						_appName = config ["applicationName"];
-						if ( string.IsNullOrEmpty( _AppName ) )
+						if ( string.IsNullOrEmpty( _appName ) )
 							_appName = "YetAnotherForum";
 
             if (config["passwordStrengthRegularExpression"] != null)
@@ -277,7 +277,7 @@ namespace YAF.Providers.Membership
                 return false;
 
             // Call SQL Password  Change
-            DB.ChangePassword(this.ApplicationName, username, newPassword);
+			DB.ChangePassword(this.ApplicationName, username, newPassword);
 
             // Return True
             return true;
