@@ -8,27 +8,27 @@
 
 -- scalar functions
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bitset]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_bitset]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_bitset]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[yaf_bitset]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_posts]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_posts]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[yaf_forum_posts]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_topics]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_topics]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[yaf_forum_topics]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_subforums]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_subforums]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[yaf_forum_subforums]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_lasttopic]') AND xtype in (N'FN', N'IF', N'TF'))
-DROP FUNCTION [dbo].[yaf_forum_lasttopic]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_lasttopic]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[yaf_forum_lasttopic]
 GO
 
-create function [dbo].[yaf_bitset](@Flags int,@Mask int) returns bit as
+create function [{databaseOwner}].[yaf_bitset](@Flags int,@Mask int) returns bit as
 begin
 	declare @bool bit
 
@@ -41,17 +41,17 @@ begin
 end
 GO
 
-create function [dbo].[yaf_forum_posts](@ForumID int) returns int as
+create function [{databaseOwner}].[yaf_forum_posts](@ForumID int) returns int as
 begin
 	declare @NumPosts int
 	declare @tmp int
 
-	select @NumPosts=NumPosts from dbo.yaf_Forum where ForumID=@ForumID
+	select @NumPosts=NumPosts from {databaseOwner}.yaf_Forum where ForumID=@ForumID
 
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	if exists(select 1 from {databaseOwner}.yaf_Forum where ParentID=@ForumID)
 	begin
 		declare c cursor for
-		select ForumID from dbo.yaf_Forum
+		select ForumID from {databaseOwner}.yaf_Forum
 		where ParentID = @ForumID
 		
 		open c
@@ -59,7 +59,7 @@ begin
 		fetch next from c into @tmp
 		while @@FETCH_STATUS = 0
 		begin
-			set @NumPosts=@NumPosts+dbo.yaf_forum_posts(@tmp)
+			set @NumPosts=@NumPosts+{databaseOwner}.yaf_forum_posts(@tmp)
 			fetch next from c into @tmp
 		end
 		close c
@@ -70,17 +70,17 @@ begin
 end
 GO
 
-create function [dbo].[yaf_forum_topics](@ForumID int) returns int as
+create function [{databaseOwner}].[yaf_forum_topics](@ForumID int) returns int as
 begin
 	declare @NumTopics int
 	declare @tmp int
 
-	select @NumTopics=NumTopics from dbo.yaf_Forum where ForumID=@ForumID
+	select @NumTopics=NumTopics from {databaseOwner}.yaf_Forum where ForumID=@ForumID
 
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	if exists(select 1 from {databaseOwner}.yaf_Forum where ParentID=@ForumID)
 	begin
 		declare c cursor for
-		select ForumID from dbo.yaf_Forum
+		select ForumID from {databaseOwner}.yaf_Forum
 		where ParentID = @ForumID
 		
 		open c
@@ -88,7 +88,7 @@ begin
 		fetch next from c into @tmp
 		while @@FETCH_STATUS = 0
 		begin
-			set @NumTopics=@NumTopics+dbo.yaf_forum_topics(@tmp)
+			set @NumTopics=@NumTopics+{databaseOwner}.yaf_forum_topics(@tmp)
 			fetch next from c into @tmp
 		end
 		close c
@@ -99,7 +99,7 @@ begin
 end
 GO
 
-CREATE function [dbo].[yaf_forum_subforums](@ForumID int, @UserID int) returns int as
+CREATE function [{databaseOwner}].[yaf_forum_subforums](@ForumID int, @UserID int) returns int as
 begin
 	declare @NumSubforums int
 
@@ -117,7 +117,7 @@ begin
 end
 GO
 
-CREATE FUNCTION [dbo].[yaf_forum_lasttopic] 
+CREATE FUNCTION [{databaseOwner}].[yaf_forum_lasttopic] 
 (	
 	@ForumID int,
 	@UserID int = null,
@@ -147,7 +147,7 @@ BEGIN
 	end
 
 	-- look for newer topic/message in subforums
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	if exists(select 1 from {databaseOwner}.yaf_Forum where ParentID=@ForumID)
 	begin
 		declare c cursor for
 			SELECT 
@@ -175,7 +175,7 @@ BEGIN
 				@TopicID = LastTopicID,
 				@Posted = LastPosted
 			FROM
-				dbo.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
+				{databaseOwner}.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
 
 			-- if subforum has newer topic/message, make it last for parent forum
 			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin
@@ -196,11 +196,11 @@ GO
 
 -- table-valued functions
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_lastposted]') AND xtype in (N'FN', N'IF', N'TF', N'FS', N'FT'))
-DROP FUNCTION [dbo].[yaf_forum_lastposted]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_lastposted]') AND xtype in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+DROP FUNCTION [{databaseOwner}].[yaf_forum_lastposted]
 GO
 
-CREATE FUNCTION [dbo].[yaf_forum_lastposted] 
+CREATE FUNCTION [{databaseOwner}].[yaf_forum_lastposted] 
 (	
 	@ForumID int,
 	@UserID int = null,
@@ -236,7 +236,7 @@ BEGIN
 	end
 
 	-- look for newer topic/message in subforums
-	if exists(select 1 from dbo.yaf_Forum where ParentID=@ForumID)
+	if exists(select 1 from {databaseOwner}.yaf_Forum where ParentID=@ForumID)
 	begin
 		declare c cursor for
 			SELECT 
@@ -264,7 +264,7 @@ BEGIN
 				@TopicID = LastTopicID,
 				@Posted = LastPosted
 			FROM
-				dbo.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
+				{databaseOwner}.yaf_forum_lastposted(@SubforumID, @UserID, @TopicID, @Posted)
 
 			-- if subforum has newer topic/message, make it last for parent forum
 			if (@TopicID is not null and @Posted is not null and @LastPosted < @Posted) begin

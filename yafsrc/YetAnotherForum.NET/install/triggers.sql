@@ -2,11 +2,11 @@
 ** Triggers
 */
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_Active_insert') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_Active_insert
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Active_insert]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_Active_insert]
 go
 
-create trigger yaf_Active_insert on dbo.yaf_Active for insert as
+create trigger yaf_Active_insert on [{databaseOwner}].[yaf_Active] for insert as
 begin
 	declare @BoardID int, @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
 
@@ -31,8 +31,8 @@ begin
 end
 go
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_Forum_update') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_Forum_update
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Forum_update]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_Forum_update]
 go
 
 /*
@@ -65,18 +65,18 @@ END
 */
 GO
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_update') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_Group_update
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Group_update]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_Group_update]
 GO
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_Group_insert') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_Group_insert
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Group_insert]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_Group_insert]
 GO
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_UserGroup_insert') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_UserGroup_insert
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_UserGroup_insert]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_UserGroup_insert]
 GO
 
-if exists(select 1 from sysobjects where id=object_id(N'yaf_UserGroup_delete') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger yaf_UserGroup_delete
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_UserGroup_delete]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[yaf_UserGroup_delete]
 GO

@@ -45,11 +45,11 @@ namespace YAF.Install
 		private string [] _scripts = new string []
 		{
 			"tables.sql",
-            "indexes.sql",
-            "constraints.sql",
-            "triggers.sql",
-            "views.sql",
-            "procedures.sql",
+      "indexes.sql",
+      "constraints.sql",
+      "triggers.sql",
+      "views.sql",
+      "procedures.sql",
 			"functions.sql"
 	    };
 
@@ -134,7 +134,7 @@ namespace YAF.Install
 						}
 						catch
 						{
-							throw new Exception( "No write access to web.config to save configPassword. Please add write access to web.config for ASPNET user." );
+							throw new Exception( "Unable to save the configPassword. Please verify that the ASPNET user has write access permissions to the app.config file." );
 						}
 
 						break;
@@ -225,7 +225,7 @@ namespace YAF.Install
 				FixAccess(false);
 
 				foreach (string script in _scripts)
-					ExecuteScript(script);
+					ExecuteScript(script, "dbo");
 
 				FixAccess(true);
 
@@ -408,7 +408,7 @@ namespace YAF.Install
 		#endregion
 
 		#region method ExecuteScript
-		private void ExecuteScript( string sScriptFile )
+		private void ExecuteScript( string sScriptFile, string dbOwner )
 		{
 			string sScript = null;
 			try
@@ -442,6 +442,9 @@ namespace YAF.Install
 						{
 							if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
 								continue;
+
+							// modify the databaseowner...
+							sql = sql.Replace( "{databaseOwner}", dbOwner.Trim() );
 
 							if ( sql.Length > 0 )
 							{

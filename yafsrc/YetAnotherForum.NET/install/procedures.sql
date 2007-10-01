@@ -6,738 +6,738 @@
   Remove Extra Stuff: SET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\n\n 
 */
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_accessmask_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_accessmask_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_accessmask_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_accessmask_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_accessmask_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_accessmask_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_accessmask_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_accessmask_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_accessmask_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_accessmask_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_accessmask_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_accessmask_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_active_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_active_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_active_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_active_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_active_listforum]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_active_listforum]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_active_listforum]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_active_listforum]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_active_listtopic]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_active_listtopic]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_active_listtopic]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_active_listtopic]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_active_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_active_stats]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_active_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_active_stats]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_attachment_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_attachment_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_attachment_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_attachment_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_attachment_download]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_attachment_download]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_attachment_download]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_attachment_download]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_attachment_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_attachment_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_attachment_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_attachment_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_attachment_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_attachment_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_attachment_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_attachment_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bannedip_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_bannedip_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_bannedip_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_bannedip_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bannedip_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_bannedip_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_bannedip_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_bannedip_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_bannedip_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_bannedip_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_bannedip_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_bannedip_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_create]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_create]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_poststats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_poststats]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_poststats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_poststats]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_resync]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_resync]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_board_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_board_stats]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_board_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_board_stats]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_category_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_category_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_category_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_category_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_category_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_category_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_category_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_category_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_category_listread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_category_listread]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_category_listread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_category_listread]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_category_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_category_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_category_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_category_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_checkemail_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_checkemail_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_checkemail_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_checkemail_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_checkemail_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_checkemail_update]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_checkemail_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_checkemail_update]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_choice_vote]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_choice_vote]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_choice_vote]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_choice_vote]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_eventlog_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_eventlog_create]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_eventlog_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_eventlog_create]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_eventlog_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_eventlog_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_eventlog_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_eventlog_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_eventlog_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_eventlog_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_eventlog_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_eventlog_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listall]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listall]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listall_fromcat]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listall_fromcat]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listall_fromcat]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listall_fromcat]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listallmymoderated]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listallmymoderated]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listallmymoderated]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listallmymoderated]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listpath]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listpath]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listpath]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listpath]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listread]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listread]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listSubForums]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listSubForums]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listSubForums]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listSubForums]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_listtopics]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_listtopics]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_listtopics]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_listtopics]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_moderatelist]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_moderatelist]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_moderatelist]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_moderatelist]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_moderators]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_moderators]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_moderators]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_moderators]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_resync]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_resync]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_resync]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_updatelastpost]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_updatelastpost]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_updatelastpost]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_updatelastpost]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forum_updatestats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_updatestats]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forum_updatestats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_updatestats]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forumaccess_group]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forumaccess_group]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forumaccess_group]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forumaccess_group]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forumaccess_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forumaccess_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forumaccess_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forumaccess_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_forumaccess_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forumaccess_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_forumaccess_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_forumaccess_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_group_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_group_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_group_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_group_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_group_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_group_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_group_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_group_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_group_member]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_group_member]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_group_member]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_group_member]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_group_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_group_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_group_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_group_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_mail_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_mail_create]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_mail_create]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_mail_create]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_mail_createwatch]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_mail_createwatch]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_mail_createwatch]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_mail_createwatch]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_mail_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_mail_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_mail_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_mail_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_mail_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_mail_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_mail_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_mail_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_approve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_approve]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_approve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_approve]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_findunread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_findunread]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_findunread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_findunread]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_getReplies]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_getReplies]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_getReplies]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_getReplies]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_listreported]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_listreported]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_listreported]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_listreported]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_report]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_report]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_report]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_report]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_reportcopyover]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_reportcopyover]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_reportcopyover]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_reportcopyover]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_reportresolve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_reportresolve]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_reportresolve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_reportresolve]
 GO
 
 
 
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_unapproved]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_unapproved]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_unapproved]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_unapproved]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_message_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_update]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_message_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_message_update]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpforum_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpforum_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpforum_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpforum_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpforum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpforum_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpforum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpforum_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpforum_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpforum_update]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpforum_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpforum_update]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpserver_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpserver_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpserver_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpserver_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpserver_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpserver_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpserver_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpserver_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntpserver_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntpserver_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntpserver_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntpserver_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntptopic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntptopic_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntptopic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntptopic_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_nntptopic_savemessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_nntptopic_savemessage]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_nntptopic_savemessage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_nntptopic_savemessage]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pageload]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pageload]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pageload]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pageload]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_info]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_info]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_info]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_info]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_markread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_markread]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_markread]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_markread]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_prune]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_prune]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_prune]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_prune]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pmessage_archive]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pmessage_archive]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pmessage_archive]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pmessage_archive]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_poll_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_poll_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_poll_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_poll_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_poll_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_poll_stats]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_poll_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_poll_stats]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_pollvote_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_pollvote_check]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_pollvote_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_pollvote_check]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_post_last10user]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_post_last10user]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_post_last10user]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_post_last10user]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_post_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_post_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_post_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_post_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_post_list_reverse10]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_post_list_reverse10]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_post_list_reverse10]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_post_list_reverse10]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_rank_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_rank_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_rank_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_rank_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_rank_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_rank_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_rank_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_rank_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_rank_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_rank_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_rank_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_rank_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_registry_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_registry_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_registry_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_registry_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_registry_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_registry_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_registry_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_registry_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_replace_words_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_replace_words_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_replace_words_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_replace_words_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_replace_words_edit]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_replace_words_edit]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_replace_words_edit]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_replace_words_edit]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_replace_words_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_replace_words_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_replace_words_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_replace_words_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_replace_words_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_replace_words_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_replace_words_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_replace_words_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_smiley_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_smiley_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_smiley_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_smiley_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_smiley_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_smiley_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_listunique]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_smiley_listunique]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_smiley_listunique]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_smiley_listunique]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_smiley_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_smiley_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_smiley_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_smiley_resort]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_smiley_resort]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_smiley_resort]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_smiley_resort]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_system_initialize]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_system_initialize]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_system_initialize]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_system_initialize]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_system_updateversion]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_system_updateversion]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_system_updateversion]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_system_updateversion]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_active]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_active]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_active]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_active]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_findnext]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_findnext]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_findnext]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_findnext]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_findprev]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_findprev]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_findprev]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_findprev]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_info]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_info]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_info]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_info]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_announcements]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_announcements]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_announcements]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_announcements]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_latest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_latest]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_latest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_latest]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_listmessages]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_listmessages]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_listmessages]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_listmessages]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_lock]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_lock]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_lock]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_lock]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_move]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_move]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_move]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_move]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_prune]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_prune]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_prune]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_prune]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_topic_updatelastpost]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_updatelastpost]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_topic_updatelastpost]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_updatelastpost]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_accessmasks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_accessmasks]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_accessmasks]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_accessmasks]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_activity_rank]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_activity_rank]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_activity_rank]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_activity_rank]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_addpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_addpoints]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_addpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_addpoints]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_adminsave]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_adminsave]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_adminsave]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_adminsave]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_approve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_approve]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_approve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_approve]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_approveall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_approveall]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_approveall]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_approveall]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_aspnet]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_aspnet]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_aspnet]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_aspnet]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_avatarimage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_avatarimage]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_avatarimage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_avatarimage]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_changepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_changepassword]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_changepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_changepassword]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_deleteavatar]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_deleteavatar]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_deleteavatar]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_deleteavatar]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_deleteold]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_deleteold]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_deleteold]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_deleteold]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_emails]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_emails]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_emails]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_emails]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_find]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_find]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_find]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_find]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_getpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_getpoints]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_getpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_getpoints]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_getsignature]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_getsignature]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_getsignature]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_getsignature]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_guest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_guest]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_guest]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_guest]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_login]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_login]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_login]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_login]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_nntp]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_nntp]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_nntp]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_nntp]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_recoverpassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_recoverpassword]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_recoverpassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_recoverpassword]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_removepoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_removepoints]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_removepoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_removepoints]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_removepointsbytopicid]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_removepointsbytopicid]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_removepointsbytopicid]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_removepointsbytopicid]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_resetpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_resetpoints]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_resetpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_resetpoints]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_saveavatar]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_saveavatar]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_saveavatar]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_saveavatar]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_savepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_savepassword]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_savepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_savepassword]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_savesignature]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_savesignature]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_savesignature]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_savesignature]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_setpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_setpoints]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_setpoints]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_setpoints]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_setrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_setrole]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_setrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_setrole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_suspend]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_suspend]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_suspend]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_suspend]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_user_upgrade]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_upgrade]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_user_upgrade]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_user_upgrade]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_userforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_userforum_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_userforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_userforum_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_userforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_userforum_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_userforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_userforum_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_userforum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_userforum_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_userforum_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_userforum_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_usergroup_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_usergroup_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_usergroup_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_usergroup_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_usergroup_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_usergroup_save]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_usergroup_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_usergroup_save]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_userpmessage_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_userpmessage_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_userpmessage_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_userpmessage_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_userpmessage_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_userpmessage_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_userpmessage_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_userpmessage_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchforum_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchforum_add]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchforum_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchforum_add]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchforum_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchforum_check]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchforum_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchforum_check]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchforum_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchforum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchforum_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchforum_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchforum_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchforum_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchtopic_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchtopic_add]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchtopic_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchtopic_add]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchtopic_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchtopic_check]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchtopic_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchtopic_check]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchtopic_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchtopic_delete]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchtopic_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchtopic_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yaf_watchtopic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_watchtopic_list]
+IF  EXISTS (SELECT * FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[yaf_watchtopic_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[yaf_watchtopic_list]
 GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yaf_message_reply_list') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_reply_list]
+DROP PROCEDURE [{databaseOwner}].[yaf_message_reply_list]
 GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE id = object_id(N'yaf_message_deleteundelete') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_deleteundelete]
+DROP PROCEDURE [{databaseOwner}].[yaf_message_deleteundelete]
 GO
 
 IF EXISTS (SELECT 1 FROM sysobjects WHERE id = object_id(N'yaf_topic_create_by_message') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_create_by_message]
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_create_by_message]
 GO
 
 IF EXISTS (SELECT 1 FROM sysobjects where id = object_id(N'yaf_message_move') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_move]
+DROP PROCEDURE [{databaseOwner}].[yaf_message_move]
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[dbo].[yaf_category_simplelist]')
+           FROM   sysobjects
+           WHERE  id = Object_id(N'[{databaseOwner}].[yaf_category_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_category_simplelist] 
+DROP PROCEDURE [{databaseOwner}].[yaf_category_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[dbo].[yaf_forum_simplelist]')
+           FROM   sysobjects
+           WHERE  id = Object_id(N'[{databaseOwner}].[yaf_forum_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_forum_simplelist] 
+DROP PROCEDURE [{databaseOwner}].[yaf_forum_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[dbo].[yaf_message_simplelist]')
+           FROM   sysobjects
+           WHERE  id = Object_id(N'[{databaseOwner}].[yaf_message_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_message_simplelist] 
+DROP PROCEDURE [{databaseOwner}].[yaf_message_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[dbo].[yaf_topic_simplelist]')
+           FROM   sysobjects
+           WHERE  id = Object_id(N'[{databaseOwner}].[yaf_topic_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_topic_simplelist] 
+DROP PROCEDURE [{databaseOwner}].[yaf_topic_simplelist] 
 GO
 
 IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
-           WHERE  id = Object_id(N'[dbo].[yaf_user_simplelist]')
+           FROM   sysobjects
+           WHERE  id = Object_id(N'[{databaseOwner}].[yaf_user_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yaf_user_simplelist] 
+DROP PROCEDURE [{databaseOwner}].[yaf_user_simplelist] 
 GO
 
 
-create procedure [dbo].[yaf_accessmask_delete](@AccessMaskID int) as
+create procedure [{databaseOwner}].[yaf_accessmask_delete](@AccessMaskID int) as
 begin
 	declare @flag int
 	
@@ -751,7 +751,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_accessmask_list](@BoardID int,@AccessMaskID int=null) as
+create procedure [{databaseOwner}].[yaf_accessmask_list](@BoardID int,@AccessMaskID int=null) as
 begin
 	if @AccessMaskID is null
 		select 
@@ -775,7 +775,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_accessmask_save](
+create procedure [{databaseOwner}].[yaf_accessmask_save](
 	@AccessMaskID		int=null,
 	@BoardID			int,
 	@Name				nvarchar(50),
@@ -816,7 +816,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_active_list](@BoardID int,@Guests bit=0) as
+create procedure [{databaseOwner}].[yaf_active_list](@BoardID int,@Guests bit=0) as
 begin
 	-- delete non-active
 	delete from yaf_Active where DATEDIFF(minute,LastActive,getdate())>5
@@ -875,7 +875,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_active_listforum](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_active_listforum](@ForumID int) as
 begin
 	select
 		UserID		= a.UserID,
@@ -892,7 +892,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_active_listtopic](@TopicID int) as
+create procedure [{databaseOwner}].[yaf_active_listtopic](@TopicID int) as
 begin
 	select
 		UserID		= a.UserID,
@@ -910,7 +910,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_active_stats](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_active_stats](@BoardID int) as
 begin
 	select
 		ActiveUsers = (select count(1) from yaf_Active where BoardID=@BoardID),
@@ -919,18 +919,18 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_attachment_delete](@AttachmentID int) as begin
+create procedure [{databaseOwner}].[yaf_attachment_delete](@AttachmentID int) as begin
 	delete from yaf_Attachment where AttachmentID=@AttachmentID
 end
 GO
 
-create procedure [dbo].[yaf_attachment_download](@AttachmentID int) as
+create procedure [{databaseOwner}].[yaf_attachment_download](@AttachmentID int) as
 begin
 	update yaf_Attachment set Downloads=Downloads+1 where AttachmentID=@AttachmentID
 end
 GO
 
-create procedure [dbo].[yaf_attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
+create procedure [{databaseOwner}].[yaf_attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
 	if @MessageID is not null
 		select * from yaf_Attachment where MessageID=@MessageID
 	else if @AttachmentID is not null
@@ -962,18 +962,18 @@ create procedure [dbo].[yaf_attachment_list](@MessageID int=null,@AttachmentID i
 end
 GO
 
-create procedure [dbo].[yaf_attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
+create procedure [{databaseOwner}].[yaf_attachment_save](@MessageID int,@FileName nvarchar(255),@Bytes int,@ContentType nvarchar(50)=null,@FileData image=null) as begin
 	insert into yaf_Attachment(MessageID,FileName,Bytes,ContentType,Downloads,FileData) values(@MessageID,@FileName,@Bytes,@ContentType,0,@FileData)
 end
 GO
 
-create procedure [dbo].[yaf_bannedip_delete](@ID int) as
+create procedure [{databaseOwner}].[yaf_bannedip_delete](@ID int) as
 begin
 	delete from yaf_BannedIP where ID = @ID
 end
 GO
 
-create procedure [dbo].[yaf_bannedip_list](@BoardID int,@ID int=null) as
+create procedure [{databaseOwner}].[yaf_bannedip_list](@BoardID int,@ID int=null) as
 begin
 	if @ID is null
 		select * from yaf_BannedIP where BoardID=@BoardID
@@ -982,7 +982,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15)) as
+create procedure [{databaseOwner}].[yaf_bannedip_save](@ID int=null,@BoardID int,@Mask nvarchar(15)) as
 begin
 	if @ID is null or @ID = 0 begin
 		insert into yaf_BannedIP(BoardID,Mask,Since) values(@BoardID,@Mask,getdate())
@@ -993,7 +993,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_board_create](
+CREATE procedure [{databaseOwner}].[yaf_board_create](
 	@BoardName 		nvarchar(50),
 	@AllowThreaded	bit,
 	@UserName		nvarchar(50),
@@ -1098,7 +1098,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_delete](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_board_delete](@BoardID int) as
 begin
 	declare @tmpForumID int;
 	declare forum_cursor cursor for
@@ -1130,7 +1130,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_list](@BoardID int=null) as
+create procedure [{databaseOwner}].[yaf_board_list](@BoardID int=null) as
 begin
 	select
 		a.*,
@@ -1142,7 +1142,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_poststats](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_board_poststats](@BoardID int) as
 begin
 	select
 		Posts = (select count(1) from yaf_Message a join yaf_Topic b on b.TopicID=a.TopicID join yaf_Forum c on c.ForumID=b.ForumID join yaf_Category d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID),
@@ -1186,7 +1186,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_save](@BoardID int,@Name nvarchar(50),@AllowThreaded bit) as
+create procedure [{databaseOwner}].[yaf_board_save](@BoardID int,@Name nvarchar(50),@AllowThreaded bit) as
 begin
 	update yaf_Board set
 		Name = @Name,
@@ -1195,7 +1195,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_board_stats]
+create procedure [{databaseOwner}].[yaf_board_stats]
 	@BoardID	int = null
 as 
 begin
@@ -1227,7 +1227,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_category_delete](@CategoryID int) as
+create procedure [{databaseOwner}].[yaf_category_delete](@CategoryID int) as
 begin
 	declare @flag int
  
@@ -1244,7 +1244,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_category_list](@BoardID int,@CategoryID int=null) as
+create procedure [{databaseOwner}].[yaf_category_list](@BoardID int,@CategoryID int=null) as
 begin
 	if @CategoryID is null
 		select * from yaf_Category where BoardID = @BoardID order by SortOrder
@@ -1253,7 +1253,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_category_listread](@BoardID int,@UserID int,@CategoryID int=null) as
+create procedure [{databaseOwner}].[yaf_category_listread](@BoardID int,@UserID int,@CategoryID int=null) as
 begin
 	select 
 		a.CategoryID,
@@ -1277,7 +1277,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_category_save](@BoardID int,@CategoryID int,@Name nvarchar(50),@SortOrder smallint) as
+create procedure [{databaseOwner}].[yaf_category_save](@BoardID int,@CategoryID int,@Name nvarchar(50),@SortOrder smallint) as
 begin
 	if @CategoryID>0 begin
 		update yaf_Category set Name=@Name,SortOrder=@SortOrder where CategoryID=@CategoryID
@@ -1290,14 +1290,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_checkemail_save](@UserID int,@Hash nvarchar(32),@Email nvarchar(50)) as
+create procedure [{databaseOwner}].[yaf_checkemail_save](@UserID int,@Hash nvarchar(32),@Email nvarchar(50)) as
 begin
 	insert into yaf_CheckEmail(UserID,Email,Created,Hash)
 	values(@UserID,@Email,getdate(),@Hash)	
 end
 GO
 
-CREATE procedure [dbo].[yaf_checkemail_update](@Hash nvarchar(32)) as
+CREATE procedure [{databaseOwner}].[yaf_checkemail_update](@Hash nvarchar(32)) as
 begin
 	declare @UserID int
 	declare @CheckEmailID int
@@ -1329,7 +1329,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_choice_vote](@ChoiceID int,@UserID int = NULL, @RemoteIP nvarchar(10) = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_choice_vote](@ChoiceID int,@UserID int = NULL, @RemoteIP nvarchar(10) = NULL) AS
 BEGIN
 	DECLARE @PollID int
 
@@ -1351,38 +1351,38 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int) as
+create procedure [{databaseOwner}].[yaf_eventlog_create](@UserID int,@Source nvarchar(50),@Description ntext,@Type int) as
 begin
-	insert into dbo.yaf_EventLog(UserID,Source,Description,Type)
+	insert into {databaseOwner}.yaf_EventLog(UserID,Source,Description,Type)
 	values(@UserID,@Source,@Description,@Type)
 
 	-- delete entries older than 10 days
-	delete from dbo.yaf_EventLog where EventTime+10<getdate()
+	delete from {databaseOwner}.yaf_EventLog where EventTime+10<getdate()
 
 	-- or if there are more then 1000	
 	if ((select count(*) from yaf_eventlog) >= 1050)
 	begin
 		
-		delete from dbo.yaf_EventLog WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM dbo.yaf_EventLog ORDER BY EventTime)
+		delete from {databaseOwner}.yaf_EventLog WHERE EventLogID IN (SELECT TOP 100 EventLogID FROM {databaseOwner}.yaf_EventLog ORDER BY EventTime)
 	end	
 	
 end
 GO
 
-create procedure [dbo].[yaf_eventlog_delete](@EventLogID int) as
+create procedure [{databaseOwner}].[yaf_eventlog_delete](@EventLogID int) as
 begin
-	delete from dbo.yaf_EventLog where EventLogID=@EventLogID
+	delete from {databaseOwner}.yaf_EventLog where EventLogID=@EventLogID
 end
 GO
 
-create procedure [dbo].[yaf_eventlog_list](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_eventlog_list](@BoardID int) as
 begin
 	select
 		a.*,
 		ISNULL(b.[Name],'System') as [Name]
 	from
-		dbo.yaf_EventLog a
-		left join dbo.yaf_User b on b.UserID=a.UserID
+		{databaseOwner}.yaf_EventLog a
+		left join {databaseOwner}.yaf_User b on b.UserID=a.UserID
 	where
 		(b.UserID IS NULL or b.BoardID = @BoardID)		
 	order by
@@ -1390,7 +1390,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_forum_delete](@ForumID int) as
+CREATE procedure [{databaseOwner}].[yaf_forum_delete](@ForumID int) as
 begin
 	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
 	update yaf_Forum set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
@@ -1441,7 +1441,7 @@ end
 
 GO
 
-create procedure [dbo].[yaf_forum_list](@BoardID int,@ForumID int=null) as
+create procedure [{databaseOwner}].[yaf_forum_list](@BoardID int,@ForumID int=null) as
 begin
 	if @ForumID = 0 set @ForumID = null
 	if @ForumID is null
@@ -1451,7 +1451,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_forum_listall] (@BoardID int,@UserID int,@root int = 0) as
+CREATE procedure [{databaseOwner}].[yaf_forum_listall] (@BoardID int,@UserID int,@root int = 0) as
 begin
 if @root = 0
 begin
@@ -1529,7 +1529,7 @@ end
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_forum_listall_fromcat](@BoardID int,@CategoryID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_forum_listall_fromcat](@BoardID int,@CategoryID int) AS
 BEGIN
 	SELECT     b.CategoryID, b.Name AS Category, a.ForumID, a.Name AS Forum, a.ParentID
 	FROM         yaf_Forum a INNER JOIN
@@ -1543,7 +1543,7 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_forum_listallmymoderated](@BoardID int,@UserID int) as
+create procedure [{databaseOwner}].[yaf_forum_listallmymoderated](@BoardID int,@UserID int) as
 begin
 	select
 		b.CategoryID,
@@ -1602,7 +1602,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_listpath](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forum_listpath](@ForumID int) as
 begin
 	-- supports up to 4 levels of nested forums
 	select
@@ -1659,7 +1659,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
+create procedure [{databaseOwner}].[yaf_forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null) as
 begin
 	select 
 		a.CategoryID, 
@@ -1667,9 +1667,9 @@ begin
 		ForumID			= b.ForumID,
 		Forum			= b.Name, 
 		Description,
-		Topics			= dbo.yaf_forum_topics(b.ForumID),
-		Posts			= dbo.yaf_forum_posts(b.ForumID),
-		Subforums		= dbo.yaf_forum_subforums(b.ForumID, @UserID),
+		Topics			= {databaseOwner}.yaf_forum_topics(b.ForumID),
+		Posts			= {databaseOwner}.yaf_forum_posts(b.ForumID),
+		Subforums		= {databaseOwner}.yaf_forum_subforums(b.ForumID, @UserID),
 		LastPosted		= t.LastPosted,
 		LastMessageID	= t.LastMessageID,
 		LastUserID		= t.LastUserID,
@@ -1684,7 +1684,7 @@ begin
 		yaf_Category a
 		join yaf_Forum b on b.CategoryID=a.CategoryID
 		join yaf_vaccess x on x.ForumID=b.ForumID
-		left outer join yaf_Topic t ON t.TopicID = dbo.yaf_forum_lasttopic(b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+		left outer join yaf_Topic t ON t.TopicID = {databaseOwner}.yaf_forum_lasttopic(b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
 	where 
 		a.BoardID = @BoardID and
 		((b.Flags & 2)=0 or x.ReadAccess<>0) and
@@ -1697,20 +1697,20 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_listSubForums](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forum_listSubForums](@ForumID int) as
 begin
 	select Sum(1) from yaf_Forum where ParentID = @ForumID
 end
 GO
 
-create procedure [dbo].[yaf_forum_listtopics](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forum_listtopics](@ForumID int) as
 begin
 select * from yaf_Topic
 Where ForumID = @ForumID
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_forum_moderatelist](@BoardID int,@UserID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_forum_moderatelist](@BoardID int,@UserID int) AS
 BEGIN
 
 SELECT
@@ -1747,7 +1747,7 @@ SELECT
 END
 GO
 
-create procedure [dbo].[yaf_forum_moderators] as
+create procedure [{databaseOwner}].[yaf_forum_moderators] as
 begin
 	select
 		ForumID = a.ForumID, 
@@ -1778,7 +1778,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_forum_save](
+CREATE procedure [{databaseOwner}].[yaf_forum_save](
 	@ForumID 		int,
 	@CategoryID		int,
 	@ParentID		int=null,
@@ -1831,7 +1831,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_updatelastpost](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forum_updatelastpost](@ForumID int) as
 begin
 	update yaf_Forum set
 		LastPosted = (select top 1 y.Posted from yaf_Topic x,yaf_Message y where x.ForumID=yaf_Forum.ForumID and y.TopicID=x.TopicID and (y.Flags & 24)=16 order by y.Posted desc),
@@ -1843,7 +1843,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forum_updatestats](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forum_updatestats](@ForumID int) as
 begin
 	update yaf_Forum set 
 		NumPosts = (select count(1) from yaf_Message x,yaf_Topic y where y.TopicID=x.TopicID and y.ForumID = yaf_Forum.ForumID and (x.Flags & 24)=16),
@@ -1852,7 +1852,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_forumaccess_group](@GroupID int) as
+CREATE procedure [{databaseOwner}].[yaf_forumaccess_group](@GroupID int) as
 begin
 	select 
 		a.*,
@@ -1874,7 +1874,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forumaccess_list](@ForumID int) as
+create procedure [{databaseOwner}].[yaf_forumaccess_list](@ForumID int) as
 begin
 	select 
 		a.*,
@@ -1888,7 +1888,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_forumaccess_save](
+create procedure [{databaseOwner}].[yaf_forumaccess_save](
 	@ForumID			int,
 	@GroupID			int,
 	@AccessMaskID		int
@@ -1902,7 +1902,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_group_delete](@GroupID int) as
+create procedure [{databaseOwner}].[yaf_group_delete](@GroupID int) as
 begin
 	delete from yaf_ForumAccess where GroupID = @GroupID
 	delete from yaf_UserGroup where GroupID = @GroupID
@@ -1910,7 +1910,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_group_list](@BoardID int,@GroupID int=null) as
+create procedure [{databaseOwner}].[yaf_group_list](@BoardID int,@GroupID int=null) as
 begin
 	if @GroupID is null
 		select * from yaf_Group where BoardID=@BoardID
@@ -1919,7 +1919,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_group_member](@BoardID int,@UserID int) as
+create procedure [{databaseOwner}].[yaf_group_member](@BoardID int,@UserID int) as
 begin
 	select 
 		a.GroupID,
@@ -1934,7 +1934,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_group_save](
+CREATE procedure [{databaseOwner}].[yaf_group_save](
 	@GroupID		int,
 	@BoardID		int,
 	@Name			nvarchar(50),
@@ -1970,14 +1970,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_mail_create](@From nvarchar(50),@To nvarchar(50),@Subject nvarchar(100),@Body ntext) as 
+create procedure [{databaseOwner}].[yaf_mail_create](@From nvarchar(50),@To nvarchar(50),@Subject nvarchar(100),@Body ntext) as 
 begin
 	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
 	values(@From,@To,getdate(),@Subject,@Body)
 end
 GO
 
-create procedure [dbo].[yaf_mail_createwatch](@TopicID int,@From nvarchar(50),@Subject nvarchar(100),@Body ntext,@UserID int) as begin
+create procedure [{databaseOwner}].[yaf_mail_createwatch](@TopicID int,@From nvarchar(50),@Subject nvarchar(100),@Body ntext,@UserID int) as begin
 	insert into yaf_Mail(FromUser,ToUser,Created,Subject,Body)
 	select
 		@From,
@@ -2023,19 +2023,19 @@ create procedure [dbo].[yaf_mail_createwatch](@TopicID int,@From nvarchar(50),@S
 end
 GO
 
-create procedure [dbo].[yaf_mail_delete](@MailID int) as
+create procedure [{databaseOwner}].[yaf_mail_delete](@MailID int) as
 begin
 	delete from yaf_Mail where MailID = @MailID
 end
 GO
 
-create procedure [dbo].[yaf_mail_list] as
+create procedure [{databaseOwner}].[yaf_mail_list] as
 begin
 	select top 10 * from yaf_Mail order by Created
 end
 GO
 
-create procedure [dbo].[yaf_message_approve](@MessageID int) as begin
+create procedure [{databaseOwner}].[yaf_message_approve](@MessageID int) as begin
 	declare	@UserID		int
 	declare	@ForumID	int
 	declare	@TopicID	int
@@ -2088,7 +2088,7 @@ create procedure [dbo].[yaf_message_approve](@MessageID int) as begin
 end
 GO
 
-create procedure [dbo].[yaf_message_delete](@MessageID int) as
+create procedure [{databaseOwner}].[yaf_message_delete](@MessageID int) as
 begin
 	declare @TopicID		int
 	declare @ForumID		int
@@ -2130,7 +2130,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_message_findunread](@TopicID int,@LastRead datetime) as
+create procedure [{databaseOwner}].[yaf_message_findunread](@TopicID int,@LastRead datetime) as
 begin
 	select top 1 MessageID from yaf_Message
 	where TopicID=@TopicID and Posted>@LastRead
@@ -2138,13 +2138,13 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_getReplies](@MessageID int) as
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_getReplies](@MessageID int) as
 BEGIN
 	SELECT MessageID FROM yaf_Message WHERE ReplyTo = @MessageID
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_list](@MessageID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_list](@MessageID int) AS
 BEGIN
 	SELECT
 		a.MessageID,
@@ -2180,7 +2180,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_listreported](@MessageFlag int, @ForumID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_listreported](@MessageFlag int, @ForumID int) AS
 BEGIN
 	SELECT
 		a.*,
@@ -2209,7 +2209,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_report](@ReportFlag int, @MessageID int, @ReporterID int, @ReportedDate datetime ) AS
 BEGIN
 	
 	IF NOT exists(SELECT MessageID from yaf_MessageReportedAudit WHERE MessageID=@MessageID AND UserID=@ReporterID)
@@ -2233,7 +2233,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_reportresolve](@MessageFlag int, @MessageID int, @UserID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_reportresolve](@MessageFlag int, @MessageID int, @UserID int) AS
 BEGIN
 	UPDATE yaf_MessageReported 
 	SET Resolved = 1, ResolvedBy = @UserID, ResolvedDate = GETDATE()
@@ -2246,7 +2246,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_reportcopyover](@MessageID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_reportcopyover](@MessageID int) AS
 BEGIN
 	UPDATE yaf_MessageReported 
 	SET yaf_MessageReported.Message = (SELECT Message FROM yaf_Message WHERE yaf_Message.MessageID=@MessageID)
@@ -2255,7 +2255,7 @@ BEGIN
 END
 GO
 
-CREATE procedure [dbo].[yaf_message_save](
+CREATE procedure [{databaseOwner}].[yaf_message_save](
 	@TopicID		int,
 	@UserID			int,
 	@Message		ntext,
@@ -2331,7 +2331,7 @@ END
 	
 GO
 
-CREATE procedure [dbo].[yaf_message_unapproved](@ForumID int) as begin
+CREATE procedure [{databaseOwner}].[yaf_message_unapproved](@ForumID int) as begin
 	select
 		MessageID	= b.MessageID,
 		UserName	= IsNull(b.UserName,c.Name),
@@ -2355,7 +2355,7 @@ end
 
 GO
 
-CREATE procedure [dbo].[yaf_message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit) as
+CREATE procedure [{databaseOwner}].[yaf_message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit) as
 begin
 	declare @TopicID	int
 	declare	@ForumFlags	int
@@ -2404,14 +2404,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpforum_delete](@NntpForumID int) as
+create procedure [{databaseOwner}].[yaf_nntpforum_delete](@NntpForumID int) as
 begin
 	delete from yaf_NntpTopic where NntpForumID = @NntpForumID
 	delete from yaf_NntpForum where NntpForumID = @NntpForumID
 end
 GO
 
-create procedure [dbo].[yaf_nntpforum_list](@BoardID int,@Minutes int=null,@NntpForumID int=null,@Active bit=null) as
+create procedure [{databaseOwner}].[yaf_nntpforum_list](@BoardID int,@Minutes int=null,@NntpForumID int=null,@Active bit=null) as
 begin
 	select
 		a.Name,
@@ -2442,7 +2442,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpforum_save](@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit) as
+create procedure [{databaseOwner}].[yaf_nntpforum_save](@NntpForumID int=null,@NntpServerID int,@GroupName nvarchar(100),@ForumID int,@Active bit) as
 begin
 	if @NntpForumID is null
 		insert into yaf_NntpForum(NntpServerID,GroupName,ForumID,LastMessageNo,LastUpdate,Active)
@@ -2457,7 +2457,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpforum_update](@NntpForumID int,@LastMessageNo int,@UserID int) as
+create procedure [{databaseOwner}].[yaf_nntpforum_update](@NntpForumID int,@LastMessageNo int,@UserID int) as
 begin
 	declare	@ForumID	int
 	
@@ -2478,7 +2478,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpserver_delete](@NntpServerID int) as
+create procedure [{databaseOwner}].[yaf_nntpserver_delete](@NntpServerID int) as
 begin
 	delete from yaf_NntpTopic where NntpForumID in (select NntpForumID from yaf_NntpForum where NntpServerID = @NntpServerID)
 	delete from yaf_NntpForum where NntpServerID = @NntpServerID
@@ -2486,7 +2486,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpserver_list](@BoardID int=null,@NntpServerID int=null) as
+create procedure [{databaseOwner}].[yaf_nntpserver_list](@BoardID int=null,@NntpServerID int=null) as
 begin
 	if @NntpServerID is null
 		select * from yaf_NntpServer where BoardID=@BoardID order by Name
@@ -2495,7 +2495,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntpserver_save](
+create procedure [{databaseOwner}].[yaf_nntpserver_save](
 	@NntpServerID 	int=null,
 	@BoardID	int,
 	@Name		nvarchar(50),
@@ -2518,7 +2518,7 @@ create procedure [dbo].[yaf_nntpserver_save](
 end
 GO
 
-create procedure [dbo].[yaf_nntptopic_list](@Thread char(32)) as
+create procedure [{databaseOwner}].[yaf_nntptopic_list](@Thread char(32)) as
 begin
 	select
 		a.*
@@ -2529,7 +2529,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_nntptopic_savemessage](
+create procedure [{databaseOwner}].[yaf_nntptopic_savemessage](
 	@NntpForumID	int,
 	@Topic 			nvarchar(100),
 	@Body 			ntext,
@@ -2590,7 +2590,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_pageload](
+CREATE procedure [{databaseOwner}].[yaf_pageload](
 	@SessionID	nvarchar(24),
 	@BoardID	int,
 	@UserKey	uniqueidentifier,
@@ -2646,7 +2646,7 @@ begin
 	
 	-- get previous visit
 	if @IsGuest=0 begin
-		select @PreviousVisit = LastVisit from dbo.yaf_User where UserID = @UserID
+		select @PreviousVisit = LastVisit from {databaseOwner}.yaf_User where UserID = @UserID
 	end
 	
 	-- update last visit
@@ -2751,7 +2751,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_delete](@PMessageID int, @FromOutbox bit = 0) as
+create procedure [{databaseOwner}].[yaf_pmessage_delete](@PMessageID int, @FromOutbox bit = 0) as
 begin
 	if @FromOutbox=1
 		update [yaf_UserPMessage] set [IsInOutbox] = 0 where [PMessageID]=@PMessageID
@@ -2763,7 +2763,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_info] as
+create procedure [{databaseOwner}].[yaf_pmessage_info] as
 begin
 	select
 		NumRead	= (select count(1) from yaf_UserPMessage where IsRead<>0),
@@ -2772,7 +2772,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) AS
 BEGIN
 	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived
 		FROM yaf_PMessageView
@@ -2829,12 +2829,12 @@ END
 */
 GO
 
-create procedure [dbo].[yaf_pmessage_markread](@UserPMessageID int=null) as begin
+create procedure [{databaseOwner}].[yaf_pmessage_markread](@UserPMessageID int=null) as begin
 	update yaf_UserPMessage set IsRead=1 where UserPMessageID=@UserPMessageID
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_prune](@DaysRead int,@DaysUnread int) as
+create procedure [{databaseOwner}].[yaf_pmessage_prune](@DaysRead int,@DaysUnread int) as
 begin
 	delete from yaf_UserPMessage
 	where IsRead<>0
@@ -2849,7 +2849,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_pmessage_save](
+create procedure [{databaseOwner}].[yaf_pmessage_save](
 	@FromUserID	int,
 	@ToUserID	int,
 	@Subject	nvarchar(100),
@@ -2886,13 +2886,13 @@ end
 GO
 
 
-CREATE PROCEDURE [dbo].[yaf_pmessage_archive](@PMessageID int = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_pmessage_archive](@PMessageID int = NULL) AS
 BEGIN
 	UPDATE yaf_UserPMessage SET IsArchived=1 WHERE UserPMessageID=@PMessageID
 END
 GO
 
-CREATE procedure [dbo].[yaf_poll_save](
+CREATE procedure [{databaseOwner}].[yaf_poll_save](
 	@Question	nvarchar(50),
 	@Choice1	nvarchar(50),
 	@Choice2	nvarchar(50),
@@ -2940,7 +2940,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_poll_stats](@PollID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_poll_stats](@PollID int) AS
 BEGIN
 	SELECT
 		a.PollID,
@@ -2959,7 +2959,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP nvarchar(10) = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@RemoteIP nvarchar(10) = NULL) AS
 
 	IF @UserID IS NULL
 	BEGIN
@@ -2976,7 +2976,7 @@ CREATE PROCEDURE [dbo].[yaf_pollvote_check](@PollID int, @UserID int = NULL,@Rem
 	END
 GO
 
-create procedure [dbo].[yaf_post_last10user](@BoardID int,@UserID int,@PageUserID int) as
+create procedure [{databaseOwner}].[yaf_post_last10user](@BoardID int,@UserID int,@PageUserID int) as
 begin
 	set nocount on
 
@@ -3008,7 +3008,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1) as
+create procedure [{databaseOwner}].[yaf_post_list](@TopicID int,@UpdateViewCount smallint=1, @ShowDeleted bit = 1) as
 begin
 	set nocount on
 	if @UpdateViewCount>0
@@ -3057,7 +3057,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_post_list_reverse10](@TopicID int) as
+create procedure [{databaseOwner}].[yaf_post_list_reverse10](@TopicID int) as
 begin
 	set nocount on
 
@@ -3083,12 +3083,12 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_rank_delete](@RankID int) as begin
+create procedure [{databaseOwner}].[yaf_rank_delete](@RankID int) as begin
 	delete from yaf_Rank where RankID = @RankID
 end
 GO
 
-create procedure [dbo].[yaf_rank_list](@BoardID int,@RankID int=null) as begin
+create procedure [{databaseOwner}].[yaf_rank_list](@BoardID int,@RankID int=null) as begin
 	if @RankID is null
 		select
 			a.*
@@ -3109,7 +3109,7 @@ create procedure [dbo].[yaf_rank_list](@BoardID int,@RankID int=null) as begin
 end
 GO
 
-create procedure [dbo].[yaf_rank_save](
+create procedure [{databaseOwner}].[yaf_rank_save](
 	@RankID		int,
 	@BoardID	int,
 	@Name		nvarchar(50),
@@ -3143,7 +3143,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_registry_list](@Name nvarchar(50) = null,@BoardID int = null) as
+create procedure [{databaseOwner}].[yaf_registry_list](@Name nvarchar(50) = null,@BoardID int = null) as
 BEGIN
 	if @BoardID is null
 	begin
@@ -3167,7 +3167,7 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_registry_save](
+create procedure [{databaseOwner}].[yaf_registry_save](
 	@Name nvarchar(50),
 	@Value ntext = NULL,
 	@BoardID int = null
@@ -3193,24 +3193,24 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_replace_words_delete](@ID int) as
+create procedure [{databaseOwner}].[yaf_replace_words_delete](@ID int) as
 begin
-	delete from dbo.yaf_replace_words where ID = @ID
+	delete from {databaseOwner}.yaf_replace_words where ID = @ID
 end
 GO
 
-create procedure [dbo].[yaf_replace_words_edit](@ID int=null) as
+create procedure [{databaseOwner}].[yaf_replace_words_edit](@ID int=null) as
 begin
 	select * from yaf_replace_words where ID=@ID
 end
 GO
 
-create procedure [dbo].[yaf_replace_words_list] as begin
+create procedure [{databaseOwner}].[yaf_replace_words_list] as begin
 	select * from yaf_Replace_Words
 end
 GO
 
-create procedure [dbo].[yaf_replace_words_save](@ID int=null,@badword nvarchar(255),@goodword nvarchar(255)) as
+create procedure [{databaseOwner}].[yaf_replace_words_save](@ID int=null,@badword nvarchar(255),@goodword nvarchar(255)) as
 begin
 	if @ID is null or @ID = 0 begin
 		insert into yaf_replace_words(badword,goodword) values(@badword,@goodword)
@@ -3221,7 +3221,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_smiley_delete](@SmileyID int=null) as begin
+create procedure [{databaseOwner}].[yaf_smiley_delete](@SmileyID int=null) as begin
 	if @SmileyID is not null
 		delete from yaf_Smiley where SmileyID=@SmileyID
 	else
@@ -3229,7 +3229,7 @@ create procedure [dbo].[yaf_smiley_delete](@SmileyID int=null) as begin
 end
 GO
 
-create procedure [dbo].[yaf_smiley_list](@BoardID int,@SmileyID int=null) as
+create procedure [{databaseOwner}].[yaf_smiley_list](@BoardID int,@SmileyID int=null) as
 begin
 	if @SmileyID is null
 		select * from yaf_Smiley where BoardID=@BoardID order by SortOrder, LEN(Code) desc
@@ -3238,7 +3238,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_smiley_listunique](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_smiley_listunique](@BoardID int) as
 begin
 	select 
 		Icon, 
@@ -3258,7 +3258,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@SortOrder tinyint,@Replace smallint=0) as begin
+create procedure [{databaseOwner}].[yaf_smiley_save](@SmileyID int=null,@BoardID int,@Code nvarchar(10),@Icon nvarchar(50),@Emoticon nvarchar(50),@SortOrder tinyint,@Replace smallint=0) as begin
 	if @SmileyID is not null begin
 		update yaf_Smiley set Code = @Code, Icon = @Icon, Emoticon = @Emoticon, SortOrder = @SortOrder where SmileyID = @SmileyID
 	end
@@ -3272,7 +3272,7 @@ create procedure [dbo].[yaf_smiley_save](@SmileyID int=null,@BoardID int,@Code n
 end
 GO
 
-create procedure [dbo].[yaf_smiley_resort](@BoardID int,@SmileyID int,@Move int) as
+create procedure [{databaseOwner}].[yaf_smiley_resort](@BoardID int,@SmileyID int,@Move int) as
 begin
 	declare @Position int
 
@@ -3307,7 +3307,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_system_initialize](
+create procedure [{databaseOwner}].[yaf_system_initialize](
 	@Name		nvarchar(50),
 	@TimeZone	int,
 	@ForumEmail	nvarchar(50),
@@ -3332,7 +3332,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_system_updateversion]
+CREATE PROCEDURE [{databaseOwner}].[yaf_system_updateversion]
 (
 	@Version		int,
 	@VersionName	nvarchar(50)
@@ -3348,7 +3348,7 @@ BEGIN
 END
 GO
 
-create procedure [dbo].[yaf_topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
+create procedure [{databaseOwner}].[yaf_topic_active](@BoardID int,@UserID int,@Since datetime,@CategoryID int=null) as
 begin
 	select
 		c.ForumID,
@@ -3391,7 +3391,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
+create procedure [{databaseOwner}].[yaf_topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
 as
 begin
 	SET NOCOUNT ON
@@ -3443,7 +3443,7 @@ end
 
 GO
 
-create procedure [dbo].[yaf_topic_findnext](@TopicID int) as
+create procedure [{databaseOwner}].[yaf_topic_findnext](@TopicID int) as
 begin
 	declare @LastPosted datetime
 	declare @ForumID int
@@ -3452,7 +3452,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_findprev](@TopicID int) AS 
+create procedure [{databaseOwner}].[yaf_topic_findprev](@TopicID int) AS 
 BEGIN
 	DECLARE @LastPosted datetime
 	DECLARE @ForumID int
@@ -3461,7 +3461,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_topic_info]
+CREATE PROCEDURE [{databaseOwner}].[yaf_topic_info]
 (
 	@TopicID int = null,
 	@ShowDeleted bit = 0
@@ -3488,7 +3488,7 @@ END
 GO
 
 
-CREATE PROCEDURE [dbo].[yaf_topic_announcements]
+CREATE PROCEDURE [{databaseOwner}].[yaf_topic_announcements]
 (
 	@BoardID int,
 	@NumPosts int,
@@ -3510,7 +3510,7 @@ END
 GO
 
 
-CREATE PROCEDURE [dbo].[yaf_topic_latest]
+CREATE PROCEDURE [{databaseOwner}].[yaf_topic_latest]
 (
 	@BoardID int,
 	@NumPosts int,
@@ -3532,7 +3532,7 @@ BEGIN
 END
 GO
 
-CREATE procedure [dbo].[yaf_topic_list](@ForumID int,@Announcement smallint,@Date datetime=null,@Offset int,@Count int) as
+CREATE procedure [{databaseOwner}].[yaf_topic_list](@ForumID int,@Announcement smallint,@Date datetime=null,@Offset int,@Count int) as
 begin
 	create table #data(
 		RowNo	int identity primary key not null,
@@ -3594,14 +3594,14 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_listmessages](@TopicID int) as
+create procedure [{databaseOwner}].[yaf_topic_listmessages](@TopicID int) as
 begin
 	select * from yaf_Message
 	where TopicID = @TopicID
 end
 GO
 
-create procedure [dbo].[yaf_topic_lock](@TopicID int,@Locked bit) as
+create procedure [{databaseOwner}].[yaf_topic_lock](@TopicID int,@Locked bit) as
 begin
 	if @Locked<>0
 		update yaf_Topic set Flags = Flags | 1 where TopicID = @TopicID
@@ -3610,7 +3610,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_topic_move](@TopicID int,@ForumID int,@ShowMoved bit) AS
+CREATE procedure [{databaseOwner}].[yaf_topic_move](@TopicID int,@ForumID int,@ShowMoved bit) AS
 begin
     declare @OldForumID int
 
@@ -3637,7 +3637,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_prune](@ForumID int=null,@Days int) as
+create procedure [{databaseOwner}].[yaf_topic_prune](@ForumID int=null,@Days int) as
 begin
 	declare @c cursor
 	declare @TopicID int
@@ -3684,7 +3684,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_save](
+create procedure [{databaseOwner}].[yaf_topic_save](
 	@ForumID	int,
 	@Subject	nvarchar(100),
 	@UserID		int,
@@ -3717,7 +3717,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_topic_updatelastpost]
+CREATE procedure [{databaseOwner}].[yaf_topic_updatelastpost]
 (@ForumID int=null,@TopicID int=null) as
 begin
 
@@ -3741,7 +3741,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_accessmasks](@BoardID int,@UserID int) as
+create procedure [{databaseOwner}].[yaf_user_accessmasks](@BoardID int,@UserID int) as
 begin
 	select * from(
 		select
@@ -3799,7 +3799,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_user_activity_rank](@StartDate as datetime) AS
+CREATE procedure [{databaseOwner}].[yaf_user_activity_rank](@StartDate as datetime) AS
 begin
 	select top 3  ID, Name, NumOfPosts from yaf_User u inner join
 	(
@@ -3812,14 +3812,14 @@ begin
 end
 go
 
-create PROCEDURE [dbo].[yaf_user_addpoints] (@UserID int,@Points int) AS
+create PROCEDURE [{databaseOwner}].[yaf_user_addpoints] (@UserID int,@Points int) AS
 BEGIN
 	UPDATE yaf_User SET Points = Points + @Points WHERE UserID = @UserID
 END
 
 GO
 
-create procedure [dbo].[yaf_user_adminsave](@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@IsGuest bit,@RankID int) as
+create procedure [{databaseOwner}].[yaf_user_adminsave](@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@IsGuest bit,@RankID int) as
 begin
 	if @IsHostAdmin<>0
 		update yaf_User set Flags = Flags | 1 where UserID = @UserID
@@ -3840,7 +3840,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_approve](@UserID int) as
+create procedure [{databaseOwner}].[yaf_user_approve](@UserID int) as
 begin
 	declare @CheckEmailID int
 	declare @Email nvarchar(50)
@@ -3860,7 +3860,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_user_approveall](@BoardID int) as
+CREATE procedure [{databaseOwner}].[yaf_user_approveall](@BoardID int) as
 begin
 
 	DECLARE userslist CURSOR FOR 
@@ -3885,17 +3885,17 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey uniqueidentifier,@IsApproved bit) as
+CREATE procedure [{databaseOwner}].[yaf_user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey uniqueidentifier,@IsApproved bit) as
 begin
 	declare @UserID int, @RankID int, @approvedFlag int
 
 	SET @approvedFlag = 0;
 	IF (@IsApproved = 1) SET @approvedFlag = 2;	
 	
-	if exists(select 1 from dbo.yaf_User where BoardID=@BoardID and [Name]=@UserName)
+	if exists(select 1 from {databaseOwner}.yaf_User where BoardID=@BoardID and [Name]=@UserName)
 	begin
-		select @UserID=UserID from dbo.yaf_User where BoardID=@BoardID and [Name]=@UserName
-		update dbo.yaf_User set 
+		select @UserID=UserID from {databaseOwner}.yaf_User where BoardID=@BoardID and [Name]=@UserName
+		update {databaseOwner}.yaf_User set 
 			[Name] = @UserName,
 			Email = @Email,
 			ProviderUserKey = @ProviderUserKey,
@@ -3904,9 +3904,9 @@ begin
 			UserID = @UserID
 	end else
 	begin
-		select @RankID = RankID from dbo.yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
+		select @RankID = RankID from {databaseOwner}.yaf_Rank where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into dbo.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
+		insert into {databaseOwner}.yaf_User(BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
 		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
 	
 		set @UserID = SCOPE_IDENTITY()
@@ -3917,12 +3917,12 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_avatarimage](@UserID int) as begin
+create procedure [{databaseOwner}].[yaf_user_avatarimage](@UserID int) as begin
 	select UserID,AvatarImage from yaf_User where UserID=@UserID
 end
 GO
 
-create procedure [dbo].[yaf_user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
+create procedure [{databaseOwner}].[yaf_user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
 begin
 	declare @CurrentOld nvarchar(32)
 	select @CurrentOld = Password from yaf_User where UserID = @UserID
@@ -3935,7 +3935,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_delete](@UserID int) as
+create procedure [{databaseOwner}].[yaf_user_delete](@UserID int) as
 begin
 	declare @GuestUserID	int
 	declare @UserName		nvarchar(50)
@@ -3988,25 +3988,25 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_user_deleteavatar](@UserID int) as begin
+CREATE procedure [{databaseOwner}].[yaf_user_deleteavatar](@UserID int) as begin
 	update yaf_User set AvatarImage = null, Avatar = null where UserID = @UserID
 end
 GO
 
-create procedure [dbo].[yaf_user_deleteold](@BoardID int) as
+create procedure [{databaseOwner}].[yaf_user_deleteold](@BoardID int) as
 begin
 	declare @Since datetime
 
 	set @Since = getdate()
 
-	delete from yaf_EventLog  where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
-	delete from yaf_User where BoardID=@BoardID and dbo.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2
+	delete from yaf_EventLog  where UserID in(select UserID from yaf_User where BoardID=@BoardID and {databaseOwner}.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_CheckEmail where UserID in(select UserID from yaf_User where BoardID=@BoardID and {databaseOwner}.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_UserGroup where UserID in(select UserID from yaf_User where BoardID=@BoardID and {databaseOwner}.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2)
+	delete from yaf_User where BoardID=@BoardID and {databaseOwner}.yaf_bitset(Flags,2)=0 and datediff(day,Joined,@Since)>2
 end
 GO
 
-create procedure [dbo].[yaf_user_emails](@BoardID int,@GroupID int=null) as
+create procedure [{databaseOwner}].[yaf_user_emails](@BoardID int,@GroupID int=null) as
 begin
 	if @GroupID = 0 set @GroupID = null
 	if @GroupID is null
@@ -4031,7 +4031,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_find](@BoardID int,@Filter bit,@UserName nvarchar(50)=null,@Email nvarchar(50)=null) as
+create procedure [{databaseOwner}].[yaf_user_find](@BoardID int,@Filter bit,@UserName nvarchar(50)=null,@Email nvarchar(50)=null) as
 begin
 	if @Filter<>0
 	begin
@@ -4062,19 +4062,19 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_getpoints] (@UserID int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_getpoints] (@UserID int) AS
 BEGIN
 	SELECT Points FROM yaf_User WHERE UserID = @UserID
 END
 GO
 
-create procedure [dbo].[yaf_user_getsignature](@UserID int) as
+create procedure [{databaseOwner}].[yaf_user_getsignature](@UserID int) as
 begin
 	select Signature from yaf_User where UserID = @UserID
 end
 GO
 
-create procedure [dbo].[yaf_user_guest]
+create procedure [{databaseOwner}].[yaf_user_guest]
 (
 	@BoardID int
 )
@@ -4094,7 +4094,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null) as
+create procedure [{databaseOwner}].[yaf_user_list](@BoardID int,@UserID int=null,@Approved bit=null,@GroupID int=null,@RankID int=null) as
 begin
 	if @UserID is not null
 		select 
@@ -4160,7 +4160,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_login](@BoardID int,@Name nvarchar(50),@Password nvarchar(32)) as
+create procedure [{databaseOwner}].[yaf_user_login](@BoardID int,@Name nvarchar(50),@Password nvarchar(32)) as
 begin
 	declare @UserID int
 
@@ -4188,7 +4188,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
+create procedure [{databaseOwner}].[yaf_user_nntp](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
 begin
 	declare @UserID int
 
@@ -4213,7 +4213,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_user_recoverpassword](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
+create procedure [{databaseOwner}].[yaf_user_recoverpassword](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50)) as
 begin
 	declare @UserID int
 	select @UserID = UserID from yaf_User where BoardID = @BoardID and Name = @UserName and Email = @Email
@@ -4227,13 +4227,13 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_removepoints] (@UserID int,@Points int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_removepoints] (@UserID int,@Points int) AS
 BEGIN
 	UPDATE yaf_User SET Points = Points - @Points WHERE UserID = @UserID
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_removepointsbytopicid] (@TopicID int,@Points int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_removepointsbytopicid] (@TopicID int,@Points int) AS
 BEGIN
 	declare @UserID int
 	select @UserID = UserID from yaf_Topic where TopicID = @TopicID
@@ -4241,13 +4241,13 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_resetpoints] AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_resetpoints] AS
 BEGIN
 	UPDATE yaf_User SET Points = NumPosts * 3
 END
 GO
 
-CREATE procedure [dbo].[yaf_user_save](
+CREATE procedure [{databaseOwner}].[yaf_user_save](
 	@UserID				int,
 	@BoardID			int,
 	@UserName			nvarchar(50) = null,
@@ -4297,7 +4297,7 @@ begin
 end
 GO
 
-CREATE procedure [dbo].[yaf_user_saveavatar]
+CREATE procedure [{databaseOwner}].[yaf_user_saveavatar]
 (
 	@UserID int,
 	@Avatar nvarchar(255) = NULL,
@@ -4317,38 +4317,38 @@ END
 
 GO
 
-create procedure [dbo].[yaf_user_savepassword](@UserID int,@Password nvarchar(32)) as
+create procedure [{databaseOwner}].[yaf_user_savepassword](@UserID int,@Password nvarchar(32)) as
 begin
-	update dbo.yaf_User set Password = @Password where UserID = @UserID
+	update {databaseOwner}.yaf_User set Password = @Password where UserID = @UserID
 end
 GO
 
-create procedure [dbo].[yaf_user_savesignature](@UserID int,@Signature ntext) as
+create procedure [{databaseOwner}].[yaf_user_savesignature](@UserID int,@Signature ntext) as
 begin
 	update yaf_User set Signature = @Signature where UserID = @UserID
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_setpoints] (@UserID int,@Points int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_setpoints] (@UserID int,@Points int) AS
 BEGIN
 	UPDATE yaf_User SET Points = @Points WHERE UserID = @UserID
 END
 GO
 
-create procedure [dbo].[yaf_user_setrole](@BoardID int,@ProviderUserKey uniqueidentifier,@Role nvarchar(50)) as
+create procedure [{databaseOwner}].[yaf_user_setrole](@BoardID int,@ProviderUserKey uniqueidentifier,@Role nvarchar(50)) as
 begin
 	declare @UserID int, @GroupID int
 	
-	select @UserID=UserID from dbo.yaf_User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey
+	select @UserID=UserID from {databaseOwner}.yaf_User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey
 
 	if @Role is null
 	begin
-		delete from dbo.yaf_UserGroup where UserID=@UserID
+		delete from {databaseOwner}.yaf_UserGroup where UserID=@UserID
 	end else
 	begin
-		if not exists(select 1 from dbo.yaf_Group where BoardID=@BoardID and Name=@Role)
+		if not exists(select 1 from {databaseOwner}.yaf_Group where BoardID=@BoardID and Name=@Role)
 		begin
-			insert into dbo.yaf_Group(Name,BoardID,Flags)
+			insert into {databaseOwner}.yaf_Group(Name,BoardID,Flags)
 			values(@Role,@BoardID,0);
 			set @GroupID = SCOPE_IDENTITY()
 
@@ -4358,8 +4358,8 @@ begin
 				a.ForumID,
 				min(a.AccessMaskID)
 			from
-				dbo.yaf_ForumAccess a
-				join dbo.yaf_Group b on b.GroupID=a.GroupID
+				{databaseOwner}.yaf_ForumAccess a
+				join {databaseOwner}.yaf_Group b on b.GroupID=a.GroupID
 			where
 				b.BoardID=@BoardID and
 				(b.Flags & 4)=4
@@ -4367,20 +4367,20 @@ begin
 				a.ForumID
 		end else
 		begin
-			select @GroupID = GroupID from dbo.yaf_Group where BoardID=@BoardID and Name=@Role
+			select @GroupID = GroupID from {databaseOwner}.yaf_Group where BoardID=@BoardID and Name=@Role
 		end
-		insert into dbo.yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
+		insert into {databaseOwner}.yaf_UserGroup(UserID,GroupID) values(@UserID,@GroupID)
 	end
 end
 GO
 
-create procedure [dbo].[yaf_user_suspend](@UserID int,@Suspend datetime=null) as
+create procedure [{databaseOwner}].[yaf_user_suspend](@UserID int,@Suspend datetime=null) as
 begin
 	update yaf_User set Suspended = @Suspend where UserID=@UserID
 end
 GO
 
-create procedure [dbo].[yaf_user_upgrade](@UserID int) as
+create procedure [{databaseOwner}].[yaf_user_upgrade](@UserID int) as
 begin
 	declare @RankID		int
 	declare @Flags		int
@@ -4418,13 +4418,13 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_userforum_delete](@UserID int,@ForumID int) as
+create procedure [{databaseOwner}].[yaf_userforum_delete](@UserID int,@ForumID int) as
 begin
 	delete from yaf_UserForum where UserID=@UserID and ForumID=@ForumID
 end
 GO
 
-create procedure [dbo].[yaf_userforum_list](@UserID int=null,@ForumID int=null) as 
+create procedure [{databaseOwner}].[yaf_userforum_list](@UserID int=null,@ForumID int=null) as 
 begin
 	select 
 		a.*,
@@ -4442,7 +4442,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_userforum_save](@UserID int,@ForumID int,@AccessMaskID int) as
+create procedure [{databaseOwner}].[yaf_userforum_save](@UserID int,@ForumID int,@AccessMaskID int) as
 begin
 	if exists(select 1 from yaf_UserForum where UserID=@UserID and ForumID=@ForumID)
 		update yaf_UserForum set AccessMaskID=@AccessMaskID where UserID=@UserID and ForumID=@ForumID
@@ -4451,7 +4451,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_usergroup_list](@UserID int) as begin
+create procedure [{databaseOwner}].[yaf_usergroup_list](@UserID int) as begin
 	select 
 		b.GroupID,
 		b.Name
@@ -4465,7 +4465,7 @@ create procedure [dbo].[yaf_usergroup_list](@UserID int) as begin
 end
 GO
 
-create procedure [dbo].[yaf_usergroup_save](@UserID int,@GroupID int,@Member bit) as
+create procedure [{databaseOwner}].[yaf_usergroup_save](@UserID int,@GroupID int,@Member bit) as
 begin
 	if @Member=0
 		delete from yaf_UserGroup where UserID=@UserID and GroupID=@GroupID
@@ -4476,13 +4476,13 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_userpmessage_delete](@UserPMessageID int) as
+create procedure [{databaseOwner}].[yaf_userpmessage_delete](@UserPMessageID int) as
 begin
 	delete from yaf_UserPMessage where UserPMessageID=@UserPMessageID
 end
 GO
 
-create procedure [dbo].[yaf_userpmessage_list](@UserPMessageID int) as
+create procedure [{databaseOwner}].[yaf_userpmessage_list](@UserPMessageID int) as
 begin
 	select
 		a.*,
@@ -4504,7 +4504,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_watchforum_add](@UserID int,@ForumID int) as
+create procedure [{databaseOwner}].[yaf_watchforum_add](@UserID int,@ForumID int) as
 begin
 	insert into yaf_WatchForum(ForumID,UserID,Created)
 	select @ForumID, @UserID, getdate()
@@ -4512,19 +4512,19 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_watchforum_check](@UserID int,@ForumID int) as
+create procedure [{databaseOwner}].[yaf_watchforum_check](@UserID int,@ForumID int) as
 begin
 	SELECT WatchForumID FROM yaf_WatchForum WHERE UserID = @UserID AND ForumID = @ForumID
 end
 GO
 
-create procedure [dbo].[yaf_watchforum_delete](@WatchForumID int) as
+create procedure [{databaseOwner}].[yaf_watchforum_delete](@WatchForumID int) as
 begin
 	delete from yaf_WatchForum where WatchForumID = @WatchForumID
 end
 GO
 
-create procedure [dbo].[yaf_watchforum_list](@UserID int) as
+create procedure [{databaseOwner}].[yaf_watchforum_list](@UserID int) as
 begin
 	select
 		a.*,
@@ -4545,7 +4545,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_watchtopic_add](@UserID int,@TopicID int) as
+create procedure [{databaseOwner}].[yaf_watchtopic_add](@UserID int,@TopicID int) as
 begin
 	insert into yaf_WatchTopic(TopicID,UserID,Created)
 	select @TopicID, @UserID, getdate()
@@ -4553,19 +4553,19 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_watchtopic_check](@UserID int,@TopicID int) as
+create procedure [{databaseOwner}].[yaf_watchtopic_check](@UserID int,@TopicID int) as
 begin
 	SELECT WatchTopicID FROM yaf_WatchTopic WHERE UserID = @UserID AND TopicID = @TopicID
 end
 GO
 
-create procedure [dbo].[yaf_watchtopic_delete](@WatchTopicID int) as
+create procedure [{databaseOwner}].[yaf_watchtopic_delete](@WatchTopicID int) as
 begin
 	delete from yaf_WatchTopic where WatchTopicID = @WatchTopicID
 end
 GO
 
-create procedure [dbo].[yaf_watchtopic_list](@UserID int) as
+create procedure [{databaseOwner}].[yaf_watchtopic_list](@UserID int) as
 begin
 	select
 		a.*,
@@ -4585,7 +4585,7 @@ begin
 end
 GO
 
-CREATE procedure dbo.yaf_message_reply_list(@MessageID int) as
+CREATE procedure {databaseOwner}.yaf_message_reply_list(@MessageID int) as
 begin
 	set nocount on
 	select
@@ -4613,7 +4613,7 @@ end
 GO
 
 
-CREATE procedure dbo.yaf_message_deleteundelete(@MessageID int, @isModeratorChanged bit, @DeleteReason nvarchar(100), @isDeleteAction int) as
+CREATE procedure {databaseOwner}.yaf_message_deleteundelete(@MessageID int, @isModeratorChanged bit, @DeleteReason nvarchar(100), @isDeleteAction int) as
 begin
 	declare @TopicID		int
 	declare @ForumID		int
@@ -4658,7 +4658,7 @@ begin
 end
 GO
 
-create procedure [dbo].[yaf_topic_create_by_message] (
+create procedure [{databaseOwner}].[yaf_topic_create_by_message] (
 	@MessageID int,
 	@ForumID	int,
 	@Subject	nvarchar(100)
@@ -4687,7 +4687,7 @@ set  @Posted  = (select  posted from yaf_message where messageid =  @MessageID)
 END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_move] (@MessageID int, @MoveToTopic int) AS
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_move] (@MessageID int, @MoveToTopic int) AS
 BEGIN
 DECLARE
 	@Position int,
@@ -4781,7 +4781,7 @@ WHERE  MessageID = @MessageID
 END
 GO
 
-create proc [dbo].[yaf_forum_resync]
+create proc [{databaseOwner}].[yaf_forum_resync]
 	@BoardID int,
 	@ForumID int = null
 AS
@@ -4804,9 +4804,9 @@ begin
 		while @@FETCH_STATUS = 0
 		begin
 			--update statistics
-			exec dbo.yaf_forum_updatestats @ForumID
+			exec {databaseOwner}.yaf_forum_updatestats @ForumID
 			--update last post
-			exec dbo.yaf_forum_updatelastpost @ForumID
+			exec {databaseOwner}.yaf_forum_updatelastpost @ForumID
 
 			fetch next from curForums into @ForumID
 		end
@@ -4815,14 +4815,14 @@ begin
 	end
 	else begin
 		--update statistics
-		exec dbo.yaf_forum_updatestats @ForumID
+		exec {databaseOwner}.yaf_forum_updatestats @ForumID
 		--update last post
-		exec dbo.yaf_forum_updatelastpost @ForumID
+		exec {databaseOwner}.yaf_forum_updatelastpost @ForumID
 	end
 end
 GO
 
-create proc [dbo].[yaf_board_resync]
+create proc [{databaseOwner}].[yaf_board_resync]
 	@BoardID int = null
 as
 begin
@@ -4837,7 +4837,7 @@ begin
 		while @@FETCH_STATUS = 0
 		begin
 			--resync board forums
-			exec dbo.yaf_forum_resync @BoardID
+			exec {databaseOwner}.yaf_forum_resync @BoardID
 
 			fetch next from curBoards into @BoardID
 		end
@@ -4846,12 +4846,12 @@ begin
 	end
 	else begin
 		--resync board forums
-		exec dbo.yaf_forum_resync @BoardID
+		exec {databaseOwner}.yaf_forum_resync @BoardID
 	end
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_category_simplelist](
+CREATE PROCEDURE [{databaseOwner}].[yaf_category_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS
@@ -4867,7 +4867,7 @@ AS
     END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_forum_simplelist](
+CREATE PROCEDURE [{databaseOwner}].[yaf_forum_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS
@@ -4883,7 +4883,7 @@ AS
     END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_message_simplelist](
+CREATE PROCEDURE [{databaseOwner}].[yaf_message_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 1000)
 AS
@@ -4900,7 +4900,7 @@ AS
     END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_topic_simplelist](
+CREATE PROCEDURE [{databaseOwner}].[yaf_topic_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS
@@ -4916,7 +4916,7 @@ AS
     END
 GO
 
-CREATE PROCEDURE [dbo].[yaf_user_simplelist](
+CREATE PROCEDURE [{databaseOwner}].[yaf_user_simplelist](
                 @StartID INT  = 0,
                 @Limit   INT  = 500)
 AS

@@ -3,8 +3,8 @@
 /*
 ** Create missing tables
 */
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Active') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Active(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Active]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Active](
 		SessionID		nvarchar (24) NOT NULL ,
 		BoardID			int NOT NULL ,
 		UserID			int NOT NULL ,
@@ -19,8 +19,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Active') and 
 	)
 go
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_BannedIP') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_BannedIP(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_BannedIP]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_BannedIP](
 		ID				int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Mask			nvarchar (15) NOT NULL ,
@@ -28,8 +28,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_BannedIP') an
 	)
 go
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Category') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Category(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Category]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Category](
 		CategoryID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL ,
@@ -37,8 +37,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Category') an
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_CheckEmail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_CheckEmail(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_CheckEmail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_CheckEmail](
 		CheckEmailID	int IDENTITY (1, 1) NOT NULL ,
 		UserID			int NOT NULL ,
 		Email			nvarchar (50) NOT NULL ,
@@ -47,8 +47,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_CheckEmail') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Choice') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Choice(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Choice]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Choice](
 		ChoiceID		int IDENTITY (1, 1) NOT NULL ,
 		PollID			int NOT NULL ,
 		Choice			nvarchar (50) NOT NULL ,
@@ -56,7 +56,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Choice') and 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_PollVote') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_PollVote]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yaf_PollVote] (
 		[PollVoteID] [int] IDENTITY (1, 1) NOT NULL ,
 		[PollID] [int] NOT NULL ,
@@ -65,8 +65,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_PollVote') an
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Forum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Forum(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Forum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Forum](
 		ForumID			int IDENTITY (1, 1) NOT NULL ,
 		CategoryID		int NOT NULL ,
 		ParentID		int NULL ,
@@ -86,16 +86,16 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Forum') and O
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_ForumAccess') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_ForumAccess(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_ForumAccess]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_ForumAccess](
 		GroupID			int NOT NULL ,
 		ForumID			int NOT NULL ,
 		AccessMaskID	int NOT NULL
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Group') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Group(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Group]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Group](
 		GroupID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL ,
@@ -103,8 +103,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Group') and O
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Mail') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Mail(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Mail](
 		MailID			int IDENTITY (1, 1) NOT NULL ,
 		FromUser		nvarchar (50) NOT NULL ,
 		ToUser			nvarchar (50) NOT NULL ,
@@ -114,8 +114,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Mail') and OB
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Message') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Message(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Message]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Message](
 		MessageID		int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
 		ReplyTo			int NULL ,
@@ -134,7 +134,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Message') and
 	)
 GO
 
-IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReported') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_MessageReported]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yaf_MessageReported](
 		[MessageID] [int] NOT NULL,
 		[Message] [ntext] NULL,
@@ -144,7 +144,7 @@ IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReport
 	)
 GO
 
-IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReportedAudit') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_MessageReportedAudit]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yaf_MessageReportedAudit](
 		[LogID] [int] IDENTITY(1,1) NOT NULL,
 		[UserID] [int] NULL,
@@ -154,8 +154,8 @@ IF NOT EXISTS (select 1 from sysobjects where id = object_id(N'yaf_MessageReport
 GO
 
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_PMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_PMessage(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_PMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_PMessage](
 		PMessageID		int IDENTITY (1, 1) NOT NULL ,
 		FromUserID		int NOT NULL ,
 		Created			datetime NOT NULL ,
@@ -165,16 +165,16 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_PMessage') an
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Poll') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Poll(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Poll]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Poll](
 		PollID			int IDENTITY (1, 1) NOT NULL ,
 		Question		nvarchar (50) NOT NULL,
 		Closes datetime NULL 		
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Smiley') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Smiley(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Smiley]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Smiley](
 		SmileyID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Code			nvarchar (10) NOT NULL ,
@@ -184,8 +184,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Smiley') and 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Topic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Topic(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Topic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Topic](
 		TopicID			int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
 		UserID			int NOT NULL ,
@@ -205,8 +205,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Topic') and O
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_User(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_User]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_User](
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
 		Name			nvarchar (50) NOT NULL ,
@@ -232,8 +232,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_User') and OB
 )
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_WatchForum(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_WatchForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_WatchForum](
 		WatchForumID	int IDENTITY (1, 1) NOT NULL ,
 		ForumID			int NOT NULL ,
 		UserID			int NOT NULL ,
@@ -242,8 +242,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchForum') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_WatchTopic(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_WatchTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_WatchTopic](
 		WatchTopicID	int IDENTITY (1, 1) NOT NULL ,
 		TopicID			int NOT NULL ,
 		UserID			int NOT NULL ,
@@ -252,8 +252,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_WatchTopic') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Attachment') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Attachment(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Attachment](
 		AttachmentID	int identity not null,
 		MessageID		int not null,
 		FileName		nvarchar(255) not null,
@@ -265,15 +265,15 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Attachment') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserGroup') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_UserGroup(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_UserGroup]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_UserGroup](
 		UserID			int NOT NULL,
 		GroupID			int NOT NULL
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Rank') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_Rank(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Rank]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_Rank](
 		RankID			int IDENTITY (1, 1) NOT NULL,
 		BoardID			int NOT NULL ,
 		Name			nvarchar (50) NOT NULL,
@@ -283,8 +283,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_Rank') and OB
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_AccessMask') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_AccessMask(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_AccessMask]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_AccessMask](
 		AccessMaskID	int IDENTITY NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) NOT NULL ,
@@ -292,8 +292,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_AccessMask') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_UserForum(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_UserForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_UserForum](
 		UserID			int NOT NULL ,
 		ForumID			int NOT NULL ,
 		AccessMaskID	int NOT NULL ,
@@ -302,9 +302,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserForum') a
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Board') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Board]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
-	create table dbo.yaf_Board(
+	create table [{databaseOwner}].[yaf_Board](
 		BoardID			int NOT NULL IDENTITY(1,1),
 		Name			nvarchar(50) NOT NULL,
 		AllowThreaded	bit NOT NULL,
@@ -312,8 +312,8 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpServer') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_NntpServer(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_NntpServer]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_NntpServer](
 		NntpServerID	int identity not null,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) not null,
@@ -324,8 +324,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpServer') 
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpForum') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_NntpForum(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_NntpForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_NntpForum](
 		NntpForumID		int identity not null,
 		NntpServerID	int not null,
 		GroupName		nvarchar(100) not null,
@@ -336,8 +336,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpForum') a
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpTopic') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	create table dbo.yaf_NntpTopic(
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_NntpTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	create table [{databaseOwner}].[yaf_NntpTopic](
 		NntpTopicID		int identity not null,
 		NntpForumID		int not null,
 		Thread			char(32) not null,
@@ -345,9 +345,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'yaf_NntpTopic') a
 	)
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_UserPMessage') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_UserPMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
-	create table dbo.yaf_UserPMessage(
+	create table [{databaseOwner}].[yaf_UserPMessage](
 		UserPMessageID	int identity not null,
 		UserID			int not null,
 		PMessageID		int not null,
@@ -358,9 +358,9 @@ begin
 end
 GO
 
-if not exists (select * from dbo.sysobjects where id = object_id(N'yaf_Replace_Words') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select * from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Replace_Words]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
-	create table dbo.yaf_Replace_Words(
+	create table [{databaseOwner}].[yaf_Replace_Words](
 		id				int IDENTITY (1, 1) NOT NULL ,
 		badword			nvarchar (255) NULL ,
 		goodword		nvarchar (255) NULL ,
@@ -369,9 +369,9 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_Registry') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_Registry]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
-	create table dbo.yaf_Registry(
+	create table [{databaseOwner}].[yaf_Registry](
 		RegistryID		int IDENTITY(1, 1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
 		Value			ntext,
@@ -381,9 +381,9 @@ begin
 end
 GO
 
-if not exists (select 1 from sysobjects where id = object_id(N'yaf_EventLog') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[yaf_EventLog]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
-	create table dbo.yaf_EventLog(
+	create table [{databaseOwner}].[yaf_EventLog](
 		EventLogID	int identity(1,1) not null,
 		EventTime	datetime not null constraint DF_yaf_EventLog_EventTime default getdate(),
 		UserID		int,
@@ -400,145 +400,145 @@ GO
 
 -- yaf_UserPMessage
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('yaf_UserPMessage') and name='IsInOutbox')
+if not exists (select 1 from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_UserPMessage]') and name='IsInOutbox')
 begin
-	alter table dbo.yaf_UserPMessage add IsInOutbox	bit not null default (1)
+	alter table [{databaseOwner}].[yaf_UserPMessage] add IsInOutbox	bit not null default (1)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('yaf_UserPMessage') and name='IsArchived')
+if not exists (select 1 from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_UserPMessage]') and name='IsArchived')
 begin
-	alter table dbo.yaf_UserPMessage add IsArchived	bit not null default (0)
+	alter table [{databaseOwner}].[yaf_UserPMessage] add IsArchived	bit not null default (0)
 end
 GO
 
 
 -- yaf_User
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_User') and name=N'Signature' and xtype<>99)
-	alter table yaf_User alter column Signature ntext null
+if exists(select 1 from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_User]') and name=N'Signature' and xtype<>99)
+	alter table [{databaseOwner}].[yaf_User] alter column Signature ntext null
 go
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Flags')
 begin
-	alter table dbo.yaf_User add Flags int not null constraint DF_yaf_User_Flags default (0)
+	alter table [{databaseOwner}].[yaf_User] add Flags int not null constraint DF_yaf_User_Flags default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='IsHostAdmin')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='IsHostAdmin')
 begin
-	grant update on yaf_User to public
-	exec('update yaf_User set Flags = Flags | 1 where IsHostAdmin<>0')
-	revoke update on yaf_User from public
-	alter table dbo.yaf_User drop column IsHostAdmin
+	grant update on [{databaseOwner}].[yaf_User] to public
+	exec('update [{databaseOwner}].[yaf_User[ set Flags = Flags | 1 where IsHostAdmin<>0')
+	revoke update on [{databaseOwner}].[yaf_User] from public
+	alter table [{databaseOwner}].[yaf_User] drop column IsHostAdmin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Approved')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Approved')
 begin
-	grant update on yaf_User to public
-	exec('update yaf_User set Flags = Flags | 2 where Approved<>0')
-	revoke update on yaf_User from public
-	alter table dbo.yaf_User drop column Approved
+	grant update on [{databaseOwner}].[yaf_User] to public
+	exec('update [{databaseOwner}].[yaf_User] set Flags = Flags | 2 where Approved<>0')
+	revoke update on [{databaseOwner}].[yaf_User] from public
+	alter table [{databaseOwner}].[yaf_User] drop column Approved
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='ProviderUserKey')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='ProviderUserKey')
 begin
-	alter table dbo.yaf_User add ProviderUserKey uniqueidentifier
+	alter table [{databaseOwner}].[yaf_User] add ProviderUserKey uniqueidentifier
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='PMNotification')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='PMNotification')
 begin
-	alter table dbo.yaf_User add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1)
+	alter table [{databaseOwner}].[yaf_User] add [PMNotification] [bit] NOT NULL CONSTRAINT [DF_yaf_User_PMNotification] DEFAULT (1)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='OverrideDefaultThemes')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='OverrideDefaultThemes')
 begin
-alter table dbo.yaf_User add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_yaf_User_OverrideDefaultThemes] DEFAULT (0)
+alter table [{databaseOwner}].[yaf_User] add  [OverrideDefaultThemes]	bit NOT NULL CONSTRAINT [DF_yaf_User_OverrideDefaultThemes] DEFAULT (0)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Points')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Points')
 begin
-	alter table dbo.yaf_User add [Points] [int] NOT NULL CONSTRAINT [DF_yaf_User_Points] DEFAULT (0)
+	alter table [{databaseOwner}].[yaf_User] add [Points] [int] NOT NULL CONSTRAINT [DF_yaf_User_Points] DEFAULT (0)
 end
 GO
 
 -- remove columns that got moved to Profile
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Gender')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Gender')
 begin
-	alter table dbo.yaf_User drop column Gender
+	alter table [{databaseOwner}].[yaf_User] drop column Gender
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Location')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Location')
 begin
-	alter table dbo.yaf_User drop column Location
+	alter table [{databaseOwner}].[yaf_User] drop column Location
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='HomePage')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='HomePage')
 begin
-	alter table dbo.yaf_User drop column HomePage
+	alter table [{databaseOwner}].[yaf_User] drop column HomePage
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='MSN')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='MSN')
 begin
-	alter table dbo.yaf_User drop column MSN
+	alter table [{databaseOwner}].[yaf_User] drop column MSN
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='YIM')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='YIM')
 begin
-	alter table dbo.yaf_User drop column YIM
+	alter table [{databaseOwner}].[yaf_User] drop column YIM
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='AIM')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='AIM')
 begin
-	alter table dbo.yaf_User drop column AIM
+	alter table [{databaseOwner}].[yaf_User] drop column AIM
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='ICQ')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='ICQ')
 begin
-	alter table dbo.yaf_User drop column ICQ
+	alter table [{databaseOwner}].[yaf_User] drop column ICQ
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='RealName')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='RealName')
 begin
-	alter table dbo.yaf_User drop column RealName
+	alter table [{databaseOwner}].[yaf_User] drop column RealName
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Occupation')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Occupation')
 begin
-	alter table dbo.yaf_User drop column Occupation
+	alter table [{databaseOwner}].[yaf_User] drop column Occupation
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Interests')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Interests')
 begin
-	alter table dbo.yaf_User drop column Interests
+	alter table [{databaseOwner}].[yaf_User] drop column Interests
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='Weblog')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='Weblog')
 begin
-	alter table dbo.yaf_User drop column Weblog
+	alter table [{databaseOwner}].[yaf_User] drop column Weblog
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_User') and name='WeblogUrl')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_User]') and name='WeblogUrl')
 begin
-	alter table dbo.yaf_User drop column WeblogUrl
-	alter table dbo.yaf_User drop column WeblogUsername
-	alter table dbo.yaf_User drop column WeblogID
+	alter table [{databaseOwner}].[yaf_User] drop column WeblogUrl
+	alter table [{databaseOwner}].[yaf_User] drop column WeblogUsername
+	alter table [{databaseOwner}].[yaf_User] drop column WeblogID
 end
 GO
 
@@ -546,9 +546,9 @@ GO
 
 /* post to blog start */ 
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='BlogPostID')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Message]') and name='BlogPostID')
 begin
-	alter table dbo.yaf_Message add BlogPostID nvarchar(50)
+	alter table [{databaseOwner}].[yaf_Message] add BlogPostID nvarchar(50)
 end
 GO
 
@@ -556,277 +556,277 @@ GO
 
 -- yaf_Forum
 
-if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='RemoteURL')
-	alter table yaf_Forum add RemoteURL nvarchar(100) null
+if not exists(select * from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='RemoteURL')
+	alter table [{databaseOwner}].[yaf_Forum] add RemoteURL nvarchar(100) null
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Flags')
-	alter table yaf_Forum add Flags int not null constraint DF_yaf_Forum_Flags default (0)
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='Flags')
+	alter table [{databaseOwner}].[yaf_Forum] add Flags int not null constraint DF_yaf_Forum_Flags default (0)
 GO
 
-if not exists(select * from syscolumns where id=object_id('yaf_Forum') and name='ThemeURL')
-	alter table yaf_Forum add ThemeURL nvarchar(50) NULL
+if not exists(select * from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='ThemeURL')
+	alter table [{databaseOwner}].[yaf_Forum] add ThemeURL nvarchar(50) NULL
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Locked')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='Locked')
 begin
 	exec('update yaf_Forum set Flags = Flags | 1 where Locked<>0')
-	alter table dbo.yaf_Forum drop column Locked
+	alter table [{databaseOwner}].[yaf_Forum] drop column Locked
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Hidden')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='Hidden')
 begin
 	exec('update yaf_Forum set Flags = Flags | 2 where Hidden<>0')
-	alter table dbo.yaf_Forum drop column Hidden
+	alter table [{databaseOwner}].[yaf_Forum] drop column Hidden
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='IsTest')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='IsTest')
 begin
 	exec('update yaf_Forum set Flags = Flags | 4 where IsTest<>0')
-	alter table dbo.yaf_Forum drop column IsTest
+	alter table [{databaseOwner}].[yaf_Forum] drop column IsTest
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Forum') and name='Moderated')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Forum]') and name='Moderated')
 begin
 	exec('update yaf_Forum set Flags = Flags | 8 where Moderated<>0')
-	alter table dbo.yaf_Forum drop column Moderated
+	alter table [{databaseOwner}].[yaf_Forum] drop column Moderated
 end
 GO
 
 -- yaf_Group
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Group]') and name='Flags')
 begin
-	alter table dbo.yaf_Group add Flags int not null constraint DF_yaf_Group_Flags default (0)
+	alter table [{databaseOwner}].[yaf_Group] add Flags int not null constraint DF_yaf_Group_Flags default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsAdmin')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Group]') and name='IsAdmin')
 begin
 	exec('update yaf_Group set Flags = Flags | 1 where IsAdmin<>0')
-	alter table dbo.yaf_Group drop column IsAdmin
+	alter table [{databaseOwner}].[yaf_Group] drop column IsAdmin
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsGuest')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Group]') and name='IsGuest')
 begin
 	exec('update yaf_Group set Flags = Flags | 2 where IsGuest<>0')
-	alter table dbo.yaf_Group drop column IsGuest
+	alter table [{databaseOwner}].[yaf_Group] drop column IsGuest
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsStart')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Group]') and name='IsStart')
 begin
 	exec('update yaf_Group set Flags = Flags | 4 where IsStart<>0')
-	alter table dbo.yaf_Group drop column IsStart
+	alter table [{databaseOwner}].[yaf_Group] drop column IsStart
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Group') and name='IsModerator')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Group]') and name='IsModerator')
 begin
 	exec('update yaf_Group set Flags = Flags | 8 where IsModerator<>0')
-	alter table dbo.yaf_Group drop column IsModerator
+	alter table [{databaseOwner}].[yaf_Group] drop column IsModerator
 end
 GO
 
-if exists(select 1 from dbo.yaf_Group where (Flags & 2)=2)
+if exists(select 1 from [{databaseOwner}].[yaf_Group] where (Flags & 2)=2)
 begin
-	update dbo.yaf_User set Flags = Flags | 4 where UserID in(select distinct UserID from dbo.yaf_UserGroup a join dbo.yaf_Group b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
+	update [{databaseOwner}].[yaf_User] set Flags = Flags | 4 where UserID in(select distinct UserID from [{databaseOwner}].[yaf_UserGroup] a join [{databaseOwner}].[yaf_Group] b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
 end
 GO
 
 -- yaf_AccessMask
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='Flags')
 begin
-	alter table dbo.yaf_AccessMask add Flags int not null constraint DF_yaf_AccessMask_Flags default (0)
+	alter table [{databaseOwner}].[yaf_AccessMask] add Flags int not null constraint DF_yaf_AccessMask_Flags default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ReadAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='ReadAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 1 where ReadAccess<>0')
-	alter table dbo.yaf_AccessMask drop column ReadAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column ReadAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PostAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='PostAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 2 where PostAccess<>0')
-	alter table dbo.yaf_AccessMask drop column PostAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column PostAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ReplyAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='ReplyAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 4 where ReplyAccess<>0')
-	alter table dbo.yaf_AccessMask drop column ReplyAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column ReplyAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PriorityAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='PriorityAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 8 where PriorityAccess<>0')
-	alter table dbo.yaf_AccessMask drop column PriorityAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column PriorityAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='PollAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='PollAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 16 where PollAccess<>0')
-	alter table dbo.yaf_AccessMask drop column PollAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column PollAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='VoteAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='VoteAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 32 where VoteAccess<>0')
-	alter table dbo.yaf_AccessMask drop column VoteAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column VoteAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='ModeratorAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='ModeratorAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 64 where ModeratorAccess<>0')
-	alter table dbo.yaf_AccessMask drop column ModeratorAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column ModeratorAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='EditAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='EditAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 128 where EditAccess<>0')
-	alter table dbo.yaf_AccessMask drop column EditAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column EditAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='DeleteAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='DeleteAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 256 where DeleteAccess<>0')
-	alter table dbo.yaf_AccessMask drop column DeleteAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column DeleteAccess
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_AccessMask') and name='UploadAccess')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_AccessMask]') and name='UploadAccess')
 begin
 	exec('update yaf_AccessMask set Flags = Flags | 512 where UploadAccess<>0')
-	alter table dbo.yaf_AccessMask drop column UploadAccess
+	alter table [{databaseOwner}].[yaf_AccessMask] drop column UploadAccess
 end
 GO
 
 -- yaf_NntpForum
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_NntpForum') and name='Active')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_NntpForum]') and name='Active')
 begin
-	alter table yaf_NntpForum add Active bit null
-	exec('update yaf_NntpForum set Active=1 where Active is null')
-	alter table yaf_NntpForum alter column Active bit not null
+	alter table [{databaseOwner}].[yaf_NntpForum] add Active bit null
+	exec('update [{databaseOwner}].[yaf_NntpForum] set Active=1 where Active is null')
+	alter table [{databaseOwner}].[yaf_NntpForum] alter column Active bit not null
 end
 GO
 
-if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='badword' and prec < 255)
- 	alter table yaf_Replace_Words alter column badword nvarchar(255) NULL
+if exists (select * from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_Replace_Words]') and name='badword' and prec < 255)
+ 	alter table [{databaseOwner}].[yaf_Replace_Words] alter column badword nvarchar(255) NULL
 GO
 
-if exists (select * from dbo.syscolumns where id = object_id(N'yaf_Replace_Words') and name='goodword' and prec < 255)
-	alter table yaf_Replace_Words alter column goodword nvarchar(255) NULL
+if exists (select * from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_Replace_Words]') and name='goodword' and prec < 255)
+	alter table [{databaseOwner}].[yaf_Replace_Words] alter column goodword nvarchar(255) NULL
 GO	
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Registry') and name='BoardID')
-	alter table yaf_Registry add BoardID int
+if not exists(select 1 from syscolumns where id = object_id(N'[{databaseOwner}].[yaf_Registry]') and name='BoardID')
+	alter table [{databaseOwner}].[yaf_Registry] add BoardID int
 GO
 
-if exists(select 1 from syscolumns where id=object_id(N'yaf_Registry') and name=N'Value' and xtype<>99)
-	alter table yaf_Registry alter column Value ntext null
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Registry]') and name=N'Value' and xtype<>99)
+	alter table [{databaseOwner}].[yaf_Registry] alter column Value ntext null
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_PMessage') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_PMessage]') and name='Flags')
 begin
-	alter table dbo.yaf_PMessage add Flags int not null constraint DF_yaf_Message_Flags default (23)
+	alter table [{databaseOwner}].[yaf_PMessage] add Flags int not null constraint DF_yaf_Message_Flags default (23)
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Topic]') and name='Flags')
 begin
-	alter table dbo.yaf_Topic add Flags int not null constraint DF_yaf_Topic_Flags default (0)
-	update yaf_Message set Flags = Flags & 7
+	alter table [{databaseOwner}].[yaf_Topic] add Flags int not null constraint DF_yaf_Topic_Flags default (0)
+	update [{databaseOwner}].[yaf_Message] set Flags = Flags & 7
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='Approved')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Message]') and name='Approved')
 begin
 	exec('update yaf_Message set Flags = Flags | 16 where Approved<>0')
-	alter table dbo.yaf_Message drop column Approved
+	alter table [{databaseOwner}].[yaf_Message] drop column Approved
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='EditReason')
-	alter table yaf_Message add EditReason nvarchar (100) NULL
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Message]') and name='EditReason')
+	alter table [{databaseOwner}].[yaf_Message] add EditReason nvarchar (100) NULL
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='IsModeratorChanged')
-	alter table yaf_Message add 	IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_yaf_Message_IsModeratorChanged] DEFAULT (0)
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Message]') and name='IsModeratorChanged')
+	alter table [{databaseOwner}].[yaf_Message] add 	IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_yaf_Message_IsModeratorChanged] DEFAULT (0)
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Message') and name='DeleteReason')
-	alter table yaf_Message add DeleteReason            nvarchar (100)  NULL
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Message]') and name='DeleteReason')
+	alter table [{databaseOwner}].[yaf_Message] add DeleteReason            nvarchar (100)  NULL
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Topic') and name='IsLocked')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Topic]') and name='IsLocked')
 begin
-	grant update on yaf_Topic to public
-	exec('update yaf_Topic set Flags = Flags | 1 where IsLocked<>0')
-	revoke update on yaf_Topic from public
-	alter table dbo.yaf_Topic drop column IsLocked
+	grant update on [{databaseOwner}].[yaf_Topic] to public
+	exec('update [{databaseOwner}].[yaf_Topic] set Flags = Flags | 1 where IsLocked<>0')
+	revoke update on [{databaseOwner}].[yaf_Topic] from public
+	alter table [{databaseOwner}].[yaf_Topic] drop column IsLocked
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='Flags')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Rank]') and name='Flags')
 begin
-	alter table dbo.yaf_Rank add Flags int not null constraint DF_yaf_Rank_Flags default (0)
+	alter table [{databaseOwner}].[yaf_Rank] add Flags int not null constraint DF_yaf_Rank_Flags default (0)
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='IsStart')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Rank]') and name='IsStart')
 begin
-	grant update on yaf_Rank to public
-	exec('update yaf_Rank set Flags = Flags | 1 where IsStart<>0')
-	revoke update on yaf_Rank from public
-	alter table dbo.yaf_Rank drop column IsStart
+	grant update on [{databaseOwner}].[yaf_Rank] to public
+	exec('update [{databaseOwner}].[yaf_Rank] set Flags = Flags | 1 where IsStart<>0')
+	revoke update on [{databaseOwner}].[yaf_Rank] from public
+	alter table [{databaseOwner}].[yaf_Rank] drop column IsStart
 end
 GO
 
-if exists(select 1 from syscolumns where id=object_id('yaf_Rank') and name='IsLadder')
+if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Rank]') and name='IsLadder')
 begin
-	grant update on yaf_Rank to public
-	exec('update yaf_Rank set Flags = Flags | 2 where IsLadder<>0')
-	revoke update on yaf_Rank from public
-	alter table dbo.yaf_Rank drop column IsLadder
+	grant update on [{databaseOwner}].[yaf_Rank] to public
+	exec('update [{databaseOwner}].[yaf_Rank] set Flags = Flags | 2 where IsLadder<>0')
+	revoke update on [{databaseOwner}].[yaf_Rank] from public
+	alter table [{databaseOwner}].[yaf_Rank] drop column IsLadder
 end
 GO
 
-if not exists(select 1 from syscolumns where id=object_id('yaf_Poll') and name='Closes')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Poll]') and name='Closes')
 begin
-	alter table dbo.yaf_Poll add Closes datetime null
+	alter table [{databaseOwner}].[yaf_Poll] add Closes datetime null
 end
 GO
 
-if not exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and name=N'Type')
+if not exists(select 1 from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_EventLog]') and name=N'Type')
 begin
-	alter table dbo.yaf_EventLog add Type int not null constraint DF_yaf_EventLog_Type default (0)
-	exec('update yaf_EventLog set Type = 0')
+	alter table [{databaseOwner}].[yaf_EventLog] add Type int not null constraint DF_yaf_EventLog_Type default (0)
+	exec('update [{databaseOwner}].[yaf_EventLog] set Type = 0')
 end
 GO
 
-if exists(select 1 from dbo.syscolumns where id = object_id(N'yaf_EventLog') and name=N'UserID' and isnullable=0)
-	alter table yaf_EventLog alter column UserID int null
+if exists(select 1 from [{databaseOwner}].[syscolumns] where id = object_id(N'[{databaseOwner}].[yaf_EventLog]') and name=N'UserID' and isnullable=0)
+	alter table [{databaseOwner}].[yaf_EventLog] alter column UserID int null
 GO
 
 -- yaf_Smiley
-if not exists(select 1 from syscolumns where id=object_id('yaf_Smiley') and name='SortOrder')
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[yaf_Smiley]') and name='SortOrder')
 begin
-	alter table dbo.yaf_Smiley add SortOrder tinyint NOT NULL DEFAULT 0
+	alter table [{databaseOwner}].[yaf_Smiley] add SortOrder tinyint NOT NULL DEFAULT 0
 end
 GO
