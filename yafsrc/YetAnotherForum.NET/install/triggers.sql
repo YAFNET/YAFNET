@@ -2,20 +2,11 @@
 ** Triggers
 */
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}Active_insert') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}Active_insert
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Active_insert]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_Active_insert]
->>>>>>> .r1490
 go
 
-<<<<<<< .mine
 create trigger [{databaseOwner}].{objectQualifier}Active_insert on [{databaseOwner}].{objectQualifier}Active for insert as
-=======
-create trigger yaf_Active_insert on [{databaseOwner}].[yaf_Active] for insert as
->>>>>>> .r1490
 begin
 	declare @BoardID int, @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
 
@@ -40,13 +31,8 @@ begin
 end
 go
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}Forum_update') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}Forum_update
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Forum_update]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_Forum_update]
->>>>>>> .r1490
 go
 
 /*
@@ -79,38 +65,18 @@ END
 */
 GO
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}Group_update') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}Group_update
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Group_update]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_Group_update]
->>>>>>> .r1490
 GO
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}Group_insert') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}Group_insert
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_Group_insert]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_Group_insert]
->>>>>>> .r1490
 GO
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}UserGroup_insert') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}UserGroup_insert
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_UserGroup_insert]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_UserGroup_insert]
->>>>>>> .r1490
 GO
 
-<<<<<<< .mine
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].{objectQualifier}UserGroup_delete') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].{objectQualifier}UserGroup_delete
-=======
-if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[yaf_UserGroup_delete]') and objectproperty(id, N'IsTrigger') = 1)
-	drop trigger [{databaseOwner}].[yaf_UserGroup_delete]
->>>>>>> .r1490
 GO
