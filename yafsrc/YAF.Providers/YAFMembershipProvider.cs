@@ -1359,7 +1359,7 @@ namespace YAF.Providers
 					cmd.CommandTimeout = CommandTimeout;
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add( CreateInputParam( "@ApplicationName", SqlDbType.NVarChar, ApplicationName ) );
-					cmd.Parameters.Add( CreateInputParam( "@MinutesSinceLastInActive", SqlDbType.Int, Membership.User) );
+					cmd.Parameters.Add( CreateInputParam( "@MinutesSinceLastInActive", SqlDbType.Int, System.Web.Security.Membership.UserIsOnlineTimeWindow) );
 					cmd.Parameters.Add( CreateInputParam( "@CurrentTimeUtc", SqlDbType.DateTime, DateTime.UtcNow ) );
 					p.Direction = ParameterDirection.ReturnValue;
 					cmd.Parameters.Add( p );

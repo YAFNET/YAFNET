@@ -272,12 +272,15 @@ namespace YAF.Providers.Membership
             // Check password meets requirements as set by Configuration settings
             if (!(this.IsPasswordCompliant(newPassword)))
                 return false;
-
-            if (!(new UserPasswordInfo(this.ApplicationName, username, false).IsCorrectPassword(oldPassword)))
+            UserPasswordInfo currentPasswordInfo = new UserPasswordInfo(this.ApplicationName, username, false);
+            if (!currentPasswordInfo.IsCorrectPassword(oldPassword))
                 return false;
 
+            string newPasswordSalt = YafMembershipProvider.GenerateSalt();
+            string newEncPassword = YafMembershipProvider.EncryptString(newPassword, this.PasswordFormat, newPasswordSalt);
+            string newEncPasswordAnswer = YafMembershipProvider.EncryptString(currentPasswordInfo.PasswordAnswer, this.PasswordFormat, newPasswordSalt);
             // Call SQL Password  Change
-			DB.ChangePassword(this.ApplicationName, username, newPassword);
+            DB.ChangePassword(this.ApplicationName, username, newEncPassword, newPasswordSalt, (int) this.PasswordFormat, newEncPasswordAnswer);
 
             // Return True
             return true;

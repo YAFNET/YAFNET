@@ -18,7 +18,7 @@ namespace YAF.Providers.Membership
 {
     public class DB
     {
-        public static void ChangePassword(string appName, string username, string newPassword, string newSalt, string passwordFormat, string newPasswordAnswer)
+        public static void ChangePassword(string appName, string username, string newPassword, string newSalt, int passwordFormat, string newPasswordAnswer)
         {
             using (SqlCommand cmd = new SqlCommand("yafp_changepassword"))
             {
