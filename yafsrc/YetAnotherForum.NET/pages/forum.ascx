@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:ForumWelcome runat="server" ID="Welcome" />
@@ -56,48 +57,7 @@
 <table border="0" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
 		<td width="65%" valign="top">
-			<table class="content" cellspacing="1" cellpadding="0" width="100%">
-				<tr>
-					<td class="header1" colspan="2">
-						<asp:ImageButton runat="server" ID="expandInformation" BorderWidth="0" ImageAlign="Baseline"
-							OnClick="expandInformation_Click" />&nbsp;&nbsp;<%= GetText("INFORMATION") %></td>
-				</tr>
-				<tbody id="InformationTBody" runat="server">
-					<tr>
-						<td class="header2" colspan="2">
-							<%= GetText("ACTIVE_USERS") %>
-						</td>
-					</tr>
-					<tr>
-						<td class="post" width="1%">
-							<img src="<%# GetThemeContents("ICONS","FORUM_USERS") %>" alt="" /></td>
-						<td class="post">
-							<asp:Label runat="server" ID="activeinfo" /><br />
-							<asp:Repeater runat="server" ID="ActiveList">
-								<ItemTemplate>
-									<a href='<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID"))%>'>
-										<%# HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
-									</a>
-								</ItemTemplate>
-								<SeparatorTemplate>
-									,
-								</SeparatorTemplate>
-							</asp:Repeater>
-						</td>
-					</tr>
-					<tr>
-						<td class="header2" colspan="2">
-							<%= GetText("STATS") %>
-						</td>
-					</tr>
-					<tr>
-						<td class="post" width="1%">
-							<img src="<%# GetThemeContents("ICONS","FORUM_STATS") %>" alt="" /></td>
-						<td class="post">
-							<asp:Label ID="Stats" runat="server">Label</asp:Label></td>
-					</tr>
-				</tbody>
-			</table>
+			<YAF:ForumStatistics ID="ForumStats" runat="Server" OnNeedDataBind="OnNeedDataBind" />
 		</td>
 		<td width="10">
 			&nbsp;</td>

@@ -1,5 +1,5 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -37,17 +36,19 @@ namespace YAF.Pages // YAF.Pages
 	public partial class activeusers : YAF.Classes.Base.ForumPage
 	{
 
-		public activeusers() : base("ACTIVEUSERS")
+		public activeusers()
+			: base( "ACTIVEUSERS" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) {
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"),"");
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				UserList.DataSource = YAF.Classes.Data.DB.active_list(PageContext.PageBoardID,true);
+				UserList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );
 				DataBind();
 			}
 		}

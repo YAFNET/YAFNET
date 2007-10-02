@@ -1,5 +1,5 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -77,80 +76,13 @@ namespace YAF.Pages
 			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
 			CategoryList.DataSource = ds.Tables [DBAccess.GetObjectName("Category")];
 
-			// Active users
-			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
-
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
 			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID );
 
-			// Forum statistics
-			string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardStats);
-			DataRow stats = (DataRow)Cache[key];
-			if ( stats == null )
-			{
-				stats = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
-				Cache.Insert( key, stats, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
-			}
-
-			Stats.Text = String.Format( GetText( "stats_posts" ), stats ["posts"], stats ["topics"], stats ["forums"] );
-			Stats.Text += "<br/>";
-
-			if ( !stats.IsNull( "LastPost" ) )
-			{
-				Stats.Text += String.Format( GetText( "stats_lastpost" ),
-					YafDateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), HtmlEncode( stats ["LastUser"] ) )
-				);
-				Stats.Text += "<br/>";
-			}
-
-			Stats.Text += String.Format( GetText( "stats_members" ), stats ["members"] );
-			Stats.Text += "<br/>";
-
-			Stats.Text += String.Format( GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), HtmlEncode( stats ["LastMember"] ) )
-			);
-			Stats.Text += "<br/>";
-
-			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
-			activeinfo.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
-				String.Format( GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
-				String.Format( GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
-				String.Format( GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
-				);
-
-			activeinfo.Text += "<br/>" + string.Format( GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, YafDateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
-
 			UpdateActiveDiscussionsPanel();
-			UpdateInformationPanel();
 
 			DataBind();
-		}
-
-		protected string FormatLastPost( System.Data.DataRow row )
-		{
-			if ( !row.IsNull( "LastPosted" ) )
-			{
-				string minipost;
-				if ( DateTime.Parse( row ["LastPosted"].ToString() ) > Mession.LastVisit )
-					minipost = GetThemeContents( "ICONS", "ICON_NEWEST" );
-				else
-					minipost = GetThemeContents( "ICONS", "ICON_LATEST" );
-
-				return String.Format( "{0}<br/>{1}<br/>{2}&nbsp;<a title=\"{4}\" href=\"{5}\"><img src='{3}'></a>",
-					YafDateTime.FormatDateTimeTopic( Convert.ToDateTime( row ["LastPosted"] ) ),
-					String.Format( GetText( "in" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", row ["LastTopicID"] ), row ["LastTopicName"] ) ),
-					String.Format( GetText( "by" ), String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", row ["LastUserID"] ), row ["LastUser"] ) ),
-					minipost,
-					GetText( "GO_LAST_POST" ),
-					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] )
-					);
-			}
-			else
-				return GetText( "NO_POSTS" );
 		}
 
 		protected string GetViewing( object o )
@@ -196,7 +128,7 @@ namespace YAF.Pages
 				imgTitle = GetText( "ICONLEGEND", "No_New_Posts" );
 			}
 
-			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
+			return String.Format( "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"/>", img, imgTitle );
 		}
 
 		protected void ModeratorList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
@@ -211,10 +143,9 @@ namespace YAF.Pages
 			ActiveDiscussionTBody.Visible = ( Mession.PanelState ["ActiveDiscussions"] == PanelSessionState.CollapsiblePanelState.Expanded );
 		}
 
-		private void UpdateInformationPanel()
+		protected void OnNeedDataBind( object sender, EventArgs e )
 		{
-			expandInformation.ImageUrl = GetCollapsiblePanelImageURL( "Information", PanelSessionState.CollapsiblePanelState.Expanded );
-			InformationTBody.Visible = ( Mession.PanelState ["Information"] == PanelSessionState.CollapsiblePanelState.Expanded );
+			BindData();
 		}
 
 		protected void expandActiveDiscussions_Click( object sender, ImageClickEventArgs e )
