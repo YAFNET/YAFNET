@@ -139,6 +139,30 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		/// <summary>
+		/// Gets the collapsible panel image url (expanded or collapsed). 
+		/// 
+		/// <param name="panelID">ID of collapsible panel</param>
+		/// <param name="defaultState">Default Panel State</param>
+		/// </summary>
+		/// <returns>Image URL</returns>
+		public string GetCollapsiblePanelImageURL( string panelID, PanelSessionState.CollapsiblePanelState defaultState )
+		{
+			PanelSessionState.CollapsiblePanelState stateValue = Mession.PanelState [panelID];
+			if ( stateValue == PanelSessionState.CollapsiblePanelState.None )
+			{
+				stateValue = defaultState;
+				Mession.PanelState [panelID] = defaultState;
+			}
+
+			return GetItem( "ICONS", ( stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND" ) );
+		}
+
+		/// <summary>
+		/// Helper function that creates the the url of a resource.
+		/// </summary>
+		/// <param name="resourceName"></param>
+		/// <returns></returns>
 		public string GetURLToResource( string resourceName )
 		{
       return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );

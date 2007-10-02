@@ -721,14 +721,7 @@ namespace YAF.Classes.Base
 		/// <returns>Image URL</returns>
 		public string GetCollapsiblePanelImageURL( string panelID, PanelSessionState.CollapsiblePanelState defaultState )
 		{
-			PanelSessionState.CollapsiblePanelState stateValue = Mession.PanelState [panelID];
-			if ( stateValue == PanelSessionState.CollapsiblePanelState.None )
-			{
-				stateValue = defaultState;
-				Mession.PanelState [panelID] = defaultState;
-			}
-
-			return GetThemeContents( "ICONS", ( stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND" ) );
+			return PageContext.Theme.GetCollapsiblePanelImageURL( panelID, defaultState );
 		}
 		#endregion
 
