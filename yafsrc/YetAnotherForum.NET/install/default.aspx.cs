@@ -225,7 +225,7 @@ namespace YAF.Install
 				FixAccess(false);
 
 				foreach (string script in _scripts)
-					ExecuteScript(script, "dbo");
+					ExecuteScript(script);
 
 				FixAccess(true);
 
@@ -408,7 +408,7 @@ namespace YAF.Install
 		#endregion
 
 		#region method ExecuteScript
-		private void ExecuteScript( string sScriptFile, string dbOwner )
+		private void ExecuteScript( string sScriptFile )
 		{
 			string script = null;
 			try
@@ -448,9 +448,6 @@ namespace YAF.Install
 						{
 							if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
 								continue;
-
-							// modify the databaseowner...
-							sql = sql.Replace( "{databaseOwner}", dbOwner.Trim() );
 
 							if ( sql.Length > 0 )
 							{
