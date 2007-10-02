@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="ForumList.ascx.cs" Inherits="YAF.Controls.ForumList"	EnableViewState="false" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>	
+<%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
 <asp:Repeater ID="forumList" runat="server">
 	<ItemTemplate>
 		<tr class="post">
@@ -36,17 +37,7 @@
 				</asp:Repeater>
 			</td>
 			<td align="center" class="smallfont subforumlink">
-				<asp:Repeater ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-					<ItemTemplate>
-						<%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%>
-					</ItemTemplate>
-					<SeparatorTemplate>
-						,
-					</SeparatorTemplate>
-					<FooterTemplate>
-						<%# GetModeratorsFooter((Repeater)Container.Parent) %>
-					</FooterTemplate>
-				</asp:Repeater>
+				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
 			<td align="center">
 				<%# Topics(Container.DataItem) %>
@@ -94,17 +85,7 @@
 				</asp:Repeater>
 			</td>
 			<td align="center" class="smallfont subforumlink">
-				<asp:Repeater ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>'>
-					<ItemTemplate>
-						<%# GetModeratorLink((System.Data.DataRow)Container.DataItem)%>
-					</ItemTemplate>
-					<SeparatorTemplate>
-						,
-					</SeparatorTemplate>
-					<FooterTemplate>
-						<%# GetModeratorsFooter((Repeater)Container.Parent)%>
-					</FooterTemplate>
-				</asp:Repeater>
+				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
 			<td align="center">
 				<%# Topics(Container.DataItem) %>

@@ -26,22 +26,32 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
-	public partial class ForumIconLegend : YAF.Classes.Base.BaseUserControl
+	public partial class ForumModeratorList : YAF.Classes.Base.BaseUserControl
 	{
-		public ForumIconLegend()
+		public ForumModeratorList()
 		{
-			this.PreRender += new EventHandler( ForumIconLegend_PreRender );
+			this.PreRender += new EventHandler( ForumModeratorList_PreRender );
 		}
 
-		void ForumIconLegend_PreRender( object sender, EventArgs e )
-		{
-			Forum_New.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM_NEW" );
-			Forum.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM" );
-			Forum_Locked.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM_LOCKED" );
+		void ForumModeratorList_PreRender( object sender, EventArgs e )
+		{	
+			if ( ((DataRow[])ModeratorList.DataSource).Length > 0)
+			{
+				// no need for the "blank dash"...
+				BlankDash.Visible = false;
+			}
 		}
+
+		public System.Collections.IEnumerable DataSource
+		{
+			set
+			{
+				ModeratorList.DataSource = value;
+			}
+		}
+
 	}
 }

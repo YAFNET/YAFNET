@@ -9,10 +9,7 @@
 		<br />
 	</asp:PlaceHolder>
 	<%# String.Format( PageContext.Localization.GetText( "by" ), String.Empty) %>
-	<YAF:UserLink ID="ProfileUserLink" runat="server" />
-	<asp:HyperLink ID="LastTopicImgLink" runat="server">
-		<asp:Image runat="server" ID="Icon" />
-	</asp:HyperLink>
+	<YAF:UserLink ID="ProfileUserLink" runat="server" />&nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server"><asp:Image runat="server" ID="Icon" /></asp:HyperLink>
 </asp:PlaceHolder>
 <asp:PlaceHolder ID="NoPostsHolder" runat="server">
 	<%# PageContext.Localization.GetText( "NO_POSTS" )%>
