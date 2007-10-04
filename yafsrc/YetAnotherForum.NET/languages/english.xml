@@ -122,9 +122,9 @@
 		<Resource tag="CURRENT_TIME">Current time: {0}.</Resource>
 		<Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
 		<Resource tag="STATS_POSTS">There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Resource>
-		<Resource tag="STATS_LASTPOST">Last post {0} by {1}.</Resource>
+		<Resource tag="STATS_LASTPOST">Last post {0} by</Resource>
 		<Resource tag="STATS_MEMBERS">We have {0:N0} registered members.</Resource>
-		<Resource tag="STATS_LASTMEMBER">The newest member is {0}.</Resource>
+		<Resource tag="STATS_LASTMEMBER">The newest member is</Resource>
 		<Resource tag="IN">in {0}</Resource>
 		<Resource tag="BY">by {0}</Resource>
 		<Resource tag="NO_POSTS">No Posts</Resource>
