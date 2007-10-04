@@ -279,6 +279,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueBool( "ShowPageGenerationTime", true ); }
 			set { _reg.SetValueBool( "ShowPageGenerationTime", value ); }
 		}
+		public bool ShowYAFVersion
+		{
+			get { return _reg.GetValueBool( "ShowYAFVersion", true ); }
+			set { _reg.SetValueBool( "ShowYAFVersion", value ); }
+		}
 		public bool ShowForumJump
 		{
 			get { return _reg.GetValueBool( "ShowForumJump", true ); }
