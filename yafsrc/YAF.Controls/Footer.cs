@@ -88,7 +88,6 @@ namespace YAF.Controls
 		{
 			// BEGIN FOOTER
 			StringBuilder footer = new StringBuilder();
-			footer.AppendFormat( "<p style=\"text-align:center;font-size:7pt\">" );
 
 			/* Commented out by Jaben on 9/27/2007: No longer needed with the RSS feed on the main forum.	 
 			if ( PageContext.BoardSettings.ShowRSSLink )
@@ -101,48 +100,50 @@ namespace YAF.Controls
 			// it's not really an error if it doesn't exist
 			string themeCredit = PageContext.Theme.GetItem( "THEME", "CREDIT", null );
 
-			if ( themeCredit != null && themeCredit.Length > 0 )
-			{
-				themeCredit = @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />";
-			}
-
 			StopWatch.Stop();
 			double duration = ( double ) StopWatch.ElapsedMilliseconds / 1000.0;
 
-			if ( YAF.Classes.Config.IsDotNetNuke )
-			{
-				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under DotNetNuke.", YafForumInfo.AppVersionName );
-        footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
-			}
-			else if ( YAF.Classes.Config.IsRainbow )
-			{
-				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-        footer.AppendFormat( "<a target=\"_top\" title=\"Yet Another Forum.net Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a> version {0} running under Rainbow.", YafForumInfo.AppVersionName );
-        footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
-			}
-			else if ( PageContext.Settings.LockedForum == 0 )
-			{
-				if ( themeCredit != null && themeCredit.Length > 0 ) footer.Append( themeCredit );
-				footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ),
-					String.Format( "<a target=\"_top\" title=\"Yet Another Forum.NET Home Page\" href=\"http://www.yetanotherforum.net/\">Yet Another Forum.NET</a>" ),
-					String.Format( "{0} (NET v{2}.{3}) - {1}", YafForumInfo.AppVersionName, YafDateTime.FormatDateShort( YafForumInfo.AppVersionDate ), System.Environment.Version.Major.ToString(), System.Environment.Version.Minor.ToString() )
-					);
-				footer.AppendFormat( "<br />Copyright &copy; 2003-2007 Yet Another Forum.NET. All rights reserved." );
-				footer.AppendFormat( "<br/>" );
-				footer.AppendFormat( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
+			footer.Append( @"<br/><div class=""content"" style=""text-align:right;font-size:7pt"">" );
 
-				if ( PageContext.BoardSettings.ShowPageGenerationTime )
-					footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "GENERATED" ), duration );
+			// append theme Credit if it exists...
+			if ( !String.IsNullOrEmpty( themeCredit ) )
+			{
+				footer.Append( @"<span id=""themecredit"" style=""color:#999999"">" + themeCredit + @"</span><br />" );
 			}
+
+			footer.Append( @"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">" );
+			footer.Append( PageContext.Localization.GetText( "COMMON", "POWERED_BY" ) );
+			footer.Append( @" YAF" );
+
+			if ( PageContext.BoardSettings.ShowYAFVersion )
+			{
+				footer.AppendFormat( " {0} ", YafForumInfo.AppVersionName );
+				if ( YAF.Classes.Config.IsDotNetNuke )
+				{
+					footer.Append( " Under DNN " );
+				}
+				else if ( YAF.Classes.Config.IsRainbow )
+				{
+					footer.Append( " Under Rainbow " );
+				}
+			}
+
+			footer.AppendFormat( @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2007, Yet Another Forum.NET</a>", "YetAnotherForum.NET", "http://www.yetanotherforum.net" );
+
+			if ( PageContext.BoardSettings.ShowPageGenerationTime )
+			{
+				footer.Append( "<br/>" );
+				footer.AppendFormat( PageContext.Localization.GetText( "COMMON", "GENERATED" ), duration );
+			}
+
+			footer.Append( @"</div>" );
+			footer.Append( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
 
 #if DEBUG      
-      footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:center;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
+      footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
 			footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
       footer.Append( "</div>" );
 #endif
-      footer.AppendFormat( "</p>" );
-			// END FOOTER
 
 			// write CSS, Refresh, then header...
 			writer.Write( footer );
