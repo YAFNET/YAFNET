@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumActiveDiscussion" Src="../controls/ForumActiveDiscussion.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:ForumWelcome runat="server" ID="Welcome" />
@@ -15,19 +16,19 @@
 				<td class="header1" width="1%">
 					&nbsp;</td>
 				<td class="header1" align="left">
-					<%# GetText("FORUM") %>
+					<YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
 				</td>
 				<td class="header1" align="center" width="15%">
-					<%# GetText("moderators") %>
+					<YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
 				</td>
 				<td class="header1" align="center" width="4%">
-					<%# GetText("topics") %>
+					<YAF:LocalizedLabel ID="TopicsHeaderLabel" runat="server" LocalizedTag="TOPICS" />
 				</td>
 				<td class="header1" align="center" width="4%">
-					<%# GetText("posts") %>
+					<YAF:LocalizedLabel ID="PostsHeaderLabel" runat="server" LocalizedTag="POSTS" />
 				</td>
 				<td class="header1" align="center" width="25%">
-					<%# GetText("lastpost") %>
+					<YAF:LocalizedLabel ID="LastPostHeaderLabel" runat="server" LocalizedTag="LASTPOST" />
 				</td>
 			</tr>
 	</HeaderTemplate>
@@ -54,43 +55,12 @@
 	</FooterTemplate>
 </asp:Repeater>
 <br />
-<table border="0" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td width="65%" valign="top">
-			<YAF:ForumStatistics ID="ForumStats" runat="Server" OnNeedDataBind="OnNeedDataBind" />
-		</td>
-		<td width="10">
-			&nbsp;</td>
-		<td width="35%" valign="top" height="100%">
-			<table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
-				<tr>
-					<td class="header1" colspan="2">
-						<asp:ImageButton runat="server" ID="expandActiveDiscussions" BorderWidth="0" ImageAlign="Baseline"
-							OnClick="expandActiveDiscussions_Click" />&nbsp;&nbsp;<%= GetText("ACTIVE_DISCUSSIONS") %></td>
-				</tr>
-				<tbody id="ActiveDiscussionTBody" runat="server">
-					<tr>
-						<td class="header2" colspan="2">
-							<%= GetText("LATEST_POSTS") %>
-						</td>
-					</tr>
-					<tr>
-						<td class="post" valign="top">
-							<asp:Repeater runat="server" ID="LatestPosts">
-								<ItemTemplate>
-									&nbsp;<a href='<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>'><%# YAF.Classes.Utils.General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Topic"))) %></a>
-									<a href="<%#YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataBinder.Eval(Container.DataItem, "LastMessageID"))%>">
-										<img src="<%# GetThemeContents("ICONS",(DateTime.Parse(Convert.ToString(DataBinder.Eval(Container.DataItem, "LastPosted"))) > YAF.Classes.Utils.Mession.GetTopicRead((int)DataBinder.Eval(Container.DataItem, "TopicID"))) ? "ICON_NEWEST" : "ICON_LATEST") %>"
-											border="0" alt=""></a><br />
-								</ItemTemplate>
-							</asp:Repeater>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</td>
-	</tr>
-</table>
+
+<YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" OnNeedDataBind="OnNeedDataBind" />
+<br />
+
+<YAF:ForumStatistics ID="ForumStats" runat="Server" OnNeedDataBind="OnNeedDataBind" />
+
 <YAF:ForumIconLegend ID="IconLegend" runat="server" />
 
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

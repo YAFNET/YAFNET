@@ -76,12 +76,6 @@ namespace YAF.Pages
 			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
 			CategoryList.DataSource = ds.Tables [DBAccess.GetObjectName("Category")];
 
-			// Latest forum posts
-			// Shows the latest n number of posts on the main forum list page
-			LatestPosts.DataSource = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID );
-
-			UpdateActiveDiscussionsPanel();
-
 			DataBind();
 		}
 
@@ -137,28 +131,8 @@ namespace YAF.Pages
 			//TODO: Show moderators
 		}
 
-		private void UpdateActiveDiscussionsPanel()
-		{
-			expandActiveDiscussions.ImageUrl = GetCollapsiblePanelImageURL( "ActiveDiscussions", PanelSessionState.CollapsiblePanelState.Expanded );
-			ActiveDiscussionTBody.Visible = ( Mession.PanelState ["ActiveDiscussions"] == PanelSessionState.CollapsiblePanelState.Expanded );
-		}
-
 		protected void OnNeedDataBind( object sender, EventArgs e )
 		{
-			BindData();
-		}
-
-		protected void expandActiveDiscussions_Click( object sender, ImageClickEventArgs e )
-		{
-			// toggle the panel visability state...
-			Mession.PanelState.TogglePanelState( "ActiveDiscussions", PanelSessionState.CollapsiblePanelState.Expanded );
-			BindData();
-		}
-
-		protected void expandInformation_Click( object sender, ImageClickEventArgs e )
-		{
-			// toggle the panel visability state...
-			Mession.PanelState.TogglePanelState( "Information", PanelSessionState.CollapsiblePanelState.Expanded );
 			BindData();
 		}
 
