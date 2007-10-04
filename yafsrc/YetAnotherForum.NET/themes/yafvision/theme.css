@@ -1,7 +1,7 @@
 body, td
 {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
-	font-size: 8pt;
+	font-size: 8.5pt;
 }
 
 input{font:8pt Verdana,Arial,Helvetica,sans-serif}
@@ -48,7 +48,7 @@ img
 
 /* hyperlinks */
 a		{ text-decoration: none; color: #303030; }
-a:hover		{ text-decoration: underline; }
+a:hover		{ text-decoration: underline; color: #efefb4; }
 
 /* Header 1 - Main header */
 .header1 {
@@ -62,7 +62,7 @@ a:hover		{ text-decoration: underline; }
 
 /* Links in header1 */
 tr.header1 a		{color:#FFFFFF;text-decoration:none}
-tr.header1 a:hover	{color:#C0C0FF;text-decoration:none}
+tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 
 /* Header 2 - Sub header */
 .header2 {
@@ -148,8 +148,9 @@ table.content {
 	background-color: #FFFFFF;
 }
 
-.content td {
-	padding: 3px;
+.content td
+{
+	padding: 5px;
 }
 
 .content td table td table td {
@@ -162,8 +163,8 @@ table.content {
 }
 
 /* links inside content table*/
-.content a		{ color: #202020; text-decoration: underline; }
-.content a:hover	{ color: #3A4F6C; text-decoration: none; }
+.content a		{ color: #555555; text-decoration: none; }
+.content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 
 /* used for quoting messages */
 .quote 

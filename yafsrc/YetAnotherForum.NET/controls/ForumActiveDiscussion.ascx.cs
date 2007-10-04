@@ -73,8 +73,12 @@ namespace YAF.Controls
 				textMessageLink.Text = YAF.Classes.Utils.General.BadWordReplace( currentRow["Topic"].ToString() );
 				textMessageLink.NavigateUrl = messageUrl;
 				imageMessageLink.NavigateUrl = messageUrl;
-				lastUserLink.UserID = Convert.ToInt32( currentRow ["LastUserID"] );
-				lastUserLink.UserName = currentRow ["LastUserName"].ToString();
+				// Just in case...
+				if ( currentRow ["LastUserID"] != DBNull.Value )
+				{
+					lastUserLink.UserID = Convert.ToInt32( currentRow ["LastUserID"] );
+					lastUserLink.UserName = currentRow ["LastUserName"].ToString();
+				}
 				lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
 				forumLink.Text = currentRow["Forum"].ToString();
 				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );

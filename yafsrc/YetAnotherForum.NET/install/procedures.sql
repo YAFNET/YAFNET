@@ -3539,6 +3539,7 @@ BEGIN
 		yaf_vaccess v ON v.ForumID=f.ForumID
 	WHERE
 		c.BoardID = @BoardID
+		AND t.TopicMovedID is NULL
 		AND v.UserID=@UserID
 		AND (v.ReadAccess <> 0)
 		AND (t.Flags & 8) = 0
