@@ -39,9 +39,7 @@ namespace YAF.Controls
 
 		void ForumIconLegend_PreRender( object sender, EventArgs e )
 		{
-			Forum_New.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM_NEW" );
-			Forum.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM" );
-			Forum_Locked.ImageUrl = PageContext.Theme.GetItem( "ICONS", "FORUM_LOCKED" );
+
 		}
 	}
 }

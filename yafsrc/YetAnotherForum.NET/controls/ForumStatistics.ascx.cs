@@ -50,44 +50,52 @@ namespace YAF.Controls
 			// Call this before forum_stats to clean up active users
 			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
 
-			// Forum statistics
-			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
-			DataRow stats = ( DataRow ) Cache [key];
-			if ( stats == null )
-			{
-				stats = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
-				Cache.Insert( key, stats, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
-			}
-
-			Stats.Text = String.Format( PageContext.Localization.GetText( "stats_posts" ), stats ["posts"], stats ["topics"], stats ["forums"] );
-			Stats.Text += "<br/>";
-
-			if ( !stats.IsNull( "LastPost" ) )
-			{
-				Stats.Text += String.Format( PageContext.Localization.GetText( "stats_lastpost" ),
-					YafDateTime.FormatDateTimeTopic( ( DateTime ) stats ["LastPost"] ),
-					String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastUserID"] ), HtmlEncode( stats ["LastUser"] ) )
-				);
-				Stats.Text += "<br/>";
-			}
-
-			Stats.Text += String.Format( PageContext.Localization.GetText( "stats_members" ), stats ["members"] );
-			Stats.Text += "<br/>";
-
-			Stats.Text += String.Format( PageContext.Localization.GetText( "stats_lastmember" ),
-				String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", stats ["LastMemberID"] ), HtmlEncode( stats ["LastMember"] ) )
-			);
-			Stats.Text += "<br/>";
-
+			// "Active Users" Count and Most Users Count
 			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
-			activeinfo.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
+
+			ActiveUserCount.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
 				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
 				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
 				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
 				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
 				);
 
-			activeinfo.Text += "<br/>" + string.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, YafDateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
+			MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, YafDateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
+
+			// Forum Statistics
+			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
+			DataRow statisticsDataRow = ( DataRow ) Cache [key];
+			if ( statisticsDataRow == null )
+			{
+				statisticsDataRow = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
+				Cache.Insert( key, statisticsDataRow, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
+			}
+
+			// Posts and Topic Count...
+			StatsPostsTopicCount.Text = String.Format( PageContext.Localization.GetText( "stats_posts" ), statisticsDataRow ["posts"], statisticsDataRow ["topics"], statisticsDataRow ["forums"] );
+
+			// Last post
+			if ( !statisticsDataRow.IsNull( "LastPost" ) )
+			{
+				StatsLastPostHolder.Visible = true;
+
+				LastPostUserLink.UserID = Convert.ToInt32(statisticsDataRow ["LastUserID"]);
+				LastPostUserLink.UserName = statisticsDataRow ["LastUser"].ToString();
+
+				StatsLastPost.Text = String.Format( PageContext.Localization.GetText( "stats_lastpost" ), YafDateTime.FormatDateTimeTopic( ( DateTime ) statisticsDataRow ["LastPost"] ) );
+			}
+			else
+			{
+				StatsLastPostHolder.Visible = false;
+			}
+			
+			// Member Count
+			StatsMembersCount.Text = String.Format( PageContext.Localization.GetText( "stats_members" ), statisticsDataRow ["members"] );
+
+			// Newest Member
+			StatsNewestMember.Text = PageContext.Localization.GetText( "stats_lastmember" );
+			NewestMemberUserLink.UserID = Convert.ToInt32( statisticsDataRow ["LastMemberID"] );
+			NewestMemberUserLink.UserName = statisticsDataRow ["LastMember"].ToString();
 
 			UpdatePanel();
 		}
@@ -102,7 +110,7 @@ namespace YAF.Controls
 		private void UpdatePanel()
 		{
 			expandInformation.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( "Information", PanelSessionState.CollapsiblePanelState.Expanded );
-			InformationTBody.Visible = ( Mession.PanelState ["Information"] == PanelSessionState.CollapsiblePanelState.Expanded );
+			InformationPlaceHolder.Visible = ( Mession.PanelState ["Information"] == PanelSessionState.CollapsiblePanelState.Expanded );
 		}
 
 		public event EventHandler<EventArgs> NeedDataBind;

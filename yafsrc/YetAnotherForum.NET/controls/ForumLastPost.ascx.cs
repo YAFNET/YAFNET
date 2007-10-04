@@ -62,13 +62,13 @@ namespace YAF.Controls
 					Icon.ImageUrl = PageContext.Theme.GetItem( "ICONS", ( DateTime.Parse( Convert.ToString( DataRow ["LastPosted"] ) ) > Mession.GetTopicRead( ( int ) DataRow ["LastTopicID"] ) ) ? "ICON_NEWEST" : "ICON_LATEST" );
 
 					LastPostedHolder.Visible = true;
-					NoPostsHolder.Visible = false;
+					NoPostsLabel.Visible = false;
 				}
 				else
 				{
 					// show "no posts"
 					LastPostedHolder.Visible = false;
-					NoPostsHolder.Visible = true;
+					NoPostsLabel.Visible = true;
 				}
 			}
 		}

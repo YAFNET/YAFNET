@@ -4,13 +4,12 @@
 	<asp:Label ID="LastPosted" runat="server" />
 	<br />
 	<asp:PlaceHolder ID="TopicInPlaceHolder" runat="server">
-		<%# String.Format( PageContext.Localization.GetText( "in" ), String.Empty) %>
+		<YAF:LocalizedLabel ID="InLabel" runat="server" LocalizedTag="IN" />
 		<asp:HyperLink ID="topicLink" runat="server"></asp:HyperLink>
 		<br />
 	</asp:PlaceHolder>
-	<%# String.Format( PageContext.Localization.GetText( "by" ), String.Empty) %>
+	<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
 	<YAF:UserLink ID="ProfileUserLink" runat="server" />&nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server"><asp:Image runat="server" ID="Icon" /></asp:HyperLink>
 </asp:PlaceHolder>
-<asp:PlaceHolder ID="NoPostsHolder" runat="server">
-	<%# PageContext.Localization.GetText( "NO_POSTS" )%>
-</asp:PlaceHolder>
+
+<YAF:LocalizedLabel ID="NoPostsLabel" runat="server" LocalizedTag="NO_POSTS" />
