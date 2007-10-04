@@ -424,12 +424,6 @@ namespace YAF.Pages // YAF.Pages
 			sponserRow ["Message"] = PageContext.BoardSettings.AdPost;
 			sponserRow ["HasAvatarImage"] = false;
 			sponserRow ["HasAttachments"] = false;
-			sponserRow ["ICQ"] = DBNull.Value;
-			sponserRow ["AIM"] = DBNull.Value;
-			sponserRow ["YIM"] = DBNull.Value;
-			sponserRow ["MSN"] = DBNull.Value;
-			sponserRow ["Weblog"] = DBNull.Value;
-			sponserRow ["Homepage"] = DBNull.Value;
 			sponserRow ["Signature"] = GetText( "AD_SIGNATURE" );
 			sponserRow ["IP"] = "none";
 			sponserRow ["Edited"] = sponserRow ["Posted"];
