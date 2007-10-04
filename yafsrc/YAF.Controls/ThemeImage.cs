@@ -33,6 +33,7 @@ namespace YAF.Controls
 		protected string _themePage = "ICONS";
 		protected string _themeTag = string.Empty;
 		protected string _style = string.Empty;
+		protected string _title = string.Empty;
 
 		public ThemeImage() : base()
 		{
@@ -51,6 +52,7 @@ namespace YAF.Controls
 			output.WriteAttribute( "alt", Alt );
 
 			if ( !String.IsNullOrEmpty( Style ) ) output.WriteAttribute( "style", Style );
+			if ( !String.IsNullOrEmpty( Title ) ) output.WriteAttribute( "title", Title );
 
 			// self closing end tag "/>"
 			output.Write( HtmlTextWriter.SelfClosingTagEnd );
@@ -68,12 +70,18 @@ namespace YAF.Controls
 			return null;
 		}
 
+		/// <summary>
+		/// Set/Get the ThemePage -- Defaults to "ICONS"
+		/// </summary>
 		public string ThemePage
 		{
 			get { return _themePage; }
 			set { _themePage = value; }
 		}
 
+		/// <summary>
+		/// Set/Get the actual theme item
+		/// </summary>
 		public string ThemeTag
 		{
 			get { return _themeTag; }
@@ -84,6 +92,12 @@ namespace YAF.Controls
 		{
 			get { return _alt; }
 			set { _alt = value; }
+		}
+
+		public string Title
+		{
+			get { return _title; }
+			set { _title = value; }
 		}
 
 		public string Style
