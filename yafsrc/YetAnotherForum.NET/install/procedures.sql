@@ -3520,15 +3520,30 @@ AS
 BEGIN
 	SET ROWCOUNT @NumPosts
 	
-	SELECT t.LastPosted, t.Topic, t.TopicID, t.LastMessageID FROM [{databaseOwner}].{objectQualifier}Topic t
-	INNER JOIN [{databaseOwner}].{objectQualifier}Category c
-	INNER JOIN [{databaseOwner}].{objectQualifier}Forum f
-	ON c.CategoryID = f.CategoryID
-	ON t.ForumID = f.ForumID
-	JOIN [{databaseOwner}].{objectQualifier}vaccess v
-	ON v.ForumID=f.ForumID
-	WHERE c.BoardID = @BoardID AND v.UserID=@UserID AND (v.ReadAccess <> 0) AND (t.Flags & 8) = 0 ORDER BY t.LastPosted DESC;
-
+	SELECT
+		t.LastPosted,
+		t.ForumID,
+		f.Name as Forum,
+		t.Topic,
+		t.TopicID,
+		t.LastMessageID,
+		t.LastUserID,
+		LastUserName = IsNull(t.LastUserName,(select [Name] from yaf_User x where x.UserID = t.LastUserID))
+	FROM 
+		yaf_Topic t
+	INNER JOIN
+		yaf_Forum f ON t.ForumID = f.ForumID	
+	INNER JOIN
+		yaf_Category c ON c.CategoryID = f.CategoryID
+	JOIN
+		yaf_vaccess v ON v.ForumID=f.ForumID
+	WHERE
+		c.BoardID = @BoardID
+		AND v.UserID=@UserID
+		AND (v.ReadAccess <> 0)
+		AND (t.Flags & 8) = 0
+	ORDER BY
+		t.LastPosted DESC;
 END
 GO
 
