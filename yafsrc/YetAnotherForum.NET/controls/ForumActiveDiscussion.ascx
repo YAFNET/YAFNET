@@ -17,13 +17,13 @@
 		<asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPosts_ItemDataBound">
 			<ItemTemplate>
 				<tr>
-					<td class="post" valign="top">
+					<td class="post">
 						&nbsp;<b><asp:HyperLink ID="TextMessageLink" runat="server" /></b>
 						<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
 						<YAF:UserLink ID="LastUserLink" runat="server" />
 						(<asp:HyperLink ID="ForumLink" runat="server" />)
 					</td>
-					<td class="post" valign="top" style="width:20em;text-align:right;">
+					<td class="post" style="width:30em;text-align:right;">
 						<asp:Label ID="LastPostedDateLabel" runat="server" />
 						<asp:HyperLink ID="ImageMessageLink" runat="server">
 							<YAF:ThemeImage ID="LastPostedImage" runat="server" Style="border: 0" />

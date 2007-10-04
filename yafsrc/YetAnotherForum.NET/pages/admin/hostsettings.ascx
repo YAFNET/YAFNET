@@ -274,6 +274,13 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Show YetAnotherForum Version:</b><br>
+                                    Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security).</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowYAFVersion" runat="server"></asp:CheckBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Show Join Date:</b><br>
                                     If checked, join date will be displayed for each user.</td>
                                 <td class="post">

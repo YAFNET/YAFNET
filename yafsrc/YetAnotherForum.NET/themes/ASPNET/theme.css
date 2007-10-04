@@ -76,7 +76,7 @@ a.header2 { height: auto; background-color: Transparent; border-style: none; bac
 	background-color: #2163E8;
 	height: 1px;  
 }
-.content {
+table.content {
 	BORDER: #a9b8c2 1px solid; PADDING: 0px; FONT-SIZE: 8pt; COLOR: #000000; PADDING-TOP: 0px; FONT-FAMILY: verdana,Arial,Helvetica,sans-serif; background-color: #E6ECF7; 
 }
 .content TD {

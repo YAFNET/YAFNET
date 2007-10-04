@@ -161,7 +161,7 @@ tr.post_alt:hover
 }
 
 /* most tables are class 'content' */
-.content
+table.content
 {
 	border: solid 1px #777777;
 	padding: 0px;

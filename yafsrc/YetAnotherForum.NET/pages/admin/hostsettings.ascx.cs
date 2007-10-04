@@ -146,6 +146,7 @@ namespace YAF.Pages.Admin
 			ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
 			ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
 			EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
+			ShowYAFVersion.Checked = PageContext.BoardSettings.ShowYAFVersion;
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -230,6 +231,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
 			PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
 			PageContext.BoardSettings.EditTimeOut = Convert.ToInt32( EditTimeOut.Text );
+			PageContext.BoardSettings.ShowYAFVersion = ShowYAFVersion.Checked;
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;

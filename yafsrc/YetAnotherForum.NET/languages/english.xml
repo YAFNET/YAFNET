@@ -30,7 +30,7 @@
 	</page>
 	<page name="COMMON">
 		<!-- common... -->
-		<Resource tag="POWERED_BY">Powered by {0} version {1}</Resource>
+		<Resource tag="POWERED_BY">Powered by</Resource>
 		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
 		<Resource tag="SAVE">Save</Resource>
 		<Resource tag="CANCEL">Cancel</Resource>

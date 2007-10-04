@@ -133,7 +133,7 @@ a.header2 { height: auto; background-color: Transparent; border-style: none; bac
 }
 
 /* most tables are class 'content' */
-.content {
+table.content {
 	font-family: Verdana, Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 	border: solid 1px #2163E8;

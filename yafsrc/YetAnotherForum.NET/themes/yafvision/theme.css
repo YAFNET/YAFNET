@@ -139,7 +139,7 @@ td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 }
 
 /* most tables are class 'content' */
-.content {
+table.content {
 	font-family: verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 	border: solid 1px #8394B2;
