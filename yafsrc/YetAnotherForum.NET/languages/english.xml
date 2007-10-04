@@ -210,6 +210,12 @@
 		<Resource tag="POSTS">Posts</Resource>
 		<Resource tag="POINTS">Points</Resource>
 		<Resource tag="LOCATION">Location</Resource>
+		<Resource tag="BUTTON_ATTACH_TT">Attachments</Resource>
+		<Resource tag="BUTTON_EDIT_TT">Edit this Post</Resource>
+		<Resource tag="BUTTON_MOVE_TT">Move this Post</Resource>
+		<Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+		<Resource tag="BUTTON_UNDELETE_TT">Undelete this Post</Resource>
+		<Resource tag="BUTTON_QUOTE_TT">Reply with Quote</Resource>
 		<Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
 		<Resource tag="INFO_TOPIC_LOCKED">Topic was locked.</Resource>
 		<Resource tag="INFO_TOPIC_UNLOCKED">Topic was unlocked.</Resource>

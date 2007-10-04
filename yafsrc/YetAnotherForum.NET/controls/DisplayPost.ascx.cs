@@ -61,30 +61,29 @@ namespace YAF.Controls
 
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
-			// TODO localize tooltips
-			Attach.Visible = !PostDeleted && CanAttach;
+			Attach.Visible = !PostDeleted && CanAttach && !IsLocked;
 			Attach.Text = PageContext.Theme.GetItem( "BUTTONS", "ATTACHMENTS" );
-			Attach.ToolTip = "Attachments";
+			Attach.ToolTip = PageContext.Localization.GetText( "BUTTON_ATTACH_TT" );
 			Attach.NavigateUrl = YafBuildLink.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
-			Edit.Visible = !PostDeleted && CanEditPost;
+			Edit.Visible = !PostDeleted && CanEditPost && !IsLocked;
 			Edit.Text = PageContext.Theme.GetItem( "BUTTONS", "EDITPOST" );
-			Edit.ToolTip = "Edit this post";
+			Edit.ToolTip = PageContext.Localization.GetText( "BUTTON_EDIT_TT" );
 			Edit.NavigateUrl = YafBuildLink.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
-			MovePost.Visible = PageContext.ForumModeratorAccess;
+			MovePost.Visible = PageContext.ForumModeratorAccess && !IsLocked;
 			MovePost.Text = PageContext.Theme.GetItem( "BUTTONS", "MOVEPOST" );
-			MovePost.ToolTip = "Move this post";
+			MovePost.ToolTip = PageContext.Localization.GetText( "BUTTON_MOVE_TT" );
 			MovePost.NavigateUrl = YafBuildLink.GetLink( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
-			Delete.Visible = !PostDeleted && CanDeletePost;
+			Delete.Visible = !PostDeleted && CanDeletePost && !IsLocked;
 			Delete.Text = PageContext.Theme.GetItem( "BUTTONS", "DELETEPOST" );
-			Delete.ToolTip = "Delete this post";
+			Delete.ToolTip = PageContext.Localization.GetText( "BUTTON_DELETE_TT" );
 			Delete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
-			UnDelete.Visible = CanUnDeletePost;
+			UnDelete.Visible = CanUnDeletePost && !IsLocked;
 			UnDelete.Text = PageContext.Theme.GetItem( "BUTTONS", "UNDELETEPOST" );
-			UnDelete.ToolTip = "UnDelete this post";
+			UnDelete.ToolTip = PageContext.Localization.GetText( "BUTTON_UNDELETE_TT" );
 			UnDelete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
-			Quote.Visible = !PostDeleted && CanReply;
+			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
 			Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
-			Quote.ToolTip = "Reply with quote";
+			Quote.ToolTip = PageContext.Localization.GetText( "BUTTON_QUOTE_TT" );
 			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
 			// report posts
@@ -193,7 +192,6 @@ namespace YAF.Controls
 			}
 		}
 
-		// have to pull this directly from the DB
 		public bool IsGuest
 		{
 			get
@@ -203,6 +201,23 @@ namespace YAF.Controls
 					return UserMembershipHelper.IsGuestUser( DataRow ["UserID"] );
 				}
 				else return true;
+			}
+		}
+
+		/// <summary>
+		/// IsLocked flag should only be used for "ghost" posts such as the
+		/// Sponser post that isn't really there.
+		/// </summary>
+		public bool IsLocked
+		{
+			get
+			{
+				if ( DataRow != null )
+				{
+					if ( PostMessageFlags.IsLocked ) return true;
+				}
+				
+				return false;
 			}
 		}
 

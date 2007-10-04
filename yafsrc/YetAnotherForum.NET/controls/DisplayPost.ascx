@@ -62,6 +62,7 @@
 				<td align="right">
 					&nbsp;<asp:LinkButton ID="ReportButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
 						runat="server"></asp:LinkButton>
+					|
 					<asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
 						runat="server"></asp:LinkButton>
 					<span id="AdminInformation" runat="server" class="smallfont"></span>
