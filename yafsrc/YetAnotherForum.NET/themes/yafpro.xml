@@ -4,26 +4,28 @@
     <Resource tag="CREDIT">YAFPro Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
   </page>
 	<page name="BUTTONS">
-		<Resource tag="MODERATE">&lt;img style="vertical-align:middle" src='~/topic_moderate.png'/&gt;</Resource>
-		<Resource tag="NEWTOPIC">&lt;img align=absmiddle src='~/b_post_topic.png'/&gt;</Resource>
-		<Resource tag="POSTREPLY">&lt;img style="vertical-align:middle" src='~/b_post_reply.png'/&gt;</Resource>
-		<Resource tag="DELETETOPIC">&lt;img style="vertical-align:middle" src='~/b_delete_topic.png'/&gt;</Resource>
-		<Resource tag="LOCKTOPIC">&lt;img style="vertical-align:middle" src='~/b_lock_topic.png'/&gt;</Resource>
-		<Resource tag="UNLOCKTOPIC">&lt;img style="vertical-align:middle" src='~/b_unlock_topic.png'/&gt;</Resource>
-		<Resource tag="MOVETOPIC">&lt;img style="vertical-align:middle" src='~/b_move_topic.png'/&gt;</Resource>
-		<Resource tag="EDITPOST">&lt;img style="vertical-align:middle" src='~/b_edit_post.png'/&gt;</Resource>
-		<Resource tag="DELETEPOST">&lt;img style="vertical-align:middle" src='~/b_delete_post.png'/&gt;</Resource>
-		<Resource tag="QUOTEPOST">&lt;img style="vertical-align:middle" src='~/b_quote_post.png'/&gt;</Resource>
-		<Resource tag="REPLYPM">&lt;img style="vertical-align:middle" src='~/b_reply_pm.png'/&gt;</Resource>
-		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" src='~/b_attachments.png'/&gt;</Resource>
-		<Resource tag="PM">&lt;img style="vertical-align:middle" src='~/p_pm.gif'/&gt;</Resource>
-		<Resource tag="WWW">&lt;img style="vertical-align:middle" src='~/p_www.gif'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" src='~/p_blog.gif'/&gt;</Resource>
-		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" src='~/p_email.gif'/&gt;</Resource>
-		<Resource tag="MSN">&lt;img style="vertical-align:middle" src='~/p_msn.gif'/&gt;</Resource>
-		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" src='~/p_yim.gif'/&gt;</Resource>
-		<Resource tag="AIM">&lt;img style="vertical-align:middle" src='~/p_aim.gif'/&gt;</Resource>
-		<Resource tag="ICQ">&lt;img style="vertical-align:middle" src='~/p_icq.gif'/&gt;</Resource>
+		<Resource tag="MODERATE">&lt;img style="vertical-align:middle" alt="" src='~/topic_moderate.png'/&gt;</Resource>
+		<Resource tag="NEWTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_post_topic.png'/&gt;</Resource>
+		<Resource tag="POSTREPLY">&lt;img style="vertical-align:middle" alt="" src='~/b_post_reply.png'/&gt;</Resource>
+		<Resource tag="DELETETOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_delete_topic.png'/&gt;</Resource>
+		<Resource tag="LOCKTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_lock_topic.png'/&gt;</Resource>
+		<Resource tag="UNLOCKTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_unlock_topic.png'/&gt;</Resource>
+		<Resource tag="MOVETOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_move_topic.png'/&gt;</Resource>
+		<Resource tag="MOVEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_move_post.png'/&gt;</Resource>
+		<Resource tag="EDITPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_edit_post.png'/&gt;</Resource>
+		<Resource tag="DELETEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_delete_post.png'/&gt;</Resource>
+		<Resource tag="UNDELETEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_undelete_post.png'/&gt;</Resource>
+		<Resource tag="QUOTEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_quote_post.png'/&gt;</Resource>
+		<Resource tag="REPLYPM">&lt;img style="vertical-align:middle" alt="" src='~/b_reply_pm.png'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" alt="" src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="PM">&lt;img style="vertical-align:middle" alt="" src='~/p_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img style="vertical-align:middle" alt="" src='~/p_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" alt="" src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" alt="" src='~/p_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img style="vertical-align:middle" alt="" src='~/p_msn.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" alt="" src='~/p_yim.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img style="vertical-align:middle" alt="" src='~/p_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img style="vertical-align:middle" alt="" src='~/p_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.gif</Resource>
