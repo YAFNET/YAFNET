@@ -209,8 +209,11 @@ table.content td {
 	background-color: #efefef;
 	border: solid 1px #808080;
 	color: #000000;
-	font-size:8pt;
-	font-family:Courier New,Courier;
+	line-height: 1.3em;
+	font-family: "courier new", "times new roman", monospace;
+    overflow: auto;
+    width: 600px;
+	white-space: nowrap;
 }
 
 /* font sizes */
