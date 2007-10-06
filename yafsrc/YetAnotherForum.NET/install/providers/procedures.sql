@@ -50,7 +50,6 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_g
 DROP PROCEDURE [dbo].[yafprov_getusernamebyemail]
 GO
 
-
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_resetpassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yafprov_resetpassword]
 GO
@@ -125,23 +124,24 @@ CREATE PROCEDURE dbo.yafprov_createuser
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
 @Password nvarchar(50),
-@PasswordSalt nvarchar(50),
-@PasswordFormat nvarchar(50),
-@Email nvarchar(50),
-@PasswordQuestion nvarchar(50),
-@PasswordAnswer nvarchar(50),
-@IsApproved bit,
-@UserKey uniqueidentifier
+@PasswordSalt nvarchar(50) = null,
+@PasswordFormat nvarchar(50) = null,
+@Email nvarchar(50) = null,
+@PasswordQuestion nvarchar(50) = null,
+@PasswordAnswer nvarchar(50) = null,
+@IsApproved bit = null,
+@UserKey uniqueidentifier = null out
 )
 AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC dbo.yafprov_CreateApplication @ApplicationName, @ApplicationId OUTPUT
-	
+	IF @UserKey IS NOT NULL
+		SET @UserKey = NEWID()
+		
 	INSERT INTO yafprov_Members(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
-	VALUES (@UserKey, @ApplicationID,@Username, @Password, @PasswordSalt, @PasswordFormat, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved);
-
+		VALUES (@UserKey, @ApplicationID,@Username, @Password, @PasswordSalt, @PasswordFormat, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
