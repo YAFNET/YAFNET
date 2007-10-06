@@ -145,7 +145,6 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
                 return DBAccess.GetData(cmd).Rows[0];
             }
 
@@ -160,7 +159,6 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
                 return DBAccess.GetData(cmd).Rows[0];
             }
 
@@ -168,17 +166,7 @@ namespace YAF.Providers.Membership
 
         public static DataTable GetUserPasswordInfo(string appName,string username,bool updateUser)
         {
-            using (SqlCommand cmd = new SqlCommand("GetUserPasswordInfo"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@UpdateUser", updateUser);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
-                return DBAccess.GetData(cmd);
-            }
-
+            return DB.GetUser(appName, username, updateUser);
         }
 
         public static DataTable GetUserNameByEmail(string appName, string email)
