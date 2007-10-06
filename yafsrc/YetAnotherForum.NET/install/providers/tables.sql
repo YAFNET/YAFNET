@@ -3,11 +3,16 @@
 -- Create date: 30 September 2007
 -- Description:	MembershipProvider Tables
 -- =============================================
+-- To do list
+-- ---------------------------------------------
+-- Primary Keys for tables
+
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Members](
 		[UserID] [uniqueidentifier] NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
+		[Username] [nvarchar](50) NOT NULL,
 		[Password] [nvarchar](50) NULL,
 		[PasswordSalt] [nvarchar](50) NULL,
 		[PasswordFormat] [nvarchar](50) NULL,
