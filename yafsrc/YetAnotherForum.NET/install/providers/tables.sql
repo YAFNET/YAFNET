@@ -4,8 +4,8 @@
 -- Description:	MembershipProvider Tables
 -- =============================================
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafp_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafp_Members](
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yafprov_Members](
 		[UserID] [uniqueidentifier] NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[Password] [nvarchar](50) NULL,
@@ -26,8 +26,8 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafp_Members') an
 		)
 go
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafp_Applications') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafp_Applications](
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Applications') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yafprov_Applications](
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[ApplicationName] [nvarchar](50) NULL,
 		[Description] [ntext] NULL
