@@ -20,7 +20,7 @@ namespace YAF.Providers.Membership
     {
         public static void ChangePassword(string appName, string username, string newPassword, string newSalt, int passwordFormat, string newPasswordAnswer)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_changepassword"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_changepassword"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -37,7 +37,7 @@ namespace YAF.Providers.Membership
 
         public static void ChangePasswordQuestionAndAnswer(string appName, string username, string passwordQuestion, string passwordAnswer)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_changepasswordquestionandanswer"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_changepasswordquestionandanswer"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -51,27 +51,33 @@ namespace YAF.Providers.Membership
 
         public static void CreateUser(string appName, string username, string password, string passwordSalt, int passwordFormat, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_createuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_createuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
+                // Input Parameters
                 cmd.Parameters.AddWithValue("@Username", username);
                 cmd.Parameters.AddWithValue("@Password", password);
                 cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
                 cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
-                cmd.Parameters.AddWithValue("@EmailAddress", email);
+                cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
                 cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
                 cmd.Parameters.AddWithValue("@IsApproved", isApproved);
-                cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
+               // Input Output Parameters
+                SqlParameter paramUserKey = new SqlParameter("@UserKey", providerUserKey);
+                paramUserKey.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramUserKey);
+                //Execute
                 DBAccess.ExecuteNonQuery(cmd);
+                //Retrieve Output Parameters
+                providerUserKey = paramUserKey.Value;
             }
         }
 
         public static void DeleteUser(string appName, string username, bool deleteAllRelatedData)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_deleteuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_deleteuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -84,7 +90,7 @@ namespace YAF.Providers.Membership
 
         public static DataTable FindUsersByEmail(string appName, string emailToMatch, int pageIndex, int pageSize)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_findusersbyemail"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_findusersbyemail"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -98,7 +104,7 @@ namespace YAF.Providers.Membership
 
         public static DataTable FindUsersByName(string appName, string usernameToMatch, int pageIndex, int pageSize)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_findusersbyname"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_findusersbyname"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -112,7 +118,7 @@ namespace YAF.Providers.Membership
 
         public static DataTable GetAllUsers(string appName, int pageIndex, int pageSize)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_getallusers"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_getallusers"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -125,7 +131,7 @@ namespace YAF.Providers.Membership
 
         public static DataRow GetNumberOfUsersOnline(string appName, int TimeWindow)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_getnumberofusersonline"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_getnumberofusersonline"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -138,7 +144,7 @@ namespace YAF.Providers.Membership
 
         public static DataRow GetUser(string appName, string userName, bool userIsOnline)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_getuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_getuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -152,7 +158,7 @@ namespace YAF.Providers.Membership
 
         public static DataRow GetUser(string appName, object providerUserKey, bool userIsOnline)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_getuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_getuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -164,14 +170,23 @@ namespace YAF.Providers.Membership
 
         }
 
-        public static DataTable GetUserPasswordInfo(string appName,string username,bool updateUser)
+        public static DataTable GetUserPasswordInfo(string appName, string username,bool updateUser)
         {
-            return DB.GetUser(appName, username, updateUser);
+            using (SqlCommand cmd = new SqlCommand("yafprov_getuser"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@UserIsOnline", updateUser);
+                return DBAccess.GetData(cmd);
+            }
+
         }
 
         public static DataTable GetUserNameByEmail(string appName, string email)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_getusernamebyemail"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_getusernamebyemail"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -184,7 +199,7 @@ namespace YAF.Providers.Membership
 
         public static void ResetPassword(string appName, string userName, string password, string passwordSalt, int passwordFormat, int maxInvalidPasswordAttempts,int passwordAttemptWindow)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_resetpassword"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_resetpassword"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -204,7 +219,7 @@ namespace YAF.Providers.Membership
 
         public static void UnlockUser(string appName, string userName)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_unlockuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_unlockuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
@@ -216,7 +231,7 @@ namespace YAF.Providers.Membership
 
         public static void UpdateUser(object appName, MembershipUser user, bool requiresUniqueEmail)
         {
-            using (SqlCommand cmd = new SqlCommand("yafp_updateuser"))
+            using (SqlCommand cmd = new SqlCommand("yafprov_updateuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);

@@ -22,7 +22,7 @@ namespace YAF.Providers.Membership
         int _maxInvalidPasswordAttempts, _passwordAttemptWindow;
         bool _enablePaswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
         bool _requiresUniqueEmail;
-        Security.MembershipPasswordFormat _passwordFormat;
+        MembershipPasswordFormat _passwordFormat;
 
         #region PrivateMethods
 
@@ -43,6 +43,9 @@ namespace YAF.Providers.Membership
 
         internal static string EncryptString(string unencryptedString, object hastMethod, string salt)
         {
+            if (String.IsNullOrEmpty(unencryptedString))
+                return String.Empty;
+
             // Encrypt password accord to settings
             int hashMethod = (int)hastMethod;
             byte[] bIn = Encoding.Unicode.GetBytes(unencryptedString);
@@ -101,11 +104,13 @@ namespace YAF.Providers.Membership
             if (!(symbolCount >= minNonAlphaNumerics))
                 return false;
 
-
-
-            // Check password strength meets Password Strength Regex Requirements
-            if (!(Regex.IsMatch(password, strengthRegEx)))
-                return false;
+           // Check Reg Expression is present
+            if (strengthRegEx.Length > 0)
+            {
+                // Check password strength meets Password Strength Regex Requirements
+                if (!(Regex.IsMatch(password, strengthRegEx)))
+                    return false;
+            }
 
             // Check string meets requirements as set in config
             return true;
@@ -166,14 +171,9 @@ namespace YAF.Providers.Membership
             get { return _passwordStrengthRegularExpression; }
         }
 
-        private Security.MembershipPasswordFormat PasswordFormatInternal
-        {
-            get { return _passwordFormat; }
-        }
-
         public override MembershipPasswordFormat PasswordFormat
         {
-            get { throw new Exception("The method or operation is not implemented."); }
+            get { return _passwordFormat; }
         }
 
         public override bool RequiresQuestionAndAnswer
@@ -211,13 +211,14 @@ namespace YAF.Providers.Membership
                 _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"]);
 
             // Application Name
-						_appName = config ["applicationName"];
-						if ( string.IsNullOrEmpty( _appName ) )
-							_appName = "YetAnotherForum";
+			_appName = config ["applicationName"];
+			if ( string.IsNullOrEmpty( _appName ) )
+			    _appName = "YetAnotherForum";
 
             if (config["passwordStrengthRegularExpression"] != null)
                 _passwordStrengthRegularExpression = config["passwordStrengthRegularExpression"];
-
+            else
+                _passwordStrengthRegularExpression = string.Empty;
 
             // Password reset enabled from Provider Configuration
             if (config["enablePaswordReset"] != null)
@@ -229,7 +230,6 @@ namespace YAF.Providers.Membership
             if (config["requiresUniqueEmail"] != null)
                 _requiresUniqueEmail = bool.Parse(config["requiresUniqueEmail"]);
 
-
             string strTemp = config["passwordFormat"];
             if (strTemp == null)
                 strTemp = "Hashed";
@@ -237,23 +237,19 @@ namespace YAF.Providers.Membership
             switch (strTemp)
             {
                 case "Clear":
-                    _passwordFormat = Security.MembershipPasswordFormat.Clear;
+                    _passwordFormat = MembershipPasswordFormat.Clear;
                     break;
                 case "Encrypted":
-                    _passwordFormat = Security.MembershipPasswordFormat.Encrypted;
+                    _passwordFormat = MembershipPasswordFormat.Encrypted;
                     break;
                 case "MD5Hashed":
-                    _passwordFormat = Security.MembershipPasswordFormat.MD5Hashed;
-                    break;
-                case "SHA1Hashed":
-                    _passwordFormat = Security.MembershipPasswordFormat.SHA1Hashed;
-                    break;
-                case "SHA2Hashed":
-                    _passwordFormat = Security.MembershipPasswordFormat.SHA2Hashed;
+                    _passwordFormat = MembershipPasswordFormat.Hashed;
                     break;
                 default:
                     throw new ProviderException(SR.GetString(SR.Provider_bad_password_format));
             }
+
+            base.Initialize(name, config);
 
         }
 
@@ -338,20 +334,21 @@ namespace YAF.Providers.Membership
         /// <returns> Boolean depending on whether the deletion was successful</returns>
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
+            // username/password
+            // username/password/email
+            // username/password/email/passwordQuestion/passwordAnswer/isApproved/Outstatus
+            // username/password/email/passwordQuestion/passwordAnswer/isApproved/providerkey/Outstatus
+            
             // Check password meets requirements as set out in the web.config
             if (!(this.IsPasswordCompliant(password)))
             {
                 status = MembershipCreateStatus.InvalidPassword;
                 return null;
             }
-
             string salt = YafMembershipProvider.GenerateSalt();
-
             string pass = YafMembershipProvider.EncryptString(password, (int)this.PasswordFormat, salt);
-
             // Encode Password Answer
-            string encodedPasswordAnswer = YafMembershipProvider.EncryptString(passwordAnswer.ToLower(CultureInfo.InvariantCulture), this.PasswordFormat, salt);
-
+            string encodedPasswordAnswer = YafMembershipProvider.EncryptString(passwordAnswer, (int)this.PasswordFormat, salt);
             // Process database user creation request
             DB.CreateUser(this.ApplicationName, username, pass,salt,(int) this.PasswordFormat, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey);
 
