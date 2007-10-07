@@ -32,6 +32,7 @@ namespace YAF.Classes.Utils
 		private DataRow _board;
 		private RegistryHash _reg, _regBoard;
 		private object _boardID;
+        private string _membershipAppName, _rolesAppName;
 
 		public YafBoardSettings( object boardID )
 		{
@@ -40,6 +41,8 @@ namespace YAF.Classes.Utils
 			// get the board table
 			dt = YAF.Classes.Data.DB.board_list( boardID );
 			_board = dt.Rows [0];
+            _membershipAppName = (_board["MembershipAppName"].ToString() == "") ? System.Web.Security.Membership.ApplicationName : _board["MembershipAppName"].ToString();
+            _rolesAppName = (_board["RolesAppName"].ToString() == "") ? System.Web.Security.Roles.ApplicationName : _board["RolesAppName"].ToString();
 
 			_reg = new RegistryHash();
 			_regBoard = new RegistryHash();
@@ -92,6 +95,18 @@ namespace YAF.Classes.Utils
 				YAF.Classes.Data.DB.registry_save( entry.Key, entry.Value, _boardID );
 			}
 		}
+
+        // Provider Settings
+
+        public string MembershipAppName
+        {
+            get { return _membershipAppName; }
+        }
+
+        public string RolesAppName
+        {
+            get { return _rolesAppName; }
+        }
 
 		// individual board settings
 		public string Name

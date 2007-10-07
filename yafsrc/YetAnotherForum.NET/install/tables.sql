@@ -400,6 +400,24 @@ GO
 
 -- [{databaseOwner}].{objectQualifier}UserPMessage
 
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}Board') and name='MembershipAppName')
+begin
+	alter table [{databaseOwner}].{objectQualifier}Board add MembershipAppName nvarchar(255)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}Board') and name='RolesAppName')
+begin
+	alter table [{databaseOwner}].{objectQualifier}Board add RolesAppName nvarchar(255)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}Board') and name='MembershipAppName')
+begin
+	alter table [{databaseOwner}].{objectQualifier}Board add MembershipAppName nvarchar(255)
+end
+GO
+
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}UserPMessage') and name='IsInOutbox')
 begin
 	alter table [{databaseOwner}].{objectQualifier}UserPMessage add IsInOutbox	bit not null default (1)

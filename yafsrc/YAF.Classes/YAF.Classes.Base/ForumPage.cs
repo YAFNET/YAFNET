@@ -109,7 +109,6 @@ namespace YAF.Classes.Base
 		public ForumPage( string transPage )
 		{
 			_transPage = transPage;
-
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Unload += new System.EventHandler( this.ForumPage_Unload );
 			this.Error += new System.EventHandler( this.ForumPage_Error );
@@ -168,7 +167,9 @@ namespace YAF.Classes.Base
 			// deal with banned users...
 			CheckBannedIPs();
 
-			// initialize the user and current page data...
+            InitProviderSettings();
+
+            // initialize the user and current page data...
 			InitUserAndPage();
 
 			// initialize theme
@@ -351,6 +352,13 @@ namespace YAF.Classes.Base
 			}
 #endif
 		}
+
+
+        private void InitProviderSettings()
+        {
+            System.Web.Security.Membership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+            System.Web.Security.Roles.ApplicationName = PageContext.BoardSettings.RolesAppName;
+        }
 
 		/// <summary>
 		/// Initialize the user data and page data...
