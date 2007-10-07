@@ -1143,47 +1143,50 @@ end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_poststats](@BoardID int) as
-begin
-	select
-		Posts = (select count(1) from [{databaseOwner}].{objectQualifier}Message a join [{databaseOwner}].{objectQualifier}Topic b on b.TopicID=a.TopicID join [{databaseOwner}].{objectQualifier}Forum c on c.ForumID=b.ForumID join [{databaseOwner}].{objectQualifier}Category d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID),
-		Topics = (select count(1) from [{databaseOwner}].{objectQualifier}Topic a join [{databaseOwner}].{objectQualifier}Forum b on b.ForumID=a.ForumID join [{databaseOwner}].{objectQualifier}Category c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID),
-		Forums = (select count(1) from [{databaseOwner}].{objectQualifier}Forum a join [{databaseOwner}].{objectQualifier}Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
-		Members = (select count(1) from [{databaseOwner}].{objectQualifier}User a where a.BoardID=@BoardID),
+BEGIN
+	SELECT
+		Posts = (select count(1) from yaf_Message a join yaf_Topic b on b.TopicID=a.TopicID join yaf_Forum c on c.ForumID=b.ForumID join yaf_Category d on d.CategoryID=c.CategoryID where d.BoardID=@BoardID AND (a.Flags & 24)=16),
+		Topics = (select count(1) from yaf_Topic a join yaf_Forum b on b.ForumID=a.ForumID join yaf_Category c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
+		Forums = (select count(1) from yaf_Forum a join yaf_Category b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
+		Members = (select count(1) from yaf_User a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
 		LastPostInfo.*,
 		LastMemberInfo.*
-	from
+	FROM
 		(
-			select top 1 
+			SELECT TOP 1 
 				LastMemberInfoID= 1,
 				LastMemberID	= UserID,
-				LastMember	= Name
-			from 
-				{objectQualifier}User 
-			where 
-				(Flags & 2) = 2 and
-				BoardID=@BoardID 
-			order by 
-				Joined desc
+				LastMember	= [Name]
+			FROM 
+				yaf_User 
+			WHERE 
+				(Flags & 2) = 2
+				AND (Flags & 4) = 0
+				AND BoardID = @BoardID 
+			ORDER BY 
+				Joined DESC
 		) as LastMemberInfo
 		left join (
-			select top 1 
+			SELECT TOP 1 
 				LastPostInfoID	= 1,
 				LastPost	= a.Posted,
 				LastUserID	= a.UserID,
 				LastUser	= e.Name
-			from 
-				{objectQualifier}Message a 
-				join [{databaseOwner}].{objectQualifier}Topic b on b.TopicID=a.TopicID 
-				join [{databaseOwner}].{objectQualifier}Forum c on c.ForumID=b.ForumID 
-				join [{databaseOwner}].{objectQualifier}Category d on d.CategoryID=c.CategoryID 
-				join [{databaseOwner}].{objectQualifier}User e on e.UserID=a.UserID
-			where 
-				d.BoardID=@BoardID
-			order by
-				a.Posted desc
+			FROM 
+				yaf_Message a 
+				join yaf_Topic b on b.TopicID=a.TopicID 
+				join yaf_Forum c on c.ForumID=b.ForumID 
+				join yaf_Category d on d.CategoryID=c.CategoryID 
+				join yaf_User e on e.UserID=a.UserID
+			WHERE 
+				(a.Flags & 24) = 16
+				AND (b.Flags & 8) <> 8 
+				AND d.BoardID = @BoardID
+			ORDER BY
+				a.Posted DESC
 		) as LastPostInfo
 		on LastMemberInfoID=LastPostInfoID
-end
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50),@AllowThreaded bit) as
