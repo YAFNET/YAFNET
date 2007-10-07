@@ -69,12 +69,14 @@ CREATE PROCEDURE dbo.yafprov_createapplication
 )
 AS
 BEGIN
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	IF (@ApplicationID IS Null)
+	BEGIN
 		    SELECT  @ApplicationId = NEWID()
-            INSERT  yafprov_Applications(ApplicationId, ApplicationName)
+            INSERT  yafprov_Application(ApplicationId, ApplicationName)
             VALUES  (@ApplicationId, @ApplicationName)
+    END
 END 
 GO
 
@@ -91,9 +93,9 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 
-	UPDATE yafprov_Members SET Password=@Password, PasswordSalt=@PasswordSalt,
+	UPDATE yafprov_Membership SET Password=@Password, PasswordSalt=@PasswordSalt,
 		PasswordFormat=@PasswordFormat, PasswordAnswer=@PasswordAnswer
 	WHERE Username=@Username and ApplicationID=@ApplicationID;
 
@@ -111,15 +113,15 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
-	UPDATE yafprov_Members SET PasswordQuestion=@PasswordQuestion, PasswordAnswer=@PasswordAnswer
+	UPDATE yafprov_Membership SET PasswordQuestion=@PasswordQuestion, PasswordAnswer=@PasswordAnswer
 	WHERE Username=@Username and ApplicationID=@ApplicationID;
 
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_createuser
+CREATE PROCEDURE [dbo].[yafprov_createuser]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -137,10 +139,10 @@ BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
 	EXEC dbo.yafprov_CreateApplication @ApplicationName, @ApplicationId OUTPUT
-	IF @UserKey IS NOT NULL
+	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
-	INSERT INTO yafprov_Members(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
+	INSERT INTO yafprov_Membership(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
 		VALUES (@UserKey, @ApplicationID,@Username, @Password, @PasswordSalt, @PasswordFormat, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
@@ -155,9 +157,9 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 
-	DELETE FROM yafprov_Members WHERE ApplicationID=@ApplicationID AND Username=@Username;
+	DELETE FROM yafprov_Membership WHERE ApplicationID=@ApplicationID AND Username=@Username;
 
 	--INSERT IF STATEMENT TO DELETE MEMBERSHIP/ROLES INFORMATION / PROFILE INFORMATION	
 END
@@ -176,7 +178,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -188,7 +190,7 @@ BEGIN
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
 
-	SELECT m.*, r.RowNumber FROM yafprov_Members m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -210,7 +212,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -222,7 +224,7 @@ BEGIN
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName AND m.Username = @Username
 
-	SELECT m.*, r.RowNumber FROM yafprov_Members m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -243,7 +245,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -255,7 +257,7 @@ BEGIN
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName
 
-	SELECT m.*, r.RowNumber FROM yafprov_Members m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -276,7 +278,7 @@ BEGIN
 	SET @ActivityDate = DATEADD(n, - @TimeWindow, @CurrentTimeUTC)
 	
 	DECLARE @NumberActive int
-	SET @NumberActive = (SELECT COUNT(m.UserID) FROM yafprov_Membership m INNER JOIN yafprov_Applications a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLoginDate >= @ActivityDate)
+	SET @NumberActive = (SELECT COUNT(m.UserID) FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLoginDate >= @ActivityDate)
     
     RETURN @NumberActive
 
@@ -294,7 +296,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	IF (@UserKey IS NULL)
 		SELECT yafprov_Membership.* FROM yafprov_Membership a WHERE a.Username = @Username and a.ApplicationID = @ApplicationID
@@ -312,7 +314,7 @@ CREATE PROCEDURE dbo.yafprov_getusernamebyemail
 )
 AS
 BEGIN
-	SELECT m.Username FROM yafprov_Membership m INNER JOIN yafprov_Applications a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.EmailAddress = @Email;
+	SELECT m.Username FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.EmailAddress = @Email;
 END
 GO
 
@@ -331,7 +333,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	UPDATE yafprov_Membership SET
 	Password = @Password,
@@ -356,7 +358,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	UPDATE yafprov_Membership SET
 	IsLockedOut = false,
@@ -382,7 +384,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Applications WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	-- Check for Unique Email Application Missing
 	

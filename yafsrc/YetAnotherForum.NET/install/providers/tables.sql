@@ -9,7 +9,7 @@
 
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Members](
+	CREATE TABLE [dbo].[yafprov_Membership](
 		[UserID] [uniqueidentifier] NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[Username] [nvarchar](50) NOT NULL,
@@ -32,7 +32,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members')
 go
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Applications') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Applications](
+	CREATE TABLE [dbo].[yafprov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[ApplicationName] [nvarchar](50) NULL,
 		[Description] [ntext] NULL

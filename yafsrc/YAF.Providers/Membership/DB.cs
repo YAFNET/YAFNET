@@ -56,22 +56,25 @@ namespace YAF.Providers.Membership
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
                 // Input Parameters
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", password);
-                cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
-                cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
-                cmd.Parameters.AddWithValue("@Email", email);
-                cmd.Parameters.AddWithValue("@PasswordQuestion", passwordQuestion);
-                cmd.Parameters.AddWithValue("@PasswordAnswer", passwordAnswer);
-                cmd.Parameters.AddWithValue("@IsApproved", isApproved);
+                cmd.Parameters.AddWithValue("Username", username);
+                cmd.Parameters.AddWithValue("Password", password);
+                cmd.Parameters.AddWithValue("PasswordSalt", passwordSalt);
+                cmd.Parameters.AddWithValue("PasswordFormat", passwordFormat);
+                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("PasswordQuestion", passwordQuestion);
+                cmd.Parameters.AddWithValue("PasswordAnswer", passwordAnswer);
+                cmd.Parameters.AddWithValue("IsApproved", isApproved);
                // Input Output Parameters
-                SqlParameter paramUserKey = new SqlParameter("@UserKey", providerUserKey);
-                paramUserKey.Direction = ParameterDirection.Output;
+                SqlParameter paramUserKey = new SqlParameter("UserKey", SqlDbType.UniqueIdentifier);
+                paramUserKey.Direction = ParameterDirection.InputOutput;
+                paramUserKey.Value = providerUserKey;
                 cmd.Parameters.Add(paramUserKey);
+
                 //Execute
                 DBAccess.ExecuteNonQuery(cmd);
                 //Retrieve Output Parameters
                 providerUserKey = paramUserKey.Value;
+
             }
         }
 
