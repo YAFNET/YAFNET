@@ -3,7 +3,8 @@
 -- Create date: 30 September 2007
 -- Description:	MembershipProvider SPROCS
 -- =============================================
--- DROP PROCEDURES CHECKED
+-- DROP PROCEDURES CHECKED - 06 October 2007
+-- INSTALL CHECKED - 07 October 2007
 
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_createapplication]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -188,7 +189,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
 
 	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -222,7 +223,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName AND m.Username = @Username
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName AND m.Username = @Username
 
 	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -255,7 +256,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yaf_Members m WHERE m.ApplicationName = @ApplicationName
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName
 
 	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -299,9 +300,9 @@ BEGIN
 	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	IF (@UserKey IS NULL)
-		SELECT yafprov_Membership.* FROM yafprov_Membership a WHERE a.Username = @Username and a.ApplicationID = @ApplicationID
+		SELECT m.* FROM yafprov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
 	ELSE
-		SELECT yafprov_Membership.* FROM yafprov_Membership a WHERE a.Username = @Username and a.ApplicationID = @ApplicationID
+		SELECT m.* FROM yafprov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 END
@@ -314,7 +315,7 @@ CREATE PROCEDURE dbo.yafprov_getusernamebyemail
 )
 AS
 BEGIN
-	SELECT m.Username FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.EmailAddress = @Email;
+	SELECT m.Username FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @Email;
 END
 GO
 
@@ -339,9 +340,7 @@ BEGIN
 	Password = @Password,
 	PasswordSalt = @PasswordSalt,
 	PasswordFormat = @PasswordFormat,
-	MaxInvalidAttempts = @MaxInvalidAttempts,
-	PasswordAttemptWindow = @PasswordAttemptWindow,
-	CurrentTimeUtc = @CurrentTimeUtc
+	LastPasswordChangeDate = @CurrentTimeUtc
 	WHERE ApplicationID = @ApplicationID AND
 	Username = @Username;
 
@@ -361,7 +360,7 @@ BEGIN
 	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
 	
 	UPDATE yafprov_Membership SET
-	IsLockedOut = false,
+	IsLockedOut = 0,
 	FailedPasswordAttempts = 0
 	WHERE ApplicationID = @ApplicationID AND
 	Username = @Username;
@@ -391,7 +390,6 @@ BEGIN
 	UPDATE yafprov_Membership SET
 	Username = @Username,
 	Email = @Email,
-	Comment = @Comment,
 	IsApproved = @IsApproved,
 	LastLoginDate = @LastLoginDate,
 	LastActivityDate = @LastActivityDate
