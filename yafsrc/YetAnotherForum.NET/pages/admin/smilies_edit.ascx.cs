@@ -123,7 +123,7 @@ namespace YAF.Pages.Admin
 			YAF.Classes.Data.DB.smiley_save(Request.QueryString["s"], PageContext.PageBoardID, code, icon, emotion, sortOrder, 0);
 
 			// invalidate the cache...
-			YafCache.Current.Remove( GetBoardCacheKey( Constants.Cache.Smilies ) );
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies);
 		}

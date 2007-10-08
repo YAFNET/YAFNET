@@ -67,19 +67,19 @@ namespace YAF.Pages.Admin
 				case "moveup":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, -1 );
 					// invalidate the cache...
-					YafCache.Current.Remove( GetBoardCacheKey( Constants.Cache.Smilies ) );
+					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					break;
 				case "movedown":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, 1 );
 					// invalidate the cache...
-					YafCache.Current.Remove( GetBoardCacheKey( Constants.Cache.Smilies ) );
+					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.smiley_delete( e.CommandArgument );
 					// invalidate the cache...
-					YafCache.Current.Remove( GetBoardCacheKey( Constants.Cache.Smilies ) );
+					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
 					break;
 				case "import":
