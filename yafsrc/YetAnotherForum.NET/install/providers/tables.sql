@@ -8,7 +8,7 @@
 -- Primary Keys for tables
 
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Member') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Membership](
 		[UserID] [uniqueidentifier] NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
@@ -31,12 +31,20 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Members')
 		)
 go
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Applications') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Application') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[ApplicationName] [nvarchar](50) NULL,
 		[Description] [ntext] NULL
 		)
+go
+
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yafprov_Profile]
+	(
+		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
+		[LastUpdatedDate]	[datetime] NOT NULL
+	)
 go
 
 
