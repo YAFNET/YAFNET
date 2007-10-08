@@ -247,13 +247,24 @@ namespace YAF.Classes.UI
 
 		static public DataTable GetSmilies()
 		{
-			DataTable dt = ( DataTable ) System.Web.HttpContext.Current.Cache ["Smilies"];
-			if ( dt == null )
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.Smilies );
+			System.Data.DataTable smiliesTable = null;
+
+			// check if there is value cached
+			if ( YafCache.Current [cacheKey] == null )
 			{
-				dt = YAF.Classes.Data.DB.smiley_list( YafContext.Current.PageBoardID, null );
-				System.Web.HttpContext.Current.Cache.Insert( "Smilies", dt, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
+				// get the smilies table from the db...
+				smiliesTable = YAF.Classes.Data.DB.smiley_list( YafContext.Current.PageBoardID, null );
+				// cache it for 60 minutes...
+				YafCache.Current.Insert( Constants.Cache.Smilies, smiliesTable, null, DateTime.Now.AddMinutes( 60 ), TimeSpan.Zero );
 			}
-			return dt;
+			else
+			{
+				// retrieve smilies Table from the cache
+				smiliesTable = ( System.Data.DataTable ) YafCache.Current [cacheKey];
+			}
+
+			return smiliesTable;
 		}
 
 		static public string FormatMessage( string message, MessageFlags messageFlags )
