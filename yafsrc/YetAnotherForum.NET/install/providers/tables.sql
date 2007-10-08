@@ -12,13 +12,13 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Member') 
 	CREATE TABLE [dbo].[yafprov_Membership](
 		[UserID] [uniqueidentifier] NOT NULL,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
-		[Username] [nvarchar](50) NOT NULL,
-		[Password] [nvarchar](50) NULL,
-		[PasswordSalt] [nvarchar](50) NULL,
-		[PasswordFormat] [nvarchar](50) NULL,
-		[Email] [nvarchar](50) NULL,
-		[PasswordQuestion] [nvarchar](50) NULL,
-		[PasswordAnswer] [nvarchar](50) NULL,
+		[Username] [nvarchar](255) NOT NULL,
+		[Password] [nvarchar](255) NULL,
+		[PasswordSalt] [nvarchar](255) NULL,
+		[PasswordFormat] [nvarchar](255) NULL,
+		[Email] [nvarchar](255) NULL,
+		[PasswordQuestion] [nvarchar](255) NULL,
+		[PasswordAnswer] [nvarchar](255) NULL,
 		[IsApproved] [bit] NULL,
 		[IsLockedOut] [bit] NULL,
 		[LastLoginDate] [datetime] NULL,
@@ -34,7 +34,7 @@ go
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Application') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL,
-		[ApplicationName] [nvarchar](50) NULL,
+		[ApplicationName] [nvarchar](255) NULL,
 		[Description] [ntext] NULL
 		)
 go
