@@ -308,6 +308,8 @@ begin
 		BoardID			int NOT NULL IDENTITY(1,1),
 		Name			nvarchar(50) NOT NULL,
 		AllowThreaded	bit NOT NULL,
+		MembershipAppName nvarchar(255) NULL,
+		RolesAppName nvarchar(255) NULL
 	)
 end
 GO
@@ -409,12 +411,6 @@ GO
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}Board') and name='RolesAppName')
 begin
 	alter table [{databaseOwner}].{objectQualifier}Board add RolesAppName nvarchar(255)
-end
-GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].{objectQualifier}Board') and name='MembershipAppName')
-begin
-	alter table [{databaseOwner}].{objectQualifier}Board add MembershipAppName nvarchar(255)
 end
 GO
 
