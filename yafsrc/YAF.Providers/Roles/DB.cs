@@ -29,14 +29,22 @@ namespace YAFProviders.Roles
 			}
 		}
 
-		static public void role_delete( object appName, object roleName )
+		static public int role_delete( object appName, object roleName, object deleteOnlyIfRoleIsEmpty )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "prov_role_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AppName", appName );
 				cmd.Parameters.AddWithValue( "RoleName", roleName );
+				cmd.Parameters.AddWithValue( "DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty );
+
+				SqlParameter p = new SqlParameter( "ReturnValue", SqlDbType.Int );
+				p.Direction = ParameterDirection.ReturnValue;
+				cmd.Parameters.Add( p );
+
 				DBAccess.ExecuteNonQuery( cmd );
+
+				return Convert.ToInt32(cmd.Parameters ["ReturnValue"].Value);
 			}
 		}
 		/*

@@ -43,6 +43,7 @@ namespace YAF.Providers.Roles
 {
 	public class YafRoleProvider : RoleProvider
 	{
+		private string _appName;
 
 		#region Override Public Properties
 
@@ -90,9 +91,21 @@ namespace YAF.Providers.Roles
 			throw new Exception( "The method or operation is not implemented." );
 		}
 
+		/// <summary>
+		/// Deletes a role
+		/// </summary>
+		/// <param name="roleName"></param>
+		/// <param name="throwOnPopulatedRole"></param>
+		/// <returns></returns>
 		public override bool DeleteRole( string roleName, bool throwOnPopulatedRole )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			int returnValue = YAFProviders.Roles.DB.role_delete( this.ApplicationName, roleName, throwOnPopulatedRole );
+
+			// zero means there were no complications...
+			if ( returnValue == 0 ) return true;
+			
+			// it failed for some reason...
+			return false;
 		}
 
 		public override string [] FindUsersInRole( string roleName, string usernameToMatch )
@@ -114,7 +127,7 @@ namespace YAF.Providers.Roles
 
 			foreach ( DataRow row in roles.Rows )
 			{
-				sc.Add( row ["Name"] );
+				sc.Add( row ["Name"].ToString() );
 			}
 
 			// return as a string array
