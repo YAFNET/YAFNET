@@ -67,6 +67,9 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_r
 DROP PROCEDURE [dbo].[yafprov_role_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_delete]
+GO
 
 CREATE PROCEDURE dbo.yafprov_createapplication
 (
@@ -416,6 +419,37 @@ BEGIN
 		SELECT * FROM yaf_Group WHERE BoardID = @BoardID
 	ELSE
 		SELECT * FROM yaf_Group WHERE BoardID = @BoardID and LOWER([Name]) = LOWER(@RoleName)
+END
+GO
+
+CREATE PROCEDURE [dbo].[yafprov_role_delete](@AppName nvarchar(255), @RoleName nvarchar(255) = null, @DeleteOnlyIfRoleIsEmpty bit) as
+BEGIN
+    DECLARE @ErrorCode int
+    SET @ErrorCode = 0
+
+	-- get the BoardID for the RoleAppName
+	DECLARE @BoardID int, @GroupID int
+	SET @BoardID = (SELECT BoardID FROM yaf_Board WHERE RolesAppName = @AppName)
+	SET @GroupID = (SELECT GroupID FROM yaf_Group WHERE BoardID = @BoardID and LOWER([Name]) = LOWER(@RoleName))	
+
+    IF (@DeleteOnlyIfRoleIsEmpty <> 0)
+    BEGIN
+        IF (EXISTS (SELECT 1 FROM yaf_UserGroup WHERE GroupID = @GroupID))
+        BEGIN
+            SELECT @ErrorCode = 2
+            GOTO Cleanup
+        END
+    END
+
+	DELETE FROM yaf_ForumAccess WHERE GroupID = @GroupID
+	DELETE FROM yaf_UserGroup WHERE GroupID = @GroupID
+	DELETE FROM yaf_Group WHERE GroupID = @GroupID
+
+    RETURN(0)
+
+Cleanup:
+
+    RETURN @ErrorCode
 END
 GO
 
