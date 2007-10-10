@@ -63,6 +63,11 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_u
 DROP PROCEDURE [dbo].[yafprov_updateuser]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_list]
+GO
+
+
 CREATE PROCEDURE dbo.yafprov_createapplication
 (
 @ApplicationName nvarchar(50),
@@ -399,5 +404,19 @@ BEGIN
 END
 GO                 
 
+-- Roles
 
+CREATE procedure [dbo].[yafprov_role_list](@AppName nvarchar(255), @RoleName nvarchar(255) = null) AS
+BEGIN
+	-- get the BoardID for the RoleAppName
+	DECLARE @BoardID int
+	SET @BoardID = (SELECT BoardID FROM yaf_Board WHERE RolesAppName = @AppName)	
 
+	IF @RoleName IS NULL
+		SELECT * FROM yaf_Group WHERE BoardID = @BoardID
+	ELSE
+		SELECT * FROM yaf_Group WHERE BoardID = @BoardID and LOWER([Name]) = LOWER(@RoleName)
+END
+GO
+
+-- Profiles
