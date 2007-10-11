@@ -21,14 +21,15 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Member') 
 		[PasswordAnswer] [nvarchar](255) NULL,
 		[IsApproved] [bit] NULL,
 		[IsLockedOut] [bit] NULL,
-		[LastLoginDate] [datetime] NULL,
-		[LastActivityDate] [datetime] NULL,
-		[LastPasswordChangeDate] [datetime] NULL,
+		[LastLogin] [datetime] NULL,
+		[LastActivity] [datetime] NULL,
+		[LastPasswordChange] [datetime] NULL,
 		[LastLockOutDate] [datetime] NULL,
 		[FailedPasswordAttempts] [int] NULL,
 		[FailedAnswerAttempts] [int] NULL,
 		[FailedPasswordWindow] [datetime] NULL,
 		[FailedAnswerWindow] [datetime] NULL,
+		[Joined] [datetime] NULL,
 		[Comment] [ntext] NULL
 		)
 go

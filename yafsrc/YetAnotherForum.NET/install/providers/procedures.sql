@@ -287,7 +287,7 @@ BEGIN
 	SET @ActivityDate = DATEADD(n, - @TimeWindow, @CurrentTimeUTC)
 	
 	DECLARE @NumberActive int
-	SET @NumberActive = (SELECT COUNT(m.UserID) FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLoginDate >= @ActivityDate)
+	SET @NumberActive = (SELECT COUNT(m.UserID) FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLogin >= @ActivityDate)
     
     RETURN @NumberActive
 
@@ -310,11 +310,11 @@ BEGIN
 	IF (@UserKey IS NULL)
 		SELECT m.* FROM yafprov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
 	ELSE
-		SELECT m.* FROM yafprov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
+		SELECT m.* FROM yafprov_Membership m WHERE m.UserID = @UserKey and m.ApplicationID = @ApplicationID
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 END
-GO
+
 
 CREATE PROCEDURE dbo.yafprov_getusernamebyemail
 (
@@ -348,7 +348,7 @@ BEGIN
 	Password = @Password,
 	PasswordSalt = @PasswordSalt,
 	PasswordFormat = @PasswordFormat,
-	LastPasswordChangeDate = @CurrentTimeUtc
+	LastPasswordChange = @CurrentTimeUtc
 	WHERE ApplicationID = @ApplicationID AND
 	Username = @Username;
 
@@ -376,6 +376,19 @@ BEGIN
 END
 GO
 
+
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
+                // Nonstandard args
+                cmd.Parameters.AddWithValue("UserKey", user.ProviderUserKey);
+                cmd.Parameters.AddWithValue("UserName", user.UserName);
+                cmd.Parameters.AddWithValue("Email", user.Email);
+                cmd.Parameters.AddWithValue("Comment", user.Comment);
+                cmd.Parameters.AddWithValue("IsApproved", user.IsApproved);
+                cmd.Parameters.AddWithValue("LastLogin", user.LastLoginDate);
+                cmd.Parameters.AddWithValue("LastActivity", user.LastActivityDate.ToUniversalTime());
+                cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
+                cmd.Parameters.AddWithValue("CurrentTimeUtc", DateTime.UtcNow);
+                
 CREATE PROCEDURE dbo.yafprov_updateuser
 (
 @ApplicationName nvarchar(50),
@@ -384,8 +397,9 @@ CREATE PROCEDURE dbo.yafprov_updateuser
 @Email nvarchar(50),
 @Comment text,
 @IsApproved bit,
-@LastLoginDate datetime,
-@LastActivityDate datetime
+@LastLogin datetime,
+@LastActivity datetime,
+@UniqueEmail bit
 )
 AS
 BEGIN
@@ -399,8 +413,8 @@ BEGIN
 	Username = @Username,
 	Email = @Email,
 	IsApproved = @IsApproved,
-	LastLoginDate = @LastLoginDate,
-	LastActivityDate = @LastActivityDate
+	LastLogin = @LastLogin,
+	LastActivity = @LastActivity
 	WHERE ApplicationID = @ApplicationID AND
 	UserID = @UserKey;
 
