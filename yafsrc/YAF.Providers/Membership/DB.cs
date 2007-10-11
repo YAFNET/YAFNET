@@ -132,7 +132,7 @@ namespace YAF.Providers.Membership
             }
         }
 
-        public static DataRow GetNumberOfUsersOnline(string appName, int TimeWindow)
+        public static int GetNumberOfUsersOnline(string appName, int TimeWindow)
         {
             using (SqlCommand cmd = new SqlCommand("yafprov_getnumberofusersonline"))
             {
@@ -141,7 +141,11 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@TimeWindow", TimeWindow);
                 cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
-                return DBAccess.GetData(cmd).Rows[0];
+                SqlParameter p = new SqlParameter("ReturnValue", SqlDbType.Int);
+                p.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(p);
+                DBAccess.ExecuteNonQuery(cmd);
+                return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
             }
         }
 
@@ -154,7 +158,13 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                return DBAccess.GetData(cmd).Rows[0];
+                using (DataTable dt = DBAccess.GetData(cmd))
+                {
+                    if (dt.Rows.Count > 0)
+                        return dt.Rows[0];
+                    else
+                        return null;
+                }
             }
 
         }
@@ -168,7 +178,13 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                return DBAccess.GetData(cmd).Rows[0];
+                using (DataTable dt = DBAccess.GetData(cmd))
+                {
+                    if (dt.Rows.Count > 0)
+                        return dt.Rows[0];
+                    else
+                        return null;
+                }
             }
 
         }
@@ -237,17 +253,17 @@ namespace YAF.Providers.Membership
             using (SqlCommand cmd = new SqlCommand("yafprov_updateuser"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 // Nonstandard args
-                cmd.Parameters.AddWithValue("@UserKey", user.ProviderUserKey);
-                cmd.Parameters.AddWithValue("@UserName", user.UserName);
-                cmd.Parameters.AddWithValue("@Email", user.Email);
-                cmd.Parameters.AddWithValue("@Comment", user.Comment);
-                cmd.Parameters.AddWithValue("@IsApproved", user.IsApproved);
-                cmd.Parameters.AddWithValue("@LastLoginDate", user.LastLoginDate);
-                cmd.Parameters.AddWithValue("@LastActivityDate", user.LastActivityDate.ToUniversalTime());
-                cmd.Parameters.AddWithValue("@UniqueEmail", requiresUniqueEmail);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
+                cmd.Parameters.AddWithValue("UserKey", user.ProviderUserKey);
+                cmd.Parameters.AddWithValue("UserName", user.UserName);
+                cmd.Parameters.AddWithValue("Email", user.Email);
+                cmd.Parameters.AddWithValue("Comment", user.Comment);
+                cmd.Parameters.AddWithValue("IsApproved", user.IsApproved);
+                cmd.Parameters.AddWithValue("LastLogin", user.LastLoginDate);
+                cmd.Parameters.AddWithValue("LastActivity", user.LastActivityDate.ToUniversalTime());
+                cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
+                // cmd.Parameters.AddWithValue("CurrentTimeUtc", DateTime.UtcNow);
                 DBAccess.ExecuteNonQuery(cmd);
             }
         }

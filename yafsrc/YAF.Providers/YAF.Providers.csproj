@@ -36,12 +36,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Membership\UserPasswordInfo.cs" />
+    <Compile Include="Membership\Utils.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />
     <Compile Include="Membership\DB.cs" />
-    <Compile Include="Membership\Security.cs" />
     <Compile Include="Passthru\YAFMembershipPassThru.cs" />
     <Compile Include="Passthru\YAFRolesPassThru.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\DB.cs" />
+    <Compile Include="Roles\YafRoleProvider.cs" />
     <Compile Include="SecUtil.cs" />
     <Compile Include="SqlConnectionHelper.cs" />
     <Compile Include="YAFMembershipProvider.cs" />

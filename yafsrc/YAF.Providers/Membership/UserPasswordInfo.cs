@@ -21,17 +21,18 @@ namespace YAF.Providers.Membership
                 DataRow userInfo = userData.Rows[0];
                 _password = userInfo["Password"].ToString();
                 _passwordSalt = userInfo["PasswordSalt"].ToString();
-                _passwordQuestion = userInfo["_passwordQuestion"].ToString();
-                _passwordAnswer = userInfo["_passwordAnswer"].ToString();
+                _passwordQuestion = userInfo["PasswordQuestion"].ToString();
+                _passwordAnswer = userInfo["PasswordAnswer"].ToString();
 
-                _passwordFormat = Int32.Parse(userInfo["PasswordFormat"].ToString());
-                _failedPasswordAttempts = Int32.Parse(userInfo["FailedPasswordAttempts"].ToString());
-                _failedAnswerAttempts = Int32.Parse(userInfo["FailedAnswerAttempts"].ToString());
+                _passwordFormat = CleanUtils.ToInt(userInfo["PasswordFormat"]);
 
-                _isApproved = bool.Parse(userInfo["IsApproved"].ToString());
+                _failedPasswordAttempts = CleanUtils.ToInt(userInfo["FailedPasswordAttempts"]);
+                _failedAnswerAttempts = CleanUtils.ToInt(userInfo["FailedAnswerAttempts"]);
 
-                _lastLogin = DateTime.Parse(userInfo["LastLogin"].ToString());
-                _lastActivity = DateTime.Parse(userInfo["LastActivity"].ToString());
+                _isApproved = Convert.ToBoolean(userInfo["IsApproved"]);
+
+                _lastLogin = Convert.ToDateTime(userInfo["LastLogin"]);
+                _lastActivity = Convert.ToDateTime(userInfo["LastActivity"]);
             }
         }
 

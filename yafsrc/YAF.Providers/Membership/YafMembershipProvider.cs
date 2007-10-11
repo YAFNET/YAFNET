@@ -1,3 +1,23 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2007 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,17 +37,23 @@ namespace YAF.Providers.Membership
     // YafMembershipProvider
     class YafMembershipProvider : MembershipProvider
     {
+        // Instance Variables
         string _appName, _passwordStrengthRegularExpression;
         int _minimumRequiredPasswordLength, _minRequiredNonAlphanumericCharacters;
         int _maxInvalidPasswordAttempts, _passwordAttemptWindow;
         bool _enablePaswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
         bool _requiresUniqueEmail;
         MembershipPasswordFormat _passwordFormat;
-
-        #region PrivateMethods
-
+        
+        // Contants
         private const int PASSWORDSIZE = 14;
 
+        #region Private Static Methods
+
+        /// <summary>
+        /// Creates a random string used as Salt for hashing
+        /// </summary>
+        /// <returns> Random string</returns>
         private static string GenerateSalt()
         {
             byte[] buf = new byte[16];
@@ -36,11 +62,24 @@ namespace YAF.Providers.Membership
             return Convert.ToBase64String(buf);
         }
 
+        /// <summary>
+        /// Creates a random password based on a miniumum length and a minimum number of non-alphanumeric characters
+        /// </summary>
+        /// <param name="minPassLength">Minimum characters in the password</param>
+        /// <param name="minNonAlphas">Minimum non-alphanumeric characters</param>
+        /// <returns> Random string</returns>
         private static string GeneratePassword(int minPassLength, int minNonAlphas)
         {
             return System.Web.Security.Membership.GeneratePassword(minPassLength < PASSWORDSIZE ? PASSWORDSIZE : minPassLength, minNonAlphas);
         }
 
+        /// <summary>
+        /// Encrypt string to hash method.
+        /// </summary>
+        /// <param name="unencryptedString">String to be encrypted</param>
+        /// <param name="hastMethod">Hash method to be used for encryption</param>
+        /// <param name="salt">Salt to be used in Hash method</param>
+        /// <returns> Encrypted string</returns>
         internal static string EncryptString(string unencryptedString, object hastMethod, string salt)
         {
             if (String.IsNullOrEmpty(unencryptedString))
@@ -53,6 +92,7 @@ namespace YAF.Providers.Membership
             byte[] bAll = new byte[bSalt.Length + bIn.Length];
             byte[] bRet = null;
 
+            // Case Hashmethod to produce correct method of encryption
             switch (hashMethod)
             {
                 case 0:
@@ -68,6 +108,12 @@ namespace YAF.Providers.Membership
             }
         }
 
+        /// <summary>
+        /// Decrypt string using passwordFormat.
+        /// </summary>
+        /// <param name="pass">Password to be decrypted</param>
+        /// <param name="passwordFormat">Method of encryption</param>
+        /// <returns> Unencrypted string</returns>
         private static string DecryptString(string pass, int passwordFormat)
         {
             switch (passwordFormat)
@@ -87,6 +133,14 @@ namespace YAF.Providers.Membership
             }
         }
 
+        /// <summary>
+        /// Check to see if password(string) matches required criteria.
+        /// </summary>
+        /// <param name="password">Password to be checked</param>
+        /// <param name="minLength">Minimum length required</param>
+        /// <param name="minNonAlphaNumerics">Minimum number of Non-alpha numerics in password</param>
+        /// <param name="strengthRegEx">Regular Expression Strength</param>
+        /// <returns> True/False </returns>
         private static bool IsPasswordCompliant(string password, int minLength, int minNonAlphaNumerics, string strengthRegEx)
         {
             // Check password meets minimum length criteria.
@@ -116,6 +170,11 @@ namespace YAF.Providers.Membership
             return true;
         }
 
+        /// <summary>
+        /// Check to see if password(string) matches required criteria.
+        /// </summary>
+        /// <param name="password">Password to be checked</param>
+        /// <returns> True/False </returns>
         private bool IsPasswordCompliant(string passsword)
         {
             return YafMembershipProvider.IsPasswordCompliant(passsword, this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters, this.PasswordStrengthRegularExpression);
@@ -189,6 +248,12 @@ namespace YAF.Providers.Membership
         #endregion
 
         #region Overriden Public Methods
+
+        /// <summary>
+        /// Initialie Membership Provider
+        /// </summary>
+        /// <param name="name">Membership Provider Name</param>
+        /// <param name="config">NameValueCollection of configuration items</param>
         public override void Initialize(string name, NameValueCollection config)
         {
             // Retrieve information for provider from web config
@@ -229,12 +294,12 @@ namespace YAF.Providers.Membership
                 _requiresQuestionAndAnswer = bool.Parse(config["requiresQuestionAndAnswer"]);
             if (config["requiresUniqueEmail"] != null)
                 _requiresUniqueEmail = bool.Parse(config["requiresUniqueEmail"]);
+             
+            string strPasswordFormat = config["passwordFormat"];
+            if (strPasswordFormat == null)
+                strPasswordFormat = "Hashed";
 
-            string strTemp = config["passwordFormat"];
-            if (strTemp == null)
-                strTemp = "Hashed";
-
-            switch (strTemp)
+            switch (strPasswordFormat)
             {
                 case "Clear":
                     _passwordFormat = MembershipPasswordFormat.Clear;
@@ -402,7 +467,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(this.Name, dr["Username"].ToString(), dr["MemberShipPK"].ToString(), dr["EmailAddress"].ToString(), dr["PasswordQuestion"].ToString(), dr["Comment"].ToString(), bool.Parse(dr["IsAppoved"].ToString()), bool.Parse(dr["IsLockedOut"].ToString()), DateTime.Parse(dr["CreationDate"].ToString()), DateTime.Parse(dr["LastLogin"].ToString()), DateTime.Parse(dr["LastActivity"].ToString()), DateTime.Parse(dr["LastPasswordChange"].ToString()), DateTime.Parse(dr["LastLockout"].ToString())));
+                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -429,7 +494,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(this.Name, dr["Username"].ToString(), dr["MemberShipPK"].ToString(), dr["EmailAddress"].ToString(), dr["PasswordQuestion"].ToString(), dr["Comment"].ToString(), bool.Parse(dr["IsAppoved"].ToString()), bool.Parse(dr["IsLockedOut"].ToString()), DateTime.Parse(dr["CreationDate"].ToString()), DateTime.Parse(dr["LastLogin"].ToString()), DateTime.Parse(dr["LastActivity"].ToString()), DateTime.Parse(dr["LastPasswordChange"].ToString()), DateTime.Parse(dr["LastLockout"].ToString())));
+                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -455,7 +520,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(this.Name, dr["Username"].ToString(), dr["MemberShipPK"].ToString(), dr["EmailAddress"].ToString(), dr["PasswordQuestion"].ToString(), dr["Comment"].ToString(), bool.Parse(dr["IsAppoved"].ToString()), bool.Parse(dr["IsLockedOut"].ToString()), DateTime.Parse(dr["CreationDate"].ToString()), DateTime.Parse(dr["LastLogin"].ToString()), DateTime.Parse(dr["LastActivity"].ToString()), DateTime.Parse(dr["LastPasswordChange"].ToString()), DateTime.Parse(dr["LastLockout"].ToString())));
+                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -467,12 +532,7 @@ namespace YAF.Providers.Membership
         /// <returns>Number of users online</returns>
         public override int GetNumberOfUsersOnline()
         {
-            DataRow dr = DB.GetNumberOfUsersOnline(this.ApplicationName, System.Web.Security.Membership.UserIsOnlineTimeWindow);
-
-            if (!(dr == null))
-                return (int)dr["totalusersonline"];
-            else
-                return 0;
+            return DB.GetNumberOfUsersOnline(this.ApplicationName, System.Web.Security.Membership.UserIsOnlineTimeWindow);
         }
 
 
@@ -514,8 +574,8 @@ namespace YAF.Providers.Membership
                 throw new ArgumentNullException("username is null");
 
             DataRow dr = DB.GetUser(this.ApplicationName, username, userIsOnline);
-            if (dr == null)
-                return new MembershipUser(this.Name, dr["Username"].ToString(), dr["MemberShipPK"].ToString(), dr["EmailAddress"].ToString(), dr["PasswordQuestion"].ToString(), dr["Comment"].ToString(), bool.Parse(dr["IsAppoved"].ToString()), bool.Parse(dr["IsLockedOut"].ToString()), DateTime.Parse(dr["CreationDate"].ToString()), DateTime.Parse(dr["LastLogin"].ToString()), DateTime.Parse(dr["LastActivity"].ToString()), DateTime.Parse(dr["LastPasswordChange"].ToString()), DateTime.Parse(dr["LastLockout"].ToString()));
+            if (dr != null)
+                return new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"]));
             else
                 return null;
         }
@@ -539,8 +599,8 @@ namespace YAF.Providers.Membership
             }
 
             DataRow dr = DB.GetUser(this.ApplicationName, providerUserKey, userIsOnline);
-            if (dr == null)
-                return new MembershipUser(this.Name, dr["Username"].ToString(), dr["MemberShipPK"].ToString(), dr["EmailAddress"].ToString(), dr["PasswordQuestion"].ToString(), dr["Comment"].ToString(), bool.Parse(dr["IsAppoved"].ToString()), bool.Parse(dr["IsLockedOut"].ToString()), DateTime.Parse(dr["CreationDate"].ToString()), DateTime.Parse(dr["LastLogin"].ToString()), DateTime.Parse(dr["LastActivity"].ToString()), DateTime.Parse(dr["LastPasswordChange"].ToString()), DateTime.Parse(dr["LastLockout"].ToString()));
+            if (dr != null)
+                return new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"]));
             else
                 return null;
         }
