@@ -10,12 +10,12 @@ namespace YAF.Providers.Membership
         // Instance Variables
         string _password, _passwordSalt, _passwordQuestion, _passwordAnswer;
         int _passwordFormat, _failedPasswordAttempts, _failedAnswerAttempts;
-        bool _isApproved;
+        bool _isApproved, _useSalt;
         DateTime _lastLogin, _lastActivity;
 
-        public UserPasswordInfo(string AppName, string Username, bool UpdateUser)
+        public UserPasswordInfo(string appName, string username, bool updateUser, bool useSalt)
         {
-            DataTable userData = DB.GetUserPasswordInfo(AppName, Username, UpdateUser);
+            DataTable userData = DB.GetUserPasswordInfo(appName, username, updateUser);
             if (userData.Rows.Count != 0)
             {
                 DataRow userInfo = userData.Rows[0];
@@ -33,17 +33,20 @@ namespace YAF.Providers.Membership
 
                 _lastLogin = Convert.ToDateTime(userInfo["LastLogin"]);
                 _lastActivity = Convert.ToDateTime(userInfo["LastActivity"]);
+
+                _useSalt = useSalt;
+
             }
         }
 
         public bool IsCorrectPassword(string passwordToCheck)
         {
-            return this.Password.Equals(YafMembershipProvider.EncryptString(passwordToCheck, this.PasswordFormat, this.PasswordSalt));
+            return this.Password.Equals(YafMembershipProvider.EncodeString(passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt));
         }
 
         public bool IsCorrectAnswer(string answerToCheck)
         {
-            return this.PasswordAnswer.Equals((YafMembershipProvider.EncryptString(answerToCheck, this.PasswordFormat, this.PasswordSalt)));
+            return this.PasswordAnswer.Equals((YafMembershipProvider.EncodeString(answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt)));
         }
 
         public string Password
@@ -94,6 +97,11 @@ namespace YAF.Providers.Membership
         public DateTime LastActivity
         {
             get { return _lastActivity; }
+        }
+
+        public Boolean UseSalt
+        {
+            get { return _useSalt; }
         }
     }
 }
