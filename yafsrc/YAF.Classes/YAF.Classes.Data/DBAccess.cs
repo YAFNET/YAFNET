@@ -221,7 +221,7 @@ namespace YAF.Classes.Data
 		static public string GetObjectName(string name)
 		{
 			return String.Format(
-							"{0}.{1}{2}",
+							"[{0}].[{1}{2}]",
 							DatabaseOwner,
 							ObjectQualifier,
 							name
