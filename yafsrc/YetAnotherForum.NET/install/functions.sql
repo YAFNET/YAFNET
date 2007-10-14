@@ -119,8 +119,8 @@ begin
 	select 
 		@NumSubforums=COUNT(1)	
 	from 
-		{objectQualifier}Forum a 
-		join {objectQualifier}vaccess x on x.ForumID = a.ForumID 
+		[{databaseOwner}].[{objectQualifier}Forum] a 
+		join [{databaseOwner}].[{objectQualifier}vaccess] x on x.ForumID = a.ForumID 
 	where 
 		((a.Flags & 2)=0 or x.ReadAccess<>0) and 
 		(a.ParentID=@ForumID) and	
@@ -150,8 +150,8 @@ BEGIN
 			@LastTopicID=a.LastTopicID,
 			@LastPosted=a.LastPosted
 		FROM
-			{objectQualifier}Forum a
-			JOIN {objectQualifier}vaccess x ON a.ForumID=x.ForumID
+			[{databaseOwner}].[{objectQualifier}Forum] a
+			JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
 		WHERE
 			a.ForumID=@ForumID and
 			(
@@ -170,8 +170,8 @@ BEGIN
 				a.LastTopicID,
 				a.LastPosted
 			FROM
-				{objectQualifier}Forum a
-				JOIN {objectQualifier}vaccess x ON a.ForumID=x.ForumID
+				[{databaseOwner}].[{objectQualifier}Forum] a
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(
@@ -243,8 +243,8 @@ BEGIN
 			@LastTopicID=a.LastTopicID,
 			@LastPosted=a.LastPosted
 		FROM
-			{objectQualifier}Forum a
-			JOIN {objectQualifier}vaccess x ON a.ForumID=x.ForumID
+			[{databaseOwner}].[{objectQualifier}Forum] a
+			JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
 		WHERE
 			a.ForumID=@ForumID and
 			(
@@ -263,8 +263,8 @@ BEGIN
 				a.LastTopicID,
 				a.LastPosted
 			FROM
-				{objectQualifier}Forum a
-				JOIN {objectQualifier}vaccess x ON a.ForumID=x.ForumID
+				[{databaseOwner}].[{objectQualifier}Forum] a
+				JOIN [{databaseOwner}].[{objectQualifier}vaccess] x ON a.ForumID=x.ForumID
 			WHERE
 				a.ParentID=@ForumID and
 				(

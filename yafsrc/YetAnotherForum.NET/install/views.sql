@@ -2,16 +2,16 @@
 ** Views
 */
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].{objectQualifier}vaccess') and OBJECTPROPERTY(id, N'IsView') = 1)
-	drop view [{databaseOwner}].{objectQualifier}vaccess
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vaccess]') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view [{databaseOwner}].[{objectQualifier}vaccess]
 GO
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].{objectQualifier}vmaccess') and OBJECTPROPERTY(id, N'IsView') = 1)
-	drop view [{databaseOwner}].{objectQualifier}vmaccess
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vmaccess]') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view [{databaseOwner}].[{objectQualifier}vmaccess]
 GO
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].{objectQualifier}PMessageView') and OBJECTPROPERTY(id, N'IsView') = 1)
-	drop view [{databaseOwner}].{objectQualifier}PMessageView
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessageView]') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view [{databaseOwner}].[{objectQualifier}PMessageView]
 GO
 
 create view [{databaseOwner}].[{objectQualifier}vaccess] as
@@ -173,7 +173,7 @@ create view [{databaseOwner}].[{objectQualifier}vmaccess] as
 	group by a.UserID,x.ForumID
 GO
 
--- [{databaseOwner}].{objectQualifier}PMessageView
+-- [{databaseOwner}].[{objectQualifier}PMessageView]
 
 CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
 AS
