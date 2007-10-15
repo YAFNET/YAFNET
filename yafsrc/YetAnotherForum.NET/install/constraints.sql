@@ -850,142 +850,142 @@ go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Active_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Active_{objectQualifier}Forum] foreign key (MessageID) references [{objectQualifier}Message] (MessageID)
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Active_{objectQualifier}Forum] foreign key (MessageID) references [{databaseOwner}].[{objectQualifier}Message] (MessageID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserGroup_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserGroup]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserGroup] add constraint [FK_{objectQualifier}UserGroup_{objectQualifier}User] foreign key (UserID) references [{objectQualifier}User](UserID)
+	alter table [{databaseOwner}].[{objectQualifier}UserGroup] add constraint [FK_{objectQualifier}UserGroup_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserGroup_{objectQualifier}Group' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserGroup]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserGroup] add constraint [FK_{objectQualifier}UserGroup_{objectQualifier}Group] foreign key(GroupID) references [{objectQualifier}Group] (GroupID)
+	alter table [{databaseOwner}].[{objectQualifier}UserGroup] add constraint [FK_{objectQualifier}UserGroup_{objectQualifier}Group] foreign key(GroupID) references [{databaseOwner}].[{objectQualifier}Group] (GroupID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Attachment_{objectQualifier}Message' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Attachment]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Attachment_{objectQualifier}Message] foreign key (MessageID) references [{objectQualifier}Message] (MessageID)
+	alter table [{databaseOwner}].[{objectQualifier}Attachment] add constraint [FK_{objectQualifier}Attachment_{objectQualifier}Message] foreign key (MessageID) references [{databaseOwner}].[{objectQualifier}Message] (MessageID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}NntpForum_{objectQualifier}NntpServer' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}NntpForum] add constraint [FK_{objectQualifier}NntpForum_{objectQualifier}NntpServer] foreign key (NntpServerID) references [{objectQualifier}NntpServer](NntpServerID)
+	alter table [{databaseOwner}].[{objectQualifier}NntpForum] add constraint [FK_{objectQualifier}NntpForum_{objectQualifier}NntpServer] foreign key (NntpServerID) references [{databaseOwner}].[{objectQualifier}NntpServer](NntpServerID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}NntpForum_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}NntpForum] add constraint [FK_{objectQualifier}NntpForum_{objectQualifier}Forum] foreign key (ForumID) references [{objectQualifier}Forum](ForumID)
+	alter table [{databaseOwner}].[{objectQualifier}NntpForum] add constraint [FK_{objectQualifier}NntpForum_{objectQualifier}Forum] foreign key (ForumID) references [{databaseOwner}].[{objectQualifier}Forum](ForumID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}NntpTopic_{objectQualifier}NntpForum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpTopic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}NntpTopic] add constraint [FK_{objectQualifier}NntpTopic_{objectQualifier}NntpForum] foreign key (NntpForumID) references [{objectQualifier}NntpForum](NntpForumID)
+	alter table [{databaseOwner}].[{objectQualifier}NntpTopic] add constraint [FK_{objectQualifier}NntpTopic_{objectQualifier}NntpForum] foreign key (NntpForumID) references [{databaseOwner}].[{objectQualifier}NntpForum](NntpForumID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}NntpTopic_{objectQualifier}Topic' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpTopic]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}NntpTopic] add constraint [FK_{objectQualifier}NntpTopic_{objectQualifier}Topic] foreign key (TopicID) references [{objectQualifier}Topic](TopicID)
+	alter table [{databaseOwner}].[{objectQualifier}NntpTopic] add constraint [FK_{objectQualifier}NntpTopic_{objectQualifier}Topic] foreign key (TopicID) references [{databaseOwner}].[{objectQualifier}Topic](TopicID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}ForumAccess_{objectQualifier}AccessMask' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}ForumAccess]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}AccessMask] foreign key (AccessMaskID) references {objectQualifier}AccessMask (AccessMaskID)
+	alter table [{databaseOwner}].[{objectQualifier}ForumAccess] add constraint [FK_{objectQualifier}ForumAccess_{objectQualifier}AccessMask] foreign key (AccessMaskID) references [{databaseOwner}].[{objectQualifier}AccessMask] (AccessMaskID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserForum_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}User] foreign key (UserID) references {objectQualifier}User (UserID)
+	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserForum_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}Forum] foreign key (ForumID) references {objectQualifier}Forum (ForumID)
+	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}Forum] foreign key (ForumID) references [{databaseOwner}].[{objectQualifier}Forum] (ForumID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserForum_{objectQualifier}AccessMask' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserForum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}AccessMask] foreign key (AccessMaskID) references {objectQualifier}AccessMask (AccessMaskID)
+	alter table [{databaseOwner}].[{objectQualifier}UserForum] add constraint [FK_{objectQualifier}UserForum_{objectQualifier}AccessMask] foreign key (AccessMaskID) references [{databaseOwner}].[{objectQualifier}AccessMask] (AccessMaskID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Category_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Category]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Category] add constraint [FK_{objectQualifier}Category_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}Category] add constraint [FK_{objectQualifier}Category_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}AccessMask_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add constraint [FK_{objectQualifier}AccessMask_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add constraint [FK_{objectQualifier}AccessMask_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Active_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Active]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Active] add constraint [FK_{objectQualifier}Active_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}Active] add constraint [FK_{objectQualifier}Active_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}BannedIP_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}BannedIP] add constraint [FK_{objectQualifier}BannedIP_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}BannedIP] add constraint [FK_{objectQualifier}BannedIP_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Group_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Group]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Group] add constraint [FK_{objectQualifier}Group_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}Group] add constraint [FK_{objectQualifier}Group_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}NntpServer_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}NntpServer]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}NntpServer] add constraint [FK_{objectQualifier}NntpServer_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}NntpServer] add constraint [FK_{objectQualifier}NntpServer_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Rank_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Rank] add constraint [FK_{objectQualifier}Rank_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}Rank] add constraint [FK_{objectQualifier}Rank_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Smiley_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint [FK_{objectQualifier}Smiley_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board (BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint [FK_{objectQualifier}Smiley_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}User_{objectQualifier}Rank' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}User]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Rank] foreign key(RankID) references {objectQualifier}Rank(RankID)
+	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Rank] foreign key(RankID) references [{databaseOwner}].[{objectQualifier}Rank](RankID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}User_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}User]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board(BoardID)
+	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Forum_{objectQualifier}Forum' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint [FK_{objectQualifier}Forum_{objectQualifier}Forum] foreign key(ParentID) references {objectQualifier}Forum(ForumID)
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint [FK_{objectQualifier}Forum_{objectQualifier}Forum] foreign key(ParentID) references [{databaseOwner}].[{objectQualifier}Forum](ForumID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Message_{objectQualifier}Message' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Message]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [FK_{objectQualifier}Message_{objectQualifier}Message] foreign key(ReplyTo) references {objectQualifier}Message(MessageID)
+	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [FK_{objectQualifier}Message_{objectQualifier}Message] foreign key(ReplyTo) references [{databaseOwner}].[{objectQualifier}Message](MessageID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserPMessage_{objectQualifier}User' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}User] foreign key (UserID) references {objectQualifier}User (UserID)
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}User] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User] (UserID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}UserPMessage_{objectQualifier}PMessage' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}PMessage] foreign key (PMessageID) references {objectQualifier}PMessage (PMessageID)
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add constraint [FK_{objectQualifier}UserPMessage_{objectQualifier}PMessage] foreign key (PMessageID) references [{databaseOwner}].[{objectQualifier}PMessage] (PMessageID)
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Registry_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}Registry] add constraint [FK_{objectQualifier}Registry_{objectQualifier}Board] foreign key(BoardID) references {objectQualifier}Board(BoardID) on delete cascade
+	alter table [{databaseOwner}].[{objectQualifier}Registry] add constraint [FK_{objectQualifier}Registry_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
 go
 
 
 if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}PollVote_{objectQualifier}Poll' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	alter table [{databaseOwner}].[{objectQualifier}PollVote] add constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll] foreign key(PollID) references {objectQualifier}Poll(PollID) on delete cascade
+	alter table [{databaseOwner}].[{objectQualifier}PollVote] add constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll] foreign key(PollID) references [{databaseOwner}].[{objectQualifier}Poll](PollID) on delete cascade
 go
 
 

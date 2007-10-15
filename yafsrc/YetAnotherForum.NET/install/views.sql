@@ -177,12 +177,17 @@ GO
 
 CREATE VIEW [{databaseOwner}].[{objectQualifier}PMessageView]
 AS
-SELECT     [{databaseOwner}].[{objectQualifier}PMessage].PMessageID, [{databaseOwner}].[{objectQualifier}UserPMessage].UserPMessageID, [{databaseOwner}].[{objectQualifier}PMessage].FromUserID, [{objectQualifier}User_From].[Name] AS FromUser, 
-                      [{databaseOwner}].[{objectQualifier}UserPMessage].[UserID] AS ToUserId, [{databaseOwner}].[{objectQualifier}User].[Name] AS ToUser, [{databaseOwner}].[{objectQualifier}PMessage].Created, [{databaseOwner}].[{objectQualifier}PMessage].Subject, 
-                      [{databaseOwner}].[{objectQualifier}PMessage].Body, [{databaseOwner}].[{objectQualifier}PMessage].Flags, [{databaseOwner}].[{objectQualifier}UserPMessage].IsRead, [{databaseOwner}].[{objectQualifier}UserPMessage].IsInOutbox, [{databaseOwner}].[{objectQualifier}UserPMessage].IsArchived
-FROM         [{databaseOwner}].[{objectQualifier}PMessage] INNER JOIN
-                      [{databaseOwner}].[{objectQualifier}UserPMessage] ON [{databaseOwner}].[{objectQualifier}PMessage].PMessageID = [{databaseOwner}].[{objectQualifier}UserPMessage].PMessageID INNER JOIN
-                      [{databaseOwner}].[{objectQualifier}User] ON [{databaseOwner}].[{objectQualifier}UserPMessage].UserID = [{databaseOwner}].[{objectQualifier}User].UserID INNER JOIN
-                      [{databaseOwner}].[{objectQualifier}User] AS [{objectQualifier}User_From] ON [{databaseOwner}].[{objectQualifier}PMessage].FromUserID = [{objectQualifier}User_From].UserID
+SELECT
+	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
+	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.Subject, 
+	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived
+FROM
+	[{databaseOwner}].[{objectQualifier}PMessage] a
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}UserPMessage] b ON a.PMessageID = b.PMessageID
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}User] c ON b.UserID = c.UserID
+INNER JOIN
+	[{databaseOwner}].[{objectQualifier}User] d ON a.FromUserID = d.UserID
 
 GO
