@@ -20,6 +20,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
@@ -396,98 +397,108 @@ namespace YAF.Controls
 
 			if ( IsSponserMessage ) return "";
 
-			System.Text.StringBuilder userboxOutput = new System.Text.StringBuilder( 1000 );
+			string userBox = PageContext.BoardSettings.UserBox;
+			string filler = "";
 
-			// load output buffer with user box template
-			userboxOutput.Append( PageContext.BoardSettings.UserBox );
+			// for pattern matching
+			Regex rx;
 
 
 			// Avatar
-			if ( !PostDeleted &&
-				( PageContext.BoardSettings.AvatarUpload && DataRow ["HasAvatarImage"] != null && long.Parse( DataRow ["HasAvatarImage"].ToString() ) > 0 ) )
+			rx = new Regex(Constants.UserBox.Avatar);
+
+			if (!PostDeleted &&
+				(PageContext.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0))
 			{
-				userboxOutput.Replace(
-					Constants.UserBox.Avatar,
-					String.Format(
-						PageContext.BoardSettings.UserBoxAvatar,
-						String.Format(
-							"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />",
-							DataRow ["UserID"],
-							YafForumInfo.ForumRoot
-							)
-						)
-					);
+				filler = String.Format(
+							PageContext.BoardSettings.UserBoxAvatar,
+							String.Format(
+								"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />",
+								DataRow["UserID"],
+								YafForumInfo.ForumRoot
+								)
+							);
 			}
-			else if ( !PostDeleted &&
-				DataRow ["Avatar"].ToString().Length > 0 ) // Took out PageContext.BoardSettings.AvatarRemote
+			else if (!PostDeleted &&
+				DataRow["Avatar"].ToString().Length > 0) // Took out PageContext.BoardSettings.AvatarRemote
 			{
-				userboxOutput.Replace(
-					Constants.UserBox.Avatar,
-					String.Format(
-						PageContext.BoardSettings.UserBoxAvatar,
-						String.Format(
-							"<img class=\"avatarimage\" src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
-							Server.UrlEncode( DataRow ["Avatar"].ToString() ),
-							PageContext.BoardSettings.AvatarWidth,
-							PageContext.BoardSettings.AvatarHeight,
-							YafForumInfo.ForumRoot
-							)
-						)
-					);
+				filler = String.Format(
+							PageContext.BoardSettings.UserBoxAvatar,
+							String.Format(
+								"<img class=\"avatarimage\" src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
+								Server.UrlEncode(DataRow["Avatar"].ToString()),
+								PageContext.BoardSettings.AvatarWidth,
+								PageContext.BoardSettings.AvatarHeight,
+								YafForumInfo.ForumRoot
+								)
+							);
 			}
 			else
 			{
-
-				userboxOutput.Replace( Constants.UserBox.Avatar, "" );
+				filler = "";
 			}
+
+			// replaces template placeholder with actual avatar
+			userBox = rx.Replace(userBox, filler);
 
 
 			// Ederon : 7/14/2007 - prepared for implementation of user badges
 			// User Badges
+			rx = new Regex(Constants.UserBox.Badges);
+
 			/*
 			if (PageContext.BoardSettings.ShowBadges)
 			{
 			}
 			else
 			{*/
-				userboxOutput.Replace(Constants.UserBox.Badges, "");
+				filler = "";
 			/*}
 			*/
 
+			// replaces template placeholder with actual badges
+			userBox = rx.Replace(userBox, filler);
+
 
 			// Rank Image
+			rx = new Regex(Constants.UserBox.RankImage);
+
 			if ( DataRow ["RankImage"].ToString().Length > 0 )
 			{
-				userboxOutput.Replace(
-					Constants.UserBox.RankImage,
-					String.Format(
-						PageContext.BoardSettings.UserBoxRankImage,
-						String.Format(
-							"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
-							YafForumInfo.ForumRoot,
-							DataRow ["RankImage"]
-							)
-						)
-					);
+				filler=	String.Format(
+							PageContext.BoardSettings.UserBoxRankImage,
+							String.Format(
+								"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
+								YafForumInfo.ForumRoot,
+								DataRow ["RankImage"]
+								)
+							);
 			}
 			else
 			{
-				userboxOutput.Replace( Constants.UserBox.RankImage, "" );
+				filler = "";
 			}
+
+			// replaces template placeholder with actual rank image
+			userBox = rx.Replace(userBox, filler);
 
 
 			// Rank
-			userboxOutput.Replace(
-				Constants.UserBox.Rank,
-				String.Format(
-					PageContext.BoardSettings.UserBoxRank,
-					PageContext.Localization.GetText( "rank" ),
-					DataRow ["RankName"]
-					)
-				);
+			rx = new Regex(Constants.UserBox.Rank);
+
+			filler = String.Format(
+						PageContext.BoardSettings.UserBoxRank,
+						PageContext.Localization.GetText("rank"),
+						DataRow["RankName"]
+						);
+
+			// replaces template placeholder with actual rank
+			userBox = rx.Replace(userBox, filler);
 
 
 			// Groups
+			rx = new Regex(Constants.UserBox.Groups);
+
 			if ( PageContext.BoardSettings.ShowGroups )
 			{
 				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
@@ -507,96 +518,110 @@ namespace YAF.Controls
 					}
 				}
 
-				userboxOutput.Replace(
-					Constants.UserBox.Groups,
-					String.Format(
-						PageContext.BoardSettings.UserBoxGroups,
-						PageContext.Localization.GetText( "groups" ),
-						groupsText.ToString()
-						)
-					);
+				filler = String.Format(
+							PageContext.BoardSettings.UserBoxGroups,
+							PageContext.Localization.GetText("groups"),
+							groupsText.ToString()
+							);
 			}
 			else
 			{
-				userboxOutput.Replace( Constants.UserBox.Groups, "" );
+				filler = "";
 			}
+
+			// replaces template placeholder with actual groups
+			userBox = rx.Replace(userBox, filler);
 
 
 			if ( !PostDeleted )
 			{
 				// Ederon : 02/24/2007
 				// Joined Date
+				rx = new Regex(Constants.UserBox.JoinDate);
+
 				if ( PageContext.BoardSettings.DisplayJoinDate )
 				{
-					userboxOutput.Replace(
-						Constants.UserBox.JoinDate,
-						String.Format(
-							PageContext.BoardSettings.UserBoxJoinDate,
-							PageContext.Localization.GetText( "joined" ),
-							YafDateTime.FormatDateShort( ( DateTime ) DataRow ["Joined"] )
-							)
-						);
+					filler = String.Format(
+								PageContext.BoardSettings.UserBoxJoinDate,
+								PageContext.Localization.GetText("joined"),
+								YafDateTime.FormatDateShort((DateTime)DataRow["Joined"])
+								);
 				}
 				else
 				{
-					userboxOutput.Replace( Constants.UserBox.JoinDate, "" );
+					filler = "";
 				}
+
+				// replaces template placeholder with actual join date
+				userBox = rx.Replace(userBox, filler);
 
 
 				// Posts
-				userboxOutput.Replace(
-					Constants.UserBox.Posts,
-					String.Format(
-						PageContext.BoardSettings.UserBoxPosts,
-						PageContext.Localization.GetText( "posts" ),
-						DataRow ["Posts"]
-						)
-					);
+				rx = new Regex(Constants.UserBox.Posts);
+
+				filler = String.Format(
+							PageContext.BoardSettings.UserBoxPosts,
+							PageContext.Localization.GetText("posts"),
+							DataRow["Posts"]
+							);
+
+				// replaces template placeholder with actual post count
+				userBox = rx.Replace(userBox, filler);
 
 
 				// Points
+				rx = new Regex(Constants.UserBox.Points);
+
 				if ( PageContext.BoardSettings.DisplayPoints )
 				{
-					userboxOutput.Replace(
-						Constants.UserBox.Points,
-						String.Format(
-							PageContext.BoardSettings.UserBoxPoints,
-							PageContext.Localization.GetText( "points" ),
-							DataRow ["Points"]
-							)
-						);
+					filler = String.Format(
+								PageContext.BoardSettings.UserBoxPoints,
+								PageContext.Localization.GetText("points"),
+								DataRow["Points"]
+								);
 				}
 				else
 				{
-					userboxOutput.Replace( Constants.UserBox.Points, "" );
+					filler = "";
 				}
 
+				// replaces template placeholder with actual points
+				userBox = rx.Replace(userBox, filler);
+
+
 				// Location
+				rx = new Regex(Constants.UserBox.Location);
+
 				if ( UserProfile.Location != string.Empty )
 				{
-					userboxOutput.Replace(
-						Constants.UserBox.Location,
-						String.Format(
-							PageContext.BoardSettings.UserBoxLocation,
-							PageContext.Localization.GetText( "location" ),
-							FormatMsg.RepairHtml( UserProfile.Location, false )
-							)
-						);
+					filler = String.Format(
+								PageContext.BoardSettings.UserBoxLocation,
+								PageContext.Localization.GetText("location"),
+								FormatMsg.RepairHtml(UserProfile.Location, false)
+								);
 				}
 				else
 				{
-					userboxOutput.Replace( Constants.UserBox.Location, "" );
+					filler = "";
 				}
+
+				// replaces template placeholder with actual location
+				userBox = rx.Replace(userBox, filler);
 			}
 			else
 			{
-				userboxOutput.Replace( Constants.UserBox.Groups, "" );
-				userboxOutput.Replace( Constants.UserBox.Posts, "" );
-				userboxOutput.Replace( Constants.UserBox.Points, "" );
-				userboxOutput.Replace( Constants.UserBox.Location, "" );
+				filler = "";
+				rx = new Regex(Constants.UserBox.JoinDate);
+				userBox = rx.Replace(userBox, filler);
+				rx = new Regex(Constants.UserBox.Posts);
+				userBox = rx.Replace(userBox, filler);
+				rx = new Regex(Constants.UserBox.Points);
+				userBox = rx.Replace(userBox, filler);
+				rx = new Regex(Constants.UserBox.Location);
+				userBox = rx.Replace(userBox, filler);
 			}
 
-			return userboxOutput.ToString();
+			return userBox;
 		}
 
 		protected string FormatBody()

@@ -36,15 +36,15 @@ namespace YAF.Classes.Utils
 		{
 			public const string DisplayTemplateDefault = "<yaf:avatar /><yaf:badges /><yaf:rankimage /><yaf:rank /><yaf:groups /><br /><yaf:joindate /><yaf:posts /><yaf:points /><yaf:location />";
 			
-			public const string Avatar = "<yaf:avatar />";
-			public const string Badges = "<yaf:badges />";
-			public const string RankImage = "<yaf:rankimage />";
-			public const string Rank = "<yaf:rank />";
-			public const string Groups = "<yaf:groups />";
-			public const string JoinDate = "<yaf:joindate />";
-			public const string Posts = "<yaf:posts />";
-			public const string Points = "<yaf:points />";
-			public const string Location = "<yaf:location />";
+			public const string Avatar = @"<yaf:avatar\s*/>";
+			public const string Badges = @"<yaf:badges\s*/>";
+			public const string RankImage = @"<yaf:rankimage\s*/>";
+			public const string Rank = @"<yaf:rank\s*/>";
+			public const string Groups = @"<yaf:groups\s*/>";
+			public const string JoinDate = @"<yaf:joindate\s*/>";
+			public const string Posts = @"<yaf:posts\s*/>";
+			public const string Points = @"<yaf:points\s*/>";
+			public const string Location = @"<yaf:location\s*/>";
 		}
 
 		/// <summary>
@@ -54,6 +54,7 @@ namespace YAF.Classes.Utils
 		{
 			public const string BannedIP = "BannedIP";
 			public const string BoardStats = "BoardStats";
+			public const string BoardSettings = "BoardSettings";
 			public const string GuestUserID = "GuestUserID";
 			public const string CustomBBCode = "CustomBBCode";
 			public const string Smilies = "Smilies";

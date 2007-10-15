@@ -122,7 +122,7 @@ namespace YAF.Pages // YAF.Pages
 					PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
 					return;
 				} 
-				else if((int)dt.Rows[0]["PageContext.IsGuest"]>0) 
+				else if((int)dt.Rows[0]["IsGuest"]>0) 
 				{
 					PageContext.AddLoadMessage(GetText("NOT_GUEST"));
 					return;	

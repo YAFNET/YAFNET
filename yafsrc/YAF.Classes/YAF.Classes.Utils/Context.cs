@@ -193,7 +193,7 @@ namespace YAF.Classes.Utils
 			get
 			{
 				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
-				string key = string.Format( "YafBoardSettings.{0}", PageBoardID );
+				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
 
 				if ( HttpContext.Current.Application [key] == null )
 					HttpContext.Current.Application [key] = new YafBoardSettings( PageBoardID );
@@ -204,7 +204,7 @@ namespace YAF.Classes.Utils
 			set
 			{
 				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
-				string key = string.Format( "YafBoardSettings.{0}", PageBoardID );
+				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
 
 				HttpContext.Current.Application.Remove( key );
 			}

@@ -2562,7 +2562,7 @@ namespace YAF.Classes.Data
 		}
 		static public void user_migrate(object userID, object providerUserKey)
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("update {databaseOwner}.{objectQualifier}User set ProviderUserKey=@ProviderUserKey where UserID=@UserID"))
+			using (SqlCommand cmd = DBAccess.GetCommand("update {databaseOwner}.{objectQualifier}User set ProviderUserKey=@ProviderUserKey where UserID=@UserID", true))
 			{
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue("ProviderUserKey", providerUserKey);
@@ -2781,7 +2781,7 @@ namespace YAF.Classes.Data
 		}
 		static public int user_get(int boardID, object providerUserKey)
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey"))
+			using (SqlCommand cmd = DBAccess.GetCommand("select UserID from {databaseOwner}.{objectQualifier}User where BoardID=@BoardID and ProviderUserKey=@ProviderUserKey", true))
 			{
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue("BoardID", boardID);
