@@ -64,6 +64,15 @@ namespace YAF.Pages // YAF.Pages
 				Back.Text = GetText( "BACK" );
 				Upload.Text = GetText( "UPLOAD" );
 
+        // MJ : 10/14/2007 - list of allowed file extensions
+        DataTable extension_dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID);
+        int x  = 0;
+        while (x < extension_dt.Rows.Count)
+        {
+            Extensions_Label.Text += extension_dt.Rows[x]["Extension"].ToString() + "&nbsp;&nbsp;".ToString();
+            x += 1;
+        }
+                
 				BindData();
 			}
 		}
@@ -115,6 +124,7 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
+        // Modified by MJ Hufford - 10/08/2007
 		private void CheckValidFile( HtmlInputFile file )
 		{
 			if ( file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0 )
@@ -127,21 +137,11 @@ namespace YAF.Pages // YAF.Pages
 			pos = filename.LastIndexOf( '.' );
 			if ( pos >= 0 )
 			{
-				switch ( filename.Substring( pos + 1 ).ToLower() )
-				{
-					default:
-						break;
-					case "asp":
-					case "aspx":
-					case "ascx":
-					case "config":
-					case "php":
-					case "php3":
-					case "js":
-					case "vb":
-					case "vbs":
-						throw new Exception( String.Format( GetText( "fileerror" ), filename ) );
-				}
+                string extension = filename.Substring(pos + 1).ToLower();
+                // If we don't get a match from the db, then the extension is not allowed
+                DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
+                if (dt.Rows.Count == 0)
+                    throw new Exception(String.Format(GetText("fileerror"), filename));
 			}
 		}
 
@@ -195,5 +195,5 @@ namespace YAF.Pages // YAF.Pages
 		{
 		}
 		#endregion
-	}
+}
 }
