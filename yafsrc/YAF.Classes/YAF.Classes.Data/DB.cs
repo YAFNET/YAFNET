@@ -870,6 +870,85 @@ namespace YAF.Classes.Data
 		}
 		#endregion yaf_EventLog
 
+        // Admin control of file extensions - MJ Hufford
+        #region yaf_Extensions
+
+        static public void extension_delete(object extensionId)
+        {
+            try
+            {
+                using (SqlCommand cmd = DBAccess.GetCommand("extension_delete"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("ExtensionId", extensionId);
+                    DBAccess.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+
+        // Get Extension record by extensionId
+        static public DataTable extension_edit(object extensionId)
+        {
+            using (SqlCommand cmd = DBAccess.GetCommand("extension_edit"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("extensionId", extensionId);
+                return DBAccess.GetData(cmd);
+            }
+            
+        }
+
+        // Used to validate a file before uploading
+        static public DataTable extension_list(object boardID, object extension)
+        {
+            using (SqlCommand cmd = DBAccess.GetCommand("extension_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("Extension", extension);
+                return DBAccess.GetData(cmd);
+            }
+            
+        }
+
+        // Returns an extension list for a given Board
+        static public DataTable extension_list(object boardID)
+        {
+            using (SqlCommand cmd = DBAccess.GetCommand("extension_list"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+                cmd.Parameters.AddWithValue("Extension", "");
+                return DBAccess.GetData(cmd);
+            }
+            
+        }
+
+        // Saves / creates extension
+        static public void extension_save(object extensionId, object boardID, object Extension)
+        {
+            try
+            {
+                using (SqlCommand cmd = DBAccess.GetCommand("extension_save"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("extensionId", extensionId);
+                    cmd.Parameters.AddWithValue("BoardId", boardID);
+                    cmd.Parameters.AddWithValue("Extension", Extension);
+                    DBAccess.ExecuteNonQuery(cmd);
+                }
+            }
+            catch
+            {
+                // Ignore any errors in this method
+            }
+        }
+        #endregion yaf_EventLog
+
 		#region yaf_PollVote
 		/// <summary>
 		/// Checks for a vote in the database
