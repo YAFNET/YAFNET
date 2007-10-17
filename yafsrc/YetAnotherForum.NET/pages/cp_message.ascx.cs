@@ -144,7 +144,7 @@ namespace YAF.Pages // YAF.Pages
 					SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
 
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YafBuildLink.GetLink( ForumPages.cp_profile ) );
+					PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 
 					// get the return link to the pm listing
 					if ( IsOutbox )
@@ -154,7 +154,7 @@ namespace YAF.Pages // YAF.Pages
 					else
 						PageLinks.AddLink( GetText( "INBOX" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
 
-					PageLinks.AddLink( HtmlEncode( row ["Subject"] ), "" );
+					PageLinks.AddLink( row ["Subject"].ToString() );
 
 					Inbox.DataSource = dt;
 				}

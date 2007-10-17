@@ -57,7 +57,7 @@ namespace YAF.Pages
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-				PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YafBuildLink.GetLink( ForumPages.cp_profile ) );
+				PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 				PageLinks.AddLink( PageContext.Localization.GetText( ForumPages.cp_pm.ToString(), "TITLE" ), YafBuildLink.GetLink( ForumPages.cp_pm ) );
 				PageLinks.AddLink( GetText( "TITLE" ) );
 

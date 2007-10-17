@@ -69,7 +69,7 @@ namespace YAF.Pages
           this.PMTabs.ActiveTab = this.ArchiveTab;
 
         PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-        PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), YafBuildLink.GetLink( ForumPages.cp_profile ) );
+        PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
         PageLinks.AddLink( GetText( "TITLE" ) );
 
         InboxTab.HeaderText = GetText( "INBOX" );

@@ -56,7 +56,7 @@ namespace YAF.Pages
 				BindData();
 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( HtmlEncode( PageContext.PageUserName ), "" );
+				PageLinks.AddLink( PageContext.PageUserName, "" );
 			}
 		}
 
