@@ -396,6 +396,18 @@ begin
 end
 GO
 
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Extension]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+BEGIN
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}Extension](
+		ExtensionID int IDENTITY(1,1) NOT NULL,
+		BoardId int NOT NULL,
+		Extension nvarchar(10) NOT NULL,
+		CONSTRAINT [PK_{objectQualifier}Extension] PRIMARY KEY(ExtensionID)
+	)
+END
+GO
+
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}BBCode](

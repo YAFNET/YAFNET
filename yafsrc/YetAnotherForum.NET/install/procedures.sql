@@ -130,6 +130,22 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}eventlog_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}extension_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}extension_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}extension_edit]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}extension_edit]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}extension_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}extension_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}extension_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}extension_save]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}forum_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}forum_delete]
 GO
@@ -735,15 +751,15 @@ IF EXISTS (SELECT *
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist] 
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_delete]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_delete]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_list]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_list]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_save]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_save]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
 GO
 
@@ -1400,6 +1416,67 @@ begin
 		(b.UserID IS NULL or b.BoardID = @BoardID)		
 	order by
 		a.EventLogID desc
+end
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}extension_delete] (@ExtensionID int) as
+begin
+	delete from [{databaseOwner}].[{objectQualifier}Extension] 
+	where ExtensionID = @ExtensionID
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}extension_edit] (@ExtensionID int=NULL) as
+BEGIN
+	SELECT * 
+	FROM [{databaseOwner}].[{objectQualifier}Extension] 
+	WHERE ExtensionID = @ExtensionID 
+	ORDER BY Extension
+END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}extension_list] (@BoardID int, @Extension nvarchar(10)) as
+BEGIN
+
+	-- If an extension is passed, then we want to check for THAT extension
+	IF LEN(@Extension) > 0
+		BEGIN
+			SELECT
+				a.*
+			FROM
+				[{databaseOwner}].[{objectQualifier}Extension] a
+			WHERE
+				a.BoardID = @BoardID AND a.Extension=@Extension
+			ORDER BY
+				a.Extension
+		END
+
+	ELSE
+		-- Otherwise, just get a list for the given @BoardId
+		BEGIN
+			SELECT
+				a.*
+			FROM
+				[{databaseOwner}].[{objectQualifier}Extension] a
+			WHERE
+				a.BoardID = @BoardID	
+			ORDER BY
+				a.Extension
+		END
+END
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}extension_save] (@ExtensionID int=null,@BoardID int,@Extension nvarchar(10)) as
+begin
+	if @ExtensionID is null or @ExtensionID = 0 begin
+		insert into [{databaseOwner}].[{objectQualifier}Extension] (BoardID,Extension) 
+		values(@BoardID,@Extension)
+	end
+	else begin
+		update [{databaseOwner}].[{objectQualifier}Extension] 
+		set Extension = @Extension 
+		where ExtensionID = @ExtensionID
+	end
 end
 GO
 

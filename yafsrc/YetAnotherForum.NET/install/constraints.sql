@@ -993,9 +993,15 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Event
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [FK_{objectQualifier}EventLog_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) on delete cascade
 go
 
+if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Extension_{objectQualifier}Board' and parent_obj=object_id('[{databaseOwner}].[{objectQualifier}Extension]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [FK_{objectQualifier}Extension_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
+go
+
+if not exists(select 1 from dbo.sysobjects where name=N'FK_BBCode_Board' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE CASCADE
+GO
+
 /* Default Constraints */
-
-
 if exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Message_Flags' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Message]'))
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop constraint [DF_{objectQualifier}Message_Flags]
 go
@@ -1025,6 +1031,6 @@ if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Even
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_Type] default(0) for Type
 go
 
-if not exists(select 1 from dbo.sysobjects where name=N'FK_BBCode_Board' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-	ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE CASCADE
-GO
+if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Extension_BoardID' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}Extension]'))
+	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [DF_{objectQualifier}Extension_BoardID] default(1) for BoardID
+go
