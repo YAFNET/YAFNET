@@ -145,6 +145,12 @@ namespace YAF.Classes.Utils
 			get { return _regBoard.GetValueInt( "ShowTopicsDefault", 5 ); }
 			set { _regBoard.SetValueInt( "ShowTopicsDefault", value ); }
 		}
+		public bool FileExtensionAreAllowed
+		{
+			get { return _regBoard.GetValueBool( "FileExtensionAreAllowed", true ); }
+			set { _regBoard.SetValueBool( "FileExtensionAreAllowed", value ); }
+		}
+
 
 		// didn't know where else to put this :)
 		public string SQLVersion

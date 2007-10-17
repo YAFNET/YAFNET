@@ -55,9 +55,14 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
+		protected void ExtensionTitle_Load( object sender, System.EventArgs e )
+		{
+			( ( Label ) sender ).Text = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "Allowed" : "Disallowed" ) + " File Extensions";
+		}
+
 		protected void Delete_Load( object sender, System.EventArgs e )
 		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this rank?')";
+			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this Extension?')";
 		}
 
 		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
@@ -74,7 +79,7 @@ namespace YAF.Pages.Admin
 			{
 				YAF.Classes.Data.DB.extension_delete( e.CommandArgument );
 				BindData();
-				PageContext.AddLoadMessage( "Removed file extension." );
+				PageContext.AddLoadMessage( "Extension Removed" );
 			}
 		}
 

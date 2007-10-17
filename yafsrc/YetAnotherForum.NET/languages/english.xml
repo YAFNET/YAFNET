@@ -120,10 +120,11 @@
 		<Resource tag="FILENAME">File Name</Resource>
 		<Resource tag="SIZE">Size</Resource>
 		<Resource tag="DELETE">Delete</Resource>
-		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
+		<Resource tag="FILEERROR">'{0}' is not an allowed file type for upload.</Resource>
 		<Resource tag="ASK_DELETE">Delete this attachment?</Resource>
 		<Resource tag="ERROR_TOOBIG">You cannot attach files that big.</Resource>
-		<Resource tag="ALLOWED_EXTENSIONS">Allowed file extensions</Resource>
+		<Resource tag="ALLOWED_EXTENSIONS">Allowed File Types</Resource>
+		<Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->

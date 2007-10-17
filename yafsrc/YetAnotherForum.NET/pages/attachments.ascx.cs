@@ -65,13 +65,24 @@ namespace YAF.Pages // YAF.Pages
 				Upload.Text = GetText( "UPLOAD" );
 
         // MJ : 10/14/2007 - list of allowed file extensions
-        DataTable extension_dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID);
-        int x  = 0;
-        while (x < extension_dt.Rows.Count)
-        {
-            Extensions_Label.Text += extension_dt.Rows[x]["Extension"].ToString() + "&nbsp;&nbsp;".ToString();
-            x += 1;
-        }
+        DataTable extensionTable = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID);
+
+				string types = "";
+				bool bFirst = true;
+
+				foreach ( DataRow row in extensionTable.Rows )
+				{
+					types += String.Format( "{1}*.{0}", row ["Extension"].ToString(), ( bFirst ? "" : ", " ) );
+					if ( bFirst ) bFirst = false;
+				}
+
+				if ( !String.IsNullOrEmpty( types ) )
+				{
+					ExtensionsList.Text = types;
+				}
+
+				// show disallowed or allowed localized text depending on the Board Setting
+				ExtensionTitle.LocalizedTag = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "ALLOWED_EXTENSIONS" : "DISALLOWED_EXTENSIONS" );
                 
 				BindData();
 			}
@@ -112,8 +123,10 @@ namespace YAF.Pages // YAF.Pages
 		{
 			try
 			{
-				CheckValidFile( File );
-				SaveAttachment( Request.QueryString ["m"], File );
+				if ( CheckValidFile( File ) )
+				{
+					SaveAttachment( Request.QueryString ["m"], File );
+				}
 				BindData();
 			}
 			catch ( Exception x )
@@ -125,24 +138,42 @@ namespace YAF.Pages // YAF.Pages
 		}
 
         // Modified by MJ Hufford - 10/08/2007
-		private void CheckValidFile( HtmlInputFile file )
+		private bool CheckValidFile( HtmlInputFile uploadedFile )
 		{
-			if ( file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0 || file.PostedFile.ContentLength == 0 )
-				return;
+			string filePath = uploadedFile.PostedFile.FileName.Trim();
 
-			string filename = file.PostedFile.FileName;
-			int pos = filename.LastIndexOfAny( new char [] { '/', '\\' } );
-			if ( pos >= 0 )
-				filename = filename.Substring( pos + 1 );
-			pos = filename.LastIndexOf( '.' );
-			if ( pos >= 0 )
+			if ( String.IsNullOrEmpty( filePath ) || uploadedFile.PostedFile.ContentLength == 0 )
 			{
-        string extension = filename.Substring(pos + 1).ToLower();
-        // If we don't get a match from the db, then the extension is not allowed
-        DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
-        if (dt.Rows.Count == 0)
-            throw new Exception(String.Format(GetText("fileerror"), filename));
+				return false;
 			}
+
+			string extension = System.IO.Path.GetExtension( filePath ).ToLower();
+
+			// If we don't get a match from the db, then the extension is not allowed
+      DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
+
+			bool bInList = ( dt.Rows.Count > 0 );
+			bool bError = false;
+
+			if ( PageContext.BoardSettings.FileExtensionAreAllowed && !bInList )
+			{
+				// since it's not in the list -- it's invalid
+				bError = true;
+			}
+			else if ( !PageContext.BoardSettings.FileExtensionAreAllowed && bInList )
+			{
+				// since it's on the list -- it's invalid
+				bError = true;
+			}
+
+			if ( bError )
+			{
+				// just throw an error that this file is invalid...
+				PageContext.AddLoadMessage( String.Format( GetText( "FILEERROR" ), filePath ) );
+				return false;
+			}
+
+			return true;
 		}
 
 		private void SaveAttachment( object messageID, HtmlInputFile file )

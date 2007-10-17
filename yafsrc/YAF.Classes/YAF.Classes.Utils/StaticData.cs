@@ -127,6 +127,26 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		static public DataTable AllowDisallow()
+		{
+			using ( DataTable dt = new DataTable( "AllowDisallow" ) )
+			{
+				dt.Columns.Add( "Text", typeof( string ) );
+				dt.Columns.Add( "Value", typeof( int ) );
+
+				string [] tTextArray = { "Allowed", "Disallowed" };
+
+				for ( int i = 0; i < tTextArray.Length; i++ )
+				{
+					DataRow dr = dt.NewRow();
+					dr ["Text"] = tTextArray [i];
+					dr ["Value"] = i;
+					dt.Rows.Add( dr );
+				}
+				return dt;
+			}
+		}
+
 		static public DataTable TopicTimes()
 		{
 			using ( DataTable dt = new DataTable( "TopicTimes" ) )

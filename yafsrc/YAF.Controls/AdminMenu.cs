@@ -59,7 +59,8 @@ namespace YAF.Controls
 				{"Forums",YafBuildLink.GetLink( ForumPages.admin_forums)},
 				{"Banned IP",YafBuildLink.GetLink( ForumPages.admin_bannedip)},
 				{"Smilies",YafBuildLink.GetLink( ForumPages.admin_smilies)},
-				{"Replace Words",YafBuildLink.GetLink( ForumPages.admin_replacewords)}
+				{"Replace Words",YafBuildLink.GetLink( ForumPages.admin_replacewords)},
+                {"File Extensions",YafBuildLink.GetLink( ForumPages.admin_extensions)}
 			};
 
 			writer.Write(createMenu( "Admin", "header2", "post", ref adminLinks ));

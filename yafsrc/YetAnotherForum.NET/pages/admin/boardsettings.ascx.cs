@@ -59,12 +59,17 @@ namespace YAF.Pages.Admin
 				ShowTopic.DataTextField = "TopicText";
 				ShowTopic.DataValueField = "TopicValue";
 
+				FileExtensionAllow.DataSource = YafStaticData.AllowDisallow();
+				FileExtensionAllow.DataTextField = "Text";
+				FileExtensionAllow.DataValueField = "Value";
+
 				BindData();
 
 				Theme.Items.FindByValue( PageContext.BoardSettings.Theme ).Selected = true;
 				Language.Items.FindByValue( PageContext.BoardSettings.Language ).Selected = true;
 				ShowTopic.Items.FindByValue( PageContext.BoardSettings.ShowTopicsDefault.ToString() ).Selected = true;
 				AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
+				FileExtensionAllow.Items.FindByValue( PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1" ).Selected = true;
 			}
 		}
 
@@ -87,6 +92,8 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.Language = Language.SelectedValue;
 			PageContext.BoardSettings.ShowTopicsDefault = Convert.ToInt32( ShowTopic.SelectedValue );
 			PageContext.BoardSettings.AllowThemedLogo = AllowThemedLogo.Checked;
+			PageContext.BoardSettings.FileExtensionAreAllowed = ( Convert.ToInt32( FileExtensionAllow.SelectedValue ) == 0 ? true : false );
+
 			/// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();
 

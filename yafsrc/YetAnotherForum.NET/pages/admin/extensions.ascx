@@ -6,7 +6,7 @@
 		<HeaderTemplate>
 			<table class="content" cellspacing="1" cellpadding="0" width="100%">
 				<tr>
-					<td class="header1" colspan="2">Allowed File Extensions</td>
+					<td class="header1" colspan="2"><asp:Label ID="ExtensionTitle" runat="server" OnLoad="ExtensionTitle_Load">File Extensions</asp:Label></td>
 				</tr>
 				<tr>
 					<td class="header2" width="90%">File Extensions</td>
