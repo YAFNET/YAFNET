@@ -19,9 +19,11 @@
  */
 
 using System;
+using System.Data;
 using System.Web;
 using System.Text.RegularExpressions;
 using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.UI
 {
@@ -103,6 +105,7 @@ namespace YAF.Classes.UI
 		static private Regex _rgxTopic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", _options );
 		static private Regex _rgxImg = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", _options );
 		static private Regex _rgxYoutube = new Regex( @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]", _options);
+		static private Regex _rgxHtml = new Regex( @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options );
 
 		static public string MakeHtml( string bbcode, bool doFormatting )
 		{
@@ -204,6 +207,9 @@ namespace YAF.Classes.UI
 				NestedReplace( ref bbcode, _rgxImg, "<img src=\"${http}${inner}\"/>", new string [] { "http" }, new string [] { "http://" } );
 				// youtube
 				NestedReplace( ref bbcode, _rgxYoutube, @"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->", new string [] { "id" } );
+
+				// handle custom BBCode
+				ApplyCustomBBCodeNestedReplace( ref bbcode );
 
 				bbcode = _rgxHr.Replace( bbcode, "<hr noshade/>" );
 				bbcode = _rgxBr.Replace( bbcode, "<br/>" );
@@ -310,16 +316,158 @@ namespace YAF.Classes.UI
 			}
 		}
 
+		/// <summary>
+		/// Applies Custom BBCode from the yaf_BBCode table
+		/// </summary>
+		/// <param name="refText">Text to transform</param>
+		static protected void ApplyCustomBBCodeNestedReplace( ref string refText )
+		{
+			//HttpContext.Current.Trace.Write( "CustomBBCode" );
+
+			DataTable bbcodeTable = GetCustomBBCode();
+
+			// handle custom bbcodes row by row...
+			foreach ( DataRow codeRow in bbcodeTable.Rows )
+			{
+				if ( codeRow ["SearchRegEx"] != DBNull.Value && codeRow ["ReplaceRegEx"] != DBNull.Value )
+				{
+					Regex searchRegEx = new Regex( codeRow ["SearchRegEx"].ToString(), _options );
+					string replaceRegEx = codeRow ["ReplaceRegEx"].ToString();
+					string rawVariables = codeRow ["Variables"].ToString();
+
+					if ( !String.IsNullOrEmpty( rawVariables ) )
+					{
+						// handle variables...
+						string [] variables = rawVariables.Split( new char [] { ';' } );
+
+						NestedReplace( ref refText, searchRegEx, replaceRegEx, variables );
+						
+					}
+					else
+					{
+						// just standard replace...
+						NestedReplace( ref refText, searchRegEx, replaceRegEx );
+					}
+				}
+			}
+		}
+
+		static public System.Data.DataTable GetCustomBBCode()
+		{
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode );
+			System.Data.DataTable bbCodeTable = null;
+
+			// check if there is value cached
+			if ( YafCache.Current [cacheKey] == null )
+			{
+				// get the bbcode table from the db...
+				bbCodeTable = YAF.Classes.Data.DB.bbcode_list( YafContext.Current.PageBoardID, null );
+				// cache it indefinately (or until it gets updated)
+				YafCache.Current [cacheKey] = bbCodeTable;
+			}
+			else
+			{
+				// retrieve bbcode Table from the cache
+				bbCodeTable = ( System.Data.DataTable )YafCache.Current [cacheKey];
+			}
+
+			return bbCodeTable;
+		}
+
+		/// <summary>
+		/// Helper function that dandles registering "custom bbcode" javascript (if there is any)
+		/// for all the custom BBCode.
+		/// </summary>
+		static public void RegisterCustomBBCodePageElements( System.Web.UI.Page currentPage, Type currentType )
+		{
+			RegisterCustomBBCodePageElements( currentPage, currentType, null );
+		}
+
+		/// <summary>
+		/// Helper function that dandles registering "custom bbcode" javascript (if there is any)
+		/// for all the custom BBCode. Defining editorID make the system also show "editor js" (if any).
+		/// </summary>
+		static public void RegisterCustomBBCodePageElements( System.Web.UI.Page currentPage, Type currentType, string editorID )
+		{
+			DataTable bbCodeTable = BBCode.GetCustomBBCode();
+			string scriptID = "custombbcode";
+			System.Text.StringBuilder jsScriptBuilder = new System.Text.StringBuilder();
+			System.Text.StringBuilder cssBuilder = new System.Text.StringBuilder();
+
+			foreach ( DataRow row in bbCodeTable.Rows )
+			{				
+				string displayScript = null;				
+				string editScript = null;
+
+				if ( row ["DisplayJS"] != DBNull.Value )
+				{
+					displayScript = row ["DisplayJS"].ToString().Trim();
+				}
+
+				if ( !String.IsNullOrEmpty( editorID ) && row["EditJS"] != DBNull.Value )
+				{
+					editScript = row ["EditJS"].ToString().Trim();
+					// replace any instances of editor ID in the javascript in case the ID is needed
+					editScript = editScript.Replace( "{editorid}", editorID );
+				}
+
+				if ( !String.IsNullOrEmpty(displayScript) || !String.IsNullOrEmpty(editScript))
+				{
+					jsScriptBuilder.AppendLine( displayScript + "\r\n" + editScript );
+				}
+
+				// see if there is any CSS associated with this BBCode
+				if ( row ["DisplayCSS"] != DBNull.Value && !String.IsNullOrEmpty( row ["DisplayCSS"].ToString().Trim() ) )
+				{
+					// yes, add it into the builder
+					cssBuilder.AppendLine( row ["DisplayCSS"].ToString().Trim() );
+				}
+			}
+
+			if ( jsScriptBuilder.ToString().Trim().Length > 0 )
+			{
+				// register the javascript from all the custom bbcode...
+				if ( !currentPage.ClientScript.IsClientScriptBlockRegistered( scriptID + "_script" ) )
+				{
+					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID, string.Format( @"<script language=""javascript"" type=""text/javascript"">{0}</script>", jsScriptBuilder.ToString() ) );
+				}
+			}
+
+			if ( cssBuilder.ToString().Trim().Length > 0 )
+			{
+				// register the CSS from all custom bbcode...
+				if ( !currentPage.ClientScript.IsClientScriptBlockRegistered( scriptID + "_css" ) )
+				{
+					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID, string.Format( @"<style type=""text/css"">{0}</script>", cssBuilder.ToString() ) );
+				}
+			}
+		}
+
+		/// <summary>
+		/// Encodes HTML
+		/// </summary>
+		/// <param name="html"></param>
+		/// <returns></returns>
 		static public string EncodeHTML( string html )
 		{
 			return System.Web.HttpContext.Current.Server.HtmlEncode( html );
 		}
 
+		/// <summary>
+		/// Decodes HTML
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
 		static public string DecodeHTML( string text )
 		{
 			return System.Web.HttpContext.Current.Server.HtmlDecode( text );
 		}
 
+		/// <summary>
+		/// A simplistic Encode HTML function.
+		/// </summary>
+		/// <param name="html"></param>
+		/// <returns></returns>
 		static private string FixCode( string html )
 		{
 			html = html.Replace( "  ", "&nbsp; " );

@@ -2150,8 +2150,6 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
 				cmd.Parameters.AddWithValue("Replace", replace);
 				DBAccess.ExecuteNonQuery(cmd);
-				// todo : move this away to non-static code
-				System.Web.HttpContext.Current.Cache.Remove("Smilies");
 			}
 		}
 		static public void smiley_resort(object boardID, object smileyID, int move)
@@ -2163,6 +2161,48 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue("SmileyID", smileyID);
 				cmd.Parameters.AddWithValue("Move", move);
 				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+		#endregion
+
+		#region yaf_BBCode
+		static public DataTable bbcode_list( object boardID, object bbcodeID )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_list" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
+				return DBAccess.GetData( cmd );
+			}
+		}
+		static public void bbcode_delete( object bbcodeID )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_delete" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
+		static public void bbcode_save( object bbcodeID, object boardID, object name, object description, object onclickjs, object displayjs, object editjs, object displaycss, object searchregex, object replaceregex, object variables, object execorder )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_save" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BBCodeID", bbcodeID );
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "Name", name );
+				cmd.Parameters.AddWithValue( "Description", description );
+				cmd.Parameters.AddWithValue( "OnClickJS", onclickjs );
+				cmd.Parameters.AddWithValue( "DisplayJS", displayjs );
+				cmd.Parameters.AddWithValue( "EditJS", editjs );
+				cmd.Parameters.AddWithValue( "DisplayCSS", displaycss );
+				cmd.Parameters.AddWithValue( "SearchRegEx", searchregex );
+				cmd.Parameters.AddWithValue( "ReplaceRegEx", replaceregex );
+				cmd.Parameters.AddWithValue( "Variables", variables );
+				cmd.Parameters.AddWithValue( "ExecOrder", execorder );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 		#endregion
