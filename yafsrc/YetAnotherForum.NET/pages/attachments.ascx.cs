@@ -137,11 +137,11 @@ namespace YAF.Pages // YAF.Pages
 			pos = filename.LastIndexOf( '.' );
 			if ( pos >= 0 )
 			{
-                string extension = filename.Substring(pos + 1).ToLower();
-                // If we don't get a match from the db, then the extension is not allowed
-                DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
-                if (dt.Rows.Count == 0)
-                    throw new Exception(String.Format(GetText("fileerror"), filename));
+        string extension = filename.Substring(pos + 1).ToLower();
+        // If we don't get a match from the db, then the extension is not allowed
+        DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
+        if (dt.Rows.Count == 0)
+            throw new Exception(String.Format(GetText("fileerror"), filename));
 			}
 		}
 

@@ -15,7 +15,7 @@
 		</HeaderTemplate>
 		<ItemTemplate>
 			<tr>
-				<td class="post"><%# HtmlEncode(Eval("extension")) %></td>
+				<td class="post"><b>*.<%# HtmlEncode(Eval("extension")) %></b></td>
 				<td class="post">
 					<asp:linkbutton runat="server" text="Edit" commandname="edit" commandargument='<%# Eval("extensionId") %>' ID="Linkbutton1">
 					</asp:linkbutton>

@@ -63,13 +63,16 @@ namespace YAF.Pages.Admin
 		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
 		{
 			if ( e.CommandName == "add" )
+			{
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_extensions_edit );
+			}
 			else if ( e.CommandName == "edit" )
+			{
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument );
+			}
 			else if ( e.CommandName == "delete" )
 			{
 				YAF.Classes.Data.DB.extension_delete( e.CommandArgument );
-				Cache.Remove( "extension" );
 				BindData();
 				PageContext.AddLoadMessage( "Removed file extension." );
 			}
