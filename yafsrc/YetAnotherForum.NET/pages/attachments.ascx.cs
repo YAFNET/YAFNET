@@ -80,9 +80,6 @@ namespace YAF.Pages // YAF.Pages
 				{
 					ExtensionsList.Text = types;
 				}
-
-				// show disallowed or allowed localized text depending on the Board Setting
-				ExtensionTitle.LocalizedTag = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "ALLOWED_EXTENSIONS" : "DISALLOWED_EXTENSIONS" );
                 
 				BindData();
 			}
@@ -94,6 +91,9 @@ namespace YAF.Pages // YAF.Pages
 			List.DataSource = dt;
 
 			List.Visible = ( dt.Rows.Count > 0 ) ? true : false;
+
+			// show disallowed or allowed localized text depending on the Board Setting
+			ExtensionTitle.LocalizedTag = ( PageContext.BoardSettings.FileExtensionAreAllowed ? "ALLOWED_EXTENSIONS" : "DISALLOWED_EXTENSIONS" );
 
 			DataBind();
 		}
@@ -148,6 +148,8 @@ namespace YAF.Pages // YAF.Pages
 			}
 
 			string extension = System.IO.Path.GetExtension( filePath ).ToLower();
+			// remove the "period"
+			extension = extension.Replace( ".", "" );
 
 			// If we don't get a match from the db, then the extension is not allowed
       DataTable dt = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID, extension);
@@ -169,7 +171,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( bError )
 			{
 				// just throw an error that this file is invalid...
-				PageContext.AddLoadMessage( String.Format( GetText( "FILEERROR" ), filePath ) );
+				PageContext.AddLoadMessage( String.Format( GetText( "FILEERROR" ), extension ) );
 				return false;
 			}
 
