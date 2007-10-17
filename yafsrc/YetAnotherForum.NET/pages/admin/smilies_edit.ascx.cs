@@ -85,9 +85,9 @@ namespace YAF.Pages.Admin
 				Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 			}
 			Icon.Attributes["onchange"] = String.Format(
-				"getElementById('{1}__ctl0_Preview').src='{0}images/emoticons/' + this.value",
+				"getElementById('{1}').src='{0}images/emoticons/' + this.value",
 				YafForumInfo.ForumRoot,
-				this.Parent.ID
+				Preview.ClientID
 				);
 		}
 
