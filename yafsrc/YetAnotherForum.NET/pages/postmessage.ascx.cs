@@ -219,7 +219,6 @@ namespace YAF.Pages
 			}
 		}
 
-
 		private bool CanEditPostCheck(DataRow message)
 		{
 			bool postLocked = false;

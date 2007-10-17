@@ -53,6 +53,9 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.AccessDenied();
 				else
 					BindData();
+
+				// handle custom BBCode javascript or CSS...
+				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 			}
 		}
 

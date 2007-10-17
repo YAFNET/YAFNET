@@ -701,8 +701,7 @@ IF EXISTS (SELECT 1 FROM sysobjects where id = object_id(N'[{databaseOwner}].[{o
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_move]
 GO
 
-IF EXISTS (SELECT *
-           FROM   dbo.sysobjects
+IF EXISTS (SELECT * FROM   dbo.sysobjects
            WHERE  id = Object_id(N'[{databaseOwner}].[{objectQualifier}category_simplelist]')
            AND Objectproperty(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}category_simplelist] 
@@ -736,6 +735,17 @@ IF EXISTS (SELECT *
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist] 
 GO
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_delete]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_list]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_save]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
+GO
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
 begin
@@ -4930,4 +4940,76 @@ AS
         ORDER BY a.[UserID]
         SET ROWCOUNT  0
     END
+GO
+
+-- BBCode
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
+(
+	@BBCodeID int = NULL
+)
+AS
+BEGIN
+	IF @BBCodeID IS NOT NULL
+		DELETE FROM yaf_BBCode WHERE BBCodeID = @BBCodeID
+	ELSE
+		DELETE FROM yaf_BBCode
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
+(
+	@BoardID int,
+	@BBCodeID int = null
+)
+AS
+BEGIN
+	IF @BBCodeID IS NULL
+		SELECT * FROM yaf_BBCode WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
+	ELSE
+		SELECT * FROM yaf_BBCode WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
+(
+	@BBCodeID int = null,
+	@BoardID int,
+	@Name nvarchar(255),
+	@Description nvarchar(4000) = null,
+	@OnClickJS nvarchar(1000) = null,
+	@DisplayJS ntext = null,
+	@EditJS ntext = null,
+	@DisplayCSS ntext = null,
+	@SearchRegEx ntext,
+	@ReplaceRegEx ntext,
+	@Variables nvarchar(1000) = null,
+	@ExecOrder int = 1
+)
+AS
+BEGIN
+	IF @BBCodeID IS NOT NULL BEGIN
+		UPDATE
+			yaf_BBCode
+		SET
+			[Name] = @Name,
+			[Description] = @Description,
+			[OnClickJS] = @OnClickJS,
+			[DisplayJS] = @DisplayJS,
+			[EditJS] = @EditJS,
+			[DisplayCSS] = @DisplayCSS,
+			[SearchRegEx] = @SearchRegEx,
+			[ReplaceRegEx] = @ReplaceRegEx,
+			[Variables] = @Variables,
+			[ExecOrder] = @ExecOrder
+		WHERE
+			BBCodeID = @BBCodeID
+	END
+	ELSE BEGIN
+		IF NOT EXISTS(SELECT 1 FROM yaf_BBCode WHERE BoardID = @BoardID AND [Name] = @Name)
+			INSERT INTO
+				yaf_BBCode([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[ExecOrder])
+			VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@ExecOrder)
+	END
+END
 GO

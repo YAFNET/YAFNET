@@ -396,6 +396,26 @@ begin
 end
 GO
 
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table [{databaseOwner}].[{objectQualifier}BBCode](
+		[BBCodeID] [int] IDENTITY(1,1) NOT NULL,
+		[BoardID] [int] NOT NULL,
+		[Name] [nvarchar](255) NOT NULL,
+		[Description] [nvarchar](4000) NULL,
+		[OnClickJS] [nvarchar](1000) NULL,
+		[DisplayJS] [ntext] NULL,
+		[EditJS] [ntext] NULL,
+		[DisplayCSS] [ntext] NULL,
+		[SearchRegex] [ntext] NULL,
+		[ReplaceRegex] [ntext] NULL,
+		[Variables] [nvarchar](1000) NULL,
+		[ExecOrder] [int] NOT NULL,
+		CONSTRAINT [PK_{objectQualifier}BBCode] PRIMARY KEY (BBCodeID)
+	)
+end
+GO
+
 /*
 ** Added columns
 */

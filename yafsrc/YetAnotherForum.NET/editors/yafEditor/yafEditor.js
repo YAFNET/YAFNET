@@ -58,7 +58,8 @@ yafEditor.prototype.FormatText = function(command, option) {
 			wrapSelection(textObj,"[size="+option+"]","[/size]");
 			break;
 		default:
-			alert("Unknown in FormatText " + command);
+			// make custom option
+			wrapSelection(textObj,"["+command+"]","[/"+command+"]");
 			break;
 	}
 }

@@ -1024,3 +1024,7 @@ go
 if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}EventLog_Type' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_Type] default(0) for Type
 go
+
+if not exists(select 1 from dbo.sysobjects where name=N'FK_BBCode_Board' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
+	ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE CASCADE
+GO

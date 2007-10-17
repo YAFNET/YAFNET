@@ -181,6 +181,8 @@ namespace YAF.Pages // YAF.Pages
 					UnlockTopic2.Visible = !LockTopic2.Visible;
 				}
 
+				// handle custom BBCode javascript or CSS...
+				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 			}
 			// Mark topic read
 			Mession.SetTopicRead( PageContext.PageTopicID, DateTime.Now );

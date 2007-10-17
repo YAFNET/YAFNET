@@ -67,7 +67,20 @@
 		<Resource tag="SUBMIT">Submit</Resource>
 		<Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
 		<Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
-		<Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>		
+		<Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
+		<Resource tag="CUSTOM_BBCODE">Additional Tags:</Resource>
+		<Resource tag="FONT_SIZE">Font Size:</Resource>
+		<Resource tag="FONT_COLOR">Font Color:</Resource>
+		<Resource tag="TT_BOLD">Bold</Resource>
+		<Resource tag="TT_ITALIC">Italic</Resource>
+		<Resource tag="TT_UNDERLINE">Underline</Resource>
+		<Resource tag="TT_QUOTE">Quote</Resource>
+		<Resource tag="TT_CODE">Code</Resource>
+		<Resource tag="TT_IMAGE">Insert Image</Resource>
+		<Resource tag="TT_CREATELINK">Create Link</Resource>
+		<Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
+		<Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
+		<Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
