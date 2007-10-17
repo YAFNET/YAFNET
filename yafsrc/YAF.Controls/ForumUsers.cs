@@ -27,61 +27,70 @@ namespace YAF.Controls
 	/// </summary>
 	public class ForumUsers : BaseControl
 	{
+		public ForumUsers()
+		{
+			this.Load += new EventHandler( ForumUsers_Load );
+		}
+
+		void ForumUsers_Load( object sender, EventArgs e )
+		{
+			DataTable dt = ( DataTable ) ViewState ["data"];
+			bool bTopic = PageContext.PageTopicID > 0;
+
+			if ( dt == null )
+			{
+				if ( bTopic )
+					dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
+				else
+					dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
+				ViewState ["data"] = dt;
+			}
+
+			bool bFirst = true;
+
+			foreach (DataRow row in dt.Rows)
+			{
+				UserLink userLink = new UserLink();
+				userLink.UserID = Convert.ToInt32( row ["UserID"] );
+				userLink.UserName = (bFirst ? "" : ",") + row ["UserName"].ToString();
+				userLink.ID = "UserLink" + userLink.UserID.ToString();
+
+				this.Controls.Add( userLink );
+
+				if ( bFirst ) bFirst = false;
+			}
+		}
+
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			// Ederon : 07/14/2007
 			if (!PageContext.BoardSettings.ShowBrowsingUsers) return;
 
-			DataTable dt = ( DataTable ) ViewState ["data"];
 			bool bTopic = PageContext.PageTopicID > 0;
-			try
+
+			if ( bTopic )
 			{
-				if ( dt == null )
-				{
-					if ( bTopic )
-						dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
-					else
-						dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
-					ViewState ["data"] = dt;
-				}
-
-				if ( bTopic )
-				{
-					writer.WriteLine( "<tr class=\"header2\">" );
-					writer.WriteLine( String.Format( "<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText( "TOPICBROWSERS" ) ) );
-					writer.WriteLine( "</tr>" );
-					writer.WriteLine( "<tr class=\"post\">" );
-					writer.WriteLine( "<td colspan=\"3\">" );
-				}
-				else
-				{
-					writer.WriteLine( "<tr class=\"header2\">" );
-					writer.WriteLine( String.Format( "<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText( "FORUMUSERS" ) ) );
-					writer.WriteLine( "</tr>" );
-					writer.WriteLine( "<tr class=\"post\">" );
-					writer.WriteLine( "<td colspan=\"6\">" );
-				}
-
-				bool bFirst = true;
-				foreach ( DataRow dr in dt.Rows )
-				{
-					if ( !bFirst )
-					{
-						writer.WriteLine( "," );
-					}
-					else
-					{
-						bFirst = false;
-					}
-					writer.Write( String.Format( "<a href=\"{0}\">{1}</a>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", dr ["UserID"] ), BBCode.EncodeHTML( dr ["UserName"].ToString() ) ) );
-				}
-				writer.WriteLine( "</td>" );
+				writer.WriteLine( "<tr class=\"header2\">" );
+				writer.WriteLine( String.Format( "<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText( "TOPICBROWSERS" ) ) );
 				writer.WriteLine( "</tr>" );
+				writer.WriteLine( "<tr class=\"post\">" );
+				writer.WriteLine( "<td colspan=\"3\">" );
 			}
-			finally
+			else
 			{
-				if ( dt != null ) dt.Dispose();
-			}
+				writer.WriteLine( "<tr class=\"header2\">" );
+				writer.WriteLine( String.Format( "<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText( "FORUMUSERS" ) ) );
+				writer.WriteLine( "</tr>" );
+				writer.WriteLine( "<tr class=\"post\">" );
+				writer.WriteLine( "<td colspan=\"6\">" );
+			}				
+
+			base.Render( writer );
+			
+			writer.WriteLine( "</td>" );
+			writer.WriteLine( "</tr>" );
+
+			
 		}
 	}
 }

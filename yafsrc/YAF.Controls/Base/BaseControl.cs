@@ -32,9 +32,6 @@ namespace YAF.Controls
 	/// </summary>
 	public class BaseControl : System.Web.UI.Control
 	{
-		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
-		{
-		}
 
 		public YafContext PageContext
 		{
