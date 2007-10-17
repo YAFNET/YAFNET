@@ -31,64 +31,69 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-    /// <summary>
-    /// Summary description for bannedip.
-    /// </summary>
-    public partial class extensions : YAF.Classes.Base.AdminPage
-    {
+	/// <summary>
+	/// Summary description for bannedip.
+	/// </summary>
+	public partial class extensions : YAF.Classes.Base.AdminPage
+	{
 
-        protected void Page_Load(object sender, System.EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-                PageLinks.AddLink("Administration", YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.admin_admin));
-                PageLinks.AddLink("File Extensions", "");
+		protected void Page_Load( object sender, System.EventArgs e )
+		{
+			if ( !IsPostBack )
+			{
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "File Extensions", "" );
 
-                BindData();
-            }
-        }
+				BindData();
+			}
+		}
 
-        private void BindData()
-        {
-            list.DataSource = YAF.Classes.Data.DB.extension_list(PageContext.PageBoardID);
-            DataBind();
-        }
+		private void BindData()
+		{
+			list.DataSource = YAF.Classes.Data.DB.extension_list( PageContext.PageBoardID );
+			DataBind();
+		}
 
-        private void list_ItemCommand(object sender, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName == "add")
-                YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.admin_extensions_edit);
-            else if (e.CommandName == "edit")
-                YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument);
-            else if (e.CommandName == "delete")
-            {
-                YAF.Classes.Data.DB.extension_delete(e.CommandArgument);
-                Cache.Remove("extension");
-                BindData();
-                PageContext.AddLoadMessage("Removed file extension.");
-            }
-        }
+		protected void Delete_Load( object sender, System.EventArgs e )
+		{
+			( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this rank?')";
+		}
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            list.ItemCommand += new RepeaterCommandEventHandler(list_ItemCommand);
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
+		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
+		{
+			if ( e.CommandName == "add" )
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_extensions_edit );
+			else if ( e.CommandName == "edit" )
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_extensions_edit, "i={0}", e.CommandArgument );
+			else if ( e.CommandName == "delete" )
+			{
+				YAF.Classes.Data.DB.extension_delete( e.CommandArgument );
+				Cache.Remove( "extension" );
+				BindData();
+				PageContext.AddLoadMessage( "Removed file extension." );
+			}
+		}
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		#region Web Form Designer generated code
+		override protected void OnInit( EventArgs e )
+		{
+			list.ItemCommand += new RepeaterCommandEventHandler( list_ItemCommand );
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit( e );
+		}
 
-        }
-        #endregion
-    }
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+
+		}
+		#endregion
+	}
 }

@@ -6,11 +6,11 @@
 		<HeaderTemplate>
 			<table class="content" cellspacing="1" cellpadding="0" width="100%">
 				<tr>
-					<td class="header1" colspan="3">File Extensions</td>
+					<td class="header1" colspan="2">Allowed File Extensions</td>
 				</tr>
 				<tr>
-					<td class="header2">File Extensions</td>
-					<td class="header2"></td>
+					<td class="header2" width="90%">File Extensions</td>
+					<td class="header2">&nbsp;</td>
 				</tr>
 		</HeaderTemplate>
 		<ItemTemplate>
@@ -20,7 +20,7 @@
 					<asp:linkbutton runat="server" text="Edit" commandname="edit" commandargument='<%# Eval("extensionId") %>' ID="Linkbutton1">
 					</asp:linkbutton>
 					|
-					<asp:linkbutton runat="server" text="Delete" commandname="delete" commandargument='<%# Eval("extensionId") %>' ID="Linkbutton2">
+					<asp:linkbutton runat="server" text="Delete" onload="Delete_Load" commandname="delete" commandargument='<%# Eval("extensionId") %>' ID="Linkbutton2">
 					</asp:linkbutton>
 				</td>
 			</tr>
