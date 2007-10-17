@@ -21,9 +21,9 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<%# HtmlEncode( Eval( "FromUser" ) )%>
+				<b><YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "FromUserID" )) %>' UserName='<%# Convert.ToString(Eval( "FromUser" )) %>' /></b>
 			</td>
-			<td class="postheader">
+			<td class="postheader" width="80%">
 				<table cellspacing="0" cellpadding="0" width="100%">
 					<tr>
 						<td>
