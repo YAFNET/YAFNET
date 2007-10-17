@@ -269,14 +269,20 @@ namespace YAF.Classes.UI
 
 		static public string FormatMessage( string message, MessageFlags messageFlags )
 		{
-			return FormatMessage( message, messageFlags, true );
+			return FormatMessage( message, messageFlags, true, false );
+		}
+
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged )
+		{
+			return FormatMessage( message, messageFlags, isModeratorChanged, false );
 		}
 
 		//if message was deleted then write that instead of real body
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged )
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
 		{
 			if ( messageFlags.IsDeleted )
 			{
+				// TODO: Needs to be localized
 				message = "Message was deleted";
 				if ( isModeratorChanged ) { message += " by moderator."; } else { message += " by user."; };
 				return message;
@@ -285,14 +291,8 @@ namespace YAF.Classes.UI
 			// do html damage control
 			message = RepairHtml( message, messageFlags.IsHTML );
 
-			// convert spaces if bbcode (causes too many problems)
-			/*if (messageFlags.IsBBCode)
-			{
-				message = message.Replace(" ","&nbsp;");
-			}*/
-
 			// do BBCode and Smilies...
-			message = BBCode.MakeHtml( message, messageFlags.IsBBCode );
+			message = BBCode.MakeHtml( message, messageFlags.IsBBCode, targetBlankOverride );
 
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
@@ -300,7 +300,7 @@ namespace YAF.Classes.UI
 			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
 
 			// URLs
-			if (YafContext.Current.BoardSettings.BlankLinks)
+			if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 			{
 				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
 				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);

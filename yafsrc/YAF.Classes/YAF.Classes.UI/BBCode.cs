@@ -107,7 +107,15 @@ namespace YAF.Classes.UI
 		static private Regex _rgxYoutube = new Regex( @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]", _options);
 		static private Regex _rgxHtml = new Regex( @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options );
 
-		static public string MakeHtml( string bbcode, bool doFormatting )
+		/// <summary>
+		/// Converts BBCode to HTML.
+		/// Needs to be refactored!
+		/// </summary>
+		/// <param name="bbcode"></param>
+		/// <param name="doFormatting"></param>
+		/// <param name="targetBlankOverride"></param>
+		/// <returns></returns>
+		static public string MakeHtml( string bbcode, bool doFormatting, bool targetBlankOverride )
 		{
 			System.Collections.ArrayList codes = new System.Collections.ArrayList();
 			const string codeFormat = ".code@{0}.";
@@ -180,7 +188,7 @@ namespace YAF.Classes.UI
 				NestedReplace( ref bbcode, _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", new string [] { "email" } );
 				NestedReplace( ref bbcode, _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>" );
 				// urls
-				if ( YafContext.Current.BoardSettings.BlankLinks )
+				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 				{
 					NestedReplace( ref bbcode, _rgxUrl2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
 					NestedReplace( ref bbcode, _rgxUrl1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
@@ -233,7 +241,7 @@ namespace YAF.Classes.UI
 			while ( m.Success )
 			{
 				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
-				if ( YafContext.Current.BoardSettings.BlankLinks )
+				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
@@ -244,7 +252,7 @@ namespace YAF.Classes.UI
 			while ( m.Success )
 			{
 				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", m.Groups ["topic"] );
-				if ( YafContext.Current.BoardSettings.BlankLinks )
+				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
 				else
 					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
@@ -394,6 +402,9 @@ namespace YAF.Classes.UI
 			System.Text.StringBuilder jsScriptBuilder = new System.Text.StringBuilder();
 			System.Text.StringBuilder cssBuilder = new System.Text.StringBuilder();
 
+			jsScriptBuilder.Append( "\r\n" );
+			cssBuilder.Append( "\r\n" );
+
 			foreach ( DataRow row in bbCodeTable.Rows )
 			{				
 				string displayScript = null;				
@@ -429,7 +440,7 @@ namespace YAF.Classes.UI
 				// register the javascript from all the custom bbcode...
 				if ( !currentPage.ClientScript.IsClientScriptBlockRegistered( scriptID + "_script" ) )
 				{
-					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID, string.Format( @"<script language=""javascript"" type=""text/javascript"">{0}</script>", jsScriptBuilder.ToString() ) );
+					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID + "_script", string.Format( @"<script language=""javascript"" type=""text/javascript"">{0}</script>", jsScriptBuilder.ToString() ) );
 				}
 			}
 
@@ -438,7 +449,7 @@ namespace YAF.Classes.UI
 				// register the CSS from all custom bbcode...
 				if ( !currentPage.ClientScript.IsClientScriptBlockRegistered( scriptID + "_css" ) )
 				{
-					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID, string.Format( @"<style type=""text/css"">{0}</script>", cssBuilder.ToString() ) );
+					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID + "_css", string.Format( @"<style type=""text/css"">{0}</style>", cssBuilder.ToString() ) );
 				}
 			}
 		}

@@ -16,35 +16,39 @@ namespace YAF.Pages // YAF.Pages
 	public partial class lastposts : YAF.Classes.Base.ForumPage
 	{
 
-		public lastposts() : base("POSTMESSAGE")
+		public lastposts()
+			: base( "POSTMESSAGE" )
 		{
 			ShowToolBar = false;
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!PageContext.ForumReadAccess)
+			if ( !PageContext.ForumReadAccess )
 				YafBuildLink.AccessDenied();
 
-			if (Request.QueryString["t"] != null)
+			if ( Request.QueryString ["t"] != null )
 			{
-				repLastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10(Request.QueryString["t"]);
+				repLastPosts.DataSource = YAF.Classes.Data.DB.post_list_reverse10( Request.QueryString ["t"] );
 				repLastPosts.DataBind();
 			}
+
+			// handle custom BBCode javascript or CSS...
+			BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 		}
 
-		protected string FormatBody(object o) 
+		protected string FormatBody( object o )
 		{
-			DataRowView row = (DataRowView)o;
-			string html = FormatMsg.FormatMessage(row["Message"].ToString(),new MessageFlags(Convert.ToInt32(row["Flags"])));
+			DataRowView row = ( DataRowView ) o;
+			string html = FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ), false, true );
 
-			string messageSignature = row["Signature"].ToString();
-			if (messageSignature != string.Empty) 
+			string messageSignature = row ["Signature"].ToString();
+			if ( messageSignature != string.Empty )
 			{
 				MessageFlags flags = new MessageFlags();
 				flags.IsHTML = false;
 
-				messageSignature = FormatMsg.FormatMessage(messageSignature,flags);
+				messageSignature = FormatMsg.FormatMessage( messageSignature, flags );
 				html += "<br/><hr noshade/>" + messageSignature;
 			}
 

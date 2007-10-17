@@ -124,33 +124,42 @@ namespace YAF.Pages
 				if (PageContext.Settings.LockedForum == 0)
 				{
 					PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+					PageLinks.AddLink(PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID));					
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 
-				if (TopicID != null)
+				if ( TopicID != null )
 				{
 					// new post...
-					DataRow topic = DB.topic_info(TopicID);
+					DataRow topic = DB.topic_info( TopicID );
 					// Ederon : 9/9/2007 - moderators can reply in locked topics
-					if (General.BinaryAnd(topic["Flags"], TopicFlags.Locked) && !PageContext.ForumModeratorAccess)
-						Response.Redirect(Request.UrlReferrer.ToString());
+					if ( General.BinaryAnd( topic ["Flags"], TopicFlags.Locked ) && !PageContext.ForumModeratorAccess )
+						Response.Redirect( Request.UrlReferrer.ToString() );
 					SubjectRow.Visible = false;
-					Title.Text = GetText("reply");
+					Title.Text = GetText( "reply" );
 
-					if (YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal)
+					// add topic link...
+					PageLinks.AddLink( Server.HtmlDecode( topic ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
+					// add "reply" text...
+					PageLinks.AddLink( GetText( "reply" ) );
+
+					if ( YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal )
 					{
 						// can't use the last post iframe
 						LastPosts.Visible = true;
-						LastPosts.DataSource = DB.post_list_reverse10(TopicID);
+						LastPosts.DataSource = DB.post_list_reverse10( TopicID );
 						LastPosts.DataBind();
 					}
 					else
 					{
 						LastPostsIFrame.Visible = true;
-						LastPostsIFrame.Attributes.Add("src", string.Format("{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID));
+						LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
 					}
-
+				}
+				else
+				{
+					// add link for "New Topic"
+					PageLinks.AddLink( GetText( "NEWTOPIC" ) );
 				}
 
 				// Ederon : 7/14/2007 - added condition set by board admin

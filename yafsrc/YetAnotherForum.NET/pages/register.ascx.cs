@@ -82,7 +82,7 @@ namespace YAF.Pages // YAF.Pages
         ( ( Button ) FindWizardControl( "ContinueButton" ) ).Text = GetText( "CONTINUE" );
 
         // agreement terms and conditions
-        ( ( Literal ) FindWizardControl( "TermsAndConditions" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "TERMS_AND_CONDITIONS" ), true );
+        ( ( Literal ) FindWizardControl( "TermsAndConditions" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "TERMS_AND_CONDITIONS" ), true, false );
 
 				// get the time zone data source
 				DropDownList timeZones = ( ( DropDownList ) FindWizardControl( "TimeZones" ) );
@@ -94,14 +94,14 @@ namespace YAF.Pages // YAF.Pages
 					CreateUserWizard1.LoginCreatedUser = true;
 					CreateUserWizard1.DisableCreatedUser = false;
           // success notification localization
-          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED" ), true );
+          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED" ), true, false );
 				}
 				else
 				{
 					CreateUserWizard1.LoginCreatedUser = false;
 					CreateUserWizard1.DisableCreatedUser = true;
           // success notification localization
-          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED_VERIFICATION" ), true );
+          ( ( Literal ) FindWizardControl( "AccountCreated" ) ).Text = YAF.Classes.UI.BBCode.MakeHtml( GetText( "ACCOUNT_CREATED_VERIFICATION" ), true, false );
 				}
 
 				if ( PageContext.BoardSettings.EnableCaptchaForRegister )

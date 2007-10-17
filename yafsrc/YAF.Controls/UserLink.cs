@@ -51,6 +51,7 @@ namespace YAF.Controls
 					output.WriteBeginTag( "a" );
 					output.WriteAttribute( "href", YafBuildLink.GetLink(ForumPages.profile,"u={0}",_userID));
 					output.WriteAttribute( "title", HtmlEncode( _userName ));
+					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );
 					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "OnClick", _onclick );
 					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "OnMouseOver", _onmouseover );
 					output.Write(HtmlTextWriter.TagRightChar);
@@ -128,6 +129,22 @@ namespace YAF.Controls
 			set
 			{
 				_userID = value;
+			}
+		}
+
+		/// <summary>
+		/// Make the link target "blank" to open in a new window.
+		/// </summary>
+		private bool _blankTarget = false;
+		public bool BlankTarget
+		{
+			get
+			{
+				return _blankTarget;
+			}
+			set
+			{
+				_blankTarget = value;
 			}
 		}
 	}

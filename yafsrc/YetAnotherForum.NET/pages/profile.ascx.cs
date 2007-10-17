@@ -47,12 +47,10 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// 20050909 CHP : BEGIN
 			if ( PageContext.IsPrivate && User == null )
 			{
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 			}
-			// 20050909 CHP : END
 
 			if ( Request.QueryString ["u"] == null )
 				YafBuildLink.AccessDenied();
@@ -64,6 +62,9 @@ namespace YAF.Pages // YAF.Pages
 				UpdateLast10Panel();
 
 				BindData();
+
+				// handle custom BBCode javascript or CSS...
+				YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 			}
 		}
 
@@ -95,7 +96,7 @@ namespace YAF.Pages // YAF.Pages
 			PageLinks.Clear();
 			PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 			PageLinks.AddLink( GetText( "MEMBERS" ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.members ) );
-			PageLinks.AddLink( HtmlEncode( userData.Membership.UserName ), "" );
+			PageLinks.AddLink( userData.Membership.UserName, "" );
 
 			double dAllPosts = 0.0;
 			if ( ( int ) userData.DBRow ["NumPostsForum"] > 0 )

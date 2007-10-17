@@ -31,20 +31,20 @@ namespace YAF.Controls
 			AddLink( title, "" );
 		}
 
-		public void AddLink(string title,string url) 
+		public void AddLink( string title, string url )
 		{
-			DataTable dt = (DataTable)ViewState["data"];
-			if ( dt == null ) 
+			DataTable dt = ( DataTable ) ViewState ["data"];
+			if ( dt == null )
 			{
 				dt = new DataTable();
-				dt.Columns.Add("Title",typeof(string));
-				dt.Columns.Add("URL",typeof(string));
-				ViewState["data"] = dt;
+				dt.Columns.Add( "Title", typeof( string ) );
+				dt.Columns.Add( "URL", typeof( string ) );
+				ViewState ["data"] = dt;
 			}
 			DataRow dr = dt.NewRow();
-			dr["Title"] = title;
-			dr["URL"] = url;
-			dt.Rows.Add(dr);			
+			dr ["Title"] = title;
+			dr ["URL"] = url;
+			dt.Rows.Add( dr );
 		}
 
 		/// <summary>
@@ -52,55 +52,62 @@ namespace YAF.Controls
 		/// </summary>
 		public void Clear()
 		{
-			DataTable dt = (DataTable)ViewState["data"];
+			DataTable dt = ( DataTable ) ViewState ["data"];
 			if ( dt != null )
 			{
 				ViewState ["data"] = null;
 			}
 		}
 
-		public void AddForumLinks(int forumID)
+		public void AddForumLinks( int forumID )
 		{
-			this.AddForumLinks(forumID,false);
+			this.AddForumLinks( forumID, false );
 		}
 
-		public void AddForumLinks(int forumID, bool noForumLink)
+		public void AddForumLinks( int forumID, bool noForumLink )
 		{
-			using(DataTable dtLinks=YAF.Classes.Data.DB.forum_listpath(forumID))
+			using ( DataTable dtLinks = YAF.Classes.Data.DB.forum_listpath( forumID ) )
 			{
-				foreach(DataRow row in dtLinks.Rows)				
+				foreach ( DataRow row in dtLinks.Rows )
 				{
-					if (noForumLink && Convert.ToInt32(row["ForumID"]) == forumID)
-						AddLink(row["Name"].ToString(),"");
+					if ( noForumLink && Convert.ToInt32( row ["ForumID"] ) == forumID )
+						AddLink( row ["Name"].ToString(), "" );
 					else
-						AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
+						AddLink( row ["Name"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", row ["ForumID"] ) );
 				}
 			}
 		}
 
-		protected override void Render(System.Web.UI.HtmlTextWriter writer) 
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			DataTable m_links = (DataTable)ViewState["data"];
-			
-			if (m_links == null || m_links.Rows.Count == 0) return;
+			DataTable m_links = ( DataTable ) ViewState ["data"];
 
-			writer.WriteLine("<p class=\"navlinks\">");
+			if ( m_links == null || m_links.Rows.Count == 0 ) return;
+
+			writer.WriteLine( "<p class=\"navlinks\">" );
 
 			bool bFirst = true;
-			foreach(DataRow row in m_links.Rows)
+			foreach ( DataRow row in m_links.Rows )
 			{
-				if(!bFirst) 
-					writer.WriteLine("&#187;"); 
-				else 
+				if ( !bFirst )
+					writer.WriteLine( "&#187;" );
+				else
 					bFirst = false;
 
-				if (row["URL"].ToString().Equals(""))
-					writer.WriteLine("<span id=\"current\">" + row["Title"].ToString() + "</span>");
+				string title = HtmlEncode( row ["Title"].ToString().Trim() );
+				string url = row ["URL"].ToString().Trim();
+
+				if ( String.IsNullOrEmpty( url ) )
+				{
+					writer.WriteLine( String.Format( "<span id=\"current\">{0}</span>", title ) );
+				}
 				else
-					writer.WriteLine(String.Format("<a href=\"{0}\">{1}</a>",row["URL"],row["Title"]));
+				{
+					writer.WriteLine( String.Format( "<a href=\"{0}\">{1}</a>", url, title ) );
+				}
 			}
-			
-			writer.WriteLine("</p>");
+
+			writer.WriteLine( "</p>" );
 		}
 	}
 }

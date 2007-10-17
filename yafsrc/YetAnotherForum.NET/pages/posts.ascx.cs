@@ -98,9 +98,10 @@ namespace YAF.Pages // YAF.Pages
 				DataPanel1.CollapseText = GetText( "QUICKREPLY_HIDE" );
 
 				PageLinks.AddForumLinks( PageContext.PageForumID );
-				PageLinks.AddLink( General.BadWordReplace( PageContext.PageTopicName ), "" );
+				PageLinks.AddLink( General.BadWordReplace( Server.HtmlDecode( PageContext.PageTopicName ) ), "" );
 
 				TopicTitle.Text = General.BadWordReplace( ( string ) _topic ["Topic"] );
+
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
 				ForumJumpLine.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 

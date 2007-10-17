@@ -76,9 +76,9 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				// 20050909 CHP : BEGIN
-				if (PageContext.IsPrivate && User==null)
+				if ( PageContext.IsPrivate && User == null )
 				{
-					if(CanLogin)
+					if ( CanLogin )
 						YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 					else
 						YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
@@ -99,38 +99,41 @@ namespace YAF.Pages // YAF.Pages
 				// listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
 				// listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
 
-                //Load listSearchFromWho dropdown
-                listSearchFromWho.Items.Add(new ListItem(GetText("match_all"), "0"));
-                listSearchFromWho.Items.Add(new ListItem(GetText("match_any"), "1"));
-                listSearchFromWho.Items.Add(new ListItem(GetText("match_exact"), "2"));
+				//Load listSearchFromWho dropdown
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
 
 				// Load listSearchWhat dropdown
-                listSearchWhat.Items.Add(new ListItem(GetText("match_all"), "0"));
-                listSearchWhat.Items.Add(new ListItem(GetText("match_any"), "1"));
-                listSearchWhat.Items.Add(new ListItem(GetText("match_exact"), "2")); ;
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) ); ;
+
+				// handle custom BBCode javascript or CSS...
+				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 
 				//Load forum's combo
 				//listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
-                //DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
+				//DataTable dt = YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, null, null );
 
-                //int nOldCat = 0;
-                //for ( int i = 0; i < dt.Rows.Count; i++ )
-                //{
-                //    DataRow row = dt.Rows [i];
-                //    if ( ( int ) row ["CategoryID"] != nOldCat )
-                //    {
-                //        nOldCat = ( int ) row ["CategoryID"];
-                //        listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
-                //    }
-                //    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
-                //}
+				//int nOldCat = 0;
+				//for ( int i = 0; i < dt.Rows.Count; i++ )
+				//{
+				//    DataRow row = dt.Rows [i];
+				//    if ( ( int ) row ["CategoryID"] != nOldCat )
+				//    {
+				//        nOldCat = ( int ) row ["CategoryID"];
+				//        listForum.Items.Add( new ListItem( ( string ) row ["Category"], "-1" ) );
+				//    }
+				//    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
+				//}
 
-                listForum.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
-                listForum.DataValueField = "ForumID";
-                listForum.DataTextField = "Title";
-                DataBind();
-                listForum.Items.Insert(0, new ListItem(GetText("allforums"), "0"));
-			}
+				listForum.DataSource = DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
+				listForum.DataValueField = "ForumID";
+				listForum.DataTextField = "Title";
+				DataBind();
+				listForum.Items.Insert( 0, new ListItem( GetText( "allforums" ), "0" ) );
+			}			
 		}
 
 		private void Pager_PageChange( object sender, EventArgs e )
@@ -172,10 +175,10 @@ namespace YAF.Pages // YAF.Pages
 				if ( newSearch )
 				{
 					SearchWhatFlags sw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchWhat.SelectedValue );
-                    SearchWhatFlags sfw = (SearchWhatFlags)System.Enum.Parse(typeof(SearchWhatFlags), listSearchFromWho.SelectedValue);
+					SearchWhatFlags sfw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
-                    DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult(txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID);
+					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID );
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = searchDataTable.DefaultView.Count;
