@@ -123,6 +123,7 @@
 		<Resource tag="FILEERROR">'{0}' is not a valid file for upload.</Resource>
 		<Resource tag="ASK_DELETE">Delete this attachment?</Resource>
 		<Resource tag="ERROR_TOOBIG">You cannot attach files that big.</Resource>
+		<Resource tag="ALLOWED_EXTENSIONS">Allowed file extensions</Resource>
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
