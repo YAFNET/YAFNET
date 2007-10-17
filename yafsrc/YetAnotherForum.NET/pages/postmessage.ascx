@@ -170,6 +170,15 @@
       <!-- editor goes here -->
     </td>
   </tr>
+  <tr id="NewTopicOptionsRow" runat="server" visible="false">
+      <td class="postformheader" valign="top">
+          <YAF:LocalizedLabel ID="NewPostOptionsLabel" runat="server" LocalizedTag="NEWPOSTOPTIONS" />
+      </td>
+      <td class="post">
+				<asp:CheckBox ID="TopicWatch" runat="server" /><YAF:LocalizedLabel ID="TopicWatchLabel" runat="server" LocalizedTag="TOPICWATCH" /><br />
+				<asp:CheckBox ID="TopicAttach" runat="server" visible="false" /><YAF:LocalizedLabel ID="TopicAttachLabel" runat="server" LocalizedTag="TOPICATTACH" visible="false"  />
+      </td>
+  </tr>    
   <tr runat="server" id="tr_captcha1" visible="false">
       <td class="postformheader" valign="top">
           <%= GetText("Captcha_Image") %>

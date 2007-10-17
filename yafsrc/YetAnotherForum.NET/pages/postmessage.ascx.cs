@@ -98,6 +98,9 @@ namespace YAF.Pages
 
 			if (!IsPostBack)
 			{
+				// helper bool -- true if this is a completely new topic...
+				bool isNewTopic = ( TopicID == null ) && ( QuotedTopicID == null ) && ( EditTopicID == null );
+
 				Priority.Items.Add(new ListItem(GetText("normal"), "0"));
 				Priority.Items.Add(new ListItem(GetText("sticky"), "1"));
 				Priority.Items.Add(new ListItem(GetText("announcement"), "2"));
@@ -111,7 +114,18 @@ namespace YAF.Pages
 
 				PersistencyRow.Visible = PageContext.ForumPriorityAccess;
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
-				CreatePollRow.Visible = TopicID == null && PageContext.ForumPollAccess;
+				CreatePollRow.Visible = isNewTopic && PageContext.ForumPollAccess;
+
+				// Show post to blog option only to a new post
+				BlogRow.Visible = (PageContext.BoardSettings.AllowPostToBlog && isNewTopic && !PageContext.IsGuest);
+
+				// handle new topic options...
+				NewTopicOptionsRow.Visible = isNewTopic && !PageContext.IsGuest;
+				if ( isNewTopic && PageContext.ForumUploadAccess )
+				{
+					TopicAttach.Visible = true;
+					TopicAttachLabel.Visible = true;
+				}
 
 				if ( PageContext.BoardSettings.EnableCaptchaForPost )
 				{
@@ -128,9 +142,9 @@ namespace YAF.Pages
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 
+				// check if it's a reply to a topic...
 				if ( TopicID != null )
-				{
-					// new post...
+				{					
 					DataRow topic = DB.topic_info( TopicID );
 					// Ederon : 9/9/2007 - moderators can reply in locked topics
 					if ( General.BinaryAnd( topic ["Flags"], TopicFlags.Locked ) && !PageContext.ForumModeratorAccess )
@@ -156,34 +170,16 @@ namespace YAF.Pages
 						LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
 					}
 				}
-				else
-				{
-					// add link for "New Topic"
-					PageLinks.AddLink( GetText( "NEWTOPIC" ) );
-				}
 
-				// Ederon : 7/14/2007 - added condition set by board admin
-				// Mek : 08/19/2007 - added condition to stop displaying post to blog for Guest User.
-				// POST TO BLOG
-				if (PageContext.BoardSettings.AllowPostToBlog &&
-					TopicID == null && QuotedTopicID == null && EditTopicID == null && !PageContext.IsGuest)
-				{
-					// Show post to blog option only to a new post
-					BlogRow.Visible = true;
-				}
-
+				// quoted reply to topic...
 				if (QuotedTopicID != null)
 				{
-					// reply to post...
 					bool isHtml = currentRow["Message"].ToString().IndexOf('<') >= 0;
-
 					string tmpMessage = currentRow["Message"].ToString();
-
 					if (PageContext.BoardSettings.RemoveNestedQuotes)
 					{
 						tmpMessage = FormatMsg.RemoveNestedQuotes( tmpMessage );
 					}
-
 					uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], tmpMessage).TrimStart();
 				}
 				else if (EditTopicID != null)
@@ -192,6 +188,11 @@ namespace YAF.Pages
 					string body = currentRow["message"].ToString();
 					uxMessage.Text = body;
 					Title.Text = GetText("EDIT");
+
+					// add topic link...
+					PageLinks.AddLink( Server.HtmlDecode( currentRow ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
+					// editing..
+					PageLinks.AddLink( GetText( "EDIT" ) );
 
 					string blogPostID = currentRow["blogpostid"].ToString();
 					if (blogPostID != string.Empty) // The user used this post to blog
@@ -214,7 +215,6 @@ namespace YAF.Pages
 						Subject.Enabled = false;
 					}
 
-					CreatePollRow.Visible = false;
 					Priority.SelectedItem.Selected = false;
 					Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
 					EditReasonRow.Visible = true;
@@ -222,6 +222,13 @@ namespace YAF.Pages
 					Persistency.Checked = General.BinaryAnd(currentRow["Flags"], TopicFlags.Persistent);
 				}
 
+				// add the "New Topic" page link last...
+				if ( isNewTopic )
+				{
+					PageLinks.AddLink( GetText( "NEWTOPIC" ) );
+				}
+
+				// form user is only for "Guest"
 				From.Text = PageContext.PageUserName;
 				if (User != null)
 					FromRow.Visible = false;
@@ -396,7 +403,13 @@ namespace YAF.Pages
 			string blogPostID = HandlePostToBlog(uxMessage.Text, Subject.Text);
 
 			// Save to Db
-			DB.topic_save(PageContext.PageForumID, HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+			long topicID = DB.topic_save(PageContext.PageForumID, HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+
+			if ( TopicWatch.Checked )
+			{
+				// subscribe to this topic...
+				DB.watchtopic_add( PageContext.PageUserID, topicID );
+			}
 
 			return nMessageID;
 		}
@@ -437,6 +450,7 @@ namespace YAF.Pages
 			Mession.LastPost = DateTime.Now;
 
 			long nMessageID = 0;
+			bool isNewTopic = false;
 
 			if (TopicID != null) // Reply to topic
 			{
@@ -449,6 +463,7 @@ namespace YAF.Pages
 			else // New post
 			{
 				nMessageID = PostReplyHandleNewPost();
+				isNewTopic = true;
 			}
 
 			// Check if message is approved
@@ -461,7 +476,17 @@ namespace YAF.Pages
 			if (bApproved)
 			{
 				General.CreateWatchEmail(nMessageID);
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID);
+
+				if ( isNewTopic && PageContext.ForumUploadAccess && TopicAttach.Checked )
+				{
+					// redirect to the attachment page...
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.attachments, "m={0}", nMessageID );
+				}
+				else
+				{
+					// regular redirect...
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID );
+				}
 			}
 			else
 			{

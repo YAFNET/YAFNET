@@ -644,6 +644,9 @@
 		<Resource tag="EDITREASON">Reason for edit:</Resource>
 		<Resource tag="PERSISTENCY">Persistent:</Resource>
 		<Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
+		<Resource tag="NEWPOSTOPTIONS">Options:</Resource>
+		<Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
+		<Resource tag="TOPICATTACH">Attach files to this post?</Resource>		
 	</page>
 	<page name="SHOWSMILIES">
 		<!-- showsmilies.ascx -->
