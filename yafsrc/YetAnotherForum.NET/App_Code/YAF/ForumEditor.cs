@@ -186,27 +186,27 @@ namespace YAF.Editor
 			writer.WriteLine( "	<table border='0' cellpadding='1' cellspacing='2' id='bbcodeFeatures'>" );
 			writer.WriteLine( "	<tr><td valign='middle'>" );
 
-			RenderButton( writer, "bold", "FormatText('bold','')", YafContext.Current.Localization.GetText( "TT_BOLD" ), "yafEditor/bold.gif" );
-			RenderButton( writer, "italic", "FormatText('italic','')", YafContext.Current.Localization.GetText( "TT_ITALIC" ), "yafEditor/italic.gif" );
-			RenderButton( writer, "underline", "FormatText('underline','')", YafContext.Current.Localization.GetText( "TT_UNDERLINE" ), "yafEditor/underline.gif" );
+			RenderButton( writer, "bold", "FormatText('bold','')", YafContext.Current.Localization.GetText( "COMMON", "TT_BOLD" ), "yafEditor/bold.gif" );
+			RenderButton( writer, "italic", "FormatText('italic','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ITALIC" ), "yafEditor/italic.gif" );
+			RenderButton( writer, "underline", "FormatText('underline','')", YafContext.Current.Localization.GetText( "COMMON", "TT_UNDERLINE" ), "yafEditor/underline.gif" );
 
 			writer.WriteLine( "&nbsp;" );
 
-			RenderButton( writer, "quote", "FormatText('quote','')", YafContext.Current.Localization.GetText( "TT_QUOTE" ), "yafEditor/quote.gif" );
-			RenderButton( writer, "code", "FormatText('code','')", YafContext.Current.Localization.GetText( "TT_CODE" ), "yafEditor/code.gif" );
-			RenderButton( writer, "img", "FormatText('img','')", YafContext.Current.Localization.GetText( "TT_IMAGE" ), "yafEditor/image.gif" );
-			RenderButton( writer, "createlink", "FormatText('createlink','')", YafContext.Current.Localization.GetText( "TT_CREATELINK" ), "yafEditor/link.gif" );
+			RenderButton( writer, "quote", "FormatText('quote','')", YafContext.Current.Localization.GetText( "COMMON", "TT_QUOTE" ), "yafEditor/quote.gif" );
+			RenderButton( writer, "code", "FormatText('code','')", YafContext.Current.Localization.GetText( "COMMON", "TT_CODE" ), "yafEditor/code.gif" );
+			RenderButton( writer, "img", "FormatText('img','')", YafContext.Current.Localization.GetText( "COMMON", "TT_IMAGE" ), "yafEditor/image.gif" );
+			RenderButton( writer, "createlink", "FormatText('createlink','')", YafContext.Current.Localization.GetText( "COMMON", "TT_CREATELINK" ), "yafEditor/link.gif" );
 
 			writer.WriteLine( "&nbsp;" );
 
-			RenderButton( writer, "justifyleft", "FormatText('justifyleft','')", YafContext.Current.Localization.GetText( "TT_ALIGNLEFT" ), "yafEditor/justifyleft.gif" );
-			RenderButton( writer, "justifycenter", "FormatText('justifycenter','')", YafContext.Current.Localization.GetText( "TT_ALIGNCENTER" ), "yafEditor/justifycenter.gif" );
-			RenderButton( writer, "justifyright", "FormatText('justifyright','')", YafContext.Current.Localization.GetText( "TT_ALIGNRIGHT" ), "yafEditor/justifyright.gif" );
+			RenderButton( writer, "justifyleft", "FormatText('justifyleft','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNLEFT" ), "yafEditor/justifyleft.gif" );
+			RenderButton( writer, "justifycenter", "FormatText('justifycenter','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNCENTER" ), "yafEditor/justifycenter.gif" );
+			RenderButton( writer, "justifyright", "FormatText('justifyright','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNRIGHT" ), "yafEditor/justifyright.gif" );
 
 			writer.WriteLine( "	</td></tr>" );
 			writer.WriteLine( "	<tr><td valign='middle'>" );
 
-			writer.WriteLine( YafContext.Current.Localization.GetText( "FONT_COLOR" ) );
+			writer.WriteLine( YafContext.Current.Localization.GetText( "COMMON", "FONT_COLOR" ) );
 			writer.WriteLine( "<select onchange=\"if(this.value!='') setStyle('color',this.value); this.value=''\">", SafeID );
 			writer.WriteLine( "<option value=\"\">Default</option>" );
 
@@ -219,7 +219,7 @@ namespace YAF.Editor
 
 			writer.WriteLine( "</select>" );
 
-			writer.WriteLine( YafContext.Current.Localization.GetText( "FONT_SIZE" ) );
+			writer.WriteLine( YafContext.Current.Localization.GetText( "COMMON", "FONT_SIZE" ) );
 			writer.WriteLine( "<select onchange=\"if(this.value!='') setStyle('fontsize',this.value); this.value=''\">", SafeID );
 			writer.WriteLine( "<option value=\"1\">1</option>" );
 			writer.WriteLine( "<option value=\"2\">2</option>" );
@@ -237,7 +237,7 @@ namespace YAF.Editor
 			if ( bbCodeTable.Rows.Count > 0 )
 			{
 				// add drop down for optional "extra" codes...
-				writer.WriteLine( YafContext.Current.Localization.GetText( "CUSTOM_BBCODE" ) );
+				writer.WriteLine( YafContext.Current.Localization.GetText( "COMMON", "CUSTOM_BBCODE" ) );
 				writer.WriteLine( @"<select id=""customBBCode"" onchange=""this.value='none'"">" );
 
 				// empty
