@@ -277,6 +277,13 @@ namespace YAF.Classes.UI
 			return FormatMessage( message, messageFlags, isModeratorChanged, false );
 		}
 
+		// format message regex
+		static private RegexOptions _options = RegexOptions.IgnoreCase;
+		static private Regex _rgxEmail = new Regex( @"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", _options );
+		static private Regex _rgxUrl1 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", _options );
+		static private Regex _rgxUrl2 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,#~$]*[^.<])?)", _options );
+		static private Regex _rgxUrl3 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", _options );
+
 		//if message was deleted then write that instead of real body
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
 		{
@@ -294,29 +301,22 @@ namespace YAF.Classes.UI
 			// do BBCode and Smilies...
 			message = BBCode.MakeHtml( message, messageFlags.IsBBCode, targetBlankOverride );
 
-			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
-
 			//Email -- RegEx VS.NET
-			message = Regex.Replace( message, @"(?<before>^|[ ]|<br/>)(?<email>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", "${before}<a href=\"mailto:${email}\">${email}</a>", options );
+			BBCode.NestedReplace( ref message, _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new string [] { "before" } );
 
 			// URLs
 			if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 			{
-				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
-				// Demonixed : addition
-				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
-				//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-				message = Regex.Replace(message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options);
+				// target is blank...
+				BBCode.NestedReplace( ref message, _rgxUrl1, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
+				BBCode.NestedReplace( ref message, _rgxUrl2, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
+				BBCode.NestedReplace( ref message, _rgxUrl3, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
 			}
 			else
 			{
-				//URL (http://) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
-				// Demonixed : addition
-				message = Regex.Replace(message, "(?<before>^|[ ]|<br/>)(?<!href=\")(?<!src=\")(?<url>(http://|https://|ftp://)(?:[\\w-]+\\.)+[\\w-]+(?:/[\\w-./?%&=;,#~$]*[^.<])?)", "${before}<a rel=\"nofollow\" href=\"${url}\">${url}</a>", options);
-				//URL (www) -- RegEx http://www.dotnet247.com/247reference/msgs/2/10022.aspx
-				message = Regex.Replace(message, @"(?<before>^|[ ]|<br/>)(?<!http://)(?<url>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", "${before}<a rel=\"nofollow\" href=\"http://${url}\">${url}</a>", options);
+				BBCode.NestedReplace( ref message, _rgxUrl1, "${before}<a rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
+				BBCode.NestedReplace( ref message, _rgxUrl2, "${before}<a rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
+				BBCode.NestedReplace( ref message, _rgxUrl3, "${before}<a rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
 			}
 
 			// jaben : moved word replace to reusable function in class utils

@@ -190,13 +190,13 @@ namespace YAF.Classes.UI
 				// urls
 				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
 				{
-					NestedReplace( ref bbcode, _rgxUrl2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, _rgxUrl1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
+					NestedReplace( ref bbcode, _rgxUrl2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
+					NestedReplace( ref bbcode, _rgxUrl1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" }, 50 );
 				}
 				else
 				{
-					NestedReplace( ref bbcode, _rgxUrl2, "<a rel=\"nofollow\" href=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, _rgxUrl1, "<a rel=\"nofollow\" href=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" } );
+					NestedReplace( ref bbcode, _rgxUrl2, "<a rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
+					NestedReplace( ref bbcode, _rgxUrl1, "<a rel=\"nofollow\" href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>", new string [] { "http" }, new string [] { "http://" }, 50 );
 				}
 				// font
 				NestedReplace( ref bbcode, _rgxFont, "<span style=\"font-family:${font}\">${inner}</span>", new string [] { "font" } );
@@ -267,7 +267,12 @@ namespace YAF.Classes.UI
 			return bbcode;
 		}
 
-		static protected void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables, string [] varDefaults )
+		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables, string [] varDefaults )
+		{
+			NestedReplace( ref refText, regexMatch, strReplace, variables, varDefaults, 0 );
+		}
+
+		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables, string [] varDefaults, int innerTruncate )
 		{
 			Match m = regexMatch.Match( refText );
 			while ( m.Success )
@@ -289,12 +294,18 @@ namespace YAF.Classes.UI
 
 				tStr = tStr.Replace( "${inner}", m.Groups ["inner"].Value );
 
+				if ( innerTruncate > 0 )
+				{
+					// special handling to truncate urls
+					tStr = tStr.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, innerTruncate ) );
+				}
+
 				refText = refText.Substring( 0, m.Groups [0].Index ) + tStr + refText.Substring( m.Groups [0].Index + m.Groups [0].Length );
 				m = regexMatch.Match( refText );
 			}
 		}
 
-		static protected void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables )
+		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables )
 		{
 			Match m = regexMatch.Match( refText );
 			while ( m.Success )
@@ -313,7 +324,7 @@ namespace YAF.Classes.UI
 			}
 		}
 
-		static protected void NestedReplace( ref string refText, Regex regexMatch, string strReplace )
+		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace )
 		{
 			Match m = regexMatch.Match( refText );
 			while ( m.Success )

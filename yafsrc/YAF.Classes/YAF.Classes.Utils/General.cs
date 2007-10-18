@@ -178,6 +178,44 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Truncates a string with the specified limits by adding (...) to the middle
+		/// </summary>
+		/// <param name="input">input string</param>
+		/// <param name="limit">max size of string</param>
+		/// <returns>truncated string</returns>
+		public static string TruncateMiddle( string input, int limit )
+		{
+			string output = input;
+			const string middle = "...";
+
+			// Check if the string is longer than the allowed amount
+			// otherwise do nothing
+			if ( output.Length > limit && limit > 0 )
+			{
+				// figure out how much to make it fit...
+				int left = ( limit / 2 ) - ( middle.Length / 2 );
+				int right = limit - left - ( middle.Length / 2 );
+
+				if ( ( left + right + middle.Length ) < limit )
+				{
+					right++;
+				}
+				else if ( ( left + right + middle.Length ) > limit )
+				{
+					right--;
+				}
+
+				// cut the left side
+				output = input.Substring( 0, left );
+				// add the middle
+				output += middle;
+				// add the right side...
+				output += input.Substring( input.Length - right, right );
+			}
+			return output;
+		}
+
+		/// <summary>
 		/// Reads a template from the templates directory
 		/// </summary>
 		/// <param name="name">Name of template (not including path)</param>
