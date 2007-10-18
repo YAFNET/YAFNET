@@ -190,7 +190,7 @@ namespace YAF.Pages
 					Title.Text = GetText("EDIT");
 
 					// add topic link...
-					PageLinks.AddLink( Server.HtmlDecode( currentRow ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
+					PageLinks.AddLink( Server.HtmlDecode( currentRow ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID ) );
 					// editing..
 					PageLinks.AddLink( GetText( "EDIT" ) );
 
