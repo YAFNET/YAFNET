@@ -37,7 +37,7 @@
 					<td class="header1" colspan="6">
 						YetAnotherForum Roles</td>
 				</tr>       
-					<td colspan="6" class="post">Note: Deleting one of these "linked" roles outside of YAF user role data lose. If you want to delete the role, first "Delete from YAF" then the role can be managed outside of YAF.</td>			
+					<td colspan="6" class="post">Note: Deleting one of these "linked" roles outside of YAF will cause user data loss. If you want to delete the role, first "Delete from YAF" then the role can be managed outside of YAF.</td>			
         <tr>
           <td class="header2">
             Name</td>

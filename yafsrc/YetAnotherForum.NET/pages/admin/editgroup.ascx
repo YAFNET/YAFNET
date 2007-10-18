@@ -8,33 +8,33 @@
   <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
       <td class="header1" colspan="11">
-        Edit Group</td>
+        Add/Edit Role</td>
     </tr>
     <tr>
       <td class="postheader" width="50%">
         <b>Name:</b><br />
-        Name of this group.</td>
+        Name of this role.</td>
       <td class="post" width="50%">
         <asp:TextBox Style="width: 300px" ID="Name" runat="server" /></td>
     </tr>
     <tr>
       <td class="postheader">
         <b>Is Start:</b><br />
-        If this is checked, all new users will be a member of this group.</td>
+        If this is checked, all new users will be a member of this role.</td>
       <td class="post">
         <asp:CheckBox ID="IsStartX" runat="server"></asp:CheckBox></td>
     </tr>    
     <tr>
       <td class="postheader">
         <b>Is Forum Moderator:</b><br />
-        When this is checked, members of this group will have some admin access rights.</td>
+        When this is checked, members of this role will have some admin access rights in YAF.</td>
       <td class="post">
         <asp:CheckBox ID="IsModeratorX" runat="server"></asp:CheckBox></td>
     </tr>
     <tr>
       <td class="postheader">
         <b>Is Admin:</b><br />
-        Means that users in this group are admins.</td>
+        Means that users in this role are admins in YAF.</td>
       <td class="post">
         <asp:CheckBox ID="IsAdminX" runat="server"></asp:CheckBox></td>
     </tr>    
