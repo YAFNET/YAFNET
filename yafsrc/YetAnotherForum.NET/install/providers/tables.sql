@@ -3,14 +3,10 @@
 -- Create date: 30 September 2007
 -- Description:	MembershipProvider Tables
 -- =============================================
--- To do list
--- ---------------------------------------------
--- Primary Keys for tables
 
-
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Member') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Membership') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Membership](
-		[UserID] [uniqueidentifier] NOT NULL,
+		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[Username] [nvarchar](255) NOT NULL,
 		[Password] [nvarchar](255) NULL,
@@ -36,7 +32,7 @@ go
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Application') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Application](
-		[ApplicationID] [uniqueidentifier] NOT NULL,
+		[ApplicationID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationName] [nvarchar](255) NULL,
 		[Description] [ntext] NULL
 		)
@@ -50,4 +46,17 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Profile]
 	)
 go
 
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yafprov_Role]
+	(
+	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
+	[ApplicationID] [uniqueidentifier] NOT NULL,
+	[RoleName] [nvarchar](255) NOT NULL
+	)
 
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [dbo].[yafprov_RoleMembership]
+	(
+	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
+	[UserID] [uniqueidentifier] NOT NULL
+	)
