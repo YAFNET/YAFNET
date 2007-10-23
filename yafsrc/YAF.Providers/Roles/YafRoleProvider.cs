@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 using System;
 using System.Data;
 using System.Web;
@@ -41,137 +42,228 @@ using YAF.Classes.Data;
 
 namespace YAF.Providers.Roles
 {
-	public class YafRoleProvider : RoleProvider
-	{
-		private string _appName;
+    public class YAFRoleProvider : RoleProvider
+    {
+        private string _appName;
 
-		#region Override Public Properties
+        #region Override Public Properties
 
-		public override string ApplicationName
-		{
-			get
-			{
-				return _appName;
-			}
-			set
-			{
-				_appName = value;
-			}
-		}
-		#endregion
+        public override string ApplicationName
+        {
+            get
+            {
+                return _appName;
+            }
+            set
+            {
+                _appName = value;
+            }
+        }
+        #endregion
 
-		#region Overriden Public Methods
+        #region Overriden Public Methods
 
-		/// <summary>
-		/// Sets up the profile providers
-		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="config"></param>
-		public override void Initialize( string name, NameValueCollection config )
-		{
-			// verify that the configuration section was properly passed
-			if ( config == null )
-				throw new ArgumentNullException( "config" );
+        /// <summary>
+        /// Sets up the profile providers
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="config"></param>
+        public override void Initialize(string name, NameValueCollection config)
+        {
+            // verify that the configuration section was properly passed
+            if (config == null)
+                throw new ArgumentNullException("config");
 
-			base.Initialize( name, config );
+            base.Initialize(name, config);
 
-			// application name
-			_appName = config ["applicationName"];
-			if ( string.IsNullOrEmpty( _appName ) )
-				_appName = "YetAnotherForum";
-		}
+            // application name
+            _appName = config["applicationName"];
+            if (string.IsNullOrEmpty(_appName))
+                _appName = "YetAnotherForum";
+        }
 
-		public override void AddUsersToRoles( string [] usernames, string [] roleNames )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+        /// <summary>
+        /// Adds a list of users to a list of groups
+        /// </summary>
+        /// <param name="usernames">List of Usernames</param>
+        /// <param name="roleNames">List of Rolenames</param>
+        /// <returns></returns>
+        public override void AddUsersToRoles(string[] usernames, string[] roleNames)
+        {
+            // Loop through username
+            foreach (string username in usernames)
+            {
+                // Loop through roles
+                foreach (string roleName in roleNames)
+                {
+                    DB.AddUserToRole(this.ApplicationName, username, roleName); // Remove roll
+                }
+            }
+        }
 
-		public override void CreateRole( string roleName )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+        /// <summary>
+        /// Creates a role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
+        public override void CreateRole(string roleName)
+        {
+            if (String.IsNullOrEmpty(roleName))
+                throw new ArgumentException("Role Name cannot be blank");
 
-		/// <summary>
-		/// Deletes a role
-		/// </summary>
-		/// <param name="roleName"></param>
-		/// <param name="throwOnPopulatedRole"></param>
-		/// <returns></returns>
-		public override bool DeleteRole( string roleName, bool throwOnPopulatedRole )
-		{
-			int returnValue = YAFProviders.Roles.DB.role_delete( this.ApplicationName, roleName, throwOnPopulatedRole );
+            DB.CreateRole(this.ApplicationName, roleName);
+            throw new Exception("The method or operation is not implemented.");
+        }
 
-			// zero means there were no complications...
-			if ( returnValue == 0 ) return true;
-			
-			// it failed for some reason...
-			return false;
-		}
+        /// <summary>
+        /// Deletes a role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <param name="throwOnPopulatedRole"></param>
+        /// <returns>True or False</returns>
+        public override bool DeleteRole(string roleName, bool throwOnPopulatedRole)
+        {
+            int returnValue = DB.DeleteRole(this.ApplicationName, roleName, throwOnPopulatedRole);
 
-		public override string [] FindUsersInRole( string roleName, string usernameToMatch )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+            // zero means there were no complications...
+            if (returnValue == 0) return true;
 
-		/// <summary>
-		/// Grabs all the roles from the DB
-		/// </summary>
-		/// <returns></returns>
-		public override string [] GetAllRoles()
-		{
-			// get all roles...
-			DataTable roles = YAFProviders.Roles.DB.role_list( this.ApplicationName, null );
+            // it failed for some reason...
+            return false;
+        }
 
-			// make a string collection to store the role list...
-			StringCollection sc = new StringCollection();
+        /// <summary>
+        /// Adds a list of users to a list of groups
+        /// </summary>
+        /// <param name="roleName">Rolename</param>
+        /// <param name="usernameToMatch">like Username used in search</param>
+        /// <returns>List of Usernames</returns>
+        public override string[] FindUsersInRole(string roleName, string usernameToMatch)
+        {
+            if (String.IsNullOrEmpty(roleName))
+                throw new ArgumentException("Role name cannot be null or empty");
+            // Roles
+            DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName, usernameToMatch);
+            string[] userList;
+            foreach (DataRow user in users)
+            {
+                userList = user["Username"].ToString();
+            }
+        }
 
-			foreach ( DataRow row in roles.Rows )
-			{
-				sc.Add( row ["Name"].ToString() );
-			}
+        /// <summary>
+        /// Grabs all the roles from the DB
+        /// </summary>
+        /// <returns></returns>
+        public override string[] GetAllRoles()
+        {
+            // get all roles...
+            DataTable roles = YAFProviders.Roles.DB.GetRoles(this.ApplicationName, null);
 
-			// return as a string array
-			String [] strReturn = new String [sc.Count];
-			sc.CopyTo( strReturn, 0 );
+            // make a string collection to store the role list...
+            StringCollection sc = new StringCollection();
 
-			return strReturn;			
-		}
+            foreach (DataRow row in roles.Rows)
+            {
+                sc.Add(row["Name"].ToString());
+            }
 
-		public override string [] GetRolesForUser( string username )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+            // return as a string array
+            String[] strReturn = new String[sc.Count];
+            sc.CopyTo(strReturn, 0);
 
-		public override string [] GetUsersInRole( string roleName )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+            return strReturn;
+        }
 
-		public override bool IsUserInRole( string username, string roleName )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+        /// <summary>
+        /// Grabs all the roles from the DB
+        /// </summary>
+        /// <returns></returns>
+        public override string[] GetRolesForUser(string username)
+        {
+            if (String.IsNullOrEmpty(username))
+                throw new ArgumentException("Username cannot be null or empty");
 
-		public override void RemoveUsersFromRoles( string [] usernames, string [] roleNames )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+            DataTable roles = DB.GetRoles(this.ApplicationName, username);
+            string[] roleNames;
+            foreach (DataRow dr in roles)
+            {
+                roleNames = dr["Username"];
+            }
+        }
 
-		public override bool RoleExists( string roleName )
-		{
-			// get this role...
-			DataTable roles = YAFProviders.Roles.DB.role_list( this.ApplicationName, roleName );
+        /// <summary>
+        /// Gets a list of usernames in a a particular role
+        /// </summary>
+        /// <param name="roleName">Rolename</param>
+        /// <returns>List of Usernames</returns>
+        public override string[] GetUsersInRole(string roleName)
+        {
+            if (String.IsNullOrEmpty(roleName))
+                throw new ArgumentException("Role name cannot be null or empty");
 
-			// if there are any rows then this role exists...
-			if ( roles.Rows.Count > 0 )
-			{
-				return true;
-			}
+            DataTable users = DB.GetUsersInRole(this.ApplicationName, roleName);
+            string[] userNames;
+            foreach (DataRow dr in users)
+            {
+                userNames = dr["RoleName"];
+            }
+        }
 
-			// doesn't exist
-			return false;
-		}
+        /// <summary>
+        /// Check to see if user belongs to a role
+        /// </summary>
+        /// <param name="usernames">Username</param>
+        /// <param name="roleNames">Rolename</param>
+        /// <returns>True/False</returns>
+        public override bool IsUserInRole(string username, string roleName)
+        {
+            DataTable roles = DB.IsUserInRole(this.ApplicationName, username, roleName);
 
-		#endregion
-	}
+            if (roles.Rows.Count > 0)
+                return true;
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Remove Users From Roles
+        /// </summary>
+        /// <param name="usernames">Usernames</param>
+        /// <param name="roleNames">Rolenames</param>
+        public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
+        {
+            // Loop through username
+            foreach (string username in usernames)
+            {
+                // Loop through roles
+                foreach (string roleName in roleNames)
+                {
+                    DB.RemoveUserFromRole(this.ApplicationName, username, roleName); // Remove roll
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check to see if a role exists
+        /// </summary>
+        /// <param name="roleName">Rolename</param>
+        /// <returns>True/False</returns>
+        public override bool RoleExists(string roleName)
+        {
+            // get this role...
+            DataTable roles = DB.GetRoles(this.ApplicationName, roleName);
+
+            // if there are any rows then this role exists...
+            if (roles.Rows.Count > 0)
+            {
+                return true;
+            }
+
+            // doesn't exist
+            return false;
+        }
+
+        #endregion
+    }
 }
