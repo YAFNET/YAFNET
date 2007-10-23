@@ -1,12 +1,13 @@
 -- =============================================
 -- Author:		Mek
 -- Create date: 30 September 2007
--- Description:	MembershipProvider SPROCS
+-- Description:	Membership Provider, Roles Provider SPROCS
 -- =============================================
--- DROP PROCEDURES CHECKED - 06 October 2007
--- INSTALL CHECKED - 07 October 2007
 
 
+-- =============================================
+-- Membership Drop Procedures
+-- =============================================
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_createapplication]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yafprov_createapplication]
 GO
@@ -63,6 +64,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_u
 DROP PROCEDURE [dbo].[yafprov_updateuser]
 GO
 
+-- =============================================
+-- Roles Drop Procedures
+-- =============================================
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yafprov_role_list]
 GO
@@ -70,6 +75,44 @@ GO
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [dbo].[yafprov_role_delete]
 GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_addusertorole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_addusertorole]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_createrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_createrole]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_deleterole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_deleterole]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_findusersinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_findusersinrole]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_getroles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_getroles]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_isuserinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_isuserinrole]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_removeuserfromrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[yafprov_role_removeuserfromrole]
+GO
+
+-- =============================================
+-- Profiles Drop Procedures
+-- =============================================
+
+-- Not implemented yet!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+-- =============================================
+-- Membership Create Procedures
+-- =============================================
 
 CREATE PROCEDURE dbo.yafprov_createapplication
 (
@@ -375,19 +418,6 @@ BEGIN
 
 END
 GO
-
-
-                cmd.Parameters.AddWithValue("ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("UserKey", user.ProviderUserKey);
-                cmd.Parameters.AddWithValue("UserName", user.UserName);
-                cmd.Parameters.AddWithValue("Email", user.Email);
-                cmd.Parameters.AddWithValue("Comment", user.Comment);
-                cmd.Parameters.AddWithValue("IsApproved", user.IsApproved);
-                cmd.Parameters.AddWithValue("LastLogin", user.LastLoginDate);
-                cmd.Parameters.AddWithValue("LastActivity", user.LastActivityDate.ToUniversalTime());
-                cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
-                cmd.Parameters.AddWithValue("CurrentTimeUtc", DateTime.UtcNow);
                 
 CREATE PROCEDURE dbo.yafprov_updateuser
 (
@@ -421,50 +451,140 @@ BEGIN
 END
 GO                 
 
--- Roles
+-- =============================================
+-- Roles Create Procedures
+-- =============================================
 
-CREATE procedure [dbo].[yafprov_role_list](@AppName nvarchar(255), @RoleName nvarchar(255) = null) AS
+CREATE PROCEDURE dbo.yafprov_role_addusertorole
+(
+@ApplicationName nvarchar(255),
+@Username nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
 BEGIN
-	-- get the BoardID for the RoleAppName
-	DECLARE @BoardID int
-	SET @BoardID = (SELECT BoardID FROM yaf_Board WHERE RolesAppName = @AppName)	
+	DECLARE @UserID uniqueidentifier
+	DECLARE @RoleID uniqueidentifier
 
-	IF @RoleName IS NULL
-		SELECT * FROM yaf_Group WHERE BoardID = @BoardID
+	SET @UserID = (SELECT UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	
+	INSERT INTO yafprov_RoleMembership(RoleID, UserID) VALUES (@UserID, @RoleID);
+END 
+GO
+
+CREATE PROCEDURE dbo.yafprov_role_deleterole
+(
+@ApplicationName nvarchar(255),
+@Rolename nvarchar(255),
+@DeleteOnlyIfRoleIsEmpty bit
+)
+AS
+BEGIN
+	DECLARE @RoleID uniqueidentifier
+	DECLARE @ErrorCode int
+	SET @ErrorCode = 0
+	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	
+	IF (@DeleteOnlyIfRoleIsEmpty <> 0)
+	BEGIN
+		IF (EXISTS (SELECT 1 FROM yafprov_RoleMembership rm WHERE rm.RoleID=@RoleID))
+			SELECT @ErrorCode = 2
 	ELSE
-		SELECT * FROM yaf_Group WHERE BoardID = @BoardID and LOWER([Name]) = LOWER(@RoleName)
-END
+		DELETE FROM yafprov_RoleMembership WHERE RoleID=@RoleID
+	END	
+
+	IF (@ErrorCode = 0)
+		DELETE FROM yafprov_Role WHERE RoleID=@RoleID
+    
+    RETURN @ErrorCode	
+END 
 GO
 
-CREATE PROCEDURE [dbo].[yafprov_role_delete](@AppName nvarchar(255), @RoleName nvarchar(255) = null, @DeleteOnlyIfRoleIsEmpty bit) as
+
+CREATE PROCEDURE dbo.yafprov_role_findusersinrole
+(
+@ApplicationName nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
 BEGIN
-    DECLARE @ErrorCode int
-    SET @ErrorCode = 0
+	DECLARE @RoleID uniqueidentifier
 
-	-- get the BoardID for the RoleAppName
-	DECLARE @BoardID int, @GroupID int
-	SET @BoardID = (SELECT BoardID FROM yaf_Board WHERE RolesAppName = @AppName)
-	SET @GroupID = (SELECT GroupID FROM yaf_Group WHERE BoardID = @BoardID and LOWER([Name]) = LOWER(@RoleName))	
+	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 
-    IF (@DeleteOnlyIfRoleIsEmpty <> 0)
-    BEGIN
-        IF (EXISTS (SELECT 1 FROM yaf_UserGroup WHERE GroupID = @GroupID))
-        BEGIN
-            SELECT @ErrorCode = 2
-            GOTO Cleanup
-        END
-    END
-
-	DELETE FROM yaf_ForumAccess WHERE GroupID = @GroupID
-	DELETE FROM yaf_UserGroup WHERE GroupID = @GroupID
-	DELETE FROM yaf_Group WHERE GroupID = @GroupID
-
-    RETURN(0)
-
-Cleanup:
-
-    RETURN @ErrorCode
-END
+	SELECT rm.* FROM yafProv_RoleMembership rm WHERE rm.RoleID = @RoleID
+		
+END 
 GO
 
--- Profiles
+CREATE PROCEDURE dbo.yafprov_role_createrole
+(
+@ApplicationName nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+	
+	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	
+	INSERT INTO yafprov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
+END 
+GO
+
+
+CREATE PROCEDURE dbo.yafprov_role_getroles
+(
+@ApplicationName nvarchar(255),
+@Rolename nvarchar(255) = null
+)
+AS
+BEGIN
+	IF (@Rolename is null)
+		SELECT r.* FROM yafprov_Role r INNER JOIN yafprov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName
+	ELSE
+		SELECT r.* FROM yafprov_Role r INNER JOIN yafprov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName AND r.Rolename = @Rolename	
+END 
+GO
+
+CREATE PROCEDURE dbo.yafprov_role_isuserinrole
+(
+@ApplicationName nvarchar(255),
+@Username nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
+BEGIN
+	SELECT m.* FROM yafprov_RoleMembership rm 
+		INNER JOIN yafprov_Membership m ON rm.UserID = m.UserID
+		INNER JOIN yafprov_Role r ON rm.RoleID = r.RoleID
+		INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID AND m.ApplicationID = a.ApplicationID
+		WHERE m.Username=@Username AND r.Rolename =@Rolename AND a.ApplicationName = @ApplicationName;
+END 
+GO
+
+CREATE PROCEDURE dbo.yafprov_role_removeuserfromrole
+(
+@ApplicationName nvarchar(255),
+@Username nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
+BEGIN
+	DECLARE @UserID uniqueidentifier
+	DECLARE @RoleID uniqueidentifier
+	
+	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename =@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @UserID = (SELECT UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
+	
+	DELETE FROM yafprov_RoleMembership WHERE RoleID = @RoleID AND UserID=@UserID
+	
+END 
+GO
+
+-- =============================================
+-- Profiles Create Procedures
+-- =============================================
+
+-- Not implemented yet!!!!!!!!!!!!!!!!!!!!!!!!!!
