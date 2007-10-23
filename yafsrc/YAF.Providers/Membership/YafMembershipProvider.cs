@@ -35,7 +35,7 @@ using System.Globalization;
 namespace YAF.Providers.Membership
 {
     // YafMembershipProvider
-    class YafMembershipProvider : MembershipProvider
+    class YAFMembershipProvider : MembershipProvider
     {
         // Instance Variables
         string _appName, _passwordStrengthRegularExpression;
