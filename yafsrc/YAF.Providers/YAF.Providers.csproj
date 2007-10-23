@@ -36,7 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Membership\UserPasswordInfo.cs" />
-    <Compile Include="Membership\Utils.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />
     <Compile Include="Membership\DB.cs" />
     <Compile Include="Passthru\YAFMembershipPassThru.cs" />
@@ -46,6 +45,7 @@
     <Compile Include="Roles\YafRoleProvider.cs" />
     <Compile Include="SecUtil.cs" />
     <Compile Include="SqlConnectionHelper.cs" />
+    <Compile Include="Utils\Transform.cs" />
     <Compile Include="YAFMembershipProvider.cs" />
     <Compile Include="SqlServices.cs" />
     <Compile Include="sr.cs">

@@ -38,8 +38,6 @@ using System.Security.Permissions;
 using System.Globalization;
 using System.Runtime.Serialization;
 
-using YAF.Classes.Data;
-
 namespace YAF.Providers.Roles
 {
     public class YAFRoleProvider : RoleProvider
@@ -143,11 +141,11 @@ namespace YAF.Providers.Roles
             if (String.IsNullOrEmpty(roleName))
                 throw new ArgumentException("Role name cannot be null or empty");
             // Roles
-            DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName, usernameToMatch);
+            DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             string[] userList;
-            foreach (DataRow user in users)
+            foreach (DataRow user in users.Rows)
             {
-                userList = user["Username"].ToString();
+                userList = Utils.Transform.ToString(user["Username"]);
             }
         }
 
@@ -158,7 +156,7 @@ namespace YAF.Providers.Roles
         public override string[] GetAllRoles()
         {
             // get all roles...
-            DataTable roles = YAFProviders.Roles.DB.GetRoles(this.ApplicationName, null);
+            DataTable roles = DB.GetRoles(this.ApplicationName, null);
 
             // make a string collection to store the role list...
             StringCollection sc = new StringCollection();
@@ -186,9 +184,9 @@ namespace YAF.Providers.Roles
 
             DataTable roles = DB.GetRoles(this.ApplicationName, username);
             string[] roleNames;
-            foreach (DataRow dr in roles)
+            foreach (DataRow dr in roles.Rows)
             {
-                roleNames = dr["Username"];
+                roleNames = Utils.Transform.ToString(dr["Username"]);
             }
         }
 
@@ -202,12 +200,13 @@ namespace YAF.Providers.Roles
             if (String.IsNullOrEmpty(roleName))
                 throw new ArgumentException("Role name cannot be null or empty");
 
-            DataTable users = DB.GetUsersInRole(this.ApplicationName, roleName);
+            DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             string[] userNames;
-            foreach (DataRow dr in users)
+            foreach (DataRow dr in users.Rows)
             {
-                userNames = dr["RoleName"];
+                userNames = Utils.Transform.ToString(dr["RoleName"]);
             }
+
         }
 
         /// <summary>

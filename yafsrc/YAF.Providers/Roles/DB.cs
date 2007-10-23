@@ -33,7 +33,7 @@ using System.Data.SqlClient;
 
 using YAF.Classes.Data;
 
-namespace YAFProviders.Roles
+namespace YAF.Providers.Roles
 {
     public class DB
     {
@@ -69,7 +69,7 @@ namespace YAFProviders.Roles
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("AppName", appName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
-                return DBAccess.GetData(cmd);
+                DBAccess.ExecuteNonQuery(cmd);
             }
         }
 
@@ -79,7 +79,7 @@ namespace YAFProviders.Roles
         /// <param name="appName">Application Name</param>
         /// <param name="roleNames">Role Name</param>
         /// <returns>Status as integer</returns>
-        public static int DeleteRole(object appName, object roleName)
+        public static int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
         {
             using (SqlCommand cmd = DBAccess.GetCommand("prov_role_deleterole"))
             {
@@ -166,7 +166,7 @@ namespace YAFProviders.Roles
                 cmd.Parameters.AddWithValue("AppName", appName);
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
-                return DBAccess.GetData(cmd);
+                DBAccess.ExecuteNonQuery(cmd);
             }
 
         }

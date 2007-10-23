@@ -24,10 +24,10 @@ namespace YAF.Providers.Membership
                 _passwordQuestion = userInfo["PasswordQuestion"].ToString();
                 _passwordAnswer = userInfo["PasswordAnswer"].ToString();
 
-                _passwordFormat = CleanUtils.ToInt(userInfo["PasswordFormat"]);
+                _passwordFormat = Utils.Transform.ToInt(userInfo["PasswordFormat"]);
 
-                _failedPasswordAttempts = CleanUtils.ToInt(userInfo["FailedPasswordAttempts"]);
-                _failedAnswerAttempts = CleanUtils.ToInt(userInfo["FailedAnswerAttempts"]);
+                _failedPasswordAttempts = Utils.Transform.ToInt(userInfo["FailedPasswordAttempts"]);
+                _failedAnswerAttempts = Utils.Transform.ToInt(userInfo["FailedAnswerAttempts"]);
 
                 _isApproved = Convert.ToBoolean(userInfo["IsApproved"]);
 

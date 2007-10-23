@@ -35,7 +35,7 @@ using System.Globalization;
 namespace YAF.Providers.Membership
 {
     // YafMembershipProvider
-    class YAFMembershipProvider : MembershipProvider
+    class YafMembershipProvider : MembershipProvider
     {
         // Instance Variables
         string _appName, _passwordStrengthRegularExpression;
@@ -280,31 +280,22 @@ namespace YAF.Providers.Membership
                 _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"]);
 
             // Check whething Hashing methods should use Salt
-            _useSalt = CleanUtils.ToBool(config["useSalt"]);
+            _useSalt = Utils.Transform.ToBool(config["useSalt"]);
 
             // Application Name
-            _appName = config["applicationName"];
-            if (string.IsNullOrEmpty(_appName))
-                _appName = "YetAnotherForum";
+            _appName = Utils.Transform.ToString(config["applicationName"], "YetAnotherForum");
 
-            if (config["passwordStrengthRegularExpression"] != null)
-                _passwordStrengthRegularExpression = config["passwordStrengthRegularExpression"];
-            else
-                _passwordStrengthRegularExpression = string.Empty;
+
+            _passwordStrengthRegularExpression = Utils.Transform.ToString(config["passwordStrengthRegularExpression"]);
 
             // Password reset enabled from Provider Configuration
-            if (config["enablePaswordReset"] != null)
-                _enablePaswordReset = bool.Parse(config["enablePaswordReset"]);
-            if (config["enablePasswordRetrieval"] != null)
-                _enablePasswordRetrieval = bool.Parse(config["enablePasswordRetrieval"]);
-            if (config["requiresQuestionAndAnswer"] != null)
-                _requiresQuestionAndAnswer = bool.Parse(config["requiresQuestionAndAnswer"]);
-            if (config["requiresUniqueEmail"] != null)
-                _requiresUniqueEmail = bool.Parse(config["requiresUniqueEmail"]);
+            _enablePaswordReset = Utils.Transform.ToBool(config["enablePaswordReset"]);
+            _enablePasswordRetrieval = Utils.Transform.ToBool(config["enablePasswordRetrieval"]);
+            _requiresQuestionAndAnswer = Utils.Transform.ToBool(config["requiresQuestionAndAnswer"]);
 
-            string strPasswordFormat = config["passwordFormat"];
-            if (strPasswordFormat == null)
-                strPasswordFormat = "Hashed";
+            _requiresUniqueEmail = Utils.Transform.ToBool(config["requiresUniqueEmail"]);
+
+            string strPasswordFormat = Utils.Transform.ToString(config["passwordFormat"], "Hashed");
 
             switch (strPasswordFormat)
             {
@@ -345,8 +336,8 @@ namespace YAF.Providers.Membership
                 return false;
 
             string newPasswordSalt = YafMembershipProvider.GenerateSalt();
-            string newEncPassword = YafMembershipProvider.EncodeString(newPassword,(int) this.PasswordFormat, newPasswordSalt, this.UseSalt);
-            string newEncPasswordAnswer = YafMembershipProvider.EncodeString(currentPasswordInfo.PasswordAnswer, (int) this.PasswordFormat, newPasswordSalt, this.UseSalt);
+            string newEncPassword = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt);
+            string newEncPasswordAnswer = YafMembershipProvider.EncodeString(currentPasswordInfo.PasswordAnswer, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt);
             // Call SQL Password  Change
             DB.ChangePassword(this.ApplicationName, username, newEncPassword, newPasswordSalt, (int)this.PasswordFormat, newEncPasswordAnswer);
 
@@ -474,7 +465,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -501,7 +492,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -527,7 +518,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -582,7 +573,7 @@ namespace YAF.Providers.Membership
 
             DataRow dr = DB.GetUser(this.ApplicationName, username, userIsOnline);
             if (dr != null)
-                return new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"]));
+                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"]));
             else
                 return null;
         }
@@ -607,7 +598,7 @@ namespace YAF.Providers.Membership
 
             DataRow dr = DB.GetUser(this.ApplicationName, providerUserKey, userIsOnline);
             if (dr != null)
-                return new MembershipUser(CleanUtils.ToString(this.Name), CleanUtils.ToString(dr["Username"]), CleanUtils.ToString(dr["UserID"]), CleanUtils.ToString(dr["Email"]), CleanUtils.ToString(dr["PasswordQuestion"]), CleanUtils.ToString(dr["Comment"]), CleanUtils.ToBool(dr["IsApproved"]), CleanUtils.ToBool(dr["IsLockedOut"]), CleanUtils.ToDate(dr["Joined"]), CleanUtils.ToDate(dr["LastLogin"]), CleanUtils.ToDate(dr["LastActivity"]), CleanUtils.ToDate(dr["LastPasswordChange"]), CleanUtils.ToDate(dr["LastLockout"]));
+                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"]));
             else
                 return null;
         }
@@ -656,9 +647,9 @@ namespace YAF.Providers.Membership
             if (currentPasswordInfo.IsCorrectAnswer(answer))
             {
                 newPasswordSalt = YafMembershipProvider.GenerateSalt();
-                newPasswordAnswer = YafMembershipProvider.EncodeString(answer, (int) this.PasswordFormat, newPasswordSalt, this.UseSalt);
+                newPasswordAnswer = YafMembershipProvider.EncodeString(answer, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt);
                 newPassword = YafMembershipProvider.GeneratePassword(this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters);
-                newPasswordEnc = YafMembershipProvider.EncodeString(newPassword, (int) this.PasswordFormat, newPasswordSalt, this.UseSalt);
+                newPasswordEnc = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt);
                 DB.ResetPassword(this.ApplicationName, username, newPasswordEnc, newPasswordSalt, (int)this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow);
                 return newPassword; // Return unencrypted password
             }
