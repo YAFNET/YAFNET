@@ -45,6 +45,7 @@
     <Compile Include="Roles\YafRoleProvider.cs" />
     <Compile Include="SecUtil.cs" />
     <Compile Include="SqlConnectionHelper.cs" />
+    <Compile Include="Utils\ExcReturn.cs" />
     <Compile Include="Utils\Transform.cs" />
     <Compile Include="YAFMembershipProvider.cs" />
     <Compile Include="SqlServices.cs" />
