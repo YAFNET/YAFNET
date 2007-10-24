@@ -142,11 +142,12 @@ namespace YAF.Providers.Roles
                 throw new ArgumentException("Role name cannot be null or empty");
             // Roles
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
-            string[] userList;
+            StringCollection usernames;
             foreach (DataRow user in users.Rows)
             {
-                userList = Utils.Transform.ToString(user["Username"]);
+                usernames.Add(Utils.Transform.ToString(user["Username"]));
             }
+            return Utils.Transform.ToStringArray(usernames);
         }
 
         /// <summary>
@@ -159,18 +160,14 @@ namespace YAF.Providers.Roles
             DataTable roles = DB.GetRoles(this.ApplicationName, null);
 
             // make a string collection to store the role list...
-            StringCollection sc = new StringCollection();
+            StringCollection roleNames = new StringCollection();
 
             foreach (DataRow row in roles.Rows)
             {
-                sc.Add(row["Name"].ToString());
+                roleNames.Add(row["Name"].ToString());
             }
 
-            // return as a string array
-            String[] strReturn = new String[sc.Count];
-            sc.CopyTo(strReturn, 0);
-
-            return strReturn;
+            return Utils.Transform.ToStringArray(roleNames);  // return as a string array
         }
 
         /// <summary>
@@ -183,11 +180,15 @@ namespace YAF.Providers.Roles
                 throw new ArgumentException("Username cannot be null or empty");
 
             DataTable roles = DB.GetRoles(this.ApplicationName, username);
-            string[] roleNames;
+            
+            // make a string collection to store the role list...
+            StringCollection roleNames;
+
             foreach (DataRow dr in roles.Rows)
             {
-                roleNames = Utils.Transform.ToString(dr["Username"]);
+                roleNames.Add(Utils.Transform.ToString(dr["Rolename"])); // add rolename to collection
             }
+            return Utils.Transform.ToStringArray(roleNames); // return as a string array
         }
 
         /// <summary>
@@ -201,11 +202,12 @@ namespace YAF.Providers.Roles
                 throw new ArgumentException("Role name cannot be null or empty");
 
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
-            string[] userNames;
+            StringCollection userNames;
             foreach (DataRow dr in users.Rows)
             {
-                userNames = Utils.Transform.ToString(dr["RoleName"]);
+                userNames.Add(Utils.Transform.ToString(dr["RoleName"]));
             }
+            return Utils.Transform.ToStringArray(userNames);
 
         }
 
