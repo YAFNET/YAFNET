@@ -40,10 +40,10 @@ using System.Runtime.Serialization;
 using YAF.Classes.Utils;
 namespace YAF.Providers.Roles
 {
-    public class YAFRoleProvider : RoleProvider
+    public class YafRoleProvider : RoleProvider
     {
         private string _appName;
-        private YafLocalization providerLocalization;
+        private YafLocalization _providerLocalization;
 
         #region Override Public Properties
 
@@ -71,7 +71,7 @@ namespace YAF.Providers.Roles
         {
             // verify that the configuration section was properly passed
             if (config == null)
-                throw new ArgumentNullException(providerLocalization.GetText("CONFIG_NOTFOUND", "PROVIDER"));
+                throw new ArgumentNullException(this.ProviderLocalization.GetText("CONFIG_NOTFOUND", "PROVIDER"));
 
             base.Initialize(name, config);
 
@@ -80,7 +80,7 @@ namespace YAF.Providers.Roles
             if (string.IsNullOrEmpty(_appName))
                 _appName = "YetAnotherForum";
 
-            providerLocalization = new YafLocalization();
+            _providerLocalization = new YafLocalization();
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace YAF.Providers.Roles
         public override void CreateRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(providerLocalization.GetText("ROLE_BLANK","PROVIDER"));
+                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK","PROVIDER"));
 
             DB.CreateRole(this.ApplicationName, roleName);
         }
@@ -141,7 +141,7 @@ namespace YAF.Providers.Roles
         public override string[] FindUsersInRole(string roleName, string usernameToMatch)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(providerLocalization.GetText("ROLE_BLANK", "PROVIDER"));
+                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK", "PROVIDER"));
             // Roles
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             StringCollection usernames = new StringCollection(); ;
@@ -166,7 +166,7 @@ namespace YAF.Providers.Roles
 
             foreach (DataRow row in roles.Rows)
             {
-                roleNames.Add(row["Name"].ToString());
+                roleNames.Add(Utils.Transform.ToString(row["RoleName"]));
             }
 
             return Utils.Transform.ToStringArray(roleNames);  // return as a string array
@@ -179,7 +179,7 @@ namespace YAF.Providers.Roles
         public override string[] GetRolesForUser(string username)
         {
             if (String.IsNullOrEmpty(username))
-                throw new ArgumentException(providerLocalization.GetText("USER_BLANK", "PROVIDER"));
+                throw new ArgumentException(this.ProviderLocalization.GetText("USER_BLANK", "PROVIDER"));
 
             DataTable roles = DB.GetRoles(this.ApplicationName, username);
             
@@ -201,13 +201,13 @@ namespace YAF.Providers.Roles
         public override string[] GetUsersInRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(providerLocalization.GetText("ROLE_BLANK", "PROVIDER"));
+                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK", "PROVIDER"));
 
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             StringCollection userNames = new StringCollection();;
             foreach (DataRow dr in users.Rows)
             {
-                userNames.Add(Utils.Transform.ToString(dr["RoleName"]));
+                userNames.Add(Utils.Transform.ToString(dr["Username"]));
             }
             return Utils.Transform.ToStringArray(userNames);
 
@@ -268,5 +268,17 @@ namespace YAF.Providers.Roles
         }
 
         #endregion
+
+        #region Private Properties
+
+        private YafLocalization ProviderLocalization
+        {
+            get
+            {
+                return _providerLocalization;
+            }
+        }
+        #endregion
+
     }
 }

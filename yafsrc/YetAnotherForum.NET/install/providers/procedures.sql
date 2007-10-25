@@ -455,7 +455,7 @@ GO
 -- Roles Create Procedures
 -- =============================================
 
-CREATE PROCEDURE dbo.yafprov_role_addusertorole
+CREATE PROCEDURE [dbo].[yafprov_role_addusertorole]
 (
 @ApplicationName nvarchar(255),
 @Username nvarchar(255),
@@ -469,8 +469,9 @@ BEGIN
 	SET @UserID = (SELECT UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
 	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 	
-	INSERT INTO yafprov_RoleMembership(RoleID, UserID) VALUES (@UserID, @RoleID);
-END 
+	IF (NOT EXISTS(SELECT 1 FROM yafprov_RoleMembership rm WHERE rm.UserID=@UserID AND rm.RoleID=@RoleID))
+		INSERT INTO yafprov_RoleMembership(RoleID, UserID) VALUES (@RoleID, @UserID);
+END
 GO
 
 CREATE PROCEDURE dbo.yafprov_role_deleterole
@@ -502,7 +503,7 @@ END
 GO
 
 
-CREATE PROCEDURE dbo.yafprov_role_findusersinrole
+CREATE PROCEDURE [dbo].[yafprov_role_findusersinrole]
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255)
@@ -513,12 +514,12 @@ BEGIN
 
 	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 
-	SELECT rm.* FROM yafProv_RoleMembership rm WHERE rm.RoleID = @RoleID
+	SELECT m.* FROM yafProv_Membership m INNER JOIN yafProv_RoleMembership rm ON m.UserID = rm.UserID WHERE rm.RoleID = @RoleID
 		
-END 
+END
 GO
 
-CREATE PROCEDURE dbo.yafprov_role_createrole
+CREATE PROCEDURE [dbo].[yafprov_role_createrole]
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255)
@@ -528,11 +529,10 @@ BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
 	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
-	
-	INSERT INTO yafprov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
-END 
+	IF (NOT EXISTS(SELECT 1 FROM yafprov_Role r WHERE r.ApplicationID = @ApplicationID AND r.Rolename = @Rolename))
+		INSERT INTO yafprov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
+END
 GO
-
 
 CREATE PROCEDURE dbo.yafprov_role_getroles
 (

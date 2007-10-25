@@ -20,7 +20,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Membershi
 		[LastLogin] [datetime] NULL,
 		[LastActivity] [datetime] NULL,
 		[LastPasswordChange] [datetime] NULL,
-		[LastLockOutDate] [datetime] NULL,
+		[LastLockOut] [datetime] NULL,
 		[FailedPasswordAttempts] [int] NULL,
 		[FailedAnswerAttempts] [int] NULL,
 		[FailedPasswordWindow] [datetime] NULL,

@@ -47,7 +47,6 @@
     <Compile Include="SqlConnectionHelper.cs" />
     <Compile Include="Utils\ExcReturn.cs" />
     <Compile Include="Utils\Transform.cs" />
-    <Compile Include="YAFMembershipProvider.cs" />
     <Compile Include="SqlServices.cs" />
     <Compile Include="sr.cs">
       <SubType>Code</SubType>
@@ -57,6 +56,10 @@
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj">
       <Project>{9A454596-56DC-4834-A043-F3C1443F859B}</Project>
       <Name>YAF.Classes.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj">
+      <Project>{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}</Project>
+      <Name>YAF.Classes.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

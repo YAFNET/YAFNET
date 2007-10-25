@@ -73,6 +73,13 @@ namespace YAF.Providers.Membership
             return System.Web.Security.Membership.GeneratePassword(minPassLength < PASSWORDSIZE ? PASSWORDSIZE : minPassLength, minNonAlphas);
         }
 
+        private static string HashType()
+        {
+            if (String.IsNullOrEmpty(System.Web.Security.Membership.HashAlgorithmType))
+                return "MD5"; // Default Hash Algorithm Type
+            else
+                return System.Web.Security.Membership.HashAlgorithmType;
+        }
         /// <summary>
         /// Encrypt string to hash method.
         /// </summary>
@@ -96,13 +103,13 @@ namespace YAF.Providers.Membership
                     return unencodedString; // Return plain text
                 case MembershipPasswordFormat.Hashed:
                     if (useSalt)
-                        return Convert.ToBase64String(HashAlgorithm.Create(System.Web.Security.Membership.HashAlgorithmType).ComputeHash(hashBuffer));
+                        return Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
                     else
-                        return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, System.Web.Security.Membership.HashAlgorithmType);
+                        return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
                 case MembershipPasswordFormat.Encrypted:
-                    return Convert.ToBase64String(HashAlgorithm.Create(System.Web.Security.Membership.HashAlgorithmType).ComputeHash(hashBuffer));
+                    return Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
                 default:
-                    return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, System.Web.Security.Membership.HashAlgorithmType);
+                    return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
                     break;
 
             }
@@ -397,10 +404,14 @@ namespace YAF.Providers.Membership
         /// <returns> Boolean depending on whether the deletion was successful</returns>
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            // username/password
-            // username/password/email
-            // username/password/email/passwordQuestion/passwordAnswer/isApproved/Outstatus
-            // username/password/email/passwordQuestion/passwordAnswer/isApproved/providerkey/Outstatus
+            // ValidatePasswordEventArgs e = new ValidatePasswordEventArgs( username, password, true );
+            // OnValidatingPassword( e );
+            //
+            //if ( e.Cancel )
+            //{
+            //	status = MembershipCreateStatus.InvalidPassword;
+            //	return null;
+            //}
 
             // Check password meets requirements as set out in the web.config
             if (!(this.IsPasswordCompliant(password)))
@@ -408,6 +419,57 @@ namespace YAF.Providers.Membership
                 status = MembershipCreateStatus.InvalidPassword;
                 return null;
             }
+
+            // Check password Question and Answer requirements.
+            if (this.RequiresQuestionAndAnswer)
+            {
+                if (String.IsNullOrEmpty(passwordQuestion))
+                {
+                    status = MembershipCreateStatus.InvalidQuestion;
+                    return null;
+                }
+                if (String.IsNullOrEmpty(passwordAnswer))
+                {
+                    status = MembershipCreateStatus.InvalidAnswer;
+                    return null;
+                }
+            }
+
+            // Check provider User Key
+            if (!(providerUserKey == null))
+            {
+                // IS Valid User Key
+                if (!(providerUserKey is Guid))
+                {
+                    status = MembershipCreateStatus.InvalidProviderUserKey;
+                    return null;
+                }
+
+                // IS not a duplicate key
+                if (!(this.GetUser(providerUserKey, false) == null))
+                {
+                    status = MembershipCreateStatus.DuplicateProviderUserKey;
+                    return null;
+                }
+            }
+
+            // Check for unique email
+            if (this.RequiresUniqueEmail)
+            {
+                if (!(String.IsNullOrEmpty(this.GetUserNameByEmail(email))))
+                {
+                    status = MembershipCreateStatus.DuplicateEmail; // Email exists
+                    return null;
+                }
+            }
+
+            // Check for unique user name
+            if (!(this.GetUser(username, false) == null))
+            {
+                status = MembershipCreateStatus.DuplicateUserName; // Username exists
+                return null;
+            }
+
             string salt = YafMembershipProvider.GenerateSalt();
             string pass = YafMembershipProvider.EncodeString(password, (int)this.PasswordFormat, salt, this.UseSalt);
             // Encode Password Answer

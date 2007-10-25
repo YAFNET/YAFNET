@@ -46,10 +46,10 @@ namespace YAF.Providers.Roles
         /// <returns></returns>
         public static void AddUserToRole(object appName, object userName, object roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_addusertorole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_addusertorole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("Username", userName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 DBAccess.ExecuteNonQuery(cmd);
@@ -64,10 +64,10 @@ namespace YAF.Providers.Roles
         /// <returns></returns>
         public static void CreateRole(object appName, object roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_createrole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_createrole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 DBAccess.ExecuteNonQuery(cmd);
             }
@@ -81,10 +81,10 @@ namespace YAF.Providers.Roles
         /// <returns>Status as integer</returns>
         public static int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_deleterole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_deleterole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 cmd.Parameters.AddWithValue("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
 
@@ -106,10 +106,10 @@ namespace YAF.Providers.Roles
         /// <returns>Datatable containing User Information</returns>
         public static DataTable FindUsersInRole(object appName, object roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_findusersinrole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_findusersinrole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 return DBAccess.GetData(cmd);
             }
@@ -123,10 +123,10 @@ namespace YAF.Providers.Roles
         /// <returns>Database containing Role Information</returns>
         public static DataTable GetRoles(object appName, object roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_getroles"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_getroles"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 return DBAccess.GetData(cmd);
             }
@@ -141,10 +141,10 @@ namespace YAF.Providers.Roles
         /// <returns>DataTable with user information</returns>
         public static DataTable IsUserInRole(object appName, object username, object roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_isuserinrole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_isuserinrole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 return DBAccess.GetData(cmd);
@@ -160,10 +160,10 @@ namespace YAF.Providers.Roles
         /// <returns></returns>
         public static void RemoveUserFromRole(object appName, string username, string roleName)
         {
-            using (SqlCommand cmd = DBAccess.GetCommand("prov_role_removeuserfromrole"))
+            using (SqlCommand cmd =new SqlCommand("yafprov_role_removeuserfromrole"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("AppName", appName);
+                cmd.Parameters.AddWithValue("ApplicationName", appName);
                 cmd.Parameters.AddWithValue("Username", username);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 DBAccess.ExecuteNonQuery(cmd);
