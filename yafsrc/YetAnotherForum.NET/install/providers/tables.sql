@@ -28,7 +28,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Membershi
 		[Joined] [datetime] NULL,
 		[Comment] [ntext] NULL
 		)
-go
+GO
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Application') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Application](
@@ -36,7 +36,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Applicati
 		[ApplicationName] [nvarchar](255) NULL,
 		[Description] [ntext] NULL
 		)
-go
+GO
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Profile]
@@ -44,7 +44,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Profile]
 		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[LastUpdatedDate]	[datetime] NOT NULL
 	)
-go
+GO
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_Role]
@@ -53,6 +53,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Role]') 
 	[ApplicationID] [uniqueidentifier] NOT NULL,
 	[RoleName] [nvarchar](255) NOT NULL
 	)
+GO
 
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [dbo].[yafprov_RoleMembership]
@@ -60,3 +61,4 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_RoleMemb
 	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[UserID] [uniqueidentifier] NOT NULL
 	)
+GO

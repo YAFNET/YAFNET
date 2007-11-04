@@ -357,6 +357,7 @@ BEGIN
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 END
+GO
 
 
 CREATE PROCEDURE dbo.yafprov_getusernamebyemail
