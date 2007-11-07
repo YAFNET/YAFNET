@@ -538,15 +538,25 @@ GO
 CREATE PROCEDURE dbo.yafprov_role_getroles
 (
 @ApplicationName nvarchar(255),
-@Rolename nvarchar(255) = null
+@Username nvarchar(255) = null
 )
 AS
 BEGIN
-	IF (@Rolename is null)
+	IF (@Username is null)
 		SELECT r.* FROM yafprov_Role r INNER JOIN yafprov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName
 	ELSE
-		SELECT r.* FROM yafprov_Role r INNER JOIN yafprov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName AND r.Rolename = @Rolename	
-END 
+		SELECT
+			r.*
+		FROM
+			yafprov_Role r
+		INNER JOIN
+			yafprov_Application a ON a.ApplicationID = r.ApplicationID
+		INNER JOIN
+			yafprov_Membership m ON m.ApplicationID = a.ApplicationID
+		WHERE
+			a.ApplicationName = @ApplicationName
+			AND m.Username = @Username
+END
 GO
 
 CREATE PROCEDURE dbo.yafprov_role_isuserinrole
