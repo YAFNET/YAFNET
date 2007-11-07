@@ -783,7 +783,7 @@ namespace YAF.Providers.Membership
         {
             UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
 
-            if (currentUser != null)
+            if (currentUser != null && currentUser.IsApproved)
             {
                 return currentUser.IsCorrectPassword(password);
             }
