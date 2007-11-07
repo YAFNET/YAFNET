@@ -89,30 +89,42 @@ namespace YAF.Providers.Membership
         /// <returns> Encrypted string</returns>
         internal static string EncodeString(string unencodedString, int encFormat, string salt, bool useSalt)
         {
+            string encodedPass = string.Empty;
+
             // Check to ensure string is not null or empty.
             if (String.IsNullOrEmpty(unencodedString))
                 return String.Empty;
 
+            int hashBufferLength = Encoding.Unicode.GetBytes(unencodedString).Length;
+
+            if (!String.IsNullOrEmpty(salt))
+            {
+                hashBufferLength += Convert.FromBase64String(salt).Length;
+            }
+
             // Buffer used for hash algorithm if Salt is used.
-            byte[] hashBuffer = new byte[Convert.FromBase64String(salt).Length + Encoding.Unicode.GetBytes(unencodedString).Length];
+            byte[] hashBuffer = new byte[hashBufferLength];
 
             // Check Encoding format / method
             switch ((MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat))
             {
                 case MembershipPasswordFormat.Clear:
-                    return unencodedString; // Return plain text
-                case MembershipPasswordFormat.Hashed:
-                    if (useSalt)
-                        return Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
-                    else
-                        return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
-                case MembershipPasswordFormat.Encrypted:
-                    return Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
-                default:
-                    return FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
+                    // plain text
+                    encodedPass = unencodedString; 
                     break;
-
+                case MembershipPasswordFormat.Hashed:
+                    if (useSalt) encodedPass = Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
+                    else encodedPass = FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
+                    break;
+                case MembershipPasswordFormat.Encrypted:
+                    encodedPass = Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
+                    break;
+                default:
+                    encodedPass = FormsAuthentication.HashPasswordForStoringInConfigFile(unencodedString, YafMembershipProvider.HashType());
+                    break;
             }
+
+            return encodedPass;
         }
 
         /// <summary>
@@ -338,7 +350,10 @@ namespace YAF.Providers.Membership
             // Check password meets requirements as set by Configuration settings
             if (!(this.IsPasswordCompliant(newPassword)))
                 return false;
-            UserPasswordInfo currentPasswordInfo = new UserPasswordInfo(this.ApplicationName, username, false, this.UseSalt);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
+            // validate the correct user information was found...
+            if (currentPasswordInfo == null) return false;
+            // validate the correct user password was entered...
             if (!currentPasswordInfo.IsCorrectPassword(oldPassword))
                 return false;
 
@@ -368,26 +383,24 @@ namespace YAF.Providers.Membership
             if ((username == null) || (password == null) || (newPasswordQuestion == null) || (newPasswordAnswer == null))
                 throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
 
-            UserPasswordInfo currentPasswordInfo = new UserPasswordInfo(this.ApplicationName, username, false, this.UseSalt);
-
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
             newPasswordAnswer = YafMembershipProvider.EncodeString(newPasswordAnswer, currentPasswordInfo.PasswordFormat, currentPasswordInfo.PasswordSalt, this.UseSalt);
 
-            if (currentPasswordInfo.IsCorrectPassword(password))
+            if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectPassword(password))
             {
                 try
                 {
                     DB.ChangePasswordQuestionAndAnswer(this.ApplicationName, username, newPasswordQuestion, newPasswordAnswer);
+                    return true;
                 }
-                catch (Exception e)
+                catch
                 {
-                    return false; // Exception raised return false
+                    // will return false...
                 }
-                return true;
+                
             }
-            else
-            {
-                return false; // Invalid password return false
-            }
+
+            return false; // Invalid password return false
         }
 
         /// <summary>
@@ -498,12 +511,14 @@ namespace YAF.Providers.Membership
             try
             {
                 DB.DeleteUser(this.ApplicationName, username, deleteAllRelatedData);
+                return true;
             }
-            catch (Exception e)
+            catch
             {
-                return false;
+                // will return false...  
             }
-            return true;
+
+            return false;            
         }
 
         /// <summary>
@@ -615,11 +630,14 @@ namespace YAF.Providers.Membership
             if ((username == null) || (answer == null))
                 throw new ArgumentException("Username or Password answer cannot be null");
 
-            UserPasswordInfo currentPasswordInfo = new UserPasswordInfo(this.ApplicationName, username, false, this.UseSalt);
-            if (currentPasswordInfo.IsCorrectAnswer(answer))
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
+
+            if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer(answer))
+            {
                 return YafMembershipProvider.DecodeString(currentPasswordInfo.Password, currentPasswordInfo.PasswordFormat);
-            else
-                return null;
+            }
+            
+            return null;
         }
 
         /// <summary>
@@ -704,9 +722,9 @@ namespace YAF.Providers.Membership
             if ((username == null) || (answer == null))
                 throw new ArgumentException("Username or Password answer cannot be null");
 
-            UserPasswordInfo currentPasswordInfo = new UserPasswordInfo(this.ApplicationName, username, false, this.UseSalt);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
 
-            if (currentPasswordInfo.IsCorrectAnswer(answer))
+            if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer(answer))
             {
                 newPasswordSalt = YafMembershipProvider.GenerateSalt();
                 newPasswordAnswer = YafMembershipProvider.EncodeString(answer, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt);
@@ -715,9 +733,8 @@ namespace YAF.Providers.Membership
                 DB.ResetPassword(this.ApplicationName, username, newPasswordEnc, newPasswordSalt, (int)this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow);
                 return newPassword; // Return unencrypted password
             }
-            else
-                return null;
-
+           
+            return null;
         }
 
         /// <summary>
@@ -730,12 +747,18 @@ namespace YAF.Providers.Membership
             // Check for null argument
             if (userName == null)
                 throw new ArgumentNullException("userName cannot be null");
-            try { DB.UnlockUser(this.ApplicationName, userName); }
-            catch (Exception e)
-            {
-                return false;
+
+            try 
+            { 
+                DB.UnlockUser(this.ApplicationName, userName);
+                return true;
             }
-            return true;
+            catch
+            {
+                // will return false below
+            }
+
+            return false;
         }
 
 
@@ -758,7 +781,14 @@ namespace YAF.Providers.Membership
         /// /// <returns>True/False whether username/password match what is on database.</returns>
         public override bool ValidateUser(string username, string password)
         {
-            return (new UserPasswordInfo(this.ApplicationName, username, false, this.UseSalt).IsCorrectPassword(password));
+            UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
+
+            if (currentUser != null)
+            {
+                return currentUser.IsCorrectPassword(password);
+            }
+
+            return false;
         }
         #endregion
     }

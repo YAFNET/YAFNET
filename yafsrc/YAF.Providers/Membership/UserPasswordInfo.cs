@@ -13,37 +13,71 @@ namespace YAF.Providers.Membership
         bool _isApproved, _useSalt;
         DateTime _lastLogin, _lastActivity;
 
-        public UserPasswordInfo(string appName, string username, bool updateUser, bool useSalt)
+        /// <summary>
+        /// Called to create a new UserPasswordInfo class instance.
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="passwordSalt"></param>
+        /// <param name="passwordQuestion"></param>
+        /// <param name="passwordAnswer"></param>
+        /// <param name="passwordFormat"></param>
+        /// <param name="failedPasswordAttempts"></param>
+        /// <param name="failedAnswerAttempts"></param>
+        /// <param name="isApproved"></param>
+        /// <param name="useSalt"></param>
+        /// <param name="lastLogin"></param>
+        /// <param name="lastActivity"></param>
+        public UserPasswordInfo(string password, string passwordSalt, string passwordQuestion, string passwordAnswer, 
+                                int passwordFormat, int failedPasswordAttempts, int failedAnswerAttempts,
+                                bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity)
         {
-            DataTable userData = DB.GetUserPasswordInfo(appName, username, updateUser);
-            if (userData.Rows.Count != 0)
-            {
-                DataRow userInfo = userData.Rows[0];
-                _password = userInfo["Password"].ToString();
-                _passwordSalt = userInfo["PasswordSalt"].ToString();
-                _passwordQuestion = userInfo["PasswordQuestion"].ToString();
-                _passwordAnswer = userInfo["PasswordAnswer"].ToString();
-
-                _passwordFormat = Utils.Transform.ToInt(userInfo["PasswordFormat"]);
-
-                _failedPasswordAttempts = Utils.Transform.ToInt(userInfo["FailedPasswordAttempts"]);
-                _failedAnswerAttempts = Utils.Transform.ToInt(userInfo["FailedAnswerAttempts"]);
-
-                _isApproved = Convert.ToBoolean(userInfo["IsApproved"]);
-
-                _lastLogin = Convert.ToDateTime(userInfo["LastLogin"]);
-                _lastActivity = Convert.ToDateTime(userInfo["LastActivity"]);
-
-                _useSalt = useSalt;
-
-            }
+            // nothing to do except set the local variables...
+            _password = password;
+            _passwordSalt = passwordSalt;
+            _passwordQuestion = passwordQuestion;
+            _passwordAnswer = passwordAnswer;
+            _passwordFormat = passwordFormat;
+            _failedPasswordAttempts = failedPasswordAttempts;
+            _failedAnswerAttempts = failedAnswerAttempts;
+            _isApproved = isApproved;
+            _lastLogin = lastLogin;
+            _lastActivity = lastActivity;
+            _useSalt = useSalt;
         }
 
+        // used to create an instance of this class from the DB...
+        public static UserPasswordInfo CreateInstanceFromDB(string appName, string username, bool updateUser, bool useSalt)
+        {
+            DataTable userData = DB.GetUserPasswordInfo(appName, username, updateUser);
+
+            if (userData.Rows.Count > 0)
+            {
+                DataRow userInfo = userData.Rows[0];
+                // create a new instance of the UserPasswordInfo class
+                return new UserPasswordInfo( userInfo["Password"].ToString(), userInfo["PasswordSalt"].ToString(), userInfo["PasswordQuestion"].ToString(), userInfo["PasswordAnswer"].ToString(),
+                                            Utils.Transform.ToInt(userInfo["PasswordFormat"]), Utils.Transform.ToInt(userInfo["FailedPasswordAttempts"]), Utils.Transform.ToInt(userInfo["FailedAnswerAttempts"]),
+                                            Convert.ToBoolean(userInfo["IsApproved"]), useSalt, Convert.ToDateTime(userInfo["LastLogin"]), Convert.ToDateTime(userInfo["LastActivity"]));
+            }
+
+            // nothing found, return null.
+            return null;
+        }
+
+        /// <summary>
+        /// Checks the password against the one provided for validity
+        /// </summary>
+        /// <param name="passwordToCheck"></param>
+        /// <returns></returns>
         public bool IsCorrectPassword(string passwordToCheck)
         {
             return this.Password.Equals(YafMembershipProvider.EncodeString(passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt));
         }
 
+        /// <summary>
+        /// Checks the user answer against the one provided for validity
+        /// </summary>
+        /// <param name="answerToCheck"></param>
+        /// <returns></returns>
         public bool IsCorrectAnswer(string answerToCheck)
         {
             return this.PasswordAnswer.Equals((YafMembershipProvider.EncodeString(answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt)));
