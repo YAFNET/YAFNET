@@ -184,7 +184,7 @@ namespace YAF.Providers.Roles
             DataTable roles = DB.GetRoles(this.ApplicationName, username);
             
             // make a string collection to store the role list...
-            StringCollection roleNames = new StringCollection();;
+            StringCollection roleNames = new StringCollection();
 
             foreach (DataRow dr in roles.Rows)
             {

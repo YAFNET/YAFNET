@@ -121,13 +121,13 @@ namespace YAF.Providers.Roles
         /// <param name="appName">Application Name</param>
         /// <param name="roleNames">Role Name</param>
         /// <returns>Database containing Role Information</returns>
-        public static DataTable GetRoles(object appName, object roleName)
+        public static DataTable GetRoles(object appName, object username)
         {
             using (SqlCommand cmd =new SqlCommand("yafprov_role_getroles"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("RoleName", roleName);
+                cmd.Parameters.AddWithValue("Username", username);
                 return DBAccess.GetData(cmd);
             }
         }
