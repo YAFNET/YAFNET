@@ -542,7 +542,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDateTime(dr["Joined"]), Utils.Transform.ToDateTime(dr["LastLogin"]), Utils.Transform.ToDateTime(dr["LastActivity"]), Utils.Transform.ToDateTime(dr["LastPasswordChange"]), Utils.Transform.ToDateTime(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -569,7 +569,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDateTime(dr["Joined"]), Utils.Transform.ToDateTime(dr["LastLogin"]), Utils.Transform.ToDateTime(dr["LastActivity"]), Utils.Transform.ToDateTime(dr["LastPasswordChange"]), Utils.Transform.ToDateTime(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -595,7 +595,7 @@ namespace YAF.Providers.Membership
             foreach (DataRow dr in DB.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
             {
                 // Add new user to collection
-                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"])));
+                users.Add(new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDateTime(dr["Joined"]), Utils.Transform.ToDateTime(dr["LastLogin"]), Utils.Transform.ToDateTime(dr["LastActivity"]), Utils.Transform.ToDateTime(dr["LastPasswordChange"]), Utils.Transform.ToDateTime(dr["LastLockout"])));
             }
             totalRecords = users.Count;
             return users;
@@ -653,7 +653,7 @@ namespace YAF.Providers.Membership
 
             DataRow dr = DB.GetUser(this.ApplicationName, username, userIsOnline);
             if (dr != null)
-                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"]));
+                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDateTime(dr["Joined"]), Utils.Transform.ToDateTime(dr["LastLogin"]), Utils.Transform.ToDateTime(dr["LastActivity"]), Utils.Transform.ToDateTime(dr["LastPasswordChange"]), Utils.Transform.ToDateTime(dr["LastLockout"]));
             else
                 return null;
         }
@@ -678,7 +678,7 @@ namespace YAF.Providers.Membership
 
             DataRow dr = DB.GetUser(this.ApplicationName, providerUserKey, userIsOnline);
             if (dr != null)
-                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDate(dr["Joined"]), Utils.Transform.ToDate(dr["LastLogin"]), Utils.Transform.ToDate(dr["LastActivity"]), Utils.Transform.ToDate(dr["LastPasswordChange"]), Utils.Transform.ToDate(dr["LastLockout"]));
+                return new MembershipUser(Utils.Transform.ToString(this.Name), Utils.Transform.ToString(dr["Username"]), Utils.Transform.ToString(dr["UserID"]), Utils.Transform.ToString(dr["Email"]), Utils.Transform.ToString(dr["PasswordQuestion"]), Utils.Transform.ToString(dr["Comment"]), Utils.Transform.ToBool(dr["IsApproved"]), Utils.Transform.ToBool(dr["IsLockedOut"]), Utils.Transform.ToDateTime(dr["Joined"]), Utils.Transform.ToDateTime(dr["LastLogin"]), Utils.Transform.ToDateTime(dr["LastActivity"]), Utils.Transform.ToDateTime(dr["LastPasswordChange"]), Utils.Transform.ToDateTime(dr["LastLockout"]));
             else
                 return null;
         }

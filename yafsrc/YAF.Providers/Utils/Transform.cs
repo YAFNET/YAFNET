@@ -8,7 +8,7 @@ namespace YAF.Providers.Utils
 {
     public static class Transform
     {
-        public static DateTime ToDate(object obj)
+        public static DateTime ToDateTime(object obj)
         {
             if ((obj != DBNull.Value) && (obj != null))
                 return Convert.ToDateTime(obj.ToString());

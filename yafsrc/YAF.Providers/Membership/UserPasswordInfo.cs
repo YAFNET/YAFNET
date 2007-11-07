@@ -54,9 +54,9 @@ namespace YAF.Providers.Membership
             {
                 DataRow userInfo = userData.Rows[0];
                 // create a new instance of the UserPasswordInfo class
-                return new UserPasswordInfo( userInfo["Password"].ToString(), userInfo["PasswordSalt"].ToString(), userInfo["PasswordQuestion"].ToString(), userInfo["PasswordAnswer"].ToString(),
+                return new UserPasswordInfo(Utils.Transform.ToString(userInfo["Password"]), Utils.Transform.ToString(userInfo["PasswordSalt"]), Utils.Transform.ToString(userInfo["PasswordQuestion"]), Utils.Transform.ToString(userInfo["PasswordAnswer"]),
                                             Utils.Transform.ToInt(userInfo["PasswordFormat"]), Utils.Transform.ToInt(userInfo["FailedPasswordAttempts"]), Utils.Transform.ToInt(userInfo["FailedAnswerAttempts"]),
-                                            Convert.ToBoolean(userInfo["IsApproved"]), useSalt, Convert.ToDateTime(userInfo["LastLogin"]), Convert.ToDateTime(userInfo["LastActivity"]));
+                                            Utils.Transform.ToBool(userInfo["IsApproved"]), useSalt, Utils.Transform.ToDateTime(userInfo["LastLogin"]), Utils.Transform.ToDateTime(userInfo["LastActivity"]));
             }
 
             // nothing found, return null.
