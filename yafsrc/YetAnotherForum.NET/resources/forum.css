@@ -2,3 +2,28 @@
 {
 	width: 460px;
 }
+#DivForumJump
+{
+	float:right;
+	margin-top: 10px;
+}
+
+#DivPageAccess
+{
+	clear:right;
+	float:right;
+	margin-top: 10px;
+}
+#DivIconLegend
+{
+	float:left;
+	margin-top: 10px;
+}
+#DivSmartScroller
+{
+	clear:both;
+}
+.postsep
+{
+	padding:0px;
+}
