@@ -18,13 +18,13 @@
 						:</b>
 					<%# YafDateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 				</td>
-				<td class="postheader" align="right">
-					<asp:HyperLink runat="server" ID="Attach" />
-					<asp:HyperLink runat="server" ID="Edit" />
-					<asp:HyperLink runat="server" ID="MovePost" />
-					<asp:HyperLink runat="server" ID="Delete" />
-					<asp:HyperLink runat="server" ID="UnDelete" />
-					<asp:HyperLink runat="server" ID="Quote" />
+				<td class="postheader" width="50%">
+				    <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH" TitleLocalizedTag="BUTTON_ATTACH_TT" />
+				    <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT" TitleLocalizedTag="BUTTON_EDIT_TT" />
+				    <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE" TitleLocalizedTag="BUTTON_MOVE_TT" />
+				    <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT" />
+				    <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_UNDELETE" TitleLocalizedTag="BUTTON_UNDELETE_TT" />
+				    <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT" />
 				</td>
 			</tr>
 		</table>
@@ -72,7 +72,6 @@
 	</td>
 </tr>
 <tr class="postsep">
-	<td colspan="3" style="height: 5px">
-	</td>
+	<td colspan="3"></td>
 </tr>
 <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />

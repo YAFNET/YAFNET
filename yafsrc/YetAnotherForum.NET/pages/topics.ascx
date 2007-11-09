@@ -36,9 +36,9 @@
         <td class="navlinks" align="left">
             <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
         </td>
-        <td align="right">
-            <asp:LinkButton ID="moderate1" runat="server" CssClass="imagelink" />
-            <asp:LinkButton ID="NewTopic1" runat="server" CssClass="imagelink" />
+        <td>            
+            <YAF:ThemeButton ID="moderate1" runat="server" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+            <YAF:ThemeButton ID="NewTopic1" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
         </td>
     </tr>
 </table>
@@ -106,32 +106,27 @@
         <td align="left" class="navlinks">
             <YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="False" />
         </td>
-        <td align="right">
-            <asp:LinkButton ID="moderate2" runat="server" CssClass="imagelink" />
-            <asp:LinkButton ID="NewTopic2" runat="server" CssClass="imagelink" />
+        <td>
+            <YAF:ThemeButton ID="moderate2" runat="server" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+            <YAF:ThemeButton ID="NewTopic2" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
         </td>
     </tr>
 </table>
-<table width="100%" cellspacing="0" cellpadding="0">
-    <tr id="ForumJumpLine" runat="Server">
-        <td align="right" colspan="2">
-            <%# GetText("Forum_Jump") %>
-            <YAF:ForumJump runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td valign="top">
-            <YAF:IconLegend runat="server" />
-        </td>
-        <td align="right">
-            <table cellspacing="1" cellpadding="1">
-                <tr>
-                    <td align="right" valign="top" class="smallfont">
-                        <YAF:PageAccess runat="server" />
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+<div id="DivForumJump">
+    <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />&nbsp;<YAF:ForumJump id="ForumJump1" runat="server"/>
+</div>
+</asp:PlaceHolder>
+
+<div id="DivIconLegend">
+    <YAF:IconLegend ID="IconLegend1" runat="server" />
+</div>
+
+<div id="DivPageAccess" class="smallfont">
+	<YAF:PageAccess id="PageAccess1" runat="server"/>
+</div>
+
+<div id="DivSmartScroller">
+    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+</div>

@@ -32,13 +32,10 @@
 							</b>
 							<%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 						</td>
-						<td align="right">
-							<asp:LinkButton ID="DeleteMessage" OnLoad="DeleteMessage_Load" ToolTip="Delete this message"
-								runat="server" CommandName="delete" CommandArgument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","DELETEPOST") %></asp:LinkButton>
-							<asp:LinkButton ID="ReplyMessage" ToolTip="Reply to this message" runat="server"
-								CommandName="reply" CommandArgument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","REPLYPM") %></asp:LinkButton>
-							<asp:LinkButton ID="QuoteMessage" ToolTip="Reply with quote" runat="server" CommandName="quote"
-								CommandArgument='<%# Eval("UserPMessageID") %>'><%# GetThemeContents("BUTTONS","QUOTEPOST") %></asp:LinkButton>
+						<td>
+						    <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT" OnLoad="ThemeButtonDelete_Load" />
+						    <YAF:ThemeButton ID="ReplyMessage" runat="server" CssClass="yaflittlebutton" CommandName="reply" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_REPLY" TitleLocalizedTag="BUTTON_REPLY_TT" />
+						    <YAF:ThemeButton ID="QuoteMessage" runat="server" CssClass="yaflittlebutton" CommandName="quote" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT" />
 						</td>
 					</tr>
 				</table>

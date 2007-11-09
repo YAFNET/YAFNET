@@ -66,7 +66,7 @@ namespace YAF.Pages // YAF.Pages
 				if ( ViewState ["IsOutbox"] == null )
 					return false;
 				else
-					return ( bool ) ViewState ["IsOutbox"];
+					return ( bool )ViewState ["IsOutbox"];
 			}
 			set { ViewState ["IsOutbox"] = value; }
 		}
@@ -78,7 +78,7 @@ namespace YAF.Pages // YAF.Pages
 				if ( ViewState ["IsArchived"] == null )
 					return false;
 				else
-					return ( bool ) ViewState ["IsArchived"];
+					return ( bool )ViewState ["IsArchived"];
 			}
 			set { ViewState ["IsArchived"] = value; }
 		}
@@ -137,8 +137,8 @@ namespace YAF.Pages // YAF.Pages
 					DataRow row = dt.Rows [0];
 
 					// if the pm isn't from or two the current user--then it's access denied
-					if ( ( int ) row ["ToUserID"] != PageContext.PageUserID &&
-							( int ) row ["FromUserID"] != PageContext.PageUserID )
+					if ( ( int )row ["ToUserID"] != PageContext.PageUserID &&
+							( int )row ["FromUserID"] != PageContext.PageUserID )
 						YafBuildLink.AccessDenied();
 
 					SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
@@ -190,10 +190,10 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		protected void DeleteMessage_Load( object sender, EventArgs e )
+		protected void ThemeButtonDelete_Load( object sender, EventArgs e )
 		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] =
-					String.Format( "return confirm('{0}')", GetText( "confirm_deletemessage" ) );
+			YAF.Controls.ThemeButton themeButton = (YAF.Controls.ThemeButton) sender;
+			themeButton.Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "confirm_deletemessage" ) );
 		}
 	}
 }

@@ -63,28 +63,28 @@ namespace YAF.Controls
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
 			Attach.Visible = !PostDeleted && CanAttach && !IsLocked;
-			Attach.Text = PageContext.Theme.GetItem( "BUTTONS", "ATTACHMENTS" );
-			Attach.ToolTip = PageContext.Localization.GetText( "BUTTON_ATTACH_TT" );
+			//Attach.Text = PageContext.Theme.GetItem( "BUTTONS", "ATTACHMENTS" );
+			//Attach.ToolTip = PageContext.Localization.GetText( "BUTTON_ATTACH_TT" );
 			Attach.NavigateUrl = YafBuildLink.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
 			Edit.Visible = !PostDeleted && CanEditPost && !IsLocked;
-			Edit.Text = PageContext.Theme.GetItem( "BUTTONS", "EDITPOST" );
-			Edit.ToolTip = PageContext.Localization.GetText( "BUTTON_EDIT_TT" );
+			//Edit.Text = PageContext.Theme.GetItem( "BUTTONS", "EDITPOST" );
+			//Edit.ToolTip = PageContext.Localization.GetText( "BUTTON_EDIT_TT" );
 			Edit.NavigateUrl = YafBuildLink.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
 			MovePost.Visible = PageContext.ForumModeratorAccess && !IsLocked;
-			MovePost.Text = PageContext.Theme.GetItem( "BUTTONS", "MOVEPOST" );
-			MovePost.ToolTip = PageContext.Localization.GetText( "BUTTON_MOVE_TT" );
+			//MovePost.Text = PageContext.Theme.GetItem( "BUTTONS", "MOVEPOST" );
+			//MovePost.ToolTip = PageContext.Localization.GetText( "BUTTON_MOVE_TT" );
 			MovePost.NavigateUrl = YafBuildLink.GetLink( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
 			Delete.Visible = !PostDeleted && CanDeletePost && !IsLocked;
-			Delete.Text = PageContext.Theme.GetItem( "BUTTONS", "DELETEPOST" );
-			Delete.ToolTip = PageContext.Localization.GetText( "BUTTON_DELETE_TT" );
+			//Delete.Text = PageContext.Theme.GetItem( "BUTTONS", "DELETEPOST" );
+			//Delete.ToolTip = PageContext.Localization.GetText( "BUTTON_DELETE_TT" );
 			Delete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
 			UnDelete.Visible = CanUnDeletePost && !IsLocked;
-			UnDelete.Text = PageContext.Theme.GetItem( "BUTTONS", "UNDELETEPOST" );
-			UnDelete.ToolTip = PageContext.Localization.GetText( "BUTTON_UNDELETE_TT" );
+			//UnDelete.Text = PageContext.Theme.GetItem( "BUTTONS", "UNDELETEPOST" );
+			//UnDelete.ToolTip = PageContext.Localization.GetText( "BUTTON_UNDELETE_TT" );
 			UnDelete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
-			Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
-			Quote.ToolTip = PageContext.Localization.GetText( "BUTTON_QUOTE_TT" );
+			//Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
+			//Quote.ToolTip = PageContext.Localization.GetText( "BUTTON_QUOTE_TT" );
 			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
 			// report posts

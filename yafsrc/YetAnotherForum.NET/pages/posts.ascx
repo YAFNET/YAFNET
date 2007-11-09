@@ -32,13 +32,13 @@
 <table class='command' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
 	<td align="left" class="navlinks"><YAF:pager runat="server" id="Pager" UsePostBack="False" /></td>
-	<td align="right">
-		<asp:linkbutton id="PostReplyLink1" runat="server" cssclass="imagelink" ToolTip="Post Reply" onclick="PostReplyLink_Click" />
-		<asp:linkbutton id="NewTopic1" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
-		<asp:linkbutton id="DeleteTopic1" runat="server" onload="DeleteTopic_Load" cssclass="imagelink" onclick="DeleteTopic_Click" />
-		<asp:linkbutton id="LockTopic1" runat="server" cssclass="imagelink" onclick="LockTopic_Click" />
-		<asp:linkbutton id="UnlockTopic1" runat="server" cssclass="imagelink" onclick="UnlockTopic_Click" />
-		<asp:linkbutton id="MoveTopic1" runat="server" cssclass="imagelink" onclick="MoveTopic_Click" />
+	<td>
+	    <YAF:ThemeButton ID="MoveTopic1" runat="server" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" onclick="MoveTopic_Click" />
+	    <YAF:ThemeButton ID="UnlockTopic1" runat="server" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" onclick="UnlockTopic_Click" />
+	    <YAF:ThemeButton ID="LockTopic1" runat="server" TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT" onclick="LockTopic_Click" />
+	    <YAF:ThemeButton ID="DeleteTopic1" runat="server" TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT" onclick="DeleteTopic_Click" />
+	    <YAF:ThemeButton ID="NewTopic1" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" onclick="NewTopic_Click" />
+	    <YAF:ThemeButton ID="PostReplyLink1" runat="server" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" onclick="PostReplyLink_Click" />
 	</td>
 </tr>
 </table>
@@ -121,32 +121,33 @@
 
 </table>
 
-<br />
-
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
   <tr>
     <td align="left" class="navlinks"><YAF:pager runat="server" linkedpager="Pager" UsePostBack="false" /></td>
-    <td align="right">
-		<asp:linkbutton id="PostReplyLink2" runat="server" cssclass="imagelink" onclick="PostReplyLink_Click" />
-		<asp:linkbutton id="NewTopic2" runat="server" cssclass="imagelink" onclick="NewTopic_Click" />
-		<asp:linkbutton id="DeleteTopic2" runat="server" onload="DeleteTopic_Load" cssclass="imagelink" onclick="DeleteTopic_Click" />
-		<asp:linkbutton id="LockTopic2" runat="server" cssclass="imagelink" onclick="LockTopic_Click" />
-		<asp:linkbutton id="UnlockTopic2" runat="server" cssclass="imagelink" onclick="UnlockTopic_Click" />
-		<asp:linkbutton id="MoveTopic2" runat="server" cssclass="imagelink" onclick="MoveTopic_Click" />
-</td></tr>
+	<td>
+	    <YAF:ThemeButton ID="MoveTopic2" runat="server" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" onclick="MoveTopic_Click" />
+	    <YAF:ThemeButton ID="UnlockTopic2" runat="server" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" onclick="UnlockTopic_Click" />
+	    <YAF:ThemeButton ID="LockTopic2" runat="server" TextLocalizedTag="BUTTON_LOCKTOPIC" TitleLocalizedTag="BUTTON_LOCKTOPIC_TT" onclick="LockTopic_Click" />
+	    <YAF:ThemeButton ID="DeleteTopic2" runat="server" TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT" onclick="DeleteTopic_Click" />
+	    <YAF:ThemeButton ID="NewTopic2" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" onclick="NewTopic_Click" />
+	    <YAF:ThemeButton ID="PostReplyLink2" runat="server" TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT" onclick="PostReplyLink_Click" />
+	</td>    
+  </tr>
 </table>
 
-<br />
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr id="ForumJumpLine" runat="Server">
-	<td align="right"><%= GetText("FORUM_JUMP") %> <YAF:forumjump id="ForumJump1" runat="server"/></td>
-</tr>
-<tr>
-	<td align="right" valign="top" class="smallfont"><YAF:PageAccess id="PageAccess1" runat="server"/></td>
-</tr>
-</table>
+<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+<div id="DivForumJump">
+    <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />&nbsp;<YAF:ForumJump id="ForumJump1" runat="server"/>
+</div>
+</asp:PlaceHolder>
 
-<YAF:SmartScroller id="SmartScroller1" runat = "server" />
+<div id="DivPageAccess" class="smallfont">
+	<YAF:PageAccess id="PageAccess1" runat="server"/>
+</div>
+
+<div id="DivSmartScroller">
+    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+</div>
 
 <YAF:PopMenu runat="server" id="MyTestMenu" control="MyTest"/>
 <YAF:PopMenu runat="server" id="ViewMenu" control="View"/>

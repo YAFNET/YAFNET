@@ -1,5 +1,6 @@
 /* Yet Another Forum.net
  * Copyright (C) 2003 Bjørnar Henden
+ * Copyright (C) 2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -60,7 +61,7 @@ namespace YAF.Pages // YAF.Pages
 			RssFeed.Text = GetText( "RSSFEED" );
 			RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
 			RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;
-			ForumJumpLine.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
+			ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
 			if ( !IsPostBack )
 			{
@@ -73,17 +74,6 @@ namespace YAF.Pages // YAF.Pages
 				}
 
 				PageLinks.AddForumLinks( PageContext.PageForumID, true );
-
-				moderate1.Text = GetThemeContents( "BUTTONS", "MODERATE" );
-				moderate1.ToolTip = "Moderate this forum";
-				moderate2.Text = moderate1.Text;
-				moderate2.ToolTip = moderate1.ToolTip;
-				MarkRead.Text = GetText( "MARKREAD" );
-
-				NewTopic1.Text = GetThemeContents( "BUTTONS", "NEWTOPIC" );
-				NewTopic1.ToolTip = "Post new topic";
-				NewTopic2.Text = NewTopic1.Text;
-				NewTopic2.ToolTip = NewTopic1.ToolTip;
 
 				ShowList.DataSource = YafStaticData.TopicTimes( );
 				ShowList.DataTextField = "TopicText";
@@ -185,7 +175,7 @@ namespace YAF.Pages // YAF.Pages
 			BindData();
 		}
 
-		private void moderate_Click( object sender, EventArgs e )
+		protected void moderate_Click( object sender, EventArgs e )
 		{
 
 			if ( PageContext.ForumModeratorAccess )
@@ -267,7 +257,7 @@ namespace YAF.Pages // YAF.Pages
 			Pager.Count = nRowCount;
 		}
 
-		private void NewTopic_Click( object sender, System.EventArgs e )
+		protected void NewTopic_Click( object sender, System.EventArgs e )
 		{
 			if (General.BinaryAnd(_forum["Flags"], ForumFlags.Locked))
 			{
@@ -281,7 +271,7 @@ namespace YAF.Pages // YAF.Pages
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.postmessage, "f={0}", PageContext.PageForumID );
 		}
 
-		private void WatchForum_Click( object sender, System.EventArgs e )
+		protected void WatchForum_Click( object sender, System.EventArgs e )
 		{
 			if ( !PageContext.ForumReadAccess )
 				return;

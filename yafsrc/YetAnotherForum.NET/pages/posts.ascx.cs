@@ -103,7 +103,7 @@ namespace YAF.Pages // YAF.Pages
 				TopicTitle.Text = General.BadWordReplace( ( string ) _topic ["Topic"] );
 
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
-				ForumJumpLine.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
+				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
 				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&amp;t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
@@ -139,7 +139,7 @@ namespace YAF.Pages // YAF.Pages
 					MoveTopic1.Visible = false;
 					MoveTopic2.Visible = false;
 				}
-
+                /*
 				PostReplyLink1.Text = GetThemeContents( "BUTTONS", "POSTREPLY" );
 				PostReplyLink1.ToolTip = GetText( "POSTS", "TIP_REPLY_TOPIC" );
 				PostReplyLink2.Text = PostReplyLink1.Text;
@@ -164,6 +164,7 @@ namespace YAF.Pages // YAF.Pages
 				MoveTopic1.ToolTip = GetText( "POSTS", "TIP_MOVE_TOPIC" );
 				MoveTopic2.Text = MoveTopic1.Text;
 				MoveTopic2.ToolTip = MoveTopic1.ToolTip;
+                */
 
 				if ( !PageContext.ForumModeratorAccess )
 				{
