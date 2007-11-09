@@ -310,3 +310,92 @@ div.postdiv
 	min-height: 100px;
 	overflow: auto;	
 }
+
+/* CCS Buttons */
+a.yaflittlebutton
+{
+	background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #ffffff;
+    display: block;
+    float: right;
+	font-size: 8px; 
+    height: 18px;
+    margin: 2px 0px 2px 2px;
+    padding-right: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+a.yaflittlebutton span
+{
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 10px;
+    padding: 4px 3px 4px 5px;
+}
+a.yaflittlebutton img
+{
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+a.yaflittlebutton:hover
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+a.yaflittlebutton:active
+{
+    background-position: bottom right;
+    outline: none;
+}
+a.yaflittlebutton:active img
+{
+    padding: 0px 4px 2px 0px;
+}
+a.yaflittlebutton:active span
+{
+    background-position: bottom left;
+    padding: 5px 3px 3px 5px;
+}
+a.yafcssbutton
+{
+    background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #ffffff;
+    display: block;
+    float: right;
+	font-size: 8px; 
+    height: 18px;
+    margin: 2px 0px 2px 2px;
+    padding-right: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+a.yafcssbutton span
+{
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 10px;
+    padding: 4px 10px 4px 12px;
+}
+a.yafcssbutton img
+{
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+a.yafcssbutton:active
+{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+a.yafcssbutton:active img
+{
+    padding: 0px 4px 2px 0px;
+}
+a.yafcssbutton:active span
+{
+    background-position: bottom left;
+    padding: 5px 10px 3px 12px; /* push text down 1px */
+}
