@@ -10,10 +10,12 @@ namespace YAF.Controls
 	{
 		protected string _cssClass = "yafcssbutton";
 		protected string _text;
-		protected string _link;
-		protected string _titlePage = string.Empty;
+		protected string _navigateUrl;
+		protected string _titlePage = "BUTTON"; // defaults to the BUTTON section
 		protected string _titleTag = string.Empty;
+		protected AttributeCollection _attributeCollection;
 		protected static object _clickEvent = new object();
+		protected static object _commandEvent = new object();
 		protected ThemeImage _themeImage = new ThemeImage();
 		protected LocalizedLabel _localizedLabel = new LocalizedLabel();
 
@@ -21,6 +23,7 @@ namespace YAF.Controls
 			: base()
 		{
 			this.Load += new EventHandler( ThemeButton_Load );
+			_attributeCollection = new AttributeCollection( ViewState );
 		}
 
 		/// <summary>
@@ -52,9 +55,9 @@ namespace YAF.Controls
 			output.WriteBeginTag( "a" );
 			if ( !String.IsNullOrEmpty( _cssClass ) ) output.WriteAttribute( "class", _cssClass );
 			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
-			if ( !String.IsNullOrEmpty( _link ) )
+			if ( !String.IsNullOrEmpty( _navigateUrl ) )
 			{
-				output.WriteAttribute( "href", _link );
+				output.WriteAttribute( "href", _navigateUrl );
 			}
 			else
 			{
@@ -62,8 +65,30 @@ namespace YAF.Controls
 				output.WriteAttribute( "href", Page.ClientScript.GetPostBackClientHyperlink( this, "" ) );
 			}
 
+			bool wroteOnClick = false;
+
+			// handle additional attributes (if any)
+			if ( _attributeCollection.Count > 0 )
+			{
+				// add attributes...
+				foreach ( string key in _attributeCollection.Keys )
+				{
+					// get the attribute and write it...
+					if ( key.ToLower() == "onclick" )
+					{
+						// special handling... add to it...
+						output.WriteAttribute( key, string.Format("{0};{1}", _attributeCollection [key], "this.blur();" ));
+						wroteOnClick = true;
+					}
+					else
+					{
+						output.WriteAttribute( key, _attributeCollection [key] );
+					}
+				}
+			}
+
 			// IE fix
-			output.WriteAttribute("onclick", "this.blur();");
+			if ( !wroteOnClick ) output.WriteAttribute( "onclick", "this.blur();" );
 			output.Write( HtmlTextWriter.TagRightChar );
 			output.WriteFullBeginTag( "span" );
 
@@ -96,20 +121,31 @@ namespace YAF.Controls
 				handler( this, e );
 		}
 
-		protected virtual void RaisePostBackEvent( string eventArgument )
+		protected virtual void OnCommand( CommandEventArgs e )
 		{
-			throw new NotImplementedException();
+			EventHandler handler = ( EventHandler )Events [_commandEvent];
+			if ( handler != null )
+				handler( this, e );
+
+			this.RaiseBubbleEvent( this, e );
 		}
 
-		void IPostBackEventHandler.RaisePostBackEvent( string ea )
+		void IPostBackEventHandler.RaisePostBackEvent( string eventArgument )
 		{
+			OnCommand( new CommandEventArgs( CommandName, CommandArgument ) );
 			OnClick( EventArgs.Empty );
 		}
-
+		
 		public event EventHandler Click
 		{
 			add { Events.AddHandler( _clickEvent, value ); }
 			remove { Events.RemoveHandler( _clickEvent, value ); }
+		}
+
+		public event EventHandler Command
+		{
+			add { Events.AddHandler( _commandEvent, value ); }
+			remove { Events.RemoveHandler( _commandEvent, value ); }
 		}
 
 		/// <summary>
@@ -160,10 +196,10 @@ namespace YAF.Controls
 		/// <summary>
 		/// Setting the link property will make this control non-postback.
 		/// </summary>
-		public string Link
+		public string NavigateUrl
 		{
-			get { return _link; }
-			set { _link = value; }
+			get { return _navigateUrl; }
+			set { _navigateUrl = value; }
 		}
 
 		/// <summary>
@@ -182,6 +218,35 @@ namespace YAF.Controls
 		{
 			get { return _titleTag; }
 			set { _titleTag = value; }
+		}
+
+		public AttributeCollection Attributes
+		{
+			get { return _attributeCollection; }
+		}
+
+		public string CommandName
+		{
+			get
+			{
+				if ( ViewState ["commandName"] != null )
+					return ViewState ["commandName"].ToString();
+
+				return null;
+			}
+			set { ViewState ["commandName"] = value; }
+		}
+
+		public string CommandArgument
+		{
+			get
+			{
+				if ( ViewState ["commandArgument"] != null )
+					return ViewState ["commandArgument"].ToString();
+
+				return null;
+			}
+			set { ViewState ["commandArgument"] = value; }
 		}
 	}
 }
