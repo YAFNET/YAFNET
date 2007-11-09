@@ -505,7 +505,7 @@ namespace YAF.Classes.Base
 			head.Title = _forumPageTitle;
 
 			// make the style sheet link controls.
-			head.Controls.Add( MakeStyleSheetControl( String.Format( "{0}forum.css", YafForumInfo.ForumRoot ) ) );
+			head.Controls.Add( MakeStyleSheetControl( PageContext.Theme.GetURLToResource( "forum.css") ) );
 			head.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
 
 			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )
