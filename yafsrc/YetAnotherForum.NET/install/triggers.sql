@@ -80,3 +80,37 @@ GO
 if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[{objectQualifier}UserGroup_delete]') and objectproperty(id, N'IsTrigger') = 1)
 	drop trigger [{databaseOwner}].[{objectQualifier}UserGroup_delete]
 GO
+
+
+
+/* MJ Hufford 10/17/2007: Default approved file extensions when board is created */
+if exists(select 1 from sysobjects where id=object_id(N'[{databaseOwner}].[{objectQualifier}Board_Extension_create]') and objectproperty(id, N'IsTrigger') = 1)
+	drop trigger [{databaseOwner}].[{objectQualifier}Board_Extension_create]
+GO
+
+CREATE TRIGGER [{databaseOwner}].[{objectQualifier}Board_Extension_create] ON [{databaseOwner}].[{objectQualifier}Board] FOR INSERT AS
+BEGIN
+	DECLARE @BoardID int
+	SELECT @BoardID =(SELECT BoardID FROM INSERTED)
+
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'bmp');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'gif');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'jpg');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'png');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'tif');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'mp3');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'rm');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'wav');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'wma');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'avi');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'mov');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'mpg');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'wmv');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'doc');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'txt');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'wpd');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'xls');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'rar');
+	INSERT INTO [{databaseOwner}].[{objectQualifier}extension] (BoardId, Extension) VALUES (@BoardID, 'zip');
+END
+GO
