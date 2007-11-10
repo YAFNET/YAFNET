@@ -140,6 +140,13 @@ namespace YAF.Classes
 					newURL += "?" + restURL;
 				}
 
+				// see if we can just use the default (/)
+				if ( newURL.EndsWith( "yaf_forum.aspx" ) )
+				{
+					// remove in favor of just slash...
+					newURL = newURL.Remove( newURL.LastIndexOf( "yaf_forum.aspx" ), "yaf_forum.aspx".Length );
+				}
+
 				// add anchor
 				if ( parser.HasAnchor ) newURL += "#" + parser.Anchor;				
 			}

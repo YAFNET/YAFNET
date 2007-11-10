@@ -821,14 +821,20 @@ namespace YAF.Classes.Utils
 		#region Version Information
 		static public string AppVersionNameFromCode( long code )
 		{
-			if ( ( code & 0xFF ) > 0 )
+			if ( ( code & 0xF0 ) > 0 )
 			{
-				return String.Format( "{0}.{1}.{2} RC{3}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF, code & 0xFF );
+				version = String.Format( "{0}.{1}.{2}.{3}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF, ( code >> 4 ) & 0x0F );
 			}
 			else
 			{
-				return String.Format( "{0}.{1}.{2}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF );
+				version = String.Format( "{0}.{1}.{2}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF );
 			}
+
+			if ( ( code & 0x0F ) > 0 )
+			{
+				// Add Release Candidate
+				version += string.Format( " RC{0}", code & 0x0F );
+			}		
 		}
 		static public string AppVersionName
 		{
@@ -855,7 +861,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return new DateTime( 2007, 09, 21 );
+				return new DateTime( 2007, 11, 09 );
 			}
 		}
 		#endregion
