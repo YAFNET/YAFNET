@@ -133,7 +133,7 @@
 				</tr>
 				<tr>
 					<td class="post" colspan="2" align="center">
-						<asp:Image ID="Avatar" runat="server" />
+						<asp:Image ID="Avatar" runat="server" CssClass="avatarimage" />
 					</td>
 				</tr>
 			</table>

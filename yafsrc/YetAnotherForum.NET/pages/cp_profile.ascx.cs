@@ -77,11 +77,11 @@ namespace YAF.Pages
 
 			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
 			{
-				AvatarImage.Src = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
+				AvatarImage.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
 			}
 			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
 			{
-				AvatarImage.Src = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
+				AvatarImage.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
 					Server.UrlEncode( userData.Avatar ),
 					PageContext.BoardSettings.AvatarWidth,
 					PageContext.BoardSettings.AvatarHeight,

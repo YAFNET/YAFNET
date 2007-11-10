@@ -31,8 +31,9 @@
             </td>
             <td>
               <asp:Label ID="Name" runat="server" /></td>
-            <td valign="top" rowspan="5">
-              <img runat="server" id="AvatarImage" align="right" /></td>
+            <td valign="top" rowspan="5" align="right">
+              <asp:Image runat="server" ID="AvatarImage" CssClass="avatarimage" AlternateText="" />
+            </td>
           </tr>
           <tr>
             <td>
