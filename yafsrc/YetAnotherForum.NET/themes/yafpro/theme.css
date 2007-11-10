@@ -358,7 +358,7 @@ a.yaflittlebutton:active span
     background-position: bottom left;
     padding: 5px 3px 3px 5px;
 }
-a.yafcssbutton
+a.yafcssbigbutton
 {
     background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #ffffff;
@@ -373,28 +373,28 @@ a.yafcssbutton
     font-family: Arial;
     font-weight: bold;
 }
-a.yafcssbutton span
+a.yafcssbigbutton span
 {
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
     line-height: 10px;
     padding: 4px 10px 4px 12px;
 }
-a.yafcssbutton img
+a.yafcssbigbutton img
 {
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
-a.yafcssbutton:active
+a.yafcssbigbutton:active
 {
     background-position: bottom right;
     outline: none; /* hide dotted outline in Firefox */
 }
-a.yafcssbutton:active img
+a.yafcssbigbutton:active img
 {
     padding: 0px 4px 2px 0px;
 }
-a.yafcssbutton:active span
+a.yafcssbigbutton:active span
 {
     background-position: bottom left;
     padding: 5px 10px 3px 12px; /* push text down 1px */

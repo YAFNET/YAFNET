@@ -37,8 +37,8 @@
             <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
         </td>
         <td>            
-            <YAF:ThemeButton ID="moderate1" runat="server" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
-            <YAF:ThemeButton ID="NewTopic1" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
+            <YAF:ThemeButton ID="moderate1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+            <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
         </td>
     </tr>
 </table>
@@ -107,8 +107,8 @@
             <YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="False" />
         </td>
         <td>
-            <YAF:ThemeButton ID="moderate2" runat="server" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
-            <YAF:ThemeButton ID="NewTopic2" runat="server" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
+            <YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
+            <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />            
         </td>
     </tr>
 </table>
