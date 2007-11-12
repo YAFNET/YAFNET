@@ -3605,6 +3605,7 @@ BEGIN
 		t.TopicID,
 		t.LastMessageID,
 		t.LastUserID,
+		t.NumPosts,
 		LastUserName = IsNull(t.LastUserName,(select [Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID))
 	FROM 
 		[{databaseOwner}].[{objectQualifier}Topic] t
