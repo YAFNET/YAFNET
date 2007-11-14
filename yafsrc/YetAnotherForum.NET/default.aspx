@@ -4,7 +4,15 @@
     public void Page_Error( object sender, System.EventArgs e )
     {
         Exception x = Server.GetLastError();
-        DB.eventlog_create( forum.PageUserID, this, x );
+				string exceptionInfo = "";
+				while ( x != null )
+				{
+					exceptionInfo += DateTime.Now.ToString( "g" );
+					exceptionInfo += " in " + x.Source + "\r\n";
+					exceptionInfo += x.Message + "\r\n" + x.StackTrace + "\r\n-----------------------------\r\n";
+					x = x.InnerException;
+				}
+				DB.eventlog_create( forum.PageUserID, this, exceptionInfo );
         General.LogToMail( x );
     }		
 </script>
