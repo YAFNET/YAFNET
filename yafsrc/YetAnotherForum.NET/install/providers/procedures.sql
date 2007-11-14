@@ -190,7 +190,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication @ApplicationName, @ApplicationId OUTPUT
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
@@ -475,7 +475,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole]
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255),
