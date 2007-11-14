@@ -50,7 +50,9 @@ namespace YAF.Install
       "triggers.sql",
       "views.sql",
       "procedures.sql",
-			"functions.sql"
+			"functions.sql",
+			"providers/procedures.sql",
+			"providers/tables.sql"
 	    };
 
 		#region events

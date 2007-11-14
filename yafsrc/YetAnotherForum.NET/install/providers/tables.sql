@@ -4,8 +4,8 @@
 -- Description:	MembershipProvider Tables
 -- =============================================
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Membership') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Membership](
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Membership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Membership](
 		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[Username] [nvarchar](255) NOT NULL,
@@ -30,24 +30,24 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Membershi
 		)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'yafprov_Application') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Application](
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationName] [nvarchar](255) NULL,
 		[Description] [ntext] NULL
 		)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Profile]
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Profile]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Profile]
 	(
 		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[LastUpdatedDate]	[datetime] NOT NULL
 	)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_Role]
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Role]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Role]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[ApplicationID] [uniqueidentifier] NOT NULL,
@@ -55,8 +55,8 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_Role]') 
 	)
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[yafprov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-	CREATE TABLE [dbo].[yafprov_RoleMembership]
+IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[UserID] [uniqueidentifier] NOT NULL

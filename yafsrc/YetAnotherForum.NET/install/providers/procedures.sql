@@ -8,100 +8,100 @@
 -- =============================================
 -- Membership Drop Procedures
 -- =============================================
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_createapplication]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_createapplication]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_createapplication]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_changepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_changepassword]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_changepassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepassword]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_changepasswordquestionandanswer]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_changepasswordquestionandanswer]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_createuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_createuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_createuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_deleteuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_deleteuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_deleteuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_findusersbyemail]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_findusersbyemail]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_findusersbyemail]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyemail]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_findusersbyname]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_findusersbyname]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_findusersbyname]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyname]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_getallusers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_getallusers]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getallusers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getallusers]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_getnumberofusersonline]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_getnumberofusersonline]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_getuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_getuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_getusernamebyemail]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_getusernamebyemail]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_resetpassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_resetpassword]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_resetpassword]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_resetpassword]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_unlockuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_unlockuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_unlockuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_unlockuser]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_updateuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_updateuser]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_updateuser]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
 GO
 
 -- =============================================
 -- Roles Drop Procedures
 -- =============================================
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_list]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_list]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_delete]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_delete]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_addusertorole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_addusertorole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_addusertorole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_createrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_createrole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_createrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_createrole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_deleterole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_deleterole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_deleterole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_findusersinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_findusersinrole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_getroles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_getroles]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_getroles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_getroles]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_isuserinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_isuserinrole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]
 GO
 
-IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[yafprov_role_removeuserfromrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].[yafprov_role_removeuserfromrole]
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]
 GO
 
 -- =============================================
@@ -114,25 +114,25 @@ GO
 -- Membership Create Procedures
 -- =============================================
 
-CREATE PROCEDURE dbo.yafprov_createapplication
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 (
 @ApplicationName nvarchar(50),
 @ApplicationID uniqueidentifier OUTPUT
 )
 AS
 BEGIN
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
 	IF (@ApplicationID IS Null)
 	BEGIN
 		    SELECT  @ApplicationId = NEWID()
-            INSERT  yafprov_Application(ApplicationId, ApplicationName)
+            INSERT  {objectQualifier}prov_Application(ApplicationId, ApplicationName)
             VALUES  (@ApplicationId, @ApplicationName)
     END
 END 
 GO
 
-CREATE PROCEDURE dbo.yafprov_changepassword
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepassword]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -145,16 +145,16 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 
-	UPDATE yafprov_Membership SET Password=@Password, PasswordSalt=@PasswordSalt,
+	UPDATE {objectQualifier}prov_Membership SET Password=@Password, PasswordSalt=@PasswordSalt,
 		PasswordFormat=@PasswordFormat, PasswordAnswer=@PasswordAnswer
 	WHERE Username=@Username and ApplicationID=@ApplicationID;
 
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_changepasswordquestionandanswer
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -165,15 +165,15 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
-	UPDATE yafprov_Membership SET PasswordQuestion=@PasswordQuestion, PasswordAnswer=@PasswordAnswer
+	UPDATE {objectQualifier}prov_Membership SET PasswordQuestion=@PasswordQuestion, PasswordAnswer=@PasswordAnswer
 	WHERE Username=@Username and ApplicationID=@ApplicationID;
 
 END
 GO
 
-CREATE PROCEDURE [dbo].[yafprov_createuser]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -190,16 +190,16 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	EXEC dbo.yafprov_CreateApplication @ApplicationName, @ApplicationId OUTPUT
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication @ApplicationName, @ApplicationId OUTPUT
 	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
-	INSERT INTO yafprov_Membership(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
+	INSERT INTO {objectQualifier}prov_Membership(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
 		VALUES (@UserKey, @ApplicationID,@Username, @Password, @PasswordSalt, @PasswordFormat, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_deleteuser
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -209,15 +209,15 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 
-	DELETE FROM yafprov_Membership WHERE ApplicationID=@ApplicationID AND Username=@Username;
+	DELETE FROM {objectQualifier}prov_Membership WHERE ApplicationID=@ApplicationID AND Username=@Username;
 
 	--INSERT IF STATEMENT TO DELETE MEMBERSHIP/ROLES INFORMATION / PROFILE INFORMATION	
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_findusersbyemail
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyemail]
 (
 @ApplicationName nvarchar(50),
 @EmailAddress nvarchar(50),
@@ -230,7 +230,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -240,9 +240,9 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
 
-	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -251,7 +251,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_findusersbyname
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyname]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50),
@@ -264,7 +264,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -274,9 +274,9 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName AND m.Username = @Username
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName AND m.Username = @Username
 
-	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -285,7 +285,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_getallusers
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getallusers]
 (
 @ApplicationName nvarchar(50),
 @PageIndex int,
@@ -297,7 +297,7 @@ BEGIN
     -- Set the page bounds
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 
     DECLARE @PagingLowerBoundary int
     DECLARE @PagingUpperBoundary int
@@ -307,9 +307,9 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName
 
-	SELECT m.*, r.RowNumber FROM yafprov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
+	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
 	SET @TotalRecords = (SELECT COUNT(RowNumber) FROM #RowNumber)
 	DROP TABLE #RowNumber
@@ -318,7 +318,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_getnumberofusersonline
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]
 (
 @ApplicationName nvarchar(50),
 @TimeWindow int,
@@ -330,14 +330,14 @@ BEGIN
 	SET @ActivityDate = DATEADD(n, - @TimeWindow, @CurrentTimeUTC)
 	
 	DECLARE @NumberActive int
-	SET @NumberActive = (SELECT COUNT(m.UserID) FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLogin >= @ActivityDate)
+	SET @NumberActive = (SELECT COUNT(m.UserID) FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLogin >= @ActivityDate)
     
     RETURN @NumberActive
 
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_getuser
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 (
 @ApplicationName nvarchar(50),
 @Username nvarchar(50) = null,
@@ -348,30 +348,30 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
 	IF (@UserKey IS NULL)
-		SELECT m.* FROM yafprov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
+		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
 	ELSE
-		SELECT m.* FROM yafprov_Membership m WHERE m.UserID = @UserKey and m.ApplicationID = @ApplicationID
+		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.UserID = @UserKey and m.ApplicationID = @ApplicationID
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 END
 GO
 
 
-CREATE PROCEDURE dbo.yafprov_getusernamebyemail
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
 (
 @ApplicationName nvarchar(50),
 @Email nvarchar(50)
 )
 AS
 BEGIN
-	SELECT m.Username FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @Email;
+	SELECT m.Username FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @Email;
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_resetpassword
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_resetpassword]
 (
 @ApplicationName nvarchar(50),
 @UserName nvarchar(50),
@@ -386,9 +386,9 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
-	UPDATE yafprov_Membership SET
+	UPDATE {objectQualifier}prov_Membership SET
 	Password = @Password,
 	PasswordSalt = @PasswordSalt,
 	PasswordFormat = @PasswordFormat,
@@ -400,7 +400,7 @@ END
 GO
 
 
-CREATE PROCEDURE dbo.yafprov_unlockuser
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_unlockuser]
 (
 @ApplicationName nvarchar(50),
 @UserName nvarchar(50)
@@ -409,9 +409,9 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
-	UPDATE yafprov_Membership SET
+	UPDATE {objectQualifier}prov_Membership SET
 	IsLockedOut = 0,
 	FailedPasswordAttempts = 0
 	WHERE ApplicationID = @ApplicationID AND
@@ -420,7 +420,7 @@ BEGIN
 END
 GO
                 
-CREATE PROCEDURE dbo.yafprov_updateuser
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
 (
 @ApplicationName nvarchar(50),
 @UserKey uniqueidentifier,
@@ -436,11 +436,11 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
 	
 	-- Check for Unique Email Application Missing
 	
-	UPDATE yafprov_Membership SET
+	UPDATE {objectQualifier}prov_Membership SET
 	Username = @Username,
 	Email = @Email,
 	IsApproved = @IsApproved,
@@ -456,7 +456,7 @@ GO
 -- Roles Create Procedures
 -- =============================================
 
-CREATE PROCEDURE [dbo].[yafprov_role_addusertorole]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 (
 @ApplicationName nvarchar(255),
 @Username nvarchar(255),
@@ -467,15 +467,15 @@ BEGIN
 	DECLARE @UserID uniqueidentifier
 	DECLARE @RoleID uniqueidentifier
 
-	SET @UserID = (SELECT UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
-	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 	
-	IF (NOT EXISTS(SELECT 1 FROM yafprov_RoleMembership rm WHERE rm.UserID=@UserID AND rm.RoleID=@RoleID))
-		INSERT INTO yafprov_RoleMembership(RoleID, UserID) VALUES (@RoleID, @UserID);
+	IF (NOT EXISTS(SELECT 1 FROM {objectQualifier}prov_RoleMembership rm WHERE rm.UserID=@UserID AND rm.RoleID=@RoleID))
+		INSERT INTO {objectQualifier}prov_RoleMembership(RoleID, UserID) VALUES (@RoleID, @UserID);
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_role_deleterole
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255),
@@ -486,25 +486,25 @@ BEGIN
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ErrorCode int
 	SET @ErrorCode = 0
-	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 	
 	IF (@DeleteOnlyIfRoleIsEmpty <> 0)
 	BEGIN
-		IF (EXISTS (SELECT 1 FROM yafprov_RoleMembership rm WHERE rm.RoleID=@RoleID))
+		IF (EXISTS (SELECT 1 FROM {objectQualifier}prov_RoleMembership rm WHERE rm.RoleID=@RoleID))
 			SELECT @ErrorCode = 2
 	ELSE
-		DELETE FROM yafprov_RoleMembership WHERE RoleID=@RoleID
+		DELETE FROM {objectQualifier}prov_RoleMembership WHERE RoleID=@RoleID
 	END	
 
 	IF (@ErrorCode = 0)
-		DELETE FROM yafprov_Role WHERE RoleID=@RoleID
+		DELETE FROM {objectQualifier}prov_Role WHERE RoleID=@RoleID
     
     RETURN @ErrorCode	
 END 
 GO
 
 
-CREATE PROCEDURE [dbo].[yafprov_role_findusersinrole]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255)
@@ -513,14 +513,14 @@ AS
 BEGIN
 	DECLARE @RoleID uniqueidentifier
 
-	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
 
-	SELECT m.* FROM yafProv_Membership m INNER JOIN yafProv_RoleMembership rm ON m.UserID = rm.UserID WHERE rm.RoleID = @RoleID
+	SELECT m.* FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_RoleMembership rm ON m.UserID = rm.UserID WHERE rm.RoleID = @RoleID
 		
 END
 GO
 
-CREATE PROCEDURE [dbo].[yafprov_role_createrole]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_createrole]
 (
 @ApplicationName nvarchar(255),
 @Rolename nvarchar(255)
@@ -529,13 +529,13 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	SET @ApplicationID = (SELECT ApplicationID FROM yafprov_Application WHERE ApplicationName=@ApplicationName)
-	IF (NOT EXISTS(SELECT 1 FROM yafprov_Role r WHERE r.ApplicationID = @ApplicationID AND r.Rolename = @Rolename))
-		INSERT INTO yafprov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
+	IF (NOT EXISTS(SELECT 1 FROM {objectQualifier}prov_Role r WHERE r.ApplicationID = @ApplicationID AND r.Rolename = @Rolename))
+		INSERT INTO {objectQualifier}prov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_role_getroles
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_getroles]
 (
 @ApplicationName nvarchar(255),
 @Username nvarchar(255) = null
@@ -543,23 +543,23 @@ CREATE PROCEDURE dbo.yafprov_role_getroles
 AS
 BEGIN
 	IF (@Username is null)
-		SELECT r.* FROM yafprov_Role r INNER JOIN yafprov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName
+		SELECT r.* FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON a.ApplicationID = r.ApplicationID WHERE a.ApplicationName=@ApplicationName
 	ELSE
 		SELECT
 			r.*
 		FROM
-			yafprov_Role r
+			{objectQualifier}prov_Role r
 		INNER JOIN
-			yafprov_Application a ON a.ApplicationID = r.ApplicationID
+			{objectQualifier}prov_Application a ON a.ApplicationID = r.ApplicationID
 		INNER JOIN
-			yafprov_Membership m ON m.ApplicationID = a.ApplicationID
+			{objectQualifier}prov_Membership m ON m.ApplicationID = a.ApplicationID
 		WHERE
 			a.ApplicationName = @ApplicationName
 			AND m.Username = @Username
 END
 GO
 
-CREATE PROCEDURE dbo.yafprov_role_isuserinrole
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]
 (
 @ApplicationName nvarchar(255),
 @Username nvarchar(255),
@@ -567,15 +567,15 @@ CREATE PROCEDURE dbo.yafprov_role_isuserinrole
 )
 AS
 BEGIN
-	SELECT m.* FROM yafprov_RoleMembership rm 
-		INNER JOIN yafprov_Membership m ON rm.UserID = m.UserID
-		INNER JOIN yafprov_Role r ON rm.RoleID = r.RoleID
-		INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID AND m.ApplicationID = a.ApplicationID
+	SELECT m.* FROM {objectQualifier}prov_RoleMembership rm 
+		INNER JOIN {objectQualifier}prov_Membership m ON rm.UserID = m.UserID
+		INNER JOIN {objectQualifier}prov_Role r ON rm.RoleID = r.RoleID
+		INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID AND m.ApplicationID = a.ApplicationID
 		WHERE m.Username=@Username AND r.Rolename =@Rolename AND a.ApplicationName = @ApplicationName;
 END 
 GO
 
-CREATE PROCEDURE dbo.yafprov_role_removeuserfromrole
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]
 (
 @ApplicationName nvarchar(255),
 @Username nvarchar(255),
@@ -586,10 +586,10 @@ BEGIN
 	DECLARE @UserID uniqueidentifier
 	DECLARE @RoleID uniqueidentifier
 	
-	SET @RoleID = (SELECT RoleID FROM yafprov_Role r INNER JOIN yafprov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename =@Rolename AND a.ApplicationName = @ApplicationName)
-	SET @UserID = (SELECT UserID FROM yafprov_Membership m INNER JOIN yafprov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename =@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE m.Username=@Username AND a.ApplicationName = @ApplicationName)
 	
-	DELETE FROM yafprov_RoleMembership WHERE RoleID = @RoleID AND UserID=@UserID
+	DELETE FROM {objectQualifier}prov_RoleMembership WHERE RoleID = @RoleID AND UserID=@UserID
 	
 END 
 GO
