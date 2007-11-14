@@ -821,6 +821,8 @@ namespace YAF.Classes.Utils
 		#region Version Information
 		static public string AppVersionNameFromCode( long code )
 		{
+			string version;
+
 			if ( ( code & 0xF0 ) > 0 )
 			{
 				version = String.Format( "{0}.{1}.{2}.{3}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF, ( code >> 4 ) & 0x0F );
@@ -834,7 +836,9 @@ namespace YAF.Classes.Utils
 			{
 				// Add Release Candidate
 				version += string.Format( " RC{0}", code & 0x0F );
-			}		
+			}
+
+			return version;
 		}
 		static public string AppVersionName
 		{
