@@ -271,6 +271,8 @@ namespace YAF.Pages
 			using (DataTable dt = DB.forum_list(PageContext.PageBoardID, PageContext.PageForumID))
 				forumInfo = dt.Rows[0];
 
+			if ( topicInfo == null || forumInfo == null ) return false;
+
 			// Ederon : 9/9/2007 - moderator can reply to locked topics
 			return (!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Locked) &&
 				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Locked) || PageContext.ForumModeratorAccess) &&
