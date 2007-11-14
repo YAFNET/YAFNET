@@ -194,20 +194,22 @@ namespace YAF.Classes
 
 		private DataRow GetDataRowFromCache( string type, int id )
 		{
-			if ( HttpContext.Current.Cache [GetCacheName( type, id )] != null )
+			// get the datatable and find the value
+			DataTable list = HttpContext.Current.Cache [GetCacheName( type, id )] as DataTable;
+
+			if ( list != null )
 			{
-				// get the datatable and find the value
-				DataTable list = ( DataTable ) HttpContext.Current.Cache [GetCacheName( type, id )];
 				DataRow row = list.Rows.Find( id );
 
-				if ( row == null )
+				// valid, return...
+				if ( row != null )
 				{
-					// invalidate this cache section
-					HttpContext.Current.Cache.Remove( GetCacheName( type, id ) );
+					return row;
 				}
 				else
 				{
-					return row;
+					// invalidate this cache section
+					HttpContext.Current.Cache.Remove( GetCacheName( type, id ) );
 				}
 			}
 
@@ -225,7 +227,7 @@ namespace YAF.Classes
 
 				// store it for the future
 				Random randomValue = new Random();
-				HttpContext.Current.Cache.Add( GetCacheName( type, id ), list, null, DateTime.Now.AddMinutes( randomValue.Next( 15, 35 ) ), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Low, null );
+				HttpContext.Current.Cache.Insert( GetCacheName( type, id ), list, null, DateTime.Now.AddMinutes( randomValue.Next( 5, 15 ) ), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Low, null );
 				// find and return profile..
 				row = list.Rows.Find( id );
 
