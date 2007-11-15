@@ -2686,7 +2686,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@CategoryID	int = null,
 	@ForumID	int = null,
 	@TopicID	int = null,
-	@MessageID	int = null
+	@MessageID	int = null,
+	@DontTrack	bit = 0
 ) as
 begin
 	declare @UserID			int
@@ -2778,7 +2779,7 @@ begin
 			b.BoardID = @BoardID
 	end
 	-- update active
-	if @UserID is not null and @UserBoardID=@BoardID begin
+	if @DontTrack != 1 and @UserID is not null and @UserBoardID=@BoardID begin
 		if exists(select 1 from [{databaseOwner}].[{objectQualifier}Active] where SessionID=@SessionID and BoardID=@BoardID)
 		begin
 			update [{databaseOwner}].[{objectQualifier}Active] set
