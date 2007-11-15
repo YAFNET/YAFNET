@@ -20,9 +20,9 @@
 <ItemTemplate>
 	<tr>
 		<td class="post">
-		<YAF:mylinkbutton runat="server" enabled="<%#CanVote%>" commandname="vote" commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' text='<%# DataBinder.Eval(Container.DataItem, "Choice") %>'/></td>
+		<YAF:mylinkbutton runat="server" enabled="<%#CanVote%>" commandname="vote" commandargument='<%# DataBinder.Eval(Container.DataItem, "ChoiceID") %>' text='<%# HtmlEncode(General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>'/></td>
 		<td class="post" align="center"><%# DataBinder.Eval(Container.DataItem, "Votes") %></td>
-		<td class="post"><nobr><img src="<%# GetThemeContents("VOTE","LCAP") %>"><img src='<%# GetThemeContents("VOTE","BAR") %>' height=12px width='<%# VoteWidth(Container.DataItem) %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
+		<td class="post"><nobr><img alt="" src="<%# GetThemeContents("VOTE","LCAP") %>"><img alt="" src='<%# GetThemeContents("VOTE","BAR") %>' height="12" width='<%# VoteWidth(Container.DataItem) %>%'><img src='<%# GetThemeContents("VOTE","RCAP") %>'></nobr> <%# DataBinder.Eval(Container.DataItem,"Stats") %>%</td>
 	</tr>
 </ItemTemplate>
 <FooterTemplate>

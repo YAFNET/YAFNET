@@ -612,7 +612,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected string GetPollQuestion()
 		{
-			return ( string ) _dtPoll.Rows [0] ["Question"];
+			return HtmlEncode( General.BadWordReplace( _dtPoll.Rows [0] ["Question"].ToString() ) );
 		}
 
 		protected void PostReplyLink_Click( object sender, System.EventArgs e )
