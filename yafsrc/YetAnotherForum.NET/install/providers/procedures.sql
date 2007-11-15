@@ -356,6 +356,10 @@ BEGIN
 		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.UserID = @UserKey and m.ApplicationID = @ApplicationID
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
+	IF (@UserIsOnline = 1)
+	BEGIN
+		UPDATE {objectQualifier}prov_Membership SET LastActivity = GETDATE() WHERE Username = @Username and ApplicationID = @ApplicationID
+	END		
 END
 GO
 
