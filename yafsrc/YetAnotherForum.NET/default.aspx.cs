@@ -14,13 +14,14 @@ namespace YAF
 {
 	public partial class _default : System.Web.UI.Page
 	{
-		private System.Web.UI.LosFormatter _formatter = new System.Web.UI.LosFormatter();
-		protected System.Web.UI.WebControls.HiddenField viewstatefld = new System.Web.UI.WebControls.HiddenField();
-
 		protected void Page_Load( object sender, EventArgs e )
 		{
 
 		}
+
+		/*
+		private System.Web.UI.LosFormatter _formatter = new System.Web.UI.LosFormatter();
+		protected System.Web.UI.WebControls.HiddenField viewstatefld = new System.Web.UI.WebControls.HiddenField();
 
 		protected override void OnPreRender( EventArgs e )
 		{
@@ -52,5 +53,6 @@ namespace YAF
 		}
 
 		#endregion
+		*/
 	}
 }
