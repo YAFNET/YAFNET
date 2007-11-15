@@ -167,9 +167,10 @@ namespace YAF.Classes.Base
 			// deal with banned users...
 			CheckBannedIPs();
 
-            InitProviderSettings();
+			// initialize the providers...
+			InitProviderSettings();
 
-            // initialize the user and current page data...
+      // initialize the user and current page data...
 			InitUserAndPage();
 
 			// initialize theme
@@ -177,9 +178,6 @@ namespace YAF.Classes.Base
 
 			// initialize localization
 			InitLocalization();
-
-			//if (user!=null && m_pageinfo["ProviderUserKey"] == DBNull.Value)
-			//    throw new ApplicationException("User not migrated to ASP.NET 2.0");
 
 			if ( _checkSuspended && PageContext.IsSuspended )
 			{
@@ -353,12 +351,11 @@ namespace YAF.Classes.Base
 #endif
 		}
 
-
-        private void InitProviderSettings()
-        {
-            System.Web.Security.Membership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
-            System.Web.Security.Roles.ApplicationName = PageContext.BoardSettings.RolesAppName;
-        }
+		private void InitProviderSettings()
+		{
+			System.Web.Security.Membership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
+			System.Web.Security.Roles.ApplicationName = PageContext.BoardSettings.RolesAppName;
+		}
 
 		/// <summary>
 		/// Initialize the user data and page data...
@@ -377,6 +374,7 @@ namespace YAF.Classes.Base
 
 			string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
 			string platform = HttpContext.Current.Request.Browser.Platform;
+			bool isSearchEngine = false;
 
 			if ( HttpContext.Current.Request.UserAgent != null )
 			{
@@ -387,6 +385,11 @@ namespace YAF.Classes.Base
 				else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
 				{
 					platform = "Vista";
+				}
+				else
+				{
+					// check if it's a search engine spider...
+					isSearchEngine = IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
 				}
 			}
 
@@ -418,7 +421,9 @@ namespace YAF.Classes.Base
 						categoryID,
 						forumID,
 						topicID,
-						messageID );
+						messageID,
+						// don't track if this is a search engine
+						isSearchEngine );
 
 				// if the user doesn't exist...
 				if ( user != null && pageRow == null )
@@ -442,6 +447,45 @@ namespace YAF.Classes.Base
 
 			// save this page data to the context...
 			PageContext.Page = pageRow;
+		}
+
+		/// <summary>
+		/// Validates if the useragent is a search engine spider or not
+		/// </summary>
+		/// <param name="UserAgent"></param>
+		/// <returns></returns>
+		private bool IsSearchEngineSpider( string userAgent )
+		{
+			string [] spiderstrings = 
+				{
+					"Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver",
+					"Scooter", "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot",
+					"Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "RaBot", "DeepIndex", "DittoSpyder", "Jack",
+					"EARTHCOM.info", "Speedy Spider", "ArchitextSpider", "EuripBot", "Arachnoidea", "EZResult", "FyberSearch", "geckobot",
+					"GenCrawler", "GeonaBot", "getRAX", "moget", "Aranha", "Toutatis", "Hubater", "IlTrovatore-Setaccio", "IncyWincy",
+					"UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot",
+					"lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex",
+					"MSNBOT", "Navadoo Crawler", "Gulliver", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "DIIbot",
+					"nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "CrawlerBoy", "QweeryBot", "AlkalineBOT", "StackRambler",
+					"SeznamBot", "Search-10", "Fluffy", "Scrubby", "asterias", "speedfind ramBot xtreme", "Kototoi", "SearchByUsa",
+					"Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", "ESISmartSpider", "UK Searcher Spider",
+					"appie", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "Findexa Crawler",
+					"YBSbot"
+				};
+
+			// see if the current useragent is one of these spiders...
+			string userAgentLow = userAgent.ToLower();
+
+			foreach ( string spider in spiderstrings )
+			{
+				if (userAgentLow.Contains( spider.Trim().ToLower() ))
+				{
+					// it's a spider...
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		/// <summary>

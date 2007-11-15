@@ -44,7 +44,7 @@ namespace YAF.Classes.Data
 		#region Forum
 
 		static public DataRow pageload(object sessionID, object boardID, object userKey, object ip, object location, object browser,
-			object platform, object categoryID, object forumID, object topicID, object messageID)
+			object platform, object categoryID, object forumID, object topicID, object messageID, object donttrack)
 		{
 			int nTries = 0;
 			while (true)
@@ -65,6 +65,7 @@ namespace YAF.Classes.Data
 						cmd.Parameters.AddWithValue("ForumID", forumID);
 						cmd.Parameters.AddWithValue("TopicID", topicID);
 						cmd.Parameters.AddWithValue("MessageID", messageID);
+						cmd.Parameters.AddWithValue( "DontTrack", donttrack );
 						using (DataTable dt = DBAccess.GetData(cmd))
 						{
 							if (dt.Rows.Count > 0)
