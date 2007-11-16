@@ -52,6 +52,7 @@ namespace YAF.Classes.Utils
 		{
 			// is this the Yaf membership provider?
 			bool isYafProvider = ( Membership.Provider.GetType().Name == "YafMembershipProvider" );
+			bool isLegacyYafDB = dt.Columns.Contains( "Location" );
 
 			foreach ( DataRow row in dt.Rows )
 			{
@@ -91,6 +92,23 @@ namespace YAF.Classes.Utils
 							YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
 							*/
 						}
+					}
+
+					if ( isLegacyYafDB )
+					{
+						// copy profile data over...
+						YafUserProfile userProfile = YafContext.Current.GetProfile( name );
+						if ( dt.Columns.Contains( "AIM" ) && row ["AIM"] != DBNull.Value ) userProfile.AIM = row ["AIM"].ToString();
+						if ( dt.Columns.Contains( "YIM" ) && row ["YIM"] != DBNull.Value ) userProfile.YIM = row ["YIM"].ToString();
+						if ( dt.Columns.Contains( "MSN" ) && row ["MSN"] != DBNull.Value ) userProfile.MSN = row ["MSN"].ToString();
+						if ( dt.Columns.Contains( "ICQ" ) && row ["ICQ"] != DBNull.Value ) userProfile.ICQ = row ["ICQ"].ToString();
+						if ( dt.Columns.Contains( "RealName" ) && row ["RealName"] != DBNull.Value ) userProfile.RealName = row ["RealName"].ToString();
+						if ( dt.Columns.Contains( "Occupation" ) && row ["Occupation"] != DBNull.Value ) userProfile.Occupation = row ["Occupation"].ToString();
+						if ( dt.Columns.Contains( "Location" ) && row ["Location"] != DBNull.Value ) userProfile.Location = row ["Location"].ToString();
+						if ( dt.Columns.Contains( "Homepage" ) && row ["Homepage"] != DBNull.Value ) userProfile.Homepage = row ["Homepage"].ToString();
+						if ( dt.Columns.Contains( "Interests" ) && row ["Interests"] != DBNull.Value ) userProfile.Interests = row ["Interests"].ToString();
+						if ( dt.Columns.Contains( "Weblog" ) && row ["Weblog"] != DBNull.Value ) userProfile.Blog = row ["Weblog"].ToString();
+						if ( dt.Columns.Contains( "Gender" ) && row ["Gender"] != DBNull.Value ) userProfile.Gender = Convert.ToInt32( row ["Gender"] );
 					}
 				}
 				else
