@@ -30,63 +30,101 @@ namespace YAF.Classes.Utils
 {
 	public static class RoleMembershipHelper
 	{
-		public static void SyncUsers(int pageBoardID)
+		/// <summary>
+		/// Takes all YAF users and creates them in the Membership Provider
+		/// </summary>
+		/// <param name="pageBoardID"></param>
+		public static void SyncUsers( int pageBoardID )
 		{
-			string ForumURL = "forumurl";
-			string ForumEmail = "forumemail";
-			string ForumName = "forumname";
-
-			using (DataTable dt = YAF.Classes.Data.DB.user_list(pageBoardID, DBNull.Value, true))
+			// first sync unapproved users...
+			using (DataTable dt = YAF.Classes.Data.DB.user_list(pageBoardID, DBNull.Value, false))
 			{
-				foreach (DataRow row in dt.Rows)
+				MigrateUsersFromDT( pageBoardID, false, dt );
+			}
+			// then sync approved users...
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( pageBoardID, DBNull.Value, true ) )
+			{
+				MigrateUsersFromDT( pageBoardID, true, dt );
+			}
+		}
+
+		static private void MigrateUsersFromDT( int pageBoardID, bool approved, DataTable dt )
+		{
+			// is this the Yaf membership provider?
+			bool isYafProvider = ( Membership.Provider.GetType().Name == "YafMembershipProvider" );
+
+			foreach ( DataRow row in dt.Rows )
+			{
+				// skip the guest user
+				if ( ( int )row ["IsGuest"] > 0 )
+					continue;
+
+				string name = row ["Name"].ToString();
+				string email = row ["Email"].ToString().ToLower();
+
+				MembershipUser user = Membership.GetUser( name );
+
+				if ( user == null )
 				{
-					if ((int)row["IsGuest"] > 0)
-						continue;
+					MembershipCreateStatus status = MigrateCreateUser( name, email, "Your email in all lower case", email, approved, out user );
 
-					string name = (string)row["Name"];
-
-					MembershipUser user = Membership.GetUser(name);
-					if (user == null)
+					if ( status != MembershipCreateStatus.Success )
 					{
-						string password;
-						MembershipCreateStatus status;
-						int retry = 0;
-						do
-						{
-							password = Membership.GeneratePassword(7 + retry, 1 + retry);
-							user = Membership.CreateUser(name, password, (string)row["Email"], "-", (string)row["Password"], true, out status);
-						} while (status == MembershipCreateStatus.InvalidPassword && ++retry < 10);
-
-						if (status != MembershipCreateStatus.Success)
-						{
-							throw new ApplicationException(string.Format("Failed to create user {0}: {1}", name, status));
-						}
-						else
-						{
-							user.Comment = "Copied from Yet Another Forum.net";
-							Membership.UpdateUser(user);
-
-							/// Email generated password to user
-							System.Text.StringBuilder msg = new System.Text.StringBuilder();
-							msg.AppendFormat("Hello {0}.\r\n\r\n", name);
-							msg.AppendFormat("Here is your new password: {0}\r\n\r\n", password);
-							msg.AppendFormat("Visit {0} at {1}", ForumName, ForumURL);
-
-							YAF.Classes.Data.DB.mail_create(ForumEmail, user.Email, "Forum Upgrade", msg.ToString());
-						}
+						throw new ApplicationException( string.Format( "Failed to create user {0}: {1}", name, status ) );
 					}
-					YAF.Classes.Data.DB.user_migrate(row["UserID"], user.ProviderUserKey);
-
-
-					using (DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list(row["UserID"]))
+					else
 					{
-						foreach (DataRow rowGroup in dtGroups.Rows)
+						// update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
+						YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, isYafProvider );
+
+						user.Comment = "Migrated from YetAnotherForum.NET";
+						Membership.UpdateUser( user );
+
+						if ( !isYafProvider )
 						{
-							Roles.AddUserToRole(user.UserName, rowGroup["Name"].ToString());
+							/* Email generated password to user
+							System.Text.StringBuilder msg = new System.Text.StringBuilder();
+							msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
+							msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
+							msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
+
+							YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
+							*/
 						}
 					}
 				}
+				else
+				{
+					// just update the link just in case...
+					YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, false );
+				}
+
+				// setup roles for this user...
+				using ( DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list( row ["UserID"] ) )
+				{
+					foreach ( DataRow rowGroup in dtGroups.Rows )
+					{
+						Roles.AddUserToRole( user.UserName, rowGroup ["Name"].ToString() );
+					}
+				}
 			}
+		}
+
+		static private MembershipCreateStatus MigrateCreateUser(string name, string email, string question, string answer, bool approved, out MembershipUser user)
+		{
+			string password;
+			MembershipCreateStatus status;
+
+			// create a new user and generate a password.
+			int retry = 0;
+			do
+			{
+				password = Membership.GeneratePassword( 7 + retry, 1 + retry );
+				user = Membership.CreateUser( name, password, email, question, answer, approved, out status );
+			}
+			while ( status == MembershipCreateStatus.InvalidPassword && ++retry < 10 );
+
+			return status;
 		}
 
 		static private bool BitSet(object o, int bitmask)

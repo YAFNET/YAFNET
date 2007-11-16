@@ -41,7 +41,7 @@ namespace YAF.Providers.Membership
         string _appName, _passwordStrengthRegularExpression;
         int _minimumRequiredPasswordLength, _minRequiredNonAlphanumericCharacters;
         int _maxInvalidPasswordAttempts, _passwordAttemptWindow;
-        bool _enablePaswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
+				bool _enablePasswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
         bool _requiresUniqueEmail, _useSalt;
         MembershipPasswordFormat _passwordFormat;
 
@@ -216,7 +216,7 @@ namespace YAF.Providers.Membership
 
         public override bool EnablePasswordReset
         {
-            get { return _enablePaswordReset; }
+            get { return _enablePasswordReset; }
         }
 
         public override bool EnablePasswordRetrieval
@@ -283,36 +283,31 @@ namespace YAF.Providers.Membership
             // config ints
 
             // Minimum Required Password Length from Provider configuration
-            if (config["minRequiredPasswordLength"] != null)
-                _minimumRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"]);
+            _minimumRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "6");
 
             // Minimum Required Non Alpha-numeric Characters from Provider configuration
-            if (config["minRequiredNonalphanumericCharacters"] != null)
-                _minRequiredNonAlphanumericCharacters = int.Parse(config["_minRequiredNonalphanumericCharacters"]);
+             _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonalphanumericCharacters"] ?? "1");
 
             // Maximum number of allowed password attempts
-            if (config["maxInvalidPasswordAttempts"] != null)
-                _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"]);
+             _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
 
             // Password Attempt Window when maximum attempts have been reached
-            if (config["passwordAttemptWindow"] != null)
-                _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"]);
+             _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10");
 
             // Check whething Hashing methods should use Salt
-            _useSalt = Utils.Transform.ToBool(config["useSalt"]);
+            _useSalt = Utils.Transform.ToBool(config["useSalt"] ?? "false");
 
             // Application Name
             _appName = Utils.Transform.ToString(config["applicationName"], "YetAnotherForum");
 
-
             _passwordStrengthRegularExpression = Utils.Transform.ToString(config["passwordStrengthRegularExpression"]);
 
             // Password reset enabled from Provider Configuration
-            _enablePaswordReset = Utils.Transform.ToBool(config["enablePaswordReset"]);
-            _enablePasswordRetrieval = Utils.Transform.ToBool(config["enablePasswordRetrieval"]);
-            _requiresQuestionAndAnswer = Utils.Transform.ToBool(config["requiresQuestionAndAnswer"]);
+            _enablePasswordReset = Utils.Transform.ToBool(config["enablePasswordReset"] ?? "true");
+            _enablePasswordRetrieval = Utils.Transform.ToBool(config["enablePasswordRetrieval"] ?? "false");
+            _requiresQuestionAndAnswer = Utils.Transform.ToBool(config["requiresQuestionAndAnswer"] ?? "true");
 
-            _requiresUniqueEmail = Utils.Transform.ToBool(config["requiresUniqueEmail"]);
+            _requiresUniqueEmail = Utils.Transform.ToBool(config["requiresUniqueEmail"] ?? "true");
 
             string strPasswordFormat = Utils.Transform.ToString(config["passwordFormat"], "Hashed");
 

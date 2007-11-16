@@ -541,6 +541,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_migrate]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_avatarimage]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_avatarimage]
 GO
@@ -4012,12 +4016,50 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_avatarimage](@UserID int) as begin
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]
+(
+	@UserID int,
+	@ProviderUserKey uniqueidentifier,
+	@UpdateProvider bit = 0
+)
+AS
+BEGIN
+	DECLARE @Password nvarchar(255), @IsApproved bit, @LastActivity datetime, @Joined datetime
+	
+	UPDATE {objectQualifier}User SET ProviderUserKey = @ProviderUserKey where UserID = @UserID
+
+	IF (@UpdateProvider = 1)
+	BEGIN
+		SELECT
+			@Password = Password,
+			@IsApproved = (CASE (Flags & 2) WHEN 2 THEN 1 ELSE 0 END),
+			@LastActivity = LastVisit,
+			@Joined = Joined
+		FROM
+			yaf_User
+		WHERE
+			UserID = @UserID
+		
+		UPDATE
+			{objectQualifier}prov_Membership
+		SET
+			Password = @Password,
+			PasswordFormat = '1',
+			LastActivity = @LastActivity,
+			IsApproved = @IsApproved,
+			Joined = @Joined
+		WHERE
+			UserID = @ProviderUserKey
+	END
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_avatarimage](@UserID int) as begin
 	select UserID,AvatarImage from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
 begin
 	declare @CurrentOld nvarchar(32)
 	select @CurrentOld = Password from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID

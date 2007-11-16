@@ -58,7 +58,7 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_RoleMembership]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
 	(
-	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
+	[RoleID] [uniqueidentifier] NOT NULL,
 	[UserID] [uniqueidentifier] NOT NULL
 	)
 GO

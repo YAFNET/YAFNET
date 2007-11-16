@@ -52,10 +52,10 @@ namespace YAF
 					// captcha					
 					GetResponseCaptcha( context );
 				}
-				else
+				else if ( context.Request.QueryString ["s"] != null && context.Request.QueryString ["lang"] != null )
 				{
-					context.Response.Write( "Purgatory! CaptchaImageText = " + context.Session ["CaptchaImageText"] );
-				}
+					GetResponseGoogleSpell( context );
+				}				
 			}
 			else
 			{
@@ -229,6 +229,41 @@ namespace YAF
 				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
 			}
 		}
+		
+		private void GetResponseGoogleSpell( HttpContext context )
+		{
+			string url = string.Format( "https://www.google.com/tbproxy/spell?lang={0}", context.Request.QueryString ["lang"] );
+
+			System.Net.HttpWebRequest webRequest = ( System.Net.HttpWebRequest )System.Net.WebRequest.Create( url );
+			webRequest.KeepAlive = true;
+			webRequest.Timeout = 100000;
+			webRequest.Method = "POST";
+			webRequest.ContentType = "application/x-www-form-urlencoded";
+			webRequest.ContentLength = context.Request.InputStream.Length;
+
+      System.IO.Stream requestStream = webRequest.GetRequestStream();
+
+			CopyStream( context.Request.InputStream, requestStream );
+
+			requestStream.Close();
+
+			System.Net.HttpWebResponse httpWebResponse = ( System.Net.HttpWebResponse )webRequest.GetResponse();
+			System.IO.Stream responseStream = httpWebResponse.GetResponseStream();
+
+			CopyStream( responseStream, context.Response.OutputStream );
+		}
+
+		private void CopyStream( System.IO.Stream input, System.IO.Stream output )
+		{
+			byte [] buffer = new byte [1024];
+			int count = buffer.Length;
+
+			while ( count > 0 )
+			{
+				count = input.Read( buffer, 0, count );
+				if ( count > 0 ) output.Write( buffer, 0, count );
+			}
+		}		
 
 		private void GetResponseCaptcha( HttpContext context )
 		{
