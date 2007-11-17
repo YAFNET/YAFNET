@@ -58,7 +58,7 @@ namespace YAF.Controls.Statistics
 			{
 				rankDT = YAF.Classes.Data.DB.user_activity_rank( PageContext.PageBoardID, DateTime.Now.AddDays( -LastNumOfDays ), DisplayNumber );
 				YafCache.Current.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
-			}		
+			}
 
 			act_rank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
 			act_rank += "<tr><td class=\"header1\">Most Active Users</td></tr>";

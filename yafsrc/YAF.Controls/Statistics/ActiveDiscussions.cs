@@ -81,10 +81,11 @@ namespace YAF.Controls.Statistics
 			foreach ( System.Data.DataRow r in dt.Rows )
 			{
 				//Output Topic Link
-				html.AppendFormat( "{2}.&nbsp;<a href=\"{1}\">{0}</a>",
+				html.AppendFormat( "{2}.&nbsp;<a href=\"{1}\">{0}</a> ({3})",
 					General.BadWordReplace( Convert.ToString( r ["Topic"] ) ),
 					YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", r ["LastMessageID"] ),
-					currentPost
+					currentPost,
+					r["NumPosts"]
 					);
 				html.Append( "<br/>" );
 
