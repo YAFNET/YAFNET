@@ -62,15 +62,13 @@ go
 
 -- {objectQualifier}Forum
 
-if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Forum_CateryID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Forum]'))
- CREATE  INDEX [IX_{objectQualifier}Forum_CateryID] ON [{databaseOwner}].[{objectQualifier}Forum]([CategoryID])
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Forum_CategoryID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Forum]'))
+ CREATE  INDEX [IX_{objectQualifier}Forum_CategoryID] ON [{databaseOwner}].[{objectQualifier}Forum]([CategoryID])
 go
 
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Forum_ParentID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Forum]'))
  CREATE  INDEX [IX_{objectQualifier}Forum_ParentID] ON [{databaseOwner}].[{objectQualifier}Forum]([ParentID])
 go
-
-
 
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Forum_Flags' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Forum]'))
  CREATE  INDEX [IX_{objectQualifier}Forum_Flags] ON [{databaseOwner}].[{objectQualifier}Forum]([Flags])
@@ -114,4 +112,14 @@ go
 
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}UserPMessage_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}UserPMessage]'))
  CREATE  INDEX [IX_{objectQualifier}UserPMessage_UserID] ON [{databaseOwner}].[{objectQualifier}UserPMessage]([UserID])
+go
+
+-- {objectQualifier}Category
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Category_BoardID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Category]'))
+ CREATE  INDEX [IX_{objectQualifier}Category_BoardID] ON [{databaseOwner}].[{objectQualifier}Category]([BoardID])
+go
+
+if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Category_Name' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Category]'))
+ CREATE  INDEX [IX_{objectQualifier}Category_Name] ON [{databaseOwner}].[{objectQualifier}Category]([Name])
 go

@@ -52,7 +52,8 @@ namespace YAF.Install
       "procedures.sql",
 			"functions.sql",
 			"providers/procedures.sql",
-			"providers/tables.sql"
+			"providers/tables.sql",
+			"providers/indexes.sql"
 	    };
 
 		#region events
@@ -106,7 +107,7 @@ namespace YAF.Install
 		void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			e.Cancel = true;
-			try
+			//try
 			{
 				switch ( e.CurrentStepIndex )
 				{
@@ -167,10 +168,10 @@ namespace YAF.Install
 						throw new ApplicationException( e.CurrentStepIndex.ToString() );
 				}
 			}
-			catch ( Exception x )
+			/*catch ( Exception x )
 			{
 				AddLoadMessage( x.Message );
-			}
+			}*/
 		}
 		#endregion
 
