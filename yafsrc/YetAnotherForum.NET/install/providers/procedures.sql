@@ -442,7 +442,16 @@ BEGIN
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
-	-- Check for Unique Email Application Missing
+		-- Check UserKey
+	IF (@UserKey IS NULL)
+        RETURN(1) -- 
+
+	-- Check for UniqueEmail
+	IF (@UniqueEmail = 1)
+	BEGIN
+		IF (EXISTS (SELECT 1 FROM {objectQualifier}prov_Membership m WHERE m.UserID != @UserKey AND m.Email=LOWER(@Email) AND m.ApplicationID=@ApplicationID) )
+			RETURN (7) -- What is return 7?
+	END
 	
 	UPDATE {objectQualifier}prov_Membership SET
 	Username = @Username,
@@ -453,6 +462,8 @@ BEGIN
 	WHERE ApplicationID = @ApplicationID AND
 	UserID = @UserKey;
 
+	-- Return successful
+	RETURN(0)
 END
 GO                 
 

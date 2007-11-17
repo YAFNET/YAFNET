@@ -248,7 +248,7 @@ namespace YAF.Providers.Membership
             }
         }
 
-		public static void UpdateUser( object appName, MembershipUser user, bool requiresUniqueEmail )
+		public static int UpdateUser( object appName, MembershipUser user, bool requiresUniqueEmail )
         {
             using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_updateuser")))
             {
@@ -263,8 +263,13 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("LastLogin", user.LastLoginDate);
                 cmd.Parameters.AddWithValue("LastActivity", user.LastActivityDate.ToUniversalTime());
                 cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
-                // cmd.Parameters.AddWithValue("CurrentTimeUtc", DateTime.UtcNow);
-                DBAccess.ExecuteNonQuery(cmd);
+                // Add Return Value
+                SqlParameter p = new SqlParameter("ReturnValue", SqlDbType.Int);
+                p.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(p);
+
+                DBAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query
+                return Convert.ToInt32(p.Value); // Return
             }
         }
 

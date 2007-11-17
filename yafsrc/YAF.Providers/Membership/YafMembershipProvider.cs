@@ -765,9 +765,16 @@ namespace YAF.Providers.Membership
         /// <param name="user">MembershipUser object</param>
         public override void UpdateUser(MembershipUser user)
         {
+            // Check User object is not null
             if (user == null)
                 throw new ArgumentNullException("User is null.");
-            DB.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
+            
+            // Update User
+            int updateStatus = DB.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
+            
+            // Check update was successful
+            if (updateStatus != 0)
+                throw new ProviderException("Some Provider Exception Occured");
         }
 
         /// <summary>
