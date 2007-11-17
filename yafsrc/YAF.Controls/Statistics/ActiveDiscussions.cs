@@ -29,7 +29,7 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
 {
-	[ToolboxData("<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>")]
+	[ToolboxData( "<{0}:ActiveDiscussions runat=\"server\"></{0}:ActiveDiscussions>" )]
 	public class ActiveDiscussions : BaseControl
 	{
 		private int _displayNumber = 10;
@@ -58,45 +58,34 @@ namespace YAF.Controls.Statistics
 		/// Renders the ActiveDiscussions class.
 		/// </summary>
 		/// <param name="writer"></param>
-		protected override void Render(System.Web.UI.HtmlTextWriter writer)
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			System.Text.StringBuilder html = new System.Text.StringBuilder(_displayNumber * 75 + 100);
+			System.Text.StringBuilder html = new System.Text.StringBuilder();
 
-			html.Append("<table width=\"90%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">");
-			html.AppendFormat("<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText("LATEST_POSTS"));
+			html.Append( "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">" );
+			html.AppendFormat( "<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText( "LATEST_POSTS" ) );
 
-			System.Data.DataTable dt = YAF.Classes.Data.DB.topic_latest(PageContext.PageBoardID, _displayNumber, PageContext.PageUserID);
-			int i = 1;
+			System.Data.DataTable dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, _displayNumber, PageContext.PageUserID );
+			int currentPost = 1;
 
-			html.Append("<tr><td class=\"post\"><table cellspacing=\"0\" cellpadding=\"0\" align=\"center\">");
+			html.Append( "<tr><td class=\"post\">" );
 
-			foreach (System.Data.DataRow r in dt.Rows)
+			foreach ( System.Data.DataRow r in dt.Rows )
 			{
-				i++;
-				html.Append("<tr class=\"post\">");
-
-				html.Append("<td width=\"75%\">");
-
 				//Output Topic Link
-				html.AppendFormat("&nbsp;<a href=\"{1}\">{0}</a></td>",
-					General.BadWordReplace(Convert.ToString(r["Topic"])),
-					YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", r["LastMessageID"])
+				html.AppendFormat( "{2}.&nbsp;<a href=\"{1}\">{0}</a>",
+					General.BadWordReplace( Convert.ToString( r ["Topic"] ) ),
+					YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", r ["LastMessageID"] ),
+					currentPost
 					);
-				//Output Message Icon
-				html.AppendFormat("<img src=\"{0}\" border=\"0\" alt=\"\"></a>",
-					PageContext.Theme.GetItem(
-						"ICONS",
-						(DateTime.Parse(Convert.ToString(r["LastPosted"])) > Mession.GetTopicRead((int)r["TopicID"])) ? "ICON_NEWEST" : "ICON_LATEST"
-						)
-					);
+				html.Append( "<br/>" );
 
-				html.Append("</td></tr>");
+				currentPost++;
 			}
 
-			html.Append("</table></td></tr>");
-			html.Append("</table>");
+			html.Append( "</td></tr></table>" );
 
-			writer.Write(html.ToString());
+			writer.Write( html.ToString() );
 		}
 	}
 }

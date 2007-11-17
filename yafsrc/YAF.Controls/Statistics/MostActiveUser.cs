@@ -29,67 +29,64 @@ using YAF.Classes.Utils;
 
 namespace YAF.Controls.Statistics
 {
-    [ToolboxData("<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>")]
-    public class MostActiveUsers : BaseControl
-    {
-        private int _displayNumber = 10;
-        /// <summary>
-        /// The default constructor for MostActiveUsers.
-        /// </summary>
-        public MostActiveUsers()
-        {
+	[ToolboxData( "<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>" )]
+	public class MostActiveUsers : BaseControl
+	{
+		private int _displayNumber = 10;
+		private int _lastNumOfDays = 7;
 
-        }
+		/// <summary>
+		/// The default constructor for MostActiveUsers.
+		/// </summary>
+		public MostActiveUsers()
+		{
+		}
 
-        public int DisplayNumber
-        {
-            get
-            {
-                return _displayNumber;
-            }
-            set
-            {
-                _displayNumber = value;
-            }
-        }
+		/// <summary>
+		/// Renders the MostActiveUsers class.
+		/// </summary>
+		/// <param name="writer"></param>
+		protected override void Render( System.Web.UI.HtmlTextWriter writer )
+		{
+			int currentRank = 1;
+			string act_rank = "";
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveUsers );
 
-        /// <summary>
-        /// Renders the MostActiveUsers class.
-        /// </summary>
-        /// <param name="writer"></param>
-        protected override void Render(System.Web.UI.HtmlTextWriter writer)
-        {
-            string act_rank = "";
+			DataTable rankDT = YafCache.Current [cacheKey] as DataTable;
 
-            act_rank += "<table width=\"90%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
-            act_rank += "<tr><td class=\"header1\">Most Active Users</td></tr>";
-            System.Data.DataTable rank = YAF.Classes.Data.DB.user_activity_rank(DisplayNumber);
-            int i = 1;
+			if ( rankDT == null )
+			{
+				rankDT = YAF.Classes.Data.DB.user_activity_rank( PageContext.PageBoardID, DateTime.Now.AddDays( -LastNumOfDays ), DisplayNumber );
+				YafCache.Current.Insert( cacheKey, rankDT, null, DateTime.Now.AddMinutes( 10 ), TimeSpan.Zero );
+			}		
 
-            act_rank += "<tr><td class=post><table cellspacing=0 cellpadding=0 align=center>";
+			act_rank += "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">";
+			act_rank += "<tr><td class=\"header1\">Most Active Users</td></tr>";
+			act_rank += String.Format("<tr><td class=\"header2\">Last {0} Days</td></tr>", LastNumOfDays);
+			act_rank += @"<tr class=""post""><td>";
 
-            foreach (System.Data.DataRow r in rank.Rows)
-            {
-                // string img = "<img src='/yetanotherforum.net/themes/standard/user_rank1.gif'/>";
-                i++;
-                act_rank += "<tr class=\"post\">";
+			foreach ( System.Data.DataRow r in rankDT.Rows )
+			{			
+				int userID = Convert.ToInt32(r["ID"]);
+				act_rank += string.Format( @"{3}.&nbsp;<a href=""{1}"">{0}</a> ({2})<br/>", r ["Name"], YafBuildLink.GetLink( ForumPages.profile, "u={0}", userID ), r ["NumOfPosts"], currentRank );
+				currentRank++;		
+			}
 
-                // Immagine
-                // act_rank += string.Format("<td align=\"center\">{0}</td>", img);
+			act_rank += "</td></tr></table>";
 
-                // Nome autore
-                act_rank += string.Format("<td width=\"75%\">&nbsp;<a href='{1}'>{0}</a></td>", r["Name"], YafBuildLink.GetLink(ForumPages.profile, "u={0}", r["ID"]));
+			writer.Write( act_rank );
+		}
 
-                // Numero post
-                act_rank += string.Format("<td align=\"center\">{0}</td></tr>", r["NumOfPosts"]);
+		public int DisplayNumber
+		{
+			get { return _displayNumber; }
+			set { _displayNumber = value; }
+		}
 
-                act_rank += "</tr>";
-            }
-
-            act_rank += "</table></td></tr>";
-
-            act_rank += "</table>";
-            writer.Write(act_rank);
-        }
-    }
+		public int LastNumOfDays
+		{
+			get { return _lastNumOfDays; }
+			set { _lastNumOfDays = value; }
+		}
+	}
 }
