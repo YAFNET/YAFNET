@@ -70,6 +70,7 @@ namespace YAF.Classes.Utils
 		static public bool IsBanned( string ban, string chk )
 		{
 			string bannedIP = ban.Trim();
+			if ( chk == "::1" ) chk = "127.0.0.1";
 
 			String [] ipmask = bannedIP.Split( '.' );
 			String [] ip = bannedIP.Split( '.' );

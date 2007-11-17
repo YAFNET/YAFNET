@@ -73,8 +73,8 @@ namespace YAF.Classes.Utils
 
 			while ( Thread.CurrentThread.ThreadState != ThreadState.Aborted )
 			{
-				// wait 10 seconds and start the e-mailing thread again...
-				Thread.Sleep( 10000 );
+				// wait 5 seconds and start the e-mailing thread again...
+				Thread.Sleep( 5000 );
 
 				if ( Thread.CurrentThread.ThreadState == ThreadState.Aborted ) break;
 
