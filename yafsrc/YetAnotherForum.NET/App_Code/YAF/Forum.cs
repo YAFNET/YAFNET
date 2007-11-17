@@ -75,9 +75,16 @@ namespace YAF
 				forumControl.ForumFooter = m_footer;
 				forumControl.ForumHeader = m_header;
 				forumControl.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>( forumControl_PageTitleSet );
+				
+				// add the header control before the page rendering...
+				if ( YafContext.Current.Settings.LockedForum == 0 )
+					this.Controls.AddAt( 0, m_header );
 
 				this.Controls.Add( forumControl );
 
+				// add the footer control after the page...
+				if ( YafContext.Current.Settings.LockedForum == 0 )
+					this.Controls.Add( m_footer );
 			}
 			catch ( System.IO.FileNotFoundException )
 			{
