@@ -3042,16 +3042,13 @@ namespace YAF.Classes.Data
 				return ( int )DBAccess.ExecuteScalar( cmd );
 			}
 		}
-		static public DataTable user_activity_rank( object displayNumber )
+		static public DataTable user_activity_rank( object boardID, object startDate, object displayNumber )
 		{
-			// This define the date since the posts are counted (can pass as parameter??)
-			TimeSpan tsRange = new TimeSpan( 30, 0, 0, 0 );
-			DateTime StartDate = DateTime.Now.Subtract( tsRange );
-
 			using ( SqlCommand cmd = DBAccess.GetCommand( "user_activity_rank" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "StartDate", StartDate );
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "StartDate", startDate );
 				cmd.Parameters.AddWithValue( "DisplayNumber", displayNumber );
 				return DBAccess.GetData( cmd );
 			}
