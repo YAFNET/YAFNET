@@ -32,14 +32,21 @@ namespace YAF
 	public class Forum : System.Web.UI.UserControl
 	{
 		YafControlSettings forumSettings = new YafControlSettings();
-		private YAF.Controls.Header m_header = new YAF.Controls.Header();
-		private YAF.Controls.Footer m_footer = new YAF.Controls.Footer();
+		private YAF.Controls.Header _header;
+		private YAF.Controls.Footer _footer;
+		private string _origHeaderClientID;
+		private string _origFooterClientID;
 		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
 
 		public Forum()
 		{
 			YAF.Classes.Utils.YafContext.Current.Settings = forumSettings;
 			this.Load += new EventHandler( Forum_Load );
+			// setup header/footer
+			_header = new YAF.Controls.Header();
+			_footer = new YAF.Controls.Footer();
+			_origHeaderClientID = _header.ClientID;
+			_origFooterClientID = _footer.ClientID;
 		}
 
 		private void Forum_Load( object sender, EventArgs e )
@@ -72,19 +79,20 @@ namespace YAF
 			try
 			{
 				YAF.Classes.Base.ForumPage forumControl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
-				forumControl.ForumFooter = m_footer;
-				forumControl.ForumHeader = m_header;
 				forumControl.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>( forumControl_PageTitleSet );
+
+				forumControl.ForumFooter = _footer;
+				forumControl.ForumHeader = _header;
 				
 				// add the header control before the page rendering...
-				if ( YafContext.Current.Settings.LockedForum == 0 )
-					this.Controls.AddAt( 0, m_header );
+				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
+					this.Controls.AddAt( 0, _header );
 
 				this.Controls.Add( forumControl );
 
 				// add the footer control after the page...
-				if ( YafContext.Current.Settings.LockedForum == 0 )
-					this.Controls.Add( m_footer );
+				if ( YafContext.Current.Settings.LockedForum == 0 && _origFooterClientID == _footer.ClientID )
+					this.Controls.Add( _footer );
 			}
 			catch ( System.IO.FileNotFoundException )
 			{
@@ -109,11 +117,11 @@ namespace YAF
 		{
 			set
 			{
-				m_header = value;
+				_header = value;
 			}
 			get
 			{
-				return m_header;
+				return _header;
 			}
 		}
 
@@ -124,11 +132,11 @@ namespace YAF
 		{
 			set
 			{
-				m_footer = value;
+				_footer = value;
 			}
 			get
 			{
-				return m_footer;
+				return _footer;
 			}
 		}
 
