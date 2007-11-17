@@ -4,7 +4,7 @@
     public void Page_Error( object sender, System.EventArgs e )
     {
         Exception x = Server.GetLastError();
-        YAF.Classes.Data.DB.eventlog_create( yafForum.PageUserID, this, x );
+        YAF.Classes.Data.DB.eventlog_create( forum.PageUserID, this, x );
         YAF.Classes.Utils.General.LogToMail( x );
     }		
 </script>
