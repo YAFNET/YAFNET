@@ -62,10 +62,18 @@ namespace YAF.Controls.Statistics
 		{
 			System.Text.StringBuilder html = new System.Text.StringBuilder();
 
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ActiveDiscussions );
+			DataTable dt = YafCache.Current [cacheKey] as DataTable;
+
+			if ( dt == null )
+			{
+				dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, _displayNumber, PageContext.PageUserID );
+				YafCache.Current.Insert( cacheKey, dt, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
+			}		
+
 			html.Append( "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">" );
 			html.AppendFormat( "<tr><td class=\"header1\">{0}</td></tr>", PageContext.Localization.GetText( "LATEST_POSTS" ) );
 
-			System.Data.DataTable dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, _displayNumber, PageContext.PageUserID );
 			int currentPost = 1;
 
 			html.Append( "<tr><td class=\"post\">" );
