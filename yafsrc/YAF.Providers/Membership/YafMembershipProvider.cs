@@ -105,8 +105,10 @@ namespace YAF.Providers.Membership
             // Buffer used for hash algorithm if Salt is used.
             byte[] hashBuffer = new byte[hashBufferLength];
 
+						MembershipPasswordFormat passwordFormat = (MembershipPasswordFormat)Enum.ToObject( typeof( MembershipPasswordFormat ), encFormat );
+
             // Check Encoding format / method
-            switch ((MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat))
+            switch (passwordFormat)
             {
                 case MembershipPasswordFormat.Clear:
                     // plain text
