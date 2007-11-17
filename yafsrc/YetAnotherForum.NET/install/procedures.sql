@@ -3898,18 +3898,50 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}user_activity_rank](@StartDate as datetime) AS
-begin
-	select top 3  ID, Name, NumOfPosts from [{databaseOwner}].[{objectQualifier}User] u inner join
-	(
-		select m.UserID as ID, Count(m.UserID) as NumOfPosts from [{databaseOwner}].[{objectQualifier}Message] m
-		where m.Posted >= @StartDate
-		group by m.UserID
-	) as counter
-	on u.UserID = counter.ID
-	order by NumOfPosts desc
-end
-go
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}yaf_user_activity_rank]
+(
+	@BoardID AS int,
+	@DisplayNumber AS int,
+	@StartDate AS datetime
+)
+AS
+BEGIN
+	DECLARE @GuestUserID int
+
+	SET ROWCOUNT @DisplayNumber
+
+	SET @GuestUserID =
+	(SELECT top 1
+		a.UserID
+	from
+		[{databaseOwner}].[{objectQualifier}User] a
+		inner join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID = a.UserID
+		inner join [{databaseOwner}].[{objectQualifier}Group] c on b.GroupID = c.GroupID
+	where
+		a.BoardID = @BoardID and
+		(c.Flags & 2)<>0
+	)
+
+	SELECT
+		counter.[ID],
+		u.[Name],
+		counter.[NumOfPosts]
+	FROM
+		[{databaseOwner}].[{objectQualifier}User] u inner join
+		(
+			SELECT m.UserID as ID, Count(m.UserID) as NumOfPosts FROM [{databaseOwner}].[{objectQualifier}Message] m
+			WHERE m.Posted >= @StartDate
+			GROUP BY m.UserID
+		) AS counter ON u.UserID = counter.ID
+	WHERE
+		u.BoardID = @BoardID and u.UserID != @GuestUserID
+	ORDER BY
+		NumOfPosts DESC
+
+	SET ROWCOUNT 0
+END
+GO
+
 
 create PROCEDURE [{databaseOwner}].[{objectQualifier}user_addpoints] (@UserID int,@Points int) AS
 BEGIN
