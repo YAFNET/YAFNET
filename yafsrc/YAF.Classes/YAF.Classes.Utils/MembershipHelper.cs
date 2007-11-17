@@ -283,14 +283,14 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Helper function that gets user data from the DB (or cache)
 		/// </summary>
-		/// <param name="usserID"></param>
+		/// <param name="userID"></param>
 		/// <returns></returns>
 		public static DataRow GetUserRowForID(int userID, bool allowCached)
 		{
-			DataRow userRow = null;
 			string cacheKey = string.Format("UserListForID{0}", userID);
+			DataRow userRow = YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] as DataRow;
 
-			if (YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)] == null || !allowCached)
+			if ( userRow == null || !allowCached)
 			{
 				DataTable dt = YAF.Classes.Data.DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value);
 				if (dt.Rows.Count == 1)
@@ -299,10 +299,6 @@ namespace YAF.Classes.Utils
 					// cache it
 					YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)] = userRow;
 				}
-			}
-			else
-			{
-				userRow = ((DataRow)YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)]);
 			}
 
 			return userRow;
@@ -559,7 +555,7 @@ namespace YAF.Classes.Utils
 			string cacheKey = YafCache.GetBoardCacheKey(Constants.Cache.GuestUserID);
 
 			// check if there is value cached
-			if (YafCache.Current[cacheKey] == null)
+			if ( YafCache.Current [cacheKey] == null )
 			{
 				// get the guest user for this board...
 				guestUserID = DB.user_guest(YafContext.Current.PageBoardID);

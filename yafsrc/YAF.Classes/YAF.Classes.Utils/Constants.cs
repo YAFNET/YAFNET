@@ -58,6 +58,8 @@ namespace YAF.Classes.Utils
 			public const string GuestUserID = "GuestUserID";
 			public const string CustomBBCode = "CustomBBCode";
 			public const string Smilies = "Smilies";
+			public const string ActiveUsers = "ActiveUsers";
+			public const string ActiveDiscussions = "ActiveDiscussions";
 		}
 	}
 }
