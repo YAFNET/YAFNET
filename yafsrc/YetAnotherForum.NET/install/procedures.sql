@@ -1842,7 +1842,7 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_moderators] as
-begin
+BEGIN
 	select
 		ForumID = a.ForumID, 
 		ModeratorID = a.GroupID, 
@@ -1850,26 +1850,39 @@ begin
 		IsGroup=1
 	from
 		[{databaseOwner}].[{objectQualifier}ForumAccess] a
-		JOIN [{databaseOwner}].[{objectQualifier}Group] b ON b.GroupID = a.GroupID
-		JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c ON c.AccessMaskID = a.AccessMaskID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b ON b.GroupID = a.GroupID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}AccessMask] c ON c.AccessMaskID = a.AccessMaskID
 	where
 		(b.Flags & 1)=0 and
 		(c.Flags & 64)<>0
-	union
+	union all
 	select 
-		ForumID = x.ForumID, 
-		ModeratorID = a.UserID, 
-		ModeratorName = a.Name,
+		ForumID = access.ForumID, 
+		ModeratorID = usr.UserID, 
+		ModeratorName = usr.Name,
 		IsGroup=0
 	from
-		[{databaseOwner}].[{objectQualifier}User] a
-		JOIN [{databaseOwner}].[{objectQualifier}vmaccess] x ON a.UserID=x.UserID
+		[{databaseOwner}].[{objectQualifier}User] usr
+		INNER JOIN (
+			select
+				UserID				= a.UserID,
+				ForumID				= x.ForumID,
+				ModeratorAccess		= max(x.ModeratorAccess)
+			from
+				[{databaseOwner}].[{objectQualifier}vaccessfull] as x
+				INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a on a.UserID=x.UserID
+				INNER JOIN [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID
+			WHERE 
+				x.AdminGroup = 0
+			GROUP BY
+				a.UserID,x.ForumID		
+		) access ON usr.UserID = access.UserID
 	where
-		x.ModeratorAccess<>0
+		access.ModeratorAccess<>0
 	order by
 		IsGroup desc,
 		ModeratorName asc
-end
+END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
