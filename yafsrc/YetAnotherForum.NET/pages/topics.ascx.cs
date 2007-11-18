@@ -39,6 +39,7 @@ namespace YAF.Pages // YAF.Pages
 	{
 		private DataRow _forum;
 		protected int _showTopicListSelected;
+		private bool m_bIgnoreQueryString = false;
 
 		/// <summary>
 		/// Overloads the topics page.
@@ -171,6 +172,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
+			m_bIgnoreQueryString = true;
 			SmartScroller1.Reset();
 			BindData();
 		}
@@ -202,6 +204,17 @@ namespace YAF.Pages // YAF.Pages
 			DataTable dt = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 1, null, 0, 10 );
 			int nPageSize = System.Math.Max( 5, Pager.PageSize - dt.Rows.Count );
 			Announcements.DataSource = dt;
+
+			if ( !m_bIgnoreQueryString && Request.QueryString ["p"] != null )
+			{
+				// show specific page (p is 1 based)
+				int tPage = (int)Security.StringToLongOrRedirect( Request.QueryString ["p"] );
+
+				if ( tPage > 0 )
+				{
+					Pager.CurrentPageIndex = tPage - 1;
+				}
+			}
 
 			int nCurrentPageIndex = Pager.CurrentPageIndex;
 
