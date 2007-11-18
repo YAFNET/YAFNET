@@ -104,6 +104,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_role_exists]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
+GO
+
 -- =============================================
 -- Profiles Drop Procedures
 -- =============================================
@@ -625,6 +629,22 @@ BEGIN
 	
 	DELETE FROM {objectQualifier}prov_RoleMembership WHERE RoleID = @RoleID AND UserID=@UserID
 	
+END 
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
+(
+@ApplicationName nvarchar(255),
+@Rolename nvarchar(255)
+)
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+	
+	SELECT COUNT(1) FROM {objectQualifier}prov_Role
+		WHERE Rolename = @Rolename;
 END 
 GO
 

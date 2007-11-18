@@ -3911,7 +3911,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}yaf_user_activity_rank]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_activity_rank]
 (
 	@BoardID AS int,
 	@DisplayNumber AS int,
@@ -4081,7 +4081,7 @@ BEGIN
 			@LastActivity = LastVisit,
 			@Joined = Joined
 		FROM
-			yaf_User
+			{objectQualifier}User
 		WHERE
 			UserID = @UserID
 		
@@ -5117,9 +5117,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
 AS
 BEGIN
 	IF @BBCodeID IS NOT NULL
-		DELETE FROM yaf_BBCode WHERE BBCodeID = @BBCodeID
+		DELETE FROM [{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID
 	ELSE
-		DELETE FROM yaf_BBCode
+		DELETE FROM [{objectQualifier}BBCode]
 END
 GO
 
@@ -5131,9 +5131,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
 AS
 BEGIN
 	IF @BBCodeID IS NULL
-		SELECT * FROM yaf_BBCode WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
+		SELECT * FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID ORDER BY ExecOrder, [Name] DESC
 	ELSE
-		SELECT * FROM yaf_BBCode WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
+		SELECT * FROM [{objectQualifier}BBCode] WHERE BBCodeID = @BBCodeID ORDER BY ExecOrder
 END
 GO
 
@@ -5156,7 +5156,7 @@ AS
 BEGIN
 	IF @BBCodeID IS NOT NULL BEGIN
 		UPDATE
-			yaf_BBCode
+			[{objectQualifier}BBCode]
 		SET
 			[Name] = @Name,
 			[Description] = @Description,
@@ -5172,9 +5172,9 @@ BEGIN
 			BBCodeID = @BBCodeID
 	END
 	ELSE BEGIN
-		IF NOT EXISTS(SELECT 1 FROM yaf_BBCode WHERE BoardID = @BoardID AND [Name] = @Name)
+		IF NOT EXISTS(SELECT 1 FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
 			INSERT INTO
-				yaf_BBCode([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[ExecOrder])
+				[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[ExecOrder])
 			VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@ExecOrder)
 	END
 END

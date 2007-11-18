@@ -2,12 +2,12 @@
 ** Views
 */
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vaccess]') and OBJECTPROPERTY(id, N'IsView') = 1)
-	drop view [{databaseOwner}].[{objectQualifier}vaccess]
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vaccessfull]') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view [{databaseOwner}].[{objectQualifier}vaccessfull]
 GO
 
-if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vmaccess]') and OBJECTPROPERTY(id, N'IsView') = 1)
-	drop view [{databaseOwner}].[{objectQualifier}vmaccess]
+if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}vaccess]') and OBJECTPROPERTY(id, N'IsView') = 1)
+	drop view [{databaseOwner}].[{objectQualifier}vaccess]
 GO
 
 if exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}PMessageView]') and OBJECTPROPERTY(id, N'IsView') = 1)
