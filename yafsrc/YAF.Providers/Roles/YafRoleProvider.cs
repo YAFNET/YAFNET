@@ -38,6 +38,8 @@ using System.Security.Permissions;
 using System.Globalization;
 using System.Runtime.Serialization;
 using YAF.Classes.Utils;
+using YAF.Providers.Utils;
+
 namespace YAF.Providers.Roles
 {
     public class YafRoleProvider : RoleProvider
@@ -71,7 +73,7 @@ namespace YAF.Providers.Roles
         {
             // verify that the configuration section was properly passed
             if (config == null)
-                throw new ArgumentNullException(this.ProviderLocalization.GetText("CONFIG_NOTFOUND", "PROVIDER"));
+                ExceptionReporter.ThrowArgument("ROLES", "CONFIGNOTFOUND");
 
             base.Initialize(name, config);
 
@@ -110,7 +112,7 @@ namespace YAF.Providers.Roles
         public override void CreateRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK","PROVIDER"));
+                ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
 
             DB.CreateRole(this.ApplicationName, roleName);
         }
@@ -141,7 +143,7 @@ namespace YAF.Providers.Roles
         public override string[] FindUsersInRole(string roleName, string usernameToMatch)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK", "PROVIDER"));
+                ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
             // Roles
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             StringCollection usernames = new StringCollection(); ;
@@ -179,7 +181,7 @@ namespace YAF.Providers.Roles
         public override string[] GetRolesForUser(string username)
         {
             if (String.IsNullOrEmpty(username))
-                throw new ArgumentException(this.ProviderLocalization.GetText("USER_BLANK", "PROVIDER"));
+                ExceptionReporter.ThrowArgument("ROLES", "USERNAMEBLANK");
 
             DataTable roles = DB.GetRoles(this.ApplicationName, username);
             
@@ -201,7 +203,7 @@ namespace YAF.Providers.Roles
         public override string[] GetUsersInRole(string roleName)
         {
             if (String.IsNullOrEmpty(roleName))
-                throw new ArgumentException(this.ProviderLocalization.GetText("ROLE_BLANK", "PROVIDER"));
+                ExceptionReporter.ThrowArgument("ROLES", "ROLENAMEBLANK");
 
             DataTable users = DB.FindUsersInRole(this.ApplicationName, roleName);
             StringCollection userNames = new StringCollection();;
@@ -267,17 +269,6 @@ namespace YAF.Providers.Roles
             return false;
         }
 
-        #endregion
-
-        #region Private Properties
-
-        private YafLocalization ProviderLocalization
-        {
-            get
-            {
-                return _providerLocalization;
-            }
-        }
         #endregion
 
     }

@@ -450,7 +450,7 @@ BEGIN
 	IF (@UniqueEmail = 1)
 	BEGIN
 		IF (EXISTS (SELECT 1 FROM {objectQualifier}prov_Membership m WHERE m.UserID != @UserKey AND m.Email=LOWER(@Email) AND m.ApplicationID=@ApplicationID) )
-			RETURN (7) -- What is return 7?
+			RETURN (2)
 	END
 	
 	UPDATE {objectQualifier}prov_Membership SET

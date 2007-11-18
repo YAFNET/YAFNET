@@ -31,6 +31,7 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Data;
 using System.Globalization;
+using YAF.Providers.Utils;
 
 namespace YAF.Providers.Membership
 {
@@ -41,7 +42,7 @@ namespace YAF.Providers.Membership
         string _appName, _passwordStrengthRegularExpression;
         int _minimumRequiredPasswordLength, _minRequiredNonAlphanumericCharacters;
         int _maxInvalidPasswordAttempts, _passwordAttemptWindow;
-				bool _enablePasswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
+        bool _enablePasswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
         bool _requiresUniqueEmail, _useSalt;
         MembershipPasswordFormat _passwordFormat;
 
@@ -105,14 +106,14 @@ namespace YAF.Providers.Membership
             // Buffer used for hash algorithm if Salt is used.
             byte[] hashBuffer = new byte[hashBufferLength];
 
-						MembershipPasswordFormat passwordFormat = (MembershipPasswordFormat)Enum.ToObject( typeof( MembershipPasswordFormat ), encFormat );
+            MembershipPasswordFormat passwordFormat = (MembershipPasswordFormat)Enum.ToObject(typeof(MembershipPasswordFormat), encFormat);
 
             // Check Encoding format / method
             switch (passwordFormat)
             {
                 case MembershipPasswordFormat.Clear:
                     // plain text
-                    encodedPass = unencodedString; 
+                    encodedPass = unencodedString;
                     break;
                 case MembershipPasswordFormat.Hashed:
                     if (useSalt) encodedPass = Convert.ToBase64String(HashAlgorithm.Create(YafMembershipProvider.HashType()).ComputeHash(hashBuffer));
@@ -142,7 +143,8 @@ namespace YAF.Providers.Membership
                 case MembershipPasswordFormat.Clear: // MembershipPasswordFormat.Clear:
                     return pass;
                 case MembershipPasswordFormat.Hashed: // MembershipPasswordFormat.Hashed:
-                    throw new ProviderException(SR.GetString(SR.Provider_can_not_decode_hashed_password));
+                    ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
+                    break;
                 case MembershipPasswordFormat.Encrypted:
                     byte[] bIn = Convert.FromBase64String(pass);
                     byte[] bRet = (new YafMembershipProvider()).DecryptPassword(bIn);
@@ -150,8 +152,11 @@ namespace YAF.Providers.Membership
                         return null;
                     return Encoding.Unicode.GetString(bRet, 16, bRet.Length - 16);
                 default:
-                    throw new ProviderException(SR.GetString(SR.Provider_can_not_decode_hashed_password));
+                    ExceptionReporter.Throw("MEMBERSHIP", "DECODEHASH");
+                    break;
             }
+
+            return String.Empty; // Removes "Not all paths return a value" warning.
         }
 
         /// <summary>
@@ -200,6 +205,7 @@ namespace YAF.Providers.Membership
         {
             return YafMembershipProvider.IsPasswordCompliant(passsword, this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters, this.PasswordStrengthRegularExpression);
         }
+
         #endregion
 
         #region Override Public Properties
@@ -281,6 +287,10 @@ namespace YAF.Providers.Membership
         /// <param name="config">NameValueCollection of configuration items</param>
         public override void Initialize(string name, NameValueCollection config)
         {
+            // Verify that the configuration section was properly passed
+            if (config == null)
+                ExceptionReporter.ThrowArgument("ROLES", "CONFIGNOTFOUND");
+
             // Retrieve information for provider from web config
             // config ints
 
@@ -288,13 +298,13 @@ namespace YAF.Providers.Membership
             _minimumRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "6");
 
             // Minimum Required Non Alpha-numeric Characters from Provider configuration
-             _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonalphanumericCharacters"] ?? "1");
+            _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonalphanumericCharacters"] ?? "1");
 
             // Maximum number of allowed password attempts
-             _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
+            _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
 
             // Password Attempt Window when maximum attempts have been reached
-             _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10");
+            _passwordAttemptWindow = int.Parse(config["passwordAttemptWindow"] ?? "10");
 
             // Check whething Hashing methods should use Salt
             _useSalt = Utils.Transform.ToBool(config["useSalt"] ?? "false");
@@ -325,7 +335,8 @@ namespace YAF.Providers.Membership
                     _passwordFormat = MembershipPasswordFormat.Hashed;
                     break;
                 default:
-                    throw new ProviderException(SR.GetString(SR.Provider_bad_password_format));
+                    ExceptionReporter.Throw("MEMBERSHIP", "BADPASSWORDFORMAT");
+                    break;
             }
 
             base.Initialize(name, config);
@@ -394,7 +405,7 @@ namespace YAF.Providers.Membership
                 {
                     // will return false...
                 }
-                
+
             }
 
             return false; // Invalid password return false
@@ -502,7 +513,7 @@ namespace YAF.Providers.Membership
         {
             // Check username argument is not null
             if (username == null)
-                throw new ArgumentNullException("Username is null");
+                ExceptionReporter.Throw("MEMBERSHIP", "USERNAMENULL");
 
             // Process database user deletion request
             try
@@ -515,7 +526,7 @@ namespace YAF.Providers.Membership
                 // will return false...  
             }
 
-            return false;            
+            return false;
         }
 
         /// <summary>
@@ -531,9 +542,9 @@ namespace YAF.Providers.Membership
             MembershipUserCollection users = new MembershipUserCollection();
 
             if (pageIndex < 0)
-                throw new ArgumentException(SR.GetString(SR.PageIndex_bad), "pageIndex");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
             if (pageSize < 1)
-                throw new ArgumentException(SR.GetString(SR.PageSize_bad), "pageSize");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
 
             // Loop through all users
             foreach (DataRow dr in DB.FindUsersByEmail(this.ApplicationName, emailToMatch, pageIndex, pageSize).Rows)
@@ -558,9 +569,9 @@ namespace YAF.Providers.Membership
             MembershipUserCollection users = new MembershipUserCollection();
 
             if (pageIndex < 0)
-                throw new ArgumentException(SR.GetString(SR.PageIndex_bad), "pageIndex");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
             if (pageSize < 1)
-                throw new ArgumentException(SR.GetString(SR.PageSize_bad), "pageSize");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
 
             // Loop through all users
             foreach (DataRow dr in DB.FindUsersByName(this.ApplicationName, usernameToMatch, pageIndex, pageSize).Rows)
@@ -584,9 +595,9 @@ namespace YAF.Providers.Membership
             MembershipUserCollection users = new MembershipUserCollection();
 
             if (pageIndex < 0)
-                throw new ArgumentException(SR.GetString(SR.PageIndex_bad), "pageIndex");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGEINDEX");
             if (pageSize < 1)
-                throw new ArgumentException(SR.GetString(SR.PageSize_bad), "pageSize");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "BADPAGESIZE");
 
             // Loop through all users
             foreach (DataRow dr in DB.GetAllUsers(this.ApplicationName, pageIndex, pageSize).Rows)
@@ -620,12 +631,12 @@ namespace YAF.Providers.Membership
         {
             if (!this.EnablePasswordRetrieval)
             {
-                throw new NotSupportedException(SR.GetString(SR.Membership_PasswordRetrieval_not_supported));
+                ExceptionReporter.ThrowNotSupported("MEMBERSHIP", "PASSWORDRETRIEVALNOTSUPPORTED");
             }
 
             // Check for null arguments
             if ((username == null) || (answer == null))
-                throw new ArgumentException("Username or Password answer cannot be null");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
 
             UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
 
@@ -633,7 +644,7 @@ namespace YAF.Providers.Membership
             {
                 return YafMembershipProvider.DecodeString(currentPasswordInfo.Password, currentPasswordInfo.PasswordFormat);
             }
-            
+
             return null;
         }
 
@@ -646,7 +657,7 @@ namespace YAF.Providers.Membership
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
             if (username == null)
-                throw new ArgumentNullException("username is null");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMENULL");
 
             DataRow dr = DB.GetUser(this.ApplicationName, username, userIsOnline);
             if (dr != null)
@@ -665,12 +676,12 @@ namespace YAF.Providers.Membership
         {
             if (providerUserKey == null)
             {
-                throw new ArgumentNullException("providerUserKey");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERKEYNULL");
             }
 
             if (!(providerUserKey is Guid))
             {
-                throw new ArgumentException(SR.GetString(SR.Membership_InvalidProviderUserKey), "providerUserKey");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "INVALIDPROVIDERKEY");
             }
 
             DataRow dr = DB.GetUser(this.ApplicationName, providerUserKey, userIsOnline);
@@ -690,11 +701,12 @@ namespace YAF.Providers.Membership
         public override string GetUserNameByEmail(string email)
         {
             if (email == null)
-                throw new ArgumentNullException("Email is null");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "EMAILNULL");
 
             DataTable Users = DB.GetUserNameByEmail(this.ApplicationName, email);
             if (this.RequiresUniqueEmail && Users.Rows.Count > 1)
-                throw new ProviderException("More than one username returned for email address");
+                ExceptionReporter.ThrowProvider("MEMBERSHIP", "TOOMANYUSERNAMERETURNS");
+
             if (Users.Rows.Count == 0)
                 return null;
             else
@@ -713,11 +725,11 @@ namespace YAF.Providers.Membership
 
             /// Check Password reset is enabled
             if (!(this.EnablePasswordReset))
-                throw new NotSupportedException("Reset passwords are not supported with this configuration");
+                ExceptionReporter.ThrowNotSupported("MEMBERSHIP", "RESETNOTSUPPORTED");
 
             // Check arguments for null values
             if ((username == null) || (answer == null))
-                throw new ArgumentException("Username or Password answer cannot be null");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP","USERNAMEPASSWORDNULL");
 
             UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt);
 
@@ -730,7 +742,7 @@ namespace YAF.Providers.Membership
                 DB.ResetPassword(this.ApplicationName, username, newPasswordEnc, newPasswordSalt, (int)this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow);
                 return newPassword; // Return unencrypted password
             }
-           
+
             return null;
         }
 
@@ -743,10 +755,10 @@ namespace YAF.Providers.Membership
         {
             // Check for null argument
             if (userName == null)
-                throw new ArgumentNullException("userName cannot be null");
+                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMENULL");
 
-            try 
-            { 
+            try
+            {
                 DB.UnlockUser(this.ApplicationName, userName);
                 return true;
             }
@@ -767,14 +779,23 @@ namespace YAF.Providers.Membership
         {
             // Check User object is not null
             if (user == null)
-                throw new ArgumentNullException("User is null.");
-            
+                ExceptionReporter.Throw("MEMBERSHIP", "MEMBERSHIPUSERNULL");
+
             // Update User
             int updateStatus = DB.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
-            
-            // Check update was successful
+
+            // Check update was not successful
             if (updateStatus != 0)
-                throw new ProviderException("Some Provider Exception Occured");
+            {
+                // An error has occurred, determine which one.
+                switch (updateStatus)
+                {
+                    case 1: ExceptionReporter.Throw("MEMBERSHIP", "USERKEYNULL");
+                        break;
+                    case 2: ExceptionReporter.Throw("MEMBERSHIP", "DUPLICATEEMAIL");
+                        break;
+                }
+            }
         }
 
         /// <summary>
