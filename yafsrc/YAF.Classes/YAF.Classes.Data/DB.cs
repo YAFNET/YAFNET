@@ -201,59 +201,6 @@ namespace YAF.Classes.Data
 
 		#region DataSets
 		/// <summary>
-		/// Returns the layout of the board
-		/// </summary>
-		/// <param name="boardID">BoardID</param>
-		/// <param name="UserID">UserID</param>
-		/// <param name="CategoryID">CategoryID</param>
-		/// <param name="parentID">ParentID</param>
-		/// <returns>Returns board layout</returns>
-		static public DataSet board_layout( object boardID, object UserID, object CategoryID, object parentID )
-		{
-			if ( CategoryID != null && long.Parse( CategoryID.ToString() ) == 0 )
-				CategoryID = null;
-
-			using ( YafDBConnManager connMan = new YafDBConnManager() )
-			{
-				using ( DataSet ds = new DataSet() )
-				{
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
-					{
-						using ( SqlDataAdapter da = new SqlDataAdapter( DBAccess.GetObjectName( "forum_moderators" ), connMan.DBConnection ) )
-						{
-							da.SelectCommand.CommandType = CommandType.StoredProcedure;
-							da.SelectCommand.Transaction = trans;
-							da.Fill( ds, "Moderator" );
-						}
-						using ( SqlDataAdapter da = new SqlDataAdapter( DBAccess.GetObjectName( "category_listread" ), connMan.DBConnection ) )
-						{
-							da.SelectCommand.CommandType = CommandType.StoredProcedure;
-							da.SelectCommand.Transaction = trans;
-							da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
-							da.SelectCommand.Parameters.AddWithValue( "UserID", UserID );
-							da.SelectCommand.Parameters.AddWithValue( "CategoryID", CategoryID );
-							da.Fill( ds, DBAccess.GetObjectName( "Category" ) );
-						}
-						using ( SqlDataAdapter da = new SqlDataAdapter( DBAccess.GetObjectName( "forum_listread" ), connMan.DBConnection ) )
-						{
-							da.SelectCommand.CommandType = CommandType.StoredProcedure;
-							da.SelectCommand.Transaction = trans;
-							da.SelectCommand.Parameters.AddWithValue( "BoardID", boardID );
-							da.SelectCommand.Parameters.AddWithValue( "UserID", UserID );
-							da.SelectCommand.Parameters.AddWithValue( "CategoryID", CategoryID );
-							da.SelectCommand.Parameters.AddWithValue( "ParentID", parentID );
-							da.Fill( ds, DBAccess.GetObjectName( "Forum" ) );
-						}
-						ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"] );
-						ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables ["Moderator"].Columns ["ForumID"], false );
-						trans.Commit();
-					}
-					return ds;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Gets a list of categories????
 		/// </summary>
 		/// <param name="boardID">BoardID</param>
@@ -735,6 +682,24 @@ namespace YAF.Classes.Data
 			}
 		}
 		/// <summary>
+		/// Gets a list of forum categories
+		/// </summary>
+		/// <param name="boardID"></param>
+		/// <param name="userID"></param>
+		/// <param name="categoryID"></param>
+		/// <returns></returns>
+		static public DataTable category_listread( object boardID, object userID, object categoryID )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "category_listread" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "CategoryID", categoryID );
+				return DBAccess.GetData( cmd );
+			}
+		}
+		/// <summary>
 		/// Lists categories very simply (for URL rewriting)
 		/// </summary>
 		/// <param name="StartID"></param>
@@ -1203,7 +1168,6 @@ namespace YAF.Classes.Data
 				}
 			}
 		}
-
 
 		static public DataTable forum_moderators()
 		{
