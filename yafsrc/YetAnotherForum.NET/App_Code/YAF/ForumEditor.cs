@@ -75,8 +75,6 @@ namespace YAF.Editor
 			_textCtl = new HtmlTextArea();
 
 			_textCtl.ID = "edit";
-			_textCtl.Attributes.Add( "style", "width:100%;height:100%" );
-			_textCtl.Rows = 25;
 			Controls.Add( _textCtl );
 
 			/*
@@ -155,6 +153,7 @@ namespace YAF.Editor
 		protected override void OnInit( EventArgs e )
 		{
 			base.OnInit( e );
+			_textCtl.Attributes.Add( "class", "basicBBCodeEditor" );
 		}
 
 		protected override void Editor_Load( object sender, EventArgs e )
@@ -269,7 +268,7 @@ namespace YAF.Editor
 
 			writer.WriteLine( "	</td></tr>" );
 			writer.WriteLine( "	</table>" );
-			writer.WriteLine( "</td></tr><tr><td height='99%'>" );
+			writer.WriteLine( @"</td></tr><tr><td height=""99%"">" );
 			base.Render( writer );
 			writer.WriteLine( "</td></tr></table>" );
 		}
@@ -277,6 +276,7 @@ namespace YAF.Editor
 		protected override void OnInit( EventArgs e )
 		{
 			base.OnInit( e );
+			_textCtl.Attributes.Add( "class", "BBCodeEditor" );
 		}
 
 		protected override void Editor_Load( object sender, EventArgs e )

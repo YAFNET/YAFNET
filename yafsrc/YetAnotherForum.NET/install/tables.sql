@@ -254,7 +254,7 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Attachment]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
-		AttachmentID	int identity not null,
+		AttachmentID	int IDENTITY (1, 1) not null,
 		MessageID		int not null,
 		FileName		nvarchar(255) not null,
 		Bytes			int not null,
@@ -285,7 +285,7 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}AccessMask]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}AccessMask](
-		AccessMaskID	int IDENTITY NOT NULL ,
+		AccessMaskID	int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) NOT NULL ,
 		Flags			int not null constraint [DF_{objectQualifier}AccessMask_Flags] default (0)
@@ -305,7 +305,7 @@ GO
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Board]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
-		BoardID			int NOT NULL IDENTITY(1,1),
+		BoardID			int IDENTITY (1, 1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
 		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
@@ -316,7 +316,7 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpServer]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpServer](
-		NntpServerID	int identity not null,
+		NntpServerID	int IDENTITY (1, 1) not null,
 		BoardID			int NOT NULL ,
 		Name			nvarchar(50) not null,
 		Address			nvarchar(100) not null,
@@ -328,7 +328,7 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpForum]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpForum](
-		NntpForumID		int identity not null,
+		NntpForumID		int IDENTITY (1, 1) not null,
 		NntpServerID	int not null,
 		GroupName		nvarchar(100) not null,
 		ForumID			int not null,
@@ -340,7 +340,7 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}NntpTopic]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}NntpTopic](
-		NntpTopicID		int identity not null,
+		NntpTopicID		int IDENTITY (1, 1) not null,
 		NntpForumID		int not null,
 		Thread			char(32) not null,
 		TopicID			int not null
@@ -350,7 +350,7 @@ GO
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserPMessage]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}UserPMessage](
-		UserPMessageID	int identity not null,
+		UserPMessageID	int IDENTITY (1, 1) not null,
 		UserID			int not null,
 		PMessageID		int not null,
 		IsRead			bit not null,
