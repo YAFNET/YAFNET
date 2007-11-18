@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="ForumList.ascx.cs" Inherits="YAF.Controls.ForumList"	EnableViewState="false" %>
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>	
 <%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="ForumSubForumList.ascx" %>
 <asp:Repeater ID="forumList" runat="server">
 	<ItemTemplate>
 		<tr class="post">
@@ -18,23 +19,7 @@
 					<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 				</span>
 				<br />
-				<asp:Repeater ID="SubforumList" Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>'
-					DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' runat="server">
-					<HeaderTemplate>
-						<span class="smallfont subforumlink"><b>
-							<%# PageContext.Localization.GetText("SUBFORUMS")%>
-						</b>:
-					</HeaderTemplate>
-					<ItemTemplate>
-						<%# GetSubForumIcon(Container.DataItem) %>
-						<%# GetForumLink((System.Data.DataRow)Container.DataItem) %>
-					</ItemTemplate>
-					<SeparatorTemplate>
-						,
-					</SeparatorTemplate>
-					<FooterTemplate>
-						</span></FooterTemplate>
-				</asp:Repeater>
+				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
 			<td align="center" class="smallfont subforumlink">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
@@ -66,23 +51,7 @@
 					<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]") %>
 				</span>
 				<br />
-				<asp:Repeater ID="SubforumList" Visible='<%# HasSubforums((System.Data.DataRow)Container.DataItem) %>'
-					DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' runat="server">
-					<HeaderTemplate>
-						<span class="smallfont subforumlink"><b>
-							<%# PageContext.Localization.GetText("SUBFORUMS")%>
-						</b>:
-					</HeaderTemplate>
-					<ItemTemplate>
-						<%# GetSubForumIcon(Container.DataItem) %>
-						<%# GetForumLink((System.Data.DataRow)Container.DataItem) %>
-					</ItemTemplate>
-					<SeparatorTemplate>
-						,
-					</SeparatorTemplate>
-					<FooterTemplate>
-						</span></FooterTemplate>
-				</asp:Repeater>
+				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
 			<td align="center" class="smallfont subforumlink">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />

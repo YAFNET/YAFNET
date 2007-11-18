@@ -38,36 +38,6 @@ namespace YAF.Controls
 		{
 		}
 
-		protected string GetSubForumIcon( object o )
-		{
-			DataRow row = ( DataRow ) o;
-			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
-			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
-
-			string img, imgTitle;
-
-			try
-			{
-				if ( lastPosted > lastRead )
-				{
-					img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM_NEW" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "New_Posts" );
-				}
-				else
-				{
-					img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
-				}
-			}
-			catch ( Exception )
-			{
-				img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM" );
-				imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
-			}
-
-			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
-		}
-
 		protected string GetForumIcon( object o )
 		{
 			DataRow row = ( DataRow ) o;
@@ -220,11 +190,13 @@ namespace YAF.Controls
 			return ( ( int ) row ["Subforums"] > 0 );
 		}
 
-		// Ederon : 08/27/2007
 		protected System.Collections.IEnumerable GetSubforums( System.Data.DataRow row )
 		{
-			return YAF.Classes.Data.DB.forum_listread(
-				PageContext.PageBoardID, PageContext.PageUserID, row ["CategoryID"], row ["ForumID"] ).Rows;
+			if ( HasSubforums( row ) )
+			{
+				return YAF.Classes.Data.DB.forum_listread( PageContext.PageBoardID, PageContext.PageUserID, row ["CategoryID"], row ["ForumID"] ).Rows;
+			}
+			return null;
 		}
 	}
 }
