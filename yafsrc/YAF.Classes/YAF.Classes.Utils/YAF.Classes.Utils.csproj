@@ -45,6 +45,7 @@
     <Compile Include="Config\ForumPages.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DateTime.cs" />
+    <Compile Include="DB\DBBroker.cs" />
     <Compile Include="ExternalAPI\MetaWeblog.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -60,6 +60,9 @@ namespace YAF.Classes.Utils
 			public const string Smilies = "Smilies";
 			public const string ActiveUsers = "ActiveUsers";
 			public const string ActiveDiscussions = "ActiveDiscussions";
+			public const string ForumActiveDiscussions = "ForumActiveDiscussions";
+			public const string ForumModerators = "ForumModerators";
+			public const string ForumCategory = "ForumCategory";
 		}
 	}
 }
