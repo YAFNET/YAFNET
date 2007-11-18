@@ -92,6 +92,9 @@ namespace YAF.Controls
 					else if ( !isChecked && Roles.IsUserInRole( userName, roleName ) )
 						Roles.RemoveUserFromRole( userName, roleName );
 				}
+
+				// update forum moderators cache just in case something was changed...
+				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 			}
 
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
