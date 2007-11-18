@@ -132,6 +132,23 @@ namespace YAF.Providers.Roles
             }
         }
 
+				/// <summary>
+				/// Database Action - Get Role Exists
+				/// </summary>
+				/// <param name="appName">Application Name</param>
+				/// <param name="roleNames">Role Name</param>
+				/// <returns>Database containing Role Information</returns>
+				public static object GetRoleExists( object appName, object roleName )
+				{
+					using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_role_exists" ) ) )
+					{
+						cmd.CommandType = CommandType.StoredProcedure;
+						cmd.Parameters.AddWithValue( "ApplicationName", appName );
+						cmd.Parameters.AddWithValue( "RoleName", roleName );
+						return DBAccess.ExecuteScalar( cmd );
+					}
+				}
+
         /// <summary>
         /// Database Action - Add User to Role
         /// </summary>
