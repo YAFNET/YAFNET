@@ -55,6 +55,20 @@ namespace YAF.Classes.Utils
 				// add it to this dataset				
 				ds.Tables.Add( category.Copy() );
 
+				if ( categoryID != null )
+				{
+					// make sure this only has the category desired in the dataset
+					foreach ( DataRow row in ds.Tables [DBAccess.GetObjectName("Category")].Rows )
+					{
+						if ( Convert.ToInt32( row ["CategoryID"] ) != Convert.ToInt32(categoryID) )
+						{
+							// delete it...
+							row.Delete();
+						}
+					}
+					ds.Tables [DBAccess.GetObjectName( "Category" )].AcceptChanges();
+				}
+
 				DataTable forum = DB.forum_listread( boardID, userID, categoryID, parentID );
 				forum.TableName = DBAccess.GetObjectName( "Forum" );
 				ds.Tables.Add( forum.Copy() );
