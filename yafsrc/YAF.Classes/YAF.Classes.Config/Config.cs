@@ -37,7 +37,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["boardid"];
+				return (ConfigurationManager.AppSettings ["boardid"] ?? "1");
 			}
 		}
 
@@ -53,7 +53,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["enableurlrewriting"];
+				return (ConfigurationManager.AppSettings ["enableurlrewriting"] ?? "false");
 			}
 		}
 
@@ -61,7 +61,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["uploaddir"];
+				return (ConfigurationManager.AppSettings ["uploaddir"] ?? "~/upload/");
 			}
 		}
 
