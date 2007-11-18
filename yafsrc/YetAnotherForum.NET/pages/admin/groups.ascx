@@ -65,10 +65,10 @@
             <%# BitSet(Eval( "Flags" ),4) %>
           </td>
           <td class="post">
-            <%# BitSet(Eval( "Flags" ),1) %>
+            <%# BitSet(Eval( "Flags" ),8) %>
           </td>
           <td class="post">
-            <%# BitSet(Eval( "Flags" ),8) %>
+            <%# BitSet(Eval( "Flags" ),1) %>
           </td>
           <td class="post">
             <asp:LinkButton ID="LinkButtonEdit" runat="server" Visible='<%#(BitSet(Eval( "Flags" ),2) == true ? false : true)%>' CommandName="edit" CommandArgument='<%# Eval( "GroupID") %>'>Edit</asp:LinkButton>
