@@ -92,6 +92,9 @@ namespace YAF.Pages.Admin
 				EditAccess.Checked,
 				DeleteAccess.Checked,
 				UploadAccess.Checked );
+
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_accessmasks );
 		}
 

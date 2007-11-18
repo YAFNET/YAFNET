@@ -190,7 +190,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void BindData()
 		{
-			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID );
+			DataSet ds = YAF.Classes.Utils.DBBroker.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, PageContext.PageForumID );
 			if ( ds.Tables [DBAccess.GetObjectName("Forum")].Rows.Count > 0 )
 			{
 				ForumList.DataSource = ds.Tables [DBAccess.GetObjectName("Forum")].Rows;

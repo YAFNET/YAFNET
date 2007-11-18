@@ -88,10 +88,13 @@ namespace YAF.Pages.Admin
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editaccessmask,"i={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(YAF.Classes.Data.DB.accessmask_delete(e.CommandArgument))
+					if ( YAF.Classes.Data.DB.accessmask_delete( e.CommandArgument ) )
+					{
+						YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 						BindData();
+					}
 					else
-						PageContext.AddLoadMessage("You cannot delete this access mask because it is in use.");
+						PageContext.AddLoadMessage( "You cannot delete this access mask because it is in use." );
 					break;
 			}
 		}

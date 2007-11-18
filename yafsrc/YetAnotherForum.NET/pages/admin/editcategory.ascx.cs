@@ -94,6 +94,9 @@ namespace YAF.Pages.Admin
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
 			YAF.Classes.Data.DB.category_save(PageContext.PageBoardID,CategoryID,Name.Text,SortOrder.Text);
+			// remove category cache...
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
+			// redirect
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
 		}
 	}

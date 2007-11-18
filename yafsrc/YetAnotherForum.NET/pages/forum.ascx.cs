@@ -73,7 +73,7 @@ namespace YAF.Pages
 
 		private void BindData()
 		{
-			DataSet ds = YAF.Classes.Data.DB.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
+			DataSet ds = YAF.Classes.Utils.DBBroker.board_layout( PageContext.PageBoardID, PageContext.PageUserID, PageContext.PageCategoryID, null );
 			CategoryList.DataSource = ds.Tables [DBAccess.GetObjectName("Category")];
 
 			DataBind();

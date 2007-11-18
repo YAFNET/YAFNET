@@ -153,6 +153,9 @@ namespace YAF.Pages.Admin
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_groups );
 			}
 
+			// remove caching in case something got updated...
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			
 			// Done
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", GroupID );
 		}
