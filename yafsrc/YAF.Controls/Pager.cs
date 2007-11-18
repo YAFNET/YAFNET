@@ -29,14 +29,20 @@ namespace YAF.Controls
 	public class Pager : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
 		private bool _usePostBack = true;
+		private bool _ignorePageIndex = false;
 
 		public Pager()
 		{
-			this.Load += new EventHandler( Pager_Load );
+			this.Init += new EventHandler( Pager_Init );
 		}
 
-		private void Pager_Load( object sender, EventArgs e )
+		void Pager_Init( object sender, EventArgs e )
 		{
+			if ( !_ignorePageIndex && System.Web.HttpContext.Current.Request.QueryString ["p"] != null )
+			{
+				// set a new page...
+				CurrentPageIndex = ( int )Security.StringToLongOrRedirect( System.Web.HttpContext.Current.Request.QueryString ["p"] ) - 1;
+			}
 		}
 
 		protected override void Render( HtmlTextWriter output )
@@ -224,6 +230,7 @@ namespace YAF.Controls
 			if ( PageChange != null )
 			{
 				CurrentPageIndex = int.Parse( eventArgument );
+				_ignorePageIndex = true;
 				PageChange( this, new EventArgs() );
 			}
 		}
