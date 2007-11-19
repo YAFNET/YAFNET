@@ -74,20 +74,6 @@ if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Foru
  CREATE  INDEX [IX_{objectQualifier}Forum_Flags] ON [{databaseOwner}].[{objectQualifier}Forum]([Flags])
 go
 
--- {objectQualifier}Active
-
-if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Active_TopicID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Active]'))
- CREATE  INDEX [IX_{objectQualifier}Active_TopicID] ON [{databaseOwner}].[{objectQualifier}Active]([TopicID])
-go
-
-if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Active_UserID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Active]'))
- CREATE  INDEX [IX_{objectQualifier}Active_UserID] ON [{databaseOwner}].[{objectQualifier}Active]([UserID])
-go
-
-if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}Active_ForumID' and id=object_id(N'[{databaseOwner}].[{objectQualifier}Active]'))
- CREATE  INDEX [IX_{objectQualifier}Active_ForumID] ON [{databaseOwner}].[{objectQualifier}Active]([ForumID])
-go
-
 -- {objectQualifier}User
 
 if not exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_Flags' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
