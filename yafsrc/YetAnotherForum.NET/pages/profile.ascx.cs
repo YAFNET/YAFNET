@@ -47,6 +47,18 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			// checks for administrator setting whether allow profile viewing
+			// it's denied for all users (administrators are always allowed to view profiles)
+			if (PageContext.BoardSettings.ProfileViewPermissions == 0 && !PageContext.IsAdmin)
+			{
+				YafBuildLink.AccessDenied();
+			}
+			// only registered users are allowed to see profiles
+			else if (PageContext.BoardSettings.ProfileViewPermissions == 1 && PageContext.IsGuest)
+			{
+				YafBuildLink.AccessDenied();
+			}
+
 			if ( PageContext.IsPrivate && User == null )
 			{
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );

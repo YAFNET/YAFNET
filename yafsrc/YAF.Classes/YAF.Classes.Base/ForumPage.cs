@@ -61,6 +61,9 @@ namespace YAF.Classes.Base
 
 		#region Variables
 
+		// cache for this page
+		private Hashtable _pageCache;
+
 		private bool _noDataBase = false;
 		private bool _showToolBar = true;
 		private bool _checkSuspended = true;
@@ -108,6 +111,9 @@ namespace YAF.Classes.Base
 		public ForumPage() : this( "" ) { }
 		public ForumPage( string transPage )
 		{
+			// create empty hashtable for cache entries
+			_pageCache = new Hashtable();
+
 			_transPage = transPage;
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Unload += new System.EventHandler( this.ForumPage_Unload );
@@ -170,7 +176,7 @@ namespace YAF.Classes.Base
 			// initialize the providers...
 			InitProviderSettings();
 
-      // initialize the user and current page data...
+			// initialize the user and current page data...
 			InitUserAndPage();
 
 			// initialize theme
@@ -238,6 +244,9 @@ namespace YAF.Classes.Base
 			PageContext.ResetLoadStrings();
 			if ( ForumHeader != null ) ForumHeader.Reset();
 			if ( ForumFooter != null ) ForumFooter.Reset();
+			
+			// release cache
+			if (_pageCache != null) _pageCache.Clear();
 		}
 
 		/// <summary>
@@ -649,6 +658,18 @@ namespace YAF.Classes.Base
 				_noDataBase = value;
 			}
 		}
+		#endregion
+
+		#region Page Cache
+		
+		/// <summary>
+		/// Gets cache associated with this page.
+		/// </summary>
+		public Hashtable PageCache
+		{
+			get { return _pageCache; }
+		}
+
 		#endregion
 
 		#region Other

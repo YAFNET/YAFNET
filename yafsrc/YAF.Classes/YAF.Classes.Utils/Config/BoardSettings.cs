@@ -238,6 +238,12 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "CaptchaSize", 5 ); }
 			set { _reg.SetValueInt( "CaptchaSize", value ); }
 		}
+		// Ederon : 11/21/2007
+		public int ProfileViewPermissions
+		{
+			get { return _reg.GetValueInt("ProfileViewPermission", 2); }
+			set { _reg.SetValueInt("ProfileViewPermission", value); }
+		}
 
 		// boolean settings
 		public bool EmailVerification

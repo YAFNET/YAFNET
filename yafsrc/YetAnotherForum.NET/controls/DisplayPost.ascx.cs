@@ -20,6 +20,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Collections;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -36,6 +37,9 @@ namespace YAF.Controls
 	public partial class DisplayPost : YAF.Classes.Base.BaseUserControl
 	{
 		#region Data Members
+
+		// for parent page referencing
+		private YAF.Classes.Base.ForumPage _parentPage;
 
 		private DataRowView _row = null;
 		private YafUserProfile _userProfile = null;
@@ -178,8 +182,57 @@ namespace YAF.Controls
 			ReportButton.Command += new CommandEventHandler( Report_Command );
 			ReportSpamButton.Command += new CommandEventHandler( Report_Command );
 			this.PreRender += new EventHandler( DisplayPost_PreRender );
+			this.Init += new EventHandler(DisplayPost_Init);
 			base.OnInit( e );
 		}
+
+		void DisplayPost_Init(object sender, EventArgs e)
+		{
+			// retrieves parent page (ForumPage)
+			RetrieveParentPage();
+		}
+
+
+		/// <summary>
+		/// Retrieve parent page (ForumPage) if it exists.
+		/// </summary>
+		protected void RetrieveParentPage()
+		{
+			// get parent page (ForumPage type), if applicable
+			System.Web.UI.Control parent = this.Parent;
+			// cycle until no there is no parent 
+			while (parent != null)
+			{
+				// is parent control of desired type?
+				if (parent is YAF.Classes.Base.ForumPage)
+				{
+					_parentPage = (YAF.Classes.Base.ForumPage)parent;
+					break;
+				}
+				else
+				{
+					// go one step up in hierarchy
+					parent = parent.Parent;
+
+					// are we topmost?
+					if (parent == null)
+					{
+						_parentPage = null;
+						break;
+					}
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// Gets parent forum page (null if parent is not ForumPage).
+		/// </summary>
+		public YAF.Classes.Base.ForumPage ParentPage
+		{
+			get { return _parentPage; }
+		}
+
 
 		public DataRowView DataRow
 		{
@@ -393,7 +446,26 @@ namespace YAF.Controls
 		// Ederon : 7/14/2007 - implemented user box template for formatting
 		protected string FormatUserBox()
 		{
-			/// TODO: Add userbox caching
+			#region Cache Retrieval
+
+			// is this control contained in YAF.Classes.Base.ForumPage and has it any cache?
+			if (ParentPage != null && ParentPage.PageCache != null)
+			{
+				// get cache for user boxes
+				object cache = ParentPage.PageCache[Constants.Cache.UserBoxes];
+
+				// is it hashtable?
+				if (cache != null && cache is Hashtable)
+				{
+					// get only record for user who made message being
+					cache = ((Hashtable)cache)[DataRow["UserID"]];
+
+					// return from cache if there is something there
+					if (cache != null && cache.ToString() != "") return cache.ToString();
+				}
+			}
+
+			#endregion
 
 			if ( IsSponserMessage ) return "";
 
@@ -620,6 +692,35 @@ namespace YAF.Controls
 				rx = new Regex(Constants.UserBox.Location);
 				userBox = rx.Replace(userBox, filler);
 			}
+
+			#region Cache Saving
+
+			// is this control contained in YAF.Classes.Base.ForumPage and has it any cache?
+			if (ParentPage != null && ParentPage.PageCache != null)
+			{
+				// get cache for user boxes
+				object cache = ParentPage.PageCache[Constants.Cache.UserBoxes];
+
+				// is it hashtable?
+				if (cache != null && cache is Hashtable)
+				{
+					// save userbox for user of this id to cache
+					((Hashtable)cache)[DataRow["UserID"]] = userBox;
+				}
+				else
+				{
+					// create new hashtable for userbox caching
+					cache = new Hashtable();
+
+					// save userbox of this user
+					((Hashtable)cache)[DataRow["UserID"]] = userBox;
+
+					// save cache
+					ParentPage.PageCache[Constants.Cache.UserBoxes] = cache;
+				}
+			}
+
+			#endregion
 
 			return userBox;
 		}

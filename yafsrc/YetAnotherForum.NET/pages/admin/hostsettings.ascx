@@ -1,6 +1,12 @@
 <%@ Control Language="c#" CodeFile="hostsettings.ascx.cs" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.hostsettings" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
+
+<!-- This style is dealing with tabs rendering issues in IE - should be removed once YAF is fully XHTML 1.0 compliant -->
+<style type="text/css">
+.ajax__tab_default .ajax__tab_inner {height : 100%;} .ajax__tab_default .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_tab {height:100%} .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;} 
+</style>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True" />
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel runat="server" ID="PMUpdatePanel">
@@ -424,6 +430,17 @@
                                     Allow users to create signatures.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="AllowSignaturesX" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Profile Viewing Permissions:</b><br>
+                                    Allow viewing of other users' profiles to:</td>
+                                <td class="post">
+																		<asp:DropDownList ID="ProfileViewPermissions" runat="server">
+																			<asp:ListItem Value="0" Text="Forbidden" />
+																			<asp:ListItem Value="1" Text="Registered Users" />
+																			<asp:ListItem Value="2" Text="All Users" />
+																		</asp:DropDownList>
                             </tr>
                         </table>
                     </ContentTemplate>

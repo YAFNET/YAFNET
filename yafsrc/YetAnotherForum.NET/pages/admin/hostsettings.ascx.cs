@@ -177,6 +177,9 @@ namespace YAF.Pages.Admin
 			ForumSmtpServerPort.Text = PageContext.BoardSettings.SmtpServerPort;
 			ForumSmtpServerSsl.Checked = PageContext.BoardSettings.SmtpServerSsl;
 
+			// Ederon : 11/21/2007 added
+			ProfileViewPermissions.SelectedIndex = PageContext.BoardSettings.ProfileViewPermissions;
+
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
 			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
@@ -261,6 +264,9 @@ namespace YAF.Pages.Admin
 			// Ederon : 9/9/2007 added
 			PageContext.BoardSettings.SmtpServerPort = General.ProcessText( ForumSmtpServerPort.Text );
 			PageContext.BoardSettings.SmtpServerSsl = ForumSmtpServerSsl.Checked;
+
+			// Ederon : 11/21/2007 added
+			PageContext.BoardSettings.ProfileViewPermissions = ProfileViewPermissions.SelectedIndex;
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );

@@ -216,7 +216,9 @@ namespace YAF.Pages
 					//string senderEmail;
 
 					// get the PM ID
-					using ( DataTable dt = DB.pmessage_list( toUserID, PageContext.PageBoardID, null ) )
+					// Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
+					// using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
+					using (DataTable dt = DB.pmessage_list(toUserID, null, null))
 						userPMessageID = ( int ) dt.Rows [0] ["UserPMessageID"];
 
 					// get the sender e-mail -- DISABLED: too much information...
