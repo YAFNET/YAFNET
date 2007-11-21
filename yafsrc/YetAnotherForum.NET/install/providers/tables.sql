@@ -8,13 +8,13 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Membership](
 		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
-		[Username] [nvarchar](255) NOT NULL,
-		[Password] [nvarchar](255) NULL,
-		[PasswordSalt] [nvarchar](255) NULL,
-		[PasswordFormat] [nvarchar](255) NULL,
-		[Email] [nvarchar](255) NULL,
-		[PasswordQuestion] [nvarchar](255) NULL,
-		[PasswordAnswer] [nvarchar](255) NULL,
+		[Username] [nvarchar](256) NOT NULL,
+		[Password] [nvarchar](256) NULL,
+		[PasswordSalt] [nvarchar](256) NULL,
+		[PasswordFormat] [nvarchar](256) NULL,
+		[Email] [nvarchar](256) NULL,
+		[PasswordQuestion] [nvarchar](256) NULL,
+		[PasswordAnswer] [nvarchar](256) NULL,
 		[IsApproved] [bit] NULL,
 		[IsLockedOut] [bit] NULL,
 		[LastLogin] [datetime] NULL,
@@ -33,7 +33,7 @@ GO
 IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_Application]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL PRIMARY KEY,
-		[ApplicationName] [nvarchar](255) NULL,
+		[ApplicationName] [nvarchar](256) NULL,
 		[Description] [ntext] NULL
 		)
 GO
@@ -51,7 +51,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[ApplicationID] [uniqueidentifier] NOT NULL,
-	[RoleName] [nvarchar](255) NOT NULL
+	[RoleName] [nvarchar](256) NOT NULL
 	)
 GO
 

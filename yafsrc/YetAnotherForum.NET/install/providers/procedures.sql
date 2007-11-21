@@ -120,7 +120,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 (
-@ApplicationName nvarchar(50),
+@ApplicationName nvarchar(256),
 @ApplicationID uniqueidentifier OUTPUT
 )
 AS
@@ -138,12 +138,12 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepassword]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50),
-@Password nvarchar(50),
-@PasswordSalt nvarchar(50),
-@PasswordFormat nvarchar(50),
-@PasswordAnswer nvarchar(50)
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@Password nvarchar(256),
+@PasswordSalt nvarchar(256),
+@PasswordFormat nvarchar(256),
+@PasswordAnswer nvarchar(256)
 )
 AS
 BEGIN
@@ -160,10 +160,10 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_changepasswordquestionandanswer]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50),
-@PasswordQuestion nvarchar(50),
-@PasswordAnswer nvarchar(50)
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@PasswordQuestion nvarchar(256),
+@PasswordAnswer nvarchar(256)
 )
 AS
 BEGIN
@@ -179,14 +179,14 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50),
-@Password nvarchar(50),
-@PasswordSalt nvarchar(50) = null,
-@PasswordFormat nvarchar(50) = null,
-@Email nvarchar(50) = null,
-@PasswordQuestion nvarchar(50) = null,
-@PasswordAnswer nvarchar(50) = null,
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@Password nvarchar(256),
+@PasswordSalt nvarchar(256) = null,
+@PasswordFormat nvarchar(256) = null,
+@Email nvarchar(256) = null,
+@PasswordQuestion nvarchar(256) = null,
+@PasswordAnswer nvarchar(256) = null,
 @IsApproved bit = null,
 @UserKey uniqueidentifier = null out
 )
@@ -205,8 +205,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50),
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
 @DeleteAllRelated bit
 )
 AS
@@ -223,8 +223,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyemail]
 (
-@ApplicationName nvarchar(50),
-@EmailAddress nvarchar(50),
+@ApplicationName nvarchar(256),
+@EmailAddress nvarchar(256),
 @PageIndex int,
 @PageSize int
 )
@@ -257,8 +257,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_findusersbyname]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50),
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
 @PageIndex int,
 @PageSize int
 )
@@ -291,7 +291,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getallusers]
 (
-@ApplicationName nvarchar(50),
+@ApplicationName nvarchar(256),
 @PageIndex int,
 @PageSize int
 )
@@ -324,7 +324,7 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getnumberofusersonline]
 (
-@ApplicationName nvarchar(50),
+@ApplicationName nvarchar(256),
 @TimeWindow int,
 @CurrentTimeUtc DateTime
 )
@@ -343,8 +343,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 (
-@ApplicationName nvarchar(50),
-@Username nvarchar(50) = null,
+@ApplicationName nvarchar(256),
+@Username nvarchar(256) = null,
 @UserKey uniqueidentifier = null,
 @UserIsOnline bit
 )
@@ -370,8 +370,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
 (
-@ApplicationName nvarchar(50),
-@Email nvarchar(50)
+@ApplicationName nvarchar(256),
+@Email nvarchar(256)
 )
 AS
 BEGIN
@@ -381,11 +381,11 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_resetpassword]
 (
-@ApplicationName nvarchar(50),
-@UserName nvarchar(50),
-@Password nvarchar(50),
-@PasswordSalt nvarchar(50),
-@PasswordFormat nvarchar(50),
+@ApplicationName nvarchar(256),
+@UserName nvarchar(256),
+@Password nvarchar(256),
+@PasswordSalt nvarchar(256),
+@PasswordFormat nvarchar(256),
 @MaxInvalidAttempts int,
 @PasswordAttemptWindow int,
 @CurrentTimeUtc datetime
@@ -410,8 +410,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_unlockuser]
 (
-@ApplicationName nvarchar(50),
-@UserName nvarchar(50)
+@ApplicationName nvarchar(256),
+@UserName nvarchar(256)
 )
 AS
 BEGIN
@@ -430,10 +430,10 @@ GO
                 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
 (
-@ApplicationName nvarchar(50),
+@ApplicationName nvarchar(256),
 @UserKey uniqueidentifier,
-@UserName nvarchar(50),
-@Email nvarchar(50),
+@UserName nvarchar(256),
+@Email nvarchar(256),
 @Comment text,
 @IsApproved bit,
 @LastLogin datetime,
@@ -477,9 +477,9 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 (
-@ApplicationName nvarchar(255),
-@Username nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
@@ -499,8 +499,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_deleterole]
 (
-@ApplicationName nvarchar(255),
-@Rolename nvarchar(255),
+@ApplicationName nvarchar(256),
+@Rolename nvarchar(256),
 @DeleteOnlyIfRoleIsEmpty bit
 )
 AS
@@ -532,8 +532,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_findusersinrole]
 (
-@ApplicationName nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
@@ -551,8 +551,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_createrole]
 (
-@ApplicationName nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
@@ -567,8 +567,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_getroles]
 (
-@ApplicationName nvarchar(255),
-@Username nvarchar(255) = null
+@ApplicationName nvarchar(256),
+@Username nvarchar(256) = null
 )
 AS
 BEGIN
@@ -593,9 +593,9 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_isuserinrole]
 (
-@ApplicationName nvarchar(255),
-@Username nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
@@ -612,9 +612,9 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrole]
 (
-@ApplicationName nvarchar(255),
-@Username nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Username nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
@@ -634,8 +634,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
 (
-@ApplicationName nvarchar(255),
-@Rolename nvarchar(255)
+@ApplicationName nvarchar(256),
+@Rolename nvarchar(256)
 )
 AS
 BEGIN
