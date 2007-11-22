@@ -584,7 +584,9 @@ BEGIN
 		FROM
 			{objectQualifier}prov_Role r
 		INNER JOIN
-			{objectQualifier}prov_Membership m ON m.ApplicationID = r.ApplicationID
+			{objectQualifier}prov_RoleMembership rm ON r.RoleID = rm.RoleID
+		INNER JOIN
+			{objectQualifier}prov_Membership m ON m.UserID = rm.UserID
 		WHERE
 			r.ApplicationID  = @ApplicationID
 			AND m.Username = @Username
