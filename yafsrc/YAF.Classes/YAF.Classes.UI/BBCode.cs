@@ -75,7 +75,7 @@ namespace YAF.Classes.UI
 			///return string.Format("{0}pt",input*2);
 		}
 
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 		static private Regex _rgxCode2 = new Regex( @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", _options );
 		static private Regex _rgxCode1 = new Regex( @"\[code\](?<inner>(.*?))\[/code\]", _options );
 		static private Regex _rgxSize = new Regex( @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]", _options );
@@ -86,7 +86,7 @@ namespace YAF.Classes.UI
 		static private Regex _rgxEmail2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", _options );
 		static private Regex _rgxEmail1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", _options );
 		static private Regex _rgxUrl1 = new Regex( @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", _options );
-		static private Regex _rgxUrl2 = new Regex(@"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>([^\[]*?))\[/url\]", _options);
+		static private Regex _rgxUrl2 = new Regex(@"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]", _options);
 		static private Regex _rgxFont = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", _options );
 		static private Regex _rgxColor = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", _options );
 		static private Regex _rgxBullet = new Regex( @"\[\*\]", _options );
