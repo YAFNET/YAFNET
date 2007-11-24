@@ -125,13 +125,13 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 )
 AS
 BEGIN
-	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
+	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationNameLwd=LOWER(@ApplicationName))
 	
 	IF (@ApplicationID IS Null)
 	BEGIN
 		    SELECT  @ApplicationId = NEWID()
-            INSERT  {objectQualifier}prov_Application(ApplicationId, ApplicationName)
-            VALUES  (@ApplicationId, @ApplicationName)
+            INSERT  {objectQualifier}prov_Application(ApplicationId, ApplicationName, ApplicationNameLwd)
+            VALUES  (@ApplicationId, @ApplicationName, LOWER(@Applicationname))
     END
 END 
 GO
@@ -149,11 +149,11 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 
-	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
-
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
+	
 	UPDATE {objectQualifier}prov_Membership SET Password=@Password, PasswordSalt=@PasswordSalt,
 		PasswordFormat=@PasswordFormat, PasswordAnswer=@PasswordAnswer
-	WHERE Username=@Username and ApplicationID=@ApplicationID;
+	WHERE UsernameLwd=LOWER(@Username) and ApplicationID=@ApplicationID;
 
 END
 GO
@@ -169,10 +169,10 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	SET @ApplicationID = (SELECT ApplicationID FROM {objectQualifier}prov_Application WHERE ApplicationName=@ApplicationName)
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationId OUTPUT
 	
 	UPDATE {objectQualifier}prov_Membership SET PasswordQuestion=@PasswordQuestion, PasswordAnswer=@PasswordAnswer
-	WHERE Username=@Username and ApplicationID=@ApplicationID;
+	WHERE UsernameLwd=LOWER(@Username) and ApplicationID=@ApplicationID;
 
 END
 GO
@@ -198,8 +198,8 @@ BEGIN
 	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
-	INSERT INTO {objectQualifier}prov_Membership(UserID,ApplicationID,Username,Password,PasswordSalt,PasswordFormat,Email,PasswordQuestion,PasswordAnswer,IsApproved)
-		VALUES (@UserKey, @ApplicationID,@Username, @Password, @PasswordSalt, @PasswordFormat, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved);
+	INSERT INTO {objectQualifier}prov_Membership(UserID,ApplicationID,Username,UsernameLwd,Password,PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
+		VALUES (@UserKey, @ApplicationID,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
@@ -215,7 +215,7 @@ BEGIN
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
-	DELETE FROM {objectQualifier}prov_Membership WHERE ApplicationID=@ApplicationID AND Username=@Username;
+	DELETE FROM {objectQualifier}prov_Membership WHERE ApplicationID=@ApplicationID AND UsernameLwd=LOWER(@Username);
 
 	--INSERT IF STATEMENT TO DELETE MEMBERSHIP/ROLES INFORMATION / PROFILE INFORMATION	
 END
@@ -244,7 +244,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @EmailAddress
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.EmailLwd = LOWER(@EmailAddress)
 
 	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -278,7 +278,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName AND m.Username = @Username
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID AND m.UsernameLwd = LOWER(@Username)
 
 	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -311,7 +311,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationName = @ApplicationName
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID
 
 	SELECT m.*, r.RowNumber FROM {objectQualifier}prov_Membership m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
@@ -332,9 +332,12 @@ AS
 BEGIN
 	DECLARE @ActivityDate DateTime
 	SET @ActivityDate = DATEADD(n, - @TimeWindow, @CurrentTimeUTC)
+
+	DECLARE @ApplicationID uniqueidentifier
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
 	DECLARE @NumberActive int
-	SET @NumberActive = (SELECT COUNT(m.UserID) FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.LastLogin >= @ActivityDate)
+	SET @NumberActive = (SELECT COUNT(m.UserID) FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.LastLogin >= @ActivityDate)
     
     RETURN @NumberActive
 
@@ -355,14 +358,14 @@ BEGIN
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
 	IF (@UserKey IS NULL)
-		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.Username = @Username and m.ApplicationID = @ApplicationID
+		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.UsernameLwd = LOWER(@Username) and m.ApplicationID = @ApplicationID
 	ELSE
 		SELECT m.* FROM {objectQualifier}prov_Membership m WHERE m.UserID = @UserKey and m.ApplicationID = @ApplicationID
 	
 	-- IF USER IS ONLINE DO AN UPDATE USER	
 	IF (@UserIsOnline = 1)
 	BEGIN
-		UPDATE {objectQualifier}prov_Membership SET LastActivity = GETDATE() WHERE Username = @Username and ApplicationID = @ApplicationID
+		UPDATE {objectQualifier}prov_Membership SET LastActivity = GETDATE() WHERE UsernameLwd = LOWER(@Username) and ApplicationID = @ApplicationID
 	END		
 END
 GO
@@ -375,7 +378,10 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getusernamebyemail]
 )
 AS
 BEGIN
-	SELECT m.Username FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationName = @ApplicationName AND m.Email = @Email;
+	DECLARE @ApplicationID uniqueidentifier
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+
+	SELECT m.Username FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_Application a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.EmailLwd = LOWER(@Email);
 END
 GO
 
@@ -402,7 +408,7 @@ BEGIN
 	PasswordFormat = @PasswordFormat,
 	LastPasswordChange = @CurrentTimeUtc
 	WHERE ApplicationID = @ApplicationID AND
-	Username = @Username;
+	UsernameLwd = LOWER(Username);
 
 END
 GO
@@ -423,7 +429,7 @@ BEGIN
 	IsLockedOut = 0,
 	FailedPasswordAttempts = 0
 	WHERE ApplicationID = @ApplicationID AND
-	Username = @Username;
+	UsernameLwd = LOWER(@Username);
 
 END
 GO
@@ -453,13 +459,15 @@ BEGIN
 	-- Check for UniqueEmail
 	IF (@UniqueEmail = 1)
 	BEGIN
-		IF (EXISTS (SELECT 1 FROM {objectQualifier}prov_Membership m WHERE m.UserID != @UserKey AND m.Email=LOWER(@Email) AND m.ApplicationID=@ApplicationID) )
+		IF (EXISTS (SELECT 1 FROM {objectQualifier}prov_Membership m WHERE m.UserID != @UserKey AND m.EmailLwd=LOWER(@Email) AND m.ApplicationID=@ApplicationID) )
 			RETURN (2)
 	END
 	
 	UPDATE {objectQualifier}prov_Membership SET
 	Username = @Username,
+	UsernameLwd = LOWER(@Username),
 	Email = @Email,
+	EmailLwd = LOWER(@Email),
 	IsApproved = @IsApproved,
 	LastLogin = @LastLogin,
 	LastActivity = @LastActivity
@@ -489,8 +497,8 @@ BEGIN
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
-	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m WHERE m.Username=@Username AND m.ApplicationID = @ApplicationID)
-	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.Rolename=@Rolename AND r.ApplicationID = @ApplicationID)
+	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m WHERE m.UsernameLwd=LOWER(@Username) AND m.ApplicationID = @ApplicationID)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.RolenameLwd=LOWER(@Rolename) AND r.ApplicationID = @ApplicationID)
 	
 	IF (NOT EXISTS(SELECT 1 FROM {objectQualifier}prov_RoleMembership rm WHERE rm.UserID=@UserID AND rm.RoleID=@RoleID))
 		INSERT INTO {objectQualifier}prov_RoleMembership(RoleID, UserID) VALUES (@RoleID, @UserID);
@@ -512,7 +520,7 @@ BEGIN
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT	
 	
 	SET @ErrorCode = 0
-	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.Rolename=@Rolename AND r.ApplicationID = @ApplicationID)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.RolenameLwd=LOWER(@Rolename) AND r.ApplicationID = @ApplicationID)
 	
 	IF (@DeleteOnlyIfRoleIsEmpty <> 0)
 	BEGIN
@@ -542,7 +550,7 @@ BEGIN
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
-	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.Rolename=@Rolename AND a.ApplicationName = @ApplicationName)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r INNER JOIN {objectQualifier}prov_Application a ON r.ApplicationID = a.ApplicationID WHERE r.RolenameLwd=LOWER(@Rolename) AND a.ApplicationID = @ApplicationID)
 
 	SELECT m.* FROM {objectQualifier}prov_Membership m INNER JOIN {objectQualifier}prov_RoleMembership rm ON m.UserID = rm.UserID WHERE rm.RoleID = @RoleID
 		
@@ -560,8 +568,8 @@ BEGIN
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
-	IF (NOT EXISTS(SELECT 1 FROM {objectQualifier}prov_Role r WHERE r.ApplicationID = @ApplicationID AND r.Rolename = @Rolename))
-		INSERT INTO {objectQualifier}prov_Role(RoleID, ApplicationID, RoleName) VALUES (NEWID(),@ApplicationID, @Rolename);		
+	IF (NOT EXISTS(SELECT 1 FROM {objectQualifier}prov_Role r WHERE r.ApplicationID = @ApplicationID AND r.RolenameLwd = LOWER(@Rolename)))
+		INSERT INTO {objectQualifier}prov_Role(RoleID, ApplicationID, RoleName, RoleNameLwd) VALUES (NEWID(),@ApplicationID, @Rolename,LOWER(@Rolename));		
 END
 GO
 
@@ -574,7 +582,7 @@ AS
 BEGIN
 	DECLARE @ApplicationID uniqueidentifier
 	
-	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+ 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
 	IF (@Username is null)
 		SELECT r.* FROM {objectQualifier}prov_Role r WHERE r.ApplicationID = @ApplicationID
@@ -589,7 +597,7 @@ BEGIN
 			{objectQualifier}prov_Membership m ON m.UserID = rm.UserID
 		WHERE
 			r.ApplicationID  = @ApplicationID
-			AND m.Username = @Username
+			AND m.UsernameLwd = LOWER(@Username)
 END
 GO
 
@@ -608,7 +616,7 @@ BEGIN
 	SELECT m.* FROM {objectQualifier}prov_RoleMembership rm 
 		INNER JOIN {objectQualifier}prov_Membership m ON rm.UserID = m.UserID
 		INNER JOIN {objectQualifier}prov_Role r ON rm.RoleID = r.RoleID
-		WHERE m.Username=@Username AND r.Rolename =@Rolename AND r.ApplicationID = @ApplicationID;
+		WHERE m.UsernameLwd=LOWER(@Username) AND r.RolenameLwd =LOWER(@Rolename) AND r.ApplicationID = @ApplicationID;
 END 
 GO
 
@@ -626,8 +634,8 @@ BEGIN
 
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT	
 	
-	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.Rolename =@Rolename AND r.ApplicationID = @ApplicationID)
-	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m WHERE m.Username=@Username AND m.ApplicationID = @ApplicationID)
+	SET @RoleID = (SELECT RoleID FROM {objectQualifier}prov_Role r WHERE r.RolenameLwd = LOWER(@Rolename) AND r.ApplicationID = @ApplicationID)
+	SET @UserID = (SELECT UserID FROM {objectQualifier}prov_Membership m WHERE m.UsernameLwd=LOWER(@Username) AND m.ApplicationID = @ApplicationID)
 	
 	DELETE FROM {objectQualifier}prov_RoleMembership WHERE RoleID = @RoleID AND UserID=@UserID
 	
@@ -646,7 +654,7 @@ BEGIN
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
 	SELECT COUNT(1) FROM {objectQualifier}prov_Role
-		WHERE Rolename = @Rolename;
+		WHERE RolenameLwd = LOWER(@Rolename);
 END 
 GO
 

@@ -9,10 +9,12 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 		[UserID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationID] [uniqueidentifier] NOT NULL,
 		[Username] [nvarchar](256) NOT NULL,
+		[UsernameLwd] [nvarchar](256) NOT NULL,
 		[Password] [nvarchar](256) NULL,
 		[PasswordSalt] [nvarchar](256) NULL,
 		[PasswordFormat] [nvarchar](256) NULL,
 		[Email] [nvarchar](256) NULL,
+		[EmailLwd] [nvarchar](256) NULL,
 		[PasswordQuestion] [nvarchar](256) NULL,
 		[PasswordAnswer] [nvarchar](256) NULL,
 		[IsApproved] [bit] NULL,
@@ -34,6 +36,7 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	CREATE TABLE [{databaseOwner}].[{objectQualifier}prov_Application](
 		[ApplicationID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 		[ApplicationName] [nvarchar](256) NULL,
+		[ApplicationNameLwd] [nvarchar](256) NULL,
 		[Description] [ntext] NULL
 		)
 GO
@@ -51,7 +54,8 @@ IF NOT EXISTS (SELECT 1 FROM sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}]
 	(
 	[RoleID] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[ApplicationID] [uniqueidentifier] NOT NULL,
-	[RoleName] [nvarchar](256) NOT NULL
+	[RoleName] [nvarchar](256) NOT NULL,
+	[RoleNameLwd] [nvarchar](256) NOT NULL
 	)
 GO
 
