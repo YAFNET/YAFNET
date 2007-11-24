@@ -68,7 +68,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Control
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Tests", "YAF.Tests\YAF.Tests\YAF.Tests.csproj", "{77A5113F-D8F9-4DD5-B678-BF7473D043C2}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF643078-CAE3-4CE8-982C-F971E9001FAC}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		localtestrun.testrunconfig = localtestrun.testrunconfig
+		yetanotherforum.net.vsmdi = yetanotherforum.net.vsmdi
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = yetanotherforum.net.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +199,16 @@ Global
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Release|.NET.ActiveCfg = Release|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{77A5113F-D8F9-4DD5-B678-BF7473D043C2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
