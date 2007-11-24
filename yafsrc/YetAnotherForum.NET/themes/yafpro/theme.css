@@ -311,6 +311,38 @@ div.postdiv
 	overflow: auto;	
 }
 
+/* CSS Pagelinls */
+.yafpager
+{
+	color: #555555;
+}
+.pagelink,
+.pagelinkfirst,
+.pagelinklast,
+.pagecurrent,
+.pagecount{
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+.pagecount {
+	margin-right: 5px;
+}
+.pagelinkfirst,
+.pagelinklast{
+	background: #e0e0e0;
+}
+.pagecurrent{
+	background: #dddddd;
+}
+.pagelink a,
+.pagelinkfirst a,
+.pagelinklast a{
+	text-decoration: none;
+	color: #000090;
+}
+
 /* CCS Buttons */
 a.yaflittlebutton
 {
