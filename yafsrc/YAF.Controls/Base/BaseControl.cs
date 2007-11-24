@@ -56,13 +56,29 @@ namespace YAF.Controls
 			writer.WriteEndTag( "a" );
 		}
 
+		#region Render Anchor Begin Functions
+		public void RenderAnchorBegin( HtmlTextWriter writer, string href )
+		{
+			this.RenderAnchorBegin( writer, href, null, null, null );
+		}
 		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass )
+		{
+			this.RenderAnchorBegin( writer, href, cssClass, null, null );
+		}
+		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title )
+		{
+			this.RenderAnchorBegin( writer, href, cssClass, title, null );
+		}
+		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title, string onclick )
 		{
 			writer.WriteBeginTag( "a" );
 			writer.WriteAttribute( "href", href );
 			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
+			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", title );
+			if ( !String.IsNullOrEmpty( onclick ) ) writer.WriteAttribute( "onclick", onclick );
 			writer.Write( HtmlTextWriter.TagRightChar );
 		}
+		#endregion
 
 		public void RenderImgTag( HtmlTextWriter writer, string src, string alt, string title )
 		{

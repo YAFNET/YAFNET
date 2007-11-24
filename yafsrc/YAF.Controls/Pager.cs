@@ -58,57 +58,107 @@ namespace YAF.Controls
 
 			if ( PageCount < 2 ) return;
 
-			output.WriteLine( "<span>" );
-			output.WriteLine( "{0:N0} pages:", PageCount );
+			output.WriteLine( @"<div class=""yafpager"">" );
+			output.WriteLine( @"<span class=""pagecount"">{0:N0} Pages</span>", PageCount );
 
-			if ( UsePostBack ) OutputPostback( output );
-			else OutputLinked( output );
+			OutputLinks( output, UsePostBack );
 
-			output.WriteLine( "</span>" );
+			output.WriteLine( "</div>" );
 		}
 
-		private void OutputPostback( HtmlTextWriter output )
+		private string GetLinkUrl( int pageNum, bool postBack )
 		{
-			int iStart = CurrentPageIndex - 6;
-			int iEnd = CurrentPageIndex + 7;
+			if ( postBack )
+			{
+				return Page.ClientScript.GetPostBackClientHyperlink( this, pageNum.ToString() );
+			}
+			return GetPageURL( pageNum );
+		}
+
+		private void OutputLinks( HtmlTextWriter output, bool postBack )
+		{
+			int iStart = CurrentPageIndex - 2;
+			int iEnd = CurrentPageIndex + 3;
 			if ( iStart < 0 ) iStart = 0;
 			if ( iEnd > PageCount ) iEnd = PageCount;
 
 			if ( iStart > 0 )
-				output.WriteLine( "<a href=\"{0}\">First</a> ...", Page.ClientScript.GetPostBackClientHyperlink( this, "0" ) );
+			{
+				output.WriteBeginTag( "span" );
+				output.WriteAttribute( "class", "pagelinkfirst" );
+				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+
+				this.RenderAnchorBegin( output, GetLinkUrl( 0, postBack ), null, "Go to First Page" );
+
+				output.Write( "&laquo;" );
+				output.WriteEndTag( "a" );
+				output.WriteEndTag( "span" );
+			}
+
+			if ( CurrentPageIndex > iStart )
+			{
+				output.WriteBeginTag( "span" );
+				output.WriteAttribute( "class", "pagelink" );
+				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+
+				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex, postBack ), null, "Prev Page" );
+
+				output.Write( "&lt;" );
+				output.WriteEndTag( "a" );
+				output.WriteEndTag( "span" );
+			}
 
 			for ( int i = iStart; i < iEnd; i++ )
 			{
 				if ( i == CurrentPageIndex )
-					output.WriteLine( "[{0}]", i + 1 );
+				{
+					output.WriteBeginTag( "span" );
+					output.WriteAttribute( "class", "pagecurrent" );
+					output.Write( HtmlTextWriter.SelfClosingTagEnd );
+					output.Write( i + 1 );
+					output.WriteEndTag( "span" );
+				}
 				else
-					output.WriteLine( "<a href=\"{0}\">{1}</a>", Page.ClientScript.GetPostBackClientHyperlink( this, i.ToString() ), i + 1 );
+				{
+					string page = ( i + 1 ).ToString();
+
+					output.WriteBeginTag( "span" );
+					output.WriteAttribute( "class", "pagelink" );
+					output.Write( HtmlTextWriter.SelfClosingTagEnd );
+
+					this.RenderAnchorBegin( output, GetLinkUrl( i + 1, postBack ), null, page );
+
+					output.Write( page );
+					output.WriteEndTag( "a" );
+					output.WriteEndTag( "span" );
+				}
 			}
 
-			if ( iEnd < PageCount )
-				output.WriteLine( "... <a href=\"{0}\">Last</a>", Page.ClientScript.GetPostBackClientHyperlink( this, ( PageCount - 1 ).ToString() ) );
-		}
-
-		private void OutputLinked( HtmlTextWriter output )
-		{
-			int iStart = CurrentPageIndex - 6;
-			int iEnd = CurrentPageIndex + 7;
-			if ( iStart < 0 ) iStart = 0;
-			if ( iEnd > PageCount ) iEnd = PageCount;
-
-			if ( iStart > 0 )
-				output.WriteLine( "<a href=\"{0}\">First</a> ...", GetPageURL(0) );
-
-			for ( int i = iStart; i < iEnd; i++ )
+			if ( CurrentPageIndex < (PageCount-1) )
 			{
-				if ( i == CurrentPageIndex )
-					output.WriteLine( "[{0}]", i + 1 );
-				else
-					output.WriteLine( "<a href=\"{0}\">{1}</a>", GetPageURL( i+1 ), i + 1 );
+				output.WriteBeginTag( "span" );
+				output.WriteAttribute( "class", "pagelink" );
+				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+
+				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex + 2, postBack ), null, "Next Page" );
+
+				output.Write( "&gt;");
+				output.WriteEndTag( "a" );
+				output.WriteEndTag( "span" );
 			}
 
 			if ( iEnd < PageCount )
-				output.WriteLine( "... <a href=\"{0}\">Last</a>", GetPageURL(PageCount) );
+			{
+				output.WriteBeginTag( "span" );
+				output.WriteAttribute( "class", "pagelinklast" );
+				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+
+				this.RenderAnchorBegin( output, GetLinkUrl( PageCount, postBack ), null, "Go to Last Page" );
+
+				output.Write( "&raquo;" );
+				output.WriteEndTag( "a" );
+				output.WriteEndTag( "span" );
+			}
 		}
 
 		protected string GetPageURL(int page)
@@ -229,7 +279,7 @@ namespace YAF.Controls
 		{
 			if ( PageChange != null )
 			{
-				CurrentPageIndex = int.Parse( eventArgument );
+				CurrentPageIndex = (int.Parse( eventArgument ) - 1);
 				_ignorePageIndex = true;
 				PageChange( this, new EventArgs() );
 			}
