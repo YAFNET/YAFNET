@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YAF.Classes.Utils;
 
-namespace YAF.Classes.Utils.Test
+namespace YAF.Tests
 {
 	[TestClass]
 	public class YafUtilsTest
