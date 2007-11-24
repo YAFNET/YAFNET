@@ -2,7 +2,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
-		<td class="navlinks">
+		<td>
 			<YAF:Pager runat="server" ID="Pager" />
 		</td>
 		<td align="right">
@@ -45,7 +45,7 @@
 </table>
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="navlinks">
+		<td>
 			<YAF:Pager runat="server" LinkedPager="Pager" />
 		</td>
 	</tr>

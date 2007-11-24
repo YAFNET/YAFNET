@@ -3,7 +3,7 @@
 
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
-<a name="top"></a>
+<a id="top" name="top"></a>
 
 <asp:repeater id="Poll" runat="server" visible="false">
 <HeaderTemplate>
@@ -31,7 +31,7 @@
 </asp:repeater>
 <table class='command' cellspacing='0' cellpadding='0' width='100%'>
 <tr>
-	<td align="left" class="navlinks"><YAF:pager runat="server" id="Pager" UsePostBack="False" /></td>
+	<td align="left"><YAF:pager runat="server" id="Pager" UsePostBack="False" /></td>
 	<td>
 	    <YAF:ThemeButton ID="MoveTopic1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" onclick="MoveTopic_Click" />
 	    <YAF:ThemeButton ID="UnlockTopic1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" onclick="UnlockTopic_Click" />
@@ -123,7 +123,7 @@
 
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
   <tr>
-    <td align="left" class="navlinks"><YAF:pager runat="server" linkedpager="Pager" UsePostBack="false" /></td>
+    <td align="left"><YAF:pager runat="server" linkedpager="Pager" UsePostBack="false" /></td>
 	<td>
 	    <YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT" onclick="MoveTopic_Click" />
 	    <YAF:ThemeButton ID="UnlockTopic2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_UNLOCKTOPIC" TitleLocalizedTag="BUTTON_UNLOCKTOPIC_TT" onclick="UnlockTopic_Click" />

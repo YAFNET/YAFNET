@@ -7,12 +7,9 @@
 <YAF:PageLinks runat="server" id="PageLinks"/>
 
 <YAF:adminmenu runat="server">
-<table class="command">
-		<tr>
-			<td class="navlinks">
-				<YAF:pager id="Pager" runat="server"/></TD>
-		</tr>
-</table>
+
+<YAF:pager id="Pager" runat="server"/>
+
 <asp:repeater runat=server id=List>
 <HeaderTemplate>
 	<table width="100%" cellspacing="1" cellpadding="0" class="content">
@@ -53,12 +50,9 @@
 	</table>
 </FooterTemplate>
 </asp:repeater>
-<table class="command">
-		<tr>
-			<td class="navlinks">
-				<YAF:Pager id="Pager1" runat="server" linkedpager="Pager"/></TD>
-		</tr>
-	</table>
+
+<YAF:Pager id="Pager1" runat="server" linkedpager="Pager"/>
+
 </YAF:adminmenu>
 
 <YAF:SmartScroller id="SmartScroller1" runat = "server" />

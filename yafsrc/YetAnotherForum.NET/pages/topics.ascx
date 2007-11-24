@@ -33,7 +33,7 @@
 </asp:PlaceHolder>
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
     <tr>
-        <td class="navlinks" align="left">
+        <td>
             <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
         </td>
         <td>            
@@ -103,7 +103,7 @@
 </table>
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
     <tr>
-        <td align="left" class="navlinks">
+        <td align="left">
             <YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="False" />
         </td>
         <td>

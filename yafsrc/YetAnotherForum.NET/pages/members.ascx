@@ -8,13 +8,9 @@
   <tr runat="server" id="LetterRow" />
   <tr runat="server" id="LetterRowRus" />
 </table>
-<table class="command">
-  <tr>
-    <td class="navlinks">
-      <YAF:Pager runat="server" ID="Pager" />
-    </td>
-  </tr>
-</table>
+
+<YAF:Pager runat="server" ID="Pager" />
+
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
   <tr>
     <td class="header1" colspan="5">
@@ -59,11 +55,7 @@
     </ItemTemplate>
   </asp:Repeater>
 </table>
-<table class="command">
-  <tr>
-    <td class="navlinks">
-      <YAF:Pager runat="server" LinkedPager="Pager" />
-    </td>
-  </tr>
-</table>
+
+<YAF:Pager runat="server" LinkedPager="Pager" />
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

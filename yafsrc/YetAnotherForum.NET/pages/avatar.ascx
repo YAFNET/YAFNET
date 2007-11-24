@@ -1,8 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="avatar.ascx.cs" Inherits="YAF.Pages.avatar" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<p class="navlinks">
-	<YAF:Pager runat="server" ID="pager" />
-</p>
+<YAF:Pager runat="server" ID="pager" />
+
 <asp:HyperLink ID="goup" runat="server" /><br />
 <h2>
 	<%= GetText("TITLE") %>
@@ -25,7 +24,7 @@
 		<asp:Literal ID="fname" runat="server" />
 	</ItemTemplate>
 </asp:DataList>
-<p class="navlinks">
-	<YAF:Pager runat="server" LinkedPager="pager" />
-</p>
+
+<YAF:Pager runat="server" LinkedPager="pager" />
+
 <asp:LinkButton runat="server" ID="GoDir" Visible="false" />

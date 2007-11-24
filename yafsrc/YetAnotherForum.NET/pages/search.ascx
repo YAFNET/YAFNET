@@ -37,13 +37,9 @@
 	</tr>
 </table>
 <br />
-<table class="command" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td class="navlinks">
-			<YAF:Pager runat="server" ID="Pager" />
-		</td>
-	</tr>
-</table>
+
+<YAF:Pager runat="server" ID="Pager" />
+
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<asp:Repeater ID="SearchRes" runat="server">
 		<HeaderTemplate>
@@ -141,11 +137,7 @@
 		</tr>
 	</asp:PlaceHolder>
 </table>
-<table class="command" width="100%" cellspacing="0" cellpadding="0">
-	<tr>
-		<td class="navlinks">
-			<YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
-		</td>
-	</tr>
-</table>
+
+<YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
+
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />
