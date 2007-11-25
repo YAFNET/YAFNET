@@ -1,0 +1,366 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2007 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+using System;
+using System.Data;
+using System.Web;
+using System.Web.Profile;
+using System.Web.Hosting;
+using System.Web.DataAccess;
+using System.Web.Util;
+using System.Web.Configuration;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Text;
+using System.Configuration.Provider;
+using System.Configuration;
+using System.Security;
+using System.Security.Principal;
+using System.Security.Permissions;
+using System.Globalization;
+using System.Runtime.Serialization;
+using YAF.Providers.Utils;
+
+namespace YAF.Providers.Profile
+{
+	/// <summary>
+	/// YAF Custom Profile Provider
+	/// </summary>
+	class YafProfileProvider : ProfileProvider
+	{
+		private string _appName;
+		private bool _propertiesSetup = false;
+		private System.Collections.Generic.List<SettingsPropertyColumn> _settingsColumnsList = new System.Collections.Generic.List<SettingsPropertyColumn>();
+
+    #region Override Public Properties
+
+    public override string ApplicationName
+    {
+        get
+        {
+            return _appName;
+        }
+        set
+        {
+            _appName = value;
+        }
+			}
+		#endregion
+
+		#region Overriden Public Methods
+
+		/// <summary>
+		/// Sets up the profile providers
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="config"></param>
+		public override void Initialize( string name, NameValueCollection config )
+		{
+			// verify that the configuration section was properly passed
+			if ( config == null )
+				throw new ArgumentNullException( "config" );		
+
+			// application name
+			_appName = config ["applicationName"];
+			if ( string.IsNullOrEmpty( _appName ) )
+				_appName = "YetAnotherForum";
+
+			base.Initialize( name, config );
+		}
+
+		protected void LoadPropertyCollection( SettingsPropertyCollection collection )
+		{
+			if ( !_propertiesSetup )
+			{
+				// clear it out just in case something is still in there...
+				_settingsColumnsList.Clear();
+
+				// validiate all the properties and populate the internal settings collection
+				foreach (SettingsProperty property in collection)
+				{
+					SqlDbType dbType;
+					int size;
+
+					// parse custom provider data...
+					GetDbTypeAndSizeFromString( property.Attributes ["CustomProviderData"].ToString(), out dbType, out size );
+
+					// default the size to 256 if no size is specified
+					if ( dbType == SqlDbType.NVarChar && size == -1) 
+					{
+						size = 256;
+					}
+					_settingsColumnsList.Add( new SettingsPropertyColumn( property, dbType, size ) );
+				}
+
+				// sync profile table structure with the db...
+
+				// it's setup now...
+				_propertiesSetup = true;
+			}
+		}
+
+		private bool GetDbTypeAndSizeFromString( string providerData, out SqlDbType dbType, out int size )
+		{
+			size = -1;
+			dbType = SqlDbType.NVarChar;
+
+			if ( String.IsNullOrEmpty( providerData ) )
+			{
+				return false;
+			}
+
+			// split the data
+			string [] chunk = providerData.Split( new char [] { ';' } );
+
+			// get the datatype and ignore case...
+			dbType = ( SqlDbType ) Enum.Parse( typeof( SqlDbType ), chunk [0], true );
+
+			if ( chunk.Length > 1 )
+			{
+				// handle size...
+				if ( !Int32.TryParse( chunk [1], out size ) )
+				{
+					throw new ArgumentException( "Unable to parse as integer: " + chunk [1] );
+				}
+			}
+
+			return true;
+		}
+
+		public override int DeleteInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate )
+		{
+			if ( authenticationOption == ProfileAuthenticationOption.Anonymous )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
+			}
+
+			return DB.DeleteInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
+		}
+
+		public override int DeleteProfiles( string [] usernames )
+		{
+			if ( usernames == null || usernames.Length < 1 )
+			{
+				return 0;
+			}
+
+			// make single string of usernames...
+			StringBuilder userNameBuilder = new StringBuilder();
+			bool bFirst = true;
+
+			for ( int i = 0; i < usernames.Length; i++ )
+			{
+				if ( usernames [i].Length > 0 )
+				{
+					if ( !bFirst ) userNameBuilder.Append( "," );
+					else bFirst = false;
+					userNameBuilder.Append( usernames [i] );
+				}
+			}
+
+			// call the DB...
+			return DB.DeleteProfiles( this.ApplicationName, userNameBuilder.ToString() );
+		}
+
+		public override int DeleteProfiles( ProfileInfoCollection profiles )
+		{
+			if ( profiles == null )
+			{
+				ExceptionReporter.ThrowArgumentNull( "PROFILE", "PROFILESNULL" );
+			}
+
+			if ( profiles.Count < 1 )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "PROFILESEMPTY" );
+			}
+
+			string [] usernames = new string [profiles.Count];
+
+			int index = 0;
+			foreach ( ProfileInfo profile in profiles )
+			{
+				usernames [index++] = profile.UserName;
+			}
+
+			return DeleteProfiles( usernames );
+		}
+
+		public override ProfileInfoCollection FindInactiveProfilesByUserName( ProfileAuthenticationOption authenticationOption, string usernameToMatch, DateTime userInactiveSinceDate, int pageIndex, int pageSize, out int totalRecords )
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override ProfileInfoCollection FindProfilesByUserName( ProfileAuthenticationOption authenticationOption, string usernameToMatch, int pageIndex, int pageSize, out int totalRecords )
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override ProfileInfoCollection GetAllInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate, int pageIndex, int pageSize, out int totalRecords )
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override ProfileInfoCollection GetAllProfiles( ProfileAuthenticationOption authenticationOption, int pageIndex, int pageSize, out int totalRecords )
+		{
+			if ( authenticationOption == ProfileAuthenticationOption.Anonymous )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
+			}
+
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override int GetNumberOfInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate )
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override System.Configuration.SettingsPropertyValueCollection GetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyCollection collection )
+		{
+			throw new Exception( "The method or operation is not implemented." );
+		}
+
+		public override void SetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyValueCollection collection )
+		{/*
+			string username = ( string ) context ["UserName"];
+			bool userIsAuthenticated = ( bool ) context ["IsAuthenticated"];
+
+			if ( username == null || username.Length < 1 || collection.Count < 1 )
+				return;
+
+			SqlConnection conn = null;
+			SqlCommand cmd = null;
+			try
+			{
+				bool anyItemsToSave = false;
+
+				// First make sure we have at least one item to save
+				foreach ( SettingsPropertyValue pp in collection )
+				{
+					if ( pp.IsDirty )
+					{
+						if ( !userIsAuthenticated )
+						{
+							bool allowAnonymous = ( bool ) pp.Property.Attributes ["AllowAnonymous"];
+							if ( !allowAnonymous )
+								continue;
+						}
+						anyItemsToSave = true;
+						break;
+					}
+				}
+
+				if ( !anyItemsToSave )
+					return;
+
+				conn = new SqlConnection( _sqlConnectionString );
+				conn.Open();
+
+				List<ProfileColumnData> columnData = new List<ProfileColumnData>( collection.Count );
+
+				foreach ( SettingsPropertyValue pp in collection )
+				{
+					if ( !userIsAuthenticated )
+					{
+						bool allowAnonymous = ( bool ) pp.Property.Attributes ["AllowAnonymous"];
+						if ( !allowAnonymous )
+							continue;
+					}
+
+					//Unlike the table provider, the sproc provider works against a fixed stored procedure
+					//signature, and must provide values for each stored procedure parameter
+					//
+					//if (!pp.IsDirty && pp.UsingDefaultValue) // Not fetched from DB and not written to
+					//    continue;
+
+					string persistenceData = pp.Property.Attributes ["CustomProviderData"] as string;
+					// If we can't find the table/column info we will ignore this data
+					if ( String.IsNullOrEmpty( persistenceData ) )
+					{
+						// REVIEW: Perhaps we should throw instead?
+						continue;
+					}
+					string [] chunk = persistenceData.Split( new char [] { ';' } );
+					if ( chunk.Length != 3 )
+					{
+						// REVIEW: Perhaps we should throw instead?
+						continue;
+					}
+					string varname = chunk [0];
+					// REVIEW: Should we ignore case?
+					SqlDbType datatype = ( SqlDbType ) Enum.Parse( typeof( SqlDbType ), chunk [1], true );
+					// chunk[2] = size, which we ignore
+
+					object value = null;
+
+					if ( !pp.IsDirty && pp.UsingDefaultValue ) // Not fetched from DB and not written to
+						value = DBNull.Value;
+					else if ( pp.Deserialized && pp.PropertyValue == null )
+					{ // value was explicitly set to null
+						value = DBNull.Value;
+					}
+					else
+					{
+						value = pp.PropertyValue;
+					}
+
+					// REVIEW: Might be able to ditch datatype
+					columnData.Add( new ProfileColumnData( varname, pp, value, datatype ) );
+				}
+
+				cmd = CreateSprocSqlCommand( _setSproc, conn, username, userIsAuthenticated );
+				foreach ( ProfileColumnData data in columnData )
+				{
+					cmd.Parameters.AddWithValue( data.VariableName, data.Value );
+					cmd.Parameters [data.VariableName].SqlDbType = data.DataType;
+				}
+				cmd.ExecuteNonQuery();
+			}
+			finally
+			{
+				if ( cmd != null )
+					cmd.Dispose();
+				if ( conn != null )
+					conn.Close();
+			}
+		  */
+		}
+
+		#endregion
+	}
+
+	public class SettingsPropertyColumn
+	{
+    public SqlDbType DataType;
+		public SettingsProperty Settings;
+		public int Size;
+
+		public SettingsPropertyColumn()
+		{
+			// empty for default constructor...
+		}
+
+		public SettingsPropertyColumn( SettingsProperty settings, SqlDbType dataType, int size )
+		{
+			DataType = dataType;
+			Settings = settings;
+			Size = size;
+		}
+	}
+}

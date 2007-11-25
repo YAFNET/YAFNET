@@ -37,10 +37,13 @@
   <ItemGroup>
     <Compile Include="Utils\ExceptionReporter.cs" />
     <Compile Include="Membership\UserPasswordInfo.cs" />
+    <Compile Include="Membership\Utils.cs" />
     <Compile Include="Membership\YafMembershipProvider.cs" />
     <Compile Include="Membership\DB.cs" />
     <Compile Include="Passthru\YAFMembershipPassThru.cs" />
     <Compile Include="Passthru\YAFRolesPassThru.cs" />
+    <Compile Include="Profile\DB.cs" />
+    <Compile Include="Profile\YafProfileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roles\DB.cs" />
     <Compile Include="Roles\YafRoleProvider.cs" />
