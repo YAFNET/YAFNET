@@ -95,7 +95,7 @@ function yaf_hidemenu() {
 
 function mouseHover(cell,hover) {
 	if(hover) {
-		cell.className = "postfooter";
+		cell.className = "popupitemhover";
 		try {
 			cell.style.cursor = "pointer";
 		}
@@ -103,7 +103,7 @@ function mouseHover(cell,hover) {
 			cell.style.cursor = "hand";
 		}
 	} else {
-		cell.className = "post";
+		cell.className = "popupitem";
 	}
 }
 

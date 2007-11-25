@@ -15,20 +15,18 @@
 		<Resource tag="INVALIDPROVIDERKEY">Invalid Provider Key. Key is not a GUID.</Resource>
 		<Resource tag="EMAILNULL">Email cannot be null.</Resource>
 		<Resource tag="TOOMANYUSERNAMERETURNS">Too many Usernames returned for that email address.</Resource>
-		<Resource tag="RESETNOTSUPPORTED">Pasword Reset is not supported in this configuration.</Resource>
-			  
+		<Resource tag="RESETNOTSUPPORTED">Pasword Reset is not supported in this configuration.</Resource>			  
 		<Resource tag="EXAMPLE">Example Error Message.</Resource>
-
 </provider>
 	<provider name="ROLES">
 		<Resource tag="CONFIGNOTFOUND">Role Provider Configuration could not be located check Web.Config!</Resource>
 		<Resource tag="ROLENAMEBLANK">Role Name cannot be blank</Resource>
-		<Resource tag="USERNAMEBLANK">Username Blank</Resource>
-		
-		
+		<Resource tag="USERNAMEBLANK">Username Blank</Resource>		
 		<Resource tag="EXAMPLE">Example Error Message</Resource>
 	</provider>
 	<provider name="PROFILE">
-		<Resource tag="EXAMPLE">Example Error Message</Resource>
+    <Resource tag="PROFILESNULL">Profiles cannot be null</Resource>
+    <Resource tag="PROFILESEMPTY">Profiles collection cannot be empty</Resource>
+    <Resource tag="NOANONYMOUS">Anonymous authentication is not supported</Resource>
 	</provider>
 </Resources>

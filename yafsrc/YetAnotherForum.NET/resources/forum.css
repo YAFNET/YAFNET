@@ -1,3 +1,6 @@
+/*
+	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
+*/
 textarea.basicBBCodeEditor 
 {
 	width: 100%;
@@ -13,7 +16,6 @@ textarea.BBCodeEditor
 	float:right;
 	margin-top: 10px;
 }
-
 #DivPageAccess
 {
 	clear:right;
@@ -30,6 +32,10 @@ textarea.BBCodeEditor
 	clear:both;
 }
 .postsep td
+{
+	padding:0px;
+}
+.yafpopupmenu
 {
 	padding:0px;
 }
