@@ -311,7 +311,26 @@ div.postdiv
 	overflow: auto;	
 }
 
-/* CSS Pagelinls */
+/* CSS Popupmenu */
+.yafpopupmenu
+{
+	background-color: #ffffff;
+	border: solid 1px #333333;
+}
+.yafpopupmenu ul{	
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.yafpopupmenu li
+{
+	padding: 5px 10px 5px 10px;	
+}
+.yafpopupmenu li.popupitemhover
+{
+	background-color: #cccccc;
+}
+/* CSS Pagelinks */
 .yafpager
 {
 	color: #555555;
