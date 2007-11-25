@@ -229,6 +229,63 @@ namespace YAF.Classes.Data
 		}
 
 		/// <summary>
+		/// Gets a whole dataset out of the database
+		/// </summary>
+		/// <param name="cmd">The SQL Command</param>
+		/// <returns>Dataset with the results</returns>
+		static public DataSet GetDataset( SqlCommand cmd )
+		{
+			QueryCounter qc = new QueryCounter( cmd.CommandText );
+
+			try
+			{
+				if ( cmd.Connection != null )
+				{
+					using ( DataSet ds = new DataSet() )
+					{
+						using ( SqlDataAdapter da = new SqlDataAdapter() )
+						{
+							da.SelectCommand = cmd;
+							da.Fill( ds );
+							return ds;
+						}
+					}
+				}
+				else
+				{
+					using ( YafDBConnManager connMan = new YafDBConnManager() )
+					{
+						using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+						{
+							try
+							{
+								cmd.Transaction = trans;
+								using ( DataSet ds = new DataSet() )
+								{
+									using ( SqlDataAdapter da = new SqlDataAdapter() )
+									{
+										da.SelectCommand = cmd;
+										da.SelectCommand.Connection = connMan.DBConnection;
+										da.Fill( ds );
+										return ds;
+									}
+								}
+							}
+							finally
+							{
+								trans.Commit();
+							}
+						}
+					}
+				}
+			}
+			finally
+			{
+				qc.Dispose();
+			}
+		}
+
+		/// <summary>
 		/// Gets data out of the database
 		/// </summary>
 		/// <param name="cmd">The SQL Command</param>
