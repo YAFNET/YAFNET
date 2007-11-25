@@ -37,9 +37,6 @@
     <Compile Include="YAF.Classes.Utils.Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AuthoringTests.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\YAF.Classes\YAF.Classes.Base\YAF.Classes.Base.csproj">
       <Project>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</Project>
       <Name>YAF.Classes.Base</Name>
