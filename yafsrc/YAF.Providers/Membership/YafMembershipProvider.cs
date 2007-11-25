@@ -513,7 +513,7 @@ namespace YAF.Providers.Membership
         {
             // Check username argument is not null
             if (username == null)
-                ExceptionReporter.Throw("MEMBERSHIP", "USERNAMENULL");
+                ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERNAMENULL");
 
             // Process database user deletion request
             try
@@ -676,7 +676,7 @@ namespace YAF.Providers.Membership
         {
             if (providerUserKey == null)
             {
-                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERKEYNULL");
+                ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERKEYNULL");
             }
 
             if (!(providerUserKey is Guid))
@@ -701,7 +701,7 @@ namespace YAF.Providers.Membership
         public override string GetUserNameByEmail(string email)
         {
             if (email == null)
-                ExceptionReporter.ThrowArgument("MEMBERSHIP", "EMAILNULL");
+                ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "EMAILNULL");
 
             DataTable Users = DB.GetUserNameByEmail(this.ApplicationName, email);
             if (this.RequiresUniqueEmail && Users.Rows.Count > 1)
@@ -755,7 +755,7 @@ namespace YAF.Providers.Membership
         {
             // Check for null argument
             if (userName == null)
-                ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMENULL");
+                ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "USERNAMENULL");
 
             try
             {
@@ -779,7 +779,7 @@ namespace YAF.Providers.Membership
         {
             // Check User object is not null
             if (user == null)
-                ExceptionReporter.Throw("MEMBERSHIP", "MEMBERSHIPUSERNULL");
+                ExceptionReporter.ThrowArgumentNull("MEMBERSHIP", "MEMBERSHIPUSERNULL");
 
             // Update User
             int updateStatus = DB.UpdateUser(this.ApplicationName, user, this.RequiresUniqueEmail);
