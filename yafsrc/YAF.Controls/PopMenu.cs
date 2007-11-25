@@ -94,12 +94,14 @@ namespace YAF.Controls
 				return;
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.AppendFormat( "<table width='1%' class='content' border=\"0\" cellspacing=\"0\" cellpadding=\"4\" id=\"{0}\" style=\"position:absolute;z-index:100;left:0;top:0;visibility:hidden;padding:0px;border:1px solid #FFFFFF;background-color:#FFFFFF\">", UniqueID );
+			sb.AppendFormat( @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", UniqueID );
+			sb.Append( "<ul>" );
+
 			foreach ( string key in _items.Keys )
 			{
-				sb.AppendFormat( "<tr><td class='post' onmouseover=\"mouseHover(this,true)\" onmouseout=\"mouseHover(this,false)\" onclick=\"{1}\"><nobr>{0}</nobr></td></tr>\n", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
+				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}""><nobr>{0}</nobr></li>", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
 			}
-			sb.AppendFormat( "</table>" );
+			sb.AppendFormat( "</ul></div>" );
 
 			Page.ClientScript.RegisterStartupScript( this.GetType(), ClientID + "_menuscript", sb.ToString() );
 		}
