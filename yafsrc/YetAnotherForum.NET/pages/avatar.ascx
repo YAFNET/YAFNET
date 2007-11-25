@@ -28,3 +28,7 @@
 <YAF:Pager runat="server" LinkedPager="pager" />
 
 <asp:LinkButton runat="server" ID="GoDir" Visible="false" />
+
+<div id="DivSmartScroller">
+    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+</div>

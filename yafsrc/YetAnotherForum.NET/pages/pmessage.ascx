@@ -42,4 +42,6 @@
 	</tr>
 </table>
 
-<YAF:SmartScroller id="SmartScroller1" runat="server" />
+<div id="DivSmartScroller">
+    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+</div>

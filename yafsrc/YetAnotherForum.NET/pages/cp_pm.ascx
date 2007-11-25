@@ -32,4 +32,6 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
-<br />
+<div id="DivSmartScroller">
+    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+</div>

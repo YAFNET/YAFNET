@@ -6,4 +6,6 @@
 
 <YAF:ProfileEdit runat="server" id="ProfileEditor" />
 
-<YAF:SmartScroller id="SmartScroller1" runat = "server" />
+<div id="DivSmartScroller">
+    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+</div>
