@@ -108,6 +108,18 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]
+GO
+
 -- =============================================
 -- Profiles Drop Procedures
 -- =============================================
@@ -662,4 +674,132 @@ GO
 -- Profiles Create Procedures
 -- =============================================
 
--- Not implemented yet!!!!!!!!!!!!!!!!!!!!!!!!!!
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]
+(
+@ApplicationName nvarchar(256),
+@InactiveSinceDate datetime
+)
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+
+    DELETE
+    FROM    [{databaseOwner}].[{objectQualifier}prov_Profile]
+    WHERE   UserID IN
+            (   SELECT  UserID
+                FROM    [{databaseOwner}].[{objectQualifier}prov_Membership] m
+                WHERE   ApplicationID = @ApplicationID
+                        AND (LastActivity <= @InactiveSinceDate)
+            )
+
+    SELECT  @@ROWCOUNT
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteprofiles]
+(
+@ApplicationName nvarchar(256),
+@UserNames nvarchar(4000)
+)
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+    DECLARE @UserName     nvarchar(256)
+    DECLARE @CurrentPos   int
+    DECLARE @NextPos      int
+    DECLARE @NumDeleted   int
+    DECLARE @DeletedUser  int
+    DECLARE @ErrorCode    int
+
+    SET @ErrorCode = 0
+    SET @CurrentPos = 1
+    SET @NumDeleted = 0
+
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+
+    WHILE (@CurrentPos <= LEN(@UserNames))
+    BEGIN
+        SELECT @NextPos = CHARINDEX(N',', @UserNames,  @CurrentPos)
+        IF (@NextPos = 0 OR @NextPos IS NULL)
+            SELECT @NextPos = LEN(@UserNames) + 1
+
+        SELECT @UserName = SUBSTRING(@UserNames, @CurrentPos, @NextPos - @CurrentPos)
+        SELECT @CurrentPos = @NextPos+1
+
+        IF (LEN(@UserName) > 0)
+        BEGIN
+            SELECT @DeletedUser = 0
+
+			DELETE FROM [{databaseOwner}].[{objectQualifier}prov_Profile] WHERE UserID IN (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] WHERE UsernameLwd = LOWER(@UserName) AND ApplicationID = @ApplicationID)
+
+            IF( @@ERROR <> 0 )
+            BEGIN
+                SET @ErrorCode = -1
+                GOTO Error
+            END
+            IF (@@ROWCOUNT <> 0)
+                SELECT @NumDeleted = @NumDeleted + 1
+        END
+    END
+
+    SELECT @NumDeleted
+
+    RETURN 0
+
+Error:
+
+    RETURN @ErrorCode
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]
+(
+	@ApplicationName        nvarchar(256),
+	@PageIndex              int,
+	@PageSize               int,
+	@UserNameToMatch        nvarchar(256) = NULL,
+	@InactiveSinceDate      datetime      = NULL
+)
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+
+    -- Set the page bounds
+    DECLARE @PageLowerBound int
+    DECLARE @PageUpperBound int
+    DECLARE @TotalRecords   int
+    SET @PageLowerBound = @PageSize * @PageIndex
+    SET @PageUpperBound = @PageSize - 1 + @PageLowerBound
+
+    -- Create a temp table TO store the select results
+    CREATE TABLE #PageIndexForUsers
+    (
+        IndexID int IDENTITY (0, 1) NOT NULL,
+        UserID uniqueidentifier
+    )
+
+    -- Insert into our temp table
+    INSERT INTO #PageIndexForUsers (UserID)
+        SELECT  m.UserID
+        FROM    [{databaseOwner}].[{objectQualifier}prov_Membership] m, [{databaseOwner}].[{objectQualifier}prov_Profile] p
+        WHERE   ApplicationID = @ApplicationID
+            AND m.UserID = p.UserID
+            AND (@InactiveSinceDate IS NULL OR LastActivity <= @InactiveSinceDate)
+            AND (@UserNameToMatch IS NULL OR m.UserNameLwd LIKE LOWER(@UserNameToMatch))
+        ORDER BY UserName
+
+
+    SELECT  m.UserName, m.LastActivity, m.LastUpdated, p.*
+    FROM    [{databaseOwner}].[{objectQualifier}prov_Membership] m, [{databaseOwner}].[{objectQualifier}prov_Profile] p, #PageIndexForUsers i
+    WHERE   m.UserId = p.UserId AND p.UserId = i.UserId AND i.IndexId >= @PageLowerBound AND i.IndexId <= @PageUpperBound
+
+    SELECT COUNT(*)
+    FROM   #PageIndexForUsers
+
+    DROP TABLE #PageIndexForUsers
+END
+GO
