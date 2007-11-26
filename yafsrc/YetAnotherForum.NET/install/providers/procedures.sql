@@ -108,6 +108,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_exists]
 GO
 
+-- =============================================
+-- Profiles Drop Procedures
+-- =============================================
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_deleteinactive]
 GO
@@ -120,11 +124,9 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getprofiles]
 GO
 
--- =============================================
--- Profiles Drop Procedures
--- =============================================
-
--- Not implemented yet!!!!!!!!!!!!!!!!!!!!!!!!!!
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_profile_getnumberinactiveprofiles]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getnumberinactiveprofiles]
+GO
 
 -- =============================================
 -- Membership Create Procedures
@@ -801,5 +803,22 @@ BEGIN
     FROM   #PageIndexForUsers
 
     DROP TABLE #PageIndexForUsers
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_profile_getnumberinactiveprofiles]
+    @ApplicationName        nvarchar(256),
+    @InactiveSinceDate      datetime
+AS
+BEGIN
+	DECLARE @ApplicationID uniqueidentifier
+
+	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
+
+    SELECT  COUNT(*)
+    FROM    [{databaseOwner}].[{objectQualifier}prov_Membership] m, [{databaseOwner}].[{objectQualifier}prov_Profile] p
+    WHERE   ApplicationID = @ApplicationID
+        AND m.UserID = p.UserID
+        AND (LastActivity <= @InactiveSinceDate)
 END
 GO
