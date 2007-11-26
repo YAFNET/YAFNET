@@ -55,6 +55,26 @@ UNION
 USER 
 VIEW 
 WHERE
+INSERT
+UPDATE
+BEGIN
+END
+IF
+ELSE
+EXISTS
+SET
+FROM
+ntext
+nvarchar
+int
+numeric
+CAST
+GETDATE
+CONVERT
+DECLARE
+TRIGGER
+FOR
+ON
 
 - KeyTypes
 NothingGoesHere
