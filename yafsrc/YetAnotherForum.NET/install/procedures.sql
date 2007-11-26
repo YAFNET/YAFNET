@@ -34,6 +34,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_stats]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}active_updatemaxstats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}active_updatemaxstats]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}attachment_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}attachment_delete]
 GO
@@ -285,9 +289,6 @@ GO
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_reportresolve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportresolve]
 GO
-
-
-
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}message_save]
@@ -951,6 +952,33 @@ begin
 		ActiveMembers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where BoardID=@BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)=0)),
 		ActiveGuests = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where BoardID=@BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)<>0))
 end
+GO
+
+CREATE PROCEDURE [dbo].[yaf_active_updatemaxstats]
+(
+	@BoardID int
+)
+AS
+BEGIN
+	DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
+	
+	SET @count = ISNULL((SELECT COUNT(DISTINCT IP) FROM [dbo].[yaf_Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
+	SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [dbo].[yaf_Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
+	SET @max = CAST(@maxStr AS int)
+	SET @countStr = CAST(@count AS nvarchar)
+	SET @dtStr = CONVERT(nvarchar,GETDATE(),126)
+
+	IF NOT EXISTS ( SELECT COUNT(1) FROM [dbo].[yaf_Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
+	BEGIN 
+		INSERT INTO [dbo].[yaf_Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
+		INSERT INTO [dbo].[yaf_Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
+	END
+	ELSE IF (@count > @max)	
+	BEGIN
+		UPDATE [dbo].[yaf_Registry] SET [Value] = CAST(@countStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxusers'
+		UPDATE [dbo].[yaf_Registry] SET [Value] = CAST(@dtStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
+	END
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_delete](@AttachmentID int) as begin
@@ -2813,6 +2841,8 @@ begin
 		else begin
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
 			values(@SessionID,@BoardID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
+			-- update max user stats
+			exec [{databaseOwner}].[{objectQualifer}active_updatemaxstats] @BoardID
 		end
 		-- remove duplicate users
 		if @IsGuest=0
