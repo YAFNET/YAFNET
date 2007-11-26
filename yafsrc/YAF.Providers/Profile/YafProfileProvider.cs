@@ -48,19 +48,19 @@ namespace YAF.Providers.Profile
 		private bool _propertiesSetup = false;
 		private System.Collections.Generic.List<SettingsPropertyColumn> _settingsColumnsList = new System.Collections.Generic.List<SettingsPropertyColumn>();
 
-    #region Override Public Properties
+		#region Override Public Properties
 
-    public override string ApplicationName
-    {
-        get
-        {
-            return _appName;
-        }
-        set
-        {
-            _appName = value;
-        }
+		public override string ApplicationName
+		{
+			get
+			{
+				return _appName;
 			}
+			set
+			{
+				_appName = value;
+			}
+		}
 		#endregion
 
 		#region Overriden Public Methods
@@ -74,7 +74,7 @@ namespace YAF.Providers.Profile
 		{
 			// verify that the configuration section was properly passed
 			if ( config == null )
-				throw new ArgumentNullException( "config" );		
+				throw new ArgumentNullException( "config" );
 
 			// application name
 			_appName = config ["applicationName"];
@@ -92,7 +92,7 @@ namespace YAF.Providers.Profile
 				_settingsColumnsList.Clear();
 
 				// validiate all the properties and populate the internal settings collection
-				foreach (SettingsProperty property in collection)
+				foreach ( SettingsProperty property in collection )
 				{
 					SqlDbType dbType;
 					int size;
@@ -101,7 +101,7 @@ namespace YAF.Providers.Profile
 					GetDbTypeAndSizeFromString( property.Attributes ["CustomProviderData"].ToString(), out dbType, out size );
 
 					// default the size to 256 if no size is specified
-					if ( dbType == SqlDbType.NVarChar && size == -1) 
+					if ( dbType == SqlDbType.NVarChar && size == -1 )
 					{
 						size = 256;
 					}
@@ -109,6 +109,18 @@ namespace YAF.Providers.Profile
 				}
 
 				// sync profile table structure with the db...
+				DataTable structure = DB.GetProfileStructure( this.ApplicationName );
+
+				// verify all the columns are there...
+				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
+				{
+					// see if this column exists
+					if ( !structure.Columns.Contains( column.Settings.Name ) )
+					{
+						// if not, create it...
+						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+					}
+				}
 
 				// it's setup now...
 				_propertiesSetup = true;
@@ -129,7 +141,7 @@ namespace YAF.Providers.Profile
 			string [] chunk = providerData.Split( new char [] { ';' } );
 
 			// get the datatype and ignore case...
-			dbType = ( SqlDbType ) Enum.Parse( typeof( SqlDbType ), chunk [0], true );
+			dbType = ( SqlDbType )Enum.Parse( typeof( SqlDbType ), chunk [0], true );
 
 			if ( chunk.Length > 1 )
 			{
@@ -203,126 +215,136 @@ namespace YAF.Providers.Profile
 
 		public override ProfileInfoCollection FindInactiveProfilesByUserName( ProfileAuthenticationOption authenticationOption, string usernameToMatch, DateTime userInactiveSinceDate, int pageIndex, int pageSize, out int totalRecords )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			return GetProfileAsCollection( authenticationOption, pageIndex, pageSize, usernameToMatch, userInactiveSinceDate, out totalRecords );
 		}
 
 		public override ProfileInfoCollection FindProfilesByUserName( ProfileAuthenticationOption authenticationOption, string usernameToMatch, int pageIndex, int pageSize, out int totalRecords )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			return GetProfileAsCollection( authenticationOption, pageIndex, pageSize, usernameToMatch, null, out totalRecords );
 		}
 
 		public override ProfileInfoCollection GetAllInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate, int pageIndex, int pageSize, out int totalRecords )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			return GetProfileAsCollection( authenticationOption, pageIndex, pageSize, null, userInactiveSinceDate, out totalRecords );
 		}
 
 		public override ProfileInfoCollection GetAllProfiles( ProfileAuthenticationOption authenticationOption, int pageIndex, int pageSize, out int totalRecords )
+		{
+			return GetProfileAsCollection( authenticationOption, pageIndex, pageSize, null, null, out totalRecords );
+		}
+
+		public override int GetNumberOfInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate )
 		{
 			if ( authenticationOption == ProfileAuthenticationOption.Anonymous )
 			{
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
 
-			throw new Exception( "The method or operation is not implemented." );
+			return DB.GetNumberInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
 		}
 
-		public override int GetNumberOfInactiveProfiles( ProfileAuthenticationOption authenticationOption, DateTime userInactiveSinceDate )
+		private ProfileInfoCollection GetProfileAsCollection( ProfileAuthenticationOption authenticationOption, int pageIndex, int pageSize, object userNameToMatch, object inactiveSinceDate, out int totalRecords )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			if ( authenticationOption == ProfileAuthenticationOption.Anonymous )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
+			}
+			if ( pageIndex < 0 )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "PAGEINDEXTOOSMALL" );
+			}
+			if ( pageSize < 1 )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "PAGESIZETOOSMALL" );
+			}
+
+			// get all the profiles...
+			DataSet allProfilesDS = DB.GetProfiles( this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate );
+
+			// create an instance for the profiles...
+			ProfileInfoCollection profiles = new ProfileInfoCollection();
+
+			DataTable allProfilesDT = allProfilesDS.Tables [0];
+			DataTable profilesCountDT = allProfilesDS.Tables [1];
+
+			foreach ( DataRow profileRow in allProfilesDT.Rows )
+			{
+				string username;
+				DateTime lastActivity;
+				DateTime lastUpdated = DateTime.UtcNow;
+
+				username = profileRow ["Username"].ToString();
+				lastActivity = DateTime.SpecifyKind( Convert.ToDateTime( profileRow ["LastActivity"] ), DateTimeKind.Utc );
+				lastUpdated = DateTime.SpecifyKind( Convert.ToDateTime( profileRow ["LastUpdated"] ), DateTimeKind.Utc );
+
+				profiles.Add( new ProfileInfo( username, false, lastActivity, lastUpdated, 0 ) );
+			}
+
+			// get the first record which is the count...
+			totalRecords = Convert.ToInt32( profilesCountDT.Rows [0] [0] );
+
+			return profiles;
 		}
 
 		public override System.Configuration.SettingsPropertyValueCollection GetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyCollection collection )
 		{
-			throw new Exception( "The method or operation is not implemented." );
+			SettingsPropertyValueCollection settingPropertyCollection = new SettingsPropertyValueCollection();			
+
+			if ( collection == null || collection.Count < 1 || context == null )
+				return settingPropertyCollection;
+
+			string username = context ["UserName"].ToString();
+			
+			if ( String.IsNullOrEmpty( username ) )
+				return settingPropertyCollection;
+
+			// this provider doesn't support anonymous users
+			if ( !Convert.ToBoolean( context ["IsAuthenticated"] ) )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
+			}
+
+			// load the property collection
+			LoadPropertyCollection( collection );
+
+
+			return settingPropertyCollection;
 		}
 
 		public override void SetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyValueCollection collection )
-		{/*
+		{
+			/*
 			string username = ( string ) context ["UserName"];
-			bool userIsAuthenticated = ( bool ) context ["IsAuthenticated"];
 
 			if ( username == null || username.Length < 1 || collection.Count < 1 )
 				return;
 
-			SqlConnection conn = null;
-			SqlCommand cmd = null;
+			// this provider doesn't support anonymous users
+			if ( !Convert.ToBoolean(context["IsAuthenticated"]) )
+			{
+				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
+			}
+
 			try
 			{
-				bool anyItemsToSave = false;
+				bool itemsToSave = false;
 
 				// First make sure we have at least one item to save
 				foreach ( SettingsPropertyValue pp in collection )
 				{
 					if ( pp.IsDirty )
 					{
-						if ( !userIsAuthenticated )
-						{
-							bool allowAnonymous = ( bool ) pp.Property.Attributes ["AllowAnonymous"];
-							if ( !allowAnonymous )
-								continue;
-						}
-						anyItemsToSave = true;
+						itemsToSave = true;
 						break;
 					}
 				}
 
-				if ( !anyItemsToSave )
+				if ( !itemsToSave )
 					return;
 
-				conn = new SqlConnection( _sqlConnectionString );
-				conn.Open();
+				// load the data for the configuration
+				this.LoadPropertyCollection(
 
-				List<ProfileColumnData> columnData = new List<ProfileColumnData>( collection.Count );
-
-				foreach ( SettingsPropertyValue pp in collection )
-				{
-					if ( !userIsAuthenticated )
-					{
-						bool allowAnonymous = ( bool ) pp.Property.Attributes ["AllowAnonymous"];
-						if ( !allowAnonymous )
-							continue;
-					}
-
-					//Unlike the table provider, the sproc provider works against a fixed stored procedure
-					//signature, and must provide values for each stored procedure parameter
-					//
-					//if (!pp.IsDirty && pp.UsingDefaultValue) // Not fetched from DB and not written to
-					//    continue;
-
-					string persistenceData = pp.Property.Attributes ["CustomProviderData"] as string;
-					// If we can't find the table/column info we will ignore this data
-					if ( String.IsNullOrEmpty( persistenceData ) )
-					{
-						// REVIEW: Perhaps we should throw instead?
-						continue;
-					}
-					string [] chunk = persistenceData.Split( new char [] { ';' } );
-					if ( chunk.Length != 3 )
-					{
-						// REVIEW: Perhaps we should throw instead?
-						continue;
-					}
-					string varname = chunk [0];
-					// REVIEW: Should we ignore case?
-					SqlDbType datatype = ( SqlDbType ) Enum.Parse( typeof( SqlDbType ), chunk [1], true );
-					// chunk[2] = size, which we ignore
-
-					object value = null;
-
-					if ( !pp.IsDirty && pp.UsingDefaultValue ) // Not fetched from DB and not written to
-						value = DBNull.Value;
-					else if ( pp.Deserialized && pp.PropertyValue == null )
-					{ // value was explicitly set to null
-						value = DBNull.Value;
-					}
-					else
-					{
-						value = pp.PropertyValue;
-					}
-
-					// REVIEW: Might be able to ditch datatype
-					columnData.Add( new ProfileColumnData( varname, pp, value, datatype ) );
-				}
 
 				cmd = CreateSprocSqlCommand( _setSproc, conn, username, userIsAuthenticated );
 				foreach ( ProfileColumnData data in columnData )
@@ -347,7 +369,7 @@ namespace YAF.Providers.Profile
 
 	public class SettingsPropertyColumn
 	{
-    public SqlDbType DataType;
+		public SqlDbType DataType;
 		public SettingsProperty Settings;
 		public int Size;
 
