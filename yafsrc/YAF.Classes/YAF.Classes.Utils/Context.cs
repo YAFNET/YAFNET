@@ -851,7 +851,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 25;
+				return 26;
 			}
 		}
 		static public long AppVersionCode
