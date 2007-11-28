@@ -178,7 +178,7 @@ namespace YAF.Pages // YAF.Pages
 					SearchWhatFlags sfw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
-					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID );
+					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID, PageContext.BoardSettings.ReturnSearchMax, PageContext.BoardSettings.UseFullTextSearch );
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = searchDataTable.DefaultView.Count;

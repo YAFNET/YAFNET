@@ -184,6 +184,10 @@ namespace YAF.Pages.Admin
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
 			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
 			EnableCaptchaForRegister.Checked = PageContext.BoardSettings.EnableCaptchaForRegister;
+
+			// Search Settings
+			ReturnSearchMax.Text = PageContext.BoardSettings.ReturnSearchMax.ToString();
+			UseFullTextSearch.Checked = PageContext.BoardSettings.UseFullTextSearch;
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -272,6 +276,10 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
 			PageContext.BoardSettings.EnableCaptchaForPost = EnableCaptchaForPost.Checked;
 			PageContext.BoardSettings.EnableCaptchaForRegister = EnableCaptchaForRegister.Checked;
+
+			// Search Settings
+			PageContext.BoardSettings.ReturnSearchMax = Convert.ToInt32( ReturnSearchMax.Text.Trim() );
+			PageContext.BoardSettings.UseFullTextSearch = UseFullTextSearch.Checked;
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();

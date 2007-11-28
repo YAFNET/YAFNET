@@ -97,6 +97,20 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Max Search Results:</b><br>
+                                    Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</td>
+                                <td class="post">
+                                    <asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                   <b>Use SQL Full Text Search:</b><br>
+                                   Toggle use of FULLTEXT SQL Server support on searches.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox></td>
+                            </tr>                              
+                            <tr>
+                                <td class="postheader">
                                     <b>Date and time format from language file:</b><br>
                                     If this is checked, the date and time format will use settings from the language
                                     file. Otherwise the browser settings will be used.</td>
