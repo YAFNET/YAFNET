@@ -130,7 +130,9 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		Flags			int NOT NULL constraint [DF_{objectQualifier}Message_Flags] default (23),
 		EditReason      nvarchar (100) NULL ,
 		IsModeratorChanged      bit NOT NULL CONSTRAINT [DF_{objectQualifier}Message_IsModeratorChanged] DEFAULT (0),
-	    DeleteReason    nvarchar (100)  NULL
+	    DeleteReason    nvarchar (100)  NULL,
+		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0)),
+		IsApproved		AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 	)
 GO
 
@@ -201,7 +203,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		LastUserID		int NULL ,
 		LastUserName	nvarchar (50) NULL,
 		NumPosts		int NOT NULL,
-		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0)
+		Flags			int not null constraint [DF_{objectQualifier}Topic_Flags] default (0),
+		IsDeleted		AS (CONVERT([bit],sign([Flags]&(8)),0))
 	)
 GO
 
@@ -228,7 +231,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
 		[Flags] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
 		[Points] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
-		ProviderUserKey	uniqueidentifier
+		ProviderUserKey	uniqueidentifier,
+		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 )
 GO
 
@@ -431,6 +435,37 @@ GO
 /*
 ** Added columns
 */
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsApproved')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+end
+GO
+
 
 -- [{databaseOwner}].[{objectQualifier}UserPMessage
 

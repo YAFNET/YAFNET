@@ -51,6 +51,7 @@ namespace YAF.Install
       "views.sql",
       "procedures.sql",
 			"functions.sql",
+			"fulltext.sql",
 			"providers/procedures.sql",
 			"providers/tables.sql",
 			"providers/indexes.sql"
@@ -227,8 +228,10 @@ namespace YAF.Install
 			{
 				FixAccess(false);
 
-				foreach (string script in _scripts)
-					ExecuteScript(script);
+				foreach ( string script in _scripts )
+				{
+					ExecuteScript( script, (script == "fulltext.sql") ? false : true);
+				}
 
 				FixAccess(true);
 
@@ -411,7 +414,7 @@ namespace YAF.Install
 		#endregion
 
 		#region method ExecuteScript
-		private void ExecuteScript( string sScriptFile )
+		private void ExecuteScript( string sScriptFile, bool useTransactions )
 		{
 			string script = null;
 			try
@@ -441,8 +444,44 @@ namespace YAF.Install
 
       using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
-        using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+				// use transactions...
+				if ( useTransactions )
 				{
+					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+					{
+						foreach ( string sql0 in statements )
+						{
+							string sql = sql0.Trim();
+
+							try
+							{
+								if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
+									continue;
+
+								if ( sql.Length > 0 )
+								{
+									using ( SqlCommand cmd = new SqlCommand() )
+									{
+										cmd.Transaction = trans;
+										cmd.Connection = connMan.DBConnection;
+										cmd.CommandType = CommandType.Text;
+										cmd.CommandText = sql.Trim();
+										cmd.ExecuteNonQuery();
+									}
+								}
+							}
+							catch ( Exception x )
+							{
+								trans.Rollback();
+								throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", sScriptFile, sql, x.Message ) );
+							}
+						}
+						trans.Commit();
+					}
+				}
+				else
+				{
+					// don't use transactions
 					foreach ( string sql0 in statements )
 					{
 						string sql = sql0.Trim();
@@ -456,8 +495,7 @@ namespace YAF.Install
 							{
 								using ( SqlCommand cmd = new SqlCommand() )
 								{
-									cmd.Transaction = trans;
-                  cmd.Connection = connMan.DBConnection;
+									cmd.Connection = connMan.OpenDBConnection;
 									cmd.CommandType = CommandType.Text;
 									cmd.CommandText = sql.Trim();
 									cmd.ExecuteNonQuery();
@@ -466,11 +504,9 @@ namespace YAF.Install
 						}
 						catch ( Exception x )
 						{
-							trans.Rollback();
 							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", sScriptFile, sql, x.Message ) );
 						}
 					}
-					trans.Commit();
 				}
 			}
 		}

@@ -954,7 +954,7 @@ begin
 end
 GO
 
-CREATE PROCEDURE [dbo].[yaf_active_updatemaxstats]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}active_updatemaxstats]
 (
 	@BoardID int
 )
@@ -1262,9 +1262,9 @@ as
 begin
 	if (@BoardID is null) begin
 		select
-			NumPosts	= (select count(1) from [{databaseOwner}].[{objectQualifier}Message]	where (Flags & 24)=16),
-			NumTopics	= (select count(1) from [{databaseOwner}].[{objectQualifier}Topic]),
-			NumUsers	= (select count(1) from [{databaseOwner}].[{objectQualifier}User] where (Flags & 2) = 2),
+			NumPosts	= (select count(1) from [{databaseOwner}].[{objectQualifier}Message] where IsApproved = 1 AND IsDeleted = 0),
+			NumTopics	= (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] where IsDeleted = 0),
+			NumUsers	= (select count(1) from [{databaseOwner}].[{objectQualifier}User] where IsApproved = 1),
 			BoardStart	= (select min(Joined) from [{databaseOwner}].[{objectQualifier}User])
 	end
 	else begin
@@ -1274,15 +1274,15 @@ begin
 								join [{databaseOwner}].[{objectQualifier}Topic] b ON a.TopicID=b.TopicID
 								join [{databaseOwner}].[{objectQualifier}Forum] c ON b.ForumID=c.ForumID
 								join [{databaseOwner}].[{objectQualifier}Category] d ON c.CategoryID=d.CategoryID
-								where (a.Flags & 24)=16 and d.BoardID=@BoardID
+								where a.IsApproved = 1 AND a.IsDeleted = 0 and b.IsDeleted = 0 AND d.BoardID=@BoardID
 							),
 			NumTopics	= (select count(1) 
 								from [{databaseOwner}].[{objectQualifier}Topic] a
 								join [{databaseOwner}].[{objectQualifier}Forum] b ON a.ForumID=b.ForumID
 								join [{databaseOwner}].[{objectQualifier}Category] c ON b.CategoryID=c.CategoryID
-								where c.BoardID=@BoardID
+								where c.BoardID=@BoardID AND a.IsDeleted = 0
 							),
-			NumUsers	= (select count(1) from [{databaseOwner}].[{objectQualifier}User] where (Flags & 2) = 2 and BoardID=@BoardID),
+			NumUsers	= (select count(1) from [{databaseOwner}].[{objectQualifier}User] where IsApproved = 1 and BoardID=@BoardID),
 			BoardStart	= (select min(Joined) from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID)
 	end
 end
@@ -1292,7 +1292,7 @@ create procedure [{databaseOwner}].[{objectQualifier}category_delete](@CategoryI
 begin
 	declare @flag int
  
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where CategoryID =  @CategoryID)
+	if exists(select 1 from [{databaseOwner}].[{objectQualifier}Forum] where CategoryID = @CategoryID)
 	begin
 		set @flag = 0
 	end else
@@ -2842,7 +2842,7 @@ begin
 			insert into [{databaseOwner}].[{objectQualifier}Active](SessionID,BoardID,UserID,IP,Login,LastActive,Location,ForumID,TopicID,Browser,Platform)
 			values(@SessionID,@BoardID,@UserID,@IP,getdate(),getdate(),@Location,@ForumID,@TopicID,@Browser,@Platform)
 			-- update max user stats
-			exec [{databaseOwner}].[{objectQualifer}active_updatemaxstats] @BoardID
+			exec [{databaseOwner}].[{objectQualifier}active_updatemaxstats] @BoardID
 		end
 		-- remove duplicate users
 		if @IsGuest=0
@@ -3154,7 +3154,7 @@ begin
 		a.IP,
 		a.Flags,
 		a.EditReason,
-    a.IsModeratorChanged,
+		a.IsModeratorChanged,
 		a.DeleteReason,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
@@ -3177,8 +3177,9 @@ begin
 		join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
 		join [{databaseOwner}].[{objectQualifier}Rank] c on c.RankID=b.RankID
 	where
-		a.TopicID = @TopicID and
-		((a.Flags & 24)=16 or ((a.Flags & 24)=24  and @showdeleted =1))
+		a.TopicID = @TopicID
+		AND a.IsApproved = 1
+		AND (a.IsDeleted = 0 OR (@showdeleted = 1 AND a.IsDeleted = 1))
 	order by
 		a.Posted asc
 end
@@ -3668,7 +3669,7 @@ BEGIN
 		AND t.TopicMovedID is NULL
 		AND v.UserID=@UserID
 		AND (v.ReadAccess <> 0)
-		AND (t.Flags & 8) = 0
+		AND t.IsDeleted != 1
 	ORDER BY
 		t.LastPosted DESC;
 END
@@ -3695,7 +3696,7 @@ begin
 	and	
 		(c.TopicMovedID is not null or c.NumPosts > 0) 
 	and
-		(c.Flags & 8)=0
+		c.IsDeleted = 0
 	order by
 		Priority desc,
 		c.LastPosted desc
