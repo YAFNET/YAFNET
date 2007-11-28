@@ -28,5 +28,7 @@
     <Resource tag="PROFILESNULL">Profiles cannot be null</Resource>
     <Resource tag="PROFILESEMPTY">Profiles collection cannot be empty</Resource>
     <Resource tag="NOANONYMOUS">Anonymous authentication is not supported</Resource>
+    <Resource tag="PAGEINDEXTOOSMALL">Page index must be a positive integer</Resource>
+    <Resource tag="PAGESIZETOOSMALL">Page size must 1 or more</Resource>
 	</provider>
 </Resources>
