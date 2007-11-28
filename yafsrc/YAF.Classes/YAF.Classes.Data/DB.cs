@@ -96,7 +96,7 @@ namespace YAF.Classes.Data
 		/// <param name="fid"></param>
 		/// <param name="UserID">ID of user</param>
 		/// <returns>Results</returns>
-		static public DataTable GetSearchResult( string toSearchWhat, string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, SearchWhatFlags searchWhatMethod, int forumIDToStartAt, int userID, int boardId )
+		static public DataTable GetSearchResult( string toSearchWhat, string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, SearchWhatFlags searchWhatMethod, int forumIDToStartAt, int userID, int boardId, int maxResults, bool useFullText )
 		{
 			// if ( ToSearch.Length == 0 )
 			//	return new DataTable();
@@ -109,89 +109,133 @@ namespace YAF.Classes.Data
 			{
 				DataTable dt = forum_listall_sorted( boardId, userID, null, false, forumIDToStartAt );
 				foreach ( DataRow dr in dt.Rows )
-					forumIDs = forumIDs + Convert.ToString( Convert.ToInt32( dr ["ForumId"] ) ) + ",";
+					forumIDs = forumIDs + Convert.ToString( Convert.ToInt32( dr ["ForumID"] ) ) + ",";
 				forumIDs = forumIDs.Substring( 0, forumIDs.Length - 1 );
 			}
 
+			// fix quotes for SQL insertion...
 			toSearchWhat = toSearchWhat.Replace( "'", "''" );
+			toSearchFromWho = toSearchFromWho.Replace( "'", "''" );
 
-			string sql = "select a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
-			sql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
-			sql += String.Format( "where x.ReadAccess<>0 and x.UserID={0} and (c.Flags & 24) = 16 ", userID );
+			string searchSql = ( maxResults == 0 ) ? "SELECT" : ( "SELECT TOP " + maxResults.ToString() );
 
-			// if ( sf == SEARCH_FIELD.sfUSER_NAME )
+			searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
+			searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
+			searchSql += String.Format( "where x.ReadAccess<>0 and x.UserID={0} and c.IsApproved = 1 AND c.IsDeleted = 0", userID );
+
+			string [] words;
+			searchSql += " and ( ";
+
+			// generate user search sql...
+			switch ( searchFromWhoMethod )
 			{
-				string [] words;
-				sql += "and ( ";
-				switch ( searchFromWhoMethod )
-				{
-					case SearchWhatFlags.AllWords:
-						words = toSearchFromWho.Split( ' ' );
-						foreach ( string word in words )
-						{
-							sql += string.Format( " b.Name like N'%{0}%' and ", word );
+				case SearchWhatFlags.AllWords:
+					words = toSearchFromWho.Split( ' ' );
+					foreach ( string word in words )
+					{
+						searchSql += string.Format( " b.Name like N'%{0}%' and ", word );
 
-						}
-						// remove last OR in sql query
-						sql = sql.Substring( 0, sql.Length - 5 );
-						break;
-					case SearchWhatFlags.AnyWords:
-						words = toSearchFromWho.Split( ' ' );
-						foreach ( string word in words )
-						{
-							sql += string.Format( " b.Name like N'%{0}%' or ", word );
+					}
+					// remove last OR in sql query
+					searchSql = searchSql.Substring( 0, searchSql.Length - 5 );
+					break;
+				case SearchWhatFlags.AnyWords:
+					words = toSearchFromWho.Split( ' ' );
+					foreach ( string word in words )
+					{
+						searchSql += string.Format( " b.Name like N'%{0}%' or ", word );
 
-						}
-						// remove last OR in sql query
-						sql = sql.Substring( 0, sql.Length - 4 );
-						break;
-					case SearchWhatFlags.ExactMatch:
-						sql += string.Format( "b.Name like N'%{0}%' or ", toSearchFromWho );
+					}
+					// remove last OR in sql query
+					searchSql = searchSql.Substring( 0, searchSql.Length - 4 );
+					break;
+				case SearchWhatFlags.ExactMatch:
+					searchSql += string.Format( "b.Name like N'%{0}%' or ", toSearchFromWho );
 
-						break;
-				}
-				sql += " ) ";
+					break;
 			}
-			// else
+
+			searchSql += " ) and (";
+			bool bFirst = true;
+
+			// generate message and topic search sql...
+			switch ( searchWhatMethod )
 			{
-				string [] words;
-				sql += "and ( ";
-				switch ( searchWhatMethod )
-				{
-					case SearchWhatFlags.AllWords:
-						words = toSearchWhat.Split( ' ' );
+				case SearchWhatFlags.AllWords:
+					words = toSearchWhat.Split( ' ' );
+					if ( useFullText )
+					{
+						string ftInner = "";
+
+						// make the inner FULLTEXT search
 						foreach ( string word in words )
 						{
-							sql += string.Format( "(c.Message like N'%{0}%' or a.Topic like N'%{0}%' ) and ", word );
+							if ( !bFirst ) ftInner += " AND ";
+							else bFirst = false;
+							ftInner += String.Format( @"""{0}""", word );
 						}
-						// remove last OR in sql query
-						sql = sql.Substring( 0, sql.Length - 5 );
-						break;
-					case SearchWhatFlags.AnyWords:
-						words = toSearchWhat.Split( ' ' );
+						// make final string...
+						searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
+					}
+					else
+					{
 						foreach ( string word in words )
 						{
-							sql += string.Format( "c.Message like N'%{0}%' or a.Topic like N'%{0}%' or ", word );
+							if ( !bFirst ) searchSql += " AND ";
+							else bFirst = false;
+							searchSql += String.Format( "(c.Message like '%{0}%' OR a.Topic LIKE '%{0}%')", word );
 						}
-						// remove last OR in sql query
-						sql = sql.Substring( 0, sql.Length - 4 );
-						break;
-					case SearchWhatFlags.ExactMatch:
-						sql += string.Format( "c.Message like N'%{0}%' or a.Topic like N'%{0}%' ", toSearchWhat );
-						break;
-				}
-				sql += " ) ";
+					}
+					break;
+				case SearchWhatFlags.AnyWords:
+					words = toSearchWhat.Split( ' ' );
+
+					if ( useFullText )
+					{
+						string ftInner = "";
+
+						// make the inner FULLTEXT search
+						foreach ( string word in words )
+						{
+							if ( !bFirst ) ftInner += " OR ";
+							else bFirst = false;
+							ftInner += String.Format( @"""{0}""", word );
+						}
+						// make final string...
+						searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
+					}
+					else
+					{
+						foreach ( string word in words )
+						{
+							if ( !bFirst ) searchSql += " OR ";
+							else bFirst = false;
+							searchSql += String.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%'", word );
+						}
+					}
+					break;
+				case SearchWhatFlags.ExactMatch:
+					if ( useFullText )
+					{
+						searchSql += string.Format( "( CONTAINS (c.Message, ' \"{0}\" ') OR CONTAINS (a.Topic, ' \"{0}\" ') )", toSearchWhat );
+					}
+					else
+					{
+						searchSql += string.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%' ", toSearchWhat );
+					}
+					break;
 			}
+			searchSql += " ) ";
 
 			// Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
 			if ( forumIDToStartAt > 0 )
 			{
-				sql += string.Format( "and a.ForumID in {0}", forumIDs );
+				searchSql += string.Format( "and a.ForumID in {0}", forumIDs );
 			}
 
-			sql += " order by c.Posted desc";
+			searchSql += " order by c.Posted desc";
 
-			using ( SqlCommand cmd = DBAccess.GetCommand( sql, true ) )
+			using ( SqlCommand cmd = DBAccess.GetCommand( searchSql, true ) )
 			{
 				return DBAccess.GetData( cmd );
 			}
