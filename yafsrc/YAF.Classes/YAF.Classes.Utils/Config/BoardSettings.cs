@@ -244,12 +244,22 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt("ProfileViewPermission", 2); }
 			set { _reg.SetValueInt("ProfileViewPermission", value); }
 		}
+		public int ReturnSearchMax
+		{
+			get { return _reg.GetValueInt( "ReturnSearchMax", 100 ); }
+			set { _reg.SetValueInt( "ReturnSearchMax", value ); }
+		}
 
 		// boolean settings
 		public bool EmailVerification
 		{
 			get { return _reg.GetValueBool( "EmailVerification", false ); }
 			set { _reg.SetValueBool( "EmailVerification", value ); }
+		}
+		public bool UseFullTextSearch
+		{
+			get { return _reg.GetValueBool( "UseFullTextSearch", false ); }
+			set { _reg.SetValueBool( "UseFullTextSearch", value ); }
 		}
 		public bool ShowMoved
 		{
