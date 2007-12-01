@@ -86,7 +86,7 @@ namespace YAF.Controls
 			{
 				output.WriteBeginTag( "span" );
 				output.WriteAttribute( "class", "pagelinkfirst" );
-				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+				output.Write( HtmlTextWriter.TagRightChar );
 
 				this.RenderAnchorBegin( output, GetLinkUrl( 0, postBack ), null, "Go to First Page" );
 
@@ -114,7 +114,7 @@ namespace YAF.Controls
 				{
 					output.WriteBeginTag( "span" );
 					output.WriteAttribute( "class", "pagecurrent" );
-					output.Write( HtmlTextWriter.SelfClosingTagEnd );
+					output.Write( HtmlTextWriter.TagRightChar );
 					output.Write( i + 1 );
 					output.WriteEndTag( "span" );
 				}
@@ -124,7 +124,7 @@ namespace YAF.Controls
 
 					output.WriteBeginTag( "span" );
 					output.WriteAttribute( "class", "pagelink" );
-					output.Write( HtmlTextWriter.SelfClosingTagEnd );
+					output.Write( HtmlTextWriter.TagRightChar );
 
 					this.RenderAnchorBegin( output, GetLinkUrl( i + 1, postBack ), null, page );
 
@@ -138,7 +138,7 @@ namespace YAF.Controls
 			{
 				output.WriteBeginTag( "span" );
 				output.WriteAttribute( "class", "pagelink" );
-				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+				output.Write( HtmlTextWriter.TagRightChar );
 
 				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex + 2, postBack ), null, "Next Page" );
 
@@ -151,7 +151,7 @@ namespace YAF.Controls
 			{
 				output.WriteBeginTag( "span" );
 				output.WriteAttribute( "class", "pagelinklast" );
-				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+				output.Write( HtmlTextWriter.TagRightChar );
 
 				this.RenderAnchorBegin( output, GetLinkUrl( PageCount, postBack ), null, "Go to Last Page" );
 

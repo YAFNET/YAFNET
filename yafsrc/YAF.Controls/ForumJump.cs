@@ -43,7 +43,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return ( int ) ViewState ["ForumID"];
+				return ( int )ViewState ["ForumID"];
 			}
 			set
 			{
@@ -73,20 +73,22 @@ namespace YAF.Controls
 		public virtual void RaisePostDataChangedEvent()
 		{
 			// Ederon : 9/4/2007
-			if (ForumID > 0)
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID);
+			if ( ForumID > 0 )
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", ForumID );
 			else
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.forum, "c={0}", -ForumID);
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum, "c={0}", -ForumID );
 		}
 		#endregion
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			DataTable dt;
+
 			string cachename = String.Format( "forumjump_{0}_{1}", PageContext.User != null ? PageContext.User.UserName : "Guest", PageContext.User != null );
+
 			if ( Page.Cache [cachename] != null )
 			{
-				dt = ( DataTable ) Page.Cache [cachename];
+				dt = ( DataTable )Page.Cache [cachename];
 			}
 			else
 			{
@@ -94,9 +96,9 @@ namespace YAF.Controls
 				Page.Cache [cachename] = dt;
 			}
 
-            //VS 2005 likes this more
-            ClientScriptManager cs = Page.ClientScript;
-            writer.WriteLine(String.Format("<select name=\"{0}\" onchange=\"{1}\" language=\"javascript\" id=\"{0}\">", this.UniqueID, cs.GetPostBackEventReference(this, this.ID)));
+			//VS 2005 likes this more
+			ClientScriptManager cs = Page.ClientScript;
+			writer.WriteLine( String.Format( @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", this.UniqueID, cs.GetPostBackEventReference( this, this.ID ), this.ClientID ) );
 
 			int forumID = PageContext.PageForumID;
 			if ( forumID <= 0 )
@@ -104,7 +106,7 @@ namespace YAF.Controls
 
 			foreach ( DataRow row in dt.Rows )
 			{
-				writer.WriteLine( string.Format( "<option {2}value='{0}'>{1}</option>", row ["ForumID"], row ["Title"], Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? "selected=\"selected\" " : "" ) );
+				writer.WriteLine( string.Format( @"<option {2}value=""{0}"">{1}</option>", row ["ForumID"], HtmlEncode(row ["Title"]), Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? @"selected=""selected"" " : "" ) );
 			}
 
 			writer.WriteLine( "</select>" );

@@ -57,14 +57,14 @@ namespace YAF.Controls
 
 		public void Attach( System.Web.UI.WebControls.WebControl ctl )
 		{
-			ctl.Attributes ["onclick"] = string.Format( "yaf_popit('{0}')", this.UniqueID );
-			ctl.Attributes ["onmouseover"] = string.Format( "yaf_mouseover('{0}')", this.UniqueID );
+			ctl.Attributes ["onclick"] = string.Format( "yaf_popit('{0}')", this.ClientID );
+			ctl.Attributes ["onmouseover"] = string.Format( "yaf_mouseover('{0}')", this.ClientID );
 		}
 
 		public void Attach( UserLink userLinkControl )
 		{
-			userLinkControl.OnClick = string.Format( "yaf_popit('{0}')", this.UniqueID );
-			userLinkControl.OnMouseOver = string.Format( "yaf_mouseover('{0}')", this.UniqueID );
+			userLinkControl.OnClick = string.Format( "yaf_popit('{0}')", this.ClientID );
+			userLinkControl.OnMouseOver = string.Format( "yaf_mouseover('{0}')", this.ClientID );
 		}
 
 		private void Page_Load( object sender, System.EventArgs e )
@@ -94,7 +94,7 @@ namespace YAF.Controls
 				return;
 
 			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			sb.AppendFormat( @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", UniqueID );
+			sb.AppendFormat( @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", this.ClientID );
 			sb.Append( "<ul>" );
 
 			foreach ( string key in _items.Keys )

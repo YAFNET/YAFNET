@@ -18,6 +18,8 @@
  */
 using System;
 using System.Data;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace YAF.Controls
 {
@@ -26,24 +28,57 @@ namespace YAF.Controls
 	/// </summary>
 	public class IconLegend : BaseControl
 	{
+		public IconLegend()
+		{
+			this.Load += new EventHandler( IconLegend_Load );
+		}
+
+		void IconLegend_Load( object sender, EventArgs e )
+		{
+			string [] themeImageTags = { "TOPIC_NEW", "TOPIC", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED", "TOPIC_ANNOUNCEMENT", "TOPIC_STICKY", "TOPIC_MOVED", "TOPIC_POLL" };
+			string [] localizedTags = { "NEW_POSTS", "NO_NEW_POSTS", "NEW_POSTS_LOCKED", "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT", "STICKY", "MOVED", "POLL" };
+
+			HtmlTableRow tr = null;
+			HtmlTableCell td = null;
+
+			// add a table control
+			HtmlTable table = new HtmlTable();
+			table.Attributes.Add( "class", "iconlegend" );
+			this.Controls.Add( table );
+
+			for ( int i = 0; i < themeImageTags.Length; i++ )
+			{
+				if ( ( i % 2 ) == 0 || tr == null )
+				{
+					// add <tr>
+					tr = new HtmlTableRow();
+					table.Controls.Add( tr );
+				}
+
+				// add this to the tr...
+				td = new HtmlTableCell();
+				tr.Controls.Add( td );
+
+				// add the themed icons
+				ThemeImage themeImage = new ThemeImage();
+				themeImage.ThemeTag = themeImageTags [i];
+				td.Controls.Add( themeImage );
+
+				// space
+				Literal space = new Literal();
+				space.Text = " ";
+				td.Controls.Add( space );
+
+				// localized text describing the image
+				LocalizedLabel localLabel = new LocalizedLabel();
+				localLabel.LocalizedTag = localizedTags [i];
+				td.Controls.Add( localLabel );
+			}
+		}
+
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			System.Text.StringBuilder html = new System.Text.StringBuilder( 2000 );
-			html.Append( @"<table cellspacing=""1"" cellpadding=""1"" class=""iconlegend""><tr>" );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_NEW" ), PageContext.Localization.GetText( "NEW_POSTS" ) );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC" ), PageContext.Localization.GetText( "NO_NEW_POSTS" ) );
-			html.Append( @"</tr><tr>" );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_NEW_LOCKED" ), PageContext.Localization.GetText( "NEW_POSTS_LOCKED" ) );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_LOCKED" ), PageContext.Localization.GetText( "NO_NEW_POSTS_LOCKED" ) );
-			html.Append( @"</tr><tr>" );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_ANNOUNCEMENT" ), PageContext.Localization.GetText( "ANNOUNCEMENT" ) );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_STICKY" ), PageContext.Localization.GetText( "STICKY" ) );
-			html.Append( @"</tr><tr>" );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_MOVED" ), PageContext.Localization.GetText( "MOVED" ) );
-			html.AppendFormat( @"<td><img src=""{0}""/> {1}</td>", PageContext.Theme.GetItem( "ICONS", "TOPIC_POLL" ), PageContext.Localization.GetText( "POLL" ) );
-			html.Append( @"</tr></table>" );
-
-			writer.Write( html.ToString() );
+			base.Render( writer );
 		}
 	}
 }
