@@ -149,7 +149,7 @@ namespace YAF.Providers.Membership
             }
         }
 
-		public static DataRow GetUser( string appName, string userName, bool userIsOnline )
+		public static DataRow GetUser( string appName, object providerUserKey, string userName, bool userIsOnline )
         {
             using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getuser")))
             {
@@ -157,26 +157,7 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@ApplicationName", appName);
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@UserName", userName);
-                cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                using (DataTable dt = DBAccess.GetData(cmd))
-                {
-                    if (dt.Rows.Count > 0)
-                        return dt.Rows[0];
-                    else
-                        return null;
-                }
-            }
-
-        }
-
-		public static DataRow GetUser( string appName, object providerUserKey, bool userIsOnline )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
+								cmd.Parameters.AddWithValue( "@UserKey", providerUserKey );
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
                 using (DataTable dt = DBAccess.GetData(cmd))
                 {
