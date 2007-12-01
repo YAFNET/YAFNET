@@ -888,14 +888,24 @@ namespace YAF.Classes.Utils
 			return Config.UrlBuilder.BuildUrl( string.Format( "g={0}&{1}", page, string.Format( format, args ) ) );
 		}
 
+		static public string GetLinkNotEscaped( ForumPages page )
+		{
+			return GetLink( page ).Replace( "&amp;", "&" );
+		}
+
+		static public string GetLinkNotEscaped( ForumPages page, string format, params object [] args )
+		{
+			return GetLink( page, format, args ).Replace( "&amp;", "&" );
+		}
+
 		static public void Redirect( ForumPages page )
 		{
-			HttpContext.Current.Response.Redirect( GetLink( page ) );
+			HttpContext.Current.Response.Redirect( GetLinkNotEscaped( page ) );
 		}
 
 		static public void Redirect( ForumPages page, string format, params object [] args )
 		{
-			HttpContext.Current.Response.Redirect( GetLink( page, format, args ) );
+			HttpContext.Current.Response.Redirect( GetLinkNotEscaped( page, format, args ) );
 		}
 
 		static public void AccessDenied()
