@@ -2,8 +2,8 @@
 	EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
 <tr class="postheader">
 	<%#GetIndentCell()%>
-	<td width="140px" id="NameCell" runat="server">
-		<a name="<%# DataRow["MessageID"] %>" />
+	<td width="140" id="NameCell" runat="server">
+		<a name="post<%# DataRow["MessageID"] %>" />
 		<b>
 		<YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>' UserName='<%#DataRow["UserName"]%>' />
 		</b>
@@ -12,7 +12,7 @@
 		<table cellspacing="0" cellpadding="0" width="100%">
 			<tr>
 				<td class="postheader">
-					<b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#{0}",DataRow["MessageID"]) %>'>
+					<b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
 						#<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
 						<%# PageContext.Localization.GetText("POSTED") %>
 						:</b>

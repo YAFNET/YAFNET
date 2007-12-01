@@ -67,29 +67,18 @@ namespace YAF.Controls
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
 			Attach.Visible = !PostDeleted && CanAttach && !IsLocked;
-			//Attach.Text = PageContext.Theme.GetItem( "BUTTONS", "ATTACHMENTS" );
-			//Attach.ToolTip = PageContext.Localization.GetText( "BUTTON_ATTACH_TT" );
-			Attach.NavigateUrl = YafBuildLink.GetLink( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
+
+			Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
 			Edit.Visible = !PostDeleted && CanEditPost && !IsLocked;
-			//Edit.Text = PageContext.Theme.GetItem( "BUTTONS", "EDITPOST" );
-			//Edit.ToolTip = PageContext.Localization.GetText( "BUTTON_EDIT_TT" );
-			Edit.NavigateUrl = YafBuildLink.GetLink( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
+			Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
 			MovePost.Visible = PageContext.ForumModeratorAccess && !IsLocked;
-			//MovePost.Text = PageContext.Theme.GetItem( "BUTTONS", "MOVEPOST" );
-			//MovePost.ToolTip = PageContext.Localization.GetText( "BUTTON_MOVE_TT" );
-			MovePost.NavigateUrl = YafBuildLink.GetLink( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
+			MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
 			Delete.Visible = !PostDeleted && CanDeletePost && !IsLocked;
-			//Delete.Text = PageContext.Theme.GetItem( "BUTTONS", "DELETEPOST" );
-			//Delete.ToolTip = PageContext.Localization.GetText( "BUTTON_DELETE_TT" );
-			Delete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
+			Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
 			UnDelete.Visible = CanUnDeletePost && !IsLocked;
-			//UnDelete.Text = PageContext.Theme.GetItem( "BUTTONS", "UNDELETEPOST" );
-			//UnDelete.ToolTip = PageContext.Localization.GetText( "BUTTON_UNDELETE_TT" );
-			UnDelete.NavigateUrl = YafBuildLink.GetLink( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
+			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
-			//Quote.Text = PageContext.Theme.GetItem( "BUTTONS", "QUOTEPOST" );
-			//Quote.ToolTip = PageContext.Localization.GetText( "BUTTON_QUOTE_TT" );
-			Quote.NavigateUrl = YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
+			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
 
 			// report posts
 			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
@@ -102,10 +91,10 @@ namespace YAF.Controls
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.Text = PageContext.Theme.GetItem( "BUTTONS", "PM" );
-			Pm.NavigateUrl = YafBuildLink.GetLink( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
+			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
 			// emailing
 			Email.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
-			Email.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			Email.Text = PageContext.Theme.GetItem( "BUTTONS", "EMAIL" );
 			// home page
 			Home.Visible = !PostDeleted && UserProfile.Homepage != string.Empty;
@@ -118,19 +107,19 @@ namespace YAF.Controls
 			// MSN
 			Msn.Visible = !PostDeleted && PageContext.User != null && UserProfile.MSN != string.Empty;
 			Msn.Text = PageContext.Theme.GetItem( "BUTTONS", "MSN" );
-			Msn.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 			// Yahoo IM
 			Yim.Visible = !PostDeleted && PageContext.User != null && UserProfile.YIM != string.Empty;
-			Yim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
+			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
 			Yim.Text = PageContext.Theme.GetItem( "BUTTONS", "YAHOO" );
 			// AOL IM
 			Aim.Visible = !PostDeleted && PageContext.User != null && UserProfile.AIM != string.Empty;
 			Aim.Text = PageContext.Theme.GetItem( "BUTTONS", "AIM" );
-			Aim.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
+			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
 			// ICQ
 			Icq.Visible = !PostDeleted && PageContext.User != null && UserProfile.ICQ != string.Empty;
 			Icq.Text = PageContext.Theme.GetItem( "BUTTONS", "ICQ" );
-			Icq.NavigateUrl = YafBuildLink.GetLink( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
+			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
 
 			if ( !PostDeleted )
 			{

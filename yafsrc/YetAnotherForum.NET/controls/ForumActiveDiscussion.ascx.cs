@@ -69,7 +69,7 @@ namespace YAF.Controls
 			{
 				DataRowView currentRow = ( DataRowView ) e.Item.DataItem;
 				// make message url...
-				string messageUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", currentRow["LastMessageID"] );
+				string messageUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", currentRow ["LastMessageID"] );
 				// get the controls
 				HyperLink textMessageLink = (HyperLink)e.Item.FindControl( "TextMessageLink" );
 				HyperLink imageMessageLink = (HyperLink)e.Item.FindControl( "ImageMessageLink" );
@@ -90,7 +90,7 @@ namespace YAF.Controls
 				}
 				lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
 				forumLink.Text = currentRow["Forum"].ToString();
-				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );
+				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );
 
 				lastPostedImage.ThemeTag = ( DateTime.Parse( currentRow ["LastPosted"].ToString() ) > YAF.Classes.Utils.Mession.GetTopicRead( Convert.ToInt32( currentRow ["TopicID"] ) ) ) ? "ICON_NEWEST" : "ICON_LATEST";
 			}
