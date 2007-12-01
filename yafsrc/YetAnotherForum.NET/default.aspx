@@ -8,6 +8,7 @@
         YAF.Classes.Utils.General.LogToMail( x );
     }		
 </script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html>
 <head id="YafHead" runat="server">
     <meta name="Description" content="A bulletin board system written in ASP.NET" />
