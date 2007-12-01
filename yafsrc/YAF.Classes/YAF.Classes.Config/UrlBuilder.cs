@@ -31,6 +31,9 @@ namespace YAF.Classes
 	{
 		public string BuildUrl( string url )
 		{
+			// escape & to &amp;
+			url = url.Replace( "&", "&amp;" );
+
 			return string.Format( "{0}?{1}", HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"], url );
 		}
 	}
