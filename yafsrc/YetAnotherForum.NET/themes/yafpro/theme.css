@@ -1,371 +1,278 @@
-body
-{
+#yafmain {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #3B3b3b;
 }
-
-td
-{
+#yafmain td {
 	font-family: sans-serif, Helvetica, Arial;
 	font-size: 11px;
 	color: #3b3b3b;
 }
-
-input, select
-{
+#yafmain input,
+#yafmain select {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 8pt;
 	color: #3b3b3b;	
 	background-color: #FFFFFF;
 	border: 1px solid #E3E3E3;	
 }
-
-/*  */
-img {
+#yafmain img {
 	border: 0;
 }
-
-/* Header 1 - Main header */
-tr.header1 
-{	
+#yafmain tr.header1 {	
 	background-image: url('titleBack.gif');
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;
 	font-size: 11pt;
 }
-
-tr.header1 a { color: #ffffff;	text-decoration: none; }
-tr.header1 a:hover { color: #eeffee; text-decoration: underline; }	
-
-td.header1 
-{
+#yafmain tr.header1 a {
+	color: #ffffff;
+	text-decoration: none;
+}
+#yafmain tr.header1 a:hover {
+	color: #eeffee;
+	text-decoration: underline;
+}	
+#yafmain td.header1 {
 	background-image: url('titleBack.gif');
 	/*background-color: #66a262;*/
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;
-	height: 40px;
-	font-size: 11pt;
+	font-size: 15px;
+	line-height: 30px;
 }	
-
-.header1Title
-{
+#yafmain .header1Title {
 	background-image: url('titleBack.gif');
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;	
-	height: 40px;
+	/*height: 40px;*/
 	font-size: 11pt;
 }
-
-/* Header 2 - Sub header */
-tr.header2 {
+#yafmain tr.header2 {
 	background-color: #e3e3e3;
 	color: #55a055;
 	font-weight: bold;
 }
-
-td.header2 {
+#yafmain td.header2 {
 	background-color: #e3e3e3;
 	color: #5555a0;
 	font-weight: bold;
 }
-a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
-
-td.header2 a { color: #000090; text-decoration: none; }
-td.header2 a:link { color: #7f7f7f; text-decoration: none; }
-td.header2 a:visited { color: #7f7f7f; text-decoration: none; }
-td.header2 a:active { color: #7f7f7f; text-decoration: none; }
-td.header2 a:hover { color: #7f7f7f; text-decoration: underline; }
-
-td.infoTable {
+#yafmain a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
+#yafmain td.header2 a { color: #000090; text-decoration: none; }
+#yafmain td.header2 a:link { color: #7f7f7f; text-decoration: none; }
+#yafmain td.header2 a:visited { color: #7f7f7f; text-decoration: none; }
+#yafmain td.header2 a:active { color: #7f7f7f; text-decoration: none; }
+#yafmain td.header2 a:hover { color: #7f7f7f; text-decoration: underline; }
+#yafmain td.infoTable {
 	background-color: #FAFAFA;
 	padding: 10px;
 	border: 1px solid #F2F2F2;
 }
-
 /* all links */
-.content a			{ color: #001090; text-decoration: none; }
-.content a:hover	{ color: #001090; text-decoration: underline; }
-
+#yafmain .content a			{ color: #001090; text-decoration: none; }
+#yafmain .content a:hover	{ color: #001090; text-decoration: underline; }
 /* Footer1 - Bottom of tables */
-.footer1 {
+#yafmain .footer1 {
 	font-size: 7pt;
 	height: 28px;
 	background-color: #f4f4f4;
 }
-
-.footer1 select, .footer1 td {
+#yafmain .footer1 select,
+#yafmain .footer1 td {
 	font-size: 10px;
 }
-
-.forumheading
-{
+#yafmain .forumheading {
 	font-size: 9pt;
 	font-weight: bold;
 }
-
-a.post_link
+#yafmain a.post_link
 {
 	font-size: 9pt;
 	font-weight: bold;
 	text-decoration: none;
 }
-
 /* Header of posts */
-.postheader
-{
+#yafmain .postheader {
 	background-color: #f0f0f0;
 }
-
-.postheader a 
-{
+#yafmain .postheader a {
 	font-size: 11pt;
 	color: Black;	
 }
-
-
 /* User info and post/article */
-.post
-{
+#yafmain .post {
 	background-color: #F5F5F5;
 }
-
-.post_alt
-{
+#yafmain .post_alt {
 	background-color: #FaFaFa;
 }
-
-tr.post:hover
-{
+#yafmain tr.post:hover {
 	background-color: #FFFFFF;	
 }
-
-tr.post_alt:hover
-{
+#yafmain tr.post_alt:hover {
 	background-color: #FFFFFF;	
 }
-
 /* Footer of posts */
-.postfooter
-{
+#yafmain .postfooter {
 	background-color: #cdcdcd;
 }
-
 /* Area between posts */
-.postsep
-{
+#yafmain .postsep {
 	background-color: #3a3b5a;
 }
-
 /* most tables are class 'content' */
-table.content
-{
+#yafmain table.content {
 	border: solid 1px #777777;
 	padding: 0px;
 	margin: 0px;
 	color: #000000;
 }
-
-.postformheader 
-{
+#yafmain .postformheader {
 	background-color: #EEEEEE;
 	font-weight:bold;
 }
-
-table.content td {
+#yafmain table.content td {
 	padding: 5px;
 }
-
-.content td table td table td {
+#yafmain .content td table td table td {
 	padding: 0px;	
 }
-
 /* used for quoting messages */
-.quote {
+#yafmain .quote {
 	padding-left: 16px;
 	margin: 5px;
 }
-
-.innerquote
-{
+#yafmain .innerquote {
 	padding: 4px;
 	background-color: #fefefe;
 	border: 1px dashed #808080;
 }
-
 /* used for code */
-.code
-{
+#yafmain .code {
 	padding-left: 16px;	
 	margin: 5px;
 }
-
-.innercode
-{
+#yafmain .innercode {
 	padding: 4px;
 	background-color: #efefef;
 	border: solid 1px #808080;
 	color: #000000;
 	line-height: 1.3em;
 	font-family: "courier new", "times new roman", monospace;
-    overflow: auto;
+    overflow: scroll;
     width: 600px;
 	white-space: nowrap;
 }
-
 /* font sizes */
-.smallfont	{ font-size: 10px; }
-.largefont	{ font-size: 11px; }
-
+#yafmain .smallfont	{ font-size: 10px; }
+#yafmain .largefont	{ font-size: 11px; }
 /* Image Links */
-a.imagelink {
+#yafmain a.imagelink {
 	font-weight: bold;
 	color: #000000;
 }
-a:hover.imagelink {
+#yafmain a:hover.imagelink {
 	text-decoration: none;
 	/*background-color: #D0D0D0;*/
 }
-
 /* Used for editor textarea */
-.posteditor {
+#yafmain .posteditor {
 	width: 100%;
 	height: 200px;
 }
-
-/* Table just above and below tables */
-table.command {
-	padding: 3px;
-}
-
 /* p-tag at the top of pages with navigation links */
-.navlinks { font-weight: bold; color: #000000; }
-.navlinks a { color: #000000; text-decoration: none }
-.navlinks a:hover {color: #666666;
-}
-
+#yafmain .navlinks { font-weight: bold; color: #000000; }
+#yafmain .navlinks a { color: #000000; text-decoration: none }
+#yafmain .navlinks a:hover {color: #666666; }
 /* for printing */
-table.print {
+#yafmain table.print {
 	border: solid 1px #C0C0C0;
 }
-.printheader {
+#yafmain .printheader {
 	background-color: #DDDDDD;
 	color: #000000;
 	padding: 4px;
 }
-.printbody {
+#yafmain .printbody {
 	background-color: #FFFFFF;
 	color: #000000;
 	padding: 4px;
 }
-
-.pbutton {
+#yafmain .pbutton {
 	background-color: #3B3B3B;
 	font-size: 10px;
 	color: #FFFFFF;
 	border: none;
 	font-weight: bold;
 }
- 
-.textfield {
+#yafmain .textfield {
 	background-color: #FFFFFF;
 	border: 1px solid #3B3b3b;
 	width: 100%;
 }
-
-.ButtonOut
-{
+#yafmain .ButtonOut {
 	border: #669966 1px solid;
 }
-.ButtonOver
-{
+#yafmain .ButtonOver {
 	border: #000000 1px solid;
 	background-color: #ffffff;
 }
-.ButtonChecked
-{
+#yafmain .ButtonChecked {
 	border: #000000 1px solid;
 }
-.ButtonOff
-{
+#yafmain .ButtonOff {
 	border: #669966 1px solid;
 }
-
-#bbcodeFeatures
-{
+#yafmain #bbcodeFeatures {
 	border: #eeffee 1px solid;
 }
-
 /*
 Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.
 This CSS already works on FireFox.
 */
-div.postdiv
-{
+#yafmain div.postdiv {
 	width: 100%;
 	min-height: 100px;
 	overflow: auto;	
 }
-
-/* CSS Popupmenu */
-.yafpopupmenu
-{
-	background-color: #ffffff;
-	border: solid 1px #333333;
-}
-.yafpopupmenu ul{	
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-.yafpopupmenu li
-{
-	padding: 5px 10px 5px 10px;	
-}
-.yafpopupmenu li.popupitemhover
-{
-	background-color: #cccccc;
-}
 /* CSS Pagelinks */
-.yafpager
-{
+#yafmain .yafpager {
 	color: #555555;
-	margin: 3px 0px 3px 0px;
+	margin: 6px 0px 6px 0px;
 }
-.pagelink,
-.pagelinkfirst,
-.pagelinklast,
-.pagecurrent,
-.pagecount{
+#yafmain .pagelink,
+#yafmain .pagelinkfirst,
+#yafmain .pagelinklast,
+#yafmain .pagecurrent,
+#yafmain .pagecount{
 	background: #F5F5F5;
 	border: 1px solid #444444;
 	padding: 1px 3px 1px 3px;
 	margin-right: 2px;
 }
-.pagecount {
+#yafmain .pagecount {
 	margin-right: 5px;
 }
-.pagelinkfirst,
-.pagelinklast{
+#yafmain .pagelinkfirst,
+#yafmain .pagelinklast{
 	background: #e0e0e0;
 }
-.pagecurrent{
+#yafmain .pagecurrent{
 	background: #dddddd;
 }
-.pagelink a,
-.pagelinkfirst a,
-.pagelinklast a{
+#yafmain .pagelink a,
+#yafmain .pagelinkfirst a,
+#yafmain .pagelinklast a {
 	text-decoration: none;
 	color: #000090;
 }
-
 /* CCS Buttons */
-a.yaflittlebutton
-{
+#yafmain a.yaflittlebutton {
 	background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #ffffff;
     display: block;
@@ -379,39 +286,32 @@ a.yaflittlebutton
     font-family: Arial;
     font-weight: bold;
 }
-a.yaflittlebutton span
-{
+#yafmain a.yaflittlebutton span {
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
     line-height: 10px;
     padding: 4px 3px 4px 5px;
 }
-a.yaflittlebutton img
-{
+#yafmain a.yaflittlebutton img {
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
-a.yaflittlebutton:hover
-{
+#yafmain a.yaflittlebutton:hover {
 	color: #ffffff;
 	text-decoration: none;
 }
-a.yaflittlebutton:active
-{
+#yafmain a.yaflittlebutton:active {
     background-position: bottom right;
     outline: none;
 }
-a.yaflittlebutton:active img
-{
+#yafmain a.yaflittlebutton:active img {
     padding: 0px 4px 2px 0px;
 }
-a.yaflittlebutton:active span
-{
+#yafmain a.yaflittlebutton:active span{
     background-position: bottom left;
     padding: 5px 3px 3px 5px;
 }
-a.yafcssbigbutton
-{
+#yafmain a.yafcssbigbutton{
     background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #ffffff;
     display: block;
@@ -425,29 +325,41 @@ a.yafcssbigbutton
     font-family: Arial;
     font-weight: bold;
 }
-a.yafcssbigbutton span
-{
+#yafmain a.yafcssbigbutton span{
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
     line-height: 10px;
     padding: 4px 10px 4px 12px;
 }
-a.yafcssbigbutton img
-{
+#yafmain a.yafcssbigbutton img{
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
-a.yafcssbigbutton:active
-{
+#yafmain a.yafcssbigbutton:active{
     background-position: bottom right;
     outline: none; /* hide dotted outline in Firefox */
 }
-a.yafcssbigbutton:active img
-{
+#yafmain a.yafcssbigbutton:active img{
     padding: 0px 4px 2px 0px;
 }
-a.yafcssbigbutton:active span
-{
+#yafmain a.yafcssbigbutton:active span{
     background-position: bottom left;
     padding: 5px 10px 3px 12px; /* push text down 1px */
+}
+/* CSS Popupmenu -- rendered outside the yafmain div */
+.yafpopupmenu {
+	background-color: #ffffff;
+	border: solid 1px #333333;
+	
+}
+.yafpopupmenu ul {	
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+.yafpopupmenu li {
+	padding: 5px 10px 5px 10px;	
+}
+.yafpopupmenu li.popupitemhover {
+	background-color: #cccccc;
 }

@@ -1,40 +1,41 @@
 /*
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
-textarea.basicBBCodeEditor 
+#yafmain textarea.basicBBCodeEditor 
 {
 	width: 100%;
 	height: 100%;
 }
-textarea.BBCodeEditor 
+#yafmain textarea.BBCodeEditor 
 {
 	width: 100%;
 	height: 350px;
 }
-#DivForumJump
+#yafmain #DivForumJump
 {
 	float:right;
 	margin-top: 10px;
 }
-#DivPageAccess
+#yafmain #DivPageAccess
 {
 	clear:right;
 	float:right;
 	margin-top: 10px;
 }
-#DivIconLegend
+#yafmain #DivIconLegend
 {
 	float:left;
 	margin-top: 10px;
 }
-#DivSmartScroller
+#yafmain #DivSmartScroller
 {
 	clear:both;
 }
-.postsep td
+#yafmain .postsep td
 {
 	padding:0px;
 }
+/* outside #yafmain div */
 .yafpopupmenu
 {
 	padding:0px;

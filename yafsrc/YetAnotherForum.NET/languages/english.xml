@@ -129,6 +129,7 @@
     <Resource tag="WELCOME_GUEST">Welcome Guest</Resource>
     <Resource tag="LOGOUT_QUESTION">Are you sure you want to logout?</Resource>
     <Resource tag="HELP">Help</Resource>
+    <Resource tag="NEWPM">({0} Unread)</Resource>
   </page>
   <page name="ICONLEGEND">
     <!-- Common icon texts -->

@@ -43,22 +43,6 @@ namespace YAF.Pages // YAF.Pages
 		{
 		}
 
-		private object QLetter
-		{
-			get
-			{
-				string rletter = string.Empty;
-				if ( Request.QueryString ["letter"] != null )
-				{
-					rletter = Request.QueryString ["letter"];
-					if ( rletter == "_" )
-						rletter = "#";
-					return rletter;
-				}
-				return null;
-			}
-		}
-
 		/// <summary>
 		/// Called when the page loads
 		/// </summary>
@@ -116,31 +100,31 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void UserName_Click( object sender, System.EventArgs e )
+		protected void UserName_Click( object sender, System.EventArgs e )
 		{
 			SetSort( "Name", true );
 			BindData();
 		}
 
-		private void Joined_Click( object sender, System.EventArgs e )
+		protected void Joined_Click( object sender, System.EventArgs e )
 		{
 			SetSort( "Joined", true );
 			BindData();
 		}
 
-		private void Posts_Click( object sender, System.EventArgs e )
+		protected void Posts_Click( object sender, System.EventArgs e )
 		{
 			SetSort( "NumPosts", false );
 			BindData();
 		}
 
-		private void Rank_Click( object sender, System.EventArgs e )
+		protected void Rank_Click( object sender, System.EventArgs e )
 		{
 			SetSort( "RankName", true );
 			BindData();
 		}
 
-		private void Pager_PageChange( object sender, EventArgs e )
+		protected void Pager_PageChange( object sender, EventArgs e )
 		{
 			BindData();
 		}
@@ -168,10 +152,12 @@ namespace YAF.Pages // YAF.Pages
 			// get the view from the datatable
 			DataView userListDataView = userListDataTable.DefaultView;
 
+			char selectedLetter = AlphaSort1.CurrentLetter;
+
 			// handle dataview filtering
-			if ( QLetter != null )
+			if ( selectedLetter != char.MinValue )
 			{
-				if ( QLetter.ToString() == "#" )
+				if ( selectedLetter == '#' )
 				{
 					string filter = string.Empty;
 					foreach ( char letter in GetText( "LANGUAGE", "CHARSET" ) )
@@ -184,7 +170,9 @@ namespace YAF.Pages // YAF.Pages
 					userListDataView.RowFilter = filter;
 				}
 				else
-					userListDataView.RowFilter = string.Format( "Name like '{0}%'", QLetter );
+				{
+					userListDataView.RowFilter = string.Format( "Name like '{0}%'", selectedLetter );
+				}
 			}
 
 			Pager.Count = userListDataView.Count;
@@ -211,47 +199,5 @@ namespace YAF.Pages // YAF.Pages
 			SortPosts.Visible = ( string ) ViewState ["SortField"] == "NumPosts";
 			SortPosts.Src = SortUserName.Src;
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			this.UserName.Click += new EventHandler( this.UserName_Click );
-			this.Joined.Click += new EventHandler( this.Joined_Click );
-			this.Posts.Click += new EventHandler( this.Posts_Click );
-			this.Rank.Click += new EventHandler( this.Rank_Click );
-			this.Pager.PageChange += new EventHandler( Pager_PageChange );
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-
-			foreach ( char letter in GetText( "LANGUAGE", "CHARSET" ) )
-			{
-				HtmlTableCell cell = new HtmlTableCell();
-				cell.Align = "center";
-				if ( QLetter != null && QLetter.ToString() == letter.ToString() )
-					cell.Attributes ["class"] = "postheader";
-				else
-					cell.Attributes ["class"] = "post";
-
-				HyperLink btn = new HyperLink();
-				btn.Text = letter.ToString();
-				btn.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.members, "letter={0}", letter == '#' ? '_' : letter );
-				cell.Controls.Add( btn );
-
-				LetterRow.Cells.Add( cell );
-			}
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
 	}
 }

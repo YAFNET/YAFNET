@@ -1,15 +1,11 @@
 <%@ Control Language="c#" CodeFile="members.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.members" %>
 
 
-
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-  <tr runat="server" id="LetterRow" />
-  <tr runat="server" id="LetterRowRus" />
-</table>
 
-<YAF:Pager runat="server" ID="Pager" />
+<YAF:AlphaSort ID="AlphaSort1" runat="server" />
+
+<YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange" />
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
   <tr>
@@ -20,16 +16,16 @@
   <tr>
     <td class="header2">
       <img runat="server" id="SortUserName" alt="" style="vertical-align:middle" />
-      <asp:LinkButton runat="server" ID="UserName" /></td>
+      <asp:LinkButton runat="server" ID="UserName" OnClick="UserName_Click" /></td>
     <td class="header2">
       <img runat="server" id="SortRank" alt="" style="vertical-align:middle" />
-      <asp:LinkButton runat="server" ID="Rank" /></td>
+      <asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" /></td>
     <td class="header2">
       <img runat="server" id="SortJoined" alt="" style="vertical-align:middle" />
-      <asp:LinkButton runat="server" ID="Joined" /></td>
+      <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" /></td>
     <td class="header2" align="center">
       <img runat="server" id="SortPosts" alt="" style="vertical-align:middle" />
-      <asp:LinkButton runat="server" ID="Posts" /></td>
+      <asp:LinkButton runat="server" ID="Posts" OnClick="Posts_Click" /></td>
     <td class="header2">
       <asp:Label runat="server" id="Location" /></td>
   </tr>
@@ -37,7 +33,7 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-					<YAF:UserLink id="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' UserName='<%# Eval("Name") %>' />
+		    <YAF:UserLink id="UserProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' UserName='<%# Eval("Name") %>' />
         </td>
         <td class="post">
           <%# Eval("RankName") %>
@@ -56,7 +52,7 @@
   </asp:Repeater>
 </table>
 
-<YAF:Pager runat="server" LinkedPager="Pager" />
+<YAF:Pager runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
 
 <div id="DivSmartScroller">
     <YAF:SmartScroller id="SmartScroller1" runat="server" />

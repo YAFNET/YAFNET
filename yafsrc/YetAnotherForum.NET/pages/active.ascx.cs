@@ -1,5 +1,5 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2007 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -36,8 +35,7 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class active : YAF.Classes.Base.ForumPage
 	{
-		protected System.Web.UI.WebControls.DropDownList ForumJump;
-		protected string LastForumName = "";
+		protected string _lastForumName = string.Empty;
 
 		public active()
 			: base( "ACTIVE" )
@@ -46,21 +44,18 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// 20050909 CHP : BEGIN
-			if (PageContext.IsPrivate && User==null)
+			if ( PageContext.IsPrivate && User == null )
 			{
-				if(CanLogin)
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login,"ReturnUrl={0}",Request.RawUrl);
+				if ( CanLogin )
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 				else
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
-			// 20050909 CHP : END
 
- 			// RssFeed.NavigateUrl = String.Format("{0}default.aspx?g=rsstopic&pg=active", YafForumInfo.ForumRoot);
-			if (PageContext.BoardSettings.ShowRSSLink)
+			if ( PageContext.BoardSettings.ShowRSSLink )
 			{
-				RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active");
-				RssFeed.Text = GetText("RSSFEED");
+				RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.rsstopic, "pg=active" );
+				RssFeed.Text = GetText( "RSSFEED" );
 				RssFeed.Visible = true;
 			}
 			else
@@ -68,62 +63,45 @@ namespace YAF.Pages // YAF.Pages
 				RssFeed.Visible = false;
 			}
 
-			if(!IsPostBack)
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"),"");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				Since.Items.Add(new ListItem(String.Format(GetText("last_visit"),YafDateTime.FormatDateTime(Mession.LastVisit)),"0"));
-				Since.Items.Add(new ListItem(GetText("last_hour"),"-1"));
-				Since.Items.Add(new ListItem(GetText("last_two_hours"),"-2"));
-				Since.Items.Add(new ListItem(GetText("last_day"),"1"));
-				Since.Items.Add(new ListItem(GetText("last_two_days"),"2"));
-				Since.Items.Add(new ListItem(GetText("last_week"),"7"));
-				Since.Items.Add(new ListItem(GetText("last_two_weeks"),"14"));
-				Since.Items.Add(new ListItem(GetText("last_month"),"31"));
+				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
+
+				Since.Items.Add( new ListItem( String.Format( GetText( "last_visit" ), YafDateTime.FormatDateTime( Mession.LastVisit ) ), "0" ) );
+				Since.Items.Add( new ListItem( GetText( "last_hour" ), "-1" ) );
+				Since.Items.Add( new ListItem( GetText( "last_two_hours" ), "-2" ) );
+				Since.Items.Add( new ListItem( GetText( "last_day" ), "1" ) );
+				Since.Items.Add( new ListItem( GetText( "last_two_days" ), "2" ) );
+				Since.Items.Add( new ListItem( GetText( "last_week" ), "7" ) );
+				Since.Items.Add( new ListItem( GetText( "last_two_weeks" ), "14" ) );
+				Since.Items.Add( new ListItem( GetText( "last_month" ), "31" ) );
 			}
 			BindData();
 		}
 
-		private void Pager_PageChange(object sender,EventArgs e)
+		protected void Pager_PageChange( object sender, EventArgs e )
 		{
 			BindData();
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		private void BindData()
 		{
-			Pager.PageChange += new EventHandler(Pager_PageChange);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-
-		private void BindData() {
 			DateTime SinceDate = DateTime.Now;
 			int SinceValue = 0;
 
-			if(Since.SelectedItem != null) {
-				SinceValue = int.Parse(Since.SelectedItem.Value);
+			if ( Since.SelectedItem != null )
+			{
+				SinceValue = int.Parse( Since.SelectedItem.Value );
 				SinceDate = DateTime.Now;
-				if(SinceValue>0)
-					SinceDate = DateTime.Now - TimeSpan.FromDays(SinceValue);
-				else if(SinceValue<0)
-					SinceDate = DateTime.Now + TimeSpan.FromHours(SinceValue);
+				if ( SinceValue > 0 )
+					SinceDate = DateTime.Now - TimeSpan.FromDays( SinceValue );
+				else if ( SinceValue < 0 )
+					SinceDate = DateTime.Now + TimeSpan.FromHours( SinceValue );
 			}
-			if(SinceValue==0)
+			if ( SinceValue == 0 )
 				SinceDate = Mession.LastVisit;
 
 
@@ -146,17 +124,20 @@ namespace YAF.Pages // YAF.Pages
 			DataBind();
 		}
 
-		protected string PrintForumName(DataRowView row) {
-			string ForumName = (string)row["ForumName"];
+		protected string PrintForumName( DataRowView row )
+		{
+			string forumName = ( string )row ["ForumName"];
 			string html = "";
-			if(ForumName!=LastForumName) {
-				html = String.Format("<tr><td class=header2 colspan=6><a href=\"{1}\">{0}</a></td></tr>",ForumName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics,"f={0}",row["ForumID"]));
-				LastForumName = ForumName;
+			if ( forumName != _lastForumName )
+			{
+				html = String.Format( @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"">{0}</a></td></tr>", forumName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.topics, "f={0}", row ["ForumID"] ) );
+				_lastForumName = forumName;
 			}
 			return html;
 		}
 
-		protected void Since_SelectedIndexChanged(object sender, System.EventArgs e) {
+		protected void Since_SelectedIndexChanged( object sender, System.EventArgs e )
+		{
 			BindData();
 		}
 	}

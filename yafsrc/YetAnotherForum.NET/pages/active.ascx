@@ -1,12 +1,14 @@
 <%@ Control Language="c#" CodeFile="active.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.active" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="command" cellspacing="0" cellpadding="0" width="100%">
+
+<table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">
 	<tr>
 		<td>
-			<YAF:Pager runat="server" ID="Pager" />
+			<YAF:Pager runat="server" ID="Pager" OnPageChange="Pager_PageChange"  />
 		</td>
 		<td align="right">
-			<%= GetText("since") %>
+		    <YAF:LocalizedLabel ID="SinceLabel" runat="server" LocalizedTag="SINCE" />
 			<asp:DropDownList ID="Since" runat="server" AutoPostBack="True" OnSelectedIndexChanged="Since_SelectedIndexChanged" /></td>
 	</tr>
 </table>
@@ -15,19 +17,19 @@
 		<td class="header1" width="1%">
 			&nbsp;</td>
 		<td class="header1" align="left">
-			<%= GetText("topics") %>
+		    <YAF:LocalizedLabel ID="TopicsLabel" runat="server" LocalizedTag="TOPICS" />
 		</td>
 		<td class="header1" align="left" width="20%">
-			<%= GetText("topic_starter") %>
+		    <YAF:LocalizedLabel ID="StarterLabel" runat="server" LocalizedTag="TOPIC_STARTER" />
 		</td>
 		<td class="header1" align="center" width="7%">
-			<%= GetText("replies") %>
+		    <YAF:LocalizedLabel ID="RepliesLabel" runat="server" LocalizedTag="REPLIES" />
 		</td>
 		<td class="header1" align="center" width="7%">
-			<%= GetText("views") %>
+		    <YAF:LocalizedLabel ID="ViewsLabel" runat="server" LocalizedTag="VIEWS" />
 		</td>
 		<td class="header1" align="center" width="20%">
-			<%= GetText("lastpost") %>
+		    <YAF:LocalizedLabel ID="LastPostLabel" runat="server" LocalizedTag="LASTPOST" />
 		</td>
 	</tr>
 	<asp:Repeater ID="TopicList" runat="server">
@@ -39,30 +41,28 @@
 	<tr>
 		<td class="footer1" align="right" width="100%" colspan="6">
 			<asp:HyperLink ID="RssFeed" runat="server" />
-			<%= GetText("last_24") %>
+			<YAF:LocalizedLabel ID="Last24Label" runat="server" LocalizedTag="LAST_24" />
 		</td>
 	</tr>	
 </table>
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td>
-			<YAF:Pager runat="server" LinkedPager="Pager" />
+			<YAF:Pager runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
 		</td>
 	</tr>
 </table>
-<table width="100%" cellspacing="0" cellpadding="0">
-	<tr>
-		<td align="right" colspan="2">
-			<%= GetText("Forum_Jump") %>
-			<YAF:ForumJump runat="server" />
-		</td>
-	</tr>
-	<tr>
-		<td valign="top">
-			<YAF:IconLegend runat="server" />
-		</td>
-	</tr>
-</table>
+
+<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+<div id="DivForumJump">
+    <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />&nbsp;<YAF:ForumJump id="ForumJump1" runat="server"/>
+</div>
+</asp:PlaceHolder>
+
+<div id="DivIconLegend">
+    <YAF:IconLegend ID="IconLegend1" runat="server" />
+</div>
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller id="SmartScroller1" runat="server" />
 </div>

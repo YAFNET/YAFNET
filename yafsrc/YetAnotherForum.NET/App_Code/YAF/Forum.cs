@@ -36,6 +36,7 @@ namespace YAF
 		private YAF.Controls.Footer _footer;
 		private string _origHeaderClientID;
 		private string _origFooterClientID;
+		private YAF.Classes.Utils.ForumPages _page;
 		public event EventHandler<YAF.Classes.Base.ForumPageArgs> PageTitleSet;
 
 		public Forum()
@@ -51,24 +52,23 @@ namespace YAF
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			YAF.Classes.Utils.ForumPages Page;
 			string m_baseDir = YafForumInfo.ForumRoot;
 
 			try
 			{
-				Page = ( YAF.Classes.Utils.ForumPages ) System.Enum.Parse( typeof( YAF.Classes.Utils.ForumPages ), Request.QueryString ["g"], true );
+				_page = ( YAF.Classes.Utils.ForumPages )System.Enum.Parse( typeof( YAF.Classes.Utils.ForumPages ), Request.QueryString ["g"], true );
 			}
 			catch ( Exception )
 			{
-				Page = YAF.Classes.Utils.ForumPages.forum;
+				_page = YAF.Classes.Utils.ForumPages.forum;
 			}
 
-			if ( !ValidPage( Page ) )
+			if ( !ValidPage( _page ) )
 			{
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", LockedForum );
 			}
 
-			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, Page );
+			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, _page );
 			if ( src.IndexOf( "/moderate_" ) >= 0 )
 				src = src.Replace( "/moderate_", "/moderate/" );
 			if ( src.IndexOf( "/admin_" ) >= 0 )
@@ -83,7 +83,7 @@ namespace YAF
 
 				forumControl.ForumFooter = _footer;
 				forumControl.ForumHeader = _header;
-				
+			
 				// add the header control before the page rendering...
 				if ( YafContext.Current.Settings.LockedForum == 0 && _origHeaderClientID == _header.ClientID )
 					this.Controls.AddAt( 0, _header );
@@ -98,6 +98,19 @@ namespace YAF
 			{
 				throw new ApplicationException( "Failed to load " + src + "." );
 			}
+		}
+
+		protected override void Render( HtmlTextWriter writer )
+		{
+			// wrap the forum in one main div and then a page div for better CSS selection
+			writer.WriteLine( "" );
+			writer.Write(@"<div id=""yafmain"">" );
+			writer.Write( String.Format( @"<div id=""yafpage_{0}"">", _page.ToString() ) );
+
+			// render the forum
+			base.Render( writer );
+
+			writer.WriteLine( "</div></div>" );
 		}
 		
 		/// <summary>
