@@ -38,40 +38,47 @@ namespace YAF.Controls
 		{
 		}
 
-		protected string GetForumIcon( object o )
+		protected void ForumList1_ItemCreated( object sender, RepeaterItemEventArgs e )
 		{
-			DataRow row = ( DataRow ) o;
-			bool locked = General.BinaryAnd( row ["Flags"], ForumFlags.Locked );
-			DateTime lastRead = Mession.GetForumRead( ( int ) row ["ForumID"] );
-			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : lastRead;
-
-			string img, imgTitle;
-
-			try
+			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
 			{
-				if ( locked )
+				DataRow row = ( DataRow )e.Item.DataItem;
+				bool locked = General.BinaryAnd( row ["Flags"], ForumFlags.Locked );
+				DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
+				DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
+
+				ThemeImage forumIcon = e.Item.FindControl( "ThemeForumIcon" ) as ThemeImage;
+
+				forumIcon.ThemeTag = "FORUM";
+				forumIcon.LocalizedTitlePage = "ICONLEGEND";
+				forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+
+				try
 				{
-					img = PageContext.Theme.GetItem( "ICONS", "FORUM_LOCKED" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "Forum_Locked" );
+					if ( locked )
+					{
+						forumIcon.ThemeTag = "FORUM_LOCKED";
+						forumIcon.LocalizedTitlePage = "ICONLEGEND";
+						forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
+					}
+					else if ( lastPosted > lastRead )
+					{
+						forumIcon.ThemeTag = "FORUM_NEW";
+						forumIcon.LocalizedTitlePage = "ICONLEGEND";
+						forumIcon.LocalizedTitleTag = "NEW_POSTS";
+					}
+					else
+					{
+						forumIcon.ThemeTag = "FORUM";
+						forumIcon.LocalizedTitlePage = "ICONLEGEND";
+						forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+					}
 				}
-				else if ( lastPosted > lastRead )
+				catch
 				{
-					img = PageContext.Theme.GetItem( "ICONS", "FORUM_NEW" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "New_Posts" );
-				}
-				else
-				{
-					img = PageContext.Theme.GetItem( "ICONS", "FORUM" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
+
 				}
 			}
-			catch ( Exception )
-			{
-				img = PageContext.Theme.GetItem( "ICONS", "FORUM" );
-				imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
-			}
-
-			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
 		}
 
 		// Suppress rendering of footer if there is one or more 
@@ -175,7 +182,7 @@ namespace YAF.Controls
 		{
 			set
 			{
-				forumList.DataSource = value;
+				ForumList1.DataSource = value;
 			}
 		}
 
@@ -198,5 +205,5 @@ namespace YAF.Controls
 			}
 			return null;
 		}
-	}
+}
 }

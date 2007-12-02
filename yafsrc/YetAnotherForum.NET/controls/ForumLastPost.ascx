@@ -9,7 +9,7 @@
 		<br />
 	</asp:PlaceHolder>
 	<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" />
-	<YAF:UserLink ID="ProfileUserLink" runat="server" />&nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server"><asp:Image runat="server" ID="Icon" /></asp:HyperLink>
+	<YAF:UserLink ID="ProfileUserLink" runat="server" />&nbsp;<asp:HyperLink ID="LastTopicImgLink" runat="server"><YAF:ThemeImage ID="Icon" runat="server" /></asp:HyperLink>
 </asp:PlaceHolder>
 
 <YAF:LocalizedLabel ID="NoPostsLabel" runat="server" LocalizedTag="NO_POSTS" />

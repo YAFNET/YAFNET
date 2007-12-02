@@ -2,11 +2,11 @@
 <%@ Register TagPrefix="YAF" TagName="ForumLastPost" Src="ForumLastPost.ascx" %>	
 <%@ Register TagPrefix="YAF" TagName="ForumModeratorList" Src="ForumModeratorList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumSubForumList" Src="ForumSubForumList.ascx" %>
-<asp:Repeater ID="forumList" runat="server">
+<asp:Repeater ID="ForumList1" runat="server" OnItemCreated="ForumList1_ItemCreated">
 	<ItemTemplate>
 		<tr class="post">
 			<td>
-				<%# GetForumIcon(Container.DataItem) %>
+			    <YAF:ThemeImage ID="ThemeForumIcon" runat="server" />
 			</td>
 			<td>
 				<span class="forumheading">
@@ -30,7 +30,7 @@
 			<td align="center">
 				<%# Posts(Container.DataItem) %>
 			</td>
-			<td align="center" class="smallfont" nowrap="nowrap">
+			<td align="center" class="smallfont" style="white-space:nowrap">
 				<YAF:ForumLastPost DataRow="<%# Container.DataItem %>" Visible='<%# (((System.Data.DataRow)Container.DataItem)["RemoteURL"] == DBNull.Value) %>' ID="lastPost" runat="server" />
 			</td>
 		</tr>
@@ -38,7 +38,7 @@
 	<AlternatingItemTemplate>
 		<tr class="post_alt">
 			<td>
-				<%# GetForumIcon(Container.DataItem) %>
+			    <YAF:ThemeImage ID="ThemeForumIcon" runat="server" />
 			</td>
 			<td>
 				<span class="forumheading">

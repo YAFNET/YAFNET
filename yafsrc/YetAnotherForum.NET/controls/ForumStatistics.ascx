@@ -3,7 +3,7 @@
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="2">
-			<asp:ImageButton runat="server" ID="expandInformation" BorderWidth="0" ImageAlign="Baseline"
+			<asp:ImageButton runat="server" ID="expandInformation" BorderWidth="0" ImageAlign="Middle"
 				OnClick="expandInformation_Click" />&nbsp;&nbsp;<YAF:LocalizedLabel ID="InformationHeader"
 					runat="server" LocalizedTag="INFORMATION" />
 		</td>

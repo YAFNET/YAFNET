@@ -28,34 +28,34 @@ namespace YAF.Controls
 			}
 		}
 
-		protected string GetSubForumIcon( object o )
+		protected void SubforumList_ItemCreated( object sender, RepeaterItemEventArgs e )
 		{
-			DataRow row = ( DataRow )o;
-			DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
-			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
-
-			string img, imgTitle;
-
-			try
+			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
 			{
-				if ( lastPosted > lastRead )
+				DataRow row = ( DataRow )e.Item.DataItem;
+				DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
+				DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
+
+				ThemeImage subForumIcon = e.Item.FindControl( "ThemeSubforumIcon" ) as ThemeImage;
+
+				subForumIcon.ThemeTag = "SUBFORUM";
+				subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+				subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+
+				try
 				{
-					img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM_NEW" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "New_Posts" );
+					if ( lastPosted > lastRead )
+					{
+						subForumIcon.ThemeTag = "SUBFORUM_NEW";
+						subForumIcon.LocalizedTitlePage = "ICONLEGEND";
+						subForumIcon.LocalizedTitleTag = "NEW_POSTS";
+					}
 				}
-				else
+				catch
 				{
-					img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM" );
-					imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
+
 				}
 			}
-			catch ( Exception )
-			{
-				img = PageContext.Theme.GetItem( "ICONS", "SUBFORUM" );
-				imgTitle = PageContext.Localization.GetText( "ICONLEGEND", "No_New_Posts" );
-			}
-
-			return String.Format( "<img src=\"{0}\" title=\"{1}\"/>", img, imgTitle );
 		}
 
 		/// <summary>

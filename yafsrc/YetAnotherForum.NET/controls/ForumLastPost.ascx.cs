@@ -58,8 +58,8 @@ namespace YAF.Controls
 					ProfileUserLink.UserName = DataRow ["LastUser"].ToString();
 
 					LastTopicImgLink.ToolTip = PageContext.Localization.GetText( "GO_LAST_POST" );
-					LastTopicImgLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", DataRow ["LastMessageID"] );
-					Icon.ImageUrl = PageContext.Theme.GetItem( "ICONS", ( DateTime.Parse( Convert.ToString( DataRow ["LastPosted"] ) ) > Mession.GetTopicRead( ( int ) DataRow ["LastTopicID"] ) ) ? "ICON_NEWEST" : "ICON_LATEST" );
+					LastTopicImgLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", DataRow ["LastMessageID"] );
+					Icon.ThemeTag = ( DateTime.Parse( Convert.ToString( DataRow ["LastPosted"] ) ) > Mession.GetTopicRead( ( int ) DataRow ["LastTopicID"] ) ) ? "ICON_NEWEST" : "ICON_LATEST";
 
 					LastPostedHolder.Visible = true;
 					NoPostsLabel.Visible = false;
