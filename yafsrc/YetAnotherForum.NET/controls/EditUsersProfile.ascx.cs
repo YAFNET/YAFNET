@@ -119,7 +119,8 @@ namespace YAF.Controls
       {
         string languageFile = PageContext.BoardSettings.Language;
 				if ( userData.LanguageFile != string.Empty ) languageFile = userData.LanguageFile;
-        Language.Items.FindByValue( languageFile ).Selected = true;
+        ListItem foundItem = Language.Items.FindByValue( languageFile );
+				if ( foundItem != null ) foundItem.Selected = true;
       }
     }
 
