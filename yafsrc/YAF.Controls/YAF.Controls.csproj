@@ -54,7 +54,6 @@
     <Compile Include="PageLinks.cs" />
     <Compile Include="Pager.cs" />
     <Compile Include="PopMenu.cs" />
-    <Compile Include="PopupConfirm.cs" />
     <Compile Include="ProfileMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\ActiveDiscussions.cs" />

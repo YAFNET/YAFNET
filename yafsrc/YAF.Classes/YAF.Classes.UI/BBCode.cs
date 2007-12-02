@@ -212,14 +212,14 @@ namespace YAF.Classes.UI
 				NestedReplace( ref bbcode, _rgxLeft, "<div align=\"left\">${inner}</div>" );
 				NestedReplace( ref bbcode, _rgxRight, "<div align=\"right\">${inner}</div>" );
 				// image
-				NestedReplace( ref bbcode, _rgxImg, "<img src=\"${http}${inner}\"/>", new string [] { "http" }, new string [] { "http://" } );
+				NestedReplace( ref bbcode, _rgxImg, "<img src=\"${http}${inner}\" alt=\"\"/>", new string [] { "http" }, new string [] { "http://" } );
 				// youtube
 				NestedReplace( ref bbcode, _rgxYoutube, @"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->", new string [] { "id" } );
 
 				// handle custom BBCode
 				ApplyCustomBBCodeNestedReplace( ref bbcode );
 
-				bbcode = _rgxHr.Replace( bbcode, "<hr noshade/>" );
+				bbcode = _rgxHr.Replace( bbcode, "<hr/>" );
 				bbcode = _rgxBr.Replace( bbcode, "<br/>" );
 			}
 
