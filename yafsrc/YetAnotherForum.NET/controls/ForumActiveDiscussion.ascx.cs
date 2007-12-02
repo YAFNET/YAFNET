@@ -52,6 +52,8 @@ namespace YAF.Controls
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions );
 			DataTable activeTopics = YafCache.Current [cacheKey] as DataTable;
 
+			expandActiveDiscussions.Attributes.Add( "style", "vertical-align:middle" );
+
 			if ( activeTopics == null )
 			{
 				activeTopics = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 5, PageContext.PageUserID );

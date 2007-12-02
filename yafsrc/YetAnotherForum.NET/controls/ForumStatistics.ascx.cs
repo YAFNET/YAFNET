@@ -35,7 +35,12 @@ namespace YAF.Controls
 	{
 		public ForumStatistics()
 		{
+			this.Load += new EventHandler( ForumStatistics_Load );
+		}
 
+		void ForumStatistics_Load( object sender, EventArgs e )
+		{
+			expandInformation.Attributes.Add( "style", "vertical-align:middle" );
 		}
 
 		public override void DataBind()
