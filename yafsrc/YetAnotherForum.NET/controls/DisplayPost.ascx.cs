@@ -123,13 +123,13 @@ namespace YAF.Controls
 
 			if ( !PostDeleted )
 			{
-				AdminInformation.InnerHtml = "<span class='smallfont'>";
+				AdminInformation.InnerHtml = @"<span class=""smallfont"">";
 				if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ).AddSeconds( PageContext.BoardSettings.EditTimeOut ) )
 				{
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = ( Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) ? "by moderator" : "by user";
-					AdminInformation.InnerHtml += String.Format( "|<b> <font color=red>{0} {1}:</font></b> {2}", "Edited", whoChanged, YafDateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
+					AdminInformation.InnerHtml += String.Format( @"| <span class=""editedinfo"" style=""color:red;font-weight:bold"">{0} {1}:</span> {2}", "Edited", whoChanged, YafDateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified
@@ -144,7 +144,7 @@ namespace YAF.Controls
 			}
 			else
 			{
-				AdminInformation.InnerHtml = "<span class='smallfont'>";
+				AdminInformation.InnerHtml = @"<span class=""smallfont"">";
 				if ( Server.HtmlDecode( Convert.ToString( DataRow ["DeleteReason"] ) ) != String.Empty )
 				{
 					// reason was specified
@@ -403,7 +403,7 @@ namespace YAF.Controls
 
 			int iIndent = ( int ) DataRow ["Indent"];
 			if ( iIndent > 0 )
-				return string.Format( "<td rowspan='3' width='1%'><img src='{1}images/spacer.gif' width='{0}' height='2'/></td>", iIndent * 32, YafForumInfo.ForumRoot );
+				return string.Format( @"<td rowspan=""3"" width=""1%""><img src=""{1}images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>", iIndent * 32, YafForumInfo.ForumRoot );
 			else
 				return "";
 		}
@@ -474,7 +474,7 @@ namespace YAF.Controls
 				filler = String.Format(
 							PageContext.BoardSettings.UserBoxAvatar,
 							String.Format(
-								"<img class=\"avatarimage\" src=\"{1}resource.ashx?u={0}\" />",
+								@"<img class=""avatarimage"" src=""{1}resource.ashx?u={0}"" alt="""" />",
 								DataRow["UserID"],
 								YafForumInfo.ForumRoot
 								)
@@ -486,7 +486,7 @@ namespace YAF.Controls
 				filler = String.Format(
 							PageContext.BoardSettings.UserBoxAvatar,
 							String.Format(
-								"<img class=\"avatarimage\" src='{3}resource.ashx?url={0}&width={1}&height={2}'><br clear=\"all\" />",
+								@"<img class=""avatarimage"" src=""{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}"" alt="""" /><br clear=""all"" />",
 								Server.UrlEncode(DataRow["Avatar"].ToString()),
 								PageContext.BoardSettings.AvatarWidth,
 								PageContext.BoardSettings.AvatarHeight,
@@ -529,7 +529,7 @@ namespace YAF.Controls
 				filler=	String.Format(
 							PageContext.BoardSettings.UserBoxRankImage,
 							String.Format(
-								"<img class=\"rankimage\" align=left src=\"{0}images/ranks/{1}\" />",
+								@"<img class=""rankimage"" src=""{0}images/ranks/{1}"" alt="""" />",
 								YafForumInfo.ForumRoot,
 								DataRow ["RankImage"]
 								)
@@ -738,7 +738,7 @@ namespace YAF.Controls
 					MessageFlags tFlags = new MessageFlags();
 					tFlags.IsHTML = false;
 
-					messageOutput.Append( "<br/><hr noshade />" + FormatMsg.FormatMessage( DataRow ["Signature"].ToString(), tFlags ) );
+					messageOutput.Append( "<br/><hr/>" + FormatMsg.FormatMessage( DataRow ["Signature"].ToString(), tFlags ) );
 				}
 			}
 			return messageOutput.ToString();

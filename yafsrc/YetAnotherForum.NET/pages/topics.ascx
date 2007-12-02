@@ -84,11 +84,9 @@
         <td align="center" colspan="6" class="footer1">
             <table cellspacing="0" cellpadding="0" width="100%">
                 <tr>
-                    <td width="1%">
-                        <nobr>
-                            <%# GetText("showtopics") %>
-                            <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" />
-                        </nobr>
+                    <td width="1%" style="white-space:nowrap">
+                        <%# GetText("showtopics") %>
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" />
                     </td>
                     <td align="right">
                         <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server" visible="false" /> |

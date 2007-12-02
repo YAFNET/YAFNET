@@ -35,7 +35,7 @@
 	<ItemTemplate>
 		<tr>
 			<td class="header2" colspan="6">
-				<asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Baseline"
+				<asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Bottom"
 					CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
 				</asp:ImageButton>
 				&nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
