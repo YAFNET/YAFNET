@@ -346,20 +346,20 @@ This CSS already works on FireFox.
     background-position: bottom left;
     padding: 5px 10px 3px 12px; /* push text down 1px */
 }
-/* CSS Popupmenu -- rendered outside the yafmain div */
-.yafpopupmenu {
+/* CSS Popupmenu */
+#yafmain .yafpopupmenu {
 	background-color: #ffffff;
 	border: solid 1px #333333;
 	
 }
-.yafpopupmenu ul {	
+#yafmain .yafpopupmenu ul {	
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
 }
-.yafpopupmenu li {
+#yafmain .yafpopupmenu li {
 	padding: 5px 10px 5px 10px;	
 }
-.yafpopupmenu li.popupitemhover {
+#yafmain .yafpopupmenu li.popupitemhover {
 	background-color: #cccccc;
 }
