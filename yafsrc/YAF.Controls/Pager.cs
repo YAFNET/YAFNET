@@ -88,7 +88,7 @@ namespace YAF.Controls
 				output.WriteAttribute( "class", "pagelinkfirst" );
 				output.Write( HtmlTextWriter.TagRightChar );
 
-				this.RenderAnchorBegin( output, GetLinkUrl( 0, postBack ), null, "Go to First Page" );
+				this.RenderAnchorBegin( output, GetLinkUrl( 1, postBack ), null, "Go to First Page" );
 
 				output.Write( "&laquo;" );
 				output.WriteEndTag( "a" );
