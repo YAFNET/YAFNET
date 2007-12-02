@@ -18,12 +18,6 @@ namespace YAF.Controls
 		{
 		}
 
-		protected override void OnPreRender( EventArgs e )
-		{
-			this.BuildPopup();
-			base.OnPreRender( e );
-		}
-
 		public ModalPopupExtender ConfirmExtender
 		{
 			get { return _popupControlExtender; }
@@ -39,21 +33,13 @@ namespace YAF.Controls
 			ConfirmExtender.Hide();
 		}
 
-		void okBtn_Click( object sender, EventArgs e )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-			if ( Confirm != null ) Confirm( this, e );
-			Hide();
-		}
+        protected override void OnInit(EventArgs e)
+        {
+            this.BuildPopup();
+            base.OnInit(e);
+        }
 
-		void cancelBtn_Click( object sender, EventArgs e )
-		{
-			throw new Exception( "The method or operation is not implemented." );
-			if ( Cancel != null ) Cancel( this, e );
-			Hide();
-		}
-
-		protected void BuildPopup()
+        protected void BuildPopup()
 		{
 			Panel popupPanel = new Panel();
 			popupPanel.ID = "PopUpPanel";
@@ -66,8 +52,8 @@ namespace YAF.Controls
 			cancelButton.ID = "PopUpCancelBtn";
 			cancelButton.Text = "Cancel";
 
-			okButton.Click += new EventHandler( okBtn_Click );
-			cancelButton.Click += new EventHandler( cancelBtn_Click );
+            okButton.Click += new EventHandler(okButton_Click);
+			cancelButton.Click += new EventHandler(cancelButton_Click );
 
 			System.Web.UI.HtmlControls.HtmlGenericControl div = new HtmlGenericControl( "div" );
 			div.Attributes.Add( "class", "inner" );
@@ -87,18 +73,23 @@ namespace YAF.Controls
 
 			this.Controls.Add( popupPanel );
 
-			ConfirmExtender.OkControlID = okButton.ID;
-			ConfirmExtender.CancelControlID = cancelButton.ID;
 			ConfirmExtender.TargetControlID = this.TargetID;
 			ConfirmExtender.PopupControlID = popupPanel.ID;
 
 			this.Controls.Add( ConfirmExtender );
 		}
 
-		void test_Click( object sender, EventArgs e )
+        void okButton_Click(object sender, EventArgs e)
+        {
+            if (Confirm != null) Confirm(this, e);
+            Hide();
+        }
+
+		void cancelButton_Click( object sender, EventArgs e )
 		{
-			throw new Exception( "The method or operation is not implemented." );
-		}
+            if (Cancel != null) Cancel(this, e);
+            Hide();
+        }
 
 		public string Text
 		{
@@ -112,7 +103,7 @@ namespace YAF.Controls
 			set { _targetID = value; }
 		}
 
-		public event EventHandler<EventArgs> Confirm;
+        public event EventHandler<EventArgs> Confirm;
 		public event EventHandler<EventArgs> Cancel;
 	}
 }
