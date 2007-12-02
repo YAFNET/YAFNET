@@ -33,7 +33,9 @@ namespace YAF.Controls
 		protected string _themePage = "ICONS";
 		protected string _themeTag = string.Empty;
 		protected string _style = string.Empty;
-		protected string _title = string.Empty;
+		protected string _localizedTitlePage = string.Empty;
+		protected string _localizedTitleTag = string.Empty;
+		protected bool _useTitleForEmptyAlt = true;
 
 		public ThemeImage() : base()
 		{
@@ -42,7 +44,13 @@ namespace YAF.Controls
 
 		protected override void Render( HtmlTextWriter output )
 		{
-			string src = this.GetCurrentItem();
+			string src = this.GetCurrentThemeItem();
+			string title = this.GetCurrentTitleItem();
+
+			if ( UseTitleForEmptyAlt && String.IsNullOrEmpty( Alt ) && !String.IsNullOrEmpty(title) )
+			{
+				Alt = title;
+			}
 
 			output.BeginRender();
 			output.WriteBeginTag( "img" );
@@ -52,7 +60,7 @@ namespace YAF.Controls
 			output.WriteAttribute( "alt", Alt );
 
 			if ( !String.IsNullOrEmpty( Style ) ) output.WriteAttribute( "style", Style );
-			if ( !String.IsNullOrEmpty( Title ) ) output.WriteAttribute( "title", Title );
+			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
 
 			// self closing end tag "/>"
 			output.Write( HtmlTextWriter.SelfClosingTagEnd );
@@ -60,7 +68,21 @@ namespace YAF.Controls
 			output.EndRender();
 		}
 
-		protected string GetCurrentItem()
+		protected string GetCurrentTitleItem()
+		{
+			if ( !String.IsNullOrEmpty( _localizedTitlePage ) && !String.IsNullOrEmpty( _localizedTitleTag ) )
+			{
+				return PageContext.Localization.GetText( _localizedTitlePage, _localizedTitleTag );
+			}
+			else if ( !String.IsNullOrEmpty( _localizedTitleTag ) )
+			{
+				return PageContext.Localization.GetText( _localizedTitleTag );
+			}
+
+			return null;
+		}
+
+		protected string GetCurrentThemeItem()
 		{
 			if ( !String.IsNullOrEmpty( _themePage ) && !String.IsNullOrEmpty( _themeTag ) )
 			{
@@ -94,10 +116,22 @@ namespace YAF.Controls
 			set { _alt = value; }
 		}
 
-		public string Title
+		public bool UseTitleForEmptyAlt
 		{
-			get { return _title; }
-			set { _title = value; }
+			get { return _useTitleForEmptyAlt; }
+			set { _useTitleForEmptyAlt = value; }
+		}
+
+		public string LocalizedTitlePage
+		{
+			get { return _localizedTitlePage; }
+			set { _localizedTitlePage = value; }
+		}
+
+		public string LocalizedTitleTag
+		{
+			get { return _localizedTitleTag; }
+			set { _localizedTitleTag = value; }
 		}
 
 		public string Style
