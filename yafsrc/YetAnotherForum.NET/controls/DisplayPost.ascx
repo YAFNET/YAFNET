@@ -72,6 +72,6 @@
 	</td>
 </tr>
 <tr class="postsep">
-	<td colspan="3"></td>
+	<td colspan="3"><YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" /></td>
 </tr>
-<YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
+

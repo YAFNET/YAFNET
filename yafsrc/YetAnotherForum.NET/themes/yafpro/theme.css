@@ -48,8 +48,8 @@
 	color: #ffffff;
 	font-weight: bold;
 	padding-left: 10px;	
-	/*height: 40px;*/
-	font-size: 11pt;
+	font-size: 15px;
+	line-height: 30px;
 }
 #yafmain tr.header2 {
 	background-color: #e3e3e3;
