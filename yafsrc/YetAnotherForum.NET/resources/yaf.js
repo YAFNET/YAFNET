@@ -75,8 +75,8 @@ function yaf_popit(menuName) {
 				x += target.offsetWidth - themenu.offsetWidth;
 		}
 
-		themenu.style.left = x;
-		themenu.style.top = yaf_top(target);
+		themenu.style.left = x + "px";
+		themenu.style.top = yaf_top(target) + "px";
 		themenu.style.visibility = "visible";
 		themenu.style.zIndex = 100;
 	} else {
