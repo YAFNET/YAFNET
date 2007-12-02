@@ -172,7 +172,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			try
 			{
-				if ( newSearch )
+				if ( newSearch || Mession.SearchData == null)
 				{
 					SearchWhatFlags sw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchWhat.SelectedValue );
 					SearchWhatFlags sfw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
