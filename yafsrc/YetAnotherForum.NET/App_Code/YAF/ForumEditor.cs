@@ -73,8 +73,9 @@ namespace YAF.Editor
 			Load += new EventHandler( Editor_Load );
 
 			_textCtl = new HtmlTextArea();
-
 			_textCtl.ID = "edit";
+			_textCtl.Rows = 10;
+			_textCtl.Cols = 50;
 			Controls.Add( _textCtl );
 
 			/*
