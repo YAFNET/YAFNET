@@ -99,7 +99,7 @@ namespace YAF.Controls
 
 			foreach ( string key in _items.Keys )
 			{
-				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}""><nobr>{0}</nobr></li>", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
+				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}"" style=""white-space:nowrap"">{0}</li>", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
 			}
 			sb.AppendFormat( "</ul></div>" );
 

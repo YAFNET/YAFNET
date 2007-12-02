@@ -57,7 +57,7 @@ namespace YAF.Controls
 			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
 			if ( !String.IsNullOrEmpty( _navigateUrl ) )
 			{
-				output.WriteAttribute( "href", _navigateUrl );
+				output.WriteAttribute( "href", _navigateUrl.Replace( "&", "&amp;" ));
 			}
 			else
 			{

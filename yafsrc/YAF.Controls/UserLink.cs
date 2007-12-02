@@ -52,8 +52,8 @@ namespace YAF.Controls
 					output.WriteAttribute( "href", YafBuildLink.GetLink(ForumPages.profile,"u={0}",_userID));
 					output.WriteAttribute( "title", HtmlEncode( _userName ));
 					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );
-					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "OnClick", _onclick );
-					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "OnMouseOver", _onmouseover );
+					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "onclick", _onclick );
+					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "onmouseover", _onmouseover );
 					output.Write(HtmlTextWriter.TagRightChar);
 				}
 
