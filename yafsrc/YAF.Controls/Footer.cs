@@ -33,9 +33,6 @@ namespace YAF.Controls
 		private bool _simpleRender = false;
 		private System.Diagnostics.Stopwatch _stopWatch = new System.Diagnostics.Stopwatch();
 
-		/// <summary>
-		/// SimpleRender is used for for admin pages
-		/// </summary>
 		public bool SimpleRender
 		{
 			get
@@ -66,6 +63,8 @@ namespace YAF.Controls
 		{
 			if ( !SimpleRender ) RenderRegular( ref writer );
 			else RenderSimple( ref writer );
+
+			base.Render( writer );			
 		}
 
 		protected void WriteOnLoadString( ref System.Web.UI.HtmlTextWriter writer )
@@ -79,9 +78,6 @@ namespace YAF.Controls
 		protected void RenderSimple( ref System.Web.UI.HtmlTextWriter writer )
 		{
 			WriteOnLoadString( ref writer );
-
-			writer.WriteLine( "</body>" );
-			writer.WriteLine( "</html>" );
 		}
 
 		protected void RenderRegular( ref System.Web.UI.HtmlTextWriter writer )

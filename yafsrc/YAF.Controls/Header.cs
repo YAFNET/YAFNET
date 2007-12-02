@@ -31,14 +31,10 @@ namespace YAF.Controls
 	/// </summary>
 	public class Header : BaseControl
 	{
-		private bool _simpleRender = false;
 		private string _refreshURL = null;
 		private int _refreshTime = 10;
-		private bool _renderHead = true;
+		private bool _simpleRender = false;
 
-		/// <summary>
-		/// SimpleRender is used for for admin pages
-		/// </summary>
 		public bool SimpleRender
 		{
 			get
@@ -75,21 +71,8 @@ namespace YAF.Controls
 			}
 		}
 
-		public bool RenderHead
-		{
-			get
-			{
-				return _renderHead;
-			}
-			set
-			{
-				_renderHead = value;
-			}
-		}
-
 		public void Reset()
 		{
-			SimpleRender = false;
 			RefreshURL = null;
 			RefreshTime = 10;
 		}
@@ -100,33 +83,8 @@ namespace YAF.Controls
 		/// <param name="writer">The HtmlTextWriter that we are using.</param>
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			if ( !SimpleRender ) RenderRegular( ref writer );
-			else RenderSimple( ref writer );
-		}
-
-		protected void WriteCSS( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}forum.css"" />", YafForumInfo.ForumRoot );
-			writer.WriteLine( @"<link type=""text/css"" rel=""stylesheet"" href=""{0}"" />", YafBuildLink.ThemeFile( "theme.css" ) );
-		}
-
-		protected void WriteRefresh( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			if ( _refreshURL != null && _refreshTime >= 0 )
-				writer.WriteLine( String.Format( "<meta http-equiv=\"Refresh\" content=\"{1};url={0}\">\n", _refreshURL, _refreshTime ) );
-		}
-
-		protected void RenderSimple( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			writer.WriteLine( @"<html><head>" );
-
-			WriteCSS( ref writer );
-
-			writer.WriteLine( String.Format( @"<title>{0}</title>", PageContext.BoardSettings.Name ) );
-
-			WriteRefresh( ref writer );
-
-			writer.WriteLine( @"</head><body>" );
+			base.Render( writer );
+			if (!_simpleRender) RenderRegular( ref writer );
 		}
 
 		protected void RenderRegular( ref System.Web.UI.HtmlTextWriter writer )
@@ -137,12 +95,12 @@ namespace YAF.Controls
 			// get the theme header -- usually used for javascript
 			string themeHeader = PageContext.Theme.GetItem( "THEME", "HEADER", "" );
 
-			if ( themeHeader != null && themeHeader.Length > 0 )
+			if ( !String.IsNullOrEmpty( themeHeader ) )
 			{
 				buildHeader.Append( themeHeader );
-			}
+			}			
 
-			buildHeader.AppendFormat( @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0""><tr>" );
+			buildHeader.AppendFormat( @"<table width=""100%"" cellspacing=""0"" class=""content"" cellpadding=""0"" id=""yafheader""><tr>" );
 
 			MembershipUser user = Membership.GetUser();
 
@@ -151,8 +109,18 @@ namespace YAF.Controls
 				buildHeader.AppendFormat( @"<td style=""padding:5px"" class=""post"" align=""left""><b>{0}</b></td>", String.Format( PageContext.Localization.GetText( "TOOLBAR", "LOGGED_IN_AS" ) + " ", HttpContext.Current.Server.HtmlEncode( PageContext.PageUserName ) ) );
 				buildHeader.AppendFormat( @"<td style=""padding:5px"" align=""right"" valign=""middle"" class=""post"">" );
 
-        if ( !PageContext.IsGuest && PageContext.BoardSettings.AllowPrivateMessages )
-          buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ) ) );
+				if ( !PageContext.IsGuest && PageContext.BoardSettings.AllowPrivateMessages )
+				{
+					if ( PageContext.UnreadPrivate > 0 )
+					{
+						string unreadText = String.Format( PageContext.Localization.GetText( "TOOLBAR", "NEWPM" ), PageContext.UnreadPrivate );
+						buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> ( | ", YafBuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ), unreadText ) );
+					}
+					else
+					{
+						buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ) ) );
+					}
+				}
 
 				/* TODO: help is currently useless...
 				if ( IsAdmin )
@@ -190,13 +158,6 @@ namespace YAF.Controls
 			buildHeader.AppendFormat( "<br />" );
 
 			// END HEADER
-
-			if ( _renderHead )
-			{
-				// write CSS, Refresh, then header...
-				WriteCSS( ref writer );
-				WriteRefresh( ref writer );
-			}
 
 			writer.Write( buildHeader );
 		}

@@ -553,13 +553,11 @@ namespace YAF.Classes.Base
 			return null;
 		}
 
-		protected void SetupHeadControl( ref System.Web.UI.HtmlControls.HtmlHead head )
+		protected void InsertCssRefresh( System.Web.UI.Control addTo )
 		{
-			head.Title = _forumPageTitle;
-
 			// make the style sheet link controls.
-			head.Controls.Add( MakeStyleSheetControl( PageContext.Theme.GetURLToResource( "forum.css") ) );
-			head.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
+			addTo.Controls.Add( MakeStyleSheetControl( PageContext.Theme.GetURLToResource( "forum.css" ) ) );
+			addTo.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
 
 			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )
 			{
@@ -567,7 +565,7 @@ namespace YAF.Classes.Base
 				refresh.HttpEquiv = "Refresh";
 				refresh.Content = String.Format( "{1};url={0}", ForumHeader.RefreshURL, ForumHeader.RefreshTime );
 
-				head.Controls.Add( refresh );
+				addTo.Controls.Add( refresh );
 			}
 		}
 
@@ -581,38 +579,44 @@ namespace YAF.Classes.Base
 			return stylesheet;
 		}
 
-		private void ForumPage_PreRender( object sender, EventArgs e )
+		protected void SetupHeaderElements()
 		{
 			System.Web.UI.HtmlControls.HtmlImage graphctl;
 			if ( PageContext.BoardSettings.AllowThemedLogo & !YAF.Classes.Config.IsDotNetNuke & !YAF.Classes.Config.IsPortal & !YAF.Classes.Config.IsRainbow )
 			{
-				graphctl = ( System.Web.UI.HtmlControls.HtmlImage ) Page.FindControl( "imgBanner" );
+				graphctl = ( System.Web.UI.HtmlControls.HtmlImage )Page.FindControl( "imgBanner" );
 				if ( graphctl != null )
 				{
 					graphctl.Src = GetThemeContents( "FORUM", "BANNER" );
 				}
 			}
 
-			HtmlHead head = (HtmlHead)this.FindControlRecursive( this, "YafHead" );
+			HtmlHead head = ( HtmlHead )this.FindControlRecursive( this, "YafHead" );
 
 			if ( head != null )
 			{
-				SetupHeadControl( ref head );
-				// tell the forum header not to put the CSS/Meta inside the body
-				ForumHeader.RenderHead = false;
+				// setup the title...
+				head.Title = _forumPageTitle;
+				// setup the css/refresh
+				InsertCssRefresh( head );
 			}
 			else
 			{
 				// old style
-				System.Web.UI.HtmlControls.HtmlTitle title = ( System.Web.UI.HtmlControls.HtmlTitle ) Page.FindControl( "ForumTitle" );
+				System.Web.UI.HtmlControls.HtmlTitle title = ( System.Web.UI.HtmlControls.HtmlTitle )Page.FindControl( "ForumTitle" );
 				if ( title != null )
 				{
 					title.Text = _forumPageTitle;
 				}
-				// tell the forum header to render "head" (CSS/Meta) inside the body
-				ForumHeader.RenderHead = true;
+				// render Css & Refresh inside header
+				InsertCssRefresh( ForumHeader );
 			}
+		}
 
+		private void ForumPage_PreRender( object sender, EventArgs e )
+		{
+			// sets up the head elements in addition to the Css and image elements
+			SetupHeaderElements();
 			// setup the forum control header properties
 			ForumHeader.SimpleRender = !_showToolBar;
 			ForumFooter.SimpleRender = !_showToolBar;
@@ -623,24 +627,6 @@ namespace YAF.Classes.Base
 		/// </summary>
 		/// <param name="writer"></param>
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-			RenderBody( writer );
-		}
-
-		/// <summary>
-		/// Renders the body
-		/// </summary>
-		/// <param name="writer"></param>
-		protected virtual void RenderBody( System.Web.UI.HtmlTextWriter writer )
-		{
-			RenderBase( writer );
-		}
-
-		/// <summary>
-		/// Calls the base class to render components
-		/// </summary>
-		/// <param name="writer"></param>
-		protected void RenderBase( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
 		}

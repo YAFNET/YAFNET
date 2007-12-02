@@ -42,14 +42,6 @@ namespace YAF.Controls
 			}
 		}
 
-		protected string ControlID
-		{
-			get
-			{
-				return string.Format( "{0}_{1}", Parent.ClientID, _control );
-			}
-		}
-
 		public void AddItem( string title, string script )
 		{
 			_items.Add( title, script );
@@ -67,28 +59,7 @@ namespace YAF.Controls
 			userLinkControl.OnMouseOver = string.Format( "yaf_mouseover('{0}')", this.ClientID );
 		}
 
-		private void Page_Load( object sender, System.EventArgs e )
-		{
-			/*
-			if ( this.Visible )
-			{
-				Page.ClientScript.RegisterStartupScript( ClientID, string.Format( "<script language='javascript'>yaf_initmenu('{0}');</script>", ControlID ) );
-			}
-			*/
-		}
-
-		override protected void OnInit( EventArgs e )
-		{
-			this.Load += new System.EventHandler( this.Page_Load );
-			this.PreRender += new EventHandler( PopMenu_PreRender );
-			base.OnInit( e );
-		}
-
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
-		{
-		}
-
-		private void PopMenu_PreRender( object sender, EventArgs e )
 		{
 			if ( !this.Visible )
 				return;
@@ -103,7 +74,9 @@ namespace YAF.Controls
 			}
 			sb.AppendFormat( "</ul></div>" );
 
-			Page.ClientScript.RegisterStartupScript( this.GetType(), ClientID + "_menuscript", sb.ToString() );
+			writer.WriteLine( sb.ToString() );
+
+			base.Render( writer );
 		}
 
 		#region IPostBackEventHandler
