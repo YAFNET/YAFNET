@@ -754,12 +754,12 @@ namespace YAF.Controls
 				string stats = PageContext.Localization.GetText( "ATTACHMENTINFO" );
 				string strFileIcon = PageContext.Theme.GetItem( "ICONS", "ATTACHED_FILE" );
 
-				messageOutput.Append( "<p>" );
-
 				using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( DataRow ["MessageID"], null, null ) )
 				{
 					// show file then image attachments...
 					int tmpDisplaySort = 0;
+
+					messageOutput.AppendLine( @"<div class=""fileattach smallfont"">" );
 
 					while ( tmpDisplaySort <= 1 )
 					{
@@ -783,34 +783,36 @@ namespace YAF.Controls
 									}
 								}
 							}
-
 							if ( bShowImage && tmpDisplaySort == 1 )
 							{
 								if ( bFirstItem )
 								{
-									messageOutput.AppendLine( @"<i class=""smallfont"">" );
+									messageOutput.Append( @"<div class=""imgtitle"">" );
 									messageOutput.AppendFormat( PageContext.Localization.GetText( "IMAGE_ATTACHMENT_TEXT" ), Convert.ToString( DataRow ["UserName"] ) );
-									messageOutput.AppendLine( @"</i><br />" );
+									messageOutput.Append( "</div>" );
 									bFirstItem = false;
 								}
-								messageOutput.AppendFormat( @"<img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /><br />", YafForumInfo.ForumRoot, dr ["AttachmentID"], HtmlEncode( dr ["FileName"] ) );
+								messageOutput.AppendFormat( @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", YafForumInfo.ForumRoot, dr ["AttachmentID"], HtmlEncode( dr ["FileName"] ) );
 							}
 							else if ( !bShowImage && tmpDisplaySort == 0 )
 							{
 								if ( bFirstItem )
 								{
-									messageOutput.AppendFormat( @"<b class=""smallfont"">{0}</b><br />", PageContext.Localization.GetText( "ATTACHMENTS" ) );
+									messageOutput.AppendFormat( @"<div class=""filetitle"">{0}</div>", PageContext.Localization.GetText( "ATTACHMENTS" ) );
 									bFirstItem = false;
 								}
 								// regular file attachment
 								int kb = ( 1023 + ( int ) dr ["Bytes"] ) / 1024;
-								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <b><a href=""{1}resource.ashx?a={2}"">{3}</a></b> <span class=""smallfont"">{4}</span><br />", strFileIcon, YafForumInfo.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
+								messageOutput.Append( @"<div class=""attachedfile"">" );
+								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <a href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
+								messageOutput.Append( @"</div>" );
 							}
 						}
 						// now show images
 						tmpDisplaySort++;
-						messageOutput.AppendLine( "<br />" );
 					}
+
+					messageOutput.AppendLine( @"</div>" );
 				}
 			}
 		}

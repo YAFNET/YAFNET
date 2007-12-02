@@ -135,6 +135,25 @@
 	background-color: #EEEEEE;
 	font-weight:bold;
 }
+#yafmain .fileattach {
+	padding: 5px;
+	background-color: #eeeeee;
+	border: solid 1px #808080;
+}
+#yafmain .fileattach .filetitle,
+#yafmain .fileattach .imgtitle {
+	font-weight: bold;
+	color: #444444;
+	margin-bottom: 5px;
+	font-size: 1.1em;
+}
+#yafmain .fileattach .attachedimg,
+#yafmain .fileattach .attachedfile {
+	margin-left: 10px;
+}
+#yafmain .fileattach a {
+	font-weight: bold;
+}
 #yafmain table.content td {
 	padding: 5px;
 }
