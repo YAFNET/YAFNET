@@ -297,7 +297,7 @@ namespace YAF.Controls
 				writer.Write( "&nbsp;" );
 
 				writer.WriteBeginTag( "a" );
-				writer.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] ) );
+				writer.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.posts, "m={0}#post{0}", row ["LastMessageID"] ) );
 				writer.WriteAttribute( "title", PageContext.Localization.GetText( "GO_LAST_POST" ) );
 				writer.Write( HtmlTextWriter.TagRightChar );
 				
