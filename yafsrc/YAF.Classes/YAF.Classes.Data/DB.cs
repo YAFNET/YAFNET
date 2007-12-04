@@ -114,126 +114,133 @@ namespace YAF.Classes.Data
 			}
 
 			// fix quotes for SQL insertion...
-			toSearchWhat = toSearchWhat.Replace( "'", "''" );
-			toSearchFromWho = toSearchFromWho.Replace( "'", "''" );
+			toSearchWhat = toSearchWhat.Replace( "'", "''" ).Trim();
+			toSearchFromWho = toSearchFromWho.Replace( "'", "''" ).Trim();
 
 			string searchSql = ( maxResults == 0 ) ? "SELECT" : ( "SELECT TOP " + maxResults.ToString() );
 
 			searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, b.Name, c.MessageID, c.Posted, c.Message, c.Flags ";
 			searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
-			searchSql += String.Format( "where x.ReadAccess<>0 and x.UserID={0} and c.IsApproved = 1 AND c.IsDeleted = 0", userID );
+			searchSql += String.Format( "where x.ReadAccess<>0 and x.UserID={0} and c.IsApproved = 1 AND c.IsDeleted = 0 ", userID );
 
 			string [] words;
-			searchSql += " and ( ";
+			bool bFirst;
 
-			// generate user search sql...
-			switch ( searchFromWhoMethod )
+			if ( !String.IsNullOrEmpty( toSearchFromWho ) )
 			{
-				case SearchWhatFlags.AllWords:
-					words = toSearchFromWho.Split( ' ' );
-					foreach ( string word in words )
-					{
-						searchSql += string.Format( " b.Name like N'%{0}%' and ", word );
+				searchSql += "AND (";
+				bFirst = true;
 
-					}
-					// remove last OR in sql query
-					searchSql = searchSql.Substring( 0, searchSql.Length - 5 );
-					break;
-				case SearchWhatFlags.AnyWords:
-					words = toSearchFromWho.Split( ' ' );
-					foreach ( string word in words )
-					{
-						searchSql += string.Format( " b.Name like N'%{0}%' or ", word );
+				// generate user search sql...
+				switch ( searchFromWhoMethod )
+				{
+					case SearchWhatFlags.AllWords:
+						words = toSearchFromWho.Split( ' ' );
+						foreach ( string word in words )
+						{
+							if ( !bFirst ) searchSql += " AND "; else bFirst = false;
+							searchSql += string.Format( " b.Name LIKE N'%{0}%'", word );
+						}
+						// remove last OR in sql query
+						searchSql = searchSql.Substring( 0, searchSql.Length - 5 );
+						break;
+					case SearchWhatFlags.AnyWords:
+						words = toSearchFromWho.Split( ' ' );
+						foreach ( string word in words )
+						{
+							if ( !bFirst ) searchSql += " OR "; else bFirst = false;
+							searchSql += string.Format( " b.Name LIKE N'%{0}%'", word );
+						}
+						// remove last OR in sql query
+						searchSql = searchSql.Substring( 0, searchSql.Length - 4 );
+						break;
+					case SearchWhatFlags.ExactMatch:
+						searchSql += string.Format( "b.Name like N'%{0}%'", toSearchFromWho );
 
-					}
-					// remove last OR in sql query
-					searchSql = searchSql.Substring( 0, searchSql.Length - 4 );
-					break;
-				case SearchWhatFlags.ExactMatch:
-					searchSql += string.Format( "b.Name like N'%{0}%' or ", toSearchFromWho );
-
-					break;
+						break;
+				}
+				searchSql += ") ";
 			}
 
-			searchSql += " ) and (";
-			bool bFirst = true;
 
-			// generate message and topic search sql...
-			switch ( searchWhatMethod )
+			if ( !String.IsNullOrEmpty( toSearchWhat ) )
 			{
-				case SearchWhatFlags.AllWords:
-					words = toSearchWhat.Split( ' ' );
-					if ( useFullText )
-					{
-						string ftInner = "";
+				searchSql += "AND (";
+				bFirst = true;
 
-						// make the inner FULLTEXT search
-						foreach ( string word in words )
+				// generate message and topic search sql...
+				switch ( searchWhatMethod )
+				{
+					case SearchWhatFlags.AllWords:
+						words = toSearchWhat.Split( ' ' );
+						if ( useFullText )
 						{
-							if ( !bFirst ) ftInner += " AND ";
-							else bFirst = false;
-							ftInner += String.Format( @"""{0}""", word );
-						}
-						// make final string...
-						searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
-					}
-					else
-					{
-						foreach ( string word in words )
-						{
-							if ( !bFirst ) searchSql += " AND ";
-							else bFirst = false;
-							searchSql += String.Format( "(c.Message like '%{0}%' OR a.Topic LIKE '%{0}%')", word );
-						}
-					}
-					break;
-				case SearchWhatFlags.AnyWords:
-					words = toSearchWhat.Split( ' ' );
+							string ftInner = "";
 
-					if ( useFullText )
-					{
-						string ftInner = "";
+							// make the inner FULLTEXT search
+							foreach ( string word in words )
+							{
+								if ( !bFirst ) searchSql += " AND "; else bFirst = false;
+								ftInner += String.Format( @"""{0}""", word );
+							}
+							// make final string...
+							searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
+						}
+						else
+						{
+							foreach ( string word in words )
+							{
+								if ( !bFirst ) searchSql += " AND "; else bFirst = false;
+								searchSql += String.Format( "(c.Message like '%{0}%' OR a.Topic LIKE '%{0}%')", word );
+							}
+						}
+						break;
+					case SearchWhatFlags.AnyWords:
+						words = toSearchWhat.Split( ' ' );
 
-						// make the inner FULLTEXT search
-						foreach ( string word in words )
+						if ( useFullText )
 						{
-							if ( !bFirst ) ftInner += " OR ";
-							else bFirst = false;
-							ftInner += String.Format( @"""{0}""", word );
+							string ftInner = "";
+
+							// make the inner FULLTEXT search
+							foreach ( string word in words )
+							{
+								if ( !bFirst ) searchSql += " OR "; else bFirst = false;
+								ftInner += String.Format( @"""{0}""", word );
+							}
+							// make final string...
+							searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
 						}
-						// make final string...
-						searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
-					}
-					else
-					{
-						foreach ( string word in words )
+						else
 						{
-							if ( !bFirst ) searchSql += " OR ";
-							else bFirst = false;
-							searchSql += String.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%'", word );
+							foreach ( string word in words )
+							{
+								if ( !bFirst ) searchSql += " OR "; else bFirst = false;
+								searchSql += String.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%'", word );
+							}
 						}
-					}
-					break;
-				case SearchWhatFlags.ExactMatch:
-					if ( useFullText )
-					{
-						searchSql += string.Format( "( CONTAINS (c.Message, ' \"{0}\" ') OR CONTAINS (a.Topic, ' \"{0}\" ') )", toSearchWhat );
-					}
-					else
-					{
-						searchSql += string.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%' ", toSearchWhat );
-					}
-					break;
+						break;
+					case SearchWhatFlags.ExactMatch:
+						if ( useFullText )
+						{
+							searchSql += string.Format( "( CONTAINS (c.Message, ' \"{0}\" ') OR CONTAINS (a.Topic, ' \"{0}\" ') )", toSearchWhat );
+						}
+						else
+						{
+							searchSql += string.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%' ", toSearchWhat );
+						}
+						break;
+				}
+				searchSql += ") ";
 			}
-			searchSql += " ) ";
 
 			// Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
 			if ( forumIDToStartAt > 0 )
 			{
-				searchSql += string.Format( "and a.ForumID in {0}", forumIDs );
+				searchSql += string.Format( "AND a.ForumID IN ({0})", forumIDs );
 			}
 
-			searchSql += " order by c.Posted desc";
+			searchSql += " ORDER BY c.Posted DESC";
 
 			using ( SqlCommand cmd = DBAccess.GetCommand( searchSql, true ) )
 			{
