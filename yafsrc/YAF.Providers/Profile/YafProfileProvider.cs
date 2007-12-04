@@ -63,6 +63,45 @@ namespace YAF.Providers.Profile
 		}
 		#endregion
 
+		Dictionary<string, SettingsPropertyValueCollection> UserProfileCache
+		{
+			get
+			{
+				string key = GenerateCacheKey( "UserProfileDictionary" );
+
+				// get the roles collection...
+				Dictionary<string, SettingsPropertyValueCollection> userProfileDic = System.Web.HttpContext.Current.Cache [key] as Dictionary<string, SettingsPropertyValueCollection>;
+
+				if ( userProfileDic == null )
+				{
+					// make sure it exists in the cache...
+					userProfileDic = new Dictionary<string, SettingsPropertyValueCollection>();
+					System.Web.HttpContext.Current.Cache [key] = userProfileDic;
+				}
+
+				return userProfileDic;
+			}
+		}
+
+		private void DeleteFromProfileCacheIfExists( string key )
+		{
+			if ( UserProfileCache.ContainsKey( key ) )
+			{
+				UserProfileCache.Remove( key );
+			}
+		}
+
+		private void ClearUserProfileCache()
+		{
+			string key = GenerateCacheKey( "UserProfileDictionary" );
+			System.Web.HttpContext.Current.Cache [key] = null;
+		}
+
+		private string GenerateCacheKey( string name )
+		{
+			return String.Format( "YafProfileProvider-{0}-{1}", name, this.ApplicationName );
+		}
+
 		#region Overriden Public Methods
 
 		/// <summary>
@@ -205,6 +244,9 @@ namespace YAF.Providers.Profile
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
 
+			// just clear the whole thing...
+			ClearUserProfileCache();
+
 			return DB.DeleteInactiveProfiles( this.ApplicationName, userInactiveSinceDate );
 		}
 
@@ -221,11 +263,15 @@ namespace YAF.Providers.Profile
 
 			for ( int i = 0; i < usernames.Length; i++ )
 			{
-				if ( usernames [i].Length > 0 )
+				string username = usernames [i].Trim();
+
+				if ( username.Length > 0 )
 				{
-					if ( !bFirst ) userNameBuilder.Append( "," );
-					else bFirst = false;
-					userNameBuilder.Append( usernames [i] );
+					if ( !bFirst ) userNameBuilder.Append( "," ); else bFirst = false;
+					userNameBuilder.Append( username );
+
+					// delete this user from the cache if they are in there...
+					DeleteFromProfileCacheIfExists( username.ToLower() );
 				}
 			}
 
@@ -347,33 +393,44 @@ namespace YAF.Providers.Profile
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
 
-			// load the property collection
+			// load the property collection (sync profile class)
 			LoadFromPropertyCollection( collection );
 
-			// transfer properties regardless...
-			foreach ( SettingsProperty prop in collection )
+			// see if it's cached...
+			if ( UserProfileCache.ContainsKey( username.ToLower() ) )
 			{
-				settingPropertyCollection.Add( new SettingsPropertyValue( prop ) );
+				// just use the cached version...
+				return UserProfileCache [username.ToLower()];
 			}
-
-			// get this profile from the DB
-			DataSet profileDS = DB.GetProfiles( this.ApplicationName, 0, 1, username, null );
-			DataTable profileDT = profileDS.Tables [0];
-
-			if ( profileDT.Rows.Count > 0 )
-			{				
-				DataRow row = profileDT.Rows[0];
-				// load the data into the collection...
-				foreach ( SettingsPropertyValue prop in settingPropertyCollection )
+			else
+			{
+				// transfer properties regardless...
+				foreach ( SettingsProperty prop in collection )
 				{
-					object val = row [prop.Name];
-					//Only initialize a SettingsPropertyValue for non-null values
-					if ( !( val is DBNull || val == null ) )
+					settingPropertyCollection.Add( new SettingsPropertyValue( prop ) );
+				}
+
+				// get this profile from the DB
+				DataSet profileDS = DB.GetProfiles( this.ApplicationName, 0, 1, username, null );
+				DataTable profileDT = profileDS.Tables [0];
+
+				if ( profileDT.Rows.Count > 0 )
+				{
+					DataRow row = profileDT.Rows [0];
+					// load the data into the collection...
+					foreach ( SettingsPropertyValue prop in settingPropertyCollection )
 					{
-						prop.PropertyValue = val;
-						prop.IsDirty = false;
-						prop.Deserialized = true;
+						object val = row [prop.Name];
+						//Only initialize a SettingsPropertyValue for non-null values
+						if ( !( val is DBNull || val == null ) )
+						{
+							prop.PropertyValue = val;
+							prop.IsDirty = false;
+							prop.Deserialized = true;
+						}
 					}
+					// save this collection to the cache
+					UserProfileCache.Add(username.ToLower(), settingPropertyCollection);
 				}
 			}
 
@@ -412,11 +469,12 @@ namespace YAF.Providers.Profile
 			LoadFromPropertyValueCollection( collection );
 
 			object userID = DB.GetProviderUserKey( this.ApplicationName, username );
-
 			if ( userID != null )
 			{
 				// start saving...
 				DB.SetProfileProperties( this.ApplicationName, userID, collection, _settingsColumnsList );
+				// erase from the cache
+				DeleteFromProfileCacheIfExists( username.ToLower() );
 			}
 		}
 
