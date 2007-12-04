@@ -225,13 +225,22 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 )
 AS
 BEGIN
-	DECLARE @ApplicationID uniqueidentifier
+	DECLARE @ApplicationID uniqueidentifier, @UserID uniqueidentifier
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
-	DELETE FROM {objectQualifier}prov_Membership WHERE ApplicationID=@ApplicationID AND UsernameLwd=LOWER(@Username);
+	-- get the userID
+	SELECT @UserID = UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] WHERE ApplicationID = @ApplicationID AND UsernameLwd = LOWER(@Username);
 
-	--INSERT IF STATEMENT TO DELETE MEMBERSHIP/ROLES INFORMATION / PROFILE INFORMATION	
+	IF (@UserID IS NOT NULL)
+	BEGIN
+		-- Delete records from membership
+		DELETE FROM [{databaseOwner}].[{objectQualifier}prov_Membership] WHERE UserID = @UserID
+		-- Delete from Role table
+		DELETE FROM [{databaseOwner}].[{objectQualifier}prov_RoleMembership] WHERE UserID = @UserID
+		-- Delete from Profile table
+		DELETE FROM [{databaseOwner}].[{objectQualifier}prov_Profile] WHERE UserID = @UserID
+	END	
 END
 GO
 
@@ -795,7 +804,7 @@ BEGIN
         ORDER BY UserName
 
 
-    SELECT  m.UserName, m.LastActivity, m.LastUpdated, p.*
+    SELECT  m.UserName, m.LastActivity, p.*
     FROM    [{databaseOwner}].[{objectQualifier}prov_Membership] m, [{databaseOwner}].[{objectQualifier}prov_Profile] p, #PageIndexForUsers i
     WHERE   m.UserId = p.UserId AND p.UserId = i.UserId AND i.IndexId >= @PageLowerBound AND i.IndexId <= @PageUpperBound
 
