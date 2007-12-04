@@ -176,7 +176,7 @@ namespace YAF.Editor
 		private void RenderButton( HtmlTextWriter writer, string id, string cmd, string title, string image )
 		{
 			//writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
-			writer.WriteLine( @"<img id=""{1}_{4}"" onload=""Button_Load(this)"" src=""{0}"" width=""21"" height=""20"" alt=""{2}"" title=""{2}"" onclick=""setStyle('{4}','')"">", ResolveUrl( image ), SafeID, title, cmd, id );
+			writer.WriteLine( @"<img id=""{1}_{4}"" onload=""Button_Load(this)"" src=""{0}"" width=""21"" height=""20"" alt=""{2}"" title=""{2}"" onclick=""setStyle('{4}','')"" />", ResolveUrl( image ), SafeID, title, cmd, id );
 		}
 
 		protected override void Render( HtmlTextWriter writer )
