@@ -84,7 +84,7 @@ namespace YAF.Providers.Profile
 			base.Initialize( name, config );
 		}
 
-		protected void LoadPropertyCollection( SettingsPropertyCollection collection )
+		protected void LoadFromPropertyCollection( SettingsPropertyCollection collection )
 		{
 			if ( !_propertiesSetup )
 			{
@@ -109,7 +109,50 @@ namespace YAF.Providers.Profile
 				}
 
 				// sync profile table structure with the db...
-				DataTable structure = DB.GetProfileStructure( this.ApplicationName );
+				DataTable structure = DB.GetProfileStructure();
+
+				// verify all the columns are there...
+				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
+				{
+					// see if this column exists
+					if ( !structure.Columns.Contains( column.Settings.Name ) )
+					{
+						// if not, create it...
+						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+					}
+				}
+
+				// it's setup now...
+				_propertiesSetup = true;
+			}
+		}
+
+		protected void LoadFromPropertyValueCollection( SettingsPropertyValueCollection collection )
+		{
+			if ( !_propertiesSetup )
+			{
+				// clear it out just in case something is still in there...
+				_settingsColumnsList.Clear();
+
+				// validiate all the properties and populate the internal settings collection
+				foreach ( SettingsPropertyValue value in collection )
+				{
+					SqlDbType dbType;
+					int size;
+
+					// parse custom provider data...
+					GetDbTypeAndSizeFromString( value.Property.Attributes ["CustomProviderData"].ToString(), out dbType, out size );
+
+					// default the size to 256 if no size is specified
+					if ( dbType == SqlDbType.NVarChar && size == -1 )
+					{
+						size = 256;
+					}
+					_settingsColumnsList.Add( new SettingsPropertyColumn( value.Property, dbType, size ) );
+				}
+
+				// sync profile table structure with the db...
+				DataTable structure = DB.GetProfileStructure();
 
 				// verify all the columns are there...
 				foreach ( SettingsPropertyColumn column in _settingsColumnsList )
@@ -305,15 +348,40 @@ namespace YAF.Providers.Profile
 			}
 
 			// load the property collection
-			LoadPropertyCollection( collection );
+			LoadFromPropertyCollection( collection );
 
+			// transfer properties regardless...
+			foreach ( SettingsProperty prop in collection )
+			{
+				settingPropertyCollection.Add( new SettingsPropertyValue( prop ) );
+			}
+
+			// get this profile from the DB
+			DataSet profileDS = DB.GetProfiles( this.ApplicationName, 0, 1, username, null );
+			DataTable profileDT = profileDS.Tables [0];
+
+			if ( profileDT.Rows.Count > 0 )
+			{				
+				DataRow row = profileDT.Rows[0];
+				// load the data into the collection...
+				foreach ( SettingsPropertyValue prop in settingPropertyCollection )
+				{
+					object val = row [prop.Name];
+					//Only initialize a SettingsPropertyValue for non-null values
+					if ( !( val is DBNull || val == null ) )
+					{
+						prop.PropertyValue = val;
+						prop.IsDirty = false;
+						prop.Deserialized = true;
+					}
+				}
+			}
 
 			return settingPropertyCollection;
 		}
 
 		public override void SetPropertyValues( System.Configuration.SettingsContext context, System.Configuration.SettingsPropertyValueCollection collection )
 		{
-			/*
 			string username = ( string ) context ["UserName"];
 
 			if ( username == null || username.Length < 1 || collection.Count < 1 )
@@ -325,43 +393,31 @@ namespace YAF.Providers.Profile
 				ExceptionReporter.ThrowArgument( "PROFILE", "NOANONYMOUS" );
 			}
 
-			try
+			bool itemsToSave = false;
+
+			// First make sure we have at least one item to save
+			foreach ( SettingsPropertyValue pp in collection )
 			{
-				bool itemsToSave = false;
-
-				// First make sure we have at least one item to save
-				foreach ( SettingsPropertyValue pp in collection )
+				if ( pp.IsDirty )
 				{
-					if ( pp.IsDirty )
-					{
-						itemsToSave = true;
-						break;
-					}
+					itemsToSave = true;
+					break;
 				}
-
-				if ( !itemsToSave )
-					return;
-
-				// load the data for the configuration
-				this.LoadPropertyCollection(
-
-
-				cmd = CreateSprocSqlCommand( _setSproc, conn, username, userIsAuthenticated );
-				foreach ( ProfileColumnData data in columnData )
-				{
-					cmd.Parameters.AddWithValue( data.VariableName, data.Value );
-					cmd.Parameters [data.VariableName].SqlDbType = data.DataType;
-				}
-				cmd.ExecuteNonQuery();
 			}
-			finally
+
+			if ( !itemsToSave )
+				return;
+
+			// load the data for the configuration
+			LoadFromPropertyValueCollection( collection );
+
+			object userID = DB.GetProviderUserKey( this.ApplicationName, username );
+
+			if ( userID != null )
 			{
-				if ( cmd != null )
-					cmd.Dispose();
-				if ( conn != null )
-					conn.Close();
+				// start saving...
+				DB.SetProfileProperties( this.ApplicationName, userID, collection, _settingsColumnsList );
 			}
-		  */
 		}
 
 		#endregion
