@@ -429,9 +429,9 @@ namespace YAF.Providers.Profile
 							prop.Deserialized = true;
 						}
 					}
-					// save this collection to the cache
-					UserProfileCache.Add(username.ToLower(), settingPropertyCollection);
 				}
+				// save this collection to the cache
+				UserProfileCache.Add( username.ToLower(), settingPropertyCollection );
 			}
 
 			return settingPropertyCollection;
