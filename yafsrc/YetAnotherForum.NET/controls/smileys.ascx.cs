@@ -71,8 +71,7 @@ namespace YAF.Controls
 			}
 			else
 			{
-				MoreSmiliesCell.Visible = (_dtSmileys.Rows.Count > _pagesize);
-					
+				MoreSmiliesHolder.Visible = ( _dtSmileys.Rows.Count > _pagesize );
 				CreateSmileys();
 			}
 		}
@@ -106,7 +105,7 @@ namespace YAF.Controls
 					{
 						evt = "javascript:void()";
 					}
-					html.AppendFormat("<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" title=\"{1}\"/></a></td>\n", YafBuildLink.Smiley((string)row["Icon"]), row["Emoticon"], evt);
+					html.AppendFormat( "<td><a tabindex=\"999\" href=\"{2}\"><img src=\"{0}\" alt=\"{1}\" title=\"{1}\" /></a></td>\n", YafBuildLink.Smiley( ( string )row ["Icon"] ), row ["Emoticon"], evt );
 					rowcells++;
 				}
 			}

@@ -9,9 +9,11 @@
 				<%# PageContext.Localization.GetText("SMILIES_HEADER")%></td>
 		</tr>
 		<asp:Literal ID="SmileyResults" runat="server" />
+		<asp:PlaceHolder ID="MoreSmiliesHolder" runat="server">
 		<tr class="postfooter">
 			<td class="footer" id="MoreSmiliesCell" align="center" runat="server">
 				<asp:HyperLink ID="MoreSmilies" Text="More Smilies..." Target="_blank" runat="server" /></td>
 		</tr>
+		</asp:PlaceHolder>
 	</table>
 </asp:PlaceHolder>
