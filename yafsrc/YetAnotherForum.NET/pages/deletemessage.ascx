@@ -9,11 +9,15 @@
 	</tr>
 	<tr id="SubjectRow" runat="server">
 		<td class="postformheader" width="20%"><%= GetText("subject") %></td>
-		<td class="post" width="80%" id="Subject" runat="server"></td>
+		<td class="post" width="80%">
+			<asp:Label runat="server" ID="Subject" />
+		</td>
 	</tr>
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top"><%= GetText("previewtitle") %></td>
-		<td class="post" valign="top" id="PreviewCell" runat="server"></td>
+		<td class="post" valign="top">
+			<asp:Label runat="server" ID="MessagePreview" />
+		</td>
 	</tr>
 	<tr id="DeleteReasonRow" runat="server">
 		<td class="postformheader" width="20%"><% = GetReasonText() %>

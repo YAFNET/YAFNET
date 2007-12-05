@@ -50,13 +50,13 @@ namespace YAF.Pages.moderate
 
         protected string FormatMessage(DataRowView row)
         {
-            string msg = row["Message"].ToString();
+			string msg = row["Message"].ToString();
 
-            if (msg.IndexOf('<') >= 0)
-                return msg;
+			if (msg.IndexOf('<') >= 0)
+				return Server.HtmlEncode(msg);
 
-            return row["Message"].ToString();
-        }
+			return msg;
+		}
 
         private void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
         {

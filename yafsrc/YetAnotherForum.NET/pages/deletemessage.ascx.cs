@@ -126,14 +126,14 @@ namespace YAF.Pages
 						Delete.Text = GetText( "UNDELETE" ); // "GetText("Save");
 					}
 
-					Subject.InnerHtml = Server.HtmlDecode( Convert.ToString( _msg ["Topic"] ) );
+					Subject.Text = Convert.ToString(_msg["Topic"]);
 					DeleteReasonRow.Visible = true;
-					ReasonEditor.Text = Server.HtmlDecode( Convert.ToString( _msg ["DeleteReason"] ) );
+					ReasonEditor.Text = Convert.ToString(_msg["DeleteReason"]);
 					MessageFlags tFlags = new MessageFlags();
 					//tFlags.IsHTML = Message.UsesHTML;
 					//tFlags.IsBBCode = Message.UsesBBCode;
-					string mbody = FormatMsg.FormatMessage( body, tFlags );
-					PreviewCell.InnerHtml = mbody;
+					string mbody = FormatMsg.FormatMessage(Server.HtmlEncode(body), tFlags);
+					MessagePreview.Text = mbody;
 
 				}
 			}

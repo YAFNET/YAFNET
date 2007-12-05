@@ -52,10 +52,10 @@ namespace YAF.Pages.moderate
         {
             string msg = row["Message"].ToString();
 
-            if (msg.IndexOf('<') >= 0)
-                return msg;
+			if (msg.IndexOf('<') >= 0)
+				return Server.HtmlEncode(msg);
 
-            return row["Message"].ToString();
+			return msg;
         }
 
         protected bool CompareMessage(Object originalMessage, Object newMessage)
