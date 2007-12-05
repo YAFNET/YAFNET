@@ -238,62 +238,73 @@ namespace YAF.Classes.Data
 		{
 			return GetDataset(cmd, false);
 		}
-		static public DataSet GetDataset( SqlCommand cmd, bool transaction)
+		static public DataSet GetDataset( SqlCommand cmd, bool transaction )
 		{
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 
 			try
 			{
-				using ( YafDBConnManager connMan = new YafDBConnManager() )
-				{
-					// see if an existing connection is present
-					if ( cmd.Connection == null )
-					{
-						cmd.Connection = connMan.OpenDBConnection;
-					}
-					else if ( cmd.Connection != null && cmd.Connection.State != ConnectionState.Open )
-					{
-						cmd.Connection.Open();
-					}
-
-					// create the adapters
-					using ( DataSet ds = new DataSet() )
-					{
-						using ( SqlDataAdapter da = new SqlDataAdapter() )
-						{
-							da.SelectCommand = cmd;
-							da.SelectCommand.Connection = cmd.Connection;
-
-							// use a transaction
-							if ( transaction )
-							{
-								using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
-								{
-									try
-									{
-										da.SelectCommand.Transaction = trans;
-										da.Fill( ds );
-									}
-									finally
-									{
-										trans.Commit();
-									}
-								}
-							}
-							else // no transaction
-							{
-								da.Fill( ds );
-							}
-
-							// return the dataset
-							return ds;
-						}
-					}
-				}
+				return GetDatasetBasic( cmd, transaction );
 			}
 			finally
 			{
-				qc.Dispose();				
+				qc.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Used internally to get data for all the other functions
+		/// </summary>
+		/// <param name="cmd"></param>
+		/// <param name="transaction"></param>
+		/// <returns></returns>
+		static public DataSet GetDatasetBasic( SqlCommand cmd, bool transaction)
+		{
+			using ( YafDBConnManager connMan = new YafDBConnManager() )
+			{
+				// see if an existing connection is present
+				if ( cmd.Connection == null )
+				{
+					cmd.Connection = connMan.OpenDBConnection;
+				}
+				else if ( cmd.Connection != null && cmd.Connection.State != ConnectionState.Open )
+				{
+					cmd.Connection.Open();
+				}
+
+				// create the adapters
+				using ( DataSet ds = new DataSet() )
+				{
+					using ( SqlDataAdapter da = new SqlDataAdapter() )
+					{
+						da.SelectCommand = cmd;
+						da.SelectCommand.Connection = cmd.Connection;
+
+						// use a transaction
+						if ( transaction )
+						{
+							using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+							{
+								try
+								{
+									da.SelectCommand.Transaction = trans;
+									da.Fill( ds );
+								}
+								finally
+								{
+									trans.Commit();
+								}
+							}
+						}
+						else // no transaction
+						{
+							da.Fill( ds );
+						}
+
+						// return the dataset
+						return ds;
+					}
+				}
 			}
 		}
 
@@ -313,7 +324,7 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				return GetDataset( cmd, transaction ).Tables [0];
+				return GetDatasetBasic( cmd, transaction ).Tables [0];
 			}
 			finally
 			{
@@ -340,7 +351,7 @@ namespace YAF.Classes.Data
 				{
 					cmd.CommandType = CommandType.Text;
 					cmd.CommandText = commandText;
-					return GetDataset( cmd, transaction ).Tables [0];
+					return GetDatasetBasic( cmd, transaction ).Tables [0];
 				}
 			}
 			finally
