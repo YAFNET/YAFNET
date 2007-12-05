@@ -233,7 +233,12 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="cmd">The SQL Command</param>
 		/// <returns>Dataset with the results</returns>
-		static public DataSet GetDataset( SqlCommand cmd )
+		/// <remarks>Without transaction.</remarks>
+		static public DataSet GetDataset(SqlCommand cmd)
+		{
+			return GetDataset(cmd, false);
+		}
+		static public DataSet GetDataset( SqlCommand cmd, bool transaction)
 		{
 			QueryCounter qc = new QueryCounter( cmd.CommandText );
 
@@ -255,25 +260,41 @@ namespace YAF.Classes.Data
 				{
 					using ( YafDBConnManager connMan = new YafDBConnManager() )
 					{
-						using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+						if (transaction)
 						{
-							try
+							using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
 							{
-								cmd.Transaction = trans;
-								using ( DataSet ds = new DataSet() )
+								try
 								{
-									using ( SqlDataAdapter da = new SqlDataAdapter() )
+									cmd.Transaction = trans;
+									using (DataSet ds = new DataSet())
 									{
-										da.SelectCommand = cmd;
-										da.SelectCommand.Connection = connMan.DBConnection;
-										da.Fill( ds );
-										return ds;
+										using (SqlDataAdapter da = new SqlDataAdapter())
+										{
+											da.SelectCommand = cmd;
+											da.SelectCommand.Connection = connMan.DBConnection;
+											da.Fill(ds);
+											return ds;
+										}
 									}
 								}
+								finally
+								{
+									trans.Commit();
+								}
 							}
-							finally
+						}
+						else
+						{
+							using (DataSet ds = new DataSet())
 							{
-								trans.Commit();
+								using (SqlDataAdapter da = new SqlDataAdapter())
+								{
+									da.SelectCommand = cmd;
+									da.SelectCommand.Connection = connMan.DBConnection;
+									da.Fill(ds);
+									return ds;
+								}
 							}
 						}
 					}
@@ -290,41 +311,116 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="cmd">The SQL Command</param>
 		/// <returns>DataTable with the results</returns>
-		static public DataTable GetData( SqlCommand cmd )
+		/// <remarks>Without transaction.</remarks>
+		static public DataTable GetData(SqlCommand cmd)
 		{
-			QueryCounter qc = new QueryCounter( cmd.CommandText );
+			return GetData(cmd, false);
+		}
+		static public DataTable GetData(SqlCommand cmd, bool transaction)
+		{
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
 
 			try
 			{
-				if ( cmd.Connection != null )
+				if (cmd.Connection != null)
 				{
-					using ( DataSet ds = new DataSet() )
+					using (DataSet ds = new DataSet())
 					{
-						using ( SqlDataAdapter da = new SqlDataAdapter() )
+						using (SqlDataAdapter da = new SqlDataAdapter())
 						{
 							da.SelectCommand = cmd;
-							da.Fill( ds );
-							return ds.Tables [0];
+							da.Fill(ds);
+							return ds.Tables[0];
 						}
 					}
 				}
 				else
 				{
-          using ( YafDBConnManager connMan = new YafDBConnManager() )
+					using (YafDBConnManager connMan = new YafDBConnManager())
 					{
-            using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+						if (transaction)
+						{
+							using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+							{
+								try
+								{
+									cmd.Transaction = trans;
+									using (DataSet ds = new DataSet())
+									{
+										using (SqlDataAdapter da = new SqlDataAdapter())
+										{
+											da.SelectCommand = cmd;
+											da.SelectCommand.Connection = connMan.DBConnection;
+											da.Fill(ds);
+											return ds.Tables[0];
+										}
+									}
+								}
+								finally
+								{
+									trans.Commit();
+								}
+							}
+						}
+						else
+						{
+							using (DataSet ds = new DataSet())
+							{
+								using (SqlDataAdapter da = new SqlDataAdapter())
+								{
+									da.SelectCommand = cmd;
+									da.SelectCommand.Connection = connMan.DBConnection;
+									da.Fill(ds);
+									return ds.Tables[0];
+								}
+							}
+						}
+					}
+				}
+			}
+			finally
+			{
+				qc.Dispose();
+			}
+		}
+
+		/// <summary>
+		/// Gets data out of database using a plain text string command
+		/// </summary>
+		/// <param name="commandText">command text to be executed</param>
+		/// <returns>DataTable with results</returns>
+		/// <remarks>Without transaction.</remarks>
+		static public DataTable GetData(string commandText)
+		{
+			return GetData(commandText, false);
+		}
+		static public DataTable GetData(string commandText, bool transaction)
+		{
+			QueryCounter qc = new QueryCounter(commandText);
+			try
+			{
+				using (YafDBConnManager connMan = new YafDBConnManager())
+				{
+					if (transaction)
+					{
+						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
 						{
 							try
 							{
-								cmd.Transaction = trans;
-								using ( DataSet ds = new DataSet() )
+								using (SqlCommand cmd = connMan.DBConnection.CreateCommand())
 								{
-									using ( SqlDataAdapter da = new SqlDataAdapter() )
+									cmd.Transaction = trans;
+									cmd.CommandType = CommandType.Text;
+									cmd.CommandText = commandText;
+									using (DataSet ds = new DataSet())
 									{
-										da.SelectCommand = cmd;
-                    da.SelectCommand.Connection = connMan.DBConnection;
-										da.Fill( ds );
-										return ds.Tables [0];
+										using (SqlDataAdapter da = new SqlDataAdapter())
+										{
+											da.SelectCommand = cmd;
+											da.SelectCommand.Connection = connMan.DBConnection;
+											da.Fill(ds);
+											return ds.Tables[0];
+										}
 									}
 								}
 							}
@@ -334,49 +430,22 @@ namespace YAF.Classes.Data
 							}
 						}
 					}
-				}
-			}
-			finally
-			{
-				qc.Dispose();
-			}
-		}
-		/// <summary>
-		/// Gets data out of database using a plain text string command
-		/// </summary>
-		/// <param name="commandText">command text to be executed</param>
-		/// <returns>DataTable with results</returns>
-		static public DataTable GetData( string commandText )
-		{
-			QueryCounter qc = new QueryCounter( commandText );
-			try
-			{
-        using ( YafDBConnManager connMan = new YafDBConnManager() )
-				{
-          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+					else
 					{
-						try
+						using (SqlCommand cmd = connMan.DBConnection.CreateCommand())
 						{
-              using ( SqlCommand cmd = connMan.DBConnection.CreateCommand() )
+							cmd.CommandType = CommandType.Text;
+							cmd.CommandText = commandText;
+							using (DataSet ds = new DataSet())
 							{
-								cmd.Transaction = trans;
-								cmd.CommandType = CommandType.Text;
-								cmd.CommandText = commandText;
-								using ( DataSet ds = new DataSet() )
+								using (SqlDataAdapter da = new SqlDataAdapter())
 								{
-									using ( SqlDataAdapter da = new SqlDataAdapter() )
-									{
-										da.SelectCommand = cmd;
-                    da.SelectCommand.Connection = connMan.DBConnection;
-										da.Fill( ds );
-										return ds.Tables [0];
-									}
+									da.SelectCommand = cmd;
+									da.SelectCommand.Connection = connMan.DBConnection;
+									da.Fill(ds);
+									return ds.Tables[0];
 								}
 							}
-						}
-						finally
-						{
-							trans.Commit();
 						}
 					}
 				}
@@ -386,23 +455,37 @@ namespace YAF.Classes.Data
 				qc.Dispose();
 			}
 		}
+
 		/// <summary>
 		/// Executes a NonQuery
 		/// </summary>
 		/// <param name="cmd">NonQuery to execute</param>
-		static public void ExecuteNonQuery( SqlCommand cmd )
+		/// <remarks>Without transaction</remarks>
+		static public void ExecuteNonQuery(SqlCommand cmd)
 		{
-			QueryCounter qc = new QueryCounter( cmd.CommandText );
+			ExecuteNonQuery(cmd, false);
+		}
+		static public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
+		{
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
 			try
 			{
-        using ( YafDBConnManager connMan = new YafDBConnManager() )
+				using (YafDBConnManager connMan = new YafDBConnManager())
 				{
-          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+					if (transaction)
 					{
-            cmd.Connection = connMan.DBConnection;
-						cmd.Transaction = trans;
+						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+						{
+							cmd.Connection = connMan.DBConnection;
+							cmd.Transaction = trans;
+							cmd.ExecuteNonQuery();
+							trans.Commit();
+						}
+					}
+					else
+					{
+						cmd.Connection = connMan.DBConnection;
 						cmd.ExecuteNonQuery();
-						trans.Commit();
 					}
 				}
 			}
@@ -413,20 +496,33 @@ namespace YAF.Classes.Data
 		}
 
 
-		static public object ExecuteScalar( SqlCommand cmd )
+		static public object ExecuteScalar(SqlCommand cmd)
 		{
-			QueryCounter qc = new QueryCounter( cmd.CommandText );
+			return ExecuteScalar(cmd, false);
+		}
+		static public object ExecuteScalar(SqlCommand cmd, bool transaction)
+		{
+			QueryCounter qc = new QueryCounter(cmd.CommandText);
 			try
 			{
-        using ( YafDBConnManager connMan = new YafDBConnManager() )
+				using (YafDBConnManager connMan = new YafDBConnManager())
 				{
-          using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
+					if (transaction)
 					{
-            cmd.Connection = connMan.DBConnection;
-						cmd.Transaction = trans;
-						object results = cmd.ExecuteScalar();
-						trans.Commit();
-						return results;
+						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+						{
+							cmd.Connection = connMan.DBConnection;
+							cmd.Transaction = trans;
+							object results = cmd.ExecuteScalar();
+							trans.Commit();
+							return results;
+						}
+					}
+					else
+					{
+						cmd.Connection = connMan.DBConnection;
+
+						return cmd.ExecuteScalar();
 					}
 				}
 			}
