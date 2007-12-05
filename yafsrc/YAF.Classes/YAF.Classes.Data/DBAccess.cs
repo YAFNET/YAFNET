@@ -244,65 +244,56 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				if ( cmd.Connection != null )
+				using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
+					// see if an existing connection is present
+					if ( cmd.Connection == null )
+					{
+						cmd.Connection = connMan.OpenDBConnection;
+					}
+					else if ( cmd.Connection != null && cmd.Connection.State != ConnectionState.Open )
+					{
+						cmd.Connection.Open();
+					}
+
+					// create the adapters
 					using ( DataSet ds = new DataSet() )
 					{
 						using ( SqlDataAdapter da = new SqlDataAdapter() )
 						{
 							da.SelectCommand = cmd;
-							da.Fill( ds );
-							return ds;
-						}
-					}
-				}
-				else
-				{
-					using ( YafDBConnManager connMan = new YafDBConnManager() )
-					{
-						if (transaction)
-						{
-							using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+							da.SelectCommand.Connection = cmd.Connection;
+
+							// use a transaction
+							if ( transaction )
 							{
-								try
+								using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 								{
-									cmd.Transaction = trans;
-									using (DataSet ds = new DataSet())
+									try
 									{
-										using (SqlDataAdapter da = new SqlDataAdapter())
-										{
-											da.SelectCommand = cmd;
-											da.SelectCommand.Connection = connMan.DBConnection;
-											da.Fill(ds);
-											return ds;
-										}
+										da.SelectCommand.Transaction = trans;
+										da.Fill( ds );
+									}
+									finally
+									{
+										trans.Commit();
 									}
 								}
-								finally
-								{
-									trans.Commit();
-								}
 							}
-						}
-						else
-						{
-							using (DataSet ds = new DataSet())
+							else // no transaction
 							{
-								using (SqlDataAdapter da = new SqlDataAdapter())
-								{
-									da.SelectCommand = cmd;
-									da.SelectCommand.Connection = connMan.DBConnection;
-									da.Fill(ds);
-									return ds;
-								}
+								da.Fill( ds );
 							}
+
+							// return the dataset
+							return ds;
 						}
 					}
 				}
 			}
 			finally
 			{
-				qc.Dispose();
+				qc.Dispose();				
 			}
 		}
 
@@ -322,61 +313,7 @@ namespace YAF.Classes.Data
 
 			try
 			{
-				if (cmd.Connection != null)
-				{
-					using (DataSet ds = new DataSet())
-					{
-						using (SqlDataAdapter da = new SqlDataAdapter())
-						{
-							da.SelectCommand = cmd;
-							da.Fill(ds);
-							return ds.Tables[0];
-						}
-					}
-				}
-				else
-				{
-					using (YafDBConnManager connMan = new YafDBConnManager())
-					{
-						if (transaction)
-						{
-							using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
-							{
-								try
-								{
-									cmd.Transaction = trans;
-									using (DataSet ds = new DataSet())
-									{
-										using (SqlDataAdapter da = new SqlDataAdapter())
-										{
-											da.SelectCommand = cmd;
-											da.SelectCommand.Connection = connMan.DBConnection;
-											da.Fill(ds);
-											return ds.Tables[0];
-										}
-									}
-								}
-								finally
-								{
-									trans.Commit();
-								}
-							}
-						}
-						else
-						{
-							using (DataSet ds = new DataSet())
-							{
-								using (SqlDataAdapter da = new SqlDataAdapter())
-								{
-									da.SelectCommand = cmd;
-									da.SelectCommand.Connection = connMan.DBConnection;
-									da.Fill(ds);
-									return ds.Tables[0];
-								}
-							}
-						}
-					}
-				}
+				return GetDataset( cmd, transaction ).Tables [0];
 			}
 			finally
 			{
@@ -399,55 +336,11 @@ namespace YAF.Classes.Data
 			QueryCounter qc = new QueryCounter(commandText);
 			try
 			{
-				using (YafDBConnManager connMan = new YafDBConnManager())
+				using ( SqlCommand cmd = new SqlCommand() )
 				{
-					if (transaction)
-					{
-						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
-						{
-							try
-							{
-								using (SqlCommand cmd = connMan.DBConnection.CreateCommand())
-								{
-									cmd.Transaction = trans;
-									cmd.CommandType = CommandType.Text;
-									cmd.CommandText = commandText;
-									using (DataSet ds = new DataSet())
-									{
-										using (SqlDataAdapter da = new SqlDataAdapter())
-										{
-											da.SelectCommand = cmd;
-											da.SelectCommand.Connection = connMan.DBConnection;
-											da.Fill(ds);
-											return ds.Tables[0];
-										}
-									}
-								}
-							}
-							finally
-							{
-								trans.Commit();
-							}
-						}
-					}
-					else
-					{
-						using (SqlCommand cmd = connMan.DBConnection.CreateCommand())
-						{
-							cmd.CommandType = CommandType.Text;
-							cmd.CommandText = commandText;
-							using (DataSet ds = new DataSet())
-							{
-								using (SqlDataAdapter da = new SqlDataAdapter())
-								{
-									da.SelectCommand = cmd;
-									da.SelectCommand.Connection = connMan.DBConnection;
-									da.Fill(ds);
-									return ds.Tables[0];
-								}
-							}
-						}
-					}
+					cmd.CommandType = CommandType.Text;
+					cmd.CommandText = commandText;
+					return GetDataset( cmd, transaction ).Tables [0];
 				}
 			}
 			finally
@@ -463,7 +356,8 @@ namespace YAF.Classes.Data
 		/// <remarks>Without transaction</remarks>
 		static public void ExecuteNonQuery(SqlCommand cmd)
 		{
-			ExecuteNonQuery(cmd, false);
+			// defaults to using a transaction for non-queries
+			ExecuteNonQuery(cmd, true);
 		}
 		static public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
 		{
@@ -472,19 +366,22 @@ namespace YAF.Classes.Data
 			{
 				using (YafDBConnManager connMan = new YafDBConnManager())
 				{
+					// get an open connection
+					cmd.Connection = connMan.OpenDBConnection;
+
 					if (transaction)
 					{
+						// execute using a transaction
 						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
 						{
-							cmd.Connection = connMan.DBConnection;
 							cmd.Transaction = trans;
 							cmd.ExecuteNonQuery();
 							trans.Commit();
 						}
 					}
 					else
-					{
-						cmd.Connection = connMan.DBConnection;
+					{	
+						// don't use a transaction
 						cmd.ExecuteNonQuery();
 					}
 				}
@@ -498,7 +395,8 @@ namespace YAF.Classes.Data
 
 		static public object ExecuteScalar(SqlCommand cmd)
 		{
-			return ExecuteScalar(cmd, false);
+			// default to using a transaction for scaler commands
+			return ExecuteScalar(cmd, true);
 		}
 		static public object ExecuteScalar(SqlCommand cmd, bool transaction)
 		{
@@ -507,11 +405,14 @@ namespace YAF.Classes.Data
 			{
 				using (YafDBConnManager connMan = new YafDBConnManager())
 				{
+					// get an open connection
+					cmd.Connection = connMan.OpenDBConnection;
+
 					if (transaction)
 					{
+						// get scalar using a transaction
 						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
 						{
-							cmd.Connection = connMan.DBConnection;
 							cmd.Transaction = trans;
 							object results = cmd.ExecuteScalar();
 							trans.Commit();
@@ -520,8 +421,7 @@ namespace YAF.Classes.Data
 					}
 					else
 					{
-						cmd.Connection = connMan.DBConnection;
-
+						// get scalar regular
 						return cmd.ExecuteScalar();
 					}
 				}
