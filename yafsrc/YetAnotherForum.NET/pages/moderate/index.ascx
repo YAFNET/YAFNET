@@ -35,15 +35,18 @@
                         </td>
                         <td align="center">
                             <asp:LinkButton ID="ViewUnapprovedPostsBtn" runat='server' CommandName='viewunapprovedposts'
-                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"MessageCount\"]") %>'></asp:LinkButton>
+                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"MessageCount\"]") %>'
+                                Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"MessageCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
                         </td>
                         <td align="center">
                             <asp:LinkButton ID="ViewReportedPostsBtn" runat='server' CommandName='viewreportedposts'
-                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"ReportCount\"]") %>'></asp:LinkButton>
+                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"ReportCount\"]") %>'
+                                Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"ReportCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
                         </td>
                         <td align="center">
                             <asp:LinkButton ID="ViewReportedSpamBtn" runat='server' CommandName='viewreportedspam'
-                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"SpamCount\"]") %>'></asp:LinkButton>
+                                CommandArgument='<%# Eval( "[\"ForumID\"]") %>' Text='<%# Eval( "[\"SpamCount\"]") %>'
+                                Font-Bold='<%# ((Convert.ToInt32(Eval( "[\"SpamCount\"]")) > 0) ? true : false) %>'></asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
