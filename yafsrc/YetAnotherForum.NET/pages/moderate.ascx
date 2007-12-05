@@ -58,27 +58,26 @@
         <td class="header2" align="left">
             <%= GetText("topics") %>
         </td>
-        <td class="header2" align="left" width="20%">
+        <td class="header2" align="left" width="15%">
             <%= GetText("topic_starter") %>
         </td>
-        <td class="header2" align="middle" width="7%">
+        <td class="header2" align="center" width="7%">
             <%= GetText("replies") %>
         </td>
-        <td class="header2" align="middle" width="7%">
+        <td class="header2" align="center" width="7%">
             <%= GetText("views") %>
         </td>
-        <td class="header2" align="middle" width="25%">
+        <td class="header2" align="center" width="15%">
             <%= GetText("lastpost") %>
         </td>
-        <td class="header2">
+        <td class="header2" width="100">
             &nbsp;</td>
     </tr>
     <asp:Repeater ID="topiclist" runat="server">
         <ItemTemplate>
             <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>">
                 <td class="postheader" align="center">
-                    <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandArgument='<%# Eval( "TopicID") %>'
-                        CommandName='delete'><%# GetThemeContents("BUTTONS","DELETETOPIC") %></asp:LinkButton>
+                    <YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_DELETETOPIC" TitleLocalizedTag="BUTTON_DELETETOPIC_TT" OnLoad="Delete_Load" CommandArgument='<%# Eval( "TopicID") %>' CommandName='delete' />
                 </td>
             </YAF:TopicLine>
         </ItemTemplate>

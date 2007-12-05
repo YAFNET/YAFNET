@@ -28,6 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -37,93 +38,96 @@ namespace YAF.Pages // YAF.Pages
 	public partial class moderate0 : YAF.Classes.Base.ForumPage
 	{
 
-		public moderate0() : base("MODERATE")
+		public moderate0()
+			: base( "MODERATE" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!PageContext.ForumModeratorAccess)
+			if ( !PageContext.ForumModeratorAccess )
 				YafBuildLink.AccessDenied();
 
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				AddUser.Text = GetText("INVITE");
+				AddUser.Text = GetText( "INVITE" );
 
-				if(PageContext.Settings.LockedForum==0)
+				if ( PageContext.Settings.LockedForum == 0 )
 				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
-				PageLinks.AddForumLinks(PageContext.PageForumID);
-				PageLinks.AddLink(GetText("TITLE"),"");
+				PageLinks.AddForumLinks( PageContext.PageForumID );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
 			}
 			BindData();
 		}
 
-		private void AddUser_Click(object sender, System.EventArgs e)
+		private void AddUser_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}",PageContext.PageForumID);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser, "f={0}", PageContext.PageForumID );
 		}
 
-		protected void Delete_Load(object sender, System.EventArgs e) 
+		protected void Delete_Load( object sender, System.EventArgs e )
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')",GetText("confirm_delete"));
+			( ( ThemeButton )sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "confirm_delete" ) );
 		}
 
-		protected void DeleteUser_Load(object sender, System.EventArgs e) 
+		protected void DeleteUser_Load( object sender, System.EventArgs e )
 		{
-			((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')","Remove this user from this forum?");
+			( ( LinkButton )sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", "Remove this user from this forum?" );
 		}
 
-		private void BindData() 
+		private void BindData()
 		{
-			topiclist.DataSource = YAF.Classes.Data.DB.topic_list(PageContext.PageForumID,-1,null,0,999999);
-			UserList.DataSource = YAF.Classes.Data.DB.userforum_list(null,PageContext.PageForumID);
+			topiclist.DataSource = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, -1, null, 0, 999999 );
+			UserList.DataSource = YAF.Classes.Data.DB.userforum_list( null, PageContext.PageForumID );
 			DataBind();
 		}
 
-		private void topiclist_ItemCommand(object sender,RepeaterCommandEventArgs e) {
-			if(e.CommandName=="delete") {
-				YAF.Classes.Data.DB.topic_delete(e.CommandArgument);
-				PageContext.AddLoadMessage(GetText("deleted"));
+		private void topiclist_ItemCommand( object sender, RepeaterCommandEventArgs e )
+		{
+			if ( e.CommandName == "delete" )
+			{
+				YAF.Classes.Data.DB.topic_delete( e.CommandArgument );
+				PageContext.AddLoadMessage( GetText( "deleted" ) );
 				BindData();
 			}
 		}
 
-		private void UserList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		private void UserList_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
 		{
-			switch(e.CommandName) 
+			switch ( e.CommandName )
 			{
 				case "edit":
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser,"f={0}&u={1}",PageContext.PageForumID,e.CommandArgument);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.mod_forumuser, "f={0}&u={1}", PageContext.PageForumID, e.CommandArgument );
 					break;
 				case "remove":
-					YAF.Classes.Data.DB.userforum_delete(e.CommandArgument,PageContext.PageForumID);
+					YAF.Classes.Data.DB.userforum_delete( e.CommandArgument, PageContext.PageForumID );
 					BindData();
 					break;
 			}
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			topiclist.ItemCommand += new RepeaterCommandEventHandler(topiclist_ItemCommand);
-			UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.UserList_ItemCommand);
-			AddUser.Click += new EventHandler(AddUser_Click);
+			topiclist.ItemCommand += new RepeaterCommandEventHandler( topiclist_ItemCommand );
+			UserList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler( this.UserList_ItemCommand );
+			AddUser.Click += new EventHandler( AddUser_Click );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 		}
 		#endregion
 	}

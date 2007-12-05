@@ -45,7 +45,7 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="5" align="center">
+            <td class="footer1" colspan="5">
                 <asp:Button ID="UnsubscribeForums" runat="server" OnClick="UnsubscribeForums_Click" /></td>
         </tr>
 </table>
@@ -94,7 +94,7 @@
             </ItemTemplate>
         </asp:Repeater>
         <tr>
-            <td class="footer1" colspan="5" align="middle">
+            <td class="footer1" colspan="5">
                 <asp:Button ID="UnsubscribeTopics" runat="server" OnClick="UnsubscribeTopics_Click" /></td>
         </tr>
 </table>

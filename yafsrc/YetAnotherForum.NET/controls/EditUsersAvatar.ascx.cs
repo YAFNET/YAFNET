@@ -69,7 +69,7 @@ namespace YAF.Controls
 				string addAdminParam = "";
 				if ( AdminEditMode ) addAdminParam = "u=" + CurrentUserID.ToString();
 
-				OurAvatar.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
+				OurAvatar.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.avatar, addAdminParam );
 				OurAvatar.Text = PageContext.Localization.GetText( "CP_EDITAVATAR", "OURAVATAR_SELECT" );				
 			}
 
