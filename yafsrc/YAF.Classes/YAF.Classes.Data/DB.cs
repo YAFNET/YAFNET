@@ -141,8 +141,6 @@ namespace YAF.Classes.Data
 							if ( !bFirst ) searchSql += " AND "; else bFirst = false;
 							searchSql += string.Format( " b.Name LIKE N'%{0}%'", word );
 						}
-						// remove last OR in sql query
-						searchSql = searchSql.Substring( 0, searchSql.Length - 5 );
 						break;
 					case SearchWhatFlags.AnyWords:
 						words = toSearchFromWho.Split( ' ' );
@@ -151,12 +149,9 @@ namespace YAF.Classes.Data
 							if ( !bFirst ) searchSql += " OR "; else bFirst = false;
 							searchSql += string.Format( " b.Name LIKE N'%{0}%'", word );
 						}
-						// remove last OR in sql query
-						searchSql = searchSql.Substring( 0, searchSql.Length - 4 );
 						break;
 					case SearchWhatFlags.ExactMatch:
 						searchSql += string.Format( "b.Name like N'%{0}%'", toSearchFromWho );
-
 						break;
 				}
 				searchSql += ") ";
@@ -184,14 +179,14 @@ namespace YAF.Classes.Data
 								ftInner += String.Format( @"""{0}""", word );
 							}
 							// make final string...
-							searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
+							searchSql += string.Format( "( CONTAINS (c.Message, N' {0} ') OR CONTAINS (a.Topic, N' {0} ') )", ftInner );
 						}
 						else
 						{
 							foreach ( string word in words )
 							{
 								if ( !bFirst ) searchSql += " AND "; else bFirst = false;
-								searchSql += String.Format( "(c.Message like '%{0}%' OR a.Topic LIKE '%{0}%')", word );
+								searchSql += String.Format( "(c.Message like N'%{0}%' OR a.Topic LIKE N'%{0}%')", word );
 							}
 						}
 						break;
@@ -209,25 +204,25 @@ namespace YAF.Classes.Data
 								ftInner += String.Format( @"""{0}""", word );
 							}
 							// make final string...
-							searchSql += string.Format( "( CONTAINS (c.Message, ' {0} ') OR CONTAINS (a.Topic, ' {0} ') )", ftInner );
+							searchSql += string.Format( "( CONTAINS (c.Message, N' {0} ') OR CONTAINS (a.Topic, N' {0} ') )", ftInner );
 						}
 						else
 						{
 							foreach ( string word in words )
 							{
 								if ( !bFirst ) searchSql += " OR "; else bFirst = false;
-								searchSql += String.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%'", word );
+								searchSql += String.Format( "c.Message LIKE N'%{0}%' OR a.Topic LIKE N'%{0}%'", word );
 							}
 						}
 						break;
 					case SearchWhatFlags.ExactMatch:
 						if ( useFullText )
 						{
-							searchSql += string.Format( "( CONTAINS (c.Message, ' \"{0}\" ') OR CONTAINS (a.Topic, ' \"{0}\" ') )", toSearchWhat );
+							searchSql += string.Format( "( CONTAINS (c.Message, N' \"{0}\" ') OR CONTAINS (a.Topic, N' \"{0}\" ') )", toSearchWhat );
 						}
 						else
 						{
-							searchSql += string.Format( "c.Message LIKE '%{0}%' OR a.Topic LIKE '%{0}%' ", toSearchWhat );
+							searchSql += string.Format( "c.Message LIKE N'%{0}%' OR a.Topic LIKE N'%{0}%' ", toSearchWhat );
 						}
 						break;
 				}
