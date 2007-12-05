@@ -39,6 +39,11 @@
 			<td colspan="5"><pre style="overflow:scroll"><%# Eval( "Description") %></pre></td>
 		</tr>
 	</ItemTemplate>
+	<FooterTemplate>
+		<tr class="footer1">
+			<td colspan="5"><asp:Button runat="server" OnLoad="DeleteAll_Load" OnClick="DeleteAll_Click" Text="DeleteAll" /></td>
+		</tr>
+	</FooterTemplate>
 </asp:repeater>
 
 </table>

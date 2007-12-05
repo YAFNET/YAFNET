@@ -1430,9 +1430,24 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_delete](@EventLogID int) as
+create procedure [{databaseOwner}].[{objectQualifier}eventlog_delete]
+(
+	@EventLogID int = null, 
+	@BoardID int = null
+) as
 begin
-	delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventLogID=@EventLogID
+	-- either EventLogID or BoardID must be null, not both at the same time
+	if (@EventLogID is null) begin
+		-- delete all events of this board
+		delete from [{databaseOwner}].[{objectQualifier}EventLog]
+		where
+			(UserID is null or
+			UserID in (select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID))
+	end
+	else begin
+		-- delete just one event
+		delete from [{databaseOwner}].[{objectQualifier}EventLog] where EventLogID=@EventLogID
+	end
 end
 GO
 

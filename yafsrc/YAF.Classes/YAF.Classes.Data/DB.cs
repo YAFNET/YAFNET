@@ -856,18 +856,41 @@ namespace YAF.Classes.Data
 			}
 		}
 
+
 		static public void eventlog_create( object userID, object source, object description )
 		{
 			eventlog_create( userID, ( object )source.GetType().ToString(), description, ( object )0 );
 		}
 
-		static public void eventlog_delete( object eventLogID )
+		/// <summary>
+		/// Deletes all event log entries for given board.
+		/// </summary>
+		/// <param name="boardID">ID of board.</param>
+		static public void eventlog_delete(int boardID)
 		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "eventlog_delete" ) )
+			eventlog_delete(null, boardID);
+		}
+		/// <summary>
+		/// Deletes event log entry of given ID.
+		/// </summary>
+		/// <param name="eventLogID">ID of event log entry.</param>
+		static public void eventlog_delete(object eventLogID)
+		{
+			eventlog_delete(eventLogID, null);
+		}
+		/// <summary>
+		/// Calls underlying stroed procedure for deletion of event log entry(ies).
+		/// </summary>
+		/// <param name="eventLogID">When not null, only given event log entry is deleted.</param>
+		/// <param name="boardID">Specifies board. It is ignored if eventLogID parameter is not null.</param>
+		static private void eventlog_delete(object eventLogID, object boardID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("eventlog_delete"))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "EventLogID", eventLogID );
-				DBAccess.ExecuteNonQuery( cmd );
+				cmd.Parameters.AddWithValue("EventLogID", eventLogID);
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}
 
