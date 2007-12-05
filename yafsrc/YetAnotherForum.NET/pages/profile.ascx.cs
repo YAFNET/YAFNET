@@ -47,7 +47,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			// checks for administrator setting whether allow profile viewing
+			// checks for administrator setting whether to allow profile viewing
 			// it's denied for all users (administrators are always allowed to view profiles)
 			if (PageContext.BoardSettings.ProfileViewPermissions == 0 && !PageContext.IsAdmin)
 			{
@@ -67,7 +67,11 @@ namespace YAF.Pages // YAF.Pages
 			if ( Request.QueryString ["u"] == null )
 				YafBuildLink.AccessDenied();
 
-			if ( !IsPostBack )
+			// Ederon : 12/5/2007
+			// if user viewing profile is admin, we need to take care of it
+			if (PageContext.IsAdmin || PageContext.IsForumModerator) SignatureEditControl.InAdminPages = true;
+
+			if (!IsPostBack)
 			{
 				userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
 
@@ -76,7 +80,7 @@ namespace YAF.Pages // YAF.Pages
 				BindData();
 
 				// handle custom BBCode javascript or CSS...
-				YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
+				YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements(Page, this.GetType());
 			}
 		}
 
@@ -175,9 +179,6 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( PageContext.IsAdmin || PageContext.IsForumModerator )
 			{
-				// Ederon : 9/6/2007
-				SignatureEditControl.InAdminPages = true;
-
 				using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageContext.PageBoardID, userID ) )
 				{
 					System.Text.StringBuilder html = new System.Text.StringBuilder();

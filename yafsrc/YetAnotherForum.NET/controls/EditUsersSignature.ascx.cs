@@ -32,27 +32,17 @@ namespace YAF.Controls
 {
 	public partial class EditUsersSignature : YAF.Classes.Base.BaseUserControl
 	{
-		protected YAF.Editor.ForumEditor sig;
-		private int CurrentUserID;
-		private bool AdminEditMode = false;
+		protected YAF.Editor.ForumEditor _sig;
+		private bool _adminEditMode = false;
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( AdminEditMode && PageContext.IsAdmin && Request.QueryString ["u"] != null )
-			{
-				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
-			}
-			else
-			{
-				CurrentUserID = PageContext.PageUserID;
-			}
-
-			sig.BaseDir = YafForumInfo.ForumRoot + "editors";
-			sig.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			_sig.BaseDir = YafForumInfo.ForumRoot + "editors";
+			_sig.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
 
 			if ( !IsPostBack )
 			{
-				sig.Text = YAF.Classes.Data.DB.user_getsignature( CurrentUserID );
+				_sig.Text = YAF.Classes.Data.DB.user_getsignature(CurrentUserID);
 
 				save.Text = PageContext.Localization.GetText( "COMMON", "Save" );
 				cancel.Text = PageContext.Localization.GetText( "COMMON", "Cancel" );
@@ -61,15 +51,15 @@ namespace YAF.Controls
 
 		private void save_Click( object sender, EventArgs e )
 		{
-			string body = sig.Text;
+			string body = _sig.Text;
 			//body = FormatMsg.RepairHtml(this,body,false);
 
-			if ( sig.Text.Length > 0 )
+			if ( _sig.Text.Length > 0 )
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, body );
 			else
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 
-			if ( AdminEditMode )
+			if ( _adminEditMode )
 				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
 				YafBuildLink.Redirect( ForumPages.cp_profile );
@@ -77,7 +67,7 @@ namespace YAF.Controls
 
 		private void cancel_Click( object sender, EventArgs e )
 		{
-			if ( AdminEditMode )
+			if ( _adminEditMode )
 				YafBuildLink.Redirect( ForumPages.admin_users );
 			else
 				YafBuildLink.Redirect( ForumPages.cp_profile );
@@ -87,8 +77,8 @@ namespace YAF.Controls
 		override protected void OnInit( EventArgs e )
 		{
 			// since signatures are so small only allow BBCode in them...
-			sig = new YAF.Editor.BBCodeEditor();
-			EditorLine.Controls.Add( sig );
+			_sig = new YAF.Editor.BBCodeEditor();
+			EditorLine.Controls.Add( _sig );
 
 			save.Click += new EventHandler( save_Click );
 			cancel.Click += new EventHandler( cancel_Click );
@@ -108,15 +98,31 @@ namespace YAF.Controls
 		}
 		#endregion
 
+		private int CurrentUserID
+		{
+			get
+			{
+				if (InAdminPages && PageContext.IsAdmin && Request.QueryString["u"] != null)
+				{
+					return Convert.ToInt32(Request.QueryString["u"]);
+				}
+				else
+				{
+					return PageContext.PageUserID;
+				}
+			}
+		}
+
+
 		public bool InAdminPages
 		{
 			get
 			{
-				return AdminEditMode;
+				return _adminEditMode;
 			}
 			set
 			{
-				AdminEditMode = value;
+				_adminEditMode = value;
 			}
 		}
 	}
