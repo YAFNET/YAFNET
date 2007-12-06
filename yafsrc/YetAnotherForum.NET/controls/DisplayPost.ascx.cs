@@ -235,6 +235,8 @@ namespace YAF.Controls
 			}
 			set
 			{
+				_row = value;
+
 				// get all flags for forum, topic and message
 				if (_row != null)
 				{
@@ -248,8 +250,6 @@ namespace YAF.Controls
 					_topicFlags = new TopicFlags(0);
 					_messageFlags = new MessageFlags(0);
 				}
-
-				_row = value;
 			}
 		}
 
