@@ -105,7 +105,7 @@ namespace YAF.Pages // YAF.Pages
 
 			BindData();	// Always because of yaf:TopicLine
 
-			if ( !PageContext.ForumPostAccess )
+			if ( !PageContext.ForumPostAccess || ( _forumFlags.IsLocked && !PageContext.ForumModeratorAccess ) )
 			{
 				NewTopic1.Visible = false;
 				NewTopic2.Visible = false;

@@ -2918,57 +2918,11 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID 
 BEGIN
 	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
-		WHERE	((@PMessageId IS NOT NULL AND PMessageID=@PMessageId) OR 
+		WHERE	((@PMessageId IS NOT NULL AND UserPMessageID=@PMessageId) OR 
 				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
 				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
 		ORDER BY Created DESC
 END
--- Old SPOC - modified by MicScoTho 01 June 2007
-/*	if @PMessageID is null begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUserID = c.UserID,
-			ToUser = c.Name,
-			d.IsRead,
-			d.IsInOutbox,
-			d.UserPMessageID
-		from
-			[{databaseOwner}].[{objectQualifier}PMessage] a,
-			[{databaseOwner}].[{objectQualifier}User] b,
-			[{databaseOwner}].[{objectQualifier}User] c,
-			[{databaseOwner}].[{objectQualifier}UserPMessage] d
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = d.UserID and
-			d.PMessageID = a.PMessageID and
-			((@ToUserID is not null and d.UserID = @ToUserID) or (@FromUserID is not null and a.FromUserID = @FromUserID))
-		order by
-			Created desc
-	end
-	else begin
-		select
-			a.*,
-			FromUser = b.Name,
-			ToUserID = c.UserID,
-			ToUser = c.Name,
-			d.IsRead,
-			d.UserPMessageID
-		from
-			[{databaseOwner}].[{objectQualifier}PMessage] a,
-			[{databaseOwner}].[{objectQualifier}User] b,
-			[{databaseOwner}].[{objectQualifier}User] c,
-			[{databaseOwner}].[{objectQualifier}UserPMessage] d
-		where
-			b.UserID = a.FromUserID and
-			c.UserID = d.UserID and
-			d.PMessageID = a.PMessageID and
-			a.PMessageID = @PMessageID and
-			c.UserID = @FromUserID
-		order by
-			Created desc
-	end
-*/
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pmessage_markread](@UserPMessageID int=null) as begin

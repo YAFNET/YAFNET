@@ -297,7 +297,7 @@ namespace YAF.Pages // YAF.Pages
         string body = General.ReadTemplate( "verifyemail.txt" );
         string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
 
-        body = body.Replace( "{link}", String.Format( "{1}{0}", YafBuildLink.GetLink( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL ) );
+        body = body.Replace( "{link}", String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL ) );
         body = body.Replace( "{key}", hash );
         body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
         body = body.Replace( "{forumlink}", String.Format( "{0}", YafForumInfo.ForumURL ) );

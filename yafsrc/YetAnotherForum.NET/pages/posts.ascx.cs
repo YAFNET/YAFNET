@@ -122,7 +122,7 @@ namespace YAF.Pages // YAF.Pages
 					CaptchaDiv.Visible = true;
 				}
 
-				if ( !PageContext.ForumPostAccess )
+				if ( !PageContext.ForumPostAccess || ( _forumFlags.IsLocked && !PageContext.ForumModeratorAccess ) )
 				{
 					NewTopic1.Visible = false;
 					NewTopic2.Visible = false;
@@ -130,7 +130,7 @@ namespace YAF.Pages // YAF.Pages
 
 				// Ederon : 9/9/2007 - moderators can relpy in locked topics
 				if (!PageContext.ForumReplyAccess || 
-					(_topicFlags.IsLocked && !PageContext.ForumModeratorAccess))
+					((_topicFlags.IsLocked || _forumFlags.IsLocked) && !PageContext.ForumModeratorAccess))
 				{
 					PostReplyLink1.Visible = PostReplyLink2.Visible = false;
 					QuickReplyPlaceHolder.Visible = false;
