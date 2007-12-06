@@ -114,7 +114,7 @@ namespace YAF.Controls
 					if ( PageContext.UnreadPrivate > 0 )
 					{
 						string unreadText = String.Format( PageContext.Localization.GetText( "TOOLBAR", "NEWPM" ), PageContext.UnreadPrivate );
-						buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> ( | ", YafBuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ), unreadText ) );
+						buildHeader.AppendFormat( String.Format( "	<a target='_top' href=\"{0}\">{1}</a> <span class=\"unread\">{2}</span> | ", YafBuildLink.GetLink( ForumPages.cp_pm ), PageContext.Localization.GetText( "CP_PM", "INBOX" ), unreadText ) );
 					}
 					else
 					{
