@@ -24,6 +24,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
 using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.UI
 {
@@ -291,7 +292,7 @@ namespace YAF.Classes.UI
 			}
 
 			// do html damage control
-			message = RepairHtml( message, messageFlags.IsHTML );
+			message = RepairHtml( message, messageFlags.IsHtml );
 
 			// do BBCode and Smilies...
 			message = BBCode.MakeHtml( message, messageFlags.IsBBCode, targetBlankOverride );

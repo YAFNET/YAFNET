@@ -84,7 +84,7 @@ namespace YAF.Classes.Utils
 		public static string FormatDateTimeTopic( object o )
 		{
 			string strDateFormat;
-			DateTime dt = Convert.ToDateTime( o ) + TimeOffset;
+			DateTime dt = Convert.ToDateTime(o) + TimeOffset;
 			DateTime nt = DateTime.Now + TimeOffset;
 
 			try

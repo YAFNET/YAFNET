@@ -43,7 +43,7 @@ namespace YAF.Controls
 			if ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem )
 			{
 				DataRow row = ( DataRow )e.Item.DataItem;
-				bool locked = General.BinaryAnd( row ["Flags"], ForumFlags.Locked );
+				ForumFlags flags = new ForumFlags(row["Flags"]);
 				DateTime lastRead = Mession.GetForumRead( ( int )row ["ForumID"] );
 				DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime )row ["LastPosted"] : lastRead;
 
@@ -55,7 +55,7 @@ namespace YAF.Controls
 
 				try
 				{
-					if ( locked )
+					if ( flags.IsLocked )
 					{
 						forumIcon.ThemeTag = "FORUM_LOCKED";
 						forumIcon.LocalizedTitlePage = "ICONLEGEND";
@@ -188,7 +188,7 @@ namespace YAF.Controls
 
 		protected bool GetModerated( object o )
 		{
-			return General.BinaryAnd( ( ( DataRow ) o ) ["Flags"], ForumFlags.Moderated );
+			return General.BinaryAnd( ( ( DataRow ) o ) ["Flags"], ForumFlags.Flags.IsModerated );
 		}
 
 		// Ederon : 08/27/2007

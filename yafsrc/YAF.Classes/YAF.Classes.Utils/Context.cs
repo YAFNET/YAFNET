@@ -33,6 +33,7 @@ namespace YAF.Classes.Utils
 		/* Ederon : 6/16/2007 - conventions */
 
 		private static YafContext _currentInstance = new YafContext();
+		
 		private System.Data.DataRow _page = null;
 		private YAF.Classes.Utils.YafControlSettings _settings = null;
 		private YAF.Classes.Utils.YafTheme _theme = null;
@@ -40,7 +41,7 @@ namespace YAF.Classes.Utils
 		private System.Web.Security.MembershipUser _user = null;
 		private string _loadString = "";
 		private string _adminLoadString = "";
-
+		private UserFlags _userFlags = null;
 
 		public string LoadString
 		{
@@ -126,6 +127,10 @@ namespace YAF.Classes.Utils
 			}
 			set
 			{
+				// get user flags
+				if (_page != null) _userFlags = new UserFlags(_page["UserFlags"]);
+				else _userFlags = null;
+
 				_page = value;
 			}
 		}
@@ -521,10 +526,12 @@ namespace YAF.Classes.Utils
 			{
 				bool isHostAdmin = false;
 
-				if ( Page != null )
+				if (_userFlags != null)
 				{
-					if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
-						isHostAdmin = true;
+					isHostAdmin = _userFlags.IsHostAdmin;
+					// Obsolette : Ederon
+					// if (General.BinaryAnd(Page["UserFlags"], UserFlags.IsHostAdmin))
+					//	isHostAdmin = true;
 				}
 
 				return isHostAdmin;

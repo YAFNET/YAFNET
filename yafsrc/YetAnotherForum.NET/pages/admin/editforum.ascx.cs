@@ -51,14 +51,15 @@ namespace YAF.Pages.Admin
 					using ( DataTable dt = YAF.Classes.Data.DB.forum_list( PageContext.PageBoardID, Request.QueryString ["f"] ) )
 					{
 						DataRow row = dt.Rows [0];
+						ForumFlags flags = new ForumFlags(row["Flags"]);
 						Name.Text = ( string ) row ["Name"];
 						Description.Text = ( string ) row ["Description"];
 						SortOrder.Text = row ["SortOrder"].ToString();
-						HideNoAccess.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Hidden);
-						Locked.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Locked);
-						IsTest.Checked = General.BinaryAnd(row["Flags"], ForumFlags.IsTest);
+						HideNoAccess.Checked = flags.IsHidden;
+						Locked.Checked = flags.IsLocked;
+						IsTest.Checked = flags.IsTest;
 						ForumNameTitle.Text = Name.Text;
-						Moderated.Checked = General.BinaryAnd(row["Flags"], ForumFlags.Moderated);
+						Moderated.Checked = flags.IsModerated;
 
 						CategoryList.SelectedValue = row ["CategoryID"].ToString();
 						// populate parent forums list with forums according to selected category

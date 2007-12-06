@@ -52,11 +52,12 @@ namespace YAF.Pages.Admin
 					using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, Request.QueryString ["i"] ) )
 					{
 						DataRow row = dt.Rows [0];
+						GroupFlags flags = new GroupFlags(row["Flags"]);
 						Name.Text = ( string ) row ["Name"];
-						IsGuestX.Checked = General.BinaryAnd( row ["Flags"], GroupFlags.IsGuest );
-						IsAdminX.Checked = General.BinaryAnd( row ["Flags"], GroupFlags.IsAdmin );
-						IsStartX.Checked = General.BinaryAnd( row ["Flags"], GroupFlags.IsStart );
-						IsModeratorX.Checked = General.BinaryAnd( row ["Flags"], GroupFlags.IsModerator );
+						IsGuestX.Checked = flags.IsGuest;
+						IsAdminX.Checked = flags.IsAdmin;
+						IsStartX.Checked = flags.IsStart;
+						IsModeratorX.Checked = flags.IsModerator;
 
 						// only if this IsGuest can they edit this flag
 						if ( IsGuestX.Checked ) IsGuestTR.Visible = true;

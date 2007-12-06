@@ -37,7 +37,14 @@ namespace YAF.Classes.Data
 		ExactMatch = 2
 	}
 
-	
+	public enum EventLogTypes : int
+	{
+		Error = 0,
+		Warning = 1,
+		Information = 2
+	}
+
+	/* Ederon
 	public enum ForumFlags : int
 	{
 		Locked = 1,						// users can't post/edit/delete topics in such forum
@@ -87,12 +94,5 @@ namespace YAF.Classes.Data
 		IsStart = 1,					// rank of this type is default rank for new users
 		IsLadder = 2					// user can advance to such rank by posting (increasing postcount)
 	}
-
-	public enum EventLogTypes : int
-	{
-		Error = 0,
-		Warning = 1,
-		Information = 2
-	}
-	
+	*/
 }

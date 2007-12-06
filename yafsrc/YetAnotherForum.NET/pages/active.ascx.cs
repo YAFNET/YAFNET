@@ -46,10 +46,11 @@ namespace YAF.Pages // YAF.Pages
 		{
 			if ( PageContext.IsPrivate && User == null )
 			{
-				if ( CanLogin )
+				// Ederon : guess we don't need this if anymore
+				//if ( CanLogin )
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
-				else
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				//else
+				//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 			}
 
 			if ( PageContext.BoardSettings.ShowRSSLink )

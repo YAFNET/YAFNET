@@ -48,20 +48,21 @@ namespace YAF.Pages.Admin
 				BindData();
 				if ( Request.QueryString ["i"] != null )
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.accessmask_list( PageContext.PageBoardID, Request.QueryString ["i"] ) )
+					using (DataTable dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, Request.QueryString["i"]))
 					{
-						DataRow row = dt.Rows [0];
-						Name.Text = ( string ) row ["Name"];
-						ReadAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.ReadAccess );
-						PostAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.PostAccess );
-						ReplyAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.ReplyAccess );
-						PriorityAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.PriorityAccess );
-						PollAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.PollAccess );
-						VoteAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.VoteAccess );
-						ModeratorAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.ModeratorAccess );
-						EditAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.EditAccess );
-						DeleteAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.DeleteAccess );
-						UploadAccess.Checked = General.BinaryAnd( row ["Flags"], AccessFlags.UploadAccess );
+						DataRow row = dt.Rows[0];
+						AccessFlags flags = new AccessFlags(row["Flags"]);
+						Name.Text = (string)row["Name"];
+						ReadAccess.Checked = flags.ReadAccess;
+						PostAccess.Checked = flags.PostAccess;
+						ReplyAccess.Checked = flags.ReplyAccess;
+						PriorityAccess.Checked = flags.PriorityAccess;
+						PollAccess.Checked = flags.PollAccess;
+						VoteAccess.Checked = flags.VoteAccess;
+						ModeratorAccess.Checked = flags.ModeratorAccess;
+						EditAccess.Checked = flags.EditAccess;
+						DeleteAccess.Checked = flags.DeleteAccess;
+						UploadAccess.Checked = flags.UploadAccess;
 					}
 				}
 			}

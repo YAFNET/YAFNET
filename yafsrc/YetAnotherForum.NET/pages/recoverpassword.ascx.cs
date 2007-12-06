@@ -23,8 +23,9 @@ namespace YAF.Pages // YAF.Pages
 
     protected void Page_Load( object sender, EventArgs e )
     {
-      if ( !CanLogin )
-        YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+		// Ederon : guess we don't need this if anymore
+		//if ( !CanLogin )
+        //YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 
       if ( !IsPostBack )
       {

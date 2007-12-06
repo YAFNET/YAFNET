@@ -153,13 +153,17 @@ namespace YAF.Controls
 		{
 			DataRowView row = ( DataRowView ) o;
 			DateTime lastPosted = row ["LastPosted"] != DBNull.Value ? ( DateTime ) row ["LastPosted"] : new DateTime( 2000, 1, 1 );
-			bool isLocked = General.BinaryAnd( row ["TopicFlags"], TopicFlags.Locked );
+			TopicFlags topicFlags = new TopicFlags(row["TopicFlags"]);
+			ForumFlags forumFlags = new ForumFlags(row["ForumFlags"]);
+			// Obsolette : Ederon
+			//bool isLocked = General.BinaryAnd(row["TopicFlags"], TopicFlags.Locked);
 
 			imgTitle = "???";
 
 			try
 			{
-				bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
+				// Obsolette : Ederon
+				//bool bIsLocked = isLocked || General.BinaryAnd( row ["ForumFlags"], ForumFlags.Locked );
 
 				if ( row ["TopicMovedID"].ToString().Length > 0 )
 				{
@@ -190,7 +194,7 @@ namespace YAF.Controls
 						imgTitle = PageContext.Localization.GetText( "ANNOUNCEMENT" );
 						return PageContext.Theme.GetItem( "ICONS", "TOPIC_ANNOUNCEMENT_NEW" );
 					}
-					else if ( bIsLocked )
+					else if ( topicFlags.IsLocked || forumFlags.IsLocked )
 					{
 						imgTitle = PageContext.Localization.GetText( "NEW_POSTS_LOCKED" );
 						return PageContext.Theme.GetItem( "ICONS", "TOPIC_NEW_LOCKED" );
@@ -218,7 +222,7 @@ namespace YAF.Controls
 						imgTitle = PageContext.Localization.GetText( "ANNOUNCEMENT" );
 						return PageContext.Theme.GetItem( "ICONS", "TOPIC_ANNOUNCEMENT" );
 					}
-					else if ( bIsLocked )
+					else if (topicFlags.IsLocked || forumFlags.IsLocked)
 					{
 						imgTitle = PageContext.Localization.GetText( "NO_NEW_POSTS_LOCKED" );
 						return PageContext.Theme.GetItem( "ICONS", "TOPIC_LOCKED" );

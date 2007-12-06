@@ -51,9 +51,10 @@ namespace YAF.Pages.Admin
 					using(DataTable dt = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID,Request.QueryString["r"]))
 					{
 						DataRow row = dt.Rows[0];
+						RankFlags flags = new RankFlags(row["Flags"]);
 						Name.Text = (string)row["Name"];
-						IsStart.Checked = General.BinaryAnd(row["Flags"], RankFlags.IsStart);
-						IsLadder.Checked = General.BinaryAnd(row["Flags"], RankFlags.IsLadder);
+						IsStart.Checked = flags.IsStart;
+						IsLadder.Checked = flags.IsLadder;
 						MinPosts.Text = row["MinPosts"].ToString();
 						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
 						if(item!=null) 

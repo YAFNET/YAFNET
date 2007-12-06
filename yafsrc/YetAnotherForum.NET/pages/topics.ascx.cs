@@ -39,6 +39,7 @@ namespace YAF.Pages // YAF.Pages
 	{
 		private DataRow _forum;
 		protected int _showTopicListSelected;
+		private ForumFlags _forumFlags = null;
 
 		/// <summary>
 		/// Overloads the topics page.
@@ -97,6 +98,8 @@ namespace YAF.Pages // YAF.Pages
 				Response.Clear();
 				Response.Redirect( ( string ) _forum ["RemoteURL"] );
 			}
+
+			_forumFlags = new ForumFlags(_forum["Flags"]);
 
 			PageTitle.Text = ( string ) _forum ["Name"];
 
@@ -270,7 +273,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void NewTopic_Click( object sender, System.EventArgs e )
 		{
-			if (General.BinaryAnd(_forum["Flags"], ForumFlags.Locked))
+			if (_forumFlags.IsLocked)
 			{
 				PageContext.AddLoadMessage(GetText("WARN_FORUM_LOCKED"));
 				return;

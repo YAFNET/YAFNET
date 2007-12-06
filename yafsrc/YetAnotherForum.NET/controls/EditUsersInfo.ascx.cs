@@ -43,11 +43,13 @@ namespace YAF.Controls
         using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
         {
           DataRow row = dt.Rows [0];
+		  UserFlags userFlags = new UserFlags(row["Flags"]);
+
           Name.Text = ( string ) row ["Name"];
           Email.Text = row ["Email"].ToString();
 
-		  IsHostAdminX.Checked = General.BinaryAnd(row["Flags"], UserFlags.IsHostAdmin);
-		  IsGuestX.Checked = General.BinaryAnd(row["Flags"], UserFlags.IsGuest);
+		  IsHostAdminX.Checked = userFlags.IsHostAdmin;
+		  IsGuestX.Checked = userFlags.IsGuest;
           Joined.Text = row ["Joined"].ToString();
 
           LastVisit.Text = row ["LastVisit"].ToString();

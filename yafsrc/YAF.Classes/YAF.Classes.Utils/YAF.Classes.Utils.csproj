@@ -50,7 +50,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MembershipHelper.cs" />
-    <Compile Include="MessageFlags.cs" />
     <Compile Include="Nntp.cs" />
     <Compile Include="SendMail.cs" />
     <Compile Include="StaticData.cs" />

@@ -35,9 +35,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TopicFlags.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="DBAccess.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="AccessFlags.cs" />
+    <Compile Include="FlagsBase.cs" />
+    <Compile Include="ForumFlags.cs" />
+    <Compile Include="GroupFlags.cs" />
+    <Compile Include="MessageFlags.cs" />
+    <Compile Include="RankFlags.cs" />
+    <Compile Include="UserFlags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryCounter.cs" />
   </ItemGroup>

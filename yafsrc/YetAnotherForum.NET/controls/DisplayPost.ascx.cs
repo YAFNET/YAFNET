@@ -45,6 +45,10 @@ namespace YAF.Controls
 		private YafUserProfile _userProfile = null;
 		private bool _isAlt = false;
 		private bool _isThreaded = false;
+		// flags
+		private ForumFlags _forumFlags;
+		private TopicFlags _topicFlags;
+		private MessageFlags _messageFlags = null;
 
 		#endregion
 
@@ -231,6 +235,20 @@ namespace YAF.Controls
 			}
 			set
 			{
+				// get all flags for forum, topic and message
+				if (_row != null)
+				{
+					_forumFlags = new ForumFlags(_row["ForumFlags"]);
+					_topicFlags = new TopicFlags(_row["TopicFlags"]);
+					_messageFlags = new YAF.Classes.Data.MessageFlags(_row["Flags"]);
+				}
+				else
+				{
+					_forumFlags = new ForumFlags(0);
+					_topicFlags = new TopicFlags(0);
+					_messageFlags = new MessageFlags(0);
+				}
+
 				_row = value;
 			}
 		}
@@ -255,9 +273,9 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( DataRow != null )
+				if ( _messageFlags != null )
 				{
-					if ( PostMessageFlags.IsLocked ) return true;
+					return _messageFlags.IsLocked;
 				}
 				
 				return false;
@@ -278,13 +296,13 @@ namespace YAF.Controls
 			}
 		}
 
-		private MessageFlags PostMessageFlags
+		/*private MessageFlags PostMessageFlags
 		{
 			get
 			{
 				return new MessageFlags( Convert.ToInt32( DataRow ["Flags"] ) );
 			}
-		}
+		}*/
 
 		protected bool IsSponserMessage
 		{
@@ -299,9 +317,8 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
-				return ( ( !PostLocked &&
-					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
-					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+				// Ederon : 12/5/2007 - new flags implementation
+				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
 					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumEditAccess;
 			}
@@ -311,12 +328,15 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( PostMessageFlags.IsLocked ) return true;
+				// post is explicitly locked
+				if (_messageFlags.IsLocked) return true;
 
+				// there is auto-lock period defined
 				if ( !PageContext.IsAdmin && PageContext.BoardSettings.LockPosts > 0 )
 				{
 					DateTime edited = ( DateTime ) DataRow ["Edited"];
-					if ( edited.AddDays( PageContext.BoardSettings.LockPosts ) < DateTime.Now )
+					// check if post is locked according to this rule
+					if (edited.AddDays(PageContext.BoardSettings.LockPosts) < DateTime.Now)
 						return true;
 				}
 				return false;
@@ -327,8 +347,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-
-				return General.BinaryAnd( DataRow ["Flags"], TopicFlags.Deleted );
+				return _topicFlags.IsDeleted;
 			}
 		}
 
@@ -337,9 +356,7 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
-				return ( ( !PostLocked &&
-					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
-					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
 					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumUploadAccess;
 			}
@@ -350,9 +367,7 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
-				return ( ( !PostLocked &&
-					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
-					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) &&
+				return ((!PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
 					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumDeleteAccess;
 			}
@@ -371,10 +386,8 @@ namespace YAF.Controls
 			get
 			{
 				// Ederon : 9/9/2007 - moderaotrs can reply in locked posts
-				return ( ( !PostMessageFlags.IsLocked &&
-					!General.BinaryAnd( DataRow ["ForumFlags"], ForumFlags.Locked ) &&
-					!General.BinaryAnd( DataRow ["TopicFlags"], TopicFlags.Locked ) ) || PageContext.ForumModeratorAccess ) &&
-					PageContext.ForumReplyAccess;
+				return ((!_messageFlags.IsLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked) ||
+					PageContext.ForumModeratorAccess) && PageContext.ForumReplyAccess;
 			}
 		}
 
@@ -718,13 +731,13 @@ namespace YAF.Controls
 		{
 			System.Text.StringBuilder messageOutput = new System.Text.StringBuilder( 2000 );
 
-			if ( PostMessageFlags.NotFormatted )
+			if ( _messageFlags.NotFormatted )
 			{
 				messageOutput.Append( DataRow ["Message"].ToString() );
 			}
 			else
 			{
-				messageOutput.Append( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), PostMessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) );
+				messageOutput.Append( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), _messageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) );
 			}
 
 			if ( !PostDeleted )
@@ -736,7 +749,7 @@ namespace YAF.Controls
 				{
 					// don't allow any HTML on signatures
 					MessageFlags tFlags = new MessageFlags();
-					tFlags.IsHTML = false;
+					tFlags.IsHtml = false;
 
 					messageOutput.Append( "<br/><hr/>" + FormatMsg.FormatMessage( DataRow ["Signature"].ToString(), tFlags ) );
 				}

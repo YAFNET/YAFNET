@@ -142,12 +142,16 @@ namespace YAF.Pages
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 
+				TopicFlags topicFlags = new TopicFlags();
+
 				// check if it's a reply to a topic...
 				if ( TopicID != null )
 				{					
 					DataRow topic = DB.topic_info( TopicID );
+					topicFlags.BitValue = (int)topic["Flags"];
+
 					// Ederon : 9/9/2007 - moderators can reply in locked topics
-					if ( General.BinaryAnd( topic ["Flags"], TopicFlags.Locked ) && !PageContext.ForumModeratorAccess )
+					if (topicFlags.IsLocked && !PageContext.ForumModeratorAccess)
 						Response.Redirect( Request.UrlReferrer.ToString() );
 					SubjectRow.Visible = false;
 					Title.Text = GetText( "reply" );
@@ -185,6 +189,7 @@ namespace YAF.Pages
 				else if (EditTopicID != null)
 				{
 					// edit message...
+					topicFlags.BitValue = (int)currentRow["Flags"];
 					string body = currentRow["message"].ToString();
 					uxMessage.Text = body;
 					Title.Text = GetText("EDIT");
@@ -219,7 +224,7 @@ namespace YAF.Pages
 					Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
 					EditReasonRow.Visible = true;
 					ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-					Persistency.Checked = General.BinaryAnd(currentRow["Flags"], TopicFlags.Persistent);
+					Persistency.Checked = topicFlags.IsPersistent;
 				}
 
 				// add the "New Topic" page link last...
@@ -256,8 +261,8 @@ namespace YAF.Pages
 
 			// Ederon : 9/9/2007 - moderator can edit in locked topics
 			return ((!postLocked &&
-				!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Locked) &&
-				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Locked) &&
+				!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Flags.IsLocked) &&
+				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Flags.IsLocked) &&
 				((int)message["UserID"] == PageContext.PageUserID)) || PageContext.ForumModeratorAccess) &&
 				PageContext.ForumEditAccess;
 		}
@@ -274,8 +279,8 @@ namespace YAF.Pages
 			if ( topicInfo == null || forumInfo == null ) return false;
 
 			// Ederon : 9/9/2007 - moderator can reply to locked topics
-			return (!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Locked) &&
-				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Locked) || PageContext.ForumModeratorAccess) &&
+			return (!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Flags.IsLocked) &&
+				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Flags.IsLocked) || PageContext.ForumModeratorAccess) &&
 				PageContext.ForumReplyAccess;
 		}
 
@@ -349,8 +354,11 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsHtml = uxMessage.UsesHTML;
 			tFlags.IsBBCode = uxMessage.UsesBBCode;
+
+			// Bypass Approval if Admin or Moderator.
+			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
 			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, uxMessage.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
 
@@ -369,14 +377,14 @@ namespace YAF.Pages
 			if (Subject.Enabled) SubjectSave = HtmlEncode(Subject.Text);
 
 			// Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
-			// make message flags
-			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHTML = uxMessage.UsesHTML;
-			tFlags.IsBBCode = uxMessage.UsesBBCode;
-			
+			// Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
+			// retrieve message flags
+			MessageFlags messageFlags = new MessageFlags(DB.message_list(EditTopicID).Rows[0]["Flags"]);
+			messageFlags.IsHtml = uxMessage.UsesHTML;
+			messageFlags.IsBBCode = uxMessage.UsesBBCode;
 
 			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
-			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, tFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged);
+			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
 
 			nMessageID = long.Parse(EditTopicID);
 
@@ -395,7 +403,7 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsHtml = uxMessage.UsesHTML;
 			tFlags.IsBBCode = uxMessage.UsesBBCode;
 			tFlags.IsPersistent = Persistency.Checked;
 
@@ -472,7 +480,7 @@ namespace YAF.Pages
 			bool bApproved = false;
 			using (DataTable dt = DB.message_list(nMessageID))
 				foreach (DataRow row in dt.Rows)
-					bApproved = ((int)row["Flags"] & 16) == 16;
+					bApproved = General.BinaryAnd(row["Flags"], MessageFlags.Flags.IsApproved);
 
 			// Create notification emails
 			if (bApproved)
@@ -575,7 +583,7 @@ namespace YAF.Pages
 			PreviewRow.Visible = true;
 
 			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHTML = uxMessage.UsesHTML;
+			tFlags.IsHtml = uxMessage.UsesHTML;
 			tFlags.IsBBCode = uxMessage.UsesBBCode;
 
 			string body = FormatMsg.FormatMessage(uxMessage.Text, tFlags);
@@ -599,7 +607,7 @@ namespace YAF.Pages
 			if (messageSignature != string.Empty)
 			{
 				MessageFlags flags = new MessageFlags();
-				flags.IsHTML = false;
+				flags.IsHtml = false;
 				messageSignature = FormatMsg.FormatMessage(messageSignature, flags);
 				html += "<br/><hr noshade/>" + messageSignature;
 			}

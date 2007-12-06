@@ -46,7 +46,8 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( !CanLogin || PageContext.BoardSettings.DisableRegistrations )
+			// Ederon : guess we don't need to test CanLogin anymore
+			if ( /*!CanLogin ||*/ PageContext.BoardSettings.DisableRegistrations )
 				YafBuildLink.AccessDenied();
 
 			if ( !IsPostBack )

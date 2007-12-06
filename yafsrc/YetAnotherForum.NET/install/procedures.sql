@@ -2502,7 +2502,7 @@ end
 
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}message_update](@MessageID int,@Priority int,@Subject nvarchar(100),@Flags int, @Message ntext, @Reason as nvarchar(100), @IsModeratorChanged bit, @OverrideApproval bit = null) as
 begin
 	declare @TopicID	int
 	declare	@ForumFlags	int
@@ -2519,7 +2519,7 @@ begin
 	where 
 		a.MessageID = @MessageID
 
-	if (@ForumFlags & 8)=0 set @Flags = @Flags | 16
+	if (@OverrideApproval = 1 OR (@ForumFlags & 8)=0) set @Flags = @Flags | 16
 
 	update [{databaseOwner}].[{objectQualifier}Message] set
 		Message = @Message,

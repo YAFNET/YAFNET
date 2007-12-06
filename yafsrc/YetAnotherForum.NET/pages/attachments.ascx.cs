@@ -40,10 +40,10 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.AccessDenied();
 
 				// Ederon : 9/9/2007 - moderaotrs can attach in locked posts
-				if (General.BinaryAnd(_topic["Flags"], TopicFlags.Locked) && !PageContext.ForumModeratorAccess)
+				if (General.BinaryAnd(_topic["Flags"], TopicFlags.Flags.IsLocked) && !PageContext.ForumModeratorAccess)
 					YafBuildLink.AccessDenied(/*"The topic is closed."*/);
 
-				if (General.BinaryAnd(_forum["Flags"], ForumFlags.Locked))
+				if (General.BinaryAnd(_forum["Flags"], ForumFlags.Flags.IsLocked))
 					YafBuildLink.AccessDenied(/*"The forum is closed."*/);
 
 				// Check that non-moderators only edit messages they have written

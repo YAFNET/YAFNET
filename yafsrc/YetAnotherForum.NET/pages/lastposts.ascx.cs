@@ -46,7 +46,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( messageSignature != string.Empty )
 			{
 				MessageFlags flags = new MessageFlags();
-				flags.IsHTML = false;
+				flags.IsHtml = false;
 
 				messageSignature = FormatMsg.FormatMessage( messageSignature, flags );
 				html += "<br/><hr noshade/>" + messageSignature;

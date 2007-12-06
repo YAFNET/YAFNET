@@ -1801,7 +1801,11 @@ namespace YAF.Classes.Data
 		}
 
 		// <summary> Update message to DB. </summary>
-		static public void message_update( object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged )
+		static public void message_update( object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged)
+		{
+			message_update(messageID, priority, message, subject, flags, reasonOfEdit, isModeratorChanged, null);
+		}
+		static public void message_update( object messageID, object priority, object message, object subject, object flags, object reasonOfEdit, object isModeratorChanged, object overrideApproval )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "message_update" ) )
 			{
@@ -1813,7 +1817,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Flags", flags );
 				cmd.Parameters.AddWithValue( "Reason", reasonOfEdit );
 				cmd.Parameters.AddWithValue( "IsModeratorChanged", isModeratorChanged );
-				DBAccess.ExecuteNonQuery( cmd );
+				cmd.Parameters.AddWithValue( "OverrideApproval", overrideApproval );
+				DBAccess.ExecuteNonQuery(cmd);
 			}
 		}
 		// <summary> Save message to DB. </summary>

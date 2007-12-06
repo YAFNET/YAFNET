@@ -224,7 +224,7 @@ namespace YAF.Pages // YAF.Pages
 
 				// don't allow any HTML on signatures
 				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = false;
+				tFlags.IsHtml = false;
 
 				sig = FormatMsg.FormatMessage( sig, tFlags );
 				html += "<br/><hr noshade/>" + sig;

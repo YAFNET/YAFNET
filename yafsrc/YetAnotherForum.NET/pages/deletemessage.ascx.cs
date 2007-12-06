@@ -41,7 +41,9 @@ namespace YAF.Pages
 		protected int _ownerUserId;
 		protected DataRow _msg;
 		protected bool _isModeratorChanged;
-
+		protected ForumFlags _forumFlags = null;
+		protected TopicFlags _topicFlags = null;
+	
 		public deletemessage()
 			: base( "DELETEMESSAGE" )
 		{
@@ -54,7 +56,7 @@ namespace YAF.Pages
 			{
 				CheckBox deleteAllPosts = ( CheckBox ) e.Item.FindControl( "DeleteAllPosts" );
 				deleteAllPosts.Checked = deleteAllPosts.Enabled = PageContext.ForumModeratorAccess || PageContext.IsAdmin;
-				ViewState["delAll"] = deleteAllPosts.Checked;
+			ViewState["delAll"] = deleteAllPosts.Checked;
 			}
 		}
 
@@ -72,6 +74,8 @@ namespace YAF.Pages
 					YafBuildLink.AccessDenied();
 			}
 
+			_forumFlags = new ForumFlags(_msg["ForumFlags"]);
+			_topicFlags = new TopicFlags(_msg["TopicFlags"]);
 			_ownerUserId = ( int ) _msg ["UserID"];
 			_isModeratorChanged = ( PageContext.PageUserID != _ownerUserId );
 
@@ -196,9 +200,7 @@ namespace YAF.Pages
 			get
 			{
 				// Ederon : 9/9/2007 - moderators can delete in locked topics
-				return ((!PostLocked &&
-						!General.BinaryAnd(_msg["ForumFlags"], ForumFlags.Locked) &&
-						!General.BinaryAnd(_msg["TopicFlags"], TopicFlags.Locked) &&
+				return ((!PostLocked &&	!_forumFlags.IsLocked && !_topicFlags.IsLocked &&
 						(int)_msg["UserID"] == PageContext.PageUserID) || PageContext.ForumModeratorAccess) &&
 						PageContext.ForumDeleteAccess;
 			}

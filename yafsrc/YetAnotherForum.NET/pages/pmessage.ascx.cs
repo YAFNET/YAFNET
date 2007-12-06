@@ -150,7 +150,7 @@ namespace YAF.Pages
 			{
 				string body = Editor.Text;
 				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHTML = Editor.UsesHTML;
+				tFlags.IsHtml = Editor.UsesHTML;
 				tFlags.IsBBCode = Editor.UsesBBCode;
 				DB.pmessage_save( PageContext.PageUserID, 0, Subject.Text, body, tFlags.BitValue );
 				YafBuildLink.Redirect( ForumPages.cp_profile );
@@ -184,7 +184,7 @@ namespace YAF.Pages
 					string body = Editor.Text;
 
 					MessageFlags tFlags = new MessageFlags();
-					tFlags.IsHTML = Editor.UsesHTML;
+					tFlags.IsHtml = Editor.UsesHTML;
 					tFlags.IsBBCode = Editor.UsesBBCode;
 
 					DB.pmessage_save( PageContext.PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, tFlags.BitValue );
@@ -253,7 +253,7 @@ namespace YAF.Pages
 			PreviewRow.Visible = true;
 
 			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHTML = Editor.UsesHTML;
+			tFlags.IsHtml = Editor.UsesHTML;
 			tFlags.IsBBCode = Editor.UsesBBCode;
 
 			string body = FormatMsg.FormatMessage( Editor.Text, tFlags );
