@@ -23,11 +23,11 @@ using System.Text;
 
 namespace YAF.Classes.Data
 {
-	public class MessageFlags : FlagsBase
+	public class MessageFlags : TopicFlags
 	{
 		#region Constructors
 
-		public MessageFlags() : this(7) { }
+		public MessageFlags() : this(Flags.IsHtml | Flags.IsBBCode | Flags.IsSmilies) { }
 		public MessageFlags(MessageFlags.Flags flags) : this((int)flags) { }
 		public MessageFlags(object bitValue) : this((int)bitValue) { }
 		public MessageFlags(int bitValue) : base(bitValue) { }
@@ -117,11 +117,8 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether message is deleted.
 		/// </summary>
-		public bool IsDeleted // int value 8
-		{
-			get { return this[3]; }
-			set { this[3] = value; }
-		}
+		// inheritted
+		//public bool IsDeleted { get; set; }// int value 8
 
 
 		/// <summary>
@@ -136,7 +133,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether message is locked. Locked messages cannot be modified/deleted/replied to.
 		/// </summary>
-		public bool IsLocked // int value 32
+		public override bool IsLocked // int value 32
 		{
 			get { return this[5]; }
 			set { this[5] = value; }
@@ -172,11 +169,8 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether message is persistent. Persistent messages cannot be purged.
 		/// </summary>
-		public bool IsPersistent // int value 512
-		{
-			get { return this[9]; }
-			set { this[9] = value; }
-		}
+		// inheritted
+		//public bool IsPersistent { get; set; } // int value 512
 
 		#endregion
 	}

@@ -27,7 +27,7 @@ namespace YAF.Classes.Data
 	{
 		#region Constructors
 
-		public TopicFlags() : this(23) { }
+		public TopicFlags() : this(0) { }
 		public TopicFlags(TopicFlags.Flags flags) : this((int)flags) { }
 		public TopicFlags(object bitValue) : this((int)bitValue) { }
 		public TopicFlags(int bitValue) : base(bitValue) { }
@@ -58,15 +58,8 @@ namespace YAF.Classes.Data
 		/// </summary>
 		public enum Flags : int
 		{
-			IsHtml = 1,
-			IsBBCode = 2,
-			IsSmilies = 4,
 			IsDeleted = 8,
-			IsApproved = 16,
 			IsLocked = 32,
-			NotFormatted = 64,
-			IsReportedAbuse = 128,
-			IsReportedSpam = 256,
 			IsPersistent = 512
 			/* for future use
 			xxxxxxxx = 1024,
@@ -87,7 +80,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
 		/// </summary>
-		public bool IsLocked // int value 1
+		public virtual bool IsLocked // int value 1
 		{
 			get { return this[0]; }
 			set { this[0] = value; }
@@ -96,7 +89,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether topic is deleted.
 		/// </summary>
-		public bool IsDeleted // int value 8
+		public virtual bool IsDeleted // int value 8
 		{
 			get { return this[3]; }
 			set { this[3] = value; }
@@ -105,7 +98,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether topic is persistent. Persistent topics cannot be purged.
 		/// </summary>
-		public bool IsPersistent // int value 512
+		public virtual bool IsPersistent // int value 512
 		{
 			get { return this[9]; }
 			set { this[9] = value; }

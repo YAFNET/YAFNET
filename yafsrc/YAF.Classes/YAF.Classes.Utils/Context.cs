@@ -127,11 +127,11 @@ namespace YAF.Classes.Utils
 			}
 			set
 			{
+				_page = value;
+
 				// get user flags
 				if (_page != null) _userFlags = new UserFlags(_page["UserFlags"]);
 				else _userFlags = null;
-
-				_page = value;
 			}
 		}
 
