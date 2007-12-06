@@ -10,7 +10,7 @@
 
 <table class=content cellSpacing=1 cellPadding=0 width="100%">
 <tr>
-	<td class="header1" colspan="12">Access Masks</td>
+	<td class="header1" colspan="13">Access Masks</td>
 </tr>
 <tr class="header2">
 	<td>Name</td>
@@ -24,6 +24,7 @@
 	<td align="center">Edit</td>
 	<td align="center">Delete</td>
 	<td align="center">Upload</td>
+	<td align="center">Download</td>
 	<td>&nbsp;</td>
 </tr>
 
@@ -33,16 +34,17 @@
 			<td>
 				<%# Eval( "Name") %>
 			</td>
-			<td align="center"><%# BitSet(Eval( "Flags"),1) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),2) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),4) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),8) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),16) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),32) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),64) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),128) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),256) %></td>
-			<td align="center"><%# BitSet(Eval( "Flags"),512) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReadAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PostAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ReadAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PriorityAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.PollAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.VoteAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.EditAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DeleteAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.UploadAccess) %></td>
+			<td align="center"><%# BitSet(Eval( "Flags"),(int)YAF.Classes.Data.AccessFlags.Flags.DownloadAccess) %></td>
 			<td width=15% style="font-weight:normal">
 				<asp:linkbutton runat='server' commandname='edit' commandargument='<%# Eval( "AccessMaskID") %>'>Edit</asp:linkbutton>
 				|
@@ -53,7 +55,7 @@
 </ItemTemplate>
 </asp:repeater>
 <tr class="footer1">
-	<td colSpan="12">
+	<td colSpan="13">
 		<asp:linkbutton id="New" runat="server" text="New Access Mask" onclick="New_Click" />
 	</td>
 </tr>

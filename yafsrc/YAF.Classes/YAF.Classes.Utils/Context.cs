@@ -415,6 +415,16 @@ namespace YAF.Classes.Utils
 				return AccessNotNull( "UploadAccess" );
 			}
 		}
+		/// <summary>
+		/// True if the current user can download attachments
+		/// </summary>
+		public bool ForumDownloadAccess
+		{
+			get
+			{
+				return AccessNotNull("DownloadAccess");
+			}
+		}
 
 		public int PageBoardID
 		{

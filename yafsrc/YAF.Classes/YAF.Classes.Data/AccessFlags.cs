@@ -68,7 +68,8 @@ namespace YAF.Classes.Data
 			ModeratorAccess = 64,
 			EditAccess = 128,
 			DeleteAccess = 256,
-			UploadAccess = 512
+			UploadAccess = 512,
+			DownloadAccess = 1024
 		}
 
 		#endregion
@@ -168,6 +169,16 @@ namespace YAF.Classes.Data
 		{
 			get { return this[9]; }
 			set { this[9] = value; }
+		}
+
+
+		/// <summary>
+		/// Gets or sets download access right.
+		/// </summary>
+		public bool DownloadAccess // int value 512
+		{
+			get { return this[10]; }
+			set { this[10] = value; }
 		}
 
 		#endregion

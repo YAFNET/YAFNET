@@ -759,6 +759,7 @@ namespace YAF.Controls
 
 		private void AddAttachedFiles( ref System.Text.StringBuilder messageOutput )
 		{
+			// TODO : reduce code redundancy
 			// define valid image extensions
 			string [] aImageExtensions = { "jpg", "gif", "png", "bmp" };
 
@@ -805,7 +806,20 @@ namespace YAF.Controls
 									messageOutput.Append( "</div>" );
 									bFirstItem = false;
 								}
-								messageOutput.AppendFormat( @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", YafForumInfo.ForumRoot, dr ["AttachmentID"], HtmlEncode( dr ["FileName"] ) );
+								// Ederon : download rights
+								if (PageContext.ForumDownloadAccess || PageContext.ForumModeratorAccess)
+								{
+									// user has rights to download, show him image
+									messageOutput.AppendFormat(@"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", YafForumInfo.ForumRoot, dr["AttachmentID"], HtmlEncode(dr["FileName"]));
+								}
+								else
+								{
+									int kb = (1023 + (int)dr["Bytes"]) / 1024;
+									// user doesn't have rights to download, don't show him image
+									messageOutput.Append(@"<div class=""attachedfile"">");
+									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", strFileIcon, dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
+									messageOutput.Append(@"</div>");
+								}
 							}
 							else if ( !bShowImage && tmpDisplaySort == 0 )
 							{
@@ -816,9 +830,20 @@ namespace YAF.Controls
 								}
 								// regular file attachment
 								int kb = ( 1023 + ( int ) dr ["Bytes"] ) / 1024;
-								messageOutput.Append( @"<div class=""attachedfile"">" );
-								messageOutput.AppendFormat( @"<img border=""0"" alt="""" src=""{0}"" /> <a href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr ["AttachmentID"], dr ["FileName"], String.Format( stats, kb, dr ["Downloads"] ) );
-								messageOutput.Append( @"</div>" );
+
+								messageOutput.Append(@"<div class=""attachedfile"">");
+
+								// Ederon : download rights
+								if (PageContext.ForumDownloadAccess || PageContext.ForumModeratorAccess)
+								{
+									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> <a href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr["AttachmentID"], dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
+								}
+								else
+								{
+									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", strFileIcon, dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
+								}
+
+								messageOutput.Append(@"</div>");
 							}
 						}
 						// now show images

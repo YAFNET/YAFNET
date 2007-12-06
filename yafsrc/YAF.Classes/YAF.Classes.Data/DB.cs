@@ -332,7 +332,8 @@ namespace YAF.Classes.Data
 		/// <param name="editAccess">Edit Access?</param>
 		/// <param name="deleteAccess">Delete Access?</param>
 		/// <param name="uploadAccess">Upload Access?</param>
-		static public void accessmask_save( object accessMaskID, object boardID, object name, object readAccess, object postAccess, object replyAccess, object priorityAccess, object pollAccess, object voteAccess, object moderatorAccess, object editAccess, object deleteAccess, object uploadAccess )
+		/// <param name="downloadAccess">Download Access?</param>
+		static public void accessmask_save( object accessMaskID, object boardID, object name, object readAccess, object postAccess, object replyAccess, object priorityAccess, object pollAccess, object voteAccess, object moderatorAccess, object editAccess, object deleteAccess, object uploadAccess, object downloadAccess )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "accessmask_save" ) )
 			{
@@ -350,6 +351,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "EditAccess", editAccess );
 				cmd.Parameters.AddWithValue( "DeleteAccess", deleteAccess );
 				cmd.Parameters.AddWithValue( "UploadAccess", uploadAccess );
+				cmd.Parameters.AddWithValue( "DownloadAccess", downloadAccess );
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}

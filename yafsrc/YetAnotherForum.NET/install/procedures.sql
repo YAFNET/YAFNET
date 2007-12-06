@@ -819,7 +819,8 @@ create procedure [{databaseOwner}].[{objectQualifier}accessmask_save](
 	@ModeratorAccess	bit,
 	@EditAccess			bit,
 	@DeleteAccess		bit,
-	@UploadAccess		bit
+	@UploadAccess		bit,
+	@DownloadAccess		bit
 ) as
 begin
 	declare @Flags	int
@@ -835,6 +836,7 @@ begin
 	if @EditAccess<>0 set @Flags = @Flags | 128
 	if @DeleteAccess<>0 set @Flags = @Flags | 256
 	if @UploadAccess<>0 set @Flags = @Flags | 512
+	if @DownloadAccess<>0 set @Flags = @Flags | 1024
 
 	if @AccessMaskID is null
 		insert into [{databaseOwner}].[{objectQualifier}AccessMask](Name,BoardID,Flags)
@@ -962,21 +964,21 @@ AS
 BEGIN
 	DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
 	
-	SET @count = ISNULL((SELECT COUNT(DISTINCT IP) FROM [dbo].[yaf_Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
-	SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [dbo].[yaf_Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
+	SET @count = ISNULL((SELECT COUNT(DISTINCT IP) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
+	SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
 	SET @max = CAST(@maxStr AS int)
 	SET @countStr = CAST(@count AS nvarchar)
 	SET @dtStr = CONVERT(nvarchar,GETDATE(),126)
 
-	IF NOT EXISTS ( SELECT COUNT(1) FROM [dbo].[yaf_Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
+	IF NOT EXISTS ( SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
 	BEGIN 
-		INSERT INTO [dbo].[yaf_Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
-		INSERT INTO [dbo].[yaf_Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
+		INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
+		INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
 	END
 	ELSE IF (@count > @max)	
 	BEGIN
-		UPDATE [dbo].[yaf_Registry] SET [Value] = CAST(@countStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxusers'
-		UPDATE [dbo].[yaf_Registry] SET [Value] = CAST(@dtStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
+		UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@countStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxusers'
+		UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = CAST(@dtStr AS ntext) WHERE BoardID = @BoardID AND [Name] = N'maxuserswhen'
 	END
 END
 GO
@@ -994,12 +996,33 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}attachment_list](@MessageID int=null,@AttachmentID int=null,@BoardID int=null) as begin
 	if @MessageID is not null
-		select * from [{databaseOwner}].[{objectQualifier}Attachment] where MessageID=@MessageID
+		select 
+			a.*,
+			e.BoardID
+		from
+			[{databaseOwner}].[{objectQualifier}Attachment] a
+			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
+			inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
+			inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
+			inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID
+		where
+			a.MessageID=@MessageID
 	else if @AttachmentID is not null
-		select * from [{databaseOwner}].[{objectQualifier}Attachment] where AttachmentID=@AttachmentID
+		select 
+			a.*,
+			e.BoardID
+		from
+			[{databaseOwner}].[{objectQualifier}Attachment] a
+			inner join [{databaseOwner}].[{objectQualifier}Message] b on b.MessageID = a.MessageID
+			inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = b.TopicID
+			inner join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID = c.ForumID
+			inner join [{databaseOwner}].[{objectQualifier}Category] e on e.CategoryID = d.CategoryID
+		where 
+			a.AttachmentID=@AttachmentID
 	else
 		select 
 			a.*,
+			BoardID		= @BoardID,
 			Posted		= b.Posted,
 			ForumID		= d.ForumID,
 			ForumName	= d.Name,
@@ -1084,11 +1107,11 @@ begin
 	SET @TimeZone = (SELECT CAST(CAST([Value] as nvarchar(50)) as int) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('TimeZone'))
 	SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
-	-- {objectQualifier}Board
+	-- Board
 	insert into [{databaseOwner}].[{objectQualifier}Board](Name,AllowThreaded) values(@BoardName,@AllowThreaded)
 	set @BoardID = SCOPE_IDENTITY()
 
-	-- {objectQualifier}Rank
+	-- Rank
 	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Administration',0,null)
 	set @RankIDAdmin = SCOPE_IDENTITY()
 	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Guest',0,null)
@@ -1100,15 +1123,15 @@ begin
 	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Advanced Member',2,30)
 	set @RankIDAdvanced = SCOPE_IDENTITY()
 
-	-- {objectQualifier}AccessMask
+	-- AccessMask
 	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Admin Access',1023)
+	values(@BoardID,'Admin Access',1023 + 1024)
 	set @AccessMaskIDAdmin = SCOPE_IDENTITY()
 	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Moderator Access',487)
+	values(@BoardID,'Moderator Access',487 + 1024)
 	set @AccessMaskIDModerator = SCOPE_IDENTITY()
 	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Member Access',423)
+	values(@BoardID,'Member Access',423 + 1024)
 	set @AccessMaskIDMember = SCOPE_IDENTITY()
 	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
 	values(@BoardID,'Read Only Access',1)
@@ -1116,7 +1139,7 @@ begin
 	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
 	values(@BoardID,'No Access',0)
 
-	-- {objectQualifier}Group
+	-- Group
 	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Administrators',1)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
 	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Guests',2)
@@ -1124,7 +1147,7 @@ begin
 	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Registered',4)
 	set @GroupIDMember = SCOPE_IDENTITY()	
 	
-	-- {objectQualifier}User
+	-- User
 	insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
 	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
 	set @UserIDGuest = SCOPE_IDENTITY()	
@@ -1136,20 +1159,20 @@ begin
 	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,@UserFlags)
 	set @UserIDAdmin = SCOPE_IDENTITY()
 
-	-- {objectQualifier}UserGroup
+	-- UserGroup
 	insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) values(@UserIDAdmin,@GroupIDAdmin)
 	insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) values(@UserIDGuest,@GroupIDGuest)
 
-	-- {objectQualifier}Category
+	-- Category
 	insert into [{databaseOwner}].[{objectQualifier}Category](BoardID,Name,SortOrder) values(@BoardID,'Test Category',1)
 	set @CategoryID = SCOPE_IDENTITY()
 	
-	-- {objectQualifier}Forum
+	-- Forum
 	insert into [{databaseOwner}].[{objectQualifier}Forum](CategoryID,Name,Description,SortOrder,NumTopics,NumPosts,Flags)
 	values(@CategoryID,'Test Forum','A test forum',1,0,0,4)
 	set @ForumID = SCOPE_IDENTITY()
 
-	-- {objectQualifier}ForumAccess
+	-- ForumAccess
 	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
 	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
 	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDMember,@ForumID,@AccessMaskIDMember)
@@ -2897,7 +2920,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_delete](@UserPMess
 BEGIN
 	DECLARE @PMessageID int
 
-	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [dbo].[yaf_UserPMessage] where [UserPMessageID] = @UserPMessageID);
+	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where [UserPMessageID] = @UserPMessageID);
 
 	IF @FromOutbox = 1
 		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [IsInOutbox] = 0 WHERE [UserPMessageID] = @UserPMessageID

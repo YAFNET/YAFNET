@@ -75,6 +75,12 @@
 			<td class="post">
 				<asp:CheckBox runat="server" ID="UploadAccess" /></td>
 		</tr>
+		<tr>
+			<td class="postheader">
+				<b>Download Access:</b></td>
+			<td class="post">
+				<asp:CheckBox runat="server" ID="DownloadAccess" /></td>
+		</tr>
 		<tr class="postfooter">
 			<td align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />

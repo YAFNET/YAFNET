@@ -463,7 +463,7 @@ namespace YAF.Classes.Base
 		/// </summary>
 		/// <param name="UserAgent"></param>
 		/// <returns></returns>
-		private bool IsSearchEngineSpider( string userAgent )
+		static public bool IsSearchEngineSpider( string userAgent )
 		{
 			string [] spiderstrings = 
 				{

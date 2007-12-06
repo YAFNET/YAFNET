@@ -15,6 +15,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
+using YAF.Classes.Utils;
+
 namespace YAF
 {
 	/// <summary>
@@ -188,47 +190,56 @@ namespace YAF
 			}
 		}
 
-		private void GetResponseAttachment( HttpContext context )
-		{
-			try
+			private void GetResponseAttachment(HttpContext context)
 			{
-				// AttachmentID
-				using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( null, context.Request.QueryString ["a"], null ) )
+				try
 				{
-					foreach ( DataRow row in dt.Rows )
+					// AttachmentID
+					using (DataTable dt = YAF.Classes.Data.DB.attachment_list(null, context.Request.QueryString["a"], null))
 					{
-						byte [] data = null;
-
-						if ( row.IsNull( "FileData" ) )
+						foreach (DataRow row in dt.Rows)
 						{
-							string sUpDir = YAF.Classes.Config.UploadDir;
-							string fileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
-							using ( System.IO.FileStream input = new System.IO.FileStream( fileName, System.IO.FileMode.Open ) )
+							/// TODO : check download permissions here					
+							if (!CheckAccessRights( row["BoardID"], row["MessageID"]))
 							{
-								data = new byte [input.Length];
-								input.Read( data, 0, data.Length );
-								input.Close();
+									// tear it down
+									// no permission to download
+									context.Response.Write( "You have insufficient rights to download this resource. Contact forum administrator for further details." );
+									return;							
 							}
-						}
-						else
-						{
-							data = ( byte [] ) row ["FileData"];
-						}
+													
+							byte[] data = null;
 
-						context.Response.ContentType = row ["ContentType"].ToString();
-						context.Response.AppendHeader( "Content-Disposition", String.Format( "attachment; filename={0}", HttpUtility.UrlEncode( row ["FileName"].ToString() ).Replace( "+", "%20" ) ) );
-						context.Response.OutputStream.Write( data, 0, data.Length );
-						YAF.Classes.Data.DB.attachment_download( context.Request.QueryString ["a"] );
-						break;
+							if (row.IsNull("FileData"))
+							{
+								string sUpDir = YAF.Classes.Config.UploadDir;
+								string fileName = context.Server.MapPath(String.Format("{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"]));
+								using (System.IO.FileStream input = new System.IO.FileStream(fileName, System.IO.FileMode.Open))
+								{
+									data = new byte[input.Length];
+									input.Read(data, 0, data.Length);
+									input.Close();
+								}
+							}
+							else
+							{
+								data = (byte[])row["FileData"];
+							}
+
+							context.Response.ContentType = row["ContentType"].ToString();
+							context.Response.AppendHeader("Content-Disposition", String.Format("attachment; filename={0}", HttpUtility.UrlEncode(row["FileName"].ToString()).Replace("+", "%20")));
+							context.Response.OutputStream.Write(data, 0, data.Length);
+							YAF.Classes.Data.DB.attachment_download(context.Request.QueryString["a"]);
+							break;
+						}
 					}
 				}
+				catch (Exception x)
+				{
+					YAF.Classes.Data.DB.eventlog_create(null, this.GetType().ToString(), x, 1);
+					context.Response.Write("Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+				}
 			}
-			catch ( Exception x )
-			{
-				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
-				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
-			}
-		}
 		
 		private void GetResponseGoogleSpell( HttpContext context )
 		{
@@ -279,8 +290,61 @@ namespace YAF
 				YAF.Classes.Data.DB.eventlog_create( null, this.GetType().ToString(), x, 1 );
 				context.Response.Write( "Error: Resource has been moved or is unavailable. Please contact the forum admin." );
 			}
-		}		
+		}
 
+			private bool CheckAccessRights( object boardID, object messageID )
+			{
+			YAF.Classes.Utils.YafContext context = new YAF.Classes.Utils.YafContext();
+			// Find user name
+			System.Web.Security.MembershipUser user = System.Web.Security.Membership.GetUser();
+
+			string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
+			string platform = HttpContext.Current.Request.Browser.Platform;
+			bool isSearchEngine = false;
+
+			if ( HttpContext.Current.Request.UserAgent != null )
+			{
+				if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
+				{
+					platform = "Win2003";
+				}
+				else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
+				{
+					platform = "Vista";
+				}
+				else
+				{
+					// check if it's a search engine spider...
+					isSearchEngine = YAF.Classes.Base.ForumPage.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
+				}
+			}
+
+			object userKey = DBNull.Value;
+
+			if ( user != null )
+			{
+				userKey = user.ProviderUserKey;
+			}
+
+			DataRow pageRow = YAF.Classes.Data.DB.pageload(
+					HttpContext.Current.Session.SessionID,
+					boardID,
+					userKey,
+					HttpContext.Current.Request.UserHostAddress,
+					HttpContext.Current.Request.FilePath,
+					browser,
+					platform,
+					null,
+					null,
+					null,
+					messageID,
+					// don't track if this is a search engine
+					isSearchEngine );
+
+				return General.BinaryAnd(pageRow["DownloadAccess"], YAF.Classes.Data.AccessFlags.Flags.DownloadAccess) ||
+						General.BinaryAnd(pageRow["ModeratorAccess"], YAF.Classes.Data.AccessFlags.Flags.ModeratorAccess);
+			}		
+			
 		public bool IsReusable
 		{
 			get

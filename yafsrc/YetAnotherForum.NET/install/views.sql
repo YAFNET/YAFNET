@@ -29,6 +29,7 @@ AS
 			EditAccess		= convert(int,c.Flags & 128),
 			DeleteAccess	= convert(int,c.Flags & 256),
 			UploadAccess	= convert(int,c.Flags & 512),
+			DownloadAccess	= convert(int,c.Flags & 1024),
 			AdminGroup		= convert(int,0)
 		from
 			[{databaseOwner}].[{objectQualifier}UserForum] b
@@ -49,6 +50,7 @@ AS
 			EditAccess		= convert(int,d.Flags & 128),
 			DeleteAccess	= convert(int,d.Flags & 256),
 			UploadAccess	= convert(int,d.Flags & 512),
+			DownloadAccess	= convert(int,d.Flags & 1024),
 			AdminGroup		= convert(int,e.Flags & 1)
 		from
 			[{databaseOwner}].[{objectQualifier}UserGroup] b
@@ -71,6 +73,7 @@ AS
 			EditAccess		= convert(int,0),
 			DeleteAccess	= convert(int,0),
 			UploadAccess	= convert(int,0),
+			DownloadAccess	= convert(int,0),
 			AdminGroup		= convert(int,0)
 		from
 			[{databaseOwner}].[{objectQualifier}User] a
@@ -93,7 +96,8 @@ AS
 		ModeratorAccess		= max(x.ModeratorAccess),
 		EditAccess			= max(x.EditAccess),
 		DeleteAccess		= max(x.DeleteAccess),
-		UploadAccess		= max(x.UploadAccess)		
+		UploadAccess		= max(x.UploadAccess),		
+		DownloadAccess		= max(x.DownloadAccess)		
 	FROM
 		[{databaseOwner}].[{objectQualifier}vaccessfull] as x
 		INNER JOIN [{databaseOwner}].[{objectQualifier}UserGroup] a on a.UserID=x.UserID

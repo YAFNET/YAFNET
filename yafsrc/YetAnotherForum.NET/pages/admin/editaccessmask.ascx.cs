@@ -63,6 +63,7 @@ namespace YAF.Pages.Admin
 						EditAccess.Checked = flags.EditAccess;
 						DeleteAccess.Checked = flags.DeleteAccess;
 						UploadAccess.Checked = flags.UploadAccess;
+						DownloadAccess.Checked = flags.DownloadAccess;
 					}
 				}
 			}
@@ -92,7 +93,9 @@ namespace YAF.Pages.Admin
 				ModeratorAccess.Checked,
 				EditAccess.Checked,
 				DeleteAccess.Checked,
-				UploadAccess.Checked );
+				UploadAccess.Checked,
+				DownloadAccess.Checked
+				);
 
 			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
 
