@@ -51,11 +51,14 @@ namespace YAF.Pages // YAF.Pages
 			{
 				if ( String.IsNullOrEmpty( Request.QueryString ["pm"] ) )
 					YafBuildLink.AccessDenied();
-				else
-					BindData();
+
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
+				PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 
 				// handle custom BBCode javascript or CSS...
 				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
+
+				BindData();
 			}
 		}
 
@@ -142,9 +145,6 @@ namespace YAF.Pages // YAF.Pages
 						YafBuildLink.AccessDenied();
 
 					SetMessageView( row ["FromUserID"], row ["ToUserID"], Convert.ToBoolean( row ["IsInOutbox"] ), Convert.ToBoolean( row ["IsArchived"] ) );
-
-					PageLinks.AddLink( PageContext.BoardSettings.Name, YafBuildLink.GetLink( ForumPages.forum ) );
-					PageLinks.AddLink( PageContext.PageUserName, YafBuildLink.GetLink( ForumPages.cp_profile ) );
 
 					// get the return link to the pm listing
 					if ( IsOutbox )

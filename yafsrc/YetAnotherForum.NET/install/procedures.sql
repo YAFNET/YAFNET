@@ -2893,19 +2893,23 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}pmessage_delete](@PMessageID int, @FromOutbox bit = 0) as
-begin
-	if @FromOutbox=1
-		update [{databaseOwner}].[{objectQualifier}UserPMessage] set [IsInOutbox] = 0 where [PMessageID]=@PMessageID
-	else
-	BEGIN
-		delete from [{databaseOwner}].[{objectQualifier}UserPMessage] where [PMessageID]=@PMessageID
-		delete from [{databaseOwner}].[{objectQualifier}PMessage] where [PMessageID]=@PMessageID
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_delete](@UserPMessageID int, @FromOutbox bit = 0) as
+BEGIN
+	DECLARE @PMessageID int
+
+	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [dbo].[yaf_UserPMessage] where [UserPMessageID] = @UserPMessageID);
+
+	IF @FromOutbox = 1
+		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [IsInOutbox] = 0 WHERE [UserPMessageID] = @UserPMessageID
+	ELSE
+	BEGIN		
+		DELETE FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE [UserPMessageID] = @UserPMessageID
+		DELETE FROM [{databaseOwner}].[{objectQualifier}PMessage] WHERE [PMessageID] = @PMessageID
 	END
-end
+END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}pmessage_info] as
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_info] as
 begin
 	select
 		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where IsRead<>0),
@@ -2914,11 +2918,11 @@ begin
 end
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@PMessageID int=null) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_list](@FromUserID int=null,@ToUserID int=null,@UserPMessageID int=null) AS
 BEGIN
 	SELECT PMessageID, UserPMessageID, FromUserID, FromUser, ToUserID, ToUser, Created, Subject, Body, Flags, IsRead, IsInOutbox, IsArchived
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
-		WHERE	((@PMessageId IS NOT NULL AND UserPMessageID=@PMessageId) OR 
+		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
 				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
 				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
 		ORDER BY Created DESC
@@ -2982,9 +2986,9 @@ end
 GO
 
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive](@PMessageID int = NULL) AS
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive](@UserPMessageID int = NULL) AS
 BEGIN
-	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET IsArchived=1 WHERE UserPMessageID=@PMessageID
+	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET IsArchived=1 WHERE UserPMessageID=@UserPMessageID
 END
 GO
 

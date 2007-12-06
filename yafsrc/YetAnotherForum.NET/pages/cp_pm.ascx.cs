@@ -76,8 +76,7 @@ namespace YAF.Pages
         OutboxTab.HeaderText = GetText( "SENTITEMS" );
         ArchiveTab.HeaderText = GetText( "ARCHIVE" );
 
-        NewMessageLink.NavigateUrl = YafBuildLink.GetLink( ForumPages.pmessage );
-        NewMessageLink.Text = GetText( "NEW_MESSAGE" );
+				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage );
 
         // DOCTYPE COMPATIBILITY ISSUE
         // Adding this css style block to the page's output fixes rendering of
@@ -87,7 +86,7 @@ namespace YAF.Pages
         // is registered *after* the ASP.NET AJAX Control Toolkit adds in it's HTML link reference to
         // its default CSS styles.  This is necessary in order for the styles defined below to override the
         // default ones.
-        this.Page.PreRenderComplete += delegate( object s, EventArgs evt )
+       /* this.Page.PreRenderComplete += delegate( object s, EventArgs evt )
            {
              this.RegisterClientCssBlock(
                  ".ajax__tab_default .ajax__tab_inner {height : 100%;}" + "\n" +
@@ -104,6 +103,7 @@ namespace YAF.Pages
                  "\n" +
                  ".ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;}" );
            };
+			  */
       }
     }
 

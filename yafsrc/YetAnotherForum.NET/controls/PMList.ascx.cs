@@ -23,8 +23,18 @@ namespace YAF.Controls
       if ( ViewState ["SortField"] == null )
         SetSort( "Created", false );
 
-      if ( !IsPostBack )
-        BindData();
+			if ( !IsPostBack )
+			{
+				// setup pager...
+				MessagesView.AllowPaging = true;
+				MessagesView.PagerSettings.Visible = false;
+				MessagesView.AllowSorting = true;
+
+				PagerTop.PageSize = 10;
+				MessagesView.PageSize = 10;				
+			}
+
+			BindData();
     }
 
     /// <summary>
@@ -75,14 +85,6 @@ namespace YAF.Controls
       return GetLocalizedText( View == PMView.Outbox ? "to" : "from" );
     }
 
-    protected string GetMessageUser( object dataItem )
-    {
-      if ( View == PMView.Outbox )
-        return HtmlEncode( DataBinder.Eval( dataItem, "ToUser" ) );
-      else
-        return HtmlEncode( DataBinder.Eval( dataItem, "FromUser" ) );
-    }
-
     protected string GetMessageLink( object messageId )
     {
       return YafBuildLink.GetLink( ForumPages.cp_message, "pm={0}&v={1}", messageId,
@@ -112,13 +114,14 @@ namespace YAF.Controls
         else
           dv.RowFilter = "IsArchived = False";
 
-        dv.Sort =
-            String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAsc"] ? "asc" : "desc" );
-        MessagesView.DataSource = dv;
+        dv.Sort = String.Format( "{0} {1}", ViewState ["SortField"], ( bool ) ViewState ["SortAsc"] ? "asc" : "desc" );
+
+				PagerTop.Count = dv.Count;
+
+				MessagesView.PageIndex = PagerTop.CurrentPageIndex;
+        MessagesView.DataSource = dv;				
         MessagesView.DataBind();
       }
-
-
     }
 
     protected void ArchiveSelected_Click( object source, EventArgs e )
@@ -247,7 +250,13 @@ namespace YAF.Controls
             PageContext.Theme.GetItem( "SORT", ( bool ) ViewState ["SortAsc"] ? "ASCENDING" : "DESCENDING" );
       }
     }
-  }
+
+		protected void PagerTop_PageChange( object sender, EventArgs e )
+		{
+			// rebind
+			BindData();
+		}
+}
 
   /// <summary>
   /// Represents possible views for the PMList control.

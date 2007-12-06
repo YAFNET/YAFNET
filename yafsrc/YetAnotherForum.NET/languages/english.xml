@@ -113,6 +113,8 @@
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
     <Resource tag="BUTTON_MOVETOPIC">Move Topic</Resource>
     <Resource tag="BUTTON_MOVETOPIC_TT">Move this topic</Resource>
+    <Resource tag="BUTTON_NEWPM">New PM</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">Create a new private message</Resource>    
   </page>
   <page name="TOOLBAR">
     <!-- "Toolbar" at top of most pages -->
