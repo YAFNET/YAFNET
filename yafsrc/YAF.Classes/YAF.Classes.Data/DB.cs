@@ -2049,14 +2049,14 @@ namespace YAF.Classes.Data
 		/// <param name="fromUserID"></param>
 		/// <param name="pMessageID">The id of the private message</param>
 		/// <returns></returns>
-		static public DataTable pmessage_list( object toUserID, object fromUserID, object pMessageID )
+		static public DataTable pmessage_list( object toUserID, object fromUserID, object userPMessageID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ToUserID", toUserID );
 				cmd.Parameters.AddWithValue( "FromUserID", fromUserID );
-				cmd.Parameters.AddWithValue( "PMessageID", pMessageID );
+				cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
 				return DBAccess.GetData( cmd );
 			}
 		}
@@ -2070,9 +2070,9 @@ namespace YAF.Classes.Data
 		/// <param name="fromUserID"></param>
 		/// <param name="pMessageID">The id of the private message</param>
 		/// <returns></returns>
-		static public DataTable pmessage_list( object pMessageID )
+		static public DataTable pmessage_list( object userPMessageID )
 		{
-			return pmessage_list( null, null, pMessageID );
+			return pmessage_list( null, null, userPMessageID );
 		}
 		/// <summary>
 		/// Deletes the private message from the database as per the given parameter.  If <paramref name="fromOutbox"/> is true,
@@ -2080,12 +2080,12 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="pMessageID"></param>
 		/// <param name="fromOutbox">If true, removes the message from the outbox.  Otherwise deletes the message completely.</param>
-		static public void pmessage_delete( object pMessageID, bool fromOutbox )
+		static public void pmessage_delete( object userPMessageID, bool fromOutbox )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "pmessage_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "PMessageID", pMessageID );
+				cmd.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
 				cmd.Parameters.AddWithValue( "FromOutbox", fromOutbox );
 				DBAccess.ExecuteNonQuery( cmd );
 			}
@@ -2104,12 +2104,12 @@ namespace YAF.Classes.Data
 		/// Archives the private message of the given id.  Archiving moves the message from the user's inbox to his message archive.
 		/// </summary>
 		/// <param name="pMessageID">The ID of the private message</param>
-		public static void pmessage_archive( object pMessageID )
+		public static void pmessage_archive( object userPMessageID )
 		{
 			using ( SqlCommand sqlCommand = DBAccess.GetCommand( "pmessage_archive" ) )
 			{
 				sqlCommand.CommandType = CommandType.StoredProcedure;
-				sqlCommand.Parameters.AddWithValue( "PMessageID", pMessageID );
+				sqlCommand.Parameters.AddWithValue( "UserPMessageID", userPMessageID );
 				DBAccess.ExecuteNonQuery( sqlCommand );
 			}
 		}
