@@ -18,7 +18,7 @@
       <%= GetText("subject") %>
     </td>
     <td class="post" width="80%">
-      <asp:TextBox ID="Subject" runat="server" CssClass="edit" Width="400" /></td>
+      <asp:TextBox ID="Subject" runat="server" CssClass="edit" Width="400" MaxLength="100" /></td>
   </tr>
   <tr id="BlogRow" visible="false" runat="server">
     <td class="postformheader" width="20%">
