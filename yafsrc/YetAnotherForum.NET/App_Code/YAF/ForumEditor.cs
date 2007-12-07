@@ -74,8 +74,8 @@ namespace YAF.Editor
 
 			_textCtl = new HtmlTextArea();
 			_textCtl.ID = "edit";
-			_textCtl.Rows = 10;
-			_textCtl.Cols = 50;
+			_textCtl.Rows = 5;
+			_textCtl.Cols = 5;
 			Controls.Add( _textCtl );
 
 			/*
