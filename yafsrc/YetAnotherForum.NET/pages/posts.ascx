@@ -92,22 +92,22 @@
     <tr>
         <td colspan="3" class="post" style="padding:0px;">
             <YAF:DataPanel runat="server" id="DataPanel1"  AllowTitleExpandCollapse="true" TitleStyle-CssClass="header2" TitleStyle-Font-Bold="true" Collapsed="true">
-                <div class="post" id="QuickReplyLine" runat="server" style="margin-top:10px;margin-left:20px;margin-right:20px;padding:2px;height:100px">
+                <div class="post quickReplyLine" id="QuickReplyLine" runat="server">
                 </div>                    
-                <div align="center" id="CaptchaDiv" visible="false" runat="server">
-									<br />
-									<table class="content">
-										<tr>
-											<td class="header2"><%= GetText("Captcha_Image") %></td>
-										</tr>
-										<tr>
-											<td class="post" align="center"><asp:Image ID="imgCaptcha" runat="server" /></td>
-										</tr>
-										<tr>
-											<td class="post"><%= GetText("Captcha_Enter") %> <asp:TextBox ID="tbCaptcha" runat="server" /></td>
-										</tr>
-									</table>
-									<br /> 
+                <div id="CaptchaDiv" align="center" visible="false" runat="server">
+                    <br />
+			        <table class="content">
+				        <tr>
+					        <td class="header2"><%= GetText("Captcha_Image") %></td>
+				        </tr>
+				        <tr>
+					        <td class="post" align="center"><asp:Image ID="imgCaptcha" runat="server" /></td>
+				        </tr>
+				        <tr>
+					        <td class="post"><%= GetText("Captcha_Enter") %> <asp:TextBox ID="tbCaptcha" runat="server" /></td>
+				        </tr>
+			        </table>
+			        <br />
                 </div>                
                 <div align="center" style="margin:7px;">
                     <asp:button id="QuickReply" cssclass="pbutton" runat="server"/>
