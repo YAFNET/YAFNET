@@ -1,6 +1,11 @@
 /*
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
+#yafmain .quickReplyLine
+{
+	padding: 5px 10px 5px 5px;
+	height:100px;	
+}
 #yafmain textarea.basicBBCodeEditor 
 {
 	width: 100%;
