@@ -1076,10 +1076,10 @@ GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@BoardName 		nvarchar(50),
-	@AllowThreaded	bit,
-	@UserName		nvarchar(50),
-	@UserEmail		nvarchar(50),
-	@UserPass		nvarchar(32),
+	@MembershipAppName nvarchar(50),
+	@RolesAppName nvarchar(50),
+	@UserName		nvarchar(255),
+	@UserKey		nvarchar(255),
 	@IsHostAdmin	bit
 ) as 
 begin
@@ -1108,74 +1108,75 @@ begin
 	SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
 	-- Board
-	insert into [{databaseOwner}].[{objectQualifier}Board](Name,AllowThreaded) values(@BoardName,@AllowThreaded)
-	set @BoardID = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, MembershipAppName, RolesAppName ) values(@BoardName, @MembershipAppName, @RolesAppName)
+	SET @BoardID = SCOPE_IDENTITY()
 
 	-- Rank
-	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Administration',0,null)
-	set @RankIDAdmin = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Guest',0,null)
-	set @RankIDGuest = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Newbie',3,0)
-	set @RankIDNewbie = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Member',2,10)
-	set @RankIDMember = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) values(@BoardID,'Advanced Member',2,30)
-	set @RankIDAdvanced = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES (@BoardID,'Administration',0,null)
+	SET @RankIDAdmin = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Guest',0,null)
+	SET @RankIDGuest = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Newbie',3,0)
+	SET @RankIDNewbie = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Member',2,10)
+	SET @RankIDMember = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts) VALUES(@BoardID,'Advanced Member',2,30)
+	SET @RankIDAdvanced = SCOPE_IDENTITY()
 
 	-- AccessMask
-	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Admin Access',1023 + 1024)
-	set @AccessMaskIDAdmin = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Moderator Access',487 + 1024)
-	set @AccessMaskIDModerator = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Member Access',423 + 1024)
-	set @AccessMaskIDMember = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'Read Only Access',1)
-	set @AccessMaskIDReadOnly = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
-	values(@BoardID,'No Access',0)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
+	VALUES(@BoardID,'Admin Access',1023 + 1024)
+	SET @AccessMaskIDAdmin = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
+	VALUES(@BoardID,'Moderator Access',487 + 1024)
+	SET @AccessMaskIDModerator = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
+	VALUES(@BoardID,'Member Access',423 + 1024)
+	SET @AccessMaskIDMember = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
+	VALUES(@BoardID,'Read Only Access',1)
+	SET @AccessMaskIDReadOnly = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}AccessMask](BoardID,Name,Flags)
+	VALUES(@BoardID,'No Access',0)
 
 	-- Group
-	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Administrators',1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Administrators',1)
 	set @GroupIDAdmin = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Guests',2)
-	set @GroupIDGuest = SCOPE_IDENTITY()
-	insert into [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Registered',4)
-	set @GroupIDMember = SCOPE_IDENTITY()	
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Guests',2)
+	SET @GroupIDGuest = SCOPE_IDENTITY()
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Group](BoardID,Name,Flags) values(@BoardID,'Registered',4)
+	SET @GroupIDMember = SCOPE_IDENTITY()	
 	
-	-- User
-	insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
-	values(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
-	set @UserIDGuest = SCOPE_IDENTITY()	
+	-- User (GUEST)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
+	VALUES(@BoardID,@RankIDGuest,'Guest','na',getdate(),getdate(),0,@TimeZone,@ForumEmail,6)
+	SET @UserIDGuest = SCOPE_IDENTITY()	
 	
 	SET @UserFlags = 2
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
-	insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,Joined,LastVisit,NumPosts,TimeZone,Email,Flags)
-	values(@BoardID,@RankIDAdmin,@UserName,@UserPass,getdate(),getdate(),0,@TimeZone,@UserEmail,@UserFlags)
-	set @UserIDAdmin = SCOPE_IDENTITY()
+	-- User (ADMIN)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
+	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
+	SET @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- UserGroup
-	insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) values(@UserIDAdmin,@GroupIDAdmin)
-	insert into [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) values(@UserIDGuest,@GroupIDGuest)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) VALUES(@UserIDAdmin,@GroupIDAdmin)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}UserGroup](UserID,GroupID) VALUES(@UserIDGuest,@GroupIDGuest)
 
 	-- Category
-	insert into [{databaseOwner}].[{objectQualifier}Category](BoardID,Name,SortOrder) values(@BoardID,'Test Category',1)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Category](BoardID,Name,SortOrder) VALUES(@BoardID,'Test Category',1)
 	set @CategoryID = SCOPE_IDENTITY()
 	
 	-- Forum
-	insert into [{databaseOwner}].[{objectQualifier}Forum](CategoryID,Name,Description,SortOrder,NumTopics,NumPosts,Flags)
-	values(@CategoryID,'Test Forum','A test forum',1,0,0,4)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Forum](CategoryID,Name,Description,SortOrder,NumTopics,NumPosts,Flags)
+	VALUES(@CategoryID,'Test Forum','A test forum',1,0,0,4)
 	set @ForumID = SCOPE_IDENTITY()
 
 	-- ForumAccess
-	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
-	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
-	insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) values(@GroupIDMember,@ForumID,@AccessMaskIDMember)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDAdmin,@ForumID,@AccessMaskIDAdmin)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDGuest,@ForumID,@AccessMaskIDReadOnly)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID) VALUES(@GroupIDMember,@ForumID,@AccessMaskIDMember)
 end
 GO
 
@@ -3435,8 +3436,10 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
 	@User		nvarchar(50),
-	@UserEmail	nvarchar(50),
-	@Password	nvarchar(32)
+	@Userkey	nvarchar(50),
+	@MembershipAppName nvarchar(255),
+	@RolesAppName nvarchar(255)
+	
 ) as 
 begin
 	DECLARE @tmpValue AS nvarchar(100)
@@ -3450,7 +3453,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'ForumEmail', @ForumEmail
 
 	-- initalize new board
-	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name,0,@User,@UserEmail,@Password,1
+	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, '','',@UserKey,1
 end
 GO
 
