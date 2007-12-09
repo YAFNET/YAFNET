@@ -661,26 +661,25 @@ namespace YAF.Classes.Data
                 DBAccess.ExecuteNonQuery(cmd);
             }
         }
+
         /// <summary>
         /// Creates a new board
         /// </summary>
-        /// <param name="name">Name of new board</param>
-        /// <param name="allowThreaded">Bool, allow threaded?</param>
-        /// <param name="userName">User name of admin</param>
-        /// <param name="userEmail">Email of admin</param>
-        /// <param name="userPass">Admins password</param>
+        /// <param name="adminUsername">Membership Provider User Name</param>
+        /// <param name="adminUserKey">Membership Provider User Key</param>
+        /// <param name="boardName">Name of new board</param>
+        /// <param name="boardMembershipName">Membership Provider Application Name for new board</param>
+        /// <param name="boardRolesName">Roles Provider Application Name for new board</param>
         static public void board_create(object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName)
         {
-			// TODO : Mek, please look at this as it's somewhat desynced
             using (SqlCommand cmd = DBAccess.GetCommand("board_create"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardName", "" /*name*/);
+                cmd.Parameters.AddWithValue("BoardName", boardName);
                 cmd.Parameters.AddWithValue("MembershipAppName", boardMembershipName);
                 cmd.Parameters.AddWithValue("RolesAppName", boardRolesName);
                 cmd.Parameters.AddWithValue("UserName", adminUsername);
                 cmd.Parameters.AddWithValue("UserKey", adminUserKey);
-                cmd.Parameters.AddWithValue("UserPass", "" /*userPass*/);
                 cmd.Parameters.AddWithValue("IsHostAdmin", 0);
                 DBAccess.ExecuteNonQuery(cmd);
             }
