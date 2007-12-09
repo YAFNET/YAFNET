@@ -189,7 +189,7 @@ namespace YAF.Classes.Base
 			if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && _transPage.ToLower() != "login")
 			{
 				// redirect to login page if login is required
-				YafBuildLink.Redirect(ForumPages.login);
+				YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
 			}
 
 			if ( _checkSuspended && PageContext.IsSuspended )

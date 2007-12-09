@@ -22,6 +22,7 @@
 using System;
 using System.Data;
 using System.Collections;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
@@ -241,7 +242,7 @@ namespace YAF.Classes.Utils
 		// Ederon : 11/21/2007
 		public int ProfileViewPermissions
 		{
-			get { return _reg.GetValueInt("ProfileViewPermission", 2); }
+			get { return _reg.GetValueInt("ProfileViewPermission", (int)ViewPermissions.RegisteredUsers); }
 			set { _reg.SetValueInt("ProfileViewPermission", value); }
 		}
 		public int ReturnSearchMax
@@ -249,6 +250,18 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "ReturnSearchMax", 100 ); }
 			set { _reg.SetValueInt( "ReturnSearchMax", value ); }
 		}
+		// Ederon : 12/9/2007
+		public int ActiveUsersViewPermissions
+		{
+			get { return _reg.GetValueInt("ActiveUsersViewPermissions", (int)ViewPermissions.RegisteredUsers); }
+			set { _reg.SetValueInt("ActiveUsersViewPermissions", value); }
+		}
+		public int MembersListViewPermissions
+		{
+			get { return _reg.GetValueInt("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers); }
+			set { _reg.SetValueInt("MembersListViewPermissions", value); }
+		}
+
 
 		// boolean settings
 		public bool EmailVerification

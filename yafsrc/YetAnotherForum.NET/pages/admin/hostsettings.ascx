@@ -463,6 +463,28 @@
 																			<asp:ListItem Value="2" Text="All Users" />
 																		</asp:DropDownList>
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Members List Viewing Permissions:</b><br>
+                                    Allow viewing of members list to:</td>
+                                <td class="post">
+																		<asp:DropDownList ID="MembersListViewPermissions" runat="server">
+																			<asp:ListItem Value="0" Text="Forbidden" />
+																			<asp:ListItem Value="1" Text="Registered Users" />
+																			<asp:ListItem Value="2" Text="All Users" />
+																		</asp:DropDownList>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Active Users Viewing Permissions:</b><br>
+                                    Allow viewing of active users list to:</td>
+                                <td class="post">
+																		<asp:DropDownList ID="ActiveUsersViewPermissions" runat="server">
+																			<asp:ListItem Value="0" Text="Forbidden" />
+																			<asp:ListItem Value="1" Text="Registered Users" />
+																			<asp:ListItem Value="2" Text="All Users" />
+																		</asp:DropDownList>
+                            </tr>
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>

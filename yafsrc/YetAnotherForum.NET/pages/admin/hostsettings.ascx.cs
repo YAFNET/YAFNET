@@ -182,6 +182,8 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 12/9/2007 added
 			RequireLogin.Checked = PageContext.BoardSettings.RequireLogin;
+			MembersListViewPermissions.SelectedIndex = PageContext.BoardSettings.MembersListViewPermissions;
+			ActiveUsersViewPermissions.SelectedIndex = PageContext.BoardSettings.ActiveUsersViewPermissions;
 
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
@@ -277,6 +279,8 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 12/9/2007 added
 			PageContext.BoardSettings.RequireLogin = RequireLogin.Checked;
+			PageContext.BoardSettings.MembersListViewPermissions = MembersListViewPermissions.SelectedIndex;
+			PageContext.BoardSettings.ActiveUsersViewPermissions = ActiveUsersViewPermissions.SelectedIndex;
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );

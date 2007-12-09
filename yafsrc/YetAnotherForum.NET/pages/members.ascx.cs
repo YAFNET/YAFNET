@@ -50,9 +50,18 @@ namespace YAF.Pages // YAF.Pages
 		/// <param name="e"></param>
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( User == null )
+			// checks for administrator setting whether to allow members list viewing
+			// it's denied for all users (administrators are always allowed to view it)
+			if (PageContext.BoardSettings.MembersListViewPermissions == (int)ViewPermissions.Nobody
+				&& !PageContext.IsAdmin)
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				YafBuildLink.AccessDenied();
+			}
+			// only registered users are allowed to see members list
+			else if (PageContext.BoardSettings.MembersListViewPermissions == (int)ViewPermissions.RegisteredUsers
+				&& PageContext.IsGuest)
+			{
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
 			}
 
 			if ( !IsPostBack )

@@ -44,6 +44,13 @@ namespace YAF.Classes.Data
 		Information = 2
 	}
 
+	public enum ViewPermissions : int
+	{
+		Nobody = 0,
+		RegisteredUsers = 1,
+		Everyone = 2
+	}
+
 	/* Ederon
 	public enum ForumFlags : int
 	{

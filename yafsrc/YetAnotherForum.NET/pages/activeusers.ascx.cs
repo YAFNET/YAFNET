@@ -43,7 +43,21 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if ( !IsPostBack )
+			// checks for administrator setting whether to allow active users list viewing
+			// it's denied for all users (administrators are always allowed to view it)
+			if (PageContext.BoardSettings.ActiveUsersViewPermissions == (int)ViewPermissions.Nobody
+				&& !PageContext.IsAdmin)
+			{
+				YafBuildLink.AccessDenied();
+			}
+			// only registered users are allowed to see active users list
+			else if (PageContext.BoardSettings.ActiveUsersViewPermissions == (int)ViewPermissions.RegisteredUsers
+				&& PageContext.IsGuest)
+			{
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+			}
+
+			if (!IsPostBack)
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
