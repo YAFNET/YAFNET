@@ -491,6 +491,12 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
 			set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
 		}
+		/* Ederon : 12/9/2007 */
+		public bool RequireLogin
+		{
+			get { return _reg.GetValue<bool>("RequireLogin", false); }
+			set { _reg.SetValue<bool>("RequireLogin", value); }
+		}
 
 
 		/* 6/16/2007 */

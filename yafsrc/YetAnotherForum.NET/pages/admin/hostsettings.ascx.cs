@@ -180,6 +180,9 @@ namespace YAF.Pages.Admin
 			// Ederon : 11/21/2007 added
 			ProfileViewPermissions.SelectedIndex = PageContext.BoardSettings.ProfileViewPermissions;
 
+			// Ederon : 12/9/2007 added
+			RequireLogin.Checked = PageContext.BoardSettings.RequireLogin;
+
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
 			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
@@ -271,6 +274,9 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 11/21/2007 added
 			PageContext.BoardSettings.ProfileViewPermissions = ProfileViewPermissions.SelectedIndex;
+
+			// Ederon : 12/9/2007 added
+			PageContext.BoardSettings.RequireLogin = RequireLogin.Checked;
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );

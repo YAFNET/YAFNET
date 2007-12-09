@@ -185,6 +185,13 @@ namespace YAF.Classes.Base
 			// initialize localization
 			InitLocalization();
 
+			// check if login is required
+			if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && _transPage.ToLower() != "login")
+			{
+				// redirect to login page if login is required
+				YafBuildLink.Redirect(ForumPages.login);
+			}
+
 			if ( _checkSuspended && PageContext.IsSuspended )
 			{
 				if ( PageContext.SuspendedUntil < DateTime.Now )
