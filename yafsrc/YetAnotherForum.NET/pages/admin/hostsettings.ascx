@@ -51,17 +51,17 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Require User Login:</b><br>
-                                    If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="RequireLogin" runat="server" /></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
                                     <b>Disable New Registrations:</b><br>
                                     New users won't be able to register.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="DisableRegistrations" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Require User Login:</b><br>
+                                    If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="RequireLogin" runat="server" /></td>
                             </tr>
                             <tr>
                                 <td class="postheader">

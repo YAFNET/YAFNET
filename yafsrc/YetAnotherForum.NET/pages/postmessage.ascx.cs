@@ -189,7 +189,7 @@ namespace YAF.Pages
 				else if (EditTopicID != null)
 				{
 					// edit message...
-					topicFlags.BitValue = (int)currentRow["Flags"];
+					topicFlags = new MessageFlags((int)currentRow["Flags"]);
 					string body = currentRow["message"].ToString();
 					uxMessage.Text = body;
 					Title.Text = GetText("EDIT");
@@ -356,6 +356,7 @@ namespace YAF.Pages
 
 			tFlags.IsHtml = uxMessage.UsesHTML;
 			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			tFlags.IsPersistent = Persistency.Checked;
 
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
@@ -382,6 +383,7 @@ namespace YAF.Pages
 			MessageFlags messageFlags = new MessageFlags(DB.message_list(EditTopicID).Rows[0]["Flags"]);
 			messageFlags.IsHtml = uxMessage.UsesHTML;
 			messageFlags.IsBBCode = uxMessage.UsesBBCode;
+			messageFlags.IsPersistent = Persistency.Checked;
 
 			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
 			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
