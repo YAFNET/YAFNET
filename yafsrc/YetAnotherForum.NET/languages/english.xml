@@ -27,6 +27,7 @@
 		<Resource tag="DELETE_REASON">Delete reason</Resource>
 		<Resource tag="UNDELETE">Undelete</Resource>
 		<Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+		<Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
 	</page>
 	<page name="COMMON">
 		<!-- common... -->

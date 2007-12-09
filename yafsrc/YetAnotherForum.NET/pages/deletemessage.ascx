@@ -8,13 +8,13 @@
 		<td class="header1" align="center" colSpan="2"><asp:label id="Title" runat="server" /></td>
 	</tr>
 	<tr id="SubjectRow" runat="server">
-		<td class="postformheader" width="20%"><%= GetText("subject") %></td>
+		<td class="postformheader" width="20%"><YAF:LocalizedLabel runat="server" LocalizedTag="subject" /></td>
 		<td class="post" width="80%">
 			<asp:Label runat="server" ID="Subject" />
 		</td>
 	</tr>
 	<tr id="PreviewRow" runat="server" visible="false">
-		<td class="postformheader" valign="top"><%= GetText("previewtitle") %></td>
+		<td class="postformheader" valign="top"><YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" /></td>
 		<td class="post" valign="top">
 			<asp:Label runat="server" ID="MessagePreview" />
 		</td>
@@ -23,6 +23,10 @@
 		<td class="postformheader" width="20%"><% = GetReasonText() %>
 		</td>
 		<td class="post" width="80%"><asp:textbox id="ReasonEditor" runat="server" cssclass="edit" /></td>
+	</tr>
+	<tr id="EraseRow" runat="server" visible="false">
+		<td class="postformheader" width="20%"></td>
+		<td class="post" width="80%"><asp:CheckBox ID="EraseMessage" runat="server" Checked="false" /><YAF:LocalizedLabel runat="server" LocalizedTag="erasemessage" /></td>
 	</tr>
 	<tr>
 		<td align="center" colSpan="2" class="footer1">
@@ -54,7 +58,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post">
 			<td>&nbsp;</td>
@@ -67,7 +71,7 @@
 		<tr class="postheader">
 			<td width="140"><b><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "UserID")) %>"><%# DataBinder.Eval(Container.DataItem, "UserName") %></a></b>
 			</td>
-			<td width="80%" class="small" align="left"><b><%# GetText("posted") %></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
+			<td width="80%" class="small" align="left"><b><YAF:LocalizedLabel runat="server" LocalizedTag="posted" /></b> <%# YafDateTime.FormatDateTime( ( System.DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%></td>
 		</tr>
 		<tr class="post_alt">
 			<td>&nbsp;</td>

@@ -91,7 +91,9 @@ namespace YAF.Pages
 			//Message.BaseDir = YafForumInfo.ForumRoot + "editors";
 			if ( !IsPostBack )
 			{
+				EraseMessage.Checked = false;
 				ViewState ["delAll"] = false;
+				EraseRow.Visible = false;
 				DeleteReasonRow.Visible = false;
 				LinkedPosts.Visible = false;
 				Cancel.Text = GetText( "Cancel" );
@@ -123,6 +125,11 @@ namespace YAF.Pages
 					{
 						Title.Text = GetText( "EDIT" ); //GetText("EDIT");
 						Delete.Text = GetText( "DELETE" ); // "GetText("Save");
+
+						if (PageContext.IsAdmin)
+						{
+							EraseRow.Visible = true;
+						}
 					}
 					else
 					{
@@ -228,7 +235,7 @@ namespace YAF.Pages
 			object tmpTopicID = _msg ["TopicID"];
 
 			// Delete message. If it is the last message of the topic, the topic is also deleted
-			DB.message_delete( tmpMessageID, _isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"] );
+			DB.message_delete( tmpMessageID, _isModeratorChanged, ReasonEditor.Text, PostDeleted ? 0 : 1, ( bool ) ViewState ["delAll"], EraseMessage.Checked);
 
 			// retrieve topic information.
 			DataRow topic = DB.topic_info( tmpTopicID );

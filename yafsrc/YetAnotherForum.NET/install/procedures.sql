@@ -2256,7 +2256,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}message_delete](@MessageID int) as
+create procedure [{databaseOwner}].[{objectQualifier}message_delete](@MessageID int, @EraseMessage bit = 0) as
 begin
 	declare @TopicID		int
 	declare @ForumID		int
@@ -2271,7 +2271,7 @@ begin
 		where
 			a.MessageID=@MessageID
 
-	-- Update LastMessageID in Topic and Forum
+	-- Update LastMessageID in Topic
 	update [{databaseOwner}].[{objectQualifier}Topic] set 
 		LastPosted = null,
 		LastMessageID = null,
@@ -2279,6 +2279,7 @@ begin
 		LastUserName = null
 	where LastMessageID = @MessageID
 
+	-- Update LastMessageID in Forum
 	update [{databaseOwner}].[{objectQualifier}Forum] set 
 		LastPosted = null,
 		LastTopicID = null,
@@ -2287,15 +2288,27 @@ begin
 		LastUserName = null
 	where LastMessageID = @MessageID
 
-	-- "Delete" message
-	update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 8 where MessageID = @MessageID
+	-- should it be physically deleter or not?
+	if (@EraseMessage = 1) begin
+		delete [{databaseOwner}].[{objectQualifier}Attachment] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID = @MessageID
+		delete [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID
+	end
+	else begin
+		-- "Delete" it only by setting deleted flag message
+		update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 8 where MessageID = @MessageID
+	end
+
 	
 	-- Delete topic if there are no more messages
 	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
-	if @MessageCount=0 exec [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID
+	if @MessageCount=0 exec [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID, 1, @EraseMessage
+
 	-- update lastpost
 	exec [{databaseOwner}].[{objectQualifier}topic_updatelastpost] @ForumID,@TopicID
 	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+
 	-- update topic numposts
 	update [{databaseOwner}].[{objectQualifier}Topic] set
 		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
@@ -3523,49 +3536,49 @@ begin
 	declare @ForumID int
 	declare @pollID int
 	
-	select @ForumID=ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID
-	update [{databaseOwner}].[{objectQualifier}Topic] set LastMessageID = null where TopicID = @TopicID
-	update [{databaseOwner}].[{objectQualifier}Forum] set 
+	select @ForumID=ForumID from  [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID
+	update  [{databaseOwner}].[{objectQualifier}Topic] set LastMessageID = null where TopicID = @TopicID
+	update  [{databaseOwner}].[{objectQualifier}Forum] set 
 		LastTopicID = null,
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
 		LastPosted = null
-	where LastMessageID in (select MessageID from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID)
-	update [{databaseOwner}].[{objectQualifier}Active] set TopicID = null where TopicID = @TopicID
+	where LastMessageID in (select MessageID from  [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID)
+	update  [{databaseOwner}].[{objectQualifier}Active] set TopicID = null where TopicID = @TopicID
 	
 	--remove polls	
-	select @pollID = pollID from [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
+	select @pollID = pollID from  [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
 	if (@pollID is not null)
 	begin
-		delete from [{databaseOwner}].[{objectQualifier}choice] where PollID = @PollID
-		update [{databaseOwner}].[{objectQualifier}topic] set PollID = null where TopicID = @TopicID
-		delete from [{databaseOwner}].[{objectQualifier}poll] where PollID = @PollID	
+		delete from  [{databaseOwner}].[{objectQualifier}choice] where PollID = @PollID
+		update  [{databaseOwner}].[{objectQualifier}topic] set PollID = null where TopicID = @TopicID
+		delete from  [{databaseOwner}].[{objectQualifier}poll] where PollID = @PollID	
 	end	
 	
 	--delete messages and topics
-	delete from [{databaseOwner}].[{objectQualifier}nntptopic] where TopicID = @TopicID
-	delete from [{databaseOwner}].[{objectQualifier}topic] where TopicMovedID = @TopicID
+	delete from  [{databaseOwner}].[{objectQualifier}nntptopic] where TopicID = @TopicID
+	delete from  [{databaseOwner}].[{objectQualifier}topic] where TopicMovedID = @TopicID
 
 	if @EraseTopic = 0
 	begin
-		update [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicID = @TopicID
+		update  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicID = @TopicID
 	end
 	else
 	begin
-		delete from [{databaseOwner}].[{objectQualifier}attachment] where MessageID IN (select MessageID from [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
-		delete from [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID
-		delete from [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}attachment] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
+		delete  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
 	end
 		
 	--commit
 	if @UpdateLastPost<>0
-		exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
+		exec  [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
 	
 	if @ForumID is not null
-		exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+		exec  [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
 end
-
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_findnext](@TopicID int) as

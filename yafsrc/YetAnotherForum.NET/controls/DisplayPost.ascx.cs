@@ -48,7 +48,7 @@ namespace YAF.Controls
 		// flags
 		private ForumFlags _forumFlags;
 		private TopicFlags _topicFlags;
-		private MessageFlags _messageFlags = null;
+		private MessageFlags _messageFlags;
 
 		#endregion
 
@@ -347,7 +347,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return _topicFlags.IsDeleted;
+				return _messageFlags.IsDeleted;
 			}
 		}
 

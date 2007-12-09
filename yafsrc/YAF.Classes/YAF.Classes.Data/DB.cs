@@ -671,15 +671,16 @@ namespace YAF.Classes.Data
         /// <param name="userPass">Admins password</param>
         static public void board_create(object adminUsername, object adminUserKey, object boardName, object boardMembershipName, object boardRolesName)
         {
+			// TODO : Mek, please look at this as it's somewhat desynced
             using (SqlCommand cmd = DBAccess.GetCommand("board_create"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("BoardName", name);
+                cmd.Parameters.AddWithValue("BoardName", "" /*name*/);
                 cmd.Parameters.AddWithValue("MembershipAppName", boardMembershipName);
                 cmd.Parameters.AddWithValue("RolesAppName", boardRolesName);
                 cmd.Parameters.AddWithValue("UserName", adminUsername);
                 cmd.Parameters.AddWithValue("UserKey", adminUserKey);
-                cmd.Parameters.AddWithValue("UserPass", userPass);
+                cmd.Parameters.AddWithValue("UserPass", "" /*userPass*/);
                 cmd.Parameters.AddWithValue("IsHostAdmin", 0);
                 DBAccess.ExecuteNonQuery(cmd);
             }
@@ -1668,9 +1669,13 @@ namespace YAF.Classes.Data
             }
         }
 
-        static public void message_delete(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked)
+		static public void message_delete(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked)
+		{
+			message_delete(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false);
+		}
+		static public void message_delete(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool eraseMessage)
         {
-            message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false);
+			message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, false, eraseMessage);
         }
 
         // <summary> Retrieve all reported messages with the correct forumID argument. </summary>
@@ -1725,7 +1730,11 @@ namespace YAF.Classes.Data
 
         //BAI ADDED 30.01.2004
         // <summary> Delete message and all subsequent releated messages to that ID </summary>
-        static private void message_deleteRecursively(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked)
+		static private void message_deleteRecursively(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked)
+		{
+			message_deleteRecursively(messageID, isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, isLinked, false);
+		}
+        static private void message_deleteRecursively(object messageID, bool isModeratorChanged, string deleteReason, int isDeleteAction, bool DeleteLinked, bool isLinked, bool eraseMessages)
         {
             bool UseFileTable = false;
 
@@ -1742,8 +1751,9 @@ namespace YAF.Classes.Data
                     cmd.Parameters.AddWithValue("MessageID", messageID);
                     DataTable tbReplies = DBAccess.GetData(cmd);
 
+					// TODO : what does that delete reason mean?
                     foreach (DataRow row in tbReplies.Rows)
-                        message_deleteRecursively(row["MessageID"], isModeratorChanged, isLinked ? deleteReason : deleteReason + " + удалено, т.к. является ответом на удаленное сообщение", isDeleteAction, DeleteLinked, true);
+                        message_deleteRecursively(row["MessageID"], isModeratorChanged, isLinked ? deleteReason : deleteReason + " + удалено, т.к. является ответом на удаленное сообщение", isDeleteAction, DeleteLinked, true, eraseMessages);
                 }
 
             //ABOT CHANGED 16.01.04: Delete files from hard disk
@@ -1763,17 +1773,31 @@ namespace YAF.Classes.Data
             }
             //END ABOT CHANGE 16.04.04
 
-            //Delete Message
-            // undelete function added
-            using (SqlCommand cmd = DBAccess.GetCommand("message_deleteundelete"))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("MessageID", messageID);
-                cmd.Parameters.AddWithValue("isModeratorChanged", isModeratorChanged);
-                cmd.Parameters.AddWithValue("DeleteReason", deleteReason);
-                cmd.Parameters.AddWithValue("isDeleteAction", isDeleteAction);
-                DBAccess.ExecuteNonQuery(cmd);
-            }
+			// Ederon : erase message for good
+			if (eraseMessages)
+			{
+				using (SqlCommand cmd = DBAccess.GetCommand("message_delete"))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("MessageID", messageID);
+					cmd.Parameters.AddWithValue("@EraseMessage", eraseMessages);
+					DBAccess.ExecuteNonQuery(cmd);
+				}
+			}
+			else
+			{
+				//Delete Message
+				// undelete function added
+				using (SqlCommand cmd = DBAccess.GetCommand("message_deleteundelete"))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("MessageID", messageID);
+					cmd.Parameters.AddWithValue("isModeratorChanged", isModeratorChanged);
+					cmd.Parameters.AddWithValue("DeleteReason", deleteReason);
+					cmd.Parameters.AddWithValue("isDeleteAction", isDeleteAction);
+					DBAccess.ExecuteNonQuery(cmd);
+				}
+			}
         }
 
         // <summary> Set flag on message to approved and store in DB </summary>
@@ -2514,8 +2538,12 @@ namespace YAF.Classes.Data
                 }
             }
         }
-        //END ABOT NEW
-        static public void topic_delete(object topicID)
+        // Ederon : 12/9/2007
+		static public void topic_delete(object topicID)
+		{
+			topic_delete(topicID, false);
+		}
+        static public void topic_delete(object topicID, object eraseTopic)
         {
             //ABOT CHANGE 16.04.04
             topic_deleteAttachments(topicID);
@@ -2524,7 +2552,8 @@ namespace YAF.Classes.Data
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("TopicID", topicID);
-                DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue("EraseTopic", eraseTopic);
+				DBAccess.ExecuteNonQuery(cmd);
             }
         }
         static public DataTable topic_findprev(object topicID)
