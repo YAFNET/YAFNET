@@ -56,7 +56,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Use for bit comparisons
 		/// </summary>
-		public enum Flags : int
+		public new enum Flags : int
 		{
 			IsHtml = 1,
 			IsBBCode = 2,
