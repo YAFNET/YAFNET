@@ -22,6 +22,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -141,7 +142,7 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-        protected void CreateBoard(string adminName, string adminPassword, string adminEmail, string adminPasswordQuestion, string adminPasswordAnswer, string boardName, string boardMembershipName, string boardRolesName)
+        protected void CreateBoard(string adminName, string adminPassword, string adminEmail, string adminPasswordQuestion, string adminPasswordAnswer, string boardName, string boardMembershipAppName, string boardRolesAppName)
         {
             // Store current App Names
             string currentMembershipAppName = Membership.ApplicationName;
@@ -154,8 +155,8 @@ namespace YAF.Pages.Admin
             // Create new admin users
             MembershipCreateStatus createStatus;
             MembershipUser newAdmin = Membership.CreateUser(adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, out createStatus);
-            if (status != MembershipCreateStatus.Success)
-                throw new ApplicationException(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(status)));
+            if (createStatus != MembershipCreateStatus.Success)
+                throw new ApplicationException(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(createStatus)));
 
             // Create groups required for the new board
             Roles.CreateRole("Administrators");
@@ -165,10 +166,10 @@ namespace YAF.Pages.Admin
             Roles.AddUserToRole(newAdmin.UserName, "Administrators");
 
             // Create Board
-            YAF.Classes.Data.DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipName, boardRolesName);
+            YAF.Classes.Data.DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName);
 
             // Return application name to as they were before.
-            Membership.ApplicationName = boardMembershipAppName;
+            Membership.ApplicationName = currentMembershipAppName;
             Roles.ApplicationName = currentRolesAppName;
 
         }

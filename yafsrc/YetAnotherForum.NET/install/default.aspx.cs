@@ -337,9 +337,8 @@ namespace YAF.Install
 					cmd.Parameters.AddWithValue( "@TimeZone", TimeZones.SelectedItem.Value );
 					cmd.Parameters.AddWithValue( "@ForumEmail", ForumEmailAddress.Text );
 					cmd.Parameters.AddWithValue( "@SmtpServer", SmptServerAddress.Text );
-					cmd.Parameters.AddWithValue( "@User", UserName.Text );
-					cmd.Parameters.AddWithValue( "@UserEmail", AdminEmail.Text );
-					cmd.Parameters.AddWithValue( "@Password", "-" );
+					cmd.Parameters.AddWithValue( "@User",user.UserName );
+					cmd.Parameters.AddWithValue( "@UserKey", user.ProviderUserKey);
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 

@@ -1108,7 +1108,7 @@ begin
 	SET @ForumEmail = (SELECT CAST([Value] as nvarchar(50)) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER([Name]) = LOWER('ForumEmail'))
 
 	-- Board
-	INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, MembershipAppName, RolesAppName ) values(@BoardName, @MembershipAppName, @RolesAppName)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, AllowThreaded, MembershipAppName, RolesAppName ) values(@BoardName,0, @MembershipAppName, @RolesAppName)
 	SET @BoardID = SCOPE_IDENTITY()
 
 	-- Rank
@@ -1156,8 +1156,8 @@ begin
 	if @IsHostAdmin<>0 SET @UserFlags = 3
 	
 	-- User (ADMIN)
-	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
-	VALUES(@BoardID,@RankIDAdmin,@UserName,@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
+	INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,Name,Password,ProviderUserKey, Joined,LastVisit,NumPosts,TimeZone,Flags)
+	VALUES(@BoardID,@RankIDAdmin,@UserName,'na',@UserKey,getdate(),getdate(),0,@TimeZone,@UserFlags)
 	SET @UserIDAdmin = SCOPE_IDENTITY()
 
 	-- UserGroup
@@ -3449,9 +3449,7 @@ create procedure [{databaseOwner}].[{objectQualifier}system_initialize](
 	@ForumEmail	nvarchar(50),
 	@SmtpServer	nvarchar(50),
 	@User		nvarchar(50),
-	@Userkey	nvarchar(50),
-	@MembershipAppName nvarchar(255),
-	@RolesAppName nvarchar(255)
+	@Userkey	nvarchar(50)
 	
 ) as 
 begin
@@ -3466,7 +3464,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'ForumEmail', @ForumEmail
 
 	-- initalize new board
-	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, '','',@UserKey,1
+	EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, '','',@User,@UserKey,1
 end
 GO
 
