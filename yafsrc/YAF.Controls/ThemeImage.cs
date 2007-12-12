@@ -47,6 +47,9 @@ namespace YAF.Controls
 			string src = this.GetCurrentThemeItem();
 			string title = this.GetCurrentTitleItem();
 
+			// might not be needed...
+			if ( String.IsNullOrEmpty( src ) ) return;
+
 			if ( UseTitleForEmptyAlt && String.IsNullOrEmpty( Alt ) && !String.IsNullOrEmpty(title) )
 			{
 				Alt = title;
@@ -86,7 +89,7 @@ namespace YAF.Controls
 		{
 			if ( !String.IsNullOrEmpty( _themePage ) && !String.IsNullOrEmpty( _themeTag ) )
 			{
-				return PageContext.Theme.GetItem( ThemePage, ThemeTag );
+				return PageContext.Theme.GetItem( ThemePage, ThemeTag, null );
 			}
 
 			return null;
