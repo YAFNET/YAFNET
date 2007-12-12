@@ -101,7 +101,7 @@
 					        <td class="header2"><%= GetText("Captcha_Image") %></td>
 				        </tr>
 				        <tr>
-					        <td class="post" align="center"><asp:Image ID="imgCaptcha" runat="server" /></td>
+					        <td class="post" align="center"><asp:Image ID="imgCaptcha" runat="server" AlternateText="Captcha" /></td>
 				        </tr>
 				        <tr>
 					        <td class="post"><%= GetText("Captcha_Enter") %> <asp:TextBox ID="tbCaptcha" runat="server" /></td>
