@@ -53,44 +53,10 @@ namespace YAF.Pages
 
 			if ( !IsPostBack )
 			{
-				BindData();
-
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( PageContext.PageUserName, "" );
 			}
 		}
 
-		private void BindData()
-		{
-			Groups.DataSource = YAF.Classes.Data.DB.usergroup_list( PageContext.PageUserID );
-
-			// Bind			
-			DataBind();
-
-			YafCombinedUserData userData = new YafCombinedUserData( PageContext.PageUserID );
-
-			TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-			AccountEmail.Text = userData.Membership.Email;
-			Name.Text = HtmlEncode( userData.Membership.UserName );
-			Joined.Text = YafDateTime.FormatDateTime( userData.Joined );
-			NumPosts.Text = String.Format( "{0:N0}", userData.NumPosts );
-
-			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
-			{
-				AvatarImage.ImageUrl = String.Format( "{0}resource.ashx?u={1}", YafForumInfo.ForumRoot, PageContext.PageUserID );
-			}
-			else if ( !String.IsNullOrEmpty( userData.Avatar ) ) // Took out PageContext.BoardSettings.AvatarRemote
-			{
-				AvatarImage.ImageUrl = String.Format( "{3}resource.ashx?url={0}&width={1}&height={2}",
-					Server.UrlEncode( userData.Avatar ),
-					PageContext.BoardSettings.AvatarWidth,
-					PageContext.BoardSettings.AvatarHeight,
-					YafForumInfo.ForumRoot );
-			}
-			else
-			{
-				AvatarImage.Visible = false;
-			}
-		}
 	}
 }

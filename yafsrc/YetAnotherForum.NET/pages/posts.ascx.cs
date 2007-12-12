@@ -30,6 +30,7 @@ using System.Text.RegularExpressions;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -206,7 +207,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void DeleteTopic_Load( object sender, System.EventArgs e )
 		{
-			( ( LinkButton ) sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "confirm_deletetopic" ) );
+			( ( ThemeButton ) sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "confirm_deletetopic" ) );
 		}
 
 		private void QuickReply_Click( object sender, EventArgs e )
