@@ -1,57 +1,48 @@
-body, td
+#yafmain,
+#yafmain td
 {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8.5pt;
 }
-
-input{font:8pt Verdana,Arial,Helvetica,sans-serif}
-
-select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
-
-textarea{background:#ffffff;border:1px solid #000000;
-font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
-
-form{display:inline}
-
-input{border:1px solid #4C77B6;font-size:8pt}
-
-input.pbutton{background:#EEF5FF;}
-
+#yafmain input{font:8pt Verdana,Arial,Helvetica,sans-serif}
+#yafmain select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
+#yafmain textarea{background:#ffffff;border:1px solid #000000;font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
+#yafmain form{display:inline}
+#yafmain input{border:1px solid #4C77B6;font-size:8pt}
+#yafmain input.pbutton{background:#EEF5FF;}
 /* For BBCode Post Buttons */
-.ButtonOut
-{
+#yafmain .ButtonOut {
 	filter: alpha(opacity=70);
 	border: #7F9DB9 1px solid;
 }
-.ButtonOver
-{
+#yafmain .ButtonOver {
 	background-color: #FFE1AC;
 	border: #FFAD55 1px solid;
 }
-.ButtonChecked
-{
+#yafmain .ButtonChecked {
 	background-color: #FFCB7E;
 	border: #FFAD55 1px solid;
 }
-.ButtonOff
-{
+#yafmain .ButtonOff {
 	filter: gray() alpha(opacity=30);
 	background-color: #C0C0C0;
 	border: #7F9DB9 1px solid;
 }
-
-/*  */
-img 
-{
+#yafmain img {
 	border: 0;
 }
-
+#yafmain ul {
+	margin: 0;
+	padding: 0;
+}
+#yafmain li {
+	margin-left: 10px;
+}
 /* hyperlinks */
-a		{ text-decoration: none; color: #303030; }
-a:hover		{ text-decoration: underline; color: #efefb4; }
-
+#yafmain a		{ text-decoration: none; color: #303030; }
+#yafmain a:hover		{ text-decoration: underline; color: #efefb4; }
 /* Header 1 - Main header */
-.header1 {
+#yafmain .header1 {
 	background-image: url('bg_header1.png');
 	background-color: #7D8CFF;
 	color: #FFFFFF;
@@ -59,87 +50,82 @@ a:hover		{ text-decoration: underline; color: #efefb4; }
 	height: 32px;
 	font-size:12px;
 }
-
 /* Links in header1 */
-tr.header1 a		{color:#FFFFFF;text-decoration:none}
-tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
-
+#yafmain tr.header1 a		{color:#FFFFFF;text-decoration:none}
+#yafmain tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 /* Header 2 - Sub header */
-.header2 {
+#yafmain .header2 {
 	background-image: url('bg_header2.png');
 	background-color: #7D8CFF;
 	color: #3A4F6C;
 	font-weight: bold;
 	height: 28px;
 }
-a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
-
-td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
-td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
-
+#yafmain a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
+#yafmain td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+#yafmain td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 /* Footer1 - Bottom of tables */
-.footer1 {
+#yafmain .footer1 {
 	background-image: url('bg_footer1.png');
 	font-size: 7pt;
 	height: 28px;
 }
-
-.footer1 select, .footer1 td
-{
+#yafmain .footer1 select,
+#yafmain .footer1 td {
 	font-size: 7pt;
 }
-
-.postformheader 
-{
+#yafmain .postformheader {
 	background-color: #D1DCEB;
 	font-weight:bold;
 }
-
+/* file attachment css */
+#yafmain .fileattach {
+	padding: 5px;
+	background-color: #eeeeee;
+	border: solid 1px #808080;
+}
+#yafmain .fileattach .filetitle,
+#yafmain .fileattach .imgtitle {
+	font-weight: bold;
+	color: #444444;
+	margin-bottom: 5px;
+	font-size: 1.1em;
+}
+#yafmain .fileattach .attachedimg,
+#yafmain .fileattach .attachedfile {
+	margin-left: 10px;
+}
+#yafmain .fileattach a {
+	font-weight: bold;
+}
 /* Header of posts */
-.postheader 
-{
+#yafmain .postheader {
 	background-color: #E4EAF2;
 	color:#404040;
 }
-
 /* User info and post/article */
-.post 
-{
+#yafmain .post {
 	background-color: #DFE6EF;
 	color:#404040;
 }
-
-.post_alt
-{
+#yafmain .post_alt {
 	background-color: #dfe9f7;
 	color:#404040;	
 }
-
-.post_priority
-{
+#yafmain .post_priority {
 	font-weight:bold;
 }
-
-.post_link
-{
-
-}
-
 /* Footer of posts */
-.postfooter 
-{
+#yafmain .postfooter {
     background-color: #D1DCEB;
 }
-
 /* Area between posts */
-.postsep 
-{
+#yafmain .postsep {
 	background-color: #8394B2;
 	height: 2px 
 }
-
 /* most tables are class 'content' */
-table.content {
+#yafmain table.content {
 	font-family: verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 	border: solid 1px #8394B2;
@@ -147,122 +133,244 @@ table.content {
 	padding: 0px;
 	background-color: #FFFFFF;
 }
-
-.content td
-{
+#yafmain .content td {
 	padding: 5px;
 }
-
-.content td table td table td {
+#yafmain .content td table td table td {
 	padding: 0px;	
 }
-
-#RichEdit td 
-{
+#yafmain #RichEdit td {
 	padding: 0px;
 }
-
 /* links inside content table*/
-.content a		{ color: #555555; text-decoration: none; }
-.content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
-
+#yafmain .content a		{ color: #555555; text-decoration: none; }
+#yafmain .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 /* used for quoting messages */
-.quote 
-{
+#yafmain .quote {
 	margin-left: 16px;
 	padding-left: 16px;
 }
-
-.innerquote 
-{
+#yafmain .innerquote {
 	padding: 4px;
 	background-color: #E4EAF2;
 	border: solid 1px #8394B2;
 }
-
 /* used for code */
-.code
-{
+#yafmain .code {
 	margin-left: 16px;
 	padding-left: 16px;	
 }
-
-.innercode
-{
+#yafmain .innercode {
 	padding: 4px;
-	/*background-color: #B2C8F6;*/
 	background-color: #FFFFFF;
 	border: solid 1px #95B4F3;
-	/*color:#014C00;*/
 	color:#000000;
 	font-family:Courier New,Courier;
 }
-
 /* font sizes */
-.smallfont	{ font-size: 7.5pt; }
-.largefont	{ font-size: 9pt; }
-
+#yafmain .smallfont	{ font-size: 7.5pt; }
+#yafmain .largefont	{ font-size: 9pt; }
 /* Image Links */
-a.imagelink 
-{
+#yafmain a.imagelink {
 	font-size: 8pt;
 	font-weight: bold;
 	color: #000080;
 }
-a:hover.imagelink
-{
+#yafmain a:hover.imagelink {
 	text-decoration: underline;
 	color: #0000FF;
 	/*background-color: #D0D0D0;*/
 }
-
 /* Used for editor textarea */
-.posteditor 
-{
+#yafmain .posteditor {
 	width: 100%;
 	height: 200px;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 }
-
 /* Table just above and below tables */
-table.command 
-{
+#yafmain table.command {
 	/*border: solid 1px blue;*/
 	padding: 3px;
 }
-
 /* p-tag at the top of pages with navigation links */
-.navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
-.navlinks a { color: #000000; text-decoration: none }
-.navlinks a:hover { color: #6594D5; }
-
+#yafmain .navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
+#yafmain .navlinks a { color: #000000; text-decoration: none }
+#yafmain .navlinks a:hover { color: #6594D5; }
 /* for printing */
-.print 
-{
+#yafmain .print {
 	border: solid 1px #C0C0C0;
 }
-.printheader 
-{
+#yafmain .printheader {
 	background-color: #DDDDDD;
 	color: #000000;
 	padding: 4px;
 }
-.printbody 
-{
+#yafmain .printbody {
 	background-color: #FFFFFF;
 	color: #000000;
 	padding: 4px;
 }
-
 /*
 Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.
 This CSS already works on FireFox.
 */
-div.postdiv
-{
+#yafmain div.postdiv {
 	width: 100%;
 	min-height: 100px;
 	overflow: auto;	
 }
+/* CSS Pagelinks */
+#yafmain .yafpager {
+	color: #555555;
+	margin: 6px 0px 6px 0px;
+}
+#yafmain .pagelink,
+#yafmain .pagelinkfirst,
+#yafmain .pagelinklast,
+#yafmain .pagecurrent,
+#yafmain .pagecount{
+	background: #F5F5F5;
+	border: 1px solid #444444;
+	padding: 1px 3px 1px 3px;
+	margin-right: 2px;
+}
+#yafmain .pagecount {
+	margin-right: 5px;
+}
+#yafmain .pagelinkfirst,
+#yafmain .pagelinklast{
+	background: #e0e0e0;
+}
+#yafmain .pagecurrent{
+	background: #dddddd;
+}
+#yafmain .pagelink a,
+#yafmain .pagelinkfirst a,
+#yafmain .pagelinklast a {
+	text-decoration: none;
+	color: #000090;
+}
+/* CCS Buttons */
+#yafmain a.yaflittlebutton {
+	background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+	font-size: 9px; 
+    height: 19px;
+    margin: 2px 0px 2px 2px;    
+    padding-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+#yafmain a.yaflittlebutton span {
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 11px;
+    padding: 4px 3px 4px 8px;
+}
+#yafmain a.yaflittlebutton img {
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+#yafmain a.yaflittlebutton:hover {
+	color: #000000;
+	text-decoration: none;
+}
+#yafmain a.yaflittlebutton:active {
+    background-position: bottom right;
+    outline: none;
+}
+#yafmain a.yaflittlebutton:active img {
+    padding: 0px 4px 2px 0px;
+}
+#yafmain a.yaflittlebutton:active span{
+    background-position: bottom left;
+    padding: 5px 3px 3px 8px;
+}
+#yafmain a.yafcssbigbutton{
+	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+	font-size: 10px; 
+    height: 24px;
+    margin: 2px 0px 2px 2px;    
+    padding-right: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+#yafmain a.yafcssbigbutton span{
+    background: transparent url('ButtonBackBig.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 5px 3px 5px 7px;
+}
+#yafmain a.yafcssbigbutton img{
+	vertical-align: middle;
+	padding: 0px 4px 2px 0px;
+}
+#yafmain a.yafcssbigbutton:hover {
+	color: #000000;
+	text-decoration: none;
+}
+#yafmain a.yafcssbigbutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+#yafmain a.yafcssbigbutton:active img{
+    padding: 0px 4px 2px 0px;
+}
+#yafmain a.yafcssbigbutton:active span{
+    background-position: bottom left;
+    padding: 6px 3px 4px 7px;
+}
+/* CSS Popupmenu */
+#yafmain .yafpopupmenu {
+	background-color: #ffffff;
+	border: solid 1px #333333;
+	
+}
+#yafmain .yafpopupmenu ul {	
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+#yafmain .yafpopupmenu li {
+	padding: 5px 10px 5px 10px;
+	margin: 0;
+}
+#yafmain .yafpopupmenu li.popupitemhover {
+	background-color: #cccccc;
+}
+/* ajax tabs */
+/* default layout */
+#yafmain .ajax__tab_default .ajax__tab_header {white-space:nowrap;}
+#yafmain .ajax__tab_default .ajax__tab_outer {display:-moz-inline-box;display:inline-block}
+#yafmain .ajax__tab_default .ajax__tab_inner {display:-moz-inline-box;display:inline-block}
+#yafmain .ajax__tab_default .ajax__tab_tab {margin-right:4px;overflow:hidden;text-align:center;cursor:pointer;display:-moz-inline-box;display:inline-block}
+
+/* xp theme */
+#yafmain .ajax__tab_xp .ajax__tab_header {font-family:verdana,tahoma,helvetica;font-size:11px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-line.gif")%>) repeat-x bottom;}
+#yafmain .ajax__tab_xp .ajax__tab_outer {padding-right:4px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-right.gif")%>) no-repeat right;height:21px;}
+#yafmain .ajax__tab_xp .ajax__tab_inner {padding-left:3px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-left.gif")%>) no-repeat;}
+#yafmain .ajax__tab_xp .ajax__tab_tab {height:13px;padding:4px;margin:0;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab.gif")%>) repeat-x;}
+#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-right.gif")%>) no-repeat right;}
+#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-left.gif")%>) no-repeat;}
+#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover.gif")%>) repeat-x;}
+#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-right.gif")%>) no-repeat right;}
+#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-left.gif")%>) no-repeat;}
+#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active.gif")%>) repeat-x;}
+#yafmain .ajax__tab_xp .ajax__tab_body {font-family:verdana,tahoma,helvetica;font-size:10pt;border:1px solid #000000;border-top:0;padding:5px;}
+
+/* scrolling */
+#yafmain .ajax__scroll_horiz {overflow-x:scroll;}
+#yafmain .ajax__scroll_vert {overflow-y:scroll;}
+#yafmain .ajax__scroll_both {overflow:scroll}
+#yafmain .ajax__scroll_auto {overflow:auto}
