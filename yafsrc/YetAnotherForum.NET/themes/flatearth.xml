@@ -4,15 +4,15 @@
 		<Resource tag="CREDIT">FlatEarth Theme by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
 	</page>
 	<page name="BUTTONS">
-		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" src='~/b_attachments.png'/&gt;</Resource>
-		<Resource tag="PM">&lt;img style="vertical-align:middle" src='~/p_pm.gif'/&gt;</Resource>
-		<Resource tag="WWW">&lt;img style="vertical-align:middle" src='~/p_www.gif'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" src='~/p_blog.gif'/&gt;</Resource>
-		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" src='~/p_email.gif'/&gt;</Resource>
-		<Resource tag="MSN">&lt;img style="vertical-align:middle" src='~/p_msn.gif'/&gt;</Resource>
-		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" src='~/p_yim.gif'/&gt;</Resource>
-		<Resource tag="AIM">&lt;img style="vertical-align:middle" src='~/p_aim.gif'/&gt;</Resource>
-		<Resource tag="ICQ">&lt;img style="vertical-align:middle" src='~/p_icq.gif'/&gt;</Resource>
+		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" alt="" src='~/b_attachments.png'/&gt;</Resource>
+		<Resource tag="PM">&lt;img style="vertical-align:middle" alt="" src='~/p_pm.gif'/&gt;</Resource>
+		<Resource tag="WWW">&lt;img style="vertical-align:middle" alt="" src='~/p_www.gif'/&gt;</Resource>
+		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" alt="" src='~/p_blog.gif'/&gt;</Resource>
+		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" alt="" src='~/p_email.gif'/&gt;</Resource>
+		<Resource tag="MSN">&lt;img style="vertical-align:middle" alt="" src='~/p_msn.gif'/&gt;</Resource>
+		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" alt="" src='~/p_yim.gif'/&gt;</Resource>
+		<Resource tag="AIM">&lt;img style="vertical-align:middle" alt="" src='~/p_aim.gif'/&gt;</Resource>
+		<Resource tag="ICQ">&lt;img style="vertical-align:middle" alt="" src='~/p_icq.gif'/&gt;</Resource>
 	</page>
 	<page name="ICONS">
 		<Resource tag="TOPIC_NEW">~/topic_new.png"</Resource>
