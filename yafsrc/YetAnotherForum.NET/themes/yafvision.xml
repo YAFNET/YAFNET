@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Resources theme="YAFVision" dir="yafvision">
   <page name="THEME">
-    <Resource tag="CREDIT">YAFVision Theme Created by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
+    <Resource tag="CREDIT">YAFVision Theme by Jaben Cargman (&lt;a href='http://www.tinygecko.com'&gt;Tiny Gecko&lt;/a&gt;)</Resource>
   </page>
   <page name="FORUM">
     <Resource tag="BANNER">~/forum_banner.jpg</Resource>
   </page>
 	<page name="BUTTONS">
-		<Resource tag="MODERATE">&lt;img style="vertical-align:middle" alt="" src='~/topic_moderate.png'/&gt;</Resource>
-		<Resource tag="NEWTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_post_topic.png'/&gt;</Resource>
-		<Resource tag="POSTREPLY">&lt;img style="vertical-align:middle" alt="" src='~/b_post_reply.png'/&gt;</Resource>
-		<Resource tag="DELETETOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_delete_topic.png'/&gt;</Resource>
-		<Resource tag="LOCKTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_lock_topic.png'/&gt;</Resource>
-		<Resource tag="UNLOCKTOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_unlock_topic.png'/&gt;</Resource>
-		<Resource tag="MOVETOPIC">&lt;img style="vertical-align:middle" alt="" src='~/b_move_topic.png'/&gt;</Resource>
-		<Resource tag="MOVEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_move_post.png'/&gt;</Resource>
-		<Resource tag="EDITPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_edit_post.png'/&gt;</Resource>
-		<Resource tag="DELETEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_delete_post.png'/&gt;</Resource>
-		<Resource tag="UNDELETEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_undelete_post.png'/&gt;</Resource>
-		<Resource tag="QUOTEPOST">&lt;img style="vertical-align:middle" alt="" src='~/b_quote_post.png'/&gt;</Resource>
-		<Resource tag="REPLYPM">&lt;img style="vertical-align:middle" alt="" src='~/b_reply_pm.png'/&gt;</Resource>
 		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" alt="" src='~/b_attachments.png'/&gt;</Resource>
 		<Resource tag="PM">&lt;img style="vertical-align:middle" alt="" src='~/p_pm.gif'/&gt;</Resource>
 		<Resource tag="WWW">&lt;img style="vertical-align:middle" alt="" src='~/p_www.gif'/&gt;</Resource>
@@ -51,8 +38,8 @@
 		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
 		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
 		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
-    		<Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
-    		<Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>			
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>			
 	</page>
 	<page name="SORT">
 		<Resource tag="ASCENDING">~/sort_up.gif</Resource>
