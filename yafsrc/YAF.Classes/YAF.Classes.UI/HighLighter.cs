@@ -49,10 +49,10 @@ namespace YAF.Classes.UI
 			ArrayList alKeyTypes = new ArrayList();
 
 			// cut it off at the pass...
-			/*if ( !File.Exists( pathToDefFile + language.ToString() + ".def" ) )
+			if ( !File.Exists( pathToDefFile + language.ToString() + ".def" ) )
 			{
 				return tmpCode;
-			}*/
+			}
 
 			// Read def file.
 			try
