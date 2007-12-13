@@ -38,7 +38,7 @@ namespace YAF.Classes.UI
 
 
 
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
 		static private string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
 		static private string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
 		static private string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";

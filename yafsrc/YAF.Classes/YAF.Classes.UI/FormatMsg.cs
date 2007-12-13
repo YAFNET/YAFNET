@@ -230,7 +230,7 @@ namespace YAF.Classes.UI
 		}
 
 		// format message regex
-		static private RegexOptions _options = RegexOptions.IgnoreCase;
+		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
 		//if message was deleted then write that instead of real body
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
@@ -259,7 +259,7 @@ namespace YAF.Classes.UI
 					_options,
 					new string [] { "before" }
 				);
-			email.RuleRank = 4000;
+			email.RuleRank = 10;
 
 			ruleEngine.AddRule( email );
 
@@ -276,7 +276,7 @@ namespace YAF.Classes.UI
 					50
 				);
 
-			url.RuleRank = 5000;
+			url.RuleRank = 10;
 			ruleEngine.AddRule( url );
 			
 			url = 
@@ -288,7 +288,7 @@ namespace YAF.Classes.UI
 					new string [] { "" },
 					50
 				);
-			url.RuleRank = 5001;
+			url.RuleRank = 10;
 			ruleEngine.AddRule( url );
 			
 			url = 
@@ -300,7 +300,7 @@ namespace YAF.Classes.UI
 					new string [] { "" },
 					50
 				);
-			url.RuleRank = 5002;
+			url.RuleRank = 10;
 			ruleEngine.AddRule( url );
 
 			// process...
