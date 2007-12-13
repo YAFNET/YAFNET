@@ -59,3 +59,10 @@
 	margin: 5px 0px 5px 0px;
 	float: left;
 }
+/* One Exception: Default CSS for Syntaxt Highlighting */
+#yafmain .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
+#yafmain .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
+#yafmain .yafcodehighlighting .integer { color : #FF0032; }
+#yafmain .yafcodehighlighting .comment { color : #008100; }
+#yafmain .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
+#yafmain .yafcodehighlighting .string { color : #FF0022; }
