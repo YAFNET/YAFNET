@@ -189,13 +189,13 @@ namespace YAF.Classes.UI
 				// add new rules for smilies...
 				rules.AddRule( new SimpleReplaceRule( code.ToLower(),
 																							String.Format(
-																								"<img src=\"{0}\" alt=\"{1}\">",
+																								"<img src=\"{0}\" alt=\"{1}\" />",
 																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
 																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
 																								) ) );
 				rules.AddRule( new SimpleReplaceRule( code.ToUpper(),
 																							String.Format(
-																								"<img src=\"{0}\" alt=\"{1}\">",
+																								"<img src=\"{0}\" alt=\"{1}\" />",
 																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
 																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
 																								) ) );
