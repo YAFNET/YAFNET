@@ -158,6 +158,20 @@ namespace YAF.Classes.UI
 		}
 
 		/// <summary>
+		/// For backwards compatibility
+		/// </summary>
+		/// <param name="message"></param>
+		/// <returns></returns>
+		static public string AddSmiles( string message )
+		{
+			ReplaceRules layers = new ReplaceRules();
+			FormatMsg.AddSmiles( ref layers );
+			// apply...
+			layers.Process( ref message );
+			return message;
+		}
+
+		/// <summary>
 		/// Adds smiles replacement rules to the collection from the DB
 		/// </summary>
 		static public void AddSmiles( ref ReplaceRules rules )
