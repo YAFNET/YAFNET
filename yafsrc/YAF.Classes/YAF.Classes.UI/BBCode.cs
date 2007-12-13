@@ -34,78 +34,54 @@ namespace YAF.Classes.UI
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
-		private BBCode() {}
+		private BBCode() { }
 
-		static private int GetNumber( string input )
-		{
-			try
-			{
-				return int.Parse( input );
-			}
-			catch ( FormatException )
-			{
-				return -1;
-			}
-		}
 
-		static private string GetFontSize( int input )
-		{
-			switch ( input )
-			{
-				case 1:
-					return "50%";
-				case 2:
-					return "70%";
-				case 3:
-					return "80%";
-				case 4:
-					return "90%";
-				case 5:
-				default:
-					return "100%";
-				case 6:
-					return "120%";
-				case 7:
-					return "140%";
-				case 8:
-					return "160%";
-				case 9:
-					return "180%";
-			}
-			///return string.Format("{0}pt",input*2);
-		}
 
 		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-		static private Regex _rgxCode2 = new Regex( @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", _options );
-		static private Regex _rgxCode1 = new Regex( @"\[code\](?<inner>(.*?))\[/code\]", _options );
-		static private Regex _rgxSize = new Regex( @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]", _options );
-		static private Regex _rgxBold = new Regex( @"\[B\](?<inner>(.*?))\[/B\]", _options );
-		static private Regex _rgxStrike = new Regex( @"\[S\](?<inner>(.*?))\[/S\]", _options );
-		static private Regex _rgxItalic = new Regex( @"\[I\](?<inner>(.*?))\[/I\]", _options );
-		static private Regex _rgxUnderline = new Regex( @"\[U\](?<inner>(.*?))\[/U\]", _options );
-		static private Regex _rgxEmail2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", _options );
-		static private Regex _rgxEmail1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", _options );
-		static private Regex _rgxUrl1 = new Regex( @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", _options );
-		static private Regex _rgxUrl2 = new Regex(@"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]", _options);
-		static private Regex _rgxFont = new Regex( @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]", _options );
-		static private Regex _rgxColor = new Regex( @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]", _options );
-		static private Regex _rgxBullet = new Regex( @"\[\*\]", _options );
-		static private Regex _rgxList4 = new Regex( @"\[list=i\](?<inner>(.*?))\[/list\]", _options );
-		static private Regex _rgxList3 = new Regex( @"\[list=a\](?<inner>(.*?))\[/list\]", _options );
-		static private Regex _rgxList2 = new Regex( @"\[list=1\](?<inner>(.*?))\[/list\]", _options );
-		static private Regex _rgxList1 = new Regex( @"\[list\](?<inner>(.*?))\[/list\]", _options );
-		static private Regex _rgxCenter = new Regex( @"\[center\](?<inner>(.*?))\[/center\]", _options );
-		static private Regex _rgxLeft = new Regex( @"\[left\](?<inner>(.*?))\[/left\]", _options );
-		static private Regex _rgxRight = new Regex( @"\[right\](?<inner>(.*?))\[/right\]", _options );
-		static private Regex _rgxQuote2 = new Regex( @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]", _options );
-		static private Regex _rgxQuote1 = new Regex( @"\[quote\](?<inner>(.*?))\[/quote\]", _options );
-		static private Regex _rgxHr = new Regex( "^[-][-][-][-][-]*[\r]?[\n]", _options );
-		static private Regex _rgxBr = new Regex( "[\r]?\n", _options );
-		static private Regex _rgxPost = new Regex( @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]", _options );
-		static private Regex _rgxTopic = new Regex( @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]", _options );
-		static private Regex _rgxImg = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", _options );
-		static private Regex _rgxYoutube = new Regex( @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]", _options);
-		static private Regex _rgxHtml = new Regex( @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options );
+		static private string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
+		static private string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
+		static private string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
+		static private string _rgxBold = @"\[B\](?<inner>(.*?))\[/B\]";
+		static private string _rgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
+		static private string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
+		static private string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
+		static private string _rgxEmail2 = @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]";
+		static private string _rgxEmail1 = @"\[email[^\]]*\](?<inner>(.*?))\[/email\]";
+		static private string _rgxUrl1 = @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]";
+		static private string _rgxUrl2 = @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]";
+		static private string _rgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
+		static private string _rgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
+		static private string _rgxBullet = @"\[\*\]";
+		static private string _rgxList4 = @"\[list=i\](?<inner>(.*?))\[/list\]";
+		static private string _rgxList3 = @"\[list=a\](?<inner>(.*?))\[/list\]";
+		static private string _rgxList2 = @"\[list=1\](?<inner>(.*?))\[/list\]";
+		static private string _rgxList1 = @"\[list\](?<inner>(.*?))\[/list\]";
+		static private string _rgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
+		static private string _rgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
+		static private string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
+		static private string _rgxQuote2 = @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]";
+		static private string _rgxQuote1 = @"\[quote\](?<inner>(.*?))\[/quote\]";
+		static private string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
+		static private string _rgxBr = "[\r]?\n";
+		static private string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
+		static private string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
+		static private string _rgxImg = @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]";
+		static private string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
+
+		/// <summary>
+		/// Helper function for older code
+		/// </summary>
+		/// <param name="bbcode"></param>
+		/// <param name="doFormatting"></param>
+		/// <param name="targetBlankOverride"></param>
+		/// <returns></returns>
+		static public string MakeHtml( string bbcode, bool doFormatting, bool targetBlankOverride )
+		{
+			ReplaceRules ruleEngine = new ReplaceRules();
+			MakeHtml( ref ruleEngine, ref bbcode, doFormatting, targetBlankOverride );
+			return bbcode;
+		}
 
 		/// <summary>
 		/// Converts BBCode to HTML.
@@ -115,240 +91,152 @@ namespace YAF.Classes.UI
 		/// <param name="doFormatting"></param>
 		/// <param name="targetBlankOverride"></param>
 		/// <returns></returns>
-		static public string MakeHtml( string bbcode, bool doFormatting, bool targetBlankOverride )
+		static public void MakeHtml( ref ReplaceRules ruleEngine, ref string bbcode, bool doFormatting, bool targetBlankOverride )
 		{
-			System.Collections.ArrayList codes = new System.Collections.ArrayList();
-			const string codeFormat = ".code@{0}.";
+			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
 
+			// pull localized strings
 			string localQuoteStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_QUOTE" );
-			string localCodeStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
 			string localQuoteWroteStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_QUOTEWROTE" );
+			string localCodeStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
 
-			Match m = _rgxCode2.Match( bbcode );
-			int nCodes = 0;
+			// add rule for code block type with syntax highlighting			
+			ruleEngine.AddRule( new SyntaxHighlightedCodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace("{0}",localCodeStr), _options ) );
 
-			while ( m.Success )
-			{
-				string before_replace = m.Groups [0].Value;
-				string after_replace = m.Groups ["inner"].Value;
+			// add rule for code block type with no syntax highlighting
+			ruleEngine.AddRule( new CodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ), _options ) );
 
-				try
-				{
-					HighLighter hl = new HighLighter();
-					hl.ReplaceEnter = true;
-					after_replace = hl.ColorText( after_replace, HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
-				}
-				catch ( Exception x )
-				{
-					if ( YafContext.Current.IsAdmin )
-						YafContext.Current.AddLoadMessage( x.Message );
-					after_replace = FixCode( after_replace );
-				}
-
-				bbcode = bbcode.Replace( before_replace, string.Format( codeFormat, nCodes++ ) );
-				codes.Add( string.Format( @"<div class=""code""><b>{1}</b><div class=""innercode"">{0}</div></div>", after_replace, localCodeStr ) );
-				m = _rgxCode2.Match( bbcode );
-
-			}
-
-			m = _rgxCode1.Match( bbcode );
-			while ( m.Success )
-			{
-				string before_replace = m.Groups [0].Value;
-				string after_replace = FixCode( m.Groups ["inner"].Value );
-				bbcode = bbcode.Replace( before_replace, string.Format( codeFormat, nCodes++ ) );
-				codes.Add( string.Format( @"<div class=""code""><b>{1}</b><div class=""innercode"">{0}</div></div>", after_replace, localCodeStr ) );
-				m = _rgxCode1.Match( bbcode );
-			}
-
-			m = _rgxSize.Match( bbcode );
-
-			while ( m.Success )
-			{
-				///Console.WriteLine("{0}",m.Groups["size"]);
-				int i = GetNumber( m.Groups ["size"].Value );
-				string tmp;
-				if ( i < 1 )
-					tmp = m.Groups ["inner"].Value;
-				else if ( i > 9 )
-					tmp = string.Format( "<span style=\"font-size:{1}\">{0}</span>", m.Groups ["inner"].Value, GetFontSize( 9 ) );
-				else
-					tmp = string.Format( "<span style=\"font-size:{1}\">{0}</span>", m.Groups ["inner"].Value, GetFontSize( i ) );
-				bbcode = bbcode.Substring( 0, m.Groups [0].Index ) + tmp + bbcode.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = _rgxSize.Match( bbcode );
-			}
+			// handle font sizes -- this rule class internally handles the "size" variable
+			ruleEngine.AddRule( new FontSizeRegexReplaceRule( _rgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _options ) );
 
 			if ( doFormatting )
 			{
-				NestedReplace( ref bbcode, _rgxBold, "<b>${inner}</b>" );
-				NestedReplace( ref bbcode, _rgxStrike, "<s>${inner}</s>" );
-				NestedReplace( ref bbcode, _rgxItalic, "<i>${inner}</i>" );
-				NestedReplace( ref bbcode, _rgxUnderline, "<u>${inner}</u>" );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxBold, "<b>${inner}</b>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxStrike, "<s>${inner}</s>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxItalic, "<i>${inner}</i>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxUnderline, "<u>${inner}</u>", _options ) );
+
 				// e-mails
-				NestedReplace( ref bbcode, _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", new string [] { "email" } );
-				NestedReplace( ref bbcode, _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>" );
+				ruleEngine.AddRule( new VariableRegexReplaceRule( _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", _options, new string [] { "email" } ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>", _options ) );
+
 				// urls
-				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
-				{
-					NestedReplace( ref bbcode, _rgxUrl2, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, _rgxUrl1, "<a target=\"_blank\" rel=\"nofollow\" href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>", new string [] { "http" }, new string [] { "http://" }, 50 );
-				}
-				else
-				{
-					NestedReplace( ref bbcode, _rgxUrl2, "<a rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>", new string [] { "url", "http" }, new string [] { "", "http://" } );
-					NestedReplace( ref bbcode, _rgxUrl1, "<a rel=\"nofollow\" href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>", new string [] { "http" }, new string [] { "http://" }, 50 );
-				}
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxUrl2,
+						"<a {0} rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace( "{0}", target ),
+						_options,
+						new string [] { "url", "http" },
+						new string [] { "", "http://" }
+						)
+				);
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxUrl1,
+						"<a {0} rel=\"nofollow\" href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>".Replace( "{0}", target ),
+						_options,
+						new string [] { "http" },
+						new string [] { "", "http://" },
+						50
+						)
+				);
+
 				// font
-				NestedReplace( ref bbcode, _rgxFont, "<span style=\"font-family:${font}\">${inner}</span>", new string [] { "font" } );
-				NestedReplace( ref bbcode, _rgxColor, "<span style=\"color:${color}\">${inner}</span>", new string [] { "color" } );
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxFont,
+						"<span style=\"font-family:${font}\">${inner}</span>",
+						_options,
+						new string [] { "font" }
+						)
+				);
+
+				// color
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxColor,
+						"<span style=\"color:${color}\">${inner}</span>",
+						_options,
+						new string [] { "color" }
+						)
+				);
+
 				// bullets
-				bbcode = _rgxBullet.Replace( bbcode, "<li>" );
-				NestedReplace( ref bbcode, _rgxList4, "<ol type=\"i\">${inner}</ol>" );
-				NestedReplace( ref bbcode, _rgxList3, "<ol type=\"a\">${inner}</ol>" );
-				NestedReplace( ref bbcode, _rgxList2, "<ol>${inner}</ol>" );
-				NestedReplace( ref bbcode, _rgxList1, "<ul>${inner}</ul>" );
+				ruleEngine.AddRule( new SingleRegexReplaceRule( _rgxBullet, "<li>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxList4, "<ol type=\"i\">${inner}</ol>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxList3, "<ol type=\"a\">${inner}</ol>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxList2, "<ol>${inner}</ol>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxList1, "<ul>${inner}</ul>", _options ) );
+
 				// alignment
-				NestedReplace( ref bbcode, _rgxCenter, "<div align=\"center\">${inner}</div>" );
-				NestedReplace( ref bbcode, _rgxLeft, "<div align=\"left\">${inner}</div>" );
-				NestedReplace( ref bbcode, _rgxRight, "<div align=\"right\">${inner}</div>" );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxCenter, "<div align=\"center\">${inner}</div>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxLeft, "<div align=\"left\">${inner}</div>", _options ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxRight, "<div align=\"right\">${inner}</div>", _options ) );
+
 				// image
-				NestedReplace( ref bbcode, _rgxImg, "<img src=\"${http}${inner}\" alt=\"\"/>", new string [] { "http" }, new string [] { "http://" } );
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxImg,
+						"<img src=\"${http}${inner}\" alt=\"\"/>",
+						_options,
+						new string [] { "http" },
+						new string [] { "http://" }
+						)
+				);
+
 				// youtube
-				NestedReplace( ref bbcode, _rgxYoutube, @"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->", new string [] { "id" } );
+				ruleEngine.AddRule(
+					new VariableRegexReplaceRule(
+						_rgxYoutube,
+						@"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->",
+						_options,
+						new string [] { "id" }
+						)
+				);
 
 				// handle custom BBCode
-				ApplyCustomBBCodeNestedReplace( ref bbcode );
+				AddCustomBBCodeRules( ref ruleEngine );
 
-				bbcode = _rgxHr.Replace( bbcode, "<hr/>" );
-				bbcode = _rgxBr.Replace( bbcode, "<br/>" );
+				// basic hr and br rules
+				ruleEngine.AddRule( new SingleRegexReplaceRule( _rgxHr, "<hr/>", _options ) );
+				ruleEngine.AddRule( new SingleRegexReplaceRule( _rgxBr, "<br/>", _options ) );
 			}
 
-			//bbcode = FormatMsg.AddSmiles( bbcode );
-			ReplaceRules layers = new ReplaceRules();
+			// add smilies
+			FormatMsg.AddSmiles( ref ruleEngine );
 
-			FormatMsg.AddSmiles( ref layers );			
-
-			// apply...
-			layers.Process( ref bbcode );
-
+			// "quote" handling...
 			string tmpReplaceStr;
 
 			tmpReplaceStr = string.Format( @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteWroteStr.Replace( "{0}", "${quote}" ), "${inner}" );
-
-			while ( _rgxQuote2.IsMatch( bbcode ) )
-				bbcode = _rgxQuote2.Replace( bbcode, tmpReplaceStr );
+			ruleEngine.AddRule( new VariableRegexReplaceRule( _rgxQuote2, tmpReplaceStr, _options, new string [] { "quote" } ) );
 
 			tmpReplaceStr = string.Format( @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteStr, "${inner}" );
-						
-			while ( _rgxQuote1.IsMatch( bbcode ) )
-				bbcode = _rgxQuote1.Replace( bbcode, tmpReplaceStr );
+			ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxQuote1, tmpReplaceStr, _options ) );
 
-			m = _rgxPost.Match( bbcode );
-			while ( m.Success )
-			{
-				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", m.Groups ["post"] );
-				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
-					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
-				else
-					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
-				m = _rgxPost.Match( bbcode );
-			}
-
-			m = _rgxTopic.Match( bbcode );
-			while ( m.Success )
-			{
-				string link = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", m.Groups ["topic"] );
-				if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
-					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a target=\"_blank\" href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
-				else
-					bbcode = bbcode.Replace( m.Groups [0].ToString(), string.Format( "<a href=\"{0}\">{1}</a>", link, m.Groups ["inner"] ) );
-				m = _rgxTopic.Match( bbcode );
-			}
-
-			while ( nCodes > 0 )
-			{
-				bbcode = bbcode.Replace( string.Format( codeFormat, --nCodes ), codes [nCodes].ToString() );
-			}
-
-			return bbcode;
-		}
-
-		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables, string [] varDefaults )
-		{
-			NestedReplace( ref refText, regexMatch, strReplace, variables, varDefaults, 0 );
-		}
-
-		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables, string [] varDefaults, int innerTruncate )
-		{
-			Match m = regexMatch.Match( refText );
-			while ( m.Success )
-			{
-				string tStr = strReplace;
-				int i = 0;
-
-				foreach ( string tVar in variables )
-				{
-					string tValue = m.Groups [tVar].Value;
-					if ( tValue.Length == 0 )
-					{
-						// use default instead
-						tValue = varDefaults [i];
-					}
-					tStr = tStr.Replace( "${" + tVar + "}", tValue );
-					i++;
-				}
-
-				tStr = tStr.Replace( "${inner}", m.Groups ["inner"].Value );
-
-				if ( innerTruncate > 0 )
-				{
-					// special handling to truncate urls
-					tStr = tStr.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, innerTruncate ) );
-				}
-
-				refText = refText.Substring( 0, m.Groups [0].Index ) + tStr + refText.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = regexMatch.Match( refText );
-			}
-		}
-
-		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace, string [] variables )
-		{
-			Match m = regexMatch.Match( refText );
-			while ( m.Success )
-			{
-				string tStr = strReplace;
-
-				foreach ( string tVar in variables )
-				{
-					tStr = tStr.Replace( "${" + tVar + "}", m.Groups [tVar].Value );
-				}
-
-				tStr = tStr.Replace( "${inner}", m.Groups ["inner"].Value );
-
-				refText = refText.Substring( 0, m.Groups [0].Index ) + tStr + refText.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = regexMatch.Match( refText );
-			}
-		}
-
-		static public void NestedReplace( ref string refText, Regex regexMatch, string strReplace )
-		{
-			Match m = regexMatch.Match( refText );
-			while ( m.Success )
-			{
-				string tStr = strReplace.Replace( "${inner}", m.Groups ["inner"].Value );
-				refText = refText.Substring( 0, m.Groups [0].Index ) + tStr + refText.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = regexMatch.Match( refText );
-			}
+			// post and topic rules...
+			ruleEngine.AddRule(
+				new PostTopicRegexReplaceRule(
+					_rgxPost,
+					@"<a {0} href=""${post}"">${inner}</a>".Replace( "{0}", target ),
+					_options
+					)
+			);
+			ruleEngine.AddRule(
+				new PostTopicRegexReplaceRule(
+					_rgxTopic,
+					@"<a {0} href=""${topic}"">${inner}</a>".Replace( "{0}", target ),
+					_options
+					)
+			);
 		}
 
 		/// <summary>
-		/// Applies Custom BBCode from the yaf_BBCode table
+		/// Applies Custom BBCode Rules from the BBCode table
 		/// </summary>
 		/// <param name="refText">Text to transform</param>
-		static protected void ApplyCustomBBCodeNestedReplace( ref string refText )
+		static protected void AddCustomBBCodeRules( ref ReplaceRules rulesEngine )
 		{
-			//HttpContext.Current.Trace.Write( "CustomBBCode" );
-
 			DataTable bbcodeTable = GetCustomBBCode();
 
 			// handle custom bbcodes row by row...
@@ -356,7 +244,7 @@ namespace YAF.Classes.UI
 			{
 				if ( codeRow ["SearchRegEx"] != DBNull.Value && codeRow ["ReplaceRegEx"] != DBNull.Value )
 				{
-					Regex searchRegEx = new Regex( codeRow ["SearchRegEx"].ToString(), _options );
+					string searchRegEx = codeRow ["SearchRegEx"].ToString();
 					string replaceRegEx = codeRow ["ReplaceRegEx"].ToString();
 					string rawVariables = codeRow ["Variables"].ToString();
 
@@ -365,13 +253,16 @@ namespace YAF.Classes.UI
 						// handle variables...
 						string [] variables = rawVariables.Split( new char [] { ';' } );
 
-						NestedReplace( ref refText, searchRegEx, replaceRegEx, variables );
-						
+						VariableRegexReplaceRule rule = new VariableRegexReplaceRule( searchRegEx, replaceRegEx, _options, variables );
+						rule.RuleRank = 50;
+						rulesEngine.AddRule( rule );
 					}
 					else
 					{
 						// just standard replace...
-						NestedReplace( ref refText, searchRegEx, replaceRegEx );
+						SimpleRegexReplaceRule rule = new SimpleRegexReplaceRule( searchRegEx, replaceRegEx, _options );
+						rule.RuleRank = 50;
+						rulesEngine.AddRule( rule );
 					}
 				}
 			}
@@ -423,8 +314,8 @@ namespace YAF.Classes.UI
 			cssBuilder.Append( "\r\n" );
 
 			foreach ( DataRow row in bbCodeTable.Rows )
-			{				
-				string displayScript = null;				
+			{
+				string displayScript = null;
 				string editScript = null;
 
 				if ( row ["DisplayJS"] != DBNull.Value )
@@ -432,14 +323,14 @@ namespace YAF.Classes.UI
 					displayScript = row ["DisplayJS"].ToString().Trim();
 				}
 
-				if ( !String.IsNullOrEmpty( editorID ) && row["EditJS"] != DBNull.Value )
+				if ( !String.IsNullOrEmpty( editorID ) && row ["EditJS"] != DBNull.Value )
 				{
 					editScript = row ["EditJS"].ToString().Trim();
 					// replace any instances of editor ID in the javascript in case the ID is needed
 					editScript = editScript.Replace( "{editorid}", editorID );
 				}
 
-				if ( !String.IsNullOrEmpty(displayScript) || !String.IsNullOrEmpty(editScript))
+				if ( !String.IsNullOrEmpty( displayScript ) || !String.IsNullOrEmpty( editScript ) )
 				{
 					jsScriptBuilder.AppendLine( displayScript + "\r\n" + editScript );
 				}
@@ -489,24 +380,6 @@ namespace YAF.Classes.UI
 		static public string DecodeHTML( string text )
 		{
 			return System.Web.HttpContext.Current.Server.HtmlDecode( text );
-		}
-
-		/// <summary>
-		/// A simplistic Encode HTML function.
-		/// </summary>
-		/// <param name="html"></param>
-		/// <returns></returns>
-		static private string FixCode( string html )
-		{
-			html = html.Replace( "  ", "&nbsp; " );
-			html = html.Replace( "  ", " &nbsp;" );
-			html = html.Replace( "\t", "&nbsp; &nbsp;&nbsp;" );
-			html = html.Replace( "[", "&#91;" );
-			html = html.Replace( "]", "&#93;" );
-			html = html.Replace( "<", "&lt;" );
-			html = html.Replace( ">", "&gt;" );
-			html = html.Replace( "\r\n", "<br/>" );
-			return html;
 		}
 	}
 }

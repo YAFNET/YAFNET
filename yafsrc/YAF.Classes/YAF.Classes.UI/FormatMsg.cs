@@ -187,8 +187,8 @@ namespace YAF.Classes.UI
 				code = code.Replace( "\"", "&quot;" );
 
 				// add new rules for smilies...
-				rules.AddRule( new SimpleReplaceRule(	code.ToLower(),
-																							String.Format( 
+				rules.AddRule( new SimpleReplaceRule( code.ToLower(),
+																							String.Format(
 																								"<img src=\"{0}\" alt=\"{1}\">",
 																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
 																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
@@ -231,14 +231,12 @@ namespace YAF.Classes.UI
 
 		// format message regex
 		static private RegexOptions _options = RegexOptions.IgnoreCase;
-		static private Regex _rgxEmail = new Regex( @"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)", _options );
-		static private Regex _rgxUrl1 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", _options );
-		static private Regex _rgxUrl2 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,#~$]*[^.<])?)", _options );
-		static private Regex _rgxUrl3 = new Regex( @"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=;,]*)?)", _options );
 
 		//if message was deleted then write that instead of real body
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
 		{
+			ReplaceRules ruleEngine = new ReplaceRules();
+
 			if ( messageFlags.IsDeleted )
 			{
 				// TODO: Needs to be localized
@@ -251,25 +249,62 @@ namespace YAF.Classes.UI
 			message = RepairHtml( message, messageFlags.IsHtml );
 
 			// do BBCode and Smilies...
-			message = BBCode.MakeHtml( message, messageFlags.IsBBCode, targetBlankOverride );
+			BBCode.MakeHtml( ref ruleEngine, ref message, messageFlags.IsBBCode, targetBlankOverride );
 
-			//Email -- RegEx VS.NET
-			BBCode.NestedReplace( ref message, _rgxEmail, "${before}<a href=\"mailto:${inner}\">${inner}</a>", new string [] { "before" } );
+			// add email rule
+			VariableRegexReplaceRule email =
+				new VariableRegexReplaceRule(
+					@"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)",
+					"${before}<a href=\"mailto:${inner}\">${inner}</a>",
+					_options,
+					new string [] { "before" }
+				);
+			email.RuleRank = 4000;
 
-			// URLs
-			if ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride )
-			{
-				// target is blank...
-				BBCode.NestedReplace( ref message, _rgxUrl1, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-				BBCode.NestedReplace( ref message, _rgxUrl2, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-				BBCode.NestedReplace( ref message, _rgxUrl3, "${before}<a target=\"_blank\" rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-			}
-			else
-			{
-				BBCode.NestedReplace( ref message, _rgxUrl1, "${before}<a rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-				BBCode.NestedReplace( ref message, _rgxUrl2, "${before}<a rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-				BBCode.NestedReplace( ref message, _rgxUrl3, "${before}<a rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>", new string [] { "before" }, new string [] { "" }, 50 );
-			}
+			ruleEngine.AddRule( email );
+
+			// URLs Rules
+			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
+
+			VariableRegexReplaceRule url = 
+				new VariableRegexReplaceRule(
+					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;,]*)?)",
+					"${before}<a {0} rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}",target),
+					_options,
+					new string [] { "before" },
+					new string [] { "" },
+					50
+				);
+
+			url.RuleRank = 5000;
+			ruleEngine.AddRule( url );
+			
+			url = 
+				new VariableRegexReplaceRule(
+					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,#~$]*[^.<])?)",
+					"${before}<a {0} rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ),
+					_options,
+					new string [] { "before" },
+					new string [] { "" },
+					50
+				);
+			url.RuleRank = 5001;
+			ruleEngine.AddRule( url );
+			
+			url = 
+				new VariableRegexReplaceRule(
+					@"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+					"${before}<a {0} rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}",target),
+					_options,
+					new string [] { "before" },
+					new string [] { "" },
+					50
+				);
+			url.RuleRank = 5002;
+			ruleEngine.AddRule( url );
+
+			// process...
+			ruleEngine.Process( ref message );
 
 			// jaben : moved word replace to reusable function in class utils
 			message = General.BadWordReplace( message );

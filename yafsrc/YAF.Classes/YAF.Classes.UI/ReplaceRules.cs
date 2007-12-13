@@ -73,7 +73,7 @@ namespace YAF.Classes.UI
 	/// </summary>
 	public class BaseReplaceRule : IComparable
 	{
-		public int RuleRank = 0;
+		public int RuleRank = 50;
 
 		public virtual void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
@@ -148,17 +148,46 @@ namespace YAF.Classes.UI
 			_regExReplace = regExReplace;
 		}
 
+		protected virtual string GetInnerValue( string innerValue )
+		{
+			return innerValue;
+		}
+
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
-				string tStr = _regExReplace.Replace( "${inner}", m.Groups ["inner"].Value );
+				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue(m.Groups ["inner"].Value) );
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
 				replacement.GetReplacementsFromText( ref tStr );
 				
 				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+				m = _regExSearch.Match( text );
+			}
+		}
+	}
+
+	/// <summary>
+	/// For basic regex with no variables
+	/// </summary>
+	public class SingleRegexReplaceRule : SimpleRegexReplaceRule
+	{
+		public SingleRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
+			: base( regExSearch, regExReplace, regExOptions )
+		{
+		}
+
+		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
+		{
+			Match m = _regExSearch.Match( text );
+			while ( m.Success )
+			{
+				// just replaces with no "inner"
+				int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( _regExReplace ) );
+				text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
 				m = _regExSearch.Match( text );
 			}
 		}
@@ -193,6 +222,17 @@ namespace YAF.Classes.UI
 			
 		}
 
+		/// <summary>
+		/// Override to change default variable handling...
+		/// </summary>
+		/// <param name="variableName"></param>
+		/// <param name="variableValue"></param>
+		/// <returns></returns>
+		protected virtual string ManageVariableValue( string variableName, string variableValue )
+		{
+			return variableValue;
+		}
+
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
 			Match m = _regExSearch.Match( text );
@@ -211,7 +251,7 @@ namespace YAF.Classes.UI
 						tValue = _variableDefaults [i];
 					}
 
-					tStr = tStr.Replace( "${" + tVar + "}", tValue );
+					tStr = tStr.Replace( "${" + tVar + "}", ManageVariableValue(tVar,tValue) );
 					i++;
 				}
 
@@ -231,6 +271,139 @@ namespace YAF.Classes.UI
 				m = _regExSearch.Match( text );
 			}
 		}
+	}
+
+	/// <summary>
+	/// For the font size with replace
+	/// </summary>
+	public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
+	{
+		public FontSizeRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
+			: base (regExSearch, regExReplace, regExOptions, new string [] { "size" }, new string [] { "5" })
+		{
+			RuleRank = 25;
+		}
+		private string GetFontSize( string inputStr )
+		{
+			int [] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
+			int size = 5;
+
+			// try to parse the input string...
+			int.TryParse( inputStr, out size );
+
+			if ( size < 1 ) size = 1;
+			if ( size > sizes.Length ) size = 5;
+
+			return sizes [size - 1].ToString() + "%";
+		}
+
+		protected override string ManageVariableValue( string variableName, string variableValue )
+		{
+			if ( variableName == "size" ) return GetFontSize( variableValue );
+			return variableValue;
+		}
+	}
+
+	/// <summary>
+	/// For the font size with replace
+	/// </summary>
+	public class PostTopicRegexReplaceRule : VariableRegexReplaceRule
+	{
+		public PostTopicRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
+			: base( regExSearch, regExReplace, regExOptions, new string [] { "post", "topic"} )
+		{
+			RuleRank = 200;
+		}
+		protected override string ManageVariableValue( string variableName, string variableValue )
+		{
+			if ( variableName == "post" || variableName == "topic")
+			{				
+				int id = 0;
+				if (int.TryParse( variableValue, out id))
+				{
+					if (variableName == "post")
+						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", id );
+					else if (variableName == "topic")
+						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", id );
+				}
+			}
+			return variableValue;
+		}
+	}
+
+	/// <summary>
+	/// Simple code block regular express replace
+	/// </summary>
+	public class CodeRegexReplaceRule : SimpleRegexReplaceRule
+	{
+		public CodeRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
+			: base( regExSearch, regExReplace, regExOptions ) 
+		{
+			// default high rank...
+			RuleRank = 1;
+		}
+
+		/// <summary>
+		/// This just overrides how the inner value is handled
+		/// </summary>
+		/// <param name="innerValue"></param>
+		/// <returns></returns>
+		protected override string GetInnerValue( string innerValue )
+		{
+			innerValue = innerValue.Replace( "  ", "&nbsp; " );
+			innerValue = innerValue.Replace( "  ", " &nbsp;" );
+			innerValue = innerValue.Replace( "\t", "&nbsp; &nbsp;&nbsp;" );
+			innerValue = innerValue.Replace( "[", "&#91;" );
+			innerValue = innerValue.Replace( "]", "&#93;" );
+			innerValue = innerValue.Replace( "<", "&lt;" );
+			innerValue = innerValue.Replace( ">", "&gt;" );
+			innerValue = innerValue.Replace( "\r\n", "<br/>" );
+			return innerValue;
+		}
+
+		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
+		{
+			Match m = _regExSearch.Match( text );
+			while ( m.Success )
+			{
+				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue( m.Groups ["inner"].Value ) );
+
+				int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( tStr ) );
+				text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+				m = _regExSearch.Match( text );
+			}
+		}
+	}
+
+	/// <summary>
+	/// Syntax Highlighted code block regular express replace
+	/// </summary>
+	public class SyntaxHighlightedCodeRegexReplaceRule : CodeRegexReplaceRule
+	{
+		private HighLighter _syntaxHighlighter = new HighLighter();
+
+		public SyntaxHighlightedCodeRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
+			: base( regExSearch, regExReplace, regExOptions )
+		{
+			_syntaxHighlighter.ReplaceEnter = true;
+		}
+
+		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
+		{
+			Match m = _regExSearch.Match( text );
+			while ( m.Success )
+			{
+				string inner = _syntaxHighlighter.ColorText( m.Groups ["inner"].Value, HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
+				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue( inner ) );
+
+				// pulls the htmls into the replacement collection before it's inserted back into the main text
+				replacement.GetReplacementsFromText( ref tStr );
+
+				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+				m = _regExSearch.Match( text );
+			}
+		}
+
 	}
 
 	/// <summary>

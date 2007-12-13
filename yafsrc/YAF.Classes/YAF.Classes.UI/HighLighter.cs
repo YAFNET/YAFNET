@@ -48,6 +48,12 @@ namespace YAF.Classes.UI
 			ArrayList alKeyWords = new ArrayList();
 			ArrayList alKeyTypes = new ArrayList();
 
+			// cut it off at the pass...
+			if ( !File.Exists( pathToDefFile + language.ToString() + ".def" ) )
+			{
+				return tmpCode;
+			}
+
 			// Read def file.
 			try
 			{
