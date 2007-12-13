@@ -165,6 +165,75 @@ namespace YAF.Classes.UI
 	}
 
 	/// <summary>
+	/// For complex regex with variable/default and truncate support
+	/// </summary>
+	public class VariableRegexReplaceRule : SimpleRegexReplaceRule
+	{
+		protected string [] _variables = null;
+		protected string [] _variableDefaults = null;
+		protected int _truncateLength = 0;
+
+		public VariableRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions, string [] variables, string [] varDefaults, int truncateLength )
+			: base( regExSearch, regExReplace, regExOptions )
+		{
+			_variables = variables;
+			_variableDefaults = varDefaults;
+			_truncateLength = truncateLength;
+		}
+
+		public VariableRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions, string [] variables, string [] varDefaults )
+			: this( regExSearch, regExReplace, regExOptions, variables, varDefaults, 0 )
+		{
+
+		}
+
+		public VariableRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions, string [] variables )
+			: this( regExSearch, regExReplace, regExOptions, variables, null, 0 )
+		{
+			
+		}
+
+		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
+		{
+			Match m = _regExSearch.Match( text );
+			while ( m.Success )
+			{
+				string tStr = _regExReplace;
+				int i = 0;
+
+				foreach ( string tVar in _variables )
+				{
+					string tValue = m.Groups [tVar].Value;
+
+					if ( _variableDefaults != null && tValue.Length == 0 )
+					{
+						// use default instead
+						tValue = _variableDefaults [i];
+					}
+
+					tStr = tStr.Replace( "${" + tVar + "}", tValue );
+					i++;
+				}
+
+				tStr = tStr.Replace( "${inner}", m.Groups ["inner"].Value );
+
+				if ( _truncateLength > 0 )
+				{
+					// special handling to truncate urls
+					tStr = tStr.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, _truncateLength ) );
+				}
+
+				// pulls the htmls into the replacement collection before it's inserted back into the main text
+				replacement.GetReplacementsFromText( ref tStr );
+
+				// add it back into the text
+				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+				m = _regExSearch.Match( text );
+			}
+		}
+	}
+
+	/// <summary>
 	/// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
 	/// </summary>
 	public class HtmlReplacementCollection
