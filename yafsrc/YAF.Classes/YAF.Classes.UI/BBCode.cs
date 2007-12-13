@@ -101,7 +101,7 @@ namespace YAF.Classes.UI
 			string localCodeStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
 
 			// add rule for code block type with syntax highlighting			
-			ruleEngine.AddRule( new SyntaxHighlightedCodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace("{0}",localCodeStr), _options ) );
+			ruleEngine.AddRule( new SyntaxHighlightedCodeRegexReplaceRule( _rgxCode2, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace("{0}",localCodeStr), _options ) );
 
 			// add rule for code block type with no syntax highlighting
 			ruleEngine.AddRule( new CodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ), _options ) );
