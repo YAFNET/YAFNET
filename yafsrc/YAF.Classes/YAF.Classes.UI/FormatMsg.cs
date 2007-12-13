@@ -157,93 +157,35 @@ namespace YAF.Classes.UI
 			return tmp;
 		}
 
-		// Ederon : 6/16/2007 - renamed from iAddSmilies to AddSmilies
 		/// <summary>
-		/// Adds smiles into the code.
+		/// Adds smiles replacement rules to the collection from the DB
 		/// </summary>
-		/// <param name="basePagee">Forum base page</param>
-		/// <param name="Message">Text to add smiles to.</param>
-		/// <returns>Processed text with smiles added.</returns>
-		static public string AddSmiles( string message )
+		static public void AddSmiles( ref ReplaceRules rules )
 		{
 			DataTable dtSmileys = GetSmilies();
-			/* Ederon : 6/16/2007
-			 * no need to do another copy of string, it is new instance already, so we can change it
-			 * replaced all 'strTemp' in this method to 'message' 
-			 */ 
-			// string strTemp = message;
 
 			foreach ( DataRow row in dtSmileys.Rows )
 			{
 				string code = row ["Code"].ToString();
-
+				code = code.Replace( ">", "&gt;" );
+				code = code.Replace( "<", "&lt;" );
 				code = code.Replace( "&", "&amp;" );
 				code = code.Replace( "\"", "&quot;" );
-				// some symbols in html source becomes smylies
-				// so prevent this
-				message = message.Replace( "&amp;", "&amp%3B" );
-				message = message.Replace( "&quot;", "&quot%3B" );
-				message = message.Replace( "mailto:", "mailto%3A" );
-				message = message.Replace( "color:", "color%3A" );
 
-				message = message.Replace( code.ToLower(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-				message = message.Replace( code.ToUpper(), String.Format( "<img src=\"{0}\" alt=\"{1}\">", YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ), HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() ) ) );
-
-				// restore html source
-
-				message = message.Replace( "&amp%3B", "&amp;" );
-				message = message.Replace( "&quot%3B", "&quot;" );
-				message = message.Replace( "mailto%3A", "mailto:" );
-				message = message.Replace( "color%3A", "color:" );
+				// add new rules for smilies...
+				rules.AddRule( new SimpleReplaceRule(	code.ToLower(),
+																							String.Format( 
+																								"<img src=\"{0}\" alt=\"{1}\">",
+																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
+																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
+																								) ) );
+				rules.AddRule( new SimpleReplaceRule( code.ToUpper(),
+																							String.Format(
+																								"<img src=\"{0}\" alt=\"{1}\">",
+																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
+																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
+																								) ) );
 			}
-
-			return message;
-		}
-
-		/// <summary>
-		/// Supposed to convert HTML to BBCode -- Doesn't function
-		/// </summary>
-		/// <param name="html"></param>
-		/// <returns></returns>
-		[Obsolete( "Doesn't work" )]
-		static public string HtmlToForumCode( string html )
-		{
-#if true
-			return html;
-#else
-			html = html.Replace("<ul>","[list]");	// TODO
-			html = html.Replace("</ul>","[/list]");	// TODO
-			html = html.Replace("<ol>","[list]");	// TODO
-			html = html.Replace("</ol>","[/list]");	// TODO
-			html = html.Replace("<li>","[*]");		// TODO
-			html = html.Replace("</li>","");		// TODO
-			
-			RegexOptions options = RegexOptions.IgnoreCase;
-			html = Regex.Replace(html,"<a href=\"(.*)\">(.*)</a>","[url=\"$1\"]$2[/url]",options);
-			html = Regex.Replace(html,"<img src=\"(.*)\">","[img]$1[/img]",options);
-			html = Regex.Replace(html,"<p(.*?)>","",options);
-			html = Regex.Replace(html,"</p>","<br /><br />",options);
-			html = Regex.Replace(html,"<br />","\n",options);
-			html = Regex.Replace(html,"<b>","[b]",options);
-			html = Regex.Replace(html,"</b>","[/b]",options);
-			html = Regex.Replace(html,"<strong>","[b]",options);
-			html = Regex.Replace(html,"</strong>","[/b]",options);
-			html = Regex.Replace(html,"<i>","[i]",options);
-			html = Regex.Replace(html,"</i>","[/i]",options);
-			html = Regex.Replace(html,"<em>","[i]",options);
-			html = Regex.Replace(html,"</em>","[/i]",options);
-			html = Regex.Replace(html,"<u>","[u]",options);
-			html = Regex.Replace(html,"</u>","[/u]",options);
-			html = Regex.Replace(html,"<blockquote(.*)>","[block]",options);			
-			html = Regex.Replace(html,"</blockquote>","[/block]",options);			
-
-			html = Regex.Replace(html,"<","&lt;",options);
-			html = Regex.Replace(html,">","&gt;",options);
-//			if(html.IndexOf('<')>=0 || html.IndexOf('>')>=0)
-//				html += "\n\nINVALID";
-
-			return html;
-#endif
 		}
 
 		static public DataTable GetSmilies()

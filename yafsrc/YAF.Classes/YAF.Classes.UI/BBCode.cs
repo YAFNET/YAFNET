@@ -223,7 +223,13 @@ namespace YAF.Classes.UI
 				bbcode = _rgxBr.Replace( bbcode, "<br/>" );
 			}
 
-			bbcode = FormatMsg.AddSmiles( bbcode );
+			//bbcode = FormatMsg.AddSmiles( bbcode );
+			ReplaceRules layers = new ReplaceRules();
+
+			FormatMsg.AddSmiles( ref layers );			
+
+			// apply...
+			layers.Process( ref bbcode );
 
 			string tmpReplaceStr;
 
