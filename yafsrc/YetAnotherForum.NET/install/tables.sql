@@ -471,7 +471,11 @@ if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwne
 begin
 	-- add new "Flags" field to UserPMessage
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add Flags int not null DEFAULT ((0))
+end
+GO
 
+if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsRead')
+BEGIN	
 	-- Copy "IsRead" value over
 	grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
 	exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = IsRead')
@@ -484,7 +488,7 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsRead] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
-end
+END
 GO
 
 
