@@ -2937,7 +2937,10 @@ BEGIN
 	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where [UserPMessageID] = @UserPMessageID);
 
 	IF @FromOutbox = 1
-		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [IsInOutbox] = 0 WHERE [UserPMessageID] = @UserPMessageID
+	BEGIN
+		-- set IsInOutbox bit which will remove it from the senders outbox
+		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 2) WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1
+	END
 	ELSE
 	BEGIN		
 		DELETE FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE [UserPMessageID] = @UserPMessageID
@@ -2966,9 +2969,11 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}pmessage_markread](@UserPMessageID int=null) as begin
-	update [{databaseOwner}].[{objectQualifier}UserPMessage] set IsRead=1 where UserPMessageID=@UserPMessageID
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_markread](@UserPMessageID int=null)
+AS
+BEGIN
+	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = [Flags] | 1 WHERE UserPMessageID = @UserPMessageID AND IsRead = 0
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}pmessage_prune](@DaysRead int,@DaysUnread int) as
@@ -3003,9 +3008,9 @@ begin
 	set @PMessageID = SCOPE_IDENTITY()
 	if (@ToUserID = 0)
 	begin
-		insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,IsRead,IsInOutbox)
+		insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,Flags)
 		select
-				a.UserID,@PMessageID,0,1
+				a.UserID,@PMessageID,2
 		from
 				{objectQualifier}User a
 				join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
@@ -3017,7 +3022,7 @@ begin
 	end
 	else
 	begin
-		insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,IsRead,IsInOutbox) values(@ToUserID,@PMessageID,0,1)
+		insert into [{databaseOwner}].[{objectQualifier}UserPMessage](UserID,PMessageID,Flags) values(@ToUserID,@PMessageID,2)
 	end
 end
 GO
@@ -3025,7 +3030,8 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive](@UserPMessageID int = NULL) AS
 BEGIN
-	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET IsArchived=1 WHERE UserPMessageID=@UserPMessageID
+	-- set IsArchived bit
+	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] | 4) WHERE UserPMessageID = @UserPMessageID AND IsArchived = 0
 END
 GO
 

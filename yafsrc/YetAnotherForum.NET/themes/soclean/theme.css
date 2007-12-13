@@ -53,7 +53,7 @@
 	background-color: #353535;
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 32px;
+	line-height: 26px;
 	font-size:12px;
 }
 /* Links in header1 */
@@ -62,7 +62,7 @@
 #yafmain .header1Title {
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 32px;
+	line-height: 18px;
 	font-size:12px;	
 }
 /* Header 2 - Sub header */
@@ -70,7 +70,7 @@
 	background-color: #DDDDDD;
 	color: #252525;
 	font-weight: bold;
-	height: 28px;
+	line-height: 20px;
 }
 #yafmain a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 #yafmain td.header2links a	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}

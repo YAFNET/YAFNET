@@ -357,9 +357,10 @@ begin
 		UserPMessageID	int IDENTITY (1, 1) not null,
 		UserID			int not null,
 		PMessageID		int not null,
-		IsRead			bit not null,
-		IsInOutbox		bit not null default (1),
-		IsArchived		bit not null default (0)
+		[Flags]			int NOT NULL DEFAULT ((0)),
+		[IsRead]		AS (CONVERT([bit],sign([Flags]&(1)),(0))),
+		[IsInOutbox]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
+		[IsArchived]	AS (CONVERT([bit],sign([Flags]&(4)),(0)))		
 	)
 end
 GO
@@ -463,6 +464,26 @@ GO
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='Flags')
+begin
+	-- add new "Flags" field to UserPMessage
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add Flags int not null DEFAULT ((0))
+
+	-- Copy "IsRead" value over
+	grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
+	exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = IsRead')
+	revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
+	
+	-- drop the old column
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] drop column IsRead
+	
+	-- add new calculated columns	
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsRead] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
 end
 GO
 

@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="ProfileYourAccount.ascx.cs"
     EnableViewState="true" Inherits="YAF.Controls.ProfileYourAccount" %>
-<table align="center" cellspacing="0" cellpadding="0" width="100%" class="content"
+<table align="center" cellspacing="0" cellpadding="0" class="content"
     id="yafprofilecontent">
     <tr>
         <td colspan="3" class="header2">

@@ -32,11 +32,11 @@
 	border: 0;
 }
 #yafmain ul {
-	margin: 0;
+	margin: 2px 2px 2px 2px;
 	padding: 0;
 }
 #yafmain li {
-	margin-left: 10px;
+	margin-left: 15px;
 }
 /* hyperlinks */
 #yafmain a		{ text-decoration: none; color: #303030; }
@@ -47,7 +47,7 @@
 	background-color: #7D8CFF;
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 32px;
+	line-height: 22px;
 	font-size:12px;
 }
 /* Links in header1 */
@@ -59,7 +59,7 @@
 	background-color: #7D8CFF;
 	color: #3A4F6C;
 	font-weight: bold;
-	height: 28px;
+	line-height: 18px;
 }
 #yafmain a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
 #yafmain td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}

@@ -20,11 +20,11 @@
 	border: 0;
 }
 #yafmain ul {
-	margin: 0;
+	margin: 2px 2px 2px 2px;
 	padding: 0;
 }
 #yafmain li {
-	margin-left: 10px;
+	margin-left: 15px;
 }
 #yafmain tr.header1 {	
 	background-image: url('titleBack.gif');
