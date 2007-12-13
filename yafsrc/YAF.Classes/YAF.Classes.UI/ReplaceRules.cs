@@ -340,7 +340,7 @@ namespace YAF.Classes.UI
 			: base( regExSearch, regExReplace, regExOptions ) 
 		{
 			// default high rank...
-			RuleRank = 1;
+			RuleRank = 2;
 		}
 
 		/// <summary>
@@ -378,7 +378,7 @@ namespace YAF.Classes.UI
 	/// <summary>
 	/// Syntax Highlighted code block regular express replace
 	/// </summary>
-	public class SyntaxHighlightedCodeRegexReplaceRule : CodeRegexReplaceRule
+	public class SyntaxHighlightedCodeRegexReplaceRule : SimpleRegexReplaceRule
 	{
 		private HighLighter _syntaxHighlighter = new HighLighter();
 
@@ -386,6 +386,17 @@ namespace YAF.Classes.UI
 			: base( regExSearch, regExReplace, regExOptions )
 		{
 			_syntaxHighlighter.ReplaceEnter = true;
+			RuleRank = 1;
+		}
+
+		/// <summary>
+		/// This just overrides how the inner value is handled
+		/// </summary>
+		/// <param name="innerValue"></param>
+		/// <returns></returns>
+		protected override string GetInnerValue( string innerValue )
+		{
+			return innerValue;
 		}
 
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
@@ -393,13 +404,13 @@ namespace YAF.Classes.UI
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
-				string inner = _syntaxHighlighter.ColorText( m.Groups ["inner"].Value, HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
-				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue( inner ) );
+				string inner = _syntaxHighlighter.ColorText( GetInnerValue( m.Groups ["inner"].Value ), HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
+				string tStr = _regExReplace.Replace( "${inner}",  inner );
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
-				replacement.GetReplacementsFromText( ref tStr );
+				int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( tStr ) );
 
-				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+				text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
 				m = _regExSearch.Match( text );
 			}
 		}

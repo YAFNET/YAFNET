@@ -49,10 +49,10 @@ namespace YAF.Classes.UI
 			ArrayList alKeyTypes = new ArrayList();
 
 			// cut it off at the pass...
-			if ( !File.Exists( pathToDefFile + language.ToString() + ".def" ) )
+			/*if ( !File.Exists( pathToDefFile + language.ToString() + ".def" ) )
 			{
 				return tmpCode;
-			}
+			}*/
 
 			// Read def file.
 			try
@@ -188,18 +188,7 @@ namespace YAF.Classes.UI
 				tmpCode = Regex.Replace( tmpCode, "\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" );
 
 				// Create Output
-				tmpOutput = "<div class=\"codestuff\">" + Environment.NewLine;
-				tmpOutput += "<style type=\"text/css\">" + Environment.NewLine;
-				tmpOutput += "<!--" + Environment.NewLine;
-				//tmpOutput += ".codestuff { background-color : #eeeeee; border:solid 1px #000000; padding:5px; font-family: Courier New; font-size: 12px}" + Environment.NewLine;
-				tmpOutput += ".codestuff .keytype { color : #FF9933; font-weight : normal; }" + Environment.NewLine;
-				tmpOutput += ".codestuff .keyword { color : #224FFF; font-weight : normal; }" + Environment.NewLine;
-				tmpOutput += ".codestuff .integer { color : #FF0032; }" + Environment.NewLine;
-				tmpOutput += ".codestuff .comment { color : #008100; }" + Environment.NewLine;
-				tmpOutput += ".codestuff .errors { color : #FF0000; font-weight : bold; }" + Environment.NewLine;
-				tmpOutput += ".codestuff .string { color : #FF0022; }" + Environment.NewLine;
-				tmpOutput += "//-->" + Environment.NewLine;
-				tmpOutput += "</style>" + Environment.NewLine;
+				tmpOutput = "<div class=\"yafcodehighlighting\">" + Environment.NewLine;
 				tmpOutput += tmpCode;
 				tmpOutput += "</div>" + Environment.NewLine;
 			}
