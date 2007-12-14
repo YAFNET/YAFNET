@@ -36,8 +36,6 @@ namespace YAF.Classes.UI
 
 		private BBCode() { }
 
-
-
 		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
 		static private string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
 		static private string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
@@ -76,11 +74,12 @@ namespace YAF.Classes.UI
 		/// <param name="doFormatting"></param>
 		/// <param name="targetBlankOverride"></param>
 		/// <returns></returns>
-		static public string MakeHtml( string bbcode, bool doFormatting, bool targetBlankOverride )
+		static public string MakeHtml( string inputString, bool doFormatting, bool targetBlankOverride )
 		{
 			ReplaceRules ruleEngine = new ReplaceRules();
-			MakeHtml( ref ruleEngine, ref bbcode, doFormatting, targetBlankOverride );
-			return bbcode;
+			MakeHtml( ref ruleEngine, ref inputString, doFormatting, targetBlankOverride );
+			ruleEngine.Process( ref inputString );
+			return inputString;
 		}
 
 		/// <summary>
