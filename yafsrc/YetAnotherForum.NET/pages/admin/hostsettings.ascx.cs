@@ -185,6 +185,10 @@ namespace YAF.Pages.Admin
 			MembersListViewPermissions.SelectedIndex = PageContext.BoardSettings.MembersListViewPermissions;
 			ActiveUsersViewPermissions.SelectedIndex = PageContext.BoardSettings.ActiveUsersViewPermissions;
 
+			// Ederon : 12/14/2007 added
+			ShowForumStatistics.Checked = PageContext.BoardSettings.ShowForumStatistics;
+			ShowActiveDiscussions.Checked = PageContext.BoardSettings.ShowActiveDiscussions;
+
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
 			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
@@ -281,6 +285,10 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.RequireLogin = RequireLogin.Checked;
 			PageContext.BoardSettings.MembersListViewPermissions = MembersListViewPermissions.SelectedIndex;
 			PageContext.BoardSettings.ActiveUsersViewPermissions = ActiveUsersViewPermissions.SelectedIndex;
+
+			// Ederon : 12/14/2007 added
+			PageContext.BoardSettings.ShowForumStatistics = ShowForumStatistics.Checked;
+			PageContext.BoardSettings.ShowActiveDiscussions = ShowActiveDiscussions.Checked;
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );

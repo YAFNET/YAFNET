@@ -510,6 +510,17 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>("RequireLogin", false); }
 			set { _reg.SetValue<bool>("RequireLogin", value); }
 		}
+		/* Ederon : 12/14/2007 */
+		public bool ShowActiveDiscussions
+		{
+			get { return _reg.GetValue<bool>("ShowActiveDiscussions", true); }
+			set { _reg.SetValue<bool>("ShowActiveDiscussions", value); }
+		}
+		public bool ShowForumStatistics
+		{
+			get { return _reg.GetValue<bool>("ShowForumStatistics", true); }
+			set { _reg.SetValue<bool>("ShowForumStatistics", value); }
+		}
 
 
 		/* 6/16/2007 */

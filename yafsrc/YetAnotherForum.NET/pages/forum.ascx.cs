@@ -45,6 +45,9 @@ namespace YAF.Pages
 		{
 			if ( !IsPostBack )
 			{
+				ForumStats.Visible = PageContext.BoardSettings.ShowForumStatistics;
+				ActiveDiscussions.Visible = PageContext.BoardSettings.ShowActiveDiscussions;
+
 				if ( PageContext.IsPrivate && User == null )
 				{
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );

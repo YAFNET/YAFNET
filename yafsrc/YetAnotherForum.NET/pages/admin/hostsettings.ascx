@@ -145,6 +145,20 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Show Forum Statistics:</b><br>
+                                    Enable or disable display of forum statistics on board index page.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowForumStatistics" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Show Active Discussions:</b><br>
+                                    Enable or disable display of active discussions list on board index page.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowActiveDiscussions" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
                                     <b>Show RSS Links:</b><br>
                                     Enable or disable display of RSS links throughout the forum.</td>
                                 <td class="post">
