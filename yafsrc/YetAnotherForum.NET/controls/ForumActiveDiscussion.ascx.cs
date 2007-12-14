@@ -93,11 +93,10 @@ namespace YAF.Controls
 				if ( currentRow ["LastPosted"] != DBNull.Value )
 				{
 					lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
+					lastPostedImage.ThemeTag = ( DateTime.Parse( currentRow ["LastPosted"].ToString() ) > YAF.Classes.Utils.Mession.GetTopicRead( Convert.ToInt32( currentRow ["TopicID"] ) ) ) ? "ICON_NEWEST" : "ICON_LATEST";
 				}
 				forumLink.Text = currentRow["Forum"].ToString();
-				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );
-
-				lastPostedImage.ThemeTag = ( DateTime.Parse( currentRow ["LastPosted"].ToString() ) > YAF.Classes.Utils.Mession.GetTopicRead( Convert.ToInt32( currentRow ["TopicID"] ) ) ) ? "ICON_NEWEST" : "ICON_LATEST";
+				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );				
 			}
 		}
 
