@@ -90,7 +90,10 @@ namespace YAF.Controls
 					lastUserLink.UserID = Convert.ToInt32( currentRow ["LastUserID"] );
 					lastUserLink.UserName = currentRow ["LastUserName"].ToString();
 				}
-				lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
+				if ( currentRow ["LastPosted"] != DBNull.Value )
+				{
+					lastPostedDateLabel.Text = YafDateTime.FormatDateTimeTopic( currentRow ["LastPosted"] );
+				}
 				forumLink.Text = currentRow["Forum"].ToString();
 				forumLink.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.topics, "f={0}", currentRow ["ForumID"] );
 
