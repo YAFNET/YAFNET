@@ -1,10 +1,6 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="unapprovedposts.ascx.cs" Inherits="YAF.Pages.moderate.unapprovedposts" %>
-
-
-
-
-
-<YAF:PageLinks runat="server" id="PageLinks" />
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="unapprovedposts.ascx.cs"
+    Inherits="YAF.Pages.moderate.unapprovedposts" %>
+<YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:Repeater ID="List" runat="server">
     <HeaderTemplate>
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
@@ -25,11 +21,12 @@
         </tr>
         <tr class="postheader">
             <td>
-                <%# Eval("UserName") %>
+                <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+                    UserName='<%# Convert.ToString(Eval("UserName")) %>' />
             </td>
             <td>
                 <b>Posted:</b>
-                <%# Eval("Posted") %>
+                <%# YafDateTime.FormatDateTimeShort( Convert.ToDateTime( Eval( "Posted" ) ) )%>
             </td>
         </tr>
         <tr class="post">
@@ -47,9 +44,9 @@
             </td>
             <td class="postfooter">
                 <asp:LinkButton ID="LinkButton1" runat="server" Text='<%# GetText("MODERATE_FORUM","APPROVE") %>'
-                    CommandName="Approve" CommandArgument='<%# Eval("MessageID") %>' />&nbsp;
-                <asp:LinkButton ID="LinkButton2" runat="server" Text='<%# GetText("MODERATE_FORUM","DELETE") %>' CommandName="Delete"
-                    CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />&nbsp;
+                    CommandName="Approve" CommandArgument='<%# Eval("MessageID") %>' />&nbsp;|
+                <asp:LinkButton ID="LinkButton2" runat="server" Text='<%# GetText("MODERATE_FORUM","DELETE") %>'
+                    CommandName="Delete" CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />&nbsp;
             </td>
         </tr>
     </ItemTemplate>
@@ -60,4 +57,6 @@
         </tr>
     </SeparatorTemplate>
 </asp:Repeater>
-<YAF:SmartScroller id="SmartScroller1" runat="server" />
+<div id="DivSmartScroller">
+    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+</div>

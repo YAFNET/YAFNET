@@ -2523,7 +2523,9 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumI
 		UserName	= IsNull(b.UserName,c.Name),
 		Posted		= b.Posted,
 		Topic		= a.Topic,
-		Message		= b.Message
+		[Message]	= b.Message,
+		[Flags]		= b.Flags,
+		[IsModeratorChanged] = b.IsModeratorChanged
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] a
 		inner join [{databaseOwner}].[{objectQualifier}Message] b on b.TopicID = a.TopicID
