@@ -261,6 +261,32 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers); }
 			set { _reg.SetValueInt("MembersListViewPermissions", value); }
 		}
+		// Ederon : 12/14/2007
+		public int ActiveDiscussionsCount
+		{
+			get { return _reg.GetValueInt("ActiveDiscussionsCount", 5); }
+			set { _reg.SetValueInt("ActiveDiscussionsCount", value); }
+		}
+		public int ActiveDiscussionsCacheTimeout
+		{
+			get { return _reg.GetValueInt("ActiveDiscussionsCacheTimeout", 1); }
+			set { _reg.SetValueInt("ActiveDiscussionsCacheTimeout", value); }
+		}
+		public int SearchStringMinLength
+		{
+			get { return _reg.GetValueInt("SearchStringMinLength", 4); }
+			set { _reg.SetValueInt("SearchStringMinLength", value); }
+		}
+		public int SearchPermissions
+		{
+			get { return _reg.GetValueInt("SearchPermissions", (int)ViewPermissions.Everyone); }
+			set { _reg.SetValueInt("SearchPermissions", value); }
+		}
+		public int ForumStatisticsCacheTimeout
+		{
+			get { return _reg.GetValueInt("ForumStatisticsCacheTimeout", 15); }
+			set { _reg.SetValueInt("ForumStatisticsCacheTimeout", value); }
+		}
 
 
 		// boolean settings
@@ -457,6 +483,12 @@ namespace YAF.Classes.Utils
 		{
 			get { return _reg.GetValue<string>( "SmtpServerPort", null ); }
 			set { _reg.SetValue<string>( "SmtpServerPort", value ); }
+		}
+		// Ederon : 12/14/2007
+		public string SearchStringPattern
+		{
+			get { return _reg.GetValueString("SearchStringPattern", ".*"); }
+			set { _reg.GetValueString("SearchStringPattern", value); }
 		}
 
 

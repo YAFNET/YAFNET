@@ -25,6 +25,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Collections.Specialized;
+using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
 {
@@ -558,6 +559,23 @@ namespace YAF.Classes.Utils
 		static public bool BinaryAnd(int value, int checkAgainst)
 		{
 			return (value & checkAgainst) == checkAgainst;
+		}
+
+
+		static public bool CheckPermission(YafContext context, ViewPermissions permission)
+		{
+			if (permission == ViewPermissions.Everyone)
+			{
+				return true;
+			}
+			else if (permission == ViewPermissions.RegisteredUsers)
+			{
+				return !context.IsGuest;
+			}
+			else
+			{
+				return context.IsAdmin;
+			}
 		}
 	}
 

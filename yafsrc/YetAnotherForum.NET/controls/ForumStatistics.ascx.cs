@@ -73,7 +73,7 @@ namespace YAF.Controls
 			if ( statisticsDataRow == null )
 			{
 				statisticsDataRow = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
-				Cache.Insert( key, statisticsDataRow, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
+				Cache.Insert( key, statisticsDataRow, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ForumStatisticsCacheTimeout ), TimeSpan.Zero );
 			}
 
 			// Posts and Topic Count...

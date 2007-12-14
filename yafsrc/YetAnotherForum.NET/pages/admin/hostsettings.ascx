@@ -246,6 +246,35 @@
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForRegister" runat="server"></asp:CheckBox></td>
                             </tr>                                                                              
+                            <tr>
+                                <td class="header1" colspan="2">
+                                    Search Settings</td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Text Minimal Length:</b><br>
+                                    Minimal length of the search string allowed</td>
+                                <td class="post">
+                                    <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Text Pattern:</b><br>
+                                    Allowed search text pattern</td>
+                                <td class="post">
+                                    <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Permissions:</b><br>
+                                    Allow search to:</td>
+                                <td class="post">
+																		<asp:DropDownList ID="SearchPermissions" runat="server">
+																			<asp:ListItem Value="0" Text="Forbidden" />
+																			<asp:ListItem Value="1" Text="Registered Users" />
+																			<asp:ListItem Value="2" Text="All Users" />
+																		</asp:DropDownList>
+                            </tr>
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
@@ -333,6 +362,13 @@
                                     Automatically remove nested [quote] tags from replies.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="RemoveNestedQuotesX" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Active Discussions Count:</b><br>
+                                    Number of records to display in Active Discussions list on forum index.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="ActiveDiscussionsCount" runat="server" /></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -668,6 +704,34 @@
                                     Maximum size for avatars in bytes.</td>
                                 <td class="post">
                                     <asp:TextBox ID="AvatarSize" runat="server"></asp:TextBox></td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </ajaxToolkit:TabPanel>
+                <ajaxToolkit:TabPanel runat="server" ID="CacheTab">
+                    <ContentTemplate>
+                        <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
+                            <tr>
+                                <td class="header1" colspan="2">
+                                    Cache Settings</td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Forum Statistics Cache Timeout:</b><br />
+                                    In minutes
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Active Discussions Cache Timeout:</b><br />
+                                    In minutes
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" />
+                                </td>
                             </tr>
                         </table>
                     </ContentTemplate>

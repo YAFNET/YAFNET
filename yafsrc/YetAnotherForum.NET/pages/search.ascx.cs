@@ -70,6 +70,18 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
+			if (!General.CheckPermission(PageContext, (ViewPermissions)PageContext.BoardSettings.SearchPermissions))
+			{
+				if (PageContext.BoardSettings.SearchPermissions == (int)ViewPermissions.RegisteredUsers)
+				{
+					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+				}
+				else
+				{
+					YafBuildLink.AccessDenied();
+				}
+			}
+
 			//Page.Reg
 			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
 

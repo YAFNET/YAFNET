@@ -56,8 +56,8 @@ namespace YAF.Controls
 
 			if ( activeTopics == null )
 			{
-				activeTopics = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 5, PageContext.PageUserID );
-				YafCache.Current.Insert( cacheKey, activeTopics, null, DateTime.Now.AddMinutes( 1 ), TimeSpan.Zero );
+				activeTopics = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID );
+				YafCache.Current.Insert( cacheKey, activeTopics, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ActiveDiscussionsCacheTimeout ), TimeSpan.Zero );
 			}
 
 			LatestPosts.DataSource = activeTopics;

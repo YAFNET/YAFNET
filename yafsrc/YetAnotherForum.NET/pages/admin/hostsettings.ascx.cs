@@ -62,6 +62,7 @@ namespace YAF.Pages.Admin
 				this.SMPTTab.HeaderText = "SMTP";
 				this.TemplatesTab.HeaderText = "Templates";
 				this.AvatarsTab.HeaderText = "Avatars";
+				this.CacheTab.HeaderText = "Cache";
 
 				BindData();
 			}
@@ -188,6 +189,12 @@ namespace YAF.Pages.Admin
 			// Ederon : 12/14/2007 added
 			ShowForumStatistics.Checked = PageContext.BoardSettings.ShowForumStatistics;
 			ShowActiveDiscussions.Checked = PageContext.BoardSettings.ShowActiveDiscussions;
+			ActiveDiscussionsCount.Text = PageContext.BoardSettings.ActiveDiscussionsCount.ToString();
+			SearchStringMinLength.Text = PageContext.BoardSettings.SearchStringMinLength.ToString();
+			SearchStringPattern.Text = PageContext.BoardSettings.SearchStringPattern;
+			SearchPermissions.SelectedIndex = PageContext.BoardSettings.SearchPermissions;
+			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
+			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
 
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
@@ -289,6 +296,12 @@ namespace YAF.Pages.Admin
 			// Ederon : 12/14/2007 added
 			PageContext.BoardSettings.ShowForumStatistics = ShowForumStatistics.Checked;
 			PageContext.BoardSettings.ShowActiveDiscussions = ShowActiveDiscussions.Checked;
+			PageContext.BoardSettings.ActiveDiscussionsCount = Convert.ToInt32(ActiveDiscussionsCount.Text.Trim());
+			PageContext.BoardSettings.SearchStringMinLength = Convert.ToInt32(SearchStringMinLength.Text.Trim());
+			PageContext.BoardSettings.SearchStringPattern = SearchStringPattern.Text;
+			PageContext.BoardSettings.SearchPermissions = SearchPermissions.SelectedIndex;
+			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
