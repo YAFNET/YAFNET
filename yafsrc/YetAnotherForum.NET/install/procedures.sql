@@ -3686,6 +3686,7 @@ BEGIN
 		AND v.UserID=@UserID
 		AND (v.ReadAccess <> 0)
 		AND t.IsDeleted != 1
+		AND t.LastPosted IS NOT NULL
 	ORDER BY
 		t.LastPosted DESC;
 END
