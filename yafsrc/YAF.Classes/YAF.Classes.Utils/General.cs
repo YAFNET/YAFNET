@@ -493,7 +493,7 @@ namespace YAF.Classes.Utils
 			return strReturn;
 		}
 
-		static public string traceResources()
+		static public string TraceResources()
 		{
 			System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
 
@@ -562,6 +562,10 @@ namespace YAF.Classes.Utils
 		}
 
 
+		static public bool CheckPermission(YafContext context, int permission)
+		{
+			return CheckPermission(context, (ViewPermissions)permission);
+		}
 		static public bool CheckPermission(YafContext context, ViewPermissions permission)
 		{
 			if (permission == ViewPermissions.Everyone)
@@ -575,6 +579,25 @@ namespace YAF.Classes.Utils
 			else
 			{
 				return context.IsAdmin;
+			}
+		}
+
+		static public void HandleRequest(YafContext context, int permission)
+		{
+			HandleRequest(context, (ViewPermissions)permission);
+		}
+		static public void HandleRequest(YafContext context, ViewPermissions permission)
+		{
+			if (!CheckPermission(context, permission))
+			{
+				if (permission == ViewPermissions.RegisteredUsers)
+				{
+					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+				}
+				else
+				{
+					YafBuildLink.AccessDenied();
+				}
 			}
 		}
 	}

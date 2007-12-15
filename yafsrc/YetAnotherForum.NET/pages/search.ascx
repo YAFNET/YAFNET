@@ -3,7 +3,7 @@
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="2">
-			<%= GetText("title") %>
+			<YAF:LocalizedLabel runat="server" LocalizedTag="title" /> 
 		</td>
 	</tr>
 	<tr>
@@ -14,19 +14,19 @@
 	</tr>
 	<tr>
 		<td class="postheader" width="35%" align="right">
-			<%= GetText("postedby") %>
+			<YAF:LocalizedLabel runat="server" LocalizedTag="postedby" /> 
 		</td>
 		<td class="postheader" align="left">
-			<asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" />
+			<asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" OnTextChanged="btnSearch_Click" />
 			<asp:DropDownList ID="listSearchFromWho" runat="server" />
 		</td>
 	</tr>
 	<tr>
 		<td class="postheader" width="35%" align="right">
-			<%=GetText("posts") %>
+			<YAF:LocalizedLabel runat="server" LocalizedTag="posts" /> 
 		</td>
 		<td class="postheader" align="left">
-			<asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" />
+			<asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" OnTextChanged="btnSearch_Click" />
 			<asp:DropDownList ID="listSearchWhat" runat="server" />
 		</td>
 	</tr>
@@ -45,7 +45,7 @@
 		<HeaderTemplate>
 			<tr>
 				<td class="header1" colspan="2">
-					<%= GetText("RESULTS") %>
+					<YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
 				</td>
 			</tr>
 		</HeaderTemplate>
@@ -53,7 +53,7 @@
 			<tr class="header2">
 				<td colspan="2">
 					<b>
-						<%= GetText("topic") %>
+						<YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
 					</b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
 						<%# DataBinder.Eval(Container.DataItem, "Topic") %>
 					</a>
@@ -67,7 +67,7 @@
 				</td>
 				<td width="80%" class="postheader">
 					<b>
-						<%# GetText("POSTED") %>
+						<YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
 					</b>
 					<%# YafDateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
 				</td>
@@ -84,7 +84,7 @@
 			<tr class="header2">
 				<td colspan="2">
 					<b>
-						<%= GetText("topic") %>
+						<YAF:LocalizedLabel runat="server" LocalizedTag="topic" />
 					</b><a href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem, "TopicID")) %>">
 						<%# DataBinder.Eval(Container.DataItem, "Topic") %>
 					</a>
@@ -98,7 +98,7 @@
 				</td>
 				<td width="80%" class="postheader">
 					<b>
-						<%# GetText("POSTED") %>
+						<YAF:LocalizedLabel runat="server" LocalizedTag="POSTED" />
 					</b>
 					<%# YafDateTime.FormatDateTime( ( System.DateTime ) DataBinder.Eval( Container.DataItem, "Posted" ) )%>
 				</td>
@@ -120,14 +120,14 @@
 	</asp:Repeater>
 	<asp:PlaceHolder ID="NoResults" runat="Server" Visible="false">
 		<tr>
-			<td class="header2" colspan="2">
-				<%= GetText("RESULTS") %>
+			<td class="header1" colspan="2">
+				<YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
 			</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2" align="center">
 				<br />
-				<%= GetText("NO_SEARCH_RESULTS") %>
+				<YAF:LocalizedLabel runat="server" LocalizedTag="NO_SEARCH_RESULTS" />
 				<br />
 			</td>
 		</tr>

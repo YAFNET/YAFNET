@@ -753,6 +753,7 @@
 		<Resource tag="MATCH_ANY">Match Any Word</Resource>
 		<Resource tag="MATCH_EXACT">Match Exact Phrase</Resource>
 		<Resource tag="NO_SEARCH_RESULTS">[b]No results found for search.[/b]</Resource>
+		<Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
 		<Resource tag="BY">by</Resource>
 	</page>
 	<page name="MODERATE_DEFAULT">
