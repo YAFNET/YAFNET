@@ -5,7 +5,7 @@
 <table class="content" align="center" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="2">
-			<%= GetText("profile") %>
+			<YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
 			<asp:Label ID="UserName" runat="server" />
 		</td>
 	</tr>
@@ -26,13 +26,13 @@
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>
 					<td class="header2" colspan="2">
-						<%= GetText("about") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="about" />
 					</td>
 				</tr>
 				<tr>
 					<td width="50%" class="postheader">
 						<b>
-							<%= GetText("username") %>
+							<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
 						</b>
 					</td>
 					<td width="50%" class="post">
@@ -40,7 +40,7 @@
 				</tr>
 				<tr runat="server" id="userGroupsRow">
 					<td class="postheader">
-						<%= GetText("groups") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="groups" />
 					</td>
 					<td class="post">
 						<asp:Repeater ID="Groups" runat="server">
@@ -55,39 +55,39 @@
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("rank") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="rank" />
 					</td>
 					<td class="post">
 						<asp:Label ID="Rank" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("realname") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="realname" />
 					</td>
 					<td class="post" runat="server" id="RealName" />
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("location") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="location" />
 					</td>
 					<td class="post">
 						<asp:Label ID="Location" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("occupation") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="occupation" />
 					</td>
 					<td class="post" runat="server" id="Occupation" />
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("interests") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="interests" />
 					</td>
 					<td class="post" runat="server" id="Interests" />
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("gender") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="gender" />
 					</td>
 					<td class="post" runat="server" id="Gender" />
 				</tr>
@@ -97,26 +97,26 @@
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>
 					<td class="header2" colspan="2">
-						<%= GetText("statistics") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="statistics" />
 					</td>
 				</tr>
 				<tr>
 					<td width="50%" class="postheader">
-						<%= GetText("joined") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="joined" />
 					</td>
 					<td width="50%" class="post">
 						<asp:Label ID="Joined" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("lastvisit") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="lastvisit" />
 					</td>
 					<td class="post">
 						<asp:Label ID="LastVisit" runat="server" /></td>
 				</tr>
 				<tr>
 					<td class="postheader">
-						<%= GetText("numposts") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="numposts" />
 					</td>
 					<td class="post" runat="server" id="Stats" />
 				</tr>
@@ -128,7 +128,7 @@
 			<table align="center" width="100%" cellspacing="1" cellpadding="0">
 				<tr>
 					<td class="header2" colspan="2">
-						<%= GetText("avatar") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="avatar" />
 					</td>
 				</tr>
 				<tr>
@@ -166,20 +166,20 @@
 				<tr>
 					<td class="header2" colspan="2">
 						<asp:ImageButton runat="server" ID="expandLast10" BorderWidth="0" ImageAlign="Baseline"
-							OnClick="expandLast10_Click" />&nbsp;&nbsp;<%= GetText("last10") %></td>
+							OnClick="expandLast10_Click" />&nbsp;&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="last10" /></td>
 				</tr>
 				<asp:Repeater ID="LastPosts" runat="server">
 					<ItemTemplate>
 						<tr class="postheader">
 							<td class="small" align="left" colspan="2">
 								<b>
-									<%= GetText("topic") %>
+									<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
 								</b><a href='<%# YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"t={0}",DataBinder.Eval(Container.DataItem,"TopicID")) %>'>
 									<%# General.BadWordReplace(Convert.ToString(DataBinder.Eval(Container.DataItem,"Subject"))) %>
 								</a>
 								<br />
 								<b>
-									<%= GetText("posted") %>
+									<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="posted" />
 								</b>
 								<%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Posted"]) %>
 							</td>

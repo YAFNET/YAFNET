@@ -50,14 +50,21 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		private void BindData() {
-			using(DataTable dt = YAF.Classes.Data.DB.pmessage_info()) 
+		private void BindData()
+		{
+			using (DataTable dt = YAF.Classes.Data.DB.pmessage_info())
 				Count.Text = dt.Rows[0]["NumTotal"].ToString();
 		}
 
-		private void commit_Click(object sender,EventArgs e) {
-			YAF.Classes.Data.DB.pmessage_prune(Days1.Text,Days2.Text);
+		private void commit_Click(object sender, EventArgs e)
+		{
+			YAF.Classes.Data.DB.pmessage_prune(Days1.Text, Days2.Text);
 			BindData();
+		}
+
+		protected void DeleteButton_Load(object sender, System.EventArgs e)
+		{
+			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", "Do you really want to delete private messages? This process is irreversible.");
 		}
 
 		#region Web Form Designer generated code

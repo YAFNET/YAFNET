@@ -62,6 +62,12 @@ namespace YAF.Pages.Admin
 			PageContext.AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 
+
+		protected void PruneButton_Load(object sender, System.EventArgs e)
+		{
+			((Button)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", "Do you really want to prune topics? This process is irreversible.");
+		}
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
