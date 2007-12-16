@@ -549,6 +549,24 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// True if user is excluded from CAPTCHA check.
+		/// </summary>
+		public bool IsCaptchaExcluded
+		{
+			get
+			{
+				bool isCaptchaExcluded = false;
+
+				if (_userFlags != null)
+				{
+					isCaptchaExcluded = _userFlags.IsCaptchaExcluded;
+				}
+
+				return isCaptchaExcluded;
+			}
+		}
+
+		/// <summary>
 		/// True if current user is an administrator
 		/// </summary>
 		public bool IsAdmin

@@ -234,15 +234,22 @@
                             </tr>     
                             <tr>
                                 <td class="postheader">
+                                    <b>Enable CAPTCHA for Guest Posting:</b><br/>
+                                    Require guest users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
                                     <b>Enable CAPTCHA for Post a Message:</b><br/>
-                                    Require users enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
+                                    Require users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForPost" runat="server"></asp:CheckBox></td>
                             </tr>     
                             <tr>
                                 <td class="postheader">
                                     <b>Enable CAPTCHA for Register:</b><br/>
-                                    Require users enter the CAPTCHA when they register for the forum.</td>
+                                    Require users to enter the CAPTCHA when they register for the forum.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForRegister" runat="server"></asp:CheckBox></td>
                             </tr>                                                                              

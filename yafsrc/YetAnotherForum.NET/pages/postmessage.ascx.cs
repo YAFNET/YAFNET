@@ -127,7 +127,8 @@ namespace YAF.Pages
 					TopicAttachLabel.Visible = true;
 				}
 
-				if ( PageContext.BoardSettings.EnableCaptchaForPost )
+				if ( ( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) || 
+					(PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded) )
 				{
 					Session ["CaptchaImageText"] = General.GetCaptchaString();
 					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
@@ -313,7 +314,10 @@ namespace YAF.Pages
 				}
 			}
 
-			if ( PageContext.BoardSettings.EnableCaptchaForPost && Session ["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim() )
+			if ( (
+					( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) || 
+					(PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded)
+				  ) && 	Session["CaptchaImageText"].ToString() != tbCaptcha.Text.Trim())
 			{
 				PageContext.AddLoadMessage( GetText( "BAD_CAPTCHA" ) );
 				return false;

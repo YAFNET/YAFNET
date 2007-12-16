@@ -24,6 +24,10 @@
 		<td class="postheader">Is Host Admin:</td>
 		<td class="post"><asp:checkbox runat="server" id="IsHostAdminX"/></td>
 	</tr>
+	<tr runat="server" id="IsCaptchaExcludedRow">
+		<td class="postheader">Exclude from CAPTCHA:</td>
+		<td class="post"><asp:checkbox runat="server" id="IsCaptchaExcluded"/> (if checked, CAPTCHA check for this user is bypassed)</td>
+	</tr>
 	<!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->	     
 	<tr runat="server" id="IsGuestRow" visible="false">
 	  <td class="postheader">Is Guest:</td>

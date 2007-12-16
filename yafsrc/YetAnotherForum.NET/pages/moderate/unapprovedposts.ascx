@@ -6,7 +6,7 @@
         <table class="content" cellspacing="1" cellpadding="0" width="100%">
             <tr>
                 <td colspan="2" class="header1" align="left">
-                    <%# GetText("MODERATE_FORUM","UNAPPROVED") %>
+										<YAF:LocalizedLabel runat="server" LocalizedTag="UNAPPROVED" />
                 </td>
             </tr>
     </HeaderTemplate>
@@ -42,7 +42,7 @@
         <tr class="postfooter">
             <td class="small">
                 <a href="javascript:scroll(0,0)">
-                    <%# GetText("MODERATE_FORUM","TOP") %>
+										<YAF:LocalizedLabel runat="server" LocalizedTag="TOP" />
                 </a>
             </td>
             <td class="postfooter">

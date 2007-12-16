@@ -2829,7 +2829,7 @@ namespace YAF.Classes.Data
                 DBAccess.ExecuteNonQuery(cmd);
             }
         }
-        static public void user_adminsave(object boardID, object userID, object name, object email, object isHostAdmin, object isGuest, object rankID)
+        static public void user_adminsave(object boardID, object userID, object name, object email, object isHostAdmin, object isGuest, object isCaptchaExcluded, object rankID)
         {
             using (SqlCommand cmd = DBAccess.GetCommand("user_adminsave"))
             {
@@ -2840,7 +2840,8 @@ namespace YAF.Classes.Data
                 cmd.Parameters.AddWithValue("Name", name);
                 cmd.Parameters.AddWithValue("Email", email);
                 cmd.Parameters.AddWithValue("IsHostAdmin", isHostAdmin);
-                cmd.Parameters.AddWithValue("RankID", rankID);
+				cmd.Parameters.AddWithValue("IsCaptchaExcluded", isCaptchaExcluded);
+				cmd.Parameters.AddWithValue("RankID", rankID);
                 DBAccess.ExecuteNonQuery(cmd);
             }
         }

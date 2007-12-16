@@ -2520,6 +2520,7 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_unapproved](@ForumID int) as begin
 	select
 		MessageID	= b.MessageID,
+		UserID		= b.UserID,
 		UserName	= IsNull(b.UserName,c.Name),
 		Posted		= b.Posted,
 		Topic		= a.Topic,
@@ -4013,7 +4014,8 @@ END
 
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_adminsave](@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@IsGuest bit,@RankID int) as
+create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
+(@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@IsGuest bit,@IsCaptchaExcluded bit,@RankID int) as
 begin
 	if @IsHostAdmin<>0
 		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 1 where UserID = @UserID
@@ -4024,6 +4026,11 @@ begin
 		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 4 where UserID = @UserID
 	else
 		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags & ~4 where UserID = @UserID
+
+	if @IsCaptchaExcluded<>0
+		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 8 where UserID = @UserID
+	else
+		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags & ~8 where UserID = @UserID
 
 	update [{databaseOwner}].[{objectQualifier}User] set
 		Name = @Name,

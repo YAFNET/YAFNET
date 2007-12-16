@@ -447,6 +447,14 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueBool( "EnableCaptchaForRegister", value ); }
 		}
 
+		// Ederon : 12/16/2007
+		public bool EnableCaptchaForGuests
+		{
+			get { return _reg.GetValueBool("EnableCaptchaForGuests", true); }
+			set { _reg.SetValueBool("EnableCaptchaForGuests", value); }
+		}
+
+
 		// string settings
 		public string ForumEmail
 		{

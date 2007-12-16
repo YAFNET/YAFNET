@@ -60,9 +60,9 @@ namespace YAF.Classes.Data
 		{
 			IsHostAdmin = 1,
 			IsApproved = 2,
-			IsGuest = 4
+			IsGuest = 4,
+			IsCaptchaExcluded = 8
 			/* for future use
-			xxxxx = 8,
 			xxxxx = 16,
 			xxxxx = 32,
 			xxxxx = 64,
@@ -104,6 +104,16 @@ namespace YAF.Classes.Data
 		{
 			get { return this[2]; }
 			set { this[2] = value; }
+		}
+
+
+		/// <summary>
+		/// Gets or sets whether user is guest, i.e. not registered and logged in.
+		/// </summary>
+		public bool IsCaptchaExcluded // int value 8
+		{
+			get { return this[3]; }
+			set { this[3] = value; }
 		}
 
 		#endregion
