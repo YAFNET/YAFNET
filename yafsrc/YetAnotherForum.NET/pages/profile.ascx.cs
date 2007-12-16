@@ -118,11 +118,11 @@ namespace YAF.Pages // YAF.Pages
 			// private messages
 			Pm.Visible = User != null && PageContext.BoardSettings.AllowPrivateMessages;
 			Pm.Text = GetThemeContents( "BUTTONS", "PM" );
-			Pm.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.pmessage, "u={0}", userData.UserID );
+			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.pmessage, "u={0}", userData.UserID);
 			// email link
 			Email.Visible = User != null && PageContext.BoardSettings.AllowEmailSending;
 			Email.Text = GetThemeContents( "BUTTONS", "EMAIL" );
-			Email.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
+			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID);
 
 			if ( PageContext.IsAdmin ) Email.ToolTip = userData.Membership.Email;
 
