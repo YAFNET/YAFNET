@@ -19,6 +19,9 @@
             </tr>
     </HeaderTemplate>
     <FooterTemplate>
+        <tr>
+            <td class="postfooter" colspan="2">&nbsp;</td>    
+        </tr>      
         </table>
     </FooterTemplate>
     <ItemTemplate>
@@ -29,7 +32,8 @@
         </tr>
         <tr class="postheader">
             <td>
-                <asp:HyperLink ID="UserName" runat="server" href='<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}",DataBinder.Eval(Container.DataItem, "[\"UserID\"]")) %>'> <%# Eval("UserName") %> </asp:HyperLink></b>
+                <YAF:UserLink ID="UserName" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+                    UserName='<%# Convert.ToString(Eval("UserName")) %>' />
             </td>
             <td>
                 <b>

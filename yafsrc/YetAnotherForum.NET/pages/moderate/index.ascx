@@ -53,6 +53,10 @@
             </asp:Repeater>
         </ItemTemplate>
     </asp:Repeater>
+    <tr>
+        <td class="postfooter" colspan="4">&nbsp;</td>    
+    </tr>
+    </table>    
 </table>
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />

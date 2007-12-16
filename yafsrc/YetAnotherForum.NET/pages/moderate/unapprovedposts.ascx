@@ -11,6 +11,9 @@
             </tr>
     </HeaderTemplate>
     <FooterTemplate>
+        <tr>
+            <td class="postfooter" colspan="2">&nbsp;</td>    
+        </tr>
         </table>
     </FooterTemplate>
     <ItemTemplate>
