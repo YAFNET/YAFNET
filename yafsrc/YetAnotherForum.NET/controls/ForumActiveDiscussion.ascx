@@ -3,9 +3,8 @@
 <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="2">
-			<asp:ImageButton runat="server" ID="expandActiveDiscussions" BorderWidth="0"
-				OnClick="expandActiveDiscussions_Click" />&nbsp;&nbsp;<YAF:LocalizedLabel ID="ActiveDiscussionHeader"
-					runat="server" LocalizedTag="ACTIVE_DISCUSSIONS" />
+			<asp:ImageButton runat="server" ID="expandActiveDiscussions" BorderWidth="0" OnClick="expandActiveDiscussions_Click" />&nbsp;&nbsp;<YAF:LocalizedLabel
+				ID="ActiveDiscussionHeader" runat="server" LocalizedTag="ACTIVE_DISCUSSIONS" />
 		</td>
 	</tr>
 	<asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
@@ -23,11 +22,11 @@
 						<YAF:UserLink ID="LastUserLink" runat="server" />
 						(<asp:HyperLink ID="ForumLink" runat="server" />)
 					</td>
-					<td class="post" style="width:30em;text-align:right;">
+					<td class="post" style="width: 30em; text-align: right;">
 						<asp:Label ID="LastPostedDateLabel" runat="server" />
 						<asp:HyperLink ID="ImageMessageLink" runat="server">
 							<YAF:ThemeImage ID="LastPostedImage" runat="server" Style="border: 0" />
-						</asp:HyperLink>							
+						</asp:HyperLink>
 					</td>
 				</tr>
 			</ItemTemplate>

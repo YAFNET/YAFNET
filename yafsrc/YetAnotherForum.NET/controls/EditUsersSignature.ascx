@@ -7,10 +7,10 @@
 
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 <tr>
-	<td class="header1" colspan="2"><%= PageContext.Localization.GetText("CP_SIGNATURE","title")%></td>
+	<td class="header1" colspan="2"><YAF:LocalizedLabel runat="server" LocalizedPage="CP_SIGNATURE" LocalizedTag="title" /></td>
 </tr>
 <tr>
-	<td class="postformheader" valign="top"><%= PageContext.Localization.GetText("CP_SIGNATURE","signature")%></td>
+	<td class="postformheader" valign="top"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_SIGNATURE" LocalizedTag="signature" /></td>
 	<td class="post" id="EditorLine" runat="server">
 		<!-- editor goes here -->
 	</td>

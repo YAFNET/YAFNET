@@ -4,40 +4,40 @@
 <table width="100%" class="content" cellspacing="1" cellpadding="4">
   <tr>
     <td class="header1" colspan="2">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","title") %>
+			<YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="title" />
     </td>
   </tr>
   <tr>
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","aboutyou") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="aboutyou" />
       </b>
     </td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","realname2") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="realname2" />
     </td>
     <td class="post">
       <asp:TextBox ID="Realname" runat="server" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","occupation") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="occupation" />
     </td>
     <td class="post">
       <asp:TextBox ID="Occupation" runat="server" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","interests") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="interests" />
     </td>
     <td class="post">
       <asp:TextBox ID="Interests" runat="server" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","gender") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="gender" />
     </td>
     <td class="post">
       <asp:DropDownList ID="Gender" runat="server" CssClass="edit" /></td>
@@ -45,13 +45,13 @@
   <tr>
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","location") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="location" />
       </b>
     </td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","where") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="where" />
     </td>
     <td class="post">
       <asp:TextBox ID="Location" runat="server" CssClass="edit" /></td>
@@ -59,20 +59,20 @@
   <tr>
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","homepage") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="homepage" />
       </b>
     </td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","homepage2") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="homepage2" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="HomePage" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","weblog2") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="weblog2" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="Weblog" CssClass="edit" /></td>
@@ -81,29 +81,29 @@
     <tr>
       <td colspan="2" class="header2">
         <b>
-          <%= PageContext.Localization.GetText("CP_EDITPROFILE","METAWEBLOG_TITLE") %>
+					<YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="METAWEBLOG_TITLE" />
         </b>
       </td>
     </tr>
     <tr>
       <td class="postheader">
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","METAWEBLOG_API_URL") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="METAWEBLOG_API_URL" />
       </td>
       <td class="post">
         <asp:TextBox runat="server" ID="WeblogUrl" CssClass="edit" /></td>
     </tr>
     <tr>
       <td class="postheader">
-        <%= PageContext.Localization.GetText( "CP_EDITPROFILE", "METAWEBLOG_API_ID" )%>
+				<YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="METAWEBLOG_API_ID" />
         <br />
-        <%= PageContext.Localization.GetText( "CP_EDITPROFILE", "METAWEBLOG_API_ID_INSTRUCTIONS" )%>
+				<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="METAWEBLOG_API_ID_INSTRUCTIONS" />
       </td>
       <td class="post">
         <asp:TextBox runat="server" ID="WeblogID" CssClass="edit" /></td>
     </tr>
     <tr>
       <td class="postheader">
-        <%= PageContext.Localization.GetText( "CP_EDITPROFILE", "METAWEBLOG_API_USERNAME" )%>
+				<YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="METAWEBLOG_API_USERNAME" />
       </td>
       <td class="post">
         <asp:TextBox runat="server" ID="WeblogUsername" CssClass="edit" /></td>
@@ -112,34 +112,34 @@
   <tr>
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","messenger") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="messenger" />
       </b>
     </td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","msn") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="msn" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="MSN" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","yim") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="yim" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="YIM" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","aim") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="aim" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="AIM" CssClass="edit" /></td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","icq") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="icq" />
     </td>
     <td class="post">
       <asp:TextBox runat="server" ID="ICQ" CssClass="edit" /></td>
@@ -147,13 +147,13 @@
   <tr>
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","timezone") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="timezone" />
       </b>
     </td>
   </tr>
   <tr>
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","timezone2") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="timezone2" />
     </td>
     <td class="post">
       <asp:DropDownList runat="server" ID="TimeZones" DataTextField="Name" DataValueField="Value" /></td>
@@ -161,20 +161,20 @@
   <tr runat="server" id="ForumSettingsRows">
     <td colspan="2" class="header2">
       <b>
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","FORUM_SETTINGS") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="FORUM_SETTINGS" />
       </b>
     </td>
   </tr>
   <tr runat="server" id="UserThemeRow">
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","SELECT_THEME") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="SELECT_THEME" />
     </td>
     <td class="post">
       <asp:DropDownList runat="server" ID="Theme" /></td>
   </tr>
   <tr runat="server" id="OverrideForumThemeRow">
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","OVERRIDE_DEFAULT_THEMES") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="OVERRIDE_DEFAULT_THEMES" />
     </td>
     <td class="post">
       <asp:CheckBox ID="OverrideDefaultThemes" runat="server" />
@@ -182,14 +182,14 @@
   </tr>
   <tr runat="server" id="UserLanguageRow">
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","SELECT_LANGUAGE") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="SELECT_LANGUAGE" />
     </td>
     <td class="post">
       <asp:DropDownList runat="server" ID="Language" /></td>
   </tr>
   <tr runat="server" id="PMNotificationRow">
     <td class="postheader">
-      <%= PageContext.Localization.GetText("CP_EDITPROFILE","PM_EMAIL_NOTIFICATION") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="PM_EMAIL_NOTIFICATION" />
     </td>
     <td class="post">
       <asp:CheckBox ID="PMNotificationEnabled" runat="server" /></td>
@@ -197,12 +197,12 @@
   <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
     <tr>
       <td colspan="2" class="header2">
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","change_email") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="change_email" />
       </td>
     </tr>
     <tr>
       <td class="postheader">
-        <%= PageContext.Localization.GetText("CP_EDITPROFILE","email") %>
+				<YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedPage="CP_EDITPROFILE" LocalizedTag="email" />
       </td>
       <td class="post">
         <asp:TextBox ID="Email" CssClass="edit" runat="server" OnTextChanged="Email_TextChanged" /></td>

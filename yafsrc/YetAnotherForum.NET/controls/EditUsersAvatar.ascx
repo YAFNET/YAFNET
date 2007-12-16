@@ -3,12 +3,12 @@
 <table width="100%" class="content" cellspacing="1" cellpadding="4">
     <tr>
         <td class="header1" colspan="4">
-            <%= PageContext.Localization.GetText( "CP_EDITAVATAR", "title" )%>
+						<YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="title" />
         </td>
     </tr>
 	<tr runat="server" id="AvatarCurrentText">
-		<td class="header2"><%= PageContext.Localization.GetText( "CP_EDITAVATAR", "AvatarCurrent" )%></td>
-		<td class="header2" colspan="3"><%= PageContext.Localization.GetText( "CP_EDITAVATAR", "AvatarNew" )%></td>
+		<td class="header2"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="AvatarCurrent" /></td>
+		<td class="header2" colspan="3"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="AvatarNew" /></td>
 	</tr>
 	<tr>
 		<td class="post" align="center" rowspan="4" runat="server" id="avatarImageTD"><asp:image id="AvatarImg" runat="server" visible="true"/>		
@@ -17,16 +17,16 @@
 		<asp:button runat="server" id="DeleteAvatar" visible="false" OnClick="DeleteAvatar_Click"/></td>
 	</tr>
 	<tr runat="server" id="AvatarOurs">
-		<td class="postheader"><%= PageContext.Localization.GetText( "CP_EDITAVATAR", "ouravatar" )%></td>
+		<td class="postheader"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="ouravatar" /></td>
 		<td class="post" colspan="2">[ <asp:HyperLink id="OurAvatar" runat="server" /> ]</td>
 	</tr>
 	<tr runat="server" id="AvatarRemoteRow">
-		<td class="postheader"><%= PageContext.Localization.GetText( "CP_EDITAVATAR", "avatarremote" )%></td>
+		<td class="postheader"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="avatarremote" /></td>
 		<td class="post"><asp:textbox cssclass="edit" id="Avatar" runat="server"/></td>
 		<td class="post"><asp:Button ID="UpdateRemote" CssClass="pbutton" runat="server" OnClick="RemoteUpdate_Click" /></td>
 	</tr>	
 	<tr runat="server" id="AvatarUploadRow">
-		<td class="postheader"><%= PageContext.Localization.GetText( "CP_EDITAVATAR", "avatarupload" )%></td>
+		<td class="postheader"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="avatarupload" /></td>
 		<td class="post"><input type="file" id="File" runat="server"/></td>
 		<td class="post"><asp:Button ID="UpdateUpload" CssClass="pbutton" runat="server" OnClick="UploadUpdate_Click" /></td>
 	</tr>

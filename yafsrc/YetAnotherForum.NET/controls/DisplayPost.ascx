@@ -14,7 +14,7 @@
 				<td class="postheader">
 					<b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
 						#<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
-						<%# PageContext.Localization.GetText("POSTED") %>
+						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
 						:</b>
 					<%# YafDateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
 				</td>
@@ -43,7 +43,7 @@
 <tr class="postfooter">
 	<td class="small" colspan='<%#GetIndentSpan()%>'>
 		<a href="javascript:scroll(0,0)">
-			<%# PageContext.Localization.GetText("TOP") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
 		</a>
 	</td>
 	<td class="postfooter">

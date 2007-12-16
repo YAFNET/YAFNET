@@ -6,7 +6,8 @@
 	<table class="content" align="center" cellspacing="0" cellpadding="9">
 		<tr class="postheader">
 			<td class="header" id="AddSmiley" runat="server" align="center">
-				<%# PageContext.Localization.GetText("SMILIES_HEADER")%></td>
+				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="SMILIES_HEADER" />
+				</td>
 		</tr>
 		<asp:Literal ID="SmileyResults" runat="server" />
 		<asp:PlaceHolder ID="MoreSmiliesHolder" runat="server">
