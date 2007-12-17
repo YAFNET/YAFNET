@@ -21,15 +21,15 @@
 		<table width="100%" cellspacing="1" cellpadding="0" class="content">
 			<tr>
 				<td class="header1" colspan="3" align="center">
-					<%# PageContext.Localization.GetText("TITLE") %></td>
+					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
 			</tr>
 			<tr>
 				<td class="header2">
-					<%# PageContext.Localization.GetText("HEADER_CODE")%></td>
-				<td class="header2" align="center">
-					<%# PageContext.Localization.GetText("HEADER_SMILE")%></td>
-				<td class="header2">
-					<%# PageContext.Localization.GetText("HEADER_MEANING")%></td>
+					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="HEADER_CODE" />
+					<td class="header2" align="center">
+						<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER_SMILE" />
+						<td class="header2">
+							<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="HEADER_MEANING" />
 			</tr>
 	</HeaderTemplate>
 	<ItemTemplate>
@@ -49,7 +49,7 @@
 		<tr>
 			<td class="footer1" colspan="3" align="center">
 				<a href="javascript:window.close();">
-					<%# PageContext.Localization.GetText("CLOSE_WINDOW") %>
+					<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="CLOSE_WINDOW" />
 				</a>
 			</td>
 		</tr>

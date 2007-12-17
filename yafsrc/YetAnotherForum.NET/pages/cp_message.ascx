@@ -21,21 +21,30 @@
 		</tr>
 		<tr>
 			<td class="postheader">
-				<b><YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "FromUserID" )) %>' UserName='<%# Convert.ToString(Eval( "FromUser" )) %>' /></b>
+				<b>
+					<YAF:UserLink ID="FromUserLink" runat="server" UserID='<%# Convert.ToInt32(Eval( "FromUserID" )) %>'
+						UserName='<%# Convert.ToString(Eval( "FromUser" )) %>' />
+				</b>
 			</td>
 			<td class="postheader" width="80%">
 				<table cellspacing="0" cellpadding="0" width="100%">
 					<tr>
 						<td>
 							<b>
-								<%# GetText("posted") %>
+								<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="posted" />
 							</b>
 							<%# YafDateTime.FormatDateTime((System.DateTime)((System.Data.DataRowView)Container.DataItem)["Created"]) %>
 						</td>
 						<td>
-						    <YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT" OnLoad="ThemeButtonDelete_Load" />
-						    <YAF:ThemeButton ID="ReplyMessage" runat="server" CssClass="yaflittlebutton" CommandName="reply" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_REPLY" TitleLocalizedTag="BUTTON_REPLY_TT" />
-						    <YAF:ThemeButton ID="QuoteMessage" runat="server" CssClass="yaflittlebutton" CommandName="quote" CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT" />
+							<YAF:ThemeButton ID="DeleteMessage" runat="server" CssClass="yaflittlebutton" CommandName="delete"
+								CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_DELETE"
+								TitleLocalizedTag="BUTTON_DELETE_TT" OnLoad="ThemeButtonDelete_Load" />
+							<YAF:ThemeButton ID="ReplyMessage" runat="server" CssClass="yaflittlebutton" CommandName="reply"
+								CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_REPLY"
+								TitleLocalizedTag="BUTTON_REPLY_TT" />
+							<YAF:ThemeButton ID="QuoteMessage" runat="server" CssClass="yaflittlebutton" CommandName="quote"
+								CommandArgument='<%# Eval("UserPMessageID") %>' TextLocalizedTag="BUTTON_QUOTE"
+								TitleLocalizedTag="BUTTON_QUOTE_TT" />
 						</td>
 					</tr>
 				</table>
@@ -51,5 +60,5 @@
 	</ItemTemplate>
 </asp:Repeater>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

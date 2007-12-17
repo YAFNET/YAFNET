@@ -47,32 +47,11 @@ namespace YAF.Pages // YAF.Pages
 			if(!IsPostBack) 
 			{
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-			
-				ForumRules.Text = "TODO:";
+
+				Accept.Text = GetText("ACCEPT");
+				Cancel.Text = GetText("DECLINE");
 			}
-			//TODO: Write license info and stuff...
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
 
 		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
@@ -84,5 +63,25 @@ namespace YAF.Pages // YAF.Pages
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
 		}
 
+
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+
+		}
+		#endregion
 	}
 }

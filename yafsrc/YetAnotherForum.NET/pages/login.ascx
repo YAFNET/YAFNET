@@ -9,11 +9,11 @@
                     <td>
                         <table border="0" cellpadding="0" class="content" width="400">
                             <tr>
-                                <td align="center" colspan="2" class="header1"><%# GetText("title") %></td>
+                                <td align="center" colspan="2" class="header1"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" /></td>
                             </tr>
                             <tr>
                                 <td align="right" class="postheader">
-                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"><%# GetText("username") %></asp:Label></td>
+                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" /></asp:Label></td>
                                 <td class="post">
                                     <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required."
@@ -22,7 +22,7 @@
                             </tr>
                             <tr>
                                 <td align="right" class="postheader">
-                                    <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"><%# GetText("password") %></asp:Label></td>
+                                    <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password"><YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="password" /></asp:Label></td>
                                 <td class="post">
                                     <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required."

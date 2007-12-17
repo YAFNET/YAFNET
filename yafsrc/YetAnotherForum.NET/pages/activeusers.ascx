@@ -3,34 +3,35 @@
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="6">
-			<%= GetText("title") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
 		</td>
 	</tr>
 	<tr>
 		<td class="header2">
-			<%= GetText("username") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
 		</td>
 		<td class="header2">
-			<%= GetText("logged_in") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="logged_in" />
 		</td>
 		<td class="header2">
-			<%= GetText("last_active") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="last_active" />
 		</td>
 		<td class="header2">
-			<%= GetText("active") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="active" />
 		</td>
 		<td class="header2">
-			<%= GetText("browser") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="browser" />
 		</td>
 		<td class="header2">
-			<%= GetText("platform") %>
+			<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="platform" />
 		</td>
 	</tr>
 	<asp:Repeater ID="UserList" runat="server">
 		<ItemTemplate>
 			<tr>
 				<td class="post">
-					<YAF:UserLink ID="NameLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>' UserName='<%# Eval("Name").ToString() %>' />
+					<YAF:UserLink ID="NameLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
+						UserName='<%# Eval("Name").ToString() %>' />
 				</td>
 				<td class="post">
 					<%# YafDateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
@@ -52,5 +53,5 @@
 	</asp:Repeater>
 </table>
 <div id="DivSmartScroller">
-    <YAF:SmartScroller id="SmartScroller1" runat="server" />
+	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

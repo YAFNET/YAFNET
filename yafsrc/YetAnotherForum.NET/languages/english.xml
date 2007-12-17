@@ -581,6 +581,13 @@
 		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]Your account has been successfully created.[/center]</Resource>
 		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
 	</page>
+	<page name="RULES">
+		<!-- rules.aspx -->
+		<Resource tag="TITLE">Forum Rules and Policies</Resource>
+		<Resource tag="ACCEPT">Accept</Resource>
+		<Resource tag="DECLINE">Decline</Resource>
+		<Resource tag="RULES_TEXT" bbcode="true">My Forum Rules</Resource>
+		</page>
 	<page name="MEMBERS">
 		<!-- members.aspx -->
 		<Resource tag="TITLE">Members</Resource>
