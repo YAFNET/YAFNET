@@ -846,5 +846,11 @@ namespace YAF.Classes.Base
 			style.InnerText = cssContents;
 			header.Controls.AddAt( header.Controls.Count, style ); // Add to the end of the controls collection
 		}
+
+
+		protected virtual void CreatePageLinks()
+		{
+			// Page link creation goes to this method (overloads in descendant classes)
+		}
 	}
 }

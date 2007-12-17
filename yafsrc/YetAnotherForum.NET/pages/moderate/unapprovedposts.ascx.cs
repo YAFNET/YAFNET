@@ -18,70 +18,139 @@ namespace YAF.Pages.moderate
 	public partial class unapprovedposts : YAF.Classes.Base.ForumPage
 	{
 
-		public unapprovedposts()
-			: base( "MODERATE_FORUM" )
+		#region Constructors & Overriden Methods
+
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public unapprovedposts() : base("MODERATE_FORUM") { }
+
+
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
 		{
+			// forum index
+			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			// moderation index
+			PageLinks.AddLink(GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+			// current page
+			PageLinks.AddLink(PageContext.PageForumName);
 		}
 
-		protected void Page_Load( object sender, System.EventArgs e )
-		{
-			if ( !PageContext.IsModerator || !PageContext.ForumModeratorAccess )
-				YafBuildLink.AccessDenied();
+		#endregion
 
-			if ( !IsPostBack )
+
+		#region Event Handlers
+
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			// only forum moderators are allowed here
+			if (!PageContext.IsModerator || !PageContext.ForumModeratorAccess) YafBuildLink.AccessDenied();
+
+			// do this just on page load, not postbacks
+			if (!IsPostBack)
 			{
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( GetText( "MODERATE_DEFAULT", "TITLE" ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.moderate_index ) );
-				PageLinks.AddLink( PageContext.PageForumName );
+				// create page links
+				CreatePageLinks();
+
+				// bind data
 				BindData();
 			}
 		}
 
-		protected void Delete_Load( object sender, System.EventArgs e )
+
+		/// <summary>
+		/// Handles load event for delete button, adds confirmation dialog.
+		/// </summary>
+		protected void Delete_Load(object sender, System.EventArgs e)
 		{
-			( ( LinkButton )sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", GetText( "MODERATE_FORUM", "ASK_DELETE" ) );
+			General.AddOnClickConfirmDialog(sender, GetText("ASK_DELETE"));
 		}
 
+
+
+		/// <summary>
+		/// Handles post moderation events/buttons.
+		/// </summary>
+		private void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
+		{
+			// which command are we handling
+			switch (e.CommandName.ToLower())
+			{
+				case "approve":
+					// approve post
+					DB.message_approve(e.CommandArgument);
+					// re-bind data
+					BindData();
+					// tell user message was approved
+					PageContext.AddLoadMessage(GetText("APPROVED"));
+					// create subscriptions for topic
+					General.CreateWatchEmail(e.CommandArgument);
+					break;
+				case "delete":
+					// delete message
+					DB.message_delete(e.CommandArgument, true, "", 1, true);
+					// re-bind data
+					BindData();
+					// tell user message was deleted
+					PageContext.AddLoadMessage(GetText("DELETED"));
+					break;
+			}
+		}
+		
+		#endregion
+
+
+		#region Data Binding & Formatting
+
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
 		private void BindData()
 		{
-			List.DataSource = YAF.Classes.Data.DB.message_unapproved( PageContext.PageForumID );
+			// get unapproved posts for this forum
+			List.DataSource = DB.message_unapproved(PageContext.PageForumID);
+
+			// bind data to controls
 			DataBind();
 		}
 
-		protected string FormatMessage( DataRowView row )
+
+		/// <summary>
+		/// Format message.
+		/// </summary>
+		/// <param name="row">Message data row.</param>
+		/// <returns>Formatted string with escaped HTML markup and formatted BBCode.</returns>
+		protected string FormatMessage(DataRowView row)
 		{
-			MessageFlags messageFlags = new MessageFlags( row ["Flags"] );
+			// get message flags
+			MessageFlags messageFlags = new MessageFlags(row["Flags"]);
+			// message
 			string msg;
 
-			if ( messageFlags.NotFormatted )
+			// format message?
+			if (messageFlags.NotFormatted)
 			{
-				msg = HtmlEncode(row ["Message"].ToString());
+				// just encode it for HTML output
+				msg = HtmlEncode(row["Message"].ToString());
 			}
 			else
 			{
-				msg = YAF.Classes.UI.FormatMsg.FormatMessage( row ["Message"].ToString(), messageFlags, Convert.ToBoolean( row ["IsModeratorChanged"] ) );
+				// fully format message (BBCode, smilies)
+				msg = YAF.Classes.UI.FormatMsg.FormatMessage(row["Message"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
 			}
 
+			// return formatted message
 			return msg;
 		}
+		
+		#endregion
 
-		private void List_ItemCommand( object sender, RepeaterCommandEventArgs e )
-		{
-			switch ( e.CommandName.ToLower() )
-			{
-				case "approve":
-					YAF.Classes.Data.DB.message_approve( e.CommandArgument );
-					BindData();
-					PageContext.AddLoadMessage( GetText( "MODERATE_FORUM", "APPROVED" ) );
-					General.CreateWatchEmail( e.CommandArgument );					
-					break;
-				case "delete":
-					YAF.Classes.Data.DB.message_delete( e.CommandArgument, true, "", 1, true );
-					BindData();
-					PageContext.AddLoadMessage( GetText( "MODERATE_FORUM", "DELETED" ) );
-					break;
-			}
-		}
 
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )

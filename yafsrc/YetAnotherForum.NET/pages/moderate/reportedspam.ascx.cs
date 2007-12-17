@@ -17,75 +17,114 @@ namespace YAF.Pages.moderate
     /// </summary>
     public partial class reportedspam : YAF.Classes.Base.ForumPage
     {
+		#region Constructors & Overriden Methods
 
-        public reportedspam()
-            : base("MODERATE_FORUM")
-        {
-        }
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public reportedspam() : base("MODERATE_FORUM") { }
 
-        protected void Page_Load(object sender, System.EventArgs e)
-        {
-            if (!PageContext.IsModerator || !PageContext.ForumModeratorAccess)
-                YafBuildLink.AccessDenied();
 
-            if (!IsPostBack)
-            {  
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-                PageLinks.AddLink(GetText("MODERATE_DEFAULT", "TITLE"), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.moderate_index));
-                PageLinks.AddLink(PageContext.PageForumName);
-                BindData();
-            }
-        }
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
+		{
+			// forum index
+			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			// moderation index
+			PageLinks.AddLink(GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+			// current page
+			PageLinks.AddLink(PageContext.PageForumName);
+		}
+		
+		#endregion
 
-        protected void Delete_Load(object sender, System.EventArgs e)
-        {
-            ((LinkButton)sender).Attributes["onclick"] = String.Format("return confirm('{0}')", GetText("MODERATE_FORUM", "ASK_DELETE"));
-        }
 
-        private void BindData()
-        {
-            List.DataSource = YAF.Classes.Data.DB.message_listreported(8, PageContext.PageForumID);
-            DataBind();
-        }
+		#region Event Handlers
 
-        protected string FormatMessage(DataRowView row)
-        {
-			string msg = row["Message"].ToString();
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			// only forum moderators are allowed here
+			if (!PageContext.IsModerator || !PageContext.ForumModeratorAccess) YafBuildLink.AccessDenied();
 
-			if (msg.IndexOf('<') >= 0)
-				return Server.HtmlEncode(msg);
+			// do this just on page load, not postbacks
+			if (!IsPostBack)
+			{
+				// create page links
+				CreatePageLinks();
 
-			return msg;
+				// bind data
+				BindData();
+			}
 		}
 
-        protected bool CompareMessage(Object originalMessage, Object newMessage)
-        {
-            return ((String)originalMessage != (String)newMessage);
-        }
+		/// <summary>
+		/// Handles load event for delete button, adds confirmation dialog.
+		/// </summary>
+		protected void Delete_Load(object sender, System.EventArgs e)
+		{
+			General.AddOnClickConfirmDialog(sender, GetText("ASK_DELETE"));
+		}
 
-        private void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName.ToLower())
-            {
-                case "delete":
-                    YAF.Classes.Data.DB.message_delete(e.CommandArgument, true, "", 1, true);
-                    BindData();
-                    PageContext.AddLoadMessage(GetText("MODERATE_FORUM", "DELETED"));
-                    break;
-                case "view":
-                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}", e.CommandArgument);
-                    break;
-                case "copyover":
-                    BindData();
-                    YAF.Classes.Data.DB.message_reportcopyover(e.CommandArgument);
-                    break;
-                case "resolved":
-                    YAF.Classes.Data.DB.message_reportresolve(8, e.CommandArgument, PageContext.PageUserID);
-                    BindData();
-                    PageContext.AddLoadMessage(GetText("MODERATE_FORUM", "RESOLVEDFEEDBACK"));
-                    break;
-            }
-        }
+		/// <summary>
+		/// Handles post moderation events/buttons.
+		/// </summary>
+		private void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
+		{
+			// which command are we handling
+			switch (e.CommandName.ToLower())
+			{
+				case "delete":
+					// delete message
+					DB.message_delete(e.CommandArgument, true, "", 1, true);
+					// re-bind data
+					BindData();
+					// tell user message was deleted
+					PageContext.AddLoadMessage(GetText("DELETED"));
+					break;
+				case "view":
+					// go to the message
+					YafBuildLink.Redirect(ForumPages.posts, "m={0}", e.CommandArgument);
+					break;
+				case "copyover":
+					// re-bind data
+					BindData();
+					// update message text
+					DB.message_reportcopyover(e.CommandArgument);
+					break;
+				case "resolved":
+					// mark message as resolved
+					DB.message_reportresolve(8, e.CommandArgument, PageContext.PageUserID);
+					// re-bind data
+					BindData();
+					// tell user message was flagged as resolved
+					PageContext.AddLoadMessage(GetText("RESOLVEDFEEDBACK"));
+					break;
+			}
+		} 
+		#endregion
+
+
+		#region Data Binding & Formatting
+
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
+		private void BindData()
+		{
+			// get reported posts for this forum
+			List.DataSource = DB.message_listreported(8, PageContext.PageForumID);
+
+			// bind data to controls
+			DataBind();
+		}
+		
+		#endregion
+
 
         #region Web Form Designer generated code
         override protected void OnInit(EventArgs e)

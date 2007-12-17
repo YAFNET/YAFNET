@@ -39,27 +39,27 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="ip">string array of numbers</param>
 		/// <returns>ulong represending an encoding IP address</returns>
-		static public ulong Str2IP( String [] ip )
+		static public ulong Str2IP(String[] ip)
 		{
-			if ( ip.Length != 4 )
-				throw new Exception( "Invalid ip address." );
+			if (ip.Length != 4)
+				throw new Exception("Invalid ip address.");
 
 			ulong num = 0;
-			for ( int i = 0; i < ip.Length; i++ )
+			for (int i = 0; i < ip.Length; i++)
 			{
 				num <<= 8;
-				num |= ulong.Parse( ip [i] );
+				num |= ulong.Parse(ip[i]);
 			}
 			return num;
 		}
 
-		static public ulong IPStrToLong( string ipAddress )
+		static public ulong IPStrToLong(string ipAddress)
 		{
-      // not sure why it gives me this for local users on firefox--but it does...
-      if ( ipAddress == "::1" ) ipAddress = "127.0.0.1";
+			// not sure why it gives me this for local users on firefox--but it does...
+			if (ipAddress == "::1") ipAddress = "127.0.0.1";
 
-			string [] ip = ipAddress.Split( '.' );
-			return Str2IP( ip );
+			string[] ip = ipAddress.Split('.');
+			return Str2IP(ip);
 		}
 
 		/// <summary>
@@ -68,35 +68,35 @@ namespace YAF.Classes.Utils
 		/// <param name="ban">Banned IP</param>
 		/// <param name="chk">IP to Check</param>
 		/// <returns>true if it's banned</returns>
-		static public bool IsBanned( string ban, string chk )
+		static public bool IsBanned(string ban, string chk)
 		{
 			string bannedIP = ban.Trim();
-			if ( chk == "::1" ) chk = "127.0.0.1";
+			if (chk == "::1") chk = "127.0.0.1";
 
-			String [] ipmask = bannedIP.Split( '.' );
-			String [] ip = bannedIP.Split( '.' );
+			String[] ipmask = bannedIP.Split('.');
+			String[] ip = bannedIP.Split('.');
 
-			for ( int i = 0; i < ipmask.Length; i++ )
+			for (int i = 0; i < ipmask.Length; i++)
 			{
-				if ( ipmask [i] == "*" )
+				if (ipmask[i] == "*")
 				{
-					ipmask [i] = "0";
-					ip [i] = "0";
+					ipmask[i] = "0";
+					ip[i] = "0";
 				}
 				else
-					ipmask [i] = "255";
+					ipmask[i] = "255";
 			}
 
-			ulong banmask = Str2IP( ip );
-			ulong banchk = Str2IP( ipmask );
-			ulong ipchk = Str2IP( chk.Split( '.' ) );
+			ulong banmask = Str2IP(ip);
+			ulong banchk = Str2IP(ipmask);
+			ulong ipchk = Str2IP(chk.Split('.'));
 
-			return ( ipchk & banchk ) == banmask;		
+			return (ipchk & banchk) == banmask;
 		}
 
 		static public string GetSafeRawUrl()
 		{
-			return GetSafeRawUrl( System.Web.HttpContext.Current.Request.RawUrl );
+			return GetSafeRawUrl(System.Web.HttpContext.Current.Request.RawUrl);
 		}
 
 		/// <summary>
@@ -104,14 +104,14 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		static public string GetSafeRawUrl( string url )
+		static public string GetSafeRawUrl(string url)
 		{
 			string tProcessedRaw = url;
-			tProcessedRaw = tProcessedRaw.Replace( "\"", string.Empty );
-			tProcessedRaw = tProcessedRaw.Replace( "<", "%3C" );
-			tProcessedRaw = tProcessedRaw.Replace( ">", "%3E" );
-			tProcessedRaw = tProcessedRaw.Replace( "&", "%26" );
-			return tProcessedRaw.Replace( "'", string.Empty );
+			tProcessedRaw = tProcessedRaw.Replace("\"", string.Empty);
+			tProcessedRaw = tProcessedRaw.Replace("<", "%3C");
+			tProcessedRaw = tProcessedRaw.Replace(">", "%3E");
+			tProcessedRaw = tProcessedRaw.Replace("&", "%26");
+			return tProcessedRaw.Replace("'", string.Empty);
 		}
 
 		/// <summary>
@@ -126,21 +126,21 @@ namespace YAF.Classes.Utils
 			string result = "";
 			int picklen = pickfrom.Length - 1;
 			int index = 0;
-			for ( int i = 0; i < length; i++ )
+			for (int i = 0; i < length; i++)
 			{
-				index = r.Next( picklen );
-				result = result + pickfrom.Substring( index, 1 );
+				index = r.Next(picklen);
+				result = result + pickfrom.Substring(index, 1);
 			}
 			return result;
 		}
-		
+
 		/// <summary>
 		/// Gets the CaptchaString using the BoardSettings
 		/// </summary>
 		/// <returns></returns>
 		public static string GetCaptchaString()
 		{
-			return GenerateRandomString( YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789" );
+			return GenerateRandomString(YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
 		}
 
 		/// <summary>
@@ -149,28 +149,28 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string Truncate( string input, int limit )
+		public static string Truncate(string input, int limit)
 		{
 			string output = input;
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if ( output.Length > limit && limit > 0 )
+			if (output.Length > limit && limit > 0)
 			{
 				// cut the string down to the maximum number of characters
-				output = output.Substring( 0, limit );
+				output = output.Substring(0, limit);
 
 				// Check if the space right after the truncate point 
 				// was a space. if not, we are in the middle of a word and 
 				// need to cut out the rest of it
-				if ( input.Substring( output.Length, 1 ) != " " )
+				if (input.Substring(output.Length, 1) != " ")
 				{
-					int LastSpace = output.LastIndexOf( " " );
+					int LastSpace = output.LastIndexOf(" ");
 
 					// if we found a space then, cut back to that space
-					if ( LastSpace != -1 )
+					if (LastSpace != -1)
 					{
-						output = output.Substring( 0, LastSpace );
+						output = output.Substring(0, LastSpace);
 					}
 				}
 				// Finally, add the "..."
@@ -185,34 +185,34 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string TruncateMiddle( string input, int limit )
+		public static string TruncateMiddle(string input, int limit)
 		{
 			string output = input;
 			const string middle = "...";
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if ( output.Length > limit && limit > 0 )
+			if (output.Length > limit && limit > 0)
 			{
 				// figure out how much to make it fit...
-				int left = ( limit / 2 ) - ( middle.Length / 2 );
-				int right = limit - left - ( middle.Length / 2 );
+				int left = (limit / 2) - (middle.Length / 2);
+				int right = limit - left - (middle.Length / 2);
 
-				if ( ( left + right + middle.Length ) < limit )
+				if ((left + right + middle.Length) < limit)
 				{
 					right++;
 				}
-				else if ( ( left + right + middle.Length ) > limit )
+				else if ((left + right + middle.Length) > limit)
 				{
 					right--;
 				}
 
 				// cut the left side
-				output = input.Substring( 0, left );
+				output = input.Substring(0, left);
 				// add the middle
 				output += middle;
 				// add the right side...
-				output += input.Substring( input.Length - right, right );
+				output += input.Substring(input.Length - right, right);
 			}
 			return output;
 		}
@@ -222,55 +222,55 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="name">Name of template (not including path)</param>
 		/// <returns>The template</returns>
-		static public string ReadTemplate( string name )
+		static public string ReadTemplate(string name)
 		{
 			string file;
 
-			if ( HttpContext.Current.Cache [name] != null )
+			if (HttpContext.Current.Cache[name] != null)
 			{
-				file = HttpContext.Current.Cache [name].ToString();
+				file = HttpContext.Current.Cache[name].ToString();
 			}
 			else
 			{
-				string templatefile = HttpContext.Current.Server.MapPath( String.Format( "{0}templates/{1}", YafForumInfo.ForumRoot, name ) );
-				StreamReader sr = new StreamReader( templatefile, Encoding.ASCII );
+				string templatefile = HttpContext.Current.Server.MapPath(String.Format("{0}templates/{1}", YafForumInfo.ForumRoot, name));
+				StreamReader sr = new StreamReader(templatefile, Encoding.ASCII);
 				file = sr.ReadToEnd();
 				sr.Close();
-				HttpContext.Current.Cache [name] = file;
+				HttpContext.Current.Cache[name] = file;
 			}
 
 			return file;
 		}
 
-		static public string CreateEmailFromTemplate( string templateName, ref StringDictionary templateParameters )
+		static public string CreateEmailFromTemplate(string templateName, ref StringDictionary templateParameters)
 		{
-			string email = ReadTemplate( templateName );
+			string email = ReadTemplate(templateName);
 
-			foreach ( string key in templateParameters.Keys )
+			foreach (string key in templateParameters.Keys)
 			{
-				email = email.Replace( key, templateParameters [key] );
+				email = email.Replace(key, templateParameters[key]);
 			}
 
 			return email;
 		}
 
-		static public void SendMail( string fromEmail, string toEmail, string subject, string body )
+		static public void SendMail(string fromEmail, string toEmail, string subject, string body)
 		{
-			SendMail( new System.Net.Mail.MailAddress( fromEmail ), new System.Net.Mail.MailAddress( toEmail ), subject, body );
+			SendMail(new System.Net.Mail.MailAddress(fromEmail), new System.Net.Mail.MailAddress(toEmail), subject, body);
 		}
 
-		static public void SendMail( string fromEmail, string fromName, string toEmail, string toName, string subject, string body )
+		static public void SendMail(string fromEmail, string fromName, string toEmail, string toName, string subject, string body)
 		{
-			SendMail( new System.Net.Mail.MailAddress( fromEmail, fromName ), new System.Net.Mail.MailAddress( toEmail, toName ), subject, body );
+			SendMail(new System.Net.Mail.MailAddress(fromEmail, fromName), new System.Net.Mail.MailAddress(toEmail, toName), subject, body);
 		}
 
-		static public void SendMail( System.Net.Mail.MailAddress fromAddress, System.Net.Mail.MailAddress toAddress, string subject, string body )
+		static public void SendMail(System.Net.Mail.MailAddress fromAddress, System.Net.Mail.MailAddress toAddress, string subject, string body)
 		{
-			System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient( YafContext.Current.BoardSettings.SmtpServer );
+			System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient(YafContext.Current.BoardSettings.SmtpServer);
 
-			if ( YafContext.Current.BoardSettings.SmtpUserName != null && YafContext.Current.BoardSettings.SmtpUserPass != null )
+			if (YafContext.Current.BoardSettings.SmtpUserName != null && YafContext.Current.BoardSettings.SmtpUserPass != null)
 			{
-				smtpSend.Credentials = new System.Net.NetworkCredential( YafContext.Current.BoardSettings.SmtpUserName, YafContext.Current.BoardSettings.SmtpUserPass );
+				smtpSend.Credentials = new System.Net.NetworkCredential(YafContext.Current.BoardSettings.SmtpUserName, YafContext.Current.BoardSettings.SmtpUserPass);
 			}
 
 			// Ederon : 9/9/2007 - added port setting
@@ -282,27 +282,27 @@ namespace YAF.Classes.Utils
 			// Ederon : 9/9/2007 - added SSL support through setting
 			smtpSend.EnableSsl = YafContext.Current.BoardSettings.SmtpServerSsl;
 
-			using ( System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage() )
+			using (System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage())
 			{
-				emailMessage.To.Add( toAddress );
+				emailMessage.To.Add(toAddress);
 				emailMessage.From = fromAddress;
 				emailMessage.Subject = subject;
 				emailMessage.Body = body;
 
-				if ( !Regex.IsMatch( emailMessage.Body, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
-						!Regex.IsMatch( emailMessage.Subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )
+				if (!Regex.IsMatch(emailMessage.Body, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase) ||
+						!Regex.IsMatch(emailMessage.Subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase))
 				{
 					emailMessage.BodyEncoding = Encoding.Unicode;
 				}
 
-				smtpSend.Send( emailMessage );
+				smtpSend.Send(emailMessage);
 			}
 		}
 
-		static public string Text2Html( string html )
+		static public string Text2Html(string html)
 		{
-			html = html.Replace( "\r\n", "<br/>" );
-			html = html.Replace( "\n", "<br/>" );
+			html = html.Replace("\r\n", "<br/>");
+			html = html.Replace("\n", "<br/>");
 			return html;
 		}
 
@@ -311,12 +311,12 @@ namespace YAF.Classes.Utils
 		/// smtpserver and erroremail must be set in Web.config.
 		/// </summary>
 		/// <param name="x">The Exception object to report.</param>
-		static public void LogToMail( Exception x )
+		static public void LogToMail(Exception x)
 		{
 			try
 			{
 				string config = YAF.Classes.Config.LogToMail;
-				if ( config == null )
+				if (config == null)
 					return;
 
 				// Find mail info
@@ -325,162 +325,162 @@ namespace YAF.Classes.Utils
 				string SmtpUserName = "";
 				string SmtpPassword = "";
 
-				foreach ( string part in config.Split( ';' ) )
+				foreach (string part in config.Split(';'))
 				{
-					string [] pair = part.Split( '=' );
-					if ( pair.Length != 2 ) continue;
+					string[] pair = part.Split('=');
+					if (pair.Length != 2) continue;
 
-					switch ( pair [0].Trim().ToLower() )
+					switch (pair[0].Trim().ToLower())
 					{
 						case "email":
-							email = pair [1].Trim();
+							email = pair[1].Trim();
 							break;
 						case "server":
-							server = pair [1].Trim();
+							server = pair[1].Trim();
 							break;
 						case "user":
-							SmtpUserName = pair [1].Trim();
+							SmtpUserName = pair[1].Trim();
 							break;
 						case "pass":
-							SmtpPassword = pair [1].Trim();
+							SmtpPassword = pair[1].Trim();
 							break;
 					}
 				}
 
 				// Build body
 				System.Text.StringBuilder msg = new System.Text.StringBuilder();
-				msg.Append( "<style>\r\n" );
-				msg.Append( "body,td,th{font:8pt tahoma}\r\n" );
-				msg.Append( "table{background-color:#C0C0C0}\r\n" );
-				msg.Append( "th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\r\n" );
-				msg.Append( "td{vertical-align:top;background-color:#FFFBF0;padding:4px}\r\n" );
-				msg.Append( "</style>\r\n" );
-				msg.Append( "<table cellpadding=1 cellspacing=1>\r\n" );
+				msg.Append("<style>\r\n");
+				msg.Append("body,td,th{font:8pt tahoma}\r\n");
+				msg.Append("table{background-color:#C0C0C0}\r\n");
+				msg.Append("th{font-weight:bold;text-align:left;background-color:#C0C0C0;padding:4px}\r\n");
+				msg.Append("td{vertical-align:top;background-color:#FFFBF0;padding:4px}\r\n");
+				msg.Append("</style>\r\n");
+				msg.Append("<table cellpadding=1 cellspacing=1>\r\n");
 
-				if ( x != null )
+				if (x != null)
 				{
-					msg.Append( "<tr><th colspan=2>Exception</th></tr>" );
-					msg.AppendFormat( "<tr><td>Exception</td><td><pre>{0}</pre></td></tr>", x );
-					msg.AppendFormat( "<tr><td>Message</td><td>{0}</td></tr>", Text2Html( x.Message ) );
-					msg.AppendFormat( "<tr><td>Source</td><td>{0}</td></tr>", Text2Html( x.Source ) );
-					msg.AppendFormat( "<tr><td>StackTrace</td><td>{0}</td></tr>", Text2Html( x.StackTrace ) );
-					msg.AppendFormat( "<tr><td>TargetSize</td><td>{0}</td></tr>", Text2Html( x.TargetSite.ToString() ) );
-				}
-
-				msg.Append( "<tr><th colspan=2>QueryString</th></tr>" );
-				foreach ( string key in HttpContext.Current.Request.QueryString.AllKeys )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.QueryString [key] );
-				}
-				msg.Append( "<tr><th colspan=2>Form</th></tr>" );
-				foreach ( string key in HttpContext.Current.Request.Form.AllKeys )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Form [key] );
-				}
-				msg.Append( "<tr><th colspan=2>ServerVariables</th></tr>" );
-				foreach ( string key in HttpContext.Current.Request.ServerVariables.AllKeys )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.ServerVariables [key] );
-				}
-				msg.Append( "<tr><th colspan=2>Session</th></tr>" );
-				foreach ( string key in HttpContext.Current.Session )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Session [key] );
-				}
-				msg.Append( "<tr><th colspan=2>Application</th></tr>" );
-				foreach ( string key in HttpContext.Current.Application )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Application [key] );
-				}
-				msg.Append( "<tr><th colspan=2>Cookies</th></tr>" );
-				foreach ( string key in HttpContext.Current.Request.Cookies.AllKeys )
-				{
-					msg.AppendFormat( "<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Cookies [key].Value );
-				}
-				msg.Append( "</table>" );
-
-				System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient( server );
-
-				if ( SmtpUserName.Length > 0 && SmtpPassword.Length > 0 )
-				{
-					smtpSend.Credentials = new System.Net.NetworkCredential( SmtpUserName, SmtpPassword );
+					msg.Append("<tr><th colspan=2>Exception</th></tr>");
+					msg.AppendFormat("<tr><td>Exception</td><td><pre>{0}</pre></td></tr>", x);
+					msg.AppendFormat("<tr><td>Message</td><td>{0}</td></tr>", Text2Html(x.Message));
+					msg.AppendFormat("<tr><td>Source</td><td>{0}</td></tr>", Text2Html(x.Source));
+					msg.AppendFormat("<tr><td>StackTrace</td><td>{0}</td></tr>", Text2Html(x.StackTrace));
+					msg.AppendFormat("<tr><td>TargetSize</td><td>{0}</td></tr>", Text2Html(x.TargetSite.ToString()));
 				}
 
-				using ( System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage() )
+				msg.Append("<tr><th colspan=2>QueryString</th></tr>");
+				foreach (string key in HttpContext.Current.Request.QueryString.AllKeys)
 				{
-					emailMessage.To.Add( email );
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.QueryString[key]);
+				}
+				msg.Append("<tr><th colspan=2>Form</th></tr>");
+				foreach (string key in HttpContext.Current.Request.Form.AllKeys)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Form[key]);
+				}
+				msg.Append("<tr><th colspan=2>ServerVariables</th></tr>");
+				foreach (string key in HttpContext.Current.Request.ServerVariables.AllKeys)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.ServerVariables[key]);
+				}
+				msg.Append("<tr><th colspan=2>Session</th></tr>");
+				foreach (string key in HttpContext.Current.Session)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Session[key]);
+				}
+				msg.Append("<tr><th colspan=2>Application</th></tr>");
+				foreach (string key in HttpContext.Current.Application)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Application[key]);
+				}
+				msg.Append("<tr><th colspan=2>Cookies</th></tr>");
+				foreach (string key in HttpContext.Current.Request.Cookies.AllKeys)
+				{
+					msg.AppendFormat("<tr><td>{0}</td><td>{1}&nbsp;</td></tr>", key, HttpContext.Current.Request.Cookies[key].Value);
+				}
+				msg.Append("</table>");
+
+				System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient(server);
+
+				if (SmtpUserName.Length > 0 && SmtpPassword.Length > 0)
+				{
+					smtpSend.Credentials = new System.Net.NetworkCredential(SmtpUserName, SmtpPassword);
+				}
+
+				using (System.Net.Mail.MailMessage emailMessage = new System.Net.Mail.MailMessage())
+				{
+					emailMessage.To.Add(email);
 					emailMessage.From = new System.Net.Mail.MailAddress(email);
 					emailMessage.Subject = "Yet Another Forum.net Error Report";
 					emailMessage.Body = msg.ToString();
 					emailMessage.IsBodyHtml = true;
 
-					smtpSend.Send( emailMessage );
+					smtpSend.Send(emailMessage);
 				}
 			}
-			catch ( Exception )
+			catch (Exception)
 			{
 			}
 		}
-		static public void CreateWatchEmail( object messageID )
+		static public void CreateWatchEmail(object messageID)
 		{
-			using ( DataTable dt = YAF.Classes.Data.DB.message_list( messageID ) )
+			using (DataTable dt = YAF.Classes.Data.DB.message_list(messageID))
 			{
-				foreach ( DataRow row in dt.Rows )
+				foreach (DataRow row in dt.Rows)
 				{
 					// Send track mails
-					string subject = String.Format( YafContext.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), YafContext.Current.BoardSettings.Name );
+					string subject = String.Format(YafContext.Current.Localization.GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT"), YafContext.Current.BoardSettings.Name);
 
 					StringDictionary emailParams = new StringDictionary();
 
 					emailParams["{forumname}"] = YafContext.Current.BoardSettings.Name;
-					emailParams["{topic}"] = row ["Topic"].ToString();
-					emailParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
+					emailParams["{topic}"] = row["Topic"].ToString();
+					emailParams["{link}"] = String.Format("{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink(ForumPages.posts, "m={0}#{0}", messageID));
 
-					string body = General.CreateEmailFromTemplate( "topicpost.txt", ref emailParams );
+					string body = General.CreateEmailFromTemplate("topicpost.txt", ref emailParams);
 
-					YAF.Classes.Data.DB.mail_createwatch( row ["TopicID"], YafContext.Current.BoardSettings.ForumEmail, subject, body, row ["UserID"] );
+					YAF.Classes.Data.DB.mail_createwatch(row["TopicID"], YafContext.Current.BoardSettings.ForumEmail, subject, body, row["UserID"]);
 				}
 			}
 		}
-		static public bool IsValidEmail( string email )
+		static public bool IsValidEmail(string email)
 		{
-			return Regex.IsMatch( email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase );
+			return Regex.IsMatch(email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase);
 		}
-		static public bool IsValidURL( string url )
+		static public bool IsValidURL(string url)
 		{
-			return Regex.IsMatch( url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$" );
+			return Regex.IsMatch(url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
 		}
-		static public bool IsValidInt( string val )
+		static public bool IsValidInt(string val)
 		{
-			return Regex.IsMatch( val, @"^[1-9]\d*\.?[0]*$" );
+			return Regex.IsMatch(val, @"^[1-9]\d*\.?[0]*$");
 		}
 		/// <summary>
 		/// Searches through SearchText and replaces "bad words" with "good words"
 		/// as defined in the database.
 		/// </summary>
 		/// <param name="SearchText">The string to search through.</param>
-		static public string BadWordReplace( string searchText )
+		static public string BadWordReplace(string searchText)
 		{
 			string strReturn = searchText;
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
 			// rico : run word replacement from database table names yaf_replacewords
-			DataTable dt = ( DataTable ) HttpContext.Current.Cache ["replacewords"];
-			if ( dt == null )
+			DataTable dt = (DataTable)HttpContext.Current.Cache["replacewords"];
+			if (dt == null)
 			{
 				dt = YAF.Classes.Data.DB.replace_words_list();
-				HttpContext.Current.Cache.Insert( "replacewords", dt, null, DateTime.Now.AddMinutes( 15 ), TimeSpan.Zero );
+				HttpContext.Current.Cache.Insert("replacewords", dt, null, DateTime.Now.AddMinutes(15), TimeSpan.Zero);
 			}
-			foreach ( DataRow rwords in dt.Rows )
+			foreach (DataRow rwords in dt.Rows)
 			{
 				try
 				{
-					strReturn = Regex.Replace( strReturn, Convert.ToString( rwords ["badword"] ), Convert.ToString( rwords ["goodword"] ), options );
+					strReturn = Regex.Replace(strReturn, Convert.ToString(rwords["badword"]), Convert.ToString(rwords["goodword"]), options);
 				}
 #if DEBUG
-				catch ( Exception e )
+				catch (Exception e)
 				{
-					throw new Exception( "Regular Expression Failed: " + e.Message );
+					throw new Exception("Regular Expression Failed: " + e.Message);
 				}
 #else
 				catch (Exception x)
@@ -498,15 +498,15 @@ namespace YAF.Classes.Utils
 			System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
 
 			// get a list of resource names from the manifest
-			string [] resNames = a.GetManifestResourceNames();
+			string[] resNames = a.GetManifestResourceNames();
 
 			// populate the textbox with information about our resources
 			// also look for images and put them in our arraylist
 			string txtInfo = "";
 
-			txtInfo += String.Format( "Found {0} resources\r\n", resNames.Length );
+			txtInfo += String.Format("Found {0} resources\r\n", resNames.Length);
 			txtInfo += "----------\r\n";
-			foreach ( string s in resNames )
+			foreach (string s in resNames)
 			{
 				txtInfo += s + "\r\n";
 			}
@@ -533,6 +533,17 @@ namespace YAF.Classes.Utils
 		}
 
 		/* Ederon - 7/1/2007 end */
+
+
+		static public void AddOnClickConfirmDialog(object control, string message)
+		{
+			AddOnClickConfirmDialog((System.Web.UI.WebControls.WebControl)control, message);
+		}
+		static public void AddOnClickConfirmDialog(System.Web.UI.WebControls.WebControl control, string message)
+		{
+			control.Attributes["onclick"] = String.Format("return confirm('{0}')", message);
+		}
+
 
 		/* Ederon - 9/9/2007 */
 		static public string ProcessText(string text)
@@ -600,7 +611,28 @@ namespace YAF.Classes.Utils
 				}
 			}
 		}
+
+		static public string EncodeMessage(string message)
+		{
+			if (message.IndexOf('<') >= 0)
+				return HttpUtility.HtmlEncode(message);
+
+			return message;
+		}
+
+
+		/// <summary>
+		/// Compares two messages.
+		/// </summary>
+		/// <param name="originalMessage">Original message text.</param>
+		/// <param name="newMessage">New message text.</param>
+		/// <returns>True if messages differ, false if they are identical.</returns>
+		static public bool CompareMessage(Object originalMessage, Object newMessage)
+		{
+			return ((String)originalMessage != (String)newMessage);
+		}
 	}
+
 
   /// <summary>
   /// Helps parse URLs

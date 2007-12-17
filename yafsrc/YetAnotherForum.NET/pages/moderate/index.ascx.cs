@@ -32,70 +32,116 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.moderate
 {
-    /// <summary>
-    /// Summary description for _default.
-    /// </summary>
-    public partial class index : YAF.Classes.Base.ForumPage
-    {
+	/// <summary>
+	/// Base root control for moderating, linking to other moderating controls/pages.
+	/// </summary>
+	public partial class index : YAF.Classes.Base.ForumPage
+	{
+		#region Construcotrs & Overridden Methods
 
-        public index()
-            : base("MODERATE_DEFAULT")
-        {
-        }
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public index() : base("MODERATE_DEFAULT") { }
 
-        protected void Page_Load(object sender, System.EventArgs e)
-        {
-            if (!PageContext.IsModerator)
-                YafBuildLink.AccessDenied();
 
-            if (!IsPostBack)
-            {
-                PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-                PageLinks.AddLink(GetText("MODERATE_DEFAULT", "TITLE"), "");
-                BindData();
-            }
-        }
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
+		{
+			// forum index
+			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			// moderation index
+			PageLinks.AddLink(GetText("TITLE"));
+		}
 
-        private void BindData()
-        {
-            using (DataSet ds = YAF.Classes.Data.DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
-                CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
-            DataBind();
-        }
+		#endregion
 
-        protected void ForumList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "viewunapprovedposts":
-                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
-                    break;
-                case "viewreportedposts":
-                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
-                    break;
-                case "viewreportedspam":
-                    YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
-                    break;
-            }
-        }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
+		#region Event Handlers
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-        }
-        #endregion
-    }
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			// Only moderators are allowed here
+			if (!PageContext.IsModerator) YafBuildLink.AccessDenied();
+
+			// this needs to be done just once, not during postbacks
+			if (!IsPostBack)
+			{
+				// create page links
+				CreatePageLinks();
+
+				// bind data
+				BindData();
+			}
+		}
+
+		
+		/// <summary>
+		/// Handles event of item commands for each forum.
+		/// </summary>
+		protected void ForumList_ItemCommand(object source, RepeaterCommandEventArgs e)
+		{
+			// which command are we handling
+			switch (e.CommandName.ToLower())
+			{
+				case "viewunapprovedposts":
+					// go to unapproved posts for selected forum
+					YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+					break;
+				case "viewreportedposts":
+					// go to reported abuses for selected forum
+					YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+					break;
+				case "viewreportedspam":
+					// go to spam reports for selected forum
+					YafBuildLink.Redirect(ForumPages.moderate_reportedspam, "f={0}", e.CommandArgument);
+					break;
+			}
+		}
+
+		#endregion
+
+
+		#region Data Binding & Formatting
+
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
+		private void BindData()
+		{
+			// get list of forums and their moderating data
+			using (DataSet ds = DB.forum_moderatelist(PageContext.PageUserID, PageContext.PageBoardID))
+				CategoryList.DataSource = ds.Tables[DBAccess.GetObjectName("Category")];
+
+			// bind data to controls
+			DataBind();
+		}
+
+		#endregion
+
+
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
+
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+		}
+		#endregion
+	}
 }
