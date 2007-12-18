@@ -124,7 +124,7 @@ namespace YAF.Controls
 				}
 			}
 
-			footer.AppendFormat( @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2007, Yet Another Forum.NET</a>", "YetAnotherForum.NET", "http://www.yetanotherforum.net" );
+			footer.AppendFormat( @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF &copy; 2003-2008, Yet Another Forum.NET</a>", "YetAnotherForum.NET", "http://www.yetanotherforum.net" );
 
 			if ( PageContext.BoardSettings.ShowPageGenerationTime )
 			{
