@@ -868,9 +868,21 @@ namespace YAF.Classes.Utils
 			}
 
 			if ( ( code & 0x0F ) > 0 )
-			{
-				// Add Release Candidate
-				version += string.Format( " RC{0}", code & 0x0F );
+			{				
+				if ( ( code & 0x0F ) == 1 )
+				{
+					// alpha release...
+					version += " alpha";
+				}
+				else if ( ( code & 0x0F ) == 2 )
+				{
+					version += " beta";
+				}
+				else
+				{
+					// Add Release Candidate
+					version += string.Format( " RC{0}", (code & 0x0F) - 2 );
+				}
 			}
 
 			return version;
@@ -886,21 +898,21 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 26;
+				return 30;
 			}
 		}
 		static public long AppVersionCode
 		{
 			get
 			{
-				return 0x01090300;
+				return 0x01090301;
 			}
 		}
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime( 2007, 11, 09 );
+				return new DateTime( 2007, 12, 18 );
 			}
 		}
 		#endregion
