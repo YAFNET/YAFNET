@@ -90,8 +90,8 @@ namespace YAF.Install
 		void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			// go back only from last step (to user/roles migration)
-			if (e.CurrentStepIndex == (InstallWizard.WizardSteps.Count - 1))
-				InstallWizard.MoveTo(InstallWizard.WizardSteps[e.CurrentStepIndex - 1]);
+			if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
+				InstallWizard.MoveTo( InstallWizard.WizardSteps [e.CurrentStepIndex - 1] );
 			else
 				// othwerise cancel action
 				e.Cancel = true;
@@ -100,9 +100,13 @@ namespace YAF.Install
 		void Wizard_ActiveStepChanged( object sender, EventArgs e )
 		{
 			if ( InstallWizard.ActiveStepIndex == 1 && !IsInstalled )
+			{
 				InstallWizard.ActiveStepIndex++;
+			}
 			else if ( InstallWizard.ActiveStepIndex == 3 && IsForumInstalled )
+			{
 				InstallWizard.ActiveStepIndex++;
+			}
 		}
 
 		void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
@@ -158,10 +162,10 @@ namespace YAF.Install
 						break;
 					case 4:
 						// migrate users/roles only if user does not want to skip
-						if (!skipMigration.Checked)
+						if ( !skipMigration.Checked )
 						{
-							RoleMembershipHelper.SyncRoles(PageBoardID);
-							RoleMembershipHelper.SyncUsers(PageBoardID);
+							RoleMembershipHelper.SyncRoles( PageBoardID );
+							RoleMembershipHelper.SyncUsers( PageBoardID );
 						}
 						e.Cancel = false;
 						break;
@@ -176,17 +180,6 @@ namespace YAF.Install
 		}
 		#endregion
 
-		#region overrides
-		override protected void OnInit( EventArgs e )
-		{
-			this.Load += new System.EventHandler( this.Page_Load );
-			InstallWizard.NextButtonClick += new WizardNavigationEventHandler( Wizard_NextButtonClick );
-			InstallWizard.PreviousButtonClick += new WizardNavigationEventHandler( Wizard_PreviousButtonClick );
-			InstallWizard.ActiveStepChanged += new EventHandler( Wizard_ActiveStepChanged );
-			InstallWizard.FinishButtonClick += new WizardNavigationEventHandler( Wizard_FinishButtonClick );
-			base.OnInit( e );
-		}
-
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
@@ -199,7 +192,6 @@ namespace YAF.Install
 				writer.WriteLine( "</script>" );
 			}
 		}
-		#endregion
 
 		void AddLoadMessage( string msg )
 		{
@@ -226,30 +218,30 @@ namespace YAF.Install
 		{
 			try
 			{
-				FixAccess(false);
+				FixAccess( false );
 
 				foreach ( string script in _scripts )
 				{
-					ExecuteScript( script, (script == "fulltext.sql") ? false : true);
+					ExecuteScript( script, ( script == "fulltext.sql" ) ? false : true );
 				}
 
-				FixAccess(true);
+				FixAccess( true );
 
-				using (SqlCommand cmd = DBAccess.GetCommand("system_updateversion"))
+				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue("@Version", YafForumInfo.AppVersion);
-					cmd.Parameters.AddWithValue("@VersionName", YafForumInfo.AppVersionName);
-					YAF.Classes.Data.DBAccess.ExecuteNonQuery(cmd);
+					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
+					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
+					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 
 				// Ederon : 9/7/2007
 				// resync all boards - necessary for propr last post bubbling
 				YAF.Classes.Data.DB.board_resync();
 			}
-			catch (Exception x)
+			catch ( Exception x )
 			{
-				AddLoadMessage(x.Message);
+				AddLoadMessage( x.Message );
 				return false;
 			}
 			return true;
@@ -330,19 +322,19 @@ namespace YAF.Install
 				Roles.CreateRole( "Registered" );
 				Roles.AddUserToRole( user.UserName, "Administrators" );
 
-				using (SqlCommand cmd = DBAccess.GetCommand("system_initialize"))
+				using ( SqlCommand cmd = DBAccess.GetCommand( "system_initialize" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Name", TheForumName.Text );
 					cmd.Parameters.AddWithValue( "@TimeZone", TimeZones.SelectedItem.Value );
 					cmd.Parameters.AddWithValue( "@ForumEmail", ForumEmailAddress.Text );
 					cmd.Parameters.AddWithValue( "@SmtpServer", SmptServerAddress.Text );
-					cmd.Parameters.AddWithValue( "@User",user.UserName );
-					cmd.Parameters.AddWithValue( "@UserKey", user.ProviderUserKey);
+					cmd.Parameters.AddWithValue( "@User", user.UserName );
+					cmd.Parameters.AddWithValue( "@UserKey", user.ProviderUserKey );
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
 				}
 
-				using (SqlCommand cmd = DBAccess.GetCommand("system_updateversion"))
+				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
@@ -435,13 +427,13 @@ namespace YAF.Install
 			}
 
 			// apply database owner
-			script = script.Replace("{databaseOwner}", DBAccess.DatabaseOwner);
+			script = script.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
 			// apply object qualifier
-			script = script.Replace("{objectQualifier}", DBAccess.ObjectQualifier);
+			script = script.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
 
 			string [] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
-      using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				// use transactions...
 				if ( useTransactions )
@@ -514,12 +506,12 @@ namespace YAF.Install
 		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-      using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
-        using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
 				{
 					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
-					using (SqlDataAdapter da = new SqlDataAdapter("select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection))
+					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection ) )
 					{
 						da.SelectCommand.Transaction = trans;
 						using ( DataTable dt = new DataTable( "sysobjects" ) )
@@ -530,7 +522,7 @@ namespace YAF.Install
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
 								cmd.CommandText = "select current_user";
-								string userName = ( string ) cmd.ExecuteScalar();
+								string userName = ( string )cmd.ExecuteScalar();
 
 								if ( bGrant )
 								{
@@ -585,5 +577,10 @@ namespace YAF.Install
 			}
 		}
 		#endregion
-	}
+
+		protected void InstallWizard_ActiveStepChanged( object sender, EventArgs e )
+		{
+
+		}
+}
 }

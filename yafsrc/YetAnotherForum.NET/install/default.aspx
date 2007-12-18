@@ -11,7 +11,9 @@
 		<div align="center">
 			<asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB"
 				BorderColor="#B5C7DE" BorderWidth="1px" Font-Names="Verdana" Font-Size="Small"
-				Width="480px" CellPadding="8" DisplaySideBar="False">
+				Width="480px" CellPadding="8" DisplaySideBar="False" OnActiveStepChanged="Wizard_ActiveStepChanged"
+				OnFinishButtonClick="Wizard_FinishButtonClick" OnPreviousButtonClick="Wizard_PreviousButtonClick"
+				OnNextButtonClick="Wizard_NextButtonClick">
 				<StepStyle Font-Size="0.8em" ForeColor="#333333" />
 				<SideBarStyle BackColor="#507CD1" Font-Size="0.9em" VerticalAlign="Top" />
 				<NavigationButtonStyle BackColor="White" BorderColor="#507CD1" BorderStyle="Solid"
