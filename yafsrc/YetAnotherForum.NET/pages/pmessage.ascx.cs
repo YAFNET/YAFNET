@@ -149,10 +149,13 @@ namespace YAF.Pages
 			if ( ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
 			{
 				string body = Editor.Text;
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHtml = Editor.UsesHTML;
-				tFlags.IsBBCode = Editor.UsesBBCode;
-				DB.pmessage_save( PageContext.PageUserID, 0, Subject.Text, body, tFlags.BitValue );
+				MessageFlags messageFlags = new MessageFlags();
+
+				messageFlags.IsHtml = Editor.UsesHTML;
+				messageFlags.IsBBCode = Editor.UsesBBCode;
+
+				DB.pmessage_save( PageContext.PageUserID, 0, Subject.Text, body, messageFlags.BitValue );
+				
 				YafBuildLink.Redirect( ForumPages.cp_profile );
 			}
 			else
@@ -183,11 +186,11 @@ namespace YAF.Pages
 
 					string body = Editor.Text;
 
-					MessageFlags tFlags = new MessageFlags();
-					tFlags.IsHtml = Editor.UsesHTML;
-					tFlags.IsBBCode = Editor.UsesBBCode;
+					MessageFlags messageFlags = new MessageFlags();
+					messageFlags.IsHtml = Editor.UsesHTML;
+					messageFlags.IsBBCode = Editor.UsesBBCode;
 
-					DB.pmessage_save( PageContext.PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, tFlags.BitValue );
+					DB.pmessage_save( PageContext.PageUserID, dt.Rows [0] ["UserID"], Subject.Text, body, messageFlags.BitValue );
 
 					if ( PageContext.BoardSettings.AllowPMEmailNotification )
 						SendPMNotification( Convert.ToInt32( dt.Rows [0] ["UserID"] ), Subject.Text );
@@ -315,7 +318,7 @@ namespace YAF.Pages
 			To.Text = "";
 			To.Visible = true;
 			FindUsers.Visible = true;
-			AllUsers.Visible = true;
+			AllUsers.Visible = PageContext.IsAdmin;
 			Clear.Visible = false;
 		}
 	}
