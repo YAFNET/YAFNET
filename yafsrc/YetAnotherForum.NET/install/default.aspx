@@ -43,9 +43,9 @@
 						<asp:TextBox ID="TextBox3" runat="server" TextMode="Password" Width="100%"></asp:TextBox>
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Upgrade Database">
-						<strong>Upgrade Database</strong><br />
+						<strong>Initialize/Upgrage Database</strong><br />
 						<br />
-						Clicking next will upgrade your database to the latest version.</asp:WizardStep>
+						Clicking next will initalize/upgrade your database to the latest version.</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Create Forum">
 						<strong>Create Forum</strong><br />
 						<p>
