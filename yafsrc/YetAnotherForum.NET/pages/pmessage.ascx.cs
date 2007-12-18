@@ -145,9 +145,10 @@ namespace YAF.Pages
 			if ( ToList.Visible )
 				To.Text = ToList.SelectedItem.Text;
 
-
 			if ( ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
 			{
+				// administrator is sending PMs tp all users
+
 				string body = Editor.Text;
 				MessageFlags messageFlags = new MessageFlags();
 
@@ -162,7 +163,17 @@ namespace YAF.Pages
 			{
 				using ( DataTable dt = DB.user_find( PageContext.PageBoardID, false, To.Text, null ) )
 				{
-					if ( dt.Rows.Count != 1 )
+					// test sending user's PM count
+					if (PageContext.BoardSettings.MaxPrivateMessagesPerUser != 0 &&
+						DB.user_pmcount(PageContext.PageUserID) >= PageContext.BoardSettings.MaxPrivateMessagesPerUser &&
+						!PageContext.IsAdmin)
+					{
+						// user has full PM box
+						PageContext.AddLoadMessage(String.Format(GetText("OWN_PMBOX_FULL"), PageContext.BoardSettings.MaxPrivateMessagesPerUser));
+						return;
+					}
+
+					if (dt.Rows.Count != 1)
 					{
 						PageContext.AddLoadMessage( GetText( "NO_SUCH_USER" ) );
 						return;
@@ -184,9 +195,20 @@ namespace YAF.Pages
 						return;
 					}
 
+					// test receiving user's PM count
+					if (PageContext.BoardSettings.MaxPrivateMessagesPerUser != 0 &&
+						DB.user_pmcount(dt.Rows[0]["UserID"]) >= PageContext.BoardSettings.MaxPrivateMessagesPerUser &&
+						!PageContext.IsAdmin)
+					{
+						// recipient has full PM box
+						PageContext.AddLoadMessage(GetText("RECIPIENTS_PMBOX_FULL"));
+						return;
+					}
+
 					string body = Editor.Text;
 
 					MessageFlags messageFlags = new MessageFlags();
+
 					messageFlags.IsHtml = Editor.UsesHTML;
 					messageFlags.IsBBCode = Editor.UsesBBCode;
 
@@ -195,7 +217,8 @@ namespace YAF.Pages
 					if ( PageContext.BoardSettings.AllowPMEmailNotification )
 						SendPMNotification( Convert.ToInt32( dt.Rows [0] ["UserID"] ), Subject.Text );
 
-					YafBuildLink.Redirect( ForumPages.cp_profile );
+					// redirect to outbox (sent items), not control panel
+					YafBuildLink.Redirect( ForumPages.cp_pm,"v={0}", "out" );
 				}
 			}
 		}

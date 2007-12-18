@@ -2809,6 +2809,16 @@ namespace YAF.Classes.Data
             }
         }
 
+		static public int user_pmcount(object userID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("user_pmcount"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("UserID", userID);
+				return (int)DBAccess.ExecuteScalar(cmd);
+			}
+		}
+
         static public void user_save(object userID, object boardID, object userName, object email,
             object timeZone, object languageFile, object themeFile, object overrideDefaultThemes, object approved,
             object pmNotification)

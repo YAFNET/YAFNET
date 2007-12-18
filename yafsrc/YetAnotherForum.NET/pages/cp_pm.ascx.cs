@@ -77,6 +77,7 @@ namespace YAF.Pages
         ArchiveTab.HeaderText = GetText( "ARCHIVE" );
 
 				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage );
+				NewPM2.NavigateUrl = NewPM.NavigateUrl;
 
         // DOCTYPE COMPATIBILITY ISSUE
         // Adding this css style block to the page's output fixes rendering of

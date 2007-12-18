@@ -37,6 +37,11 @@
     </ContentTemplate>
 </asp:UpdatePanel>
 
+<br />
+<div>
+<YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWPM" TitleLocalizedTag="BUTTON_NEWPM_TT" />            
+</div>
+
 <div id="DivSmartScroller">
     <YAF:SmartScroller id="SmartScroller1" runat="server" />
 </div>

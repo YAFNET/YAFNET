@@ -196,6 +196,10 @@ namespace YAF.Pages.Admin
 			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
 			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
 
+			// Ederon : 12/18/2007 added
+			MaxPrivateMessagesPerUser.Text = PageContext.BoardSettings.MaxPrivateMessagesPerUser.ToString();
+			PrivateMessageMaxRecipients.Text = PageContext.BoardSettings.PrivateMessageMaxRecipients.ToString();
+
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
 			EnableCaptchaForPost.Checked = PageContext.BoardSettings.EnableCaptchaForPost;
@@ -303,6 +307,10 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.SearchPermissions = SearchPermissions.SelectedIndex;
 			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
 			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
+
+			// Ederon : 12/18/2007 added
+			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32(MaxPrivateMessagesPerUser.Text.Trim());
+			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32(PrivateMessageMaxRecipients.Text.Trim());
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );

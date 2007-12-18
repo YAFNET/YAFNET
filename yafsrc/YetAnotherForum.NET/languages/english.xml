@@ -640,6 +640,8 @@
 		<Resource tag="FINDUSERS">Find Users...</Resource>
 		<Resource tag="ALLUSERS">All Users</Resource>
 		<Resource tag="CLEAR">Clear</Resource>
+		<Resource tag="OWN_PMBOX_FULL">You have too many private messages in your inbox, sent items and archive. Maximum allowed is {0}.</Resource>
+		<Resource tag="RECIPIENTS_PMBOX_FULL">User you are trying to send your private message to has full inbox. He needs to clean it first before you can send him a message.</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->

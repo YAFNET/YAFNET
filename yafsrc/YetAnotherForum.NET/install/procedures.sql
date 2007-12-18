@@ -554,6 +554,10 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_changepassword]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_pmcount]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_pmcount]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_delete]
 GO
@@ -4172,6 +4176,35 @@ begin
 	update [{databaseOwner}].[{objectQualifier}User] set Password = @NewPassword where UserID = @UserID
 	select Success = convert(bit,1)
 end
+GO
+
+CREATE PROC [{databaseOwner}].[{objectQualifier}user_pmcount]
+	@UserID int
+AS
+BEGIN
+	DECLARE @Count int
+
+	-- get count of pm's in user's sent items
+	SELECT 
+		@Count=COUNT(*) 
+	FROM 
+		[{databaseOwner}].[{objectQualifier}UserPMessage] a
+	INNER JOIN [{databaseOwner}].[{objectQualifier}PMessage] b ON a.PMessageID=b.PMessageID
+	WHERE 
+		(a.Flags & 2)<>0 AND
+		b.FromUserID = @UserID
+
+	-- add count of pm's in user's inbox
+	SELECT 
+		@Count=@Count+COUNT(*) 
+	FROM 
+		[{databaseOwner}].[{objectQualifier}UserPMessage] 
+	WHERE 
+		UserID = @UserID
+
+	-- return total count
+	SELECT @Count
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_delete](@UserID int) as

@@ -223,6 +223,35 @@
                             </tr>
                             <tr>
                                 <td class="header1" colspan="2">
+                                    Search Settings</td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Text Minimal Length:</b><br>
+                                    Minimal length of the search string allowed</td>
+                                <td class="post">
+                                    <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Text Pattern:</b><br>
+                                    Allowed search text pattern</td>
+                                <td class="post">
+                                    <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox></td>
+                            </tr>     
+                            <tr>
+                                <td class="postheader">
+                                    <b>Search Permissions:</b><br>
+                                    Allow search to:</td>
+                                <td class="post">
+																		<asp:DropDownList ID="SearchPermissions" runat="server">
+																			<asp:ListItem Value="0" Text="Forbidden" />
+																			<asp:ListItem Value="1" Text="Registered Users" />
+																			<asp:ListItem Value="2" Text="All Users" />
+																		</asp:DropDownList>
+                            </tr>
+                            <tr>
+                                <td class="header1" colspan="2">
                                     CAPTCHA Settings</td>
                             </tr>                            
                             <tr>
@@ -255,33 +284,22 @@
                             </tr>                                                                              
                             <tr>
                                 <td class="header1" colspan="2">
-                                    Search Settings</td>
+                                    Private Messages</td>
                             </tr>                            
                             <tr>
                                 <td class="postheader">
-                                    <b>Search Text Minimal Length:</b><br>
-                                    Minimal length of the search string allowed</td>
+                                    <b>Max Number of Private Messages per User:</b><br>
+                                    Maximum number of messages user can store (0 = unlimited)</td>
                                 <td class="post">
-                                    <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox></td>
+                                    <asp:TextBox ID="MaxPrivateMessagesPerUser" runat="server"></asp:TextBox></td>
                             </tr>     
                             <tr>
                                 <td class="postheader">
-                                    <b>Search Text Pattern:</b><br>
-                                    Allowed search text pattern</td>
+                                    <b>Max no. of PM Recipients:</b><br>
+                                    Maximum allowed recipients per on PM sent (0 = unlimited)</td>
                                 <td class="post">
-                                    <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox></td>
+                                    <asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox></td>
                             </tr>     
-                            <tr>
-                                <td class="postheader">
-                                    <b>Search Permissions:</b><br>
-                                    Allow search to:</td>
-                                <td class="post">
-																		<asp:DropDownList ID="SearchPermissions" runat="server">
-																			<asp:ListItem Value="0" Text="Forbidden" />
-																			<asp:ListItem Value="1" Text="Registered Users" />
-																			<asp:ListItem Value="2" Text="All Users" />
-																		</asp:DropDownList>
-                            </tr>
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>

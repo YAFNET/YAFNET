@@ -287,6 +287,17 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt("ForumStatisticsCacheTimeout", 15); }
 			set { _reg.SetValueInt("ForumStatisticsCacheTimeout", value); }
 		}
+		// Ederon 12/18/2007
+		public int PrivateMessageMaxRecipients
+		{
+			get { return _reg.GetValueInt("PrivateMessageMaxRecipients", 1); }
+			set { _reg.SetValueInt("PrivateMessageMaxRecipients", value); }
+		}
+		public int MaxPrivateMessagesPerUser
+		{
+			get { return _reg.GetValueInt("MaxPrivateMessagesPerUser", 30); }
+			set { _reg.SetValueInt("MaxPrivateMessagesPerUser", value); }
+		}
 
 
 		// boolean settings
