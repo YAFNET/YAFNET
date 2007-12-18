@@ -1,48 +1,48 @@
-#yafmain,
-#yafmain td
+.yafnet,
+.yafnet td
 {
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8.5pt;
 }
-#yafmain input{font:8pt Verdana,Arial,Helvetica,sans-serif}
-#yafmain select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
-#yafmain textarea{background:#ffffff;border:1px solid #000000;font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
-#yafmain form{display:inline}
-#yafmain input{border:1px solid #4C77B6;font-size:8pt}
-#yafmain input.pbutton{background:#EEF5FF;}
+.yafnet input{font:8pt Verdana,Arial,Helvetica,sans-serif}
+.yafnet select{background:#ffffff;font:8pt Verdana,Arial,Helvetica,sans-serif}
+.yafnet textarea{background:#ffffff;border:1px solid #000000;font:8pt Verdana,Arial,Helvetica,sans-serif;padding-bottom:2px;padding-left:2px}
+.yafnet form{display:inline}
+.yafnet input{border:1px solid #4C77B6;font-size:8pt}
+.yafnet input.pbutton{background:#EEF5FF;}
 /* For BBCode Post Buttons */
-#yafmain .ButtonOut {
+.yafnet .ButtonOut {
 	filter: alpha(opacity=70);
 	border: #7F9DB9 1px solid;
 }
-#yafmain .ButtonOver {
+.yafnet .ButtonOver {
 	background-color: #FFE1AC;
 	border: #FFAD55 1px solid;
 }
-#yafmain .ButtonChecked {
+.yafnet .ButtonChecked {
 	background-color: #FFCB7E;
 	border: #FFAD55 1px solid;
 }
-#yafmain .ButtonOff {
+.yafnet .ButtonOff {
 	filter: gray() alpha(opacity=30);
 	background-color: #C0C0C0;
 	border: #7F9DB9 1px solid;
 }
-#yafmain img {
+.yafnet img {
 	border: 0;
 }
-#yafmain ul {
+.yafnet ul {
 	margin: 2px 2px 2px 2px;
 	padding: 0;
 }
-#yafmain li {
+.yafnet li {
 	margin-left: 15px;
 }
 /* hyperlinks */
-#yafmain a		{ text-decoration: none; color: #303030; }
-#yafmain a:hover		{ text-decoration: underline; color: #efefb4; }
+.yafnet a		{ text-decoration: none; color: #303030; }
+.yafnet a:hover		{ text-decoration: underline; color: #efefb4; }
 /* Header 1 - Main header */
-#yafmain .header1 {
+.yafnet .header1 {
 	background-image: url('bg_header1.png');
 	background-color: #7D8CFF;
 	color: #FFFFFF;
@@ -51,81 +51,81 @@
 	font-size:12px;
 }
 /* Links in header1 */
-#yafmain tr.header1 a		{color:#FFFFFF;text-decoration:none}
-#yafmain tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
+.yafnet tr.header1 a		{color:#FFFFFF;text-decoration:none}
+.yafnet tr.header1 a:hover	{color:#C0C0FF;text-decoration:underline}
 /* Header 2 - Sub header */
-#yafmain .header2 {
+.yafnet .header2 {
 	background-image: url('bg_header2.png');
 	background-color: #7D8CFF;
 	color: #3A4F6C;
 	font-weight: bold;
 	line-height: 18px;
 }
-#yafmain a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
-#yafmain td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
-#yafmain td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+.yafnet a.header2 { height: auto; background-color: Transparent; border-style: none; background-image: none; }
+.yafnet td.header2links a				{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
+.yafnet td.header2links	a:hover	{color: #3A4F6C;text-decoration:none;font-size:7.5pt;}
 /* Footer1 - Bottom of tables */
-#yafmain .footer1 {
+.yafnet .footer1 {
 	background-image: url('bg_footer1.png');
 	font-size: 7pt;
 	height: 28px;
 }
-#yafmain .footer1 select,
-#yafmain .footer1 td {
+.yafnet .footer1 select,
+.yafnet .footer1 td {
 	font-size: 7pt;
 }
-#yafmain .postformheader {
+.yafnet .postformheader {
 	background-color: #D1DCEB;
 	font-weight:bold;
 }
 /* file attachment css */
-#yafmain .fileattach {
+.yafnet .fileattach {
 	padding: 5px;
 	background-color: #eeeeee;
 	border: solid 1px #808080;
 }
-#yafmain .fileattach .filetitle,
-#yafmain .fileattach .imgtitle {
+.yafnet .fileattach .filetitle,
+.yafnet .fileattach .imgtitle {
 	font-weight: bold;
 	color: #444444;
 	margin-bottom: 5px;
 	font-size: 1.1em;
 }
-#yafmain .fileattach .attachedimg,
-#yafmain .fileattach .attachedfile {
+.yafnet .fileattach .attachedimg,
+.yafnet .fileattach .attachedfile {
 	margin-left: 10px;
 }
-#yafmain .fileattach a {
+.yafnet .fileattach a {
 	font-weight: bold;
 }
 /* Header of posts */
-#yafmain .postheader {
+.yafnet .postheader {
 	background-color: #E4EAF2;
 	color:#404040;
 }
 /* User info and post/article */
-#yafmain .post {
+.yafnet .post {
 	background-color: #DFE6EF;
 	color:#404040;
 }
-#yafmain .post_alt {
+.yafnet .post_alt {
 	background-color: #dfe9f7;
 	color:#404040;	
 }
-#yafmain .post_priority {
+.yafnet .post_priority {
 	font-weight:bold;
 }
 /* Footer of posts */
-#yafmain .postfooter {
+.yafnet .postfooter {
     background-color: #D1DCEB;
 }
 /* Area between posts */
-#yafmain .postsep {
+.yafnet .postsep {
 	background-color: #8394B2;
 	height: 2px 
 }
 /* most tables are class 'content' */
-#yafmain table.content {
+.yafnet table.content {
 	font-family: verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 	border: solid 1px #8394B2;
@@ -133,34 +133,34 @@
 	padding: 0px;
 	background-color: #FFFFFF;
 }
-#yafmain .content td {
+.yafnet .content td {
 	padding: 5px;
 }
-#yafmain .content td table td table td {
+.yafnet .content td table td table td {
 	padding: 0px;	
 }
-#yafmain #RichEdit td {
+.yafnet #RichEdit td {
 	padding: 0px;
 }
 /* links inside content table*/
-#yafmain .content a		{ color: #555555; text-decoration: none; }
-#yafmain .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
+.yafnet .content a		{ color: #555555; text-decoration: none; }
+.yafnet .content a:hover	{ color: #3A4F6C; text-decoration: underline;  }
 /* used for quoting messages */
-#yafmain .quote {
+.yafnet .quote {
 	margin-left: 16px;
 	padding-left: 16px;
 }
-#yafmain .innerquote {
+.yafnet .innerquote {
 	padding: 4px;
 	background-color: #E4EAF2;
 	border: solid 1px #8394B2;
 }
 /* used for code */
-#yafmain .code {
+.yafnet .code {
 	margin-left: 16px;
 	padding-left: 16px;	
 }
-#yafmain .innercode {
+.yafnet .innercode {
 	padding: 4px;
 	background-color: #FFFFFF;
 	border: solid 1px #95B4F3;
@@ -168,45 +168,45 @@
 	font-family:Courier New,Courier;
 }
 /* font sizes */
-#yafmain .smallfont	{ font-size: 7.5pt; }
-#yafmain .largefont	{ font-size: 9pt; }
+.yafnet .smallfont	{ font-size: 7.5pt; }
+.yafnet .largefont	{ font-size: 9pt; }
 /* Image Links */
-#yafmain a.imagelink {
+.yafnet a.imagelink {
 	font-size: 8pt;
 	font-weight: bold;
 	color: #000080;
 }
-#yafmain a:hover.imagelink {
+.yafnet a:hover.imagelink {
 	text-decoration: underline;
 	color: #0000FF;
 	/*background-color: #D0D0D0;*/
 }
 /* Used for editor textarea */
-#yafmain .posteditor {
+.yafnet .posteditor {
 	width: 100%;
 	height: 200px;
 	font-family: Verdana,Arial,Helvetica,sans-serif;
 	font-size: 8pt;
 }
 /* Table just above and below tables */
-#yafmain table.command {
+.yafnet table.command {
 	/*border: solid 1px blue;*/
 	padding: 3px;
 }
 /* p-tag at the top of pages with navigation links */
-#yafmain .navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
-#yafmain .navlinks a { color: #000000; text-decoration: none }
-#yafmain .navlinks a:hover { color: #6594D5; }
+.yafnet .navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
+.yafnet .navlinks a { color: #000000; text-decoration: none }
+.yafnet .navlinks a:hover { color: #6594D5; }
 /* for printing */
-#yafmain .print {
+.yafnet .print {
 	border: solid 1px #C0C0C0;
 }
-#yafmain .printheader {
+.yafnet .printheader {
 	background-color: #DDDDDD;
 	color: #000000;
 	padding: 4px;
 }
-#yafmain .printbody {
+.yafnet .printbody {
 	background-color: #FFFFFF;
 	color: #000000;
 	padding: 4px;
@@ -216,44 +216,44 @@ Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.
 This CSS already works on FireFox.
 */
-#yafmain div.postdiv {
+.yafnet div.postdiv {
 	width: 100%;
 	min-height: 100px;
 	overflow: auto;	
 }
 /* CSS Pagelinks */
-#yafmain .yafpager {
+.yafnet .yafpager {
 	color: #555555;
 	margin: 6px 0px 6px 0px;
 }
-#yafmain .pagelink,
-#yafmain .pagelinkfirst,
-#yafmain .pagelinklast,
-#yafmain .pagecurrent,
-#yafmain .pagecount{
+.yafnet .pagelink,
+.yafnet .pagelinkfirst,
+.yafnet .pagelinklast,
+.yafnet .pagecurrent,
+.yafnet .pagecount{
 	background: #F5F5F5;
 	border: 1px solid #444444;
 	padding: 1px 3px 1px 3px;
 	margin-right: 2px;
 }
-#yafmain .pagecount {
+.yafnet .pagecount {
 	margin-right: 5px;
 }
-#yafmain .pagelinkfirst,
-#yafmain .pagelinklast{
+.yafnet .pagelinkfirst,
+.yafnet .pagelinklast{
 	background: #e0e0e0;
 }
-#yafmain .pagecurrent{
+.yafnet .pagecurrent{
 	background: #dddddd;
 }
-#yafmain .pagelink a,
-#yafmain .pagelinkfirst a,
-#yafmain .pagelinklast a {
+.yafnet .pagelink a,
+.yafnet .pagelinkfirst a,
+.yafnet .pagelinklast a {
 	text-decoration: none;
 	color: #000090;
 }
 /* CCS Buttons */
-#yafmain a.yaflittlebutton {
+.yafnet a.yaflittlebutton {
 	background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
     color: #FFFFFF;
     display: block;
@@ -267,32 +267,32 @@ This CSS already works on FireFox.
     font-family: Arial;
     font-weight: bold;
 }
-#yafmain a.yaflittlebutton span {
+.yafnet a.yaflittlebutton span {
     background: transparent url('ButtonBack.gif') no-repeat;
     display: block;
     line-height: 11px;
     padding: 4px 3px 4px 8px;
 }
-#yafmain a.yaflittlebutton img {
+.yafnet a.yaflittlebutton img {
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
-#yafmain a.yaflittlebutton:hover {
+.yafnet a.yaflittlebutton:hover {
 	color: #000000;
 	text-decoration: none;
 }
-#yafmain a.yaflittlebutton:active {
+.yafnet a.yaflittlebutton:active {
     background-position: bottom right;
     outline: none;
 }
-#yafmain a.yaflittlebutton:active img {
+.yafnet a.yaflittlebutton:active img {
     padding: 0px 4px 2px 0px;
 }
-#yafmain a.yaflittlebutton:active span{
+.yafnet a.yaflittlebutton:active span{
     background-position: bottom left;
     padding: 5px 3px 3px 8px;
 }
-#yafmain a.yafcssbigbutton{
+.yafnet a.yafcssbigbutton{
 	background: transparent url('ButtonEndBig.gif') no-repeat scroll top right;
     color: #FFFFFF;
     display: block;
@@ -306,71 +306,71 @@ This CSS already works on FireFox.
     font-family: Arial;
     font-weight: bold;
 }
-#yafmain a.yafcssbigbutton span{
+.yafnet a.yafcssbigbutton span{
     background: transparent url('ButtonBackBig.gif') no-repeat;
     display: block;
     line-height: 14px;
     padding: 5px 3px 5px 7px;
 }
-#yafmain a.yafcssbigbutton img{
+.yafnet a.yafcssbigbutton img{
 	vertical-align: middle;
 	padding: 0px 4px 2px 0px;
 }
-#yafmain a.yafcssbigbutton:hover {
+.yafnet a.yafcssbigbutton:hover {
 	color: #000000;
 	text-decoration: none;
 }
-#yafmain a.yafcssbigbutton:active{
+.yafnet a.yafcssbigbutton:active{
     background-position: bottom right;
     outline: none; /* hide dotted outline in Firefox */
 }
-#yafmain a.yafcssbigbutton:active img{
+.yafnet a.yafcssbigbutton:active img{
     padding: 0px 4px 2px 0px;
 }
-#yafmain a.yafcssbigbutton:active span{
+.yafnet a.yafcssbigbutton:active span{
     background-position: bottom left;
     padding: 6px 3px 4px 7px;
 }
 /* CSS Popupmenu */
-#yafmain .yafpopupmenu {
+.yafnet .yafpopupmenu {
 	background-color: #ffffff;
 	border: solid 1px #333333;
 	
 }
-#yafmain .yafpopupmenu ul {	
+.yafnet .yafpopupmenu ul {	
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
 }
-#yafmain .yafpopupmenu li {
+.yafnet .yafpopupmenu li {
 	padding: 5px 10px 5px 10px;
 	margin: 0;
 }
-#yafmain .yafpopupmenu li.popupitemhover {
+.yafnet .yafpopupmenu li.popupitemhover {
 	background-color: #cccccc;
 }
 /* ajax tabs */
 /* default layout */
-#yafmain .ajax__tab_default .ajax__tab_header {white-space:nowrap;}
-#yafmain .ajax__tab_default .ajax__tab_outer {display:-moz-inline-box;display:inline-block}
-#yafmain .ajax__tab_default .ajax__tab_inner {display:-moz-inline-box;display:inline-block}
-#yafmain .ajax__tab_default .ajax__tab_tab {margin-right:4px;overflow:hidden;text-align:center;cursor:pointer;display:-moz-inline-box;display:inline-block}
+.yafnet .ajax__tab_default .ajax__tab_header {white-space:nowrap;}
+.yafnet .ajax__tab_default .ajax__tab_outer {display:-moz-inline-box;display:inline-block}
+.yafnet .ajax__tab_default .ajax__tab_inner {display:-moz-inline-box;display:inline-block}
+.yafnet .ajax__tab_default .ajax__tab_tab {margin-right:4px;overflow:hidden;text-align:center;cursor:pointer;display:-moz-inline-box;display:inline-block}
 
 /* xp theme */
-#yafmain .ajax__tab_xp .ajax__tab_header {font-family:verdana,tahoma,helvetica;font-size:11px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-line.gif")%>) repeat-x bottom;}
-#yafmain .ajax__tab_xp .ajax__tab_outer {padding-right:4px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-right.gif")%>) no-repeat right;height:21px;}
-#yafmain .ajax__tab_xp .ajax__tab_inner {padding-left:3px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-left.gif")%>) no-repeat;}
-#yafmain .ajax__tab_xp .ajax__tab_tab {height:13px;padding:4px;margin:0;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab.gif")%>) repeat-x;}
-#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-right.gif")%>) no-repeat right;}
-#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-left.gif")%>) no-repeat;}
-#yafmain .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover.gif")%>) repeat-x;}
-#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-right.gif")%>) no-repeat right;}
-#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-left.gif")%>) no-repeat;}
-#yafmain .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active.gif")%>) repeat-x;}
-#yafmain .ajax__tab_xp .ajax__tab_body {font-family:verdana,tahoma,helvetica;font-size:10pt;border:1px solid #000000;border-top:0;padding:5px;}
+.yafnet .ajax__tab_xp .ajax__tab_header {font-family:verdana,tahoma,helvetica;font-size:11px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-line.gif")%>) repeat-x bottom;}
+.yafnet .ajax__tab_xp .ajax__tab_outer {padding-right:4px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-right.gif")%>) no-repeat right;height:21px;}
+.yafnet .ajax__tab_xp .ajax__tab_inner {padding-left:3px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-left.gif")%>) no-repeat;}
+.yafnet .ajax__tab_xp .ajax__tab_tab {height:13px;padding:4px;margin:0;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab.gif")%>) repeat-x;}
+.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-right.gif")%>) no-repeat right;}
+.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-left.gif")%>) no-repeat;}
+.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover.gif")%>) repeat-x;}
+.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-right.gif")%>) no-repeat right;}
+.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-left.gif")%>) no-repeat;}
+.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active.gif")%>) repeat-x;}
+.yafnet .ajax__tab_xp .ajax__tab_body {font-family:verdana,tahoma,helvetica;font-size:10pt;border:1px solid #000000;border-top:0;padding:5px;}
 
 /* scrolling */
-#yafmain .ajax__scroll_horiz {overflow-x:scroll;}
-#yafmain .ajax__scroll_vert {overflow-y:scroll;}
-#yafmain .ajax__scroll_both {overflow:scroll}
-#yafmain .ajax__scroll_auto {overflow:auto}
+.yafnet .ajax__scroll_horiz {overflow-x:scroll;}
+.yafnet .ajax__scroll_vert {overflow-y:scroll;}
+.yafnet .ajax__scroll_both {overflow:scroll}
+.yafnet .ajax__scroll_auto {overflow:auto}

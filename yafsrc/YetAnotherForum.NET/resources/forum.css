@@ -1,68 +1,68 @@
 /*
 	This File is for basic LAYOUT CSS -- Not for Color/Design which should stay in the theme.css file
 */
-#yafmain .quickReplyLine
+.yafnet .quickReplyLine
 {
 	padding: 5px 10px 5px 5px;
 	height:100px;	
 }
-#yafmain textarea.basicBBCodeEditor 
+.yafnet textarea.basicBBCodeEditor 
 {
 	width: 100%;
 	height: 100%;
 }
-#yafmain textarea.BBCodeEditor 
+.yafnet textarea.BBCodeEditor 
 {
 	width: 100%;
 	height: 350px;
 }
-#yafmain #DivForumJump
+.yafnet #DivForumJump
 {
 	float:right;
 	margin-top: 10px;
 }
-#yafmain #DivPageAccess
+.yafnet #DivPageAccess
 {
 	clear:right;
 	float:right;
 	margin-top: 10px;
 }
-#yafmain #DivIconLegend
+.yafnet #DivIconLegend
 {
 	float:left;
 	margin-top: 10px;
 }
-#yafmain #DivSmartScroller
+.yafnet #DivSmartScroller
 {
 	clear:both;
 }
-#yafmain .postsep td
+.yafnet .postsep td
 {
 	padding:0px;
 }
-#yafmain .yafpopupmenu
+.yafnet .yafpopupmenu
 {
 	padding:0px;
 }
-#yafmain .fileattach
+.yafnet .fileattach
 {
 	margin: 15px 0px 0px 0px;
 }
-#yafmain #yafprofilemenu
+.yafnet #yafprofilemenu
 {
 	float:left;
 	width: 150px;
 	margin: 5px 5px 5px 0px;
 }
-#yafmain #yafprofilecontent
+.yafnet #yafprofilecontent
 {
 	margin: 5px 0px 5px 0px;
 	float: left;
 }
 /* One Exception: Default CSS for Syntaxt Highlighting */
-#yafmain .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
-#yafmain .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
-#yafmain .yafcodehighlighting .integer { color : #FF0032; }
-#yafmain .yafcodehighlighting .comment { color : #008100; }
-#yafmain .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
-#yafmain .yafcodehighlighting .string { color : #FF0022; }
+.yafnet .yafcodehighlighting .keytype { color : #FF9933; font-weight : normal; }
+.yafnet .yafcodehighlighting .keyword { color : #224FFF; font-weight : normal; }
+.yafnet .yafcodehighlighting .integer { color : #FF0032; }
+.yafnet .yafcodehighlighting .comment { color : #008100; }
+.yafnet .yafcodehighlighting .errors { color : #FF0000; font-weight : bold; }
+.yafnet .yafcodehighlighting .string { color : #FF0022; }
