@@ -107,6 +107,24 @@ namespace YAF.Install
 			{
 				InstallWizard.ActiveStepIndex++;
 			}
+			else if ( InstallWizard.ActiveStepIndex == 4 )
+			{
+				if ( !IsInstalled )
+				{
+					// no migration because it's a new install...
+					InstallWizard.ActiveStepIndex++;
+				}
+				else
+				{
+					int version = DBVersion;
+
+					if ( version >= 30 )
+					{
+						// migration is NOT needed...
+						InstallWizard.ActiveStepIndex++;
+					}
+				}
+			}
 		}
 
 		protected void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
@@ -245,6 +263,31 @@ namespace YAF.Install
 				return false;
 			}
 			return true;
+		}
+		#endregion
+
+		#region property DBVersion
+		static int DBVersion
+		{
+			get
+			{
+				try
+				{
+					using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "version" ) )
+					{
+						if ( dt.Rows.Count > 0 )
+						{
+							// get the version...
+							return Convert.ToInt32( dt.Rows [0] ["Value"] );
+						}
+					}
+				}
+				catch
+				{
+				}
+
+				return -1;
+			}
 		}
 		#endregion
 
@@ -577,10 +620,5 @@ namespace YAF.Install
 			}
 		}
 		#endregion
-
-		protected void InstallWizard_ActiveStepChanged( object sender, EventArgs e )
-		{
-
-		}
 }
 }

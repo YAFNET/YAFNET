@@ -101,19 +101,15 @@
 					<asp:WizardStep runat="server" StepType="Start" Title="Migrate Users">
 						<strong>Migrate Roles and Users</strong><br />
 						<br />
-						Clicking next will migrate all roles and users from Yet Another Forum.net to ASP.NET.
-						This means that all of the users in your forum database will be converted to users
-						in the ASP.NET DB with new passwords mailed to their e-mail address.<br />
+						Clicking next will migrate all roles and users from your old Yet Another Forum.NET database
+						to the newer database format.<br />
 						<br />
-						If you don't want to migrate any existing users to the ASP.NET DB you can skip this
-						step.<br />
-						&nbsp;<br />
-						<asp:CheckBox ID="skipMigration" runat="server" Text=" Skip Migration" />
+						<asp:CheckBox ID="skipMigration" runat="server" Text=" Skip Migration" visible="false"/>
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Finish" Title="Finished">
-						<strong>Upgrade Finished</strong><br />
+						<strong>Setup/Upgrade Finished</strong><br />
 						<br />
-						Your forum has now been upgraded to the latest version.
+						Your forum has now been setup or upgraded to the latest version.
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Database Connection">
 						<strong>Database Connection</strong><br />
@@ -126,7 +122,6 @@
 					Font-Bold="True" Font-Size="0.9em" ForeColor="White" HorizontalAlign="Center" />
 			</asp:Wizard>
 		</div>
-		<YAF:SmartScroller runat="server" ID="scroller" />
 	</form>
 </body>
 </html>
