@@ -756,15 +756,15 @@ IF EXISTS (SELECT *
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_simplelist] 
 GO
 
-IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_delete]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_delete]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_delete]
 GO
 
-IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_list]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_list]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_list]
 GO
 
-IF  EXISTS (SELECT * FROM sys.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_save]') AND Objectproperty(id,N'IsProcedure') = 1)
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}bbcode_save]') AND Objectproperty(id,N'IsProcedure') = 1)
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
 GO
 
