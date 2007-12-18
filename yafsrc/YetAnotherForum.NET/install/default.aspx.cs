@@ -73,7 +73,7 @@ namespace YAF.Install
 			}
 		}
 
-		void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
+		protected void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			if ( YAF.Classes.Config.IsDotNetNuke )
 			{
@@ -87,7 +87,7 @@ namespace YAF.Install
 				Response.Redirect( "~/" );
 		}
 
-		void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
+		protected void Wizard_PreviousButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			// go back only from last step (to user/roles migration)
 			if ( e.CurrentStepIndex == ( InstallWizard.WizardSteps.Count - 1 ) )
@@ -97,7 +97,7 @@ namespace YAF.Install
 				e.Cancel = true;
 		}
 
-		void Wizard_ActiveStepChanged( object sender, EventArgs e )
+		protected void Wizard_ActiveStepChanged( object sender, EventArgs e )
 		{
 			if ( InstallWizard.ActiveStepIndex == 1 && !IsInstalled )
 			{
@@ -109,7 +109,7 @@ namespace YAF.Install
 			}
 		}
 
-		void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
+		protected void Wizard_NextButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			e.Cancel = true;
 			//try
