@@ -41,6 +41,7 @@ namespace YAF.Install
 	/// </summary>
 	public partial class _default : System.Web.UI.Page
 	{
+		protected int _dbVersionBeforeUpgrade;
 		private string _loadMessage = "";
 		private string [] _scripts = new string []
 		{
@@ -62,6 +63,8 @@ namespace YAF.Install
 		{
 			if ( !IsPostBack )
 			{
+				Cache["DBVersion"] = DBVersion;
+
 				if ( IsInstalled )
 					InstallWizard.ActiveStepIndex = 1;
 				else
@@ -116,13 +119,17 @@ namespace YAF.Install
 				}
 				else
 				{
-					int version = DBVersion;
+					object version = Cache["DBVersion"];
 
-					if ( version >= 30 )
+					if (version == null) version = DBVersion;
+
+					if (((int)version) >= 30 )
 					{
 						// migration is NOT needed...
 						InstallWizard.ActiveStepIndex++;
 					}
+
+					Cache.Remove("DBVersion");
 				}
 			}
 		}
@@ -267,23 +274,24 @@ namespace YAF.Install
 		#endregion
 
 		#region property DBVersion
-		static int DBVersion
+		private int DBVersion
 		{
 			get
 			{
 				try
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "version" ) )
+					using (DataTable dt = YAF.Classes.Data.DB.registry_list("version"))
 					{
-						if ( dt.Rows.Count > 0 )
+						if (dt.Rows.Count > 0)
 						{
 							// get the version...
-							return Convert.ToInt32( dt.Rows [0] ["Value"] );
+							return Convert.ToInt32(dt.Rows[0]["Value"]);
 						}
 					}
 				}
 				catch
 				{
+					// Handle exception here
 				}
 
 				return -1;
