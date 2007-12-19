@@ -1,7 +1,7 @@
 -- Enables FULLTEXT support for YAF
 -- Must be MANUALLY run against the YAF DB
 
-if (select DATABASEPROPERTY(DB_NAME(), N'IsFullTextEnabled')) <> 1 
+if (select fulltextserviceproperty('IsFulltextInstalled'))=1 and (select DATABASEPROPERTY(DB_NAME(), N'IsFullTextEnabled')) <> 1 
 	exec sp_fulltext_database N'enable' 
 GO
 
