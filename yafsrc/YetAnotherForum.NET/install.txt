@@ -8,7 +8,12 @@ updated.
 
 1. Unzip to a folder available from your web server.
 
-2. Modify the "db.config" file:
+2. Rename development.config or release.config (which one depends on whether
+   you are setting production or testing web) to web.config. If you are merging
+   YAF to your web application, make sure to merge one of those configs with
+   web.config file.
+
+   Modify the "db.config" file:
 
    Modify the yafnet connectionString property to use your database. 
    The database can be an already existing database, or you can 
