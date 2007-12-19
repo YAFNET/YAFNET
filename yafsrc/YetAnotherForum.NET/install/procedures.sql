@@ -2435,14 +2435,15 @@ GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_reportcopyover](@MessageID int) AS
 BEGIN
-	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported] 
-	SET [{databaseOwner}].[{objectQualifier}MessageReported].Message = (SELECT Message FROM [{databaseOwner}].[{objectQualifier}Message] WHERE [{databaseOwner}].[{objectQualifier}Message].MessageID=@MessageID)
-	WHERE MessageID = @MessageID;
-
+	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
+	SET [{databaseOwner}].[{objectQualifier}MessageReported].Message = m.Message
+	FROM [{databaseOwner}].[{objectQualifier}MessageReported] mr
+	JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = @MessageID
+	WHERE mr.MessageID = @MessageID;
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}message_save](
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_save](
 	@TopicID		int,
 	@UserID			int,
 	@Message		ntext,
