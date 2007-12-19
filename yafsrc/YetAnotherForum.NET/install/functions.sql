@@ -304,4 +304,5 @@ BEGIN
 		@LastTopicID,
 		@LastPosted
 	RETURN
-END;
+END
+GO
