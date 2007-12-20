@@ -68,7 +68,7 @@ namespace YAF.Pages.Admin
 
 			foreach ( string role in Roles.GetAllRoles() )
 			{
-				string filter = string.Format( "Name='{0}'", role );
+				string filter = string.Format( "Name='{0}'", role.Replace("'", "''") );
 				DataRow [] rows = dt.Select( filter );
 
 				if ( rows.Length == 0 )
