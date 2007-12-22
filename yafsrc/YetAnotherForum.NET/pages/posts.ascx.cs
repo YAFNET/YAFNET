@@ -113,7 +113,7 @@ namespace YAF.Pages // YAF.Pages
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
 				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&amp;t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
+				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString["g"], PageContext.PageTopicID);
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
 				if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||

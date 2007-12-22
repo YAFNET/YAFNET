@@ -58,7 +58,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			Mession.UnreadTopics = 0;
-			RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString ["f"] );
+			RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString["f"]);
 			RssFeed.Text = GetText( "RSSFEED" );
 			RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
 			RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;

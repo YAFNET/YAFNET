@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildLink.cs" />
     <Compile Include="Caching.cs" />
     <Compile Include="Config\BoardSettings.cs" />
     <Compile Include="Config\ForumPages.cs" />

@@ -22,19 +22,23 @@ using System.Web;
 
 namespace YAF.Classes
 {
-	public interface IUrlBuilder
-	{
-		string BuildUrl( string url );
-	}
-
+	/// <summary>
+	/// Implements URL Builder.
+	/// </summary>
 	public class UrlBuilder : IUrlBuilder
 	{
-		public string BuildUrl( string url )
+		/// <summary>
+		/// Builds URL for calling page with parameter URL as page's escaped parameter.
+		/// </summary>
+		/// <param name="url">URL to put into parameter.</param>
+		/// <returns>URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.</returns>
+		public string BuildUrl(string url)
 		{
 			// escape & to &amp;
 			url = url.Replace( "&", "&amp;" );
 
-			return string.Format( "{0}?{1}", HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"], url );
+			// return URL to current script with URL from parameter as script's parameter
+			return String.Format( "{0}?{1}", HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"], url );
 		}
 	}
 }

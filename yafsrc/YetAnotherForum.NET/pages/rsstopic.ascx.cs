@@ -63,7 +63,7 @@ namespace YAF.Pages // YAF.Pages
 					using ( DataTable dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+							rf.AddRSSItem(writer, row["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
 					break;
 				case "latestannouncements":
@@ -72,7 +72,7 @@ namespace YAF.Pages // YAF.Pages
 					using ( DataTable dt = YAF.Classes.Data.DB.topic_announcements( PageContext.PageBoardID, 7, PageContext.PageUserID ) )
 					{
 						foreach ( DataRow row in dt.Rows )
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+							rf.AddRSSItem(writer, row["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 					}
 					break;
 				case "posts":
@@ -84,7 +84,7 @@ namespace YAF.Pages // YAF.Pages
 						using ( DataTable dt = YAF.Classes.Data.DB.post_list( PageContext.PageTopicID, 1, PageContext.BoardSettings.ShowDeletedMessages ) )
 						{
 							foreach ( DataRow row in dt.Rows )
-								rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", Request.QueryString ["t"] ), row ["Message"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem(writer, row["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Request.QueryString["t"]), row["Message"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 						}
 					}
 
@@ -96,11 +96,11 @@ namespace YAF.Pages // YAF.Pages
 						{
 							if ( row ["LastTopicID"] != DBNull.Value )
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem(writer, row["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", row["ForumID"]), row["Description"].ToString());
 							}
 							else
 							{
-								rf.AddRSSItem( writer, row ["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.topics, "f={0}", row ["ForumID"] ), row ["Description"].ToString() );
+								rf.AddRSSItem(writer, row["Forum"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", row["ForumID"]), row["Description"].ToString());
 							}
 						}
 					}
@@ -116,7 +116,7 @@ namespace YAF.Pages // YAF.Pages
 						{
 							foreach ( DataRow row in dt.Rows )
 							{
-								rf.AddRSSItem( writer, row ["Topic"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", row ["TopicID"] ), row ["Topic"].ToString(), Convert.ToDateTime( row ["Posted"] ).ToString( "r" ) );
+								rf.AddRSSItem(writer, row["Topic"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["TopicID"]), row["Topic"].ToString(), Convert.ToDateTime(row["Posted"]).ToString("r"));
 							}
 						}
 					}
@@ -127,7 +127,7 @@ namespace YAF.Pages // YAF.Pages
 					{
 						foreach ( DataRow row in dt.Rows )
 						{
-							rf.AddRSSItem( writer, row ["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLink( ForumPages.posts, "t={0}", row ["LinkTopicID"] ), row ["Subject"].ToString() );
+							rf.AddRSSItem(writer, row["Subject"].ToString(), YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["LinkTopicID"]), row["Subject"].ToString());
 						}
 					}
 					break;
@@ -146,6 +146,7 @@ namespace YAF.Pages // YAF.Pages
 
 			Response.End();
 		}
+
 
 		#region Web Form Designer generated code
 		override protected void OnInit( EventArgs e )

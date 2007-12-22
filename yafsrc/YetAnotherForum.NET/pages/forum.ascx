@@ -49,7 +49,7 @@
 		<tr><td colspan="6" align="right" class="footer1">
 			<asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# GetText("MARKALL") %>' />
 			<span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>|</span>
-      <asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLink( ForumPages.rsstopic, "pg=forum" ) %>' visible='<%# PageContext.BoardSettings.ShowRSSLink %>'><%# GetText( "RSSFEED" ) %></asp:HyperLink>
+      <asp:HyperLink ID="RssFeed" runat="server" NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.rsstopic, "pg=forum" ) %>' visible='<%# PageContext.BoardSettings.ShowRSSLink %>'><%# GetText( "RSSFEED" ) %></asp:HyperLink>
 		</td></tr>
 		</table>
 	</FooterTemplate>
