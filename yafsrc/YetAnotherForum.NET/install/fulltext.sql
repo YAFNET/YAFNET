@@ -8,7 +8,9 @@ GO
 if (select DATABASEPROPERTY(DB_NAME(), N'IsFullTextEnabled')) = 1
 BEGIN
 	if not exists (select * from dbo.sysfulltextcatalogs where name = N'YafSearch')
-	BEGIN TRY
+	
+	--TRY/CATCH was introduced in MSSQL2005, we need compatibility with MSSQL2000
+	--BEGIN TRY
 		EXEC sp_fulltext_catalog N'YafSearch', N'create'
 		EXEC sp_fulltext_table N'[{databaseOwner}].[{objectQualifier}Message]', N'create', N'YafSearch', N'PK_yaf_Message'	
 		EXEC sp_fulltext_column N'[{databaseOwner}].[{objectQualifier}Message]', N'Message', N'add'
@@ -27,9 +29,9 @@ BEGIN
 			UPDATE [{databaseOwner}].[{objectQualifier}Registry] SET [Value] = '1' WHERE [Name] = N'usefulltextsearch'
 		ELSE
 			INSERT INTO [{databaseOwner}].[{objectQualifier}Registry] ([Name],[Value],[BoardID]) VALUES (N'usefulltextsearch','1',NULL);
-	END TRY
-	BEGIN CATCH
+	--END TRY
+	--BEGIN CATCH
 	
-	END CATCH	
+	--END CATCH	
 END
 GO
