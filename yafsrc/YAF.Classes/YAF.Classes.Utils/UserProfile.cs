@@ -36,7 +36,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "Location;nvarchar;255" )]
     public string Location
     {
       get { return base["Location"] as string; }
@@ -44,7 +44,7 @@ namespace YAF.Classes.Utils
     }
 
 		[SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "Homepage;nvarchar;255" )]
 		public string Homepage
 		{
 			get { return base ["Homepage"] as string; }
@@ -52,7 +52,7 @@ namespace YAF.Classes.Utils
 		}
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "MSN;nvarchar;255" )]
     public string MSN
     {
       get { return base["MSN"] as string; }
@@ -60,7 +60,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "YIM;nvarchar;255" )]
     public string YIM
     {
       get { return base["YIM"] as string; }
@@ -68,7 +68,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "AIM;nvarchar;255" )]
     public string AIM
     {
       get { return base["AIM"] as string; }
@@ -76,7 +76,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "ICQ;nvarchar;255" )]
     public string ICQ
     {
       get { return base["ICQ"] as string; }
@@ -84,7 +84,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "GoogleTalk;nvarchar;255" )]
     public string GoogleTalk
     {
       get { return base["GoogleTalk"] as string; }
@@ -92,7 +92,7 @@ namespace YAF.Classes.Utils
     }
 
 		[SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "Skype;nvarchar;255" )]
 		public string Skype
 		{
 			get { return base ["Skype"] as string; }
@@ -100,7 +100,7 @@ namespace YAF.Classes.Utils
 		}
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "Blog;nvarchar;255" )]
     public string Blog
     {
       get { return base["Blog"] as string; }
@@ -108,7 +108,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "BlogServiceUrl;nvarchar;255" )]
     public string BlogServiceUrl
     {
       get { return base["BlogServiceUrl"] as string; }
@@ -116,7 +116,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "BlogServiceUsername;nvarchar;255" )]
     public string BlogServiceUsername
     {
       get { return base["BlogServiceUsername"] as string; }
@@ -124,7 +124,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "BlogServicePassword;nvarchar;255" )]
     public string BlogServicePassword
     {
       get { return base["BlogServicePassword"] as string; }
@@ -132,7 +132,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;255" )]
+		[CustomProviderData( "RealName;nvarchar;255" )]
     public string RealName
     {
       get { return base["RealName"] as string; }
@@ -140,7 +140,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;400" )]
+		[CustomProviderData( "Occupation;nvarchar;400" )]
     public string Occupation
     {
       get { return base["Occupation"] as string; }
@@ -148,7 +148,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "nvarchar;400" )]
+		[CustomProviderData( "Interests;nvarchar;400" )]
     public string Interests
     {
       get { return base["Interests"] as string; }
@@ -156,7 +156,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "int" )]
+		[CustomProviderData( "Gender;int" )]
     public int Gender
     {
       get { return (int)base["Gender"]; }
@@ -164,7 +164,7 @@ namespace YAF.Classes.Utils
     }
 
     [SettingsAllowAnonymous( false )]
-		[CustomProviderData( "DateTime" )]
+		[CustomProviderData( "Birthday;DateTime" )]
     public DateTime Birthday
     {
       get { return (DateTime)base["Birthday"]; }

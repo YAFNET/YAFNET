@@ -222,15 +222,18 @@ namespace YAF.Providers.Profile
 			// split the data
 			string [] chunk = providerData.Split( new char [] { ';' } );
 
-			// get the datatype and ignore case...
-			dbType = ( SqlDbType )Enum.Parse( typeof( SqlDbType ), chunk [0], true );
+			// first item is the column name...
+			string columnName = chunk [0];
 
-			if ( chunk.Length > 1 )
+			// get the datatype and ignore case...
+			dbType = ( SqlDbType )Enum.Parse( typeof( SqlDbType ), chunk [1], true );
+
+			if ( chunk.Length > 2 )
 			{
 				// handle size...
-				if ( !Int32.TryParse( chunk [1], out size ) )
+				if ( !Int32.TryParse( chunk [2], out size ) )
 				{
-					throw new ArgumentException( "Unable to parse as integer: " + chunk [1] );
+					throw new ArgumentException( "Unable to parse as integer: " + chunk [2] );
 				}
 			}
 
