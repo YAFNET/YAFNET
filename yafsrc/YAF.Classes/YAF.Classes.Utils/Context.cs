@@ -786,6 +786,11 @@ namespace YAF.Classes.Utils
 						path = YAF.Classes.Config.Root;
 						if ( path [0] != '/' ) path = path.Insert( 0, "/" );
 
+						if ( path.StartsWith( "~" ) )
+						{
+							// transform with application path...
+							path = System.Web.HttpContext.Current.Server.MapPath( path );
+						}
 					}
 					else if ( YAF.Classes.Config.IsDotNetNuke )
 					{
@@ -912,7 +917,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return new DateTime( 2007, 12, 18 );
+				return new DateTime( 2007, 12, 22 );
 			}
 		}
 		#endregion
