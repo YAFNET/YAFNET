@@ -52,7 +52,6 @@ namespace YAF.Install
       "views.sql",
       "procedures.sql",
 			"functions.sql",
-			"fulltext.sql",
 			"providers/procedures.sql",
 			"providers/tables.sql",
 			"providers/indexes.sql"
@@ -178,7 +177,7 @@ namespace YAF.Install
 							AddLoadMessage( "Wrong password!" );
 						break;
 					case 2:
-						if ( UpgradeDatabase() )
+						if ( UpgradeDatabase( FullTextSupport.Checked ) )
 							e.Cancel = false;
 						break;
 					case 3:
@@ -239,7 +238,7 @@ namespace YAF.Install
 		#endregion
 
 		#region method UpgradeDatabase
-		bool UpgradeDatabase()
+		bool UpgradeDatabase(bool fullText)
 		{
 			try
 			{
@@ -247,7 +246,7 @@ namespace YAF.Install
 
 				foreach ( string script in _scripts )
 				{
-					ExecuteScript( script, ( script == "fulltext.sql" ) ? false : true );
+					ExecuteScript( script, true );
 				}
 
 				FixAccess( true );
@@ -269,6 +268,21 @@ namespace YAF.Install
 				AddLoadMessage( x.Message );
 				return false;
 			}
+
+			// attempt to apply fulltext support if desired
+			if ( fullText )
+			{
+				try
+				{
+					ExecuteScript( "fulltext.sql", false );
+				}
+				catch ( Exception x )
+				{
+					// just a warning...
+					AddLoadMessage( "Warning: FullText Support wasn't installed: " + x.Message );
+				}
+			}
+
 			return true;
 		}
 		#endregion

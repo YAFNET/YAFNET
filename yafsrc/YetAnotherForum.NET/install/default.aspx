@@ -9,7 +9,7 @@
 <body>
 	<form runat="server">
 		<div align="center">
-			<asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="0" BackColor="#EFF3FB"
+			<asp:Wizard ID="InstallWizard" runat="server" ActiveStepIndex="2" BackColor="#EFF3FB"
 				BorderColor="#B5C7DE" BorderWidth="1px" Font-Names="Verdana" Font-Size="Small"
 				Width="480px" CellPadding="8" DisplaySideBar="False" OnActiveStepChanged="Wizard_ActiveStepChanged"
 				OnFinishButtonClick="Wizard_FinishButtonClick" OnPreviousButtonClick="Wizard_PreviousButtonClick"
@@ -45,7 +45,10 @@
 					<asp:WizardStep runat="server" StepType="Start" Title="Upgrade Database">
 						<strong>Initialize/Upgrade Database</strong><br />
 						<br />
-						Clicking next will initalize/upgrade your database to the latest version.</asp:WizardStep>
+						Clicking next will initalize/upgrade your database to the latest version.<br />
+                        <br />
+                        <asp:CheckBox ID="FullTextSupport" runat="server" Text="Attempt to Install FullText Search Support" />
+                    </asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Create Forum">
 						<strong>Create Forum</strong><br />
 						<p>
@@ -104,7 +107,7 @@
 						Clicking next will migrate all roles and users from your old Yet Another Forum.NET database
 						to the newer database format.<br />
 						<br />
-						<asp:CheckBox ID="skipMigration" runat="server" Text=" Skip Migration" visible="false"/>
+						<asp:CheckBox ID="skipMigration" runat="server" Text=" Skip Migration" visible="False"/>
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Finish" Title="Finished">
 						<strong>Setup/Upgrade Finished</strong><br />
