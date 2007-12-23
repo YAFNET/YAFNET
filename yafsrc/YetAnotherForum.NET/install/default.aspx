@@ -1,7 +1,7 @@
 <%@ Page Language="c#" CodeFile="default.aspx.cs" AutoEventWireup="True" Inherits="YAF.Install._default" %>
 
 <html>
-<head>
+<head runat="server">
 	<title>Yet Another Forum.NET Installation</title>
 	<link type="text/css" rel="stylesheet" href="../resources/forum.css" />
 	<link type="text/css" rel="stylesheet" href="../themes/FlatEarth/theme.css" />
