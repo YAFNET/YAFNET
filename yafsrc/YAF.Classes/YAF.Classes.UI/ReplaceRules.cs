@@ -426,7 +426,7 @@ namespace YAF.Classes.UI
 		private int _currentIndex = 0;
 		private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 		private Regex _rgxHtml;
-		private string _replaceFormat = "[ @CODE({1})INDEX({0})CODE({1})INDEX@ ]";
+		private string _replaceFormat = "@ёв{1}ъж{0}ѕц@";
 		private int _randomInstance;
 
 		public HtmlReplacementCollection()
