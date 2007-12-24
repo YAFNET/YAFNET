@@ -140,7 +140,8 @@ function setCaretToPos (input, pos) {
 }
 
 function replaceSelection (input, replaceString) {
-	if (input.setSelectionRange) {
+	if (input.setSelectionRange)
+	{
 		var selectionStart = input.selectionStart;
 		var selectionEnd = input.selectionEnd;
 		input.value = input.value.substring(0, selectionStart)
@@ -151,18 +152,14 @@ function replaceSelection (input, replaceString) {
 				replaceString.length);
 		else // set caret
 			setCaretToPos(input, selectionStart + replaceString.length);
-	} else if (document.selection) {
-		if(input.caretPos) {
-			var caretPos = input.caretPos;
-			caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : replaceString;
-			if(caretPos.text!='') {
-				caretPos.moveStart('character', -replaceString.length);
-				caretPos.select();
-			}
-		} else {
-			input.value += replaceString;
-		}
-	} else {
+	}
+	else if (document.selection)
+	{	
+	    input.focus();	    
+	    document.selection.createRange().text = replaceString;  
+	}
+	else
+	{
 		input.value += replaceString;
 		input.focus();
 	}
