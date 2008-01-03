@@ -1,5 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumStatistics.ascx.cs"
 	Inherits="YAF.Controls.ForumStatistics" %>
+<asp:UpdatePanel ID="UpdateStatsPanel" runat="server">
+<ContentTemplate>
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>
 		<td class="header1" colspan="2">
@@ -58,3 +60,5 @@
 		</tr>
 	</asp:PlaceHolder>
 </table>
+</ContentTemplate>
+</asp:UpdatePanel>

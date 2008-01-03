@@ -7,7 +7,6 @@
 .ajax__tab_default .ajax__tab_inner {height : 100%;} .ajax__tab_default .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_tab {height:100%} .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;} 
 </style-->
 
-<asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True" />
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div>
