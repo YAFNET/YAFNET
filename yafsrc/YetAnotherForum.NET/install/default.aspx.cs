@@ -392,7 +392,13 @@ namespace YAF.Install
 				{
 					Roles.CreateRole( "Registered" );
 				}
-				Roles.AddUserToRole( user.UserName, "Administrators" );
+				if ( !Roles.IsUserInRole( "Administrators" ) )
+				{
+					Roles.AddUserToRole( user.UserName, "Administrators" );
+				}
+
+				// logout administrator...
+				FormsAuthentication.SignOut();
 
 				using ( SqlCommand cmd = DBAccess.GetCommand( "system_initialize" ) )
 				{
