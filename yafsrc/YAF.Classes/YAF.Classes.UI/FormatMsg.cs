@@ -229,14 +229,32 @@ namespace YAF.Classes.UI
 			return FormatMessage( message, messageFlags, isModeratorChanged, false );
 		}
 
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
+		{
+			return FormatMessage( message, messageFlags, isModeratorChanged, targetBlankOverride, DateTime.Now );
+		}
+
 		// format message regex
 		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
-		//if message was deleted then write that instead of real body
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
+		
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride, DateTime messageLastEdited )
 		{
 			ReplaceRules ruleEngine = new ReplaceRules();
 
+			bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
+
+			// check to see if no follow should be disabled since the message is properly aged
+			if ( useNoFollow && YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay > 0 )
+			{
+				TimeSpan messageAge = messageLastEdited - DateTime.Now;
+				if ( messageAge.Days > YafContext.Current.BoardSettings.DisableNoFollowLinksAfterDay )
+				{
+					// disable no follow
+					useNoFollow = false;
+				}				
+			}
+
+			// if message was deleted then write that instead of real body
 			if ( messageFlags.IsDeleted )
 			{
 				// TODO: Needs to be localized
@@ -249,7 +267,7 @@ namespace YAF.Classes.UI
 			message = RepairHtml( message, messageFlags.IsHtml );
 
 			// do BBCode and Smilies...
-			BBCode.MakeHtml( ref ruleEngine, ref message, messageFlags.IsBBCode, targetBlankOverride );
+			BBCode.MakeHtml( ref ruleEngine, ref message, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
 
 			// add email rule
 			VariableRegexReplaceRule email =
@@ -265,11 +283,12 @@ namespace YAF.Classes.UI
 
 			// URLs Rules
 			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
+			string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
 
-			VariableRegexReplaceRule url = 
+			VariableRegexReplaceRule url =
 				new VariableRegexReplaceRule(
 					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;,]*)?)",
-					"${before}<a {0} rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace("{0}",target),
+					"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 					_options,
 					new string [] { "before" },
 					new string [] { "" },
@@ -278,11 +297,11 @@ namespace YAF.Classes.UI
 
 			url.RuleRank = 10;
 			ruleEngine.AddRule( url );
-			
-			url = 
+
+			url =
 				new VariableRegexReplaceRule(
 					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,#~$]*[^.<])?)",
-					"${before}<a {0} rel=\"nofollow\" href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ),
+					"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 					_options,
 					new string [] { "before" },
 					new string [] { "" },
@@ -290,11 +309,11 @@ namespace YAF.Classes.UI
 				);
 			url.RuleRank = 10;
 			ruleEngine.AddRule( url );
-			
-			url = 
+
+			url =
 				new VariableRegexReplaceRule(
 					@"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
-					"${before}<a {0} rel=\"nofollow\" href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace("{0}",target),
+					"${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 					_options,
 					new string [] { "before" },
 					new string [] { "" },
@@ -306,7 +325,6 @@ namespace YAF.Classes.UI
 			// process...
 			ruleEngine.Process( ref message );
 
-			// jaben : moved word replace to reusable function in class utils
 			message = General.BadWordReplace( message );
 
 			return message;

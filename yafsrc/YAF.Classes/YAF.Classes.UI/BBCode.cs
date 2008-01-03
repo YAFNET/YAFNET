@@ -77,7 +77,7 @@ namespace YAF.Classes.UI
 		static public string MakeHtml( string inputString, bool doFormatting, bool targetBlankOverride )
 		{
 			ReplaceRules ruleEngine = new ReplaceRules();
-			MakeHtml( ref ruleEngine, ref inputString, doFormatting, targetBlankOverride );
+			MakeHtml( ref ruleEngine, ref inputString, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks );
 			ruleEngine.Process( ref inputString );
 			return inputString;
 		}
@@ -90,9 +90,10 @@ namespace YAF.Classes.UI
 		/// <param name="doFormatting"></param>
 		/// <param name="targetBlankOverride"></param>
 		/// <returns></returns>
-		static public void MakeHtml( ref ReplaceRules ruleEngine, ref string bbcode, bool doFormatting, bool targetBlankOverride )
+		static public void MakeHtml( ref ReplaceRules ruleEngine, ref string bbcode, bool doFormatting, bool targetBlankOverride, bool useNoFollow )
 		{
 			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
+			string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
 
 			// pull localized strings
 			string localQuoteStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_QUOTE" );
@@ -123,7 +124,7 @@ namespace YAF.Classes.UI
 				ruleEngine.AddRule(
 					new VariableRegexReplaceRule(
 						_rgxUrl2,
-						"<a {0} rel=\"nofollow\" href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace( "{0}", target ),
+						"<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 						_options,
 						new string [] { "url", "http" },
 						new string [] { "", "http://" }
@@ -132,7 +133,7 @@ namespace YAF.Classes.UI
 				ruleEngine.AddRule(
 					new VariableRegexReplaceRule(
 						_rgxUrl1,
-						"<a {0} rel=\"nofollow\" href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>".Replace( "{0}", target ),
+						"<a {0} {1} href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 						_options,
 						new string [] { "http" },
 						new string [] { "", "http://" },

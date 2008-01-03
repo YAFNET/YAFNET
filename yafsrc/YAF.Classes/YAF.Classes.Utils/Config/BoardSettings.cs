@@ -298,7 +298,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt("MaxPrivateMessagesPerUser", 30); }
 			set { _reg.SetValueInt("MaxPrivateMessagesPerUser", value); }
 		}
-
+		public int DisableNoFollowLinksAfterDay
+		{
+			get { return _reg.GetValueInt( "DisableNoFollowLinksAfterDay", 0 ); }
+			set { _reg.GetValueInt( "DisableNoFollowLinksAfterDay", value ); }
+		}
 
 		// boolean settings
 		public bool EmailVerification
@@ -430,7 +434,7 @@ namespace YAF.Classes.Utils
 
 		public bool DisplayPoints
 		{
-			get { return _reg.GetValueBool( "DisplayPoints", true ); }
+			get { return _reg.GetValueBool( "DisplayPoints", false ); }
 			set { _reg.SetValueBool( "DisplayPoints", value ); }
 		}
 
@@ -465,6 +469,11 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueBool("EnableCaptchaForGuests", value); }
 		}
 
+		public bool UseNoFollowLinks
+		{
+			get { return _reg.GetValueBool( "UseNoFollowLinks", true ); }
+			set { _reg.SetValueBool( "UseNoFollowLinks", value ); }
+		}
 
 		// string settings
 		public string ForumEmail

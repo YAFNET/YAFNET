@@ -731,13 +731,20 @@ namespace YAF.Controls
 		{
 			System.Text.StringBuilder messageOutput = new System.Text.StringBuilder( 2000 );
 
+			DateTime editedMessage = Convert.ToDateTime( DataRow ["Posted"] );
+
+			if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ) )
+			{
+				editedMessage = Convert.ToDateTime( DataRow ["Edited"] );
+			}
+
 			if ( _messageFlags.NotFormatted )
 			{
 				messageOutput.Append( DataRow ["Message"].ToString() );
 			}
 			else
 			{
-				messageOutput.Append( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), _messageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) );
+				messageOutput.Append( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), _messageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
 			}
 
 			if ( !PostDeleted )

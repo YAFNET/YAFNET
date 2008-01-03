@@ -101,21 +101,7 @@
                                     or mods.)</td>
                                 <td class="post">
                                     <asp:TextBox ID="PostFloodDelay" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>Max Search Results:</b><br>
-                                    Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</td>
-                                <td class="post">
-                                    <asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                   <b>Use SQL Full Text Search:</b><br>
-                                   Toggle use of FULLTEXT SQL Server support on searches.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox></td>
-                            </tr>                              
+                            </tr>                             
                             <tr>
                                 <td class="postheader">
                                     <b>Date and time format from language file:</b><br>
@@ -224,7 +210,21 @@
                             <tr>
                                 <td class="header1" colspan="2">
                                     Search Settings</td>
-                            </tr>                            
+                            </tr>  
+                            <tr>
+                                <td class="postheader">
+                                    <b>Max Search Results:</b><br>
+                                    Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</td>
+                                <td class="post">
+                                    <asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                   <b>Use SQL Full Text Search:</b><br>
+                                   Toggle use of FULLTEXT SQL Server support on searches.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox></td>
+                            </tr>                                                       
                             <tr>
                                 <td class="postheader">
                                     <b>Search Text Minimal Length:</b><br>
@@ -331,7 +331,7 @@
                                     If this is checked, links in messages will open in a new window.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="BlankLinks" runat="server"></asp:CheckBox></td>
-                            </tr>
+                            </tr>                          
                             <tr>
                                 <td class="postheader">
                                     <b>Show Groups:</b><br>
@@ -395,6 +395,21 @@
                                 <td class="post">
                                     <asp:TextBox ID="ActiveDiscussionsCount" runat="server" /></td>
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Use "NoFollow" Tag in Links:</b><br>
+                                    If this is checked, all links will have the nofollow tag.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="UseNoFollowLinks" runat="server"></asp:CheckBox></td>
+                            </tr>       
+                            <tr>
+                                <td class="postheader">
+                                    <b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br>
+                                    If "NoFollow" is enabled above, this is disable no follow for links on
+                                    messages older then X days old (which takes into consideration last edited).</td>
+                                <td class="post">
+                                    <asp:TextBox ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox></td>
+                            </tr>                                                   
                             <tr>
                                 <td class="postheader">
                                     <b>Smilies Display Grid Size:</b><br>

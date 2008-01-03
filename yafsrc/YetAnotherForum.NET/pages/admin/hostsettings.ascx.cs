@@ -70,12 +70,13 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/1/2007
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
 			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
-			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );
+			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );			
 			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
 			General.AddStyleAttributeWidth( ForumSmtpServer, "200px" );
 			General.AddStyleAttributeWidth( ForumSmtpUserName, "200px" );
 			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
+			General.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
 
 			// Ederon : 7/14/2007
 			General.AddStyleAttributeSize( UserBox, "350px", "100px" );
@@ -148,6 +149,8 @@ namespace YAF.Pages.Admin
 			ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
 			EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
 			ShowYAFVersion.Checked = PageContext.BoardSettings.ShowYAFVersion;
+			UseNoFollowLinks.Checked = PageContext.BoardSettings.UseNoFollowLinks;
+			DisableNoFollowLinksAfterDay.Text = PageContext.BoardSettings.DisableNoFollowLinksAfterDay.ToString();
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -260,6 +263,8 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
 			PageContext.BoardSettings.EditTimeOut = Convert.ToInt32( EditTimeOut.Text );
 			PageContext.BoardSettings.ShowYAFVersion = ShowYAFVersion.Checked;
+			PageContext.BoardSettings.DisableNoFollowLinksAfterDay = Convert.ToInt32( DisableNoFollowLinksAfterDay.Text );
+			PageContext.BoardSettings.UseNoFollowLinks = UseNoFollowLinks.Checked;
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
