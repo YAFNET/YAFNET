@@ -1,12 +1,41 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources language="Persian" code="fa">
+	<page name="LANGUAGE">
+		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
+		<!-- Translated by Touradg Morassaei - http://www.iransim.ir - 1.9.3 - 2008/01/04 -->
+	</page>
+	<page name="MOVEMESSAGE">
+		<!-- movemessage.aspx -->
+		<Resource tag="MOVE"/>
+		<Resource tag="SELECT_FORUM_MOVETO">انجمنی که مایل به انتقال این ارسال به آن هستید را انتخاب کنید:</Resource>
+		<Resource tag="SELECT_TOPIC_MOVETO">عنوانی که مایل به انتقال این ارسال به آن هستید را انتخاب کنید:</Resource>
+		<Resource tag="MOVE_MESSAGE">انتقال پیغام</Resource>
+		<Resource tag="NEW_TOPIC">ایجاد عنوان جدید برای انتقال به آن</Resource>
+		<Resource tag="CREATE_TOPIC">ایجاد عنوان از روی پیغام</Resource>
+		<Resource tag="EMPTY_TOPIC">نام عنوان خالی است</Resource>
+	</page>
+	<page name="DELETEMESSAGE">
+		<!-- deletemessage.aspx -->
+		<Resource tag="PREVIEWTITLE">پیغام:</Resource>
+		<Resource tag="SUBJECT">موضوع:</Resource>
+		<Resource tag="FROM">از طرف</Resource>
+		<Resource tag="PRIORITY">اهمیت:</Resource>
+		<Resource tag="MESSAGE">پیغام:</Resource>
+		<Resource tag="LAST10">10 ارسال آخر با چیدمان برعکس</Resource>
+		<Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید.</Resource>
+		<Resource tag="POSTED">ارسال شده:</Resource>
+		<Resource tag="DELETE">حذف</Resource>
+		<Resource tag="DELETE_REASON">دلیل حذف</Resource>
+		<Resource tag="UNDELETE">بازیابی پیغام</Resource>
+		<Resource tag="UNDELETE_REASON">دلیل بازیابی پیغام</Resource>
+		<Resource tag="ERASEMESSAGE">پاک سازی پیغام از داخل بانک اطلاعاتی (غیر قابل بازگشت)</Resource>
+	</page>
 	<page name="COMMON">
 		<!-- common... -->
-    <!-- Translated by Touradg Morassaei - http://www.iransim.ir - 1.9.1 - 2007/6/14 -->
-		<Resource tag="POWERED_BY">تحت لیسانس {0} ویرایش {1}</Resource>
+		<Resource tag="POWERED_BY">تحت لیسانس</Resource>
 		<Resource tag="GENERATED">این صفحه در مدت زمان {0:N3} ثانیه ایجاد شد.</Resource>
 		<Resource tag="SAVE">ذخیره</Resource>
-		<Resource tag="CANCEL">لغو</Resource>
+		<Resource tag="CANCEL">انصراف</Resource>
 		<Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
 		<Resource tag="CAN_POST">شما مجاز به ارسال مطلب در این انجمن می باشید.</Resource>
 		<Resource tag="CAN_REPLY">شما مجاز به ارسال پاسخ در این انجمن می باشید.</Resource>
@@ -30,13 +59,64 @@
 		<Resource tag="FORMAT_DATE_SHORT">d</Resource>
 		<Resource tag="FORMAT_TIME">T</Resource>
 		<Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0}, {1}.</Resource>
-    <Resource tag="BBCODE_QUOTE">نقل قول:</Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
-    <Resource tag="BBCODE_CODE">کد:</Resource>
-    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">در یافت آخرین عناوین و آخرین تغییرات در انجمنها (از {0})</Resource>
-    <Resource tag="PM_NOTIFICATION_SUBJECT">پیغام شخصی جدید از طرف {0} در {1}</Resource>    
-    <Resource tag="BACK">برگشت</Resource>
-    <Resource tag="UPDATE">بروزرسانی</Resource>
+		<Resource tag="BBCODE_QUOTE">نقل قول:</Resource>
+		<Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
+		<Resource tag="BBCODE_CODE">کد:</Resource>
+		<Resource tag="TOPIC_NOTIFICATION_SUBJECT">در یافت آخرین عناوین و آخرین تغییرات در انجمنها (از {0})</Resource>
+		<Resource tag="PM_NOTIFICATION_SUBJECT">پیغام شخصی جدید از طرف {0} در {1}</Resource>
+		<Resource tag="BACK">برگشت</Resource>
+		<Resource tag="UPDATE">بروزرسانی</Resource>
+		<Resource tag="SUBMIT">ارسال</Resource>
+		<Resource tag="BAD_CAPTCHA">متن وارد شده با متن نمایش داده شده در عکس متفاوت می باشد</Resource>
+		<Resource tag="CAPTCHA_IMAGE">تصویر امنیتی</Resource>
+		<Resource tag="CAPTCHA_ENTER">حروف نمایش داده شده در عکس را وارد کنید</Resource>
+		<Resource tag="CUSTOM_BBCODE">تگ های اضافی</Resource>
+		<Resource tag="FONT_SIZE">اندازه فونت</Resource>
+		<Resource tag="FONT_COLOR">رنگ فونت</Resource>
+		<Resource tag="TT_BOLD">ذخیم</Resource>
+		<Resource tag="TT_ITALIC">کج</Resource>
+		<Resource tag="TT_UNDERLINE">خط دار</Resource>
+		<Resource tag="TT_QUOTE">نقل قول</Resource>
+		<Resource tag="TT_CODE">کد</Resource>
+		<Resource tag="TT_IMAGE">وارد کردن عکس</Resource>
+		<Resource tag="TT_CREATELINK">ایجاد لینک</Resource>
+		<Resource tag="TT_ALIGNLEFT">در سمت چپ</Resource>
+		<Resource tag="TT_ALIGNRIGHT">در سمت راست</Resource>
+		<Resource tag="TT_ALIGNCENTER">در وسط</Resource>
+	</page>
+	<page name="BUTTON">
+		<Resource tag="BUTTON_NEWTOPIC">عنوان جدید</Resource>
+		<Resource tag="BUTTON_NEWTOPIC_TT">ارسال عنوان جدید در این انجمن</Resource>
+		<Resource tag="BUTTON_MODERATE">مدیریت</Resource>
+		<Resource tag="BUTTON_MODERATE_TT">حذف، قفل ، باز کردن قفل و انقال عناوین این انجمن</Resource>
+		<Resource tag="BUTTON_ATTACH">الصاق</Resource>
+		<Resource tag="BUTTON_ATTACH_TT">الصاق فایل به این عنوان</Resource>
+		<Resource tag="BUTTON_EDIT">ویرایش</Resource>
+		<Resource tag="BUTTON_EDIT_TT">ویرایش این ارسال</Resource>
+		<Resource tag="BUTTON_MOVE">انتقال</Resource>
+		<Resource tag="BUTTON_MOVE_TT">انتقال این ارسال</Resource>
+		<Resource tag="BUTTON_DELETE">حذف</Resource>
+		<Resource tag="BUTTON_DELETE_TT">حذف این ارسال</Resource>
+		<Resource tag="BUTTON_UNDELETE">بازیابی</Resource>
+		<Resource tag="BUTTON_UNDELETE_TT">یازیابی این ارسال</Resource>
+		<Resource tag="BUTTON_REPLY">پاسخ</Resource>
+		<Resource tag="BUTTON_REPLY_TT">پاسخ به پیغام</Resource>
+		<Resource tag="BUTTON_QUOTE">نقل قول</Resource>
+		<Resource tag="BUTTON_QUOTE_TT">پاسخ با ایجاد نقل قول</Resource>
+		<Resource tag="BUTTON_POSTREPLY">ارسال پاسخ</Resource>
+		<Resource tag="BUTTON_POSTREPLY_TT">ارسال پاسخ به این عنوان</Resource>
+		<Resource tag="BUTTON_NEWTOPIC">عنوان جدید</Resource>
+		<Resource tag="BUTTON_NEWTOPIC_TT">ارسال عنوان جدید در این انجمن</Resource>
+		<Resource tag="BUTTON_DELETETOPIC">حذف عنوان</Resource>
+		<Resource tag="BUTTON_DELETETOPIC_TT">حذف این عنوان</Resource>
+		<Resource tag="BUTTON_LOCKTOPIC">قفل عنوان</Resource>
+		<Resource tag="BUTTON_LOCKTOPIC_TT">قفل این عنوان</Resource>
+		<Resource tag="BUTTON_UNLOCKTOPIC">باز کردن قفل عنوان</Resource>
+		<Resource tag="BUTTON_UNLOCKTOPIC_TT">بازکردن قفل این عنوان</Resource>
+		<Resource tag="BUTTON_MOVETOPIC">انتقال عنوان</Resource>
+		<Resource tag="BUTTON_MOVETOPIC_TT">انتقال این عنوان</Resource>
+		<Resource tag="BUTTON_NEWPM">پیغام شخصی جدید</Resource>
+		<Resource tag="BUTTON_NEWPM_TT">ایجاد پیغام شخصی جدید</Resource>
 	</page>
 	<page name="TOOLBAR">
 		<!-- "Toolbar" at top of most pages -->
@@ -44,19 +124,21 @@
 		<Resource tag="ADMIN">مدیر</Resource>
 		<Resource tag="MODERATE">مدیریت</Resource>
 		<Resource tag="ACTIVETOPICS">عناوین فعال</Resource>
-		<Resource tag="MYPROFILE">تنظیمات من</Resource>
+		<Resource tag="MYPROFILE">تنظیمان من (پروفایل)</Resource>
 		<Resource tag="MEMBERS">اعضاء</Resource>
 		<Resource tag="LOGOUT">خروج</Resource>
 		<Resource tag="LOGIN">ورود</Resource>
 		<Resource tag="REGISTER">ثبت نام</Resource>
-		<Resource tag="LOGGED_IN_AS">ورود با نام کاربری: {0}</Resource>
+		<Resource tag="LOGGED_IN_AS">وارد شده به عنوان: {0}</Resource>
 		<Resource tag="WELCOME_GUEST">ورود به عنوان میهمان</Resource>
+		<Resource tag="LOGOUT_QUESTION">آیا از خروج خود مطمئن هستید؟</Resource>
 		<Resource tag="HELP">کمک</Resource>
+		<Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
 	</page>
 	<page name="ICONLEGEND">
 		<!-- Common icon texts -->
-		<Resource tag="NEW_POSTS">عناوین جدید</Resource>
-		<Resource tag="NO_NEW_POSTS">عناوین جدید موجود نمیباشد</Resource>
+		<Resource tag="NEW_POSTS">ارسالهای جدید</Resource>
+		<Resource tag="NO_NEW_POSTS">عناوین جدید موجود نمی باشد</Resource>
 		<Resource tag="ANNOUNCEMENT">اطلاعیه ها</Resource>
 		<Resource tag="ANNOUNCEMENT_NEW">اطلاعیه ها( عناوین جدید )</Resource>
 		<Resource tag="NEW_POSTS_LOCKED">عناوین جدید ( قفل شده )</Resource>
@@ -68,38 +150,40 @@
 		<Resource tag="STICKY">مهم</Resource>
 	</page>
 	<page name="ATTACHMENTS">
-		<Resource tag="TITLE">الحاقات</Resource>		
-		<Resource tag="UPLOAD">ارسال فایل</Resource>
+		<Resource tag="TITLE">فایلهای الصاق شده</Resource>
+		<Resource tag="UPLOAD">الصاق فایل</Resource>
 		<Resource tag="SELECT_FILE">فایلی را که مایل به ارسال آن هستید انتخاب کنید.</Resource>
-		<Resource tag="UPLOAD_TITLE">ارسال فایل</Resource>
+		<Resource tag="UPLOAD_TITLE">الصاق فایل</Resource>
 		<Resource tag="FILENAME">نام فایل</Resource>
 		<Resource tag="SIZE">اندازه</Resource>
 		<Resource tag="DELETE">حذف</Resource>
 		<Resource tag="FILEERROR">'{0}' فایل معتبری برای ارسال نمی باشد.</Resource>
-		<Resource tag="ASK_DELETE">آیا فایل الحاق شده حذف گردد?</Resource>
-		<Resource tag="ERROR_TOOBIG">شما مجاز به الحاق فایلی با این اندازه نمیباشید.</Resource>
+		<Resource tag="ASK_DELETE">فایل الصاق شده حذف شود؟</Resource>
+		<Resource tag="ERROR_TOOBIG">شما مجاز به الصاق فایلی با این اندازه نمیباشید.</Resource>
+		<Resource tag="ALLOWED_EXTENSIONS">انواع فایلهای مجاز</Resource>
+		<Resource tag="DISALLOWED_EXTENSIONS">انواع فایلهای غیر مجاز</Resource>
 	</page>
 	<page name="DEFAULT">
 		<!-- default.aspx -->
-    <Resource tag="MAIN_FORUM_RSS">انجمن اصلی RSS</Resource>
+		<Resource tag="MAIN_FORUM_RSS">اشتراک انجمن اصلی</Resource>
 		<Resource tag="FORUM">انجمن</Resource>
-		<Resource tag="TOPICS">موضوعات</Resource>
-		<Resource tag="POSTS">عناوین</Resource>
+		<Resource tag="TOPICS">عناوین</Resource>
+		<Resource tag="POSTS">ارسالها</Resource>
 		<Resource tag="LASTPOST">آخرین ارسال</Resource>
 		<Resource tag="MODERATORS">مدیران</Resource>
 		<Resource tag="CURRENT_TIME">زمان فعلی: {0}.</Resource>
-		<Resource tag="LAST_VISIT">آخرین ملاقات شما: {0}.</Resource>
+		<Resource tag="LAST_VISIT">آخرین بازدید شما: {0}.</Resource>
 		<Resource tag="STATS_POSTS">تعداد {0:N0} ارسال در {1:N0} موضوع در {2:N0} انجمن موجود می باشد.</Resource>
-		<Resource tag="STATS_LASTPOST">آخرین ارسال {0} بوسیله {1}.</Resource>
+		<Resource tag="STATS_LASTPOST">آخرین ارسال {0} بوسیله</Resource>
 		<Resource tag="STATS_MEMBERS">تعداد {0:N0} کاربر ثبت نام کرده اند.</Resource>
-		<Resource tag="STATS_LASTMEMBER">جدیدترین کاربر عضو {0}.</Resource>
+		<Resource tag="STATS_LASTMEMBER">جدیدترین کاربر</Resource>
 		<Resource tag="IN">در {0}</Resource>
 		<Resource tag="BY">بوسیله {0}</Resource>
-		<Resource tag="NO_POSTS">ارسالی موجود نمی باشد</Resource>
+		<Resource tag="NO_POSTS">No Posts</Resource>
 		<Resource tag="UNREAD1">شما تعداد {0} پیغام خوانده نشده دارید.</Resource>
 		<Resource tag="UNREAD0">شما تعداد {0} پیغام خوانده نشده دارید.</Resource>
 		<Resource tag="INFORMATION">اطلاعات</Resource>
-		<Resource tag="STATS">آمار</Resource>
+		<Resource tag="STATS">آمار و ارقام</Resource>
 		<Resource tag="ACTIVE_USERS">کاربران فعال</Resource>
 		<Resource tag="ACTIVE_USERS_COUNT1">{0:N0} کاربر فعال</Resource>
 		<Resource tag="ACTIVE_USERS_COUNT2">{0:N0} کاربر فعال</Resource>
@@ -107,24 +191,24 @@
 		<Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} عضو</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} میهمان</Resource>
 		<Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} میهمان</Resource>
-		<Resource tag="VIEWING">({0} در حال مشاهده)</Resource>
+		<Resource tag="VIEWING">({0} نفر در حال مشاهده)</Resource>
 		<Resource tag="NO_FORUM_ACCESS">(بدون دسترسی)</Resource>
 		<Resource tag="MARKALL">تمام انجمنها را بصورت خوانده شده در آیند</Resource>
-		<Resource tag="GO_LAST_POST">به آخرین ارسال برو</Resource>
-		<Resource tag="ACTIVE_DISCUSSIONS">مباحثات فعال</Resource>
+		<Resource tag="GO_LAST_POST">برو به آخرین ارسال</Resource>
+		<Resource tag="ACTIVE_DISCUSSIONS">عناوین فعال</Resource>
 		<Resource tag="LATEST_POSTS">آخرین ارسالها</Resource>
 	</page>
 	<page name="TOPICS">
 		<!-- topics.aspx -->
 		<Resource tag="TOPICS">عناوین</Resource>
-		<Resource tag="TOPIC_STARTER">شروع کننده موضوع</Resource>
+		<Resource tag="TOPIC_STARTER">شروع کننده بحث</Resource>
 		<Resource tag="REPLIES">پاسخها</Resource>
 		<Resource tag="VIEWS">مشاهدات</Resource>
 		<Resource tag="LASTPOST">آخرین ارسال</Resource>
 		<Resource tag="NO_POSTS">هیچ ارسالی وجود ندارد</Resource>
-		<Resource tag="WATCHFORUM">پیگیری وضعیت انجمن</Resource>
-		<Resource tag="UNWATCHFORUM">عدم پیگیری وضعیت انجمن</Resource>
-		<Resource tag="SHOWTOPICS">نشان دادن عناوین</Resource>
+		<Resource tag="WATCHFORUM">پیگیری انجمن</Resource>
+		<Resource tag="UNWATCHFORUM">عدم پیگیری انجمن</Resource>
+		<Resource tag="SHOWTOPICS">نمایش عناوین</Resource>
 		<Resource tag="ALL">همه</Resource>
 		<Resource tag="LAST_DAY">از آخرین روز</Resource>
 		<Resource tag="LAST_TWO_DAYS">از دو روز قبل</Resource>
@@ -136,81 +220,86 @@
 		<Resource tag="LAST_YEAR">از سال قبل</Resource>
 		<Resource tag="BY">بوسیله {0}</Resource>
 		<Resource tag="FORUMUSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
-		<Resource tag="CREATED">Created</Resource>
+		<Resource tag="CREATED">ایجاد شده</Resource>
 		<Resource tag="WARN_FORUM_LOCKED">این انجمن تعطیل میباشد.</Resource>
 		<Resource tag="WARN_LOGIN_FORUMWATCH">شما برای مشاهده این انجمن باید ثبت نام کنید.</Resource>
 		<Resource tag="INFO_WATCH_FORUM">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
 		<Resource tag="INFO_UNWATCH_FORUM">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
-		<Resource tag="MARKREAD">این انجمن را بصورت خوانده شده درآور</Resource>
-		<Resource tag="SUBFORUMS">{0} زیر انجمن</Resource>
- 		<Resource tag="RSSFEED">خبر بصورت RSS</Resource>
- 		<Resource tag="TODAYAT">[b]امروز[/b] در {0:T}</Resource>
- 		<Resource tag="YESTERDAYAT">[b]دیروز[/b] در {0:T}</Resource>
- 		<Resource tag="GOTO_POST_PAGER">[ برو به صفحه: {0} ]</Resource>
+		<Resource tag="MARKREAD">این انجمن بصورت خوانده شده درآید</Resource>
+		<Resource tag="SUBFORUMS">انجمنهای فرعی</Resource>
+		<Resource tag="RSSFEED">اشتراک خبر</Resource>
+		<Resource tag="TODAYAT">[b]امروز[/b] در {0:T}</Resource>
+		<Resource tag="YESTERDAYAT">[b]دیروز[/b] در {0:T}</Resource>
+		<Resource tag="GOTO_POST_PAGER">[ برو به صفحه: {0} ]</Resource>
 	</page>
 	<page name="POSTS">
 		<!-- posts.aspx -->
-    <Resource tag="QUICKREPLY">پاسخ سریع</Resource>
-    <Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
-    <Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
-    <Resource tag="OPTIONS">انتخابها</Resource>
-    <Resource tag="VIEW">مشاهدات</Resource>
-    <Resource tag="POST_REPLY">پاسخ ارسال</Resource>
-    <Resource tag="QUESTION">سوال نظر سنجی</Resource>
-    <Resource tag="CHOICE">انتخاب</Resource>
-    <Resource tag="VOTES">آراء</Resource>
-    <Resource tag="STATISTICS">آمار</Resource>
-    <Resource tag="PREVTOPIC">عنوان قبلی</Resource>
-    <Resource tag="NEXTTOPIC">عنوان بعدی</Resource>
-    <Resource tag="WATCHTOPIC">پیگیری وضعیت انجمن</Resource>
-    <Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
-    <Resource tag="EMAILTOPIC">ارسال این عنوان بصورت ایمیل</Resource>
-    <Resource tag="PRINTTOPIC">چاپ این عنوان</Resource>
-    <Resource tag="RSSTOPIC">خبر بصورت RSS</Resource>
-    <Resource tag="POSTED">ارسال شده</Resource>
-    <Resource tag="TOP">برگشت به بالا</Resource>
-    <Resource tag="PM">پیغام شخصی</Resource>
-    <Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>
-    <Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource>
-    <Resource tag="RANK">رتبه</Resource>
-    <Resource tag="GROUPS">گروه ها</Resource>
-    <Resource tag="JOINED">تاریخ عضویت</Resource>
-    <Resource tag="POSTS">ارسالها</Resource>
-    <Resource tag="POINTS">امتیازات</Resource>
-    <Resource tag="LOCATION">مکان</Resource>
-    <Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
-    <Resource tag="INFO_TOPIC_LOCKED">عنوان قفل شد.</Resource>
-    <Resource tag="INFO_TOPIC_UNLOCKED">عنوان باز شد.</Resource>
-    <Resource tag="WARN_TOPIC_LOCKED">این عنوان بسته شد.</Resource>
-    <Resource tag="WARN_FORUM_LOCKED">این انجمن بسته شد.</Resource>
-    <Resource tag="WARN_PMLOGIN">برای ارسال پیغام خصوصی باید با نام کاربری خود وارد انجمن شوید.</Resource>
-    <Resource tag="WARN_ALREADY_VOTED">شما قبلاً رای داده اید.</Resource>
-    <Resource tag="WARN_POLL_CLOSED">نظر سنجی بسته شد.</Resource>
-    <Resource tag="POLL_CLOSED">(نظر سنجی تعطیل است)</Resource>
-    <Resource tag="INFO_VOTED">از رای شما متشکریم!</Resource>
-    <Resource tag="WARN_WATCHLOGIN">برای مشاهده عنوان باید ثب نام کرده باشید.</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
-    <Resource tag="INFO_UNWATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
-    <Resource tag="INFO_NOMORETOPICS">عناوین دیگری در این انجمن وجود ندارد.</Resource>
-    <Resource tag="WARN_EMAILLOGIN">برای ارسال ایمیل باید ثبت نام کرده باشید.</Resource>
-    <Resource tag="ATTACHMENTS">فایلهای متصل شده :</Resource>
-    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} تصاویر زیر را ارسال کرده است:</Resource>
-    <Resource tag="ATTACHMENTINFO">({0:N0}kb) دانلود شده [b]{1:N0}[/b] ثانیه.</Resource>
-    <Resource tag="NORMAL">عادی</Resource>
-    <Resource tag="THREADED">بصورت رشته ای</Resource>
-    <Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
-    <Resource tag="TIP_REPLY_TOPIC">ارسال پاسخ</Resource>
-    <Resource tag="TIP_NEW_TOPIC">ارسال موضوع جدید</Resource>
-    <Resource tag="TIP_DELETE_TOPIC">حذف این عنوان</Resource>
-    <Resource tag="TIP_LOCK_TOPIC">قفل این عنوان</Resource>
-    <Resource tag="TIP_UNLOCK_TOPIC">بازگشایی این عنوان</Resource>
-    <Resource tag="TIP_MOVE_TOPIC">انتقال این عنوان</Resource>
-    <Resource tag="AD_USERNAME">حامی مالی</Resource>
-    <Resource tag="AD_SIGNATURE"></Resource>
+		<Resource tag="QUICKREPLY">پاسخ سریع</Resource>
+		<Resource tag="QUICKREPLY_SHOW">نمایش بخش پاسخ سریع</Resource>
+		<Resource tag="QUICKREPLY_HIDE">عدم نمایش بخش پاسخ سریع</Resource>
+		<Resource tag="OPTIONS">انتخابها</Resource>
+		<Resource tag="VIEW">مشاهده</Resource>
+		<Resource tag="POST_REPLY">ارسال پاسخ</Resource>
+		<Resource tag="QUESTION">سوال نظر سنجی</Resource>
+		<Resource tag="CHOICE">انتخاب</Resource>
+		<Resource tag="VOTES">آراء</Resource>
+		<Resource tag="STATISTICS">آمار</Resource>
+		<Resource tag="PREVTOPIC">عنوان قبلی</Resource>
+		<Resource tag="NEXTTOPIC">عنوان بعدی</Resource>
+		<Resource tag="WATCHTOPIC">پیگیری وضعیت انجمن</Resource>
+		<Resource tag="UNWATCHTOPIC">عدم پیگیری وضعیت انجمن</Resource>
+		<Resource tag="EMAILTOPIC">ارسال این عنوان بصورت ایمیل</Resource>
+		<Resource tag="PRINTTOPIC">چاپ این عنوان</Resource>
+		<Resource tag="RSSTOPIC">اشتراک عنوان</Resource>
+		<Resource tag="POSTED">ارسال شده</Resource>
+		<Resource tag="TOP">برگشت به بالا</Resource>
+		<Resource tag="PM">پیغام شخصی</Resource>
+		<Resource tag="CONFIRM_DELETEMESSAGE">آیا این پیغام حذف شود?</Resource>
+		<Resource tag="CONFIRM_DELETETOPIC">آیا این عنوان حذف شود?</Resource>
+		<Resource tag="RANK">رتبه</Resource>
+		<Resource tag="GROUPS">گروه ها</Resource>
+		<Resource tag="JOINED">تاریخ عضویت</Resource>
+		<Resource tag="POSTS">ارسالها</Resource>
+		<Resource tag="POINTS">امتیازات</Resource>
+		<Resource tag="LOCATION">مکان</Resource>
+		<Resource tag="TOPICBROWSERS">کاربرانی که در حال مشاهده انجمن هستند</Resource>
+		<Resource tag="INFO_TOPIC_LOCKED">عنوان قفل شد.</Resource>
+		<Resource tag="INFO_TOPIC_UNLOCKED">عنوان باز شد.</Resource>
+		<Resource tag="WARN_TOPIC_LOCKED">این عنوان بسته شد.</Resource>
+		<Resource tag="WARN_FORUM_LOCKED">این انجمن بسته شد.</Resource>
+		<Resource tag="WARN_PMLOGIN">برای ارسال پیغام خصوصی باید با نام کاربری خود وارد انجمن شوید.</Resource>
+		<Resource tag="WARN_ALREADY_VOTED">شما قبلاً رای داده اید.</Resource>
+		<Resource tag="WARN_POLL_CLOSED">نظر سنجی بسته شد.</Resource>
+		<Resource tag="POLL_CLOSED">(نظر سنجی غیر فعال است)</Resource>
+		<Resource tag="INFO_VOTED">از رای شما متشکریم!</Resource>
+		<Resource tag="WARN_WATCHLOGIN">برای مشاهده عنوان باید ثب نام کرده باشید.</Resource>
+		<Resource tag="INFO_WATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده می شود.</Resource>
+		<Resource tag="INFO_UNWATCH_TOPIC">از حالا به بعد درباره پستهای جدید این انجمن به شما اطلاع داده نمی شود.</Resource>
+		<Resource tag="INFO_NOMORETOPICS">عناوین دیگری در این انجمن وجود ندارد.</Resource>
+		<Resource tag="WARN_EMAILLOGIN">برای ارسال ایمیل باید ثبت نام کرده باشید.</Resource>
+		<Resource tag="ATTACHMENTS">فایلهای الصاق شده :</Resource>
+		<Resource tag="IMAGE_ATTACHMENT_TEXT">{0} تصاویر زیر را ارسال کرده است:</Resource>
+		<Resource tag="ATTACHMENTINFO">({0:N0}kb) تعداد دانلود [b]{1:N0}[/b] بار.</Resource>
+		<Resource tag="NORMAL">عادی</Resource>
+		<Resource tag="THREADED">بصورت رشته ای</Resource>
+		<Resource tag="FORUM_JUMP">جهش به انجمن</Resource>
+		<Resource tag="TIP_REPLY_TOPIC">ارسال پاسخ</Resource>
+		<Resource tag="TIP_NEW_TOPIC">ارسال موضوع جدید</Resource>
+		<Resource tag="TIP_DELETE_TOPIC">حذف این عنوان</Resource>
+		<Resource tag="TIP_LOCK_TOPIC">قفل این عنوان</Resource>
+		<Resource tag="TIP_UNLOCK_TOPIC">بازگشایی این عنوان</Resource>
+		<Resource tag="TIP_MOVE_TOPIC">انتقال این عنوان</Resource>
+		<Resource tag="AD_USERNAME">حامی مالی</Resource>
+		<Resource tag="AD_SIGNATURE">
+		</Resource>
+		<Resource tag="REPORTPOST">گزارش توهین و سوء استفاده</Resource>
+		<Resource tag="REPORTSPAM">گزارش به عنوان هرزنامه (اسپم)</Resource>
+		<Resource tag="REPORTEDFEEDBACK">از گزارش شما متشکریم!</Resource>
+		<Resource tag="EMPTY_MESSAGE">باید مطلبی را در ارسال خود وارد کنید.</Resource>
 	</page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
-    <Resource tag="LAST_24">( در 24 ساعت گذشته )</Resource>
+		<Resource tag="LAST_24">( در 24 ساعت گذشته )</Resource>
 		<Resource tag="TITLE">عناوین فعال</Resource>
 		<Resource tag="SINCE">از</Resource>
 		<Resource tag="LAST_VISIT">آخرین مشاهده در {0}</Resource>
@@ -224,7 +313,7 @@
 		<Resource tag="TOPICS">عناوین</Resource>
 		<Resource tag="TOPIC_STARTER">شروع کننده عنوان</Resource>
 		<Resource tag="REPLIES">پاسخها</Resource>
- 		<Resource tag="RSSFEED">Rss خبر بصورت</Resource>
+		<Resource tag="RSSFEED">اشتراک عناوین فعال</Resource>
 		<Resource tag="VIEWS">مشاهدات</Resource>
 		<Resource tag="LASTPOST">آخرین ارسال</Resource>
 		<Resource tag="BY">بوسیله {0}</Resource>
@@ -243,30 +332,52 @@
 	</page>
 	<page name="APPROVE">
 		<!-- approve.aspx -->
-		<Resource tag="TITLE">آدرس ایمیل را ارزیابی کن</Resource>
-		<Resource tag="EMAIL_VERIFIED">آدرس ایمیل شما مورد ارزیابی واقع شد.</Resource>
-		<Resource tag="EMAIL_VERIFY_FAILED">ارزیابی آدرس ایمیل با مشکل مواجه شد.</Resource>
+		<Resource tag="TITLE">ارزیابی آدرس پست الکترونیک</Resource>
+		<Resource tag="EMAIL_VERIFIED">آدرس پست الکترونیک شما مورد ارزیابی واقع شد.</Resource>
+		<Resource tag="EMAIL_VERIFY_FAILED">ارزیابی آدرس پست الکترونیک با مشکل مواجه شد.</Resource>
 		<Resource tag="ENTER_KEY">کد ارزیابی را وارد کنید</Resource>
 		<Resource tag="VALIDATE">ارزیابی</Resource>
 	</page>
-  <page name="CP_EDITAVATAR">
-    <Resource tag="TITLE">تغییر عکس</Resource>
-    <Resource tag="AVATAR">عکس</Resource>
-    <Resource tag="AVATARCURRENT">عکس فعلی</Resource>
-    <Resource tag="AVATARNEW">عکس جدید را انتخاب کنید</Resource>
-    <Resource tag="AVATARUPLOAD">عکس مورد نظر را ارسال کنید:</Resource>
-    <Resource tag="AVATARDELETE">حذف عکس</Resource>
-    <Resource tag="AVATARREMOTE">آدرس عکس مورد نظر را وارد کنید:</Resource>
-    <Resource tag="OURAVATAR">عکس دلخواه خود را از کلکسیون سایت انتخاب کنید:</Resource>
-    <Resource tag="OURAVATAR_SELECT">برای انتخاب عکس اینجا را کلیک کنید</Resource>
-    <Resource tag="AVATARTEXT">متن توصیفی عکس</Resource>
-    <Resource tag="NOAVATAR">[ بدون عکس ]</Resource>
-    <Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
-    <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
-    <Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
-    <Resource tag="WARN_BIGFILE">اندازه عکس شما نباید بیشتر از {0} بایت باشد.</Resource>
-    <Resource tag="WARN_FILESIZE">اندازه عکس شما {0} بایت بود.</Resource>    
-  </page>
+	<page name="CP_PM">
+		<!-- cp_pm.ascx -->
+		<Resource tag="TITLE">پیغامهای شخصی</Resource>
+		<Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
+		<Resource tag="INBOX">صندوق</Resource>
+		<Resource tag="SENTITEMS">موارد ارسال شده</Resource>
+		<Resource tag="ARCHIVE">آرشیو</Resource>
+		<Resource tag="ARCHIVESELECTED">آرشیو کردن موارد انتخابی</Resource>
+		<Resource tag="DELETESELECTED">حذف موارد انتخابی</Resource>
+		<Resource tag="SUBJECT">موضوع</Resource>
+		<Resource tag="FROM">از</Resource>
+		<Resource tag="TO">به</Resource>
+		<Resource tag="DATE">تاریخ</Resource>
+		<Resource tag="MSGDELETED1">یک پیغام حذف شد</Resource>
+		<Resource tag="MSGDELETED2">{0} پیغام حذف شد.</Resource>
+		<Resource tag="MSG_ARCHIVED">پیغام آرشیو شد</Resource>
+		<Resource tag="MSG_ARCHIVED+">{0}.پیغام آرشیو شد</Resource>
+		<Resource tag="CONFIRM_DELETE">تمامی پیغامهای انتخاب شده حذف شود؟</Resource>
+		<Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
+		<Resource tag="NO_MESSAGES">پیغامی پیدا نشد.</Resource>
+		<Resource tag="POSTED">ارسال شده:</Resource>
+	</page>
+	<page name="CP_EDITAVATAR">
+		<Resource tag="TITLE">تغییر عکس</Resource>
+		<Resource tag="AVATAR">عکس</Resource>
+		<Resource tag="AVATARCURRENT">عکس فعلی</Resource>
+		<Resource tag="AVATARNEW">عکس جدید را انتخاب کنید</Resource>
+		<Resource tag="AVATARUPLOAD">عکس مورد نظر را ارسال کنید:</Resource>
+		<Resource tag="AVATARDELETE">حذف عکس</Resource>
+		<Resource tag="AVATARREMOTE">آدرس عکس مورد نظر را وارد کنید:</Resource>
+		<Resource tag="OURAVATAR">عکس دلخواه خود را از کلکسیون سایت انتخاب کنید:</Resource>
+		<Resource tag="OURAVATAR_SELECT">برای انتخاب عکس اینجا را کلیک کنید</Resource>
+		<Resource tag="AVATARTEXT">متن توصیفی عکس</Resource>
+		<Resource tag="NOAVATAR">[ بدون عکس ]</Resource>
+		<Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
+		<Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
+		<Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
+		<Resource tag="WARN_BIGFILE">اندازه عکس شما نباید بیشتر از {0} بایت باشد.</Resource>
+		<Resource tag="WARN_FILESIZE">اندازه عکس شما {0} بایت بود.</Resource>
+	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
 		<Resource tag="TITLE">ویرایش پروفایل</Resource>
@@ -276,42 +387,28 @@
 		<Resource tag="HOMEPAGE2">صفحه اینترنتی خانگی شما:</Resource>
 		<Resource tag="TIMEZONE">منطقه ساعتی</Resource>
 		<Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقیت شما ,منطقه ساعتی شما باید تعیین شود.</Resource>
-		<Resource tag="CHANGE_PASSWORD">تغییر رمز عبور</Resource>
-		<Resource tag="OLDPASSWORD">رمز قدیمی:</Resource>
-		<Resource tag="NEWPASSWORD">رمز جدید:</Resource>
-		<Resource tag="CONFIRMPASSWORD">تایپ مجدد رمز جدید:</Resource>
-		<Resource tag="CHANGE_EMAIL">تغییر ادرس ایمیل</Resource>
+		<Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
 		<Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
-		<Resource tag="NO_EMPTY_PASSWORD">رمز عبور نمی تواند خالی باشد.</Resource>
-		<Resource tag="NO_PASSWORD_MATCH">رمزهای عبور جدید با هم همخوانی ندارند.</Resource>
-		<Resource tag="OLD_PASSWORD_WRONG">رمز عبور قدیمی اشتباه است.</Resource>
 		<Resource tag="MAIL_SENT">ایمیلی به آدرس {0} ارسال شد.\n\nشما باید آدرس ایمیل خود را با با باز کردن لینک ارسال شده برای شما مورد تائید قرار دهید.</Resource>
 		<Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
-		<Resource tag="SELECT_THEME">پوسته مورد علاقه خود را انتخاب کنید:</Resource>
+		<Resource tag="SELECT_THEME">پوسته گرافیکی مورد علاقه خود را انتخاب کنید:</Resource>
 		<Resource tag="SELECT_LANGUAGE">مایل به استفاده از چه زبانی هستید:</Resource>
 		<Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
 		<Resource tag="MESSENGER">سرویسهای پیام رسان</Resource>
+		<Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب پوسته گرافیکی متفاوت</Resource>
 		<Resource tag="ABOUTYOU">درباره شما</Resource>
-		<Resource tag="REALNAME2">نام حقیقی شما چیست?</Resource>
+		<Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>
 		<Resource tag="BAD_EMAIL">آدرس ایمیلی که وارد کرده اید اشتباه میباشد.</Resource>
 		<Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه میباشد.</Resource>
 		<Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه میباشد.</Resource>
 		<Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه میباشد.</Resource>
 		<Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه میباشد.</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی میباشید?</Resource>
-	</page>
-	<page name="CP_INBOX">
-		<!-- cp_inbox.aspx -->
-		<Resource tag="TITLE">صندوق</Resource>
-		<Resource tag="SENTITEMS">موارد ارسال شده</Resource>
-		<Resource tag="DELETESELECTED">حذف موارد انتخاب شده</Resource>
-		<Resource tag="SUBJECT">موضوع</Resource>
-		<Resource tag="FROM">از</Resource>
-		<Resource tag="TO">به</Resource>
-		<Resource tag="DATE">تاریخ</Resource>
-		<Resource tag="MSGDELETED1">یک پیغام حذف شد.</Resource>
-		<Resource tag="MSGDELETED2">{0} پیغام حذف شد.</Resource>
-		<Resource tag="CONFIRM_DELETE">آیا مایل به حذف تمامی پیغامها میباشید?</Resource>
+		<Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی میباشید?</Resource>
+		<Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
+		<Resource tag="METAWEBLOG_API_URL">MetaWeblog API آدرس:</Resource>
+		<Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
+		<Resource tag="METAWEBLOG_API_ID">MetaWeblog API شناسه:</Resource>
+		<Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(تنظیمات انتخابی که ممکن است برای بعضی بلاگها مورد نیاز باشد ( SubText به این تنظیمات نیازی ندارد ).اگر مطمئن نیستید بدون اولی امتحان کنید.</Resource>
 	</page>
 	<page name="CP_MESSAGE">
 		<!-- cp_message.aspx -->
@@ -328,16 +425,18 @@
 		<Resource tag="PERSONAL_PROFILE">پروفایل شخصی:</Resource>
 		<Resource tag="INBOX">صندوق</Resource>
 		<Resource tag="SENTITEMS">موارد ارسال شده</Resource>
+		<Resource tag="ARCHIVE">آرشیو</Resource>
 		<Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
-    <Resource tag="EDIT_AVATAR">ویرایش عکس</Resource>
+		<Resource tag="EDIT_AVATAR">ویرایش عکس</Resource>
 		<Resource tag="SIGNATURE">امضاء</Resource>
 		<Resource tag="SUBSCRIPTIONS">اشتراک ها</Resource>
-		<Resource tag="YOUR_ACCOUNT">حساب شما</Resource>
+		<Resource tag="CHANGE_PASSWORD">تغییر رمز عبور</Resource>
+		<Resource tag="YOUR_ACCOUNT">حساب شما:</Resource>
 		<Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
 		<Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
 		<Resource tag="NUMPOSTS">تعداد ارسالها:</Resource>
-		<Resource tag="GROUPS">شما عضو گروه های فوق هستید:</Resource>
-		<Resource tag="JOINED">شما از تاریخ فوق عضو بوده اید:</Resource>
+		<Resource tag="GROUPS">شما عضو این گروه ها هستید:</Resource>
+		<Resource tag="JOINED">شما از این تاریخ عضو بوده اید:</Resource>
 		<Resource tag="EDIT_SIGNATURE">ویرایش امضاء</Resource>
 	</page>
 	<page name="CP_SIGNATURE">
@@ -357,49 +456,139 @@
 		<Resource tag="VIEWS">مشاهدات</Resource>
 		<Resource tag="UNSUBSCRIBE">لغو اشتراک</Resource>
 		<Resource tag="LASTPOSTLINK">{0} بوسیله {1}</Resource>
-		<Resource tag="WARN_SELECTTOPICS">اول عنوان مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
-		<Resource tag="WARN_SELECTFORUMS">اول انجمن مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
+		<Resource tag="WARN_SELECTTOPICS">ابتدا باید عنوان مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
+		<Resource tag="WARN_SELECTFORUMS">ابتدا باید انجمن مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
+	</page>
+	<page name="CP_CHANGEPASSWORD">
+		<!-- cp_changepassword.aspx -->
+		<Resource tag="TITLE">تغییر رمز</Resource>
+		<Resource tag="CHANGE_BUTTON">تائید</Resource>
+		<Resource tag="OLD_PASSWORD">رمز قدیمی:</Resource>
+		<Resource tag="NEW_PASSWORD">رمز جدید:</Resource>
+		<Resource tag="CONFIRM_PASSWORD">تائید رمز جدید:</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">رمزهای جدید با هم همخوانی ندارند.</Resource>
+		<Resource tag="PASSWORD_INCORRECT">رمز اشتباه می باشد و یا رمز جدید نا معتبر است.</Resource>
+		<Resource tag="PASSWORD_BAD_LENGTH">حداقل طول رمز جدید: {0}.</Resource>
+		<Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر از حرف/عدد نیاز است: {1}.</Resource>
+		<Resource tag="CHANGE_SUCCESS">رمز عبور با موفقیت تغییر پیدا کرد.</Resource>
+		<Resource tag="NEED_OLD_PASSWORD">رمز عبور قدیمی ضروری است.</Resource>
+		<Resource tag="NEED_NEW_PASSWORD">رمز عبور جدید ضروری است.</Resource>
+		<Resource tag="NEED_NEW_CONFIRM_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
 	</page>
 	<page name="EMAILTOPIC">
 		<!-- emailtopic.aspx -->
-		<Resource tag="TITLE">ارسال صفحه به دوستان</Resource>
-		<Resource tag="TO">ارسال به (آدرس ایمیل):</Resource>
+		<Resource tag="TITLE">ارسال صفحه به یک دوست</Resource>
+		<Resource tag="TO">ارسال به ( آدرس پست الکترونیک ):</Resource>
 		<Resource tag="SUBJECT">موضوع:</Resource>
 		<Resource tag="MESSAGE">پیغام:</Resource>
-		<Resource tag="SEND">ارسال ایمیل</Resource>
-		<Resource tag="NEED_EMAIL">شما باید آدرس ایمیل را وارد کنید.</Resource>
-		<Resource tag="FAILED">ارسال ایمیل با مشکل مواجه شد.\n\n{0}</Resource>
+		<Resource tag="SEND">ارسال پست الکترونیک</Resource>
+		<Resource tag="NEED_EMAIL">شما باید آدرس پست الکترونیک را وارد کنید.</Resource>
+		<Resource tag="FAILED">ارسال پست الکترونیکی دچار اشکال شد..\n\n{0}</Resource>
 	</page>
 	<page name="INFO">
 		<!-- info.aspx -->
 		<Resource tag="CONTINUE">ادامه...</Resource>
-    <Resource tag="MODERATED"> با توجه به اینکه به یک انجمن تحت نظارت مطلب ارسال کرده اید , مطلب شما باید توسط مدیران انجمن برای ارسال نهایی نورد تائید قرار بکیرد .</Resource>
-    <Resource tag="SUSPENDED">حساب شما موقتاً غیر فعال شده است {0}.</Resource>
-    <Resource tag="REGISTRATION">ایمیلی محتوی دستورالعمل های لازم برای ورود به انجمن برای شما ارسال شد.لطفاً به دقت آنرا مطالعه فرمایید.</Resource>
-    <Resource tag="ACCESSDENIED">شما مجاز به دسترسی به این بخش نمی باشید.</Resource>
-    <Resource tag="EXCEPTION">شما با عنوان فوق وارد شده اید</Resource>
-    <Resource tag="TITLE_MODERATED">اطلاعات</Resource>
-    <Resource tag="TITLE_SUSPENDED">معلق شده</Resource>
-    <Resource tag="TITLE_REGISTRATION">تشکر</Resource>
-    <Resource tag="TITLE_ACCESSDENIED">دسترسی ممکن نمی باشد</Resource>
-    <Resource tag="TITLE_EXCEPTION">اطلاعات</Resource>
-  </page>
+		<Resource tag="MODERATED">با توجه به اینکه به یک انجمن تحت نظارت مطلب ارسال کرده اید , مطلب شما باید توسط مدیران انجمن برای ارسال نهایی مورد تائید قرار بکیرد .</Resource>
+		<Resource tag="SUSPENDED">حساب شما موقتاً غیر فعال شده است.تعلیق در مدت {0} پایان می پذیرد.</Resource>
+		<Resource tag="REGISTRATION">ایمیلی حاوی دستورالعمل های لازم برای ورود به انجمن برای شما ارسال شد.لطفاً به دقت آنرا مطالعه فرمایید.</Resource>
+		<Resource tag="ACCESSDENIED">شما مجاز به دسترسی به این بخش نمی باشید</Resource>
+		<Resource tag="DISABLED">مدیر این انجمن این امکان را غیر فعال کرده است.</Resource>
+		<Resource tag="INVALID">مقدار غیر معتبری را به انجمن ارسال کردید.</Resource>
+		<Resource tag="FAILURE">سیستم در اجرای درخواست شما با مشکل مواجه شد.با مدیر سایت تماس بگیرید و در خصوص این خطا و چگونگی رخداد آن توضیح دهید.</Resource>
+		<Resource tag="EXCEPTION">وارد شده به عنوان:</Resource>
+		<Resource tag="TITLE_INVALID">نا معتبر</Resource>
+		<Resource tag="TITLE_MODERATED">اطلاعات</Resource>
+		<Resource tag="TITLE_SUSPENDED">معلق شده</Resource>
+		<Resource tag="TITLE_REGISTRATION">تشکر</Resource>
+		<Resource tag="TITLE_ACCESSDENIED">دسترسی ممکن نمی باشد</Resource>
+		<Resource tag="TITLE_EXCEPTION">اطلاعات</Resource>
+		<Resource tag="TITLE_FAILURE">اشکال</Resource>
+	</page>
 	<page name="LOGIN">
 		<!-- login.aspx -->
 		<Resource tag="TITLE">ورود</Resource>
 		<Resource tag="USERNAME">نام کاربری:</Resource>
 		<Resource tag="PASSWORD">رمز عبور:</Resource>
-		<Resource tag="AUTO">ورود خودکار:</Resource>
+		<Resource tag="AUTO">مرا به خاطر داشته باش</Resource>
 		<Resource tag="LOSTPASSWORD">رمز عبور را فراموش کرده ام</Resource>
 		<Resource tag="FORUM_LOGIN">ورود به انجمن</Resource>
-		<Resource tag="EMAIL">آدرس ایمیل</Resource>
-		<Resource tag="PASSWORD_ERROR">نام کاربری و یا رمز عبور وارد شده اشتباه میباشد.لطفاً دوباره سعی کنید.</Resource>
+		<Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
+		<Resource tag="PASSWORD_ERROR">نام کاربری و یا رمز عبور وارد شده اشتباه می باشد.دوباره تلاش کنید.</Resource>
 		<Resource tag="RECOVER">بازیابی رمز عبور</Resource>
-		<Resource tag="WRONG_USERNAME_EMAIL">نام کاربری و یا ایمیل اشتباه است.</Resource>
-		<Resource tag="EMAIL_SENT_PASSWORD">ایمیلی حاوی رمز عبور جدید برای شما ارسال شد.</Resource>
+		<Resource tag="WRONG_USERNAME_EMAIL">نام کاربری و یا آدرس پست الکترونیک اشتباه می باشد.</Resource>
+		<Resource tag="EMAIL_SENT_PASSWORD">پست الکترونیکی حاوی رمز عبور جدید شما ارسال شد.</Resource>
 		<Resource tag="SENDPASSWORD">ارسال رمز عبور</Resource>
-		<Resource tag="BOTH_USERNAME_EMAIL">ایمیل و نام کاربری باید وارد شوند.</Resource>
-		<Resource tag="RECOVER_ERROR">اشکالی در زمان تولید رمز عبور جدید به وجود آمد.دوباره سعی کنید..</Resource>
+		<Resource tag="BOTH_USERNAME_EMAIL">نام کاربری و پست الکترونیک تواماً باید وارد شوند.</Resource>
+		<Resource tag="RECOVER_ERROR">خطایی در هنگام ایجاد رمز عبور جدید شما رخ داد.</Resource>
+	</page>
+	<page name="RECOVER_PASSWORD">
+		<Resource tag="TITLE">رمز عبور را فراموش کرده ام</Resource>
+		<Resource tag="PAGE1_INSTRUCTIONS">نام کاربری خود را به منظور دریافت رمز عبور وارد کنید:</Resource>
+		<Resource tag="PAGE2_INSTRUCTIONS">سوالهای زیر را به منظور دریافت رمز عبور پاسخ دهید:</Resource>
+		<Resource tag="IDENTITY_CONFIRMATION_TITLE">تائید هویت برای بازیابی رمز عبور</Resource>
+		<Resource tag="USERNAME_FAILURE">نام کاربری شما پیدا نشد.</Resource>
+		<Resource tag="GENERAL_FAILURE">تلاش برای بازیابی رمز عبور شما موفقیت آمیز نبود.</Resource>
+		<Resource tag="QUESTION_FAILURE">پاسخ شما قابل تائید نمی باشد.دوباره تلاش کنید.</Resource>
+		<Resource tag="PASSWORD_SENT">رمز عبور به پست الکترونیک شما ارسال شد.</Resource>
+		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">بازیابی رمز عبور برای انجمن {0}</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+		<Resource tag="TITLE">ثبت کاربر جدید</Resource>
+		<Resource tag="TERMS_AND_CONDITIONS_TITLE">قوانین و مقررات</Resource>
+		<Resource tag="DETAILS">جزئیات ثبت نام</Resource>
+		<Resource tag="USERNAME">نام کاربری</Resource>
+		<Resource tag="NEED_USERNAME">نام کاربری ضروری است</Resource>
+		<Resource tag="PASSWORD">رمز عبور</Resource>
+		<Resource tag="NEED_PASSWORD">رمز عبور ضروری است.</Resource>
+		<Resource tag="NEED_QUESTION">سوال امنیتی ضروری است.</Resource>
+		<Resource tag="NEED_ANSWER">پاسخ امنیتی ضروری است.</Resource>
+		<Resource tag="RETYPE_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
+		<Resource tag="NEED_EMAIL">پست الکترونیک ضروری است.</Resource>
+		<Resource tag="NEED_MATCH">رمز ها با هم همخوانی ندارند.</Resource>
+		<Resource tag="EMAIL">آدرس پست الکترونیک</Resource>
+		<Resource tag="PROFILE">اطلاعات پروفایل</Resource>
+		<Resource tag="LOCATION">مکان</Resource>
+		<Resource tag="HOMEPAGE">صفحه خانگی</Resource>
+		<Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
+		<Resource tag="TIMEZONE">منطقه ساعتی</Resource>
+		<Resource tag="ALREADY_REGISTERED">نام کاربری و یا پست الکترونیک شما قبلاً ثبت شده است.</Resource>
+		<Resource tag="BAD_PASSWORD">لطفاً رمز عبور پیچیده تری را شامل اعداد و یا علائم انتخاب کنبد.</Resource>
+		<Resource tag="INVALID_QUESTION">لطفاً سوال امنیتی دیگری را انتخاب کنید.</Resource>
+		<Resource tag="INVALID_ANSWER">لطفاً پاسخ امنیتی دیگری را انتخاب کنید.</Resource>
+		<Resource tag="INVALID_USERNAME">لطفاً نام کاربری دیگری را انتخاب کنید.</Resource>
+		<Resource tag="REGISTER">ثبت نام</Resource>
+		<Resource tag="CONFIRM_PASSWORD">تایپ مجدد رمز عبور</Resource>
+		<Resource tag="SECURITY_QUESTION">سوال امنیتی</Resource>
+		<Resource tag="SECURITY_ANSWER">پاسخ امنیتی</Resource>
+		<Resource tag="CREATE_USER">ایجاد کاربر</Resource>
+		<Resource tag="CONTINUE">ادامه</Resource>
+		<Resource tag="BAD_EMAIL">آدر پست الکترونیک غیر معتبری را وارد کرده اید.</Resource>
+		<Resource tag="TERMSANDCONDITIONS_AGREE">شرایط و قوانین را قبول دارم</Resource>
+		<Resource tag="TERMSANDCONDITIONS_DISAGREE">با شرایط و قوانین مخالف هستم</Resource>
+		<Resource tag="VERIFICATION_EMAIL_SUBJECT">بررسی ثبت نام برای انجمن {0}</Resource>
+		<Resource tag="TERMS_AND_CONDITIONS" bbcode="true">
+			[size=5]بررسی و تائید تمامی ارسالها به این انجمن برای صاحبان و گردانندگان غیر ممکن می باشد.موارد ارسالی صرفاً بر اساس نقطه نظر و/یا دیدگاه شخص ارسال کننده می باشد و سایت هیچگونه مسئولیتی را در فبال این موارد نخواهد داشت.از شما خواسته می شود در صورتی که احساس می کنید ارسال و یا پیغامی سوال برانگیز می باشد ، گردانندگان این انجمن را سریعاً در جریان قرار بدهید.
+
+			شما به عنوان کاربر موافقت می کنید که از ارسال موارد غیر اخلاقی ، توهین آمیز ، تنفر آمیز، مستهجن ، مبتذل و هرگونه مواردی که بر خلاف قوانین باشند خودداری کنید.در صورت نقض این قوانین نام کاربری شما مسدود و اجازه دسترسی شما به این انجمن از شما گرفته خواهد شد.توجه کنید که کد آی پی کاربران در زمان ثبت نام جمع آوری می شود و از آن به منظور اقدام در چنین شرایطی استفاده خواهد شد.
+
+			شما به عنوان کاربر موافقت می کنید که صاحبان و گردانندگان این انجمن مجاز به حذف ، ویرایش ، انتقال و بستن عناوین ارسالی شما در مواقع ضرورت می باشند.شما به عنوان کاربر موافقت می کنید که اطلاعاتی را که وارد خواهید کرد در بانک اطلاعاتی سایت ذخیره می شود.این اطلاعات به هیچ عنوان به شخص حقیقی و حقوقی ثالث بدون اجازه شما داده نخواهد شد.سایت و گردانندگان آن هیچ مسئولیتی را در قبال نفوذ احتمالی و غیر قانونی به سایت  که ممکن است منجر به از دست رفتن اطلاعات شما شوند نخواهند داشت.
+
+			این انجمن از سیستم کوکی به منظور ذخیره اطلاعات بر روی سیستم شما استفاده می کند و این اطلاعات حاوی مطالبی که شما در بخش بعدی وارد می کنید نمی باشد و فقط به منظور افزایش و بهبود کارائی و استفاده شما از این انجمن خواهد بود.آدرس پست الکترونیکی که وارد می کنید فقط به منظود تائید حساب کاربری و مراحل ثبت نام می باشد و یا در مواقعی که رمز عبور خود را فراموش میکنید.
+
+			شما به عنوان کاربر موافقت می کنید که از هیچگونه ابزارهای خودکار ثبت نام و ارسال هرزنامه استفاده نکنید.در غیر اینصورت و تخطی از این مورد به ما این اجازه را می دهید تا به طور مداوم پیگیری و تحقیق را به منظور شناسایی شما و ردیابی سرور اینترنتی انجام دهیم.[/size]
+
+			[center][size=6][b]با کلیک بر روی دکمه "قبول دارم" شما ملزم به پذیرش و رعایت تمامی قوانین این انجمن هستید و در صورت تخطی با شما برخورد خواهد شد.[/b][/size][/center]
+		</Resource>
+		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]حساب کاربری شما با موفقیت ایجاد شد.[/center]</Resource>
+		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]حساب کاربری شما با موفقیت ایجاد شد با این وجود قبل از اینکه بتوانید وارد انجمن شوید باید حساب کاربری خود را توسط ایمیلی که برای شما ارسال شد تائید کنید.صندوق پست الکترونیک خود را برای دستورالعمل چگونگی تائید بررسی کنید.[/center]</Resource>
+	</page>
+	<page name="RULES">
+		<!-- rules.aspx -->
+		<Resource tag="TITLE">قوانین و مقررات انجمن</Resource>
+		<Resource tag="ACCEPT">قبول دارم</Resource>
+		<Resource tag="DECLINE">قبول ندارم</Resource>
+		<Resource tag="RULES_TEXT" bbcode="true">قوانین انمجن خود را در این قسمت وارد کنید.</Resource>
 	</page>
 	<page name="MEMBERS">
 		<!-- members.aspx -->
@@ -433,24 +622,30 @@
 	<page name="MOVETOPIC">
 		<!-- movetopic.aspx -->
 		<Resource tag="TITLE">انتقال عنوان</Resource>
-		<Resource tag="SELECT_FORUM">انجمنی که مایل به انتقال این ارسال به آن هستید را انتخاب کنید:</Resource>
+		<Resource tag="SELECT_FORUM">انجمنی را که مایل به انتقال پیغام به آن هستید را انتخاب کنید:</Resource>
 		<Resource tag="MOVE">انتقال عنوان</Resource>
-	</page>
+		<Resource tag="LEAVE_POINTER">ارسال اصلی درجای اولیه خود ، با اضافه شدن کلمه "انتقال داده شد" باقی بماند. </Resource>
 
+	</page>
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
 		<Resource tag="TITLE">ارسال پیغام خصوصی</Resource>
+		<Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
 		<Resource tag="TO">به:</Resource>
 		<Resource tag="SUBJECT">موضوع:</Resource>
-		<Resource tag="MESSAGE">پیغام:</Resource>
-		<Resource tag="NEED_TO">دریافت کننده پیغام را مشخص نکرده اید.</Resource>
-		<Resource tag="NEED_SUBJECT">موضوع را باید انتخاب کنید.</Resource>
-		<Resource tag="NEED_MESSAGE">هیچ متنی را برای ارسال وارد نکرده اید.</Resource>
+		<Resource tag="MESSAGE">متن پیغام:</Resource>
+		<Resource tag="NEED_TO">معین نکرده اید پیغام برای چه کسی میباشد.</Resource>
+		<Resource tag="NEED_SUBJECT">باید موضوع را وارد کنید.</Resource>
+		<Resource tag="NEED_MESSAGE">متن پیغام شما خالی است.</Resource>
 		<Resource tag="SAVE">ارسال</Resource>
-		<Resource tag="NO_SUCH_USER">کاربری با نام فوق وجود ندارد.</Resource>
-		<Resource tag="NOT_GUEST">امکان ارسال پیغام به کاربر میهمان وجود ندارد.</Resource>
-		<Resource tag="FINDUSERS">جستجو کاربر</Resource>
-		<Resource tag="ALLUSERS">تمامی کاربران</Resource>
+		<Resource tag="NO_SUCH_USER">کاربری با این نام وجود ندارد.</Resource>
+		<Resource tag="NOT_GUEST">امکان ارسال پیغام خصوصی به کاربر میهمان وجود ندارد.</Resource>
+		<Resource tag="NEED_MORE_LETTERS">به منظور پیدا کردن کاربران می بایست حداقل دو حرف اول نام کاربری را وارد کنید.</Resource>
+		<Resource tag="FINDUSERS">جستجوی کاربران</Resource>
+		<Resource tag="ALLUSERS">تمام کاربران</Resource>
+		<Resource tag="CLEAR">پاک کردن</Resource>
+		<Resource tag="OWN_PMBOX_FULL">تعداد پیغامهای خصوصی ، ارسال شده و آرشیو شده شما بسیار زیاد می باشد.حداکثر تعداد مجاز {0} پیغام می باشد.</Resource>
+		<Resource tag="RECIPIENTS_PMBOX_FULL">صندوق پیامهای کاربری که مایل به ارسال پیام به او هستید پر شده است.کاربر فوق باید قبل از دریافت پیغام جدید صندوق خود را تخلیه کند.</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
@@ -460,15 +655,15 @@
 		<Resource tag="PREVIEW">پیش نمایش</Resource>
 		<Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
 		<Resource tag="SUBJECT">موضوع:</Resource>
-		<Resource tag="FROM">از:</Resource>
+		<Resource tag="FROM">از طرف:</Resource>
 		<Resource tag="PRIORITY">اهمیت:</Resource>
 		<Resource tag="MESSAGE">پیغام:</Resource>
-		<Resource tag="LAST10">آخرین 10 ارسال (با ترتیب برعکس)</Resource>
+		<Resource tag="LAST10">10 ارسال آخر با چیدمان برعکس</Resource>
 		<Resource tag="NORMAL">عادی</Resource>
 		<Resource tag="STICKY">مهم</Resource>
-		<Resource tag="ANNOUNCEMENT">اطلاعیه ها</Resource>
-		<Resource tag="CREATEPOLL">ایجاد نظر سنجی</Resource>
-		<Resource tag="POLLQUESTION">سوال نظر سنجی:</Resource>
+		<Resource tag="ANNOUNCEMENT">اطلاعیه</Resource>
+		<Resource tag="CREATEPOLL">ایجاد نظرسنجی</Resource>
+		<Resource tag="POLLQUESTION">سوال نظرسنجی</Resource>
 		<Resource tag="CHOICE1">انتخاب اول:</Resource>
 		<Resource tag="CHOICE2">انتخاب دوم:</Resource>
 		<Resource tag="CHOICE3">انتخاب سوم:</Resource>
@@ -479,82 +674,79 @@
 		<Resource tag="CHOICE8">انتخاب هشتم:</Resource>
 		<Resource tag="CHOICE9">انتخاب نهم:</Resource>
 		<Resource tag="POLL_EXPIRE">اجرای نظر سنجی به مدت:</Resource>
-		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]روز[/b] [ اگر این نظر سنجی برای همیشه خواهد بود این قسمت خالی باشد ]</Resource>		
+		<Resource tag="POLL_EXPIRE_EXPLAIN">[b]روز[/b] [ اگر این نظر سنجی برای همیشه خواهد بود این قسمت خالی باشد ]</Resource>
 		<Resource tag="NEED_SUBJECT">موضوعی را برای این عنوان تعیین کنید.</Resource>
-		<Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید.</Resource>
+		<Resource tag="WAIT">تا {0:N0} ثانیه دیگر مجاز به ارسال مجدد نمی باشید</Resource>
 		<Resource tag="POSTED">ارسال شده:</Resource>
 		<Resource tag="SAVE">ارسال</Resource>
-		<Resource tag="NEED_QUESTION">باید سوالی را برای نظر سنجی انتخاب کنید.</Resource>
-		<Resource tag="NEED_CHOICES">نظر سنجی حداقل به دو انتخاب نیاز دارد.</Resource>
-		<Resource tag="SMILIES_HEADER">[b]اضافه کردن شکلک[/b]</Resource>
+		<Resource tag="NEED_QUESTION">سوال نظرسنجی را باید وارد کنید.</Resource>
+		<Resource tag="NEED_CHOICES">یک نظر سنجی به حداقل دو انتخاب نیاز دارد.</Resource>
+		<Resource tag="POSTTOBLOG_FAILED">خطایی در هنگام ارسال به بلاگ  رخ داد.شاید دسترسی وجود نداشته باشد</Resource>
+		<Resource tag="SMILIES_HEADER">[b]اضافه کردن خندانک[/b]</Resource>
+		<Resource tag="SMILIES_MORE">خندانکهای بیشتر...</Resource>
+		<Resource tag="EDITREASON">دلیل ویرایش:</Resource>
+		<Resource tag="PERSISTENCY">ماندگار:</Resource>
+		<Resource tag="PERSISTENCY_INFO">عناوین ماندگار مورد پاک سازی قرار نمی گیرند.</Resource>
+		<Resource tag="NEWPOSTOPTIONS">انتخابها:</Resource>
+		<Resource tag="TOPICWATCH">آیااین موضوع با ارسال ایمیل به من تحت نظر قرار داده شود؟</Resource>
+		<Resource tag="TOPICATTACH">فایلی به این ارسال الصاق شود؟</Resource>
+	</page>
+	<page name="SHOWSMILIES">
+		<!-- showsmilies.ascx -->
+		<Resource tag="TITLE">خندانکهای موجود</Resource>
+		<Resource tag="HEADER_CODE">کد</Resource>
+		<Resource tag="HEADER_SMILE">خندانک</Resource>
+		<Resource tag="HEADER_MEANING">معنی</Resource>
+		<Resource tag="CLOSE_WINDOW">بستن پنجره</Resource>
 	</page>
 	<page name="PRINTTOPIC">
 		<!-- printtopic.aspx -->
-		<Resource tag="POSTEDBY">ارسال شده توسط</Resource>
+		<Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
 	</page>
 	<page name="PROFILE">
 		<!-- profile.aspx -->
 		<Resource tag="MEMBERS">اعضاء</Resource>
-		<Resource tag="PROFILE">پروفایل:</Resource>
+		<Resource tag="PROFILE">پروفابل:</Resource>
 		<Resource tag="ABOUT">درباره</Resource>
 		<Resource tag="USERNAME">نام کاربری:</Resource>
 		<Resource tag="GROUPS">گروه ها:</Resource>
-		<Resource tag="RANK">رتبه انجمن:</Resource>
-		<Resource tag="JOINED">تاریخ عضویت:</Resource>
-		<Resource tag="EMAIL">ایمیل:</Resource>
+		<Resource tag="RANK">رتبه در انجمن:</Resource>
+		<Resource tag="JOINED">عضو شده:</Resource>
+		<Resource tag="EMAIL">پست الکترونیک:</Resource>
 		<Resource tag="LASTVISIT">آخرین ملاقات:</Resource>
 		<Resource tag="STATISTICS">آمار</Resource>
 		<Resource tag="NUMPOSTS">تعداد ارسالها:</Resource>
-		<Resource tag="LAST10">آخرین 10 ارسال</Resource>
+		<Resource tag="LAST10">10 ارسال آخر</Resource>
 		<Resource tag="TOPIC">عنوان:</Resource>
 		<Resource tag="POSTED">ارسال شده:</Resource>
-		<Resource tag="ENDS">تعلیق کاربر در این تاریخ به پایان میرسد:</Resource>
+		<Resource tag="ENDS">اتمام تعلیق:</Resource>
+		<Resource tag="SUSPEND_USER">تعلیق کاربر:</Resource>
 		<Resource tag="REMOVESUSPENSION">حذف تعلیق</Resource>
 		<Resource tag="SUSPEND">تعلیق</Resource>
 		<Resource tag="DAYS">روز</Resource>
 		<Resource tag="HOURS">ساعت</Resource>
 		<Resource tag="MINUTES">دقیقه</Resource>
-		<Resource tag="AVATAR">عکس</Resource>
+		<Resource tag="AVATAR">آواتار</Resource>
 		<Resource tag="CONTACT">تماس</Resource>
 		<Resource tag="PM">پیغام خصوصی:</Resource>
 		<Resource tag="MSN">MSN Messenger:</Resource>
 		<Resource tag="YIM">Yahoo Messenger:</Resource>
-		<Resource tag="AIM">AIM-Name:</Resource>
-		<Resource tag="ICQ">ICQ-Number:</Resource>
+		<Resource tag="AIM">AIM-نام:</Resource>
+		<Resource tag="ICQ">ICQ-شماره:</Resource>
 		<Resource tag="REALNAME">نام حقیقی:</Resource>
 		<Resource tag="WEBSITE">صفحه خانگی:</Resource>
-		<Resource tag="WEBLOG">وبلاگ:</Resource>
+		<Resource tag="WEBLOG">وب لاگ:</Resource>
 		<Resource tag="OCCUPATION">شغل:</Resource>
 		<Resource tag="INTERESTS">علاقه ها:</Resource>
 		<Resource tag="GENDER">جنسیت:</Resource>
 		<Resource tag="GENDER0">مشخص نمی باشد</Resource>
-		<Resource tag="GENDER1">مرد</Resource>
-		<Resource tag="GENDER2">زن</Resource>
+		<Resource tag="GENDER1">مذکر</Resource>
+		<Resource tag="GENDER2">مونث</Resource>
 		<Resource tag="NUMALL">{0:N2}% از تمام ارسالها</Resource>
 		<Resource tag="NUMDAY">{0:N2} ارسال در روز</Resource>
 		<Resource tag="ERROR_ADMINISTRATORS">شما مجاز به تعلیق کاربر مدیر نمیباشید.</Resource>
 		<Resource tag="ERROR_FORUMMODERATORS">شما مجاز به تعلیق کاربران مدیر نمیباشد.</Resource>
 		<Resource tag="ERROR_GUESTACCOUNT">شما مجاز به تعلیق کاربر میهمان نمی باشید.</Resource>
-	</page>
-	<page name="REGISTER">
-		<!-- register.aspx -->
-		<Resource tag="TITLE">ثبت نام کاربر جدید</Resource>
-		<Resource tag="DETAILS">جزئیات ثبت نام</Resource>
-		<Resource tag="USERNAME">نام کاربری</Resource>
-		<Resource tag="NEED_USERNAME">نام کاربری ضروری است.</Resource>
-		<Resource tag="PASSWORD">رمز عبور</Resource>
-		<Resource tag="NEED_PASSWORD">رمز عبور ضروری است.</Resource>
-		<Resource tag="RETYPE_PASSWORD">رمز عبور را مجدداً وارد کنید</Resource>
-		<Resource tag="NEED_MATCH">رمزهای عبور همخوانی ندارند.</Resource>
-		<Resource tag="EMAIL">آدرس ایمیل</Resource>
-		<Resource tag="PROFILE">اطلاعات پروفایل</Resource>
-		<Resource tag="LOCATION">مکان</Resource>
-		<Resource tag="HOMEPAGE">صفحه خانگی</Resource>
-		<Resource tag="PREFERENCES">تنظیمات انجمن</Resource>
-		<Resource tag="TIMEZONE">منطقه ساعتی</Resource>
-		<Resource tag="ALREADY_REGISTERED">نام کاربری و یا ایمیل شما قبلاً ثبت نام شده است.</Resource>
-		<Resource tag="REGISTER">ثبت نام</Resource>
-		<Resource tag="BAD_EMAIL">آدرس ایمیل اشتباه میباشد.</Resource>
 	</page>
 	<page name="SEARCH">
 		<!-- search.aspx -->
@@ -563,7 +755,7 @@
 		<Resource tag="RESULTS">نتایج</Resource>
 		<Resource tag="TOPIC">عنوان:</Resource>
 		<Resource tag="POSTED">ارسال شده:</Resource>
-		<Resource tag="ALLFORUMS">تمامی انجمنها</Resource>
+		<Resource tag="ALLFORUMS">تمام انجمنها</Resource>
 		<Resource tag="RESULT5">5 نتیجه در هر صفحه</Resource>
 		<Resource tag="RESULT10">10 نتیجه در هر صفحه</Resource>
 		<Resource tag="RESULT25">25 نتیجه در هر صفحه</Resource>
@@ -573,53 +765,62 @@
 		<Resource tag="MATCH_ALL">فقط کلمات وارد شده جستجو شوند</Resource>
 		<Resource tag="MATCH_ANY">هر کلمه ای جستجو شود</Resource>
 		<Resource tag="MATCH_EXACT">فقط متن فوق بطور کامل جستجو شود</Resource>
-		<Resource tag="NO_SEARCH_RESULTS">[b]موردی یافت نشد.[/b]</Resource>
+		<Resource tag="NO_SEARCH_RESULTS">[b]موردی پیدا نشد.[/b]</Resource>
+		<Resource tag="SEARCH_CRITERIA_ERROR">.متن مورد جستجو باید حداقل {0} کاراکتر طول داشته باشد و با قوانین انجمن برای جستجو مطابقت کند.برای اطلاعات بیشتر بخش پرسشهای متداول را ببینید</Resource>
 		<Resource tag="BY">بوسیله</Resource>
 	</page>
 	<page name="MODERATE_DEFAULT">
 		<Resource tag="TITLE">مدیریت</Resource>
 		<Resource tag="FORUM">انجمن</Resource>
 		<Resource tag="UNAPPROVED">ارسالهای تائید نشده</Resource>
-		<Resource tag="CATEGORY">دسته بندی</Resource>
+		<Resource tag="REPORTED">گزارش شده به عنوان ارسالهای توهین آمیز</Resource>
+		<Resource tag="REPORTEDSPAM">گزارش شده به عنوان ارسالهای هرزنامه ای</Resource>
+		<Resource tag="CATEGORY">بخش</Resource>
 	</page>
 	<page name="MODERATE_FORUM">
-		<Resource tag="UNAPPROVED">ارسالهای تائید نشده</Resource>
+		<Resource tag="UNAPPROVED">ارسالهای بررسی نشده</Resource>
 		<Resource tag="TOP">برگشت به بالا</Resource>
-		<Resource tag="APPROVE">تائید ارسال</Resource>
+		<Resource tag="APPROVE">پذیرفتن ارسال</Resource>
 		<Resource tag="DELETE">حذف ارسال</Resource>
-		<Resource tag="ASK_DELETE">آیا این ارسال حذف شود?</Resource>
-		<Resource tag="APPROVED">ارسال مورد تائید قرار گرفت.</Resource>
+		<Resource tag="ASK_DELETE">این ارسال حذف شود؟</Resource>
+		<Resource tag="APPROVED">ارسال پذیرفته شد.</Resource>
 		<Resource tag="DELETED">ارسال حذف شد.</Resource>
+		<Resource tag="MODIFIED">ارسال تغییر پیدا کرد!</Resource>
+		<Resource tag="RESOLVE">بررسی کپی های ارسال</Resource>
+		<Resource tag="NUMBERREPORTED">تعداد دفعات گزارش:</Resource>
+		<Resource tag="COPYOVER">بروزرسانی متن پیغام</Resource>
+		<Resource tag="RESOLVED">بررسی شد</Resource>
+		<Resource tag="RESOLVEDFEEDBACK">پیغام به عنوان بررسی شده ثبت گردید.</Resource>
 	</page>
 	<page name="MOD_FORUMUSER">
 		<Resource tag="TITLE">کاربر انجمن</Resource>
 		<Resource tag="USER">کاربر:</Resource>
-		<Resource tag="FIND">جستجو کاربران</Resource>
-		<Resource tag="ACCESSMASK">سطح دسترسی:</Resource>
+		<Resource tag="FIND">پیدا کردن کاربران</Resource>
+		<Resource tag="ACCESSMASK">وضعیت دسترسی:</Resource>
 		<Resource tag="UPDATE">بروزرسانی</Resource>
-		<Resource tag="CANCEL">لغو</Resource>
+		<Resource tag="CANCEL">انصراف</Resource>
 	</page>
 	<page name="RTE">
-		<Resource tag="BOLD">ذخیم</Resource>
+		<Resource tag="BOLD">ضخیم</Resource>
 		<Resource tag="ITALIC">کج</Resource>
-		<Resource tag="UNDERLINE">خط دار</Resource>
-		<Resource tag="LEFT">چسبیده به چپ</Resource>
+		<Resource tag="UNDERLINE">زیر خط دار</Resource>
+		<Resource tag="LEFT">سمت چپ</Resource>
 		<Resource tag="CENTER">وسط</Resource>
-		<Resource tag="RIGHT">چسبیده به راست</Resource>
-		<Resource tag="ORDERED">لسیت ردیف شده</Resource>
-		<Resource tag="UNORDERED">لسیت درهم</Resource>
+		<Resource tag="RIGHT">سمت راست</Resource>
+		<Resource tag="ORDERED">لیست مرتب شده</Resource>
+		<Resource tag="UNORDERED">لیست نا مرتب</Resource>
 		<Resource tag="OUTDENT">بیرون رفتگی</Resource>
 		<Resource tag="INDENT">تورفتگی</Resource>
 		<Resource tag="LINK">وارد کردن لینک</Resource>
 		<Resource tag="IMAGE">اضافه کردن عکس</Resource>
-		<Resource tag="SPELL">بررسی املائی متن</Resource>
+		<Resource tag="SPELL">بررسی املاء کلمات</Resource>
 		<Resource tag="NORMAL">عادی</Resource>
-		<Resource tag="CLEAR">حذف فرمت دهی</Resource>
-		<Resource tag="FORMATTED">فرمت شده</Resource>
+		<Resource tag="CLEAR">حذف شکل بندی</Resource>
+		<Resource tag="FORMATTED">شکل بندی شده</Resource>
 	</page>
 	<page name="AVATAR">
-		<Resource tag="TITLE">عکس</Resource>
-		<Resource tag="EDITPROFILE">تغییر عکس</Resource>
+		<Resource tag="TITLE">آواتارها</Resource>
+		<Resource tag="EDITPROFILE">تغییر آواتار</Resource>
 	</page>
 	<page name="IM_YIM">
 		<Resource tag="TITLE">Yahoo! Messenger</Resource>
@@ -630,15 +831,15 @@
 	<page name="IM_ICQ">
 		<Resource tag="TITLE">ICQ</Resource>
 		<Resource tag="NAME">نام شما:</Resource>
-		<Resource tag="EMAIL">ایمیل شما:</Resource>
+		<Resource tag="EMAIL">پست الکترونیک شما:</Resource>
 		<Resource tag="SEND">ارسال پیغام</Resource>
-		<Resource tag="BODY">متن خود را اینجا وارد کنید:</Resource>
+		<Resource tag="BODY">پیغام خود را اینجا تایپ کنید:</Resource>
 	</page>
 	<page name="IM_EMAIL">
-		<Resource tag="TITLE">ایمیل</Resource>
-		<Resource tag="SEND">ارسال ایمیل</Resource>
+		<Resource tag="TITLE">پست الکترونیک</Resource>
+		<Resource tag="SEND">ارسال پست الکترونیک</Resource>
 		<Resource tag="SUBJECT">موضوع:</Resource>
-		<Resource tag="BODY">متن خود را اینجا وارد کنید:</Resource>
-		<Resource tag="ERROR">ارسال ایمیل شما با مشکل مواجه شد.</Resource>
+		<Resource tag="BODY">پیغام خود را اینجا تایپ کنید:</Resource>
+		<Resource tag="ERROR">در ارسال پست الکترونیک مشکلی ایجاد شد.</Resource>
 	</page>
 </Resources>

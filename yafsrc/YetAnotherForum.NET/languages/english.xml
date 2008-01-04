@@ -622,6 +622,7 @@
 		<Resource tag="TITLE">Move Topic</Resource>
 		<Resource tag="SELECT_FORUM">Select the forum you want to move the post to:</Resource>
 		<Resource tag="MOVE">Move Topic</Resource>
+		<Resource tag="LEAVE_POINTER">Leave link to moved topic in original forum</Resource>
 	</page>
 	<page name="PMESSAGE">
 		<!-- pmessage.aspx -->
