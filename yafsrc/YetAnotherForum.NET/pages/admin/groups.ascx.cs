@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
@@ -32,112 +33,192 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-  /// <summary>
-  /// Summary description for groups.
-  /// </summary>
-  public partial class groups : YAF.Classes.Base.AdminPage
-  {
-		private System.Collections.Specialized.StringCollection _availableRoles = new System.Collections.Specialized.StringCollection();
+	/// <summary>
+	/// Primary administrator interface for groups/roles editing.
+	/// </summary>
+	public partial class groups : YAF.Classes.Base.AdminPage
+	{
+		#region Data Members
 
-    protected void Page_Load( object sender, System.EventArgs e )
-    {
-      if ( !IsPostBack )
-      {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-        PageLinks.AddLink( "Roles", "" );
+		/// <summary>
+		/// Temporary storage of un-linked provider roles.
+		/// </summary>
+		private StringCollection _availableRoles = new StringCollection();
 
-        // sync roles just in case...
-        YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( YAF.Classes.Utils.YafContext.Current.PageBoardID );
+		#endregion
 
-        BindData();
-      }
-    }
 
-    protected void Delete_Load( object sender, System.EventArgs e )
-    {
-      ( ( LinkButton ) sender ).Attributes ["onclick"] = "return confirm('Delete this Role?')";
-    }
+		#region Construcotrs & Overridden Methods
 
-    private void BindData()
-    {
-			DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null );
-			RoleListYaf.DataSource = dt;			
-
-			_availableRoles.Clear();
-
-			foreach ( string role in Roles.GetAllRoles() )
-			{
-				string filter = string.Format( "Name='{0}'", role.Replace("'", "''") );
-				DataRow [] rows = dt.Select( filter );
-
-				if ( rows.Length == 0 )
-				{
-					// doesn't exist in the Yaf Groups
-					_availableRoles.Add( role );
-				}
-			}
-
-			if ( _availableRoles.Count > 0 )
-			{
-				RoleListNet.DataSource = _availableRoles;
-			}
-			else
-			{
-				RoleListNet.DataSource = null;
-			}
-
-      DataBind();
-    }
-
-    protected void RoleListYaf_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
-    {
-      switch ( e.CommandName )
-      {
-        case "edit":
-          YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", e.CommandArgument );
-          break;
-        case "delete":
-          YAF.Classes.Data.DB.group_delete( e.CommandArgument );
-          BindData();
-          break;
-      }
-    }
-
-		protected void RoleListNet_ItemCommand( object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e )
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
 		{
-			switch ( e.CommandName )
+			// forum index
+			PageLinks.AddLink(PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+			// admin index
+			PageLinks.AddLink("Administration", YafBuildLink.GetLink(ForumPages.admin_admin));
+			// roles
+			PageLinks.AddLink("Roles", "");
+		}
+
+		#endregion
+
+
+		#region Event Handlers
+
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			// this needs to be done just once, not during postbacks
+			if (!IsPostBack)
 			{
-				case "add":
-					long groupID = YAF.Classes.Data.DB.group_save( DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1 );
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup, "i={0}", groupID );
+				// create page links
+				CreatePageLinks();
+
+				// sync roles just in case...
+				RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
+
+				// bind data
+				BindData();
+			}
+		}
+
+
+		/// <summary>
+		/// Handles load event for delete button, adds confirmation dialog.
+		/// </summary>
+		protected void Delete_Load(object sender, System.EventArgs e)
+		{
+			General.AddOnClickConfirmDialog(sender, "return confirm('Delete this Role?')");
+		}
+
+
+		/// <summary>
+		/// Handles role editing/deletion buttons.
+		/// </summary>
+		protected void RoleListYaf_ItemCommand(object source, RepeaterCommandEventArgs e)
+		{
+			// detect which command are we handling
+			switch (e.CommandName)
+			{
+				case "edit":
+					// go to role editing page
+					YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", e.CommandArgument);
 					break;
 				case "delete":
-					System.Web.Security.Roles.DeleteRole( e.CommandArgument.ToString(), false );
+					// delete role
+					DB.group_delete(e.CommandArgument);
+					// remove cache of forum moderators
+					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+					// re-bind data
 					BindData();
 					break;
 			}
 		}
 
-		protected string GetLinkedStatus( System.Data.DataRowView currentRow )
-		{
-			if ( BitSet( currentRow ["Flags"], 2 ) == true )
-			{
-				return "Unlinkable";
-			}
 
-			return "Linked";
+		/// <summary>
+		/// Handles provider roles additing/deletetion.
+		/// </summary>
+		protected void RoleListNet_ItemCommand(object source, RepeaterCommandEventArgs e)
+		{
+			// detect which command are we handling
+			switch (e.CommandName)
+			{
+				case "add":
+					// save role and get its ID
+					long groupID = DB.group_save(DBNull.Value, PageContext.PageBoardID, e.CommandArgument.ToString(), false, false, false, false, 1);
+					// redirect to newly created role
+					YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupID);
+					break;
+				case "delete":
+					// delete role from provider data
+					Roles.DeleteRole(e.CommandArgument.ToString(), false);
+					// re-bind data
+					BindData();
+					break;
+			}
 		}
 
-    protected void NewGroup_Click( object sender, System.EventArgs e )
-    {
-      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editgroup );
-    }
 
-    protected bool BitSet( object _o, int bitmask )
-    {
-      int i = ( int ) _o;
-      return ( i & bitmask ) != 0;
-    }
-  }
+		/// <summary>
+		/// Handles click on new role button
+		/// </summary>
+		protected void NewGroup_Click(object sender, System.EventArgs e)
+		{
+			// redirect to new role page
+			YafBuildLink.Redirect(ForumPages.admin_editgroup);
+		}
+
+		#endregion
+
+
+		#region Data Binding & Formatting
+
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
+		private void BindData()
+		{
+			// list roles of this board
+			DataTable dt = DB.group_list(PageContext.PageBoardID, null);
+			// set repeater datasource
+			RoleListYaf.DataSource = dt;
+
+			// clear cached list of roles
+			_availableRoles.Clear();
+
+			// get all provider roles
+			foreach (string role in Roles.GetAllRoles())
+			{
+				// make filter string, we want to filer by role name
+				string filter = string.Format("Name='{0}'", role.Replace("'", "''"));
+				// get given role of YAF
+				DataRow[] rows = dt.Select(filter);
+
+				// if this role is not in YAF DB, add it to the list of provider roles for syncing
+				if (rows.Length == 0)
+				{
+					// doesn't exist in the Yaf Groups
+					_availableRoles.Add(role);
+				}
+			}
+
+			// check if there are any roles for syncing
+			if (_availableRoles.Count > 0)
+			{
+				//make it datasource
+				RoleListNet.DataSource = _availableRoles;
+			}
+			else
+			{
+				// no datasource for provider roles
+				RoleListNet.DataSource = null;
+			}
+
+			// bind data to controls
+			DataBind();
+		}
+
+
+		/// <summary>
+		/// Get status of provider role vs YAF roles.
+		/// </summary>
+		/// <param name="currentRow">Data row which contains data about role.</param>
+		/// <returns>String "Linked" when role is linked to YAF roles, "Unlinkable" otherwise.</returns>
+		protected string GetLinkedStatus(System.Data.DataRowView currentRow)
+		{
+			// check whether role is Guests role, which can't be linked
+			if (General.BinaryAnd(currentRow["Flags"], 2))
+				return "Unlinkable";
+			else
+				return "Linked";
+		}
+
+		#endregion
+	}
 }

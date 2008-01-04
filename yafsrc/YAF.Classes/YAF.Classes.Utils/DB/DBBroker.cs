@@ -31,11 +31,15 @@ namespace YAF.Classes.Utils
 				string key = YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators );
 				DataTable moderator = YafCache.Current [key] as DataTable;
 
+				// was it in the cache?
 				if ( moderator == null )
 				{
+					// get fresh values
 					moderator = DB.forum_moderators();
 					moderator.TableName = DBAccess.GetObjectName( "Moderator" );
-					YafCache.Current [key] = moderator;
+
+					// cache it for 30 minutes (or longer)
+					YafCache.Current.Add(key, moderator, null, null, new TimeSpan(0, 30, 0));
 				}
 				// insert it into this DataSet
 				ds.Tables.Add( moderator.Copy() );
@@ -44,6 +48,7 @@ namespace YAF.Classes.Utils
 				key = YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory );
 				DataTable category = YafCache.Current [key] as DataTable;
 
+				// was it in the cache?
 				if ( category == null )
 				{
 					// just get all categories since the list is short

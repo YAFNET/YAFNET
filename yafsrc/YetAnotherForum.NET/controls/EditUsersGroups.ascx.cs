@@ -27,78 +27,126 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
+using YAF.Classes.Data;
 
 namespace YAF.Controls
 {
 	public partial class EditUsersGroups : YAF.Classes.Base.BaseUserControl
 	{
-		protected void Page_Load( object sender, EventArgs e )
+		#region Properties
+
+		/// <summary>
+		/// Gets user ID of edited user.
+		/// </summary>
+		protected int ThisUserID
 		{
-			if ( !IsPostBack )
+			get { return int.Parse(Request.QueryString["u"]); }
+		}
+		
+		#endregion
+
+
+		#region Event Handlers
+
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			// this needs to be done just once, not during postbacks
+			if (!IsPostBack)
 			{
+				// bind data
 				BindData();
 			}
 		}
 
-    protected int ThisUserID
-    {
-      get
-      {
-        return int.Parse( Request.QueryString ["u"] );
-      }
-    }
 
+		/// <summary>
+		/// Handles click on cancel button.
+		/// </summary>
+		protected void Cancel_Click(object sender, System.EventArgs e)
+		{
+			// redurect to user admin page.
+			YafBuildLink.Redirect(ForumPages.admin_users);
+		}
+
+
+		/// <summary>
+		/// Handles click on save button.
+		/// </summary>
+		protected void Save_Click(object sender, System.EventArgs e)
+		{
+			// go through all roles displayed on page
+			for (int i = 0; i < UserGroups.Items.Count; i++)
+			{
+				// get current item
+				RepeaterItem item = UserGroups.Items[i];
+				// get role ID from it
+				int roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
+
+				// get role name
+				string roleName = string.Empty;
+				using (DataTable dt = DB.group_list(PageContext.PageBoardID, roleID))
+				{
+					foreach (DataRow row in dt.Rows) roleName = (string)row["Name"];
+				}
+
+				// is user supposed to be in that role?
+				bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+
+				// save user in role
+				DB.usergroup_save(ThisUserID, roleID, isChecked);
+
+				// update roles if this user isn't the guest
+				if (!UserMembershipHelper.IsGuestUser(ThisUserID))
+				{
+					// get user's name
+					string userName = UserMembershipHelper.GetUserNameFromID(ThisUserID);
+
+					// add/remove user from roles in membership provider
+					if (isChecked && !Roles.IsUserInRole(userName, roleName))
+						Roles.AddUserToRole(userName, roleName);
+					else if (!isChecked && Roles.IsUserInRole(userName, roleName))
+						Roles.RemoveUserFromRole(userName, roleName);
+				}
+			}
+
+			// update forum moderators cache just in case something was changed...
+			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+
+			// redirect to user administration
+			YafBuildLink.Redirect(ForumPages.admin_users);
+		}
+
+		#endregion
+
+
+		#region Data Binding & Formatting
+
+		/// <summary>
+		/// Bind data for this control.
+		/// </summary>
 		private void BindData()
 		{
-      UserGroups.DataSource = YAF.Classes.Data.DB.group_member( PageContext.PageBoardID, ThisUserID );
+			// get user roles
+			UserGroups.DataSource = DB.group_member(PageContext.PageBoardID, ThisUserID);
+
+			// bind data to controls
 			DataBind();
 		}
 
-		protected bool IsMember( object o )
+
+		/// <summary>
+		/// Checks if user is memeber of role or not depending on value of parameter.
+		/// </summary>
+		/// <param name="o">Parameter if 0, user is not member of a role.</param>
+		/// <returns>True if user is member of role (o > 0), false otherwise.</returns>
+		protected bool IsMember(object o)
 		{
-			return long.Parse( o.ToString() ) > 0;
+			return long.Parse(o.ToString()) > 0;
 		}
 
-		protected void Cancel_Click( object sender, System.EventArgs e )
-		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
-		}
-
-		protected void Save_Click( object sender, System.EventArgs e )
-		{
-			for ( int i = 0; i < UserGroups.Items.Count; i++ )
-			{
-				RepeaterItem item = UserGroups.Items [i];
-				int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
-
-				string roleName = string.Empty;
-				using ( DataTable dt = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, GroupID ) )
-				{
-					foreach ( DataRow row in dt.Rows )
-						roleName = ( string ) row ["Name"];
-				}
-
-				bool isChecked = ( ( CheckBox ) item.FindControl( "GroupMember" ) ).Checked;
-
-				YAF.Classes.Data.DB.usergroup_save( ThisUserID, GroupID, isChecked );
-
-        // update roles if this user isn't the guest
-				if ( !UserMembershipHelper.IsGuestUser( ThisUserID ) )
-				{
-					string userName = YAF.Classes.Utils.UserMembershipHelper.GetUserNameFromID( ThisUserID );
-
-					if ( isChecked && !Roles.IsUserInRole( userName, roleName ) )
-						Roles.AddUserToRole( userName, roleName );
-					else if ( !isChecked && Roles.IsUserInRole( userName, roleName ) )
-						Roles.RemoveUserFromRole( userName, roleName );
-				}
-
-				// update forum moderators cache just in case something was changed...
-				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
-			}
-
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
-		}
-
+		#endregion
 	}
 }

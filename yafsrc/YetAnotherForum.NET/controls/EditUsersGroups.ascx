@@ -1,30 +1,36 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersGroups.ascx.cs" Inherits="YAF.Controls.EditUsersGroups" %>
-
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersGroups.ascx.cs"
+	Inherits="YAF.Controls.EditUsersGroups" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<asp:repeater id="UserGroups" runat="server">
-	    <HeaderTemplate>
-		    <tr>
-			    <td class="header1" colspan="2">User Groups</td>
-		    </tr>
-		    <tr>
-			    <td class="header2">Member</td>
-			    <td class="header2">Group</td>
-		    </tr>
-	    </HeaderTemplate>
-	    <ItemTemplate>
-		    <tr>
-			    <td class="post"><asp:checkbox runat="server" id="GroupMember" checked='<%# IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/></td>
-			    <td class="post"><asp:label id="GroupID" visible="false" runat="server" text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:label>
-				    <b><%# DataBinder.Eval(Container.DataItem, "Name") %></b>
-			    </td>
-		    </tr>
-	    </ItemTemplate>
-    </asp:repeater>
-
+	<asp:Repeater ID="UserGroups" runat="server">
+		<HeaderTemplate>
+			<tr>
+				<td class="header1" colspan="2">
+					User Groups</td>
+			</tr>
+			<tr>
+				<td class="header2">
+					Member</td>
+				<td class="header2">
+					Group</td>
+			</tr>
+		</HeaderTemplate>
+		<ItemTemplate>
+			<tr>
+				<td class="post">
+					<asp:CheckBox runat="server" ID="GroupMember" Checked='<%# IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>' /></td>
+				<td class="post">
+					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
+					<b>
+						<%# DataBinder.Eval(Container.DataItem, "Name") %>
+					</b>
+				</td>
+			</tr>
+		</ItemTemplate>
+	</asp:Repeater>
 	<tr>
 		<td class="postfooter" colspan="2" align="center">
-			<asp:Button id="Save" runat="server" Text="Save" onclick="Save_Click" />
-			<asp:Button id="Cancel" runat="server" Text="Cancel" onclick="Cancel_Click" />
+			<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />
+			<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" />
 		</td>
 	</tr>
-	</table>
+</table>
