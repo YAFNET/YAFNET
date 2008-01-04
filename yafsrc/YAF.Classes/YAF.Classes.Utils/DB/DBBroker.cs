@@ -39,7 +39,7 @@ namespace YAF.Classes.Utils
 					moderator.TableName = DBAccess.GetObjectName( "Moderator" );
 
 					// cache it for 30 minutes (or longer)
-					YafCache.Current.Add(key, moderator, null, null, new TimeSpan(0, 30, 0));
+					YafCache.Current.Add(key, moderator, null, DateTime.MaxValue, new TimeSpan(0, 30, 0), System.Web.Caching.CacheItemPriority.Default, null);
 				}
 				// insert it into this DataSet
 				ds.Tables.Add( moderator.Copy() );
