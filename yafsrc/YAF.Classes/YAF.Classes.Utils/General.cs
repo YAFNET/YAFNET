@@ -675,7 +675,10 @@ namespace YAF.Classes.Utils
         {
           // parse...
           string [] nvalue = tValue.Trim().Split( new char [] { '=' } );
-          _nameValues.Add( nvalue [0], nvalue [1] );
+          if ( nvalue.Length == 1 )
+          	_nameValues.Add( nvalue [0], string.Empty );
+          else if ( nvalue.Length > 1 )
+            _nameValues.Add( nvalue [0], nvalue [1] );
         }
       }
     }
