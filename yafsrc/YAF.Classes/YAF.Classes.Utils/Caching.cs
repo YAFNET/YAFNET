@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web.Caching;
 using System.Web;
+using System.Collections;
 
 namespace YAF.Classes.Utils
 {
@@ -130,6 +131,15 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Gets count of cache keys currently saved.
+		/// </summary>
+		public int Count
+		{
+			get { return _cache.Count; }
+		}
+
+
+		/// <summary>
 		/// Creates key using default cache key creation method
 		/// </summary>
 		/// <param name="key">Key to use for generating cache key</param>
@@ -204,6 +214,24 @@ namespace YAF.Classes.Utils
 		{
 			return _cache.Remove(CreateKey(key));
 		}
+
+
+		/// <summary>
+		/// Clear all cache entries from memory.
+		/// </summary>
+		public void Clear()
+		{
+			// get enumarator
+			IDictionaryEnumerator key = _cache.GetEnumerator();
+
+			// cycle through cache keys
+			while (key.MoveNext())
+			{
+				// and remove them one by one
+				_cache.Remove(key.Key.ToString());
+			}
+		}
+
 
 		#endregion
 	}

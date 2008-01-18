@@ -38,8 +38,8 @@ namespace YAF.Classes.Utils
 					moderator = DB.forum_moderators();
 					moderator.TableName = DBAccess.GetObjectName( "Moderator" );
 
-					// cache it for 30 minutes (or longer)
-					YafCache.Current.Add(key, moderator, null, DateTime.MaxValue, new TimeSpan(0, 30, 0), System.Web.Caching.CacheItemPriority.Default, null);
+					// cache it for the time specified by admin
+					YafCache.Current.Add(key, moderator, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardModeratorsCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
 				}
 				// insert it into this DataSet
 				ds.Tables.Add( moderator.Copy() );
@@ -54,7 +54,7 @@ namespace YAF.Classes.Utils
 					// just get all categories since the list is short
 					category = DB.category_list( boardID, null );
 					category.TableName = DBAccess.GetObjectName( "Category" );
-					YafCache.Current [key] = category;
+					YafCache.Current.Add(key, category, null, DateTime.Now.AddMinutes(YafContext.Current.BoardSettings.BoardCategoriesCacheTimeout), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null);
 				}	
 
 				// add it to this dataset				

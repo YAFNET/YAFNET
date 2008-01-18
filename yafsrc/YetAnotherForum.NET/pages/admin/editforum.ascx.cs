@@ -188,8 +188,15 @@ namespace YAF.Pages.Admin
 					int GroupID = int.Parse( ( ( Label ) item.FindControl( "GroupID" ) ).Text );
 					YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
 				}
+
+				// clear moderatorss cache
+				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 			}
+
+			// clear moderatorss cache
+			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
 			// Done
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum, "f={0}", ForumID );

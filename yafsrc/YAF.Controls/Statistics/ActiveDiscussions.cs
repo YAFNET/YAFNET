@@ -68,7 +68,7 @@ namespace YAF.Controls.Statistics
 			if ( dt == null )
 			{
 				dt = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, _displayNumber, PageContext.PageUserID );
-				YafCache.Current.Insert( cacheKey, dt, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
+				YafCache.Current.Insert(cacheKey, dt, null, DateTime.Now.AddMinutes(PageContext.BoardSettings.ActiveDiscussionsCacheTimeout), TimeSpan.Zero);
 			}		
 
 			html.Append( "<table width=\"100%\" class=\"content\" cellspacing=\"1\" border=\"0\" cellpadding=\"0\">" );

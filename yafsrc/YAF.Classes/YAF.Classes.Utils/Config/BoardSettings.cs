@@ -303,6 +303,17 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "DisableNoFollowLinksAfterDay", 0 ); }
 			set { _reg.GetValueInt( "DisableNoFollowLinksAfterDay", value ); }
 		}
+		// Ederon : 01/18/2007
+		public int BoardModeratorsCacheTimeout
+		{
+			get { return _reg.GetValueInt("BoardModeratorsCacheTimeout", 1440); }
+			set { _reg.SetValueInt("BoardModeratorsCacheTimeout", value); }
+		}
+		public int BoardCategoriesCacheTimeout
+		{
+			get { return _reg.GetValueInt("BoardCategoriesCacheTimeout", 1440); }
+			set { _reg.SetValueInt("BoardCategoriesCacheTimeout", value); }
+		}
 
 		// boolean settings
 		public bool EmailVerification

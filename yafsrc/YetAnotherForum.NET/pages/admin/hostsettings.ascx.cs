@@ -92,6 +92,9 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 9/9/2007
 			General.AddStyleAttributeWidth( ForumSmtpServerPort, "30px" );
+
+			// CheckCache
+			CheckCache();
 		}
 
 		private void BindData()
@@ -107,7 +110,9 @@ namespace YAF.Pages.Admin
 			ForumEditorList.Items.FindByValue( PageContext.BoardSettings.ForumEditor.ToString() ).Selected = true;
 			ForumSmtpServer.Text = PageContext.BoardSettings.SmtpServer;
 			ForumSmtpUserName.Text = PageContext.BoardSettings.SmtpUserName;
-			ForumSmtpUserPass.Text = PageContext.BoardSettings.SmtpUserPass;
+			// since SMTP password is masked, we need to set it using other method
+			//ForumSmtpUserPass.Text = PageContext.BoardSettings.SmtpUserPass;
+			ForumSmtpUserPass.Attributes.Add("value", PageContext.BoardSettings.SmtpUserPass);
 			ForumEmailEdit.Text = PageContext.BoardSettings.ForumEmail;
 			EmailVerification.Checked = PageContext.BoardSettings.EmailVerification;
 			ShowMoved.Checked = PageContext.BoardSettings.ShowMoved;
@@ -196,12 +201,16 @@ namespace YAF.Pages.Admin
 			SearchStringMinLength.Text = PageContext.BoardSettings.SearchStringMinLength.ToString();
 			SearchStringPattern.Text = PageContext.BoardSettings.SearchStringPattern;
 			SearchPermissions.SelectedIndex = PageContext.BoardSettings.SearchPermissions;
-			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
-			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
 
 			// Ederon : 12/18/2007 added
 			MaxPrivateMessagesPerUser.Text = PageContext.BoardSettings.MaxPrivateMessagesPerUser.ToString();
 			PrivateMessageMaxRecipients.Text = PageContext.BoardSettings.PrivateMessageMaxRecipients.ToString();
+
+			// Caching
+			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
+			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
+			BoardModeratorsCacheTimeout.Text = PageContext.BoardSettings.BoardModeratorsCacheTimeout.ToString();
+			BoardCategoriesCacheTimeout.Text = PageContext.BoardSettings.BoardCategoriesCacheTimeout.ToString();
 
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
@@ -310,12 +319,16 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.SearchStringMinLength = Convert.ToInt32(SearchStringMinLength.Text.Trim());
 			PageContext.BoardSettings.SearchStringPattern = SearchStringPattern.Text;
 			PageContext.BoardSettings.SearchPermissions = SearchPermissions.SelectedIndex;
-			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
-			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
 
 			// Ederon : 12/18/2007 added
 			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32(MaxPrivateMessagesPerUser.Text.Trim());
 			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32(PrivateMessageMaxRecipients.Text.Trim());
+
+			// Caching
+			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.BoardModeratorsCacheTimeout = Convert.ToInt32(BoardModeratorsCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.BoardCategoriesCacheTimeout = Convert.ToInt32(BoardCategoriesCacheTimeout.Text.Trim());
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
@@ -334,6 +347,55 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings = null;
 
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
+		}
+
+		protected void ForumStatisticsCacheReset_Click(object sender, System.EventArgs e)
+		{
+			RemoveCacheKey(Constants.Cache.BoardStats);
+		}
+
+		protected void ActiveDiscussionsCacheReset_Click(object sender, System.EventArgs e)
+		{
+			RemoveCacheKey(Constants.Cache.ActiveDiscussions);
+			RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
+		}
+
+		protected void BoardModeratorsCacheReset_Click(object sender, System.EventArgs e)
+		{
+			RemoveCacheKey(Constants.Cache.ForumModerators);
+		}
+
+		protected void BoardCategoriesCacheReset_Click(object sender, System.EventArgs e)
+		{
+			RemoveCacheKey(Constants.Cache.ForumCategory);
+		}
+
+		protected void ResetCacheAll_Click(object sender, System.EventArgs e)
+		{
+			// clear all cache keys
+			YafCache.Current.Clear();
+
+			CheckCache();
+		}
+
+		private void RemoveCacheKey(string key)
+		{
+			YafCache.Current.Remove(YafCache.GetBoardCacheKey(key));
+			CheckCache();
+		}
+
+		private bool CheckCacheKey(string key)
+		{
+			return YafCache.Current[YafCache.GetBoardCacheKey(key)] != null;
+		}
+
+		private void CheckCache()
+		{
+			ForumStatisticsCacheReset.Enabled = CheckCacheKey(Constants.Cache.BoardStats);
+			ActiveDiscussionsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
+			BoardModeratorsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumModerators);
+			BoardCategoriesCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumCategory);
+			ResetCacheAll.Enabled = YafCache.Current.Count > 0;
 		}
 	}
 }

@@ -760,7 +760,7 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" />
+                                    <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" /> <asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
                                 </td>
                             </tr>
                             <tr>
@@ -769,8 +769,30 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" />
+                                    <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" /> <asp:Button ID="ActiveDiscussionsCacheReset" Text="Clear" runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
                                 </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Board Categories Cache Timeout:</b><br />
+                                    In minutes
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="BoardCategoriesCacheTimeout" /> <asp:Button ID="BoardCategoriesCacheReset" Text="Clear" runat="server" OnClick="BoardCategoriesCacheReset_Click" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Board Moderators Cache Timeout:</b><br />
+                                    In minutes
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="BoardModeratorsCacheTimeout" /> <asp:Button ID="BoardModeratorsCacheReset" Text="Clear" runat="server" OnClick="BoardModeratorsCacheReset_Click" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="footer1" colspan="2">
+                                    <asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" /></td>
                             </tr>
                         </table>
                     </ContentTemplate>

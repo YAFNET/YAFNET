@@ -130,6 +130,9 @@ namespace YAF.Pages // YAF.Pages
 
 				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"],PageContext.PageForumID,AccessMaskID.SelectedValue);
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate,"f={0}",PageContext.PageForumID);
+
+				// clear moderatorss cache
+				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 			}
 		}
 		
