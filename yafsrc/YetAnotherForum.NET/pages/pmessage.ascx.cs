@@ -51,7 +51,7 @@ namespace YAF.Pages
 			Editor.BaseDir = YafForumInfo.ForumRoot + "editors";
 			Editor.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
 
-			if ( User == null )
+			if ( User == null || PageContext.IsGuest )
 				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 
 			if ( !IsPostBack )
