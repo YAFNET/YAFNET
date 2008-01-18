@@ -294,6 +294,12 @@
 		<Resource tag="REPORTSPAM">Report as spam</Resource>
 		<Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
 		<Resource tag="EMPTY_MESSAGE">You must enter something into your post.</Resource>
+		<Resource tag="EDITED">Edit</Resource>
+		<Resource tag="EDITED_BY_USER">by user</Resource>
+		<Resource tag="EDITED_BY_MOD">by moderator</Resource>
+		<Resource tag="EDIT_REASON">Reason</Resource>
+		<Resource tag="EDIT_REASON_NA">Not specified</Resource>
+		<Resource tag="IP">IP</Resource>
   </page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

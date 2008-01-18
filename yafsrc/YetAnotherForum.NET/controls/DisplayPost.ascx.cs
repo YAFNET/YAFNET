@@ -132,17 +132,17 @@ namespace YAF.Controls
 				{
 					// message has been edited
 					// show, why the post was edited or deleted?
-					string whoChanged = ( Convert.ToBoolean( DataRow ["IsModeratorChanged"] ) ) ? "by moderator" : "by user";
-					AdminInformation.InnerHtml += String.Format( @"| <span class=""editedinfo"" style=""color:red;font-weight:bold"">{0} {1}:</span> {2}", "Edited", whoChanged, YafDateTime.FormatDateTimeShort( Convert.ToDateTime( DataRow ["Edited"] ) ) );
+					string whoChanged = (Convert.ToBoolean(DataRow["IsModeratorChanged"])) ? PageContext.Localization.GetText("EDITED_BY_MOD") : PageContext.Localization.GetText("EDITED_BY_USER");
+					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"" style=""color:red;font-weight:bold"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafDateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified
-						AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["EditReason"], true ) );
+						AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)DataRow["EditReason"], true));
 					}
 					else
 					{
 						//reason was not specified
-						AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
+						AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), PageContext.Localization.GetText("EDIT_REASON_NA"));
 					}
 				}
 			}
@@ -152,19 +152,19 @@ namespace YAF.Controls
 				if ( Server.HtmlDecode( Convert.ToString( DataRow ["DeleteReason"] ) ) != String.Empty )
 				{
 					// reason was specified
-					AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", FormatMsg.RepairHtml( ( string ) DataRow ["DeleteReason"], true ) );
+					AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), FormatMsg.RepairHtml((string)DataRow["DeleteReason"], true));
 				}
 				else
 				{
 					//reason was not specified
-					AdminInformation.InnerHtml += String.Format( " |<b> {0}:</b> {1}", "Reason", "Not specified" );
+					AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("EDIT_REASON"), PageContext.Localization.GetText("EDIT_REASON_NA"));
 				}
 			}
 
 			// display admin only info
 			if ( PageContext.IsAdmin )
 			{
-				AdminInformation.InnerHtml += String.Format( " |<b> IP:</b> {0}", DataRow ["IP"].ToString() );
+				AdminInformation.InnerHtml += String.Format(" |<b> {0}:</b> {1}", PageContext.Localization.GetText("IP"), DataRow["IP"].ToString());
 			}
 			AdminInformation.InnerHtml += "</span>";
 		}
