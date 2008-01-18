@@ -114,8 +114,12 @@ namespace YAF.Pages.Admin
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editcategory,"c={0}",e.CommandArgument);
 					break;
 				case "delete":
-					if(YAF.Classes.Data.DB.category_delete(e.CommandArgument))
+					if (YAF.Classes.Data.DB.category_delete(e.CommandArgument))
+					{
 						BindData();
+						// remove category cache...
+						YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+					}
 					else
 						PageContext.AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
 					break;
