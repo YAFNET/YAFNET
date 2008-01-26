@@ -917,7 +917,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return new DateTime( 2007, 12, 22 );
+				return new DateTime( 2008, 1, 26 );
 			}
 		}
 		#endregion
