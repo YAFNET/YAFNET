@@ -1,5 +1,6 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2008 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
