@@ -1,3 +1,21 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2008 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +32,8 @@ namespace YAF.Controls
 		protected string _targetID;
 		protected ModalPopupExtender _popupControlExtender = new ModalPopupExtender();
 
-		public PopupConfirm()	: base()
+		public PopupConfirm()
+			: base()
 		{
 		}
 
@@ -33,13 +52,13 @@ namespace YAF.Controls
 			ConfirmExtender.Hide();
 		}
 
-        protected override void OnInit(EventArgs e)
-        {
-            this.BuildPopup();
-            base.OnInit(e);
-        }
+		protected override void OnInit( EventArgs e )
+		{
+			this.BuildPopup();
+			base.OnInit( e );
+		}
 
-        protected void BuildPopup()
+		protected void BuildPopup()
 		{
 			Panel popupPanel = new Panel();
 			popupPanel.ID = "PopUpPanel";
@@ -52,8 +71,8 @@ namespace YAF.Controls
 			cancelButton.ID = "PopUpCancelBtn";
 			cancelButton.Text = "Cancel";
 
-            okButton.Click += new EventHandler(okButton_Click);
-			cancelButton.Click += new EventHandler(cancelButton_Click );
+			okButton.Click += new EventHandler( okButton_Click );
+			cancelButton.Click += new EventHandler( cancelButton_Click );
 
 			System.Web.UI.HtmlControls.HtmlGenericControl div = new HtmlGenericControl( "div" );
 			div.Attributes.Add( "class", "inner" );
@@ -79,17 +98,17 @@ namespace YAF.Controls
 			this.Controls.Add( ConfirmExtender );
 		}
 
-        void okButton_Click(object sender, EventArgs e)
-        {
-            if (Confirm != null) Confirm(this, e);
-            Hide();
-        }
+		void okButton_Click( object sender, EventArgs e )
+		{
+			if ( Confirm != null ) Confirm( this, e );
+			Hide();
+		}
 
 		void cancelButton_Click( object sender, EventArgs e )
 		{
-            if (Cancel != null) Cancel(this, e);
-            Hide();
-        }
+			if ( Cancel != null ) Cancel( this, e );
+			Hide();
+		}
 
 		public string Text
 		{
@@ -103,7 +122,7 @@ namespace YAF.Controls
 			set { _targetID = value; }
 		}
 
-        public event EventHandler<EventArgs> Confirm;
+		public event EventHandler<EventArgs> Confirm;
 		public event EventHandler<EventArgs> Cancel;
 	}
 }
