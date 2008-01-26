@@ -1,3 +1,21 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2008 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +29,6 @@ using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Data;
 using System.Data.SqlClient;
-
 using YAF.Classes.Data;
 
 namespace YAF.Providers.Membership
@@ -50,209 +67,209 @@ namespace YAF.Providers.Membership
 		}
 
 		public static void CreateUser( string appName, string username, string password, string passwordSalt, int passwordFormat, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_createuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Input Parameters
-                cmd.Parameters.AddWithValue("Username", username);
-                cmd.Parameters.AddWithValue("Password", password);
-                cmd.Parameters.AddWithValue("PasswordSalt", passwordSalt);
-                cmd.Parameters.AddWithValue("PasswordFormat", passwordFormat);
-                cmd.Parameters.AddWithValue("Email", email);
-                cmd.Parameters.AddWithValue("PasswordQuestion", passwordQuestion);
-                cmd.Parameters.AddWithValue("PasswordAnswer", passwordAnswer);
-                cmd.Parameters.AddWithValue("IsApproved", isApproved);
-               // Input Output Parameters
-                SqlParameter paramUserKey = new SqlParameter("UserKey", SqlDbType.UniqueIdentifier);
-                paramUserKey.Direction = ParameterDirection.InputOutput;
-                paramUserKey.Value = providerUserKey;
-                cmd.Parameters.Add(paramUserKey);
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_createuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Input Parameters
+				cmd.Parameters.AddWithValue( "Username", username );
+				cmd.Parameters.AddWithValue( "Password", password );
+				cmd.Parameters.AddWithValue( "PasswordSalt", passwordSalt );
+				cmd.Parameters.AddWithValue( "PasswordFormat", passwordFormat );
+				cmd.Parameters.AddWithValue( "Email", email );
+				cmd.Parameters.AddWithValue( "PasswordQuestion", passwordQuestion );
+				cmd.Parameters.AddWithValue( "PasswordAnswer", passwordAnswer );
+				cmd.Parameters.AddWithValue( "IsApproved", isApproved );
+				// Input Output Parameters
+				SqlParameter paramUserKey = new SqlParameter( "UserKey", SqlDbType.UniqueIdentifier );
+				paramUserKey.Direction = ParameterDirection.InputOutput;
+				paramUserKey.Value = providerUserKey;
+				cmd.Parameters.Add( paramUserKey );
 
-                //Execute
-                DBAccess.ExecuteNonQuery(cmd);
-                //Retrieve Output Parameters
-                providerUserKey = paramUserKey.Value;
+				//Execute
+				DBAccess.ExecuteNonQuery( cmd );
+				//Retrieve Output Parameters
+				providerUserKey = paramUserKey.Value;
 
-            }
-        }
+			}
+		}
 
 		public static void DeleteUser( string appName, string username, bool deleteAllRelatedData )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_deleteuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@DeleteAllRelated", deleteAllRelatedData);
-                DBAccess.ExecuteNonQuery(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_deleteuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@Username", username );
+				cmd.Parameters.AddWithValue( "@DeleteAllRelated", deleteAllRelatedData );
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
 
 		public static DataTable FindUsersByEmail( string appName, string emailToMatch, int pageIndex, int pageSize )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_findusersbyemail")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@EmailAddress", emailToMatch);
-                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("@PageSize", pageSize);
-                return DBAccess.GetData(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_findusersbyemail" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@EmailAddress", emailToMatch );
+				cmd.Parameters.AddWithValue( "@PageIndex", pageIndex );
+				cmd.Parameters.AddWithValue( "@PageSize", pageSize );
+				return DBAccess.GetData( cmd );
+			}
+		}
 
 		public static DataTable FindUsersByName( string appName, string usernameToMatch, int pageIndex, int pageSize )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_findusersbyname")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", usernameToMatch);
-                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("@PageSize", pageSize);
-                return DBAccess.GetData(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_findusersbyname" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@Username", usernameToMatch );
+				cmd.Parameters.AddWithValue( "@PageIndex", pageIndex );
+				cmd.Parameters.AddWithValue( "@PageSize", pageSize );
+				return DBAccess.GetData( cmd );
+			}
+		}
 
 		public static DataTable GetAllUsers( string appName, int pageIndex, int pageSize )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getallusers")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
-                cmd.Parameters.AddWithValue("@PageSize", pageSize);
-                return DBAccess.GetData(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_getallusers" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@PageIndex", pageIndex );
+				cmd.Parameters.AddWithValue( "@PageSize", pageSize );
+				return DBAccess.GetData( cmd );
+			}
+		}
 
 		public static int GetNumberOfUsersOnline( string appName, int TimeWindow )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getnumberofusersonline")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@TimeWindow", TimeWindow);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
-                SqlParameter p = new SqlParameter("ReturnValue", SqlDbType.Int);
-                p.Direction = ParameterDirection.ReturnValue;
-                cmd.Parameters.Add(p);
-                DBAccess.ExecuteNonQuery(cmd);
-                return Convert.ToInt32(cmd.Parameters["ReturnValue"].Value);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_getnumberofusersonline" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@TimeWindow", TimeWindow );
+				cmd.Parameters.AddWithValue( "@CurrentTimeUtc", DateTime.UtcNow );
+				SqlParameter p = new SqlParameter( "ReturnValue", SqlDbType.Int );
+				p.Direction = ParameterDirection.ReturnValue;
+				cmd.Parameters.Add( p );
+				DBAccess.ExecuteNonQuery( cmd );
+				return Convert.ToInt32( cmd.Parameters ["ReturnValue"].Value );
+			}
+		}
 
 		public static DataRow GetUser( string appName, object providerUserKey, string userName, bool userIsOnline )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@UserName", userName);
-								cmd.Parameters.AddWithValue( "@UserKey", providerUserKey );
-                cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
-                using (DataTable dt = DBAccess.GetData(cmd))
-                {
-                    if (dt.Rows.Count > 0)
-                        return dt.Rows[0];
-                    else
-                        return null;
-                }
-            }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_getuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@UserName", userName );
+				cmd.Parameters.AddWithValue( "@UserKey", providerUserKey );
+				cmd.Parameters.AddWithValue( "@UserIsOnline", userIsOnline );
+				using ( DataTable dt = DBAccess.GetData( cmd ) )
+				{
+					if ( dt.Rows.Count > 0 )
+						return dt.Rows [0];
+					else
+						return null;
+				}
+			}
 
-        }
+		}
 
 		public static DataTable GetUserPasswordInfo( string appName, string username, bool updateUser )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@UserIsOnline", updateUser);
-                return DBAccess.GetData(cmd);
-            }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_getuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@Username", username );
+				cmd.Parameters.AddWithValue( "@UserIsOnline", updateUser );
+				return DBAccess.GetData( cmd );
+			}
 
-        }
+		}
 
 		public static DataTable GetUserNameByEmail( string appName, string email )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_getusernamebyemail")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@Email", email);
-                return DBAccess.GetData(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_getusernamebyemail" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@Email", email );
+				return DBAccess.GetData( cmd );
+			}
+		}
 
 
 		public static void ResetPassword( string appName, string userName, string password, string passwordSalt, int passwordFormat, int maxInvalidPasswordAttempts, int passwordAttemptWindow )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_resetpassword")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@UserName", userName);
-                cmd.Parameters.AddWithValue("@Password", password);
-                cmd.Parameters.AddWithValue("@PasswordSalt", passwordSalt);
-                cmd.Parameters.AddWithValue("@PasswordFormat", passwordFormat);
-                cmd.Parameters.AddWithValue("@MaxInvalidAttempts", maxInvalidPasswordAttempts);
-                cmd.Parameters.AddWithValue("@PasswordAttemptWindow", passwordAttemptWindow);
-                cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_resetpassword" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@UserName", userName );
+				cmd.Parameters.AddWithValue( "@Password", password );
+				cmd.Parameters.AddWithValue( "@PasswordSalt", passwordSalt );
+				cmd.Parameters.AddWithValue( "@PasswordFormat", passwordFormat );
+				cmd.Parameters.AddWithValue( "@MaxInvalidAttempts", maxInvalidPasswordAttempts );
+				cmd.Parameters.AddWithValue( "@PasswordAttemptWindow", passwordAttemptWindow );
+				cmd.Parameters.AddWithValue( "@CurrentTimeUtc", DateTime.UtcNow );
 
-                DBAccess.ExecuteNonQuery(cmd);
-            }
+				DBAccess.ExecuteNonQuery( cmd );
+			}
 
-        }
+		}
 
 		public static void UnlockUser( string appName, string userName )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_unlockuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("@UserName", userName);
-                DBAccess.ExecuteNonQuery(cmd);
-            }
-        }
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_unlockuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@UserName", userName );
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
 
 		public static int UpdateUser( object appName, MembershipUser user, bool requiresUniqueEmail )
-        {
-            using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_updateuser")))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("ApplicationName", appName);
-                // Nonstandard args
-                cmd.Parameters.AddWithValue("UserKey", user.ProviderUserKey);
-                cmd.Parameters.AddWithValue("UserName", user.UserName);
-                cmd.Parameters.AddWithValue("Email", user.Email);
-                cmd.Parameters.AddWithValue("Comment", user.Comment);
-                cmd.Parameters.AddWithValue("IsApproved", user.IsApproved);
-                cmd.Parameters.AddWithValue("LastLogin", user.LastLoginDate);
-                cmd.Parameters.AddWithValue("LastActivity", user.LastActivityDate.ToUniversalTime());
-                cmd.Parameters.AddWithValue("UniqueEmail", requiresUniqueEmail);
-                // Add Return Value
-                SqlParameter p = new SqlParameter("ReturnValue", SqlDbType.Int);
-                p.Direction = ParameterDirection.ReturnValue;
-                cmd.Parameters.Add(p);
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_updateuser" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "ApplicationName", appName );
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "UserKey", user.ProviderUserKey );
+				cmd.Parameters.AddWithValue( "UserName", user.UserName );
+				cmd.Parameters.AddWithValue( "Email", user.Email );
+				cmd.Parameters.AddWithValue( "Comment", user.Comment );
+				cmd.Parameters.AddWithValue( "IsApproved", user.IsApproved );
+				cmd.Parameters.AddWithValue( "LastLogin", user.LastLoginDate );
+				cmd.Parameters.AddWithValue( "LastActivity", user.LastActivityDate.ToUniversalTime() );
+				cmd.Parameters.AddWithValue( "UniqueEmail", requiresUniqueEmail );
+				// Add Return Value
+				SqlParameter p = new SqlParameter( "ReturnValue", SqlDbType.Int );
+				p.Direction = ParameterDirection.ReturnValue;
+				cmd.Parameters.Add( p );
 
-                DBAccess.ExecuteNonQuery(cmd); // Execute Non SQL Query
-                return Convert.ToInt32(p.Value); // Return
-            }
-        }
+				DBAccess.ExecuteNonQuery( cmd ); // Execute Non SQL Query
+				return Convert.ToInt32( p.Value ); // Return
+			}
+		}
 
 	}
 }

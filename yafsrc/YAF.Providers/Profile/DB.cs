@@ -1,3 +1,21 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2006-2008 Jaben Cargman
+ * http://www.yetanotherforum.net/
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -42,17 +60,17 @@ namespace YAF.Providers.Profile
 			}
 		}
 
-		static public void AddProfileColumn( string Name, SqlDbType columnType, int size)
+		static public void AddProfileColumn( string Name, SqlDbType columnType, int size )
 		{
 			// get column type...
 			string type = columnType.ToString();
 
-			if (size > 0)
+			if ( size > 0 )
 			{
 				type += "(" + size.ToString() + ")";
 			}
 
-			string sql = String.Format("ALTER TABLE {0} ADD [{1}] {2} NULL", DBAccess.GetObjectName( "prov_Profile" ), Name, type );
+			string sql = String.Format( "ALTER TABLE {0} ADD [{1}] {2} NULL", DBAccess.GetObjectName( "prov_Profile" ), Name, type );
 
 			using ( SqlCommand cmd = new SqlCommand( sql ) )
 			{
@@ -140,7 +158,7 @@ namespace YAF.Providers.Profile
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ApplicationName", appName );
 				cmd.Parameters.AddWithValue( "UserNames", userNames );
-				return Convert.ToInt32(DBAccess.ExecuteScalar( cmd ));
+				return Convert.ToInt32( DBAccess.ExecuteScalar( cmd ) );
 			}
 		}
 
