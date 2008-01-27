@@ -854,4 +854,7 @@
 		<Resource tag="BODY">Type your message here:</Resource>
 		<Resource tag="ERROR">There was an error sending your e-mail.</Resource>
 	</page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>  
 </Resources>

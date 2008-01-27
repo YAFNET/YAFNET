@@ -38,6 +38,11 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
+		public im_skype()
+			: base( "IM_SKYPE" )
+		{
+		}
+
 		protected void Page_Load( object sender, EventArgs e )
 		{
 			if ( User == null )
