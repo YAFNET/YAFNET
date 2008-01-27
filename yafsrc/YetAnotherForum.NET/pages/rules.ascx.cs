@@ -65,6 +65,13 @@ namespace YAF.Pages // YAF.Pages
 		}
 
 
+
+		public override bool IsProtected
+		{
+			get { return false; }
+		}
+
+
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{

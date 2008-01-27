@@ -97,5 +97,10 @@ namespace YAF.Pages // YAF.Pages
 		{
 			PageContext.AddLoadMessage( Login1.FailureText );
 		}
+
+		public override bool IsProtected
+		{
+			get { return false; }
+		}
 	}
 }

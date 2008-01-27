@@ -322,5 +322,11 @@ namespace YAF.Pages // YAF.Pages
 				e.Cancel = true;
 			}
 		}
+
+
+		public override bool IsProtected
+		{
+			get { return false; }
+		}
 	}
 }

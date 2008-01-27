@@ -186,7 +186,7 @@ namespace YAF.Classes.Base
 			InitLocalization();
 
 			// check if login is required
-			if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && _transPage.ToLower() != "login")
+			if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && IsProtected)
 			{
 				// redirect to login page if login is required
 				YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
@@ -702,6 +702,15 @@ namespace YAF.Classes.Base
 			}
 		}
 
+
+		/// <summary>
+		/// Gets info whether page should be hidden to guest users when forum admin requires login.
+		/// </summary>
+		public virtual bool IsProtected
+		{
+			get { return true; }
+		}
+
 		#endregion
 
 		#region Layout functions
@@ -859,5 +868,6 @@ namespace YAF.Classes.Base
 		{
 			// Page link creation goes to this method (overloads in descendant classes)
 		}
+
 	}
 }
