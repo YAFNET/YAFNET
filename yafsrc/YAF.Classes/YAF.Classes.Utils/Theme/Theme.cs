@@ -53,8 +53,11 @@ namespace YAF.Classes.Utils
 			{
 				if (_themeFile != value)
 				{
-					_themeFile = value;
-					_themeXmlDoc = null;
+					if ( IsValidTheme( _themeFile ) )
+					{
+						_themeFile = value;
+						_themeXmlDoc = null;
+					}
 				}
 			}
 		}
@@ -90,6 +93,29 @@ namespace YAF.Classes.Utils
 #endif
 				}
 			}
+		}
+
+		/// <summary>
+		/// Basic testing of the theme's validity...
+		/// </summary>
+		/// <param name="themeFile"></param>
+		/// <returns></returns>
+		static public bool IsValidTheme( string themeFile )
+		{
+			bool validTheme = false;
+
+			try
+			{
+				XmlDocument testTheme = new XmlDocument();
+				testTheme.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeFile ) ) );
+				validTheme = true;
+			}
+			catch
+			{
+				// invalid theme	
+			}
+
+			return validTheme;
 		}
 
 		public string GetItem( string page, string tag)

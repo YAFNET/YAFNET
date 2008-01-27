@@ -525,9 +525,9 @@ namespace YAF.Classes.Base
 				themeFile = PageContext.BoardSettings.Theme;
 			}
 
-			if ( themeFile == null )
+			if ( themeFile == null || !YAF.Classes.Utils.YafTheme.IsValidTheme( themeFile ) )
 			{
-				themeFile = "standard.xml";
+				themeFile = "yafpro.xml";
 			}
 
 			// create the theme class
