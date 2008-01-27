@@ -222,7 +222,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public YafUserProfile GetProfile( string userName )
 		{
-      return YafUserProfile.Create( userName );
+      return YafUserProfile.Create( userName ) as YafUserProfile;
 		}
 
 		/// <summary>
