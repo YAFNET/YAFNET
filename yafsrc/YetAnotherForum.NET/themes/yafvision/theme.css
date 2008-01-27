@@ -331,6 +331,46 @@ This CSS already works on FireFox.
     background-position: bottom left;
     padding: 6px 3px 4px 7px;
 }
+/* css image button */
+.yafnet a.yafcssimagebutton{
+    background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    color: #ffffff;
+    display: block;
+    float: left;
+	font-size: 10px; 
+    height: 19px;
+    margin: 2px 0px 2px 2px;
+    padding-right: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-weight: bold;
+}
+.yafnet a.yafcssimagebutton span{
+    background: transparent url('ButtonBack.gif') no-repeat;
+    display: block;
+    line-height: 14px;
+    padding: 3px 4px 2px 8px;
+}
+.yafnet a.yafcssimagebutton img{
+	vertical-align: top;
+	padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:hover{
+	text-decoration: none;
+	color: #000000;
+}
+.yafnet a.yafcssimagebutton:active{
+    background-position: bottom right;
+    outline: none; /* hide dotted outline in Firefox */
+}
+.yafnet a.yafcssimagebutton:active img{
+    padding: 0px 4px 0px 0px;
+}
+.yafnet a.yafcssimagebutton:active span{
+    background-position: bottom left;
+    padding: 4px 4px 1px 8px; /* push text down 1px */
+}
 /* CSS Popupmenu */
 .yafnet .yafpopupmenu {
 	background-color: #ffffff;

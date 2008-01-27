@@ -374,7 +374,7 @@ This CSS already works on FireFox.
 }
 /* css image button */
 .yafnet a.yafcssimagebutton{
-    background: transparent url('ButtonEnd.gif') no-repeat scroll top right;
+    background: transparent url('ButtonEndB.gif') no-repeat scroll top right;
     color: #ffffff;
     display: block;
     float: left;
@@ -388,7 +388,7 @@ This CSS already works on FireFox.
     font-weight: bold;
 }
 .yafnet a.yafcssimagebutton span{
-    background: transparent url('ButtonBack.gif') no-repeat;
+    background: transparent url('ButtonBackB.gif') no-repeat;
     display: block;
     line-height: 14px;
     padding: 2px 6px 2px 8px;

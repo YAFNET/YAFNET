@@ -6,19 +6,17 @@
   <page name="FORUM">
     <Resource tag="BANNER">~/forum_banner.jpg</Resource>
   </page>
-	<page name="BUTTONS">
-		<Resource tag="ATTACHMENTS">&lt;img style="vertical-align:middle" alt="" src='~/b_attachments.png'/&gt;</Resource>
-		<Resource tag="PM">&lt;img style="vertical-align:middle" alt="" src='~/p_pm.png'/&gt;</Resource>
-		<Resource tag="WWW">&lt;img style="vertical-align:middle" alt="" src='~/p_www.png'/&gt;</Resource>
-		<Resource tag="WEBLOG">&lt;img style="vertical-align:middle" alt="" src='~/p_blog.png'/&gt;</Resource>
-		<Resource tag="EMAIL">&lt;img style="vertical-align:middle" alt="" src='~/p_email.png'/&gt;</Resource>
-		<Resource tag="MSN">&lt;img style="vertical-align:middle" alt="" src='~/p_msn.png'/&gt;</Resource>
-		<Resource tag="YAHOO">&lt;img style="vertical-align:middle" alt="" src='~/p_yim.png'/&gt;</Resource>
-		<Resource tag="AIM">&lt;img style="vertical-align:middle" alt="" src='~/p_aim.png'/&gt;</Resource>
-		<Resource tag="ICQ">&lt;img style="vertical-align:middle" alt="" src='~/p_icq.png'/&gt;</Resource>
-	</page>
 	<page name="ICONS">
-		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
+    <Resource tag="PM">~/icon_pm.png</Resource>
+    <Resource tag="EMAIL">~/icon_email.png</Resource>
+    <Resource tag="HOME">~/icon_home.png</Resource>
+    <Resource tag="BLOG">~/icon_blog.png</Resource>
+    <Resource tag="MSN">~/icon_msn.png</Resource>
+    <Resource tag="AIM">~/icon_aim.png</Resource>
+    <Resource tag="YIM">~/icon_yahoo.png</Resource>
+    <Resource tag="ICQ">~/icon_icq.png</Resource>
+    <Resource tag="SKYPE">~/icon_skype.png</Resource>
+    <Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
 		<Resource tag="TOPIC">~/topic.png</Resource>
 		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
 		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.png</Resource>
