@@ -41,7 +41,7 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
-		/// Get or Set the current Theme File (could use validation)
+		/// Get or Set the current Theme File
 		/// </summary>
 		public string ThemeFile
 		{
@@ -51,9 +51,9 @@ namespace YAF.Classes.Utils
 			}
 			set
 			{
-				if (_themeFile != value)
+				if ( _themeFile != value )
 				{
-					if ( IsValidTheme( _themeFile ) )
+					if ( IsValidTheme( value ) )
 					{
 						_themeFile = value;
 						_themeXmlDoc = null;
@@ -76,12 +76,12 @@ namespace YAF.Classes.Utils
 
 		private void LoadThemeFile()
 		{
-			if (ThemeFile != null)
+			if ( ThemeFile != null )
 			{
 #if !DEBUG
-				if (_themeXmlDoc == null)
+				if ( _themeXmlDoc == null )
 				{
-					_themeXmlDoc = (XmlDocument)System.Web.HttpContext.Current.Cache[ThemeFile];
+					_themeXmlDoc = ( XmlDocument )System.Web.HttpContext.Current.Cache [ThemeFile];
 				}
 #endif
 				if ( _themeXmlDoc == null )
@@ -89,7 +89,7 @@ namespace YAF.Classes.Utils
 					_themeXmlDoc = new XmlDocument();
 					_themeXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, ThemeFile ) ) );
 #if !DEBUG
-					System.Web.HttpContext.Current.Cache[ThemeFile] = _themeXmlDoc;
+					System.Web.HttpContext.Current.Cache [ThemeFile] = _themeXmlDoc;
 #endif
 				}
 			}
@@ -102,34 +102,28 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public bool IsValidTheme( string themeFile )
 		{
-			bool validTheme = false;
+			if ( String.IsNullOrEmpty( themeFile ) ) return false;
 
-			try
-			{
-				XmlDocument testTheme = new XmlDocument();
-				testTheme.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeFile ) ) );
-				validTheme = true;
-			}
-			catch
-			{
-				// invalid theme	
-			}
+			themeFile = themeFile.Trim().ToLower();
 
-			return validTheme;
+			if ( themeFile.Length == 0 ) return false;
+			if ( !themeFile.EndsWith( ".xml" ) ) return false;
+
+			return System.IO.File.Exists( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeFile.Trim() ) ) );
 		}
 
-		public string GetItem( string page, string tag)
+		public string GetItem( string page, string tag )
 		{
-			return GetItem(page,tag,String.Format( "[{0}.{1}]", page.ToUpper(), tag.ToUpper() ));
+			return GetItem( page, tag, String.Format( "[{0}.{1}]", page.ToUpper(), tag.ToUpper() ) );
 		}
 
-		public string GetItem( string page, string tag, string defaultValue)
+		public string GetItem( string page, string tag, string defaultValue )
 		{
 			string item = "";
 
 			LoadThemeFile();
 
-			if (_themeXmlDoc != null)
+			if ( _themeXmlDoc != null )
 			{
 				string themeDir = _themeXmlDoc.DocumentElement.Attributes ["dir"].Value;
 				string langCode = YafContext.Current.Localization.LanguageCode.ToUpper();
@@ -189,7 +183,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public string GetURLToResource( string resourceName )
 		{
-      return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
+			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
 			//return string.Format( "{1}resource.ashx?r={0}", resourceName, YafForumInfo.ForumRoot );
 		}
 	}

@@ -525,7 +525,7 @@ namespace YAF.Classes.Base
 				themeFile = PageContext.BoardSettings.Theme;
 			}
 
-			if ( themeFile == null || !YAF.Classes.Utils.YafTheme.IsValidTheme( themeFile ) )
+			if ( !YAF.Classes.Utils.YafTheme.IsValidTheme( themeFile ) )
 			{
 				themeFile = "yafpro.xml";
 			}
@@ -533,7 +533,8 @@ namespace YAF.Classes.Base
 			// create the theme class
 			PageContext.Theme = new YAF.Classes.Utils.YafTheme( themeFile );
 
-			if ( String.IsNullOrEmpty( PageContext.Theme.ThemeFile ) )
+			// make sure it's valid again...
+			if ( !YAF.Classes.Utils.YafTheme.IsValidTheme( PageContext.Theme.ThemeFile ) )
 			{
 				// can't load a theme... throw an exception.
 				throw new Exception( String.Format( "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile ) );
