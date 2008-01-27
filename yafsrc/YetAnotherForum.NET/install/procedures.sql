@@ -1560,7 +1560,6 @@ begin
 	-- Maybe an idea to use cascading foreign keys instead? Too bad they don't work on MS SQL 7.0...
 	update [{databaseOwner}].[{objectQualifier}Forum] set LastMessageID=null,LastTopicID=null where ForumID=@ForumID
 	update [{databaseOwner}].[{objectQualifier}Topic] set LastMessageID=null where ForumID=@ForumID
-	update [{databaseOwner}].[{objectQualifier}Active] set ForumID=null where ForumID=@ForumID
 	delete from [{databaseOwner}].[{objectQualifier}WatchTopic] from [{databaseOwner}].[{objectQualifier}Topic] where [{databaseOwner}].[{objectQualifier}Topic].ForumID = @ForumID and [{databaseOwner}].[{objectQualifier}WatchTopic].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
 	delete from [{databaseOwner}].[{objectQualifier}Active] from [{databaseOwner}].[{objectQualifier}Topic] where [{databaseOwner}].[{objectQualifier}Topic].ForumID = @ForumID and [{databaseOwner}].[{objectQualifier}Active].TopicID = [{databaseOwner}].[{objectQualifier}Topic].TopicID
 	delete from [{databaseOwner}].[{objectQualifier}NntpTopic] from [{databaseOwner}].[{objectQualifier}NntpForum] where [{databaseOwner}].[{objectQualifier}NntpForum].ForumID = @ForumID and [{databaseOwner}].[{objectQualifier}NntpTopic].NntpForumID = [{databaseOwner}].[{objectQualifier}NntpForum].NntpForumID
@@ -3346,13 +3345,13 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) as
 begin
-	delete from [{databaseOwner}].[{objectQualifier}replace_words] where ID = @ID
+	delete from [{databaseOwner}].[{objectQualifier}replace_words] where id = @ID
 end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}replace_words_edit](@ID int=null) as
 begin
-	select * from [{databaseOwner}].[{objectQualifier}replace_words] where ID=@ID
+	select * from [{databaseOwner}].[{objectQualifier}replace_words] where id = @ID
 end
 GO
 
@@ -3367,7 +3366,7 @@ begin
 		insert into [{databaseOwner}].[{objectQualifier}replace_words](badword,goodword) values(@badword,@goodword)
 	end
 	else begin
-		update [{databaseOwner}].[{objectQualifier}replace_words] set badword = @badword,goodword = @goodword where ID = @ID
+		update [{databaseOwner}].[{objectQualifier}replace_words] set badword = @badword,goodword = @goodword where id = @ID
 	end
 end
 GO
@@ -4507,7 +4506,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removepointsbytopicid]
 BEGIN
 	declare @UserID int
 	select @UserID = UserID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
-	update [{databaseOwner}].[{objectQualifier}User] SET points = points - @Points WHERE userid = @UserID
+	update [{databaseOwner}].[{objectQualifier}User] SET points = points - @Points WHERE userID = @UserID
 END
 GO
 
@@ -4909,7 +4908,7 @@ begin
 
 	-- "Delete" message
 
-        update [{databaseOwner}].[{objectQualifier}Message] set isModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+        update [{databaseOwner}].[{objectQualifier}Message] set IsModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
         update [{databaseOwner}].[{objectQualifier}Message] set DeleteReason = @DeleteReason where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
         update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags ^ 8 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
 
@@ -4937,8 +4936,8 @@ begin
 declare		@UserID		int
 declare		@Posted		datetime
 
-set @UserID = (select userid from [{databaseOwner}].[{objectQualifier}message] where messageid =  @MessageID)
-set  @Posted  = (select  posted from [{databaseOwner}].[{objectQualifier}message] where messageid =  @MessageID)
+set @UserID = (select UserID from [{databaseOwner}].[{objectQualifier}message] where MessageID =  @MessageID)
+set  @Posted  = (select  posted from [{databaseOwner}].[{objectQualifier}message] where MessageID =  @MessageID)
 
 
 	declare @TopicID int
@@ -4990,17 +4989,17 @@ SET	@ReplyToID = (SELECT     MessageID
 
 SET	@Position = 	(SELECT     MAX([Position]) + 1 AS Expr1
 			FROM         [{databaseOwner}].[{objectQualifier}Message]
-			WHERE     (TopicID = @MoveToTopic) and posted < (select posted from [{databaseOwner}].[{objectQualifier}Message] where messageid = @MessageID ) )
+			WHERE     (TopicID = @MoveToTopic) and posted < (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID ) )
 
 if @Position is null  set @Position = 0
 
 update [{databaseOwner}].[{objectQualifier}Message] set
 		Position = Position+1
-	 WHERE     (TopicID = @MoveToTopic) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where messageid = @MessageID)
+	 WHERE     (TopicID = @MoveToTopic) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
 update [{databaseOwner}].[{objectQualifier}Message] set
 		Position = Position-1
-	 WHERE     (TopicID = @OldTopicID) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where messageid = @MessageID)
+	 WHERE     (TopicID = @OldTopicID) and posted > (select posted from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
 	-- Update LastMessageID in Topic and Forum
 	update [{databaseOwner}].[{objectQualifier}Topic] set
