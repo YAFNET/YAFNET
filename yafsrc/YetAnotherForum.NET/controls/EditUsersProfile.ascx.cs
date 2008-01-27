@@ -168,7 +168,7 @@ namespace YAF.Controls
           StringDictionary emailParameters = new StringDictionary();
 
           emailParameters ["{user}"] = PageContext.PageUserName;
-          emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+          emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
           emailParameters ["{newemail}"] = Email.Text;
           emailParameters ["{key}"] = hash;
           emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
@@ -182,12 +182,12 @@ namespace YAF.Controls
           General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
           PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
         }
-      }
-      else
-      {
-        // just update the e-mail...
-        UserMembershipHelper.UpdateEmail( CurrentUserID, Email.Text.Trim() );
-      }
+		else
+		{
+			// just update the e-mail...
+			UserMembershipHelper.UpdateEmail(CurrentUserID, Email.Text.Trim());
+		}
+	}
 
 			string userName = UserMembershipHelper.GetUserNameFromID( CurrentUserID );
 
