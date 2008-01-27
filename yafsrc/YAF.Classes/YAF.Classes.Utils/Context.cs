@@ -222,15 +222,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public YafUserProfile GetProfile( string userName )
 		{
-      //if ( profile == null )
-      //{
-      //  // doesn't exist...
-      //  profile = ( YafUserProfile ) System.Web.Profile.ProfileBase.Create( userName );
-      //  HttpContext.Current.Cache.Add(key,profile,null,DateTime.Now.AddMinutes(30),TimeSpan.Zero,System.Web.Caching.CacheItemPriority.Default,null);
-      //}
-
-
-      return ( YafUserProfile ) System.Web.Profile.ProfileBase.Create( userName );
+      return YafUserProfile.Create( userName );
 		}
 
 		/// <summary>
