@@ -1638,8 +1638,8 @@ begin
     order by
         b.SortOrder,
         a.SortOrder,
-        b.categoryid,
-        a.forumid
+        b.Categoryid,
+        a.Forumid
 end
 else if  @root > 0
 begin
@@ -1663,8 +1663,8 @@ begin
     order by
         b.SortOrder,
         a.SortOrder,
-        b.categoryid,
-        a.forumid
+        b.Categoryid,
+        a.Forumid
 end
 else
 begin
@@ -1683,7 +1683,7 @@ begin
         c.UserID=@UserID and
         b.BoardID=@BoardID and
         c.ReadAccess>0 and
-        b.categoryID = -@root
+        b.CategoryID = -@root
 
     order by
         b.SortOrder,
