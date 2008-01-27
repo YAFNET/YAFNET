@@ -1688,8 +1688,8 @@ begin
     order by
         b.SortOrder,
         a.SortOrder,
-        b.categoryid,
-        a.forumid
+        b.CategoryID,
+        a.ForumID
 end
 end
 GO
