@@ -40,7 +40,32 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
+			if ( User == null )
+			{
+				YafBuildLink.AccessDenied();
+			}
 
+			if ( !IsPostBack )
+			{
+				// get user data...
+				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+
+				if ( user == null )
+				{
+					YafBuildLink.AccessDenied(/*No such user exists*/);
+				}
+
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+
+				// get full user data...
+				YafCombinedUserData userData = new YafCombinedUserData( user, UserID );
+
+				Msg.NavigateUrl = string.Format( "skype:{0}?call", userData.Profile.Skype );
+				Msg.Attributes.Add( "onclick", "return skypeCheck();" );
+				Img.Src = string.Format( "http://mystatus.skype.com/bigclassic/{0}", userData.Profile.Skype );
+			}
 		}
 	}
 }

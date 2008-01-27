@@ -1,8 +1,9 @@
 <%@ Control Language="c#" CodeFile="im_icq.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.im_icq" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" width="400px" border="0" cellpadding="0" cellspacing="1" align="center">
-	<tr class="header2">
-		<td colspan="2">
+<div align="center">
+<table class="content" width="600" border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<td colspan="2" class="header1">
 			<img runat="server" id="Status" style="vertical-align: middle" /><YAF:LocalizedLabel
 				ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
 		</td>
@@ -35,10 +36,11 @@
 	</tr>
 	<tr class="postfooter">
 		<td colspan="2" align="center">
-			<asp:Button runat="server" ID="Send" />
+			<asp:Button runat="server" ID="Send" OnClick="Send_Click" />
 		</td>
 	</tr>
 </table>
+</div>
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

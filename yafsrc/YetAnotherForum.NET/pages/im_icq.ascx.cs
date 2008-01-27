@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -37,60 +38,60 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class im_icq : YAF.Classes.Base.ForumPage
 	{
-
-		public im_icq() : base("IM_ICQ")
+		public int UserID
 		{
-		}
-
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(User==null)
-				YafBuildLink.AccessDenied();
-
-			if(!IsPostBack) 
+			get
 			{
-				Send.Text = GetText("SEND");
-				From.Text = PageContext.PageUserName;
-				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,Request.QueryString["u"],null)) 
-				{
-					foreach(DataRow row in dt.Rows) 
-					{
-						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),"");
-						ViewState["to"] = (int)row["ICQ"];
-						Status.Src = string.Format("http://web.icq.com/whitepages/online?icq={0}&img=5",row["ICQ"]);
-						break;
-					}
-				}
-				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,PageContext.PageUserID,null))
-				{
-					foreach(DataRow row in dt.Rows)
-					{
-						Email.Text = row["Email"].ToString();
-						break;
-					}
-				}
+				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
 			}
 		}
 
-		private void Send_Click(object sender,EventArgs e)
+		public im_icq()
+			: base( "IM_ICQ" )
 		{
-			string html = string.Format("http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}",
-				Server.UrlEncode(From.Text),
-				Server.UrlEncode(Email.Text),
-				Server.UrlEncode("From WebPager Panel"),
-				ViewState["to"],
-				Server.UrlEncode(Body.Text)
-				);
-			Response.Redirect(html);
 		}
 
-		override protected void OnInit(EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			this.Send.Click += new EventHandler(Send_Click);
-			base.OnInit(e);
+			if ( User == null )
+				YafBuildLink.AccessDenied();
+
+			if ( !IsPostBack )
+			{
+				Send.Text = GetText( "SEND" );
+				From.Text = PageContext.User.UserName;
+				Email.Text = PageContext.User.Email;
+
+				// get user data...
+				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+
+				if ( user == null )
+				{
+					YafBuildLink.AccessDenied(/*No such user exists*/);
+				}
+
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+
+				// get full user data...
+				YafCombinedUserData userData = new YafCombinedUserData( user, UserID );
+
+				ViewState ["to"] = userData.Profile.ICQ;
+				Status.Src = string.Format( "http://web.icq.com/whitepages/online?icq={0}&img=5", userData.Profile.ICQ );
+			}
+		}
+
+		protected void Send_Click( object sender, EventArgs e )
+		{
+			string html = string.Format( "http://wwp.icq.com/scripts/WWPMsg.dll?from={0}&fromemail={1}&subject={2}&to={3}&body={4}",
+				Server.UrlEncode( From.Text ),
+				Server.UrlEncode( Email.Text ),
+				Server.UrlEncode( "From WebPager Panel" ),
+				ViewState ["to"],
+				Server.UrlEncode( Body.Text )
+				);
+			Response.Redirect( html );
 		}
 	}
 }

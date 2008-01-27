@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -37,37 +38,44 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class im_yim : YAF.Classes.Base.ForumPage
 	{
-
-		public im_yim() : base("IM_YIM")
+		public int UserID
 		{
-		}
-
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if(User==null)
-				YafBuildLink.AccessDenied();
-
-			if(!IsPostBack) 
+			get
 			{
-				using(DataTable dt=YAF.Classes.Data.DB.user_list(PageContext.PageBoardID,Request.QueryString["u"],null)) 
-				{
-					foreach(DataRow row in dt.Rows) 
-					{
-						PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(),YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile,"u={0}",row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"),"");
-						Img.Src = string.Format("http://opi.yahoo.com/online?u={0}&m=g&t=2",row["YIM"]);
-						Msg.NavigateUrl = string.Format("http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg",row["YIM"]);
-						break;
-					}
-				}
+				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
 			}
 		}
 
-		override protected void OnInit(EventArgs e)
+		public im_yim()
+			: base( "IM_YIM" )
 		{
-			this.Load += new System.EventHandler(this.Page_Load);
-			base.OnInit(e);
+		}
+
+		protected void Page_Load( object sender, System.EventArgs e )
+		{
+			if ( User == null )
+				YafBuildLink.AccessDenied();
+
+			if ( !IsPostBack )
+			{
+				// get user data...
+				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+
+				if ( user == null )
+				{
+					YafBuildLink.AccessDenied(/*No such user exists*/);
+				}
+
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+
+				// get full user data...
+				YafCombinedUserData userData = new YafCombinedUserData( user, UserID );
+
+				Img.Src = string.Format( "http://opi.yahoo.com/online?u={0}&m=g&t=2", userData.Profile.YIM );
+				Msg.NavigateUrl = string.Format( "http://edit.yahoo.com/config/send_webmesg?.target={0}&.src=pg", userData.Profile.YIM );
+			}
 		}
 	}
 }
