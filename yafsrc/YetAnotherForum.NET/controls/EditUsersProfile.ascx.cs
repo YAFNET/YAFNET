@@ -99,7 +99,8 @@ namespace YAF.Controls
       MSN.Text = userData.Profile.MSN;
       YIM.Text = userData.Profile.YIM;
       AIM.Text = userData.Profile.AIM;
-      ICQ.Text = userData.Profile.ICQ;
+			ICQ.Text = userData.Profile.ICQ;
+			Skype.Text = userData.Profile.Skype;
 			PMNotificationEnabled.Checked = userData.PMNotification;
 			Gender.SelectedIndex = userData.Profile.Gender;
 
@@ -198,6 +199,7 @@ namespace YAF.Controls
       userProfile.YIM = YIM.Text.Trim();
       userProfile.AIM = AIM.Text.Trim();
       userProfile.ICQ = ICQ.Text.Trim();
+			userProfile.Skype = Skype.Text.Trim();
       userProfile.RealName = Realname.Text.Trim();
       userProfile.Occupation = Occupation.Text.Trim();
       userProfile.Interests = Interests.Text.Trim();

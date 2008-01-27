@@ -23,6 +23,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Web;
+using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -38,72 +39,67 @@ namespace YAF.Pages // YAF.Pages
 	public partial class im_email : YAF.Classes.Base.ForumPage
 	{
 
-		public im_email()
-			: base("IM_EMAIL")
+		public int UserID
 		{
-		}
-
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-			if (User == null || !PageContext.BoardSettings.AllowEmailSending)
-				YafBuildLink.AccessDenied();
-
-			if (!IsPostBack)
+			get
 			{
-				using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
-				{
-					foreach (DataRow row in dt.Rows)
-					{
-						PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-						PageLinks.AddLink(row["Name"].ToString(), YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.profile, "u={0}", row["UserID"]));
-						PageLinks.AddLink(GetText("TITLE"), "");
-						break;
-					}
-				}
-				Send.Text = GetText("SEND");
+				return ( int )Security.StringToLongOrRedirect( Request.QueryString ["u"] );
 			}
 		}
 
-		protected void Send_Click(object sender, EventArgs e)
+		public im_email()
+			: base( "IM_EMAIL" )
+		{
+		}
+
+		protected void Page_Load( object sender, System.EventArgs e )
+		{
+			if ( User == null || !PageContext.BoardSettings.AllowEmailSending )
+				YafBuildLink.AccessDenied();
+
+			if ( !IsPostBack )
+			{
+				// get user data...
+				MembershipUser user = UserMembershipHelper.GetMembershipUser( UserID );
+
+				if ( user == null )
+				{
+					YafBuildLink.AccessDenied(/*No such user exists*/);
+				}
+
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( user.UserName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+
+				Send.Text = GetText( "SEND" );
+			}
+		}
+
+		protected void Send_Click( object sender, EventArgs e )
 		{
 			try
 			{
-				string from = string.Empty, to = string.Empty;
-				string fromName = string.Empty, toName = string.Empty;
-				using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
-				{
-					foreach (DataRow row in dt.Rows)
-					{
-						to = row["Email"].ToString();
-						toName = row["Name"].ToString();
-						break;
-					}
-				}
-				using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, null))
-				{
-					foreach (DataRow row in dt.Rows)
-					{
-						from = row["Email"].ToString();
-						fromName = row["Name"].ToString();
-						break;
-					}
-				}
-				General.SendMail(from, fromName, to, toName, Subject.Text, Body.Text);
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.profile, "u={0}", Request.QueryString["u"]);
-			}
-			catch (Exception x)
-			{
-				YAF.Classes.Data.DB.eventlog_create(PageContext.PageUserID, this, x);
-				if (PageContext.IsAdmin)
-					PageContext.AddLoadMessage(x.Message);
-				else
-					PageContext.AddLoadMessage(GetText("ERROR"));
-			}
-		}
+				// get "to" user...
+				MembershipUser toUser = UserMembershipHelper.GetMembershipUser( UserID );
 
-		override protected void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
+				// send it...
+				General.SendMail( PageContext.User.Email, PageContext.User.UserName, toUser.Email, toUser.UserName, Subject.Text.Trim(), Body.Text.Trim() );
+
+				// redirect to profile page...
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserID );
+			}
+			catch ( Exception x )
+			{
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
+				if ( PageContext.IsAdmin )
+				{
+					PageContext.AddLoadMessage( x.Message );
+				}
+				else
+				{
+					PageContext.AddLoadMessage( GetText( "ERROR" ) );
+				}
+			}
 		}
 	}
 }

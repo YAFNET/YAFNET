@@ -252,7 +252,6 @@
     <Resource tag="RSSTOPIC">RSS Feed</Resource>
     <Resource tag="POSTED">Posted</Resource>
     <Resource tag="TOP">Back to top</Resource>
-    <Resource tag="PM">PM</Resource>
     <Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
     <Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
     <Resource tag="RANK">Rank</Resource>
@@ -300,6 +299,15 @@
 		<Resource tag="EDIT_REASON">Reason</Resource>
 		<Resource tag="EDIT_REASON_NA">Not specified</Resource>
 		<Resource tag="IP">IP</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="EMAIL">EMail</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
   </page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->
@@ -736,6 +744,7 @@
 		<Resource tag="YIM">Yahoo Messenger:</Resource>
 		<Resource tag="AIM">AIM-Name:</Resource>
 		<Resource tag="ICQ">ICQ-Number:</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
 		<Resource tag="REALNAME">Real Name:</Resource>
 		<Resource tag="WEBSITE">Home Page:</Resource>
 		<Resource tag="WEBLOG">Weblog:</Resource>

@@ -11,14 +11,15 @@
 	</tr>
 	<tr class="post">
 		<td colspan="2">
-			<asp:HyperLink runat="server" ID="Pm" />
-			<asp:HyperLink runat="server" ID="Email" />
-			<asp:HyperLink runat="server" ID="Home" />
-			<asp:HyperLink runat="server" ID="Blog" />
-			<asp:HyperLink runat="server" ID="Msn" />
-			<asp:HyperLink runat="server" ID="Yim" />
-			<asp:HyperLink runat="server" ID="Aim" />
-			<asp:HyperLink runat="server" ID="Icq" />
+		    <YAF:ThemeButton ID="PM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="PM" ImageThemeTag="PM" />
+		    <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" ImageThemeTag="EMAIL" />
+		    <YAF:ThemeButton ID="Home" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="HOME" ImageThemeTag="HOME" />		    
+		    <YAF:ThemeButton ID="Blog" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="BLOG" ImageThemeTag="BLOG" />		    
+		    <YAF:ThemeButton ID="MSN" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="MSN" ImageThemeTag="MSN" />
+		    <YAF:ThemeButton ID="AIM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="AIM" ImageThemeTag="AIM" />
+		    <YAF:ThemeButton ID="YIM" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="YIM" ImageThemeTag="YIM" />
+		    <YAF:ThemeButton ID="ICQ" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
+		    <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS" TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
 		</td>
 	</tr>
 	<tr class="post">

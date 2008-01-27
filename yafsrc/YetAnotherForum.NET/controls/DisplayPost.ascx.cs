@@ -94,36 +94,39 @@ namespace YAF.Controls
 
 			// private messages
 			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
-			Pm.Text = PageContext.Theme.GetItem( "BUTTONS", "PM" );
 			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
+
 			// emailing
 			Email.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
 			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
-			Email.Text = PageContext.Theme.GetItem( "BUTTONS", "EMAIL" );
+
 			// home page
-			Home.Visible = !PostDeleted && UserProfile.Homepage != string.Empty;
+			Home.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Homepage );
 			Home.NavigateUrl = UserProfile.Homepage;
-			Home.Text = PageContext.Theme.GetItem( "BUTTONS", "WWW" );
+
 			// blog page
-			Blog.Visible = !PostDeleted && UserProfile.Blog != string.Empty;
+			Blog.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Blog );
 			Blog.NavigateUrl = UserProfile.Blog;
-			Blog.Text = PageContext.Theme.GetItem( "BUTTONS", "WEBLOG" );
+
 			// MSN
-			Msn.Visible = !PostDeleted && PageContext.User != null && UserProfile.MSN != string.Empty;
-			Msn.Text = PageContext.Theme.GetItem( "BUTTONS", "MSN" );
+			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.MSN );
 			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+
 			// Yahoo IM
-			Yim.Visible = !PostDeleted && PageContext.User != null && UserProfile.YIM != string.Empty;
+			Yim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.YIM );
 			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
-			Yim.Text = PageContext.Theme.GetItem( "BUTTONS", "YAHOO" );
+
 			// AOL IM
-			Aim.Visible = !PostDeleted && PageContext.User != null && UserProfile.AIM != string.Empty;
-			Aim.Text = PageContext.Theme.GetItem( "BUTTONS", "AIM" );
+			Aim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.AIM );
 			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
+
 			// ICQ
-			Icq.Visible = !PostDeleted && PageContext.User != null && UserProfile.ICQ != string.Empty;
-			Icq.Text = PageContext.Theme.GetItem( "BUTTONS", "ICQ" );
+			Icq.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.ICQ );
 			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
+
+			// Skype
+			Skype.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.Skype );
+			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_skype, "u={0}", DataRow ["UserID"] );
 
 			if ( !PostDeleted )
 			{
