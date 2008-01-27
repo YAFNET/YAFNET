@@ -532,6 +532,12 @@ namespace YAF.Classes.Base
 
 			// create the theme class
 			PageContext.Theme = new YAF.Classes.Utils.YafTheme( themeFile );
+
+			if ( String.IsNullOrEmpty( PageContext.Theme.ThemeFile ) )
+			{
+				// can't load a theme... throw an exception.
+				throw new Exception( String.Format( "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile ) );
+			}
 		}
 
 		/// <summary>
