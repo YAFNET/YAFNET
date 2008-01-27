@@ -450,7 +450,7 @@ namespace YAF.Classes.Utils
 		public bool ShowQuickAnswer
 		{
 			get { return _reg.GetValueBool( "ShowQuickAnswer", true ); }
-			set { _reg.SetValueBool( "ShowQuick Answer", value ); }
+			set { _reg.SetValueBool("ShowQuickAnswer", value); }
 		}
 
 		public bool ShowDeletedMessages

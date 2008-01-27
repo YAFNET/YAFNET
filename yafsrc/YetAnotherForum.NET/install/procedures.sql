@@ -4243,6 +4243,7 @@ begin
 	update [{databaseOwner}].[{objectQualifier}Topic] set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 	update [{databaseOwner}].[{objectQualifier}Forum] set LastUserName=@UserName,LastUserID=@GuestUserID where LastUserID=@UserID
 
+	delete from [{databaseOwner}].[{objectQualifier}Active] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}EventLog] where UserID=@UserID	
 	delete from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID
 	delete from [{databaseOwner}].[{objectQualifier}PMessage] where FromUserID=@UserID AND PMessageID NOT IN (select PMessageID FROM [{databaseOwner}].[{objectQualifier}PMessage])
