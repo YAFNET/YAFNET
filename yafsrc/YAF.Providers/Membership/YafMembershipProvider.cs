@@ -495,7 +495,7 @@ namespace YAF.Providers.Membership
 			// Encode Password Answer
 			string encodedPasswordAnswer = YafMembershipProvider.EncodeString( passwordAnswer, ( int )this.PasswordFormat, salt, this.UseSalt );
 			// Process database user creation request
-			DB.CreateUser( this.ApplicationName, username, pass, salt, ( int )this.PasswordFormat, email, passwordQuestion, passwordAnswer, isApproved, providerUserKey );
+            DB.CreateUser(this.ApplicationName, username, pass, salt, (int)this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
 
 			status = MembershipCreateStatus.Success;
 
