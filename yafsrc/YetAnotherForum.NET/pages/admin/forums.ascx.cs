@@ -98,6 +98,9 @@ namespace YAF.Pages.Admin
 				case "delete":
 					YAF.Classes.Data.DB.forum_delete(e.CommandArgument);
 					BindData();
+					// remove category cache...
+					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions));
+					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 					break;
 			}
 		}

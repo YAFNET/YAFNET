@@ -141,7 +141,7 @@ namespace YAF.Controls
 		private void BindData()
 		{
 			// get user's info
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], true ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
 			{
 				// there is no such user
 				if ( dt.Rows.Count < 1 ) YafBuildLink.AccessDenied(/*No such user exists*/);

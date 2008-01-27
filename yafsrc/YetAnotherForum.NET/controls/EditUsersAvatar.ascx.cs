@@ -80,7 +80,7 @@ namespace YAF.Controls
 		{
 			DataRow row;
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, true ) )
+			using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, CurrentUserID, null))
 			{
 				row = dt.Rows [0];
 			}
