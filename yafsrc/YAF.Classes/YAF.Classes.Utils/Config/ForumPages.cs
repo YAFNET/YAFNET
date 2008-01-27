@@ -68,6 +68,7 @@ namespace YAF.Classes.Utils
 		im_yim,
 		im_aim,
 		im_icq,
+		im_skype,
 		im_email,
 		rsstopic,
 		help_index,

@@ -31,6 +31,7 @@ namespace YAF.Controls
 		protected string _navigateUrl;
 		protected string _titlePage = "BUTTON"; // defaults to the BUTTON section
 		protected string _titleTag = string.Empty;
+		protected string _titleNotLocalized = string.Empty;
 		protected AttributeCollection _attributeCollection;
 		protected static object _clickEvent = new object();
 		protected static object _commandEvent = new object();
@@ -73,6 +74,7 @@ namespace YAF.Controls
 			output.WriteBeginTag( "a" );
 			if ( !String.IsNullOrEmpty( _cssClass ) ) output.WriteAttribute( "class", _cssClass );
 			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
+			else if ( !String.IsNullOrEmpty( _titleNotLocalized ) ) output.WriteAttribute( "title", _titleNotLocalized );
 			if ( !String.IsNullOrEmpty( _navigateUrl ) )
 			{
 				output.WriteAttribute( "href", _navigateUrl.Replace( "&", "&amp;" ));
@@ -236,6 +238,15 @@ namespace YAF.Controls
 		{
 			get { return _titleTag; }
 			set { _titleTag = value; }
+		}
+
+		/// <summary>
+		/// Non-localized Title for optional link description
+		/// </summary>
+		public string TitleNonLocalized
+		{
+			get { return _titleNotLocalized; }
+			set { _titleNotLocalized = value; }
 		}
 
 		public AttributeCollection Attributes
