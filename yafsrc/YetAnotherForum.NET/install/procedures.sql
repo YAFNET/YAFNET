@@ -1572,7 +1572,7 @@ begin
 	declare @tmpTopicID int;
 	declare topic_cursor cursor for
 		select TopicID from [{databaseOwner}].[{objectQualifier}topic]
-		where ForumId = @ForumID
+		where ForumID = @ForumID
 		order by TopicID desc
 	
 	open topic_cursor
@@ -1638,8 +1638,8 @@ begin
     order by
         b.SortOrder,
         a.SortOrder,
-        b.Categoryid,
-        a.Forumid
+        b.CategoryID,
+        a.ForumID
 end
 else if  @root > 0
 begin
@@ -1663,8 +1663,8 @@ begin
     order by
         b.SortOrder,
         a.SortOrder,
-        b.Categoryid,
-        a.Forumid
+        b.CategoryID,
+        a.ForumID
 end
 else
 begin
@@ -2036,7 +2036,7 @@ begin
 		a.*,
 		ForumName = b.Name,
 		CategoryName = c.Name ,
-		CategoryId = b.CategoryID,
+		CategoryID = b.CategoryID,
 		ParentID = b.ParentID 
 	from 
 		[{databaseOwner}].[{objectQualifier}ForumAccess] a
@@ -4970,7 +4970,7 @@ DECLARE
 	-- Find TopicID and ForumID
 --	select @OldTopicID=b.TopicID,@ForumID=b.ForumID from [{databaseOwner}].[{objectQualifier}Message] a,{objectQualifier}Topic b where a.MessageID=@MessageID and b.TopicID=a.TopicID
 
-SET 	@NewForumID = (SELECT     ForumId
+SET 	@NewForumID = (SELECT     ForumID
 				FROM         [{databaseOwner}].[{objectQualifier}Topic]
 				WHERE     (TopicId = @MoveToTopic))
 
@@ -4979,7 +4979,7 @@ SET 	@OldTopicID = 	(SELECT     TopicID
 				FROM         [{databaseOwner}].[{objectQualifier}Message]
 				WHERE     (MessageID = @MessageID))
 
-SET 	@OldForumID = (SELECT     ForumId
+SET 	@OldForumID = (SELECT     ForumID
 				FROM         [{databaseOwner}].[{objectQualifier}Topic]
 				WHERE     (TopicId = @OldTopicID))
 
