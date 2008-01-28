@@ -63,6 +63,7 @@ namespace YAF.Classes.Utils
 			public const string ForumModerators = "ForumModerators";
 			public const string ForumCategory = "ForumCategory";
 			public const string UserBoxes = "UserBoxes";
+			public const string ReplaceRules = "ReplaceRules{0}";
 		}
 	}
 }

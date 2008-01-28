@@ -54,6 +54,8 @@ namespace YAF.Classes.UI
 
 		public void Process( ref string text )
 		{
+			// randomize the instance in the collection
+			_mainCollection.RandomizeInstance();
 			// sort the rules according to rank...
 			_rulesList.Sort(); 
 			// apply all rules...
@@ -63,6 +65,32 @@ namespace YAF.Classes.UI
 			}
 			// reconstruct the html
 			_mainCollection.Reconstruct( ref text );
+		}
+	}
+
+	/// <summary>
+	/// Gets an instance of replace rules and uses
+	/// caching if possible.
+	/// </summary>
+	public static class ReplaceRulesCreator
+	{
+		public static ReplaceRules GetInstance( bool [] uniqueFlags )
+		{
+			int rulesFlags = FlagsBase.GetIntFromBoolArray( uniqueFlags );
+
+			// not using board-specific key since this type of cached item is NOT board-specific
+			string key = String.Format( Constants.Cache.ReplaceRules, rulesFlags );
+
+			ReplaceRules rules = YafCache.Current [key] as ReplaceRules;
+
+			if ( rules == null )
+			{
+				// doesn't exist, create a new instance class...
+				rules = new ReplaceRules();
+				YafCache.Current.Add( key, rules, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
+			}
+
+			return rules;
 		}
 	}
 
@@ -433,9 +461,16 @@ namespace YAF.Classes.UI
 		{
 			_replacementDictionary = new Dictionary<int, HtmlReplacementBlock>();
 			_rgxHtml = new Regex( @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options );
-			// get a random number for the instance
-			// so it's harder to guess the replacement format since it changes
-			// each instance of the class
+
+			RandomizeInstance();
+		}
+
+		/// <summary>
+		/// get a random number for the instance
+		/// so it's harder to guess the replacement format
+		/// </summary>
+		public void RandomizeInstance()
+		{
 			Random rand = new Random();
 			_randomInstance = rand.Next();
 		}

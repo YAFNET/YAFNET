@@ -239,8 +239,6 @@ namespace YAF.Classes.UI
 		
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride, DateTime messageLastEdited )
 		{
-			ReplaceRules ruleEngine = new ReplaceRules();
-
 			bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
 
 			// check to see if no follow should be disabled since the message is properly aged
@@ -266,61 +264,70 @@ namespace YAF.Classes.UI
 			// do html damage control
 			message = RepairHtml( message, messageFlags.IsHtml );
 
-			// do BBCode and Smilies...
-			BBCode.MakeHtml( ref ruleEngine, ref message, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
+			// get the rules engine from the creator...
+			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance( new bool [] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow } );
 
-			// add email rule
-			VariableRegexReplaceRule email =
-				new VariableRegexReplaceRule(
-					@"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)",
-					"${before}<a href=\"mailto:${inner}\">${inner}</a>",
-					_options,
-					new string [] { "before" }
-				);
-			email.RuleRank = 10;
+			// see if the rules are already populated...
+			if ( ruleEngine.RulesList.Count == 0 )
+			{
+				// populate
 
-			ruleEngine.AddRule( email );
+				// get rules for BBCode and Smilies
+				BBCode.CreateBBCodeRules( ref ruleEngine, messageFlags.IsBBCode, targetBlankOverride, useNoFollow );
 
-			// URLs Rules
-			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
-			string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
+				// add email rule
+				VariableRegexReplaceRule email =
+					new VariableRegexReplaceRule(
+						@"(?<before>^|[ ]|<br/>)(?<inner>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)",
+						"${before}<a href=\"mailto:${inner}\">${inner}</a>",
+						_options,
+						new string [] { "before" }
+					);
+				email.RuleRank = 10;
 
-			VariableRegexReplaceRule url =
-				new VariableRegexReplaceRule(
-					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;,]*)?)",
-					"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-					_options,
-					new string [] { "before" },
-					new string [] { "" },
-					50
-				);
+				ruleEngine.AddRule( email );
 
-			url.RuleRank = 10;
-			ruleEngine.AddRule( url );
+				// URLs Rules
+				string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
+				string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
 
-			url =
-				new VariableRegexReplaceRule(
-					@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,#~$]*[^.<])?)",
-					"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-					_options,
-					new string [] { "before" },
-					new string [] { "" },
-					50
-				);
-			url.RuleRank = 10;
-			ruleEngine.AddRule( url );
+				VariableRegexReplaceRule url =
+					new VariableRegexReplaceRule(
+						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;,]*)?)",
+						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
+						_options,
+						new string [] { "before" },
+						new string [] { "" },
+						50
+					);
 
-			url =
-				new VariableRegexReplaceRule(
-					@"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
-					"${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-					_options,
-					new string [] { "before" },
-					new string [] { "" },
-					50
-				);
-			url.RuleRank = 10;
-			ruleEngine.AddRule( url );
+				url.RuleRank = 10;
+				ruleEngine.AddRule( url );
+
+				url =
+					new VariableRegexReplaceRule(
+						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,#~$]*[^.<])?)",
+						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
+						_options,
+						new string [] { "before" },
+						new string [] { "" },
+						50
+					);
+				url.RuleRank = 10;
+				ruleEngine.AddRule( url );
+
+				url =
+					new VariableRegexReplaceRule(
+						@"(?<before>^|[ ]|<br/>)(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,]*)?)",
+						"${before}<a {0} {1} href=\"http://${inner}\" title=\"http://${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
+						_options,
+						new string [] { "before" },
+						new string [] { "" },
+						50
+					);
+				url.RuleRank = 10;
+				ruleEngine.AddRule( url );
+			}
 
 			// process...
 			ruleEngine.Process( ref message );

@@ -31,7 +31,7 @@ namespace YAF.Classes.Utils
 		private DataRow _board;
 		private RegistryHash _reg, _regBoard;
 		private object _boardID;
-        private string _membershipAppName, _rolesAppName;
+		private string _membershipAppName, _rolesAppName;
 
 		public YafBoardSettings( object boardID )
 		{
@@ -40,8 +40,8 @@ namespace YAF.Classes.Utils
 			// get the board table
 			dt = YAF.Classes.Data.DB.board_list( boardID );
 			_board = dt.Rows [0];
-            _membershipAppName = (_board["MembershipAppName"].ToString() == "") ? System.Web.Security.Membership.ApplicationName : _board["MembershipAppName"].ToString();
-            _rolesAppName = (_board["RolesAppName"].ToString() == "") ? System.Web.Security.Roles.ApplicationName : _board["RolesAppName"].ToString();
+			_membershipAppName = ( _board ["MembershipAppName"].ToString() == "" ) ? System.Web.Security.Membership.ApplicationName : _board ["MembershipAppName"].ToString();
+			_rolesAppName = ( _board ["RolesAppName"].ToString() == "" ) ? System.Web.Security.Roles.ApplicationName : _board ["RolesAppName"].ToString();
 
 			_reg = new RegistryHash();
 			_regBoard = new RegistryHash();
@@ -95,17 +95,17 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-        // Provider Settings
+		// Provider Settings
 
-        public string MembershipAppName
-        {
-            get { return _membershipAppName; }
-        }
+		public string MembershipAppName
+		{
+			get { return _membershipAppName; }
+		}
 
-        public string RolesAppName
-        {
-            get { return _rolesAppName; }
-        }
+		public string RolesAppName
+		{
+			get { return _rolesAppName; }
+		}
 
 		// individual board settings
 		public string Name
@@ -240,8 +240,8 @@ namespace YAF.Classes.Utils
 		// Ederon : 11/21/2007
 		public int ProfileViewPermissions
 		{
-			get { return _reg.GetValueInt("ProfileViewPermission", (int)ViewPermissions.RegisteredUsers); }
-			set { _reg.SetValueInt("ProfileViewPermission", value); }
+			get { return _reg.GetValueInt( "ProfileViewPermission", ( int )ViewPermissions.RegisteredUsers ); }
+			set { _reg.SetValueInt( "ProfileViewPermission", value ); }
 		}
 		public int ReturnSearchMax
 		{
@@ -251,50 +251,50 @@ namespace YAF.Classes.Utils
 		// Ederon : 12/9/2007
 		public int ActiveUsersViewPermissions
 		{
-			get { return _reg.GetValueInt("ActiveUsersViewPermissions", (int)ViewPermissions.RegisteredUsers); }
-			set { _reg.SetValueInt("ActiveUsersViewPermissions", value); }
+			get { return _reg.GetValueInt( "ActiveUsersViewPermissions", ( int )ViewPermissions.RegisteredUsers ); }
+			set { _reg.SetValueInt( "ActiveUsersViewPermissions", value ); }
 		}
 		public int MembersListViewPermissions
 		{
-			get { return _reg.GetValueInt("MembersListViewPermissions", (int)ViewPermissions.RegisteredUsers); }
-			set { _reg.SetValueInt("MembersListViewPermissions", value); }
+			get { return _reg.GetValueInt( "MembersListViewPermissions", ( int )ViewPermissions.RegisteredUsers ); }
+			set { _reg.SetValueInt( "MembersListViewPermissions", value ); }
 		}
 		// Ederon : 12/14/2007
 		public int ActiveDiscussionsCount
 		{
-			get { return _reg.GetValueInt("ActiveDiscussionsCount", 5); }
-			set { _reg.SetValueInt("ActiveDiscussionsCount", value); }
+			get { return _reg.GetValueInt( "ActiveDiscussionsCount", 5 ); }
+			set { _reg.SetValueInt( "ActiveDiscussionsCount", value ); }
 		}
 		public int ActiveDiscussionsCacheTimeout
 		{
-			get { return _reg.GetValueInt("ActiveDiscussionsCacheTimeout", 1); }
-			set { _reg.SetValueInt("ActiveDiscussionsCacheTimeout", value); }
+			get { return _reg.GetValueInt( "ActiveDiscussionsCacheTimeout", 1 ); }
+			set { _reg.SetValueInt( "ActiveDiscussionsCacheTimeout", value ); }
 		}
 		public int SearchStringMinLength
 		{
-			get { return _reg.GetValueInt("SearchStringMinLength", 4); }
-			set { _reg.SetValueInt("SearchStringMinLength", value); }
+			get { return _reg.GetValueInt( "SearchStringMinLength", 4 ); }
+			set { _reg.SetValueInt( "SearchStringMinLength", value ); }
 		}
 		public int SearchPermissions
 		{
-			get { return _reg.GetValueInt("SearchPermissions", (int)ViewPermissions.Everyone); }
-			set { _reg.SetValueInt("SearchPermissions", value); }
+			get { return _reg.GetValueInt( "SearchPermissions", ( int )ViewPermissions.Everyone ); }
+			set { _reg.SetValueInt( "SearchPermissions", value ); }
 		}
 		public int ForumStatisticsCacheTimeout
 		{
-			get { return _reg.GetValueInt("ForumStatisticsCacheTimeout", 15); }
-			set { _reg.SetValueInt("ForumStatisticsCacheTimeout", value); }
+			get { return _reg.GetValueInt( "ForumStatisticsCacheTimeout", 15 ); }
+			set { _reg.SetValueInt( "ForumStatisticsCacheTimeout", value ); }
 		}
 		// Ederon 12/18/2007
 		public int PrivateMessageMaxRecipients
 		{
-			get { return _reg.GetValueInt("PrivateMessageMaxRecipients", 1); }
-			set { _reg.SetValueInt("PrivateMessageMaxRecipients", value); }
+			get { return _reg.GetValueInt( "PrivateMessageMaxRecipients", 1 ); }
+			set { _reg.SetValueInt( "PrivateMessageMaxRecipients", value ); }
 		}
 		public int MaxPrivateMessagesPerUser
 		{
-			get { return _reg.GetValueInt("MaxPrivateMessagesPerUser", 30); }
-			set { _reg.SetValueInt("MaxPrivateMessagesPerUser", value); }
+			get { return _reg.GetValueInt( "MaxPrivateMessagesPerUser", 30 ); }
+			set { _reg.SetValueInt( "MaxPrivateMessagesPerUser", value ); }
 		}
 		public int DisableNoFollowLinksAfterDay
 		{
@@ -304,13 +304,13 @@ namespace YAF.Classes.Utils
 		// Ederon : 01/18/2007
 		public int BoardModeratorsCacheTimeout
 		{
-			get { return _reg.GetValueInt("BoardModeratorsCacheTimeout", 1440); }
-			set { _reg.SetValueInt("BoardModeratorsCacheTimeout", value); }
+			get { return _reg.GetValueInt( "BoardModeratorsCacheTimeout", 1440 ); }
+			set { _reg.SetValueInt( "BoardModeratorsCacheTimeout", value ); }
 		}
 		public int BoardCategoriesCacheTimeout
 		{
-			get { return _reg.GetValueInt("BoardCategoriesCacheTimeout", 1440); }
-			set { _reg.SetValueInt("BoardCategoriesCacheTimeout", value); }
+			get { return _reg.GetValueInt( "BoardCategoriesCacheTimeout", 1440 ); }
+			set { _reg.SetValueInt( "BoardCategoriesCacheTimeout", value ); }
 		}
 
 		// boolean settings
@@ -450,7 +450,7 @@ namespace YAF.Classes.Utils
 		public bool ShowQuickAnswer
 		{
 			get { return _reg.GetValueBool( "ShowQuickAnswer", true ); }
-			set { _reg.SetValueBool("ShowQuickAnswer", value); }
+			set { _reg.SetValueBool( "ShowQuickAnswer", value ); }
 		}
 
 		public bool ShowDeletedMessages
@@ -474,8 +474,8 @@ namespace YAF.Classes.Utils
 		// Ederon : 12/16/2007
 		public bool EnableCaptchaForGuests
 		{
-			get { return _reg.GetValueBool("EnableCaptchaForGuests", true); }
-			set { _reg.SetValueBool("EnableCaptchaForGuests", value); }
+			get { return _reg.GetValueBool( "EnableCaptchaForGuests", true ); }
+			set { _reg.SetValueBool( "EnableCaptchaForGuests", value ); }
 		}
 
 		public bool UseNoFollowLinks
@@ -524,8 +524,8 @@ namespace YAF.Classes.Utils
 		// Ederon : 12/14/2007
 		public string SearchStringPattern
 		{
-			get { return _reg.GetValueString("SearchStringPattern", ".*"); }
-			set { _reg.GetValueString("SearchStringPattern", value); }
+			get { return _reg.GetValueString( "SearchStringPattern", ".*" ); }
+			set { _reg.GetValueString( "SearchStringPattern", value ); }
 		}
 
 
@@ -576,21 +576,25 @@ namespace YAF.Classes.Utils
 		/* Ederon : 12/9/2007 */
 		public bool RequireLogin
 		{
-			get { return _reg.GetValue<bool>("RequireLogin", false); }
-			set { _reg.SetValue<bool>("RequireLogin", value); }
+			get { return _reg.GetValue<bool>( "RequireLogin", false ); }
+			set { _reg.SetValue<bool>( "RequireLogin", value ); }
 		}
 		/* Ederon : 12/14/2007 */
 		public bool ShowActiveDiscussions
 		{
-			get { return _reg.GetValue<bool>("ShowActiveDiscussions", true); }
-			set { _reg.SetValue<bool>("ShowActiveDiscussions", value); }
+			get { return _reg.GetValue<bool>( "ShowActiveDiscussions", true ); }
+			set { _reg.SetValue<bool>( "ShowActiveDiscussions", value ); }
 		}
 		public bool ShowForumStatistics
 		{
-			get { return _reg.GetValue<bool>("ShowForumStatistics", true); }
-			set { _reg.SetValue<bool>("ShowForumStatistics", value); }
+			get { return _reg.GetValue<bool>( "ShowForumStatistics", true ); }
+			set { _reg.SetValue<bool>( "ShowForumStatistics", value ); }
 		}
-
+		public bool ShowRulesForRegistration
+		{
+			get { return _reg.GetValue<bool>( "ShowRulesForRegistration", true ); }
+			set { _reg.SetValue<bool>( "ShowRulesForRegistration", value ); }
+		}
 
 		/* 6/16/2007 */
 		/* Ederon : 7/14/2007 */
@@ -684,7 +688,7 @@ namespace YAF.Classes.Utils
 		public T GetValue<T>( string name, T defaultValue )
 		{
 			if ( this [name.ToLower()] == null ) return defaultValue;
-			return ( T ) Convert.ChangeType( this [name.ToLower()], typeof( T ) );
+			return ( T )Convert.ChangeType( this [name.ToLower()], typeof( T ) );
 		}
 		public void SetValue<T>( string name, T value )
 		{

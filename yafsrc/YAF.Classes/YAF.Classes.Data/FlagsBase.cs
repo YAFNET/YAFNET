@@ -103,6 +103,23 @@ namespace YAF.Classes.Data
 			return bitValue;
 		}
 
+		/// <summary>
+		/// Creates an integer value from an array of booleans.
+		/// </summary>
+		/// <param name="arrayBool">array of boolean</param>
+		/// <returns>bit field of the array</returns>
+		static public int GetIntFromBoolArray( bool [] arrayBool )
+		{
+			int finalValue = 0;
+
+			for ( int i = 0; i < arrayBool.Length; i++ )
+			{
+				finalValue = SetBitFromBool( finalValue, i, arrayBool [i] );
+			}
+
+			return finalValue;
+		}
+
 		#endregion
 
 		/*

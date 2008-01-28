@@ -76,21 +76,23 @@ namespace YAF.Classes.UI
 		/// <returns></returns>
 		static public string MakeHtml( string inputString, bool doFormatting, bool targetBlankOverride )
 		{
-			ReplaceRules ruleEngine = new ReplaceRules();
-			MakeHtml( ref ruleEngine, ref inputString, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks );
+			// get the rules engine from the creator...
+			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance( new bool [] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks } );
+
+			if ( ruleEngine.RulesList.Count == 0 )
+			{
+				CreateBBCodeRules( ref ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks );
+			}
+			
 			ruleEngine.Process( ref inputString );
+			
 			return inputString;
 		}
 
 		/// <summary>
-		/// Converts BBCode to HTML.
-		/// Needs to be refactored!
+		/// Creates the rules that convert BBCode to HTML
 		/// </summary>
-		/// <param name="bbcode"></param>
-		/// <param name="doFormatting"></param>
-		/// <param name="targetBlankOverride"></param>
-		/// <returns></returns>
-		static public void MakeHtml( ref ReplaceRules ruleEngine, ref string bbcode, bool doFormatting, bool targetBlankOverride, bool useNoFollow )
+		static public void CreateBBCodeRules( ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow )
 		{
 			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
 			string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
