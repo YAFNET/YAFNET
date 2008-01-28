@@ -78,13 +78,8 @@ namespace YAF.Pages // YAF.Pages
 				createUser.ToolTip = createUser.Text = GetText("CREATE_USER");
 
 				// handle other steps localization
-				((LinkButton)FindWizardControl("AgreeLink")).Text = GetText("TERMSANDCONDITIONS_AGREE");
-				((LinkButton)FindWizardControl("DisagreeLink")).Text = GetText("TERMSANDCONDITIONS_DISAGREE");
 				((Button)FindWizardControl("ProfileNextButton")).Text = GetText("SAVE");
 				((Button)FindWizardControl("ContinueButton")).Text = GetText("CONTINUE");
-
-				// agreement terms and conditions
-				((Literal)FindWizardControl("TermsAndConditions")).Text = YAF.Classes.UI.BBCode.MakeHtml(GetText("TERMS_AND_CONDITIONS"), true, false);
 
 				// get the time zone data source
 				DropDownList timeZones = ((DropDownList)FindWizardControl("TimeZones"));
@@ -180,11 +175,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
 		{
-			// if they clicked declined, redirect to the main page
-			if (e.CurrentStepIndex == 0)
-			{
-				YafBuildLink.Redirect(ForumPages.forum);
-			}
+
 		}
 
 		protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)

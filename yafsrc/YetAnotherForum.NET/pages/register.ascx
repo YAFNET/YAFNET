@@ -7,30 +7,6 @@
 		OnCreatedUser="CreateUserWizard1_CreatedUser" OnContinueButtonClick="CreateUserWizard1_ContinueButtonClick"
 		OnCreatingUser="CreateUserWizard1_CreatingUser">
 		<WizardSteps>
-			<asp:TemplatedWizardStep runat="server" Title="Agreement" AllowReturn="False" ID="agreement">
-				<ContentTemplate>
-					<table class="content" cellspacing="1" cellpadding="0" border="0" width="700">
-						<tr>
-							<td class="header1" colspan="2" align="center">
-								<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TERMS_AND_CONDITIONS_TITLE" />
-							</td>
-						</tr>
-						<tr>
-							<td class="post" colspan="2">
-								<asp:Literal ID="TermsAndConditions" runat="server" Text="" />
-								<p align="center">
-									<asp:LinkButton ID="AgreeLink" runat="server" Text="Agree" CommandName="MoveNext" /><br />
-									<br />
-									<asp:LinkButton ID="DisagreeLink" runat="server" Text="Disagree" CommandName="MovePrevious" />
-								</p>
-							</td>
-						</tr>
-					</table>
-				</ContentTemplate>
-				<CustomNavigationTemplate>
-					<!-- in the content template -->
-				</CustomNavigationTemplate>
-			</asp:TemplatedWizardStep>
 			<asp:CreateUserWizardStep runat="server">
 				<ContentTemplate>
 					<table class="content" cellspacing="1" cellpadding="0" border="0" width="700">

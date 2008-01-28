@@ -38,58 +38,36 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class rules : YAF.Classes.Base.ForumPage
 	{
-	
-		public rules() : base("RULES")
+
+		public rules()
+			: base( "RULES" )
 		{
 		}
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 
-				Accept.Text = GetText("ACCEPT");
-				Cancel.Text = GetText("DECLINE");
+				Accept.Text = GetText( "ACCEPT" );
+				Cancel.Text = GetText( "DECLINE" );
 			}
 		}
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 		}
 
-		protected void Accept_Click(object sender, System.EventArgs e)
+		protected void Accept_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.register );
 		}
-
-
 
 		public override bool IsProtected
 		{
 			get { return false; }
 		}
-
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-
-		}
-		#endregion
 	}
 }

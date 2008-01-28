@@ -1,12 +1,10 @@
 <%@ Control Language="c#" CodeFile="hostsettings.ascx.cs" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.hostsettings" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
-
 <!-- This style is dealing with tabs rendering issues in IE - should be removed once YAF is fully XHTML 1.0 compliant -->
 <style type="text/css">
 .ajax__tab_default .ajax__tab_inner {height : 100%;} .ajax__tab_default .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_tab {height:100%} .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;} 
 </style>
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel runat="server" ID="PMUpdatePanel">
     <ContentTemplate>
@@ -58,7 +56,8 @@
                             <tr>
                                 <td class="postheader">
                                     <b>Require User Login:</b><br>
-                                    If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</td>
+                                    If checked, users will be required to log in before they can see any content. They'll
+                                    be redirected straight to login page.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="RequireLogin" runat="server" /></td>
                             </tr>
@@ -100,7 +99,7 @@
                                     or mods.)</td>
                                 <td class="post">
                                     <asp:TextBox ID="PostFloodDelay" runat="server"></asp:TextBox></td>
-                            </tr>                             
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Date and time format from language file:</b><br>
@@ -209,96 +208,99 @@
                             <tr>
                                 <td class="header1" colspan="2">
                                     Search Settings</td>
-                            </tr>  
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Max Search Results:</b><br>
-                                    Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</td>
+                                    Maximum number of search results that can be returned. Enter "0" for unlimited (not
+                                    recommended).</td>
                                 <td class="post">
                                     <asp:TextBox ID="ReturnSearchMax" runat="server"></asp:TextBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                   <b>Use SQL Full Text Search:</b><br>
-                                   Toggle use of FULLTEXT SQL Server support on searches.</td>
+                                    <b>Use SQL Full Text Search:</b><br>
+                                    Toggle use of FULLTEXT SQL Server support on searches.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="UseFullTextSearch" runat="server"></asp:CheckBox></td>
-                            </tr>                                                       
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Search Text Minimal Length:</b><br>
                                     Minimal length of the search string allowed</td>
                                 <td class="post">
                                     <asp:TextBox ID="SearchStringMinLength" runat="server"></asp:TextBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Search Text Pattern:</b><br>
                                     Allowed search text pattern</td>
                                 <td class="post">
                                     <asp:TextBox ID="SearchStringPattern" runat="server"></asp:TextBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Search Permissions:</b><br>
                                     Allow search to:</td>
                                 <td class="post">
-																		<asp:DropDownList ID="SearchPermissions" runat="server">
-																			<asp:ListItem Value="0" Text="Forbidden" />
-																			<asp:ListItem Value="1" Text="Registered Users" />
-																			<asp:ListItem Value="2" Text="All Users" />
-																		</asp:DropDownList>
+                                    <asp:DropDownList ID="SearchPermissions" runat="server">
+                                        <asp:ListItem Value="0" Text="Forbidden" />
+                                        <asp:ListItem Value="1" Text="Registered Users" />
+                                        <asp:ListItem Value="2" Text="All Users" />
+                                    </asp:DropDownList>
                             </tr>
                             <tr>
                                 <td class="header1" colspan="2">
                                     CAPTCHA Settings</td>
-                            </tr>                            
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>CAPTCHA Size:</b><br>
                                     Size (length) of the CAPTCHA random alphanumeric string</td>
                                 <td class="post">
                                     <asp:TextBox ID="CaptchaSize" runat="server"></asp:TextBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Enable CAPTCHA for Guest Posting:</b><br/>
-                                    Require guest users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
+                                    <b>Enable CAPTCHA for Guest Posting:</b><br />
+                                    Require guest users to enter the CAPTCHA when they post or reply to a forum message
+                                    (including Quick Reply).</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForGuests" runat="server"></asp:CheckBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Enable CAPTCHA for Post a Message:</b><br/>
-                                    Require users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</td>
+                                    <b>Enable CAPTCHA for Post a Message:</b><br />
+                                    Require users to enter the CAPTCHA when they post or reply to a forum message (including
+                                    Quick Reply).</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForPost" runat="server"></asp:CheckBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Enable CAPTCHA for Register:</b><br/>
+                                    <b>Enable CAPTCHA for Register:</b><br />
                                     Require users to enter the CAPTCHA when they register for the forum.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EnableCaptchaForRegister" runat="server"></asp:CheckBox></td>
-                            </tr>                                                                              
+                            </tr>
                             <tr>
                                 <td class="header1" colspan="2">
                                     Private Messages</td>
-                            </tr>                            
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Max Number of Private Messages per User:</b><br>
                                     Maximum number of messages user can store (0 = unlimited)</td>
                                 <td class="post">
                                     <asp:TextBox ID="MaxPrivateMessagesPerUser" runat="server"></asp:TextBox></td>
-                            </tr>     
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Max no. of PM Recipients:</b><br>
                                     Maximum allowed recipients per on PM sent (0 = unlimited)</td>
                                 <td class="post">
                                     <asp:TextBox ID="PrivateMessageMaxRecipients" runat="server"></asp:TextBox></td>
-                            </tr>     
+                            </tr>
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
@@ -330,7 +332,7 @@
                                     If this is checked, links in messages will open in a new window.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="BlankLinks" runat="server"></asp:CheckBox></td>
-                            </tr>                          
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Show Groups:</b><br>
@@ -369,10 +371,11 @@
                             <tr>
                                 <td class="postheader">
                                     <b>Show YetAnotherForum Version:</b><br>
-                                    Enable or disable display of the version/date information the bottom of the page (disable if your concerned about security).</td>
+                                    Enable or disable display of the version/date information the bottom of the page
+                                    (disable if your concerned about security).</td>
                                 <td class="post">
                                     <asp:CheckBox ID="ShowYAFVersion" runat="server"></asp:CheckBox></td>
-                            </tr>                            
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Show Join Date:</b><br>
@@ -380,6 +383,13 @@
                                 <td class="post">
                                     <asp:CheckBox ID="DisplayJoinDate" runat="server"></asp:CheckBox></td>
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Show "Rules" Before Registration:</b><br>
+                                    Require that "rules" are shown and accepted before a new user can register.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowRulesForRegistrationX" runat="server" /></td>
+                            </tr>                            
                             <tr>
                                 <td class="postheader">
                                     <b>Remove Nested Quotes:</b><br>
@@ -400,15 +410,15 @@
                                     If this is checked, all links will have the nofollow tag.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="UseNoFollowLinks" runat="server"></asp:CheckBox></td>
-                            </tr>       
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Disable "NoFollow" Tag on Links on Posts Older Than:</b><br>
-                                    If "NoFollow" is enabled above, this is disable no follow for links on
-                                    messages older then X days old (which takes into consideration last edited).</td>
+                                    If "NoFollow" is enabled above, this is disable no follow for links on messages
+                                    older then X days old (which takes into consideration last edited).</td>
                                 <td class="post">
                                     <asp:TextBox ID="DisableNoFollowLinksAfterDay" runat="server"></asp:TextBox></td>
-                            </tr>                                                   
+                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Smilies Display Grid Size:</b><br>
@@ -546,33 +556,33 @@
                                     <b>Profile Viewing Permissions:</b><br>
                                     Allow viewing of other users' profiles to:</td>
                                 <td class="post">
-																		<asp:DropDownList ID="ProfileViewPermissions" runat="server">
-																			<asp:ListItem Value="0" Text="Forbidden" />
-																			<asp:ListItem Value="1" Text="Registered Users" />
-																			<asp:ListItem Value="2" Text="All Users" />
-																		</asp:DropDownList>
+                                    <asp:DropDownList ID="ProfileViewPermissions" runat="server">
+                                        <asp:ListItem Value="0" Text="Forbidden" />
+                                        <asp:ListItem Value="1" Text="Registered Users" />
+                                        <asp:ListItem Value="2" Text="All Users" />
+                                    </asp:DropDownList>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Members List Viewing Permissions:</b><br>
                                     Allow viewing of members list to:</td>
                                 <td class="post">
-																		<asp:DropDownList ID="MembersListViewPermissions" runat="server">
-																			<asp:ListItem Value="0" Text="Forbidden" />
-																			<asp:ListItem Value="1" Text="Registered Users" />
-																			<asp:ListItem Value="2" Text="All Users" />
-																		</asp:DropDownList>
+                                    <asp:DropDownList ID="MembersListViewPermissions" runat="server">
+                                        <asp:ListItem Value="0" Text="Forbidden" />
+                                        <asp:ListItem Value="1" Text="Registered Users" />
+                                        <asp:ListItem Value="2" Text="All Users" />
+                                    </asp:DropDownList>
                             </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Active Users Viewing Permissions:</b><br>
                                     Allow viewing of active users list to:</td>
                                 <td class="post">
-																		<asp:DropDownList ID="ActiveUsersViewPermissions" runat="server">
-																			<asp:ListItem Value="0" Text="Forbidden" />
-																			<asp:ListItem Value="1" Text="Registered Users" />
-																			<asp:ListItem Value="2" Text="All Users" />
-																		</asp:DropDownList>
+                                    <asp:DropDownList ID="ActiveUsersViewPermissions" runat="server">
+                                        <asp:ListItem Value="0" Text="Forbidden" />
+                                        <asp:ListItem Value="1" Text="Registered Users" />
+                                        <asp:ListItem Value="2" Text="All Users" />
+                                    </asp:DropDownList>
                             </tr>
                         </table>
                     </ContentTemplate>
@@ -603,7 +613,7 @@
                                     <b>Use SSL:</b><br>
                                     Determines whether conntection with SMTP server is done over SSL encrypted connection.</td>
                                 <td class="post">
-																		<asp:CheckBox ID="ForumSmtpServerSsl" runat="server" />
+                                    <asp:CheckBox ID="ForumSmtpServerSsl" runat="server" />
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -760,7 +770,8 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" /> <asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
+                                    <asp:TextBox runat="server" ID="ForumStatisticsCacheTimeout" />
+                                    <asp:Button ID="ForumStatisticsCacheReset" Text="Clear" runat="server" OnClick="ForumStatisticsCacheReset_Click" />
                                 </td>
                             </tr>
                             <tr>
@@ -769,7 +780,8 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" /> <asp:Button ID="ActiveDiscussionsCacheReset" Text="Clear" runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
+                                    <asp:TextBox runat="server" ID="ActiveDiscussionsCacheTimeout" />
+                                    <asp:Button ID="ActiveDiscussionsCacheReset" Text="Clear" runat="server" OnClick="ActiveDiscussionsCacheReset_Click" />
                                 </td>
                             </tr>
                             <tr>
@@ -778,7 +790,8 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="BoardCategoriesCacheTimeout" /> <asp:Button ID="BoardCategoriesCacheReset" Text="Clear" runat="server" OnClick="BoardCategoriesCacheReset_Click" />
+                                    <asp:TextBox runat="server" ID="BoardCategoriesCacheTimeout" />
+                                    <asp:Button ID="BoardCategoriesCacheReset" Text="Clear" runat="server" OnClick="BoardCategoriesCacheReset_Click" />
                                 </td>
                             </tr>
                             <tr>
@@ -787,7 +800,8 @@
                                     In minutes
                                 </td>
                                 <td class="post">
-                                    <asp:TextBox runat="server" ID="BoardModeratorsCacheTimeout" /> <asp:Button ID="BoardModeratorsCacheReset" Text="Clear" runat="server" OnClick="BoardModeratorsCacheReset_Click" />
+                                    <asp:TextBox runat="server" ID="BoardModeratorsCacheTimeout" />
+                                    <asp:Button ID="BoardModeratorsCacheReset" Text="Clear" runat="server" OnClick="BoardModeratorsCacheReset_Click" />
                                 </td>
                             </tr>
                             <tr>
