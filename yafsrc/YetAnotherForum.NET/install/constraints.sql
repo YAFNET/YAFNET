@@ -310,7 +310,7 @@ if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{o
 	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint [PK_User]
 go
 
-if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_yaf_yafUser')
+if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_yaf_yaf_User')
 	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint [PK_yaf_yaf_User]
 go
 
