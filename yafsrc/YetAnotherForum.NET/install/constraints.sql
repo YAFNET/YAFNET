@@ -238,7 +238,7 @@ if exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}PollVote_
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] drop constraint [FK_{objectQualifier}PollVote_{objectQualifier}Poll]
 go
 
-/* Drop old] primary keys */
+/* Drop old primary keys */
 
 
 if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='PK_BannedIP')
@@ -308,10 +308,6 @@ go
 
 if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_User')
 	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint [PK_User]
-go
-
-if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_yaf_yaf_User')
-	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint [PK_yaf_yaf_User]
 go
 
 if exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}WatchForum]') and name='PK_WatchForum')
@@ -554,8 +550,8 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 go
 
 
-if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_{objectQualifier}User')
-	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}User] primary key clustered(UserID)   
+if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_{objectQualifier}{objectQualifier}User')
+	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}{objectQualifier}User] primary key clustered(UserID)   
 go
 
 
