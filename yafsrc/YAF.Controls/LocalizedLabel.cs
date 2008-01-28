@@ -19,6 +19,7 @@
 using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
@@ -32,6 +33,7 @@ namespace YAF.Controls
 		protected string _param0 = string.Empty;
 		protected string _param1 = string.Empty;
 		protected string _param2 = string.Empty;
+		protected bool _enableBBCode = false;
 
 		public LocalizedLabel()
 			: base()
@@ -44,8 +46,16 @@ namespace YAF.Controls
 		/// <param name="output"></param>
 		protected override void Render( HtmlTextWriter output )
 		{
+			string localizedItem = GetCurrentItem();
+
+			// convert from BBCode to HTML
+			if ( _enableBBCode )
+			{
+				localizedItem = YAF.Classes.UI.BBCode.MakeHtml( localizedItem, true, false );
+			}
+
 			output.BeginRender();
-			output.Write( String.Format( GetCurrentItem(), _param0, _param1, _param2) );
+			output.Write( String.Format( localizedItem, _param0, _param1, _param2) );
 			output.EndRender();
 		}
 
@@ -91,6 +101,12 @@ namespace YAF.Controls
 		{
 			get { return _param2; }
 			set { _param2 = value; }
+		}
+
+		public bool EnableBBCode
+		{
+			get { return _enableBBCode; }
+			set { _enableBBCode = value; }
 		}
 	}
 }
