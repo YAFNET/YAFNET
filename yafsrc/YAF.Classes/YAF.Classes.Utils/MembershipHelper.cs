@@ -187,7 +187,7 @@ namespace YAF.Classes.Utils
 
 					// bitset is testing if this role is a "Guest" role...
 					// if it is, we aren't syncing it.
-					if (!BitSet(row["Flags"], 2) && !Roles.RoleExists(name))
+					if (!String.IsNullOrEmpty(name) && !BitSet(row["Flags"], 2) && !Roles.RoleExists(name))
 					{
 						Roles.CreateRole(name);
 					}
