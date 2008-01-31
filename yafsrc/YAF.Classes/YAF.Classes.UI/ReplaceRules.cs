@@ -31,15 +31,14 @@ namespace YAF.Classes.UI
 	/// <summary>
 	/// Provides a way to handle layers of replacements rules
 	/// </summary>
-	public class ReplaceRules
+	public class ReplaceRules : ICloneable	
 	{
 		private List<BaseReplaceRule> _rulesList;
-		private HtmlReplacementCollection _mainCollection;
+		private bool needSort = false;
 
 		public ReplaceRules()
 		{
 			_rulesList = new List<BaseReplaceRule>();
-			_mainCollection = new HtmlReplacementCollection();
 		}
 
 		public List<BaseReplaceRule> RulesList
@@ -50,22 +49,46 @@ namespace YAF.Classes.UI
 		public void AddRule( BaseReplaceRule newRule )
 		{
 			_rulesList.Add( newRule );
+			needSort = true;
 		}
 
 		public void Process( ref string text )
 		{
-			// randomize the instance in the collection
-			_mainCollection.RandomizeInstance();
 			// sort the rules according to rank...
-			_rulesList.Sort(); 
+			if ( needSort ) { _rulesList.Sort(); needSort = false; }
+
+			// make the replacementCollection for this instance...
+			HtmlReplacementCollection mainCollection = new HtmlReplacementCollection();
+
 			// apply all rules...
 			foreach ( BaseReplaceRule rule in _rulesList )
 			{
-				rule.Replace( ref text, ref this._mainCollection );
+				rule.Replace( ref text, ref mainCollection );
 			}
+
 			// reconstruct the html
-			_mainCollection.Reconstruct( ref text );
+			mainCollection.Reconstruct( ref text );
 		}
+
+		#region ICloneable Members
+
+		/// <summary>
+		/// This clone method is a Deep Clone -- including all data.
+		/// </summary>
+		/// <returns></returns>
+		public object Clone()
+		{
+			ReplaceRules copyReplaceRules = new ReplaceRules();
+			// move the rules over...
+			BaseReplaceRule [] ruleArray = new BaseReplaceRule[this._rulesList.Count];
+			this._rulesList.CopyTo( ruleArray );
+			copyReplaceRules._rulesList.InsertRange( 0, ruleArray );
+			copyReplaceRules.needSort = this.needSort;
+
+			return copyReplaceRules;
+		}
+
+		#endregion
 	}
 
 	/// <summary>
@@ -87,7 +110,7 @@ namespace YAF.Classes.UI
 			{
 				// doesn't exist, create a new instance class...
 				rules = new ReplaceRules();
-				YafCache.Current.Add( key, rules, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
+				YafCache.Current.Add( key, rules, null, DateTime.Now.AddMinutes( 30 ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
 			}
 
 			return rules;
