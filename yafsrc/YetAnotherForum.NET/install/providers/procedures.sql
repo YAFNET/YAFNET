@@ -431,7 +431,7 @@ BEGIN
 	PasswordFormat = @PasswordFormat,
 	LastPasswordChange = @CurrentTimeUtc
 	WHERE ApplicationID = @ApplicationID AND
-	UsernameLwd = LOWER(Username);
+	UsernameLwd = LOWER(@Username);
 
 END
 GO
