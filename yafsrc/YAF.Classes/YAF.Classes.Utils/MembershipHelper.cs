@@ -59,69 +59,73 @@ namespace YAF.Classes.Utils
 				if ( ( int )row ["IsGuest"] > 0 )
 					continue;
 
-				string name = row ["Name"].ToString();
-				string email = row ["Email"].ToString().ToLower();
+				string name = row ["Name"].ToString().Trim();
+				string email = row ["Email"].ToString().ToLower().Trim();
 
-				MembershipUser user = Membership.GetUser( name );
-
-				if ( user == null )
+				// verify this user & email are not empty
+				if ( !String.IsNullOrEmpty( name ) && !String.IsNullOrEmpty( email ) )
 				{
-					MembershipCreateStatus status = MigrateCreateUser( name, email, "Your email in all lower case", email, approved, out user );
+					MembershipUser user = Membership.GetUser( name );
 
-					if ( status != MembershipCreateStatus.Success )
+					if ( user == null )
 					{
-						throw new ApplicationException( string.Format( "Failed to create user {0}: {1}", name, status ) );
+						MembershipCreateStatus status = MigrateCreateUser( name, email, "Your email in all lower case", email, approved, out user );
+
+						if ( status != MembershipCreateStatus.Success )
+						{
+							throw new ApplicationException( string.Format( "Failed to create user {0}: {1}", name, status ) );
+						}
+						else
+						{
+							// update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
+							YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, isYafProvider );
+
+							user.Comment = "Migrated from YetAnotherForum.NET";
+							Membership.UpdateUser( user );
+
+							if ( !isYafProvider )
+							{
+								/* Email generated password to user
+								System.Text.StringBuilder msg = new System.Text.StringBuilder();
+								msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
+								msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
+								msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
+
+								YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
+								*/
+							}
+						}
+
+						if ( isLegacyYafDB )
+						{
+							// copy profile data over...
+							YafUserProfile userProfile = YafContext.Current.GetProfile( name );
+							if ( dt.Columns.Contains( "AIM" ) && row ["AIM"] != DBNull.Value ) userProfile.AIM = row ["AIM"].ToString();
+							if ( dt.Columns.Contains( "YIM" ) && row ["YIM"] != DBNull.Value ) userProfile.YIM = row ["YIM"].ToString();
+							if ( dt.Columns.Contains( "MSN" ) && row ["MSN"] != DBNull.Value ) userProfile.MSN = row ["MSN"].ToString();
+							if ( dt.Columns.Contains( "ICQ" ) && row ["ICQ"] != DBNull.Value ) userProfile.ICQ = row ["ICQ"].ToString();
+							if ( dt.Columns.Contains( "RealName" ) && row ["RealName"] != DBNull.Value ) userProfile.RealName = row ["RealName"].ToString();
+							if ( dt.Columns.Contains( "Occupation" ) && row ["Occupation"] != DBNull.Value ) userProfile.Occupation = row ["Occupation"].ToString();
+							if ( dt.Columns.Contains( "Location" ) && row ["Location"] != DBNull.Value ) userProfile.Location = row ["Location"].ToString();
+							if ( dt.Columns.Contains( "Homepage" ) && row ["Homepage"] != DBNull.Value ) userProfile.Homepage = row ["Homepage"].ToString();
+							if ( dt.Columns.Contains( "Interests" ) && row ["Interests"] != DBNull.Value ) userProfile.Interests = row ["Interests"].ToString();
+							if ( dt.Columns.Contains( "Weblog" ) && row ["Weblog"] != DBNull.Value ) userProfile.Blog = row ["Weblog"].ToString();
+							if ( dt.Columns.Contains( "Gender" ) && row ["Gender"] != DBNull.Value ) userProfile.Gender = Convert.ToInt32( row ["Gender"] );
+						}
 					}
 					else
 					{
-						// update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-						YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, isYafProvider );
+						// just update the link just in case...
+						YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, false );
+					}
 
-						user.Comment = "Migrated from YetAnotherForum.NET";
-						Membership.UpdateUser( user );
-
-						if ( !isYafProvider )
+					// setup roles for this user...
+					using ( DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list( row ["UserID"] ) )
+					{
+						foreach ( DataRow rowGroup in dtGroups.Rows )
 						{
-							/* Email generated password to user
-							System.Text.StringBuilder msg = new System.Text.StringBuilder();
-							msg.AppendFormat( "Hello {0}.\r\n\r\n", name );
-							msg.AppendFormat( "Here is your new password: {0}\r\n\r\n", password );
-							msg.AppendFormat( "Visit {0} at {1}", ForumName, ForumURL );
-
-							YAF.Classes.Data.DB.mail_create( ForumEmail, user.Email, "Forum Upgrade", msg.ToString() );
-							*/
+							Roles.AddUserToRole( user.UserName, rowGroup ["Name"].ToString() );
 						}
-					}
-
-					if ( isLegacyYafDB )
-					{
-						// copy profile data over...
-						YafUserProfile userProfile = YafContext.Current.GetProfile( name );
-						if ( dt.Columns.Contains( "AIM" ) && row ["AIM"] != DBNull.Value ) userProfile.AIM = row ["AIM"].ToString();
-						if ( dt.Columns.Contains( "YIM" ) && row ["YIM"] != DBNull.Value ) userProfile.YIM = row ["YIM"].ToString();
-						if ( dt.Columns.Contains( "MSN" ) && row ["MSN"] != DBNull.Value ) userProfile.MSN = row ["MSN"].ToString();
-						if ( dt.Columns.Contains( "ICQ" ) && row ["ICQ"] != DBNull.Value ) userProfile.ICQ = row ["ICQ"].ToString();
-						if ( dt.Columns.Contains( "RealName" ) && row ["RealName"] != DBNull.Value ) userProfile.RealName = row ["RealName"].ToString();
-						if ( dt.Columns.Contains( "Occupation" ) && row ["Occupation"] != DBNull.Value ) userProfile.Occupation = row ["Occupation"].ToString();
-						if ( dt.Columns.Contains( "Location" ) && row ["Location"] != DBNull.Value ) userProfile.Location = row ["Location"].ToString();
-						if ( dt.Columns.Contains( "Homepage" ) && row ["Homepage"] != DBNull.Value ) userProfile.Homepage = row ["Homepage"].ToString();
-						if ( dt.Columns.Contains( "Interests" ) && row ["Interests"] != DBNull.Value ) userProfile.Interests = row ["Interests"].ToString();
-						if ( dt.Columns.Contains( "Weblog" ) && row ["Weblog"] != DBNull.Value ) userProfile.Blog = row ["Weblog"].ToString();
-						if ( dt.Columns.Contains( "Gender" ) && row ["Gender"] != DBNull.Value ) userProfile.Gender = Convert.ToInt32( row ["Gender"] );
-					}
-				}
-				else
-				{
-					// just update the link just in case...
-					YAF.Classes.Data.DB.user_migrate( row ["UserID"], user.ProviderUserKey, false );
-				}
-
-				// setup roles for this user...
-				using ( DataTable dtGroups = YAF.Classes.Data.DB.usergroup_list( row ["UserID"] ) )
-				{
-					foreach ( DataRow rowGroup in dtGroups.Rows )
-					{
-						Roles.AddUserToRole( user.UserName, rowGroup ["Name"].ToString() );
 					}
 				}
 			}
@@ -166,7 +170,9 @@ namespace YAF.Classes.Utils
 					{
 						// add the user to this role in membership
 						string roleName = row["Name"].ToString();
-						Roles.AddUserToRole(userName, roleName);
+
+						if (!String.IsNullOrEmpty(roleName))
+							Roles.AddUserToRole(userName, roleName);
 					}
 				}
 			}
