@@ -90,22 +90,45 @@ namespace YAF.Providers.Membership
 		internal static string EncodeString( string unencodedString, int encFormat, string salt, bool useSalt )
 		{
 			string encodedPass = string.Empty;
+			MembershipPasswordFormat passwordFormat = ( MembershipPasswordFormat )Enum.ToObject( typeof( MembershipPasswordFormat ), encFormat );
 
 			// Check to ensure string is not null or empty.
 			if ( String.IsNullOrEmpty( unencodedString ) )
 				return String.Empty;
 
-			int hashBufferLength = Encoding.Unicode.GetBytes( unencodedString ).Length;
-
-			if ( !String.IsNullOrEmpty( salt ) )
+			if ( useSalt && String.IsNullOrEmpty( salt ) )
 			{
-				hashBufferLength += Convert.FromBase64String( salt ).Length;
+				// not a valid salt so disable...
+				useSalt = false;
 			}
 
-			// Buffer used for hash algorithm if Salt is used.
-			byte [] hashBuffer = new byte [hashBufferLength];
+			if ( useSalt && passwordFormat == MembershipPasswordFormat.Encrypted )
+			{
+				// cannot use a salt with encryption
+				useSalt = false;
+			}
 
-			MembershipPasswordFormat passwordFormat = ( MembershipPasswordFormat )Enum.ToObject( typeof( MembershipPasswordFormat ), encFormat );
+			byte [] unencodedBytes = Encoding.Unicode.GetBytes( unencodedString );
+
+			// compute total size of new buffer
+			int bufferLength = unencodedBytes.Length;
+
+			// handle salt buffer
+			byte [] saltBytes = null;
+
+			if ( useSalt )
+			{
+				saltBytes = Encoding.Unicode.GetBytes( Convert.FromBase64String( salt ).ToString() );
+				// add salt length to buffer...
+				bufferLength += saltBytes.Length;
+			}
+
+			// Buffer used for algorithms...
+			byte [] buffer = new byte [bufferLength];
+
+			// copy password to hash buffer + salt
+			System.Buffer.BlockCopy( unencodedBytes, 0, buffer, 0, unencodedBytes.Length );
+			if ( useSalt ) System.Buffer.BlockCopy( saltBytes, unencodedBytes.Length - 1, buffer, unencodedBytes.Length - 1, saltBytes.Length );			
 
 			// Check Encoding format / method
 			switch ( passwordFormat )
@@ -115,11 +138,11 @@ namespace YAF.Providers.Membership
 					encodedPass = unencodedString;
 					break;
 				case MembershipPasswordFormat.Hashed:
-					if ( useSalt ) encodedPass = Convert.ToBase64String( HashAlgorithm.Create( YafMembershipProvider.HashType() ).ComputeHash( hashBuffer ) );
+					if ( useSalt ) encodedPass = Convert.ToBase64String( HashAlgorithm.Create( YafMembershipProvider.HashType() ).ComputeHash( buffer ) );
 					else encodedPass = FormsAuthentication.HashPasswordForStoringInConfigFile( unencodedString, YafMembershipProvider.HashType() );
 					break;
 				case MembershipPasswordFormat.Encrypted:
-					encodedPass = Convert.ToBase64String( HashAlgorithm.Create( YafMembershipProvider.HashType() ).ComputeHash( hashBuffer ) );
+					encodedPass = Convert.ToBase64String( ( new YafMembershipProvider() ).EncryptPassword( buffer ) );
 					break;
 				default:
 					encodedPass = FormsAuthentication.HashPasswordForStoringInConfigFile( unencodedString, YafMembershipProvider.HashType() );
@@ -352,23 +375,31 @@ namespace YAF.Providers.Membership
 		/// <returns> Boolean depending on whether the change was successful</returns>
 		public override bool ChangePassword( string username, string oldPassword, string newPassword )
 		{
+			string newPasswordSalt = string.Empty;
+			string newEncPassword = string.Empty;
+
 			// Clean input
 
 			// Check password meets requirements as set by Configuration settings
 			if ( !( this.IsPasswordCompliant( newPassword ) ) )
 				return false;
+
 			UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB( this.ApplicationName, username, false, this.UseSalt );
+
 			// validate the correct user information was found...
 			if ( currentPasswordInfo == null ) return false;
+
 			// validate the correct user password was entered...
 			if ( !currentPasswordInfo.IsCorrectPassword( oldPassword ) )
 				return false;
 
-			string newPasswordSalt = YafMembershipProvider.GenerateSalt();
-			string newEncPassword = YafMembershipProvider.EncodeString( newPassword, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
-			string newEncPasswordAnswer = YafMembershipProvider.EncodeString( currentPasswordInfo.PasswordAnswer, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
-			// Call SQL Password  Change
-			DB.ChangePassword( this.ApplicationName, username, newEncPassword, newPasswordSalt, ( int )this.PasswordFormat, newEncPasswordAnswer );
+			// generate a salt if desired...
+			if (UseSalt) newPasswordSalt = YafMembershipProvider.GenerateSalt();
+			// encode new password
+			newEncPassword = YafMembershipProvider.EncodeString( newPassword, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
+
+			// Call SQL Password to Change
+			DB.ChangePassword( this.ApplicationName, username, newEncPassword, newPasswordSalt, ( int )this.PasswordFormat, currentPasswordInfo.PasswordAnswer );
 
 			// Return True
 			return true;
@@ -433,6 +464,8 @@ namespace YAF.Providers.Membership
 			//	return null;
 			//}
 
+			string salt = string.Empty, pass = string.Empty;
+
 			// Check password meets requirements as set out in the web.config
 			if ( !( this.IsPasswordCompliant( password ) ) )
 			{
@@ -490,12 +523,12 @@ namespace YAF.Providers.Membership
 				return null;
 			}
 
-			string salt = YafMembershipProvider.GenerateSalt();
-			string pass = YafMembershipProvider.EncodeString( password, ( int )this.PasswordFormat, salt, this.UseSalt );
+			if (UseSalt) salt = YafMembershipProvider.GenerateSalt();
+			pass = YafMembershipProvider.EncodeString( password, ( int )this.PasswordFormat, salt, this.UseSalt );
 			// Encode Password Answer
 			string encodedPasswordAnswer = YafMembershipProvider.EncodeString( passwordAnswer, ( int )this.PasswordFormat, salt, this.UseSalt );
 			// Process database user creation request
-            DB.CreateUser(this.ApplicationName, username, pass, salt, (int)this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
+      DB.CreateUser(this.ApplicationName, username, pass, salt, (int)this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
 
 			status = MembershipCreateStatus.Success;
 
@@ -729,7 +762,7 @@ namespace YAF.Providers.Membership
 		/// <returns>Username as string</returns>
 		public override string ResetPassword( string username, string answer )
 		{
-			string newPassword, newPasswordEnc, newPasswordSalt, newPasswordAnswer;
+			string newPassword = string.Empty, newPasswordEnc = string.Empty, newPasswordSalt = string.Empty, newPasswordAnswer = string.Empty;
 
 			/// Check Password reset is enabled
 			if ( !( this.EnablePasswordReset ) )
@@ -739,16 +772,23 @@ namespace YAF.Providers.Membership
 			if ( ( username == null ) || ( answer == null ) )
 				ExceptionReporter.ThrowArgument( "MEMBERSHIP", "USERNAMEPASSWORDNULL" );
 
+			// get an instance of the current password information class
 			UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB( this.ApplicationName, username, false, this.UseSalt );
 
 			if ( currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer( answer ) )
 			{
-				newPasswordSalt = YafMembershipProvider.GenerateSalt();
+				// get a new password salt...
+				if (UseSalt) newPasswordSalt = YafMembershipProvider.GenerateSalt();
+				// encode new answer
 				newPasswordAnswer = YafMembershipProvider.EncodeString( answer, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
+				// create a new password
 				newPassword = YafMembershipProvider.GeneratePassword( this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters );
+				// encode it...
 				newPasswordEnc = YafMembershipProvider.EncodeString( newPassword, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
+				// save to the database
 				DB.ResetPassword( this.ApplicationName, username, newPasswordEnc, newPasswordSalt, ( int )this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow );
-				return newPassword; // Return unencrypted password
+				// Return unencrypted password
+				return newPassword; 
 			}
 
 			return null;
