@@ -43,6 +43,7 @@
     <Compile Include="FormatMsg.cs" />
     <Compile Include="HighLighter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplaceRulesCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes.Data\YAF.Classes.Data.csproj">

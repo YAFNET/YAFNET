@@ -102,6 +102,7 @@ namespace YAF.Classes.Utils
 		// default method for creating cache keys
 		private CacheKeyCreationMethod _keyCreationMethod;
 
+
 		/// <summary>
 		/// Default constuctor uses HttpContext.Current as source for obtaining Cache object
 		/// </summary>
@@ -116,6 +117,7 @@ namespace YAF.Classes.Utils
 			// use straigt method as default
 			_keyCreationMethod = CacheKeyCreationMethod.Straight;
 		}
+
 
 		/// <summary>
 		/// Indexer for obtaining and setting cache keys
@@ -179,6 +181,17 @@ namespace YAF.Classes.Utils
 		}
 
 
+		/// <summary>
+		/// Adds item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
+		/// <param name="dependencies">Cache dependencies, invalidating cache.</param>
+		/// <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
+		/// <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
+		/// <param name="priority">Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.</param>
+		/// <param name="onRemoveCallback">Delegate that is called upon cache item remova. Can be null.</param>
+		/// <returns>Cached item.</returns>
 		public object Add(string key, object value, CacheDependency dependencies,
 			DateTime absoluteExpiration, TimeSpan slidingExpiration,
 			CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback)
@@ -188,26 +201,56 @@ namespace YAF.Classes.Utils
 				value, 
 				dependencies, 
 				absoluteExpiration,
-				slidingExpiration, 
+				slidingExpiration,
 				priority, 
 				onRemoveCallback
 				);
 		}
 
 
+		/// <summary>
+		/// Inserts item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
 		public void Insert(string key, object value)
 		{
 			_cache.Insert(CreateKey(key), value);
 		}
+		/// <summary>
+		/// Inserts item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
+		/// <param name="dependencies">Cache dependencies, invalidating cache.</param>
 		public void Insert(string key, object value, CacheDependency dependencies)
 		{
 			_cache.Insert(CreateKey(key), value, dependencies);
 		}
+		/// <summary>
+		/// Inserts item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
+		/// <param name="dependencies">Cache dependencies, invalidating cache.</param>
+		/// <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
+		/// <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
 		public void Insert(string key, object value, CacheDependency dependencies, 
 			DateTime absoluteExpiration, TimeSpan slidingExpiration)
 		{
 			_cache.Insert(CreateKey(key), value, dependencies, absoluteExpiration, slidingExpiration);
 		}
+		/// <summary>
+		/// Inserts item to the cache.
+		/// </summary>
+		/// <param name="key">Key identifying item in cache.</param>
+		/// <param name="value">Cached value.</param>
+		/// <param name="dependencies">Cache dependencies, invalidating cache.</param>
+		/// <param name="absoluteExpiration">Absolute expiration date. When used, sliding expiration has to be set to Cache.NoSlidingExpiration.</param>
+		/// <param name="slidingExpiration">Sliding expiration of cache item. When used, absolute expiration has to be set to Cache.NoAbsoluteExpiration.</param>
+		/// <param name="priority">Relative cost of object in cache. When system evicts objects from cache, objects with lower cost are removed first.</param>
+		/// <param name="onRemoveCallback">Delegate that is called upon cache item remova. Can be null.</param>
+		/// <returns>Cached item.</returns>
 		public void Insert(string key, object value, CacheDependency dependencies,
 			DateTime absoluteExpiration, TimeSpan slidingExpiration,
 			CacheItemPriority priority, CacheItemRemovedCallback onRemoveCallback)
@@ -233,6 +276,22 @@ namespace YAF.Classes.Utils
 		{
 			return _cache.Remove(CreateKey(key));
 		}
+		/// <summary>
+		/// Removes all keys for which given predicate returns true.
+		/// </summary>
+		/// <param name="predicate">Predicate for matching cache keys.</param>
+		public void Remove(Predicate<string> predicate)
+		{
+			// get enumarator
+			IDictionaryEnumerator key = _cache.GetEnumerator();
+
+			// cycle through cache keys
+			while (key.MoveNext())
+			{
+				// remove cache item if predicate returns true
+				if (predicate(key.Key.ToString())) _cache.Remove(key.Key.ToString());
+			}
+		}
 
 
 		/// <summary>
@@ -250,7 +309,6 @@ namespace YAF.Classes.Utils
 				_cache.Remove(key.Key.ToString());
 			}
 		}
-
 
 		#endregion
 	}

@@ -112,7 +112,7 @@ namespace YAF.Pages.Admin
 
 				// invalidate the cache...
 				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
-
+				YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			}
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies );
 		}

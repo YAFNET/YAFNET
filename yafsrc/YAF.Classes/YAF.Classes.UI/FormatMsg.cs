@@ -35,6 +35,9 @@ namespace YAF.Classes.UI
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
+		// format message regex
+		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+
 		/// <summary>
 		/// Formats message by converting "Forum Code" to HTML.
 		/// </summary>
@@ -223,20 +226,14 @@ namespace YAF.Classes.UI
 		{
 			return FormatMessage( message, messageFlags, true, false );
 		}
-
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged )
 		{
 			return FormatMessage( message, messageFlags, isModeratorChanged, false );
 		}
-
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
 		{
 			return FormatMessage( message, messageFlags, isModeratorChanged, targetBlankOverride, DateTime.Now );
-		}
-
-		// format message regex
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-		
+		}		
 		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride, DateTime messageLastEdited )
 		{
 			bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;

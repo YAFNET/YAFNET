@@ -89,18 +89,21 @@ namespace YAF.Pages.Admin
 					// invalidate the cache...
 					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
+					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "movedown":
 					YAF.Classes.Data.DB.smiley_resort( PageContext.PageBoardID, e.CommandArgument, 1 );
 					// invalidate the cache...
 					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
+					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "delete":
 					YAF.Classes.Data.DB.smiley_delete( e.CommandArgument );
 					// invalidate the cache...
 					YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 					BindData();
+					YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 					break;
 				case "import":
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies_import );

@@ -213,6 +213,7 @@ namespace YAF.Pages.Admin
 			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
 			BoardModeratorsCacheTimeout.Text = PageContext.BoardSettings.BoardModeratorsCacheTimeout.ToString();
 			BoardCategoriesCacheTimeout.Text = PageContext.BoardSettings.BoardCategoriesCacheTimeout.ToString();
+			ReplaceRulesCacheTimeout.Text = PageContext.BoardSettings.ReplaceRulesCacheTimeout.ToString();
 
 			// Captcha Settings
 			CaptchaSize.Text = PageContext.BoardSettings.CaptchaSize.ToString();
@@ -332,6 +333,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
 			PageContext.BoardSettings.BoardModeratorsCacheTimeout = Convert.ToInt32(BoardModeratorsCacheTimeout.Text.Trim());
 			PageContext.BoardSettings.BoardCategoriesCacheTimeout = Convert.ToInt32(BoardCategoriesCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.ReplaceRulesCacheTimeout = Convert.ToInt32(ReplaceRulesCacheTimeout.Text.Trim());
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
@@ -371,6 +373,12 @@ namespace YAF.Pages.Admin
 		protected void BoardCategoriesCacheReset_Click(object sender, System.EventArgs e)
 		{
 			RemoveCacheKey(Constants.Cache.ForumCategory);
+		}
+
+		protected void ReplaceRulesCacheReset_Click(object sender, System.EventArgs e)
+		{
+			YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
+			CheckCache();
 		}
 
 		protected void ResetCacheAll_Click(object sender, System.EventArgs e)

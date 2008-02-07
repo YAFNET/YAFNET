@@ -92,32 +92,6 @@ namespace YAF.Classes.UI
 	}
 
 	/// <summary>
-	/// Gets an instance of replace rules and uses
-	/// caching if possible.
-	/// </summary>
-	public static class ReplaceRulesCreator
-	{
-		public static ReplaceRules GetInstance( bool [] uniqueFlags )
-		{
-			int rulesFlags = FlagsBase.GetIntFromBoolArray( uniqueFlags );
-
-			// not using board-specific key since this type of cached item is NOT board-specific
-			string key = String.Format( Constants.Cache.ReplaceRules, rulesFlags );
-
-			ReplaceRules rules = YafCache.Current [key] as ReplaceRules;
-
-			if ( rules == null )
-			{
-				// doesn't exist, create a new instance class...
-				rules = new ReplaceRules();
-				YafCache.Current.Add( key, rules, null, DateTime.Now.AddMinutes( 30 ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Default, null );
-			}
-
-			return rules;
-		}
-	}
-
-	/// <summary>
 	/// Base class for all replacement rules.
 	/// Provides compare functionality based on the rule rank.
 	/// Override replace to handle replacement differently.

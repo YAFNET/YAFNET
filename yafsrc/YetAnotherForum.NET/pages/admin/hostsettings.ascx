@@ -805,6 +805,16 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="postheader">
+                                    <b>Replace Rules Cache Timeout:</b><br />
+                                    Smilies, BB code, bad wordsm, etc. (in minutes)
+                                </td>
+                                <td class="post">
+                                    <asp:TextBox runat="server" ID="ReplaceRulesCacheTimeout" />
+                                    <asp:Button ID="ReplaceRulesCacheReset" Text="Clear" runat="server" OnClick="ReplaceRulesCacheReset_Click" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="footer1" colspan="2">
                                     <asp:Button runat="server" ID="ResetCacheAll" Text="Clear Cache" OnClick="ResetCacheAll_Click" /></td>
                             </tr>

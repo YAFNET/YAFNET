@@ -312,6 +312,13 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "BoardCategoriesCacheTimeout", 1440 ); }
 			set { _reg.SetValueInt( "BoardCategoriesCacheTimeout", value ); }
 		}
+		// Ederon : 02/07/2008
+		public int ReplaceRulesCacheTimeout
+		{
+			get { return _reg.GetValueInt("ReplaceRulesCacheTimeout", 1440); }
+			set { _reg.SetValueInt("ReplaceRulesCacheTimeout", value); }
+		}
+
 
 		// boolean settings
 		public bool EmailVerification
