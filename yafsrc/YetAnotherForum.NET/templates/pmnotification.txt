@@ -1,5 +1,0 @@
-A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
-
-To read the message, open the following link in your browser:
-
-{link}

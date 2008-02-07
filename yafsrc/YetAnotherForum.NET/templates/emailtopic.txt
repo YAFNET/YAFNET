@@ -1,5 +1,0 @@
-Hello!
-
-{user} thought you might be interested in reading this:
-
-{link}
