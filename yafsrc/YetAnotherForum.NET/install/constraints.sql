@@ -550,8 +550,8 @@ if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}]
 go
 
 
-if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_{objectQualifier}{objectQualifier}User')
-	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}{objectQualifier}User] primary key clustered(UserID)   
+if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='PK_{objectQualifier}User')
+	alter table [{databaseOwner}].[{objectQualifier}User] with nocheck add constraint [PK_{objectQualifier}User] primary key clustered(UserID)   
 go
 
 
