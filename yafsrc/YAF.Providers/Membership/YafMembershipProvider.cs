@@ -128,7 +128,7 @@ namespace YAF.Providers.Membership
 
 			// copy password to hash buffer + salt
 			System.Buffer.BlockCopy( unencodedBytes, 0, buffer, 0, unencodedBytes.Length );
-			if ( useSalt ) System.Buffer.BlockCopy( saltBytes, unencodedBytes.Length - 1, buffer, unencodedBytes.Length - 1, saltBytes.Length );			
+			if ( useSalt ) System.Buffer.BlockCopy( saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length );			
 
 			// Check Encoding format / method
 			switch ( passwordFormat )
