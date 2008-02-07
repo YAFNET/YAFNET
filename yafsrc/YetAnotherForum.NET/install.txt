@@ -1,59 +1,103 @@
-If you are upgrading from an earlier version, make sure you have a
-backup of your existing database and files. At the minimum make sure
-you don't overwrite your Web.config file. The existing Web.config
-should work, but you might want to compare it with the new default.config to
-see what has been added or removed. After upgrading you should
-open install/default.aspx and your database should be automatically
-updated.
+YetAnotherForum.NET (YAF) INSTALLATION FILE
 
-1. Unzip to a folder available from your web server.
+STEP 1. UNZIP
 
-2. Rename development.config or release.config (which one depends on whether
-   you are setting production or testing web) to web.config. If you are merging
-   YAF to your web application, make sure to merge one of those configs with
-   web.config file.
+Unzip to a folder available from your web server.
 
-   Modify the "db.config" file:
+STEP 2. SELECT WEB.CONFIG FILE
 
-   Modify the yafnet connectionString property to use your database. 
-   The database can be an already existing database, or you can 
-   create a new database to install to.
+   If you are upgrading an existing YAF installation please be careful and follow
+   a few precautions: ALWAYS BACKUP YOUR DATABASE BEFORE ATTEMPTING AN UPGRADE.
+   
+   IMPORTANT: UPGRADING YAF FORUMS v1.9.1.x and BELOW:
 
-   Modify "app.config" file:
+   You need to rename the "v191-upgrade-web.config" to "web.config" as it contains
+   necessary settings for the YAF membership providers to support backwards
+   compatibility with older YAF databaes. It's required that you merge these settings
+   into your existing "web.config" file. If you need to do development with an 
+   upgraded installation, please use "dev-v191-upgrade-web.config".
 
-   Modify the boardid to the boardid that you wish to view.  If you 
-   only have one board or don't know what this is, leave it alone.
+   NEW INSTALLATION:
 
-   Modify "mail.config" file:
+   If you are starting with a new installation, we recommend you start with
+   "recommended-web.config" and rename it to "web.config." This "web.config" 
+   file contains better default security settings for a NEW installation of YAF.
+   If you are doing development, use the "dev-recommended-web.config" instead.
+   Please Note: These web.config files will not work if you are upgrading from v1.9.1.x
+   or below of YAF.
+
+   Warning: DO NOT edit the web.config unless you know what you're doing.
+
+STEP 3. SETUP DATABASE (IGNORE IF UPGRADE)
+
+   A existing database needs to exist on your SQL Server with proper permissions
+   set so that YAF can access it. When you run YAF for the first time it will 
+   detect that the database is empty (or needs upgrading) and will automatically
+   run you through the process required to create the SQL database structures
+   needed.
+
+STEP 4. MODIFY DB.CONFIG FILE:
+
+   Modify the yafnet connectionString property to use your SQL Server database.
+   The database must exist on the server with proper permissions, but it can be
+   empty. Need help with your connection string? Visit this url:
+
+   http://www.connectionstrings.com/default.aspx?carrier=sqlserver
+
+   Look under the heading for "SqlConnection (.NET)" for example connection strings.
+
+STEP 5. (OPTIONAL) MODIFY "app.config" FILE:
+
+   By default YAF is designed to be installed at the root application on any
+   IIS web server. If you want YAF to be installed off of the main root, you need
+   to modify the root key. Make sure the files in the /bin directory of the YAF zip
+   file are copied to /bin directory on the root of your web server.
+   
+   Then open up "app.config" and uncomment the "root" key. Enter the value as the
+   directory to your forum.
+   
+   Example: If you have install the forum in the directory "/forum/yaf/"
+   you will need to add key with name "root" and value "/forum/yaf/"
+   to app.config.
+
+   Also, in "app.config" you can modify the BoardID to use the board you want.
+   If you only have one board or don't know what this is, leave it alone.   
+
+STEP 6. (OPTIONAL) MODIFY "mail.config" FILE:
 
    Modify the smtp settings by entering your mail server information.
 
-   Warning: DO NOT touch the web.config unless you know what you're doing.
+STEP 7. NEW INSTALLATION:
 
-3. If YetAnotherForum.net isn't installed at the root of your web
-   server, make sure the files in the bin directory of the zip file
-   is copied to /bin on your web server. Also you'll need to add the
-   "root" key to the appSettings (in app.config) to point to the correct URL.
-   Example: If you have install the forum in the directory "/forum/yaf/"
-   you will need to add key with name "root" and value "/forum/yaf/" 
-   to app.config.
-
-4. Open the file <YAFroot>install/default.aspx on your web site. If you
+   Open the file <YAFroot>install/default.aspx on your web site. If you
    are testing on your local computer, under a directory called
    YetAnotherForum.Net, the address should be:
    http://localhost/yetanotherforum.net/install/
 
-5. Follow the directions and log in with the administration account
-   you created during the setup.
+   Follow the installation wizard directions and you should be able to log
+   in with the administration account you created during the setup.
    
-6. Give the ASPNET/Network Service account write access to the Upload
+   Give the ASPNET/Network Service account write access to the Upload
    folder.
 
-7. When running in production environment, make sure to disable debugging
-   in web.config and turn custom error on. You can just rename release.config
-   to web.config to achieve this effect. Similarly, use development.config file
-   to disable custom errors and enable debugging.
+STEP 7. UPGRADE:
 
-If you have any questions, I'll be happy to help.
+   Open the file <YAFroot>install/default.aspx on your web site. If you
+   are testing on your local computer, under a directory called
+   YetAnotherForum.Net, the address should be:
+   http://localhost/yetanotherforum.net/install/   
+ 
+   The wizard will guide you through the upgrade process.   
 
-support@yetanotherforum.net
+
+NOTES ON DEBUGGING AND CUSTOM ERRORS:
+
+
+
+If you have any questions, please visit the YAF Support forum:
+
+http://forum.yetanotherforum.net
+
+We'll be happy to help.
+
+YAF Support (support@yetanotherforum.net)
