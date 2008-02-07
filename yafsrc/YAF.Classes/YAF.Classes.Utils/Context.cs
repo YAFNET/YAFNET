@@ -902,7 +902,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 0x01090321;
+				return 0x01090331;
 			}
 		}
 		static public DateTime AppVersionDate
