@@ -6,7 +6,7 @@
 <link type="text/css" rel="stylesheet" href="themes/yafpro/theme.css" />
 </head>
 <body>
-<br />
+<div class="yafnet">
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
   <tr>
     <td class="header1">
@@ -25,6 +25,6 @@
     </td>
   </tr>
 </table>
-<br /><br />
+</div>
 </body>
 </html>
