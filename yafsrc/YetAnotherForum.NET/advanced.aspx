@@ -10,7 +10,7 @@
     {
         Exception x = Server.GetLastError();
         YAF.Classes.Data.DB.eventlog_create( yafForum.PageUserID, this, x );
-        YAF.Classes.Utils.General.LogToMail( x );
+        YAF.Classes.Utils.CreateMail.CreateLogEmail( x );
     }
 </script>
 
