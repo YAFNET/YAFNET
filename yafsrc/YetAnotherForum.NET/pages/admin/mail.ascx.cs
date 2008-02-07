@@ -37,61 +37,45 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class mail : YAF.Classes.Base.AdminPage
 	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
+
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Mail","");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Mail", "" );
 
 				BindData();
 			}
 		}
 
-		private void BindData() {
-			ToList.DataSource = YAF.Classes.Data.DB.group_list(PageContext.PageBoardID,null);
+		private void BindData()
+		{
+			ToList.DataSource = YAF.Classes.Data.DB.group_list( PageContext.PageBoardID, null );
 			DataBind();
 
-			ListItem item = new ListItem("All Users","0");
-			ToList.Items.Insert(0,item);
+			ListItem item = new ListItem( "All Users", "0" );
+			ToList.Items.Insert( 0, item );
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected void Send_Click( object sender, System.EventArgs e )
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-		}
-		#endregion
-
-		protected void Send_Click(object sender, System.EventArgs e) {
 			object GroupID = null;
-			if(ToList.SelectedItem.Value!="0")
+			if ( ToList.SelectedItem.Value != "0" )
 				GroupID = ToList.SelectedValue;
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_emails(PageContext.PageBoardID,GroupID)) 
+			using ( DataTable dt = YAF.Classes.Data.DB.user_emails( PageContext.PageBoardID, GroupID ) )
 			{
-				foreach(DataRow row in dt.Rows)
-					//  Build a MailMessage
-					General.SendMail(PageContext.BoardSettings.ForumEmail,(string)row["Email"],Subject.Text,Body.Text);
+				foreach ( DataRow row in dt.Rows )
+				{
+					//  Send email directly...
+					SendMail.Send( PageContext.BoardSettings.ForumEmail, ( string )row ["Email"], Subject.Text.Trim(), Body.Text.Trim() );
+				}
 			}
 			Subject.Text = "";
 			Body.Text = "";
-			PageContext.AddLoadMessage("Mails sent.");
+			PageContext.AddLoadMessage( "Mails sent." );
 		}
 	}
 }

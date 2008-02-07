@@ -2,7 +2,7 @@
 	Inherits="YAF.Pages.recoverpassword" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
-	<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail">
+	<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail" OnVerifyingUser="PasswordRecovery1_VerifyingUser">
 		<UserNameTemplate>
 			<table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse">
 				<tr>

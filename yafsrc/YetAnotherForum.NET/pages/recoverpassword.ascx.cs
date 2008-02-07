@@ -97,16 +97,64 @@ namespace YAF.Pages // YAF.Pages
       string password = body.Substring( 0, body.IndexOf( '\n' ) );
       
       // get the e-mail ready from the real template.
-      body = General.ReadTemplate( "passwordretrieval.txt" );
+			YafTemplateEmail passwordRetrieval = new YafTemplateEmail( "PASSWORDRETRIEVAL" );
+
       string subject = String.Format( GetText( "PASSWORDRETRIEVAL_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
 
-      body = body.Replace( "{username}", userName );
-      body = body.Replace( "{password}", password );
-      body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
-      body = body.Replace( "{forumlink}", String.Format( "{0}", YafForumInfo.ForumURL ) );
+      passwordRetrieval.TemplateParams["{username}"] = userName;
+      passwordRetrieval.TemplateParams["{password}"] = password;
+      passwordRetrieval.TemplateParams["{forumname}"] = PageContext.BoardSettings.Name;
+      passwordRetrieval.TemplateParams["{forumlink}"] = String.Format( "{0}", YafForumInfo.ForumURL );
 
-      General.SendMail( new System.Net.Mail.MailAddress( PageContext.BoardSettings.ForumEmail, PageContext.BoardSettings.Name ),
-                        e.Message.To[0], subject, body );
+			passwordRetrieval.SendEmail( e.Message.To[0], subject, true );
     }
-  }
+
+		protected void PasswordRecovery1_VerifyingUser( object sender, LoginCancelEventArgs e )
+		{			
+			MembershipUser user = Membership.GetUser( PasswordRecovery1.UserName );
+
+			if ( user != null )
+			{
+				// verify the user is approved, etc...
+				if ( !user.IsApproved )
+				{
+					if ( PageContext.BoardSettings.EmailVerification )
+					{						
+						// get the hash from the db associated with this user...
+						DataTable dt = DB.checkemail_list( user.Email );
+
+						if ( dt.Rows.Count > 0 )
+						{
+							string hash = dt.Rows [0] ["hash"].ToString();
+
+							// re-send verification email instead of lost password...
+							YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
+
+							string subject = String.Format( GetText( "VERIFICATION_EMAIL_SUBJECT" ), PageContext.BoardSettings.Name );
+
+							verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+							verifyEmail.TemplateParams ["{key}"] = hash;
+							verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
+							verifyEmail.TemplateParams ["{forumlink}"] = String.Format( "{0}", YafForumInfo.ForumURL );
+
+							verifyEmail.SendEmail( new System.Net.Mail.MailAddress( user.Email, user.UserName ), subject, true );
+
+							PageContext.AddLoadMessageSession( String.Format( PageContext.Localization.GetText( "ACCOUNT_NOT_APPROVED_VERIFICATION" ), user.Email ) );
+						}
+					}
+					else
+					{
+						// explain they are not approved yet...
+						PageContext.AddLoadMessageSession( PageContext.Localization.GetText( "ACCOUNT_NOT_APPROVED" ) );
+					}
+
+					// just in case cancel the verification...
+					e.Cancel = true;
+
+					// nothing they can do here... redirect to login...
+					YafBuildLink.Redirect( ForumPages.login );
+				}
+			}
+		}
+}
 }

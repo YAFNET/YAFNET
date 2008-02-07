@@ -1379,11 +1379,32 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}checkemail_save](@UserID int,@Hash nvarchar(32),@Email nvarchar(50)) as
-begin
-	insert into [{databaseOwner}].[{objectQualifier}CheckEmail](UserID,Email,Created,Hash)
-	values(@UserID,@Email,getdate(),@Hash)	
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_list]
+(
+	@Email nvarchar(50) = null
+)
+AS
+BEGIN
+	IF @Email IS NULL
+		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail]
+	ELSE
+		SELECT * FROM [{databaseOwner}].[{objectQualifier}CheckEmail] WHERE Email = LOWER(@EMail)
+END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}checkemail_save]
+(
+	@UserID int,
+	@Hash nvarchar(32),
+	@Email nvarchar(50)
+)
+AS
+BEGIN
+	INSERT INTO [{databaseOwner}].[{objectQualifier}CheckEmail]
+		(UserID,Email,Created,Hash)
+	VALUES
+		(@UserID,LOWER(@Email),getdate(),@Hash)	
+END
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}checkemail_update](@Hash nvarchar(32)) as
@@ -1410,7 +1431,7 @@ begin
 	end
 
 	-- Update new user email
-	update [{databaseOwner}].[{objectQualifier}User] set Email = @Email, Flags = Flags | 2 where UserID = @UserID
+	update [{databaseOwner}].[{objectQualifier}User] set Email = LOWER(@Email), Flags = Flags | 2 where UserID = @UserID
 	delete [{databaseOwner}].[{objectQualifier}CheckEmail] where CheckEmailID = @CheckEmailID
 
 	-- return the UserProviderKey
@@ -2146,21 +2167,47 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_create](@From nvarchar(50),@To nvarchar(50),@Subject nvarchar(100),@Body ntext) as 
-begin
-	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,ToUser,Created,Subject,Body)
-	values(@From,@To,getdate(),@Subject,@Body)
-end
+create procedure [{databaseOwner}].[{objectQualifier}mail_create]
+(
+	@From nvarchar(50),
+	@FromName nvarchar(50) = NULL,
+	@To nvarchar(50),
+	@ToName nvarchar(50) = NULL,
+	@Subject nvarchar(100),
+	@Body ntext,
+	@BodyHtml ntext = NULL
+)
+AS 
+BEGIN
+	insert into [{databaseOwner}].[{objectQualifier}Mail]
+		(FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
+	values
+		(@From,@FromName,@To,@ToName,getdate(),@Subject,@Body,@BodyHtml)	
+END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch](@TopicID int,@From nvarchar(50),@Subject nvarchar(100),@Body ntext,@UserID int) as begin
-	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,ToUser,Created,Subject,Body)
+create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
+(
+	@TopicID int,
+	@From nvarchar(50),
+	@FromName nvarchar(50) = NULL,
+	@Subject nvarchar(100),
+	@Body ntext,
+	@BodyHtml ntext = null,
+	@UserID int
+)
+AS
+BEGIN
+	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	select
 		@From,
+		@FromName,
 		b.Email,
+		b.Name,
 		getdate(),
 		@Subject,
-		@Body
+		@Body,
+		@BodyHtml
 	from
 		[{databaseOwner}].[{objectQualifier}WatchTopic] a
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -2169,13 +2216,16 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch](@TopicID 
 		a.TopicID = @TopicID and
 		(a.LastMail is null or a.LastMail < b.LastVisit)
 	
-	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,ToUser,Created,Subject,Body)
+	insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
 	select
 		@From,
+		@FromName,
 		b.Email,
+		b.Name,
 		getdate(),
 		@Subject,
-		@Body
+		@Body,
+		@BodyHtml
 	from
 		[{databaseOwner}].[{objectQualifier}WatchForum] a
 		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -2196,16 +2246,29 @@ create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch](@TopicID 
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_delete](@MailID int) as
-begin
-	delete from [{databaseOwner}].[{objectQualifier}Mail] where MailID = @MailID
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}mail_delete](@MailID int) as
+BEGIN
+	DELETE FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE MailID = @MailID
+END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_list] as
-begin
-	select top 10 * from [{databaseOwner}].[{objectQualifier}Mail] order by Created
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}mail_list]
+(
+	@ProcessID int
+)
+AS
+BEGIN
+	UPDATE [{databaseOwner}].[{objectQualifier}Mail]
+	SET 
+		SendTries = SendTries + 1,
+		SendAttempt = DATEADD(n,5,GETDATE()),
+		ProcessID = @ProcessID
+	WHERE
+		MailID IN (SELECT TOP 10 MailID FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE SendAttempt < GETDATE() OR SendAttempt IS NULL)
+
+	-- now select all mail reserved for this process...
+	SELECT * FROM [{databaseOwner}].[{objectQualifier}Mail] WHERE ProcessID = @ProcessID ORDER BY Created
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin

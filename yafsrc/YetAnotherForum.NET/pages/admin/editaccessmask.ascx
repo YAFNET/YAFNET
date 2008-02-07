@@ -84,7 +84,7 @@
 		<tr class="postfooter">
 			<td align="center" colspan="2">
 				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />
-				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" />
+				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" CausesValidation="false" />
 			</td>
 		</tr>
 	</table>

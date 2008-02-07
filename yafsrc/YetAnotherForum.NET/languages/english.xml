@@ -63,6 +63,8 @@
 		<Resource tag="BBCODE_CODE">Code:</Resource>
 		<Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
 		<Resource tag="PM_NOTIFICATION_SUBJECT">New Private Message From {0} at {1}</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
 		<Resource tag="BACK">Back</Resource>
 		<Resource tag="UPDATE">Update</Resource>
 		<Resource tag="SUBMIT">Submit</Resource>
@@ -83,6 +85,113 @@
 		<Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
 		<Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
 	</page>
+  <page name="TEMPLATES">
+<Resource tag="CHANGEEMAIL_TEXT">
+Hello {user},
+
+Your request to change your email address to {newemail} is almost complete!
+
+Just confirm the change by clicking this link:
+
+{link}
+
+And enter approval key:
+
+{key}
+
+If you did not request a change to your email address please simply ignore this email.
+
+{forumname} at {forumlink}
+</Resource>
+<Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class=&quot;style1&quot;&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; &lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class=&quot;style1&quot;&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class=&quot;style1&quot;&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+<Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+<Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+<Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class=&quot;style1&quot;&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class=&quot;style1&quot;&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+<Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+<Resource tag="PMNOTIFICATION_HTML" editType="html"></Resource>
+<Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+<Resource tag="TOPICPOST_HTML" editType="html"></Resource>
+<Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+<Resource tag="VERIFYEMAIL_HTML" editType="html"></Resource>
+  </page>
   <page name="BUTTON">
     <Resource tag="BUTTON_NEWTOPIC">New Topic</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">Post a new topic in this forum</Resource>
@@ -545,6 +654,8 @@
 		<Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
 		<Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
 		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the admininstrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
 	</page>
 	<page name="REGISTER">
 		<!-- register.aspx -->
@@ -579,15 +690,15 @@
 		<Resource tag="CONTINUE">Continue</Resource>
 		<Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>
 		<Resource tag="VERIFICATION_EMAIL_SUBJECT">Registration Verification for {0} Forum</Resource>
-		<Resource tag="ACCOUNT_CREATED" bbcode="true">[center]Your account has been successfully created.[/center]</Resource>
-		<Resource tag="ACCOUNT_CREATED_VERIFICATION" bbcode="true">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
+		<Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]Your account has been successfully created.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]</Resource>
 	</page>
 	<page name="RULES">
 		<!-- rules.aspx -->
 		<Resource tag="TITLE">Forum Rules and Policies</Resource>
 		<Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
 		<Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
-		<Resource tag="RULES_TEXT" bbcode="true">
+		<Resource tag="RULES_TEXT" editType="bbcode">
       [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
 
       You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.

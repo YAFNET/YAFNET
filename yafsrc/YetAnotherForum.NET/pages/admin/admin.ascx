@@ -91,9 +91,8 @@
     <FooterTemplate>
       <tr>
         <td class="footer1" colspan="5">
-          <asp:Button CommandName="approveall" Text="Approve All" runat="server" ToolTip="Approve all unverified users" />
-          <asp:Button CommandName="deleteall" ToolTip="Deletes all unverified users more than 2 days old"
-            runat="server" Text="Delete All" /></td>
+          <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" Text="Approve All" runat="server" />
+          <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" runat="server" Text="Delete All" /></td>
       </tr>
       </table>
     </FooterTemplate>

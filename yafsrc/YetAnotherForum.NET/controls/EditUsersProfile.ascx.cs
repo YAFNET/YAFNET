@@ -153,7 +153,9 @@ namespace YAF.Controls
 
       if ( UpdateEmailFlag )
       {
-        if ( !General.IsValidEmail( Email.Text ) )
+				string newEmail = Email.Text.Trim();
+
+				if ( !General.IsValidEmail( newEmail ) )
         {
           PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "BAD_EMAIL" ) );
           return;
@@ -164,22 +166,23 @@ namespace YAF.Controls
           string hashinput = DateTime.Now.ToString() + Email.Text + Security.CreatePassword( 20 );
           string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
-          // Email Body
-          StringDictionary emailParameters = new StringDictionary();
+          // Create Email
+					YafTemplateEmail changeEmail = new YafTemplateEmail( "CHANGEEMAIL" );
 
-          emailParameters ["{user}"] = PageContext.PageUserName;
-          emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
-          emailParameters ["{newemail}"] = Email.Text;
-          emailParameters ["{key}"] = hash;
-          emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
-          emailParameters ["{forumlink}"] = YafForumInfo.ForumURL;
+					changeEmail.TemplateParams ["{user}"] = PageContext.PageUserName;
+					changeEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+					changeEmail.TemplateParams ["{newemail}"] = Email.Text;
+					changeEmail.TemplateParams ["{key}"] = hash;
+					changeEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
+					changeEmail.TemplateParams ["{forumlink}"] = YafForumInfo.ForumURL;
 
-          string message = General.CreateEmailFromTemplate( "changeemail.txt", ref emailParameters );
+					// save a change email reference to the db
+					YAF.Classes.Data.DB.checkemail_save( CurrentUserID, hash, newEmail );
 
-          YAF.Classes.Data.DB.checkemail_save( CurrentUserID, hash, Email.Text );
+          //  send a change email message...
+					changeEmail.SendEmail( new System.Net.Mail.MailAddress( newEmail ), PageContext.Localization.GetText( "COMMON", "CHANGEEMAIL_SUBJECT" ), true );
 
-          //  Build a MailMessage
-          General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, "Changed email", message );
+					// show a confirmation
           PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "PROFILE", "mail_sent" ), Email.Text ) );
         }
 		else

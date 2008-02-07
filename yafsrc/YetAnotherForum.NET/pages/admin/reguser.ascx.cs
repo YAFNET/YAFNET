@@ -59,23 +59,26 @@ namespace YAF.Pages.Admin
 		{
 			if ( Page.IsValid )
 			{
-				if ( !General.IsValidEmail( Email.Text ) )
+				string newEmail = Email.Text.Trim();
+				string newUsername = UserName.Text.Trim();
+
+				if ( !General.IsValidEmail( newEmail ) )
 				{
 					PageContext.AddLoadMessage( "You have entered an illegal e-mail address." );
 					return;
 				}
 
-				if ( UserMembershipHelper.UserExists( UserName.Text.Trim(), Email.Text.Trim() ) )
+				if ( UserMembershipHelper.UserExists( UserName.Text.Trim(), newEmail ) )
 				{
 					PageContext.AddLoadMessage( "Username or email are already registered." );
 					return;
 				}
 
-				string hashinput = DateTime.Now.ToString() + Email.Text.Trim() + Security.CreatePassword( 20 );
+				string hashinput = DateTime.Now.ToString() + newEmail + Security.CreatePassword( 20 );
 				string hash = FormsAuthentication.HashPasswordForStoringInConfigFile( hashinput, "md5" );
 
 				MembershipCreateStatus status;
-				MembershipUser user = Membership.CreateUser( UserName.Text.Trim(), Password.Text.Trim(), Email.Text.Trim(), Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, out status);
+				MembershipUser user = Membership.CreateUser( newUsername, Password.Text.Trim(), newEmail, Question.Text.Trim(), Answer.Text.Trim(), !PageContext.BoardSettings.EmailVerification, out status);
 
 				if (status != MembershipCreateStatus.Success)
 				{
@@ -85,13 +88,13 @@ namespace YAF.Pages.Admin
 				}
 
 				// setup inital roles (if any) for this user
-				RoleMembershipHelper.SetupUserRoles( YafContext.Current.PageBoardID, UserName.Text.Trim() );
+				RoleMembershipHelper.SetupUserRoles( YafContext.Current.PageBoardID, newUsername );
 
 				// create the user in the YAF DB as well as sync roles...
 				int? userID = RoleMembershipHelper.CreateForumUser( user, YafContext.Current.PageBoardID );
 
 				// create profile
-				YafUserProfile userProfile = PageContext.GetProfile( UserName.Text.Trim() );
+				YafUserProfile userProfile = PageContext.GetProfile( newUsername );
 				// setup their inital profile information
 				userProfile.Location = Location.Text.Trim();
 				userProfile.Homepage = HomePage.Text.Trim();
@@ -102,14 +105,17 @@ namespace YAF.Pages.Admin
 
 				if ( PageContext.BoardSettings.EmailVerification )
 				{
-					//  Build a MailMessage
-					string body = General.ReadTemplate( "verifyemail.txt" );
-					body = body.Replace( "{link}", String.Format( "{1}{0}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.YafForumInfo.ServerURL ) );
-					body = body.Replace( "{key}", hash );
-					body = body.Replace( "{forumname}", PageContext.BoardSettings.Name );
-					body = body.Replace( "{forumlink}", String.Format( "{0}", ForumURL ) );
+					// send template email
+					YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
 
-					General.SendMail( PageContext.BoardSettings.ForumEmail, Email.Text, String.Format( "{0} email verification", PageContext.BoardSettings.Name ), body );
+					verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.approve, "k={0}", hash ), YAF.Classes.Utils.YafForumInfo.ServerURL );
+					verifyEmail.TemplateParams ["{key}"] = hash;
+					verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
+					verifyEmail.TemplateParams ["{forumlink}"] = String.Format( "{0}", ForumURL );
+
+					string subject = String.Format( PageContext.Localization.GetText( "COMMON", "EMAILVERIFICATION_SUBJECT" ), PageContext.BoardSettings.Name );
+
+					verifyEmail.SendEmail( new System.Net.Mail.MailAddress( newEmail, newUsername ), subject, true);
 				}
 
 				// success

@@ -253,19 +253,17 @@ namespace YAF.Pages
 					//	senderEmail = ( string ) dt.Rows [0] ["Email"];
 
 					// send this user a PM notification e-mail
-					StringDictionary emailParameters = new StringDictionary();
+					YafTemplateEmail pmNotification = new YafTemplateEmail("PMNOTIFICATION");
 
-					emailParameters ["{fromuser}"] = PageContext.PageUserName;
-					emailParameters ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLink( ForumPages.cp_message, "pm={0}", userPMessageID ), YafForumInfo.ServerURL );
-					emailParameters ["{forumname}"] = PageContext.BoardSettings.Name;
-					emailParameters ["{subject}"] = subject;
-
-					string message = General.CreateEmailFromTemplate( "pmnotification.txt", ref emailParameters );
+					pmNotification.TemplateParams ["{fromuser}"] = PageContext.PageUserName;
+					pmNotification.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLink( ForumPages.cp_message, "pm={0}", userPMessageID ), YafForumInfo.ServerURL );
+					pmNotification.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
+					pmNotification.TemplateParams ["{subject}"] = subject;
 
 					string emailSubject = string.Format( GetText( "COMMON", "PM_NOTIFICATION_SUBJECT" ), PageContext.PageUserName, PageContext.BoardSettings.Name, subject );
 
-					//  Build a MailMessage
-					General.SendMail( PageContext.BoardSettings.ForumEmail, toEMail, emailSubject, message );
+					// send email
+					pmNotification.SendEmail( new System.Net.Mail.MailAddress( toEMail ), subject, true );
 				}
 			}
 			catch ( Exception x )

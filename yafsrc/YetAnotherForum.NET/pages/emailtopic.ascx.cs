@@ -55,37 +55,22 @@ namespace YAF.Pages // YAF.Pages
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 					PageLinks.AddLink( PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID ) );
 				}
+
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( PageContext.PageTopicName, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
 
 				SendEmail.Text = GetText( "send" );
 
 				Subject.Text = PageContext.PageTopicName;
-				string msg = General.ReadTemplate( "emailtopic.txt" );
-				msg = msg.Replace( "{link}", String.Format( "{0}{1}", YAF.Classes.Utils.YafForumInfo.ServerURL, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) ) );
-				msg = msg.Replace( "{user}", PageContext.PageUserName );
-				Message.Text = msg;
+
+				YafTemplateEmail emailTopic = new YafTemplateEmail();
+
+				emailTopic.TemplateParams ["{link}"] = String.Format( "{0}{1}", YAF.Classes.Utils.YafForumInfo.ServerURL, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID ) );
+				emailTopic.TemplateParams ["{user}"] = PageContext.PageUserName;
+
+				Message.Text = emailTopic.ProcessTemplate( "EMAILTOPIC" );
 			}
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit( EventArgs e )
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit( e );
-		}
-
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-		}
-		#endregion
 
 		protected void SendEmail_Click( object sender, System.EventArgs e )
 		{
@@ -97,12 +82,16 @@ namespace YAF.Pages // YAF.Pages
 
 			try
 			{
-				string senderemail;
-				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
-					senderemail = ( string ) dt.Rows [0] ["Email"];
+				string senderEmail = null;
 
-				//  Build a MailMessage
-				General.SendMail( senderemail, EmailAddress.Text, Subject.Text, Message.Text );
+				using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+				{
+					senderEmail = ( string )dt.Rows [0] ["Email"];
+				}
+
+				// send the email...
+				SendMail.Send( senderEmail, EmailAddress.Text.Trim(), Subject.Text.Trim(), Message.Text.Trim() );
+
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "t={0}", PageContext.PageTopicID );
 			}
 			catch ( Exception x )

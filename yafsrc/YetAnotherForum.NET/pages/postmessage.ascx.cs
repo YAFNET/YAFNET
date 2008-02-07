@@ -491,7 +491,7 @@ namespace YAF.Pages
 			// Create notification emails
 			if (bApproved)
 			{
-				General.CreateWatchEmail(nMessageID);
+				CreateMail.CreateWatchEmail(nMessageID);
 
 				if ( isNewTopic && PageContext.ForumUploadAccess && TopicAttach.Checked )
 				{

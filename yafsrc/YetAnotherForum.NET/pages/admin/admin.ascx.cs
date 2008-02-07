@@ -54,14 +54,23 @@ namespace YAF.Pages.Admin
 
 		protected void Delete_Load(object sender, System.EventArgs e)
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this user?')";
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this User?')";
 		}
 
 		protected void Approve_Load(object sender, System.EventArgs e)
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this user?')";
+			((LinkButton)sender).Attributes["onclick"] = "return confirm('Approve this User?')";
 		}
 
+		protected void DeleteAll_Load( object sender, System.EventArgs e )
+		{
+			( ( Button )sender ).Attributes ["onclick"] = "return confirm('Delete all Unapproved Users?')";
+		}
+
+		protected void ApproveAll_Load( object sender, System.EventArgs e )
+		{
+			( ( Button )sender ).Attributes ["onclick"] = "return confirm('Approve all Users?')";
+		}
 
 		/// <summary>
 		/// Bind list of boards to dropdown

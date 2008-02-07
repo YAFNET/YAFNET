@@ -60,26 +60,11 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		protected System.Drawing.Color GetItemColor( bool enabled )
 		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			if ( enabled ) return System.Drawing.Color.Red;
+			return System.Drawing.Color.Black;
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.List.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.List_ItemCommand);
-
-		}
-		#endregion
 
 		private void List_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
 		{

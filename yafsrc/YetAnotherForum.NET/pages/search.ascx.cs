@@ -212,21 +212,31 @@ namespace YAF.Pages // YAF.Pages
 			}
 			catch ( System.Data.SqlClient.SqlException x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-				General.LogToMail( x );
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );				
+				CreateMail.CreateLogEmail( x );
+
 				if ( PageContext.IsAdmin )
+				{
 					PageContext.AddLoadMessage( string.Format( "{0}", x ) );
+				}
 				else
+				{
 					PageContext.AddLoadMessage( "An error occurred in the database." );
+				}
 			}
 			catch ( Exception x )
 			{
 				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
-				General.LogToMail( x );
+				CreateMail.CreateLogEmail( x );
+
 				if ( PageContext.IsAdmin )
+				{
 					PageContext.AddLoadMessage( string.Format( "{0}", x ) );
+				}
 				else
+				{
 					PageContext.AddLoadMessage( "An error occured while searching." );
+				}
 			}
 		}
 

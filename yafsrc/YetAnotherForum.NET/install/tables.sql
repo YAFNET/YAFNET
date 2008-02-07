@@ -105,12 +105,18 @@ GO
 
 if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Mail]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	create table [{databaseOwner}].[{objectQualifier}Mail](
-		MailID			int IDENTITY (1, 1) NOT NULL ,
-		FromUser		nvarchar (50) NOT NULL ,
-		ToUser			nvarchar (50) NOT NULL ,
-		Created			datetime NOT NULL ,
-		Subject			nvarchar (100) NOT NULL ,
-		Body			ntext NOT NULL 
+		[MailID] [int] IDENTITY(1,1) NOT NULL,
+		[FromUser] [nvarchar](50) NOT NULL,
+		[FromUserName] [nvarchar](50) NULL,
+		[ToUser] [nvarchar](50) NOT NULL,
+		[ToUserName] [nvarchar](50) NULL,
+		[Created] [datetime] NOT NULL,
+		[Subject] [nvarchar](100) NOT NULL,
+		[Body] [ntext] NOT NULL,
+		[BodyHtml] [ntext] NULL,
+		[SendTries] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Mail_SendTries]  DEFAULT ((0)),
+		[SendAttempt] [datetime] NULL,
+		[ProcessID] [int] NULL
 	)
 GO
 
@@ -492,6 +498,17 @@ BEGIN
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
 	END
 END
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](50) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](50) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [ntext] NULL		
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Mail_SendTries]  DEFAULT ((0))		
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL
+end
 GO
 
 -- [{databaseOwner}].[{objectQualifier}UserPMessage

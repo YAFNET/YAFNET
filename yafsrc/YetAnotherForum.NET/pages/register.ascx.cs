@@ -286,15 +286,16 @@ namespace YAF.Pages // YAF.Pages
 				// save verification record...
 				YAF.Classes.Data.DB.checkemail_save(userID, hash, user.Email);
 
-				string body = General.ReadTemplate("verifyemail.txt");
+				YafTemplateEmail verifyEmail = new YafTemplateEmail( "VERIFYEMAIL" );
+
 				string subject = String.Format(GetText("VERIFICATION_EMAIL_SUBJECT"), PageContext.BoardSettings.Name);
 
-				body = body.Replace("{link}", String.Format("{1}{0}", YafBuildLink.GetLinkNotEscaped(ForumPages.approve, "k={0}", hash), YafForumInfo.ServerURL));
-				body = body.Replace("{key}", hash);
-				body = body.Replace("{forumname}", PageContext.BoardSettings.Name);
-				body = body.Replace("{forumlink}", String.Format("{0}", YafForumInfo.ForumURL));
+				verifyEmail.TemplateParams ["{link}"] = String.Format( "{1}{0}", YafBuildLink.GetLinkNotEscaped( ForumPages.approve, "k={0}", hash ), YafForumInfo.ServerURL );
+				verifyEmail.TemplateParams ["{key}"] = hash;
+				verifyEmail.TemplateParams ["{forumname}"] = PageContext.BoardSettings.Name;
+				verifyEmail.TemplateParams ["{forumlink}"] = String.Format("{0}", YafForumInfo.ForumURL);
 
-				General.SendMail(PageContext.BoardSettings.ForumEmail, email, subject, body);
+				verifyEmail.SendEmail( new System.Net.Mail.MailAddress( email, user.UserName ), subject, true );
 			}
 		}
 
