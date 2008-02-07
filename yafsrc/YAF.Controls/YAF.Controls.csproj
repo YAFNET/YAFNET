@@ -63,7 +63,6 @@
     <Compile Include="ThemeImage.cs" />
     <Compile Include="TopicLine.cs" />
     <Compile Include="UserLink.cs" />
-    <Compile Include="VoteBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj">
