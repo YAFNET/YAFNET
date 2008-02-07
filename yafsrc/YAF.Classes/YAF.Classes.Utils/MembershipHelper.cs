@@ -239,8 +239,7 @@ namespace YAF.Classes.Utils
 				{
 					YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
 				}
-
-				YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
+				//YAF.Classes.Data.DB.eventlog_create(DBNull.Value, user, string.Format("Created forum user {0}", user.UserName));
 			}
 			catch (Exception x)
 			{

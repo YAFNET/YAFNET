@@ -50,9 +50,10 @@
     <Compile Include="ExternalAPI\MetaWeblog.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Mail\CreateMail.cs" />
     <Compile Include="MembershipHelper.cs" />
     <Compile Include="Nntp.cs" />
-    <Compile Include="SendMail.cs" />
+    <Compile Include="Mail\SendMail.cs" />
     <Compile Include="StaticData.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Localization\Localization.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Theme\Theme.cs" />
     <Compile Include="General.cs" />
     <Compile Include="URLBuilder\URLBuilderRewrite.cs" />
+    <Compile Include="URLBuilder\UrlParser.cs" />
     <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>

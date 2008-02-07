@@ -127,7 +127,7 @@ namespace YAF.Classes.Base
 			Exception x = Server.GetLastError();
 			YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
 			if ( !YafForumInfo.IsLocal )
-				General.LogToMail( Server.GetLastError() );
+				CreateMail.CreateLogEmail( Server.GetLastError() );
 		}
 
 		static public int ValidInt( object expression )
