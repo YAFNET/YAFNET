@@ -200,7 +200,7 @@ namespace YAF.Pages
 					// editing..
 					PageLinks.AddLink( GetText( "EDIT" ) );
 
-					string blogPostID = currentRow["blogpostid"].ToString();
+					string blogPostID = currentRow ["BlogPostID"].ToString();
 					if (blogPostID != string.Empty) // The user used this post to blog
 					{
 						BlogPostID.Value = blogPostID;
