@@ -784,6 +784,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="STICKY">Sticky</Resource>
 		<Resource tag="ANNOUNCEMENT">Announcement</Resource>
 		<Resource tag="CREATEPOLL">Create Poll</Resource>
+		<Resource tag="REMOVEPOLL">Remove Poll</Resource>
 		<Resource tag="POLLQUESTION">Poll Question:</Resource>
 		<Resource tag="CHOICE1">Choice 1:</Resource>
 		<Resource tag="CHOICE2">Choice 2:</Resource>
@@ -810,7 +811,8 @@ Visit {forumname} at {forumlink}
 		<Resource tag="PERSISTENCY_INFO">Persistent topics are not pruned</Resource>
 		<Resource tag="NEWPOSTOPTIONS">Options:</Resource>
 		<Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
-		<Resource tag="TOPICATTACH">Attach files to this post?</Resource>		
+		<Resource tag="TOPICATTACH">Attach files to this post?</Resource>
+		<Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
 	</page>
 	<page name="SHOWSMILIES">
 		<!-- showsmilies.ascx -->

@@ -2213,7 +2213,7 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData( cmd );
 			}
 		}
-		static public int poll_save( object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object c10 )
+		static public int poll_save(object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object closes)
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_save" ) )
 			{
@@ -2228,10 +2228,61 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Choice7", c7 );
 				cmd.Parameters.AddWithValue( "Choice8", c8 );
 				cmd.Parameters.AddWithValue( "Choice9", c9 );
-				cmd.Parameters.AddWithValue( "Closes", c10 );
+				cmd.Parameters.AddWithValue("Closes", closes);
 				return ( int )DBAccess.ExecuteScalar( cmd );
 			}
 		}
+		static public void poll_update(object pollID, object question, object closes)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("poll_update"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("PollID", pollID);
+				cmd.Parameters.AddWithValue("Question", question);
+				cmd.Parameters.AddWithValue("Closes", closes);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+		static public void poll_remove(object pollID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("poll_remove"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("PollID", pollID);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+		static public void choice_delete(object choiceID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("choice_delete"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("ChoiceID", choiceID);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+		static public void choice_update(object choiceID, object choice)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("choice_update"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("ChoiceID", choiceID);
+				cmd.Parameters.AddWithValue("Choice", choice);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+		static public void choice_add(object pollID, object choice)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("choice_add"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("PollID", pollID);
+				cmd.Parameters.AddWithValue("Choice", choice);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
 		#endregion
 
 		#region yaf_Rank
@@ -2455,7 +2506,19 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region yaf_Topic
-		static public int topic_prune( object forumID, object days )
+		static public void topic_poll_update(object topicID, object messageID, object pollID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("topic_poll_update"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("TopicID", topicID);
+				cmd.Parameters.AddWithValue("MessageID", messageID);
+				cmd.Parameters.AddWithValue("PollID", pollID);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+		static public int topic_prune(object forumID, object days)
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_prune" ) )
 			{

@@ -111,10 +111,44 @@ namespace YAF.Pages
 				PostReply.Text = GetText("Save");
 				Cancel.Text = GetText("Cancel");
 				CreatePoll.Text = GetText("createpoll");
+				RemovePoll.Text = GetText("removepoll");
 
 				PersistencyRow.Visible = PageContext.ForumPriorityAccess;
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
-				CreatePollRow.Visible = isNewTopic && PageContext.ForumPollAccess;
+				CreatePollRow.Visible = !HasPoll(currentRow) && CanHavePoll(currentRow) && PageContext.ForumPollAccess;
+				RemovePollRow.Visible = HasPoll(currentRow) && CanHavePoll(currentRow) && PageContext.ForumPollAccess && PageContext.ForumModeratorAccess;
+				if (RemovePollRow.Visible)
+				{
+					RemovePoll.CommandArgument = currentRow["PollID"].ToString();
+
+					if (currentRow["PollID"] != DBNull.Value)
+					{
+						DataTable choices = YAF.Classes.Data.DB.poll_stats(currentRow["PollID"]);
+
+						Question.Text = choices.Rows[0]["Question"].ToString();
+						if (choices.Rows[0]["Closes"] != DBNull.Value)
+						{
+							TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.Now;
+
+							PollExpire.Text = ((int)(closing.TotalDays + 1)).ToString();
+						}
+						else
+						{
+							PollExpire.Text = null;
+						}
+
+						for (int i = 0; i < choices.Rows.Count; i++)
+						{
+							HiddenField idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i + 1));
+							TextBox choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i + 1));
+
+							idField.Value = choices.Rows[i]["ChoiceID"].ToString();
+							choiceField.Text = choices.Rows[i]["Choice"].ToString();
+						}
+
+						CreatePoll_Click(this, null);
+					}
+				}
 
 				// Show post to blog option only to a new post
 				BlogRow.Visible = (PageContext.BoardSettings.AllowPostToBlog && isNewTopic && !PageContext.IsGuest);
@@ -285,6 +319,20 @@ namespace YAF.Pages
 				PageContext.ForumReplyAccess;
 		}
 
+
+		private bool HasPoll(DataRow message)
+		{
+			return message != null && message["PollID"] != DBNull.Value && message["PollID"] != null;
+		}
+
+
+		private bool CanHavePoll(DataRow message)
+		{
+			return (TopicID == null && QuotedTopicID == null && EditTopicID == null) ||
+				(message != null && ((int)message["Position"]) == 0);
+		}
+
+
 		/// <summary>
 		/// Handles verification of the PostReply. Adds javascript message if there is a problem.
 		/// </summary>
@@ -391,6 +439,9 @@ namespace YAF.Pages
 
 			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
 			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
+
+			// update poll
+			DB.topic_poll_update(null, Request.QueryString["m"], GetPollID());
 
 			nMessageID = long.Parse(EditTopicID);
 
@@ -520,6 +571,7 @@ namespace YAF.Pages
 		protected void CreatePoll_Click(object sender, System.EventArgs e)
 		{
 			CreatePollRow.Visible = false;
+			RemovePollRow.Visible = true;
 			PollRow1.Visible = true;
 			PollRow2.Visible = true;
 			PollRow3.Visible = true;
@@ -533,28 +585,85 @@ namespace YAF.Pages
 			PollRowExpire.Visible = true;
 		}
 
+		protected void RemovePoll_Command(object sender, CommandEventArgs e)
+		{
+			CreatePollRow.Visible = true;
+			RemovePollRow.Visible = false;
+			PollRow1.Visible = false;
+			PollRow2.Visible = false;
+			PollRow3.Visible = false;
+			PollRow4.Visible = false;
+			PollRow5.Visible = false;
+			PollRow6.Visible = false;
+			PollRow7.Visible = false;
+			PollRow8.Visible = false;
+			PollRow9.Visible = false;
+			PollRow10.Visible = false;
+			PollRowExpire.Visible = false;
+
+			if (e.CommandArgument != null && e.CommandArgument != "")
+			{
+				DB.poll_remove(e.CommandArgument);
+				((LinkButton)sender).CommandArgument = null;
+			}
+		}
+
+		protected void RemovePoll_Load(object sender, System.EventArgs e)
+		{
+			General.AddOnClickConfirmDialog(sender, GetText("ASK_POLL_DELETE"));
+		}
+
 		private object GetPollID()
 		{
-			if (PollRow1.Visible) // User wishes to create a poll
+			int daysPollExpire = 0;
+			object datePollExpire = null;
+
+			try
+			{
+				daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
+			}
+			catch
 			{
 
-				int daysPollExpire = 0;
-				object datePollExpire = null;
+			}
 
-				try
+			if (daysPollExpire > 0)
+			{
+				datePollExpire = DateTime.Now.AddDays(daysPollExpire);
+			}
+
+			// we are just using existing poll
+			if (RemovePoll.CommandArgument != null && RemovePoll.CommandArgument != "")
+			{
+				int pollID = Convert.ToInt32(RemovePoll.CommandArgument);
+				DB.poll_update(pollID, Question.Text, datePollExpire);
+
+				for (int i = 1; i < 10; i++)
 				{
-					daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
-				}
-				catch
-				{
+					HiddenField idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i));
+					TextBox choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i));
 
+					if (string.IsNullOrEmpty(idField.Value) && !string.IsNullOrEmpty(choiceField.Text))
+					{
+						// add choice
+						DB.choice_add(pollID, choiceField.Text);
+					}
+					else if (!string.IsNullOrEmpty(idField.Value) && !string.IsNullOrEmpty(choiceField.Text))
+					{
+						// update choice
+						DB.choice_update(idField.Value, choiceField.Text);
+					}
+					else if (!string.IsNullOrEmpty(idField.Value) && string.IsNullOrEmpty(choiceField.Text))
+					{
+						// remove choice
+						DB.choice_delete(idField.Value);
+					}
 				}
 
-				if (daysPollExpire > 0)
-				{
-					datePollExpire = DateTime.Now.AddDays(daysPollExpire);
-				}
-
+				return Convert.ToInt32(RemovePoll.CommandArgument);
+			}
+			else if (PollRow1.Visible) // User wishes to create a poll
+			{
 				return DB.poll_save(Question.Text,
 					PollChoice1.Text,
 					PollChoice2.Text,
@@ -622,6 +731,7 @@ namespace YAF.Pages
 		}
 
 		#region Querystring Values
+
 		protected string TopicID
 		{
 			get { return Request.QueryString["t"]; }
@@ -636,6 +746,7 @@ namespace YAF.Pages
 		{
 			get { return Request.QueryString["q"]; }
 		}
-		#endregion
+		
+#endregion
 	}
 }

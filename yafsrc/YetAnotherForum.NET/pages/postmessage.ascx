@@ -61,6 +61,12 @@
 		<td class="post" width="80%">
 			&nbsp;</td>
 	</tr>
+	<tr id="RemovePollRow" runat="server">
+		<td class="postformheader" width="20%">
+			<asp:LinkButton ID="RemovePoll" runat="server" OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" /></td>
+		<td class="post" width="80%">
+			&nbsp;</td>
+	</tr>
 	<tr id="PollRow1" runat="server" visible="false">
 		<td class="postformheader" width="20%">
 			<em>
@@ -77,7 +83,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice1" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice1ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice1" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow3" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -86,7 +92,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice2" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice2ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice2" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow4" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -95,7 +101,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice3" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice3ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice3" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow5" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -104,7 +110,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice4" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice4ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice4" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow6" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -113,7 +119,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice5" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice5ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice5" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow7" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -122,7 +128,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice6" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice6ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice6" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow8" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -131,7 +137,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice7" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice7ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice7" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow9" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -140,7 +146,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice8" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice8ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice8" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRow10" runat="server" visible="false">
 		<td class="postformheader" width="20%">
@@ -149,7 +155,7 @@
 			</em>
 		</td>
 		<td class="post" width="80%">
-			<asp:TextBox MaxLength="50" ID="PollChoice9" runat="server" CssClass="edit" Width="400" /></td>
+			<asp:HiddenField ID="PollChoice9ID" runat="server" /><asp:TextBox MaxLength="50" ID="PollChoice9" runat="server" CssClass="edit" Width="400" /></td>
 	</tr>
 	<tr id="PollRowExpire" runat="server" visible="false">
 		<td class="postformheader" width="20%">

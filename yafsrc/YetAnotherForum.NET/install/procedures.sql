@@ -110,12 +110,28 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}category_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}checkemail_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_list]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}checkemail_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_save]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}checkemail_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_update]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}choice_add]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}choice_add]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}choice_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}choice_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}choice_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}choice_update]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}choice_vote]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -370,12 +386,20 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_archive]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_remove]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_remove]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_save]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_stats]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_stats]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}poll_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}poll_update]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}pollvote_check]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -500,6 +524,10 @@ GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_move]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_move]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_poll_update]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}topic_poll_update]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}topic_prune]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -5334,4 +5362,89 @@ BEGIN
 			VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@ExecOrder)
 	END
 END
+GO
+
+-- polls
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}choice_add](
+	@PollID		int,
+	@Choice		nvarchar(50)
+) as
+begin
+
+	insert into [{databaseOwner}].[{objectQualifier}Choice]
+		(PollID, Choice)
+		values
+		(@PollID, @Choice)
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_poll_update](
+	@TopicID	int=null,
+	@MessageID	int=null,
+	@PollID		int=null
+) as
+begin
+	if not (@TopicID is null) begin
+		update [{databaseOwner}].[{objectQualifier}Topic] 
+			set PollID = @PollID 
+			where TopicID = @TopicID
+	end
+	else if not (@MessageID is null) begin
+		update [{databaseOwner}].[{objectQualifier}Topic] 
+			set PollID = @PollID 
+			where TopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
+	end
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}choice_update](
+	@ChoiceID	int,
+	@Choice		nvarchar(50)
+) as
+begin
+
+	update [{databaseOwner}].[{objectQualifier}Choice]
+		set Choice = @Choice
+		where ChoiceID = @ChoiceID
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}choice_delete](
+	@ChoiceID	int
+) as
+begin
+	delete from [{databaseOwner}].[{objectQualifier}Choice]
+		where ChoiceID = @ChoiceID
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}poll_update](
+	@PollID		int,
+	@Question	nvarchar(50),
+	@Closes 	datetime = null
+) as
+begin
+	update [{databaseOwner}].[{objectQualifier}Poll]
+		set Question	=	@Question,
+			Closes		=	@Closes
+		where PollID = @PollID
+
+end
+GO
+
+CREATE procedure [{databaseOwner}].[{objectQualifier}poll_remove](
+	@PollID int
+) as
+begin
+	-- delete vote records first
+	delete from [{databaseOwner}].[{objectQualifier}PollVote] where PollID = @PollID
+	-- delete choices first
+	delete from [{databaseOwner}].[{objectQualifier}Choice] where PollID = @PollID
+	-- delete it from topic itself
+	update [{databaseOwner}].[{objectQualifier}Topic] set PollID = null where PollID = @PollID
+
+	-- delete poll
+	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID
+end
 GO
