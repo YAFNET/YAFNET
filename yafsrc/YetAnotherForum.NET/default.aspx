@@ -17,7 +17,7 @@
 <body>
     <img src="~/images/YAFLogo.jpg" runat="server" alt="YetAnotherForum" id="imgBanner" /><br/>
     <form id="form1" runat="server" enctype="multipart/form-data">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True" />
+        <asp:ScriptManager ID="YafScriptManager" runat="server" EnablePartialRendering="True" />
         <YAF:Forum runat="server" ID="forum"></YAF:Forum>
     </form>
 </body>
