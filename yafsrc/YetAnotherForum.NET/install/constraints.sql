@@ -1010,11 +1010,13 @@ if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}Mess
 	alter table [{databaseOwner}].[{objectQualifier}Message] add constraint [DF_{objectQualifier}Message_Flags] default (23) for Flags
 go
 
+if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}User_PMNotification' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
+	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [DF_{objectQualifier}User_PMNotification] default (1) for PMNotification
+go
 
 if exists(select 1 from dbo.sysobjects where name=N'DF_EventLog_EventTime' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] drop constraint [DF_EventLog_EventTime]
 go
-
 
 if not exists(select 1 from dbo.sysobjects where name=N'DF_{objectQualifier}EventLog_EventTime' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]'))
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_EventTime] default(getdate()) for EventTime
