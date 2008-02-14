@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Web.UI;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
@@ -30,9 +31,7 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public class YafContext
 	{
-		/* Ederon : 6/16/2007 - conventions */
-
-		private static YafContext _currentInstance = new YafContext();
+		/* Ederon : 6/16/2007 - conventions */	
 		
 		private System.Data.DataRow _page = null;
 		private YAF.Classes.Utils.YafControlSettings _settings = null;
@@ -111,11 +110,24 @@ namespace YAF.Classes.Utils
 			_adminLoadString = "";
 		}
 
+		private static YafContext _currentInstance = new YafContext();
+
 		public static YafContext Current
 		{
 			get
 			{
-				return _currentInstance;
+				Page currentPage = HttpContext.Current.Handler as Page;
+
+				if ( currentPage == null )
+				{
+					// only really used for the send mail thread.
+					// since it's not inside a page. An instance is
+					// returned that's for the whole process.
+					return _currentInstance;
+				}
+
+				// save the yafContext in the currentpage items or just retreive from the page context
+				return ( currentPage.Items ["YafContextPage"] ?? ( currentPage.Items ["YafContextPage"] = new YafContext() ) ) as YafContext;
 			}
 		}
 
