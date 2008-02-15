@@ -175,7 +175,7 @@ namespace YAF.Classes.Data
 							// make the inner FULLTEXT search
 							foreach ( string word in words )
 							{
-								if ( !bFirst ) searchSql += " AND "; else bFirst = false;
+								if ( !bFirst ) ftInner += " AND "; else bFirst = false;
 								ftInner += String.Format( @"""{0}""", word );
 							}
 							// make final string...
@@ -200,7 +200,7 @@ namespace YAF.Classes.Data
 							// make the inner FULLTEXT search
 							foreach ( string word in words )
 							{
-								if ( !bFirst ) searchSql += " OR "; else bFirst = false;
+								if ( !bFirst ) ftInner += " OR "; else bFirst = false;
 								ftInner += String.Format( @"""{0}""", word );
 							}
 							// make final string...
