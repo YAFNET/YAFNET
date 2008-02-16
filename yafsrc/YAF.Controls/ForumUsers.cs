@@ -52,7 +52,7 @@ namespace YAF.Controls
 			{
 				UserLink userLink = new UserLink();
 				userLink.UserID = Convert.ToInt32( row ["UserID"] );
-				userLink.UserName = (bFirst ? "" : ",") + row ["UserName"].ToString();
+				userLink.UserName = (bFirst ? "" : ", ") + row ["UserName"].ToString();
 				userLink.ID = "UserLink" + userLink.UserID.ToString();
 
 				this.Controls.Add( userLink );
