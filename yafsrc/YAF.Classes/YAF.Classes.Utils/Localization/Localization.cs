@@ -21,11 +21,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Globalization;
 
 namespace YAF.Classes.Utils
 {
   public class YafLocalization
   {
+	  private CultureInfo _culture = null;
     private Localizer _localizer = null;
     private Localizer _defaultLocale = null;
     private string _transPage = null;
@@ -63,12 +65,28 @@ namespace YAF.Classes.Utils
     {
       get
       {
-        if ( _localizer != null )
-          return _localizer.LanguageCode;
+		  if (_localizer != null) return _localizer.LanguageCode;
 
         return LoadTranslation();
       }
     }
+
+	  public CultureInfo Culture
+	  {
+		  get
+		  {
+			  if (_culture != null)
+				  return _culture;
+			  else if (_localizer == null)
+			  {
+				  LoadTranslation();
+				  return _culture;
+			  }
+
+			  // fall back to current culture if there is some error
+			  return CultureInfo.CurrentCulture;
+		  }
+	  }
 
     public string GetText( string text )
     {
@@ -122,6 +140,17 @@ namespace YAF.Classes.Utils
         }
       }
 
+	  try
+	  {
+		  // try to load culture info defined in localization file
+		  _culture = new CultureInfo(_localizer.LanguageCode);
+	  }
+	  catch
+	  {
+		  // if it's wrong, fall back to current culture
+		  _culture = CultureInfo.CurrentCulture;
+	  }
+
       return _localizer.LanguageCode;
     }
 
@@ -169,5 +198,35 @@ namespace YAF.Classes.Utils
       localizedText = localizedText.Replace( "[/b]", "</b>" );
       return localizedText;
     }
+
+	  /// <summary>
+	  /// Formats string using current culture.
+	  /// </summary>
+	  /// <param name="format">Format string.</param>
+	  /// <param name="args">Parameters used in format string.</param>
+	  /// <returns>Formatted string.</returns>
+	  /// <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+	  public string FormatString(string format, params object[] args)
+	  {
+		  if (Culture.IsNeutralCulture)
+			  return String.Format(format, args);
+		  else
+			  return String.Format(Culture, format, args);
+	  }
+
+	  /// <summary>
+	  /// Formats date using given formatting string and current culture.
+	  /// </summary>
+	  /// <param name="format">Format string.</param>
+	  /// <param name="date">Date to format.</param>
+	  /// <returns>Formatted string.</returns>
+	  /// <remarks>If current localization culture is neutral, it's not used in formatting.</remarks>
+	  public string FormatDateTime(string format, DateTime date)
+	  {
+		  if (Culture.IsNeutralCulture)
+			  return date.ToString(format);
+		  else
+			  return date.ToString(format, Culture);
+	  }
   }
 }

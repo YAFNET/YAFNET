@@ -36,67 +36,67 @@ namespace YAF.Pages.Admin
   /// <summary>
   /// Summary description for register.
   /// </summary>
-  public partial class version : YAF.Classes.Base.AdminPage
-  {
-    private long m_lastVersion;
-    private DateTime m_lastVersionDate;
+	public partial class version : YAF.Classes.Base.AdminPage
+	{
+		private long _lastVersion;
+		private DateTime _lastVersionDate;
 
-    protected void Page_Load( object sender, System.EventArgs e )
-    {
-      if ( !IsPostBack )
-      {
-        PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-        PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-        PageLinks.AddLink( "Version Check", "" );
-      }
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			if (!IsPostBack)
+			{
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				PageLinks.AddLink("Administration", YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.admin_admin));
+				PageLinks.AddLink("Version Check", "");
+			}
 
-      try
-      {
-        using ( RegisterForum.Register reg = new RegisterForum.Register() )
-        {
-          m_lastVersion = reg.LatestVersion();
-          m_lastVersionDate = reg.LatestVersionDate();
-        }
-      }
-      catch ( Exception )
-      {
-        m_lastVersion = 0;        
-      }
-      Upgrade.Visible = m_lastVersion > YafForumInfo.AppVersionCode;
-    }
+			try
+			{
+				using (RegisterForum.Register reg = new RegisterForum.Register())
+				{
+					_lastVersion = reg.LatestVersion();
+					_lastVersionDate = reg.LatestVersionDate();
+				}
+			}
+			catch (Exception)
+			{
+				_lastVersion = 0;
+			}
+			Upgrade.Visible = _lastVersion > YafForumInfo.AppVersionCode;
+		}
 
-    protected string LastVersion
-    {
-      get
-      {
-        return YafForumInfo.AppVersionNameFromCode( m_lastVersion );
-      }
-    }
-    protected string LastVersionDate
-    {
-      get
-      {
-        return m_lastVersionDate.ToShortDateString();
-      }
-    }
+		protected string LastVersion
+		{
+			get
+			{
+				return YafForumInfo.AppVersionNameFromCode(_lastVersion);
+			}
+		}
+		protected string LastVersionDate
+		{
+			get
+			{
+				return YafDateTime.FormatDateShort(_lastVersionDate);
+			}
+		}
 
-    #region Web Form Designer generated code
-    override protected void OnInit( EventArgs e )
-    {
-      //
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-      //
-      InitializeComponent();
-      base.OnInit( e );
-    }
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-    }
-    #endregion
-  }
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+		}
+		#endregion
+	}
 }
