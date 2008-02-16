@@ -75,6 +75,18 @@ namespace YAF.Install
 			}
 		}
 
+		protected void Password_Postback(object sender, System.EventArgs e)
+		{
+			// prepare even arguments for calling Wizard_NextButtonClick event handler
+			WizardNavigationEventArgs eventArgs = new WizardNavigationEventArgs(InstallWizard.ActiveStepIndex, InstallWizard.ActiveStepIndex + 1);
+
+			// call it
+			Wizard_NextButtonClick(sender, eventArgs);
+
+			// move to next step only if it wasn't cancelled within next button event handler
+			if (!eventArgs.Cancel) InstallWizard.MoveTo(InstallWizard.WizardSteps[eventArgs.NextStepIndex]);
+		}
+
 		protected void Wizard_FinishButtonClick( object sender, WizardNavigationEventArgs e )
 		{
 			if ( YAF.Classes.Config.IsDotNetNuke )

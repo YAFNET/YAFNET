@@ -40,7 +40,7 @@
 						password you created when the forum was first installed, not the admin user password.<br />
 						<br />
 						Password:<br />
-						<asp:TextBox ID="TextBox3" runat="server" TextMode="Password" Width="100%"></asp:TextBox>
+						<asp:TextBox ID="TextBox3" runat="server" TextMode="Password" Width="100%" OnTextChanged="Password_Postback"></asp:TextBox>
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Upgrade Database">
 						<strong>Initialize/Upgrade Database</strong><br />
