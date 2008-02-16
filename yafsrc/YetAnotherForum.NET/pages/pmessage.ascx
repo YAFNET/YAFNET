@@ -24,6 +24,7 @@
 			<asp:Button runat="server" ID="FindUsers" OnClick="FindUsers_Click" />
 			<asp:Button runat="server" ID="AllUsers" OnClick="AllUsers_Click" />
 			<asp:Button runat="server" ID="Clear" OnClick="Clear_Click" Visible="false" />
+			<asp:Label ID="MultiReceiverInfo" runat="server" Visible="false" />			
 		</td>
 	</tr>
 	<tr>

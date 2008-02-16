@@ -304,6 +304,14 @@ namespace YAF.Pages // YAF.Pages
 			// trim username on postback
 			CreateUserWizard1.UserName = CreateUserWizard1.UserName.Trim();
 
+			// username cannot contain semi-colon
+			if (CreateUserWizard1.UserName.Contains(";"))
+			{
+				PageContext.AddLoadMessage(GetText("BAD_USERNAME"));
+				e.Cancel = true;
+				return;
+			}
+
 			Control createUserTemplateRef = CreateUserWizard1.CreateUserStep.ContentTemplateContainer;
 			TextBox tbCaptcha = (TextBox)createUserTemplateRef.FindControl("tbCaptcha");
 

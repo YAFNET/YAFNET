@@ -69,6 +69,7 @@
 		<Resource tag="UPDATE">Update</Resource>
 		<Resource tag="SUBMIT">Submit</Resource>
 		<Resource tag="BAD_CAPTCHA">Text Entered Did Not Match Text In Security Image.</Resource>
+		<Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
 		<Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
 		<Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
 		<Resource tag="CUSTOM_BBCODE">Additional Tags:</Resource>
@@ -759,14 +760,17 @@ Visit {forumname} at {forumlink}
 		<Resource tag="NEED_SUBJECT">You must enter a subject.</Resource>
 		<Resource tag="NEED_MESSAGE">You haven't written anything in the message.</Resource>
 		<Resource tag="SAVE">Post</Resource>
-		<Resource tag="NO_SUCH_USER">No such user exists.</Resource>
+		<Resource tag="NO_SUCH_USER">No such user exists as {0}.</Resource>
 		<Resource tag="NOT_GUEST">You can't send private messages to guest.</Resource>
 		<Resource tag="NEED_MORE_LETTERS">In order to find users, you must enter in at least the first two letters of the user name.</Resource>
 		<Resource tag="FINDUSERS">Find Users...</Resource>
 		<Resource tag="ALLUSERS">All Users</Resource>
 		<Resource tag="CLEAR">Clear</Resource>
 		<Resource tag="OWN_PMBOX_FULL">You have too many private messages in your inbox, sent items and archive. Maximum allowed is {0}.</Resource>
-		<Resource tag="RECIPIENTS_PMBOX_FULL">User you are trying to send your private message to has full inbox. He needs to clean it first before you can send him a message.</Resource>
+		<Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has full inbox. He needs to clean it first before you can send him a message.</Resource>
+		<Resource tag="MAX_RECIPIENT_INFO">You can send message to max. of [b]{0}[/b] users at a time.</Resource>
+		<Resource tag="MULTI_RECEIVER_INFO">Separate multiple user names with ';'</Resource>
+		<Resource tag="TOO_MANY_RECIPIENTS">Too many recipients. Maximum allowed is {0}.</Resource>
 	</page>
 	<page name="POSTMESSAGE">
 		<!-- postmessage.aspx -->
