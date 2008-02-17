@@ -52,7 +52,7 @@ namespace YAF.Controls
 			{
 				UserLink userLink = new UserLink();
 				userLink.UserID = Convert.ToInt32( row ["UserID"] );
-				userLink.UserName = (bFirst ? "" : ", ") + row ["UserName"].ToString();
+				userLink.UserName = row ["UserName"].ToString();
 				userLink.ID = "UserLink" + userLink.UserID.ToString();
 
 				this.Controls.Add( userLink );
@@ -83,9 +83,18 @@ namespace YAF.Controls
 				writer.WriteLine( "</tr>" );
 				writer.WriteLine( "<tr class=\"post\">" );
 				writer.WriteLine( "<td colspan=\"6\">" );
-			}				
+			}
 
-			base.Render( writer );
+
+			bool bFirst = true;
+			foreach ( System.Web.UI.Control control in this.Controls )
+			{
+				if ( !bFirst ) writer.WriteLine( ", " );
+				control.RenderControl( writer );
+				bFirst = false;
+			}
+
+			//base.Render( writer );
 			
 			writer.WriteLine( "</td>" );
 			writer.WriteLine( "</tr>" );
