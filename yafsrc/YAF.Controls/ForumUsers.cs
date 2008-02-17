@@ -46,8 +46,6 @@ namespace YAF.Controls
 				ViewState ["data"] = dt;
 			}
 
-			bool bFirst = true;
-
 			foreach (DataRow row in dt.Rows)
 			{
 				UserLink userLink = new UserLink();
@@ -56,8 +54,6 @@ namespace YAF.Controls
 				userLink.ID = "UserLink" + userLink.UserID.ToString();
 
 				this.Controls.Add( userLink );
-
-				if ( bFirst ) bFirst = false;
 			}
 		}
 
