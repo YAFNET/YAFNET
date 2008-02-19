@@ -290,7 +290,7 @@ namespace YAF.Classes.Utils
 
 					watchEmail.TemplateParams ["{forumname}"] = YafContext.Current.BoardSettings.Name;
 					watchEmail.TemplateParams ["{topic}"] = row ["Topic"].ToString();
-					watchEmail.TemplateParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.posts, "m={0}#{0}", messageID ) );
+					watchEmail.TemplateParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#{0}", messageID ) );
 
 					watchEmail.CreateWatch( Convert.ToInt32( row ["TopicID"] ), Convert.ToInt32( row ["UserID"] ), new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), subject );
 				}
