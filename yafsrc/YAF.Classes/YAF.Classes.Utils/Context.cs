@@ -775,48 +775,55 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class YafForumInfo
 	{
+		private static string _path = null;
+
 		static public string ForumRoot
 		{
 			get
 			{
-				try
+				if ( _path == null )
 				{
-					string path = HttpContext.Current.Request.ApplicationPath;
-					if ( !path.EndsWith( "/" ) ) path += "/";
-
-					if ( YAF.Classes.Config.Root != null )
+					try
 					{
-						// use specified root
-						path = YAF.Classes.Config.Root;
-						if ( path [0] != '/' ) path = path.Insert( 0, "/" );
+						_path = HttpContext.Current.Request.ApplicationPath;
 
-						if ( path.StartsWith( "~" ) )
+						if ( !_path.EndsWith( "/" ) ) _path += "/";
+
+						if ( YAF.Classes.Config.Root != null )
 						{
-							// transform with application path...
-							path = System.Web.HttpContext.Current.Server.MapPath( path );
+							// use specified root
+							_path = YAF.Classes.Config.Root;
+
+							if ( _path.StartsWith( "~" ) )
+							{
+								// transform with application path...
+								_path = _path.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+							}
+
+							if ( _path [0] != '/' ) _path = _path.Insert( 0, "/" );
 						}
-					}
-					else if ( YAF.Classes.Config.IsDotNetNuke )
-					{
-						path += "DesktopModules/YetAnotherForumDotNet/";
-					}
-					else if ( YAF.Classes.Config.IsRainbow )
-					{
-						path += "DesktopModules/Forum/";
-					}
-					else if ( YAF.Classes.Config.IsPortal )
-					{
-						path += "Modules/Forum/";
-					}
+						else if ( YAF.Classes.Config.IsDotNetNuke )
+						{
+							_path += "DesktopModules/YetAnotherForumDotNet/";
+						}
+						else if ( YAF.Classes.Config.IsRainbow )
+						{
+							_path += "DesktopModules/Forum/";
+						}
+						else if ( YAF.Classes.Config.IsPortal )
+						{
+							_path += "Modules/Forum/";
+						}
 
-					if ( !path.EndsWith( "/" ) ) path += "/";
+						if ( !_path.EndsWith( "/" ) ) _path += "/";
+					}
+					catch ( Exception )
+					{
+						_path = "/";
+					}
+				}
 
-					return path;
-				}
-				catch ( Exception )
-				{
-					return "/";
-				}
+				return _path;
 			}
 		}
 
