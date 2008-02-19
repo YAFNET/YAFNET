@@ -208,7 +208,12 @@ namespace YAF.Classes.Utils
 									// only try maximum of 5 times...
 									if ( Convert.ToInt32( dt.Rows [i] ["SendTries"] ) < 5 ) deleteEmail = false;
 								}
-								catch (Exception x)
+								catch ( System.Net.Mail.SmtpException )
+								{
+									// only try maximum of 5 times...
+									if ( Convert.ToInt32( dt.Rows [i] ["SendTries"] ) < 5 ) deleteEmail = false;
+								}
+								catch ( Exception x )
 								{
 									throw x;
 								}
