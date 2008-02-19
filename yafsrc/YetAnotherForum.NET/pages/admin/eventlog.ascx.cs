@@ -173,9 +173,10 @@ namespace YAF.Pages.Admin
 
 			// return HTML code of event log entry image
 			return String.Format(
-						"<img src=\"images/{0}\" width=\"16\" height=\"16\" alt=\"{1}\" title=\"{0}\" />",
+						"<img src=\"{2}images/{0}\" width=\"16\" height=\"16\" alt=\"{1}\" title=\"{0}\" />",
 						imageName,
-						imageType
+						imageType,
+						YafForumInfo.ForumRoot
 						);
 		}
 
