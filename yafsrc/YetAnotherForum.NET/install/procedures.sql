@@ -996,13 +996,13 @@ AS
 BEGIN
 	DECLARE @count int, @max int, @maxStr nvarchar(255), @countStr nvarchar(255), @dtStr nvarchar(255)
 	
-	SET @count = ISNULL((SELECT COUNT(DISTINCT IP) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
+	SET @count = ISNULL((SELECT COUNT(DISTINCT IP + '.' + CAST(UserID as varchar(10))) FROM [{databaseOwner}].[{objectQualifier}Active] WITH (NOLOCK) WHERE BoardID = @BoardID),0)
 	SET @maxStr = ISNULL((SELECT CAST([Value] AS nvarchar) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID AND [Name] = N'maxusers'),'1')
 	SET @max = CAST(@maxStr AS int)
 	SET @countStr = CAST(@count AS nvarchar)
 	SET @dtStr = CONVERT(nvarchar,GETDATE(),126)
 
-	IF NOT EXISTS ( SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
+	IF NOT EXISTS ( SELECT 1 FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE BoardID = @BoardID and [Name] = N'maxusers' )
 	BEGIN 
 		INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxusers',CAST(@countStr AS ntext))
 		INSERT INTO [{databaseOwner}].[{objectQualifier}Registry](BoardID,[Name],[Value]) VALUES (@BoardID,N'maxuserswhen',CAST(@dtStr AS ntext))
