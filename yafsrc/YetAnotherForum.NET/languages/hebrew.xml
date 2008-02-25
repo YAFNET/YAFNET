@@ -1,0 +1,969 @@
+<?xml version="1.0"?>
+<Resources language="Hebrew" code="he">
+	<page name="LANGUAGE">
+		<Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZאבגדהוזחטיכלמנסעפצקרשת</Resource>
+	</page>
+	<page name="MOVEMESSAGE">
+		<!-- movemessage.aspx -->
+		<Resource tag="MOVE"/>
+		<Resource tag="SELECT_FORUM_MOVETO">פורום אליו להעביר:</Resource>
+		<Resource tag="SELECT_TOPIC_MOVETO">דיוןם להעברה:</Resource>
+		<Resource tag="MOVE_MESSAGE">העבר הודעה</Resource>
+		<Resource tag="NEW_TOPIC">יצירת דיון אליו להעביר:</Resource>
+		<Resource tag="CREATE_TOPIC">צור דיון מההודעה:</Resource>
+		<Resource tag="EMPTY_TOPIC">נושא הדיון חסר</Resource>
+	</page>
+	<page name="DELETEMESSAGE">
+		<!-- deletemessage.aspx -->
+		<Resource tag="PREVIEWTITLE">הודעה:</Resource>
+		<Resource tag="SUBJECT">נושא:</Resource>
+    <Resource tag="FROM">מ:</Resource>
+		<Resource tag="PRIORITY">קדימות:</Resource>
+		<Resource tag="MESSAGE">הודעה:</Resource>
+		<Resource tag="LAST10">עשר הודעות אחרונות )בסדר הפוך)</Resource>
+		<Resource tag="WAIT">אינך יכול לפרסם במשך ה {0:N0} השניות הבאות.</Resource>
+		<Resource tag="POSTED">פורסם:</Resource>
+		<Resource tag="DELETE">מחק</Resource>
+		<Resource tag="DELETE_REASON">סיבת מחיקה</Resource>
+		<Resource tag="UNDELETE">בטל מחיקה</Resource>
+		<Resource tag="UNDELETE_REASON">בטל מחיקת סיבה.</Resource>
+		<Resource tag="ERASEMESSAGE">מחק הודעות מהDB (בלתי הפיך)</Resource>
+	</page>
+	<page name="COMMON">
+		<!-- common... -->
+    <Resource tag="POWERED_BY">מונע ע"י {0} בגרסא {1}</Resource>
+    <Resource tag="GENERATED">הדף נוצר תוך {0:N3} שניות</Resource>
+    <Resource tag="SAVE">שמירה</Resource>
+    <Resource tag="CANCEL">ביטול</Resource>
+    <Resource tag="FORUM_JUMP">מעבר פורום</Resource>
+    <Resource tag="CAN_POST">את/ה [b]יכול/ה[/b] לפרסם דיונים חדשים בפורום.</Resource>
+    <Resource tag="CAN_REPLY">את/ה [b]יכול/ה[/b] להשיב לדיונים בפורום הזה.</Resource>
+    <Resource tag="CAN_DELETE">את/ה [b]יכול/ה[/b] למחוק את הדיונים שלך בפורום הזה.</Resource>
+    <Resource tag="CAN_EDIT">את/ה [b]יכול/ה[/b] לערוך את הדיונים בפורום הזה.</Resource>
+    <Resource tag="CAN_POLL">את/ה [b]יכול/ה[/b] לפתוח הצבעות בפורום הזה.</Resource>
+    <Resource tag="CAN_VOTE">את/ה [b]יכול/ה[/b] להצביע בפורום הזה.</Resource>
+    <Resource tag="CANNOT_POST">את/ה [b]אינך יכול/ה[/b] לפרסם דיונים חדשים בפורום הזה.</Resource>
+    <Resource tag="CANNOT_REPLY">את/ה [b]אינך יכול/ה[/b] להשיב לדיונים בפורום הזה.</Resource>
+    <Resource tag="CANNOT_DELETE">את/ה [b]אינך יכול/ה[/b] למחוק את ההודעות שלך בפורום הזה.</Resource>
+    <Resource tag="CANNOT_EDIT">את/ה [b]אינך יכול/ה[/b] לערוך את ההודעות שלך בפורום הזה.</Resource>
+    <Resource tag="CANNOT_POLL">את/ה [b]אינך יכול/ה[/b]לפתוח משאל בפורום הזה.</Resource>
+    <Resource tag="CANNOT_VOTE">את/ה [b]אינך יכול/ה[/b] להצביע במשאלים בפורום הזה.</Resource>
+    <Resource tag="REGMAIL_SENT">דואר נשלח. בדוק/י בתיבה האישית שלך והכנס ללינק המצורף.</Resource>
+    <Resource tag="UNREAD_MSG">יש לך {0} הודעה(ות( שלא נקראו בתיבה האישית.</Resource>
+    <Resource tag="REGMAIL_WILL_BE_SEND">דואר ישלח כאשר תרשם. על מנת להתחבר עליך לבדוק את הדוא"ל שלך ולהכנס ללינק המצורף.</Resource>
+    <!-- Find out how to modify these date/time strings at: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp -->
+    <Resource tag="FORMAT_DATE_TIME_LONG">F</Resource>
+    <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
+    <Resource tag="FORMAT_DATE_LONG">D</Resource>
+    <Resource tag="FORMAT_DATE_SHORT">d</Resource>
+    <Resource tag="FORMAT_TIME">T</Resource>
+    <Resource tag="MAX_ONLINE">מספר המשתמשים אונליין הרב ביותר היה {0}, {1}</Resource>
+    <Resource tag="BBCODE_QUOTE">ציטוט:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">{0} כתב/ה</Resource>
+    <Resource tag="BBCODE_CODE">קוד:</Resource>
+    <Resource tag="TOPIC_NOTIFICATION_SUBJECT">הודעת אזכור מדיון רשום (דיון {0})</Resource>
+    <Resource tag="PM_NOTIFICATION_SUBJECT">הודעה פרטית חדשה מ {0} ב {1}</Resource>
+    <Resource tag="CHANGEEMAIL_SUBJECT">אימייל שונה</Resource>
+    <Resource tag="EMAILVERIFICATION_SUBJECT">{0} וידוא אימייל</Resource>
+    <Resource tag="BACK">חזור</Resource>
+    <Resource tag="UPDATE">עדכן</Resource>
+		<Resource tag="SUBMIT">שלח</Resource>
+		<Resource tag="BAD_CAPTCHA">הטקסט שהוזן לא תואם את תמונת האבטחה.</Resource>
+		<Resource tag="CAPTCHA_IMAGE">תמונת אבטחה:</Resource>
+		<Resource tag="CAPTCHA_ENTER">הזן/הזיני את האותיות שבתמונת האבטחה:</Resource>
+    <Resource tag="CUSTOM_BBCODE">תוויות נוספות:</Resource>
+		<Resource tag="FONT_SIZE">גודל גופן:</Resource>
+		<Resource tag="FONT_COLOR">צבע גופן:</Resource>
+		<Resource tag="TT_BOLD">עבה:</Resource>
+		<Resource tag="TT_ITALIC">איטליאנו:</Resource>
+		<Resource tag="TT_UNDERLINE">קו תחתי:</Resource>
+		<Resource tag="TT_QUOTE">ציטוט</Resource>
+		<Resource tag="TT_CODE">קוד</Resource>
+		<Resource tag="TT_IMAGE">הכנס/י תמונה</Resource>
+		<Resource tag="TT_CREATELINK">יצירת קישור</Resource>
+		<Resource tag="TT_ALIGNLEFT">עימוד שמאלה</Resource>
+		<Resource tag="TT_ALIGNRIGHT">עימוד ימינה</Resource>
+		<Resource tag="TT_ALIGNCENTER">עימוד כלפי המרכז</Resource>
+	</page>
+  <page name="TEMPLATES">
+<Resource tag="CHANGEEMAIL_TEXT">
+  שלום {user},
+
+  כמעט והושלמה בקשתך לשנות את כתובת האימייל ל {newemail}!
+
+  עליך רק לאשר את הבקשה ע"י כניסה לקישור הבא:
+
+  {link}
+
+  והזנת מפתח האישור:
+
+  {key}
+
+  אם לא ביקשת לשנות את כתובת האימייל נא התעלם מן ההודעה.
+
+  {forumname} at {forumlink}
+  
+</Resource>
+<Resource tag="CHANGEEMAIL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Change Email&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class=&quot;style1&quot;&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; &lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; And enter approval key:&lt;/p&gt;
+&lt;pre class=&quot;style1&quot;&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
+&lt;p class=&quot;style1&quot;&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+<Resource tag="EMAILTOPIC">
+Hello!
+
+{user} thought you might be interested in reading this:
+
+{link}
+</Resource>
+<Resource tag="PASSWORDRETRIEVAL_TEXT">
+A new password has been generated for you on {forumname} at {forumlink}.
+
+Please return to the site and log in using the following information:
+
+User Name: {username}
+Password: {password}
+</Resource>
+<Resource tag="PASSWORDRETRIEVAL_HTML" editType="html">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+&lt;title&gt;Password Retrieval&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+&lt;!--
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+--&gt;
+&lt;/style&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;p class=&quot;style1&quot;&gt; A new password has been generated for you on &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
+&lt;p class=&quot;style1&quot;&gt; Please return to the site and log in using the following information:&lt;/p&gt;
+&lt;blockquote&gt;&lt;span class=&quot;style1&quot;&gt;
+User Name: &lt;b&gt;{username}&lt;/b&gt;&lt;br /&gt;
+Password: &lt;b&gt;{password}&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</Resource>
+<Resource tag="PMNOTIFICATION_TEXT">
+A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+<Resource tag="PMNOTIFICATION_HTML" editType="html"></Resource>
+<Resource tag="TOPICPOST_TEXT">
+A new message has been posted in the thread {topic} at {forumname}.
+
+To read the message, open the following link in your browser:
+
+{link}
+</Resource>
+<Resource tag="TOPICPOST_HTML" editType="html"></Resource>
+<Resource tag="VERIFYEMAIL_TEXT">
+You have requested to join {forumname}, but before you can join your email address must be verified.
+
+To verify your email address open the following link in your web browser:
+
+{link}
+
+Your approval key is:
+
+{key}
+
+Visit {forumname} at {forumlink}
+</Resource>
+<Resource tag="VERIFYEMAIL_HTML" editType="html"></Resource>
+  </page>
+  <page name="BUTTON">
+    <Resource tag="BUTTON_NEWTOPIC">דיון חדש</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">פרסם דיון חדש בפורום הזה.</Resource>
+    <Resource tag="BUTTON_MODERATE">פקח</Resource>
+    <Resource tag="BUTTON_MODERATE_TT">מחק, נעל, שחרר והעבר דיונים עבור הפורום הזה.</Resource>
+    <Resource tag="BUTTON_ATTACH">צרף</Resource>
+    <Resource tag="BUTTON_ATTACH_TT">צרף קבצים להודעה הזאת.</Resource>
+    <Resource tag="BUTTON_EDIT">ערוך</Resource>
+    <Resource tag="BUTTON_EDIT_TT">עריכת הודעה</Resource>
+    <Resource tag="BUTTON_MOVE">העבר</Resource>
+    <Resource tag="BUTTON_MOVE_TT">העבר את ההודעה</Resource>
+    <Resource tag="BUTTON_DELETE">מחק</Resource>
+    <Resource tag="BUTTON_DELETE_TT">מחק את ההודעה</Resource>
+    <Resource tag="BUTTON_UNDELETE">בטל מחיקה</Resource>
+    <Resource tag="BUTTON_UNDELETE_TT">בטל מחיקת ההודעה</Resource>
+    <Resource tag="BUTTON_REPLY">השב</Resource>
+    <Resource tag="BUTTON_REPLY_TT">השב להודעה</Resource>    
+    <Resource tag="BUTTON_QUOTE">ציטוט</Resource>
+    <Resource tag="BUTTON_QUOTE_TT">השב עם ציטוט</Resource>
+    <Resource tag="BUTTON_POSTREPLY">פרסם תשובה</Resource>
+    <Resource tag="BUTTON_POSTREPLY_TT">פרסם תשובה לדיון הזה.</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">דיון חדש.</Resource>
+    <Resource tag="BUTTON_NEWTOPIC_TT">פרסם דיון חדש בפורום הזה.</Resource>
+    <Resource tag="BUTTON_DELETETOPIC">מחק דיון.</Resource>
+    <Resource tag="BUTTON_DELETETOPIC_TT">מחק את הדיון הזה.</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC">נעל דיון.</Resource>
+    <Resource tag="BUTTON_LOCKTOPIC_TT">נעל את הדיון הזה.</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC">בטל נעילת הדיון.</Resource>
+    <Resource tag="BUTTON_UNLOCKTOPIC_TT">בטל נעילת הדיון הזה.</Resource>
+    <Resource tag="BUTTON_MOVETOPIC">העבר את הדיון.</Resource>
+    <Resource tag="BUTTON_MOVETOPIC_TT">העבר את הדיון הזה.</Resource>
+    <Resource tag="BUTTON_NEWPM">הודעה פרטית חדשה</Resource>
+    <Resource tag="BUTTON_NEWPM_TT">צור הודעה פרטית חדשה.</Resource>    
+  </page>
+  <page name="TOOLBAR">
+    <!-- "Toolbar" at top of most pages -->
+    <Resource tag="SEARCH">חיפוש</Resource>
+    <Resource tag="ADMIN">ניהול</Resource>
+    <Resource tag="MODERATE">פקח</Resource>
+    <Resource tag="ACTIVETOPICS">דיונים פעילים</Resource>
+    <Resource tag="MYPROFILE">הדף האישי שלי</Resource>
+    <Resource tag="MEMBERS">חברים</Resource>
+    <Resource tag="LOGOUT">ניתוק</Resource>
+    <Resource tag="LOGIN">התחברות</Resource>
+    <Resource tag="REGISTER">הרשמה</Resource>
+    <Resource tag="LOGGED_IN_AS">מחובר/ת  כ {0}</Resource>
+    <Resource tag="WELCOME_GUEST">ברוך הבא, אורח!</Resource>
+    <Resource tag="HELP">עזרה</Resource>
+  </page>
+  <page name="ICONLEGEND">
+    <!-- Common icon texts -->
+    <Resource tag="NEW_POSTS">הודעות חדשות</Resource>
+    <Resource tag="NO_NEW_POSTS">אין הודעות חדשות</Resource>
+    <Resource tag="ANNOUNCEMENT">הכרזות</Resource>
+    <Resource tag="ANNOUNCEMENT_NEW">הכרזה (הודעות חדשות)</Resource>
+    <Resource tag="NEW_POSTS_LOCKED">הודעות חדשות (נעול)</Resource>
+    <Resource tag="NO_NEW_POSTS_LOCKED">אין הודעות חדשות (נעול)</Resource>
+    <Resource tag="FORUM_LOCKED">פורום נעול</Resource>
+    <Resource tag="MOVED">הועבר</Resource>
+    <Resource tag="POLL">משאל</Resource>
+    <Resource tag="POLL_NEW">משאל )הודעות חדשות(</Resource>
+    <Resource tag="STICKY">חתום קבע</Resource>
+  </page>
+  <page name="ATTACHMENTS">
+    <Resource tag="TITLE">קבצים מצורפים</Resource>
+    <Resource tag="UPLOAD">העלה</Resource>
+    <Resource tag="SELECT_FILE">בחר/י את הקובץ שברצונך להעלות</Resource>
+    <Resource tag="UPLOAD_TITLE">העלה קובץ</Resource>
+    <Resource tag="FILENAME">שם הקובץ</Resource>
+    <Resource tag="SIZE">גודל</Resource>
+    <Resource tag="DELETE">מחק</Resource>
+    <Resource tag="FILEERROR">'{0}' אינו סוג קובץ ניתן להעלאה</Resource>
+    <Resource tag="ASK_DELETE">האם להסיר את הקובץ המצורף הבא?</Resource>
+    <Resource tag="ERROR_TOOBIG">לא ניתן לצרף קובץ בגודל הזה</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">סוגי קבצים מורשים</Resource>
+    <Resource tag="DISALLOWED_EXTENSIONS">סוגי קבצים חסומים</Resource>
+  </page>
+  <page name="DEFAULT">
+    <!-- default.aspx -->
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
+    <Resource tag="FORUM">פורום</Resource>
+    <Resource tag="TOPICS">דיונים</Resource>
+    <Resource tag="POSTS">הודעות</Resource>
+    <Resource tag="LASTPOST">הודעה אחרונה</Resource>
+    <Resource tag="MODERATORS">מנהלים</Resource>
+    <Resource tag="CURRENT_TIME">זמן נוכחי: {0}.</Resource>
+    <Resource tag="LAST_VISIT">הביקור האחרון שלך : {0}</Resource>
+    <Resource tag="STATS_POSTS">ישנן {0:N0} הודעות ב {1:N0} דיונים ב {2:N0} פורומים</Resource>
+    <Resource tag="STATS_LASTPOST">הודעה אחרונה {0} מאת</Resource>
+    <Resource tag="STATS_MEMBERS">ישנם {0:N0} משתמשים רשומים.</Resource>
+    <Resource tag="STATS_LASTMEMBER">החבריקו/ה החדש ביותר הוא {0}</Resource>
+    <Resource tag="IN">ב {0}</Resource>
+    <Resource tag="BY">ע"י {0}</Resource>
+    <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="UNREAD1">ישנה {0} הודעה חדשה בתיבה האישית שלך.</Resource>
+    <Resource tag="UNREAD0">ישנן {0} הודעות חדשות בתיבה האישית שלך.</Resource>
+    <Resource tag="INFORMATION">מידע</Resource>
+    <Resource tag="STATS">סטטיסטיקות</Resource>
+    <Resource tag="ACTIVE_USERS">משתמשים פעילים</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} משתמש פעיל</Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} משתמשים פעילים</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} חבר</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} חברים</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} אורח</Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} אורחים</Resource>
+    <Resource tag="VIEWING">({0} צופים)</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(אין גישה)</Resource>
+    <Resource tag="MARKALL">סמן את כל הפורומים כ'נקראו'</Resource>
+    <Resource tag="GO_LAST_POST">טוס להודעה האחרונה</Resource>
+    <Resource tag="ACTIVE_DISCUSSIONS">דיונים פעילים</Resource>
+    <Resource tag="LATEST_POSTS">>הודעות אחרונות</Resource>
+  </page>
+  <page name="TOPICS">
+    <!-- topics.aspx -->
+    <Resource tag="TOPICS">דיונים</Resource>
+    <Resource tag="TOPIC_STARTER">יוצר הדיון</Resource>
+    <Resource tag="REPLIES">תשובות</Resource>
+    <Resource tag="VIEWS">צפיות</Resource>
+    <Resource tag="LASTPOST">הודעה אחרונה</Resource>
+    <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="WATCHFORUM">צפה בפורום</Resource>
+    <Resource tag="UNWATCHFORUM">הסר צפיה בפורום</Resource>
+    <Resource tag="SHOWTOPICS">הצג דיונים</Resource>
+    <Resource tag="ALL">הכל</Resource>
+    <Resource tag="LAST_DAY">מהיום האחרון</Resource>
+    <Resource tag="LAST_TWO_DAYS">מהיומיים האחרונים</Resource>
+    <Resource tag="LAST_WEEK">מהשבוע האחרון</Resource>
+    <Resource tag="LAST_TWO_WEEKS">מהשבועיים האחרונים</Resource>
+    <Resource tag="LAST_MONTH">מהחודש האחרון</Resource>
+    <Resource tag="LAST_TWO_MONTHS">מהחדשיים האחרונים</Resource>
+    <Resource tag="LAST_SIX_MONTHS">מששת החודשים האחרונים</Resource>
+    <Resource tag="LAST_YEAR">מהשנה האחרונה</Resource>
+    <Resource tag="BY">ע"י {0}</Resource>
+    <Resource tag="FORUMUSERS">משתמשים שמשוטטים בפורום</Resource>
+    <Resource tag="CREATED">נוצר</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">הפורום סגור.</Resource>
+    <Resource tag="WARN_LOGIN_FORUMWATCH">עליך להיות רשום כדי לצפות בפורום.</Resource>
+    <Resource tag="INFO_WATCH_FORUM">תיודע/י כאשר תתוספנה הודעות חדשות לפורום</Resource>
+    <Resource tag="INFO_UNWATCH_FORUM">לא תיודע/י יותר מעתה והלאה כאשר תתוספנה הודעות חדשות לפורום.</Resource>
+    <Resource tag="MARKREAD">סמן את הפורום בנקרא</Resource>
+    <Resource tag="SUBFORUMS">{0} -- תתי פורום</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="TODAYAT">[b]היום[/b] ב {0:T} </Resource>
+    <Resource tag="YESTERDAYAT">[b]אתמול[/b] ב {0:T}</Resource>
+    <Resource tag="GOTO_POST_PAGER">[ לך לעמוד {0} ]</Resource>
+  </page>
+  <page name="POSTS">
+    <!-- posts.aspx -->
+    <Resource tag="QUICKREPLY">תשובה זריזה</Resource>
+    <Resource tag="QUICKREPLY_SHOW">הצג תשובה זריזה</Resource>
+    <Resource tag="QUICKREPLY_HIDE">החבא תשובה זריזה</Resource>
+    <Resource tag="OPTIONS">אפשרויות</Resource>
+    <Resource tag="VIEW">הצג</Resource>
+    <Resource tag="POST_REPLY">פרסם תשובה</Resource>
+    <Resource tag="QUESTION">שאלת משאל</Resource>
+    <Resource tag="CHOICE">בחירה</Resource>
+    <Resource tag="VOTES">הצבעות</Resource>
+    <Resource tag="STATISTICS">סטטיסטיקות</Resource>
+    <Resource tag="PREVTOPIC">הדיון הקודם</Resource>
+    <Resource tag="NEXTTOPIC">הדיון הבא</Resource>
+    <Resource tag="WATCHTOPIC">צפה/י בדיון הזה</Resource>
+    <Resource tag="UNWATCHTOPIC">אל תצפה בדיון הזה</Resource>
+    <Resource tag="EMAILTOPIC">שלח בדוא"ל את הנשוא הזה</Resource>
+    <Resource tag="PRINTTOPIC">הדפס את הדיון</Resource>
+    <Resource tag="RSSTOPIC">RSS Feed</Resource>
+    <Resource tag="POSTED">פורסם</Resource>
+    <Resource tag="TOP">חזרה למעלה</Resource>
+    <Resource tag="PM">אחרי הצהריים</Resource>
+    <Resource tag="CONFIRM_DELETEMESSAGE">למחוק את ההודעה הזאת?</Resource>
+    <Resource tag="CONFIRM_DELETETOPIC">למחוק את הדיון הזה?</Resource>
+    <Resource tag="RANK">סטטוס חברות</Resource>
+    <Resource tag="GROUPS">קבוצות</Resource>
+    <Resource tag="JOINED">הצטרף</Resource>
+    <Resource tag="POSTS">הודעות</Resource>
+    <Resource tag="POINTS">נקודות</Resource>
+    <Resource tag="LOCATION">מיקום</Resource>
+    <Resource tag="TOPICBROWSERS">משתמשים שצופים בדיון</Resource>
+    <Resource tag="INFO_TOPIC_LOCKED">דיון נסגר.</Resource>
+    <Resource tag="INFO_TOPIC_UNLOCKED">דיון שוחרר מנעילה.</Resource>
+    <Resource tag="WARN_TOPIC_LOCKED">הדיון סגור.</Resource>
+    <Resource tag="WARN_FORUM_LOCKED">הפורום סגור.</Resource>
+    <Resource tag="WARN_PMLOGIN">עליך להיות מחובר כדי לשלוח הודעות פרטיות.</Resource>
+    <Resource tag="WARN_ALREADY_VOTED">כבר הצבעת זה מכבר, ידידי.</Resource>
+    <Resource tag="WARN_POLL_CLOSED">משאל סגור</Resource>
+    <Resource tag="POLL_CLOSED">)משאל סגור(</Resource>
+    <Resource tag="INFO_VOTED">תודה לך על המשאל!</Resource>
+    <Resource tag="WARN_WATCHLOGIN">עליך להיות רשום כדי לצפות בדיונים האלה.</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">ישלח אליך אזכור כאשר תתוספנה הודעות חדשות לדיון הזה.</Resource>
+    <Resource tag="INFO_UNWATCH_TOPIC">לא ישלח אליך אזכור כאשר תתוספנה הודעות חדשות לדיון הזה.</Resource>
+    <Resource tag="INFO_NOMORETOPICS">אין יותר דיונים בפורום.</Resource>
+    <Resource tag="WARN_EMAILLOGIN">עליך להיות רשום כדי לשלוח אימיילים.</Resource>
+    <Resource tag="ATTACHMENTS">קבצים מצורפים:</Resource>
+    <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} צירף/ה את הקבצים הבאים:</Resource>
+    <Resource tag="ATTACHMENTINFO">({0:N0}kb) [b]{1:N0}[/b] הורד  פעם(ים).</Resource>
+    <Resource tag="NORMAL">רגיל</Resource>
+    <Resource tag="THREADED">מדורג</Resource>
+    <Resource tag="FORUM_JUMP">מעבר פורום</Resource>
+    <Resource tag="TIP_REPLY_TOPIC">שלח/י תשובה</Resource>
+    <Resource tag="TIP_NEW_TOPIC">פרסם דיון חדש</Resource>
+    <Resource tag="TIP_DELETE_TOPIC">מחק את הדיון</Resource>
+    <Resource tag="TIP_LOCK_TOPIC">נעל את הדיון</Resource>
+    <Resource tag="TIP_UNLOCK_TOPIC">שחרר את הדיון</Resource>
+    <Resource tag="TIP_MOVE_TOPIC">העבר את הדיון</Resource>
+    <Resource tag="AD_USERNAME">ספונסר</Resource>
+    <Resource tag="AD_SIGNATURE"></Resource>
+		<Resource tag="REPORTPOST">דווח/י על תוכן פוגעני</Resource>
+		<Resource tag="REPORTSPAM">דווח/י על דואר זבל</Resource>
+    <Resource tag="CONFIRM_REPORTPOST">האם לדווח על התוכן כפוגעני?</Resource>
+    <Resource tag="CONFIRM_REPORTSPAM">האם לדווח על התוכן כדואר זבל?</Resource>
+		<Resource tag="REPORTEDFEEDBACK">תודה על דיווח התוכן.</Resource>
+		<Resource tag="EMPTY_MESSAGE">עליך להזין תוכן בהודעה.</Resource>
+		<Resource tag="EDITED">ערוך/ערכי</Resource>
+		<Resource tag="EDITED_BY_USER">ע"י משתמש</Resource>
+		<Resource tag="EDITED_BY_MOD">ע"י מנהל</Resource>
+		<Resource tag="EDIT_REASON">סיבה</Resource>
+		<Resource tag="EDIT_REASON_NA">לא מוגדר</Resource>
+		<Resource tag="IP">IP</Resource>
+    <Resource tag="PM">PM</Resource>
+    <Resource tag="EMAIL">כתובת דואר אלקטרוני</Resource>
+    <Resource tag="HOME">WWW</Resource>
+    <Resource tag="BLOG">BLOG</Resource>
+    <Resource tag="MSN">MSN</Resource>
+    <Resource tag="AIM">AIM</Resource>
+    <Resource tag="YIM">YAHOO</Resource>
+    <Resource tag="ICQ">ICQ</Resource>
+    <Resource tag="SKYPE">SKYPE</Resource>
+  </page>
+	<page name="ACTIVE">
+		<!-- active.aspx -->
+    <Resource tag="LAST_24">( 24 השעות האחרונות )</Resource>
+    <Resource tag="TITLE">דיונים פעילים</Resource>
+    <Resource tag="SINCE">מאז</Resource>
+    <Resource tag="LAST_VISIT">ביקור אחרון ב {0}</Resource>
+    <Resource tag="LAST_HOUR">השעה אהחרונה</Resource>
+    <Resource tag="LAST_TWO_HOURS">השעתיים האחרונות</Resource>
+    <Resource tag="LAST_DAY">היום האחרון</Resource>
+    <Resource tag="LAST_TWO_DAYS">היומיים האחרונים</Resource>
+    <Resource tag="LAST_WEEK">השבוע האחרון</Resource>
+    <Resource tag="LAST_TWO_WEEKS">השבועיים האחרונים</Resource>
+    <Resource tag="LAST_MONTH">החודש הארחרון</Resource>
+    <Resource tag="TOPICS">דיונים</Resource>
+    <Resource tag="TOPIC_STARTER">יוצר הדיון</Resource>
+    <Resource tag="REPLIES">תשובות</Resource>
+    <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="VIEWS">צפיות</Resource>
+    <Resource tag="LASTPOST">הודעה אחרונה</Resource>
+    <Resource tag="BY">ע"י {0}</Resource>
+    <Resource tag="NO_POSTS">אין הודעות</Resource>
+	</page>
+	<page name="ACTIVEUSERS">
+		<!-- activeusers.aspx -->
+    <Resource tag="TITLE">משתמשים פעילים</Resource>
+    <Resource tag="USERNAME">שם משתמש</Resource>
+    <Resource tag="LOGGED_IN">מחובר</Resource>
+    <Resource tag="LAST_ACTIVE">פעיל אחרון</Resource>
+    <Resource tag="ACTIVE">פעיל</Resource>
+    <Resource tag="BROWSER">סייר</Resource>
+    <Resource tag="PLATFORM">פלטפורמה</Resource>
+    <Resource tag="MINUTES">{0:N0} דקות</Resource>
+  </page>
+	<page name="APPROVE">
+		<!-- approve.aspx -->
+    <Resource tag="TITLE">אימות כתובת אימייל</Resource>
+    <Resource tag="EMAIL_VERIFIED">כתובת האימייל שלך אומתה.</Resource>
+    <Resource tag="EMAIL_VERIFY_FAILED">נכשלתי באימות כתובת האימייל שלך.</Resource>
+    <Resource tag="ENTER_KEY">הכנס מפתח אימות</Resource>
+    <Resource tag="VALIDATE">אמת</Resource>
+  </page>
+	<page name="CP_PM">
+		<!-- cp_pm.ascx -->
+		<Resource tag="TITLE">הודעות פרטיות</Resource>
+		<Resource tag="NEW_MESSAGE">הודעה חדשה</Resource>
+		<Resource tag="INBOX">תיבה אישית</Resource>
+		<Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
+		<Resource tag="ARCHIVE">ארכיון</Resource>
+		<Resource tag="ARCHIVESELECTED">ארכיון נבחר</Resource>
+		<Resource tag="DELETESELECTED">מחק פריטים שנבחרו</Resource>
+		<Resource tag="SUBJECT">נושא</Resource>
+		<Resource tag="FROM">מ</Resource>
+		<Resource tag="TO">ל</Resource>
+		<Resource tag="DATE">תארי</Resource>
+		<Resource tag="MSGDELETED1">1 הודעה נמחקה.</Resource>
+		<Resource tag="MSGDELETED2">{0} הודעות נמחקו.</Resource>
+		<Resource tag="MSG_ARCHIVED">הודעה נגנזה בארכיון.</Resource>
+		<Resource tag="MSG_ARCHIVED+">{0} הודעות נגנזו.</Resource>
+		<Resource tag="CONFIRM_DELETE">האם למחוק את כל הפריטים שנבחרו?</Resource>
+		<Resource tag="MSG_DELETED">הודעה נמחקה.</Resource>
+		<Resource tag="NO_MESSAGES">לא נמצאו הודעות.</Resource>
+		<Resource tag="POSTED">נשלח:</Resource>
+	</page>
+	<page name="CP_EDITAVATAR">
+    <Resource tag="TITLE">שנה/י צלמית</Resource>
+    <Resource tag="AVATAR">צלמית</Resource>
+    <Resource tag="AVATARCURRENT">צלמית נוכחית</Resource>
+    <Resource tag="AVATARNEW">בחר/י צלמית חדשה</Resource>
+    <Resource tag="AVATARUPLOAD">העלה/י צלמית ממחשבך:</Resource>
+    <Resource tag="AVATARDELETE">Clear Avatar</Resource>
+    <Resource tag="AVATARREMOTE">הזן/הזיני כתובת URL לצלמית</Resource>
+    <Resource tag="OURAVATAR">בחר/י את הצלמית מתוך המאגר:</Resource>
+    <Resource tag="OURAVATAR_SELECT">לחץ/לחצי כאן לבחירת הצלמית</Resource>
+    <Resource tag="AVATARTEXT">תיאור הצלמית</Resource>
+    <Resource tag="NOAVATAR">[ חסר צלמית]</Resource>
+    <Resource tag="WARN_TOOBIG">מימדי התמונה לא יעלה על {0}x{1} פיקסלים.</Resource>
+    <Resource tag="WARN_SIZE">מימדי התמונה היו {0}x{1} פיקסלים.</Resource>
+    <Resource tag="WARN_RESIZED">מימדי התמונה שונו כדי להתאים.</Resource>
+    <Resource tag="WARN_BIGFILE">גודל התמונה שלך לא יעלה על {0} בייטים.</Resource>
+    <Resource tag="WARN_FILESIZE">גודל התמונה היה {0} בייטים.</Resource>
+  </page>
+	<page name="CP_EDITPROFILE">
+		<!-- cp_editprofile.aspx -->
+    <Resource tag="TITLE">ערוך/ערכי דף אישי</Resource>
+    <Resource tag="LOCATION">מיקום</Resource>
+    <Resource tag="WHERE">איפה אתה גר?</Resource>
+    <Resource tag="HOMEPAGE">דף הבית</Resource>
+    <Resource tag="HOMEPAGE2">דך הבית שלך:</Resource>
+    <Resource tag="TIMEZONE">אזור זמן</Resource>
+    <Resource tag="TIMEZONE2">כדי שתוכל/י לקבל את הזמנים בזמן המקומי שלך, עליך להזין אזור זמן</Resource>
+    <Resource tag="CHANGE_EMAIL">שנה/י כתובת דוא"ל</Resource>
+    <Resource tag="EMAIL">עליך להיות בעל/ת כתובת אימייל זמינה כל הזמן.</Resource>
+    <Resource tag="MAIL_SENT">דואר נשלח ל{0} \n\n עליך לאשר את את כתובת הדוא"ל החדשה שלך ע"יכניסה לקישור לפני שהשינוי יכנס לתוקף. </Resource>
+    <Resource tag="FORUM_SETTINGS">הגדרות פורום</Resource>
+    <Resource tag="SELECT_THEME">בחר/י את התמה המועדפת עליך:</Resource>
+    <Resource tag="SELECT_LANGUAGE">באיזו שפה ברצונך להשתמש?</Resource>
+    <Resource tag="WEBLOG2">הבלוג שלך:</Resource>
+    <Resource tag="MESSENGER">שירות ההודעות המתפרצות:</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">דרוס תֶּמָות ברירת המחדל</Resource>
+    <Resource tag="ABOUTYOU">על עצמך</Resource>
+    <Resource tag="REALNAME2">ושמך האמיתי..?</Resource>
+    <Resource tag="BAD_EMAIL">הזנת כתובת אימייל אל תקינה.</Resource>
+    <Resource tag="BAD_MSN">הזנת כתובת אימייל לא תקינה עבור חשבון ה MSN שלך.</Resource>
+    <Resource tag="BAD_HOME">הזנת כתובת לא תקינה של הבית שלך.</Resource>
+    <Resource tag="BAD_WEBLOG">הזנת כתובת לא תקינה לבלוג שלך.</Resource>
+    <Resource tag="BAD_ICQ">הזנת ערך לא תקין למספר הICQ שלך</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">האם ברצונך לקבל אזכור כאשר מתקבלת הודעה פרטית חדשה?</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+		<Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+		<Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+		<Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+		<Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+	</page>
+	<page name="CP_MESSAGE">
+		<!-- cp_message.aspx -->
+    <Resource tag="INBOX">תיבה אישית</Resource>
+    <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
+    <Resource tag="MSG_DELETED">הודעה נמחקה.</Resource>
+    <Resource tag="POSTED">פורסם:</Resource>
+  </page>
+	<page name="CP_PROFILE">
+		<!-- cp_profile.aspx -->
+    <Resource tag="NEW_MESSAGE">הודעה חדשה</Resource>
+    <Resource tag="CONTROL_PANEL">לוח בקרה</Resource>
+    <Resource tag="MESSENGER">מסנג'ר:</Resource>
+    <Resource tag="PERSONAL_PROFILE">דף אישי:</Resource>
+    <Resource tag="INBOX">תיבה אישית</Resource>
+    <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
+    <Resource tag="ARCHIVE">ארכיון</Resource>
+    <Resource tag="EDIT_PROFILE">ערוך דף אישי</Resource>
+    <Resource tag="EDIT_AVATAR">שנה צלמית</Resource>
+    <Resource tag="SIGNATURE">חתימה</Resource>
+    <Resource tag="SUBSCRIPTIONS">הרשמות:</Resource>
+    <Resource tag="CHANGE_PASSWORD">שנה/י סיסמא</Resource>
+    <Resource tag="YOUR_ACCOUNT">החשבון שלך</Resource>
+    <Resource tag="YOUR_USERNAME">שם המשתמש שלך:</Resource>
+    <Resource tag="YOUR_EMAIL">כתובת האימייל שלך:</Resource>
+    <Resource tag="NUMPOSTS">מספר פרסומים:</Resource>
+    <Resource tag="GROUPS">את/ה חבר/ה בקבוצות הבאות:</Resource>
+    <Resource tag="JOINED">את/ה חבר/ה מאז:</Resource>
+    <Resource tag="EDIT_SIGNATURE">ערוך/ערכי חתימה</Resource>
+	</page>
+	<page name="CP_SIGNATURE">
+		<!-- cp_signature.aspx -->
+    <Resource tag="TITLE">ערוך/ערכי חתימה</Resource>
+    <Resource tag="SIGNATURE">חתימה:</Resource>
+  </page>
+	<page name="CP_SUBSCRIPTIONS">
+		<!-- cp_subscriptions.aspx -->
+    <Resource tag="TITLE">הרשמות:</Resource>
+    <Resource tag="FORUMS">פורומים</Resource>
+    <Resource tag="FORUM">פורום</Resource>
+    <Resource tag="TOPICS">דיונים:</Resource>
+    <Resource tag="REPLIES">תשובות</Resource>
+    <Resource tag="LASTPOST">הודעה אחרונה</Resource>
+    <Resource tag="TOPIC">דיון</Resource>
+    <Resource tag="VIEWS">צפיות</Resource>
+    <Resource tag="UNSUBSCRIBE">הסר הרשמה</Resource>
+    <Resource tag="LASTPOSTLINK">{0} ע"י {1}</Resource>
+    <Resource tag="WARN_SELECTTOPICS">עליך לבחור דיונים להסיר מהם את ההרשמה קודם.</Resource>
+    <Resource tag="WARN_SELECTFORUMS">אנא בחר/י פורומים להסיר מהם את ההרשמה קודם.</Resource>
+  </page>
+	<page name="CP_CHANGEPASSWORD">
+		<!-- cp_changepassword.aspx -->
+		<Resource tag="TITLE">שינוי סיסמא</Resource>
+		<Resource tag="CHANGE_BUTTON">אישור</Resource>
+		<Resource tag="OLD_PASSWORD">סיסמא גמלאית:</Resource>
+		<Resource tag="NEW_PASSWORD">סיסמא חדשה:</Resource>
+		<Resource tag="CONFIRM_PASSWORD">אשר/י סיסמא חדשה:</Resource>
+		<Resource tag="NO_PASSWORD_MATCH">הסיסמאות החדשות לא תואמות אחת לשניה.</Resource>
+		<Resource tag="PASSWORD_INCORRECT">סיסמא לא נכונה או לא קבילה.</Resource>
+		<Resource tag="PASSWORD_BAD_LENGTH">אורך מינימלי לסיסמא החדשה הוא {0}</Resource>
+		<Resource tag="PASSWORD_NOT_COMPLEX">תווים לא אלפא-נומריים חיוניים: {0}.</Resource>
+		<Resource tag="CHANGE_SUCCESS">סיסמא עודכנה בהצלחה.</Resource>
+		<Resource tag="NEED_OLD_PASSWORD">דרושה סיסמא גמלאית</Resource>
+		<Resource tag="NEED_NEW_PASSWORD">דרושה סיסמא חדשה.</Resource>
+		<Resource tag="NEED_NEW_CONFIRM_PASSWORD">דרוש העתק אישור לסיסמא החדשה.</Resource>
+	</page>
+	<page name="EMAILTOPIC">
+		<!-- emailtopic.aspx -->
+    <Resource tag="TITLE">שלח/י את העמוד לחבר/ה.</Resource>
+    <Resource tag="TO">שלח/י (כתובת אימייל):</Resource>
+    <Resource tag="SUBJECT">דיון:</Resource>
+    <Resource tag="MESSAGE">הודעה:</Resource>
+    <Resource tag="SEND">שלח/י אימייל</Resource>
+    <Resource tag="NEED_EMAIL">עליך להזין כתובת אימייל</Resource>
+    <Resource tag="FAILED">נכשל בשליחת אימייל. \n\n{0}</Resource>
+  </page>
+	<page name="INFO">
+		<!-- info.aspx -->
+    <Resource tag="CONTINUE">המשך...</Resource>
+    <Resource tag="MODERATED">מאחר ושיגרת הודעה לפורום ממודר, ההודעה חייבת לקבל את אישור המנהל לפני שתהפוך לנראית.</Resource>
+    <Resource tag="SUSPENDED">{0}החשבון שלך נשלח לחינוך מחדש. תהליך החינוך מחדש צפוי להסתיים ב </Resource>
+    <Resource tag="REGISTRATION">מכתב רומנטי נשלח לכתובת הדוא"ל שסיפקת. אנא קרא/י את ההוראות המופיעות בו כדי להתחבר. </Resource>
+    <Resource tag="ACCESSDENIED">ניסית לגשת לאזור אליו אין לך גישה.</Resource>
+    <Resource tag="DISABLED">מנהל הפורום חסם את האפשרות.</Resource>
+		<Resource tag="INVALID">הזנת ערך לא חוקי לפורום.</Resource>
+		<Resource tag="FAILURE">חלה תקלת מערכת בעיבוד בקשתך. נא פנה למנהל הפורום לתאר אילו פעולות הובילו לתקלה.</Resource>
+    <Resource tag="EXCEPTION">את/ה מחובר/ת כ</Resource>
+    <Resource tag="TITLE_INVALID">לא קביל</Resource>
+    <Resource tag="TITLE_MODERATED">מידע</Resource>
+    <Resource tag="TITLE_SUSPENDED">מושהה</Resource>
+    <Resource tag="TITLE_REGISTRATION">תודה</Resource>
+    <Resource tag="TITLE_ACCESSDENIED">גישה נדחתה</Resource>
+    <Resource tag="TITLE_EXCEPTION">מידע</Resource>
+    <Resource tag="TITLE_FAILURE">כשלון</Resource>
+	</page>
+	<page name="LOGIN">
+		<!-- login.aspx -->
+    <Resource tag="TITLE">התחברות</Resource>
+    <Resource tag="USERNAME">שם משתמש(ת):</Resource>
+    <Resource tag="PASSWORD">סיסמא:</Resource>
+    <Resource tag="AUTO">התחברות אוטומטית:</Resource>
+    <Resource tag="LOSTPASSWORD">סיסמא הלכה לטייל</Resource>
+    <Resource tag="FORUM_LOGIN">התחברות לפורום</Resource>
+    <Resource tag="EMAIL">כתובת דואר אלקטרוני</Resource>
+    <Resource tag="PASSWORD_ERROR">שם המשתמש או הסיסמא שהזנת שגויים. נא הזן/הזיני שנית.</Resource>
+    <Resource tag="RECOVER">שחזר סיסמא</Resource>
+    <Resource tag="WRONG_USERNAME_EMAIL">שם משתמש שגוי או כתובת דוא"ל שגויה</Resource>
+    <Resource tag="EMAIL_SENT_PASSWORD">מכתב נשלח עם סיסמתך החדשה. תתחדש/י. </Resource>
+    <Resource tag="SENDPASSWORD">שלח סיסמא!</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">יש להזין גם שם משתמש וגם כתובת דואר אלקטרוני.</Resource>
+    <Resource tag="RECOVER_ERROR">חלה שגיאה ביצירת הסיסמא החדשה שלך.</Resource>
+  </page>
+	<page name="RECOVER_PASSWORD">
+		<Resource tag="TITLE">איבדת סיסמא</Resource>
+		<Resource tag="PAGE1_INSTRUCTIONS">הזן את שם המשתמש שלך כדי לקבל את הסיסמא: </Resource>
+		<Resource tag="PAGE2_INSTRUCTIONS">יש לענות על השאלה הבא כדי לקבל את הסיסמא: </Resource>
+		<Resource tag="IDENTITY_CONFIRMATION_TITLE">אישור זהות מבקש הסיסמא:</Resource>
+		<Resource tag="USERNAME_FAILURE">שם משתמש לא מזוהה.</Resource>
+		<Resource tag="GENERAL_FAILURE">אחזור סיסמתך נכשל.</Resource>
+		<Resource tag="QUESTION_FAILURE">תשובתך לא מזוהה, יש לנסות שנית.</Resource>
+		<Resource tag="PASSWORD_SENT">סיסמתך נשלחה לכתובת האימייל המוזנת.</Resource>
+		<Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">חשבונך לא אושר ע"י המנהל עדיין. ניתן לאפס סיסמא רק לאחר אישור החשבון. </Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">חשבונך עדיין לא מאושר משום שלא אישרת את כתובת הדוא"ל שלך. אסמכתא חדשה נשלחה ל כתובת : {0}. יש לאשר כדי להכנס. אנא.</Resource>
+	</page>
+	<page name="REGISTER">
+		<!-- register.aspx -->
+    <Resource tag="TITLE">רשום משתמש/ת חדש</Resource>
+    <Resource tag="TERMS_AND_CONDITIONS_TITLE">Terms and Conditions</Resource>
+    <Resource tag="DETAILS">פרטי הרשמה</Resource>
+    <Resource tag="USERNAME">שם משתמש</Resource>
+    <Resource tag="NEED_USERNAME">שם משתמש הכרחי</Resource>
+    <Resource tag="PASSWORD">סיסמא</Resource>
+    <Resource tag="NEED_PASSWORD">סיסמא הכרחית</Resource>
+    <Resource tag="NEED_QUESTION">דרושת שאלת אבטחה.</Resource>
+		<Resource tag="NEED_ANSWER">דרושה תשובת אבטחה.</Resource>
+    <Resource tag="RETYPE_PASSWORD">דרוש העתק אישור של הסיסמא.</Resource>
+    <Resource tag="NEED_EMAIL">דרושה כתובת דוא"ל.</Resource>
+    <Resource tag="NEED_MATCH">סיסמאות אינן תואמות.</Resource>
+    <Resource tag="EMAIL">כתובת דוא"ל</Resource>
+    <Resource tag="PROFILE">מידע אישי</Resource>
+    <Resource tag="LOCATION">מיקום</Resource>
+    <Resource tag="HOMEPAGE">דף בית</Resource>
+    <Resource tag="PREFERENCES">העדפות פורום</Resource>
+    <Resource tag="TIMEZONE">אזור זמן</Resource>
+    <Resource tag="ALREADY_REGISTERED">שם המשתמש שלך או כתובת הדוא"ל כבר רשומים במערכת</Resource>
+		<Resource tag="BAD_PASSWORD">יש לבחור סיסמא מורכבת יותר שתכלול סימני (!?) או מספרים.</Resource>
+		<Resource tag="INVALID_QUESTION">נא לבחור שאלה אחרת.</Resource>
+		<Resource tag="INVALID_ANSWER">נא לבחור תשובה אחרת.</Resource>
+		<Resource tag="INVALID_USERNAME">נא לבחור שם משתמש שונה.</Resource>
+		<Resource tag="REGISTER">הרשם</Resource>
+		<Resource tag="CONFIRM_PASSWORD">אשר סיסמא</Resource>
+		<Resource tag="SECURITY_QUESTION">שאלת אבטחה</Resource>
+		<Resource tag="SECURITY_ANSWER">תשובת אבטחה</Resource>
+		<Resource tag="CREATE_USER">צור משתמש</Resource>
+		<Resource tag="CONTINUE">המשך</Resource>
+    <Resource tag="BAD_EMAIL">הזנת כתובת דוא"ל לא חוקית.</Resource>
+    <Resource tag="VERIFICATION_EMAIL_SUBJECT">אישור הרשמה לפורום {0}</Resource>
+		<Resource tag="ACCOUNT_CREATED" editType="bbcode">[center]חשבונך נוצר בהצלחה.[/center]</Resource>
+    <Resource tag="ACCOUNT_CREATED_VERIFICATION" editType="bbcode">[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת האימייל כדי להכנס. נא לבדוק את חשבון הדוא"ל להוראות מתאימות. [/center]</Resource>
+	</page>
+	<page name="RULES">
+		<!-- rules.aspx -->
+		<Resource tag="TITLE">כללי הפורום ומדיניותו</Resource>
+		<Resource tag="ACCEPT">אני מסכים/מסכימה לכללים ולמדיניות האלה.</Resource>
+		<Resource tag="DECLINE">איני מסכים/מסכימה לכללים ולמדיניות האלה.</Resource>
+		<Resource tag="RULES_TEXT" editType="bbcode">
+      [size=5]It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, is encouraged to notify an administrator of this forum immediately.
+
+      You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP address are logged and may aid in enforcing these conditions.
+
+      You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot	be held responsible for any hacking attempt that may lead to the data being compromised.
+
+      This forum system uses cookies to store information on your local computer. These cookies do not contain any of the information	you have entered above; they serve only to improve your viewing pleasure. The e-mail address is used only for confirming your	registration details and password (and for sending new passwords should you forget your current one).
+
+      You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.[/size]
+
+      [center][size=6][b]By clicking "Agree" below you will to be bound by the terms and conditions for using this forum.[/b][/size][/center]
+    </Resource>
+		</page>
+	<page name="MEMBERS">
+		<!-- members.aspx -->
+		<Resource tag="TITLE">חברים</Resource>
+		<Resource tag="USERNAME">שם משתמש</Resource>
+		<Resource tag="RANK"></Resource>
+		<Resource tag="JOINED">הצטרף/ה</Resource>
+		<Resource tag="POSTS">הודעות</Resource>
+		<Resource tag="PAGES">{0} דפים:</Resource>
+	</page>
+	<page name="MODERATE">
+		<!-- moderate.aspx -->
+    <Resource tag="TITLE">נהל</Resource>
+    <Resource tag="TOPICS">דיונים</Resource>
+    <Resource tag="TOPIC_STARTER">יוצר הדיון</Resource>
+    <Resource tag="REPLIES">תשובות</Resource>
+    <Resource tag="VIEWS">צפיות</Resource>
+    <Resource tag="LASTPOST">הודעה אחרונה</Resource>
+    <Resource tag="CONFIRM_DELETE">האם למחוק את ההודעה הזאת?</Resource>
+    <Resource tag="BY">ע"י {0}</Resource>
+    <Resource tag="DELETED">דיון נמחק.</Resource>
+    <Resource tag="NO_POSTS">אין פרסומים.</Resource>
+    <Resource tag="MEMBERS">חברים.</Resource>
+    <Resource tag="USER">משתמש.</Resource>
+    <Resource tag="ACCEPTED">התקבל.</Resource>
+    <Resource tag="ACCESSMASK">Access Mask</Resource>
+    <Resource tag="EDIT">ערוך/ערכי</Resource>
+    <Resource tag="REMOVE">הסר</Resource>
+    <Resource tag="INVITE">הזמן משתמש</Resource>
+  </page>
+	<page name="MOVETOPIC">
+		<!-- movetopic.aspx -->
+    <Resource tag="TITLE">העבר דיון</Resource>
+    <Resource tag="SELECT_FORUM">בחר את הפורום אליו ברצונך להעביר את ההודעה</Resource>
+    <Resource tag="MOVE">העבר</Resource>
+    <Resource tag="LEAVE_POINTER">השאר קישור לדיון בפורום המקורי. </Resource>
+	</page>
+	<page name="PMESSAGE">
+		<!-- pmessage.aspx -->
+    <Resource tag="TITLE">שלח הודעה פרטית</Resource>
+    <Resource tag="PREVIEWTITLE">תצוגה מקדימה:</Resource>
+    <Resource tag="TO">ל:</Resource>
+    <Resource tag="SUBJECT">דיון:</Resource>
+    <Resource tag="MESSAGE">הודעה:</Resource>
+    <Resource tag="NEED_TO">לא ציינת עבור מי ההודעה.</Resource>
+    <Resource tag="NEED_SUBJECT">עליך להזין דיון.</Resource>
+    <Resource tag="NEED_MESSAGE">לא כתבת כלום בהודעה.</Resource>
+    <Resource tag="SAVE">שלח/י</Resource>
+    <Resource tag="NO_SUCH_USER">לא קיים משתמש כזה.</Resource>
+    <Resource tag="NOT_GUEST">אינך יכול/ה לשלוח הודעה פרטית לאורח.</Resource>
+    <Resource tag="NEED_MORE_LETTERS">In order to find users, you must enter in at least the first two letters of the user name.</Resource>
+    <Resource tag="FINDUSERS">מצא משתמשים.</Resource>
+    <Resource tag="ALLUSERS">כל המשתמשים.</Resource>
+		<Resource tag="CLEAR">נקה/י</Resource>
+		<Resource tag="OWN_PMBOX_FULL">יש לך עודף בהודעות פרטיות בתיבה האישית, בתיבת הפריטים שנשלחו, ובארכיון. המקסימום המותר הוא {0}. </Resource>
+		<Resource tag="RECIPIENTS_PMBOX_FULL">התיבה האישית של המשתמש אליו שלחת את ההודעה הפרטית מלאה. עליו לנקות את התיבה שלו קודם שתוכל/י לשלוח אליו הודעה פרטית.</Resource>
+	</page>
+	<page name="POSTMESSAGE">
+		<!-- postmessage.aspx -->
+    <Resource tag="NEWTOPIC">פרסם דיון חדש</Resource>
+    <Resource tag="REPLY">פרסם תשובה</Resource>
+    <Resource tag="EDIT">ערוך הודעה</Resource>
+    <Resource tag="PREVIEW">הצגה מוקדמת (למנוע פאשלות)</Resource>
+    <Resource tag="PREVIEWTITLE">תצוגה מוקדמת:</Resource>
+    <Resource tag="SUBJECT">דיון:</Resource>
+    <Resource tag="FROM">מ:</Resource>
+    <Resource tag="PRIORITY">עדיפות:</Resource>
+    <Resource tag="MESSAGE">הודעה:</Resource>
+    <Resource tag="LAST10">עשר הודעות אחרונות (בסדר הפוך)</Resource>
+    <Resource tag="NORMAL">רגיל</Resource>
+    <Resource tag="STICKY">קבוע</Resource>
+    <Resource tag="ANNOUNCEMENT">הכרזה</Resource>
+    <Resource tag="CREATEPOLL">צור/צרי משאל</Resource>
+    <Resource tag="POLLQUESTION">שאלת המשאל:</Resource>
+    <Resource tag="CHOICE1">אפשרות ראשונה:</Resource>
+    <Resource tag="CHOICE2">אפשרות שניה:</Resource>
+    <Resource tag="CHOICE3">אפשרות שלישית:</Resource>
+    <Resource tag="CHOICE4">אפשרות רביעית:</Resource>
+    <Resource tag="CHOICE5">אפשרות חמישית:</Resource>
+    <Resource tag="CHOICE6">אפשרות ששית:</Resource>
+    <Resource tag="CHOICE7">אפשרות שביעית:</Resource>
+    <Resource tag="CHOICE8">אפשרות שמינית:</Resource>
+    <Resource tag="CHOICE9">אפשרות עשרים:</Resource>
+    <Resource tag="POLL_EXPIRE">הרץ משאל למשך:</Resource>
+    <Resource tag="POLL_EXPIRE_EXPLAIN">[b]Days[/b] [ השאר/י רווח עבור משאל שאינו מסתיים  ]</Resource>
+    <Resource tag="NEED_SUBJECT">אנא הזן/הזיני נושא לדיון</Resource>
+    <Resource tag="WAIT">אינך יכול/ה לפרסם הודעה ב {0:N0} שניות הבאות.</Resource>
+    <Resource tag="POSTED">פורסם:</Resource>
+    <Resource tag="SAVE">שלח</Resource>
+    <Resource tag="NEED_QUESTION">עליך להזין שאלה למשאל.</Resource>
+    <Resource tag="NEED_CHOICES">משאל צריך להיות בעל שתי אפשרויות לפחות.</Resource>
+		<Resource tag="POSTTOBLOG_FAILED">חלה שגיאה בפרסום בבלוג שלך. קיימת אפשרות שהאימות נכשל. The authentication might have failed.</Resource>
+		<Resource tag="SMILIES_HEADER">[b]הוסף/י סמיילי[/b]</Resource>
+		<Resource tag="SMILIES_MORE">עוד סמיילים...</Resource>
+		<Resource tag="EDITREASON">סיבה לעריכה:</Resource>
+		<Resource tag="PERSISTENCY">עקביים:</Resource>
+		<Resource tag="PERSISTENCY_INFO">דיונים עקביים לא מוסרים.</Resource>
+		<Resource tag="NEWPOSTOPTIONS">אפשרויות:</Resource>
+		<Resource tag="TOPICWATCH">האם לצפות בדיון הזה ולקבל התראות לפעילות לדוא"ל?</Resource>
+		<Resource tag="TOPICATTACH">האם להוסיף קבצים להודעה?</Resource>		
+	</page>
+	<page name="SHOWSMILIES">
+		<!-- showsmilies.ascx -->
+		<Resource tag="TITLE">סמיילים אפשריים</Resource>
+		<Resource tag="HEADER_CODE">קוד</Resource>
+		<Resource tag="HEADER_SMILE">חייך</Resource>
+		<Resource tag="HEADER_MEANING">משמעות</Resource>
+		<Resource tag="CLOSE_WINDOW">סגור חלון</Resource>
+	</page>
+	<page name="PRINTTOPIC">
+		<!-- printtopic.aspx -->
+		<Resource tag="POSTEDBY">פורסם ע"י</Resource>
+	</page>
+	<page name="PROFILE">
+		<!-- profile.aspx -->
+    <Resource tag="MEMBERS">חברים</Resource>
+    <Resource tag="PROFILE">דף אישי</Resource>
+    <Resource tag="ABOUT">About</Resource>
+    <Resource tag="USERNAME">שם משתמש</Resource>
+    <Resource tag="GROUPS">קבוצות</Resource>
+    <Resource tag="RANK">Forum Rank:</Resource>
+    <Resource tag="JOINED">הצטרף/ה:</Resource>
+    <Resource tag="EMAIL">כתובת דוא"ל:</Resource>
+    <Resource tag="LASTVISIT">ביקור אחרון:</Resource>
+    <Resource tag="STATISTICS">סטטיסטיקות:</Resource>
+    <Resource tag="NUMPOSTS">מספר הודעות:</Resource>
+    <Resource tag="LAST10">עשר הודעות אחרונות</Resource>
+    <Resource tag="TOPIC">דיון:</Resource>
+    <Resource tag="POSTED">פורסם:</Resource>
+    <Resource tag="ENDS">השעיית המשתמש מתסיימת :</Resource>
+		<Resource tag="SUSPEND_USER">משתמש מושהה:</Resource>
+    <Resource tag="REMOVESUSPENSION">סיים השעייה</Resource>
+    <Resource tag="SUSPEND">השעה</Resource>
+    <Resource tag="DAYS">ימים</Resource>
+    <Resource tag="HOURS">שעות</Resource>
+    <Resource tag="MINUTES">דקות</Resource>
+    <Resource tag="AVATAR">Avatar</Resource>
+    <Resource tag="CONTACT">התקשרות</Resource>
+    <Resource tag="PM">הודעה פרטית:</Resource>
+    <Resource tag="MSN">MSN Messenger:</Resource>
+		<Resource tag="YIM">Yahoo Messenger:</Resource>
+		<Resource tag="AIM">AIM-Name:</Resource>
+		<Resource tag="ICQ">ICQ-Number:</Resource>
+    <Resource tag="SKYPE">Skype(tm) ID:</Resource>
+    <Resource tag="REALNAME">שם אמיתי:</Resource>
+    <Resource tag="WEBSITE">דף הבית:</Resource>
+    <Resource tag="WEBLOG">בלוג:</Resource>
+    <Resource tag="OCCUPATION">עיסוק:</Resource>
+    <Resource tag="INTERESTS">עניינים:</Resource>
+    <Resource tag="GENDER">מין:</Resource>
+    <Resource tag="GENDER0">לא מוגדר</Resource>
+    <Resource tag="GENDER1">זכר</Resource>
+    <Resource tag="GENDER2">נקבה</Resource>
+    <Resource tag="NUMALL">{0:N2}% מכל ההודעות</Resource>
+    <Resource tag="NUMDAY">{0:N2} הודעות ליום</Resource>
+    <Resource tag="ERROR_ADMINISTRATORS">אינך יכול/ה להשעות אדמין.</Resource>
+    <Resource tag="ERROR_FORUMMODERATORS">אינך יכול/ה להשעות מנהלי פורומים.</Resource>
+    <Resource tag="ERROR_GUESTACCOUNT">אינך יכול/ה להשעות חשבון אורח.</Resource>
+  </page>
+	<page name="SEARCH">
+		<!-- search.aspx -->
+    <Resource tag="TITLE">חפש</Resource>
+    <Resource tag="BTNSEARCH">חפש</Resource>
+    <Resource tag="RESULTS">תוצאות</Resource>
+    <Resource tag="TOPIC">דיון:</Resource>
+    <Resource tag="POSTED">פורסם:</Resource>
+    <Resource tag="ALLFORUMS">כל הפורומים</Resource>
+    <Resource tag="RESULT5">5 תוצאות לעמוד</Resource>
+    <Resource tag="RESULT10">10 תוצאות לעמוד</Resource>
+    <Resource tag="RESULT25">15 תוצאות לעמוד</Resource>
+    <Resource tag="RESULT50">20 תוצאות לעמוד</Resource>
+    <Resource tag="POSTS">פרסומים</Resource>
+    <Resource tag="POSTEDBY">פורסם ע"י</Resource>
+    <Resource tag="MATCH_ALL">התאם את כל המלים</Resource>
+    <Resource tag="MATCH_ANY">התאם מילה כלשהי</Resource>
+    <Resource tag="MATCH_EXACT">התאם ביטוי במדוייק</Resource>
+    <Resource tag="NO_SEARCH_RESULTS">[b]לא נמצאו תוצאות לחיפוש.[/b]</Resource>
+    <Resource tag="BY">ע"י</Resource>
+  </page>
+  <page name="MODERATE_DEFAULT">
+    <Resource tag="TITLE">נהל</Resource>
+    <Resource tag="FORUM">פורום</Resource>
+    <Resource tag="UNAPPROVED">הודעות לא מאושרות</Resource>
+    <Resource tag="CATEGORY">קטגוריה</Resource>
+		<Resource tag="REPORTED">דווחו כהודעות פוגעניות</Resource>
+		<Resource tag="REPORTEDSPAM">דווחו כדואר זבל</Resource>
+	</page>
+	<page name="MODERATE_FORUM">
+    <Resource tag="UNAPPROVED">הודעות לא מאושרות</Resource>
+    <Resource tag="TOP">חזרה למעלה</Resource>
+    <Resource tag="APPROVE">אשר הודעה</Resource>
+    <Resource tag="DELETE">מחק הודעה</Resource>
+    <Resource tag="ASK_DELETE">האם למחוק את ההודעה?</Resource>
+    <Resource tag="APPROVED">הודעה אושרה.</Resource>
+    <Resource tag="DELETED">הודעה חוסלה.</Resource>
+    <Resource tag="MODIFIED">הודעה שונתה!</Resource>
+		<Resource tag="RESOLVE">פתור כפילות הודעה.</Resource>
+		<Resource tag="NUMBERREPORTED">מספר הפעמים שדווח:</Resource>
+		<Resource tag="COPYOVER">עדכן תוכן הודעה</Resource>
+		<Resource tag="RESOLVED">סמן כטופל.</Resource>
+		<Resource tag="RESOLVEDFEEDBACK">הודעה סומנה וטופלה.</Resource>
+	</page>
+	<page name="MOD_FORUMUSER">
+    <Resource tag="TITLE">משתמש פורום</Resource>
+    <Resource tag="USER">משתמש:</Resource>
+    <Resource tag="FIND">מצא משתמש</Resource>
+    <Resource tag="ACCESSMASK">Access Mask:</Resource>
+    <Resource tag="UPDATE">עריכה</Resource>
+    <Resource tag="CANCEL">ביטול</Resource>
+  </page>
+	<page name="RTE">
+    <Resource tag="BOLD">מודגש</Resource>
+    <Resource tag="ITALIC">איטליאנו</Resource>
+    <Resource tag="UNDERLINE">קו חתתון</Resource>
+    <Resource tag="LEFT">יישור לשמאל</Resource>
+    <Resource tag="CENTER">מרכז</Resource>
+    <Resource tag="RIGHT">יישור לימין</Resource>
+    <Resource tag="ORDERED">רשימה מסודרת</Resource>
+    <Resource tag="UNORDERED">רשימה עם שיער פזור</Resource>
+    <Resource tag="OUTDENT">הזה כלפי חוץ</Resource>
+    <Resource tag="INDENT">הזז כלפי פנים</Resource>
+    <Resource tag="LINK">הכנס לינק</Resource>
+    <Resource tag="IMAGE">צירוף תמונה</Resource>
+    <Resource tag="SPELL">בדוק איות</Resource>
+    <Resource tag="NORMAL">רגיל</Resource>
+    <Resource tag="CLEAR">נקה פרמוט</Resource>
+    <Resource tag="FORMATTED">מפורמט</Resource>
+  </page>
+	<page name="AVATAR">
+    <Resource tag="TITLE">צלמיות</Resource>
+    <Resource tag="EDITPROFILE">שנה צלמית</Resource>
+  </page>
+	<page name="IM_YIM">
+		<Resource tag="TITLE">Yahoo! Messenger</Resource>
+	</page>
+	<page name="IM_AIM">
+		<Resource tag="TITLE">AOL Instant Messenger</Resource>
+	</page>
+	<page name="IM_ICQ">
+    <Resource tag="TITLE">ICQ</Resource>
+    <Resource tag="NAME">שמך:</Resource>
+    <Resource tag="EMAIL">כתובת הדוא"ל שלך:</Resource>
+    <Resource tag="SEND">שלח הודעה:</Resource>
+    <Resource tag="BODY">הקלד/י את ההודעה שלך כאן:</Resource>
+	</page>
+	<page name="IM_EMAIL">
+    <Resource tag="TITLE">כתובת דוא"ל</Resource>
+    <Resource tag="SEND">שלח דוא"ל</Resource>
+    <Resource tag="SUBJECT">נושא:</Resource>
+    <Resource tag="BODY">הכנס/י את ההודעה שלך כאן</Resource>
+    <Resource tag="ERROR">חלה תקלה בשליחת ההודעה.</Resource>
+  </page>
+  <page name="IM_SKYPE">
+    <Resource tag="TITLE">Skype(tm) Calling</Resource>
+  </page>  
+</Resources>
