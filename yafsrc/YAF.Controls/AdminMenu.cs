@@ -72,6 +72,7 @@ namespace YAF.Controls
 				{"Roles",YafBuildLink.GetLink( ForumPages.admin_groups)},
 				{"Users",YafBuildLink.GetLink( ForumPages.admin_users)},
 				{"Ranks",YafBuildLink.GetLink( ForumPages.admin_ranks)},
+				{"Medals",YafBuildLink.GetLink( ForumPages.admin_medals)},
 				{"Mail",YafBuildLink.GetLink( ForumPages.admin_mail)}
 			};
 

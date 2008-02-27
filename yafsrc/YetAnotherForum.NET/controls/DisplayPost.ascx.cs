@@ -526,7 +526,7 @@ namespace YAF.Controls
 			rx = new Regex(Constants.UserBox.Badges);
 
 			/*
-			if (PageContext.BoardSettings.ShowBadges)
+			if (PageContext.BoardSettings.ShowMedals)
 			{
 			}
 			else

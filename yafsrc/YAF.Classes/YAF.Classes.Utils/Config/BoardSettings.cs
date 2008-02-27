@@ -547,10 +547,10 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>( "ShowBrowsingUsers", true ); }
 			set { _reg.SetValue<bool>( "ShowBrowsingUsers", value ); }
 		}
-		public bool ShowBadges
+		public bool ShowMedals
 		{
-			get { return _reg.GetValue<bool>( "ShowBadges", true ); }
-			set { _reg.SetValue<bool>( "ShowBadges", value ); }
+			get { return _reg.GetValue<bool>( "ShowMedals", true ); }
+			set { _reg.SetValue<bool>( "ShowMedals", value ); }
 		}
 		public bool AllowPostToBlog
 		{
@@ -615,10 +615,10 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<string>( "UserBoxAvatar", "{0}<br clear=\"all\" />" ); }
 			set { _reg.SetValue<string>( "UserBoxAvatar", value ); }
 		}
-		public string UserBoxBadges
+		public string UserBoxMedals
 		{
-			get { return _reg.GetValue<string>( "UserBoxBadges", "{0}<br clear=\"all\" />" ); }
-			set { _reg.SetValue<string>( "UserBoxBadges", value ); }
+			get { return _reg.GetValue<string>( "UserBoxMedals", "{0}<br clear=\"all\" />" ); }
+			set { _reg.SetValue<string>( "UserBoxMedals", value ); }
 		}
 		public string UserBoxRankImage
 		{

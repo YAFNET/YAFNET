@@ -50,30 +50,9 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.RankList.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler(this.RankList_ItemCommand);
-
-		}
-		#endregion
-
 		protected void Delete_Load(object sender, System.EventArgs e) 
 		{
-			((LinkButton)sender).Attributes["onclick"] = "return confirm('Delete this rank?')";
+			General.AddOnClickConfirmDialog(sender, "Delete this rank?");
 		}
 
 		private void BindData() 
@@ -82,7 +61,7 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
-		private void RankList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
+		protected void RankList_ItemCommand(object source, System.Web.UI.WebControls.RepeaterCommandEventArgs e)
 		{
 			switch(e.CommandName) 
 			{

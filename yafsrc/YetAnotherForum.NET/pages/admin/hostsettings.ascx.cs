@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/14/2007
 			General.AddStyleAttributeSize( UserBox, "350px", "100px" );
 			General.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
-			General.AddStyleAttributeWidth( UserBoxBadges, "200px" );
+			General.AddStyleAttributeWidth( UserBoxMedals, "200px" );
 			General.AddStyleAttributeWidth( UserBoxGroups, "200px" );
 			General.AddStyleAttributeWidth( UserBoxJoinDate, "200px" );
 			General.AddStyleAttributeWidth( UserBoxLocation, "200px" );
@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
 			DisplayJoinDate.Checked = PageContext.BoardSettings.DisplayJoinDate;
-			ShowBadges.Checked = PageContext.BoardSettings.ShowBadges;
+			ShowMedals.Checked = PageContext.BoardSettings.ShowMedals;
 			AllowPostToBlog.Checked = PageContext.BoardSettings.AllowPostToBlog;
 
 			// Mek : 08/18/2007 Added
@@ -175,7 +175,7 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/14/2007 added
 			UserBox.Text = PageContext.BoardSettings.UserBox;
 			UserBoxAvatar.Text = PageContext.BoardSettings.UserBoxAvatar;
-			UserBoxBadges.Text = PageContext.BoardSettings.UserBoxBadges;
+			UserBoxMedals.Text = PageContext.BoardSettings.UserBoxMedals;
 			UserBoxGroups.Text = PageContext.BoardSettings.UserBoxGroups;
 			UserBoxJoinDate.Text = PageContext.BoardSettings.UserBoxJoinDate;
 			UserBoxLocation.Text = PageContext.BoardSettings.UserBoxLocation;
@@ -281,7 +281,7 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
-			PageContext.BoardSettings.ShowBadges = ShowBadges.Checked;
+			PageContext.BoardSettings.ShowMedals = ShowMedals.Checked;
 			PageContext.BoardSettings.DisplayJoinDate = DisplayJoinDate.Checked;
 			PageContext.BoardSettings.AllowPostToBlog = AllowPostToBlog.Checked;
 
@@ -295,7 +295,7 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/14/2007 added
 			PageContext.BoardSettings.UserBox = UserBox.Text;
 			PageContext.BoardSettings.UserBoxAvatar = UserBoxAvatar.Text;
-			PageContext.BoardSettings.UserBoxBadges = UserBoxBadges.Text;
+			PageContext.BoardSettings.UserBoxMedals = UserBoxMedals.Text;
 			PageContext.BoardSettings.UserBoxGroups = UserBoxGroups.Text;
 			PageContext.BoardSettings.UserBoxJoinDate = UserBoxJoinDate.Text;
 			PageContext.BoardSettings.UserBoxLocation = UserBoxLocation.Text;

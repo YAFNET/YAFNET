@@ -439,6 +439,59 @@ begin
 end
 GO
 
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Medal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table [{databaseOwner}].[{objectQualifier}Medal](
+		[BoardID] [int] NOT NULL,
+		[MedalID] [int] IDENTITY(1,1) NOT NULL,
+		[Name] [nvarchar](100) NOT NULL,
+		[Description] [ntext] NOT NULL,
+		[Message] [nvarchar](100) NOT NULL,
+		[Category] [nvarchar](50) NULL,
+		[MedalURL] [nvarchar](250) NOT NULL,
+		[RibbonURL] [nvarchar](250) NULL,
+		[SmallMedalURL] [nvarchar](250) NOT NULL,
+		[SmallRibbonURL] [nvarchar](250) NULL,
+		[SmallMedalWidth] [smallint] NOT NULL,
+		[SmallMedalHeight] [smallint] NOT NULL,
+		[SmallRibbonWidth] [smallint] NULL,
+		[SmallRibbonHeight] [smallint] NULL,
+		[SortOrder] [tinyint] NOT NULL CONSTRAINT [DF_{objectQualifier}Medal_DefaultOrder]  DEFAULT ((255)),
+		[Flags] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Medal_Flags]  DEFAULT ((0)),
+		CONSTRAINT [PK_{objectQualifier}Medal] PRIMARY KEY CLUSTERED ([MedalID] ASC)
+		)
+end
+GO
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}GroupMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table [{databaseOwner}].[{objectQualifier}GroupMedal](
+		[GroupID] [int] NOT NULL,
+		[MedalID] [int] NOT NULL,
+		[Message] [nvarchar](100) NULL,
+		[Hide] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}GroupMedal_Hide]  DEFAULT ((0)),
+		[OnlyRibbon] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}GroupMedal_OnlyRibbon]  DEFAULT ((0)),
+		[SortOrder] [tinyint] NOT NULL CONSTRAINT [DF_{objectQualifier}GroupMedal_SortOrder]  DEFAULT ((255))
+		)
+end
+GO
+
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}UserMedal]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	create table [{databaseOwner}].[{objectQualifier}UserMedal](
+		[UserID] [int] NOT NULL,
+		[MedalID] [int] NOT NULL,
+		[Message] [nvarchar](100) NULL,
+		[Hide] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}UserMedal_Hide]  DEFAULT ((0)),
+		[OnlyRibbon] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}UserMedal_OnlyRibbon]  DEFAULT ((0)),
+		[SortOrder] [tinyint] NOT NULL CONSTRAINT [DF_{objectQualifier}UserMedal_SortOrder]  DEFAULT ((255)),
+		[DateAwarded] [datetime] NOT NULL
+	)
+end
+GO
+
+
 /*
 ** Added columns
 */

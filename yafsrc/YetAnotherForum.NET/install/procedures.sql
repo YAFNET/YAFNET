@@ -246,6 +246,18 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_medal_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_medal_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_medal_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_medal_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_medal_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_medal_save]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}group_member]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}group_member]
 GO
@@ -268,6 +280,26 @@ GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}mail_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}mail_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}medal_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}medal_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_listusers]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}medal_listusers]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_resort]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}medal_resort]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}medal_save]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}message_approve]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -622,8 +654,24 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_list]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_listmedals]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_listmedals]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_login]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_login]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_medal_delete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_medal_delete]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_medal_list]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_medal_list]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_medal_save]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_medal_save]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_nntp]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
@@ -5446,5 +5494,417 @@ begin
 
 	-- delete poll
 	delete from [{databaseOwner}].[{objectQualifier}Poll] where PollID = @PollID
+end
+GO
+
+
+-- medals
+
+create proc [{databaseOwner}].[{objectQualifier}group_medal_delete]
+	@GroupID int,
+	@MedalID int
+as begin
+
+
+	delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where [GroupID]=@GroupID and [MedalID]=@MedalID
+
+end
+GO
+
+CREATE proc [{databaseOwner}].[{objectQualifier}group_medal_list]
+	@GroupID int = null,
+	@MedalID int = null
+as begin
+
+	select 
+		a.*, 
+		b.[GroupID],
+		b.[Message] as MessageEx,
+		b.[Hide],
+		b.[OnlyRibbon],
+		b.[SortOrder] as CurrentSortOrder
+	from
+		[{databaseOwner}].[{objectQualifier}Medal] a
+		inner join [{databaseOwner}].[{objectQualifier}GroupMedal] b on b.MedalID = a.MedalID
+	where
+		(@GroupID is null or b.[GroupID] = @GroupID) and
+		(@MedalID is null or b.[MedalID] = @MedalID)		
+	order by
+		b.[SortOrder] ASC
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}group_medal_save]
+   @GroupID int,
+   @MedalID int,
+   @Message nvarchar(100) = NULL,
+   @Hide bit,
+   @OnlyRibbon bit,
+   @SortOrder tinyint
+as begin
+
+	if exists(select 1 from [{databaseOwner}].[{objectQualifier}GroupMedal] where [GroupID]=@GroupID and [MedalID]=@MedalID) begin
+		update [{databaseOwner}].[{objectQualifier}GroupMedal]
+		set
+			[Message] = @Message,
+			[Hide] = @Hide,
+			[OnlyRibbon] = @OnlyRibbon,
+			[SortOrder] = @SortOrder
+		where 
+			[GroupID]=@GroupID and 
+			[MedalID]=@MedalID
+	end
+	else begin
+
+		insert into [{databaseOwner}].[{objectQualifier}GroupMedal]
+			([GroupID],[MedalID],[Message],[Hide],[OnlyRibbon],[SortOrder])
+		values
+			(@GroupID,@MedalID,@Message,@Hide,@OnlyRibbon,@SortOrder)
+	end
+
+end
+GO
+
+CREATE proc [{databaseOwner}].[{objectQualifier}medal_delete]
+	@BoardID	int = null,
+	@MedalID	int = null,
+	@Category	nvarchar(50) = null
+as begin
+
+	if not @MedalID is null begin
+		delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where [MedalID] = @MedalID
+		delete from [{databaseOwner}].[{objectQualifier}UserMedal] where [MedalID] = @MedalID
+
+		delete from [{databaseOwner}].[{objectQualifier}Medal] where [MedalID]=@MedalID
+	end
+	else if not @Category is null and not @BoardID is null begin
+		delete from [{databaseOwner}].[{objectQualifier}GroupMedal] 
+			where [MedalID] in (SELECT [MedalID] FROM [{databaseOwner}].[{objectQualifier}Medal] where [Category]=@Category and [BoardID]=@BoardID)
+
+		delete from [{databaseOwner}].[{objectQualifier}UserMedal] 
+			where [MedalID] in (SELECT [MedalID] FROM [{databaseOwner}].[{objectQualifier}Medal] where [Category]=@Category and [BoardID]=@BoardID)
+
+		delete from [{databaseOwner}].[{objectQualifier}Medal] where [Category]=@Category
+	end
+	else if not @BoardID is null begin
+		delete from [{databaseOwner}].[{objectQualifier}GroupMedal] 
+			where [MedalID] in (SELECT [MedalID] FROM [{databaseOwner}].[{objectQualifier}Medal] where [BoardID]=@BoardID)
+
+		delete from [{databaseOwner}].[{objectQualifier}UserMedal] 
+			where [MedalID] in (SELECT [MedalID] FROM [{databaseOwner}].[{objectQualifier}Medal] where [BoardID]=@BoardID)
+
+		delete from [{databaseOwner}].[{objectQualifier}Medal] where [BoardID]=@BoardID
+	end
+
+end
+GO
+
+CREATE proc [{databaseOwner}].[{objectQualifier}medal_list]
+	@BoardID	int = null,
+	@MedalID	int = null,
+	@Category	nvarchar(50) = null
+as begin
+
+	if not @MedalID is null begin
+		select 
+			* 
+		from 
+			[{databaseOwner}].[{objectQualifier}Medal] 
+		where 
+			[MedalID]=@MedalID 
+		order by 
+			[Category] asc, 
+			[SortOrder] asc
+	end
+	else if not @Category is null and not @BoardID is null begin
+		select 
+			* 
+		from 
+			[{databaseOwner}].[{objectQualifier}Medal] 
+		where 
+			[Category]=@Category and [BoardID]=@BoardID
+		order by 
+			[Category] asc, 
+			[SortOrder] asc
+	end
+	else if not @BoardID is null begin
+		select 
+			* 
+		from 
+			[{databaseOwner}].[{objectQualifier}Medal] 
+		where 
+			[BoardID]=@BoardID
+		order by 
+			[Category] asc, 
+			[SortOrder] asc
+	end
+
+end
+GO
+
+CREATE proc [{databaseOwner}].[{objectQualifier}medal_listusers]
+	@MedalID	int
+as begin
+
+	(select 
+		a.UserID, a.Name
+	from 
+		[{databaseOwner}].[{objectQualifier}User] a
+		inner join [{databaseOwner}].[{objectQualifier}UserMedal] b on a.[UserID] = b.[UserID]
+	where
+		b.[MedalID]=@MedalID) 
+	
+	union	
+
+	(select 
+		a.UserID, a.Name
+	from 
+		[{databaseOwner}].[{objectQualifier}User] a
+		inner join [{databaseOwner}].[{objectQualifier}UserGroup] b on a.[UserID] = b.[UserID]
+		inner join [{databaseOwner}].[{objectQualifier}GroupMedal] c on b.[GroupID] = c.[GroupID]
+	where
+		c.[MedalID]=@MedalID) 
+
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}medal_resort]
+	@BoardID int,@MedalID int,@Move int
+as
+begin
+	declare @Position int
+	declare @Category nvarchar(50)
+
+	select 
+		@Position=[SortOrder],
+		@Category=[Category]
+	from 
+		[{databaseOwner}].[{objectQualifier}Medal] 
+	where 
+		[BoardID]=@BoardID and [MedalID]=@MedalID
+
+	if (@Position is null) return
+
+	if (@Move > 0) begin
+		update 
+			[{databaseOwner}].[{objectQualifier}Medal]
+		set 
+			[SortOrder]=[SortOrder]-1
+		where 
+			[BoardID]=@BoardID and 
+			[Category]=@Category and
+			[SortOrder] between @Position and (@Position + @Move) and
+			[SortOrder] between 1 and 255
+	end
+	else if (@Move < 0) begin
+		update 
+			[{databaseOwner}].[{objectQualifier}Medal]
+		set
+			[SortOrder]=[SortOrder]+1
+		where 
+			BoardID=@BoardID and 
+			[Category]=@Category and
+			[SortOrder] between (@Position+@Move) and @Position and
+			[SortOrder] between 0 and 254
+	end
+
+	SET @Position = @Position + @Move
+
+	if (@Position>255) SET @Position = 255
+	else if (@Position<0) SET @Position = 0
+
+	update [{databaseOwner}].[{objectQualifier}Medal]
+		set [SortOrder]=@Position
+		where [BoardID]=@BoardID and 
+			[MedalID]=@MedalID
+end
+GO
+
+CREATE proc [{databaseOwner}].[{objectQualifier}medal_save]
+	@BoardID int = NULL,
+	@MedalID int = NULL,
+	@Name nvarchar(100),
+	@Description ntext,
+	@Message nvarchar(100),
+	@Category nvarchar(50) = NULL,
+	@MedalURL nvarchar(250),
+	@RibbonURL nvarchar(250) = NULL,
+	@SmallMedalURL nvarchar(250),
+	@SmallRibbonURL nvarchar(250) = NULL,
+	@SmallMedalWidth smallint,
+	@SmallMedalHeight smallint,
+	@SmallRibbonWidth smallint = NULL,
+	@SmallRibbonHeight smallint = NULL,
+	@SortOrder tinyint = 255,
+	@Flags int = 0
+as begin
+
+	if @MedalID is null begin
+		insert into [{databaseOwner}].[{objectQualifier}Medal]
+			([BoardID],[Name],[Description],[Message],[Category],
+			[MedalURL],[RibbonURL],[SmallMedalURL],[SmallRibbonURL],
+			[SmallMedalWidth],[SmallMedalHeight],[SmallRibbonWidth],[SmallRibbonHeight],
+			[SortOrder],[Flags])
+		values
+			(@BoardID,@Name,@Description,@Message,@Category,
+			@MedalURL,@RibbonURL,@SmallMedalURL,@SmallRibbonURL,
+			@SmallMedalWidth,@SmallMedalHeight,@SmallRibbonWidth,@SmallRibbonHeight,
+			@SortOrder,@Flags)
+
+		return @@rowcount
+	end
+	else begin
+		update [{databaseOwner}].[{objectQualifier}Medal]
+			set [BoardID] = BoardID,
+				[Name] = @Name,
+				[Description] = @Description,
+				[Message] = @Message,
+				[Category] = @Category,
+				[MedalURL] = @MedalURL,
+				[RibbonURL] = @RibbonURL,
+				[SmallMedalURL] = @SmallMedalURL,
+				[SmallRibbonURL] = @SmallRibbonURL,
+				[SmallMedalWidth] = @SmallMedalWidth,
+				[SmallMedalHeight] = @SmallMedalHeight,
+				[SmallRibbonWidth] = @SmallRibbonWidth,
+				[SmallRibbonHeight] = @SmallRibbonHeight,
+				[SortOrder] = @SortOrder,
+				[Flags] = @Flags
+		where [MedalID] = @MedalID
+
+		return @@rowcount
+	end
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}user_listmedals]
+	@UserID	int
+as begin
+
+	(select
+		a.[MedalID],
+		a.[Name],
+		isnull(b.[Message], a.[Message]) as [Message],
+		a.[MedalURL],
+		a.[RibbonURL],
+		a.[SmallMedalURL],
+		a.[SmallRibbonURL],
+		a.[SmallMedalWidth],
+		a.[SmallMedalHeight],
+		a.[SmallRibbonWidth],
+		a.[SmallRibbonHeight],
+		b.[SortOrder],
+		a.[Flags],
+		b.[Hide],
+		b.[OnlyRibbon],
+		b.[DateAwarded]
+	from
+		[{databaseOwner}].[{objectQualifier}Medal] a
+		inner join [{databaseOwner}].[{objectQualifier}UserMedal] b on a.[MedalID] = b.[MedalID]
+	where
+		b.[UserID] = @UserID)
+
+	union
+
+	(select
+		a.[MedalID],
+		a.[Name],
+		isnull(b.[Message], a.[Message]) as [Message],
+		a.[MedalURL],
+		a.[RibbonURL],
+		a.[SmallMedalURL],
+		a.[SmallRibbonURL],
+		a.[SmallMedalWidth],
+		a.[SmallMedalHeight],
+		a.[SmallRibbonWidth],
+		a.[SmallRibbonHeight],
+		b.[SortOrder],
+		a.[Flags],
+		b.[Hide],
+		b.[OnlyRibbon],
+		NULL as [DateAwarded]
+	from
+		[{databaseOwner}].[{objectQualifier}Medal] a
+		inner join [{databaseOwner}].[{objectQualifier}GroupMedal] b on a.[MedalID] = b.[MedalID]
+		inner join [{databaseOwner}].[{objectQualifier}UserGroup] c on b.[GroupID] = c.[GroupID]
+	where
+		c.[UserID] = @UserID)
+	order by
+		[OnlyRibbon] desc,
+		[SortOrder] asc
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}user_medal_delete]
+	@UserID int,
+	@MedalID int
+as begin
+
+
+	delete from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID]=@UserID and [MedalID]=@MedalID
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}user_medal_list]
+	@UserID int = null,
+	@MedalID int = null
+as begin
+
+	select 
+		a.*, 
+		b.[UserID],
+		b.[Message] as MessageEx,
+		b.[Hide],
+		b.[OnlyRibbon],
+		b.[SortOrder] as CurrentSortOrder,
+		b.[DateAwarded]
+	from
+		[{databaseOwner}].[{objectQualifier}Medal] a
+		inner join [{databaseOwner}].[{objectQualifier}UserMedal] b on b.MedalID = a.MedalID
+	where
+		(@UserID is null or b.[UserID] = @UserID) and
+		(@MedalID is null or b.[MedalID] = @MedalID)		
+	order by
+		b.[SortOrder] ASC
+
+end
+GO
+
+create proc [{databaseOwner}].[{objectQualifier}user_medal_save]
+	@UserID int,
+	@MedalID int,
+	@Message nvarchar(100) = NULL,
+	@Hide bit,
+	@OnlyRibbon bit,
+	@SortOrder tinyint,
+	@DateAwarded datetime = NULL
+as begin
+
+	if exists(select 1 from [{databaseOwner}].[{objectQualifier}UserMedal] where [UserID]=@UserID and [MedalID]=@MedalID) begin
+		update [{databaseOwner}].[{objectQualifier}UserMedal]
+		set
+			[Message] = @Message,
+			[Hide] = @Hide,
+			[OnlyRibbon] = @OnlyRibbon,
+			[SortOrder] = @SortOrder
+		where 
+			[UserID]=@UserID and 
+			[MedalID]=@MedalID
+	end
+	else begin
+
+		if (@DateAwarded is null) set @DateAwarded = getdate() 
+
+		insert into [{databaseOwner}].[{objectQualifier}UserMedal]
+			([UserID],[MedalID],[Message],[Hide],[OnlyRibbon],[SortOrder],[DateAwarded])
+		values
+			(@UserID,@MedalID,@Message,@Hide,@OnlyRibbon,@SortOrder,@DateAwarded)
+	end
+
 end
 GO

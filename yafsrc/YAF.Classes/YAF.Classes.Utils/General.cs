@@ -315,7 +315,7 @@ namespace YAF.Classes.Utils
 		}
 		static public void AddOnClickConfirmDialog(System.Web.UI.WebControls.WebControl control, string message)
 		{
-			control.Attributes["onclick"] = String.Format("return confirm('{0}')", message);
+			control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
 		}
 
 

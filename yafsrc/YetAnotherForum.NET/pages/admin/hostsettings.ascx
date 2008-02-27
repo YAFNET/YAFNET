@@ -349,10 +349,10 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Show Badges:</b><br>
-                                    Should the badges of a user be visible on the posts page.</td>
+                                    <b>Show Medals:</b><br>
+                                    Should medals of a user be visible on the posts page.</td>
                                 <td class="post">
-                                    <asp:CheckBox ID="ShowBadges" runat="server"></asp:CheckBox></td>
+                                    <asp:CheckBox ID="ShowMedals" runat="server"></asp:CheckBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">
@@ -655,10 +655,10 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Badges template:</b><br>
-                                    Template for rendering user's badges.</td>
+                                    <b>Medals template:</b><br>
+                                    Template for rendering user's medals.</td>
                                 <td class="post">
-                                    <asp:TextBox ID="UserBoxBadges" runat="server"></asp:TextBox></td>
+                                    <asp:TextBox ID="UserBoxMedals" runat="server"></asp:TextBox></td>
                             </tr>
                             <tr>
                                 <td class="postheader">

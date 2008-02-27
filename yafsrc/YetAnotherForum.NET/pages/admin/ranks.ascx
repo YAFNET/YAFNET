@@ -6,7 +6,7 @@
 			<td class="header1" colspan="6">
 				Ranks</td>
 		</tr>
-		<asp:Repeater ID="RankList" runat="server">
+		<asp:Repeater ID="RankList" OnItemCommand="RankList_ItemCommand" runat="server">
 			<HeaderTemplate>
 				<tr>
 					<td class="header2">

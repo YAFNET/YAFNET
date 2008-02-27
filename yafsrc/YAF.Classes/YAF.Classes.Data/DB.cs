@@ -1972,6 +1972,174 @@ namespace YAF.Classes.Data
 
 		#endregion
 
+		#region yaf_Medal
+
+		/// <summary>
+		/// Lists given medal.
+		/// </summary>
+		/// <param name="medalID">ID of medal to list.</param>
+		static public DataTable medal_list(object medalID)
+		{
+			return medal_list(null, medalID, null);
+		}
+		/// <summary>
+		/// Lists given medals.
+		/// </summary>
+		/// <param name="boardID">ID of board of which medals to list. Required.</param>
+		/// <param name="category">Cateogry of medals to list. Can be null. In such case this parameter is ignored.</param>
+		static public DataTable medal_list(object boardID, object category)
+		{
+			return medal_list(boardID, null, category);
+		}
+		/// <summary>
+		/// Lists medals.
+		/// </summary>
+		/// <param name="boardID">ID of board of which medals to list. Can be null if medalID parameter is specified.</param>
+		/// <param name="medalID">ID of medal to list. When specified, boardID and category parameters are ignored.</param>
+		/// <param name="category">Cateogry of medals to list. Must be complemented with not-null boardID parameter.</param>
+		static private DataTable medal_list(object boardID, object medalID, object category)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("medal_list"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Category", category);
+
+				return DBAccess.GetData(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// List users who own this medal.
+		/// </summary>
+		/// <param name="medalID">Medal of which owners to get.</param>
+		/// <returns>List of users with their user id and usernames, who own this medal.</returns>
+		static public DataTable medal_listusers(object medalID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("medal_listusers"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+
+				return DBAccess.GetData(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Deletes given medal.
+		/// </summary>
+		/// <param name="medalID">ID of medal to delete.</param>
+		static public void medal_delete(object medalID)
+		{
+			medal_delete(null, medalID, null);
+		}
+		/// <summary>
+		/// Deletes given medals.
+		/// </summary>
+		/// <param name="boardID">ID of board of which medals to delete. Required.</param>
+		/// <param name="category">Cateogry of medals to delete. Can be null. In such case this parameter is ignored.</param>
+		static public void medal_delete(object boardID, object category)
+		{
+			medal_delete(boardID, null, category);
+		}
+		/// <summary>
+		/// Deletes medals.
+		/// </summary>
+		/// <param name="boardID">ID of board of which medals to delete. Can be null if medalID parameter is specified.</param>
+		/// <param name="medalID">ID of medal to delete. When specified, boardID and category parameters are ignored.</param>
+		/// <param name="category">Cateogry of medals to delete. Must be complemented with not-null boardID parameter.</param>
+		static private void medal_delete(object boardID, object medalID, object category)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("medal_delete"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Category", category);
+
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Saves new medal or updates existing one. 
+		/// </summary>
+		/// <param name="boardID">ID of a board.</param>
+		/// <param name="medalID">ID of medal to update. Null if new medal is being created.</param>
+		/// <param name="name">Name of medal.</param>
+		/// <param name="description">Description of medal.</param>
+		/// <param name="message">Defaukt message to display. Should briefly describe why was medal awarded to user.</param>
+		/// <param name="category">Category of medal.</param>
+		/// <param name="medalURL">URL of medal's image.</param>
+		/// <param name="ribbonURL">URL of medal's ribbon bar. Can be null.</param>
+		/// <param name="smallMedalURL">URL of medal's small image. This one is displayed in user box.</param>
+		/// <param name="smallRibbonURL">URL of medal's small ribbon bar. This one is eventually displayed in user box. Can be null.</param>
+		/// <param name="smallMedalWidth">Width of small medal's image, in pixels.</param>
+		/// <param name="smallMedalHeight">Height of small medal's image, in pixels.</param>
+		/// <param name="smallRibbonWidth">Width of small medal's ribbon bar image, in pixels.</param>
+		/// <param name="smallRibbonHeight">Width of small medal's ribbon bar image, in pixels.</param>
+		/// <param name="sortOrder">Default order of medal as it will be displayed in user box.</paramHeight
+		/// <param name="flags">Medal's flags.</param>
+		/// <returns>True if medal was successfully created or updated. False otherwise.</returns>
+		static public bool medal_save(
+			object boardID, object medalID, object name, object description, object message, object category,
+			object medalURL, object ribbonURL, object smallMedalURL, object smallRibbonURL, object smallMedalWidth,
+			object smallMedalHeight, object smallRibbonWidth, object smallRibbonHeight, object sortOrder, object flags)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("medal_save"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Name", name);
+				cmd.Parameters.AddWithValue("Description", description);
+				cmd.Parameters.AddWithValue("Message", message);
+				cmd.Parameters.AddWithValue("Category", category);
+				cmd.Parameters.AddWithValue("MedalURL", medalURL);
+				cmd.Parameters.AddWithValue("RibbonURL", ribbonURL);
+				cmd.Parameters.AddWithValue("SmallMedalURL", smallMedalURL);
+				cmd.Parameters.AddWithValue("SmallRibbonURL", smallRibbonURL);
+				cmd.Parameters.AddWithValue("SmallMedalWidth", smallMedalWidth);
+				cmd.Parameters.AddWithValue("SmallMedalHeight", smallMedalHeight);
+				cmd.Parameters.AddWithValue("SmallRibbonWidth", smallRibbonWidth);
+				cmd.Parameters.AddWithValue("SmallRibbonHeight", smallRibbonHeight);
+				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+				cmd.Parameters.AddWithValue("Flags", flags);
+
+				// command succeeded if returned value is greater than zero (number of affected rows)
+				return (int)DBAccess.ExecuteScalar(cmd) > 0;
+			}
+		}
+
+
+		/// <summary>
+		/// Changes medal's sort order.
+		/// </summary>
+		/// <param name="boardID">ID of board.</param>
+		/// <param name="medalID">ID of medal to re-sort.</param>
+		/// <param name="move">Change of sort.</param>
+		static public void medal_resort(object boardID, object medalID, int move)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("medal_resort"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Move", move);
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+		#endregion
+
 		#region yaf_NntpForum
 		static public DataTable nntpforum_list( object boardID, object minutes, object nntpForumID, object active )
 		{
