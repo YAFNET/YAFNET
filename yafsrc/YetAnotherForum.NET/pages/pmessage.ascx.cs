@@ -453,6 +453,7 @@ namespace YAF.Pages
 
 		#endregion
 
+
 		#region Private Methods
 
 		/// <summary>

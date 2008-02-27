@@ -35,6 +35,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MedalFlags.cs" />
     <Compile Include="TopicFlags.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="DBAccess.cs" />

@@ -617,7 +617,7 @@ namespace YAF.Classes.Utils
 		}
 		public string UserBoxMedals
 		{
-			get { return _reg.GetValue<string>( "UserBoxMedals", "{0}<br clear=\"all\" />" ); }
+			get { return _reg.GetValue<string>( "UserBoxMedals", "{0}{1}<br clear=\"all\" />" ); }
 			set { _reg.SetValue<string>( "UserBoxMedals", value ); }
 		}
 		public string UserBoxRankImage

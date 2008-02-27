@@ -5517,19 +5517,34 @@ CREATE proc [{databaseOwner}].[{objectQualifier}group_medal_list]
 as begin
 
 	select 
-		a.*, 
+		a.[MedalID],
+		a.[Name],
+		a.[MedalURL],
+		a.[RibbonURL],
+		a.[SmallMedalURL],
+		a.[SmallRibbonURL],
+		a.[SmallMedalWidth],
+		a.[SmallMedalHeight],
+		a.[SmallRibbonWidth],
+		a.[SmallRibbonHeight],
+		b.[SortOrder],
+		a.[Flags],
+		c.[Name] as [GroupName],
 		b.[GroupID],
-		b.[Message] as MessageEx,
+		isnull(b.[Message],a.[Message]) as [Message],
+		b.[Message] as [MessageEx],
 		b.[Hide],
 		b.[OnlyRibbon],
 		b.[SortOrder] as CurrentSortOrder
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a
-		inner join [{databaseOwner}].[{objectQualifier}GroupMedal] b on b.MedalID = a.MedalID
+		inner join [{databaseOwner}].[{objectQualifier}GroupMedal] b on b.[MedalID] = a.[MedalID]
+		inner join [{databaseOwner}].[{objectQualifier}Group] c on  c.[GroupID] = b.[GroupID]
 	where
 		(@GroupID is null or b.[GroupID] = @GroupID) and
 		(@MedalID is null or b.[MedalID] = @MedalID)		
 	order by
+		c.[Name] ASC,
 		b.[SortOrder] ASC
 
 end
@@ -5753,7 +5768,7 @@ as begin
 			@SmallMedalWidth,@SmallMedalHeight,@SmallRibbonWidth,@SmallRibbonHeight,
 			@SortOrder,@Flags)
 
-		return @@rowcount
+		select @@rowcount
 	end
 	else begin
 		update [{databaseOwner}].[{objectQualifier}Medal]
@@ -5774,7 +5789,7 @@ as begin
 				[Flags] = @Flags
 		where [MedalID] = @MedalID
 
-		return @@rowcount
+		select @@rowcount
 	end
 
 end
@@ -5791,15 +5806,15 @@ as begin
 		a.[MedalURL],
 		a.[RibbonURL],
 		a.[SmallMedalURL],
-		a.[SmallRibbonURL],
+		isnull(a.[SmallRibbonURL], a.[SmallMedalURL]) as [SmallRibbonURL],
 		a.[SmallMedalWidth],
 		a.[SmallMedalHeight],
-		a.[SmallRibbonWidth],
-		a.[SmallRibbonHeight],
+		isnull(a.[SmallRibbonWidth], a.[SmallMedalWidth]) as [SmallRibbonWidth],
+		isnull(a.[SmallRibbonHeight], a.[SmallMedalHeight]) as [SmallRibbonHeight],
 		b.[SortOrder],
 		a.[Flags],
 		b.[Hide],
-		b.[OnlyRibbon],
+		[{databaseOwner}].[{objectQualifier}medal_getribbonsetting](a.[SmallRibbonURL],a.[Flags],b.[OnlyRibbon]) as [OnlyRibbon],
 		b.[DateAwarded]
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a
@@ -5816,15 +5831,15 @@ as begin
 		a.[MedalURL],
 		a.[RibbonURL],
 		a.[SmallMedalURL],
-		a.[SmallRibbonURL],
+		isnull(a.[SmallRibbonURL], a.[SmallMedalURL]) as [SmallRibbonURL],
 		a.[SmallMedalWidth],
 		a.[SmallMedalHeight],
-		a.[SmallRibbonWidth],
-		a.[SmallRibbonHeight],
+		isnull(a.[SmallRibbonWidth], a.[SmallMedalWidth]) as [SmallRibbonWidth],
+		isnull(a.[SmallRibbonHeight], a.[SmallMedalHeight]) as [SmallRibbonHeight],
 		b.[SortOrder],
 		a.[Flags],
 		b.[Hide],
-		b.[OnlyRibbon],
+		[{databaseOwner}].[{objectQualifier}medal_getribbonsetting](a.[SmallRibbonURL],a.[Flags],b.[OnlyRibbon]) as [OnlyRibbon],
 		NULL as [DateAwarded]
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a
@@ -5856,20 +5871,35 @@ create proc [{databaseOwner}].[{objectQualifier}user_medal_list]
 as begin
 
 	select 
-		a.*, 
+		a.[MedalID],
+		a.[Name],
+		a.[MedalURL],
+		a.[RibbonURL],
+		a.[SmallMedalURL],
+		a.[SmallRibbonURL],
+		a.[SmallMedalWidth],
+		a.[SmallMedalHeight],
+		a.[SmallRibbonWidth],
+		a.[SmallRibbonHeight],
+		b.[SortOrder],
+		a.[Flags],
+		c.[Name] as [UserName],
 		b.[UserID],
-		b.[Message] as MessageEx,
+		isnull(b.[Message],a.[Message]) as [Message],
+		b.[Message] as [MessageEx],
 		b.[Hide],
 		b.[OnlyRibbon],
-		b.[SortOrder] as CurrentSortOrder,
+		b.[SortOrder] as [CurrentSortOrder],
 		b.[DateAwarded]
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a
-		inner join [{databaseOwner}].[{objectQualifier}UserMedal] b on b.MedalID = a.MedalID
+		inner join [{databaseOwner}].[{objectQualifier}UserMedal] b on b.[MedalID] = a.[MedalID]
+		inner join [{databaseOwner}].[{objectQualifier}User] c on c.[UserID] = b.[UserID]
 	where
 		(@UserID is null or b.[UserID] = @UserID) and
 		(@MedalID is null or b.[MedalID] = @MedalID)		
 	order by
+		c.[Name] ASC,
 		b.[SortOrder] ASC
 
 end

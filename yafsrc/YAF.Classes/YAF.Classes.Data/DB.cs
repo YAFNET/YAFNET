@@ -1568,6 +1568,7 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region yaf_Message
+
 		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "post_list" ) )
@@ -2131,10 +2132,167 @@ namespace YAF.Classes.Data
 			using (SqlCommand cmd = DBAccess.GetCommand("medal_resort"))
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				
 				cmd.Parameters.AddWithValue("BoardID", boardID);
 				cmd.Parameters.AddWithValue("MedalID", medalID);
 				cmd.Parameters.AddWithValue("Move", move);
+				
 				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Deletes medal allocation to a group.
+		/// </summary>
+		/// <param name="groupID">ID of group owning medal.</param>
+		/// <param name="medalID">ID of medal.</param>
+		static public void group_medal_delete(object groupID, object medalID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_delete"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				
+				cmd.Parameters.AddWithValue("GroupID", groupID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Lists medal(s) assigned to the group
+		/// </summary>
+		/// <param name="groupID">ID of group of which to list medals.</param>
+		/// <param name="medalID">ID of medal to list.</param>
+		static public DataTable group_medal_list(object groupID, object medalID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_list"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("GroupID", groupID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+
+				return DBAccess.GetData(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Saves new or update existing group-medal allocation.
+		/// </summary>
+		/// <param name="groupID">ID of user group.</param>
+		/// <param name="medalID">ID of medal.</param>
+		/// <param name="message">Medal message, to override medal's default one. Can be null.</param>
+		/// <param name="hide">Hide medal in user box.</param>
+		/// <param name="onlyRibbon">Show only ribbon bar in user box.</param>
+		/// <param name="sortOrder">Sort order in user box. Overrides medal's default sort order.</param>
+		static public void group_medal_save(
+			object groupID, object medalID, object message,
+			object hide, object onlyRibbon, object sortOrder)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_save"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("GroupID", groupID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Message", message);
+				cmd.Parameters.AddWithValue("Hide", hide);
+				cmd.Parameters.AddWithValue("OnlyRibbon", onlyRibbon);
+				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+
+		/// <summary>
+		/// Deletes medal allocation to a user.
+		/// </summary>
+		/// <param name="userID">ID of user owning medal.</param>
+		/// <param name="medalID">ID of medal.</param>
+		static public void user_medal_delete(object userID, object medalID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_delete"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("UserID", userID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Lists medal(s) assigned to the group
+		/// </summary>
+		/// <param name="userID">ID of user who was given medal.</param>
+		/// <param name="medalID">ID of medal to list.</param>
+		static public DataTable user_medal_list(object userID, object medalID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_list"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("UserID", userID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+
+				return DBAccess.GetData(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Saves new or update existing user-medal allocation.
+		/// </summary>
+		/// <param name="userID">ID of user.</param>
+		/// <param name="medalID">ID of medal.</param>
+		/// <param name="message">Medal message, to override medal's default one. Can be null.</param>
+		/// <param name="hide">Hide medal in user box.</param>
+		/// <param name="onlyRibbon">Show only ribbon bar in user box.</param>
+		/// <param name="sortOrder">Sort order in user box. Overrides medal's default sort order.</param>
+		/// <param name="dateAwarded">Date when medal was awarded to a user. Is ignored when existing user-medal allocation is edited.</param>
+		static public void user_medal_save(
+			object userID, object medalID, object message,
+			object hide, object onlyRibbon, object sortOrder, object dateAwarded)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_save"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("UserID", userID);
+				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue("Message", message);
+				cmd.Parameters.AddWithValue("Hide", hide);
+				cmd.Parameters.AddWithValue("OnlyRibbon", onlyRibbon);
+				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+				cmd.Parameters.AddWithValue("DateAwarded", dateAwarded);
+
+				DBAccess.ExecuteNonQuery(cmd);
+			}
+		}
+
+
+		/// <summary>
+		/// Lists all medals held by user as they are to be shown in user box.
+		/// </summary>
+		/// <param name="userID">ID of user.</param>
+		/// <returns>List of medals, ribbon bar only first.</returns>
+		static public DataTable user_listmedals(object userID)
+		{
+			using (SqlCommand cmd = DBAccess.GetCommand("user_listmedals"))
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+
+				cmd.Parameters.AddWithValue("UserID", userID);
+
+				return DBAccess.GetData(cmd);
 			}
 		}
 

@@ -521,21 +521,96 @@ namespace YAF.Controls
 			userBox = rx.Replace(userBox, filler);
 
 
-			// Ederon : 7/14/2007 - prepared for implementation of user badges
-			// User Badges
-			rx = new Regex(Constants.UserBox.Badges);
+			// Ederon : 7/14/2007 - prepared for implementation of user medals
+			// User Medals
+			rx = new Regex(Constants.UserBox.Medals);
 
-			/*
 			if (PageContext.BoardSettings.ShowMedals)
 			{
+				using (DataTable dt = DB.user_listmedals(DataRow["UserID"]))
+				{
+					System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder(500);
+					System.Text.StringBuilder medals = new System.Text.StringBuilder(500);
+
+					DataRow r;
+					MedalFlags f;
+
+					int i = 0;
+					int inRow = 0;
+
+					// do ribbon bar first
+					while (dt.Rows.Count > i)
+					{
+						r = dt.Rows[i];
+						f = new MedalFlags(r["Flags"]);
+						
+						// do only ribbon bar items first
+						if (!(bool)r["OnlyRibbon"]) break;
+
+						// skip hidden medals
+						if (!f.AllowHiding || !(bool)r["Hide"])
+						{
+							if (inRow == 3)
+							{
+								// add break - only three ribbons in a row
+								ribbonBar.Append("<br />");
+								inRow = 0;
+							}
+
+							ribbonBar.AppendFormat(
+								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+								YafForumInfo.ForumRoot,
+								r["SmallRibbonURL"],
+								r["SmallRibbonWidth"],
+								r["SmallRibbonHeight"],
+								r["Name"],
+								f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
+								);
+
+							inRow++;
+						}
+
+						// move to next row
+						i++;
+					}
+
+					// follow with the rest
+					while (dt.Rows.Count > i)
+					{
+						r = dt.Rows[i];
+						f = new MedalFlags(r["Flags"]);
+
+						// skip hidden medals
+						if (!f.AllowHiding || !(bool)r["Hide"])
+						{
+							medals.AppendFormat(
+								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+								YafForumInfo.ForumRoot,
+								r["SmallMedalURL"],
+								r["SmallMedalWidth"],
+								r["SmallMedalHeight"],
+								r["Name"],
+								f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
+								);
+						}
+
+						// move to next row
+						i++;
+					}
+
+					filler = String.Format(
+								PageContext.BoardSettings.UserBoxMedals,
+								ribbonBar.ToString(),
+								medals.ToString()
+								);
+				}
 			}
 			else
-			{*/
+			{
 				filler = "";
-			/*}
-			*/
+			}
 
-			// replaces template placeholder with actual badges
+			// replaces template placeholder with actual medals
 			userBox = rx.Replace(userBox, filler);
 
 

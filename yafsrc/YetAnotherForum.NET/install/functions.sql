@@ -29,6 +29,11 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}forum_lasttopic]
 
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getribbonsetting]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_getribbonsetting]
+
+GO
+
 create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
 
 begin
@@ -304,5 +309,22 @@ BEGIN
 		@LastTopicID,
 		@LastPosted
 	RETURN
+END
+GO
+
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_getribbonsetting]
+(
+	@RibbonURL nvarchar(250),
+	@Flags int,
+	@OnlyRibbon bit
+)
+RETURNS bit
+AS
+BEGIN
+
+	if ((@RibbonURL is null) or ((@Flags & 2) = 0)) set @OnlyRibbon = 0
+
+	return @OnlyRibbon
+
 END
 GO

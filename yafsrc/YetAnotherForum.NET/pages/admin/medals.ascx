@@ -3,21 +3,23 @@
 <YAF:AdminMenu runat="server">
 	<table class="content" width="100%" cellspacing="1" cellpadding="0">
 		<tr>
-			<td class="header1" colspan="5">
+			<td class="header1" colspan="6">
 				Medals</td>
 		</tr>
 		<asp:Repeater ID="MedalList" OnItemCommand="MedalList_ItemCommand" runat="server">
 			<HeaderTemplate>
 				<tr>
-					<td class="header2">
+					<td class="header2" style="width: 20px;">
 						Order</td>
+					<td class="header2" style="width: 50px;">
+						Image</td>
 					<td class="header2">
 						Name</td>
 					<td class="header2">
 						Category</td>
 					<td class="header2">
-						Image</td>
-					<td class="header2">
+						Description</td>
+					<td class="header2" style="width: 125px;">
 						Command</td>
 				</tr>
 			</HeaderTemplate>
@@ -25,14 +27,18 @@
 				<tr>
 					<td class="post">
 						<%# Eval( "SortOrder") %>
-						<td class="post">
-							<%# Eval( "Name") %>
-						</td>
+					</td>
+					<td class="post">
+						<%# RenderImages(Container.DataItem) %>
+					</td>
+					<td class="post">
+						<%# Eval( "Name") %>
+					</td>
 					<td class="post">
 						<%# Eval( "Category") %>
 					</td>
 					<td class="post">
-						<%# RenderImages(Container.DataItem) %>
+						<%# ((string)Eval( "Description")).Substring(0, Math.Min(Eval( "Description").ToString().Length, 100)) + "..." %>
 					</td>
 					<td class="post">
 						<asp:LinkButton ID="EditMedal" runat="server" CommandName="edit" CommandArgument='<%# Eval("MedalID") %>'>Edit</asp:LinkButton>
