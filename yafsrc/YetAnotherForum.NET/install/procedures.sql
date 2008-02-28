@@ -5811,10 +5811,10 @@ as begin
 		a.[SmallMedalHeight],
 		isnull(a.[SmallRibbonWidth], a.[SmallMedalWidth]) as [SmallRibbonWidth],
 		isnull(a.[SmallRibbonHeight], a.[SmallMedalHeight]) as [SmallRibbonHeight],
-		b.[SortOrder],
-		a.[Flags],
-		b.[Hide],
+		[{databaseOwner}].[{objectQualifier}medal_getsortorder](b.[SortOrder],a.[SortOrder],a.[Flags]) as [SortOrder],
+		[{databaseOwner}].[{objectQualifier}medal_gethide](b.[Hide],a.[Flags]) as [Hide],
 		[{databaseOwner}].[{objectQualifier}medal_getribbonsetting](a.[SmallRibbonURL],a.[Flags],b.[OnlyRibbon]) as [OnlyRibbon],
+		a.[Flags],
 		b.[DateAwarded]
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a
@@ -5836,10 +5836,10 @@ as begin
 		a.[SmallMedalHeight],
 		isnull(a.[SmallRibbonWidth], a.[SmallMedalWidth]) as [SmallRibbonWidth],
 		isnull(a.[SmallRibbonHeight], a.[SmallMedalHeight]) as [SmallRibbonHeight],
-		b.[SortOrder],
-		a.[Flags],
-		b.[Hide],
+		[{databaseOwner}].[{objectQualifier}medal_getsortorder](b.[SortOrder],a.[SortOrder],a.[Flags]) as [SortOrder],
+		[{databaseOwner}].[{objectQualifier}medal_gethide](b.[Hide],a.[Flags]) as [Hide],
 		[{databaseOwner}].[{objectQualifier}medal_getribbonsetting](a.[SmallRibbonURL],a.[Flags],b.[OnlyRibbon]) as [OnlyRibbon],
+		a.[Flags],
 		NULL as [DateAwarded]
 	from
 		[{databaseOwner}].[{objectQualifier}Medal] a

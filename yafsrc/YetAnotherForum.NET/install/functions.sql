@@ -34,6 +34,16 @@ DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_getribbonsetting]
 
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_getsortorder]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_getsortorder]
+
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}medal_gethide]') AND xtype in (N'FN', N'IF', N'TF'))
+DROP FUNCTION [{databaseOwner}].[{objectQualifier}medal_gethide]
+
+GO
+
 create function [{databaseOwner}].[{objectQualifier}bitset](@Flags int,@Mask int) returns bit as
 
 begin
@@ -325,6 +335,39 @@ BEGIN
 	if ((@RibbonURL is null) or ((@Flags & 2) = 0)) set @OnlyRibbon = 0
 
 	return @OnlyRibbon
+
+END
+GO
+
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_getsortorder]
+(
+	@SortOrder tinyint,
+	@DefaultSortOrder tinyint,
+	@Flags int
+)
+RETURNS tinyint
+AS
+BEGIN
+
+	if ((@Flags & 8) = 0) set @SortOrder = @DefaultSortOrder
+
+	return @SortOrder
+
+END
+GO
+
+CREATE FUNCTION [{databaseOwner}].[{objectQualifier}medal_gethide]
+(
+	@Hide bit,
+	@Flags int
+)
+RETURNS bit
+AS
+BEGIN
+
+	if ((@Flags & 4) = 0) set @Hide = 0
+
+	return @Hide
 
 END
 GO

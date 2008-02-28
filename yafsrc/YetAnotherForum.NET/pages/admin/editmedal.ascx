@@ -4,7 +4,7 @@
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr>
 			<td class="header1" colspan="4">
-				Edit Medal</td>
+				Add/Edit Medal</td>
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
@@ -13,7 +13,7 @@
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px" ID="Name" runat="server" MaxLength="100" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Name" Display="Dynamic"
-					Text="Required" />
+					ValidationGroup="Medal" Text="Required" />
 			</td>
 		</tr>
 		<tr>
@@ -24,7 +24,7 @@
 				<asp:TextBox Style="width: 300px; height: 100px;" ID="Description" TextMode="MultiLine"
 					runat="server" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Description" Display="Dynamic"
-					Text="Required" />
+					ValidationGroup="Medal" Text="Required" />
 			</td>
 		</tr>
 		<tr>
@@ -34,7 +34,7 @@
 			<td class="post" colspan="2">
 				<asp:TextBox Style="width: 300px" ID="Message" runat="server" MaxLength="100" />
 				<asp:RequiredFieldValidator runat="server" ControlToValidate="Message" Display="Dynamic"
-					Text="Required" />
+					ValidationGroup="Medal" Text="Required" />
 			</td>
 		</tr>
 		<tr>
@@ -73,7 +73,7 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Small Ribbon Image:</b><br />
+				<b>Small Ribbon Bar Image:</b><br />
 				This image will be shown in user box (optional).</td>
 			<td class="post" colspan="2">
 				<asp:DropDownList ID="SmallRibbonImage" runat="server" />
@@ -96,8 +96,8 @@
 		</tr>
 		<tr>
 			<td class="postheader" colspan="2">
-				<b>Allow Ribbon:</b><br />
-				Means that ribbon display of this medal will be allowed/disallowed.</td>
+				<b>Allow Ribbon Bar:</b><br />
+				Means that ribbon bar display of this medal will be allowed/disallowed.</td>
 			<td class="post" colspan="2">
 				<asp:CheckBox ID="AllowRibbon" runat="server" Checked="true" /></td>
 		</tr>
@@ -117,7 +117,7 @@
 		</tr>
 		<tr>
 			<td class="postfooter" align="center" colspan="11">
-				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />&nbsp;
+				<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" ValidationGroup="Medal" />&nbsp;
 				<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" /></td>
 		</tr>
 		<asp:Repeater ID="GroupList" runat="server" OnItemCommand="GroupList_ItemCommand">
@@ -146,7 +146,8 @@
 					<td class="post">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("GroupID") %>'>Edit</asp:LinkButton>
 						|
-						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("GroupID") %>' OnLoad="GroupRemove_Load">Remove</asp:LinkButton>
+						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("GroupID") %>'
+							OnLoad="GroupRemove_Load">Remove</asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -159,7 +160,8 @@
 		<asp:Panel runat="server" ID="AddGroupPanel" Visible="false">
 			<tr>
 				<td class="footer2" colspan="4" style="text-align: center;">
-					<b><asp:Label runat="server" ID="GroupMedalEditTitle" /></b>
+					<b>
+						<asp:Label runat="server" ID="GroupMedalEditTitle" /></b>
 				</td>
 			</tr>
 			<tr>
@@ -171,28 +173,36 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Message:</td>
+					Message:<br />
+					Overrides default if specified (Optional)
+				</td>
 				<td class="post" colspan="2">
 					<asp:TextBox Style="width: 300px" ID="GroupMessage" runat="server" MaxLength="100" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Sort Order:</td>
+					Sort Order:<br />
+					Overrides default if specified (Optional)
+				</td>
 				<td class="post" colspan="2">
 					<asp:TextBox Style="width: 75px" ID="GroupSortOrder" runat="server" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Show Only Ribbon:</td>
+					Show Only Ribbon Bar:<br />
+					If checked, only ribbon bar is displayed in user box.
+				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="GroupOnlyRibbon" Checked="false" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Hide:</td>
+					Hide:<br />
+					If checked, medal is not displayed in user box.
+				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="GroupHide" Checked="false" />
 				</td>
@@ -235,7 +245,8 @@
 					<td class="post">
 						<asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval("UserID") %>'>Edit</asp:LinkButton>
 						|
-						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("UserID") %>' OnLoad="UserRemove_Load">Remove</asp:LinkButton>
+						<asp:LinkButton runat="server" CommandName="remove" CommandArgument='<%# Eval("UserID") %>'
+							OnLoad="UserRemove_Load">Remove</asp:LinkButton>
 					</td>
 				</tr>
 			</ItemTemplate>
@@ -248,7 +259,8 @@
 		<asp:Panel runat="server" ID="AddUserPanel" Visible="false">
 			<tr>
 				<td class="footer2" colspan="4" style="text-align: center;">
-					<b><asp:Label runat="server" ID="UserMedalEditTitle" /></b>
+					<b>
+						<asp:Label runat="server" ID="UserMedalEditTitle" /></b>
 				</td>
 			</tr>
 			<tr>
@@ -264,28 +276,36 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Message:</td>
+					Message:<br />
+					Overrides default if specified (Optional)
+				</td>
 				<td class="post" colspan="2">
 					<asp:TextBox Style="width: 300px" ID="UserMessage" runat="server" MaxLength="100" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Sort Order:</td>
+					Sort Order:<br />
+					Overrides default if specified (Optional)
+				</td>
 				<td class="post" colspan="2">
 					<asp:TextBox Style="width: 75px" ID="UserSortOrder" runat="server" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Show Only Ribbon:</td>
+					Show Only Ribbon Bar:<br />
+					If checked, only ribbon bar is displayed in user box.
+				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="UserOnlyRibbon" Checked="false" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Hide:</td>
+					Hide:<br />
+					If checked, medal is not displayed in user box.
+				</td>
 				<td class="post" colspan="2">
 					<asp:CheckBox runat="server" ID="UserHide" Checked="false" />
 				</td>
