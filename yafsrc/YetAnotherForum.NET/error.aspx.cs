@@ -40,7 +40,7 @@ namespace YAF
 			//YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.error,Request.QueryString.ToString());
       if ( !IsPostBack )
       {
-        string errorMessage = @"There has been a serious error loading the forum. No futher information is available.";
+        string errorMessage = @"There has been a serious error loading the forum. No further information is available.";
 
         // show error message if one was provided...
         if ( Session[ "StartupException" ] != null )
