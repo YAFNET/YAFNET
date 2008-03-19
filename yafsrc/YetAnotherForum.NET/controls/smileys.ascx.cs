@@ -97,8 +97,11 @@ namespace YAF.Controls
 					{
 						string strCode = Convert.ToString(row["Code"]).ToLower();
 						strCode = strCode.Replace("&", "&amp;");
-						strCode = strCode.Replace("\"", "&quot;");
-						strCode = strCode.Replace("'", "\\'");
+						strCode = strCode.Replace( ">", "&gt;" );
+						strCode = strCode.Replace( "<", "&lt;" );	
+						strCode = strCode.Replace( "\"", "&quot;" );
+						strCode = strCode.Replace( "\\", "\\\\" );
+						strCode = strCode.Replace( "'", "\\'" );
 						evt = String.Format("javascript:{0}('{1} ','{3}images/emoticons/{2}')", _onclick, strCode, row["Icon"], YafForumInfo.ForumRoot);
 					}
 					else

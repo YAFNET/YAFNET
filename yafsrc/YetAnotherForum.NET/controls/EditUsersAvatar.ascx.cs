@@ -162,44 +162,52 @@ namespace YAF.Controls
 
 				System.IO.Stream resized = null;
 
-				using ( System.Drawing.Image img = System.Drawing.Image.FromStream( File.PostedFile.InputStream ) )
+				try
 				{
-					if ( img.Width > x || img.Height > y )
+					using ( System.Drawing.Image img = System.Drawing.Image.FromStream( File.PostedFile.InputStream ) )
 					{
-						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_TOOBIG" ), x, y ) );
-						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_SIZE" ), img.Width, img.Height ) );
-						PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_RESIZED" ) );
+						if ( img.Width > x || img.Height > y )
+						{
+							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_TOOBIG" ), x, y ) );
+							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_SIZE" ), img.Width, img.Height ) );
+							PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_RESIZED" ) );
 
-						double newWidth = img.Width;
-						double newHeight = img.Height;
-						if ( newWidth > x )
-						{
-							newHeight = newHeight * x / newWidth;
-							newWidth = x;
+							double newWidth = img.Width;
+							double newHeight = img.Height;
+							if ( newWidth > x )
+							{
+								newHeight = newHeight * x / newWidth;
+								newWidth = x;
+							}
+							if ( newHeight > y )
+							{
+								newWidth = newWidth * y / newHeight;
+								newHeight = y;
+							}
+
+							using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( ( int )newWidth, ( int )newHeight ) ) )
+							{
+								resized = new System.IO.MemoryStream();
+								bitmap.Save( resized, System.Drawing.Imaging.ImageFormat.Jpeg );
+							}
 						}
-						if ( newHeight > y )
+						if ( nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null )
 						{
-							newWidth = newWidth * y / newHeight;
-							newHeight = y;
+							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_BIGFILE" ), nAvatarSize ) );
+							PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
+							return;
 						}
 
-						using ( System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap( img, new System.Drawing.Size( ( int ) newWidth, ( int ) newHeight ) ) )
-						{
-							resized = new System.IO.MemoryStream();
-							bitmap.Save( resized, System.Drawing.Imaging.ImageFormat.Jpeg );
-						}
+						if ( resized == null )
+							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream );
+						else
+							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized );
 					}
-					if ( nAvatarSize > 0 && File.PostedFile.ContentLength >= nAvatarSize && resized == null )
-					{
-						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_BIGFILE" ), nAvatarSize ) );
-						PageContext.AddLoadMessage( String.Format( PageContext.Localization.GetText( "CP_EDITAVATAR", "WARN_FILESIZE" ), File.PostedFile.ContentLength ) );
-						return;
-					}
-
-					if ( resized == null )
-						YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream );
-					else
-						YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized );
+				}
+				catch
+				{
+					// image is probably invalid...
+					PageContext.AddLoadMessage( PageContext.Localization.GetText( "CP_EDITAVATAR", "INVALID_FILE" ) );
 				}
 
 				BindData();

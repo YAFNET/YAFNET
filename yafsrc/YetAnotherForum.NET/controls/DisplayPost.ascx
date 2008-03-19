@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="DisplayPost.ascx.cs" Inherits="YAF.Controls.DisplayPost"
-    EnableViewState="false" TargetSchema="http://schemas.microsoft.com/intellisense/ie5" %>
+    EnableViewState="false" %>
 <tr class="postheader">
     <%#GetIndentCell()%>
     <td width="140" id="NameCell" runat="server">
