@@ -332,7 +332,7 @@ namespace YAF.Pages // YAF.Pages
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;
 
-            using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
+      using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
 			{
 				bool ShowAds = true;
 				if ( User != null )
@@ -486,7 +486,7 @@ namespace YAF.Pages // YAF.Pages
 				YafBuildLink.AccessDenied(/*"You don't have access to delete topics."*/);
 
 			// Take away 150 points once!
-			YAF.Classes.Data.DB.user_removepointsByTopicID( PageContext.PageTopicID, 150 );
+			YAF.Classes.Data.DB.user_removepointsByTopicID( PageContext.PageTopicID, 10 );
 			YAF.Classes.Data.DB.topic_delete( PageContext.PageTopicID );
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", PageContext.PageForumID );
 		}
@@ -811,6 +811,7 @@ namespace YAF.Pages // YAF.Pages
 			html.AppendFormat( GetIndentImage( row ["Indent"] ) );
 			html.AppendFormat( "\n<a href='{0}'>{2} ({1}", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["MessageID"] ), row ["UserName"], brief );
 			html.AppendFormat( " - {0})</a>", YafDateTime.FormatDateTimeShort( row ["Posted"] ) );
+			html.AppendFormat( "</td></tr>" );
 
 			return html.ToString();
 		}

@@ -2122,8 +2122,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats](@ForumID int) as
 begin
 	update [{databaseOwner}].[{objectQualifier}Forum] set 
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = [{databaseOwner}].[{objectQualifier}Forum].ForumID and (x.Flags & 24)=16),
-		NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and (y.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = [{databaseOwner}].[{objectQualifier}Forum].ForumID and x.IsApproved = 1 and x.IsDeleted = 0 ),
+		NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and y.IsApproved = 1 and y.IsDeleted = 0)
 	where ForumID=@ForumID
 end
 GO
@@ -2392,7 +2392,7 @@ create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID
 		LastMessageID = @MessageID,
 		LastUserID = @UserID,
 		LastUserName = @UserName,
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @TopicID
 	
 	-- update forum stats
@@ -2455,7 +2455,7 @@ begin
 
 	-- update topic numposts
 	update [{databaseOwner}].[{objectQualifier}Topic] set
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @TopicID
 end
 GO
@@ -2799,7 +2799,7 @@ begin
 	where NntpForumID = @NntpForumID
 
 	update [{databaseOwner}].[{objectQualifier}Topic] set 
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where ForumID=@ForumID
 
 	--exec [{databaseOwner}].[{objectQualifier}user_upgrade] @UserID
@@ -3673,7 +3673,7 @@ begin
 		x.ReadAccess <> 0 and
 		e.BoardID = @BoardID and
 		(@CategoryID is null or e.CategoryID=@CategoryID) and
-		(c.Flags & 8)=0
+		c.IsDeleted = 0
 	order by
 		d.Name asc,
 		Priority desc,
@@ -5061,7 +5061,7 @@ begin
 	exec [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
 	-- update topic numposts
 	update [{databaseOwner}].[{objectQualifier}Topic] set
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0 )
 	where TopicID = @TopicID
 end
 GO
@@ -5175,10 +5175,10 @@ WHERE  MessageID = @MessageID
 
 	-- update topic numposts
 	update [{databaseOwner}].[{objectQualifier}Topic] set
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @OldTopicID
 	update [{databaseOwner}].[{objectQualifier}Topic] set
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and (x.Flags & 24)=16)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=[{databaseOwner}].[{objectQualifier}Topic].TopicID and x.IsApproved = 1 and x.IsDeleted = 0)
 	where TopicID = @MoveToTopic
 
 	exec [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @NewForumID

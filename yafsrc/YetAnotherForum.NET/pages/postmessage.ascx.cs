@@ -441,7 +441,10 @@ namespace YAF.Pages
 			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
 
 			// update poll
-			DB.topic_poll_update(null, Request.QueryString["m"], GetPollID());
+			if ( RemovePoll.CommandArgument != null && RemovePoll.CommandArgument != "" )
+			{
+				DB.topic_poll_update( null, Request.QueryString ["m"], GetPollID() );
+			}
 
 			nMessageID = long.Parse(EditTopicID);
 

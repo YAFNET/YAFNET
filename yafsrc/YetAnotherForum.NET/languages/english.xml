@@ -501,6 +501,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="WARN_RESIZED">The image was resized to fit.</Resource>
 		<Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
 		<Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
+    <Resource tag="INVALID_FILE">The file uploaded is not a proper image file.</Resource>
 	</page>
 	<page name="CP_EDITPROFILE">
 		<!-- cp_editprofile.aspx -->
