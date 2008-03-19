@@ -30,9 +30,7 @@
 						<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
 							UserName='<%# Eval("Name").ToString() %>' />
 					</ItemTemplate>
-					<SeparatorTemplate>
-						,
-					</SeparatorTemplate>
+					<SeparatorTemplate>, </SeparatorTemplate>
 				</asp:Repeater>
 			</td>
 		</tr>
