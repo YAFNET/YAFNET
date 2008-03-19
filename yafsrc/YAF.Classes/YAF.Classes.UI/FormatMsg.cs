@@ -184,9 +184,9 @@ namespace YAF.Classes.UI
 			foreach ( DataRow row in dtSmileys.Rows )
 			{
 				string code = row ["Code"].ToString();
-				code = code.Replace( ">", "&gt;" );
-				code = code.Replace( "<", "&lt;" );
 				code = code.Replace( "&", "&amp;" );
+				code = code.Replace( ">", "&gt;" );
+				code = code.Replace( "<", "&lt;" );				
 				code = code.Replace( "\"", "&quot;" );
 
 				// add new rules for smilies...

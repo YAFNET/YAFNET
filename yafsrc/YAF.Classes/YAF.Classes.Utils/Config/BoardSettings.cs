@@ -141,7 +141,7 @@ namespace YAF.Classes.Utils
 		}
 		public int ShowTopicsDefault
 		{
-			get { return _regBoard.GetValueInt( "ShowTopicsDefault", 5 ); }
+			get { return _regBoard.GetValueInt( "ShowTopicsDefault", 0 ); }
 			set { _regBoard.SetValueInt( "ShowTopicsDefault", value ); }
 		}
 		public bool FileExtensionAreAllowed
