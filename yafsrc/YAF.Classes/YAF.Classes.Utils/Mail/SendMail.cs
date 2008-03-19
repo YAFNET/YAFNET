@@ -69,7 +69,7 @@ namespace YAF.Classes.Utils
 				emailMessage.From = fromAddress;
 				emailMessage.Subject = subject;
 
-				Encoding textEncoding = Encoding.Default;
+				Encoding textEncoding = Encoding.UTF8;
 
 				if ( !Regex.IsMatch( bodyText, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) ||
 						!Regex.IsMatch( subject, @"^([0-9a-z!@#\$\%\^&\*\(\)\-=_\+])", RegexOptions.IgnoreCase ) )

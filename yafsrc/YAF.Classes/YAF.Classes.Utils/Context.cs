@@ -116,9 +116,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				Page currentPage = HttpContext.Current.Handler as Page;
-
-				if ( currentPage == null )
+				if ( HttpContext.Current == null )
 				{
 					// only really used for the send mail thread.
 					// since it's not inside a page. An instance is
@@ -127,7 +125,7 @@ namespace YAF.Classes.Utils
 				}
 
 				// save the yafContext in the currentpage items or just retreive from the page context
-				return ( currentPage.Items ["YafContextPage"] ?? ( currentPage.Items ["YafContextPage"] = new YafContext() ) ) as YafContext;
+				return ( HttpContext.Current.Session ["YafContextPage"] ?? ( HttpContext.Current.Session ["YafContextPage"] = new YafContext() ) ) as YafContext;
 			}
 		}
 
