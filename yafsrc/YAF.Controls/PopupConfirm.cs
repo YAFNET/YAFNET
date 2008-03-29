@@ -108,12 +108,6 @@ namespace YAF.Controls
 			this.Controls.Add( ConfirmExtender );
 		}
 
-		protected override void Render( HtmlTextWriter writer )
-		{
-			base.Render( writer );
-			writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\n$find('{0}').show();\n{2}\n</script>\n", this.BehaviorID,'{','}' ) );
-		}
-
 		void okButton_Click( object sender, EventArgs e )
 		{
 			if ( Confirm != null ) Confirm( this, e );
