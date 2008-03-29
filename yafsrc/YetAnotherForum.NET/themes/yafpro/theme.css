@@ -455,3 +455,27 @@ This CSS already works on FireFox.
 .yafnet .ajax__scroll_vert {overflow-y:scroll;}
 .yafnet .ajax__scroll_both {overflow:scroll}
 .yafnet .ajax__scroll_auto {overflow:auto}
+
+/*Modal Popup*/
+.modalBackground {
+background-color:#000;
+filter:alpha(opacity=80);
+opacity:0.8;
+}
+
+.modalPopup img {
+border:solid 5px #fff;
+}
+
+.modalPopup-text {
+display:block;
+color:#000;
+background-color:#fff;
+text-align:center;
+border:solid 2px #000;
+padding:10px;
+}
+
+.modalPopup-text input {
+width:75px;
+}
