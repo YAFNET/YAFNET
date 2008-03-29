@@ -9,7 +9,7 @@
 <asp:UpdatePanel runat="server" ID="PMUpdatePanel">
     <ContentTemplate>
         <YAF:AdminMenu runat="server" ID="Adminmenu1">
-            <ajaxToolkit:TabContainer runat="server" ID="PMTabs" AutoPostBack="true">
+            <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
                 <ajaxToolkit:TabPanel runat="server" ID="SettingsTab">
                     <ContentTemplate>
                         <table class="content" cellspacing="1" width="100%" cellpadding="0" align="center">
