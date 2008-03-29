@@ -62,22 +62,8 @@ namespace YAF.Controls
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			if ( !SimpleRender ) RenderRegular( ref writer );
-			else RenderSimple( ref writer );
 
 			base.Render( writer );			
-		}
-
-		protected void WriteOnLoadString( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			if ( PageContext.LoadString.Length > 0 )
-			{
-				writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadString, '{', '}' ) );
-			}
-		}
-
-		protected void RenderSimple( ref System.Web.UI.HtmlTextWriter writer )
-		{
-			WriteOnLoadString( ref writer );
 		}
 
 		protected void RenderRegular( ref System.Web.UI.HtmlTextWriter writer )
@@ -142,9 +128,7 @@ namespace YAF.Controls
 #endif
 
 			// write CSS, Refresh, then header...
-			writer.Write( footer );
-
-			WriteOnLoadString( ref writer );
+			writer.Write( footer );			
 		}
 	}
 }

@@ -26,12 +26,6 @@ namespace YAF.Controls
 {
 	public class ThemeButton : BaseControl, IPostBackEventHandler
 	{
-		protected string _cssClass = "yafcssbutton";
-		protected string _text;
-		protected string _navigateUrl;
-		protected string _titlePage = "BUTTON"; // defaults to the BUTTON section
-		protected string _titleTag = string.Empty;
-		protected string _titleNotLocalized = string.Empty;
 		protected AttributeCollection _attributeCollection;
 		protected static object _clickEvent = new object();
 		protected static object _commandEvent = new object();
@@ -72,12 +66,12 @@ namespace YAF.Controls
 
 			output.BeginRender();
 			output.WriteBeginTag( "a" );
-			if ( !String.IsNullOrEmpty( _cssClass ) ) output.WriteAttribute( "class", _cssClass );
+			if ( !String.IsNullOrEmpty( CssClass ) ) output.WriteAttribute( "class", CssClass );
 			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
-			else if ( !String.IsNullOrEmpty( _titleNotLocalized ) ) output.WriteAttribute( "title", _titleNotLocalized );
-			if ( !String.IsNullOrEmpty( _navigateUrl ) )
+			else if ( !String.IsNullOrEmpty( TitleNonLocalized ) ) output.WriteAttribute( "title", TitleNonLocalized );
+			if ( !String.IsNullOrEmpty( NavigateUrl ) )
 			{
-				output.WriteAttribute( "href", _navigateUrl.Replace( "&", "&amp;" ));
+				output.WriteAttribute( "href", NavigateUrl.Replace( "&", "&amp;" ) );
 			}
 			else
 			{
@@ -122,13 +116,13 @@ namespace YAF.Controls
 
 		protected string GetLocalizedTitle()
 		{
-			if ( !String.IsNullOrEmpty( _titlePage ) && !String.IsNullOrEmpty( _titleTag ) )
+			if ( !String.IsNullOrEmpty( TitleLocalizedPage ) && !String.IsNullOrEmpty( TitleLocalizedTag ) )
 			{
-				return PageContext.Localization.GetText( _titlePage, _titleTag );
+				return PageContext.Localization.GetText( TitleLocalizedPage, TitleLocalizedTag );
 			}
-			else if ( !String.IsNullOrEmpty( _titleTag ) )
+			else if ( !String.IsNullOrEmpty( TitleLocalizedTag ) )
 			{
-				return PageContext.Localization.GetText( _titleTag );
+				return PageContext.Localization.GetText( TitleLocalizedTag );
 			}
 
 			return null;
@@ -209,8 +203,8 @@ namespace YAF.Controls
 		/// </summary>
 		public string CssClass
 		{
-			get { return _cssClass; }
-			set { _cssClass = value; }
+			get { return ( ViewState ["CssClass"] != null ) ? ViewState ["CssClass"] as string : "yafcssbutton"; }
+			set { ViewState ["CssClass"] = value; }
 		}
 
 		/// <summary>
@@ -218,8 +212,8 @@ namespace YAF.Controls
 		/// </summary>
 		public string NavigateUrl
 		{
-			get { return _navigateUrl; }
-			set { _navigateUrl = value; }
+			get { return ( ViewState ["NavigateUrl"] != null ) ? ViewState ["NavigateUrl"] as string : string.Empty; }
+			set { ViewState ["NavigateUrl"] = value; }
 		}
 
 		/// <summary>
@@ -227,8 +221,8 @@ namespace YAF.Controls
 		/// </summary>
 		public string TitleLocalizedPage
 		{
-			get { return _titlePage; }
-			set { _titlePage = value; }
+			get { return ( ViewState ["TitleLocalizedPage"] != null ) ? ViewState ["TitleLocalizedPage"] as string : "BUTTON"; }
+			set { ViewState ["TitleLocalizedPage"] = value; }
 		}
 
 		/// <summary>
@@ -236,8 +230,8 @@ namespace YAF.Controls
 		/// </summary>
 		public string TitleLocalizedTag
 		{
-			get { return _titleTag; }
-			set { _titleTag = value; }
+			get { return ( ViewState ["TitleLocalizedTag"] != null ) ? ViewState ["TitleLocalizedTag"] as string : string.Empty; }
+			set { ViewState ["TitleLocalizedTag"] = value; }
 		}
 
 		/// <summary>
@@ -245,8 +239,8 @@ namespace YAF.Controls
 		/// </summary>
 		public string TitleNonLocalized
 		{
-			get { return _titleNotLocalized; }
-			set { _titleNotLocalized = value; }
+			get { return ( ViewState ["TitleNonLocalized"] != null ) ? ViewState ["TitleNonLocalized"] as string : string.Empty; }
+			set { ViewState ["TitleNonLocalized"] = value; }
 		}
 
 		public AttributeCollection Attributes
