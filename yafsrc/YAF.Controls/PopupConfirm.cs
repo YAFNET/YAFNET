@@ -28,9 +28,9 @@ namespace YAF.Controls
 {
 	public class PopupConfirm : System.Web.UI.Control
 	{
-		protected string _confirmText;
 		protected string _behaviorID;
 		protected ModalPopupExtender _popupControlExtender = new ModalPopupExtender();
+		protected Label _textLabel = new Label();
 
 		public PopupConfirm()
 			: base()
@@ -61,14 +61,14 @@ namespace YAF.Controls
 		protected void BuildPopup()
 		{
 			Panel popupPanel = new Panel();
-			popupPanel.ID = "PopUpPanel";
+			popupPanel.ID = System.Guid.NewGuid().ToString();
 
 			System.Web.UI.WebControls.Button okButton = new Button();
-			okButton.ID = "PopUpOKBtn";
+			okButton.ID = System.Guid.NewGuid().ToString();
 			okButton.Text = "Ok";
 
 			System.Web.UI.WebControls.Button cancelButton = new Button();
-			cancelButton.ID = "PopUpCancelBtn";
+			cancelButton.ID = System.Guid.NewGuid().ToString();
 			cancelButton.Text = "Cancel";
 
 			okButton.Click += new EventHandler( okButton_Click );
@@ -77,18 +77,18 @@ namespace YAF.Controls
 			HtmlGenericControl span = new HtmlGenericControl( "span" );
 			span.Attributes.Add( "style", "display:none" );
 			HtmlInputButton hiddenButton = new HtmlInputButton();
-			hiddenButton.ID = "coolio1";
+			hiddenButton.ID = System.Guid.NewGuid().ToString();
 			span.Controls.Add( hiddenButton );
 			popupPanel.Controls.Add( span );
 
 			System.Web.UI.HtmlControls.HtmlGenericControl div = new HtmlGenericControl( "div" );
+			div.Attributes.Add( "style", "background-color:#ffffff;border:solid 1px #ee0000" );
 			div.Attributes.Add( "class", "inner" );
-			System.Web.UI.HtmlControls.HtmlGenericControl header = new HtmlGenericControl( "h2" );
-			header.InnerText = this.Text;
+			div.Controls.Add( _textLabel );
+
 			System.Web.UI.HtmlControls.HtmlGenericControl basediv = new HtmlGenericControl( "div" );
-			div.Attributes.Add( "class", "base" );
-			div.Controls.Add( header );
-			popupPanel.Controls.Add( div );
+			basediv.Attributes.Add( "class", "base" );
+			basediv.Controls.Add( div );
 			popupPanel.Controls.Add( basediv );
 
 			basediv.Controls.Add( okButton );
@@ -122,8 +122,8 @@ namespace YAF.Controls
 
 		public string Text
 		{
-			get { return _confirmText; }
-			set { _confirmText = value; }
+			get { return _textLabel.Text; }
+			set { _textLabel.Text = value; }
 		}
 
 		public string BehaviorID
