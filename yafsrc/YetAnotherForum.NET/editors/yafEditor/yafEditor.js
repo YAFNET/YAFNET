@@ -36,7 +36,7 @@ yafEditor.prototype.FormatText = function(command, option) {
 			var url = prompt('Enter URL:','http://');
 			if (url != '' && url != null)
 			{
-				if (getSelection(textObj))
+				if (getCurrentSelection(textObj))
 				{
 					wrapSelection(textObj,'[url='+url+']','[/url]');
 				}
@@ -193,7 +193,7 @@ function wrapSelection (input, preString, postString) {
 	}
 }
 
-function getSelection(input) {
+function getCurrentSelection(input) {
 	if(input.setSelectionRange) {
 		return input.selectionStart != input.selectionEnd;
 	} else if(document.selection) {
