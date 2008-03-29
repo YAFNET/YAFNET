@@ -29,7 +29,7 @@ namespace YAF.Controls
 	public class PopupConfirm : System.Web.UI.Control
 	{
 		protected string _confirmText;
-		protected string _targetID;
+		protected string _behaviorID;
 		protected ModalPopupExtender _popupControlExtender = new ModalPopupExtender();
 
 		public PopupConfirm()
@@ -74,6 +74,13 @@ namespace YAF.Controls
 			okButton.Click += new EventHandler( okButton_Click );
 			cancelButton.Click += new EventHandler( cancelButton_Click );
 
+			HtmlGenericControl span = new HtmlGenericControl( "span" );
+			span.Attributes.Add( "style", "display:none" );
+			HtmlInputButton hiddenButton = new HtmlInputButton();
+			hiddenButton.ID = "coolio1";
+			span.Controls.Add( hiddenButton );
+			popupPanel.Controls.Add( span );
+
 			System.Web.UI.HtmlControls.HtmlGenericControl div = new HtmlGenericControl( "div" );
 			div.Attributes.Add( "class", "inner" );
 			System.Web.UI.HtmlControls.HtmlGenericControl header = new HtmlGenericControl( "h2" );
@@ -92,10 +99,19 @@ namespace YAF.Controls
 
 			this.Controls.Add( popupPanel );
 
-			ConfirmExtender.TargetControlID = this.TargetID;
+			ConfirmExtender.TargetControlID = hiddenButton.ID;
 			ConfirmExtender.PopupControlID = popupPanel.ID;
+			ConfirmExtender.CancelControlID = cancelButton.ID;
+			ConfirmExtender.BehaviorID = _behaviorID;
+			ConfirmExtender.BackgroundCssClass = "modalBackground";
 
 			this.Controls.Add( ConfirmExtender );
+		}
+
+		protected override void Render( HtmlTextWriter writer )
+		{
+			base.Render( writer );
+			writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\n$find('{0}').show();\n{2}\n</script>\n", this.BehaviorID,'{','}' ) );
 		}
 
 		void okButton_Click( object sender, EventArgs e )
@@ -116,10 +132,10 @@ namespace YAF.Controls
 			set { _confirmText = value; }
 		}
 
-		public string TargetID
+		public string BehaviorID
 		{
-			get { return _targetID; }
-			set { _targetID = value; }
+			get { return _behaviorID; }
+			set { _behaviorID = value; }
 		}
 
 		public event EventHandler<EventArgs> Confirm;
