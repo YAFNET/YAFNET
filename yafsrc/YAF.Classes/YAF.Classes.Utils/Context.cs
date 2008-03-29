@@ -94,6 +94,11 @@ namespace YAF.Classes.Utils
 			HttpContext.Current.Session["LoadMessage"] = message + "\\n\\n";
 		}
 
+		public void ClearLoadString()
+		{
+			_loadString = string.Empty;
+		}
+
 		/// <summary>
 		/// Instead of showing error messages in a pop-up javascript window every time
 		/// the page loads (in some cases) provide a error message towards the bottom 
@@ -116,7 +121,9 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( HttpContext.Current == null )
+				Page currentPage = HttpContext.Current.Handler as Page;
+
+				if ( currentPage == null )
 				{
 					// only really used for the send mail thread.
 					// since it's not inside a page. An instance is
@@ -125,7 +132,7 @@ namespace YAF.Classes.Utils
 				}
 
 				// save the yafContext in the currentpage items or just retreive from the page context
-				return ( HttpContext.Current.Session ["YafContextPage"] ?? ( HttpContext.Current.Session ["YafContextPage"] = new YafContext() ) ) as YafContext;
+				return ( currentPage.Items ["YafContextPage"] ?? ( currentPage.Items ["YafContextPage"] = new YafContext() ) ) as YafContext;
 			}
 		}
 

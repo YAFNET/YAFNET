@@ -66,7 +66,10 @@ namespace YAF.Classes.Base
 				// attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
 				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles(BoardID);
 				// start the mail sending thread...
-				YAF.Classes.Utils.SendMailThread _sendMailThread = new YAF.Classes.Utils.SendMailThread(context);
+				if ( _sendMailThread == null )
+				{
+					_sendMailThread = new YAF.Classes.Utils.SendMailThread( context );
+				}
 				// run it for the lifetime of the application... (it checks and sends new e-mail every 10 seconds)
 				_sendMailThread.StartThread();
 			}

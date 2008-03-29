@@ -115,6 +115,7 @@ namespace YAF.Classes.Base
 			_pageCache = new Hashtable();
 
 			_transPage = transPage;
+			this.Init += new EventHandler( ForumPage_Init );
 			this.Load += new System.EventHandler( this.ForumPage_Load );
 			this.Unload += new System.EventHandler( this.ForumPage_Unload );
 			this.Error += new System.EventHandler( this.ForumPage_Error );
@@ -146,15 +147,12 @@ namespace YAF.Classes.Base
 		}
 
 		/// <summary>
-		/// Called when page is loaded
+		/// Called first to initialize the context
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void ForumPage_Load( object sender, System.EventArgs e )
+		void ForumPage_Init( object sender, EventArgs e )
 		{
-			// Ederon : 9/12/2007
-			Security.CheckRequestValidity( Request );
-
 			if ( _noDataBase )
 				return;
 
@@ -186,10 +184,10 @@ namespace YAF.Classes.Base
 			InitLocalization();
 
 			// check if login is required
-			if (PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && IsProtected)
+			if ( PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && IsProtected )
 			{
 				// redirect to login page if login is required
-				YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 			}
 
 			if ( _checkSuspended && PageContext.IsSuspended )
@@ -218,7 +216,16 @@ namespace YAF.Classes.Base
 			{
 				Mession.LastVisit = DateTime.Now;
 			}
+		}
 
+		/// <summary>
+		/// Called when page is loaded
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ForumPage_Load( object sender, System.EventArgs e )
+		{
+			Security.CheckRequestValidity( Request );
 			GeneratePageTitle();
 		}
 
@@ -643,6 +650,16 @@ namespace YAF.Classes.Base
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
+
+			WriteOnLoadString( ref writer );
+		}
+
+		protected void WriteOnLoadString( ref System.Web.UI.HtmlTextWriter writer )
+		{
+			if ( PageContext.LoadString.Length > 0 )
+			{
+				writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadString, '{', '}' ) );
+			}
 		}
 
 		#endregion
