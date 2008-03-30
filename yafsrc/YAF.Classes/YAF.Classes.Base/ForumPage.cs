@@ -682,6 +682,11 @@ namespace YAF.Classes.Base
 					ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotification", String.Format( "var fpModal = function() {1} ShowModalNotification('{0}'); {2}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadStringJavascript, '{', '}' ), true );
 				}
 			}
+			else
+			{
+				// make sure we don't show the popup...
+				ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotificationRemove", "if (typeof(fpModal) != 'undefined') Sys.Application.remove_load(fpModal);\n", true );
+			}
 
 			// old js code...
 			//writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadStringJavascript, '{', '}' ) );
