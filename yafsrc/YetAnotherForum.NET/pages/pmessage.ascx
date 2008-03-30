@@ -2,8 +2,6 @@
 <%@ Register TagPrefix="uc1" TagName="smileys" Src="../controls/smileys.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<asp:UpdatePanel ID="UpdatePMessage" runat="server">
-<ContentTemplate>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="2">
@@ -54,8 +52,6 @@
 		</td>
 	</tr>
 </table>
-</ContentTemplate>
-</asp:UpdatePanel>
 
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
