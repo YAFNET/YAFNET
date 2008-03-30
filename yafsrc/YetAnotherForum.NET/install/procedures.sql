@@ -1311,6 +1311,8 @@ BEGIN
 		Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] a join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID where c.BoardID=@BoardID AND (a.Flags & 8) <> 8),
 		Forums = (select count(1) from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID),
 		Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
+		MaxUsers = (SELECT [Value] FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxusers') and BoardID=@BoardID),
+        MaxUsersWhen = (SELECT [Value] FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE LOWER(Name) = LOWER('maxuserswhen') and BoardID=@BoardID),		
 		LastPostInfo.*,
 		LastMemberInfo.*
 	FROM

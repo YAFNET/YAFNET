@@ -65,8 +65,6 @@ namespace YAF.Controls
 				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
 				);
 
-			MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), PageContext.BoardSettings.MaxUsers, YafDateTime.FormatDateTimeTopic( PageContext.BoardSettings.MaxUsersWhen ) );
-
 			// Forum Statistics
 			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
 			DataRow statisticsDataRow = ( DataRow ) Cache [key];
@@ -74,6 +72,16 @@ namespace YAF.Controls
 			{
 				statisticsDataRow = YAF.Classes.Data.DB.board_poststats( PageContext.PageBoardID );
 				Cache.Insert( key, statisticsDataRow, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ForumStatisticsCacheTimeout ), TimeSpan.Zero );
+			}
+
+			// show max users...
+			if ( !statisticsDataRow.IsNull( "MaxUsers" ) )
+			{
+				MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), statisticsDataRow ["MaxUsers"], YafDateTime.FormatDateTimeTopic( statisticsDataRow ["MaxUsersWhen"] ) );
+			}
+			else
+			{
+				MostUsersCount.Text = String.Format( PageContext.Localization.GetText( "MAX_ONLINE" ), activeStats ["ActiveUsers"], YafDateTime.FormatDateTimeTopic( DateTime.Now ) );
 			}
 
 			// Posts and Topic Count...
