@@ -54,26 +54,44 @@ namespace YAF.Controls
 			writer.WriteEndTag( "a" );
 		}
 
+		/// <summary>
+		/// Creates a Unique ID
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <returns></returns>
+		public string GetUniqueID( string prefix )
+		{
+			if ( !String.IsNullOrEmpty( prefix ) )
+			{
+				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 5 );
+			}
+			else
+			{
+				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
+			}
+		} 
+
 		#region Render Anchor Begin Functions
 		public void RenderAnchorBegin( HtmlTextWriter writer, string href )
 		{
-			this.RenderAnchorBegin( writer, href, null, null, null );
+			this.RenderAnchorBegin( writer, href, null, null );
 		}
 		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass )
 		{
-			this.RenderAnchorBegin( writer, href, cssClass, null, null );
+			this.RenderAnchorBegin( writer, href, cssClass, null, null, null );
 		}
 		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title )
 		{
-			this.RenderAnchorBegin( writer, href, cssClass, title, null );
+			this.RenderAnchorBegin( writer, href, cssClass, title, null, null );
 		}
-		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title, string onclick )
+		public void RenderAnchorBegin( HtmlTextWriter writer, string href, string cssClass, string title, string onclick, string id )
 		{
 			writer.WriteBeginTag( "a" );
 			writer.WriteAttribute( "href", href );
 			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
 			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", title );
 			if ( !String.IsNullOrEmpty( onclick ) ) writer.WriteAttribute( "onclick", onclick );
+			if ( !String.IsNullOrEmpty( id ) ) writer.WriteAttribute( "id", id );
 			writer.Write( HtmlTextWriter.TagRightChar );
 		}
 		#endregion

@@ -175,23 +175,6 @@ namespace YAF.Controls
 			ConfirmExtender.Hide();
 		}
 
-		/// <summary>
-		/// Creates a Unique ID
-		/// </summary>
-		/// <param name="prefix"></param>
-		/// <returns></returns>
-		protected string GetUniqueID( string prefix )
-		{
-			if ( !String.IsNullOrEmpty( prefix ) )
-			{
-				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 4 );
-			}
-			else
-			{
-				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
-			}
-		} 
-
 		#endregion
 
 		#region Events

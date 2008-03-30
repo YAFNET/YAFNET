@@ -58,7 +58,7 @@ namespace YAF.Controls
 
 			if ( PageCount < 2 ) return;
 
-			output.WriteLine( @"<div class=""yafpager"">" );
+			output.WriteLine( String.Format(@"<div class=""yafpager"" id=""{0}"">", this.ClientID ) );
 			output.WriteLine( @"<span class=""pagecount"">{0:N0} Pages</span>", PageCount );
 
 			OutputLinks( output, UsePostBack );
@@ -88,7 +88,7 @@ namespace YAF.Controls
 				output.WriteAttribute( "class", "pagelinkfirst" );
 				output.Write( HtmlTextWriter.TagRightChar );
 
-				this.RenderAnchorBegin( output, GetLinkUrl( 1, postBack ), null, "Go to First Page" );
+				this.RenderAnchorBegin( output, GetLinkUrl( 1, postBack ), null, "Go to First Page", null, GetUniqueID("href") );
 
 				output.Write( "&laquo;" );
 				output.WriteEndTag( "a" );
@@ -101,7 +101,7 @@ namespace YAF.Controls
 				output.WriteAttribute( "class", "pagelink" );
 				output.Write( HtmlTextWriter.SelfClosingTagEnd );
 
-				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex, postBack ), null, "Prev Page" );
+				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex, postBack ), null, "Prev Page", null, GetUniqueID( "href" ) );
 
 				output.Write( "&lt;" );
 				output.WriteEndTag( "a" );
@@ -126,7 +126,7 @@ namespace YAF.Controls
 					output.WriteAttribute( "class", "pagelink" );
 					output.Write( HtmlTextWriter.TagRightChar );
 
-					this.RenderAnchorBegin( output, GetLinkUrl( i + 1, postBack ), null, page );
+					this.RenderAnchorBegin( output, GetLinkUrl( i + 1, postBack ), null, page, null, GetUniqueID( "href" ) );
 
 					output.Write( page );
 					output.WriteEndTag( "a" );
@@ -140,7 +140,7 @@ namespace YAF.Controls
 				output.WriteAttribute( "class", "pagelink" );
 				output.Write( HtmlTextWriter.TagRightChar );
 
-				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex + 2, postBack ), null, "Next Page" );
+				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex + 2, postBack ), null, "Next Page", null, GetUniqueID( "href" ) );
 
 				output.Write( "&gt;");
 				output.WriteEndTag( "a" );
@@ -153,7 +153,7 @@ namespace YAF.Controls
 				output.WriteAttribute( "class", "pagelinklast" );
 				output.Write( HtmlTextWriter.TagRightChar );
 
-				this.RenderAnchorBegin( output, GetLinkUrl( PageCount, postBack ), null, "Go to Last Page" );
+				this.RenderAnchorBegin( output, GetLinkUrl( PageCount, postBack ), null, "Go to Last Page", null, GetUniqueID( "href" ) );
 
 				output.Write( "&raquo;" );
 				output.WriteEndTag( "a" );
