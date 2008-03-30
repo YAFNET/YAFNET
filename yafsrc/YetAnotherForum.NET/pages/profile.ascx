@@ -160,9 +160,11 @@
 				</table>
 			</td>
 		</tr>
-	</asp:PlaceHolder>
+	</asp:PlaceHolder>	
 	<tr class="post">
 		<td colspan="2">
+		    <asp:UpdatePanel ID="Last10UpdatePanel" runat="server">
+		    <ContentTemplate>
 			<table width="100%" cellspacing="1" cellpadding="0">
 				<tr>
 					<td class="header2" colspan="2">
@@ -193,6 +195,8 @@
 					</ItemTemplate>
 				</asp:Repeater>
 			</table>
+			</ContentTemplate>
+			</asp:UpdatePanel>
 		</td>
 	</tr>
 </table>

@@ -196,6 +196,10 @@
 <div id="DivSmartScroller">
 	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
+<asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
+<ContentTemplate>
 <YAF:PopMenu runat="server" ID="MyTestMenu" Control="MyTest" />
 <YAF:PopMenu runat="server" ID="ViewMenu" Control="View" />
 <span id="WatchTopicID" runat="server" visible="false"></span>
+</ContentTemplate>
+</asp:UpdatePanel>
