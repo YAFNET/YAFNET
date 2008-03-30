@@ -457,25 +457,66 @@ This CSS already works on FireFox.
 .yafnet .ajax__scroll_auto {overflow:auto}
 
 /*Modal Popup*/
-.modalBackground {
-background-color:#000;
-filter:alpha(opacity=80);
-opacity:0.8;
+.modalBackground
+{
+	background-color:#000;
+	filter:alpha(opacity=80);
+	opacity:0.8;
 }
 
-.modalPopup img {
-border:solid 5px #fff;
+.modalPopup
+{
+	background-color: #ffffff;
+	border: solid 1px #aaaaaa;
+	width: 400px;
 }
 
-.modalPopup-text {
-display:block;
-color:#000;
-background-color:#fff;
-text-align:center;
-border:solid 2px #000;
-padding:10px;
+.modalPopup .modalBase
+{
+
 }
 
-.modalPopup-text input {
-width:75px;
+.modalPopup .modalHeader
+{
+	background-image: url('titleBack.gif');
+	color: #ffffff;
+	font-weight: bold;
+	padding-left: 10px;
+	font-size: 15px;
+	line-height: 30px;
+}
+
+.modalPopup .modalInner
+{
+	padding: 10px;
+	text-align:center;
+}
+
+.modalPopup .modalInnerMain
+{
+	font-size: 9pt;
+	font-weight: bold;
+	color: #992222;
+	text-align: center;
+}
+
+.modalPopup .modalInnerSub
+{
+	font-size: 8pt;
+	color: #333333;
+	text-align: center;
+}
+
+.modalPopup .modalFooter
+{
+	padding: 5px;
+	background-color: #f4f4f4;	
+	line-height: 20px;
+}
+
+.modalPopup .modalFooter input
+{
+	display:block;
+	vertical-align: middle;
+	margin:0 auto;
 }

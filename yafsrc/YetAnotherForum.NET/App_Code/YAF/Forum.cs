@@ -52,7 +52,7 @@ namespace YAF
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			string m_baseDir = YafForumInfo.ForumRoot;
+			string m_baseDir = YafForumInfo.ForumRoot;			
 
 			try
 			{
@@ -78,6 +78,16 @@ namespace YAF
 
 			try
 			{
+				// handle script manager first...
+				if ( ScriptManager.GetCurrent( Page ) == null )
+				{
+					// add a script manager since one doesn't exist...
+					ScriptManager yafScriptManager = new ScriptManager();
+					yafScriptManager.ID = "YafScriptManager";
+					yafScriptManager.EnablePartialRendering = true;
+					this.Controls.Add( yafScriptManager );
+				}
+
 				YAF.Classes.Base.ForumPage forumControl = ( YAF.Classes.Base.ForumPage ) LoadControl( src );
 				forumControl.PageTitleSet += new EventHandler<YAF.Classes.Base.ForumPageArgs>( forumControl_PageTitleSet );
 

@@ -248,8 +248,9 @@ namespace YAF.Pages // YAF.Pages
 					createUserError = "User creation failed: Reason is defined by the provider.";
 					break;
 			}
+			PageContext.AddLoadMessage( createUserError );
 			//Display the failure message in a client-side alert box
-			Page.ClientScript.RegisterStartupScript(Page.GetType(), "CreateUserError", String.Format("alert('{0}');", createUserError.Replace("'", "\'")), true);
+			//Page.ClientScript.RegisterStartupScript(Page.GetType(), "CreateUserError", String.Format("alert('{0}');", createUserError.Replace("'", "\'")), true);
 		}
 
 		protected void CreateUserWizard1_CreatedUser(object sender, EventArgs e)

@@ -47,9 +47,13 @@ namespace YAF.Controls
 				UnreadMsgs.Visible = true;
 				UnreadMsgs.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_pm );
 				if ( PageContext.UnreadPrivate == 1 )
+				{
 					UnreadMsgs.Text = String.Format( PageContext.Localization.GetText( "unread1" ), PageContext.UnreadPrivate );
+				}
 				else
+				{
 					UnreadMsgs.Text = String.Format( PageContext.Localization.GetText( "unread0" ), PageContext.UnreadPrivate );
+				}
 			}
 		}
 	}
