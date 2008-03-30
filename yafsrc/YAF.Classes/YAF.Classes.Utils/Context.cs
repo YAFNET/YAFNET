@@ -889,9 +889,9 @@ namespace YAF.Classes.Utils
 		{
 			string version;
 
-			if ( ( code & 0xF0 ) > 0 )
+			if ( ( code & 0xF0 ) > 0 || ( code & 0x0F ) == 1 )
 			{
-				version = String.Format( "{0}.{1}.{2}.{3}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF, ( code >> 4 ) & 0x0F );
+				version = String.Format( "{0}.{1}.{2}{3}", ( code >> 24 ) & 0xFF, ( code >> 16 ) & 0xFF, ( code >> 8 ) & 0xFF, Convert.ToInt32((( code >> 4 ) & 0x0F)).ToString("00") );
 			}
 			else
 			{
@@ -936,14 +936,14 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 0x01090331;
+				return 0x01090341;
 			}
 		}
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime( 2008, 2, 06 );
+				return new DateTime( 2008, 3, 30 );
 			}
 		}
 		#endregion
