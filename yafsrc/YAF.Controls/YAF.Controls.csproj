@@ -42,7 +42,6 @@
     <Compile Include="AlphaSort.cs" />
     <Compile Include="Base\BaseControl.cs" />
     <Compile Include="DataPanel.cs" />
-    <Compile Include="ErrorPopup.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
