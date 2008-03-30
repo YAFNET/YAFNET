@@ -79,33 +79,15 @@ namespace YAF.Pages
 				NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage );
 				NewPM2.NavigateUrl = NewPM.NavigateUrl;
 
-        // DOCTYPE COMPATIBILITY ISSUE
-        // Adding this css style block to the page's output fixes rendering of
-        // tabs in Internet Explorer quirks mode.
-        // If the page's DOCTYPE were set to XHTML 1.0 Transitional, this call would not be needed.
-        // This must be attached to the PreRenderComplete event handler so that the css block
-        // is registered *after* the ASP.NET AJAX Control Toolkit adds in it's HTML link reference to
-        // its default CSS styles.  This is necessary in order for the styles defined below to override the
-        // default ones.
-       /* this.Page.PreRenderComplete += delegate( object s, EventArgs evt )
-           {
-             this.RegisterClientCssBlock(
-                 ".ajax__tab_default .ajax__tab_inner {height : 100%;}" + "\n" +
-                 ".ajax__tab_default .ajax__tab_tab {height : 100%;}" + "\n" +
-                 "\n" +
-                 ".ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {height : 100%;}" +
-                 "\n" +
-                 ".ajax__tab_xp .ajax__tab_active .ajax__tab_tab {height : 100%;}" +
-                 "\n" +
-                 "\n" +
-                 ".ajax__tab_xp .ajax__tab_inner {height : 100%;}" + "\n" +
-                 ".ajax__tab_xp .ajax__tab_tab {height : 100%;}" + "\n" +
-                 ".ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {height : 100%;}" +
-                 "\n" +
-                 ".ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;}" );
-           };
-			  */
+				// inbox tab
+				ScriptManager.RegisterClientScriptBlock( InboxTabUpdatePanel, typeof( UpdatePanel ), "InboxTabRefresh", String.Format( "function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}' ), true );
+				// sent tab
+				ScriptManager.RegisterClientScriptBlock( SentTabUpdatePanel, typeof( UpdatePanel ), "SentTabRefresh", String.Format( "function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}' ), true );
+				// archive tab
+				ScriptManager.RegisterClientScriptBlock( ArchiveTabUpdatePanel, typeof( UpdatePanel ), "ArchiveTabRefresh", String.Format( "function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}' ), true );
+
       }
+
     }
 
     protected PMView View

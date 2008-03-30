@@ -10,20 +10,33 @@
         TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <div style="clear: both" />
+
 <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
-    <ajaxToolkit:TabPanel runat="server" ID="InboxTab">
+    <ajaxToolkit:TabPanel runat="server" ID="InboxTab" OnClientClick="InboxTabRefresh">
         <ContentTemplate>
-            <YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />
+            <asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">
+            <ContentTemplate>
+                <YAF:PMList runat="server" View="Inbox" ID="InboxPMList" />
+            </ContentTemplate>
+            </asp:UpdatePanel>
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
-    <ajaxToolkit:TabPanel runat="server" ID="OutboxTab">
+    <ajaxToolkit:TabPanel runat="server" ID="OutboxTab" OnClientClick="SentTabRefresh">
         <ContentTemplate>
-            <YAF:PMList runat="server" View="Outbox" ID="OutboxPMList" />
+            <asp:UpdatePanel ID="SentTabUpdatePanel" runat="server">
+            <ContentTemplate>        
+                <YAF:PMList runat="server" View="Outbox" ID="OutboxPMList" />
+            </ContentTemplate>
+            </asp:UpdatePanel>            
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
-    <ajaxToolkit:TabPanel runat="server" ID="ArchiveTab">
+    <ajaxToolkit:TabPanel runat="server" ID="ArchiveTab" OnClientClick="ArchiveTabRefresh">
         <ContentTemplate>
-            <YAF:PMList runat="server" View="Archive" ID="ArchivePMList" />
+            <asp:UpdatePanel ID="ArchiveTabUpdatePanel" runat="server">
+            <ContentTemplate>        
+                <YAF:PMList runat="server" View="Archive" ID="ArchivePMList" />
+            </ContentTemplate>
+            </asp:UpdatePanel>            
         </ContentTemplate>
     </ajaxToolkit:TabPanel>
 </ajaxToolkit:TabContainer>
