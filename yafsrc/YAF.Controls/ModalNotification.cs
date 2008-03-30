@@ -40,6 +40,10 @@ namespace YAF.Controls
 			OkButtonOnClientClick = String.Format( "$find('{0}').hide(); return false;", this.BehaviorID );
 			// populate notification header text from localization...
 			this.HeaderText = PageContext.Localization.GetText( "COMMON", "MODAL_NOTIFICATION_HEADER" );
+			// add js for client-side error settings...
+			string jsFunction = String.Format( "\nShowModalNotification = function( newErrorStr ) {2}\n if ($find('{0}') != null && document.getElementById('{1}') != null) {2}\ndocument.getElementById('{1}').textContent = newErrorStr;\n$find('{0}').show();\n{3}\n{3}\n", this.BehaviorID, this.MainTextClientID, '{', '}' );
+
+			ScriptManager.RegisterClientScriptBlock( this, typeof( ModalNotification ), "ShowModalNotificationFunc", jsFunction, true );
 		}
 
 		protected override void OnInit( EventArgs e )
@@ -48,6 +52,14 @@ namespace YAF.Controls
 			base.OnInit( e );
 			// make a few changes for this type of modal...
 			CancelButtonVisible = false;
+		}
+
+		public string MainTextClientID
+		{
+			get
+			{
+				return _textMainLabel.ClientID;
+			}
 		}
 	}
 }
