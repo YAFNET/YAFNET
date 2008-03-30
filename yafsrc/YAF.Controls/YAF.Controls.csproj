@@ -28,7 +28,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.11119.20010, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
+    <Reference Include="AjaxControlToolkit, Version=1.0.20229.25606, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -42,6 +42,7 @@
     <Compile Include="AlphaSort.cs" />
     <Compile Include="Base\BaseControl.cs" />
     <Compile Include="DataPanel.cs" />
+    <Compile Include="ErrorPopup.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
@@ -49,12 +50,13 @@
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
     <Compile Include="LocalizedLabel.cs" />
+    <Compile Include="ModalBase.cs" />
     <Compile Include="MyLinkButton.cs" />
     <Compile Include="PageAccess.cs" />
     <Compile Include="PageLinks.cs" />
     <Compile Include="Pager.cs" />
     <Compile Include="PopMenu.cs" />
-    <Compile Include="PopupConfirm.cs" />
+    <Compile Include="ModalNotification.cs" />
     <Compile Include="ProfileMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statistics\ActiveDiscussions.cs" />

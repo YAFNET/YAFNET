@@ -26,7 +26,7 @@ using AjaxControlToolkit;
 
 namespace YAF.Controls
 {
-	public class PopupConfirm : System.Web.UI.Control
+	public class ModalBase : BaseControl
 	{
 		protected string _behaviorID;
 		protected ModalPopupExtender _popupControlExtender = new ModalPopupExtender();
@@ -36,33 +36,151 @@ namespace YAF.Controls
 		protected Button _okButton = new Button();
 		protected Button _cancelButton = new Button();
 
-		public PopupConfirm()
+		public ModalBase()
 			: base()
 		{
 		}
 
-		public ModalPopupExtender ConfirmExtender
+		protected override void OnInit( EventArgs e )
 		{
-			get { return _popupControlExtender; }
-		}
+			BuildPopup();
+			base.OnInit( e );
+		}	
 
+		#region Overridable Modal Generation Functions
+
+		virtual protected void BuildPopup()
+		{
+			Panel parentPanel = CreateParentPanel();
+			// add and create hidden button...
+			HtmlInputButton hiddenButton = CreateHiddenButton( parentPanel );
+
+			SetupButtons();
+
+			Control header = CreateHeader();
+			Control inner = CreateInner();
+			Control footer = CreateFooter();
+
+			Control baseControl = CreateBaseControl();
+
+			// add controls to the base, then the base to the parent panel
+			baseControl.Controls.Add( header );
+			baseControl.Controls.Add( inner );
+			baseControl.Controls.Add( footer );
+			parentPanel.Controls.Add( baseControl );
+
+			this.Controls.Add( parentPanel );
+
+			ConfirmExtender.TargetControlID = hiddenButton.ID;
+			ConfirmExtender.PopupControlID = parentPanel.ID;
+			ConfirmExtender.CancelControlID = _cancelButton.ID;
+			ConfirmExtender.PopupDragHandleControlID = header.ID;
+			ConfirmExtender.BehaviorID = _behaviorID;
+			ConfirmExtender.BackgroundCssClass = "modalBackground";
+
+			this.Controls.Add( ConfirmExtender );
+		}
+		virtual protected void SetupButtons()
+		{
+			// make buttons
+			_okButton.ID = GetUniqueID( "btnOk" );
+			_okButton.Text = PageContext.Localization.GetText( "COMMON", "OK" );
+
+			_cancelButton.ID = GetUniqueID( "btnCancel" );
+			_cancelButton.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
+
+			_okButton.Click += new EventHandler( okButton_Click );
+			_cancelButton.Click += new EventHandler( cancelButton_Click );
+		}
+		virtual protected Panel CreateParentPanel()
+		{
+			Panel parentPanel = new Panel();
+			parentPanel.ID = GetUniqueID( "popupPanel" );
+			parentPanel.Attributes.Add( "style", "display:none;" );
+			parentPanel.CssClass = "modalPopup";
+
+			return parentPanel;
+		}
+		virtual protected HtmlInputButton CreateHiddenButton( Panel parentPanel )
+		{
+			HtmlGenericControl span = new HtmlGenericControl( "span" );
+			span.Attributes.Add( "style", "display:none" );
+			HtmlInputButton hiddenButton = new HtmlInputButton();
+			hiddenButton.ID = GetUniqueID( "btnHidden" );
+			span.Controls.Add( hiddenButton );
+			parentPanel.Controls.Add( span );
+
+			return hiddenButton;
+		}
+		virtual protected Control CreateHeader()
+		{
+			System.Web.UI.HtmlControls.HtmlGenericControl divHeader = new HtmlGenericControl( "div" );
+			divHeader.Attributes.Add( "class", "modalHeader" );
+			divHeader.ID = GetUniqueID( "divHeader" );
+			divHeader.Controls.Add( _headerLabel );
+			return divHeader;
+		}
+		virtual protected Control CreateInner()
+		{
+			System.Web.UI.HtmlControls.HtmlGenericControl divInner = new HtmlGenericControl( "div" );
+			divInner.Attributes.Add( "class", "modalInner" );
+
+			HtmlGenericControl spanMainText = new HtmlGenericControl( "span" );
+			HtmlGenericControl spanSubText = new HtmlGenericControl( "span" );
+			spanMainText.Attributes.Add( "class", "modalInnerMain" );
+			spanSubText.Attributes.Add( "class", "modalInnerSub" );
+
+			spanMainText.Controls.Add( _textMainLabel );
+			spanSubText.Controls.Add( _textSubLabel );
+
+			divInner.Controls.Add( spanMainText );
+			divInner.Controls.Add( spanSubText );
+
+			return divInner;
+		}
+		virtual protected Control CreateFooter()
+		{
+			System.Web.UI.HtmlControls.HtmlGenericControl divFooter = new HtmlGenericControl( "div" );
+			divFooter.Attributes.Add( "class", "modalFooter" );
+			divFooter.Controls.Add( _okButton );
+			divFooter.Controls.Add( _cancelButton );
+
+			return divFooter;
+		}
+		virtual protected Control CreateBaseControl()
+		{
+			System.Web.UI.HtmlControls.HtmlGenericControl divBase = new HtmlGenericControl( "div" );
+			divBase.Attributes.Add( "class", "modalBase" );
+
+			return divBase;
+		} 
+
+		#endregion
+
+		#region Helper Functions
+
+		/// <summary>
+		/// Shows the Modal
+		/// </summary>
 		public void Show()
 		{
 			ConfirmExtender.Show();
 		}
 
+		/// <summary>
+		/// Hides the Modal
+		/// </summary>
 		public void Hide()
 		{
 			ConfirmExtender.Hide();
 		}
 
-		protected override void OnInit( EventArgs e )
-		{
-			this.BuildPopup();
-			base.OnInit( e );
-		}
-
-		protected string GetUniqueID(string prefix)
+		/// <summary>
+		/// Creates a Unique ID
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <returns></returns>
+		protected string GetUniqueID( string prefix )
 		{
 			if ( !String.IsNullOrEmpty( prefix ) )
 			{
@@ -72,105 +190,48 @@ namespace YAF.Controls
 			{
 				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
 			}
-		}
+		} 
 
-		protected void BuildPopup()
-		{
-			Panel popupPanel = new Panel();
-			popupPanel.ID = GetUniqueID("popupPanel");
-			popupPanel.Attributes.Add( "style", "display:none;" );
-			popupPanel.CssClass = "modalPopup";
+		#endregion
 
-			// make buttons
-			_okButton.ID = GetUniqueID("btnOk");
-			_okButton.Text = "Ok";
+		#region Events
 
-			_cancelButton.ID = GetUniqueID("btnCancel");
-			_cancelButton.Text = "Cancel";
-
-			_okButton.Click += new EventHandler( okButton_Click );
-			_cancelButton.Click += new EventHandler( cancelButton_Click );
-
-			HtmlGenericControl span = new HtmlGenericControl( "span" );
-			span.Attributes.Add( "style", "display:none" );
-			HtmlInputButton hiddenButton = new HtmlInputButton();
-			hiddenButton.ID = GetUniqueID("btnHidden");
-			span.Controls.Add( hiddenButton );
-			popupPanel.Controls.Add( span );
-
-			System.Web.UI.HtmlControls.HtmlGenericControl divHeader = new HtmlGenericControl( "div" );
-			divHeader.Attributes.Add( "class", "modalHeader" );
-			divHeader.ID = GetUniqueID("divHeader");
-			divHeader.Controls.Add( _headerLabel );
-
-			System.Web.UI.HtmlControls.HtmlGenericControl divInner = new HtmlGenericControl( "div" );
-			divInner.Attributes.Add( "class", "modalInner" );
-
-			HtmlGenericControl spanMainText = new HtmlGenericControl( "span" );
-			HtmlGenericControl spanSubText = new HtmlGenericControl( "span" );
-			spanMainText.Attributes.Add( "class", "modalInnerMain" );			
-			spanSubText.Attributes.Add( "class", "modalInnerSub" );
-
-			spanMainText.Controls.Add( _textMainLabel );
-			spanSubText.Controls.Add( _textSubLabel );
-
-			divInner.Controls.Add( spanMainText );
-			divInner.Controls.Add( spanSubText );
-
-			System.Web.UI.HtmlControls.HtmlGenericControl divFooter = new HtmlGenericControl( "div" );
-			divFooter.Attributes.Add( "class", "modalFooter" );
-			divFooter.Controls.Add( _okButton );
-			divFooter.Controls.Add( _cancelButton );
-
-			System.Web.UI.HtmlControls.HtmlGenericControl divBase = new HtmlGenericControl( "div" );
-			divBase.Attributes.Add( "class", "modalBase" );
-
-			divBase.Controls.Add( divHeader );
-			divBase.Controls.Add( divInner );
-			divBase.Controls.Add( divFooter );
-			popupPanel.Controls.Add( divBase );
-
-			this.Controls.Add( popupPanel );
-
-			ConfirmExtender.TargetControlID = hiddenButton.ID;
-			ConfirmExtender.PopupControlID = popupPanel.ID;
-			ConfirmExtender.CancelControlID = _cancelButton.ID;
-			ConfirmExtender.PopupDragHandleControlID = divHeader.ID;
-			ConfirmExtender.BehaviorID = _behaviorID;
-			ConfirmExtender.BackgroundCssClass = "modalBackground";
-
-			this.Controls.Add( ConfirmExtender );
-		}
-
-		void okButton_Click( object sender, EventArgs e )
+		public event EventHandler<EventArgs> Confirm;
+		public event EventHandler<EventArgs> Cancel;
+		protected void okButton_Click( object sender, EventArgs e )
 		{
 			if ( Confirm != null ) Confirm( this, e );
 			Hide();
 		}
-
-		void cancelButton_Click( object sender, EventArgs e )
+		protected void cancelButton_Click( object sender, EventArgs e )
 		{
 			if ( Cancel != null ) Cancel( this, e );
 			Hide();
-		}
+		} 
 
-		public void SetHideOnClientClickOkButton()
+		#endregion
+
+		#region Public Properties
+
+		/// <summary>
+		/// Base Modal Control
+		/// </summary>
+		public ModalPopupExtender ConfirmExtender
 		{
-			_okButton.OnClientClick = String.Format( "$find('{0}').hide(); return false;", this.BehaviorID );
+			get { return _popupControlExtender; }
 		}
-
 		public bool CancelButtonVisible
 		{
 			get
 			{
-				if (_cancelButton.Attributes ["style"] != null && _cancelButton.Attributes ["style"] == "display:none")
+				if ( _cancelButton.Attributes ["style"] != null && _cancelButton.Attributes ["style"] == "display:none" )
 				{
 					return false;
 				}
 				return true;
 			}
 			set
-			{ 
+			{
 				if ( value && _cancelButton.Attributes ["style"] != null )
 				{
 					_cancelButton.Attributes.Remove( "style" );
@@ -181,50 +242,42 @@ namespace YAF.Controls
 				}
 			}
 		}
-
 		public bool OkButtonVisible
 		{
 			get { return _okButton.Visible; }
 			set { _okButton.Visible = value; }
 		}
-
 		public string CancelButtonOnClientClick
 		{
 			get { return _cancelButton.OnClientClick; }
 			set { _cancelButton.OnClientClick = value; }
 		}
-
 		public string OkButtonOnClientClick
 		{
 			get { return _okButton.OnClientClick; }
 			set { _okButton.OnClientClick = value; }
 		}
-
 		public string MainText
 		{
 			get { return _textMainLabel.Text; }
 			set { _textMainLabel.Text = value; }
 		}
-
 		public string SubText
 		{
 			get { return _textSubLabel.Text; }
 			set { _textSubLabel.Text = value; }
 		}
-
 		public string HeaderText
 		{
 			get { return _headerLabel.Text; }
 			set { _headerLabel.Text = value; }
 		}
-
 		public string BehaviorID
 		{
 			get { return _behaviorID; }
 			set { _behaviorID = value; }
-		}
+		} 
 
-		public event EventHandler<EventArgs> Confirm;
-		public event EventHandler<EventArgs> Cancel;
+		#endregion
 	}
 }
