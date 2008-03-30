@@ -30,7 +30,11 @@ namespace YAF.Controls
 	{
 		protected string _behaviorID;
 		protected ModalPopupExtender _popupControlExtender = new ModalPopupExtender();
-		protected Label _textLabel = new Label();
+		protected Label _textMainLabel = new Label();
+		protected Label _textSubLabel = new Label();
+		protected Label _headerLabel = new Label();
+		protected Button _okButton = new Button();
+		protected Button _cancelButton = new Button();
 
 		public PopupConfirm()
 			: base()
@@ -58,50 +62,80 @@ namespace YAF.Controls
 			base.OnInit( e );
 		}
 
+		protected string GetUniqueID(string prefix)
+		{
+			if ( !String.IsNullOrEmpty( prefix ) )
+			{
+				return prefix + System.Guid.NewGuid().ToString().Substring( 0, 4 );
+			}
+			else
+			{
+				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
+			}
+		}
+
 		protected void BuildPopup()
 		{
 			Panel popupPanel = new Panel();
-			popupPanel.ID = System.Guid.NewGuid().ToString();
+			popupPanel.ID = GetUniqueID("popupPanel");
+			popupPanel.Attributes.Add( "style", "display:none;" );
+			popupPanel.CssClass = "modalPopup";
 
-			System.Web.UI.WebControls.Button okButton = new Button();
-			okButton.ID = System.Guid.NewGuid().ToString();
-			okButton.Text = "Ok";
+			// make buttons
+			_okButton.ID = GetUniqueID("btnOk");
+			_okButton.Text = "Ok";
 
-			System.Web.UI.WebControls.Button cancelButton = new Button();
-			cancelButton.ID = System.Guid.NewGuid().ToString();
-			cancelButton.Text = "Cancel";
+			_cancelButton.ID = GetUniqueID("btnCancel");
+			_cancelButton.Text = "Cancel";
 
-			okButton.Click += new EventHandler( okButton_Click );
-			cancelButton.Click += new EventHandler( cancelButton_Click );
+			_okButton.Click += new EventHandler( okButton_Click );
+			_cancelButton.Click += new EventHandler( cancelButton_Click );
 
 			HtmlGenericControl span = new HtmlGenericControl( "span" );
 			span.Attributes.Add( "style", "display:none" );
 			HtmlInputButton hiddenButton = new HtmlInputButton();
-			hiddenButton.ID = System.Guid.NewGuid().ToString();
+			hiddenButton.ID = GetUniqueID("btnHidden");
 			span.Controls.Add( hiddenButton );
 			popupPanel.Controls.Add( span );
 
-			System.Web.UI.HtmlControls.HtmlGenericControl div = new HtmlGenericControl( "div" );
-			div.Attributes.Add( "style", "background-color:#ffffff;border:solid 1px #ee0000" );
-			div.Attributes.Add( "class", "inner" );
-			div.Controls.Add( _textLabel );
+			System.Web.UI.HtmlControls.HtmlGenericControl divHeader = new HtmlGenericControl( "div" );
+			divHeader.Attributes.Add( "class", "modalHeader" );
+			divHeader.ID = GetUniqueID("divHeader");
+			divHeader.Controls.Add( _headerLabel );
 
-			System.Web.UI.HtmlControls.HtmlGenericControl basediv = new HtmlGenericControl( "div" );
-			basediv.Attributes.Add( "class", "base" );
-			basediv.Controls.Add( div );
-			popupPanel.Controls.Add( basediv );
+			System.Web.UI.HtmlControls.HtmlGenericControl divInner = new HtmlGenericControl( "div" );
+			divInner.Attributes.Add( "class", "modalInner" );
 
-			basediv.Controls.Add( okButton );
-			basediv.Controls.Add( cancelButton );
+			HtmlGenericControl spanMainText = new HtmlGenericControl( "span" );
+			HtmlGenericControl spanSubText = new HtmlGenericControl( "span" );
+			spanMainText.Attributes.Add( "class", "modalInnerMain" );			
+			spanSubText.Attributes.Add( "class", "modalInnerSub" );
 
-			popupPanel.Attributes.Add( "style", "display:none;" );
-			popupPanel.CssClass = "confirm-dialog";
+			spanMainText.Controls.Add( _textMainLabel );
+			spanSubText.Controls.Add( _textSubLabel );
+
+			divInner.Controls.Add( spanMainText );
+			divInner.Controls.Add( spanSubText );
+
+			System.Web.UI.HtmlControls.HtmlGenericControl divFooter = new HtmlGenericControl( "div" );
+			divFooter.Attributes.Add( "class", "modalFooter" );
+			divFooter.Controls.Add( _okButton );
+			divFooter.Controls.Add( _cancelButton );
+
+			System.Web.UI.HtmlControls.HtmlGenericControl divBase = new HtmlGenericControl( "div" );
+			divBase.Attributes.Add( "class", "modalBase" );
+
+			divBase.Controls.Add( divHeader );
+			divBase.Controls.Add( divInner );
+			divBase.Controls.Add( divFooter );
+			popupPanel.Controls.Add( divBase );
 
 			this.Controls.Add( popupPanel );
 
 			ConfirmExtender.TargetControlID = hiddenButton.ID;
 			ConfirmExtender.PopupControlID = popupPanel.ID;
-			ConfirmExtender.CancelControlID = cancelButton.ID;
+			ConfirmExtender.CancelControlID = _cancelButton.ID;
+			ConfirmExtender.PopupDragHandleControlID = divHeader.ID;
 			ConfirmExtender.BehaviorID = _behaviorID;
 			ConfirmExtender.BackgroundCssClass = "modalBackground";
 
@@ -120,10 +154,68 @@ namespace YAF.Controls
 			Hide();
 		}
 
-		public string Text
+		public void SetHideOnClientClickOkButton()
 		{
-			get { return _textLabel.Text; }
-			set { _textLabel.Text = value; }
+			_okButton.OnClientClick = String.Format( "$find('{0}').hide(); return false;", this.BehaviorID );
+		}
+
+		public bool CancelButtonVisible
+		{
+			get
+			{
+				if (_cancelButton.Attributes ["style"] != null && _cancelButton.Attributes ["style"] == "display:none")
+				{
+					return false;
+				}
+				return true;
+			}
+			set
+			{ 
+				if ( value && _cancelButton.Attributes ["style"] != null )
+				{
+					_cancelButton.Attributes.Remove( "style" );
+				}
+				else
+				{
+					_cancelButton.Attributes.Add( "style", "display:none" );
+				}
+			}
+		}
+
+		public bool OkButtonVisible
+		{
+			get { return _okButton.Visible; }
+			set { _okButton.Visible = value; }
+		}
+
+		public string CancelButtonOnClientClick
+		{
+			get { return _cancelButton.OnClientClick; }
+			set { _cancelButton.OnClientClick = value; }
+		}
+
+		public string OkButtonOnClientClick
+		{
+			get { return _okButton.OnClientClick; }
+			set { _okButton.OnClientClick = value; }
+		}
+
+		public string MainText
+		{
+			get { return _textMainLabel.Text; }
+			set { _textMainLabel.Text = value; }
+		}
+
+		public string SubText
+		{
+			get { return _textSubLabel.Text; }
+			set { _textSubLabel.Text = value; }
+		}
+
+		public string HeaderText
+		{
+			get { return _headerLabel.Text; }
+			set { _headerLabel.Text = value; }
 		}
 
 		public string BehaviorID
