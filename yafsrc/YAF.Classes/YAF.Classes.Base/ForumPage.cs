@@ -26,6 +26,7 @@ using System.Data;
 using System.Web.UI.HtmlControls;
 using System.Xml;
 using System.Web;
+using System.Web.UI;
 using System.Web.Security;
 using System.Threading;
 using System.Globalization;
@@ -68,7 +69,8 @@ namespace YAF.Classes.Base
 		private bool _showToolBar = true;
 		private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
-		protected string _forumPageTitle = null;	
+		protected string _forumPageTitle = null;
+		protected YAF.Controls.ModalNotification _errorPopup = null;
 
 		private YAF.Controls.Header _header = null;
 		private YAF.Controls.Footer _footer = null;
@@ -216,6 +218,9 @@ namespace YAF.Classes.Base
 			{
 				Mession.LastVisit = DateTime.Now;
 			}
+
+			// add error modal to this control...
+			AddErrorPopup();
 		}
 
 		/// <summary>
@@ -226,7 +231,7 @@ namespace YAF.Classes.Base
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
 			Security.CheckRequestValidity( Request );
-			GeneratePageTitle();
+			GeneratePageTitle();			
 		}
 
 		/// <summary>
@@ -245,6 +250,19 @@ namespace YAF.Classes.Base
 			_forumPageTitle = title.ToString();
 
 			if ( PageTitleSet != null ) PageTitleSet( this, new ForumPageArgs( _forumPageTitle ) );
+		}
+
+		/// <summary>
+		/// Sets up the Modal Error Popup Dialog
+		/// </summary>
+		private void AddErrorPopup()
+		{
+			// add error control...
+			_errorPopup = new YAF.Controls.ModalNotification();
+			_errorPopup.ID = "ForumPageErrorPopup1";
+			_errorPopup.BehaviorID = "ForumPageErrorPopup";
+			this.Controls.AddAt( 0, _errorPopup );
+		
 		}
 
 		/// <summary>
@@ -641,6 +659,9 @@ namespace YAF.Classes.Base
 			// setup the forum control header properties
 			ForumHeader.SimpleRender = !_showToolBar;
 			ForumFooter.SimpleRender = !_showToolBar;
+
+			// register the script code to show the notification modal if needed...
+			RegisterLoadString();
 		}
 
 		/// <summary>
@@ -650,16 +671,20 @@ namespace YAF.Classes.Base
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
 			base.Render( writer );
-
-			WriteOnLoadString( ref writer );
 		}
 
-		protected void WriteOnLoadString( ref System.Web.UI.HtmlTextWriter writer )
+		protected void RegisterLoadString()
 		{
 			if ( PageContext.LoadString.Length > 0 )
 			{
-				writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadString, '{', '}' ) );
+				if ( ScriptManager.GetCurrent( Page ) != null )
+				{
+					ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotification", String.Format( "var fpModal = function() {1} ShowModalNotification('{0}'); {2}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadStringJavascript, '{', '}' ), true );
+				}
 			}
+
+			// old js code...
+			//writer.WriteLine( String.Format( "<script language=\"javascript\" type=\"text/javascript\">\nonload=function(){1}\nalert(\"{0}\")\n{2}\n</script>\n", PageContext.LoadStringJavascript, '{', '}' ) );
 		}
 
 		#endregion

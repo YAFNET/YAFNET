@@ -57,6 +57,20 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		public string LoadStringJavascript
+		{
+			get
+			{
+				string message = LoadString;
+				message = message.Replace( "\\", "\\\\" );
+				message = message.Replace( "'", "\\'" );
+				message = message.Replace( "\r\n", "\\r\\n" );
+				message = message.Replace( "\n", "\\n" );
+				message = message.Replace( "\"", "\\\"" );
+				return message;
+			}
+		}
+
 		public string AdminLoadString
 		{
 			get
@@ -71,12 +85,13 @@ namespace YAF.Classes.Utils
 		/// <param name="message">The message you wish to display.</param>
 		public void AddLoadMessage( string message )
 		{
-			message = message.Replace("\\", "\\\\");
-			message = message.Replace( "'", "\\'" );
-			message = message.Replace( "\r\n", "\\r\\n" );
-			message = message.Replace( "\n", "\\n" );
-			message = message.Replace( "\"", "\\\"" );
-			_loadString += message + "\\n\\n";
+			//message = message.Replace("\\", "\\\\");
+			//message = message.Replace( "'", "\\'" );
+			//message = message.Replace( "\r\n", "\\r\\n" );
+			//message = message.Replace( "\n", "\\n" );
+			//message = message.Replace( "\"", "\\\"" );
+
+			_loadString += message + "\n\n";
 		}
 
 		/// <summary>
@@ -85,17 +100,12 @@ namespace YAF.Classes.Utils
 		/// <param name="message">The message you wish to display.</param>
 		public void AddLoadMessageSession( string message )
 		{
-			message = message.Replace( "\\", "\\\\" );
-			message = message.Replace( "'", "\\'" );
-			message = message.Replace( "\r\n", "\\r\\n" );
-			message = message.Replace( "\n", "\\n" );
-			message = message.Replace( "\"", "\\\"" );
-
-			HttpContext.Current.Session["LoadMessage"] = message + "\\n\\n";
+			HttpContext.Current.Session["LoadMessage"] = message + "\r\n";
 		}
 
 		public void ClearLoadString()
 		{
+			string ls = this.LoadString;
 			_loadString = string.Empty;
 		}
 
