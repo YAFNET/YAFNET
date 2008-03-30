@@ -59,9 +59,8 @@ namespace YAF.Pages // YAF.Pages
 			if ( Request.QueryString ["u"] == null )
 				YafBuildLink.AccessDenied();
 
-			// Ederon : 12/5/2007
-			// if user viewing profile is admin, we need to take care of it
-			if ( PageContext.IsAdmin || PageContext.IsForumModerator ) SignatureEditControl.InAdminPages = true;
+			// admin or moderator, set edit control to moderator mode...
+			if ( PageContext.IsAdmin || PageContext.IsForumModerator ) SignatureEditControl.InModeratorMode = true;
 
 			if ( !IsPostBack )
 			{

@@ -32,8 +32,7 @@ namespace YAF.Controls
 {
 	public partial class EditUsersSignature : YAF.Classes.Base.BaseUserControl
 	{
-		protected YAF.Editor.ForumEditor _sig;
-		private bool _adminEditMode = false;
+		protected YAF.Editor.ForumEditor _sig;		
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
@@ -55,22 +54,36 @@ namespace YAF.Controls
 			//body = FormatMsg.RepairHtml(this,body,false);
 
 			if ( _sig.Text.Length > 0 )
+			{
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, body );
+			}
 			else
+			{
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
+			}
 
-			if ( _adminEditMode )
-				YafBuildLink.Redirect( ForumPages.admin_users );
-			else
-				YafBuildLink.Redirect( ForumPages.cp_profile );
+			DoRedirect();
 		}
 
 		private void cancel_Click( object sender, EventArgs e )
 		{
-			if ( _adminEditMode )
+			DoRedirect();
+		}
+
+		private void DoRedirect()
+		{
+			if ( InAdminPages )
+			{
 				YafBuildLink.Redirect( ForumPages.admin_users );
+			}
+			else if ( InModeratorMode )
+			{
+				YafBuildLink.Redirect( ForumPages.profile, "u={0}", CurrentUserID );
+			}
 			else
+			{
 				YafBuildLink.Redirect( ForumPages.cp_profile );
+			}
 		}
 
 		#region Web Form Designer generated code
@@ -102,9 +115,13 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if (InAdminPages && PageContext.IsAdmin && Request.QueryString["u"] != null)
+				if ( InAdminPages && PageContext.IsAdmin && Request.QueryString ["u"] != null )
 				{
-					return Convert.ToInt32(Request.QueryString["u"]);
+					return Convert.ToInt32( Request.QueryString ["u"] );
+				}
+				else if ( InModeratorMode && ( PageContext.IsAdmin || PageContext.IsModerator ) && Request.QueryString ["u"] != null )
+				{
+					return Convert.ToInt32( Request.QueryString ["u"] );
 				}
 				else
 				{
@@ -113,7 +130,7 @@ namespace YAF.Controls
 			}
 		}
 
-
+		protected bool _adminEditMode = false;
 		public bool InAdminPages
 		{
 			get
@@ -123,6 +140,19 @@ namespace YAF.Controls
 			set
 			{
 				_adminEditMode = value;
+			}
+		}
+
+		protected bool _moderatorEditMode = false;
+		public bool InModeratorMode
+		{
+			get
+			{
+				return _moderatorEditMode;
+			}
+			set
+			{
+				_moderatorEditMode = value;
 			}
 		}
 	}
