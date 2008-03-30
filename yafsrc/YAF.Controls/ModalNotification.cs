@@ -41,7 +41,7 @@ namespace YAF.Controls
 			// populate notification header text from localization...
 			this.HeaderText = PageContext.Localization.GetText( "COMMON", "MODAL_NOTIFICATION_HEADER" );
 			// add js for client-side error settings...
-			string jsFunction = String.Format( "\nShowModalNotification = function( newErrorStr ) {2}\n if ($find('{0}') != null && document.getElementById('{1}') != null) {2}\ndocument.getElementById('{1}').innerHTML = newErrorStr;\n$find('{0}').show();\n{3}\n{3}\n", this.BehaviorID, this.MainTextClientID, '{', '}' );
+			string jsFunction = String.Format( "\nShowModalNotification = function( newErrorStr ) {2}\n if (newErrorStr != null && newErrorStr != \"\" && $find('{0}') != null && document.getElementById('{1}') != null) {2}\ndocument.getElementById('{1}').innerHTML = newErrorStr;\n$find('{0}').show();\n{3}\n{3}\n", this.BehaviorID, this.MainTextClientID, '{', '}' );
 
 			ScriptManager.RegisterClientScriptBlock( this, typeof( ModalNotification ), "ShowModalNotificationFunc", jsFunction, true );
 		}
