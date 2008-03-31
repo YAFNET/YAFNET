@@ -80,7 +80,6 @@ namespace YAF.Pages.Admin
 			{
 				YAF.Classes.Data.DB.extension_delete( e.CommandArgument );
 				BindData();
-				PageContext.AddLoadMessage( "Extension Removed" );
 			}
 			else if ( e.CommandName == "export" )
 			{

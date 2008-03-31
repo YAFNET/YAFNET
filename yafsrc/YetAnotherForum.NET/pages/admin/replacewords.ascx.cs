@@ -56,6 +56,11 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
+		protected void Delete_Load( object sender, System.EventArgs e )
+		{
+			( ( LinkButton )sender ).Attributes ["onclick"] = "return confirm('Delete this Word Replacement?')";
+		}
+
 		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
 		{
 			if ( e.CommandName == "add" )
@@ -71,11 +76,23 @@ namespace YAF.Pages.Admin
 				YAF.Classes.Data.DB.replace_words_delete( e.CommandArgument );
 				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
 				BindData();
-				PageContext.AddLoadMessage( "Removed word filter." );
 			}
 			else if ( e.CommandName == "export" )
 			{
 				DataTable replaceDT = YAF.Classes.Data.DB.replace_words_list( PageContext.PageBoardID, null );
+				replaceDT.DataSet.DataSetName = "YafReplaceWordsList";
+				replaceDT.TableName = "YafReplaceWords";
+				replaceDT.Columns.Remove( "ID" );
+				replaceDT.Columns.Remove( "BoardID" );
+
+				Response.ContentType = "text/xml";
+				Response.AppendHeader( "Content-Disposition", "attachment; filename=YafReplaceWordsExport.xml" );
+				replaceDT.DataSet.WriteXml( Response.OutputStream );
+				Response.End();
+			}
+			else if ( e.CommandName == "import" )
+			{
+				YafBuildLink.Redirect( ForumPages.admin_replacewords_import );
 			}
 		}
 

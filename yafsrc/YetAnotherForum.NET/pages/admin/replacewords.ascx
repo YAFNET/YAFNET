@@ -25,7 +25,7 @@
 					<asp:linkbutton runat=server text=Edit commandname='edit' commandargument='<%# Eval("ID") %>' ID="Linkbutton1">
 					</asp:linkbutton>
 					|
-					<asp:linkbutton runat=server text=Delete commandname='delete' commandargument='<%# Eval("ID") %>' ID="Linkbutton2">
+					<asp:linkbutton runat=server text=Delete commandname='delete' OnLoad="Delete_Load" commandargument='<%# Eval("ID") %>' ID="Linkbutton2">
 					</asp:linkbutton>
 				</td>
 			</tr>
