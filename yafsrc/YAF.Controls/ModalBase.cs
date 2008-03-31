@@ -95,7 +95,7 @@ namespace YAF.Controls
 		virtual protected Panel CreateParentPanel()
 		{
 			Panel parentPanel = new Panel();
-			parentPanel.ID = GetUniqueID( "popupPanel" );
+			parentPanel.ID = this.ClientID;
 			parentPanel.Attributes.Add( "style", "display:none;" );
 			parentPanel.CssClass = "modalPopup";
 

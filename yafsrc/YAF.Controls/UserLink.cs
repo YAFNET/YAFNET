@@ -49,6 +49,7 @@ namespace YAF.Controls
 				if (!isGuest)
 				{					
 					output.WriteBeginTag( "a" );
+					output.WriteAttribute( "id", this.ClientID );
 					output.WriteAttribute( "href", YafBuildLink.GetLink(ForumPages.profile,"u={0}",_userID));
 					output.WriteAttribute( "title", HtmlEncode( _userName ));
 					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );

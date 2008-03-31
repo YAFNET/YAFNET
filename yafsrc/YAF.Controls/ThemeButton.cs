@@ -66,9 +66,19 @@ namespace YAF.Controls
 
 			output.BeginRender();
 			output.WriteBeginTag( "a" );
-			if ( !String.IsNullOrEmpty( CssClass ) ) output.WriteAttribute( "class", CssClass );
-			if ( !String.IsNullOrEmpty( title ) ) output.WriteAttribute( "title", title );
-			else if ( !String.IsNullOrEmpty( TitleNonLocalized ) ) output.WriteAttribute( "title", TitleNonLocalized );
+			output.WriteAttribute( "id", this.ClientID );
+			if ( !String.IsNullOrEmpty( CssClass ) )
+			{
+				output.WriteAttribute( "class", CssClass );
+			}
+			if ( !String.IsNullOrEmpty( title ) )
+			{
+				output.WriteAttribute( "title", title );
+			}
+			else if ( !String.IsNullOrEmpty( TitleNonLocalized ) )
+			{
+				output.WriteAttribute( "title", TitleNonLocalized );
+			}
 			if ( !String.IsNullOrEmpty( NavigateUrl ) )
 			{
 				output.WriteAttribute( "href", NavigateUrl.Replace( "&", "&amp;" ) );
@@ -94,8 +104,9 @@ namespace YAF.Controls
 						output.WriteAttribute( key, string.Format("{0};{1}", _attributeCollection [key], "this.blur();" ));
 						wroteOnClick = true;
 					}
-					else
+					else if (key.ToLower().StartsWith("on"))
 					{
+						// only write javascript attributes -- others are duplicates.
 						output.WriteAttribute( key, _attributeCollection [key] );
 					}
 				}
@@ -104,12 +115,13 @@ namespace YAF.Controls
 			// IE fix
 			if ( !wroteOnClick ) output.WriteAttribute( "onclick", "this.blur();" );
 			output.Write( HtmlTextWriter.TagRightChar );
-			output.WriteFullBeginTag( "span" );
 
+			output.WriteBeginTag( "span" );
+			output.Write( HtmlTextWriter.TagRightChar );
 			// render the optional controls (if any)
 			base.Render( output );
-
 			output.WriteEndTag( "span" );
+
 			output.WriteEndTag( "a" );
 			output.EndRender();
 		}

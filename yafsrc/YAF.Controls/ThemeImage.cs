@@ -57,6 +57,7 @@ namespace YAF.Controls
 
 			output.BeginRender();
 			output.WriteBeginTag( "img" );
+			output.WriteAttribute( "id", this.ClientID );
 
 			// this will output the src and alt attributes
 			output.WriteAttribute( "src", src );

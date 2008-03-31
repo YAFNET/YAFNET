@@ -49,6 +49,10 @@
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />
     <Compile Include="LocalizedLabel.cs" />
+    <Compile Include="MessageAttached.cs" />
+    <Compile Include="MessagePost.cs" />
+    <Compile Include="MessagePostData.cs" />
+    <Compile Include="MessageSignature.cs" />
     <Compile Include="ModalBase.cs" />
     <Compile Include="MyLinkButton.cs" />
     <Compile Include="PageAccess.cs" />
