@@ -3504,7 +3504,7 @@ AS BEGIN
 END
 GO
 
-ALTER PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_save]
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_save]
 (
 	@BoardID int,
 	@ID int = null,
