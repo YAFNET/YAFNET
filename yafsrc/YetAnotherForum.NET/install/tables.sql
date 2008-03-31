@@ -374,10 +374,11 @@ GO
 if not exists (select * from dbo.sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 begin
 	create table [{databaseOwner}].[{objectQualifier}Replace_Words](
-		id				int IDENTITY (1, 1) NOT NULL ,
-		badword			nvarchar (255) NULL ,
-		goodword		nvarchar (255) NULL ,
-		constraint PK_Replace_Words primary key(id)
+		ID				int IDENTITY (1, 1) NOT NULL,
+		BoardId			int NOT NULL,
+		BadWord			nvarchar (255) NULL ,
+		GoodWord		nvarchar (255) NULL ,
+		constraint [PK_{objectQualifier}Replace_Words] primary key(ID)
 	)
 end
 GO
@@ -389,7 +390,7 @@ begin
 		Name			nvarchar(50) NOT NULL,
 		Value			ntext,
 		BoardID			int,
-		CONSTRAINT [PK_Registry] PRIMARY KEY (RegistryID)
+		CONSTRAINT [PK_{objectQualifier}Registry] PRIMARY KEY (RegistryID)
 	)
 end
 GO
@@ -911,6 +912,12 @@ GO
 if exists (select * from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='goodword' and prec < 255)
 	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] alter column goodword nvarchar(255) NULL
 GO	
+
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='BoardID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] add BoardID int not null constraint [DF_{objectQualifier}Replace_Words_BoardID] default (1)
+end
+GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name='BoardID')
 	alter table [{databaseOwner}].[{objectQualifier}Registry] add BoardID int

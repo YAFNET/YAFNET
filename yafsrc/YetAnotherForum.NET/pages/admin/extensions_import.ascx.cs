@@ -60,7 +60,7 @@ namespace YAF.Pages.Admin
 					DataSet dsExtensions = new DataSet();
 					dsExtensions.ReadXml( importFile.PostedFile.InputStream );
 
-					if ( dsExtensions.Tables ["YafExtension"] != null && dsExtensions.Tables ["YafExtension"].Columns.Count == 3 )
+					if ( dsExtensions.Tables ["YafExtension"] != null && dsExtensions.Tables ["YafExtension"].Columns["Extension"] != null )
 					{
 						int importedCount = 0;
 

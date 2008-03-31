@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
 
 		private void BindData()
 		{
-			Pager.PageSize = 15;
+			Pager.PageSize = 25;
 			DataView dv = YAF.Classes.Data.DB.smiley_list( PageContext.PageBoardID, null ).DefaultView;
 			Pager.Count = dv.Count;
 			PagedDataSource pds = new PagedDataSource();

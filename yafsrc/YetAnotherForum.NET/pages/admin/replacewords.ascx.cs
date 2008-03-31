@@ -38,56 +38,64 @@ namespace YAF.Pages.Admin
 	public partial class replacewords : YAF.Classes.Base.AdminPage
 	{
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Replace Words","");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Replace Words", "" );
 
 				BindData();
 			}
 		}
 
-		private void BindData() 
+		private void BindData()
 		{
-			list.DataSource = YAF.Classes.Data.DB.replace_words_list();
+			list.DataSource = YAF.Classes.Data.DB.replace_words_list( PageContext.PageBoardID, null );
 			DataBind();
 		}
 
-		private void list_ItemCommand(object sender, RepeaterCommandEventArgs e) 
+		private void list_ItemCommand( object sender, RepeaterCommandEventArgs e )
 		{
-			if(e.CommandName == "add")
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit);
-			else if(e.CommandName == "edit")
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit,"i={0}",e.CommandArgument);
-			else if(e.CommandName == "delete") 
+			if ( e.CommandName == "add" )
 			{
-				YAF.Classes.Data.DB.replace_words_delete(e.CommandArgument);
-				Cache.Remove("replacewords");
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit );
+			}
+			else if ( e.CommandName == "edit" )
+			{
+				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_replacewords_edit, "i={0}", e.CommandArgument );
+			}
+			else if ( e.CommandName == "delete" )
+			{
+				YAF.Classes.Data.DB.replace_words_delete( e.CommandArgument );
+				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords ) );
 				BindData();
-				PageContext.AddLoadMessage("Removed word filter.");
+				PageContext.AddLoadMessage( "Removed word filter." );
+			}
+			else if ( e.CommandName == "export" )
+			{
+				DataTable replaceDT = YAF.Classes.Data.DB.replace_words_list( PageContext.PageBoardID, null );
 			}
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
-			list.ItemCommand += new RepeaterCommandEventHandler(list_ItemCommand);
+			list.ItemCommand += new RepeaterCommandEventHandler( list_ItemCommand );
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 
 		}
 		#endregion

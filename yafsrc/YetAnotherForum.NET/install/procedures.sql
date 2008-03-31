@@ -3485,32 +3485,45 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) as
-begin
-	delete from [{databaseOwner}].[{objectQualifier}replace_words] where id = @ID
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_delete](@ID int) AS
+BEGIN
+	DELETE FROM [{databaseOwner}].[{objectQualifier}replace_words] WHERE id = @ID
+END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}replace_words_edit](@ID int=null) as
-begin
-	select * from [{databaseOwner}].[{objectQualifier}replace_words] where id = @ID
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_list]
+(
+	@BoardID int,
+	@ID int = null
+)
+AS BEGIN
+	IF (@ID IS NOT NULL AND @ID <> 0)
+		SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardID = @BoardID AND ID = @ID
+	ELSE
+		SELECT * FROM [{databaseOwner}].[{objectQualifier}Replace_Words] WHERE BoardID = @BoardID
+END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}replace_words_list] as begin
-	select * from [{databaseOwner}].[{objectQualifier}Replace_Words]
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}replace_words_save](@ID int=null,@badword nvarchar(255),@goodword nvarchar(255)) as
-begin
-	if @ID is null or @ID = 0 begin
-		insert into [{databaseOwner}].[{objectQualifier}replace_words](badword,goodword) values(@badword,@goodword)
-	end
-	else begin
-		update [{databaseOwner}].[{objectQualifier}replace_words] set badword = @badword,goodword = @goodword where id = @ID
-	end
-end
+ALTER PROCEDURE [{databaseOwner}].[{objectQualifier}replace_words_save]
+(
+	@BoardID int,
+	@ID int = null,
+	@BadWord nvarchar(255),
+	@GoodWord nvarchar(255)
+)
+AS
+BEGIN
+	IF (@ID IS NOT NULL AND @ID <> 0)
+	BEGIN
+		UPDATE [{databaseOwner}].[{objectQualifier}replace_words] SET BadWord = @BadWord, GoodWord = @GoodWord WHERE ID = @ID		
+	END
+	ELSE BEGIN
+		INSERT INTO [dbo].[{databaseOwner}].[{objectQualifier}replace_words]
+			(BoardID,BadWord,GoodWord)
+		VALUES
+			(@BoardID,@BadWord,@GoodWord)
+	END
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}smiley_delete](@SmileyID int=null) as begin

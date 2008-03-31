@@ -12,8 +12,8 @@
 					<td class="header1" colspan="3">Replace Words</td>
 				</tr>
 				<tr>
-					<td class="header2">Bad Word</td>
-					<td class="header2">Good Word</td>
+					<td class="header2">"Bad" (Find) Expression</td>
+					<td class="header2">"Good" (Replace) Expression</td>
 					<td class="header2">&nbsp;</td>
 				</tr>
 		</HeaderTemplate>
@@ -33,7 +33,12 @@
 		<FooterTemplate>
 			<tr>
 				<td class="footer1" colspan="3">
-					<asp:linkbutton runat="server" text="Add" commandname='add' ID="Linkbutton3"></asp:linkbutton></td>
+					<asp:linkbutton runat="server" text="Add" commandname='add' ID="Linkbutton3"></asp:linkbutton>
+                    |
+                    <asp:LinkButton runat="server" Text="Import from XML" CommandName='import' ID="Linkbutton5"></asp:LinkButton>
+                    |
+                    <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>					
+                    </td>
 			</tr>
 			</table>
 		</FooterTemplate>

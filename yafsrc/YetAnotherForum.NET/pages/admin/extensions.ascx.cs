@@ -88,6 +88,8 @@ namespace YAF.Pages.Admin
 				DataTable extensionList = YAF.Classes.Data.DB.extension_list( PageContext.PageBoardID );
 				extensionList.DataSet.DataSetName = "YafExtensionList";
 				extensionList.TableName = "YafExtension";
+				extensionList.Columns.Remove( "ExtensionID" );
+				extensionList.Columns.Remove( "BoardID" );
 
 				Response.ContentType = "text/xml";
 				Response.AppendHeader( "Content-Disposition", "attachment; filename=YafExtensionExport.xml" );
