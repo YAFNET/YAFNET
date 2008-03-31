@@ -3038,11 +3038,13 @@ namespace YAF.Classes.Data
 		/// Gets a list of replace words
 		/// </summary>
 		/// <returns>DataTable with replace words</returns>
-		static public DataTable replace_words_list()
+		static public DataTable replace_words_list( object boardId, object id )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "BoardID", boardId );
+				cmd.Parameters.AddWithValue( "ID", id );
 				return DBAccess.GetData( cmd );
 			}
 		}
@@ -3052,12 +3054,13 @@ namespace YAF.Classes.Data
 		/// <param name="ID">ID of bad/good word</param>
 		/// <param name="badword">bad word</param>
 		/// <param name="goodword">good word</param>
-		static public void replace_words_save( object ID, object badword, object goodword )
+		static public void replace_words_save( object boardId, object id, object badword, object goodword )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ID", ID );
+				cmd.Parameters.AddWithValue( "ID", id );
+				cmd.Parameters.AddWithValue( "BoardID", boardId );
 				cmd.Parameters.AddWithValue( "badword", badword );
 				cmd.Parameters.AddWithValue( "goodword", goodword );
 				DBAccess.ExecuteNonQuery( cmd );
@@ -3076,21 +3079,6 @@ namespace YAF.Classes.Data
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		/// <summary>
-		/// Edits bad words?
-		/// </summary>
-		/// <param name="ID">ID of badword</param>
-		/// <returns>DataTable</returns>
-		static public DataTable replace_words_edit( object ID )
-		{
-			using ( SqlCommand cmd = DBAccess.GetCommand( "replace_words_edit" ) )
-			{
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ID", ID );
-				return DBAccess.GetData( cmd );
-			}
-		}
-		// rico : replace words / end
 		#endregion
 
 		#region yaf_User

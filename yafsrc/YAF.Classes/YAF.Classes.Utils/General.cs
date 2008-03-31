@@ -38,27 +38,27 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="ip">string array of numbers</param>
 		/// <returns>ulong represending an encoding IP address</returns>
-		static public ulong Str2IP(String[] ip)
+		static public ulong Str2IP( String [] ip )
 		{
-			if (ip.Length != 4)
-				throw new Exception("Invalid ip address.");
+			if ( ip.Length != 4 )
+				throw new Exception( "Invalid ip address." );
 
 			ulong num = 0;
-			for (int i = 0; i < ip.Length; i++)
+			for ( int i = 0; i < ip.Length; i++ )
 			{
 				num <<= 8;
-				num |= ulong.Parse(ip[i]);
+				num |= ulong.Parse( ip [i] );
 			}
 			return num;
 		}
 
-		static public ulong IPStrToLong(string ipAddress)
+		static public ulong IPStrToLong( string ipAddress )
 		{
 			// not sure why it gives me this for local users on firefox--but it does...
-			if (ipAddress == "::1") ipAddress = "127.0.0.1";
+			if ( ipAddress == "::1" ) ipAddress = "127.0.0.1";
 
-			string[] ip = ipAddress.Split('.');
-			return Str2IP(ip);
+			string [] ip = ipAddress.Split( '.' );
+			return Str2IP( ip );
 		}
 
 		/// <summary>
@@ -67,35 +67,35 @@ namespace YAF.Classes.Utils
 		/// <param name="ban">Banned IP</param>
 		/// <param name="chk">IP to Check</param>
 		/// <returns>true if it's banned</returns>
-		static public bool IsBanned(string ban, string chk)
+		static public bool IsBanned( string ban, string chk )
 		{
 			string bannedIP = ban.Trim();
-			if (chk == "::1") chk = "127.0.0.1";
+			if ( chk == "::1" ) chk = "127.0.0.1";
 
-			String[] ipmask = bannedIP.Split('.');
-			String[] ip = bannedIP.Split('.');
+			String [] ipmask = bannedIP.Split( '.' );
+			String [] ip = bannedIP.Split( '.' );
 
-			for (int i = 0; i < ipmask.Length; i++)
+			for ( int i = 0; i < ipmask.Length; i++ )
 			{
-				if (ipmask[i] == "*")
+				if ( ipmask [i] == "*" )
 				{
-					ipmask[i] = "0";
-					ip[i] = "0";
+					ipmask [i] = "0";
+					ip [i] = "0";
 				}
 				else
-					ipmask[i] = "255";
+					ipmask [i] = "255";
 			}
 
-			ulong banmask = Str2IP(ip);
-			ulong banchk = Str2IP(ipmask);
-			ulong ipchk = Str2IP(chk.Split('.'));
+			ulong banmask = Str2IP( ip );
+			ulong banchk = Str2IP( ipmask );
+			ulong ipchk = Str2IP( chk.Split( '.' ) );
 
-			return (ipchk & banchk) == banmask;
+			return ( ipchk & banchk ) == banmask;
 		}
 
 		static public string GetSafeRawUrl()
 		{
-			return GetSafeRawUrl(System.Web.HttpContext.Current.Request.RawUrl);
+			return GetSafeRawUrl( System.Web.HttpContext.Current.Request.RawUrl );
 		}
 
 		/// <summary>
@@ -103,14 +103,14 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="url"></param>
 		/// <returns></returns>
-		static public string GetSafeRawUrl(string url)
+		static public string GetSafeRawUrl( string url )
 		{
 			string tProcessedRaw = url;
-			tProcessedRaw = tProcessedRaw.Replace("\"", string.Empty);
-			tProcessedRaw = tProcessedRaw.Replace("<", "%3C");
-			tProcessedRaw = tProcessedRaw.Replace(">", "%3E");
-			tProcessedRaw = tProcessedRaw.Replace("&", "%26");
-			return tProcessedRaw.Replace("'", string.Empty);
+			tProcessedRaw = tProcessedRaw.Replace( "\"", string.Empty );
+			tProcessedRaw = tProcessedRaw.Replace( "<", "%3C" );
+			tProcessedRaw = tProcessedRaw.Replace( ">", "%3E" );
+			tProcessedRaw = tProcessedRaw.Replace( "&", "%26" );
+			return tProcessedRaw.Replace( "'", string.Empty );
 		}
 
 		/// <summary>
@@ -119,16 +119,16 @@ namespace YAF.Classes.Utils
 		/// <param name="length">the length of the random string</param>
 		/// <param name="pickfrom">the string of characters to pick randomly from</param>
 		/// <returns></returns>
-		public static string GenerateRandomString(int length, string pickfrom)
+		public static string GenerateRandomString( int length, string pickfrom )
 		{
 			Random r = new Random();
 			string result = "";
 			int picklen = pickfrom.Length - 1;
 			int index = 0;
-			for (int i = 0; i < length; i++)
+			for ( int i = 0; i < length; i++ )
 			{
-				index = r.Next(picklen);
-				result = result + pickfrom.Substring(index, 1);
+				index = r.Next( picklen );
+				result = result + pickfrom.Substring( index, 1 );
 			}
 			return result;
 		}
@@ -139,7 +139,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public static string GetCaptchaString()
 		{
-			return GenerateRandomString(YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+			return GenerateRandomString( YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789" );
 		}
 
 		/// <summary>
@@ -148,28 +148,28 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string Truncate(string input, int limit)
+		public static string Truncate( string input, int limit )
 		{
 			string output = input;
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if (output.Length > limit && limit > 0)
+			if ( output.Length > limit && limit > 0 )
 			{
 				// cut the string down to the maximum number of characters
-				output = output.Substring(0, limit);
+				output = output.Substring( 0, limit );
 
 				// Check if the space right after the truncate point 
 				// was a space. if not, we are in the middle of a word and 
 				// need to cut out the rest of it
-				if (input.Substring(output.Length, 1) != " ")
+				if ( input.Substring( output.Length, 1 ) != " " )
 				{
-					int LastSpace = output.LastIndexOf(" ");
+					int LastSpace = output.LastIndexOf( " " );
 
 					// if we found a space then, cut back to that space
-					if (LastSpace != -1)
+					if ( LastSpace != -1 )
 					{
-						output = output.Substring(0, LastSpace);
+						output = output.Substring( 0, LastSpace );
 					}
 				}
 				// Finally, add the "..."
@@ -184,77 +184,78 @@ namespace YAF.Classes.Utils
 		/// <param name="input">input string</param>
 		/// <param name="limit">max size of string</param>
 		/// <returns>truncated string</returns>
-		public static string TruncateMiddle(string input, int limit)
+		public static string TruncateMiddle( string input, int limit )
 		{
 			string output = input;
 			const string middle = "...";
 
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
-			if (output.Length > limit && limit > 0)
+			if ( output.Length > limit && limit > 0 )
 			{
 				// figure out how much to make it fit...
-				int left = (limit / 2) - (middle.Length / 2);
-				int right = limit - left - (middle.Length / 2);
+				int left = ( limit / 2 ) - ( middle.Length / 2 );
+				int right = limit - left - ( middle.Length / 2 );
 
-				if ((left + right + middle.Length) < limit)
+				if ( ( left + right + middle.Length ) < limit )
 				{
 					right++;
 				}
-				else if ((left + right + middle.Length) > limit)
+				else if ( ( left + right + middle.Length ) > limit )
 				{
 					right--;
 				}
 
 				// cut the left side
-				output = input.Substring(0, left);
+				output = input.Substring( 0, left );
 				// add the middle
 				output += middle;
 				// add the right side...
-				output += input.Substring(input.Length - right, right);
+				output += input.Substring( input.Length - right, right );
 			}
 			return output;
 		}
 
-		static public bool IsValidEmail(string email)
+		static public bool IsValidEmail( string email )
 		{
-			return Regex.IsMatch(email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase);
+			return Regex.IsMatch( email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase );
 		}
-		static public bool IsValidURL(string url)
+		static public bool IsValidURL( string url )
 		{
-			return Regex.IsMatch(url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$");
+			return Regex.IsMatch( url, @"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*[^\.\,\)\(\s]$" );
 		}
-		static public bool IsValidInt(string val)
+		static public bool IsValidInt( string val )
 		{
-			return Regex.IsMatch(val, @"^[1-9]\d*\.?[0]*$");
+			return Regex.IsMatch( val, @"^[1-9]\d*\.?[0]*$" );
 		}
 		/// <summary>
 		/// Searches through SearchText and replaces "bad words" with "good words"
 		/// as defined in the database.
 		/// </summary>
 		/// <param name="SearchText">The string to search through.</param>
-		static public string BadWordReplace(string searchText)
+		static public string BadWordReplace( string searchText )
 		{
 			string strReturn = searchText;
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
-			// rico : run word replacement from database table names yaf_replacewords
-			DataTable dt = (DataTable)HttpContext.Current.Cache["replacewords"];
-			if (dt == null)
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ReplaceWords );
+			DataTable replaceWordsDT = ( DataTable )YafCache.Current [cacheKey];
+
+			if ( replaceWordsDT == null )
 			{
-				dt = YAF.Classes.Data.DB.replace_words_list();
-				HttpContext.Current.Cache.Insert("replacewords", dt, null, DateTime.Now.AddMinutes(15), TimeSpan.Zero);
+				replaceWordsDT = YAF.Classes.Data.DB.replace_words_list( YafContext.Current.PageBoardID, null );
+				YafCache.Current.Add( cacheKey, replaceWordsDT, null, DateTime.Now.AddMinutes( 30 ), TimeSpan.Zero, System.Web.Caching.CacheItemPriority.Low, null );
 			}
-			foreach (DataRow rwords in dt.Rows)
+			foreach ( DataRow row in replaceWordsDT.Rows )
 			{
 				try
 				{
-					strReturn = Regex.Replace(strReturn, Convert.ToString(rwords["badword"]), Convert.ToString(rwords["goodword"]), options);
+					strReturn = Regex.Replace( strReturn, Convert.ToString( row ["badword"] ), Convert.ToString( row ["goodword"] ), options );
 				}
 #if DEBUG
-				catch (Exception e)
+				catch ( Exception e )
 				{
-					throw new Exception("Regular Expression Failed: " + e.Message);
+					throw new Exception( "Regular Expression Failed: " + e.Message );
 				}
 #else
 				catch (Exception x)
@@ -272,15 +273,15 @@ namespace YAF.Classes.Utils
 			System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
 
 			// get a list of resource names from the manifest
-			string[] resNames = a.GetManifestResourceNames();
+			string [] resNames = a.GetManifestResourceNames();
 
 			// populate the textbox with information about our resources
 			// also look for images and put them in our arraylist
 			string txtInfo = "";
 
-			txtInfo += String.Format("Found {0} resources\r\n", resNames.Length);
+			txtInfo += String.Format( "Found {0} resources\r\n", resNames.Length );
 			txtInfo += "----------\r\n";
-			foreach (string s in resNames)
+			foreach ( string s in resNames )
 			{
 				txtInfo += s + "\r\n";
 			}
@@ -291,73 +292,73 @@ namespace YAF.Classes.Utils
 
 		/* Ederon - 7/1/2007 start */
 
-		static public void AddStyleAttributeSize(System.Web.UI.WebControls.WebControl control, string width, string height)
+		static public void AddStyleAttributeSize( System.Web.UI.WebControls.WebControl control, string width, string height )
 		{
-			control.Attributes.Add("style", String.Format("width: {0}; height: {1};", width, height));
+			control.Attributes.Add( "style", String.Format( "width: {0}; height: {1};", width, height ) );
 		}
 
-		static public void AddStyleAttributeWidth(System.Web.UI.WebControls.WebControl control, string width)
+		static public void AddStyleAttributeWidth( System.Web.UI.WebControls.WebControl control, string width )
 		{
-			control.Attributes.Add("style", String.Format("width: {0};", width));
+			control.Attributes.Add( "style", String.Format( "width: {0};", width ) );
 		}
 
-		static public void AddStyleAttributeHeight(System.Web.UI.WebControls.WebControl control, string height)
+		static public void AddStyleAttributeHeight( System.Web.UI.WebControls.WebControl control, string height )
 		{
-			control.Attributes.Add("style", String.Format("height: {0};", height));
+			control.Attributes.Add( "style", String.Format( "height: {0};", height ) );
 		}
 
 		/* Ederon - 7/1/2007 end */
 
 
-		static public void AddOnClickConfirmDialog(object control, string message)
+		static public void AddOnClickConfirmDialog( object control, string message )
 		{
-			AddOnClickConfirmDialog((System.Web.UI.WebControls.WebControl)control, message);
+			AddOnClickConfirmDialog( ( System.Web.UI.WebControls.WebControl )control, message );
 		}
-		static public void AddOnClickConfirmDialog(System.Web.UI.WebControls.WebControl control, string message)
+		static public void AddOnClickConfirmDialog( System.Web.UI.WebControls.WebControl control, string message )
 		{
-			control.Attributes["onclick"] = String.Format("return confirm('{0}');", message);
+			control.Attributes ["onclick"] = String.Format( "return confirm('{0}');", message );
 		}
 
 
 		/* Ederon - 9/9/2007 */
-		static public string ProcessText(string text)
+		static public string ProcessText( string text )
 		{
-			return ProcessText(text, true);
+			return ProcessText( text, true );
 		}
-		static public string ProcessText(string text, bool nullify)
+		static public string ProcessText( string text, bool nullify )
 		{
-			return ProcessText(text, nullify, true);
+			return ProcessText( text, nullify, true );
 		}
-		static public string ProcessText(string text, bool nullify, bool trim)
+		static public string ProcessText( string text, bool nullify, bool trim )
 		{
-			if (trim) text = text.Trim();
-			if (nullify && text.Trim().Length == 0) text = null;
+			if ( trim ) text = text.Trim();
+			if ( nullify && text.Trim().Length == 0 ) text = null;
 
 			return text;
 		}
 
 		/* Ederon : 9/12/2007 */
-		static public bool BinaryAnd(object value, object checkAgainst)
+		static public bool BinaryAnd( object value, object checkAgainst )
 		{
-			return BinaryAnd((int)value, (int)checkAgainst);
+			return BinaryAnd( ( int )value, ( int )checkAgainst );
 		}
-		static public bool BinaryAnd(int value, int checkAgainst)
+		static public bool BinaryAnd( int value, int checkAgainst )
 		{
-			return (value & checkAgainst) == checkAgainst;
+			return ( value & checkAgainst ) == checkAgainst;
 		}
 
 
-		static public bool CheckPermission(YafContext context, int permission)
+		static public bool CheckPermission( YafContext context, int permission )
 		{
-			return CheckPermission(context, (ViewPermissions)permission);
+			return CheckPermission( context, ( ViewPermissions )permission );
 		}
-		static public bool CheckPermission(YafContext context, ViewPermissions permission)
+		static public bool CheckPermission( YafContext context, ViewPermissions permission )
 		{
-			if (permission == ViewPermissions.Everyone)
+			if ( permission == ViewPermissions.Everyone )
 			{
 				return true;
 			}
-			else if (permission == ViewPermissions.RegisteredUsers)
+			else if ( permission == ViewPermissions.RegisteredUsers )
 			{
 				return !context.IsGuest;
 			}
@@ -367,17 +368,17 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		static public void HandleRequest(YafContext context, int permission)
+		static public void HandleRequest( YafContext context, int permission )
 		{
-			HandleRequest(context, (ViewPermissions)permission);
+			HandleRequest( context, ( ViewPermissions )permission );
 		}
-		static public void HandleRequest(YafContext context, ViewPermissions permission)
+		static public void HandleRequest( YafContext context, ViewPermissions permission )
 		{
-			if (!CheckPermission(context, permission))
+			if ( !CheckPermission( context, permission ) )
 			{
-				if (permission == ViewPermissions.RegisteredUsers)
+				if ( permission == ViewPermissions.RegisteredUsers )
 				{
-					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
 				}
 				else
 				{
@@ -386,10 +387,10 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		static public string EncodeMessage(string message)
+		static public string EncodeMessage( string message )
 		{
-			if (message.IndexOf('<') >= 0)
-				return HttpUtility.HtmlEncode(message);
+			if ( message.IndexOf( '<' ) >= 0 )
+				return HttpUtility.HtmlEncode( message );
 
 			return message;
 		}
@@ -401,9 +402,9 @@ namespace YAF.Classes.Utils
 		/// <param name="originalMessage">Original message text.</param>
 		/// <param name="newMessage">New message text.</param>
 		/// <returns>True if messages differ, false if they are identical.</returns>
-		static public bool CompareMessage(Object originalMessage, Object newMessage)
+		static public bool CompareMessage( Object originalMessage, Object newMessage )
 		{
-			return ((String)originalMessage != (String)newMessage);
+			return ( ( String )originalMessage != ( String )newMessage );
 		}
 	}
 }
