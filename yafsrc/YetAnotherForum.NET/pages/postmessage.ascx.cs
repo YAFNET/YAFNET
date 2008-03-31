@@ -700,37 +700,20 @@ namespace YAF.Pages
 		{
 			PreviewRow.Visible = true;
 
-			MessageFlags tFlags = new MessageFlags();
-			tFlags.IsHtml = uxMessage.UsesHTML;
-			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			PreviewMessagePost.MessageFlags.IsHtml = uxMessage.UsesHTML;
+			PreviewMessagePost.MessageFlags.IsBBCode = uxMessage.UsesBBCode;
+			PreviewMessagePost.Message = uxMessage.Text;
 
-			string body = FormatMsg.FormatMessage(uxMessage.Text, tFlags);
-
-			using (DataTable dt = DB.user_list(PageContext.PageBoardID, PageContext.PageUserID, true))
+			if ( PageContext.BoardSettings.AllowSignatures )
 			{
-				if (!dt.Rows[0].IsNull("Signature"))
-					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage(dt.Rows[0]["Signature"].ToString(), new MessageFlags());
+				using ( DataTable userDT = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+				{
+					if ( !userDT.Rows [0].IsNull( "Signature" ) )
+					{
+						PreviewMessagePost.Signature = userDT.Rows [0] ["Signature"].ToString();
+					}
+				}
 			}
-
-			PreviewCell.InnerHtml = body;
-		}
-
-		protected string FormatBody(object o)
-		{
-			DataRowView row = (DataRowView)o;
-			string html = FormatMsg.FormatMessage(row["Message"].ToString(), new MessageFlags(Convert.ToInt32(row["Flags"])));
-
-			string messageSignature = row["Signature"].ToString();
-
-			if (messageSignature != string.Empty)
-			{
-				MessageFlags flags = new MessageFlags();
-				flags.IsHtml = false;
-				messageSignature = FormatMsg.FormatMessage(messageSignature, flags);
-				html += "<br/><hr noshade/>" + messageSignature;
-			}
-
-			return html;
 		}
 
 		#region Querystring Values

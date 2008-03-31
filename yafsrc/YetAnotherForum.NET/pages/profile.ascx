@@ -48,9 +48,7 @@
 							<ItemTemplate>
 								<%# Container.DataItem %>
 							</ItemTemplate>
-							<SeparatorTemplate>
-								,
-							</SeparatorTemplate>
+							<SeparatorTemplate>, </SeparatorTemplate>
 						</asp:Repeater>
 					</td>
 				</tr>
@@ -189,7 +187,7 @@
 						</tr>
 						<tr class="post">
 							<td valign="top" class="message" colspan="2">
-								<%# FormatBody(Container.DataItem) %>
+							    <YAF:MessagePostData ID="MessagePost" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>"></YAF:MessagePostData>
 							</td>
 						</tr>
 					</ItemTemplate>

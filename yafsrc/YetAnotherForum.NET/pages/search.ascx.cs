@@ -240,17 +240,6 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		/// <summary>
-		/// Formats the message and replaces Forum Code to HTML.
-		/// </summary>
-		/// <param name="o">The object DataRowView that is going to be converted.</param>
-		/// <returns>Returns the convertted string.</returns>
-		public string FormatMessage( object o )
-		{
-			DataRowView row = ( DataRowView ) o;
-			return FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
-		}
-
 		protected void btnSearch_Click( object sender, System.EventArgs e )
 		{
 			BindData( true );

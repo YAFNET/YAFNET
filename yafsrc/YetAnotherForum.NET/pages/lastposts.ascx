@@ -31,7 +31,7 @@
             <td>
                 &nbsp;</td>
             <td valign="top" class="message">
-                <%# FormatBody(Container.DataItem) %>
+                <YAF:MessagePostData ID="MessagePostPrimary" runat="server" DataRow="<%# Container.DataItem %>" ShowAttachments="false"></YAF:MessagePostData>
             </td>
         </tr>
     </ItemTemplate>
@@ -54,7 +54,7 @@
             <td>
                 &nbsp;</td>
             <td valign="top" class="message">
-                <%# FormatBody(Container.DataItem) %>
+                <YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%# Container.DataItem %>" ShowAttachments="false"></YAF:MessagePostData>
             </td>
         </tr>
     </AlternatingItemTemplate>

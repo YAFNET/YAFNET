@@ -829,7 +829,6 @@ namespace YAF.Controls
 
 			if ( !PostDeleted )
 			{
-
 				AddAttachedFiles( ref messageOutput );
 
 				if ( PageContext.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )

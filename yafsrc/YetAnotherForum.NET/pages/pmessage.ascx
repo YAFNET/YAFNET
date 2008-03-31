@@ -13,6 +13,7 @@
 			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="previewtitle" />
 		</td>
 		<td class="post" valign="top" id="PreviewCell" runat="server">
+		    <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
 	<tr id="ToRow" runat="server">

@@ -205,26 +205,6 @@ namespace YAF.Pages // YAF.Pages
 			DataBind();
 		}
 
-		protected string FormatBody( object o )
-		{
-			DataRowView row = ( DataRowView )o;
-			string html = FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ) );
-
-			if ( row ["Signature"].ToString().Length > 0 )
-			{
-				string sig = row ["Signature"].ToString();
-
-				// don't allow any HTML on signatures
-				MessageFlags tFlags = new MessageFlags();
-				tFlags.IsHtml = false;
-
-				sig = FormatMsg.FormatMessage( sig, tFlags );
-				html += "<br/><hr noshade/>" + sig;
-			}
-
-			return html;
-		}
-
 		private void UpdateLast10Panel()
 		{
 			expandLast10.ImageUrl = GetCollapsiblePanelImageURL( "ProfileLast10Posts", PanelSessionState.CollapsiblePanelState.Collapsed );

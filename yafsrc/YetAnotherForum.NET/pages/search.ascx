@@ -79,7 +79,7 @@
                         <td width="140px">
                             &nbsp;</td>
                         <td width="80%">
-                            <%# FormatMessage(Container.DataItem) %>
+                            <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false" ShowSignature="false" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>"></YAF:MessagePostData>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -110,7 +110,7 @@
                         <td width="140px">
                             &nbsp;</td>
                         <td width="80%">
-                            <%# FormatMessage(Container.DataItem) %>
+                            <YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" ShowSignature="false" DataRow="<%# ( System.Data.DataRowView )Container.DataItem %>"></YAF:MessagePostData>
                         </td>
                     </tr>
                 </AlternatingItemTemplate>

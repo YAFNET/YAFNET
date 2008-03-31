@@ -42,7 +42,7 @@
     </td>
     <td valign="top" class="message">
         <div class="postdiv">
-            <%# FormatBody() %>
+            <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
         </div>
     </td>
 </tr>

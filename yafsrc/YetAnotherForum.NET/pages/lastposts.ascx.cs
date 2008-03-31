@@ -33,7 +33,6 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class lastposts : YAF.Classes.Base.ForumPage
 	{
-
 		public lastposts()
 			: base( "POSTMESSAGE" )
 		{
@@ -53,24 +52,6 @@ namespace YAF.Pages // YAF.Pages
 
 			// handle custom BBCode javascript or CSS...
 			BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
-		}
-
-		protected string FormatBody( object o )
-		{
-			DataRowView row = ( DataRowView ) o;
-			string html = FormatMsg.FormatMessage( row ["Message"].ToString(), new MessageFlags( Convert.ToInt32( row ["Flags"] ) ), false, true );
-
-			string messageSignature = row ["Signature"].ToString();
-			if ( messageSignature != string.Empty )
-			{
-				MessageFlags flags = new MessageFlags();
-				flags.IsHtml = false;
-
-				messageSignature = FormatMsg.FormatMessage( messageSignature, flags );
-				html += "<br/><hr noshade/>" + messageSignature;
-			}
-
-			return html;
 		}
 	}
 }

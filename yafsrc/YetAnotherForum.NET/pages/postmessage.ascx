@@ -11,6 +11,7 @@
 			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
 		</td>
 		<td class="post" valign="top" id="PreviewCell" runat="server">
+		    <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
 		</td>
 	</tr>
 	<tr id="SubjectRow" runat="server">
@@ -251,7 +252,7 @@
 			<td>
 				&nbsp;</td>
 			<td valign="top" class="message">
-				<%# FormatBody(Container.DataItem) %>
+			    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>"></YAF:MessagePostData>
 			</td>
 		</tr>
 	</ItemTemplate>
@@ -273,7 +274,7 @@
 			<td>
 				&nbsp;</td>
 			<td valign="top" class="message">
-				<%# FormatBody(Container.DataItem) %>
+			    <YAF:MessagePostData ID="MessagePostAlt" runat="server" ShowAttachments="false" DataRow="<%# Container.DataItem %>"></YAF:MessagePostData>
 			</td>
 		</tr>
 	</AlternatingItemTemplate>

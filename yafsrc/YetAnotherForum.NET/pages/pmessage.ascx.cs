@@ -343,23 +343,25 @@ namespace YAF.Pages
 			// make preview row visible
 			PreviewRow.Visible = true;
 
+			PreviewMessagePost.MessageFlags.IsHtml = _editor.UsesHTML;
+			PreviewMessagePost.MessageFlags.IsBBCode = _editor.UsesBBCode;
+			PreviewMessagePost.Message = _editor.Text;
+
 			// set message flags
 			MessageFlags tFlags = new MessageFlags();
 			tFlags.IsHtml = _editor.UsesHTML;
 			tFlags.IsBBCode = _editor.UsesBBCode;
 
-			// format message body
-			string body = FormatMsg.FormatMessage( _editor.Text, tFlags );
-
-			// attack sender's signature
-			using ( DataTable dt = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+			if ( PageContext.BoardSettings.AllowSignatures )
 			{
-				if ( !dt.Rows [0].IsNull( "Signature" ) )
-					body += "<br/><hr noshade/>" + FormatMsg.FormatMessage( dt.Rows [0] ["Signature"].ToString(), new MessageFlags() );
+				using ( DataTable userDT = DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
+				{
+					if ( !userDT.Rows [0].IsNull( "Signature" ) )
+					{
+						PreviewMessagePost.Signature = userDT.Rows [0] ["Signature"].ToString();
+					}
+				}
 			}
-
-			// display preview HTML code in preview cell
-			PreviewCell.InnerHtml = body;
 		}
 
 
