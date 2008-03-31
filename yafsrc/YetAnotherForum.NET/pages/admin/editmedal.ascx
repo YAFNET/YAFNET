@@ -153,27 +153,27 @@
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr runat="server" id="AddGroupRow" visible="false">
-			<td class="footer2" colspan="4">
+			<td class="footer1" colspan="4">
 				<asp:LinkButton runat="server" OnClick="AddGroup_Click">Add Group</asp:LinkButton>
 			</td>
 		</tr>
 		<asp:Panel runat="server" ID="AddGroupPanel" Visible="false">
 			<tr>
-				<td class="footer2" colspan="4" style="text-align: center;">
+				<td class="footer1" colspan="4" style="text-align: center;">
 					<b>
 						<asp:Label runat="server" ID="GroupMedalEditTitle" /></b>
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Group:</td>
+					<b>Group:</b></td>
 				<td class="post" colspan="2">
 					<asp:DropDownList runat="server" ID="AvailableGroupList" />
 				</td>
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Message:<br />
+					<b>Message:</b><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -182,7 +182,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Sort Order:<br />
+					<b>Sort Order:</b><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -191,7 +191,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Show Only Ribbon Bar:<br />
+					<b>Show Only Ribbon Bar:</b><br />
 					If checked, only ribbon bar is displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -200,7 +200,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Hide:<br />
+					<b>Hide:</b><br />
 					If checked, medal is not displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -208,7 +208,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="footer2" colspan="4" style="text-align: center;">
+				<td class="footer1" colspan="4" style="text-align: center;">
 					<asp:Button runat="server" Text="Save" OnClick="AddGroupSave_Click" ID="AddGroupSave" />
 					<asp:Button runat="server" Text="Cancel" OnClick="AddGroupCancel_Click" />
 				</td>
@@ -252,13 +252,13 @@
 			</ItemTemplate>
 		</asp:Repeater>
 		<tr runat="server" id="AddUserRow" visible="false">
-			<td class="footer2" colspan="4">
+			<td class="footer1" colspan="4">
 				<asp:LinkButton runat="server" OnClick="AddUser_Click">Add User</asp:LinkButton>
 			</td>
 		</tr>
 		<asp:Panel runat="server" ID="AddUserPanel" Visible="false">
 			<tr>
-				<td class="footer2" colspan="4" style="text-align: center;">
+				<td class="footer1" colspan="4" style="text-align: center;">
 					<b>
 						<asp:Label runat="server" ID="UserMedalEditTitle" /></b>
 				</td>
@@ -276,7 +276,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Message:<br />
+					<b>Message:</b><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -285,7 +285,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Sort Order:<br />
+					<b>Sort Order:</b><br />
 					Overrides default if specified (Optional)
 				</td>
 				<td class="post" colspan="2">
@@ -294,7 +294,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Show Only Ribbon Bar:<br />
+					<b>Show Only Ribbon Bar:</b><br />
 					If checked, only ribbon bar is displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -303,7 +303,7 @@
 			</tr>
 			<tr>
 				<td class="postheader" colspan="2">
-					Hide:<br />
+					<b>Hide:</b><br />
 					If checked, medal is not displayed in user box.
 				</td>
 				<td class="post" colspan="2">
@@ -311,7 +311,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="footer2" colspan="4" style="text-align: center;">
+				<td class="footer1" colspan="4" style="text-align: center;">
 					<asp:Button runat="server" Text="Save" OnClick="AddUserSave_Click" ID="AddUserSave" />
 					<asp:Button runat="server" Text="Cancel" OnClick="AddUserCancel_Click" />
 				</td>

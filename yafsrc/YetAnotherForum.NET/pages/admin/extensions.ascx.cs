@@ -82,6 +82,22 @@ namespace YAF.Pages.Admin
 				BindData();
 				PageContext.AddLoadMessage( "Extension Removed" );
 			}
+			else if ( e.CommandName == "export" )
+			{
+				// export this list as XML...
+				DataTable extensionList = YAF.Classes.Data.DB.extension_list( PageContext.PageBoardID );
+				extensionList.DataSet.DataSetName = "YafExtensionList";
+				extensionList.TableName = "YafExtension";
+
+				Response.ContentType = "text/xml";
+				Response.AppendHeader( "Content-Disposition", "attachment; filename=YafExtensionExport.xml" );
+				extensionList.DataSet.WriteXml( Response.OutputStream );
+				Response.End();
+			}
+			else if ( e.CommandName == "import" )
+			{
+				YafBuildLink.Redirect( ForumPages.admin_extensions_import );
+			}
 		}
 
 		#region Web Form Designer generated code

@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
 					smallImageURL, smallRibbonURL, imageSize.Width, imageSize.Height, ribbonWidth, ribbonHeight, SortOrder.Text, flags.BitValue);
 
 			// go back to medals administration
-			YafBuildLink.Redirect(ForumPages.admin_medals);
+			YafBuildLink.Redirect( ForumPages.admin_medals );
 		}
 
 
@@ -469,7 +469,7 @@ namespace YAF.Pages.Admin
 				DataRow dr = dt.NewRow();
 				dr["FileID"] = 0;
 				dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-				dr["Description"] = "Select Rank Image";
+				dr["Description"] = "Select Medal Image";
 				dt.Rows.Add(dr);
 
 				// add files from medals folder
