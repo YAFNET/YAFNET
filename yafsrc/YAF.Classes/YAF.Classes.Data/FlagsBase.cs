@@ -20,13 +20,16 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace YAF.Classes.Data
 {
 	/// <summary>
 	/// Abstract class as a foundation for various flags implementations
 	/// </summary>
-	public abstract class FlagsBase
+	[Serializable()]
+	public abstract class FlagsBase : System.Runtime.Serialization.ISerializationSurrogate
 	{
 		#region Data Members
 
@@ -155,6 +158,24 @@ namespace YAF.Classes.Data
 		{
 			get { return _bitValue; }
 			set { _bitValue = value; }
+		}
+
+		#endregion
+
+		#region ISerializationSurrogate Members
+
+		public void GetObjectData( object obj, System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context )
+		{
+			FlagsBase flags = obj as FlagsBase;
+			info.AddValue( "BitValue", flags.BitValue );
+		}
+
+		public object SetObjectData( object obj, System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context, System.Runtime.Serialization.ISurrogateSelector selector )
+		{
+			FlagsBase flags = obj as FlagsBase;
+			flags.BitValue = info.GetInt32( "BitValue" );
+
+			return null;
 		}
 
 		#endregion

@@ -23,6 +23,7 @@ using System.Text;
 
 namespace YAF.Classes.Data
 {
+	[Serializable()]
 	public class UserFlags : FlagsBase
 	{
 		#region Constructors
