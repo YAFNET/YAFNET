@@ -113,6 +113,7 @@ namespace YAF.Classes.Utils
 		admin_smilies_import,
 		admin_replacewords,
 		admin_replacewords_edit,
+		admin_replacewords_import,
 		admin_extensions,
 		admin_extensions_edit,
 		admin_extensions_import
