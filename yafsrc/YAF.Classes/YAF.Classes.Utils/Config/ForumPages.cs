@@ -114,6 +114,7 @@ namespace YAF.Classes.Utils
 		admin_replacewords,
 		admin_replacewords_edit,
 		admin_extensions,
-		admin_extensions_edit
+		admin_extensions_edit,
+		admin_extensions_import
 	}
 }
