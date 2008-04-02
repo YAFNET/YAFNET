@@ -19,6 +19,7 @@
 using System;
 using System.Data;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace YAF.Controls
 {
@@ -28,7 +29,7 @@ namespace YAF.Controls
 	public class PopMenu : BaseControl, System.Web.UI.IPostBackEventHandler
 	{
 		private string _control = string.Empty;
-		private Hashtable _items = new Hashtable();
+		private List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
 
 		public string Control
 		{
@@ -42,21 +43,42 @@ namespace YAF.Controls
 			}
 		}
 
-		public void AddItem( string title, string script )
+		public void AddPostBackItem( string argument, string description )
 		{
-			_items.Add( title, script );
+			_items.Add( new InternalPopMenuItem( description, argument, null ) );
+		}
+
+		public void AddClientScriptItem( string description, string clientScript )
+		{
+			_items.Add( new InternalPopMenuItem( description, null, clientScript ) );
 		}
 
 		public void Attach( System.Web.UI.WebControls.WebControl ctl )
 		{
-			ctl.Attributes ["onclick"] = string.Format( "yaf_popit('{0}')", this.ClientID );
-			ctl.Attributes ["onmouseover"] = string.Format( "yaf_mouseover('{0}')", this.ClientID );
+			ctl.Attributes ["onclick"] = ControlOnClick;
+			ctl.Attributes ["onmouseover"] = ControlOnMouseOver;
 		}
 
 		public void Attach( UserLink userLinkControl )
 		{
-			userLinkControl.OnClick = string.Format( "yaf_popit('{0}')", this.ClientID );
-			userLinkControl.OnMouseOver = string.Format( "yaf_mouseover('{0}')", this.ClientID );
+			userLinkControl.OnClick = ControlOnClick;
+			userLinkControl.OnMouseOver = ControlOnMouseOver;
+		}
+
+		public string ControlOnClick
+		{
+			get
+			{
+				return string.Format( "yaf_popit('{0}')", this.ClientID );
+			}
+		}
+
+		public string ControlOnMouseOver
+		{
+			get
+			{
+				return string.Format( "yaf_mouseover('{0}')", this.ClientID );
+			}
 		}
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
@@ -68,10 +90,24 @@ namespace YAF.Controls
 			sb.AppendFormat( @"<div class=""yafpopupmenu"" id=""{0}"" style=""position:absolute;z-index:100;left:0;top:0;visibility:hidden;"">", this.ClientID );
 			sb.Append( "<ul>" );
 
-			foreach ( string key in _items.Keys )
+			// add the items
+			foreach ( InternalPopMenuItem thisItem in _items )
 			{
-				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}"" style=""white-space:nowrap"">{0}</li>", _items [key], Page.ClientScript.GetPostBackClientHyperlink( this, key ) );
+				string onClick;
+
+				if ( !String.IsNullOrEmpty( thisItem.ClientScript ) )
+				{
+					// postback style...
+					onClick = thisItem.ClientScript;
+				}
+				else
+				{
+					onClick = Page.ClientScript.GetPostBackClientHyperlink( this, thisItem.PostBackArgument );
+				}
+
+				sb.AppendFormat( @"<li class=""popupitem"" onmouseover=""mouseHover(this,true)"" onmouseout=""mouseHover(this,false)"" onclick=""{1}"" style=""white-space:nowrap"">{0}</li>", thisItem.Description, onClick );
 			}
+
 			sb.AppendFormat( "</ul></div>" );
 
 			writer.WriteLine( sb.ToString() );
@@ -111,4 +147,35 @@ namespace YAF.Controls
 	}
 
 	public delegate void PopEventHandler( object sender, PopEventArgs e );
+
+	public class InternalPopMenuItem
+	{
+		private string _description = null;
+		public string Description
+		{
+			get { return _description; }
+			set { _description = value; }
+		}
+
+		private string _postbackArgument = null;
+		public string PostBackArgument
+		{
+			get { return _postbackArgument; }
+			set { _postbackArgument = value; }
+		}
+
+		private string _clientScript = null;
+		public string ClientScript
+		{
+			get { return _clientScript; }
+			set { _clientScript = value; }
+		}
+
+		public InternalPopMenuItem( string description, string postbackArgument, string clientScript )
+		{
+			_description = description;
+			_postbackArgument = postbackArgument;
+			_clientScript = clientScript;
+		}
+	}
 }

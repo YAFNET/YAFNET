@@ -65,6 +65,7 @@ namespace YAF.Controls
 
 		protected override void RenderMessage( HtmlTextWriter writer )
 		{
+
 			if ( DataRow != null )
 			{
 				if ( this.MessageFlags.NotFormatted )
@@ -80,11 +81,25 @@ namespace YAF.Controls
 						editedMessage = Convert.ToDateTime( DataRow ["Edited"] );
 					}
 
-					writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
+					if ( this.MessageFlags.IsBBCode )
+					{
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
+					}
+					else
+					{
+						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
+					}
 				}
 				else
 				{
-					writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );
+					if ( this.MessageFlags.IsBBCode )
+					{
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );
+					}
+					else
+					{
+						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );
+					}
 				}
 			}
 		}

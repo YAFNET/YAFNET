@@ -20,8 +20,10 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
@@ -33,6 +35,9 @@ namespace YAF.Controls
 	/// </summary>
 	public class MessagePost : BaseControl
 	{
+		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+		static private string _rgxModule = @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.*?))\</YafModuleFactoryInvocation\>";
+
 		public MessagePost()
 			: base()
 		{
@@ -75,8 +80,58 @@ namespace YAF.Controls
 			}
 			else
 			{
-				writer.Write( FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
+				if ( this.MessageFlags.IsBBCode )
+				{
+					RenderModulesInBBCode( writer, FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
+				}
+				else
+				{
+					writer.Write( FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
+				}
 			}
+		}
+
+		virtual protected void RenderModulesInBBCode( HtmlTextWriter writer, string message )
+		{
+			XmlDocument xmlDoc = new XmlDocument();
+			Regex _regExSearch = new Regex( _rgxModule, _options );
+			Match m = _regExSearch.Match( message );
+
+			while ( m.Success )
+			{
+				// load this module info into the xml document...
+				xmlDoc.LoadXml( m.Groups [0].Value );
+				XmlNode mainNode = xmlDoc.SelectSingleNode( "YafModuleFactoryInvocation" );
+				string className = mainNode.Attributes ["ClassName"].InnerText;
+
+				// get all parameters as a name/value dictionary
+				Dictionary<string, string> paramDic = new Dictionary<string, string>();
+				XmlNodeList paramList = xmlDoc.SelectNodes( "/YafModuleFactoryInvocation/Parameters/*" );
+
+				foreach ( XmlNode paramNode in paramList )
+				{
+					paramDic.Add( paramNode.Attributes ["Name"].InnerText, paramNode.InnerText );
+				}
+
+				// render what is before the control...
+				writer.Write( message.Substring( 0, m.Groups [0].Index ) );
+
+				// create/render the control...
+				Type module = System.Web.Compilation.BuildManager.GetType( className, true, false );
+				YAF.Modules.YafBBCodeControl customModule = ( YAF.Modules.YafBBCodeControl )Activator.CreateInstance( module );
+				// assign parameters...
+				customModule.Parameters = paramDic;
+				// render this control...
+				customModule.RenderControl( writer );
+
+				// now we are just concerned with what is after...
+				message =  message.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _regExSearch.Match( message );
+			}
+
+			// render anything remaining...
+			writer.Write( message );
 		}
 
 		virtual public string Signature
