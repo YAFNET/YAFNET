@@ -59,8 +59,8 @@ namespace YAF.Controls
 			if (PopMenu1.Visible)
 			{
 				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
-				PopMenu1.AddItem("userprofile", "User Profile");
-				PopMenu1.AddItem("edituser", "Edit User (Admin)");
+				PopMenu1.AddPostBackItem("userprofile", "User Profile");
+				PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
 				PopMenu1.Attach(UserProfileLink);
 			}
 

@@ -58,14 +58,19 @@ namespace YAF.Pages // YAF.Pages
 		{
 			bool isWatched = HandleWatchTopic();
 
-			MyTestMenu.AddItem( "watch", isWatched ? GetText( "unwatchtopic" ) : GetText( "watchtopic" ) );
-			if (PageContext.BoardSettings.AllowEmailTopic) MyTestMenu.AddItem("email", GetText("emailtopic"));
-			MyTestMenu.AddItem( "print", GetText( "printtopic" ) );
-			if ( PageContext.BoardSettings.ShowRSSLink ) MyTestMenu.AddItem( "rssfeed", GetText( "rsstopic" ) );
-			ViewMenu.AddItem( "normal", GetText( "NORMAL" ) );
-			ViewMenu.AddItem( "threaded", GetText( "THREADED" ) );
-			MyTestMenu.Attach( MyTest );
-			ViewMenu.Attach( View );
+			// options menu...
+			OptionsMenu.AddPostBackItem( "watch", isWatched ? GetText( "UNWATCHTOPIC" ) : GetText( "WATCHTOPIC" ) );
+			if ( PageContext.BoardSettings.AllowEmailTopic ) OptionsMenu.AddPostBackItem( "email", GetText( "EMAILTOPIC" ) );
+			OptionsMenu.AddPostBackItem( "print", GetText( "PRINTTOPIC" ) );
+			if ( PageContext.BoardSettings.ShowRSSLink ) OptionsMenu.AddPostBackItem( "rssfeed", GetText( "RSSTOPIC" ) );
+
+			// view menu
+			ViewMenu.AddPostBackItem( "normal", GetText( "NORMAL" ) );
+			ViewMenu.AddPostBackItem( "threaded", GetText( "THREADED" ) );
+
+			// attach both the menus to HyperLinks
+			OptionsMenu.Attach( OptionsLink );
+			ViewMenu.Attach( ViewLink );
 
 			if ( !_dataBound )
 				BindData();
@@ -314,7 +319,7 @@ namespace YAF.Pages // YAF.Pages
 		{
 			this.Poll.ItemCommand += new System.Web.UI.WebControls.RepeaterCommandEventHandler( this.Poll_ItemCommand );
 			this.PreRender += new EventHandler( posts_PreRender );
-			this.MyTestMenu.ItemClick += new YAF.Controls.PopEventHandler( MyTestMenu_ItemClick );
+			this.OptionsMenu.ItemClick += new YAF.Controls.PopEventHandler( OptionsMenu_ItemClick );
 			this.ViewMenu.ItemClick += new YAF.Controls.PopEventHandler( ViewMenu_ItemClick );
 		}
 		#endregion
@@ -822,14 +827,14 @@ namespace YAF.Pages // YAF.Pages
 
 			int iIndent = ( int ) o;
 			if ( iIndent > 0 )
-				return string.Format( "<img src='{1}images/spacer.gif' width='{0}' height='2'/>", iIndent * 32, YafForumInfo.ForumRoot );
+				return string.Format( "<img src='{1}images/spacer.gif' width='{0}' alt='' height='2'/>", iIndent * 32, YafForumInfo.ForumRoot );
 			else
 				return "";
 		}
 
-		private void MyTestMenu_ItemClick( object sender, YAF.Controls.PopEventArgs e )
+		private void OptionsMenu_ItemClick( object sender, YAF.Controls.PopEventArgs e )
 		{
-			switch ( e.Item )
+			switch ( e.Item.ToLower() )
 			{
 				case "print":
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.printtopic, "t={0}", PageContext.PageTopicID );
@@ -850,7 +855,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void ViewMenu_ItemClick( object sender, YAF.Controls.PopEventArgs e )
 		{
-			switch ( e.Item )
+			switch ( e.Item.ToLower() )
 			{
 				case "normal":
 					IsThreaded = false;

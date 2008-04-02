@@ -74,11 +74,11 @@
 					<td class="header1Title">
 						<asp:Label ID="TopicTitle" runat="server" /></td>
 					<td align="right">
-						<asp:HyperLink ID="MyTest" runat="server">
+						<asp:HyperLink ID="OptionsLink" runat="server">
 							<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Options" />
 						</asp:HyperLink>
 						<asp:PlaceHolder runat="server" ID="ViewOptions">&middot;
-							<asp:HyperLink ID="View" runat="server">
+							<asp:HyperLink ID="ViewLink" runat="server">
 								<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="View" />
 							</asp:HyperLink>
 						</asp:PlaceHolder>
@@ -198,8 +198,8 @@
 </div>
 <asp:UpdatePanel ID="PopupMenuUpdatePanel" runat="server">
 <ContentTemplate>
-<YAF:PopMenu runat="server" ID="MyTestMenu" Control="MyTest" />
-<YAF:PopMenu runat="server" ID="ViewMenu" Control="View" />
+<YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
 <span id="WatchTopicID" runat="server" visible="false"></span>
 </ContentTemplate>
 </asp:UpdatePanel>
+<YAF:PopMenu runat="server" ID="ViewMenu" Control="ViewLink" />

@@ -114,7 +114,7 @@ namespace YAF
 		{
 			// wrap the forum in one main div and then a page div for better CSS selection
 			writer.WriteLine( "" );
-			writer.Write(@"<div class=""yafnet"">" );
+			writer.Write( String.Format(@"<div class=""yafnet"" id=""{0}"">", this.ClientID) );
 			writer.Write( String.Format( @"<div id=""yafpage_{0}"">", _page.ToString() ) );
 
 			// render the forum

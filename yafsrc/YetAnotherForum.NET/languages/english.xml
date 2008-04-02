@@ -74,7 +74,7 @@
 		<Resource tag="BAD_USERNAME">Username cannot contain semi-colons (;).</Resource>
 		<Resource tag="CAPTCHA_IMAGE">Security Image:</Resource>
 		<Resource tag="CAPTCHA_ENTER">Enter Letters From Security Image:</Resource>
-		<Resource tag="CUSTOM_BBCODE">Additional Tags:</Resource>
+		<Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
 		<Resource tag="FONT_SIZE">Font Size:</Resource>
 		<Resource tag="FONT_COLOR">Font Color:</Resource>
 		<Resource tag="TT_BOLD">Bold</Resource>

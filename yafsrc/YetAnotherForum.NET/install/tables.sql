@@ -434,6 +434,8 @@ begin
 		[SearchRegex] [ntext] NULL,
 		[ReplaceRegex] [ntext] NULL,
 		[Variables] [nvarchar](1000) NULL,
+		[UseModule] [bit] NULL,
+		[ModuleClass] [nvarchar](255) NULL,		
 		[ExecOrder] [int] NOT NULL,
 		CONSTRAINT [PK_{objectQualifier}BBCode] PRIMARY KEY (BBCodeID)
 	)
@@ -497,33 +499,47 @@ GO
 ** Added columns
 */
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsApproved')
+-- Mail Table
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](50) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](50) NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [ntext] NULL		
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Mail_SendTries]  DEFAULT ((0))		
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
+	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
+-- Board Table
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Topic] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
 end
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
-end
-GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+	alter table [{databaseOwner}].[{objectQualifier}Board] add RolesAppName nvarchar(255)
 end
 GO
 
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+end
+GO
+
+-- UserPMessage Table
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsInOutbox')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsInOutbox	bit not null default (1)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsArchived	bit not null default (0)
 end
 GO
 
@@ -554,45 +570,18 @@ BEGIN
 END
 GO
 
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
+-- User Table
+if exists(select 1 from [{databaseOwner}].[{objectQualifier}Group] where (Flags & 2)=2)
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](50) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](50) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [ntext] NULL		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}Mail_SendTries]  DEFAULT ((0))		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL
+	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 4 where UserID in(select distinct UserID from [{databaseOwner}].[{objectQualifier}UserGroup] a join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
 end
 GO
 
--- [{databaseOwner}].[{objectQualifier}UserPMessage
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='MembershipAppName')
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsApproved')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}Board] add MembershipAppName nvarchar(255)
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 end
 GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='RolesAppName')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Board] add RolesAppName nvarchar(255)
-end
-GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsInOutbox')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsInOutbox	bit not null default (1)
-end
-GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsArchived	bit not null default (0)
-end
-GO
-
-
--- [{databaseOwner}].[{objectQualifier}User
 
 if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Signature' and xtype<>99)
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column Signature ntext null
@@ -721,20 +710,7 @@ begin
 end
 GO
 
--- [{databaseOwner}].[{objectQualifier}Mesaage
-
-/* post to blog start */ 
-
-if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='BlogPostID')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Message] add BlogPostID nvarchar(50)
-end
-GO
-
-/* post to blog end */ 
-
--- [{databaseOwner}].[{objectQualifier}Forum
-
+-- Forum Table
 if not exists(select * from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='RemoteURL')
 	alter table [{databaseOwner}].[{objectQualifier}Forum] add RemoteURL nvarchar(100) null
 GO
@@ -775,8 +751,7 @@ begin
 end
 GO
 
--- [{databaseOwner}].[{objectQualifier}Group
-
+-- Group Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Group]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Group] add Flags int not null constraint [DF_{objectQualifier}Group_Flags] default (0)
@@ -811,14 +786,7 @@ begin
 end
 GO
 
-if exists(select 1 from [{databaseOwner}].[{objectQualifier}Group] where (Flags & 2)=2)
-begin
-	update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 4 where UserID in(select distinct UserID from [{databaseOwner}].[{objectQualifier}UserGroup] a join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID and (b.Flags & 2)=2)
-end
-GO
-
--- [{databaseOwner}].[{objectQualifier}AccessMask
-
+-- AccessMask Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}AccessMask]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}AccessMask] add Flags int not null constraint [DF_{objectQualifier}AccessMask_Flags] default (0)
@@ -895,7 +863,7 @@ begin
 end
 GO
 
--- [{databaseOwner}].[{objectQualifier}NntpForum
+-- NntpForum Table
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}NntpForum]') and name='Active')
 begin
@@ -905,6 +873,7 @@ begin
 end
 GO
 
+-- ReplaceWords Table
 if exists (select * from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}Replace_Words]') and name='badword' and prec < 255)
  	alter table [{databaseOwner}].[{objectQualifier}Replace_Words] alter column badword nvarchar(255) NULL
 GO
@@ -919,6 +888,15 @@ begin
 end
 GO
 
+-- BBCode Table
+if not exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseModule')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}BBCode] add UseModule bit null
+	alter table [{databaseOwner}].[{objectQualifier}BBCode] add ModuleClass nvarchar(255) null
+end
+GO
+
+-- Registry Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Registry]') and name='BoardID')
 	alter table [{databaseOwner}].[{objectQualifier}Registry] add BoardID int
 GO
@@ -927,12 +905,14 @@ if exists(select 1 from syscolumns where id=object_id(N'[{databaseOwner}].[{obje
 	alter table [{databaseOwner}].[{objectQualifier}Registry] alter column Value ntext null
 GO
 
+-- PMessage Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}PMessage]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}PMessage] add Flags int not null constraint [DF_{objectQualifier}Message_Flags] default (23)
 end
 GO
 
+-- Message Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add Flags int not null constraint [DF_{objectQualifier}Topic_Flags] default (0)
@@ -944,6 +924,24 @@ if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objec
 begin
 	exec('update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 16 where Approved<>0')
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop column Approved
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='BlogPostID')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] add BlogPostID nvarchar(50)
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsDeleted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Message] ADD [IsApproved] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
 end
 GO
 
@@ -959,6 +957,7 @@ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{o
 	alter table [{databaseOwner}].[{objectQualifier}Message] add DeleteReason            nvarchar (100)  NULL
 GO
 
+-- Topic Table
 if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsLocked')
 begin
 	grant update on [{databaseOwner}].[{objectQualifier}Topic] to public
@@ -968,6 +967,13 @@ begin
 end
 GO
 
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsDeleted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Topic] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+-- Rank Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='Flags')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add Flags int not null constraint [DF_{objectQualifier}Rank_Flags] default (0)
@@ -992,12 +998,14 @@ begin
 end
 GO
 
+-- Poll Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='Closes')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Poll] add Closes datetime null
 end
 GO
 
+-- EventLog Table
 if not exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}EventLog]') and name=N'Type')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add Type int not null constraint [DF_{objectQualifier}EventLog_Type] default (0)
@@ -1009,7 +1017,7 @@ if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] alter column UserID int null
 GO
 
--- [{databaseOwner}].[{objectQualifier}Smiley
+-- Smiley Table
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='SortOrder')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] add SortOrder tinyint NOT NULL DEFAULT 0

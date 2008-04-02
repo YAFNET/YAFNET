@@ -5397,6 +5397,8 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
 	@SearchRegEx ntext,
 	@ReplaceRegEx ntext,
 	@Variables nvarchar(1000) = null,
+	@UseModule bit = null,
+	@ModuleClass nvarchar(255) = null,	
 	@ExecOrder int = 1
 )
 AS
@@ -5414,6 +5416,8 @@ BEGIN
 			[SearchRegEx] = @SearchRegEx,
 			[ReplaceRegEx] = @ReplaceRegEx,
 			[Variables] = @Variables,
+			[UseModule] = @UseModule,
+			[ModuleClass] = @ModuleClass,			
 			[ExecOrder] = @ExecOrder
 		WHERE
 			BBCodeID = @BBCodeID
@@ -5421,8 +5425,8 @@ BEGIN
 	ELSE BEGIN
 		IF NOT EXISTS(SELECT 1 FROM [{objectQualifier}BBCode] WHERE BoardID = @BoardID AND [Name] = @Name)
 			INSERT INTO
-				[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[ExecOrder])
-			VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@ExecOrder)
+				[{objectQualifier}BBCode] ([BoardID],[Name],[Description],[OnClickJS],[DisplayJS],[EditJS],[DisplayCSS],[SearchRegEx],[ReplaceRegEx],[Variables],[UseModule],[ModuleClass],[ExecOrder])
+			VALUES (@BoardID,@Name,@Description,@OnClickJS,@DisplayJS,@EditJS,@DisplayCSS,@SearchRegEx,@ReplaceRegEx,@Variables,@UseModule,@ModuleClass,@ExecOrder)
 	END
 END
 GO

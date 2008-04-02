@@ -31,7 +31,7 @@ namespace YAF.Editor
 	/// <summary>
 	/// Summary description for ForumEditorBase.
 	/// </summary>
-	public class ForumEditor : Control
+	public class ForumEditor : YAF.Controls.BaseControl
 	{
 		protected string _baseDir = string.Empty;
 
@@ -191,6 +191,8 @@ namespace YAF.Editor
 
 	public class BBCodeEditor : TextEditor
 	{
+		private YAF.Controls.PopMenu _popMenu = null;
+
 		private void RenderButton( HtmlTextWriter writer, string id, string cmd, string title, string image )
 		{
 			//writer.WriteLine("		<td><img id='{1}_{4}' onload='Button_Load(this)' src='{0}' width='21' height='20' alt='{2}' title='{2}' onclick=\"{1}.{3}\"></td><td>&nbsp;</td>",ResolveUrl(image),SafeID,title,cmd,id);
@@ -255,11 +257,7 @@ namespace YAF.Editor
 			if ( bbCodeTable.Rows.Count > 0 )
 			{
 				// add drop down for optional "extra" codes...
-				writer.WriteLine( YafContext.Current.Localization.GetText( "COMMON", "CUSTOM_BBCODE" ) );
-				writer.WriteLine( @"<select id=""customBBCode"" onchange=""this.value='none'"">" );
-
-				// empty
-				writer.WriteLine( @"<option value=""none""> --- </option>" );
+				writer.WriteLine( String.Format(@"<a id=""{3}"" onclick=""{0}"" onmouseover=""{1}"">{2}</a>", _popMenu.ControlOnClick, _popMenu.ControlOnMouseOver, YafContext.Current.Localization.GetText( "COMMON", "CUSTOM_BBCODE" ), this.ClientID + "_bbcode_popMenu" ));
 
 				foreach ( DataRow row in bbCodeTable.Rows )
 				{
@@ -271,31 +269,40 @@ namespace YAF.Editor
 						name = row ["Description"].ToString();
 					}
 
-					if ( row ["OnClickJS"] != DBNull.Value )
+					string onclickJS = string.Empty;
+
+					if ( row ["OnClickJS"] != DBNull.Value && !String.IsNullOrEmpty( row ["OnClickJS"].ToString() ) )
 					{
-						writer.WriteLine( @"<option onclick=""{0}"">{1}</option>", row ["OnClickJS"].ToString(), name );
+						onclickJS = row ["OnClickJS"].ToString();
 					}
 					else
 					{
 						// assume the bbcode is just the name... 
-						string script = string.Format( "setStyle('{0}','')", row ["Name"].ToString().Trim() );
-						writer.WriteLine( @"<option onclick=""{0}"">{1}</option>", script, name );
+						onclickJS = string.Format( "setStyle('{0}','')", row ["Name"].ToString().Trim() );
 					}
+
+					_popMenu.AddClientScriptItem( name, onclickJS);
 				}
-				writer.WriteLine( "</select>" );
 			}
 
 			writer.WriteLine( "	</td></tr>" );
 			writer.WriteLine( "	</table>" );
 			writer.WriteLine( @"</td></tr><tr><td height=""99%"">" );
-			base.Render( writer );
+
+			_textCtl.RenderControl( writer );
+
 			writer.WriteLine( "</td></tr></table>" );
+
+			_popMenu.RenderControl( writer );
 		}
 
 		protected override void OnInit( EventArgs e )
 		{
 			base.OnInit( e );
 			_textCtl.Attributes.Add( "class", "BBCodeEditor" );
+			// add popmenu to this mix...
+			_popMenu = new YAF.Controls.PopMenu();
+			this.Controls.Add( _popMenu );
 		}
 
 		protected override void Editor_Load( object sender, EventArgs e )
@@ -305,6 +312,7 @@ namespace YAF.Editor
 			// this call is supposed to be after editor load since it may use
 			// JS variables created in editor_load...
 			YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType(), SafeID );
+			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
 		}
 
 		#region Properties
