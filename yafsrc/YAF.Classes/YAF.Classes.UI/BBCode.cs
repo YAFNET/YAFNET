@@ -22,6 +22,7 @@ using System;
 using System.Data;
 using System.Web;
 using System.Text.RegularExpressions;
+using System.Xml;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -65,7 +66,7 @@ namespace YAF.Classes.UI
 		static private string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
 		static private string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
 		static private string _rgxImg = @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]";
-		static private string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
+		//static private string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
 
 		/// <summary>
 		/// Helper function for older code
@@ -187,14 +188,14 @@ namespace YAF.Classes.UI
 				);
 
 				// youtube
-				ruleEngine.AddRule(
+				/*ruleEngine.AddRule(
 					new VariableRegexReplaceRule(
 						_rgxYoutube,
 						@"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->",
 						_options,
 						new string [] { "id" }
 						)
-				);
+				);*/
 
 				// handle custom BBCode
 				AddCustomBBCodeRules( ref ruleEngine );
@@ -244,7 +245,61 @@ namespace YAF.Classes.UI
 			// handle custom bbcodes row by row...
 			foreach ( DataRow codeRow in bbcodeTable.Rows )
 			{
-				if ( codeRow ["SearchRegEx"] != DBNull.Value && codeRow ["ReplaceRegEx"] != DBNull.Value )
+				if ( codeRow ["UseModule"] != DBNull.Value &&
+						 Convert.ToBoolean( codeRow ["UseModule"] ) == true &&
+						 codeRow ["ModuleClass"] != DBNull.Value &&
+						 codeRow ["SearchRegEx"] != DBNull.Value )
+				{
+					// code module!
+					string searchRegEx = codeRow ["SearchRegEx"].ToString();
+					string moduleClass = codeRow ["ModuleClass"].ToString();
+					string rawVariables = codeRow ["Variables"].ToString();
+
+					// create Module Invocation XML Document
+					XmlDocument moduleInfoDoc = new XmlDocument();
+					XmlElement mainNode = moduleInfoDoc.CreateElement( "YafModuleFactoryInvocation" );
+					mainNode.SetAttribute( "ClassName", moduleClass );
+					moduleInfoDoc.AppendChild( mainNode );
+					XmlElement paramsNode = moduleInfoDoc.CreateElement( "Parameters" );
+					mainNode.AppendChild( paramsNode );
+
+					// add "inner" param as all have inner...
+					XmlElement innerParam = moduleInfoDoc.CreateElement( "Param" );
+					innerParam.SetAttribute( "Name", "inner" );
+					XmlText innerText = moduleInfoDoc.CreateTextNode( "${inner}" );
+					innerParam.AppendChild( innerText );
+					paramsNode.AppendChild( innerParam );
+
+					if ( !String.IsNullOrEmpty( rawVariables ) )
+					{
+						// handle variables...
+						string [] variables = rawVariables.Split( new char [] { ';' } );
+
+						// add variables to the XML
+						foreach ( string var in variables )
+						{
+							innerParam = moduleInfoDoc.CreateElement( "Param" );
+							innerParam.SetAttribute( "Name", var );
+							innerText = moduleInfoDoc.CreateTextNode( "${" + var + "}" );
+							innerParam.AppendChild( innerText );
+							paramsNode.AppendChild( innerParam );
+						}
+
+						VariableRegexReplaceRule rule = new VariableRegexReplaceRule( searchRegEx, moduleInfoDoc.OuterXml, _options, variables );
+						rule.RuleRank = 50;
+						rulesEngine.AddRule( rule );
+					}
+					else
+					{
+						// just standard replace...
+						SimpleRegexReplaceRule rule = new SimpleRegexReplaceRule( searchRegEx, moduleInfoDoc.OuterXml, _options );
+						rule.RuleRank = 50;
+						rulesEngine.AddRule( rule );
+					}
+				}
+				else if (	codeRow ["SearchRegEx"] != DBNull.Value &&
+									codeRow ["ReplaceRegEx"] != DBNull.Value &&
+									!String.IsNullOrEmpty(codeRow ["SearchRegEx"].ToString().Trim()) )
 				{
 					string searchRegEx = codeRow ["SearchRegEx"].ToString();
 					string replaceRegEx = codeRow ["ReplaceRegEx"].ToString();
@@ -350,7 +405,7 @@ namespace YAF.Classes.UI
 				// register the javascript from all the custom bbcode...
 				if ( !currentPage.ClientScript.IsClientScriptBlockRegistered( scriptID + "_script" ) )
 				{
-					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID + "_script", string.Format( @"<script language=""javascript"" type=""text/javascript"">{0}</script>", jsScriptBuilder.ToString() ) );
+					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID + "_script", jsScriptBuilder.ToString(), true );
 				}
 			}
 

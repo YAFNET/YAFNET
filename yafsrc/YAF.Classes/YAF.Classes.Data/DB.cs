@@ -2727,7 +2727,7 @@ namespace YAF.Classes.Data
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public void bbcode_save( object bbcodeID, object boardID, object name, object description, object onclickjs, object displayjs, object editjs, object displaycss, object searchregex, object replaceregex, object variables, object execorder )
+		static public void bbcode_save( object bbcodeID, object boardID, object name, object description, object onclickjs, object displayjs, object editjs, object displaycss, object searchregex, object replaceregex, object variables, object usemodule, object moduleclass, object execorder )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_save" ) )
 			{
@@ -2743,6 +2743,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "SearchRegEx", searchregex );
 				cmd.Parameters.AddWithValue( "ReplaceRegEx", replaceregex );
 				cmd.Parameters.AddWithValue( "Variables", variables );
+				cmd.Parameters.AddWithValue( "UseModule", usemodule );
+				cmd.Parameters.AddWithValue( "ModuleClass", moduleclass );
 				cmd.Parameters.AddWithValue( "ExecOrder", execorder );
 				DBAccess.ExecuteNonQuery( cmd );
 			}
