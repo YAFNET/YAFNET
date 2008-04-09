@@ -111,6 +111,7 @@ namespace YAF.Classes.Utils
 							if ( dt.Columns.Contains( "Interests" ) && row ["Interests"] != DBNull.Value ) userProfile.Interests = row ["Interests"].ToString();
 							if ( dt.Columns.Contains( "Weblog" ) && row ["Weblog"] != DBNull.Value ) userProfile.Blog = row ["Weblog"].ToString();
 							if ( dt.Columns.Contains( "Gender" ) && row ["Gender"] != DBNull.Value ) userProfile.Gender = Convert.ToInt32( row ["Gender"] );
+							userProfile.Save();
 						}
 					}
 					else
