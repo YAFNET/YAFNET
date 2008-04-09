@@ -635,79 +635,71 @@ begin
 end
 GO
 
--- remove columns that got moved to Profile
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column Gender
-end
-GO
+-- Only remove User table columns if version is 30+
+IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
+BEGIN
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column Gender
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Location')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column Location
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Location')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column Location
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='HomePage')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column HomePage
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='HomePage')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column HomePage
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='MSN')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column MSN
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='MSN')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column MSN
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='YIM')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column YIM
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='YIM')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column YIM
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AIM')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column AIM
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AIM')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column AIM
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ICQ')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column ICQ
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ICQ')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column ICQ
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='RealName')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column RealName
-end
-GO
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='RealName')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column RealName
+	end
 
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Occupation')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column Occupation
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Interests')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column Interests
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Weblog')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column Weblog
-end
-GO
-
-if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='WeblogUrl')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUrl
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUsername
-	alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogID
-end
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Occupation')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column Occupation
+	end
+	
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Interests')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column Interests
+	end
+	
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Weblog')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column Weblog
+	end
+	
+	if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='WeblogUrl')
+	begin
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUrl
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogUsername
+		alter table [{databaseOwner}].[{objectQualifier}User] drop column WeblogID
+	end
+END
 GO
 
 -- Forum Table
