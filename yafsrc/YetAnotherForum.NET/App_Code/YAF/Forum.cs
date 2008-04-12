@@ -52,20 +52,27 @@ namespace YAF
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			string m_baseDir = YafForumInfo.ForumRoot;			
+			string m_baseDir = YafForumInfo.ForumRoot;
 
-			try
+			if ( Request.QueryString ["g"] != null )
 			{
-				_page = ( YAF.Classes.Utils.ForumPages )System.Enum.Parse( typeof( YAF.Classes.Utils.ForumPages ), Request.QueryString ["g"], true );
+				try
+				{
+					_page = (ForumPages)Enum.Parse(typeof(ForumPages), Request.QueryString ["g"], true);
+				}
+				catch (Exception)
+				{
+					_page = ForumPages.forum;
+				}
 			}
-			catch ( Exception )
+			else
 			{
-				_page = YAF.Classes.Utils.ForumPages.forum;
+				_page = ForumPages.forum;
 			}
 
 			if ( !ValidPage( _page ) )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.topics, "f={0}", LockedForum );
+				YafBuildLink.Redirect( ForumPages.topics, "f={0}", LockedForum );
 			}
 
 			string src = string.Format( "{0}pages/{1}.ascx", m_baseDir, _page );
@@ -113,7 +120,7 @@ namespace YAF
 		protected override void Render( HtmlTextWriter writer )
 		{
 			// wrap the forum in one main div and then a page div for better CSS selection
-			writer.WriteLine( "" );
+			writer.WriteLine();
 			writer.Write( String.Format(@"<div class=""yafnet"" id=""{0}"">", this.ClientID) );
 			writer.Write( String.Format( @"<div id=""yafpage_{0}"">", _page.ToString() ) );
 

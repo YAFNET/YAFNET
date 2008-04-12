@@ -249,26 +249,27 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public YafUserProfile GetProfile( string userName )
 		{
-      return YafUserProfile.Create( userName ) as YafUserProfile;
+			return YafUserProfile.Create( userName ) as YafUserProfile;
 		}
 
 		/// <summary>
 		/// Get the current page as the forumPage Enum (for comparison)
 		/// </summary>
-		public YAF.Classes.Utils.ForumPages ForumPageType
+		public ForumPages ForumPageType
 		{
 			get
 			{
-				ForumPages currentPage = ForumPages.forum;
+				if (HttpContext.Current.Request.QueryString ["g"] == null)
+					return ForumPages.forum;
+				
 				try
 				{
-					currentPage = ( ForumPages ) System.Enum.Parse( typeof( ForumPages ), HttpContext.Current.Request.QueryString ["g"], true );
+					return ( ForumPages ) Enum.Parse( typeof( ForumPages ), HttpContext.Current.Request.QueryString ["g"], true );
 				}
 				catch ( Exception )
 				{
-					currentPage = ForumPages.forum;
+					return ForumPages.forum;
 				}
-				return currentPage;
 			}
 		}
 
@@ -277,9 +278,7 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		public bool PageIsNull()
 		{
-			if ( Page == null ) return true;
-
-			return false;
+			return ( Page == null );
 		}
 
 		/// <summary>
@@ -728,24 +727,11 @@ namespace YAF.Classes.Utils
 
 		public YafControlSettings()
 		{
-			try
-			{
-				_categoryID = int.Parse( Config.CategoryID );
-			}
-			catch
-			{
-				// Ederon : 6/16/2007 - changed from 1 to 0
-				_categoryID = 0;
-			}
+            if ( !int.TryParse( Config.CategoryID, out _categoryID ) )
+                _categoryID = 0; // Ederon : 6/16/2007 - changed from 1 to 0
 
-			try
-			{
-				_boardID = int.Parse( Config.BoardID );
-			}
-			catch
-			{
-				_boardID = 1;
-			}
+            if ( !int.TryParse( Config.BoardID, out _boardID ) )
+                _boardID = 1;
 		}
 
 		public int BoardID
