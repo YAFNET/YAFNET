@@ -89,9 +89,6 @@ namespace YAF.Pages // YAF.Pages
 				passwordRecovery.Text = GetText( "lostpassword" );
 				passwordRecovery.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
 
-				// set the focus using Damien McGivern client-side focus class
-				YAF.Classes.UI.ClientSideFocus.setFocus( userName );
-
 				DataBind();
 			}
 		}
