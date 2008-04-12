@@ -1,0 +1,16 @@
+<YafBBCodeList>
+  <YafBBCode>
+    <Name>YOUTUBE</Name>
+    <Description>[YOUTUBE]PUT YOUTUBE URL HERE[/YOUTUBE]</Description>
+    <OnClickJS />
+    <DisplayJS />
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[youtube\](?&lt;inner&gt;http://(www\.)?youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;object width="425" height="350"&gt;&lt;param name="movie" value="http://www.youtube.com/v/${id}"&gt;&lt;/param&gt;&lt;embed src="http://www.youtube.com/v/${id}" type="application/x-shockwave-flash" width="425" height="350"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;br /&gt;&lt;a href="http://youtube.com/watch?v=${id}" target="_blank"&gt;${inner}&lt;/a&gt;&lt;br /&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+    <Variables>id</Variables>
+    <UseModule>false</UseModule>
+    <ModuleClass />
+    <ExecOrder>1</ExecOrder>
+  </YafBBCode>
+</YafBBCodeList>

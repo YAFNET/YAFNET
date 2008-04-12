@@ -22,6 +22,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.Configuration;
@@ -56,6 +57,9 @@ namespace YAF.Install
 			"providers/tables.sql",
 			"providers/indexes.sql"
 	    };
+
+		private string _bbcodeImport = "bbCodeExtensions.xml";
+		private string _fileImport = "fileExtensions.xml";
 
 		#region events
 		private void Page_Load( object sender, System.EventArgs e )
@@ -134,7 +138,7 @@ namespace YAF.Install
 
 					if (version == null) version = DBVersion;
 
-					if (((int)version) >= 30 )
+					if (((int)version) >= 30 || ((int)version) == -1 )
 					{
 						// migration is NOT needed...
 						InstallWizard.ActiveStepIndex++;
@@ -404,7 +408,7 @@ namespace YAF.Install
 				{
 					Roles.CreateRole( "Registered" );
 				}
-				if ( !Roles.IsUserInRole( "Administrators" ) )
+				if ( !Roles.IsUserInRole( user.UserName, "Administrators" ) )
 				{
 					Roles.AddUserToRole( user.UserName, "Administrators" );
 				}
@@ -430,6 +434,28 @@ namespace YAF.Install
 					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
 					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+				}
+
+				// load default bbcode if available...
+				if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
+				{
+					// import into board...
+					using ( StreamReader bbcodeStream = new StreamReader( Request.MapPath( _bbcodeImport ) ) )
+					{
+						YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport( PageBoardID, bbcodeStream.BaseStream );
+						bbcodeStream.Close();
+					}
+				}
+
+				// load default extensions if available...
+				if ( File.Exists( Request.MapPath( _fileImport ) ) )
+				{
+					// import into board...
+					using ( StreamReader fileExtStream = new StreamReader( Request.MapPath( _fileImport ) ) )
+					{
+						YAF.Classes.Data.Import.DataImport.FileExtensionImport( PageBoardID, fileExtStream.BaseStream );
+						fileExtStream.Close();
+					}
 				}
 			}
 			catch ( Exception x )
@@ -495,12 +521,12 @@ namespace YAF.Install
 		#endregion
 
 		#region method ExecuteScript
-		private void ExecuteScript( string sScriptFile, bool useTransactions )
+		private void ExecuteScript( string scriptFile, bool useTransactions )
 		{
 			string script = null;
 			try
 			{
-				using ( System.IO.StreamReader file = new System.IO.StreamReader( Request.MapPath( sScriptFile ) ) )
+				using ( System.IO.StreamReader file = new System.IO.StreamReader( Request.MapPath( scriptFile ) ) )
 				{
 					script = file.ReadToEnd() + "\r\n";
 
@@ -513,7 +539,7 @@ namespace YAF.Install
 			}
 			catch ( Exception x )
 			{
-				throw new Exception( "Failed to read " + sScriptFile, x );
+				throw new Exception( "Failed to read " + scriptFile, x );
 			}
 
 			// apply database owner
@@ -554,7 +580,7 @@ namespace YAF.Install
 							catch ( Exception x )
 							{
 								trans.Rollback();
-								throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", sScriptFile, sql, x.Message ) );
+								throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
 							}
 						}
 						trans.Commit();
@@ -585,7 +611,7 @@ namespace YAF.Install
 						}
 						catch ( Exception x )
 						{
-							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", sScriptFile, sql, x.Message ) );
+							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
 						}
 					}
 				}

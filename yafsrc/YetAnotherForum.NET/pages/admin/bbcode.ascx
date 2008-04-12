@@ -5,10 +5,11 @@
         <HeaderTemplate>
             <table class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
-                    <td class="header1" colspan="3">
+                    <td class="header1" colspan="4">
                         <asp:Label ID="ExtensionTitle" runat="server">BBCode Extensions</asp:Label></td>
                 </tr>
                 <tr>
+                    <td class="header2" width="1%">&nbsp;</td>
                     <td class="header2" width="40%">
                         Name</td>
                     <td class="header2" width="40%">
@@ -19,6 +20,10 @@
         </HeaderTemplate>
         <ItemTemplate>
             <tr>
+                <td class="post">
+                    <asp:CheckBox ID="chkSelected" runat="server" />
+                    <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# Eval("BBCodeID") %>' />
+                </td>
                 <td class="post">
                     <b><%# Eval("Name") %></b></td>
                 <td class="post">
@@ -36,12 +41,12 @@
         </ItemTemplate>
         <FooterTemplate>
             <tr>
-                <td class="footer1" colspan="3">
+                <td class="footer1" colspan="4">
                     <asp:LinkButton runat="server" Text="Add" CommandName='add' ID="Linkbutton3"></asp:LinkButton>
                     |
                     <asp:LinkButton runat="server" Text="Import from XML" CommandName='import' ID="Linkbutton5"></asp:LinkButton>
                     |
-                    <asp:LinkButton runat="server" Text="Export to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
+                    <asp:LinkButton runat="server" Text="Export Selected to XML" CommandName='export' ID="Linkbutton4"></asp:LinkButton>
                 </td>
             </tr>
             </table>

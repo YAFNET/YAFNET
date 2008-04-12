@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -56,22 +57,64 @@ namespace YAF.Pages.Admin
 			}
 			else if ( e.CommandName == "export" )
 			{
-				// export this list as XML...
-				DataTable extensionList = YAF.Classes.Data.DB.bbcode_list( PageContext.PageBoardID, null );
-				extensionList.DataSet.DataSetName = "YafBBCodeList";
-				extensionList.TableName = "YafBBCode";
-				extensionList.Columns.Remove( "BBCodeID" );
-				extensionList.Columns.Remove( "BoardID" );
+				List<int> bbCodeIds = GetSelectedBBCodeIDs();
 
-				Response.ContentType = "text/xml";
-				Response.AppendHeader( "Content-Disposition", "attachment; filename=YafBBCodeExport.xml" );
-				extensionList.DataSet.WriteXml( Response.OutputStream );
-				Response.End();
+				if ( bbCodeIds.Count > 0 )
+				{
+					// export this list as XML...
+					DataTable dtBBCode = YAF.Classes.Data.DB.bbcode_list( PageContext.PageBoardID, null );
+					// remove all but required bbcodes...
+					foreach ( DataRow row in dtBBCode.Rows )
+					{
+						int id = Convert.ToInt32( row ["BBCodeID"] );
+						if ( !bbCodeIds.Contains( id ) )
+						{
+							// remove from this table...
+							row.Delete();
+						}
+					}
+					// store delete changes...
+					dtBBCode.AcceptChanges();
+					
+					// export...
+					dtBBCode.DataSet.DataSetName = "YafBBCodeList";
+					dtBBCode.TableName = "YafBBCode";
+					dtBBCode.Columns.Remove( "BBCodeID" );
+					dtBBCode.Columns.Remove( "BoardID" );
+
+					Response.ContentType = "text/xml";
+					Response.AppendHeader( "Content-Disposition", "attachment; filename=YafBBCodeExport.xml" );
+					dtBBCode.DataSet.WriteXml( Response.OutputStream );
+					Response.End();
+				}
+				else
+				{
+					PageContext.AddLoadMessage( "Nothing selected to export." );
+				}
 			}
 			else if ( e.CommandName == "import" )
 			{
 				YafBuildLink.Redirect( ForumPages.admin_bbcode_import );
 			}
+		}
+
+		protected List<int> GetSelectedBBCodeIDs()
+		{
+			List<int> idList = new List<int>();
+
+			// get checked items....
+			foreach ( RepeaterItem item in bbCodeList.Items )
+			{
+				CheckBox sel = ( CheckBox )item.FindControl( "chkSelected" );
+				if ( sel.Checked )
+				{
+					HiddenField hiddenId = ( HiddenField )item.FindControl( "hiddenBBCodeID" );
+
+					idList.Add( Convert.ToInt32( hiddenId.Value ) );
+				}
+			}
+
+			return idList;
 		}
 	}
 }

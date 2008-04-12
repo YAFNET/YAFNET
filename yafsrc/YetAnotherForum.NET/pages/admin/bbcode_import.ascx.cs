@@ -31,22 +31,21 @@ using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
-	public partial class extensions_import : YAF.Classes.Base.AdminPage
+	public partial class bbcode_import : YAF.Classes.Base.AdminPage
 	{
-
-		protected void Page_Load( object sender, System.EventArgs e )
+		protected void Page_Load( object sender, EventArgs e )
 		{
 			if ( !IsPostBack )
 			{
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Import Extensions", "" );
+				PageLinks.AddLink( "Import Custom BBCode", "" );
 			}
 		}
 
 		protected void Cancel_OnClick( object sender, System.EventArgs e )
 		{
-			YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_extensions );
+			YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bbcode );
 		}
 
 		protected void Import_OnClick( object sender, System.EventArgs e )
@@ -56,19 +55,18 @@ namespace YAF.Pages.Admin
 			{
 				try
 				{
-					int importedCount = YAF.Classes.Data.Import.DataImport.FileExtensionImport( PageContext.PageBoardID, importFile.PostedFile.InputStream );
+					int importedCount = YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport( PageContext.PageBoardID, importFile.PostedFile.InputStream );
 
 					if ( importedCount > 0 )
 					{
-						PageContext.AddLoadMessageSession( String.Format( "{0} new extension(s) imported successfully.", importedCount ) );
-
+						PageContext.AddLoadMessageSession( String.Format( "{0} new custom bbcode(s) imported successfully.", importedCount ) );
 					}
 					else
 					{
-						PageContext.AddLoadMessageSession( String.Format( "Nothing imported: no new extensions were found in the upload.", importedCount ) );
+						PageContext.AddLoadMessageSession( String.Format( "Nothing imported: no new custom bbcode was found in the upload.", importedCount ) );
 					}
 
-					YafBuildLink.Redirect( ForumPages.admin_extensions );
+					YafBuildLink.Redirect( ForumPages.admin_bbcode );
 				}
 				catch ( Exception x )
 				{
