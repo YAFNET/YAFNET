@@ -36,7 +36,7 @@ namespace YAF.Classes.Data.Import
 			}
 			else
 			{
-				throw Exception( "Import stream is not expected format." );
+				throw new Exception( "Import stream is not expected format." );
 			}
 
 			return importedCount;
@@ -67,7 +67,7 @@ namespace YAF.Classes.Data.Import
 			}
 			else
 			{
-				throw Exception( "Import stream is not expected format." );
+				throw new Exception( "Import stream is not expected format." );
 			}
 
 			return importedCount;
