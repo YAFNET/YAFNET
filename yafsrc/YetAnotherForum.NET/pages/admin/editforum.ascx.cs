@@ -151,6 +151,12 @@ namespace YAF.Pages.Admin
 				PageContext.AddLoadMessage( "You must enter a value for sort order." );
 				return;
 			}
+			int sortOrder = 0;
+			if ( !int.TryParse( SortOrder.Text.Trim(), out sortOrder ) )
+			{
+				PageContext.AddLoadMessage( "You must enter an number value for sort order." );
+				return;
+			}
 
 			// Forum
 			long ForumID = 0;
@@ -178,7 +184,7 @@ namespace YAF.Pages.Admin
 			if ( ThemeList.SelectedValue.Length > 0 )
 				themeURL = ThemeList.SelectedValue;
 
-			ForumID = YAF.Classes.Data.DB.forum_save( ForumID, CategoryList.SelectedValue, parentID, Name.Text, Description.Text, SortOrder.Text, Locked.Checked, HideNoAccess.Checked, IsTest.Checked, Moderated.Checked, AccessMaskID.SelectedValue, IsNull( remoteurl.Text ), themeURL, false );
+			ForumID = YAF.Classes.Data.DB.forum_save( ForumID, CategoryList.SelectedValue, parentID, Name.Text, Description.Text, sortOrder, Locked.Checked, HideNoAccess.Checked, IsTest.Checked, Moderated.Checked, AccessMaskID.SelectedValue, IsNull( remoteurl.Text ), themeURL, false );
 
 			// Access
 			if ( Request.QueryString ["f"] != null )

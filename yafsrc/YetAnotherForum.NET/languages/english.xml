@@ -422,6 +422,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="YIM">YAHOO</Resource>
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
+    <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>    
   </page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

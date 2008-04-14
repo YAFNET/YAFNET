@@ -16,13 +16,13 @@
 	<tr id="PreviewRow" runat="server" visible="false">
 		<td class="postformheader" valign="top"><YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" /></td>
 		<td class="post" valign="top">
-			<asp:Label runat="server" ID="MessagePreview" />
+		    <YAF:MessagePost ID="MessagePreview" runat="server"></YAF:MessagePost>
 		</td>
 	</tr>
 	<tr id="DeleteReasonRow" runat="server">
 		<td class="postformheader" width="20%"><% = GetReasonText() %>
 		</td>
-		<td class="post" width="80%"><asp:textbox id="ReasonEditor" runat="server" cssclass="edit" /></td>
+		<td class="post" width="80%"><asp:textbox id="ReasonEditor" runat="server" cssclass="edit" MaxLength="100" /></td>
 	</tr>
 	<tr id="EraseRow" runat="server" visible="false">
 		<td class="postformheader" width="20%"></td>
@@ -30,7 +30,7 @@
 	</tr>
 	<tr>
 		<td align="center" colSpan="2" class="footer1">
-			<asp:button id="Delete" cssclass="pbutton" runat="server" onclick="Delete_Click"/>
+			<asp:button id="Delete" cssclass="pbutton" runat="server" onclick="ToogleDeleteStatus_Click"/>
 			<asp:Button id="Cancel" cssclass="pbutton" runat="server" onclick="Cancel_Click" />
 			<br>
 		</td>
@@ -63,7 +63,7 @@
 		<tr class="post">
 			<td>&nbsp;</td>
 			<td valign="top" class="message">
-				<%# FormatBody(Container.DataItem) %>
+			    <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# Container.DataItem %>" ShowAttachments="false"></YAF:MessagePostData>
 			</td>
 		</tr>
 </ItemTemplate>
@@ -76,7 +76,7 @@
 		<tr class="post_alt">
 			<td>&nbsp;</td>
 			<td valign="top" class="message">
-				<%# FormatBody(Container.DataItem) %>
+				<YAF:MessagePostData ID="MessagePostAlt" runat="server" DataRow="<%# Container.DataItem %>" ShowAttachments="false"></YAF:MessagePostData>
 			</td>
 		</tr>
 </AlternatingItemTemplate>

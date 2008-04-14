@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" %>
 <script runat="server">
     public void Page_Error( object sender, System.EventArgs e )
     {
@@ -17,7 +17,7 @@
 <body>
     <img src="~/images/YAFLogo.jpg" runat="server" alt="YetAnotherForum" id="imgBanner" /><br/>
     <form id="form1" runat="server" enctype="multipart/form-data">
-        <YAF:Forum runat="server" ID="forum"></YAF:Forum>
+        <YAF:Forum runat="server" BoardID="1" ID="forum"></YAF:Forum>
     </form>
 </body>
 </html>

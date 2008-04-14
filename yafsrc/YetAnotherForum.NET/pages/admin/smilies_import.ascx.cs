@@ -94,7 +94,9 @@ namespace YAF.Pages.Admin
 			{
 				// Delete existing smilies?
 				if ( DeleteExisting.Checked )
+				{
 					YAF.Classes.Data.DB.smiley_delete( null );
+				}
 
 				do
 				{
@@ -108,12 +110,14 @@ namespace YAF.Pages.Admin
 						YAF.Classes.Data.DB.smiley_save( null, PageContext.PageBoardID, lineSplit [2], lineSplit [0], lineSplit [1], 0, 0 );
 
 				} while ( true );
+
 				file.Close();
 
 				// invalidate the cache...
 				YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.Smilies ) );
 				YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			}
+
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_smilies );
 		}
 

@@ -98,6 +98,7 @@ namespace YAF.Pages // YAF.Pages
 			if ( !PageContext.ForumReadAccess )
 				YafBuildLink.AccessDenied();
 
+			#region Initial Setup
 			if ( !IsPostBack )
 			{
 				if ( PageContext.Settings.LockedForum == 0 )
@@ -114,16 +115,16 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( General.BadWordReplace( Server.HtmlDecode( PageContext.PageTopicName ) ), "" );
 
-				TopicTitle.Text = General.BadWordReplace( ( string ) _topic ["Topic"] );
+				TopicTitle.Text = General.BadWordReplace( ( string )_topic ["Topic"] );
 
 				ViewOptions.Visible = PageContext.BoardSettings.AllowThreaded;
 				ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 
-				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString["g"], PageContext.PageTopicID);
+				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
-				if ((PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests) ||
-					(PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded))
+				if ( ( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) ||
+					( PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded ) )
 				{
 					Session ["CaptchaImageText"] = General.GetCaptchaString();
 					imgCaptcha.ImageUrl = String.Format( "{0}resource.ashx?c=1", YafForumInfo.ForumRoot );
@@ -137,8 +138,8 @@ namespace YAF.Pages // YAF.Pages
 				}
 
 				// Ederon : 9/9/2007 - moderators can relpy in locked topics
-				if (!PageContext.ForumReplyAccess || 
-					((_topicFlags.IsLocked || _forumFlags.IsLocked) && !PageContext.ForumModeratorAccess))
+				if ( !PageContext.ForumReplyAccess ||
+					( ( _topicFlags.IsLocked || _forumFlags.IsLocked ) && !PageContext.ForumModeratorAccess ) )
 				{
 					PostReplyLink1.Visible = PostReplyLink2.Visible = false;
 					QuickReplyPlaceHolder.Visible = false;
@@ -154,32 +155,32 @@ namespace YAF.Pages // YAF.Pages
 					MoveTopic1.Visible = false;
 					MoveTopic2.Visible = false;
 				}
-                /*
-				PostReplyLink1.Text = GetThemeContents( "BUTTONS", "POSTREPLY" );
-				PostReplyLink1.ToolTip = GetText( "POSTS", "TIP_REPLY_TOPIC" );
-				PostReplyLink2.Text = PostReplyLink1.Text;
-				PostReplyLink2.ToolTip = PostReplyLink1.ToolTip;
-				NewTopic1.Text = GetThemeContents( "BUTTONS", "NEWTOPIC" );
-				NewTopic1.ToolTip = GetText( "POSTS", "TIP_NEW_TOPIC" );
-				NewTopic2.Text = NewTopic1.Text;
-				NewTopic2.ToolTip = NewTopic1.ToolTip;
-				DeleteTopic1.Text = GetThemeContents( "BUTTONS", "DELETETOPIC" );
-				DeleteTopic1.ToolTip = GetText( "POSTS", "TIP_DELETE_TOPIC" );
-				DeleteTopic2.Text = DeleteTopic1.Text;
-				DeleteTopic2.ToolTip = DeleteTopic1.ToolTip;
-				LockTopic1.Text = GetThemeContents( "BUTTONS", "LOCKTOPIC" );
-				LockTopic1.ToolTip = GetText( "POSTS", "TIP_LOCK_TOPIC" );
-				LockTopic2.Text = LockTopic1.Text;
-				LockTopic2.ToolTip = LockTopic1.ToolTip;
-				UnlockTopic1.Text = GetThemeContents( "BUTTONS", "UNLOCKTOPIC" );
-				UnlockTopic1.ToolTip = GetText( "POSTS", "TIP_UNLOCK_TOPIC" );
-				UnlockTopic2.Text = UnlockTopic1.Text;
-				UnlockTopic2.ToolTip = UnlockTopic1.ToolTip;
-				MoveTopic1.Text = GetThemeContents( "BUTTONS", "MOVETOPIC" );
-				MoveTopic1.ToolTip = GetText( "POSTS", "TIP_MOVE_TOPIC" );
-				MoveTopic2.Text = MoveTopic1.Text;
-				MoveTopic2.ToolTip = MoveTopic1.ToolTip;
-                */
+				/*
+PostReplyLink1.Text = GetThemeContents( "BUTTONS", "POSTREPLY" );
+PostReplyLink1.ToolTip = GetText( "POSTS", "TIP_REPLY_TOPIC" );
+PostReplyLink2.Text = PostReplyLink1.Text;
+PostReplyLink2.ToolTip = PostReplyLink1.ToolTip;
+NewTopic1.Text = GetThemeContents( "BUTTONS", "NEWTOPIC" );
+NewTopic1.ToolTip = GetText( "POSTS", "TIP_NEW_TOPIC" );
+NewTopic2.Text = NewTopic1.Text;
+NewTopic2.ToolTip = NewTopic1.ToolTip;
+DeleteTopic1.Text = GetThemeContents( "BUTTONS", "DELETETOPIC" );
+DeleteTopic1.ToolTip = GetText( "POSTS", "TIP_DELETE_TOPIC" );
+DeleteTopic2.Text = DeleteTopic1.Text;
+DeleteTopic2.ToolTip = DeleteTopic1.ToolTip;
+LockTopic1.Text = GetThemeContents( "BUTTONS", "LOCKTOPIC" );
+LockTopic1.ToolTip = GetText( "POSTS", "TIP_LOCK_TOPIC" );
+LockTopic2.Text = LockTopic1.Text;
+LockTopic2.ToolTip = LockTopic1.ToolTip;
+UnlockTopic1.Text = GetThemeContents( "BUTTONS", "UNLOCKTOPIC" );
+UnlockTopic1.ToolTip = GetText( "POSTS", "TIP_UNLOCK_TOPIC" );
+UnlockTopic2.Text = UnlockTopic1.Text;
+UnlockTopic2.ToolTip = UnlockTopic1.ToolTip;
+MoveTopic1.Text = GetThemeContents( "BUTTONS", "MOVETOPIC" );
+MoveTopic1.ToolTip = GetText( "POSTS", "TIP_MOVE_TOPIC" );
+MoveTopic2.Text = MoveTopic1.Text;
+MoveTopic2.ToolTip = MoveTopic1.ToolTip;
+				*/
 
 				if ( !PageContext.ForumModeratorAccess )
 				{
@@ -200,7 +201,9 @@ namespace YAF.Pages // YAF.Pages
 
 				// handle custom BBCode javascript or CSS...
 				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
-			}
+			} 
+			#endregion
+
 			// Mark topic read
 			Mession.SetTopicRead( PageContext.PageTopicID, DateTime.Now );
 
@@ -348,7 +351,9 @@ namespace YAF.Pages // YAF.Pages
 					// create row for "sponsered" message
 					dt0.ImportRow( dt0.Rows [0] );
 					DataRow sponserRow = dt0.Rows [dt0.Rows.Count - 1];
-					populateSponserRow( ref sponserRow );					
+					populateSponserRow( ref sponserRow );
+					// adding another message means this page is actually "1" more...
+					pds.PageSize = Pager.PageSize + 1;
 				}
 
 				DataView dt = dt0.DefaultView;

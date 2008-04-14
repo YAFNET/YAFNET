@@ -2408,6 +2408,7 @@ begin
 	declare @ForumID		int
 	declare @MessageCount	int
 	declare @LastMessageID	int
+	declare @UserID			int
 
 	-- Find TopicID and ForumID
 	select @TopicID=b.TopicID,@ForumID=b.ForumID 
@@ -2433,6 +2434,9 @@ begin
 		LastUserID = null,
 		LastUserName = null
 	where LastMessageID = @MessageID
+	
+	-- get the user id associated with this message
+	SET @UserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)	
 
 	-- should it be physically deleter or not?
 	if (@EraseMessage = 1) begin
@@ -2445,7 +2449,9 @@ begin
 		-- "Delete" it only by setting deleted flag message
 		update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags | 8 where MessageID = @MessageID
 	end
-
+	
+	-- update user post count
+	UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
 	
 	-- Delete topic if there are no more messages
 	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
@@ -5037,6 +5043,7 @@ begin
 	declare @ForumID		int
 	declare @MessageCount	int
 	declare @LastMessageID	int
+	declare @UserID			int
 
 	-- Find TopicID and ForumID
 	select @TopicID=b.TopicID,@ForumID=b.ForumID 
@@ -5061,12 +5068,17 @@ begin
 		LastUserID = null,
 		LastUserName = null
 	where LastMessageID = @MessageID
+	
+	-- get the userID for this message...
+	SET @UserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
 	-- "Delete" message
-
-        update [{databaseOwner}].[{objectQualifier}Message] set IsModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
-        update [{databaseOwner}].[{objectQualifier}Message] set DeleteReason = @DeleteReason where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
-        update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags ^ 8 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+    update [{databaseOwner}].[{objectQualifier}Message] set IsModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+    update [{databaseOwner}].[{objectQualifier}Message] set DeleteReason = @DeleteReason where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+    update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags ^ 8 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+    
+    -- update num posts for user now that the delete/undelete status has been toggled...
+    UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
 
 	-- Delete topic if there are no more messages
 	select @MessageCount = count(1) from [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID and (Flags & 8)=0
