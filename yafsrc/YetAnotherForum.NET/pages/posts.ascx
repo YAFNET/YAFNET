@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="posts.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.posts" %>
-<%@ Register TagPrefix="YAF" TagName="displaypost" Src="../controls/DisplayPost.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <a id="top" name="top"></a>
 <asp:Repeater ID="Poll" runat="server" Visible="false">
@@ -68,7 +69,7 @@
 </table>
 <table class="content" cellspacing="1" cellpadding="0" width="100%" border="0">
 	<tr>
-		<td colspan="3" style="padding: 0px">
+		<td colspan="3" style="padding:0px">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%" class="header1">
 				<tr class="header1">
 					<td class="header1Title">
@@ -115,16 +116,18 @@
 			</div>
 		</td>
 	</tr>
-	<asp:Repeater ID="MessageList" runat="server">
+	<asp:Repeater ID="MessageList" runat="server" OnItemCreated="MessageList_OnItemCreated">
 		<ItemTemplate>
 			<%# GetThreadedRow(Container.DataItem) %>
-			<YAF:displaypost runat="server" DataRow="<%# Container.DataItem %>" Visible="<%#IsCurrentMessage(Container.DataItem)%>"
+			<YAF:DisplayPost ID="DisplayPost1" runat="server" DataRow="<%# Container.DataItem %>" Visible="<%#IsCurrentMessage(Container.DataItem)%>"
 				IsThreaded="<%#IsThreaded%>" />
+            <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />		    
 		</ItemTemplate>
 		<AlternatingItemTemplate>
 			<%# GetThreadedRow(Container.DataItem) %>
-			<YAF:displaypost runat="server" DataRow="<%# Container.DataItem %>" IsAlt="True"
+			<YAF:DisplayPost ID="DisplayPostAlt" runat="server" DataRow="<%# Container.DataItem %>" IsAlt="True"
 				Visible="<%#IsCurrentMessage(Container.DataItem)%>" IsThreaded="<%#IsThreaded%>" />
+		    <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
 		</AlternatingItemTemplate>
 	</asp:Repeater>
 	<asp:PlaceHolder ID="QuickReplyPlaceHolder" runat="server">

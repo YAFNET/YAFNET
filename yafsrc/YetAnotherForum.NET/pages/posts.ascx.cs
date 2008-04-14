@@ -338,33 +338,35 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 
 			PagedDataSource pds = new PagedDataSource();
 			pds.AllowPaging = true;
-			pds.PageSize = Pager.PageSize;
+			pds.PageSize = Pager.PageSize;			
 
       using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
 			{
-				bool ShowAds = true;
-				if ( User != null )
-					ShowAds = PageContext.BoardSettings.ShowAdsToSignedInUsers;
-
-				if ( PageContext.BoardSettings.AdPost != null && PageContext.BoardSettings.AdPost.Length > 0 && ShowAds )
-				{
-					// create row for "sponsered" message
-					dt0.ImportRow( dt0.Rows [0] );
-					DataRow sponserRow = dt0.Rows [dt0.Rows.Count - 1];
-					populateSponserRow( ref sponserRow );
-					// adding another message means this page is actually "1" more...
-					pds.PageSize = Pager.PageSize + 1;
-				}
-
+				// get the default view...
 				DataView dt = dt0.DefaultView;
 
+				// set the sorting
 				if ( IsThreaded )
+				{
 					dt.Sort = "Position";
+				}
 				else
+				{
 					dt.Sort = "Posted";
+					// reset position for updated sorting...
+					int position = 0;
+					foreach ( DataRowView dataRow in dt)
+					{
+						dataRow.BeginEdit();
+						dataRow ["Position"] = position;
+						position++;
+						dataRow.EndEdit();
+					}
+				}
 
-				Pager.Count = dt.Count;
 				pds.DataSource = dt;
+				Pager.Count = dt.Count;				
+
 				int nFindMessage = 0;
 				try
 				{
@@ -444,26 +446,6 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 			DataBind();
 		}
 
-		private void populateSponserRow( ref DataRow sponserRow )
-		{
-			sponserRow ["UserName"] = GetText( "AD_USERNAME" );
-			sponserRow ["UserID"] = 1;
-			sponserRow ["Message"] = PageContext.BoardSettings.AdPost;
-			sponserRow ["HasAvatarImage"] = false;
-			sponserRow ["HasAttachments"] = false;
-			sponserRow ["Signature"] = GetText( "AD_SIGNATURE" );
-			sponserRow ["IP"] = "none";
-			sponserRow ["Edited"] = sponserRow ["Posted"];
-
-			MessageFlags sponserMessageFlags = new MessageFlags( 0 );
-
-			// message is not editable and doesn't need formatting...
-			sponserMessageFlags.NotFormatted = true;
-			sponserMessageFlags.IsLocked = true;
-
-			sponserRow ["Flags"] = sponserMessageFlags.BitValue;
-		}
-
 		private bool HandleWatchTopic()
 		{
 			if ( PageContext.IsGuest ) return false;
@@ -488,6 +470,30 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				}
 			}
 			return false;
+		}
+
+		protected void MessageList_OnItemCreated( object sender, RepeaterItemEventArgs e )
+		{
+			if ( Pager.CurrentPageIndex == 0 && e.Item.ItemIndex == 0 )
+			{
+				// check if need to display the ad...
+				bool showAds = true;
+
+				if ( User != null )
+				{
+					showAds = PageContext.BoardSettings.ShowAdsToSignedInUsers;
+				}
+
+				if ( PageContext.BoardSettings.AdPost != null && PageContext.BoardSettings.AdPost.Length > 0 && showAds )
+				{
+					// first message... show the ad below this message
+					DisplayAd adControl = (DisplayAd)e.Item.FindControl( "DisplayAd" );
+					if ( adControl != null )
+					{
+						adControl.Visible = true;
+					}
+				}
+			}
 		}
 
 		protected void DeleteTopic_Click( object sender, System.EventArgs e )
@@ -825,6 +831,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 
 			return html.ToString();
 		}
+
 		protected string GetIndentImage( object o )
 		{
 			if ( !IsThreaded )
