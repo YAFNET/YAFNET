@@ -93,6 +93,7 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 9/9/2007
 			General.AddStyleAttributeWidth( ForumSmtpServerPort, "30px" );
+			General.AddStyleAttributeSize( AdPost, "400px", "150px" );
 
 			// CheckCache
 			CheckCache();
@@ -153,6 +154,7 @@ namespace YAF.Pages.Admin
 			DisplayPoints.Checked = PageContext.BoardSettings.DisplayPoints;
 			ShowQuickAnswerX.Checked = PageContext.BoardSettings.ShowQuickAnswer;
 			ShowDeletedMessages.Checked = PageContext.BoardSettings.ShowDeletedMessages;
+			ShowDeletedMessagesToAll.Checked = PageContext.BoardSettings.ShowDeletedMessagesToAll;
 			EditTimeOut.Text = PageContext.BoardSettings.EditTimeOut.ToString();
 			ShowYAFVersion.Checked = PageContext.BoardSettings.ShowYAFVersion;
 			UseNoFollowLinks.Checked = PageContext.BoardSettings.UseNoFollowLinks;
@@ -273,6 +275,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.DisplayPoints = DisplayPoints.Checked;
 			PageContext.BoardSettings.ShowQuickAnswer = ShowQuickAnswerX.Checked;
 			PageContext.BoardSettings.ShowDeletedMessages = ShowDeletedMessages.Checked;
+			PageContext.BoardSettings.ShowDeletedMessagesToAll = ShowDeletedMessagesToAll.Checked;
 			PageContext.BoardSettings.EditTimeOut = Convert.ToInt32( EditTimeOut.Text );
 			PageContext.BoardSettings.ShowYAFVersion = ShowYAFVersion.Checked;
 			PageContext.BoardSettings.DisableNoFollowLinksAfterDay = Convert.ToInt32( DisableNoFollowLinksAfterDay.Text );

@@ -202,7 +202,20 @@ namespace YAF.Pages // YAF.Pages
 
 			Pager.PageSize = PageContext.BoardSettings.TopicsPerPage;
 
-			DataTable dt = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 1, null, 0, 10 );
+			// when userId is null it returns the count of all deleted messages
+			int? userId = null;
+
+			// get the userID to use for the deleted posts count...
+			if ( !PageContext.BoardSettings.ShowDeletedMessagesToAll )
+			{
+				// only show deleted messages that belong to this user if they are not admin/mod
+				if ( !PageContext.IsAdmin && !PageContext.ForumModeratorAccess )
+				{
+					userId = PageContext.PageUserID;
+				}
+			}
+
+			DataTable dt = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, userId, 1, null, 0, 10 );
 			int nPageSize = System.Math.Max( 5, Pager.PageSize - dt.Rows.Count );
 			Announcements.DataSource = dt;
 
@@ -222,7 +235,7 @@ namespace YAF.Pages // YAF.Pages
 			DataTable dtTopics;
 			if ( _showTopicListSelected == 0 )
 			{
-				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 0, null, nCurrentPageIndex * nPageSize, nPageSize );
+				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, userId, 0, null, nCurrentPageIndex * nPageSize, nPageSize );
 			}
 			else
 			{
@@ -254,7 +267,7 @@ namespace YAF.Pages // YAF.Pages
 						date -= TimeSpan.FromDays( 365 );
 						break;
 				}
-				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, 0, date, nCurrentPageIndex * nPageSize, nPageSize );
+				dtTopics = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, userId, 0, date, nCurrentPageIndex * nPageSize, nPageSize );
 			}
 			int nRowCount = 0;
 			if ( dtTopics.Rows.Count > 0 ) nRowCount = ( int ) dtTopics.Rows [0] ["RowCount"];

@@ -345,6 +345,24 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				// get the default view...
 				DataView dt = dt0.DefaultView;
 
+				// see if the deleted messages need to be edited out...
+				if ( PageContext.BoardSettings.ShowDeletedMessages &&
+						!PageContext.BoardSettings.ShowDeletedMessagesToAll &&
+						!PageContext.IsAdmin && !PageContext.IsForumModerator
+					)
+				{
+					// remove posts that are deleted and do not belong to this user...
+					dt.RowFilter = "IsDeleted = 1 AND UserID <> " + PageContext.PageUserID.ToString();
+
+					foreach ( DataRowView delRow in dt )
+					{
+						delRow.Delete();
+					}
+
+					// set row filter back to nothing...
+					dt.RowFilter = null;
+				}
+
 				// set the sorting
 				if ( IsThreaded )
 				{

@@ -113,7 +113,7 @@ namespace YAF.Pages
 
 					DataTable tempdb = DB.message_getRepliesList( Request.QueryString ["m"] );
 
-					if ( tempdb.Rows.Count != 0 )
+					if ( tempdb.Rows.Count != 0 && (PageContext.ForumModeratorAccess || PageContext.IsAdmin) )
 					{
 						LinkedPosts.Visible = true;
 						LinkedPosts.DataSource = tempdb;

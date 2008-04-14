@@ -3327,6 +3327,7 @@ begin
 		a.Flags,
 		a.EditReason,
 		a.IsModeratorChanged,
+		a.IsDeleted,
 		a.DeleteReason,
 		UserName	= IsNull(a.UserName,b.Name),
 		b.Joined,
@@ -3861,7 +3862,16 @@ BEGIN
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list](@ForumID int,@Announcement smallint,@Date datetime=null,@Offset int,@Count int) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}topic_list]
+(
+	@ForumID int,
+	@UserID int = null,
+	@Announcement smallint,
+	@Date datetime=null,
+	@Offset int,
+	@Count int
+)
+AS
 begin
 	create table #data(
 		RowNo	int identity primary key not null,
@@ -3901,6 +3911,7 @@ begin
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
 		Replies = c.NumPosts - 1,
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 		[Views] = c.Views,
 		LastPosted = c.LastPosted,
 		LastUserID = c.LastUserID,

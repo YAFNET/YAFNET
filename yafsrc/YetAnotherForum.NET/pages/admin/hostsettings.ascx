@@ -328,6 +328,16 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Show Deleted Messages to All:</b><br>
+                                    If Show Deleted Messages is checked above, checking this will force showing
+                                    the delete message stub to all users.<br />If it remains unchecked, the deleted
+                                    message stub will only show to administrators, moderators, and the owner of the
+                                    deleted message.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowDeletedMessagesToAll" runat="server"></asp:CheckBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Show Links in New Window:</b><br>
                                     If this is checked, links in messages will open in a new window.</td>
                                 <td class="post">
@@ -463,7 +473,7 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
-                                    <b>Show ad from above to signed in users:</b><br />
+                                    <b>Show Ad to "Signed In" Users:</b><br />
                                     If checked, signed in users will see ads.
                                 </td>
                                 <td class="post">
