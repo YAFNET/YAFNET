@@ -65,15 +65,25 @@ namespace YAF.Controls
 
 		protected override void RenderMessage( HtmlTextWriter writer )
 		{
-
 			if ( DataRow != null )
 			{
-				if ( this.MessageFlags.NotFormatted )
+				if ( this.MessageFlags.IsDeleted )
 				{
+					if ( DataRow.Row.Table.Columns.Contains( "IsModeratorChanged" ) )
+					{
+						this.IsModeratorChanged = Convert.ToBoolean( DataRow ["IsModeratorChanged"] );
+					}
+					// deleted message text...
+					RenderDeletedMessage( writer );
+				}
+				else if ( this.MessageFlags.NotFormatted )
+				{
+					// just write out the message with no formatting...
 					writer.Write( DataRow ["Message"].ToString() );
 				}
-				else if ( DataRow.Row.Table.Columns.Contains( "Edited" ) && DataRow.Row.Table.Columns.Contains( "IsModeratorChanged" ) )
+				else if ( DataRow.Row.Table.Columns.Contains( "Edited" ) )
 				{
+					// handle a message that's been edited...
 					DateTime editedMessage = Convert.ToDateTime( DataRow ["Posted"] );
 
 					if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ) )
@@ -83,15 +93,16 @@ namespace YAF.Controls
 
 					if ( this.MessageFlags.IsBBCode )
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ) );
 					}
 					else
 					{
-						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
+						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ) );
 					}
 				}
 				else
 				{
+					// render standard using bbcode or html...
 					if ( this.MessageFlags.IsBBCode )
 					{
 						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );

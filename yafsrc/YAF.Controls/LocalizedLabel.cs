@@ -61,7 +61,11 @@ namespace YAF.Controls
 
 		protected string GetCurrentItem()
 		{
-			if ( !String.IsNullOrEmpty( _localizedPage ) && !String.IsNullOrEmpty( _localizedTag ) )
+			if ( this.Site != null && this.Site.DesignMode == true )
+			{
+				return String.Format( "[PAGE:{0}|TAG:{1}]", LocalizedPage, LocalizedTag );
+			}
+			else if ( !String.IsNullOrEmpty( _localizedPage ) && !String.IsNullOrEmpty( _localizedTag ) )
 			{
 				return PageContext.Localization.GetText( LocalizedPage, LocalizedTag );
 			}

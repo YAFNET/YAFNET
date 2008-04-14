@@ -1772,9 +1772,8 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
 					DataTable tbReplies = DBAccess.GetData( cmd );
 
-					// TODO : what does that delete reason mean?
 					foreach ( DataRow row in tbReplies.Rows )
-						message_deleteRecursively( row ["MessageID"], isModeratorChanged, isLinked ? deleteReason : deleteReason + " + удалено, т.к. является ответом на удаленное сообщение", isDeleteAction, DeleteLinked, true, eraseMessages );
+						message_deleteRecursively( row ["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, true, eraseMessages );
 				}
 			}
 

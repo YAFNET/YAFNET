@@ -30,11 +30,15 @@ namespace YAF.Controls
 	/// </summary>
 	public class BaseControl : System.Web.UI.Control
 	{
-
 		public YafContext PageContext
 		{
 			get 
 			{
+				if ( this.Site != null && this.Site.DesignMode == true )
+				{
+					// design-time, return null...
+					return null;
+				}
 				return YafContext.Current;
 			}
 		}

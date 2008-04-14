@@ -128,7 +128,11 @@ namespace YAF.Controls
 
 		protected string GetLocalizedTitle()
 		{
-			if ( !String.IsNullOrEmpty( TitleLocalizedPage ) && !String.IsNullOrEmpty( TitleLocalizedTag ) )
+			if ( this.Site != null && this.Site.DesignMode == true && !String.IsNullOrEmpty( TitleLocalizedTag ) )
+			{
+				return String.Format( "[TITLE:{0}]", TitleLocalizedTag );
+			}
+			else if ( !String.IsNullOrEmpty( TitleLocalizedPage ) && !String.IsNullOrEmpty( TitleLocalizedTag ) )
 			{
 				return PageContext.Localization.GetText( TitleLocalizedPage, TitleLocalizedTag );
 			}

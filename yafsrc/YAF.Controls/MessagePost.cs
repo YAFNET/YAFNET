@@ -74,7 +74,12 @@ namespace YAF.Controls
 
 		virtual protected void RenderMessage( HtmlTextWriter writer )
 		{
-			if ( this.MessageFlags.NotFormatted )
+			if ( this.MessageFlags.IsDeleted )
+			{
+				// deleted message text...
+				RenderDeletedMessage( writer );
+			}
+			else if ( this.MessageFlags.NotFormatted )
 			{
 				writer.Write( this.Message );
 			}
@@ -87,6 +92,24 @@ namespace YAF.Controls
 				else
 				{
 					writer.Write( FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
+				}
+			}
+		}
+
+		virtual protected void RenderDeletedMessage( HtmlTextWriter writer )
+		{
+			// if message was deleted then write that instead of real body
+			if ( MessageFlags.IsDeleted )
+			{
+				if ( IsModeratorChanged )
+				{
+					// deleted by mod
+					writer.Write( PageContext.Localization.GetText( "POSTS", "MESSAGEDELETED_MOD" ) );
+				}
+				else
+				{
+					// deleted by user
+					writer.Write( PageContext.Localization.GetText( "POSTS", "MESSAGEDELETED_USER" ) );
 				}
 			}
 		}
@@ -156,6 +179,18 @@ namespace YAF.Controls
 				return null;
 			}
 			set { ViewState ["Message"] = value; }
+		}
+
+		virtual public bool IsModeratorChanged
+		{
+			get
+			{
+				if ( ViewState ["IsModeratorChanged"] != null )
+					return Convert.ToBoolean(ViewState ["IsModeratorChanged"]);
+
+				return false;
+			}
+			set { ViewState ["IsModeratorChanged"] = value; }
 		}
 
 		virtual public MessageFlags MessageFlags
