@@ -2852,12 +2852,13 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public DataTable topic_list( object forumID, object announcement, object date, object offset, object count )
+		static public DataTable topic_list( object forumID, object userId, object announcement, object date, object offset, object count )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
+				cmd.Parameters.AddWithValue( "UserID", userId );
 				cmd.Parameters.AddWithValue( "Announcement", announcement );
 				cmd.Parameters.AddWithValue( "Date", date );
 				cmd.Parameters.AddWithValue( "Offset", offset );

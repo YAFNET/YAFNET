@@ -89,7 +89,16 @@ namespace YAF.Controls
 			if ( FindUnread ) linkParams += "&find=unread";
 			RenderAnchor( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row ["LinkTopicID"] ), "post_link", General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
 
-			string tPager = CreatePostPager( Convert.ToInt32( _row ["Replies"] ) + 1, PageContext.BoardSettings.PostsPerPage, Convert.ToInt32( _row ["LinkTopicID"] ) );
+			int actualPostCount = Convert.ToInt32( _row ["Replies"] ) + 1;
+
+			if ( PageContext.BoardSettings.ShowDeletedMessages )
+			{
+				// add deleted posts not included in replies...
+				actualPostCount += Convert.ToInt32( _row ["NumPostsDeleted"] );
+			}
+
+			string tPager = CreatePostPager( actualPostCount, PageContext.BoardSettings.PostsPerPage, Convert.ToInt32( _row ["LinkTopicID"] ) );
+
 			if ( tPager != String.Empty )
 			{
 				writer.WriteLine();
@@ -272,8 +281,24 @@ namespace YAF.Controls
 		/// <returns>"&nbsp;" if no replies or the number of replies.</returns>
 		protected string FormatReplies()
 		{
+			string repStr = "&nbsp;";
+
 			int nReplies = Convert.ToInt32( _row ["Replies"] );
-			return ( nReplies < 0 ) ? "&nbsp;" : String.Format( "{0:N0}", nReplies );
+			int numDeleted = Convert.ToInt32( _row ["NumPostsDeleted"] );
+
+			if ( nReplies >= 0 )
+			{
+				if ( PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0 )
+				{
+					repStr = String.Format( "{0:N0}", nReplies + numDeleted );
+				}
+				else
+				{
+					repStr = String.Format( "{0:N0}", nReplies );
+				}
+			}
+
+			return repStr;
 		}
 
 		/// <summary>
