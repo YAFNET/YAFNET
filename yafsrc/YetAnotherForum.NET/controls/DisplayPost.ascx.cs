@@ -451,6 +451,7 @@ namespace YAF.Controls
 		}
 
 		// Ederon : 7/14/2007 - implemented user box template for formatting
+		// TODO: Make into a Control and move all this code out of this file...
 		protected string FormatUserBox()
 		{
 			#region Cache Retrieval
@@ -805,140 +806,6 @@ namespace YAF.Controls
 			#endregion
 
 			return userBox;
-		}
-
-		protected string FormatBody()
-		{
-			System.Text.StringBuilder messageOutput = new System.Text.StringBuilder( 2000 );
-
-			DateTime editedMessage = Convert.ToDateTime( DataRow ["Posted"] );
-
-			if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ) )
-			{
-				editedMessage = Convert.ToDateTime( DataRow ["Edited"] );
-			}
-
-			if ( _messageFlags.NotFormatted )
-			{
-				messageOutput.Append( DataRow ["Message"].ToString() );
-			}
-			else
-			{
-				messageOutput.Append( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), _messageFlags, Convert.ToBoolean( DataRow ["IsModeratorChanged"] ), false, editedMessage ) );
-			}
-
-			if ( !PostDeleted )
-			{
-				AddAttachedFiles( ref messageOutput );
-
-				if ( PageContext.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
-				{
-					// don't allow any HTML on signatures
-					MessageFlags tFlags = new MessageFlags();
-					tFlags.IsHtml = false;
-
-					messageOutput.Append( "<br/><hr/>" + FormatMsg.FormatMessage( DataRow ["Signature"].ToString(), tFlags ) );
-				}
-			}
-			return messageOutput.ToString();
-		}
-
-		private void AddAttachedFiles( ref System.Text.StringBuilder messageOutput )
-		{
-			// TODO : reduce code redundancy
-			// define valid image extensions
-			string [] aImageExtensions = { "jpg", "gif", "png", "bmp" };
-
-			if ( long.Parse( DataRow ["HasAttachments"].ToString() ) > 0 )
-			{
-				string stats = PageContext.Localization.GetText( "ATTACHMENTINFO" );
-				string strFileIcon = PageContext.Theme.GetItem( "ICONS", "ATTACHED_FILE" );
-
-				using ( DataTable dt = YAF.Classes.Data.DB.attachment_list( DataRow ["MessageID"], null, null ) )
-				{
-					// show file then image attachments...
-					int tmpDisplaySort = 0;
-
-					messageOutput.AppendLine( @"<div class=""fileattach smallfont"">" );
-
-					while ( tmpDisplaySort <= 1 )
-					{
-						bool bFirstItem = true;
-
-						foreach ( DataRow dr in dt.Rows )
-						{
-							string strFilename = Convert.ToString( dr ["FileName"] ).ToLower();
-							bool bShowImage = false;
-
-							// verify it's not too large to display (might want to make this a board setting)
-							if ( Convert.ToInt32( dr ["Bytes"] ) <= 262144 )
-							{
-								// is it an image file?
-								for ( int i = 0; i < aImageExtensions.Length; i++ )
-								{
-									if ( strFilename.ToLower().EndsWith( aImageExtensions [i] ) )
-									{
-										bShowImage = true;
-										break;
-									}
-								}
-							}
-							if ( bShowImage && tmpDisplaySort == 1 )
-							{
-								if ( bFirstItem )
-								{
-									messageOutput.Append( @"<div class=""imgtitle"">" );
-									messageOutput.AppendFormat( PageContext.Localization.GetText( "IMAGE_ATTACHMENT_TEXT" ), Convert.ToString( DataRow ["UserName"] ) );
-									messageOutput.Append( "</div>" );
-									bFirstItem = false;
-								}
-								// Ederon : download rights
-								if (PageContext.ForumDownloadAccess || PageContext.ForumModeratorAccess)
-								{
-									// user has rights to download, show him image
-									messageOutput.AppendFormat(@"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}"" alt=""{2}"" /></div>", YafForumInfo.ForumRoot, dr["AttachmentID"], HtmlEncode(dr["FileName"]));
-								}
-								else
-								{
-									int kb = (1023 + (int)dr["Bytes"]) / 1024;
-									// user doesn't have rights to download, don't show him image
-									messageOutput.Append(@"<div class=""attachedfile"">");
-									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", strFileIcon, dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
-									messageOutput.Append(@"</div>");
-								}
-							}
-							else if ( !bShowImage && tmpDisplaySort == 0 )
-							{
-								if ( bFirstItem )
-								{
-									messageOutput.AppendFormat( @"<div class=""filetitle"">{0}</div>", PageContext.Localization.GetText( "ATTACHMENTS" ) );
-									bFirstItem = false;
-								}
-								// regular file attachment
-								int kb = ( 1023 + ( int ) dr ["Bytes"] ) / 1024;
-
-								messageOutput.Append(@"<div class=""attachedfile"">");
-
-								// Ederon : download rights
-								if (PageContext.ForumDownloadAccess || PageContext.ForumModeratorAccess)
-								{
-									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> <a href=""{1}resource.ashx?a={2}"">{3}</a> <span class=""attachmentinfo"">{4}</span>", strFileIcon, YafForumInfo.ForumRoot, dr["AttachmentID"], dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
-								}
-								else
-								{
-									messageOutput.AppendFormat(@"<img border=""0"" alt="""" src=""{0}"" /> {1} <span class=""attachmentinfo"">{2}</span>", strFileIcon, dr["FileName"], String.Format(stats, kb, dr["Downloads"]));
-								}
-
-								messageOutput.Append(@"</div>");
-							}
-						}
-						// now show images
-						tmpDisplaySort++;
-					}
-
-					messageOutput.AppendLine( @"</div>" );
-				}
-			}
 		}
 
 		private void PopMenu1_ItemClick( object sender, PopEventArgs e )
