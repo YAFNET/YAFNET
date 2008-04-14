@@ -8,7 +8,7 @@
                 UserName='<%#DataRow["UserName"]%>' />
         </b>
     </td>
-    <td width="80%">
+    <td width="80%" colspan='<%#GetIndentSpan()%>'>
         <table cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="postheader">
