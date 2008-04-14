@@ -38,7 +38,6 @@
     <Compile Include="BBCode.cs" />
     <Compile Include="ReplaceRules.cs" />
     <Compile Include="CaptchaImage.cs" />
-    <Compile Include="ClientSide\ClientSideFocus.cs" />
     <Compile Include="ClientSide\SmartScroller.cs" />
     <Compile Include="FormatMsg.cs" />
     <Compile Include="HighLighter.cs" />

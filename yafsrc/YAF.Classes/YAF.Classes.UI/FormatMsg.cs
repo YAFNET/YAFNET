@@ -224,17 +224,13 @@ namespace YAF.Classes.UI
 
 		static public string FormatMessage( string message, MessageFlags messageFlags )
 		{
-			return FormatMessage( message, messageFlags, true, false );
+			return FormatMessage( message, messageFlags, false );
 		}
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged )
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool targetBlankOverride )
 		{
-			return FormatMessage( message, messageFlags, isModeratorChanged, false );
-		}
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride )
-		{
-			return FormatMessage( message, messageFlags, isModeratorChanged, targetBlankOverride, DateTime.Now );
+			return FormatMessage( message, messageFlags, targetBlankOverride, DateTime.Now );
 		}		
-		static public string FormatMessage( string message, MessageFlags messageFlags, bool isModeratorChanged, bool targetBlankOverride, DateTime messageLastEdited )
+		static public string FormatMessage( string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited )
 		{
 			bool useNoFollow = YafContext.Current.BoardSettings.UseNoFollowLinks;
 
@@ -247,15 +243,6 @@ namespace YAF.Classes.UI
 					// disable no follow
 					useNoFollow = false;
 				}				
-			}
-
-			// if message was deleted then write that instead of real body
-			if ( messageFlags.IsDeleted )
-			{
-				// TODO: Needs to be localized
-				message = "Message was deleted";
-				if ( isModeratorChanged ) { message += " by moderator."; } else { message += " by user."; };
-				return message;
 			}
 
 			// do html damage control

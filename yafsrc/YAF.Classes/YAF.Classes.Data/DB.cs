@@ -1763,8 +1763,8 @@ namespace YAF.Classes.Data
 				foreach ( DataRow dr in dt.Rows )
 					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr ["Value"] ) );
 
-
 			if ( DeleteLinked )
+			{
 				//Delete replies
 				using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
 				{
@@ -1776,8 +1776,8 @@ namespace YAF.Classes.Data
 					foreach ( DataRow row in tbReplies.Rows )
 						message_deleteRecursively( row ["MessageID"], isModeratorChanged, isLinked ? deleteReason : deleteReason + " + удалено, т.к. является ответом на удаленное сообщение", isDeleteAction, DeleteLinked, true, eraseMessages );
 				}
+			}
 
-			//ABOT CHANGED 16.01.04: Delete files from hard disk
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )
 			{
@@ -1790,9 +1790,7 @@ namespace YAF.Classes.Data
 					foreach ( DataRow row in tbAttachments.Rows )
 						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row ["FileName"] ) );
 				}
-
 			}
-			//END ABOT CHANGE 16.04.04
 
 			// Ederon : erase message for good
 			if ( eraseMessages )
@@ -1801,7 +1799,7 @@ namespace YAF.Classes.Data
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.AddWithValue( "MessageID", messageID );
-					cmd.Parameters.AddWithValue( "@EraseMessage", eraseMessages );
+					cmd.Parameters.AddWithValue( "EraseMessage", eraseMessages );
 					DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
@@ -2675,8 +2673,6 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "SmileyID", smileyID );
 				DBAccess.ExecuteNonQuery( cmd );
-				// todo : move this away to non-static code
-				System.Web.HttpContext.Current.Cache.Remove( "Smilies" );
 			}
 		}
 		static public void smiley_save( object smileyID, object boardID, object code, object icon, object emoticon, object sortOrder, object replace )
