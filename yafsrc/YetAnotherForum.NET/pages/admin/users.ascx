@@ -40,6 +40,7 @@
     </tr>
   </table>
   <br/>
+  <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
   <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
       <td class="header1" colspan="7">
@@ -94,8 +95,9 @@
     </asp:Repeater>
     <tr>
       <td class="footer1" colspan="7">
-        <asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></td>
+        <b><asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></b></td>
     </tr>
   </table>
+  <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

@@ -104,7 +104,7 @@
 <table class="command" width="100%" cellspacing="0" cellpadding="0">
 	<tr>
 		<td align="left">
-			<YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="False" />
+			<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
 		</td>
 		<td>
 			<YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MODERATE"

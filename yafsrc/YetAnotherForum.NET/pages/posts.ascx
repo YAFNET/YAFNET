@@ -169,7 +169,7 @@
 <table class="command" cellspacing="0" cellpadding="0" width="100%">
 	<tr>
 		<td align="left">
-			<YAF:Pager runat="server" LinkedPager="Pager" UsePostBack="false" />
+			<YAF:Pager runat="server" id="PagerBottom" LinkedPager="Pager" UsePostBack="false" />
 		</td>
 		<td>
 			<YAF:ThemeButton ID="MoveTopic2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MOVETOPIC"

@@ -71,11 +71,17 @@ namespace YAF.Pages.Admin
 					rank.DataValueField = "RankID";
 					rank.DataBind();
 				}
+
+				PagerTop.PageSize = 25;
 			}
 		}
 
 		private void BindData()
 		{
+			PagedDataSource pds = new PagedDataSource();
+			pds.AllowPaging = true;
+			pds.PageSize = PagerTop.PageSize;
+
 			using ( DataTable dt =
 						YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, null, null,
 						group.SelectedIndex <= 0 ? null : group.SelectedValue,
@@ -86,7 +92,14 @@ namespace YAF.Pages.Admin
 				{
 					if ( name.Text.Trim().Length > 0 || ( Email.Text.Trim().Length > 0 ) )
 						dv.RowFilter = string.Format( "Name like '%{0}%' and Email like '%{1}%'", name.Text.Trim(), Email.Text.Trim() );
-					UserList.DataSource = dv;
+
+					PagerTop.Count = dv.Count;
+					pds.DataSource = dv;
+
+					pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
+					if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;
+
+					UserList.DataSource = pds;
 					UserList.DataBind();
 				}
 			}
@@ -149,6 +162,12 @@ namespace YAF.Pages.Admin
 		{
 			int i = ( int )_o;
 			return ( i & bitmask ) != 0;
+		}
+
+		protected void PagerTop_PageChange( object sender, EventArgs e )
+		{
+			// rebind
+			BindData();
 		}
 	}
 }

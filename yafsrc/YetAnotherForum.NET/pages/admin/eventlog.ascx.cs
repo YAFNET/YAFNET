@@ -56,6 +56,8 @@ namespace YAF.Pages.Admin
 				// we are now in event log
 				PageLinks.AddLink("Event Log", "");
 
+				PagerTop.PageSize = 25;
+
 				// bind data to controls
 				BindData();
 			}
@@ -123,6 +125,12 @@ namespace YAF.Pages.Admin
 					break;
 			}
 		}
+
+		protected void PagerTop_PageChange( object sender, EventArgs e )
+		{
+			// rebind
+			BindData();
+		}
 		
 		#endregion
 
@@ -134,8 +142,21 @@ namespace YAF.Pages.Admin
 		/// </summary>
 		private void BindData()
 		{
+			PagedDataSource pds = new PagedDataSource();
+			pds.AllowPaging = true;
+			pds.PageSize = PagerTop.PageSize;		
+
 			// list event for this board
-			List.DataSource = YAF.Classes.Data.DB.eventlog_list(PageContext.PageBoardID);
+			DataTable dt = YAF.Classes.Data.DB.eventlog_list(PageContext.PageBoardID);
+			DataView dv = dt.DefaultView;
+
+			PagerTop.Count = dv.Count;
+			pds.DataSource = dv;
+
+			pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
+			if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;
+
+			List.DataSource = pds;
 
 			// bind data to controls
 			DataBind();
