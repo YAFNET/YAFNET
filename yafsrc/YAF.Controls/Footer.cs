@@ -122,9 +122,12 @@ namespace YAF.Controls
 			footer.Append( PageContext.AdminLoadString ); // Append a error message for an admin to see (but not nag)
 
 #if DEBUG      
-      footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
-			footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
-      footer.Append( "</div>" );
+			if ( PageContext.IsAdmin )
+			{
+				footer.AppendFormat( @"<br/><br/><div style=""width:350px;margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <b>DEBUG MODE</b></span>.<br/>Recompile in <b>RELEASE MODE</b> to remove this information:" );
+				footer.AppendFormat( @"<br/>{0} sql queries ({1:N3} seconds, {2:N2}%).<br/>{3}", QueryCounter.Count, QueryCounter.Duration, ( 100 * QueryCounter.Duration ) / duration, QueryCounter.Commands );
+				footer.Append( "</div>" );
+			}
 #endif
 
 			// write CSS, Refresh, then header...

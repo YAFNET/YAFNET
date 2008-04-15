@@ -87,7 +87,17 @@ namespace YAF.Controls
 
 			string linkParams = "t={0}";
 			if ( FindUnread ) linkParams += "&find=unread";
-			RenderAnchor( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row ["LinkTopicID"] ), "post_link", General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
+
+			string firstMessage = null;
+
+			if (_row ["FirstMessage"] != DBNull.Value)
+			{
+				firstMessage = 	_row ["FirstMessage"].ToString();
+			}
+
+			RenderAnchorBegin( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row ["LinkTopicID"] ), "post_link", General.BadWordReplace( General.Truncate( firstMessage, 255 ) ) );
+			writer.WriteLine( General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
+			writer.WriteEndTag( "a" );
 
 			int actualPostCount = Convert.ToInt32( _row ["Replies"] ) + 1;
 
@@ -116,6 +126,7 @@ namespace YAF.Controls
 
 			// Topic Starter
 			UserLink topicStarterLink = new UserLink();
+			topicStarterLink.ID = GetUniqueID( "topicStarterLink" );
 			topicStarterLink.UserID = Convert.ToInt32( _row ["UserID"] );
 			topicStarterLink.UserName = _row ["Starter"].ToString();
 

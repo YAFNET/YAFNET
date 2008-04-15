@@ -93,7 +93,7 @@ namespace YAF.Controls
 			writer.WriteBeginTag( "a" );
 			writer.WriteAttribute( "href", href );
 			if ( !String.IsNullOrEmpty( cssClass ) ) writer.WriteAttribute( "class", cssClass );
-			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", title );
+			if ( !String.IsNullOrEmpty( title ) ) writer.WriteAttribute( "title", HtmlEncode(title) );
 			if ( !String.IsNullOrEmpty( onclick ) ) writer.WriteAttribute( "onclick", onclick );
 			if ( !String.IsNullOrEmpty( id ) ) writer.WriteAttribute( "id", id );
 			writer.Write( HtmlTextWriter.TagRightChar );

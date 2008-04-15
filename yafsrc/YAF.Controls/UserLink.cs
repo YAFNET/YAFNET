@@ -39,28 +39,28 @@ namespace YAF.Controls
 
 		protected override void Render( HtmlTextWriter output )
 		{
-			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ))
+			if ( _userID != -1 && !String.IsNullOrEmpty( _userName ) )
 			{
 				// is this the guest user? If so, guest's don't have a profile.
 				bool isGuest = YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( _userID );
 
 				output.BeginRender();
 
-				if (!isGuest)
-				{					
+				if ( !isGuest )
+				{
 					output.WriteBeginTag( "a" );
-					output.WriteAttribute( "id", this.ClientID );
-					output.WriteAttribute( "href", YafBuildLink.GetLink(ForumPages.profile,"u={0}",_userID));
-					output.WriteAttribute( "title", HtmlEncode( _userName ));
+					if ( !String.IsNullOrEmpty( this.ClientID ) ) output.WriteAttribute( "id", this.ClientID );
+					output.WriteAttribute( "href", YafBuildLink.GetLink( ForumPages.profile, "u={0}", _userID ) );
+					output.WriteAttribute( "title", HtmlEncode( _userName ) );
 					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );
 					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "onclick", _onclick );
 					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "onmouseover", _onmouseover );
-					output.Write(HtmlTextWriter.TagRightChar);
+					output.Write( HtmlTextWriter.TagRightChar );
 				}
 
 				output.WriteEncodedText( _userName );
 
-				if (!isGuest)
+				if ( !isGuest )
 				{
 					output.WriteEndTag( "a" );
 				}
@@ -84,7 +84,7 @@ namespace YAF.Controls
 				_onclick = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// The onmouseover value for the profile link
 		/// </summary>
