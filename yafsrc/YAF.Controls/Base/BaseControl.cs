@@ -73,6 +73,32 @@ namespace YAF.Controls
 			{
 				return System.Guid.NewGuid().ToString().Substring( 0, 10 );
 			}
+		}
+
+		/// <summary>
+		/// Creates a ID Based on the Control Structure
+		/// </summary>
+		/// <param name="prefix"></param>
+		/// <returns></returns>
+		public string GetExtendedID( string prefix )
+		{
+			string createdID = null;
+
+			if ( !String.IsNullOrEmpty( this.ID ) )
+			{
+				createdID = this.ID + "_";
+			}
+
+			if ( !String.IsNullOrEmpty( prefix ) )
+			{
+				createdID += prefix;
+			}
+			else
+			{
+				createdID += System.Guid.NewGuid().ToString().Substring( 0,5 );
+			}
+
+			return createdID;
 		} 
 
 		#region Render Anchor Begin Functions

@@ -19,6 +19,8 @@
 using System;
 using System.Data;
 using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Collections.Generic;
 
 namespace YAF.Controls
@@ -30,6 +32,18 @@ namespace YAF.Controls
 	{
 		private string _control = string.Empty;
 		private List<InternalPopMenuItem> _items = new List<InternalPopMenuItem>();
+
+		public PopMenu()
+			: base()
+		{
+			this.Init += new EventHandler( PopMenu_Init );
+		}
+
+		void PopMenu_Init( object sender, EventArgs e )
+		{
+			// init the necessary js...
+			ScriptManager.RegisterClientScriptInclude( this, typeof( PopMenu ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
+		}
 
 		public string Control
 		{

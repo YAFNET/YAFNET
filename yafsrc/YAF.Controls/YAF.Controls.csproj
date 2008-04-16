@@ -28,7 +28,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.20229.25606, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
+    <Reference Include="AjaxControlToolkit, Version=1.0.20229.26329, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -45,6 +45,7 @@
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
+    <Compile Include="GotoPageForm.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="HelpMenu.cs" />
     <Compile Include="IconLegend.cs" />

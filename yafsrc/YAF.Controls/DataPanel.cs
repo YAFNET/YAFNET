@@ -47,10 +47,7 @@ namespace YAF.Controls
 		/// </summary>
 		private void RegisterControlScript() 
 		{
-			if( ! Page.ClientScript.IsClientScriptBlockRegistered(_dataPanelScript)) 
-			{
-				Page.ClientScript.RegisterClientScriptBlock( this.GetType(), _dataPanelScript, string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", YafContext.Current.Theme.GetURLToResource( "DataPanel.js" ) ) );
-			}
+			ScriptManager.RegisterClientScriptInclude( this, this.GetType(), _dataPanelScript, YAF.Classes.Utils.YafForumInfo.GetURLToResource( "DataPanel.js" ) );
 		}
 
 		#endregion Scripts
