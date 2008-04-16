@@ -36,6 +36,9 @@
 		<Resource tag="SAVE">Save</Resource>
 		<Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="OK">OK</Resource>
+    <Resource tag="GO">GO</Resource>
+    <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
+    <Resource tag="PAGES">Pages</Resource>
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
 		<Resource tag="CAN_POST">You [b]can[/b] post new topics in this forum.</Resource>
 		<Resource tag="CAN_REPLY">You [b]can[/b] reply to topics in this forum.</Resource>

@@ -526,3 +526,31 @@ This CSS already works on FireFox.
 	vertical-align: middle;
 	margin:0 auto;
 }
+
+/* Goto Page Form */
+.gotoPageForm
+{
+	background-color: #ffffff;
+	border: solid 1px #555555;
+	width: 76px;
+	margin: 1px;			
+}
+.gotoPageForm .gotoBase
+{
+	border: solid 1px #ffffff;
+}
+.gotoPageForm .gotoHeader
+{
+	background-color: #e3e3e3;
+	color: #5555a0;
+	font-weight: bold;	
+	padding: 2px;	
+}
+.gotoPageForm .gotoInner
+{
+	padding: 2px;
+}
+.gotoPageForm .gotoInner input
+{
+	margin: 2px;
+}

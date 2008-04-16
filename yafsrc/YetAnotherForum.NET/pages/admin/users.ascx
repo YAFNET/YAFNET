@@ -40,7 +40,7 @@
     </tr>
   </table>
   <br/>
-  <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+  <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" UsePostBack="True" />
   <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
       <td class="header1" colspan="7">
@@ -98,6 +98,6 @@
         <b><asp:LinkButton ID="NewUser" OnClick="NewUser_Click" runat="server">New User</asp:LinkButton></b></td>
     </tr>
   </table>
-  <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+  <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

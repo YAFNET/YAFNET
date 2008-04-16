@@ -312,7 +312,7 @@ namespace YAF.Editor
 			// this call is supposed to be after editor load since it may use
 			// JS variables created in editor_load...
 			YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType(), SafeID );
-			Page.ClientScript.RegisterClientScriptBlock( this.GetType(), "yafjs", string.Format( @"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource( "yaf.js" ) ) );
+			ScriptManager.RegisterClientScriptInclude( this, typeof( BBCodeEditor ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
 		}
 
 		#region Properties

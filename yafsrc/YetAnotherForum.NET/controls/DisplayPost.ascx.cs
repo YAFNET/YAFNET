@@ -23,6 +23,7 @@ using System.Drawing;
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Data;
@@ -64,7 +65,7 @@ namespace YAF.Controls
 				PopMenu1.Attach(UserProfileLink);
 			}
 
-			Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "yafjs", string.Format(@"<script language=""javascript"" type=""text/javascript"" src=""{0}""></script>", PageContext.Theme.GetURLToResource("yaf.js")));
+			ScriptManager.RegisterClientScriptInclude( this, typeof( DisplayPost ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
 			NameCell.ColSpan = int.Parse(GetIndentSpan());
 		}
 
