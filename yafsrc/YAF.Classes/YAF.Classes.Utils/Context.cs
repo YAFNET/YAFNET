@@ -870,6 +870,16 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		/// <summary>
+		/// Helper function that creates the the url of a resource.
+		/// </summary>
+		/// <param name="resourceName"></param>
+		/// <returns></returns>
+		static public string GetURLToResource( string resourceName )
+		{
+			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
+		}
+
 		#region Version Information
 		static public string AppVersionNameFromCode( long code )
 		{

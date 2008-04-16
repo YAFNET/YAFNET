@@ -175,16 +175,5 @@ namespace YAF.Classes.Utils
 
 			return GetItem( "ICONS", ( stateValue == PanelSessionState.CollapsiblePanelState.Expanded ? "PANEL_COLLAPSE" : "PANEL_EXPAND" ) );
 		}
-
-		/// <summary>
-		/// Helper function that creates the the url of a resource.
-		/// </summary>
-		/// <param name="resourceName"></param>
-		/// <returns></returns>
-		public string GetURLToResource( string resourceName )
-		{
-			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
-			//return string.Format( "{1}resource.ashx?r={0}", resourceName, YafForumInfo.ForumRoot );
-		}
 	}
 }

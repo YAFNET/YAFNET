@@ -71,6 +71,12 @@ namespace YAF.Classes.Base
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;
 		protected YAF.Controls.ModalNotification _errorPopup = null;
+		protected bool _isAdminPage = false;
+
+		public bool IsAdminPage
+		{
+			get { return _isAdminPage; }
+		}
 
 		private YAF.Controls.Header _header = null;
 		private YAF.Controls.Footer _footer = null;
@@ -595,7 +601,7 @@ namespace YAF.Classes.Base
 		protected void InsertCssRefresh( System.Web.UI.Control addTo )
 		{
 			// make the style sheet link controls.
-			addTo.Controls.Add( MakeStyleSheetControl( PageContext.Theme.GetURLToResource( "forum.css" ) ) );
+			addTo.Controls.Add( MakeStyleSheetControl( YafForumInfo.GetURLToResource( "forum.css" ) ) );
 			addTo.Controls.Add( MakeStyleSheetControl( YafBuildLink.ThemeFile( "theme.css" ) ) );
 
 			if ( ForumHeader.RefreshURL != null && ForumHeader.RefreshTime >= 0 )

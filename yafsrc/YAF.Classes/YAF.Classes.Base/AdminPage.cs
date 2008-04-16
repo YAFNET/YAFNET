@@ -32,19 +32,21 @@ namespace YAF.Classes.Base
 		/// <summary>
 		/// Creates the Administration page.
 		/// </summary>
-		public AdminPage() : base(null)
+		public AdminPage()
+			: base( null )
 		{
-			this.Load += new EventHandler(AdminPage_Load);
+			this.Load += new EventHandler( AdminPage_Load );
 		}
 
-        public AdminPage(string transPage)
-            : base(transPage)
-        {
-            this.Load += new EventHandler(AdminPage_Load);
-        }
+		public AdminPage( string transPage )
+			: base( transPage )
+		{
+			this._isAdminPage = true;
+			this.Load += new EventHandler( AdminPage_Load );
+		}
 
 
-		private void AdminPage_Load(object sender, EventArgs e)
+		private void AdminPage_Load( object sender, EventArgs e )
 		{
 			if ( !PageContext.IsAdmin )
 				YafBuildLink.AccessDenied();
