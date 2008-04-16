@@ -81,7 +81,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void BindData()
 		{
-			topiclist.DataSource = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, -1, null, 0, 999999 );
+			topiclist.DataSource = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, null, -1, null, 0, 999999 );
 			UserList.DataSource = YAF.Classes.Data.DB.userforum_list( null, PageContext.PageForumID );
 			DataBind();
 		}

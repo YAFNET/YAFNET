@@ -99,7 +99,7 @@ namespace YAF.Pages
 
 		protected void ForumList_SelectedIndexChanged( object sender, System.EventArgs e )
 		{
-			TopicsList.DataSource = YAF.Classes.Data.DB.topic_list( ForumList.SelectedValue, 0, null, 0, 32762 );
+			TopicsList.DataSource = YAF.Classes.Data.DB.topic_list( ForumList.SelectedValue, null, 0, null, 0, 32762 );
 			TopicsList.DataTextField = "Subject";
 			TopicsList.DataValueField = "TopicID";
 			TopicsList.DataBind();
