@@ -754,13 +754,13 @@ namespace YAF.Classes.Data
 		/// <param name="StartID"></param>
 		/// <param name="Limit"></param>
 		/// <returns></returns>
-		static public DataTable category_simplelist( int StartID, int Limit )
+		static public DataTable category_simplelist( int startID, int limit )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "category_simplelist" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "StartID", StartID );
-				cmd.Parameters.AddWithValue( "Limit", Limit );
+				cmd.Parameters.AddWithValue( "StartID", startID );
+				cmd.Parameters.AddWithValue( "Limit", limit );
 				return DBAccess.GetData( cmd );
 			}
 		}
@@ -771,15 +771,16 @@ namespace YAF.Classes.Data
 		/// <param name="CategoryID">CategoryID so save changes to</param>
 		/// <param name="Name">Name of the category</param>
 		/// <param name="SortOrder">Sort Order</param>
-		static public void category_save( object boardID, object CategoryID, object Name, object SortOrder )
+		static public void category_save( object boardID, object categoryId, object name, object categoryImage, object sortOrder )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "category_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
-				cmd.Parameters.AddWithValue( "Name", Name );
-				cmd.Parameters.AddWithValue( "SortOrder", SortOrder );
+				cmd.Parameters.AddWithValue( "CategoryID", categoryId );
+				cmd.Parameters.AddWithValue( "Name", name );
+				cmd.Parameters.AddWithValue( "CategoryImage", categoryImage );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
