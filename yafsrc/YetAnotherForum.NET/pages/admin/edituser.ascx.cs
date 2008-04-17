@@ -58,63 +58,7 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 				PageLinks.AddLink( "Edit", "" );
-
-				BasicEditLink.Text = "User Details";
-				BasicEditLink.CommandArgument = "QuickEditView";
-
-				GroupLink.Text = "User Groups";
-				GroupLink.CommandArgument = "GroupEditControl";
-
-				SignatureLink.Text = "Signature Edit";
-				SignatureLink.CommandArgument = "SignatureEditControl";
-
-				ProfileLink.Text = "Profile Edit";
-				ProfileLink.CommandArgument = "ProfileEditControl";
-
-				SuspendLink.Text = "Suspend User";
-				SuspendLink.CommandArgument = "SuspendUserControl";
-
-				PointsLink.Text = "User Points";
-				PointsLink.CommandArgument = "UserPointsView";
-
-				AvatarLink.Text = "Avatar Edit";
-				AvatarLink.CommandArgument = "AvatarEditView";
-
-				if ( Request.QueryString ["av"] != null )
-				{
-					// show the avatar section...
-					UserAdminMultiView.SetActiveView( AvatarEditView );
-				}
 			}
-		}
-
-		protected void Edit1_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( QuickEditView );
-		}
-		protected void Edit2_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( GroupsEditView );
-		}
-		protected void Edit3_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( ProfileEditView );
-		}
-		protected void Edit4_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( SignatureEditView );
-		}
-		protected void Edit5_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( SuspendUserView );
-		}
-		protected void Edit6_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( UserPointsView );
-		}
-		protected void Edit7_Click( object sender, System.EventArgs e )
-		{
-			UserAdminMultiView.SetActiveView( AvatarEditView );
 		}
 	}
 }

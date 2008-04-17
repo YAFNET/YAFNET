@@ -36,30 +36,9 @@ namespace YAF.Controls
 	  protected void Page_Load(object sender, EventArgs e)
 	  {
 		  IsHostAdminRow.Visible = PageContext.IsHostAdmin;
-
 		  if (!IsPostBack)
 		  {
 			  BindData();
-			  using (DataTable dt = YAF.Classes.Data.DB.user_list(PageContext.PageBoardID, Request.QueryString["u"], null))
-			  {
-				  DataRow row = dt.Rows[0];
-				  UserFlags userFlags = new UserFlags(row["Flags"]);
-
-				  Name.Text = (string)row["Name"];
-				  Email.Text = row["Email"].ToString();
-
-				  IsHostAdminX.Checked = userFlags.IsHostAdmin;
-				  IsGuestX.Checked = userFlags.IsGuest;
-				  IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
-				  Joined.Text = row["Joined"].ToString();
-
-				  LastVisit.Text = row["LastVisit"].ToString();
-
-				  ListItem item = RankID.Items.FindByValue(row["RankID"].ToString());
-
-				  if (item != null)
-					  item.Selected = true;
-			  }
 		  }
 	  }
 
@@ -68,7 +47,27 @@ namespace YAF.Controls
       RankID.DataSource = YAF.Classes.Data.DB.rank_list( PageContext.PageBoardID, null );
       RankID.DataValueField = "RankID";
       RankID.DataTextField = "Name";
-      DataBind();
+			RankID.DataBind();
+
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
+			{
+				DataRow row = dt.Rows [0];
+				UserFlags userFlags = new UserFlags( row ["Flags"] );
+
+				Name.Text = ( string )row ["Name"];
+				Email.Text = row ["Email"].ToString();
+				IsHostAdminX.Checked = userFlags.IsHostAdmin;
+				IsGuestX.Checked = userFlags.IsGuest;
+				IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
+				Joined.Text = row ["Joined"].ToString();
+				LastVisit.Text = row ["LastVisit"].ToString();
+				ListItem item = RankID.Items.FindByValue( row ["RankID"].ToString() );
+
+				if ( item != null )
+				{
+					item.Selected = true;
+				}
+			}
     }
 
     protected void Cancel_Click( object sender, System.EventArgs e )
@@ -92,7 +91,7 @@ namespace YAF.Controls
       }
 
       YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, Request.QueryString ["u"], Name.Text, Email.Text, IsHostAdminX.Checked, IsGuestX.Checked, IsCaptchaExcluded.Checked, RankID.SelectedValue );
-      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
+			BindData();
     }
   }
 }

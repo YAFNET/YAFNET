@@ -44,7 +44,6 @@
 /* Header 1 - Main header */
 .yafnet .header1 {
 	background-image: url('bg_header1.png');
-	background-color: #7D8CFF;
 	color: #FFFFFF;
 	font-weight: bold;
 	line-height: 22px;
@@ -56,7 +55,6 @@
 /* Header 2 - Sub header */
 .yafnet .header2 {
 	background-image: url('bg_header2.png');
-	background-color: #7D8CFF;
 	color: #3A4F6C;
 	font-weight: bold;
 	line-height: 18px;
@@ -480,4 +478,31 @@ This CSS already works on FireFox.
 	display:block;
 	vertical-align: middle;
 	margin:0 auto;
+}
+/* Goto Page Form */
+.gotoPageForm
+{	
+	background-color: #ffffff;
+	border: solid 1px #555555;
+	width: 90px;
+	margin: 1px;			
+}
+.gotoPageForm .gotoBase
+{
+	border: solid 1px #ffffff;
+}
+.gotoPageForm .gotoHeader
+{
+	background-image: url('bg_header1.png');
+	color: #ffffff;
+	font-weight: bold;	
+	padding: 2px;	
+}
+.gotoPageForm .gotoInner
+{
+	padding: 2px;
+}
+.gotoPageForm .gotoInner input
+{
+	margin: 2px;
 }

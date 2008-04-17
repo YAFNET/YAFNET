@@ -8,52 +8,42 @@
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
-    <table width="100%" cellspacing="1" cellpadding="0" class="content">
-        <tbody>
-            <tr>
-                <td colspan="2" class="header1">
-                    Edit User:
-                    <asp:Label ID="TitleUserName" runat="server" /></td>
-            </tr>
-            <tr>
-                <td valign="top" class="post" width="150">
-                    <ul>
-                        <li><asp:LinkButton runat="server" ID="BasicEditLink" OnClick="Edit1_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="GroupLink" OnClick="Edit2_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="ProfileLink" OnClick="Edit3_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="AvatarLink" OnClick="Edit7_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="SignatureLink" OnClick="Edit4_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="SuspendLink" OnClick="Edit5_Click" /></li>
-                        <li><asp:LinkButton runat="server" ID="PointsLink" OnClick="Edit6_Click" /></li>
-                    </ul>
-                </td>
-                <td valign="top" class="post">
-                    <asp:MultiView ID="UserAdminMultiView" runat="server" ActiveViewIndex="0">
-                        <asp:View ID="QuickEditView" runat="server">
-                            <uc1:QuickEdit ID="QuickEditControl" runat="server" />
-                        </asp:View>
-                        <asp:View ID="GroupsEditView" runat="server">
-                            <uc1:GroupsEdit ID="GroupEditControl" runat="server" />
-                        </asp:View>
-                        <asp:View ID="ProfileEditView" runat="server">
-                            <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
-                        </asp:View>
-                        <asp:View ID="AvatarEditView" runat="server">
-                            <uc1:AvatarEdit runat="server" ID="AvatarEditControl" />
-                        </asp:View>
-                        <asp:View ID="SignatureEditView" runat="server">
-                            <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
-                        </asp:View>
-                        <asp:View ID="SuspendUserView" runat="server">
-                            <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
-                        </asp:View>
-                        <asp:View ID="UserPointsView" runat="server">
-                            <uc1:PointsEdit runat="server" ID="UserPointsControl" />
-                        </asp:View>
-                    </asp:MultiView>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
+        <ajaxToolkit:TabPanel runat="server" ID="QuickEditTab" HeaderText="User Details">
+            <ContentTemplate>
+                <uc1:QuickEdit ID="QuickEditControl" runat="server" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="GroupEditTab" HeaderText="User Roles">
+            <ContentTemplate>
+                <uc1:GroupsEdit ID="GroupEditControl" runat="server" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="ProfileEditTab" HeaderText="User Profile">
+            <ContentTemplate>
+                <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="AvatarTab" HeaderText="User Avatar">
+            <ContentTemplate>
+                <uc1:AvatarEdit runat="server" ID="AvatarEditControl" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="SignatureTab" HeaderText="User Signature">
+            <ContentTemplate>
+                <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="PointsTab" HeaderText="User Points">
+            <ContentTemplate>
+                <uc1:PointsEdit runat="server" ID="UserPointsControl" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="SuspendTab" HeaderText="Suspend User">
+            <ContentTemplate>
+                <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>
+    </ajaxToolkit:TabContainer>
 </YAF:AdminMenu>
 <YAF:SmartScroller ID="SmartScroller1" runat="server" />

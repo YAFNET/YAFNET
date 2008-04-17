@@ -41,11 +41,16 @@ namespace YAF.Controls
 
 			if ( !IsPostBack )
 			{
-				_sig.Text = YAF.Classes.Data.DB.user_getsignature(CurrentUserID);
-
 				save.Text = PageContext.Localization.GetText( "COMMON", "Save" );
 				cancel.Text = PageContext.Localization.GetText( "COMMON", "Cancel" );
+
+				BindData();
 			}
+		}
+
+		protected void BindData()
+		{
+			_sig.Text = YAF.Classes.Data.DB.user_getsignature( CurrentUserID );
 		}
 
 		private void save_Click( object sender, EventArgs e )
@@ -62,7 +67,14 @@ namespace YAF.Controls
 				YAF.Classes.Data.DB.user_savesignature( CurrentUserID, DBNull.Value );
 			}
 
-			DoRedirect();
+			if ( InAdminPages )
+			{
+				BindData();
+			}
+			else
+			{
+				DoRedirect();
+			}
 		}
 
 		private void cancel_Click( object sender, EventArgs e )
@@ -72,11 +84,7 @@ namespace YAF.Controls
 
 		private void DoRedirect()
 		{
-			if ( InAdminPages )
-			{
-				YafBuildLink.Redirect( ForumPages.admin_users );
-			}
-			else if ( InModeratorMode )
+			if ( InModeratorMode )
 			{
 				YafBuildLink.Redirect( ForumPages.profile, "u={0}", CurrentUserID );
 			}

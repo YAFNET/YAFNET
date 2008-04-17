@@ -530,7 +530,7 @@ This CSS already works on FireFox.
 /* Goto Page Form */
 .gotoPageForm
 {
-	background-color: #ffffff;
+	background-color: #f0f0f0;
 	border: solid 1px #555555;
 	width: 76px;
 	margin: 1px;			
@@ -541,8 +541,8 @@ This CSS already works on FireFox.
 }
 .gotoPageForm .gotoHeader
 {
-	background-color: #e3e3e3;
-	color: #5555a0;
+	background-image: url('titleBack.gif');
+	color: #ffffff;
 	font-weight: bold;	
 	padding: 2px;	
 }

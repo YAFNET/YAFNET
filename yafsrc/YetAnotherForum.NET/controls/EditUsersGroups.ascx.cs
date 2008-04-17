@@ -115,8 +115,7 @@ namespace YAF.Controls
 			// update forum moderators cache just in case something was changed...
 			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 
-			// redirect to user administration
-			YafBuildLink.Redirect(ForumPages.admin_users);
+			BindData();
 		}
 
 		#endregion
