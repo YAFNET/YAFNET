@@ -47,18 +47,46 @@ namespace YAF.Pages.Admin
 
 			if ( !IsPostBack )
 			{
-				if ( Request.QueryString ["u"] != null )
-					// TODO: write the IsUserHostAdmin function
-					if ( !PageContext.IsHostAdmin ) // && IsUserHostAdmin( Convert.ToInt32( Request.QueryString ["u"] ) ) ) 
-					{
-						YafBuildLink.AccessDenied();
-					}
+				int userId;
+				bool validRequest = false;
 
-				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-				PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
-				PageLinks.AddLink( "Edit", "" );
+				if ( Request.QueryString ["u"] != null && int.TryParse(Request.QueryString ["u"], out userId) )
+				{
+					DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null );
+
+					if ( dt.Rows.Count == 1 )
+					{
+						DataRow userRow = dt.Rows [0];
+
+						// do admin permission check...
+						if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
+						{
+							// user is not host admin and is attempted to edit host admin account...
+							YafBuildLink.AccessDenied();
+						}
+
+						PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+						PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+						PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
+						PageLinks.AddLink( String.Format( "Edit User \"{0}\"", HtmlEncode( userRow ["Name"].ToString() ) ) );
+
+						// everything looks okay -- show the edit tabs...
+						validRequest = true;
+					}
+				}
+
+				if ( !validRequest )
+				{
+					// invalid request...
+					YafBuildLink.Redirect( ForumPages.info, "i=6" );
+				}
 			}
+		}
+
+		protected bool IsUserHostAdmin( DataRow userRow )
+		{
+			UserFlags userFlags = new UserFlags( userRow ["Flags"] );
+			return userFlags.IsHostAdmin;
 		}
 	}
 }

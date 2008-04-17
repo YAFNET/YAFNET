@@ -70,11 +70,6 @@ namespace YAF.Controls
 			}
     }
 
-    protected void Cancel_Click( object sender, System.EventArgs e )
-    {
-      YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_users );
-    }
-
     protected void Save_Click( object sender, System.EventArgs e )
     {
       // update the membership too...

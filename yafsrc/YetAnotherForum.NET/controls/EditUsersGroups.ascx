@@ -30,7 +30,6 @@
 	<tr>
 		<td class="postfooter" colspan="2" align="center">
 			<asp:Button ID="Save" runat="server" Text="Save" OnClick="Save_Click" />
-			<asp:Button ID="Cancel" runat="server" Text="Cancel" OnClick="Cancel_Click" />
 		</td>
 	</tr>
 </table>

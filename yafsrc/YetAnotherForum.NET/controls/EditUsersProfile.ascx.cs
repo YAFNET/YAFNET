@@ -87,7 +87,6 @@ namespace YAF.Controls
 
 			Location.Text = userData.Profile.Location;
 			HomePage.Text = userData.Profile.Homepage;
-			TimeZones.Items.FindByValue( userData.TimeZone.ToString() ).Selected = true;
 			Email.Text = userData.Email;
 			Realname.Text = userData.Profile.RealName;
 			Occupation.Text = userData.Profile.Occupation;
@@ -104,6 +103,9 @@ namespace YAF.Controls
 			PMNotificationEnabled.Checked = userData.PMNotification;
 			Gender.SelectedIndex = userData.Profile.Gender;
 
+			ListItem timeZoneItem = TimeZones.Items.FindByValue( userData.TimeZone.ToString() );
+			if ( timeZoneItem != null ) timeZoneItem.Selected = true;
+
 			OverrideForumThemeRow.Visible = PageContext.BoardSettings.AllowUserTheme;
 
 			if ( PageContext.BoardSettings.AllowUserTheme )
@@ -112,7 +114,10 @@ namespace YAF.Controls
 				// While "Allow User Change Theme" option in hostsettings is true
 				string themeFile = PageContext.BoardSettings.Theme;
 				if ( userData.ThemeFile != null ) themeFile = userData.ThemeFile;
-				Theme.Items.FindByValue( themeFile ).Selected = true;
+				
+				ListItem themeItem = Theme.Items.FindByValue( themeFile );
+				if (themeItem != null) themeItem.Selected = true;
+
 				OverrideDefaultThemes.Checked = userData.OverrideDefaultThemes;
 			}
 
@@ -120,6 +125,7 @@ namespace YAF.Controls
 			{
 				string languageFile = PageContext.BoardSettings.Language;
 				if ( userData.LanguageFile != string.Empty ) languageFile = userData.LanguageFile;
+
 				ListItem foundItem = Language.Items.FindByValue( languageFile );
 				if ( foundItem != null ) foundItem.Selected = true;
 			}
