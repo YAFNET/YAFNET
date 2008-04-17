@@ -32,7 +32,8 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}Category](
 		CategoryID		int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL ,
-		Name			nvarchar (50) NOT NULL ,
+		[Name]			[nvarchar](128) NOT NULL,
+		[CategoryImage] [nvarchar](255) NULL,		
 		SortOrder		smallint NOT NULL 
 	)
 GO
@@ -1014,4 +1015,11 @@ if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{o
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Smiley] add SortOrder tinyint NOT NULL DEFAULT 0
 end
+GO
+
+-- Category Table
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}Category') AND name = N'CategoryImage')
+BEGIN
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
+END
 GO

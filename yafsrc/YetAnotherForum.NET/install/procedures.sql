@@ -1424,7 +1424,8 @@ create procedure [{databaseOwner}].[{objectQualifier}category_listread](@BoardID
 begin
 	select 
 		a.CategoryID,
-		a.Name
+		a.Name,
+		a.CategoryImage
 	from 
 		[{databaseOwner}].[{objectQualifier}Category] a
 		join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
@@ -1438,7 +1439,8 @@ begin
 	group by
 		a.CategoryID,
 		a.Name,
-		a.SortOrder
+		a.SortOrder,
+		a.CategoryImage
 	order by 
 		a.SortOrder
 end

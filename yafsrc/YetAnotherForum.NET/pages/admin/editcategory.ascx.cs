@@ -44,8 +44,20 @@ namespace YAF.Pages.Admin
 			{
 				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
 				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Forums","");
+				PageLinks.AddLink("Forums",YafBuildLink.GetLink(ForumPages.admin_forums));
+				PageLinks.AddLink("Category");
 
+				// Populate Category Table
+				CreateImagesDataTable();
+
+				CategoryImages.Attributes ["onchange"] = String.Format(
+					"getElementById('{1}').src='{0}images/categories/' + this.value",
+					YafForumInfo.ForumRoot,
+					Preview.ClientID
+					);
+
+				Name.Style.Add( "width", "100%" );
+				
 				BindData();
 			}
 		}
@@ -77,6 +89,8 @@ namespace YAF.Pages.Admin
 
 		private void BindData() 
 		{
+			Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
+
 			if(Request.QueryString["c"] != null) 
 			{
 				using(DataTable dt = YAF.Classes.Data.DB.category_list(PageContext.PageBoardID,Request.QueryString["c"]))
@@ -85,7 +99,50 @@ namespace YAF.Pages.Admin
 					Name.Text = (string)row["Name"];
 					SortOrder.Text = row["SortOrder"].ToString();
 					CategoryNameTitle.Text = Name.Text;
+
+					ListItem item = CategoryImages.Items.FindByText( row ["CategoryImage"].ToString() );
+					if ( item != null )
+					{
+						item.Selected = true;
+						Preview.Src = String.Format( "{0}images/categories/{1}", YafForumInfo.ForumRoot, row ["CategoryImage"] ); //path corrected
+					}
 				}
+			}
+		}
+
+		protected void CreateImagesDataTable()
+		{
+			using ( DataTable dt = new DataTable( "Files" ) )
+			{
+				dt.Columns.Add( "FileID", typeof( long ) );
+				dt.Columns.Add( "FileName", typeof( string ) );
+				dt.Columns.Add( "Description", typeof( string ) );
+				DataRow dr = dt.NewRow();
+				dr ["FileID"] = 0;
+				dr ["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+				dr ["Description"] = "None";
+				dt.Rows.Add( dr );
+
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/categories", YafForumInfo.ForumRoot ) ) );
+				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
+				long nFileID = 1;
+				foreach ( System.IO.FileInfo file in files )
+				{
+					string sExt = file.Extension.ToLower();
+					if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
+						continue;
+
+					dr = dt.NewRow();
+					dr ["FileID"] = nFileID++;
+					dr ["FileName"] = file.Name;
+					dr ["Description"] = file.Name;
+					dt.Rows.Add( dr );
+				}
+
+				CategoryImages.DataSource = dt;
+				CategoryImages.DataValueField = "FileName";
+				CategoryImages.DataTextField = "Description";
+				CategoryImages.DataBind();
 			}
 		}
 
@@ -94,7 +151,29 @@ namespace YAF.Pages.Admin
 			int CategoryID = 0;
 			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
 
-			YAF.Classes.Data.DB.category_save(PageContext.PageBoardID,CategoryID,Name.Text,SortOrder.Text);
+			int sortOrder;
+			string name = Name.Text.Trim();
+			object categoryImage = null;
+
+			if ( CategoryImages.SelectedIndex > 0 )
+			{
+				categoryImage = CategoryImages.SelectedValue;
+			}
+			if ( !int.TryParse( SortOrder.Text.Trim(), out sortOrder ) )
+			{
+				// error...
+				PageContext.AddLoadMessage( "Invalid value entered for sort order: must enter a number." );
+				return;
+			}
+			if ( !string.IsNullOrEmpty( name ) )
+			{
+				// error...
+				PageContext.AddLoadMessage( "Must enter a value for the category name field." );
+				return;
+			}
+
+			// save category
+			DB.category_save( PageContext.PageBoardID, CategoryID, Name.Text.Trim(), categoryImage, sortOrder );
 			// remove category cache...
 			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 			// redirect
