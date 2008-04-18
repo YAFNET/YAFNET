@@ -621,19 +621,8 @@ namespace YAF.Pages
 			int daysPollExpire = 0;
 			object datePollExpire = null;
 
-			try
-			{
-				daysPollExpire = Convert.ToInt32(PollExpire.Text.Trim());
-			}
-			catch
-			{
-
-			}
-
-			if (daysPollExpire > 0)
-			{
+			if (int.TryParse(PollExpire.Text.Trim(), out daysPollExpire))
 				datePollExpire = DateTime.Now.AddDays(daysPollExpire);
-			}
 
 			// we are just using existing poll
 			if (RemovePoll.CommandArgument != null && RemovePoll.CommandArgument != "")
