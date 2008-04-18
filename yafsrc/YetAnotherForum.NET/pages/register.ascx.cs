@@ -180,7 +180,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CreateUserWizard1_NextButtonClick(object sender, WizardNavigationEventArgs e)
 		{
-			if (e.CurrentStepIndex == 2)
+			if (CreateUserWizard1.WizardSteps[e.CurrentStepIndex].ID == "profile")
 			{
 				// this is the "Profile Information" step. Save the data to their profile (+ defaults).
 				DropDownList timeZones = ((DropDownList)FindWizardControl("TimeZones"));
