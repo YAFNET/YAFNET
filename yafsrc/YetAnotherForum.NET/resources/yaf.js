@@ -1,3 +1,19 @@
+function toggleContainer(id, senderId, showText, hideText){
+	var el = document.getElementById(id);
+    var sender = document.getElementById(senderId)
+	if (el.style.display == "none"){
+		el.style.display = "block";
+        sender.title = hideText;
+        sender.innerHTML = hideText;
+        sender.className = "hide";
+	} else {
+		el.style.display = "none";
+        sender.title = showText;
+        sender.innerHTML = showText;
+        sender.className = "show";
+	}
+}
+
 function getEvent(eventobj) {
 	if(eventobj.stopPropagation) {
 		eventobj.stopPropagation();
