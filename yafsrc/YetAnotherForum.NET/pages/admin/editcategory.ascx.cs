@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
 				PageContext.AddLoadMessage( "Invalid value entered for sort order: must enter a number." );
 				return;
 			}
-			if ( !string.IsNullOrEmpty( name ) )
+			if ( string.IsNullOrEmpty( name ) )
 			{
 				// error...
 				PageContext.AddLoadMessage( "Must enter a value for the category name field." );
@@ -173,7 +173,7 @@ namespace YAF.Pages.Admin
 			}
 
 			// save category
-			DB.category_save( PageContext.PageBoardID, CategoryID, Name.Text.Trim(), categoryImage, sortOrder );
+			DB.category_save( PageContext.PageBoardID, CategoryID, name, categoryImage, sortOrder );
 			// remove category cache...
 			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 			// redirect

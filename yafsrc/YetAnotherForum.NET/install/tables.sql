@@ -1018,7 +1018,7 @@ end
 GO
 
 -- Category Table
-IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}Category') AND name = N'CategoryImage')
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = Object_id(N'[{databaseOwner}].[{objectQualifier}Category]') AND name = N'CategoryImage')
 BEGIN
     ALTER TABLE [{databaseOwner}].[{objectQualifier}Category] ADD [CategoryImage] [nvarchar](255) NULL
 END

@@ -1446,17 +1446,39 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}category_save](@BoardID int,@CategoryID int,@Name nvarchar(50),@SortOrder smallint) as
-begin
-	if @CategoryID>0 begin
-		update [{databaseOwner}].[{objectQualifier}Category] set Name=@Name,SortOrder=@SortOrder where CategoryID=@CategoryID
-		select CategoryID = @CategoryID
-	end
-	else begin
-		insert into [{databaseOwner}].[{objectQualifier}Category](BoardID,Name,SortOrder) values(@BoardID,@Name,@SortOrder)
-		select CategoryID = SCOPE_IDENTITY()
-	end
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}category_save]
+(
+	@BoardID    INT,
+	@CategoryID INT,
+	@Name       NVARCHAR(128),	
+	@SortOrder  SMALLINT,
+	@CategoryImage NVARCHAR(255) = NULL
+)
+AS
+BEGIN
+    IF @CategoryID > 0
+    BEGIN
+        UPDATE yaf_Category
+        SET    Name = @Name,
+			   CategoryImage = @CategoryImage,
+               SortOrder = @SortOrder
+        WHERE  CategoryID = @CategoryID
+        SELECT CategoryID = @CategoryID
+    END
+    ELSE
+    BEGIN
+        INSERT INTO yaf_Category
+                   (BoardID,
+                    [Name],
+					[CategoryImage],
+                    SortOrder)
+        VALUES     (@BoardID,
+                    @Name,
+					@CategoryImage,
+                    @SortOrder)
+        SELECT CategoryID = Scope_identity()
+    END
+END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}checkemail_list]
