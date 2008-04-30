@@ -3549,7 +3549,7 @@ BEGIN
 		UPDATE [{databaseOwner}].[{objectQualifier}replace_words] SET BadWord = @BadWord, GoodWord = @GoodWord WHERE ID = @ID		
 	END
 	ELSE BEGIN
-		INSERT INTO [dbo].[{databaseOwner}].[{objectQualifier}replace_words]
+		INSERT INTO [{databaseOwner}].[{objectQualifier}replace_words]
 			(BoardID,BadWord,GoodWord)
 		VALUES
 			(@BoardID,@BadWord,@GoodWord)
