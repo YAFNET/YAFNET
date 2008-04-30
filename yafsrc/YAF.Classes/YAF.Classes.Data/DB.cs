@@ -3050,7 +3050,7 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Saves changs to a words
 		/// </summary>
-		/// <param name="ID">ID of bad/good word</param>
+		/// <param name="id">ID of bad/good word</param>
 		/// <param name="badword">bad word</param>
 		/// <param name="goodword">good word</param>
 		static public void replace_words_save( object boardId, object id, object badword, object goodword )

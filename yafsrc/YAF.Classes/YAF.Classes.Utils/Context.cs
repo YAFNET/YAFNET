@@ -448,14 +448,10 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				try
-				{
-					return Settings.BoardID;
-				}
-				catch ( Exception )
-				{
+				if (Settings == null)
 					return 1;
-				}
+
+				return Settings.BoardID;
 			}
 		}
 		/// <summary>
