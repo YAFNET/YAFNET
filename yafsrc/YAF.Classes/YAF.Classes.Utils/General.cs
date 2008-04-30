@@ -232,7 +232,7 @@ namespace YAF.Classes.Utils
 		/// Searches through SearchText and replaces "bad words" with "good words"
 		/// as defined in the database.
 		/// </summary>
-		/// <param name="SearchText">The string to search through.</param>
+		/// <param name="searchText">The string to search through.</param>
 		static public string BadWordReplace( string searchText )
 		{
 			string strReturn = searchText;
