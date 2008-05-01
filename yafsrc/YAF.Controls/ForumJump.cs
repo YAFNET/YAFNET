@@ -54,20 +54,15 @@ namespace YAF.Controls
 		#region IPostBackDataHandler
 		public virtual bool LoadPostData( string postDataKey, System.Collections.Specialized.NameValueCollection postCollection )
 		{
-			int nForumID;
-			try
+			int forumID;
+			if (int.TryParse(postCollection[postDataKey], out forumID) &&
+				forumID != ForumID)
 			{
-				nForumID = int.Parse( postCollection [postDataKey] );
-				if ( nForumID == ForumID )
-					return false;
-			}
-			catch ( Exception )
-			{
-				return false;
+				this.ForumID = forumID;
+				return true;
 			}
 
-			ForumID = nForumID;
-			return true;
+			return false;
 		}
 
 		public virtual void RaisePostDataChangedEvent()
