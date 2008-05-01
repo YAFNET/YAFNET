@@ -37,41 +37,41 @@ namespace YAF.Classes.UI
 
 		private BBCode() { }
 
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-		static private string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
-		static private string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
-		static private string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
-		static private string _rgxBold = @"\[B\](?<inner>(.*?))\[/B\]";
-		static private string _rgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
-		static private string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
-		static private string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
-		static private string _rgxEmail2 = @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]";
-		static private string _rgxEmail1 = @"\[email[^\]]*\](?<inner>(.*?))\[/email\]";
-		static private string _rgxUrl1 = @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]";
-		static private string _rgxUrl2 = @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]";
-		static private string _rgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
-		static private string _rgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
-		static private string _rgxBullet = @"\[\*\]";
-		static private string _rgxList4 = @"\[list=i\](?<inner>(.*?))\[/list\]";
-		static private string _rgxList3 = @"\[list=a\](?<inner>(.*?))\[/list\]";
-		static private string _rgxList2 = @"\[list=1\](?<inner>(.*?))\[/list\]";
-		static private string _rgxList1 = @"\[list\](?<inner>(.*?))\[/list\]";
-		static private string _rgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
-		static private string _rgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
-		static private string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
-		static private string _rgxQuote2 = @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]";
-		static private string _rgxQuote1 = @"\[quote\](?<inner>(.*?))\[/quote\]";
-		static private string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
-		static private string _rgxBr = "[\r]?\n";
-		static private string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
-		static private string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
-		static private string _rgxImg = @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]";
-		//static private string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
+		static private readonly RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+		static private readonly string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
+		static private readonly string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
+		static private readonly string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
+		static private readonly string _rgxBold = @"\[B\](?<inner>(.*?))\[/B\]";
+		static private readonly string _rgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
+		static private readonly string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
+		static private readonly string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
+		static private readonly string _rgxEmail2 = @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]";
+		static private readonly string _rgxEmail1 = @"\[email[^\]]*\](?<inner>(.*?))\[/email\]";
+		static private readonly string _rgxUrl1 = @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]";
+		static private readonly string _rgxUrl2 = @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]";
+		static private readonly string _rgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
+		static private readonly string _rgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
+		static private readonly string _rgxBullet = @"\[\*\]";
+		static private readonly string _rgxList4 = @"\[list=i\](?<inner>(.*?))\[/list\]";
+		static private readonly string _rgxList3 = @"\[list=a\](?<inner>(.*?))\[/list\]";
+		static private readonly string _rgxList2 = @"\[list=1\](?<inner>(.*?))\[/list\]";
+		static private readonly string _rgxList1 = @"\[list\](?<inner>(.*?))\[/list\]";
+		static private readonly string _rgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
+		static private readonly string _rgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
+		static private readonly string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
+		static private readonly string _rgxQuote2 = @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]";
+		static private readonly string _rgxQuote1 = @"\[quote\](?<inner>(.*?))\[/quote\]";
+		static private readonly string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
+		static private readonly string _rgxBr = "[\r]?\n";
+		static private readonly string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
+		static private readonly string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
+		static private readonly string _rgxImg = @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]";
+		//static private readonly string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
 
 		/// <summary>
-		/// Helper function for older code
+		/// Converts a string containing BBCode to the equivalent HTML string.
 		/// </summary>
-		/// <param name="bbcode"></param>
+		/// <param name="inputString">Input string containing BBCode to convert to HTML</param>
 		/// <param name="doFormatting"></param>
 		/// <param name="targetBlankOverride"></param>
 		/// <returns></returns>
@@ -237,7 +237,6 @@ namespace YAF.Classes.UI
 		/// <summary>
 		/// Applies Custom BBCode Rules from the BBCode table
 		/// </summary>
-		/// <param name="refText">Text to transform</param>
 		static protected void AddCustomBBCodeRules( ref ReplaceRules rulesEngine )
 		{
 			DataTable bbcodeTable = GetCustomBBCode();
@@ -246,7 +245,7 @@ namespace YAF.Classes.UI
 			foreach ( DataRow codeRow in bbcodeTable.Rows )
 			{
 				if ( codeRow ["UseModule"] != DBNull.Value &&
-						 Convert.ToBoolean( codeRow ["UseModule"] ) == true &&
+						 Convert.ToBoolean( codeRow ["UseModule"] ) &&
 						 codeRow ["ModuleClass"] != DBNull.Value &&
 						 codeRow ["SearchRegEx"] != DBNull.Value )
 				{
@@ -325,10 +324,10 @@ namespace YAF.Classes.UI
 			}
 		}
 
-		static public System.Data.DataTable GetCustomBBCode()
+		static public DataTable GetCustomBBCode()
 		{
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode );
-			System.Data.DataTable bbCodeTable = null;
+			DataTable bbCodeTable;
 
 			// check if there is value cached
 			if ( YafCache.Current [cacheKey] == null )
@@ -341,7 +340,7 @@ namespace YAF.Classes.UI
 			else
 			{
 				// retrieve bbcode Table from the cache
-				bbCodeTable = ( System.Data.DataTable )YafCache.Current [cacheKey];
+				bbCodeTable = ( DataTable )YafCache.Current [cacheKey];
 			}
 
 			return bbCodeTable;
@@ -420,7 +419,7 @@ namespace YAF.Classes.UI
 		}
 
 		/// <summary>
-		/// Encodes HTML
+		/// Encodes HTML - same as <see cref="HttpServerUtility.HtmlEncode(string)" />
 		/// </summary>
 		/// <param name="html"></param>
 		/// <returns></returns>
@@ -430,7 +429,7 @@ namespace YAF.Classes.UI
 		}
 
 		/// <summary>
-		/// Decodes HTML
+		/// Decodes HTML - same as <see cref="HttpServerUtility.HtmlDecode(string)" />
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
