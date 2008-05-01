@@ -124,19 +124,22 @@ namespace YAF.Pages.Admin
 				dt.Rows.Add( dr );
 
 				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/categories", YafForumInfo.ForumRoot ) ) );
-				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
-				long nFileID = 1;
-				foreach ( System.IO.FileInfo file in files )
+				if (dir.Exists)
 				{
-					string sExt = file.Extension.ToLower();
-					if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
-						continue;
+					System.IO.FileInfo[] files = dir.GetFiles("*.*");
+					long nFileID = 1;
+					foreach (System.IO.FileInfo file in files)
+					{
+						string sExt = file.Extension.ToLower();
+						if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
+							continue;
 
-					dr = dt.NewRow();
-					dr ["FileID"] = nFileID++;
-					dr ["FileName"] = file.Name;
-					dr ["Description"] = file.Name;
-					dt.Rows.Add( dr );
+						dr = dt.NewRow();
+						dr["FileID"] = nFileID++;
+						dr["FileName"] = file.Name;
+						dr["Description"] = file.Name;
+						dt.Rows.Add(dr);
+					}
 				}
 
 				CategoryImages.DataSource = dt;
