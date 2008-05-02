@@ -255,7 +255,7 @@ namespace YAF.Classes.Utils
 #if DEBUG
 				catch ( Exception e )
 				{
-					throw new Exception( "Regular Expression Failed: " + e.Message );
+					throw new Exception( "Regular Expression Failed: " + e.Message, e );
 				}
 #else
 				catch (Exception x)
