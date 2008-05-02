@@ -85,14 +85,12 @@ namespace YAF.Controls
 			}
 			else
 			{
+				string formattedMessage = FormatMsg.FormatMessage( this.Message, this.MessageFlags );
+
 				if ( this.MessageFlags.IsBBCode )
-				{
-					RenderModulesInBBCode( writer, FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
-				}
+					RenderModulesInBBCode( writer, formattedMessage );
 				else
-				{
-					writer.Write( FormatMsg.FormatMessage( this.Message, this.MessageFlags ) );
-				}
+					writer.Write( formattedMessage );
 			}
 		}
 
