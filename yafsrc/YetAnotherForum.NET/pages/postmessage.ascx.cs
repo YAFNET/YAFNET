@@ -177,13 +177,11 @@ namespace YAF.Pages
 				}
 				PageLinks.AddForumLinks(PageContext.PageForumID);
 
-				TopicFlags topicFlags = new TopicFlags();
-
 				// check if it's a reply to a topic...
 				if ( TopicID != null )
-				{					
+				{
 					DataRow topic = DB.topic_info( TopicID );
-					topicFlags.BitValue = (int)topic["Flags"];
+					TopicFlags topicFlags = new TopicFlags((int)topic["Flags"]);
 
 					// Ederon : 9/9/2007 - moderators can reply in locked topics
 					if (topicFlags.IsLocked && !PageContext.ForumModeratorAccess)
@@ -210,56 +208,73 @@ namespace YAF.Pages
 					}
 				}
 
-				// quoted reply to topic...
-				if (QuotedTopicID != null)
+				// If currentRow != null, we are quoting a post in a new reply, or editing an existing post
+				if (currentRow != null)
 				{
-					bool isHtml = currentRow["Message"].ToString().IndexOf('<') >= 0;
-					string tmpMessage = currentRow["Message"].ToString();
-					if (PageContext.BoardSettings.RemoveNestedQuotes)
+					MessageFlags messageFlags = new MessageFlags(currentRow["Flags"]);
+					string message = currentRow["Message"].ToString();
+
+					if (QuotedTopicID != null)
 					{
-						tmpMessage = FormatMsg.RemoveNestedQuotes( tmpMessage );
+						// quoting a reply to a topic...
+						if (PageContext.BoardSettings.RemoveNestedQuotes)
+							message = FormatMsg.RemoveNestedQuotes(message);
+
+						// If the message being quoted in BBCode but the editor uses HTML, convert the message text to HTML
+						if (messageFlags.IsBBCode && uxMessage.UsesHTML)
+							message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+
+						// Ensure quoted replies have bad words removed from them
+						message = General.BadWordReplace(message);
+
+						// Quote the original message
+						uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], message).TrimStart();
 					}
-					uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], tmpMessage).TrimStart();
-				}
-				else if (EditTopicID != null)
-				{
-					// edit message...
-					topicFlags = new MessageFlags((int)currentRow["Flags"]);
-					string body = currentRow["message"].ToString();
-					uxMessage.Text = body;
-					Title.Text = GetText("EDIT");
-
-					// add topic link...
-					PageLinks.AddLink( Server.HtmlDecode( currentRow ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID ) );
-					// editing..
-					PageLinks.AddLink( GetText( "EDIT" ) );
-
-					string blogPostID = currentRow ["BlogPostID"].ToString();
-					if (blogPostID != string.Empty) // The user used this post to blog
+					else if (EditTopicID != null)
 					{
-						BlogPostID.Value = blogPostID;
-						PostToBlog.Checked = true;
-						BlogRow.Visible = true;
-					}
+						// editing a message...
+						// If the message is in BBCode but the editor uses HTML, convert the message text to HTML
+						if (messageFlags.IsBBCode && uxMessage.UsesHTML)
+							message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+						
+						uxMessage.Text = message;
 
-					Subject.Text = Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+						Title.Text = GetText("EDIT");
 
-					if ((Convert.ToInt32(currentRow["TopicOwnerID"]) == Convert.ToInt32(currentRow["UserID"])) || PageContext.ForumModeratorAccess)
-					{
-						// allow editing of the topic subject
-						Subject.Enabled = true;
-					}
-					else
-					{
-						// disable the subject
-						Subject.Enabled = false;
-					}
+						// add topic link...
+						PageLinks.AddLink(Server.HtmlDecode(currentRow["Topic"].ToString()),
+						                  YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID));
+						// editing..
+						PageLinks.AddLink(GetText("EDIT"));
 
-					Priority.SelectedItem.Selected = false;
-					Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
-					EditReasonRow.Visible = true;
-					ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-					Persistency.Checked = topicFlags.IsPersistent;
+						string blogPostID = currentRow["BlogPostID"].ToString();
+						if (blogPostID != string.Empty) // The user used this post to blog
+						{
+							BlogPostID.Value = blogPostID;
+							PostToBlog.Checked = true;
+							BlogRow.Visible = true;
+						}
+
+						Subject.Text = Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+
+						if ((Convert.ToInt32(currentRow["TopicOwnerID"]) == Convert.ToInt32(currentRow["UserID"])) ||
+						    PageContext.ForumModeratorAccess)
+						{
+							// allow editing of the topic subject
+							Subject.Enabled = true;
+						}
+						else
+						{
+							// disable the subject
+							Subject.Enabled = false;
+						}
+
+						Priority.SelectedItem.Selected = false;
+						Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
+						EditReasonRow.Visible = true;
+						ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
+						Persistency.Checked = messageFlags.IsPersistent;
+					}
 				}
 
 				// add the "New Topic" page link last...

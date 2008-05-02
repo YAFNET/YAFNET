@@ -91,9 +91,54 @@ namespace YAF.Classes.UI
 		}
 
 		/// <summary>
+		/// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
+		/// </summary>
+		/// <remarks>
+		/// BBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
+		/// returned, as to appear in plaintext in rich text editors.
+		/// </remarks>
+		/// <param name="message">String containing the body of the message to convert</param>
+		/// <returns>The converted text</returns>
+		static public string ConvertBBCodeToHtmlForEdit( string message )
+		{
+			bool doFormatting = true;
+			bool targetBlankOverride = false;
+			bool forHtmlEditing = true;
+
+			// get the rules engine from the creator...
+			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance(
+				new bool[]
+					{
+						doFormatting,
+						targetBlankOverride,
+						YafContext.Current.BoardSettings.UseNoFollowLinks,
+						forHtmlEditing
+					});
+
+			if (ruleEngine.RulesList.Count == 0)
+			{
+				// Do not convert BBQuotes to HTML when editing -- "[quote]...[/quote]" will remain in plaintext in the rich text editor
+				CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride,
+				                  YafContext.Current.BoardSettings.UseNoFollowLinks, false /*convertBBQuotes*/);
+			}
+
+			ruleEngine.Process(ref message);
+
+			return message;
+		}
+
+		/// <summary>
 		/// Creates the rules that convert BBCode to HTML
 		/// </summary>
-		static public void CreateBBCodeRules( ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow )
+		static public void CreateBBCodeRules(ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow)
+		{
+			CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride, useNoFollow, true);
+		}
+
+		/// <summary>
+		/// Creates the rules that convert BBCode to HTML
+		/// </summary>
+		static public void CreateBBCodeRules( ref ReplaceRules ruleEngine, bool doFormatting, bool targetBlankOverride, bool useNoFollow, bool convertBBQuotes )
 		{
 			string target = ( YafContext.Current.BoardSettings.BlankLinks || targetBlankOverride ) ? "target=\"_blank\"" : "";
 			string nofollow = ( useNoFollow ) ? "rel=\"nofollow\"" : "";
@@ -208,14 +253,21 @@ namespace YAF.Classes.UI
 			// add smilies
 			FormatMsg.AddSmiles( ref ruleEngine );
 
-			// "quote" handling...
-			string tmpReplaceStr;
+			if (convertBBQuotes)
+			{
+				// "quote" handling...
+				string tmpReplaceStr;
 
-			tmpReplaceStr = string.Format( @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteWroteStr.Replace( "{0}", "${quote}" ), "${inner}" );
-			ruleEngine.AddRule( new VariableRegexReplaceRule( _rgxQuote2, tmpReplaceStr, _options, new string [] { "quote" } ) );
+				tmpReplaceStr =
+					string.Format(@"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>",
+					              localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
+				ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr, _options, new string[] {"quote"}));
 
-			tmpReplaceStr = string.Format( @"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteStr, "${inner}" );
-			ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxQuote1, tmpReplaceStr, _options ) );
+				tmpReplaceStr =
+					string.Format(@"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteStr,
+					              "${inner}");
+				ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr, _options));
+			}
 
 			// post and topic rules...
 			ruleEngine.AddRule(
