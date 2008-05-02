@@ -147,19 +147,19 @@ namespace YAF.Pages
 						FindUsers.Enabled = false;
 						AllUsers.Enabled = false;
 
-						if ( isQuoting )
+						if ( isQuoting ) // PM is a quoted reply
 						{
-							// PM is a quoted reply
 							string body = row ["Body"].ToString();
-							bool isHtml = body.IndexOf( '<' ) >= 0;
 
 							if ( PageContext.BoardSettings.RemoveNestedQuotes )
-							{
-								// nested quotes need to be removed
-								body = FormatMsg.RemoveNestedQuotes( body );
-							}
-							// quote original message
+								body = FormatMsg.RemoveNestedQuotes(body);
+
+							// Ensure quoted replies have bad words removed from them
+							body = General.BadWordReplace(body);
+
+							// Quote the original message
 							body = String.Format( "[QUOTE={0}]{1}[/QUOTE]", row ["FromUser"], body );
+
 							// we don't want any whitespaces at the beginning of message
 							_editor.Text = body.TrimStart();
 						}
