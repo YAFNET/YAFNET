@@ -321,13 +321,18 @@ namespace YAF.Classes.UI
 			return message;
 		}
 
-		static public string RemoveNestedQuotes( string body )
+		/// <summary>
+		/// Removes nested BBCode quotes from the given message body.
+		/// </summary>
+		/// <param name="body">Message body test to remove nested quotes from</param>
+		/// <returns>A version of <paramref name="body"/> that contains no nested quotes.</returns>
+		static public string RemoveNestedQuotes(string body)
 		{
-			RegexOptions m_options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-			Regex quote = new Regex( @"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", m_options );
+			RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+			Regex quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", options);
 
 			// remove quotes from old messages
-			return quote.Replace( body, "" );
+			return quote.Replace( body, "" ).TrimStart();
 		}
 
 		static private bool IsValidTag( string tag, string [] allowedTags )
