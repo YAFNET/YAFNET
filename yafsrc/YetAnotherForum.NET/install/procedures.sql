@@ -1458,7 +1458,7 @@ AS
 BEGIN
     IF @CategoryID > 0
     BEGIN
-        UPDATE yaf_Category
+        UPDATE [{databaseOwner}].[{objectQualifier}Category]
         SET    Name = @Name,
 			   CategoryImage = @CategoryImage,
                SortOrder = @SortOrder
@@ -1467,7 +1467,7 @@ BEGIN
     END
     ELSE
     BEGIN
-        INSERT INTO yaf_Category
+        INSERT INTO [{databaseOwner}].[{objectQualifier}Category]
                    (BoardID,
                     [Name],
 					[CategoryImage],
