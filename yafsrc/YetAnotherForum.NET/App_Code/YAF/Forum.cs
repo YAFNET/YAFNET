@@ -211,7 +211,7 @@ namespace YAF
 		}
 
 		/// <summary>
-		/// Get or sets the Board ID for this instance of the forum control
+		/// Get or sets the Board ID for this instance of the forum control, overriding the value defined in app.config.
 		/// </summary>
 		public int BoardID
 		{
