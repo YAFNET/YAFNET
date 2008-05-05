@@ -28,10 +28,10 @@ namespace YAF.Classes.Utils
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
-		private DataRow _board;
-		private RegistryHash _reg, _regBoard;
-		private object _boardID;
-		private string _membershipAppName, _rolesAppName;
+		private readonly DataRow _board;
+		private readonly RegistryHash _reg, _regBoard;
+		private readonly object _boardID;
+		private readonly string _membershipAppName, _rolesAppName;
 
 		public YafBoardSettings( object boardID )
 		{
@@ -39,6 +39,8 @@ namespace YAF.Classes.Utils
 			DataTable dt;
 			// get the board table
 			dt = YAF.Classes.Data.DB.board_list( boardID );
+			if ( dt.Rows.Count == 0 )
+				throw new Exception( "No data for board with id: " + boardID );
 			_board = dt.Rows [0];
 			_membershipAppName = ( _board ["MembershipAppName"].ToString() == "" ) ? System.Web.Security.Membership.ApplicationName : _board ["MembershipAppName"].ToString();
 			_rolesAppName = ( _board ["RolesAppName"].ToString() == "" ) ? System.Web.Security.Roles.ApplicationName : _board ["RolesAppName"].ToString();
