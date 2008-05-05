@@ -93,7 +93,7 @@ namespace YAF.Providers.Roles
 		private void ClearUserRoleCache()
 		{
 			string key = GenerateCacheKey( "UserRoleDictionary" );
-			System.Web.HttpContext.Current.Cache [key] = null;
+			HttpContext.Current.Cache.Remove( key );
 		}
 
 		private string GenerateCacheKey( string name )
