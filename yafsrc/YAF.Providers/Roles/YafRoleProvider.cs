@@ -271,8 +271,8 @@ namespace YAF.Providers.Roles
 		/// <summary>
 		/// Check to see if user belongs to a role
 		/// </summary>
-		/// <param name="usernames">Username</param>
-		/// <param name="roleNames">Rolename</param>
+		/// <param name="username">Username</param>
+		/// <param name="roleName">Rolename</param>
 		/// <returns>True/False</returns>
 		public override bool IsUserInRole( string username, string roleName )
 		{

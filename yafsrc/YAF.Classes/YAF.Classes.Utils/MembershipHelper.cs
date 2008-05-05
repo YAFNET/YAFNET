@@ -158,7 +158,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Sets up the user roles from the "start" settings for a given group/role
 		/// </summary>
-		/// <param name="PageBoardID">Current BoardID</param>
+		/// <param name="pageBoardID">Current BoardID</param>
 		/// <param name="userName"></param>
 		static public void SetupUserRoles(int pageBoardID, string userName)
 		{
@@ -182,7 +182,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
 		/// </summary>
-		/// <param name="PageBoardID"></param>
+		/// <param name="pageBoardID"></param>
 		static public void SyncRoles(int pageBoardID)
 		{
 			// get all the groups in YAF DB and create them if they do not exist as a role in membership
@@ -322,7 +322,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Gets the user provider key from the UserID for a user
 		/// </summary>
-		/// <param name="UserID"></param>
+		/// <param name="userID"></param>
 		/// <returns></returns>
 		public static object GetProviderUserKeyFromID(int userID)
 		{
@@ -341,7 +341,7 @@ namespace YAF.Classes.Utils
 		/// <summary>
 		/// Gets the user name from the UesrID
 		/// </summary>
-		/// <param name="UserID"></param>
+		/// <param name="userID"></param>
 		/// <returns></returns>
 		public static string GetUserNameFromID(int userID)
 		{

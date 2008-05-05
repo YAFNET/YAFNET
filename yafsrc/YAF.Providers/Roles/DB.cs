@@ -42,7 +42,7 @@ namespace YAF.Providers.Roles
         /// </summary>
         /// <param name="appName">Application Name</param>
         /// <param name="userName">User Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns></returns>
         public static void AddUserToRole(object appName, object userName, object roleName)
         {
@@ -60,7 +60,7 @@ namespace YAF.Providers.Roles
         /// Database Action - Create Role
         /// </summary>
         /// <param name="appName">Application Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns></returns>
         public static void CreateRole(object appName, object roleName)
         {
@@ -77,7 +77,7 @@ namespace YAF.Providers.Roles
         /// Database Action - Delete Role
         /// </summary>
         /// <param name="appName">Application Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns>Status as integer</returns>
         public static int DeleteRole(object appName, object roleName, object deleteOnlyIfRoleIsEmpty)
         {
@@ -102,7 +102,7 @@ namespace YAF.Providers.Roles
         /// Database Action - Find Users in Role
         /// </summary>
         /// <param name="appName">Application Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns>Datatable containing User Information</returns>
         public static DataTable FindUsersInRole(object appName, object roleName)
         {
@@ -136,7 +136,7 @@ namespace YAF.Providers.Roles
 				/// Database Action - Get Role Exists
 				/// </summary>
 				/// <param name="appName">Application Name</param>
-				/// <param name="roleNames">Role Name</param>
+				/// <param name="roleName">Role Name</param>
 				/// <returns>Database containing Role Information</returns>
 				public static object GetRoleExists( object appName, object roleName )
 				{
@@ -154,15 +154,15 @@ namespace YAF.Providers.Roles
         /// </summary>
         /// <param name="appName">Application Name</param>
         /// <param name="userName">User Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns>DataTable with user information</returns>
-        public static DataTable IsUserInRole(object appName, object username, object roleName)
+        public static DataTable IsUserInRole(object appName, object userName, object roleName)
         {
             using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_role_isuserinrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", username);
+                cmd.Parameters.AddWithValue("Username", userName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 return DBAccess.GetData(cmd);
             }
@@ -173,15 +173,15 @@ namespace YAF.Providers.Roles
         /// </summary>
         /// <param name="appName">Application Name</param>
         /// <param name="userName">User Name</param>
-        /// <param name="roleNames">Role Name</param>
+        /// <param name="roleName">Role Name</param>
         /// <returns></returns>
-        public static void RemoveUserFromRole(object appName, string username, string roleName)
+        public static void RemoveUserFromRole(object appName, string userName, string roleName)
         {
             using (SqlCommand cmd = new SqlCommand(DBAccess.GetObjectName("prov_role_removeuserfromrole")))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("ApplicationName", appName);
-                cmd.Parameters.AddWithValue("Username", username);
+                cmd.Parameters.AddWithValue("Username", userName);
                 cmd.Parameters.AddWithValue("RoleName", roleName);
                 DBAccess.ExecuteNonQuery(cmd);
             }
