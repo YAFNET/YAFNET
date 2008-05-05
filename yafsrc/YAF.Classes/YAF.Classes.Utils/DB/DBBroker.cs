@@ -34,8 +34,8 @@ namespace YAF.Classes.Utils
 		/// Returns the layout of the board
 		/// </summary>
 		/// <param name="boardID">BoardID</param>
-		/// <param name="UserID">UserID</param>
-		/// <param name="CategoryID">CategoryID</param>
+		/// <param name="userID">UserID</param>
+		/// <param name="categoryID">CategoryID</param>
 		/// <param name="parentID">ParentID</param>
 		/// <returns>Returns board layout</returns>
 		static public DataSet board_layout( object boardID, object userID, object categoryID, object parentID )
