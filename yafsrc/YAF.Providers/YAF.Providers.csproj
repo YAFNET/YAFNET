@@ -7,8 +7,8 @@
     <ProjectGuid>{95A44CD9-4399-4DB9-823F-1A264083A390}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YAFProviders</RootNamespace>
-    <AssemblyName>YAFProviders</AssemblyName>
+    <RootNamespace>YAF.Providers</RootNamespace>
+    <AssemblyName>YAF.Providers</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
