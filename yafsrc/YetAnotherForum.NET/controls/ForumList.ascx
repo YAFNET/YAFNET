@@ -21,7 +21,7 @@
 				<br />
 				<YAF:ForumSubForumList ID="SubForumList" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
-			<td align="center" class="smallfont subforumlink">
+			<td align="center" class="smallfont subforumlink" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
 			<td align="center">
@@ -53,7 +53,7 @@
 				<br />
 				<YAF:ForumSubForumList ID="ForumSubForumListAlt" runat="server" DataSource='<%# GetSubforums( (System.Data.DataRow)Container.DataItem ) %>' Visible='<%# HasSubforums( (System.Data.DataRow)Container.DataItem ) %>' />
 			</td>
-			<td align="center" class="smallfont subforumlink">
+			<td align="center" class="smallfont subforumlink" id="ModeratorListTD" runat="server">
 				<YAF:ForumModeratorList ID="ModeratorList" runat="server" DataSource='<%# ((System.Data.DataRow)Container.DataItem).GetChildRows("FK_Moderator_Forum") %>' />
 			</td>
 			<td align="center">

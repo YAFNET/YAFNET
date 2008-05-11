@@ -321,6 +321,13 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Show Moderator List:</b><br>
+                                    If this is checked, the moderator list column is displayed in the forum list.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="ShowModeratorList" runat="server"></asp:CheckBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Show Deleted Messages:</b><br>
                                     If this is checked, messsages that are deleted will leave with some notes</td>
                                 <td class="post">

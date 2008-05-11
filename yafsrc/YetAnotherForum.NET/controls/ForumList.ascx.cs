@@ -78,6 +78,17 @@ namespace YAF.Controls
 				{
 
 				}
+				
+				if ( !PageContext.BoardSettings.ShowModeratorList )
+				{
+					// hide moderator list...
+					HtmlTableCell moderatorColumn = e.Item.FindControl( "ModeratorListTD" ) as HtmlTableCell;
+					ForumModeratorList modList = e.Item.FindControl( "ModeratorList" ) as ForumModeratorList;
+
+					// set them as invisible...
+					moderatorColumn.Visible = false;
+					modList.Visible = false;
+				}
 			}
 		}
 

@@ -19,7 +19,7 @@
                         <td class="header1" align="left">
                             <YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
                         </td>
-                        <td class="header1" align="center" width="15%">
+                        <td class="header1" align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
                             <YAF:LocalizedLabel ID="ModeratorsHeaderLabel" runat="server" LocalizedTag="MODERATORS" />
                         </td>
                         <td class="header1" align="center" width="4%">
@@ -35,7 +35,7 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <tr>
-                    <td class="header2" colspan="6">
+                    <td class="header2" colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
                         <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Bottom"
                             CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
                         </asp:ImageButton>
@@ -48,7 +48,7 @@
             </ItemTemplate>
             <FooterTemplate>
                 <tr>
-                    <td colspan="6" align="right" class="footer1">
+                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right" class="footer1">
                         <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# GetText("MARKALL") %>' />
                         <span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
                             |</span>
