@@ -1,6 +1,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="ForumActiveDiscussion.ascx.cs"
 	Inherits="YAF.Controls.ForumActiveDiscussion" %>
-<asp:UpdatePanel ID="UpdateStatsPanel" runat="server">
+<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
 <ContentTemplate>	
 <table border="0" class="content" cellspacing="1" cellpadding="0" width="100%">
 	<tr>

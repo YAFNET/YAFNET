@@ -7,7 +7,7 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:ForumWelcome runat="server" ID="Welcome" />
 <br />
-<asp:UpdatePanel ID="UpdatePanelCategory" runat="server">
+<asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand"
             OnItemDataBound="CategoryList_ItemDataBound">
