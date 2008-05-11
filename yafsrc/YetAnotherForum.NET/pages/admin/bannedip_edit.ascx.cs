@@ -60,12 +60,53 @@ namespace YAF.Pages.Admin
 
 		protected void save_Click( object sender, EventArgs e )
 		{
-			String [] ip = mask.Text.Trim().Split( '.' );
-			if ( ip.Length != 4 )
+			String [] ipParts = mask.Text.Trim().Split( '.' );
+
+			// do some validation...
+			string ipError = "";
+
+			if ( ipParts.Length != 4 )
 			{
-				PageContext.AddLoadMessage( "Invalid ip address." );
+				ipError += "Invalid IP address.";
+			}
+
+			// see if they are numbers...
+			ulong number;
+
+			foreach ( string ip in ipParts )
+			{
+				if ( !ulong.TryParse( ip, out number ) )
+				{
+					if ( ip.Trim() != "*" )
+					{
+						if ( ip.Trim().Length == 0 )
+						{
+							ipError += "\r\nOne of the IP section does not have a value. Valid values are 0-255 or \"*\" for a wildcard.";
+						}
+						else
+						{
+							ipError += String.Format( "\r\n\"{0}\" is not a valid IP section value.", ip );
+						}
+						break;
+					}
+				}
+				else
+				{
+					// try parse succeeded... verify number amount...
+					if ( number > 255 )
+					{
+						ipError += String.Format( "\r\n\"{0}\" is not a valid IP section value (must be less then 255).", ip );
+					}
+				}
+			}
+
+			// show error(s) if not valid...
+			if ( !String.IsNullOrEmpty( ipError )  )
+			{
+				PageContext.AddLoadMessage( ipError );
 				return;
 			}
+
 			YAF.Classes.Data.DB.bannedip_save( Request.QueryString ["i"], PageContext.PageBoardID, mask.Text.Trim() );
 
 			// clear cache of banned IPs for this board
