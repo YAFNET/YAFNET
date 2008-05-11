@@ -60,7 +60,10 @@ namespace YAF.Pages // YAF.Pages
 				}
 				PageLinks.AddForumLinks( PageContext.PageForumID );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
+
+				PagerTop.PageSize = 25;
 			}
+
 			BindData();
 		}
 
@@ -81,7 +84,20 @@ namespace YAF.Pages // YAF.Pages
 
 		private void BindData()
 		{
-			topiclist.DataSource = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, null, -1, null, 0, 999999 );
+			PagedDataSource pds = new PagedDataSource();
+			pds.AllowPaging = true;
+			pds.PageSize = PagerTop.PageSize;
+
+			DataTable dt = YAF.Classes.Data.DB.topic_list( PageContext.PageForumID, null, -1, null, 0, 999999 );
+			DataView dv = dt.DefaultView;
+
+			PagerTop.Count = dv.Count;
+			pds.DataSource = dv;
+
+			pds.CurrentPageIndex = PagerTop.CurrentPageIndex;
+			if ( pds.CurrentPageIndex >= pds.PageCount ) pds.CurrentPageIndex = pds.PageCount - 1;
+
+			topiclist.DataSource = pds;
 			UserList.DataSource = YAF.Classes.Data.DB.userforum_list( null, PageContext.PageForumID );
 			DataBind();
 		}
@@ -110,6 +126,12 @@ namespace YAF.Pages // YAF.Pages
 					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 					break;
 			}
+		}
+
+		protected void PagerTop_PageChange( object sender, EventArgs e )
+		{
+			// rebind
+			BindData();
 		}
 
 		#region Web Form Designer generated code
