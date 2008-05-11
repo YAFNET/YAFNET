@@ -152,6 +152,8 @@ namespace YAF.Classes.Utils
 		{
 			string output = input;
 
+			if ( String.IsNullOrEmpty( input ) ) return null;
+
 			// Check if the string is longer than the allowed amount
 			// otherwise do nothing
 			if ( output.Length > limit && limit > 0 )
