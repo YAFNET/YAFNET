@@ -14,7 +14,7 @@
 			<td align="left">
 				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
 			</td>
-			<td align="center" width="15%">
+			<td align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
 				<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="moderators" />
 			</td>
 			<td align="center" width="4%">
