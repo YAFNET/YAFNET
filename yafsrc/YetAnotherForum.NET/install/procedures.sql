@@ -4297,13 +4297,12 @@ begin
 	SET @approvedFlag = 0;
 	IF (@IsApproved = 1) SET @approvedFlag = 2;	
 	
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [Name]=@UserName)
+	if exists(select 1 from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [ProviderUserKey]=@ProviderUserKey)
 	begin
-		select @UserID=UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [Name]=@UserName
+		select @UserID=UserID from [{databaseOwner}].[{objectQualifier}User] where [BoardID]=@BoardID and [ProviderUserKey]=@ProviderUserKey
 		update [{databaseOwner}].[{objectQualifier}User] set 
 			[Name] = @UserName,
 			Email = @Email,
-			ProviderUserKey = @ProviderUserKey,
 			Flags = Flags | @approvedFlag
 		where
 			UserID = @UserID
