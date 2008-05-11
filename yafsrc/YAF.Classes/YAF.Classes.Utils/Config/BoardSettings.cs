@@ -472,6 +472,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueBool( "ShowDeletedMessagesToAll", false ); }
 			set { _reg.SetValueBool( "ShowDeletedMessagesToAll", value ); }
 		}
+		public bool ShowModeratorList
+		{
+			get { return _reg.GetValueBool( "ShowModeratorList", true ); }
+			set { _reg.SetValueBool( "ShowModeratorList", value ); }
+		}
 		public bool EnableCaptchaForPost
 		{
 			get { return _reg.GetValueBool( "EnableCaptchaForPost", false ); }
