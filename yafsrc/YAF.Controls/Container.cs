@@ -167,6 +167,12 @@ namespace YAF.Controls
         /// <summary>
         /// Css Clas for surrounding DIV
         /// </summary>
+        /// 
+        [
+        Browsable(true),
+        PersistenceMode(PersistenceMode.Attribute),
+        Description("CssClass")
+        ]
         public string CSSClass
         {
             get { return _cssClass; }
@@ -176,6 +182,11 @@ namespace YAF.Controls
         /// <summary>
         /// Hide Text required for expanding/collapsing container
         /// </summary>
+        [
+        Browsable(true),
+        PersistenceMode(PersistenceMode.Attribute),
+        Description("ShowText")
+        ]
         public string ShowText
         {
             get { return _showText; }
@@ -185,6 +196,11 @@ namespace YAF.Controls
         /// <summary>
         /// Hide Text required for expanding/collapsing container
         /// </summary>
+        [
+        Browsable(true),
+        PersistenceMode(PersistenceMode.Attribute),
+        Description("HideText")
+        ]
         public string HideText
         {
             get { return _hideText; }
@@ -194,6 +210,11 @@ namespace YAF.Controls
         /// <summary>
         /// If present renders a h2 html tag
         /// </summary>
+        [
+        Browsable(true),
+        PersistenceMode(PersistenceMode.Attribute),
+        Description("Title")
+        ]
         public string Title
         {
             get { return _title; }
@@ -203,6 +224,11 @@ namespace YAF.Controls
         /// <summary>
         /// If true, renders SLIDING doors technique additional DIV tags
         /// </summary>
+        [
+        Browsable(true),
+        PersistenceMode(PersistenceMode.Attribute),
+        Description("RoundedCorners")
+        ]
         public bool RoundedCorners
         {
             get { return _roundedCorners; }

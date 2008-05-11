@@ -28,7 +28,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=1.0.20229.26329, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
+    <Reference Include="AjaxControlToolkit, Version=1.0.20229.25606, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -41,7 +41,20 @@
     <Compile Include="AdminMenu.cs" />
     <Compile Include="AlphaSort.cs" />
     <Compile Include="Base\BaseControl.cs" />
+    <Compile Include="Container.cs" />
     <Compile Include="DataPanel.cs" />
+    <Compile Include="QuickView\BoundColumn.cs" />
+    <Compile Include="QuickView\DataSourceResolver.cs" />
+    <Compile Include="QuickView\QuickView.cs" />
+    <Compile Include="QuickView\QuickViewColumn.cs" />
+    <Compile Include="QuickView\QuickViewColumnCollection.cs" />
+    <Compile Include="QuickView\QuickViewColumnEventArgs.cs" />
+    <Compile Include="QuickView\QuickViewColumnEventHandler.cs" />
+    <Compile Include="QuickView\QuickViewItem.cs" />
+    <Compile Include="QuickView\QuickViewItemCollection.cs" />
+    <Compile Include="QuickView\QuickViewItemEventArgs.cs" />
+    <Compile Include="QuickView\QuickViewItemEventHandler.cs" />
+    <Compile Include="QuickView\TemplateColumn.cs" />
     <Compile Include="Footer.cs" />
     <Compile Include="ForumJump.cs" />
     <Compile Include="ForumUsers.cs" />
