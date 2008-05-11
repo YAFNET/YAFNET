@@ -62,6 +62,9 @@ namespace YAF.Classes.Utils
 				string name = row ["Name"].ToString().Trim();
 				string email = row ["Email"].ToString().ToLower().Trim();
 
+				// clean up the name by removing commas...
+				name = name.Replace( ",", "" );
+
 				// verify this user & email are not empty
 				if ( !String.IsNullOrEmpty( name ) && !String.IsNullOrEmpty( email ) )
 				{
