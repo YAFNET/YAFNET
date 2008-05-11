@@ -41,14 +41,20 @@ namespace YAF.Classes.Utils
 		static public ulong Str2IP( String [] ip )
 		{
 			if ( ip.Length != 4 )
+			{
 				throw new Exception( "Invalid ip address." );
+			}
 
-			ulong num = 0;
+			ulong num = 0, tNum;
 			for ( int i = 0; i < ip.Length; i++ )
 			{
 				num <<= 8;
-				num |= ulong.Parse( ip [i] );
+				if ( ulong.TryParse( ip [i], out tNum ) )
+				{
+					num |= tNum;
+				}
 			}
+
 			return num;
 		}
 
