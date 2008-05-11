@@ -246,8 +246,11 @@ namespace YAF.Classes.UI
 				AddCustomBBCodeRules( ref ruleEngine );
 
 				// basic hr and br rules
-				ruleEngine.AddRule( new SingleRegexReplaceRule( _rgxHr, "<hr/>", _options ) );
-				ruleEngine.AddRule( new SingleRegexReplaceRule( _rgxBr, "<br/>", _options ) );
+				SingleRegexReplaceRule hrRule = new SingleRegexReplaceRule( _rgxHr, "<hr/>", _options | RegexOptions.Multiline );	// Multiline, since ^ must match beginning of line
+				SingleRegexReplaceRule brRule = new SingleRegexReplaceRule( _rgxBr, "<br/>", _options );
+				brRule.RuleRank = hrRule.RuleRank + 1;	// Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
+				ruleEngine.AddRule( hrRule );
+				ruleEngine.AddRule( brRule );
 			}
 
 			// add smilies
