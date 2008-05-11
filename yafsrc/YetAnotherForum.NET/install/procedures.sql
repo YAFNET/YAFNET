@@ -3694,6 +3694,7 @@ begin
 		Subject = c.Topic,
 		c.UserID,
 		Starter = IsNull(c.UserName,b.Name),
+		NumPostsDeleted = (SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}Message] mes WHERE mes.TopicID = c.TopicID AND mes.IsDeleted = 1 AND mes.IsApproved = 1 AND ((@UserID IS NOT NULL AND mes.UserID = @UserID) OR (@UserID IS NULL)) ),
 		Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=c.TopicID and (x.Flags & 8)=0) - 1,
 		Views = c.Views,
 		LastPosted = c.LastPosted,
@@ -3706,7 +3707,8 @@ begin
 		c.PollID,
 		ForumName = d.Name,
 		c.TopicMovedID,
-		ForumFlags = d.Flags
+		ForumFlags = d.Flags,
+		FirstMessage = (SELECT TOP 1 [Message] FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = c.TopicID AND mes2.Position = 0)
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
