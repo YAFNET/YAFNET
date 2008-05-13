@@ -95,17 +95,28 @@ namespace YAF.Controls
 			toPager.PageSize = this.PageSize;
 		}
 
+		/// <summary>
+		/// Gets the linnked pager based on the <see cref="LinkedPager" /> property, throwing
+		/// an Exception if it cannot be found.
+		/// </summary>
+		/// <returns>The linked pager.</returns>
+		private Pager GetLinkedPager()
+		{
+			Pager linkedPager = ( Pager )Parent.FindControl(LinkedPager);
+
+			if ( linkedPager == null )
+			{
+				throw new Exception(string.Format("Failed to link pager to '{0}'.", LinkedPager));
+			}
+
+			return linkedPager;
+		}
+
 		protected override void Render( HtmlTextWriter output )
 		{
 			if ( LinkedPager != null )
 			{
-				Pager linkedPager = ( Pager )Parent.FindControl( LinkedPager );
-
-				if ( linkedPager == null )
-				{
-					throw new Exception( string.Format( "Failed to link pager to '{0}'.", LinkedPager ) );
-				}
-
+				Pager linkedPager = GetLinkedPager();
 				// just copy the linked pager settings but still render in this function...
 				linkedPager.CopyPagerSettings( this );
 			}
@@ -356,6 +367,15 @@ namespace YAF.Controls
 			{
 				CurrentPageIndex = ( int.Parse( eventArgument ) - 1 );
 				_ignorePageIndex = true;
+
+				if ( LinkedPager != null )
+				{
+					Pager linkedPager = GetLinkedPager();
+
+					// Copy the updated pager settings to the linked pager
+					this.CopyPagerSettings( linkedPager );
+				}
+
 				PageChange( this, new EventArgs() );
 			}
 		}
