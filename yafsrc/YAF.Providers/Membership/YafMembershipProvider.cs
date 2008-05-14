@@ -491,13 +491,6 @@ namespace YAF.Providers.Membership
 			// Check provider User Key
 			if ( !( providerUserKey == null ) )
 			{
-				// IS Valid User Key
-				if ( !( providerUserKey is Guid ) )
-				{
-					status = MembershipCreateStatus.InvalidProviderUserKey;
-					return null;
-				}
-
 				// IS not a duplicate key
 				if ( !( this.GetUser( providerUserKey, false ) == null ) )
 				{
@@ -718,11 +711,6 @@ namespace YAF.Providers.Membership
 			if ( providerUserKey == null )
 			{
 				ExceptionReporter.ThrowArgumentNull( "MEMBERSHIP", "USERKEYNULL" );
-			}
-
-			if ( !( providerUserKey is Guid ) )
-			{
-				ExceptionReporter.ThrowArgument( "MEMBERSHIP", "INVALIDPROVIDERKEY" );
 			}
 
 			DataRow dr = DB.GetUser( this.ApplicationName, providerUserKey, null, userIsOnline );
