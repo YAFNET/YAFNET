@@ -62,9 +62,9 @@ namespace YAF.Classes.Data
 			IsHostAdmin = 1,
 			IsApproved = 2,
 			IsGuest = 4,
-			IsCaptchaExcluded = 8
+			IsCaptchaExcluded = 8,
+			IsActiveExcluded = 16,
 			/* for future use
-			xxxxx = 16,
 			xxxxx = 32,
 			xxxxx = 64,
 			xxxxx = 128,
@@ -115,6 +115,15 @@ namespace YAF.Classes.Data
 		{
 			get { return this[3]; }
 			set { this[3] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets whether user is excluded from the "Active Users" list on the forum pages.
+		/// </summary>
+		public bool IsActiveExcluded // int value 16
+		{
+			get { return this [4]; }
+			set { this [4] = value; }
 		}
 
 		#endregion
