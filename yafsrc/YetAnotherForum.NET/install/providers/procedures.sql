@@ -202,7 +202,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createuser]
 @PasswordQuestion nvarchar(256) = null,
 @PasswordAnswer nvarchar(256) = null,
 @IsApproved bit = null,
-@UserKey uniqueidentifier = null out
+@UserKey nvarchar(64) = null out
 )
 AS
 BEGIN
@@ -225,7 +225,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_deleteuser]
 )
 AS
 BEGIN
-	DECLARE @ApplicationID uniqueidentifier, @UserID uniqueidentifier
+	DECLARE @ApplicationID uniqueidentifier, @UserID nvarchar(64)
 	
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 
@@ -265,7 +265,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1), UserID nvarchar(64))
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID  WHERE a.ApplicationID = @ApplicationID AND m.EmailLwd = LOWER(@EmailAddress)
 
@@ -299,7 +299,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64))
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID AND m.UsernameLwd = LOWER(@Username)
 
@@ -332,7 +332,7 @@ BEGIN
     SET @PagingLowerBoundary = @PageSize * @PageIndex
     SET @PagingUpperBoundary = @PageSize - 1 + @PagingLowerBoundary
     
-	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID uniqueidentifier)
+	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64))
 	
 	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID
 
@@ -371,7 +371,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_getuser]
 (
 @ApplicationName nvarchar(256),
 @Username nvarchar(256) = null,
-@UserKey uniqueidentifier = null,
+@UserKey nvarchar(64) = null,
 @UserIsOnline bit
 )
 AS
@@ -460,7 +460,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_updateuser]
 (
 @ApplicationName nvarchar(256),
-@UserKey uniqueidentifier,
+@UserKey nvarchar(64),
 @UserName nvarchar(256),
 @Email nvarchar(256),
 @Comment text,
@@ -514,7 +514,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_addusertorole]
 )
 AS
 BEGIN
-	DECLARE @UserID uniqueidentifier
+	DECLARE @UserID nvarchar(64)
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 	
@@ -651,7 +651,7 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_role_removeuserfromrol
 )
 AS
 BEGIN
-	DECLARE @UserID uniqueidentifier
+	DECLARE @UserID nvarchar(64)
 	DECLARE @RoleID uniqueidentifier
 	DECLARE @ApplicationID uniqueidentifier
 
@@ -790,7 +790,7 @@ BEGIN
     CREATE TABLE #PageIndexForUsers
     (
         IndexID int IDENTITY (0, 1) NOT NULL,
-        UserID uniqueidentifier
+        UserID nvarchar(64)
     )
 
     -- Insert into our temp table

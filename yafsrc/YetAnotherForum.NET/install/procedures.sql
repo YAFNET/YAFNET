@@ -1159,7 +1159,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
 	@MembershipAppName nvarchar(50),
 	@RolesAppName nvarchar(50),
 	@UserName		nvarchar(255),
-	@UserKey		nvarchar(255),
+	@UserKey		nvarchar(64),
 	@IsHostAdmin	bit
 ) as 
 begin
@@ -1528,7 +1528,7 @@ begin
 
 	if @UserID is null
 	begin
-		select convert(uniqueidentifier,NULL) as ProviderUserKey, convert(nvarchar(255),NULL) as Email
+		select convert(nvarchar(64),NULL) as ProviderUserKey, convert(nvarchar(255),NULL) as Email
 		return
 	end
 
@@ -2955,7 +2955,7 @@ GO
 CREATE procedure [{databaseOwner}].[{objectQualifier}pageload](
 	@SessionID	nvarchar(24),
 	@BoardID	int,
-	@UserKey	uniqueidentifier,
+	@UserKey	nvarchar(64),
 	@IP			nvarchar(15),
 	@Location	nvarchar(50),
 	@Browser	nvarchar(50),
@@ -4290,7 +4290,7 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey uniqueidentifier,@IsApproved bit) as
+CREATE procedure [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey nvarchar(64),@IsApproved bit) as
 begin
 	declare @UserID int, @RankID int, @approvedFlag int
 
@@ -4324,7 +4324,7 @@ GO
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]
 (
 	@UserID int,
-	@ProviderUserKey uniqueidentifier,
+	@ProviderUserKey nvarchar(64),
 	@UpdateProvider bit = 0
 )
 AS
@@ -4726,7 +4726,7 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
 	@OverrideDefaultTheme	bit = null,
 	@Approved			bit = null,
 	@PMNotification		bit = null,
-	@ProviderUserKey	uniqueidentifier = null)
+	@ProviderUserKey	nvarchar(64) = null)
 AS
 begin
 	declare @RankID int
@@ -4803,7 +4803,7 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_setrole](@BoardID int,@ProviderUserKey uniqueidentifier,@Role nvarchar(50)) as
+create procedure [{databaseOwner}].[{objectQualifier}user_setrole](@BoardID int,@ProviderUserKey nvarchar(64),@Role nvarchar(50)) as
 begin
 	declare @UserID int, @GroupID int
 	

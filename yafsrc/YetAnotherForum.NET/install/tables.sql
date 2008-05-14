@@ -219,6 +219,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 	create table [{databaseOwner}].[{objectQualifier}User](
 		UserID			int IDENTITY (1, 1) NOT NULL ,
 		BoardID			int NOT NULL,
+		ProviderUserKey	nvarchar(64),
 		Name			nvarchar (50) NOT NULL ,
 		Password		nvarchar (32) NOT NULL ,
 		Email			nvarchar (50) NULL ,
@@ -236,10 +237,11 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		ThemeFile		nvarchar(50) NULL,
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0),
 		[PMNotification] [bit] NOT NULL CONSTRAINT [DF_{objectQualifier}User_PMNotification] DEFAULT (1),
-		[Flags] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
-		[Points] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
-		ProviderUserKey	uniqueidentifier,
-		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
+		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
+		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
+		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+		
 )
 GO
 
@@ -584,6 +586,12 @@ begin
 end
 GO
 
+if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IsActiveExcluded')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] ADD [IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
+end
+GO
+
 if exists(select 1 from dbo.syscolumns where id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name=N'Signature' and xtype<>99)
 	alter table [{databaseOwner}].[{objectQualifier}User] alter column Signature ntext null
 go
@@ -614,7 +622,20 @@ GO
 
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey')
 begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add ProviderUserKey uniqueidentifier
+	alter table [{databaseOwner}].[{objectQualifier}User] add ProviderUserKey nvarchar(64)
+end
+GO
+
+-- convert uniqueidentifier to nvarchar(64)
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='ProviderUserKey' and xtype='36')
+begin
+	-- drop the provider user key index if it exists...
+	if exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_ProviderUserKey' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
+	begin
+		DROP INDEX [IX_{objectQualifier}User_ProviderUserKey] ON [{databaseOwner}].[{objectQualifier}User]
+	end
+	-- alter the column
+	ALTER TABLE [{databaseOwner}].[{objectQualifier}User] ALTER COLUMN ProviderUserKey nvarchar(64)
 end
 GO
 
