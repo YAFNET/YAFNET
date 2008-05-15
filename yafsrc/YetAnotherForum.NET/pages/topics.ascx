@@ -4,7 +4,7 @@
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">
 	<table class="content" cellspacing="1" cellpadding="0" width="100%">
 		<tr class="header1">
-			<td colspan="6">
+			<td colspan="6" class="headersub">
 				<%=GetSubForumTitle()%>
 			</td>
 		</tr>
