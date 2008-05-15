@@ -167,6 +167,13 @@
 .yafnet .content td table td table td {
 	padding: 0px;	
 }
+.yafnet .content .headersub {
+	color: #ffffff;
+	font-weight: bold;
+	padding-left: 10px;
+	font-size: 15px;
+	line-height: 30px;	
+}
 /* used for quoting messages */
 .yafnet .quote {
 	padding-left: 16px;

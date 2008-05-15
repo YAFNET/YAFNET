@@ -219,6 +219,12 @@ This CSS already works on FireFox.
 	min-height: 100px;
 	overflow: auto;	
 }
+.yafnet div.yafsignature
+{
+	border-top: solid 1px #666666;
+	margin-top: 15px;
+	padding-top: 5px;
+}
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
