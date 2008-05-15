@@ -35,6 +35,25 @@ namespace YAF.Controls
 		private bool _usePostBack = true;
 		private bool _ignorePageIndex = false;
 
+		protected Pager CurrentLinkedPager
+		{
+			get
+			{
+				if ( LinkedPager != null )
+				{
+					Pager linkedPager = ( Pager )Parent.FindControl( LinkedPager );
+
+					if ( linkedPager == null )
+					{
+						throw new Exception( string.Format( "Failed to link pager to '{0}'.", LinkedPager ) );
+					}
+					return linkedPager;
+				}
+
+				return null;
+			}
+		}
+
 		public Pager()
 		{
 			this.Init += new EventHandler( Pager_Init );
@@ -95,30 +114,12 @@ namespace YAF.Controls
 			toPager.PageSize = this.PageSize;
 		}
 
-		/// <summary>
-		/// Gets the linnked pager based on the <see cref="LinkedPager" /> property, throwing
-		/// an Exception if it cannot be found.
-		/// </summary>
-		/// <returns>The linked pager.</returns>
-		private Pager GetLinkedPager()
-		{
-			Pager linkedPager = ( Pager )Parent.FindControl(LinkedPager);
-
-			if ( linkedPager == null )
-			{
-				throw new Exception(string.Format("Failed to link pager to '{0}'.", LinkedPager));
-			}
-
-			return linkedPager;
-		}
-
 		protected override void Render( HtmlTextWriter output )
 		{
 			if ( LinkedPager != null )
 			{
-				Pager linkedPager = GetLinkedPager();
 				// just copy the linked pager settings but still render in this function...
-				linkedPager.CopyPagerSettings( this );
+				CurrentLinkedPager.CopyPagerSettings( this );
 			}
 
 			if ( PageCount < 2 ) return;
@@ -363,19 +364,15 @@ namespace YAF.Controls
 
 		public void RaisePostBackEvent( string eventArgument )
 		{
-			if ( PageChange != null )
+			if ( LinkedPager != null )
+			{
+				// raise post back event on the linked pager...
+				CurrentLinkedPager.RaisePostBackEvent( eventArgument );
+			}
+			else if ( PageChange != null )
 			{
 				CurrentPageIndex = ( int.Parse( eventArgument ) - 1 );
 				_ignorePageIndex = true;
-
-				if ( LinkedPager != null )
-				{
-					Pager linkedPager = GetLinkedPager();
-
-					// Copy the updated pager settings to the linked pager
-					this.CopyPagerSettings( linkedPager );
-				}
-
 				PageChange( this, new EventArgs() );
 			}
 		}
