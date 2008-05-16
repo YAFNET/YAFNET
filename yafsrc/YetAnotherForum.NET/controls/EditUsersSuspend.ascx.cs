@@ -84,6 +84,12 @@ namespace YAF.Controls
 						PageContext.AddLoadMessage( PageContext.Localization.GetText( "PROFILE", "ERROR_FORUMMODERATORS" ) );
 						return;
 					}
+					// verify the user isn't guest...
+					if ( row ["IsGuest"] != DBNull.Value )
+					{
+						PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
+						return;
+					}
 				}
 			}
 
