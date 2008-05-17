@@ -34,6 +34,42 @@ namespace YAF.Classes.Utils
 	public static class General
 	{
 		/// <summary>
+		/// Converts an object to a type.
+		/// </summary>
+		/// <param name="value">Object to convert</param>
+		/// <param name="type">Type to convert to e.g. System.Guid</param>
+		/// <returns></returns>
+		static public object ConvertObjectToType(object value, string type)
+		{
+			Type convertType;
+
+			try
+			{
+				convertType = Type.GetType(type, true, true);
+			}
+			catch
+			{
+				convertType = Type.GetType("System.Guid", false);
+			}
+
+			if ( value.GetType().ToString() == "System.String" )
+			{
+				switch ( convertType.ToString() )
+				{
+					case "System.Guid":
+						// do a "manual conversion" from string to Guid
+						return new System.Guid(Convert.ToString(value));
+					case "System.Int32":
+						return Convert.ToInt32(value);
+					case "System.Int64":
+						return Convert.ToInt64(value);
+				}
+			}
+
+			return Convert.ChangeType(value, convertType);
+		}
+
+		/// <summary>
 		/// Converts an array of strings into a ulong representing a 4 byte IP address
 		/// </summary>
 		/// <param name="ip">string array of numbers</param>

@@ -63,6 +63,14 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string ProviderKeyType
+		{
+			get
+			{
+				return ( ConfigurationManager.AppSettings ["providerkeytype"] ?? "System.Guid" );
+			}
+		}
+
 		static public string Root
 		{
 			get

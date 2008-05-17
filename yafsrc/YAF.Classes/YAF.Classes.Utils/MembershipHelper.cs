@@ -152,12 +152,6 @@ namespace YAF.Classes.Utils
 			return status;
 		}
 
-		static private bool BitSet(object o, int bitmask)
-		{
-			int i = (int)o;
-			return (i & bitmask) != 0;
-		}
-
 		/// <summary>
 		/// Sets up the user roles from the "start" settings for a given group/role
 		/// </summary>
@@ -169,8 +163,9 @@ namespace YAF.Classes.Utils
 			{
 				foreach (DataRow row in dt.Rows)
 				{
+					GroupFlags roleFlags = new GroupFlags(row ["Flags"]);
 					// see if the "Is Start" flag is set for this group and NOT the "Is Guest" flag (those roles aren't synced)
-					if (BitSet(row["Flags"], 4) && !BitSet(row["Flags"], 2))
+					if ( roleFlags.IsStart && !roleFlags.IsGuest )
 					{
 						// add the user to this role in membership
 						string roleName = row["Name"].ToString();
@@ -194,10 +189,11 @@ namespace YAF.Classes.Utils
 				foreach (DataRow row in dt.Rows)
 				{
 					string name = (string)row["Name"];
+					GroupFlags roleFlags = new GroupFlags(row ["Flags"]);
 
-					// bitset is testing if this role is a "Guest" role...
+					// testing if this role is a "Guest" role...
 					// if it is, we aren't syncing it.
-					if (!String.IsNullOrEmpty(name) && !BitSet(row["Flags"], 2) && !Roles.RoleExists(name))
+					if (!String.IsNullOrEmpty(name) && !roleFlags.IsGuest && !Roles.RoleExists(name))
 					{
 						Roles.CreateRole(name);
 					}
@@ -379,7 +375,8 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public static MembershipUser GetMembershipUser(object providerUserKey)
 		{
-			return Membership.GetUser(providerUserKey);
+			// convert to provider type...
+			return Membership.GetUser(General.ConvertObjectToType(providerUserKey,Config.ProviderKeyType));
 		}
 
 		/// <summary>
@@ -419,7 +416,7 @@ namespace YAF.Classes.Utils
 
 			if (providerUserKey != null)
 			{
-				MembershipUser user = Membership.GetUser(providerUserKey);
+				MembershipUser user = Membership.GetUser(General.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 				user.Email = newEmail;
 				Membership.UpdateUser(user);
 				DB.user_aspnet(YafContext.Current.PageBoardID, user.UserName, newEmail, user.ProviderUserKey, user.IsApproved);
@@ -450,7 +447,7 @@ namespace YAF.Classes.Utils
 
 			if (providerUserKey != null)
 			{
-				MembershipUser user = Membership.GetUser(providerUserKey);
+				MembershipUser user = Membership.GetUser(General.ConvertObjectToType(providerUserKey, Config.ProviderKeyType));
 				if (!user.IsApproved) user.IsApproved = true;
 				Membership.UpdateUser(user);
 				DB.user_approve(userID);
