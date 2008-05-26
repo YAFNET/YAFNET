@@ -221,7 +221,42 @@ namespace YAF.Editor
 
 			RenderButton( writer, "justifyleft", "FormatText('justifyleft','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNLEFT" ), "yafEditor/justifyleft.gif" );
 			RenderButton( writer, "justifycenter", "FormatText('justifycenter','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNCENTER" ), "yafEditor/justifycenter.gif" );
-			RenderButton( writer, "justifyright", "FormatText('justifyright','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNRIGHT" ), "yafEditor/justifyright.gif" );
+			RenderButton( writer, "justifyright", "FormatText('justifyright','')", YafContext.Current.Localization.GetText( "COMMON", "TT_ALIGNRIGHT" ), "yafEditor/justifyright.gif" );			
+
+			DataTable bbCodeTable = YAF.Classes.UI.BBCode.GetCustomBBCode();
+
+			if ( bbCodeTable.Rows.Count > 0 )
+			{
+				writer.WriteLine( "&nbsp;" );
+
+				// add drop down for optional "extra" codes...
+				writer.WriteLine( String.Format( @"<img src=""{5}"" id=""{3}"" alt=""{4}"" title=""{4}"" onclick=""{0}"" onload=""Button_Load(this)"" onmouseover=""{1}"" />", _popMenu.ControlOnClick, _popMenu.ControlOnMouseOver, YafContext.Current.Localization.GetText( "COMMON", "CUSTOM_BBCODE" ), this.ClientID + "_bbcode_popMenu", YafContext.Current.Localization.GetText( "COMMON", "TT_CUSTOMBBCODE" ), ResolveUrl( "yafEditor/bbcode.gif" ) ) );
+
+				foreach ( DataRow row in bbCodeTable.Rows )
+				{
+					string name = row ["Name"].ToString();
+
+					if ( row ["Description"] != DBNull.Value && !String.IsNullOrEmpty( row ["Description"].ToString() ) )
+					{
+						// use the description as the option "name"
+						name = row ["Description"].ToString();
+					}
+
+					string onclickJS = string.Empty;
+
+					if ( row ["OnClickJS"] != DBNull.Value && !String.IsNullOrEmpty( row ["OnClickJS"].ToString() ) )
+					{
+						onclickJS = row ["OnClickJS"].ToString();
+					}
+					else
+					{
+						// assume the bbcode is just the name... 
+						onclickJS = string.Format( "setStyle('{0}','')", row ["Name"].ToString().Trim() );
+					}
+
+					_popMenu.AddClientScriptItem( name, onclickJS );
+				}
+			}
 
 			writer.WriteLine( "	</td></tr>" );
 			writer.WriteLine( "	<tr><td valign='middle'>" );
@@ -251,39 +286,6 @@ namespace YAF.Editor
 			writer.WriteLine( "<option value=\"8\">8</option>" );
 			writer.WriteLine( "<option value=\"9\">9</option>" );
 			writer.WriteLine( "</select>" );
-
-			DataTable bbCodeTable = YAF.Classes.UI.BBCode.GetCustomBBCode();
-
-			if ( bbCodeTable.Rows.Count > 0 )
-			{
-				// add drop down for optional "extra" codes...
-				writer.WriteLine( String.Format(@"<a id=""{3}"" onclick=""{0}"" onmouseover=""{1}"">{2}</a>", _popMenu.ControlOnClick, _popMenu.ControlOnMouseOver, YafContext.Current.Localization.GetText( "COMMON", "CUSTOM_BBCODE" ), this.ClientID + "_bbcode_popMenu" ));
-
-				foreach ( DataRow row in bbCodeTable.Rows )
-				{
-					string name = row ["Name"].ToString();
-
-					if ( row ["Description"] != DBNull.Value && !String.IsNullOrEmpty( row ["Description"].ToString() ) )
-					{
-						// use the description as the option "name"
-						name = row ["Description"].ToString();
-					}
-
-					string onclickJS = string.Empty;
-
-					if ( row ["OnClickJS"] != DBNull.Value && !String.IsNullOrEmpty( row ["OnClickJS"].ToString() ) )
-					{
-						onclickJS = row ["OnClickJS"].ToString();
-					}
-					else
-					{
-						// assume the bbcode is just the name... 
-						onclickJS = string.Format( "setStyle('{0}','')", row ["Name"].ToString().Trim() );
-					}
-
-					_popMenu.AddClientScriptItem( name, onclickJS);
-				}
-			}
 
 			writer.WriteLine( "	</td></tr>" );
 			writer.WriteLine( "	</table>" );

@@ -91,6 +91,7 @@
 		<Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
 		<Resource tag="TT_ALIGNRIGHT">Right Justify</Resource>
 		<Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
+    <Resource tag="TT_CUSTOMBBCODE">More BBCode Tags</Resource>
 	</page>
   <page name="TEMPLATES">
 <Resource tag="CHANGEEMAIL_TEXT">
