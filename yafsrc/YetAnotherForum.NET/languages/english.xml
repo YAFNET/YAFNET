@@ -33,6 +33,7 @@
 		<!-- common... -->
 		<Resource tag="POWERED_BY">Powered by</Resource>
 		<Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
+    <Resource tag="LOADING">Loading...</Resource>
 		<Resource tag="SAVE">Save</Resource>
 		<Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="OK">OK</Resource>
@@ -904,6 +905,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="NO_SEARCH_RESULTS">[b]No results found for search.[/b]</Resource>
 		<Resource tag="SEARCH_CRITERIA_ERROR">Search texts must be at least {0} character long and compliant with forum rules for search (see forum FAQ for more info).</Resource>
 		<Resource tag="BY">by</Resource>
+    <Resource tag="LOADING_SEARCH">Loading Search Results...</Resource>
 	</page>
 	<page name="MODERATE_DEFAULT">
 		<Resource tag="TITLE">Moderate</Resource>

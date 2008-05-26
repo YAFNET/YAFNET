@@ -135,6 +135,9 @@ namespace YAF.Pages // YAF.Pages
 				//    listForum.Items.Add( new ListItem( " - " + ( string ) row ["Forum"], row ["ForumID"].ToString() ) );
 				//}
 
+				LoadingModal.HeaderText = GetText( "LOADING" );
+				LoadingModal.MainText = GetText( "LOADING_SEARCH" );
+
 				listForum.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
 				listForum.DataValueField = "ForumID";
 				listForum.DataTextField = "Title";

@@ -117,6 +117,7 @@ namespace YAF.Pages.Admin
 				int.Parse( txtExecOrder.Text )
 			);
 			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.CustomBBCode ) );
+			YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_bbcode );
 		}
 

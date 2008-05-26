@@ -1,5 +1,12 @@
 <%@ Control Language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<script type="text/javascript">
+function EndRequestHandler(sender, args) {
+   $find('LoadingModal').hide();
+}
+Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+</script>
+
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
         <td class="header1" colspan="2">
@@ -32,12 +39,12 @@
     </tr>
     <tr>
         <td class="postheader" colspan="2" align="center">
-            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" />
+            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="$find('LoadingModal').show();" />
         </td>
     </tr>
 </table>
 <br />
-<asp:UpdatePanel ID="SearchUpdatePanel" runat="server">
+<asp:UpdatePanel ID="SearchUpdatePanel" runat="server" UpdateMode="Conditional">
     <Triggers>
         <asp:AsyncPostBackTrigger ControlID="btnSearch" />
     </Triggers>
@@ -143,6 +150,7 @@
         <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
     </ContentTemplate>
 </asp:UpdatePanel>
+<YAF:ModalNotification ID="LoadingModal" BehaviorID="LoadingModal" runat="server" OkButtonVisible="false" />
 <div id="DivSmartScroller">
     <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>
