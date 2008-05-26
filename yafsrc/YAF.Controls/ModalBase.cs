@@ -39,12 +39,26 @@ namespace YAF.Controls
 		public ModalBase()
 			: base()
 		{
+			this.Load += new EventHandler( ModalBase_Load );
 		}
 
-		protected override void OnInit( EventArgs e )
+		void ModalBase_Load( object sender, EventArgs e )
 		{
-			BuildPopup();
+			// set localization here...
+			if ( !String.IsNullOrEmpty( _okButton.Text ) )
+			{
+				_okButton.Text = PageContext.Localization.GetText( "COMMON", "OK" );
+			}
+			if ( !String.IsNullOrEmpty( _cancelButton.Text ) )
+			{
+				_cancelButton.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
+			}
+		}
+
+		protected override void OnLoad( EventArgs e )
+		{			
 			base.OnInit( e );
+			BuildPopup();
 		}	
 
 		#region Overridable Modal Generation Functions
@@ -84,10 +98,7 @@ namespace YAF.Controls
 		{
 			// make buttons
 			_okButton.ID = GetUniqueID( "btnOk" );
-			_okButton.Text = PageContext.Localization.GetText( "COMMON", "OK" );
-
-			_cancelButton.ID = GetUniqueID( "btnCancel" );
-			_cancelButton.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
+			_cancelButton.ID = GetUniqueID( "btnCancel" );			
 
 			_okButton.Click += new EventHandler( okButton_Click );
 			_cancelButton.Click += new EventHandler( cancelButton_Click );
@@ -258,7 +269,7 @@ namespace YAF.Controls
 		public string BehaviorID
 		{
 			get { return _behaviorID; }
-			set { _behaviorID = value; }
+			set { _behaviorID = value; ConfirmExtender.BehaviorID = value;  }
 		} 
 
 		#endregion
