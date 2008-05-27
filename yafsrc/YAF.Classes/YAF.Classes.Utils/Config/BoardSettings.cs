@@ -133,7 +133,7 @@ namespace YAF.Classes.Utils
 		}
 		public string Theme
 		{
-			get { return _regBoard.GetValueString( "Theme", "soclean.xml" ); }
+			get { return _regBoard.GetValueString( "Theme", "yafpro.xml" ); }
 			set { _regBoard.SetValueString( "Theme", value ); }
 		}
 		public string Language
@@ -565,7 +565,7 @@ namespace YAF.Classes.Utils
 		}
 		public bool AllowPostToBlog
 		{
-			get { return _reg.GetValue<bool>( "AllowPostToBlog", true ); }
+			get { return _reg.GetValue<bool>( "AllowPostToBlog", false ); }
 			set { _reg.SetValue<bool>( "AllowPostToBlog", value ); }
 		}
 		/* Mek : 8/18/2007 */
