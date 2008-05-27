@@ -240,7 +240,10 @@ namespace YAF.Providers.Membership
 			}
 			set
 			{
-				_appName = value;
+				if ( value != _appName )
+				{
+					_appName = value;
+				}
 			}
 		}
 

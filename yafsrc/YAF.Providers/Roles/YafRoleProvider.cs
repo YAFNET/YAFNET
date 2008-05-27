@@ -57,7 +57,12 @@ namespace YAF.Providers.Roles
 			}
 			set
 			{
-				_appName = value;
+				if ( value != _appName )
+				{
+					_appName = value;
+					// clear the cache for obvious reasons...
+					ClearUserRoleCache();
+				}
 			}
 		}
 		#endregion
