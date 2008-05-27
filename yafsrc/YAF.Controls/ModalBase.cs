@@ -45,11 +45,11 @@ namespace YAF.Controls
 		void ModalBase_Load( object sender, EventArgs e )
 		{
 			// set localization here...
-			if ( !String.IsNullOrEmpty( _okButton.Text ) )
+			if ( String.IsNullOrEmpty( _okButton.Text ) )
 			{
 				_okButton.Text = PageContext.Localization.GetText( "COMMON", "OK" );
 			}
-			if ( !String.IsNullOrEmpty( _cancelButton.Text ) )
+			if ( String.IsNullOrEmpty( _cancelButton.Text ) )
 			{
 				_cancelButton.Text = PageContext.Localization.GetText( "COMMON", "CANCEL" );
 			}
