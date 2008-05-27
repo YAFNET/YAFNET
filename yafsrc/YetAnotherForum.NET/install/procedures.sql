@@ -2136,11 +2136,11 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatelastpost](@ForumID int) as
 begin
 	update [{databaseOwner}].[{objectQualifier}Forum] set
-		LastPosted = (select top 1 y.Posted from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and (y.Flags & 24)=16 order by y.Posted desc),
-		LastTopicID = (select top 1 y.TopicID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID  and (y.Flags & 24)=16 order by y.Posted desc),
-		LastMessageID = (select top 1 y.MessageID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and (y.Flags & 24)=16 order by y.Posted desc),
-		LastUserID = (select top 1 y.UserID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and (y.Flags & 24)=16 order by y.Posted desc),
-		LastUserName = (select top 1 y.UserName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and (y.Flags & 24)=16 order by y.Posted desc)
+		LastPosted = (select top 1 y.Posted from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0 order by y.Posted desc),
+		LastTopicID = (select top 1 y.TopicID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
+		LastMessageID = (select top 1 y.MessageID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
+		LastUserID = (select top 1 y.UserID from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc),
+		LastUserName = (select top 1 y.UserName from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and (y.Flags & 24)=16 and x.IsDeleted = 0order by y.Posted desc)
 	where ForumID = @ForumID
 end
 GO
@@ -2148,8 +2148,8 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatestats](@ForumID int) as
 begin
 	update [{databaseOwner}].[{objectQualifier}Forum] set 
-		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = [{databaseOwner}].[{objectQualifier}Forum].ForumID and x.IsApproved = 1 and x.IsDeleted = 0 ),
-		NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=[{databaseOwner}].[{objectQualifier}Forum].ForumID and y.IsApproved = 1 and y.IsDeleted = 0)
+		NumPosts = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x join [{databaseOwner}].[{objectQualifier}Topic] y on y.TopicID=x.TopicID where y.ForumID = @ForumID and x.IsApproved = 1 and x.IsDeleted = 0 and y.IsDeleted = 0 ),
+		NumTopics = (select count(distinct x.TopicID) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID = @ForumID and y.IsApproved = 1 and y.IsDeleted = 0 and x.IsDeleted = 0)
 	where ForumID=@ForumID
 end
 GO
