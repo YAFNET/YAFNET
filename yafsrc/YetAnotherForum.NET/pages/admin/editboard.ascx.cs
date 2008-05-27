@@ -38,6 +38,22 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class editboard : YAF.Classes.Base.AdminPage
 	{
+		protected int? BoardID
+		{
+			get
+			{
+				if ( !String.IsNullOrEmpty( Request.QueryString ["b"] ) )
+				{
+					int boardId;
+					if ( int.TryParse( Request.QueryString ["b"], out boardId ) )
+					{
+						return boardId;
+					}
+				}
+				return null;
+			}
+		}
+
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
@@ -48,14 +64,16 @@ namespace YAF.Pages.Admin
 				PageLinks.AddLink( "Boards", "" );
 
 				BindData();
-				if ( Request.QueryString ["b"] != null )
+
+				if ( BoardID != null )
 				{
-					AdminInfo.Visible = false;
-					using ( DataTable dt = YAF.Classes.Data.DB.board_list( Request.QueryString ["b"] ) )
+					CreateNewAdminHolder.Visible = false;
+
+					using ( DataTable dt = YAF.Classes.Data.DB.board_list( BoardID ) )
 					{
 						DataRow row = dt.Rows [0];
-						Name.Text = ( string ) row ["Name"];
-						AllowThreaded.Checked = ( bool ) row ["AllowThreaded"];
+						Name.Text = ( string )row ["Name"];
+						AllowThreaded.Checked = ( bool )row ["AllowThreaded"];
 					}
 				}
 				else
@@ -78,7 +96,7 @@ namespace YAF.Pages.Admin
 				PageContext.AddLoadMessage( "You must enter a name for the board." );
 				return;
 			}
-			if ( Request.QueryString ["b"] == null )
+			if ( BoardID == null && CreateAdminUser.Checked )
 			{
 				if ( UserName.Text.Trim().Length == 0 )
 				{
@@ -102,16 +120,24 @@ namespace YAF.Pages.Admin
 				}
 			}
 
-			if ( Request.QueryString ["b"] != null )
+			if ( BoardID != null )
 			{
-                // Save current board settings
-				YAF.Classes.Data.DB.board_save( Request.QueryString ["b"], Name.Text, AllowThreaded.Checked );
+				// Save current board settings
+				YAF.Classes.Data.DB.board_save( BoardID, Name.Text.Trim(), AllowThreaded.Checked );
 			}
 			else
 			{
-                // Create board
-                // MEK says : Purposefully set MembershipAppName without including RolesAppName yet, as the current providers don't support different Appnames.
-                this.CreateBoard(UserName.Text, UserPass1.Text,UserEmail.Text, UserPasswordQuestion.Text, UserPasswordAnswer.Text, Name.Text, BoardMembershipAppName.Text, BoardMembershipAppName.Text);
+				// Create board
+				// MEK says : Purposefully set MembershipAppName without including RolesAppName yet, as the current providers don't support different Appnames.
+				if ( CreateAdminUser.Checked )
+				{
+					this.CreateBoard( UserName.Text.Trim(), UserPass1.Text, UserEmail.Text.Trim(), UserPasswordQuestion.Text.Trim(), UserPasswordAnswer.Text.Trim(), Name.Text.Trim(), BoardMembershipAppName.Text.Trim(), BoardMembershipAppName.Text.Trim(), true );
+				}
+				else
+				{
+					// create admin user from logged in user...
+					this.CreateBoard( null, null, null, null, null, Name.Text.Trim(), BoardMembershipAppName.Text.Trim(), BoardMembershipAppName.Text.Trim(), false );
+				}
 			}
 
 			// Done
@@ -126,16 +152,16 @@ namespace YAF.Pages.Admin
 
 		protected void BindData_AccessMaskID( object sender, System.EventArgs e )
 		{
-			( ( DropDownList ) sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageContext.PageBoardID, null );
-			( ( DropDownList ) sender ).DataValueField = "AccessMaskID";
-			( ( DropDownList ) sender ).DataTextField = "Name";
+			( ( DropDownList )sender ).DataSource = YAF.Classes.Data.DB.accessmask_list( PageContext.PageBoardID, null );
+			( ( DropDownList )sender ).DataValueField = "AccessMaskID";
+			( ( DropDownList )sender ).DataTextField = "Name";
 		}
 
 		protected void SetDropDownIndex( object sender, System.EventArgs e )
 		{
 			try
 			{
-				DropDownList list = ( DropDownList ) sender;
+				DropDownList list = ( DropDownList )sender;
 				list.Items.FindByValue( list.Attributes ["value"] ).Selected = true;
 			}
 			catch ( Exception )
@@ -143,72 +169,90 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-        protected void CreateBoard(string adminName, string adminPassword, string adminEmail, string adminPasswordQuestion, string adminPasswordAnswer, string boardName, string boardMembershipAppName, string boardRolesAppName)
-        {
-            // Store current App Names
-            string currentMembershipAppName = Membership.ApplicationName;
-            string currentRolesAppName = Roles.ApplicationName;
+		protected void CreateBoard( string adminName, string adminPassword, string adminEmail, string adminPasswordQuestion, string adminPasswordAnswer, string boardName, string boardMembershipAppName, string boardRolesAppName, bool createUserAndRoles )
+		{
+			// Store current App Names
+			string currentMembershipAppName = Membership.ApplicationName;
+			string currentRolesAppName = Roles.ApplicationName;
 
-            // Change App Names for new board
-            Membership.ApplicationName = boardMembershipAppName;
-            Roles.ApplicationName = boardRolesAppName;
+			if ( !String.IsNullOrEmpty( boardMembershipAppName ) && !String.IsNullOrEmpty( boardRolesAppName ) )
+			{
+				// Change App Names for new board
+				Membership.ApplicationName = boardMembershipAppName;
+				Roles.ApplicationName = boardRolesAppName;
+			}
 
-            // Create new admin users
-            MembershipCreateStatus createStatus;
-            MembershipUser newAdmin = Membership.CreateUser(adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, out createStatus);
-            if (createStatus != MembershipCreateStatus.Success)
-                throw new ApplicationException(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(createStatus)));
+			if ( createUserAndRoles )
+			{
+				// Create new admin users
+				MembershipCreateStatus createStatus;
+				MembershipUser newAdmin = Membership.CreateUser( adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, out createStatus );
+				if ( createStatus != MembershipCreateStatus.Success )
+					throw new ApplicationException( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( createStatus ) ) );
 
-            // Create groups required for the new board
-            Roles.CreateRole("Administrators");
-            Roles.CreateRole("Registered");
+				// Create groups required for the new board
+				Roles.CreateRole( "Administrators" );
+				Roles.CreateRole( "Registered" );
 
-            // Add new admin users to group
-            Roles.AddUserToRole(newAdmin.UserName, "Administrators");
+				// Add new admin users to group
+				Roles.AddUserToRole( newAdmin.UserName, "Administrators" );
 
-            // Create Board
-            YAF.Classes.Data.DB.board_create(newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName);
+				// Create Board
+				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
+			}
+			else
+			{
+				// new admin
+				MembershipUser newAdmin = Membership.GetUser();
 
-            // Return application name to as they were before.
-            Membership.ApplicationName = currentMembershipAppName;
-            Roles.ApplicationName = currentRolesAppName;
+				// Create Board
+				YAF.Classes.Data.DB.board_create( newAdmin.UserName, newAdmin.ProviderUserKey, boardName, boardMembershipAppName, boardRolesAppName );
+			}
 
-        }
+			// Return application name to as they were before.
+			Membership.ApplicationName = currentMembershipAppName;
+			Roles.ApplicationName = currentRolesAppName;
+		}
 
-        protected string GetMembershipErrorMessage(MembershipCreateStatus status)
-        {
-            switch (status)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "Username already exists. Please enter a different user name.";
+		protected void CreateAdminUser_CheckedChanged( object sender, EventArgs e )
+		{
+			AdminInfo.Visible = CreateAdminUser.Checked;
+		}
 
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "A username for that e-mail address already exists. Please enter a different e-mail address.";
+		protected string GetMembershipErrorMessage( MembershipCreateStatus status )
+		{
+			switch ( status )
+			{
+				case MembershipCreateStatus.DuplicateUserName:
+					return "Username already exists. Please enter a different user name.";
 
-                case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+				case MembershipCreateStatus.DuplicateEmail:
+					return "A username for that e-mail address already exists. Please enter a different e-mail address.";
 
-                case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
+				case MembershipCreateStatus.InvalidPassword:
+					return "The password provided is invalid. Please enter a valid password value.";
 
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+				case MembershipCreateStatus.InvalidEmail:
+					return "The e-mail address provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+				case MembershipCreateStatus.InvalidAnswer:
+					return "The password retrieval answer provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+				case MembershipCreateStatus.InvalidQuestion:
+					return "The password retrieval question provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+				case MembershipCreateStatus.InvalidUserName:
+					return "The user name provided is invalid. Please check the value and try again.";
 
-                case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+				case MembershipCreateStatus.ProviderError:
+					return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
-                default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-            }
-        }
+				case MembershipCreateStatus.UserRejected:
+					return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+				default:
+					return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+			}
+		}
 	}
 }

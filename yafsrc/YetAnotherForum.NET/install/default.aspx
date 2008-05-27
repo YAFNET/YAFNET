@@ -71,6 +71,20 @@
 							The name of a smtp server used to send emails.
 						</p>
 						<p>
+						    <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">
+						        <asp:ListItem Text="Create New Admin User" Selected="true" Value="create"></asp:ListItem>
+						        <asp:ListItem Text="Use Existing User" Value="existing"></asp:ListItem>
+						    </asp:RadioButtonList>
+						</p>
+						<asp:PlaceHolder ID="ExistingUserHolder" runat="server" Visible="false">
+						<p>
+							Existing User Name:<br />
+							<asp:TextBox ID="ExistingUserName" runat="server" />
+							The name of the existing user to make the admin.
+						</p>
+						</asp:PlaceHolder>
+						<asp:PlaceHolder ID="CreateAdminUserHolder" runat="server">
+						<p>
 							Admin User Name:<br />
 							<asp:TextBox ID="UserName" runat="server" />
 							The name of the admin user.
@@ -100,6 +114,7 @@
 							<asp:TextBox runat="server" ID="SecurityAnswer" />
 							The answer to the security question.
 						</p>
+						</asp:PlaceHolder>
 					</asp:WizardStep>
 					<asp:WizardStep runat="server" StepType="Start" Title="Migrate Users">
 						<strong>Migrate Roles and Users</strong><br />

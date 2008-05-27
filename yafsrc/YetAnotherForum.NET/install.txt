@@ -90,9 +90,6 @@ STEP 7. UPGRADE:
    The wizard will guide you through the upgrade process.   
 
 
-NOTES ON DEBUGGING AND CUSTOM ERRORS:
-
-
 
 If you have any questions, please visit the YAF Support forum:
 

@@ -68,14 +68,26 @@ namespace YAF.Install
 			{
 				Cache["DBVersion"] = DBVersion;
 
-				if ( IsInstalled )
-					InstallWizard.ActiveStepIndex = 1;
-				else
-					InstallWizard.ActiveStepIndex = 0;
-
+				InstallWizard.ActiveStepIndex = IsInstalled ? 1 : 0;
 				TimeZones.DataSource = YafStaticData.TimeZones();
+
 				DataBind();
+
 				TimeZones.Items.FindByValue( "0" ).Selected = true;
+			}
+		}
+
+		protected void UserChoice_SelectedIndexChanged( object sender, EventArgs e )
+		{
+			if ( UserChoice.SelectedValue == "create" )
+			{
+				ExistingUserHolder.Visible = false;
+				CreateAdminUserHolder.Visible = true;
+			}
+			else if ( UserChoice.SelectedValue == "existing" )
+			{
+				ExistingUserHolder.Visible = true;
+				CreateAdminUserHolder.Visible = false;
 			}
 		}
 
@@ -372,33 +384,53 @@ namespace YAF.Install
 				AddLoadMessage( "You must enter a smtp server." );
 				return false;
 			}
-			if ( UserName.Text.Length == 0 )
+
+			MembershipUser user = null;
+
+			if ( UserChoice.SelectedValue == "create" )
 			{
-				AddLoadMessage( "You must enter the admin user name," );
-				return false;
-			}
-			if ( AdminEmail.Text.Length == 0 )
-			{
-				AddLoadMessage( "You must enter the administrators email address." );
-				return false;
-			}
-			if ( Password1.Text.Length == 0 )
-			{
-				AddLoadMessage( "You must enter a password." );
-				return false;
-			}
-			if ( Password1.Text != Password2.Text )
-			{
-				AddLoadMessage( "The passwords must match." );
-				return false;
-			}
-			try
-			{
+				if ( UserName.Text.Length == 0 )
+				{
+					AddLoadMessage( "You must enter the admin user name," );
+					return false;
+				}
+				if ( AdminEmail.Text.Length == 0 )
+				{
+					AddLoadMessage( "You must enter the administrators email address." );
+					return false;
+				}
+				if ( Password1.Text.Length == 0 )
+				{
+					AddLoadMessage( "You must enter a password." );
+					return false;
+				}
+				if ( Password1.Text != Password2.Text )
+				{
+					AddLoadMessage( "The passwords must match." );
+					return false;
+				}
+
+				// create the admin user...
 				MembershipCreateStatus status;
-				MembershipUser user = Membership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status );
+				user = Membership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status );
 				if ( status != MembershipCreateStatus.Success )
 					throw new ApplicationException( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( status ) ) );
 
+			}
+			else
+			{
+				// try to get data for the existing user...
+				user = Membership.GetUser( ExistingUserName.Text.Trim() );
+
+				if ( user == null )
+				{
+					AddLoadMessage( "Existing user name is invalid and does not represent a current user in the membership store." );
+					return false;
+				}
+			}
+
+			try
+			{
 				// add administrators and registered if they don't already exist...
 				if ( !Roles.RoleExists( "Administrators" ) )
 				{
