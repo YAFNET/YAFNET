@@ -685,7 +685,7 @@ namespace YAF.Classes.Base
 			{
 				if ( ScriptManager.GetCurrent( Page ) != null )
 				{
-					ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotification", String.Format( "var fpModal = function() {1} ShowModalNotification('{0}'); {2}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadStringJavascript, '{', '}' ), true );
+					ScriptManager.RegisterStartupScript( Page, typeof( ForumPage ), "modalNotification", String.Format( "var fpModal = function() {1} {3}('{0}'); {2}\nSys.Application.remove_load(fpModal);\nSys.Application.add_load(fpModal);\n\n", PageContext.LoadStringJavascript, '{', '}', _errorPopup.ShowModalFunction ), true );
 				}
 			}
 			else
