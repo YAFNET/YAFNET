@@ -632,7 +632,7 @@ begin
 	-- drop the provider user key index if it exists...
 	if exists(select 1 from dbo.sysindexes where name=N'IX_{objectQualifier}User_ProviderUserKey' and id=object_id(N'[{databaseOwner}].[{objectQualifier}User]'))
 	begin
-		DROP INDEX [IX_{objectQualifier}User_ProviderUserKey] ON [{databaseOwner}].[{objectQualifier}User]
+		DROP INDEX [{databaseOwner}].[{objectQualifier}User].[IX_{objectQualifier}User_ProviderUserKey]
 	end
 	-- alter the column
 	ALTER TABLE [{databaseOwner}].[{objectQualifier}User] ALTER COLUMN ProviderUserKey nvarchar(64)
