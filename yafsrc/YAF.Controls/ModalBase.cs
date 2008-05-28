@@ -39,11 +39,13 @@ namespace YAF.Controls
 		public ModalBase()
 			: base()
 		{
-			this.Load += new EventHandler( ModalBase_Load );
+
 		}
 
-		void ModalBase_Load( object sender, EventArgs e )
+		protected override void OnLoad( EventArgs e )
 		{
+			base.OnLoad( e );
+
 			// set localization here...
 			if ( String.IsNullOrEmpty( _okButton.Text ) )
 			{
@@ -55,11 +57,11 @@ namespace YAF.Controls
 			}
 		}
 
-		protected override void OnLoad( EventArgs e )
-		{			
+		protected override void OnInit( EventArgs e )
+		{
 			base.OnInit( e );
 			BuildPopup();
-		}	
+		}
 
 		#region Overridable Modal Generation Functions
 
