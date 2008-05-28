@@ -130,6 +130,7 @@
 /* Area between posts */
 .yafnet .postsep {
 	background-color: #3a3b5a;
+	height: 10px;
 }
 /* most tables are class 'content' */
 .yafnet table.content {
