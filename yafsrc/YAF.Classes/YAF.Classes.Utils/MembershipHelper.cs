@@ -270,11 +270,50 @@ namespace YAF.Classes.Utils
 		public static void UpdateForumUser(MembershipUser user, int pageBoardID)
 		{
 			int nUserID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
-			YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, DBNull.Value);
-			foreach (string role in Roles.GetRolesForUser(user.UserName))
+			// get user groups...
+			DataTable groupTable = YAF.Classes.Data.DB.group_member( pageBoardID, nUserID );
+			string [] roles = Roles.GetRolesForUser( user.UserName );
+
+			// add groups...
+			foreach (string role in roles)
 			{
-				YAF.Classes.Data.DB.user_setrole(pageBoardID, user.ProviderUserKey, role);
+				if ( !GroupInGroupTable( role, groupTable ) )
+				{
+					// add the role...
+					YAF.Classes.Data.DB.user_setrole( pageBoardID, user.ProviderUserKey, role );
+				}
 			}
+			// remove groups...
+			foreach ( DataRow row in groupTable.Rows )
+			{
+				if ( !RoleInRoleArray( row ["Name"].ToString(), roles ) )
+				{
+					// remove since there is no longer an association in the membership...
+					YAF.Classes.Data.DB.usergroup_save( nUserID, row ["GroupID"], 0 );
+				}
+			}
+		}
+
+		public static bool GroupInGroupTable( string groupName, DataTable groupTable )
+		{
+			foreach ( DataRow row in groupTable.Rows )
+			{
+				if ( row ["Name"].ToString() == groupName )
+					return true;
+			}
+
+			return false;
+		}
+
+		public static bool RoleInRoleArray( string roleName, string [] roleArray )
+		{
+			foreach ( string role in roleArray )
+			{
+				if ( role == roleName )
+					return true;
+			}
+
+			return false;
 		}
 	}
 
