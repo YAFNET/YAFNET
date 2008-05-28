@@ -96,7 +96,7 @@ namespace YAF.Classes.Utils
 				forum.TableName = DBAccess.GetObjectName( "Forum" );
 				ds.Tables.Add( forum.Copy() );
 
-				ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"] );
+				ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"], false );
 				ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [DBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
 
 				return ds;
