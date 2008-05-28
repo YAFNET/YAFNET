@@ -279,6 +279,8 @@ namespace YAF.Install
 
 				FixAccess( true );
 
+				int prevVersion = DBVersion;
+
 				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
@@ -290,6 +292,31 @@ namespace YAF.Install
 				// Ederon : 9/7/2007
 				// resync all boards - necessary for propr last post bubbling
 				YAF.Classes.Data.DB.board_resync();
+
+				if ( prevVersion < 30 )
+				{
+					// load default bbcode if available...
+					if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
+					{
+						// import into board...
+						using ( StreamReader bbcodeStream = new StreamReader( Request.MapPath( _bbcodeImport ) ) )
+						{
+							YAF.Classes.Data.Import.DataImport.BBCodeExtensionImport( PageBoardID, bbcodeStream.BaseStream );
+							bbcodeStream.Close();
+						}
+					}
+
+					// load default extensions if available...
+					if ( File.Exists( Request.MapPath( _fileImport ) ) )
+					{
+						// import into board...
+						using ( StreamReader fileExtStream = new StreamReader( Request.MapPath( _fileImport ) ) )
+						{
+							YAF.Classes.Data.Import.DataImport.FileExtensionImport( PageBoardID, fileExtStream.BaseStream );
+							fileExtStream.Close();
+						}
+					}
+				}
 			}
 			catch ( Exception x )
 			{
