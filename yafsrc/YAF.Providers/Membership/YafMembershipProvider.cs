@@ -768,8 +768,16 @@ namespace YAF.Providers.Membership
 
 			if ( currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer( answer ) )
 			{
-				// get a new password salt...
-				if (UseSalt) newPasswordSalt = YafMembershipProvider.GenerateSalt();
+				if ( UseSalt && String.IsNullOrEmpty( currentPasswordInfo.PasswordSalt ) )
+				{
+					// get a new password salt...
+					newPasswordSalt = YafMembershipProvider.GenerateSalt();
+				}
+				else
+				{
+					// use existing salt...
+					newPasswordSalt = currentPasswordInfo.PasswordSalt;
+				}
 				// encode new answer
 				newPasswordAnswer = YafMembershipProvider.EncodeString( answer, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
 				// create a new password
