@@ -180,6 +180,7 @@ namespace YAF.Classes.UI
 		static public void AddSmiles( ref ReplaceRules rules )
 		{
 			DataTable dtSmileys = GetSmilies();
+			int codeOffset = 0;
 
 			foreach ( DataRow row in dtSmileys.Rows )
 			{
@@ -190,18 +191,28 @@ namespace YAF.Classes.UI
 				code = code.Replace( "\"", "&quot;" );
 
 				// add new rules for smilies...
-				rules.AddRule( new SimpleReplaceRule( code.ToLower(),
+				SimpleReplaceRule lowerRule = new SimpleReplaceRule( code.ToLower(),
 																							String.Format(
 																								"<img src=\"{0}\" alt=\"{1}\" />",
 																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
 																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
-																								) ) );
-				rules.AddRule( new SimpleReplaceRule( code.ToUpper(),
+																								) );
+				SimpleReplaceRule upperRule = new SimpleReplaceRule( code.ToUpper(),
 																							String.Format(
 																								"<img src=\"{0}\" alt=\"{1}\" />",
 																								YafBuildLink.Smiley( Convert.ToString( row ["Icon"] ) ),
 																								HttpContext.Current.Server.HtmlEncode( row ["Emoticon"].ToString() )
-																								) ) );
+																								) );
+
+				// increase the rank as we go...
+				lowerRule.RuleRank = lowerRule.RuleRank + codeOffset;
+				upperRule.RuleRank = upperRule.RuleRank + codeOffset;
+
+				rules.AddRule( lowerRule );
+				rules.AddRule( upperRule );
+
+				// add a bit more rank
+				codeOffset++;
 			}
 		}
 
