@@ -159,7 +159,7 @@ namespace YAF.Classes.Utils
 
 				try
 				{
-					using ( DataTable dt = YAF.Classes.Data.DB.mail_list( Thread.CurrentContext.ContextID ) )
+					using ( DataTable dt = YAF.Classes.Data.DB.mail_list( Thread.CurrentThread.GetHashCode() ) )
 					{
 						for ( int i = 0; i < dt.Rows.Count; i++ )
 						{
