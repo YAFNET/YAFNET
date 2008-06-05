@@ -3948,7 +3948,7 @@ begin
 		c.Priority,
 		c.PollID,
 		ForumFlags = d.Flags,
-		FirstMessage = (SELECT TOP 1 [Message] FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = c.TopicID AND mes2.Position = 0)
+		FirstMessage = (SELECT TOP 1 CAST([Message] as nvarchar(1000)) FROM [{databaseOwner}].[{objectQualifier}Message] mes2 where mes2.TopicID = c.TopicID AND mes2.Position = 0)
 	from
 		[{databaseOwner}].[{objectQualifier}Topic] c 
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID 

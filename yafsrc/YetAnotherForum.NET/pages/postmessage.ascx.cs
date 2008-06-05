@@ -532,7 +532,7 @@ namespace YAF.Pages
 			if (IsPostReplyDelay()) return;
 
 			// update the last post time...
-			Mession.LastPost = DateTime.Now;
+			Mession.LastPost = DateTime.Now.AddSeconds(30);
 
 			long nMessageID = 0;
 			bool isNewTopic = false;
@@ -570,7 +570,7 @@ namespace YAF.Pages
 				else
 				{
 					// regular redirect...
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID );
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.posts, "m={0}&#post{0}", nMessageID );
 				}
 			}
 			else

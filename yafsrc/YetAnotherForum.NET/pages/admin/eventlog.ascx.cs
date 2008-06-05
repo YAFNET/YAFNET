@@ -116,12 +116,11 @@ namespace YAF.Pages.Admin
 					Control ctl = e.Item.FindControl("details");
 					// find link button control
 					LinkButton showbutton = e.Item.FindControl("showbutton") as LinkButton;
-
+					// invert visibility
+					ctl.Visible = !ctl.Visible;
 					// change visibility state of detail and label of linkbutton too
-					if (ctl.Visible = !ctl.Visible)
-						showbutton.Text = "Hide";
-					else
-						showbutton.Text = "Show";
+					showbutton.Text = (ctl.Visible) ? "Hide" : "Show";
+
 					break;
 			}
 		}

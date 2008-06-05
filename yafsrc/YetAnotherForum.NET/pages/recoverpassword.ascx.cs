@@ -77,9 +77,6 @@ namespace YAF.Pages // YAF.Pages
 
     protected void PasswordRecovery1_SendingMail( object sender, MailMessageEventArgs e )
     {
-      // we are going to handle the sending of this e-mail
-      e.Cancel = true;
-
       // get the username and password from the body
       string body = e.Message.Body;
 
@@ -107,7 +104,17 @@ namespace YAF.Pages // YAF.Pages
       passwordRetrieval.TemplateParams["{forumlink}"] = String.Format( "{0}", YafForumInfo.ForumURL );
 
 			passwordRetrieval.SendEmail( e.Message.To[0], subject, true );
+
+			// manually set to success...
+			e.Cancel = true;
+			PasswordRecovery1.TabIndex = 3;
     }
+
+		protected void PasswordRecovery1_SendMailError( object sender, SendMailErrorEventArgs e )
+		{
+			// it will fail to send the message...
+			e.Handled = true;
+		}
 
 		protected void PasswordRecovery1_VerifyingUser( object sender, LoginCancelEventArgs e )
 		{			
@@ -155,6 +162,11 @@ namespace YAF.Pages // YAF.Pages
 					YafBuildLink.Redirect( ForumPages.login );
 				}
 			}
+		}
+
+		protected void PasswordRecovery1_AnswerLookupError( object sender, EventArgs e )
+		{
+			PageContext.AddLoadMessageSession( GetText( "QUESTION_FAILURE" ) );
 		}
 }
 }

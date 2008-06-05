@@ -2,7 +2,7 @@
 	Inherits="YAF.Pages.recoverpassword" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div align="center">
-	<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail" OnVerifyingUser="PasswordRecovery1_VerifyingUser">
+	<asp:PasswordRecovery ID="PasswordRecovery1" runat="server" OnSendingMail="PasswordRecovery1_SendingMail" OnVerifyingUser="PasswordRecovery1_VerifyingUser" OnSendMailError="PasswordRecovery1_SendMailError" OnAnswerLookupError="PasswordRecovery1_AnswerLookupError">
 		<UserNameTemplate>
 			<table border="0" cellpadding="1" cellspacing="0" style="border-collapse: collapse">
 				<tr>
@@ -40,8 +40,8 @@
 								</td>
 							</tr>
 						</table>
-						<asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True"
-							ValidationGroup="PasswordRecovery1" ShowSummary="False" />
+						<asp:ValidationSummary ID="ValidationSummary1" runat="server"
+							ValidationGroup="PasswordRecovery1" />
 					</td>
 				</tr>
 			</table>
@@ -101,8 +101,7 @@
 								</td>
 							</tr>
 						</table>
-						<asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="True"
-							ValidationGroup="PasswordRecovery2" ShowSummary="False" />
+						<asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="PasswordRecovery2" ShowSummary="True" />
 					</td>
 				</tr>
 			</table>
