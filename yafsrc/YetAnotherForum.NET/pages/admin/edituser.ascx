@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="uc1" TagName="SuspendEdit" Src="../../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="ResetPasswordEdit" Src="../../controls/EditUsersResetPass.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:AdminMenu runat="server">
     <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
@@ -34,6 +35,11 @@
                 <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
             </ContentTemplate>
         </ajaxToolkit:TabPanel>
+        <ajaxToolkit:TabPanel runat="server" ID="ResetPasswordTab" HeaderText="Reset Password">
+            <ContentTemplate>
+                <uc1:ResetPasswordEdit runat="server" ID="ResetPasswordControl" />
+            </ContentTemplate>
+        </ajaxToolkit:TabPanel>        
         <ajaxToolkit:TabPanel runat="server" ID="PointsTab" HeaderText="User Points">
             <ContentTemplate>
                 <uc1:PointsEdit runat="server" ID="UserPointsControl" />

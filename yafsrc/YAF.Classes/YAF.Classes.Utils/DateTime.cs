@@ -86,8 +86,21 @@ namespace YAF.Classes.Utils
 		public static string FormatDateTimeTopic( object o )
 		{
 			string strDateFormat;
-			DateTime dt = Convert.ToDateTime(o) + TimeOffset;
-			DateTime nt = DateTime.Now + TimeOffset;
+			DateTime dt;
+			DateTime nt;
+
+
+			try
+			{
+				dt = Convert.ToDateTime( o ) + TimeOffset;
+			}
+			catch
+			{
+				// failed convert...
+				return "[error]";
+			}
+			
+			nt = DateTime.Now + TimeOffset;
 
 			try
 			{

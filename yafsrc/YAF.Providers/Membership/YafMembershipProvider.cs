@@ -128,7 +128,7 @@ namespace YAF.Providers.Membership
 
 			// copy password to hash buffer + salt
 			System.Buffer.BlockCopy( unencodedBytes, 0, buffer, 0, unencodedBytes.Length );
-			if ( useSalt ) System.Buffer.BlockCopy( saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length );			
+			if ( useSalt ) System.Buffer.BlockCopy( saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length );
 
 			// Check Encoding format / method
 			switch ( passwordFormat )
@@ -397,7 +397,7 @@ namespace YAF.Providers.Membership
 				return false;
 
 			// generate a salt if desired...
-			if (UseSalt) newPasswordSalt = YafMembershipProvider.GenerateSalt();
+			if ( UseSalt ) newPasswordSalt = YafMembershipProvider.GenerateSalt();
 			// encode new password
 			newEncPassword = YafMembershipProvider.EncodeString( newPassword, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
 
@@ -519,12 +519,12 @@ namespace YAF.Providers.Membership
 				return null;
 			}
 
-			if (UseSalt) salt = YafMembershipProvider.GenerateSalt();
+			if ( UseSalt ) salt = YafMembershipProvider.GenerateSalt();
 			pass = YafMembershipProvider.EncodeString( password, ( int )this.PasswordFormat, salt, this.UseSalt );
 			// Encode Password Answer
 			string encodedPasswordAnswer = YafMembershipProvider.EncodeString( passwordAnswer, ( int )this.PasswordFormat, salt, this.UseSalt );
 			// Process database user creation request
-      DB.CreateUser(this.ApplicationName, username, pass, salt, (int)this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
+			DB.CreateUser( this.ApplicationName, username, pass, salt, ( int )this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey );
 
 			status = MembershipCreateStatus.Success;
 
@@ -760,13 +760,13 @@ namespace YAF.Providers.Membership
 				ExceptionReporter.ThrowNotSupported( "MEMBERSHIP", "RESETNOTSUPPORTED" );
 
 			// Check arguments for null values
-			if ( ( username == null ) || ( answer == null ) )
+			if ( username == null )
 				ExceptionReporter.ThrowArgument( "MEMBERSHIP", "USERNAMEPASSWORDNULL" );
 
 			// get an instance of the current password information class
 			UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB( this.ApplicationName, username, false, this.UseSalt );
 
-			if ( currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer( answer ) )
+			if ( currentPasswordInfo != null )
 			{
 				if ( UseSalt && String.IsNullOrEmpty( currentPasswordInfo.PasswordSalt ) )
 				{
@@ -778,8 +778,13 @@ namespace YAF.Providers.Membership
 					// use existing salt...
 					newPasswordSalt = currentPasswordInfo.PasswordSalt;
 				}
-				// encode new answer
-				newPasswordAnswer = YafMembershipProvider.EncodeString( answer, ( int )this.PasswordFormat, newPasswordSalt, this.UseSalt );
+
+				if ( !String.IsNullOrEmpty( answer ) )
+				{
+					// verify answer is correct...
+					if ( !currentPasswordInfo.IsCorrectAnswer( answer ) ) return null;
+				}
+
 				// create a new password
 				newPassword = YafMembershipProvider.GeneratePassword( this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters );
 				// encode it...
@@ -787,7 +792,7 @@ namespace YAF.Providers.Membership
 				// save to the database
 				DB.ResetPassword( this.ApplicationName, username, newPasswordEnc, newPasswordSalt, ( int )this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow );
 				// Return unencrypted password
-				return newPassword; 
+				return newPassword;
 			}
 
 			return null;

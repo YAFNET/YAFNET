@@ -293,7 +293,7 @@ namespace YAF.Install
 				// resync all boards - necessary for propr last post bubbling
 				YAF.Classes.Data.DB.board_resync();
 
-				if ( prevVersion < 30 )
+				if ( IsForumInstalled && prevVersion < 30 )
 				{
 					// load default bbcode if available...
 					if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
