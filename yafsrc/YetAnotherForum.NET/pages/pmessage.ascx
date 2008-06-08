@@ -47,8 +47,8 @@
 	</tr>
 	<tr>
 		<td class="postfooter" colspan="2" align="center">
-			<asp:Button ID="Save" CssClass="pbutton" runat="server" OnClick="Save_Click" />
 			<asp:Button ID="Preview" CssClass="pbutton" runat="server" OnClick="Preview_Click" />
+			<asp:Button ID="Save" CssClass="pbutton" runat="server" OnClick="Save_Click" />
 			<asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />
 		</td>
 	</tr>
