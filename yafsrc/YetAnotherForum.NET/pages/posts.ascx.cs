@@ -279,7 +279,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				// send new post notification to users watching this topic/forum
 				CreateMail.CreateWatchEmail(nMessageID);
 				// redirect to newly posted message
-				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}&#{0}", nMessageID);
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.posts, "m={0}&#post{0}", nMessageID);
 			}
 			else
 			{
