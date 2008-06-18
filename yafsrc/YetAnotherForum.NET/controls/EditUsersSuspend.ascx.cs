@@ -85,7 +85,7 @@ namespace YAF.Controls
 						return;
 					}
 					// verify the user isn't guest...
-					if ( row ["IsGuest"] != DBNull.Value )
+					if ( row ["IsGuest"] != DBNull.Value && Convert.ToInt32(row["IsGuest"]) == 1 )
 					{
 						PageContext.AddLoadMessage(PageContext.Localization.GetText("PROFILE", "ERROR_GUESTACCOUNT"));
 						return;
