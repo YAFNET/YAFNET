@@ -264,6 +264,9 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 			tFlags.IsHtml = QuickReplyEditor.UsesHTML;
 			tFlags.IsBBCode = QuickReplyEditor.UsesBBCode;
 
+			// Bypass Approval if Admin or Moderator.
+			tFlags.IsApproved = ( PageContext.IsAdmin || PageContext.IsModerator );
+
 			if ( !YAF.Classes.Data.DB.message_save( TopicID, PageContext.PageUserID, msg, null, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID ) )
 				TopicID = 0;
 
