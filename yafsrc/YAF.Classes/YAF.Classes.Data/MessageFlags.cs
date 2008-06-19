@@ -134,6 +134,9 @@ namespace YAF.Classes.Data
 		/// <summary>
 		/// Gets or sets whether message is locked. Locked messages cannot be modified/deleted/replied to.
 		/// </summary>
+		/// <remarks>
+		/// Used for "ghost" posts that don't really exist, such as advertisement posts.
+		/// </remarks>
 		public override bool IsLocked // int value 32
 		{
 			get { return this[5]; }
