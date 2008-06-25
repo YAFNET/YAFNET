@@ -70,6 +70,10 @@ namespace YAF.Pages.Admin
 						PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
 						PageLinks.AddLink( String.Format( "Edit User \"{0}\"", HtmlEncode( userRow ["Name"].ToString() ) ) );
 
+						// do a quick user membership sync...
+						MembershipUser user = UserMembershipHelper.GetMembershipUser( userId );
+						RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
+
 						// everything looks okay -- show the edit tabs...
 						validRequest = true;
 					}
