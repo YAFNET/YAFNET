@@ -829,7 +829,7 @@ namespace YAF.Classes.Utils
 			get
 			{
 				long serverPort = long.Parse( HttpContext.Current.Request.ServerVariables ["SERVER_PORT"] );
-				bool isSecure = ( HttpContext.Current.Request.ServerVariables ["HTTPS"] == "ON" );
+				bool isSecure = ( HttpContext.Current.Request.ServerVariables ["HTTPS"] == "ON" || serverPort == 443 );
 
 				StringBuilder url = new StringBuilder( "http" );
 
