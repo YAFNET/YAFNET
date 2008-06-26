@@ -98,19 +98,26 @@ namespace YAF.Classes.Data
 		/// <returns>Results</returns>
 		static public DataTable GetSearchResult( string toSearchWhat, string toSearchFromWho, SearchWhatFlags searchFromWhoMethod, SearchWhatFlags searchWhatMethod, int forumIDToStartAt, int userID, int boardId, int maxResults, bool useFullText )
 		{
-			// if ( ToSearch.Length == 0 )
-			//	return new DataTable();
+			bool bFirst = true;
+			System.Text.StringBuilder forumIds = new System.Text.StringBuilder();
 
 			if ( toSearchWhat == "*" )
+			{
 				toSearchWhat = "";
-			string forumIDs = "";
+			}		
 
 			if ( forumIDToStartAt != 0 )
 			{
 				DataTable dt = forum_listall_sorted( boardId, userID, null, false, forumIDToStartAt );
+
+				bFirst = true;
 				foreach ( DataRow dr in dt.Rows )
-					forumIDs = forumIDs + Convert.ToString( Convert.ToInt32( dr ["ForumID"] ) ) + ",";
-				forumIDs = forumIDs.Substring( 0, forumIDs.Length - 1 );
+				{
+					if ( bFirst ) bFirst = false;
+					else forumIds.Append( "," );
+
+					forumIds.Append( Convert.ToString( Convert.ToInt32( dr ["ForumID"] ) ) );
+				}
 			}
 
 			// fix quotes for SQL insertion...
@@ -124,7 +131,6 @@ namespace YAF.Classes.Data
 			searchSql += String.Format( "where x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0 ", userID );
 
 			string [] words;
-			bool bFirst;
 
 			if ( !String.IsNullOrEmpty( toSearchFromWho ) )
 			{
@@ -230,9 +236,9 @@ namespace YAF.Classes.Data
 			}
 
 			// Ederon : 6/16/2007 - forum IDs start above 0, if forum id is 0, there is no forum filtering
-			if ( forumIDToStartAt > 0 )
+			if ( forumIDToStartAt > 0 && forumIds.Length > 0 )
 			{
-				searchSql += string.Format( "AND a.ForumID IN ({0})", forumIDs );
+				searchSql += string.Format( "AND a.ForumID IN ({0})", forumIds.ToString() );
 			}
 
 			searchSql += " ORDER BY c.Posted DESC";
