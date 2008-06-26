@@ -186,7 +186,7 @@ namespace YAF.Controls
 			{
 				output.WriteBeginTag( "span" );
 				output.WriteAttribute( "class", "pagelink" );
-				output.Write( HtmlTextWriter.SelfClosingTagEnd );
+				output.Write( HtmlTextWriter.TagRightChar );
 
 				this.RenderAnchorBegin( output, GetLinkUrl( CurrentPageIndex, postBack ), null, "Prev Page" );
 

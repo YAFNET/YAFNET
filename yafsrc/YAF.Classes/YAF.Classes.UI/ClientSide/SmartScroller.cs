@@ -80,9 +80,6 @@ namespace YAF.Classes.UI
 			this.Controls.Add(_hidScrollTop);						
 	
 			string scriptString = @"
-<!-- YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->
-<script language = ""javascript"" type=""text/javascript"">
-<!--
 
   function yaf_GetForm()
   {
@@ -130,6 +127,17 @@ namespace YAF.Classes.UI
 		if (x || y) window.scrollTo(x, y);
 		if (oldOnLoad != null) oldOnLoad();
   }
+
+	function yaf_SmartScroller_Reset()
+	{
+    var cForm = yaf_GetForm();
+    var x = cForm." + _hidScrollLeft.ClientID + @".value;
+    var y = cForm." + _hidScrollTop.ClientID + @".value;
+		if ( x ) x = 0;
+		if ( y ) y = 0;		
+		// force change...
+		window.scrollTo(0,0);		
+	}
 	
 	var oldOnLoad = window.onload;
   
@@ -137,18 +145,28 @@ namespace YAF.Classes.UI
   window.onscroll = yaf_SmartScroller_GetCoords;
   window.onclick = yaf_SmartScroller_GetCoords;
   window.onkeypress = yaf_SmartScroller_GetCoords;
-// -->
-</script>
-<!-- End YAF.Classes.UI.SmartScroller ASP.NET Generated Code -->";
 
-	
-			Page.ClientScript.RegisterStartupScript(Page.GetType(),"SmartScroller", scriptString);
+";
+
+
+			ScriptManager.RegisterStartupScript( Page, Page.GetType(), "SmartScroller", scriptString, true );
 		}
 
 		protected override void Render(HtmlTextWriter writer)
 		{
 			Page.VerifyRenderingInServerForm(this);
 			base.Render(writer);
+		}
+
+		public void RegisterStartupReset()
+		{
+			Reset();
+			string script = @"
+
+				Sys.WebForms.PageRequestManager.getInstance().add_endRequest(yaf_SmartScroller_Reset);
+
+			";
+			ScriptManager.RegisterStartupScript( Page, Page.GetType(), "SmartScrollerReset", script, true );
 		}
 
 		public void Reset()
