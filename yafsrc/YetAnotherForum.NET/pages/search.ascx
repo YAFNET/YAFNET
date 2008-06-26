@@ -50,9 +50,10 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
     </Triggers>
     <ContentTemplate>
         <YAF:Pager runat="server" ID="Pager" />
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
+        
             <asp:Repeater ID="SearchRes" runat="server">
                 <HeaderTemplate>
+                    <table class="content" cellspacing="1" cellpadding="0" width="100%">
                     <tr>
                         <td class="header1" colspan="2">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
@@ -126,9 +127,11 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                         <td class="footer1" colspan="2">
                             &nbsp;</td>
                     </tr>
+                    </table>
                 </FooterTemplate>
             </asp:Repeater>
             <asp:PlaceHolder ID="NoResults" runat="Server" Visible="false">
+                <table class="content" cellspacing="1" cellpadding="0" width="100%">
                 <tr>
                     <td class="header1" colspan="2">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="RESULTS" />
@@ -145,8 +148,8 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
                     <td class="footer1" colspan="2">
                         &nbsp;</td>
                 </tr>
+                </table>
             </asp:PlaceHolder>
-        </table>
         <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" />
     </ContentTemplate>
 </asp:UpdatePanel>

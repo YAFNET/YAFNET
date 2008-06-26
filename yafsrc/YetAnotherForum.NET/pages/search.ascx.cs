@@ -148,7 +148,7 @@ namespace YAF.Pages // YAF.Pages
 
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
-			SmartScroller1.Reset();
+			SmartScroller1.RegisterStartupReset();
 			BindData( false );
 		}
 
@@ -245,6 +245,7 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void btnSearch_Click( object sender, System.EventArgs e )
 		{
+			SearchUpdatePanel.Visible = true;
 			BindData( true );
 		}
 
