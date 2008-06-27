@@ -565,6 +565,11 @@ BEGIN
 	-- drop the old column
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] drop column IsRead
 	
+	-- Verify flags isn't NULL
+	grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
+	exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = 1 WHERE Flags IS NULL')
+	revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
+	
 	-- add new calculated columns	
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsRead] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))

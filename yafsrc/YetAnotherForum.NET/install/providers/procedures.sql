@@ -301,7 +301,7 @@ BEGIN
     
 	CREATE TABLE #RowNumber (RowNumber int IDENTITY (1, 1),  UserID nvarchar(64))
 	
-	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID AND m.UsernameLwd = LOWER(@Username)
+	INSERT INTO #RowNumber (UserID) SELECT m.UserID FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN [{databaseOwner}].[{objectQualifier}prov_Application] a ON m.ApplicationID = a.ApplicationID WHERE a.ApplicationID = @ApplicationID AND m.UsernameLwd LIKE '%' + LOWER(@Username) + '%'
 
 	SELECT m.*, r.RowNumber FROM [{databaseOwner}].[{objectQualifier}prov_Membership] m INNER JOIN #RowNumber r ON m.UserID = r.UserID WHERE r.RowNumber >= @PagingLowerBoundary AND r.RowNumber <= @PagingUpperBoundary;
     
