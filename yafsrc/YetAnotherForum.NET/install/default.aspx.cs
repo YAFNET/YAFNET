@@ -188,18 +188,20 @@ namespace YAF.Install
 							if ( appSettings.Settings ["configPassword"] == null )
 								appSettings.Settings.Remove( "configPassword" );
 
-							appSettings.Settings.Add( "configPassword", System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox1.Text, "md5" ) );
+							appSettings.Settings.Add( "configPassword", TextBox1.Text );
 							config.Save( ConfigurationSaveMode.Modified );
 							e.Cancel = false;
 						}
 						catch
 						{
-							throw new Exception( "Unable to save the configPassword. Please verify that the ASPNET user has write access permissions to the app.config file." );
-						}
+							// just a warning now...
+							throw new Exception( "Cannot save the configPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"configPassword\" key with a plaintext password and try again." );
+						}					
 
 						break;
 					case 1:
-						if ( ConfigurationManager.AppSettings ["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) )
+						if (	ConfigurationManager.AppSettings ["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
+									ConfigurationManager.AppSettings ["configPassword"] == TextBox3.Text )
 							e.Cancel = false;
 						else
 							AddLoadMessage( "Wrong password!" );
@@ -260,7 +262,7 @@ namespace YAF.Install
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["configPassword"] != null;
+				return !String.IsNullOrEmpty( ConfigurationManager.AppSettings ["configPassword"] );
 			}
 		}
 		#endregion
