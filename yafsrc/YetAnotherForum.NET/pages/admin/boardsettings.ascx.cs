@@ -66,11 +66,27 @@ namespace YAF.Pages.Admin
 
 				BindData();
 
-				Theme.Items.FindByValue( PageContext.BoardSettings.Theme ).Selected = true;
-				Language.Items.FindByValue( PageContext.BoardSettings.Language ).Selected = true;
-				ShowTopic.Items.FindByValue( PageContext.BoardSettings.ShowTopicsDefault.ToString() ).Selected = true;
+				SetSelectedOnList( ref Theme, PageContext.BoardSettings.Theme );
+				SetSelectedOnList( ref Language, PageContext.BoardSettings.Language );
+				SetSelectedOnList( ref ShowTopic, PageContext.BoardSettings.ShowTopicsDefault.ToString() );
+				SetSelectedOnList( ref FileExtensionAllow, PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1" );
+
 				AllowThemedLogo.Checked = PageContext.BoardSettings.AllowThemedLogo;
-				FileExtensionAllow.Items.FindByValue( PageContext.BoardSettings.FileExtensionAreAllowed ? "0" : "1" ).Selected = true;
+			}
+		}
+
+		private void SetSelectedOnList( ref DropDownList list, string value )
+		{
+			ListItem selItem = list.Items.FindByValue( value );
+
+			if ( selItem != null )
+			{
+				selItem.Selected = true;
+			}
+			else if ( list.Items.Count > 0 ) 
+			{
+				// select the first...
+				list.SelectedIndex = 0;
 			}
 		}
 
