@@ -181,7 +181,7 @@ namespace YAF.Classes.UI
 				ruleEngine.AddRule(
 					new VariableRegexReplaceRule(
 						_rgxUrl1,
-						"<a {0} {1} href=\"${http}${innertrunc}\" title=\"${http}${inner}\">${http}${inner}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
+						"<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 						_options,
 						new string [] { "http" },
 						new string [] { "", "http://" },
