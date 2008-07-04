@@ -185,10 +185,13 @@ namespace YAF.Install
 							Configuration config = WebConfigurationManager.OpenWebConfiguration( "~/" );
 							AppSettingsSection appSettings = config.GetSection( "appSettings" ) as AppSettingsSection;
 
-							if ( appSettings.Settings ["configPassword"] == null )
+							if ( appSettings.Settings ["configPassword"] != null )
+							{
 								appSettings.Settings.Remove( "configPassword" );
-
+							}
+							
 							appSettings.Settings.Add( "configPassword", TextBox1.Text );
+
 							config.Save( ConfigurationSaveMode.Modified );
 							e.Cancel = false;
 						}
