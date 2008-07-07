@@ -96,6 +96,10 @@
 .yafnet .postfooter {
 	background-color: #cdcdcd;
 }
+.yafnet .postfooter .editedinfo {
+	color:#FF0000;
+	font-weight:bold;
+}
 .yafnet .postsep {
 	background-color: #555555;
 	height: 1px;

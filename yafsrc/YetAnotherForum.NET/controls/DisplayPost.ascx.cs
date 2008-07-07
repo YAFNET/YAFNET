@@ -139,7 +139,7 @@ namespace YAF.Controls
 					// message has been edited
 					// show, why the post was edited or deleted?
 					string whoChanged = (Convert.ToBoolean(DataRow["IsModeratorChanged"])) ? PageContext.Localization.GetText("EDITED_BY_MOD") : PageContext.Localization.GetText("EDITED_BY_USER");
-					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"" style=""color:red;font-weight:bold"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafDateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
+					AdminInformation.InnerHtml += String.Format(@"| <span class=""editedinfo"">{0} {1}:</span> {2}", PageContext.Localization.GetText("EDITED"), whoChanged, YafDateTime.FormatDateTimeShort(Convert.ToDateTime(DataRow["Edited"])));
 					if ( Server.HtmlDecode( Convert.ToString( DataRow ["EditReason"] ) ) != "" )
 					{
 						// reason was specified

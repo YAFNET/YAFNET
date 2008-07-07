@@ -117,6 +117,10 @@
 .yafnet .postfooter {
     background-color: #D1DCEB;
 }
+.yafnet .postfooter .editedinfo {
+	color:#FF0000;
+	font-weight:bold;
+}
 /* Area between posts */
 .yafnet .postsep {
 	background-color: #8394B2;
