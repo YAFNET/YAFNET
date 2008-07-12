@@ -205,8 +205,8 @@ namespace YAF.Classes.UI
 																								) );
 
 				// increase the rank as we go...
-				lowerRule.RuleRank = lowerRule.RuleRank + codeOffset;
-				upperRule.RuleRank = upperRule.RuleRank + codeOffset;
+				lowerRule.RuleRank = lowerRule.RuleRank + 100 + codeOffset;
+				upperRule.RuleRank = upperRule.RuleRank + 100 + codeOffset;
 
 				rules.AddRule( lowerRule );
 				rules.AddRule( upperRule );
@@ -288,7 +288,7 @@ namespace YAF.Classes.UI
 
 				VariableRegexReplaceRule url =
 					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;,]*)?)",
+						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?+%#&=;:,]*)?)",
 						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 						_options,
 						new string [] { "before" },
@@ -301,7 +301,7 @@ namespace YAF.Classes.UI
 
 				url =
 					new VariableRegexReplaceRule(
-						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,#~$]*[^.<])?)",
+						@"(?<before>^|[ ]|<br/>)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~$]*[^.<])?)",
 						"${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
 						_options,
 						new string [] { "before" },
