@@ -38,6 +38,7 @@ namespace YAF.Classes.Utils
 		private YAF.Classes.Utils.YafTheme _theme = null;
 		private YAF.Classes.Utils.YafLocalization _localization = null;
 		private System.Web.Security.MembershipUser _user = null;
+		private QueryStringIDHelper _queryStringIdHelper = null;
 		private string _loadString = "";
 		private string _adminLoadString = "";
 		private UserFlags _userFlags = null;
@@ -217,6 +218,18 @@ namespace YAF.Classes.Utils
 			set
 			{
 				_user = value;
+			}
+		}
+
+		public QueryStringIDHelper QueryIDs
+		{
+			get
+			{
+				return _queryStringIdHelper;
+			}
+			set
+			{
+				_queryStringIdHelper = value;
 			}
 		}
 

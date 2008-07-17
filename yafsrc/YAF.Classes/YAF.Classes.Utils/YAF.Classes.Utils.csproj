@@ -66,6 +66,7 @@
     <Compile Include="URLBuilder\URLBuilderRewrite.cs" />
     <Compile Include="URLBuilder\UrlParser.cs" />
     <Compile Include="UserProfile.cs" />
+    <Compile Include="QueryStringIDHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
