@@ -534,18 +534,6 @@ end
 GO
 
 -- UserPMessage Table
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsInOutbox')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsInOutbox	bit not null default (1)
-end
-GO
-
-if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] add IsArchived	bit not null default (0)
-end
-GO
-
 if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='Flags')
 begin
 	-- add new "Flags" field to UserPMessage
@@ -555,25 +543,27 @@ GO
 
 if exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsRead')
 BEGIN
-	if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsInOutbox')
+	if not exists (select 1 from dbo.syscolumns where id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='IsArchived')
 	BEGIN	
-	-- Copy "IsRead" value over
-	grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
-	exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = IsRead')
-	revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
-	
-	-- drop the old column
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] drop column IsRead
-	
-	-- Verify flags isn't NULL
-	grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
-	exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = 1 WHERE Flags IS NULL')
-	revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
-	
-	-- add new calculated columns	
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsRead] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
-	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
+		-- Copy "IsRead" value over
+		grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
+		exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = IsRead')
+		revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
+		GO
+		
+		-- drop the old column
+		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] drop column IsRead
+		GO
+		
+		-- Verify flags isn't NULL
+		grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
+		exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = 1 WHERE Flags IS NULL')
+		revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
+		
+		-- add new calculated columns	
+		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsRead] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
+		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
 	END
 END
 GO
