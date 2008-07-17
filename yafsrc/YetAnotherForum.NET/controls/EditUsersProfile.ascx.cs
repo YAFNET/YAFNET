@@ -39,9 +39,11 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( AdminEditMode && PageContext.IsAdmin && Request.QueryString ["u"] != null )
+			PageContext.QueryIDs = new QueryStringIDHelper( "u" );
+
+			if ( AdminEditMode && PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey( "u" ) )
 			{
-				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
+				CurrentUserID = ( int )this.PageContext.QueryIDs ["u"];
 			}
 			else
 			{

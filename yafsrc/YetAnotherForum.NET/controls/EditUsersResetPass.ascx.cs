@@ -34,13 +34,21 @@ namespace YAF.Controls
 {
 	public partial class EditUsersResetPass : YAF.Classes.Base.BaseUserControl
 	{
-		private int CurrentUserID;
+		public long CurrentUserID
+		{
+			get
+			{
+				return this.PageContext.QueryIDs ["u"];
+			}
+		}
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
-			if ( PageContext.IsAdmin && Request.QueryString ["u"] != null )
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
+			if ( !PageContext.IsAdmin )
 			{
-				CurrentUserID = Convert.ToInt32( Request.QueryString ["u"] );
+				YafBuildLink.AccessDenied();
 			}
 
 			if ( !IsPostBack )

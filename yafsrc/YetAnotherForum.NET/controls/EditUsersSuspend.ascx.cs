@@ -32,6 +32,14 @@ namespace YAF.Controls
 {
 	public partial class EditUsersSuspend : YAF.Classes.Base.BaseUserControl
 	{
+		protected long CurrentUserID
+		{
+			get
+			{
+				return this.PageContext.QueryIDs ["u"];
+			}
+		}
+
 		#region Event Handlers
 
 		/// <summary>
@@ -39,6 +47,9 @@ namespace YAF.Controls
 		/// </summary>
 		protected void Page_Load( object sender, EventArgs e )
 		{
+			// init ids...
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
 			// this needs to be done just once, not during postbacks
 			if ( !IsPostBack )
 			{
@@ -66,7 +77,7 @@ namespace YAF.Controls
 		{
 			// Admins can suspend anyone not admins
 			// Forum Moderators can suspend anyone not admin or forum moderator
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null ) )
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
@@ -119,7 +130,7 @@ namespace YAF.Controls
 			}
 
 			// suspend user by calling appropriate method
-			YAF.Classes.Data.DB.user_suspend( Request.QueryString ["u"], suspend );
+			YAF.Classes.Data.DB.user_suspend( CurrentUserID, suspend );
 			// re-bind data
 			BindData();
 		}
@@ -131,7 +142,7 @@ namespace YAF.Controls
 		protected void RemoveSuspension_Click( object sender, System.EventArgs e )
 		{
 			// un-suspend user
-			YAF.Classes.Data.DB.user_suspend( Request.QueryString ["u"], null );
+			YAF.Classes.Data.DB.user_suspend( CurrentUserID, null );
 			// re-bind data
 			BindData();
 		}
@@ -147,7 +158,7 @@ namespace YAF.Controls
 		private void BindData()
 		{
 			// get user's info
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null ) )
 			{
 				// there is no such user
 				if ( dt.Rows.Count < 1 ) YafBuildLink.AccessDenied(/*No such user exists*/);

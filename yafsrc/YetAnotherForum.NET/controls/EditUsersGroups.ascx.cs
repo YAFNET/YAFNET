@@ -38,9 +38,12 @@ namespace YAF.Controls
 		/// <summary>
 		/// Gets user ID of edited user.
 		/// </summary>
-		protected int ThisUserID
+		protected int CurrentUserID
 		{
-			get { return int.Parse(Request.QueryString["u"]); }
+			get
+			{
+				return ( int )this.PageContext.QueryIDs ["u"];
+			}
 		}
 		
 		#endregion
@@ -53,6 +56,8 @@ namespace YAF.Controls
 		/// </summary>
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
 			// this needs to be done just once, not during postbacks
 			if (!IsPostBack)
 			{
@@ -96,13 +101,13 @@ namespace YAF.Controls
 				bool isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
 
 				// save user in role
-				DB.usergroup_save(ThisUserID, roleID, isChecked);
+				DB.usergroup_save(CurrentUserID, roleID, isChecked);
 
 				// update roles if this user isn't the guest
-				if (!UserMembershipHelper.IsGuestUser(ThisUserID))
+				if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
 				{
 					// get user's name
-					string userName = UserMembershipHelper.GetUserNameFromID(ThisUserID);
+					string userName = UserMembershipHelper.GetUserNameFromID(CurrentUserID);
 
 					// add/remove user from roles in membership provider
 					if (isChecked && !Roles.IsUserInRole(userName, roleName))
@@ -129,7 +134,7 @@ namespace YAF.Controls
 		private void BindData()
 		{
 			// get user roles
-			UserGroups.DataSource = DB.group_member(PageContext.PageBoardID, ThisUserID);
+			UserGroups.DataSource = DB.group_member(PageContext.PageBoardID, CurrentUserID);
 
 			// bind data to controls
 			DataBind();

@@ -33,8 +33,21 @@ namespace YAF.Controls
 {
   public partial class EditUsersInfo : YAF.Classes.Base.BaseUserControl
   {
+		/// <summary>
+		/// Gets user ID of edited user.
+		/// </summary>
+		protected int CurrentUserID
+		{
+			get
+			{
+				return ( int )this.PageContext.QueryIDs ["u"];
+			}
+		}
+
 	  protected void Page_Load(object sender, EventArgs e)
 	  {
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
 		  IsHostAdminRow.Visible = PageContext.IsHostAdmin;
 		  if (!IsPostBack)
 		  {
@@ -49,7 +62,7 @@ namespace YAF.Controls
       RankID.DataTextField = "Name";
 			RankID.DataBind();
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null ) )
+			using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null ) )
 			{
 				DataRow row = dt.Rows [0];
 				UserFlags userFlags = new UserFlags( row ["Flags"] );
@@ -85,7 +98,7 @@ namespace YAF.Controls
         }
       }
 
-      YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, Request.QueryString ["u"], Name.Text, Email.Text, IsHostAdminX.Checked, IsGuestX.Checked, IsCaptchaExcluded.Checked, RankID.SelectedValue );
+      YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, IsHostAdminX.Checked, IsGuestX.Checked, IsCaptchaExcluded.Checked, RankID.SelectedValue );
 			BindData();
     }
   }

@@ -36,6 +36,8 @@ namespace YAF.Controls
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
+			PageContext.QueryIDs = new QueryStringIDHelper( "u" );
+
 			_sig.BaseDir = YafForumInfo.ForumRoot + "editors";
 			_sig.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
 
@@ -123,13 +125,13 @@ namespace YAF.Controls
 		{
 			get
 			{
-				if ( InAdminPages && PageContext.IsAdmin && Request.QueryString ["u"] != null )
+				if ( InAdminPages && PageContext.IsAdmin && PageContext.QueryIDs.ContainsKey( "u" ) )
 				{
-					return Convert.ToInt32( Request.QueryString ["u"] );
+					return (int)PageContext.QueryIDs ["u"];
 				}
-				else if ( InModeratorMode && ( PageContext.IsAdmin || PageContext.IsModerator ) && Request.QueryString ["u"] != null )
+				else if ( InModeratorMode && ( PageContext.IsAdmin || PageContext.IsModerator ) && PageContext.QueryIDs.ContainsKey( "u" ) )
 				{
-					return Convert.ToInt32( Request.QueryString ["u"] );
+					return (int)PageContext.QueryIDs ["u"];
 				}
 				else
 				{

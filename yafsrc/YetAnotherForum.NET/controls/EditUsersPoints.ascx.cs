@@ -26,13 +26,27 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
 	public partial class EditUsersPoints : YAF.Classes.Base.BaseUserControl
 	{
+		/// <summary>
+		/// Gets user ID of edited user.
+		/// </summary>
+		protected int CurrentUserID
+		{
+			get
+			{
+				return ( int )this.PageContext.QueryIDs ["u"];
+			}
+		}
+
 		protected void Page_Load( object sender, EventArgs e )
 		{
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
 			if ( !IsPostBack )
 			{
 				BindData();
@@ -41,14 +55,14 @@ namespace YAF.Controls
 
 		private void BindData()
 		{
-			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints( Request.QueryString.Get( "u" ) ).ToString();
+			ltrCurrentPoints.Text = YAF.Classes.Data.DB.user_getpoints( CurrentUserID ).ToString();
 		}
 
 		protected void AddPoints_Click( object sender, EventArgs e )
 		{
 			if ( Page.IsValid )
 			{
-				YAF.Classes.Data.DB.user_addpoints( Request.QueryString.Get( "u" ), txtAddPoints.Text );
+				YAF.Classes.Data.DB.user_addpoints( CurrentUserID, txtAddPoints.Text );
 				BindData();
 			}
 		}
@@ -57,7 +71,7 @@ namespace YAF.Controls
 		{
 			if ( Page.IsValid )
 			{
-				YAF.Classes.Data.DB.user_removepoints( Request.QueryString.Get( "u" ), txtRemovePoints.Text );
+				YAF.Classes.Data.DB.user_removepoints( CurrentUserID, txtRemovePoints.Text );
 				BindData();
 			}
 		}
@@ -66,7 +80,7 @@ namespace YAF.Controls
 		{
 			if ( Page.IsValid )
 			{
-				YAF.Classes.Data.DB.user_setpoints( Request.QueryString.Get( "u" ), txtUserPoints.Text );
+				YAF.Classes.Data.DB.user_setpoints( CurrentUserID, txtUserPoints.Text );
 				BindData();
 			}
 		}
