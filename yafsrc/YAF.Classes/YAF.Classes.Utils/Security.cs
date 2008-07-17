@@ -39,11 +39,7 @@ namespace YAF.Classes.Utils
 		{
 			long value = 0;
 
-			try
-			{
-				value = long.Parse(longValue);
-			}
-			catch
+			if ( !long.TryParse( longValue, out value ) )
 			{
 				// it's an invalid request. Redirect to the info page on invalid requests.
 				YafBuildLink.Redirect(ForumPages.info, "i=6");
