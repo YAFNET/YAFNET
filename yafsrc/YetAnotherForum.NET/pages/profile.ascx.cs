@@ -126,10 +126,10 @@ namespace YAF.Pages // YAF.Pages
 
 			// homepage link
 			Home.Visible = !String.IsNullOrEmpty( userData.Profile.Homepage );
-			Home.NavigateUrl = userData.Profile.Homepage;
+			Home.NavigateUrl = userData.Profile.Homepage.Replace("\"","");
 
 			Blog.Visible = !String.IsNullOrEmpty( userData.Profile.Blog );
-			Blog.NavigateUrl = userData.Profile.Blog;
+			Blog.NavigateUrl = userData.Profile.Blog.Replace( "\"", "" );
 
 			MSN.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.MSN ) );
 			MSN.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
