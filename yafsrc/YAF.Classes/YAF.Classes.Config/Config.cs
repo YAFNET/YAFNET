@@ -121,6 +121,14 @@ namespace YAF.Classes
 			}
 		}
 
+		static public bool IsAnyPortal
+		{
+			get
+			{
+				return ( IsDotNetNuke || IsRainbow || IsPortal );
+			}
+		}
+
 		static public IUrlBuilder UrlBuilder
 		{
 			get

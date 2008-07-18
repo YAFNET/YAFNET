@@ -137,7 +137,11 @@ namespace YAF.Controls
 				if ( !PageContext.IsGuest )
 					buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.cp_profile ), PageContext.Localization.GetText( "TOOLBAR", "MYPROFILE" ) ) );
 				if ( General.CheckPermission( PageContext, PageContext.BoardSettings.MembersListViewPermissions ) ) buildHeader.AppendFormat( String.Format( "	<a href=\"{0}\">{1}</a> | ", YafBuildLink.GetLink( ForumPages.members ), PageContext.Localization.GetText( "TOOLBAR", "MEMBERS" ) ) );
-				buildHeader.AppendFormat( String.Format( " <a href=\"{0}\" onclick=\"return confirm('{2}');\">{1}</a>", YafBuildLink.GetLink( ForumPages.logout ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT" ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT_QUESTION" ) ) );
+
+				if ( !YAF.Classes.Config.IsAnyPortal )
+				{
+					buildHeader.AppendFormat( String.Format( " <a href=\"{0}\" onclick=\"return confirm('{2}');\">{1}</a>", YafBuildLink.GetLink( ForumPages.logout ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT" ), PageContext.Localization.GetText( "TOOLBAR", "LOGOUT_QUESTION" ) ) );
+				}
 			}
 			else
 			{
@@ -150,11 +154,14 @@ namespace YAF.Controls
 
 				string returnUrl = GetReturnUrl();
 
-				buildHeader.AppendFormat( String.Format( " <a href=\"{0}\">{1}</a>", ( returnUrl == string.Empty ) ? YafBuildLink.GetLink( ForumPages.login ) : YafBuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", returnUrl ), PageContext.Localization.GetText( "TOOLBAR", "LOGIN" ) ) );
-
-				if ( !PageContext.BoardSettings.DisableRegistrations )
+				if ( !YAF.Classes.Config.IsAnyPortal )
 				{
-					buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", ( PageContext.BoardSettings.ShowRulesForRegistration ? YafBuildLink.GetLink( ForumPages.rules ) : YafBuildLink.GetLink( ForumPages.register ) ), PageContext.Localization.GetText( "TOOLBAR", "REGISTER" ) ) );
+					buildHeader.AppendFormat( String.Format( " <a href=\"{0}\">{1}</a>", ( returnUrl == string.Empty ) ? YafBuildLink.GetLink( ForumPages.login ) : YafBuildLink.GetLink( ForumPages.login, "ReturnUrl={0}", returnUrl ), PageContext.Localization.GetText( "TOOLBAR", "LOGIN" ) ) );
+
+					if ( !PageContext.BoardSettings.DisableRegistrations )
+					{
+						buildHeader.AppendFormat( String.Format( " | <a href=\"{0}\">{1}</a>", ( PageContext.BoardSettings.ShowRulesForRegistration ? YafBuildLink.GetLink( ForumPages.rules ) : YafBuildLink.GetLink( ForumPages.register ) ), PageContext.Localization.GetText( "TOOLBAR", "REGISTER" ) ) );
+					}
 				}
 			}
 			buildHeader.AppendFormat( "</td></tr></table>" );
