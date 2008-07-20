@@ -88,15 +88,6 @@ namespace YAF.Controls
 			return HtmlEncode( PageContext.Localization.GetText( text ) );
 		}
 
-		protected string GetArchiveSelectedText()
-		{
-			return GetLocalizedText( "ARCHIVESELECTED" );
-		}
-		protected string GetDeleteSelectedText()
-		{
-			return GetLocalizedText( "DELETESELECTED" );
-		}
-
 		protected string GetMessageUserHeader()
 		{
 			return GetLocalizedText( View == PMView.Outbox ? "to" : "from" );
@@ -231,7 +222,7 @@ namespace YAF.Controls
 
 		protected void DeleteSelected_Load( object sender, EventArgs e )
 		{
-			( ( Button ) sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", PageContext.Localization.GetText( "confirm_delete" ) );
+			( ( ThemeButton ) sender ).Attributes ["onclick"] = String.Format( "return confirm('{0}')", PageContext.Localization.GetText( "confirm_delete" ) );
 		}
 
 		protected void MessagesView_RowCreated( object sender, GridViewRowEventArgs e )

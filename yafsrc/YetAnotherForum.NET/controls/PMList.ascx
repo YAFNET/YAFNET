@@ -52,8 +52,9 @@
             <HeaderTemplate>&nbsp;</HeaderTemplate>
             <ItemTemplate><asp:CheckBox runat="server" ID="ItemCheck" /></ItemTemplate>
             <FooterTemplate>
-                <asp:Button runat="server" ID="ArchiveSelected" Text='<%# GetArchiveSelectedText() %>' OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
-                <asp:Button runat="server" ID="DeleteSelected" OnLoad="DeleteSelected_Load" Text='<%# GetDeleteSelectedText() %>' OnClick="DeleteSelected_Click" />
+                <YAF:ThemeButton runat="server" ID="ArchiveSelected" CssClass="yaflittlebutton" TextLocalizedTag="ARCHIVESELECTED" OnClick="ArchiveSelected_Click" Visible="<%#this.View == PMView.Inbox %>" />
+                <br />
+                <YAF:ThemeButton runat="server" ID="DeleteSelected" CssClass="yaflittlebutton" TextLocalizedTag="DELETESELECTED" OnLoad="DeleteSelected_Load" OnClick="DeleteSelected_Click" />
             </FooterTemplate>
             <HeaderStyle Width="125px" />
             <ItemStyle Width="125px" HorizontalAlign="Center" />
