@@ -125,16 +125,12 @@ namespace YAF.Pages // YAF.Pages
 			if ( PageContext.IsAdmin ) Email.TitleNonLocalized = userData.Membership.Email;
 
 			// homepage link
-			if ( !String.IsNullOrEmpty( userData.Profile.Homepage ) )
-			{
-				Home.Visible = true;
-				Home.NavigateUrl = userData.Profile.Homepage.Replace("\"","");
-			}
-			if ( !String.IsNullOrEmpty( userData.Profile.Blog ) )
-			{
-				Blog.Visible = true;
-				Blog.NavigateUrl = userData.Profile.Blog.Replace( "\"", "" );
-			}
+			Home.Visible = !String.IsNullOrEmpty( userData.Profile.Homepage );
+			Home.NavigateUrl = userData.Profile.Homepage == null ? "" : userData.Profile.Homepage.Replace( "\"", "" );
+
+			// blog link
+			Blog.Visible = !String.IsNullOrEmpty( userData.Profile.Blog );
+			Blog.NavigateUrl = userData.Profile.Blog == null ? "" : userData.Profile.Blog.Replace( "\"", "" );
 
 			MSN.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.MSN ) );
 			MSN.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
