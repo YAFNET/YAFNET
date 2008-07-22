@@ -67,7 +67,7 @@
 									ErrorMessage="E-mail is required." ToolTip="E-mail is required." ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
 						</tr>
-						<tr>
+						<asp:PlaceHolder runat="server" ID="QuestionAnswerPlaceHolder"><tr>
 							<td align="right" class="postheader">
 								<asp:Label ID="QuestionLabel" runat="server" AssociatedControlID="Question">
 									<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SECURITY_QUESTION" />
@@ -90,22 +90,22 @@
 									ErrorMessage="Security answer is required." ToolTip="Security answer is required."
 									ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
 							</td>
-						</tr>
-						<tr runat="server" id="tr_captcha1" visible="false">
+						</tr></asp:PlaceHolder>
+						<asp:PlaceHolder runat="server" ID="CaptchaPlaceHolder" Visible="false"><tr>
 							<td align="right" class="postheader" valign="top">
 								<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="Captcha_Image" />
 							</td>
 							<td class="post">
 								<asp:Image ID="imgCaptcha" runat="server" /></td>
 						</tr>
-						<tr runat="server" id="tr_captcha2" visible="false">
+						<tr>
 							<td align="right" class="postheader" valign="top">
 								<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="Captcha_Enter" />
 							</td>
 							<td class="post">
 								<asp:TextBox ID="tbCaptcha" runat="server" />
 							</td>
-						</tr>
+						</tr></asp:PlaceHolder>
 						<tr align="right">
 							<td align="center" colspan="2" class="postfooter">
 								<asp:Button ID="StepNextButton" runat="server" CommandName="MoveNext" Text="Create User"

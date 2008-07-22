@@ -105,13 +105,14 @@ namespace YAF.Pages // YAF.Pages
 				{
 					Session["CaptchaImageText"] = General.GetCaptchaString();
 					Image imgCaptcha = (Image)createUserTemplateRef.FindControl("imgCaptcha");
-					HtmlTableRow tr_captcha1 = (HtmlTableRow)createUserTemplateRef.FindControl("tr_captcha1");
-					HtmlTableRow tr_captcha2 = (HtmlTableRow)createUserTemplateRef.FindControl("tr_captcha2");
-
+					PlaceHolder captchaPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "CaptchaPlaceHolder" );
+					
 					imgCaptcha.ImageUrl = String.Format("{0}resource.ashx?c=1", YafForumInfo.ForumRoot);
-					tr_captcha1.Visible = true;
-					tr_captcha2.Visible = true;
+					captchaPlaceHolder.Visible = true;
 				}
+
+				PlaceHolder questionAnswerPlaceHolder = ( PlaceHolder ) createUserTemplateRef.FindControl( "QuestionAnswerPlaceHolder" );
+				questionAnswerPlaceHolder.Visible = Membership.RequiresQuestionAndAnswer;
 
 				CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
 
