@@ -299,7 +299,10 @@ namespace YAF.Classes.Utils
 			foreach ( DataRow row in groupTable.Rows )
 			{
 				if ( row ["Name"].ToString() == groupName )
-					return true;
+				{
+					if ( row ["Member"].ToString() == "1" )
+						return true;
+				}
 			}
 
 			return false;
