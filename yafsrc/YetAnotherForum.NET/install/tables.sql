@@ -549,11 +549,9 @@ BEGIN
 		grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
 		exec('update [{databaseOwner}].[{objectQualifier}UserPMessage] set Flags = IsRead')
 		revoke update on [{databaseOwner}].[{objectQualifier}UserPMessage] from public
-		GO
 		
 		-- drop the old column
 		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] drop column IsRead
-		GO
 		
 		-- Verify flags isn't NULL
 		grant update on [{databaseOwner}].[{objectQualifier}UserPMessage] to public
