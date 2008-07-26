@@ -40,7 +40,7 @@ namespace YAF.Classes
 			url = url.Replace( "&", "&amp;" );
 
 			// return URL to current script with URL from parameter as script's parameter
-			return String.Format( "{0}{1}?{1}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url );
+			return String.Format( "{0}{1}?{2}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url );
 		}
 
 		static public string ScriptName
