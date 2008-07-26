@@ -20,16 +20,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Threading;
+using System.Web.Configuration;
+using YAF.Classes.Utils;
 
 namespace YAF.Classes.Base
 {
 	/// <summary>
-	/// Runs 
+	/// Runs    
 	/// </summary>
 	public class YafInitModule : System.Web.IHttpModule
 	{
-		// Emailing thread
-		private YAF.Classes.Utils.SendMailThread _sendMailThread = null;
 
 		/// <summary>
 		/// Gets ID of board to serve
@@ -53,9 +54,12 @@ namespace YAF.Classes.Base
 
 		void System.Web.IHttpModule.Dispose()
 		{
-			// stop emailing thread if it's not
-			if (_sendMailThread != null)
-				_sendMailThread.StopThread();
+            if (this._timer != null)
+            {
+                System.Diagnostics.Debug.WriteLine("Disposing timer");
+                this._timer.Dispose();
+                this._timer = null;
+            }
 		}
 
 
@@ -64,21 +68,27 @@ namespace YAF.Classes.Base
 			try
 			{
 				// attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
-				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles(BoardID);
-				// start the mail sending thread...
-				if ( _sendMailThread == null )
-				{
-					_sendMailThread = new YAF.Classes.Utils.SendMailThread( context );
-				}
-				// run it for the lifetime of the application... (it checks and sends new e-mail every 10 seconds)
-				_sendMailThread.StartThread();
+				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles(BoardID);                
 			}
 			catch
 			{
 				// do nothing here--upgrading/DB connectivity issues will be handled in ForumPage.cs
 			}
+            // Wes : The timer will use an available thread from the thread pool.            
+            System.Diagnostics.Debug.WriteLine("Initializing mail timer");
+            this._timer = new Timer(new TimerCallback(MailTimerCallback), context.Context.Cache, 10000, 10000);
 		}
 
 		#endregion
-	}
+
+        #region "Mail Timer"
+        private Timer _timer;
+
+        private void MailTimerCallback(object sender)
+        {
+            System.Diagnostics.Debug.WriteLine("MailTimerCallback Invoked");
+            SendMailThread.SendMailThreaded();
+        }
+        #endregion
+    }
 }

@@ -87,7 +87,7 @@ namespace YAF.Classes.Utils
 				if ( _themeXmlDoc == null )
 				{
 					_themeXmlDoc = new XmlDocument();
-					_themeXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, ThemeFile ) ) );
+					_themeXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumFileRoot, ThemeFile ) ) );
 #if !DEBUG
 					System.Web.HttpContext.Current.Cache [ThemeFile] = _themeXmlDoc;
 #endif
@@ -109,7 +109,7 @@ namespace YAF.Classes.Utils
 			if ( themeFile.Length == 0 ) return false;
 			if ( !themeFile.EndsWith( ".xml" ) ) return false;
 
-			return System.IO.File.Exists( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeFile.Trim() ) ) );
+			return System.IO.File.Exists( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}themes/{1}", YafForumInfo.ForumFileRoot, themeFile.Trim() ) ) );
 		}
 
 		public string GetItem( string page, string tag )
@@ -142,7 +142,7 @@ namespace YAF.Classes.Utils
 					return defaultValue;
 				}
 
-				item = node.InnerText.Replace( "~", String.Format( "{0}themes/{1}", YafForumInfo.ForumRoot, themeDir ) );
+				item = node.InnerText.Replace( "~", String.Format( "{0}themes/{1}", YafForumInfo.ForumFileRoot, themeDir ) );
 			}
 
 			return item;
@@ -153,7 +153,7 @@ namespace YAF.Classes.Utils
 			get
 			{
 				LoadThemeFile();
-				return String.Format( "{0}themes/{1}/", YafForumInfo.ForumRoot, _themeXmlDoc.DocumentElement.Attributes ["dir"].Value );
+				return String.Format( "{0}themes/{1}/", YafForumInfo.ForumFileRoot, _themeXmlDoc.DocumentElement.Attributes ["dir"].Value );
 			}
 		}
 

@@ -429,7 +429,7 @@ namespace YAF.Classes.UI
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
-				string inner = _syntaxHighlighter.ColorText( GetInnerValue( m.Groups ["inner"].Value ), HttpContext.Current.Server.MapPath( YafForumInfo.ForumRoot + "defs/" ), m.Groups ["language"].Value );
+				string inner = _syntaxHighlighter.ColorText( GetInnerValue( m.Groups ["inner"].Value ), HttpContext.Current.Server.MapPath( YafForumInfo.ForumFileRoot + "defs/" ), m.Groups ["language"].Value );
 				string tStr = _regExReplace.Replace( "${inner}",  inner );
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text

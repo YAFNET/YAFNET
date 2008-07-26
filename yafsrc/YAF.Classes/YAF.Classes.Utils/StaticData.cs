@@ -76,7 +76,7 @@ namespace YAF.Classes.Utils
 				dt.Columns.Add( "Theme", typeof( string ) );
 				dt.Columns.Add( "FileName", typeof( string ) );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}themes", YafForumInfo.ForumRoot ) ) );
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}themes", YafForumInfo.ForumFileRoot ) ) );
 				System.IO.FileInfo [] files = dir.GetFiles( "*.xml" );
 				foreach ( System.IO.FileInfo file in files )
 				{
@@ -105,7 +105,7 @@ namespace YAF.Classes.Utils
 				dt.Columns.Add( "Language", typeof( string ) );
 				dt.Columns.Add( "FileName", typeof( string ) );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}languages", YafForumInfo.ForumRoot ) ) );
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( System.Web.HttpContext.Current.Request.MapPath( String.Format( "{0}languages", YafForumInfo.ForumFileRoot ) ) );
 				System.IO.FileInfo [] files = dir.GetFiles( "*.xml" );
 				foreach ( System.IO.FileInfo file in files )
 				{

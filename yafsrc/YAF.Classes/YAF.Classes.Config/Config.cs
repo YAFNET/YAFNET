@@ -67,15 +67,19 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["baseurl"] ?? HttpContext.Current.Request.ApplicationPath );
+				return ( ConfigurationManager.AppSettings ["baseurl"] ?? null );
 			}
 		}
 
-		static public string BaseUrlOverrideDomain
+		static public bool BaseUrlOverrideDomain
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["baseurloverridedomain"] ?? "false" );
+				if (	ConfigurationManager.AppSettings ["baseurloverridedomain"] != null && 
+							ConfigurationManager.AppSettings ["baseurloverridedomain"].ToLower() == "true" )
+					return true;
+
+				return false;
 			}
 		}
 

@@ -508,21 +508,23 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueString( "ForumEmail", "" ); }
 			set { _reg.SetValueString( "ForumEmail", value ); }
 		}
-		public string SmtpServer
-		{
-			get { return _reg.GetValueString( "SmtpServer", null ); }
-			set { _reg.SetValueString( "SmtpServer", value ); }
-		}
-		public string SmtpUserName
-		{
-			get { return _reg.GetValueString( "SmtpUserName", null ); }
-			set { _reg.SetValueString( "SmtpUserName", value ); }
-		}
-		public string SmtpUserPass
-		{
-			get { return _reg.GetValueString( "SmtpUserPass", null ); }
-			set { _reg.SetValueString( "SmtpUserPass", value ); }
-		}
+
+        // Wes: Removed
+        //public string SmtpServer
+        //{
+        //    get { return _reg.GetValueString( "SmtpServer", null ); }
+        //    set { _reg.SetValueString( "SmtpServer", value ); }
+        //}
+        //public string SmtpUserName
+        //{
+        //    get { return _reg.GetValueString( "SmtpUserName", null ); }
+        //    set { _reg.SetValueString( "SmtpUserName", value ); }
+        //}
+        //public string SmtpUserPass
+        //{
+        //    get { return _reg.GetValueString( "SmtpUserPass", null ); }
+        //    set { _reg.SetValueString( "SmtpUserPass", value ); }
+        //}
 		public string AcceptedHTML
 		{
 			get { return _reg.GetValueString( "AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address" ); }
@@ -533,12 +535,14 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueString( "AdPost", null ); }
 			set { _reg.SetValueString( "AdPost", value ); }
 		}
-		/* Ederon : 9/9/2007 */
-		public string SmtpServerPort
-		{
-			get { return _reg.GetValue<string>( "SmtpServerPort", null ); }
-			set { _reg.SetValue<string>( "SmtpServerPort", value ); }
-		}
+
+        // Wes:Removed
+        ///* Ederon : 9/9/2007 */
+        //public string SmtpServerPort
+        //{
+        //    get { return _reg.GetValue<string>( "SmtpServerPort", null ); }
+        //    set { _reg.SetValue<string>( "SmtpServerPort", value ); }
+        //}
 		// Ederon : 12/14/2007
 		public string SearchStringPattern
 		{
@@ -585,12 +589,14 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValue<bool>( "AllowEmailTopic", true ); }
 			set { _reg.SetValue<bool>( "AllowEmailTopic", value ); }
 		}
-		/* Ederon : 9/9/2007 */
-		public bool SmtpServerSsl
-		{
-			get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
-			set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
-		}
+
+        // Wes: Removed
+        ///* Ederon : 9/9/2007 */
+        //public bool SmtpServerSsl
+        //{
+        //    get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
+        //    set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
+        //}
 		/* Ederon : 12/9/2007 */
 		public bool RequireLogin
 		{

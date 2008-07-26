@@ -3422,7 +3422,7 @@ namespace YAF.Classes.Data
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public void user_saveavatar( object userID, object avatar, System.IO.Stream stream )
+		static public void user_saveavatar( object userID, object avatar, System.IO.Stream stream, object avatarImageType )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "user_saveavatar" ) )
 			{
@@ -3439,6 +3439,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Avatar", avatar );
 				cmd.Parameters.AddWithValue( "AvatarImage", data );
+				cmd.Parameters.AddWithValue( "AvatarImageType", avatarImageType );
 				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}

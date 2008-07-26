@@ -785,71 +785,104 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class YafForumInfo
 	{
-		private static string _path = null;		
+		private static string _forumFileRoot = null;
+		private static string _forumRoot = null;
 
+		/// <summary>
+		/// The forum path (external).
+		/// May not be the actual URL of the forum.
+		/// </summary>
 		static public string ForumRoot
 		{
 			get
 			{
-				if ( _path == null )
+				if ( _forumRoot == null )
 				{
 					try
 					{
-						_path = HttpContext.Current.Request.ApplicationPath;
+						_forumRoot = UrlBuilder.BaseUrl;
+						if ( !_forumRoot.EndsWith( "/" ) ) _forumRoot += "/";
+					}
+					catch ( Exception )
+					{
+						_forumRoot = "/";
+					}
+				}
 
-						if ( !_path.EndsWith( "/" ) ) _path += "/";
+				return _forumRoot;
+			}			
+		}
+
+		/// <summary>
+		/// The forum path (internal).
+		/// May not be the actual URL of the forum.
+		/// </summary>
+		static public string ForumFileRoot
+		{
+			get
+			{
+				if ( _forumFileRoot == null )
+				{
+					try
+					{
+						_forumFileRoot = HttpContext.Current.Request.ApplicationPath;
+
+						if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
 
 						if ( YAF.Classes.Config.Root != null )
 						{
 							// use specified root
-							_path = YAF.Classes.Config.Root;
+							_forumFileRoot = YAF.Classes.Config.Root;
 
-							if ( _path.StartsWith( "~" ) )
+							if ( _forumFileRoot.StartsWith( "~" ) )
 							{
 								// transform with application path...
-								_path = _path.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+								_forumFileRoot = _forumFileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
 							}
 
-							if ( _path [0] != '/' ) _path = _path.Insert( 0, "/" );
+							if ( _forumFileRoot [0] != '/' ) _forumFileRoot = _forumFileRoot.Insert( 0, "/" );
 						}
 						else if ( YAF.Classes.Config.IsDotNetNuke )
 						{
-							_path += "DesktopModules/YetAnotherForumDotNet/";
+							_forumFileRoot += "DesktopModules/YetAnotherForumDotNet/";
 						}
 						else if ( YAF.Classes.Config.IsRainbow )
 						{
-							_path += "DesktopModules/Forum/";
+							_forumFileRoot += "DesktopModules/Forum/";
 						}
 						else if ( YAF.Classes.Config.IsPortal )
 						{
-							_path += "Modules/Forum/";
+							_forumFileRoot += "Modules/Forum/";
 						}
 
-						if ( !_path.EndsWith( "/" ) ) _path += "/";
+						if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
 					}
 					catch ( Exception )
 					{
-						_path = "/";
+						_forumFileRoot = "/";
 					}
 				}
 
-				return _path;
+				return _forumFileRoot;
 			}
 		}
 
+		/// <summary>
+		/// Server URL based on the server variables. May not actually be 
+		/// the URL of the forum.
+		/// </summary>
 		static public string ServerURL
 		{
 			get
 			{
-				bool overrideDomain = false;
-				bool.TryParse( Config.BaseUrlOverrideDomain, out overrideDomain );
+				StringBuilder url = new StringBuilder();
 
-				if ( !overrideDomain )
+				if ( !Config.BaseUrlOverrideDomain )
 				{
 					long serverPort = long.Parse( HttpContext.Current.Request.ServerVariables ["SERVER_PORT"] );
 					bool isSecure = ( HttpContext.Current.Request.ServerVariables ["HTTPS"] == "ON" || serverPort == 443 );
 
-					StringBuilder url = new StringBuilder( "http" );
+					url.Append( "http" );
 
 					if ( isSecure )
 					{
@@ -861,23 +894,56 @@ namespace YAF.Classes.Utils
 					if ( ( !isSecure && serverPort != 80 ) || ( isSecure && serverPort != 443 ) )
 					{
 						url.AppendFormat( ":{0}", serverPort.ToString() );
-					}
+					}					
+				}
+				else
+				{
+					// pull the domain from BaseUrl...
+					string [] sections = UrlBuilder.BaseUrl.Split( new char [] { '/' } );
 
-					return url.ToString();
+					// add the necessary sections...
+					// http(s)
+					url.Append( sections [0] );
+					url.Append( "//" );
+					url.Append( sections [1] );
+				}
+
+				return url.ToString();
+			}
+		}
+
+		/// <summary>
+		/// Complete external URL of the forum.
+		/// </summary>
+		static public string ForumBaseUrl
+		{
+			get
+			{
+				if ( !Config.BaseUrlOverrideDomain )
+				{
+					return ServerURL + ForumRoot;
 				}
 				else
 				{
 					// just return the base url...
 					return UrlBuilder.BaseUrl;
-				}				
+				}		
 			}
-		}
+		}	
 
 		static public string ForumURL
 		{
 			get
 			{
-				return string.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.forum ) );
+				if ( !Config.BaseUrlOverrideDomain )
+				{
+					return string.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLink( ForumPages.forum ) );
+				}
+				else
+				{
+					// link will include the url and domain...
+					return YafBuildLink.GetLink( ForumPages.forum );
+				}
 			}
 		}
 

@@ -52,6 +52,15 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string ScriptNamePath
+		{
+			get
+			{
+				string scriptName = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
+				return scriptName.Substring( 0, scriptName.LastIndexOf( '/' ) );
+			}
+		}
+
 		static public string BaseUrl
 		{
 			get
@@ -60,7 +69,7 @@ namespace YAF.Classes
 				{
 					try
 					{
-						_baseUrl = HttpContext.Current.Request.ApplicationPath;
+						_baseUrl = ScriptNamePath;
 
 						if ( YAF.Classes.Config.BaseUrl != null )
 						{
@@ -73,9 +82,7 @@ namespace YAF.Classes
 								_baseUrl = _baseUrl.Replace( "~", HttpContext.Current.Request.ApplicationPath );
 							}
 
-							if ( _baseUrl [0] != '/' ) _baseUrl = _baseUrl.Insert( 0, "/" );
-
-							if ( _baseUrl.EndsWith( "/" ) && _baseUrl.Length > 1 )
+							if ( _baseUrl.EndsWith( "/" ) )
 							{
 								// remove ending slash...
 								_baseUrl = _baseUrl.Substring( 0, _baseUrl.LastIndexOf( '/' ) );
