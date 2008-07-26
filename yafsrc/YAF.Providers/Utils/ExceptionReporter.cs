@@ -51,7 +51,7 @@ namespace YAF.Providers.Utils
 			if ( String.IsNullOrEmpty( exceptionFile ) )
 				throw new ApplicationException( "Exceptionfile cannot be null or empty!" );
 			XmlDocument exceptionXmlDoc = new XmlDocument();
-			exceptionXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}resources/{1}", YafForumInfo.ForumRoot, exceptionFile ) ) );
+			exceptionXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}resources/{1}", YafForumInfo.ForumFileRoot, exceptionFile ) ) );
 			return exceptionXmlDoc;
 		}
 
