@@ -411,11 +411,6 @@ namespace YAF.Install
 				AddLoadMessage( "You must enter a forum email address." );
 				return false;
 			}
-			if ( SmptServerAddress.Text.Length == 0 )
-			{
-				AddLoadMessage( "You must enter a smtp server." );
-				return false;
-			}
 
 			MembershipUser user = null;
 
@@ -486,7 +481,7 @@ namespace YAF.Install
 					cmd.Parameters.AddWithValue( "@Name", TheForumName.Text );
 					cmd.Parameters.AddWithValue( "@TimeZone", TimeZones.SelectedItem.Value );
 					cmd.Parameters.AddWithValue( "@ForumEmail", ForumEmailAddress.Text );
-					cmd.Parameters.AddWithValue( "@SmtpServer", SmptServerAddress.Text );
+					cmd.Parameters.AddWithValue( "@SmtpServer", "" );
 					cmd.Parameters.AddWithValue( "@User", user.UserName );
 					cmd.Parameters.AddWithValue( "@UserKey", user.ProviderUserKey );
 					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );

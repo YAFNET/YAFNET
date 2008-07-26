@@ -56,7 +56,7 @@ namespace YAF.Controls
 				if ( Request.QueryString ["av"] != null )
 				{
 					// save the avatar right now...
-					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{2}{0}images/avatars/{1}", YafForumInfo.ForumRoot, Request.QueryString ["av"], YafForumInfo.ServerURL ), null );
+					YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, Request.QueryString ["av"] ), null, null );
 				}
 
 				UpdateRemote.Text = PageContext.Localization.GetText( "COMMON", "UPDATE" );
@@ -146,7 +146,7 @@ namespace YAF.Controls
 				Avatar.Text = "http://" + Avatar.Text;
 		
 			// update
-			YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null );
+			YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, Avatar.Text.Trim(), null, null );
 
 			// clear the URL out...
 			Avatar.Text = "";
@@ -201,9 +201,13 @@ namespace YAF.Controls
 						}
 
 						if ( resized == null )
-							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream );
+						{
+							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, File.PostedFile.InputStream, File.PostedFile.ContentType );
+						}
 						else
-							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized );
+						{
+							YAF.Classes.Data.DB.user_saveavatar( CurrentUserID, null, resized, "image/jpeg" );
+						}
 					}
 				}
 				catch

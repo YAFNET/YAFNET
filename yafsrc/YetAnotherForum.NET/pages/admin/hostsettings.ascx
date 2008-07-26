@@ -604,51 +604,6 @@
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
-                <ajaxToolkit:TabPanel runat="server" ID="SMPTTab">
-                    <ContentTemplate>
-                        <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">
-                            <tr>
-                                <td class="header1" colspan="2">
-                                    SMTP Settings</td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>SMTP Server:</b><br>
-                                    To be able to send posts you need to enter the name of a valid smtp server.</td>
-                                <td class="post">
-                                    <asp:TextBox ID="ForumSmtpServer" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>SMTP Server Port:</b><br>
-                                    Leave blank to use default SMTP port.</td>
-                                <td class="post">
-                                    <asp:TextBox ID="ForumSmtpServerPort" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>Use SSL:</b><br>
-                                    Determines whether conntection with SMTP server is done over SSL encrypted connection.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="ForumSmtpServerSsl" runat="server" />
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>SMTP User Name:</b><br>
-                                    If you need to be authorized to send email.</td>
-                                <td class="post">
-                                    <asp:TextBox ID="ForumSmtpUserName" runat="server"></asp:TextBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>SMTP Password:</b><br>
-                                    If you need to be authorized to send email.</td>
-                                <td class="post">
-                                    <asp:TextBox ID="ForumSmtpUserPass" runat="server" TextMode="Password"></asp:TextBox></td>
-                            </tr>
-                        </table>
-                    </ContentTemplate>
-                </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" ID="TemplatesTab">
                     <ContentTemplate>
                         <table class="content" width="100%" cellspacing="1" cellpadding="0" align="center">

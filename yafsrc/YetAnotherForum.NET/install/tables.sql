@@ -228,11 +228,12 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		IP				nvarchar (15) NULL ,
 		NumPosts		int NOT NULL ,
 		TimeZone		int NOT NULL ,
-		Avatar			nvarchar (255) NULL ,
-		Signature		ntext NULL ,
+		Avatar			nvarchar (255) NULL,
+		Signature		ntext NULL,
 		AvatarImage		image NULL,
-		RankID			int NOT NULL,
-		Suspended		datetime NULL,
+		AvatarImageType	nvarchar (50) NULL,
+		RankID			[int] NOT NULL,
+		Suspended		[datetime] NULL,
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
 		OverrideDefaultThemes	bit NOT NULL CONSTRAINT [DF_{objectQualifier}User_OverrideDefaultThemes] DEFAULT (0),
@@ -646,6 +647,12 @@ GO
 if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Points')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [Points] [int] NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0)
+end
+GO
+
+if not exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AvatarImageType')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [AvatarImageType] nvarchar(50) NULL
 end
 GO
 

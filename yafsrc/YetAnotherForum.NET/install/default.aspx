@@ -67,8 +67,7 @@
 						</p>
 						<p>
 							SMTP Server:<br />
-							<asp:TextBox ID="SmptServerAddress" runat="server" />
-							The name of a smtp server used to send emails.
+							Set SMTP server settings in the mail.config file.
 						</p>
 						<p>
 						    <asp:RadioButtonList ID="UserChoice" runat="server" AutoPostBack="true" OnSelectedIndexChanged="UserChoice_SelectedIndexChanged">

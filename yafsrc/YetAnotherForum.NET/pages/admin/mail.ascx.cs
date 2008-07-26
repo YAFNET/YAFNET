@@ -69,13 +69,13 @@ namespace YAF.Pages.Admin
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
-					//  Send email directly...
-					SendMail.Send( PageContext.BoardSettings.ForumEmail, ( string )row ["Email"], Subject.Text.Trim(), Body.Text.Trim() );
+					// Wes - Changed to use queue to improve scalability
+					SendMail.Queue( PageContext.BoardSettings.ForumEmail, ( string )row ["Email"], Subject.Text.Trim(), Body.Text.Trim() );
 				}
 			}
 			Subject.Text = "";
 			Body.Text = "";
-			PageContext.AddLoadMessage( "Mails sent." );
+			PageContext.AddLoadMessage( "Mails queued." );
 		}
 	}
 }

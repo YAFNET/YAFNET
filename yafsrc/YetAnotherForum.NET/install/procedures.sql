@@ -4356,9 +4356,21 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_avatarimage](@UserID int) as begin
-	select UserID,AvatarImage from [{databaseOwner}].[{objectQualifier}User] where UserID=@UserID
-end
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_avatarimage]
+(
+	@UserID int
+)
+AS
+BEGIN
+	SELECT
+		UserID,
+		AvatarImage,
+		AvatarImageType
+	FROM
+		[{databaseOwner}].[{objectQualifier}User]
+	WHERE
+		UserID = @UserID
+END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
@@ -4456,8 +4468,15 @@ end
 GO
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_deleteavatar](@UserID int) as begin
-	update [{databaseOwner}].[{objectQualifier}User] set AvatarImage = null, Avatar = null where UserID = @UserID
-end
+	UPDATE
+		[{databaseOwner}].[{objectQualifier}User]
+	SET
+		AvatarImage = null,
+		Avatar = null,
+		AvatarImageType = null
+	WHERE
+		UserID = @UserID
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_deleteold](@BoardID int) as
@@ -4766,17 +4785,32 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_saveavatar]
 (
 	@UserID int,
 	@Avatar nvarchar(255) = NULL,
-	@AvatarImage image = NULL
+	@AvatarImage image = NULL,
+	@AvatarImageType nvarchar(50) = NULL
 )
 AS
 BEGIN
 	IF @Avatar IS NOT NULL 
 	BEGIN
-		UPDATE [{databaseOwner}].[{objectQualifier}User] SET Avatar = @Avatar, AvatarImage = null WHERE UserID = @UserID
+		UPDATE
+			[{databaseOwner}].[{objectQualifier}User]
+		SET
+			Avatar = @Avatar,
+			AvatarImage = null,
+			AvatarImageType = null
+		WHERE
+			UserID = @UserID
 	END
 	ELSE IF @AvatarImage IS NOT NULL 
 	BEGIN
-		UPDATE [{databaseOwner}].[{objectQualifier}User] SET AvatarImage = @AvatarImage, Avatar = null WHERE UserID = @UserID
+		UPDATE
+			[{databaseOwner}].[{objectQualifier}User]
+		SET
+			AvatarImage = @AvatarImage,
+			AvatarImageType = @AvatarImageType,
+			Avatar = null
+		WHERE
+			UserID = @UserID
 	END
 END
 

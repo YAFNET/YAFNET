@@ -121,9 +121,13 @@ namespace YAF
                 foreach ( DataRow row in dt.Rows )
                 {
                     byte [] data = ( byte [] )row ["AvatarImage"];
+                    string contentType = row ["AvatarImageType"].ToString();
 
                     context.Response.Clear();
-                    //Response.ContentType = "image/jpg";
+                    if ( !String.IsNullOrEmpty( contentType ) )
+                    {
+                        context.Response.ContentType = contentType;
+                    }
                     context.Response.OutputStream.Write( data, 0, data.Length );
                     break;
                 }

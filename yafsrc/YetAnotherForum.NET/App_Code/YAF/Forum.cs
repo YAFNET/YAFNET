@@ -52,7 +52,7 @@ namespace YAF
 
 		private void Forum_Load( object sender, EventArgs e )
 		{
-			string m_baseDir = YafForumInfo.ForumRoot;
+			string m_baseDir = YafForumInfo.ForumFileRoot;
 
 			if ( Request.QueryString ["g"] != null )
 			{

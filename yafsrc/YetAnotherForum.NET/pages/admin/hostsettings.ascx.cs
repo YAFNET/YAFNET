@@ -60,7 +60,6 @@ namespace YAF.Pages.Admin
 				this.AdvertsTab.HeaderText = "Adverts";
 				this.EditorTab.HeaderText = "Editors";
 				this.PermissionTab.HeaderText = "Permission";
-				this.SMPTTab.HeaderText = "SMTP";
 				this.TemplatesTab.HeaderText = "Templates";
 				this.AvatarsTab.HeaderText = "Avatars";
 				this.CacheTab.HeaderText = "Cache";
@@ -73,9 +72,6 @@ namespace YAF.Pages.Admin
 			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
 			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );			
 			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
-			General.AddStyleAttributeWidth( ForumSmtpServer, "200px" );
-			General.AddStyleAttributeWidth( ForumSmtpUserName, "200px" );
-			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			General.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
 
@@ -90,9 +86,6 @@ namespace YAF.Pages.Admin
 			General.AddStyleAttributeWidth( UserBoxPoints, "200px" );
 			General.AddStyleAttributeWidth( UserBoxRank, "200px" );
 			General.AddStyleAttributeWidth( UserBoxRankImage, "200px" );
-
-			// Ederon : 9/9/2007
-			General.AddStyleAttributeWidth( ForumSmtpServerPort, "30px" );
 			General.AddStyleAttributeSize( AdPost, "400px", "150px" );
 
 			// CheckCache
@@ -110,11 +103,6 @@ namespace YAF.Pages.Admin
 			SQLVersion.Text = PageContext.BoardSettings.SQLVersion;
 			TimeZones.Items.FindByValue( PageContext.BoardSettings.TimeZoneRaw.ToString() ).Selected = true;
 			ForumEditorList.Items.FindByValue( PageContext.BoardSettings.ForumEditor.ToString() ).Selected = true;
-			ForumSmtpServer.Text = PageContext.BoardSettings.SmtpServer;
-			ForumSmtpUserName.Text = PageContext.BoardSettings.SmtpUserName;
-			// since SMTP password is masked, we need to set it using other method
-			//ForumSmtpUserPass.Text = PageContext.BoardSettings.SmtpUserPass;
-			ForumSmtpUserPass.Attributes.Add("value", PageContext.BoardSettings.SmtpUserPass);
 			ForumEmailEdit.Text = PageContext.BoardSettings.ForumEmail;
 			EmailVerification.Checked = PageContext.BoardSettings.EmailVerification;
 			ShowMoved.Checked = PageContext.BoardSettings.ShowMoved;
@@ -187,10 +175,6 @@ namespace YAF.Pages.Admin
 			UserBoxRank.Text = PageContext.BoardSettings.UserBoxRank;
 			UserBoxRankImage.Text = PageContext.BoardSettings.UserBoxRankImage;
 
-			// Ederon : 9/9/2007 added
-			ForumSmtpServerPort.Text = PageContext.BoardSettings.SmtpServerPort;
-			ForumSmtpServerSsl.Checked = PageContext.BoardSettings.SmtpServerSsl;
-
 			// Ederon : 11/21/2007 added
 			ProfileViewPermissions.SelectedIndex = PageContext.BoardSettings.ProfileViewPermissions;
 
@@ -234,9 +218,6 @@ namespace YAF.Pages.Admin
 			// write all the settings back to the settings class
 			PageContext.BoardSettings.TimeZoneRaw = Convert.ToInt32( TimeZones.SelectedItem.Value );
 			PageContext.BoardSettings.ForumEditor = Convert.ToInt32( ForumEditorList.SelectedItem.Value );
-			PageContext.BoardSettings.SmtpServer = ForumSmtpServer.Text;
-			PageContext.BoardSettings.SmtpUserName = General.ProcessText( ForumSmtpUserName.Text );
-			PageContext.BoardSettings.SmtpUserPass = General.ProcessText( ForumSmtpUserPass.Text );
 			PageContext.BoardSettings.ForumEmail = ForumEmailEdit.Text;
 			PageContext.BoardSettings.EmailVerification = EmailVerification.Checked;
 			PageContext.BoardSettings.ShowMoved = ShowMoved.Checked;
@@ -308,10 +289,6 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.UserBoxPosts = UserBoxPosts.Text;
 			PageContext.BoardSettings.UserBoxRank = UserBoxRank.Text;
 			PageContext.BoardSettings.UserBoxRankImage = UserBoxRankImage.Text;
-
-			// Ederon : 9/9/2007 added
-			PageContext.BoardSettings.SmtpServerPort = General.ProcessText( ForumSmtpServerPort.Text );
-			PageContext.BoardSettings.SmtpServerSsl = ForumSmtpServerSsl.Checked;
 
 			// Ederon : 11/21/2007 added
 			PageContext.BoardSettings.ProfileViewPermissions = ProfileViewPermissions.SelectedIndex;
