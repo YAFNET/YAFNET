@@ -24,13 +24,13 @@
     <ItemTemplate>
       <tr>
         <td class="post">
-          <%# BBCode.EncodeHTML( Eval("Name").ToString() ) %>
+          <%# BBCode.EncodeHTML( Eval("UserName").ToString() ) %>
         </td>
         <td class="post">
           <%# Eval("IP") %>
         </td>
         <td class="post">
-          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval("Name").ToString() ).Location ) %>
+          <%# BBCode.EncodeHTML( PageContext.GetProfile( Eval("UserName").ToString() ).Location ) %>
         </td>
         <td class="post">
           <%# FormatForumLink(Eval("ForumID"),Eval("ForumName")) %>
