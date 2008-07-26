@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveUsers.cs" />
     <Compile Include="AdminMenu.cs" />
     <Compile Include="AlphaSort.cs" />
     <Compile Include="Base\BaseControl.cs" />

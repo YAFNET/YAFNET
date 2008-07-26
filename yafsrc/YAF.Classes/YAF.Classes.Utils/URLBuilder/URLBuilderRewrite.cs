@@ -53,14 +53,17 @@ namespace YAF.Classes
 
 		public string BuildUrl( string url )
 		{
-			string scriptname = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
-			string newURL = string.Format( "{0}?{1}", scriptname, url );
+			string newURL = string.Format( "{0}{1}?{2}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url );
 
-			string scriptfile = "default.aspx"; //System.IO.Path.GetFileName( System.Web.HttpContext.Current.Request.Url.AbsolutePath );
+			// create scriptName
+			string scriptName = string.Format( "{0}{1}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName );
 
-			if ( scriptname.EndsWith( scriptfile ) ) 
+			// get the base script file from the config -- defaults to, well, default.aspx :)
+			string scriptFile = Config.BaseScriptFile;
+
+			if ( scriptName.EndsWith( scriptFile ) ) 
 			{
-				string before = scriptname.Remove( scriptname.LastIndexOf( scriptfile ) );
+				string before = scriptName.Remove( scriptName.LastIndexOf( scriptFile ) );
 
 				SimpleURLParameterParser parser = new SimpleURLParameterParser( url );
 
@@ -160,7 +163,6 @@ namespace YAF.Classes
 
 		private string CleanStringForURL( string str )
 		{
-			char [] validChars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
 			string cleaned = "";
 
 			// trim...
@@ -169,22 +171,17 @@ namespace YAF.Classes
 			// fix quotes and ampersand...
 			str = str.Replace( "&quot;", "" );
 			str = str.Replace( "&amp;", "and" );
+			str = str.Replace( "&", "and" );
 
 			for ( int i = 0; i < str.Length; i++ )
 			{
-				foreach ( char value in validChars )
+				if ( char.IsLetterOrDigit( str [i] ) )
 				{
-					if ( str [i] == value )
-					{
-						// copy it one character at a time...
-						cleaned += str [i];
-						break;
-					}
-					else if ( str [i] == ' ' )
-					{
-						cleaned += '-';
-						break;
-					}
+					cleaned += str [i];
+				}
+				else if ( char.IsSeparator( str [i] ) )
+				{
+					cleaned += '-';
 				}
 			}
 

@@ -785,7 +785,7 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public static class YafForumInfo
 	{
-		private static string _path = null;
+		private static string _path = null;		
 
 		static public string ForumRoot
 		{
@@ -841,24 +841,35 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				long serverPort = long.Parse( HttpContext.Current.Request.ServerVariables ["SERVER_PORT"] );
-				bool isSecure = ( HttpContext.Current.Request.ServerVariables ["HTTPS"] == "ON" || serverPort == 443 );
+				bool overrideDomain = false;
+				bool.TryParse( Config.BaseUrlOverrideDomain, out overrideDomain );
 
-				StringBuilder url = new StringBuilder( "http" );
-
-				if ( isSecure )
+				if ( !overrideDomain )
 				{
-					url.Append( "s" );
+					long serverPort = long.Parse( HttpContext.Current.Request.ServerVariables ["SERVER_PORT"] );
+					bool isSecure = ( HttpContext.Current.Request.ServerVariables ["HTTPS"] == "ON" || serverPort == 443 );
+
+					StringBuilder url = new StringBuilder( "http" );
+
+					if ( isSecure )
+					{
+						url.Append( "s" );
+					}
+
+					url.AppendFormat( "://{0}", HttpContext.Current.Request.ServerVariables ["SERVER_NAME"] );
+
+					if ( ( !isSecure && serverPort != 80 ) || ( isSecure && serverPort != 443 ) )
+					{
+						url.AppendFormat( ":{0}", serverPort.ToString() );
+					}
+
+					return url.ToString();
 				}
-
-				url.AppendFormat( "://{0}", HttpContext.Current.Request.ServerVariables ["SERVER_NAME"] );
-
-				if ( ( !isSecure && serverPort != 80 ) || ( isSecure && serverPort != 443 ) )
+				else
 				{
-					url.AppendFormat( ":{0}", serverPort.ToString() );
-				}
-
-				return url.ToString();
+					// just return the base url...
+					return UrlBuilder.BaseUrl;
+				}				
 			}
 		}
 
@@ -934,21 +945,21 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 31;
+				return 32;
 			}
 		}
 		static public long AppVersionCode
 		{
 			get
 			{
-				return 0x01090302;
+				return 0x01090303;
 			}
 		}
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime( 2008, 5, 27 );
+				return new DateTime( 2008, 7, 25 );
 			}
 		}
 		#endregion

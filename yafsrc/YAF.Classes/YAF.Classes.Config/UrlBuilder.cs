@@ -27,6 +27,8 @@ namespace YAF.Classes
 	/// </summary>
 	public class UrlBuilder : IUrlBuilder
 	{
+		private static string _baseUrl = null;
+
 		/// <summary>
 		/// Builds URL for calling page with parameter URL as page's escaped parameter.
 		/// </summary>
@@ -38,7 +40,56 @@ namespace YAF.Classes
 			url = url.Replace( "&", "&amp;" );
 
 			// return URL to current script with URL from parameter as script's parameter
-			return String.Format( "{0}?{1}", HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"], url );
+			return String.Format( "{0}{1}?{1}", UrlBuilder.BaseUrl, UrlBuilder.ScriptName, url );
+		}
+
+		static public string ScriptName
+		{
+			get
+			{
+				string scriptName = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
+				return scriptName.Substring( scriptName.LastIndexOf( '/' ) );
+			}
+		}
+
+		static public string BaseUrl
+		{
+			get
+			{
+				if ( _baseUrl == null )
+				{
+					try
+					{
+						_baseUrl = HttpContext.Current.Request.ApplicationPath;
+
+						if ( YAF.Classes.Config.BaseUrl != null )
+						{
+							// use specified root
+							_baseUrl = YAF.Classes.Config.BaseUrl;
+
+							if ( _baseUrl.StartsWith( "~" ) )
+							{
+								// transform with application path...
+								_baseUrl = _baseUrl.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+							}
+
+							if ( _baseUrl [0] != '/' ) _baseUrl = _baseUrl.Insert( 0, "/" );
+
+							if ( _baseUrl.EndsWith( "/" ) && _baseUrl.Length > 1 )
+							{
+								// remove ending slash...
+								_baseUrl = _baseUrl.Substring( 0, _baseUrl.LastIndexOf( '/' ) );
+							}
+						}
+					}
+					catch ( Exception )
+					{
+						_baseUrl = HttpContext.Current.Request.ApplicationPath;
+					}
+				}
+
+				return _baseUrl;
+			}
 		}
 	}
 }

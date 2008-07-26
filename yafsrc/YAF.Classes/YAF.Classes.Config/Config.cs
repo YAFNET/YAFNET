@@ -55,6 +55,30 @@ namespace YAF.Classes
 			}
 		}
 
+		static public string BaseScriptFile
+		{
+			get
+			{
+				return ( ConfigurationManager.AppSettings ["basescriptfile"] ?? "default.aspx" );
+			}
+		}
+
+		static public string BaseUrl
+		{
+			get
+			{
+				return ( ConfigurationManager.AppSettings ["baseurl"] ?? HttpContext.Current.Request.ApplicationPath );
+			}
+		}
+
+		static public string BaseUrlOverrideDomain
+		{
+			get
+			{
+				return ( ConfigurationManager.AppSettings ["baseurloverridedomain"] ?? "false" );
+			}
+		}
+
 		static public string UploadDir
 		{
 			get

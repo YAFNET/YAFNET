@@ -34,7 +34,7 @@ namespace YAF.Classes.UI
 	public class ReplaceRules : ICloneable	
 	{
 		private List<BaseReplaceRule> _rulesList;
-		private bool needSort = false;
+		private bool _needSort = false;
 
 		public ReplaceRules()
 		{
@@ -49,13 +49,13 @@ namespace YAF.Classes.UI
 		public void AddRule( BaseReplaceRule newRule )
 		{
 			_rulesList.Add( newRule );
-			needSort = true;
+			_needSort = true;
 		}
 
 		public void Process( ref string text )
 		{
 			// sort the rules according to rank...
-			if ( needSort ) { _rulesList.Sort(); needSort = false; }
+			if ( _needSort ) { _rulesList.Sort(); _needSort = false; }
 
 			// make the replacementCollection for this instance...
 			HtmlReplacementCollection mainCollection = new HtmlReplacementCollection();
@@ -83,7 +83,7 @@ namespace YAF.Classes.UI
 			BaseReplaceRule [] ruleArray = new BaseReplaceRule[this._rulesList.Count];
 			this._rulesList.CopyTo( ruleArray );
 			copyReplaceRules._rulesList.InsertRange( 0, ruleArray );
-			copyReplaceRules.needSort = this.needSort;
+			copyReplaceRules._needSort = this._needSort;
 
 			return copyReplaceRules;
 		}

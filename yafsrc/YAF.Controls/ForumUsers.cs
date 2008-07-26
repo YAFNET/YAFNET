@@ -27,34 +27,32 @@ namespace YAF.Controls
 	/// </summary>
 	public class ForumUsers : BaseControl
 	{
+		private ActiveUsers _activeUsers = new ActiveUsers();
+
 		public ForumUsers()
 		{
+			_activeUsers.ID = this.GetUniqueID( "ActiveUsers" );
 			this.Load += new EventHandler( ForumUsers_Load );
 		}
 
 		void ForumUsers_Load( object sender, EventArgs e )
 		{
-			DataTable dt = ( DataTable ) ViewState ["data"];
 			bool bTopic = PageContext.PageTopicID > 0;
 
-			if ( dt == null )
+			if ( _activeUsers.ActiveUserTable == null )
 			{
 				if ( bTopic )
-					dt = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
+				{
+					_activeUsers.ActiveUserTable = YAF.Classes.Data.DB.active_listtopic( PageContext.PageTopicID );
+				}
 				else
-					dt = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
-				ViewState ["data"] = dt;
+				{
+					_activeUsers.ActiveUserTable = YAF.Classes.Data.DB.active_listforum( PageContext.PageForumID );
+				}
 			}
 
-			foreach (DataRow row in dt.Rows)
-			{
-				UserLink userLink = new UserLink();
-				userLink.UserID = Convert.ToInt32( row ["UserID"] );
-				userLink.UserName = row ["UserName"].ToString();
-				userLink.ID = "UserLink" + userLink.UserID.ToString();
-
-				this.Controls.Add( userLink );
-			}
+			// add it...
+			this.Controls.Add( _activeUsers );
 		}
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
@@ -66,7 +64,7 @@ namespace YAF.Controls
 
 			if ( bTopic )
 			{
-				writer.WriteLine( "<tr class=\"header2\">" );
+				writer.WriteLine( String.Format( @"<tr id=""{0}"" class=""header2"">", this.ClientID ) );
 				writer.WriteLine( String.Format( "<td colspan=\"3\">{0}</td>", PageContext.Localization.GetText( "TOPICBROWSERS" ) ) );
 				writer.WriteLine( "</tr>" );
 				writer.WriteLine( "<tr class=\"post\">" );
@@ -74,28 +72,17 @@ namespace YAF.Controls
 			}
 			else
 			{
-				writer.WriteLine( "<tr class=\"header2\">" );
+				writer.WriteLine( String.Format( @"<tr id=""{0}"" class=""header2"">", this.ClientID ) );
 				writer.WriteLine( String.Format( "<td colspan=\"6\">{0}</td>", PageContext.Localization.GetText( "FORUMUSERS" ) ) );
 				writer.WriteLine( "</tr>" );
 				writer.WriteLine( "<tr class=\"post\">" );
 				writer.WriteLine( "<td colspan=\"6\">" );
 			}
 
-
-			bool bFirst = true;
-			foreach ( System.Web.UI.Control control in this.Controls )
-			{
-				if ( !bFirst ) writer.WriteLine( ", " );
-				control.RenderControl( writer );
-				bFirst = false;
-			}
-
-			//base.Render( writer );
+			base.Render( writer );
 			
 			writer.WriteLine( "</td>" );
-			writer.WriteLine( "</tr>" );
-
-			
+			writer.WriteLine( "</tr>" );			
 		}
 	}
 }

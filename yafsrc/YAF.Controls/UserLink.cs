@@ -55,6 +55,7 @@ namespace YAF.Controls
 					if ( _blankTarget ) output.WriteAttribute( "target", "_blank" );
 					if ( !String.IsNullOrEmpty( _onclick ) ) output.WriteAttribute( "onclick", _onclick );
 					if ( !String.IsNullOrEmpty( _onmouseover ) ) output.WriteAttribute( "onmouseover", _onmouseover );
+					if ( !String.IsNullOrEmpty( _cssClass ) ) output.WriteAttribute( "class", _cssClass );
 					output.Write( HtmlTextWriter.TagRightChar );
 				}
 
@@ -65,7 +66,25 @@ namespace YAF.Controls
 					output.WriteEndTag( "a" );
 				}
 
+				if ( !String.IsNullOrEmpty( _postfixText ) )
+				{
+					output.Write( _postfixText );
+				}
+
 				output.EndRender();
+			}
+		}
+
+		public string _cssClass = string.Empty;
+		public string CssClass
+		{
+			get
+			{
+				return _cssClass;
+			}
+			set
+			{
+				_cssClass = value;
 			}
 		}
 
@@ -114,6 +133,22 @@ namespace YAF.Controls
 			set
 			{
 				_userName = value;
+			}
+		}
+
+		/// <summary>
+		/// The name of the user for this profile link
+		/// </summary>
+		private string _postfixText = string.Empty;
+		public string PostfixText
+		{
+			get
+			{
+				return _postfixText;
+			}
+			set
+			{
+				_postfixText = value;
 			}
 		}
 
