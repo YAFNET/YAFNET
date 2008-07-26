@@ -51,7 +51,21 @@ namespace YAF.Pages // YAF.Pages
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( GetText( "TITLE" ), "" );
 
-				UserList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );
+				DataTable dt = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, true );
+
+				// remove hidden users...
+				foreach ( DataRow row in dt.Rows )
+				{
+					if ( Convert.ToBoolean( row ["IsHidden"] ) && !PageContext.IsAdmin && !(PageContext.PageUserID == Convert.ToInt32( row ["UserID"] )) )
+					{
+						// remove this active user...
+						row.Delete();
+					}
+				}
+
+				dt.AcceptChanges();
+
+				UserList.DataSource = dt;
 				DataBind();
 			}
 		}

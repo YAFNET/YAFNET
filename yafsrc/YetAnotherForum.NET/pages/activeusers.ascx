@@ -31,7 +31,10 @@
 			<tr>
 				<td class="post">
 					<YAF:UserLink ID="NameLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
-						UserName='<%# Eval("Name").ToString() %>' />
+						UserName='<%# Eval("UserName").ToString() %>' />
+				    <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible=<%# Convert.ToBoolean(Eval("IsHidden"))  %>>
+				    (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
+				    </asp:PlaceHolder>				    
 				</td>
 				<td class="post">
 					<%# YafDateTime.FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>

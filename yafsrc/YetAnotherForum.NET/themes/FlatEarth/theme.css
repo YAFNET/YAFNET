@@ -142,6 +142,10 @@
 .yafnet .content td table td table td {
 	padding: 0px;	
 }
+.yafnet .yafactiveusers a.active_hidden {
+	font-style: italic;
+	color: #aaaaaa;
+}
 /* links inside content table*/
 .yafnet .content a			{ color: #579000; text-decoration: underline; }
 .yafnet .content a:hover	{ color: #579000; text-decoration: none; }

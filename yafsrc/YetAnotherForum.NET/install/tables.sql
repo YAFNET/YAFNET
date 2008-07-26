@@ -240,8 +240,7 @@ if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}]
 		[Flags] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Flags] DEFAULT (0),
 		[Points] [int]	NOT NULL CONSTRAINT [DF_{objectQualifier}User_Points] DEFAULT (0),		
 		[IsApproved]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
-		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))
-		
+		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0)))		
 )
 GO
 

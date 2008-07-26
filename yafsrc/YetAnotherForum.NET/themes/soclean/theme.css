@@ -130,6 +130,10 @@
 	background-color: #939393;
 	height: 2px 
 }
+.yafnet .yafactiveusers a.active_hidden {
+	font-style: italic;
+	color: #aaaaaa;
+}
 /* most tables are class 'content' */
 .yafnet table.content{
 	font-family: verdana,Arial,Helvetica,sans-serif;

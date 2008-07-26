@@ -72,6 +72,7 @@ namespace YAF.Controls
 				IsHostAdminX.Checked = userFlags.IsHostAdmin;
 				IsGuestX.Checked = userFlags.IsGuest;
 				IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
+				IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
 				Joined.Text = row ["Joined"].ToString();
 				LastVisit.Text = row ["LastVisit"].ToString();
 				ListItem item = RankID.Items.FindByValue( row ["RankID"].ToString() );
@@ -98,7 +99,13 @@ namespace YAF.Controls
         }
       }
 
-      YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, IsHostAdminX.Checked, IsGuestX.Checked, IsCaptchaExcluded.Checked, RankID.SelectedValue );
+			UserFlags userFlags = new UserFlags();
+			userFlags.IsHostAdmin = IsHostAdminX.Checked;
+			userFlags.IsGuest = IsGuestX.Checked;
+			userFlags.IsCaptchaExcluded = IsCaptchaExcluded.Checked;
+			userFlags.IsActiveExcluded = IsExcludedFromActiveUsers.Checked;
+
+      YAF.Classes.Data.DB.user_adminsave( PageContext.PageBoardID, CurrentUserID, Name.Text, Email.Text, userFlags.BitValue, RankID.SelectedValue );
 			BindData();
     }
   }

@@ -25,13 +25,7 @@
 				<br />
 				<asp:Label runat="server" ID="MostUsersCount" />
 				<br />
-				<asp:Repeater runat="server" ID="ActiveList">
-					<ItemTemplate>
-						<YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Convert.ToInt32(Eval("UserID")) %>'
-							UserName='<%# Eval("Name").ToString() %>' />
-					</ItemTemplate>
-					<SeparatorTemplate>, </SeparatorTemplate>
-				</asp:Repeater>
+				<YAF:ActiveUsers ID="ActiveUsers1" runat="server"></YAF:ActiveUsers>
 			</td>
 		</tr>
 		<tr>

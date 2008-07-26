@@ -38,6 +38,17 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class edituser : YAF.Classes.Base.AdminPage
 	{
+		/// <summary>
+		/// Gets user ID of edited user.
+		/// </summary>
+		protected int CurrentUserID
+		{
+			get
+			{
+				return ( int )this.PageContext.QueryIDs ["u"];
+			}
+		}
+
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// we're in the admin section...
@@ -45,45 +56,33 @@ namespace YAF.Pages.Admin
 			SignatureEditControl.InAdminPages = true;
 			AvatarEditControl.InAdminPages = true;
 
+			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
+
 			if ( !IsPostBack )
 			{
-				int userId;
-				bool validRequest = false;
+				DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null );
 
-				if ( Request.QueryString ["u"] != null && int.TryParse(Request.QueryString ["u"], out userId) )
+				if ( dt.Rows.Count == 1 )
 				{
-					DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, Request.QueryString ["u"], null );
+					DataRow userRow = dt.Rows [0];
 
-					if ( dt.Rows.Count == 1 )
+					// do admin permission check...
+					if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
 					{
-						DataRow userRow = dt.Rows [0];
-
-						// do admin permission check...
-						if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
-						{
-							// user is not host admin and is attempted to edit host admin account...
-							YafBuildLink.AccessDenied();
-						}
-
-						PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
-						PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
-						PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
-						PageLinks.AddLink( String.Format( "Edit User \"{0}\"", HtmlEncode( userRow ["Name"].ToString() ) ) );
-
-						// do a quick user membership sync...
-						MembershipUser user = UserMembershipHelper.GetMembershipUser( userId );
-						RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
-
-						// everything looks okay -- show the edit tabs...
-						validRequest = true;
+						// user is not host admin and is attempted to edit host admin account...
+						YafBuildLink.AccessDenied();
 					}
+
+					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+					PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+					PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
+					PageLinks.AddLink( String.Format( "Edit User \"{0}\"", userRow ["Name"].ToString() ) );
+
+					// do a quick user membership sync...
+					MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
+					RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
 				}
 
-				if ( !validRequest )
-				{
-					// invalid request...
-					YafBuildLink.Redirect( ForumPages.info, "i=6" );
-				}
 			}
 		}
 

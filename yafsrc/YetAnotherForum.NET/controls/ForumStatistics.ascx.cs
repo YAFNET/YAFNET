@@ -53,17 +53,12 @@ namespace YAF.Controls
 		{
 			// Active users
 			// Call this before forum_stats to clean up active users
-			ActiveList.DataSource = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
+			ActiveUsers1.ActiveUserTable = YAF.Classes.Data.DB.active_list( PageContext.PageBoardID, null );
 
 			// "Active Users" Count and Most Users Count
 			DataRow activeStats = YAF.Classes.Data.DB.active_stats( PageContext.PageBoardID );
 
-			ActiveUserCount.Text = String.Format( "<a href=\"{3}\">{0}</a> - {1}, {2}.",
-				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveUsers"] == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeStats ["ActiveUsers"] ),
-				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveMembers"] == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeStats ["ActiveMembers"] ),
-				String.Format( PageContext.Localization.GetText( ( int ) activeStats ["ActiveGuests"] == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeStats ["ActiveGuests"] ),
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers )
-				);
+			ActiveUserCount.Text = FormatActiveUsers( activeStats );
 
 			// Forum Statistics
 			string key = YafCache.GetBoardCacheKey( Constants.Cache.BoardStats );
@@ -111,6 +106,41 @@ namespace YAF.Controls
 			NewestMemberUserLink.UserName = statisticsDataRow ["LastMember"].ToString();
 
 			UpdatePanel();
+		}
+
+		protected string FormatActiveUsers( DataRow activeStats )
+		{
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+			int activeUsers = Convert.ToInt32( activeStats ["ActiveUsers"] );
+			int activeHidden = Convert.ToInt32( activeStats ["ActiveHidden"] );
+			int activeMembers = Convert.ToInt32( activeStats["ActiveMembers"]);
+			int activeGuests = Convert.ToInt32( activeStats["ActiveGuests"]);
+
+			// show hidden count to admin...
+			if ( PageContext.IsAdmin ) activeUsers += activeHidden;
+			
+			// always show active users...
+			sb.Append( String.Format( "<a href=\"{1}\">{0}</a>",
+				String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ),
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers ) ) );
+
+			if ( activeMembers > 0 ) 
+			{
+				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2" ), activeMembers ) ) );
+			}
+
+			if ( activeGuests > 0 ) 
+			{
+				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2" ), activeGuests ) ) );
+			}
+
+			if ( activeHidden > 0 && PageContext.IsAdmin )
+			{	
+				sb.Append( String.Format( ", {0}", String.Format( PageContext.Localization.GetText( "ACTIVE_USERS_HIDDEN" ), activeHidden ) ) );
+			}
+
+			return sb.ToString();
 		}
 
 		protected void expandInformation_Click( object sender, ImageClickEventArgs e )

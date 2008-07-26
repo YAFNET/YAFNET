@@ -38,6 +38,7 @@
 		<Resource tag="CANCEL">Cancel</Resource>
     <Resource tag="OK">OK</Resource>
     <Resource tag="GO">GO</Resource>
+    <Resource tag="HIDDEN">Hidden</Resource>
     <Resource tag="GOTOPAGE_HEADER">Goto Page...</Resource>
     <Resource tag="PAGES">Pages</Resource>
 		<Resource tag="FORUM_JUMP">Forum Jump</Resource>
@@ -307,6 +308,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} members</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} guest</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} guests</Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
     <Resource tag="VIEWING">({0} Viewing)</Resource>
     <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
     <Resource tag="MARKALL">Mark all forums as read</Resource>

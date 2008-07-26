@@ -38,6 +38,12 @@
 		</td>
 		<td class="post"><asp:checkbox runat="server" id="IsCaptchaExcluded"/></td>
 	</tr>
+	<tr runat="server" id="IsExcludedFromActiveUsersRow">
+		<td class="postheader"><b>Exclude from Active Users:</b><br />
+		User is not shown in Active User lists.
+		</td>
+		<td class="post"><asp:checkbox runat="server" id="IsExcludedFromActiveUsers"/></td>
+	</tr>	
 	<!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->	     
 	<tr runat="server" id="IsGuestRow" visible="false">
 	  <td class="postheader"><b>Is Guest:</b></td>

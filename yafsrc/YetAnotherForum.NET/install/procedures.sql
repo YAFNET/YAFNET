@@ -937,7 +937,7 @@ begin
 	if @Guests<>0
 		select
 			a.UserID,
-			a.Name,
+			UserName = a.Name,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -945,6 +945,8 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsHidden = ( a.IsActiveExcluded ),
+			UserCount = 1,
 			c.Login,
 			c.LastActive,
 			c.Location,
@@ -961,7 +963,7 @@ begin
 	else
 		select
 			a.UserID,
-			a.Name,
+			UserName = a.Name,
 			c.IP,
 			c.SessionID,
 			c.ForumID,
@@ -969,6 +971,8 @@ begin
 			ForumName = (select Name from [{databaseOwner}].[{objectQualifier}Forum] x where x.ForumID=c.ForumID),
 			TopicName = (select Topic from [{databaseOwner}].[{objectQualifier}Topic] x where x.TopicID=c.TopicID),
 			IsGuest = (select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] x inner join [{databaseOwner}].[{objectQualifier}Group] y on y.GroupID=x.GroupID where x.UserID=a.UserID and (y.Flags & 2)<>0),
+			IsHidden = ( a.IsActiveExcluded ),
+			UserCount = 1,
 			c.Login,
 			c.LastActive,
 			c.Location,
@@ -995,7 +999,9 @@ create procedure [{databaseOwner}].[{objectQualifier}active_listforum](@ForumID 
 begin
 	select
 		UserID		= a.UserID,
-		UserName	= b.Name
+		UserName	= b.Name,
+		IsHidden	= ( b.IsActiveExcluded ),
+		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a 
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -1003,7 +1009,8 @@ begin
 		a.ForumID = @ForumID
 	group by
 		a.UserID,
-		b.Name
+		b.Name,
+		b.IsActiveExcluded
 	order by
 		b.Name
 end
@@ -1013,7 +1020,9 @@ create procedure [{databaseOwner}].[{objectQualifier}active_listtopic](@TopicID 
 begin
 	select
 		UserID		= a.UserID,
-		UserName	= b.Name
+		UserName	= b.Name,
+		IsHidden = ( b.IsActiveExcluded ),
+		UserCount   = COUNT(a.UserID)
 	from
 		[{databaseOwner}].[{objectQualifier}Active] a with(nolock)
 		join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
@@ -1021,7 +1030,8 @@ begin
 		a.TopicID = @TopicID
 	group by
 		a.UserID,
-		b.Name
+		b.Name,
+		b.IsActiveExcluded
 	order by
 		b.Name
 end
@@ -1030,9 +1040,10 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}active_stats](@BoardID int) as
 begin
 	select
-		ActiveUsers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] where BoardID=@BoardID),
-		ActiveMembers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where BoardID=@BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)=0)),
-		ActiveGuests = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where BoardID=@BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)<>0))
+		ActiveUsers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.BoardID = @BoardID AND usr.IsActiveExcluded = 0),
+		ActiveMembers = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.BoardID = @BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)=0  AND usr.IsActiveExcluded = 0)),
+		ActiveGuests = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where x.BoardID = @BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)<>0)),
+		ActiveHidden = (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.BoardID = @BoardID and exists(select 1 from [{databaseOwner}].[{objectQualifier}UserGroup] y inner join [{databaseOwner}].[{objectQualifier}Group] z on y.GroupID=z.GroupID where y.UserID=x.UserID and (z.Flags & 2)=0  AND usr.IsActiveExcluded = 1))
 end
 GO
 
@@ -1966,7 +1977,7 @@ begin
 		LastTopicID		= t.TopicID,
 		LastTopicName	= t.Topic,
 		b.Flags,
-		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x where x.ForumID=b.ForumID),
+		Viewing			= (select count(1) from [{databaseOwner}].[{objectQualifier}Active] x JOIN [{databaseOwner}].[{objectQualifier}User] usr ON x.UserID = usr.UserID where x.ForumID=b.ForumID AND usr.IsActiveExcluded = 0),
 		b.RemoteURL,
 		x.ReadAccess
 	from 
@@ -4219,27 +4230,13 @@ END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_adminsave]
-(@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@IsHostAdmin bit,@IsGuest bit,@IsCaptchaExcluded bit,@RankID int) as
+(@BoardID int,@UserID int,@Name nvarchar(50),@Email nvarchar(50),@Flags int,@RankID int) as
 begin
-	if @IsHostAdmin<>0
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 1 where UserID = @UserID
-	else
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags & ~1 where UserID = @UserID
-
-	if @IsGuest<>0
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 4 where UserID = @UserID
-	else
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags & ~4 where UserID = @UserID
-
-	if @IsCaptchaExcluded<>0
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags | 8 where UserID = @UserID
-	else
-		update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags & ~8 where UserID = @UserID
-
 	update [{databaseOwner}].[{objectQualifier}User] set
 		Name = @Name,
 		Email = @Email,
-		RankID = @RankID
+		RankID = @RankID,
+		Flags = @Flags
 	where UserID = @UserID
 	select UserID = @UserID
 end

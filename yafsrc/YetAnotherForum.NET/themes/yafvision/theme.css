@@ -213,6 +213,10 @@
 	color: #000000;
 	padding: 4px;
 }
+.yafnet .yafactiveusers a.active_hidden {
+	font-style: italic;
+	color: #aaaaaa;
+}
 /*
 Use this to setup overflow feature for your site.
 On IE that would mean specifying a width so that the overflow will work properly.

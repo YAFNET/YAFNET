@@ -284,6 +284,10 @@ This CSS already works on FireFox.
 	margin-top: 15px;
 	padding-top: 5px;
 }
+.yafnet .yafactiveusers a.active_hidden {
+	font-style: italic;
+	color: #aaaaaa;
+}
 /* CSS Pagelinks */
 .yafnet .yafpager {
 	color: #555555;
