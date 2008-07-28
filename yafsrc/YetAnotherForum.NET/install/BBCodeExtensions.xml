@@ -1,7 +1,7 @@
 <YafBBCodeList>
   <YafBBCode>
     <Name>YOUTUBE</Name>
-    <Description>[YOUTUBE]PUT YOUTUBE URL HERE[/YOUTUBE]</Description>
+    <Description>[YOUTUBE]Put YOUTUBE URL Here[/YOUTUBE]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
@@ -12,5 +12,45 @@
     <ExecOrder>1</ExecOrder>
     <UseModule>false</UseModule>
     <ModuleClass />
+  </YafBBCode>
+  <YafBBCode>
+    <Name>SPOILER</Name>
+    <Description>[SPOILER]Put Spoiler Text Here[/SPOILER]</Description>
+    <OnClickJS />
+    <DisplayJS>
+      function toggleSpoiler(btn, elid)
+      {
+      var el = document.getElementById(elid);
+      if (el == null)
+      return;
+      if (el.style.display == '')
+      {
+      el.style.display = 'none';
+      btn.value='Show Spoiler';
+      }
+      else
+      {
+      el.style.display = '';
+      btn.value='Hide Spoiler';
+      }
+      }
+    </DisplayJS>
+    <EditJS />
+    <DisplayCSS>
+      .spoilerbox
+      {
+      margin: 5px;
+      padding: 4px;
+      background-color: #eeeeee;
+      border: solid 1px #808080;
+      color: #000000;
+      }
+    </DisplayCSS>
+    <SearchRegex>\[spoiler\](?&lt;inner&gt;.+)\[\/spoiler\]</SearchRegex>
+    <ReplaceRegex />
+    <Variables />
+    <ExecOrder>50</ExecOrder>
+    <UseModule>true</UseModule>
+    <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
   </YafBBCode>
 </YafBBCodeList>
