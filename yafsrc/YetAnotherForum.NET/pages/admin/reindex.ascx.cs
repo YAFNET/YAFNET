@@ -112,7 +112,6 @@ namespace YAF.Pages.Admin
 			sb.AppendLine( "END" );
 			sb.AppendLine( "CLOSE myCursor" );
 			sb.AppendLine( "DEALLOCATE myCursor" );
-			sb.AppendLine( "EXEC sp_updatestats" );
 
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{

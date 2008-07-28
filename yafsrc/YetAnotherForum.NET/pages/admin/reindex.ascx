@@ -17,7 +17,7 @@
                 <asp:Button ID="btnGetStats" runat="server" Text="View YAF Table Index Statistics"
                     OnClick="btnGetStats_Click" />
                 <asp:Button ID="btnReindex" runat="server" Text="Reindex YAF Tables" OnClientClick="return confirm('Are you sure you want to reindex all YAF tables? The operation may make the DB inaccessible and may take a little while.');"
-                    OnClick="btnReindex_Click" />                    
+                    OnClick="btnReindex_Click" />    
                     </td>
         </tr>
     </table>
