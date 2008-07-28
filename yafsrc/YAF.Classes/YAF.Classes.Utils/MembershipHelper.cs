@@ -500,8 +500,7 @@ namespace YAF.Classes.Utils
 			return false;
 		}
 
-
-		public static void DeleteAllUnapproved()
+		public static void DeleteAllUnapproved(DateTime createdCutoff )
 		{
 			// get all users...
 			MembershipUserCollection allUsers = Membership.GetAllUsers();
@@ -509,7 +508,7 @@ namespace YAF.Classes.Utils
 			// iterate through each one...
 			foreach (MembershipUser user in allUsers)
 			{
-				if (!user.IsApproved)
+				if ( !user.IsApproved && user.CreationDate < createdCutoff )
 				{
 					// delete this user...
 					DB.user_delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));

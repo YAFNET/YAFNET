@@ -119,6 +119,8 @@ namespace YAF.Classes.Utils
 		admin_extensions_import,
 		admin_bbcode,
 		admin_bbcode_edit,
-		admin_bbcode_import
+		admin_bbcode_import,
+		admin_reindex,
+		admin_runsql
 	}
 }
