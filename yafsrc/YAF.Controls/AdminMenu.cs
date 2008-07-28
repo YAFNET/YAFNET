@@ -17,6 +17,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
 using YAF.Classes.Utils;
 
 namespace YAF.Controls
@@ -84,11 +85,23 @@ namespace YAF.Controls
 			{
 				{"Prune Topics",YafBuildLink.GetLink( ForumPages.admin_prune)},
 				{"Private Messages",YafBuildLink.GetLink( ForumPages.admin_pm)},
-				{"Attachments",YafBuildLink.GetLink( ForumPages.admin_attachments)},
-				{"Event Log",YafBuildLink.GetLink( ForumPages.admin_eventlog)}
+				{"Attachments",YafBuildLink.GetLink( ForumPages.admin_attachments)},				
+				{"Event Log",YafBuildLink.GetLink( ForumPages.admin_eventlog)}				
 			};
 
 			writer.Write( createMenu( "Maintenance", "header2", "post", ref maintenanceLinks ) );
+
+			if ( PageContext.IsHostAdmin )
+			{
+				// create database menu
+				string [,] dbLinks =
+				{
+					{"Reindex DB",YafBuildLink.GetLink( ForumPages.admin_reindex)},
+					{"Run SQL Code",YafBuildLink.GetLink( ForumPages.admin_runsql)}
+				};
+
+				writer.Write( createMenu( "Database", "header2", "post", ref dbLinks ) );
+			}
 
 			// create NNTP menu...
 			string [,] nntpMenu =
