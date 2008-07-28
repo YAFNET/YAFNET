@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin
 
 		protected void DeleteAll_Load( object sender, System.EventArgs e )
 		{
-			( ( Button )sender ).Attributes ["onclick"] = "return confirm('Delete all Unapproved Users?')";
+			( ( Button )sender ).Attributes ["onclick"] = "return confirm('Delete all Unapproved Users more than 14 days old?')";
 		}
 
 		protected void ApproveAll_Load( object sender, System.EventArgs e )
@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
 					BindData();
 					break;
 				case "deleteall":
-					UserMembershipHelper.DeleteAllUnapproved();
+					UserMembershipHelper.DeleteAllUnapproved( DateTime.Now.AddDays( -14 ));
 					//YAF.Classes.Data.DB.user_deleteold( PageContext.PageBoardID );
 					BindData();
 					break;

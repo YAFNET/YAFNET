@@ -1,6 +1,6 @@
 <%@ Control Language="c#" CodeFile="eventlog.ascx.cs" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.eventlog" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
+<YAF:AdminMenu runat="server" ID="AdminMenu1">
     <asp:UpdatePanel ID="eventUpdate" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
