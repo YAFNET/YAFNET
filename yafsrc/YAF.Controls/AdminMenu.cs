@@ -97,7 +97,7 @@ namespace YAF.Controls
 				string [,] dbLinks =
 				{
 					{"Reindex DB",YafBuildLink.GetLink( ForumPages.admin_reindex)},
-					{"Run SQL Code",YafBuildLink.GetLink( ForumPages.admin_runsql)}
+					{"Run SQL Query",YafBuildLink.GetLink( ForumPages.admin_runsql)}
 				};
 
 				writer.Write( createMenu( "Database", "header2", "post", ref dbLinks ) );
