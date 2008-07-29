@@ -141,7 +141,7 @@ namespace YAF.Classes.Data
 				switch ( searchFromWhoMethod )
 				{
 					case SearchWhatFlags.AllWords:
-						words = toSearchFromWho.Split( ' ' );
+						words = toSearchFromWho.Replace("\"","").Split( ' ' );
 						foreach ( string word in words )
 						{
 							if ( !bFirst ) searchSql += " AND "; else bFirst = false;
@@ -173,7 +173,7 @@ namespace YAF.Classes.Data
 				switch ( searchWhatMethod )
 				{
 					case SearchWhatFlags.AllWords:
-						words = toSearchWhat.Split( ' ' );
+						words = toSearchWhat.Replace("\"","").Split( ' ' );
 						if ( useFullText )
 						{
 							string ftInner = "";
