@@ -451,7 +451,7 @@ namespace YAF.Classes.UI
 		private int _currentIndex = 0;
 		private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 		private Regex _rgxHtml;
-		private string _replaceFormat = "@ёв{1}ъж{0}ѕц@";
+		private string _replaceFormat = "їёв{1}ъж{0}ѕцї";
 		private int _randomInstance;
 
 		public HtmlReplacementCollection()
