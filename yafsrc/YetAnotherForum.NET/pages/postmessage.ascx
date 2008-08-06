@@ -186,7 +186,7 @@
 		<td class="post">
 			<asp:CheckBox ID="TopicWatch" runat="server" /><YAF:LocalizedLabel ID="TopicWatchLabel"
 				runat="server" LocalizedTag="TOPICWATCH" />
-			<br />
+			<br id="TopicAttachBr" runat="server" />
 			<asp:CheckBox ID="TopicAttach" runat="server" Visible="false" /><YAF:LocalizedLabel
 				ID="TopicAttachLabel" runat="server" LocalizedTag="TOPICATTACH" Visible="false" />
 		</td>

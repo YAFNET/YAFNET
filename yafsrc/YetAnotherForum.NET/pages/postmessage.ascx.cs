@@ -194,6 +194,17 @@ namespace YAF.Pages
 					// add "reply" text...
 					PageLinks.AddLink( GetText( "reply" ) );
 
+					// show attach file option if its a reply...
+					if ( PageContext.ForumUploadAccess )
+					{
+						NewTopicOptionsRow.Visible = true;
+						TopicAttach.Visible = true;
+						TopicAttachLabel.Visible = true;
+						TopicWatch.Visible = false;
+						TopicWatchLabel.Visible = false;
+						TopicAttachBr.Visible = false;
+					}
+
 					if ( YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal )
 					{
 						// can't use the last post iframe
@@ -562,7 +573,7 @@ namespace YAF.Pages
 			{
 				CreateMail.CreateWatchEmail(nMessageID);
 
-				if ( isNewTopic && PageContext.ForumUploadAccess && TopicAttach.Checked )
+				if ( PageContext.ForumUploadAccess && TopicAttach.Checked )
 				{
 					// redirect to the attachment page...
 					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.attachments, "m={0}", nMessageID );
