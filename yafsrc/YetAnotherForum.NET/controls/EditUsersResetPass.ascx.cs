@@ -85,6 +85,7 @@ namespace YAF.Controls
 					// new password...
 					string newPass = txtNewPassword.Text.Trim();
 					// reset the password...
+					user.UnlockUser();
 					string tempPass = user.ResetPassword();
 					// change to new password...
 					user.ChangePassword( tempPass, newPass );
@@ -116,5 +117,5 @@ namespace YAF.Controls
 				PageContext.AddLoadMessage( "Exception: " + x.Message );
 			}
 		}
-}
+	}
 }
