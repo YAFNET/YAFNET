@@ -331,23 +331,27 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static DataRow GetUserRowForID(int userID, bool allowCached)
+		public static DataRow GetUserRowForID( long userID, bool allowCached )
 		{
-			string cacheKey = string.Format("UserListForID{0}", userID);
+			string cacheKey = string.Format( "UserListForID{0}", userID );
 			DataRow userRow = YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] as DataRow;
 
-			if ( userRow == null || !allowCached)
+			if ( userRow == null || !allowCached )
 			{
-				DataTable dt = YAF.Classes.Data.DB.user_list(YafContext.Current.PageBoardID, userID, DBNull.Value);
-				if (dt.Rows.Count == 1)
+				DataTable dt = YAF.Classes.Data.DB.user_list( YafContext.Current.PageBoardID, userID, DBNull.Value );
+				if ( dt.Rows.Count == 1 )
 				{
-					userRow = dt.Rows[0];
+					userRow = dt.Rows [0];
 					// cache it
-					YafCache.Current[YafCache.GetBoardCacheKey(cacheKey)] = userRow;
+					YafCache.Current [YafCache.GetBoardCacheKey( cacheKey )] = userRow;
 				}
 			}
 
 			return userRow;
+		}
+		public static DataRow GetUserRowForID( int userID, bool allowCached )
+		{
+			return GetUserRowForID( ( long ) userID, allowCached );
 		}
 
 		/// <summary>
@@ -355,9 +359,13 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static DataRow GetUserRowForID(int userID)
+		public static DataRow GetUserRowForID( long userID )
 		{
-			return GetUserRowForID(userID, true);
+			return GetUserRowForID( userID, true );
+		}
+		public static DataRow GetUserRowForID( int userID )
+		{
+			return GetUserRowForID( ( long ) userID );
 		}
 
 		/// <summary>
@@ -365,11 +373,11 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static object GetProviderUserKeyFromID(int userID)
+		public static object GetProviderUserKeyFromID( long userID )
 		{
 			object providerUserKey = null;
+			
 			DataRow row = GetUserRowForID(userID);
-
 			if (row != null)
 			{
 				if (row["ProviderUserKey"] != DBNull.Value)
@@ -384,12 +392,11 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static string GetUserNameFromID(int userID)
+		public static string GetUserNameFromID(long userID)
 		{
 			string userName = string.Empty;
-
+			
 			DataRow row = GetUserRowForID(userID);
-
 			if (row != null)
 			{
 				if (row["Name"] != DBNull.Value)
@@ -426,11 +433,11 @@ namespace YAF.Classes.Utils
 		/// </summary>
 		/// <param name="userID"></param>
 		/// <returns></returns>
-		public static MembershipUser GetMembershipUser(int userID)
+		public static MembershipUser GetMembershipUser( long userID )
 		{
-			object providerUserKey = GetProviderUserKeyFromID(userID);
-			if (providerUserKey != null)
-				return GetMembershipUser(providerUserKey);
+			object providerUserKey = GetProviderUserKeyFromID( userID );
+			if ( providerUserKey != null )
+				return GetMembershipUser( providerUserKey );
 
 			return null;
 		}
