@@ -58,21 +58,21 @@ namespace YAF.Pages.Admin
 
 			PageContext.QueryIDs = new QueryStringIDHelper( "u", true );
 
-			if ( !IsPostBack )
+			DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null );
+
+			if ( dt.Rows.Count == 1 )
 			{
-				DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, CurrentUserID, null );
+				DataRow userRow = dt.Rows [0];
 
-				if ( dt.Rows.Count == 1 )
+				// do admin permission check...
+				if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
 				{
-					DataRow userRow = dt.Rows [0];
+					// user is not host admin and is attempted to edit host admin account...
+					YafBuildLink.AccessDenied();
+				}
 
-					// do admin permission check...
-					if ( !PageContext.IsHostAdmin && IsUserHostAdmin( userRow ) )
-					{
-						// user is not host admin and is attempted to edit host admin account...
-						YafBuildLink.AccessDenied();
-					}
-
+				if ( !IsPostBack )
+				{
 					PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 					PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 					PageLinks.AddLink( "Users", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_users ) );
@@ -82,7 +82,6 @@ namespace YAF.Pages.Admin
 					MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
 					RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
 				}
-
 			}
 		}
 
