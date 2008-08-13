@@ -56,41 +56,44 @@ namespace YAF.Controls
 
 		void ActiveUsers_PreRender( object sender, EventArgs e )
 		{
-			foreach ( DataRow row in ActiveUserTable.Rows )
+			if ( ActiveUserTable != null )
 			{
-				bool addControl = true;
-
-				UserLink userLink = new UserLink();
-				userLink.UserID = Convert.ToInt32( row ["UserID"] );
-				userLink.UserName = row ["UserName"].ToString();
-				userLink.ID = "UserLink" + userLink.UserID.ToString();
-
-				int userCount = Convert.ToInt32( row ["UserCount"] );
-
-				if ( userCount > 1 )
+				foreach ( DataRow row in ActiveUserTable.Rows )
 				{
-					userLink.PostfixText = String.Format( " ({0})", userCount );
-				}
+					bool addControl = true;
 
-				if ( Convert.ToBoolean( row ["IsHidden"] ) == true )
-				{
-					if ( PageContext.IsAdmin || userLink.UserID == PageContext.PageUserID )
+					UserLink userLink = new UserLink();
+					userLink.UserID = Convert.ToInt32( row ["UserID"] );
+					userLink.UserName = row ["UserName"].ToString();
+					userLink.ID = "UserLink" + userLink.UserID.ToString();
+
+					int userCount = Convert.ToInt32( row ["UserCount"] );
+
+					if ( userCount > 1 )
 					{
-						// show regardless...
-						addControl = true;
-						userLink.CssClass = "active_hidden";
-						userLink.PostfixText = String.Format( " ({0})", PageContext.Localization.GetText( "HIDDEN" ) );
+						userLink.PostfixText = String.Format( " ({0})", userCount );
 					}
-					else
-					{
-						// user is hidden from this user...
-						addControl = false;
-					}
-				}
 
-				if ( addControl )
-				{
-					this.Controls.Add( userLink );
+					if ( Convert.ToBoolean( row ["IsHidden"] ) == true )
+					{
+						if ( PageContext.IsAdmin || userLink.UserID == PageContext.PageUserID )
+						{
+							// show regardless...
+							addControl = true;
+							userLink.CssClass = "active_hidden";
+							userLink.PostfixText = String.Format( " ({0})", PageContext.Localization.GetText( "HIDDEN" ) );
+						}
+						else
+						{
+							// user is hidden from this user...
+							addControl = false;
+						}
+					}
+
+					if ( addControl )
+					{
+						this.Controls.Add( userLink );
+					}
 				}
 			}
 		}

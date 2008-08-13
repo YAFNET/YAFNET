@@ -101,7 +101,12 @@ namespace YAF.Controls
 				_ignorePageIndex = true;
 			}
 
-			if ( PageChange != null )
+			if ( LinkedPager != null )
+			{
+				// raise post back event on the linked pager...
+				CurrentLinkedPager._gotoPageForm_GotoPageClick( sender, e );
+			}
+			else if ( PageChange != null )
 			{
 				PageChange( this, new EventArgs() );
 			}
