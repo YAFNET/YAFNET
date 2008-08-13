@@ -49,15 +49,21 @@ namespace YAF.Controls
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
 
-			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions );
-			DataTable activeTopics = YafCache.Current [cacheKey] as DataTable;
-
 			expandActiveDiscussions.Attributes.Add( "style", "vertical-align:middle" );
+
+			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions );
+			DataTable activeTopics = null;
+
+			if ( PageContext.IsGuest )
+			{
+				// allow caching since this is a guest...				
+				activeTopics = YafCache.Current [cacheKey] as DataTable;
+			}
 
 			if ( activeTopics == null )
 			{
 				activeTopics = YAF.Classes.Data.DB.topic_latest( PageContext.PageBoardID, PageContext.BoardSettings.ActiveDiscussionsCount, PageContext.PageUserID );
-				YafCache.Current.Insert( cacheKey, activeTopics, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ActiveDiscussionsCacheTimeout ), TimeSpan.Zero );
+				if ( PageContext.IsGuest ) YafCache.Current.Insert( cacheKey, activeTopics, null, DateTime.Now.AddMinutes( PageContext.BoardSettings.ActiveDiscussionsCacheTimeout ), TimeSpan.Zero );
 			}
 
 			LatestPosts.DataSource = activeTopics;

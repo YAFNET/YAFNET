@@ -119,11 +119,19 @@ namespace YAF.Controls
 
 			// show hidden count to admin...
 			if ( PageContext.IsAdmin ) activeUsers += activeHidden;
-			
-			// always show active users...
-			sb.Append( String.Format( "<a href=\"{1}\">{0}</a>",
-				String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ),
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers ) ) );
+
+			if ( General.CheckPermission( PageContext, PageContext.BoardSettings.ActiveUsersViewPermissions ) )
+			{
+				// always show active users...
+				sb.Append( String.Format( "<a href=\"{1}\">{0}</a>",
+					String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ),
+					YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.activeusers ) ) );
+			}
+			else
+			{
+				// no link because no permissions...
+				sb.Append( String.Format( PageContext.Localization.GetText( activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2" ), activeUsers ) );
+			}
 
 			if ( activeMembers > 0 ) 
 			{
