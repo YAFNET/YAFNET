@@ -801,6 +801,11 @@ namespace YAF.Classes.Utils
 					try
 					{
 						_forumRoot = UrlBuilder.BaseUrl;
+						if ( _forumFileRoot.StartsWith( "//" ) )
+						{
+							// remove extra slash
+							_forumFileRoot = _forumFileRoot.Substring( 1, _forumFileRoot.Length - 1 );
+						}
 						if ( !_forumRoot.EndsWith( "/" ) ) _forumRoot += "/";
 					}
 					catch ( Exception )
@@ -838,6 +843,12 @@ namespace YAF.Classes.Utils
 							{
 								// transform with application path...
 								_forumFileRoot = _forumFileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+							}
+
+							if ( _forumFileRoot.StartsWith( "//" ) )
+							{
+								// remove extra slash
+								_forumFileRoot = _forumFileRoot.Substring( 1, _forumFileRoot.Length - 1 );
 							}
 
 							if ( _forumFileRoot [0] != '/' ) _forumFileRoot = _forumFileRoot.Insert( 0, "/" );
