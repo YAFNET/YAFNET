@@ -55,6 +55,13 @@
                             </tr>
                             <tr>
                                 <td class="postheader">
+                                    <b>Allow Login and Logoff:</b><br>
+                                    Enable login and logoff through the forum.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AllowLoginAndLogoff" runat="server"></asp:CheckBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Require User Login:</b><br>
                                     If checked, users will be required to log in before they can see any content. They'll
                                     be redirected straight to login page.</td>

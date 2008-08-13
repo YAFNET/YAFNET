@@ -149,6 +149,7 @@ namespace YAF.Pages.Admin
 			DisableNoFollowLinksAfterDay.Text = PageContext.BoardSettings.DisableNoFollowLinksAfterDay.ToString();
 			ShowRulesForRegistrationX.Checked = PageContext.BoardSettings.ShowRulesForRegistration;
 			ShowModeratorList.Checked = PageContext.BoardSettings.ShowModeratorList;
+			AllowLoginAndLogoff.Checked = PageContext.BoardSettings.AllowLoginAndLogoff;
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -264,6 +265,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.UseNoFollowLinks = UseNoFollowLinks.Checked;
 			PageContext.BoardSettings.ShowRulesForRegistration = ShowRulesForRegistrationX.Checked;
 			PageContext.BoardSettings.ShowModeratorList = ShowModeratorList.Checked;
+			PageContext.BoardSettings.AllowLoginAndLogoff = AllowLoginAndLogoff.Checked;
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
