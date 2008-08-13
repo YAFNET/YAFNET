@@ -373,6 +373,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueBool( "AvatarRemote", false ); }
 			set { _reg.SetValueBool( "AvatarRemote", value ); }
 		}
+		public bool AllowLoginAndLogoff
+		{
+			get { return _reg.GetValueBool( "AllowLoginAndLogoff", true ); }
+			set { _reg.SetValueBool( "AllowLoginAndLogoff", value ); }
+		}
 		public bool UseFileTable
 		{
 			get { return _reg.GetValueBool( "UseFileTable", false ); }

@@ -279,6 +279,8 @@ namespace YAF.Classes.Utils
 		/// <param name="searchText">The string to search through.</param>
 		static public string BadWordReplace( string searchText )
 		{
+			if ( String.IsNullOrEmpty( searchText ) ) return searchText;
+
 			string strReturn = searchText;
 			RegexOptions options = RegexOptions.IgnoreCase /*| RegexOptions.Singleline | RegexOptions.Multiline*/;
 
