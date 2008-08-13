@@ -801,11 +801,6 @@ namespace YAF.Classes.Utils
 					try
 					{
 						_forumRoot = UrlBuilder.BaseUrl;
-						if ( _forumFileRoot.StartsWith( "//" ) )
-						{
-							// remove extra slash
-							_forumFileRoot = _forumFileRoot.Substring( 1, _forumFileRoot.Length - 1 );
-						}
 						if ( !_forumRoot.EndsWith( "/" ) ) _forumRoot += "/";
 					}
 					catch ( Exception )

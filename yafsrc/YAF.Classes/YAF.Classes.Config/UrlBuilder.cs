@@ -82,6 +82,12 @@ namespace YAF.Classes
 								_baseUrl = _baseUrl.Replace( "~", HttpContext.Current.Request.ApplicationPath );
 							}
 
+							if ( _baseUrl.StartsWith( "//" ) )
+							{
+								// remove extra slash
+								_baseUrl = _baseUrl.Substring( 1, _baseUrl.Length - 1 );
+							}
+
 							if ( _baseUrl.EndsWith( "/" ) )
 							{
 								// remove ending slash...
