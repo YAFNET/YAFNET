@@ -61,6 +61,7 @@ namespace YAF.Pages // YAF.Pages
 			RssFeed.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped(YAF.Classes.Utils.ForumPages.rsstopic, "pg=topics&f={0}", Request.QueryString["f"]);
 			RssFeed.Text = GetText( "RSSFEED" );
 			RssFeed.Visible = PageContext.BoardSettings.ShowRSSLink;
+			MarkRead.Text = GetText( "MARKREAD" );
 			RSSLinkSpacer.Visible = PageContext.BoardSettings.ShowRSSLink;
 			ForumJumpHolder.Visible = PageContext.BoardSettings.ShowForumJump && PageContext.Settings.LockedForum == 0;
 

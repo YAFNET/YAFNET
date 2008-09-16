@@ -92,7 +92,7 @@
 					</td>
 					<td align="right">
 						<asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
-							visible="false" /> |
+							visible="false" /> | 
 						<asp:LinkButton runat="server" ID="MarkRead" />
 						<span id="RSSLinkSpacer" runat="server">|</span>
 						<asp:HyperLink ID="RssFeed" runat="server" />
