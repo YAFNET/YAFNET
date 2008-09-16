@@ -2,7 +2,7 @@
     Inherits="YAF.Pages.cp_editavatar" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileEdit" Src="../controls/EditUsersAvatar.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
+<div class="DivTopSeparator"></div>
 <YAF:ProfileEdit runat="server" ID="ProfileEditor" />
 
 <div id="DivSmartScroller">

@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeFile="avatar.ascx.cs" Inherits="YAF.Pages.avatar" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
+<div class="DivTopSeparator"></div>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
     <tr>
         <td class="header1" colspan="2">

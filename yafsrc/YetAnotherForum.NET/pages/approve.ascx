@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="approve.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.approve" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<div class="DivTopSeparator"></div>
 <div align="center">
 	<table class="content" width="600" cellspacing="1" cellpadding="0" id="approved"
 		runat="server" visible="false">

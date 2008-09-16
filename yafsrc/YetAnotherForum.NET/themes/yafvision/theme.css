@@ -195,10 +195,14 @@
 	/*border: solid 1px blue;*/
 	padding: 3px;
 }
+.yafnet .yafForumWelcome
+{
+	padding: 5px;
+}
 /* p-tag at the top of pages with navigation links */
-.yafnet .navlinks { font-weight: bold; color: #202020; font-size: 9pt; }
-.yafnet .navlinks a { color: #000000; text-decoration: none }
-.yafnet .navlinks a:hover { color: #6594D5; }
+.yafnet .yafPageLink { font-weight: bold; color: #202020; font-size: 9pt; }
+.yafnet .yafPageLink a { color: #000000; text-decoration: none }
+.yafnet .yafPageLink a:hover { color: #6594D5; }
 /* for printing */
 .yafnet .print {
 	border: solid 1px #C0C0C0;

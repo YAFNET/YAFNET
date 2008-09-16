@@ -222,10 +222,34 @@
 	width: 100%;
 	height: 200px;
 }
-/* p-tag at the top of pages with navigation links */
-.yafnet .navlinks { font-weight: bold; color: #000000; }
-.yafnet .navlinks a { color: #000000; text-decoration: none }
-.yafnet .navlinks a:hover {color: #666666; }
+/* Forum Welcome Message */
+.yafnet .yafForumWelcome
+{
+	text-align: right;
+	padding: 5px;
+}
+.yafnet .DivTopSeparator
+{
+	clear: both;
+}
+/* div at the top of pages with navigation links */
+.yafnet .yafPageLink
+{
+	border-top: solid 1px #cccccc;
+	border-left: solid 1px #cccccc;
+	border-bottom: solid 1px #cccccc;
+	border-right: solid 1px #cccccc;
+	font-weight: bold;
+	color: #000000;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 2px;
+	float:left;
+}
+.yafnet .yafPageLink .currentPageLink { color: #001090; }
+.yafnet .yafPageLink .linkSeperator { color: #666666; }
+.yafnet .yafPageLink a { color: #000000; text-decoration: none }
+.yafnet .yafPageLink a:hover {color: #666666; }
 /* for printing */
 .yafnet table.print {
 	border: solid 1px #C0C0C0;

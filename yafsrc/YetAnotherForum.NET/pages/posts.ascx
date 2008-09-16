@@ -187,6 +187,9 @@
 		</td>
 	</tr>
 </table>
+
+<YAF:PageLinks runat="server" ID="PageLinksBottom" LinkedPageLinkID="PageLinks" />
+
 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
 	<div id="DivForumJump">
 		<YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />

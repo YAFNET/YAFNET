@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="cp_changepassword.ascx.cs" Inherits="YAF.Pages.cp_changepassword" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<div class="DivTopSeparator"></div>
 <div align="center">
 	<asp:ChangePassword ID="ChangePassword1" runat="server">
 		<ChangePasswordTemplate>

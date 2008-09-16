@@ -146,6 +146,10 @@
 	font-style: italic;
 	color: #aaaaaa;
 }
+.yafnet .yafForumWelcome
+{
+	padding: 5px;
+}
 /* links inside content table*/
 .yafnet .content a			{ color: #579000; text-decoration: underline; }
 .yafnet .content a:hover	{ color: #579000; text-decoration: none; }
@@ -194,9 +198,9 @@
 	padding: 3px;
 }
 /* p-tag at the top of pages with navigation links */
-.yafnet .navlinks { font-weight: bold; color: #000000; }
-.yafnet .navlinks a { color: #000000; text-decoration: none }
-.yafnet .navlinks a:hover {color: #666666;}
+.yafnet .yafPageLink { font-weight: bold; color: #000000; }
+.yafnet .yafPageLink a { color: #000000; text-decoration: none }
+.yafnet .yafPageLink a:hover {color: #666666;}
 /* for printing */
 .yafnet table.print {
 	border: solid 1px #C0C0C0;

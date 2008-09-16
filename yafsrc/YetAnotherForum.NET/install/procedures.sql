@@ -4287,35 +4287,39 @@ begin
 end
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey nvarchar(64),@IsApproved bit) as
-begin
-	declare @UserID int, @RankID int, @approvedFlag int
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_aspnet](@BoardID int,@UserName nvarchar(50),@Email nvarchar(50),@ProviderUserKey nvarchar(64),@IsApproved bit) as
+BEGIN
+	SET NOCOUNT ON
+
+	DECLARE @UserID int, @RankID int, @approvedFlag int
 
 	SET @approvedFlag = 0;
 	IF (@IsApproved = 1) SET @approvedFlag = 2;	
 	
-	if exists(select 1 from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and [ProviderUserKey]=@ProviderUserKey)
-	begin
-		select @UserID=UserID from [{databaseOwner}].[{objectQualifier}User] where [BoardID]=@BoardID and [ProviderUserKey]=@ProviderUserKey
-		update [{databaseOwner}].[{objectQualifier}User] set 
+	IF EXISTS(SELECT 1 FROM [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID and ([ProviderUserKey]=@ProviderUserKey OR [Name] = @UserName))
+	BEGIN
+		SELECT TOP 1 @UserID = UserID FROM [{databaseOwner}].[{objectQualifier}User] WHERE [BoardID]=@BoardID and ([ProviderUserKey]=@ProviderUserKey OR [Name] = @UserName)
+
+		UPDATE [{databaseOwner}].[{objectQualifier}User] SET 
 			[Name] = @UserName,
 			Email = @Email,
+			[ProviderUserKey] = @ProviderUserKey,
 			Flags = Flags | @approvedFlag
-		where
+		WHERE
 			UserID = @UserID
-	end else
-	begin
-		select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
+	END ELSE
+	BEGIN
+		SELECT @RankID = RankID from [dbo].[{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
-		insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
-		values(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
+		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
+		VALUES(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
 	
 		set @UserID = SCOPE_IDENTITY()
 	
-	end
+	END
 	
-	select UserID=@UserID
-end
+	SELECT UserID=@UserID
+END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]

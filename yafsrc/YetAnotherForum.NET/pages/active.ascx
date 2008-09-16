@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="active.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.active" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<div class="DivTopSeparator"></div>
 <asp:UpdatePanel ID="ActiveUpdatePanel" runat="server">
     <ContentTemplate>
         <table class="command" cellspacing="0" cellpadding="0" width="100%" style="padding-bottom: 10px;">

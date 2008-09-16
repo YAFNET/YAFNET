@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="YAF" TagName="ForumActiveDiscussion" Src="../controls/ForumActiveDiscussion.ascx" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:ForumWelcome runat="server" ID="Welcome" />
-<br />
+<div class="DivTopSeparator"></div>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand"

@@ -1,5 +1,6 @@
 <%@ Control Language="c#" CodeFile="activeusers.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<div class="DivTopSeparator"></div>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
 	<tr>
 		<td class="header1" colspan="6">
