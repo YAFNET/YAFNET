@@ -656,6 +656,13 @@ begin
 end
 GO
 
+-- make sure the gender column is nullable
+if exists(select 1 from syscolumns where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Gender')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] alter column Gender tinyint NULL
+end
+GO
+
 -- Only remove User table columns if version is 30+
 IF EXISTS (SELECT ver FROM (SELECT CAST(CAST(value as nvarchar(255)) as int) as ver FROM [{databaseOwner}].[{objectQualifier}Registry] WHERE name = 'version') reg WHERE ver > 30)
 BEGIN
