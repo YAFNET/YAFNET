@@ -26,6 +26,40 @@ namespace YAF.Controls
 	/// </summary>
 	public class PageLinks : BaseControl
 	{
+		public string LinkedPageLinkID
+		{
+			get
+			{
+				if ( ViewState ["LinkedPageLinkID"] != null )
+				{
+					return ViewState ["LinkedPageLinkID"].ToString();
+				}
+
+				return null;
+			}
+			set
+			{
+				ViewState ["LinkedPageLinkID"] = value;
+			}
+		}
+
+		protected DataTable PageLinkDT
+		{
+			get
+			{
+				if ( ViewState ["PageLinkDT"] != null )
+				{
+					return ViewState ["PageLinkDT"] as DataTable;
+				}
+
+				return null;
+			}
+			set
+			{
+				ViewState ["PageLinkDT"] = value;
+			}
+		}
+
 		public void AddLink( string title )
 		{
 			AddLink( title, "" );
@@ -33,14 +67,16 @@ namespace YAF.Controls
 
 		public void AddLink( string title, string url )
 		{
-			DataTable dt = ( DataTable ) ViewState ["data"];
+			DataTable dt = this.PageLinkDT;
+
 			if ( dt == null )
 			{
 				dt = new DataTable();
 				dt.Columns.Add( "Title", typeof( string ) );
 				dt.Columns.Add( "URL", typeof( string ) );
-				ViewState ["data"] = dt;
+				this.PageLinkDT = dt;
 			}
+
 			DataRow dr = dt.NewRow();
 			dr ["Title"] = title;
 			dr ["URL"] = url;
@@ -52,10 +88,9 @@ namespace YAF.Controls
 		/// </summary>
 		public void Clear()
 		{
-			DataTable dt = ( DataTable ) ViewState ["data"];
-			if ( dt != null )
+			if ( this.PageLinkDT != null )
 			{
-				ViewState ["data"] = null;
+				this.PageLinkDT = null;
 			}
 		}
 
@@ -80,34 +115,55 @@ namespace YAF.Controls
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			DataTable m_links = ( DataTable ) ViewState ["data"];
+			DataTable linkDataTable = null;
 
-			if ( m_links == null || m_links.Rows.Count == 0 ) return;
+			if ( !String.IsNullOrEmpty( LinkedPageLinkID ) )
+			{
+				// attempt to get access to the other control...
+				PageLinks plControl = Parent.FindControl( LinkedPageLinkID ) as PageLinks;
 
-			writer.WriteLine( "<p class=\"navlinks\">" );
+				if ( plControl != null )
+				{
+					// use the other data stream...
+					linkDataTable = plControl.PageLinkDT;
+				}
+			}
+			else
+			{
+				// use the data table from this control...
+				linkDataTable = this.PageLinkDT;
+			}
+
+			if ( linkDataTable == null || linkDataTable.Rows.Count == 0 ) return;
+
+			writer.WriteLine( String.Format(@"<div id=""{0}"" class=""yafPageLink"">", this.ClientID ) );
 
 			bool bFirst = true;
-			foreach ( DataRow row in m_links.Rows )
+			foreach ( DataRow row in linkDataTable.Rows )
 			{
 				if ( !bFirst )
-					writer.WriteLine( "&#187;" );
+				{
+					writer.WriteLine( @"<span class=""linkSeperator"">&#187;</span>" );
+				}
 				else
+				{
 					bFirst = false;
+				}
 
 				string title = HtmlEncode( row ["Title"].ToString().Trim() );
 				string url = row ["URL"].ToString().Trim();
 
 				if ( String.IsNullOrEmpty( url ) )
 				{
-					writer.WriteLine( String.Format( "<span id=\"current\">{0}</span>", title ) );
+					writer.WriteLine( String.Format( @"<span class=""currentPageLink"">{0}</span>", title ) );
 				}
 				else
 				{
-					writer.WriteLine( String.Format( "<a href=\"{0}\">{1}</a>", url, title ) );
+					writer.WriteLine( String.Format( @"<a href=""{0}"">{1}</a>", url, title ) );
 				}
 			}
 
-			writer.WriteLine( "</p>" );
+			writer.WriteLine( "</div>" );
 		}
 	}
 }
