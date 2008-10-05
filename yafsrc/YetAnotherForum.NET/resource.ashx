@@ -319,7 +319,7 @@ namespace YAF
                 else
                 {
                     // check if it's a search engine spider...
-                    isSearchEngine = YAF.Classes.Base.ForumPage.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
+                    isSearchEngine = General.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
                 }
             }
 
