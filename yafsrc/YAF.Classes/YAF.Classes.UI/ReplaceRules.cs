@@ -23,6 +23,8 @@ using System.Web;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Text;
+using System.IO;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -31,7 +33,7 @@ namespace YAF.Classes.UI
 	/// <summary>
 	/// Provides a way to handle layers of replacements rules
 	/// </summary>
-	public class ReplaceRules : ICloneable	
+	public class ReplaceRules : ICloneable
 	{
 		private List<BaseReplaceRule> _rulesList;
 		private bool _needSort = false;
@@ -80,7 +82,7 @@ namespace YAF.Classes.UI
 		{
 			ReplaceRules copyReplaceRules = new ReplaceRules();
 			// move the rules over...
-			BaseReplaceRule [] ruleArray = new BaseReplaceRule[this._rulesList.Count];
+			BaseReplaceRule [] ruleArray = new BaseReplaceRule [this._rulesList.Count];
 			this._rulesList.CopyTo( ruleArray );
 			copyReplaceRules._rulesList.InsertRange( 0, ruleArray );
 			copyReplaceRules._needSort = this._needSort;
@@ -103,6 +105,11 @@ namespace YAF.Classes.UI
 		public virtual void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
 			throw new NotImplementedException( "Not Implemented in Base Class" );
+		}
+
+		public virtual string RuleDescription
+		{
+			get { return string.Empty; }
 		}
 
 		#region IComparable Members
@@ -155,7 +162,12 @@ namespace YAF.Classes.UI
 					int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( _replace ) );
 					text = text.Substring( 0, index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( index + _find.Length );
 				}
-			} while ( index >= 0 );			
+			} while ( index >= 0 );
+		}
+
+		public override string RuleDescription
+		{
+			get { return String.Format( "Find = \"{0}\"", _find ); }
 		}
 	}
 
@@ -173,6 +185,12 @@ namespace YAF.Classes.UI
 			_regExReplace = regExReplace;
 		}
 
+		public SimpleRegexReplaceRule( Regex regExSearch, string regExReplace )
+		{
+			_regExSearch = regExSearch;
+			_regExReplace = regExReplace;
+		}
+
 		protected virtual string GetInnerValue( string innerValue )
 		{
 			return innerValue;
@@ -180,17 +198,33 @@ namespace YAF.Classes.UI
 
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
+			StringBuilder sb = new StringBuilder( text );
+
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
-				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue(m.Groups ["inner"].Value) );
+				string tStr = _regExReplace.Replace( "${inner}", GetInnerValue( m.Groups ["inner"].Value ) );
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
 				replacement.GetReplacementsFromText( ref tStr );
-				
-				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = _regExSearch.Match( text );
+
+				// remove old bbcode...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert replaced value(s)
+				sb.Insert( m.Groups [0].Index, tStr );
+
+				//text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _regExSearch.Match( sb.ToString() );
 			}
+
+			text = sb.ToString();
+		}
+
+		public override string RuleDescription
+		{
+			get { return String.Format( "RegExSearch = \"{0}\"", _regExSearch ); }
 		}
 	}
 
@@ -206,15 +240,26 @@ namespace YAF.Classes.UI
 
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
+			StringBuilder sb = new StringBuilder( text );
+
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
 				// just replaces with no "inner"
 				int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( _regExReplace ) );
-				text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
 
-				m = _regExSearch.Match( text );
+				// remove old bbcode...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert replaced value(s)
+				sb.Insert( m.Groups [0].Index, replacement.GetReplaceValue( replaceIndex ) );
+
+				//text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _regExSearch.Match( sb.ToString() );
 			}
+
+			text = sb.ToString();
 		}
 	}
 
@@ -226,6 +271,26 @@ namespace YAF.Classes.UI
 		protected string [] _variables = null;
 		protected string [] _variableDefaults = null;
 		protected int _truncateLength = 0;
+
+		public VariableRegexReplaceRule( Regex regExSearch, string regExReplace, string [] variables, string [] varDefaults, int truncateLength )
+			: base( regExSearch, regExReplace )
+		{
+			_variables = variables;
+			_variableDefaults = varDefaults;
+			_truncateLength = truncateLength;
+		}
+
+		public VariableRegexReplaceRule( Regex regExSearch, string regExReplace, string [] variables, string [] varDefaults )
+			: this( regExSearch, regExReplace, variables, varDefaults, 0 )
+		{
+
+		}
+
+		public VariableRegexReplaceRule( Regex regExSearch, string regExReplace, string [] variables )
+			: this( regExSearch, regExReplace, variables, null, 0 )
+		{
+
+		}
 
 		public VariableRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions, string [] variables, string [] varDefaults, int truncateLength )
 			: base( regExSearch, regExReplace, regExOptions )
@@ -244,7 +309,7 @@ namespace YAF.Classes.UI
 		public VariableRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions, string [] variables )
 			: this( regExSearch, regExReplace, regExOptions, variables, null, 0 )
 		{
-			
+
 		}
 
 		/// <summary>
@@ -260,10 +325,12 @@ namespace YAF.Classes.UI
 
 		public override void Replace( ref string text, ref HtmlReplacementCollection replacement )
 		{
+			StringBuilder sb = new StringBuilder( text );
+
 			Match m = _regExSearch.Match( text );
 			while ( m.Success )
 			{
-				string tStr = _regExReplace;
+				StringBuilder innerReplace = new StringBuilder( _regExReplace );
 				int i = 0;
 
 				foreach ( string tVar in _variables )
@@ -276,25 +343,33 @@ namespace YAF.Classes.UI
 						tValue = _variableDefaults [i];
 					}
 
-					tStr = tStr.Replace( "${" + tVar + "}", ManageVariableValue(tVar,tValue) );
+					innerReplace.Replace( "${" + tVar + "}", ManageVariableValue( tVar, tValue ) );
 					i++;
 				}
 
-				tStr = tStr.Replace( "${inner}", m.Groups ["inner"].Value );
+				innerReplace.Replace( "${inner}", m.Groups ["inner"].Value );
 
 				if ( _truncateLength > 0 )
 				{
 					// special handling to truncate urls
-					tStr = tStr.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, _truncateLength ) );
+					innerReplace.Replace( "${innertrunc}", General.TruncateMiddle( m.Groups ["inner"].Value, _truncateLength ) );
 				}
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
-				replacement.GetReplacementsFromText( ref tStr );
+				replacement.GetReplacementsFromText( ref innerReplace );
 
-				// add it back into the text
-				text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = _regExSearch.Match( text );
+				// remove old bbcode...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert replaced value(s)
+				sb.Insert( m.Groups [0].Index, innerReplace.ToString() );
+
+				//text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _regExSearch.Match( sb.ToString() );
 			}
+
+			text = sb.ToString();
 		}
 	}
 
@@ -303,8 +378,8 @@ namespace YAF.Classes.UI
 	/// </summary>
 	public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
 	{
-		public FontSizeRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
-			: base (regExSearch, regExReplace, regExOptions, new string [] { "size" }, new string [] { "5" })
+		public FontSizeRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
+			: base( regExSearch, regExReplace, regExOptions, new string [] { "size" }, new string [] { "5" } )
 		{
 			RuleRank = 25;
 		}
@@ -335,20 +410,20 @@ namespace YAF.Classes.UI
 	public class PostTopicRegexReplaceRule : VariableRegexReplaceRule
 	{
 		public PostTopicRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
-			: base( regExSearch, regExReplace, regExOptions, new string [] { "post", "topic"} )
+			: base( regExSearch, regExReplace, regExOptions, new string [] { "post", "topic" } )
 		{
 			RuleRank = 200;
 		}
 		protected override string ManageVariableValue( string variableName, string variableValue )
 		{
-			if ( variableName == "post" || variableName == "topic")
-			{				
+			if ( variableName == "post" || variableName == "topic" )
+			{
 				int id = 0;
-				if (int.TryParse( variableValue, out id))
+				if ( int.TryParse( variableValue, out id ) )
 				{
-					if (variableName == "post")
+					if ( variableName == "post" )
 						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", id );
-					else if (variableName == "topic")
+					else if ( variableName == "topic" )
 						return YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", id );
 				}
 			}
@@ -361,8 +436,8 @@ namespace YAF.Classes.UI
 	/// </summary>
 	public class CodeRegexReplaceRule : SimpleRegexReplaceRule
 	{
-		public CodeRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
-			: base( regExSearch, regExReplace, regExOptions ) 
+		public CodeRegexReplaceRule( Regex regExSearch, string regExReplace )
+			: base( regExSearch, regExReplace )
 		{
 			// default high rank...
 			RuleRank = 2;
@@ -407,8 +482,8 @@ namespace YAF.Classes.UI
 	{
 		private HighLighter _syntaxHighlighter = new HighLighter();
 
-		public SyntaxHighlightedCodeRegexReplaceRule( string regExSearch, string regExReplace, RegexOptions regExOptions )
-			: base( regExSearch, regExReplace, regExOptions )
+		public SyntaxHighlightedCodeRegexReplaceRule( Regex regExSearch, string regExReplace )
+			: base( regExSearch, regExReplace )
 		{
 			_syntaxHighlighter.ReplaceEnter = true;
 			RuleRank = 1;
@@ -430,7 +505,7 @@ namespace YAF.Classes.UI
 			while ( m.Success )
 			{
 				string inner = _syntaxHighlighter.ColorText( GetInnerValue( m.Groups ["inner"].Value ), HttpContext.Current.Server.MapPath( YafForumInfo.ForumFileRoot + "defs/" ), m.Groups ["language"].Value );
-				string tStr = _regExReplace.Replace( "${inner}",  inner );
+				string tStr = _regExReplace.Replace( "${inner}", inner );
 
 				// pulls the htmls into the replacement collection before it's inserted back into the main text
 				int replaceIndex = replacement.AddReplacement( new HtmlReplacementBlock( tStr ) );
@@ -497,30 +572,68 @@ namespace YAF.Classes.UI
 		/// <param name="text"></param>
 		public void Reconstruct( ref string text )
 		{
+			StringBuilder sb = new StringBuilder( text );
+
 			foreach ( int index in _replacementDictionary.Keys )
 			{
-				text = text.Replace( GetReplaceValue( index ), _replacementDictionary [index].Tag );
+				sb.Replace( GetReplaceValue( index ), _replacementDictionary [index].Tag );
 			}
+
+			text = sb.ToString();
 		}
 
 		/// <summary>
 		/// Pull replacement blocks from the text
 		/// </summary>
 		/// <param name="html"></param>
-		public void GetReplacementsFromText( ref string text )
+		public void GetReplacementsFromText( ref string strText )
 		{
-			Match m = _rgxHtml.Match( text );
+			StringBuilder sb = new StringBuilder( strText );
+
+			Match m = _rgxHtml.Match( strText );
 			while ( m.Success )
-			{				
+			{
 				// add it to the list...
 				int index = this.AddReplacement( new HtmlReplacementBlock( m.Groups [0].Value ) );
 
 				// replacement lookup code
 				string replace = GetReplaceValue( index );
 
-				text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-				m = _rgxHtml.Match( text );
-			}			
+				// remove the replaced item...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert the replaced value back in...
+				sb.Insert( m.Groups [0].Index, replace );
+
+				//text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _rgxHtml.Match( sb.ToString() );
+			}
+
+			strText = sb.ToString();
+		}
+
+		public void GetReplacementsFromText( ref StringBuilder sb )
+		{
+			Match m = _rgxHtml.Match( sb.ToString() );
+			while ( m.Success )
+			{
+				// add it to the list...
+				int index = this.AddReplacement( new HtmlReplacementBlock( m.Groups [0].Value ) );
+
+				// replacement lookup code
+				string replace = GetReplaceValue( index );
+
+				// remove the replaced item...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert the replaced value back in...
+				sb.Insert( m.Groups [0].Index, replace );
+
+				//text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+
+				m = _rgxHtml.Match( sb.ToString() );
+			}
 		}
 	}
 

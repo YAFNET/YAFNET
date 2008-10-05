@@ -42,7 +42,7 @@ namespace YAF.Classes.Base
 				int boardID;
 
 				// retrieve board id from config, otherwise default is 1
-				try { boardID = int.Parse(YAF.Classes.Config.BoardID); }
+				try { boardID = int.Parse( YAF.Classes.Config.BoardID ); }
 				catch { boardID = 1; }
 
 				return boardID;
@@ -54,41 +54,56 @@ namespace YAF.Classes.Base
 
 		void System.Web.IHttpModule.Dispose()
 		{
-            if (this._timer != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Disposing timer");
-                this._timer.Dispose();
-                this._timer = null;
-            }
+			/* Dispose doesn't work too well on IIS6
+			if ( _mailTimer != null )
+			{
+				System.Diagnostics.Debug.WriteLine( "Disposing timer" );
+				_mailTimer.Dispose();
+				_mailTimer = null;
+			}
+			*/
 		}
 
 
-		void System.Web.IHttpModule.Init(System.Web.HttpApplication context)
+		void System.Web.IHttpModule.Init( System.Web.HttpApplication context )
 		{
 			try
 			{
 				// attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
-				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles(BoardID);                
+				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( BoardID );
 			}
 			catch
 			{
 				// do nothing here--upgrading/DB connectivity issues will be handled in ForumPage.cs
 			}
-            // Wes : The timer will use an available thread from the thread pool.            
-            System.Diagnostics.Debug.WriteLine("Initializing mail timer");
-            this._timer = new Timer(new TimerCallback(MailTimerCallback), context.Context.Cache, 10000, 10000);
+
+			if ( _mailTimer == null )
+			{
+				System.Diagnostics.Debug.WriteLine( "Initializing mail timer" );
+				// get a random ID that will identify this process...
+				Random rand = new Random();
+				_uniqueId = rand.Next();
+				int syncTime = (rand.Next( 10 ) + 5) * 1000;
+				// create the mail timer...
+				_mailTimer = new System.Threading.Timer( new TimerCallback( MailTimerCallback ), context.Context.Cache, syncTime, syncTime );
+			}
 		}
 
 		#endregion
 
-        #region "Mail Timer"
-        private Timer _timer;
+		#region "Mail Timer"
+		protected static System.Threading.Timer _mailTimer = null;
+		protected static object _mailTimerSemaphore = new object();
+		protected int _uniqueId = 0;
 
-        private void MailTimerCallback(object sender)
-        {
-            System.Diagnostics.Debug.WriteLine("MailTimerCallback Invoked");
-            SendMailThread.SendMailThreaded();
-        }
-        #endregion
-    }
+		private void MailTimerCallback( object sender )
+		{
+			lock ( _mailTimerSemaphore )
+			{
+				System.Diagnostics.Debug.WriteLine( "MailTimerCallback Invoked" );
+				SendMailThread.SendMailThreaded( _uniqueId );
+			}
+		}
+		#endregion
+	}
 }

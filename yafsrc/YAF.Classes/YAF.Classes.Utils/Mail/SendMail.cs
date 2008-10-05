@@ -104,14 +104,14 @@ namespace YAF.Classes.Utils
 	static public class SendMailThread
 	{
 		//TODO: Wes- This could be rolled into the SendMail class; SendMailThread would not be needed. Eh, next iteration.
-		static public void SendMailThreaded()
+		static public void SendMailThreaded( int uniqueId )
 		{
 			try
 			{
 				System.Diagnostics.Debug.WriteLine( "Retrieving queued mail..." );
 				Thread.BeginCriticalRegion();
 
-				using ( DataTable dt = YAF.Classes.Data.DB.mail_list( Thread.CurrentThread.GetHashCode() ) )
+				using ( DataTable dt = YAF.Classes.Data.DB.mail_list( uniqueId ) )
 				{
 					for ( int i = 0; i < dt.Rows.Count; i++ )
 					{

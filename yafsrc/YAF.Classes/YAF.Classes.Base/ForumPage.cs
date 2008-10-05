@@ -140,21 +140,6 @@ namespace YAF.Classes.Base
 				CreateMail.CreateLogEmail( Server.GetLastError() );
 		}
 
-		static public int ValidInt( object expression )
-		{
-			try
-			{
-				if ( expression == null )
-					return 0;
-
-				return int.Parse( expression.ToString() );
-			}
-			catch ( Exception )
-			{
-				return 0;
-			}
-		}
-
 		/// <summary>
 		/// Called first to initialize the context
 		/// </summary>
@@ -171,8 +156,8 @@ namespace YAF.Classes.Base
 
 			if ( ForumFooter != null ) ForumFooter.StopWatch.Start();
 
-			// setup the culture based on the browser...
-			InitCulture();
+			// set the current translation page...
+			PageContext.TranslationPage = _transPage;
 
 			// checks the DB exists and the version is current, otherwise redirects to in the install page...
 			InitDB();
@@ -182,15 +167,6 @@ namespace YAF.Classes.Base
 
 			// initialize the providers...
 			InitProviderSettings();
-
-			// initialize the user and current page data...
-			InitUserAndPage();
-
-			// initialize theme
-			InitTheme();
-
-			// initialize localization
-			InitLocalization();
 
 			// check if login is required
 			if ( PageContext.BoardSettings.RequireLogin && PageContext.IsGuest && IsProtected )
@@ -357,228 +333,10 @@ namespace YAF.Classes.Base
 			}
 		}
 
-		/// <summary>
-		/// Set the culture and UI culture to the browser's accept language
-		/// </summary>
-		private void InitCulture()
-		{
-			try
-			{
-				string cultureCode = "";
-				string [] tmp = HttpContext.Current.Request.UserLanguages;
-				if ( tmp != null )
-				{
-					cultureCode = tmp [0];
-					if ( cultureCode.IndexOf( ';' ) >= 0 )
-					{
-						cultureCode = cultureCode.Substring( 0, cultureCode.IndexOf( ';' ) ).Replace( '_', '-' );
-					}
-				}
-				else
-				{
-					cultureCode = "en-US";
-				}
-
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( cultureCode );
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo( cultureCode );
-
-			}
-#if DEBUG
-			catch ( Exception ex )
-			{
-				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, ex );
-				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
-			}
-#else
-			catch(Exception)
-			{
-				// set to default...
-				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
-				Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
-			}
-#endif
-		}
-
 		private void InitProviderSettings()
 		{
 			System.Web.Security.Membership.ApplicationName = PageContext.BoardSettings.MembershipAppName;
 			System.Web.Security.Roles.ApplicationName = PageContext.BoardSettings.RolesAppName;
-		}
-
-		/// <summary>
-		/// Initialize the user data and page data...
-		/// </summary>
-		private void InitUserAndPage()
-		{
-			System.Data.DataRow pageRow;
-
-			// Find user name
-			MembershipUser user = Membership.GetUser();
-			if ( user != null && Session ["UserUpdated"] == null )
-			{
-				RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
-				Session ["UserUpdated"] = true;
-			}
-
-			string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
-			string platform = HttpContext.Current.Request.Browser.Platform;
-			bool isSearchEngine = false;
-
-			if ( HttpContext.Current.Request.UserAgent != null )
-			{
-				if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
-				{
-					platform = "Win2003";
-				}
-				else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
-				{
-					platform = "Vista";
-				}
-				else
-				{
-					// check if it's a search engine spider...
-					isSearchEngine = IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
-				}
-			}
-
-			int? categoryID = ValidInt( HttpContext.Current.Request.QueryString ["c"] );
-			int? forumID = ValidInt( HttpContext.Current.Request.QueryString ["f"] );
-			int? topicID = ValidInt( HttpContext.Current.Request.QueryString ["t"] );
-			int? messageID = ValidInt( HttpContext.Current.Request.QueryString ["m"] );
-
-			if ( PageContext.Settings.CategoryID != 0 )
-				categoryID = PageContext.Settings.CategoryID;
-
-			object userKey = DBNull.Value;
-
-			if ( user != null )
-			{
-				userKey = user.ProviderUserKey;
-			}
-
-			do
-			{
-				pageRow = DB.pageload(
-						HttpContext.Current.Session.SessionID,
-						PageContext.PageBoardID,
-						userKey,
-						HttpContext.Current.Request.UserHostAddress,
-						HttpContext.Current.Request.FilePath,
-						browser,
-						platform,
-						categoryID,
-						forumID,
-						topicID,
-						messageID,
-						// don't track if this is a search engine
-						isSearchEngine );
-
-				// if the user doesn't exist...
-				if ( user != null && pageRow == null )
-				{
-					// create the user...
-					if ( !RoleMembershipHelper.DidCreateForumUser( user, PageContext.PageBoardID ) )
-						throw new ApplicationException( "Failed to use new user." );
-				}
-
-				// only continue if either the page has been loaded or the user has been found...
-			} while ( pageRow == null && user != null );
-
-			// page still hasn't been loaded...
-			if ( pageRow == null )
-			{
-				if ( user != null )
-					throw new ApplicationException( string.Format( "User '{0}' isn't registered.", user.UserName ) );
-				else
-					throw new ApplicationException( "Failed to find guest user." );
-			}
-
-			// save this page data to the context...
-			PageContext.Page = pageRow;
-		}
-
-		/// <summary>
-		/// Validates if the useragent is a search engine spider or not
-		/// </summary>
-		/// <param name="UserAgent"></param>
-		/// <returns></returns>
-		static public bool IsSearchEngineSpider( string userAgent )
-		{
-			string [] spiderstrings = 
-				{
-					"Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver",
-					"Scooter", "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot",
-					"Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "RaBot", "DeepIndex", "DittoSpyder", "Jack",
-					"EARTHCOM.info", "Speedy Spider", "ArchitextSpider", "EuripBot", "Arachnoidea", "EZResult", "FyberSearch", "geckobot",
-					"GenCrawler", "GeonaBot", "getRAX", "moget", "Aranha", "Toutatis", "Hubater", "IlTrovatore-Setaccio", "IncyWincy",
-					"UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot",
-					"lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex",
-					"MSNBOT", "Navadoo Crawler", "Gulliver", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "DIIbot",
-					"nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "CrawlerBoy", "QweeryBot", "AlkalineBOT", "StackRambler",
-					"SeznamBot", "Search-10", "Fluffy", "Scrubby", "asterias", "speedfind ramBot xtreme", "Kototoi", "SearchByUsa",
-					"Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", "ESISmartSpider", "UK Searcher Spider",
-					"appie", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "Findexa Crawler",
-					"YBSbot"
-				};
-
-			// see if the current useragent is one of these spiders...
-			string userAgentLow = userAgent.ToLower();
-
-			foreach ( string spider in spiderstrings )
-			{
-				if (userAgentLow.Contains( spider.Trim().ToLower() ))
-				{
-					// it's a spider...
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		/// <summary>
-		/// Sets the theme class up for usage
-		/// </summary>
-		private void InitTheme()
-		{
-			string themeFile = null;
-
-			if ( PageContext.Page != null && PageContext.Page ["ThemeFile"] != DBNull.Value && PageContext.BoardSettings.AllowUserTheme )
-			{
-				// use user-selected theme
-				themeFile = PageContext.Page ["ThemeFile"].ToString();
-			}
-			else if ( PageContext.Page != null && PageContext.Page ["ForumTheme"] != DBNull.Value )
-			{
-				themeFile = PageContext.Page ["ForumTheme"].ToString();
-			}
-			else
-			{
-				themeFile = PageContext.BoardSettings.Theme;
-			}
-
-			if ( !YAF.Classes.Utils.YafTheme.IsValidTheme( themeFile ) )
-			{
-				themeFile = "yafpro.xml";
-			}
-
-			// create the theme class
-			PageContext.Theme = new YAF.Classes.Utils.YafTheme( themeFile );
-
-			// make sure it's valid again...
-			if ( !YAF.Classes.Utils.YafTheme.IsValidTheme( PageContext.Theme.ThemeFile ) )
-			{
-				// can't load a theme... throw an exception.
-				throw new Exception( String.Format( "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile ) );
-			}
-		}
-
-		/// <summary>
-		/// Sets up the localization class for usage
-		/// </summary>
-		private void InitLocalization()
-		{
-			PageContext.Localization = new YAF.Classes.Utils.YafLocalization( _transPage );
 		}
 		#endregion
 

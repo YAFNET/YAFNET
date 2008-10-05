@@ -156,6 +156,69 @@ namespace YAF.Classes.Utils
 		}
 
 		/// <summary>
+		/// Validates if the useragent is a search engine spider or not
+		/// </summary>
+		/// <param name="UserAgent"></param>
+		/// <returns></returns>
+		static public bool IsSearchEngineSpider( string userAgent )
+		{
+			string [] spiderstrings = 
+				{
+					"Googlebot", "Slurp", "abachoBOT", "abcdatos_botlink", "AESOP_com_SpiderMan", "ah-ha.com crawler", "ia_archiver",
+					"Scooter", "Mercator", "AltaVista-Intranet", "FAST-WebCrawler", "Acoon Robot", "antibot", "Atomz", "AxmoRobot",
+					"Buscaplus Robi", "CanSeek", "ChristCRAWLER", "Clushbot", "Crawler", "RaBot", "DeepIndex", "DittoSpyder", "Jack",
+					"EARTHCOM.info", "Speedy Spider", "ArchitextSpider", "EuripBot", "Arachnoidea", "EZResult", "FyberSearch", "geckobot",
+					"GenCrawler", "GeonaBot", "getRAX", "moget", "Aranha", "Toutatis", "Hubater", "IlTrovatore-Setaccio", "IncyWincy",
+					"UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot", "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot",
+					"lookbot", "MantraAgent", "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex",
+					"MSNBOT", "Navadoo Crawler", "Gulliver", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "DIIbot",
+					"nttdirectory_robot", "maxbot.com", "Openfind", "psbot", "CrawlerBoy", "QweeryBot", "AlkalineBOT", "StackRambler",
+					"SeznamBot", "Search-10", "Fluffy", "Scrubby", "asterias", "speedfind ramBot xtreme", "Kototoi", "SearchByUsa",
+					"Searchspider", "SightQuestBot", "Spider_Monkey", "Surfnomore", "teoma", "ESISmartSpider", "UK Searcher Spider",
+					"appie", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner", "WSCbot", "Yandex", "Yellopet-Spider", "Findexa Crawler",
+					"YBSbot"
+				};
+
+			// see if the current useragent is one of these spiders...
+			string userAgentLow = userAgent.ToLower();
+
+			foreach ( string spider in spiderstrings )
+			{
+				if ( userAgentLow.Contains( spider.Trim().ToLower() ) )
+				{
+					// it's a spider...
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Gets an Int from an Object value
+		/// </summary>
+		/// <param name="expression"></param>
+		/// <returns></returns>
+		static public int ValidInt( object expression )
+		{
+			int value = 0;
+
+			if ( expression != null )
+			{
+				try
+				{
+					int.TryParse( expression.ToString(), out value );
+				}
+				catch
+				{
+
+				}
+			}
+
+			return value;
+		}
+
+		/// <summary>
 		/// Returns a "random" alpha-numeric string of specified length and characters.
 		/// </summary>
 		/// <param name="length">the length of the random string</param>

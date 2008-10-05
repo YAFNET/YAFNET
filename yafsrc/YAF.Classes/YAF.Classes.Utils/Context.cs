@@ -22,6 +22,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.Security;
+using System.Threading;
+using System.Globalization;
 using YAF.Classes.Data;
 
 namespace YAF.Classes.Utils
@@ -43,6 +46,13 @@ namespace YAF.Classes.Utils
 		private string _adminLoadString = "";
 		private UserFlags _userFlags = null;
 
+		// init flags
+		private bool _initCulture = false;
+		private bool _initTheme = false;
+		private bool _initLocalization = false;
+		private bool _initUserPage = false;
+
+		#region Load Message
 		public string LoadString
 		{
 			get
@@ -101,7 +111,7 @@ namespace YAF.Classes.Utils
 		/// <param name="message">The message you wish to display.</param>
 		public void AddLoadMessageSession( string message )
 		{
-			HttpContext.Current.Session["LoadMessage"] = message + "\r\n";
+			HttpContext.Current.Session ["LoadMessage"] = message + "\r\n";
 		}
 
 		public void ClearLoadString()
@@ -124,10 +134,10 @@ namespace YAF.Classes.Utils
 		{
 			_loadString = "";
 			_adminLoadString = "";
-		}
+		} 
+		#endregion
 
 		private static YafContext _currentInstance = new YafContext();
-
 		public static YafContext Current
 		{
 			get
@@ -147,15 +157,27 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		private string _transPage = string.Empty;
+		/// <summary>
+		/// Current TransPage for Localization
+		/// </summary>
+		public string TranslationPage
+		{
+			get { return _transPage; }
+			set { _transPage = value; }
+		}
+
 		public System.Data.DataRow Page
 		{
 			get
 			{
+				if ( !_initUserPage ) InitUserAndPage();
 				return _page;
 			}
 			set
 			{
 				_page = value;
+				_initUserPage = ( value != null );
 
 				// get user flags
 				if (_page != null) _userFlags = new UserFlags(_page["UserFlags"]);
@@ -186,12 +208,14 @@ namespace YAF.Classes.Utils
 		public YAF.Classes.Utils.YafTheme Theme
 		{
 			get
-			{
+			{			
+				if ( !_initTheme ) InitTheme();
 				return _theme;
 			}
 			set
 			{
 				_theme = value;
+				_initTheme = ( value != null );
 			}
 		}
 
@@ -199,11 +223,14 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
+				if ( !_initCulture ) InitCulture();
+				if ( !_initLocalization ) InitLocalization();
 				return _localization;
 			}
 			set
 			{
 				_localization = value;
+				_initLocalization = ( value != null );
 			}
 		}
 
@@ -720,6 +747,209 @@ namespace YAF.Classes.Utils
 #endif
 			}
 		}
+		#endregion
+
+		#region Init Functions
+
+		/// <summary>
+		/// Set the culture and UI culture to the browser's accept language
+		/// </summary>
+		protected void InitCulture()
+		{
+			if ( !_initCulture )
+			{
+				try
+				{
+					string cultureCode = "";
+					string [] tmp = HttpContext.Current.Request.UserLanguages;
+					if ( tmp != null )
+					{
+						cultureCode = tmp [0];
+						if ( cultureCode.IndexOf( ';' ) >= 0 )
+						{
+							cultureCode = cultureCode.Substring( 0, cultureCode.IndexOf( ';' ) ).Replace( '_', '-' );
+						}
+					}
+					else
+					{
+						cultureCode = "en-US";
+					}
+
+					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( cultureCode );
+					Thread.CurrentThread.CurrentUICulture = new CultureInfo( cultureCode );
+				}
+#if DEBUG
+			catch ( Exception ex )
+			{
+				YAF.Classes.Data.DB.eventlog_create( this.PageUserID, this, ex );
+				throw new ApplicationException( "Error getting User Language." + Environment.NewLine + ex.ToString() );
+			}
+#else
+				catch ( Exception )
+				{
+					// set to default...
+					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
+					Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
+				}
+#endif
+				// mark as setup...
+				_initCulture = true;
+			}			
+		}
+
+		/// <summary>
+		/// Set up the localization
+		/// </summary>
+		protected void InitLocalization()
+		{
+			if ( !_initLocalization )
+			{
+				this.Localization = new YAF.Classes.Utils.YafLocalization( this.TranslationPage );
+			}			
+		}
+
+		/// <summary>
+		/// Sets the theme class up for usage
+		/// </summary>
+		protected void InitTheme()
+		{
+			if ( !_initTheme )
+			{
+				string themeFile = null;
+
+				if ( this.Page != null && this.Page ["ThemeFile"] != DBNull.Value && this.BoardSettings.AllowUserTheme )
+				{
+					// use user-selected theme
+					themeFile = this.Page ["ThemeFile"].ToString();
+				}
+				else if ( this.Page != null && this.Page ["ForumTheme"] != DBNull.Value )
+				{
+					themeFile = this.Page ["ForumTheme"].ToString();
+				}
+				else
+				{
+					themeFile = this.BoardSettings.Theme;
+				}
+
+				if ( !YafTheme.IsValidTheme( themeFile ) )
+				{
+					themeFile = "yafpro.xml";
+				}
+
+				// create the theme class
+				this.Theme = new YafTheme( themeFile );
+
+				// make sure it's valid again...
+				if ( !YafTheme.IsValidTheme( this.Theme.ThemeFile ) )
+				{
+					// can't load a theme... throw an exception.
+					throw new Exception( String.Format( "Unable to find a theme to load. Last attempted to load \"{0}\" but failed.", themeFile ) );
+				}
+			}
+		}
+
+		/// <summary>
+		/// Initialize the user data and page data...
+		/// </summary>
+		protected void InitUserAndPage()
+		{
+			if ( !_initUserPage )
+			{
+				try
+				{
+					System.Data.DataRow pageRow;
+
+					// Find user name
+					MembershipUser user = Membership.GetUser();
+					if ( user != null && HttpContext.Current.Session ["UserUpdated"] == null )
+					{
+						RoleMembershipHelper.UpdateForumUser( user, this.PageBoardID );
+						HttpContext.Current.Session ["UserUpdated"] = true;
+					}
+
+					string browser = String.Format( "{0} {1}", HttpContext.Current.Request.Browser.Browser, HttpContext.Current.Request.Browser.Version );
+					string platform = HttpContext.Current.Request.Browser.Platform;
+					bool isSearchEngine = false;
+
+					if ( HttpContext.Current.Request.UserAgent != null )
+					{
+						if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 5.2" ) >= 0 )
+						{
+							platform = "Win2003";
+						}
+						else if ( HttpContext.Current.Request.UserAgent.IndexOf( "Windows NT 6.0" ) >= 0 )
+						{
+							platform = "Vista";
+						}
+						else
+						{
+							// check if it's a search engine spider...
+							isSearchEngine = General.IsSearchEngineSpider( HttpContext.Current.Request.UserAgent );
+						}
+					}
+
+					int? categoryID = General.ValidInt( HttpContext.Current.Request.QueryString ["c"] );
+					int? forumID = General.ValidInt( HttpContext.Current.Request.QueryString ["f"] );
+					int? topicID = General.ValidInt( HttpContext.Current.Request.QueryString ["t"] );
+					int? messageID = General.ValidInt( HttpContext.Current.Request.QueryString ["m"] );
+
+					if ( this.Settings.CategoryID != 0 )
+						categoryID = this.Settings.CategoryID;
+
+					object userKey = DBNull.Value;
+
+					if ( user != null )
+					{
+						userKey = user.ProviderUserKey;
+					}
+
+					do
+					{
+						pageRow = DB.pageload(
+								HttpContext.Current.Session.SessionID,
+								this.PageBoardID,
+								userKey,
+								HttpContext.Current.Request.UserHostAddress,
+								HttpContext.Current.Request.FilePath,
+								browser,
+								platform,
+								categoryID,
+								forumID,
+								topicID,
+								messageID,
+							// don't track if this is a search engine
+								isSearchEngine );
+
+						// if the user doesn't exist...
+						if ( user != null && pageRow == null )
+						{
+							// create the user...
+							if ( !RoleMembershipHelper.DidCreateForumUser( user, this.PageBoardID ) )
+								throw new ApplicationException( "Failed to use new user." );
+						}
+
+						// only continue if either the page has been loaded or the user has been found...
+					} while ( pageRow == null && user != null );
+
+					// page still hasn't been loaded...
+					if ( pageRow == null )
+					{
+						if ( user != null )
+							throw new ApplicationException( string.Format( "User '{0}' isn't registered.", user.UserName ) );
+						else
+							throw new ApplicationException( "Failed to find guest user." );
+					}
+
+					// save this page data to the context...
+					this.Page = pageRow;
+				}
+				catch
+				{
+
+				}
+			}
+		}
+
 		#endregion
 	}
 

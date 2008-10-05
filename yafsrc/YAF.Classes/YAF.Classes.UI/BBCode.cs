@@ -37,18 +37,13 @@ namespace YAF.Classes.UI
 
 		private BBCode() { }
 
+		// regular regex...
 		static private readonly RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-		static private readonly string _rgxCode2 = @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]";
-		static private readonly string _rgxCode1 = @"\[code\](?<inner>(.*?))\[/code\]";
 		static private readonly string _rgxSize = @"\[size=(?<size>([1-9]))\](?<inner>(.*?))\[/size\]";
 		static private readonly string _rgxBold = @"\[B\](?<inner>(.*?))\[/B\]";
 		static private readonly string _rgxStrike = @"\[S\](?<inner>(.*?))\[/S\]";
 		static private readonly string _rgxItalic = @"\[I\](?<inner>(.*?))\[/I\]";
 		static private readonly string _rgxUnderline = @"\[U\](?<inner>(.*?))\[/U\]";
-		static private readonly string _rgxEmail2 = @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]";
-		static private readonly string _rgxEmail1 = @"\[email[^\]]*\](?<inner>(.*?))\[/email\]";
-		static private readonly string _rgxUrl1 = @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]";
-		static private readonly string _rgxUrl2 = @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]";
 		static private readonly string _rgxFont = @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]";
 		static private readonly string _rgxColor = @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]";
 		static private readonly string _rgxBullet = @"\[\*\]";
@@ -59,14 +54,20 @@ namespace YAF.Classes.UI
 		static private readonly string _rgxCenter = @"\[center\](?<inner>(.*?))\[/center\]";
 		static private readonly string _rgxLeft = @"\[left\](?<inner>(.*?))\[/left\]";
 		static private readonly string _rgxRight = @"\[right\](?<inner>(.*?))\[/right\]";
-		static private readonly string _rgxQuote2 = @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]";
-		static private readonly string _rgxQuote1 = @"\[quote\](?<inner>(.*?))\[/quote\]";
 		static private readonly string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
 		static private readonly string _rgxBr = "[\r]?\n";
 		static private readonly string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
-		static private readonly string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
-		static private readonly string _rgxImg = @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]";
-		//static private readonly string _rgxYoutube = @"\[youtube\](?<inner>http://(www\.)?youtube.com/watch\?v=(?<id>[0-9A-Za-z-_]{11})[^[]*)\[/youtube\]";
+		static private readonly string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";		
+		// precompiled regex...
+		static private readonly Regex _rgxEmail2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxEmail1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxUrl1 = new Regex( @"\[url\](?<http>(skype:)|(http://)|(https://)| (ftp://)|(ftps://))?(?<inner>(.*?))\[/url\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxUrl2 = new Regex( @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^\]]*?))\](?<inner>(.*?))\[/url\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxCode2 = new Regex( @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxCode1 = new Regex( @"\[code\](?<inner>(.*?))\[/code\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxQuote2 = new Regex( @"\[quote=(?<quote>[^\]]*)\](?<inner>(.*?))\[/quote\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxQuote1 = new Regex( @"\[quote\](?<inner>(.*?))\[/quote\]", _options | RegexOptions.Compiled );
+		static private readonly Regex _rgxImg = new Regex( @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(.*?))\[/img\]", _options | RegexOptions.Compiled );
 
 		/// <summary>
 		/// Converts a string containing BBCode to the equivalent HTML string.
@@ -149,10 +150,10 @@ namespace YAF.Classes.UI
 			string localCodeStr = YafContext.Current.Localization.GetText( "COMMON", "BBCODE_CODE" );
 
 			// add rule for code block type with syntax highlighting			
-			ruleEngine.AddRule( new SyntaxHighlightedCodeRegexReplaceRule( _rgxCode2, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ), _options ) );
+			ruleEngine.AddRule( new SyntaxHighlightedCodeRegexReplaceRule( _rgxCode2, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ) ) );
 
 			// add rule for code block type with no syntax highlighting
-			ruleEngine.AddRule( new CodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ), _options ) );
+			ruleEngine.AddRule( new CodeRegexReplaceRule( _rgxCode1, @"<div class=""code""><b>{0}</b><div class=""innercode"">${inner}</div></div>".Replace( "{0}", localCodeStr ) ) );
 
 			// handle font sizes -- this rule class internally handles the "size" variable
 			ruleEngine.AddRule( new FontSizeRegexReplaceRule( _rgxSize, @"<span style=""font-size:${size}"">${inner}</span>", _options ) );
@@ -165,15 +166,14 @@ namespace YAF.Classes.UI
 				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxUnderline, "<u>${inner}</u>", _options ) );
 
 				// e-mails
-				ruleEngine.AddRule( new VariableRegexReplaceRule( _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", _options, new string [] { "email" } ) );
-				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>", _options ) );
+				ruleEngine.AddRule( new VariableRegexReplaceRule( _rgxEmail2, "<a href=\"mailto:${email}\">${inner}</a>", new string [] { "email" } ) );
+				ruleEngine.AddRule( new SimpleRegexReplaceRule( _rgxEmail1, "<a href=\"mailto:${inner}\">${inner}</a>" ) );
 
 				// urls
 				ruleEngine.AddRule(
 					new VariableRegexReplaceRule(
 						_rgxUrl2,
 						"<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-						_options,
 						new string [] { "url", "http" },
 						new string [] { "", "http://" }
 						)
@@ -182,7 +182,6 @@ namespace YAF.Classes.UI
 					new VariableRegexReplaceRule(
 						_rgxUrl1,
 						"<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${innertrunc}</a>".Replace( "{0}", target ).Replace( "{1}", nofollow ),
-						_options,
 						new string [] { "http" },
 						new string [] { "", "http://" },
 						50
@@ -226,21 +225,10 @@ namespace YAF.Classes.UI
 					new VariableRegexReplaceRule(
 						_rgxImg,
 						"<img src=\"${http}${inner}\" alt=\"\"/>",
-						_options,
 						new string [] { "http" },
 						new string [] { "http://" }
 						)
 				);
-
-				// youtube
-				/*ruleEngine.AddRule(
-					new VariableRegexReplaceRule(
-						_rgxYoutube,
-						@"<!-- BEGIN youtube --><object width=""425"" height=""350""><param name=""movie"" value=""http://www.youtube.com/v/${id}""></param><embed src=""http://www.youtube.com/v/${id}"" type=""application/x-shockwave-flash"" width=""425"" height=""350""></embed></object><br /><a href=""http://youtube.com/watch?v=${id}"" target=""_blank"">${inner}</a><br /><!-- END youtube -->",
-						_options,
-						new string [] { "id" }
-						)
-				);*/
 
 				// handle custom BBCode
 				AddCustomBBCodeRules( ref ruleEngine );
@@ -264,12 +252,12 @@ namespace YAF.Classes.UI
 				tmpReplaceStr =
 					string.Format(@"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>",
 					              localQuoteWroteStr.Replace("{0}", "${quote}"), "${inner}");
-				ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr, _options, new string[] {"quote"}));
+				ruleEngine.AddRule(new VariableRegexReplaceRule(_rgxQuote2, tmpReplaceStr, new string[] {"quote"}));
 
 				tmpReplaceStr =
 					string.Format(@"<div class=""quote""><b>{0}</b><div class=""innerquote"">{1}</div></div>", localQuoteStr,
 					              "${inner}");
-				ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr, _options));
+				ruleEngine.AddRule(new SimpleRegexReplaceRule(_rgxQuote1, tmpReplaceStr ));
 			}
 
 			// post and topic rules...
