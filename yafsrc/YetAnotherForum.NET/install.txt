@@ -2,7 +2,7 @@ YetAnotherForum.NET (YAF) INSTALLATION FILE
 
 STEP 1. UNZIP
 
-Unzip to a folder available from your web server.
+   Unzip the entire archive to to a folder you want to run YAF in on your web server.
 
 STEP 2. SELECT WEB.CONFIG FILE
 
@@ -11,18 +11,23 @@ STEP 2. SELECT WEB.CONFIG FILE
    
    IMPORTANT: UPGRADING YAF FORUMS v1.9.1.x and BELOW:
 
-   You need to rename the "v191-upgrade-web.config" to "web.config" as it contains
-   necessary settings for the YAF membership providers to support backwards
-   compatibility with older YAF databaes. It's required that you merge these settings
+   You need to copy and rename the "/webconfigs/v191-upgrade-web.config" to "/web.config" as it
+   contains necessary settings for the YAF membership providers to support backwards
+   compatibility with your older YAF database. It's required that you merge these settings
    into your existing "web.config" file. If you need to do development with an 
-   upgraded installation, please use "dev-v191-upgrade-web.config".
+   upgraded installation, please use "/webconfigs/dev-v191-upgrade-web.config".
+   A tip to merge web.config files is to download both of them, then use a merge program to 
+   combine. WinMerge is a free and excellent merge program which you can download
+   here: http://www.winmerge.org/
 
    NEW INSTALLATION:
 
    If you are starting with a new installation, we recommend you start with
-   "recommended-web.config" and rename it to "web.config." This "web.config" 
-   file contains better default security settings for a NEW installation of YAF.
-   If you are doing development, use the "dev-recommended-web.config" instead.
+   "/webconfigs/recommended-web.config" and copy/rename it to "/web.config."
+   The "/webconfigs/recommended-web.config" files contains better default
+   ASP.NET security settings for a NEW installation of YAF.
+   If you are doing development, use the "/webconfigs/dev-recommended-web.config"
+   instead.
    Please Note: These web.config files will not work if you are upgrading from v1.9.1.x
    or below of YAF.
 
@@ -95,6 +100,6 @@ If you have any questions, please visit the YAF Support forum:
 
 http://forum.yetanotherforum.net
 
-We'll be happy to help.
+We'll be happy to help. But please remember YAF is supported by volenteers.
 
 YAF Support (support@yetanotherforum.net)
