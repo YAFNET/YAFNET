@@ -558,7 +558,6 @@ namespace YAF.Pages
 			else // New post
 			{
 				nMessageID = PostReplyHandleNewPost();
-				isNewTopic = true;
 			}
 
 			// Check if message is approved
