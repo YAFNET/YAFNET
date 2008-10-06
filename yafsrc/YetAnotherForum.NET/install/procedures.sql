@@ -4309,7 +4309,7 @@ BEGIN
 			UserID = @UserID
 	END ELSE
 	BEGIN
-		SELECT @RankID = RankID from [dbo].[{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
+		SELECT @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
 		INSERT INTO [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey) 
 		VALUES(@BoardID,@RankID,@UserName,'-',@Email,getdate(),getdate(),0,0,@approvedFlag,@ProviderUserKey)
