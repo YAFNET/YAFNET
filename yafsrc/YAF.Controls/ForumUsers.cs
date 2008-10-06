@@ -29,6 +29,12 @@ namespace YAF.Controls
 	{
 		private ActiveUsers _activeUsers = new ActiveUsers();
 
+		public bool TreatGuestAsHidden
+		{
+			get { return _activeUsers.TreatGuestAsHidden; }
+			set { _activeUsers.TreatGuestAsHidden = value; }
+		}
+
 		public ForumUsers()
 		{
 			_activeUsers.ID = this.GetUniqueID( "ActiveUsers" );

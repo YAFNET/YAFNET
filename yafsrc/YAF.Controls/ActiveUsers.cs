@@ -49,6 +49,23 @@ namespace YAF.Controls
 			}
 		}
 
+		public bool TreatGuestAsHidden
+		{
+			get
+			{
+				if ( ViewState ["TreatGuestAsHidden"] != null )
+				{
+					return Convert.ToBoolean( ViewState ["TreatGuestAsHidden"] );
+				}
+
+				return false;
+			}
+			set
+			{
+				ViewState ["TreatGuestAsHidden"] = value;
+			}
+		}
+
 		public ActiveUsers()
 		{
 			this.PreRender += new EventHandler( ActiveUsers_PreRender );
@@ -74,7 +91,7 @@ namespace YAF.Controls
 						userLink.PostfixText = String.Format( " ({0})", userCount );
 					}
 
-					if ( Convert.ToBoolean( row ["IsHidden"] ) == true )
+					if ( Convert.ToBoolean( row ["IsHidden"] ) == true || ( TreatGuestAsHidden == true && YAF.Classes.Utils.UserMembershipHelper.IsGuestUser( row ["UserID"] ) ) )
 					{
 						if ( PageContext.IsAdmin || userLink.UserID == PageContext.PageUserID )
 						{
