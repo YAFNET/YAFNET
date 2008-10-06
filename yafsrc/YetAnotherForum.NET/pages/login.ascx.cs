@@ -73,6 +73,7 @@ namespace YAF.Pages // YAF.Pages
 				// localize controls
 				CheckBox rememberMe = ( CheckBox )Login1.FindControl( "RememberMe" );
 				TextBox userName = ( TextBox ) Login1.FindControl( "UserName" );
+				TextBox password = ( TextBox ) Login1.FindControl( "Password" );
 				Button forumLogin = ( Button ) Login1.FindControl( "LoginButton" );
 				HyperLink passwordRecovery = ( HyperLink ) Login1.FindControl( "PasswordRecovery" );
 
@@ -88,6 +89,11 @@ namespace YAF.Pages // YAF.Pages
 				forumLogin.Text = GetText( "forum_login" );
 				passwordRecovery.Text = GetText( "lostpassword" );
 				passwordRecovery.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.recoverpassword );
+
+				if ( password != null && forumLogin != null )
+				{
+					password.Attributes.Add( "onkeydown", "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" + forumLogin.ClientID + "').click();return false;}} else {return true}; " );
+				}
 
 				DataBind();
 			}

@@ -546,7 +546,6 @@ namespace YAF.Pages
 			Mession.LastPost = DateTime.Now.AddSeconds(30);
 
 			long nMessageID = 0;
-			bool isNewTopic = false;
 
 			if (TopicID != null) // Reply to topic
 			{
@@ -630,7 +629,7 @@ namespace YAF.Pages
 			PollRow10.Visible = false;
 			PollRowExpire.Visible = false;
 
-			if (e.CommandArgument != null && e.CommandArgument != "")
+			if (e.CommandArgument != null && e.CommandArgument.ToString() != "")
 			{
 				DB.poll_remove(e.CommandArgument);
 				((LinkButton)sender).CommandArgument = null;
