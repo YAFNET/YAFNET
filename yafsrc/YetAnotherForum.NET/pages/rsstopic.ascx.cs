@@ -142,21 +142,21 @@ namespace YAF.Pages // YAF.Pages
 
 					break;
 				case "active":
-					using (
-						DataTable dt =
-							DB.topic_active(PageContext.PageBoardID, PageContext.PageUserID,
-							                DateTime.Now + TimeSpan.FromHours(-24), PageContext.Settings.CategoryID))
-					{
-						foreach (DataRow row in dt.Rows)
-						{
-							rf.AddRSSItem(writer,
-							              General.BadWordReplace(row["Subject"].ToString()),
-							              YafForumInfo.ServerURL +
-							              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["LinkTopicID"]),
-							              General.BadWordReplace(row["Subject"].ToString()));
-						}
-					}
-					break;
+using (
+	DataTable dt =
+		DB.topic_active(PageContext.PageBoardID, PageContext.PageUserID,
+		DateTime.Now + TimeSpan.FromHours( -24 ), ( PageContext.Settings.CategoryID == 0 ) ? null : (object)PageContext.Settings.CategoryID ) )
+{
+	foreach (DataRow row in dt.Rows)
+	{
+		rf.AddRSSItem(writer,
+		              General.BadWordReplace(row["Subject"].ToString()),
+		              YafForumInfo.ServerURL +
+		              YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["LinkTopicID"]),
+		              General.BadWordReplace(row["Subject"].ToString()));
+	}
+}
+break;
 				default:
 					break;
 			}
