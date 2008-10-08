@@ -105,11 +105,11 @@ namespace YAF.Controls
 
 			// home page
 			Home.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Homepage );
-			Home.NavigateUrl = UserProfile.Homepage;
+			SetupThemeButtonWithLink( Home, UserProfile.Homepage );
 
 			// blog page
 			Blog.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Blog );
-			Blog.NavigateUrl = UserProfile.Blog;
+			SetupThemeButtonWithLink( Blog, UserProfile.Blog );
 
 			// MSN
 			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.MSN );
@@ -191,6 +191,24 @@ namespace YAF.Controls
 			RetrieveParentPage();
 		}
 
+		protected void SetupThemeButtonWithLink( ThemeButton thisButton, string linkUrl )
+		{
+			if ( !String.IsNullOrEmpty( linkUrl ) )
+			{
+				string link = linkUrl.Replace( "\"", "" );
+				if ( !link.ToLower().StartsWith( "http" ) )
+				{
+					link = "http://" + link;
+				}
+				thisButton.NavigateUrl = link;
+				thisButton.Attributes.Add( "target", "_blank" );
+				if ( PageContext.BoardSettings.UseNoFollowLinks ) thisButton.Attributes.Add( "rel", "nofollow" );
+			}
+			else
+			{
+				thisButton.NavigateUrl = "";
+			}
+		}
 
 		/// <summary>
 		/// Retrieve parent page (ForumPage) if it exists.

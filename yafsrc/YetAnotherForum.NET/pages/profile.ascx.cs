@@ -31,6 +31,7 @@ using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
+using YAF.Controls;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -126,11 +127,11 @@ namespace YAF.Pages // YAF.Pages
 
 			// homepage link
 			Home.Visible = !String.IsNullOrEmpty( userData.Profile.Homepage );
-			Home.NavigateUrl = userData.Profile.Homepage == null ? "" : userData.Profile.Homepage.Replace( "\"", "" );
+			SetupThemeButtonWithLink( Home, userData.Profile.Homepage );
 
 			// blog link
 			Blog.Visible = !String.IsNullOrEmpty( userData.Profile.Blog );
-			Blog.NavigateUrl = userData.Profile.Blog == null ? "" : userData.Profile.Blog.Replace( "\"", "" );
+			SetupThemeButtonWithLink( Blog, userData.Profile.Blog );
 
 			MSN.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.MSN ) );
 			MSN.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
@@ -204,6 +205,25 @@ namespace YAF.Pages // YAF.Pages
 			}
 
 			DataBind();
+		}
+
+		protected void SetupThemeButtonWithLink( ThemeButton thisButton, string linkUrl )
+		{
+			if ( !String.IsNullOrEmpty( linkUrl ) )
+			{
+				string link = linkUrl.Replace( "\"", "" );
+				if ( !link.ToLower().StartsWith( "http" ) )
+				{
+					link = "http://" + link;
+				}
+				thisButton.NavigateUrl = link;
+				thisButton.Attributes.Add( "target", "_blank" );
+				if ( PageContext.BoardSettings.UseNoFollowLinks ) thisButton.Attributes.Add( "rel", "nofollow" );
+			}
+			else
+			{
+				thisButton.NavigateUrl = "";
+			}
 		}
 
 		private void UpdateLast10Panel()
