@@ -104,9 +104,9 @@ namespace YAF.Controls
 						output.WriteAttribute( key, string.Format("{0};{1}", _attributeCollection [key], "this.blur();" ));
 						wroteOnClick = true;
 					}
-					else if (key.ToLower().StartsWith("on"))
+					else if (key.ToLower().StartsWith("on") || key.ToLower() == "rel" || key.ToLower() == "target" )
 					{
-						// only write javascript attributes -- others are duplicates.
+						// only write javascript attributes -- and a few other attributes...
 						output.WriteAttribute( key, _attributeCollection [key] );
 					}
 				}
