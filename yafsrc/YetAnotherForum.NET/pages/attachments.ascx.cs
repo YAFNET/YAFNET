@@ -221,7 +221,7 @@ namespace YAF.Pages // YAF.Pages
 			}
 			else
 			{
-				file.PostedFile.SaveAs( String.Format( "{0}{1}.{2}", sUpDir, messageID, filename ) );
+				file.PostedFile.SaveAs( String.Format( "{0}{1}.{2}.yafupload", sUpDir, messageID, filename ) );
 				YAF.Classes.Data.DB.attachment_save( messageID, filename, file.PostedFile.ContentLength, file.PostedFile.ContentType, null );
 			}
 		}

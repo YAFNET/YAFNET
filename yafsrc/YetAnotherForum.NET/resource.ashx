@@ -217,7 +217,16 @@ namespace YAF
                         if ( row.IsNull( "FileData" ) )
                         {
                             string sUpDir = YAF.Classes.Config.UploadDir;
-                            string fileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
+                            
+                            string oldFileName = context.Server.MapPath( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
+                            string newFileName = context.Server.MapPath(String.Format("{0}{1}.{2}.yafupload", sUpDir, row["MessageID"], row["FileName"]));
+                            
+                            string fileName = string.Empty;
+
+                            // use the new fileName (with extension) if it exists...
+                            if (File.Exists(newFileName)) fileName = newFileName;
+                            else fileName = oldFileName;
+                                                        
                             using ( System.IO.FileStream input = new System.IO.FileStream( fileName, System.IO.FileMode.Open ) )
                             {
                                 data = new byte [input.Length];
