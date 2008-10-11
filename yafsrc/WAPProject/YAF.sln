@@ -1,0 +1,95 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF", "YAF.csproj", "{555357E5-A150-4C4D-BC81-97F4AE19086A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "4173"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Base", "..\YAF.Classes\YAF.Classes.Base\YAF.Classes.Base.csproj", "{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Config", "..\YAF.Classes\YAF.Classes.Config\YAF.Classes.Config.csproj", "{05E50D2F-9527-4CE8-A0F8-168281C426CB}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Data", "..\YAF.Classes\YAF.Classes.Data\YAF.Classes.Data.csproj", "{9A454596-56DC-4834-A043-F3C1443F859B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UI", "..\YAF.Classes\YAF.Classes.UI\YAF.Classes.UI.csproj", "{FD44387B-48BF-41CD-AF62-4C37ABC18403}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.Utils", "..\YAF.Classes\YAF.Classes.Utils\YAF.Classes.Utils.csproj", "{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "..\YAF.Controls\YAF.Controls.csproj", "{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Providers", "..\YAF.Providers\YAF.Providers.csproj", "{95A44CD9-4399-4DB9-823F-1A264083A390}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{555357E5-A150-4C4D-BC81-97F4AE19086A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A454596-56DC-4834-A043-F3C1443F859B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A454596-56DC-4834-A043-F3C1443F859B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A454596-56DC-4834-A043-F3C1443F859B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A454596-56DC-4834-A043-F3C1443F859B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3A0165-67AF-4E62-8CDE-F26231DD2D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A44CD9-4399-4DB9-823F-1A264083A390}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
