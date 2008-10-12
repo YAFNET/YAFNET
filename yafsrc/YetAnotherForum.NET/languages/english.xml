@@ -13,6 +13,12 @@
 		<Resource tag="CREATE_TOPIC">Create Topic From Message</Resource>
 		<Resource tag="EMPTY_TOPIC">Topic name is empty</Resource>
 	</page>
+  <page name="BBCODEMODULE">
+    <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
+    <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
+    <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
+  </page>
 	<page name="DELETEMESSAGE">
 		<!-- deletemessage.aspx -->
 		<Resource tag="PREVIEWTITLE">Message:</Resource>
