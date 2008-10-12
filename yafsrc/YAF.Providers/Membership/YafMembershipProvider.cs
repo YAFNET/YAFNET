@@ -196,7 +196,7 @@ namespace YAF.Providers.Membership
 				return false;
 
 			// Count Non alphanumerics
-			int symbolCount = 1;
+			int symbolCount = 0;
 			foreach ( char checkChar in password.ToCharArray() )
 			{
 				if ( !( char.IsLetterOrDigit( checkChar ) ) )

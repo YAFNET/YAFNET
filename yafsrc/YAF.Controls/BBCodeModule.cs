@@ -37,5 +37,27 @@ namespace YAF.Modules
 			get { return _parameters; }
 			set { _parameters = value; }
 		}
+
+		protected MessageFlags _currentMessageFlags = null;
+		public MessageFlags CurrentMessageFlags
+		{
+			get { return _currentMessageFlags; }
+			set { _currentMessageFlags = value; }
+		}
+
+		protected string ProcessBBCodeString( string bbCodeString )
+		{
+			return FormatMsg.FormatMessage( bbCodeString, CurrentMessageFlags );
+		}
+
+		protected string LocalizedString( string tag, string defaultStr )
+		{
+			if ( PageContext.Localization.GetTextExists( "BBCODEMODULE", tag ) )
+			{
+				return PageContext.Localization.GetText( "BBCODEMODULE", tag );
+			}
+
+			return defaultStr;
+		}
 	}
 }

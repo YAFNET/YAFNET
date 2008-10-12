@@ -154,10 +154,11 @@ namespace YAF.Classes.Utils
       return _localizer.LanguageCode;
     }
 
-    public string GetText( string page, string tag )
-    {
-      LoadTranslation();
-      string localizedText;
+		protected string GetLocalizedTextInternal( string page, string tag )
+		{
+			string localizedText;
+
+      LoadTranslation();     
 
       _localizer.SetPage( page );
       _localizer.GetText( tag, out localizedText );
@@ -169,6 +170,18 @@ namespace YAF.Classes.Utils
         _defaultLocale.GetText( tag, out localizedText );
         if ( localizedText != null ) localizedText = '[' + localizedText + ']';
       }
+
+			return localizedText;
+		}
+
+		public bool GetTextExists( string page, string tag )
+		{
+			return !String.IsNullOrEmpty( GetLocalizedTextInternal( page, tag ) );
+		}
+
+    public string GetText( string page, string tag )
+    {
+			string localizedText = GetLocalizedTextInternal( page, tag );
 
       if ( localizedText == null )
       {
@@ -191,7 +204,7 @@ namespace YAF.Classes.Utils
         HttpContext.Current.Cache.Remove( "Localizer." + filename );
 #endif
         YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, page.ToLower() + ".ascx", String.Format( "Missing Translation For {1}.{0}", tag.ToUpper(), page.ToUpper() ), YAF.Classes.Data.EventLogTypes.Error );
-        return String.Format( "[{1}.{0}]", tag.ToUpper(), page.ToUpper() ); ;
+        return String.Format( "[{1}.{0}]", tag.ToUpper(), page.ToUpper() );
       }
 
       localizedText = localizedText.Replace( "[b]", "<b>" );

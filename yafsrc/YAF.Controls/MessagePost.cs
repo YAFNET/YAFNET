@@ -131,7 +131,7 @@ namespace YAF.Controls
 
 				foreach ( XmlNode paramNode in paramList )
 				{
-					paramDic.Add( paramNode.Attributes ["Name"].InnerText, paramNode.InnerText );
+					paramDic.Add( paramNode.Attributes ["Name"].InnerText, paramNode.InnerXml );
 				}
 
 				// render what is before the control...
@@ -141,6 +141,7 @@ namespace YAF.Controls
 				Type module = System.Web.Compilation.BuildManager.GetType( className, true, false );
 				YAF.Modules.YafBBCodeControl customModule = ( YAF.Modules.YafBBCodeControl )Activator.CreateInstance( module );
 				// assign parameters...
+				customModule.CurrentMessageFlags = this.MessageFlags;
 				customModule.Parameters = paramDic;
 				// render this control...
 				customModule.RenderControl( writer );

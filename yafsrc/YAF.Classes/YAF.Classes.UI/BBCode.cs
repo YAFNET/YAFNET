@@ -57,7 +57,8 @@ namespace YAF.Classes.UI
 		static private readonly string _rgxHr = "^[-][-][-][-][-]*[\r]?[\n]";
 		static private readonly string _rgxBr = "[\r]?\n";
 		static private readonly string _rgxPost = @"\[post=(?<post>[^\]]*)\](?<inner>(.*?))\[/post\]";
-		static private readonly string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";		
+		static private readonly string _rgxTopic = @"\[topic=(?<topic>[^\]]*)\](?<inner>(.*?))\[/topic\]";
+		static private readonly string _rgxBBCodeLocalizationTag = @"\[localization=(?<tag>[^\]]*)\](?<inner>(.*?))\[/localization\]";
 		// precompiled regex...
 		static private readonly Regex _rgxEmail2 = new Regex( @"\[email=(?<email>[^\]]*)\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled );
 		static private readonly Regex _rgxEmail1 = new Regex( @"\[email[^\]]*\](?<inner>(.*?))\[/email\]", _options | RegexOptions.Compiled );
@@ -419,12 +420,12 @@ namespace YAF.Classes.UI
 
 				if ( row ["DisplayJS"] != DBNull.Value )
 				{
-					displayScript = row ["DisplayJS"].ToString().Trim();
+					displayScript = LocalizeCustomBBCodeElement(row ["DisplayJS"].ToString().Trim());
 				}
 
 				if ( !String.IsNullOrEmpty( editorID ) && row ["EditJS"] != DBNull.Value )
 				{
-					editScript = row ["EditJS"].ToString().Trim();
+					editScript = LocalizeCustomBBCodeElement( row ["EditJS"].ToString().Trim() );
 					// replace any instances of editor ID in the javascript in case the ID is needed
 					editScript = editScript.Replace( "{editorid}", editorID );
 				}
@@ -438,7 +439,7 @@ namespace YAF.Classes.UI
 				if ( row ["DisplayCSS"] != DBNull.Value && !String.IsNullOrEmpty( row ["DisplayCSS"].ToString().Trim() ) )
 				{
 					// yes, add it into the builder
-					cssBuilder.AppendLine( row ["DisplayCSS"].ToString().Trim() );
+					cssBuilder.AppendLine( LocalizeCustomBBCodeElement(row ["DisplayCSS"].ToString().Trim()) );
 				}
 			}
 
@@ -459,6 +460,43 @@ namespace YAF.Classes.UI
 					currentPage.ClientScript.RegisterClientScriptBlock( currentType, scriptID + "_css", string.Format( @"<style type=""text/css"">{0}</style>", cssBuilder.ToString() ) );
 				}
 			}
+		}
+
+		/// <summary>
+		/// Handles localization for a Custom BBCode Elements using
+		/// the code [localization=tag]default[/localization]
+		/// </summary>
+		/// <param name="strToLocalize"></param>
+		/// <returns></returns>
+		static public string LocalizeCustomBBCodeElement( string strToLocalize )
+		{
+			Regex regExSearch = new Regex( _rgxBBCodeLocalizationTag, _options );
+
+			System.Text.StringBuilder sb = new System.Text.StringBuilder( strToLocalize );
+
+			Match m = regExSearch.Match( strToLocalize );
+			while ( m.Success )
+			{
+				// get the localization tag...
+				string tagValue = m.Groups ["tag"].Value;
+				string defaultValue = m.Groups ["inner"].Value;
+
+				// remove old code...
+				sb.Remove( m.Groups [0].Index, m.Groups [0].Length );
+
+				// insert localized value...
+				string localValue = defaultValue;
+
+				if ( YafContext.Current.Localization.GetTextExists( "BBCODEMODULE", tagValue ) )
+				{
+					localValue = YafContext.Current.Localization.GetText( "BBCODEMODULE", tagValue );
+				}
+
+				sb.Insert( m.Groups [0].Index, localValue );
+				m = regExSearch.Match( sb.ToString() );
+			}
+
+			return sb.ToString();
 		}
 
 		/// <summary>
