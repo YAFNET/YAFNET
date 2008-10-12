@@ -17,6 +17,7 @@
     <Resource tag="SPOILERMOD_SHOW">Show Spoiler</Resource>
     <Resource tag="SPOILERMOD_HIDE">Hide Spoiler</Resource>
     <Resource tag="SPOILERMOD_DESCRIPTION">Put Spoiler Text in Here</Resource>
+    <Resource tag="SPOILERMOD_TOOLTIP">Click here to show or hide the hidden text (also known as a spoiler)</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
 	<page name="DELETEMESSAGE">

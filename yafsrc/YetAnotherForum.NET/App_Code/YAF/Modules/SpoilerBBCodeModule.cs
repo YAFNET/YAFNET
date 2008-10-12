@@ -23,9 +23,11 @@ namespace YAF.Modules
 		{
 			StringBuilder sb = new StringBuilder();
 
+			string spoilerTitle = this.HtmlEncode( this.LocalizedString( "SPOILERMOD_TOOLTIP", "Click here to show or hide the hidden text (also known as a spoiler)" ) );
+
 			sb.AppendLine("<!-- BEGIN spoiler -->");
 			sb.AppendLine(@"<div class=""spoilertitle"">");
-			sb.AppendFormat( @"<input type=""button"" value=""{2}"" class=""spoilerbutton"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' /></div><div class=""spoilerbox"" id=""{1}"" style=""display:none"">", this.GetUniqueID( "spoilerBtn" ), this.GetUniqueID( "spoil_" ), this.LocalizedString( "SPOILERMOD_SHOW", "Show Spoiler" ) );
+			sb.AppendFormat( @"<input type=""button"" value=""{2}"" class=""spoilerbutton"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""spoilerbox"" id=""{1}"" style=""display:none"">", this.GetUniqueID( "spoilerBtn" ), this.GetUniqueID( "spoil_" ), this.HtmlEncode( this.LocalizedString( "SPOILERMOD_SHOW", "Show Spoiler" ) ), spoilerTitle );
 			sb.AppendLine( this.Parameters ["inner"] );
 			sb.AppendLine("</div>");
 			sb.AppendLine("<!-- END spoiler -->");
