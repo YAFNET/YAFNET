@@ -554,6 +554,14 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 			PostReplyLink2.Visible = PageContext.ForumReplyAccess;
 		}
 
+		protected string VotingCookieName
+		{
+			get
+			{
+				return String.Format( "poll#{0}", _topic ["PollID"] );
+			}
+		}
+
 		/// <summary>
 		/// Property to verify if the current user can vote in this poll.
 		/// </summary>
@@ -567,18 +575,16 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				if ( IsPollClosed() ) return false;
 
 				// check for voting cookie
-				string cookieName = String.Format( "poll#{0}", _topic ["PollID"] );
-				if ( Request.Cookies [cookieName] != null ) return false;
+				if ( Request.Cookies [VotingCookieName] != null ) return false;
+
+				// voting is not tied to IP and they are a guest...
+				if ( PageContext.IsGuest && !PageContext.BoardSettings.PollVoteTiedToIP ) return true;
 
 				object UserID = null;
 				object RemoteIP = null;
 
 				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.UserHostAddress ).ToString();
-
-				if ( !PageContext.IsGuest )
-				{
-					UserID = PageContext.PageUserID;
-				}
+				if ( !PageContext.IsGuest )	{	UserID = PageContext.PageUserID; }
 
 				// check for a record of a vote
 				using ( DataTable dt = YAF.Classes.Data.DB.pollvote_check( _topic ["PollID"], UserID, RemoteIP ) )
@@ -620,16 +626,12 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				object RemoteIP = null;
 
 				if ( PageContext.BoardSettings.PollVoteTiedToIP ) RemoteIP = General.IPStrToLong( Request.ServerVariables ["REMOTE_ADDR"] ).ToString();
-
-				if ( !PageContext.IsGuest )
-				{
-					UserID = PageContext.PageUserID;
-				}
+				if ( !PageContext.IsGuest ) {	UserID = PageContext.PageUserID; }
 
 				YAF.Classes.Data.DB.choice_vote( e.CommandArgument, UserID, RemoteIP );
 
-				string cookieName = String.Format( "poll#{0}", e.CommandArgument );
-				HttpCookie c = new HttpCookie( cookieName, e.CommandArgument.ToString() );
+				// save the voting cookie...
+				HttpCookie c = new HttpCookie( VotingCookieName, e.CommandArgument.ToString() );
 				c.Expires = DateTime.Now.AddYears( 1 );
 				Response.Cookies.Add( c );
 

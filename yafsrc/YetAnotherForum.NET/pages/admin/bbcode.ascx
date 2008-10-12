@@ -27,7 +27,7 @@
                 <td class="post">
                     <b><%# Eval("Name") %></b></td>
                 <td class="post">
-                    <b><%# Eval("Description") %></b></td>                    
+                    <b><%# YAF.Classes.UI.BBCode.LocalizeCustomBBCodeElement(Eval("Description").ToString()) %></b></td>                    
                 <td class="post">
                     <asp:LinkButton runat="server" Text="Edit" CommandName="edit" CommandArgument='<%# Eval("BBCodeID") %>'
                         ID="Linkbutton1">

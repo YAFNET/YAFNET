@@ -239,7 +239,7 @@ namespace YAF.Editor
 					if ( row ["Description"] != DBNull.Value && !String.IsNullOrEmpty( row ["Description"].ToString() ) )
 					{
 						// use the description as the option "name"
-						name = row ["Description"].ToString();
+						name = YAF.Classes.UI.BBCode.LocalizeCustomBBCodeElement( row ["Description"].ToString() );
 					}
 
 					string onclickJS = string.Empty;

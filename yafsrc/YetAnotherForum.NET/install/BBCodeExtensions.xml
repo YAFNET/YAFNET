@@ -1,7 +1,7 @@
 <YafBBCodeList>
   <YafBBCode>
     <Name>YOUTUBE</Name>
-    <Description>[YOUTUBE]Put YOUTUBE URL Here[/YOUTUBE]</Description>
+    <Description>[YOUTUBE][localization=YOUTUBEMOD_DESCRIPTION]Put YouTube URL Here[/localization][/YOUTUBE]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
@@ -15,10 +15,9 @@
   </YafBBCode>
   <YafBBCode>
     <Name>SPOILER</Name>
-    <Description>[SPOILER]Put Spoiler Text Here[/SPOILER]</Description>
+    <Description>[SPOILER][localization=SPOILERMOD_DESCRIPTION]Put Spoiler Text Here[/localization][/SPOILER]</Description>
     <OnClickJS />
-    <DisplayJS>
-      function toggleSpoiler(btn, elid)
+    <DisplayJS>      function toggleSpoiler(btn, elid)
       {
       var el = document.getElementById(elid);
       if (el == null)
@@ -26,18 +25,17 @@
       if (el.style.display == '')
       {
       el.style.display = 'none';
-      btn.value='Show Spoiler';
+      btn.value='[localization=SPOILERMOD_SHOW]Show Spoiler[/localization]';
       }
       else
       {
       el.style.display = '';
-      btn.value='Hide Spoiler';
+      btn.value='[localization=SPOILERMOD_HIDE]Hide Spoiler[/localization]';
       }
       }
     </DisplayJS>
     <EditJS />
-    <DisplayCSS>
-      .spoilerbox
+    <DisplayCSS>      .spoilerbox
       {
       margin: 5px;
       padding: 4px;

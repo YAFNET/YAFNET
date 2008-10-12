@@ -25,8 +25,8 @@ namespace YAF.Modules
 
 			sb.AppendLine("<!-- BEGIN spoiler -->");
 			sb.AppendLine(@"<div class=""spoilertitle"">");
-			sb.AppendFormat(@"<input type=""button"" value=""Show Spoiler"" class=""spoilerbutton"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' /></div><div class=""spoilerbox"" id=""{1}"" style=""display:none"">", this.GetUniqueID("spoilerBtn"), this.GetUniqueID("spoil_"));
-			sb.AppendLine( this.Parameters["inner"] );
+			sb.AppendFormat( @"<input type=""button"" value=""{2}"" class=""spoilerbutton"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' /></div><div class=""spoilerbox"" id=""{1}"" style=""display:none"">", this.GetUniqueID( "spoilerBtn" ), this.GetUniqueID( "spoil_" ), this.LocalizedString( "SPOILERMOD_SHOW", "Show Spoiler" ) );
+			sb.AppendLine( this.Parameters ["inner"] );
 			sb.AppendLine("</div>");
 			sb.AppendLine("<!-- END spoiler -->");
 
