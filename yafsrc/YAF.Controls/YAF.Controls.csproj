@@ -53,6 +53,7 @@
     <Compile Include="IconLegend.cs" />
     <Compile Include="LocalizedLabel.cs" />
     <Compile Include="MessageAttached.cs" />
+    <Compile Include="MessageBase.cs" />
     <Compile Include="MessagePost.cs" />
     <Compile Include="MessagePostData.cs" />
     <Compile Include="MessageSignature.cs" />
