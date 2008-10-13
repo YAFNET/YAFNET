@@ -343,7 +343,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 			pds.AllowPaging = true;
 			pds.PageSize = Pager.PageSize;			
 
-      using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
+			using ( DataTable dt0 = YAF.Classes.Data.DB.post_list(PageContext.PageTopicID, IsPostBack ? 0 : 1, PageContext.BoardSettings.ShowDeletedMessages))
 			{
 				// get the default view...
 				DataView dt = dt0.DefaultView;
@@ -361,6 +361,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 					{
 						delRow.Delete();
 					}
+					dt.Table.AcceptChanges();
 
 					// set row filter back to nothing...
 					dt.RowFilter = null;
@@ -443,7 +444,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				}
 				else
 				{
-					foreach ( DataRow row in dt0.Rows )
+					foreach ( DataRowView row in dt )
 					{
 						CurrentMessage = ( int ) row ["MessageID"];
 						break;
