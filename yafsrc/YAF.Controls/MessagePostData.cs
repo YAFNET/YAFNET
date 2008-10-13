@@ -43,6 +43,9 @@ namespace YAF.Controls
 		{
 			if ( DataRow != null && !this.MessageFlags.IsDeleted )
 			{
+				// populate DisplayUserID
+				if ( !UserMembershipHelper.IsGuestUser( DataRow ["UserID"] ) ) DisplayUserID = Convert.ToInt32( DataRow ["UserID"] );
+
 				if ( ShowAttachments && long.Parse( DataRow ["HasAttachments"].ToString() ) > 0 )
 				{
 					// add attached files control...
@@ -93,7 +96,7 @@ namespace YAF.Controls
 
 					if ( this.MessageFlags.IsBBCode )
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ) );
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ), this.MessageFlags, this.DisplayUserID );
 					}
 					else
 					{
@@ -105,7 +108,7 @@ namespace YAF.Controls
 					// render standard using bbcode or html...
 					if ( this.MessageFlags.IsBBCode )
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ), this.MessageFlags, this.DisplayUserID );
 					}
 					else
 					{

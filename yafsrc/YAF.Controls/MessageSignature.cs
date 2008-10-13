@@ -28,7 +28,7 @@ using YAF.Classes.UI;
 
 namespace YAF.Controls
 {
-	public class MessageSignature : BaseControl
+	public class MessageSignature : MessageBase
 	{
 		public MessageSignature()
 			: base()
@@ -60,7 +60,7 @@ namespace YAF.Controls
 			MessageFlags tFlags = new MessageFlags();
 			tFlags.IsHtml = false;
 
-			writer.Write( FormatMsg.FormatMessage( this.Signature, tFlags ) );
+			RenderModulesInBBCode( writer, FormatMsg.FormatMessage( this.Signature, tFlags ), tFlags, DisplayUserID );
 		}
 
 		private string _signature;
@@ -68,6 +68,13 @@ namespace YAF.Controls
 		{
 			get { return _signature; }
 			set { _signature = value; }
+		}
+
+		private int? _displayUserID;
+		public int? DisplayUserID
+		{
+			get { return _displayUserID; }
+			set { _displayUserID = value; }
 		}
 
 		private string _htmlPrefix;

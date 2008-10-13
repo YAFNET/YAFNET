@@ -45,6 +45,13 @@ namespace YAF.Modules
 			set { _currentMessageFlags = value; }
 		}
 
+		protected int? _displayUserId = null;
+		public int? DisplayUserID
+		{
+			get { return _displayUserId; }
+			set { _displayUserId = value; }
+		}
+
 		protected string ProcessBBCodeString( string bbCodeString )
 		{
 			return FormatMsg.FormatMessage( bbCodeString, CurrentMessageFlags );

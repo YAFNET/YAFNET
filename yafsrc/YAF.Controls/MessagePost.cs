@@ -33,11 +33,8 @@ namespace YAF.Controls
 	/// <summary>
 	/// Shows a Message Post
 	/// </summary>
-	public class MessagePost : BaseControl
+	public class MessagePost : MessageBase
 	{
-		static private RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
-		static private string _rgxModule = @"\<YafModuleFactoryInvocation ClassName=\""(?<classname>(.*?))\""\>(?<inner>(.*?))\</YafModuleFactoryInvocation\>";
-
 		public MessagePost()
 			: base()
 		{
@@ -50,6 +47,7 @@ namespace YAF.Controls
 			{
 				MessageSignature sig = new MessageSignature();
 				sig.Signature = this.Signature;
+				sig.DisplayUserID = this.DisplayUserID;
 				this.Controls.Add( sig );
 			}
 
@@ -88,7 +86,7 @@ namespace YAF.Controls
 				string formattedMessage = FormatMsg.FormatMessage( this.Message, this.MessageFlags );
 
 				if ( this.MessageFlags.IsBBCode )
-					RenderModulesInBBCode( writer, formattedMessage );
+					RenderModulesInBBCode( writer, formattedMessage, this.MessageFlags, this.DisplayUserID );
 				else
 					writer.Write( formattedMessage );
 			}
@@ -112,48 +110,16 @@ namespace YAF.Controls
 			}
 		}
 
-		virtual protected void RenderModulesInBBCode( HtmlTextWriter writer, string message )
+		virtual public int? DisplayUserID
 		{
-			XmlDocument xmlDoc = new XmlDocument();
-			Regex _regExSearch = new Regex( _rgxModule, _options );
-			Match m = _regExSearch.Match( message );
-
-			while ( m.Success )
+			get
 			{
-				// load this module info into the xml document...
-				xmlDoc.LoadXml( m.Groups [0].Value );
-				XmlNode mainNode = xmlDoc.SelectSingleNode( "YafModuleFactoryInvocation" );
-				string className = mainNode.Attributes ["ClassName"].InnerText;
+				if ( ViewState ["DisplayUserID"] != null )
+					return Convert.ToInt32( ViewState ["DisplayUserID"] );
 
-				// get all parameters as a name/value dictionary
-				Dictionary<string, string> paramDic = new Dictionary<string, string>();
-				XmlNodeList paramList = xmlDoc.SelectNodes( "/YafModuleFactoryInvocation/Parameters/*" );
-
-				foreach ( XmlNode paramNode in paramList )
-				{
-					paramDic.Add( paramNode.Attributes ["Name"].InnerText, paramNode.InnerXml );
-				}
-
-				// render what is before the control...
-				writer.Write( message.Substring( 0, m.Groups [0].Index ) );
-
-				// create/render the control...
-				Type module = System.Web.Compilation.BuildManager.GetType( className, true, false );
-				YAF.Modules.YafBBCodeControl customModule = ( YAF.Modules.YafBBCodeControl )Activator.CreateInstance( module );
-				// assign parameters...
-				customModule.CurrentMessageFlags = this.MessageFlags;
-				customModule.Parameters = paramDic;
-				// render this control...
-				customModule.RenderControl( writer );
-
-				// now we are just concerned with what is after...
-				message =  message.Substring( m.Groups [0].Index + m.Groups [0].Length );
-
-				m = _regExSearch.Match( message );
+				return null;
 			}
-
-			// render anything remaining...
-			writer.Write( message );
+			set { ViewState ["DisplayUserID"] = value; }
 		}
 
 		virtual public string Signature
