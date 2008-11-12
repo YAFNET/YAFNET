@@ -54,7 +54,6 @@ namespace YAF.Classes.Utils
             if (_doc == null)
                 _doc = new XmlDocument();
 
-            _doc.Load(_fileName);
             try
             {
                 _doc.Load(_fileName);
