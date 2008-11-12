@@ -47,6 +47,7 @@ namespace YAF.Controls
 		{
 			// toggle the status...
 			Mession.PanelState.TogglePanelState( PanelID, DefaultState );
+			UpdateAttachedVisibility();
 
 			base.OnClick( e );
 		}
