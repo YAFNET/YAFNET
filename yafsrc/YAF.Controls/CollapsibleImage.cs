@@ -46,7 +46,7 @@ namespace YAF.Controls
 		protected override void OnClick( ImageClickEventArgs e )
 		{
 			// toggle the status...
-			Mession.PanelState.TogglePanelState( SessionPanelID, DefaultState );
+			Mession.PanelState.TogglePanelState( PanelID, DefaultState );
 
 			base.OnClick( e );
 		}
@@ -54,7 +54,7 @@ namespace YAF.Controls
 		protected override void OnPreRender( EventArgs e )
 		{
 			// setup inital image state...
-			this.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( SessionPanelID, DefaultState );
+			this.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( PanelID, DefaultState );
 			UpdateAttachedVisibility();
 
 			base.OnPreRender( e );
@@ -82,14 +82,6 @@ namespace YAF.Controls
 			return control;
 		}
 
-		protected string SessionPanelID
-		{
-			get
-			{
-				return "categoryPanel" + PanelID;
-			}
-		}
-
 		public string PanelID
 		{
 			get
@@ -106,11 +98,11 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return Mession.PanelState [SessionPanelID];
+				return Mession.PanelState [PanelID];
 			}
 			set
 			{
-				Mession.PanelState [SessionPanelID] = value;
+				Mession.PanelState [PanelID] = value;
 			}			
 		}
 
