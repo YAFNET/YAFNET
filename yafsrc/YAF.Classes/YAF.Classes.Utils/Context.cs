@@ -197,6 +197,12 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
+				if ( _settings == null )
+				{
+					// init the class...
+					_settings = new YafControlSettings();
+				}
+
 				return _settings;
 			}
 			set
