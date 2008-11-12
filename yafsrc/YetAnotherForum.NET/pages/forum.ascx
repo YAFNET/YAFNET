@@ -9,8 +9,7 @@
 <div class="DivTopSeparator"></div>
 <asp:UpdatePanel ID="UpdatePanelCategory" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <asp:Repeater ID="CategoryList" runat="server" OnItemCommand="categoryList_ItemCommand"
-            OnItemDataBound="CategoryList_ItemDataBound">
+        <asp:Repeater ID="CategoryList" runat="server">
             <HeaderTemplate>
                 <table class="content" cellspacing="1" cellpadding="0" width="100%">
                     <tr>
@@ -36,8 +35,8 @@
             <ItemTemplate>
                 <tr>
                     <td class="header2" colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
-                        <asp:ImageButton runat="server" ID="expandCategory" BorderWidth="0" ImageAlign="Bottom"
-                            CommandName="panel" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CategoryID") %>'>
+                        <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
+                            PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>' AttachedControlID="forumList" OnClick="CollapsibleImage_OnClick"/>
                         </asp:ImageButton>
                         &nbsp;&nbsp; <a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum,"c={0}",DataBinder.Eval(Container.DataItem, "CategoryID")) %>'>
                             <%# DataBinder.Eval(Container.DataItem, "Name") %>

@@ -49,8 +49,6 @@ namespace YAF.Controls
 			// Latest forum posts
 			// Shows the latest n number of posts on the main forum list page
 
-			expandActiveDiscussions.Attributes.Add( "style", "vertical-align:middle" );
-
 			string cacheKey = YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions );
 			DataTable activeTopics = null;
 
@@ -67,7 +65,6 @@ namespace YAF.Controls
 			}
 
 			LatestPosts.DataSource = activeTopics;
-			UpdateActiveDiscussionsPanel();
 		}
 
 		protected void LatestPosts_ItemDataBound( object sender, RepeaterItemEventArgs e )
@@ -106,19 +103,11 @@ namespace YAF.Controls
 			}
 		}
 
-		protected void expandActiveDiscussions_Click( object sender, ImageClickEventArgs e )
+		public event EventHandler<EventArgs> NeedDataBind;
+
+		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
 		{
-			// toggle the panel visability state...
-			Mession.PanelState.TogglePanelState( "ActiveDiscussions", PanelSessionState.CollapsiblePanelState.Expanded );
 			if ( NeedDataBind != null ) NeedDataBind( this, new EventArgs() );
 		}
-
-		private void UpdateActiveDiscussionsPanel()
-		{
-			expandActiveDiscussions.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( "ActiveDiscussions", PanelSessionState.CollapsiblePanelState.Expanded );
-			ActiveDiscussionPlaceHolder.Visible = ( Mession.PanelState ["ActiveDiscussions"] == PanelSessionState.CollapsiblePanelState.Expanded );
-		}
-
-		public event EventHandler<EventArgs> NeedDataBind;
 	}
 }

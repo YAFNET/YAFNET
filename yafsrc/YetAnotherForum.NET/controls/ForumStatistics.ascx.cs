@@ -40,7 +40,7 @@ namespace YAF.Controls
 
 		void ForumStatistics_Load( object sender, EventArgs e )
 		{
-			expandInformation.Attributes.Add( "style", "vertical-align:middle" );
+
 		}
 
 		public override void DataBind()
@@ -104,8 +104,6 @@ namespace YAF.Controls
 			StatsNewestMember.Text = PageContext.Localization.GetText( "stats_lastmember" );
 			NewestMemberUserLink.UserID = Convert.ToInt32( statisticsDataRow ["LastMemberID"] );
 			NewestMemberUserLink.UserName = statisticsDataRow ["LastMember"].ToString();
-
-			UpdatePanel();
 		}
 
 		protected string FormatActiveUsers( DataRow activeStats )
@@ -151,19 +149,11 @@ namespace YAF.Controls
 			return sb.ToString();
 		}
 
-		protected void expandInformation_Click( object sender, ImageClickEventArgs e )
+		public event EventHandler<EventArgs> NeedDataBind;
+
+		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
 		{
-			// toggle the panel visability state...
-			Mession.PanelState.TogglePanelState( "Information", PanelSessionState.CollapsiblePanelState.Expanded );
 			if ( NeedDataBind != null ) NeedDataBind( this, new EventArgs() );
 		}
-
-		private void UpdatePanel()
-		{
-			expandInformation.ImageUrl = PageContext.Theme.GetCollapsiblePanelImageURL( "Information", PanelSessionState.CollapsiblePanelState.Expanded );
-			InformationPlaceHolder.Visible = ( Mession.PanelState ["Information"] == PanelSessionState.CollapsiblePanelState.Expanded );
-		}
-
-		public event EventHandler<EventArgs> NeedDataBind;
 	}
 }

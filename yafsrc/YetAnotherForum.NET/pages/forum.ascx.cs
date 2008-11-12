@@ -139,29 +139,9 @@ namespace YAF.Pages
 			BindData();
 		}
 
-		protected void categoryList_ItemCommand( object source, RepeaterCommandEventArgs e )
+		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
 		{
-			if ( (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem) && e.CommandName == "panel" )
-			{
-				ImageButton tmpImage = ( ImageButton ) e.Item.FindControl( "expandCategory" );
-				YAF.Controls.ForumList tmpForumList = ( YAF.Controls.ForumList ) e.Item.FindControl( "forumList" );
-
-				Mession.PanelState.TogglePanelState( "categoryPanel" + e.CommandArgument, PanelSessionState.CollapsiblePanelState.Expanded );
-
-				BindData();
-			}
-		}
-
-		protected void CategoryList_ItemDataBound( object sender, RepeaterItemEventArgs e )
-		{
-			if ( ( e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem ) )
-			{
-				ImageButton tmpImage = ( ImageButton ) e.Item.FindControl( "expandCategory" );
-				YAF.Controls.ForumList tmpForumList = ( YAF.Controls.ForumList ) e.Item.FindControl( "forumList" );
-
-				tmpImage.ImageUrl = GetCollapsiblePanelImageURL( "categoryPanel" + tmpImage.CommandArgument, PanelSessionState.CollapsiblePanelState.Expanded );
-				tmpForumList.Visible = tmpForumList.Visible = ( Mession.PanelState ["categoryPanel" + tmpImage.CommandArgument] == PanelSessionState.CollapsiblePanelState.Expanded );
-			}
+			BindData();
 		}
 	}
 }

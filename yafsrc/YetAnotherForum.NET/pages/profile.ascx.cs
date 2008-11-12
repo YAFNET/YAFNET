@@ -66,9 +66,6 @@ namespace YAF.Pages // YAF.Pages
 			if ( !IsPostBack )
 			{
 				userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
-
-				UpdateLast10Panel();
-
 				BindData();
 
 				// handle custom BBCode javascript or CSS...
@@ -226,19 +223,9 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void UpdateLast10Panel()
+		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
 		{
-			expandLast10.ImageUrl = GetCollapsiblePanelImageURL( "ProfileLast10Posts", PanelSessionState.CollapsiblePanelState.Collapsed );
-			LastPosts.Visible = ( Mession.PanelState ["ProfileLast10Posts"] == PanelSessionState.CollapsiblePanelState.Expanded );
-		}
-
-		protected void expandLast10_Click( object sender, ImageClickEventArgs e )
-		{
-			// toggle the panel visability state...
-			Mession.PanelState.TogglePanelState( "ProfileLast10Posts", PanelSessionState.CollapsiblePanelState.Collapsed );
-
-			UpdateLast10Panel();
-
+			//LastPosts.Visible = CollapsibleImage.PanelState == PanelSessionState.CollapsiblePanelState.Expanded;
 			BindData();
 		}
 	}
