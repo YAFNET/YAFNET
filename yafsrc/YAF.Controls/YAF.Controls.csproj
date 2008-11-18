@@ -42,6 +42,7 @@
     <Compile Include="AdminMenu.cs" />
     <Compile Include="AlphaSort.cs" />
     <Compile Include="Base\BaseControl.cs" />
+    <Compile Include="CollapsibleImage.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="DataPanel.cs" />
     <Compile Include="Footer.cs" />
