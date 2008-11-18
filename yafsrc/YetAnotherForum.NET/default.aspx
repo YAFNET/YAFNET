@@ -3,7 +3,7 @@
     public void Page_Error( object sender, System.EventArgs e )
     {
         Exception x = Server.GetLastError();
-        YAF.Classes.Data.DB.eventlog_create( forum.PageUserID, this, x );
+        YAF.Classes.Data.DB.eventlog_create( YafContext.Current.PageUserID, this, x );
         YAF.Classes.Utils.CreateMail.CreateLogEmail( x );
     }		
 </script>
