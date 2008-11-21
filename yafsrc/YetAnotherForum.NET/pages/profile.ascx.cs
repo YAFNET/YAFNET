@@ -225,7 +225,6 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void CollapsibleImage_OnClick( object sender, ImageClickEventArgs e )
 		{
-			//LastPosts.Visible = CollapsibleImage.PanelState == PanelSessionState.CollapsiblePanelState.Expanded;
 			BindData();
 		}
 	}
