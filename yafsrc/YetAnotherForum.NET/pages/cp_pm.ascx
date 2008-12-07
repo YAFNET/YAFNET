@@ -6,7 +6,7 @@
     <YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWPM"
         TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
-<div style="clear: both" />
+<div>&nbsp;</div>
 
 <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
     <ajaxToolkit:TabPanel runat="server" ID="InboxTab" OnClientClick="InboxTabRefresh">
