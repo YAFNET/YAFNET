@@ -67,7 +67,7 @@ namespace YAF.Classes.Base
 		private Hashtable _pageCache;
 
 		private bool _noDataBase = false;
-		private bool _showToolBar = true;
+        private bool _showToolBar = Config.ShowToolBar;
 		private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;

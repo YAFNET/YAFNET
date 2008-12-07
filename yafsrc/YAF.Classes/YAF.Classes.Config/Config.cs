@@ -192,5 +192,19 @@ namespace YAF.Classes
 				return ( IUrlBuilder ) HttpContext.Current.Application ["yaf_UrlBuilder"];
 			}
 		}
+
+        static public bool ShowToolBar
+        {
+            get
+            {
+                bool result = true;
+
+                if (ConfigurationManager.AppSettings["ShowToolBar"] != null &&
+                    ConfigurationManager.AppSettings["ShowToolBar"].ToLower() == "false")
+                    result = false;
+
+                return result;
+            }
+        }
 	}
 }
