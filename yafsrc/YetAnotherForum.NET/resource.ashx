@@ -142,7 +142,6 @@ namespace YAF
             Graphics gfx = null;
 
             string wb = context.Request.QueryString ["url"];
-            wb.Substring( 0, wb.LastIndexOf( "/" ) );
 
             try
             {
