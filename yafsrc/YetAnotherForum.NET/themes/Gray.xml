@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Resources theme="Gray" dir="Gray">
+  <page name="THEME">
+    <Resource tag="HEADER">
+      &lt;script type="text/javascript" src="~/reflection.js"&gt;&lt;/script&gt;
+    </Resource>
+    <Resource tag="CREDIT"></Resource>
+  </page>
+	<page name="ICONS">
+    <Resource tag="PM">~/icon_pm.png</Resource>
+    <Resource tag="EMAIL">~/icon_email.png</Resource>
+    <Resource tag="HOME">~/icon_home.png</Resource>
+    <Resource tag="BLOG">~/icon_blog.png</Resource>
+    <Resource tag="MSN">~/icon_msn.png</Resource>
+    <Resource tag="AIM">~/icon_aim.png</Resource>
+    <Resource tag="YIM">~/icon_yahoo.png</Resource>
+    <Resource tag="ICQ">~/icon_icq.png</Resource>
+    <Resource tag="SKYPE">~/icon_skype.png</Resource>
+		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
+		<Resource tag="TOPIC">~/topic.png</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>
+		<Resource tag="TOPIC_ANNOUNCEMENT_NEW">~/topic_announce_new.png</Resource>
+		<Resource tag="TOPIC_NEW_LOCKED">~/topic_lock_new.png</Resource>
+		<Resource tag="TOPIC_LOCKED">~/topic_lock.png</Resource>
+		<Resource tag="TOPIC_STICKY">~/topic_sticky.png</Resource>
+		<Resource tag="TOPIC_MOVED">~/topic_moved.png</Resource>
+		<Resource tag="TOPIC_POLL">~/topic_poll.png</Resource>
+		<Resource tag="TOPIC_POLL_NEW">~/topic_poll_new.png</Resource>
+		<Resource tag="SUBFORUM">~/icon_subforum.gif</Resource>
+		<Resource tag="SUBFORUM_NEW">~/icon_subforum_new.gif</Resource>
+		<Resource tag="FORUM">~/forum.gif</Resource>
+		<Resource tag="FORUM_NEW">~/forum_new.gif</Resource>
+		<Resource tag="FORUM_LOCKED">~/forum_lock.gif</Resource>
+		<Resource tag="FORUM_STATS">~/folder_stats.png</Resource>
+		<Resource tag="FORUM_USERS">~/folder_who.png</Resource>
+		<Resource tag="ICON_NEWEST">~/icon_newest_reply.gif</Resource>
+		<Resource tag="ICON_LATEST">~/icon_latest_reply.gif</Resource>
+		<Resource tag="ATTACHED_FILE">~/icon_file.gif</Resource>
+    <Resource tag="PANEL_EXPAND">~/expand.gif</Resource>
+    <Resource tag="PANEL_COLLAPSE">~/collapse.gif</Resource>		
+	</page>
+	<page name="SORT">
+		<Resource tag="ASCENDING">~/sort_up.gif</Resource>
+		<Resource tag="DESCENDING">~/sort_down.gif</Resource>
+	</page>
+	<page name="VOTE">
+		<Resource tag="LCAP">~/vote_lcap.gif</Resource>
+		<Resource tag="RCAP">~/vote_rcap.gif</Resource>
+		<Resource tag="BAR">~/voting_bar.gif</Resource>
+	</page>
+</Resources>
