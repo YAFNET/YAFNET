@@ -60,16 +60,19 @@
 					<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TOP" />
 				</a>
 			</td>
-			<td class="postfooter">
-				<asp:LinkButton ID="ViewBtn" runat="server" Text='<%# GetText("VIEW") %>' CommandName="View"
-					CommandArgument='<%# Eval("MessageID") %>' />&nbsp;
-				<asp:LinkButton ID="CopyOverBtn" runat="server" Text='<%# GetText("COPYOVER") %>'
+			<td class="postfooter" style="float:left">					
+				<YAF:ThemeButton ID="CopyOverBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER"
 					CommandName="CopyOver" Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-					CommandArgument='<%# Eval("MessageID") %>' />&nbsp;
-				<asp:LinkButton ID="ResolveBtn" runat="server" Text='<%# GetText("RESOLVED") %>'
-					CommandName="Resolved" CommandArgument='<%# Eval("MessageID") %>' />&nbsp;
-				<asp:LinkButton ID="DeleteBtn" runat="server" Text='<%# GetText("DELETE") %>' CommandName="Delete"
-					CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />&nbsp;
+					CommandArgument='<%# Eval("MessageID") %>' />
+					
+				<YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE"				
+					CommandName="Delete" CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />
+					
+				<YAF:ThemeButton ID="ResolveBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED"
+					CommandName="Resolved" CommandArgument='<%# Eval("MessageID") %>' />
+					
+			    <YAF:ThemeButton ID="ViewBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
+					CommandName="View" CommandArgument='<%# Eval("MessageID") %>' />		
 			</td>
 		</tr>
 	</ItemTemplate>

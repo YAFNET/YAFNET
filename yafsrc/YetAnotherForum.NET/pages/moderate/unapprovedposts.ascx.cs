@@ -28,6 +28,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
+using YAF.Controls;
 
 namespace YAF.Pages.moderate
 {
@@ -88,10 +89,9 @@ namespace YAF.Pages.moderate
 		/// </summary>
 		protected void Delete_Load(object sender, System.EventArgs e)
 		{
-			General.AddOnClickConfirmDialog(sender, GetText("ASK_DELETE"));
+			ThemeButton button = sender as ThemeButton;
+			if ( button != null ) button.Attributes ["onclick"] = String.Format( "return confirm('{0}');", GetText( "ASK_DELETE" ) );
 		}
-
-
 
 		/// <summary>
 		/// Handles post moderation events/buttons.
@@ -119,6 +119,15 @@ namespace YAF.Pages.moderate
 					// tell user message was deleted
 					PageContext.AddLoadMessage(GetText("DELETED"));
 					break;
+			}
+
+			// see if there are any items left...
+			DataTable dt = DB.message_unapproved( PageContext.PageForumID );
+
+			if ( dt.Rows.Count == 0 )
+			{
+				// nope -- redirect back to the moderate main...
+				YafBuildLink.Redirect( ForumPages.moderate_index );
 			}
 		}
 		

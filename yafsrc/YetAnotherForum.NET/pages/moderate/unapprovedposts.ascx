@@ -46,11 +46,12 @@
 					<YAF:LocalizedLabel runat="server" LocalizedTag="TOP" />
 				</a>
 			</td>
-			<td class="postfooter">
-				<asp:LinkButton ID="LinkButton1" runat="server" Text='<%# GetText("APPROVE") %>'
-					CommandName="Approve" CommandArgument='<%# Eval("MessageID") %>' />&nbsp;|
-				<asp:LinkButton ID="LinkButton2" runat="server" Text='<%# GetText("DELETE") %>' CommandName="Delete"
-					CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />&nbsp;
+			<td class="postfooter" style="float:left">					
+				<YAF:ThemeButton ID="ApproveBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="APPROVE"
+					CommandName="Approve" CommandArgument='<%# Eval("MessageID") %>' />
+					
+				<YAF:ThemeButton ID="DeleteBtn" runat="server" CssClass="yaflittlebutton" TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE"				
+					CommandName="Delete" CommandArgument='<%# Eval("MessageID") %>' OnLoad="Delete_Load" />	
 			</td>
 		</tr>
 	</ItemTemplate>
