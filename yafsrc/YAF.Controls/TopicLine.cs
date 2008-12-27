@@ -95,8 +95,9 @@ namespace YAF.Controls
 				firstMessage = 	_row ["FirstMessage"].ToString();
 			}
 
-			RenderAnchorBegin( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row ["LinkTopicID"] ), "post_link", General.BadWordReplace( General.Truncate( firstMessage, 255 ) ) );
-			writer.WriteLine( General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
+            RenderAnchorBegin( writer, YafBuildLink.GetLink( ForumPages.posts, linkParams, _row ["LinkTopicID"] ), "post_link", General.Truncate( General.BadWordReplace( firstMessage), 255 ) );
+
+            writer.WriteLine( General.BadWordReplace( Convert.ToString( _row ["Subject"] ) ) );
 			writer.WriteEndTag( "a" );
 
 			int actualPostCount = Convert.ToInt32( _row ["Replies"] ) + 1;
