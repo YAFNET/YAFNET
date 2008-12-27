@@ -43,7 +43,11 @@
 		User is not shown in Active User lists.
 		</td>
 		<td class="post"><asp:checkbox runat="server" id="IsExcludedFromActiveUsers"/></td>
-	</tr>	
+	</tr>
+    <tr>
+	  <td class="postheader"><b>Is Approved:</b></td>
+	  <td class="post"><asp:checkbox runat="server" id="IsApproved"/></td>
+  </tr>
 	<!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->	     
 	<tr runat="server" id="IsGuestRow" visible="false">
 	  <td class="postheader"><b>Is Guest:</b></td>
