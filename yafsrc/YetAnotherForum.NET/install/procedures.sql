@@ -2554,7 +2554,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_listreported](@Mess
 BEGIN
 	SELECT
 		a.*,
-		OriginalMessage = b.Message,
+		OriginalMessage = b.[Message],
+		b.[Flags],
+		b.[IsModeratorChanged],	
 		UserName	= IsNull(b.UserName,d.Name),
 		UserID = b.UserID,
 		Posted		= b.Posted,

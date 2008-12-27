@@ -51,7 +51,7 @@
 			<td valign="top" width="140">
 				&nbsp;</td>
 			<td valign="top" class="message">
-				<%# General.EncodeMessage(((System.Data.DataRowView)Container.DataItem)["Message"].ToString())%>
+			    <%# FormatMessage((System.Data.DataRowView)Container.DataItem)%>
 			</td>
 		</tr>
 		<tr class="postfooter">

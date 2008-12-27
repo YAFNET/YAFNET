@@ -109,7 +109,7 @@ namespace YAF.Pages.moderate
 					break;
 				case "view":
 					// go to the message
-					YafBuildLink.Redirect( ForumPages.posts, "m={0}", e.CommandArgument );
+					YafBuildLink.Redirect( ForumPages.posts, "m={0}#post{0}", e.CommandArgument );
 					break;
 				case "copyover":
 					// re-bind data
@@ -151,6 +151,34 @@ namespace YAF.Pages.moderate
 
 			// bind data to controls
 			DataBind();
+		}
+
+		/// <summary>
+		/// Format message.
+		/// </summary>
+		/// <param name="row">Message data row.</param>
+		/// <returns>Formatted string with escaped HTML markup and formatted BBCode.</returns>
+		protected string FormatMessage( DataRowView row )
+		{
+			// get message flags
+			MessageFlags messageFlags = new MessageFlags( row ["Flags"] );
+			// message
+			string msg;
+
+			// format message?
+			if ( messageFlags.NotFormatted )
+			{
+				// just encode it for HTML output
+				msg = HtmlEncode( row ["OriginalMessage"].ToString() );
+			}
+			else
+			{
+				// fully format message (BBCode, smilies)
+				msg = YAF.Classes.UI.FormatMsg.FormatMessage( row ["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean( row ["IsModeratorChanged"] ) );
+			}
+
+			// return formatted message
+			return msg;
 		}
 
 		#endregion
