@@ -677,7 +677,7 @@ BEGIN
 	EXEC [{databaseOwner}].[{objectQualifier}prov_CreateApplication] @ApplicationName, @ApplicationID OUTPUT
 	
 	SELECT COUNT(1) FROM [{databaseOwner}].[{objectQualifier}prov_Role]
-		WHERE RolenameLwd = LOWER(@Rolename);
+		WHERE RolenameLwd = LOWER(@Rolename) AND ApplicationID = @ApplicationID
 END 
 GO
 
