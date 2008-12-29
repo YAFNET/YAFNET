@@ -997,7 +997,7 @@ if not exists(select 1 from dbo.sysobjects where name='FK_{objectQualifier}Exten
 go
 
 if not exists(select 1 from dbo.sysobjects where name=N'FK_{objectQualifier}BBCode_Board' and parent_obj=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and OBJECTPROPERTY(id,N'IsForeignKey')=1)
-    ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_{objectQualifier}BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE CASCADE
+    ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_{objectQualifier}BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE NO ACTION
 GO
 
 /* Default Constraints */
