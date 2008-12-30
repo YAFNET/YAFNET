@@ -29,7 +29,7 @@ namespace YAF.Classes.Data.Import
 					if ( bbcodeList.Select( String.Format( "Name = '{0}'", name ) ).Length == 0 )
 					{
 						// add this bbcode...
-						DB.bbcode_save( null, boardId, row ["Name"], row ["Description"], row ["OnClickJS"], row ["DisplayJS"], row ["EditJS"], row ["DisplayCSS"], row ["SearchRegex"], row ["ReplaceRegex"], row ["Variables"], row ["UseModule"], row ["ModuleClass"], row ["ExecOrder"] );
+						DB.bbcode_save( null, boardId, row ["Name"], row ["Description"], row ["OnClickJS"], row ["DisplayJS"], row ["EditJS"], row ["DisplayCSS"], row ["SearchRegex"], row ["ReplaceRegex"], row ["Variables"], Convert.ToBoolean( row ["UseModule"] ), row ["ModuleClass"], row ["ExecOrder"] );
 						importedCount++;
 					}
 				}
