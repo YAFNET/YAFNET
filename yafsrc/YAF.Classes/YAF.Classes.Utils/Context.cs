@@ -1214,7 +1214,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public string GetURLToResource( string resourceName )
 		{
-			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumFileRoot );
+			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
 		}
 
 		#region Version Information
