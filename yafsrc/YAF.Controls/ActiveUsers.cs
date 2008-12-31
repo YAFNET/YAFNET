@@ -122,10 +122,13 @@ namespace YAF.Controls
 			bool bFirst = true;
 			foreach ( System.Web.UI.Control control in this.Controls )
 			{
-				if ( !bFirst ) writer.WriteLine( ", " );
-				else bFirst = false;
+				if ( control is UserLink && control.Visible )
+				{
+					if ( !bFirst ) writer.WriteLine( ", " );
+					else bFirst = false;
 
-				control.RenderControl( writer );
+					control.RenderControl( writer );
+				}
 			}
 
 			writer.WriteLine( "</div>" );
