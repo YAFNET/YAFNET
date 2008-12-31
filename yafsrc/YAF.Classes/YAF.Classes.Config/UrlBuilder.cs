@@ -94,6 +94,12 @@ namespace YAF.Classes
 								_baseUrl = _baseUrl.Substring( 0, _baseUrl.LastIndexOf( '/' ) );
 							}
 						}
+
+						// remove redundant slashes...
+						while ( _baseUrl.Contains( "//" ) )
+						{
+							_baseUrl = _baseUrl.Replace( "//", "/" );
+						}
 					}
 					catch ( Exception )
 					{
