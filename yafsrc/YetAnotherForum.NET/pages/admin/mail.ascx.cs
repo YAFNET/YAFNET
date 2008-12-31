@@ -65,17 +65,27 @@ namespace YAF.Pages.Admin
 			if ( ToList.SelectedItem.Value != "0" )
 				GroupID = ToList.SelectedValue;
 
-			using ( DataTable dt = YAF.Classes.Data.DB.user_emails( PageContext.PageBoardID, GroupID ) )
+			string subject = Subject.Text.Trim();
+
+			if ( String.IsNullOrEmpty( subject ) )
 			{
-				foreach ( DataRow row in dt.Rows )
-				{
-					// Wes - Changed to use queue to improve scalability
-					SendMail.Queue( PageContext.BoardSettings.ForumEmail, ( string )row ["Email"], Subject.Text.Trim(), Body.Text.Trim() );
-				}
+				PageContext.AddLoadMessage( "Subject is Required" );
 			}
-			Subject.Text = "";
-			Body.Text = "";
-			PageContext.AddLoadMessage( "Mails queued." );
+			else
+			{
+				using ( DataTable dt = YAF.Classes.Data.DB.user_emails( PageContext.PageBoardID, GroupID ) )
+				{
+					foreach ( DataRow row in dt.Rows )
+					{
+						// Wes - Changed to use queue to improve scalability
+						SendMail.Queue( PageContext.BoardSettings.ForumEmail, ( string ) row["Email"], Subject.Text.Trim(),
+						                Body.Text.Trim() );
+					}
+				}
+				Subject.Text = "";
+				Body.Text = "";
+				PageContext.AddLoadMessage( "Mails queued." );
+			}
 		}
 	}
 }

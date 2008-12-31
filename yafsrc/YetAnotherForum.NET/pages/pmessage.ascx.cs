@@ -221,6 +221,19 @@ namespace YAF.Pages
 				return;
 			}
 
+			// subject is required
+			if ( Subject.Text.Trim().Length <= 0 )
+			{
+				PageContext.AddLoadMessage( GetText( "need_subject" ) );
+				return;
+			}
+			// message is required
+			if ( _editor.Text.Trim().Length <= 0 )
+			{
+				PageContext.AddLoadMessage( GetText( "need_message" ) );
+				return;
+			}
+
 			if ( ToList.SelectedItem != null && ToList.SelectedItem.Value == "0" )
 			{
 				// administrator is sending PMs tp all users
@@ -238,19 +251,6 @@ namespace YAF.Pages
 			}
 			else
 			{
-				// subject is required
-				if ( Subject.Text.Trim().Length <= 0 )
-				{
-					PageContext.AddLoadMessage( GetText( "need_subject" ) );
-					return;
-				}
-				// message is required
-				if ( _editor.Text.Trim().Length <= 0 )
-				{
-					PageContext.AddLoadMessage( GetText( "need_message" ) );
-					return;
-				}
-
 				// remove all abundant whitespaces and separators
 				To.Text.Trim();
 				Regex rx = new Regex( @";(\s|;)*;" );
