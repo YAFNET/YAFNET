@@ -867,6 +867,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="POSTED">Posted:</Resource>
 		<Resource tag="ENDS">User Suspension Ends:</Resource>
 		<Resource tag="SUSPEND_USER">Suspend User:</Resource>
+    <Resource tag="ADMIN_USER">Admin User</Resource>
 		<Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
 		<Resource tag="SUSPEND">Suspend</Resource>
 		<Resource tag="DAYS">days</Resource>

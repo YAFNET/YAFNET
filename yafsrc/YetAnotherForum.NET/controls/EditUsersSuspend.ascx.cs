@@ -40,6 +40,23 @@ namespace YAF.Controls
 			}
 		}
 
+		public bool ShowHeader
+		{
+			get
+			{
+				if ( ViewState["ShowHeader"] != null )
+				{
+					return Convert.ToBoolean( ViewState["ShowHeader"] );
+				}
+
+				return true;
+			}
+			set
+			{
+				ViewState["ShowHeader"] = value;
+			}
+		}
+
 		#region Event Handlers
 
 		/// <summary>
@@ -67,6 +84,10 @@ namespace YAF.Controls
 			}
 		}
 
+		protected void Page_PreRender( object sender, EventArgs e)
+		{
+			trHeader.Visible = ShowHeader;
+		}
 
 		/// <summary>
 		/// Suspends a user when clicked.

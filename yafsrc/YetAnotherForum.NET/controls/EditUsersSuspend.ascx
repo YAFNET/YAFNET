@@ -1,9 +1,9 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="EditUsersSuspend.ascx.cs"
 	Inherits="YAF.Controls.EditUsersSuspend" %>
 <table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<tr>
+	<tr runat="server" id="trHeader">
 		<td class="header1" colspan="2">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="TOOLBAR" LocalizedTag="admin" />
+			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
 		</td>
 	</tr>
 	<tr runat="server" id="SuspendedRow">

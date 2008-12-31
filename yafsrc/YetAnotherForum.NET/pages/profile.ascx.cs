@@ -145,6 +145,12 @@ namespace YAF.Pages // YAF.Pages
 			Skype.Visible = ( User != null && !String.IsNullOrEmpty( userData.Profile.Skype ) );
 			Skype.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.im_skype, "u={0}", userData.UserID );
 
+			// localize tab titles...
+			AboutTab.HeaderText = GetText( "ABOUT" );
+			StatisticsTab.HeaderText = GetText( "STATISTICS" );
+			AvatarTab.HeaderText = GetText( "AVATAR" );
+			Last10PostsTab.HeaderText = GetText( "LAST10" );
+
 			if ( PageContext.BoardSettings.AvatarUpload && userData.HasAvatarImage )
 			{
 				Avatar.ImageUrl = YafForumInfo.ForumRoot + "resource.ashx?u=" + ( userID );
@@ -165,36 +171,8 @@ namespace YAF.Pages // YAF.Pages
 			Groups.DataSource = Roles.GetRolesForUser( UserMembershipHelper.GetUserNameFromID( userID ) );
 
 			//EmailRow.Visible = PageContext.IsAdmin;
-			ModeratorInfo.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
-			AdminUser.Visible = PageContext.IsAdmin;
-
-			if ( PageContext.IsAdmin || PageContext.IsForumModerator )
-			{
-				using ( DataTable dt2 = YAF.Classes.Data.DB.user_accessmasks( PageContext.PageBoardID, userID ) )
-				{
-					System.Text.StringBuilder html = new System.Text.StringBuilder();
-					int nLastForumID = 0;
-					foreach ( DataRow row in dt2.Rows )
-					{
-						if ( nLastForumID != Convert.ToInt32( row ["ForumID"] ) )
-						{
-							if ( nLastForumID != 0 )
-								html.AppendFormat( "</td></tr>" );
-							html.AppendFormat( "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>", row ["ForumName"] );
-							nLastForumID = Convert.ToInt32( row ["ForumID"] );
-						}
-						else
-						{
-							html.AppendFormat( ", " );
-						}
-						html.AppendFormat( "{0}", row ["AccessMaskName"] );
-					}
-					if ( nLastForumID != 0 )
-						html.AppendFormat( "</td></tr>" );
-					AccessMaskRow.Text = html.ToString();
-				}
-			}
-
+			ModerateTab.Visible = PageContext.IsAdmin || PageContext.IsForumModerator;
+			AdminUserButton.Visible = PageContext.IsAdmin;
 
 			if ( LastPosts.Visible )
 			{

@@ -32,7 +32,24 @@ namespace YAF.Controls
 {
 	public partial class EditUsersSignature : YAF.Classes.Base.BaseUserControl
 	{
-		protected YAF.Editor.ForumEditor _sig;		
+		protected YAF.Editor.ForumEditor _sig;
+
+		public bool ShowHeader
+		{
+			get
+			{
+				if ( ViewState ["ShowHeader"] != null )
+				{
+					return Convert.ToBoolean( ViewState ["ShowHeader"] );
+				}
+
+				return true;
+			}
+			set
+			{
+				ViewState ["ShowHeader"] = value;
+			}
+		}
 
 		protected void Page_Load( object sender, EventArgs e )
 		{
@@ -48,6 +65,11 @@ namespace YAF.Controls
 
 				BindData();
 			}
+		}
+
+		protected void Page_PreRender( object sender, EventArgs e )
+		{
+			trHeader.Visible = ShowHeader;
 		}
 
 		protected void BindData()

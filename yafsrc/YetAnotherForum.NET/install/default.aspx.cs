@@ -273,7 +273,7 @@ namespace YAF.Install
 		#region method UpgradeDatabase
 		bool UpgradeDatabase(bool fullText)
 		{
-			try
+			//try
 			{
 				FixAccess( false );
 
@@ -323,11 +323,11 @@ namespace YAF.Install
 					}
 				}
 			}
-			catch ( Exception x )
+			/*catch ( Exception x )
 			{
 				AddLoadMessage( x.Message );
 				return false;
-			}
+			}*/
 
 			// attempt to apply fulltext support if desired
 			if ( fullText )
