@@ -1057,52 +1057,61 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( _forumFileRoot == null )
+				if ( _forumFileRoot != null )
 				{
-					try
+					if (_forumFileRoot.Contains( "//" ))
 					{
-						_forumFileRoot = HttpContext.Current.Request.ApplicationPath;
-
-						if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
-
-						if ( YAF.Classes.Config.Root != null )
-						{
-							// use specified root
-							_forumFileRoot = YAF.Classes.Config.Root;
-
-							if ( _forumFileRoot.StartsWith( "~" ) )
-							{
-								// transform with application path...
-								_forumFileRoot = _forumFileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
-							}
-
-							if ( _forumFileRoot.StartsWith( "//" ) )
-							{
-								// remove extra slash
-								_forumFileRoot = _forumFileRoot.Substring( 1, _forumFileRoot.Length - 1 );
-							}
-
-							if ( _forumFileRoot [0] != '/' ) _forumFileRoot = _forumFileRoot.Insert( 0, "/" );
-						}
-						else if ( YAF.Classes.Config.IsDotNetNuke )
-						{
-							_forumFileRoot += "DesktopModules/YetAnotherForumDotNet/";
-						}
-						else if ( YAF.Classes.Config.IsRainbow )
-						{
-							_forumFileRoot += "DesktopModules/Forum/";
-						}
-						else if ( YAF.Classes.Config.IsPortal )
-						{
-							_forumFileRoot += "Modules/Forum/";
-						}
-
-						if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
+						_forumFileRoot = null;
 					}
-					catch ( Exception )
+					else
 					{
-						_forumFileRoot = "/";
+						return _forumFileRoot;
 					}
+				}
+
+				try
+				{
+					_forumFileRoot = HttpContext.Current.Request.ApplicationPath;
+
+					if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
+
+					if ( YAF.Classes.Config.Root != null )
+					{
+						// use specified root
+						_forumFileRoot = YAF.Classes.Config.Root;
+
+						if ( _forumFileRoot.StartsWith( "~" ) )
+						{
+							// transform with application path...
+							_forumFileRoot = _forumFileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+						}
+
+						if ( _forumFileRoot[0] != '/' ) _forumFileRoot = _forumFileRoot.Insert( 0, "/" );
+					}
+					else if ( YAF.Classes.Config.IsDotNetNuke )
+					{
+						_forumFileRoot += "DesktopModules/YetAnotherForumDotNet/";
+					}
+					else if ( YAF.Classes.Config.IsRainbow )
+					{
+						_forumFileRoot += "DesktopModules/Forum/";
+					}
+					else if ( YAF.Classes.Config.IsPortal )
+					{
+						_forumFileRoot += "Modules/Forum/";
+					}
+
+					if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
+
+					// remove redundant slashes...
+					while ( _forumFileRoot.Contains( "//" ) )
+					{
+						_forumFileRoot = _forumFileRoot.Replace( "//", "/" );
+					}
+				}
+				catch ( Exception )
+				{
+					_forumFileRoot = "/";
 				}
 
 				return _forumFileRoot;
@@ -1205,7 +1214,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		static public string GetURLToResource( string resourceName )
 		{
-			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumRoot );
+			return string.Format( "{1}resources/{0}", resourceName, YafForumInfo.ForumFileRoot );
 		}
 
 		#region Version Information
