@@ -166,6 +166,7 @@ namespace YAF.Pages // YAF.Pages
 			else
 			{
 				Avatar.Visible = false;
+				AvatarTab.Visible = false;
 			}
 
 			Groups.DataSource = Roles.GetRolesForUser( UserMembershipHelper.GetUserNameFromID( userID ) );
