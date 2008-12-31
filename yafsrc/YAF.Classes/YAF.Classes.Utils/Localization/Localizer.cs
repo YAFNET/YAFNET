@@ -18,131 +18,167 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace YAF.Classes.Utils
 {
-    /// <summary>
-    /// Summary description for Localizer.
-    /// </summary>
-    public class Localizer
-    {
-        private XmlDocument _doc = null;
-        private XmlNode _pagePointer = null;
-        private string _fileName = "";
-        private string _currentPage = "";
-        private string _code = "";
+	/// <summary>
+	/// Summary description for Localizer.
+	/// </summary>
+	public class Localizer
+	{
+		private XmlDocument _doc = null;
+		private XmlNode _pagePointer = null;
+		private string _fileName = "";
+		private string _currentPage = "";
+		private string _code = "";
 
-        public Localizer()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
+		public Localizer()
+		{
 
-        public Localizer(string fileName)
-        {
-            _fileName = fileName;
-            LoadFile();
-        }
+		}
 
-        private void LoadFile()
-        {
-            if (_fileName == "" || !System.IO.File.Exists(_fileName))
-                throw (new ApplicationException("Invalid language file " + _fileName));
+		public Localizer( string fileName )
+		{
+			_fileName = fileName;
+			LoadFile();
+		}
 
-            if (_doc == null)
-                _doc = new XmlDocument();
+		private void LoadFile()
+		{
+			if ( _fileName == "" || !System.IO.File.Exists( _fileName ) )
+				throw ( new ApplicationException( "Invalid language file " + _fileName ) );
 
-            try
-            {
-                _doc.Load(_fileName);
-                if (_doc.DocumentElement.Attributes["code"] != null)
-                    _code = _doc.DocumentElement.Attributes["code"].Value;
-                else
-                    _code = "en";
-            }
-            catch
-            {
-                _doc = null;
-            }
-        }
+			if ( _doc == null )
+				_doc = new XmlDocument();
 
-        public void LoadFile(string fileName)
-        {
-            _fileName = fileName;
-            LoadFile();
-        }
+			try
+			{
+				_doc.Load( _fileName );
 
-        public void SetPage(string Page)
-        {
-            if (_currentPage == Page)
-                return;
+				if ( _doc.DocumentElement != null )
+				{
+					_code = _doc.DocumentElement.Attributes["code"] != null ? _doc.DocumentElement.Attributes["code"].Value : "en";
+				}
+				else
+				{
+					_doc = null;
+				}
+			}
+			catch
+			{
+				_doc = null;
+			}
+		}
 
-            _pagePointer = null;
-            _currentPage = "";
+		public void LoadFile( string fileName )
+		{
+			_fileName = fileName;
+			LoadFile();
+		}
 
-            if (_doc != null)
-            {
-                _pagePointer = _doc.SelectSingleNode(string.Format("//page[@name='{0}']", Page.ToUpper()));
-                _currentPage = Page;
-            }
-        }
+		public void SetPage( string Page )
+		{
+			if ( _currentPage == Page )
+				return;
 
-        public void GetText(string tag, out string localizedText)
-        {
-            // default the out parameters
-            localizedText = "";
-            XmlNode el = null;
+			_pagePointer = null;
+			_currentPage = "";
 
-            // verify that a document is loaded
-            if (_doc == null)
-                return;
+			if ( _doc != null )
+			{
+				_pagePointer = _doc.SelectSingleNode( string.Format( "//page[@name='{0}']", Page.ToUpper() ) );
+				_currentPage = Page;
+			}
+		}
 
-            tag = tag.ToUpper(new System.Globalization.CultureInfo("en"));
+		public void GetText( string tag, out string localizedText )
+		{
+			// default the out parameters
+			localizedText = "";
+			XmlNode xmlPageNode = null;
+
+			// verify that a document is loaded
+			if ( _doc == null )
+				return;
+
+			tag = tag.ToUpper( new System.Globalization.CultureInfo( "en" ) );
 
 #if DEBUG
-            if (_pagePointer == null)
-                throw new Exception("Missing page pointer: " + tag);
+			if ( _pagePointer == null )
+				throw new Exception( "Invalid Page Pointer: " + _currentPage );
 #endif
 
-            if (_pagePointer != null)
-            {
-                el = _pagePointer.SelectSingleNode(string.Format("Resource[@tag='{0}']", tag));
-                // if in page subnode the text doesn't exist, try in whole file
-                if (el == null)
-                    el = _doc.SelectSingleNode(string.Format("//Resource[@tag='{0}']", tag));
-            }
-            else
-            {
-                el = _doc.SelectSingleNode(string.Format("//Resource[@tag='{0}']", tag));
-            }
+			if ( _pagePointer != null )
+			{
+				// if in page subnode the text doesn't exist, try in whole file
+				xmlPageNode = _pagePointer.SelectSingleNode( string.Format( "Resource[@tag='{0}']", tag ) ) ?? _doc.SelectSingleNode( string.Format( "//Resource[@tag='{0}']", tag ) );
+			}
+			else
+			{
+				xmlPageNode = _doc.SelectSingleNode( string.Format( "//Resource[@tag='{0}']", tag ) );
+			}
 
-            if (el != null)
-            {
-                localizedText = el.InnerText;
-            }
-            else
-            {
-                //YAF.Classes.Data.YAF.Classes.Data.DB.eventlog_create(null,"Localizer: GetText",String.Format("Missing Language Item \"{0}\"",text),EventLogTypes.Warning);
-                localizedText = null;
-            }
-        }
+			localizedText = xmlPageNode != null ? xmlPageNode.InnerText : null;
+		}
 
-        public string GetText(string page, string tag)
-        {
-            SetPage(page);
-            string text;
-            GetText(tag, out text);
-            return text;
-        }
+		public string GetText( string page, string tag )
+		{
+			string text;
+			
+			SetPage( page );
+			GetText( tag, out text );
 
-        public string LanguageCode
-        {
-            get
-            {
-                return _code;
-            }
-        }
-    }
+			return text;
+		}
+
+		public List<XmlNode> GetNodesUsingQuery( string tagQuery )
+		{
+			XmlNodeList xmlNodeList = null;
+
+			// verify that a document is loaded
+			if ( _doc == null )
+				return null;
+
+#if DEBUG
+			if ( _pagePointer == null )
+				throw new Exception( "Invalid Page Pointer: " + _currentPage );
+#endif
+
+			if ( _pagePointer != null )
+			{
+				// if in page subnode the text doesn't exist, try in whole file
+				xmlNodeList = _pagePointer.SelectNodes( string.Format( "Resource[{0}]", tagQuery ) );
+			}
+			else
+			{
+				xmlNodeList = _doc.SelectNodes( string.Format( "//Resource[{0}]", tagQuery ) );
+			}
+
+			// convert to dictionary...
+			List<XmlNode> items = new List<XmlNode>();
+
+			if ( xmlNodeList != null )
+			{
+				foreach ( XmlNode node in xmlNodeList )
+				{
+					if ( node != null )
+					{
+						items.Add( node );
+					}
+				}
+			}
+
+			return items;
+		}
+
+		public string LanguageCode
+		{
+			get
+			{
+				return _code;
+			}
+		}
+	}
 }

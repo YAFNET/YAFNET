@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Globalization;
+using System.Xml;
 
 namespace YAF.Classes.Utils
 {
@@ -172,6 +173,14 @@ namespace YAF.Classes.Utils
       }
 
 			return localizedText;
+		}
+
+		public List<XmlNode> GetNodesUsingQuery( string page, string tagQuery )
+		{
+			LoadTranslation();
+
+			_localizer.SetPage( page );
+			return _localizer.GetNodesUsingQuery( tagQuery );
 		}
 
 		public bool GetTextExists( string page, string tag )
