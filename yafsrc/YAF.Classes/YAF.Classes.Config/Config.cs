@@ -35,7 +35,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return (ConfigurationManager.AppSettings ["boardid"] ?? "1");
+				return ( ConfigurationManager.AppSettings ["boardid"] ?? "1" );
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return (ConfigurationManager.AppSettings ["enableurlrewriting"] ?? "false");
+				return ( ConfigurationManager.AppSettings ["enableurlrewriting"] ?? "false" );
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if (	ConfigurationManager.AppSettings ["baseurloverridedomain"] != null && 
+				if ( ConfigurationManager.AppSettings ["baseurloverridedomain"] != null &&
 							ConfigurationManager.AppSettings ["baseurloverridedomain"].ToLower() == "true" )
 					return true;
 
@@ -87,7 +87,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return (ConfigurationManager.AppSettings ["uploaddir"] ?? "~/upload/");
+				return ( ConfigurationManager.AppSettings ["uploaddir"] ?? "~/upload/" );
 			}
 		}
 
@@ -186,25 +186,25 @@ namespace YAF.Classes
 						urlAssembly = "YAF.Classes.UrlBuilder";
 					}
 
-					HttpContext.Current.Application ["yaf_UrlBuilder"] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
+					HttpContext.Current.Application ["yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString()] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
 				}
 
-				return ( IUrlBuilder ) HttpContext.Current.Application ["yaf_UrlBuilder"];
+				return ( IUrlBuilder ) HttpContext.Current.Application ["yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString()];
 			}
 		}
 
-        static public bool ShowToolBar
-        {
-            get
-            {
-                bool result = true;
+		static public bool ShowToolBar
+		{
+			get
+			{
+				bool result = true;
 
-                if (ConfigurationManager.AppSettings["ShowToolBar"] != null &&
-                    ConfigurationManager.AppSettings["ShowToolBar"].ToLower() == "false")
-                    result = false;
+				if ( ConfigurationManager.AppSettings ["ShowToolBar"] != null &&
+						ConfigurationManager.AppSettings ["ShowToolBar"].ToLower() == "false" )
+					result = false;
 
-                return result;
-            }
-        }
+				return result;
+			}
+		}
 	}
 }

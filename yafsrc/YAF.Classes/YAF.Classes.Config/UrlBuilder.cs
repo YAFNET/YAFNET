@@ -28,6 +28,7 @@ namespace YAF.Classes
 	public class UrlBuilder : IUrlBuilder
 	{
 		private static string _baseUrl = null;
+		private static string _fileRoot = null;
 
 		/// <summary>
 		/// Builds URL for calling page with parameter URL as page's escaped parameter.
@@ -47,7 +48,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				string scriptName = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
+				string scriptName = HttpContext.Current.Request.FilePath.ToLower();
 				return scriptName.Substring( scriptName.LastIndexOf( '/' ) );
 			}
 		}
@@ -56,7 +57,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				string scriptName = HttpContext.Current.Request.ServerVariables ["SCRIPT_NAME"].ToLower();
+				string scriptName = HttpContext.Current.Request.FilePath.ToLower();
 				return scriptName.Substring( 0, scriptName.LastIndexOf( '/' ) );
 			}
 		}
@@ -108,6 +109,71 @@ namespace YAF.Classes
 				}
 
 				return _baseUrl;
+			}
+		}
+
+		static public string RootUrl
+		{
+			get
+			{
+				if ( _fileRoot != null )
+				{
+					if ( _fileRoot.Contains( "//" ) )
+					{
+						_fileRoot = null;
+					}
+					else
+					{
+						return _fileRoot;
+					}
+				}
+
+				try
+				{
+					_fileRoot = HttpContext.Current.Request.ApplicationPath;
+
+					if ( !_fileRoot.EndsWith( "/" ) ) _fileRoot += "/";
+
+					if ( YAF.Classes.Config.Root != null )
+					{
+						// use specified root
+						_fileRoot = YAF.Classes.Config.Root;
+
+						if ( _fileRoot.StartsWith( "~" ) )
+						{
+							// transform with application path...
+							_fileRoot = _fileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
+						}
+
+						if ( _fileRoot [0] != '/' ) _fileRoot = _fileRoot.Insert( 0, "/" );
+					}
+					else if ( YAF.Classes.Config.IsDotNetNuke )
+					{
+						_fileRoot += "DesktopModules/YetAnotherForumDotNet/";
+					}
+					else if ( YAF.Classes.Config.IsRainbow )
+					{
+						_fileRoot += "DesktopModules/Forum/";
+					}
+					else if ( YAF.Classes.Config.IsPortal )
+					{
+						_fileRoot += "Modules/Forum/";
+					}
+
+					if ( !_fileRoot.EndsWith( "/" ) ) _fileRoot += "/";
+
+					// remove redundant slashes...
+					while ( _fileRoot.Contains( "//" ) )
+					{
+						_fileRoot = _fileRoot.Replace( "//", "/" );
+					}
+				}
+				catch ( Exception )
+				{
+					_fileRoot = "/";
+				}
+
+				return _fileRoot;
 			}
 		}
 	}
