@@ -21,7 +21,7 @@ using System;
 using System.Web;
 using System.Web.UI;
 using YAF.Classes.Utils;
-using YAF.Classes.Base;
+using YAF.Classes;
 
 namespace YAF
 {
@@ -31,7 +31,6 @@ namespace YAF
 	[ToolboxData( "<{0}:Forum runat=\"server\"></{0}:Forum>" )]
 	public class Forum : System.Web.UI.UserControl
 	{
-		YafControlSettings forumSettings = new YafControlSettings();
 		private YAF.Controls.Header _header;
 		private YAF.Controls.Footer _footer;
 		private string _origHeaderClientID;
@@ -41,7 +40,6 @@ namespace YAF
 
 		public Forum()
 		{
-			YAF.Classes.Utils.YafContext.Current.Settings = forumSettings;
 			this.Load += new EventHandler( Forum_Load );
 			// setup header/footer
 			_header = new YAF.Controls.Header();
@@ -217,11 +215,11 @@ namespace YAF
 		{
 			get
 			{
-				return forumSettings.BoardID;
+				return YafControlSettings.Current.BoardID;
 			}
 			set
 			{
-				forumSettings.BoardID = value;
+				YafControlSettings.Current.BoardID = value;
 			}
 		}
 
@@ -232,11 +230,11 @@ namespace YAF
 		{
 			get
 			{
-				return forumSettings.CategoryID;
+				return YafControlSettings.Current.CategoryID;
 			}
 			set
 			{
-				forumSettings.CategoryID = value;
+				YafControlSettings.Current.CategoryID = value;
 			}
 		}
 
@@ -244,11 +242,11 @@ namespace YAF
 		{
 			get
 			{
-				return forumSettings.LockedForum;
+				return YafControlSettings.Current.LockedForum;
 			}
 			set
 			{
-				forumSettings.LockedForum = value;
+				YafControlSettings.Current.LockedForum = value;
 			}
 		}
 	}
