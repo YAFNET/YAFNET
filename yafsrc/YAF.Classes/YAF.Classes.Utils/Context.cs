@@ -37,7 +37,6 @@ namespace YAF.Classes.Utils
 		/* Ederon : 6/16/2007 - conventions */	
 		
 		private System.Data.DataRow _page = null;
-		private YAF.Classes.Utils.YafControlSettings _settings = null;
 		private YAF.Classes.Utils.YafTheme _theme = null;
 		private YAF.Classes.Utils.YafLocalization _localization = null;
 		private System.Web.Security.MembershipUser _user = null;
@@ -193,21 +192,11 @@ namespace YAF.Classes.Utils
 			}
 		}
 
-		public YAF.Classes.Utils.YafControlSettings Settings
+		public YAF.Classes.YafControlSettings Settings
 		{
 			get
 			{
-				if ( _settings == null )
-				{
-					// init the class...
-					_settings = new YafControlSettings();
-				}
-
-				return _settings;
-			}
-			set
-			{
-				_settings = value;
+				return YafControlSettings.Current;
 			}
 		}
 
@@ -960,70 +949,10 @@ namespace YAF.Classes.Utils
 	}
 
 	/// <summary>
-	/// Class provides glue/settings transfer between YAF forum control and base classes
-	/// </summary>
-	public class YafControlSettings
-	{
-		/* Ederon : 6/16/2007 - conventions */
-
-		private int _boardID;
-		private int _categoryID;
-		private int _lockedForum = 0;
-
-		public YafControlSettings()
-		{
-            if ( !int.TryParse( Config.CategoryID, out _categoryID ) )
-                _categoryID = 0; // Ederon : 6/16/2007 - changed from 1 to 0
-
-            if ( !int.TryParse( Config.BoardID, out _boardID ) )
-                _boardID = 1;
-		}
-
-		public int BoardID
-		{
-			get
-			{
-				return _boardID;
-			}
-			set
-			{
-				_boardID = value;
-			}
-		}
-
-		public int CategoryID
-		{
-			get
-			{
-				return _categoryID;
-			}
-			set
-			{
-				_categoryID = value;
-			}
-		}
-
-		public int LockedForum
-		{
-			set
-			{
-				_lockedForum = value;
-			}
-			get
-			{
-				return _lockedForum;
-			}
-		}
-	}
-
-	/// <summary>
 	/// Class provides misc helper functions and forum version information
 	/// </summary>
 	public static class YafForumInfo
 	{
-		private static string _forumFileRoot = null;
-		private static string _forumRoot = null;
-
 		/// <summary>
 		/// The forum path (external).
 		/// May not be the actual URL of the forum.
@@ -1032,17 +961,16 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( _forumRoot == null )
+				string _forumRoot = null;
+
+				try
 				{
-					try
-					{
-						_forumRoot = UrlBuilder.BaseUrl;
-						if ( !_forumRoot.EndsWith( "/" ) ) _forumRoot += "/";
-					}
-					catch ( Exception )
-					{
-						_forumRoot = "/";
-					}
+					_forumRoot = UrlBuilder.BaseUrl;
+					if ( !_forumRoot.EndsWith( "/" ) ) _forumRoot += "/";
+				}
+				catch ( Exception )
+				{
+					_forumRoot = "/";
 				}
 
 				return _forumRoot;
@@ -1057,64 +985,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( _forumFileRoot != null )
-				{
-					if (_forumFileRoot.Contains( "//" ))
-					{
-						_forumFileRoot = null;
-					}
-					else
-					{
-						return _forumFileRoot;
-					}
-				}
-
-				try
-				{
-					_forumFileRoot = HttpContext.Current.Request.ApplicationPath;
-
-					if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
-
-					if ( YAF.Classes.Config.Root != null )
-					{
-						// use specified root
-						_forumFileRoot = YAF.Classes.Config.Root;
-
-						if ( _forumFileRoot.StartsWith( "~" ) )
-						{
-							// transform with application path...
-							_forumFileRoot = _forumFileRoot.Replace( "~", HttpContext.Current.Request.ApplicationPath );
-						}
-
-						if ( _forumFileRoot[0] != '/' ) _forumFileRoot = _forumFileRoot.Insert( 0, "/" );
-					}
-					else if ( YAF.Classes.Config.IsDotNetNuke )
-					{
-						_forumFileRoot += "DesktopModules/YetAnotherForumDotNet/";
-					}
-					else if ( YAF.Classes.Config.IsRainbow )
-					{
-						_forumFileRoot += "DesktopModules/Forum/";
-					}
-					else if ( YAF.Classes.Config.IsPortal )
-					{
-						_forumFileRoot += "Modules/Forum/";
-					}
-
-					if ( !_forumFileRoot.EndsWith( "/" ) ) _forumFileRoot += "/";
-
-					// remove redundant slashes...
-					while ( _forumFileRoot.Contains( "//" ) )
-					{
-						_forumFileRoot = _forumFileRoot.Replace( "//", "/" );
-					}
-				}
-				catch ( Exception )
-				{
-					_forumFileRoot = "/";
-				}
-
-				return _forumFileRoot;
+				return UrlBuilder.RootUrl;
 			}
 		}
 
