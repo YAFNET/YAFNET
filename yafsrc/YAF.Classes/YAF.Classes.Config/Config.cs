@@ -157,11 +157,19 @@ namespace YAF.Classes
 			}
 		}
 
+		static private string UrlBuilderKeyName
+		{
+			get
+			{
+				return "yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString();
+			}
+		}
+
 		static public IUrlBuilder UrlBuilder
 		{
 			get
 			{
-				if ( HttpContext.Current.Application ["yaf_UrlBuilder"] == null )
+				if ( HttpContext.Current.Application [ UrlBuilderKeyName ] == null )
 				{
 					string urlAssembly;
 
@@ -186,10 +194,10 @@ namespace YAF.Classes
 						urlAssembly = "YAF.Classes.UrlBuilder";
 					}
 
-					HttpContext.Current.Application ["yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString()] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
+					HttpContext.Current.Application [UrlBuilderKeyName] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
 				}
 
-				return ( IUrlBuilder ) HttpContext.Current.Application ["yaf_UrlBuilder-Board" + YafControlSettings.Current.BoardID.ToString()];
+				return ( IUrlBuilder ) HttpContext.Current.Application [UrlBuilderKeyName];
 			}
 		}
 
