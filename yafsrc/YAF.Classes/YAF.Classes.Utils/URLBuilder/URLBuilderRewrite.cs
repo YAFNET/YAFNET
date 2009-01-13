@@ -19,7 +19,6 @@
 using System;
 using System.Data;
 using System.Web;
-using System.Collections.Specialized;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 

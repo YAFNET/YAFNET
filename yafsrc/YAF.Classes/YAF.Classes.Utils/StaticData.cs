@@ -50,6 +50,18 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		public static DataTable TimeZones( string forceLanguage )
+		{
+			// manually load a language file...
+			if ( !YafContext.Current.Localization.TranslationLoaded )
+			{
+				// force english so it doesn't attempt to access board settings causing a DB load...
+				YafContext.Current.Localization.LoadTranslation( forceLanguage );
+			}
+
+			return TimeZones();
+		}
+
 		public static DataTable Themes()
 		{
 			using ( DataTable dt = new DataTable( "Themes" ) )

@@ -33,6 +33,14 @@ namespace YAF.Classes.Utils
     private Localizer _defaultLocale = null;
     private string _transPage = null;
 
+  	public bool TranslationLoaded
+  	{
+  		get
+  		{
+  			return ( _localizer != null );
+  		}
+  	}
+
     public YafLocalization()
     {
 
@@ -94,10 +102,58 @@ namespace YAF.Classes.Utils
       return GetText( TransPage, text );
     }
 
-    private string LoadTranslation()
+		public string LoadTranslation( string fileName )
+		{
+			if ( _localizer != null )
+				return _localizer.LanguageCode;
+
+#if !DEBUG
+      if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + filename] != null )
+        _localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + filename];
+#endif
+			if ( _localizer == null )
+			{
+
+				_localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", YafForumInfo.ForumFileRoot, fileName ) ) );
+#if !DEBUG
+        HttpContext.Current.Cache ["Localizer." + filename] = _localizer;
+#endif
+			}
+			// If not using default language load that too
+			if ( fileName.ToLower() != "english.xml" )
+			{
+#if !DEBUG
+        if ( _defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
+          _defaultLocale = ( Localizer ) HttpContext.Current.Cache ["DefaultLocale"];
+#endif
+
+				if ( _defaultLocale == null )
+				{
+					_defaultLocale = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/english.xml", YafForumInfo.ForumFileRoot ) ) );
+#if !DEBUG
+          HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
+#endif
+				}
+			}
+
+			try
+			{
+				// try to load culture info defined in localization file
+				_culture = new CultureInfo( _localizer.LanguageCode );
+			}
+			catch
+			{
+				// if it's wrong, fall back to current culture
+				_culture = CultureInfo.CurrentCulture;
+			}
+
+			return _localizer.LanguageCode;			
+		}
+
+    public string LoadTranslation()
     {
-      if ( _localizer != null )
-        return _localizer.LanguageCode;
+			if ( _localizer != null )
+				return _localizer.LanguageCode;
 
       string filename = null;
 
@@ -112,47 +168,7 @@ namespace YAF.Classes.Utils
 
       if ( filename == null ) filename = "english.xml";
 
-#if !DEBUG
-      if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + filename] != null )
-        _localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + filename];
-#endif
-      if ( _localizer == null )
-      {
-
-        _localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", YafForumInfo.ForumFileRoot, filename ) ) );
-#if !DEBUG
-        HttpContext.Current.Cache ["Localizer." + filename] = _localizer;
-#endif
-      }
-      // If not using default language load that too
-      if ( filename.ToLower() != "english.xml" )
-      {
-#if !DEBUG
-        if ( _defaultLocale == null && HttpContext.Current.Cache ["DefaultLocale"] != null )
-          _defaultLocale = ( Localizer ) HttpContext.Current.Cache ["DefaultLocale"];
-#endif
-
-        if ( _defaultLocale == null )
-        {
-          _defaultLocale = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/english.xml", YafForumInfo.ForumFileRoot ) ) );
-#if !DEBUG
-          HttpContext.Current.Cache ["DefaultLocale"] = _defaultLocale;
-#endif
-        }
-      }
-
-	  try
-	  {
-		  // try to load culture info defined in localization file
-		  _culture = new CultureInfo(_localizer.LanguageCode);
-	  }
-	  catch
-	  {
-		  // if it's wrong, fall back to current culture
-		  _culture = CultureInfo.CurrentCulture;
-	  }
-
-      return _localizer.LanguageCode;
+    	return LoadTranslation( filename );
     }
 
 		protected string GetLocalizedTextInternal( string page, string tag )

@@ -259,20 +259,16 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
 				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
 
 				if ( HttpContext.Current.Application [key] == null )
 					HttpContext.Current.Application [key] = new YafBoardSettings( PageBoardID );
 
 				return ( YafBoardSettings ) HttpContext.Current.Application [key];
-
 			}
 			set
 			{
-				int PageBoardID = ( Settings == null ) ? 1 : Settings.BoardID;
 				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
-
 				HttpContext.Current.Application.Remove( key );
 			}
 		}
@@ -483,10 +479,7 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if (Settings == null)
-					return 1;
-
-				return Settings.BoardID;
+				return Settings == null ? 1 : Settings.BoardID;
 			}
 		}
 		/// <summary>
