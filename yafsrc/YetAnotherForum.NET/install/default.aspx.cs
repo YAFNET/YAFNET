@@ -1,5 +1,6 @@
-/* Yet Another Forum.net
- * Copyright (C) 2003 Bjørnar Henden
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2008 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,20 +19,13 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Data.SqlClient;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Globalization;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -69,7 +63,7 @@ namespace YAF.Install
 				Cache["DBVersion"] = DBVersion;
 
 				InstallWizard.ActiveStepIndex = IsInstalled ? 1 : 0;
-				TimeZones.DataSource = YafStaticData.TimeZones();
+				TimeZones.DataSource = YafStaticData.TimeZones( "english.xml" );
 
 				DataBind();
 
@@ -441,8 +435,10 @@ namespace YAF.Install
 				MembershipCreateStatus status;
 				user = Membership.CreateUser( UserName.Text, Password1.Text, AdminEmail.Text, SecurityQuestion.Text, SecurityAnswer.Text, true, out status );
 				if ( status != MembershipCreateStatus.Success )
-					throw new ApplicationException( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( status ) ) );
-
+				{
+					AddLoadMessage( string.Format( "Create Admin User Failed: {0}", GetMembershipErrorMessage( status ) ) );
+					return false;
+				}
 			}
 			else
 			{
