@@ -107,6 +107,46 @@ namespace YAF.Classes
 			}
 		}
 
+        #region Telerik Rad Editor Settings
+        static public string RadEditorSkin
+        {
+            get
+            {
+                return (ConfigurationManager.AppSettings["RadEditorSkin"] ?? "Vista");
+            }
+        }
+
+        static public string RadEditorToolsFile
+        {
+            get
+            {
+                return (ConfigurationManager.AppSettings["RadEditorToolsFile"] ?? string.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.Root));
+            }
+        }
+
+        static public bool UseRadEditorToolsFile
+        {
+            get
+            {
+                switch (ConfigurationManager.AppSettings["UseRadEditorToolsFile"].ToLower().Substring(0, 1))
+                {
+                    case "1":
+                    case "t":
+                    case "y":
+                        return true;
+
+                    case "0":
+                    case "f":
+                    case "n":
+                        return false;
+
+                    default:
+                        return false;
+                }
+            }
+        }
+        #endregion
+
 		static public string LogToMail
 		{
 			get
