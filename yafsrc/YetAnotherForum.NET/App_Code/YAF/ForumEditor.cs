@@ -24,6 +24,7 @@ using System.Web.UI;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 
 namespace YAF.Editor
@@ -711,93 +712,89 @@ namespace YAF.Editor
 		}
 	}
 
-	// Telerik RAD Editor
-	public class RadEditor : RichClassEditor
-	{
-		public RadEditor()
-			: base( "Telerik.WebControls.RadEditor,RadEditor.Net2" )
-		{
-			InitEditorObject();
-		}
+    #region "Telerik RadEditor"
+    public class RadEditor : RichClassEditor
+    {
+        // base("Namespace,AssemblyName")
+        public RadEditor()
+            : base("Telerik.Web.UI.RadEditor,Telerik.Web.UI")
+        {
+            InitEditorObject();
+        }
 
-		protected override void OnInit( EventArgs e )
-		{
-			if ( _init )
-			{
-				Load += new EventHandler( Editor_Load );
-				PropertyInfo pInfo = _typEditor.GetProperty( "ID" );
-				pInfo.SetValue( _editor, "edit", null );
-				Controls.Add( _editor );
-			}
-			base.OnInit( e );
-		}
+        protected override void OnInit(EventArgs e)
+        {
+            if (_init)
+            {
+                Load += new EventHandler(Editor_Load);
+                base.OnInit(e);
+            }
+        }
 
-		protected virtual void Editor_Load( object sender, EventArgs e )
-		{
-			if ( _init && _editor.Visible )
-			{
-				PropertyInfo pInfo;
-				pInfo = _typEditor.GetProperty( "RadControlsDir" );
-				pInfo.SetValue( _editor, ResolveUrl( "RadControls/" ), null );
+        protected virtual void Editor_Load(object sender, EventArgs e)
+        {
+            if (_init && _editor.Visible)
+            {
+                PropertyInfo pInfo = _typEditor.GetProperty("ID");
+                pInfo.SetValue(_editor, "edit", null);
+                pInfo = _typEditor.GetProperty("Skin");
 
-				pInfo = _typEditor.GetProperty( "Height" );
-				pInfo.SetValue( _editor, Unit.Pixel( 400 ), null );
+                pInfo.SetValue(_editor, Config.RadEditorSkin, null);
+                pInfo = _typEditor.GetProperty("Height");
 
-				pInfo = _typEditor.GetProperty( "Width" );
-				pInfo.SetValue( _editor, Unit.Percentage( 100 ), null );
+                pInfo.SetValue(_editor, Unit.Pixel(400), null);
+                pInfo = _typEditor.GetProperty("Width");
 
-				pInfo = _typEditor.GetProperty( "ShowSubmitCancelButtons" );
-				pInfo.SetValue( _editor, false, null );
+                pInfo.SetValue(_editor, Unit.Percentage(100), null);
 
-				RegisterSmilieyScript();
-			}
-		}
+                if (Config.UseRadEditorToolsFile)
+                {
+                    pInfo = _typEditor.GetProperty("ToolsFile");
+                    pInfo.SetValue(_editor, Config.RadEditorToolsFile, null);
+                }
 
-		protected virtual void RegisterSmilieyScript()
-		{
-			Page.ClientScript.RegisterClientScriptBlock( Page.GetType(), "insertsmiley",
-					@"<script language=""javascript"" type=""text/javascript"">" + "\n" +
-					"function insertsmiley(code, img){\n" +
-					 SafeID + ".PasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
-					"}\n" +
-					"</script>\n" );
-		}
+                //Add Editor
+                this.Controls.Add(_editor);
 
-		#region Properties
-		public override string Text
-		{
-			get
-			{
-				if ( _init )
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Html" );
-					return Convert.ToString( pInfo.GetValue( _editor, null ) );
-				}
-				else return string.Empty;
-			}
-			set
-			{
-				if ( _init )
-				{
-					PropertyInfo pInfo = _typEditor.GetProperty( "Html" );
-					pInfo.SetValue( _editor, value, null );
-				}
-			}
-		}
+                //Register smiley JavaScript
+                RegisterSmilieyScript();
+            }
+        }
 
-		protected override string SafeID
-		{
-			get
-			{
-				if ( _init )
-				{
-					return _editor.ClientID;
-				}
-				return string.Empty;
-			}
-		}
-		#endregion
-	}
+        protected virtual void RegisterSmilieyScript()
+        {
+            Page.ClientScript.RegisterClientScriptBlock(Page.GetType(), "insertsmiley",
+                @"<script type='text/javascript'>function insertsmiley(code,img){" + "\n" +
+                "var editor = $find('" + _editor.ClientID + "');" +
+                "editor.pasteHtml('<img src=\"' + img + '\" alt=\"\" />');\n" +
+                "}\n" + 
+                "</script>");
+        }
+
+        #region Properties
+        public override string Text
+        {
+            get
+            {
+                if (_init)
+                {
+                    PropertyInfo pInfo = _typEditor.GetProperty("Html");
+                    return Convert.ToString(pInfo.GetValue(_editor, null));
+                }
+                else return string.Empty;
+            }
+            set
+            {
+                if (_init)
+                {
+                    PropertyInfo pInfo = _typEditor.GetProperty("Html");
+                    pInfo.SetValue(_editor, value, null);
+                }
+            }
+        }
+        #endregion
+    }
+    #endregion
 
 	/// <summary>
 	/// This class provides a way to
