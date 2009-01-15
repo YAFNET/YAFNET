@@ -28,7 +28,7 @@ namespace YAF.Providers.Membership
 		// Instance Variables
 		string _password, _passwordSalt, _passwordQuestion, _passwordAnswer;
 		int _passwordFormat, _failedPasswordAttempts, _failedAnswerAttempts;
-		bool _isApproved, _useSalt;
+		bool _isApproved, _useSalt, _passwordHex;
 		DateTime _lastLogin, _lastActivity;
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace YAF.Providers.Membership
 		/// <param name="lastActivity"></param>
 		public UserPasswordInfo( string password, string passwordSalt, string passwordQuestion, string passwordAnswer,
 														int passwordFormat, int failedPasswordAttempts, int failedAnswerAttempts,
-														bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity )
+														bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool passwordHex )
 		{
 			// nothing to do except set the local variables...
 			_password = password;
@@ -61,10 +61,11 @@ namespace YAF.Providers.Membership
 			_lastLogin = lastLogin;
 			_lastActivity = lastActivity;
 			_useSalt = useSalt;
+            _passwordHex = passwordHex;
 		}
 
 		// used to create an instance of this class from the DB...
-		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt )
+		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt, bool passwordHex )
 		{
 			DataTable userData = DB.GetUserPasswordInfo( appName, username, updateUser );
 
@@ -74,7 +75,7 @@ namespace YAF.Providers.Membership
 				// create a new instance of the UserPasswordInfo class
 				return new UserPasswordInfo( Utils.Transform.ToString( userInfo ["Password"] ), Utils.Transform.ToString( userInfo ["PasswordSalt"] ), Utils.Transform.ToString( userInfo ["PasswordQuestion"] ), Utils.Transform.ToString( userInfo ["PasswordAnswer"] ),
 																		Utils.Transform.ToInt( userInfo ["PasswordFormat"] ), Utils.Transform.ToInt( userInfo ["FailedPasswordAttempts"] ), Utils.Transform.ToInt( userInfo ["FailedAnswerAttempts"] ),
-																		Utils.Transform.ToBool( userInfo ["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo ["LastLogin"] ), Utils.Transform.ToDateTime( userInfo ["LastActivity"] ) );
+																		Utils.Transform.ToBool( userInfo ["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo ["LastLogin"] ), Utils.Transform.ToDateTime( userInfo ["LastActivity"] ), passwordHex );
 			}
 
 			// nothing found, return null.
@@ -88,7 +89,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectPassword( string passwordToCheck )
 		{
-			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt ) );
+			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.PasswordHex ) );
 		}
 
 		/// <summary>
@@ -98,7 +99,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectAnswer( string answerToCheck )
 		{
-			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt ) ) );
+			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.PasswordHex ) ) );
 		}
 
 		public string Password
@@ -155,5 +156,10 @@ namespace YAF.Providers.Membership
 		{
 			get { return _useSalt; }
 		}
+
+        public Boolean PasswordHex
+        {
+            get { return _passwordHex; }
+        }
 	}
 }

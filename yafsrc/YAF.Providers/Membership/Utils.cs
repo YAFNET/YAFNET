@@ -55,5 +55,15 @@ namespace YAF.Providers.Membership
 			else
 				return 0;
 		}
+
+        public static string toHexString(byte[] hashedBytes)
+        {
+            StringBuilder hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
+            foreach (byte b in hashedBytes)
+            {
+                hashedSB.AppendFormat("{0:X2}", b);
+            }
+            return hashedSB.ToString();
+        }
 	}
 }
