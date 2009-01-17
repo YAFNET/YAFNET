@@ -43,13 +43,19 @@ namespace YAF.Classes.UI
 			_rulesList = new List<BaseReplaceRule>();
 		}
 
-		public List<BaseReplaceRule> RulesList
+		/// <summary>
+		/// Gets a value indicating whether any rules have been added.
+		/// </summary>
+		public bool HasRules
 		{
-			get { return _rulesList; }
+			get { return _rulesList.Count > 0; }
 		}
 
 		public void AddRule( BaseReplaceRule newRule )
 		{
+			if ( newRule == null )
+				throw new ArgumentNullException( "newRule" );
+
 			_rulesList.Add( newRule );
 			_needSort = true;
 		}

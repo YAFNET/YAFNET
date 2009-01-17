@@ -82,7 +82,7 @@ namespace YAF.Classes.UI
 			// get the rules engine from the creator...
 			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance( new bool [] { doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks } );
 
-			if ( ruleEngine.RulesList.Count == 0 )
+			if ( !ruleEngine.HasRules )
 			{
 				CreateBBCodeRules( ref ruleEngine, doFormatting, targetBlankOverride, YafContext.Current.BoardSettings.UseNoFollowLinks );
 			}
@@ -117,7 +117,7 @@ namespace YAF.Classes.UI
 						forHtmlEditing
 					});
 
-			if (ruleEngine.RulesList.Count == 0)
+			if ( !ruleEngine.HasRules )
 			{
 				// Do not convert BBQuotes to HTML when editing -- "[quote]...[/quote]" will remain in plaintext in the rich text editor
 				CreateBBCodeRules(ref ruleEngine, doFormatting, targetBlankOverride,

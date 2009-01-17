@@ -263,7 +263,7 @@ namespace YAF.Classes.UI
 			ReplaceRules ruleEngine = ReplaceRulesCreator.GetInstance( new bool [] { messageFlags.IsBBCode, targetBlankOverride, useNoFollow } );
 
 			// see if the rules are already populated...
-			if ( ruleEngine.RulesList.Count == 0 )
+			if ( !ruleEngine.HasRules )
 			{
 				// populate
 
