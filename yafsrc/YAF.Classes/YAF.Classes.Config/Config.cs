@@ -35,7 +35,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["boardid"] ?? "1" );
+				return ( ConfigurationManager.AppSettings ["yaf.boardid"] ?? "1" );
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["categoryid"];
+				return ConfigurationManager.AppSettings ["yaf.categoryid"];
 			}
 		}
 
@@ -51,7 +51,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["enableurlrewriting"] ?? "false" );
+				return ( ConfigurationManager.AppSettings ["yaf.enableurlrewriting"] ?? "false" );
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["basescriptfile"] ?? "default.aspx" );
+				return ( ConfigurationManager.AppSettings ["yaf.basescriptfile"] ?? "default.aspx" );
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["baseurl"] ?? null );
+				return ( ConfigurationManager.AppSettings ["yaf.baseurl"] ?? null );
 			}
 		}
 
@@ -75,8 +75,8 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if ( ConfigurationManager.AppSettings ["baseurloverridedomain"] != null &&
-							ConfigurationManager.AppSettings ["baseurloverridedomain"].ToLower() == "true" )
+				if ( ConfigurationManager.AppSettings ["yaf.baseurloverridedomain"] != null &&
+							ConfigurationManager.AppSettings ["yaf.baseurloverridedomain"].ToLower() == "true" )
 					return true;
 
 				return false;
@@ -87,7 +87,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["uploaddir"] ?? "~/upload/" );
+				return ( ConfigurationManager.AppSettings ["yaf.uploaddir"] ?? "~/upload/" );
 			}
 		}
 
@@ -95,7 +95,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["providerkeytype"] ?? "System.Guid" );
+				return ( ConfigurationManager.AppSettings ["yaf.providerkeytype"] ?? "System.Guid" );
 			}
 		}
 
@@ -103,7 +103,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["root"];
+				return ConfigurationManager.AppSettings ["yaf.root"];
 			}
 		}
 
@@ -112,7 +112,7 @@ namespace YAF.Classes
         {
             get
             {
-                return (ConfigurationManager.AppSettings["RadEditorSkin"] ?? "Vista");
+                return (ConfigurationManager.AppSettings["yaf.RadEditorSkin"] ?? "Vista");
             }
         }
 
@@ -120,7 +120,7 @@ namespace YAF.Classes
         {
             get
             {
-                return (ConfigurationManager.AppSettings["RadEditorToolsFile"] ?? string.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.Root));
+                return (ConfigurationManager.AppSettings["yaf.RadEditorToolsFile"] ?? string.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.Root));
             }
         }
 
@@ -128,7 +128,7 @@ namespace YAF.Classes
         {
             get
             {
-                switch (ConfigurationManager.AppSettings["UseRadEditorToolsFile"].ToLower().Substring(0, 1))
+                switch (ConfigurationManager.AppSettings["yaf.UseRadEditorToolsFile"].ToLower().Substring(0, 1))
                 {
                     case "1":
                     case "t":
@@ -151,7 +151,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["logtomail"];
+				return ConfigurationManager.AppSettings ["yaf.logtomail"];
 			}
 		}
 
@@ -247,8 +247,8 @@ namespace YAF.Classes
 			{
 				bool result = true;
 
-				if ( ConfigurationManager.AppSettings ["ShowToolBar"] != null &&
-						ConfigurationManager.AppSettings ["ShowToolBar"].ToLower() == "false" )
+				if ( ConfigurationManager.AppSettings ["yaf.ShowToolBar"] != null &&
+						ConfigurationManager.AppSettings ["yaf.ShowToolBar"].ToLower() == "false" )
 					result = false;
 
 				return result;
