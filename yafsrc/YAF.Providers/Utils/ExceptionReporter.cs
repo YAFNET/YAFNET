@@ -35,7 +35,7 @@ namespace YAF.Providers.Utils
 		/// </summary>
 		private static string XMLFile()
 		{
-			string temp = ConfigurationManager.AppSettings ["providerExceptionXML"];
+			string temp = ConfigurationManager.AppSettings ["YAF.ProviderExceptionXML"];
 			if ( String.IsNullOrEmpty( temp ) )
 				return "ProviderExceptions.xml";
 			else
