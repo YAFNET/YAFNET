@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using YAF.Classes.Utils;
+using YAF.Classes;
 using System.Configuration.Provider;
 
 namespace YAF.Providers.Utils
@@ -33,13 +34,9 @@ namespace YAF.Providers.Utils
 		/// <summary>
 		/// Get Exception XML File Name from AppSettings
 		/// </summary>
-		private static string XMLFile()
+		private static string ProviderExceptionFile
 		{
-			string temp = ConfigurationManager.AppSettings ["YAF.ProviderExceptionXML"];
-			if ( String.IsNullOrEmpty( temp ) )
-				return "ProviderExceptions.xml";
-			else
-				return temp;
+			get { return Config.GetConfigValueAsString( "YAF.ProviderExceptionXML" ) ?? "ProviderExceptions.xml"; }
 		}
 
 		/// <summary>
@@ -47,11 +44,13 @@ namespace YAF.Providers.Utils
 		/// </summary>
 		private static XmlDocument ExceptionXML()
 		{
-			string exceptionFile = XMLFile();
-			if ( String.IsNullOrEmpty( exceptionFile ) )
+			if ( String.IsNullOrEmpty( ProviderExceptionFile ) )
+			{
 				throw new ApplicationException( "Exceptionfile cannot be null or empty!" );
+			}
 			XmlDocument exceptionXmlDoc = new XmlDocument();
-			exceptionXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}resources/{1}", YafForumInfo.ForumFileRoot, exceptionFile ) ) );
+			exceptionXmlDoc.Load( System.Web.HttpContext.Current.Server.MapPath( String.Format( "{0}resources/{1}", YafForumInfo.ForumFileRoot, ProviderExceptionFile ) ) );
+
 			return exceptionXmlDoc;
 		}
 
