@@ -26,6 +26,7 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using YAF.Classes;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
@@ -179,12 +180,15 @@ namespace YAF.Install
 							Configuration config = WebConfigurationManager.OpenWebConfiguration( "~/" );
 							AppSettingsSection appSettings = config.GetSection( "appSettings" ) as AppSettingsSection;
 
-							if ( appSettings.Settings ["configPassword"] != null )
+							if ( appSettings != null )
 							{
-								appSettings.Settings.Remove( "configPassword" );
+								if ( appSettings.Settings ["YAF.ConfigPassword"] != null )
+								{
+									appSettings.Settings.Remove( "YAF.ConfigPassword" );
+								}
+
+								appSettings.Settings.Add( "YAF.ConfigPassword", TextBox1.Text );
 							}
-							
-							appSettings.Settings.Add( "configPassword", TextBox1.Text );
 
 							config.Save( ConfigurationSaveMode.Modified );
 							e.Cancel = false;
@@ -192,13 +196,13 @@ namespace YAF.Install
 						catch
 						{
 							// just a warning now...
-							throw new Exception( "Cannot save the configPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"configPassword\" key with a plaintext password and try again." );
+							throw new Exception( "Cannot save the YAF.ConfigPassword to the app.config file. Please verify that the ASPNET user has write access permissions to the app.config file. Or modify the app.config \"YAF.ConfigPassword\" key with a plaintext password and try again." );
 						}					
 
 						break;
 					case 1:
-						if (	ConfigurationManager.AppSettings ["configPassword"] == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
-									ConfigurationManager.AppSettings ["configPassword"] == TextBox3.Text )
+						if ( Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile( TextBox3.Text, "md5" ) ||
+									Config.GetConfigValueAsString( "YAF.ConfigPassword" ) == TextBox3.Text.Trim() )
 							e.Cancel = false;
 						else
 							AddLoadMessage( "Wrong password!" );
