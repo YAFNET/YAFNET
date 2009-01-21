@@ -31,43 +31,83 @@ namespace YAF.Classes
 	/// </summary>
 	public static class Config
 	{
+		static public string GetConfigValueAsString( string configKey )
+		{
+			foreach ( string key in ConfigurationManager.AppSettings.AllKeys )
+			{
+				if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
+				{
+					return ConfigurationManager.AppSettings [key];
+				}
+			}
+
+			return null;
+		}
+
+		static public bool GetConfigValueAsBool( string configKey, bool defaultValue )
+		{
+			string value = GetConfigValueAsString( configKey );
+
+			if ( !String.IsNullOrEmpty( value ) )
+			{
+				return Convert.ToBoolean( value.ToLower() );
+			}
+
+			return defaultValue;
+		}
+
+		/// <summary>
+		/// Current BoardID -- default is 1.
+		/// </summary>
 		static public string BoardID
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.boardid"] ?? "1" );
+				return ( GetConfigValueAsString( "YAF.BoardID" ) ?? "1" );
 			}
 		}
 
+		/// <summary>
+		/// Current CategoryID -- default is null.
+		/// </summary>
 		static public string CategoryID
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["yaf.categoryid"];
+				return GetConfigValueAsString( "YAF.CategoryID" );
 			}
 		}
 
-		static public string EnableURLRewriting
+		/// <summary>
+		/// Is Url Rewriting enabled? -- default is false.
+		/// </summary>
+		static public bool EnableURLRewriting
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.enableurlrewriting"] ?? "false" );
+				return GetConfigValueAsBool( "YAF.EnableUrlRewriting", false );
 			}
 		}
 
+		/// <summary>
+		/// Used for Url Rewriting -- default is "default.aspx"
+		/// </summary>
 		static public string BaseScriptFile
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.basescriptfile"] ?? "default.aspx" );
+				return ( GetConfigValueAsString( "YAF.BaseScriptFile" ) ?? "default.aspx" );
 			}
 		}
 
+		/// <summary>
+		/// Returns null if value does not exist.
+		/// </summary>
 		static public string BaseUrl
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.baseurl"] ?? null );
+				return GetConfigValueAsString( "YAF.BaseURL" );
 			}
 		}
 
@@ -75,19 +115,18 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if ( ConfigurationManager.AppSettings ["yaf.baseurloverridedomain"] != null &&
-							ConfigurationManager.AppSettings ["yaf.baseurloverridedomain"].ToLower() == "true" )
-					return true;
-
-				return false;
+				return GetConfigValueAsBool( "YAF.BaseURLOverrideDomain", false );
 			}
 		}
 
+		/// <summary>
+		/// Directory to use for uploading -- default is "~/upload/"
+		/// </summary>
 		static public string UploadDir
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.uploaddir"] ?? "~/upload/" );
+				return GetConfigValueAsString( "YAF.UploadDir" ) ?? "~/upload/";
 			}
 		}
 
@@ -95,7 +134,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( ConfigurationManager.AppSettings ["yaf.providerkeytype"] ?? "System.Guid" );
+				return GetConfigValueAsString( "YAF.ProviderKeyType" ) ?? "System.Guid";
 			}
 		}
 
@@ -103,63 +142,76 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["yaf.root"];
+				return GetConfigValueAsString( "YAF.Root" );
 			}
 		}
 
-        #region Telerik Rad Editor Settings
-        static public string RadEditorSkin
-        {
-            get
-            {
-                return (ConfigurationManager.AppSettings["yaf.RadEditorSkin"] ?? "Vista");
-            }
-        }
-
-        static public string RadEditorToolsFile
-        {
-            get
-            {
-                return (ConfigurationManager.AppSettings["yaf.RadEditorToolsFile"] ?? string.Format("{0}/editors/RadEditor/ToolsFile.xml", Config.Root));
-            }
-        }
-
-        static public bool UseRadEditorToolsFile
-        {
-            get
-            {
-                switch (ConfigurationManager.AppSettings["yaf.UseRadEditorToolsFile"].ToLower().Substring(0, 1))
-                {
-                    case "1":
-                    case "t":
-                    case "y":
-                        return true;
-
-                    case "0":
-                    case "f":
-                    case "n":
-                        return false;
-
-                    default:
-                        return false;
-                }
-            }
-        }
-        #endregion
-
-		static public string LogToMail
+		static public bool ShowToolBar
 		{
 			get
 			{
-				return ConfigurationManager.AppSettings ["yaf.logtomail"];
+				return GetConfigValueAsBool( "YAF.ShowToolBar", true );
 			}
 		}
+
+		#region Telerik Rad Editor Settings
+		static public string RadEditorSkin
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RadEditorSkin" ) ?? "Vista";
+			}
+		}
+
+		static public string RadEditorToolsFile
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.RadEditorToolsFile" ) ??
+				       String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.Root );
+			}
+		}
+
+		static public bool UseRadEditorToolsFile
+		{
+			get
+			{
+				string value = GetConfigValueAsString( "YAF.UseRadEditorToolsFile" );
+
+				if ( !String.IsNullOrEmpty( value ) )
+				{
+					switch ( value.ToLower().Substring( 0, 1 ) )
+					{
+						case "1":
+						case "t":
+						case "y":
+							return true;
+						case "0":
+						case "f":
+						case "n":
+							return false;
+					}
+				}
+
+				return false;
+			}
+		}
+		#endregion
 
 		static public string ConnectionString
 		{
 			get
 			{
 				return ConfigurationManager.ConnectionStrings ["yafnet"].ConnectionString;
+			}
+		}
+
+    [Obsolete("Legacy: Phasing out")]
+		static public string LogToMail
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.LogToMail" );
 			}
 		}
 
@@ -209,7 +261,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if ( HttpContext.Current.Application [ UrlBuilderKeyName ] == null )
+				if ( HttpContext.Current.Application [UrlBuilderKeyName] == null )
 				{
 					string urlAssembly;
 
@@ -225,7 +277,7 @@ namespace YAF.Classes
 					{
 						urlAssembly = "Portal.UrlBuilder,Portal";
 					}
-					else if ( EnableURLRewriting == "true" )
+					else if ( EnableURLRewriting )
 					{
 						urlAssembly = "YAF.Classes.RewriteUrlBuilder,YAF.Classes.Utils";
 					}
@@ -238,20 +290,6 @@ namespace YAF.Classes
 				}
 
 				return ( IUrlBuilder ) HttpContext.Current.Application [UrlBuilderKeyName];
-			}
-		}
-
-		static public bool ShowToolBar
-		{
-			get
-			{
-				bool result = true;
-
-				if ( ConfigurationManager.AppSettings ["yaf.ShowToolBar"] != null &&
-						ConfigurationManager.AppSettings ["yaf.ShowToolBar"].ToLower() == "false" )
-					result = false;
-
-				return result;
 			}
 		}
 	}
