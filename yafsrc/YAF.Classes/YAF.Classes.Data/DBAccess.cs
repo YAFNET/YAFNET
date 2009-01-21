@@ -111,7 +111,7 @@ namespace YAF.Classes.Data
 	{
 		/* Ederon : 6/16/2007 - conventions */
 
-		private static IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
+		private const IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 		private static string _dbOwner;
 		private static string _objectQualifier;
 
@@ -129,7 +129,7 @@ namespace YAF.Classes.Data
 			{
 				if (_dbOwner == null)
 				{
-					_dbOwner = ConfigurationManager.AppSettings["databaseOwner"];
+					_dbOwner = Config.GetConfigValueAsString( "YAF.DatabaseOwner" );
 				}
 
 				return _dbOwner;
@@ -142,7 +142,7 @@ namespace YAF.Classes.Data
 			{
 				if (_objectQualifier == null)
 				{
-					_objectQualifier = ConfigurationManager.AppSettings["databaseObjectQualifier"];
+					_objectQualifier = Config.GetConfigValueAsString( "YAF.DatabaseObjectQualifier" );
 				}
 
 				return _objectQualifier;
