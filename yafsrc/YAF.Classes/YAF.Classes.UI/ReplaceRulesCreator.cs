@@ -22,8 +22,8 @@ namespace YAF.Classes.UI
 			// convert flags to integer
 			int rulesFlags = FlagsBase.GetIntFromBoolArray(uniqueFlags);
 
-			// not using board-specific key since this type of cached item is NOT board-specific
-			string key = String.Format(Constants.Cache.ReplaceRules, rulesFlags);
+			// cache is board-specific since boards may have different custom BB Code...
+			string key = YafCache.GetBoardCacheKey( String.Format(Constants.Cache.ReplaceRules, rulesFlags) );
 
 			// try to get rules from the cache
 			ReplaceRules rules = YafCache.Current[key] as ReplaceRules;
