@@ -65,6 +65,7 @@ namespace YAF.Classes.Utils
 			public const string UserBoxes = "UserBoxes";
 			public const string ReplaceWords = "ReplaceWords";
 			public const string ReplaceRules = "ReplaceRules{0}";
+			public const string ForumJump = "ForumJump{0}";
 		}
 	}
 }
