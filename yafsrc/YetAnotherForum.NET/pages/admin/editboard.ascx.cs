@@ -74,6 +74,7 @@ namespace YAF.Pages.Admin
 						DataRow row = dt.Rows [0];
 						Name.Text = ( string )row ["Name"];
 						AllowThreaded.Checked = ( bool )row ["AllowThreaded"];
+						BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
 					}
 				}
 				else
