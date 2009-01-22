@@ -19,6 +19,7 @@
 using System;
 using System.Data;
 using System.Web.UI;
+using YAF.Classes.Utils;
 
 namespace YAF.Controls
 {
@@ -43,7 +44,7 @@ namespace YAF.Controls
 		{
 			get
 			{
-				return ( int )ViewState ["ForumID"];
+				return ( int ) ViewState ["ForumID"];
 			}
 			set
 			{
@@ -55,8 +56,8 @@ namespace YAF.Controls
 		public virtual bool LoadPostData( string postDataKey, System.Collections.Specialized.NameValueCollection postCollection )
 		{
 			int forumID;
-			if (int.TryParse(postCollection[postDataKey], out forumID) &&
-				forumID != ForumID)
+			if ( int.TryParse( postCollection [postDataKey], out forumID ) &&
+				forumID != ForumID )
 			{
 				this.ForumID = forumID;
 				return true;
@@ -77,31 +78,29 @@ namespace YAF.Controls
 
 		protected override void Render( System.Web.UI.HtmlTextWriter writer )
 		{
-			DataTable dt;
-
-			string cachename = String.Format( "forumjump_{0}_{1}", PageContext.User != null ? PageContext.User.UserName : "Guest", PageContext.User != null );
-
-			if ( Page.Cache [cachename] != null )
+			string cacheKey =
+				YafCache.GetBoardCacheKey( String.Format( Constants.Cache.ForumJump,
+				                                          PageContext.User != null ? PageContext.PageUserID.ToString() : "Guest" ) );
+			DataTable dataTable;
+			if ( YafCache.Current [cacheKey] != null )
 			{
-				dt = ( DataTable )Page.Cache [cachename];
+				dataTable = ( DataTable ) YafCache.Current [cacheKey];
 			}
 			else
 			{
-				dt = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
-				Page.Cache [cachename] = dt;
+				dataTable = YAF.Classes.Data.DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
+				YafCache.Current.Insert( cacheKey, dataTable, null, DateTime.Now.AddMinutes( 5 ), TimeSpan.Zero );
 			}
 
-			//VS 2005 likes this more
-			ClientScriptManager cs = Page.ClientScript;
-			writer.WriteLine( String.Format( @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", this.UniqueID, cs.GetPostBackEventReference( this, this.ID ), this.ClientID ) );
+			writer.WriteLine( String.Format( @"<select name=""{0}"" onchange=""{1}"" id=""{2}"">", this.UniqueID, Page.ClientScript.GetPostBackClientHyperlink( this, this.ID ), this.ClientID ) );
 
 			int forumID = PageContext.PageForumID;
 			if ( forumID <= 0 )
 				writer.WriteLine( "<option/>" );
 
-			foreach ( DataRow row in dt.Rows )
+			foreach ( DataRow row in dataTable.Rows )
 			{
-				writer.WriteLine( string.Format( @"<option {2}value=""{0}"">{1}</option>", row ["ForumID"], HtmlEncode(row ["Title"]), Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? @"selected=""selected"" " : "" ) );
+				writer.WriteLine( string.Format( @"<option {2}value=""{0}"">{1}</option>", row ["ForumID"], HtmlEncode( row ["Title"] ), Convert.ToString( row ["ForumID"] ) == forumID.ToString() ? @"selected=""selected"" " : "" ) );
 			}
 
 			writer.WriteLine( "</select>" );
