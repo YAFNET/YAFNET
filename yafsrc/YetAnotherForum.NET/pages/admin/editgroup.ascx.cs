@@ -190,7 +190,10 @@ namespace YAF.Pages.Admin
 			DropDownList list = (DropDownList)sender;
 
 			// select value from the list
-			list.Items.FindByValue(list.Attributes["value"]).Selected = true;
+			ListItem item = list.Items.FindByValue(list.Attributes["value"]);
+
+			// verify something was found...
+			if ( item != null ) item.Selected = true;
 		}
 
 
