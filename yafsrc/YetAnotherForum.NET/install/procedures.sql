@@ -3779,10 +3779,12 @@ begin
 	end
 	else
 	begin
-		delete  [{databaseOwner}].[{objectQualifier}attachment] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
-		delete  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}Attachment] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
+		delete  [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID
 		delete  [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID = @TopicID
-		delete  [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
+		delete  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
+		delete  [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID)
 	end
 		
 	--commit

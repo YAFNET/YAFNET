@@ -96,11 +96,11 @@ namespace YAF.Controls
 			ReportSpamButton.Attributes.Add( "onclick", String.Format( "return confirm('{0}');", PageContext.Localization.GetText( "CONFIRM_REPORTSPAM" ) ) );
 
 			// private messages
-			Pm.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
+			Pm.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
 			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
 
 			// emailing
-			Email.Visible = !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
+			Email.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
 			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
 
 			// home page

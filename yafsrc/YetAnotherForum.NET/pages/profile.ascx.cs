@@ -114,11 +114,11 @@ namespace YAF.Pages // YAF.Pages
 				);
 
 			// private messages
-			PM.Visible = User != null && PageContext.BoardSettings.AllowPrivateMessages;
+			PM.Visible = !userData.IsGuest && User != null && PageContext.BoardSettings.AllowPrivateMessages;
 			PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.pmessage, "u={0}", userData.UserID );
 
 			// email link
-			Email.Visible = User != null && PageContext.BoardSettings.AllowEmailSending;
+			Email.Visible = !userData.IsGuest && User != null && PageContext.BoardSettings.AllowEmailSending;
 			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.im_email, "u={0}", userData.UserID );
 			if ( PageContext.IsAdmin ) Email.TitleNonLocalized = userData.Membership.Email;
 
