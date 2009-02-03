@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -18,10 +18,7 @@
  */
 using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
@@ -54,13 +51,6 @@ namespace YAF.Controls
 					attached.UserName = DataRow ["Username"].ToString();
 					this.Controls.Add( attached );
 				}
-
-				// add signature control if necessary...
-				if ( ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
-				{
-					// signature control is created in base MessagePost
-					Signature = DataRow ["Signature"].ToString();
-				}
 			}
 
 			base.OnPreRender( e );
@@ -82,25 +72,25 @@ namespace YAF.Controls
 				else if ( this.MessageFlags.NotFormatted )
 				{
 					// just write out the message with no formatting...
-					writer.Write( DataRow ["Message"].ToString() );
+					writer.Write( Message );
 				}
 				else if ( DataRow.Row.Table.Columns.Contains( "Edited" ) )
 				{
 					// handle a message that's been edited...
-					DateTime editedMessage = Convert.ToDateTime( DataRow ["Posted"] );
+					DateTime editedMessage = Posted;
 
-					if ( Convert.ToDateTime( DataRow ["Edited"] ) > Convert.ToDateTime( DataRow ["Posted"] ) )
+					if ( Edited > Posted )
 					{
-						editedMessage = Convert.ToDateTime( DataRow ["Edited"] );
+						editedMessage = Edited;
 					}
 
 					if ( this.MessageFlags.IsBBCode )
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ), this.MessageFlags, this.DisplayUserID );
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( Message, this.MessageFlags, false, editedMessage ), this.MessageFlags, this.DisplayUserID );
 					}
 					else
 					{
-						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags, false, editedMessage ) );
+						writer.Write( FormatMsg.FormatMessage( Message, this.MessageFlags, false, editedMessage ) );
 					}
 				}
 				else
@@ -108,11 +98,11 @@ namespace YAF.Controls
 					// render standard using bbcode or html...
 					if ( this.MessageFlags.IsBBCode )
 					{
-						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ), this.MessageFlags, this.DisplayUserID );
+						RenderModulesInBBCode( writer, FormatMsg.FormatMessage( Message, this.MessageFlags ), this.MessageFlags, this.DisplayUserID );
 					}
 					else
 					{
-						writer.Write( FormatMsg.FormatMessage( DataRow ["Message"].ToString(), this.MessageFlags ) );
+						writer.Write( FormatMsg.FormatMessage( Message, this.MessageFlags ) );
 					}
 				}
 			}
@@ -132,6 +122,60 @@ namespace YAF.Controls
 				{
 					this.MessageFlags = new MessageFlags( _row ["Flags"] );
 				}
+			}
+		}
+
+		public DateTime Posted
+		{
+			get
+			{
+				return Convert.ToDateTime( DataRow["Posted"] );
+			}
+		}
+
+		public DateTime Edited
+		{
+			get
+			{
+				return Convert.ToDateTime( DataRow["Edited"] );
+			}
+		}
+
+		public override string Signature
+		{
+			get
+			{
+				if ( ShowSignature && PageContext.BoardSettings.AllowSignatures && DataRow ["Signature"] != DBNull.Value && DataRow ["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" && DataRow ["Signature"].ToString().Trim().Length > 0 )
+				{
+					return DataRow["Signature"].ToString();
+				}
+
+				return null;
+			}
+		}
+
+		public override string Message
+		{
+			get
+			{
+				string message = DataRow["Message"].ToString();
+
+				// validate the size...
+				if ( YafContext.Current.BoardSettings.MaxPostSize > 0 )
+				{
+					if ( message.Length > YafContext.Current.BoardSettings.MaxPostSize )
+					{
+						// truncate...  
+						message = message.Substring( 0, YafContext.Current.BoardSettings.MaxPostSize );
+						int lastSpaceIndex = message.LastIndexOf( " " );
+						if ( lastSpaceIndex != 0 )
+							message = message.Substring( 0, lastSpaceIndex ) + "...";
+
+						return message;
+					}
+				}
+
+				return message;
 			}
 		}
 

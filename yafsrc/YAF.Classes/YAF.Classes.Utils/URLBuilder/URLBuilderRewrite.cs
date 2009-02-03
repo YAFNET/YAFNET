@@ -18,6 +18,9 @@
  */
 using System;
 using System.Data;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
@@ -160,31 +163,30 @@ namespace YAF.Classes
 			return String.Format(@"urlRewritingDT-{0}-Range-{1}-to-{2}", type, HighRange(id), LowRange(id)); 
 		}
 
-		private string CleanStringForURL( string str )
+		private static string CleanStringForURL( string str )
 		{
-			string cleaned = "";
+			StringBuilder sb = new StringBuilder();
 
 			// trim...
-			str = str.Trim();
+			str = HttpContext.Current.Server.HtmlDecode( str.Trim() );
 
-			// fix quotes and ampersand...
-			str = str.Replace( "&quot;", "" );
-			str = str.Replace( "&amp;", "and" );
+			// fix ampersand...
 			str = str.Replace( "&", "and" );
+
+			// normalize the Unicode
+			str = str.Normalize( NormalizationForm.FormKD );
 
 			for ( int i = 0; i < str.Length; i++ )
 			{
-				if ( char.IsLetterOrDigit( str [i] ) )
-				{
-					cleaned += str [i];
-				}
-				else if ( char.IsSeparator( str [i] ) )
-				{
-					cleaned += '-';
-				}
+				if ( char.IsWhiteSpace( str [i] ) ) sb.Append( '-' );
+				else if ( char.GetUnicodeCategory( str [i] ) != UnicodeCategory.NonSpacingMark
+					&& !char.IsPunctuation( str [i] ) 
+					&& !char.IsSymbol( str [i] ) 
+					)
+					sb.Append( str[i] );
 			}
 
-			return cleaned;
+			return sb.ToString();
 		}
 
 		private DataRow GetDataRowFromCache( string type, int id )

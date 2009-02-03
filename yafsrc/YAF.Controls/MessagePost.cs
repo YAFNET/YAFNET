@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -17,15 +17,8 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Xml;
 using YAF.Classes.Data;
-using YAF.Classes.Utils;
 using YAF.Classes.UI;
 
 namespace YAF.Controls

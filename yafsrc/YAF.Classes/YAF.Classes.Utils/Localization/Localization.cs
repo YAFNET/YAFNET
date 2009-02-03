@@ -108,15 +108,15 @@ namespace YAF.Classes.Utils
 				return _localizer.LanguageCode;
 
 #if !DEBUG
-      if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + filename] != null )
-        _localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + filename];
+			if ( _localizer == null && HttpContext.Current.Cache ["Localizer." + fileName] != null )
+				_localizer = ( Localizer ) HttpContext.Current.Cache ["Localizer." + fileName];
 #endif
 			if ( _localizer == null )
 			{
 
 				_localizer = new Localizer( HttpContext.Current.Server.MapPath( String.Format( "{0}languages/{1}", YafForumInfo.ForumFileRoot, fileName ) ) );
 #if !DEBUG
-        HttpContext.Current.Cache ["Localizer." + filename] = _localizer;
+				HttpContext.Current.Cache ["Localizer." + fileName] = _localizer;
 #endif
 			}
 			// If not using default language load that too
