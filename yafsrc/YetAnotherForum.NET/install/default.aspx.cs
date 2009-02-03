@@ -263,7 +263,7 @@ namespace YAF.Install
 		{
 			get
 			{
-				return !String.IsNullOrEmpty( ConfigurationManager.AppSettings ["configPassword"] );
+				return !String.IsNullOrEmpty( Config.GetConfigValueAsString( "YAF.configPassword" ) );
 			}
 		}
 		#endregion
