@@ -91,7 +91,7 @@
                                     Maximum size of uploaded files. Leave empty for no limit.</td>
                                 <td class="post">
                                     <asp:TextBox ID="MaxFileSize" runat="server"></asp:TextBox></td>
-                            </tr>
+                            </tr>                            
                             <tr>
                                 <td class="postheader">
                                     <b>Post editing timeout:</b><br>
@@ -99,6 +99,13 @@
                                 <td class="post">
                                     <asp:TextBox ID="EditTimeOut" runat="server"></asp:TextBox></td>
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Max Post Size:</b><br>
+                                    Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</td>
+                                <td class="post">
+                                    <asp:TextBox ID="MaxPostSize" runat="server"></asp:TextBox></td>
+                            </tr>                            
                             <tr>
                                 <td class="postheader">
                                     <b>Post Flood Delay:</b><br>

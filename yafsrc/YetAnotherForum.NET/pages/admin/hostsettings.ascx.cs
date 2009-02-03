@@ -212,6 +212,8 @@ namespace YAF.Pages.Admin
 			// Search Settings
 			ReturnSearchMax.Text = PageContext.BoardSettings.ReturnSearchMax.ToString();
 			UseFullTextSearch.Checked = PageContext.BoardSettings.UseFullTextSearch;
+
+			MaxPostSize.Text = PageContext.BoardSettings.MaxPostSize.ToString();
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -328,6 +330,8 @@ namespace YAF.Pages.Admin
 			// Search Settings
 			PageContext.BoardSettings.ReturnSearchMax = Convert.ToInt32( ReturnSearchMax.Text.Trim() );
 			PageContext.BoardSettings.UseFullTextSearch = UseFullTextSearch.Checked;
+
+			PageContext.BoardSettings.MaxPostSize = Convert.ToInt32( MaxPostSize.Text );
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();
