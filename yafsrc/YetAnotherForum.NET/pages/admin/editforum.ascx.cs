@@ -196,17 +196,21 @@ namespace YAF.Pages.Admin
 					YAF.Classes.Data.DB.forumaccess_save( ForumID, GroupID, ( ( DropDownList ) item.FindControl( "AccessmaskID" ) ).SelectedValue );
 				}
 
-				// clear moderatorss cache
-				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-
+				ClearCaches();
 				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 			}
 
-			// clear moderatorss cache
-			YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
-
+			ClearCaches();
 			// Done
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_editforum, "f={0}", ForumID );
+		}
+
+		private static void ClearCaches()
+		{
+			// clear moderatorss cache
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			// clear category cache...
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 		}
 
 		private void Cancel_Click( object sender, System.EventArgs e )
