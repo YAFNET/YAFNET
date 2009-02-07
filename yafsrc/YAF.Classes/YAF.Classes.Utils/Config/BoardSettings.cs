@@ -383,6 +383,11 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueBool( "AllowLoginAndLogoff", true ); }
 			set { _reg.SetValueBool( "AllowLoginAndLogoff", value ); }
 		}
+        public bool AllowEmailChange
+        {
+            get { return _reg.GetValueBool("AllowEmailChange", true); }
+            set { _reg.SetValueBool("AllowEmailChange", value); }
+        }
 		public bool UseFileTable
 		{
 			get { return _reg.GetValueBool( "UseFileTable", false ); }

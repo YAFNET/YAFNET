@@ -59,6 +59,13 @@
                                     Enable login and logoff through the forum.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="AllowLoginAndLogoff" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Allow Email Change:</b><br>
+                                    Allow users to change their email address.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AllowEmailChange" runat="server"></asp:CheckBox></td>
                             </tr>                            
                             <tr>
                                 <td class="postheader">

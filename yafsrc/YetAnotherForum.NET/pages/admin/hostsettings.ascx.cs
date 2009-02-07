@@ -196,6 +196,9 @@ namespace YAF.Pages.Admin
 			MaxPrivateMessagesPerUser.Text = PageContext.BoardSettings.MaxPrivateMessagesPerUser.ToString();
 			PrivateMessageMaxRecipients.Text = PageContext.BoardSettings.PrivateMessageMaxRecipients.ToString();
 
+            // MDDubs : 2/7/2008 added
+            AllowEmailChange.Checked = PageContext.BoardSettings.AllowEmailChange;
+
 			// Caching
 			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
 			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
@@ -313,6 +316,9 @@ namespace YAF.Pages.Admin
 			// Ederon : 12/18/2007 added
 			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32(MaxPrivateMessagesPerUser.Text.Trim());
 			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32(PrivateMessageMaxRecipients.Text.Trim());
+
+            // MDDubs : 2/7/2008 added
+            PageContext.BoardSettings.AllowEmailChange = AllowEmailChange.Checked;
 
 			// Caching
 			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
