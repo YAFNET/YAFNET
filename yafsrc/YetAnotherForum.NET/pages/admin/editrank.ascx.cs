@@ -74,11 +74,11 @@ namespace YAF.Pages.Admin
 					Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
 				}
 			}
-			RankImage.Attributes["onchange"] = String.Format(
-				"getElementById('{1}__ctl0_Preview').src='{0}images/ranks/' + this.value",
-				YafForumInfo.ForumRoot,
-				this.Parent.ID
-				);
+            RankImage.Attributes["onchange"] = String.Format(
+                "getElementById('{1}_ctl01_Preview').src='{0}images/ranks/' + this.value",
+                YafForumInfo.ForumRoot,
+                this.Parent.ID
+                );
 		}
 
 		#region Web Form Designer generated code
