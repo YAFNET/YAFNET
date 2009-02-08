@@ -68,7 +68,7 @@ namespace YAF.Controls
 				UserLanguageRow.Visible = PageContext.BoardSettings.AllowUserLanguage;
 				PMNotificationRow.Visible = PageContext.BoardSettings.AllowPMEmailNotification;
 				MetaWeblogAPI.Visible = PageContext.BoardSettings.AllowPostToBlog;
-                Email.Enabled = PageContext.BoardSettings.AllowEmailChange;
+                LoginInfo.Visible = PageContext.BoardSettings.AllowEmailChange;
 
 				BindData();
 			}
