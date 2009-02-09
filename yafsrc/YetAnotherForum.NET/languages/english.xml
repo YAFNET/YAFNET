@@ -731,7 +731,7 @@ Visit {forumname} at {forumlink}
 		<Resource tag="PREFERENCES">Forum Preferences</Resource>
 		<Resource tag="TIMEZONE">Time Zone</Resource>
 		<Resource tag="ALREADY_REGISTERED">Your username or email is already registered.</Resource>
-		<Resource tag="BAD_PASSWORD">Please pick a more complex password that includes puncuation (!?) or numbers.</Resource>
+		<Resource tag="BAD_PASSWORD">Please pick a more complex password that includes punctuation (!?) or numbers.</Resource>
 		<Resource tag="INVALID_QUESTION">Please pick a different question.</Resource>
 		<Resource tag="INVALID_ANSWER">Please pick a different answer.</Resource>
 		<Resource tag="INVALID_USERNAME">Please pick a different username.</Resource>
