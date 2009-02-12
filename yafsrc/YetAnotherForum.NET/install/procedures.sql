@@ -2623,7 +2623,7 @@ BEGIN
 	UPDATE [{databaseOwner}].[{objectQualifier}MessageReported]
 	SET [{databaseOwner}].[{objectQualifier}MessageReported].Message = m.Message
 	FROM [{databaseOwner}].[{objectQualifier}MessageReported] mr
-	JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = @MessageID
+	JOIN [{databaseOwner}].[{objectQualifier}Message] m ON m.MessageID = mr.MessageID
 	WHERE mr.MessageID = @MessageID;
 END
 GO
