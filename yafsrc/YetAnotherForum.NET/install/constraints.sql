@@ -640,7 +640,7 @@ go
 
 
 if not exists(select 1 from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Forum]') and name='IX_{objectQualifier}Forum')
-	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint IX_{objectQualifier}Forum unique nonclustered (CategoryID,Name)   
+	alter table [{databaseOwner}].[{objectQualifier}Forum] add constraint IX_{objectQualifier}Forum unique nonclustered (ParentID,Name)   
 go
 
 
