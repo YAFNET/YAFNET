@@ -569,39 +569,39 @@ namespace YAF.Classes.Utils
 		/* Ederon : 6/16/2007 */
 		public bool DisplayJoinDate
 		{
-			get { return _reg.GetValue<bool>( "DisplayJoinDate", true ); }
+			get { return _reg.GetValueBool( "DisplayJoinDate", true ); }
 			set { _reg.SetValue<bool>( "DisplayJoinDate", value ); }
 		}
 		public bool ShowBrowsingUsers
 		{
-			get { return _reg.GetValue<bool>( "ShowBrowsingUsers", true ); }
+			get { return _reg.GetValueBool( "ShowBrowsingUsers", true ); }
 			set { _reg.SetValue<bool>( "ShowBrowsingUsers", value ); }
 		}
 		public bool ShowMedals
 		{
-			get { return _reg.GetValue<bool>( "ShowMedals", true ); }
+			get { return _reg.GetValueBool( "ShowMedals", true ); }
 			set { _reg.SetValue<bool>( "ShowMedals", value ); }
 		}
 		public bool AllowPostToBlog
 		{
-			get { return _reg.GetValue<bool>( "AllowPostToBlog", false ); }
+			get { return _reg.GetValueBool( "AllowPostToBlog", false ); }
 			set { _reg.SetValue<bool>( "AllowPostToBlog", value ); }
 		}
 		/* Mek : 8/18/2007 */
 		public bool AllowReportAbuse
 		{
-			get { return _reg.GetValue<bool>( "AllowReportAbuse", true ); }
+			get { return _reg.GetValueBool( "AllowReportAbuse", true ); }
 			set { _reg.SetValue<bool>( "AllowReportAbuse", value ); }
 		}
 		public bool AllowReportSpam
 		{
-			get { return _reg.GetValue<bool>( "AllowReportSpam", true ); }
+			get { return _reg.GetValueBool( "AllowReportSpam", true ); }
 			set { _reg.SetValue<bool>( "AllowReportSpam", value ); }
 		}
 		/* Ederon : 8/29/2007 */
 		public bool AllowEmailTopic
 		{
-			get { return _reg.GetValue<bool>( "AllowEmailTopic", true ); }
+			get { return _reg.GetValueBool( "AllowEmailTopic", true ); }
 			set { _reg.SetValue<bool>( "AllowEmailTopic", value ); }
 		}
 
@@ -609,29 +609,29 @@ namespace YAF.Classes.Utils
         ///* Ederon : 9/9/2007 */
         //public bool SmtpServerSsl
         //{
-        //    get { return _reg.GetValue<bool>( "SmtpServerSsl", false ); }
+        //    get { return _reg.GetValueBool( "SmtpServerSsl", false ); }
         //    set { _reg.SetValue<bool>( "SmtpServerSsl", value ); }
         //}
 		/* Ederon : 12/9/2007 */
 		public bool RequireLogin
 		{
-			get { return _reg.GetValue<bool>( "RequireLogin", false ); }
+			get { return _reg.GetValueBool( "RequireLogin", false ); }
 			set { _reg.SetValue<bool>( "RequireLogin", value ); }
 		}
 		/* Ederon : 12/14/2007 */
 		public bool ShowActiveDiscussions
 		{
-			get { return _reg.GetValue<bool>( "ShowActiveDiscussions", true ); }
+			get { return _reg.GetValueBool( "ShowActiveDiscussions", true ); }
 			set { _reg.SetValue<bool>( "ShowActiveDiscussions", value ); }
 		}
 		public bool ShowForumStatistics
 		{
-			get { return _reg.GetValue<bool>( "ShowForumStatistics", true ); }
+			get { return _reg.GetValueBool( "ShowForumStatistics", true ); }
 			set { _reg.SetValue<bool>( "ShowForumStatistics", value ); }
 		}
 		public bool ShowRulesForRegistration
 		{
-			get { return _reg.GetValue<bool>( "ShowRulesForRegistration", true ); }
+			get { return _reg.GetValueBool( "ShowRulesForRegistration", true ); }
 			set { _reg.SetValue<bool>( "ShowRulesForRegistration", value ); }
 		}
 
@@ -707,7 +707,11 @@ namespace YAF.Classes.Utils
 		public bool GetValueBool( string name, bool defaultValue )
 		{
 			if ( this [name.ToLower()] == null ) return defaultValue;
-			return Convert.ToBoolean( Convert.ToInt32( this [name.ToLower()] ) );
+
+			int i;
+			if (int.TryParse(this[name.ToLower()].ToString(), out i))
+				return Convert.ToBoolean(i);
+			else return Convert.ToBoolean(this[name.ToLower()] );
 		}
 		public void SetValueBool( string name, bool value )
 		{
