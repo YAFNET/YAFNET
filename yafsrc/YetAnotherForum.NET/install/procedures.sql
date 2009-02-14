@@ -2446,7 +2446,7 @@ begin
 	declare @UserID			int
 
 	-- Find TopicID and ForumID
-	select @TopicID=b.TopicID,@ForumID=b.ForumID 
+	select @TopicID=b.TopicID,@ForumID=b.ForumID,@UserID = a.UserID 
 		from 
 			[{databaseOwner}].[{objectQualifier}Message] a
 			inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
@@ -2469,9 +2469,6 @@ begin
 		LastUserID = null,
 		LastUserName = null
 	where LastMessageID = @MessageID
-	
-	-- get the user id associated with this message
-	SET @UserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)	
 
 	-- should it be physically deleter or not?
 	if (@EraseMessage = 1) begin
@@ -5122,7 +5119,7 @@ begin
 	declare @UserID			int
 
 	-- Find TopicID and ForumID
-	select @TopicID=b.TopicID,@ForumID=b.ForumID 
+	select @TopicID=b.TopicID,@ForumID=b.ForumID,@UserID = a.UserID 
 	from 
 		[{databaseOwner}].[{objectQualifier}Message] a
 		inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID=a.TopicID
@@ -5144,14 +5141,11 @@ begin
 		LastUserID = null,
 		LastUserName = null
 	where LastMessageID = @MessageID
-	
-	-- get the userID for this message...
-	SET @UserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] where MessageID = @MessageID)
 
 	-- "Delete" message
-    update [{databaseOwner}].[{objectQualifier}Message] set IsModeratorChanged = @isModeratorChanged where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
-    update [{databaseOwner}].[{objectQualifier}Message] set DeleteReason = @DeleteReason where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
-    update [{databaseOwner}].[{objectQualifier}Message] set Flags = Flags ^ 8 where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
+    update [{databaseOwner}].[{objectQualifier}Message]
+     set IsModeratorChanged = @isModeratorChanged, DeleteReason = @DeleteReason, Flags = Flags ^ 8
+     where MessageID = @MessageID and ((Flags & 8) <> @isDeleteAction*8)
     
     -- update num posts for user now that the delete/undelete status has been toggled...
     UPDATE [{databaseOwner}].[{objectQualifier}User] SET NumPosts = (SELECT count(MessageID) FROM [{databaseOwner}].[{objectQualifier}Message] WHERE UserID = @UserID AND IsDeleted = 0 AND IsApproved = 1) WHERE UserID = @UserID
