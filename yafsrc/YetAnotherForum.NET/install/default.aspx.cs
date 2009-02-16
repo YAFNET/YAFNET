@@ -61,7 +61,7 @@ namespace YAF.Install
 		{
 			if ( !IsPostBack )
 			{
-				Cache["DBVersion"] = DBVersion;
+				Cache ["DBVersion"] = DB.DBVersion;
 
 				InstallWizard.ActiveStepIndex = IsInstalled ? 1 : 0;
 				TimeZones.DataSource = YafStaticData.TimeZones( "english.xml" );
@@ -128,7 +128,7 @@ namespace YAF.Install
 			{
 				InstallWizard.ActiveStepIndex++;
 			}
-			else if ( InstallWizard.ActiveStepIndex == 3 && IsForumInstalled )
+			else if ( InstallWizard.ActiveStepIndex == 3 && DB.IsForumInstalled )
 			{
 				InstallWizard.ActiveStepIndex++;
 			}
@@ -143,7 +143,7 @@ namespace YAF.Install
 				{
 					object version = Cache["DBVersion"];
 
-					if (version == null) version = DBVersion;
+					if ( version == null ) version = DB.DBVersion;
 
 					if (((int)version) >= 30 || ((int)version) == -1 )
 					{
@@ -282,7 +282,7 @@ namespace YAF.Install
 
 				FixAccess( true );
 
-				int prevVersion = DBVersion;
+				int prevVersion = DB.DBVersion;
 
 				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
 				{
@@ -296,7 +296,7 @@ namespace YAF.Install
 				// resync all boards - necessary for propr last post bubbling
 				YAF.Classes.Data.DB.board_resync();
 
-				if ( IsForumInstalled && prevVersion < 30 )
+				if ( DB.IsForumInstalled && prevVersion < 30 )
 				{
 					// load default bbcode if available...
 					if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
@@ -345,56 +345,10 @@ namespace YAF.Install
 		}
 		#endregion
 
-		#region property DBVersion
-		private int DBVersion
-		{
-			get
-			{
-				try
-				{
-					using (DataTable dt = YAF.Classes.Data.DB.registry_list("version"))
-					{
-						if (dt.Rows.Count > 0)
-						{
-							// get the version...
-							return Convert.ToInt32(dt.Rows[0]["Value"]);
-						}
-					}
-				}
-				catch
-				{
-					// Handle exception here
-				}
-
-				return -1;
-			}
-		}
-		#endregion
-
-		#region property IsForumInstalled
-		static bool IsForumInstalled
-		{
-			get
-			{
-				try
-				{
-					using ( DataTable dt = YAF.Classes.Data.DB.board_list( DBNull.Value ) )
-					{
-						return dt.Rows.Count > 0;
-					}
-				}
-				catch
-				{
-				}
-				return false;
-			}
-		}
-		#endregion
-
 		#region method CreateForum
 		private bool CreateForum()
 		{
-			if ( IsForumInstalled )
+			if ( DB.IsForumInstalled )
 			{
 				AddLoadMessage( "Forum is already installed." );
 				return false;

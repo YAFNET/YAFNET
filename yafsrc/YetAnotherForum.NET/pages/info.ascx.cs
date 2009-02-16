@@ -33,19 +33,6 @@ using YAF.Classes.Data;
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
-	/// Enumerates forum info messages.
-	/// </summary>
-	enum InfoMessage
-	{
-		Moderated = 1,				// after posting to moderated forum
-		Suspended = 2,				// informs user he's suspended
-		RegistrationEmail = 3,		// informs user about registration email being sent
-		AccessDenied = 4,			// access was denied
-		Disabled = 5,				// informs user about feature being disabled by admin 
-		Invalid = 6,				// informs user about invalid input/request
-		Failure = 7					// system error
-	}
-	/// <summary>
 	/// Information control displaying feedback information to users.
 	/// </summary>
 	public partial class info : YAF.Classes.Base.ForumPage
