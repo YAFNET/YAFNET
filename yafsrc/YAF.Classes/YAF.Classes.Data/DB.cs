@@ -34,7 +34,7 @@ namespace YAF.Classes.Data
 		/// Gets the database size
 		/// </summary>
 		/// <returns>intager value for database size</returns>
-		static public int DBSize
+		public static int DBSize
 		{
 			get
 			{
@@ -46,7 +46,7 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public bool IsForumInstalled
+		public static bool IsForumInstalled
 		{
 			get
 			{
@@ -64,7 +64,7 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public int DBVersion
+		public static int DBVersion
 		{
 			get
 			{
@@ -75,7 +75,7 @@ namespace YAF.Classes.Data
 						if ( dt.Rows.Count > 0 )
 						{
 							// get the version...
-							return Convert.ToInt32( dt.Rows [0] ["Value"] );
+							return Convert.ToInt32( dt.Rows[0]["Value"] );
 						}
 					}
 				}
@@ -85,6 +85,27 @@ namespace YAF.Classes.Data
 				}
 
 				return -1;
+			}
+		}
+
+		private static readonly string[] _scriptList = {
+		                                               	"tables.sql",
+		                                               	"indexes.sql",
+		                                               	"constraints.sql",
+		                                               	"triggers.sql",
+		                                               	"views.sql",
+		                                               	"procedures.sql",
+		                                               	"functions.sql",
+		                                               	"providers/procedures.sql",
+		                                               	"providers/tables.sql",
+		                                               	"providers/indexes.sql"
+		                                               };
+
+		static public string [] ScriptList
+		{
+			get
+			{
+				return _scriptList; 
 			}
 		}
 
@@ -3789,6 +3810,370 @@ namespace YAF.Classes.Data
 			}
 		}
 		#endregion
-	}
+
+		#region vzrus addons
+		static public DataTable rsstopic_list( int forumId )
+		{
+			string tSQL = "select Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
+														forumId + " and b.ForumID = a.ForumID";
+			using ( SqlCommand cmd = DBAccess.GetCommand( tSQL, true ) )
+			{
+				cmd.CommandType = CommandType.Text;
+				return DBAccess.GetData( cmd );
+			}
+		}
+
+		public static void db_getstats( YafDBConnManager connMan )
+		{
+			// create statistic getting SQL...
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+			sb.AppendLine( "DECLARE @TableName sysname" );
+			sb.AppendLine( "DECLARE cur_showfragmentation CURSOR FOR" );
+			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
+			sb.AppendLine( "OPEN cur_showfragmentation" );
+			sb.AppendLine( "FETCH NEXT FROM cur_showfragmentation INTO @TableName" );
+			sb.AppendLine( "WHILE @@FETCH_STATUS = 0" );
+			sb.AppendLine( "BEGIN" );
+			sb.AppendLine( "DBCC SHOWCONTIG (@TableName)" );
+			sb.AppendLine( "FETCH NEXT FROM cur_showfragmentation INTO @TableName" );
+			sb.AppendLine( "END" );
+			sb.AppendLine( "CLOSE cur_showfragmentation" );
+			sb.AppendLine( "DEALLOCATE cur_showfragmentation" );
+
+			using ( SqlCommand cmd = new SqlCommand( sb.ToString(), connMan.OpenDBConnection ) )
+			{
+				cmd.Connection = connMan.DBConnection;
+				// up the command timeout...
+				cmd.CommandTimeout = 9999;
+				// run it...
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		public static void db_reindex( YafDBConnManager connMan )
+		{
+			// create statistic getting SQL...
+			System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+			sb.AppendLine( "DECLARE @MyTable VARCHAR(255)" );
+			sb.AppendLine( "DECLARE myCursor" );
+			sb.AppendLine( "CURSOR FOR" );
+			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
+			sb.AppendLine( "OPEN myCursor" );
+			sb.AppendLine( "FETCH NEXT" );
+			sb.AppendLine( "FROM myCursor INTO @MyTable" );
+			sb.AppendLine( "WHILE @@FETCH_STATUS = 0" );
+			sb.AppendLine( "BEGIN" );
+			sb.AppendLine( "PRINT 'Reindexing Table:  ' + @MyTable" );
+			sb.AppendLine( "DBCC DBREINDEX(@MyTable, '', 80)" );
+			sb.AppendLine( "FETCH NEXT" );
+			sb.AppendLine( "FROM myCursor INTO @MyTable" );
+			sb.AppendLine( "END" );
+			sb.AppendLine( "CLOSE myCursor" );
+			sb.AppendLine( "DEALLOCATE myCursor" );
+
+			using ( SqlCommand cmd = new SqlCommand( sb.ToString(), connMan.OpenDBConnection ) )
+			{
+				cmd.Connection = connMan.DBConnection;
+				// up the command timeout...
+				cmd.CommandTimeout = 9999;
+				// run it...
+				cmd.ExecuteNonQuery();
+			}
+		}
+
+		public static string db_runsql( string sql, YafDBConnManager connMan )
+		{
+			string txtResult = "";
+
+			using ( SqlCommand cmd = new SqlCommand( sql, connMan.OpenDBConnection ) )
+			{
+				cmd.CommandTimeout = 9999;
+				SqlDataReader reader = null;
+
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
+				{
+					try
+					{
+						cmd.Connection = connMan.DBConnection;
+						cmd.Transaction = trans;
+						reader = cmd.ExecuteReader();
+
+						if ( reader != null )
+						{
+							if ( reader.HasRows )
+							{
+								txtResult = "\r\n" + String.Format( "Result set has {0} fields.", reader.FieldCount );
+							}
+							else if ( reader.RecordsAffected > 0 )
+							{
+								txtResult += "\r\n" + String.Format( "{0} Record(s) Affected", reader.RecordsAffected );
+							}
+
+							reader.Close();
+						}
+
+						trans.Commit();
+					}
+					catch ( Exception x )
+					{
+						if ( reader != null )
+						{
+							reader.Close();
+						}
+
+						// rollback...
+						trans.Rollback();
+						txtResult = "\r\n" + "SQL ERROR: " + x.Message;
+					}
+					return txtResult;
+				}
+			}
+		}
+
+		public static bool forumpage_initdb( out string errorStr, bool debugging )
+		{
+			errorStr = "";
+
+			try
+			{
+				using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+				{
+					// just attempt to open the connection to test if a DB is available.
+					SqlConnection getConn = connMan.OpenDBConnection;
+				}
+			}
+			catch ( SqlException ex )
+			{
+				// unable to connect to the DB...
+				if ( debugging )
+				{
+					errorStr = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number + ")";
+					return false;
+				}
+
+				// re-throw since we are debugging...
+				throw;
+			}
+
+			return true;
+		}
+
+		public static string forumpage_validateversion( int appVersion )
+		{
+			string redirect = "";
+			try
+			{
+				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
+
+				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < appVersion ) )
+				{
+					// needs upgrading...
+					redirect = "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows [0] ["Value"] );
+				}
+			}
+			catch ( System.Data.SqlClient.SqlException )
+			{
+				// needs to be setup...
+				redirect = "install/";
+			}
+			return redirect;
+		}
+
+		public static void system_deleteinstallobjects()
+		{
+			string tSQL = "DROP PROCEDURE" + DBAccess.GetObjectName( "system_initialize" );
+			using ( SqlCommand cmd = DBAccess.GetCommand( tSQL, true ) )
+			{
+				cmd.CommandType = CommandType.Text;
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
+
+		public static void system_initialize_executescripts( string script, string scriptFile, bool useTransactions )
+		{
+			// apply database owner
+			script = script.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
+			// apply object qualifier
+			script = script.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
+
+			string [] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
+
+			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+			{
+				// use transactions...
+				if ( useTransactions )
+				{
+					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+					{
+						foreach ( string sql0 in statements )
+						{
+							string sql = sql0.Trim();
+
+							try
+							{
+								if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
+									continue;
+
+								if ( sql.Length > 0 )
+								{
+									using ( SqlCommand cmd = new SqlCommand() )
+									{
+										cmd.Transaction = trans;
+										cmd.Connection = connMan.DBConnection;
+										cmd.CommandType = CommandType.Text;
+										cmd.CommandText = sql.Trim();
+										cmd.ExecuteNonQuery();
+									}
+								}
+							}
+							catch ( Exception x )
+							{
+								trans.Rollback();
+								throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
+							}
+						}
+						trans.Commit();
+					}
+				}
+				else
+				{
+					// don't use transactions
+					foreach ( string sql0 in statements )
+					{
+						string sql = sql0.Trim();
+
+						try
+						{
+							if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
+								continue;
+
+							if ( sql.Length > 0 )
+							{
+								using ( SqlCommand cmd = new SqlCommand() )
+								{
+									cmd.Connection = connMan.OpenDBConnection;
+									cmd.CommandType = CommandType.Text;
+									cmd.CommandText = sql.Trim();
+									cmd.ExecuteNonQuery();
+								}
+							}
+						}
+						catch ( Exception x )
+						{
+							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
+						}
+					}
+				}
+			}
+
+
+		}
+		public static void system_initialize_fixaccess( bool grant )
+		{
+			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
+			{
+				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
+				{
+					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
+					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection ) )
+					{
+						da.SelectCommand.Transaction = trans;
+						using ( DataTable dt = new DataTable( "sysobjects" ) )
+						{
+							da.Fill( dt );
+							using ( SqlCommand cmd = connMan.DBConnection.CreateCommand() )
+							{
+								cmd.Transaction = trans;
+								cmd.CommandType = CommandType.Text;
+								cmd.CommandText = "select current_user";
+								string userName = ( string ) cmd.ExecuteScalar();
+
+								if ( grant )
+								{
+									cmd.CommandType = CommandType.Text;
+									foreach ( DataRow row in dt.Select( "IsProcedure=1 or IsScalarFunction=1" ) )
+									{
+										cmd.CommandText = string.Format( "grant execute on \"{0}\" to \"{1}\"", row ["Name"], userName );
+										cmd.ExecuteNonQuery();
+									}
+									foreach ( DataRow row in dt.Select( "IsUserTable=1 or IsView=1" ) )
+									{
+										cmd.CommandText = string.Format( "grant select,update on \"{0}\" to \"{1}\"", row ["Name"], userName );
+										cmd.ExecuteNonQuery();
+									}
+								}
+								else
+								{
+									cmd.CommandText = "sp_changeobjectowner";
+									cmd.CommandType = CommandType.StoredProcedure;
+									foreach ( DataRow row in dt.Select( "IsUserTable=1" ) )
+									{
+										cmd.Parameters.Clear();
+										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
+										try
+										{
+											cmd.ExecuteNonQuery();
+										}
+										catch ( SqlException )
+										{
+										}
+									}
+									foreach ( DataRow row in dt.Select( "IsView=1" ) )
+									{
+										cmd.Parameters.Clear();
+										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
+										try
+										{
+											cmd.ExecuteNonQuery();
+										}
+										catch ( SqlException )
+										{
+										}
+									}
+								}
+							}
+						}
+					}
+					trans.Commit();
+				}
+			}
+
+		}
+		public static void system_initialize( string forumName, string timeZone, string forumEmail, string smtpServer, string userName, string userEmail, object providerUserKey )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "system_initialize" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@Name", forumName );
+				cmd.Parameters.AddWithValue( "@TimeZone", timeZone );
+				cmd.Parameters.AddWithValue( "@ForumEmail", forumEmail );
+				cmd.Parameters.AddWithValue( "@SmtpServer", "" );
+				cmd.Parameters.AddWithValue( "@User", userName );
+				// vzrus:The input parameter should be implemented in the system initialize and board_create procedures, else there will be an error in create watch because the user email is missing
+				//cmd.Parameters.AddWithValue("@UserEmail", userEmail);
+				cmd.Parameters.AddWithValue( "@UserKey", providerUserKey );
+				YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+			}
+
+		}
+
+		public static void system_updateversion( int version, string versionname )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "@Version", version );
+				cmd.Parameters.AddWithValue( "@VersionName", versionname );
+				YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
+
+		#endregion 
+   
+}
 
 }

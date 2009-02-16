@@ -33,18 +33,27 @@ namespace YAF.Classes.Data
   /// </summary>
   public class YafDBConnManager : IDisposable
   {
+    public event System.Data.SqlClient.SqlInfoMessageEventHandler DBAccess_InfoMessage;
     private SqlConnection _connection = null;
-
+     
     public YafDBConnManager()
     {
+      DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler(DBConnection_InfoMessage); 
       // just initalize it (not open)
       InitConnection();
+    }   
+         
+     void DBConnection_InfoMessage(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e)
+    {
+        string ff = "\r\n" + e.Message;
     }
 
     public void InitConnection()
     {
+      
       if ( _connection == null )
       {
+         
         // create the connection
         _connection = new SqlConnection();
         _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
@@ -54,6 +63,7 @@ namespace YAF.Classes.Data
         // verify the connection string is in there...
         _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
       }
+      
     }
 
     public void CloseConnection()
@@ -71,7 +81,7 @@ namespace YAF.Classes.Data
     {
       get
       {
-        InitConnection();
+        InitConnection();       
         return _connection;
       }
     }
@@ -110,11 +120,10 @@ namespace YAF.Classes.Data
 	public static class DBAccess
 	{
 		/* Ederon : 6/16/2007 - conventions */
-
-		private const IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
+        private const IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 		private static string _dbOwner;
 		private static string _objectQualifier;
-
+        
 		static public IsolationLevel IsolationLevel
 		{
 			get
@@ -158,6 +167,7 @@ namespace YAF.Classes.Data
 		/// <returns>New SqlCommand</returns>
 		static public SqlCommand GetCommand(string commandText, bool isText)
 		{
+           
 			return GetCommand(commandText, isText, null);
 		}
 		/// <summary>
@@ -442,6 +452,9 @@ namespace YAF.Classes.Data
 				qc.Dispose();
 			}
 		}
+                   
+        
+
 	}
 
 	/// <summary>

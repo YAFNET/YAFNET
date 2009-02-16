@@ -270,42 +270,24 @@ namespace YAF.Classes.Base
 		private void InitDB()
 		{
 			// 1st test if for DB connectivity...
-			try
-			{
-				using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
-				{
-					// just attempt to open the connection to test if a DB is available.
-					System.Data.SqlClient.SqlConnection getConn = connMan.OpenDBConnection;
-				}
-			}
-			catch ( System.Data.SqlClient.SqlException ex )
-			{
-#if !DEBUG
-        // unable to connect to the DB...
-        Session ["StartupException"] = "Unable to connect to the Database. Exception Message: " + ex.Message + " (" + ex.Number.ToString() + ")";
-        Response.Redirect( YafForumInfo.ForumRoot + "error.aspx" );
-#else
-				// re-throw since we are debugging...
-				throw;
+			string errorStr = "";
+			bool debugging = false;
+
+#if DEBUG
+        debugging = true;
 #endif
+
+			// attempt to init the db...
+			if ( !DB.forumpage_initdb( out errorStr, debugging ) )
+			{
+				// unable to connect to the DB...
+				Session["StartupException"] = errorStr;
+				Response.Redirect( YafForumInfo.ForumRoot + "error.aspx" );				
 			}
 
 			// step 2: validate the database version...
-			try
-			{
-				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
-
-				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < YafForumInfo.AppVersion ) )
-				{
-					// needs upgrading...
-					Response.Redirect( YafForumInfo.ForumRoot + "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows [0] ["Value"] ) );
-				}
-			}
-			catch ( System.Data.SqlClient.SqlException )
-			{
-				// needs to be setup...
-				Response.Redirect( YafForumInfo.ForumRoot + "install/" );
-			}
+			string redirectStr = DB.forumpage_validateversion( YafForumInfo.AppVersion );
+			if ( !String.IsNullOrEmpty( redirectStr ) ) Response.Redirect( YafForumInfo.ForumRoot + redirectStr );
 		}
 
 		/// <summary>
