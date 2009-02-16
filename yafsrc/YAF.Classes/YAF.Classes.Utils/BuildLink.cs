@@ -26,6 +26,20 @@ using YAF.Classes;
 namespace YAF.Classes.Utils
 {
 	/// <summary>
+	/// Enumerates forum info messages.
+	/// </summary>
+	public enum InfoMessage
+	{
+		Moderated = 1,				// after posting to moderated forum
+		Suspended = 2,				// informs user he's suspended
+		RegistrationEmail = 3,		// informs user about registration email being sent
+		AccessDenied = 4,			// access was denied
+		Disabled = 5,				// informs user about feature being disabled by admin 
+		Invalid = 6,				// informs user about invalid input/request
+		Failure = 7					// system error
+	}
+
+	/// <summary>
 	/// Static class with link building functions.
 	/// </summary>
 	public static class YafBuildLink
@@ -91,6 +105,14 @@ namespace YAF.Classes.Utils
 		static public void Redirect(ForumPages page, string format, params object[] args)
 		{
 			HttpContext.Current.Response.Redirect(GetLinkNotEscaped(page, format, args));
+		}
+
+		/// <summary>
+		/// Redirects response to the info page.
+		/// </summary>
+		static public void RedirectInfoPage( InfoMessage infoMessage )
+		{
+			Redirect( ForumPages.info, String.Format("i={0}", (int)infoMessage ) );
 		}
 
 

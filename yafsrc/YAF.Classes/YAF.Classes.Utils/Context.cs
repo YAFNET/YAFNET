@@ -922,18 +922,23 @@ namespace YAF.Classes.Utils
 					// page still hasn't been loaded...
 					if ( pageRow == null )
 					{
-						if ( user != null )
-							throw new ApplicationException( string.Format( "User '{0}' isn't registered.", user.UserName ) );
-						else
-							throw new ApplicationException( "Failed to find guest user." );
+						throw new ApplicationException( "Failed to find guest user." );
 					}
 
 					// save this page data to the context...
 					this.Page = pageRow;
 				}
-				catch
+				catch (Exception x)
 				{
-
+#if !DEBUG
+					// log the exception...
+					YAF.Classes.Data.DB.eventlog_create( null, "Failure Initializing User/Page.", x, EventLogTypes.Warning );
+					// show a failure notice since something is probably up with membership...
+					YafBuildLink.RedirectInfoPage( InfoMessage.Failure );
+#else
+					// re-throw exception...
+					throw;
+#endif
 				}
 			}
 		}
