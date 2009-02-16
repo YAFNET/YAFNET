@@ -124,20 +124,19 @@ namespace YAF.Pages // YAF.Pages
 					if (Request.QueryString["f"] != null &&
 					    int.TryParse(Request.QueryString["f"], out forumId))
 					{
-						string tSQL =
-							"select Topic = a.Topic, TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
-							forumId + " and b.ForumID = a.ForumID";
-						using (DataTable dt = DBAccess.GetData(DBAccess.GetCommand(tSQL, true)))
-						{
-							foreach (DataRow row in dt.Rows)
-							{
-								rf.AddRSSItem(writer,
-								              General.BadWordReplace(row["Topic"].ToString()),
-								              YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["TopicID"]),
-								              General.BadWordReplace(row["Topic"].ToString()),
-								              Convert.ToDateTime(row["Posted"]).ToString("r"));
-							}
-						}
+                        //vzrus changed to separate DLL specific code
+                        using (DataTable dt = DB.rsstopic_list(forumId))
+                        {
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                rf.AddRSSItem(writer,
+                                              General.BadWordReplace(row["Topic"].ToString()),
+                                              YafForumInfo.ServerURL + YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", row["TopicID"]),
+                                              General.BadWordReplace(row["Topic"].ToString()),
+                                              Convert.ToDateTime(row["Posted"]).ToString("r"));
+                            }
+                        }
+				
 					}
 
 					break;

@@ -59,53 +59,13 @@ namespace YAF.Pages.Admin
 
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				connMan.DBConnection.InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler( DBConnection_InfoMessage );
-				//connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-
+				connMan.DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler( DBConnection_InfoMessage );
 				string sql = txtQuery.Text.Trim();
-
+				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
 				sql = sql.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
 				sql = sql.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
-
-				using ( SqlCommand cmd = new SqlCommand( sql, connMan.OpenDBConnection ) )
-				{
-					cmd.CommandTimeout = 9999;
-					SqlDataReader reader = null;
-
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( DBAccess.IsolationLevel ) )
-					{
-						try
-						{
-							cmd.Connection = connMan.DBConnection;
-							cmd.Transaction = trans;
-							reader = cmd.ExecuteReader();						
-
-							if ( reader.HasRows )
-							{
-								txtResult.Text = "\r\n" + String.Format( "Result set has {0} fields.", reader.FieldCount );
-							}
-							else if ( reader.RecordsAffected > 0 )
-							{
-								txtResult.Text += "\r\n" + String.Format( "{0} Record(s) Affected", reader.RecordsAffected );
-							}
-
-							reader.Close();
-							trans.Commit();
-						}
-						catch (Exception x)
-						{
-							if ( reader != null )
-							{
-								reader.Close();
-							}
-
-							// rollback...
-							trans.Rollback();
-							txtResult.Text = "\r\n" + "SQL ERROR: " + x.Message;
-						}
-					}
-				}
-			}		
+				txtResult.Text = DB.db_runsql( sql, connMan );
+			}
 		}
 
 		void DBConnection_InfoMessage( object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e )

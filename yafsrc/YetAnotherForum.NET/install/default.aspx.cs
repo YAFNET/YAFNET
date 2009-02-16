@@ -39,22 +39,9 @@ namespace YAF.Install
 	{
 		protected int _dbVersionBeforeUpgrade;
 		private string _loadMessage = "";
-		private string [] _scripts = new string []
-		{
-			"tables.sql",
-      "indexes.sql",
-      "constraints.sql",
-      "triggers.sql",
-      "views.sql",
-      "procedures.sql",
-			"functions.sql",
-			"providers/procedures.sql",
-			"providers/tables.sql",
-			"providers/indexes.sql"
-	    };
 
-		private string _bbcodeImport = "bbCodeExtensions.xml";
-		private string _fileImport = "fileExtensions.xml";
+		private const string _bbcodeImport = "bbCodeExtensions.xml";
+		private const string _fileImport = "fileExtensions.xml";
 
 		#region events
 		private void Page_Load( object sender, System.EventArgs e )
@@ -275,7 +262,7 @@ namespace YAF.Install
 			{
 				FixAccess( false );
 
-				foreach ( string script in _scripts )
+				foreach ( string script in DB.ScriptList )
 				{
 					ExecuteScript( script, true );
 				}
@@ -284,17 +271,11 @@ namespace YAF.Install
 
 				int prevVersion = DB.DBVersion;
 
-				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
-					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
-				}
+				DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
 
 				// Ederon : 9/7/2007
 				// resync all boards - necessary for propr last post bubbling
-				YAF.Classes.Data.DB.board_resync();
+				DB.board_resync();
 
 				if ( DB.IsForumInstalled && prevVersion < 30 )
 				{
@@ -320,6 +301,9 @@ namespace YAF.Install
 						}
 					}
 				}
+
+                //vzrus: uncomment it to not keep install/upgrade objects in DB and for better security 
+                //DB.system_deleteinstallobjects();
 			}
 			/*catch ( Exception x )
 			{
@@ -428,27 +412,10 @@ namespace YAF.Install
 
 				// logout administrator...
 				FormsAuthentication.SignOut();
-
-				using ( SqlCommand cmd = DBAccess.GetCommand( "system_initialize" ) )
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Name", TheForumName.Text );
-					cmd.Parameters.AddWithValue( "@TimeZone", TimeZones.SelectedItem.Value );
-					cmd.Parameters.AddWithValue( "@ForumEmail", ForumEmailAddress.Text );
-					cmd.Parameters.AddWithValue( "@SmtpServer", "" );
-					cmd.Parameters.AddWithValue( "@User", user.UserName );
-					cmd.Parameters.AddWithValue( "@UserKey", user.ProviderUserKey );
-					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
-				}
-
-				using ( SqlCommand cmd = DBAccess.GetCommand( "system_updateversion" ) )
-				{
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "@Version", YafForumInfo.AppVersion );
-					cmd.Parameters.AddWithValue( "@VersionName", YafForumInfo.AppVersionName );
-					YAF.Classes.Data.DBAccess.ExecuteNonQuery( cmd );
-				}
-
+                YAF.Classes.Data.DB.system_initialize(TheForumName.Text, TimeZones.SelectedItem.Value, ForumEmailAddress.Text, "", user.UserName, user.Email, user.ProviderUserKey);
+                YAF.Classes.Data.DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName); DB.system_updateversion(YafForumInfo.AppVersion, YafForumInfo.AppVersionName);
+                //vzrus: uncomment it to not keep install/upgrade objects in db for a place and better security
+                //YAF.Classes.Data.DB.system_deleteinstallobjects();
 				// load default bbcode if available...
 				if ( File.Exists( Request.MapPath( _bbcodeImport ) ) )
 				{
@@ -554,156 +521,17 @@ namespace YAF.Install
 			{
 				throw new Exception( "Failed to read " + scriptFile, x );
 			}
+			
 
-			// apply database owner
-			script = script.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
-			// apply object qualifier
-			script = script.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
-
-			string [] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
-
-			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
-			{
-				// use transactions...
-				if ( useTransactions )
-				{
-					using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
-					{
-						foreach ( string sql0 in statements )
-						{
-							string sql = sql0.Trim();
-
-							try
-							{
-								if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
-									continue;
-
-								if ( sql.Length > 0 )
-								{
-									using ( SqlCommand cmd = new SqlCommand() )
-									{
-										cmd.Transaction = trans;
-										cmd.Connection = connMan.DBConnection;
-										cmd.CommandType = CommandType.Text;
-										cmd.CommandText = sql.Trim();
-										cmd.ExecuteNonQuery();
-									}
-								}
-							}
-							catch ( Exception x )
-							{
-								trans.Rollback();
-								throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
-							}
-						}
-						trans.Commit();
-					}
-				}
-				else
-				{
-					// don't use transactions
-					foreach ( string sql0 in statements )
-					{
-						string sql = sql0.Trim();
-
-						try
-						{
-							if ( sql.ToLower().IndexOf( "setuser" ) >= 0 )
-								continue;
-
-							if ( sql.Length > 0 )
-							{
-								using ( SqlCommand cmd = new SqlCommand() )
-								{
-									cmd.Connection = connMan.OpenDBConnection;
-									cmd.CommandType = CommandType.Text;
-									cmd.CommandText = sql.Trim();
-									cmd.ExecuteNonQuery();
-								}
-							}
-						}
-						catch ( Exception x )
-						{
-							throw new Exception( String.Format( "FILE:\n{0}\n\nERROR:\n{2}\n\nSTATEMENT:\n{1}", scriptFile, sql, x.Message ) );
-						}
-					}
-				}
-			}
+            DB.system_initialize_executescripts(script,scriptFile, useTransactions);
+	
 		}
 		#endregion
 
 		#region method FixAccess
 		private void FixAccess( bool bGrant )
 		{
-			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
-			{
-				using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( YAF.Classes.Data.DBAccess.IsolationLevel ) )
-				{
-					// REVIEW : Ederon - would "{databaseOwner}.{objectQualifier}" work, might need only "{objectQualifier}"
-					using ( SqlDataAdapter da = new SqlDataAdapter( "select Name,IsUserTable = OBJECTPROPERTY(id, N'IsUserTable'),IsScalarFunction = OBJECTPROPERTY(id, N'IsScalarFunction'),IsProcedure = OBJECTPROPERTY(id, N'IsProcedure'),IsView = OBJECTPROPERTY(id, N'IsView') from dbo.sysobjects where Name like '{databaseOwner}.{objectQualifier}%'", connMan.OpenDBConnection ) )
-					{
-						da.SelectCommand.Transaction = trans;
-						using ( DataTable dt = new DataTable( "sysobjects" ) )
-						{
-							da.Fill( dt );
-							using ( SqlCommand cmd = connMan.DBConnection.CreateCommand() )
-							{
-								cmd.Transaction = trans;
-								cmd.CommandType = CommandType.Text;
-								cmd.CommandText = "select current_user";
-								string userName = ( string )cmd.ExecuteScalar();
-
-								if ( bGrant )
-								{
-									cmd.CommandType = CommandType.Text;
-									foreach ( DataRow row in dt.Select( "IsProcedure=1 or IsScalarFunction=1" ) )
-									{
-										cmd.CommandText = string.Format( "grant execute on \"{0}\" to \"{1}\"", row ["Name"], userName );
-										cmd.ExecuteNonQuery();
-									}
-									foreach ( DataRow row in dt.Select( "IsUserTable=1 or IsView=1" ) )
-									{
-										cmd.CommandText = string.Format( "grant select,update on \"{0}\" to \"{1}\"", row ["Name"], userName );
-										cmd.ExecuteNonQuery();
-									}
-								}
-								else
-								{
-									cmd.CommandText = "sp_changeobjectowner";
-									cmd.CommandType = CommandType.StoredProcedure;
-									foreach ( DataRow row in dt.Select( "IsUserTable=1" ) )
-									{
-										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
-										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
-										try
-										{
-											cmd.ExecuteNonQuery();
-										}
-										catch ( SqlException )
-										{
-										}
-									}
-									foreach ( DataRow row in dt.Select( "IsView=1" ) )
-									{
-										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
-										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
-										try
-										{
-											cmd.ExecuteNonQuery();
-										}
-										catch ( SqlException )
-										{
-										}
-									}
-								}
-							}
-						}
-					}
-					trans.Commit();
-				}
-			}
+            DB.system_initialize_fixaccess(bGrant);		
 		}
 		#endregion
 }

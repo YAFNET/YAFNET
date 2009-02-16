@@ -60,71 +60,24 @@ namespace YAF.Pages.Admin
 
 		protected void btnGetStats_Click( object sender, EventArgs e )
 		{
-			// create statistic getting SQL...
-			StringBuilder sb = new StringBuilder();
-
-			sb.AppendLine( "DECLARE @TableName sysname");
-			sb.AppendLine( "DECLARE cur_showfragmentation CURSOR FOR" );
-			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
-			sb.AppendLine( "OPEN cur_showfragmentation");
-			sb.AppendLine( "FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-			sb.AppendLine( "WHILE @@FETCH_STATUS = 0");
-			sb.AppendLine( "BEGIN");
-			sb.AppendLine( "DBCC SHOWCONTIG (@TableName)");
-			sb.AppendLine( "FETCH NEXT FROM cur_showfragmentation INTO @TableName");
-			sb.AppendLine( "END");
-			sb.AppendLine( "CLOSE cur_showfragmentation");
-			sb.AppendLine( "DEALLOCATE cur_showfragmentation" );
-
+			
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				connMan.DBConnection.InfoMessage += new SqlInfoMessageEventHandler( DBConnection_InfoMessage );
-
-				using ( SqlCommand cmd = new SqlCommand( sb.ToString(), connMan.OpenDBConnection ) )
-				{
-					cmd.Connection = connMan.DBConnection;
-					// up the command timeout...
-					cmd.CommandTimeout = 9999;
-					// run it...
-					cmd.ExecuteNonQuery();
-				}
+                // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+                DB.db_getstats(connMan);
+				
 			}		
 		}
 
 		protected void btnReindex_Click( object sender, EventArgs e )
 		{
-			// create statistic getting SQL...
-			StringBuilder sb = new StringBuilder();
-
-			sb.AppendLine( "DECLARE @MyTable VARCHAR(255)" );
-			sb.AppendLine( "DECLARE myCursor" );
-			sb.AppendLine( "CURSOR FOR" );
-			sb.AppendFormat( "SELECT table_name FROM information_schema.tables WHERE table_type = 'base table' AND table_name LIKE '{0}%'", DBAccess.ObjectQualifier );
-			sb.AppendLine( "OPEN myCursor" );
-			sb.AppendLine( "FETCH NEXT" );
-			sb.AppendLine( "FROM myCursor INTO @MyTable" );
-			sb.AppendLine( "WHILE @@FETCH_STATUS = 0" );
-			sb.AppendLine( "BEGIN" );
-			sb.AppendLine( "PRINT 'Reindexing Table:  ' + @MyTable" );
-			sb.AppendLine( "DBCC DBREINDEX(@MyTable, '', 80)" );
-			sb.AppendLine( "FETCH NEXT" );
-			sb.AppendLine( "FROM myCursor INTO @MyTable" );
-			sb.AppendLine( "END" );
-			sb.AppendLine( "CLOSE myCursor" );
-			sb.AppendLine( "DEALLOCATE myCursor" );
+			
 
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				connMan.DBConnection.InfoMessage += new SqlInfoMessageEventHandler( DBConnection_InfoMessage );
-
-				using ( SqlCommand cmd = new SqlCommand( sb.ToString(), connMan.OpenDBConnection ) )
-				{
-					cmd.Connection = connMan.DBConnection;
-					// up the command timeout...
-					cmd.CommandTimeout = 9999;
-					// run it...
-					cmd.ExecuteNonQuery();
-				}
+                DB.db_reindex(connMan);				
 			}
 		}
 
