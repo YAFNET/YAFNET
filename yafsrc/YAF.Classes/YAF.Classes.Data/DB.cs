@@ -28,18 +28,67 @@ namespace YAF.Classes.Data
 {
 	public static class DB
 	{
+		#region Basic Forum Properties
+
 		/// <summary>
 		/// Gets the database size
 		/// </summary>
 		/// <returns>intager value for database size</returns>
-		static public int DBSize()
+		static public int DBSize
 		{
-			using ( SqlCommand cmd = new SqlCommand( "select sum(cast(size as integer))/128 from sysfiles" ) )
+			get
 			{
-				cmd.CommandType = CommandType.Text;
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				using ( SqlCommand cmd = new SqlCommand( "select sum(cast(size as integer))/128 from sysfiles" ) )
+				{
+					cmd.CommandType = CommandType.Text;
+					return ( int ) DBAccess.ExecuteScalar( cmd );
+				}
 			}
 		}
+
+		static public bool IsForumInstalled
+		{
+			get
+			{
+				try
+				{
+					using ( DataTable dt = board_list( DBNull.Value ) )
+					{
+						return dt.Rows.Count > 0;
+					}
+				}
+				catch
+				{
+				}
+				return false;
+			}
+		}
+
+		static public int DBVersion
+		{
+			get
+			{
+				try
+				{
+					using ( DataTable dt = registry_list( "version" ) )
+					{
+						if ( dt.Rows.Count > 0 )
+						{
+							// get the version...
+							return Convert.ToInt32( dt.Rows [0] ["Value"] );
+						}
+					}
+				}
+				catch
+				{
+					// not installed...
+				}
+
+				return -1;
+			}
+		}
+
+		#endregion
 
 		#region Forum
 
