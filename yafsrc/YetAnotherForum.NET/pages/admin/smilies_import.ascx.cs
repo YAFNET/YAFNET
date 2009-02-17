@@ -61,7 +61,7 @@ namespace YAF.Pages.Admin
 				dr ["FileName"] = "Select File (*.pak)";
 				dt.Rows.Add( dr );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/emoticons", YafForumInfo.ForumRoot ) ) );
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/emoticons", YafForumInfo.ForumFileRoot ) ) );
 				System.IO.FileInfo [] files = dir.GetFiles( "*.pak" );
 				long nFileID = 1;
 				foreach ( System.IO.FileInfo file in files )

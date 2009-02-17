@@ -473,7 +473,7 @@ namespace YAF.Pages.Admin
 				dt.Rows.Add(dr);
 
 				// add files from medals folder
-				DirectoryInfo dir = new DirectoryInfo(Request.MapPath(String.Format("{0}images/medals", YafForumInfo.ForumRoot)));
+				DirectoryInfo dir = new DirectoryInfo(Request.MapPath(String.Format("{0}images/medals", YafForumInfo.ForumFileRoot)));
 				FileInfo[] files = dir.GetFiles("*.*");
 
 				long nFileID = 1;
@@ -663,7 +663,7 @@ namespace YAF.Pages.Admin
 		private Size GetImageSize(string filename)
 		{
 			using (System.Drawing.Image img = System.Drawing.Image.FromFile(
-						Server.MapPath(String.Format("{0}images/medals/{1}", YafForumInfo.ForumRoot, filename))))
+						Server.MapPath(String.Format("{0}images/medals/{1}", YafForumInfo.ForumFileRoot, filename))))
 			{
 				return img.Size;
 			}

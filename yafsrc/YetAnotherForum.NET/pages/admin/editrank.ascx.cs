@@ -38,97 +38,98 @@ namespace YAF.Pages.Admin
 	public partial class editrank : YAF.Classes.Base.AdminPage
 	{
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Ranks","");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Ranks", "" );
 
 				BindData();
-				if(Request.QueryString["r"] != null) 
+				if ( Request.QueryString ["r"] != null )
 				{
-					using(DataTable dt = YAF.Classes.Data.DB.rank_list(PageContext.PageBoardID,Request.QueryString["r"]))
+					using ( DataTable dt = YAF.Classes.Data.DB.rank_list( PageContext.PageBoardID, Request.QueryString ["r"] ) )
 					{
-						DataRow row = dt.Rows[0];
-						RankFlags flags = new RankFlags(row["Flags"]);
-						Name.Text = (string)row["Name"];
+						DataRow row = dt.Rows [0];
+						RankFlags flags = new RankFlags( row ["Flags"] );
+						Name.Text = ( string ) row ["Name"];
 						IsStart.Checked = flags.IsStart;
 						IsLadder.Checked = flags.IsLadder;
-						MinPosts.Text = row["MinPosts"].ToString();
-						ListItem item = RankImage.Items.FindByText(row["RankImage"].ToString());
-						if(item!=null) 
+						MinPosts.Text = row ["MinPosts"].ToString();
+						ListItem item = RankImage.Items.FindByText( row ["RankImage"].ToString() );
+						if ( item != null )
 						{
 							item.Selected = true;
-							Preview.Src = String.Format("{0}images/ranks/{1}", YafForumInfo.ForumRoot, row["RankImage"]); //path corrected
+							Preview.Src = String.Format( "{0}images/ranks/{1}", YafForumInfo.ForumRoot, row ["RankImage"] ); //path corrected
 						}
 						else
 						{
-							Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+							Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
 						}
 					}
 				}
 				else
 				{
-					Preview.Src = String.Format("{0}images/spacer.gif", YafForumInfo.ForumRoot);
+					Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
 				}
 			}
-            RankImage.Attributes["onchange"] = String.Format(
-                "getElementById('{1}_ctl01_Preview').src='{0}images/ranks/' + this.value",
-                YafForumInfo.ForumRoot,
-                this.Parent.ID
-                );
+			RankImage.Attributes ["onchange"] = String.Format(
+					"getElementById('{1}_ctl01_Preview').src='{0}images/ranks/' + this.value",
+					YafForumInfo.ForumRoot,
+					this.Parent.ID
+					);
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 
 		}
 		#endregion
 
-		private void BindData() {
-			using(DataTable dt = new DataTable("Files")) 
+		private void BindData()
+		{
+			using ( DataTable dt = new DataTable( "Files" ) )
 			{
-				dt.Columns.Add("FileID",typeof(long));
-				dt.Columns.Add("FileName",typeof(string));
-				dt.Columns.Add("Description",typeof(string));
+				dt.Columns.Add( "FileID", typeof( long ) );
+				dt.Columns.Add( "FileName", typeof( string ) );
+				dt.Columns.Add( "Description", typeof( string ) );
 				DataRow dr = dt.NewRow();
-				dr["FileID"] = 0;
-				dr["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
-				dr["Description"] = "Select Rank Image";
-				dt.Rows.Add(dr);
-				
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(Request.MapPath(String.Format("{0}images/ranks",YafForumInfo.ForumRoot)));
-				System.IO.FileInfo[] files = dir.GetFiles("*.*");
+				dr ["FileID"] = 0;
+				dr ["FileName"] = "../spacer.gif"; // use blank.gif for Description Entry
+				dr ["Description"] = "Select Rank Image";
+				dt.Rows.Add( dr );
+
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/ranks", YafForumInfo.ForumFileRoot ) ) );
+				System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
 				long nFileID = 1;
-				foreach(System.IO.FileInfo file in files) 
+				foreach ( System.IO.FileInfo file in files )
 				{
 					string sExt = file.Extension.ToLower();
-					if(sExt!=".png" && sExt!=".gif" && sExt!=".jpg")
+					if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
 						continue;
-					
+
 					dr = dt.NewRow();
-					dr["FileID"] = nFileID++;
-					dr["FileName"] = file.Name;
-					dr["Description"] = file.Name;
-					dt.Rows.Add(dr);
+					dr ["FileID"] = nFileID++;
+					dr ["FileName"] = file.Name;
+					dr ["Description"] = file.Name;
+					dt.Rows.Add( dr );
 				}
-				
+
 				RankImage.DataSource = dt;
 				RankImage.DataValueField = "FileName";
 				RankImage.DataTextField = "Description";
@@ -136,23 +137,23 @@ namespace YAF.Pages.Admin
 			DataBind();
 		}
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks );
 		}
 
-		protected void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click( object sender, System.EventArgs e )
 		{
 			// Group
 			int RankID = 0;
-			if(Request.QueryString["r"] != null) RankID = int.Parse(Request.QueryString["r"]);
+			if ( Request.QueryString ["r"] != null ) RankID = int.Parse( Request.QueryString ["r"] );
 
 			object rankImage = null;
-			if(RankImage.SelectedIndex>0)
+			if ( RankImage.SelectedIndex > 0 )
 				rankImage = RankImage.SelectedValue;
-			YAF.Classes.Data.DB.rank_save(RankID,PageContext.PageBoardID,Name.Text,IsStart.Checked,IsLadder.Checked,MinPosts.Text,rankImage);	
-				
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks);
+			YAF.Classes.Data.DB.rank_save( RankID, PageContext.PageBoardID, Name.Text, IsStart.Checked, IsLadder.Checked, MinPosts.Text, rankImage );
+
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_ranks );
 		}
 	}
 }

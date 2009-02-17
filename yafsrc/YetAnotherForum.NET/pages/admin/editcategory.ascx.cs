@@ -37,15 +37,15 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class editcategory : YAF.Classes.Base.AdminPage
 	{
-	
-		protected void Page_Load(object sender, System.EventArgs e)
+
+		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			if(!IsPostBack) 
+			if ( !IsPostBack )
 			{
-				PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink("Administration",YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin));
-				PageLinks.AddLink("Forums",YafBuildLink.GetLink(ForumPages.admin_forums));
-				PageLinks.AddLink("Category");
+				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
+				PageLinks.AddLink( "Forums", YafBuildLink.GetLink( ForumPages.admin_forums ) );
+				PageLinks.AddLink( "Category" );
 
 				// Populate Category Table
 				CreateImagesDataTable();
@@ -57,47 +57,47 @@ namespace YAF.Pages.Admin
 					);
 
 				Name.Style.Add( "width", "100%" );
-				
+
 				BindData();
 			}
 		}
 
 		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		override protected void OnInit( EventArgs e )
 		{
 			//
 			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
 			//
 			InitializeComponent();
-			base.OnInit(e);
+			base.OnInit( e );
 		}
-		
+
 		/// <summary>
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent()
-		{    
+		{
 
 		}
 		#endregion
 
-		protected void Cancel_Click(object sender, System.EventArgs e)
+		protected void Cancel_Click( object sender, System.EventArgs e )
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 		}
 
-		private void BindData() 
+		private void BindData()
 		{
 			Preview.Src = String.Format( "{0}images/spacer.gif", YafForumInfo.ForumRoot );
 
-			if(Request.QueryString["c"] != null) 
+			if ( Request.QueryString ["c"] != null )
 			{
-				using(DataTable dt = YAF.Classes.Data.DB.category_list(PageContext.PageBoardID,Request.QueryString["c"]))
+				using ( DataTable dt = YAF.Classes.Data.DB.category_list( PageContext.PageBoardID, Request.QueryString ["c"] ) )
 				{
-					DataRow row = dt.Rows[0];
-					Name.Text = (string)row["Name"];
-					SortOrder.Text = row["SortOrder"].ToString();
+					DataRow row = dt.Rows [0];
+					Name.Text = ( string ) row ["Name"];
+					SortOrder.Text = row ["SortOrder"].ToString();
 					CategoryNameTitle.Text = Name.Text;
 
 					ListItem item = CategoryImages.Items.FindByText( row ["CategoryImage"].ToString() );
@@ -123,22 +123,22 @@ namespace YAF.Pages.Admin
 				dr ["Description"] = "None";
 				dt.Rows.Add( dr );
 
-				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/categories", YafForumInfo.ForumRoot ) ) );
-				if (dir.Exists)
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo( Request.MapPath( String.Format( "{0}images/categories", YafForumInfo.ForumFileRoot ) ) );
+				if ( dir.Exists )
 				{
-					System.IO.FileInfo[] files = dir.GetFiles("*.*");
+					System.IO.FileInfo [] files = dir.GetFiles( "*.*" );
 					long nFileID = 1;
-					foreach (System.IO.FileInfo file in files)
+					foreach ( System.IO.FileInfo file in files )
 					{
 						string sExt = file.Extension.ToLower();
-						if (sExt != ".png" && sExt != ".gif" && sExt != ".jpg")
+						if ( sExt != ".png" && sExt != ".gif" && sExt != ".jpg" )
 							continue;
 
 						dr = dt.NewRow();
-						dr["FileID"] = nFileID++;
-						dr["FileName"] = file.Name;
-						dr["Description"] = file.Name;
-						dt.Rows.Add(dr);
+						dr ["FileID"] = nFileID++;
+						dr ["FileName"] = file.Name;
+						dr ["Description"] = file.Name;
+						dt.Rows.Add( dr );
 					}
 				}
 
@@ -149,10 +149,10 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		protected void Save_Click(object sender, System.EventArgs e)
+		protected void Save_Click( object sender, System.EventArgs e )
 		{
 			int CategoryID = 0;
-			if(Request.QueryString["c"] != null) CategoryID = int.Parse(Request.QueryString["c"]);
+			if ( Request.QueryString ["c"] != null ) CategoryID = int.Parse( Request.QueryString ["c"] );
 
 			int sortOrder;
 			string name = Name.Text.Trim();
@@ -180,7 +180,7 @@ namespace YAF.Pages.Admin
 			// remove category cache...
 			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
 			// redirect
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums);
+			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_forums );
 		}
 	}
 }
