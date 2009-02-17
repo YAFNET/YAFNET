@@ -101,6 +101,13 @@
                             </tr>                            
                             <tr>
                                 <td class="postheader">
+                                    <b>Picture Attachment Display Treshold:</b><br>
+                                    Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</td>
+                                <td class="post">
+                                    <asp:TextBox ID="PictureAttachmentDisplayTreshold" runat="server"></asp:TextBox></td>
+                            </tr>                            
+                            <tr>
+                                <td class="postheader">
                                     <b>Post editing timeout:</b><br>
                                     Number of seconds while post may be modified without showing that to other users</td>
                                 <td class="post">

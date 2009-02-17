@@ -77,8 +77,9 @@ namespace YAF.Controls
 						string strFilename = Convert.ToString( dr ["FileName"] ).ToLower();
 						bool bShowImage = false;
 
-						// verify it's not too large to display (might want to make this a board setting)
-						if ( Convert.ToInt32( dr ["Bytes"] ) <= 262144 )
+						// verify it's not too large to display
+						// Ederon : 02/17/2009 - made it board setting
+						if ( Convert.ToInt32( dr ["Bytes"] ) <= PageContext.BoardSettings.PictureAttachmentDisplayTreshold )
 						{
 							// is it an image file?
 							for ( int i = 0; i < aImageExtensions.Length; i++ )

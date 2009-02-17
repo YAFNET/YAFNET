@@ -326,6 +326,13 @@ namespace YAF.Classes.Utils
 			get { return _reg.GetValueInt( "MaxPostSize", Int16.MaxValue ); }
 			set { _reg.SetValueInt( "MaxPostSize", value ); }
 		}
+		// Ederon : 02/17/2009
+		public int PictureAttachmentDisplayTreshold
+		{
+			get { return _reg.GetValueInt("PictureAttachmentDisplayTreshold", 262144); }
+			set { _reg.SetValueInt("PictureAttachmentDisplayTreshold", value); }
+		}
+
 
 		// boolean settings
 		public bool EmailVerification

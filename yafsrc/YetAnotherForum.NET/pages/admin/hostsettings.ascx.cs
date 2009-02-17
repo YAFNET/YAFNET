@@ -199,6 +199,9 @@ namespace YAF.Pages.Admin
             // MDDubs : 2/7/2008 added
             AllowEmailChange.Checked = PageContext.BoardSettings.AllowEmailChange;
 
+			// Ederon : 02/17/2009 added
+			PictureAttachmentDisplayTreshold.Text = PageContext.BoardSettings.PictureAttachmentDisplayTreshold.ToString();
+
 			// Caching
 			ForumStatisticsCacheTimeout.Text = PageContext.BoardSettings.ForumStatisticsCacheTimeout.ToString();
 			ActiveDiscussionsCacheTimeout.Text = PageContext.BoardSettings.ActiveDiscussionsCacheTimeout.ToString();
@@ -319,6 +322,9 @@ namespace YAF.Pages.Admin
 
             // MDDubs : 2/7/2008 added
             PageContext.BoardSettings.AllowEmailChange = AllowEmailChange.Checked;
+
+			// Ederon : 02/17/2009 added
+			PageContext.BoardSettings.PictureAttachmentDisplayTreshold = Convert.ToInt32(PictureAttachmentDisplayTreshold.Text.Trim()); 
 
 			// Caching
 			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
