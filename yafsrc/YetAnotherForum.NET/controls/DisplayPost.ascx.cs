@@ -699,7 +699,7 @@ namespace YAF.Controls
 							);
                 
                 // mddubs : 02/21/2009
-                // Remove the space before the first common when multiple groups exist.
+                // Remove the space before the first comma when multiple groups exist.
                 filler = filler.Replace("\r\n,", ",");
 			}
 			else
