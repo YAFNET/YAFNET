@@ -82,7 +82,14 @@ namespace YAF.Classes
                     if (String.IsNullOrEmpty(baseUrl))
                     {
                         // Each different filepath (multiboard) will specify a BaseUrl key in their own web.config in their directory.
-                        baseUrl = YAF.Classes.Config.BaseUrlFromWCM;
+                        if (!String.IsNullOrEmpty(YAF.Classes.Config.BaseUrlFromWCM))
+                            baseUrl = YAF.Classes.Config.BaseUrlFromWCM;
+                        // If BaseUrl isn't found, use Root.
+                        else if (!String.IsNullOrEmpty(YAF.Classes.Config.Root))
+                            baseUrl = YAF.Classes.Config.Root;
+                        // If Root isn't found, use the current application path.
+                        else
+                            baseUrl = HttpContext.Current.Request.ApplicationPath;
 
                         if (baseUrl.StartsWith("~"))
                         {
@@ -101,16 +108,16 @@ namespace YAF.Classes
                             // remove ending slash...
                             baseUrl = baseUrl.Substring(0, baseUrl.LastIndexOf('/'));
                         }
-                    }
 
-                    // remove redundant slashes...
-                    while (baseUrl.Contains("//"))
-                    {
-                        baseUrl = baseUrl.Replace("//", "/");
-                    }
+                        // remove redundant slashes...
+                        while (baseUrl.Contains("//"))
+                        {
+                            baseUrl = baseUrl.Replace("//", "/");
+                        }
 
-                    // save to cache
-                    _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
+                        // save to cache
+                        _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
+                    }
                 }
                 catch (Exception)
                 {
