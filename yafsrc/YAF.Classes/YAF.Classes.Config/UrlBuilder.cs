@@ -19,6 +19,7 @@
  */
 using System;
 using System.Web;
+using System.Collections.Specialized;
 
 namespace YAF.Classes
 {
@@ -27,7 +28,7 @@ namespace YAF.Classes
 	/// </summary>
 	public class UrlBuilder : IUrlBuilder
 	{
-		private static string _baseUrl = null;
+        private static StringDictionary _baseUrls = null;
 		private static string _fileRoot = null;
 
 		/// <summary>
@@ -66,49 +67,57 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if ( _baseUrl == null )
+                string baseUrl;
+
+				if ( _baseUrls == null )
 				{
-					try
-					{
-						_baseUrl = ScriptNamePath;
-
-						if ( YAF.Classes.Config.BaseUrl != null )
-						{
-							// use specified root
-							_baseUrl = YAF.Classes.Config.BaseUrl;
-
-							if ( _baseUrl.StartsWith( "~" ) )
-							{
-								// transform with application path...
-								_baseUrl = _baseUrl.Replace( "~", HttpContext.Current.Request.ApplicationPath );
-							}
-
-							if ( _baseUrl.StartsWith( "//" ) )
-							{
-								// remove extra slash
-								_baseUrl = _baseUrl.Substring( 1, _baseUrl.Length - 1 );
-							}
-
-							if ( _baseUrl.EndsWith( "/" ) )
-							{
-								// remove ending slash...
-								_baseUrl = _baseUrl.Substring( 0, _baseUrl.LastIndexOf( '/' ) );
-							}
-						}
-
-						// remove redundant slashes...
-						while ( _baseUrl.Contains( "//" ) )
-						{
-							_baseUrl = _baseUrl.Replace( "//", "/" );
-						}
-					}
-					catch ( Exception )
-					{
-						_baseUrl = HttpContext.Current.Request.ApplicationPath;
-					}
+                    _baseUrls = new StringDictionary();
 				}
 
-				return _baseUrl;
+                try
+                {
+                    // Lookup the BaseUrl based on the current path. 
+                    baseUrl = _baseUrls[HttpContext.Current.Request.FilePath];
+
+                    if (String.IsNullOrEmpty(baseUrl))
+                    {
+                        // Each different filepath (multiboard) will specify a BaseUrl key in their own web.config in their directory.
+                        baseUrl = YAF.Classes.Config.BaseUrlFromWCM;
+
+                        if (baseUrl.StartsWith("~"))
+                        {
+                            // transform with application path...
+                            baseUrl = baseUrl.Replace("~", HttpContext.Current.Request.ApplicationPath);
+                        }
+
+                        if (baseUrl.StartsWith("//"))
+                        {
+                            // remove extra slash
+                            baseUrl = baseUrl.Substring(1, baseUrl.Length - 1);
+                        }
+
+                        if (baseUrl.EndsWith("/"))
+                        {
+                            // remove ending slash...
+                            baseUrl = baseUrl.Substring(0, baseUrl.LastIndexOf('/'));
+                        }
+                    }
+
+                    // remove redundant slashes...
+                    while (baseUrl.Contains("//"))
+                    {
+                        baseUrl = baseUrl.Replace("//", "/");
+                    }
+
+                    // save to cache
+                    _baseUrls[HttpContext.Current.Request.FilePath] = baseUrl;
+                }
+                catch (Exception)
+                {
+                    baseUrl = HttpContext.Current.Request.ApplicationPath;
+                }
+
+                return baseUrl;
 			}
 		}
 
