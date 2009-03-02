@@ -42,7 +42,8 @@ namespace YAF.Providers.Membership
         int _minimumRequiredPasswordLength, _minRequiredNonAlphanumericCharacters;
         int _maxInvalidPasswordAttempts, _passwordAttemptWindow;
         bool _enablePasswordReset, _enablePasswordRetrieval, _requiresQuestionAndAnswer;
-        bool _requiresUniqueEmail, _useSalt, _hashHex, _hashLowerCase, _hashRemoveMinus;
+        bool _requiresUniqueEmail, _useSalt, _hashHex, _msCompliant;
+        string _hashCase, _hashRemoveChars;
         MembershipPasswordFormat _passwordFormat;
 
         // Contants
@@ -90,7 +91,7 @@ namespace YAF.Providers.Membership
         /// <param name="useSalt">Salt to be used in Hash method</param>
         /// <param name="passwordHex">Output as Hex or as Base 64</param>
         /// <returns> Encrypted string</returns>
-        internal static string EncodeString(string clearString, int encFormat, string salt, bool useSalt, bool hashHex, bool hashLowerCase, bool hashRemoveMinus)
+        internal static string EncodeString(string clearString, int encFormat, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool msCompliant)
         {
             string encodedPass = string.Empty;
 
@@ -98,6 +99,7 @@ namespace YAF.Providers.Membership
 
             // Multiple Checks to ensure UseSalt is valid.
             #region UseSalt Checks
+
             if (String.IsNullOrEmpty(clearString)) // Check to ensure string is not null or empty.
                 return String.Empty;
 
@@ -110,6 +112,7 @@ namespace YAF.Providers.Membership
             {
                 useSalt = false; // Cannot use Salt with encryption
             }
+
             #endregion
 
             // Check Encoding format / method
@@ -120,13 +123,13 @@ namespace YAF.Providers.Membership
                     encodedPass = clearString;
                     break;
                 case MembershipPasswordFormat.Hashed:
-                    encodedPass = YafMembershipProvider.Hash(clearString, YafMembershipProvider.HashType(), salt, useSalt, hashHex, hashLowerCase, hashRemoveMinus);
+                    encodedPass = YafMembershipProvider.Hash(clearString, YafMembershipProvider.HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
                     break;
                 case MembershipPasswordFormat.Encrypted:
-                    encodedPass = YafMembershipProvider.Encrypt(clearString, hashHex);
+                    encodedPass = YafMembershipProvider.Encrypt(clearString, salt, msCompliant);
                     break;
                 default:
-                    encodedPass = YafMembershipProvider.Hash(clearString, YafMembershipProvider.HashType(), salt, useSalt, hashHex, hashLowerCase, hashRemoveMinus);
+                    encodedPass = YafMembershipProvider.Hash(clearString, YafMembershipProvider.HashType(), salt, useSalt, hashHex, hashCase, hashRemoveChars, msCompliant);
                     break;
             }
 
@@ -176,7 +179,32 @@ namespace YAF.Providers.Membership
             // MD5, SHA1, SHA256, SHA384, SHA512
             Byte[] hash = HashAlgorithm.Create(hashType).ComputeHash(clearBytes);
             return hash;
-            // return toBaseString(hash);
+        }
+
+        /// <summary>
+        /// Creates a password buffer from salt and password ready for hashing/encrypting
+        /// </summary>
+        /// <param name="salt">Salt to be applied to hashing algorithm</param>
+        ///  <param name="clearString">Clear string to hash</param>
+        /// <param name="standardComp">Use Standard asp.net membership method of creating the buffer</param>
+        /// <returns> Hashed String as Hex or Base64 </returns>
+        public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
+        {
+            byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
+            byte[] saltBytes = Convert.FromBase64String(salt);
+            byte[] buffer = new byte[unencodedBytes.Length + saltBytes.Length];
+
+            if (standardComp) // Compliant with ASP.NET Membership method of hash/salt
+            {
+                Buffer.BlockCopy(saltBytes, 0, buffer, 0, saltBytes.Length);
+                Buffer.BlockCopy(unencodedBytes, 0, buffer, saltBytes.Length, unencodedBytes.Length);
+            }
+            else
+            {
+                System.Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
+                System.Buffer.BlockCopy(saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length);
+            }
+            return buffer;
         }
 
         /// <summary>
@@ -188,21 +216,16 @@ namespace YAF.Providers.Membership
         /// <param name="useSalt">Should salt be applied to hashing algorithm</param>
         /// <param name="passwordHex">Output hashed string as Hex and not Base64</param>
         /// <returns> Hashed String as Hex or Base64 </returns>
-        public static string Hash(string clearString, string hashType, string salt, bool useSalt, bool hashHex, bool hashLowerCase, bool hashRemoveMinus)
+        public static string Hash(string clearString, string hashType, string salt, bool useSalt, bool hashHex, string hashCase, string hashRemoveChars, bool standardComp)
         {
-            byte[] buffer, unencodedBytes;
+            byte[] buffer;
             if (useSalt)
             {
-                unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-                byte[] saltBytes = Encoding.Unicode.GetBytes(Convert.FromBase64String(salt).ToString());
-                buffer = new byte[unencodedBytes.Length + saltBytes.Length];
-                System.Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
-                System.Buffer.BlockCopy(saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length);
-
+                buffer = YafMembershipProvider.GeneratePasswordBuffer(salt, clearString, standardComp);
             }
             else
             {
-                unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
+                byte[] unencodedBytes = Encoding.UTF8.GetBytes(clearString); // UTF8 used to maintain compatibility
                 buffer = new byte[unencodedBytes.Length];
                 System.Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
             }
@@ -220,32 +243,33 @@ namespace YAF.Providers.Membership
                 hashedString = Convert.ToBase64String(hashedBytes);
             }
 
-            if (hashLowerCase)
+            //Adjust the case of the hash output
+            switch (hashCase.ToLower())
             {
-                hashedString = hashedString.ToLower();
+                case "upper":
+                    hashedString = hashedString.ToUpper();
+                    break;
+                case "lower":
+                    hashedString = hashedString.ToLower();
+                    break;
             }
 
-            if (hashRemoveMinus)
+            if (!String.IsNullOrEmpty(hashRemoveChars))
             {
-                hashedString = hashedString.Replace("-", "");
+                foreach (char removeChar in hashRemoveChars)
+                {
+                    hashedString = hashedString.Replace(removeChar.ToString(), "");
+                }
             }
 
             return hashedString;
 
         }
 
-        private static string Encrypt(string clearString, bool passwordHex)
+        private static string Encrypt(string clearString, string saltString, bool standardComp)
         {
-            byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
-            byte[] buffer = new byte[unencodedBytes.Length];
-            System.Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
-
-            if (passwordHex)
-                return CleanUtils.toHexString((new YafMembershipProvider()).EncryptPassword(buffer));
-            else
-                return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
-
-
+            byte[] buffer = YafMembershipProvider.GeneratePasswordBuffer(saltString, clearString, standardComp);
+            return Convert.ToBase64String((new YafMembershipProvider()).EncryptPassword(buffer));
         }
 
         #endregion
@@ -272,6 +296,7 @@ namespace YAF.Providers.Membership
                 if (!(char.IsLetterOrDigit(checkChar)))
                     symbolCount++;
             }
+
             // Check password meets minimum alphanumeric criteria
             if (!(symbolCount >= minNonAlphaNumerics))
                 return false;
@@ -377,14 +402,19 @@ namespace YAF.Providers.Membership
             get { return _hashHex; }
         }
 
-        internal bool HashLowerCase
+        internal bool MSCompliant
         {
-            get { return _hashHex; }
+            get { return _msCompliant; }
         }
 
-        internal bool HashRemoveMinus
+        internal string HashCase
         {
-            get { return _hashRemoveMinus; }
+            get { return _hashCase; }
+        }
+
+        internal string HashRemoveChars
+        {
+            get { return _hashRemoveChars; }
         }
 
         #endregion
@@ -409,7 +439,7 @@ namespace YAF.Providers.Membership
             _minimumRequiredPasswordLength = int.Parse(config["minRequiredPasswordLength"] ?? "6");
 
             // Minimum Required Non Alpha-numeric Characters from Provider configuration
-            _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonalphanumericCharacters"] ?? "1");
+            _minRequiredNonAlphanumericCharacters = int.Parse(config["minRequiredNonAlphanumericCharacters"] ?? "1");
 
             // Maximum number of allowed password attempts
             _maxInvalidPasswordAttempts = int.Parse(config["maxInvalidPasswordAttempts"] ?? "5");
@@ -423,11 +453,14 @@ namespace YAF.Providers.Membership
             // Check whether password hashing should output as Hex instead of Base64
             _hashHex = Utils.Transform.ToBool(config["hashHex"] ?? "false");
 
-            // Check to see if password hex should be in lowercase
-            _hashLowerCase = Utils.Transform.ToBool(config["hashLowerCase"] ?? "false");
+            // Check to see if password hex case should be altered
+            _hashCase = Utils.Transform.ToString(config["hashCase"], "None");
 
-            // Check to see if password should have '-' removed
-            _hashRemoveMinus = Utils.Transform.ToBool(config["hashRemoveMinus"] ?? "false");
+            // Check to see if password should have characters removed
+            _hashRemoveChars = Utils.Transform.ToString(config["hashRemoveChars"] ?? String.Empty);
+
+            // Check to see if password/salt combination needs to asp.net standard membership compliant
+            _msCompliant = Utils.Transform.ToBool(config["msCompliant"] ?? "false");
 
             // Application Name
             _appName = Utils.Transform.ToString(config["applicationName"], "YetAnotherForum");
@@ -482,7 +515,7 @@ namespace YAF.Providers.Membership
             if (!(this.IsPasswordCompliant(newPassword)))
                 return false;
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             // validate the correct user information was found...
             if (currentPasswordInfo == null) return false;
@@ -494,7 +527,7 @@ namespace YAF.Providers.Membership
             // generate a salt if desired...
             if (UseSalt) newPasswordSalt = YafMembershipProvider.GenerateSalt();
             // encode new password
-            newEncPassword = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            newEncPassword = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             // Call SQL Password to Change
             DB.ChangePassword(this.ApplicationName, username, newEncPassword, newPasswordSalt, (int)this.PasswordFormat, currentPasswordInfo.PasswordAnswer);
@@ -519,8 +552,8 @@ namespace YAF.Providers.Membership
             if ((username == null) || (password == null) || (newPasswordQuestion == null) || (newPasswordAnswer == null))
                 throw new ArgumentException("Username, Password, Password Question or Password Answer cannot be null");
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
-            newPasswordAnswer = YafMembershipProvider.EncodeString(newPasswordAnswer, currentPasswordInfo.PasswordFormat, currentPasswordInfo.PasswordSalt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
+            newPasswordAnswer = YafMembershipProvider.EncodeString(newPasswordAnswer, currentPasswordInfo.PasswordFormat, currentPasswordInfo.PasswordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectPassword(password))
             {
@@ -615,9 +648,9 @@ namespace YAF.Providers.Membership
             }
 
             if (UseSalt) salt = YafMembershipProvider.GenerateSalt();
-            pass = YafMembershipProvider.EncodeString(password, (int)this.PasswordFormat, salt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            pass = YafMembershipProvider.EncodeString(password, (int)this.PasswordFormat, salt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
             // Encode Password Answer
-            string encodedPasswordAnswer = YafMembershipProvider.EncodeString(passwordAnswer, (int)this.PasswordFormat, salt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            string encodedPasswordAnswer = YafMembershipProvider.EncodeString(passwordAnswer, (int)this.PasswordFormat, salt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
             // Process database user creation request
             DB.CreateUser(this.ApplicationName, username, pass, salt, (int)this.PasswordFormat, email, passwordQuestion, encodedPasswordAnswer, isApproved, providerUserKey);
 
@@ -761,7 +794,7 @@ namespace YAF.Providers.Membership
             if ((username == null) || (answer == null))
                 ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
 
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             if (currentPasswordInfo != null && currentPasswordInfo.IsCorrectAnswer(answer))
             {
@@ -859,7 +892,7 @@ namespace YAF.Providers.Membership
                 ExceptionReporter.ThrowArgument("MEMBERSHIP", "USERNAMEPASSWORDNULL");
 
             // get an instance of the current password information class
-            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            UserPasswordInfo currentPasswordInfo = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             if (currentPasswordInfo != null)
             {
@@ -883,7 +916,7 @@ namespace YAF.Providers.Membership
                 // create a new password
                 newPassword = YafMembershipProvider.GeneratePassword(this.MinRequiredPasswordLength, this.MinRequiredNonAlphanumericCharacters);
                 // encode it...
-                newPasswordEnc = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+                newPasswordEnc = YafMembershipProvider.EncodeString(newPassword, (int)this.PasswordFormat, newPasswordSalt, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
                 // save to the database
                 DB.ResetPassword(this.ApplicationName, username, newPasswordEnc, newPasswordSalt, (int)this.PasswordFormat, this.MaxInvalidPasswordAttempts, this.PasswordAttemptWindow);
                 // Return unencrypted password
@@ -953,7 +986,7 @@ namespace YAF.Providers.Membership
         /// /// <returns>True/False whether username/password match what is on database.</returns>
         public override bool ValidateUser(string username, string password)
         {
-            UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus);
+            UserPasswordInfo currentUser = UserPasswordInfo.CreateInstanceFromDB(this.ApplicationName, username, false, this.UseSalt, this.HashHex, this.HashCase, this.HashRemoveChars, this.MSCompliant);
 
             if (currentUser != null && currentUser.IsApproved)
             {
