@@ -28,7 +28,7 @@ namespace YAF.Providers.Membership
 		// Instance Variables
 		string _password, _passwordSalt, _passwordQuestion, _passwordAnswer;
 		int _passwordFormat, _failedPasswordAttempts, _failedAnswerAttempts;
-		bool _isApproved, _useSalt, _passwordHex;
+		bool _isApproved, _useSalt, _hashHex, _hashLowerCase, _hashRemoveMinus;
 		DateTime _lastLogin, _lastActivity;
 
 		/// <summary>
@@ -47,7 +47,7 @@ namespace YAF.Providers.Membership
 		/// <param name="lastActivity"></param>
 		public UserPasswordInfo( string password, string passwordSalt, string passwordQuestion, string passwordAnswer,
 														int passwordFormat, int failedPasswordAttempts, int failedAnswerAttempts,
-														bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool passwordHex )
+														bool isApproved, bool useSalt, DateTime lastLogin, DateTime lastActivity, bool hashHex, bool hashLowerCase, bool hashRemoveMinus)
 		{
 			// nothing to do except set the local variables...
 			_password = password;
@@ -61,11 +61,13 @@ namespace YAF.Providers.Membership
 			_lastLogin = lastLogin;
 			_lastActivity = lastActivity;
 			_useSalt = useSalt;
-            _passwordHex = passwordHex;
+            _hashHex = hashHex;
+            _hashLowerCase = hashLowerCase;
+            _hashRemoveMinus = hashRemoveMinus;
 		}
 
 		// used to create an instance of this class from the DB...
-		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt, bool passwordHex )
+		public static UserPasswordInfo CreateInstanceFromDB( string appName, string username, bool updateUser, bool useSalt, bool hashHex, bool hashLowerCase, bool hashRemoveMinus )
 		{
 			DataTable userData = DB.GetUserPasswordInfo( appName, username, updateUser );
 
@@ -75,7 +77,7 @@ namespace YAF.Providers.Membership
 				// create a new instance of the UserPasswordInfo class
 				return new UserPasswordInfo( Utils.Transform.ToString( userInfo ["Password"] ), Utils.Transform.ToString( userInfo ["PasswordSalt"] ), Utils.Transform.ToString( userInfo ["PasswordQuestion"] ), Utils.Transform.ToString( userInfo ["PasswordAnswer"] ),
 																		Utils.Transform.ToInt( userInfo ["PasswordFormat"] ), Utils.Transform.ToInt( userInfo ["FailedPasswordAttempts"] ), Utils.Transform.ToInt( userInfo ["FailedAnswerAttempts"] ),
-																		Utils.Transform.ToBool( userInfo ["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo ["LastLogin"] ), Utils.Transform.ToDateTime( userInfo ["LastActivity"] ), passwordHex );
+																		Utils.Transform.ToBool( userInfo ["IsApproved"] ), useSalt, Utils.Transform.ToDateTime( userInfo ["LastLogin"] ), Utils.Transform.ToDateTime( userInfo ["LastActivity"] ), hashHex, hashLowerCase, hashRemoveMinus );
 			}
 
 			// nothing found, return null.
@@ -89,7 +91,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectPassword( string passwordToCheck )
 		{
-			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.PasswordHex ) );
+			return this.Password.Equals( YafMembershipProvider.EncodeString( passwordToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus) );
 		}
 
 		/// <summary>
@@ -99,7 +101,7 @@ namespace YAF.Providers.Membership
 		/// <returns></returns>
 		public bool IsCorrectAnswer( string answerToCheck )
 		{
-			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.PasswordHex ) ) );
+			return this.PasswordAnswer.Equals( ( YafMembershipProvider.EncodeString( answerToCheck, this.PasswordFormat, this.PasswordSalt, this.UseSalt, this.HashHex, this.HashLowerCase, this.HashRemoveMinus ) ) );
 		}
 
 		public string Password
@@ -157,9 +159,20 @@ namespace YAF.Providers.Membership
 			get { return _useSalt; }
 		}
 
-        public Boolean PasswordHex
+        public Boolean HashHex
         {
-            get { return _passwordHex; }
+            get { return _hashHex; }
         }
+
+        public Boolean HashLowerCase
+        {
+            get { return _hashLowerCase; }
+        }
+
+        public Boolean HashRemoveMinus
+        {
+            get { return _hashRemoveMinus; }
+        }
+
 	}
 }
