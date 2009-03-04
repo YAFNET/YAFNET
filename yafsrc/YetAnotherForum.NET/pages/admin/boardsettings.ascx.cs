@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
 
 			DataBind();
 			Name.Text = ( string ) row ["Name"];
-			AllowThreaded.Checked = ( bool ) row ["AllowThreaded"];
+			AllowThreaded.Checked = SqlDataLayerConverter.VerifyBool(row ["AllowThreaded"]);
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )

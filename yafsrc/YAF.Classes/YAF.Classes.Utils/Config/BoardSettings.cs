@@ -116,7 +116,7 @@ namespace YAF.Classes.Utils
 		}
 		public bool AllowThreaded
 		{
-			get { return Convert.ToBoolean( _board ["AllowThreaded"].ToString() ); }
+			get { return SqlDataLayerConverter.VerifyBool( _board ["AllowThreaded"].ToString() ); }
 		}
 		public bool AllowThemedLogo
 		{
@@ -705,7 +705,7 @@ namespace YAF.Classes.Utils
 		public int GetValueInt( string name, int defaultValue )
 		{
 			if ( this [name.ToLower()] == null ) return defaultValue;
-			return Convert.ToInt32( this [name.ToLower()] );
+            return SqlDataLayerConverter.VerifyInt32(this[name.ToLower()]);
 		}
 		public void SetValueInt( string name, int value )
 		{
@@ -717,8 +717,8 @@ namespace YAF.Classes.Utils
 
 			int i;
 			if (int.TryParse(this[name.ToLower()].ToString(), out i))
-				return Convert.ToBoolean(i);
-			else return Convert.ToBoolean(this[name.ToLower()] );
+                return SqlDataLayerConverter.VerifyBool(i);
+            else return SqlDataLayerConverter.VerifyBool(this[name.ToLower()]);
 		}
 		public void SetValueBool( string name, bool value )
 		{

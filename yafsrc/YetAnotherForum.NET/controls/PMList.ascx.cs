@@ -180,7 +180,7 @@ namespace YAF.Controls
 
 		protected string GetImage( object o )
 		{
-			if ( ( bool ) ( ( DataRowView ) o ) ["IsRead"] )
+			if (SqlDataLayerConverter.VerifyBool( ( ( DataRowView ) o ) ["IsRead"] ))
 				return PageContext.Theme.GetItem( "ICONS", "TOPIC" );
 			else
 				return PageContext.Theme.GetItem( "ICONS", "TOPIC_NEW" );

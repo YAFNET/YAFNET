@@ -182,7 +182,7 @@ namespace YAF.Controls
 		protected string GetViewing( object o )
 		{
 			DataRow row = ( DataRow ) o;
-			int nViewing = ( int ) row ["Viewing"];
+            int nViewing = SqlDataLayerConverter.VerifyInt32(row["Viewing"]);
 			if ( nViewing > 0 )
 				return "&nbsp;" + String.Format( PageContext.Localization.GetText( "VIEWING" ), nViewing );
 			else

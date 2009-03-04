@@ -28,102 +28,102 @@ using System.Data.SqlClient;
 
 namespace YAF.Classes.Data
 {
-  /// <summary>
-  /// Provides open/close management for DB Connections
-  /// </summary>
-  public class YafDBConnManager : IDisposable
-  {
-    public event System.Data.SqlClient.SqlInfoMessageEventHandler DBAccess_InfoMessage;
-    private SqlConnection _connection = null;
-     
-    public YafDBConnManager()
-    {
-      DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler(DBConnection_InfoMessage); 
-      // just initalize it (not open)
-      InitConnection();
-    }   
-         
-     void DBConnection_InfoMessage(object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e)
-    {
-        string ff = "\r\n" + e.Message;
-    }
+	/// <summary>
+	/// Provides open/close management for DB Connections
+	/// </summary>
+	public class YafDBConnManager : IDisposable
+	{
+		public event System.Data.SqlClient.SqlInfoMessageEventHandler DBAccess_InfoMessage;
+		private SqlConnection _connection = null;
 
-    public void InitConnection()
-    {
-      
-      if ( _connection == null )
-      {
-         
-        // create the connection
-        _connection = new SqlConnection();
-        _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
-      }
-      else if ( _connection.State != ConnectionState.Open )
-      {
-        // verify the connection string is in there...
-        _connection.ConnectionString = YAF.Classes.Config.ConnectionString;
-      }
-      
-    }
+		public YafDBConnManager()
+		{
+			DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler( DBConnection_InfoMessage );
+			// just initalize it (not open)
+			InitConnection();
+		}
 
-    public void CloseConnection()
-    {
-      if ( _connection != null && _connection.State != ConnectionState.Closed )
-      {
-        _connection.Close();
-      }
-    }
+		void DBConnection_InfoMessage( object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e )
+		{
+			string ff = "\r\n" + e.Message;
+		}
 
-    /// <summary>
-    /// Gets the current DB Connection in any state.
-    /// </summary>
-    public SqlConnection DBConnection
-    {
-      get
-      {
-        InitConnection();       
-        return _connection;
-      }
-    }
+		public void InitConnection()
+		{
 
-    /// <summary>
-    /// Gets an open connection to the DB. Can be called any number of times.
-    /// </summary>
-    public SqlConnection OpenDBConnection
-    {
-      get
-      {
-        InitConnection();
+			if ( _connection == null )
+			{
 
-        if ( _connection.State != ConnectionState.Open )
-        {
-          // open it up...
-          _connection.Open();
-        }
+				// create the connection
+				_connection = new SqlConnection();
+				_connection.ConnectionString = YAF.Classes.Config.ConnectionString;
+			}
+			else if ( _connection.State != ConnectionState.Open )
+			{
+				// verify the connection string is in there...
+				_connection.ConnectionString = YAF.Classes.Config.ConnectionString;
+			}
 
-        return _connection;
-      }
-    }
+		}
 
-    #region IDisposable Members
+		public void CloseConnection()
+		{
+			if ( _connection != null && _connection.State != ConnectionState.Closed )
+			{
+				_connection.Close();
+			}
+		}
 
-    public void Dispose()
-    {
-      // close and delete connection
-      CloseConnection();
-      _connection = null;
-    }
+		/// <summary>
+		/// Gets the current DB Connection in any state.
+		/// </summary>
+		public SqlConnection DBConnection
+		{
+			get
+			{
+				InitConnection();
+				return _connection;
+			}
+		}
 
-    #endregion
-  }
+		/// <summary>
+		/// Gets an open connection to the DB. Can be called any number of times.
+		/// </summary>
+		public SqlConnection OpenDBConnection
+		{
+			get
+			{
+				InitConnection();
+
+				if ( _connection.State != ConnectionState.Open )
+				{
+					// open it up...
+					_connection.Open();
+				}
+
+				return _connection;
+			}
+		}
+
+		#region IDisposable Members
+
+		public void Dispose()
+		{
+			// close and delete connection
+			CloseConnection();
+			_connection = null;
+		}
+
+		#endregion
+	}
 
 	public static class DBAccess
 	{
 		/* Ederon : 6/16/2007 - conventions */
-        private const IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
+		private const IsolationLevel _isolationLevel = IsolationLevel.ReadUncommitted;
 		private static string _dbOwner;
 		private static string _objectQualifier;
-        
+
 		static public IsolationLevel IsolationLevel
 		{
 			get
@@ -136,7 +136,7 @@ namespace YAF.Classes.Data
 		{
 			get
 			{
-				if (_dbOwner == null)
+				if ( _dbOwner == null )
 				{
 					_dbOwner = Config.GetConfigValueAsString( "YAF.DatabaseOwner" );
 				}
@@ -149,7 +149,7 @@ namespace YAF.Classes.Data
 		{
 			get
 			{
-				if (_objectQualifier == null)
+				if ( _objectQualifier == null )
 				{
 					_objectQualifier = Config.GetConfigValueAsString( "YAF.DatabaseObjectQualifier" );
 				}
@@ -165,10 +165,10 @@ namespace YAF.Classes.Data
 		/// <param name="commandText">Command text to qualify.</param>
 		/// <param name="isText">Determines whether command text is text or stored procedure.</param>
 		/// <returns>New SqlCommand</returns>
-		static public SqlCommand GetCommand(string commandText, bool isText)
+		static public SqlCommand GetCommand( string commandText, bool isText )
 		{
-           
-			return GetCommand(commandText, isText, null);
+
+			return GetCommand( commandText, isText, null );
 		}
 		/// <summary>
 		/// Creates new SqlCommand based on command text applying all qualifiers to the name.
@@ -177,12 +177,12 @@ namespace YAF.Classes.Data
 		/// <param name="isText">Determines whether command text is text or stored procedure.</param>
 		/// <param name="connection">Connection to use with command.</param>
 		/// <returns>New SqlCommand</returns>
-		static public SqlCommand GetCommand(string commandText, bool isText, SqlConnection connection)
+		static public SqlCommand GetCommand( string commandText, bool isText, SqlConnection connection )
 		{
-			if (isText)
+			if ( isText )
 			{
-				commandText = commandText.Replace("{databaseOwner}", DatabaseOwner);
-				commandText = commandText.Replace("{objectQualifier}", ObjectQualifier);
+				commandText = commandText.Replace( "{databaseOwner}", DatabaseOwner );
+				commandText = commandText.Replace( "{objectQualifier}", ObjectQualifier );
 
 				SqlCommand cmd = new SqlCommand();
 
@@ -194,7 +194,7 @@ namespace YAF.Classes.Data
 			}
 			else
 			{
-				return GetCommand(commandText);
+				return GetCommand( commandText );
 			}
 		}
 		/// <summary>
@@ -202,9 +202,9 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="storedProcedure">Base of stored procedure name.</param>
 		/// <returns>New SqlCommand</returns>
-		static public SqlCommand GetCommand(string storedProcedure)
+		static public SqlCommand GetCommand( string storedProcedure )
 		{
-			return GetCommand(storedProcedure, null);
+			return GetCommand( storedProcedure, null );
 		}
 		/// <summary>
 		/// Creates new SqlCommand calling stored procedure applying all qualifiers to the name.
@@ -212,12 +212,12 @@ namespace YAF.Classes.Data
 		/// <param name="storedProcedure">Base of stored procedure name.</param>
 		/// <param name="connection">Connection to use with command.</param>
 		/// <returns>New SqlCommand</returns>
-		static public SqlCommand GetCommand(string storedProcedure, SqlConnection connection)
+		static public SqlCommand GetCommand( string storedProcedure, SqlConnection connection )
 		{
 			SqlCommand cmd = new SqlCommand();
 
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = GetObjectName(storedProcedure);
+			cmd.CommandText = GetObjectName( storedProcedure );
 			cmd.Connection = connection;
 
 			return cmd;
@@ -228,7 +228,7 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="name">Base name of an object</param>
 		/// <returns>Returns qualified object name of format {databaseOwner}.{objectQualifier}name</returns>
-		static public string GetObjectName(string name)
+		static public string GetObjectName( string name )
 		{
 			return String.Format(
 							"[{0}].[{1}{2}]",
@@ -244,9 +244,9 @@ namespace YAF.Classes.Data
 		/// <param name="cmd">The SQL Command</param>
 		/// <returns>Dataset with the results</returns>
 		/// <remarks>Without transaction.</remarks>
-		static public DataSet GetDataset(SqlCommand cmd)
+		static public DataSet GetDataset( SqlCommand cmd )
 		{
-			return GetDataset(cmd, false);
+			return GetDataset( cmd, false );
 		}
 		static public DataSet GetDataset( SqlCommand cmd, bool transaction )
 		{
@@ -268,7 +268,7 @@ namespace YAF.Classes.Data
 		/// <param name="cmd"></param>
 		/// <param name="transaction"></param>
 		/// <returns></returns>
-		static public DataSet GetDatasetBasic( SqlCommand cmd, bool transaction)
+		static public DataSet GetDatasetBasic( SqlCommand cmd, bool transaction )
 		{
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
@@ -324,13 +324,13 @@ namespace YAF.Classes.Data
 		/// <param name="cmd">The SQL Command</param>
 		/// <returns>DataTable with the results</returns>
 		/// <remarks>Without transaction.</remarks>
-		static public DataTable GetData(SqlCommand cmd)
+		static public DataTable GetData( SqlCommand cmd )
 		{
-			return GetData(cmd, false);
+			return GetData( cmd, false );
 		}
-		static public DataTable GetData(SqlCommand cmd, bool transaction)
+		static public DataTable GetData( SqlCommand cmd, bool transaction )
 		{
-			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			QueryCounter qc = new QueryCounter( cmd.CommandText );
 
 			try
 			{
@@ -348,13 +348,13 @@ namespace YAF.Classes.Data
 		/// <param name="commandText">command text to be executed</param>
 		/// <returns>DataTable with results</returns>
 		/// <remarks>Without transaction.</remarks>
-		static public DataTable GetData(string commandText)
+		static public DataTable GetData( string commandText )
 		{
-			return GetData(commandText, false);
+			return GetData( commandText, false );
 		}
-		static public DataTable GetData(string commandText, bool transaction)
+		static public DataTable GetData( string commandText, bool transaction )
 		{
-			QueryCounter qc = new QueryCounter(commandText);
+			QueryCounter qc = new QueryCounter( commandText );
 			try
 			{
 				using ( SqlCommand cmd = new SqlCommand() )
@@ -375,25 +375,25 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="cmd">NonQuery to execute</param>
 		/// <remarks>Without transaction</remarks>
-		static public void ExecuteNonQuery(SqlCommand cmd)
+		static public void ExecuteNonQuery( SqlCommand cmd )
 		{
 			// defaults to using a transaction for non-queries
-			ExecuteNonQuery(cmd, true);
+			ExecuteNonQuery( cmd, true );
 		}
-		static public void ExecuteNonQuery(SqlCommand cmd, bool transaction)
+		static public void ExecuteNonQuery( SqlCommand cmd, bool transaction )
 		{
-			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-				using (YafDBConnManager connMan = new YafDBConnManager())
+				using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
 					// get an open connection
 					cmd.Connection = connMan.OpenDBConnection;
 
-					if (transaction)
+					if ( transaction )
 					{
 						// execute using a transaction
-						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+						using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 						{
 							cmd.Transaction = trans;
 							cmd.ExecuteNonQuery();
@@ -401,7 +401,7 @@ namespace YAF.Classes.Data
 						}
 					}
 					else
-					{	
+					{
 						// don't use a transaction
 						cmd.ExecuteNonQuery();
 					}
@@ -414,25 +414,25 @@ namespace YAF.Classes.Data
 		}
 
 
-		static public object ExecuteScalar(SqlCommand cmd)
+		static public object ExecuteScalar( SqlCommand cmd )
 		{
 			// default to using a transaction for scaler commands
-			return ExecuteScalar(cmd, true);
+			return ExecuteScalar( cmd, true );
 		}
-		static public object ExecuteScalar(SqlCommand cmd, bool transaction)
+		static public object ExecuteScalar( SqlCommand cmd, bool transaction )
 		{
-			QueryCounter qc = new QueryCounter(cmd.CommandText);
+			QueryCounter qc = new QueryCounter( cmd.CommandText );
 			try
 			{
-				using (YafDBConnManager connMan = new YafDBConnManager())
+				using ( YafDBConnManager connMan = new YafDBConnManager() )
 				{
 					// get an open connection
 					cmd.Connection = connMan.OpenDBConnection;
 
-					if (transaction)
+					if ( transaction )
 					{
 						// get scalar using a transaction
-						using (SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction(_isolationLevel))
+						using ( SqlTransaction trans = connMan.OpenDBConnection.BeginTransaction( _isolationLevel ) )
 						{
 							cmd.Transaction = trans;
 							object results = cmd.ExecuteScalar();
@@ -452,8 +452,8 @@ namespace YAF.Classes.Data
 				qc.Dispose();
 			}
 		}
-                   
-        
+
+
 
 	}
 
@@ -497,6 +497,18 @@ namespace YAF.Classes.Data
 		{
 			if ( _dbRow [columnName] == DBNull.Value ) return null;
 			return Convert.ToInt64( _dbRow [columnName] );
+		}
+	}
+
+	public static class SqlDataLayerConverter
+	{
+		public static int VerifyInt32( object o )
+		{
+			return Convert.ToInt32( o );
+		}
+		public static bool VerifyBool( object o )
+		{
+			return Convert.ToBoolean( o );
 		}
 	}
 }

@@ -104,8 +104,8 @@ namespace YAF.Pages // YAF.Pages
 			PageLinks.AddLink( userData.Membership.UserName, "" );
 
 			double dAllPosts = 0.0;
-			if ( ( int )userData.DBRow ["NumPostsForum"] > 0 )
-				dAllPosts = 100.0 * ( int )userData.DBRow ["NumPosts"] / ( int )userData.DBRow ["NumPostsForum"];
+            if (SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]) > 0)
+                dAllPosts = 100.0 * SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) / SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPostsForum"]);
 
 			Stats.InnerHtml = String.Format( "{0:N0}<br/>[{1} / {2}]",
 				userData.DBRow ["NumPosts"],

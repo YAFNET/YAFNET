@@ -449,7 +449,7 @@ namespace YAF.Classes.Utils
 		/* Ederon : 9/12/2007 */
 		static public bool BinaryAnd( object value, object checkAgainst )
 		{
-			return BinaryAnd( ( int )value, ( int )checkAgainst );
+            return BinaryAnd(SqlDataLayerConverter.VerifyInt32(value), SqlDataLayerConverter.VerifyInt32(checkAgainst));
 		}
 		static public bool BinaryAnd( int value, int checkAgainst )
 		{

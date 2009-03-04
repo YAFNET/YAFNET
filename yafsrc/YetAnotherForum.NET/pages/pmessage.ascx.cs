@@ -292,7 +292,7 @@ namespace YAF.Pages
 							PageContext.AddLoadMessage( String.Format( GetText( "NO_SUCH_USER" ), recipients [i] ) );
 							return;
 						}
-						else if ( ( int )dt.Rows [0] ["IsGuest"] > 0 )
+                        else if (SqlDataLayerConverter.VerifyInt32(dt.Rows [0] ["IsGuest"]) > 0 )						
 						{
 							PageContext.AddLoadMessage( GetText( "NOT_GUEST" ) );
 							return;

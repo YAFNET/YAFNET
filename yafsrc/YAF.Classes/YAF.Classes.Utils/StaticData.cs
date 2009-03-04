@@ -41,8 +41,18 @@ namespace YAF.Classes.Utils
 
 				foreach ( XmlNode node in timezones )
 				{
-					// calculate hours...
-					decimal hours = Convert.ToDecimal( node.Attributes["tag"].Value.Replace( "GMT", "" ) );
+					// calculate hours -- can use prefix of either UTC or GMT...
+					decimal hours = 0;
+					
+					try
+					{
+						hours = Convert.ToDecimal( node.Attributes ["tag"].Value.Replace( "UTC", "" ).Replace( "GMT", "" ) );
+					}
+					catch ( FormatException ex )
+					{
+						hours = Convert.ToDecimal( node.Attributes ["tag"].Value.Replace( ".", "," ).Replace( "UTC", "" ).Replace( "GMT", "" ) );
+					}
+					
 					dt.Rows.Add( new object [] { hours * 60, node.InnerText } );
 				}
 

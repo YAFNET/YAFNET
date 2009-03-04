@@ -139,9 +139,9 @@ namespace YAF.Pages.Admin
 			BoardStart.Text = String.Format( "{0:d} ({1:N0} days ago)", row ["BoardStart"], days );
 
 			if ( days < 1 ) days = 1;
-			DayPosts.Text = String.Format( "{0:N2}", ( int ) row ["NumPosts"] / days );
-			DayTopics.Text = String.Format( "{0:N2}", ( int ) row ["NumTopics"] / days );
-			DayUsers.Text = String.Format( "{0:N2}", ( int ) row ["NumUsers"] / days );
+            DayPosts.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumPosts"]) / days);
+            DayTopics.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumTopics"]) / days);
+            DayUsers.Text = String.Format("{0:N2}", SqlDataLayerConverter.VerifyInt32(row["NumUsers"]) / days);
 
 			DBSize.Text = String.Format( "{0} MB", DB.DBSize );
 		}
