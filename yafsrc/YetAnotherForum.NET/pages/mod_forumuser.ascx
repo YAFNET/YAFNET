@@ -14,7 +14,7 @@
 		<td class="post" width="50%">
 			<asp:TextBox runat="server" ID="UserName" /><asp:DropDownList runat="server" ID="ToList"
 				Visible="false" />
-			<asp:Button runat="server" ID="FindUsers" /></td>
+			<asp:Button runat="server" ID="FindUsers" OnClick="FindUsers_Click" /></td>
 	</tr>
 	<tr>
 		<td class="postheader">
@@ -25,8 +25,8 @@
 	</tr>
 	<tr class="footer1">
 		<td colspan="2" align="center">
-			<asp:Button runat="server" ID="Update" />
-			<asp:Button runat="server" ID="Cancel" />
+			<asp:Button runat="server" ID="Update" OnClick="Update_Click" />
+			<asp:Button runat="server" ID="Cancel" OnClick="Cancel_Click" />
 		</td>
 	</tr>
 </table>

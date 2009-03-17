@@ -33,44 +33,84 @@ using YAF.Classes.Data;
 namespace YAF.Pages // YAF.Pages
 {
 	/// <summary>
-	/// Summary description for moderate.
+	/// Control handling user invitations to forum (i.e. granting permissions by admin/moderator).
 	/// </summary>
 	public partial class mod_forumuser : YAF.Classes.Base.ForumPage
 	{
+		/* Construction & Destruction */
+		#region Constructors
 
-		public mod_forumuser() : base("MOD_FORUMUSER")
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		public mod_forumuser() : base("MOD_FORUMUSER") { }
+
+		#endregion
+
+
+		/* Overriden Base Methods */
+		#region MyRegion
+
+		/// <summary>
+		/// Creates page links for this page.
+		/// </summary>
+		protected override void CreatePageLinks()
 		{
+			if (PageContext.Settings.LockedForum == 0)
+			{
+				// forum index
+				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
+				// category
+				PageLinks.AddLink(PageContext.PageCategoryName, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum, "c={0}", PageContext.PageCategoryID));
+			}
+			// forum page
+			PageLinks.AddForumLinks(PageContext.PageForumID);
+			// currect page
+			PageLinks.AddLink(GetText("TITLE"), "");
 		}
 
+		#endregion
+
+
+		/* Event Handlers */
+		#region Page Events
+
+		/// <summary>
+		/// Handles page load event.
+		/// </summary>
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			if(!PageContext.ForumModeratorAccess)
+			// only moderators/admins are allowed in
+			if (!PageContext.ForumModeratorAccess)
 				YafBuildLink.AccessDenied();
 
-			if(!IsPostBack) 
+			// do not repeat on postbact
+			if (!IsPostBack)
 			{
+				// create page links
+				CreatePageLinks();
+
+				// load localized texts for buttons
 				FindUsers.Text = GetText("FIND");
 				Update.Text = GetText("UPDATE");
 				Cancel.Text = GetText("CANCEL");
 
-				if(PageContext.Settings.LockedForum==0)
+				// bind data
+				DataBind();
+
+				// if there is concrete user being handled
+				if (Request.QueryString["u"] != null)
 				{
-					PageLinks.AddLink(PageContext.BoardSettings.Name,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum));
-					PageLinks.AddLink(PageContext.PageCategoryName,YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum,"c={0}",PageContext.PageCategoryID));
-				}
-				PageLinks.AddForumLinks(PageContext.PageForumID);
-				PageLinks.AddLink(GetText("TITLE"),"");
-			
-				BindData();
-				if(Request.QueryString["u"]!=null) 
-				{
-					using(DataTable dt = YAF.Classes.Data.DB.userforum_list(Request.QueryString["u"],PageContext.PageForumID)) 
+					using (DataTable dt = YAF.Classes.Data.DB.userforum_list(Request.QueryString["u"], PageContext.PageForumID))
 					{
-						foreach(DataRow row in dt.Rows) 
+						foreach (DataRow row in dt.Rows)
 						{
+							// set username and disable its editing
 							UserName.Text = row["Name"].ToString();
 							UserName.Enabled = false;
+							// we don't need to find users now
 							FindUsers.Visible = false;
+							// get access mask for this user
 							AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
 						}
 					}
@@ -78,22 +118,25 @@ namespace YAF.Pages // YAF.Pages
 			}
 		}
 
-		private void BindData() 
-		{
-			AccessMaskID.DataSource = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID,null);
-			AccessMaskID.DataValueField = "AccessMaskID";
-			AccessMaskID.DataTextField = "Name";
-			DataBind();
-		}
+		#endregion
 
-		private void FindUsers_Click(object sender, System.EventArgs e) 
-		{
-			if(UserName.Text.Length<2) return;
+		#region Button Click Events
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID,true,UserName.Text,null)) 
+		/// <summary>
+		/// Handles FindUsers button click event.
+		/// </summary>
+		protected void FindUsers_Click(object sender, System.EventArgs e)
+		{
+			// we need at least two characters to search user by
+			if (UserName.Text.Length < 2) return;
+
+			// get found users
+			using (DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID, true, UserName.Text, null))
 			{
-				if(dt.Rows.Count>0) 
+				// have we found anyone?
+				if (dt.Rows.Count > 0)
 				{
+					// set and enable user dropdown, disable text box
 					ToList.DataSource = dt;
 					ToList.DataValueField = "UserID";
 					ToList.DataTextField = "Name";
@@ -101,67 +144,96 @@ namespace YAF.Pages // YAF.Pages
 					ToList.Visible = true;
 					UserName.Visible = false;
 					FindUsers.Visible = false;
-				} 
-				DataBind();
+				}
+				// bind data (is this necessary?)
+				base.DataBind();
 			}
 		}
 
-		private void Update_Click(object sender, System.EventArgs e) 
+		/// <summary>
+		/// Handles click event of Update button.
+		/// </summary>
+		protected void Update_Click(object sender, System.EventArgs e)
 		{
-			if(UserName.Text.Length<=0) 
+			// no user was specified
+			if (UserName.Text.Length <= 0)
 			{
-				PageContext.AddLoadMessage( GetText( "NO_SUCH_USER" ) );
+				PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
 				return;
 			}
-			if(ToList.Visible)
+
+			// if we choose user from drop down, set selected value to text box
+			if (ToList.Visible)
 				UserName.Text = ToList.SelectedItem.Text;
 
-			using(DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID,false,UserName.Text,null)) 
+			// we need to verify user exists
+			using (DataTable dt = YAF.Classes.Data.DB.user_find(PageContext.PageBoardID, false, UserName.Text, null))
 			{
-				if(dt.Rows.Count!=1) 
+				// there is no such user or reference is ambiugous
+				if (dt.Rows.Count != 1)
 				{
 					PageContext.AddLoadMessage(GetText("NO_SUCH_USER"));
 					return;
 				}
-                else if (SqlDataLayerConverter.VerifyInt32(dt.Rows[0]["IsGuest"]) > 0) 
+				// we cannot use guest user here
+				else if (SqlDataLayerConverter.VerifyInt32(dt.Rows[0]["IsGuest"]) > 0)
 				{
 					PageContext.AddLoadMessage(GetText("NOT_GUEST"));
-					return;	
+					return;
 				}
 
-				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"],PageContext.PageForumID,AccessMaskID.SelectedValue);
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate,"f={0}",PageContext.PageForumID);
+				// save permission
+				YAF.Classes.Data.DB.userforum_save(dt.Rows[0]["UserID"], PageContext.PageForumID, AccessMaskID.SelectedValue);
+				// redirect to forum moderation page
+				YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID);
 
 				// clear moderatorss cache
 				YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
 			}
 		}
-		
-		private void Cancel_Click(object sender, System.EventArgs e) 
+
+		/// <summary>
+		/// Handles click event of cancel button.
+		/// </summary>
+		protected void Cancel_Click(object sender, System.EventArgs e)
 		{
-			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.moderate,"f={0}",PageContext.PageForumID);
+			// redirect to forum moderation page
+			YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.moderate, "f={0}", PageContext.PageForumID);
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
+		#endregion
+
+
+		/* Data Bidining & Formatting */
+		#region Data Bidining
+
+		public override void DataBind()
 		{
-			FindUsers.Click += new EventHandler(FindUsers_Click);
-			Update.Click += new EventHandler(Update_Click);
-			Cancel.Click += new EventHandler(Cancel_Click);
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
+			// load data
+			DataTable dt;
+			
+			// only admin can assign all access masks
+			if (!PageContext.IsAdmin)
+			{
+				// do not include access masks with this flags set
+				int flags = (int)AccessFlags.Flags.ModeratorAccess;
+
+				// non-admins cannot assign moderation access masks
+				dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, null, flags);
+			}
+			else
+			{
+				dt = YAF.Classes.Data.DB.accessmask_list(PageContext.PageBoardID, null);
+			}
+
+			// setup datasource for access masks dropdown
+			AccessMaskID.DataSource = dt;
+			AccessMaskID.DataValueField = "AccessMaskID";
+			AccessMaskID.DataTextField = "Name";
+
+			base.DataBind();
 		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-		}
+
 		#endregion
 
 	}

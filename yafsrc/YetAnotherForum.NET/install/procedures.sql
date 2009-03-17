@@ -862,7 +862,7 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}accessmask_list](@BoardID int,@AccessMaskID int=null) as
+create procedure [{databaseOwner}].[{objectQualifier}accessmask_list](@BoardID int,@AccessMaskID int=null,@ExcludeFlags int = 0) as
 begin
 	if @AccessMaskID is null
 		select 
@@ -870,7 +870,8 @@ begin
 		from 
 			[{databaseOwner}].[{objectQualifier}AccessMask] a 
 		where
-			a.BoardID = @BoardID
+			a.BoardID = @BoardID and
+			(a.Flags & @ExcludeFlags) = 0
 		order by 
 			a.Name
 	else

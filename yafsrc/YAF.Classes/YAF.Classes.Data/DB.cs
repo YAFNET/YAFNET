@@ -368,14 +368,26 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of Board</param>
 		/// <param name="accessMaskID">ID of access mask</param>
 		/// <returns></returns>
-		static public DataTable accessmask_list( object boardID, object accessMaskID )
+		static public DataTable accessmask_list(object boardID, object accessMaskID)
+		{
+			return accessmask_list(boardID, accessMaskID, 0);
+		}
+		/// <summary>
+		/// Gets a list of access mask properities
+		/// </summary>
+		/// <param name="boardID">ID of Board</param>
+		/// <param name="accessMaskID">ID of access mask</param>
+		/// <param name="excludeFlags">Ommit access masks with this flags set.</param>
+		/// <returns></returns>
+		static public DataTable accessmask_list( object boardID, object accessMaskID, object excludeFlags )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "accessmask_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				return DBAccess.GetData( cmd );
+				cmd.Parameters.AddWithValue( "ExcludeFlags", excludeFlags);
+				return DBAccess.GetData(cmd);
 			}
 		}
 		/// <summary>
