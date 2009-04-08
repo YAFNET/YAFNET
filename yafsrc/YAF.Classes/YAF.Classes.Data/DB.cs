@@ -1400,67 +1400,6 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static private void forum_list_sort_basic( DataTable listsource, DataTable list, int parentid, int currentLvl )
-		{
-			for ( int i = 0; i < listsource.Rows.Count; i++ )
-			{
-				DataRow row = listsource.Rows [i];
-				if ( ( row ["ParentID"] ) == DBNull.Value )
-					row ["ParentID"] = 0;
-
-				if ( ( int )row ["ParentID"] == parentid )
-				{
-					string sIndent = "";
-					int iIndent = Convert.ToInt32( currentLvl );
-					for ( int j = 0; j < iIndent; j++ ) sIndent += "--";
-					row ["Name"] = string.Format( " -{0} {1}", sIndent, row ["Name"] );
-					list.Rows.Add( row.ItemArray );
-					forum_list_sort_basic( listsource, list, ( int )row ["ForumID"], currentLvl + 1 );
-				}
-			}
-		}
-
-		static private void forum_sort_list_recursive( DataTable listSource, DataTable listDestination, int parentID, int categoryID, int currentIndent )
-		{
-			DataRow newRow;
-
-			foreach ( DataRow row in listSource.Rows )
-			{
-				// see if this is a root-forum
-				if ( row ["ParentID"] == DBNull.Value )
-					row ["ParentID"] = 0;
-
-				if ( ( int )row ["ParentID"] == parentID )
-				{
-					if ( ( int )row ["CategoryID"] != categoryID )
-					{
-						categoryID = ( int )row ["CategoryID"];
-
-						newRow = listDestination.NewRow();
-						newRow ["ForumID"] = -categoryID;		// Ederon : 9/4/2007
-						newRow ["Title"] = string.Format( "{0}", row ["Category"].ToString() );
-						listDestination.Rows.Add( newRow );
-					}
-
-					string sIndent = "";
-
-					for ( int j = 0; j < currentIndent; j++ )
-						sIndent += "--";
-
-					// import the row into the destination
-					newRow = listDestination.NewRow();
-
-					newRow ["ForumID"] = row ["ForumID"];
-					newRow ["Title"] = string.Format( " -{0} {1}", sIndent, row ["Forum"] );
-
-					listDestination.Rows.Add( newRow );
-
-					// recurse through the list...
-					forum_sort_list_recursive( listSource, listDestination, ( int )row ["ForumID"], categoryID, currentIndent + 1 );
-				}
-			}
-		}
-
 		static private DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int [] forumidExclusions )
 		{
 			return forum_sort_list( listSource, parentID, categoryID, startingIndent, forumidExclusions, true );
@@ -1480,7 +1419,7 @@ namespace YAF.Classes.Data
 				blankRow ["Title"] = string.Empty;
 				listDestination.Rows.Add( blankRow );
 			}
-			// filter the forum list -- not sure if this code actually works
+			// filter the forum list
 			DataView dv = listSource.DefaultView;
 
 			if ( forumidExclusions != null && forumidExclusions.Length > 0 )
@@ -1517,9 +1456,87 @@ namespace YAF.Classes.Data
 
 		static public DataTable forum_listall_sorted( object boardID, object userID, int [] forumidExclusions, bool emptyFirstRow, int startAt )
 		{
-			using ( DataTable dt = forum_listall( boardID, userID, startAt ) )
+			using ( DataTable dataTable = forum_listall( boardID, userID, startAt ) )
 			{
-				return forum_sort_list( dt, 0, 0, 0, forumidExclusions, emptyFirstRow );
+				int baseForumId = 0;
+				int baseCategoryId = 0;
+
+				if ( startAt != 0 )
+				{
+					// find the base ids...
+					foreach ( DataRow dataRow in dataTable.Rows )
+					{
+						if ( Convert.ToInt32( dataRow["ForumID"] ) == startAt )
+						{
+							baseForumId = Convert.ToInt32( dataRow["ParentID"] );
+							baseCategoryId = Convert.ToInt32( dataRow["CategoryID"] );
+							break;
+						}
+					}
+				}
+
+				return forum_sort_list( dataTable, baseForumId, baseCategoryId, 0, forumidExclusions, emptyFirstRow );
+			}
+		}
+
+		static private void forum_list_sort_basic( DataTable listsource, DataTable list, int parentid, int currentLvl )
+		{
+			for ( int i = 0; i < listsource.Rows.Count; i++ )
+			{
+				DataRow row = listsource.Rows[i];
+				if ( (row["ParentID"]) == DBNull.Value )
+					row["ParentID"] = 0;
+
+				if ( (int)row["ParentID"] == parentid )
+				{
+					string sIndent = "";
+					int iIndent = Convert.ToInt32( currentLvl );
+					for ( int j = 0; j < iIndent; j++ ) sIndent += "--";
+					row["Name"] = string.Format( " -{0} {1}", sIndent, row["Name"] );
+					list.Rows.Add( row.ItemArray );
+					forum_list_sort_basic( listsource, list, (int)row["ForumID"], currentLvl + 1 );
+				}
+			}
+		}
+
+		static private void forum_sort_list_recursive( DataTable listSource, DataTable listDestination, int parentID, int categoryID, int currentIndent )
+		{
+			DataRow newRow;
+
+			foreach ( DataRow row in listSource.Rows )
+			{
+				// see if this is a root-forum
+				if ( row["ParentID"] == DBNull.Value )
+					row["ParentID"] = 0;
+
+				if ( (int)row["ParentID"] == parentID )
+				{
+					if ( (int)row["CategoryID"] != categoryID )
+					{
+						categoryID = (int)row["CategoryID"];
+
+						newRow = listDestination.NewRow();
+						newRow["ForumID"] = -categoryID;		// Ederon : 9/4/2007
+						newRow["Title"] = string.Format( "{0}", row["Category"].ToString() );
+						listDestination.Rows.Add( newRow );
+					}
+
+					string sIndent = "";
+
+					for ( int j = 0; j < currentIndent; j++ )
+						sIndent += "--";
+
+					// import the row into the destination
+					newRow = listDestination.NewRow();
+
+					newRow["ForumID"] = row["ForumID"];
+					newRow["Title"] = string.Format( " -{0} {1}", sIndent, row["Forum"] );
+
+					listDestination.Rows.Add( newRow );
+
+					// recurse through the list...
+					forum_sort_list_recursive( listSource, listDestination, (int)row["ForumID"], categoryID, currentIndent + 1 );
+				}
 			}
 		}
 
