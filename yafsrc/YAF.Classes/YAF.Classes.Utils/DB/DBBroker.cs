@@ -99,6 +99,23 @@ namespace YAF.Classes.Utils
 				ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"], false );
 				ds.Relations.Add( "FK_Moderator_Forum", ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["ForumID"], ds.Tables [DBAccess.GetObjectName( "Moderator" )].Columns ["ForumID"], false );
 
+				bool deletedCategory = false;
+
+				// remove empty categories...
+				foreach ( DataRow row in ds.Tables[DBAccess.GetObjectName( "Category" )].Rows )
+				{
+					DataRow[] childRows = row.GetChildRows( "FK_Forum_Category" );
+
+					if ( childRows.Length == 0 )
+					{
+						// remove this category...
+						row.Delete();
+						deletedCategory = true;
+					}
+				}
+
+				if ( deletedCategory ) ds.Tables[DBAccess.GetObjectName( "Category" )].AcceptChanges();
+
 				return ds;
 			}
 		}
