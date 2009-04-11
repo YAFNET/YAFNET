@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
 	/// </summary>
 	public partial class forums : YAF.Classes.Base.AdminPage
 	{
-	
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			if(!IsPostBack) 
@@ -98,11 +97,22 @@ namespace YAF.Pages.Admin
 				case "delete":
 					YAF.Classes.Data.DB.forum_delete(e.CommandArgument);
 					BindData();
-					// remove category cache...
-					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumActiveDiscussions));
-					YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumModerators));
+					// clear caches...
+					ClearCaches();
 					break;
 			}
+
+			
+		}
+
+		private static void ClearCaches()
+		{
+			// clear moderatorss cache
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumModerators ) );
+			// clear category cache...
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumCategory ) );
+			// clear active discussions cache..
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( Constants.Cache.ForumActiveDiscussions ) );
 		}
 
 		protected void NewForum_Click(object sender, System.EventArgs e)
@@ -121,8 +131,7 @@ namespace YAF.Pages.Admin
 					if (YAF.Classes.Data.DB.category_delete(e.CommandArgument))
 					{
 						BindData();
-						// remove category cache...
-						YafCache.Current.Remove(YafCache.GetBoardCacheKey(Constants.Cache.ForumCategory));
+						ClearCaches();
 					}
 					else
 						PageContext.AddLoadMessage("You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.");
