@@ -9,7 +9,7 @@
 				<td colspan="2" class="header1" align="left">
 					<%# PageContext.PageForumName %>
 					-
-					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" />
+					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTEDSPAM" />
 				</td>
 			</tr>
 	</HeaderTemplate>
