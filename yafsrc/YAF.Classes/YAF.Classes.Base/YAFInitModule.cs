@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -39,13 +39,13 @@ namespace YAF.Classes.Base
 		{
 			get
 			{
-				int boardID;
+				int boardId;
 
 				// retrieve board id from config, otherwise default is 1
-				try { boardID = int.Parse( YAF.Classes.Config.BoardID ); }
-				catch { boardID = 1; }
+				try { boardId = int.Parse( YAF.Classes.Config.BoardID ); }
+				catch { boardId = 1; }
 
-				return boardID;
+				return boardId;
 			}
 		}
 
@@ -67,25 +67,29 @@ namespace YAF.Classes.Base
 
 		void System.Web.IHttpModule.Init( System.Web.HttpApplication context )
 		{
+			bool installed = false;
+
 			try
 			{
 				// attempt to sync roles. Assumes a perfect world in which this version is completely up to date... which might not be the case.
 				YAF.Classes.Utils.RoleMembershipHelper.SyncRoles( BoardID );
+				installed = true;
 			}
 			catch
 			{
 				// do nothing here--upgrading/DB connectivity issues will be handled in ForumPage.cs
 			}
 
-			if ( _mailTimer == null )
+			if ( _mailTimer == null && installed )
 			{
 				System.Diagnostics.Debug.WriteLine( "Initializing mail timer" );
 				// get a random ID that will identify this process...
 				Random rand = new Random();
 				_uniqueId = rand.Next();
 				int syncTime = (rand.Next( 10 ) + 5) * 1000;
+
 				// create the mail timer...
-				_mailTimer = new System.Threading.Timer( new TimerCallback( MailTimerCallback ), context.Context.Cache, syncTime, syncTime );
+				_mailTimer = new Timer( new TimerCallback( MailTimerCallback ), context.Context.Cache, syncTime, syncTime );
 			}
 		}
 

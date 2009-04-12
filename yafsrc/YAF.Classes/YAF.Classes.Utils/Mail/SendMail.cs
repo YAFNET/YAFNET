@@ -1,5 +1,5 @@
 /* Yet Another Forum.net
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -20,6 +20,7 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -123,18 +124,9 @@ namespace YAF.Classes.Utils
 						// Build a MailMessage
 						if ( !String.IsNullOrEmpty( fromEmail ) && !String.IsNullOrEmpty( toEmail ) )
 						{
-							System.Net.Mail.MailAddress fromEmailAddress, toEmailAddress;
+							System.Net.Mail.MailAddress toEmailAddress;
 
-							if ( !DbStringIsNullOrEmpty( dt.Rows [i] ["FromUserName"] ) )
-							{
-								// use display name from db
-								fromEmailAddress = new System.Net.Mail.MailAddress( fromEmail, dt.Rows [i] ["FromUserName"].ToString().Trim() );
-							}
-							else
-							{
-								// no from display name
-								fromEmailAddress = new System.Net.Mail.MailAddress( fromEmail );
-							}
+							MailAddress fromEmailAddress = !DbStringIsNullOrEmpty( dt.Rows [i] ["FromUserName"] ) ? new System.Net.Mail.MailAddress( fromEmail, dt.Rows [i] ["FromUserName"].ToString().Trim() ) : new System.Net.Mail.MailAddress( fromEmail );
 
 							// create the TO email address...
 							if ( !DbStringIsNullOrEmpty( dt.Rows [i] ["ToUserName"] ) )
@@ -166,10 +158,6 @@ namespace YAF.Classes.Utils
 							{
 								// only try maximum of 5 times...
 								if ( Convert.ToInt32( dt.Rows [i] ["SendTries"] ) < 5 ) deleteEmail = false;
-							}
-							catch ( Exception x )
-							{
-								throw x;
 							}
 						}
 
