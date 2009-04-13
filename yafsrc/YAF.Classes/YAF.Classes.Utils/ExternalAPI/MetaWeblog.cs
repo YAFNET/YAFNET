@@ -25,7 +25,7 @@ namespace YAF.Classes.Data
 {
 	public class MetaWeblog : XmlRpcClientProtocol
 	{
-		public MetaWeblog(string metaWeblogServiceUrl)
+		public MetaWeblog( string metaWeblogServiceUrl )
 		{
 			this.Url = metaWeblogServiceUrl;
 		}
@@ -38,13 +38,13 @@ namespace YAF.Classes.Data
 		/// <param name="content">The content.</param>
 		/// <param name="publish">If false, this is a draft post.</param>
 		/// <returns>The postid of the newly-created post.</returns>
-		[XmlRpcMethod("metaWeblog.newPost")]
-		public string newPost(string blogid, string username, string password, Post content, bool publish)
+		[XmlRpcMethod( "metaWeblog.newPost" )]
+		public string newPost( string blogid, string username, string password, Post content, bool publish )
 		{
 			// TODO: We'll most likely want to keep the returned postid with the message that's posted to the forum.
 			// That way, if the user edits/deletes we can also make the appropriate change to their blog as well. See
 			// editPost and deletePost method's below.
-			return (string)this.Invoke("newPost", new object[] { blogid, username, password, content, publish });
+			return (string)this.Invoke( "newPost", new object[] { blogid, username, password, content, publish } );
 		}
 		/// <summary>
 		/// Posts a new entry to a blog.
@@ -55,14 +55,14 @@ namespace YAF.Classes.Data
 		/// <param name="title">The subject of the post.</param>
 		/// <param name="description">The post message.</param>
 		/// <returns>The postid of the newly-created post.</returns>
-		[XmlRpcMethod("metaWeblog.newPost")]
-		public string newPost(string blogid, string username, string password, string subject, string message)
+		[XmlRpcMethod( "metaWeblog.newPost" )]
+		public string newPost( string blogid, string username, string password, string subject, string message )
 		{
 			Post post = new Post();
 			post.title = subject;
 			post.description = message;
 			post.dateCreated = DateTime.Now;
-			return this.newPost(blogid, username, password, post, true);
+			return this.newPost( blogid, username, password, post, true );
 		}
 
 		/// <summary> 
@@ -74,10 +74,10 @@ namespace YAF.Classes.Data
 		/// <param name="post"> A struct representing the content to update. </param> 
 		/// <param name="publish"> If false, this is a draft post.</param> 
 		/// <returns>Always returns true.</returns> 
-		[XmlRpcMethod("metaWeblog.editPost")]
-		public bool editPost(string postid, string username, string password, Post content, bool publish)
+		[XmlRpcMethod( "metaWeblog.editPost" )]
+		public bool editPost( string postid, string username, string password, Post content, bool publish )
 		{
-			return (bool)this.Invoke("editPost", new object[] { postid, username, password, content, publish });
+			return (bool)this.Invoke( "editPost", new object[] { postid, username, password, content, publish } );
 		}
 
 		/// <summary> 
@@ -88,12 +88,12 @@ namespace YAF.Classes.Data
 		/// <param name="password">Password to login to the blog</param> 
 		/// <param name="title">The subject of the post.</param>
 		/// <param name="description">The post message.</param>
-		public void editPost(string postid, string username, string password, string subject, string message)
+		public void editPost( string postid, string username, string password, string subject, string message )
 		{
-			Post post = this.getPost(postid, username, password);
+			Post post = this.getPost( postid, username, password );
 			post.title = subject;
 			post.description = message;
-			this.editPost(postid, username, password, post, true);
+			this.editPost( postid, username, password, post, true );
 		}
 
 		/// <summary> 
@@ -103,10 +103,10 @@ namespace YAF.Classes.Data
 		/// <param name="username">Username to login to the blog</param> 
 		/// <param name="password">Password to login to the blog</param> 
 		/// <returns>Returns a specific entry from a blog.</returns> 
-		[XmlRpcMethod("metaWeblog.getPost")]
-		public Post getPost(string postid, string username, string password)
+		[XmlRpcMethod( "metaWeblog.getPost" )]
+		public Post getPost( string postid, string username, string password )
 		{
-			return (Post)this.Invoke("getPost", new object[] { postid, username, password });
+			return (Post)this.Invoke( "getPost", new object[] { postid, username, password } );
 		}
 
 		#region Don't think we'll need this, but what the Heck
@@ -119,10 +119,10 @@ namespace YAF.Classes.Data
 		/// <param name="password">Password to login to the blog</param> 
 		/// <param name="publish">This value is ignored.</param> 
 		/// <returns>Always returns true.</returns> 
-		[XmlRpcMethod("blogger.deletePost")]
-		public bool deletePost(string appKey, string postid, string username, string password, bool publish)
+		[XmlRpcMethod( "blogger.deletePost" )]
+		public bool deletePost( string appKey, string postid, string username, string password, bool publish )
 		{
-			throw new Exception("Not yet implemented");
+			throw new Exception( "Not yet implemented" );
 			//return (bool)this.Invoke("deletePost", new object[] { appKey, postid, username, password, publish });
 		}
 		#endregion
@@ -130,7 +130,7 @@ namespace YAF.Classes.Data
 		/// <summary> 
 		/// This struct represents the information about a category
 		/// </summary> 
-		[XmlRpcMissingMapping(MappingAction.Ignore)]
+		[XmlRpcMissingMapping( MappingAction.Ignore )]
 		public struct Category
 		{
 			public string description;
@@ -140,17 +140,17 @@ namespace YAF.Classes.Data
 		/// <summary> 
 		/// This struct represents the information about a post
 		/// </summary> 
-		[XmlRpcMissingMapping(MappingAction.Ignore)]
+		[XmlRpcMissingMapping( MappingAction.Ignore )]
 		public struct Post
 		{
 			public DateTime dateCreated;
-			[XmlRpcMissingMapping(MappingAction.Error)]
-			[XmlRpcMember(Description = "Required when posting.")]
+			[XmlRpcMissingMapping( MappingAction.Error )]
+			[XmlRpcMember( Description = "Required when posting." )]
 			public string description;
-			[XmlRpcMissingMapping(MappingAction.Error)]
-			[XmlRpcMember(Description = "Required when posting.")]
+			[XmlRpcMissingMapping( MappingAction.Error )]
+			[XmlRpcMember( Description = "Required when posting." )]
 			public string title;
-			[XmlRpcMember("categories", Description = "Contains categories for the post.")]
+			[XmlRpcMember( "categories", Description = "Contains categories for the post." )]
 			public string[] categories;
 			public string link;
 			public string permalink;
@@ -158,7 +158,7 @@ namespace YAF.Classes.Data
 				Description = "Not required when posting. Depending on server may "
 				+ "be either string or integer. "
 				+ "Use Convert.ToInt32(postid) to treat as integer or "
-				+ "Convert.ToString(postid) to treat as string")]
+				+ "Convert.ToString(postid) to treat as string" )]
 			public object postid;
 			public string userid;
 		}
