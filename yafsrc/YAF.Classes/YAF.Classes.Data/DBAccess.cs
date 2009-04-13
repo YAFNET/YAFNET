@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -33,29 +31,39 @@ namespace YAF.Classes.Data
 	/// </summary>
 	public class YafDBConnManager : IDisposable
 	{
-		public event System.Data.SqlClient.SqlInfoMessageEventHandler DBAccess_InfoMessage;
+		public class YafDBConnInfoMessageEventArgs : EventArgs
+		{
+			public string Message
+			{
+				get;
+				set;
+			}
+
+			public YafDBConnInfoMessageEventArgs( string message )
+			{
+				Message = message;
+			}
+		}
+
+		public delegate void YafDBConnInfoMessageEventHandler( object sender, YafDBConnInfoMessageEventArgs e );
+
+		public event YafDBConnInfoMessageEventHandler InfoMessage;
+
 		private SqlConnection _connection = null;
 
 		public YafDBConnManager()
 		{
-			DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler( DBConnection_InfoMessage );
 			// just initalize it (not open)
 			InitConnection();
 		}
 
-		void DBConnection_InfoMessage( object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e )
-		{
-			string ff = "\r\n" + e.Message;
-		}
-
 		public void InitConnection()
 		{
-
 			if ( _connection == null )
 			{
-
 				// create the connection
 				_connection = new SqlConnection();
+				_connection.InfoMessage += new SqlInfoMessageEventHandler( Connection_InfoMessage );
 				_connection.ConnectionString = YAF.Classes.Config.ConnectionString;
 			}
 			else if ( _connection.State != ConnectionState.Open )
@@ -71,6 +79,14 @@ namespace YAF.Classes.Data
 			if ( _connection != null && _connection.State != ConnectionState.Closed )
 			{
 				_connection.Close();
+			}
+		}
+
+		void Connection_InfoMessage( object sender, SqlInfoMessageEventArgs e )
+		{
+			if ( InfoMessage != null )
+			{
+				InfoMessage( this, new YafDBConnInfoMessageEventArgs( e.Message ) );
 			}
 		}
 
