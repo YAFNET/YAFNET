@@ -129,12 +129,12 @@ namespace YAF.Pages.Admin
 						foreach ( DataRow row in dt.Rows )
 						{
 							userName = ( string )row ["Name"];
-							if ( ( int )row ["IsGuest"] > 0 )
+							if ( SqlDataLayerConverter.VerifyInt32( row ["IsGuest"]) > 0 )
 							{
 								PageContext.AddLoadMessage( "You can't delete the Guest." );
 								return;
 							}
-							if ( ( row ["IsAdmin"] != DBNull.Value && Convert.ToInt32( row ["IsAdmin"] ) > 0 ) || ( row ["IsHostAdmin"] != DBNull.Value && Convert.ToInt32( row ["IsHostAdmin"] ) > 0 ) )
+                            if ((row["IsAdmin"] != DBNull.Value && SqlDataLayerConverter.VerifyInt32(row["IsAdmin"]) > 0) || (row["IsHostAdmin"] != DBNull.Value && Convert.ToInt32(row["IsHostAdmin"]) > 0))
 							{
 								PageContext.AddLoadMessage( "You can't delete the Admin." );
 								return;

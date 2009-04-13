@@ -110,7 +110,7 @@ namespace YAF.Pages // YAF.Pages
 			Stats.InnerHtml = String.Format( "{0:N0}<br/>[{1} / {2}]",
 				userData.DBRow ["NumPosts"],
 				String.Format( GetText( "NUMALL" ), dAllPosts ),
-				String.Format( GetText( "NUMDAY" ), ( double )( int )userData.DBRow ["NumPosts"] / ( int )userData.DBRow ["NumDays"] )
+                String.Format(GetText("NUMDAY"), (double)SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumPosts"]) / SqlDataLayerConverter.VerifyInt32(userData.DBRow["NumDays"]))
 				);
 
 			// private messages
