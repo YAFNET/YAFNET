@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
 
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				connMan.DBAccess_InfoMessage += new System.Data.SqlClient.SqlInfoMessageEventHandler( DBConnection_InfoMessage );
+				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
 				string sql = txtQuery.Text.Trim();
 				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
 				sql = sql.Replace( "{databaseOwner}", DBAccess.DatabaseOwner );
@@ -68,7 +68,7 @@ namespace YAF.Pages.Admin
 			}
 		}
 
-		void DBConnection_InfoMessage( object sender, System.Data.SqlClient.SqlInfoMessageEventArgs e )
+		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
 		{
 			txtResult.Text = "\r\n" + e.Message;
 		}

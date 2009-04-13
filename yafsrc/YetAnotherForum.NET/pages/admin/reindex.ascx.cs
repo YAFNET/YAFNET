@@ -60,30 +60,28 @@ namespace YAF.Pages.Admin
 
 		protected void btnGetStats_Click( object sender, EventArgs e )
 		{
-			
+
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				connMan.DBConnection.InfoMessage += new SqlInfoMessageEventHandler( DBConnection_InfoMessage );
-                // connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-                DB.db_getstats(connMan);
-				
-			}		
+				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
+				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
+				DB.db_getstats( connMan );
+			}
 		}
 
 		protected void btnReindex_Click( object sender, EventArgs e )
 		{
-			
-
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
-				connMan.DBConnection.InfoMessage += new SqlInfoMessageEventHandler( DBConnection_InfoMessage );
-                DB.db_reindex(connMan);				
+				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
+				DB.db_reindex( connMan );
 			}
 		}
 
-		void DBConnection_InfoMessage( object sender, SqlInfoMessageEventArgs e )
+		void connMan_InfoMessage( object sender, YafDBConnManager.YafDBConnInfoMessageEventArgs e )
 		{
 			txtIndexStatistics.Text = e.Message;
 		}
+
 	}
 }
