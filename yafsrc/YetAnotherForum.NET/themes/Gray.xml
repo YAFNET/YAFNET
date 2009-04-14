@@ -16,6 +16,7 @@
     <Resource tag="YIM">~/icon_yahoo.png</Resource>
     <Resource tag="ICQ">~/icon_icq.png</Resource>
     <Resource tag="SKYPE">~/icon_skype.png</Resource>
+		<Resource tag="SEARCH">~/icon_search.png</Resource>
 		<Resource tag="TOPIC_NEW">~/topic_new.png</Resource>
 		<Resource tag="TOPIC">~/topic.png</Resource>
 		<Resource tag="TOPIC_ANNOUNCEMENT">~/topic_announce.png</Resource>

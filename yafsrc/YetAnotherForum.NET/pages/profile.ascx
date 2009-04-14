@@ -151,6 +151,9 @@
                 </ajaxToolkit:TabPanel>
                 <ajaxToolkit:TabPanel runat="server" ID="Last10PostsTab">
                     <ContentTemplate>
+                    <YAF:ThemeButton ID="SearchUser" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+                        TextLocalizedTag="SEARCHUSER" ImageThemeTag="SEARCH" />  
+                        <br style="clear:both" />                  
                         <table width="100%" cellspacing="1" cellpadding="0">
                             <asp:Repeater ID="LastPosts" runat="server">
                                 <ItemTemplate>

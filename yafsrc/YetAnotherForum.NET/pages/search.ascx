@@ -1,4 +1,5 @@
 <%@ Control Language="c#" CodeFile="search.ascx.cs" AutoEventWireup="True" Inherits="YAF.Pages.search" %>
+<%@ Register Namespace="nStuff.UpdateControls" assembly="nStuff.UpdateControls" TagPrefix="nStuff" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <script type="text/javascript">
 function EndRequestHandler(sender, args) {
@@ -6,6 +7,8 @@ function EndRequestHandler(sender, args) {
 }
 Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 </script>
+
+<nStuff:UpdateHistory runat="server" ID="UpdateHistory" OnNavigate="OnUpdateHistoryNavigate" />
 
 <table class="content" cellspacing="1" cellpadding="0" width="100%">
     <tr>
@@ -24,7 +27,7 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
             <YAF:LocalizedLabel runat="server" LocalizedTag="postedby" />
         </td>
         <td class="postheader" align="left">
-            <asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" OnTextChanged="btnSearch_Click" />
+            <asp:TextBox ID="txtSearchStringFromWho" runat="server" Width="350px" />
             <asp:DropDownList ID="listSearchFromWho" runat="server" />
         </td>
     </tr>
@@ -33,13 +36,13 @@ Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
             <YAF:LocalizedLabel runat="server" LocalizedTag="posts" />
         </td>
         <td class="postheader" align="left">
-            <asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" OnTextChanged="btnSearch_Click" />
+            <asp:TextBox ID="txtSearchStringWhat" runat="server" Width="350px" />
             <asp:DropDownList ID="listSearchWhat" runat="server" />
         </td>
     </tr>
     <tr>
         <td class="postheader" colspan="2" align="center">
-            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="$find('LoadingModal').show();" />
+            <asp:Button ID="btnSearch" CssClass="pbutton" runat="server" OnClick="btnSearch_Click" OnClientClick="$find('LoadingModal').show(); return true;" />
         </td>
     </tr>
 </table>

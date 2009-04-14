@@ -19,19 +19,15 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using YAF.Classes.Data;
 using YAF.Classes.Utils;
 using YAF.Classes.UI;
+using HistoryEventArgs=nStuff.UpdateControls.HistoryEventArgs;
 
 namespace YAF.Pages // YAF.Pages
 {
@@ -58,7 +54,7 @@ namespace YAF.Pages // YAF.Pages
 			{
 				Type t = child.GetType();
 				if ( t == typeof( System.Web.UI.HtmlControls.HtmlForm ) )
-					return ( HtmlForm ) child;
+					return (HtmlForm)child;
 
 				if ( child.HasControls() )
 				{
@@ -74,50 +70,52 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
 			// check access permissions
-			General.HandleRequest(PageContext, PageContext.BoardSettings.SearchPermissions);
+			General.HandleRequest( PageContext, PageContext.BoardSettings.SearchPermissions );
 
 			//Page.Reg
 			//if(IsPostBack) throw new ApplicationException(Request.Form["__EVENTTARGET"]);
 
-			if (!IsPostBack)
+			if ( !IsPostBack )
 			{
 				// 20050909 CHP : BEGIN
-				if (PageContext.IsPrivate && User == null)
+				if ( PageContext.IsPrivate && User == null )
 				{
 					// Ederon : guess we don't need this if anymore
 					//if ( CanLogin )
-					YAF.Classes.Utils.YafBuildLink.Redirect(YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl);
+					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
 					//else
 					//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 				}
 				// 20050909 CHP : END
 
-				PageLinks.AddLink(PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.forum));
-				PageLinks.AddLink(GetText("TITLE"), "");
-				btnSearch.Text = GetText("btnsearch");
+				PageLinks.AddLink( PageContext.BoardSettings.Name,
+				                   YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
+				PageLinks.AddLink( GetText( "TITLE" ), "" );
+				btnSearch.Text = GetText( "btnsearch" );
 
 				// Load result dropdown
-				listResInPage.Items.Add(new ListItem(GetText("result5"), "5"));
-				listResInPage.Items.Add(new ListItem(GetText("result10"), "10"));
-				listResInPage.Items.Add(new ListItem(GetText("result25"), "25"));
-				listResInPage.Items.Add(new ListItem(GetText("result50"), "50"));
+				listResInPage.Items.Add( new ListItem( GetText( "result5" ), "5" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result10" ), "10" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result25" ), "25" ) );
+				listResInPage.Items.Add( new ListItem( GetText( "result50" ), "50" ) );
 
 				// Load searchwhere dropdown
 				// listSearchWhere.Items.Add( new ListItem( GetText( "posts" ), "0" ) );
 				// listSearchWhere.Items.Add( new ListItem( GetText( "postedby" ), "1" ) );
 
 				//Load listSearchFromWho dropdown
-				listSearchFromWho.Items.Add(new ListItem(GetText("match_all"), "0"));
-				listSearchFromWho.Items.Add(new ListItem(GetText("match_any"), "1"));
-				listSearchFromWho.Items.Add(new ListItem(GetText("match_exact"), "2"));
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
+				listSearchFromWho.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
 
 				// Load listSearchWhat dropdown
-				listSearchWhat.Items.Add(new ListItem(GetText("match_all"), "0"));
-				listSearchWhat.Items.Add(new ListItem(GetText("match_any"), "1"));
-				listSearchWhat.Items.Add(new ListItem(GetText("match_exact"), "2")); ;
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_all" ), "0" ) );
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_any" ), "1" ) );
+				listSearchWhat.Items.Add( new ListItem( GetText( "match_exact" ), "2" ) );
+				;
 
 				// handle custom BBCode javascript or CSS...
-				BBCode.RegisterCustomBBCodePageElements(Page, this.GetType());
+				BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
 
 				//Load forum's combo
 				//listForum.Items.Add( new ListItem( GetText( "allforums" ), "-1" ) );
@@ -138,18 +136,36 @@ namespace YAF.Pages // YAF.Pages
 				LoadingModal.HeaderText = GetText( "LOADING" );
 				LoadingModal.MainText = GetText( "LOADING_SEARCH" );
 
-				listForum.DataSource = DB.forum_listall_sorted(PageContext.PageBoardID, PageContext.PageUserID);
+				listForum.DataSource = DB.forum_listall_sorted( PageContext.PageBoardID, PageContext.PageUserID );
 				listForum.DataValueField = "ForumID";
 				listForum.DataTextField = "Title";
-				DataBind();
-				listForum.Items.Insert(0, new ListItem(GetText("allforums"), "0"));
+				listForum.DataBind();
+				listForum.Items.Insert( 0, new ListItem( GetText( "allforums" ), "0" ) );
+
+				bool doSearch = false;
+
+				string searchString = Request.QueryString["search"];
+				if ( !String.IsNullOrEmpty( searchString ) && searchString.Length < 50 )
+				{
+					txtSearchStringWhat.Text = searchString;
+					doSearch = true;
+				}
+
+				string postedBy = Request.QueryString["postedby"];
+				if ( !String.IsNullOrEmpty( postedBy ) && postedBy.Length < 50 )
+				{
+					txtSearchStringFromWho.Text = postedBy;
+					doSearch = true;
+				}
+
+				if ( doSearch ) SearchBindData( true );
 			}
 		}
 
 		private void Pager_PageChange( object sender, EventArgs e )
 		{
 			SmartScroller1.RegisterStartupReset();
-			BindData( false );
+			SearchBindData( false );
 		}
 
 		#region Web Form Designer generated code
@@ -178,27 +194,31 @@ namespace YAF.Pages // YAF.Pages
 		}
 		#endregion
 
-		private void BindData( bool newSearch )
+		private void SearchBindData( bool newSearch )
 		{
 			try
 			{
-				if (newSearch && !CheckSearchRequest())
+				if ( newSearch && !CheckSearchRequest() )
 				{
 					return;
 				}
-				else if ( newSearch || Mession.SearchData == null)
+				else if ( newSearch || Mession.SearchData == null )
 				{
-					SearchWhatFlags sw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchWhat.SelectedValue );
-					SearchWhatFlags sfw = ( SearchWhatFlags ) System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
+					SearchWhatFlags sw = (SearchWhatFlags)System.Enum.Parse( typeof( SearchWhatFlags ), listSearchWhat.SelectedValue );
+					SearchWhatFlags sfw = (SearchWhatFlags)System.Enum.Parse( typeof( SearchWhatFlags ), listSearchFromWho.SelectedValue );
 					int forumID = int.Parse( listForum.SelectedValue );
 
-					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text, txtSearchStringFromWho.Text, sfw, sw, forumID, PageContext.PageUserID, PageContext.PageBoardID, PageContext.BoardSettings.ReturnSearchMax, PageContext.BoardSettings.UseFullTextSearch );
+					DataTable searchDataTable = YAF.Classes.Data.DB.GetSearchResult( txtSearchStringWhat.Text,
+					                                                                 txtSearchStringFromWho.Text, sfw, sw, forumID,
+					                                                                 PageContext.PageUserID, PageContext.PageBoardID,
+					                                                                 PageContext.BoardSettings.ReturnSearchMax,
+					                                                                 PageContext.BoardSettings.UseFullTextSearch );
 					Pager.CurrentPageIndex = 0;
 					Pager.PageSize = int.Parse( listResInPage.SelectedValue );
 					Pager.Count = searchDataTable.DefaultView.Count;
 					Mession.SearchData = searchDataTable;
 
-					bool bResults = ( searchDataTable.DefaultView.Count > 0 ) ? true : false;
+					bool bResults = (searchDataTable.DefaultView.Count > 0) ? true : false;
 
 					SearchRes.Visible = bResults;
 					NoResults.Visible = !bResults;
@@ -210,12 +230,14 @@ namespace YAF.Pages // YAF.Pages
 				pds.PageSize = Pager.PageSize;
 				pds.CurrentPageIndex = Pager.CurrentPageIndex;
 
+				UpdateHistory.AddEntry( Pager.CurrentPageIndex.ToString() + "|" + Pager.PageSize );
+
 				SearchRes.DataSource = pds;
-				DataBind();
+				SearchRes.DataBind();
 			}
 			catch ( System.Data.SqlClient.SqlException x )
 			{
-				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );				
+				YAF.Classes.Data.DB.eventlog_create( PageContext.PageUserID, this, x );
 				CreateMail.CreateLogEmail( x );
 
 				if ( PageContext.IsAdmin )
@@ -246,44 +268,68 @@ namespace YAF.Pages // YAF.Pages
 		protected void btnSearch_Click( object sender, System.EventArgs e )
 		{
 			SearchUpdatePanel.Visible = true;
-			BindData( true );
+			SearchBindData( true );
 		}
 
 		private void SearchRes_ItemDataBound( object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e )
 		{
-			HtmlTableCell cell = ( HtmlTableCell ) e.Item.FindControl( "CounterCol" );
+			HtmlTableCell cell = (HtmlTableCell)e.Item.FindControl( "CounterCol" );
 			if ( cell != null )
 			{
 				string messageID = cell.InnerText;
-				int rowCount = e.Item.ItemIndex + 1 + ( Pager.CurrentPageIndex * Pager.PageSize );
+				int rowCount = e.Item.ItemIndex + 1 + (Pager.CurrentPageIndex * Pager.PageSize);
 				cell.InnerHtml = string.Format( "<a href=\"{1}\">{0}</a>", rowCount, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", messageID ) );
 			}
 		}
 
 		private bool CheckSearchRequest()
 		{
-			bool whatValid = CheckSearchText(txtSearchStringWhat.Text),
-				whoValid = CheckSearchText(txtSearchStringFromWho.Text),
+			bool whatValid = CheckSearchText( txtSearchStringWhat.Text ),
+				whoValid = CheckSearchText( txtSearchStringFromWho.Text ),
 				whatNull = txtSearchStringWhat.Text.Trim().Length == 0,
 				whoNull = txtSearchStringFromWho.Text.Trim().Length == 0;
 
-			if ((!whoNull && whoValid && ((whatNull && !whatValid) || (!whatNull && whatValid))) ||
-				(whoNull && !whoValid && !whatNull && whatValid))
+			if ( (!whoNull && whoValid && ((whatNull && !whatValid) || (!whatNull && whatValid))) ||
+				(whoNull && !whoValid && !whatNull && whatValid) )
 			{
 				return true;
 			}
 			else
 			{
-				if (!_searchHandled) PageContext.AddLoadMessage(String.Format(GetText("SEARCH_CRITERIA_ERROR"), PageContext.BoardSettings.SearchStringMinLength));
+				if ( !_searchHandled )
+					PageContext.AddLoadMessage( String.Format( GetText( "SEARCH_CRITERIA_ERROR" ),
+																										 PageContext.BoardSettings.SearchStringMinLength ) );
 				_searchHandled = true;
 				return false;
 			}
 		}
 
-		private bool CheckSearchText(string searchText)
+		private bool CheckSearchText( string searchText )
 		{
 			return searchText.Trim().Length >= PageContext.BoardSettings.SearchStringMinLength &&
-				Regex.IsMatch(searchText, PageContext.BoardSettings.SearchStringPattern);
+				Regex.IsMatch( searchText, PageContext.BoardSettings.SearchStringPattern );
+		}
+
+		protected void OnUpdateHistoryNavigate( object sender, HistoryEventArgs e )
+		{
+			int pageNumber, pageSize;
+
+			string[] pagerData = e.EntryName.Split( '|' );
+
+			if ( pagerData.Length >= 2 && int.TryParse( pagerData[0], out pageNumber ) && int.TryParse( pagerData[1], out pageSize ) && Mession.SearchData != null )
+			{
+				// use existing page...
+				Pager.CurrentPageIndex = pageNumber;
+
+				// and existing page size...
+				Pager.PageSize = pageSize;
+
+				// bind existing search
+				SearchBindData( false );
+
+				// use existing search data...
+				SearchUpdatePanel.Update();
+			}
 		}
 	}
 }
