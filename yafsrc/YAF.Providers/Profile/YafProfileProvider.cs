@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -157,7 +157,7 @@ namespace YAF.Providers.Profile
 					if ( !structure.Columns.Contains( column.Settings.Name ) )
 					{
 						// if not, create it...
-						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
+						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size, column.DefaultValue );
 					}
 				}
 
@@ -489,17 +489,19 @@ namespace YAF.Providers.Profile
 		public SqlDbType DataType;
 		public SettingsProperty Settings;
 		public int Size;
+		public object DefaultValue;
 
 		public SettingsPropertyColumn()
 		{
 			// empty for default constructor...
 		}
 
-		public SettingsPropertyColumn( SettingsProperty settings, SqlDbType dataType, int size )
+		public SettingsPropertyColumn( SettingsProperty settings, SqlDbType dataType, int size, object defaultValue )
 		{
 			DataType = dataType;
 			Settings = settings;
 			Size = size;
+			DefaultValue = defaultValue;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
- * Copyright (C) 2006-2008 Jaben Cargman
+ * Copyright (C) 2006-2009 Jaben Cargman
  * http://www.yetanotherforum.net/
  * 
  * This program is free software; you can redistribute it and/or
@@ -981,8 +981,8 @@ namespace YAF.Providers.Membership
         /// <summary>
         /// Validates a user by user name / password
         /// </summary>
-        /// <param name="userName">Username</param>
-        /// <param name="userName">Password</param>
+				/// <param name="username">Username</param>
+				/// <param name="password">Password</param>
         /// /// <returns>True/False whether username/password match what is on database.</returns>
         public override bool ValidateUser(string username, string password)
         {
