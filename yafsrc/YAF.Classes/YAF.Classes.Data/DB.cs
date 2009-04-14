@@ -3841,7 +3841,30 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region vzrus addons
-		static public DataTable rsstopic_list( int forumId )
+                #region reindex page controls
+        public static string btnGetStatsName
+        {
+            get
+            {
+                return "View YAF Table Index Statistics";
+            }
+        }
+        public static bool btnReindexVisible
+        {
+            get
+            {
+                return true;
+            }
+        }
+        public static string btnReindexName
+        {
+            get
+            {
+                return "Reindex YAF Tables";
+            }
+        }
+               #endregion
+        static public DataTable rsstopic_list( int forumId )
 		{
 			string tSQL = "select Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
 														forumId + " and b.ForumID = a.ForumID";
@@ -3851,6 +3874,11 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData( cmd );
 			}
 		}
+
+        static public string db_getstats_warning(YafDBConnManager connMan)
+        {
+            return "";
+        }
 
 		public static void db_getstats( YafDBConnManager connMan )
 		{
@@ -3879,6 +3907,11 @@ namespace YAF.Classes.Data
 				cmd.ExecuteNonQuery();
 			}
 		}
+
+        static public string db_reindex_warning(YafDBConnManager connMan)
+        {
+            return "";
+        }
 
 		public static void db_reindex( YafDBConnManager connMan )
 		{
