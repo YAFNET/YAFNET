@@ -157,7 +157,7 @@ namespace YAF.Providers.Profile
 					if ( !structure.Columns.Contains( column.Settings.Name ) )
 					{
 						// if not, create it...
-						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size, column.DefaultValue );
+						DB.AddProfileColumn( column.Settings.Name, column.DataType, column.Size );
 					}
 				}
 
@@ -489,19 +489,17 @@ namespace YAF.Providers.Profile
 		public SqlDbType DataType;
 		public SettingsProperty Settings;
 		public int Size;
-		public object DefaultValue;
 
 		public SettingsPropertyColumn()
 		{
 			// empty for default constructor...
 		}
 
-		public SettingsPropertyColumn( SettingsProperty settings, SqlDbType dataType, int size, object defaultValue )
+		public SettingsPropertyColumn( SettingsProperty settings, SqlDbType dataType, int size )
 		{
 			DataType = dataType;
 			Settings = settings;
 			Size = size;
-			DefaultValue = defaultValue;
 		}
 	}
 }
