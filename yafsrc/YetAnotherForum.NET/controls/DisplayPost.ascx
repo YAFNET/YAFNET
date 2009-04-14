@@ -58,8 +58,8 @@
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td>
-                    <YAF:ThemeButton ID="btnToggleMessage" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
-                        TextLocalizedTag="TOGGLEMESSAGE" Visible="false" />                
+                    <YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+                        TextLocalizedTag="TOGGLEPOST" Visible="false" />                
                     <YAF:ThemeButton ID="Pm" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
                         TextLocalizedTag="PM" ImageThemeTag="PM" />
                     <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"

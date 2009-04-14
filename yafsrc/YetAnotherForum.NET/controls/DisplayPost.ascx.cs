@@ -125,12 +125,12 @@ function toggleMessage(divId)
 
 			if ( PageContext.IsGuest )
 			{
-				btnToggleMessage.Visible = false;
+				btnTogglePost.Visible = false;
 			}
 			else if ( IsIgnored( UserId ) )
 			{
-				btnToggleMessage.Visible = true;
-				btnToggleMessage.Attributes["onclick"] = string.Format( "toggleMessage('{0}'); return false;", panMessage.ClientID );
+				btnTogglePost.Visible = true;
+				btnTogglePost.Attributes["onclick"] = string.Format( "toggleMessage('{0}'); return false;", panMessage.ClientID );
 				panMessage.Style["display"] = "none";
 			}
 		}
