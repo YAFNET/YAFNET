@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UnitTests", "YAF.Classes\YAF.Classes.UnitTests\YAF.Classes.UnitTests.csproj", "{DE644CB8-5686-4482-BDD3-DA24E464C44A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -149,6 +151,16 @@ Global
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|.NET.ActiveCfg = Release|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
