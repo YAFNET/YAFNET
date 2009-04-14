@@ -45,6 +45,9 @@ namespace YAF.Pages.Admin
 
 			if ( !IsPostBack )
 			{
+                this.btnReindex.Visible = DB.btnReindexVisible;
+                this.btnReindex.Text = DB.btnReindexName;
+                this.btnGetStats.Text = DB.btnGetStatsName; 
 				PageLinks.AddLink( PageContext.BoardSettings.Name, YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.forum ) );
 				PageLinks.AddLink( "Administration", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.admin_admin ) );
 				PageLinks.AddLink( "Reindex DB", "" );
@@ -65,16 +68,18 @@ namespace YAF.Pages.Admin
 			{
 				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
 				// connMan.DBConnection.FireInfoMessageEventOnUserErrors = true;
-				DB.db_getstats( connMan );
+                txtIndexStatistics.Text = DB.db_getstats_warning(connMan);
+                DB.db_getstats( connMan );
 			}
 		}
 
 		protected void btnReindex_Click( object sender, EventArgs e )
-		{
+		{            
 			using ( YafDBConnManager connMan = new YafDBConnManager() )
 			{
 				connMan.InfoMessage += new YafDBConnManager.YafDBConnInfoMessageEventHandler( connMan_InfoMessage );
-				DB.db_reindex( connMan );
+                txtIndexStatistics.Text = DB.db_reindex_warning(connMan);
+                DB.db_reindex( connMan );
 			}
 		}
 
