@@ -361,7 +361,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_AccessMask
+		#region AccessMask
 		/// <summary>
 		/// Gets a list of access mask properities
 		/// </summary>
@@ -445,7 +445,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Active
+		#region Active
 		/// <summary>
 		/// Gets list of active users
 		/// </summary>
@@ -511,7 +511,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Attachment
+		#region Attachment
 		/// <summary>
 		/// Gets a list of attachments
 		/// </summary>
@@ -610,7 +610,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_BannedIP
+		#region BannedIP
 		/// <summary>
 		/// List of Baned IP's
 		/// </summary>
@@ -659,7 +659,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Board
+		#region Board
 		/// <summary>
 		/// Gets a list of information about a board
 		/// </summary>
@@ -787,7 +787,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Category
+		#region Category
 		/// <summary>
 		/// Deletes a category
 		/// </summary>
@@ -874,7 +874,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_CheckEmail
+		#region CheckEmail
 		/// <summary>
 		/// Saves a new email into the table for verification
 		/// </summary>
@@ -923,7 +923,7 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-		#region yaf_Choice
+		#region Choice
 		/// <summary>
 		/// Saves a vote in the database
 		/// </summary>
@@ -941,7 +941,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_EventLog
+		#region EventLog
 		static public void eventlog_create( object userID, object source, object description, object type )
 		{
 			try
@@ -1010,10 +1010,9 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData( cmd );
 			}
 		}
-		#endregion yaf_EventLog
+		#endregion EventLog
 
-		// Admin control of file extensions - MJ Hufford
-		#region yaf_Extensions
+		#region Extensions
 
 		static public void extension_delete( object extensionId )
 		{
@@ -1089,9 +1088,9 @@ namespace YAF.Classes.Data
 				// Ignore any errors in this method
 			}
 		}
-		#endregion yaf_EventLog
+		#endregion EventLog
 
-		#region yaf_PollVote
+		#region PollVote
 		/// <summary>
 		/// Checks for a vote in the database
 		/// </summary>
@@ -1109,7 +1108,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Forum
+		#region Forum
 		//ABOT NEW 16.04.04
 		/// <summary>
 		/// Deletes attachments out of a entire forum
@@ -1542,7 +1541,7 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-		#region yaf_ForumAccess
+		#region ForumAccess
 		static public DataTable forumaccess_list( object forumID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "forumaccess_list" ) )
@@ -1574,7 +1573,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Group
+		#region Group
 		static public DataTable group_list( object boardID, object groupID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "group_list" ) )
@@ -1622,7 +1621,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Mail
+		#region Mail
 		static public void mail_delete( object mailID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "mail_delete" ) )
@@ -1673,7 +1672,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Message
+		#region Message
 
 		static public DataTable post_list( object topicID, object updateViewCount, bool showDeleted )
 		{
@@ -2076,7 +2075,7 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-		#region yaf_Medal
+		#region Medal
 
 		/// <summary>
 		/// Lists given medal.
@@ -2401,7 +2400,7 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-		#region yaf_NntpForum
+		#region NntpForum
 		static public DataTable nntpforum_list( object boardID, object minutes, object nntpForumID, object active )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpforum_list" ) )
@@ -2449,7 +2448,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_NntpServer
+		#region NntpServer
 		static public DataTable nntpserver_list( object boardID, object nntpServerID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "nntpserver_list" ) )
@@ -2486,7 +2485,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_NntpTopic
+		#region NntpTopic
 		static public DataTable nntptopic_list( object thread )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "nntptopic_list" ) )
@@ -2514,7 +2513,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_PMessage
+		#region PMessage
 		/// <summary>
 		/// Returns a list of private messages based on the arguments specified.
 		/// If pMessageID != null, returns the PM of id pMessageId.
@@ -2632,7 +2631,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Poll
+		#region Poll
 		static public DataTable poll_stats( object pollID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_stats" ) )
@@ -2714,7 +2713,7 @@ namespace YAF.Classes.Data
 
 		#endregion
 
-		#region yaf_Rank
+		#region Rank
 		static public DataTable rank_list( object boardID, object rankID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "rank_list" ) )
@@ -2751,7 +2750,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Smiley
+		#region Smiley
 		static public DataTable smiley_list( object boardID, object smileyID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "smiley_list" ) )
@@ -2808,7 +2807,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_BBCode
+		#region BBCode
 		static public DataTable bbcode_list( object boardID, object bbcodeID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "bbcode_list" ) )
@@ -2852,7 +2851,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Registry
+		#region Registry
 		/// <summary>
 		/// Retrieves entries in the board settings registry
 		/// </summary>
@@ -2919,7 +2918,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_System
+		#region System
 		/// <summary>
 		/// Not in use anymore. Only required for old database versions.
 		/// </summary>
@@ -2934,7 +2933,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_Topic
+		#region Topic
 		static public void topic_poll_update(object topicID, object messageID, object pollID)
 		{
 			using (SqlCommand cmd = DBAccess.GetCommand("topic_poll_update"))
@@ -3136,7 +3135,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_ReplaceWords
+		#region ReplaceWords
 		// rico : replace words / begin
 		/// <summary>
 		/// Gets a list of replace words
@@ -3185,7 +3184,49 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_User
+		#region IgnoreUser
+
+		static public void user_addignoreduser( object userId, object ignoredUserId )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_addignoreduser" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "UserId", userId );
+				cmd.Parameters.AddWithValue( "IgnoredUserId", ignoredUserId );
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
+
+		static public void user_removeignoreduser( object userId, object ignoredUserId )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_removeignoreduser" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "UserId", userId );
+				cmd.Parameters.AddWithValue( "IgnoredUserId", ignoredUserId );
+				DBAccess.ExecuteNonQuery( cmd );
+			}
+		}
+
+		static public bool user_isuserignored( object userId, object ignoredUserId )
+		{
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_isuserignored" ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue( "UserId", userId );
+				cmd.Parameters.AddWithValue( "IgnoredUserId", ignoredUserId );
+				cmd.Parameters.Add( "result", SqlDbType.Bit );
+				cmd.Parameters["result"].Direction = ParameterDirection.ReturnValue;
+
+				DBAccess.ExecuteNonQuery( cmd );
+
+				return Convert.ToBoolean( cmd.Parameters["result"].Value );
+			}
+		}
+
+		#endregion
+
+		#region User
 		static public DataTable user_list( object boardID, object userID, object approved )
 		{
 			return user_list( boardID, userID, approved, null, null );
@@ -3701,7 +3742,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_UserForum
+		#region UserForum
 		static public DataTable userforum_list( object userID, object forumID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "userforum_list" ) )
@@ -3735,7 +3776,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_UserGroup
+		#region UserGroup
 		static public DataTable usergroup_list( object userID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "usergroup_list" ) )
@@ -3758,7 +3799,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_WatchForum
+		#region WatchForum
 		static public void watchforum_add( object userID, object forumID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "watchforum_add" ) )
@@ -3799,7 +3840,7 @@ namespace YAF.Classes.Data
 		}
 		#endregion
 
-		#region yaf_WatchTopic
+		#region WatchTopic
 		static public DataTable watchtopic_list( object userID )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "watchtopic_list" ) )
@@ -3841,8 +3882,8 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region vzrus addons
-                #region reindex page controls
-        public static string btnGetStatsName
+		#region reindex page controls
+		public static string btnGetStatsName
         {
             get
             {
