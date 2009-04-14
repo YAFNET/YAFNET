@@ -82,18 +82,24 @@ namespace YAF.Controls
 
 			_mainPanel.Controls.Add( divInner );
 
-			_gotoTextBox.ID = GetExtendedID( "GotoTextBox" );
-			_gotoTextBox.Style.Add( HtmlTextWriterStyle.Width, "30px" );
-
-			divInner.Controls.Add( _gotoTextBox );
-
 			_gotoButton.ID = GetExtendedID( "GotoButton" );
 			_gotoButton.Style.Add( HtmlTextWriterStyle.Width, "30px" );
 			_gotoButton.CausesValidation = false;
 			_gotoButton.UseSubmitBehavior = false;
-			_gotoButton.Click += new EventHandler( _gotoButton_Click );			
+			_gotoButton.Click += new EventHandler( _gotoButton_Click );		
 
+			// text box...
+
+			_gotoTextBox.ID = GetExtendedID( "GotoTextBox" );
+			_gotoTextBox.Style.Add( HtmlTextWriterStyle.Width, "30px" );
+
+			divInner.Controls.Add( _gotoTextBox );
 			divInner.Controls.Add( _gotoButton );
+
+			// add enter key support...
+			_gotoTextBox.Attributes.Add( "onkeydown",
+																	 "if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {document.getElementById('" +
+																	 _gotoButton.ClientID + "').click();return false;}} else {return true}; " );
 		}
 
 		protected override void Render( HtmlTextWriter writer )
