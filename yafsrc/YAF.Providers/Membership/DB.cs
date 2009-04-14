@@ -35,6 +35,20 @@ namespace YAF.Providers.Membership
 {
 	public class DB
 	{
+		public static void UpgradeMembership( int previousVersion, int newVersion )
+		{
+			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_upgrade" ) ) )
+			{
+				cmd.CommandType = CommandType.StoredProcedure;
+				// Nonstandard args
+				cmd.Parameters.AddWithValue( "@PreviousVersion", previousVersion );
+				cmd.Parameters.AddWithValue( "@NewVersion", newVersion );
+
+				DBAccess.ExecuteNonQuery( cmd );
+			}		
+
+		}
+
 		public static void ChangePassword( string appName, string username, string newPassword, string newSalt, int passwordFormat, string newPasswordAnswer )
 		{
 			using ( SqlCommand cmd = new SqlCommand( DBAccess.GetObjectName( "prov_changepassword" ) ) )
