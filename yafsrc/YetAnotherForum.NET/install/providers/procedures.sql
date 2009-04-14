@@ -8,6 +8,10 @@
 -- =============================================
 -- Membership Drop Procedures
 -- =============================================
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_upgrade]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
+GO
+
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}prov_createapplication]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
 DROP PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 GO
@@ -131,6 +135,19 @@ GO
 -- =============================================
 -- Membership Create Procedures
 -- =============================================
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
+(
+@PreviousVersion int,
+@NewVersion int
+)
+AS
+BEGIN
+		
+	
+END 
+GO
+
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_createapplication]
 (

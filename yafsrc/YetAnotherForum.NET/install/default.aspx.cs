@@ -277,6 +277,9 @@ namespace YAF.Install
 				// resync all boards - necessary for propr last post bubbling
 				DB.board_resync();
 
+				// upgrade providers...
+				YAF.Providers.Membership.DB.UpgradeMembership( prevVersion, YafForumInfo.AppVersion );
+
 				if ( DB.IsForumInstalled && prevVersion < 30 )
 				{
 					// load default bbcode if available...
