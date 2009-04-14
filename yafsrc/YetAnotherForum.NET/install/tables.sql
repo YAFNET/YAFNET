@@ -497,6 +497,15 @@ begin
 end
 GO
 
+if not exists (select 1 from sysobjects where id = object_id(N'[{databaseOwner}].[{objectQualifier}IgnoreUser]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+begin
+	CREATE TABLE [{databaseOwner}].[{objectQualifier}IgnoreUser]
+	(
+		[UserID] int NOT NULL,
+		[IgnoredUserID] int NOT NULL
+	)
+end
+GO
 
 /*
 ** Added columns

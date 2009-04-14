@@ -37,6 +37,21 @@ namespace YAF.Controls
 	/// </summary>
 	public partial class DisplayPost : YAF.Classes.Base.BaseUserControl
 	{
+		private const string _toogleMessageJs =
+			@"
+function toggleMessage(divId)
+{
+    if(divId != null)
+    {
+        var o = $get(divId);
+
+        if(o != null)
+        {
+            o.style.display = (o.style.display == ""none"" ? ""block"" : ""none"");
+        }
+    }
+}
+";
 		#region Data Members
 
 		// for parent page referencing
@@ -53,37 +68,88 @@ namespace YAF.Controls
 
 		#endregion
 
+		#region Helper Properties
+
+		protected int UserId
+		{
+			get
+			{
+				if ( this.DataRow != null )
+				{
+					return Convert.ToInt32( DataRow["UserID"] );
+				}
+
+				return 0;
+			}
+		}
+
+		protected int MessageId
+		{
+			get
+			{
+				if ( this.DataRow != null )
+				{
+					return Convert.ToInt32( DataRow["MessageID"] );
+				}
+
+				return 0;
+			}
+		}
+
+		#endregion
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			PopMenu1.Visible = PageContext.IsAdmin && !IsGuest;
+			PopMenu1.Visible = !IsGuest;
 			if (PopMenu1.Visible)
 			{
 				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
-				PopMenu1.AddPostBackItem("userprofile", "User Profile");
-				PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
+				PopMenu1.AddPostBackItem( "userprofile", PageContext.Localization.GetText( "POSTS", "USERPROFILE" ) );
+				if ( PageContext.IsAdmin ) PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
+
+				if ( IsIgnored( UserId ) )
+				{
+					PopMenu1.AddPostBackItem( "toggleuserposts_show", PageContext.Localization.GetText( "POSTS", "TOGGLEUSERPOSTS_SHOW" ) );
+				}
+				else
+				{
+					PopMenu1.AddPostBackItem( "toggleuserposts_hide", PageContext.Localization.GetText( "POSTS", "TOGGLEUSERPOSTS_HIDE" ) );
+				}
 				PopMenu1.Attach(UserProfileLink);
 			}
 
 			ScriptManager.RegisterClientScriptInclude( this, typeof( DisplayPost ), "yafjs", YAF.Classes.Utils.YafForumInfo.GetURLToResource( "yaf.js" ) );
 			NameCell.ColSpan = int.Parse(GetIndentSpan());
+
+			ScriptManager.RegisterClientScriptBlock( this.Page, typeof( Page ), "toggleMessageJs", _toogleMessageJs, true );
+
+			if ( PageContext.IsGuest )
+			{
+				btnToggleMessage.Visible = false;
+			}
+			else if ( IsIgnored( UserId ) )
+			{
+				btnToggleMessage.Visible = true;
+				btnToggleMessage.Attributes["onclick"] = string.Format( "toggleMessage('{0}'); return false;", panMessage.ClientID );
+				panMessage.Style["display"] = "none";
+			}
 		}
 
 		private void DisplayPost_PreRender( object sender, EventArgs e )
 		{
 			Attach.Visible = !PostDeleted && CanAttach && !IsLocked;
 
-			Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.attachments, "m={0}", DataRow ["MessageID"] );
+			Attach.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.attachments, "m={0}", MessageId );
 			Edit.Visible = !PostDeleted && CanEditPost && !IsLocked;
-			Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "m={0}", DataRow ["MessageID"] );
+			Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.postmessage, "m={0}", MessageId );
 			MovePost.Visible = PageContext.ForumModeratorAccess && !IsLocked;
-			MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.movemessage, "m={0}", DataRow ["MessageID"] );
+			MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.movemessage, "m={0}", MessageId );
 			Delete.Visible = !PostDeleted && CanDeletePost && !IsLocked;
-			Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=delete", DataRow ["MessageID"] );
+			Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=delete", MessageId );
 			UnDelete.Visible = CanUnDeletePost && !IsLocked;
-			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=undelete", DataRow ["MessageID"] );
+			UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.deletemessage, "m={0}&action=undelete", MessageId );
 			Quote.Visible = !PostDeleted && CanReply && !IsLocked;
-			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, DataRow ["MessageID"] );
+			Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.postmessage, "t={0}&f={1}&q={2}", PageContext.PageTopicID, PageContext.PageForumID, MessageId );
 
 			// report posts
 			ReportButton.Visible = PageContext.BoardSettings.AllowReportAbuse && !IsGuest; // Mek Addition 08/18/2007
@@ -97,11 +163,11 @@ namespace YAF.Controls
 
 			// private messages
 			Pm.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowPrivateMessages && !IsSponserMessage;
-			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", DataRow ["UserID"] );
+			Pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.pmessage, "u={0}", UserId );
 
 			// emailing
 			Email.Visible = !IsGuest && !PostDeleted && PageContext.User != null && PageContext.BoardSettings.AllowEmailSending && !IsSponserMessage;
-			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", UserId );
 
 			// home page
 			Home.Visible = !PostDeleted && !String.IsNullOrEmpty( UserProfile.Homepage );
@@ -113,23 +179,23 @@ namespace YAF.Controls
 
 			// MSN
 			Msn.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.MSN );
-			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", DataRow ["UserID"] );
+			Msn.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_email, "u={0}", UserId );
 
 			// Yahoo IM
 			Yim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.YIM );
-			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", DataRow ["UserID"] );
+			Yim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_yim, "u={0}", UserId );
 
 			// AOL IM
 			Aim.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.AIM );
-			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_aim, "u={0}", DataRow ["UserID"] );
+			Aim.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_aim, "u={0}", UserId );
 
 			// ICQ
 			Icq.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.ICQ );
-			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_icq, "u={0}", DataRow ["UserID"] );
+			Icq.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_icq, "u={0}", UserId );
 
 			// Skype
 			Skype.Visible = !PostDeleted && PageContext.User != null && !String.IsNullOrEmpty( UserProfile.Skype );
-			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_skype, "u={0}", DataRow ["UserID"] );
+			Skype.NavigateUrl = YafBuildLink.GetLinkNotEscaped( ForumPages.im_skype, "u={0}", UserId );
 
 			if ( !PostDeleted )
 			{
@@ -174,7 +240,6 @@ namespace YAF.Controls
 			}
 			AdminInformation.InnerHtml += "</span>";
 		}
-
 
 		override protected void OnInit( EventArgs e )
 		{
@@ -283,7 +348,7 @@ namespace YAF.Controls
 			{
 				if ( DataRow != null )
 				{
-					return UserMembershipHelper.IsGuestUser( DataRow ["UserID"] );
+					return UserMembershipHelper.IsGuestUser( UserId );
 				}
 				else return true;
 			}
@@ -313,7 +378,7 @@ namespace YAF.Controls
 				if ( _userProfile == null )
 				{
 					// setup instance of the user profile...
-					_userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( Convert.ToInt32( DataRow ["UserID"] ) ) );
+					_userProfile = PageContext.GetProfile( UserMembershipHelper.GetUserNameFromID( UserId ) );
 				}
 
 				return _userProfile;
@@ -343,7 +408,7 @@ namespace YAF.Controls
 				// Ederon : 9/9/2007 - moderaotrs can edit locked posts
 				// Ederon : 12/5/2007 - new flags implementation
 				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumEditAccess;
 			}
 		}
@@ -381,7 +446,7 @@ namespace YAF.Controls
 			{
 				// Ederon : 9/9/2007 - moderaotrs can attack to locked posts
 				return ( ( !PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumUploadAccess;
 			}
 		}
@@ -392,7 +457,7 @@ namespace YAF.Controls
 			{
 				// Ederon : 9/9/2007 - moderaotrs can delete in locked posts
 				return ((!PostLocked && !_forumFlags.IsLocked && !_topicFlags.IsLocked &&
-					( int ) DataRow ["UserID"] == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
+					UserId == PageContext.PageUserID ) || PageContext.ForumModeratorAccess ) &&
 					PageContext.ForumDeleteAccess;
 			}
 		}
@@ -469,366 +534,19 @@ namespace YAF.Controls
 			return "100";
 		}
 
-		// Ederon : 7/14/2007 - implemented user box template for formatting
-		// TODO: Make into a Control and move all this code out of this file...
-		protected string FormatUserBox()
+		private bool IsIgnored( int ignoredUserId )
 		{
-			#region Cache Retrieval
-
-			// is this control contained in YAF.Classes.Base.ForumPage and has it any cache?
-			if (ParentPage != null && ParentPage.PageCache != null)
-			{
-				// get cache for user boxes
-				object cache = ParentPage.PageCache[Constants.Cache.UserBoxes];
-
-				// is it hashtable?
-				if (cache != null && cache is Hashtable)
-				{
-					// get only record for user who made message being
-					cache = ((Hashtable)cache)[DataRow["UserID"]];
-
-					// return from cache if there is something there
-					if (cache != null && cache.ToString() != "") return cache.ToString();
-				}
-			}
-
-			#endregion
-
-			if ( IsSponserMessage ) return "";
-
-			string userBox = PageContext.BoardSettings.UserBox;
-			string filler = "";
-
-			// for pattern matching
-			Regex rx;
-
-
-			// Avatar
-			rx = new Regex(Constants.UserBox.Avatar);
-
-			if (!PostDeleted &&
-				(PageContext.BoardSettings.AvatarUpload && DataRow["HasAvatarImage"] != null && long.Parse(DataRow["HasAvatarImage"].ToString()) > 0))
-			{
-				filler = String.Format(
-							PageContext.BoardSettings.UserBoxAvatar,
-							String.Format(
-								@"<img class=""avatarimage"" src=""{1}resource.ashx?u={0}"" alt="""" />",
-								DataRow["UserID"],
-								YafForumInfo.ForumRoot
-								)
-							);
-			}
-			else if (!PostDeleted &&
-				DataRow["Avatar"].ToString().Length > 0) // Took out PageContext.BoardSettings.AvatarRemote
-			{
-				filler = String.Format(
-							PageContext.BoardSettings.UserBoxAvatar,
-							String.Format(
-								@"<img class=""avatarimage"" src=""{3}resource.ashx?url={0}&amp;width={1}&amp;height={2}"" alt="""" /><br clear=""all"" />",
-								Server.UrlEncode(DataRow["Avatar"].ToString()),
-								PageContext.BoardSettings.AvatarWidth,
-								PageContext.BoardSettings.AvatarHeight,
-								YafForumInfo.ForumRoot
-								)
-							);
-			}
-			else
-			{
-				filler = "";
-			}
-
-			// replaces template placeholder with actual avatar
-			userBox = rx.Replace(userBox, filler);
-
-
-			// Ederon : 7/14/2007 - prepared for implementation of user medals
-			// User Medals
-			rx = new Regex(Constants.UserBox.Medals);
-
-			if (PageContext.BoardSettings.ShowMedals)
-			{
-				using (DataTable dt = DB.user_listmedals(DataRow["UserID"]))
-				{
-					System.Text.StringBuilder ribbonBar = new System.Text.StringBuilder(500);
-					System.Text.StringBuilder medals = new System.Text.StringBuilder(500);
-
-					DataRow r;
-					MedalFlags f;
-
-					int i = 0;
-					int inRow = 0;
-
-					// do ribbon bar first
-					while (dt.Rows.Count > i)
-					{
-						r = dt.Rows[i];
-						f = new MedalFlags(r["Flags"]);
-						
-						// do only ribbon bar items first
-						if (!(bool)r["OnlyRibbon"]) break;
-
-						// skip hidden medals
-						if (!f.AllowHiding || !(bool)r["Hide"])
-						{
-							if (inRow == 3)
-							{
-								// add break - only three ribbons in a row
-								ribbonBar.Append("<br />");
-								inRow = 0;
-							}
-
-							ribbonBar.AppendFormat(
-								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
-								YafForumInfo.ForumRoot,
-								r["SmallRibbonURL"],
-								r["SmallRibbonWidth"],
-								r["SmallRibbonHeight"],
-								r["Name"],
-								f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
-								);
-
-							inRow++;
-						}
-
-						// move to next row
-						i++;
-					}
-
-					// follow with the rest
-					while (dt.Rows.Count > i)
-					{
-						r = dt.Rows[i];
-						f = new MedalFlags(r["Flags"]);
-
-						// skip hidden medals
-						if (!f.AllowHiding || !(bool)r["Hide"])
-						{
-							medals.AppendFormat(
-								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
-								YafForumInfo.ForumRoot,
-								r["SmallMedalURL"],
-								r["SmallMedalWidth"],
-								r["SmallMedalHeight"],
-								r["Name"],
-								f.ShowMessage ? String.Format(": {0}", r["Message"]) : ""
-								);
-						}
-
-						// move to next row
-						i++;
-					}
-
-					filler = String.Format(
-								PageContext.BoardSettings.UserBoxMedals,
-								ribbonBar.ToString(),
-								medals.ToString()
-								);
-				}
-			}
-			else
-			{
-				filler = "";
-			}
-
-			// replaces template placeholder with actual medals
-			userBox = rx.Replace(userBox, filler);
-
-
-			// Rank Image
-			rx = new Regex(Constants.UserBox.RankImage);
-
-			if ( DataRow ["RankImage"].ToString().Length > 0 )
-			{
-				filler=	String.Format(
-							PageContext.BoardSettings.UserBoxRankImage,
-							String.Format(
-								@"<img class=""rankimage"" src=""{0}images/ranks/{1}"" alt="""" />",
-								YafForumInfo.ForumRoot,
-								DataRow ["RankImage"]
-								)
-							);
-			}
-			else
-			{
-				filler = "";
-			}
-
-			// replaces template placeholder with actual rank image
-			userBox = rx.Replace(userBox, filler);
-
-
-			// Rank
-			rx = new Regex(Constants.UserBox.Rank);
-
-			filler = String.Format(
-						PageContext.BoardSettings.UserBoxRank,
-						PageContext.Localization.GetText("rank"),
-						DataRow["RankName"]
-						);
-
-			// replaces template placeholder with actual rank
-			userBox = rx.Replace(userBox, filler);
-
-
-			// Groups
-			rx = new Regex(Constants.UserBox.Groups);
-
-			if ( PageContext.BoardSettings.ShowGroups )
-			{
-				System.Text.StringBuilder groupsText = new System.Text.StringBuilder( 500 );
-
-				bool bFirst = true;
-
-				foreach ( string role in System.Web.Security.Roles.GetRolesForUser( DataRow ["UserName"].ToString() ) )
-				{
-					if ( bFirst )
-					{
-						groupsText.AppendLine( role );
-						bFirst = false;
-					}
-					else
-					{
-						groupsText.AppendFormat( ", {0}", role );
-					}
-				}
-
-				filler = String.Format(
-							PageContext.BoardSettings.UserBoxGroups,
-							PageContext.Localization.GetText("groups"),
-							groupsText.ToString()
-							);
-                
-                // mddubs : 02/21/2009
-                // Remove the space before the first comma when multiple groups exist.
-                filler = filler.Replace("\r\n,", ",");
-			}
-			else
-			{
-				filler = "";
-			}
-
-			// replaces template placeholder with actual groups
-			userBox = rx.Replace(userBox, filler);
-
-
-			if ( !PostDeleted )
-			{
-				// Ederon : 02/24/2007
-				// Joined Date
-				rx = new Regex(Constants.UserBox.JoinDate);
-
-				if ( PageContext.BoardSettings.DisplayJoinDate )
-				{
-					filler = String.Format(
-								PageContext.BoardSettings.UserBoxJoinDate,
-								PageContext.Localization.GetText("joined"),
-								YafDateTime.FormatDateShort((DateTime)DataRow["Joined"])
-								);
-				}
-				else
-				{
-					filler = "";
-				}
-
-				// replaces template placeholder with actual join date
-				userBox = rx.Replace(userBox, filler);
-
-
-				// Posts
-				rx = new Regex(Constants.UserBox.Posts);
-
-				filler = String.Format(
-							PageContext.BoardSettings.UserBoxPosts,
-							PageContext.Localization.GetText("posts"),
-							DataRow["Posts"]
-							);
-
-				// replaces template placeholder with actual post count
-				userBox = rx.Replace(userBox, filler);
-
-
-				// Points
-				rx = new Regex(Constants.UserBox.Points);
-
-				if ( PageContext.BoardSettings.DisplayPoints )
-				{
-					filler = String.Format(
-								PageContext.BoardSettings.UserBoxPoints,
-								PageContext.Localization.GetText("points"),
-								DataRow["Points"]
-								);
-				}
-				else
-				{
-					filler = "";
-				}
-
-				// replaces template placeholder with actual points
-				userBox = rx.Replace(userBox, filler);
-
-
-				// Location
-				rx = new Regex(Constants.UserBox.Location);
-
-				if ( UserProfile.Location != string.Empty )
-				{
-					filler = String.Format(
-								PageContext.BoardSettings.UserBoxLocation,
-								PageContext.Localization.GetText("location"),
-								FormatMsg.RepairHtml(UserProfile.Location, false)
-								);
-				}
-				else
-				{
-					filler = "";
-				}
-
-				// replaces template placeholder with actual location
-				userBox = rx.Replace(userBox, filler);
-			}
-			else
-			{
-				filler = "";
-				rx = new Regex(Constants.UserBox.JoinDate);
-				userBox = rx.Replace(userBox, filler);
-				rx = new Regex(Constants.UserBox.Posts);
-				userBox = rx.Replace(userBox, filler);
-				rx = new Regex(Constants.UserBox.Points);
-				userBox = rx.Replace(userBox, filler);
-				rx = new Regex(Constants.UserBox.Location);
-				userBox = rx.Replace(userBox, filler);
-			}
-
-			#region Cache Saving
-
-			// is this control contained in YAF.Classes.Base.ForumPage and has it any cache?
-			if (ParentPage != null && ParentPage.PageCache != null)
-			{
-				// get cache for user boxes
-				object cache = ParentPage.PageCache[Constants.Cache.UserBoxes];
-
-				// is it hashtable?
-				if (cache != null && cache is Hashtable)
-				{
-					// save userbox for user of this id to cache
-					((Hashtable)cache)[DataRow["UserID"]] = userBox;
-				}
-				else
-				{
-					// create new hashtable for userbox caching
-					cache = new Hashtable();
-
-					// save userbox of this user
-					((Hashtable)cache)[DataRow["UserID"]] = userBox;
-
-					// save cache
-					ParentPage.PageCache[Constants.Cache.UserBoxes] = cache;
-				}
-			}
-
-			#endregion
-
-			return userBox;
+			return YAF.Classes.Data.DB.user_isuserignored( PageContext.PageUserID, ignoredUserId );
+		}
+
+		private void AddIgnored( int ignoredUserId )
+		{
+			YAF.Classes.Data.DB.user_addignoreduser( PageContext.PageUserID, ignoredUserId );
+		}
+
+		private void RemoveIgnored( int ignoredUserId )
+		{
+			YAF.Classes.Data.DB.user_removeignoreduser( PageContext.PageUserID, ignoredUserId );
 		}
 
 		private void PopMenu1_ItemClick( object sender, PopEventArgs e )
@@ -836,10 +554,18 @@ namespace YAF.Controls
 			switch ( e.Item )
 			{
 				case "userprofile":
-					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", DataRow ["UserID"] );
+					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.profile, "u={0}", UserId );
 					break;
 				case "edituser":
-					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", DataRow ["UserID"] );
+					YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_edituser, "u={0}", UserId );
+					break;
+				case "toggleuserposts_show":
+					RemoveIgnored( UserId );
+					Response.Redirect( Request.RawUrl );
+					break;
+				case "toggleuserposts_hide":
+					AddIgnored( UserId );
+					Response.Redirect( Request.RawUrl );
 					break;
 			}
 		}

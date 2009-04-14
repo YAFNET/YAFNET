@@ -38,11 +38,13 @@
 </tr>
 <tr class="<%#GetPostClass()%>">
     <td valign="top" height="<%# GetUserBoxHeight() %>" class="UserBox" colspan='<%#GetIndentSpan()%>'>
-        <%# FormatUserBox() %>
+        <YAF:UserBox id="UserBox1" runat="server" Visible="<%# !IsSponserMessage %>" PageCache="<%# ParentPage.PageCache %>" DataRow="<%# DataRow %>"></YAF:UserBox>
     </td>
     <td valign="top" class="message">
         <div class="postdiv">
-            <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
+            <asp:panel id="panMessage" runat="server">        
+                <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# DataRow %>"></YAF:MessagePostData>
+            </asp:panel>
         </div>
     </td>
 </tr>
@@ -56,6 +58,8 @@
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td>
+                    <YAF:ThemeButton ID="btnToggleMessage" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
+                        TextLocalizedTag="TOGGLEMESSAGE" Visible="false" />                
                     <YAF:ThemeButton ID="Pm" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
                         TextLocalizedTag="PM" ImageThemeTag="PM" />
                     <YAF:ThemeButton ID="Email" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"

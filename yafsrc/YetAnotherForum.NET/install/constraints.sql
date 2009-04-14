@@ -609,24 +609,24 @@ if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}]
 	alter table [{databaseOwner}].[{objectQualifier}Active] with nocheck add constraint [PK_{objectQualifier}Active] primary key clustered(SessionID,BoardID)
 go
 
-
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') and name='PK_{objectQualifier}UserPMessage')
 	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] with nocheck add constraint [PK_{objectQualifier}UserPMessage] primary key clustered (UserPMessageID) 
 go
-
 
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Attachment]') and name='PK_{objectQualifier}Attachment')
 	alter table [{databaseOwner}].[{objectQualifier}Attachment] with nocheck add constraint [PK_{objectQualifier}Attachment] primary key clustered (AttachmentID) 
 go
 
-
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}Active]') and name='PK_{objectQualifier}Active')
 	alter table [{databaseOwner}].[{objectQualifier}Active] with nocheck add constraint [PK_{objectQualifier}Active] primary key clustered(SessionID,BoardID)
 go
 
-
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}PollVote]') and name='PK_{objectQualifier}PollVote')
 	alter table [{databaseOwner}].[{objectQualifier}PollVote] with nocheck add constraint [PK_{objectQualifier}PollVote] primary key clustered(PollVoteID)
+go
+
+if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}IgnoreUser]') and name='PK_{objectQualifier}IgnoreUser')
+	alter table [{databaseOwner}].[{objectQualifier}IgnoreUser] with nocheck add constraint [PK_{objectQualifier}IgnoreUser] PRIMARY KEY CLUSTERED (UserID, IgnoredUserID)
 go
 
 /*
@@ -722,6 +722,7 @@ go
 if not exists(select * from dbo.sysindexes where id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IX_{objectQualifier}User')
 	alter table [{databaseOwner}].[{objectQualifier}User] add constraint IX_{objectQualifier}User unique nonclustered(BoardID,Name)
 go
+
 
 /*
 ** Foreign keys

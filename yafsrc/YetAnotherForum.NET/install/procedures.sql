@@ -848,6 +848,23 @@ IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}
 	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}bbcode_save]
 GO
 
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_addignoreduser]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_addignoreduser]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_removeignoreduser]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
+GO
+
+IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}user_isuserignored]') AND Objectproperty(id,N'IsProcedure') = 1)
+	DROP PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
+GO
+
+
+/*****************************************************************************************************************************/
+/***** BEGIN CREATE PROCEDURES ******/
+
+
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
 begin
 	declare @flag int
@@ -4468,6 +4485,7 @@ begin
 	--ABOT CHANGED
 	--Delete UserForums entries Too 
 	delete from [{databaseOwner}].[{objectQualifier}UserForum] where UserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}IgnoredUser] where UserID = @UserID OR IgnoredUserID = @UserID
 	--END ABOT CHANGED 09.04.2004
 	delete from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 end
@@ -6039,4 +6057,44 @@ as begin
 	end
 
 end
+GO
+
+/* User Ignore Procedures */
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_addignoreduser]
+	@UserId int,
+	@IgnoredUserId int
+AS BEGIN
+	IF NOT EXISTS (SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
+	BEGIN
+		INSERT INTO [{databaseOwner}].[{objectQualifier}IgnoreUser] (UserID, IgnoredUserID) VALUES (@UserId, @IgnoredUserId)
+	END
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_removeignoreduser]
+    @UserId int,
+    @IgnoredUserId int
+AS BEGIN
+
+	DELETE FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId
+	
+END
+GO
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_isuserignored]
+    @UserId int,
+    @IgnoredUserId int
+AS BEGIN
+
+	IF EXISTS(SELECT * FROM [{databaseOwner}].[{objectQualifier}IgnoreUser] WHERE UserID = @userId AND IgnoredUserID = @ignoredUserId)
+	BEGIN
+		RETURN 1
+	END
+	ELSE
+	BEGIN
+		RETURN 0
+	END
+	
+END	
 GO
