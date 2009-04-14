@@ -393,7 +393,7 @@ Visit {forumname} at {forumlink}
   <page name="POSTS">
     <!-- posts.aspx -->
 	  <Resource tag="USERPROFILE">User Profile</Resource>
-	<Resource tag="TOGGLEMESSAGE">Show/Hide Post</Resource>
+	<Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
 	<Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
 	<Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
