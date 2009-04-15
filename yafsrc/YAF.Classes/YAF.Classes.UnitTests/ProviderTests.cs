@@ -43,7 +43,7 @@ namespace YAF.Classes.UnitTests
 		{
 			string testPasswrd = ";Stupid12";
 			string expectedResult = "uNBoPpKz+S46wPPVCeIFyHW0lVE=";
-			string salt = "8tX6TMKiZtmA/GwOgpf6uw==";
+            string salt = "UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=";
 			string result = YafMembershipProvider.Hash( testPasswrd, "SHA1", salt, true, false, "none", "", false );
 			Assert.AreEqual( expectedResult, result );
 		}

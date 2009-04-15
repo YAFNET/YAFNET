@@ -187,7 +187,7 @@ namespace YAF.Providers.Membership
         /// <param name="salt">Salt to be applied to hashing algorithm</param>
         ///  <param name="clearString">Clear string to hash</param>
         /// <param name="standardComp">Use Standard asp.net membership method of creating the buffer</param>
-        /// <returns> Hashed String as Hex or Base64 </returns>
+        /// <returns> Salted Password as Byte Array </returns>
         public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
         {
             byte[] unencodedBytes = Encoding.Unicode.GetBytes(clearString);
@@ -204,7 +204,7 @@ namespace YAF.Providers.Membership
                 System.Buffer.BlockCopy(unencodedBytes, 0, buffer, 0, unencodedBytes.Length);
                 System.Buffer.BlockCopy(saltBytes, 0, buffer, unencodedBytes.Length - 1, saltBytes.Length);
             }
-            return buffer;
+            return buffer; 
         }
 
         /// <summary>

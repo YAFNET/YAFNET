@@ -143,7 +143,11 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
 )
 AS
 BEGIN
-		
+		IF (@PreviousVersion = 32)
+		BEGIN
+			-- RESOLVE SALT ISSUE IN 193 RC2
+			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
+		END
 	
 END 
 GO
