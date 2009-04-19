@@ -37,29 +37,29 @@ namespace YAF.Classes
 			{
 				if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
 				{
-					return ConfigurationManager.AppSettings [key];
+					return ConfigurationManager.AppSettings[key];
 				}
 			}
 
 			return null;
 		}
 
-        static public string GetConfigValueAsString(string configKey, bool useWebConfigurationManager)
-        {
-            if (useWebConfigurationManager)
-            {
-                foreach ( string key in WebConfigurationManager.AppSettings.AllKeys )
-			    {
-				    if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
-				    {
-					    return WebConfigurationManager.AppSettings [key];
-				    }
-			    }
-                return null;
-            }
-            else
-                return GetConfigValueAsString(configKey);
-        }
+		static public string GetConfigValueAsString( string configKey, bool useWebConfigurationManager )
+		{
+			if ( useWebConfigurationManager )
+			{
+				foreach ( string key in WebConfigurationManager.AppSettings.AllKeys )
+				{
+					if ( key.Equals( configKey, StringComparison.CurrentCultureIgnoreCase ) )
+					{
+						return WebConfigurationManager.AppSettings[key];
+					}
+				}
+				return null;
+			}
+			else
+				return GetConfigValueAsString( configKey );
+		}
 
 		static public bool GetConfigValueAsBool( string configKey, bool defaultValue )
 		{
@@ -73,22 +73,22 @@ namespace YAF.Classes
 			return defaultValue;
 		}
 
-        static public bool GetConfigValueAsBool(string configKey, bool defaultValue, bool useWebConfigurationManager)
-        {
-            if (useWebConfigurationManager)
-            {
-                string value = GetConfigValueAsString( configKey, useWebConfigurationManager );
+		static public bool GetConfigValueAsBool( string configKey, bool defaultValue, bool useWebConfigurationManager )
+		{
+			if ( useWebConfigurationManager )
+			{
+				string value = GetConfigValueAsString( configKey, useWebConfigurationManager );
 
-			    if ( !String.IsNullOrEmpty( value ) )
-			    {
-				    return Convert.ToBoolean( value.ToLower() );
-			    }
+				if ( !String.IsNullOrEmpty( value ) )
+				{
+					return Convert.ToBoolean( value.ToLower() );
+				}
 
-			    return defaultValue;
-            }
-            else
-                return GetConfigValueAsBool(configKey, defaultValue);
-        }
+				return defaultValue;
+			}
+			else
+				return GetConfigValueAsBool( configKey, defaultValue );
+		}
 
 		/// <summary>
 		/// Current BoardID -- default is 1.
@@ -97,7 +97,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( GetConfigValueAsString( "YAF.BoardID" ) ?? "1" );
+				return (GetConfigValueAsString( "YAF.BoardID" ) ?? "1");
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( GetConfigValueAsString( "YAF.BaseScriptFile" ) ?? "default.aspx" );
+				return (GetConfigValueAsString( "YAF.BaseScriptFile" ) ?? "default.aspx");
 			}
 		}
 
@@ -145,16 +145,16 @@ namespace YAF.Classes
 			}
 		}
 
-        /// <summary>
-        /// Returns the BaseUrl key using the WebConfigurationManager.
-        /// </summary>
-        static public string BaseUrlFromWCM
-        {
-            get
-            {
-                return GetConfigValueAsString("YAF.BaseURL", true);
-            }
-        }
+		/// <summary>
+		/// Returns the BaseUrl key using the WebConfigurationManager.
+		/// </summary>
+		static public string BaseUrlFromWCM
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.BaseURL", true );
+			}
+		}
 
 		static public bool BaseUrlOverrideDomain
 		{
@@ -213,7 +213,7 @@ namespace YAF.Classes
 			get
 			{
 				return GetConfigValueAsString( "YAF.RadEditorToolsFile" ) ??
-				       String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.Root );
+							 String.Format( "{0}/editors/RadEditor/ToolsFile.xml", Config.Root );
 			}
 		}
 
@@ -247,11 +247,11 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings ["yafnet"].ConnectionString;
+				return ConfigurationManager.ConnectionStrings["yafnet"].ConnectionString;
 			}
 		}
 
-    [Obsolete("Legacy: Phasing out")]
+		[Obsolete( "Legacy: Phasing out" )]
 		static public string LogToMail
 		{
 			get
@@ -264,7 +264,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				object obj = HttpContext.Current.Items ["PortalSettings"];
+				object obj = HttpContext.Current.Items["PortalSettings"];
 				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "dotnetnuke" ) >= 0;
 			}
 		}
@@ -273,7 +273,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				object obj = HttpContext.Current.Items ["PortalSettings"];
+				object obj = HttpContext.Current.Items["PortalSettings"];
 				return obj != null && obj.GetType().ToString().ToLower().IndexOf( "rainbow" ) >= 0;
 			}
 		}
@@ -282,7 +282,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return HttpContext.Current.Session ["YetAnotherPortal.net"] != null;
+				return HttpContext.Current.Session["YetAnotherPortal.net"] != null;
 			}
 		}
 
@@ -290,7 +290,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ( IsDotNetNuke || IsRainbow || IsPortal );
+				return (IsDotNetNuke || IsRainbow || IsPortal);
 			}
 		}
 
@@ -306,7 +306,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				if ( HttpContext.Current.Application [UrlBuilderKeyName] == null )
+				if ( HttpContext.Current.Application[UrlBuilderKeyName] == null )
 				{
 					string urlAssembly;
 
@@ -331,10 +331,10 @@ namespace YAF.Classes
 						urlAssembly = "YAF.Classes.UrlBuilder";
 					}
 
-					HttpContext.Current.Application [UrlBuilderKeyName] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
+					HttpContext.Current.Application[UrlBuilderKeyName] = Activator.CreateInstance( Type.GetType( urlAssembly ) );
 				}
 
-				return ( IUrlBuilder ) HttpContext.Current.Application [UrlBuilderKeyName];
+				return (IUrlBuilder)HttpContext.Current.Application[UrlBuilderKeyName];
 			}
 		}
 	}

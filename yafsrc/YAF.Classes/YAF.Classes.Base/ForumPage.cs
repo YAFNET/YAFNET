@@ -213,7 +213,7 @@ namespace YAF.Classes.Base
 		/// <param name="e"></param>
 		private void ForumPage_Load( object sender, System.EventArgs e )
 		{
-			Security.CheckRequestValidity( Request );
+			if ( PageContext.BoardSettings.DoUrlReferrerSecurityCheck ) Security.CheckRequestValidity( Request );
 			GeneratePageTitle();			
 		}
 
