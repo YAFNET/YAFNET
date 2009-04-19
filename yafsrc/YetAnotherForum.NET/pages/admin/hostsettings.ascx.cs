@@ -19,17 +19,8 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Globalization;
 using YAF.Classes.Utils;
-using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
 {
@@ -70,7 +61,7 @@ namespace YAF.Pages.Admin
 			// Ederon : 7/1/2007
 			// set widths manually since ASP.NET "forgets" to do it for browsers other then IE
 			General.AddStyleAttributeWidth( SmiliesPerRow, "25px" );
-			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );			
+			General.AddStyleAttributeWidth( SmiliesColumns, "25px" );
 			General.AddStyleAttributeWidth( ForumEmailEdit, "200px" );
 			General.AddStyleAttributeWidth( AcceptedHTML, "200px" );
 			General.AddStyleAttributeWidth( DisableNoFollowLinksAfterDay, "100px" );
@@ -112,7 +103,7 @@ namespace YAF.Pages.Admin
 			AvatarHeight.Text = PageContext.BoardSettings.AvatarHeight.ToString();
 			AvatarUpload.Checked = PageContext.BoardSettings.AvatarUpload;
 			AvatarRemote.Checked = PageContext.BoardSettings.AvatarRemote;
-			AvatarSize.Text = ( PageContext.BoardSettings.AvatarSize != 0 ) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
+			AvatarSize.Text = (PageContext.BoardSettings.AvatarSize != 0) ? PageContext.BoardSettings.AvatarSize.ToString() : "";
 			AllowUserThemeX.Checked = PageContext.BoardSettings.AllowUserTheme;
 			AllowUserLanguageX.Checked = PageContext.BoardSettings.AllowUserLanguage;
 			UseFileTableX.Checked = PageContext.BoardSettings.UseFileTable;
@@ -122,7 +113,7 @@ namespace YAF.Pages.Admin
 			AllowEmailSendingX.Checked = PageContext.BoardSettings.AllowEmailSending;
 			AllowSignaturesX.Checked = PageContext.BoardSettings.AllowSignatures;
 			RemoveNestedQuotesX.Checked = PageContext.BoardSettings.RemoveNestedQuotes;
-			MaxFileSize.Text = ( PageContext.BoardSettings.MaxFileSize != 0 ) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
+			MaxFileSize.Text = (PageContext.BoardSettings.MaxFileSize != 0) ? PageContext.BoardSettings.MaxFileSize.ToString() : "";
 			SmiliesColumns.Text = PageContext.BoardSettings.SmiliesColumns.ToString();
 			SmiliesPerRow.Text = PageContext.BoardSettings.SmiliesPerRow.ToString();
 			LockPosts.Text = PageContext.BoardSettings.LockPosts.ToString();
@@ -150,6 +141,7 @@ namespace YAF.Pages.Admin
 			ShowRulesForRegistrationX.Checked = PageContext.BoardSettings.ShowRulesForRegistration;
 			ShowModeratorList.Checked = PageContext.BoardSettings.ShowModeratorList;
 			AllowLoginAndLogoff.Checked = PageContext.BoardSettings.AllowLoginAndLogoff;
+			DoUrlReferrerSecurityCheck.Checked = PageContext.BoardSettings.DoUrlReferrerSecurityCheck;
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -196,8 +188,8 @@ namespace YAF.Pages.Admin
 			MaxPrivateMessagesPerUser.Text = PageContext.BoardSettings.MaxPrivateMessagesPerUser.ToString();
 			PrivateMessageMaxRecipients.Text = PageContext.BoardSettings.PrivateMessageMaxRecipients.ToString();
 
-            // MDDubs : 2/7/2008 added
-            AllowEmailChange.Checked = PageContext.BoardSettings.AllowEmailChange;
+			// MDDubs : 2/7/2008 added
+			AllowEmailChange.Checked = PageContext.BoardSettings.AllowEmailChange;
 
 			// Ederon : 02/17/2009 added
 			PictureAttachmentDisplayTreshold.Text = PageContext.BoardSettings.PictureAttachmentDisplayTreshold.ToString();
@@ -236,7 +228,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.AvatarHeight = Convert.ToInt32( AvatarHeight.Text );
 			PageContext.BoardSettings.AvatarUpload = AvatarUpload.Checked;
 			PageContext.BoardSettings.AvatarRemote = AvatarRemote.Checked;
-			PageContext.BoardSettings.AvatarSize = ( AvatarSize.Text.Trim().Length > 0 ) ? Convert.ToInt32( AvatarSize.Text ) : 0;
+			PageContext.BoardSettings.AvatarSize = (AvatarSize.Text.Trim().Length > 0) ? Convert.ToInt32( AvatarSize.Text ) : 0;
 			PageContext.BoardSettings.AllowUserTheme = AllowUserThemeX.Checked;
 			PageContext.BoardSettings.AllowUserLanguage = AllowUserLanguageX.Checked;
 			PageContext.BoardSettings.UseFileTable = UseFileTableX.Checked;
@@ -246,7 +238,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.AllowEmailSending = AllowEmailSendingX.Checked;
 			PageContext.BoardSettings.AllowSignatures = AllowSignaturesX.Checked;
 			PageContext.BoardSettings.RemoveNestedQuotes = RemoveNestedQuotesX.Checked;
-			PageContext.BoardSettings.MaxFileSize = ( MaxFileSize.Text.Trim().Length > 0 ) ? Convert.ToInt32( MaxFileSize.Text.Trim() ) : 0;
+			PageContext.BoardSettings.MaxFileSize = (MaxFileSize.Text.Trim().Length > 0) ? Convert.ToInt32( MaxFileSize.Text.Trim() ) : 0;
 			PageContext.BoardSettings.SmiliesColumns = Convert.ToInt32( SmiliesColumns.Text.Trim() );
 			PageContext.BoardSettings.SmiliesPerRow = Convert.ToInt32( SmiliesPerRow.Text.Trim() );
 			PageContext.BoardSettings.LockPosts = LockPosts.Text.Trim() == string.Empty ? 0 : Convert.ToInt32( LockPosts.Text.Trim() );
@@ -274,6 +266,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ShowRulesForRegistration = ShowRulesForRegistrationX.Checked;
 			PageContext.BoardSettings.ShowModeratorList = ShowModeratorList.Checked;
 			PageContext.BoardSettings.AllowLoginAndLogoff = AllowLoginAndLogoff.Checked;
+			PageContext.BoardSettings.DoUrlReferrerSecurityCheck = DoUrlReferrerSecurityCheck.Checked;
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
@@ -311,27 +304,27 @@ namespace YAF.Pages.Admin
 			// Ederon : 12/14/2007 added
 			PageContext.BoardSettings.ShowForumStatistics = ShowForumStatistics.Checked;
 			PageContext.BoardSettings.ShowActiveDiscussions = ShowActiveDiscussions.Checked;
-			PageContext.BoardSettings.ActiveDiscussionsCount = Convert.ToInt32(ActiveDiscussionsCount.Text.Trim());
-			PageContext.BoardSettings.SearchStringMinLength = Convert.ToInt32(SearchStringMinLength.Text.Trim());
+			PageContext.BoardSettings.ActiveDiscussionsCount = Convert.ToInt32( ActiveDiscussionsCount.Text.Trim() );
+			PageContext.BoardSettings.SearchStringMinLength = Convert.ToInt32( SearchStringMinLength.Text.Trim() );
 			PageContext.BoardSettings.SearchStringPattern = SearchStringPattern.Text;
 			PageContext.BoardSettings.SearchPermissions = SearchPermissions.SelectedIndex;
 
 			// Ederon : 12/18/2007 added
-			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32(MaxPrivateMessagesPerUser.Text.Trim());
-			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32(PrivateMessageMaxRecipients.Text.Trim());
+			PageContext.BoardSettings.MaxPrivateMessagesPerUser = Convert.ToInt32( MaxPrivateMessagesPerUser.Text.Trim() );
+			PageContext.BoardSettings.PrivateMessageMaxRecipients = Convert.ToInt32( PrivateMessageMaxRecipients.Text.Trim() );
 
-            // MDDubs : 2/7/2008 added
-            PageContext.BoardSettings.AllowEmailChange = AllowEmailChange.Checked;
+			// MDDubs : 2/7/2008 added
+			PageContext.BoardSettings.AllowEmailChange = AllowEmailChange.Checked;
 
 			// Ederon : 02/17/2009 added
-			PageContext.BoardSettings.PictureAttachmentDisplayTreshold = Convert.ToInt32(PictureAttachmentDisplayTreshold.Text.Trim()); 
+			PageContext.BoardSettings.PictureAttachmentDisplayTreshold = Convert.ToInt32( PictureAttachmentDisplayTreshold.Text.Trim() );
 
 			// Caching
-			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32(ForumStatisticsCacheTimeout.Text.Trim());
-			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32(ActiveDiscussionsCacheTimeout.Text.Trim());
-			PageContext.BoardSettings.BoardModeratorsCacheTimeout = Convert.ToInt32(BoardModeratorsCacheTimeout.Text.Trim());
-			PageContext.BoardSettings.BoardCategoriesCacheTimeout = Convert.ToInt32(BoardCategoriesCacheTimeout.Text.Trim());
-			PageContext.BoardSettings.ReplaceRulesCacheTimeout = Convert.ToInt32(ReplaceRulesCacheTimeout.Text.Trim());
+			PageContext.BoardSettings.ForumStatisticsCacheTimeout = Convert.ToInt32( ForumStatisticsCacheTimeout.Text.Trim() );
+			PageContext.BoardSettings.ActiveDiscussionsCacheTimeout = Convert.ToInt32( ActiveDiscussionsCacheTimeout.Text.Trim() );
+			PageContext.BoardSettings.BoardModeratorsCacheTimeout = Convert.ToInt32( BoardModeratorsCacheTimeout.Text.Trim() );
+			PageContext.BoardSettings.BoardCategoriesCacheTimeout = Convert.ToInt32( BoardCategoriesCacheTimeout.Text.Trim() );
+			PageContext.BoardSettings.ReplaceRulesCacheTimeout = Convert.ToInt32( ReplaceRulesCacheTimeout.Text.Trim() );
 
 			// CAPTCHA stuff
 			PageContext.BoardSettings.CaptchaSize = Convert.ToInt32( CaptchaSize.Text );
@@ -354,34 +347,34 @@ namespace YAF.Pages.Admin
 			YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.admin_admin );
 		}
 
-		protected void ForumStatisticsCacheReset_Click(object sender, System.EventArgs e)
+		protected void ForumStatisticsCacheReset_Click( object sender, System.EventArgs e )
 		{
-			RemoveCacheKey(Constants.Cache.BoardStats);
+			RemoveCacheKey( Constants.Cache.BoardStats );
 		}
 
-		protected void ActiveDiscussionsCacheReset_Click(object sender, System.EventArgs e)
+		protected void ActiveDiscussionsCacheReset_Click( object sender, System.EventArgs e )
 		{
-			RemoveCacheKey(Constants.Cache.ActiveDiscussions);
-			RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
+			RemoveCacheKey( Constants.Cache.ActiveDiscussions );
+			RemoveCacheKey( Constants.Cache.ForumActiveDiscussions );
 		}
 
-		protected void BoardModeratorsCacheReset_Click(object sender, System.EventArgs e)
+		protected void BoardModeratorsCacheReset_Click( object sender, System.EventArgs e )
 		{
-			RemoveCacheKey(Constants.Cache.ForumModerators);
+			RemoveCacheKey( Constants.Cache.ForumModerators );
 		}
 
-		protected void BoardCategoriesCacheReset_Click(object sender, System.EventArgs e)
+		protected void BoardCategoriesCacheReset_Click( object sender, System.EventArgs e )
 		{
-			RemoveCacheKey(Constants.Cache.ForumCategory);
+			RemoveCacheKey( Constants.Cache.ForumCategory );
 		}
 
-		protected void ReplaceRulesCacheReset_Click(object sender, System.EventArgs e)
+		protected void ReplaceRulesCacheReset_Click( object sender, System.EventArgs e )
 		{
 			YAF.Classes.UI.ReplaceRulesCreator.ClearCache();
 			CheckCache();
 		}
 
-		protected void ResetCacheAll_Click(object sender, System.EventArgs e)
+		protected void ResetCacheAll_Click( object sender, System.EventArgs e )
 		{
 			// clear all cache keys
 			YafCache.Current.Clear();
@@ -389,23 +382,23 @@ namespace YAF.Pages.Admin
 			CheckCache();
 		}
 
-		private void RemoveCacheKey(string key)
+		private void RemoveCacheKey( string key )
 		{
-			YafCache.Current.Remove(YafCache.GetBoardCacheKey(key));
+			YafCache.Current.Remove( YafCache.GetBoardCacheKey( key ) );
 			CheckCache();
 		}
 
-		private bool CheckCacheKey(string key)
+		private bool CheckCacheKey( string key )
 		{
-			return YafCache.Current[YafCache.GetBoardCacheKey(key)] != null;
+			return YafCache.Current[YafCache.GetBoardCacheKey( key )] != null;
 		}
 
 		private void CheckCache()
 		{
-			ForumStatisticsCacheReset.Enabled = CheckCacheKey(Constants.Cache.BoardStats);
-			ActiveDiscussionsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ActiveDiscussions) || CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
-			BoardModeratorsCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumModerators);
-			BoardCategoriesCacheReset.Enabled = CheckCacheKey(Constants.Cache.ForumCategory);
+			ForumStatisticsCacheReset.Enabled = CheckCacheKey( Constants.Cache.BoardStats );
+			ActiveDiscussionsCacheReset.Enabled = CheckCacheKey( Constants.Cache.ActiveDiscussions ) || CheckCacheKey( Constants.Cache.ForumActiveDiscussions );
+			BoardModeratorsCacheReset.Enabled = CheckCacheKey( Constants.Cache.ForumModerators );
+			BoardCategoriesCacheReset.Enabled = CheckCacheKey( Constants.Cache.ForumCategory );
 			ResetCacheAll.Enabled = YafCache.Current.Count > 0;
 		}
 	}

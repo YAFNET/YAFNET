@@ -324,6 +324,9 @@ namespace YAF.Pages // YAF.Pages
 				// and existing page size...
 				Pager.PageSize = pageSize;
 
+				// count...
+				Pager.Count = Mession.SearchData.DefaultView.Count;
+
 				// bind existing search
 				SearchBindData( false );
 
