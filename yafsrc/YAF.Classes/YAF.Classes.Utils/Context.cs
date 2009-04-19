@@ -218,8 +218,8 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				if ( !_initCulture ) InitCulture();
 				if ( !_initLocalization ) InitLocalization();
+				if ( !_initCulture ) InitCulture();
 				return _localization;
 			}
 			set
@@ -749,7 +749,8 @@ namespace YAF.Classes.Utils
 				try
 				{
 					string cultureCode = "";
-					string [] tmp = HttpContext.Current.Request.UserLanguages;
+					
+					/*string [] tmp = HttpContext.Current.Request.UserLanguages;
 					if ( tmp != null )
 					{
 						cultureCode = tmp [0];
@@ -761,7 +762,9 @@ namespace YAF.Classes.Utils
 					else
 					{
 						cultureCode = "en-US";
-					}
+					}*/
+
+					cultureCode = _localization.LanguageCode;
 
 					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( cultureCode );
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo( cultureCode );
@@ -1131,21 +1134,21 @@ namespace YAF.Classes.Utils
 		{
 			get
 			{
-				return 32;
+				return 33;
 			}
 		}
 		static public long AppVersionCode
 		{
 			get
 			{
-				return 0x01090304;
+				return 0x01090300;
 			}
 		}
 		static public DateTime AppVersionDate
 		{
 			get
 			{
-				return new DateTime( 2008, 10, 7 );
+				return new DateTime( 2009, 4, 10 );
 			}
 		}
 		#endregion

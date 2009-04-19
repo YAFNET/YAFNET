@@ -524,6 +524,12 @@ namespace YAF.Classes.Utils
 			set { _reg.SetValueBool( "UseNoFollowLinks", value ); }
 		}
 
+		public bool DoUrlReferrerSecurityCheck
+		{
+			get { return _reg.GetValueBool( "DoUrlReferrerSecurityCheck", true ); }
+			set { _reg.SetValueBool( "DoUrlReferrerSecurityCheck", value ); }
+		}
+
 		// string settings
 		public string ForumEmail
 		{
