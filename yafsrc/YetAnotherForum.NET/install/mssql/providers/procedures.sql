@@ -147,8 +147,8 @@ BEGIN
 		BEGIN
 			-- RESOLVE SALT ISSUE IN 193 RC2
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
-		END
-	
+			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=GETDATE() WHERE Joined IS NULL;
+		END	
 END 
 GO
 
@@ -233,8 +233,8 @@ BEGIN
 	IF @UserKey IS NULL
 		SET @UserKey = NEWID()
 		
-	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Username,UsernameLwd,Password,PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
-		VALUES (@UserKey, @ApplicationID,@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
+	INSERT INTO [{databaseOwner}].[{objectQualifier}prov_Membership] (UserID,ApplicationID,Joined,Username,UsernameLwd,Password,PasswordSalt,PasswordFormat,Email,EmailLwd,PasswordQuestion,PasswordAnswer,IsApproved)
+		VALUES (@UserKey, @ApplicationID, GETDATE(),@Username, LOWER(@Username), @Password, @PasswordSalt, @PasswordFormat, @Email, LOWER(@Email), @PasswordQuestion, @PasswordAnswer, @IsApproved);
 END
 GO
 
