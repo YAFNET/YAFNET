@@ -541,7 +541,9 @@ namespace YAF.Classes.Utils
 					// approve this user...
 					user.IsApproved = true;
 					Membership.UpdateUser(user);
-					DB.user_approve(GetUserIDFromProviderUserKey(user.ProviderUserKey));
+					int id = GetUserIDFromProviderUserKey( user.ProviderUserKey );
+					if ( id > 0 )
+						DB.user_approve( id );
 				}
 			}
 		}
