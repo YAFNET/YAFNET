@@ -89,23 +89,23 @@ namespace YAF.Classes.Data
 		}
 
 		private static readonly string[] _scriptList = {
-		                                               	"tables.sql",
-		                                               	"indexes.sql",
-		                                               	"constraints.sql",
-		                                               	"triggers.sql",
-		                                               	"views.sql",
-		                                               	"procedures.sql",
-		                                               	"functions.sql",
-		                                               	"providers/procedures.sql",
-		                                               	"providers/tables.sql",
-		                                               	"providers/indexes.sql"
+		                                               	"mssql/tables.sql",
+		                                               	"mssql/indexes.sql",
+		                                               	"mssql/constraints.sql",
+		                                               	"mssql/triggers.sql",
+		                                               	"mssql/views.sql",
+		                                               	"mssql/procedures.sql",
+		                                               	"mssql/functions.sql",
+		                                               	"mssql/providers/procedures.sql",
+		                                               	"mssql/providers/tables.sql",
+		                                               	"mssql/providers/indexes.sql"
 		                                               };
 
 		static public string [] ScriptList
 		{
 			get
 			{
-				return _scriptList; 
+                return _scriptList; 
 			}
 		}
 
@@ -3528,7 +3528,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return ( int )( DBAccess.ExecuteScalar( cmd ) ?? 0 );
 			}
 		}
 		static public DataTable user_find( object boardID, bool filter, object userName, object email )
