@@ -319,7 +319,7 @@ namespace YAF.Install
 			{
 				try
 				{
-					ExecuteScript( "fulltext.sql", false );
+					ExecuteScript( "mssql/fulltext.sql", false );
 				}
 				catch ( Exception x )
 				{
