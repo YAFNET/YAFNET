@@ -349,6 +349,7 @@ namespace YAF.Classes.Utils
 
 			return userRow;
 		}
+
 		public static DataRow GetUserRowForID( int userID, bool allowCached )
 		{
 			return GetUserRowForID( ( long ) userID, allowCached );
@@ -363,6 +364,7 @@ namespace YAF.Classes.Utils
 		{
 			return GetUserRowForID( userID, true );
 		}
+
 		public static DataRow GetUserRowForID( int userID )
 		{
 			return GetUserRowForID( ( long ) userID );

@@ -37,7 +37,20 @@ namespace YAF.Classes.Utils
 		{
 			get { return _templateName; }
 			set { _templateName = value; }
-		}	
+		}
+
+		private string _templateLanguageFile;
+		public string TemplateLanguageFile
+		{
+			get
+			{
+				return _templateLanguageFile;
+			}
+			set
+			{
+				_templateLanguageFile = value;
+			}
+		}
 
 		private bool _htmlEnabled;
 
@@ -82,10 +95,17 @@ namespace YAF.Classes.Utils
 		/// Reads a template from the language file
 		/// </summary>
 		/// <returns>The template</returns>
-		private string ReadTemplate(string templateName)
+		private string ReadTemplate(string templateName, string templateLanguageFile)
 		{
 			if ( !String.IsNullOrEmpty( templateName ) )
 			{
+				if ( !String.IsNullOrEmpty( templateLanguageFile ))
+				{
+					YafLocalization localization = new YafLocalization();
+					localization.LoadTranslation( templateLanguageFile );
+					return localization.GetText( "TEMPLATES", templateName );
+				}
+
 				return YafContext.Current.Localization.GetText( "TEMPLATES", templateName );
 			}
 
@@ -98,7 +118,7 @@ namespace YAF.Classes.Utils
 		/// <returns></returns>
 		public string ProcessTemplate(string templateName)
 		{
-			string email = ReadTemplate( templateName );
+			string email = ReadTemplate( templateName, TemplateLanguageFile );
 
 			if ( !String.IsNullOrEmpty( email ) )
 			{
@@ -129,7 +149,7 @@ namespace YAF.Classes.Utils
 			if ( useSendThread )
 			{
 				// create this email in the send mail table...
-				YAF.Classes.Data.DB.mail_create( fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody );
+				Data.DB.mail_create( fromAddress.Address, fromAddress.DisplayName, toAddress.Address, toAddress.DisplayName, subject, textBody, htmlBody );
 			}
 			else
 			{
@@ -283,7 +303,11 @@ namespace YAF.Classes.Utils
 			{
 				foreach ( DataRow row in dt.Rows )
 				{
+					int userId = Convert.ToInt32( row["UserID"] );
+
 					YafTemplateEmail watchEmail = new YafTemplateEmail( "TOPICPOST" );
+
+					watchEmail.TemplateLanguageFile = UserHelper.GetUserLanguageFile( userId );
 
 					// Send track mails
 					string subject = String.Format( YafContext.Current.Localization.GetText( "COMMON", "TOPIC_NOTIFICATION_SUBJECT" ), YafContext.Current.BoardSettings.Name );
@@ -292,7 +316,7 @@ namespace YAF.Classes.Utils
 					watchEmail.TemplateParams ["{topic}"] = row ["Topic"].ToString();
 					watchEmail.TemplateParams ["{link}"] = String.Format( "{0}{1}", YafForumInfo.ServerURL, YafBuildLink.GetLinkNotEscaped( ForumPages.posts, "m={0}#{0}", messageID ) );
 
-					watchEmail.CreateWatch( Convert.ToInt32( row ["TopicID"] ), Convert.ToInt32( row ["UserID"] ), new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), subject );
+					watchEmail.CreateWatch( Convert.ToInt32( row["TopicID"] ), userId, new MailAddress( YafContext.Current.BoardSettings.ForumEmail, YafContext.Current.BoardSettings.Name ), subject );
 				}
 			}
 		}

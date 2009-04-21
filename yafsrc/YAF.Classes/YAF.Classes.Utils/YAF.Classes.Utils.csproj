@@ -70,6 +70,7 @@
     <Compile Include="General.cs" />
     <Compile Include="URLBuilder\URLBuilderRewrite.cs" />
     <Compile Include="URLBuilder\UrlParser.cs" />
+    <Compile Include="UserHelper.cs" />
     <Compile Include="UserProfile.cs" />
     <Compile Include="QueryStringIDHelper.cs" />
   </ItemGroup>
