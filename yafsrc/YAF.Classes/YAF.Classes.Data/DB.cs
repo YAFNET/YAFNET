@@ -41,7 +41,7 @@ namespace YAF.Classes.Data
 				using ( SqlCommand cmd = new SqlCommand( "select sum(cast(size as integer))/128 from sysfiles" ) )
 				{
 					cmd.CommandType = CommandType.Text;
-					return ( int ) DBAccess.ExecuteScalar( cmd );
+					return (int)DBAccess.ExecuteScalar( cmd );
 				}
 			}
 		}
@@ -101,11 +101,11 @@ namespace YAF.Classes.Data
 		                                               	"mssql/providers/indexes.sql"
 		                                               };
 
-		static public string [] ScriptList
+		static public string[] ScriptList
 		{
 			get
 			{
-                return _scriptList; 
+				return _scriptList;
 			}
 		}
 
@@ -139,7 +139,7 @@ namespace YAF.Classes.Data
 						using ( DataTable dt = DBAccess.GetData( cmd ) )
 						{
 							if ( dt.Rows.Count > 0 )
-								return dt.Rows [0];
+								return dt.Rows[0];
 							else
 								return null;
 						}
@@ -174,7 +174,7 @@ namespace YAF.Classes.Data
 			if ( toSearchWhat == "*" )
 			{
 				toSearchWhat = "";
-			}		
+			}
 
 			if ( forumIDToStartAt != 0 )
 			{
@@ -186,7 +186,7 @@ namespace YAF.Classes.Data
 					if ( bFirst ) bFirst = false;
 					else forumIds.Append( "," );
 
-					forumIds.Append( Convert.ToString( Convert.ToInt32( dr ["ForumID"] ) ) );
+					forumIds.Append( Convert.ToString( Convert.ToInt32( dr["ForumID"] ) ) );
 				}
 			}
 
@@ -194,13 +194,13 @@ namespace YAF.Classes.Data
 			toSearchWhat = toSearchWhat.Replace( "'", "''" ).Trim();
 			toSearchFromWho = toSearchFromWho.Replace( "'", "''" ).Trim();
 
-			string searchSql = ( maxResults == 0 ) ? "SELECT" : ( "SELECT TOP " + maxResults.ToString() );
+			string searchSql = (maxResults == 0) ? "SELECT" : ("SELECT TOP " + maxResults.ToString());
 
 			searchSql += " a.ForumID, a.TopicID, a.Topic, b.UserID, IsNull(c.Username, b.Name) as Name, c.MessageID, c.Posted, c.Message, c.Flags ";
 			searchSql += "from {databaseOwner}.{objectQualifier}topic a left join {databaseOwner}.{objectQualifier}message c on a.TopicID = c.TopicID left join {databaseOwner}.{objectQualifier}user b on c.UserID = b.UserID join {databaseOwner}.{objectQualifier}vaccess x on x.ForumID=a.ForumID ";
 			searchSql += String.Format( "where x.ReadAccess<>0 AND x.UserID={0} AND c.IsApproved = 1 AND a.TopicMovedID IS NULL AND a.IsDeleted = 0 AND c.IsDeleted = 0 ", userID );
 
-			string [] words;
+			string[] words;
 
 			if ( !String.IsNullOrEmpty( toSearchFromWho ) )
 			{
@@ -211,7 +211,7 @@ namespace YAF.Classes.Data
 				switch ( searchFromWhoMethod )
 				{
 					case SearchWhatFlags.AllWords:
-						words = toSearchFromWho.Replace("\"","").Split( ' ' );
+						words = toSearchFromWho.Replace( "\"", "" ).Split( ' ' );
 						foreach ( string word in words )
 						{
 							if ( !bFirst ) searchSql += " AND "; else bFirst = false;
@@ -243,7 +243,7 @@ namespace YAF.Classes.Data
 				switch ( searchWhatMethod )
 				{
 					case SearchWhatFlags.AllWords:
-						words = toSearchWhat.Replace("\"","").Split( ' ' );
+						words = toSearchWhat.Replace( "\"", "" ).Split( ' ' );
 						if ( useFullText )
 						{
 							string ftInner = "";
@@ -344,13 +344,13 @@ namespace YAF.Classes.Data
 							da.SelectCommand.CommandText = DBAccess.GetObjectName( "forum_list" );
 							da.Fill( ds, DBAccess.GetObjectName( "ForumUnsorted" ) );
 
-							DataTable dtForumListSorted = ds.Tables [DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
+							DataTable dtForumListSorted = ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
 							dtForumListSorted.TableName = DBAccess.GetObjectName( "Forum" );
 							ds.Tables.Add( dtForumListSorted );
 							dtForumListSorted.Dispose();
-							forum_list_sort_basic( ds.Tables [DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables [DBAccess.GetObjectName( "Forum" )], 0, 0 );
+							forum_list_sort_basic( ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[DBAccess.GetObjectName( "Forum" )], 0, 0 );
 							ds.Tables.Remove( DBAccess.GetObjectName( "ForumUnsorted" ) );
-							ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"] );
+							ds.Relations.Add( "FK_Forum_Category", ds.Tables[DBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[DBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
 							trans.Commit();
 						}
 
@@ -368,9 +368,9 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of Board</param>
 		/// <param name="accessMaskID">ID of access mask</param>
 		/// <returns></returns>
-		static public DataTable accessmask_list(object boardID, object accessMaskID)
+		static public DataTable accessmask_list( object boardID, object accessMaskID )
 		{
-			return accessmask_list(boardID, accessMaskID, 0);
+			return accessmask_list( boardID, accessMaskID, 0 );
 		}
 		/// <summary>
 		/// Gets a list of access mask properities
@@ -386,8 +386,8 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				cmd.Parameters.AddWithValue( "ExcludeFlags", excludeFlags);
-				return DBAccess.GetData(cmd);
+				cmd.Parameters.AddWithValue( "ExcludeFlags", excludeFlags );
+				return DBAccess.GetData( cmd );
 			}
 		}
 		/// <summary>
@@ -401,7 +401,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "AccessMaskID", accessMaskID );
-				return ( int )DBAccess.ExecuteScalar( cmd ) != 0;
+				return (int)DBAccess.ExecuteScalar( cmd ) != 0;
 			}
 		}
 		/// <summary>
@@ -505,7 +505,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				using ( DataTable dt = DBAccess.GetData( cmd ) )
 				{
-					return dt.Rows [0];
+					return dt.Rows[0];
 				}
 			}
 		}
@@ -542,12 +542,12 @@ namespace YAF.Classes.Data
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "attachment_save" ) )
 			{
-				byte [] fileData = null;
+				byte[] fileData = null;
 				if ( stream != null )
 				{
-					fileData = new byte [stream.Length];
+					fileData = new byte[stream.Length];
 					stream.Seek( 0, System.IO.SeekOrigin.Begin );
-					stream.Read( fileData, 0, ( int )stream.Length );
+					stream.Read( fileData, 0, (int)stream.Length );
 				}
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "MessageID", messageID );
@@ -569,7 +569,7 @@ namespace YAF.Classes.Data
 
 			using ( DataTable dt = YAF.Classes.Data.DB.registry_list( "UseFileTable" ) )
 				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr ["Value"] ) );
+					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
 
 			//If the files are actually saved in the Hard Drive
 			if ( !UseFileTable )
@@ -581,7 +581,7 @@ namespace YAF.Classes.Data
 					DataTable tbAttachments = DBAccess.GetData( cmd );
 					string sUpDir = HttpContext.Current.Server.MapPath( YAF.Classes.Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
-						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, row ["MessageID"], row ["FileName"] ) );
+						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, row["MessageID"], row["FileName"] ) );
 				}
 
 			}
@@ -687,7 +687,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				using ( DataTable dt = DBAccess.GetData( cmd ) )
 				{
-					return dt.Rows [0];
+					return dt.Rows[0];
 				}
 			}
 		}
@@ -728,7 +728,7 @@ namespace YAF.Classes.Data
 
 				using ( DataTable dt = DBAccess.GetData( cmd ) )
 				{
-					return dt.Rows [0];
+					return dt.Rows[0];
 				}
 			}
 		}
@@ -799,7 +799,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "CategoryID", CategoryID );
-				return ( int )DBAccess.ExecuteScalar( cmd ) != 0;
+				return (int)DBAccess.ExecuteScalar( cmd ) != 0;
 			}
 		}
 		/// <summary>
@@ -950,10 +950,10 @@ namespace YAF.Classes.Data
 				using ( SqlCommand cmd = DBAccess.GetCommand( "eventlog_create" ) )
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.Parameters.AddWithValue( "Type", ( object )type );
-					cmd.Parameters.AddWithValue( "UserID", ( object )userID );
-					cmd.Parameters.AddWithValue( "Source", ( object )source.ToString() );
-					cmd.Parameters.AddWithValue( "Description", ( object )description.ToString() );
+					cmd.Parameters.AddWithValue( "Type", (object)type );
+					cmd.Parameters.AddWithValue( "UserID", (object)userID );
+					cmd.Parameters.AddWithValue( "Source", (object)source.ToString() );
+					cmd.Parameters.AddWithValue( "Description", (object)description.ToString() );
 					DBAccess.ExecuteNonQuery( cmd );
 				}
 			}
@@ -966,7 +966,7 @@ namespace YAF.Classes.Data
 
 		static public void eventlog_create( object userID, object source, object description )
 		{
-			eventlog_create( userID, ( object )source.GetType().ToString(), description, ( object )0 );
+			eventlog_create( userID, (object)source.GetType().ToString(), description, (object)0 );
 		}
 
 		/// <summary>
@@ -1124,7 +1124,7 @@ namespace YAF.Classes.Data
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						topic_delete( row ["TopicID"] );
+						topic_delete( row["TopicID"] );
 					}
 				}
 			}
@@ -1329,13 +1329,13 @@ namespace YAF.Classes.Data
 							da.SelectCommand.CommandText = DBAccess.GetObjectName( "forum_moderatelist" );
 							da.SelectCommand.Parameters.AddWithValue( "UserID", userID );
 							da.Fill( ds, DBAccess.GetObjectName( "ForumUnsorted" ) );
-							DataTable dtForumListSorted = ds.Tables [DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
+							DataTable dtForumListSorted = ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )].Clone();
 							dtForumListSorted.TableName = DBAccess.GetObjectName( "Forum" );
 							ds.Tables.Add( dtForumListSorted );
 							dtForumListSorted.Dispose();
-							forum_list_sort_basic( ds.Tables [DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables [DBAccess.GetObjectName( "Forum" )], 0, 0 );
+							forum_list_sort_basic( ds.Tables[DBAccess.GetObjectName( "ForumUnsorted" )], ds.Tables[DBAccess.GetObjectName( "Forum" )], 0, 0 );
 							ds.Tables.Remove( DBAccess.GetObjectName( "ForumUnsorted" ) );
-							ds.Relations.Add( "FK_Forum_Category", ds.Tables [DBAccess.GetObjectName( "Category" )].Columns ["CategoryID"], ds.Tables [DBAccess.GetObjectName( "Forum" )].Columns ["CategoryID"] );
+							ds.Relations.Add( "FK_Forum_Category", ds.Tables[DBAccess.GetObjectName( "Category" )].Columns["CategoryID"], ds.Tables[DBAccess.GetObjectName( "Forum" )].Columns["CategoryID"] );
 							trans.Commit();
 						}
 						return ds;
@@ -1399,12 +1399,12 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static private DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int [] forumidExclusions )
+		static private DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int[] forumidExclusions )
 		{
 			return forum_sort_list( listSource, parentID, categoryID, startingIndent, forumidExclusions, true );
 		}
 
-		static private DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int [] forumidExclusions, bool emptyFirstRow )
+		static private DataTable forum_sort_list( DataTable listSource, int parentID, int categoryID, int startingIndent, int[] forumidExclusions, bool emptyFirstRow )
 		{
 			DataTable listDestination = new DataTable();
 
@@ -1414,8 +1414,8 @@ namespace YAF.Classes.Data
 			if ( emptyFirstRow )
 			{
 				DataRow blankRow = listDestination.NewRow();
-				blankRow ["ForumID"] = string.Empty;
-				blankRow ["Title"] = string.Empty;
+				blankRow["ForumID"] = string.Empty;
+				blankRow["Title"] = string.Empty;
 				listDestination.Rows.Add( blankRow );
 			}
 			// filter the forum list
@@ -1448,12 +1448,12 @@ namespace YAF.Classes.Data
 			return forum_listall_sorted( boardID, userID, null, false, 0 );
 		}
 
-		static public DataTable forum_listall_sorted( object boardID, object userID, int [] forumidExclusions )
+		static public DataTable forum_listall_sorted( object boardID, object userID, int[] forumidExclusions )
 		{
 			return forum_listall_sorted( boardID, userID, null, false, 0 );
 		}
 
-		static public DataTable forum_listall_sorted( object boardID, object userID, int [] forumidExclusions, bool emptyFirstRow, int startAt )
+		static public DataTable forum_listall_sorted( object boardID, object userID, int[] forumidExclusions, bool emptyFirstRow, int startAt )
 		{
 			using ( DataTable dataTable = forum_listall( boardID, userID, startAt ) )
 			{
@@ -1465,7 +1465,7 @@ namespace YAF.Classes.Data
 					// find the base ids...
 					foreach ( DataRow dataRow in dataTable.Rows )
 					{
-						if ( Convert.ToInt32( dataRow["ForumID"] ) == startAt )
+						if ( Convert.ToInt32( dataRow["ForumID"] ) == startAt && dataRow["ParentID"] != DBNull.Value && dataRow["CategoryID"] != DBNull.Value )
 						{
 							baseForumId = Convert.ToInt32( dataRow["ParentID"] );
 							baseCategoryId = Convert.ToInt32( dataRow["CategoryID"] );
@@ -1727,17 +1727,17 @@ namespace YAF.Classes.Data
 				for ( int i = 0; i < dtr.Rows.Count; i++ )
 				{
 					DataRow newRow = list.NewRow();
-					DataRow row = dtr.Rows [i];
+					DataRow row = dtr.Rows[i];
 					newRow = list.NewRow();
-					newRow ["Posted"] = row ["Posted"];
-					newRow ["Subject"] = row ["Subject"];
-					newRow ["Message"] = row ["Message"];
-					newRow ["UserID"] = row ["UserID"];
-					newRow ["Flags"] = row ["Flags"];
-					newRow ["UserName"] = row ["UserName"];
-					newRow ["Signature"] = row ["Signature"];
+					newRow["Posted"] = row["Posted"];
+					newRow["Subject"] = row["Subject"];
+					newRow["Message"] = row["Message"];
+					newRow["UserID"] = row["UserID"];
+					newRow["Flags"] = row["Flags"];
+					newRow["UserName"] = row["UserName"];
+					newRow["Signature"] = row["Signature"];
 					list.Rows.Add( newRow );
-					message_getRepliesList_populate( dtr, list, ( int )row ["MessageId"] );
+					message_getRepliesList_populate( dtr, list, (int)row["MessageId"] );
 				}
 				return list;
 			}
@@ -1755,17 +1755,17 @@ namespace YAF.Classes.Data
 				for ( int i = 0; i < dtr.Rows.Count; i++ )
 				{
 					DataRow newRow = list.NewRow();
-					DataRow row = dtr.Rows [i];
+					DataRow row = dtr.Rows[i];
 					newRow = list.NewRow();
-					newRow ["Posted"] = row ["Posted"];
-					newRow ["Subject"] = row ["Subject"];
-					newRow ["Message"] = row ["Message"];
-					newRow ["UserID"] = row ["UserID"];
-					newRow ["Flags"] = row ["Flags"];
-					newRow ["UserName"] = row ["UserName"];
-					newRow ["Signature"] = row ["Signature"];
+					newRow["Posted"] = row["Posted"];
+					newRow["Subject"] = row["Subject"];
+					newRow["Message"] = row["Message"];
+					newRow["UserID"] = row["UserID"];
+					newRow["Flags"] = row["Flags"];
+					newRow["UserName"] = row["UserName"];
+					newRow["Signature"] = row["Signature"];
 					list.Rows.Add( newRow );
-					message_getRepliesList_populate( dtr, list, ( int )row ["MessageId"] );
+					message_getRepliesList_populate( dtr, list, (int)row["MessageId"] );
 				}
 			}
 
@@ -1781,7 +1781,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "ForumID", forumId );
 				cmd.Parameters.AddWithValue( "Subject", newTopicSubj );
 				DataTable dt = DBAccess.GetData( cmd );
-				return long.Parse( dt.Rows [0] ["TopicID"].ToString() );
+				return long.Parse( dt.Rows[0]["TopicID"].ToString() );
 			}
 		}
 
@@ -1866,7 +1866,7 @@ namespace YAF.Classes.Data
 
 			using ( DataTable dt = DB.registry_list( "UseFileTable" ) )
 				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr ["Value"] ) );
+					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
 
 			if ( DeleteLinked )
 			{
@@ -1878,7 +1878,7 @@ namespace YAF.Classes.Data
 					DataTable tbReplies = DBAccess.GetData( cmd );
 
 					foreach ( DataRow row in tbReplies.Rows )
-						message_deleteRecursively( row ["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, true, eraseMessages );
+						message_deleteRecursively( row["MessageID"], isModeratorChanged, deleteReason, isDeleteAction, DeleteLinked, true, eraseMessages );
 				}
 			}
 
@@ -1892,7 +1892,7 @@ namespace YAF.Classes.Data
 					DataTable tbAttachments = DBAccess.GetData( cmd );
 					string sUpDir = HttpContext.Current.Server.MapPath( Config.UploadDir );
 					foreach ( DataRow row in tbAttachments.Rows )
-						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row ["FileName"] ) );
+						System.IO.File.Delete( String.Format( "{0}{1}.{2}", sUpDir, messageID, row["FileName"] ) );
 				}
 			}
 
@@ -1991,7 +1991,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Flags", flags );
 				cmd.Parameters.Add( paramMessageID );
 				DBAccess.ExecuteNonQuery( cmd );
-				messageID = ( long )paramMessageID.Value;
+				messageID = (long)paramMessageID.Value;
 				return true;
 			}
 		}
@@ -2036,7 +2036,7 @@ namespace YAF.Classes.Data
 					DataTable tbReplies = DBAccess.GetData( cmd );
 					foreach ( DataRow row in tbReplies.Rows )
 					{
-						message_moveRecursively( row ["MessageID"], moveToTopic );
+						message_moveRecursively( row["MessageID"], moveToTopic );
 					}
 
 				}
@@ -2050,7 +2050,7 @@ namespace YAF.Classes.Data
 
 			using ( DataTable dt = DB.registry_list( "UseFileTable" ) )
 				foreach ( DataRow dr in dt.Rows )
-					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr ["Value"] ) );
+					UseFileTable = Convert.ToBoolean( Convert.ToInt32( dr["Value"] ) );
 
 			//Delete replies
 			using ( SqlCommand cmd = DBAccess.GetCommand( "message_getReplies" ) )
@@ -2060,7 +2060,7 @@ namespace YAF.Classes.Data
 				DataTable tbReplies = DBAccess.GetData( cmd );
 				foreach ( DataRow row in tbReplies.Rows )
 				{
-					message_moveRecursively( row ["messageID"], moveToTopic );
+					message_moveRecursively( row["messageID"], moveToTopic );
 				}
 				using ( SqlCommand innercmd = DBAccess.GetCommand( "message_move" ) )
 				{
@@ -2081,18 +2081,18 @@ namespace YAF.Classes.Data
 		/// Lists given medal.
 		/// </summary>
 		/// <param name="medalID">ID of medal to list.</param>
-		static public DataTable medal_list(object medalID)
+		static public DataTable medal_list( object medalID )
 		{
-			return medal_list(null, medalID, null);
+			return medal_list( null, medalID, null );
 		}
 		/// <summary>
 		/// Lists given medals.
 		/// </summary>
 		/// <param name="boardID">ID of board of which medals to list. Required.</param>
 		/// <param name="category">Cateogry of medals to list. Can be null. In such case this parameter is ignored.</param>
-		static public DataTable medal_list(object boardID, object category)
+		static public DataTable medal_list( object boardID, object category )
 		{
-			return medal_list(boardID, null, category);
+			return medal_list( boardID, null, category );
 		}
 		/// <summary>
 		/// Lists medals.
@@ -2100,17 +2100,17 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of board of which medals to list. Can be null if medalID parameter is specified.</param>
 		/// <param name="medalID">ID of medal to list. When specified, boardID and category parameters are ignored.</param>
 		/// <param name="category">Cateogry of medals to list. Must be complemented with not-null boardID parameter.</param>
-		static private DataTable medal_list(object boardID, object medalID, object category)
+		static private DataTable medal_list( object boardID, object medalID, object category )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("medal_list"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("BoardID", boardID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Category", category);
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Category", category );
 
-				return DBAccess.GetData(cmd);
+				return DBAccess.GetData( cmd );
 			}
 		}
 
@@ -2120,15 +2120,15 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="medalID">Medal of which owners to get.</param>
 		/// <returns>List of users with their user id and usernames, who own this medal.</returns>
-		static public DataTable medal_listusers(object medalID)
+		static public DataTable medal_listusers( object medalID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("medal_listusers"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_listusers" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData(cmd);
+				return DBAccess.GetData( cmd );
 			}
 		}
 
@@ -2137,18 +2137,18 @@ namespace YAF.Classes.Data
 		/// Deletes given medal.
 		/// </summary>
 		/// <param name="medalID">ID of medal to delete.</param>
-		static public void medal_delete(object medalID)
+		static public void medal_delete( object medalID )
 		{
-			medal_delete(null, medalID, null);
+			medal_delete( null, medalID, null );
 		}
 		/// <summary>
 		/// Deletes given medals.
 		/// </summary>
 		/// <param name="boardID">ID of board of which medals to delete. Required.</param>
 		/// <param name="category">Cateogry of medals to delete. Can be null. In such case this parameter is ignored.</param>
-		static public void medal_delete(object boardID, object category)
+		static public void medal_delete( object boardID, object category )
 		{
-			medal_delete(boardID, null, category);
+			medal_delete( boardID, null, category );
 		}
 		/// <summary>
 		/// Deletes medals.
@@ -2156,17 +2156,17 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of board of which medals to delete. Can be null if medalID parameter is specified.</param>
 		/// <param name="medalID">ID of medal to delete. When specified, boardID and category parameters are ignored.</param>
 		/// <param name="category">Cateogry of medals to delete. Must be complemented with not-null boardID parameter.</param>
-		static private void medal_delete(object boardID, object medalID, object category)
+		static private void medal_delete( object boardID, object medalID, object category )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("medal_delete"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("BoardID", boardID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Category", category);
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Category", category );
 
-				DBAccess.ExecuteNonQuery(cmd);
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2194,31 +2194,31 @@ namespace YAF.Classes.Data
 		static public bool medal_save(
 			object boardID, object medalID, object name, object description, object message, object category,
 			object medalURL, object ribbonURL, object smallMedalURL, object smallRibbonURL, object smallMedalWidth,
-			object smallMedalHeight, object smallRibbonWidth, object smallRibbonHeight, object sortOrder, object flags)
+			object smallMedalHeight, object smallRibbonWidth, object smallRibbonHeight, object sortOrder, object flags )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("medal_save"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("BoardID", boardID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Name", name);
-				cmd.Parameters.AddWithValue("Description", description);
-				cmd.Parameters.AddWithValue("Message", message);
-				cmd.Parameters.AddWithValue("Category", category);
-				cmd.Parameters.AddWithValue("MedalURL", medalURL);
-				cmd.Parameters.AddWithValue("RibbonURL", ribbonURL);
-				cmd.Parameters.AddWithValue("SmallMedalURL", smallMedalURL);
-				cmd.Parameters.AddWithValue("SmallRibbonURL", smallRibbonURL);
-				cmd.Parameters.AddWithValue("SmallMedalWidth", smallMedalWidth);
-				cmd.Parameters.AddWithValue("SmallMedalHeight", smallMedalHeight);
-				cmd.Parameters.AddWithValue("SmallRibbonWidth", smallRibbonWidth);
-				cmd.Parameters.AddWithValue("SmallRibbonHeight", smallRibbonHeight);
-				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
-				cmd.Parameters.AddWithValue("Flags", flags);
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Name", name );
+				cmd.Parameters.AddWithValue( "Description", description );
+				cmd.Parameters.AddWithValue( "Message", message );
+				cmd.Parameters.AddWithValue( "Category", category );
+				cmd.Parameters.AddWithValue( "MedalURL", medalURL );
+				cmd.Parameters.AddWithValue( "RibbonURL", ribbonURL );
+				cmd.Parameters.AddWithValue( "SmallMedalURL", smallMedalURL );
+				cmd.Parameters.AddWithValue( "SmallRibbonURL", smallRibbonURL );
+				cmd.Parameters.AddWithValue( "SmallMedalWidth", smallMedalWidth );
+				cmd.Parameters.AddWithValue( "SmallMedalHeight", smallMedalHeight );
+				cmd.Parameters.AddWithValue( "SmallRibbonWidth", smallRibbonWidth );
+				cmd.Parameters.AddWithValue( "SmallRibbonHeight", smallRibbonHeight );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
+				cmd.Parameters.AddWithValue( "Flags", flags );
 
 				// command succeeded if returned value is greater than zero (number of affected rows)
-				return (int)DBAccess.ExecuteScalar(cmd) > 0;
+				return (int)DBAccess.ExecuteScalar( cmd ) > 0;
 			}
 		}
 
@@ -2229,17 +2229,17 @@ namespace YAF.Classes.Data
 		/// <param name="boardID">ID of board.</param>
 		/// <param name="medalID">ID of medal to re-sort.</param>
 		/// <param name="move">Change of sort.</param>
-		static public void medal_resort(object boardID, object medalID, int move)
+		static public void medal_resort( object boardID, object medalID, int move )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("medal_resort"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "medal_resort" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				
-				cmd.Parameters.AddWithValue("BoardID", boardID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Move", move);
-				
-				DBAccess.ExecuteNonQuery(cmd);
+
+				cmd.Parameters.AddWithValue( "BoardID", boardID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Move", move );
+
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2249,16 +2249,16 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="groupID">ID of group owning medal.</param>
 		/// <param name="medalID">ID of medal.</param>
-		static public void group_medal_delete(object groupID, object medalID)
+		static public void group_medal_delete( object groupID, object medalID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_delete"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				
-				cmd.Parameters.AddWithValue("GroupID", groupID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
 
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "GroupID", groupID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2268,16 +2268,16 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="groupID">ID of group of which to list medals.</param>
 		/// <param name="medalID">ID of medal to list.</param>
-		static public DataTable group_medal_list(object groupID, object medalID)
+		static public DataTable group_medal_list( object groupID, object medalID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_list"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("GroupID", groupID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue( "GroupID", groupID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData(cmd);
+				return DBAccess.GetData( cmd );
 			}
 		}
 
@@ -2293,20 +2293,20 @@ namespace YAF.Classes.Data
 		/// <param name="sortOrder">Sort order in user box. Overrides medal's default sort order.</param>
 		static public void group_medal_save(
 			object groupID, object medalID, object message,
-			object hide, object onlyRibbon, object sortOrder)
+			object hide, object onlyRibbon, object sortOrder )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("group_medal_save"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "group_medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("GroupID", groupID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Message", message);
-				cmd.Parameters.AddWithValue("Hide", hide);
-				cmd.Parameters.AddWithValue("OnlyRibbon", onlyRibbon);
-				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
+				cmd.Parameters.AddWithValue( "GroupID", groupID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Message", message );
+				cmd.Parameters.AddWithValue( "Hide", hide );
+				cmd.Parameters.AddWithValue( "OnlyRibbon", onlyRibbon );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
 
-				DBAccess.ExecuteNonQuery(cmd);
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2317,16 +2317,16 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="userID">ID of user owning medal.</param>
 		/// <param name="medalID">ID of medal.</param>
-		static public void user_medal_delete(object userID, object medalID)
+		static public void user_medal_delete( object userID, object medalID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_delete"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("UserID", userID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				DBAccess.ExecuteNonQuery(cmd);
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2336,16 +2336,16 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="userID">ID of user who was given medal.</param>
 		/// <param name="medalID">ID of medal to list.</param>
-		static public DataTable user_medal_list(object userID, object medalID)
+		static public DataTable user_medal_list( object userID, object medalID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_list"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_list" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("UserID", userID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
 
-				return DBAccess.GetData(cmd);
+				return DBAccess.GetData( cmd );
 			}
 		}
 
@@ -2362,21 +2362,21 @@ namespace YAF.Classes.Data
 		/// <param name="dateAwarded">Date when medal was awarded to a user. Is ignored when existing user-medal allocation is edited.</param>
 		static public void user_medal_save(
 			object userID, object medalID, object message,
-			object hide, object onlyRibbon, object sortOrder, object dateAwarded)
+			object hide, object onlyRibbon, object sortOrder, object dateAwarded )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("user_medal_save"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_medal_save" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("UserID", userID);
-				cmd.Parameters.AddWithValue("MedalID", medalID);
-				cmd.Parameters.AddWithValue("Message", message);
-				cmd.Parameters.AddWithValue("Hide", hide);
-				cmd.Parameters.AddWithValue("OnlyRibbon", onlyRibbon);
-				cmd.Parameters.AddWithValue("SortOrder", sortOrder);
-				cmd.Parameters.AddWithValue("DateAwarded", dateAwarded);
+				cmd.Parameters.AddWithValue( "UserID", userID );
+				cmd.Parameters.AddWithValue( "MedalID", medalID );
+				cmd.Parameters.AddWithValue( "Message", message );
+				cmd.Parameters.AddWithValue( "Hide", hide );
+				cmd.Parameters.AddWithValue( "OnlyRibbon", onlyRibbon );
+				cmd.Parameters.AddWithValue( "SortOrder", sortOrder );
+				cmd.Parameters.AddWithValue( "DateAwarded", dateAwarded );
 
-				DBAccess.ExecuteNonQuery(cmd);
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2386,15 +2386,15 @@ namespace YAF.Classes.Data
 		/// </summary>
 		/// <param name="userID">ID of user.</param>
 		/// <returns>List of medals, ribbon bar only first.</returns>
-		static public DataTable user_listmedals(object userID)
+		static public DataTable user_listmedals( object userID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("user_listmedals"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "user_listmedals" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 
-				cmd.Parameters.AddWithValue("UserID", userID);
+				cmd.Parameters.AddWithValue( "UserID", userID );
 
-				return DBAccess.GetData(cmd);
+				return DBAccess.GetData( cmd );
 			}
 		}
 
@@ -2641,7 +2641,7 @@ namespace YAF.Classes.Data
 				return DBAccess.GetData( cmd );
 			}
 		}
-		static public int poll_save(object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object closes)
+		static public int poll_save( object question, object c1, object c2, object c3, object c4, object c5, object c6, object c7, object c8, object c9, object closes )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_save" ) )
 			{
@@ -2656,58 +2656,58 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Choice7", c7 );
 				cmd.Parameters.AddWithValue( "Choice8", c8 );
 				cmd.Parameters.AddWithValue( "Choice9", c9 );
-				cmd.Parameters.AddWithValue("Closes", closes);
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				cmd.Parameters.AddWithValue( "Closes", closes );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
-		static public void poll_update(object pollID, object question, object closes)
+		static public void poll_update( object pollID, object question, object closes )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("poll_update"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("PollID", pollID);
-				cmd.Parameters.AddWithValue("Question", question);
-				cmd.Parameters.AddWithValue("Closes", closes);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "PollID", pollID );
+				cmd.Parameters.AddWithValue( "Question", question );
+				cmd.Parameters.AddWithValue( "Closes", closes );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public void poll_remove(object pollID)
+		static public void poll_remove( object pollID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("poll_remove"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "poll_remove" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("PollID", pollID);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "PollID", pollID );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
-		static public void choice_delete(object choiceID)
+		static public void choice_delete( object choiceID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("choice_delete"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_delete" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("ChoiceID", choiceID);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public void choice_update(object choiceID, object choice)
+		static public void choice_update( object choiceID, object choice )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("choice_update"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("ChoiceID", choiceID);
-				cmd.Parameters.AddWithValue("Choice", choice);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "ChoiceID", choiceID );
+				cmd.Parameters.AddWithValue( "Choice", choice );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
-		static public void choice_add(object pollID, object choice)
+		static public void choice_add( object pollID, object choice )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("choice_add"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "choice_add" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("PollID", pollID);
-				cmd.Parameters.AddWithValue("Choice", choice);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "PollID", pollID );
+				cmd.Parameters.AddWithValue( "Choice", choice );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
@@ -2934,26 +2934,26 @@ namespace YAF.Classes.Data
 		#endregion
 
 		#region Topic
-		static public void topic_poll_update(object topicID, object messageID, object pollID)
+		static public void topic_poll_update( object topicID, object messageID, object pollID )
 		{
-			using (SqlCommand cmd = DBAccess.GetCommand("topic_poll_update"))
+			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_poll_update" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("TopicID", topicID);
-				cmd.Parameters.AddWithValue("MessageID", messageID);
-				cmd.Parameters.AddWithValue("PollID", pollID);
-				DBAccess.ExecuteNonQuery(cmd);
+				cmd.Parameters.AddWithValue( "TopicID", topicID );
+				cmd.Parameters.AddWithValue( "MessageID", messageID );
+				cmd.Parameters.AddWithValue( "PollID", pollID );
+				DBAccess.ExecuteNonQuery( cmd );
 			}
 		}
 
-		static public int topic_prune(object forumID, object days)
+		static public int topic_prune( object forumID, object days )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_prune" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "ForumID", forumID );
 				cmd.Parameters.AddWithValue( "Days", days );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 
@@ -3045,7 +3045,7 @@ namespace YAF.Classes.Data
 				{
 					foreach ( DataRow row in dt.Rows )
 					{
-						message_deleteRecursively( row ["MessageID"], true, "", 0, true, false );
+						message_deleteRecursively( row["MessageID"], true, "", 0, true, false );
 					}
 				}
 			}
@@ -3114,8 +3114,8 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "Flags", flags );
 
 				DataTable dt = DBAccess.GetData( cmd );
-				messageID = long.Parse( dt.Rows [0] ["MessageID"].ToString() );
-				return long.Parse( dt.Rows [0] ["TopicID"].ToString() );
+				messageID = long.Parse( dt.Rows[0]["MessageID"].ToString() );
+				return long.Parse( dt.Rows[0]["TopicID"].ToString() );
 			}
 		}
 		static public DataRow topic_info( object topicID )
@@ -3127,7 +3127,7 @@ namespace YAF.Classes.Data
 				using ( DataTable dt = DBAccess.GetData( cmd ) )
 				{
 					if ( dt.Rows.Count > 0 )
-						return dt.Rows [0];
+						return dt.Rows[0];
 					else
 						return null;
 				}
@@ -3348,7 +3348,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "OldPassword", oldPassword );
 				cmd.Parameters.AddWithValue( "NewPassword", newPassword );
-				return ( bool )DBAccess.ExecuteScalar( cmd );
+				return (bool)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 
@@ -3358,7 +3358,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 
@@ -3388,7 +3388,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				cmd.Parameters.AddWithValue( "UserID", userID );				
+				cmd.Parameters.AddWithValue( "UserID", userID );
 				cmd.Parameters.AddWithValue( "Name", name );
 				cmd.Parameters.AddWithValue( "Email", email );
 				cmd.Parameters.AddWithValue( "Flags", flags );
@@ -3448,10 +3448,10 @@ namespace YAF.Classes.Data
 			foreach ( DataRow row in listSource.Rows )
 			{
 				// see if this is a root-forum
-				if ( row ["ParentID"] == DBNull.Value )
-					row ["ParentID"] = 0;
+				if ( row["ParentID"] == DBNull.Value )
+					row["ParentID"] = 0;
 
-				if ( ( int )row ["ParentID"] == parentID )
+				if ( (int)row["ParentID"] == parentID )
 				{
 					string sIndent = "";
 
@@ -3461,21 +3461,21 @@ namespace YAF.Classes.Data
 					// import the row into the destination
 					newRow = listDestination.NewRow();
 
-					newRow ["ForumID"] = row ["ForumID"];
-					newRow ["ForumName"] = string.Format( "{0} {1}", sIndent, row ["ForumName"] );
+					newRow["ForumID"] = row["ForumID"];
+					newRow["ForumName"] = string.Format( "{0} {1}", sIndent, row["ForumName"] );
 					if ( listDestination.Columns.IndexOf( "AccessMaskName" ) >= 0 )
-						newRow ["AccessMaskName"] = row ["AccessMaskName"];
+						newRow["AccessMaskName"] = row["AccessMaskName"];
 					else
 					{
-						newRow ["CategoryName"] = row ["CategoryName"];
-						newRow ["AccessMaskId"] = row ["AccessMaskId"];
+						newRow["CategoryName"] = row["CategoryName"];
+						newRow["AccessMaskId"] = row["AccessMaskId"];
 					}
 
 
 					listDestination.Rows.Add( newRow );
 
 					// recurse through the list...
-					userforumaccess_sort_list_recursive( listSource, listDestination, ( int )row ["ForumID"], categoryID, currentIndent + 1 );
+					userforumaccess_sort_list_recursive( listSource, listDestination, (int)row["ForumID"], categoryID, currentIndent + 1 );
 				}
 			}
 		}
@@ -3528,7 +3528,7 @@ namespace YAF.Classes.Data
 				cmd.CommandType = CommandType.Text;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
-				return ( int )( DBAccess.ExecuteScalar( cmd ) ?? 0 );
+				return (int)(DBAccess.ExecuteScalar( cmd ) ?? 0);
 			}
 		}
 		static public DataTable user_find( object boardID, bool filter, object userName, object email )
@@ -3566,13 +3566,13 @@ namespace YAF.Classes.Data
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "user_saveavatar" ) )
 			{
-				byte [] data = null;
+				byte[] data = null;
 
 				if ( stream != null )
 				{
-					data = new byte [stream.Length];
+					data = new byte[stream.Length];
 					stream.Seek( 0, System.IO.SeekOrigin.Begin );
-					stream.Read( data, 0, ( int )stream.Length );
+					stream.Read( data, 0, (int)stream.Length );
 				}
 
 				cmd.CommandType = CommandType.StoredProcedure;
@@ -3646,7 +3646,7 @@ namespace YAF.Classes.Data
 					cmd.Parameters.AddWithValue( "Email", email );
 					cmd.Parameters.AddWithValue( "ProviderUserKey", providerUserKey );
 					cmd.Parameters.AddWithValue( "IsApproved", isApproved );
-					return ( int )DBAccess.ExecuteScalar( cmd );
+					return (int)DBAccess.ExecuteScalar( cmd );
 				}
 			}
 			catch ( Exception x )
@@ -3661,7 +3661,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 		static public DataTable user_activity_rank( object boardID, object startDate, object displayNumber )
@@ -3683,7 +3683,7 @@ namespace YAF.Classes.Data
 				cmd.Parameters.AddWithValue( "BoardID", boardID );
 				cmd.Parameters.AddWithValue( "UserName", userName );
 				cmd.Parameters.AddWithValue( "Email", email );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 
@@ -3737,7 +3737,7 @@ namespace YAF.Classes.Data
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
 				cmd.Parameters.AddWithValue( "UserID", userID );
-				return ( int )DBAccess.ExecuteScalar( cmd );
+				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}
 		#endregion
@@ -3884,28 +3884,28 @@ namespace YAF.Classes.Data
 		#region vzrus addons
 		#region reindex page controls
 		public static string btnGetStatsName
-        {
-            get
-            {
-                return "View YAF Table Index Statistics";
-            }
-        }
-        public static bool btnReindexVisible
-        {
-            get
-            {
-                return true;
-            }
-        }
-        public static string btnReindexName
-        {
-            get
-            {
-                return "Reindex YAF Tables";
-            }
-        }
-               #endregion
-        static public DataTable rsstopic_list( int forumId )
+		{
+			get
+			{
+				return "View YAF Table Index Statistics";
+			}
+		}
+		public static bool btnReindexVisible
+		{
+			get
+			{
+				return true;
+			}
+		}
+		public static string btnReindexName
+		{
+			get
+			{
+				return "Reindex YAF Tables";
+			}
+		}
+		#endregion
+		static public DataTable rsstopic_list( int forumId )
 		{
 			string tSQL = "select Topic = a.Topic,TopicID = a.TopicID, Name = b.Name, Posted = a.Posted from {databaseOwner}.{objectQualifier}Topic a, {databaseOwner}.{objectQualifier}Forum b where a.ForumID=" +
 														forumId + " and b.ForumID = a.ForumID";
@@ -3916,10 +3916,10 @@ namespace YAF.Classes.Data
 			}
 		}
 
-        static public string db_getstats_warning(YafDBConnManager connMan)
-        {
-            return "";
-        }
+		static public string db_getstats_warning( YafDBConnManager connMan )
+		{
+			return "";
+		}
 
 		public static void db_getstats( YafDBConnManager connMan )
 		{
@@ -3949,10 +3949,10 @@ namespace YAF.Classes.Data
 			}
 		}
 
-        static public string db_reindex_warning(YafDBConnManager connMan)
-        {
-            return "";
-        }
+		static public string db_reindex_warning( YafDBConnManager connMan )
+		{
+			return "";
+		}
 
 		public static void db_reindex( YafDBConnManager connMan )
 		{
@@ -4070,10 +4070,10 @@ namespace YAF.Classes.Data
 			{
 				DataTable registry = YAF.Classes.Data.DB.registry_list( "Version" );
 
-				if ( ( registry.Rows.Count == 0 ) || ( Convert.ToInt32( registry.Rows [0] ["Value"] ) < appVersion ) )
+				if ( (registry.Rows.Count == 0) || (Convert.ToInt32( registry.Rows[0]["Value"] ) < appVersion) )
 				{
 					// needs upgrading...
-					redirect = "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows [0] ["Value"] );
+					redirect = "install/default.aspx?upgrade=" + Convert.ToInt32( registry.Rows[0]["Value"] );
 				}
 			}
 			catch ( System.Data.SqlClient.SqlException )
@@ -4101,7 +4101,7 @@ namespace YAF.Classes.Data
 			// apply object qualifier
 			script = script.Replace( "{objectQualifier}", DBAccess.ObjectQualifier );
 
-			string [] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
+			string[] statements = System.Text.RegularExpressions.Regex.Split( script, "\\sGO\\s", System.Text.RegularExpressions.RegexOptions.IgnoreCase );
 
 			using ( YAF.Classes.Data.YafDBConnManager connMan = new YafDBConnManager() )
 			{
@@ -4191,19 +4191,19 @@ namespace YAF.Classes.Data
 								cmd.Transaction = trans;
 								cmd.CommandType = CommandType.Text;
 								cmd.CommandText = "select current_user";
-								string userName = ( string ) cmd.ExecuteScalar();
+								string userName = (string)cmd.ExecuteScalar();
 
 								if ( grant )
 								{
 									cmd.CommandType = CommandType.Text;
 									foreach ( DataRow row in dt.Select( "IsProcedure=1 or IsScalarFunction=1" ) )
 									{
-										cmd.CommandText = string.Format( "grant execute on \"{0}\" to \"{1}\"", row ["Name"], userName );
+										cmd.CommandText = string.Format( "grant execute on \"{0}\" to \"{1}\"", row["Name"], userName );
 										cmd.ExecuteNonQuery();
 									}
 									foreach ( DataRow row in dt.Select( "IsUserTable=1 or IsView=1" ) )
 									{
-										cmd.CommandText = string.Format( "grant select,update on \"{0}\" to \"{1}\"", row ["Name"], userName );
+										cmd.CommandText = string.Format( "grant select,update on \"{0}\" to \"{1}\"", row["Name"], userName );
 										cmd.ExecuteNonQuery();
 									}
 								}
@@ -4214,7 +4214,7 @@ namespace YAF.Classes.Data
 									foreach ( DataRow row in dt.Select( "IsUserTable=1" ) )
 									{
 										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@objname", row["Name"] );
 										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
 										try
 										{
@@ -4227,7 +4227,7 @@ namespace YAF.Classes.Data
 									foreach ( DataRow row in dt.Select( "IsView=1" ) )
 									{
 										cmd.Parameters.Clear();
-										cmd.Parameters.AddWithValue( "@objname", row ["Name"] );
+										cmd.Parameters.AddWithValue( "@objname", row["Name"] );
 										cmd.Parameters.AddWithValue( "@newowner", "dbo" );
 										try
 										{
@@ -4275,8 +4275,8 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		#endregion 
-   
-}
+		#endregion
+
+	}
 
 }
