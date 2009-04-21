@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Tiny Gecko" )]
 [assembly: AssemblyProduct( "YAF.Controls" )]
-[assembly: AssemblyCopyright( "Copyright © Tiny Gecko 2007-2008" )]
+[assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "YAF.Classes.UI" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "Tiny Gecko" )]
+[assembly: AssemblyCompany( "Yet Another Forum.NET" )]
 [assembly: AssemblyProduct( "YAF.Classes.UI" )]
-[assembly: AssemblyCopyright( "Copyright © Tiny Gecko 2006" )]
+[assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 

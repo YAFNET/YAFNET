@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "YAF.Classes.UnitTests" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "Microsoft" )]
+[assembly: AssemblyCompany( "Yet Another Forum.NET" )]
 [assembly: AssemblyProduct( "YAF.Classes.UnitTests" )]
-[assembly: AssemblyCopyright( "Copyright © Microsoft 2009" )]
+[assembly: AssemblyCopyright( "Copyright © 2006-2009 Yet Another Forum.NET" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
