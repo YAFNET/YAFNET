@@ -501,6 +501,8 @@ namespace YAF.Pages
 					// send this user a PM notification e-mail
 					YafTemplateEmail pmNotification = new YafTemplateEmail( "PMNOTIFICATION" );
 
+					pmNotification.TemplateLanguageFile = UserHelper.GetUserLanguageFile( toUserID );
+
 					// fill the template with relevant info
 					pmNotification.TemplateParams ["{fromuser}"] = PageContext.PageUserName;
 					pmNotification.TemplateParams ["{link}"] = String.Format( "{1}{0}\r\n\r\n", YafBuildLink.GetLinkNotEscaped( ForumPages.cp_message, "pm={0}", userPMessageID ), YafForumInfo.ServerURL );
