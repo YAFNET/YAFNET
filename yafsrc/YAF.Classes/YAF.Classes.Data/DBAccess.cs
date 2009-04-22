@@ -33,10 +33,18 @@ namespace YAF.Classes.Data
 	{
 		public class YafDBConnInfoMessageEventArgs : EventArgs
 		{
+			private string _message;
+
 			public string Message
 			{
-				get;
-				set;
+				get
+				{
+					return _message;
+				}
+				set
+				{
+					_message = value;
+				}
 			}
 
 			public YafDBConnInfoMessageEventArgs( string message )

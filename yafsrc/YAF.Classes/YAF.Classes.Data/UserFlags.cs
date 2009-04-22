@@ -23,6 +23,9 @@ using System.Text;
 
 namespace YAF.Classes.Data
 {
+	/// <summary>
+	/// User flags manipulation class from the DB.
+	/// </summary>
 	[Serializable()]
 	public class UserFlags : FlagsBase
 	{
