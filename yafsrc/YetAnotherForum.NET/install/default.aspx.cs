@@ -51,6 +51,13 @@ namespace YAF.Install
 				Cache ["DBVersion"] = DB.DBVersion;
 
 				InstallWizard.ActiveStepIndex = IsInstalled ? 1 : 0;
+				
+				if ( !IsInstalled )
+				{
+					// fake the board settings
+					YafContext.Current.BoardSettings = new YafBoardSettings( null );
+				}
+
 				TimeZones.DataSource = YafStaticData.TimeZones( "english.xml" );
 
 				DataBind();
@@ -210,6 +217,9 @@ namespace YAF.Install
 							RoleMembershipHelper.SyncUsers( PageBoardID );
 						}
 						e.Cancel = false;
+						break;
+					case 5:
+						YafContext.Current.BoardSettings = null;
 						break;
 					default:
 						throw new ApplicationException( e.CurrentStepIndex.ToString() );
