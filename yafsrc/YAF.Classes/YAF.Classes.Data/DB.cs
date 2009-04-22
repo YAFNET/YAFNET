@@ -88,6 +88,35 @@ namespace YAF.Classes.Data
 			}
 		}
 
+		// MS SQL Support fulltext....
+		private static bool _fullTextSupported = true;
+
+		public static bool FullTextSupported
+		{
+			get
+			{
+				return _fullTextSupported;
+			}
+			set
+			{
+				_fullTextSupported = value;
+			}
+		}
+
+		private static string _fullTextScript = "mssql/fulltext.sql";
+
+		public static string FullTextScript
+		{
+			get
+			{
+				return _fullTextScript;
+			}
+			set
+			{
+				_fullTextScript = value;
+			}
+		}
+
 		private static readonly string[] _scriptList = {
 		                                               	"mssql/tables.sql",
 		                                               	"mssql/indexes.sql",
