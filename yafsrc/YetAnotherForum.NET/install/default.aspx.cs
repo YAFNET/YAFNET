@@ -325,11 +325,11 @@ namespace YAF.Install
 			}*/
 
 			// attempt to apply fulltext support if desired
-			if ( fullText )
+			if ( fullText && DB.FullTextSupported )
 			{
 				try
 				{
-					ExecuteScript( "mssql/fulltext.sql", false );
+					ExecuteScript( DB.FullTextScript, false );
 				}
 				catch ( Exception x )
 				{

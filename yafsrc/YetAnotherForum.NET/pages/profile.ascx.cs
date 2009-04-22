@@ -178,8 +178,9 @@ namespace YAF.Pages // YAF.Pages
 			if ( LastPosts.Visible )
 			{
 				LastPosts.DataSource = YAF.Classes.Data.DB.post_last10user( PageContext.PageBoardID, Request.QueryString ["u"], PageContext.PageUserID );
-				SearchUser.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.search, "postedby={0}",
-				                                                                 userData.Membership.UserName );
+				SearchUser.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.search,
+				                                                                           "postedby={0}",
+				                                                                           userData.Membership.UserName );
 			}
 
 			DataBind();
