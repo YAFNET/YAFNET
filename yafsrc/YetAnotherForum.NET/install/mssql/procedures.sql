@@ -5541,9 +5541,9 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}choice_add](
 begin
 
 	insert into [{databaseOwner}].[{objectQualifier}Choice]
-		(PollID, Choice)
+		(PollID, Choice, Votes)
 		values
-		(@PollID, @Choice)
+		(@PollID, @Choice, 0)
 end
 GO
 
