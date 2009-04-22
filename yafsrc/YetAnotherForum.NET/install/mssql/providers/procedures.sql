@@ -143,9 +143,9 @@ CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}prov_upgrade]
 )
 AS
 BEGIN
-		IF (@PreviousVersion = 32)
+		IF (@PreviousVersion = 31) OR (@PreviousVersion = 32)
 		BEGIN
-			-- RESOLVE SALT ISSUE IN 193 RC2
+			-- RESOLVE SALT ISSUE IN 193 BETA and RC2
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET PasswordSalt='UwB5AHMAdABlAG0ALgBCAHkAdABlAFsAXQA=' WHERE PasswordSalt IS NOT NULL;
 			UPDATE [{databaseOwner}].[{objectQualifier}prov_Membership] SET Joined=GETDATE() WHERE Joined IS NULL;
 		END	
