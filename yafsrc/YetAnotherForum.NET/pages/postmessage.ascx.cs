@@ -200,7 +200,7 @@ namespace YAF.Pages
 				{
 					TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.Now;
 
-					PollExpire.Text = ((int)(closing.TotalDays + 1)).ToString();
+					PollExpire.Text = (SqlDataLayerConverter.VerifyInt32((closing.TotalDays + 1)).ToString());
 				}
 				else
 				{
@@ -284,7 +284,7 @@ namespace YAF.Pages
 		private void InitReplyToTopic()
 		{
 			DataRow topic = DB.topic_info( TopicID );
-			TopicFlags topicFlags = new TopicFlags((int)topic["Flags"]);
+			TopicFlags topicFlags = new TopicFlags(SqlDataLayerConverter.VerifyInt32(topic["Flags"]));
 
 			// Ederon : 9/9/2007 - moderators can reply in locked topics
 			if (topicFlags.IsLocked && !PageContext.ForumModeratorAccess)
@@ -345,7 +345,7 @@ namespace YAF.Pages
 			return ((!postLocked &&
 				!General.BinaryAnd(forumInfo["Flags"], ForumFlags.Flags.IsLocked) &&
 				!General.BinaryAnd(topicInfo["Flags"], TopicFlags.Flags.IsLocked) &&
-				((int)message["UserID"] == PageContext.PageUserID)) || PageContext.ForumModeratorAccess) &&
+				(SqlDataLayerConverter.VerifyInt32(message["UserID"])== PageContext.PageUserID)) || PageContext.ForumModeratorAccess) &&
 				PageContext.ForumEditAccess;
 		}
 
@@ -376,7 +376,7 @@ namespace YAF.Pages
 		private bool CanHavePoll(DataRow message)
 		{
 			return (TopicID == null && QuotedTopicID == null && EditTopicID == null) ||
-				(message != null && ((int)message["Position"]) == 0);
+				(message != null && (SqlDataLayerConverter.VerifyInt32(message["Position"])) == 0);
 		}
 
 

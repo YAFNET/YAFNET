@@ -20,7 +20,7 @@
                             <tr>
                                 <td class="postheader" width="50%">
                                     <b>SQL Server Version:</b><br>
-                                    What version of MS SQL Server is running.</td>
+                                    What version of SQL Server is running.</td>
                                 <td class="post" width="50%">
                                     <asp:Label ID="SQLVersion" runat="server" CssClass="smallfont"></asp:Label></td>
                             </tr>
