@@ -19,6 +19,12 @@ STEP 2. SELECT WEB.CONFIG FILE
    A tip to merge web.config files is to download both of them, then use a merge program to 
    combine. WinMerge is a free and excellent merge program which you can download
    here: http://www.winmerge.org/
+   
+   IMPORTANT: UPGRADING YAF FORUMS v1.9.3 BETA, RC1 and RC2:
+   
+   You need to MERGE the changes for the /webconfigs/recommended-web.config or the
+	 /webconfigs/v191-upgrade-web.config depending on the original web config you used -- the
+	 membership provider settings have changed.
 
    NEW INSTALLATION:
 
@@ -28,11 +34,12 @@ STEP 2. SELECT WEB.CONFIG FILE
    ASP.NET security settings for a NEW installation of YAF.
    If you are doing development, use the "/webconfigs/dev-recommended-web.config"
    instead.
+   
    Please Note: These web.config files will not work if you are upgrading from v1.9.1.x
    or below of YAF.
 
    Warning: DO NOT edit the web.config unless you know what you're doing.
-
+   
 STEP 3. SETUP DATABASE (IGNORE IF UPGRADE)
 
    A existing database needs to exist on your SQL Server with proper permissions
