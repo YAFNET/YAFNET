@@ -39,8 +39,8 @@ namespace YAF.Pages
 	/// </summary>
 	public partial class postmessage : YAF.Classes.Base.ForumPage
 	{
-		protected YAF.Editor.ForumEditor uxMessage;
-		protected System.Web.UI.WebControls.Label uxNoEditSubject;
+		protected YAF.Editor.ForumEditor _forumEditor;
+		protected System.Web.UI.WebControls.Label _uxNoEditSubject;
 		protected int _ownerUserId;
 
 		public postmessage()
@@ -52,8 +52,8 @@ namespace YAF.Pages
 		override protected void OnInit(System.EventArgs e)
 		{
 			// get the forum editor based on the settings
-			uxMessage = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
-			EditorLine.Controls.Add(uxMessage);
+			_forumEditor = YAF.Editor.EditorHelper.CreateEditorFromType(PageContext.BoardSettings.ForumEditor);
+			EditorLine.Controls.Add(_forumEditor);
 
 			base.OnInit(e);
 		}
@@ -90,8 +90,8 @@ namespace YAF.Pages
 				YafBuildLink.AccessDenied();
 
 			//Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-			uxMessage.StyleSheet = YafBuildLink.ThemeFile("theme.css");
-			uxMessage.BaseDir = YafForumInfo.ForumRoot + "editors";
+			_forumEditor.StyleSheet = YafBuildLink.ThemeFile("theme.css");
+			_forumEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
 
 			Title.Text = GetText("NEWTOPIC");
 			PollExpire.Attributes.Add("style", "width:50px");
@@ -117,37 +117,10 @@ namespace YAF.Pages
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
 				CreatePollRow.Visible = !HasPoll(currentRow) && CanHavePoll(currentRow) && PageContext.ForumPollAccess;
 				RemovePollRow.Visible = HasPoll(currentRow) && CanHavePoll(currentRow) && PageContext.ForumPollAccess && PageContext.ForumModeratorAccess;
+
 				if (RemovePollRow.Visible)
 				{
-					RemovePoll.CommandArgument = currentRow["PollID"].ToString();
-
-					if (currentRow["PollID"] != DBNull.Value)
-					{
-						DataTable choices = YAF.Classes.Data.DB.poll_stats(currentRow["PollID"]);
-
-						Question.Text = choices.Rows[0]["Question"].ToString();
-						if (choices.Rows[0]["Closes"] != DBNull.Value)
-						{
-							TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.Now;
-
-							PollExpire.Text = ((int)(closing.TotalDays + 1)).ToString();
-						}
-						else
-						{
-							PollExpire.Text = null;
-						}
-
-						for (int i = 0; i < choices.Rows.Count; i++)
-						{
-							HiddenField idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i + 1));
-							TextBox choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i + 1));
-
-							idField.Value = choices.Rows[i]["ChoiceID"].ToString();
-							choiceField.Text = choices.Rows[i]["Choice"].ToString();
-						}
-
-						CreatePoll_Click(this, null);
-					}
+					InitPollUI( currentRow );
 				}
 
 				// Show post to blog option only to a new post
@@ -180,43 +153,7 @@ namespace YAF.Pages
 				// check if it's a reply to a topic...
 				if ( TopicID != null )
 				{
-					DataRow topic = DB.topic_info( TopicID );
-					TopicFlags topicFlags = new TopicFlags((int)topic["Flags"]);
-
-					// Ederon : 9/9/2007 - moderators can reply in locked topics
-					if (topicFlags.IsLocked && !PageContext.ForumModeratorAccess)
-						Response.Redirect( Request.UrlReferrer.ToString() );
-					SubjectRow.Visible = false;
-					Title.Text = GetText( "reply" );
-
-					// add topic link...
-					PageLinks.AddLink( Server.HtmlDecode( topic ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
-					// add "reply" text...
-					PageLinks.AddLink( GetText( "reply" ) );
-
-					// show attach file option if its a reply...
-					if ( PageContext.ForumUploadAccess )
-					{
-						NewTopicOptionsRow.Visible = true;
-						TopicAttach.Visible = true;
-						TopicAttachLabel.Visible = true;
-						TopicWatch.Visible = false;
-						TopicWatchLabel.Visible = false;
-						TopicAttachBr.Visible = false;
-					}
-
-					if ( YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal )
-					{
-						// can't use the last post iframe
-						LastPosts.Visible = true;
-						LastPosts.DataSource = DB.post_list_reverse10( TopicID );
-						LastPosts.DataBind();
-					}
-					else
-					{
-						LastPostsIFrame.Visible = true;
-						LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
-					}
+					InitReplyToTopic();
 				}
 
 				// If currentRow != null, we are quoting a post in a new reply, or editing an existing post
@@ -228,63 +165,12 @@ namespace YAF.Pages
 					if (QuotedTopicID != null)
 					{
 						// quoting a reply to a topic...
-						if (PageContext.BoardSettings.RemoveNestedQuotes)
-							message = FormatMsg.RemoveNestedQuotes(message);
-
-						// If the message being quoted in BBCode but the editor uses HTML, convert the message text to HTML
-						if (messageFlags.IsBBCode && uxMessage.UsesHTML)
-							message = BBCode.ConvertBBCodeToHtmlForEdit(message);
-
-						// Ensure quoted replies have bad words removed from them
-						message = General.BadWordReplace(message);
-
-						// Quote the original message
-						uxMessage.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], message).TrimStart();
+						InitQuotedReply( currentRow, message, messageFlags );
 					}
 					else if (EditTopicID != null)
 					{
 						// editing a message...
-						// If the message is in BBCode but the editor uses HTML, convert the message text to HTML
-						if (messageFlags.IsBBCode && uxMessage.UsesHTML)
-							message = BBCode.ConvertBBCodeToHtmlForEdit(message);
-						
-						uxMessage.Text = message;
-
-						Title.Text = GetText("EDIT");
-
-						// add topic link...
-						PageLinks.AddLink(Server.HtmlDecode(currentRow["Topic"].ToString()),
-						                  YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID));
-						// editing..
-						PageLinks.AddLink(GetText("EDIT"));
-
-						string blogPostID = currentRow["BlogPostID"].ToString();
-						if (blogPostID != string.Empty) // The user used this post to blog
-						{
-							BlogPostID.Value = blogPostID;
-							PostToBlog.Checked = true;
-							BlogRow.Visible = true;
-						}
-
-						Subject.Text = Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
-
-						if ((Convert.ToInt32(currentRow["TopicOwnerID"]) == Convert.ToInt32(currentRow["UserID"])) ||
-						    PageContext.ForumModeratorAccess)
-						{
-							// allow editing of the topic subject
-							Subject.Enabled = true;
-						}
-						else
-						{
-							// disable the subject
-							Subject.Enabled = false;
-						}
-
-						Priority.SelectedItem.Selected = false;
-						Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
-						EditReasonRow.Visible = true;
-						ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
-						Persistency.Checked = messageFlags.IsPersistent;
+						InitEditedPost( currentRow, message, messageFlags );
 					}
 				}
 
@@ -298,6 +184,141 @@ namespace YAF.Pages
 				From.Text = PageContext.PageUserName;
 				if (User != null)
 					FromRow.Visible = false;
+			}
+		}
+
+		private void InitPollUI( DataRow currentRow )
+		{
+			RemovePoll.CommandArgument = currentRow["PollID"].ToString();
+
+			if (currentRow["PollID"] != DBNull.Value)
+			{
+				DataTable choices = YAF.Classes.Data.DB.poll_stats(currentRow["PollID"]);
+
+				Question.Text = choices.Rows[0]["Question"].ToString();
+				if (choices.Rows[0]["Closes"] != DBNull.Value)
+				{
+					TimeSpan closing = (DateTime)choices.Rows[0]["Closes"] - DateTime.Now;
+
+					PollExpire.Text = ((int)(closing.TotalDays + 1)).ToString();
+				}
+				else
+				{
+					PollExpire.Text = null;
+				}
+
+				for (int i = 0; i < choices.Rows.Count; i++)
+				{
+					HiddenField idField = (HiddenField)this.FindControl(String.Format("PollChoice{0}ID", i + 1));
+					TextBox choiceField = (TextBox)this.FindControl(String.Format("PollChoice{0}", i + 1));
+
+					idField.Value = choices.Rows[i]["ChoiceID"].ToString();
+					choiceField.Text = choices.Rows[i]["Choice"].ToString();
+				}
+
+				ChangePollShowStatus( true );
+			}
+		}
+
+		private void InitQuotedReply( DataRow currentRow, string message, MessageFlags messageFlags )
+		{
+			if (PageContext.BoardSettings.RemoveNestedQuotes)
+				message = FormatMsg.RemoveNestedQuotes(message);
+
+			// If the message being quoted in BBCode but the editor uses HTML, convert the message text to HTML
+			if (messageFlags.IsBBCode && _forumEditor.UsesHTML)
+				message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+
+			// Ensure quoted replies have bad words removed from them
+			message = General.BadWordReplace(message);
+
+			// Quote the original message
+			_forumEditor.Text = String.Format("[quote={0}]{1}[/quote]\n", currentRow["username"], message).TrimStart();
+		}
+
+		private void InitEditedPost( DataRow currentRow, string message, MessageFlags messageFlags )
+		{
+			// If the message is in BBCode but the editor uses HTML, convert the message text to HTML
+			if (messageFlags.IsBBCode && _forumEditor.UsesHTML)
+				message = BBCode.ConvertBBCodeToHtmlForEdit(message);
+						
+			_forumEditor.Text = message;
+
+			Title.Text = GetText("EDIT");
+
+			// add topic link...
+			PageLinks.AddLink(Server.HtmlDecode(currentRow["Topic"].ToString()),
+			                  YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts, "m={0}", EditTopicID));
+			// editing..
+			PageLinks.AddLink(GetText("EDIT"));
+
+			string blogPostID = currentRow["BlogPostID"].ToString();
+			if (blogPostID != string.Empty) // The user used this post to blog
+			{
+				BlogPostID.Value = blogPostID;
+				PostToBlog.Checked = true;
+				BlogRow.Visible = true;
+			}
+
+			Subject.Text = Server.HtmlDecode(Convert.ToString(currentRow["Topic"]));
+
+			if ((Convert.ToInt32(currentRow["TopicOwnerID"]) == Convert.ToInt32(currentRow["UserID"])) ||
+			    PageContext.ForumModeratorAccess)
+			{
+				// allow editing of the topic subject
+				Subject.Enabled = true;
+			}
+			else
+			{
+				// disable the subject
+				Subject.Enabled = false;
+			}
+
+			Priority.SelectedItem.Selected = false;
+			Priority.Items.FindByValue(currentRow["Priority"].ToString()).Selected = true;
+			EditReasonRow.Visible = true;
+			ReasonEditor.Text = Server.HtmlDecode(Convert.ToString(currentRow["EditReason"]));
+			Persistency.Checked = messageFlags.IsPersistent;
+		}
+
+		private void InitReplyToTopic()
+		{
+			DataRow topic = DB.topic_info( TopicID );
+			TopicFlags topicFlags = new TopicFlags((int)topic["Flags"]);
+
+			// Ederon : 9/9/2007 - moderators can reply in locked topics
+			if (topicFlags.IsLocked && !PageContext.ForumModeratorAccess)
+				Response.Redirect( Request.UrlReferrer.ToString() );
+			SubjectRow.Visible = false;
+			Title.Text = GetText( "reply" );
+
+			// add topic link...
+			PageLinks.AddLink( Server.HtmlDecode( topic ["Topic"].ToString() ), YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "t={0}", TopicID ) );
+			// add "reply" text...
+			PageLinks.AddLink( GetText( "reply" ) );
+
+			// show attach file option if its a reply...
+			if ( PageContext.ForumUploadAccess )
+			{
+				NewTopicOptionsRow.Visible = true;
+				TopicAttach.Visible = true;
+				TopicAttachLabel.Visible = true;
+				TopicWatch.Visible = false;
+				TopicWatchLabel.Visible = false;
+				TopicAttachBr.Visible = false;
+			}
+
+			if ( YAF.Classes.Config.IsDotNetNuke || YAF.Classes.Config.IsRainbow || YAF.Classes.Config.IsPortal )
+			{
+				// can't use the last post iframe
+				LastPosts.Visible = true;
+				LastPosts.DataSource = DB.post_list_reverse10( TopicID );
+				LastPosts.DataBind();
+			}
+			else
+			{
+				LastPostsIFrame.Visible = true;
+				LastPostsIFrame.Attributes.Add( "src", string.Format( "{0}framehelper.aspx?g=lastposts&t={1}", YafForumInfo.ForumRoot, TopicID ) );
 			}
 		}
 
@@ -432,14 +453,14 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHtml = uxMessage.UsesHTML;
-			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			tFlags.IsHtml = _forumEditor.UsesHTML;
+			tFlags.IsBBCode = _forumEditor.UsesBBCode;
 			tFlags.IsPersistent = Persistency.Checked;
 
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
-			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, uxMessage.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
+			DB.message_save(long.Parse(TopicID), PageContext.PageUserID, _forumEditor.Text, User != null ? null : From.Text, Request.UserHostAddress, null, replyTo, tFlags.BitValue, ref nMessageID);
 
 			return nMessageID;
 		}
@@ -451,30 +472,30 @@ namespace YAF.Pages
 			if (!PageContext.ForumEditAccess)
 				YafBuildLink.AccessDenied();
 
-			string SubjectSave = "";
+			string subjectSave = "";
 
-			if (Subject.Enabled) SubjectSave = HtmlEncode(Subject.Text);
+			if (Subject.Enabled) subjectSave = HtmlEncode(Subject.Text);
 
 			// Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
 			// Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
 			// retrieve message flags
 			MessageFlags messageFlags = new MessageFlags(DB.message_list(EditTopicID).Rows[0]["Flags"]);
-			messageFlags.IsHtml = uxMessage.UsesHTML;
-			messageFlags.IsBBCode = uxMessage.UsesBBCode;
+			messageFlags.IsHtml = _forumEditor.UsesHTML;
+			messageFlags.IsBBCode = _forumEditor.UsesBBCode;
 			messageFlags.IsPersistent = Persistency.Checked;
 
 			bool isModeratorChanged = (PageContext.PageUserID != _ownerUserId);
-			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, uxMessage.Text, SubjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
+			DB.message_update(Request.QueryString["m"], Priority.SelectedValue, _forumEditor.Text, subjectSave, messageFlags.BitValue, HtmlEncode(ReasonEditor.Text), isModeratorChanged, PageContext.IsAdmin || PageContext.IsModerator);
 
 			// update poll
-			if ( RemovePoll.CommandArgument != null && RemovePoll.CommandArgument != "" )
+			if ( !string.IsNullOrEmpty( RemovePoll.CommandArgument ) || PollRow1.Visible )
 			{
 				DB.topic_poll_update( null, Request.QueryString ["m"], GetPollID() );
 			}
 
 			nMessageID = long.Parse(EditTopicID);
 
-			HandlePostToBlog(uxMessage.Text, Subject.Text);
+			HandlePostToBlog(_forumEditor.Text, Subject.Text);
 
 			return nMessageID;
 		}
@@ -489,17 +510,17 @@ namespace YAF.Pages
 			// make message flags
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHtml = uxMessage.UsesHTML;
-			tFlags.IsBBCode = uxMessage.UsesBBCode;
+			tFlags.IsHtml = _forumEditor.UsesHTML;
+			tFlags.IsBBCode = _forumEditor.UsesBBCode;
 			tFlags.IsPersistent = Persistency.Checked;
 
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = (PageContext.IsAdmin || PageContext.IsModerator);
 
-			string blogPostID = HandlePostToBlog(uxMessage.Text, Subject.Text);
+			string blogPostID = HandlePostToBlog(_forumEditor.Text, Subject.Text);
 
 			// Save to Db
-			long topicID = DB.topic_save(PageContext.PageForumID, HtmlEncode(Subject.Text), uxMessage.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
+			long topicID = DB.topic_save(PageContext.PageForumID, HtmlEncode(Subject.Text), _forumEditor.Text, PageContext.PageUserID, Priority.SelectedValue, this.GetPollID(), User != null ? null : From.Text, Request.UserHostAddress, null, blogPostID, tFlags.BitValue, ref nMessageID);
 
 			if ( TopicWatch.Checked )
 			{
@@ -595,38 +616,41 @@ namespace YAF.Pages
 			}
 		}
 
+		protected void ChangePollShowStatus( bool newStatus )
+		{
+			CreatePollRow.Visible = !newStatus;
+			RemovePollRow.Visible = newStatus;
+			PollRowExpire.Visible = newStatus;
+
+			for ( int i = 1; i < 10; i++ )
+			{
+				HtmlTableRow pollRow = (HtmlTableRow)this.FindControl( String.Format( "PollRow{0}", i ) );
+
+				if ( pollRow != null )
+					pollRow.Visible = newStatus;
+			}
+		}
+
 		protected void CreatePoll_Click(object sender, System.EventArgs e)
 		{
-			CreatePollRow.Visible = false;
-			RemovePollRow.Visible = true;
-			PollRow1.Visible = true;
-			PollRow2.Visible = true;
-			PollRow3.Visible = true;
-			PollRow4.Visible = true;
-			PollRow5.Visible = true;
-			PollRow6.Visible = true;
-			PollRow7.Visible = true;
-			PollRow8.Visible = true;
-			PollRow9.Visible = true;
-			PollRow10.Visible = true;
-			PollRowExpire.Visible = true;
+			ChangePollShowStatus( true );
+
+			// clear the fields...
+			PollExpire.Text = "";
+			Question.Text = "";
+
+			for ( int i = 1; i < 10; i++ )
+			{
+				TextBox choiceField = (TextBox) this.FindControl( String.Format( "PollChoice{0}", i ) );
+
+				if ( choiceField != null )
+					choiceField.Text = "";
+			}
 		}
 
 		protected void RemovePoll_Command(object sender, CommandEventArgs e)
 		{
-			CreatePollRow.Visible = true;
-			RemovePollRow.Visible = false;
-			PollRow1.Visible = false;
-			PollRow2.Visible = false;
-			PollRow3.Visible = false;
-			PollRow4.Visible = false;
-			PollRow5.Visible = false;
-			PollRow6.Visible = false;
-			PollRow7.Visible = false;
-			PollRow8.Visible = false;
-			PollRow9.Visible = false;
-			PollRow10.Visible = false;
-			PollRowExpire.Visible = false;
+			ChangePollShowStatus( false );
 
 			if (e.CommandArgument != null && e.CommandArgument.ToString() != "")
 			{
@@ -649,7 +673,7 @@ namespace YAF.Pages
 				datePollExpire = DateTime.Now.AddDays(daysPollExpire);
 
 			// we are just using existing poll
-			if (RemovePoll.CommandArgument != null && RemovePoll.CommandArgument != "")
+			if (!string.IsNullOrEmpty( RemovePoll.CommandArgument ))
 			{
 				int pollID = Convert.ToInt32(RemovePoll.CommandArgument);
 				DB.poll_update(pollID, Question.Text, datePollExpire);
@@ -713,9 +737,9 @@ namespace YAF.Pages
 		{
 			PreviewRow.Visible = true;
 
-			PreviewMessagePost.MessageFlags.IsHtml = uxMessage.UsesHTML;
-			PreviewMessagePost.MessageFlags.IsBBCode = uxMessage.UsesBBCode;
-			PreviewMessagePost.Message = uxMessage.Text;
+			PreviewMessagePost.MessageFlags.IsHtml = _forumEditor.UsesHTML;
+			PreviewMessagePost.MessageFlags.IsBBCode = _forumEditor.UsesBBCode;
+			PreviewMessagePost.Message = _forumEditor.Text;
 
 			if ( PageContext.BoardSettings.AllowSignatures )
 			{
