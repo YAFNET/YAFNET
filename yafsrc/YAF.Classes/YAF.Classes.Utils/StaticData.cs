@@ -30,14 +30,14 @@ namespace YAF.Classes.Utils
 	/// </summary>
 	public class YafStaticData
 	{
-		public static DataTable TimeZones()
+		public static DataTable TimeZones( YafLocalization localization )
 		{
 			using ( DataTable dt = new DataTable( "TimeZone" ) )
 			{
 				dt.Columns.Add( "Value", Type.GetType( "System.Int32" ) );
 				dt.Columns.Add( "Name", Type.GetType( "System.String" ) );
 
-				List<XmlNode> timezones = YafContext.Current.Localization.GetNodesUsingQuery( "TIMEZONES", "@tag=@*" );
+				List<XmlNode> timezones = localization.GetNodesUsingQuery( "TIMEZONES", "@tag=@*" );
 
 				foreach ( XmlNode node in timezones )
 				{
@@ -60,16 +60,17 @@ namespace YAF.Classes.Utils
 			}
 		}
 
+		public static DataTable TimeZones()
+		{
+			return TimeZones( YafContext.Current.Localization );
+		}
+
 		public static DataTable TimeZones( string forceLanguage )
 		{
-			// manually load a language file...
-			if ( !YafContext.Current.Localization.TranslationLoaded )
-			{
-				// force english so it doesn't attempt to access board settings causing a DB load...
-				YafContext.Current.Localization.LoadTranslation( forceLanguage );
-			}
+			YafLocalization localization = new YafLocalization();
+			localization.LoadTranslation( forceLanguage );
 
-			return TimeZones();
+			return TimeZones( localization );
 		}
 
 		public static DataTable Themes()

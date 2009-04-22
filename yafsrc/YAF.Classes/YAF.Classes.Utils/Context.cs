@@ -269,7 +269,14 @@ namespace YAF.Classes.Utils
 			set
 			{
 				string key = YafCache.GetBoardCacheKey(Constants.Cache.BoardSettings);
-				HttpContext.Current.Application.Remove( key );
+
+				if ( value == null )
+					HttpContext.Current.Application.Remove( key );
+				else
+				{
+					// set the updated board settings...	
+					HttpContext.Current.Application[key] = value;
+				}
 			}
 		}
 

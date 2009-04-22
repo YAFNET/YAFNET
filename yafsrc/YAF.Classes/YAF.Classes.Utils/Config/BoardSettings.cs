@@ -33,26 +33,46 @@ namespace YAF.Classes.Utils
 		private readonly object _boardID;
 		private readonly string _membershipAppName, _rolesAppName;
 
-		public YafBoardSettings( object boardID )
+		public YafBoardSettings()
 		{
-			_boardID = boardID;
-			DataTable dt;
-			// get the board table
-			dt = YAF.Classes.Data.DB.board_list( boardID );
-			if ( dt.Rows.Count == 0 )
-				throw new Exception( "No data for board with id: " + boardID );
-			_board = dt.Rows [0];
-			_membershipAppName = ( _board ["MembershipAppName"].ToString() == "" ) ? System.Web.Security.Membership.ApplicationName : _board ["MembershipAppName"].ToString();
-			_rolesAppName = ( _board ["RolesAppName"].ToString() == "" ) ? System.Web.Security.Roles.ApplicationName : _board ["RolesAppName"].ToString();
-
+			_boardID = 0;
 			_reg = new RegistryHash();
 			_regBoard = new RegistryHash();
 
+			_membershipAppName = System.Web.Security.Membership.ApplicationName;
+			_rolesAppName = System.Web.Security.Roles.ApplicationName;
+		}
+
+		public YafBoardSettings( object boardID ) : this()
+		{
+			_boardID = boardID;
+
+			// get the board table
+			DataTable dataTable = YAF.Classes.Data.DB.board_list( _boardID );
+
+			if ( dataTable.Rows.Count == 0 )
+				throw new Exception( "No data for board with id: " + _boardID );
+			_board = dataTable.Rows [0];
+
+			_membershipAppName = (String.IsNullOrEmpty( _board["MembershipAppName"].ToString() ))
+			                     	? System.Web.Security.Membership.ApplicationName
+			                     	: _board["MembershipAppName"].ToString();
+
+			_rolesAppName = (String.IsNullOrEmpty( _board["RolesAppName"].ToString() ) )
+			                 	? System.Web.Security.Roles.ApplicationName
+			                 	: _board["RolesAppName"].ToString();
+
 			// get all the registry values for the forum
-			using ( dt = YAF.Classes.Data.DB.registry_list() )
+			LoadBoardSettingsFromDB();
+		}
+
+		protected void LoadBoardSettingsFromDB()
+		{
+			DataTable dataTable;
+			using ( dataTable = YAF.Classes.Data.DB.registry_list() )
 			{
 				// get all the registry settings into our hash table
-				foreach ( DataRow dr in dt.Rows )
+				foreach ( DataRow dr in dataTable.Rows )
 				{
 					if ( dr ["Value"] == DBNull.Value )
 					{
@@ -64,10 +84,10 @@ namespace YAF.Classes.Utils
 					}
 				}
 			}
-			using ( dt = YAF.Classes.Data.DB.registry_list( null, boardID ) )
+			using ( dataTable = YAF.Classes.Data.DB.registry_list( null, _boardID ) )
 			{
 				// get all the registry settings into our hash table
-				foreach ( DataRow dr in dt.Rows )
+				foreach ( DataRow dr in dataTable.Rows )
 				{
 					if ( dr ["Value"] == DBNull.Value )
 					{
