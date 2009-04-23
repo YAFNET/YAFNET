@@ -55,7 +55,7 @@ namespace YAF.Install
 				if ( !IsInstalled )
 				{
 					// fake the board settings
-					YafContext.Current.BoardSettings = new YafBoardSettings( null );
+					YafContext.Current.BoardSettings = new YafBoardSettings();
 				}
 
 				TimeZones.DataSource = YafStaticData.TimeZones( "english.xml" );
