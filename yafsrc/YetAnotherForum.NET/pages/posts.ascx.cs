@@ -40,7 +40,7 @@ namespace YAF.Pages // YAF.Pages
 	/// </summary>
 	public partial class posts : YAF.Classes.Base.ForumPage
 	{
-		protected YAF.Editor.ForumEditor QuickReplyEditor;
+		protected YAF.Editor.ForumEditor _quickReplyEditor;
 
 		private DataRow _forum, _topic;
 		private DataTable _dtPoll;
@@ -78,8 +78,8 @@ namespace YAF.Pages // YAF.Pages
 
 		protected void Page_Load( object sender, System.EventArgs e )
 		{
-			QuickReplyEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
-			QuickReplyEditor.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
+			_quickReplyEditor.BaseDir = YafForumInfo.ForumRoot + "editors";
+			_quickReplyEditor.StyleSheet = YafBuildLink.ThemeFile( "theme.css" );
 
 			_topic = YAF.Classes.Data.DB.topic_info( PageContext.PageTopicID );
 
@@ -123,6 +123,8 @@ namespace YAF.Pages // YAF.Pages
 				RssTopic.NavigateUrl = YAF.Classes.Utils.YafBuildLink.GetLinkNotEscaped( YAF.Classes.Utils.ForumPages.rsstopic, "pg={0}&t={1}", Request.QueryString ["g"], PageContext.PageTopicID );
 				RssTopic.Visible = PageContext.BoardSettings.ShowRSSLink;
 
+				QuickReplyPlaceHolder.Visible = PageContext.BoardSettings.ShowQuickAnswer;
+
 				if ( ( PageContext.IsGuest && PageContext.BoardSettings.EnableCaptchaForGuests ) ||
 					( PageContext.BoardSettings.EnableCaptchaForPost && !PageContext.IsCaptchaExcluded ) )
 				{
@@ -155,32 +157,6 @@ namespace YAF.Pages // YAF.Pages
 					MoveTopic1.Visible = false;
 					MoveTopic2.Visible = false;
 				}
-				/*
-PostReplyLink1.Text = GetThemeContents( "BUTTONS", "POSTREPLY" );
-PostReplyLink1.ToolTip = GetText( "POSTS", "TIP_REPLY_TOPIC" );
-PostReplyLink2.Text = PostReplyLink1.Text;
-PostReplyLink2.ToolTip = PostReplyLink1.ToolTip;
-NewTopic1.Text = GetThemeContents( "BUTTONS", "NEWTOPIC" );
-NewTopic1.ToolTip = GetText( "POSTS", "TIP_NEW_TOPIC" );
-NewTopic2.Text = NewTopic1.Text;
-NewTopic2.ToolTip = NewTopic1.ToolTip;
-DeleteTopic1.Text = GetThemeContents( "BUTTONS", "DELETETOPIC" );
-DeleteTopic1.ToolTip = GetText( "POSTS", "TIP_DELETE_TOPIC" );
-DeleteTopic2.Text = DeleteTopic1.Text;
-DeleteTopic2.ToolTip = DeleteTopic1.ToolTip;
-LockTopic1.Text = GetThemeContents( "BUTTONS", "LOCKTOPIC" );
-LockTopic1.ToolTip = GetText( "POSTS", "TIP_LOCK_TOPIC" );
-LockTopic2.Text = LockTopic1.Text;
-LockTopic2.ToolTip = LockTopic1.ToolTip;
-UnlockTopic1.Text = GetThemeContents( "BUTTONS", "UNLOCKTOPIC" );
-UnlockTopic1.ToolTip = GetText( "POSTS", "TIP_UNLOCK_TOPIC" );
-UnlockTopic2.Text = UnlockTopic1.Text;
-UnlockTopic2.ToolTip = UnlockTopic1.ToolTip;
-MoveTopic1.Text = GetThemeContents( "BUTTONS", "MOVETOPIC" );
-MoveTopic1.ToolTip = GetText( "POSTS", "TIP_MOVE_TOPIC" );
-MoveTopic2.Text = MoveTopic1.Text;
-MoveTopic2.ToolTip = MoveTopic1.ToolTip;
-				*/
 
 				if ( !PageContext.ForumModeratorAccess )
 				{
@@ -226,7 +202,7 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 				(_topicFlags.IsLocked && !PageContext.ForumModeratorAccess))
 				YafBuildLink.AccessDenied();
 
-			if ( QuickReplyEditor.Text.Length <= 0 )
+			if ( _quickReplyEditor.Text.Length <= 0 )
 			{
 				PageContext.AddLoadMessage( GetText( "EMPTY_MESSAGE") );
 				return;
@@ -256,13 +232,13 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 			long TopicID;
 			long nMessageID = 0;
 			object replyTo = -1;
-			string msg = QuickReplyEditor.Text;
+			string msg = _quickReplyEditor.Text;
 			TopicID = PageContext.PageTopicID;
 
 			MessageFlags tFlags = new MessageFlags();
 
-			tFlags.IsHtml = QuickReplyEditor.UsesHTML;
-			tFlags.IsBBCode = QuickReplyEditor.UsesBBCode;
+			tFlags.IsHtml = _quickReplyEditor.UsesHTML;
+			tFlags.IsBBCode = _quickReplyEditor.UsesBBCode;
 
 			// Bypass Approval if Admin or Moderator.
 			tFlags.IsApproved = ( PageContext.IsAdmin || PageContext.IsModerator );
@@ -305,8 +281,8 @@ MoveTopic2.ToolTip = MoveTopic1.ToolTip;
 		override protected void OnInit( EventArgs e )
 		{
 			// Quick Reply Modification Begin
-			QuickReplyEditor = new YAF.Editor.BasicBBCodeEditor();
-			QuickReplyLine.Controls.Add( QuickReplyEditor );
+			_quickReplyEditor = new YAF.Editor.BasicBBCodeEditor();
+			QuickReplyLine.Controls.Add( _quickReplyEditor );
 			QuickReply.Click += new EventHandler( QuickReply_Click );
 			Pager.PageChange += new EventHandler( Pager_PageChange );
 
