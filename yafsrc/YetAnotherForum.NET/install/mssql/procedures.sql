@@ -4485,7 +4485,7 @@ begin
 	--ABOT CHANGED
 	--Delete UserForums entries Too 
 	delete from [{databaseOwner}].[{objectQualifier}UserForum] where UserID = @UserID
-	delete from [{databaseOwner}].[{objectQualifier}IgnoredUser] where UserID = @UserID OR IgnoredUserID = @UserID
+	delete from [{databaseOwner}].[{objectQualifier}IgnoreUser] where UserID = @UserID OR IgnoredUserID = @UserID
 	--END ABOT CHANGED 09.04.2004
 	delete from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
 end
