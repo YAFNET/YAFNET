@@ -265,7 +265,7 @@ namespace YAF.Pages
 				// list of recipient's ids
 				int [] recipientID = new int [recipients.Count];
 
-				if ( recipients.Count > PageContext.BoardSettings.PrivateMessageMaxRecipients && !PageContext.IsAdmin )
+				if ( recipients.Count > PageContext.BoardSettings.PrivateMessageMaxRecipients && !PageContext.IsAdmin && PageContext.BoardSettings.PrivateMessageMaxRecipients != 0 )
 				{
 					// to many recipients
 					PageContext.AddLoadMessage( String.Format( GetText( "TOO_MANY_RECIPIENTS" ), PageContext.BoardSettings.PrivateMessageMaxRecipients ) );
