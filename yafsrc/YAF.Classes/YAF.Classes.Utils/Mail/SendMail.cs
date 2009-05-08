@@ -91,6 +91,7 @@ namespace YAF.Classes.Utils
 				// using them here couples this method to YafCache, which is dependant on a current HttpContext. 
 				// Configuration settings are cached automatically.
 				System.Net.Mail.SmtpClient smtpSend = new System.Net.Mail.SmtpClient();
+                smtpSend.EnableSsl = Config.UseSMTPSSL;
 				smtpSend.Send( emailMessage );
 			}
 		}

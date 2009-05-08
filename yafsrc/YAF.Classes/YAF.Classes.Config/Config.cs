@@ -191,15 +191,40 @@ namespace YAF.Classes
 			}
 		}
 
-		static public bool ShowToolBar
-		{
-			get
-			{
-				return GetConfigValueAsBool( "YAF.ShowToolBar", true );
-			}
-		}
+        /// <summary>
+        /// Display the default toolbar at the top -- default is "true"
+        /// </summary>
+        static public bool ShowToolBar
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.ShowToolBar", true);
+            }
+        }
 
-		#region Telerik Rad Editor Settings
+        /// <summary>
+        /// Diisplay the footer at the bottom of the page -- default is "true"
+        /// </summary>
+        static public bool ShowFooter
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.ShowFooter", true);
+            }
+        }
+
+        /// <summary>
+        /// Use an SSL connection for the SMTP server -- default is "false"
+        /// </summary>
+        static public bool UseSMTPSSL
+        {
+            get
+            {
+                return GetConfigValueAsBool("YAF.UseSMTPSSL", false);
+            }
+        }
+
+        #region Telerik Rad Editor Settings
 		static public string RadEditorSkin
 		{
 			get

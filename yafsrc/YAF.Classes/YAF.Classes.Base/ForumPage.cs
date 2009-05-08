@@ -68,7 +68,8 @@ namespace YAF.Classes.Base
 
 		private bool _noDataBase = false;
         private bool _showToolBar = Config.ShowToolBar;
-		private bool _checkSuspended = true;
+        private bool _showFooter = Config.ShowFooter;
+        private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;
 		protected YAF.Controls.ModalNotification _errorPopup = null;
@@ -403,9 +404,9 @@ namespace YAF.Classes.Base
 		{
 			// sets up the head elements in addition to the Css and image elements
 			SetupHeaderElements();
-			// setup the forum control header properties
+			// setup the forum control header & footer properties
 			ForumHeader.SimpleRender = !_showToolBar;
-			ForumFooter.SimpleRender = !_showToolBar;
+			ForumFooter.SimpleRender = !_showFooter;
 
 			// register the script code to show the notification modal if needed...
 			RegisterLoadString();
