@@ -42,7 +42,7 @@ namespace YAF.Providers.Profile
 	/// <summary>
 	/// YAF Custom Profile Provider
 	/// </summary>
-	class YafProfileProvider : ProfileProvider
+	public class YafProfileProvider : ProfileProvider
 	{
 		private string _appName;
 		private bool _propertiesSetup = false;
