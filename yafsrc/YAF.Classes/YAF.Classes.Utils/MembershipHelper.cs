@@ -269,6 +269,11 @@ namespace YAF.Classes.Utils
 		/// <param name="pageBoardID">Current BoardID</param>
 		public static void UpdateForumUser(MembershipUser user, int pageBoardID)
 		{
+            if (user == null) // Check to make sure its not a guest
+            {
+                return;
+            }
+
 			int nUserID = YAF.Classes.Data.DB.user_aspnet(pageBoardID, user.UserName, user.Email, user.ProviderUserKey, user.IsApproved);
 			// get user groups...
 			DataTable groupTable = YAF.Classes.Data.DB.group_member( pageBoardID, nUserID );
