@@ -434,7 +434,7 @@ namespace YAF.Controls
 						if ( !f.AllowHiding || !SqlDataLayerConverter.VerifyBool(r["Hide"] ))
 						{
 							medals.AppendFormat(
-								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" />",
+								"<img src=\"{0}images/medals/{1}\" width=\"{2}\" height=\"{3}\" title=\"{4}{5}\" />",
 								YafForumInfo.ForumRoot,
 								r["SmallMedalURL"],
 								r["SmallMedalWidth"],
