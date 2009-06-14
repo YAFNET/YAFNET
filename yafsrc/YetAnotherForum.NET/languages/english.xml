@@ -393,9 +393,9 @@ Visit {forumname} at {forumlink}
   <page name="POSTS">
     <!-- posts.aspx -->
 	  <Resource tag="USERPROFILE">User Profile</Resource>
-	<Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
-	<Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
-	<Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+	  <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+	  <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
+	  <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
     <Resource tag="QUICKREPLY">Quick Reply</Resource>
     <Resource tag="QUICKREPLY_SHOW">Show Quick Reply</Resource>
     <Resource tag="QUICKREPLY_HIDE">Hide Quick Reply</Resource>
@@ -474,7 +474,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="ICQ">ICQ</Resource>
     <Resource tag="SKYPE">SKYPE</Resource>
     <Resource tag="MESSAGEDELETED_USER">Message was deleted by User.</Resource>
-    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>    
+    <Resource tag="MESSAGEDELETED_MOD">Message was deleted by Moderator.</Resource>
+    <Resource tag="TOTAL">Total</Resource>
   </page>
 	<page name="ACTIVE">
 		<!-- active.aspx -->

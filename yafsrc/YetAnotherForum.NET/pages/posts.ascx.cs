@@ -844,6 +844,11 @@ namespace YAF.Pages // YAF.Pages
 				return "";
 		}
 
+        protected string GetTotal()
+        {
+            return HtmlEncode(_dtPoll.Rows[0]["Total"].ToString());
+        }
+
 		private void OptionsMenu_ItemClick( object sender, YAF.Controls.PopEventArgs e )
 		{
 			switch ( e.Item.ToLower() )

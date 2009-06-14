@@ -3300,9 +3300,10 @@ BEGIN
 		a.ChoiceID,
 		a.Choice,
 		a.Votes,
+		(select sum(x.Votes) from [{databaseOwner}].[{objectQualifier}Choice] x where  x.PollID = a.PollID) as [Total],
 		Stats = (select 100 * a.Votes / case sum(x.Votes) when 0 then 1 else sum(x.Votes) end from [{databaseOwner}].[{objectQualifier}Choice] x where x.PollID=a.PollID)
 	FROM
-		[{databaseOwner}].[{objectQualifier}Choice] a
+		[{databaseOwner}].[{objectQualifier}Choice] a		
 	INNER JOIN 
 		[{databaseOwner}].[{objectQualifier}Poll] b ON b.PollID = a.PollID
 	WHERE

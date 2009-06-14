@@ -43,6 +43,15 @@
 		</tr>
 	</ItemTemplate>
 	<FooterTemplate>
+	    <tr>
+            <td class="header2">
+                <%= GetText("total") %>
+            </td>
+            <td class="header2" align="center">
+                <%# GetTotal() %>
+            </td>
+            <td class="header2">100%</td>
+        </tr>
 		</table><br />
 	</FooterTemplate>
 </asp:Repeater>
