@@ -101,20 +101,23 @@ function toggleMessage(divId)
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			PopMenu1.Visible = !IsGuest;
-			if (PopMenu1.Visible)
+            if (PopMenu1.Visible)
 			{
 				PopMenu1.ItemClick += new PopEventHandler(PopMenu1_ItemClick);
 				PopMenu1.AddPostBackItem( "userprofile", PageContext.Localization.GetText( "POSTS", "USERPROFILE" ) );
-				if ( PageContext.IsAdmin ) PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
-
-				if ( IsIgnored( UserId ) )
-				{
-					PopMenu1.AddPostBackItem( "toggleuserposts_show", PageContext.Localization.GetText( "POSTS", "TOGGLEUSERPOSTS_SHOW" ) );
-				}
-				else
-				{
-					PopMenu1.AddPostBackItem( "toggleuserposts_hide", PageContext.Localization.GetText( "POSTS", "TOGGLEUSERPOSTS_HIDE" ) );
-				}
+				
+                if ( PageContext.IsAdmin ) PopMenu1.AddPostBackItem("edituser", "Edit User (Admin)");
+                if (!PageContext.IsGuest)
+                {
+                    if (IsIgnored(UserId))
+                    {
+                        PopMenu1.AddPostBackItem("toggleuserposts_show", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+                    }
+                    else
+                    {
+                        PopMenu1.AddPostBackItem("toggleuserposts_hide", PageContext.Localization.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+                    }
+                }
 				PopMenu1.Attach(UserProfileLink);
 			}
 
