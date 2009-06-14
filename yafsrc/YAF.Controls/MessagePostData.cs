@@ -156,28 +156,30 @@ namespace YAF.Controls
 
 		public override string Message
 		{
-			get
-			{
-				string message = DataRow["Message"].ToString();
+            get
+            {
+                string message = DataRow["Message"].ToString();
 
-				// validate the size...
-				if ( YafContext.Current.BoardSettings.MaxPostSize > 0 )
-				{
-					if ( message.Length > YafContext.Current.BoardSettings.MaxPostSize )
-					{
-						// truncate...  
-						message = message.Substring( 0, YafContext.Current.BoardSettings.MaxPostSize );
-						int lastSpaceIndex = message.LastIndexOf( " " );
-						if ( lastSpaceIndex != 0 )
-							message = message.Substring( 0, lastSpaceIndex ) + "...";
-
-						return message;
-					}
-				}
-
-				return message;
-			}
+                return TruncateMessage(message);
+            }
 		}
+        public static string TruncateMessage(string message)
+        {
+            // validate the size...
+            if (YafContext.Current.BoardSettings.MaxPostSize < 0)
+                return message;
+
+            if (message.Length < YafContext.Current.BoardSettings.MaxPostSize)
+                return message;
+
+            // truncate... 
+            message = message.Substring(0, YafContext.Current.BoardSettings.MaxPostSize);
+            int lastSpaceIndex = message.LastIndexOf(" ");
+            if (lastSpaceIndex > 0)
+                return message.Substring(0, lastSpaceIndex) + "...";
+
+            return message.Substring(0, message.Length - 3) + "...";
+        }
 
 		private bool _showAttachments = true;
 		public bool ShowAttachments
