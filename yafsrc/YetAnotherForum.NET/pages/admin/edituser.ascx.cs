@@ -80,7 +80,12 @@ namespace YAF.Pages.Admin
 
 					// do a quick user membership sync...
 					MembershipUser user = UserMembershipHelper.GetMembershipUser( CurrentUserID );
-					RoleMembershipHelper.UpdateForumUser( user, PageContext.PageBoardID );
+
+                    // update if the user is not Guest
+                    if (!UserMembershipHelper.IsGuestUser(CurrentUserID))
+                    {
+                        RoleMembershipHelper.UpdateForumUser(user, PageContext.PageBoardID);
+                    }
 				}
 			}
 		}
