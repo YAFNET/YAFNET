@@ -63,14 +63,17 @@ namespace YAF.Pages // YAF.Pages
 			// admin or moderator, set edit control to moderator mode...
 			if ( PageContext.IsAdmin || PageContext.IsForumModerator ) SignatureEditControl.InModeratorMode = true;
 
-			if ( !IsPostBack )
-			{
-				userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
-				BindData();
+            if (!IsPostBack)
+            {
+                userGroupsRow.Visible = PageContext.BoardSettings.ShowGroupsProfile || PageContext.IsAdmin;
+                BindData();
 
-				// handle custom BBCode javascript or CSS...
-				YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements( Page, this.GetType() );
-			}
+                // handle custom BBCode javascript or CSS...
+                YAF.Classes.UI.BBCode.RegisterCustomBBCodePageElements(Page, this.GetType());
+            }
+            else
+                BindData();
+
 		}
 
 		private void BindData()
