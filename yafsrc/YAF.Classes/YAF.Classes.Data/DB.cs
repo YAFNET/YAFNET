@@ -2975,13 +2975,15 @@ namespace YAF.Classes.Data
 			}
 		}
 
-		static public int topic_prune( object forumID, object days )
+		static public int topic_prune(object boardID, object forumID, object days, object permDelete )
 		{
 			using ( SqlCommand cmd = DBAccess.GetCommand( "topic_prune" ) )
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue( "ForumID", forumID );
-				cmd.Parameters.AddWithValue( "Days", days );
+                cmd.Parameters.AddWithValue("BoardID", boardID);
+				cmd.Parameters.AddWithValue("ForumID", forumID );
+				cmd.Parameters.AddWithValue("Days", days );
+                cmd.Parameters.AddWithValue("PermDelete", permDelete);
 				return (int)DBAccess.ExecuteScalar( cmd );
 			}
 		}

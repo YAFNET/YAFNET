@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
 		}
 
 		private void commit_Click(object sender,EventArgs e) {
-			int Count = YAF.Classes.Data.DB.topic_prune(forumlist.SelectedValue,days.Text);
+            int Count = YAF.Classes.Data.DB.topic_prune(PageContext.PageBoardID, forumlist.SelectedValue, days.Text, permDeleteChkBox.Checked);
 			PageContext.AddLoadMessage(String.Format("{0} topic(s) deleted.",Count));
 		}
 

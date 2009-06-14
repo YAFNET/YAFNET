@@ -49,11 +49,10 @@ namespace YAF.Classes.Utils
 
 			// get the board table
 			DataTable dataTable = YAF.Classes.Data.DB.board_list( _boardID );
-
+            
 			if ( dataTable.Rows.Count == 0 )
 				throw new Exception( "No data for board with id: " + _boardID );
 			_board = dataTable.Rows [0];
-
 			_membershipAppName = (String.IsNullOrEmpty( _board["MembershipAppName"].ToString() ))
 			                     	? System.Web.Security.Membership.ApplicationName
 			                     	: _board["MembershipAppName"].ToString();

@@ -20,6 +20,13 @@
 			<td class="post">
 				<asp:TextBox ID="days" runat="server"></asp:TextBox>
 		</tr>
+				<tr>
+			<td class="postheader">
+				<b>Permanently remove from DB:</b><br />
+				All Topics marked with the Deleted flag will be permanently deleted.</td>
+			<td class="post">
+				<asp:CheckBox id="permDeleteChkBox" runat="server" />
+		</tr>
 		<tr>
 			<td class="footer1" colspan="2" align="center">
 				<asp:Button ID="commit" runat="server" Text="Prune" OnLoad="PruneButton_Load"></asp:Button>

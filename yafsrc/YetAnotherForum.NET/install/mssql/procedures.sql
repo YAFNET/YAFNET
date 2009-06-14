@@ -3757,58 +3757,64 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
-as
-begin
+
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_delete] (@TopicID int,@UpdateLastPost bit=1,@EraseTopic bit=0) 
+AS
+BEGIN
 	SET NOCOUNT ON
-	declare @ForumID int
-	declare @pollID int
+	DECLARE @ForumID int
+	DECLARE @pollID int
 	
-	select @ForumID=ForumID from  [{databaseOwner}].[{objectQualifier}Topic] where TopicID=@TopicID
-	update  [{databaseOwner}].[{objectQualifier}Topic] set LastMessageID = null where TopicID = @TopicID
-	update  [{databaseOwner}].[{objectQualifier}Forum] set 
+	SELECT @ForumID=ForumID FROM  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID=@TopicID
+	
+	UPDATE [{databaseOwner}].[{objectQualifier}Topic] SET LastMessageID = null WHERE TopicID = @TopicID
+	
+	UPDATE [{databaseOwner}].[{objectQualifier}Forum] SET 
 		LastTopicID = null,
 		LastMessageID = null,
 		LastUserID = null,
 		LastUserName = null,
 		LastPosted = null
-	where LastMessageID in (select MessageID from  [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID)
-	update  [{databaseOwner}].[{objectQualifier}Active] set TopicID = null where TopicID = @TopicID
+	WHERE LastMessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID)
 	
-	--remove polls	
-	select @pollID = pollID from  [{databaseOwner}].[{objectQualifier}topic] where TopicID = @TopicID
-	if (@pollID is not null)
-	begin
-		delete from  [{databaseOwner}].[{objectQualifier}choice] where PollID = @PollID
-		update  [{databaseOwner}].[{objectQualifier}topic] set PollID = null where TopicID = @TopicID
-		delete from  [{databaseOwner}].[{objectQualifier}poll] where PollID = @PollID	
-	end	
+	UPDATE  [{databaseOwner}].[{objectQualifier}Active] SET TopicID = null WHERE TopicID = @TopicID
 	
 	--delete messages and topics
-	delete from  [{databaseOwner}].[{objectQualifier}nntptopic] where TopicID = @TopicID
-	delete from  [{databaseOwner}].[{objectQualifier}topic] where TopicMovedID = @TopicID
-
-	if @EraseTopic = 0
-	begin
-		update  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicID = @TopicID
-	end
-	else
-	begin
-		delete  [{databaseOwner}].[{objectQualifier}Attachment] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
-		delete  [{databaseOwner}].[{objectQualifier}Message] where TopicID = @TopicID
-		delete  [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID = @TopicID
-		delete  [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID
-		delete  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID) 
-		delete  [{databaseOwner}].[{objectQualifier}MessageReported] where MessageID IN (select MessageID from  [{databaseOwner}].[{objectQualifier}message] where TopicID = @TopicID)
-	end
+	DELETE FROM  [{databaseOwner}].[{objectQualifier}nntptopic] WHERE TopicID = @TopicID
+	
+	IF @EraseTopic = 0
+	BEGIN
+		UPDATE  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicMovedID = @TopicID
+		UPDATE  [{databaseOwner}].[{objectQualifier}topic] set Flags = Flags | 8 where TopicID = @TopicID
+	END
+	ELSE
+	BEGIN
+		--remove polls	
+		SELECT @pollID = pollID FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicID = @TopicID
+		IF (@pollID is not null)
+		BEGIN
+			UPDATE  [{databaseOwner}].[{objectQualifier}topic] SET PollID = null WHERE TopicID = @TopicID
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}choice] WHERE PollID = @PollID
+			DELETE FROM  [{databaseOwner}].[{objectQualifier}poll] WHERE PollID = @PollID	
+		END	
+	
+		DELETE FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicMovedID = @TopicID
+		
+		DELETE  [{databaseOwner}].[{objectQualifier}Attachment] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
+		DELETE  [{databaseOwner}].[{objectQualifier}Message] WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}Topic] WHERE TopicID = @TopicID
+		DELETE  [{databaseOwner}].[{objectQualifier}MessageReportedAudit] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID) 
+		DELETE  [{databaseOwner}].[{objectQualifier}MessageReported] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
+	END
 		
 	--commit
-	if @UpdateLastPost<>0
-		exec  [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
+	IF @UpdateLastPost<>0
+		EXEC  [{databaseOwner}].[{objectQualifier}forum_updatelastpost] @ForumID
 	
-	if @ForumID is not null
-		exec  [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
-end
+	IF @ForumID is not null
+		EXEC  [{databaseOwner}].[{objectQualifier}forum_updatestats] @ForumID
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_findnext](@TopicID int) as
@@ -4034,51 +4040,60 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}topic_prune](@ForumID int=null,@Days int) as
-begin
-	declare @c cursor
-	declare @TopicID int
-	declare @Count int
-	set @Count = 0
-	if @ForumID = 0 set @ForumID = null
-	if @ForumID is not null begin
-		set @c = cursor for
-		select 
+CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}topic_prune](@BoardID int, @ForumID int=null,@Days int, @PermDelete bit) as
+BEGIN
+	DECLARE @c cursor
+	DECLARE @TopicID int
+	DECLARE @Count int
+	SET @Count = 0
+	IF @ForumID = 0 SET @ForumID = NULL
+	IF @ForumID IS NOT NULL
+	BEGIN
+		SET @c = cursor for
+		SELECT 
 			TopicID
-		from 
-			{objectQualifier}Topic
-		where 
-			ForumID = @ForumID and
+		FROM [{databaseOwner}].[{objectQualifier}topic] yt
+		INNER JOIN
+		[{databaseOwner}].[{objectQualifier}Forum] yf
+		ON
+		yt.ForumID = yf.ForumID
+		INNER JOIN
+		[{databaseOwner}].[{objectQualifier}Category] yc
+		ON
+		yf.CategoryID = yc.CategoryID
+		WHERE
+			yc.BoardID = @BoardID AND
+			yt.ForumID = @ForumID AND
+			Priority = 0 AND
+			(yt.Flags & 512) = 0 AND /* not flagged as persistent */
+			datediff(dd,yt.LastPosted,getdate())>@Days
+	END
+	ELSE BEGIN
+		SET @c = CURSOR FOR
+		SELECT 
+			TopicID
+		FROM 
+			yaf_Topic
+		WHERE 
 			Priority = 0 and
 			(Flags & 512) = 0 and					/* not flagged as persistent */
 			datediff(dd,LastPosted,getdate())>@Days
-	end
-	else begin
-		set @c = cursor for
-		select 
-			TopicID
-		from 
-			{objectQualifier}Topic
-		where 
-			Priority = 0 and
-			(Flags & 512) = 0 and					/* not flagged as persistent */
-			datediff(dd,LastPosted,getdate())>@Days
-	end
-	open @c
-	fetch @c into @TopicID
-	while @@FETCH_STATUS=0 begin
-		exec [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID,0
-		set @Count = @Count + 1
-		fetch @c into @TopicID
-	end
-	close @c
-	deallocate @c
+	END
+	OPEN @c
+	FETCH @c into @TopicID
+	WHILE @@FETCH_STATUS=0 BEGIN
+		EXEC [{databaseOwner}].[{objectQualifier}topic_delete] @TopicID, @PermDelete
+		SET @Count = @Count + 1
+		FETCH @c INTO @TopicID
+	END
+	CLOSE @c
+	DEALLOCATE @c
 
 	-- This takes forever with many posts...
 	--exec [{databaseOwner}].[{objectQualifier}topic_updatelastpost]
 
-	select Count = @Count
-end
+	SELECT Count = @Count
+END
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}topic_save](
