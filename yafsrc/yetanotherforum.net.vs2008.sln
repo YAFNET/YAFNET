@@ -30,14 +30,16 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "YetAnotherForum.NET", "YetA
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "13599"
+		VWDPort = "28674"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intelligencia.UrlRewriter", "URLRewriter.NET\Intelligencia.UrlRewriter.csproj", "{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls", "YAF.Controls\YAF.Controls.csproj", "{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls.NETv2", "YAF.Controls\YAF.Controls.NETv2.csproj", "{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Classes.UnitTests", "YAF.Classes\YAF.Classes.UnitTests\YAF.Classes.UnitTests.csproj", "{DE644CB8-5686-4482-BDD3-DA24E464C44A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAF.Controls.NETv3.5", "YAF.Controls\YAF.Controls.NETv3.5.csproj", "{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,16 @@ Global
 		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DE644CB8-5686-4482-BDD3-DA24E464C44A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|.NET.ActiveCfg = Release|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C72A5FC8-4B1C-4A24-A306-FB550729DBF0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
