@@ -3144,25 +3144,27 @@ BEGIN
 
 	SET @PMessageID = (SELECT TOP 1 PMessageID FROM [{databaseOwner}].[{objectQualifier}UserPMessage] where [UserPMessageID] = @UserPMessageID);
 
-	IF @FromOutbox = 1
+	-- set IsInOutbox bit which will remove it from the senders outbox
+	UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 8) WHERE UserPMessageID = @UserPMessageID
+	
+	DECLARE @MsgCount int
+	SET @MsgCount = (SELECT COUNT (UserPMessageID) FROM [{databaseOwner}].[{objectQualifier}UserPMessage]  WHERE  ([Flags] & 8)=0) ;
+	
+	IF @MsgCount =0 
 	BEGIN
-		-- set IsInOutbox bit which will remove it from the senders outbox
-		UPDATE [{databaseOwner}].[{objectQualifier}UserPMessage] SET [Flags] = ([Flags] ^ 2) WHERE UserPMessageID = @UserPMessageID AND IsInOutbox = 1
-	END
-	ELSE
-	BEGIN		
-		DELETE FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE [UserPMessageID] = @UserPMessageID
+		DELETE FROM [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE [PMessageID] = @PMessageID
 		DELETE FROM [{databaseOwner}].[{objectQualifier}PMessage] WHERE [PMessageID] = @PMessageID
 	END
+
 END
 GO
 
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}pmessage_info] as
 begin
 	select
-		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where IsRead<>0),
-		NumUnread = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where IsRead=0),
-		NumTotal = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage])
+		NumRead	= (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead<>0  AND IsDeleted<>8),
+		NumUnread = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsRead=0  AND IsDeleted<>8),
+		NumTotal = (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] WHERE IsDeleted<>8)
 end
 GO
 
@@ -3172,7 +3174,8 @@ BEGIN
 		FROM [{databaseOwner}].[{objectQualifier}PMessageView]
 		WHERE	((@UserPMessageID IS NOT NULL AND UserPMessageID=@UserPMessageID) OR 
 				 (@ToUserID   IS NOT NULL AND ToUserID = @ToUserID) OR 
-				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID))
+				 (@FromUserID IS NOT NULL AND FromUserID = @FromUserID) AND
+				 IsDeleted=0)
 		ORDER BY Created DESC
 END
 GO
@@ -5023,20 +5026,22 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}userpmessage_list](@UserPMessageID int) as
 begin
-	select
+	SELECT
 		a.*,
 		FromUser = b.Name,
 		ToUserID = c.UserID,
 		ToUser = c.Name,
 		d.IsRead,
 		d.UserPMessageID
-	from
+	FROM
 		[{databaseOwner}].[{objectQualifier}PMessage] a
-		inner join [{databaseOwner}].[{objectQualifier}UserPMessage] d on d.PMessageID = a.PMessageID
-		inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.FromUserID
-		inner join [{databaseOwner}].[{objectQualifier}User] c on c.UserID = d.UserID
-	where
+		INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] d ON d.PMessageID = a.PMessageID
+		INNER JOIN [{databaseOwner}].[{objectQualifier}User] b ON b.UserID = a.FromUserID
+		inner join [{databaseOwner}].[{objectQualifier}User] c ON c.UserID = d.UserID
+	WHERE
 		d.UserPMessageID = @UserPMessageID
+	AND
+		d.IsDeleted=0
 end
 GO
 

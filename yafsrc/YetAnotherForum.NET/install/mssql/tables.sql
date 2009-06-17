@@ -369,7 +369,8 @@ begin
 		[Flags]			int NOT NULL DEFAULT ((0)),
 		[IsRead]		AS (CONVERT([bit],sign([Flags]&(1)),(0))),
 		[IsInOutbox]	AS (CONVERT([bit],sign([Flags]&(2)),(0))),
-		[IsArchived]	AS (CONVERT([bit],sign([Flags]&(4)),(0)))		
+		[IsArchived]	AS (CONVERT([bit],sign([Flags]&(4)),(0))),
+		[IsDeleted]		AS (CONVERT([bit],sign([Flags]&(8)),(0)))			
 	)
 end
 GO
@@ -572,6 +573,12 @@ BEGIN
 		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsInOutbox] AS (CONVERT([bit],sign([Flags]&(2)),(0)))
 		alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsArchived] AS (CONVERT([bit],sign([Flags]&(4)),(0)))
 	END
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM dbo.syscolumns WHERE id = object_id('[{databaseOwner}].[{objectQualifier}UserPMessage]') AND NAME='IsDeleted')
+BEGIN
+	alter table [{databaseOwner}].[{objectQualifier}UserPMessage] ADD [IsDeleted] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
 END
 GO
 

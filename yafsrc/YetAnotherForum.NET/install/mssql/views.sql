@@ -113,7 +113,7 @@ AS
 SELECT
 	a.PMessageID, b.UserPMessageID, a.FromUserID, d.[Name] AS FromUser, 
 	b.[UserID] AS ToUserId, c.[Name] AS ToUser, a.Created, a.Subject, 
-	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived
+	a.Body, a.Flags, b.IsRead, b.IsInOutbox, b.IsArchived, b.IsDeleted
 FROM
 	[{databaseOwner}].[{objectQualifier}PMessage] a
 INNER JOIN
