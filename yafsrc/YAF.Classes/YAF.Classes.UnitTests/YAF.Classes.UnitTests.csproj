@@ -61,9 +61,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.csproj">
+    <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.NETv2.csproj">
       <Project>{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}</Project>
-      <Name>YAF.Controls</Name>
+      <Name>YAF.Controls.NETv2</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\YAF.Providers\YAF.Providers.csproj">
       <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>

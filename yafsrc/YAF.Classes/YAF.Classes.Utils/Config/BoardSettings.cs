@@ -26,12 +26,59 @@ namespace YAF.Classes.Utils
 {
 	public class YafBoardSettings
 	{
-		/* Ederon : 6/16/2007 - conventions */
+		public class YafLegacyBoardSettings
+		{
+			public string BoardName
+			{
+				get;
+				set;
+			}
 
-		private readonly DataRow _board;
+			public string SqlVersion
+			{
+				get;
+				set;
+			}
+
+			public bool AllowThreaded
+			{
+				get;
+				set;
+			}
+
+			public string MembershipAppName
+			{
+				get;
+				set;
+			}
+
+			public string RolesAppName
+			{
+				get;
+				set;
+			}
+
+			public YafLegacyBoardSettings()
+			{
+				
+			}
+
+			public YafLegacyBoardSettings( string boardName, string sqlVersion, bool allowThreaded, string membershipAppName, string rolesAppName )
+				: this()
+			{
+				BoardName = boardName;
+				SqlVersion = sqlVersion;
+				AllowThreaded = allowThreaded;
+				MembershipAppName = membershipAppName;
+				RolesAppName = rolesAppName;
+			}
+		}
+
+		/* Ederon : 6/16/2007 - conventions */
+		private YafLegacyBoardSettings _legacyBoardSettings = new YafLegacyBoardSettings();
 		private readonly RegistryHash _reg, _regBoard;
 		private readonly object _boardID;
-		private readonly string _membershipAppName, _rolesAppName;
+		private string _membershipAppName, _rolesAppName;
 
 		public YafBoardSettings()
 		{
@@ -52,17 +99,28 @@ namespace YAF.Classes.Utils
             
 			if ( dataTable.Rows.Count == 0 )
 				throw new Exception( "No data for board with id: " + _boardID );
-			_board = dataTable.Rows [0];
-			_membershipAppName = (String.IsNullOrEmpty( _board["MembershipAppName"].ToString() ))
-			                     	? System.Web.Security.Membership.ApplicationName
-			                     	: _board["MembershipAppName"].ToString();
 
-			_rolesAppName = (String.IsNullOrEmpty( _board["RolesAppName"].ToString() ) )
-			                 	? System.Web.Security.Roles.ApplicationName
-			                 	: _board["RolesAppName"].ToString();
+			// setup legacy board settings...
+			SetupLegacyBoardSettings( dataTable.Rows[0] );
 
 			// get all the registry values for the forum
 			LoadBoardSettingsFromDB();
+		}
+
+		private void SetupLegacyBoardSettings( DataRow board )
+		{
+			_membershipAppName = (String.IsNullOrEmpty( board["MembershipAppName"].ToString() ))
+														? System.Web.Security.Membership.ApplicationName
+														: board["MembershipAppName"].ToString();
+
+			_rolesAppName = (String.IsNullOrEmpty( board["RolesAppName"].ToString() ))
+												? System.Web.Security.Roles.ApplicationName
+												: board["RolesAppName"].ToString();
+
+			_legacyBoardSettings = new YafLegacyBoardSettings( board["Name"].ToString(), Convert.ToString( board["SQLVersion"] ),
+			                                                   SqlDataLayerConverter.VerifyBool(
+			                                                   	board["AllowThreaded"].ToString() ), _membershipAppName,
+			                                                   _rolesAppName );
 		}
 
 		protected void LoadBoardSettingsFromDB()
@@ -131,11 +189,11 @@ namespace YAF.Classes.Utils
 		// individual board settings
 		public string Name
 		{
-			get { return _board ["Name"].ToString(); }
+			get { return _legacyBoardSettings.BoardName; }
 		}
 		public bool AllowThreaded
 		{
-			get { return SqlDataLayerConverter.VerifyBool( _board ["AllowThreaded"].ToString() ); }
+			get { return _legacyBoardSettings.AllowThreaded; }
 		}
 		public bool AllowThemedLogo
 		{
@@ -175,7 +233,7 @@ namespace YAF.Classes.Utils
 		// didn't know where else to put this :)
 		public string SQLVersion
 		{
-			get { return Convert.ToString( _board ["SQLVersion"] ); }
+			get { return _legacyBoardSettings.SqlVersion; }
 		}
 
 		// global forum settings from registry

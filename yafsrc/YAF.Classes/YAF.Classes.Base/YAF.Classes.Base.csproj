@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -29,6 +29,9 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,9 +73,9 @@
     <Compile Include="YAFInitModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.csproj">
+    <ProjectReference Include="..\..\YAF.Controls\YAF.Controls.NETv2.csproj">
       <Project>{4670D1A9-7E61-4C59-AFD8-9FF080DA15B8}</Project>
-      <Name>YAF.Controls</Name>
+      <Name>YAF.Controls.NETv2</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Classes.Config\YAF.Classes.Config.csproj">
       <Project>{05E50D2F-9527-4CE8-A0F8-168281C426CB}</Project>
