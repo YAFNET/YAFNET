@@ -43,7 +43,7 @@ namespace YAF.Pages
 		{
 			if ( User == null )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				RedirectNoAccess();
 			}
 
 			if ( !IsPostBack )

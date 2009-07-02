@@ -45,36 +45,7 @@
                                     If unchecked users will not need to verify their email address.</td>
                                 <td class="post">
                                     <asp:CheckBox ID="EmailVerification" runat="server"></asp:CheckBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>Disable New Registrations:</b><br>
-                                    New users won't be able to register.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="DisableRegistrations" runat="server"></asp:CheckBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>Allow Login and Logoff:</b><br>
-                                    Enable login and logoff through the forum.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="AllowLoginAndLogoff" runat="server"></asp:CheckBox></td>
-                            </tr>
-                            <tr>
-                                <td class="postheader">
-                                    <b>Allow Email Change:</b><br>
-                                    Allow users to change their email address.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="AllowEmailChange" runat="server"></asp:CheckBox></td>
                             </tr>                            
-                            <tr>
-                                <td class="postheader">
-                                    <b>Require User Login:</b><br>
-                                    If checked, users will be required to log in before they can see any content. They'll
-                                    be redirected straight to login page.</td>
-                                <td class="post">
-                                    <asp:CheckBox ID="RequireLogin" runat="server" /></td>
-                            </tr>
                             <tr>
                                 <td class="postheader">
                                     <b>Use File Table:</b><br>
@@ -152,6 +123,40 @@
                                 <td class="post">
                                     <asp:CheckBox ID="CreateNntpUsers" runat="server"></asp:CheckBox></td>
                             </tr>
+                            <tr>
+                                <td class="header1" colspan="2">
+                                    Login/Registration Settings</td>
+                            </tr>       
+                            <tr>
+                                <td class="postheader">
+                                    <b>Disable New Registrations:</b><br>
+                                    New users won't be able to register.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="DisableRegistrations" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Allow Login and Logoff:</b><br>
+                                    Enable login and logoff through the forum.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AllowLoginAndLogoff" runat="server"></asp:CheckBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Custom Login Redirect Url:</b><br>
+                                    If login is disabled, this is the URL users will be redirected to when they need to access the forum. Optionally add "{0}" to the URL to pass the return URL to the custom Url.
+                                    E.g. "http://mydomain.com/login.aspx?PreviousUrl={0}"</td>
+                                <td class="post">
+                                    <asp:TextBox ID="CustomLoginRedirectUrl" runat="server"></asp:TextBox></td>
+                            </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Require User Login:</b><br>
+                                    If checked, users will be required to log in before they can see any content. They'll
+                                    be redirected straight to login page.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="RequireLogin" runat="server" /></td>
+                            </tr>                                                 
                         </table>
                     </ContentTemplate>
                 </ajaxToolkit:TabPanel>
@@ -596,6 +601,20 @@
                                 <td class="post">
                                     <asp:CheckBox ID="AllowEmailSendingX" runat="server"></asp:CheckBox></td>
                             </tr>
+                            <tr>
+                                <td class="postheader">
+                                    <b>Allow Email Change:</b><br>
+                                    Allow users to change their email address.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AllowEmailChange" runat="server"></asp:CheckBox></td>
+                            </tr>        
+                            <tr>
+                                <td class="postheader">
+                                    <b>Allow Password Change:</b><br>
+                                    Allow users to change their passwords.</td>
+                                <td class="post">
+                                    <asp:CheckBox ID="AllowPasswordChange" runat="server"></asp:CheckBox></td>
+                            </tr>                                                   
                             <tr>
                                 <td class="postheader">
                                     <b>Allow Signatures:</b><br>

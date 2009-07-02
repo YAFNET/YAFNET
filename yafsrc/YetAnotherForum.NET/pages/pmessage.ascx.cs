@@ -91,7 +91,7 @@ namespace YAF.Pages
 		{
 			// if user isn't authenticated, redirect him to login page
 			if ( User == null || PageContext.IsGuest )
-				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				RedirectNoAccess();
 
 			// set attributes of editor
 			_editor.BaseDir = YafForumInfo.ForumRoot + "editors";

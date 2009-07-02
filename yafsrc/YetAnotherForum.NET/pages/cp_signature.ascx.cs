@@ -49,11 +49,13 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( User == null )
 			{
-				// Ederon : guess we don't need this if anymore
-				//if ( CanLogin )
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
-				//else
-				//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
+				RedirectNoAccess();
+			}
+
+			if ( !PageContext.BoardSettings.AllowSignatures && !(PageContext.IsAdmin || PageContext.IsForumModerator) )
+			{
+				// Not accessbile...
+				YafBuildLink.AccessDenied();
 			}
 
 			if ( !IsPostBack )

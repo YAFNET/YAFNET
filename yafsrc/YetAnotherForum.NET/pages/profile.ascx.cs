@@ -54,7 +54,7 @@ namespace YAF.Pages // YAF.Pages
 
 			if ( PageContext.IsPrivate && User == null )
 			{
-				YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+				RedirectNoAccess();
 			}
 
 			if ( Request.QueryString ["u"] == null )

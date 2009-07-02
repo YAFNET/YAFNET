@@ -41,7 +41,7 @@ namespace YAF.Pages // YAF.Pages
 		protected void Page_Load( object sender, EventArgs e )
 		{
 			if ( User == null )
-				YafBuildLink.Redirect( ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+				RedirectNoAccess();
 
 			// check if this feature is disabled
 			if ( !PageContext.BoardSettings.AllowPrivateMessages )

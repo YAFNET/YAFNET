@@ -481,15 +481,37 @@ namespace YAF.Classes.Utils
 		{
 			HandleRequest( context, ( ViewPermissions )permission );
 		}
+
 		static public void HandleRequest( YafContext context, ViewPermissions permission )
 		{
+			bool noAccess = true;
+
 			if ( !CheckPermission( context, permission ) )
 			{
 				if ( permission == ViewPermissions.RegisteredUsers )
 				{
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl() );
+					if ( context.BoardSettings.AllowLoginAndLogoff )
+					{
+						YafBuildLink.Redirect(ForumPages.login, "ReturnUrl={0}", General.GetSafeRawUrl());
+						noAccess = false;
+					}
+					else if ( !String.IsNullOrEmpty(context.BoardSettings.CustomLoginRedirectUrl ))
+					{
+						string loginRedirectUrl = context.BoardSettings.CustomLoginRedirectUrl;
+
+						if ( loginRedirectUrl.Contains( "{0}" ) )
+						{
+							// process for return url..
+							loginRedirectUrl = String.Format( loginRedirectUrl, General.GetSafeRawUrl() );
+						}
+						// allow custom redirect...
+						HttpContext.Current.Response.Redirect( loginRedirectUrl );
+						noAccess = false;
+					}
 				}
-				else
+				
+				// fall-through with no access...
+				if ( noAccess )
 				{
 					YafBuildLink.AccessDenied();
 				}

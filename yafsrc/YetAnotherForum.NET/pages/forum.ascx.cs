@@ -50,7 +50,7 @@ namespace YAF.Pages
 
 				if ( PageContext.IsPrivate && User == null )
 				{
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+					RedirectNoAccess();
 				}
 
 				if ( PageContext.Settings.LockedForum == 0 )

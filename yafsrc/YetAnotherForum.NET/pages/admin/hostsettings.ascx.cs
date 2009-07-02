@@ -68,6 +68,7 @@ namespace YAF.Pages.Admin
 
 			// Ederon : 7/14/2007
 			General.AddStyleAttributeSize( UserBox, "350px", "100px" );
+			General.AddStyleAttributeWidth(CustomLoginRedirectUrl, "200px");
 			General.AddStyleAttributeWidth( UserBoxAvatar, "200px" );
 			General.AddStyleAttributeWidth( UserBoxMedals, "200px" );
 			General.AddStyleAttributeWidth( UserBoxGroups, "200px" );
@@ -142,6 +143,7 @@ namespace YAF.Pages.Admin
 			ShowModeratorList.Checked = PageContext.BoardSettings.ShowModeratorList;
 			AllowLoginAndLogoff.Checked = PageContext.BoardSettings.AllowLoginAndLogoff;
 			DoUrlReferrerSecurityCheck.Checked = PageContext.BoardSettings.DoUrlReferrerSecurityCheck;
+			AllowPasswordChange.Checked = PageContext.BoardSettings.AllowPasswordChange;
 
 			// Ederon : 7/1/2007 added
 			ShowBrowsingUsers.Checked = PageContext.BoardSettings.ShowBrowsingUsers;
@@ -212,6 +214,7 @@ namespace YAF.Pages.Admin
 			UseFullTextSearch.Checked = PageContext.BoardSettings.UseFullTextSearch;
 
 			MaxPostSize.Text = PageContext.BoardSettings.MaxPostSize.ToString();
+			CustomLoginRedirectUrl.Text = PageContext.BoardSettings.CustomLoginRedirectUrl;
 		}
 
 		protected void Save_Click( object sender, System.EventArgs e )
@@ -267,6 +270,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.ShowModeratorList = ShowModeratorList.Checked;
 			PageContext.BoardSettings.AllowLoginAndLogoff = AllowLoginAndLogoff.Checked;
 			PageContext.BoardSettings.DoUrlReferrerSecurityCheck = DoUrlReferrerSecurityCheck.Checked;
+			PageContext.BoardSettings.AllowPasswordChange = AllowPasswordChange.Checked;
 
 			// Ederon : 7/1/2007 added
 			PageContext.BoardSettings.ShowBrowsingUsers = ShowBrowsingUsers.Checked;
@@ -337,6 +341,7 @@ namespace YAF.Pages.Admin
 			PageContext.BoardSettings.UseFullTextSearch = UseFullTextSearch.Checked;
 
 			PageContext.BoardSettings.MaxPostSize = Convert.ToInt32( MaxPostSize.Text );
+			PageContext.BoardSettings.CustomLoginRedirectUrl = CustomLoginRedirectUrl.Text.Trim();
 
 			// save the settings to the database
 			PageContext.BoardSettings.SaveRegistry();

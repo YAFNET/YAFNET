@@ -82,7 +82,7 @@ namespace YAF.Pages // YAF.Pages
 				{
 					// Ederon : guess we don't need this if anymore
 					//if ( CanLogin )
-					YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.login, "ReturnUrl={0}", Request.RawUrl );
+					RedirectNoAccess();
 					//else
 					//	YAF.Classes.Utils.YafBuildLink.Redirect( YAF.Classes.Utils.ForumPages.forum );
 				}

@@ -50,7 +50,7 @@ namespace YAF.Controls
       html.AppendFormat( @"<li><a href=""{0}"">{1}</a></li>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_editavatar ), PageContext.Localization.GetText( "EDIT_AVATAR" ) );
       if ( PageContext.BoardSettings.AllowSignatures ) html.AppendFormat( @"<li><a href=""{0}"">{1}</a></li>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_signature ), PageContext.Localization.GetText( "SIGNATURE" ) );
       html.AppendFormat( @"<li><a href=""{0}"">{1}</a></li>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_subscriptions ), PageContext.Localization.GetText( "SUBSCRIPTIONS" ) );
-      html.AppendFormat( @"<li><a href=""{0}"">{1}</a></li>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_changepassword ), PageContext.Localization.GetText( "CHANGE_PASSWORD" ) );
+			if ( PageContext.BoardSettings.AllowPasswordChange ) html.AppendFormat( @"<li><a href=""{0}"">{1}</a></li>", YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.cp_changepassword ), PageContext.Localization.GetText( "CHANGE_PASSWORD" ) );
       html.AppendFormat( @"</ul></td></tr>" );
       html.Append( @"</table>" );
 

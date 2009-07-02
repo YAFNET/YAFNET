@@ -453,6 +453,11 @@ namespace YAF.Classes.Base
 				_noDataBase = value;
 			}
 		}
+
+		protected void RedirectNoAccess()
+		{
+			General.HandleRequest( PageContext, ViewPermissions.RegisteredUsers );
+		}
 		#endregion
 
 		#region Page Cache

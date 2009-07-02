@@ -19,16 +19,9 @@
  */
 
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Web;
 using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using YAF.Classes.Utils;
 using YAF.Classes.Data;
 
 namespace YAF.Pages.Admin
@@ -189,7 +182,10 @@ namespace YAF.Pages.Admin
 				MembershipCreateStatus createStatus;
 				MembershipUser newAdmin = Membership.CreateUser( adminName, adminPassword, adminEmail, adminPasswordQuestion, adminPasswordAnswer, true, out createStatus );
 				if ( createStatus != MembershipCreateStatus.Success )
-					throw new ApplicationException( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( createStatus ) ) );
+				{
+					PageContext.AddLoadMessage( string.Format( "Create User Failed: {0}", GetMembershipErrorMessage( createStatus ) ) );
+					throw new ApplicationException(string.Format("Create User Failed: {0}", GetMembershipErrorMessage(createStatus)));
+				}
 
 				// Create groups required for the new board
 				Roles.CreateRole( "Administrators" );
