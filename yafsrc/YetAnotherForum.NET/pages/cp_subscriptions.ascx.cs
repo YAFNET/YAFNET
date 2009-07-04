@@ -93,7 +93,7 @@ namespace YAF.Pages // YAF.Pages
 
 			string html = String.Format( "{0} <a href=\"{1}\"><img src=\"{2}\"'></a>",
 				by,
-				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#{0}", row ["LastMessageID"] ),
+				YAF.Classes.Utils.YafBuildLink.GetLink( YAF.Classes.Utils.ForumPages.posts, "m={0}#post{0}", row ["LastMessageID"] ),
 				GetThemeContents( "ICONS", "ICON_LATEST" )
 				);
 			return html;
