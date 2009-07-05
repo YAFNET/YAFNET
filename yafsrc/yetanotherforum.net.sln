@@ -113,6 +113,7 @@ Global
 		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Release NET v3.5|Mixed Platforms.ActiveCfg = Release NET v3.5|Any CPU
 		{FD44387B-48BF-41CD-AF62-4C37ABC18403}.Release NET v3.5|Mixed Platforms.Build.0 = Release NET v3.5|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v2.0|.NET.ActiveCfg = Debug NET v2.0|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v2.0|.NET.Build.0 = Debug NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v2.0|Mixed Platforms.ActiveCfg = Debug NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v2.0|Mixed Platforms.Build.0 = Debug NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v3.5|.NET.ActiveCfg = Debug NET v3.5|Any CPU
@@ -120,6 +121,7 @@ Global
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v3.5|Mixed Platforms.ActiveCfg = Debug NET v3.5|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Debug NET v3.5|Mixed Platforms.Build.0 = Debug NET v3.5|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v2.0|.NET.ActiveCfg = Release NET v2.0|Any CPU
+		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v2.0|.NET.Build.0 = Release NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v2.0|Mixed Platforms.ActiveCfg = Release NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v2.0|Mixed Platforms.Build.0 = Release NET v2.0|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v3.5|.NET.ActiveCfg = Release NET v3.5|Any CPU
@@ -127,6 +129,7 @@ Global
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v3.5|Mixed Platforms.ActiveCfg = Release NET v3.5|Any CPU
 		{3A34B42D-2F97-47A2-BDCA-FDA4336E8A7A}.Release NET v3.5|Mixed Platforms.Build.0 = Release NET v3.5|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v2.0|.NET.ActiveCfg = Debug NET v2.0|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v2.0|.NET.Build.0 = Debug NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v2.0|Mixed Platforms.ActiveCfg = Debug NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v2.0|Mixed Platforms.Build.0 = Debug NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v3.5|.NET.ActiveCfg = Debug NET v3.5|Any CPU
@@ -134,6 +137,7 @@ Global
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v3.5|Mixed Platforms.ActiveCfg = Debug NET v3.5|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Debug NET v3.5|Mixed Platforms.Build.0 = Debug NET v3.5|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release NET v2.0|.NET.ActiveCfg = Release NET v2.0|Any CPU
+		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release NET v2.0|.NET.Build.0 = Release NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release NET v2.0|Mixed Platforms.ActiveCfg = Release NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release NET v2.0|Mixed Platforms.Build.0 = Release NET v2.0|Any CPU
 		{05E50D2F-9527-4CE8-A0F8-168281C426CB}.Release NET v3.5|.NET.ActiveCfg = Release NET v3.5|Any CPU
@@ -181,6 +185,7 @@ Global
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Release NET v3.5|.NET.ActiveCfg = Debug|.NET
 		{06BF2014-5B42-4E4F-A1F1-25CD7ED18C8C}.Release NET v3.5|Mixed Platforms.ActiveCfg = Debug|.NET
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v2.0|.NET.ActiveCfg = Debug NET v2.0|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v2.0|.NET.Build.0 = Debug NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v2.0|Mixed Platforms.ActiveCfg = Debug NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v2.0|Mixed Platforms.Build.0 = Debug NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v3.5|.NET.ActiveCfg = Debug NET v3.5|Any CPU
@@ -188,6 +193,7 @@ Global
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v3.5|Mixed Platforms.ActiveCfg = Debug NET v3.5|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Debug NET v3.5|Mixed Platforms.Build.0 = Debug NET v3.5|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release NET v2.0|.NET.ActiveCfg = Release NET v2.0|Any CPU
+		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release NET v2.0|.NET.Build.0 = Release NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release NET v2.0|Mixed Platforms.ActiveCfg = Release NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release NET v2.0|Mixed Platforms.Build.0 = Release NET v2.0|Any CPU
 		{F8516C67-92BE-43FF-A8A9-B71A3EA4BE0D}.Release NET v3.5|.NET.ActiveCfg = Release NET v3.5|Any CPU

@@ -86,6 +86,7 @@
 			<HintPath>..\YetAnotherForum.NET\Bin\Net2.0\AjaxControlToolkit.dll</HintPath>
 		</Reference>
 		<Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+			<HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
 			<SpecificVersion>False</SpecificVersion>
 		</Reference>
 	</ItemGroup>
@@ -96,6 +97,7 @@
 		</Reference>
 		<Reference Include="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
 			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\YetAnotherForum.NET\Bin\Net2.0\System.Web.Extensions.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 	<ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug NET v3.5|AnyCPU' ">
