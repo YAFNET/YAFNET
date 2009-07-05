@@ -191,40 +191,48 @@ namespace YAF.Classes
 			}
 		}
 
-        /// <summary>
-        /// Display the default toolbar at the top -- default is "true"
-        /// </summary>
-        static public bool ShowToolBar
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.ShowToolBar", true);
-            }
-        }
+		static public string ConnectionStringName
+		{
+			get
+			{
+				return GetConfigValueAsString( "YAF.ConnectionStringName" ) ?? "yafnet";
+			}
+		}
 
-        /// <summary>
-        /// Diisplay the footer at the bottom of the page -- default is "true"
-        /// </summary>
-        static public bool ShowFooter
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.ShowFooter", true);
-            }
-        }
+		/// <summary>
+		/// Display the default toolbar at the top -- default is "true"
+		/// </summary>
+		static public bool ShowToolBar
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.ShowToolBar", true );
+			}
+		}
 
-        /// <summary>
-        /// Use an SSL connection for the SMTP server -- default is "false"
-        /// </summary>
-        static public bool UseSMTPSSL
-        {
-            get
-            {
-                return GetConfigValueAsBool("YAF.UseSMTPSSL", false);
-            }
-        }
+		/// <summary>
+		/// Diisplay the footer at the bottom of the page -- default is "true"
+		/// </summary>
+		static public bool ShowFooter
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.ShowFooter", true );
+			}
+		}
 
-        #region Telerik Rad Editor Settings
+		/// <summary>
+		/// Use an SSL connection for the SMTP server -- default is "false"
+		/// </summary>
+		static public bool UseSMTPSSL
+		{
+			get
+			{
+				return GetConfigValueAsBool( "YAF.UseSMTPSSL", false );
+			}
+		}
+
+		#region Telerik Rad Editor Settings
 		static public string RadEditorSkin
 		{
 			get
@@ -272,7 +280,7 @@ namespace YAF.Classes
 		{
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["yafnet"].ConnectionString;
+				return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString;
 			}
 		}
 

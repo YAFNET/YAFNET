@@ -502,7 +502,7 @@ namespace YAF.Classes.Utils
 						if ( loginRedirectUrl.Contains( "{0}" ) )
 						{
 							// process for return url..
-							loginRedirectUrl = String.Format( loginRedirectUrl, General.GetSafeRawUrl( HttpContext.Current.Request.Url ) );
+							loginRedirectUrl = String.Format( loginRedirectUrl, General.GetSafeRawUrl( HttpContext.Current.Request.Url.ToString() ) );
 						}
 						// allow custom redirect...
 						HttpContext.Current.Response.Redirect( loginRedirectUrl );
