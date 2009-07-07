@@ -134,6 +134,7 @@
 	color: #000000;
 	padding: 0px;
 	background-color: #FFFFFF;
+	border-collapse: collapse;
 }
 .yafnet .content td {
 	padding: 5px;

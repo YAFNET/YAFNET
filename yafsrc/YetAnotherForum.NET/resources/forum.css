@@ -32,6 +32,22 @@
 	float:left;
 	margin-top: 10px;
 }
+.yafnet .leftItem
+{
+    float:left;
+}
+.yafnet .rightItem
+{
+    float:right;
+}
+.yafnet .postNavigation td
+{
+    text-align:right;
+}
+.yafnet .clearItem
+{
+    clear:both;
+}
 .yafnet #DivSmartScroller
 {
 	clear:both;

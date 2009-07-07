@@ -31,6 +31,7 @@ using System.Text.RegularExpressions;
 using YAF.Classes.Utils;
 using YAF.Classes.Data;
 using YAF.Classes.UI;
+using YAF.Controls;
 
 namespace YAF.Pages
 {
@@ -107,11 +108,6 @@ namespace YAF.Pages
 				Priority.SelectedIndex = 0;
 
 				EditReasonRow.Visible = false;
-				Preview.Text = GetText("preview");
-				PostReply.Text = GetText("Save");
-				Cancel.Text = GetText("Cancel");
-				CreatePoll.Text = GetText("createpoll");
-				RemovePoll.Text = GetText("removepoll");
 
 				PersistencyRow.Visible = PageContext.ForumPriorityAccess;
 				PriorityRow.Visible = PageContext.ForumPriorityAccess;
@@ -661,7 +657,7 @@ namespace YAF.Pages
 
 		protected void RemovePoll_Load(object sender, System.EventArgs e)
 		{
-			General.AddOnClickConfirmDialog(sender, GetText("ASK_POLL_DELETE"));
+			((ThemeButton) sender).Attributes["onclick"] = String.Format("return confirm('{0}');", GetText("ASK_POLL_DELETE"));
 		}
 
 		private object GetPollID()

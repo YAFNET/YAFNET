@@ -145,6 +145,7 @@
 	border: solid 1px #505050;
 	color: #000000;
 	padding: 0px;
+	border-collapse: collapse;
 	background-color: #FFFFFF;	
 	filter: progid:DXImageTransform.Microsoft.Shadow(color='gray', Direction=135, Strength=3));
 }

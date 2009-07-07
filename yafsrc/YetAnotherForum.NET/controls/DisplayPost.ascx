@@ -2,38 +2,35 @@
     EnableViewState="false" %>
 <tr class="postheader">
     <%#GetIndentCell()%>
-    <td width="140" id="NameCell" runat="server">
+    <td width="140" id="NameCell" class="postUser" runat="server">
         <a name="post<%# DataRow["MessageID"] %>" /><b>
             <YAF:UserLink ID="UserProfileLink" runat="server" UserID='<%#DataRow["UserID"]%>'
                 UserName='<%#DataRow["UserName"]%>' />
         </b>
     </td>
-    <td width="80%" colspan='<%#GetIndentSpan()%>'>
-        <table cellspacing="0" cellpadding="0" width="100%">
-            <tr>
-                <td class="postheader">
-                    <b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
-                        #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
-                        :</b>
-                    <%# YafDateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
-                </td>
-                <td class="postheader" width="50%">
-                    <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
-                        TitleLocalizedTag="BUTTON_ATTACH_TT" />
-                    <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT"
-                        TitleLocalizedTag="BUTTON_EDIT_TT" />
-                    <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"
-                        TitleLocalizedTag="BUTTON_MOVE_TT" />
-                    <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_DELETE"
-                        TitleLocalizedTag="BUTTON_DELETE_TT" />
-                    <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_UNDELETE"
-                        TitleLocalizedTag="BUTTON_UNDELETE_TT" />
-                    <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
-                        TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                </td>
-            </tr>
-        </table>
+    <td width="80%" class="postPosted" colspan='<%#GetIndentSpan()%>'>
+        <div class="leftItem postedLeft">        
+            <b><a href='<%# YAF.Classes.Utils.YafBuildLink.GetLink(YAF.Classes.Utils.ForumPages.posts,"m={0}#post{0}",DataRow["MessageID"]) %>'>
+                #<%# Convert.ToInt32((DataRow["Position"]))+1 %></a>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
+                :</b>
+            <%# YafDateTime.FormatDateTime((System.DateTime)DataRow["Posted"]) %>
+            </div>
+        <div class="rightItem postedRight">
+            <YAF:ThemeButton ID="Attach" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_ATTACH"
+                TitleLocalizedTag="BUTTON_ATTACH_TT" />
+            <YAF:ThemeButton ID="Edit" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_EDIT"
+                TitleLocalizedTag="BUTTON_EDIT_TT" />
+            <YAF:ThemeButton ID="MovePost" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_MOVE"
+                TitleLocalizedTag="BUTTON_MOVE_TT" />
+            <YAF:ThemeButton ID="Delete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_DELETE"
+                TitleLocalizedTag="BUTTON_DELETE_TT" />
+            <YAF:ThemeButton ID="UnDelete" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_UNDELETE"
+                TitleLocalizedTag="BUTTON_UNDELETE_TT" />
+            <YAF:ThemeButton ID="Quote" runat="server" CssClass="yaflittlebutton" TextLocalizedTag="BUTTON_QUOTE"
+                TitleLocalizedTag="BUTTON_QUOTE_TT" />
+        </div>
+                
     </td>
 </tr>
 <tr class="<%#GetPostClass()%>">
@@ -49,15 +46,13 @@
     </td>
 </tr>
 <tr class="postfooter">
-    <td class="small" colspan='<%#GetIndentSpan()%>'>
+    <td class="small postTop" colspan='<%#GetIndentSpan()%>'>
         <a href="javascript:scroll(0,0)">
             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TOP" />
         </a>
     </td>
-    <td class="postfooter">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td>
+    <td class="postfooter postInfoBottom">
+        <div class="leftItem postInfoLeft">
                     <YAF:ThemeButton ID="btnTogglePost" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
                         TextLocalizedTag="TOGGLEPOST" Visible="false" />                
                     <YAF:ThemeButton ID="Pm" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
@@ -78,17 +73,15 @@
                         TextLocalizedTag="ICQ" ImageThemeTag="ICQ" />
                     <YAF:ThemeButton ID="Skype" runat="server" CssClass="yafcssimagebutton" TextLocalizedPage="POSTS"
                         TextLocalizedTag="SKYPE" ImageThemeTag="SKYPE" />
-                </td>
-                <td align="right">
-                    &nbsp;<asp:LinkButton ID="ReportButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
-                        runat="server"></asp:LinkButton>
-                    |
-                    <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
-                        runat="server"></asp:LinkButton>
-                    <span id="AdminInformation" runat="server" class="smallfont"></span>
-                </td>
-            </tr>
-        </table>
+       </div>
+       <div class="rightItem postInfoRight">
+            &nbsp;<asp:LinkButton ID="ReportButton" CommandName="ReportAbuse" CommandArgument='<%# DataRow["MessageID"] %>'
+                runat="server"></asp:LinkButton>
+            |
+            <asp:LinkButton ID="ReportSpamButton" CommandName="ReportSpam" CommandArgument='<%# DataRow["MessageID"] %>'
+                runat="server"></asp:LinkButton>
+            <span id="AdminInformation" runat="server" class="smallfont"></span>
+        </div>
     </td>
 </tr>
 <tr class="postsep">

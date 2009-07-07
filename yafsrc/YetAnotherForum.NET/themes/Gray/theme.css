@@ -138,6 +138,7 @@
 	padding: 0px;
 	margin: 0px;
 	color: #000000;
+	border-collapse: collapse;
 }
 .yafnet .postformheader {
 	background-color: #EEEEEE;

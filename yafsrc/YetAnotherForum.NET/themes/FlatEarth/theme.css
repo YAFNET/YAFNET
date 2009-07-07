@@ -112,6 +112,7 @@
 	background-color: #ffffff;	
 	margin: 0px;
 	color: #000000;
+	border-collapse: collapse;
 }
 .yafnet .postformheader {
 	background-color: #D1E1D1;

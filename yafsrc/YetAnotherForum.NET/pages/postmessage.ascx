@@ -58,13 +58,15 @@
 	</tr>
 	<tr id="CreatePollRow" runat="server">
 		<td class="postformheader" width="20%">
-			<asp:LinkButton ID="CreatePoll" runat="server" OnClick="CreatePoll_Click" /></td>
+		    <YAF:ThemeButton ID="CreatePoll" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CREATEPOLL"
+                OnClick="CreatePoll_Click" /></td>
 		<td class="post" width="80%">
 			&nbsp;</td>
 	</tr>
 	<tr id="RemovePollRow" runat="server">
 		<td class="postformheader" width="20%">
-			<asp:LinkButton ID="RemovePoll" runat="server" OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" /></td>
+		    <YAF:ThemeButton ID="RemovePoll" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="REMOVEPOLL"
+                OnCommand="RemovePoll_Command" OnLoad="RemovePoll_Load" /></td>
 		<td class="post" width="80%">
 			&nbsp;</td>
 	</tr>
@@ -215,9 +217,12 @@
 	</tr>
 	<tr>
 		<td align="center" colspan="2" class="footer1">
-			<asp:Button ID="Preview" CssClass="pbutton" runat="server" OnClick="Preview_Click" />
-			<asp:Button ID="PostReply" CssClass="pbutton" runat="server" OnClick="PostReply_Click" />
-			<asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />
+                <YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="PREVIEW"
+                OnClick="Preview_Click" />	
+                <YAF:ThemeButton ID="PostReply" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="SAVE"
+                OnClick="PostReply_Click" />	    
+                <YAF:ThemeButton ID="Cancel" runat="server" CssClass="yafcssbigbutton leftItem" TextLocalizedTag="CANCEL"
+                OnClick="Cancel_Click" />                            	
 		</td>
 	</tr>
 </table>

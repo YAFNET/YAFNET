@@ -37,19 +37,19 @@
 			<YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
 		</td>
 		<td>
-			<YAF:ThemeButton ID="moderate1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MODERATE"
+			<YAF:ThemeButton ID="moderate1" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_MODERATE"
 				TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
-			<YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWTOPIC"
+			<YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWTOPIC"
 				TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
 		</td>
 	</tr>
 </table>
-<table class="content" cellspacing="1" cellpadding="0" width="100%">
-	<tr>
+<table class="content" width="100%">
+	<tr class="topicTitle">
 		<td class="header1" colspan="6">
 			<asp:Label ID="PageTitle" runat="server"></asp:Label></td>
 	</tr>
-	<tr>
+	<tr class="topicSubTitle">
 		<td class="header2" width="1%">
 			&nbsp;</td>
 		<td class="header2" align="left">
@@ -108,9 +108,9 @@
 			<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
 		</td>
 		<td>
-			<YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_MODERATE"
+			<YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_MODERATE"
 				TitleLocalizedTag="BUTTON_MODERATE_TT" OnClick="moderate_Click" />
-			<YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWTOPIC"
+			<YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWTOPIC"
 				TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
 		</td>
 	</tr>

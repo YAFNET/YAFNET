@@ -11,11 +11,9 @@
     <ContentTemplate>
         <asp:Repeater ID="CategoryList" runat="server">
             <HeaderTemplate>
-                <table class="content" cellspacing="1" cellpadding="0" width="100%">
-                    <tr>
-                        <td class="header1" width="1%">
-                            &nbsp;</td>
-                        <td class="header1" align="left">
+                <table class="content" width="100%">
+                    <tr class="forumRowTitle">
+                        <td colspan="2" align="left" class="header1">
                             <YAF:LocalizedLabel ID="ForumHeaderLabel" runat="server" LocalizedTag="FORUM" />
                         </td>
                         <td class="header1" align="center" width="15%" runat="server" visible="<%# PageContext.BoardSettings.ShowModeratorList %>">
@@ -33,8 +31,8 @@
                     </tr>
             </HeaderTemplate>
             <ItemTemplate>
-                <tr>
-                    <td class="header2" colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
+                <tr class="forumRowCat header2">
+                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>">
                         <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" ImageAlign="Bottom"
                             PanelID='<%# "categoryPanel" + DataBinder.Eval(Container.DataItem, "CategoryID").ToString() %>' AttachedControlID="forumList" OnClick="CollapsibleImage_OnClick"/>
                         </asp:ImageButton>
@@ -46,8 +44,8 @@
                 <YAF:ForumList runat="server" Visible="true" ID="forumList" DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>' />
             </ItemTemplate>
             <FooterTemplate>
-                <tr>
-                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right" class="footer1">
+                <tr class="forumRowFoot footer1">
+                    <td colspan="<%# (PageContext.BoardSettings.ShowModeratorList ? "6" : "5" ) %>" align="right">
                         <asp:LinkButton runat="server" OnClick="MarkAll_Click" ID="MarkAll" Text='<%# GetText("MARKALL") %>' />
                         <span id="RSSLinkSpacer" runat="server" visible='<%# PageContext.BoardSettings.ShowRSSLink %>'>
                             |</span>

@@ -3,7 +3,7 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div>
-    <YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWPM"
+    <YAF:ThemeButton ID="NewPM" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM"
         TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <div>&nbsp;</div>
@@ -39,7 +39,7 @@
 </ajaxToolkit:TabContainer>
 <br />
 <div>
-    <YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_NEWPM"
+    <YAF:ThemeButton ID="NewPM2" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_NEWPM"
         TitleLocalizedTag="BUTTON_NEWPM_TT" />
 </div>
 <div id="DivSmartScroller">

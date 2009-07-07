@@ -78,7 +78,7 @@
 		<ItemTemplate>
 			<YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>">
 				<td class="postheader" align="center">
-					<YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton" TextLocalizedTag="BUTTON_DELETETOPIC"
+					<YAF:ThemeButton ID="DeleteTopic" runat="server" CssClass="yafcssbigbutton rightItem" TextLocalizedTag="BUTTON_DELETETOPIC"
 						TitleLocalizedTag="BUTTON_DELETETOPIC_TT" OnLoad="Delete_Load" CommandArgument='<%# Eval( "TopicID") %>'
 						CommandName='delete' />
 				</td>
