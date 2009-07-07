@@ -481,24 +481,52 @@ This CSS already works on FireFox.
 	background-color: #cccccc;
 }
 /* ajax tabs */
-/* default layout */
-.yafnet .ajax__tab_default .ajax__tab_header {white-space:nowrap;}
-.yafnet .ajax__tab_default .ajax__tab_outer {display:-moz-inline-box;display:inline-block}
-.yafnet .ajax__tab_default .ajax__tab_inner {display:-moz-inline-box;display:inline-block}
-.yafnet .ajax__tab_default .ajax__tab_tab {margin-right:4px;overflow:hidden;text-align:center;cursor:pointer;display:-moz-inline-box;display:inline-block}
-
-/* xp theme */
-.yafnet .ajax__tab_xp .ajax__tab_header {font-family:verdana,tahoma,helvetica;font-size:11px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-line.gif")%>) repeat-x bottom;}
-.yafnet .ajax__tab_xp .ajax__tab_outer {padding-right:4px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-right.gif")%>) no-repeat right;height:21px;}
-.yafnet .ajax__tab_xp .ajax__tab_inner {padding-left:3px;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-left.gif")%>) no-repeat;}
-.yafnet .ajax__tab_xp .ajax__tab_tab {height:13px;padding:4px;margin:0;background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab.gif")%>) repeat-x;}
-.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-right.gif")%>) no-repeat right;}
-.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover-left.gif")%>) no-repeat;}
-.yafnet .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-hover.gif")%>) repeat-x;}
-.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_outer {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-right.gif")%>) no-repeat right;}
-.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active-left.gif")%>) no-repeat;}
-.yafnet .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {background:url(<%=WebResource("AjaxControlToolkit.Tabs.tab-active.gif")%>) repeat-x;}
-.yafnet .ajax__tab_xp .ajax__tab_body {font-family:verdana,tahoma,helvetica;font-size:10pt;border:1px solid #000000;border-top:0;padding:5px;}
+.yafnet .ajax__tab_yaf .ajax__tab_header 
+{
+    font-family:"Helvetica Neue", Arial, Sans-Serif;
+    background:url(tab-line.png) repeat-x bottom;
+    font-size:12px;
+    display:block;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat left top;
+    border-color:#222;
+    color:#222;
+    padding-left:10px;
+    margin-right:3px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_header .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right top;
+    border-color:#666;
+    color:#666;
+    padding:3px 10px 2px 0px;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_hover .ajax__tab_inner 
+{
+    color:#000000;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_outer 
+{
+    background:url(tab.png) no-repeat 0pt -40px;
+    border-bottom-color:#ffffff;
+}
+.yafnet .ajax__tab_yaf .ajax__tab_active .ajax__tab_inner 
+{
+    background:url(tab.png) no-repeat right -40px;
+    color:#000000;
+    border-color:#333
+}
+.yafnet .ajax__tab_yaf .ajax__tab_body 
+{
+    font-family:verdana,tahoma,helvetica;
+    font-size:10pt;
+    padding:8px;
+    background-color:#ffffff;
+    border:solid 1px #d7d7d7;
+    border-top-width:0;
+}
 
 /* scrolling */
 .yafnet .ajax__scroll_horiz {overflow-x:scroll;}

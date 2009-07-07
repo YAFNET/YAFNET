@@ -8,7 +8,7 @@
 </div>
 <div>&nbsp;</div>
 
-<ajaxToolkit:TabContainer runat="server" ID="PMTabs">
+<ajaxToolkit:TabContainer runat="server" ID="PMTabs" CssClass="ajax__tab_yaf">
     <ajaxToolkit:TabPanel runat="server" ID="InboxTab" OnClientClick="InboxTabRefresh">
         <ContentTemplate>
             <asp:UpdatePanel ID="InboxTabUpdatePanel" runat="server">

@@ -1,15 +1,11 @@
 <%@ Control Language="c#" CodeFile="hostsettings.ascx.cs" AutoEventWireup="True"
     Inherits="YAF.Pages.Admin.hostsettings" %>
 <%@ Register TagPrefix="YAF" TagName="PMList" Src="../../controls/PMList.ascx" %>
-<!-- This style is dealing with tabs rendering issues in IE - should be removed once YAF is fully XHTML 1.0 compliant -->
-<style type="text/css">
-.ajax__tab_default .ajax__tab_inner {height : 100%;} .ajax__tab_default .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_hover .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_tab {height : 100%;} .ajax__tab_xp .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_tab {height:100%} .ajax__tab_xp .ajax__tab_hover .ajax__tab_inner {height : 100%;} .ajax__tab_xp .ajax__tab_active .ajax__tab_inner {height : 100%;} 
-</style>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel runat="server" ID="PMUpdatePanel">
     <ContentTemplate>
         <YAF:AdminMenu runat="server" ID="Adminmenu1">
-            <ajaxToolkit:TabContainer runat="server" ID="PMTabs">
+            <ajaxToolkit:TabContainer runat="server" ID="PMTabs" CssClass="ajax__tab_yaf">
                 <ajaxToolkit:TabPanel runat="server" ID="SettingsTab">
                     <ContentTemplate>
                         <table class="content" cellspacing="1" width="100%" cellpadding="0" align="center">
