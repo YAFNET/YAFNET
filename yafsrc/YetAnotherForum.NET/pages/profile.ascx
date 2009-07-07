@@ -38,7 +38,7 @@
     </tr>
     <tr class="post">
         <td valign="top" rowspan="2">
-            <ajaxToolkit:TabContainer runat="server" ID="ProfileTabs">
+            <ajaxToolkit:TabContainer runat="server" ID="ProfileTabs" CssClass="ajax__tab_yaf">
                 <ajaxToolkit:TabPanel runat="server" ID="AboutTab" HeaderText="About">
                     <ContentTemplate>
                         <table width="100%" cellspacing="1" cellpadding="0">
