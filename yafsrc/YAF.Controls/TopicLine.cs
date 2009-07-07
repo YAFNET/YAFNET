@@ -45,10 +45,19 @@ namespace YAF.Controls
 			}
 		}
 
+		protected void WriteBeginTD(System.Web.UI.HtmlTextWriter writer, string classId)
+		{
+			writer.WriteBeginTag("td");
+			if ( !String.IsNullOrEmpty( classId ))
+			{
+				writer.WriteAttribute( "class", classId );
+			}
+			writer.Write(HtmlTextWriter.TagRightChar);		
+		}
+
 		protected void WriteBeginTD( System.Web.UI.HtmlTextWriter writer )
 		{
-			writer.WriteBeginTag( "td" );
-			writer.Write( HtmlTextWriter.TagRightChar );					
+			this.WriteBeginTD( writer, null );
 		}
 
 		protected void WriteEndTD( System.Web.UI.HtmlTextWriter writer )
@@ -61,7 +70,7 @@ namespace YAF.Controls
 			System.Text.StringBuilder html = new System.Text.StringBuilder( 2000 );
 
 			writer.WriteBeginTag( "tr" );
-			writer.WriteAttribute( "class", ( IsAlt ? "post_alt" : "post" ) );
+			writer.WriteAttribute("class", (IsAlt ? "topicRow_Alt post_alt" : "topicRow post"));
 			writer.Write( HtmlTextWriter.TagRightChar );
 
 			// Icon
@@ -73,7 +82,7 @@ namespace YAF.Controls
 			WriteEndTD( writer );
 
 			// Topic
-			WriteBeginTD( writer );
+			WriteBeginTD( writer, "topicMain" );
 
 			string priorityMessage = GetPriorityMessage( _row );
 			if ( !String.IsNullOrEmpty( priorityMessage ) )
@@ -115,7 +124,7 @@ namespace YAF.Controls
 				writer.WriteLine();
 				writer.WriteBreak();
 				writer.WriteBeginTag( "span" );
-				writer.WriteAttribute( "class", "smallfont" );
+				writer.WriteAttribute( "class", "topicPager smallfont" );
 				writer.Write( HtmlTextWriter.TagRightChar );
 				// more then one page to show
 				writer.Write( String.Format( PageContext.Localization.GetText( "GOTO_POST_PAGER" ), tPager ) );
@@ -132,12 +141,13 @@ namespace YAF.Controls
 			topicStarterLink.UserName = _row ["Starter"].ToString();
 
 			// render the user link control
-			WriteBeginTD( writer );
+			WriteBeginTD(writer, "topicStarter");
 			topicStarterLink.RenderControl( writer );
 			WriteEndTD( writer );
 
 			// Replies
 			writer.WriteBeginTag( "td" );
+			writer.WriteAttribute("class", "topicReplies");
 			writer.WriteAttribute( "style", "text-align: center" );
 			writer.Write( HtmlTextWriter.TagRightChar );
 			writer.Write( FormatReplies() );
@@ -145,6 +155,7 @@ namespace YAF.Controls
 
 			// Views
 			writer.WriteBeginTag( "td" );
+			writer.WriteAttribute("class", "topicViews");
 			writer.WriteAttribute( "style", "text-align: center" );
 			writer.Write( HtmlTextWriter.TagRightChar );
 			writer.Write( FormatViews() );
@@ -152,6 +163,7 @@ namespace YAF.Controls
 		
 			// Last Post
 			writer.WriteBeginTag( "td" );
+			writer.WriteAttribute("class", "topicLastPost");
 			writer.WriteAttribute( "style", "text-align: center" );
 			writer.WriteAttribute( "class", "smallfont" );
 			writer.Write( HtmlTextWriter.TagRightChar );

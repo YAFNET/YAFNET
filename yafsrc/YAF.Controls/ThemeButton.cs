@@ -153,8 +153,9 @@ namespace YAF.Controls
 
 		protected virtual void OnCommand( CommandEventArgs e )
 		{
-			EventHandler handler = ( EventHandler )Events [_commandEvent];
-			if ( handler != null )
+			CommandEventHandler handler = (CommandEventHandler) Events[_commandEvent];
+
+			if (handler != null)
 				handler( this, e );
 
 			this.RaiseBubbleEvent( this, e );
@@ -172,7 +173,7 @@ namespace YAF.Controls
 			remove { Events.RemoveHandler( _clickEvent, value ); }
 		}
 
-		public event EventHandler Command
+		public event CommandEventHandler Command
 		{
 			add { Events.AddHandler( _commandEvent, value ); }
 			remove { Events.RemoveHandler( _commandEvent, value ); }

@@ -67,9 +67,9 @@ namespace YAF.Classes.Base
 		private Hashtable _pageCache;
 
 		private bool _noDataBase = false;
-        private bool _showToolBar = Config.ShowToolBar;
-        private bool _showFooter = Config.ShowFooter;
-        private bool _checkSuspended = true;
+    private bool _showToolBar = Config.ShowToolBar;
+    private bool _showFooter = Config.ShowFooter;
+    private bool _checkSuspended = true;
 		private string _transPage = string.Empty;
 		protected string _forumPageTitle = null;
 		protected YAF.Controls.ModalNotification _errorPopup = null;
@@ -522,6 +522,14 @@ namespace YAF.Classes.Base
 			set
 			{
 				_showToolBar = value;
+			}
+		}
+
+		protected bool ShowFooter
+		{
+			set
+			{
+				_showFooter = value;
 			}
 		}
 		#endregion
